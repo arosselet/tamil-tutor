@@ -1,0 +1,31 @@
+{
+    "learner": "Andrew",
+    "current_level": 1,
+    "current_episode": 1,
+    "tier_progress": {
+        "tier1": {
+            "target": 0,
+            "mastered": 0,
+            "label": "Survival"
+        },
+        "tier2": {
+            "target": 0,
+            "mastered": 0,
+            "label": "Comfortable"
+        },
+        "tier3": {
+            "target": 0,
+            "mastered": 0,
+            "label": "Embedded"
+        }
+    },
+    "total_sessions": 0,
+    "streak": {
+        "current": 0,
+        "best": 0,
+        "last_date": null
+    },
+    "struggled_words": [],
+    "comfortable_words": [],
+    "sessions": []
+}
