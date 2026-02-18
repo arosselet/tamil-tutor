@@ -19,16 +19,16 @@ import argparse
 
 import edge_tts
 
-# Voice mapping — Malaysian Tamil
+# Voice mapping — Indian Tamil
 VOICES = {
-    "HOST": "ta-MY-KaniNeural",    # Female, Explainer
-    "GUEST": "ta-MY-SuryaNeural",  # Male, Learner
+    "HOST": "ta-IN-PallaviNeural",    # Female, Explainer
+    "GUEST": "ta-IN-ValluvarNeural",  # Male, Learner
 }
 
 # Voice tuning for distinctiveness
 VOICE_OPTS = {
-    "ta-MY-KaniNeural": {"rate": "-5%", "pitch": "+0Hz"},
-    "ta-MY-SuryaNeural": {"rate": "+0%", "pitch": "+0Hz"},
+    "ta-IN-PallaviNeural": {"rate": "+0%", "pitch": "+0Hz"},
+    "ta-IN-ValluvarNeural": {"rate": "+0%", "pitch": "-20%"},
 }
 
 # Regex: matches "**Host:** text", "**Guest:** text", etc.
