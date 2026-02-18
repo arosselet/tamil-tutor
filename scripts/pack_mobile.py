@@ -32,6 +32,7 @@ INCLUDE_DIRS = [
 
 # What to exclude (glob patterns)
 EXCLUDE_PATTERNS = {
+    "protocol/roles",
     "*.mp3",
     "*.wav",
     "*.pyc",
