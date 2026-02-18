@@ -1,31 +1,104 @@
 {
     "learner": "Andrew",
-    "current_level": 1,
+    "current_level": 3,
     "current_episode": 1,
     "tier_progress": {
         "tier1": {
-            "target": 0,
-            "mastered": 0,
+            "target": 69,
+            "mastered": 47,
             "label": "Survival"
         },
         "tier2": {
-            "target": 0,
+            "target": 46,
             "mastered": 0,
             "label": "Comfortable"
         },
         "tier3": {
-            "target": 0,
+            "target": 58,
             "mastered": 0,
             "label": "Embedded"
         }
     },
-    "total_sessions": 0,
+    "total_sessions": 1,
     "streak": {
-        "current": 0,
-        "best": 0,
-        "last_date": null
+        "current": 1,
+        "best": 1,
+        "last_date": "2026-02-17"
     },
     "struggled_words": [],
-    "comfortable_words": [],
-    "sessions": []
+    "comfortable_words": [
+        "வணக்கம்",
+        "ஆமா",
+        "இல்ல",
+        "சரி",
+        "நீங்க",
+        "நீ",
+        "இங்க",
+        "அங்க",
+        "எங்க?",
+        "இருக்கு",
+        "இல்லையா?",
+        "என்ன?",
+        "தெரியும்",
+        "தெரியாது",
+        "வரேன்",
+        "போறேன்",
+        "வேணும்",
+        "வேண்டாம்",
+        "குடுங்க",
+        "எடுங்க",
+        "சொல்லுங்க",
+        "வாருங்களா?",
+        "சாப்டீங்களா?",
+        "உக்காருங்க",
+        "நல்லா இருக்கு",
+        "சூப்பர்",
+        "செம்ம",
+        "காரம்",
+        "உப்பு",
+        "அப்புறம்",
+        "இப்போ",
+        "நாளைக்கு",
+        "நேரம் ஆச்சு",
+        "கொஞ்சம்",
+        "நிறைய",
+        "ஒன்னு மட்டும்",
+        "போதும்",
+        "பசி",
+        "வயிறு ஃபுல்",
+        "தாகம்",
+        "டயர்ட்",
+        "எனக்கு",
+        "உனக்கு",
+        "பரவாயில்லை",
+        "சாப்பிடுங்க",
+        "வேற என்ன?",
+        "போயிட்டு வரேன்"
+    ],
+    "sessions": [
+        {
+            "date": "2026-02-17",
+            "level": 3,
+            "episode": 1,
+            "energy": "HIGH",
+            "struggled": [],
+            "comfortable": [
+                "வணக்கம்",
+                "ஆமா",
+                "இல்ல",
+                "சரி",
+                "நீங்க",
+                "இங்க",
+                "அங்க",
+                "எங்க",
+                "இருக்கு",
+                "நல்லா இருக்கு",
+                "போதும்",
+                "பசி",
+                "வயிறு ஃபுல்"
+            ],
+            "zinger": null,
+            "notes": "Learner confirmed mastery of Level 1 and 2 content. Moving to Urban Survival."
+        }
+    ]
 }
