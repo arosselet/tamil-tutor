@@ -27,8 +27,8 @@ VOICES = {
 
 # Voice tuning for distinctiveness
 VOICE_OPTS = {
-    "ta-IN-PallaviNeural": {"rate": "+0%", "pitch": "+0Hz"},
-    "ta-IN-ValluvarNeural": {"rate": "+0%", "pitch": "-20Hz"},
+    "ta-IN-PallaviNeural": {"rate": "+0%", "pitch": "-5Hz"},
+    "ta-IN-ValluvarNeural": {"rate": "+0%", "pitch": "-5Hz"},
 }
 
 # Regex: matches "**Host:** text", "**Guest:** text", etc.
