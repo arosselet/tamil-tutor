@@ -1,19 +1,14 @@
 #!/usr/bin/env python3
 """
 Pack a mobile-ready bundle of the Tamil learning system.
+FLATTENED VERSION: All files in the root of the ZIP.
+MERGED VERSION: All protocols merged into MASTER_PROTOCOL.md.
 
-Includes only what's needed for live interactive lessons:
-  - protocol/          (philosophy, roles, learning loop, sync protocol)
-  - curriculum/        (levels.json, vocabulary_index.json)
-  - progress/          (learner.json)
-
-Excludes generated content (mp3s, scripts, audio/, content/).
-
-Usage:
-    python scripts/pack_mobile.py
-
-Output:
-    mobile_bundle.zip in the project root
+Includes:
+  - MASTER_PROTOCOL.md (philosophy, loop, session, sync)
+  - levels.json
+  - vocabulary_index.json
+  - learner.json
 """
 
 import zipfile
@@ -22,95 +17,69 @@ from pathlib import Path
 from datetime import datetime
 
 BASE_DIR = Path(__file__).parent.parent
-
-# What to include
-INCLUDE_DIRS = [
-    "protocol",
-    "curriculum",
-    "progress",
-]
-
-# What to exclude (glob patterns)
-EXCLUDE_PATTERNS = {
-    "protocol/roles",
-    "*.mp3",
-    "*.wav",
-    "*.pyc",
-    "__pycache__",
-    ".DS_Store",
-}
-
 OUTPUT_FILE = BASE_DIR / "mobile_bundle.zip"
 
-
-def should_include(path: Path) -> bool:
-    """Check if a file should be included in the bundle."""
-    rel_path = str(path.relative_to(BASE_DIR))
-    filename = path.name
+def merge_protocols():
+    """Merge all protocols into a single MASTER_PROTOCOL.md."""
+    protocol_dir = BASE_DIR / "protocol"
+    files = [
+        "philosophy.md",
+        "learning_loop.md",
+        "session_protocol.md",
+        "weekly_rotation.md",
+        "mobile_sync.md",
+        "sync_ingest.md",
+    ]
     
-    for pattern in EXCLUDE_PATTERNS:
-        # Check filename patterns (e.g., *.mp3)
-        if pattern.startswith("*."):
-            if filename.endswith(pattern[1:]):
-                return False
-        # Check full relative path or filename directly
-        elif rel_path == pattern or rel_path.startswith(pattern + "/") or filename == pattern:
-            return False
-    return True
-
+    master_content = "# MADRAS MAPPILLAI MASTER PROTOCOL\n\n"
+    master_content += "This file contains all instructions for the Tamil Learning System.\n\n"
+    
+    for f in files:
+        path = protocol_dir / f
+        if path.exists():
+            content = path.read_text()
+            # Convert any internal links [label](protocol/file.md) to [label](MASTER_PROTOCOL.md)
+            content = content.replace("protocol/", "")
+            master_content += f"\n\n---\n\n" 
+            master_content += content
+            
+    master_path = BASE_DIR / "MASTER_PROTOCOL.md"
+    master_path.write_text(master_content)
+    return master_path
 
 def pack():
-    file_count = 0
-    total_size = 0
-
+    # 1. Prepare the master protocol
+    master_protocol = merge_protocols()
+    
+    # 2. Files to include
+    files_to_pack = [
+        master_protocol,
+        BASE_DIR / "curriculum/levels.json",
+        BASE_DIR / "curriculum/vocabulary_index.json",
+        BASE_DIR / "progress/learner.json",
+    ]
+    
+    print(f"📦 Packing {len(files_to_pack)} files into {OUTPUT_FILE.name} (FLAT structure)...")
+    
     with zipfile.ZipFile(OUTPUT_FILE, "w", zipfile.ZIP_DEFLATED) as zf:
-        for dir_name in INCLUDE_DIRS:
-            dir_path = BASE_DIR / dir_name
-            if not dir_path.exists():
-                print(f"  ⚠️  Skipping {dir_name}/ (not found)")
+        for file_path in files_to_pack:
+            if not file_path.exists():
+                print(f"  ⚠️  Skipping {file_path.name} (not found)")
                 continue
+                
+            # FLAT: Only the filename, no directory structure
+            arcname = file_path.name
+            zf.write(file_path, arcname)
+            print(f"  ✅ {arcname} ({file_path.stat().st_size:,} bytes)")
 
-            for root, dirs, files in os.walk(dir_path):
-                # Skip __pycache__ dirs
-                dirs[:] = [d for d in dirs if d != "__pycache__"]
-
-                for file_name in sorted(files):
-                    file_path = Path(root) / file_name
-                    if not should_include(file_path):
-                        continue
-
-                    arcname = file_path.relative_to(BASE_DIR)
-                    zf.write(file_path, arcname)
-                    size = file_path.stat().st_size
-                    total_size += size
-                    file_count += 1
-                    print(f"  📦 {arcname} ({size:,} bytes)")
-
+    # Cleanup temp master file if desired, but maybe keep it for reference?
+    # os.remove(master_protocol)
+    
     bundle_size = OUTPUT_FILE.stat().st_size
-    print(f"\n✅ Packed {file_count} files → {OUTPUT_FILE.name}")
-    print(f"   Uncompressed: {total_size:,.0f} bytes")
+    print(f"\n✅ Pack Complete!")
+    print(f"   Files:        {len(files_to_pack)}")
     print(f"   Compressed:   {bundle_size:,.0f} bytes")
     print(f"   Built:        {datetime.now().isoformat()}")
 
-
-def show_packing_list():
-    """Display what would be packed (dry run)."""
-    print("=" * 50)
-    print("📋 MOBILE BUNDLE — PACKING LIST")
-    print("=" * 50)
-    print()
-    print("INCLUDED:")
-    for d in INCLUDE_DIRS:
-        print(f"  ✅ {d}/")
-    print()
-    print("EXCLUDED:")
-    print("  ❌ audio/          (generated MP3s)")
-    print("  ❌ content/        (generated scripts)")
-    print("  ❌ scripts/        (Python tools, desktop-only)")
-    print("  ❌ *.mp3, *.wav    (binary audio)")
-    print()
-
-
 if __name__ == "__main__":
-    show_packing_list()
     pack()
