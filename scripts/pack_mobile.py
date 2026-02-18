@@ -45,12 +45,16 @@ OUTPUT_FILE = BASE_DIR / "mobile_bundle.zip"
 
 def should_include(path: Path) -> bool:
     """Check if a file should be included in the bundle."""
-    name = path.name
+    rel_path = str(path.relative_to(BASE_DIR))
+    filename = path.name
+    
     for pattern in EXCLUDE_PATTERNS:
+        # Check filename patterns (e.g., *.mp3)
         if pattern.startswith("*."):
-            if name.endswith(pattern[1:]):
+            if filename.endswith(pattern[1:]):
                 return False
-        elif name == pattern:
+        # Check full relative path or filename directly
+        elif rel_path == pattern or rel_path.startswith(pattern + "/") or filename == pattern:
             return False
     return True
 
