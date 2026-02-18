@@ -19,65 +19,51 @@ from datetime import datetime
 BASE_DIR = Path(__file__).parent.parent
 OUTPUT_FILE = BASE_DIR / "mobile_bundle.zip"
 
-def merge_protocols():
-    """Merge all protocols into a single MASTER_PROTOCOL.md."""
-    protocol_dir = BASE_DIR / "protocol"
-    files = [
-        "philosophy.md",
-        "learning_loop.md",
-        "session_protocol.md",
-        "weekly_rotation.md",
-        "mobile_sync.md",
-        "sync_ingest.md",
-    ]
-    
-    master_content = "# MADRAS MAPPILLAI MASTER PROTOCOL\n\n"
-    master_content += "This file contains all instructions for the Tamil Learning System.\n\n"
-    
-    for f in files:
-        path = protocol_dir / f
-        if path.exists():
-            content = path.read_text()
-            # Convert any internal links [label](protocol/file.md) to [label](MASTER_PROTOCOL.md)
-            content = content.replace("protocol/", "")
-            master_content += f"\n\n---\n\n" 
-            master_content += content
-            
-    master_path = BASE_DIR / "MASTER_PROTOCOL.md"
-    master_path.write_text(master_content)
-    return master_path
-
 def pack():
-    # 1. Prepare the master protocol
-    master_protocol = merge_protocols()
-    
-    # 2. Files to include
-    files_to_pack = [
-        master_protocol,
-        BASE_DIR / "curriculum/levels.json",
-        BASE_DIR / "curriculum/vocabulary_index.json",
-        BASE_DIR / "progress/learner.json",
+    # 1. Individual files to include (crisp separation of concerns)
+    protocol_files = [
+        "protocol/PROTOCOL_MAP.md",
+        "protocol/philosophy.md",
+        "protocol/learning_loop.md",
+        "protocol/session_protocol.md",
+        "protocol/weekly_rotation.md",
+        "protocol/mobile_sync.md",
+        "protocol/sync_ingest.md",
     ]
     
-    print(f"📦 Packing {len(files_to_pack)} files into {OUTPUT_FILE.name} (FLAT structure)...")
+    curriculum_files = [
+        "curriculum/levels.json",
+        "curriculum/vocabulary_index.json",
+    ]
+    
+    progress_files = [
+        "progress/learner.json",
+    ]
+    
+    all_files = protocol_files + curriculum_files + progress_files
+    
+    print(f"📦 Packing {len(all_files)} files into {OUTPUT_FILE.name} (FLAT structure)...")
+    
+    # Cleanup old master if it exists
+    master_path = BASE_DIR / "MASTER_PROTOCOL.md"
+    if master_path.exists():
+        os.remove(master_path)
     
     with zipfile.ZipFile(OUTPUT_FILE, "w", zipfile.ZIP_DEFLATED) as zf:
-        for file_path in files_to_pack:
+        for rel_path in all_files:
+            file_path = BASE_DIR / rel_path
             if not file_path.exists():
-                print(f"  ⚠️  Skipping {file_path.name} (not found)")
+                print(f"  ⚠️  Skipping {rel_path} (not found)")
                 continue
                 
-            # FLAT: Only the filename, no directory structure
+            # FLAT: Only the filename, no directory structure inside the ZIP
             arcname = file_path.name
             zf.write(file_path, arcname)
             print(f"  ✅ {arcname} ({file_path.stat().st_size:,} bytes)")
 
-    # Cleanup temp master file if desired, but maybe keep it for reference?
-    # os.remove(master_protocol)
-    
     bundle_size = OUTPUT_FILE.stat().st_size
     print(f"\n✅ Pack Complete!")
-    print(f"   Files:        {len(files_to_pack)}")
+    print(f"   Files:        {len(all_files)}")
     print(f"   Compressed:   {bundle_size:,.0f} bytes")
     print(f"   Built:        {datetime.now().isoformat()}")
 
