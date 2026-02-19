@@ -16,6 +16,7 @@ import re
 import os
 import asyncio
 import argparse
+import subprocess
 
 import edge_tts
 
@@ -162,6 +163,17 @@ async def main():
 
     size_mb = os.path.getsize(args.output_file) / (1024 * 1024)
     print(f"✅ Done! {args.output_file} ({size_mb:.1f} MB)")
+
+    # 6. Upload to Home Assistant
+    print(f"📡 Uploading to Home Assistant: {args.output_file} -> /config/www/episode.mp3")
+    try:
+        subprocess.run(
+            ["scp", args.output_file, "homeassistant:/config/www/episode.mp3"],
+            check=True
+        )
+        print("✅ Upload complete!")
+    except subprocess.CalledProcessError as e:
+        print(f"❌ Upload failed: {e}")
 
 
 if __name__ == "__main__":
