@@ -1,0 +1,744 @@
+{
+  "1": {
+    "title": "The Social Scaffold",
+    "tier": 1,
+    "description": "The foundation. Greetings, yes/no, respect toggles, basic existence and commands.",
+    "episodes": [
+      {
+        "episode": 1,
+        "topic": "First Contact",
+        "intro": "Today we build the foundation. The four words you need to survive. Hello, Yes, No, and Okay.",
+        "vocab": [
+          {"tamil": "வணக்கம்", "english": "Hello"},
+          {"tamil": "ஆமா", "english": "Yes"},
+          {"tamil": "இல்ல", "english": "No"},
+          {"tamil": "சரி", "english": "Okay"}
+        ],
+        "scenario": "You meet a neighbor. He asks if you are new. You say Yes. He asks if you need help. You say No. He says Okay. You say Hello."
+      },
+      {
+        "episode": 2,
+        "topic": "The Respect Toggle",
+        "intro": "Tamil society runs on hierarchy. Today we learn how to show respect without thinking.",
+        "vocab": [
+          {"tamil": "நீங்க", "english": "You (respectful)"},
+          {"tamil": "நீ", "english": "You (informal)"},
+          {"tamil": "இங்க", "english": "Here"},
+          {"tamil": "அங்க", "english": "There"}
+        ],
+        "scenario": "You are telling an auto driver where to go. You don't say 'Nee'. You say 'Neenga'. You point there. Anga."
+      },
+      {
+        "episode": 3,
+        "topic": "Spatial Existence",
+        "intro": "Today we answer the big questions. Where is it? And does it exist?",
+        "vocab": [
+          {"tamil": "எங்க?", "english": "Where?"},
+          {"tamil": "இருக்கு", "english": "It is / It exists"},
+          {"tamil": "இல்லையா?", "english": "Isn't it?"},
+          {"tamil": "என்ன?", "english": "What?"},
+          {"tamil": "தெரியும்", "english": "I know"},
+          {"tamil": "தெரியாது", "english": "I don't know"}
+        ],
+        "scenario": "You are looking for your phone. You ask 'Where?'. Your wife says 'It is here'. You ask again. Wife says 'Don't know'."
+      },
+      {
+        "episode": 4,
+        "topic": "Command Logic",
+        "intro": "Moving yourself and your desires. I want. I go. I come.",
+        "vocab": [
+          {"tamil": "வரேன்", "english": "I come / I'm coming"},
+          {"tamil": "போறேன்", "english": "I go / I'm going"},
+          {"tamil": "வேணும்", "english": "I want / I need"},
+          {"tamil": "வேண்டாம்", "english": "I don't want"},
+          {"tamil": "குடுங்க", "english": "Give (respectful)"},
+          {"tamil": "எடுங்க", "english": "Take (respectful)"}
+        ],
+        "scenario": "You want coffee. Coffee Venum. You are leaving for work. Poren. You point to the remote. 'Kudunga' (Give)."
+      },
+      {
+        "episode": 5,
+        "topic": "BOSS FIGHT: The Living Room",
+        "intro": "The first Boss Fight. Putting it all together in the Living Room.",
+        "vocab": [],
+        "scenario": "Full simulation. Greeting elders, accepting coffee, refusing snacks, and finding the remote."
+      },
+      {
+        "episode": 6,
+        "topic": "Rest and Reps",
+        "intro": "The Audit. We review the first words. No new concepts. Just pure muscle memory.",
+        "vocab": [
+          {"tamil": "வணக்கம்", "english": "Hello"},
+          {"tamil": "ஆமா", "english": "Yes"},
+          {"tamil": "இல்ல", "english": "No"},
+          {"tamil": "சரி", "english": "Okay"},
+          {"tamil": "நீங்க", "english": "You (respectful)"},
+          {"tamil": "இங்க", "english": "Here"},
+          {"tamil": "அங்க", "english": "There"},
+          {"tamil": "குடுங்க", "english": "Give (respectful)"},
+          {"tamil": "எங்க?", "english": "Where?"},
+          {"tamil": "இருக்கு", "english": "It is / It exists"},
+          {"tamil": "இல்லையா?", "english": "Isn't it?"},
+          {"tamil": "என்ன?", "english": "What?"},
+          {"tamil": "வரேன்", "english": "I come"},
+          {"tamil": "போறேன்", "english": "I go"},
+          {"tamil": "வேணும்", "english": "I want"},
+          {"tamil": "வேண்டாம்", "english": "I don't want"},
+          {"tamil": "எடுங்க", "english": "Take (respectful)"},
+          {"tamil": "தெரியும்", "english": "I know"},
+          {"tamil": "தெரியாது", "english": "I don't know"}
+        ],
+        "scenario": "Rapid fire audit. I say the English, you say the Tamil immediately."
+      },
+      {
+        "episode": 7,
+        "topic": "The Grammar of Silence",
+        "intro": "The art of politeness. We focus on the suffix 'Nga' and the tone of 'Sari'.",
+        "vocab": [
+          {"tamil": "சொல்லுங்க", "english": "Tell/Say (respectful)"},
+          {"tamil": "வாருங்களா?", "english": "Will you come?"},
+          {"tamil": "சாப்டீங்களா?", "english": "Did you eat?"},
+          {"tamil": "உக்காருங்க", "english": "Sit (respectful)"}
+        ],
+        "scenario": "You are hosting. You ask guests to sit. You ask if they ate. You listen to them speak and say 'Sari' to show respect."
+      }
+    ]
+  },
+  "2": {
+    "title": "Domestic Defense",
+    "tier": 1,
+    "description": "The Kitchen. Surviving meals, managing time, expressing internal states, and the art of hospitality.",
+    "episodes": [
+      {
+        "episode": 1,
+        "topic": "Sensory Feedback",
+        "intro": "Week 2. The Kitchen. The most dangerous room in the house. Today we learn how to survive by giving feedback.",
+        "vocab": [
+          {"tamil": "நல்லா இருக்கு", "english": "It's good"},
+          {"tamil": "சூப்பர்", "english": "Super"},
+          {"tamil": "செம்ம", "english": "Awesome / Extreme"},
+          {"tamil": "காரம்", "english": "Spicy"},
+          {"tamil": "உப்பு", "english": "Salt / Salty"}
+        ],
+        "scenario": "You are eating. The host looks at you. You say 'Super'. They give you pickle. You say 'Kaaram'. They ask about the rice. You say 'Nalla Irukku'."
+      },
+      {
+        "episode": 2,
+        "topic": "The Time Shield",
+        "intro": "They want you to do things now. You want to do them later. Today we control time.",
+        "vocab": [
+          {"tamil": "அப்புறம்", "english": "Later / After that"},
+          {"tamil": "இப்போ", "english": "Now"},
+          {"tamil": "நாளைக்கு", "english": "Tomorrow"},
+          {"tamil": "நேரம் ஆச்சு", "english": "It's time / Time's up"}
+        ],
+        "scenario": "Mother-in-law asks you to fix the fan. You say 'Not now. Later.' She asks when. You say 'Tomorrow'. She says 'Okay'."
+      },
+      {
+        "episode": 3,
+        "topic": "Quantitative Control",
+        "intro": "Managing the flow of food. The 'Infinite Dosa' loop is real. You need shields.",
+        "vocab": [
+          {"tamil": "கொஞ்சம்", "english": "A little"},
+          {"tamil": "நிறைய", "english": "A lot"},
+          {"tamil": "ஒன்னு மட்டும்", "english": "Only one"},
+          {"tamil": "போதும்", "english": "Enough"}
+        ],
+        "scenario": "They bring rice. You say 'Konjam'. They bring a bucket of Sambar. You say 'Podhum!'. They offer a sweet. You say 'Onnu Mattum'."
+      },
+      {
+        "episode": 4,
+        "topic": "Internal States",
+        "intro": "How do you feel? Hunger, thirst, and fatigue. And the 'To me / To you' pattern.",
+        "vocab": [
+          {"tamil": "பசி", "english": "Hungry"},
+          {"tamil": "வயிறு ஃபுல்", "english": "Stomach full"},
+          {"tamil": "தாகம்", "english": "Thirsty"},
+          {"tamil": "டயர்ட்", "english": "Tired"},
+          {"tamil": "எனக்கு", "english": "To me / For me"},
+          {"tamil": "உனக்கு", "english": "To you / For you"}
+        ],
+        "scenario": "You come home. Wife asks 'Coffee?'. You say 'No, Thirst'. She gives water. She asks 'Food?'. You say 'Enaku Pasi' (To me hunger)."
+      },
+      {
+        "episode": 5,
+        "topic": "BOSS FIGHT: Sunday Lunch",
+        "intro": "The Ultimate Test. You are seated. The leaf is open. Survive.",
+        "vocab": [],
+        "scenario": "Rice is served. Say 'Enough'. Sambar is poured. Say 'Super'. They offer seconds. Say 'Only one'. They ask if you want Rasam. Say 'Later'. You finish. Say 'Stomach Full'."
+      },
+      {
+        "episode": 6,
+        "topic": "Rest and Reps",
+        "intro": "Audit day. Reviewing the Kitchen Arsenal.",
+        "vocab": [
+          {"tamil": "நல்லா இருக்கு", "english": "It's good"},
+          {"tamil": "போதும்", "english": "Enough"},
+          {"tamil": "கொஞ்சம்", "english": "A little"},
+          {"tamil": "அப்புறம்", "english": "Later"},
+          {"tamil": "இப்போ", "english": "Now"},
+          {"tamil": "நாளைக்கு", "english": "Tomorrow"},
+          {"tamil": "பசி", "english": "Hungry"},
+          {"tamil": "வயிறு ஃபுல்", "english": "Stomach full"},
+          {"tamil": "எனக்கு", "english": "To me"},
+          {"tamil": "உனக்கு", "english": "To you"}
+        ],
+        "scenario": "Rapid fire. English to Tamil."
+      },
+      {
+        "episode": 7,
+        "topic": "Upacharam (Hospitality)",
+        "intro": "The Art of Hospitality. You cannot just say No. You must praise, then refuse.",
+        "vocab": [
+          {"tamil": "பரவாயில்லை", "english": "It's okay / No problem"},
+          {"tamil": "சாப்பிடுங்க", "english": "Please eat (respectful)"},
+          {"tamil": "வேற என்ன?", "english": "What else?"},
+          {"tamil": "போயிட்டு வரேன்", "english": "I'll go and come back (goodbye)"}
+        ],
+        "scenario": "You are leaving a dinner. You say the food was Super. You say 'Poittu Varen'. They say stay longer. You say 'Paravailla'."
+      }
+    ]
+  },
+  "3": {
+    "title": "Urban Survival",
+    "tier": 1,
+    "description": "The Streets. Auto rickshaws, numbers, money, and spatial relationships.",
+    "episodes": [
+      {
+        "episode": 1,
+        "topic": "The Auto Protocol",
+        "intro": "You are no longer in the house. You are in an Auto Rickshaw. You must command the pilot.",
+        "vocab": [
+          {"tamil": "வலது", "english": "Right"},
+          {"tamil": "இடது", "english": "Left"},
+          {"tamil": "நேரா", "english": "Straight"},
+          {"tamil": "நிறுத்துங்க", "english": "Stop (respectful)"}
+        ],
+        "scenario": "You are in an auto. You see your street. You say 'Right'. Then 'Left'. Then 'Stop here'."
+      },
+      {
+        "episode": 2,
+        "topic": "The Numbers Game",
+        "intro": "Commerce. You cannot buy if you cannot count. The essential numbers for survival.",
+        "vocab": [
+          {"tamil": "ஒன்னு", "english": "One"},
+          {"tamil": "ரெண்டு", "english": "Two"},
+          {"tamil": "மூணு", "english": "Three"},
+          {"tamil": "அஞ்சு", "english": "Five"},
+          {"tamil": "பத்து", "english": "Ten"},
+          {"tamil": "நூறு", "english": "Hundred"}
+        ],
+        "scenario": "You ask for 2 idlis. Rendu. Price is 10 rupees. Pathu. Give 100 rupees. Nooru."
+      },
+      {
+        "episode": 3,
+        "topic": "Transactions",
+        "intro": "Money. How to ask the price and complain that it is too high.",
+        "vocab": [
+          {"tamil": "எவ்வளவு?", "english": "How much?"},
+          {"tamil": "காசு", "english": "Money"},
+          {"tamil": "ஜாஸ்தி", "english": "Too much"},
+          {"tamil": "கம்மி", "english": "Less"}
+        ],
+        "scenario": "You buy bananas. You ask 'How much?'. He says 500. You say 'Too much'. You ask 'Less?'."
+      },
+      {
+        "episode": 4,
+        "topic": "Possession & Inventory",
+        "intro": "Where exactly is it? Spatial relationships and prepositions of place.",
+        "vocab": [
+          {"tamil": "கிட்ட", "english": "Near / With (person)"},
+          {"tamil": "மேல", "english": "On top / Above"},
+          {"tamil": "கீழ", "english": "Below / Under"},
+          {"tamil": "உள்ள", "english": "Inside"},
+          {"tamil": "வெளிய", "english": "Outside"}
+        ],
+        "scenario": "Phone is inside the bag. Bag is on the table. Key is with me."
+      },
+      {
+        "episode": 5,
+        "topic": "BOSS FIGHT: The Vendor Stare-Down",
+        "intro": "The Market. You need to take an auto to the market and buy fruit. Fight.",
+        "vocab": [],
+        "scenario": "Auto Driver asks where. Say 'Go Straight'. You need to turn. Say 'Right'. You reach the shop. Say 'Stop'. You pick an apple. Ask 'How much?'. He says 1000 rupees. Say 'Too much!'. Ask for 'Less'."
+      },
+      {
+        "episode": 6,
+        "topic": "Rest and Reps",
+        "intro": "Audit Day. Reviewing direction and money.",
+        "vocab": [
+          {"tamil": "வலது", "english": "Right"},
+          {"tamil": "இடது", "english": "Left"},
+          {"tamil": "எவ்வளவு?", "english": "How much?"},
+          {"tamil": "ஜாஸ்தி", "english": "Too much"},
+          {"tamil": "ஒன்னு", "english": "One"},
+          {"tamil": "பத்து", "english": "Ten"}
+        ],
+        "scenario": "Rapid fire."
+      },
+      {
+        "episode": 7,
+        "topic": "Auto Rickshaw Diplomacy",
+        "intro": "The Meter. The classic conflict. Negotiating the ride.",
+        "vocab": [
+          {"tamil": "மீட்டர் போடுங்க", "english": "Use the meter (respectful)"},
+          {"tamil": "போலாம்", "english": "Let's go"},
+          {"tamil": "சில்லறை", "english": "Change (coins)"}
+        ],
+        "scenario": "You get in. You say 'Meter Podunga'. He says No. You say 'Polaam' (Let's go). At the end, you ask for 'Chillarai'."
+      }
+    ]
+  },
+  "4": {
+    "title": "The Debrief",
+    "tier": 2,
+    "description": "Past tense. Reporting what happened with chronology, sequence, and logic connectors.",
+    "episodes": [
+      {
+        "episode": 1,
+        "topic": "Past Verbs (Action)",
+        "intro": "You are no longer in the present. You must report what happened. Today we learn the past tense for movement and action.",
+        "vocab": [
+          {"tamil": "போனேன்", "english": "I went"},
+          {"tamil": "வந்தேன்", "english": "I came"},
+          {"tamil": "பண்ணினேன்", "english": "I did"},
+          {"tamil": "கொடுத்தேன்", "english": "I gave"}
+        ],
+        "scenario": "Wife asks what you did today. You say 'I went to the market. I came back. I gave the money'."
+      },
+      {
+        "episode": 2,
+        "topic": "Past Verbs (Consumption)",
+        "intro": "What did you consume? Food, media, sleep. The past tense of consumption.",
+        "vocab": [
+          {"tamil": "சாப்பிட்டேன்", "english": "I ate"},
+          {"tamil": "குடிச்சேன்", "english": "I drank"},
+          {"tamil": "பார்த்தேன்", "english": "I saw / I watched"},
+          {"tamil": "தூங்கினேன்", "english": "I slept"},
+          {"tamil": "எழுந்தேன்", "english": "I woke up"}
+        ],
+        "scenario": "You woke up. You drank coffee. You ate breakfast. You watched TV. You slept."
+      },
+      {
+        "episode": 3,
+        "topic": "Chronology Glue",
+        "intro": "Building sequences. First this, then that. Before, after, yesterday, today.",
+        "vocab": [
+          {"tamil": "அதுக்கு அப்புறம்", "english": "After that"},
+          {"tamil": "முன்னாடி", "english": "Before"},
+          {"tamil": "நேத்து", "english": "Yesterday"},
+          {"tamil": "இன்னைக்கு", "english": "Today"},
+          {"tamil": "முதல்ல", "english": "First"}
+        ],
+        "scenario": "Yesterday I went to the market. First I bought rice. After that I came home. Today I am tired."
+      },
+      {
+        "episode": 4,
+        "topic": "Logic Connectors",
+        "intro": "Why did it happen? Because. Therefore. But. The glue that makes stories make sense.",
+        "vocab": [
+          {"tamil": "ஏன்னா", "english": "Because"},
+          {"tamil": "அதனால", "english": "Therefore"},
+          {"tamil": "ஆனா", "english": "But"},
+          {"tamil": "அதான்", "english": "That's why / Exactly"}
+        ],
+        "scenario": "I was hungry. Therefore I went to the shop. But the shop was closed. That's why I came home."
+      },
+      {
+        "episode": 5,
+        "topic": "BOSS FIGHT: The Evening Report",
+        "intro": "The family is seated. They want to know about your day. Tell them 4 sequential things you did.",
+        "vocab": [],
+        "scenario": "What did you do first? 'First I went to office.' After that? 'After that I did a meeting.' Then? 'Then I ate lunch.' Why did you come home late? 'Traffic was too much, therefore it got late.'"
+      },
+      {
+        "episode": 6,
+        "topic": "Rest and Reps",
+        "intro": "Audit Day. Reviewing the past tense and chronology glue.",
+        "vocab": [
+          {"tamil": "போனேன்", "english": "I went"},
+          {"tamil": "வந்தேன்", "english": "I came"},
+          {"tamil": "சாப்பிட்டேன்", "english": "I ate"},
+          {"tamil": "பார்த்தேன்", "english": "I saw"},
+          {"tamil": "நேத்து", "english": "Yesterday"},
+          {"tamil": "அதுக்கு அப்புறம்", "english": "After that"},
+          {"tamil": "ஏன்னா", "english": "Because"},
+          {"tamil": "அதனால", "english": "Therefore"}
+        ],
+        "scenario": "Rapid fire drill. Build three-sentence stories using past tense and connectors."
+      },
+      {
+        "episode": 7,
+        "topic": "The Saaptiya Loop",
+        "intro": "The infinite care question. Understanding why 'Did you eat?' is never just about food.",
+        "vocab": [
+          {"tamil": "சாப்பிட்டீங்களா?", "english": "Did you eat? (respectful)"},
+          {"tamil": "சாப்பிட்டேன்", "english": "I ate"},
+          {"tamil": "இன்னும் இல்ல", "english": "Not yet"},
+          {"tamil": "இப்போ தான் சாப்பிட்டேன்", "english": "I just ate"}
+        ],
+        "scenario": "Someone calls you at 3pm. First question: Saaptingala? You must answer correctly or they will worry."
+      }
+    ]
+  },
+  "5": {
+    "title": "Kinship & Gossip",
+    "tier": 2,
+    "description": "Family structure. Pronouns, reported speech, opinions, and the gossip protocol.",
+    "episodes": [
+      {
+        "episode": 1,
+        "topic": "The Roster",
+        "intro": "Family structure. You must know who everyone is. The kinship system is not negotiable.",
+        "vocab": [
+          {"tamil": "அண்ணா", "english": "Elder brother"},
+          {"tamil": "தம்பி", "english": "Younger brother"},
+          {"tamil": "அக்கா", "english": "Elder sister"},
+          {"tamil": "தங்கச்சி", "english": "Younger sister"},
+          {"tamil": "மாமா", "english": "Uncle (maternal)"},
+          {"tamil": "அத்தை", "english": "Aunt (paternal)"}
+        ],
+        "scenario": "Someone introduces their family. You must identify: Who is Anna? Who is Thambi? Who is the Mama?"
+      },
+      {
+        "episode": 2,
+        "topic": "Pronoun Toggles",
+        "intro": "They, he, she, it. Understanding the pronoun system and when to use plural for respect.",
+        "vocab": [
+          {"tamil": "அவங்க", "english": "They / He-She (respectful)"},
+          {"tamil": "அவன்", "english": "He (informal)"},
+          {"tamil": "அவ", "english": "She (informal)"},
+          {"tamil": "அது", "english": "It / That"},
+          {"tamil": "நம்ம", "english": "Our (inclusive)"},
+          {"tamil": "நாங்க", "english": "We (exclusive)"}
+        ],
+        "scenario": "Talking about your boss. You say 'Avanga' (respectful). Talking about your nephew. You say 'Avan'. Talking about your family to in-laws. You say 'Naanga'."
+      },
+      {
+        "episode": 3,
+        "topic": "Reported Speech",
+        "intro": "He said, she said. The gossip protocol. Reporting what others told you.",
+        "vocab": [
+          {"tamil": "சொன்னாங்க", "english": "They said"},
+          {"tamil": "கேட்டாங்க", "english": "They asked"},
+          {"tamil": "சொன்னேன்", "english": "I said"},
+          {"tamil": "கேட்டேன்", "english": "I asked"}
+        ],
+        "scenario": "Anna asked where you went. You said you went to the market. He said it was too far."
+      },
+      {
+        "episode": 4,
+        "topic": "Gossip Tags",
+        "intro": "The opinion layer. I think, I know, I don't know, Really?",
+        "vocab": [
+          {"tamil": "நினைச்சேன்", "english": "I thought"},
+          {"tamil": "அப்படீங்களா?", "english": "Is that so?"},
+          {"tamil": "நிஜமா?", "english": "Really?"},
+          {"tamil": "புரிஞ்சுது", "english": "I understood"},
+          {"tamil": "புரியல", "english": "I don't understand"}
+        ],
+        "scenario": "Someone tells you Anna got a new job. You say 'Really?'. They ask if you knew. You say 'I didn't understand'. You say 'I thought he was happy at his old job'."
+      },
+      {
+        "episode": 5,
+        "topic": "BOSS FIGHT: The Family Gossip",
+        "intro": "The living room. Multiple relatives. Someone starts talking about someone who is not present. You must track and report.",
+        "vocab": [],
+        "scenario": "Akka asks if you know about Mama's new house. You say 'I don't know. What did they say?'. She says Mama said it's very big. You say 'Is that so? Really?'. She asks if you will visit. You say 'I thought I would go next week'."
+      },
+      {
+        "episode": 6,
+        "topic": "Rest and Reps",
+        "intro": "Audit Day. Reviewing kinship terms and pronoun toggles.",
+        "vocab": [
+          {"tamil": "அண்ணா", "english": "Elder brother"},
+          {"tamil": "அக்கா", "english": "Elder sister"},
+          {"tamil": "அவங்க", "english": "They (respectful)"},
+          {"tamil": "சொன்னாங்க", "english": "They said"},
+          {"tamil": "நினைச்சேன்", "english": "I thought"},
+          {"tamil": "புரிஞ்சுது", "english": "I understood"}
+        ],
+        "scenario": "Rapid fire. Practice constructing gossip chains: X told Y who told Z."
+      },
+      {
+        "episode": 7,
+        "topic": "Murai Maman Logic",
+        "intro": "The cousin marriage system. Understanding why your cousin is also your potential spouse.",
+        "vocab": [
+          {"tamil": "முறை மாமன்", "english": "Cross-cousin (marriageable uncle)"},
+          {"tamil": "பொண்ணு", "english": "Girl / Daughter"},
+          {"tamil": "பையன்", "english": "Boy / Son"},
+          {"tamil": "கல்யாணம்", "english": "Wedding / Marriage"}
+        ],
+        "scenario": "Understanding family structure conversations. When they say 'Murai Maman's daughter', they might be matchmaking."
+      }
+    ]
+  },
+  "6": {
+    "title": "Operations (The Future)",
+    "tier": 3,
+    "description": "Future tense. Planning, proposing, scheduling, and conditional logic.",
+    "episodes": [
+      {
+        "episode": 1,
+        "topic": "Future Intent",
+        "intro": "You are no longer reporting the past. You are declaring intent. I will go. I will come. I will do.",
+        "vocab": [
+          {"tamil": "போவேன்", "english": "I will go"},
+          {"tamil": "வருவேன்", "english": "I will come"},
+          {"tamil": "பண்ணுவேன்", "english": "I will do"},
+          {"tamil": "சாப்பிடுவேன்", "english": "I will eat"}
+        ],
+        "scenario": "Wife asks your plans. You say 'I will go to the market. I will come back. I will eat dinner'."
+      },
+      {
+        "episode": 2,
+        "topic": "Proposals",
+        "intro": "Shall we? Should we? The proposal forms. Inviting action.",
+        "vocab": [
+          {"tamil": "போலாமா?", "english": "Shall we go?"},
+          {"tamil": "பண்ணலாமா?", "english": "Shall we do?"},
+          {"tamil": "பாக்கலாமா?", "english": "Shall we see?"},
+          {"tamil": "சாப்பிடலாமா?", "english": "Shall we eat?"},
+          {"tamil": "போலாம்", "english": "Let's go"}
+        ],
+        "scenario": "Friend asks 'Shall we go to the movie?'. You say 'Let's go'. He asks 'Shall we eat first?'. You agree."
+      },
+      {
+        "episode": 3,
+        "topic": "Scheduling",
+        "intro": "When will it happen? Tomorrow, next week, always, sometimes.",
+        "vocab": [
+          {"tamil": "நாளைக்கு", "english": "Tomorrow"},
+          {"tamil": "அடுத்த வாரம்", "english": "Next week"},
+          {"tamil": "எப்பவும்", "english": "Always"},
+          {"tamil": "அப்பப்போ", "english": "Sometimes"},
+          {"tamil": "இன்னும் கொஞ்ச நேரம்", "english": "A little more time"}
+        ],
+        "scenario": "Boss asks when you will finish the report. You say 'Tomorrow'. He asks if you always work late. You say 'Sometimes'."
+      },
+      {
+        "episode": 4,
+        "topic": "Conditionals",
+        "intro": "If this, then that. The conditional logic. If you come, if it rains, if he goes.",
+        "vocab": [
+          {"tamil": "வந்தா", "english": "If (someone) comes"},
+          {"tamil": "போனா", "english": "If (someone) goes"},
+          {"tamil": "மழை வந்தா", "english": "If it rains"},
+          {"tamil": "டைம் இருந்தா", "english": "If there is time"}
+        ],
+        "scenario": "Wife says 'If it rains, don't go'. You say 'If I have time, I will come early'."
+      },
+      {
+        "episode": 5,
+        "topic": "BOSS FIGHT: The Weekend Plan",
+        "intro": "Planning a social outing with contingencies. You must propose a plan with two backup options.",
+        "vocab": [],
+        "scenario": "Propose going to the beach. What if it rains? Go to the mall. When shall we go? Tomorrow morning. What if there is no time? We can see next week."
+      },
+      {
+        "episode": 6,
+        "topic": "Rest and Reps",
+        "intro": "Audit Day. Reviewing future tense and conditional logic.",
+        "vocab": [
+          {"tamil": "போவேன்", "english": "I will go"},
+          {"tamil": "போலாமா?", "english": "Shall we go?"},
+          {"tamil": "நாளைக்கு", "english": "Tomorrow"},
+          {"tamil": "வந்தா", "english": "If (someone) comes"},
+          {"tamil": "எப்பவும்", "english": "Always"}
+        ],
+        "scenario": "Rapid fire. Build conditional sentences with future plans."
+      },
+      {
+        "episode": 7,
+        "topic": "Indian Stretchable Time (IST)",
+        "intro": "Understanding Tamil time. Why 'I'm coming' means 'I haven't left yet'.",
+        "vocab": [
+          {"tamil": "வர்றேன்", "english": "I'm coming (present continuous)"},
+          {"tamil": "கிளம்பிட்டேன்", "english": "I've started / I've left"},
+          {"tamil": "வந்துட்டேன்", "english": "I've arrived"},
+          {"tamil": "சீக்கிரம் வரேன்", "english": "I'll come quickly"}
+        ],
+        "scenario": "Understanding the progression: Varren (still at home) → Kilambitten (in transit) → Vandhutten (arrived). Learn to decode actual arrival time."
+      }
+    ]
+  },
+  "7": {
+    "title": "Local Fluency (Attitude)",
+    "tier": 3,
+    "description": "Sentence tags, intensifiers, fillers, speech compression. Sounding local, not textbook.",
+    "episodes": [
+      {
+        "episode": 1,
+        "topic": "Sentence Tags",
+        "intro": "Attitude and Flow. You sound like a textbook. Today we add the local flavor. Question tags that make you sound native.",
+        "vocab": [
+          {"tamil": "இல்ல?", "english": "Right? / Isn't it?"},
+          {"tamil": "தானே?", "english": "Right? (confirming)"},
+          {"tamil": "அ?", "english": "Huh? / What?"},
+          {"tamil": "ஆமா இல்லையா?", "english": "Yes or no?"}
+        ],
+        "scenario": "You say 'The movie was good, right?'. You say 'You are coming, right?'. Someone mumbles. You say 'What?'."
+      },
+      {
+        "episode": 2,
+        "topic": "Intensifiers",
+        "intro": "Making things extreme. Super becomes Semma. Bad becomes Mokkai. The intensifier layer.",
+        "vocab": [
+          {"tamil": "செம்ம", "english": "Awesome / Extreme"},
+          {"tamil": "பயங்கரம்", "english": "Terrific / Terrible (intensifier)"},
+          {"tamil": "மொக்கை", "english": "Boring / Lame"},
+          {"tamil": "வேற லெவல்", "english": "Next level"},
+          {"tamil": "அட்டகாசம்", "english": "Fantastic / Amazing"}
+        ],
+        "scenario": "Friend asks about the food. You say 'Semma!'. He asks about the movie. You say 'Mokkai'. The cricket match was 'Vera level'."
+      },
+      {
+        "episode": 3,
+        "topic": "Fillers",
+        "intro": "The pause words. The thinking sounds. Making your Tamil sound natural, not rehearsed.",
+        "vocab": [
+          {"tamil": "சும்மா", "english": "Just / Casually"},
+          {"tamil": "ஆக்சுவலா", "english": "Actually"},
+          {"tamil": "ஒரு நிமிஷம்", "english": "One minute"},
+          {"tamil": "வந்து", "english": "Like / You see (filler)"},
+          {"tamil": "அதான்", "english": "That's it / Exactly"}
+        ],
+        "scenario": "Someone asks a question. You say 'One minute'. You think. You say 'Actually, I was just casually thinking about it. And then I forgot'."
+      },
+      {
+        "episode": 4,
+        "topic": "Speed & Sandhi",
+        "intro": "The compression layer. How fast speech changes the words.",
+        "vocab": [
+          {"tamil": "வந்துட்டேன்", "english": "I've arrived (compressed)"},
+          {"tamil": "வந்து விட்டேன்", "english": "I've arrived (formal)"},
+          {"tamil": "போயிட்டேன்", "english": "I've gone (compressed)"},
+          {"tamil": "போய் விட்டேன்", "english": "I've gone (formal)"},
+          {"tamil": "பண்ணிட்டேன்", "english": "I've done (compressed)"}
+        ],
+        "scenario": "Practice saying both versions. Understand that locals use the compressed form. You should recognize both."
+      },
+      {
+        "episode": 5,
+        "topic": "BOSS FIGHT: The Movie Review",
+        "intro": "Your friend asks about the movie you watched. Describe it using only intensifiers and fillers. No plain adjectives allowed.",
+        "vocab": [],
+        "scenario": "How was the movie? 'Actually it was an awesome movie. Next level.' Was the story good? 'The story was simply super.' What about the villain? 'Villain was extreme. He acted fantastically.' Will you watch it again? 'Exactly, I thought I should watch it again tomorrow itself.'"
+      },
+      {
+        "episode": 6,
+        "topic": "Rest and Reps",
+        "intro": "Audit Day. Reviewing slang, intensifiers, and fillers.",
+        "vocab": [
+          {"tamil": "இல்ல?", "english": "Right?"},
+          {"tamil": "செம்ம", "english": "Awesome"},
+          {"tamil": "மொக்கை", "english": "Lame"},
+          {"tamil": "சும்மா", "english": "Just"},
+          {"tamil": "ஆக்சுவலா", "english": "Actually"},
+          {"tamil": "வந்துட்டேன்", "english": "I've arrived (compressed)"}
+        ],
+        "scenario": "Rapid fire. Take simple sentences and add intensifiers and fillers to make them sound natural."
+      },
+      {
+        "episode": 7,
+        "topic": "Madras Bashai",
+        "intro": "The dialect of Chennai. Understanding the Madras slang overlay.",
+        "vocab": [
+          {"tamil": "மச்சி", "english": "Dude / Bro"},
+          {"tamil": "டேய்", "english": "Hey (very informal)"},
+          {"tamil": "ஐயோ", "english": "Oh no! / Alas!"},
+          {"tamil": "சபாஷ்", "english": "Well done!"},
+          {"tamil": "ஓகே மச்சி", "english": "Okay dude"}
+        ],
+        "scenario": "Understanding the Chennai street dialect. How formality drops among friends. When to use Machi and when to avoid Dey."
+      }
+    ]
+  },
+  "8": {
+    "title": "Deep Cover (Graduation)",
+    "tier": 3,
+    "description": "Conflict resolution, humor, adverbs of manner, and full synthesis. The final level.",
+    "episodes": [
+      {
+        "episode": 1,
+        "topic": "Advanced Conflict",
+        "intro": "Conflict resolution. Apology. Confrontation. The hard conversations.",
+        "vocab": [
+          {"tamil": "ஏன் அப்படி?", "english": "Why like that?"},
+          {"tamil": "என்னாச்சு?", "english": "What happened?"},
+          {"tamil": "விடுங்க", "english": "Leave it (respectful)"},
+          {"tamil": "பரவாயில்லை", "english": "It's okay"},
+          {"tamil": "மன்னிச்சுக்கங்க", "english": "Please forgive (respectful)"}
+        ],
+        "scenario": "Someone is upset. You ask 'What happened?'. They complain. You say 'Leave it. It's okay'."
+      },
+      {
+        "episode": 2,
+        "topic": "Humor",
+        "intro": "Making people laugh. Understanding jokes. The humor vocabulary.",
+        "vocab": [
+          {"tamil": "சிரிப்பு", "english": "Laughter"},
+          {"tamil": "காமெடி", "english": "Comedy"},
+          {"tamil": "செம ஜோக்", "english": "Great joke"},
+          {"tamil": "ஒன்னும் இல்ல", "english": "It's nothing"},
+          {"tamil": "வேடிக்கை", "english": "Fun / Amusement"}
+        ],
+        "scenario": "Someone makes a joke. You laugh and say 'Sema joke!'. They ask if you're making fun. You say 'Nothing, just fun'."
+      },
+      {
+        "episode": 3,
+        "topic": "Adverbs of Manner",
+        "intro": "How did it happen? Fast, slow, carefully. The manner layer.",
+        "vocab": [
+          {"tamil": "சீக்கிரம்", "english": "Quickly"},
+          {"tamil": "மெதுவா", "english": "Slowly"},
+          {"tamil": "கவனமா", "english": "Carefully"},
+          {"tamil": "நல்லா", "english": "Well / Nicely"},
+          {"tamil": "சரியா", "english": "Correctly / Properly"}
+        ],
+        "scenario": "Auto driver is going fast. You say 'Slowly!'. Mother gives you hot food. She says 'Carefully!'."
+      },
+      {
+        "episode": 4,
+        "topic": "Rapid Drills",
+        "intro": "Combining everything from Levels 1-7. No new vocabulary. Pure synthesis.",
+        "vocab": [
+          {"tamil": "வணக்கம்", "english": "Hello"},
+          {"tamil": "நல்லா இருக்கு", "english": "It's good"},
+          {"tamil": "வலது", "english": "Right"},
+          {"tamil": "போனேன்", "english": "I went"},
+          {"tamil": "அவங்க", "english": "They (respectful)"},
+          {"tamil": "போவேன்", "english": "I will go"},
+          {"tamil": "செம்ம", "english": "Awesome"}
+        ],
+        "scenario": "Complex scenarios requiring vocabulary from multiple levels. Simulate a full day: Morning greeting → Breakfast feedback → Auto ride → Market shopping → Evening report → Gossip session → Future planning."
+      },
+      {
+        "episode": 5,
+        "topic": "BOSS FIGHT: The Full Conversion",
+        "intro": "The final Boss Fight. A 5-minute conversation with zero English connectors. You must use only Tamil.",
+        "vocab": [],
+        "scenario": "Friend calls. Greet them. They ask what you did yesterday. Tell a full story. They propose going to a movie tomorrow. Discuss options. End the call properly."
+      },
+      {
+        "episode": 6,
+        "topic": "Final Exam",
+        "intro": "Full Survival Run. Simulating a complete day in Tamil. From waking up to going to bed. All in Tamil.",
+        "vocab": [],
+        "scenario": "Morning: Wake up, greet family, breakfast conversation. Mid-morning: Call to confirm appointment, give directions. Afternoon: Market shopping, price negotiation, auto ride. Evening: Report your day to family, discuss plans. Night: Social call with friend, movie review, plan weekend."
+      },
+      {
+        "episode": 7,
+        "topic": "GRADUATION: Embedded Local",
+        "intro": "You made it. You are no longer a beginner. You are an Embedded Local.",
+        "vocab": [
+          {"tamil": "நன்றி", "english": "Thank you"},
+          {"tamil": "தமிழ் தெரியும்", "english": "I know Tamil"},
+          {"tamil": "கொஞ்சம் கொஞ்சமா கத்துக்கிட்டு இருக்கேன்", "english": "I'm learning little by little"}
+        ],
+        "scenario": "Someone asks if you speak Tamil. You smile. You say 'I'm learning little by little'. They are impressed. You have arrived."
+      }
+    ]
+  }
+}
