@@ -1,11 +1,11 @@
 {
     "learner": "Andrew",
     "current_level": 3,
-    "current_episode": 1,
+    "current_episode": 4,
     "tier_progress": {
         "tier1": {
             "target": 69,
-            "mastered": 47,
+            "mastered": 51,
             "label": "Survival"
         },
         "tier2": {
@@ -19,13 +19,23 @@
             "label": "Embedded"
         }
     },
-    "total_sessions": 1,
+    "total_sessions": 3,
     "streak": {
-        "current": 1,
-        "best": 1,
-        "last_date": "2026-02-17"
+        "current": 2,
+        "best": 2,
+        "last_date": "2026-02-18"
     },
-    "struggled_words": [],
+    "struggled_words": [
+        "நிறுத்துங்க",
+        "அஞ்சு",
+        "பத்து",
+        "நூறு",
+        "கம்மி",
+        "வெளிய",
+        "மேல",
+        "கீழ",
+        "கிட்ட"
+    ],
     "comfortable_words": [
         "வணக்கம்",
         "ஆமா",
@@ -73,7 +83,14 @@
         "பரவாயில்லை",
         "சாப்பிடுங்க",
         "வேற என்ன?",
-        "போயிட்டு வரேன்"
+        "போயிட்டு வரேன்",
+        "நேரா",
+        "இடது",
+        "வலது",
+        "ஒன்னு",
+        "ரெண்டு",
+        "மூணு",
+        "உள்ள"
     ],
     "sessions": [
         {
@@ -99,6 +116,48 @@
             ],
             "zinger": null,
             "notes": "Learner confirmed mastery of Level 1 and 2 content. Moving to Urban Survival."
+        },
+        {
+            "date": "2026-02-18",
+            "level": 3,
+            "episode": 1,
+            "energy": "MEDIUM",
+            "struggled": [
+                "நிறுத்துங்க"
+            ],
+            "comfortable": [
+                "நேரா",
+                "இடது",
+                "வலது"
+            ],
+            "zinger": "நிறுத்துங்க",
+            "notes": "Nailed directions, but 'Niruthunga' needs more muscle memory.",
+            "source": "mobile"
+        },
+        {
+            "date": "2026-02-18",
+            "level": 3,
+            "episode": 4,
+            "energy": "MEDIUM",
+            "struggled": [
+                "அஞ்சு",
+                "பத்து",
+                "நூறு",
+                "கம்மி",
+                "வெளிய",
+                "மேல",
+                "கீழ",
+                "கிட்ட"
+            ],
+            "comfortable": [
+                "உள்ள",
+                "ஒன்னு",
+                "ரெண்டு",
+                "மூணு"
+            ],
+            "zinger": "உள்ள",
+            "notes": "Inside is mastered; struggling with other spatial relations and larger numbers (5, 10, 100).",
+            "source": "mobile"
         }
     ]
 }

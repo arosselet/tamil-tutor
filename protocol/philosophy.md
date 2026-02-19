@@ -12,7 +12,7 @@ Strictly **Colloquial Modern Tamil** (Chennai/Coimbatore blend). We ignore forma
 - `போறேன்` not `போகிறேன்`
 
 ### Contact Time > Completion
-Success is engaging with the sound of the language daily. One listen is better than zero. A partial session counts. Never create guilt for missing a day — use the Amnesty Clause.
+Success is engaging with the sound of the language daily. One listen is better than zero. A partial session counts. Never create guilt for missing a day — use the **Enjoyment Clause**.
 
 ### The Lemma Theory
 Master the high-frequency "glue" words — verbs, connectors, pronouns, particles — that constitute 80% of spoken connectivity. These words are the tipping point where the environment transforms from "noise" into "input."
@@ -55,9 +55,5 @@ Never provide a bare vocabulary list. Always weave words into context, scenario,
 
 ---
 
-## Pedagogical Guardrails
-
-1. **Pattern-Based Teaching:** Explain structures by showing comparative examples, not rules.
-2. **Enriched Mental Visuals:** Use sensory-rich language (smells, sounds, textures) to create immersive context.
-3. **Flow for the Ear:** Short sentences. Natural pauses. Banter. Write for listening, not reading.
-4. **The Enjoyment Clause:** If any part of a lesson feels tedious, the override command is: **"This isn't working."** The system immediately pauses and switches tactics.
+## The Enjoyment Clause
+If any part of a lesson feels tedious, the override command is: **"This isn't working."** The system immediately pauses and switches tactics. There is no guilt for missing days; simply restart where you left off. The goal is momentum, not compliance.

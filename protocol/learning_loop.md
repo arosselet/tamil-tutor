@@ -71,8 +71,8 @@ Monitor engagement. If overwhelmed or bored:
 
 ## Safety Nets
 
-### The Amnesty Clause
-If a day is missed, there is **no makeup work**. Restart immediately where you left off. Zingers from skipped content re-surface automatically in review phases.
+### The Enjoyment Clause (The Override)
+If a day is missed, there is **no makeup work**. Restart immediately where you left off. But more importantly: if any part of a session feels tedious, the learner simply says **"This isn't working."** The system immediately pauses and pivots to a different tactic (e.g., from high-energy drilling to passive "Stream" mode). The goal is momentum, not compliance.
 
 ### Environment Anchoring
 Layer audio learning onto **"Dead Time"** (commute, dishes, coffee). Protect your **Rest Time** (gaming, reading). Never study during rest.

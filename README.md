@@ -49,7 +49,7 @@ For learning on the go with Gemini on iOS:
 
 1. **Pack**: `python scripts/pack_mobile.py` (or just `git commit`)
 2. **Transfer**: Upload `mobile_bundle.zip` to Gemini on your phone.
-3. **Session**: Trigger with `[Tamil Lesson]`. Gemini will use `MASTER_PROTOCOL.md`.
+3. **Session**: Trigger with `[Tamil Lesson]`. Gemini will see all individual protocol files in the root.
 4. **Sync**: Share the generated JSON progress blob to your Home Assistant webhook.
 5. **Ingest**: Back at your laptop, paste the JSON updates to Gemini and say "Sync these updates."
 
