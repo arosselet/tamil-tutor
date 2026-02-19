@@ -32,6 +32,26 @@ python scripts/generate_episode.py content/scripts/level1_ep1.md audio/level1_ep
 python scripts/show_status.py
 ```
 
+## Practical Usage
+
+You don't need to know "what's next." The system tracks your state. You just show up and declare your energy level.
+
+**Scenario 1: Low Energy**
+> "I have low energy today. Just give me a light review."
+> *System generates a "Rest and Reps" audit session.*
+
+**Scenario 2: Specific Struggle**
+> "I keep mixing up 'Iru' and 'Illai'."
+> *System generates a disambiguation lesson focusing on existence vs. non-existence.*
+
+**Scenario 3: Targeted Topic**
+> "I am struggling with the future tense."
+> *System pulls the "Future Intent" module from Tier 3.*
+
+**Scenario 4: Default (No input)**
+> "Generate my daily lesson."
+> *System checks `learner.json`, identifies your next logical step, and builds a balanced episode.*
+
 ## Structure
 
 ```
