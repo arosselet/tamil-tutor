@@ -1,103 +1,83 @@
-# Script: Level 3, Episode 5 — The Negotiator's Map
+# Script: Level 3, Episode 5 — BOSS FIGHT: The Vendor Stare-Down
 
-**Host:** Welcome back. Last time we found things inside and outside. Today, we're taking those words to the street. Because in Chennai, if you can't tell someone *exactly* where to stop or how much to charge, you're going to lose money.
+**Host:** Welcome to the Boss Fight. No more drills. No more safety nets. Today, we drop you in the middle of T. Nagar market.
 
-**Guest:** I'm ready to save some rupees.
+**Guest:** Sounds loud.
 
-**Host:** Good. We have a list of words that are giving you trouble. Let's clear them up right now. The big one: "Stop."
+**Host:** It is. It’s chaotic, it’s hot, and everyone wants your money. Your mission: Buy five mangoes and get home without going broke.
 
-**Guest:** நிறுத்துங்க.
+**Guest:** I'm ready.
 
-**Host:** Niruthunga. It's respectful but firm. You're in an auto. You see your destination. You don't just scream. You say, "Stop here."
+**Host:** You step out of your house. An auto pulls up. You get in. He asks "Enga?" (Where?)
 
-**Guest:** இங்க நிறுத்துங்க.
+**Guest:** T. Nagar போலாம்.
 
-**Host:** But usually, you need to be specific. "Stop *near* the bank." Remember "Near"?
+**Host:** He starts driving. He’s going too fast. You see the turn. You need to command him. "Go straight."
 
-**Guest:** கிட்ட. Bank கிட்ட நிறுத்துங்க.
+**Guest:** நேரா போங்க.
 
-**Host:** Perfect. "Bank kitta niruthunga." Now, the driver stops, but you need him to wait. "Wait outside."
+**Host:** He misses the turn! You need to correct him. "Left! Left!"
 
-**Guest:** வெளிய wait பண்ணுங்க.
+**Guest:** இடது! இடது!
 
-**Host:** Exactly. "Veliya" is outside. "Ulla" is inside. You go *ulla* (inside) the bank, he waits *veliya* (outside).
+**Host:** He turns hard. Now you see the market entrance. You need him to stop *near* the gate.
 
----
+**Guest:** Gate கிட்ட நிறுத்துங்க.
 
-**Host:** Scenario two. The Fruit Shop. You want mangoes. The good ones are always hidden. You ask, "Where are the good ones?" The shopkeeper points up.
+**Host:** Perfect. "Gate kitta niruthunga." You get out. He asks for 200 rupees. You know it’s only 100.
 
-**Guest:** மேல.
+**Guest:** நூறு ரூபாயா? இல்ல. நூறு எடுங்க.
 
-**Host:** "Mela." On top. You point down. "What about those?"
+**Host:** He grumbles but takes the hundred. You are now on foot. The crowd is pushing you. You see the fruit stall. The mangoes are piled high.
 
-**Guest:** கீழ.
+**Guest:** வணக்கம்.
 
-**Host:** "Keela." Below. You want the ones on top. You need a number. Let's fix the numbers. Five.
+**Host:** The vendor looks at you. He points to the ones on top. "Super mangoes," he says. "Mela."
 
-**Guest:** அஞ்சு.
+**Guest:** மேல?
 
-**Host:** Ten.
+**Host:** But you look down. The ones *below* look better. "No, the ones below."
 
-**Guest:** பத்து.
+**Guest:** இல்ல, கீழ.
 
-**Host:** Hundred.
+**Host:** He picks one up from the bottom. "Idhuva?" (This one?) You ask the price. "Evlo?"
 
-**Guest:** நூறு.
+**Guest:** எவ்வளவு?
 
-**Host:** These three are your bargaining chips. "Give me five mangoes."
+**Host:** He looks at your shoes. He looks at your watch. He says: "Oru palam, pathu ruba." One fruit, ten rupees.
+
+**Guest:** பத்து ரூபாயா?
+
+**Host:** Actually, that’s a great price. But you can't accept the first offer! It’s about respect. You have to ask for less.
+
+**Guest:** கம்மி பண்ணுங்க.
+
+**Host:** He shakes his head. "Illa sir. Fixed price." You decide to go big. "Give me five."
 
 **Guest:** அஞ்சு குடுங்க.
 
-**Host:** He says, "One hundred rupees."
+**Host:** He puts five in a bag. "Aim-badhu ruba." Fifty rupees. You hand him a hundred note.
 
-**Guest:** நூறு ரூபாயா?
+**Guest:** நூறு.
 
-**Host:** Too much. You need the magic word for "Less."
+**Host:** He gives you change. You have the bag. But now, where is your auto? You told him to wait... where?
 
-**Guest:** கம்மி.
+**Guest:** வெளிய.
 
-**Host:** "Kammi pannunga." Reduce the price. Make it less.
+**Host:** Outside. You walk back to the gate. He is there. You hop in. "Veettuku polam." (Let's go home).
 
-**Guest:** கம்மி பண்ணுங்க.
+**Guest:** வீட்டுக்கு போலாம்.
 
----
-
-**Host:** Let's mix it up. Rapid fire. I'm the auto driver. "Where should I stop?"
-
-**Guest:** School கிட்ட நிறுத்துங்க.
-
-**Host:** "I'll wait here."
-
-**Guest:** இல்ல, வெளிய wait பண்ணுங்க.
-
-**Host:** I'm the fruit seller. "These are 100 rupees."
-
-**Guest:** கம்மி பண்ணுங்க.
-
-**Host:** "How many do you want? Ten?"
-
-**Guest:** இல்ல, அஞ்சு போதும்.
-
-**Host:** "Where is your bag?"
-
-**Guest:** Auto உள்ள இருக்கு.
-
-**Host:** "Where is the auto?"
-
-**Guest:** கடை கிட்ட இருக்கு.
-
-**Host:** "Kadai kitta irukku." It's near the shop. Boom. You just connected everything.
+**Host:** You did it. You navigated directions, handled the price, managed the inventory, and survived the negotiation.
 
 ---
 
-**Host:** Today's Zinger. It's the ultimate power move in an auto. You see your spot. You lean forward. You say it with authority.
+**Host:** Debrief. You used numbers: அஞ்சு, பத்து, நூறு. You used positions: மேல, கீழ, கிட்ட, வெளிய. And you used the power words: நிறுத்துங்க, கம்மி.
 
-**Guest:** What is it?
+**Guest:** I feel like a local.
 
-**Host:** "Bank கிட்ட நிறுத்துங்க." Stop near the bank. Or "Gate கிட்ட நிறுத்துங்க." Stop near the gate.
-
-**Guest:** Gate கிட்ட நிறுத்துங்க.
-
-**Host:** It combines precision (Kitta) with command (Niruthunga). Use it today.
+**Host:** You're getting there. The market didn't eat you alive. That's a win.
 
 **Guest:** Gate கிட்ட நிறுத்துங்க.
+
+**Host:** Exactly. Keep that authority. See you in the next level.
