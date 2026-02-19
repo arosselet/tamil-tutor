@@ -1,17 +1,23 @@
 #!/bin/bash
 
+# Load environment variables if .env exists
+if [ -f .env ]; then
+    export $(cat .env | xargs)
+fi
+
 # Sync scripts for Tamil2 learner progress to Home Assistant
 # Path to the source file
-SOURCE_FILE="/home/roshana/projects/Tamil2/progress/learner.json"
+SOURCE_FILE="./progress/learner.json"
 
 # SSH Alias for Home Assistant
-REMOTE_HOST="homeassistant"
+REMOTE_HOST="${HOMEASSISTANT_HOST:-homeassistant}"
 
 # Remote directory (standard location for the 'www' folder in Home Assistant)
 REMOTE_DIR="/config/www/"
 
 # Transfer the file
-scp -i ~/.ssh/id_ed25519_ha -o StrictHostKeyChecking=accept-new "$SOURCE_FILE" "$REMOTE_HOST":"$REMOTE_DIR"
+SSH_KEY="${SSH_KEY:-$HOME/.ssh/id_ed25519_ha}"
+scp -i "$SSH_KEY" -o StrictHostKeyChecking=accept-new "$SOURCE_FILE" "$REMOTE_HOST":"$REMOTE_DIR"
 
 if [ $? -eq 0 ]; then
     echo "$(date): Successfully synced learner.json to Home Assistant."

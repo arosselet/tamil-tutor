@@ -105,7 +105,7 @@ To keep your mobile context fresh across sessions:
 ### The Persistent Session Model (Recommended)
 You do not need to upload the `mobile_bundle.zip` for every lesson. Maintain a persistent chat session in the Gemini app. To refresh your state daily:
 
-1. **The URL Refresh:** Ask the AI: *"Fetch my latest progress from `https://ykf.duckdns.org:4444/local/learner.json`. Update your memory of my comfortable and struggled words before we start today's session."*
+1. **The URL Refresh:** Ask the AI: *"Fetch my latest progress from `<YOUR_HA_URL>/local/learner.json`. Update your memory of my comfortable and struggled words before we start today's session."*
 2. **The JSON Paste (Backup):** If the URL fetch fails, use an iOS Shortcut to paste the latest `learner.json` text directly into the chat.
 
 ---
