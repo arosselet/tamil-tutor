@@ -14,7 +14,7 @@
 | `[Tamil Lesson]` | `protocol/session_protocol.md` | Start an interactive teaching session |
 | "Generate a podcast/script" | `protocol/roles/director.md` → `architect.md` → `producer.md` | 3-step content pipeline |
 | "I listened to episode X" / progress update | `protocol/session_protocol.md` | Update `progress/learner.json` |
-| "Show my progress" | Read `progress/learner.json` + `curriculum/vocabulary_index.json` | Report tier progress, streaks |
+| "Show my progress" | Read `progress/learner.json` + `curriculum/levels.json` | Report tier progress, streaks |
 | "Sync these updates" / pastes JSON array | `protocol/sync_ingest.md` | Apply mobile updates to learner.json + vocab index |
 | *(On mobile, after any progress)* | `protocol/mobile_sync.md` | Emit JSON progress blob for iOS Share |
 
@@ -22,7 +22,7 @@
 
 ```
 protocol/           → LLM instructions (you are here)
-curriculum/          → levels.json + vocabulary_index.json
+curriculum/          → levels.json (The Roadmap)
 content/scripts/     → Podcast scripts (Markdown)
 audio/               → Generated MP3 files
 progress/            → learner.json (learner state)

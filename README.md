@@ -22,14 +22,10 @@ Traditional language learning focuses on academic literacy. This protocol focuse
 # 1. Install
 pip install -r requirements.txt
 
-# 2. Build the vocabulary index
-python scripts/build_vocab_index.py
-
+# 2. Check your progress
+python scripts/show_status.py
 # 3. Generate your first episode
 python scripts/generate_episode.py content/scripts/level1_ep1.md audio/level1_ep1.mp3
-
-# 4. Check your progress
-python scripts/show_status.py
 ```
 
 ## Practical Usage
@@ -56,7 +52,7 @@ You don't need to know "what's next." The system tracks your state. You just sho
 
 ```
 protocol/           → LLM instructions for Gemini (Director/Producer roles)
-curriculum/         → levels.json + vocabulary_index.json (The Roadmap)
+curriculum/         → levels.json (The Roadmap)
 content/scripts/    → Podcast scripts (Markdown)
 audio/              → Generated MP3 files
 progress/           → learner.json (your state)
