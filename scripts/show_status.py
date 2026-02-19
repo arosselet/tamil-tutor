@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Display progress dashboard for Tamil learning.
-Reads learner.json and vocabulary_index.json.
+Reads learner.json and derives tier data from levels.json.
 
 Usage:
     python scripts/show_status.py
@@ -9,7 +9,6 @@ Usage:
 
 import json
 from pathlib import Path
-from datetime import datetime
 
 
 def load_json(path: Path):
@@ -19,10 +18,22 @@ def load_json(path: Path):
         return json.load(f)
 
 
+def get_tier_words(levels: dict) -> dict[int, list[str]]:
+    """Extract all Tamil words per tier from levels.json."""
+    tier_words: dict[int, set[str]] = {}
+    for level_data in levels.values():
+        tier = level_data.get("tier", 1)
+        words = tier_words.setdefault(tier, set())
+        for ep in level_data.get("episodes", []):
+            for w in ep.get("vocab", []):
+                words.add(w["tamil"])
+    return {t: sorted(ws) for t, ws in tier_words.items()}
+
+
 def main():
     base = Path(__file__).parent.parent
     learner = load_json(base / "progress" / "learner.json")
-    vocab = load_json(base / "curriculum" / "vocabulary_index.json")
+    levels = load_json(base / "curriculum" / "levels.json")
 
     if not learner:
         print("⚠️  No learner.json found. Start a session first.")
@@ -47,30 +58,31 @@ def main():
     else:
         print(f"🚀 Streak: Start your first session!")
 
-    # Tier progress
-    if vocab:
-        meta = vocab.get("metadata", {})
-        tier_info = meta.get("tier_breakdown", {})
+    # Tier progress (derived from levels.json)
+    if levels:
+        tier_words = get_tier_words(levels)
+        comfortable = set(learner.get("comfortable_words", []))
+        mastered = set(learner.get("mastered_words", []))
+        known = comfortable | mastered
 
-        print(f"\n📚 VOCABULARY PROGRESS ({meta.get('total_unique_lemmas', '?')} total lemmas)")
+        total_words = sum(len(ws) for ws in tier_words.values())
+        print(f"\n📚 VOCABULARY PROGRESS ({total_words} total lemmas)")
         print("-" * 55)
 
-        comfortable = set(learner.get("comfortable_words", []))
-        words = vocab.get("words", [])
+        tier_labels = {1: "Tier 1 Survival", 2: "Tier 2 Comfortable", 3: "Tier 3 Embedded"}
 
-        for tier_key, tier_data in tier_info.items():
-            tier_num = int(tier_key.replace("tier", "").split("_")[0])
-            tier_words = [w for w in words if w.get("tier") == tier_num]
-            mastered = sum(1 for w in tier_words if w["tamil"] in comfortable)
-            total = tier_data.get("count", len(tier_words))
-            label = tier_key.replace("_", " ").title()
-            pct = (mastered / total * 100) if total > 0 else 0
+        for tier_num in sorted(tier_words.keys()):
+            words = tier_words[tier_num]
+            count = sum(1 for w in words if w in known)
+            total = len(words)
+            label = tier_labels.get(tier_num, f"Tier {tier_num}")
+            pct = (count / total * 100) if total > 0 else 0
             bar_len = 20
             filled = int(bar_len * pct / 100)
             bar = "█" * filled + "░" * (bar_len - filled)
 
             print(f"  {label}")
-            print(f"    [{bar}] {mastered}/{total} ({pct:.0f}%)")
+            print(f"    [{bar}] {count}/{total} ({pct:.0f}%)")
 
     # Struggled words
     struggled = learner.get("struggled_words", [])

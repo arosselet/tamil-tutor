@@ -28,11 +28,11 @@ The Producer: Technical executor who ensures TTS compatibility, handles "Madras"
 3.2 The Curriculum (The Content)
 Structure: 8 Weeks, 56 Days of content.
 Source of Truth: 
-curriculum/weeks.json
- defines the vocabulary for each week.
-Vocabulary Index: 
-curriculum/vocabulary_index.json
- tracks word mastery across three tiers:
+curriculum/levels.json
+ defines the vocabulary for each level.
+Progress Tracking: 
+progress/learner.json
+ tracks word mastery via comfortable/struggled/mastered word lists across three tiers:
 Tier 1 (Survival - 200 words): Essentials for navigation and transactions.
 Tier 2 (Comfortable - 500 words): Social connectivity and family conversation.
 Tier 3 (Embedded - 800+ words): Cultural fluency and media consumption.
@@ -56,7 +56,7 @@ Format: The LLM generates a structured JSON block containing event data (e.g., s
 Transport: iOS Shortcut ("Log Tamil") sends the JSON payload to a Webhook (Home Assistant).
 Sync: 
 scripts/sync_progress.py
- pulls data from the webhook/store and updates vocabulary_index.json on the local machine.
+ pulls data from the webhook/store and updates learner.json on the local machine.
 4. Functional Requirements
 4.1 Content Generation
 Role-Based Scripts: The system must support generating scripts that strictly distinguish between Host and Guest roles.
@@ -64,7 +64,7 @@ Script Validation: The system should ideally validate that Tamil lines use Tamil
 Audio Synthesis: The generator must produce clear, well-paced audio with distinct voices for each role.
 4.2 Progress Tracking
 Granular Logging: Users must be able to log completion of specific lessons and identify specific words they struggled with.
-Data Persistence: Progress data must be persisted in a machine-readable format (vocabulary_index.json) that survives session resets.
+Data Persistence: Progress data must be persisted in a machine-readable format (learner.json) that survives session resets.
 Adaptive Feedback: The system should be able to query the "struggled words" list to inform the creation of review ("Remix") episodes.
 4.3 Mobile Integration
 Portable Context: The core protocol and curriculum files must be packable (

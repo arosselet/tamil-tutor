@@ -77,7 +77,7 @@ When the learner says something like "I listened to Level 1 Episode 3 and strugg
 
 When the learner asks about their progress:
 
-1. Read `progress/learner.json` and `curriculum/vocabulary_index.json`
+1. Read `progress/learner.json` and `curriculum/levels.json`
 2. Report:
    - **Current Level:** X of N
    - **Tier Progress:** Tier 1: M/T mastered, Tier 2: M/T, Tier 3: M/T

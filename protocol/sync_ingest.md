@@ -1,6 +1,6 @@
 # Sync Ingest Protocol (Desktop-Side)
 
-> **Context:** The learner periodically provides a list of JSON progress updates collected from mobile sessions via Home Assistant. Your job is to apply them to `progress/learner.json` and `curriculum/vocabulary_index.json`.
+> **Context:** The learner periodically provides a list of JSON progress updates collected from mobile sessions via Home Assistant. Your job is to apply them to `progress/learner.json`.
 
 ## When This Protocol Activates
 
@@ -24,7 +24,7 @@ The learner provides an **array** of update objects (the contract is defined in 
 ## Processing Steps
 
 ### 1. Read Current State
-Read `progress/learner.json` and `curriculum/vocabulary_index.json`.
+Read `progress/learner.json`.
 
 ### 2. Sort Updates by Timestamp
 Process in chronological order (`ts` field).
@@ -64,29 +64,18 @@ For each update:
 - Move `comfortable` words from `struggled_words[]` to `comfortable_words[]`
 - Append to `sessions[]` with `"energy": "feedback"`
 
-### 4. Update Vocabulary Index
-
-In `curriculum/vocabulary_index.json`, for each word in `comfortable`:
-- Set `mastery_score` to `1` (or increment if already > 0)
-- Set `last_reviewed` to the update's `ts`
-- Increment `times_reviewed`
-
-For each word in `struggled`:
-- Set `mastery_score` to `0`
-- Set `last_reviewed` to the update's `ts`
-- Increment `times_reviewed`
-
-### 5. Update Tier Progress
+### 4. Update Tier Progress
 
 Recalculate `tier_progress` in `learner.json`:
+- Read `curriculum/levels.json` to get tier assignments
 - Count comfortable words per tier
 - Update `mastered` counts
 
-### 6. Write Back
+### 5. Write Back
 
-Write updated `progress/learner.json` and `curriculum/vocabulary_index.json`.
+Write updated `progress/learner.json`.
 
-### 7. Report
+### 6. Report
 
 Show the learner a summary:
 ```
@@ -100,6 +89,9 @@ Show the learner a summary:
 ⚠️  Struggled: முன்னாடி, தூங்கினேன், எழுந்தேன்
 ✅ Comfortable: போனேன், வந்தேன், சாப்பிட்டேன், நேத்து, இன்னைக்கு
 ```
+
+> [!TIP]
+> After a bulk sync, consider running `python scripts/compress_sessions.py` to fold old session data into accumulated word lists and keep `learner.json` lean.
 
 ## Idempotency
 
