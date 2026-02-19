@@ -10,11 +10,15 @@ The TTS engine CANNOT read English phonetics correctly.
 
 **Every single Tamil word intended for the TTS voice MUST be in Tamil Script.**
 
+This applies to **BOTH** the Host and the Guest. Even if the Host is speaking English, any Tamil vocabulary words they mention must be written in Tamil script to ensure correct pronunciation.
+
 | Status | Example |
 |---|---|
 | ❌ WRONG | `**Guest:** Vanakkam.` |
 | ❌ WRONG | `**Guest:** வணக்கம். (Vanakkam)` — TTS reads the English too |
+| ❌ WRONG | `**Host:** You learned Vanakkam.` — TTS reads "Vanakkam" as English text |
 | ✅ CORRECT | `**Guest:** வணக்கம்.` |
+| ✅ CORRECT | `**Host:** You learned வணக்கம்.` |
 
 **No exceptions.** If phonetic guides are needed for the human reader, they go in a separate "Study Guide" document, never in the TTS script.
 
