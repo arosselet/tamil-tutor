@@ -1,0 +1,11 @@
+# Generated content
+audio/
+temp_audio_segments/
+
+# Python
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+.env
