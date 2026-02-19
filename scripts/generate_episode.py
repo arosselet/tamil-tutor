@@ -165,10 +165,11 @@ async def main():
     print(f"✅ Done! {args.output_file} ({size_mb:.1f} MB)")
 
     # 6. Upload to Home Assistant
-    print(f"📡 Uploading to Home Assistant: {args.output_file} -> /config/www/episode.mp3")
+    ha_host = os.getenv("HOMEASSISTANT_HOST", "homeassistant")
+    print(f"📡 Uploading to Home Assistant: {args.output_file} -> {ha_host}:/config/www/episode.mp3")
     try:
         subprocess.run(
-            ["scp", args.output_file, "homeassistant:/config/www/episode.mp3"],
+            ["scp", args.output_file, f"{ha_host}:/config/www/episode.mp3"],
             check=True
         )
         print("✅ Upload complete!")
