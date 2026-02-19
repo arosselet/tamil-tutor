@@ -33,7 +33,7 @@ VOICE_OPTS = {
 
 # Regex: matches "**Host:** text", "**Guest:** text", etc.
 SPEAKER_RE = re.compile(
-    r"^\s*(?:\*\s*)?\*\*\s*([A-Za-z]+)\s*:\s*\*\*\s*(.*)", re.IGNORECASE
+    r"^\s*(?:\*\s*)?\*\*\s*([A-Za-z]+)\s*:\s*(?:\*\*\s*)?(.*)", re.IGNORECASE
 )
 
 
@@ -69,11 +69,25 @@ def clean_for_tts(text: str) -> str:
     """
     Clean text for TTS consumption.
     - Strip parenthetical guides: "வணக்கம் (Vanakkam)" → "வணக்கம்"
+    - Strip periods (to prevent "hoo" sound in some TTS voices)
+    - Phonetic replacements for common tech terms
     - Collapse whitespace
     - Remove stray markdown
     """
     # Strip parenthetical English guides
     text = re.sub(r"\s*\(.*?\)\s*", " ", text)
+    
+    # Phonetic replacements for better TTS
+    replacements = {
+        "JSON": "jay-son",
+        "CLI": "C-L-I",
+    }
+    for word, phonetic in replacements.items():
+        # Match word with boundaries to avoid partial replacement (e.g., "CLIENT")
+        text = re.sub(rf"\b{word}\b", phonetic, text, flags=re.IGNORECASE)
+
+    # Remove periods
+    text = text.replace(".", "")
     # Remove markdown formatting
     text = re.sub(r"[*_#`]", "", text)
     # Collapse whitespace
