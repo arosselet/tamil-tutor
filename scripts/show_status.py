@@ -33,7 +33,16 @@ def get_tier_words(levels: dict) -> dict[int, list[str]]:
 def main():
     base = Path(__file__).parent.parent
     learner = load_json(base / "progress" / "learner.json")
-    levels = load_json(base / "curriculum" / "levels.json")
+    
+    # Dynamically build the levels dictionary from index.json and levels/
+    index_data = load_json(base / "curriculum" / "index.json") or {}
+    levels = {}
+    for level_str, meta in index_data.items():
+        filename = meta.get("file")
+        if filename:
+            file_path = base / "curriculum" / "levels" / filename
+            if file_path.exists():
+                levels[level_str] = load_json(file_path)
 
     if not learner:
         print("⚠️  No learner.json found. Start a session first.")
