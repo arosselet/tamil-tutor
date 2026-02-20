@@ -1,0 +1,234 @@
+{
+  "title": "The Social Scaffold",
+  "tier": 1,
+  "description": "The foundation. Greetings, yes/no, respect toggles, basic existence and commands.",
+  "episodes": [
+    {
+      "episode": 1,
+      "topic": "First Contact",
+      "intro": "Today we build the foundation. The four words you need to survive. Hello, Yes, No, and Okay.",
+      "vocab": [
+        {
+          "tamil": "வணக்கம்",
+          "english": "Hello"
+        },
+        {
+          "tamil": "ஆமா",
+          "english": "Yes"
+        },
+        {
+          "tamil": "இல்ல",
+          "english": "No"
+        },
+        {
+          "tamil": "சரி",
+          "english": "Okay"
+        }
+      ],
+      "scenario": "You meet a neighbor. He asks if you are new. You say Yes. He asks if you need help. You say No. He says Okay. You say Hello."
+    },
+    {
+      "episode": 2,
+      "topic": "The Respect Toggle",
+      "intro": "Tamil society runs on hierarchy. Today we learn how to show respect without thinking.",
+      "vocab": [
+        {
+          "tamil": "நீங்க",
+          "english": "You (respectful)"
+        },
+        {
+          "tamil": "நீ",
+          "english": "You (informal)"
+        },
+        {
+          "tamil": "இங்க",
+          "english": "Here"
+        },
+        {
+          "tamil": "அங்க",
+          "english": "There"
+        }
+      ],
+      "scenario": "You are telling an auto driver where to go. You don't say 'Nee'. You say 'Neenga'. You point there. Anga."
+    },
+    {
+      "episode": 3,
+      "topic": "Spatial Existence",
+      "intro": "Today we answer the big questions. Where is it? And does it exist?",
+      "vocab": [
+        {
+          "tamil": "எங்க?",
+          "english": "Where?"
+        },
+        {
+          "tamil": "இருக்கு",
+          "english": "It is / It exists"
+        },
+        {
+          "tamil": "இல்லையா?",
+          "english": "Isn't it?"
+        },
+        {
+          "tamil": "என்ன?",
+          "english": "What?"
+        },
+        {
+          "tamil": "தெரியும்",
+          "english": "I know"
+        },
+        {
+          "tamil": "தெரியாது",
+          "english": "I don't know"
+        }
+      ],
+      "scenario": "You are looking for your phone. You ask 'Where?'. Your wife says 'It is here'. You ask again. Wife says 'Don't know'."
+    },
+    {
+      "episode": 4,
+      "topic": "Command Logic",
+      "intro": "Moving yourself and your desires. I want. I go. I come.",
+      "vocab": [
+        {
+          "tamil": "வரேன்",
+          "english": "I come / I'm coming"
+        },
+        {
+          "tamil": "போறேன்",
+          "english": "I go / I'm going"
+        },
+        {
+          "tamil": "வேணும்",
+          "english": "I want / I need"
+        },
+        {
+          "tamil": "வேண்டாம்",
+          "english": "I don't want"
+        },
+        {
+          "tamil": "குடுங்க",
+          "english": "Give (respectful)"
+        },
+        {
+          "tamil": "எடுங்க",
+          "english": "Take (respectful)"
+        }
+      ],
+      "scenario": "You want coffee. Coffee Venum. You are leaving for work. Poren. You point to the remote. 'Kudunga' (Give)."
+    },
+    {
+      "episode": 5,
+      "topic": "BOSS FIGHT: The Living Room",
+      "intro": "The first Boss Fight. Putting it all together in the Living Room.",
+      "vocab": [],
+      "scenario": "Full simulation. Greeting elders, accepting coffee, refusing snacks, and finding the remote."
+    },
+    {
+      "episode": 6,
+      "topic": "Rest and Reps",
+      "intro": "The Audit. We review the first words. No new concepts. Just pure muscle memory.",
+      "vocab": [
+        {
+          "tamil": "வணக்கம்",
+          "english": "Hello"
+        },
+        {
+          "tamil": "ஆமா",
+          "english": "Yes"
+        },
+        {
+          "tamil": "இல்ல",
+          "english": "No"
+        },
+        {
+          "tamil": "சரி",
+          "english": "Okay"
+        },
+        {
+          "tamil": "நீங்க",
+          "english": "You (respectful)"
+        },
+        {
+          "tamil": "இங்க",
+          "english": "Here"
+        },
+        {
+          "tamil": "அங்க",
+          "english": "There"
+        },
+        {
+          "tamil": "குடுங்க",
+          "english": "Give (respectful)"
+        },
+        {
+          "tamil": "எங்க?",
+          "english": "Where?"
+        },
+        {
+          "tamil": "இருக்கு",
+          "english": "It is / It exists"
+        },
+        {
+          "tamil": "இல்லையா?",
+          "english": "Isn't it?"
+        },
+        {
+          "tamil": "என்ன?",
+          "english": "What?"
+        },
+        {
+          "tamil": "வரேன்",
+          "english": "I come"
+        },
+        {
+          "tamil": "போறேன்",
+          "english": "I go"
+        },
+        {
+          "tamil": "வேணும்",
+          "english": "I want"
+        },
+        {
+          "tamil": "வேண்டாம்",
+          "english": "I don't want"
+        },
+        {
+          "tamil": "எடுங்க",
+          "english": "Take (respectful)"
+        },
+        {
+          "tamil": "தெரியும்",
+          "english": "I know"
+        },
+        {
+          "tamil": "தெரியாது",
+          "english": "I don't know"
+        }
+      ],
+      "scenario": "Rapid fire audit. I say the English, you say the Tamil immediately."
+    },
+    {
+      "episode": 7,
+      "topic": "The Grammar of Silence",
+      "intro": "The art of politeness. We focus on the suffix 'Nga' and the tone of 'Sari'.",
+      "vocab": [
+        {
+          "tamil": "சொல்லுங்க",
+          "english": "Tell/Say (respectful)"
+        },
+        {
+          "tamil": "வாருங்களா?",
+          "english": "Will you come?"
+        },
+        {
+          "tamil": "சாப்டீங்களா?",
+          "english": "Did you eat?"
+        },
+        {
+          "tamil": "உக்காருங்க",
+          "english": "Sit (respectful)"
+        }
+      ],
+      "scenario": "You are hosting. You ask guests to sit. You ask if they ate. You listen to them speak and say 'Sari' to show respect."
+    }
+  ]
+}

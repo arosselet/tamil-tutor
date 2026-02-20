@@ -1,0 +1,170 @@
+{
+  "title": "Operations (The Future)",
+  "tier": 3,
+  "description": "Future tense. Planning, proposing, scheduling, and conditional logic.",
+  "episodes": [
+    {
+      "episode": 1,
+      "topic": "Future Intent",
+      "intro": "You are no longer reporting the past. You are declaring intent. I will go. I will come. I will do.",
+      "vocab": [
+        {
+          "tamil": "போவேன்",
+          "english": "I will go"
+        },
+        {
+          "tamil": "வருவேன்",
+          "english": "I will come"
+        },
+        {
+          "tamil": "பண்ணுவேன்",
+          "english": "I will do"
+        },
+        {
+          "tamil": "சாப்பிடுவேன்",
+          "english": "I will eat"
+        }
+      ],
+      "scenario": "Wife asks your plans. You say 'I will go to the market. I will come back. I will eat dinner'."
+    },
+    {
+      "episode": 2,
+      "topic": "Proposals",
+      "intro": "Shall we? Should we? The proposal forms. Inviting action.",
+      "vocab": [
+        {
+          "tamil": "போலாமா?",
+          "english": "Shall we go?"
+        },
+        {
+          "tamil": "பண்ணலாமா?",
+          "english": "Shall we do?"
+        },
+        {
+          "tamil": "பாக்கலாமா?",
+          "english": "Shall we see?"
+        },
+        {
+          "tamil": "சாப்பிடலாமா?",
+          "english": "Shall we eat?"
+        },
+        {
+          "tamil": "போலாம்",
+          "english": "Let's go"
+        }
+      ],
+      "scenario": "Friend asks 'Shall we go to the movie?'. You say 'Let's go'. He asks 'Shall we eat first?'. You agree."
+    },
+    {
+      "episode": 3,
+      "topic": "Scheduling",
+      "intro": "When will it happen? Tomorrow, next week, always, sometimes.",
+      "vocab": [
+        {
+          "tamil": "நாளைக்கு",
+          "english": "Tomorrow"
+        },
+        {
+          "tamil": "அடுத்த வாரம்",
+          "english": "Next week"
+        },
+        {
+          "tamil": "எப்பவும்",
+          "english": "Always"
+        },
+        {
+          "tamil": "அப்பப்போ",
+          "english": "Sometimes"
+        },
+        {
+          "tamil": "இன்னும் கொஞ்ச நேரம்",
+          "english": "A little more time"
+        }
+      ],
+      "scenario": "Boss asks when you will finish the report. You say 'Tomorrow'. He asks if you always work late. You say 'Sometimes'."
+    },
+    {
+      "episode": 4,
+      "topic": "Conditionals",
+      "intro": "If this, then that. The conditional logic. If you come, if it rains, if he goes.",
+      "vocab": [
+        {
+          "tamil": "வந்தா",
+          "english": "If (someone) comes"
+        },
+        {
+          "tamil": "போனா",
+          "english": "If (someone) goes"
+        },
+        {
+          "tamil": "மழை வந்தா",
+          "english": "If it rains"
+        },
+        {
+          "tamil": "டைம் இருந்தா",
+          "english": "If there is time"
+        }
+      ],
+      "scenario": "Wife says 'If it rains, don't go'. You say 'If I have time, I will come early'."
+    },
+    {
+      "episode": 5,
+      "topic": "BOSS FIGHT: The Weekend Plan",
+      "intro": "Planning a social outing with contingencies. You must propose a plan with two backup options.",
+      "vocab": [],
+      "scenario": "Propose going to the beach. What if it rains? Go to the mall. When shall we go? Tomorrow morning. What if there is no time? We can see next week."
+    },
+    {
+      "episode": 6,
+      "topic": "Rest and Reps",
+      "intro": "Audit Day. Reviewing future tense and conditional logic.",
+      "vocab": [
+        {
+          "tamil": "போவேன்",
+          "english": "I will go"
+        },
+        {
+          "tamil": "போலாமா?",
+          "english": "Shall we go?"
+        },
+        {
+          "tamil": "நாளைக்கு",
+          "english": "Tomorrow"
+        },
+        {
+          "tamil": "வந்தா",
+          "english": "If (someone) comes"
+        },
+        {
+          "tamil": "எப்பவும்",
+          "english": "Always"
+        }
+      ],
+      "scenario": "Rapid fire. Build conditional sentences with future plans."
+    },
+    {
+      "episode": 7,
+      "topic": "Indian Stretchable Time (IST)",
+      "intro": "Understanding Tamil time. Why 'I'm coming' means 'I haven't left yet'.",
+      "vocab": [
+        {
+          "tamil": "வர்றேன்",
+          "english": "I'm coming (present continuous)"
+        },
+        {
+          "tamil": "கிளம்பிட்டேன்",
+          "english": "I've started / I've left"
+        },
+        {
+          "tamil": "வந்துட்டேன்",
+          "english": "I've arrived"
+        },
+        {
+          "tamil": "சீக்கிரம் வரேன்",
+          "english": "I'll come quickly"
+        }
+      ],
+      "scenario": "Understanding the progression: Varren (still at home) → Kilambitten (in transit) → Vandhutten (arrived). Learn to decode actual arrival time."
+    }
+  ]
+}

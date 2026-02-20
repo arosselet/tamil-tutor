@@ -1,0 +1,194 @@
+{
+  "title": "Domestic Defense",
+  "tier": 1,
+  "description": "The Kitchen. Surviving meals, managing time, expressing internal states, and the art of hospitality.",
+  "episodes": [
+    {
+      "episode": 1,
+      "topic": "Sensory Feedback",
+      "intro": "Week 2. The Kitchen. The most dangerous room in the house. Today we learn how to survive by giving feedback.",
+      "vocab": [
+        {
+          "tamil": "நல்லா இருக்கு",
+          "english": "It's good"
+        },
+        {
+          "tamil": "சூப்பர்",
+          "english": "Super"
+        },
+        {
+          "tamil": "செம்ம",
+          "english": "Awesome / Extreme"
+        },
+        {
+          "tamil": "காரம்",
+          "english": "Spicy"
+        },
+        {
+          "tamil": "உப்பு",
+          "english": "Salt / Salty"
+        }
+      ],
+      "scenario": "You are eating. The host looks at you. You say 'Super'. They give you pickle. You say 'Kaaram'. They ask about the rice. You say 'Nalla Irukku'."
+    },
+    {
+      "episode": 2,
+      "topic": "The Time Shield",
+      "intro": "They want you to do things now. You want to do them later. Today we control time.",
+      "vocab": [
+        {
+          "tamil": "அப்புறம்",
+          "english": "Later / After that"
+        },
+        {
+          "tamil": "இப்போ",
+          "english": "Now"
+        },
+        {
+          "tamil": "நாளைக்கு",
+          "english": "Tomorrow"
+        },
+        {
+          "tamil": "நேரம் ஆச்சு",
+          "english": "It's time / Time's up"
+        }
+      ],
+      "scenario": "Mother-in-law asks you to fix the fan. You say 'Not now. Later.' She asks when. You say 'Tomorrow'. She says 'Okay'."
+    },
+    {
+      "episode": 3,
+      "topic": "Quantitative Control",
+      "intro": "Managing the flow of food. The 'Infinite Dosa' loop is real. You need shields.",
+      "vocab": [
+        {
+          "tamil": "கொஞ்சம்",
+          "english": "A little"
+        },
+        {
+          "tamil": "நிறைய",
+          "english": "A lot"
+        },
+        {
+          "tamil": "ஒன்னு மட்டும்",
+          "english": "Only one"
+        },
+        {
+          "tamil": "போதும்",
+          "english": "Enough"
+        }
+      ],
+      "scenario": "They bring rice. You say 'Konjam'. They bring a bucket of Sambar. You say 'Podhum!'. They offer a sweet. You say 'Onnu Mattum'."
+    },
+    {
+      "episode": 4,
+      "topic": "Internal States",
+      "intro": "How do you feel? Hunger, thirst, and fatigue. And the 'To me / To you' pattern.",
+      "vocab": [
+        {
+          "tamil": "பசி",
+          "english": "Hungry"
+        },
+        {
+          "tamil": "வயிறு ஃபுல்",
+          "english": "Stomach full"
+        },
+        {
+          "tamil": "தாகம்",
+          "english": "Thirsty"
+        },
+        {
+          "tamil": "டயர்ட்",
+          "english": "Tired"
+        },
+        {
+          "tamil": "எனக்கு",
+          "english": "To me / For me"
+        },
+        {
+          "tamil": "உனக்கு",
+          "english": "To you / For you"
+        }
+      ],
+      "scenario": "You come home. Wife asks 'Coffee?'. You say 'No, Thirst'. She gives water. She asks 'Food?'. You say 'Enaku Pasi' (To me hunger)."
+    },
+    {
+      "episode": 5,
+      "topic": "BOSS FIGHT: Sunday Lunch",
+      "intro": "The Ultimate Test. You are seated. The leaf is open. Survive.",
+      "vocab": [],
+      "scenario": "Rice is served. Say 'Enough'. Sambar is poured. Say 'Super'. They offer seconds. Say 'Only one'. They ask if you want Rasam. Say 'Later'. You finish. Say 'Stomach Full'."
+    },
+    {
+      "episode": 6,
+      "topic": "Rest and Reps",
+      "intro": "Audit day. Reviewing the Kitchen Arsenal.",
+      "vocab": [
+        {
+          "tamil": "நல்லா இருக்கு",
+          "english": "It's good"
+        },
+        {
+          "tamil": "போதும்",
+          "english": "Enough"
+        },
+        {
+          "tamil": "கொஞ்சம்",
+          "english": "A little"
+        },
+        {
+          "tamil": "அப்புறம்",
+          "english": "Later"
+        },
+        {
+          "tamil": "இப்போ",
+          "english": "Now"
+        },
+        {
+          "tamil": "நாளைக்கு",
+          "english": "Tomorrow"
+        },
+        {
+          "tamil": "பசி",
+          "english": "Hungry"
+        },
+        {
+          "tamil": "வயிறு ஃபுல்",
+          "english": "Stomach full"
+        },
+        {
+          "tamil": "எனக்கு",
+          "english": "To me"
+        },
+        {
+          "tamil": "உனக்கு",
+          "english": "To you"
+        }
+      ],
+      "scenario": "Rapid fire. English to Tamil."
+    },
+    {
+      "episode": 7,
+      "topic": "Upacharam (Hospitality)",
+      "intro": "The Art of Hospitality. You cannot just say No. You must praise, then refuse.",
+      "vocab": [
+        {
+          "tamil": "பரவாயில்லை",
+          "english": "It's okay / No problem"
+        },
+        {
+          "tamil": "சாப்பிடுங்க",
+          "english": "Please eat (respectful)"
+        },
+        {
+          "tamil": "வேற என்ன?",
+          "english": "What else?"
+        },
+        {
+          "tamil": "போயிட்டு வரேன்",
+          "english": "I'll go and come back (goodbye)"
+        }
+      ],
+      "scenario": "You are leaving a dinner. You say the food was Super. You say 'Poittu Varen'. They say stay longer. You say 'Paravailla'."
+    }
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "title": "The Morning Protocol",
+  "tier": 2,
+  "description": "Daily routine. Wake up, bathe, dress, navigate the house, leave and return. The domestic verb layer.",
+  "episodes": [
+    {
+      "episode": 1,
+      "topic": "Wake & Wash",
+      "intro": "Every day starts the same way. Get up. Brush. Bathe. The routine verbs that structure your morning.",
+      "vocab": [
+        {
+          "tamil": "எழுந்திரு",
+          "english": "Get up / Wake up"
+        },
+        {
+          "tamil": "குளி",
+          "english": "Bathe / Shower"
+        },
+        {
+          "tamil": "பல் தேய்",
+          "english": "Brush teeth"
+        }
+      ],
+      "scenario": "Wife shouts 'Get up! It's late!'. You stumble to the bathroom. 'Did you brush?'. Not yet. 'Brush first, then bathe'. The morning sequence is non-negotiable."
+    },
+    {
+      "episode": 2,
+      "topic": "Dress Code",
+      "intro": "What you wear matters. Especially for temple. The clothing verbs and the negotiation of what to put on.",
+      "vocab": [
+        {
+          "tamil": "சட்டை",
+          "english": "Shirt"
+        },
+        {
+          "tamil": "துணி",
+          "english": "Cloth / Clothes"
+        },
+        {
+          "tamil": "போடு",
+          "english": "Put on / Wear"
+        },
+        {
+          "tamil": "கழட்டு",
+          "english": "Remove / Take off"
+        },
+        {
+          "tamil": "மாத்து",
+          "english": "Change"
+        }
+      ],
+      "scenario": "Going to temple. Wife says 'Change your shirt'. You're wearing the wrong color. Take it off. Put on the white one. 'Change your clothes properly'."
+    },
+    {
+      "episode": 3,
+      "topic": "The House Map",
+      "intro": "Navigating the physical space. Doors, windows, fans, lights. The commands that control your environment.",
+      "vocab": [
+        {
+          "tamil": "வீடு",
+          "english": "House / Home"
+        },
+        {
+          "tamil": "கதவு",
+          "english": "Door"
+        },
+        {
+          "tamil": "ஜன்னல்",
+          "english": "Window"
+        },
+        {
+          "tamil": "விசிறி",
+          "english": "Fan"
+        },
+        {
+          "tamil": "லைட்",
+          "english": "Light"
+        }
+      ],
+      "scenario": "Summer afternoon. 'Close the door'. 'Open the window'. 'Turn on the fan'. Night time. 'Turn off the light'. Guest is coming. 'Open the door'. Someone left the fan on. 'Turn off the fan'."
+    },
+    {
+      "episode": 4,
+      "topic": "Departure & Return",
+      "intro": "Leaving the house and coming back. The verbs that bookend every day.",
+      "vocab": [
+        {
+          "tamil": "கிளம்பு",
+          "english": "Leave / Depart"
+        },
+        {
+          "tamil": "திரும்பு",
+          "english": "Return / Come back"
+        },
+        {
+          "tamil": "லேட்",
+          "english": "Late"
+        },
+        {
+          "tamil": "லேட் ஆச்சு",
+          "english": "It's gotten late"
+        }
+      ],
+      "scenario": "Morning rush. 'I'm leaving!'. Wife calls 'When will you return?'. Evening: 'It's late, leave the office'. You get home. 'I've returned'. 'Why so late?'."
+    },
+    {
+      "episode": 5,
+      "topic": "BOSS FIGHT: The Morning Sprint",
+      "intro": "Narrate your entire morning from alarm to departure. Use only Tamil.",
+      "vocab": [],
+      "scenario": "6:30am. Wake up. Brush teeth. Bathe. Choose clothes. Put on shirt. Open the door. Fan is on. Close the window. 'I'm leaving!'. 'It's late!'. Go."
+    },
+    {
+      "episode": 6,
+      "topic": "Rest and Reps",
+      "intro": "Audit Day. Morning routine vocabulary drill.",
+      "vocab": [
+        {
+          "tamil": "எழுந்திரு",
+          "english": "Get up"
+        },
+        {
+          "tamil": "குளி",
+          "english": "Bathe"
+        },
+        {
+          "tamil": "போடு",
+          "english": "Put on"
+        },
+        {
+          "tamil": "கழட்டு",
+          "english": "Remove"
+        },
+        {
+          "tamil": "கிளம்பு",
+          "english": "Leave"
+        },
+        {
+          "tamil": "திரும்பு",
+          "english": "Return"
+        }
+      ],
+      "scenario": "Rapid fire. I describe the action, you give the Tamil verb."
+    },
+    {
+      "episode": 7,
+      "topic": "The Kolam Protocol",
+      "intro": "Why the doorstep matters. The kolam is drawn every morning. Understanding this daily ritual connects you to the rhythm of the house.",
+      "vocab": [
+        {
+          "tamil": "கோலம்",
+          "english": "Kolam (floor design)"
+        },
+        {
+          "tamil": "வாசல்",
+          "english": "Doorstep / Entrance"
+        },
+        {
+          "tamil": "காலைல",
+          "english": "In the morning"
+        }
+      ],
+      "scenario": "You wake up early. Grandmother is already at the doorstep drawing kolam. Every morning. Without fail. She asks if you want to learn. You say 'How do you do it?'. She says 'You must do it every morning'."
+    }
+  ]
+}

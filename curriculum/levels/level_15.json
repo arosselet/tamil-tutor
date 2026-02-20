@@ -1,0 +1,174 @@
+{
+  "title": "The Verb Engine: Action",
+  "tier": 3,
+  "description": "Systematic verb paradigm training. Five high-frequency action verbs across all tenses, wrapped in scenarios.",
+  "episodes": [
+    {
+      "episode": 1,
+      "topic": "பேசு — Speak",
+      "intro": "The verb you hear most in any conversation ABOUT conversations. I'm speaking. I spoke. I will speak. Speak!",
+      "vocab": [
+        {
+          "tamil": "பேசுறேன்",
+          "english": "I am speaking"
+        },
+        {
+          "tamil": "பேசினேன்",
+          "english": "I spoke"
+        },
+        {
+          "tamil": "பேசுவேன்",
+          "english": "I will speak"
+        },
+        {
+          "tamil": "பேசுங்க",
+          "english": "Speak! (respectful)"
+        },
+        {
+          "tamil": "பேசாதீங்க",
+          "english": "Don't speak (respectful)"
+        }
+      ],
+      "scenario": "'Who are you talking to?'. 'I was speaking to Anna'. 'Don't speak so loudly'. 'Speak in Tamil'. 'I will speak to him tomorrow'. Every form in a family argument."
+    },
+    {
+      "episode": 2,
+      "topic": "வாங்கு — Buy",
+      "intro": "The market verb. You need it every single day. What did you buy? What should I buy? Buy this!",
+      "vocab": [
+        {
+          "tamil": "வாங்குறேன்",
+          "english": "I am buying"
+        },
+        {
+          "tamil": "வாங்கினேன்",
+          "english": "I bought"
+        },
+        {
+          "tamil": "வாங்குவேன்",
+          "english": "I will buy"
+        },
+        {
+          "tamil": "வாங்குங்க",
+          "english": "Buy! (respectful)"
+        }
+      ],
+      "scenario": "'What are you buying?'. 'I bought vegetables'. 'Buy two kilos of rice'. 'I will buy milk tomorrow'. The daily shopping conversation."
+    },
+    {
+      "episode": 3,
+      "topic": "தேடு — Search",
+      "intro": "You lose things. Everyone loses things. The verb for searching is your daily companion.",
+      "vocab": [
+        {
+          "tamil": "தேடுறேன்",
+          "english": "I am searching"
+        },
+        {
+          "tamil": "தேடினேன்",
+          "english": "I searched"
+        },
+        {
+          "tamil": "தேடுவேன்",
+          "english": "I will search"
+        },
+        {
+          "tamil": "தேடுங்க",
+          "english": "Search! (respectful)"
+        }
+      ],
+      "scenario": "'I'm searching for my keys'. 'I searched everywhere'. 'Search under the sofa'. 'I'll search in the car'. The daily hunt for lost objects."
+    },
+    {
+      "episode": 4,
+      "topic": "நட & ஓடு — Walk & Run",
+      "intro": "Movement at two speeds. The physical action verbs. Walk slowly. Run fast. Don't run in the house!",
+      "vocab": [
+        {
+          "tamil": "நடக்கிறேன்",
+          "english": "I am walking"
+        },
+        {
+          "tamil": "நடந்தேன்",
+          "english": "I walked"
+        },
+        {
+          "tamil": "ஓடுறேன்",
+          "english": "I am running"
+        },
+        {
+          "tamil": "ஓடினேன்",
+          "english": "I ran"
+        },
+        {
+          "tamil": "ஓடாதீங்க",
+          "english": "Don't run (respectful)"
+        }
+      ],
+      "scenario": "'Walk slowly'. 'I walked to the shop yesterday'. 'The bus is coming — run!'. 'Don't run in the house!'. 'He ran very fast'. Two verbs, two speeds, all tenses."
+    },
+    {
+      "episode": 5,
+      "topic": "BOSS FIGHT: The Full Day in Verbs",
+      "intro": "Narrate a complete day using all verb families from this level and previous levels.",
+      "vocab": [],
+      "scenario": "Morning: I spoke to wife. I walked to the bus stop. I ran because the bus came. Afternoon: I searched for the file. I bought lunch. Evening: Speaking to friend. Walking home. Full paradigm usage."
+    },
+    {
+      "episode": 6,
+      "topic": "Rest and Reps",
+      "intro": "Audit Day. All verb paradigms from this level.",
+      "vocab": [
+        {
+          "tamil": "பேசுறேன்",
+          "english": "I speak"
+        },
+        {
+          "tamil": "பேசினேன்",
+          "english": "I spoke"
+        },
+        {
+          "tamil": "வாங்கினேன்",
+          "english": "I bought"
+        },
+        {
+          "tamil": "தேடுறேன்",
+          "english": "I'm searching"
+        },
+        {
+          "tamil": "நடந்தேன்",
+          "english": "I walked"
+        },
+        {
+          "tamil": "ஓடினேன்",
+          "english": "I ran"
+        }
+      ],
+      "scenario": "Rapid fire. I say the English tense, you give the Tamil conjugation. Present. Past. Future. Command."
+    },
+    {
+      "episode": 7,
+      "topic": "The Infinitive Unlock",
+      "intro": "The secret pattern. Add the infinitive to Venum, Mudiyum, or Kudaadhu and you can express any desire, ability, or prohibition.",
+      "vocab": [
+        {
+          "tamil": "போக வேணும்",
+          "english": "Need to go"
+        },
+        {
+          "tamil": "சாப்பிட முடியாது",
+          "english": "Cannot eat"
+        },
+        {
+          "tamil": "பேச கூடாது",
+          "english": "Shouldn't speak"
+        },
+        {
+          "tamil": "வாங்க போறேன்",
+          "english": "I'm going to buy"
+        }
+      ],
+      "scenario": "Combining verbs. 'I need to go'. 'I can't eat now'. 'You shouldn't speak loudly'. 'I'm going to buy vegetables'. The infinitive is the key that chains all verbs together."
+    }
+  ]
+}

@@ -16,9 +16,12 @@ Phase 5: Checkpoint    → Mastery review, promote words, unlock next level
 ---
 
 ## Phase 1: The Download
-- **Trigger:** Start of a new Level.
-- **Action:** Generate the **Level Podcast** (audio file covering all lemmas in the level).
-- **Command:** `python scripts/generate_episode.py content/scripts/levelX_epY.md audio/levelX_epY.mp3`
+- **Trigger:** Start of a new Episode.
+- **Action:** 
+  1. **Run Director Checkpoint:** Verify mastery of previous episode's `active_podcast` words (see `protocol/roles/director.md`).
+  2. **Generate Script:** Director (Beats) → Architect (Script) → Producer (Polished Markdown).
+  3. **Generate Audio:** Run `python scripts/generate_episode.py content/scripts/levelX_epY.md audio/levelX_epY.mp3`
+- **Goal:** Ensure the learner is ready before creating new content.
 
 ## Phase 2: The Interactive Session (The "Sandwich")
 
