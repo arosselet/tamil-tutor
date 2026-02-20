@@ -1,24 +1,28 @@
-# Script: The Deep Dive — Hacking the Chennai Reflex
+# Script: The Deep Dive — Hacking the Kovai Reflex
 
-**Host:** Okay, so I’ve been looking at this project called Madras Mappillai, and I have to say—it’s kind of wild. It’s not really a language app. It’s more like a... manual for hacking your own brain?
+**Host:** Okay, so I’ve been looking at this project called Coimbatore Mappillai, and I have to say—it’s kind of wild. It’s not really a language app. It’s more like a... manual for hacking your own brain?
 
 **Guest:** (Enthusiastic) Right! It’s such a cool approach. Most people go into language learning wanting "fluency," but this project says, "Forget fluency. We want Operational Capacity."
 
-**Host:** Operational Capacity. I love that. It’s like they’re installing a survival interface for Chennai.
+**Host:** Operational Capacity. I love that. It’s like they’re installing a survival interface for Coimbatore.
 
 **Guest:** Exactly. And the way they do it is through this 800 Lemma Theory. Instead of thousands of words, they only focus on the eight hundred verbs and connectors that actually hold the language together. They call it the Glue.
 
 **Host:** Right, because if you have the glue, you can just... plug in English nouns?
 
-**Guest:** Yeah! That’s the Thanglish Hack. In Chennai, if you’re looking for a fridge or a computer, you just say "Fridge" or "Computer." If you try to use the formal Tamil word for electricity, you sound like you’re reading a textbook from the fifties. 
+**Guest:** Yeah! That’s the Thanglish Hack. In Kovai, if you’re looking for a fridge or a computer, you just say "Fridge" or "Computer." If you try to use the formal Tamil word for electricity, you sound like you’re reading a textbook from the fifties. 
 
 **Host:** (Laughs) So you actually sound *more* like a local by using English nouns?
 
-**Guest:** 100 percent. But you have to get the verbs right. And not just any verbs—the spoken ones. Like, a book will tell you the word for "I want" is வேண்டும். But on the street? No one says that. They say வேணும்.
+**Guest:** 100 percent. But you have to get the verbs right. And not just any verbs—the spoken ones. Like, a book will tell you the word for "I want" is வேண்டும். But on the street? No one says that. They say வேணும்ங்க.
 
-**Host:** வேணும். It’s shorter. 
+**Host:** வேணும்ங்க. It’s polite.
 
-**Guest:** Much shorter. Or "I'm going." Instead of the formal போகிறேன், you just say போறேன். It’s about building a reflex for the street, not the library.
+**Guest:** Exactly. That "nga" is the hallmark of the Kongu region. Or "I'm going." Instead of the formal போகிறேன், you just say போறேங்க. It’s about building a reflex for the street, the market, and even the family gatherings.
+
+**Host:** Speaking of family, they even have these social layers, right? Meeting peers vs. elders?
+
+**Guest:** (Nods) Oh, absolutely. That’s the secret sauce. You learn *Vaada* for your cousins and *Vaanga* for your uncles. It turns you from a tourist into a Mappillai.
 
 **Host:** And the technical side of this is what really got me. It’s all local-first. No cloud subscription, no data harvesting. It’s just Python scripts and Markdown files sitting on a desktop.
 
@@ -32,8 +36,8 @@
 
 **Guest:** It really feels like it was built for real life—especially for people with ADHD who struggle with that "all or nothing" momentum. It’s all about contact time. கொஞ்சம் கொஞ்சம். Little by little.
 
-**Host:** (Smiling) சரி. I’m sold. It’s not a course. It’s a protocol. 
+**Host:** (Smiling) சரிங்க. I’m sold. It’s not a course. It’s a protocol. 
 
-**Guest:** Exactly. Madras Mappillai. Version 2.0 of your brain.
+**Guest:** Exactly. Coimbatore Mappillai. Version 2.0 of your brain.
 
 **Host:** Let’s trigger the build.

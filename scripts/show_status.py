@@ -40,7 +40,7 @@ def main():
         return
 
     print("=" * 55)
-    print("📊 MADRAS MAPPILLAI — STATUS REPORT")
+    print("📊 COIMBATORE MAPPILLAI — STATUS REPORT")
     print("=" * 55)
 
     # Current position

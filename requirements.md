@@ -1,12 +1,12 @@
 Product Requirements Document (PRD)
-Madras Mappillai - The Audio Architect Protocol
+Coimbatore Mappillai - The Audio Architect Protocol
 1. Executive Summary
-Madras Mappillai is a mobile-first, audio-immersion Tamil learning system designed to build "Operational Capacity" for living in Chennai. Unlike traditional language learning tools that focus on reading and writing, this system prioritizes listening comprehension and spoken connectivity through high-quality, dual-voice AI-generated podcasts. The goal is to maximize "Operational Capacity"—the ability to navigate daily life, handle transactions, and build social connections—rather than academic fluency.
+Coimbatore Mappillai is a mobile-first, audio-immersion Tamil learning system designed to build "Operational Capacity" for living in Coimbatore. Unlike traditional language learning tools that focus on reading and writing, this system prioritizes listening comprehension and spoken connectivity through high-quality, dual-voice AI-generated podcasts. The goal is to maximize "Operational Capacity"—the ability to navigate daily life, handle transactions, and build social connections—rather than academic fluency.
 
 2. Core Philosophy
 2.1 The 800 Lemma Theory (Critical Mass)
 Goal: Reach "Operational Capacity" by mastering the 800 high-frequency "glue" words (verbs, connectors, pronouns) that constitute 80% of spoken connectivity.
-Why: This specific threshold is the tipping point where the user can effectively "survive" in Chennai, understand Tamil media, and continue learning through osmosis. It transforms the environment from "noise" into "input."
+Why: This specific threshold is the tipping point where the user can effectively "survive" in Coimbatore, understand Tamil media, and continue learning through osmosis. It transforms the environment from "noise" into "input."
 2.2 Dopamine-Driven Design
 The "Zinger" Motivation: The curriculum is designed to provide immediate social rewards. Every lesson includes "Zingers"—phrases designed to surprise locals and delight in-laws.
 The "Deep Cover" Persona: The user adopts a persona of a secret agent or undercover operator. This gamification provides an internal narrative that turns mundane study into a high-stakes mission, generating the dopamine needed to sustain effort.
@@ -24,7 +24,7 @@ Located in the protocol/ directory, this defines the pedagogical logic and role-
 
 The Director: Defines the strategy, learning goals, and "Beat Sheets" for each lesson.
 The Architect: Creative writer who converts Beat Sheets into engaging, dual-voice narrative scripts.
-The Producer: Technical executor who ensures TTS compatibility, handles "Madras" localization, and stitches audio segments.
+The Producer: Technical executor who ensures TTS compatibility, handles "Kongu" localization, and stitches audio segments.
 3.2 The Curriculum (The Content)
 Structure: 8 Weeks, 56 Days of content.
 Source of Truth: 
