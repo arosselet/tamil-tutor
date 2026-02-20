@@ -15,14 +15,22 @@
 
 File: `content/beats/levelX_epY_beats.md`
 
-- **Target Duration:** 8-12 minutes of audio.
-- **Structure:** 10-15 distinct Beats (Intro, Concept, Drill 1, Story, Drill 2, Review, Outro).
+- **Target Duration:** 15-25 minutes of audio.
+- **Structure:** 20-30 distinct Beats (Intro, Concept, Drill 1, Story, Drill 2, Review, Outro).
 - **Format:** Structured bulleted list with scene setting, target words per beat, and desired emotional outcome.
 
 ## Input
 
 Read from `curriculum/levels.json` for the target level and episode. Extract all vocabulary and scenarios.
 
-## The Rule of Threes
+## The Checkpoint Protocol (CRITICAL)
 
-To avoid LLM drift in long scripts, every 15-minute script MUST be generated in 3 distinct segments (Acts) of ~5 minutes each, then stitched by the Producer.
+When you are asked to generate a *new* episode, you MUST intercept the process:
+1. **Read `active_podcast`** from `progress/learner.json`. 
+2. **Pause and Ask:** Before writing the new Beat Sheet, present the user with a written reminder of the words (Tamil and English) from `active_podcast`. Gently ask if they have mastered these concepts. Do this in a frictionless manner.
+3. **Listen and Update:** Wait for the user's feedback. Apply their feedback to move words between `struggled_words` and `comfortable_words` in `learner.json`.
+4. **Update Metadata:** Update `active_podcast` with the details of the *new* episode you are about to create. Ensure you do this after finishing the checkpoint but before writing the Beat Sheet.
+
+## The Rule of Quarters / Fives
+
+To avoid LLM drift in long scripts, every 15-25 minute script MUST be generated in 4 to 5 distinct segments (Acts) of ~5 minutes each, then stitched by the Producer.

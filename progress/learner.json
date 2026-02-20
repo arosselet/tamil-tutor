@@ -1,7 +1,34 @@
 {
     "learner": "Andrew",
-    "current_level": 3,
-    "current_episode": 5,
+    "current_level": 4,
+    "current_episode": 2,
+    "active_podcast": {
+        "level": 4,
+        "episode": 2,
+        "topic": "Past Verbs (Consumption)",
+        "target_vocab": [
+            {
+                "tamil": "சாப்பிட்டேன்",
+                "english": "I ate"
+            },
+            {
+                "tamil": "குடிச்சேன்",
+                "english": "I drank"
+            },
+            {
+                "tamil": "பார்த்தேன்",
+                "english": "I saw / I watched"
+            },
+            {
+                "tamil": "தூங்கினேன்",
+                "english": "I slept"
+            },
+            {
+                "tamil": "எழுந்தேன்",
+                "english": "I woke up"
+            }
+        ]
+    },
     "tier_progress": {
         "tier1": {
             "target": 69,

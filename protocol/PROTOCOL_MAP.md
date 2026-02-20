@@ -12,7 +12,7 @@
 | User Says | Protocol | Action |
 |---|---|---|
 | `[Tamil Lesson]` | `protocol/session_protocol.md` | Start an interactive teaching session |
-| "Generate a podcast/script" | `protocol/roles/director.md` → `architect.md` → `producer.md` | 3-step content pipeline |
+| "Generate a podcast/script" | `protocol/roles/director.md` (Checkpoint) → `architect.md` → `producer.md` | Checkpoint + 3-step content pipeline |
 | "I listened to episode X" / progress update | `protocol/session_protocol.md` | Update `progress/learner.json` |
 | "Show my progress" | Read `progress/learner.json` + `curriculum/levels.json` | Report tier progress, streaks |
 | "Sync these updates" / pastes JSON array | `protocol/sync_ingest.md` | Apply mobile updates to learner.json + vocab index |
