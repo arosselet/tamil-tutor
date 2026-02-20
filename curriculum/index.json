@@ -102,9 +102,9 @@
     "file": "level_17.json"
   },
   "18": {
-    "title": "The Chennai Clock",
+    "title": "The Coimbatore Clock",
     "tier": 3,
-    "description": "Weather, time of day, missing numbers, and clock time. Navigating the Chennai day by sun, rain, and schedule.",
+    "description": "Weather, time of day, missing numbers, and clock time. Navigating the Coimbatore day by sun, rain, and schedule.",
     "file": "level_18.json"
   },
   "19": {

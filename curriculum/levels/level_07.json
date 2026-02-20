@@ -152,8 +152,8 @@
     },
     {
       "episode": 7,
-      "topic": "Madras Bashai",
-      "intro": "The dialect of Chennai. Understanding the Madras slang overlay.",
+      "topic": "Kongu Bashai",
+      "intro": "The dialect of Coimbatore. Understanding the Kongu slang overlay.",
       "vocab": [
         {
           "tamil": "மச்சி",
@@ -176,7 +176,7 @@
           "english": "Okay dude"
         }
       ],
-      "scenario": "Understanding the Chennai street dialect. How formality drops among friends. When to use Machi and when to avoid Dey."
+      "scenario": "Understanding the Kovai street dialect. How formality drops among friends. When to use Machi and when to avoid Dey."
     }
   ]
 }
