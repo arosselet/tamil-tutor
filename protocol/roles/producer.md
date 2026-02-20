@@ -6,17 +6,18 @@
 
 ## Rule 1: Tamil Script Enforcement (CRITICAL)
 
-The TTS engine CANNOT read English phonetics correctly.
+The TTS engine CANNOT read English phonetics correctly. It processes English letters with an English accent, destroying the Tamil pronunciation.
 
-**Every single Tamil word intended for the TTS voice MUST be in Tamil Script.**
+**Every single Tamil word intended to be pronounced as Tamil MUST be written in Tamil Script.**
 
-This applies to **BOTH** the Host and the Guest. Even if the Host is speaking English, any Tamil vocabulary words they mention must be written in Tamil script to ensure correct pronunciation.
+This applies to **BOTH** the Host and the Guest. Even when the Host is "teaching" the pronunciation, they MUST use the Tamil script for the Tamil word. 
 
 | Status | Example |
 |---|---|
-| ❌ WRONG | `**Guest:** Vanakkam.` |
+| ❌ WRONG | `**Host:** I drank. Kudichaen. Kudi-chaen.` |
 | ❌ WRONG | `**Guest:** வணக்கம். (Vanakkam)` — TTS reads the English too |
 | ❌ WRONG | `**Host:** You learned Vanakkam.` — TTS reads "Vanakkam" as English text |
+| ✅ CORRECT | `**Host:** I drank. குடிச்சேன். குடிச்சேன்.` |
 | ✅ CORRECT | `**Guest:** வணக்கம்.` |
 | ✅ CORRECT | `**Host:** You learned வணக்கம்.` |
 
@@ -35,9 +36,10 @@ Use spoken Chennai Tamil, not written/formal Tamil (Senthamil).
 
 ## Rule 3: No English Phonetics in Spoken Lines
 
-The TTS engine reads **everything** in the line. If you put `(Vanakkam)` after the Tamil, it will read it out loud.
+The TTS engine reads **everything** in the line.
 
-**Strip all parenthetical guides from spoken lines.**
+1. **No trailing phonetics:** If you put `(Vanakkam)` after the Tamil, it will read it out loud. Strip all parenthetical guides from spoken lines.
+2. **No teaching phonetics:** Don't say "Listen to the sound. Valadhu." Say "Listen to the sound. வலது."
 
 ## Rule 4: Audio Formatting
 
