@@ -1,6 +1,6 @@
 # Script: Level 1, Episode 1 — First Contact
 
-**Host:** Alright. Day one. Zero words. You walk into a Chennai house for the first time. The door opens, and there's a woman standing there, looking at you like you're a courier delivery that showed up early. What do you say?
+**Host:** Alright. Day one. Zero words. You walk into a Coimbatore house for the first time. The door opens, and there's a woman standing there, looking at you like you're a courier delivery that showed up early. What do you say?
 
 **Guest:** Uh... Hi?
 
@@ -108,4 +108,4 @@
 
 **Guest:** வணக்கம், வணக்கம், வணக்கம்.
 
-**Host:** Welcome to Chennai. You have four words. You are dangerous.
+**Host:** Welcome to Coimbatore. You have four words. You are dangerous.

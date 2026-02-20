@@ -8,7 +8,7 @@
 |:---|:---|:---|
 | **Mon** | **The Narrative (The Story)** | A cohesive "Boss Fight" story. High immersion, sensory-rich, low-frequency drilling. |
 | **Tue** | **The Mechanics (The Drill)** | High-frequency "Workout." Rapid-fire repetition, phonetic spotlights, "Toggle" training. |
-| **Wed** | **The Cultural Deep-Dive** | Explaining *why* we say things. Social etiquette, "Madras" vs. "Formal" comparisons, slang context. |
+| **Wed** | **The Cultural Deep-Dive** | Explaining *why* we say things. Social etiquette, "Kongu" vs. "Formal" comparisons, slang context. |
 | **Thu** | **The Remix (Cumulative)** | Interleaving *this* level's words with "Zingers" and "Glue" from previous levels. |
 | **Fri** | **The Speed-Dating** | 10-12 short, 1-minute situational vignettes (ATM, ordering coffee, calling an auto). |
 

@@ -3,10 +3,10 @@
 ## Core Philosophy
 
 ### Operational Capacity, Not Fluency
-The goal is **never** academic fluency. The goal is **Operational Capacity** — the ability to navigate Chennai, understand family gossip, handle transactions, and deploy surprise "zingers" that delight locals and in-laws.
+The goal is **never** academic fluency. The goal is **Operational Capacity** — the ability to navigate Coimbatore, understand family gossip, handle transactions, and deploy surprise "zingers" that delight locals and in-laws.
 
-### Dialect: Madras Tamil Only
-Strictly **Colloquial Modern Tamil** (Chennai/Coimbatore blend). We ignore formal/literary Tamil (Senthamil) completely.
+### Dialect: Coimbatore Tamil Only
+Strictly **Colloquial Modern Tamil** (Coimbatore blend). We ignore formal/literary Tamil (Senthamil) completely.
 - `வேணும்` not `வேண்டும்`
 - `இருக்கு` not `இருக்கிறது`
 - `போறேன்` not `போகிறேன்`
@@ -40,7 +40,7 @@ Master the high-frequency "glue" words — verbs, connectors, pronouns, particle
 
 ### 1. The Noun Shortcut
 **Rule:** Use English for all nouns/objects (e.g., "Fridge", "Office", "Bus").
-**Reason:** Modern Chennai Tamil is heavily "Thanglish". Using pure Tamil nouns marks you as a foreigner or a scholar. Use the English noun to sound local.
+**Reason:** Modern Coimbatore Tamil is heavily "Thanglish". Using pure Tamil nouns marks you as a foreigner or a scholar. Use the English noun to sound local.
 
 ### 2. Glue Over Vocabulary
 **Focus:** "Operational Glue" > raw vocabulary size.

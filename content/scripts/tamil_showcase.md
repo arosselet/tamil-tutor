@@ -26,7 +26,7 @@
 
 **Guest:** Show me the difference.
 
-**Host:** Okay. Practical example. "Flow." A textbook teaches you "Ideally/Simply". This system teaches you the Chennai shrug. "Just like that." "Whatever." "Quietly."
+**Host:** Okay. Practical example. "Flow." A textbook teaches you "Ideally/Simply". This system teaches you the Kovai shrug. "Just like that." "Whatever." "Quietly."
 
 **Guest:** சும்மா.
 

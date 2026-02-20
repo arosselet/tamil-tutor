@@ -260,4 +260,4 @@
 
 **Guest:** எவ்வளவு?
 
-**Host:** You now have directions, numbers, money, and space. The streets of Chennai are yours.
+**Host:** You now have directions, numbers, money, and space. The streets of Coimbatore are yours.

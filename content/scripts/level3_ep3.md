@@ -4,7 +4,7 @@
 
 **Guest:** The fun part.
 
-**Host:** Or the stressful part, depending on the vendor. In Chennai, every price is a conversation. Every transaction is a tiny negotiation. If you just pay what they ask, you're not just losing money—you're losing a chance to connect.
+**Host:** Or the stressful part, depending on the vendor. In Coimbatore, every price is a conversation. Every transaction is a tiny negotiation. If you just pay what they ask, you're not just losing money—you're losing a chance to connect.
 
 **Guest:** So how do I start the conversation?
 

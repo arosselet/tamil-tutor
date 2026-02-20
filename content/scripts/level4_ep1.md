@@ -1,6 +1,6 @@
 # Script: Level 4, Episode 1 — The Debrief
 
-**Host:** Alright. You know how to survive Chennai. You can greet people, eat food, take autos. Congratulations. You're a tourist.
+**Host:** Alright. You know how to survive Coimbatore. You can greet people, eat food, take autos. Congratulations. You're a tourist.
 
 **Guest:** Ouch.
 

@@ -6,7 +6,7 @@
 
 **Host:** Because we don't want "academic" Tamil. If you go to a class, they’ll teach you how to say "The fruit is on the table" in a way that makes you sound like a 19th-century poet.
 
-**Guest:** (Laughs) Right. And nobody talks like that in Chennai.
+**Guest:** (Laughs) Right. And nobody talks like that in Coimbatore.
 
 **Host:** Nobody. Our philosophy is **Operational Capacity**. We use what we call the **Thanglish Hack**. Rule number one: use English for all the nouns. You don't need the Tamil word for "Fridge" or "Office" or "Auto." Just use the English one.
 
