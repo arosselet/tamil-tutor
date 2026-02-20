@@ -1,6 +1,6 @@
 # Showcase: The Full Stack Protocol (Mandarin Edition)
 
-**Host:** Welcome to the "Madras Mappillai" project.
+**Host:** Welcome to the "Coimbatore Mappillai" project.
 
 **Guest:** The Mandarin build.
 
@@ -44,7 +44,7 @@
 
 **Guest:** But what are you actually learning? Random words?
 
-**Host:** No. The roadmap is battle-tested. It’s the same "Tamil2" curriculum, just ported.
+**Host:** No. The roadmap is battle-tested. It’s the same "Tamil2" (Coimbatore Mappillai) curriculum, just ported.
 
 **Guest:** So Level 1 is...
 

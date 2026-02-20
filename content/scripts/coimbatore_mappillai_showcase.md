@@ -1,12 +1,12 @@
-# Script: Madras Mappillai — The Audio Architect Protocol
+# Script: Coimbatore Mappillai — The Audio Architect Protocol
 
-**Host:** Welcome to a showcase of the Madras Mappillai system. If you’ve ever tried to learn a language like Tamil through an app, you’ve probably hit the wall. You can translate sentences about tigers in forests, but you can't navigate a busy street in Chennai. 
+**Host:** Welcome to a showcase of the Coimbatore Mappillai system. If you’ve ever tried to learn a language like Tamil through an app, you’ve probably hit the wall. You can translate sentences about tigers in forests, but you can't navigate a busy market in Kovai. 
 
-**Guest:** வணக்கம். Welcome. We built this system to solve a very specific problem: the gap between academic study and operational survival. We don't want you to be a scholar. We want you to be an operative.
+**Guest:** வணக்கம்ங்க. Welcome. We built this system to solve a very specific problem: the gap between academic study and operational survival. We don't want you to be a scholar. We want you to be a *Mappillai* of the Kongu region.
 
 **Host:** This is the Audio Architect Protocol. Our core mission is Operational Capacity. We focus on the eight hundred high-frequency words—the 800 Lemmas—that handle eighty percent of everything spoken in Tamil. These are the verbs, the connectors, and the pronouns. The Glue.
 
-**Guest:** And because we focus on the Glue, we can use the Thanglish Hack. In modern Chennai, people use English for almost every noun—Fridge, Office, Meeting. If you use the formal Tamil word for electricity, people will look at you like you’re reading from a museum plaque. But if you use the English noun and the Tamil verb, you sound like a local.
+**Guest:** And because we focus on the Glue, we can use the Thanglish Hack. In modern Coimbatore, people use English for nouns—Fridge, Office, Meeting. But if you don't use the polite *nga* or the right verb, you sound like you’re reading from a museum plaque. But if you use the English noun and the Tamil verb, you sound like a local Gounder.
 
 **Host:** It’s about building a skeletal structure. You plug your existing English vocabulary into the Tamil operating system. But engineering this reflex requires a different kind of architecture. We call it ADHD-friendly design.
 
@@ -16,7 +16,7 @@
 
 **Host:** Let’s look under the hood at "The Factory." This isn't a cloud subscription. It’s a local-first engineering pipeline. We have three distinct roles. The Director sets the strategy, the Architect writes the narrative, and the Producer ensures technical audio fidelity.
 
-**Guest:** And since we strictly use spoken Madras Tamil, our Producer ensures we never use formal written forms. For example, a book will teach you the word for "I want" as வேண்டும். But that sounds incredibly stiff. In our system, we only use the sound of the street: வேணும். 
+**Guest:** And since we strictly use spoken Kongu Tamil, our Producer ensures we never use formal written forms. For example, a book will teach you the word for "I want" as வேண்டும். But in Kovai, that’s way too stiff. We use the sound of the house: வேணும்ங்க.
 
 **Host:** Our Python engine generates these podcasts directly from Markdown scripts. And to bypass the limitations of mobile devices, we built the Mobile Bridge. 
 
@@ -32,6 +32,6 @@
 
 **Guest:** கொஞ்சம் கொஞ்சம். Little by little. The noise becomes signal. The city starts talking back to you.
 
-**Host:** This is Madras Mappillai. Welcome to the operational life.
+**Host:** This is Coimbatore Mappillai. Welcome to the operational life.
 
 **Guest:** சரி. Let's get started.

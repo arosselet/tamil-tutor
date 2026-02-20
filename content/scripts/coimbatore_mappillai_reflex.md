@@ -1,16 +1,16 @@
-# Script: Madras Mappillai — The Operational Reflex
+# Script: Coimbatore Mappillai — The Operational Reflex
 
-**Host:** Imagine you’re standing at a busy intersection in Chennai. It’s loud, it’s humid, and the language hitting your ears sounds like pure noise. You aren't there to write a novel or study poetry. You’re there to survive the traffic, order a meal, and find your way home.
+**Host:** Imagine you’re standing at an intersection in Coimbatore. It’s calm, the air is clean, and everyone is polite—but if you don't know the language, you’re still an outsider. You aren't there to write a novel. You’re there to navigate the hills, order a roast, and talk to your in-laws without sounding like a tourist.
 
-**Guest:** (Warmly) வணக்கம். Welcome. This is the story of Madras Mappillai—an exercise in engineering a linguistic reflex from scratch.
+**Guest:** (Warmly) வணக்கம்ங்க. Welcome. This is the story of Coimbatore Mappillai—an exercise in engineering a linguistic reflex from scratch.
 
 **Host:** We didn't build a language app. We built an Audio Architect Protocol. Our goal is Operational Capacity. Most systems fail because they try to teach you everything. We only care about the eight hundred high-frequency lemmas—the verbs and connectors that make up the skeletal structure of the language.
 
-**Guest:** We call it the Glue. In Chennai, you can use English for every single object—Fridge, Office, Meeting—but if you don't have the Tamil glue to stick them together, you’re just a tourist. We use the Thanglish Hack. We embrace the hybrid reality of the street. If you use the formal Tamil word for electricity, you sound like a scholar. If you use the English noun and the Tamil verb, you sound like a local.
+**Guest:** We call it the Glue. In Kovai, we value politeness. You can use English for nouns, but if you don't use the Tamil glue, you’re just a stranger. We embrace the "nga" law. If you say *Vandhutten*, you're a Madras guy. If you say *Vandhutte_nga*, you're family. We use the Thanglish Hack. Like Goundamani says, "Politics-la இதெல்லாம் சாதாரணமப்பா!" — we mix the English with the Tamil reflex.
 
 **Host:** But how do you actually install this in the human brain? Especially one that’s prone to distraction?
 
-**Guest:** That’s where the ADHD-friendly architecture comes in. The system is dual-voice, keeping the auditory cortex constantly engaged. We don't use books. We use high-stakes Boss Fight simulations and high-dopamine Zingers—phrases designed to surprise locals and delight your in-laws. 
+**Guest:** That’s where the ADHD-friendly architecture comes in. Dual-voice, high-engagement. We don't use books. We use social etiquette drills—knowing when to use *Vaanga* for your uncle and *Vaada* for your cousin. We use high-dopamine Zingers—phrases designed to surprise the gounders and delight your in-laws.
 
 **Host:** And the technical stack is just as rigorous. This is a local-first engineering pipeline. 
 
@@ -24,12 +24,12 @@
 
 **Host:** We pick one Zinger a day—a specific sound like நிறுத்துங்க. We don't study it. We mutter it whenever we walk through a doorway. We’re anchoring the language to physical movement. We’re moving the data from logical brain into muscle-memory disk.
 
-**Guest:** By the time you’re in that auto-rickshaw in Chennai, your feet remember the words before your brain does.
+**Guest:** By the time you’re in that auto-rickshaw in RS Puram, your feet remember the words before your brain does.
 
 **Host:** This isn't just a language. It’s a custom-built interface for a new city. It’s an exercise in engineering a human reflex.
 
 **Guest:** கொஞ்சம் கொஞ்சம். Little by little. The noise becomes signal.
 
-**Host:** This is Madras Mappillai.
+**Host:** This is Coimbatore Mappillai.
 
-**Guest:** சரி. Let’s trigger the build.
+**Guest:** சரிங்க. Let’s trigger the build.

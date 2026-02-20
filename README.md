@@ -1,6 +1,6 @@
-# Madras Mappillai — The Audio Architect Protocol
+# Coimbatore Mappillai — The Audio Architect Protocol
 
-**A framework for hacking language learning using LLMs. Built to achieve "Operational Capacity" in Chennai Tamil.**
+**A framework for hacking language learning using LLMs. Built to achieve "Operational Capacity" in Coimbatore Tamil.**
 
 This is not a traditional language course; it is an **Audio-First, Feedback-Driven Engine** designed to build high-utility survival skills for navigating daily life, managing transactions, and thriving in social environments.
 
@@ -8,9 +8,9 @@ This is not a traditional language course; it is an **Audio-First, Feedback-Driv
 
 Traditional language tools prioritize academic literacy over social survival. We aim to break the "Ghost at the Dinner Table" phenomenon through a radically pragmatic approach:
 
-*   **Operational Capacity, Not Fluency:** The goal isn't to hold a debate on philosophy; it's to hail an auto, survive meals with the in-laws, and drop culturally appropriate "zingers" to delight locals.
+*   **Operational Capacity, Not Fluency:** The goal isn't to hold a debate on philosophy; it's to hail an auto, survive meals with the gounder-in-laws, and drop polite yet sarcastic "nga" zingers.
 *   **The 800 Lemmas (The Tipping Point):** We ruthlessly focus on mastering the high-frequency "glue" words (verbs, connectors, pronouns) that constitute 80% of spoken connectivity. Once you know the glue, the environment transforms from "noise" into "input."
-*   **Madras Tamil Only:** We strictly teach Modern Colloquial Tamil (Chennai/Coimbatore blend). We actively ignore formal/literary Tamil (*Senthamil*).
+*   **Coimbatore Tamil Only:** We strictly teach Modern Colloquial Kongu Tamil (The polite "nga" dialect). We actively ignore formal/literary Tamil (*Senthamil*).
 *   **ADHD-Friendly & Dopamine-Driven:**
     *   **Low Friction:** Designed to fit into "dead time" (commuting, chores) via generated audio episodes. 
     *   **The "Deep Cover" Persona:** Grammatical drills are boring. Pretending you're an undercover operative building cover identity skills is not.
@@ -22,7 +22,7 @@ The core "brain" of this repository isn't written in a programming language—it
 
 *   **The Director:** Designs the strategy, sets learning goals, and writes the "Beat Sheets" for each lesson.
 *   **The Architect:** A creative writer who converts the Beat Sheets into engaging, dual-voice narrative scripts.
-*   **The Producer:** A technical executor that ensures TTS compatibility, handles "Madras" localization, and stitches audio segments.
+*   **The Producer:** A technical executor that ensures TTS compatibility, handles "Kongu" localization, and stitches audio segments.
 
 The output is a dynamic, culturally nuanced Tamil reflex, synthesized into high-quality, dual-voice MP3 podcasts on demand.
 

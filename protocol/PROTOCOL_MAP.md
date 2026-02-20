@@ -34,11 +34,12 @@ scripts/             → Python tools (audio gen, vocab builder, dashboard)
 | Category | File | Purpose |
 |---|---|---|
 | **Philosophy** | `protocol/philosophy.md` | Dialect, goals, tactical rules |
+| **Immersion Gradient** | `protocol/immersion_gradient.md` | TEACH/USE/CALLBACK modes, Host language ratio by tier |
 | **Learning Loop** | `protocol/learning_loop.md` | 5-phase immersion cycle |
 | **Session** | `protocol/session_protocol.md` | Interactive lesson handling |
 | **Rotation** | `protocol/weekly_rotation.md` | 5-day style rotation engine |
-| **Director** | `protocol/roles/director.md` | Beat sheet from vocabulary |
-| **Architect** | `protocol/roles/architect.md` | Script from beat sheet |
+| **Director** | `protocol/roles/director.md` | Beat sheet + Word Status Sheet from vocabulary |
+| **Architect** | `protocol/roles/architect.md` | Script from beat sheet (gradient-aware) |
 | **Producer** | `protocol/roles/producer.md` | TTS-ready script (Tamil Script enforcement) |
 | **Mobile Sync** | `protocol/mobile_sync.md` | Phone-side: when/how to emit progress JSON |
 | **Sync Ingest** | `protocol/sync_ingest.md` | Desktop-side: apply mobile updates |

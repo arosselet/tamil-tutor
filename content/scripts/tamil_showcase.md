@@ -1,8 +1,8 @@
-# Showcase: The Tamil Protocol (Madras Mappillai)
+# Showcase: The Tamil Protocol (Coimbatore Mappillai)
 
-**Host:** Welcome to the "Madras Mappillai" project.
+**Host:** Welcome to the "Coimbatore Mappillai" project.
 
-**Guest:** The Tamil Engine.
+**Guest:** The Kongu Engine.
 
 **Host:** Yes. We’re running the core architecture on its home turf.
 

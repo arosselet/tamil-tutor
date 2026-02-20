@@ -1,31 +1,31 @@
 {
     "learner": "Andrew",
     "current_level": 4,
-    "current_episode": 2,
+    "current_episode": 3,
     "active_podcast": {
         "level": 4,
-        "episode": 2,
-        "topic": "Past Verbs (Consumption)",
+        "episode": 3,
+        "topic": "Chronology Glue",
         "target_vocab": [
             {
-                "tamil": "சாப்பிட்டேன்",
-                "english": "I ate"
+                "tamil": "அதுக்கு அப்புறம்",
+                "english": "After that"
             },
             {
-                "tamil": "குடிச்சேன்",
-                "english": "I drank"
+                "tamil": "முன்னாடி",
+                "english": "Before"
             },
             {
-                "tamil": "பார்த்தேன்",
-                "english": "I saw / I watched"
+                "tamil": "நேத்து",
+                "english": "Yesterday"
             },
             {
-                "tamil": "தூங்கினேன்",
-                "english": "I slept"
+                "tamil": "இன்னைக்கு",
+                "english": "Today"
             },
             {
-                "tamil": "எழுந்தேன்",
-                "english": "I woke up"
+                "tamil": "முதல்ல",
+                "english": "First"
             }
         ]
     },
@@ -60,7 +60,9 @@
         "நூறு",
         "பத்து",
         "மேல",
-        "வெளிய"
+        "வெளிய",
+        "எழுந்தேன்",
+        "பார்த்தேன்"
     ],
     "mastered_words": [],
     "comfortable_words": [
@@ -118,7 +120,10 @@
         "வாருங்களா?",
         "வேணும்",
         "வேண்டாம்",
-        "வேற என்ன?"
+        "வேற என்ன?",
+        "குடிச்சேன்",
+        "சாப்பிட்டேன்",
+        "தூங்கினேன்"
     ],
     "sessions": [
         {

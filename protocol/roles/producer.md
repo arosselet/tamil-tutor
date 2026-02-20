@@ -23,16 +23,17 @@ This applies to **BOTH** the Host and the Guest. Even when the Host is "teaching
 
 **No exceptions.** If phonetic guides are needed for the human reader, they go in a separate "Study Guide" document, never in the TTS script.
 
-## Rule 2: Colloquial Conversion (Madras Tamil)
+## Rule 2: Colloquial Conversion (Kongu Tamil)
 
-Use spoken Chennai Tamil, not written/formal Tamil (Senthamil).
+Use spoken Coimbatore/Kongu Tamil, not written/formal Tamil (Senthamil). The Kongu dialect is known for its polite yet informal "nga" suffix and specific vocabulary.
 
-| Formal (Senthamil) | Spoken (Madras) | Script |
-|---|---|---|
-| வேண்டும் (Vendum) | வேணும் (Venum) | வேணும் |
-| இருக்கிறது (Irukkirathu) | இருக்கு (Irukku) | இருக்கு |
-| போகிறேன் (Pogiren) | போறேன் (Poren) | போறேன் |
-| வந்து விட்டேன் (Vandhu Vitten) | வந்துட்டேன் (Vandhutten) | வந்துட்டேன் |
+| Formal (Senthamil) | Spoken (Kongu) | Script | Notes |
+|---|---|---|---|
+| வேண்டும் (Vendum) | வேணும்ங்க (Venum-nga) | வேணும்ங்க | Polite "nga" added |
+| இருக்கிறது (Irukkirathu) | இருக்குதுங்க (Irukkudhu-nga) | இருக்குதுங்க | Or simple "இருக்கு" |
+| போகிறேன் (Pogiren) | போறேங்க (Poren-nga) | போறேங்க | |
+| வந்து விட்டேன் (Vandhu Vitten) | வந்துட்டேங்க (Vandhutten-nga) | வந்துட்டேங்க | |
+| என்னங்க (Ennanga) | என்னுங்க (Ennunga) | என்னுங்க | Specific Kongu sound |
 
 ## Rule 3: No English Phonetics in Spoken Lines
 
@@ -61,5 +62,5 @@ Any other speaker tag will cause the audio generator to use a fallback voice.
 A "Clean" script ready for `scripts/generate_episode.py`:
 - NO parenthetical guides in spoken lines
 - ALL Tamil in Tamil Script
-- ALL colloquial forms used
+- ALL Kongu colloquial forms used (the "nga" law)
 - Proper punctuation for TTS pacing

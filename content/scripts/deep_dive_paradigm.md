@@ -1,8 +1,8 @@
 # Script: The Deep Dive — The Generative Paradigm
 
-**Host:** Okay, so I’ve been digging into the "Madras Mappillai" project, and it’s honestly one of the most clever bits of personal engineering I’ve seen in a while. But here’s the thing that blew my mind: the whole system is basically just a dozen Markdown files.
+**Host:** Okay, so I’ve been digging into the "Coimbatore Mappillai" project, and it’s honestly one of the most clever bits of personal engineering I’ve seen in a while. But here’s the thing that blew my mind: the whole system is basically just a dozen Markdown files.
 
-**Guest:** (Laughs) Right! It’s tiny. It’s not some massive 500MB app with a thousand dependencies. It’s a couple of Python scripts, two JSON files, and a handful of protocols written—wait for it—mostly in English.
+**Guest:** (Laughs) Right! It’s tiny. It’s not some massive 500MB app with a thousand dependencies. It’s a couple of Python scripts, two JSON files, and a handful of protocols written—mostly in English.
 
 **Host:** That’s the wild part. The "code" that runs the learning logic is just a set of high-level instructions for an AI. It’s like the system is written in English, but the *output* is a Tamil reflex.
 
@@ -36,7 +36,7 @@
 
 **Guest:** (Laughs) The "Somatic Hack." You pick a "Zinger" for the day, like நிறுத்துங்க, and you just mutter it whenever you walk through a door. You’re literally moving the data from your logical RAM into your muscle-memory disk via physical movement.
 
-**Host:** By the time you’re in Chennai, you aren't "thinking" in Tamil. You’re just... operating.
+**Host:** By the time you’re in Coimbatore, you aren't "thinking" in Tamil. You’re just... operating like a local *Mappillai*.
 
 **Guest:** கொஞ்சம் கொஞ்சம். Little by little. It’s not just an app. It’s a generative protocol for your own brain.
 
