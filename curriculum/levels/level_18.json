@@ -1,12 +1,12 @@
 {
-  "title": "The Chennai Clock",
+  "title": "The Coimbatore Clock",
   "tier": 3,
-  "description": "Weather, time of day, missing numbers, and clock time. Navigating the Chennai day by sun, rain, and schedule.",
+  "description": "Weather, time of day, missing numbers, and clock time. Navigating the Coimbatore day by sun, rain, and schedule.",
   "episodes": [
     {
       "episode": 1,
       "topic": "Weather Report",
-      "intro": "Chennai has two modes: hot, and very hot. Plus the occasional monsoon that floods everything. The weather vocabulary.",
+      "intro": "Coimbatore weather is generally milder, but it has its seasons. Plus the occasional monsoon. The weather vocabulary.",
       "vocab": [
         {
           "tamil": "வெயில்",
@@ -25,7 +25,7 @@
           "english": "Extreme heat / Sweltering"
         }
       ],
-      "scenario": "'The sun is brutal today'. 'Is it going to rain?'. 'Nice breeze in the evening'. 'This Chennai heat is extreme!'. The four words that describe 90% of Chennai weather conversations."
+      "scenario": "'The sun is brutal today'. 'Is it going to rain?'. 'Nice breeze in the evening'. 'This Kovai heat is extreme!'. The four words that describe 90% of Coimbatore weather conversations."
     },
     {
       "episode": 2,
@@ -101,7 +101,7 @@
     },
     {
       "episode": 5,
-      "topic": "BOSS FIGHT: The Chennai Day Planner",
+      "topic": "BOSS FIGHT: The Coimbatore Day Planner",
       "intro": "Plan a full day around weather and time. Morning is okay. Afternoon is too hot. Rain in the evening. Adjust.",
       "vocab": [],
       "scenario": "Morning walk at 6. Shop opens at 9. Afternoon too hot — stay home. Rain at 4. Evening temple at 6 if rain stops. Dinner at 8. Plan, adjust, replan."
@@ -140,8 +140,8 @@
     },
     {
       "episode": 7,
-      "topic": "The Two Seasons of Chennai",
-      "intro": "Summer survival vs. monsoon survival. Why Chennaites track weather the way traders track markets. The vocabulary of climate adaptation.",
+      "topic": "The Two Seasons of Coimbatore",
+      "intro": "Summer survival vs. monsoon survival. Why locals track weather the way traders track markets. The vocabulary of climate adaptation.",
       "vocab": [
         {
           "tamil": "வெள்ளம்",
@@ -156,7 +156,7 @@
           "english": "Power went out"
         }
       ],
-      "scenario": "Monsoon hits. Flood in the streets. Power goes out. No electricity. The neighborhood WhatsApp group is buzzing. Understanding Chennai's relationship with water."
+      "scenario": "Monsoon hits. Flood in the streets. Power goes out. No electricity. The neighborhood WhatsApp group is buzzing. Understanding Coimbatore's relationship with water."
     }
   ]
 }

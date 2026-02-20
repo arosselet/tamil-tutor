@@ -30,15 +30,15 @@
     {
       "episode": 2,
       "topic": "The Respect Toggle",
-      "intro": "Tamil society runs on hierarchy. Today we learn how to show respect without thinking.",
+      "intro": "Tamil society runs on hierarchy. Today we learn how to show respect without thinking: the Peer vs. Elder dynamic.",
       "vocab": [
         {
           "tamil": "நீங்க",
-          "english": "You (respectful)"
+          "english": "You (respectful - Elders/Strangers)"
         },
         {
           "tamil": "நீ",
-          "english": "You (informal)"
+          "english": "You (informal - Peers/Cousins)"
         },
         {
           "tamil": "இங்க",
@@ -49,7 +49,7 @@
           "english": "There"
         }
       ],
-      "scenario": "You are telling an auto driver where to go. You don't say 'Nee'. You say 'Neenga'. You point there. Anga."
+      "scenario": "You meet your younger cousin. You use 'Nee'. Then her father walks in. You switch to 'Neenga' instantly. Architect Note: Channel Sathyaraj's smooth transition between casual and respectful tones here."
     },
     {
       "episode": 3,

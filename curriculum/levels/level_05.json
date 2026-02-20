@@ -181,6 +181,54 @@
         }
       ],
       "scenario": "Understanding family structure conversations. When they say 'Murai Maman's daughter', they might be matchmaking."
+    },
+    {
+      "episode": 8,
+      "topic": "Cousin Hangout",
+      "intro": "The casual tier. Hanging out with peers and cousins. Dropping the formalities and embracing the Kongu vibe.",
+      "vocab": [
+        {
+          "tamil": "வாடா",
+          "english": "Come (informal male)"
+        },
+        {
+          "tamil": "வாடி",
+          "english": "Come (informal female)"
+        },
+        {
+          "tamil": "என்னுங்கப்பா",
+          "english": "What man! (Kongu casual)"
+        },
+        {
+          "tamil": "மச்சான்",
+          "english": "Brother-in-law / Close friend"
+        }
+      ],
+      "scenario": "You are at a tea stall with your cousins. You call your male cousin over. You ask him what's up using Kongu slang. Architect Note: Inject some Goundamani-style friendly sarcasm here."
+    },
+    {
+      "episode": 9,
+      "topic": "Kids Talk",
+      "intro": "The soft tier. How to talk to children affectionately using the gentle 'nga' suffix and sweet names.",
+      "vocab": [
+        {
+          "tamil": "குட்டி",
+          "english": "Little one"
+        },
+        {
+          "tamil": "பாப்பா",
+          "english": "Baby / Little girl"
+        },
+        {
+          "tamil": "அம்மு",
+          "english": "Precious (affectionate)"
+        },
+        {
+          "tamil": "சும்மா இருங்க",
+          "english": "Be quiet / Be still (gentle)"
+        }
+      ],
+      "scenario": "Your niece is running around. You call her over affectionately. You give her a sweet. She is naughty, so you tell her to be still gently. Architect Note: Channel Sivakumar's soft, paternal movie persona here."
     }
   ]
 }
