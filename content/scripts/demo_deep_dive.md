@@ -2,7 +2,7 @@
 
 **Host:** You know, I was looking at the curriculum files. You’ve strictly ignored almost everything from a standard Tamil textbook. Why?
 
-**Guest:** Because if you learn from a textbook, you end up sounding like a news anchor from the 1950s. It’s what we call "Senthamil"—Formal Tamil. It’s beautiful for literature, but it’s a disaster for the streets of Chennai.
+**Guest:** Because if you learn from a textbook, you end up sounding like a news anchor from the 1950s. It’s what we call "Senthamil"—Formal Tamil. It’s beautiful for literature, but it’s a disaster for the streets of Coimbatore.
 
 **Host:** Give me an example. What’s the "Book" version versus the "Street" version?
 
@@ -46,7 +46,7 @@
 
 **Guest:** **Quiet Broadcasting**. It’s a somatic hack. We pick one "Zinger" a day—like **நிறுத்துங்க** (*Niruthunga*), which means "Stop." I don't "study" it. I just mutter it three times whenever I walk through a doorway. I’m anchoring the language to my physical movement. I’m moving the data from my logical brain into my muscle memory. 
 
-**Host:** So by the time you’re in an auto-rickshaw in Chennai...
+**Host:** So by the time you’re in an auto-rickshaw in Coimbatore...
 
 **Guest:** My feet remember the word before my brain does.
 

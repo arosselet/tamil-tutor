@@ -4,7 +4,7 @@
 
 **Guest:** The numbers?
 
-**Host:** The numbers. But don't worry. This isn't a math class. You don't need to count to a billion. In the streets of Chennai, you only need six numbers to survive 90% of your interactions.
+**Host:** The numbers. But don't worry. This isn't a math class. You don't need to count to a billion. In the streets of Coimbatore, you only need six numbers to survive 90% of your interactions.
 
 **Guest:** Only six?
 

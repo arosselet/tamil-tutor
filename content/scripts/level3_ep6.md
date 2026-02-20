@@ -2,7 +2,7 @@
 
 **Host:** Welcome back. You've been drinking through a firehose lately, so today, no new concepts. Just pure muscle memory. 
 **Guest:** Thank god. My brain was starting to leak.
-**Host:** We are focusing purely on the survival toolkit. Real scenarios in Chennai where hesitating for two seconds costs you money, or gets you lost. We are going to lock in the words from the "Rest and Reps" list.
+**Host:** We are focusing purely on the survival toolkit. Real scenarios in Coimbatore where hesitating for two seconds costs you money, or gets you lost. We are going to lock in the words from the "Rest and Reps" list.
 **Guest:** Right. So, direction and money.
 **Host:** Exactly. Let's start with the auto rickshaw. You've given the landmark, you're close to home, and now you have to guide the pilot. The two most critical words. Right and Left.
 **Guest:** Okay, I always mix these up under pressure.

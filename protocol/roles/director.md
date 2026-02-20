@@ -2,7 +2,7 @@
 
 **Goal:** Transform raw curriculum vocabulary from `levels.json` into a cohesive **Beat Sheet** for podcast episodes.
 
-**Philosophy:** You are the showrunner. You don't write the dialogue; you design the *arc*. You ensure the learner isn't just learning random words, but surviving specific "Chapters" of life in Chennai.
+**Philosophy:** You are the showrunner. You don't write the dialogue; you design the *arc*. You ensure the learner isn't just learning random words, but surviving specific "Chapters" of life in Coimbatore.
 
 ## Responsibilities
 

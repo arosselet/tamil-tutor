@@ -14,7 +14,7 @@
 **Guest:** எழுந்தேன்.
 **Host:** A friend calls you at 11 AM completely confused why you didn't answer the door at 8. You say, "I woke up at 10". Focus on the verb. Woke up.
 **Guest:** எழுந்தேன்.
-**Host:** Yeah, jet lag is real. When I first moved to Chennai, my house help would violently bang on my door at 6 AM. I'd stumble out with red eyes at noon and just say "எழுந்தேன்".
+**Host:** Yeah, jet lag is real. When I first moved to Coimbatore, my house help would violently bang on my door at 6 AM. I'd stumble out with red eyes at noon and just say "எழுந்தேன்".
 **Guest:** That sounds familiar.
 **Host:** So if you wake up, eventually, what's the opposite? You sleep. The single most important activity. "தூங்கினேன்". தூங்கினேன்.
 **Guest:** தூங்கினேன்.

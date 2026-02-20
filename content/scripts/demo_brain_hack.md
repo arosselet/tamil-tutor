@@ -4,7 +4,7 @@
 
 **Guest:** 800? That sounds... small.
 
-**Host:** It’s tiny. But it’s the **Glue**. In any language, about 800 words—verbs, connectors, pronouns—handle 80% of the connectivity. If you master the glue, you can use English for every single noun and you’ll be 90% understood in Chennai.
+**Host:** It’s tiny. But it’s the **Glue**. In any language, about 800 words—verbs, connectors, pronouns—handle 80% of the connectivity. If you master the glue, you can use English for every single noun and you’ll be 90% understood in Coimbatore.
 
 **Guest:** So I don't need to learn the word for "Computer" or "Electricity"?
 
@@ -28,7 +28,7 @@
 
 **Guest:** Why?
 
-**Host:** It anchors the sound to a physical movement. It moves the language from your "study brain" into your "muscle memory." By the time you’re actually in Chennai, the words don't come from your head—they come from your feet.
+**Host:** It anchors the sound to a physical movement. It moves the language from your "study brain" into your "muscle memory." By the time you’re actually in Coimbatore, the words don't come from your head—they come from your feet.
 
 **Guest:** So it’s less about "learning" and more about "installing" a new operating system?
 

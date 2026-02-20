@@ -1,6 +1,6 @@
 **Host:** So, looking at the technical architecture here, it’s clear this isn’t a standard language app. You’ve strictly ignored the formal curriculum. Why the pivot?
 
-**Guest:** Because if you study from a traditional textbook, you end up sounding like a news anchor from thirty years ago. It’s what we call Senthamil. It’s elegant for poetry, but it’s a total mismatch for the streets of Chennai.
+**Guest:** Because if you study from a traditional textbook, you end up sounding like a news anchor from thirty years ago. It’s what we call Senthamil. It’s elegant for poetry, but it’s a total mismatch for the streets of Coimbatore.
 
 **Host:** Give me a specific example. What’s the delta between the book and the street?
 
@@ -38,7 +38,7 @@
 
 **Guest:** Quiet Broadcasting. It’s the ultimate somatic hack. We pick one Zinger a day, like நிறுத்துங்க. I don't study it; I just mutter it whenever I walk through a doorway. I’m anchoring the language to my physical movement. I’m moving the data from my logical brain into my muscle memory.
 
-**Host:** So by the time you’re actually in Chennai...
+**Host:** So by the time you’re actually in Coimbatore...
 
 **Guest:** My feet remember the words before my brain does.
 

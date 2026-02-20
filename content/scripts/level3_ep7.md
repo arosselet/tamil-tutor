@@ -4,7 +4,7 @@
 
 **Guest:** Negotiating the meter?
 
-**Host:** The eternal struggle. In Chennai, the "Auto Meter" is a mythical beast. People say it exists, but seeing it in action is rare. Today, we try to wake it up.
+**Host:** The eternal struggle. In Coimbatore, the "Auto Meter" is a mythical beast. People say it exists, but seeing it in action is rare. Today, we try to wake it up.
 
 **Guest:** What's the magic spell?
 

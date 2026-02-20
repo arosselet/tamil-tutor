@@ -25,7 +25,7 @@ Phase 5: Checkpoint    → Mastery review, promote words, unlock next level
 The core daily session with Gemini. Structured in 4 layers:
 
 1. **The Hook (The "Why")**
-   - Cultural context. Why does this matter in Chennai?
+   - Cultural context. Why does this matter in Coimbatore?
    - Sensory-rich scene setting (smells, sounds, textures).
 
 2. **The Mechanics (Pattern + Vocab)**

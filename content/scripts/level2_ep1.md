@@ -4,7 +4,7 @@
 
 **Guest:** The most dangerous room in the house.
 
-**Host:** Exactly. In Chennai, the kitchen is where you win or lose the war of hospitality. Your mother-in-law is watching you. The host's wife is watching you. And they are all holding a ladle full of sambar. 
+**Host:** Exactly. In Coimbatore, the kitchen is where you win or lose the war of hospitality. Your mother-in-law is watching you. The host's wife is watching you. And they are all holding a ladle full of sambar. 
 
 **Guest:** So how do I survive?
 
