@@ -9,7 +9,7 @@
 1. **Engagement First:** Use humor, suspense, and relatable "Expat Struggles" in Chennai.
 2. **The "Thanglish" Bridge:** Seamless blending of English context and Tamil target words.
 3. **Flow:** Write for the EAR. Short sentences. Natural pauses. Banter between Host and Guest.
-4. **Looping:** To fill 10 minutes, you must *loop* the drills. Ask the same question 3 ways. Have the guest fail, then succeed.
+4. **Looping:** To fill 20 minutes, you must *loop* the drills. Ask the same question 3 ways. Have the guest fail, then succeed.
 5. **Banter:** The Host and Guest are characters. They joke, tease, and share personal anecdotes. 30% of runtime should be "Vibe."
 
 ## Format
