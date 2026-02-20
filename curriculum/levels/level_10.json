@@ -1,0 +1,146 @@
+{
+  "title": "The Emotional Radar",
+  "tier": 2,
+  "description": "Feelings, emotions, likes and dislikes. Moving from physical states to emotional literacy.",
+  "episodes": [
+    {
+      "episode": 1,
+      "topic": "Happy & Proud",
+      "intro": "You can say you are hungry. You can say you are tired. But can you say you are HAPPY? Feelings start today.",
+      "vocab": [
+        {
+          "tamil": "சந்தோஷம்",
+          "english": "Happy / Joy"
+        },
+        {
+          "tamil": "பெருமை",
+          "english": "Proud / Pride"
+        }
+      ],
+      "scenario": "Your child says their first Tamil word. Wife says 'I'm so happy!'. Grandma says 'I feel proud'. You feel both."
+    },
+    {
+      "episode": 2,
+      "topic": "Anger & Fear",
+      "intro": "The dark side. Anger when the auto cheats you. Fear when you see the cockroach. Essential survival emotions.",
+      "vocab": [
+        {
+          "tamil": "கோவம்",
+          "english": "Angry / Anger"
+        },
+        {
+          "tamil": "பயம்",
+          "english": "Scared / Fear"
+        },
+        {
+          "tamil": "கோவப்படாதீங்க",
+          "english": "Don't be angry (respectful)"
+        }
+      ],
+      "scenario": "Auto driver charges double. You feel angry. Wife says 'Don't be angry'. You see a huge cockroach in the bathroom. Now you feel fear. Wife laughs."
+    },
+    {
+      "episode": 3,
+      "topic": "Worry & Sadness",
+      "intro": "The quiet emotions. The ones that sit in the chest. Worry when Mom calls from abroad. Sadness when friends leave.",
+      "vocab": [
+        {
+          "tamil": "கவலை",
+          "english": "Worry"
+        },
+        {
+          "tamil": "கவலைப்படாதீங்க",
+          "english": "Don't worry (respectful)"
+        },
+        {
+          "tamil": "சோகம்",
+          "english": "Sad / Sadness"
+        },
+        {
+          "tamil": "வெட்கம்",
+          "english": "Shy / Embarrassment"
+        }
+      ],
+      "scenario": "Mom calls from abroad. She worries about you. You say 'Don't worry'. Friend is leaving Chennai. You feel sad. At a family function, someone praises your Tamil. You feel shy."
+    },
+    {
+      "episode": 4,
+      "topic": "Like & Dislike",
+      "intro": "The preference system. This is how you build a personality in Tamil. I like this. I don't like that.",
+      "vocab": [
+        {
+          "tamil": "பிடிக்கும்",
+          "english": "I like / It pleases"
+        },
+        {
+          "tamil": "பிடிக்காது",
+          "english": "I don't like"
+        },
+        {
+          "tamil": "இஷ்டம்",
+          "english": "Preference / Liking"
+        }
+      ],
+      "scenario": "Friend asks about food. You like dosa. You don't like bitter gourd. Wife's preference is biryani. What is your favorite movie? 'I like Rajini movies'."
+    },
+    {
+      "episode": 5,
+      "topic": "BOSS FIGHT: The Emotional Debrief",
+      "intro": "A movie scene described to you. Identify and express four different emotions as the scene unfolds.",
+      "vocab": [],
+      "scenario": "Scene: Hero gets a promotion (happy). Villain threatens his family (fear). His friend betrays him (angry). His mother is alone at home (worry). Express each emotion as you hear the story."
+    },
+    {
+      "episode": 6,
+      "topic": "Rest and Reps",
+      "intro": "Audit Day. The emotion vocabulary drill.",
+      "vocab": [
+        {
+          "tamil": "சந்தோஷம்",
+          "english": "Happy"
+        },
+        {
+          "tamil": "கோவம்",
+          "english": "Angry"
+        },
+        {
+          "tamil": "பயம்",
+          "english": "Scared"
+        },
+        {
+          "tamil": "கவலை",
+          "english": "Worry"
+        },
+        {
+          "tamil": "பிடிக்கும்",
+          "english": "I like"
+        },
+        {
+          "tamil": "பிடிக்காது",
+          "english": "I don't like"
+        }
+      ],
+      "scenario": "Rapid fire. I describe a situation, you name the emotion."
+    },
+    {
+      "episode": 7,
+      "topic": "The Dative Emotion Pattern",
+      "intro": "Emotions in Tamil don't happen TO you. They happen FOR you. The 'Enakku + emotion' pattern that unlocks all feelings.",
+      "vocab": [
+        {
+          "tamil": "எனக்கு சந்தோஷம்",
+          "english": "I am happy (lit: to me, joy)"
+        },
+        {
+          "tamil": "எனக்கு பயமா இருக்கு",
+          "english": "I am scared (lit: to me, it is fearful)"
+        },
+        {
+          "tamil": "எனக்கு கவலையா இருக்கு",
+          "english": "I am worried (lit: to me, it is worrisome)"
+        }
+      ],
+      "scenario": "Understanding the dative pattern. English says 'I am happy'. Tamil says 'To me, happiness exists'. This pattern works for ALL emotions and is the key to sounding natural."
+    }
+  ]
+}

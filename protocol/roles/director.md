@@ -23,7 +23,7 @@ File: `content/beats/levelX_epY_beats.md`
 
 ## Input
 
-Read from `curriculum/levels.json` for the target level and episode. Extract all vocabulary and scenarios.
+Read from `curriculum/levels/level_XX.json` for the target level. Extract all vocabulary and scenarios.
 
 ## The Checkpoint Protocol (CRITICAL)
 

@@ -1,0 +1,186 @@
+{
+  "title": "Kinship & Gossip",
+  "tier": 2,
+  "description": "Family structure. Pronouns, reported speech, opinions, and the gossip protocol.",
+  "episodes": [
+    {
+      "episode": 1,
+      "topic": "The Roster",
+      "intro": "Family structure. You must know who everyone is. The kinship system is not negotiable.",
+      "vocab": [
+        {
+          "tamil": "அண்ணா",
+          "english": "Elder brother"
+        },
+        {
+          "tamil": "தம்பி",
+          "english": "Younger brother"
+        },
+        {
+          "tamil": "அக்கா",
+          "english": "Elder sister"
+        },
+        {
+          "tamil": "தங்கச்சி",
+          "english": "Younger sister"
+        },
+        {
+          "tamil": "மாமா",
+          "english": "Uncle (maternal)"
+        },
+        {
+          "tamil": "அத்தை",
+          "english": "Aunt (paternal)"
+        }
+      ],
+      "scenario": "Someone introduces their family. You must identify: Who is Anna? Who is Thambi? Who is the Mama?"
+    },
+    {
+      "episode": 2,
+      "topic": "Pronoun Toggles",
+      "intro": "They, he, she, it. Understanding the pronoun system and when to use plural for respect.",
+      "vocab": [
+        {
+          "tamil": "அவங்க",
+          "english": "They / He-She (respectful)"
+        },
+        {
+          "tamil": "அவன்",
+          "english": "He (informal)"
+        },
+        {
+          "tamil": "அவ",
+          "english": "She (informal)"
+        },
+        {
+          "tamil": "அது",
+          "english": "It / That"
+        },
+        {
+          "tamil": "நம்ம",
+          "english": "Our (inclusive)"
+        },
+        {
+          "tamil": "நாங்க",
+          "english": "We (exclusive)"
+        }
+      ],
+      "scenario": "Talking about your boss. You say 'Avanga' (respectful). Talking about your nephew. You say 'Avan'. Talking about your family to in-laws. You say 'Naanga'."
+    },
+    {
+      "episode": 3,
+      "topic": "Reported Speech",
+      "intro": "He said, she said. The gossip protocol. Reporting what others told you.",
+      "vocab": [
+        {
+          "tamil": "சொன்னாங்க",
+          "english": "They said"
+        },
+        {
+          "tamil": "கேட்டாங்க",
+          "english": "They asked"
+        },
+        {
+          "tamil": "சொன்னேன்",
+          "english": "I said"
+        },
+        {
+          "tamil": "கேட்டேன்",
+          "english": "I asked"
+        }
+      ],
+      "scenario": "Anna asked where you went. You said you went to the market. He said it was too far."
+    },
+    {
+      "episode": 4,
+      "topic": "Gossip Tags",
+      "intro": "The opinion layer. I think, I know, I don't know, Really?",
+      "vocab": [
+        {
+          "tamil": "நினைச்சேன்",
+          "english": "I thought"
+        },
+        {
+          "tamil": "அப்படீங்களா?",
+          "english": "Is that so?"
+        },
+        {
+          "tamil": "நிஜமா?",
+          "english": "Really?"
+        },
+        {
+          "tamil": "புரிஞ்சுது",
+          "english": "I understood"
+        },
+        {
+          "tamil": "புரியல",
+          "english": "I don't understand"
+        }
+      ],
+      "scenario": "Someone tells you Anna got a new job. You say 'Really?'. They ask if you knew. You say 'I didn't understand'. You say 'I thought he was happy at his old job'."
+    },
+    {
+      "episode": 5,
+      "topic": "BOSS FIGHT: The Family Gossip",
+      "intro": "The living room. Multiple relatives. Someone starts talking about someone who is not present. You must track and report.",
+      "vocab": [],
+      "scenario": "Akka asks if you know about Mama's new house. You say 'I don't know. What did they say?'. She says Mama said it's very big. You say 'Is that so? Really?'. She asks if you will visit. You say 'I thought I would go next week'."
+    },
+    {
+      "episode": 6,
+      "topic": "Rest and Reps",
+      "intro": "Audit Day. Reviewing kinship terms and pronoun toggles.",
+      "vocab": [
+        {
+          "tamil": "அண்ணா",
+          "english": "Elder brother"
+        },
+        {
+          "tamil": "அக்கா",
+          "english": "Elder sister"
+        },
+        {
+          "tamil": "அவங்க",
+          "english": "They (respectful)"
+        },
+        {
+          "tamil": "சொன்னாங்க",
+          "english": "They said"
+        },
+        {
+          "tamil": "நினைச்சேன்",
+          "english": "I thought"
+        },
+        {
+          "tamil": "புரிஞ்சுது",
+          "english": "I understood"
+        }
+      ],
+      "scenario": "Rapid fire. Practice constructing gossip chains: X told Y who told Z."
+    },
+    {
+      "episode": 7,
+      "topic": "Murai Maman Logic",
+      "intro": "The cousin marriage system. Understanding why your cousin is also your potential spouse.",
+      "vocab": [
+        {
+          "tamil": "முறை மாமன்",
+          "english": "Cross-cousin (marriageable uncle)"
+        },
+        {
+          "tamil": "பொண்ணு",
+          "english": "Girl / Daughter"
+        },
+        {
+          "tamil": "பையன்",
+          "english": "Boy / Son"
+        },
+        {
+          "tamil": "கல்யாணம்",
+          "english": "Wedding / Marriage"
+        }
+      ],
+      "scenario": "Understanding family structure conversations. When they say 'Murai Maman's daughter', they might be matchmaking."
+    }
+  ]
+}

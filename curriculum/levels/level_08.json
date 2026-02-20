@@ -1,0 +1,161 @@
+{
+  "title": "Deep Cover (Graduation)",
+  "tier": 3,
+  "description": "Conflict resolution, humor, adverbs of manner, and full synthesis. The final level.",
+  "episodes": [
+    {
+      "episode": 1,
+      "topic": "Advanced Conflict",
+      "intro": "Conflict resolution. Apology. Confrontation. The hard conversations.",
+      "vocab": [
+        {
+          "tamil": "ஏன் அப்படி?",
+          "english": "Why like that?"
+        },
+        {
+          "tamil": "என்னாச்சு?",
+          "english": "What happened?"
+        },
+        {
+          "tamil": "விடுங்க",
+          "english": "Leave it (respectful)"
+        },
+        {
+          "tamil": "பரவாயில்லை",
+          "english": "It's okay"
+        },
+        {
+          "tamil": "மன்னிச்சுக்கங்க",
+          "english": "Please forgive (respectful)"
+        }
+      ],
+      "scenario": "Someone is upset. You ask 'What happened?'. They complain. You say 'Leave it. It's okay'."
+    },
+    {
+      "episode": 2,
+      "topic": "Humor",
+      "intro": "Making people laugh. Understanding jokes. The humor vocabulary.",
+      "vocab": [
+        {
+          "tamil": "சிரிப்பு",
+          "english": "Laughter"
+        },
+        {
+          "tamil": "காமெடி",
+          "english": "Comedy"
+        },
+        {
+          "tamil": "செம ஜோக்",
+          "english": "Great joke"
+        },
+        {
+          "tamil": "ஒன்னும் இல்ல",
+          "english": "It's nothing"
+        },
+        {
+          "tamil": "வேடிக்கை",
+          "english": "Fun / Amusement"
+        }
+      ],
+      "scenario": "Someone makes a joke. You laugh and say 'Sema joke!'. They ask if you're making fun. You say 'Nothing, just fun'."
+    },
+    {
+      "episode": 3,
+      "topic": "Adverbs of Manner",
+      "intro": "How did it happen? Fast, slow, carefully. The manner layer.",
+      "vocab": [
+        {
+          "tamil": "சீக்கிரம்",
+          "english": "Quickly"
+        },
+        {
+          "tamil": "மெதுவா",
+          "english": "Slowly"
+        },
+        {
+          "tamil": "கவனமா",
+          "english": "Carefully"
+        },
+        {
+          "tamil": "நல்லா",
+          "english": "Well / Nicely"
+        },
+        {
+          "tamil": "சரியா",
+          "english": "Correctly / Properly"
+        }
+      ],
+      "scenario": "Auto driver is going fast. You say 'Slowly!'. Mother gives you hot food. She says 'Carefully!'."
+    },
+    {
+      "episode": 4,
+      "topic": "Rapid Drills",
+      "intro": "Combining everything from Levels 1-7. No new vocabulary. Pure synthesis.",
+      "vocab": [
+        {
+          "tamil": "வணக்கம்",
+          "english": "Hello"
+        },
+        {
+          "tamil": "நல்லா இருக்கு",
+          "english": "It's good"
+        },
+        {
+          "tamil": "வலது",
+          "english": "Right"
+        },
+        {
+          "tamil": "போனேன்",
+          "english": "I went"
+        },
+        {
+          "tamil": "அவங்க",
+          "english": "They (respectful)"
+        },
+        {
+          "tamil": "போவேன்",
+          "english": "I will go"
+        },
+        {
+          "tamil": "செம்ம",
+          "english": "Awesome"
+        }
+      ],
+      "scenario": "Complex scenarios requiring vocabulary from multiple levels. Simulate a full day: Morning greeting → Breakfast feedback → Auto ride → Market shopping → Evening report → Gossip session → Future planning."
+    },
+    {
+      "episode": 5,
+      "topic": "BOSS FIGHT: The Full Conversion",
+      "intro": "The final Boss Fight. A 5-minute conversation with zero English connectors. You must use only Tamil.",
+      "vocab": [],
+      "scenario": "Friend calls. Greet them. They ask what you did yesterday. Tell a full story. They propose going to a movie tomorrow. Discuss options. End the call properly."
+    },
+    {
+      "episode": 6,
+      "topic": "Final Exam",
+      "intro": "Full Survival Run. Simulating a complete day in Tamil. From waking up to going to bed. All in Tamil.",
+      "vocab": [],
+      "scenario": "Morning: Wake up, greet family, breakfast conversation. Mid-morning: Call to confirm appointment, give directions. Afternoon: Market shopping, price negotiation, auto ride. Evening: Report your day to family, discuss plans. Night: Social call with friend, movie review, plan weekend."
+    },
+    {
+      "episode": 7,
+      "topic": "GRADUATION: Embedded Local",
+      "intro": "You made it. You are no longer a beginner. You are an Embedded Local.",
+      "vocab": [
+        {
+          "tamil": "நன்றி",
+          "english": "Thank you"
+        },
+        {
+          "tamil": "தமிழ் தெரியும்",
+          "english": "I know Tamil"
+        },
+        {
+          "tamil": "கொஞ்சம் கொஞ்சமா கத்துக்கிட்டு இருக்கேன்",
+          "english": "I'm learning little by little"
+        }
+      ],
+      "scenario": "Someone asks if you speak Tamil. You smile. You say 'I'm learning little by little'. They are impressed. You have arrived."
+    }
+  ]
+}

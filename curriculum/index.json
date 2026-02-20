@@ -1,0 +1,122 @@
+{
+  "1": {
+    "title": "The Social Scaffold",
+    "tier": 1,
+    "description": "The foundation. Greetings, yes/no, respect toggles, basic existence and commands.",
+    "file": "level_01.json"
+  },
+  "2": {
+    "title": "Domestic Defense",
+    "tier": 1,
+    "description": "The Kitchen. Surviving meals, managing time, expressing internal states, and the art of hospitality.",
+    "file": "level_02.json"
+  },
+  "3": {
+    "title": "Urban Survival",
+    "tier": 1,
+    "description": "The Streets. Auto rickshaws, numbers, money, and spatial relationships.",
+    "file": "level_03.json"
+  },
+  "4": {
+    "title": "The Debrief",
+    "tier": 2,
+    "description": "Past tense. Reporting what happened with chronology, sequence, and logic connectors.",
+    "file": "level_04.json"
+  },
+  "5": {
+    "title": "Kinship & Gossip",
+    "tier": 2,
+    "description": "Family structure. Pronouns, reported speech, opinions, and the gossip protocol.",
+    "file": "level_05.json"
+  },
+  "6": {
+    "title": "Operations (The Future)",
+    "tier": 3,
+    "description": "Future tense. Planning, proposing, scheduling, and conditional logic.",
+    "file": "level_06.json"
+  },
+  "7": {
+    "title": "Local Fluency (Attitude)",
+    "tier": 3,
+    "description": "Sentence tags, intensifiers, fillers, speech compression. Sounding local, not textbook.",
+    "file": "level_07.json"
+  },
+  "8": {
+    "title": "Deep Cover (Graduation)",
+    "tier": 3,
+    "description": "Conflict resolution, humor, adverbs of manner, and full synthesis. The final level.",
+    "file": "level_08.json"
+  },
+  "9": {
+    "title": "The Interrogator",
+    "tier": 2,
+    "description": "The complete question toolkit. Missing question words, ability, permission, and obligation grammar.",
+    "file": "level_09.json"
+  },
+  "10": {
+    "title": "The Emotional Radar",
+    "tier": 2,
+    "description": "Feelings, emotions, likes and dislikes. Moving from physical states to emotional literacy.",
+    "file": "level_10.json"
+  },
+  "11": {
+    "title": "The Adjective Arsenal",
+    "tier": 2,
+    "description": "Descriptors. Size, quality, temperature, newness, comparison. The ability to describe anything you see.",
+    "file": "level_11.json"
+  },
+  "12": {
+    "title": "The Morning Protocol",
+    "tier": 2,
+    "description": "Daily routine. Wake up, bathe, dress, navigate the house, leave and return. The domestic verb layer.",
+    "file": "level_12.json"
+  },
+  "13": {
+    "title": "Kitchen Commander",
+    "tier": 2,
+    "description": "Cooking, cleaning, and commanding the kitchen. The domestic verb layer that makes you useful.",
+    "file": "level_13.json"
+  },
+  "14": {
+    "title": "The Digital Connector",
+    "tier": 2,
+    "description": "Phone calls, messaging, making plans, confirming and cancelling. Social connection through technology.",
+    "file": "level_14.json"
+  },
+  "15": {
+    "title": "The Verb Engine: Action",
+    "tier": 3,
+    "description": "Systematic verb paradigm training. Five high-frequency action verbs across all tenses, wrapped in scenarios.",
+    "file": "level_15.json"
+  },
+  "16": {
+    "title": "The Verb Engine: Mind & Hand",
+    "tier": 3,
+    "description": "Mental and physical verbs. Forget, learn, show, hit, let go. The verbs of cognition and physical interaction.",
+    "file": "level_16.json"
+  },
+  "17": {
+    "title": "The Invisible Glue",
+    "tier": 3,
+    "description": "Discourse markers, conjunctions, quantifiers. The words that make sentences flow instead of clunk.",
+    "file": "level_17.json"
+  },
+  "18": {
+    "title": "The Chennai Clock",
+    "tier": 3,
+    "description": "Weather, time of day, missing numbers, and clock time. Navigating the Chennai day by sun, rain, and schedule.",
+    "file": "level_18.json"
+  },
+  "19": {
+    "title": "The Debater",
+    "tier": 3,
+    "description": "Opinions, agreement, disagreement, and persuasion. The social skills that make you a participant, not a spectator.",
+    "file": "level_19.json"
+  },
+  "20": {
+    "title": "The Decoder Ring",
+    "tier": 3,
+    "description": "Movie comprehension layer. Demonstratives, commands, street slang, and emotional exclamations. The final key to understanding Tamil media.",
+    "file": "level_20.json"
+  }
+}

@@ -1,31 +1,27 @@
 {
     "learner": "Andrew",
     "current_level": 4,
-    "current_episode": 3,
+    "current_episode": 4,
     "active_podcast": {
         "level": 4,
-        "episode": 3,
-        "topic": "Chronology Glue",
+        "episode": 4,
+        "topic": "Logic Connectors",
         "target_vocab": [
             {
-                "tamil": "அதுக்கு அப்புறம்",
-                "english": "After that"
+                "tamil": "ஏன்னா",
+                "english": "Because"
             },
             {
-                "tamil": "முன்னாடி",
-                "english": "Before"
+                "tamil": "அதனால",
+                "english": "Therefore"
             },
             {
-                "tamil": "நேத்து",
-                "english": "Yesterday"
+                "tamil": "ஆனா",
+                "english": "But"
             },
             {
-                "tamil": "இன்னைக்கு",
-                "english": "Today"
-            },
-            {
-                "tamil": "முதல்ல",
-                "english": "First"
+                "tamil": "அதான்",
+                "english": "That's why / Exactly"
             }
         ]
     },
@@ -46,11 +42,11 @@
             "label": "Embedded"
         }
     },
-    "total_sessions": 4,
+    "total_sessions": 5,
     "streak": {
-        "current": 3,
-        "best": 3,
-        "last_date": "2026-02-19"
+        "current": 4,
+        "best": 4,
+        "last_date": "2026-02-20"
     },
     "struggled_words": [
         "அஞ்சு",
@@ -62,7 +58,10 @@
         "மேல",
         "வெளிய",
         "எழுந்தேன்",
-        "பார்த்தேன்"
+        "பார்த்தேன்",
+        "முன்னாடி",
+        "முதல்ல",
+        "இன்னைக்கு"
     ],
     "mastered_words": [],
     "comfortable_words": [
@@ -123,7 +122,9 @@
         "வேற என்ன?",
         "குடிச்சேன்",
         "சாப்பிட்டேன்",
-        "தூங்கினேன்"
+        "தூங்கினேன்",
+        "அதுக்கு அப்புறம்",
+        "நேத்து"
     ],
     "sessions": [
         {
@@ -203,6 +204,24 @@
             ],
             "zinger": "Gate கிட்ட நிறுத்துங்க",
             "notes": "Mastered 'Niruthunga'. Moved to comfortable list.",
+            "source": "cli"
+        },
+        {
+            "date": "2026-02-20",
+            "level": 4,
+            "episode": 3,
+            "energy": "MEDIUM",
+            "struggled": [
+                "முன்னாடி",
+                "முதல்ல",
+                "இன்னைக்கு"
+            ],
+            "comfortable": [
+                "அதுக்கு அப்புறம்",
+                "நேத்து"
+            ],
+            "zinger": "முதல்ல நான் சொல்றேன்",
+            "notes": "Good progress on Adhukku apuram/Nethu. Struggling with sequence starts (Mudhalla/Munnadi). Innaikku is medium.",
             "source": "cli"
         }
     ]

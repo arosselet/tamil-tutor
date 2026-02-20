@@ -22,7 +22,9 @@
 
 ```
 protocol/           → LLM instructions (you are here)
-curriculum/          → levels.json (The Roadmap)
+curriculum/
+    ├── index.json      → Manifest (titles, tiers)
+    └── levels/         → Individual level JSONs (level_01.json...)
 content/scripts/     → Podcast scripts (Markdown)
 audio/               → Generated MP3 files
 progress/            → learner.json (learner state)
@@ -43,5 +45,5 @@ scripts/             → Python tools (audio gen, vocab builder, dashboard)
 | **Producer** | `protocol/roles/producer.md` | TTS-ready script (Tamil Script enforcement) |
 | **Mobile Sync** | `protocol/mobile_sync.md` | Phone-side: when/how to emit progress JSON |
 | **Sync Ingest** | `protocol/sync_ingest.md` | Desktop-side: apply mobile updates |
-| **Curriculum** | `curriculum/levels.json` | Source of truth for levels + vocab |
+| **Curriculum** | `curriculum/levels/level_XX.json` | Source of truth for levels + vocab |
 | **Learner** | `progress/learner.json` | Source of truth for learner state |
