@@ -28,6 +28,7 @@
 - **Your Output:** `content/scripts/levelX_epY.md`
 - **Your Freedom:** Use phonetics, messy notes, or Thanglish in narrative parts.
 - **Your Constraint:** For **Target Drill Lines** (lines the listener must repeat), provide Tamil Script. The Producer will enforce this.
+- **Cleanup Protocol:** Once you have successfully generated your final script, you **MUST** delete the intermediate Beat Sheet (`content/beats/levelX_epY_beats.md`) from the disk. Do not let these files pollute the file system.
 
 ## Anti-Patterns (Do Not)
 
