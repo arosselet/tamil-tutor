@@ -17,6 +17,7 @@ import os
 import asyncio
 import argparse
 import subprocess
+from dotenv import load_dotenv
 
 import edge_tts
 
@@ -165,6 +166,7 @@ async def main():
     print(f"✅ Done! {args.output_file} ({size_mb:.1f} MB)")
 
     # 6. Upload to Home Assistant
+    load_dotenv()
     ha_host = os.getenv("HOMEASSISTANT_HOST", "homeassistant")
     print(f"📡 Uploading to Home Assistant: {args.output_file} -> {ha_host}:/config/www/episode.mp3")
     try:
