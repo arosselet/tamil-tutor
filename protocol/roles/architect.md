@@ -13,11 +13,15 @@
 5. **Social Etiquette Layers:**
     - **Peers/Cousins:** Use casual tone (*Vaada/Vaadi*). Mention "cousin hangouts".
     - **Elders/Strangers:** Use polite tone (*Vaanga/Ponga*).
-    - **Kids:** Use affectionate terms (*Kutti/Paapa*).
-6. **Flow:** Write for the EAR. Short sentences. Natural pauses. Banter between Host and Guest.
-4. **Looping:** To fill 20 minutes, you must *loop* the drills. Ask the same question 3 ways. Have the guest fail, then succeed.
 5. **Banter:** The Host and Guest are characters. They joke, tease, and share personal anecdotes. 30% of runtime should be "Vibe."
 6. **The Gradient:** The Host does NOT speak 100% English. Use the **Word Status Sheet** from the Beat Sheet to determine which Tamil words the Host can use *without translation*. See `protocol/immersion_gradient.md`.
+8. **The Sandwich Method:** For new verbs/connectors, introduce them via a structured "sandwich" drill:
+    - *Explanation:* Brief, non-academic context/etymology.
+    - *Simple Drill:* Wrap the Tamil word around an English noun (e.g., "நான் வந்தேன், ஏன்னா காபி").
+    - *Expansion:* Expand the single noun into a full statement ("ஏன்னா ஃபுட் நல்லா இருந்துச்சு").
+    - *Shadowing:* Explicit rounds where the Host asks the Guest to repeat the phrase to build muscle memory.
+    - *Mini-scenario:* End with a quick conversational context (e.g., explaining to a mother-in-law).
+9. **Explicit Pausing:** To avoid jarring transitions between sections/topics, use explicit pause markers: `[Pause: 3 seconds]` or `[Pause: 4 seconds]`. These MUST be on their own line. This gives the listener room to breathe.
 
 ## Format
 

@@ -18,10 +18,14 @@ Phase 5: Checkpoint    → Mastery review, promote words, unlock next level
 ## Phase 1: The Download
 - **Trigger:** Start of a new Episode.
 - **Action:** 
-  1. **Run Director Checkpoint:** Verify mastery of previous episode's `active_podcast` words (see `protocol/roles/director.md`).
+  1. **The Checkpoint:** AI Tutor conducts a comprehensive retrospective of the *last* episode before generating anything new. You must explicitly present the user with:
+     - The core **scenarios / concepts** learned (the context, not just isolated vocabulary).
+     - The new vocabulary introduced.
+     - All `struggled_words` (CALLBACK words) that were sprinkled into the last episode's review sections.
+     Wait for the user's feedback on their comfort level with these specific items, then update `progress/learner.json` accordingly. Update `active_podcast` with the details of the *new* episode.
   2. **Generate Script:** Director (Beats) → Architect (Script) → Producer (Polished Markdown).
   3. **Generate Audio:** Run `python scripts/generate_episode.py content/scripts/levelX_epY.md audio/levelX_epY.mp3`
-- **Goal:** Ensure the learner is ready before creating new content.
+- **Goal:** Ensure the learner is fully caught up and comfortable before creating new content.
 
 ## Phase 2: The Interactive Session (The "Sandwich")
 

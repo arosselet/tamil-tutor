@@ -5,7 +5,7 @@
     "active_podcast": {
         "level": 4,
         "episode": 4,
-        "topic": "Logic Connectors",
+        "topic": "Logic Loop (Remix)",
         "target_vocab": [
             {
                 "tamil": "ஏன்னா",
@@ -21,7 +21,19 @@
             },
             {
                 "tamil": "அதான்",
-                "english": "That's why / Exactly"
+                "english": "That's exactly why"
+            },
+            {
+                "tamil": "வெளிய",
+                "english": "Outside"
+            },
+            {
+                "tamil": "கிட்ட",
+                "english": "Near"
+            },
+            {
+                "tamil": "கம்மி",
+                "english": "Less"
             }
         ]
     },
@@ -49,7 +61,6 @@
         "last_date": "2026-02-20"
     },
     "struggled_words": [
-        "அஞ்சு",
         "கம்மி",
         "கிட்ட",
         "கீழ",
@@ -65,6 +76,7 @@
     ],
     "mastered_words": [],
     "comfortable_words": [
+        "அஞ்சு",
         "அங்க",
         "அப்புறம்",
         "ஆமா",

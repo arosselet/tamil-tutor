@@ -25,17 +25,9 @@ File: `content/beats/levelX_epY_beats.md`
 
 Read from `curriculum/levels/level_XX.json` for the target level. Extract all vocabulary and scenarios.
 
-## The Checkpoint Protocol (CRITICAL)
-
-When you are asked to generate a *new* episode, you MUST intercept the process:
-1. **Read `active_podcast`** from `progress/learner.json`. 
-2. **Pause and Ask:** Before writing the new Beat Sheet, present the user with a written reminder of the words (Tamil and English) from `active_podcast`. Gently ask if they have mastered these concepts. Do this in a frictionless manner.
-3. **Listen and Update:** Wait for the user's feedback. Apply their feedback to move words between `struggled_words` and `comfortable_words` in `learner.json`.
-4. **Update Metadata:** Update `active_podcast` with the details of the *new* episode you are about to create. Ensure you do this after finishing the checkpoint but before writing the Beat Sheet.
-
 ## The Word Status Sheet (CRITICAL)
 
-After the Checkpoint and before writing the Beat Sheet, generate a **Word Status Sheet** by reading `progress/learner.json` and `curriculum/levels.json`. Categorize every known word into three modes:
+Before writing the Beat Sheet, generate a **Word Status Sheet** by reading `progress/learner.json` and `curriculum/levels.json`. Categorize every known word into three modes:
 
 - **TEACH** — Current episode's `target_vocab`. Full introduction.
 - **USE** — `comfortable_words` + `mastered_words`. The Architect uses these freely in Tamil without translation.

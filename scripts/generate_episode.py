@@ -37,10 +37,11 @@ VOICE_OPTS = {
 SPEAKER_RE = re.compile(
     r"^\s*(?:\*\s*)?\*\*\s*([A-Za-z]+)\s*:\s*(?:\*\*\s*)?(.*)", re.IGNORECASE
 )
+PAUSE_RE = re.compile(r"\[Pause:\s*(\d+)\s*sec.*\]", re.IGNORECASE)
 
 
 def parse_script(file_path: str) -> list[dict]:
-    """Parse a markdown script for Host/Guest dialogue lines."""
+    """Parse a markdown script for Host/Guest dialogue lines and Pauses."""
     with open(file_path, "r", encoding="utf-8") as f:
         lines = f.readlines()
 
@@ -48,6 +49,16 @@ def parse_script(file_path: str) -> list[dict]:
     for line in lines:
         line = line.strip()
         if not line:
+            continue
+
+        pause_match = PAUSE_RE.search(line)
+        if pause_match:
+            seconds = int(pause_match.group(1))
+            dialogue.append({"speaker": "PAUSE", "seconds": seconds})
+            continue
+            
+        if line == "---":
+            dialogue.append({"speaker": "PAUSE", "seconds": 1})
             continue
 
         match = SPEAKER_RE.match(line)
@@ -64,7 +75,18 @@ def parse_script(file_path: str) -> list[dict]:
             if text:
                 dialogue.append({"speaker": speaker, "text": text})
 
-    return dialogue
+    # Coalesce consecutive pauses
+    final_dialogue = []
+    for item in dialogue:
+        if item["speaker"] == "PAUSE":
+            if final_dialogue and final_dialogue[-1]["speaker"] == "PAUSE":
+                final_dialogue[-1]["seconds"] += item["seconds"]
+            else:
+                final_dialogue.append(item)
+        else:
+            final_dialogue.append(item)
+
+    return final_dialogue
 
 
 def clean_for_tts(text: str) -> str:
@@ -109,37 +131,76 @@ async def generate_segment(text: str, speaker: str, index: int, temp_dir: str) -
     return filename
 
 
+def get_raw_mp3_frames(filepath: str) -> bytes:
+    """Extract raw MPEG audio chunk, stripping wrapper ID3 and Xing/Info headers."""
+    with open(filepath, "rb") as f:
+        data = f.read()
+
+    offset = 0
+    if data.startswith(b"ID3"):
+        # The size is stored in bytes 6, 7, 8, 9 as 7-bit synchsafe integers
+        size = (data[6] << 21) | (data[7] << 14) | (data[8] << 7) | data[9]
+        offset = 10 + size
+
+    # check if the first byte after ID3 is a sync word
+    if offset < len(data) - 1 and data[offset] == 0xFF and (data[offset+1] & 0xE0) == 0xE0:
+        padding = (data[offset+2] & 0x02) >> 1
+        frame_len = 144 + padding
+        
+        # Check for Xing/Info in this first frame
+        frame_data = data[offset:offset+frame_len]
+        if b"Xing" in frame_data or b"Info" in frame_data:
+            offset += frame_len
+
+    end_offset = len(data)
+    if end_offset >= 128 and data[-128:].startswith(b"TAG"):
+        end_offset -= 128
+
+    return data[offset:end_offset]
+
+# A single valid MPEG-2 L3 raw frame of silence (24000Hz, 48kbps, Mono).
+# Generated via edge-tts with <break time="1000ms"/> and extracted frame 5.
+import base64
+SILENCE_FRAME_B64 = "//NkxJoiPA4Vgc1AAVXPcXO05CbzflKqdX8LXO/PQy7v6mbnkYz3BsVdxH7xI1psbFEYzt6Fxl0w17Szht3EmOWRKhJANxpojDXhk+E+3qNp+0+oomHuYca0xPxKUOihtdfcvPB+yzd2o2Sbh5zuLHVDDK9juB8rHhbq9lYT0XEdvYWKCGEeTvz8YP2XWipB"
+SILENCE_FRAME = base64.b64decode(SILENCE_FRAME_B64)
+
 async def main():
     parser = argparse.ArgumentParser(description="Generate Dual-Voice Tamil Podcast Audio")
     parser.add_argument("input_file", help="Input markdown script")
     parser.add_argument("output_file", help="Output MP3 file")
     args = parser.parse_args()
 
-    # 1. Parse
     print(f"📖 Parsing {args.input_file}...")
     dialogue = parse_script(args.input_file)
     if not dialogue:
-        print("❌ No dialogue lines found! Ensure format is '**Speaker:** Text'.")
+        print("❌ No dialogue lines found!")
         return
 
     print(f"   Found {len(dialogue)} segments.")
-
-    # 2. Temp directory
     temp_dir = "temp_audio_segments"
     os.makedirs(temp_dir, exist_ok=True)
 
-    # Ensure output directory exists
     output_dir = os.path.dirname(args.output_file)
     if output_dir:
         os.makedirs(output_dir, exist_ok=True)
 
-    # 3. Generate segments
-    segment_files = []
     print("🎙️  Generating audio segments...")
 
+    # We will build the final MP3 purely in memory directly from frames.
+    final_audio_data = bytearray()
+
     for i, line in enumerate(dialogue):
-        clean_text = clean_for_tts(line["text"])
         speaker = line["speaker"]
+
+        if speaker == "PAUSE":
+            seconds = line.get("seconds", 1)
+            print(f"   [{i+1}/{len(dialogue)}] ⏸️  Pause for {seconds} seconds")
+            # 1 second = 1000ms / 24ms per frame = ~42 frames
+            frames_needed = int(seconds * 41.666)
+            final_audio_data.extend(SILENCE_FRAME * frames_needed)
+            continue
+
+        clean_text = clean_for_tts(line["text"])
 
         if not clean_text:
             continue
@@ -148,21 +209,21 @@ async def main():
         print(f"   [{i+1}/{len(dialogue)}] {speaker}: {preview}")
 
         seg_file = await generate_segment(clean_text, speaker, i, temp_dir)
-        segment_files.append(seg_file)
+        raw_frames = get_raw_mp3_frames(seg_file)
+        final_audio_data.extend(raw_frames)
+        
+        # Add a tiny 250ms natural breathing pause between spoken lines
+        final_audio_data.extend(SILENCE_FRAME * 10)
+        
+        os.remove(seg_file)
 
-    # 4. Stitch
-    print(f"🔗 Stitching {len(segment_files)} segments → {args.output_file}...")
+    print(f"🔗 Saving pure MPEG stream → {args.output_file}...")
     with open(args.output_file, "wb") as outfile:
-        for seg_file in segment_files:
-            with open(seg_file, "rb") as infile:
-                outfile.write(infile.read())
+        outfile.write(final_audio_data)
 
-    # 5. Cleanup
-    for f in segment_files:
-        os.remove(f)
     os.rmdir(temp_dir)
 
-    size_mb = os.path.getsize(args.output_file) / (1024 * 1024)
+    size_mb = len(final_audio_data) / (1024 * 1024)
     print(f"✅ Done! {args.output_file} ({size_mb:.1f} MB)")
 
     # 6. Upload to Home Assistant
