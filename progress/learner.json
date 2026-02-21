@@ -4,36 +4,28 @@
     "current_episode": 4,
     "active_podcast": {
         "level": 4,
-        "episode": 4,
-        "topic": "Logic Loop (Remix)",
+        "episode": 5,
+        "topic": "BOSS FIGHT: The Evening Report",
         "target_vocab": [
-            {
-                "tamil": "ஏன்னா",
-                "english": "Because"
-            },
-            {
-                "tamil": "அதனால",
-                "english": "Therefore"
-            },
-            {
-                "tamil": "ஆனா",
-                "english": "But"
-            },
             {
                 "tamil": "அதான்",
                 "english": "That's exactly why"
-            },
-            {
-                "tamil": "வெளிய",
-                "english": "Outside"
             },
             {
                 "tamil": "கிட்ட",
                 "english": "Near"
             },
             {
-                "tamil": "கம்மி",
-                "english": "Less"
+                "tamil": "கீழ",
+                "english": "Down"
+            },
+            {
+                "tamil": "மேல",
+                "english": "Up"
+            },
+            {
+                "tamil": "எழுந்தேன்",
+                "english": "I woke up"
             }
         ]
     },
@@ -61,13 +53,11 @@
         "last_date": "2026-02-20"
     },
     "struggled_words": [
-        "கம்மி",
         "கிட்ட",
         "கீழ",
         "நூறு",
         "பத்து",
         "மேல",
-        "வெளிய",
         "எழுந்தேன்",
         "பார்த்தேன்",
         "முன்னாடி",
@@ -76,6 +66,11 @@
     ],
     "mastered_words": [],
     "comfortable_words": [
+        "ஏன்னா",
+        "அதனால",
+        "ஆனா",
+        "கம்மி",
+        "வெளிய",
         "அஞ்சு",
         "அங்க",
         "அப்புறம்",
