@@ -39,31 +39,43 @@ progress/           → Your persistent state (learner.json)
 scripts/            → Python tools for generation, synthesis, and packing (The Engine)
 ```
 
-## Quick Start (The Factory)
+## Getting Started (How to Use)
 
-Generate dynamic episodes locally on your machine based on your current `learner.json` progress state.
+This system is designed to be used in two distinct modes: **The Factory** (where episodes are built) and **The Portable Version** (where you actually learn on the go).
 
-```bash
-# 1. Install constraints for TTS and Webhooks
-pip install -r requirements.txt
+### 1. Prerequisites
+- **Python 3.10+**
+- **Authentication**: You have a few options for speech synthesis:
+  - **Edge-tts**: No login or API keys required. Works out of the box.
+  - **Google Cloud TTS (Default)**: Requires you to be logged in via `gcloud auth login`.
+- **Agent Access**: Ensure you are logged into your agent (e.g., `gemini-cli`).
+- **Dependencies**:
+  ```bash
+  pip install -r requirements.txt
+  ```
 
-# 2. Check your current learning progress
-python scripts/show_status.py
+### 2. The Factory (On your Laptop)
+The Factory is where you manage your curriculum and generate audio episodes. You don't need to run complex scripts manually; just **prompt the agent** (e.g., Antigravity or a custom Gemini session):
 
-# 3. Generate a synthetic audio episode from an LLM-created script
-python scripts/generate_episode.py content/scripts/level1_ep1.md audio/level1_ep1.mp3
-```
+*   **To check progress:** *"Show my status"* (runs `show_status.py` in the background).
+*   **To build a lesson:** *"Generate the audio episode for Level 1 Episode 2."*
+*   **To refactor:** *"I'm struggling with X, update my curriculum to drill it more."*
 
-## The Daily Loop & Mobile Sync
+### 3. The Portable Version (On your Phone)
+Take your lessons into the wild using the Gemini app. The repository automatically packs everything it needs into a `mobile_bundle.zip`.
 
-This system is built specifically to bridge the gap between desktop generation and mobile, on-the-go consumption. You don't need to know "what's next." The system tracks your state. 
+1.  **Start a Lesson**: Upload the `mobile_bundle.zip` to a Gemini session on your phone and type: `[Tamil Lesson]`.
+2.  **Set the Vibe**: Tell the agent your energy level:
+    *   **Low Energy**: *"I'm tired, just play the stream."* (Passive listening/translation).
+    *   **Medium Energy**: *"Standard session, let's talk."* (Light conversation).
+    *   **High Energy**: *"I'm ready. Use 'The Spy' mode."* (Active drills and simulations).
+3.  **Real-Time Drills**: In a mobile session, you can say: *"I'm at the market right now, simulate a transaction for me."*
 
-1. **Pack the Context**: Run `python scripts/pack_mobile.py` to create a `mobile_bundle.zip` of your current curriculum and progress.
-2. **Transfer to Mobile**: Upload the bundle to Gemini on your phone.
-3. **Trigger the Session**: Tell Gemini `[Tamil Lesson]` and state your current energy:
-    *   *Low Energy Day?* "Just give me a light review." (System generates an audit session).
-    *   *Frustrated?* "I keep mixing up 'Iru' and 'Illai'." (System creates a specialized disambiguation loop).
-4. **Log the Feedback**: The LLM will output a JSON blob of the words you conquered or struggled with. Sync it via a Home Assistant webhook or paste it back to your laptop to update the central state.
+### Mastering the Prompts
+The true power of this system is in **what you ask the agent**. Don't just follow the levels—steer the ship:
+- *"Explain the difference between 'Iru' and 'Vaa' like I'm a local."*
+- *"Give me 5 'Doorway Zingers' for today based on what I just learned."*
+- *"Run a 'Boss Fight' simulation where I have to negotiate an auto fare in Coimbatore."*
 
 ---
 
