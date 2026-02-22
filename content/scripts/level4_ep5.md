@@ -2,55 +2,55 @@
 
 [Scene: Serious, cinematic intro music fades]
 
-**Host:** Welcome to the Boss Fight of Level 4. You have learned the logic connectors. You feel good about "Because" (Yenna), "Therefore" (Adhanaala), and "But" (Aanaa). But there is one weapon you are still hesitant to use.
+**Host:** Welcome to the Boss Fight of Level 4. You have learned the logic connectors. You feel good about "Because" (ஏன்னா), "Therefore" (அதனால), and "But" (ஆனா). But there is one weapon you are still hesitant to use.
 
-**Guest:** Adhaan. That's exactly why.
+**Guest:** அதான். That's exactly why.
 
-**Host:** Today, we unlock it. "Adhaan" is the period at the end of the sentence. It is definitive. We will mix it with your spatial words—Up, Down, Near—and your morning routine.
+**Host:** Today, we unlock it. "அதான்" is the period at the end of the sentence. It is definitive. We will mix it with your spatial words—Up, Down, Near—and your morning routine.
 
 **Guest:** Let's finish this level.
 
-**Host:** First, let's revive the struggling words. "I woke up". Ezhundhen.
+**Host:** First, let's revive the struggling words. "I woke up". எழுந்தேன்.
 
-**Guest:** எழுந்தேன் (Ezhundhen).
+**Guest:** எழுந்தேன்.
 
-**Host:** "Up". Mela.
+**Host:** "Up". மேல.
 
-**Guest:** மேல (Mela).
+**Guest:** மேல.
 
-**Host:** "Down". Keela.
+**Host:** "Down". கீழ.
 
-**Guest:** கீழ (Keela).
+**Guest:** கீழ.
 
-**Host:** "Near". Kitta.
+**Host:** "Near". கிட்ட.
 
-**Guest:** கிட்ட (Kitta).
+**Guest:** கிட்ட.
 
 ---
 [Pause: 3 seconds]
 ---
 
-**Host:** Drill One: The "Adhaan" Punch. I will give you a fact. You point to it as the *exact reason* for your action. I was tired. Adhaan I slept.
+**Host:** Drill One: The "அதான்" Punch. I will give you a fact. You point to it as the *exact reason* for your action. I was tired. அதான் I slept.
 
 **Guest:** டயர்ட். அதான் தூங்கினேன்.
 
-**Host:** I was hungry. Adhaan I ate.
+**Host:** I was hungry. அதான் I ate.
 
 **Guest:** பசி. அதான் சாப்பிட்டேன்.
 
-**Host:** It was raining. Adhaan I came back.
+**Host:** It was raining. அதான் I came back.
 
 **Guest:** மழை. அதான் திரும்பி வந்தேன்.
 
-**Host:** Now let's mix in the spatial words. The shop is *near*. Adhaan I walked. Use 'Kitta'.
+**Host:** Now let's mix in the spatial words. The shop is *near*. அதான் I walked. Use 'கிட்ட'.
 
 **Guest:** ஷாப் கிட்ட இருக்கு. அதான் நடந்தேன்.
 
-**Host:** My phone is *upstairs* (Mela). Adhaan I am going up.
+**Host:** My phone is *upstairs* (மேல). அதான் I am going up.
 
 **Guest:** போன் மேல இருக்கு. அதான் மேல போறேன்.
 
-**Host:** My key is *down* (Keela). Adhaan I am searching.
+**Host:** My key is *down* (கீழ). அதான் I am searching.
 
 **Guest:** சாவி கீழ இருக்கு. அதான் தேடுறேன்.
 
@@ -60,21 +60,21 @@
 [Pause: 3 seconds]
 ---
 
-**Host:** Drill Two: The Morning Logic. We are going to build a chain of events starting from waking up. Use "Ezhundhen" (I woke up).
+**Host:** Drill Two: The Morning Logic. We are going to build a chain of events starting from waking up. Use "எழுந்தேன்" (I woke up).
 
-**Host:** Why did you wake up early? "Because... meeting." Use 'Yenna'.
+**Host:** Why did you wake up early? "Because... meeting." Use 'ஏன்னா'.
 
 **Guest:** ஏன்னா மீட்டிங்.
 
-**Host:** "Therefore I woke up early." Use 'Adhanaala' and 'Ezhundhen'.
+**Host:** "Therefore I woke up early." Use 'அதனால' and 'எழுந்தேன்'.
 
 **Guest:** அதனால சீக்கிரம் எழுந்தேன்.
 
-**Host:** But... the meeting got cancelled. Use 'Aanaa'.
+**Host:** But... the meeting got cancelled. Use 'ஆனா'.
 
 **Guest:** ஆனா மீட்டிங் கேன்சல்.
 
-**Host:** "That's exactly why I am angry." Use 'Adhaan'.
+**Host:** "That's exactly why I am angry." Use 'அதான்'.
 
 **Guest:** அதான் கோவம்.
 
@@ -92,31 +92,31 @@
 
 **Guest:** Ready.
 
-**Host:** Uncle asks: "Why did you go upstairs?" -> Tell him: "Because my room is up." (Yenna... Mela).
+**Host:** Uncle asks: "Why did you go upstairs?" -> Tell him: "Because my room is up." (ஏன்னா... மேல).
 
 **Guest:** ஏன்னா என் ரூம் மேல இருக்கு.
 
-**Host:** "Why did you come down?" -> Tell him: "But... no water up there." (Aanaa... Mela).
+**Host:** "Why did you come down?" -> Tell him: "But... no water up there." (ஆனா... மேல).
 
 **Guest:** ஆனா மேல தண்ணி இல்ல.
 
-**Host:** "So what?" -> Tell him: "Therefore I came down." (Adhanaala... Keela).
+**Host:** "So what?" -> Tell him: "Therefore I came down." (அதனால... கீழ).
 
 **Guest:** அதனால கீழ வந்தேன்.
 
-**Host:** "Why are you standing near me?" -> Tell him: "Water is near you. That's exactly why." (Kitta... Adhaan).
+**Host:** "Why are you standing near me?" -> Tell him: "Water is near you. That's exactly why." (கிட்ட... அதான்).
 
 **Guest:** தண்ணி உங்க கிட்ட இருக்கு. அதான்.
 
-**Host:** Boom. You just navigated a complex spatial interrogation using pure logic. How does 'Adhaan' feel now?
+**Host:** Boom. You just navigated a complex spatial interrogation using pure logic. How does 'அதான்' feel now?
 
 **Guest:** It feels sharp. Like a period.
 
 **Host:** Exactly. It ends the argument. Use it wisely. Level 4 is complete. You can now recount the past and explain your reasons. Next stop: Level 5.
 
-**Guest:** Poren. I am going.
+**Guest:** போறேன். I am going.
 
-**Host:** Adhaan. That's why.
+**Host:** அதான். That's why.
 
 ---
 [Music Outro]

@@ -20,15 +20,29 @@ import subprocess
 from dotenv import load_dotenv
 
 import edge_tts
+from google.cloud import texttospeech
 
-# Voice mapping — Indian Tamil
-VOICES = {
+# Voice mapping — Indian Tamil (Edge-TTS)
+EDGE_VOICES = {
     "HOST": "ta-IN-PallaviNeural",    # Female, Explainer
     "GUEST": "ta-IN-ValluvarNeural",  # Male, Learner
 }
 
-# Voice tuning for distinctiveness
-VOICE_OPTS = {
+# Google Cloud TTS Voice mapping — Indian Tamil
+# Tiers: Chirp (Gemini), Wavenet
+GOOGLE_VOICES = {
+    "CHIRP": {
+        "HOST": "ta-IN-Chirp3-HD-Achernar", # Female
+        "GUEST": "ta-IN-Chirp3-HD-Charon",   # Male
+    },
+    "WAVENET": {
+        "HOST": "ta-IN-Wavenet-B",
+        "GUEST": "ta-IN-Wavenet-A",
+    }
+}
+
+# Voice tuning for distinctiveness (Edge only)
+EDGE_VOICE_OPTS = {
     "ta-IN-PallaviNeural": {"rate": "+0%", "pitch": "-5Hz"},
     "ta-IN-ValluvarNeural": {"rate": "+0%", "pitch": "-5Hz"},
 }
@@ -56,7 +70,7 @@ def parse_script(file_path: str) -> list[dict]:
             seconds = int(pause_match.group(1))
             dialogue.append({"speaker": "PAUSE", "seconds": seconds})
             continue
-            
+
         if line == "---":
             dialogue.append({"speaker": "PAUSE", "seconds": 1})
             continue
@@ -119,15 +133,48 @@ def clean_for_tts(text: str) -> str:
     return text
 
 
-async def generate_segment(text: str, speaker: str, index: int, temp_dir: str) -> str:
+async def generate_segment_edge(text: str, speaker: str, index: int, temp_dir: str) -> str:
     """Generate a single audio segment using edge-tts."""
-    voice = VOICES.get(speaker, VOICES["HOST"])
-    opts = VOICE_OPTS.get(voice, {"rate": "+0%", "pitch": "+0Hz"})
+    voice = EDGE_VOICES.get(speaker, EDGE_VOICES["HOST"])
+    opts = EDGE_VOICE_OPTS.get(voice, {"rate": "+0%", "pitch": "+0Hz"})
 
     communicate = edge_tts.Communicate(text, voice, rate=opts["rate"], pitch=opts["pitch"])
 
     filename = os.path.join(temp_dir, f"segment_{index:04d}.mp3")
     await communicate.save(filename)
+    return filename
+
+
+async def generate_segment_google(text: str, speaker: str, index: int, temp_dir: str, voice_type: str) -> str:
+    """Generate a single audio segment using Google Cloud TTS."""
+    client = texttospeech.TextToSpeechClient()
+
+    # Select the voice based on type and speaker
+    tier = GOOGLE_VOICES.get(voice_type.upper(), GOOGLE_VOICES["CHIRP"])
+    voice_name = tier.get(speaker, tier["HOST"])
+
+    input_text = texttospeech.SynthesisInput(text=text)
+
+    voice = texttospeech.VoiceSelectionParams(
+        language_code="ta-IN",
+        name=voice_name
+    )
+
+    # We want MP3 output to match the stitching logic.
+    # We specify 24000Hz to match our SILENCE_FRAME and stitching assumptions.
+    audio_config = texttospeech.AudioConfig(
+        audio_encoding=texttospeech.AudioEncoding.MP3,
+        sample_rate_hertz=24000
+    )
+
+    response = client.synthesize_speech(
+        input=input_text, voice=voice, audio_config=audio_config
+    )
+
+    filename = os.path.join(temp_dir, f"segment_{index:04d}.mp3")
+    with open(filename, "wb") as out:
+        out.write(response.audio_content)
+
     return filename
 
 
@@ -168,6 +215,9 @@ async def main():
     parser = argparse.ArgumentParser(description="Generate Dual-Voice Tamil Podcast Audio")
     parser.add_argument("input_file", help="Input markdown script")
     parser.add_argument("output_file", help="Output MP3 file")
+    parser.add_argument("--provider", choices=["edge", "google"], default="google", help="TTS provider (default: google)")
+    parser.add_argument("--voice-type", choices=["chirp", "wavenet"], default="chirp", 
+                        help="Google voice tier (default: chirp)")
     args = parser.parse_args()
 
     print(f"📖 Parsing {args.input_file}...")
@@ -177,6 +227,10 @@ async def main():
         return
 
     print(f"   Found {len(dialogue)} segments.")
+    print(f"   Provider: {args.provider}")
+    if args.provider == "google":
+        print(f"   Tier: {args.voice_type}")
+
     temp_dir = "temp_audio_segments"
     os.makedirs(temp_dir, exist_ok=True)
 
@@ -208,7 +262,11 @@ async def main():
         preview = clean_text[:40] + ("..." if len(clean_text) > 40 else "")
         print(f"   [{i+1}/{len(dialogue)}] {speaker}: {preview}")
 
-        seg_file = await generate_segment(clean_text, speaker, i, temp_dir)
+        if args.provider == "google":
+            seg_file = await generate_segment_google(clean_text, speaker, i, temp_dir, args.voice_type)
+        else:
+            seg_file = await generate_segment_edge(clean_text, speaker, i, temp_dir)
+
         raw_frames = get_raw_mp3_frames(seg_file)
         final_audio_data.extend(raw_frames)
         

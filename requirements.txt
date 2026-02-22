@@ -1,2 +1,3 @@
 edge-tts
 python-dotenv
+google-cloud-texttospeech
