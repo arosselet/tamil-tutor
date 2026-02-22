@@ -37,8 +37,8 @@
 ## The Contract with The Producer
 
 - **Your Output:** `content/scripts/levelX_epY.md`
-- **Your Freedom:** Use phonetics, messy notes, or Thanglish in narrative parts.
-- **Your Constraint:** For **Target Drill Lines** (lines the listener must repeat), provide Tamil Script. The Producer will enforce this.
+- **Your Constraint:** Use **Tamil Script** for every Tamil word, even when the Host is teaching or using it in a narrative context. The TTS engine requires it for correct pronunciation.
+- **Messy Notes:** You may use messy notes or Thanglish for *English* context, but never for Tamil vocabulary.
 
 ## The Immersion Gradient (How the Host Speaks)
 
