@@ -6,28 +6,31 @@ Balance active cognitive learning (interactive sessions) with passive muscle-mem
 ## The 5-Phase Cycle
 
 ```
-Phase 1: Download     → Get new audio content for the current level
-Phase 2: Interactive   → Active session with Gemini (the "Sandwich")
-Phase 3: Passive       → Listen to audio during dead time (walk, commute, chores)
-Phase 4: Broadcasting  → Quiet muttering at physical thresholds (doorways, stairs)
-Phase 5: Checkpoint    → Mastery review, promote words, unlock next level
+Phase 1: Checkpoint    → Review mastery of previous content and update learner.json
+Phase 2: Download      → Generate new audio/script if advancing (Triggers Director)
+Phase 3: Interactive   → Active session with Gemini (the "Sandwich")
+Phase 4: Passive       → Listen to audio during dead time (walk, commute, chores)
+Phase 5: Broadcasting  → Quiet muttering at physical thresholds (doorways, stairs)
 ```
 
 ---
 
-## Phase 1: The Download
-- **Trigger:** Start of a new Episode.
+## Phase 1: The Checkpoint (MANDATORY ENTRY POINT)
+- **Trigger:** Start of any new `@tutor` session.
 - **Action:** 
-  1. **The Checkpoint:** AI Tutor conducts a comprehensive retrospective of the *last* episode before generating anything new. You must explicitly present the user with:
-     - The core **scenarios / concepts** learned (the context, not just isolated vocabulary).
-     - The new vocabulary introduced.
-     - All `struggled_words` (CALLBACK words) that were sprinkled into the last episode's review sections.
-     Wait for the user's feedback on their comfort level with these specific items, then update `progress/learner.json` accordingly. Update `active_podcast` with the details of the *new* episode.
+  - AI Tutor conducts a comprehensive retrospective of the *last* episode/session.
+  - Ask the user about their comfort level with previously learned concepts, new vocabulary, and their struggled words (CALLBACK words).
+  - Wait for feedback, update `progress/learner.json` accordingly.
+- **Goal:** Never advance until the learner is fully caught up and comfortable. This phase decides if we move to Phase 2 (Generate New Content) or jump to Phase 3 (Review existing content).
+
+## Phase 2: The Download (Content Generation)
+- **Trigger:** Learner is ready to advance to a new episode/level.
+- **Action:** 
+  1. Update `active_podcast` with the details of the *new* episode.
   2. **Generate Script:** Director (Beats) → Architect (Script) → Producer (Polished Markdown).
   3. **Generate Audio:** Run `python scripts/generate_episode.py content/scripts/levelX_epY.md audio/levelX_epY.mp3`
-- **Goal:** Ensure the learner is fully caught up and comfortable before creating new content.
 
-## Phase 2: The Interactive Session (The "Sandwich")
+## Phase 3: The Interactive Session (The "Sandwich")
 
 The core daily session with Gemini. Structured in 4 layers:
 
@@ -55,7 +58,7 @@ Monitor engagement. If overwhelmed or bored:
 - Suggest a 1-minute "Audio Break"
 - Offer to drop to LOW energy mode
 
-## Phase 3: The Passive Workout
+## Phase 4: The Passive Workout
 - **Context:** Asynchronous (commute, chores, walking).
 - **Action:** Listen to the Level Podcast.
 - **Technique:** Internal Shadowing (muttering along).
@@ -64,15 +67,10 @@ Monitor engagement. If overwhelmed or bored:
   - *Mid Level:* Scrub to specific segments for deep drilling.
   - *Late Level:* Full file for review.
 
-## Phase 4: Quiet Broadcasting
+## Phase 5: Quiet Broadcasting
 - **Action:** Pick the day's **Zinger** — one high-dopamine phrase.
 - **Technique:** Mutter it 3 times whenever you cross a **physical threshold** (doorway, stairs, car door).
 - **Purpose:** Bridges the gap between passive listening and spoken output.
-
-## Phase 5: Mastery Checkpoint
-- **Frequency:** After completing all episodes in a level.
-- **Action:** Review mastery. Gemini reads `learner.json`, identifies struggled words, runs a targeted drill.
-- **Outcome:** Words move from `struggled` → `comfortable`. Level unlocks.
 
 ---
 
@@ -83,6 +81,3 @@ If a day is missed, there is **no makeup work**. Restart immediately where you l
 
 ### Environment Anchoring
 Layer audio learning onto **"Dead Time"** (commute, dishes, coffee). Protect your **Rest Time** (gaming, reading). Never study during rest.
-
-### The Enjoyment Clause
-Override command: **"This isn't working."** System immediately pauses and switches tactics.

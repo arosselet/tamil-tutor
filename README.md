@@ -41,7 +41,12 @@ scripts/            → Python tools for generation, synthesis, and packing (The
 
 ## Getting Started (How to Use)
 
-This system is designed to be used in two distinct modes: **The Factory** (where episodes are built) and **The Portable Version** (where you actually learn on the go).
+This system is managed via the Gemini CLI and operates in two distinct modes depending on the keyword invoked:
+
+1.  **`@build` (The Engineer):** Used for editing the system, writing Python scripts, refining protocols, and managing the curriculum.
+2.  **`@tutor` (The Showrunner & Tutor - Default):** Used for running the learning protocol, generating new audio lessons, or conducting interactive teaching sessions.
+
+You can also take the system on the go using the **Portable Version**.
 
 ### 1. Prerequisites
 - **Python 3.10+**

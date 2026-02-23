@@ -230,6 +230,31 @@
             "zinger": "முதல்ல நான் சொல்றேன்",
             "notes": "Good progress on Adhukku apuram/Nethu. Struggling with sequence starts (Mudhalla/Munnadi). Innaikku is medium.",
             "source": "cli"
+        },
+        {
+            "date": "2026-02-23",
+            "level": 4,
+            "episode": 5,
+            "energy": "MEDIUM",
+            "struggled": [
+                "முன்னாடி",
+                "முதல்ல",
+                "இன்னைக்கு",
+                "கிட்ட",
+                "கீழ",
+                "மேல",
+                "எழுந்தேன்",
+                "பார்த்தேன்",
+                "நூறு",
+                "பத்து"
+            ],
+            "comfortable": [
+                "ஏன்னா",
+                "அதனால",
+                "ஆனா"
+            ],
+            "zinger": "அதான் வந்துட்டேன் ல?",
+            "notes": "User requested double length episode. Mastered logic connectors."
         }
     ]
 }
