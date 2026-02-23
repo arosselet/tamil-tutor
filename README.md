@@ -1,6 +1,6 @@
 # Coimbatore Mappillai — The Audio Architect Protocol
 
-<video src="https://github.com/user-attachments/assets/6aa1d13a-7046-46e5-83ef-1fffa4fbfd84" controls="controls"></video>
+<video src="https://github.com/user-attachments/assets/d6853a56-0778-4f3a-a83c-0deaea7bfd68" controls="controls"></video>
 
 **A framework for hacking language learning using LLMs. Built to achieve "Operational Capacity" in Coimbatore Tamil.**
 
