@@ -128,7 +128,7 @@ def pack():
         "protocol/philosophy.md",
         "protocol/learning_loop.md",
         "protocol/session_protocol.md",
-        "protocol/weekly_rotation.md",
+        "protocol/episode_rotation.md",
         "protocol/mobile_sync.md",
         # Excluded: sync_ingest (desktop only), roles/* (audio pipeline)
     ]

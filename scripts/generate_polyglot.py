@@ -37,6 +37,8 @@ POLYGLOT_VOICES = {
     "FRENCH_GUEST": ("fr-CA", "fr-CA-Chirp3-HD-Charon"),
     "SPANISH_HOST": ("es-US", "es-US-Chirp3-HD-Achernar"),
     "SPANISH_GUEST": ("es-US", "es-US-Chirp3-HD-Charon"),
+    "GERMAN_HOST": ("de-DE", "de-DE-Chirp3-HD-Aoede"),
+    "GERMAN_GUEST": ("de-DE", "de-DE-Chirp3-HD-Charon"),
     "JAPANESE_HOST": ("ja-JP", "ja-JP-Chirp3-HD-Achernar"),
     "JAPANESE_GUEST": ("ja-JP", "ja-JP-Chirp3-HD-Charon"),
     "ENGLISH_HOST": ("en-US", "en-US-Chirp3-HD-Fenrir"),
