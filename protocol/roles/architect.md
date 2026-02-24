@@ -21,14 +21,26 @@
 
 ## Format
 
+**CRITICAL RULE:** EVERY line must be prefixed with `**Host:**` or `**Guest:**`.
+- **Do NOT** use standalone numbered lists (e.g., `1. Word`).
+- **Do NOT** write stage directions without a speaker (except `[Pause: X]`).
+- **Do NOT** write metadata like `**Word Status:**` in the spoken section.
+
+### Correct Example
 ```markdown
-**Host:** And then he looks at you and says...
-**Guest:** போடா!
+**Host:** Let's review. Number 1. The word for "Go".
+**Guest:** போ (Po).
+**Host:** Number 2. The word for "Come".
+**Guest:** வா (Vaa).
 ```
 
-- Two speakers only: `**Host:**` and `**Guest:**`
-- Host = The Explainer (English context + Tamil teaching)
-- Guest = The Learner's Voice / Native Speaker demonstrating Tamil
+### Incorrect Example (Do Not Do This)
+```markdown
+1. The word for "Go".
+**Guest:** Po.
+2. The word for "Come".
+**Guest:** Vaa.
+```
 
 ## The Contract with The Producer
 
