@@ -24,7 +24,7 @@
 
 **Host:** Let’s talk about the actual engineering. This isn't a cloud app. 
 
-**Guest:** No, I wanted total control. The "Source of Truth" is a set of Markdown files and JSON indices on my desktop. I have a Python script, `generate_episode.py`, that uses dual-voice TTS to turn those Markdowns into the podcasts you're hearing right now.
+**Guest:** No, I wanted total control. The "Source of Truth" is a set of Markdown files and JSON indices on my desktop. I have a Python script, `render_audio.py`, that uses dual-voice TTS to turn those Markdowns into the podcasts you're hearing right now.
 
 **Host:** But you listen on your phone. How do you track progress without a server?
 

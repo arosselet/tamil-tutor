@@ -1,0 +1,1151 @@
+{
+  "tier": 3,
+  "name": "embedded",
+  "vocabulary": [
+    {
+      "tamil": "போவேன்",
+      "english": "I will go"
+    },
+    {
+      "tamil": "வருவேன்",
+      "english": "I will come"
+    },
+    {
+      "tamil": "பண்ணுவேன்",
+      "english": "I will do"
+    },
+    {
+      "tamil": "சாப்பிடுவேன்",
+      "english": "I will eat"
+    },
+    {
+      "tamil": "போலாமா?",
+      "english": "Shall we go?"
+    },
+    {
+      "tamil": "பண்ணலாமா?",
+      "english": "Shall we do?"
+    },
+    {
+      "tamil": "பாக்கலாமா?",
+      "english": "Shall we see?"
+    },
+    {
+      "tamil": "சாப்பிடலாமா?",
+      "english": "Shall we eat?"
+    },
+    {
+      "tamil": "போலாம்",
+      "english": "Let's go"
+    },
+    {
+      "tamil": "நாளைக்கு",
+      "english": "Tomorrow"
+    },
+    {
+      "tamil": "அடுத்த வாரம்",
+      "english": "Next week"
+    },
+    {
+      "tamil": "எப்பவும்",
+      "english": "Always"
+    },
+    {
+      "tamil": "அப்பப்போ",
+      "english": "Sometimes"
+    },
+    {
+      "tamil": "இன்னும் கொஞ்ச நேரம்",
+      "english": "A little more time"
+    },
+    {
+      "tamil": "வந்தா",
+      "english": "If (someone) comes"
+    },
+    {
+      "tamil": "போனா",
+      "english": "If (someone) goes"
+    },
+    {
+      "tamil": "மழை வந்தா",
+      "english": "If it rains"
+    },
+    {
+      "tamil": "டைம் இருந்தா",
+      "english": "If there is time"
+    },
+    {
+      "tamil": "வர்றேன்",
+      "english": "I'm coming (present continuous)"
+    },
+    {
+      "tamil": "கிளம்பிட்டேன்",
+      "english": "I've started / I've left"
+    },
+    {
+      "tamil": "வந்துட்டேன்",
+      "english": "I've arrived"
+    },
+    {
+      "tamil": "சீக்கிரம் வரேன்",
+      "english": "I'll come quickly"
+    },
+    {
+      "tamil": "இல்ல?",
+      "english": "Right? / Isn't it?"
+    },
+    {
+      "tamil": "தானே?",
+      "english": "Right? (confirming)"
+    },
+    {
+      "tamil": "அ?",
+      "english": "Huh? / What?"
+    },
+    {
+      "tamil": "ஆமா இல்லையா?",
+      "english": "Yes or no?"
+    },
+    {
+      "tamil": "செம்ம",
+      "english": "Awesome / Extreme"
+    },
+    {
+      "tamil": "பயங்கரம்",
+      "english": "Terrific / Terrible (intensifier)"
+    },
+    {
+      "tamil": "மொக்கை",
+      "english": "Boring / Lame"
+    },
+    {
+      "tamil": "வேற லெவல்",
+      "english": "Next level"
+    },
+    {
+      "tamil": "அட்டகாசம்",
+      "english": "Fantastic / Amazing"
+    },
+    {
+      "tamil": "சும்மா",
+      "english": "Just / Casually"
+    },
+    {
+      "tamil": "ஆக்சுவலா",
+      "english": "Actually"
+    },
+    {
+      "tamil": "ஒரு நிமிஷம்",
+      "english": "One minute"
+    },
+    {
+      "tamil": "வந்து",
+      "english": "Like / You see (filler)"
+    },
+    {
+      "tamil": "அதான்",
+      "english": "That's it / Exactly"
+    },
+    {
+      "tamil": "வந்துட்டேன்",
+      "english": "I've arrived (compressed)"
+    },
+    {
+      "tamil": "வந்து விட்டேன்",
+      "english": "I've arrived (formal)"
+    },
+    {
+      "tamil": "போயிட்டேன்",
+      "english": "I've gone (compressed)"
+    },
+    {
+      "tamil": "போய் விட்டேன்",
+      "english": "I've gone (formal)"
+    },
+    {
+      "tamil": "பண்ணிட்டேன்",
+      "english": "I've done (compressed)"
+    },
+    {
+      "tamil": "இல்ல?",
+      "english": "Right?"
+    },
+    {
+      "tamil": "செம்ம",
+      "english": "Awesome"
+    },
+    {
+      "tamil": "மொக்கை",
+      "english": "Lame"
+    },
+    {
+      "tamil": "சும்மா",
+      "english": "Just"
+    },
+    {
+      "tamil": "மச்சி",
+      "english": "Dude / Bro"
+    },
+    {
+      "tamil": "டேய்",
+      "english": "Hey (very informal)"
+    },
+    {
+      "tamil": "ஐயோ",
+      "english": "Oh no! / Alas!"
+    },
+    {
+      "tamil": "சபாஷ்",
+      "english": "Well done!"
+    },
+    {
+      "tamil": "ஓகே மச்சி",
+      "english": "Okay dude"
+    },
+    {
+      "tamil": "ஏன் அப்படி?",
+      "english": "Why like that?"
+    },
+    {
+      "tamil": "என்னாச்சு?",
+      "english": "What happened?"
+    },
+    {
+      "tamil": "விடுங்க",
+      "english": "Leave it (respectful)"
+    },
+    {
+      "tamil": "பரவாயில்லை",
+      "english": "It's okay"
+    },
+    {
+      "tamil": "மன்னிச்சுக்கங்க",
+      "english": "Please forgive (respectful)"
+    },
+    {
+      "tamil": "சிரிப்பு",
+      "english": "Laughter"
+    },
+    {
+      "tamil": "காமெடி",
+      "english": "Comedy"
+    },
+    {
+      "tamil": "செம ஜோக்",
+      "english": "Great joke"
+    },
+    {
+      "tamil": "ஒன்னும் இல்ல",
+      "english": "It's nothing"
+    },
+    {
+      "tamil": "வேடிக்கை",
+      "english": "Fun / Amusement"
+    },
+    {
+      "tamil": "சீக்கிரம்",
+      "english": "Quickly"
+    },
+    {
+      "tamil": "மெதுவா",
+      "english": "Slowly"
+    },
+    {
+      "tamil": "கவனமா",
+      "english": "Carefully"
+    },
+    {
+      "tamil": "நல்லா",
+      "english": "Well / Nicely"
+    },
+    {
+      "tamil": "சரியா",
+      "english": "Correctly / Properly"
+    },
+    {
+      "tamil": "வணக்கம்",
+      "english": "Hello"
+    },
+    {
+      "tamil": "நல்லா இருக்கு",
+      "english": "It's good"
+    },
+    {
+      "tamil": "வலது",
+      "english": "Right"
+    },
+    {
+      "tamil": "போனேன்",
+      "english": "I went"
+    },
+    {
+      "tamil": "அவங்க",
+      "english": "They (respectful)"
+    },
+    {
+      "tamil": "நன்றி",
+      "english": "Thank you"
+    },
+    {
+      "tamil": "தமிழ் தெரியும்",
+      "english": "I know Tamil"
+    },
+    {
+      "tamil": "கொஞ்சம் கொஞ்சமா கத்துக்கிட்டு இருக்கேன்",
+      "english": "I'm learning little by little"
+    },
+    {
+      "tamil": "பேசுறேன்",
+      "english": "I am speaking"
+    },
+    {
+      "tamil": "பேசினேன்",
+      "english": "I spoke"
+    },
+    {
+      "tamil": "பேசுவேன்",
+      "english": "I will speak"
+    },
+    {
+      "tamil": "பேசுங்க",
+      "english": "Speak! (respectful)"
+    },
+    {
+      "tamil": "பேசாதீங்க",
+      "english": "Don't speak (respectful)"
+    },
+    {
+      "tamil": "வாங்குறேன்",
+      "english": "I am buying"
+    },
+    {
+      "tamil": "வாங்கினேன்",
+      "english": "I bought"
+    },
+    {
+      "tamil": "வாங்குவேன்",
+      "english": "I will buy"
+    },
+    {
+      "tamil": "வாங்குங்க",
+      "english": "Buy! (respectful)"
+    },
+    {
+      "tamil": "தேடுறேன்",
+      "english": "I am searching"
+    },
+    {
+      "tamil": "தேடினேன்",
+      "english": "I searched"
+    },
+    {
+      "tamil": "தேடுவேன்",
+      "english": "I will search"
+    },
+    {
+      "tamil": "தேடுங்க",
+      "english": "Search! (respectful)"
+    },
+    {
+      "tamil": "நடக்கிறேன்",
+      "english": "I am walking"
+    },
+    {
+      "tamil": "நடந்தேன்",
+      "english": "I walked"
+    },
+    {
+      "tamil": "ஓடுறேன்",
+      "english": "I am running"
+    },
+    {
+      "tamil": "ஓடினேன்",
+      "english": "I ran"
+    },
+    {
+      "tamil": "ஓடாதீங்க",
+      "english": "Don't run (respectful)"
+    },
+    {
+      "tamil": "பேசுறேன்",
+      "english": "I speak"
+    },
+    {
+      "tamil": "தேடுறேன்",
+      "english": "I'm searching"
+    },
+    {
+      "tamil": "போக வேணும்",
+      "english": "Need to go"
+    },
+    {
+      "tamil": "சாப்பிட முடியாது",
+      "english": "Cannot eat"
+    },
+    {
+      "tamil": "பேச கூடாது",
+      "english": "Shouldn't speak"
+    },
+    {
+      "tamil": "வாங்க போறேன்",
+      "english": "I'm going to buy"
+    },
+    {
+      "tamil": "மறந்துட்டேன்",
+      "english": "I forgot"
+    },
+    {
+      "tamil": "மறக்காதீங்க",
+      "english": "Don't forget (respectful)"
+    },
+    {
+      "tamil": "மறந்திடாதீங்க",
+      "english": "Please don't forget"
+    },
+    {
+      "tamil": "மறக்க முடியாது",
+      "english": "Cannot forget"
+    },
+    {
+      "tamil": "கத்துக்கிறேன்",
+      "english": "I am learning"
+    },
+    {
+      "tamil": "கத்துக்கிட்டேன்",
+      "english": "I learned"
+    },
+    {
+      "tamil": "கத்துக்குவேன்",
+      "english": "I will learn"
+    },
+    {
+      "tamil": "கத்துக்குங்க",
+      "english": "Learn! (respectful)"
+    },
+    {
+      "tamil": "காட்டுங்க",
+      "english": "Show! (respectful)"
+    },
+    {
+      "tamil": "காட்டினேன்",
+      "english": "I showed"
+    },
+    {
+      "tamil": "காட்டுவேன்",
+      "english": "I will show"
+    },
+    {
+      "tamil": "காட்டுறேன்",
+      "english": "I am showing"
+    },
+    {
+      "tamil": "அடி",
+      "english": "Hit / Beat / Strike"
+    },
+    {
+      "tamil": "அடிக்காதீங்க",
+      "english": "Don't hit (respectful)"
+    },
+    {
+      "tamil": "விடு",
+      "english": "Leave / Let / Release"
+    },
+    {
+      "tamil": "விடுங்க",
+      "english": "Leave it / Let go (respectful)"
+    },
+    {
+      "tamil": "கத்துக்கிறேன்",
+      "english": "I'm learning"
+    },
+    {
+      "tamil": "காட்டுங்க",
+      "english": "Show"
+    },
+    {
+      "tamil": "அடி",
+      "english": "Hit"
+    },
+    {
+      "tamil": "விடுங்க",
+      "english": "Leave it"
+    },
+    {
+      "tamil": "சொல்லிடு",
+      "english": "Tell completely / Just tell"
+    },
+    {
+      "tamil": "எழுதிப்போடு",
+      "english": "Dash off (write quickly)"
+    },
+    {
+      "tamil": "பார்த்துக்கிறேன்",
+      "english": "I'll take care of it / I'll see to it"
+    },
+    {
+      "tamil": "கூட",
+      "english": "Also / Even / Together"
+    },
+    {
+      "tamil": "நானும்",
+      "english": "I also / Me too (-um suffix)"
+    },
+    {
+      "tamil": "அவங்களும்",
+      "english": "They also (-um suffix)"
+    },
+    {
+      "tamil": "மட்டும்",
+      "english": "Only"
+    },
+    {
+      "tamil": "தான்",
+      "english": "Only / Self / Emphasis"
+    },
+    {
+      "tamil": "நானே",
+      "english": "I myself (-e suffix for emphasis)"
+    },
+    {
+      "tamil": "எல்லாம்",
+      "english": "Everything / All"
+    },
+    {
+      "tamil": "ஒன்னுமே இல்ல",
+      "english": "Nothing at all"
+    },
+    {
+      "tamil": "யாரும் இல்ல",
+      "english": "Nobody"
+    },
+    {
+      "tamil": "எங்கேயும்",
+      "english": "Everywhere / Anywhere"
+    },
+    {
+      "tamil": "ஏற்கனவே",
+      "english": "Already"
+    },
+    {
+      "tamil": "இன்னும்",
+      "english": "Still / Yet / More"
+    },
+    {
+      "tamil": "அல்லது",
+      "english": "Or"
+    },
+    {
+      "tamil": "அவ்வளவுதான்",
+      "english": "That's all / That's it"
+    },
+    {
+      "tamil": "கூட",
+      "english": "Also"
+    },
+    {
+      "tamil": "எல்லாம்",
+      "english": "Everything"
+    },
+    {
+      "tamil": "இன்னும்",
+      "english": "Still"
+    },
+    {
+      "tamil": "நான் தான் சொன்னேன்",
+      "english": "I'm the one who said it (identity)"
+    },
+    {
+      "tamil": "சரி தான்",
+      "english": "That's right / Fine then (confirmation/resignation)"
+    },
+    {
+      "tamil": "அது தான்",
+      "english": "That's exactly it / That's the thing"
+    },
+    {
+      "tamil": "வெயில்",
+      "english": "Sun / Heat / Sunshine"
+    },
+    {
+      "tamil": "மழை",
+      "english": "Rain"
+    },
+    {
+      "tamil": "காத்து",
+      "english": "Wind / Breeze"
+    },
+    {
+      "tamil": "வெக்கை",
+      "english": "Extreme heat / Sweltering"
+    },
+    {
+      "tamil": "காலைல",
+      "english": "In the morning"
+    },
+    {
+      "tamil": "மத்தியானம்",
+      "english": "Afternoon"
+    },
+    {
+      "tamil": "சாயங்காலம்",
+      "english": "Evening"
+    },
+    {
+      "tamil": "ராத்திரி",
+      "english": "Night"
+    },
+    {
+      "tamil": "நாலு",
+      "english": "Four"
+    },
+    {
+      "tamil": "ஆறு",
+      "english": "Six"
+    },
+    {
+      "tamil": "ஏழு",
+      "english": "Seven"
+    },
+    {
+      "tamil": "எட்டு",
+      "english": "Eight"
+    },
+    {
+      "tamil": "ஒன்பது",
+      "english": "Nine"
+    },
+    {
+      "tamil": "மணி",
+      "english": "O'clock / Hour"
+    },
+    {
+      "tamil": "ஆயிரம்",
+      "english": "Thousand"
+    },
+    {
+      "tamil": "அரை",
+      "english": "Half"
+    },
+    {
+      "tamil": "வெயில்",
+      "english": "Sun/Heat"
+    },
+    {
+      "tamil": "காலைல",
+      "english": "Morning"
+    },
+    {
+      "tamil": "மணி",
+      "english": "O'clock"
+    },
+    {
+      "tamil": "வெள்ளம்",
+      "english": "Flood"
+    },
+    {
+      "tamil": "மின்சாரம்",
+      "english": "Electricity"
+    },
+    {
+      "tamil": "கரண்ட் போச்சு",
+      "english": "Power went out"
+    },
+    {
+      "tamil": "ஒத்துக்கிறேன்",
+      "english": "I agree"
+    },
+    {
+      "tamil": "கரெக்ட்",
+      "english": "Correct"
+    },
+    {
+      "tamil": "சரிதான்",
+      "english": "That's right / Exactly"
+    },
+    {
+      "tamil": "மாட்டேன்",
+      "english": "I won't / I refuse"
+    },
+    {
+      "tamil": "ஒத்துக்க மாட்டேன்",
+      "english": "I won't agree"
+    },
+    {
+      "tamil": "அது சரி இல்ல",
+      "english": "That's not right"
+    },
+    {
+      "tamil": "தோணுது",
+      "english": "It occurs to me / I feel like"
+    },
+    {
+      "tamil": "-ன்னு நினைக்கிறேன்",
+      "english": "I think that..."
+    },
+    {
+      "tamil": "யோசி",
+      "english": "Think about it / Consider"
+    },
+    {
+      "tamil": "try பண்ணு",
+      "english": "Try (it)"
+    },
+    {
+      "tamil": "ஒரு தடவை",
+      "english": "One time / Just once"
+    },
+    {
+      "tamil": "பாக்கலாம்",
+      "english": "Let's see / We'll see"
+    },
+    {
+      "tamil": "மாட்டேன்",
+      "english": "I won't"
+    },
+    {
+      "tamil": "தோணுது",
+      "english": "I feel like"
+    },
+    {
+      "tamil": "யோசி",
+      "english": "Think about it"
+    },
+    {
+      "tamil": "பாக்கலாம்",
+      "english": "Let's see"
+    },
+    {
+      "tamil": "உங்க point சரிதான், ஆனா...",
+      "english": "Your point is right, but..."
+    },
+    {
+      "tamil": "இப்படி பாருங்க",
+      "english": "Look at it this way"
+    },
+    {
+      "tamil": "என் opinion-ல",
+      "english": "In my opinion"
+    },
+    {
+      "tamil": "அப்படி",
+      "english": "Like that"
+    },
+    {
+      "tamil": "இப்படி",
+      "english": "Like this"
+    },
+    {
+      "tamil": "அந்த",
+      "english": "That (adjective)"
+    },
+    {
+      "tamil": "இந்த",
+      "english": "This (adjective)"
+    },
+    {
+      "tamil": "அதே",
+      "english": "Same / That same"
+    },
+    {
+      "tamil": "வேற",
+      "english": "Other / Different / Else"
+    },
+    {
+      "tamil": "பாரு",
+      "english": "Look! (informal)"
+    },
+    {
+      "tamil": "கேளு",
+      "english": "Listen! (informal)"
+    },
+    {
+      "tamil": "ஜாக்கிரதை",
+      "english": "Careful! / Watch out!"
+    },
+    {
+      "tamil": "நில்லு",
+      "english": "Stop! / Stand! (informal)"
+    },
+    {
+      "tamil": "ஓடு",
+      "english": "Run! (informal)"
+    },
+    {
+      "tamil": "போடா",
+      "english": "Get lost! / Go! (informal, male)"
+    },
+    {
+      "tamil": "போடி",
+      "english": "Get lost! / Go! (informal, female)"
+    },
+    {
+      "tamil": "கலக்குறே",
+      "english": "You're killing it / Rocking"
+    },
+    {
+      "tamil": "mass",
+      "english": "Mass / Powerful / Impressive (slang)"
+    },
+    {
+      "tamil": "ஆஹா",
+      "english": "Wow / Ah (wonder)"
+    },
+    {
+      "tamil": "சே",
+      "english": "Tsk / Disappointment"
+    },
+    {
+      "tamil": "கடவுளே",
+      "english": "Oh God!"
+    },
+    {
+      "tamil": "ஏன் இப்படி?",
+      "english": "Why like this?"
+    },
+    {
+      "tamil": "பாரு",
+      "english": "Look"
+    },
+    {
+      "tamil": "ஜாக்கிரதை",
+      "english": "Careful"
+    },
+    {
+      "tamil": "கலக்குறே",
+      "english": "Killing it"
+    },
+    {
+      "tamil": "கடவுளே",
+      "english": "Oh God"
+    },
+    {
+      "tamil": "படம்",
+      "english": "Movie / Film"
+    },
+    {
+      "tamil": "பாட்டு",
+      "english": "Song"
+    },
+    {
+      "tamil": "கதை",
+      "english": "Story"
+    }
+  ],
+  "scenarios": [
+    {
+      "topic": "Future Intent",
+      "intro": "You are no longer reporting the past. You are declaring intent. I will go. I will come. I will do.",
+      "scenario": "Wife asks your plans. You say 'I will go to the market. I will come back. I will eat dinner'."
+    },
+    {
+      "topic": "Proposals",
+      "intro": "Shall we? Should we? The proposal forms. Inviting action.",
+      "scenario": "Friend asks 'Shall we go to the movie?'. You say 'Let's go'. He asks 'Shall we eat first?'. You agree."
+    },
+    {
+      "topic": "Scheduling",
+      "intro": "When will it happen? Tomorrow, next week, always, sometimes.",
+      "scenario": "Boss asks when you will finish the report. You say 'Tomorrow'. He asks if you always work late. You say 'Sometimes'."
+    },
+    {
+      "topic": "Conditionals",
+      "intro": "If this, then that. The conditional logic. If you come, if it rains, if he goes.",
+      "scenario": "Wife says 'If it rains, don't go'. You say 'If I have time, I will come early'."
+    },
+    {
+      "topic": "BOSS FIGHT: The Weekend Plan",
+      "intro": "Planning a social outing with contingencies. You must propose a plan with two backup options.",
+      "scenario": "Propose going to the beach. What if it rains? Go to the mall. When shall we go? Tomorrow morning. What if there is no time? We can see next week."
+    },
+    {
+      "topic": "Rest and Reps",
+      "intro": "Audit Day. Reviewing future tense and conditional logic.",
+      "scenario": "Rapid fire. Build conditional sentences with future plans."
+    },
+    {
+      "topic": "Indian Stretchable Time (IST)",
+      "intro": "Understanding Tamil time. Why 'I'm coming' means 'I haven't left yet'.",
+      "scenario": "Understanding the progression: Varren (still at home) → Kilambitten (in transit) → Vandhutten (arrived). Learn to decode actual arrival time."
+    },
+    {
+      "topic": "Sentence Tags",
+      "intro": "Attitude and Flow. You sound like a textbook. Today we add the local flavor. Question tags that make you sound native.",
+      "scenario": "You say 'The movie was good, right?'. You say 'You are coming, right?'. Someone mumbles. You say 'What?'."
+    },
+    {
+      "topic": "Intensifiers",
+      "intro": "Making things extreme. Super becomes Semma. Bad becomes Mokkai. The intensifier layer.",
+      "scenario": "Friend asks about the food. You say 'Semma!'. He asks about the movie. You say 'Mokkai'. The cricket match was 'Vera level'."
+    },
+    {
+      "topic": "Fillers",
+      "intro": "The pause words. The thinking sounds. Making your Tamil sound natural, not rehearsed.",
+      "scenario": "Someone asks a question. You say 'One minute'. You think. You say 'Actually, I was just casually thinking about it. And then I forgot'."
+    },
+    {
+      "topic": "Speed & Sandhi",
+      "intro": "The compression layer. How fast speech changes the words.",
+      "scenario": "Practice saying both versions. Understand that locals use the compressed form. You should recognize both."
+    },
+    {
+      "topic": "BOSS FIGHT: The Movie Review",
+      "intro": "Your friend asks about the movie you watched. Describe it using only intensifiers and fillers. No plain adjectives allowed.",
+      "scenario": "How was the movie? 'Actually it was an awesome movie. Next level.' Was the story good? 'The story was simply super.' What about the villain? 'Villain was extreme. He acted fantastically.' Will you watch it again? 'Exactly, I thought I should watch it again tomorrow itself.'"
+    },
+    {
+      "topic": "Rest and Reps",
+      "intro": "Audit Day. Reviewing slang, intensifiers, and fillers.",
+      "scenario": "Rapid fire. Take simple sentences and add intensifiers and fillers to make them sound natural."
+    },
+    {
+      "topic": "Kongu Bashai",
+      "intro": "The dialect of Coimbatore. Understanding the Kongu slang overlay.",
+      "scenario": "Understanding the Kovai street dialect. How formality drops among friends. When to use Machi and when to avoid Dey."
+    },
+    {
+      "topic": "Advanced Conflict",
+      "intro": "Conflict resolution. Apology. Confrontation. The hard conversations.",
+      "scenario": "Someone is upset. You ask 'What happened?'. They complain. You say 'Leave it. It's okay'."
+    },
+    {
+      "topic": "Humor",
+      "intro": "Making people laugh. Understanding jokes. The humor vocabulary.",
+      "scenario": "Someone makes a joke. You laugh and say 'Sema joke!'. They ask if you're making fun. You say 'Nothing, just fun'."
+    },
+    {
+      "topic": "Adverbs of Manner",
+      "intro": "How did it happen? Fast, slow, carefully. The manner layer.",
+      "scenario": "Auto driver is going fast. You say 'Slowly!'. Mother gives you hot food. She says 'Carefully!'."
+    },
+    {
+      "topic": "Rapid Drills",
+      "intro": "Combining everything from Levels 1-7. No new vocabulary. Pure synthesis.",
+      "scenario": "Complex scenarios requiring vocabulary from multiple levels. Simulate a full day: Morning greeting → Breakfast feedback → Auto ride → Market shopping → Evening report → Gossip session → Future planning."
+    },
+    {
+      "topic": "BOSS FIGHT: The Full Conversion",
+      "intro": "The final Boss Fight. A 5-minute conversation with zero English connectors. You must use only Tamil.",
+      "scenario": "Friend calls. Greet them. They ask what you did yesterday. Tell a full story. They propose going to a movie tomorrow. Discuss options. End the call properly."
+    },
+    {
+      "topic": "Final Exam",
+      "intro": "Full Survival Run. Simulating a complete day in Tamil. From waking up to going to bed. All in Tamil.",
+      "scenario": "Morning: Wake up, greet family, breakfast conversation. Mid-morning: Call to confirm appointment, give directions. Afternoon: Market shopping, price negotiation, auto ride. Evening: Report your day to family, discuss plans. Night: Social call with friend, movie review, plan weekend."
+    },
+    {
+      "topic": "GRADUATION: Embedded Local",
+      "intro": "You made it. You are no longer a beginner. You are an Embedded Local.",
+      "scenario": "Someone asks if you speak Tamil. You smile. You say 'I'm learning little by little'. They are impressed. You have arrived."
+    },
+    {
+      "topic": "பேசு — Speak",
+      "intro": "The verb you hear most in any conversation ABOUT conversations. I'm speaking. I spoke. I will speak. Speak!",
+      "scenario": "'Who are you talking to?'. 'I was speaking to Anna'. 'Don't speak so loudly'. 'Speak in Tamil'. 'I will speak to him tomorrow'. Every form in a family argument."
+    },
+    {
+      "topic": "வாங்கு — Buy",
+      "intro": "The market verb. You need it every single day. What did you buy? What should I buy? Buy this!",
+      "scenario": "'What are you buying?'. 'I bought vegetables'. 'Buy two kilos of rice'. 'I will buy milk tomorrow'. The daily shopping conversation."
+    },
+    {
+      "topic": "தேடு — Search",
+      "intro": "You lose things. Everyone loses things. The verb for searching is your daily companion.",
+      "scenario": "'I'm searching for my keys'. 'I searched everywhere'. 'Search under the sofa'. 'I'll search in the car'. The daily hunt for lost objects."
+    },
+    {
+      "topic": "நட & ஓடு — Walk & Run",
+      "intro": "Movement at two speeds. The physical action verbs. Walk slowly. Run fast. Don't run in the house!",
+      "scenario": "'Walk slowly'. 'I walked to the shop yesterday'. 'The bus is coming — run!'. 'Don't run in the house!'. 'He ran very fast'. Two verbs, two speeds, all tenses."
+    },
+    {
+      "topic": "BOSS FIGHT: The Full Day in Verbs",
+      "intro": "Narrate a complete day using all verb families from this level and previous levels.",
+      "scenario": "Morning: I spoke to wife. I walked to the bus stop. I ran because the bus came. Afternoon: I searched for the file. I bought lunch. Evening: Speaking to friend. Walking home. Full paradigm usage."
+    },
+    {
+      "topic": "Rest and Reps",
+      "intro": "Audit Day. All verb paradigms from this level.",
+      "scenario": "Rapid fire. I say the English tense, you give the Tamil conjugation. Present. Past. Future. Command."
+    },
+    {
+      "topic": "The Infinitive Unlock",
+      "intro": "The secret pattern. Add the infinitive to Venum, Mudiyum, or Kudaadhu and you can express any desire, ability, or prohibition.",
+      "scenario": "Combining verbs. 'I need to go'. 'I can't eat now'. 'You shouldn't speak loudly'. 'I'm going to buy vegetables'. The infinitive is the key that chains all verbs together."
+    },
+    {
+      "topic": "மறந்துடு — Forget",
+      "intro": "The most honest verb. Everyone forgets. Keys. Birthdays. Promises. Today we learn how to confess it.",
+      "scenario": "'I forgot the keys!'. Wife says 'Don't forget to call Mama'. You promise. Next day: 'Did you call?'. 'I forgot again'. 'Some things you cannot forget!'."
+    },
+    {
+      "topic": "கத்துக்கு — Learn",
+      "intro": "The verb that describes your entire journey. I am learning. I learned. How did you learn? The meta-language verb.",
+      "scenario": "Someone asks 'Do you know Tamil?'. 'I'm learning'. 'How did you learn?'. 'I learned from my wife'. 'You must learn more!'. 'I will learn'. The verb about the journey itself."
+    },
+    {
+      "topic": "காட்டு — Show",
+      "intro": "Show me. I'll show you. He showed the way. The verb of demonstration and revelation.",
+      "scenario": "'Show me the way to the temple'. 'I showed him the photo'. 'I'll show you the shop tomorrow'. 'Let me show you how to make filter coffee'. Showing is teaching."
+    },
+    {
+      "topic": "அடி & விடு — Strike & Release",
+      "intro": "Two verbs with massive range. Hit, beat, strike. And also: let, leave, release. Opposites that define Tamil life.",
+      "scenario": "Kids fighting. 'Don't hit your brother!'. Cricket match. 'He hit a six!'. Argument escalates. 'Leave it'. 'Let him go'. Two verbs that contain all of Tamil drama."
+    },
+    {
+      "topic": "BOSS FIGHT: Verb Gauntlet",
+      "intro": "Rapid scenario switching. Every scene needs a different verb family. No thinking time.",
+      "scenario": "You forgot your bag. Search for it. Someone calls — pick up. They ask what happened. You show them the empty table. Learn from this mistake. Let it go. Next scene. Don't stop."
+    },
+    {
+      "topic": "Rest and Reps",
+      "intro": "Audit Day. All cognitive and physical verb paradigms.",
+      "scenario": "Rapid fire paradigm drill. Present. Past. Future. Command. Negative command. All verbs."
+    },
+    {
+      "topic": "The Compound Verb System",
+      "intro": "Tamil's secret weapon. Combine viDu, pODu, or koL with any verb to add completeness, casualness, or self-benefit. This is advanced but it is EVERYWHERE in movies.",
+      "scenario": "Understanding compound verbs in context. 'Just tell him'. 'Dash off the message quickly'. 'I'll take care of this myself'. These add attitude and completeness to basic verbs."
+    },
+    {
+      "topic": "Also, Even, Together",
+      "intro": "The word 'kooda' is everywhere. Also. Even. Together. One word, three meanings. Plus the -um connector.",
+      "scenario": "'I'm also coming'. 'Even he came'. 'Let's go together'. 'Rice AND sambar' (using -um). 'You too? Me too!'. The glue that binds sentences."
+    },
+    {
+      "topic": "Only & Emphasis",
+      "intro": "Mattum means only. Thaan means... everything. Only. Self. Emphasis. Identity. The most powerful particle in Tamil.",
+      "scenario": "'Only coffee, nothing else'. 'I myself will do it'. 'He only said that'. 'It was me only'. 'Just one, that's all'. The art of narrowing and emphasizing."
+    },
+    {
+      "topic": "Everyone & No One",
+      "intro": "Everything. Nothing. Everyone. No one. Everywhere. Nowhere. The universal and negative pronouns.",
+      "scenario": "'Everyone came to the wedding'. 'There's nothing in the fridge'. 'Nobody is home'. 'I searched everywhere'. These words turn simple sentences into complete thoughts."
+    },
+    {
+      "topic": "Already, Still, Or",
+      "intro": "Time markers and choices. Already done. Still doing. This or that. The connectors that structure any plan.",
+      "scenario": "'I already ate'. 'Are you still working?'. 'Coffee or tea?'. 'I need more time'. 'That's all, nothing else'. Completing the toolkit of logical connection."
+    },
+    {
+      "topic": "BOSS FIGHT: The Fluency Test",
+      "intro": "Tell a story using at least 8 different discourse markers. No pausing. No English connectors.",
+      "scenario": "I also went to the market yesterday. Everyone was there. I searched everywhere for mangoes. Nobody had good ones. I already checked three shops. Still no luck. Only one shop had them. That's all I bought."
+    },
+    {
+      "topic": "Rest and Reps",
+      "intro": "Audit Day. Drilling all discourse markers and connectors.",
+      "scenario": "Rapid fire. I give you a sentence with an English connector. You replace ONLY the connector with Tamil."
+    },
+    {
+      "topic": "The Thaan Masterclass",
+      "intro": "Thaan has at least 7 different uses. Emphasis. Identity. Confirmation. Resignation. Sarcasm. Self-reference. Filler. Understanding Thaan is understanding Tamil attitude.",
+      "scenario": "Seven uses of Thaan in one conversation. Hearing each shade of meaning. From 'I told you so' to 'fine, whatever' to 'that's exactly the point'. One word, infinite attitude."
+    },
+    {
+      "topic": "Weather Report",
+      "intro": "Coimbatore weather is generally milder, but it has its seasons. Plus the occasional monsoon. The weather vocabulary.",
+      "scenario": "'The sun is brutal today'. 'Is it going to rain?'. 'Nice breeze in the evening'. 'This Kovai heat is extreme!'. The four words that describe 90% of Coimbatore weather conversations."
+    },
+    {
+      "topic": "Time of Day",
+      "intro": "Morning. Afternoon. Evening. Night. The four quadrants of the Tamil day, each with its own rituals.",
+      "scenario": "Plan the day. Morning walk at the beach. Afternoon rest (too hot). Evening temple visit. Night dinner with family. Each part of the day has its purpose."
+    },
+    {
+      "topic": "Numbers: The Gaps",
+      "intro": "We know 1, 2, 3, 5, 10, 100. But what about 4, 6, 7, 8, 9? The missing numbers that complete your counting.",
+      "scenario": "Apartment hunting. '6th floor'. 'Flat number 8-0-7'. 'Bus number 4-9'. Your phone number: each digit matters. Fill in the gaps."
+    },
+    {
+      "topic": "Clock Time",
+      "intro": "What time is it? The hour system. And the big number: thousand.",
+      "scenario": "'What time? 3 o'clock'. 'Come at 7:30' (seven and a half). 'The shop closes at 10'. 'The rent is 15 thousand'. Numbers plus time equals daily navigation."
+    },
+    {
+      "topic": "BOSS FIGHT: The Coimbatore Day Planner",
+      "intro": "Plan a full day around weather and time. Morning is okay. Afternoon is too hot. Rain in the evening. Adjust.",
+      "scenario": "Morning walk at 6. Shop opens at 9. Afternoon too hot — stay home. Rain at 4. Evening temple at 6 if rain stops. Dinner at 8. Plan, adjust, replan."
+    },
+    {
+      "topic": "Rest and Reps",
+      "intro": "Audit Day. Weather, time of day, numbers, and clock time.",
+      "scenario": "Rapid fire. I describe a time or weather condition, you give the Tamil."
+    },
+    {
+      "topic": "The Two Seasons of Coimbatore",
+      "intro": "Summer survival vs. monsoon survival. Why locals track weather the way traders track markets. The vocabulary of climate adaptation.",
+      "scenario": "Monsoon hits. Flood in the streets. Power goes out. No electricity. The neighborhood WhatsApp group is buzzing. Understanding Coimbatore's relationship with water."
+    },
+    {
+      "topic": "I Agree",
+      "intro": "Agreement is social glue. You're right. Correct. Exactly. I agree. The affirmation vocabulary.",
+      "scenario": "Family discussing restaurant choice. 'That place is good'. 'Correct'. 'Shall we go Saturday?'. 'I agree'. 'Evening is better'. 'That's right'. Building consensus."
+    },
+    {
+      "topic": "I Refuse",
+      "intro": "Disagreement is harder. Especially in Tamil families. The maatEn pattern: I won't. I refuse. Standing your ground, gently.",
+      "scenario": "Someone wants you to eat more. 'I won't'. 'But you must'. 'I won't agree'. 'That's not right, you're too thin'. Standing firm without being rude. The art of Tamil refusal."
+    },
+    {
+      "topic": "I Think & I Feel",
+      "intro": "Expressing inner thoughts. I think so. I feel like. It occurs to me. The language of subjective opinion.",
+      "scenario": "'I feel like going out today'. 'I think this restaurant is better'. 'Think about it before saying no'. 'It occurs to me that we forgot Mama's birthday'. Expressing inner experience."
+    },
+    {
+      "topic": "Gentle Persuasion",
+      "intro": "The art of convincing. Try it. Just once. What if. Maybe. The soft power vocabulary.",
+      "scenario": "Convincing wife to watch a Tamil movie. 'Just try'. 'One time'. 'We'll see if you like it'. 'Think about it'. She agrees eventually. Persuasion, Tamil style."
+    },
+    {
+      "topic": "BOSS FIGHT: The Family Debate",
+      "intro": "Where to go for vacation. Everyone has an opinion. You must agree with some, disagree with others, and persuade one person.",
+      "scenario": "Akka says Ooty. 'I agree, correct'. Anna says Goa. 'That's not right, too far'. Wife says Pondicherry. 'I think Pondy is good'. Mama says 'Why go anywhere?'. 'Just try. One time. Let's see'. Consensus reached."
+    },
+    {
+      "topic": "Rest and Reps",
+      "intro": "Audit Day. Opinion and debate vocabulary.",
+      "scenario": "Rapid fire. I state an opinion. You either agree, disagree, or offer your own thought."
+    },
+    {
+      "topic": "The Mariyadhai Debate Protocol",
+      "intro": "How to disagree without breaking respect. The Tamil art of 'yes, but...' and 'what if instead...'. Disagreement as care, not confrontation.",
+      "scenario": "The respectful disagreement pattern. Never say 'you're wrong'. Say 'your point is right, but look at it this way'. 'In my opinion...' not 'You're wrong'. The cultural grammar of debate."
+    },
+    {
+      "topic": "This & That",
+      "intro": "Demonstratives. Like this. Like that. This one. That one. Same thing. Different thing. The words that point at reality.",
+      "scenario": "'Do it like this, not like that'. 'That shop, not this one'. 'Same place as yesterday?'. 'No, different street'. The six words that organize all of reality into this vs. that."
+    },
+    {
+      "topic": "Commands & Warnings",
+      "intro": "Movie commands. Look! Listen! Be careful! Stop! Run! The informal imperative that drives every action scene.",
+      "scenario": "Action movie vocab. 'Look out!' 'Listen to me!' 'Be careful!' 'Stop right there!' 'Run!'. The five commands that drive every Tamil movie climax."
+    },
+    {
+      "topic": "Street Talk",
+      "intro": "The informal register. The slang you hear between friends, in movies, and on the street. Use with care.",
+      "scenario": "Friends at a cricket match. 'Dhoni is mass!'. 'You're killing it!'. Rival fan trash talks. 'Get lost!'. Understanding the register. When to use it (friends). When to NEVER use it (elders)."
+    },
+    {
+      "topic": "Emotional Peaks",
+      "intro": "The exclamations that punctuate every Tamil movie climax. Wow. Oh god. Tsk. Why like this? Pure emotion in sound.",
+      "scenario": "Movie climax. Hero discovers the truth. 'Oh God!'. 'Why like this?'. Beautiful sunset. 'Wow!'. Plan goes wrong. 'Tsk'. The emotional punctuation of Tamil storytelling."
+    },
+    {
+      "topic": "BOSS FIGHT: The Movie Scene",
+      "intro": "A full movie scene described to you. Decode every word. Identify commands, emotions, demonstratives, and slang.",
+      "scenario": "Hero enters. 'Look at this!' He shows something. 'That same person!' Villain appears. 'Stop!' 'Run!' 'Be careful!' 'Oh God, why like this?'. Friend says 'You're mass, go!' Hero turns around. 'Listen, I won't run'. Decode everything."
+    },
+    {
+      "topic": "Rest and Reps",
+      "intro": "Audit Day. Movie vocabulary: demonstratives, commands, slang, exclamations.",
+      "scenario": "Rapid fire. I play a movie moment. You identify the word category: command, emotion, demonstrative, or slang."
+    },
+    {
+      "topic": "Your First Tamil Movie Guide",
+      "intro": "You have the vocabulary. Now use it. Which movie to watch first. How to use subtitles strategically. What to listen for. Your graduation mission.",
+      "scenario": "Your first Tamil movie watch plan. Start with a comedy (easier dialogue). Watch with English subtitles first. Then Tamil subtitles. Then nothing. Listen for the words you know. The movie becomes your teacher. You have arrived."
+    }
+  ]
+}

@@ -1,0 +1,1006 @@
+{
+  "tier": 2,
+  "name": "comfort",
+  "vocabulary": [
+    {
+      "tamil": "போனேன்",
+      "english": "I went"
+    },
+    {
+      "tamil": "வந்தேன்",
+      "english": "I came"
+    },
+    {
+      "tamil": "பண்ணினேன்",
+      "english": "I did"
+    },
+    {
+      "tamil": "கொடுத்தேன்",
+      "english": "I gave"
+    },
+    {
+      "tamil": "சாப்பிட்டேன்",
+      "english": "I ate"
+    },
+    {
+      "tamil": "குடிச்சேன்",
+      "english": "I drank"
+    },
+    {
+      "tamil": "பார்த்தேன்",
+      "english": "I saw / I watched"
+    },
+    {
+      "tamil": "தூங்கினேன்",
+      "english": "I slept"
+    },
+    {
+      "tamil": "எழுந்தேன்",
+      "english": "I woke up"
+    },
+    {
+      "tamil": "அதுக்கு அப்புறம்",
+      "english": "After that"
+    },
+    {
+      "tamil": "முன்னாடி",
+      "english": "Before"
+    },
+    {
+      "tamil": "நேத்து",
+      "english": "Yesterday"
+    },
+    {
+      "tamil": "இன்னைக்கு",
+      "english": "Today"
+    },
+    {
+      "tamil": "முதல்ல",
+      "english": "First"
+    },
+    {
+      "tamil": "ஏன்னா",
+      "english": "Because"
+    },
+    {
+      "tamil": "அதனால",
+      "english": "Therefore"
+    },
+    {
+      "tamil": "ஆனா",
+      "english": "But"
+    },
+    {
+      "tamil": "அதான்",
+      "english": "That's why / Exactly"
+    },
+    {
+      "tamil": "பார்த்தேன்",
+      "english": "I saw"
+    },
+    {
+      "tamil": "சாப்பிட்டீங்களா?",
+      "english": "Did you eat? (respectful)"
+    },
+    {
+      "tamil": "இன்னும் இல்ல",
+      "english": "Not yet"
+    },
+    {
+      "tamil": "இப்போ தான் சாப்பிட்டேன்",
+      "english": "I just ate"
+    },
+    {
+      "tamil": "அண்ணா",
+      "english": "Elder brother"
+    },
+    {
+      "tamil": "தம்பி",
+      "english": "Younger brother"
+    },
+    {
+      "tamil": "அக்கா",
+      "english": "Elder sister"
+    },
+    {
+      "tamil": "தங்கச்சி",
+      "english": "Younger sister"
+    },
+    {
+      "tamil": "மாமா",
+      "english": "Uncle (maternal)"
+    },
+    {
+      "tamil": "அத்தை",
+      "english": "Aunt (paternal)"
+    },
+    {
+      "tamil": "அவங்க",
+      "english": "They / He-She (respectful)"
+    },
+    {
+      "tamil": "அவன்",
+      "english": "He (informal)"
+    },
+    {
+      "tamil": "அவ",
+      "english": "She (informal)"
+    },
+    {
+      "tamil": "அது",
+      "english": "It / That"
+    },
+    {
+      "tamil": "நம்ம",
+      "english": "Our (inclusive)"
+    },
+    {
+      "tamil": "நாங்க",
+      "english": "We (exclusive)"
+    },
+    {
+      "tamil": "சொன்னாங்க",
+      "english": "They said"
+    },
+    {
+      "tamil": "கேட்டாங்க",
+      "english": "They asked"
+    },
+    {
+      "tamil": "சொன்னேன்",
+      "english": "I said"
+    },
+    {
+      "tamil": "கேட்டேன்",
+      "english": "I asked"
+    },
+    {
+      "tamil": "நினைச்சேன்",
+      "english": "I thought"
+    },
+    {
+      "tamil": "அப்படீங்களா?",
+      "english": "Is that so?"
+    },
+    {
+      "tamil": "நிஜமா?",
+      "english": "Really?"
+    },
+    {
+      "tamil": "புரிஞ்சுது",
+      "english": "I understood"
+    },
+    {
+      "tamil": "புரியல",
+      "english": "I don't understand"
+    },
+    {
+      "tamil": "அவங்க",
+      "english": "They (respectful)"
+    },
+    {
+      "tamil": "முறை மாமன்",
+      "english": "Cross-cousin (marriageable uncle)"
+    },
+    {
+      "tamil": "பொண்ணு",
+      "english": "Girl / Daughter"
+    },
+    {
+      "tamil": "பையன்",
+      "english": "Boy / Son"
+    },
+    {
+      "tamil": "கல்யாணம்",
+      "english": "Wedding / Marriage"
+    },
+    {
+      "tamil": "வாடா",
+      "english": "Come (informal male)"
+    },
+    {
+      "tamil": "வாடி",
+      "english": "Come (informal female)"
+    },
+    {
+      "tamil": "என்னுங்கப்பா",
+      "english": "What man! (Kongu casual)"
+    },
+    {
+      "tamil": "மச்சான்",
+      "english": "Brother-in-law / Close friend"
+    },
+    {
+      "tamil": "குட்டி",
+      "english": "Little one"
+    },
+    {
+      "tamil": "பாப்பா",
+      "english": "Baby / Little girl"
+    },
+    {
+      "tamil": "அம்மு",
+      "english": "Precious (affectionate)"
+    },
+    {
+      "tamil": "சும்மா இருங்க",
+      "english": "Be quiet / Be still (gentle)"
+    },
+    {
+      "tamil": "யாரு?",
+      "english": "Who?"
+    },
+    {
+      "tamil": "ஏன்?",
+      "english": "Why?"
+    },
+    {
+      "tamil": "எப்போ?",
+      "english": "When?"
+    },
+    {
+      "tamil": "எப்படி?",
+      "english": "How?"
+    },
+    {
+      "tamil": "எந்த?",
+      "english": "Which?"
+    },
+    {
+      "tamil": "முடியும்",
+      "english": "Can / Possible"
+    },
+    {
+      "tamil": "முடியாது",
+      "english": "Cannot / Impossible"
+    },
+    {
+      "tamil": "கூடாது",
+      "english": "Shouldn't / Must not"
+    },
+    {
+      "tamil": "போகணும்",
+      "english": "Must go"
+    },
+    {
+      "tamil": "பண்ணணும்",
+      "english": "Must do"
+    },
+    {
+      "tamil": "சொல்லணும்",
+      "english": "Must tell"
+    },
+    {
+      "tamil": "முடியும்",
+      "english": "Can"
+    },
+    {
+      "tamil": "முடியாது",
+      "english": "Cannot"
+    },
+    {
+      "tamil": "கூடாது",
+      "english": "Must not"
+    },
+    {
+      "tamil": "என்னாச்சு?",
+      "english": "What happened?"
+    },
+    {
+      "tamil": "யாரு கூப்பிட்டாங்க?",
+      "english": "Who called?"
+    },
+    {
+      "tamil": "எங்க போனீங்க?",
+      "english": "Where did you go?"
+    },
+    {
+      "tamil": "சந்தோஷம்",
+      "english": "Happy / Joy"
+    },
+    {
+      "tamil": "பெருமை",
+      "english": "Proud / Pride"
+    },
+    {
+      "tamil": "கோவம்",
+      "english": "Angry / Anger"
+    },
+    {
+      "tamil": "பயம்",
+      "english": "Scared / Fear"
+    },
+    {
+      "tamil": "கோவப்படாதீங்க",
+      "english": "Don't be angry (respectful)"
+    },
+    {
+      "tamil": "கவலை",
+      "english": "Worry"
+    },
+    {
+      "tamil": "கவலைப்படாதீங்க",
+      "english": "Don't worry (respectful)"
+    },
+    {
+      "tamil": "சோகம்",
+      "english": "Sad / Sadness"
+    },
+    {
+      "tamil": "வெட்கம்",
+      "english": "Shy / Embarrassment"
+    },
+    {
+      "tamil": "பிடிக்கும்",
+      "english": "I like / It pleases"
+    },
+    {
+      "tamil": "பிடிக்காது",
+      "english": "I don't like"
+    },
+    {
+      "tamil": "இஷ்டம்",
+      "english": "Preference / Liking"
+    },
+    {
+      "tamil": "சந்தோஷம்",
+      "english": "Happy"
+    },
+    {
+      "tamil": "கோவம்",
+      "english": "Angry"
+    },
+    {
+      "tamil": "பயம்",
+      "english": "Scared"
+    },
+    {
+      "tamil": "பிடிக்கும்",
+      "english": "I like"
+    },
+    {
+      "tamil": "எனக்கு சந்தோஷம்",
+      "english": "I am happy (lit: to me, joy)"
+    },
+    {
+      "tamil": "எனக்கு பயமா இருக்கு",
+      "english": "I am scared (lit: to me, it is fearful)"
+    },
+    {
+      "tamil": "எனக்கு கவலையா இருக்கு",
+      "english": "I am worried (lit: to me, it is worrisome)"
+    },
+    {
+      "tamil": "பெரிய",
+      "english": "Big"
+    },
+    {
+      "tamil": "சின்ன",
+      "english": "Small / Little"
+    },
+    {
+      "tamil": "உயரம்",
+      "english": "Tall / Height"
+    },
+    {
+      "tamil": "குட்டை",
+      "english": "Short (height)"
+    },
+    {
+      "tamil": "புது",
+      "english": "New"
+    },
+    {
+      "tamil": "பழைய",
+      "english": "Old (things)"
+    },
+    {
+      "tamil": "அழகான",
+      "english": "Beautiful"
+    },
+    {
+      "tamil": "நல்ல",
+      "english": "Good (adjective)"
+    },
+    {
+      "tamil": "கெட்ட",
+      "english": "Bad"
+    },
+    {
+      "tamil": "தப்பு",
+      "english": "Wrong / Mistake"
+    },
+    {
+      "tamil": "சரியான",
+      "english": "Correct / Right"
+    },
+    {
+      "tamil": "சூடு",
+      "english": "Hot (temperature)"
+    },
+    {
+      "tamil": "குளிர்",
+      "english": "Cold"
+    },
+    {
+      "tamil": "கஷ்டம்",
+      "english": "Difficult / Hardship"
+    },
+    {
+      "tamil": "ஈஸி",
+      "english": "Easy"
+    },
+    {
+      "tamil": "சின்ன",
+      "english": "Small"
+    },
+    {
+      "tamil": "நல்ல",
+      "english": "Good"
+    },
+    {
+      "tamil": "சூடு",
+      "english": "Hot"
+    },
+    {
+      "tamil": "கஷ்டம்",
+      "english": "Difficult"
+    },
+    {
+      "tamil": "விட",
+      "english": "Than (comparison marker)"
+    },
+    {
+      "tamil": "இதை விட அது நல்லா இருக்கு",
+      "english": "That is better than this"
+    },
+    {
+      "tamil": "என்னை விட உயரம்",
+      "english": "Taller than me"
+    },
+    {
+      "tamil": "எழுந்திரு",
+      "english": "Get up / Wake up"
+    },
+    {
+      "tamil": "குளி",
+      "english": "Bathe / Shower"
+    },
+    {
+      "tamil": "பல் தேய்",
+      "english": "Brush teeth"
+    },
+    {
+      "tamil": "சட்டை",
+      "english": "Shirt"
+    },
+    {
+      "tamil": "துணி",
+      "english": "Cloth / Clothes"
+    },
+    {
+      "tamil": "போடு",
+      "english": "Put on / Wear"
+    },
+    {
+      "tamil": "கழட்டு",
+      "english": "Remove / Take off"
+    },
+    {
+      "tamil": "மாத்து",
+      "english": "Change"
+    },
+    {
+      "tamil": "வீடு",
+      "english": "House / Home"
+    },
+    {
+      "tamil": "கதவு",
+      "english": "Door"
+    },
+    {
+      "tamil": "ஜன்னல்",
+      "english": "Window"
+    },
+    {
+      "tamil": "விசிறி",
+      "english": "Fan"
+    },
+    {
+      "tamil": "லைட்",
+      "english": "Light"
+    },
+    {
+      "tamil": "கிளம்பு",
+      "english": "Leave / Depart"
+    },
+    {
+      "tamil": "திரும்பு",
+      "english": "Return / Come back"
+    },
+    {
+      "tamil": "லேட்",
+      "english": "Late"
+    },
+    {
+      "tamil": "லேட் ஆச்சு",
+      "english": "It's gotten late"
+    },
+    {
+      "tamil": "எழுந்திரு",
+      "english": "Get up"
+    },
+    {
+      "tamil": "குளி",
+      "english": "Bathe"
+    },
+    {
+      "tamil": "போடு",
+      "english": "Put on"
+    },
+    {
+      "tamil": "கழட்டு",
+      "english": "Remove"
+    },
+    {
+      "tamil": "கிளம்பு",
+      "english": "Leave"
+    },
+    {
+      "tamil": "திரும்பு",
+      "english": "Return"
+    },
+    {
+      "tamil": "கோலம்",
+      "english": "Kolam (floor design)"
+    },
+    {
+      "tamil": "வாசல்",
+      "english": "Doorstep / Entrance"
+    },
+    {
+      "tamil": "காலைல",
+      "english": "In the morning"
+    },
+    {
+      "tamil": "சமை",
+      "english": "Cook"
+    },
+    {
+      "tamil": "ஊத்து",
+      "english": "Pour"
+    },
+    {
+      "tamil": "கலக்கு",
+      "english": "Mix / Stir"
+    },
+    {
+      "tamil": "திற",
+      "english": "Open"
+    },
+    {
+      "tamil": "மூடு",
+      "english": "Close / Shut"
+    },
+    {
+      "tamil": "வை",
+      "english": "Keep / Put / Place"
+    },
+    {
+      "tamil": "கழுவு",
+      "english": "Wash (dishes, hands, face)"
+    },
+    {
+      "tamil": "துவை",
+      "english": "Wash (clothes)"
+    },
+    {
+      "tamil": "துடை",
+      "english": "Wipe / Mop"
+    },
+    {
+      "tamil": "தண்ணி",
+      "english": "Water"
+    },
+    {
+      "tamil": "அரிசி",
+      "english": "Rice (uncooked)"
+    },
+    {
+      "tamil": "பால்",
+      "english": "Milk"
+    },
+    {
+      "tamil": "காபி",
+      "english": "Coffee"
+    },
+    {
+      "tamil": "டீ",
+      "english": "Tea"
+    },
+    {
+      "tamil": "மூடு",
+      "english": "Close"
+    },
+    {
+      "tamil": "கழுவு",
+      "english": "Wash"
+    },
+    {
+      "tamil": "அரிசி",
+      "english": "Rice"
+    },
+    {
+      "tamil": "டிகிரி காபி",
+      "english": "Degree coffee (made with pure milk)"
+    },
+    {
+      "tamil": "தூள்",
+      "english": "Powder"
+    },
+    {
+      "tamil": "டம்ளர்",
+      "english": "Tumbler (steel cup)"
+    },
+    {
+      "tamil": "கூப்பிடு",
+      "english": "Call (a person)"
+    },
+    {
+      "tamil": "போன் எடு",
+      "english": "Pick up the phone"
+    },
+    {
+      "tamil": "போன் பண்ணு",
+      "english": "Make a phone call"
+    },
+    {
+      "tamil": "அனுப்பு",
+      "english": "Send"
+    },
+    {
+      "tamil": "கிடைச்சுது",
+      "english": "Received / Got it"
+    },
+    {
+      "tamil": "மெசேஜ்",
+      "english": "Message"
+    },
+    {
+      "tamil": "ஃப்ரீ-யா?",
+      "english": "Are you free?"
+    },
+    {
+      "tamil": "நேரம் இருக்கா?",
+      "english": "Do you have time?"
+    },
+    {
+      "tamil": "ரெடி-யா?",
+      "english": "Are you ready?"
+    },
+    {
+      "tamil": "கன்ஃபர்ம்",
+      "english": "Confirm"
+    },
+    {
+      "tamil": "கேன்சல்",
+      "english": "Cancel"
+    },
+    {
+      "tamil": "போஸ்ட்போன்",
+      "english": "Postpone"
+    },
+    {
+      "tamil": "கூப்பிடு",
+      "english": "Call"
+    },
+    {
+      "tamil": "கிடைச்சுது",
+      "english": "Received"
+    },
+    {
+      "tamil": "ம்ம்",
+      "english": "Hmm (acknowledgment in text)"
+    },
+    {
+      "tamil": "வரேன் டா",
+      "english": "Coming da (casual text)"
+    },
+    {
+      "tamil": "சீக்கிரம் வா",
+      "english": "Come quickly (text command)"
+    }
+  ],
+  "scenarios": [
+    {
+      "topic": "Past Verbs (Action)",
+      "intro": "You are no longer in the present. You must report what happened. Today we learn the past tense for movement and action.",
+      "scenario": "Wife asks what you did today. You say 'I went to the market. I came back. I gave the money'."
+    },
+    {
+      "topic": "Past Verbs (Consumption)",
+      "intro": "What did you consume? Food, media, sleep. The past tense of consumption.",
+      "scenario": "You woke up. You drank coffee. You ate breakfast. You watched TV. You slept."
+    },
+    {
+      "topic": "Chronology Glue",
+      "intro": "Building sequences. First this, then that. Before, after, yesterday, today.",
+      "scenario": "Yesterday I went to the market. First I bought rice. After that I came home. Today I am tired."
+    },
+    {
+      "topic": "Logic Connectors",
+      "intro": "Why did it happen? Because. Therefore. But. The glue that makes stories make sense.",
+      "scenario": "I was hungry. Therefore I went to the shop. But the shop was closed. That's why I came home."
+    },
+    {
+      "topic": "BOSS FIGHT: The Evening Report",
+      "intro": "The family is seated. They want to know about your day. Tell them 4 sequential things you did.",
+      "scenario": "What did you do first? 'First I went to office.' After that? 'After that I did a meeting.' Then? 'Then I ate lunch.' Why did you come home late? 'Traffic was too much, therefore it got late.'"
+    },
+    {
+      "topic": "Rest and Reps",
+      "intro": "Audit Day. Reviewing the past tense and chronology glue.",
+      "scenario": "Rapid fire drill. Build three-sentence stories using past tense and connectors."
+    },
+    {
+      "topic": "The Saaptiya Loop",
+      "intro": "The infinite care question. Understanding why 'Did you eat?' is never just about food.",
+      "scenario": "Someone calls you at 3pm. First question: Saaptingala? You must answer correctly or they will worry."
+    },
+    {
+      "topic": "The Roster",
+      "intro": "Family structure. You must know who everyone is. The kinship system is not negotiable.",
+      "scenario": "Someone introduces their family. You must identify: Who is Anna? Who is Thambi? Who is the Mama?"
+    },
+    {
+      "topic": "Pronoun Toggles",
+      "intro": "They, he, she, it. Understanding the pronoun system and when to use plural for respect.",
+      "scenario": "Talking about your boss. You say 'Avanga' (respectful). Talking about your nephew. You say 'Avan'. Talking about your family to in-laws. You say 'Naanga'."
+    },
+    {
+      "topic": "Reported Speech",
+      "intro": "He said, she said. The gossip protocol. Reporting what others told you.",
+      "scenario": "Anna asked where you went. You said you went to the market. He said it was too far."
+    },
+    {
+      "topic": "Gossip Tags",
+      "intro": "The opinion layer. I think, I know, I don't know, Really?",
+      "scenario": "Someone tells you Anna got a new job. You say 'Really?'. They ask if you knew. You say 'I didn't understand'. You say 'I thought he was happy at his old job'."
+    },
+    {
+      "topic": "BOSS FIGHT: The Family Gossip",
+      "intro": "The living room. Multiple relatives. Someone starts talking about someone who is not present. You must track and report.",
+      "scenario": "Akka asks if you know about Mama's new house. You say 'I don't know. What did they say?'. She says Mama said it's very big. You say 'Is that so? Really?'. She asks if you will visit. You say 'I thought I would go next week'."
+    },
+    {
+      "topic": "Rest and Reps",
+      "intro": "Audit Day. Reviewing kinship terms and pronoun toggles.",
+      "scenario": "Rapid fire. Practice constructing gossip chains: X told Y who told Z."
+    },
+    {
+      "topic": "Murai Maman Logic",
+      "intro": "The cousin marriage system. Understanding why your cousin is also your potential spouse.",
+      "scenario": "Understanding family structure conversations. When they say 'Murai Maman's daughter', they might be matchmaking."
+    },
+    {
+      "topic": "Cousin Hangout",
+      "intro": "The casual tier. Hanging out with peers and cousins. Dropping the formalities and embracing the Kongu vibe.",
+      "scenario": "You are at a tea stall with your cousins. You call your male cousin over. You ask him what's up using Kongu slang. Architect Note: Inject some Goundamani-style friendly sarcasm here."
+    },
+    {
+      "topic": "Kids Talk",
+      "intro": "The soft tier. How to talk to children affectionately using the gentle 'nga' suffix and sweet names.",
+      "scenario": "Your niece is running around. You call her over affectionately. You give her a sweet. She is naughty, so you tell her to be still gently. Architect Note: Channel Sivakumar's soft, paternal movie persona here."
+    },
+    {
+      "topic": "The Missing W's",
+      "intro": "You can say things. But you cannot ASK things. Today we fix that. Three question words that unlock every conversation.",
+      "scenario": "Mother-in-law is on the phone. She hangs up. You ask 'Who called?'. She says Anna. You ask 'Why?'. She says he's coming. You ask 'When?'. She says tomorrow."
+    },
+    {
+      "topic": "Method & Selection",
+      "intro": "How does it work? Which one do you want? The two question words that let you navigate any process.",
+      "scenario": "You want to make filter coffee. You ask 'How?'. Mother-in-law explains. She asks 'Which coffee powder?'. You don't know. She asks 'How much water?'. You guess wrong."
+    },
+    {
+      "topic": "I Can, I Can't",
+      "intro": "Ability. The most important grammar you are missing. Can you do it? Or can you not? This changes everything.",
+      "scenario": "Mother-in-law asks if you can fix the mixer. You say 'Mudiyaadhu' (I can't). She asks if you can call the repair guy. You say 'Mudiyum' (I can). She asks if you can come early tomorrow. You say 'Mudiyum'."
+    },
+    {
+      "topic": "Rules of the House",
+      "intro": "Must do. Must not do. The obligation layer. The grammar that every household runs on.",
+      "scenario": "House rules. You must eat before leaving. You must call when you arrive. You must not wear shoes inside. You must not skip dinner."
+    },
+    {
+      "topic": "BOSS FIGHT: Twenty Questions",
+      "intro": "A mystery object. You have five questions. Each must use a different question word. Solve it.",
+      "scenario": "What is it? Where is it? Who gave it? When did it come? Why is it here? How does it work? Which one is it? Use questions to solve the mystery."
+    },
+    {
+      "topic": "Rest and Reps",
+      "intro": "Audit Day. Drilling the question words and ability grammar.",
+      "scenario": "Rapid fire. I describe a situation, you ask the right question word."
+    },
+    {
+      "topic": "The Enna Aachu Protocol",
+      "intro": "Questions are not just information. They are love. Understanding why 'Who called?' is care, not nosiness.",
+      "scenario": "Your wife comes home looking upset. You ask 'What happened?'. She says Anna called. You ask 'Who called exactly?'. She says Mama. You ask 'Where did he go?'. Every question is a hug."
+    },
+    {
+      "topic": "Happy & Proud",
+      "intro": "You can say you are hungry. You can say you are tired. But can you say you are HAPPY? Feelings start today.",
+      "scenario": "Your child says their first Tamil word. Wife says 'I'm so happy!'. Grandma says 'I feel proud'. You feel both."
+    },
+    {
+      "topic": "Anger & Fear",
+      "intro": "The dark side. Anger when the auto cheats you. Fear when you see the cockroach. Essential survival emotions.",
+      "scenario": "Auto driver charges double. You feel angry. Wife says 'Don't be angry'. You see a huge cockroach in the bathroom. Now you feel fear. Wife laughs."
+    },
+    {
+      "topic": "Worry & Sadness",
+      "intro": "The quiet emotions. The ones that sit in the chest. Worry when Mom calls from abroad. Sadness when friends leave.",
+      "scenario": "Mom calls from abroad. She worries about you. You say 'Don't worry'. Friend is leaving Coimbatore. You feel sad. At a family function, someone praises your Tamil. You feel shy."
+    },
+    {
+      "topic": "Like & Dislike",
+      "intro": "The preference system. This is how you build a personality in Tamil. I like this. I don't like that.",
+      "scenario": "Friend asks about food. You like dosa. You don't like bitter gourd. Wife's preference is biryani. What is your favorite movie? 'I like Rajini movies'."
+    },
+    {
+      "topic": "BOSS FIGHT: The Emotional Debrief",
+      "intro": "A movie scene described to you. Identify and express four different emotions as the scene unfolds.",
+      "scenario": "Scene: Hero gets a promotion (happy). Villain threatens his family (fear). His friend betrays him (angry). His mother is alone at home (worry). Express each emotion as you hear the story."
+    },
+    {
+      "topic": "Rest and Reps",
+      "intro": "Audit Day. The emotion vocabulary drill.",
+      "scenario": "Rapid fire. I describe a situation, you name the emotion."
+    },
+    {
+      "topic": "The Dative Emotion Pattern",
+      "intro": "Emotions in Tamil don't happen TO you. They happen FOR you. The 'Enakku + emotion' pattern that unlocks all feelings.",
+      "scenario": "Understanding the dative pattern. English says 'I am happy'. Tamil says 'To me, happiness exists'. This pattern works for ALL emotions and is the key to sounding natural."
+    },
+    {
+      "topic": "Big & Small",
+      "intro": "You can say what happened and how you felt. Can you describe what it LOOKS like? Today: size.",
+      "scenario": "Family function. Describing relatives. Mama is tall. His son is short. Anna's new house is big. The guest room is small."
+    },
+    {
+      "topic": "New & Old",
+      "intro": "The age of things. New car. Old house. Beautiful temple. These adjectives unlock real description.",
+      "scenario": "House hunting. This flat is new. That building is old. The balcony view is beautiful. Shall we see the new one or the old one?"
+    },
+    {
+      "topic": "Good, Bad & Wrong",
+      "intro": "Quality judgments. Good food. Bad traffic. Wrong turn. Right answer. The opinion layer.",
+      "scenario": "Restaurant review with friend. Good food. Bad service. They gave the wrong order. But the bill was correct. Good place or bad place?"
+    },
+    {
+      "topic": "Sensation & Difficulty",
+      "intro": "How does it feel? Hot weather. Cold AC. Difficult language. Easy task.",
+      "scenario": "Coimbatore summer. Outside is hot. Inside the AC room is cold. Learning Tamil grammar is difficult. But speaking is easy. The coffee is too hot. Wait."
+    },
+    {
+      "topic": "BOSS FIGHT: The Description Game",
+      "intro": "I describe a scene. You must use at least 5 different adjectives to describe what you see.",
+      "scenario": "You are at Marina Beach in the evening. Describe: the sand (hot), the water (cold), the crowd (big), the sunset (beautiful), finding parking (difficult), the snacks (good). Paint the picture in Tamil."
+    },
+    {
+      "topic": "Rest and Reps",
+      "intro": "Audit Day. Drilling adjectives across all categories.",
+      "scenario": "Rapid fire. I say a noun, you give the best adjective."
+    },
+    {
+      "topic": "The Comparison Pattern",
+      "intro": "He is taller THAN me. This is better THAN that. The comparison marker 'vida' that lets you rank the world.",
+      "scenario": "Comparing two restaurants. This one is better than that. That one is bigger than this. The food here is hotter than there. Using 'vida' to compare anything."
+    },
+    {
+      "topic": "Wake & Wash",
+      "intro": "Every day starts the same way. Get up. Brush. Bathe. The routine verbs that structure your morning.",
+      "scenario": "Wife shouts 'Get up! It's late!'. You stumble to the bathroom. 'Did you brush?'. Not yet. 'Brush first, then bathe'. The morning sequence is non-negotiable."
+    },
+    {
+      "topic": "Dress Code",
+      "intro": "What you wear matters. Especially for temple. The clothing verbs and the negotiation of what to put on.",
+      "scenario": "Going to temple. Wife says 'Change your shirt'. You're wearing the wrong color. Take it off. Put on the white one. 'Change your clothes properly'."
+    },
+    {
+      "topic": "The House Map",
+      "intro": "Navigating the physical space. Doors, windows, fans, lights. The commands that control your environment.",
+      "scenario": "Summer afternoon. 'Close the door'. 'Open the window'. 'Turn on the fan'. Night time. 'Turn off the light'. Guest is coming. 'Open the door'. Someone left the fan on. 'Turn off the fan'."
+    },
+    {
+      "topic": "Departure & Return",
+      "intro": "Leaving the house and coming back. The verbs that bookend every day.",
+      "scenario": "Morning rush. 'I'm leaving!'. Wife calls 'When will you return?'. Evening: 'It's late, leave the office'. You get home. 'I've returned'. 'Why so late?'."
+    },
+    {
+      "topic": "BOSS FIGHT: The Morning Sprint",
+      "intro": "Narrate your entire morning from alarm to departure. Use only Tamil.",
+      "scenario": "6:30am. Wake up. Brush teeth. Bathe. Choose clothes. Put on shirt. Open the door. Fan is on. Close the window. 'I'm leaving!'. 'It's late!'. Go."
+    },
+    {
+      "topic": "Rest and Reps",
+      "intro": "Audit Day. Morning routine vocabulary drill.",
+      "scenario": "Rapid fire. I describe the action, you give the Tamil verb."
+    },
+    {
+      "topic": "The Kolam Protocol",
+      "intro": "Why the doorstep matters. The kolam is drawn every morning. Understanding this daily ritual connects you to the rhythm of the house.",
+      "scenario": "You wake up early. Grandmother is already at the doorstep drawing kolam. Every morning. Without fail. She asks if you want to learn. You say 'How do you do it?'. She says 'You must do it every morning'."
+    },
+    {
+      "topic": "Cook & Pour",
+      "intro": "You survived the kitchen in Level 2. Now you must RUN it. Today: the action verbs of cooking.",
+      "scenario": "Mother-in-law is cooking. 'Stir the sambar'. 'Pour the water'. 'I'll cook the rice'. You help. She is impressed. Slightly."
+    },
+    {
+      "topic": "Open, Close, Keep",
+      "intro": "Three verbs that control every object in the house. Open the fridge. Close the door. Keep it there.",
+      "scenario": "'Open the fridge. Take the milk. Close the door. Keep the plate on the table.' Simple commands. But now you understand them AND can say them."
+    },
+    {
+      "topic": "Wash & Wipe",
+      "intro": "After cooking comes cleaning. Three different verbs for three different kinds of washing.",
+      "scenario": "After lunch. Wash the plates. Wipe the table. There's a stain on your shirt. Wash it. No, not wash like dishes — wash like clothes. Different verb."
+    },
+    {
+      "topic": "Kitchen Essentials",
+      "intro": "The nouns you hear fifteen times a day. Water. Rice. Milk. Coffee. Tea.",
+      "scenario": "Morning list. We need water. Do we have rice? Buy milk. Make coffee. Or do you want tea? The kitchen runs on these five nouns."
+    },
+    {
+      "topic": "BOSS FIGHT: Sunday Cooking Help",
+      "intro": "It is Sunday. Full traditional lunch is being prepared. You must help. Follow every instruction.",
+      "scenario": "Open the fridge. Take the vegetables. Wash them. Pour water in the pot. Stir the sambar. Keep the plates on the table. Close the kitchen door. Wipe the counter. Make coffee."
+    },
+    {
+      "topic": "Rest and Reps",
+      "intro": "Audit Day. Kitchen verbs and nouns.",
+      "scenario": "Rapid fire. I describe the kitchen action, you give the Tamil verb."
+    },
+    {
+      "topic": "The Filter Coffee Ceremony",
+      "intro": "Filter coffee is not a beverage. It is a religion. Understanding the ritual, the vocabulary, and why 'degree coffee' means something very specific.",
+      "scenario": "The process. Boil the milk. Add the decoction. Pour between tumbler and davara. The sound. The foam. The first sip. Understanding why 'how many degrees?' is a coffee question."
+    },
+    {
+      "topic": "Call & Answer",
+      "intro": "The phone is how Tamil families stay connected. Calling someone and answering the phone — the first digital verbs.",
+      "scenario": "'Call Anna'. You call. He's not picking up. 'Call again'. He picks up. 'Who called?'. 'I called'. The phone conversation loop."
+    },
+    {
+      "topic": "Send & Receive",
+      "intro": "Messages. Photos. The digital exchange. Send it. Did you get it?",
+      "scenario": "'Send the photo on WhatsApp'. 'Did you get my message?'. 'Yes, I received it'. 'Send it to Akka also'. 'I already sent it'."
+    },
+    {
+      "topic": "The Availability Check",
+      "intro": "Before you make a plan, you must check availability. Are you free? Do you have time? Are you ready?",
+      "scenario": "Planning a weekend outing. 'Are you free Saturday?'. Friend says 'I don't have time'. You ask another friend. 'Ready to go?'. 'Give me 5 minutes'."
+    },
+    {
+      "topic": "Confirm & Cancel",
+      "intro": "Plans change. The ability to confirm, cancel, and reschedule is pure social survival.",
+      "scenario": "The plan changes three times. 'Confirmed for Saturday'. Rain forecast. 'Cancel the beach'. 'Postpone to Sunday'. Finally: 'Confirmed. Sunday morning. Be ready'."
+    },
+    {
+      "topic": "BOSS FIGHT: The Group Plan",
+      "intro": "Coordinate meeting 3 people for dinner. Call each one. Check availability. Confirm or reschedule.",
+      "scenario": "Call Friend 1. Free Saturday? Yes. Call Friend 2. Not free Saturday, postpone to Sunday? Call Friend 1 again. Sunday okay? Confirmed. Send message to all: 'Sunday 7pm. Be ready'."
+    },
+    {
+      "topic": "Rest and Reps",
+      "intro": "Audit Day. Phone and planning vocabulary.",
+      "scenario": "Rapid fire. I describe a communication scenario, you give the right Tamil phrase."
+    },
+    {
+      "topic": "WhatsApp Tamil",
+      "intro": "How Tamil looks in text messages. The abbreviations. The emoji culture. Understanding digital Tamil.",
+      "scenario": "Reading a WhatsApp group chat. Understanding how spoken Tamil becomes text Tamil. The voice note culture. Why Tamils send 47 voice notes instead of one text."
+    }
+  ]
+}

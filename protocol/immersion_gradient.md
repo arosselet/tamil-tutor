@@ -26,11 +26,11 @@ Every word the learner has encountered falls into one of three modes. These are 
 
 The Host's language shifts from mostly-English to mostly-Tamil as the learner progresses through tiers.
 
-| Tier | Levels | Host Ratio | What It Feels Like |
+| Tier | Focus | Host Ratio | What It Feels Like |
 |---|---|---|---|
-| **Tier 1** | 1–3 (Survival) | ~90% English, 10% Tamil | English explanation with Tamil target words |
-| **Tier 2** | 4–6 (Comfortable) | ~60% English, 40% Tamil | Bilingual conversation; known Tamil woven throughout |
-| **Tier 3** | 7–9 (Embedded) | ~30% English, 70% Tamil | Tamil-dominant; English only for new concepts and complex explanations |
+| **Tier 1** | Survival | ~90% English, 10% Tamil | English explanation with Tamil target words |
+| **Tier 2** | Comfort | ~60% English, 40% Tamil | Bilingual conversation; known Tamil woven throughout |
+| **Tier 3** | Embedded | ~30% English, 70% Tamil | Tamil-dominant; English only for new concepts and complex explanations |
 
 > **These are vibes, not metrics.** Don't count words. The ratio is a guide for tone and intention. At Tier 2, the Host *thinks* in English but *seasons* heavily with Tamil. At Tier 3, the Host *thinks* in Tamil and drops to English only when introducing something new.
 
@@ -43,11 +43,11 @@ Before writing a Beat Sheet, the Director generates a **Word Status Sheet** — 
 ### How to Generate It
 
 1. Read `progress/learner.json`
-2. Read `curriculum/levels.json` for the target episode
+2. Read `curriculum/tiers/tier_X.json` for the target mission
 3. Categorize:
 
 ```
-=== WORD STATUS SHEET: Level X, Episode Y ===
+=== WORD STATUS SHEET: Tier X, Mission Y ===
 
 TEACH (new this episode):
   - அதுக்கு அப்புறம் → After that
@@ -69,7 +69,7 @@ CALLBACK (struggled — quick challenge, no re-teach):
 
 ## Application Examples
 
-### Tier 2 Host Lines (Level 4+)
+### Tier 2 Host Lines (Comfort)
 
 **Transitions:**
 - "சரி, next word."

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Display progress dashboard for Tamil learning.
-Reads learner.json and derives tier data from levels.json.
+Reads learner.json and derives tier data from tier_X_name.json files.
 
 Usage:
     python scripts/show_status.py
@@ -18,15 +18,14 @@ def load_json(path: Path):
         return json.load(f)
 
 
-def get_tier_words(levels: dict) -> dict[int, list[str]]:
-    """Extract all Tamil words per tier from levels.json."""
+def get_tier_words(tiers_data: list) -> dict[int, list[str]]:
+    """Extract all Tamil words per tier from consolidated tier files."""
     tier_words: dict[int, set[str]] = {}
-    for level_data in levels.values():
-        tier = level_data.get("tier", 1)
-        words = tier_words.setdefault(tier, set())
-        for ep in level_data.get("episodes", []):
-            for w in ep.get("vocab", []):
-                words.add(w["tamil"])
+    for data in tiers_data:
+        tier_num = int(data.get("tier", 1))
+        words = tier_words.setdefault(tier_num, set())
+        for v in data.get("vocabulary", []):
+            words.add(v["tamil"])
     return {t: sorted(ws) for t, ws in tier_words.items()}
 
 
@@ -34,15 +33,12 @@ def main():
     base = Path(__file__).parent.parent
     learner = load_json(base / "progress" / "learner.json")
     
-    # Dynamically build the levels dictionary from index.json and levels/
-    index_data = load_json(base / "curriculum" / "index.json") or {}
-    levels = {}
-    for level_str, meta in index_data.items():
-        filename = meta.get("file")
-        if filename:
-            file_path = base / "curriculum" / "levels" / filename
-            if file_path.exists():
-                levels[level_str] = load_json(file_path)
+    # Load all Tier data
+    tiers_dir = base / "curriculum" / "tiers"
+    tiers_data = []
+    if tiers_dir.exists():
+        for f in sorted(tiers_dir.glob("tier_*.json")):
+            tiers_data.append(load_json(f))
 
     if not learner:
         print("⚠️  No learner.json found. Start a session first.")
@@ -53,7 +49,7 @@ def main():
     print("=" * 55)
 
     # Current position
-    print(f"\n🎯 Current Position: Level {learner['current_level']}, Episode {learner['current_episode']}")
+    print(f"\n🎯 Current Position: Tier {learner.get('current_tier', 1)}")
     print(f"📅 Total Sessions: {learner['total_sessions']}")
 
     # Streak
@@ -67,9 +63,9 @@ def main():
     else:
         print(f"🚀 Streak: Start your first session!")
 
-    # Tier progress (derived from levels.json)
-    if levels:
-        tier_words = get_tier_words(levels)
+    # Tier progress
+    if tiers_data:
+        tier_words = get_tier_words(tiers_data)
         comfortable = set(learner.get("comfortable_words", []))
         mastered = set(learner.get("mastered_words", []))
         known = comfortable | mastered
@@ -110,24 +106,23 @@ def main():
         print("-" * 55)
         for session in sessions[-5:]:
             date = session.get("date", "?")
-            level = session.get("level", "?")
-            ep = session.get("episode", "?")
+            tier = session.get("tier", session.get("level", "?"))
+            mission = session.get("mission", session.get("episode", "?"))
             energy = session.get("energy", "?")
             notes = session.get("notes", "")
-            print(f"  {date} | L{level}E{ep} | {energy} | {notes[:40]}")
+            print(f"  {date} | T{tier}M{mission} | {energy} | {notes[:40]}")
 
     # Recommendations
     print(f"\n💡 NEXT STEPS")
     print("-" * 55)
     if not sessions:
-        print("  • Start with Level 1, Episode 1")
-        print("  • Listen to audio/level1_ep1.mp3")
-        print("  • Or start a session: [Tamil Lesson]")
+        print("  • Start with Tier 1: Survival")
+        print("  • Run a session: [Tamil Lesson]")
     elif struggled:
         print(f"  • Review your {len(struggled)} struggled words before advancing")
-        print(f"  • Current focus: Level {learner['current_level']}, Episode {learner['current_episode']}")
+        print(f"  • Current focus: Tier {learner.get('current_tier', 1)} Missions")
     else:
-        print(f"  • Continue: Level {learner['current_level']}, Episode {learner['current_episode']}")
+        print(f"  • Continue: Tier {learner.get('current_tier', 1)} Missions")
 
     print("\n" + "=" * 55)
 

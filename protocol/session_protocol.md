@@ -25,10 +25,13 @@ Ask the learner their energy level, or infer from context:
 
 ## Step 3: Run the Session
 
-Follow the **Sandwich** structure from `protocol/learning_loop.md`:
-1. Hook → 2. Mechanics → 3. Drill → 4. Simulation
+Use vocabulary from the current tier in `curriculum/index.json`, prioritizing words that fit the chosen mission arc. Weave in struggled words from `learner.json` for extra reps.
 
-Use vocabulary from the current level in `curriculum/levels.json`. Weave in struggled words from `learner.json` for extra reps.
+### The 12-Minute Standard
+To ensure the brain has time to "soak" in the language:
+1. **Target Word Count:** 2,000 - 2,500 words.
+2. **Target Audio Duration:** 10-12 minutes.
+3. **Pacing:** Balance "Slow Beats" (context, culture, storytelling) with "Fast Explosions" (dense drills, high-stakes roleplay).
 
 ## Step 4: Session Debrief
 

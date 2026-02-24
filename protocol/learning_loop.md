@@ -18,39 +18,34 @@ Phase 5: Broadcasting  → Quiet muttering at physical thresholds (doorways, sta
 ## Phase 1: The Checkpoint (MANDATORY ENTRY POINT)
 - **Trigger:** Start of any new `@tutor` session.
 - **Action:** 
-  - AI Tutor conducts a comprehensive retrospective of the *last* episode/session.
-  - Ask the user about their comfort level with previously learned concepts, new vocabulary, and their struggled words (CALLBACK words).
+  - AI Tutor conducts a comprehensive retrospective of the *last* mission.
+  - Ask the user about their comfort level within the current Tier.
   - Wait for feedback, update `progress/learner.json` accordingly.
-- **Goal:** Never advance until the learner is fully caught up and comfortable. This phase decides if we move to Phase 2 (Generate New Content) or jump to Phase 3 (Review existing content).
+- **Goal:** Never advance until the learner is fully caught up and comfortable. This phase decides if we move to Phase 2 (Generate New Mission) or jump to Phase 3 (Review existing vocabulary).
 
-## Phase 2: The Download (Content Generation)
-- **Trigger:** Learner is ready to advance to a new episode/level.
+## Phase 2: The Download (Mission Generation)
+- **Trigger:** Ready for a new mission within the Tier.
 - **Action:** 
-  1. Update `active_podcast` with the details of the *new* episode.
+  1. Update `active_mission` in `learner.json`.
   2. **Generate Script:** Director (Beats) → Architect (Script) → Producer (Polished Markdown).
-  3. **Generate Audio:** Run `python scripts/generate_episode.py content/scripts/levelX_epY.md audio/levelX_epY.mp3`
+  3. **Generate Audio:** Run `python scripts/render_audio.py content/scripts/tierX_missionY.md audio/tierX_missionY.mp3`
 
 ## Phase 3: The Interactive Session (The "Sandwich")
 
 The core daily session with Gemini. Structured in 4 layers:
 
-1. **The Hook (The "Why")**
-   - Cultural context. Why does this matter in Coimbatore?
+1. **The Intel Briefing (The "Why")**
+   - Mission context. Why does this matter for the Agent's survival?
    - Sensory-rich scene setting (smells, sounds, textures).
 
-2. **The Mechanics (Pattern + Vocab)**
-   - Introduce target vocabulary from the current level.
+2. **The Refraction Loop (Pattern + Vocab)**
+   - Every word must be introduced via **Story Context**, then used in **Banter**, and finally applied as a **Payoff**.
    - **Pronunciation Spotlight:** Mini-drills for challenging phonemes (e.g., ழ retroflex L).
-   - **Pattern-Based Grammar:** Show-by-example, never academic terms.
 
-3. **The Drill (Active Recall)**
-   - Rapid-fire translation and manipulation.
-   - Rotate: sentence completion, scenario dialogues, error ID, rapid-fire recognition.
-
-4. **The Simulation (Cumulative Chaos)**
+3. **The Simulation (Cumulative Chaos)**
    - Short roleplay combining **today's** new words with **previous levels'** concepts.
-   - **Boss Fight:** End with a high-stakes scenario. Provide immediate feedback.
-   - **Zinger highlight:** The one phrase to mutter at doorways (Phase 4).
+   - **Boss Fight/Pressure Test:** End with a high-stakes scenario. Provide immediate feedback.
+   - **Zinger highlight:** The one phrase to mutter at doorways (Phase 5).
 
 ### Dynamic Pacing (The "Focus Meter")
 Monitor engagement. If overwhelmed or bored:
