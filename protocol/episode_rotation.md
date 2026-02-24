@@ -1,10 +1,10 @@
-# Episode Rotation Engine (Rolling Style Rotation)
+# Mission Rotation Engine (Rolling Style Rotation)
 
-**Purpose:** Prevent fatigue by rotating the *delivery style* per episode while covering the **same** target vocabulary from the current level. Every episode features all target words, but the pedagogical angle changes.
+**Purpose:** Prevent fatigue by rotating the *delivery style* per mission while covering the **same** target vocabulary from the current Tier bucket. Every mission features target words from the Tier, but the pedagogical angle changes.
 
 ## The Rolling Rotation
 
-Instead of being tied to specific days, the rotation follows a fixed sequence. When a new episode is generated, the Director selects the next style in the sequence.
+Instead of being tied to specific days, the rotation follows a fixed sequence. When a new mission is generated, the Director selects the next style in the sequence.
 
 | Order | Style | Focus |
 |:---|:---|:---|
@@ -14,9 +14,9 @@ Instead of being tied to specific days, the rotation follows a fixed sequence. W
 | **4** | **The Remix (Cumulative)** | Interleaving *this* level's words with "Zingers" and "Glue" from previous levels. |
 | **5** | **The Speed-Dating** | 10-12 short, 1-minute situational vignettes (ATM, ordering coffee, calling an auto). |
 
-## How It Maps to Levels
+## How It Maps to Tiers
 
-Each level contains multiple episodes (typically 10-20). The rotation determines the **style** of each episode, not the vocabulary. The Director assigns the style when creating the Beat Sheet by looking at the previous episode's style.
+Each Tier contains dozens of potential missions. The rotation determines the **style** of each mission, not the vocabulary. The Director assigns the style when creating the Beat Sheet by looking at the previous mission's style.
 
 ## The Weaving Protocol (CRITICAL)
 
@@ -25,12 +25,13 @@ The Director and Architect must weave vocabulary status into the assigned style:
 - **USE**: Use `comfortable_words` ambiently in Tamil scripts without translation.
 - **CALLBACK**: Insert `struggled_words` into low-stakes moments to keep them fresh.
 
-## The 15-Minute Volume Rule
+## The 10-12 Minute Standard
 
 - **Target Length:** 2,000-2,500 words per script.
-- **Target Audio:** ~15 minutes.
-- **The Rule of Threes:** Generate in 3 Acts of ~5 minutes each to prevent LLM drift, then stitch.
+- **Target Audio:** 10-12 minutes.
+- **Storytelling Pacing:** Every episode must follow the "Slow Beats / Fast Explosions" model.
+- **Word Refraction:** Every target word must appear in at least 3 distinct "Context Refractions" (Intro, Banter, Scenario).
 
-## Episode Naming
+## Mission Naming
 
-`content/scripts/level{N}_ep{M}.md` where N = level number, M = episode number within that level.
+`content/scripts/tier{N}_mission{M}.md` where N = tier number, M = cumulative mission number for that learner.

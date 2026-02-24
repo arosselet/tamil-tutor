@@ -21,13 +21,13 @@ Every update is a single JSON object. Display it in a code block so the learner 
   "v": 1,
   "ts": "2026-02-17T16:30:00",
   "type": "session",
-  "level": 4,
-  "episode": 1,
+  "tier": 2,
+  "mission": 1,
   "energy": "HIGH",
   "struggled": ["வேணும்", "வேண்டாம்"],
   "comfortable": ["வணக்கம்", "ஆமா", "சரி"],
   "zinger": "நேத்து என்ன பண்ணினீங்க?",
-  "notes": "Good session, nailing past tense. Future tense still shaky."
+  "notes": "Good mission, nailing past tense. Future tense still shaky."
 }
 ```
 
@@ -38,8 +38,8 @@ Every update is a single JSON object. Display it in a code block so the learner 
 | `v` | int | ✅ | Schema version. Always `1`. |
 | `ts` | string | ✅ | ISO 8601 timestamp of the update. |
 | `type` | string | ✅ | One of: `session`, `listen`, `feedback` |
-| `level` | int | ✅ | Current level number. |
-| `episode` | int | ✅ | Current episode number. |
+| `tier` | int | ✅ | Current tier number. |
+| `mission` | int | ✅ | Cumulative mission number. |
 | `energy` | string | ❌ | `LOW`, `MEDIUM`, `HIGH`. Only for `session` type. |
 | `struggled` | string[] | ❌ | Tamil words the learner struggled with. |
 | `comfortable` | string[] | ❌ | Tamil words the learner now feels comfortable with. |
@@ -51,7 +51,7 @@ Every update is a single JSON object. Display it in a code block so the learner 
 | Type | When | Typical Fields |
 |---|---|---|
 | `session` | After an interactive lesson | All fields |
-| `listen` | After passive listening | `level`, `episode`, `notes` |
+| `listen` | After passive listening | `tier`, `mission`, `notes` |
 | `feedback` | Ad-hoc progress report | `struggled`, `comfortable`, `notes` |
 
 ## Example Scenarios
@@ -62,8 +62,8 @@ Every update is a single JSON object. Display it in a code block so the learner 
   "v": 1,
   "ts": "2026-02-17T08:30:00",
   "type": "session",
-  "level": 4,
-  "episode": 2,
+  "tier": 2,
+  "mission": 2,
   "energy": "HIGH",
   "struggled": ["தூங்கினேன்", "எழுந்தேன்"],
   "comfortable": ["போனேன்", "வந்தேன்", "சாப்பிட்டேன்"],
@@ -78,8 +78,8 @@ Every update is a single JSON object. Display it in a code block so the learner 
   "v": 1,
   "ts": "2026-02-17T09:15:00",
   "type": "listen",
-  "level": 3,
-  "episode": 1,
+  "tier": 1,
+  "mission": 5,
   "notes": "Listened twice on the train. Auto directions feel natural now."
 }
 ```
@@ -90,8 +90,8 @@ Every update is a single JSON object. Display it in a code block so the learner 
   "v": 1,
   "ts": "2026-02-17T14:00:00",
   "type": "feedback",
-  "level": 4,
-  "episode": 3,
+  "tier": 2,
+  "mission": 3,
   "struggled": ["முன்னாடி", "அதுக்கு அப்புறம்"],
   "comfortable": ["நேத்து", "இன்னைக்கு"],
   "notes": "Sequencing words are hard. Time words are fine."

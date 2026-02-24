@@ -1,0 +1,417 @@
+{
+  "tier": 1,
+  "name": "survival",
+  "vocabulary": [
+    {
+      "tamil": "வணக்கம்",
+      "english": "Hello"
+    },
+    {
+      "tamil": "ஆமா",
+      "english": "Yes"
+    },
+    {
+      "tamil": "இல்ல",
+      "english": "No"
+    },
+    {
+      "tamil": "சரி",
+      "english": "Okay"
+    },
+    {
+      "tamil": "நீங்க",
+      "english": "You (respectful - Elders/Strangers)"
+    },
+    {
+      "tamil": "நீ",
+      "english": "You (informal - Peers/Cousins)"
+    },
+    {
+      "tamil": "இங்க",
+      "english": "Here"
+    },
+    {
+      "tamil": "அங்க",
+      "english": "There"
+    },
+    {
+      "tamil": "எங்க?",
+      "english": "Where?"
+    },
+    {
+      "tamil": "இருக்கு",
+      "english": "It is / It exists"
+    },
+    {
+      "tamil": "இல்லையா?",
+      "english": "Isn't it?"
+    },
+    {
+      "tamil": "என்ன?",
+      "english": "What?"
+    },
+    {
+      "tamil": "தெரியும்",
+      "english": "I know"
+    },
+    {
+      "tamil": "தெரியாது",
+      "english": "I don't know"
+    },
+    {
+      "tamil": "வரேன்",
+      "english": "I come / I'm coming"
+    },
+    {
+      "tamil": "போறேன்",
+      "english": "I go / I'm going"
+    },
+    {
+      "tamil": "வேணும்",
+      "english": "I want / I need"
+    },
+    {
+      "tamil": "வேண்டாம்",
+      "english": "I don't want"
+    },
+    {
+      "tamil": "குடுங்க",
+      "english": "Give (respectful)"
+    },
+    {
+      "tamil": "எடுங்க",
+      "english": "Take (respectful)"
+    },
+    {
+      "tamil": "நீங்க",
+      "english": "You (respectful)"
+    },
+    {
+      "tamil": "வரேன்",
+      "english": "I come"
+    },
+    {
+      "tamil": "போறேன்",
+      "english": "I go"
+    },
+    {
+      "tamil": "வேணும்",
+      "english": "I want"
+    },
+    {
+      "tamil": "சொல்லுங்க",
+      "english": "Tell/Say (respectful)"
+    },
+    {
+      "tamil": "வாருங்களா?",
+      "english": "Will you come?"
+    },
+    {
+      "tamil": "சாப்டீங்களா?",
+      "english": "Did you eat?"
+    },
+    {
+      "tamil": "உக்காருங்க",
+      "english": "Sit (respectful)"
+    },
+    {
+      "tamil": "நல்லா இருக்கு",
+      "english": "It's good"
+    },
+    {
+      "tamil": "சூப்பர்",
+      "english": "Super"
+    },
+    {
+      "tamil": "செம்ம",
+      "english": "Awesome / Extreme"
+    },
+    {
+      "tamil": "காரம்",
+      "english": "Spicy"
+    },
+    {
+      "tamil": "உப்பு",
+      "english": "Salt / Salty"
+    },
+    {
+      "tamil": "அப்புறம்",
+      "english": "Later / After that"
+    },
+    {
+      "tamil": "இப்போ",
+      "english": "Now"
+    },
+    {
+      "tamil": "நாளைக்கு",
+      "english": "Tomorrow"
+    },
+    {
+      "tamil": "நேரம் ஆச்சு",
+      "english": "It's time / Time's up"
+    },
+    {
+      "tamil": "கொஞ்சம்",
+      "english": "A little"
+    },
+    {
+      "tamil": "நிறைய",
+      "english": "A lot"
+    },
+    {
+      "tamil": "ஒன்னு மட்டும்",
+      "english": "Only one"
+    },
+    {
+      "tamil": "போதும்",
+      "english": "Enough"
+    },
+    {
+      "tamil": "பசி",
+      "english": "Hungry"
+    },
+    {
+      "tamil": "வயிறு ஃபுல்",
+      "english": "Stomach full"
+    },
+    {
+      "tamil": "தாகம்",
+      "english": "Thirsty"
+    },
+    {
+      "tamil": "டயர்ட்",
+      "english": "Tired"
+    },
+    {
+      "tamil": "எனக்கு",
+      "english": "To me / For me"
+    },
+    {
+      "tamil": "உனக்கு",
+      "english": "To you / For you"
+    },
+    {
+      "tamil": "அப்புறம்",
+      "english": "Later"
+    },
+    {
+      "tamil": "எனக்கு",
+      "english": "To me"
+    },
+    {
+      "tamil": "உனக்கு",
+      "english": "To you"
+    },
+    {
+      "tamil": "பரவாயில்லை",
+      "english": "It's okay / No problem"
+    },
+    {
+      "tamil": "சாப்பிடுங்க",
+      "english": "Please eat (respectful)"
+    },
+    {
+      "tamil": "வேற என்ன?",
+      "english": "What else?"
+    },
+    {
+      "tamil": "போயிட்டு வரேன்",
+      "english": "I'll go and come back (goodbye)"
+    },
+    {
+      "tamil": "வலது",
+      "english": "Right"
+    },
+    {
+      "tamil": "இடது",
+      "english": "Left"
+    },
+    {
+      "tamil": "நேரா",
+      "english": "Straight"
+    },
+    {
+      "tamil": "நிறுத்துங்க",
+      "english": "Stop (respectful)"
+    },
+    {
+      "tamil": "ஒன்னு",
+      "english": "One"
+    },
+    {
+      "tamil": "ரெண்டு",
+      "english": "Two"
+    },
+    {
+      "tamil": "மூணு",
+      "english": "Three"
+    },
+    {
+      "tamil": "அஞ்சு",
+      "english": "Five"
+    },
+    {
+      "tamil": "பத்து",
+      "english": "Ten"
+    },
+    {
+      "tamil": "நூறு",
+      "english": "Hundred"
+    },
+    {
+      "tamil": "எவ்வளவு?",
+      "english": "How much?"
+    },
+    {
+      "tamil": "காசு",
+      "english": "Money"
+    },
+    {
+      "tamil": "ஜாஸ்தி",
+      "english": "Too much"
+    },
+    {
+      "tamil": "கம்மி",
+      "english": "Less"
+    },
+    {
+      "tamil": "கிட்ட",
+      "english": "Near / With (person)"
+    },
+    {
+      "tamil": "மேல",
+      "english": "On top / Above"
+    },
+    {
+      "tamil": "கீழ",
+      "english": "Below / Under"
+    },
+    {
+      "tamil": "உள்ள",
+      "english": "Inside"
+    },
+    {
+      "tamil": "வெளிய",
+      "english": "Outside"
+    },
+    {
+      "tamil": "மீட்டர் போடுங்க",
+      "english": "Use the meter (respectful)"
+    },
+    {
+      "tamil": "போலாம்",
+      "english": "Let's go"
+    },
+    {
+      "tamil": "சில்லறை",
+      "english": "Change (coins)"
+    }
+  ],
+  "scenarios": [
+    {
+      "topic": "First Contact",
+      "intro": "Today we build the foundation. The four words you need to survive. Hello, Yes, No, and Okay.",
+      "scenario": "You meet a neighbor. He asks if you are new. You say Yes. He asks if you need help. You say No. He says Okay. You say Hello."
+    },
+    {
+      "topic": "The Respect Toggle",
+      "intro": "Tamil society runs on hierarchy. Today we learn how to show respect without thinking: the Peer vs. Elder dynamic.",
+      "scenario": "You meet your younger cousin. You use 'Nee'. Then her father walks in. You switch to 'Neenga' instantly. Architect Note: Channel Sathyaraj's smooth transition between casual and respectful tones here."
+    },
+    {
+      "topic": "Spatial Existence",
+      "intro": "Today we answer the big questions. Where is it? And does it exist?",
+      "scenario": "You are looking for your phone. You ask 'Where?'. Your wife says 'It is here'. You ask again. Wife says 'Don't know'."
+    },
+    {
+      "topic": "Command Logic",
+      "intro": "Moving yourself and your desires. I want. I go. I come.",
+      "scenario": "You want coffee. Coffee Venum. You are leaving for work. Poren. You point to the remote. 'Kudunga' (Give)."
+    },
+    {
+      "topic": "BOSS FIGHT: The Living Room",
+      "intro": "The first Boss Fight. Putting it all together in the Living Room.",
+      "scenario": "Full simulation. Greeting elders, accepting coffee, refusing snacks, and finding the remote."
+    },
+    {
+      "topic": "Rest and Reps",
+      "intro": "The Audit. We review the first words. No new concepts. Just pure muscle memory.",
+      "scenario": "Rapid fire audit. I say the English, you say the Tamil immediately."
+    },
+    {
+      "topic": "The Grammar of Silence",
+      "intro": "The art of politeness. We focus on the suffix 'Nga' and the tone of 'Sari'.",
+      "scenario": "You are hosting. You ask guests to sit. You ask if they ate. You listen to them speak and say 'Sari' to show respect."
+    },
+    {
+      "topic": "Sensory Feedback",
+      "intro": "Week 2. The Kitchen. The most dangerous room in the house. Today we learn how to survive by giving feedback.",
+      "scenario": "You are eating. The host looks at you. You say 'Super'. They give you pickle. You say 'Kaaram'. They ask about the rice. You say 'Nalla Irukku'."
+    },
+    {
+      "topic": "The Time Shield",
+      "intro": "They want you to do things now. You want to do them later. Today we control time.",
+      "scenario": "Mother-in-law asks you to fix the fan. You say 'Not now. Later.' She asks when. You say 'Tomorrow'. She says 'Okay'."
+    },
+    {
+      "topic": "Quantitative Control",
+      "intro": "Managing the flow of food. The 'Infinite Dosa' loop is real. You need shields.",
+      "scenario": "They bring rice. You say 'Konjam'. They bring a bucket of Sambar. You say 'Podhum!'. They offer a sweet. You say 'Onnu Mattum'."
+    },
+    {
+      "topic": "Internal States",
+      "intro": "How do you feel? Hunger, thirst, and fatigue. And the 'To me / To you' pattern.",
+      "scenario": "You come home. Wife asks 'Coffee?'. You say 'No, Thirst'. She gives water. She asks 'Food?'. You say 'Enaku Pasi' (To me hunger)."
+    },
+    {
+      "topic": "BOSS FIGHT: Sunday Lunch",
+      "intro": "The Ultimate Test. You are seated. The leaf is open. Survive.",
+      "scenario": "Rice is served. Say 'Enough'. Sambar is poured. Say 'Super'. They offer seconds. Say 'Only one'. They ask if you want Rasam. Say 'Later'. You finish. Say 'Stomach Full'."
+    },
+    {
+      "topic": "Rest and Reps",
+      "intro": "Audit day. Reviewing the Kitchen Arsenal.",
+      "scenario": "Rapid fire. English to Tamil."
+    },
+    {
+      "topic": "Upacharam (Hospitality)",
+      "intro": "The Art of Hospitality. You cannot just say No. You must praise, then refuse.",
+      "scenario": "You are leaving a dinner. You say the food was Super. You say 'Poittu Varen'. They say stay longer. You say 'Paravailla'."
+    },
+    {
+      "topic": "The Auto Protocol",
+      "intro": "You are no longer in the house. You are in an Auto Rickshaw. You must command the pilot.",
+      "scenario": "You are in an auto. You see your street. You say 'Right'. Then 'Left'. Then 'Stop here'."
+    },
+    {
+      "topic": "The Numbers Game",
+      "intro": "Commerce. You cannot buy if you cannot count. The essential numbers for survival.",
+      "scenario": "You ask for 2 idlis. Rendu. Price is 10 rupees. Pathu. Give 100 rupees. Nooru."
+    },
+    {
+      "topic": "Transactions",
+      "intro": "Money. How to ask the price and complain that it is too high.",
+      "scenario": "You buy bananas. You ask 'How much?'. He says 500. You say 'Too much'. You ask 'Less?'."
+    },
+    {
+      "topic": "Possession & Inventory",
+      "intro": "Where exactly is it? Spatial relationships and prepositions of place.",
+      "scenario": "Phone is inside the bag. Bag is on the table. Key is with me."
+    },
+    {
+      "topic": "BOSS FIGHT: The Vendor Stare-Down",
+      "intro": "The Market. You need to take an auto to the market and buy fruit. Fight.",
+      "scenario": "Auto Driver asks where. Say 'Go Straight'. You need to turn. Say 'Right'. You reach the shop. Say 'Stop'. You pick an apple. Ask 'How much?'. He says 1000 rupees. Say 'Too much!'. Ask for 'Less'."
+    },
+    {
+      "topic": "Rest and Reps",
+      "intro": "Audit Day. Reviewing direction and money.",
+      "scenario": "Rapid fire."
+    },
+    {
+      "topic": "Auto Rickshaw Diplomacy",
+      "intro": "The Meter. The classic conflict. Negotiating the ride.",
+      "scenario": "You get in. You say 'Meter Podunga'. He says No. You say 'Polaam' (Let's go). At the end, you ask for 'Chillarai'."
+    }
+  ]
+}

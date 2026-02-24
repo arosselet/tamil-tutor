@@ -15,8 +15,8 @@ The learner provides an **array** of update objects (the contract is defined in 
 
 ```json
 [
-  {"v": 1, "ts": "2026-02-17T08:30:00", "type": "session", "level": 4, "episode": 2, ...},
-  {"v": 1, "ts": "2026-02-17T09:15:00", "type": "listen", "level": 3, "episode": 1, ...},
+  {"v": 1, "ts": "2026-02-17T08:30:00", "type": "session", "tier": 2, "mission": 2, ...},
+  {"v": 1, "ts": "2026-02-17T09:15:00", "type": "listen", "tier": 1, "mission": 5, ...},
   {"v": 1, "ts": "2026-02-17T14:00:00", "type": "feedback", "struggled": ["முன்னாடி"], ...}
 ]
 ```
@@ -38,8 +38,8 @@ For each update:
   ```json
   {
     "date": "<ts date>",
-    "level": "<level>",
-    "episode": "<episode>",
+    "tier": "<tier>",
+    "mission": "<mission>",
     "energy": "<energy>",
     "struggled": ["..."],
     "comfortable": ["..."],
@@ -50,7 +50,7 @@ For each update:
   ```
 - Add `struggled` words to `struggled_words[]` (deduplicated)
 - Move `comfortable` words from `struggled_words[]` to `comfortable_words[]`
-- Update `current_level` and `current_episode` to the highest seen
+- Update `current_tier` to the highest seen
 - Increment `total_sessions`
 - Update streak (check if consecutive day)
 
@@ -67,7 +67,7 @@ For each update:
 ### 4. Update Tier Progress
 
 Recalculate `tier_progress` in `learner.json`:
-- Read `curriculum/levels.json` to get tier assignments
+- Read `curriculum/tiers/` to get Tier vocabulary buckets
 - Count comfortable words per tier
 - Update `mastered` counts
 

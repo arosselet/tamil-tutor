@@ -1,10 +1,8 @@
 {
     "learner": "Andrew",
-    "current_level": 4,
-    "current_episode": 4,
-    "active_podcast": {
-        "level": 4,
-        "episode": 5,
+    "current_tier": 2,
+    "active_mission": {
+        "tier": 2,
         "topic": "BOSS FIGHT: The Evening Report",
         "target_vocab": [
             {
@@ -31,17 +29,17 @@
     },
     "tier_progress": {
         "tier1": {
-            "target": 69,
+            "target": 76,
             "mastered": 52,
             "label": "Survival"
         },
         "tier2": {
-            "target": 145,
+            "target": 177,
             "mastered": 0,
-            "label": "Comfortable"
+            "label": "Comfort"
         },
         "tier3": {
-            "target": 185,
+            "target": 207,
             "mastered": 0,
             "label": "Embedded"
         }
@@ -136,8 +134,6 @@
     "sessions": [
         {
             "date": "2026-02-17",
-            "level": 3,
-            "episode": 1,
             "energy": "HIGH",
             "struggled": [],
             "comfortable": [
@@ -156,12 +152,12 @@
                 "வயிறு ஃபுல்"
             ],
             "zinger": null,
-            "notes": "Learner confirmed mastery of Level 1 and 2 content. Moving to Urban Survival."
+            "notes": "Learner confirmed mastery of Level 1 and 2 content. Moving to Urban Survival.",
+            "tier": 1,
+            "mission": 1
         },
         {
             "date": "2026-02-18",
-            "level": 3,
-            "episode": 1,
             "energy": "MEDIUM",
             "struggled": [
                 "நிறுத்துங்க"
@@ -173,12 +169,12 @@
             ],
             "zinger": "நிறுத்துங்க",
             "notes": "Nailed directions, but 'Niruthunga' needs more muscle memory.",
-            "source": "mobile"
+            "source": "mobile",
+            "tier": 1,
+            "mission": 1
         },
         {
             "date": "2026-02-18",
-            "level": 3,
-            "episode": 4,
             "energy": "MEDIUM",
             "struggled": [
                 "அஞ்சு",
@@ -198,12 +194,12 @@
             ],
             "zinger": "உள்ள",
             "notes": "Inside is mastered; struggling with other spatial relations and larger numbers (5, 10, 100).",
-            "source": "mobile"
+            "source": "mobile",
+            "tier": 1,
+            "mission": 4
         },
         {
             "date": "2026-02-19",
-            "level": 3,
-            "episode": 5,
             "energy": "MEDIUM",
             "struggled": [],
             "comfortable": [
@@ -211,12 +207,12 @@
             ],
             "zinger": "Gate கிட்ட நிறுத்துங்க",
             "notes": "Mastered 'Niruthunga'. Moved to comfortable list.",
-            "source": "cli"
+            "source": "cli",
+            "tier": 1,
+            "mission": 5
         },
         {
             "date": "2026-02-20",
-            "level": 4,
-            "episode": 3,
             "energy": "MEDIUM",
             "struggled": [
                 "முன்னாடி",
@@ -229,12 +225,12 @@
             ],
             "zinger": "முதல்ல நான் சொல்றேன்",
             "notes": "Good progress on Adhukku apuram/Nethu. Struggling with sequence starts (Mudhalla/Munnadi). Innaikku is medium.",
-            "source": "cli"
+            "source": "cli",
+            "tier": 2,
+            "mission": 3
         },
         {
             "date": "2026-02-23",
-            "level": 4,
-            "episode": 5,
             "energy": "MEDIUM",
             "struggled": [
                 "முன்னாடி",
@@ -254,7 +250,9 @@
                 "ஆனா"
             ],
             "zinger": "அதான் வந்துட்டேன் ல?",
-            "notes": "User requested double length episode. Mastered logic connectors."
+            "notes": "User requested double length episode. Mastered logic connectors.",
+            "tier": 2,
+            "mission": 5
         }
     ]
 }

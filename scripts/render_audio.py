@@ -3,10 +3,10 @@
 Generate dual-voice Tamil podcast audio from a markdown script.
 
 Usage:
-    python scripts/generate_episode.py <input_script.md> <output.mp3>
+    python scripts/render_audio.py <input_script.md> <output.mp3>
 
 Example:
-    python scripts/generate_episode.py content/scripts/level1_ep1.md audio/level1_ep1.mp3
+    python scripts/render_audio.py content/scripts/tier1_mission1.md audio/tier1_mission1.mp3
 
 Reads **Host:** and **Guest:** lines from the script, generates TTS audio
 segments using edge-tts, and stitches them into a single MP3.
@@ -287,10 +287,10 @@ async def main():
     # 6. Upload to Home Assistant
     load_dotenv()
     ha_host = os.getenv("HOMEASSISTANT_HOST", "homeassistant")
-    print(f"📡 Uploading to Home Assistant: {args.output_file} -> {ha_host}:/config/www/episode.mp3")
+    print(f"📡 Uploading to Home Assistant: {args.output_file} -> {ha_host}:/config/www/mission.mp3")
     try:
         subprocess.run(
-            ["scp", args.output_file, f"{ha_host}:/config/www/episode.mp3"],
+            ["scp", args.output_file, f"{ha_host}:/config/www/mission.mp3"],
             check=True
         )
         print("✅ Upload complete!")

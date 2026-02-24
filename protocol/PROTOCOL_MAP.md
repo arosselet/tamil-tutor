@@ -13,8 +13,8 @@
 |---|---|---|
 | `@tutor` (or request a lesson) | `protocol/learning_loop.md` | Entry point for learning and generation. Starts with Phase 1 Checkpoint. **NO TEMPLATING ALLOWED.** |
 | `/build` (or default coding) | `<Self-Directed>` | Default engineering mode. Safe to edit protocol files and scripts. |
-| "I listened to episode X" | `protocol/session_protocol.md` | Update `progress/learner.json` |
-| "Show my progress" | Read `progress/learner.json` + `curriculum/levels.json` | Report tier progress, streaks |
+| "I listened to mission X" | `protocol/session_protocol.md` | Update `progress/learner.json` |
+| "Show my progress" | Read `progress/learner.json` + `index.json` | Report tier progress, streaks |
 | "Sync these updates" | `protocol/sync_ingest.md` | Apply mobile updates to learner.json + vocab index |
 | *(On mobile, after progress)* | `protocol/mobile_sync.md` | Emit JSON progress blob for iOS Share |
 
@@ -24,7 +24,7 @@
 protocol/           → LLM instructions (you are here)
 curriculum/
     ├── index.json      → Manifest (titles, tiers)
-    └── levels/         → Individual level JSONs (level_01.json...)
+    └── tiers/          → Consolidated Tier buckets (tier_1_survival.json...)
 content/scripts/     → Podcast scripts (Markdown)
 audio/               → Generated MP3 files
 progress/            → learner.json (learner state)
@@ -45,5 +45,5 @@ scripts/             → Python tools (audio gen, vocab builder, dashboard)
 | **Producer** | `protocol/roles/producer.md` | TTS-ready script (Tamil Script enforcement) |
 | **Mobile Sync** | `protocol/mobile_sync.md` | Phone-side: when/how to emit progress JSON |
 | **Sync Ingest** | `protocol/sync_ingest.md` | Desktop-side: apply mobile updates |
-| **Curriculum** | `curriculum/levels/level_XX.json` | Source of truth for levels + vocab |
+| **Curriculum** | `curriculum/tiers/tier_X.json` | Source of truth for Tiers + vocab |
 | **Learner** | `progress/learner.json` | Source of truth for learner state |

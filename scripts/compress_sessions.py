@@ -71,20 +71,19 @@ def compress(days: int = 7):
     learner["struggled_words"] = sorted(struggled)
     learner["mastered_words"] = sorted(mastered)
 
-    # Update tier_progress targets from levels.json
-    levels_path = BASE / "curriculum" / "levels.json"
-    if levels_path.exists():
-        levels = load_json(levels_path)
+    # Update tier_progress targets from consolidated tier files
+    tiers_dir = BASE / "curriculum" / "tiers"
+    if tiers_dir.exists():
         tier_counts: dict[int, int] = {}
-        for level_data in levels.values():
-            tier = level_data.get("tier", 1)
+        for f in sorted(tiers_dir.glob("tier_*.json")):
+            tier_data = load_json(f)
+            tier_num = int(tier_data.get("tier", 1))
             seen = set()
-            for ep in level_data.get("episodes", []):
-                for w in ep.get("vocab", []):
-                    seen.add(w["tamil"])
-            tier_counts[tier] = tier_counts.get(tier, 0) + len(seen)
+            for v in tier_data.get("vocabulary", []):
+                seen.add(v["tamil"])
+            tier_counts[tier_num] = len(seen)
 
-        # Update targets (won't be exact due to cross-level dedup, but close enough)
+        # Update targets
         tier_progress = learner.get("tier_progress", {})
         tier_map = {1: "tier1", 2: "tier2", 3: "tier3"}
         for t, key in tier_map.items():

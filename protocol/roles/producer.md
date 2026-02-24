@@ -64,7 +64,7 @@ Before running the audio generator, you MUST perform a final "Scrubbing Pass":
 
 ## Output
 
-A "Clean" script ready for `scripts/generate_episode.py`:
+A "Clean" script ready for `scripts/render_audio.py` or `scripts/generate_polyglot.py`:
 - NO parenthetical guides in spoken lines
 - ALL Tamil in Tamil Script
 - ALL Kongu colloquial forms used (the "nga" law)
