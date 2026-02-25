@@ -59,76 +59,6 @@
     </item>
 
     <item>
-      <title>elizabeth_demo.mp3</title>
-      <itunes:author>Tamil Tutor</itunes:author>
-      <itunes:summary>Lesson: elizabeth_demo.mp3</itunes:summary>
-      <enclosure url="https://arosselet.github.io/tamil-tutor/audio/elizabeth_demo.mp3" length="283488" type="audio/mpeg"/>
-      <guid>https://arosselet.github.io/tamil-tutor/audio/elizabeth_demo.mp3</guid>
-      <pubDate>Mon, 23 Feb 2026 09:28:35 -0500</pubDate>
-      <itunes:duration>00:05:00</itunes:duration>
-    </item>
-
-    <item>
-      <title>polyglot_demo.mp3</title>
-      <itunes:author>Tamil Tutor</itunes:author>
-      <itunes:summary>Lesson: polyglot_demo.mp3</itunes:summary>
-      <enclosure url="https://arosselet.github.io/tamil-tutor/audio/polyglot_demo.mp3" length="886080" type="audio/mpeg"/>
-      <guid>https://arosselet.github.io/tamil-tutor/audio/polyglot_demo.mp3</guid>
-      <pubDate>Sun, 22 Feb 2026 23:08:36 -0500</pubDate>
-      <itunes:duration>00:05:00</itunes:duration>
-    </item>
-
-    <item>
-      <title>readme_demo.mp3</title>
-      <itunes:author>Tamil Tutor</itunes:author>
-      <itunes:summary>Lesson: readme_demo.mp3</itunes:summary>
-      <enclosure url="https://arosselet.github.io/tamil-tutor/audio/readme_demo.mp3" length="566400" type="audio/mpeg"/>
-      <guid>https://arosselet.github.io/tamil-tutor/audio/readme_demo.mp3</guid>
-      <pubDate>Sun, 22 Feb 2026 13:29:54 -0500</pubDate>
-      <itunes:duration>00:05:00</itunes:duration>
-    </item>
-
-    <item>
-      <title>intro_podcast.mp3</title>
-      <itunes:author>Tamil Tutor</itunes:author>
-      <itunes:summary>Lesson: intro_podcast.mp3</itunes:summary>
-      <enclosure url="https://arosselet.github.io/tamil-tutor/audio/intro_podcast.mp3" length="854304" type="audio/mpeg"/>
-      <guid>https://arosselet.github.io/tamil-tutor/audio/intro_podcast.mp3</guid>
-      <pubDate>Sun, 22 Feb 2026 11:24:34 -0500</pubDate>
-      <itunes:duration>00:05:00</itunes:duration>
-    </item>
-
-    <item>
-      <title>mandarin_showcase.mp3</title>
-      <itunes:author>Tamil Tutor</itunes:author>
-      <itunes:summary>Lesson: mandarin_showcase.mp3</itunes:summary>
-      <enclosure url="https://arosselet.github.io/tamil-tutor/audio/mandarin_showcase.mp3" length="958464" type="audio/mpeg"/>
-      <guid>https://arosselet.github.io/tamil-tutor/audio/mandarin_showcase.mp3</guid>
-      <pubDate>Sun, 22 Feb 2026 11:14:21 -0500</pubDate>
-      <itunes:duration>00:05:00</itunes:duration>
-    </item>
-
-    <item>
-      <title>showcase_reverse.mp3</title>
-      <itunes:author>Tamil Tutor</itunes:author>
-      <itunes:summary>Lesson: showcase_reverse.mp3</itunes:summary>
-      <enclosure url="https://arosselet.github.io/tamil-tutor/audio/showcase_reverse.mp3" length="537840" type="audio/mpeg"/>
-      <guid>https://arosselet.github.io/tamil-tutor/audio/showcase_reverse.mp3</guid>
-      <pubDate>Sun, 22 Feb 2026 11:09:04 -0500</pubDate>
-      <itunes:duration>00:05:00</itunes:duration>
-    </item>
-
-    <item>
-      <title>tts_showcase.mp3</title>
-      <itunes:author>Tamil Tutor</itunes:author>
-      <itunes:summary>Lesson: tts_showcase.mp3</itunes:summary>
-      <enclosure url="https://arosselet.github.io/tamil-tutor/audio/tts_showcase.mp3" length="348144" type="audio/mpeg"/>
-      <guid>https://arosselet.github.io/tamil-tutor/audio/tts_showcase.mp3</guid>
-      <pubDate>Sun, 22 Feb 2026 10:38:29 -0500</pubDate>
-      <itunes:duration>00:05:00</itunes:duration>
-    </item>
-
-    <item>
       <title>level4_ep4_remix.mp3</title>
       <itunes:author>Tamil Tutor</itunes:author>
       <itunes:summary>Lesson: level4_ep4_remix.mp3</itunes:summary>
@@ -255,16 +185,6 @@
       <enclosure url="https://arosselet.github.io/tamil-tutor/audio/level2_ep1.mp3" length="1747008" type="audio/mpeg"/>
       <guid>https://arosselet.github.io/tamil-tutor/audio/level2_ep1.mp3</guid>
       <pubDate>Tue, 17 Feb 2026 16:42:33 -0500</pubDate>
-      <itunes:duration>00:05:00</itunes:duration>
-    </item>
-
-    <item>
-      <title>voice_showcase.mp3</title>
-      <itunes:author>Tamil Tutor</itunes:author>
-      <itunes:summary>Lesson: voice_showcase.mp3</itunes:summary>
-      <enclosure url="https://arosselet.github.io/tamil-tutor/audio/voice_showcase.mp3" length="350064" type="audio/mpeg"/>
-      <guid>https://arosselet.github.io/tamil-tutor/audio/voice_showcase.mp3</guid>
-      <pubDate>Tue, 17 Feb 2026 16:17:16 -0500</pubDate>
       <itunes:duration>00:05:00</itunes:duration>
     </item>
 
