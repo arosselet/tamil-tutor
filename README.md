@@ -82,6 +82,14 @@ The true power of this system is in **what you ask the agent**. Don't just follo
 - *"Give me 5 'Doorway Zingers' for today based on what I just learned."*
 - *"Run a 'Boss Fight' simulation where I have to negotiate an auto fare in Coimbatore."*
 
+### 4. The Podcast Feed (On your Phone)
+The easiest way to take your lessons on the go is via a standard **Podcast App** (Apple Podcasts, Overcast, etc.).
+
+1.  **Subscribe**: Copy this URL and add it via "Add Show by URL" in your app:
+    `https://raw.githubusercontent.com/arosselet/tamil-tutor/main/rss.xml`
+2.  **Listen**: New episodes automatically appear in your feed as soon as they are pushed to GitHub.
+3.  **Visuals**: Includes full metadata and the bilingual **Coimbatore Mappilai** cover art.
+
 ---
 
 *"Contact Time > Completion. Success is engaging with the sound of the language daily. Use the English noun to sound local. Master the operational glue."*

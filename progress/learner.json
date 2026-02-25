@@ -3,47 +3,31 @@
     "current_tier": 2,
     "active_mission": {
         "tier": 2,
-        "topic": "The Coordinate Drill (Mechanics)",
+        "topic": "The Coimbatore Mappilai (The Remix)",
         "target_vocab": [
             {
-                "tamil": "கிட்ட",
-                "english": "Near"
+                "tamil": "அண்ணா",
+                "english": "Elder brother"
             },
             {
-                "tamil": "கீழ",
-                "english": "Down"
+                "tamil": "தம்பி",
+                "english": "Younger brother"
             },
             {
-                "tamil": "மேல",
-                "english": "Up"
+                "tamil": "அக்கா",
+                "english": "Elder sister"
             },
             {
-                "tamil": "முன்னாடி",
-                "english": "Before / In front"
+                "tamil": "தங்கச்சி",
+                "english": "Younger sister"
             },
             {
-                "tamil": "பின்னாடி",
-                "english": "After / Behind"
+                "tamil": "மாமா",
+                "english": "Uncle (maternal)"
             },
             {
-                "tamil": "முதல்ல",
-                "english": "First"
-            },
-            {
-                "tamil": "அப்புறம்",
-                "english": "Then / After"
-            },
-            {
-                "tamil": "இன்னைக்கு",
-                "english": "Today"
-            },
-            {
-                "tamil": "பத்து",
-                "english": "Ten (10)"
-            },
-            {
-                "tamil": "நூறு",
-                "english": "Hundred (100)"
+                "tamil": "அத்தை",
+                "english": "Aunt (paternal)"
             }
         ]
     },
@@ -64,7 +48,7 @@
             "label": "Embedded"
         }
     },
-    "total_sessions": 6,
+    "total_sessions": 8,
     "streak": {
         "current": 5,
         "best": 5,
@@ -293,6 +277,34 @@
             "notes": "Generated Mission 6: The Coordinate Drill. Focused on fixing spatial/temporal confusion.",
             "tier": 2,
             "mission": 6
+        },
+        {
+            "date": "2026-02-24",
+            "energy": "MEDIUM",
+            "struggled": [
+                "முன்னாடி",
+                "இன்னைக்கு",
+                "பார்த்தேன்"
+            ],
+            "comfortable": [
+                "சாப்பிட்டேன்",
+                "பசி",
+                "நேரம் ஆச்சு"
+            ],
+            "zinger": "இப்போ தான் சாப்பிட்டேன்",
+            "notes": "Generated Mission 7: The Saaptiya Loop. Deep-Dive style on food culture and Safe Answers.",
+            "tier": 2,
+            "mission": 7
+        },
+        {
+            "date": "2026-02-25",
+            "energy": "MEDIUM",
+            "struggled": [],
+            "comfortable": [],
+            "zinger": "அண்ணா, எப்படி இருக்கீங்க?",
+            "notes": "Mission 8: The Coimbatore Mappilai (The Remix). Introduced kinship terms (Anna, Thambi, etc.) and remixed with spatial/temporal struggle words.",
+            "tier": 2,
+            "mission": 8
         }
     ]
 }

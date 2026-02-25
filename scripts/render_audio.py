@@ -279,6 +279,18 @@ async def main():
         
         os.remove(seg_file)
 
+    # Save to original audio folder (private)
+    audio_path = os.path.join("audio", os.path.basename(args.output_file))
+    print(f"🔗 Saving private audio → {audio_path}...")
+    with open(audio_path, "wb") as outfile:
+        outfile.write(final_audio_data)
+
+    # Save to published_audio folder (public)
+    pub_path = os.path.join("published_audio", os.path.basename(args.output_file))
+    print(f"🔗 Saving public audio → {pub_path}...")
+    with open(pub_path, "wb") as outfile:
+        outfile.write(final_audio_data)
+
     os.rmdir(temp_dir)
 
     size_mb = len(final_audio_data) / (1024 * 1024)
@@ -294,8 +306,8 @@ async def main():
     # 7. Sync to GitHub (Durable Hosting)
     print("🐙 Syncing to GitHub...")
     try:
-        # Check if there are changes to commit
-        subprocess.run(["git", "add", args.output_file, "rss.xml"], check=True)
+        # Check if there are changes to commit in published_audio and rss.xml
+        subprocess.run(["git", "add", "published_audio/", "rss.xml", "logo.png"], check=True)
         # Check if there's anything to commit (to avoid error if nothing changed)
         status = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True)
         if status.stdout.strip():
