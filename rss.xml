@@ -7,8 +7,8 @@
     <link>https://raw.githubusercontent.com/arosselet/tamil-tutor/main</link>
     <language>en-us</language>
     <itunes:author>Andrew Rosselet</itunes:author>
-    <itunes:summary>Interactive Tamil language learning sessions from Coimbatore.</itunes:summary>
-    <description>Tamil learning through dialogue and culture, recorded in Coimbatore.</description>
+    <itunes:summary>Interactive Tamil language learning sessions.</itunes:summary>
+    <description>Tamil learning through dialogue and culture.</description>
     <itunes:owner>
       <itunes:name>Andrew Rosselet</itunes:name>
     </itunes:owner>
@@ -29,21 +29,11 @@
     </item>
 
     <item>
-      <title>level4_ep5.mp3</title>
+      <title>Tier 2 Mission 7: The Saaptiya Loop (Cultural Deep-Dive)</title>
       <itunes:author>Andrew Rosselet</itunes:author>
-      <itunes:summary>Lesson: level4_ep5.mp3</itunes:summary>
-      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/level4_ep5.mp3" length="949008" type="audio/mpeg"/>
-      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/level4_ep5.mp3</guid>
-      <pubDate>Wed, 25 Feb 2026 15:07:56 -0500</pubDate>
-      <itunes:duration>00:05:00</itunes:duration>
-    </item>
-
-    <item>
-      <title>level4_ep5_remix.mp3</title>
-      <itunes:author>Andrew Rosselet</itunes:author>
-      <itunes:summary>Lesson: level4_ep5_remix.mp3</itunes:summary>
-      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/level4_ep5_remix.mp3" length="618912" type="audio/mpeg"/>
-      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/level4_ep5_remix.mp3</guid>
+      <itunes:summary>Lesson: Tier 2 Mission 7: The Saaptiya Loop (Cultural Deep-Dive)</itunes:summary>
+      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission7.mp3" length="1960704" type="audio/mpeg"/>
+      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission7.mp3</guid>
       <pubDate>Wed, 25 Feb 2026 15:07:56 -0500</pubDate>
       <itunes:duration>00:05:00</itunes:duration>
     </item>
@@ -54,16 +44,6 @@
       <itunes:summary>Lesson: Tier 2 Mission 6: The Coordinate Drill (Extended Cut)</itunes:summary>
       <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission6.mp3" length="3102336" type="audio/mpeg"/>
       <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission6.mp3</guid>
-      <pubDate>Wed, 25 Feb 2026 15:07:56 -0500</pubDate>
-      <itunes:duration>00:05:00</itunes:duration>
-    </item>
-
-    <item>
-      <title>Tier 2 Mission 7: The Saaptiya Loop (Cultural Deep-Dive)</title>
-      <itunes:author>Andrew Rosselet</itunes:author>
-      <itunes:summary>Lesson: Tier 2 Mission 7: The Saaptiya Loop (Cultural Deep-Dive)</itunes:summary>
-      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission7.mp3" length="1960704" type="audio/mpeg"/>
-      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission7.mp3</guid>
       <pubDate>Wed, 25 Feb 2026 15:07:56 -0500</pubDate>
       <itunes:duration>00:05:00</itunes:duration>
     </item>
