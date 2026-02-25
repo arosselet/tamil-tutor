@@ -1,8 +1,11 @@
-# Session Protocol
+# Interactive Session Protocol
+
+> **NOTE:** This protocol is exclusively for **Phase 5 (Opt-In Interactive Sessions)**.
+> For the default Podcast Generation workflow, refer to `protocol/learning_loop.md`.
 
 ## The Trigger
 
-When the learner says `[Tamil Lesson]` or any variation ("let's do Tamil", "Tamil time", etc.), begin a session.
+When the learner explicitly requests an interactive session (e.g., "Let's chat", "Quiz me", "Roleplay"), begin this protocol.
 
 ## Step 1: Read Learner State
 
@@ -13,34 +16,24 @@ Read `progress/learner.json` to determine:
 - Streak data (acknowledge streaks, encourage continuation)
 - Recent session history
 
-## Step 2: Energy Check
-
-Ask the learner their energy level, or infer from context:
-
-| Energy | Mode | Description |
-|---|---|---|
-| **LOW** | The Stream | Passive listening. Flow of related words with inline translations. Minimal interaction required. |
-| **MEDIUM** | The Walkman | Casual conversation blending Thanglish and Tamil. Light drilling. |
-| **HIGH** | The Spy | Active decoding, rapid-fire drills, Boss Fight simulations. Full intensity. |
-
-## Step 3: Run the Session
+## Step 2: Run the Session
 
 Use vocabulary from the current tier in `curriculum/index.json`, prioritizing words that fit the chosen mission arc. Weave in struggled words from `learner.json` for extra reps.
 
-### The 12-Minute Standard
+### The 12-Minute Standard (Interactive Equivalent)
 To ensure the brain has time to "soak" in the language:
-1. **Target Word Count:** 2,000 - 2,500 words.
-2. **Target Audio Duration:** 10-12 minutes.
+1. **Target Word Count:** 2,000 - 2,500 words (User + AI combined).
+2. **Target Duration:** 10-12 minutes.
 3. **Pacing:** Balance "Slow Beats" (context, culture, storytelling) with "Fast Explosions" (dense drills, high-stakes roleplay).
 
-## Step 4: Session Debrief
+## Step 3: Session Debrief
 
 At the end of the session:
 1. Identify the **Threshold Zinger** (one phrase to mutter at doorways).
 2. Ask: "What felt hard today?" — note struggled words.
 3. Ask: "What clicked?" — note words that moved to comfortable.
 
-## Step 5: Update Learner State
+## Step 4: Update Learner State
 
 ### If you have file access (Desktop/CLI):
 Write back to `progress/learner.json`:
@@ -54,7 +47,7 @@ Write back to `progress/learner.json`:
     "struggled": ["வேணும்", "வேண்டாம்"],
     "comfortable": ["வணக்கம்", "ஆமா"],
     "zinger": "சரி",
-    "notes": "Good session, nailed the greeting pattern"
+    "notes": "Interactive session: Nailed the greeting pattern"
   }
   ```
 - Move words between `struggled_words` and `comfortable_words` as appropriate.

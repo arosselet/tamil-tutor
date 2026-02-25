@@ -1,319 +1,264 @@
-# Tier 2 - Mission 6: The Spatial Trap (EXTENDED CUT)
+# Tier 2 Mission 6: The Coordinate Drill (Extended Cut)
 
-**Word Status:**
-- **New/Struggled:** கிட்ட (Kitta - Near), மேல (Mela - Up/On top), கீழ (Keezha - Down), முன்னாடி (Munnaadi - Before/In front), முதல்ல (Mudhalla - First), எழுந்தேன் (Ezhundhen - Woke up), பார்த்தேன் (Paarthen - Saw), வலது (Valadhu - Right), இடது (Idadhu - Left).
-- **Comfortable:** வணக்கம் (Vanakkam), போங்க (Ponga), நிறுத்துங்க (Niruthunga), ஏன்னா (Yenna), அதனால (Adhanaala).
+## 1. The Intel Briefing
+
+**(Sound of a busy Indian supermarket ambience - carts rattling, beeps, faint music)**
+
+**Host:** Vanakkam, Agent. Welcome back to the field.
+
+Today, we are doing something different. You requested a long session, and frankly, you need it. Your logic circuits are coming online beautifully—you're using ஆனா and அதனால like a pro.
+
+**Host:** But your navigation system? It's offline. Last mission, you were floating in space. You didn't know Up from Down, or Yesterday from Today.
+
+**Host:** So today, we are going to the Grocery Store. Why? Because the supermarket is the ultimate coordinate grid. Aisles to the left, shelves up high, sacks down low, counters in front.
+
+**Host:** This is **The Mechanics**. No complex story today. Just raw, repetitive, high-intensity drilling until these words are burned into your neural pathways. We are going to fix your X, Y, and Time axes.
+
+**Host:** Grab a cart. Let's go inside. உள்ள போலாம்.
 
 ---
 
-[Pause: 1 second]
+## 2. The Y-Axis: Mela and Keezha
 
-**Host:** Vanakkam. Welcome back to the studio.
+**Host:** First, let's establish your verticality. Look at the shelves.
 
-**Guest:** Vanakkam. I feel like I'm finally getting the hang of the basic verbs.
+**Host:** மேல.
+**Tamil:** மேல
+**English:** Up / On top / Above
 
-**Host:** Good. Because today we are leaving the house. We are going into the wild.
+**Host:** Say it. மேல.
+**Host:** Now look at the floor.
 
-**Guest:** The wild?
+**Host:** கீழ.
+**Tamil:** கீழ
+**English:** Down / Below / Under
 
-**Host:** Coimbatore traffic. The most dangerous ecosystem on earth.
+**Host:** கீழ.
 
-**Guest:** Oh great.
+**Host:** Let's drill this. I'm going to spot items. You tell me where they are.
 
-**Host:** My telemetry shows you are struggling with **Spatial Coordinates**. You know "Left" and "Right," but you freeze on "Up," "Down," "Near," and "First."
+**Host:** The expensive chocolates? They hide them மேல. Top shelf.
+**Host:** The 25kg rice bags? They are heavy. They are கீழ. Bottom shelf.
+**Host:** Look at the fan. ஃபேன் எங்க? மேல.
+**Host:** Look at your shoes. ஷூ எங்க? கீழ.
 
-**Guest:** Yeah, honestly, **கிட்ட** (Kitta) and **கீழ** (Keezha) sound exactly the same to me when people speak fast.
+**Host:** Now, rapid fire. I say the object, you point with your voice.
+**Host:** Sky? -> மேல.
+**Host:** Ground? -> கீழ.
+**Host:** Your head? -> மேல.
+**Host:** Your feet? -> கீழ.
+**Host:** The price tag on the top shelf? -> மேல.
+**Host:** The dust on the floor? -> கீழ.
 
-**Host:** They do. And confusing them is fatal. If an auto driver asks "Where do I drop you?" and you say "Drop me **கீழ**" instead of "**கிட்ட**"... well, one means "Drop me near the bank" and the other means "Drop me under the bus."
+**Host:** மேல also means "On". டேபிள் மேல வை. Keep it on the table. டேபிள் கீழ போடு. Throw it under the table.
 
-**Guest:** Yikes. Okay. High stakes.
+**Host:** மேல. கீழ. மேல. கீழ. Got it? Good.
 
-**Host:** Today is a full mission. We are going to master the **XYZ Axis** of Tamil.
-1. The Vertical: **மேல** (Up) vs **கீழ** (Down).
-2. The Proximity: **கிட்ட** (Kitta - Near).
-3. The Sequence: **முதல்ல** (First) vs **முன்னாடி** (Before/In Front).
+---
 
-**Guest:** That last pair destroys me. **முன்னாடி** and **முதல்ல**.
+## 3. The Proximity: Kitta
 
-**Host:** We will fix it. But first, we need caffeine. We are at a coffee shop in RS Puram.
+**Host:** We are walking down the aisle. You are looking for the coffee powder. You ask a staff member: காபி எங்க?
 
-[Pause: 3 seconds]
+**Host:** He points right next to you.
 
-**Host:** Imagine the scene. A small, crowded coffee shop. Stainless steel tables. The sound of milk being poured between tumblers—that *davara* sound.
+**Host:** கிட்ட.
+**Tamil:** கிட்ட
+**English:** Near / Close by
 
-**Guest:** I can smell the roasted beans.
+**Host:** It’s not far. It’s கிட்ட.
+**Host:** என் கிட்ட means "Near me" or "With me".
+**Host:** ஷாப் கிட்ட means "Near the shop".
 
-**Host:** We are sitting at a table. The waiter brings the coffee.
+**Host:** Let's practice proximity.
+**Host:** Is the cart far away? No, it is கிட்ட.
+**Host:** Come closer. கிட்ட வாங்க.
+**Host:** Don't go far. கிட்ட இருங்க. Stay near.
 
-**Guest:** Okay.
+**Host:** Imagine you are parking your car. The watchman is guiding you.
+**Host:** He says: வாங்க, வாங்க... Come, come.
+**Host:** Then he says: Stop! செவுரு கிட்ட! Near the wall!
 
-**Host:** He puts the coffee **on top** of the table.
-**Host (Waiter):** "Sir, coffee **மேல** இருக்கு." (Coffee is on top/up).
+**Host:** கிட்ட is your anchor. It brings things close.
 
-**Guest:** **மேல** (Mela). Like melody. High up.
+---
 
-**Host:** Exactly. But wait. You knock your spoon off the table.
+## 4. The Timeline: Munnaadi and Pinnaadi
 
-**Sound Effect:** [Metal spoon clattering on floor]
+**Host:** Okay, we have Up, Down, and Near. Now let's deal with Time and Position. This is where you stumbled last time.
 
-**Host:** Where is the spoon?
+**Host:** முன்னாடி.
+**Tamil:** முன்னாடி
+**English:** Before / In front of
 
-**Guest:** It's down. **கீழ** (Keezha).
+**Host:** பின்னாடி.
+**Tamil:** பின்னாடி
+**English:** After / Behind / Back
 
-**Host:** Perfect. "Key" goes **கீழ**. "Melody" goes **மேல**.
-Now, look at the fan above us. "Fan **மேல** ஓடுது." (Fan is running above).
-Look at your feet. "Shoes **கீழ** இருக்கு." (Shoes are down/below).
+**Host:** These words work for BOTH time and space. That's the confusing part. Let's separate them.
 
-**Guest:** **மேல**. **கீழ**. Got it.
+**Drill A: Space (In front / Behind)**
+**Host:** Look at the queue at the checkout.
+**Host:** There is a guy standing முன்னாடி. In front of you.
+**Host:** There is a lady standing பின்னாடி. Behind you.
+**Host:** Look forward. முன்னாடி.
+**Host:** Look back. பின்னாடி.
 
-**Host:** Now, the waiter comes back. He wants to clean the table.
-**Host (Waiter):** "Sir, bag-a **கீழ** வைங்க." (Keep the bag down).
+**Drill B: Time (Before / After)**
+**Host:** When did you come?
+**Host:** நான் முன்னாடி வந்தேன். I came before/earlier.
+**Host:** When will you go?
+**Host:** நான் பின்னாடி போறேன். I will go later/after.
 
-**Guest:** He wants me to put my bag on the floor?
+**Host:** Let's mix them up.
+**Host:** The car is முன்னாடி. Front.
+**Host:** The boot is பின்னாடி. Back.
+**Host:** Do this முன்னாடி. Do this first/before.
+**Host:** Do that பின்னாடி. Do that later.
 
-**Host:** Yes. In India, we don't put bags on the table. It's dirty. "Bag **கீழ** வைங்க."
+**Host:** முன்னாடி. பின்னாடி. Front and Back. Before and After.
 
-**Guest:** Okay, I put it **கீழ**.
+---
 
-**Host:** Now, let's pay the bill. I reach for my wallet. You stop me. You want to pay.
+## 5. The Sequence: Mudhalla and Apram
 
-**Guest:** I do?
+**Host:** To survive a story, you need a sequence. You can't just say random events. You need "First" and "Then".
 
-**Host:** You're a generous agent. You say: "**முதல்ல** நான் pay பண்றேன்." (First, I will pay).
+**Host:** முதல்ல.
+**Tamil:** முதல்ல
+**English:** First / Firstly
 
-**Guest:** **முதல்ல** (Mudhalla).
+**Host:** அப்புறம்.
+**Tamil:** அப்புறம்
+**English:** Then / After that
 
-**Host:** Think of "Mudhalvan"—The Boss. The Number One. **முதல்ல** means "First in a sequence."
-"First I pay, then we go." -> "**முதல்ல** pay பண்றேன், அப்புறம் போலாம்."
+**Host:** This is your storytelling engine.
+**Host:** முதல்ல I went to the shop.
+**Host:** அப்புறம் I bought milk.
+**Host:** அப்புறம் I paid cash.
+**Host:** அப்புறம் I came home.
 
-**Guest:** Okay. **முதல்ல**. First.
+**Host:** முதல்ல starts the chain. அப்புறம் links the rest.
 
-**Host:** But I say no. "**முன்னாடி** பாருங்க." (Look in front).
+**Host:** Let's build a recipe.
+**Host:** முதல்ல, boil the milk.
+**Host:** அப்புறம், add the powder.
+**Host:** அப்புறம், add sugar.
+**Host:** அப்புறம், drink it.
 
-**Guest:** **முன்னாடி** (Munnaadi)?
+**Host:** Say it with me. முதல்ல. அப்புறம். அப்புறம். அப்புறம்.
 
-**Host:** **முன்னாடி** means two things.
-1. **Space:** In front of something. "Look **in front**."
-2. **Time:** Before something. "Lunch-ku **முன்னாடி**." (Before lunch).
+---
 
-**Guest:** So **முதல்ல** is "First" (Sequence). **முன்னாடி** is "Front/Before" (Space/Time).
+## 6. The Calendar: Innaikku
 
-**Host:** Correct.
-I point to the counter. "**கவுண்டர் முன்னாடி** கூட்டம் இருக்கு." (There is a crowd **in front of** the counter).
+**Host:** When is all this happening?
 
-**Guest:** Crowd **in front of** the counter. **கவுண்டர் முன்னாடி**.
+**Host:** இன்னைக்கு.
+**Tamil:** இன்னைக்கு
+**English:** Today
 
-**Host:** So you say: "**முதல்ல** நீங்க போங்க." (First, you go).
+**Host:** நேத்து. Yesterday - you know this one.
+**Host:** நாளைக்கு. Tomorrow - you know this one.
+**Host:** But you keep forgetting இன்னைக்கு.
 
-**Guest:** **முதல்ல** நீங்க போங்க.
+**Host:** இன்னைக்கு லீவ். Today is leave.
+**Host:** இன்னைக்கு ஆபீஸ் இருக்கு. Today office exists.
+**Host:** இன்னைக்கு நல்ல நாள். Today is a good day.
 
-**Host:** Perfect. We leave the shop.
+**Host:** Repeat the triad:
+**Host:** நேத்து. Yesterday.
+**Host:** இன்னைக்கு. Today.
+**Host:** நாளைக்கு. Tomorrow.
 
-[Pause: 3 seconds]
+---
 
-**Host:** Now comes the real challenge. The **Proximity Axis**. **கிட்ட** (Kitta).
+## 7. The Quantities: Pathu and Nooru
 
-**Guest:** Near.
+**Host:** We are at the checkout. It's time to pay. You need numbers.
 
-**Host:** It's not just "Near." It's your targeting laser. In English, we say "Drop me *at* the bank." In Tamil, we say "Drop me *near* the bank."
-**Bank கிட்ட**. **Shop கிட்ட**. **School கிட்ட**.
+**Host:** பத்து.
+**Tamil:** பத்து
+**English:** Ten (10)
 
-**Guest:** So I can't just say "Bank ponga"?
+**Host:** நூறு.
+**Tamil:** நூறு
+**English:** Hundred (100)
 
-**Host:** You can. But to stop, you say "**Bank கிட்ட** நிறுத்துங்க." (Stop **near** the bank).
+**Host:** These are the base units of Indian currency handling.
+**Host:** பத்து ரூபா. 10 rupees.
+**Host:** நூறு ரூபா. 100 rupees.
 
-**Guest:** Okay. **கிட்ட** (Kitta).
+**Host:** How many do you want?
+**Host:** பத்து குடுங்க. Give me 10.
+**Host:** நூறு கிராம் போதும். 100 grams is enough.
 
-**Host:** Let's practice quickly.
-1. Near the house?
-**Guest:** **House கிட்ட**.
+**Host:** Drill it.
+**Host:** 10 -> பத்து.
+**Host:** 100 -> நூறு.
+**Host:** 1000 -> ஆயிரம். Bonus points.
+**Host:** But stick to பத்து and நூறு.
 
-2. Near me?
-**Guest:** **என் கிட்ட** (En kitta).
+---
 
-3. Near the dog?
-**Guest:** **Dog கிட்ட**.
+## 8. The Gauntlet: Supermarket Sweep
 
-**Host:** Careful. "**Dog கிட்ட** போகாதீங்க." (Don't go near the dog).
+**Host:** Okay Agent. You have the coordinates. You have the time. You have the numbers.
+**Host:** We are in the middle of the supermarket. It's crowded. I'm going to shout instructions. You visualize the movement. Instant reaction.
 
-**Guest:** Dangerous dog. Got it.
+**Host:** Ready? போலாம்.
 
-[Pause: 3 seconds]
+**Host:** Look மேல! Up.
+**Host:** The box is கீழ! Down.
+**Host:** Go முன்னாடி! Forward/Front.
+**Host:** Come பின்னாடி! Back.
+**Host:** Come கிட்ட! Near.
+**Host:** Go வெளிய! Outside.
+**Host:** Come உள்ள! Inside.
 
-**Host:** Okay, Agent. Coffee is done. We need to get to the Railway Station. It's 5:30 PM. Peak traffic.
+**Host:** Faster.
+**Host:** முதல்ல, go முன்னாடி. First, go forward.
+**Host:** அப்புறம், look மேல. Then, look up.
+**Host:** அப்புறம், put it கீழ. Then, put it down.
+**Host:** இன்னைக்கு, only பத்து items. Today, only 10 items.
+**Host:** Give me நூறு rupees. Give me 100 rupees.
 
-**Guest:** Auto time.
+**Host:** Where is the counter?
+**Host:** It is கிட்ட. Near.
+**Host:** Who is standing there?
+**Host:** Looking முன்னாடி. Front.
+**Host:** Standing பின்னாடி. Behind.
 
-**Host:** Not just any auto. This is "Raja." He drives like he has a death wish. You need to guide him, or we end up in Kerala.
-**Sound Effect:** [Loud 2-stroke auto engine idling, chaotic horn honking]
+**Host:** ஆனா... But...
+**Host:** அதனால... Therefore...
+**Host:** முதல்ல pay the money. அப்புறம் take the bag.
 
-**Host (Driver):** "Sir! Enga poganum? Seekiram sollunga!" (Where to go? Tell quickly!)
+**Host:** Stop. நிறுத்துங்க.
 
-**Guest:** Uh... Railway Station!
+---
 
-**Host (Driver):** "Railway station-a? Romba traffic sir. **மேல** poga mudiyadhu." (Can't go up [the flyover]).
+## 9. The Cool Down
 
-**Guest:** Why can't we go **மேல**?
+**Host:** Excellent. Take a breath.
+**Host:** You just navigated 3D space in Tamil.
 
-**Host:** The flyover is jammed. He wants to go **கீழ** (below/under the bridge).
-**Host (Driver):** "**கீழ** route-la polama?" (Shall we go via the down route?)
+**Host:** Let's review your inventory:
+**Host:** Y-Axis: மேல (Up), கீழ (Down).
+**Host:** Proximity: கிட்ட (Near).
+**Host:** Timeline: முன்னாடி (Before/Front), பின்னாடி (After/Back).
+**Host:** Sequence: முதல்ல (First), அப்புறம் (Then).
+**Host:** Calendar: இன்னைக்கு (Today).
+**Host:** Wallet: பத்து (10), நூறு (100).
 
-**Guest:** Uh... is it faster?
+**Host:** Your Zinger for today? Use it when you are guiding someone, or just navigating the crowd.
 
-**Host:** Just say "**சரி, கீழ போங்க**." (Okay, go down/below).
+**Host:** கொஞ்சம் முன்னாடி போலாம்.
+**Meaning:** Let's go a little forward.
+**Context:** Used when stuck in traffic, in a queue, or just trying to make progress.
 
-**Guest:** **சரி, கீழ போங்க.**
+**Host:** கொஞ்சம் முன்னாடி போலாம்.
+**Host:** Go practice. வெளிய போலாம். Let's go outside.
 
-**Host (Driver):** "Okay sir. Hold tight."
-**Sound Effect:** [Auto accelerating aggressively, wind noise]
+**(Sound of supermarket doors opening, street noise fades in)**
 
-**Host:** He is swerving. You are terrified. Look at the road!
-**Host (Driver):** "Sir, andha bus **முன்னாடி** oru car iruku." (There is a car **in front of** that bus).
-
-**Guest:** **முன்னாடி** (In front).
-
-**Host:** He wants to overtake. He asks permission. "**முன்னாடி** polama?" (Shall we go in front/overtake?)
-
-**Guest:** No! Dangerous! "**முன்னாடி** போகாதீங்க!" (Don't go in front!)
-
-**Host:** Good command! **போகாதீங்க** (Don't go).
-He slams the brakes.
-**Sound Effect:** [Screeching brakes]
-
-**Host (Driver):** "Okay sir. Bus **பின்னால** polam." (Let's go behind the bus).
-We didn't teach you **பின்னால** (Pinnaala - Behind), but you can guess it's the opposite of **முன்னாடி**.
-
-**Guest:** Got it.
-
-**Host:** Now, you see a landmark. The big "Clock Tower." You need to turn there.
-Tell him: "Go **near** the Clock Tower."
-
-**Guest:** **Clock Tower கிட்ட** போங்க.
-
-**Host (Driver):** "Clock Tower **கிட்ட**-ya? Okay."
-
-**Host:** You are getting close. But wait. You left your bag in the coffee shop!
-
-**Guest:** Oh no.
-
-**Host:** You check your phone. You **saw** the message.
-**Guest:** Message **பார்த்தேன்**.
-
-**Host:** You **woke up** to the reality.
-**Guest:** Reality-ku **எழுந்தேன்**.
-
-**Host:** Tell him to stop! "**முதல்ல** நிறுத்துங்க!" (First, stop!)
-
-**Guest:** **முதல்ல** நிறுத்துங்க!
-
-**Host (Driver):** [Screech] "Enna sir? Enna aachu?" (What happened?)
-
-**Guest:** **My bag!**
-
-**Host:** Tell him: "My bag is **there**." (Bag **அங்க** இருக்கு).
-
-**Guest:** Bag **அங்க** இருக்கு!
-
-**Host:** "I need to go back."
-Tell him: "**முதல்ல** U-Turn podunga." (First, make a U-turn).
-
-**Guest:** **முதல்ல** U-Turn போடுங்க!
-
-**Host (Driver):** "Sir, U-turn inga **முடியாது**." (U-turn impossible here). "Police **கிட்ட** irukaanga." (Police are near).
-
-**Guest:** **Police கிட்ட**?!
-
-**Host:** Yes. Look **மேல**. On the bridge. Police are watching.
-
-**Guest:** Police **மேல** இருக்காங்க.
-
-**Host:** So we can't U-turn. We have to walk.
-Tell him: "**சரி, இங்க** நிறுத்துங்க." (Okay, stop here).
-
-**Guest:** **சரி, இங்க** நிறுத்துங்க.
-
-**Host (Driver):** "Okay sir. Meter **மேல** paarunga." (Look at the meter on top).
-
-**Guest:** I look **மேல**. It says 50 rupees.
-
-**Host:** You give him 100.
-**Guest:** Change?
-
-**Host (Driver):** "Change illai sir. **கீழ** kadai-la kelunga." (Ask in the shop down/below).
-
-**Guest:** **கீழ** shop-a?
-
-**Host:** He points to a shop in the basement complex. **கீழ**.
-You run down. You get change. You pay him.
-You run back to the coffee shop.
-
-**Guest:** Is my bag there?
-
-**Host:** You run **in front of** the shop.
-**Guest:** Shop **முன்னாடி**.
-
-**Host:** You go **near** the table.
-**Guest:** Table **கிட்ட**.
-
-**Host:** You look **down**.
-**Guest:** **கீழ** பார்த்தேன்.
-
-**Host:** Is it there?
-
-**Guest:** ... Yes! Bag **கீழ** இருக்கு!
-
-**Host:** Victory! You saved the bag. And you mastered the axis.
-
-[Pause: 3 seconds]
-
-**Host:** Deep breath. That was chaotic. But that is life in Tamil Nadu. The language lives in the chaos.
-
-**Guest:** My brain is fried.
-
-**Host:** Let's cool down with a **Refraction Audit**. I'll give you the concept, you give me the word.
-
-**Host:** Number 1. The "Priority" word. First do this, then do that.
-**Guest:** **முதல்ல** (Mudhalla).
-
-**Host:** Number 2. The "Position" word. Look in front. Or "Before lunch."
-**Guest:** **முன்னாடி** (Munnaadi).
-
-**Host:** Number 3. The "Vertical" word. Ceiling, Sky, Roof.
-**Guest:** **மேல** (Mela).
-
-**Host:** Number 4. The "Ground" word. Floor, Feet, Under.
-**Guest:** **கீழ** (Keezha).
-
-**Host:** Number 5. The "Target" word. Near the bank. Close to me.
-**Guest:** **கிட்ட** (Kitta).
-
-**Host:** And the two verbs you used at the start?
-**Guest:** **எழுந்தேன்** (Ezhundhen - I woke up). **பார்த்தேன்** (Paarthen - I saw).
-
-**Host:** Use them in a sentence with **மேல**.
-"I woke up and saw the fan above."
-
-**Guest:** நான் **எழுந்தேன்**, *Fan* **மேல** **பார்த்தேன்**.
-
-**Host:** Perfect. "Naan ezhundhen, Fan mela paarthen."
-And one with **கீழ**.
-"I saw the phone down."
-
-**Guest:** *Phone* **கீழ** **பார்த்தேன்**.
-
-**Host:** Excellent.
-
-**Guest:** One question. Why do drivers always say "Change illai" (No change)?
-
-**Host:** It's not a fact. It's a philosophy. It means "I don't want to give you money."
-Next time, tell them: "**முதல்ல** change ready-a vainga." (First, keep change ready).
-
-**Guest:** **முதல்ல** *change ready*-a வைங்க. I'll remember that.
-
-**Host:** You survived the Spatial Trap. Go home. Look **மேல** at the stars. Don't look **கீழ** at your phone.
-
-**Guest:** Will do.
-
-**Host:** **போயிட்டு வாங்க.**
-
-[End of Mission]
+**Host:** Over and out.

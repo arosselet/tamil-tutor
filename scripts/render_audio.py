@@ -20,7 +20,11 @@ import subprocess
 from dotenv import load_dotenv
 
 import edge_tts
-from google.cloud import texttospeech
+try:
+    from google.cloud import texttospeech
+    HAS_GOOGLE = True
+except ImportError:
+    HAS_GOOGLE = False
 
 # Voice mapping — Indian Tamil (Edge-TTS)
 EDGE_VOICES = {
@@ -275,16 +279,36 @@ async def main():
         
         os.remove(seg_file)
 
-    print(f"🔗 Saving pure MPEG stream → {args.output_file}...")
-    with open(args.output_file, "wb") as outfile:
-        outfile.write(final_audio_data)
-
     os.rmdir(temp_dir)
 
     size_mb = len(final_audio_data) / (1024 * 1024)
     print(f"✅ Done! {args.output_file} ({size_mb:.1f} MB)")
 
-    # 6. Upload to Home Assistant
+    # 6. Update RSS Feed
+    print("📈 Rebuilding RSS feed...")
+    try:
+        subprocess.run(["python3", "scripts/rebuild_rss.py"], check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"⚠️ RSS rebuild failed: {e}")
+
+    # 7. Sync to GitHub (Durable Hosting)
+    print("🐙 Syncing to GitHub...")
+    try:
+        # Check if there are changes to commit
+        subprocess.run(["git", "add", args.output_file, "rss.xml"], check=True)
+        # Check if there's anything to commit (to avoid error if nothing changed)
+        status = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True)
+        if status.stdout.strip():
+            commit_msg = f"Add lesson: {os.path.basename(args.output_file)}"
+            subprocess.run(["git", "commit", "-m", commit_msg], check=True)
+            subprocess.run(["git", "push"], check=True)
+            print("✅ GitHub Sync complete!")
+        else:
+            print("ℹ️ No changes to sync.")
+    except subprocess.CalledProcessError as e:
+        print(f"❌ GitHub Sync failed: {e}")
+
+    # 8. Upload to Home Assistant (Legacy Backup)
     load_dotenv()
     ha_host = os.getenv("HOMEASSISTANT_HOST", "homeassistant")
     print(f"📡 Uploading to Home Assistant: {args.output_file} -> {ha_host}:/config/www/mission.mp3")
