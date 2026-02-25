@@ -6,15 +6,27 @@
 
 **Host:** Vanakkam, Agent. Welcome back to the field.
 
-Today, we are doing something different. You requested a long session, and frankly, you need it. Your logic circuits are coming online beautifully—you're using ஆனா and அதனால like a pro.
+**Guest:** Vanakkam. Ready for mission.
+
+**Host:** Today, we are doing something different. You requested a long session, and frankly, you need it. Your logic circuits are coming online beautifully—you're using ஆனா and அதனால like a pro.
+
+**Guest:** Those finally clicked. Good.
 
 **Host:** But your navigation system? It's offline. Last mission, you were floating in space. You didn't know Up from Down, or Yesterday from Today.
 
+**Guest:** I felt lost. The spatial words mixed up.
+
 **Host:** So today, we are going to the Grocery Store. Why? Because the supermarket is the ultimate coordinate grid. Aisles to the left, shelves up high, sacks down low, counters in front.
+
+**Guest:** Makes sense. Real world practice.
 
 **Host:** This is **The Mechanics**. No complex story today. Just raw, repetitive, high-intensity drilling until these words are burned into your neural pathways. We are going to fix your X, Y, and Time axes.
 
+**Guest:** drill mode activated. let's go.
+
 **Host:** Grab a cart. Let's go inside. உள்ள போலாம்.
+
+**Guest:** உள்ள போனேன்.
 
 ---
 
@@ -22,37 +34,52 @@ Today, we are doing something different. You requested a long session, and frank
 
 **Host:** First, let's establish your verticality. Look at the shelves.
 
-**Host:** மேல.
+**Guest:** மேல.
 **Tamil:** மேல
 **English:** Up / On top / Above
 
-**Host:** Say it. மேல.
+**Host:** Say it.
+**Guest:** மேல.
+
 **Host:** Now look at the floor.
 
-**Host:** கீழ.
+**Guest:** கீழ.
 **Tamil:** கீழ
 **English:** Down / Below / Under
 
-**Host:** கீழ.
+**Guest:** கீழ.
 
 **Host:** Let's drill this. I'm going to spot items. You tell me where they are.
 
-**Host:** The expensive chocolates? They hide them மேல. Top shelf.
-**Host:** The 25kg rice bags? They are heavy. They are கீழ. Bottom shelf.
-**Host:** Look at the fan. ஃபேன் எங்க? மேல.
-**Host:** Look at your shoes. ஷூ எங்க? கீழ.
+**Host:** The expensive chocolates? They hide them on the top shelf.
+**Guest:** மேல.
+**Host:** The 25kg rice bags? They are heavy. They are on the bottom shelf.
+**Guest:** கீழ.
+**Host:** Look at the fan. ஃபேன் எங்க?
+**Guest:** மேல.
+**Host:** Look at your shoes. ஷூ எங்க?
+**Guest:** கீழ.
 
 **Host:** Now, rapid fire. I say the object, you point with your voice.
-**Host:** Sky? -> மேல.
-**Host:** Ground? -> கீழ.
-**Host:** Your head? -> மேல.
-**Host:** Your feet? -> கீழ.
-**Host:** The price tag on the top shelf? -> மேல.
-**Host:** The dust on the floor? -> கீழ.
+**Host:** Sky?
+**Guest:** மேல.
+**Host:** Ground?
+**Guest:** கீழ.
+**Host:** Your head?
+**Guest:** மேல.
+**Host:** Your feet?
+**Guest:** கீழ.
+**Host:** The price tag on the top shelf?
+**Guest:** மேல.
+**Host:** The dust on the floor?
+**Guest:** கீழ.
 
-**Host:** மேல also means "On". டேபிள் மேல வை. Keep it on the table. டேபிள் கீழ போடு. Throw it under the table.
+**Host:** It also means "On". Keep it on the table.
+**Guest:** டேபிள் மேல வை.
+**Host:** Throw it under the table.
+**Guest:** டேபிள் கீழ போடு.
 
-**Host:** மேல. கீழ. மேல. கீழ. Got it? Good.
+**Host:** Got it? Good.
 
 ---
 
@@ -62,24 +89,31 @@ Today, we are doing something different. You requested a long session, and frank
 
 **Host:** He points right next to you.
 
-**Host:** கிட்ட.
+**Guest:** கிட்ட.
 **Tamil:** கிட்ட
 **English:** Near / Close by
 
-**Host:** It’s not far. It’s கிட்ட.
-**Host:** என் கிட்ட means "Near me" or "With me".
-**Host:** ஷாப் கிட்ட means "Near the shop".
+**Host:** It's not far. It's right here.
+**Guest:** கிட்ட.
+**Host:** "Near me" or "With me".
+**Guest:** என் கிட்ட.
+**Host:** "Near the shop".
+**Guest:** ஷாப் கிட்ட.
 
 **Host:** Let's practice proximity.
-**Host:** Is the cart far away? No, it is கிட்ட.
-**Host:** Come closer. கிட்ட வாங்க.
-**Host:** Don't go far. கிட்ட இருங்க. Stay near.
+**Host:** Is the cart far away? No, it is close.
+**Guest:** கிட்ட.
+**Host:** Come closer.
+**Guest:** கிட்ட வாங்க.
+**Host:** Don't go far. Stay near.
+**Guest:** கிட்ட இருங்க.
 
 **Host:** Imagine you are parking your car. The watchman is guiding you.
-**Host:** He says: வாங்க, வாங்க... Come, come.
-**Host:** Then he says: Stop! செவுரு கிட்ட! Near the wall!
+**Guest:** வாங்க, வாங்க...
+**Host:** Then he says: Stop! Near the wall!
+**Guest:** செவுரு கிட்ட!
 
-**Host:** கிட்ட is your anchor. It brings things close.
+**Host:** It is your anchor. It brings things close.
 
 ---
 
@@ -87,11 +121,11 @@ Today, we are doing something different. You requested a long session, and frank
 
 **Host:** Okay, we have Up, Down, and Near. Now let's deal with Time and Position. This is where you stumbled last time.
 
-**Host:** முன்னாடி.
+**Guest:** முன்னாடி.
 **Tamil:** முன்னாடி
 **English:** Before / In front of
 
-**Host:** பின்னாடி.
+**Guest:** பின்னாடி.
 **Tamil:** பின்னாடி
 **English:** After / Behind / Back
 
@@ -99,24 +133,34 @@ Today, we are doing something different. You requested a long session, and frank
 
 **Drill A: Space (In front / Behind)**
 **Host:** Look at the queue at the checkout.
-**Host:** There is a guy standing முன்னாடி. In front of you.
-**Host:** There is a lady standing பின்னாடி. Behind you.
-**Host:** Look forward. முன்னாடி.
-**Host:** Look back. பின்னாடி.
+**Host:** There is a guy standing in front of you.
+**Guest:** முன்னாடி.
+**Host:** There is a lady standing behind you.
+**Guest:** பின்னாடி.
+**Host:** Look forward.
+**Guest:** முன்னாடி.
+**Host:** Look back.
+**Guest:** பின்னாடி.
 
 **Drill B: Time (Before / After)**
 **Host:** When did you come?
-**Host:** நான் முன்னாடி வந்தேன். I came before/earlier.
+**Host:** I came before/earlier.
+**Guest:** நான் முன்னாடி வந்தேன்.
 **Host:** When will you go?
-**Host:** நான் பின்னாடி போறேன். I will go later/after.
+**Host:** I will go later/after.
+**Guest:** நான் பின்னாடி போறேன்.
 
 **Host:** Let's mix them up.
-**Host:** The car is முன்னாடி. Front.
-**Host:** The boot is பின்னாடி. Back.
-**Host:** Do this முன்னாடி. Do this first/before.
-**Host:** Do that பின்னாடி. Do that later.
+**Host:** The car is in Front.
+**Guest:** முன்னாடி.
+**Host:** The boot is in the Back.
+**Guest:** பின்னாடி.
+**Host:** Do this first/before.
+**Guest:** முன்னாடி பண்ணுங்க.
+**Host:** Do that later.
+**Guest:** பின்னாடி பண்ணுங்க.
 
-**Host:** முன்னாடி. பின்னாடி. Front and Back. Before and After.
+**Host:** Front and Back. Before and After.
 
 ---
 
@@ -124,29 +168,38 @@ Today, we are doing something different. You requested a long session, and frank
 
 **Host:** To survive a story, you need a sequence. You can't just say random events. You need "First" and "Then".
 
-**Host:** முதல்ல.
+**Guest:** முதல்ல.
 **Tamil:** முதல்ல
 **English:** First / Firstly
 
-**Host:** அப்புறம்.
+**Guest:** அப்புறம்.
 **Tamil:** அப்புறம்
 **English:** Then / After that
 
 **Host:** This is your storytelling engine.
-**Host:** முதல்ல I went to the shop.
-**Host:** அப்புறம் I bought milk.
-**Host:** அப்புறம் I paid cash.
-**Host:** அப்புறம் I came home.
+**Host:** First I went to the shop.
+**Guest:** முதல்ல.
+**Host:** Then I bought milk.
+**Guest:** அப்புறம்.
+**Host:** Then I paid cash.
+**Guest:** அப்புறம்.
+**Host:** Then I came home.
+**Guest:** அப்புறம்.
 
-**Host:** முதல்ல starts the chain. அப்புறம் links the rest.
+**Host:** It starts the chain. And links the rest.
 
 **Host:** Let's build a recipe.
-**Host:** முதல்ல, boil the milk.
-**Host:** அப்புறம், add the powder.
-**Host:** அப்புறம், add sugar.
-**Host:** அப்புறம், drink it.
+**Host:** First, boil the milk.
+**Guest:** முதல்ல.
+**Host:** Then, add the powder.
+**Guest:** அப்புறம்.
+**Host:** Then, add sugar.
+**Guest:** அப்புறம்.
+**Host:** Then, drink it.
+**Guest:** அப்புறம்.
 
-**Host:** Say it with me. முதல்ல. அப்புறம். அப்புறம். அப்புறம்.
+**Host:** Say it with me.
+**Guest:** முதல்ல. அப்புறம். அப்புறம். அப்புறம்.
 
 ---
 
@@ -154,22 +207,26 @@ Today, we are doing something different. You requested a long session, and frank
 
 **Host:** When is all this happening?
 
-**Host:** இன்னைக்கு.
+**Guest:** இன்னைக்கு.
 **Tamil:** இன்னைக்கு
 **English:** Today
 
-**Host:** நேத்து. Yesterday - you know this one.
-**Host:** நாளைக்கு. Tomorrow - you know this one.
-**Host:** But you keep forgetting இன்னைக்கு.
+**Host:** Yesterday - you know this one.
+**Guest:** நேத்து.
+**Host:** Tomorrow - you know this one.
+**Guest:** நாளைக்கு.
+**Host:** But you keep forgetting Today.
+**Guest:** இன்னைக்கு.
 
-**Host:** இன்னைக்கு லீவ். Today is leave.
-**Host:** இன்னைக்கு ஆபீஸ் இருக்கு. Today office exists.
-**Host:** இன்னைக்கு நல்ல நாள். Today is a good day.
+**Host:** Today is leave.
+**Guest:** இன்னைக்கு லீவ்.
+**Host:** Today office exists.
+**Guest:** இன்னைக்கு ஆபீஸ் இருக்கு.
+**Host:** Today is a good day.
+**Guest:** இன்னைக்கு நல்ல நாள்.
 
 **Host:** Repeat the triad:
-**Host:** நேத்து. Yesterday.
-**Host:** இன்னைக்கு. Today.
-**Host:** நாளைக்கு. Tomorrow.
+**Guest:** நேத்து. இன்னைக்கு. நாளைக்கு.
 
 ---
 
@@ -177,27 +234,35 @@ Today, we are doing something different. You requested a long session, and frank
 
 **Host:** We are at the checkout. It's time to pay. You need numbers.
 
-**Host:** பத்து.
+**Guest:** பத்து.
 **Tamil:** பத்து
 **English:** Ten (10)
 
-**Host:** நூறு.
+**Guest:** நூறு.
 **Tamil:** நூறு
 **English:** Hundred (100)
 
 **Host:** These are the base units of Indian currency handling.
-**Host:** பத்து ரூபா. 10 rupees.
-**Host:** நூறு ரூபா. 100 rupees.
+**Host:** 10 rupees.
+**Guest:** பத்து ரூபா.
+**Host:** 100 rupees.
+**Guest:** நூறு ரூபா.
 
 **Host:** How many do you want?
-**Host:** பத்து குடுங்க. Give me 10.
-**Host:** நூறு கிராம் போதும். 100 grams is enough.
+**Host:** Give me 10.
+**Guest:** பத்து குடுங்க.
+**Host:** 100 grams is enough.
+**Guest:** நூறு கிராம் போதும்.
 
 **Host:** Drill it.
-**Host:** 10 -> பத்து.
-**Host:** 100 -> நூறு.
-**Host:** 1000 -> ஆயிரம். Bonus points.
-**Host:** But stick to பத்து and நூறு.
+**Host:** 10.
+**Guest:** பத்து.
+**Host:** 100.
+**Guest:** நூறு.
+**Host:** 1000.
+**Guest:** ஆயிரம்.
+**Host:** But stick to Ten and Hundred.
+**Guest:** பத்து. நூறு.
 
 ---
 
@@ -206,34 +271,54 @@ Today, we are doing something different. You requested a long session, and frank
 **Host:** Okay Agent. You have the coordinates. You have the time. You have the numbers.
 **Host:** We are in the middle of the supermarket. It's crowded. I'm going to shout instructions. You visualize the movement. Instant reaction.
 
-**Host:** Ready? போலாம்.
+**Host:** Ready?
+**Guest:** போலாம்.
 
-**Host:** Look மேல! Up.
-**Host:** The box is கீழ! Down.
-**Host:** Go முன்னாடி! Forward/Front.
-**Host:** Come பின்னாடி! Back.
-**Host:** Come கிட்ட! Near.
-**Host:** Go வெளிய! Outside.
-**Host:** Come உள்ள! Inside.
+**Host:** Look Up!
+**Guest:** மேல!
+**Host:** The box is Down!
+**Guest:** கீழ!
+**Host:** Go Forward!
+**Guest:** முன்னாடி!
+**Host:** Come Back!
+**Guest:** பின்னாடி!
+**Host:** Come Near!
+**Guest:** கிட்ட!
+**Host:** Go Outside!
+**Guest:** வெளிய!
+**Host:** Come Inside!
+**Guest:** உள்ள!
 
 **Host:** Faster.
-**Host:** முதல்ல, go முன்னாடி. First, go forward.
-**Host:** அப்புறம், look மேல. Then, look up.
-**Host:** அப்புறம், put it கீழ. Then, put it down.
-**Host:** இன்னைக்கு, only பத்து items. Today, only 10 items.
-**Host:** Give me நூறு rupees. Give me 100 rupees.
+**Host:** First, go forward.
+**Guest:** முதல்ல, முன்னாடி போங்க.
+**Host:** Then, look up.
+**Guest:** அப்புறம், மேல பாருங்க.
+**Host:** Then, put it down.
+**Guest:** அப்புறம், கீழ போடுங்க.
+**Host:** Today, only 10 items.
+**Guest:** இன்னைக்கு, பத்து ஐட்டம் மட்டும்.
+**Host:** Give me 100 rupees.
+**Guest:** நூறு ரூபா குடுங்க.
 
 **Host:** Where is the counter?
-**Host:** It is கிட்ட. Near.
+**Host:** It is Near.
+**Guest:** கிட்ட.
 **Host:** Who is standing there?
-**Host:** Looking முன்னாடி. Front.
-**Host:** Standing பின்னாடி. Behind.
+**Host:** Looking Front.
+**Guest:** முன்னாடி.
+**Host:** Standing Behind.
+**Guest:** பின்னாடி.
 
-**Host:** ஆனா... But...
-**Host:** அதனால... Therefore...
-**Host:** முதல்ல pay the money. அப்புறம் take the bag.
+**Host:** But...
+**Guest:** ஆனா...
+**Host:** Therefore...
+**Guest:** அதனால...
+**Host:** First pay the money. Then take the bag.
+**Guest:** முதல்ல காசு குடுங்க. அப்புறம் பேக் எடுங்க.
 
-**Host:** Stop. நிறுத்துங்க.
+**Host:** Stop.
+**Guest:** நிறுத்துங்க.
 
 ---
 
@@ -243,21 +328,28 @@ Today, we are doing something different. You requested a long session, and frank
 **Host:** You just navigated 3D space in Tamil.
 
 **Host:** Let's review your inventory:
-**Host:** Y-Axis: மேல (Up), கீழ (Down).
-**Host:** Proximity: கிட்ட (Near).
-**Host:** Timeline: முன்னாடி (Before/Front), பின்னாடி (After/Back).
-**Host:** Sequence: முதல்ல (First), அப்புறம் (Then).
-**Host:** Calendar: இன்னைக்கு (Today).
-**Host:** Wallet: பத்து (10), நூறு (100).
+**Host:** Y-Axis:
+**Guest:** மேல. கீழ.
+**Host:** Proximity:
+**Guest:** கிட்ட.
+**Host:** Timeline:
+**Guest:** முன்னாடி. பின்னாடி.
+**Host:** Sequence:
+**Guest:** முதல்ல. அப்புறம்.
+**Host:** Calendar:
+**Guest:** இன்னைக்கு.
+**Host:** Wallet:
+**Guest:** பத்து. நூறு.
 
 **Host:** Your Zinger for today? Use it when you are guiding someone, or just navigating the crowd.
 
-**Host:** கொஞ்சம் முன்னாடி போலாம்.
+**Guest:** கொஞ்சம் முன்னாடி போலாம்.
 **Meaning:** Let's go a little forward.
 **Context:** Used when stuck in traffic, in a queue, or just trying to make progress.
 
-**Host:** கொஞ்சம் முன்னாடி போலாம்.
-**Host:** Go practice. வெளிய போலாம். Let's go outside.
+**Guest:** கொஞ்சம் முன்னாடி போலாம்.
+**Host:** Go practice. Let's go outside.
+**Guest:** வெளிய போலாம்.
 
 **(Sound of supermarket doors opening, street noise fades in)**
 
