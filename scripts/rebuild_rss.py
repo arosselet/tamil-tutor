@@ -63,8 +63,8 @@ def generate_rss():
     audio_files.sort(key=lambda x: os.path.getmtime(os.path.join(AUDIO_DIR, x)), reverse=True)
 
     for filename in audio_files:
-        # Skip internal/temp files
-        if filename.startswith('test_') or filename.startswith('silence_'):
+        # Whitelist: Only actual lessons start with 'level' or 'tier'
+        if not (filename.startswith('level') or filename.startswith('tier')):
             continue
             
         audio_path = os.path.join(AUDIO_DIR, filename)
