@@ -3,12 +3,8 @@
     "current_tier": 2,
     "active_mission": {
         "tier": 2,
-        "topic": "BOSS FIGHT: The Evening Report",
+        "topic": "The Coordinate Drill (Mechanics)",
         "target_vocab": [
-            {
-                "tamil": "அதான்",
-                "english": "That's exactly why"
-            },
             {
                 "tamil": "கிட்ட",
                 "english": "Near"
@@ -22,8 +18,32 @@
                 "english": "Up"
             },
             {
-                "tamil": "எழுந்தேன்",
-                "english": "I woke up"
+                "tamil": "முன்னாடி",
+                "english": "Before / In front"
+            },
+            {
+                "tamil": "பின்னாடி",
+                "english": "After / Behind"
+            },
+            {
+                "tamil": "முதல்ல",
+                "english": "First"
+            },
+            {
+                "tamil": "அப்புறம்",
+                "english": "Then / After"
+            },
+            {
+                "tamil": "இன்னைக்கு",
+                "english": "Today"
+            },
+            {
+                "tamil": "பத்து",
+                "english": "Ten (10)"
+            },
+            {
+                "tamil": "நூறு",
+                "english": "Hundred (100)"
             }
         ]
     },
@@ -44,22 +64,23 @@
             "label": "Embedded"
         }
     },
-    "total_sessions": 5,
+    "total_sessions": 6,
     "streak": {
-        "current": 4,
-        "best": 4,
-        "last_date": "2026-02-20"
+        "current": 5,
+        "best": 5,
+        "last_date": "2026-02-24"
     },
     "struggled_words": [
         "கிட்ட",
         "கீழ",
-        "நூறு",
-        "பத்து",
         "மேல",
-        "பார்த்தேன்",
         "முன்னாடி",
         "முதல்ல",
-        "இன்னைக்கு"
+        "இன்னைக்கு",
+        "பத்து",
+        "நூறு",
+        "எழுந்தேன்",
+        "பார்த்தேன்"
     ],
     "mastered_words": [],
     "comfortable_words": [
@@ -253,6 +274,25 @@
             "notes": "User requested double length episode. Mastered logic connectors.",
             "tier": 2,
             "mission": 5
+        },
+        {
+            "date": "2026-02-24",
+            "energy": "HIGH",
+            "struggled": [
+                "கிட்ட",
+                "கீழ",
+                "மேல",
+                "முன்னாடி",
+                "முதல்ல",
+                "இன்னைக்கு",
+                "பத்து",
+                "நூறு"
+            ],
+            "comfortable": [],
+            "zinger": "கொஞ்சம் முன்னாடி போலாம்",
+            "notes": "Generated Mission 6: The Coordinate Drill. Focused on fixing spatial/temporal confusion.",
+            "tier": 2,
+            "mission": 6
         }
     ]
 }

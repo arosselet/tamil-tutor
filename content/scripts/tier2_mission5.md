@@ -1,75 +1,125 @@
-# Word Status Sheet
-- **TEACH (Target)**: போனேன் (Went), வந்தேன் (Came), பண்ணினேன் (Did), சாப்பிட்டேன் (Ate), முதல்ல (First), அதுக்கு அப்புறம் (After that), ஏன்னா (Because), அதனால (Therefore).
-- **USE (Mastered)**: வணக்கம், ஆனா, சரி, இல்லை, ஆமா.
-- **CALLBACK (Struggled)**: கிட்ட (Near), முன்னாடி (Before), இன்னைக்கு (Today), நூறு (100), பத்து (10).
+# Tier 2 Mission 5: The Evening Report
 
-# Beat Sheet: Tier 2 Mission 5 - BOSS FIGHT: The Evening Report
+**Host:** Welcome back to the grid. It’s 8:00 PM in Coimbatore. You’ve just walked through the front door. The TV is blasting a Sun TV serial—high drama, crying violins. The smell of dosa is in the air. 
 
-## Intel Briefing
-- **Context**: You are walking into your house in Coimbatore. It is 8:00 PM. The TV is running (Sun TV serials). The smell of dosa is in the air.
-- **Mission**: Your family (Mom, Dad, Spouse) is waiting. They will ask you about your day. You cannot just give one-word answers. You must build a **Narrative Chain**.
-- **Goal**: Survive the interrogation by linking actions with time (First/Next) and logic (Because/So).
+**Guest:** Sounds like home. Or a battlefield.
 
-## Beat 1: The Arsenal Check (Warm-up)
-- **Goal**: Prime the past tense verbs.
-- **Drill**:
-    - I went -> Naan Ponen.
-    - I came -> Naan Vanthen.
-    - I did -> Naan Panninen.
-    - I ate -> Naan Saappitten.
-    - **Zinger Check**: "Saptiya?" (Did you eat?). Reply: "Saptane" (I ate).
+**Host:** Both. Because before you get to eat, you have to report. Your family is waiting. Mom wants to know if you ate. Dad wants the chronology of your day. And your spouse wants to know *why* you’re late.
 
-## Beat 2: The Glue Factory (Sequencing)
-- **Goal**: Prime the chronology markers.
-- **Drill**:
-    - First -> Mudhalla.
-    - After that -> Adhukku Appuram.
-    - Before -> Munnadi (Recall struggle).
-    - **Concept**: "Mudhalla [Action 1]. Adhukku appuram [Action 2]."
+**Guest:** The interrogation.
 
-## Beat 3: The Logic Gate (Causality)
-- **Goal**: Prime the reasoning connectors.
-- **Drill**:
-    - Because -> Aenna.
-    - Therefore -> Adhanaala.
-    - But -> Aana.
-    - **Pattern**: "Traffic irundhuchu (There was traffic), *adhanaala* late aachu (therefore it became late)."
+**Host:** Exactly. And you can’t just grunt "Yes" or "No". You need a narrative. You need the glue. Today we master the **Evening Report**.
 
-## Beat 4: Scenario - The Entry (Mom)
-- **Setting**: Doorway. Mom is there.
-- **Interaction**:
-    - Mom: "Vanthuttiya?" (You came?) -> You: "Vanthen." (I came).
-    - Mom: "Saptiya?" -> You: "Innum illa." (Not yet) or "Saptane."
-    - Mom: "Mudhalla poi kai kazhuvu." (First go wash your hands).
-    - **Action**: You must acknowledge "Mudhalla" (First).
+**Guest:** Ready. Bring on the drama.
 
-## Beat 5: Scenario - The Living Room (Dad)
-- **Setting**: Dad is reading the paper/watching news. He wants the report.
-- **Interaction**:
-    - Dad: "Innaikku office-la enna aachu?" (What happened at office today?)
-    - **Challenge**: Construct a 3-part chain.
-        1. "Mudhalla meeting panninen." (First I did a meeting).
-        2. "Adhukku appuram lunch saptane." (After that I ate lunch).
-        3. "Appuram vela panninen." (Then I did work).
+**Host:** First, the arsenal check. Past tense verbs. I say English, you give me the Tamil action. "I went."
 
-## Beat 6: Scenario - The Interrogation (Spouse)
-- **Setting**: Spouse is suspicious/curious.
-- **Interaction**:
-    - Spouse: "Yen ivlo late?" (Why so late?)
-    - **Challenge**: Use the "Because" or "Therefore" logic.
-    - You: "Meeting irundhuchu (There was a meeting), *adhanaala* late aachu." (Therefore it became late).
-    - Spouse: "Munnadiye solla maatiya?" (Won't you say it before?).
-    - You: "Phone charge illa, *aenna* current illa." (No phone charge because no power).
+**Guest:** நான் போனேன் (Naan Ponen).
 
-## Beat 7: The Struggle Weave
-- **Goal**: Integrate struggled words naturally.
-- **Interaction**:
-    - "Office *kitta* traffic-a?" (Traffic *near* office?) -> Validate "Kitta".
-    - "Pattu manikka?" (At 10 o'clock?) -> Validate "Pattu" (Ten).
-    - "Nuru rooba kudu." (Give 100 rupees). -> Validate "Nuru" (100).
+**Host:** "I came."
 
-## Beat 8: Victory Lap
-- **Goal**: The final uninterrupted monologue.
-- **Task**: Tell the whole story in one go. "First I went... Then I ate... Traffic was bad so I came late."
-- **Exit Zinger**: "Mudhalla Soru Podu!" (First, put the rice/feed me!).
+**Guest:** நான் வந்தேன் (Naan Vanthen).
 
+**Host:** "I did."
+
+**Guest:** நான் பண்ணினேன் (Naan Panninen).
+
+**Host:** "I ate."
+
+**Guest:** நான் சாப்பிட்டேன் (Naan Saappitten).
+
+**Host:** Good. Now, let’s add the sequence. "First" is **முதல்ல** (Mudhalla). "After that" is **அதுக்கு அப்புறம்** (Adhukku Appuram).
+
+**Guest:** முதல்ல... அதுக்கு அப்புறம்.
+
+**Host:** Try this: "First I went. After that I came."
+
+**Guest:** முதல்ல போனேன். அதுக்கு அப்புறம் வந்தேன்.
+
+**Host:** Simple. Now the logic layer. "Because" is **ஏன்னா** (Aenna). "Therefore" is **அதனால** (Adhanaala).
+
+**Guest:** ஏன்னா... அதனால.
+
+**Host:** "Traffic was there. Therefore it became late."
+
+**Guest:** Traffic இருந்தது, அதனால late ஆச்சு.
+
+**Host:** "I am hungry. Because I didn't eat."
+
+**Guest:** பசிக்குது. ஏன்னா நான் சாப்பிடல.
+
+**Host:** Perfect. You have the tools. Now, **Scenario 1**. You step inside. Mom is there. She asks the classic question: "சாப்டியா?" (Saaptiya?)
+
+**Guest:** சாப்பிட்டேன்.
+
+**Host:** Too simple. She wants details. Tell her: "First I ate. After that I came."
+
+**Guest:** முதல்ல சாப்பிட்டேன். அதுக்கு அப்புறம் வந்தேன்.
+
+**Host:** Good. She nods. You pass. Now, **Scenario 2**. Dad is in the living room, reading the paper. He looks up over his glasses. "இன்னைக்கு என்னாச்சு?" (Innaikku enna aachu? - What happened today?)
+
+**Guest:** இன்னைக்கு...
+
+**Host:** He wants the timeline. Tell him: "First I went to the office."
+
+**Guest:** முதல்ல office-க்கு போனேன்.
+
+**Host:** "After that, I did a meeting."
+
+**Guest:** அதுக்கு அப்புறம் meeting பண்ணினேன்.
+
+**Host:** "Then I came home."
+
+**Guest:** அப்புறம் வீட்டுக்கு வந்தேன்.
+
+**Host:** Dad is satisfied. Logical. Chronological. But now... **Scenario 3**. The Boss Fight. Your spouse is standing there, arms crossed. "ஏன் இவ்ளோ லேட்?" (Yen ivlo late? - Why so late?)
+
+**Guest:** Uh oh.
+
+**Host:** You need a reason. Use the Logic Glue. Tell them: "There was a meeting. Therefore it became late."
+
+**Guest:** Meeting இருந்தது. அதனால late ஆச்சு.
+
+**Host:** They aren't convinced. "Couldn't you call?" You say: "Phone charge wasn't there. Because there was no current."
+
+**Guest:** Phone charge இல்ல. ஏன்னா current இல்ல.
+
+**Host:** Nice save. "Because" (Aenna) is your shield. "Therefore" (Adhanaala) is your sword.
+
+**Guest:** Got it. Aenna protects. Adhanaala explains.
+
+**Host:** Exactly. Now, let's weave in those words you struggled with earlier. "Near" (**கிட்ட** - Kitta). "Before" (**முன்னாடி** - Munnadi).
+
+**Guest:** கிட்ட... முன்னாடி.
+
+**Host:** Spouse asks: "Where was the traffic?" You say: "Near the office."
+
+**Guest:** Office கிட்ட.
+
+**Host:** "Did you eat before?"
+
+**Guest:** முன்னாடி சாப்டீங்களா?
+
+**Host:** No, *I* ate before. "நான் முன்னாடி சாப்பிட்டேன்."
+
+**Guest:** நான் முன்னாடி சாப்பிட்டேன்.
+
+**Host:** Okay, final Boss Fight. The full report. Combine everything. "First I went to the office. After that, there was a meeting. Traffic was near the house, that's exactly why (**அதான்**) I came late."
+
+**Guest:** Deep breath. Okay.
+முதல்ல office-க்கு போனேன்.
+அதுக்கு அப்புறம் meeting இருந்தது.
+வீட்டு கிட்ட traffic.
+அதான் late-ஆ வந்தேன்!
+
+**Host:** (Slow clap) Beautiful. You survived the interrogation. The family is happy. You get to eat dosa now.
+
+**Guest:** Finally! Dosa time.
+
+**Host:** One last Zinger before you eat. When you sit down, look at the empty plate and say: "First, put the rice!" — "முதல்ல சோறு போடு!"
+
+**Guest:** முதல்ல சோறு போடு!
+
+**Host:** Aggressive. I like it. See you in the next mission.
+
+**Guest:** போயிட்டு வரேன்!
