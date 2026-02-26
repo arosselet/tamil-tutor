@@ -17,7 +17,7 @@ When the learner states their energy level, it dictates the **Audio Style**, not
 ## The 5-Phase Cycle
 
 ```
-Phase 1: Checkpoint    → Review mastery and decide next mission.
+Phase 1: Debrief    → Review mastery and decide next mission.
 Phase 2: Production    → Generate the Audio Podcast (The Default Deliverable).
 Phase 3: Passive       → Learner listens during dead time (The Primary Workout).
 Phase 4: Broadcasting  → Quiet muttering at physical thresholds.
