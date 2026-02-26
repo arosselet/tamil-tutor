@@ -138,6 +138,27 @@ def generate_rss():
             duration=duration
         ))
 
+    # Append the welcome/trailer episode as the oldest item
+    demo_path = os.path.join(AUDIO_DIR, "polyglot_demo.mp3")
+    if os.path.exists(demo_path):
+        demo_size = os.path.getsize(demo_path)
+        demo_url = f"{BASE_URL}/{AUDIO_DIR}/polyglot_demo.mp3"
+        try:
+            demo_audio = MP3(demo_path)
+            ds = int(demo_audio.info.length)
+            demo_duration = f"{ds // 3600:02d}:{(ds % 3600) // 60:02d}:{ds % 60:02d}"
+        except Exception:
+            demo_duration = "00:03:30"
+        items.append(ITEM_TEMPLATE.format(
+            title="Welcome — What Is This?",
+            author=AUTHOR,
+            summary="An introduction to the Coimbatore Mappillai project and how it works.",
+            audio_url=demo_url,
+            size=demo_size,
+            pub_date=email.utils.formatdate(os.path.getmtime(demo_path), localtime=True),
+            duration=demo_duration
+        ))
+
     rss_content = RSS_TEMPLATE.format(
         base_url=BASE_URL,
         site_url=SITE_URL,
