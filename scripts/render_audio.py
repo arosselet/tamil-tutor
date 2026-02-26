@@ -16,6 +16,7 @@ import re
 import os
 import asyncio
 import argparse
+import random
 import subprocess
 from dotenv import load_dotenv
 
@@ -26,24 +27,27 @@ try:
 except ImportError:
     HAS_GOOGLE = False
 
-# Voice mapping — Indian Tamil (Edge-TTS)
-EDGE_VOICES = {
-    "HOST": "ta-IN-PallaviNeural",    # Female, Explainer
-    "GUEST": "ta-IN-ValluvarNeural",  # Male, Learner
+# Voice pools — Indian Tamil
+# Each run randomly assigns voices to Host/Guest for variety.
+_EDGE_POOL = ["ta-IN-PallaviNeural", "ta-IN-ValluvarNeural"]
+_GOOGLE_POOL = {
+    "CHIRP": ["ta-IN-Chirp3-HD-Achernar", "ta-IN-Chirp3-HD-Charon"],
+    "WAVENET": ["ta-IN-Wavenet-A", "ta-IN-Wavenet-B"],
 }
 
-# Google Cloud TTS Voice mapping — Indian Tamil
-# Tiers: Chirp (Gemini), Wavenet
-GOOGLE_VOICES = {
-    "CHIRP": {
-        "HOST": "ta-IN-Chirp3-HD-Achernar", # Female
-        "GUEST": "ta-IN-Chirp3-HD-Charon",   # Male
-    },
-    "WAVENET": {
-        "HOST": "ta-IN-Wavenet-B",
-        "GUEST": "ta-IN-Wavenet-A",
-    }
-}
+def _randomize_voices():
+    """Randomly assign voices to Host and Guest for this run."""
+    edge = random.sample(_EDGE_POOL, 2)
+    edge_voices = {"HOST": edge[0], "GUEST": edge[1]}
+
+    google_voices = {}
+    for tier, pool in _GOOGLE_POOL.items():
+        pair = random.sample(pool, 2)
+        google_voices[tier] = {"HOST": pair[0], "GUEST": pair[1]}
+
+    return edge_voices, google_voices
+
+EDGE_VOICES, GOOGLE_VOICES = _randomize_voices()
 
 # Voice tuning for distinctiveness (Edge only)
 EDGE_VOICE_OPTS = {
@@ -234,6 +238,10 @@ async def main():
     print(f"   Provider: {args.provider}")
     if args.provider == "google":
         print(f"   Tier: {args.voice_type}")
+        tier_voices = GOOGLE_VOICES.get(args.voice_type.upper(), GOOGLE_VOICES["CHIRP"])
+        print(f"   🎲 Voice Roll: Host={tier_voices['HOST']}, Guest={tier_voices['GUEST']}")
+    else:
+        print(f"   🎲 Voice Roll: Host={EDGE_VOICES['HOST']}, Guest={EDGE_VOICES['GUEST']}")
 
     temp_dir = "temp_audio_segments"
     os.makedirs(temp_dir, exist_ok=True)

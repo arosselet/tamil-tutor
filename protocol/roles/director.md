@@ -16,14 +16,15 @@
 
 ## Output: The Beat Sheet
 
-File: `content/beats/levelX_epY_beats.md`
+File: `content/beats/tierX_missionY_beats.md`
 
 - **Target Duration:** 10-12 minutes of audio (2,000-2,500 words).
 - **Structure:** 40-50 distinct Beats (Intel Briefing, Hook, Concept 1, Banter 1, Scenario 1, Concept 2, Banter 2, Scenario 2, Pressure Test, Outro).
 - **The Intel Briefing:** Every mission MUST start with an "Intel Briefing" — a 60-second high-level summary of the mission: "Today we are surviving [Scenario] and mastering the glue for [Concept]."
-- **The Output:** A `content/scripts/tierX_missionY.md` file.
 - **Format:** Structured bulleted list with scene setting, target words per beat, and desired emotional outcome.
 - **Prefix:** Must include the **Word Status Sheet** (see below) at the top.
+
+> **IMPORTANT:** The Beat Sheet is a *planning document*, not the final script. After the Architect writes the full script from this Beat Sheet, the script goes to `content/scripts/tierX_missionY.md`. Do not overwrite the Beat Sheet with the script.
 
 ## Input
 
@@ -34,7 +35,7 @@ Treat the entire `vocabulary` array of the current tier as a **Global Bucket**. 
 
 ## The Word Status Sheet (CRITICAL)
 
-Before writing the Beat Sheet, generate a **Word Status Sheet** by reading `progress/learner.json` and `curriculum/levels.json`. Categorize every known word into three modes:
+Before writing the Beat Sheet, generate a **Word Status Sheet** by reading `progress/learner.json` and `curriculum/tiers/tier_X.json`. Categorize every known word into three modes:
 
 - **TEACH** — Current episode's `target_vocab`. Full introduction.
 - **USE** — `comfortable_words` + `mastered_words`. The Architect uses these freely in Tamil without translation.

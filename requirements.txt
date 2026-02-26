@@ -1,4 +1,4 @@
 edge-tts
 python-dotenv
 google-cloud-texttospeech
-moviepy
+mutagen
