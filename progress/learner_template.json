@@ -1,0 +1,36 @@
+{
+    "learner": "",
+    "current_tier": 1,
+    "active_mission": {
+        "tier": 1,
+        "topic": "",
+        "target_vocab": []
+    },
+    "tier_progress": {
+        "tier1": {
+            "target": 69,
+            "mastered": 0,
+            "label": "Survival"
+        },
+        "tier2": {
+            "target": 153,
+            "mastered": 0,
+            "label": "Comfort"
+        },
+        "tier3": {
+            "target": 181,
+            "mastered": 0,
+            "label": "Embedded"
+        }
+    },
+    "total_sessions": 0,
+    "streak": {
+        "current": 0,
+        "best": 0,
+        "last_date": ""
+    },
+    "struggled_words": [],
+    "mastered_words": [],
+    "comfortable_words": [],
+    "sessions": []
+}
