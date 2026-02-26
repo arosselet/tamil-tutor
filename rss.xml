@@ -3,14 +3,14 @@
     xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" 
     xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Coimbatore Mappilai</title>
-    <link>https://raw.githubusercontent.com/arosselet/tamil-tutor/main</link>
+    <title>Coimbatore Mappillai</title>
+    <link>https://github.com/arosselet/tamil-tutor</link>
     <language>en-us</language>
-    <itunes:author>Andrew Rosselet</itunes:author>
-    <itunes:summary>Interactive Tamil language learning sessions from Coimbatore.</itunes:summary>
-    <description>Tamil learning through dialogue and culture, recorded in Coimbatore.</description>
+    <itunes:author>Andrew R &amp; Gemini</itunes:author>
+    <itunes:summary>AI-generated Tamil lessons. Colloquial Kongu dialect, dual-voice audio, built for daily life.</itunes:summary>
+    <description>AI-generated Tamil lessons. Colloquial Kongu dialect, dual-voice audio, built for daily life.</description>
     <itunes:owner>
-      <itunes:name>Andrew Rosselet</itunes:name>
+      <itunes:name>Andrew R &amp; Gemini</itunes:name>
     </itunes:owner>
     <itunes:explicit>no</itunes:explicit>
     <itunes:category text="Education">
@@ -19,9 +19,9 @@
     <itunes:image href="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/logo.png"/>
     
     <item>
-      <title>Tier 2 Mission 10: The Big Review (The Remix)</title>
-      <itunes:author>Andrew Rosselet</itunes:author>
-      <itunes:summary>Lesson: Tier 2 Mission 10: The Big Review (The Remix)</itunes:summary>
+      <title>Ep 10 — The Big Review</title>
+      <itunes:author>Andrew R &amp; Gemini</itunes:author>
+      <itunes:summary>Ep 10 — The Big Review</itunes:summary>
       <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission10.mp3" length="2178288" type="audio/mpeg"/>
       <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission10.mp3</guid>
       <pubDate>Wed, 25 Feb 2026 21:52:56 -0500</pubDate>
@@ -29,9 +29,9 @@
     </item>
 
     <item>
-      <title>Tier 2 Mission 9: The Pronoun Toggles (The Gossip Protocol)</title>
-      <itunes:author>Andrew Rosselet</itunes:author>
-      <itunes:summary>Lesson: Tier 2 Mission 9: The Pronoun Toggles (The Gossip Protocol)</itunes:summary>
+      <title>Ep 9 — The Pronoun Toggles</title>
+      <itunes:author>Andrew R &amp; Gemini</itunes:author>
+      <itunes:summary>Ep 9 — The Pronoun Toggles</itunes:summary>
       <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission9.mp3" length="1412496" type="audio/mpeg"/>
       <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission9.mp3</guid>
       <pubDate>Wed, 25 Feb 2026 16:31:42 -0500</pubDate>
@@ -39,9 +39,9 @@
     </item>
 
     <item>
-      <title>Tier 2 Mission 8: The Coimbatore Mappilai (The Remix)</title>
-      <itunes:author>Andrew Rosselet</itunes:author>
-      <itunes:summary>Lesson: Tier 2 Mission 8: The Coimbatore Mappilai (The Remix)</itunes:summary>
+      <title>Ep 8 — The Coimbatore Mappilai</title>
+      <itunes:author>Andrew R &amp; Gemini</itunes:author>
+      <itunes:summary>Ep 8 — The Coimbatore Mappilai</itunes:summary>
       <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission8.mp3" length="1283712" type="audio/mpeg"/>
       <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission8.mp3</guid>
       <pubDate>Wed, 25 Feb 2026 15:15:31 -0500</pubDate>
@@ -49,43 +49,23 @@
     </item>
 
     <item>
-      <title>level4_ep5.mp3</title>
-      <itunes:author>Andrew Rosselet</itunes:author>
-      <itunes:summary>Lesson: level4_ep5.mp3</itunes:summary>
-      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/level4_ep5.mp3" length="949008" type="audio/mpeg"/>
-      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/level4_ep5.mp3</guid>
-      <pubDate>Wed, 25 Feb 2026 15:07:56 -0500</pubDate>
-      <itunes:duration>00:03:57</itunes:duration>
-    </item>
-
-    <item>
-      <title>level4_ep5_remix.mp3</title>
-      <itunes:author>Andrew Rosselet</itunes:author>
-      <itunes:summary>Lesson: level4_ep5_remix.mp3</itunes:summary>
-      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/level4_ep5_remix.mp3" length="618912" type="audio/mpeg"/>
-      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/level4_ep5_remix.mp3</guid>
-      <pubDate>Wed, 25 Feb 2026 15:07:56 -0500</pubDate>
-      <itunes:duration>00:02:34</itunes:duration>
-    </item>
-
-    <item>
-      <title>Tier 2 Mission 6: The Coordinate Drill (Extended Cut)</title>
-      <itunes:author>Andrew Rosselet</itunes:author>
-      <itunes:summary>Lesson: Tier 2 Mission 6: The Coordinate Drill (Extended Cut)</itunes:summary>
-      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission6.mp3" length="3102336" type="audio/mpeg"/>
-      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission6.mp3</guid>
-      <pubDate>Wed, 25 Feb 2026 15:07:56 -0500</pubDate>
-      <itunes:duration>00:08:37</itunes:duration>
-    </item>
-
-    <item>
-      <title>Tier 2 Mission 7: The Saaptiya Loop (Cultural Deep-Dive)</title>
-      <itunes:author>Andrew Rosselet</itunes:author>
-      <itunes:summary>Lesson: Tier 2 Mission 7: The Saaptiya Loop (Cultural Deep-Dive)</itunes:summary>
+      <title>Ep 7 — The Saaptiya Loop</title>
+      <itunes:author>Andrew R &amp; Gemini</itunes:author>
+      <itunes:summary>Ep 7 — The Saaptiya Loop</itunes:summary>
       <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission7.mp3" length="1960704" type="audio/mpeg"/>
       <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission7.mp3</guid>
       <pubDate>Wed, 25 Feb 2026 15:07:56 -0500</pubDate>
       <itunes:duration>00:08:10</itunes:duration>
+    </item>
+
+    <item>
+      <title>Ep 6 — The Coordinate Drill</title>
+      <itunes:author>Andrew R &amp; Gemini</itunes:author>
+      <itunes:summary>Ep 6 — The Coordinate Drill</itunes:summary>
+      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission6.mp3" length="3102336" type="audio/mpeg"/>
+      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission6.mp3</guid>
+      <pubDate>Wed, 25 Feb 2026 15:07:56 -0500</pubDate>
+      <itunes:duration>00:08:37</itunes:duration>
     </item>
 
   </channel>
