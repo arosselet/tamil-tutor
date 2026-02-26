@@ -16,7 +16,9 @@
     <itunes:category text="Education">
       <itunes:category text="Language Courses"/>
     </itunes:category>
-    <itunes:image href="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/logo.png"/>
+    <itunes:image href="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/logo.jpg"/>
+    <itunes:type>episodic</itunes:type>
+    <itunes:new-feed-url>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/rss.xml</itunes:new-feed-url>
     
     <item>
       <title>Ep 10 — The Big Review</title>

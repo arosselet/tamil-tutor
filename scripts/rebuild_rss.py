@@ -31,7 +31,9 @@ RSS_TEMPLATE = """<?xml version="1.0" encoding="UTF-8"?>
     <itunes:category text="Education">
       <itunes:category text="Language Courses"/>
     </itunes:category>
-    <itunes:image href="{base_url}/logo.png"/>
+    <itunes:image href="{base_url}/logo.jpg"/>
+    <itunes:type>episodic</itunes:type>
+    <itunes:new-feed-url>{base_url}/rss.xml</itunes:new-feed-url>
     {items}
   </channel>
 </rss>
