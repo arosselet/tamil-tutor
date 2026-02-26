@@ -314,7 +314,7 @@ async def main():
     print("🐙 Syncing to GitHub...")
     try:
         # Check if there are changes to commit in published_audio and rss.xml
-        subprocess.run(["git", "add", "published_audio/", "rss.xml", "logo.png"], check=True)
+        subprocess.run(["git", "add", "published_audio/", "rss.xml", "logo.jpg"], check=True)
         # Check if there's anything to commit (to avoid error if nothing changed)
         status = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True)
         if status.stdout.strip():
