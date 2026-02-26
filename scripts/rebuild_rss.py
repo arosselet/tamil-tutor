@@ -3,6 +3,7 @@ import os
 import re
 from datetime import datetime
 import email.utils
+from mutagen.mp3 import MP3
 
 # Configuration
 BASE_URL = "https://raw.githubusercontent.com/arosselet/tamil-tutor/main"
@@ -84,14 +85,24 @@ def generate_rss():
         pub_date = email.utils.formatdate(mtime, localtime=True)
         audio_url = f"{BASE_URL}/{AUDIO_DIR}/{filename}"
         
-        # Duration is hard to get without external libs, so we'll omit or put dummy
+        # Calculate real duration from the MP3 file
+        try:
+            audio = MP3(audio_path)
+            total_seconds = int(audio.info.length)
+            hours = total_seconds // 3600
+            minutes = (total_seconds % 3600) // 60
+            seconds = total_seconds % 60
+            duration = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
+        except Exception:
+            duration = "00:05:00"  # Fallback
+
         items.append(ITEM_TEMPLATE.format(
             title=title,
             summary=f"Lesson: {title}",
             audio_url=audio_url,
             size=size,
             pub_date=pub_date,
-            duration="00:05:00" # Placeholder
+            duration=duration
         ))
 
     rss_content = RSS_TEMPLATE.format(

@@ -62,33 +62,50 @@ def compress(days: int = 7):
                     struggled.add(word)
             compressed_count += 1
 
-    # Promote: words in comfortable across many sessions that never appear
-    # in struggled anymore → move to mastered
-    # (For now, just maintain the lists. Promotion can be a future refinement.)
+    # Promote: words comfortable in 3+ sessions that never appear in
+    # recent struggled lists → move to mastered
+    comfortable_counts: dict[str, int] = {}
+    for session in sessions:
+        for word in session.get("comfortable", []):
+            comfortable_counts[word] = comfortable_counts.get(word, 0) + 1
+
+    recent_struggled = set()
+    for session in recent:
+        for word in session.get("struggled", []):
+            recent_struggled.add(word)
+
+    promoted = set()
+    for word, count in comfortable_counts.items():
+        if count >= 3 and word in comfortable and word not in recent_struggled:
+            promoted.add(word)
+
+    for word in promoted:
+        comfortable.discard(word)
+        mastered.add(word)
 
     learner["sessions"] = recent
     learner["comfortable_words"] = sorted(comfortable)
     learner["struggled_words"] = sorted(struggled)
     learner["mastered_words"] = sorted(mastered)
 
-    # Update tier_progress targets from consolidated tier files
+    # Update tier_progress targets and mastered counts from consolidated tier files
     tiers_dir = BASE / "curriculum" / "tiers"
     if tiers_dir.exists():
-        tier_counts: dict[int, int] = {}
+        tier_vocab: dict[int, set[str]] = {}
         for f in sorted(tiers_dir.glob("tier_*.json")):
             tier_data = load_json(f)
             tier_num = int(tier_data.get("tier", 1))
-            seen = set()
+            words = set()
             for v in tier_data.get("vocabulary", []):
-                seen.add(v["tamil"])
-            tier_counts[tier_num] = len(seen)
+                words.add(v["tamil"])
+            tier_vocab[tier_num] = words
 
-        # Update targets
         tier_progress = learner.get("tier_progress", {})
         tier_map = {1: "tier1", 2: "tier2", 3: "tier3"}
         for t, key in tier_map.items():
-            if key in tier_progress:
-                tier_progress[key]["target"] = tier_counts.get(t, tier_progress[key].get("target", 0))
+            if key in tier_progress and t in tier_vocab:
+                tier_progress[key]["target"] = len(tier_vocab[t])
+                tier_progress[key]["mastered"] = len(mastered & tier_vocab[t])
         learner["tier_progress"] = tier_progress
 
     save_json(learner_path, learner)
@@ -98,6 +115,8 @@ def compress(days: int = 7):
     print(f"   Comfortable: {len(comfortable)} words")
     print(f"   Struggled: {len(struggled)} words")
     print(f"   Mastered: {len(mastered)} words")
+    if promoted:
+        print(f"   🎓 Promoted to mastered: {', '.join(sorted(promoted))}")
 
 
 if __name__ == "__main__":

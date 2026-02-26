@@ -3,47 +3,47 @@
     "current_tier": 2,
     "active_mission": {
         "tier": 2,
-        "topic": "The Coimbatore Mappilai (The Remix)",
+        "topic": "Pronoun Toggles: Respect and Reference",
         "target_vocab": [
             {
-                "tamil": "அண்ணா",
-                "english": "Elder brother"
+                "tamil": "அவங்க",
+                "english": "They / He-She (respectful)"
             },
             {
-                "tamil": "தம்பி",
-                "english": "Younger brother"
+                "tamil": "அவன்",
+                "english": "He (informal)"
             },
             {
-                "tamil": "அக்கா",
-                "english": "Elder sister"
+                "tamil": "அவ",
+                "english": "She (informal)"
             },
             {
-                "tamil": "தங்கச்சி",
-                "english": "Younger sister"
+                "tamil": "அது",
+                "english": "It / That"
             },
             {
-                "tamil": "மாமா",
-                "english": "Uncle (maternal)"
+                "tamil": "நம்ம",
+                "english": "Our (inclusive)"
             },
             {
-                "tamil": "அத்தை",
-                "english": "Aunt (paternal)"
+                "tamil": "நாங்க",
+                "english": "We (exclusive)"
             }
         ]
     },
     "tier_progress": {
         "tier1": {
-            "target": 76,
-            "mastered": 52,
+            "target": 69,
+            "mastered": 0,
             "label": "Survival"
         },
         "tier2": {
-            "target": 177,
+            "target": 153,
             "mastered": 0,
             "label": "Comfort"
         },
         "tier3": {
-            "target": 207,
+            "target": 181,
             "mastered": 0,
             "label": "Embedded"
         }
@@ -55,27 +55,31 @@
         "last_date": "2026-02-24"
     },
     "struggled_words": [
+        "அத்தை",
+        "இன்னைக்கு",
+        "எழுந்தேன்",
         "கிட்ட",
         "கீழ",
-        "மேல",
-        "முன்னாடி",
-        "முதல்ல",
-        "இன்னைக்கு",
-        "பத்து",
+        "தங்கச்சி",
+        "தம்பி",
         "நூறு",
-        "எழுந்தேன்",
-        "பார்த்தேன்"
+        "பத்து",
+        "பார்த்தேன்",
+        "மாமா",
+        "முதல்ல",
+        "முன்னாடி",
+        "மேல"
     ],
     "mastered_words": [],
     "comfortable_words": [
-        "ஏன்னா",
-        "அதனால",
-        "ஆனா",
-        "கம்மி",
-        "வெளிய",
-        "அஞ்சு",
+        "அக்கா",
         "அங்க",
+        "அஞ்சு",
+        "அண்ணா",
+        "அதனால",
+        "அதுக்கு அப்புறம்",
         "அப்புறம்",
+        "ஆனா",
         "ஆமா",
         "இங்க",
         "இடது",
@@ -87,23 +91,30 @@
         "உனக்கு",
         "உப்பு",
         "உள்ள",
+        "எங்க",
         "எங்க?",
         "எடுங்க",
         "எனக்கு",
         "என்ன?",
+        "எழுந்தேன்",
+        "ஏன்னா",
         "ஒன்னு",
         "ஒன்னு மட்டும்",
+        "கம்மி",
         "காரம்",
+        "குடிச்சேன்",
         "குடுங்க",
         "கொஞ்சம்",
         "சரி",
         "சாப்டீங்களா?",
         "சாப்பிடுங்க",
+        "சாப்பிட்டேன்",
         "சூப்பர்",
         "செம்ம",
         "சொல்லுங்க",
         "டயர்ட்",
         "தாகம்",
+        "தூங்கினேன்",
         "தெரியாது",
         "தெரியும்",
         "நல்லா இருக்கு",
@@ -112,6 +123,7 @@
         "நிறைய",
         "நீ",
         "நீங்க",
+        "நேத்து",
         "நேரம் ஆச்சு",
         "நேரா",
         "பசி",
@@ -126,183 +138,27 @@
         "வரேன்",
         "வலது",
         "வாருங்களா?",
+        "வெளிய",
         "வேணும்",
         "வேண்டாம்",
-        "வேற என்ன?",
-        "குடிச்சேன்",
-        "சாப்பிட்டேன்",
-        "தூங்கினேன்",
-        "அதுக்கு அப்புறம்",
-        "நேத்து",
-        "எழுந்தேன்"
+        "வேற என்ன?"
     ],
     "sessions": [
         {
-            "date": "2026-02-17",
-            "energy": "HIGH",
-            "struggled": [],
-            "comfortable": [
-                "வணக்கம்",
-                "ஆமா",
-                "இல்ல",
-                "சரி",
-                "நீங்க",
-                "இங்க",
-                "அங்க",
-                "எங்க",
-                "இருக்கு",
-                "நல்லா இருக்கு",
-                "போதும்",
-                "பசி",
-                "வயிறு ஃபுல்"
-            ],
-            "zinger": null,
-            "notes": "Learner confirmed mastery of Level 1 and 2 content. Moving to Urban Survival.",
-            "tier": 1,
-            "mission": 1
-        },
-        {
-            "date": "2026-02-18",
-            "energy": "MEDIUM",
-            "struggled": [
-                "நிறுத்துங்க"
-            ],
-            "comfortable": [
-                "நேரா",
-                "இடது",
-                "வலது"
-            ],
-            "zinger": "நிறுத்துங்க",
-            "notes": "Nailed directions, but 'Niruthunga' needs more muscle memory.",
-            "source": "mobile",
-            "tier": 1,
-            "mission": 1
-        },
-        {
-            "date": "2026-02-18",
-            "energy": "MEDIUM",
-            "struggled": [
-                "அஞ்சு",
-                "பத்து",
-                "நூறு",
-                "கம்மி",
-                "வெளிய",
-                "மேல",
-                "கீழ",
-                "கிட்ட"
-            ],
-            "comfortable": [
-                "உள்ள",
-                "ஒன்னு",
-                "ரெண்டு",
-                "மூணு"
-            ],
-            "zinger": "உள்ள",
-            "notes": "Inside is mastered; struggling with other spatial relations and larger numbers (5, 10, 100).",
-            "source": "mobile",
-            "tier": 1,
-            "mission": 4
-        },
-        {
-            "date": "2026-02-19",
-            "energy": "MEDIUM",
-            "struggled": [],
-            "comfortable": [
-                "நிறுத்துங்க"
-            ],
-            "zinger": "Gate கிட்ட நிறுத்துங்க",
-            "notes": "Mastered 'Niruthunga'. Moved to comfortable list.",
-            "source": "cli",
-            "tier": 1,
-            "mission": 5
-        },
-        {
-            "date": "2026-02-20",
-            "energy": "MEDIUM",
-            "struggled": [
-                "முன்னாடி",
-                "முதல்ல",
-                "இன்னைக்கு"
-            ],
-            "comfortable": [
-                "அதுக்கு அப்புறம்",
-                "நேத்து"
-            ],
-            "zinger": "முதல்ல நான் சொல்றேன்",
-            "notes": "Good progress on Adhukku apuram/Nethu. Struggling with sequence starts (Mudhalla/Munnadi). Innaikku is medium.",
-            "source": "cli",
-            "tier": 2,
-            "mission": 3
-        },
-        {
-            "date": "2026-02-23",
-            "energy": "MEDIUM",
-            "struggled": [
-                "முன்னாடி",
-                "முதல்ல",
-                "இன்னைக்கு",
-                "கிட்ட",
-                "கீழ",
-                "மேல",
-                "எழுந்தேன்",
-                "பார்த்தேன்",
-                "நூறு",
-                "பத்து"
-            ],
-            "comfortable": [
-                "ஏன்னா",
-                "அதனால",
-                "ஆனா"
-            ],
-            "zinger": "அதான் வந்துட்டேன் ல?",
-            "notes": "User requested double length episode. Mastered logic connectors.",
-            "tier": 2,
-            "mission": 5
-        },
-        {
-            "date": "2026-02-24",
-            "energy": "HIGH",
-            "struggled": [
-                "கிட்ட",
-                "கீழ",
-                "மேல",
-                "முன்னாடி",
-                "முதல்ல",
-                "இன்னைக்கு",
-                "பத்து",
-                "நூறு"
-            ],
-            "comfortable": [],
-            "zinger": "கொஞ்சம் முன்னாடி போலாம்",
-            "notes": "Generated Mission 6: The Coordinate Drill. Focused on fixing spatial/temporal confusion.",
-            "tier": 2,
-            "mission": 6
-        },
-        {
-            "date": "2026-02-24",
-            "energy": "MEDIUM",
-            "struggled": [
-                "முன்னாடி",
-                "இன்னைக்கு",
-                "பார்த்தேன்"
-            ],
-            "comfortable": [
-                "சாப்பிட்டேன்",
-                "பசி",
-                "நேரம் ஆச்சு"
-            ],
-            "zinger": "இப்போ தான் சாப்பிட்டேன்",
-            "notes": "Generated Mission 7: The Saaptiya Loop. Deep-Dive style on food culture and Safe Answers.",
-            "tier": 2,
-            "mission": 7
-        },
-        {
             "date": "2026-02-25",
             "energy": "MEDIUM",
-            "struggled": [],
-            "comfortable": [],
+            "struggled": [
+                "தம்பி",
+                "தங்கச்சி",
+                "மாமா",
+                "அத்தை"
+            ],
+            "comfortable": [
+                "அண்ணா",
+                "அக்கா"
+            ],
             "zinger": "அண்ணா, எப்படி இருக்கீங்க?",
-            "notes": "Mission 8: The Coimbatore Mappilai (The Remix). Introduced kinship terms (Anna, Thambi, etc.) and remixed with spatial/temporal struggle words.",
+            "notes": "Mission 8 feedback. Learner has Anna/Akka locked in due to family immersion. Thambi, Thangachi, Mama, Athai staying in practice.",
             "tier": 2,
             "mission": 8
         }

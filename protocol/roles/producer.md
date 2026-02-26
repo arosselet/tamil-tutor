@@ -59,8 +59,9 @@ Only two speaker tags are valid. These represent our pair of native Tamil guides
 
 Before running the audio generator, you MUST perform a final "Scrubbing Pass":
 1.  **Scan for English Phonetics**: Look for English approximations of Tamil words (e.g., "Adhaan", "Yenna").
-2.  **Replace with Script**: Swap every single one for the actual Tamil Script (அதான், ஏன்னா).
-3.  **Check Context**: If the Host says "The word for because is Yenna," it SHOULD be: "The word for because is ஏன்னா."
+2.  **Scan for Bold English Labels**: Look for bolded English phonetics used as Tamil word labels (e.g., `**Anna**`, `**Thambi**`, `**Mudhalla**`, `**Munnadi**`). These will be read as English by TTS.
+3.  **Replace with Script**: Swap every single one for the actual Tamil Script (அதான், ஏன்னா, அண்ணா, தம்பி, முதல்ல, முன்னாடி).
+4.  **Check Context**: If the Host says "The word for because is Yenna," it SHOULD be: "The word for because is ஏன்னா."
 
 ## Output
 

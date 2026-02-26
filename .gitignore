@@ -2,6 +2,10 @@
 audio/
 temp_audio_segments/
 
+# Generated bundles
+mobile_bundle.zip
+curriculum_context.json
+
 # Python
 __pycache__/
 *.pyc
@@ -9,4 +13,3 @@ __pycache__/
 # OS
 .DS_Store
 .env
-cron.log

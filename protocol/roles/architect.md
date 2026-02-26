@@ -70,3 +70,4 @@ The Beat Sheet includes a **Word Status Sheet** that categorizes all known vocab
 - ❌ Make it sound like a textbook
 - ❌ Translate USE words — if "சரி" is comfortable, don't write "Okay (சரி)"
 - ❌ Use Tamil the learner has never encountered — that's confusion, not immersion
+- ❌ Use bolded English phonetics for Tamil words in Host narration — write `அண்ணா` not `**Anna**`, write `தம்பி` not `**Thambi**`. The TTS engine reads English text as English. Every Tamil word must be in Tamil script, even when the Host is using it casually in an English sentence.

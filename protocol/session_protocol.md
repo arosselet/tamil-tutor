@@ -18,7 +18,7 @@ Read `progress/learner.json` to determine:
 
 ## Step 2: Run the Session
 
-Use vocabulary from the current tier in `curriculum/index.json`, prioritizing words that fit the chosen mission arc. Weave in struggled words from `learner.json` for extra reps.
+Use vocabulary from the current tier in `curriculum/tiers/tier_X.json`, prioritizing words that fit the chosen mission arc. Weave in struggled words from `learner.json` for extra reps.
 
 ### The 12-Minute Standard (Interactive Equivalent)
 To ensure the brain has time to "soak" in the language:
@@ -41,8 +41,8 @@ Write back to `progress/learner.json`:
   ```json
   {
     "date": "2026-02-17",
-    "level": 1,
-    "episode": 1,
+    "tier": 1,
+    "mission": 1,
     "energy": "HIGH",
     "struggled": ["வேணும்", "வேண்டாம்"],
     "comfortable": ["வணக்கம்", "ஆமா"],
@@ -51,7 +51,7 @@ Write back to `progress/learner.json`:
   }
   ```
 - Move words between `struggled_words` and `comfortable_words` as appropriate.
-- Update `current_level` / `current_episode` if advancing.
+- Update `current_tier` if advancing.
 - Update streak (increment if consecutive day, reset if gap).
 
 ### If you have NO file access (Mobile):
@@ -61,7 +61,7 @@ Emit a JSON progress blob per `protocol/mobile_sync.md`. Display it in a code bl
 
 ## Handling Progress Updates (Non-Session)
 
-When the learner says something like "I listened to Level 1 Episode 3 and struggled with வேணும் and வேண்டாம்":
+When the learner says something like "I listened to Tier 1 Mission 3 and struggled with வேணும் and வேண்டாம்":
 
 **Desktop:** Read → update → write `progress/learner.json`.
 
@@ -73,12 +73,12 @@ When the learner says something like "I listened to Level 1 Episode 3 and strugg
 
 When the learner asks about their progress:
 
-1. Read `progress/learner.json` and `curriculum/levels.json`
+1. Read `progress/learner.json` and `curriculum/index.json`
 2. Report:
-   - **Current Level:** X of N
+   - **Current Tier:** X of 3
    - **Tier Progress:** Tier 1: M/T mastered, Tier 2: M/T, Tier 3: M/T
    - **Streak:** Current X days, Best Y days
    - **Top Struggled Words:** List with count of times struggled
-   - **Recommendation:** Next episode, or review if too many struggled words
+   - **Recommendation:** Next mission, or review if too many struggled words
 
 > **Note:** On mobile, progress data comes from the curriculum files in the uploaded bundle. It may be stale if updates haven't been synced recently.
