@@ -1,8 +1,18 @@
 # Coimbatore Mappillai — The Audio Architect Protocol
 
-<video src="https://github.com/user-attachments/assets/d6853a56-0778-4f3a-a83c-0deaea7bfd68" controls="controls"></video>
+<video src="https://github.com/user-attachments/assets/8a9e4c38-9074-4cc5-b0aa-f0a6812108bf" controls="controls"></video>
 
 A framework for language learning using LLMs. Built to acquire working Tamil for daily life in Coimbatore.
+
+### 🎧 Subscribe
+
+New episodes drop into your podcast app as they're generated. Add this feed in Apple Podcasts, Overcast, or any RSS reader:
+
+```
+https://raw.githubusercontent.com/arosselet/tamil-tutor/main/rss.xml
+```
+
+---
 
 ## What This Is
 
@@ -78,16 +88,6 @@ Prompt the agent:
 - *"I'm ready for the next episode"* — generates a new lesson
 - *"Medium energy"* — sets the audio style (narrative pacing)
 - *"I'm struggling with past tense verbs"* — the system adapts
-
-### On Your Phone (Podcast Feed)
-
-Subscribe in any podcast app (Apple Podcasts, Overcast, etc.):
-
-```
-https://raw.githubusercontent.com/arosselet/tamil-tutor/main/rss.xml
-```
-
-New episodes appear in your feed as soon as they're pushed to GitHub.
 
 ### On Your Phone (Interactive)
 
