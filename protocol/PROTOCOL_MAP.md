@@ -11,12 +11,12 @@
 
 | User Says | Protocol | Action |
 |---|---|---|
-| `@tutor` (or request a lesson) | `protocol/learning_loop.md` | Entry point for learning and generation. Starts with Phase 1 Checkpoint. **NO TEMPLATING ALLOWED.** |
+| `@tutor` (or request a lesson) | `protocol/learning_loop.md` | Entry point for learning and generation. Starts with Phase 1 Debrief. **NO TEMPLATING ALLOWED.** |
 | `/build` (or default coding) | `<Self-Directed>` | Default engineering mode. Safe to edit protocol files and scripts. |
 | "I listened to mission X" | `protocol/session_protocol.md` | Update `progress/learner.json` |
 | "Show my progress" | Read `progress/learner.json` + `index.json` | Report tier progress, streaks |
 | "Sync these updates" | `protocol/sync_ingest.md` | Apply mobile updates to learner.json + vocab index |
-| *(On mobile, after progress)* | `protocol/mobile_sync.md` | Emit JSON progress blob for iOS Share |
+| *(On mobile, after progress)* | `protocol/mobile_sync.md` | Emit JSON progress blob for desktop Debrief |
 
 ## System Architecture
 

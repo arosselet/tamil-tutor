@@ -55,7 +55,7 @@ Write back to `progress/learner.json`:
 - Update streak (increment if consecutive day, reset if gap).
 
 ### If you have NO file access (Mobile):
-Emit a JSON progress blob per `protocol/mobile_sync.md`. Display it in a code block and say **"Tap Share to sync this to your system."**
+Emit a JSON progress blob per `protocol/mobile_sync.md`. Display it in a code block and say **"Copy this and paste it into your desktop session during the Debrief."**
 
 ---
 

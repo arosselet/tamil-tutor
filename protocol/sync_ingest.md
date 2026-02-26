@@ -1,6 +1,6 @@
 # Sync Ingest Protocol (Desktop-Side)
 
-> **Context:** The learner periodically provides a list of JSON progress updates collected from mobile sessions via Home Assistant. Your job is to apply them to `progress/learner.json`.
+> **Context:** The learner periodically provides a list of JSON progress updates collected from mobile sessions (pasted during a Debrief). Your job is to apply them to `progress/learner.json`.
 
 ## When This Protocol Activates
 

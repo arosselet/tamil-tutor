@@ -1,20 +1,20 @@
 # Mobile Sync Protocol (Phone-Side)
 
-> **Context:** Gemini on iOS has no local file system. Progress is captured as JSON blobs displayed in chat, shared via iOS Share Sheet to a Home Assistant webhook.
+> **Context:** Gemini on mobile has no local file system. Progress is captured as JSON blobs displayed in chat, then pasted back into a desktop session during the Debrief.
 
 ## When to Emit a Progress Update
 
 Emit a JSON progress blob **whenever any of these happen:**
 
 1. **End of a lesson/drill session** — always
-2. **Learner reports listening** — "I listened to Level 3"
+2. **Learner reports listening** — "I listened to Mission 5"
 3. **Learner reports struggles** — "I'm struggling with future tense"
 4. **Learner reports comfort** — "I feel good about past tense now"
 5. **Learner explicitly asks** — "save my progress"
 
 ## The Update Contract
 
-Every update is a single JSON object. Display it in a code block so the learner can tap Share.
+Every update is a single JSON object. Display it in a code block so the learner can copy-paste it into a desktop session.
 
 ```json
 {
@@ -98,15 +98,13 @@ Every update is a single JSON object. Display it in a code block so the learner 
 }
 ```
 
-## Retrieval: The Pull Protocol (Lesson Initialization)
-
-To keep your mobile context fresh across sessions:
+## Retrieval: Keeping Mobile Context Fresh
 
 ### The Persistent Session Model (Recommended)
 You do not need to upload the `mobile_bundle.zip` for every lesson. Maintain a persistent chat session in the Gemini app. To refresh your state daily:
 
-1. **The URL Refresh:** Ask the AI: *"Fetch my latest progress from `<YOUR_HA_URL>/local/learner.json`. Update your memory of my comfortable and struggled words before we start today's session."*
-2. **The JSON Paste (Backup):** If the URL fetch fails, use an iOS Shortcut to paste the latest `learner.json` text directly into the chat.
+1. **The URL Refresh:** Ask the AI: *"Fetch my latest progress from `<YOUR_URL>/learner.json`. Update your memory of my comfortable and struggled words before we start today's session."*
+2. **The JSON Paste (Backup):** If the URL fetch fails, paste the latest `learner.json` text directly into the chat.
 
 ---
 
@@ -115,6 +113,5 @@ You do not need to upload the `mobile_bundle.zip` for every lesson. Maintain a p
 After generating a progress blob:
 
 1. Display it in a fenced `json` code block.
-2. Say: **"Tap Share to sync this to your system."**
+2. Say: **"Copy this and paste it into your desktop session during the Debrief."**
 3. Do NOT assume the update has been saved. You have no file access.
-4. If the learner asks "did you save it?" — respond: "I've generated the update. Share it to your webhook to sync."

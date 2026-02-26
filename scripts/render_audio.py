@@ -18,7 +18,6 @@ import asyncio
 import argparse
 import random
 import subprocess
-from dotenv import load_dotenv
 
 import edge_tts
 try:
@@ -327,19 +326,6 @@ async def main():
             print("ℹ️ No changes to sync.")
     except subprocess.CalledProcessError as e:
         print(f"❌ GitHub Sync failed: {e}")
-
-    # 8. Upload to Home Assistant (Legacy Backup)
-    load_dotenv()
-    ha_host = os.getenv("HOMEASSISTANT_HOST", "homeassistant")
-    print(f"📡 Uploading to Home Assistant: {args.output_file} -> {ha_host}:/config/www/mission.mp3")
-    try:
-        subprocess.run(
-            ["scp", args.output_file, f"{ha_host}:/config/www/mission.mp3"],
-            check=True
-        )
-        print("✅ Upload complete!")
-    except subprocess.CalledProcessError as e:
-        print(f"❌ Upload failed: {e}")
 
 
 if __name__ == "__main__":
