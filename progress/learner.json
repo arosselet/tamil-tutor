@@ -3,8 +3,45 @@
     "current_tier": 2,
     "active_mission": {
         "tier": 2,
-        "topic": "The Big Review (Remix)",
-        "target_vocab": []
+        "topic": "Reported Speech (The Gossip Chain)",
+        "target_vocab": [
+            {
+                "tamil": "சொன்னாங்க",
+                "english": "They said"
+            },
+            {
+                "tamil": "கேட்டாங்க",
+                "english": "They asked"
+            },
+            {
+                "tamil": "சொன்னேன்",
+                "english": "I said"
+            },
+            {
+                "tamil": "கேட்டேன்",
+                "english": "I asked"
+            },
+            {
+                "tamil": "நினைச்சேன்",
+                "english": "I thought"
+            },
+            {
+                "tamil": "அப்படீங்களா?",
+                "english": "Is that so?"
+            },
+            {
+                "tamil": "நிஜமா?",
+                "english": "Really?"
+            },
+            {
+                "tamil": "புரிஞ்சுது",
+                "english": "I understood"
+            },
+            {
+                "tamil": "புரியல",
+                "english": "I don't understand"
+            }
+        ]
     },
     "tier_progress": {
         "tier1": {
@@ -25,9 +62,9 @@
     },
     "total_sessions": 8,
     "streak": {
-        "current": 6,
-        "best": 6,
-        "last_date": "2026-02-25"
+        "current": 7,
+        "best": 7,
+        "last_date": "2026-02-26"
     },
     "struggled_words": [
         "அத்தை",
