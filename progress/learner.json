@@ -3,33 +3,8 @@
     "current_tier": 2,
     "active_mission": {
         "tier": 2,
-        "topic": "Pronoun Toggles: Respect and Reference",
-        "target_vocab": [
-            {
-                "tamil": "அவங்க",
-                "english": "They / He-She (respectful)"
-            },
-            {
-                "tamil": "அவன்",
-                "english": "He (informal)"
-            },
-            {
-                "tamil": "அவ",
-                "english": "She (informal)"
-            },
-            {
-                "tamil": "அது",
-                "english": "It / That"
-            },
-            {
-                "tamil": "நம்ம",
-                "english": "Our (inclusive)"
-            },
-            {
-                "tamil": "நாங்க",
-                "english": "We (exclusive)"
-            }
-        ]
+        "topic": "The Big Review (Remix)",
+        "target_vocab": []
     },
     "tier_progress": {
         "tier1": {
@@ -50,9 +25,9 @@
     },
     "total_sessions": 8,
     "streak": {
-        "current": 5,
-        "best": 5,
-        "last_date": "2026-02-24"
+        "current": 6,
+        "best": 6,
+        "last_date": "2026-02-25"
     },
     "struggled_words": [
         "அத்தை",
