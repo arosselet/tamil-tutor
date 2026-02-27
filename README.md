@@ -6,11 +6,10 @@ A framework for language learning using LLMs. Built to acquire working Tamil for
 
 ### 🎧 Subscribe
 
-New episodes drop into your podcast app as they're generated. Add this feed in Apple Podcasts, Overcast, or any RSS reader:
+[**Apple Podcasts**](https://podcasts.apple.com/us/podcast/coimbatore-mappillai/id1880268803)
 
-```
-https://raw.githubusercontent.com/arosselet/tamil-tutor/main/rss.xml
-```
+[**RSS Feed Link**](https://raw.githubusercontent.com/arosselet/tamil-tutor/main/rss.xml)
+
 
 ---
 
