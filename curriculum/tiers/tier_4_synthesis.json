@@ -1,0 +1,770 @@
+{
+    "tier": 4,
+    "name": "synthesis",
+    "vocabulary": [
+        {
+            "tamil": "முடியும்",
+            "english": "Can / Possible"
+        },
+        {
+            "tamil": "முடியாது",
+            "english": "Cannot / Impossible"
+        },
+        {
+            "tamil": "என்னால முடியும்",
+            "english": "I can"
+        },
+        {
+            "tamil": "என்னால முடியாது",
+            "english": "I cannot"
+        },
+        {
+            "tamil": "உன்னால முடியும்",
+            "english": "You can (informal)"
+        },
+        {
+            "tamil": "உன்னால முடியாது",
+            "english": "You cannot (informal)"
+        },
+        {
+            "tamil": "உங்களால முடியும்",
+            "english": "You can (respectful)"
+        },
+        {
+            "tamil": "உங்களால முடியாது",
+            "english": "You cannot (respectful)"
+        },
+        {
+            "tamil": "அவனால முடியும்",
+            "english": "He can"
+        },
+        {
+            "tamil": "அவளால முடியும்",
+            "english": "She can"
+        },
+        {
+            "tamil": "அவங்களால முடியும்",
+            "english": "They can (respectful)"
+        },
+        {
+            "tamil": "கூடாது",
+            "english": "Should not / Must not"
+        },
+        {
+            "tamil": "பண்ண கூடாது",
+            "english": "Should not do"
+        },
+        {
+            "tamil": "போக கூடாது",
+            "english": "Should not go"
+        },
+        {
+            "tamil": "சாப்பிட கூடாது",
+            "english": "Should not eat"
+        },
+        {
+            "tamil": "பேச கூடாது",
+            "english": "Should not speak"
+        },
+        {
+            "tamil": "பாக்க கூடாது",
+            "english": "Should not look/see"
+        },
+        {
+            "tamil": "கொடுக்க கூடாது",
+            "english": "Should not give"
+        },
+        {
+            "tamil": "எடுக்க கூடாது",
+            "english": "Should not take"
+        },
+        {
+            "tamil": "கேக்க கூடாது",
+            "english": "Should not ask/listen"
+        },
+        {
+            "tamil": "சொல்ல கூடாது",
+            "english": "Should not say/tell"
+        },
+        {
+            "tamil": "போய்",
+            "english": "Having gone (Go and...)"
+        },
+        {
+            "tamil": "வந்து",
+            "english": "Having come (Come and...)"
+        },
+        {
+            "tamil": "பண்ணி",
+            "english": "Having done (Do and...)"
+        },
+        {
+            "tamil": "சாப்பிட்டு",
+            "english": "Having eaten (Eat and...)"
+        },
+        {
+            "tamil": "பார்த்து",
+            "english": "Having seen (See and...)"
+        },
+        {
+            "tamil": "எடுத்து",
+            "english": "Having taken (Take and...)"
+        },
+        {
+            "tamil": "கொடுத்து",
+            "english": "Having given (Give and...)"
+        },
+        {
+            "tamil": "சொல்லி",
+            "english": "Having said (Say and...)"
+        },
+        {
+            "tamil": "கேட்டு",
+            "english": "Having asked (Ask and...)"
+        },
+        {
+            "tamil": "உட்கார்ந்து",
+            "english": "Having sat (Sit and...)"
+        },
+        {
+            "tamil": "நின்னு",
+            "english": "Having stood (Stand and...)"
+        },
+        {
+            "tamil": "நடந்து",
+            "english": "Having walked (Walk and...)"
+        },
+        {
+            "tamil": "ஓடி",
+            "english": "Having run (Run and...)"
+        },
+        {
+            "tamil": "படிச்சு",
+            "english": "Having read/studied (Read/Study and...)"
+        },
+        {
+            "tamil": "எழுதி",
+            "english": "Having written (Write and...)"
+        },
+        {
+            "tamil": "தூங்கி",
+            "english": "Having slept (Sleep and...)"
+        },
+        {
+            "tamil": "முழிச்சு",
+            "english": "Having woken up (Wake up and...)"
+        },
+        {
+            "tamil": "குளிச்சு",
+            "english": "Having bathed (Bathe and...)"
+        },
+        {
+            "tamil": "போட்டு",
+            "english": "Having put (Put and...)"
+        },
+        {
+            "tamil": "அடிச்சு",
+            "english": "Having hit (Hit and...)"
+        },
+        {
+            "tamil": "விழுந்து",
+            "english": "Having fallen (Fall and...)"
+        },
+        {
+            "tamil": "வாங்கி",
+            "english": "Having bought (Buy and...)"
+        },
+        {
+            "tamil": "விட்டு",
+            "english": "Having left/let go (Leave and...)"
+        },
+        {
+            "tamil": "கற்று",
+            "english": "Having learned (Learn and...)"
+        },
+        {
+            "tamil": "காண்பித்து",
+            "english": "Having shown (Show and...)"
+        },
+        {
+            "tamil": "அதனால",
+            "english": "Therefore / So"
+        },
+        {
+            "tamil": "அதனால தான்",
+            "english": "That's why"
+        },
+        {
+            "tamil": "இருந்தாலும்",
+            "english": "Even if / Even though / However"
+        },
+        {
+            "tamil": "அப்படி இருந்தாலும்",
+            "english": "Even so / Still"
+        },
+        {
+            "tamil": "ஏன்னா",
+            "english": "Because"
+        },
+        {
+            "tamil": "ஏன் என்றால்",
+            "english": "Because (formal)"
+        },
+        {
+            "tamil": "தவிர",
+            "english": "Except / Apart from"
+        },
+        {
+            "tamil": "பத்தி",
+            "english": "About"
+        },
+        {
+            "tamil": "அதை பத்தி",
+            "english": "About that"
+        },
+        {
+            "tamil": "என்னை பத்தி",
+            "english": "About me"
+        },
+        {
+            "tamil": "உன்னை பத்தி",
+            "english": "About you (informal)"
+        },
+        {
+            "tamil": "உங்களை பத்தி",
+            "english": "About you (respectful)"
+        },
+        {
+            "tamil": "முன்னாடி",
+            "english": "Before / In front of"
+        },
+        {
+            "tamil": "அதுக்கு முன்னாடி",
+            "english": "Before that"
+        },
+        {
+            "tamil": "-க்கு முன்னாடி",
+            "english": "Before [noun/event]"
+        },
+        {
+            "tamil": "போறதுக்கு முன்னாடி",
+            "english": "Before going"
+        },
+        {
+            "tamil": "வர்றதுக்கு முன்னாடி",
+            "english": "Before coming"
+        },
+        {
+            "tamil": "சாப்பிடுறதுக்கு முன்னாடி",
+            "english": "Before eating"
+        },
+        {
+            "tamil": "பண்றதுக்கு முன்னாடி",
+            "english": "Before doing"
+        },
+        {
+            "tamil": "அப்புறம்",
+            "english": "After / Then"
+        },
+        {
+            "tamil": "அதுக்கு அப்புறம்",
+            "english": "After that"
+        },
+        {
+            "tamil": "-க்கு அப்புறம்",
+            "english": "After [noun/event]"
+        },
+        {
+            "tamil": "போனதுக்கு அப்புறம்",
+            "english": "After going"
+        },
+        {
+            "tamil": "வந்ததுக்கு அப்புறம்",
+            "english": "After coming"
+        },
+        {
+            "tamil": "சாப்பிட்டதுக்கு அப்புறம்",
+            "english": "After eating"
+        },
+        {
+            "tamil": "பண்ணதுக்கு அப்புறம்",
+            "english": "After doing"
+        },
+        {
+            "tamil": "கூட",
+            "english": "Even / Also / With"
+        },
+        {
+            "tamil": "என் கூட",
+            "english": "With me"
+        },
+        {
+            "tamil": "உன் கூட",
+            "english": "With you (informal)"
+        },
+        {
+            "tamil": "உங்க கூட",
+            "english": "With you (respectful)"
+        },
+        {
+            "tamil": "அவன் கூட",
+            "english": "With him"
+        },
+        {
+            "tamil": "அவ கூட",
+            "english": "With her"
+        },
+        {
+            "tamil": "அவங்க கூட",
+            "english": "With them/him/her (respectful)"
+        },
+        {
+            "tamil": "மட்டும்",
+            "english": "Only"
+        },
+        {
+            "tamil": "நான் மட்டும்",
+            "english": "Only me"
+        },
+        {
+            "tamil": "நீ மட்டும்",
+            "english": "Only you (informal)"
+        },
+        {
+            "tamil": "நீங்க மட்டும்",
+            "english": "Only you (respectful)"
+        },
+        {
+            "tamil": "ஆனா",
+            "english": "But"
+        },
+        {
+            "tamil": "ஆனாலும்",
+            "english": "But still / Even then"
+        },
+        {
+            "tamil": "இல்லன்னா",
+            "english": "Otherwise / If not"
+        },
+        {
+            "tamil": "அப்படியா?",
+            "english": "Is that so? / Really?"
+        },
+        {
+            "tamil": "அப்படினா",
+            "english": "Then / In that case"
+        },
+        {
+            "tamil": "எப்படி?",
+            "english": "How?"
+        },
+        {
+            "tamil": "எப்படியும்",
+            "english": "Anyhow / Regardless"
+        },
+        {
+            "tamil": "எப்படியாவது",
+            "english": "Somehow"
+        },
+        {
+            "tamil": "யாரு?",
+            "english": "Who?"
+        },
+        {
+            "tamil": "யாராவது",
+            "english": "Someone / Anyone"
+        },
+        {
+            "tamil": "யாரும்",
+            "english": "Nobody (when used with negative)"
+        },
+        {
+            "tamil": "எங்க?",
+            "english": "Where?"
+        },
+        {
+            "tamil": "எங்கேயாவது",
+            "english": "Somewhere / Anywhere"
+        },
+        {
+            "tamil": "எங்கேயும்",
+            "english": "Nowhere (when used with negative) / Everywhere"
+        },
+        {
+            "tamil": "என்ன?",
+            "english": "What?"
+        },
+        {
+            "tamil": "எதாவது",
+            "english": "Something / Anything"
+        },
+        {
+            "tamil": "எதுவும்",
+            "english": "Nothing (when used with negative) / Everything"
+        },
+        {
+            "tamil": "எப்போ?",
+            "english": "When?"
+        },
+        {
+            "tamil": "எப்போவாவது",
+            "english": "Sometime / Anytime"
+        },
+        {
+            "tamil": "எப்பவும்",
+            "english": "Never (when used with negative) / Always"
+        },
+        {
+            "tamil": "எவ்வளோ?",
+            "english": "How much?"
+        },
+        {
+            "tamil": "எவ்வளவாவது",
+            "english": "Some amount"
+        },
+        {
+            "tamil": "எவ்வளவும்",
+            "english": "Any amount"
+        },
+        {
+            "tamil": "எத்தனை?",
+            "english": "How many?"
+        },
+        {
+            "tamil": "எத்தனையாவது",
+            "english": "Some number of"
+        },
+        {
+            "tamil": "எத்தனையும்",
+            "english": "Any number of"
+        },
+        {
+            "tamil": "கண்டிப்பா",
+            "english": "Definitely / Surely"
+        },
+        {
+            "tamil": "நிச்சயமா",
+            "english": "Certainly"
+        },
+        {
+            "tamil": "சத்தியமா",
+            "english": "I swear / Honestly"
+        },
+        {
+            "tamil": "உண்மையா",
+            "english": "Truthfully / Really"
+        },
+        {
+            "tamil": "பொய்யா?",
+            "english": "A lie? / Lying?"
+        },
+        {
+            "tamil": "பொய் சொல்லாதீங்க",
+            "english": "Don't lie"
+        },
+        {
+            "tamil": "விளையாட்டுக்கு",
+            "english": "For fun / Joking"
+        },
+        {
+            "tamil": "சும்மா",
+            "english": "Just / Simply / Causually"
+        },
+        {
+            "tamil": "சும்மா தான்",
+            "english": "Just because / No real reason"
+        },
+        {
+            "tamil": "இப்போதைக்கு",
+            "english": "For now"
+        },
+        {
+            "tamil": "அப்போதைக்கு",
+            "english": "At that time"
+        },
+        {
+            "tamil": "கொஞ்ச நேரத்துல",
+            "english": "In a little while / Shortly"
+        },
+        {
+            "tamil": "அதுக்குள்ள",
+            "english": "By then / So soon"
+        },
+        {
+            "tamil": "உடனே",
+            "english": "Immediately"
+        },
+        {
+            "tamil": "மெதுவா",
+            "english": "Slowly"
+        },
+        {
+            "tamil": "வேகமா",
+            "english": "Fast / Quickly"
+        },
+        {
+            "tamil": "சுலபமா",
+            "english": "Easily"
+        },
+        {
+            "tamil": "கஷ்டமா",
+            "english": "Hard / Difficult"
+        },
+        {
+            "tamil": "கஷ்டப்பட்டு",
+            "english": "Having struggled / With difficulty"
+        },
+        {
+            "tamil": "இஷ்டப்பட்டு",
+            "english": "Willingly"
+        },
+        {
+            "tamil": "விருப்பமா",
+            "english": "Happily / Willingly"
+        },
+        {
+            "tamil": "சந்தோஷமா",
+            "english": "Happily"
+        },
+        {
+            "tamil": "சோகமா",
+            "english": "Sadly"
+        },
+        {
+            "tamil": "திடீர்னு",
+            "english": "Suddenly"
+        },
+        {
+            "tamil": "ரகசியமா",
+            "english": "Secretly"
+        },
+        {
+            "tamil": "வெளிப்படையா",
+            "english": "Openly / Frankly"
+        },
+        {
+            "tamil": "அமைதியா",
+            "english": "Quietly / Peacefully"
+        },
+        {
+            "tamil": "சத்தமா",
+            "english": "Loudly"
+        },
+        {
+            "tamil": "தனிமையா",
+            "english": "Lonely / Alone"
+        },
+        {
+            "tamil": "தனியா",
+            "english": "Separately / Alone"
+        },
+        {
+            "tamil": "சேர்ந்து",
+            "english": "Together (having joined)"
+        },
+        {
+            "tamil": "ஒன்னா",
+            "english": "Together (as one)"
+        },
+        {
+            "tamil": "அடிக்கடி",
+            "english": "Often / Frequently"
+        },
+        {
+            "tamil": "அபூர்வமா",
+            "english": "Rarely"
+        },
+        {
+            "tamil": "எப்பவாவது",
+            "english": "Sometimes / Once in a while"
+        },
+        {
+            "tamil": "முழுசா",
+            "english": "Completely"
+        },
+        {
+            "tamil": "பாதி",
+            "english": "Half"
+        },
+        {
+            "tamil": "கால்வாசி",
+            "english": "Quarter"
+        },
+        {
+            "tamil": "முக்கால்வாசி",
+            "english": "Three-quarters"
+        },
+        {
+            "tamil": "பெரிசா",
+            "english": "Big / Significantly"
+        },
+        {
+            "tamil": "சின்னதா",
+            "english": "Small"
+        },
+        {
+            "tamil": "அதிகமா",
+            "english": "A lot / Too much"
+        },
+        {
+            "tamil": "கம்மியா",
+            "english": "A little / Less"
+        },
+        {
+            "tamil": "சரியா",
+            "english": "Correctly"
+        },
+        {
+            "tamil": "தப்பா",
+            "english": "Wrongly"
+        },
+        {
+            "tamil": "நேரா",
+            "english": "Straight / Directly"
+        },
+        {
+            "tamil": "சுத்தி",
+            "english": "Around"
+        },
+        {
+            "tamil": "மாத்தி",
+            "english": "Alternatively / Having changed"
+        },
+        {
+            "tamil": "திருப்பி",
+            "english": "Again / Back"
+        },
+        {
+            "tamil": "மறுபடியும்",
+            "english": "Once again / Again"
+        },
+        {
+            "tamil": "இன்னொன்னு",
+            "english": "Another one"
+        },
+        {
+            "tamil": "வேறொன்னு",
+            "english": "A different one"
+        },
+        {
+            "tamil": "கடைசியா",
+            "english": "Lastly / Finally"
+        },
+        {
+            "tamil": "முதல்ல",
+            "english": "Firstly / At first"
+        },
+        {
+            "tamil": "நடுவுல",
+            "english": "In the middle"
+        },
+        {
+            "tamil": "பின்னாடி",
+            "english": "Behind / Later"
+        },
+        {
+            "tamil": "உள்ள",
+            "english": "Inside"
+        },
+        {
+            "tamil": "வெளிய",
+            "english": "Outside"
+        },
+        {
+            "tamil": "மேல",
+            "english": "Up / Above / On top"
+        },
+        {
+            "tamil": "கீழ",
+            "english": "Down / Below / Under"
+        },
+        {
+            "tamil": "பக்கத்துல",
+            "english": "Near / Next to"
+        },
+        {
+            "tamil": "தள்ளி",
+            "english": "Away / Further"
+        },
+        {
+            "tamil": "தூரம்",
+            "english": "Far / Distance"
+        },
+        {
+            "tamil": "சமீபமா",
+            "english": "Recently"
+        },
+        {
+            "tamil": "ரொம்ப நாளா",
+            "english": "For a long time"
+        },
+        {
+            "tamil": "இனிமே",
+            "english": "From now on / Hereafter"
+        },
+        {
+            "tamil": "முன்கூட்டியே",
+            "english": "Beforehand / In advance"
+        },
+        {
+            "tamil": "பதிலா",
+            "english": "Instead of"
+        },
+        {
+            "tamil": "அதுக்கு பதிலா",
+            "english": "Instead of that"
+        },
+        {
+            "tamil": "போல",
+            "english": "Like / Similar to"
+        },
+        {
+            "tamil": "அது போல",
+            "english": "Like that"
+        },
+        {
+            "tamil": "மாதிரி",
+            "english": "Like / Kind of"
+        },
+        {
+            "tamil": "இந்த மாதிரி",
+            "english": "Like this"
+        },
+        {
+            "tamil": "வரைக்கும்",
+            "english": "Until / Up to"
+        },
+        {
+            "tamil": "அது வரைக்கும்",
+            "english": "Until then"
+        },
+        {
+            "tamil": "பொருத்து",
+            "english": "Depending on"
+        },
+        {
+            "tamil": "அதை பொருத்து",
+            "english": "Depending on that"
+        },
+        {
+            "tamil": "பத்தி",
+            "english": "About / Regarding"
+        },
+        {
+            "tamil": "கொண்டு",
+            "english": "With / By means of"
+        },
+        {
+            "tamil": "வச்சு",
+            "english": "Having kept / Using"
+        },
+        {
+            "tamil": "பொறுத்து",
+            "english": "Having endured / Wait"
+        },
+        {
+            "tamil": "எனவே",
+            "english": "Therefore"
+        }
+    ]
+}

@@ -16,5 +16,11 @@
     "tier": 3,
     "description": "The Fluency & Attitude Layer. Verb tenses, attitude particles, movie slang, and debate.",
     "file": "tier_3_embedded.json"
+  },
+  "4": {
+    "title": "Synthesis",
+    "tier": 4,
+    "description": "The Nuance Layer. Ability, obligation, sequential actions, and complex connectors.",
+    "file": "tier_4_synthesis.json"
   }
 }

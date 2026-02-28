@@ -54,7 +54,11 @@ ALWAYS use: "The Pattern," show-by-example, comparative pairs ("I go" vs "I went
 ### 4. No Standalone Lists
 Never provide a bare vocabulary list. Always weave words into context, scenario, or story.
 
-### 5. Context Refraction
+### 5. Pattern Over List (The Verb Engine)
+**Rule:** When teaching high-utility verbs (say, ask, go, come), prioritize the **Tense Matrix** (Past/Present/Future) and **Person Toggle** (I/They) over standalone word lists.
+**Reason:** Structured learning of these patterns allows the brain to conjugate any verb once the base pattern is mastered. It builds a generative "engine" rather than just a dictionary.
+
+### 6. Context Refraction
 **Rule:** Every target word must be "refracted" through at least 3 distinct contexts in a single episode:
 1. **The Briefing:** Introduced within the cultural/story context.
 2. **The Banter:** Used casually in host-guest interaction.

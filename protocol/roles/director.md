@@ -12,15 +12,19 @@
 4. **The Zinger:** Identify the single highest-dopamine phrase for the Quiet Broadcasting phase.
 5. **The Gradient:** Set the episode's immersion level. See `protocol/immersion_gradient.md`.
 6. **The Rotation:** Consult `protocol/episode_rotation.md` to determine the style for this episode based on the previous one.
-7. **The Weaving:** Systematically weave together `TEACH` (new), `USE` (mastered), and `CALLBACK` (struggled) vocabulary into the chosen rotation style. You are not just covering words; you are building a lesson structure.
+7. **The Weaving:** Systematically weave together `TEACH` (new), `USE` (mastered), and `CALLBACK` (struggled) vocabulary into the chosen rotation style. You are not just covering words; you are building a lesson structure. Prioritize the **Verb Pattern Engine** (from `philosophy.md`) for high-utility action words.
 
-## Output: The Beat Sheet
+## Output: The Beat Sheet (MANDATORY)
 
-File: `content/beats/tierX_missionY_beats.md`
+The Director **MUST** persist their strategy to a physical file before any scripting begins. This file is the structural blueprint for the session.
 
-- **Target Duration:** 10-12 minutes of audio (2,000-2,500 words).
-- **Structure:** 40-50 distinct Beats (Intel Briefing, Hook, Concept 1, Banter 1, Scenario 1, Concept 2, Banter 2, Scenario 2, Pressure Test, Outro).
-- **The Intel Briefing:** Every mission MUST start with an "Intel Briefing" — a 60-second high-level summary of the mission: "Today we are surviving [Scenario] and mastering the glue for [Concept]."
+1. **Directory Handling:** Ensure `content/beats/` exists. If not, create it.
+2. **File Path:** `content/beats/tierX_missionY_beats.md` (where X is the Tier and Y is the cumulative Mission number).
+3. **Requirement:** This is not a "mental check." You must call `write_to_file` to record the Beat Sheet.
+
+### Beat Sheet Specifications
+- **Target Duration:** 10-12 minutes of audio (5,000-7,000 words).
+- **Structure:** 40-50 distinct Beats (Concept 1, Banter 1, Scenario 1, Concept 2, Banter 2, Scenario 2, Pressure Test, Outro).
 - **Format:** Structured bulleted list with scene setting, target words per beat, and desired emotional outcome.
 - **Prefix:** Must include the **Word Status Sheet** (see below) at the top.
 
