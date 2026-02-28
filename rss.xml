@@ -21,6 +21,16 @@
     <itunes:new-feed-url>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/rss.xml</itunes:new-feed-url>
     
     <item>
+      <title>Ep 12 — The Pattern Engine</title>
+      <itunes:author>Andrew R &amp; Gemini</itunes:author>
+      <itunes:summary>Ep 12 — The Pattern Engine</itunes:summary>
+      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission12.mp3" length="1344336" type="audio/mpeg"/>
+      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission12.mp3</guid>
+      <pubDate>Sat, 28 Feb 2026 13:03:45 -0500</pubDate>
+      <itunes:duration>00:03:44</itunes:duration>
+    </item>
+
+    <item>
       <title>Ep 11 — Reported Speech</title>
       <itunes:author>Andrew R &amp; Gemini</itunes:author>
       <itunes:summary>Ep 11 — Reported Speech</itunes:summary>
