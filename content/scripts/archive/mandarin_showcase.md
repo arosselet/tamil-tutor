@@ -4,90 +4,50 @@
 
 **Guest:** The Mandarin build.
 
-**Host:** Yes. We’ve swapped the engine to demonstrate the core architecture.
+**Host:** Exactly. We swapped the engine to demonstrate the core architecture.
 
-**Guest:** I’ve been looking at the repo. It’s wild. The core learning loop—the Director, the Producer—is all just English Markdown files.
+**Guest:** Looking at the repo, it's pretty elegant. The core learning loop—the Director, the Architect, the Producer—these are all driven by English instructional files. 
 
-**Host:** That’s the "Code Paradox." The logic is English text, and there are just a couple of Python scripts to synthesize the audio.
+**Host:** We call it the "Code Paradox." The logic that steers your learning is just English text, running on a couple of Python scripts to synthesize the audio. 
 
-**Guest:** So the instructions are English, but the output is a pure Mandarin reflex?
+**Guest:** So the instructions are English, but the output is a pure Mandarin instinct?
 
-**Guest:** How does it know not to sound like a robot?
+**Host:** Right. And it's not trying to teach you Shakespeare. The entire design principle is about *operational capacity* over fluency.
 
-**Host:** That’s the power of delegation. We use sub-agents.
+**Guest:** Give me an example.
 
-**Guest:** Sub-agents?
+**Host:** We ignore the academic, literary language. The goal is navigating a taxi ride, surviving dinner with your in-laws, handling a phone call. We focus almost entirely on "glue" over vocabulary.
 
-**Host:** See, if the "Lesson Writer" had to worry about slang and TTS quirks, it would get bogged down. So we unencumber it. The "Director" focuses purely on the teaching logic.
+**Guest:** Glue?
 
-**Guest:** And the "Producer" handles the vibe?
+**Host:** Verbs, connectors, pronouns, particles. There’s an 800-lemma theory we’ve codified. If you know those 800 high-frequency words, you have 80% of spoken connectivity. You can stick any English noun into the sentence and be understood.
 
-**Host:** Exactly. The Producer is a specialist. Its only job is to take that lesson and translate it for the specific voice. To ensure `随便` sounds like a shrug, not a dictionary entry.
+**Guest:** So how does the system actually teach that? 
 
-**Guest:** Show me the difference.
+**Host:** It’s all about audio-first production. Let's say you're doing the dishes. You're not sitting down with a textbook. The "Director" agent looks at your progress, pulls vocabulary from your current Tier, and writes a Beat Sheet. 
 
-**Host:** Okay. Practical example. "Attitude." A textbook teaches you formal agreement. This system teaches you *flow*. Like "Whatever." "Up to you."
+**Guest:** And these Tiers are...
 
-**Guest:** 随便.
+**Host:** A unified curriculum. Tier 1 is Survival. Basic existence, 是 (shì), 不是 (bù shì), respect toggles. Tier 2 is Comfort—domestic defense, the kitchen. Our system checks where you are and decides the *style* of the lesson.
 
-**Host:** 随便. "Sui bian." You need a dedicated agent to prioritize that feeling over the raw text.
+**Guest:** Style? 
 
-**Guest:** 随便.
+**Host:** 对 (duì). Maybe today you get a Narrative lesson. Or a Drill. Or a Deep-Dive into cultural nuance. We even have Speed-Dating and Remix styles to keep you from falling into an infinite loop of rote memorization.
 
-**Host:** And you do this... where?
+**Guest:** And it sounds this natural? 
 
-**Guest:** At the kitchen sink.
+**Host:** That’s the Producer agent's job. It scrubs the text to ensure the synthesized voices hit the right colloquial cadence. The pacing, the breathing... it makes it easy to listen to. The hard part of language learning isn't the grammar; it's the motivation. 
 
-**Host:** (Laughs) Serious?
+**Guest:** You're saying convenience wins.
 
-**Host:** Deadly serious. I’m washing dishes, scrubbing a pan, and I’m building my "Reflex Deck."
+**Host:** Always. Instead of trying to climb a mountain all at once, you just pick up four stones a day. You do it while walking the dog. 慢慢来 (màn màn lái). It compounds. 
 
-**Guest:** But what are you actually learning? Random words?
+**Guest:** Words you've learned stop being taught, and start being used.
 
-**Host:** No. The roadmap is battle-tested. It’s the same "Tamil2" (Coimbatore Mappillai) curriculum, just ported.
+**Host:** 没错 (méi cuò). No guilt, no makeup work. If it's not sticking, you tell the system, and it shifts gears. No friction. You just press play. 
 
-**Guest:** So Level 1 is...
+**Guest:** 好的 (hǎo de).
 
-**Host:** "The Social Scaffold." Existence. Yes, No, Respect. Then Level 2 is "Domestic Defense."
+**Host:** 谢谢 (xiè xie).
 
-**Guest:** Domestic Defense?
-
-**Host:** Surviving the in-laws' kitchen. How to say "Enough" before you get trapped in the "Infinite Dumpling Loop."
-
-**Guest:** (Laughs) That’s a real threat.
-
-**Host:** Then Level 3 is "Urban Survival." Taxi commands. Numbers. How to argue with a vendor. It’s not academic; it’s tactical.
-
-**Guest:** It tracks you?
-
-**Host:** It tracks everything in `learner.json`. But the "On-Demand Tutor" isn't just a playlist. It's a conversation.
-
-**Guest:** So I can ask it questions?
-
-**Host:** Anything. "Why is it `不用`?" "How do I say this to my boss?" It knows your progress, it knows the curriculum, and it clarifies the nuance instantly.
-
-**Guest:** That’s powerful. And where does this lead? Fluency?
-
-**Host:** Eventually. But the immediate goal is 800 Lemmas.
-
-**Guest:** What’s a Lemma?
-
-**Host:** It’s a root concept. A language has 50,000 words, but you only need a few hundred "Lemmas" to actually connect with people.
-
-**Guest:** So instead of climbing a mountain...
-
-**Host:** You just pick up three pebbles a day. It compounds. The hard part isn't the learning; it's the motivation. This system makes it so easy that you actually *look forward* to doing the dishes.
-
-**Guest:** So how do I start? Do I need to configure a server?
-
-**Host:** No friction. You just press play. You listen. You repeat.
-
-**Guest:** That’s it?
-
-**Host:** That’s the protocol.
-
-**Guest:** 好的.
-
-**Host:** 谢谢.
-
-**Guest:** 再见.
+**Guest:** 再见 (zài jiàn).

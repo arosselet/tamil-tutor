@@ -3,12 +3,8 @@
     "current_tier": 2,
     "active_mission": {
         "tier": 2,
-        "topic": "The Pattern Engine: Verb Tenses (Say & Ask)",
+        "topic": "The Stream: Say & Ask (Low Energy Remix)",
         "target_vocab": [
-            {
-                "tamil": "சொன்னேன்",
-                "english": "I said"
-            },
             {
                 "tamil": "சொல்றேன்",
                 "english": "I'm saying"
@@ -48,9 +44,9 @@
             "label": "Embedded"
         }
     },
-    "total_sessions": 11,
+    "total_sessions": 12,
     "streak": {
-        "current": 0,
+        "current": 1,
         "best": 7,
         "last_date": "2026-02-28"
     },
@@ -61,7 +57,12 @@
         "பார்த்தேன்",
         "முதல்ல",
         "முன்னாடி",
-        "மேல"
+        "மேல",
+        "சொல்றேன்",
+        "சொல்லுவேன்",
+        "கேட்டேன்",
+        "கேக்குறேன்",
+        "கேட்பேன்"
     ],
     "mastered_words": [
         "வலது",
@@ -128,7 +129,9 @@
         "உப்பு",
         "எனக்கு",
         "நூறு",
-        "குடிச்சேன்"
+        "குடிச்சேன்",
+        "சொன்னாங்க",
+        "கேட்டாங்க"
     ],
     "comfortable_words": [
         "அங்க",
@@ -148,7 +151,8 @@
         "நிறைய",
         "நேரம் ஆச்சு",
         "பரவாயில்லை",
-        "வெளிய"
+        "வெளிய",
+        "சொன்னேன்"
     ],
     "sessions": [
         {
@@ -207,6 +211,24 @@
             ],
             "zinger": "அப்படீங்களா?",
             "notes": "Reported Speech intro."
+        },
+        {
+            "date": "2026-02-28",
+            "energy": "MEDIUM",
+            "struggled": [
+                "சொல்றேன்",
+                "சொல்லுவேன்",
+                "கேட்டேன்",
+                "கேக்குறேன்",
+                "கேட்பேன்"
+            ],
+            "comfortable": [
+                "சொன்னேன்"
+            ],
+            "zinger": "சொன்னேன் இல்ல?",
+            "notes": "Mission 12. The Wedding Relay. Say & Ask Matrix.",
+            "tier": 2,
+            "mission": 12
         }
     ]
 }
