@@ -21,6 +21,16 @@
     <itunes:new-feed-url>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/rss.xml</itunes:new-feed-url>
     
     <item>
+      <title>Ep 13 — The Stream</title>
+      <itunes:author>Andrew R &amp; Gemini</itunes:author>
+      <itunes:summary>Ep 13 — The Stream</itunes:summary>
+      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission13.mp3" length="2078448" type="audio/mpeg"/>
+      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission13.mp3</guid>
+      <pubDate>Sat, 28 Feb 2026 21:28:33 -0500</pubDate>
+      <itunes:duration>00:05:46</itunes:duration>
+    </item>
+
+    <item>
       <title>Ep 12 — The Pattern Engine</title>
       <itunes:author>Andrew R &amp; Gemini</itunes:author>
       <itunes:summary>Ep 12 — The Pattern Engine</itunes:summary>
