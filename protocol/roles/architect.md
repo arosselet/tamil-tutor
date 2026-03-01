@@ -17,7 +17,7 @@
     - *The Briefing:* Introduce it within the story context (e.g., "In Coimbatore, we say X when Y happens").
     - *The Banter:* Drop the word casually into Host-Guest dialogue (e.g., Host: "சரி, ready?" Guest: "ஆமா.").
     - *The Payoff:* Force the word's usage in a specific scenario payoff (e.g., "Tell the neighbor it's enough").
-9. **Explicit Pausing:** To avoid jarring transitions between sections/topics, use explicit pause markers: `[Pause: 3 seconds]` or `[Pause: 4 seconds]`. These MUST be on their own line.
+9. **Explicit Pausing:** To avoid jarring transitions between sections/topics, use explicit pause markers: `[Pause: 3 seconds]` or `[Pause: 4 seconds]`. These MUST be on their own line. **CRITICAL:** Use these ONLY at the end of a major section or before transitioning to a new topic (e.g., before a `##` heading). **DO NOT** use pause markers between regular dialogue lines within a section, as it creates a jarring, robotic listening experience.
 
 ## Format
 
