@@ -1,27 +1,24 @@
 # The Master Learning Loop
 
-## Philosophy: Podcast First
-The default mode of learning is **Audio-On-The-Go**. We prioritize generating high-quality, listenable podcasts over text-based chat sessions. Interactive sessions are powerful but are treated as **Opt-In**.
+## Philosophy: Intelligence First
+The default mode of learning is **Auditory Signal Processing**. We prioritize high-throughput exposure via raw "Intercepts" followed by structured "Analytic Breakdowns."
 
-## The Energy Protocol (The Signal)
-When the learner states their energy level, it dictates the **Audio Style**, not an interactive chat mode.
+## The Intel Strategy (The Signal)
+Learning is treated as a decoding exercise. We decouple massive exposure from focused instruction.
 
-| Signal | Meaning | Audio Style |
+| Track | Content | Purpose |
 |---|---|---|
-| **"High Energy"** | Ready to sweat. | **The Drill / The Boss Fight.** Rapid-fire, high-rep, intense focus. |
-| **"Medium Energy"** | Commuting/Chore mode. | **The Narrative / The Cultural Deep-Dive.** Strong story, steady pacing, immersive. |
-| **"Low Energy"** | Just want to listen. | **The Stream / The Remix.** Passive listening, music-heavy, low cognitive load. |
-
-*Unless the learner explicitly says "Let's do a chat lesson" or "Interactive mode", assume they want an audio file generated.*
+| **A: The Intercept** | 1-2 mins of pure Tamil/Thanglish dialogue. | **Discovery.** Massive phonetic exposure. High-context "Encrypted" signal. |
+| **B: The Breakdown** | 10-12 min English/Tamil analysis. | **Decryption.** Isolate 8-12 semantic "Keys" (lemmas) and explain the mission logic. |
 
 ## The 5-Phase Cycle
 
 ```
-Phase 1: Debrief    → Review mastery and decide next mission.
-Phase 2: Production    → Generate the Audio Podcast (The Default Deliverable).
-Phase 3: Passive       → Learner listens during dead time (The Primary Workout).
-Phase 4: Broadcasting  → Quiet muttering at physical thresholds.
-Phase 5: Interactive   → (OPTIONAL) Active text-based roleplay only if requested.
+Phase 1: Debrief    → Review mastery and update RPG world state (Location/Inventory).
+Phase 2: Production    → Generate the Intercept and the Breakdown scripts/audio.
+Phase 3: Discovery     → Learner loops the Intercept (The Passive Workout).
+Phase 4: Decryption    → Learner listens to the Breakdown (The Analytical Workout).
+Phase 5: Interactive   → (OPTIONAL) Active roleplay or "Field Test" via CLI.
 ```
 
 ---
@@ -29,34 +26,30 @@ Phase 5: Interactive   → (OPTIONAL) Active text-based roleplay only if request
 ## Phase 1: The Debrief (Entry Point)
 - **Trigger:** Start of any new `@tutor` session.
 - **Action:** 
-  - Conduct a comprehensive retrospective of the *last* mission.
-  - Ask for the **Energy Signal** for the *next* mission.
-  - Update `progress/learner.json` based on feedback.
+  - Review the last mission's vocabulary.
+  - Update `current_location`, `inventory`, and `status_clues` in `learner.json`.
+  - Decide the next narrative objective.
 
 ## Phase 2: Production (The Default)
-- **Trigger:** Energy Signal received.
 - **Action:** 
   1. Update `active_mission` in `learner.json`.
-  2. **Generate Script:** Director (Beats) → Architect (Script) → Producer (Polished Markdown).
-  3. **Generate Audio:** Run `python scripts/render_audio.py content/scripts/tierX_missionY.md audio/tierX_missionY.mp3`
-  4. **Deliver:** Provide the audio file path and a brief summary.
+  2. **Generate Scripts:** Director (Briefing) → Architect (Intercept + Breakdown) → Producer (Casting).
+  3. **Generate Audio:** Render both the Intercept and the Breakdown MP3s.
+  4. **Deliver:** Provide audio paths and the "Mission Briefing" summary.
 
-## Phase 3: The Passive Workout (The Core)
-- **Context:** Asynchronous (commute, chores, walking).
-- **Action:** Learner listens to the generated podcast.
-- **Technique:** Internal Shadowing (muttering along).
+## Phase 3: Discovery (Passive Exposure)
+- **Context:** Commute, chores, walking.
+- **Action:** Learner loops the **Intercept** audio. 
+- **Goal:** Try to catch known words and "feel" the meaning of the unknown ones before the breakdown.
 
-## Phase 4: Quiet Broadcasting
-- **Action:** Pick the day's **Zinger** from the podcast.
-- **Technique:** Mutter it 3 times at physical thresholds.
+## Phase 4: Decryption (Analytical Listening)
+- **Action:** Learner listens to the **Analytic Breakdown** podcast.
+- **Goal:** Match the analysis back to the Intercept audio. Deepen the semantic connection.
 
 ## Phase 5: The Interactive Session (Opt-In)
-- **Trigger:** Explicit request: "Let's roleplay" or "Quiz me".
+- **Trigger:** Explicit request: "Field Test" or "Interview an informant".
 - **Action:**
-  - **The Intel Briefing:** Scene setting.
-  - **The Refraction Loop:** Banter and usage.
-  - **The Simulation:** Text-based roleplay.
-  - **Boss Fight:** High-stakes scenario.
+  - CLI-based narrative progression using the decoded vocabulary.
 
 ---
 

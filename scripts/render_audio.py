@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate dual-voice Tamil podcast audio from a markdown script.
+Generate multi-voice Tamil podcast audio from a markdown script.
 
 Usage:
     python scripts/render_audio.py <input_script.md> <output.mp3>
@@ -8,8 +8,9 @@ Usage:
 Example:
     python scripts/render_audio.py content/scripts/tier1_mission1.md audio/tier1_mission1.mp3
 
-Reads **Host:** and **Guest:** lines from the script, generates TTS audio
-segments using edge-tts, and stitches them into a single MP3.
+Reads dialogues prefixed with **Speaker Name:**, generates TTS audio
+segments using edge-tts or Google Chirp, and stitches them into a single MP3.
+Supports a # Voice Map block in markdown comments for explicit voice assignment.
 """
 
 import re
@@ -17,6 +18,7 @@ import os
 import asyncio
 import argparse
 import random
+import json
 import subprocess
 
 import edge_tts
@@ -27,26 +29,22 @@ except ImportError:
     HAS_GOOGLE = False
 
 # Voice pools — Indian Tamil
-# Each run randomly assigns voices to Host/Guest for variety.
+# Expanded Chirp pool with 30+ voices
+_CHIRP_POOL = [
+    "ta-IN-Chirp3-HD-Achernar", "ta-IN-Chirp3-HD-Achird", "ta-IN-Chirp3-HD-Algenib",
+    "ta-IN-Chirp3-HD-Algieba", "ta-IN-Chirp3-HD-Alnilam", "ta-IN-Chirp3-HD-Aoede",
+    "ta-IN-Chirp3-HD-Autonoe", "ta-IN-Chirp3-HD-Callirrhoe", "ta-IN-Chirp3-HD-Charon",
+    "ta-IN-Chirp3-HD-Despina", "ta-IN-Chirp3-HD-Enceladus", "ta-IN-Chirp3-HD-Erinome",
+    "ta-IN-Chirp3-HD-Fenrir", "ta-IN-Chirp3-HD-Gacrux", "ta-IN-Chirp3-HD-Iapetus",
+    "ta-IN-Chirp3-HD-Kore", "ta-IN-Chirp3-HD-Laomedeia", "ta-IN-Chirp3-HD-Leda",
+    "ta-IN-Chirp3-HD-Orus", "ta-IN-Chirp3-HD-Puck", "ta-IN-Chirp3-HD-Pulcherrima",
+    "ta-IN-Chirp3-HD-Rasalgethi", "ta-IN-Chirp3-HD-Sadachbia", "ta-IN-Chirp3-HD-Sadaltager",
+    "ta-IN-Chirp3-HD-Schedar", "ta-IN-Chirp3-HD-Sulafat", "ta-IN-Chirp3-HD-Umbriel",
+    "ta-IN-Chirp3-HD-Vindemiatrix", "ta-IN-Chirp3-HD-Zephyr", "ta-IN-Chirp3-HD-Zubenelgenubi"
+]
+
+_WAVENET_POOL = ["ta-IN-Wavenet-A", "ta-IN-Wavenet-B", "ta-IN-Wavenet-C", "ta-IN-Wavenet-D"]
 _EDGE_POOL = ["ta-IN-PallaviNeural", "ta-IN-ValluvarNeural"]
-_GOOGLE_POOL = {
-    "CHIRP": ["ta-IN-Chirp3-HD-Achernar", "ta-IN-Chirp3-HD-Charon"],
-    "WAVENET": ["ta-IN-Wavenet-A", "ta-IN-Wavenet-B"],
-}
-
-def _randomize_voices():
-    """Randomly assign voices to Host and Guest for this run."""
-    edge = random.sample(_EDGE_POOL, 2)
-    edge_voices = {"HOST": edge[0], "GUEST": edge[1]}
-
-    google_voices = {}
-    for tier, pool in _GOOGLE_POOL.items():
-        pair = random.sample(pool, 2)
-        google_voices[tier] = {"HOST": pair[0], "GUEST": pair[1]}
-
-    return edge_voices, google_voices
-
-EDGE_VOICES, GOOGLE_VOICES = _randomize_voices()
 
 # Voice tuning for distinctiveness (Edge only)
 EDGE_VOICE_OPTS = {
@@ -54,18 +52,29 @@ EDGE_VOICE_OPTS = {
     "ta-IN-ValluvarNeural": {"rate": "+0%", "pitch": "-5Hz"},
 }
 
-# Regex: matches "**Host:** text", "**Guest:** text", etc.
+# Regex: matches "**Speaker:** text"
 SPEAKER_RE = re.compile(
-    r"^\s*(?:\*\s*)?\*\*\s*([A-Za-z]+)\s*:\s*(?:\*\*\s*)?(.*)", re.IGNORECASE
+    r"^\s*(?:\*\s*)?\*\*\s*([^:]+)\s*:\s*(?:\*\*\s*)?(.*)", re.IGNORECASE
 )
 PAUSE_RE = re.compile(r"\[Pause:\s*(\d+)\s*sec.*\]", re.IGNORECASE)
+VOICE_MAP_RE = re.compile(r"Voice Map\s*:\s*(\{.*?\})", re.DOTALL | re.IGNORECASE)
 
-
-def parse_script(file_path: str) -> list[dict]:
-    """Parse a markdown script for Host/Guest dialogue lines and Pauses."""
+def parse_script(file_path: str) -> tuple[list[dict], dict]:
+    """Parse a markdown script for dialogue lines, pauses, and voice mapping."""
     with open(file_path, "r", encoding="utf-8") as f:
-        lines = f.readlines()
+        content = f.read()
 
+    # Extract Voice Map from comments if present
+    voice_map = {}
+    map_match = VOICE_MAP_RE.search(content)
+    if map_match:
+        try:
+            voice_map = json.loads(map_match.group(1))
+            print(f"✅ Found explicit Voice Map: {voice_map}")
+        except json.JSONDecodeError:
+            print("⚠️ Warning: Failed to parse Voice Map JSON.")
+
+    lines = content.splitlines()
     dialogue = []
     for line in lines:
         line = line.strip()
@@ -84,14 +93,8 @@ def parse_script(file_path: str) -> list[dict]:
 
         match = SPEAKER_RE.match(line)
         if match:
-            speaker = match.group(1).upper()
+            speaker = match.group(1).strip().upper()
             text = match.group(2).strip()
-
-            # Normalize speaker labels
-            if "HOST" in speaker:
-                speaker = "HOST"
-            elif "GUEST" in speaker:
-                speaker = "GUEST"
 
             if text:
                 dialogue.append({"speaker": speaker, "text": text})
@@ -107,226 +110,164 @@ def parse_script(file_path: str) -> list[dict]:
         else:
             final_dialogue.append(item)
 
-    return final_dialogue
+    return final_dialogue, voice_map
 
 
 def clean_for_tts(text: str) -> str:
-    """
-    Clean text for TTS consumption.
-    - Strip parenthetical guides: "வணக்கம் (Vanakkam)" → "வணக்கம்"
-    - Strip periods (to prevent "hoo" sound in some TTS voices)
-    - Phonetic replacements for common tech terms
-    - Collapse whitespace
-    - Remove stray markdown
-    """
-    # Strip parenthetical English guides
+    """Clean text for TTS consumption."""
     text = re.sub(r"\s*\(.*?\)\s*", " ", text)
-    
-    # Phonetic replacements for better TTS
-    replacements = {
-        "JSON": "jay-son",
-        "CLI": "C-L-I",
-    }
+    replacements = {"JSON": "jay-son", "CLI": "C-L-I"}
     for word, phonetic in replacements.items():
-        # Match word with boundaries to avoid partial replacement (e.g., "CLIENT")
         text = re.sub(rf"\b{word}\b", phonetic, text, flags=re.IGNORECASE)
-
-    # Remove periods
     text = text.replace(".", "")
-    # Remove markdown formatting
     text = re.sub(r"[*_#`]", "", text)
-    # Collapse whitespace
     text = re.sub(r"\s+", " ", text).strip()
     return text
 
 
-async def generate_segment_edge(text: str, speaker: str, index: int, temp_dir: str) -> str:
+async def generate_segment_edge(text: str, voice: str, index: int, temp_dir: str) -> str:
     """Generate a single audio segment using edge-tts."""
-    voice = EDGE_VOICES.get(speaker, EDGE_VOICES["HOST"])
     opts = EDGE_VOICE_OPTS.get(voice, {"rate": "+0%", "pitch": "+0Hz"})
-
     communicate = edge_tts.Communicate(text, voice, rate=opts["rate"], pitch=opts["pitch"])
-
     filename = os.path.join(temp_dir, f"segment_{index:04d}.mp3")
     await communicate.save(filename)
     return filename
 
 
-async def generate_segment_google(text: str, speaker: str, index: int, temp_dir: str, voice_type: str) -> str:
+async def generate_segment_google(text: str, voice: str, index: int, temp_dir: str) -> str:
     """Generate a single audio segment using Google Cloud TTS."""
     client = texttospeech.TextToSpeechClient()
-
-    # Select the voice based on type and speaker
-    tier = GOOGLE_VOICES.get(voice_type.upper(), GOOGLE_VOICES["CHIRP"])
-    voice_name = tier.get(speaker, tier["HOST"])
-
     input_text = texttospeech.SynthesisInput(text=text)
-
-    voice = texttospeech.VoiceSelectionParams(
-        language_code="ta-IN",
-        name=voice_name
-    )
-
-    # We want MP3 output to match the stitching logic.
-    # We specify 24000Hz to match our SILENCE_FRAME and stitching assumptions.
-    audio_config = texttospeech.AudioConfig(
-        audio_encoding=texttospeech.AudioEncoding.MP3,
-        sample_rate_hertz=24000
-    )
-
-    response = client.synthesize_speech(
-        input=input_text, voice=voice, audio_config=audio_config
-    )
-
+    voice_params = texttospeech.VoiceSelectionParams(language_code="ta-IN", name=voice)
+    audio_config = texttospeech.AudioConfig(audio_encoding=texttospeech.AudioEncoding.MP3, sample_rate_hertz=24000)
+    response = client.synthesize_speech(input=input_text, voice=voice_params, audio_config=audio_config)
     filename = os.path.join(temp_dir, f"segment_{index:04d}.mp3")
     with open(filename, "wb") as out:
         out.write(response.audio_content)
-
     return filename
 
 
 def get_raw_mp3_frames(filepath: str) -> bytes:
-    """Extract raw MPEG audio chunk, stripping wrapper ID3 and Xing/Info headers."""
+    """Extract raw MPEG audio chunk."""
     with open(filepath, "rb") as f:
         data = f.read()
-
     offset = 0
     if data.startswith(b"ID3"):
-        # The size is stored in bytes 6, 7, 8, 9 as 7-bit synchsafe integers
         size = (data[6] << 21) | (data[7] << 14) | (data[8] << 7) | data[9]
         offset = 10 + size
-
-    # check if the first byte after ID3 is a sync word
     if offset < len(data) - 1 and data[offset] == 0xFF and (data[offset+1] & 0xE0) == 0xE0:
         padding = (data[offset+2] & 0x02) >> 1
         frame_len = 144 + padding
-        
-        # Check for Xing/Info in this first frame
         frame_data = data[offset:offset+frame_len]
         if b"Xing" in frame_data or b"Info" in frame_data:
             offset += frame_len
-
     end_offset = len(data)
     if end_offset >= 128 and data[-128:].startswith(b"TAG"):
         end_offset -= 128
-
     return data[offset:end_offset]
 
-# A single valid MPEG-2 L3 raw frame of silence (24000Hz, 48kbps, Mono).
-# Generated via edge-tts with <break time="1000ms"/> and extracted frame 5.
+
 import base64
 SILENCE_FRAME_B64 = "//NkxJoiPA4Vgc1AAVXPcXO05CbzflKqdX8LXO/PQy7v6mbnkYz3BsVdxH7xI1psbFEYzt6Fxl0w17Szht3EmOWRKhJANxpojDXhk+E+3qNp+0+oomHuYca0xPxKUOihtdfcvPB+yzd2o2Sbh5zuLHVDDK9juB8rHhbq9lYT0XEdvYWKCGEeTvz8YP2XWipB"
 SILENCE_FRAME = base64.b64decode(SILENCE_FRAME_B64)
 
+def assign_voices(dialogue, voice_map, provider, voice_type):
+    """Assign voices to speakers, respecting the explicit map and pooling for new ones."""
+    speakers = set(d["speaker"] for d in dialogue if d["speaker"] != "PAUSE")
+    
+    assigned = {}
+    
+    # 1. Respect explicit map
+    for speaker, voice in voice_map.items():
+        assigned[speaker.upper()] = voice
+
+    # 2. Assign pool for missing speakers
+    if provider == "google":
+        pool = _CHIRP_POOL if voice_type == "chirp" else _WAVENET_POOL
+    else:
+        pool = _EDGE_POOL
+
+    available = [v for v in pool if v not in assigned.values()]
+    if not available:
+        available = pool # Reuse pool if exhausted
+
+    random.shuffle(available)
+    
+    for s in sorted(list(speakers)):
+        if s not in assigned:
+            assigned[s] = available.pop() if available else random.choice(pool)
+
+    return assigned
+
 async def main():
-    parser = argparse.ArgumentParser(description="Generate Dual-Voice Tamil Podcast Audio")
+    parser = argparse.ArgumentParser(description="Generate Multi-Voice Tamil Podcast Audio")
     parser.add_argument("input_file", help="Input markdown script")
     parser.add_argument("output_file", help="Output MP3 file")
     parser.add_argument("--provider", choices=["edge", "google"], default="google", help="TTS provider (default: google)")
-    parser.add_argument("--voice-type", choices=["chirp", "wavenet"], default="chirp", 
-                        help="Google voice tier (default: chirp)")
+    parser.add_argument("--voice-type", choices=["chirp", "wavenet"], default="chirp", help="Google voice tier (default: chirp)")
     args = parser.parse_args()
 
     print(f"📖 Parsing {args.input_file}...")
-    dialogue = parse_script(args.input_file)
+    dialogue, voice_map = parse_script(args.input_file)
     if not dialogue:
         print("❌ No dialogue lines found!")
         return
 
-    print(f"   Found {len(dialogue)} segments.")
-    print(f"   Provider: {args.provider}")
-    if args.provider == "google":
-        print(f"   Tier: {args.voice_type}")
-        tier_voices = GOOGLE_VOICES.get(args.voice_type.upper(), GOOGLE_VOICES["CHIRP"])
-        print(f"   🎲 Voice Roll: Host={tier_voices['HOST']}, Guest={tier_voices['GUEST']}")
-    else:
-        print(f"   🎲 Voice Roll: Host={EDGE_VOICES['HOST']}, Guest={EDGE_VOICES['GUEST']}")
+    speaker_assignments = assign_voices(dialogue, voice_map, args.provider, args.voice_type)
+    print(f"🎭 Cast Assignments:")
+    for s, v in speaker_assignments.items():
+        print(f"   - {s}: {v}")
 
     temp_dir = "temp_audio_segments"
     os.makedirs(temp_dir, exist_ok=True)
+    os.makedirs(os.path.dirname(args.output_file) or ".", exist_ok=True)
 
-    output_dir = os.path.dirname(args.output_file)
-    if output_dir:
-        os.makedirs(output_dir, exist_ok=True)
-
-    print("🎙️  Generating audio segments...")
-
-    # We will build the final MP3 purely in memory directly from frames.
+    print("🎙️ Generating audio segments...")
     final_audio_data = bytearray()
 
     for i, line in enumerate(dialogue):
         speaker = line["speaker"]
-
         if speaker == "PAUSE":
             seconds = line.get("seconds", 1)
-            print(f"   [{i+1}/{len(dialogue)}] ⏸️  Pause for {seconds} seconds")
-            # 1 second = 1000ms / 24ms per frame = ~42 frames
-            frames_needed = int(seconds * 41.666)
-            final_audio_data.extend(SILENCE_FRAME * frames_needed)
+            final_audio_data.extend(SILENCE_FRAME * int(seconds * 41.666))
             continue
 
+        voice = speaker_assignments.get(speaker)
         clean_text = clean_for_tts(line["text"])
+        if not clean_text: continue
 
-        if not clean_text:
-            continue
-
-        preview = clean_text[:40] + ("..." if len(clean_text) > 40 else "")
-        print(f"   [{i+1}/{len(dialogue)}] {speaker}: {preview}")
+        print(f"   [{i+1}/{len(dialogue)}] {speaker} ({voice}): {clean_text[:40]}...")
 
         if args.provider == "google":
-            seg_file = await generate_segment_google(clean_text, speaker, i, temp_dir, args.voice_type)
+            seg_file = await generate_segment_google(clean_text, voice, i, temp_dir)
         else:
-            seg_file = await generate_segment_edge(clean_text, speaker, i, temp_dir)
+            seg_file = await generate_segment_edge(clean_text, voice, i, temp_dir)
 
-        raw_frames = get_raw_mp3_frames(seg_file)
-        final_audio_data.extend(raw_frames)
-        
-        # Add a tiny 250ms natural breathing pause between spoken lines
-        final_audio_data.extend(SILENCE_FRAME * 10)
-        
+        final_audio_data.extend(get_raw_mp3_frames(seg_file))
+        final_audio_data.extend(SILENCE_FRAME * 10) # 250ms breath
         os.remove(seg_file)
 
-    # Save to original audio folder (private)
-    audio_path = os.path.join("audio", os.path.basename(args.output_file))
-    print(f"🔗 Saving private audio → {audio_path}...")
-    with open(audio_path, "wb") as outfile:
-        outfile.write(final_audio_data)
-
-    # Save to published_audio folder (public)
-    pub_path = os.path.join("published_audio", os.path.basename(args.output_file))
-    print(f"🔗 Saving public audio → {pub_path}...")
-    with open(pub_path, "wb") as outfile:
-        outfile.write(final_audio_data)
+    # Save outputs
+    for folder in ["audio", "published_audio"]:
+        os.makedirs(folder, exist_ok=True)
+        path = os.path.join(folder, os.path.basename(args.output_file))
+        with open(path, "wb") as f:
+            f.write(final_audio_data)
+        print(f"💾 Saved → {path}")
 
     os.rmdir(temp_dir)
+    print(f"✅ Success! ({len(final_audio_data)/(1024*1024):.1f} MB)")
 
-    size_mb = len(final_audio_data) / (1024 * 1024)
-    print(f"✅ Done! {args.output_file} ({size_mb:.1f} MB)")
-
-    # 6. Update RSS Feed
-    print("📈 Rebuilding RSS feed...")
+    # Lifecycle hooks
     try:
         subprocess.run(["python3", "scripts/rebuild_rss.py"], check=True)
-    except subprocess.CalledProcessError as e:
-        print(f"⚠️ RSS rebuild failed: {e}")
-
-    # 7. Sync to GitHub (Durable Hosting)
-    print("🐙 Syncing to GitHub...")
-    try:
-        # Check if there are changes to commit in published_audio and rss.xml
-        subprocess.run(["git", "add", "published_audio/", "rss.xml", "logo.jpg"], check=True)
-        # Check if there's anything to commit (to avoid error if nothing changed)
+        subprocess.run(["git", "add", "published_audio/", "rss.xml"], check=True)
         status = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True)
         if status.stdout.strip():
-            commit_msg = f"Add lesson: {os.path.basename(args.output_file)}"
-            subprocess.run(["git", "commit", "-m", commit_msg], check=True)
+            subprocess.run(["git", "commit", "-m", f"Add lesson: {os.path.basename(args.output_file)}"], check=True)
             subprocess.run(["git", "push"], check=True)
-            print("✅ GitHub Sync complete!")
-        else:
-            print("ℹ️ No changes to sync.")
-    except subprocess.CalledProcessError as e:
-        print(f"❌ GitHub Sync failed: {e}")
-
+    except Exception as e:
+        print(f"⚠️ Lifecycle hooks failed: {e}")
 
 if __name__ == "__main__":
     asyncio.run(main())
