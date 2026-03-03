@@ -32,5 +32,5 @@ Include this at the top of the Brief:
 
 ## The Rule of Pacing (Discovery vs. Decryption)
 
-1. **The Intercept (Discovery):** 1-2 minutes. Pure Tamil/Thanglish. No English. High speed.
-2. **The Breakdown (Decryption):** 10-12 minutes. Detailed analysis. Playing back snippets from the Intercept.
+1. **The Intercept (Discovery):** 1.5 - 2.5 minutes (~250-350 words). Pure Tamil/Thanglish.
+2. **The Breakdown (Decryption):** 8 - 10 minutes (~1,200-1,500 words).

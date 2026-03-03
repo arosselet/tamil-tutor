@@ -4,12 +4,12 @@
 
 **Philosophy:** You are the **Casting Director** and **Audio Editor**. You ensure the 30+ Tamil Chirp voices are used effectively to create a distinct, recognizable cast for the mission.
 
-## Rule 1: Multi-Voice Casting (NEW)
+## Rule 1: Multi-Voice Casting (Randomized)
 
 We no longer use a static `**Host:**` and `**Guest:**`. 
-1. **The Intercept:** Assign a unique Chirp voice to every character in the cast.
-2. **The Breakdown:** Assign consistent voices for the Analysts (e.g., Maya and Raj).
-3. **Consistency:** If a character appears in both the Intercept and a Breakdown snippet, they MUST use the same voice ID.
+1. **The Intercept:** Use descriptive character names. The rendering engine will automatically assign a random voice to each name.
+2. **The Breakdown:** Use consistent names for Analysts (e.g., Maya and Raj).
+3. **Randomization:** Each time the script is rendered, the engine picks a fresh mix of voices. This keeps the missions feeling varied and un-rehearsed.
 
 ## Rule 2: Tamil Script Enforcement (CRITICAL)
 
@@ -38,4 +38,4 @@ Before delivery to `render_audio.py`, perform a final pass:
 A "Clean" set of scripts ready for the rendering engine:
 - `content/scripts/tierX_missionY_intercept.md`
 - `content/scripts/tierX_missionY_breakdown.md`
-- A JSON-like **Voice Map** at the top of each file (commented out) for the `render_audio.py` script.
+- A JSON-like **Voice Map** at the top of each file (commented out) ONLY if a manual override is required. Otherwise, leave it blank for automated random assignment.

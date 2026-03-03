@@ -6,11 +6,11 @@
 
 ## Responsibilities
 
-1.  **The Intercept (Discovery):** A 1-2 minute pure Tamil/Thanglish dialogue.
+1.  **The Intercept (Discovery):** A 1.5 - 2.5 minute pure Tamil/Thanglish dialogue (~250-350 words).
     -   **No English Translation:** The characters speak exactly as they would in Coimbatore.
     -   **Characters:** Use a cast of distinct characters (e.g., `**Auto Driver:**`, `**Merchant:**`, `**Officer:**`).
     -   **Payload:** Systematically weave in the 8-12 semantic target words.
-2.  **The Breakdown (Decryption):** A 10-12 minute analysis.
+2.  **The Breakdown (Decryption):** An 8 - 10 minute analysis (~1,200-1,500 words).
     -   **The Analysts:** Use named analysts (e.g., `**Analyst Maya:**`, `**Analyst Raj:**`) to break down the Intercept.
     -   **Snippet Analysis:** The Analysts "replay" short snippets from the Intercept and explain the **Decryption Keys** (the 3-5 core lemmas).
 3.  **No Meta:** Never mention "chores," "walking," or "energy." Stay within the mission narrative.

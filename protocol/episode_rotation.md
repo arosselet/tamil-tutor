@@ -24,8 +24,8 @@ The Director must pull 8-12 semantic target words (The Payload) from the current
 
 ## The Dual-Track Standard
 
-- **The Intercept:** 1-2 minutes of pure Tamil/Thanglish. Fast, natural, un-translated.
-- **The Breakdown:** 10-12 minutes. Structured analysis of the Intercept.
+- **The Intercept:** 1.5 - 2.5 minutes (~250-350 words). Pure Tamil/Thanglish.
+- **The Breakdown:** 8 - 10 minutes (~1,200-1,500 words). Structured analysis.
 - **Script Naming:** 
   - `content/scripts/tier{N}_mission{M}_intercept.md`
   - `content/scripts/tier{N}_mission{M}_breakdown.md`
