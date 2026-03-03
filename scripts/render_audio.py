@@ -172,20 +172,23 @@ SILENCE_FRAME_B64 = "//NkxJoiPA4Vgc1AAVXPcXO05CbzflKqdX8LXO/PQy7v6mbnkYz3BsVdxH7
 SILENCE_FRAME = base64.b64decode(SILENCE_FRAME_B64)
 
 def assign_voices(dialogue, voice_map, provider, voice_type):
-    """Assign voices to speakers, respecting the explicit map and pooling for new ones."""
+    """
+    Assign voices to speakers. 
+    Uses a random selection from the pool for each name encountered.
+    """
     speakers = set(d["speaker"] for d in dialogue if d["speaker"] != "PAUSE")
     
     assigned = {}
     
-    # 1. Respect explicit map
+    # 1. Respect explicit map (overrides)
     for speaker, voice in voice_map.items():
         assigned[speaker.upper()] = voice
 
-    # 2. Assign pool for missing speakers
+    # 2. Select pool
     if provider == "google":
-        pool = _CHIRP_POOL if voice_type == "chirp" else _WAVENET_POOL
+        pool = list(_CHIRP_POOL if voice_type == "chirp" else _WAVENET_POOL)
     else:
-        pool = _EDGE_POOL
+        pool = list(_EDGE_POOL)
 
     available = [v for v in pool if v not in assigned.values()]
     if not available:
@@ -194,8 +197,9 @@ def assign_voices(dialogue, voice_map, provider, voice_type):
     random.shuffle(available)
     
     for s in sorted(list(speakers)):
-        if s not in assigned:
-            assigned[s] = available.pop() if available else random.choice(pool)
+        if s.upper() not in assigned:
+            # Pop from shuffled available list or pick random if empty
+            assigned[s.upper()] = available.pop() if available else random.choice(pool)
 
     return assigned
 
