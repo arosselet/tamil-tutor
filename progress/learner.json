@@ -1,29 +1,32 @@
 {
     "learner": "Andrew",
+    "current_location": "Coimbatore Railway Station",
+    "inventory": [],
+    "status_clues": [],
     "current_tier": 2,
     "active_mission": {
         "tier": 2,
-        "topic": "The Stream: Say & Ask (Low Energy Remix)",
+        "topic": "The Grocery Run (Long form Audio)",
         "target_vocab": [
             {
-                "tamil": "சொல்றேன்",
-                "english": "I'm saying"
+                "tamil": "எடு",
+                "english": "Take / Pick up"
             },
             {
-                "tamil": "சொல்லுவேன்",
-                "english": "I will say"
+                "tamil": "வை",
+                "english": "Keep / Put down"
             },
             {
-                "tamil": "கேட்டேன்",
-                "english": "I asked"
+                "tamil": "கொண்டு வா",
+                "english": "Bring"
             },
             {
-                "tamil": "கேக்குறேன்",
-                "english": "I'm asking"
+                "tamil": "குடு",
+                "english": "Give"
             },
             {
-                "tamil": "கேட்பேன்",
-                "english": "I will ask"
+                "tamil": "வாங்கு",
+                "english": "Buy"
             }
         ]
     },
@@ -44,11 +47,11 @@
             "label": "Embedded"
         }
     },
-    "total_sessions": 12,
+    "total_sessions": 13,
     "streak": {
-        "current": 1,
+        "current": 2,
         "best": 7,
-        "last_date": "2026-02-28"
+        "last_date": "2026-03-01"
     },
     "struggled_words": [
         "இன்னைக்கு",
@@ -131,7 +134,8 @@
         "நூறு",
         "குடிச்சேன்",
         "சொன்னாங்க",
-        "கேட்டாங்க"
+        "கேட்டாங்க",
+        "சொன்னேன்"
     ],
     "comfortable_words": [
         "அங்க",
@@ -151,8 +155,7 @@
         "நிறைய",
         "நேரம் ஆச்சு",
         "பரவாயில்லை",
-        "வெளிய",
-        "சொன்னேன்"
+        "வெளிய"
     ],
     "sessions": [
         {
@@ -229,6 +232,22 @@
             "notes": "Mission 12. The Wedding Relay. Say & Ask Matrix.",
             "tier": 2,
             "mission": 12
+        },
+        {
+            "date": "2026-03-01",
+            "energy": "LOW",
+            "struggled": [
+                "சொல்றேன்",
+                "சொல்லுவேன்",
+                "கேட்டேன்",
+                "கேக்குறேன்",
+                "கேட்பேன்"
+            ],
+            "comfortable": [],
+            "zinger": "நான் அப்புறம் சொல்லுவேன்",
+            "notes": "Mission 13. The Stream: Say & Ask (Low Energy Remix).",
+            "tier": 2,
+            "mission": 13
         }
     ]
 }
