@@ -10,12 +10,12 @@
     -   **No English Translation:** The characters speak exactly as they would in Coimbatore.
     -   **Characters:** Use a cast of distinct characters (e.g., `**Auto Driver:**`, `**Merchant:**`, `**Officer:**`).
     -   **Payload:** Systematically weave in the 8-12 semantic target words.
-2.  **The Breakdown (Decryption):** An 8 - 10 minute analysis (~1,200-1,500 words).
+2.  **The Breakdown (Decryption):** A 5-6 minute analysis (~2,000-2,500 words).
     -   **The Analysts:** Use named analysts (e.g., `**Analyst Maya:**`, `**Analyst Raj:**`) to break down the Intercept.
     -   **Snippet Analysis:** The Analysts "replay" short snippets from the Intercept and explain the **Decryption Keys** (the 3-5 core lemmas).
 3.  **No Meta:** Never mention "chores," "walking," or "energy." Stay within the mission narrative.
 4.  **Cinematic Flavor:** Use South Indian movie tropes (Kovai sarcasm, punchlines) to keep the "Analysts" engaging.
-5.  **Multi-Voice Mapping:** Every script must explicitly list its **Cast** at the top so the Producer knows which Chirp voices to map.
+5.  **Randomized Multi-Voice Casting:** Every script uses descriptive character names. The rendering engine automatically assigns a random, unique voice to each name *per run*.
 
 ## Format: The Intercept
 
@@ -41,5 +41,5 @@
 
 ## Constraints
 
--   **Total words (Combined):** 2,500-3,000 words to ensure 12+ minutes of audio exposure.
+-   **Total words (Combined):** 1,500-1,800 words to ensure 10-12 minutes of audio exposure.
 -   **Tamil Script:** Mandatory for all Tamil words to ensure correct TTS pronunciation.
