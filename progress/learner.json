@@ -1,32 +1,33 @@
 {
     "learner": "Andrew",
-    "current_location": "Coimbatore Railway Station",
+    "current_location": "Coimbatore Railway Station — Platform 3 (Boarding)",
     "inventory": [],
     "status_clues": [],
     "current_tier": 2,
     "active_mission": {
         "tier": 2,
-        "topic": "The Grocery Run (Long form Audio)",
+        "mission": 16,
+        "topic": "The Platform Dispute (Heated Dispute — Modal Triad)",
         "target_vocab": [
             {
-                "tamil": "எடு",
-                "english": "Take / Pick up"
+                "tamil": "முடியும்",
+                "english": "Can / Possible"
             },
             {
-                "tamil": "வை",
-                "english": "Keep / Put down"
+                "tamil": "முடியாது",
+                "english": "Cannot / Impossible"
             },
             {
-                "tamil": "கொண்டு வா",
-                "english": "Bring"
+                "tamil": "கூடாது",
+                "english": "Must not / Shouldn't"
             },
             {
-                "tamil": "குடு",
-                "english": "Give"
+                "tamil": "என்னாச்சு?",
+                "english": "What happened?"
             },
             {
-                "tamil": "வாங்கு",
-                "english": "Buy"
+                "tamil": "கோவம்",
+                "english": "Anger / Angry"
             }
         ]
     },

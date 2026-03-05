@@ -36,7 +36,7 @@ scripts/             → Python tools (audio gen, vocab builder, dashboard)
 | Category | File | Purpose |
 |---|---|---|
 | **Philosophy** | `protocol/philosophy.md` | Dialect, goals, tactical rules |
-| **Immersion Gradient** | `protocol/immersion_gradient.md` | TEACH/USE/CALLBACK modes, Host language ratio by tier |
+| **Immersion Gradient** | `protocol/immersion_gradient.md` | TEACH/USE/CALLBACK word modes; Tamil % targets for Intercept and Instruction by tier |
 | **Learning Loop** | `protocol/learning_loop.md` | 5-phase immersion cycle |
 | **Session** | `protocol/session_protocol.md` | Interactive lesson handling |
 | **Rotation** | `protocol/episode_rotation.md` | Rolling style rotation engine |
