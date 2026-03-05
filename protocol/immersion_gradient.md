@@ -2,37 +2,41 @@
 
 ## Principle: Teach New, Use Known
 
-As the learner acquires vocabulary, the lessons must **compound**. Words that have been learned stop being taught and start being *used* — by the Host, in drills, in scene-setting — without translation. The learner's brain must shift from "recall on demand" to "parse in real-time."
+As the learner acquires vocabulary, the lessons must **compound**. Words that have been learned stop being taught and start being *used* — in drills, in scene-setting, in character speech — without translation. The learner's brain must shift from "recall on demand" to "parse in real-time."
 
 ## The Three Word Modes
 
 Every word the learner has encountered falls into one of three modes. These are derived from `progress/learner.json`.
 
-| Mode | Source | Host Behavior |
+| Mode | Source | Writer Behavior |
 |---|---|---|
 | **TEACH** | Current episode's `target_vocab` | Full introduction: English meaning → Tamil word → drill repetition |
-| **USE** | `comfortable_words` + `mastered_words` | Used freely in Tamil **without translation**. The Host speaks them as if the learner already knows them. |
-| **CALLBACK** | `struggled_words` | Quick Tamil prompt ("Do you remember this one?"), brief pause, then move on. No full re-teach. |
+| **USE** | `comfortable_words` + `mastered_words` | Used freely in Tamil **without translation** — in character lines, transitions, scene-setting. Never gloss them. |
+| **CALLBACK** | `struggled_words` | Quick Tamil drop into a sentence, beat for the learner to process. Brief reminder if needed, then move on. No full re-teach. |
 
 ### Rules
 
 1. **TEACH** words get the full treatment: context, meaning, repetition, drilling.
-2. **USE** words appear naturally in Host lines — scene-setting, praise, instructions, transitions. Never translate them. If the Host says "சரி, let's move on" — there is no "(Okay, let's move on)."
-3. **CALLBACK** words get a quick challenge. The Host drops them into a sentence and gives the learner a beat to process. If they struggle, a one-line reminder, then move on.
+2. **USE** words appear naturally — scene-setting, praise, transitions. Never translate them. If the script says "சரி, let's move on" there is no "(Okay, let's move on)."
+3. **CALLBACK** words get a quick challenge. Drop them into a sentence, give the learner a beat to process. One-line reminder if they struggle, then move on.
 
 ---
 
-## The Gradient: Host Language Ratio by Tier
+## The Gradient: Tamil % by Tier and Episode Type
 
-The Host's language shifts from mostly-English to mostly-Tamil as the learner progresses through tiers.
+Two thresholds per tier — one for the **Intercept** (scene/dialogue), one for the **Instruction** (breakdown/analysis).
 
-| Tier | Focus | Host Ratio | What It Feels Like |
+| Tier | Focus | Intercept (Tamil %) | Instruction (Tamil %) |
 |---|---|---|---|
-| **Tier 1** | Survival | ~90% English, 10% Tamil | English explanation with Tamil target words |
-| **Tier 2** | Comfort | ~60% English, 40% Tamil | Bilingual conversation; known Tamil woven throughout |
-| **Tier 3** | Embedded | ~30% English, 70% Tamil | Tamil-dominant; English only for new concepts and complex explanations |
+| **Tier 1** | Survival | 30% | 10% |
+| **Tier 2** | Comfort | 60% | 20% |
+| **Tier 3** | Embedded | 85% | 50% |
 
-> **These are vibes, not metrics.** Don't count words. The ratio is a guide for tone and intention. At Tier 2, the Host *thinks* in English but *seasons* heavily with Tamil. At Tier 3, the Host *thinks* in Tamil and drops to English only when introducing something new.
+**Intercept** = the scene. Characters speak as they naturally would. Tamil carries commands, emotion, and local flavour; English fills logistics and filler. As the tier rises, English filler disappears.
+
+**Instruction** = the breakdown/analysis. The writer explains, frames, and teaches. Tamil appears only in quotes, drills, and call-and-response beats. Kept low deliberately — the learner's brain is working hard enough decoding the Intercept.
+
+> **These are targets, not word counts.** Read the draft aloud. If it feels too heavy to follow, pull back the Tamil. If it feels too easy, push it.
 
 ---
 
@@ -67,30 +71,20 @@ CALLBACK (struggled — quick challenge, no re-teach):
 
 ---
 
-## Application Examples
+## Application Examples (Tier 2)
 
-### Tier 2 Host Lines (Comfort)
+**Intercept — Thanglish code-switching (60% Tamil target):**
+- Character says "அண்ணா, idhu எவ்ளோ?" not "How much does this cost?"
+- Commands and reactions in Tamil: "எடு", "வை", "சரி சரி".
+- Logistics and filler in English: "Let me check", "Wait, I think..."
 
-**Transitions:**
-- "சரி, next word."
-- "செம்ம! Now let's try something harder."
-- "நல்லா இருக்கு. But can you do it faster?"
-
-**Scene-setting:**
-- "நேத்து, you learned the consumption verbs. இன்னைக்கு, we connect them."
-- "Imagine you வந்தேன் home. Wife asks என்ன பண்ணீங்க?"
-
-**Praise / feedback:**
-- "சூப்பர்!" (not "Super!")
-- "ஆமா, exactly."
-- "பரவாயில்லை, close enough."
-
-**Instructions:**
-- "சொல்லுங்க — say it."
-- "இன்னொரு தடவை" (One more time — when the learner is ready for it)
+**Instruction — English-led with Tamil anchors (20% Tamil target):**
+- Transitions: "சரி, next word." / "செம்ம! Now let's try something harder."
+- Drills: "Say it. முடியாது. One more time — முடியாது."
+- Replays quote the Intercept verbatim in Tamil; analysis wraps it in English.
 
 ### What NOT to Do
 
-- ❌ "Very good. சரி means 'Okay'. Let's continue." — Re-teaching a USE word.
-- ❌ Using Tamil the learner has never seen without context — that's confusion, not immersion.
-- ❌ Dropping the gradient entirely because it's "easier" — the discomfort is the point.
+- ❌ Glossing a USE word mid-script: "சரி (which means 'okay')" — just say it and move on.
+- ❌ Dropping Tamil entirely in the Intercept because the scene is complex — that's the point.
+- ❌ Heavy Tamil in the Instruction section — the learner is already cognitively loaded from the Intercept.

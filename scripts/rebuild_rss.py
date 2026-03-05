@@ -55,10 +55,18 @@ ITEM_TEMPLATE = """
 def clean_title(raw_title: str, filename: str) -> str:
     """
     Convert a raw script title into a clean, consistent episode title.
+    Detects intercept/breakdown suffix in filename and appends episode type label.
     
-    Input:  "Tier 2 Mission 10: The Big Review (The Remix)"
-    Output: "Ep 10 — The Big Review"
+    Input:  "Tier 2 Mission 15: The Overheard Argument", "tier2_mission15_intercept.mp3"
+    Output: "Ep 15 — The Overheard Argument · Intercept"
     """
+    # Detect episode type from filename
+    ep_type = None
+    if re.search(r"_intercept", filename, re.IGNORECASE):
+        ep_type = "Intercept"
+    elif re.search(r"_breakdown", filename, re.IGNORECASE):
+        ep_type = "Breakdown"
+
     # Try to extract tier, mission, and subtitle from the raw title
     match = re.match(
         r"Tier\s+(\d+)\s+Mission\s+(\d+):\s*(.+)", raw_title, re.IGNORECASE
@@ -68,7 +76,8 @@ def clean_title(raw_title: str, filename: str) -> str:
         subtitle = match.group(3).strip()
         # Strip parenthetical style labels like "(The Remix)", "(Cultural Deep-Dive)"
         subtitle = re.sub(r"\s*\(.*?\)\s*$", "", subtitle).strip()
-        return f"Ep {mission} — {subtitle}"
+        base = f"Ep {mission} — {subtitle}"
+        return f"{base} · {ep_type}" if ep_type else base
 
     # Fallback: use filename without extension
     return filename.replace(".mp3", "").replace("_", " ").title()
@@ -106,9 +115,15 @@ def generate_rss():
 
     for filename in episodes:
         audio_path = os.path.join(AUDIO_DIR, filename)
-        # Try to find matching script
-        script_name = filename.replace('.mp3', '.md')
-        script_path = os.path.join(SCRIPTS_DIR, script_name)
+        # Try to find matching script — strip _intercept/_breakdown suffix so we find the base script
+        base_name = re.sub(r"_(intercept|breakdown)\.mp3$", ".md", filename, flags=re.IGNORECASE)
+        if not base_name.endswith(".md"):
+            base_name = filename.replace('.mp3', '.md')
+        # Also try specific intercept/breakdown script files
+        specific_name = filename.replace('.mp3', '.md')
+        specific_path = os.path.join(SCRIPTS_DIR, specific_name)
+        base_path = os.path.join(SCRIPTS_DIR, base_name)
+        script_path = specific_path if os.path.exists(specific_path) else base_path
 
         raw_title = get_title_from_md(script_path) or filename
         title = clean_title(raw_title, filename)

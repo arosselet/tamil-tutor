@@ -6,13 +6,17 @@
 
 ## Responsibilities
 
-1.  **The Intercept (Discovery):** A 1.5 - 2.5 minute pure Tamil/Thanglish dialogue (~250-350 words).
-    -   **No English Translation:** The characters speak exactly as they would in Coimbatore.
+> **Language ratios** for both episodes are governed by `protocol/immersion_gradient.md`. 
+
+1.  **The Intercept (Discovery):** A 1.5 - 2.5 minute dialogue (~250-350 words).
+    -   **Thanglish code-switching:** Characters speak naturally — Tamil for commands, emotions, and local colour; English for planning, logistics, and filler. This mirrors real Coimbatore speech. No Glossing: never pause to explain a Tamil word.
     -   **Characters:** Use a cast of distinct characters (e.g., `**Auto Driver:**`, `**Merchant:**`, `**Officer:**`).
     -   **Payload:** Systematically weave in the 8-12 semantic target words.
-2.  **The Breakdown (Decryption):** A 5-6 minute analysis (~2,000-2,500 words).
+2.  **The Breakdown (Decryption):** A 5-6 minute analysis (~1,500-2,000 words).
     -   **The Analysts:** Use named analysts (e.g., `**Analyst Maya:**`, `**Analyst Raj:**`) to break down the Intercept.
-    -   **Snippet Analysis:** The Analysts "replay" short snippets from the Intercept and explain the **Decryption Keys** (the 3-5 core lemmas).
+    -   **Language Rule:** Analysts narrate and frame in English. Tamil appears only when quoting the Intercept verbatim, drilling a word, or running a call-and-response beat.
+    -   **Snippet Analysis:** Analysts "replay" short snippets from the Intercept verbatim in Tamil script, then unpack the **Decryption Keys** (the 3-5 core lemmas) with English framing.
+    -   **Drill Beats:** At least 2 call-and-response beats per Breakdown where an Analyst prompts in English and the learner produces the Tamil word before the other Analyst confirms it.
 3.  **No Meta:** Never mention "chores," "walking," or "energy." Stay within the mission narrative.
 4.  **Cinematic Flavor:** Use South Indian movie tropes (Kovai sarcasm, punchlines) to keep the "Analysts" engaging.
 5.  **Randomized Multi-Voice Casting:** Every script uses descriptive character names. The rendering engine automatically assigns a random, unique voice to each name *per run*.
@@ -35,11 +39,13 @@
 -   **Rule:** Focus on the **Decryption Keys**.
 
 ```markdown
-**Analyst Maya:** Did you hear that? The Driver said "meter poda mudiyadhu."
-**Analyst Raj:** Right. And the key there is 'mudiyadhu' — "cannot." He's blocking the transaction.
+**Analyst Maya:** Did you hear that? The Driver said — [replay] — "மீட்டர் போட முடியாது."
+**Analyst Raj:** Right. The key is 'முடியாது' — "cannot." முடியாது. Say it. முடியாது.
+**Analyst Maya:** He's not just refusing. He's using the impossibility frame. "It cannot be done" is different from "I won't do it."
 ```
 
 ## Constraints
 
--   **Total words (Combined):** 1,500-1,800 words to ensure 10-12 minutes of audio exposure.
+-   **Total words (Combined):** 1,800-2,500 words to ensure 11-14 minutes of audio exposure.
 -   **Tamil Script:** Mandatory for all Tamil words to ensure correct TTS pronunciation.
+-   **Balance check:** Intercept should feel like a real overheard conversation, not a Tamil drill. Breakdown should feel like an English-language podcast that keeps pausing to replay Tamil clips.

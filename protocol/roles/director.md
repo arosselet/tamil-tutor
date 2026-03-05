@@ -22,11 +22,23 @@ The Director **MUST** persist their strategy to `content/beats/tierX_missionY_br
 - **The Word Status Sheet:** (Categorized Payload).
 - **The Narrative Arc:** 5-7 high-level beats for the **Intercept** (The Scenario) and 5-7 beats for the **Breakdown** (The Analysis).
 
+### Narrative Arc Rules (MANDATORY)
+
+**Rule 1 — The Cold Open Teaser:**
+The **first beat of every Breakdown** is a 3-5 second host cue delivered *before* the Intercept plays. It plants one specific listening target:
+> *"You're about to hear three people argue about something missing. Listen for the word that means 'under.' It shows up once, and it's the key to the whole scene."*
+This is not a summary. It is a hunt directive. Never reveal more than one target.
+
+**Rule 2 — The Replay Hook:**
+The **second beat of the Breakdown** (immediately after the Intercept ends) opens with a return to one specific moment from the Intercept — a direct quote or paraphrase — before any analysis begins:
+> *"Let's go back to this exact moment... [quote]. Did you catch it?"*
+This creates the confusion-to-clarity beat. The learner now hears what they missed.
+
 ## The Word Status Sheet (CRITICAL)
 
 Include this at the top of the Brief:
 - **TEACH (The Keys)**: 3-5 core lemmas to be explained in depth.
-- **EXPOSE (The Signal)**: 5-8 contextually relevant words appearing in the Intercept.
+- **EXPOSE (The Signal)**: 5-8 contextually relevant words appearing in the Intercept. **Do NOT translate all of them in the Breakdown.** Treat them as breadcrumbs: the learner should feel like they are *discovering* meaning through context and pattern, not being handed it. Explain at most 2 EXPOSE words explicitly; let the rest surface naturally through repetition or be left as a reward for re-listens. (The Wire rule.)
 - **USE**: Mastered words used in pure Tamil.
 - **CALLBACK**: 2-3 struggled words woven into the transition.
 
