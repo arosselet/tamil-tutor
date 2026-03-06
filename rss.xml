@@ -21,11 +21,11 @@
     <itunes:new-feed-url>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/rss.xml</itunes:new-feed-url>
     
     <item>
-      <title>Ep 19 — The Homecoming · Breakdown</title>
+      <title>Tier2 Mission19 Breakdown V2</title>
       <itunes:author>Andrew R &amp; Gemini</itunes:author>
-      <itunes:summary>Ep 19 — The Homecoming · Breakdown</itunes:summary>
-      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission19_breakdown.mp3" length="738816" type="audio/mpeg"/>
-      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission19_breakdown.mp3</guid>
+      <itunes:summary>Tier2 Mission19 Breakdown V2</itunes:summary>
+      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission19_breakdown_v2.mp3" length="738816" type="audio/mpeg"/>
+      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission19_breakdown_v2.mp3</guid>
       <pubDate>Fri, 06 Mar 2026 15:35:16 -0500</pubDate>
       <itunes:duration>00:03:04</itunes:duration>
     </item>
