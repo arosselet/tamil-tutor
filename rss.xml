@@ -21,6 +21,16 @@
     <itunes:new-feed-url>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/rss.xml</itunes:new-feed-url>
     
     <item>
+      <title>Tier2 Mission18 Combined</title>
+      <itunes:author>Andrew R &amp; Gemini</itunes:author>
+      <itunes:summary>Tier2 Mission18 Combined</itunes:summary>
+      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission18_combined.mp3" length="1350480" type="audio/mpeg"/>
+      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission18_combined.mp3</guid>
+      <pubDate>Fri, 06 Mar 2026 10:30:43 -0500</pubDate>
+      <itunes:duration>00:05:37</itunes:duration>
+    </item>
+
+    <item>
       <title>Ep 18 — The Chennai Connection · Intercept</title>
       <itunes:author>Andrew R &amp; Gemini</itunes:author>
       <itunes:summary>Ep 18 — The Chennai Connection · Intercept</itunes:summary>
