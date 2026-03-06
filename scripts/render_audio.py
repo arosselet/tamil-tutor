@@ -57,7 +57,7 @@ SPEAKER_RE = re.compile(
     r"^\s*(?:\*\s*)?\*\*\s*([^:]+)\s*:\s*(?:\*\*\s*)?(.*)", re.IGNORECASE
 )
 PAUSE_RE = re.compile(r"\[Pause:\s*(\d+)\s*sec.*\]", re.IGNORECASE)
-EMBED_RE = re.compile(r"\[Intercept audio plays\]", re.IGNORECASE)
+EMBED_RE = re.compile(r"\[Intercept (audio )?plays\]", re.IGNORECASE)
 VOICE_MAP_RE = re.compile(r"Voice Map\s*:\s*(\{.*?\})", re.DOTALL | re.IGNORECASE)
 
 def parse_script(file_path: str) -> tuple[list[dict], dict]:
