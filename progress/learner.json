@@ -1,33 +1,21 @@
 {
     "learner": "Andrew",
-    "current_location": "Coimbatore Railway Station — Platform 3 (Boarding)",
+    "current_location": "Coimbatore-Chennai Express — Sleeper Coach (Moving)",
     "inventory": [],
     "status_clues": [],
     "current_tier": 2,
     "active_mission": {
         "tier": 2,
-        "mission": 16,
-        "topic": "The Platform Dispute (Heated Dispute — Modal Triad)",
+        "mission": 17,
+        "topic": "The Overnight Call (Surveillance — Question Words)",
         "target_vocab": [
             {
-                "tamil": "முடியும்",
-                "english": "Can / Possible"
+                "tamil": "யாரு?",
+                "english": "Who?"
             },
             {
-                "tamil": "முடியாது",
-                "english": "Cannot / Impossible"
-            },
-            {
-                "tamil": "கூடாது",
-                "english": "Must not / Shouldn't"
-            },
-            {
-                "tamil": "என்னாச்சு?",
-                "english": "What happened?"
-            },
-            {
-                "tamil": "கோவம்",
-                "english": "Anger / Angry"
+                "tamil": "ஏன்?",
+                "english": "Why?"
             }
         ]
     },
@@ -158,97 +146,5 @@
         "பரவாயில்லை",
         "வெளிய"
     ],
-    "sessions": [
-        {
-            "date": "2026-02-25",
-            "energy": "MEDIUM",
-            "struggled": [
-                "தம்பி",
-                "தங்கச்சி",
-                "மாமா",
-                "அத்தை"
-            ],
-            "comfortable": [
-                "அண்ணா",
-                "அக்கா"
-            ],
-            "zinger": "அண்ணா, எப்படி இருக்கீங்க?",
-            "notes": "Mission 8. Family immersion.",
-            "tier": 2,
-            "mission": 8
-        },
-        {
-            "date": "2026-02-25",
-            "tier": 2,
-            "mission": 9,
-            "energy": "MEDIUM",
-            "struggled": [],
-            "comfortable": [
-                "அவங்க",
-                "அவன்",
-                "அவ",
-                "அது",
-                "நம்ம",
-                "நாங்க"
-            ],
-            "zinger": "நம்ம",
-            "notes": "Pronoun Toggles mission."
-        },
-        {
-            "date": "2026-02-25",
-            "tier": 2,
-            "mission": 10,
-            "energy": "LOW",
-            "struggled": [],
-            "comfortable": [],
-            "zinger": "வயிறு ஃபுல், போதும்!",
-            "notes": "The Big Review. Massive vocab coverage."
-        },
-        {
-            "date": "2026-02-26",
-            "tier": 2,
-            "mission": 11,
-            "energy": "MEDIUM",
-            "struggled": [],
-            "comfortable": [
-                "சொன்னாங்க"
-            ],
-            "zinger": "அப்படீங்களா?",
-            "notes": "Reported Speech intro."
-        },
-        {
-            "date": "2026-02-28",
-            "energy": "MEDIUM",
-            "struggled": [
-                "சொல்றேன்",
-                "சொல்லுவேன்",
-                "கேட்டேன்",
-                "கேக்குறேன்",
-                "கேட்பேன்"
-            ],
-            "comfortable": [
-                "சொன்னேன்"
-            ],
-            "zinger": "சொன்னேன் இல்ல?",
-            "notes": "Mission 12. The Wedding Relay. Say & Ask Matrix.",
-            "tier": 2,
-            "mission": 12
-        },
-        {
-            "date": "2026-03-01",
-            "energy": "LOW",
-            "struggled": [
-                "சொல்றேன்",
-                "சொல்லுவேன்",
-                "கேட்டேன்",
-                "கேக்குறேன்",
-                "கேட்பேன்"
-            ],
-            "comfortable": [],
-            "zinger": "நான் அப்புறம் சொல்லுவேன்",
-            "notes": "Mission 13. The Stream: Say & Ask (Low Energy Remix).",
-            "tier": 2,
-            "mission": 13
-        }
-    ]
+    "sessions": []
 }
