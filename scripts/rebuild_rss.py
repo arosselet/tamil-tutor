@@ -101,8 +101,8 @@ def generate_rss():
 
     audio_files = [f for f in os.listdir(AUDIO_DIR) if f.endswith('.mp3')]
 
-    # Filter: only tier-based episodes (skip legacy level4_*, demos, tests)
-    episodes = [f for f in audio_files if f.startswith('tier')]
+    # Filter: only tier-based episodes (skip legacy level4_*, demos, tests, and standalone intercepts)
+    episodes = [f for f in audio_files if f.startswith('tier') and not f.endswith('_intercept.mp3')]
 
     # Sort by mission number descending (newest first)
     def sort_key(filename):
