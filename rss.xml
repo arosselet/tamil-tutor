@@ -21,6 +21,16 @@
     <itunes:new-feed-url>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/rss.xml</itunes:new-feed-url>
     
     <item>
+      <title>Ep 20 — The Arrival Dispute · Breakdown</title>
+      <itunes:author>Andrew R &amp; Gemini</itunes:author>
+      <itunes:summary>Ep 20 — The Arrival Dispute · Breakdown</itunes:summary>
+      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission20_breakdown.mp3" length="766752" type="audio/mpeg"/>
+      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission20_breakdown.mp3</guid>
+      <pubDate>Fri, 06 Mar 2026 17:02:00 -0500</pubDate>
+      <itunes:duration>00:03:11</itunes:duration>
+    </item>
+
+    <item>
       <title>Tier2 Mission19 Breakdown V2</title>
       <itunes:author>Andrew R &amp; Gemini</itunes:author>
       <itunes:summary>Tier2 Mission19 Breakdown V2</itunes:summary>
