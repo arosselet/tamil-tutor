@@ -57,6 +57,7 @@ SPEAKER_RE = re.compile(
     r"^\s*(?:\*\s*)?\*\*\s*([^:]+)\s*:\s*(?:\*\*\s*)?(.*)", re.IGNORECASE
 )
 PAUSE_RE = re.compile(r"\[Pause:\s*(\d+)\s*sec.*\]", re.IGNORECASE)
+EMBED_RE = re.compile(r"\[Intercept audio plays\]", re.IGNORECASE)
 VOICE_MAP_RE = re.compile(r"Voice Map\s*:\s*(\{.*?\})", re.DOTALL | re.IGNORECASE)
 
 def parse_script(file_path: str) -> tuple[list[dict], dict]:
@@ -85,6 +86,10 @@ def parse_script(file_path: str) -> tuple[list[dict], dict]:
         if pause_match:
             seconds = int(pause_match.group(1))
             dialogue.append({"speaker": "PAUSE", "seconds": seconds})
+            continue
+
+        if EMBED_RE.search(line):
+            dialogue.append({"speaker": "EMBED_INTERCEPT"})
             continue
 
         if line == "---":
@@ -229,11 +234,36 @@ async def main():
     print("🎙️ Generating audio segments...")
     final_audio_data = bytearray()
 
+    # Resolve intercept path for embedding
+    intercept_path = None
+    if "breakdown" in args.input_file:
+        candidate = args.input_file.replace("breakdown", "intercept").replace(".md", ".mp3")
+        # Look in audio/ and published_audio/ for the rendered intercept
+        for folder in ["audio", "published_audio"]:
+            p = os.path.join(folder, os.path.basename(candidate))
+            if os.path.exists(p):
+                intercept_path = p
+                break
+        if intercept_path:
+            print(f"🔗 Found intercept for embedding: {intercept_path}")
+        else:
+            print(f"⚠️ No intercept MP3 found for embedding (looked for {os.path.basename(candidate)})")
+
     for i, line in enumerate(dialogue):
         speaker = line["speaker"]
         if speaker == "PAUSE":
             seconds = line.get("seconds", 1)
             final_audio_data.extend(SILENCE_FRAME * int(seconds * 41.666))
+            continue
+
+        if speaker == "EMBED_INTERCEPT":
+            if intercept_path:
+                print(f"   [{i+1}/{len(dialogue)}] 🔊 Embedding intercept audio...")
+                final_audio_data.extend(SILENCE_FRAME * 42)  # ~1 second silence before
+                final_audio_data.extend(get_raw_mp3_frames(intercept_path))
+                final_audio_data.extend(SILENCE_FRAME * 42)  # ~1 second silence after
+            else:
+                print(f"   [{i+1}/{len(dialogue)}] ⚠️ Skipping [Intercept audio plays] — no MP3 found")
             continue
 
         voice = speaker_assignments.get(speaker)

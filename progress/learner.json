@@ -1,21 +1,25 @@
 {
     "learner": "Andrew",
-    "current_location": "Coimbatore-Chennai Express — Sleeper Coach (Moving)",
+    "current_location": "The Family House — Coimbatore (Arriving)",
     "inventory": [],
     "status_clues": [],
     "current_tier": 2,
     "active_mission": {
         "tier": 2,
-        "mission": 17,
-        "topic": "The Overnight Call (Surveillance — Question Words)",
+        "mission": 19,
+        "topic": "The Homecoming (Spatial Grid & Spoken Register)",
         "target_vocab": [
             {
-                "tamil": "யாரு?",
-                "english": "Who?"
+                "tamil": "வீடு",
+                "english": "Home"
             },
             {
-                "tamil": "ஏன்?",
-                "english": "Why?"
+                "tamil": "வாசல்",
+                "english": "Entrance"
+            },
+            {
+                "tamil": "சின்ன",
+                "english": "Small"
             }
         ]
     },
