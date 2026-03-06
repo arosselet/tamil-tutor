@@ -6,20 +6,20 @@
     "current_tier": 2,
     "active_mission": {
         "tier": 2,
-        "mission": 19,
-        "topic": "The Homecoming (Spatial Grid & Spoken Register)",
+        "mission": 20,
+        "topic": "The Arrival Dispute (Emotion/Logic & Ask/Tell)",
         "target_vocab": [
             {
-                "tamil": "வீடு",
-                "english": "Home"
+                "tamil": "கோவம்",
+                "english": "Angry"
             },
             {
-                "tamil": "வாசல்",
-                "english": "Entrance"
+                "tamil": "தப்பு",
+                "english": "Mistake"
             },
             {
-                "tamil": "சின்ன",
-                "english": "Small"
+                "tamil": "நிஜமா?",
+                "english": "Really?"
             }
         ]
     },
