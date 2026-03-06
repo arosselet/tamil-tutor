@@ -8,8 +8,8 @@ Learning is treated as a decoding exercise. We decouple massive exposure from fo
 
 | Track | Content | Purpose |
 |---|---|---|
-| **A: The Intercept** | 1-2 mins of pure Tamil/Thanglish dialogue. | **Discovery.** Massive phonetic exposure. High-context "Encrypted" signal. |
-| **B: The Breakdown** | 10-12 min English/Tamil analysis. | **Decryption.** Isolate 8-12 semantic "Keys" (lemmas) and explain the mission logic. |
+| **A: The Intercept** | 3-5 mins of pure Tamil/Thanglish dialogue. | **Discovery.** Massive phonetic exposure. A mini-drama with a beginning, middle, and end. |
+| **B: The Breakdown** | 6-8 min English/Tamil reaction podcast. | **Decryption.** Isolate 2-3 semantic "Keys" (lemmas), unpack the scene like two friends debriefing over chai. |
 
 ## The 5-Phase Cycle
 
@@ -38,7 +38,7 @@ Phase 5: Interactive   → (OPTIONAL) Active roleplay or "Field Test" via CLI.
   4. **Deliver:** Provide audio paths and the "Mission Briefing" summary.
 
 ## Phase 3: Discovery (Passive Exposure)
-- **Context:** Commute, chores, walking.
+- **Context:** Background listening during daily routines.
 - **Action:** Learner loops the **Intercept** audio. 
 - **Goal:** Try to catch known words and "feel" the meaning of the unknown ones before the breakdown.
 

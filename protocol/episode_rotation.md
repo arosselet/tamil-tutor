@@ -4,7 +4,7 @@
 
 ## The Narrative Rotation
 
-The Director selects the style based on the current `current_location` and the next semantic word chunk.
+The Director selects the style based on the current `current_location` and the next semantic word chunk. The intel/spy framing is one *available* lens, not the mandatory lens. Any style below can be framed in its natural genre — domestic comedy, street chaos, family drama — if the scenario carries its own dramatic weight.
 
 | Order | Style | Focus |
 |:---|:---|:---|
@@ -16,9 +16,9 @@ The Director selects the style based on the current `current_location` and the n
 
 ## The Weaving Protocol (CRITICAL)
 
-The Director must pull 8-12 semantic target words (The Payload) from the current Tier JSON.
-- **TEACH (The Keys)**: 3-5 critical structural words that "unlock" the meaning of the Intercept.
-- **EXPOSE (The Signal)**: 5-8 contextually relevant words that appear in the Intercept but are only briefly mentioned in the Breakdown. (See Wire Rule in `roles/director.md`.)
+The Director must pull 10-15 semantic target words (The Payload) from the current Tier JSON.
+- **TEACH (The Keys)**: 2-3 critical structural words that "unlock" the meaning of the Intercept.
+- **EXPOSE (The Signal)**: 8-12 contextually relevant words that appear in the Intercept but are only briefly mentioned in the Breakdown. (See Wire Rule in `roles/director.md`.)
 - **USE**: Use `mastered_words` ambiently in the Intercept without translation.
 - **CALLBACK**: Weave in 2-3 `struggled_words` into the transition banter.
 
@@ -33,8 +33,8 @@ The learner should encounter the word 2-3 times through the scene's own logic be
 
 ## The Dual-Track Standard
 
-- **The Intercept:** 1.5 - 2.5 minutes (~250-350 words). Pure Tamil/Thanglish.
-- **The Breakdown:** 8 - 10 minutes (~1,200-1,500 words). Structured analysis.
+- **The Intercept:** 3 - 5 minutes (~500-750 words). Pure Tamil/Thanglish. Long enough to get lost in, loop, and discover on relisten. Should have a beginning, middle, and end.
+- **The Breakdown:** 6 - 8 minutes (~900-1,200 words). Reaction-style analysis.
 - **Script Naming:** 
   - `content/scripts/tier{N}_mission{M}_intercept.md`
   - `content/scripts/tier{N}_mission{M}_breakdown.md`
