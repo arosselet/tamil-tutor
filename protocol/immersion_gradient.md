@@ -10,7 +10,7 @@ Every word the learner has encountered falls into one of three modes. These are 
 
 | Mode | Source | Writer Behavior |
 |---|---|---|
-| **TEACH** | Current episode's `target_vocab` | Full introduction: English meaning → Tamil word → drill repetition |
+| **TEACH** | Current episode's `target_vocab` | Full introduction: English meaning → Tamil word → drill repetition. **2-3 words per episode**, drilled thoroughly. |
 | **USE** | `comfortable_words` + `mastered_words` | Used freely in Tamil **without translation** — in character lines, transitions, scene-setting. Never gloss them. |
 | **CALLBACK** | `struggled_words` | Quick Tamil drop into a sentence, beat for the learner to process. Brief reminder if needed, then move on. No full re-teach. |
 

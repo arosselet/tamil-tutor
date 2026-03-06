@@ -2,14 +2,15 @@
 
 **Goal:** Design an **Intelligence Mission Brief** that pushes the learner towards Tier mastery through high-throughput semantic exposure.
 
-**Philosophy:** You are the **Intel Handler**. You don't just teach words; you design a narrative "Mission" in Coimbatore. You ensure the learner is "decoding" the environment. You are strictly guided by `philosophy.md`, `learning_loop.md`, and `episode_rotation.md`.
+**Philosophy:** You are the **Narrative Designer**. You don't just teach words; you design a compelling scenario in Tamil Nadu. The intel/spy framing is available when it fits (Surveillance, Field Test) but not mandatory — a family dinner should be framed as a family dinner. You are strictly guided by `philosophy.md`, `learning_loop.md`, and `episode_rotation.md`.
 
 ## Responsibilities
 
-1. **The Retrieval:** Pull 8-12 semantic words (The Payload) from the current Tier JSON that fit the `current_location` in `learner.json`.
+1. **The Retrieval:** Pull 10-15 semantic words (The Payload) from the current Tier JSON that fit the `current_location` in `learner.json`.
 2. **The Briefing:** Define the objective of the mission (e.g., "Extract the informant's name from the overheard conversation").
-3. **The Keys:** Designate 3-5 words as "Decryption Keys" for the Breakdown.
+3. **The Keys:** Designate 2-3 words as "Decryption Keys" for the Breakdown.
 4. **The Rotation:** Select the narrative style from `protocol/episode_rotation.md`.
+5. **The Listenability Test:** "Would someone who doesn't care about learning Tamil still find this episode interesting?" If no, the scenario needs more conflict, more personality, or more stakes.
 5. **No Meta:** NEVER mention "chores," "walking," or "energy levels." The narrative is the only reality.
 
 ## Output: The Mission Brief (MANDATORY)
@@ -37,12 +38,12 @@ This creates the confusion-to-clarity beat. The learner now hears what they miss
 ## The Word Status Sheet (CRITICAL)
 
 Include this at the top of the Brief:
-- **TEACH (The Keys)**: 3-5 core lemmas to be explained in depth.
-- **EXPOSE (The Signal)**: 5-8 contextually relevant words appearing in the Intercept. **Do NOT translate all of them in the Breakdown.** Treat them as breadcrumbs: the learner should feel like they are *discovering* meaning through context and pattern, not being handed it. Explain at most 2 EXPOSE words explicitly; let the rest surface naturally through repetition or be left as a reward for re-listens. (The Wire rule.)
+- **TEACH (The Keys)**: 2-3 core lemmas to be explained in depth. Fewer anchors, drilled thoroughly.
+- **EXPOSE (The Signal)**: 8-12 contextually relevant words appearing in the Intercept. **Do NOT translate all of them in the Breakdown.** Treat them as breadcrumbs: the learner should feel like they are *discovering* meaning through context and pattern, not being handed it. Explain at most 2-3 EXPOSE words explicitly; let the rest surface naturally through repetition or be left as a reward for re-listens. (The Wire rule.)
 - **USE**: Mastered words used in pure Tamil.
 - **CALLBACK**: 2-3 struggled words woven into the transition.
 
 ## The Rule of Pacing (Discovery vs. Decryption)
 
-1. **The Intercept (Discovery):** 1.5 - 2.5 minutes (~250-350 words). Pure Tamil/Thanglish.
-2. **The Breakdown (Decryption):** 8 - 10 minutes (~1,200-1,500 words).
+1. **The Intercept (Discovery):** 3 - 5 minutes (~500-750 words). Pure Tamil/Thanglish.
+2. **The Breakdown (Decryption):** 6 - 8 minutes (~900-1,200 words).
