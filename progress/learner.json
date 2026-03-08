@@ -1,25 +1,29 @@
 {
     "learner": "Andrew",
-    "current_location": "The Family House — Coimbatore (Arriving)",
+    "current_location": "The Family House — Dining Room (Lunchtime)",
     "inventory": [],
     "status_clues": [],
     "current_tier": 2,
     "active_mission": {
         "tier": 2,
-        "mission": 20,
-        "topic": "The Arrival Dispute (Emotion/Logic & Ask/Tell)",
+        "mission": 23,
+        "topic": "BOSS FIGHT: The Emotional Debrief",
         "target_vocab": [
+            {
+                "tamil": "சந்தோஷம்",
+                "english": "Happy"
+            },
             {
                 "tamil": "கோவம்",
                 "english": "Angry"
             },
             {
-                "tamil": "தப்பு",
-                "english": "Mistake"
+                "tamil": "பயம்",
+                "english": "Scared"
             },
             {
-                "tamil": "நிஜமா?",
-                "english": "Really?"
+                "tamil": "கவலை",
+                "english": "Worry"
             }
         ]
     },
@@ -31,7 +35,7 @@
         },
         "tier2": {
             "target": 153,
-            "mastered": 22,
+            "mastered": 25,
             "label": "Comfort"
         },
         "tier3": {
@@ -40,7 +44,7 @@
             "label": "Embedded"
         }
     },
-    "total_sessions": 13,
+    "total_sessions": 14,
     "streak": {
         "current": 2,
         "best": 7,

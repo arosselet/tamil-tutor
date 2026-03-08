@@ -30,21 +30,32 @@ except ImportError:
 
 # Voice pools — Indian Tamil
 # Expanded Chirp pool with 30+ voices
-_CHIRP_POOL = [
-    "ta-IN-Chirp3-HD-Achernar", "ta-IN-Chirp3-HD-Achird", "ta-IN-Chirp3-HD-Algenib",
-    "ta-IN-Chirp3-HD-Algieba", "ta-IN-Chirp3-HD-Alnilam", "ta-IN-Chirp3-HD-Aoede",
-    "ta-IN-Chirp3-HD-Autonoe", "ta-IN-Chirp3-HD-Callirrhoe", "ta-IN-Chirp3-HD-Charon",
-    "ta-IN-Chirp3-HD-Despina", "ta-IN-Chirp3-HD-Enceladus", "ta-IN-Chirp3-HD-Erinome",
-    "ta-IN-Chirp3-HD-Fenrir", "ta-IN-Chirp3-HD-Gacrux", "ta-IN-Chirp3-HD-Iapetus",
-    "ta-IN-Chirp3-HD-Kore", "ta-IN-Chirp3-HD-Laomedeia", "ta-IN-Chirp3-HD-Leda",
-    "ta-IN-Chirp3-HD-Orus", "ta-IN-Chirp3-HD-Puck", "ta-IN-Chirp3-HD-Pulcherrima",
-    "ta-IN-Chirp3-HD-Rasalgethi", "ta-IN-Chirp3-HD-Sadachbia", "ta-IN-Chirp3-HD-Sadaltager",
-    "ta-IN-Chirp3-HD-Schedar", "ta-IN-Chirp3-HD-Sulafat", "ta-IN-Chirp3-HD-Umbriel",
-    "ta-IN-Chirp3-HD-Vindemiatrix", "ta-IN-Chirp3-HD-Zephyr", "ta-IN-Chirp3-HD-Zubenelgenubi"
+_CHIRP_POOL_MALE = [
+    "ta-IN-Chirp3-HD-Achird", "ta-IN-Chirp3-HD-Algenib", "ta-IN-Chirp3-HD-Algieba",
+    "ta-IN-Chirp3-HD-Alnilam", "ta-IN-Chirp3-HD-Charon", "ta-IN-Chirp3-HD-Enceladus",
+    "ta-IN-Chirp3-HD-Fenrir", "ta-IN-Chirp3-HD-Iapetus", "ta-IN-Chirp3-HD-Orus",
+    "ta-IN-Chirp3-HD-Puck", "ta-IN-Chirp3-HD-Rasalgethi", "ta-IN-Chirp3-HD-Sadachbia",
+    "ta-IN-Chirp3-HD-Sadaltager", "ta-IN-Chirp3-HD-Schedar", "ta-IN-Chirp3-HD-Umbriel",
+    "ta-IN-Chirp3-HD-Zubenelgenubi"
 ]
 
-_WAVENET_POOL = ["ta-IN-Wavenet-A", "ta-IN-Wavenet-B", "ta-IN-Wavenet-C", "ta-IN-Wavenet-D"]
-_EDGE_POOL = ["ta-IN-PallaviNeural", "ta-IN-ValluvarNeural"]
+_CHIRP_POOL_FEMALE = [
+    "ta-IN-Chirp3-HD-Achernar", "ta-IN-Chirp3-HD-Aoede", "ta-IN-Chirp3-HD-Autonoe",
+    "ta-IN-Chirp3-HD-Callirrhoe", "ta-IN-Chirp3-HD-Despina", "ta-IN-Chirp3-HD-Erinome",
+    "ta-IN-Chirp3-HD-Gacrux", "ta-IN-Chirp3-HD-Kore", "ta-IN-Chirp3-HD-Laomedeia",
+    "ta-IN-Chirp3-HD-Leda", "ta-IN-Chirp3-HD-Pulcherrima", "ta-IN-Chirp3-HD-Sulafat",
+    "ta-IN-Chirp3-HD-Vindemiatrix", "ta-IN-Chirp3-HD-Zephyr"
+]
+
+_CHIRP_POOL = _CHIRP_POOL_MALE + _CHIRP_POOL_FEMALE
+
+_WAVENET_POOL_MALE = ["ta-IN-Wavenet-B", "ta-IN-Wavenet-D"]
+_WAVENET_POOL_FEMALE = ["ta-IN-Wavenet-A", "ta-IN-Wavenet-C"]
+_WAVENET_POOL = _WAVENET_POOL_MALE + _WAVENET_POOL_FEMALE
+
+_EDGE_POOL_MALE = ["ta-IN-ValluvarNeural"]
+_EDGE_POOL_FEMALE = ["ta-IN-PallaviNeural"]
+_EDGE_POOL = _EDGE_POOL_MALE + _EDGE_POOL_FEMALE
 
 # Voice tuning for distinctiveness (Edge only)
 EDGE_VOICE_OPTS = {
@@ -180,8 +191,9 @@ def assign_voices(dialogue, voice_map, provider, voice_type):
     """
     Assign voices to speakers. 
     Uses a random selection from the pool for each name encountered.
+    Supports (M) or (F) in the speaker name for explicit gender casting.
     """
-    speakers = set(d["speaker"] for d in dialogue if d["speaker"] != "PAUSE")
+    speakers = set(d["speaker"] for d in dialogue if d["speaker"] != "PAUSE" and d["speaker"] != "EMBED_INTERCEPT")
     
     assigned = {}
     
@@ -191,20 +203,35 @@ def assign_voices(dialogue, voice_map, provider, voice_type):
 
     # 2. Select pool
     if provider == "google":
-        pool = list(_CHIRP_POOL if voice_type == "chirp" else _WAVENET_POOL)
+        pool_male = list(_CHIRP_POOL_MALE if voice_type == "chirp" else _WAVENET_POOL_MALE)
+        pool_female = list(_CHIRP_POOL_FEMALE if voice_type == "chirp" else _WAVENET_POOL_FEMALE)
+        pool_any = list(_CHIRP_POOL if voice_type == "chirp" else _WAVENET_POOL)
     else:
-        pool = list(_EDGE_POOL)
+        pool_male = list(_EDGE_POOL_MALE)
+        pool_female = list(_EDGE_POOL_FEMALE)
+        pool_any = list(_EDGE_POOL)
 
-    available = [v for v in pool if v not in assigned.values()]
-    if not available:
-        available = pool # Reuse pool if exhausted
+    available_male = [v for v in pool_male if v not in assigned.values()]
+    if not available_male: available_male = list(pool_male)
+    random.shuffle(available_male)
 
-    random.shuffle(available)
+    available_female = [v for v in pool_female if v not in assigned.values()]
+    if not available_female: available_female = list(pool_female)
+    random.shuffle(available_female)
+
+    available_any = [v for v in pool_any if v not in assigned.values()]
+    if not available_any: available_any = list(pool_any)
+    random.shuffle(available_any)
     
     for s in sorted(list(speakers)):
-        if s.upper() not in assigned:
-            # Pop from shuffled available list or pick random if empty
-            assigned[s.upper()] = available.pop() if available else random.choice(pool)
+        s_upper = s.upper()
+        if s_upper not in assigned:
+            if "(M)" in s_upper or "(MALE)" in s_upper:
+                assigned[s_upper] = available_male.pop() if available_male else random.choice(pool_male)
+            elif "(F)" in s_upper or "(FEMALE)" in s_upper:
+                assigned[s_upper] = available_female.pop() if available_female else random.choice(pool_female)
+            else:
+                assigned[s_upper] = available_any.pop() if available_any else random.choice(pool_any)
 
     return assigned
 
@@ -234,21 +261,6 @@ async def main():
     print("🎙️ Generating audio segments...")
     final_audio_data = bytearray()
 
-    # Resolve intercept path for embedding
-    intercept_path = None
-    if "breakdown" in args.input_file:
-        candidate = args.input_file.replace("breakdown", "intercept").replace(".md", ".mp3")
-        # Look in audio/ and published_audio/ for the rendered intercept
-        for folder in ["audio", "published_audio"]:
-            p = os.path.join(folder, os.path.basename(candidate))
-            if os.path.exists(p):
-                intercept_path = p
-                break
-        if intercept_path:
-            print(f"🔗 Found intercept for embedding: {intercept_path}")
-        else:
-            print(f"⚠️ No intercept MP3 found for embedding (looked for {os.path.basename(candidate)})")
-
     for i, line in enumerate(dialogue):
         speaker = line["speaker"]
         if speaker == "PAUSE":
@@ -257,13 +269,7 @@ async def main():
             continue
 
         if speaker == "EMBED_INTERCEPT":
-            if intercept_path:
-                print(f"   [{i+1}/{len(dialogue)}] 🔊 Embedding intercept audio...")
-                final_audio_data.extend(SILENCE_FRAME * 42)  # ~1 second silence before
-                final_audio_data.extend(get_raw_mp3_frames(intercept_path))
-                final_audio_data.extend(SILENCE_FRAME * 42)  # ~1 second silence after
-            else:
-                print(f"   [{i+1}/{len(dialogue)}] ⚠️ Skipping [Intercept audio plays] — no MP3 found")
+            print(f"   [{i+1}/{len(dialogue)}] ⚠️ Skipping [Intercept audio plays] — deprecated in single-script mode")
             continue
 
         voice = speaker_assignments.get(speaker)

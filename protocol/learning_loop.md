@@ -9,7 +9,7 @@ Learning is treated as a decoding exercise. We decouple massive exposure from fo
 | Track | Content | Purpose |
 |---|---|---|
 | **A: The Intercept** | 3-5 mins of pure Tamil/Thanglish dialogue. | **Discovery.** Massive phonetic exposure. A mini-drama with a beginning, middle, and end. |
-| **B: The Breakdown** | 6-8 min English/Tamil reaction podcast. | **Decryption.** Isolate 2-3 semantic "Keys" (lemmas), unpack the scene like two friends debriefing over chai. |
+| **B: The Breakdown** | 5-7 min English/Tamil reaction podcast. | **Decryption.** Isolate 2-3 semantic "Keys" (lemmas), unpack the scene like two friends debriefing over chai. |
 
 ## The 5-Phase Cycle
 
@@ -33,9 +33,9 @@ Phase 5: Interactive   → (OPTIONAL) Active roleplay or "Field Test" via CLI.
 ## Phase 2: Production (The Default)
 - **Action:** 
   1. Update `active_mission` in `learner.json`.
-  2. **Generate Scripts:** Director (Briefing) → Architect (Intercept + Breakdown) → Producer (Casting).
-  3. **Generate Audio:** Render both the Intercept and the Breakdown MP3s.
-  4. **Deliver:** Provide audio paths and the "Mission Briefing" summary.
+  2. **Generate Script:** Director (Briefing) → Architect (Combined Master Script) → Producer (Casting & Scrubbing).
+  3. **Generate Audio:** Render the single combined podcast MP3.
+  4. **Deliver:** Provide audio path and the "Mission Briefing" summary.
 
 ## Phase 3: Discovery (Passive Exposure)
 - **Context:** Background listening during daily routines.

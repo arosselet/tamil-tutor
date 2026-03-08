@@ -34,7 +34,6 @@ The learner should encounter the word 2-3 times through the scene's own logic be
 ## The Dual-Track Standard
 
 - **The Intercept:** 3 - 5 minutes (~500-750 words). Pure Tamil/Thanglish. Long enough to get lost in, loop, and discover on relisten. Should have a beginning, middle, and end.
-- **The Breakdown:** 6 - 8 minutes (~900-1,200 words). Reaction-style analysis.
-- **Script Naming:** 
-  - `content/scripts/tier{N}_mission{M}_intercept.md`
-  - `content/scripts/tier{N}_mission{M}_breakdown.md`
+- **The Breakdown:** 5 - 7 minutes (~750-1,050 words). Reaction-style analysis.
+- **Script Naming:**
+  - `content/scripts/tier{N}_mission{M}.md`

@@ -10,13 +10,13 @@ Every word the learner has encountered falls into one of three modes. These are 
 
 | Mode | Source | Writer Behavior |
 |---|---|---|
-| **TEACH** | Current episode's `target_vocab` | Full introduction: English meaning → Tamil word → drill repetition. **2-3 words per episode**, drilled thoroughly. |
+| **TEACH** | Current episode's `target_vocab` | Full introduction: English meaning → Tamil word → conversational repetition. **2-3 words per episode**, emphasized repeatedly by the hosts. |
 | **USE** | `comfortable_words` + `mastered_words` | Used freely in Tamil **without translation** — in character lines, transitions, scene-setting. Never gloss them. |
 | **CALLBACK** | `struggled_words` | Quick Tamil drop into a sentence, beat for the learner to process. Brief reminder if needed, then move on. No full re-teach. |
 
 ### Rules
 
-1. **TEACH** words get the full treatment: context, meaning, repetition, drilling.
+1. **TEACH** words get the full treatment: context, meaning, repetition, repeated vocalization by the hosts.
 2. **USE** words appear naturally — scene-setting, praise, transitions. Never translate them. If the script says "சரி, let's move on" there is no "(Okay, let's move on)."
 3. **CALLBACK** words get a quick challenge. Drop them into a sentence, give the learner a beat to process. One-line reminder if they struggle, then move on.
 
@@ -28,15 +28,19 @@ Two thresholds per tier — one for the **Intercept** (scene/dialogue), one for 
 
 | Tier | Focus | Intercept (Tamil %) | Instruction (Tamil %) |
 |---|---|---|---|
-| **Tier 1** | Survival | 30% | 10% |
-| **Tier 2** | Comfort | 60% | 20% |
-| **Tier 3** | Embedded | 85% | 50% |
+| **Tier 1** | Survival | 20% | 10% |
+| **Tier 2** | Comfort | 50% | 20% |
+| **Tier 3** | Embedded | 80% | 50% |
 
 **Intercept** = the scene. Characters speak as they naturally would. Tamil carries commands, emotion, and local flavour; English fills logistics and filler. As the tier rises, English filler disappears.
 
-**Instruction** = the breakdown/analysis. The writer explains, frames, and teaches. Tamil appears only in quotes, drills, and call-and-response beats. Kept low deliberately — the learner's brain is working hard enough decoding the Intercept.
+**Instruction** = the breakdown/analysis. The writer explains, frames, and teaches. Tamil appears only in quotes, conversational repetition, and when the hosts playfully test each other. Kept low deliberately — the learner's brain is working hard enough decoding the Intercept.
 
 > **These are targets, not word counts.** Read the draft aloud. If it feels too heavy to follow, pull back the Tamil. If it feels too easy, push it.
+
+### The Comprehensible Input Rule (CRITICAL)
+NEVER use a Tamil word in the Intercept that is not explicitly in the TEACH, EXPOSE, USE, or CALLBACK lists. If the scene requires a word the learner hasn't learned yet, **you MUST use English**. 
+If a learner is starting a new language from scratch, they lack the "glue words" (conjunctions, prepositions, basic verbs) to piece together a scene. Do not create a "wall of noise." The target percentage is a ceiling, not a floor. If reaching the target % requires using unknown Tamil words, lower the percentage and use English.
 
 ---
 
@@ -80,7 +84,7 @@ CALLBACK (struggled — quick challenge, no re-teach):
 
 **Instruction — English-led with Tamil anchors (20% Tamil target):**
 - Transitions: "சரி, next word." / "செம்ம! Now let's try something harder."
-- Drills: "Say it. முடியாது. One more time — முடியாது."
+- Natural Repetition: "Raj, what was that word again? முடியாது? Yeah, முடியாது."
 - Replays quote the Intercept verbatim in Tamil; analysis wraps it in English.
 
 ### What NOT to Do

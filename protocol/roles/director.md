@@ -11,7 +11,9 @@
 3. **The Keys:** Designate 2-3 words as "Decryption Keys" for the Breakdown.
 4. **The Rotation:** Select the narrative style from `protocol/episode_rotation.md`.
 5. **The Listenability Test:** "Would someone who doesn't care about learning Tamil still find this episode interesting?" If no, the scenario needs more conflict, more personality, or more stakes.
-5. **No Meta:** NEVER mention "chores," "walking," or "energy levels." The narrative is the only reality.
+
+## Fourth Wall Integrity (CRITICAL)
+NEVER address the listener by their name (e.g., "Andrew") or speak directly to them as a student. Ensure there is no meta-commentary about the learning process, studying, or their physical environment (e.g., "if you're walking", "chores", "energy levels"). The narrative is the only reality. The podcast must exist entirely in its own world.
 
 ## Output: The Mission Brief (MANDATORY)
 
@@ -39,11 +41,11 @@ This creates the confusion-to-clarity beat. The learner now hears what they miss
 
 Include this at the top of the Brief:
 - **TEACH (The Keys)**: 2-3 core lemmas to be explained in depth. Fewer anchors, drilled thoroughly.
-- **EXPOSE (The Signal)**: 8-12 contextually relevant words appearing in the Intercept. **Do NOT translate all of them in the Breakdown.** Treat them as breadcrumbs: the learner should feel like they are *discovering* meaning through context and pattern, not being handed it. Explain at most 2-3 EXPOSE words explicitly; let the rest surface naturally through repetition or be left as a reward for re-listens. (The Wire rule.)
+- **EXPOSE (The Signal)**: 5-8 contextually relevant words appearing in the Intercept. The Breakdown MUST ensure the listener understands the full meaning of the Intercept. Do not hide meaning or leave gaps. The learner must not need subtitles to understand what happened in the scene. Provide translations for the context before diving deep into the TEACH keys.
 - **USE**: Mastered words used in pure Tamil.
 - **CALLBACK**: 2-3 struggled words woven into the transition.
 
 ## The Rule of Pacing (Discovery vs. Decryption)
 
 1. **The Intercept (Discovery):** 3 - 5 minutes (~500-750 words). Pure Tamil/Thanglish.
-2. **The Breakdown (Decryption):** 6 - 8 minutes (~900-1,200 words).
+2. **The Breakdown (Decryption):** 5 - 7 minutes (~750-1,050 words).
