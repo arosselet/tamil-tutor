@@ -21,13 +21,13 @@
     <itunes:new-feed-url>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/rss.xml</itunes:new-feed-url>
     
     <item>
-      <title>Ep 24 — The Emotional Audit</title>
+      <title>Tier2 Mission24</title>
       <itunes:author>Andrew R &amp; Gemini</itunes:author>
-      <itunes:summary>Ep 24 — The Emotional Audit</itunes:summary>
-      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission24.mp3" length="1031712" type="audio/mpeg"/>
+      <itunes:summary>Tier2 Mission24</itunes:summary>
+      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission24.mp3" length="1058064" type="audio/mpeg"/>
       <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission24.mp3</guid>
-      <pubDate>Sun, 08 Mar 2026 11:05:52 -0400</pubDate>
-      <itunes:duration>00:04:17</itunes:duration>
+      <pubDate>Sun, 08 Mar 2026 12:02:33 -0400</pubDate>
+      <itunes:duration>00:04:24</itunes:duration>
     </item>
 
     <item>
