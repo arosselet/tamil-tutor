@@ -21,6 +21,16 @@
     <itunes:new-feed-url>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/rss.xml</itunes:new-feed-url>
     
     <item>
+      <title>Tier2 Mission26 Full</title>
+      <itunes:author>Andrew R &amp; Gemini</itunes:author>
+      <itunes:summary>Tier2 Mission26 Full</itunes:summary>
+      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission26_full.mp3" length="1195728" type="audio/mpeg"/>
+      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission26_full.mp3</guid>
+      <pubDate>Sun, 08 Mar 2026 22:03:21 -0400</pubDate>
+      <itunes:duration>00:04:58</itunes:duration>
+    </item>
+
+    <item>
       <title>Tier2 Mission25</title>
       <itunes:author>Andrew R &amp; Gemini</itunes:author>
       <itunes:summary>Tier2 Mission25</itunes:summary>
