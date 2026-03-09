@@ -29,8 +29,8 @@ Two thresholds per tier — one for the **Intercept** (scene/dialogue), one for 
 | Tier | Focus | Intercept (Tamil %) | Instruction (Tamil %) |
 |---|---|---|---|
 | **Tier 1** | Survival | 20% | 10% |
-| **Tier 2** | Comfort | 50% | 20% |
-| **Tier 3** | Embedded | 80% | 50% |
+| **Tier 2** | Comfort | 70% | 20% |
+| **Tier 3** | Embedded | 100% | 50% |
 
 **Intercept** = the scene. Characters speak as they naturally would. Tamil carries commands, emotion, and local flavour; English fills logistics and filler. As the tier rises, English filler disappears.
 

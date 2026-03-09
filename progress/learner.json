@@ -1,29 +1,34 @@
 {
     "learner": "Andrew",
     "current_location": "The Family House — Dining Room (Lunchtime)",
+    "narrative_context": {
+        "current_arc": "The Missing Box Incident",
+        "last_event": "Thambi confessed to Anna that he lost an important box, expressing deep worry.",
+        "open_loop": "They need to figure out how to retrieve or replace it before 'They' find out."
+    },
     "inventory": [],
     "status_clues": [],
     "current_tier": 2,
     "active_mission": {
         "tier": 2,
-        "mission": 23,
-        "topic": "BOSS FIGHT: The Emotional Debrief",
+        "mission": 26,
+        "topic": "Worry & Sadness",
         "target_vocab": [
-            {
-                "tamil": "சந்தோஷம்",
-                "english": "Happy"
-            },
-            {
-                "tamil": "கோவம்",
-                "english": "Angry"
-            },
-            {
-                "tamil": "பயம்",
-                "english": "Scared"
-            },
             {
                 "tamil": "கவலை",
                 "english": "Worry"
+            },
+            {
+                "tamil": "கவலைப்படாதீங்க",
+                "english": "Don't worry (respectful)"
+            },
+            {
+                "tamil": "சோகம்",
+                "english": "Sad / Sadness"
+            },
+            {
+                "tamil": "வெட்கம்",
+                "english": "Shy / Embarrassment"
             }
         ]
     },
@@ -35,7 +40,7 @@
         },
         "tier2": {
             "target": 153,
-            "mastered": 25,
+            "mastered": 27,
             "label": "Comfort"
         },
         "tier3": {
@@ -44,25 +49,31 @@
             "label": "Embedded"
         }
     },
-    "total_sessions": 14,
+    "total_sessions": 17,
     "streak": {
-        "current": 2,
+        "current": 3,
         "best": 7,
-        "last_date": "2026-03-01"
+        "last_date": "2026-03-08"
     },
     "struggled_words": [
         "இன்னைக்கு",
-        "கிட்ட",
         "கீழ",
-        "பார்த்தேன்",
         "முதல்ல",
         "முன்னாடி",
         "மேல",
-        "சொல்றேன்",
-        "சொல்லுவேன்",
         "கேட்டேன்",
         "கேக்குறேன்",
-        "கேட்பேன்"
+        "கேட்பேன்",
+        "சந்தோஷம்",
+        "பயம்",
+        "கவலை",
+        "தூக்கு",
+        "வை",
+        "பெட்டி",
+        "நிமிஷம்",
+        "முடியாது",
+        "தப்பு",
+        "பிடிக்காது"
     ],
     "mastered_words": [
         "வலது",
@@ -132,27 +143,35 @@
         "குடிச்சேன்",
         "சொன்னாங்க",
         "கேட்டாங்க",
-        "சொன்னேன்"
+        "சொன்னேன்",
+        "கோவம்",
+        "போகணும்",
+        "பார்த்தேன்",
+        "கிட்ட",
+        "சொல்றேன்",
+        "சொல்லுவேன்",
+        "சாப்பிடுங்க",
+        "அப்புறம்",
+        "உள்ள",
+        "எங்க?",
+        "வெளிய",
+        "போனேன்",
+        "பிடிக்கும்"
     ],
     "comfortable_words": [
         "அங்க",
-        "அப்புறம்",
         "இங்க",
         "இப்போ",
         "இல்லையா?",
         "உக்காருங்க",
-        "உள்ள",
-        "எங்க?",
         "எடுங்க",
         "ஒன்னு மட்டும்",
         "கம்மி",
         "குடுங்க",
-        "சாப்பிடுங்க",
         "தாகம்",
         "நிறைய",
         "நேரம் ஆச்சு",
-        "பரவாயில்லை",
-        "வெளிய"
+        "பரவாயில்லை"
     ],
     "sessions": []
 }

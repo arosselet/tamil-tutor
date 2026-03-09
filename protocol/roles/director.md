@@ -6,8 +6,8 @@
 
 ## Responsibilities
 
-1. **The Retrieval:** Pull 10-15 semantic words (The Payload) from the current Tier JSON that fit the `current_location` in `learner.json`.
-2. **The Briefing:** Define the objective of the mission (e.g., "Extract the informant's name from the overheard conversation").
+1. **The Retrieval:** Pull 10-15 semantic words (The Payload) from the current Tier JSON that fit the `current_location` in `learner.json`. Read the `narrative_context` (specifically `last_event` and `open_loop`) to understand exactly where the story left off.
+2. **The Briefing:** Define the objective of the mission (e.g., "Extract the informant's name from the overheard conversation"). Weave the new target vocabulary into the next logical beat of the ongoing `narrative_context`.
 3. **The Keys:** Designate 2-3 words as "Decryption Keys" for the Breakdown.
 4. **The Rotation:** Select the narrative style from `protocol/episode_rotation.md`.
 5. **The Listenability Test:** "Would someone who doesn't care about learning Tamil still find this episode interesting?" If no, the scenario needs more conflict, more personality, or more stakes.
@@ -21,6 +21,7 @@ The Director **MUST** persist their strategy to `content/beats/tierX_missionY_br
 
 ### Brief Specifications
 - **Location:** Where the mission takes place (Must match/advance `learner.json`).
+- **Narrative Context Update:** Output the proposed *new* state of `narrative_context` (current_arc, last_event, open_loop) that will result from this mission so it can be saved back to `learner.json`.
 - **Intel Target:** What the learner needs to "decode."
 - **The Word Status Sheet:** (Categorized Payload).
 - **The Narrative Arc:** 5-7 high-level beats for the **Intercept** (The Scenario) and 5-7 beats for the **Breakdown** (The Analysis).

@@ -27,8 +27,8 @@ Phase 5: Interactive   → (OPTIONAL) Active roleplay or "Field Test" via CLI.
 - **Trigger:** Start of any new `@tutor` session.
 - **Action:** 
   - Review the last mission's vocabulary.
-  - Update `current_location`, `inventory`, and `status_clues` in `learner.json`.
-  - Decide the next narrative objective.
+  - Update `current_location`, `narrative_context`, `inventory`, and `status_clues` in `learner.json`.
+  - Decide the next narrative objective based on the `open_loop`.
 
 ## Phase 2: Production (The Default)
 - **Action:** 
