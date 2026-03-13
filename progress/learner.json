@@ -3,32 +3,28 @@
     "current_location": "The Family House — Dining Room (Lunchtime)",
     "narrative_context": {
         "current_arc": "The Missing Box Incident",
-        "last_event": "Thambi confessed to Anna that he lost an important box, expressing deep worry.",
-        "open_loop": "They need to figure out how to retrieve or replace it before 'They' find out."
+        "last_event": "Thambi is visibly upset; we try to distract him by talking about things he likes to find out what was in the box.",
+        "open_loop": "What exactly was in the box that Thambi 'liked' so much?"
     },
     "inventory": [],
     "status_clues": [],
     "current_tier": 2,
     "active_mission": {
         "tier": 2,
-        "mission": 26,
-        "topic": "Worry & Sadness",
+        "mission": 27,
+        "topic": "Like & Dislike",
         "target_vocab": [
             {
-                "tamil": "கவலை",
-                "english": "Worry"
+                "tamil": "பிடிக்கும்",
+                "english": "I like / It pleases"
             },
             {
-                "tamil": "கவலைப்படாதீங்க",
-                "english": "Don't worry (respectful)"
+                "tamil": "பிடிக்காது",
+                "english": "I don't like"
             },
             {
-                "tamil": "சோகம்",
-                "english": "Sad / Sadness"
-            },
-            {
-                "tamil": "வெட்கம்",
-                "english": "Shy / Embarrassment"
+                "tamil": "இஷ்டம்",
+                "english": "Preference / Liking"
             }
         ]
     },
