@@ -10,12 +10,24 @@
   "status_clues": [],
   "current_tier": 2,
   "active_mission": {
-    "tier": 2,
-    "mission": 29,
-    "topic": "TBD — Director to select from Tier 2 JSON",
-    "target_vocab": []
-  },
-  "tier_progress": {
+      "tier": 2,
+      "mission": 30,
+      "topic": "Comparison & Difficulty",
+      "target_vocab": [
+          {
+              "tamil": "விட",
+              "english": "Than (Comparison)"
+          },
+          {
+              "tamil": "உயரம்",
+              "english": "Tall / Height"
+          },
+          {
+              "tamil": "கஷ்டம்",
+              "english": "Difficult / Hardship"
+          }
+      ]
+  },  "tier_progress": {
     "tier1": {
       "target": 69,
       "mastered": 42,
