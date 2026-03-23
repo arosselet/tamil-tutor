@@ -1,39 +1,33 @@
-# Mission Rotation Engine (Intel Narrative Styles)
+# The Narrative Engine (Inspiration)
 
-**Purpose:** Maintain engagement by rotating the *narrative lens* per mission. Every mission contains an **Intercept** (Raw Feed) and a **Breakdown** (Analysis), but the scenario type changes.
+The Director should use these narrative styles to ensure variety. These are not rigid rules, but examples of how to frame different vocabulary sets.
 
-## The Narrative Rotation
+---
 
-The Director selects the style based on the current `current_location` and the next semantic word chunk. The intel/spy framing is one *available* lens, not the mandatory lens. Any style below can be framed in its natural genre — domestic comedy, street chaos, family drama — if the scenario carries its own dramatic weight.
+## Example Narrative Styles
 
-| Order | Style | Focus |
+| Style | Tone | Potential Settings |
 |:---|:---|:---|
-| **1** | **The Eavesdrop** | Listening to a public conversation (Market, Station). High noun density, directional verbs. |
-| **2** | **The Heated Dispute** | High-stakes conflict (An argument with a driver, a family dispute). Verb tenses and attitude particles. |
-| **3** | **The Surveillance** | Monitoring a phone call or a private meeting. Focus on "Say/Ask" matrices and reported speech. |
-| **4** | **The Transaction** | A pure commerce scenario (Buying, Bribing, Negotiating). Numbers and object manipulation verbs. |
-| **5** | **The Field Test** | A culmination where the "Breakdown" prepares the learner to perform a specific action in the story. |
+| **The Eavesdrop** | Observational | Public transit, markets, parks, cafes. |
+| **The Heated Dispute** | High Stakes | Traffic accidents, shop negotiations, family standoffs. |
+| **The Surveillance** | Discreet | Wiretaps, hidden mics, private offices. |
+| **The Transaction** | Commercial | Buying goods, bribing officials, ordering food. |
+| **The Field Test** | Action-Oriented | Navigating a city, finding a specific person. |
 
-## The Weaving Protocol (CRITICAL)
+---
 
-The Director must pull 10-15 semantic target words (The Payload) from the current Tier JSON.
-- **TEACH (The Keys)**: 2-3 critical structural words that "unlock" the meaning of the Intercept.
-- **EXPOSE (The Signal)**: 8-12 contextually relevant words that appear in the Intercept but are only briefly mentioned in the Breakdown. (See Wire Rule in `roles/director.md`.)
-- **USE**: Use `mastered_words` ambiently in the Intercept without translation.
-- **CALLBACK**: Weave in 2-3 `struggled_words` into the transition banter.
+## Narrative Seeds
 
-### CALLBACK Rule: Thematic Embedding (No Naked Drills)
+Use these to spark ideas for the Intercept's "Short Film":
+- **The Autorickshaw Standoff**: A dispute over a fare or a shortcut.
+- **The Chai Shop Intel**: Overhearing a conversation while waiting for tea.
+- **The Crowded Market**: Navigating through vendors and customers.
+- **The Railway Platform**: Identifying a specific train or person in the chaos.
+- **The Family Dinner**: A more domestic setting, but with high interpersonal drama.
 
-Do NOT surface CALLBACK words as explicit drills ("Now let's revisit the word for 'under'..."). Instead, **embed them through actions native to the scene's logic.** The word should appear multiple times because the *scene requires it*, not because it's being practiced.
+---
 
-- Spatial/prepositional struggled words (`கீழ`, `முன்னாடி`, `மேல`, `உள்ள`, etc.) belong in stage movement, location disputes, and object placement — a porter describing where a bag is, a character scanning a crowd.
-- Temporal struggled words (`முதல்ல`, `அப்புறம்`, etc.) belong in the natural sequencing of events in the narrative.
-
-The learner should encounter the word 2-3 times through the scene's own logic before the Breakdown ever names it.
-
-## The Dual-Track Standard
-
-- **The Intercept:** 3 - 5 minutes (~500-750 words). Pure Tamil/Thanglish. Long enough to get lost in, loop, and discover on relisten. Should have a beginning, middle, and end.
-- **The Breakdown:** 5 - 7 minutes (~750-1,050 words). Reaction-style analysis.
-- **Script Naming:**
-  - `content/scripts/tier{N}_mission{M}.md`
+## Guidelines for Variety
+- If the last mission was a **The Eavesdrop**, the next should be a **The Heated Dispute** or **The Transaction**.
+- Move the setting from **private** (house) to **public** (street, market) to keep the vocabulary and world-building diverse.
+- Ensure characters have distinct, conflicting motivations to create natural drama.

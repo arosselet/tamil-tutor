@@ -1,94 +1,51 @@
 # The Immersion Gradient
 
-## Principle: Teach New, Use Known
+## Principle: Contrast & Compound
 
-As the learner acquires vocabulary, the lessons must **compound**. Words that have been learned stop being taught and start being *used* — in drills, in scene-setting, in character speech — without translation. The learner's brain must shift from "recall on demand" to "parse in real-time."
-
-## The Three Word Modes
-
-Every word the learner has encountered falls into one of three modes. These are derived from `progress/learner.json`.
-
-| Mode | Source | Writer Behavior |
-|---|---|---|
-| **TEACH** | Current episode's `target_vocab` | Full introduction: English meaning → Tamil word → conversational repetition. **2-3 words per episode**, emphasized repeatedly by the hosts. |
-| **USE** | `comfortable_words` + `mastered_words` | Used freely in Tamil **without translation** — in character lines, transitions, scene-setting. Never gloss them. |
-| **CALLBACK** | `struggled_words` | Quick Tamil drop into a sentence, beat for the learner to process. Brief reminder if needed, then move on. No full re-teach. |
-
-### Rules
-
-1. **TEACH** words get the full treatment: context, meaning, repetition, repeated vocalization by the hosts.
-2. **USE** words appear naturally — scene-setting, praise, transitions. Never translate them. If the script says "சரி, let's move on" there is no "(Okay, let's move on)."
-3. **CALLBACK** words get a quick challenge. Drop them into a sentence, give the learner a beat to process. One-line reminder if they struggle, then move on.
+As the learner acquires vocabulary, lessons must compound. Words that have been learned stop being taught and start being *used*. To keep the lessons fresh, each mission should contrast with the previous one in setting, tone, and character dynamics.
 
 ---
 
-## The Gradient: Tamil % by Tier and Episode Type
+## Word Weaving Modes
 
-Two thresholds per tier — one for the **Intercept** (scene/dialogue), one for the **Instruction** (breakdown/analysis).
+Every word in a lesson must belong to one of these four modes. These categories are derived from `progress/learner.json`.
+
+| Mode | Purpose | Script Behavior |
+|:---|:---|:---|
+| **TEACH** (2-3 words) | New Structural Keys | Full introduction: Meaning → Tamil → Repetition. These are the mission's "Decryption Keys." |
+| **EXPOSE** (5-8 words) | Passive Vocabulary | Used naturally in context during the Intercept. Brief translation in the Breakdown, but no deep drills. |
+| **USE** (All Known) | Reinforcement | Used freely in pure Tamil without any translation. Never gloss these. |
+| **CALLBACK** (2-3 words) | Remediation | Drop into a sentence to challenge the learner. Only words from `struggled_words` belong here. |
+
+### Rules for the Writer
+1. **TEACH words** are the "boss fight" of the episode. They should be essential to the scene's resolution.
+2. **EXPOSE words** provide the "local color." The learner should understand their meaning through context and the Breakdown, but won't be tested on them yet.
+3. **USE words** are invisible to the writer as "learning items." Use them as if you were speaking to a native who knows these specific words.
+4. **The No-Gloss Rule**: Never pause mid-scene to explain a word. If a word is unknown and not in TEACH or EXPOSE, **use English**.
+
+---
+
+## The Gradient: Tamil % by Tier
 
 | Tier | Focus | Intercept (Tamil %) | Instruction (Tamil %) |
-|---|---|---|---|
+|:---|:---|:---|:---|
 | **Tier 1** | Survival | 20% | 10% |
 | **Tier 2** | Comfort | 70% | 20% |
 | **Tier 3** | Embedded | 100% | 50% |
 
-**Intercept** = the scene. Characters speak as they naturally would. Tamil carries commands, emotion, and local flavour; English fills logistics and filler. As the tier rises, English filler disappears.
-
-**Instruction** = the breakdown/analysis. The writer explains, frames, and teaches. Tamil appears only in quotes, conversational repetition, and when the hosts playfully test each other. Kept low deliberately — the learner's brain is working hard enough decoding the Intercept.
-
-> **These are targets, not word counts.** Read the draft aloud. If it feels too heavy to follow, pull back the Tamil. If it feels too easy, push it.
-
-### The Comprehensible Input Rule (CRITICAL)
-NEVER use a Tamil word in the Intercept that is not explicitly in the TEACH, EXPOSE, USE, or CALLBACK lists. If the scene requires a word the learner hasn't learned yet, **you MUST use English**. 
-If a learner is starting a new language from scratch, they lack the "glue words" (conjunctions, prepositions, basic verbs) to piece together a scene. Do not create a "wall of noise." The target percentage is a ceiling, not a floor. If reaching the target % requires using unknown Tamil words, lower the percentage and use English.
+**Intercept**: The "Short Film." Thanglish is expected. Characters use Tamil for emotion, commands, and local texture; English for logistics and filler.
+**Instruction**: The "Breakdown." Keep the Tamil low (quotes and anchors) to avoid cognitive overload.
 
 ---
 
 ## The Word Status Sheet
-
-Before writing a Beat Sheet, the Director generates a **Word Status Sheet** — a quick-reference categorization of the learner's vocabulary.
-
-### How to Generate It
-
-1. Read `progress/learner.json`
-2. Read `curriculum/tiers/tier_X.json` for the target mission
-3. Categorize:
+Before writing, generate this quick reference to ensure the correct "Weaving Mode" is used.
 
 ```
 === WORD STATUS SHEET: Tier X, Mission Y ===
 
-TEACH (new this episode):
-  - அதுக்கு அப்புறம் → After that
-  - முன்னாடி → Before
-  - ...
-
-USE (comfortable — use freely, no translation):
-  - சரி, ஆமா, இல்ல, வணக்கம், இருக்கு, போதும், ...
-  - எனக்கு, உனக்கு, கொஞ்சம், நிறைய, ...
-  - சாப்பிட்டேன், குடிச்சேன், தூங்கினேன், ...
-
-CALLBACK (struggled — quick challenge, no re-teach):
-  - அஞ்சு, கம்மி, கிட்ட, ...
+TEACH: [2-3 New Keys]
+EXPOSE: [5-8 Passive Words]
+USE: [Comfortable/Mastered Words]
+CALLBACK: [Struggled Words]
 ```
-
-4. Attach this sheet to the top of the Beat Sheet as a reference for the Architect.
-
----
-
-## Application Examples (Tier 2)
-
-**Intercept — Thanglish code-switching (60% Tamil target):**
-- Character says "அண்ணா, idhu எவ்ளோ?" not "How much does this cost?"
-- Commands and reactions in Tamil: "எடு", "வை", "சரி சரி".
-- Logistics and filler in English: "Let me check", "Wait, I think..."
-
-**Instruction — English-led with Tamil anchors (20% Tamil target):**
-- Transitions: "சரி, next word." / "செம்ம! Now let's try something harder."
-- Natural Repetition: "Raj, what was that word again? முடியாது? Yeah, முடியாது."
-- Replays quote the Intercept verbatim in Tamil; analysis wraps it in English.
-
-### What NOT to Do
-
-- ❌ Glossing a USE word mid-script: "சரி (which means 'okay')" — just say it and move on.
-- ❌ Dropping Tamil entirely in the Intercept because the scene is complex — that's the point.
-- ❌ Heavy Tamil in the Instruction section — the learner is already cognitively loaded from the Intercept.
