@@ -1,12 +1,12 @@
-# The Narrative Engine (Inspiration)
+# Narrative Inspiration (Not Rules)
 
-The Director should use these narrative styles to ensure variety. These are not rigid rules, but examples of how to frame different vocabulary sets.
+These are **optional sparks** for the Architect, not a mandatory rotation. The Architect has full creative freedom — these exist only to prevent writer's block.
 
 ---
 
-## Example Narrative Styles
+## Example Scene Types
 
-| Style | Tone | Potential Settings |
+| Type | Tone | Potential Settings |
 |:---|:---|:---|
 | **The Eavesdrop** | Observational | Public transit, markets, parks, cafes. |
 | **The Heated Dispute** | High Stakes | Traffic accidents, shop negotiations, family standoffs. |
@@ -16,18 +16,21 @@ The Director should use these narrative styles to ensure variety. These are not 
 
 ---
 
-## Narrative Seeds
+## Scene Seeds (Pick One or Invent Your Own)
 
-Use these to spark ideas for the Intercept's "Short Film":
-- **The Autorickshaw Standoff**: A dispute over a fare or a shortcut.
-- **The Chai Shop Intel**: Overhearing a conversation while waiting for tea.
-- **The Crowded Market**: Navigating through vendors and customers.
-- **The Railway Platform**: Identifying a specific train or person in the chaos.
-- **The Family Dinner**: A more domestic setting, but with high interpersonal drama.
+- A dispute over an autorickshaw fare.
+- Overhearing a conversation while waiting for chai.
+- Navigating through a crowded market.
+- Identifying a train or person on a railway platform.
+- A tense family dinner with competing opinions.
+- A construction site argument about supplies.
+- Two shopkeepers competing for a customer.
+- A wedding planning disagreement.
+- A hospital waiting room with impatient relatives.
+- A phone call gone wrong in public.
 
 ---
 
-## Guidelines for Variety
-- If the last mission was a **The Eavesdrop**, the next should be a **The Heated Dispute** or **The Transaction**.
-- Move the setting from **private** (house) to **public** (street, market) to keep the vocabulary and world-building diverse.
-- Ensure characters have distinct, conflicting motivations to create natural drama.
+## The Only Rule: Don't Repeat
+
+If the last episode was domestic, go public. If it was calm, go loud. Beyond that — surprise us.

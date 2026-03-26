@@ -1,33 +1,12 @@
 {
   "learner": "Andrew",
-  "current_location": "Coimbatore — Street (Near the family house)",
-  "narrative_context": {
-    "current_arc": "The Coimbatore Return",
-    "last_event": "The missing box was found under the stairs. Thambi's worry was overblown. The family tension has settled and Andrew has a few errands to run before heading back to his own place.",
-    "open_loop": "Andrew has an address, a short list, and no real plan. He needs to get across town."
-  },
-  "inventory": [],
-  "status_clues": [],
   "current_tier": 2,
   "active_mission": {
       "tier": 2,
-      "mission": 30,
-      "topic": "Comparison & Difficulty",
-      "target_vocab": [
-          {
-              "tamil": "விட",
-              "english": "Than (Comparison)"
-          },
-          {
-              "tamil": "உயரம்",
-              "english": "Tall / Height"
-          },
-          {
-              "tamil": "கஷ்டம்",
-              "english": "Difficult / Hardship"
-          }
-      ]
-  },  "tier_progress": {
+      "mission": 31,
+      "topic": "Next Mission"
+  },
+  "tier_progress": {
     "tier1": {
       "target": 69,
       "mastered": 42,
@@ -52,23 +31,13 @@
   },
   "struggled_words": [
     "இன்னைக்கு",
-    "கீழ",
     "முதல்ல",
-    "முன்னாடியே",
-    "மேல",
     "கேட்டேன்",
     "கேட்குறேன்",
     "கேட்பேன்",
-    "சந்தோஷம்",
-    "பயம்",
-    "கவலை",
     "தூக்கு",
     "வை",
-    "பெட்டி",
-    "நிமிஷம்",
-    "முடியாது",
-    "தப்பு",
-    "பிடிக்காது"
+    "நிமிஷம்"
   ],
   "mastered_words": [
     "வலது",
@@ -166,8 +135,18 @@
     "தாகம்",
     "நிறைய",
     "நேரம் ஆச்சு",
-    "பரவாயில்லை"
+    "பரவாயில்லை",
+    "கீழ",
+    "மேல",
+    "முன்னாடியே",
+    "சந்தோஷம்",
+    "பயம்",
+    "கவலை",
+    "பெட்டி",
+    "முடியாது",
+    "தப்பு",
+    "பிடிக்காது"
   ],
   "sessions": [],
-  "mission_status": "In Progress"
+  "mission_status": "Ready"
 }

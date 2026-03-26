@@ -10,11 +10,9 @@
 2. **The Breakdown Hosts:** Use consistent names for Analysts: `**Analyst Maya (F):**` and `**Analyst Raj (M):**`.
 3. **Randomization:** Each time the script is rendered, the engine picks a fresh mix of voices that match the requested genders. This keeps the missions feeling varied and un-rehearsed while maintaining correct gender representations.
 
-## Rule 2: Tamil Script Enforcement (CRITICAL)
+## Rule 2: Tamil Script Enforcement
 
-The TTS engine CANNOT read English phonetics correctly.
-- **Every single Tamil word MUST be in Tamil Script.**
-- This applies to all characters. Even if an Analyst is explaining a word, they use the script in their line.
+See `protocol/philosophy.md` — Canonical Rules (Tamil Script Only). This is non-negotiable for TTS rendering.
 
 ## Rule 3: Spoken Register Audit (The Living Tamil Pass)
 
@@ -55,8 +53,9 @@ Ensure the script uses spoken Coimbatore/Kongu Tamil (`-nga` suffix, phonetic co
 The Breakdown often involves Analysts "playing back" snippets.
 - **The Snippet Pattern:** Instead of using an external audio embed, the snippet is just spoken by the character again. Use a short [Pause: 1 sec] before and after a snippet to help the learner identify it as a "Recorded Audio" playback.
 
-## Rule 6: Fourth Wall Integrity (CRITICAL)
-Never address the listener by their name or speak directly to them as a student. Ensure there is no meta-commentary about the learning process, studying, or their physical environment (e.g., "if you're walking"). The podcast must exist entirely in its own conversational world.
+## Rule 6: Fourth Wall & Meta-Narration
+
+See `protocol/philosophy.md` — Canonical Rules (Fourth Wall Integrity) and Tactical Rule 6 (No Meta-Narration).
 
 ## Rule 7: The Scrubbing Pass
 
