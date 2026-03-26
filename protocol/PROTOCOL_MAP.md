@@ -18,11 +18,11 @@ This document defines the structure and execution of the Tamil language learning
 
 | Module | Location | Purpose |
 |:---|:---|:---|
-| **Immersion Gradient** | `protocol/immersion_gradient.md` | Single source of truth for word weaving (TEACH/EXPOSE/USE/CALLBACK) |
+| **Philosophy** | `protocol/philosophy.md` | Core philosophy, tactical rules, and **canonical rules** (referenced by all roles) |
+| **Immersion Gradient** | `protocol/immersion_gradient.md` | Word weaving modes (NEW/USE/STRUGGLED) and Tamil % targets |
 | **Learning Loop** | `protocol/learning_loop.md` | 5-phase immersion cycle |
 | **Session** | `protocol/session_protocol.md` | Interactive lesson handling |
-| **Rotation** | `protocol/episode_rotation.md` | Examples of narrative styles and settings |
-| **Director** | `protocol/roles/director.md` | Strategic planning (Narrative context + Word Retrieval) |
-| **Architect** | `protocol/roles/architect.md` | Tactical writing (Scripting the Intercept + Breakdown) |
-| **Producer** | `protocol/roles/producer.md` | Final TTS audit (Tamil Script + Spoken Register) |
-| **Earworm** | `protocol/learning_loop.md` | (Note: Part of Discovery Phase — see Phase 3) |
+| **Inspiration** | `protocol/episode_rotation.md` | Optional narrative seeds and scene types |
+| **Director** | `protocol/roles/director.md` | Word payload + seed + negative constraints |
+| **Architect** | `protocol/roles/architect.md` | Full creative freedom — turns payload into script |
+| **Producer** | `protocol/roles/producer.md` | TTS audit: casting, register, dialect, formatting |

@@ -59,15 +59,21 @@ Never provide a bare vocabulary list. Always weave words into context, scenario,
 **Rule:** When teaching high-utility verbs (say, ask, go, come), prioritize the **Tense Matrix** (Past/Present/Future) and **Person Toggle** (I/They) over standalone word lists.
 **Reason:** Structured learning of these patterns allows the brain to conjugate any verb once the base pattern is mastered. It builds a generative "engine" rather than just a dictionary.
 
-### 6. Context Refraction
-**Rule:** Every target word must be "refracted" through at least 3 distinct contexts in a single episode:
-1. **The Briefing:** Introduced within the cultural/story context.
-2. **The Banter:** Used casually in host-guest interaction.
-3. **The Payoff:** Used to solve a specific problem or "win" a scenario.
-
-### 7. No Meta-Narration
+### 6. No Meta-Narration
 **Rule:** Never reference the listener's physical state, energy level, activity, or body position. No "if you're walking," no "feel the rhythm," no "low energy mission," no "sink into the couch."
 **Reason:** The podcast exists in its own world. The listener exists in theirs. Meta-narration breaks immersion and turns content into instruction. Trust the content to hold attention on its own.
+
+---
+
+## Canonical Rules (Referenced by All Roles)
+
+These rules are stated here once. Role files reference them — they are NOT repeated.
+
+### Fourth Wall Integrity
+NEVER address the listener by name or speak directly to them. The narrative world is the only reality. The Intercept is a slice-of-life scene; the Breakdown is a debrief between analysts. Neither acknowledges an audience.
+
+### Tamil Script Only
+The TTS engine cannot read English phonetics. Every Tamil word MUST be in Tamil Script, in every context — Intercept dialogue, Breakdown discussion, snippets, drills.
 
 ---
 
