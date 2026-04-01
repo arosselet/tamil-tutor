@@ -1,61 +1,50 @@
-# Interactive Session Protocol
+# Interactive Session Protocol (@tutor)
 
-> **NOTE:** This protocol is exclusively for **Phase 5 (Opt-In Interactive Sessions)**.
-> For the default Podcast Generation workflow, refer to `protocol/learning_loop.md`.
+> **NOTE:** This protocol is triggered whenever the learner uses the **@tutor** handle or requests an interactive session.
 
-## The Trigger
+## The @tutor Pipeline
 
-When the learner explicitly requests an interactive session (e.g., "Let's chat", "Quiz me", "Roleplay"), begin this protocol.
+When triggered, you MUST follow this sequence. Do not skip steps. Do not jump to script generation until Step 4 is complete.
 
-## Step 1: Read Learner State
+### Step 1: Read & Sync (The State Check)
+Read `progress/learner.json` and `curriculum/tiers/tier_X.json`. 
+- **Identify:** Last mission completed, Struggled Words, and Streak.
+- **Acknowledge:** Start the response by acknowledging their streak and last episode they listened to.
 
-Read `progress/learner.json` to determine:
-- Current level and episode
-- Struggled words (these need extra drilling)
-- Comfortable words (these can be used in context but don't need focus)
-- Streak data (acknowledge streaks, encourage continuation)
-- Recent session history
+### Step 2: The Micro-Debrief (Close the Loop)
+If the `last_mission` in `learner.json` has audio rendered but no debrief data, ask these three quick questions:
 
-## Step 2: Run the Session
+**Ask (in conversational tone, not a form):**
+1. **Clarity** — When speakers talked, how easy was it to follow? (Was anyone particularly fast, unclear, or easy to understand?)
+2. **One word that stuck** — Any word from the episode that surprised you or stayed with you?
+3. **Pace** — Did the scene feel rushed, steady, or slow?
 
-Use vocabulary from the current tier in `curriculum/tiers/tier_X.json`, prioritizing words that fit the chosen mission arc. Weave in struggled words from `learner.json` for extra reps.
+**Update:** Write answers into `learner.json.last_mission.debrief`.
 
-### The 12-Minute Standard (Interactive Equivalent)
+**Infer patterns:** Based on answers, note:
+- Speaker clarity preferences
+- Weak/strong patterns (present tense? fast speech? accent?)
+- Recommended pacing and format for next episode
+
+### Step 3: Mission Briefing (The Strategy)
+Once debrief is complete, design the next mission:
+1. **Apply Contrast:** Check last mission's location, tone, and word domain. Next episode should differ.
+2. **Choose Format:** Rotate through formats (intercept_only → narrative_driven → interview_style → dual_scene → back to intercept). Format choice should address debrief patterns.
+3. **Create the Brief:** Write a new file in `content/beats/tierX_missionY_brief.md` using the Director template.
+4. **Present Brief:** Show the brief to the user. **Stop here** unless they say "Proceed" or "I'm ready."
+
+### Step 4: Execution (The Act)
+Only after the Brief is approved:
+1. **Script:** Write the script in `content/scripts/`, using the chosen format.
+2. **Audio:** Run `scripts/render_audio.py`.
+3. **RSS:** Run `scripts/rebuild_rss.py`.
+4. **Update State:** Set the new `active_mission` in `learner.json`, record format choice.
+
+## The 12-Minute Standard
 To ensure the brain has time to "soak" in the language:
 1. **Target Word Count:** 2,000 - 2,500 words (User + AI combined).
 2. **Target Duration:** 10-12 minutes.
 3. **Pacing:** Balance "Slow Beats" (context, culture, storytelling) with "Fast Explosions" (dense drills, high-stakes roleplay).
-
-## Step 3: Session Debrief
-
-At the end of the session:
-1. Identify the **Threshold Zinger** (one phrase to mutter at doorways).
-2. Ask: "What felt hard today?" — note struggled words.
-3. Ask: "What clicked?" — note words that moved to comfortable.
-
-## Step 4: Update Learner State
-
-### If you have file access (Desktop/CLI):
-Write back to `progress/learner.json`:
-- Append a new entry to `sessions[]`:
-  ```json
-  {
-    "date": "2026-02-17",
-    "tier": 1,
-    "mission": 1,
-    "energy": "HIGH",
-    "struggled": ["வேணும்", "வேண்டாம்"],
-    "comfortable": ["வணக்கம்", "ஆமா"],
-    "zinger": "சரி",
-    "notes": "Interactive session: Nailed the greeting pattern"
-  }
-  ```
-- Move words between `struggled_words` and `comfortable_words` as appropriate.
-- Update `current_tier` if advancing.
-- Update streak (increment if consecutive day, reset if gap).
-
-### If you have NO file access (Mobile):
-Emit a JSON progress blob per `protocol/mobile_sync.md`. Display it in a code block and say **"Copy this and paste it into your desktop session during the Debrief."**
 
 ---
 
