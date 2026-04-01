@@ -3,8 +3,18 @@
   "current_tier": 2,
   "active_mission": {
       "tier": 2,
-      "mission": 31,
-      "topic": "Next Mission"
+      "mission": 33,
+      "topic": "Market & Selection / Action Verbs"
+  },
+  "last_mission": {
+      "tier": 2,
+      "mission": 32,
+      "format": "intercept_only",
+      "debrief": {
+        "clarity": "mostly_clear",
+        "stuck_word": "அழகான",
+        "pace": "just_right"
+      }
   },
   "tier_progress": {
     "tier1": {
@@ -14,7 +24,7 @@
     },
     "tier2": {
       "target": 153,
-      "mastered": 30,
+      "mastered": 31,
       "label": "Comfort"
     },
     "tier3": {
@@ -23,11 +33,11 @@
       "label": "Embedded"
     }
   },
-  "total_sessions": 18,
+  "total_sessions": 20,
   "streak": {
-    "current": 4,
+    "current": 6,
     "best": 7,
-    "last_date": "2026-03-20"
+    "last_date": "2026-04-01"
   },
   "struggled_words": [
     "இன்னைக்கு",
@@ -40,6 +50,7 @@
     "நிமிஷம்"
   ],
   "mastered_words": [
+    "அழகான",
     "வலது",
     "சொன்னாங்க",
     "நேரா",
@@ -147,6 +158,13 @@
     "தப்பு",
     "பிடிக்காது"
   ],
-  "sessions": [],
+  "sessions": [
+    {
+      "date": "2026-03-29",
+      "tier": 2,
+      "mission": 31,
+      "zinger": "புரிஞ்சுது!"
+    }
+  ],
   "mission_status": "Ready"
 }
