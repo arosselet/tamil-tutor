@@ -8,10 +8,10 @@ This protocol defines the learner's journey from initial exposure to confident m
 
 | Phase | Activity | Focus | Goal |
 |:---|:---|:---|:---|
-| **Phase 1: Mission Briefing** | Read the Beat Sheet | Objective & Keys | Establish "The Mission" and identify the core 2-3 words (TEACH). |
+| **Phase 1: Mission Briefing** | Read the Beat Sheet | Objective & Keys | Establish "The Mission" and identify the core NEW words. |
 | **Phase 2: The Intercept** | First Listen | Pure Discovery | Experience the scene "raw." Try to catch the "vibe" and any known words. |
 | **Phase 3: Discovery** | Passive Exposure | Loop & Catch | Repeat-listen to the Intercept during "dead time" (commute, chores). |
-| **Phase 4: Decryption** | Listen to the Breakdown | Analytical Deep-Dive | Hosts explain the "Keys" (TEACH) and "Signal" (EXPOSE) words in context. |
+| **Phase 4: Decryption** | Listen to the Breakdown | Analytical Deep-Dive | Analyst Maya and Analyst Raj unpack the NEW words in context. |
 | **Phase 5: Field Test** | (Optional) Active Session | Roleplay & Production | Use the new words in a simulated conversation or mission-related drill. |
 
 ---

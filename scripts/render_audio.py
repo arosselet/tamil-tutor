@@ -20,6 +20,7 @@ import argparse
 import random
 import json
 import subprocess
+import time
 
 import edge_tts
 try:
@@ -150,17 +151,25 @@ async def generate_segment_edge(text: str, voice: str, index: int, temp_dir: str
     return filename
 
 
-async def generate_segment_google(text: str, voice: str, index: int, temp_dir: str) -> str:
-    """Generate a single audio segment using Google Cloud TTS."""
+async def generate_segment_google(text: str, voice: str, index: int, temp_dir: str, max_retries: int = 5) -> str:
+    """Generate a single audio segment using Google Cloud TTS with exponential backoff."""
     client = texttospeech.TextToSpeechClient()
     input_text = texttospeech.SynthesisInput(text=text)
     voice_params = texttospeech.VoiceSelectionParams(language_code="ta-IN", name=voice)
     audio_config = texttospeech.AudioConfig(audio_encoding=texttospeech.AudioEncoding.MP3, sample_rate_hertz=24000)
-    response = client.synthesize_speech(input=input_text, voice=voice_params, audio_config=audio_config)
-    filename = os.path.join(temp_dir, f"segment_{index:04d}.mp3")
-    with open(filename, "wb") as out:
-        out.write(response.audio_content)
-    return filename
+    for attempt in range(max_retries):
+        try:
+            response = client.synthesize_speech(input=input_text, voice=voice_params, audio_config=audio_config)
+            filename = os.path.join(temp_dir, f"segment_{index:04d}.mp3")
+            with open(filename, "wb") as out:
+                out.write(response.audio_content)
+            return filename
+        except Exception as e:
+            if attempt == max_retries - 1:
+                raise
+            wait = 2 ** attempt + random.random()
+            print(f"   ⚠️ Retry {attempt+1}/{max_retries} after {wait:.1f}s — {e}")
+            time.sleep(wait)
 
 
 def get_raw_mp3_frames(filepath: str) -> bytes:

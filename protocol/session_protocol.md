@@ -21,30 +21,47 @@ If the `last_mission` in `learner.json` has audio rendered but no debrief data, 
 
 **Update:** Write answers into `learner.json.last_mission.debrief`.
 
-**Infer patterns:** Based on answers, note:
-- Speaker clarity preferences
-- Weak/strong patterns (present tense? fast speech? accent?)
-- Recommended pacing and format for next episode
+**Infer and calibrate:** Based on answers, adjust the *next mission's difficulty* — not its format:
+- Clarity struggled → Reduce NEW words to 6-8, use shorter exchanges in next Intercept
+- Clarity good → Full 8-12 NEW words, standard density
+- Pace too fast → More natural pauses, slower dialogue rhythm (Director notes this in brief)
+- Pace too slow → Tighter dialogue, more rapid exchanges, fewer SFX pauses
+- Stuck word → Add to STRUGGLED list if not already there, or note as strength if recalled correctly
 
 ### Step 3: Mission Briefing (The Strategy)
 Once debrief is complete, design the next mission:
-1. **Apply Contrast:** Check last mission's location, tone, and word domain. Next episode should differ.
-2. **Choose Format:** Rotate through formats (intercept_only → narrative_driven → interview_style → dual_scene → back to intercept). Format choice should address debrief patterns.
-3. **Create the Brief:** Write a new file in `content/beats/tierX_missionY_brief.md` using the Director template.
-4. **Present Brief:** Show the brief to the user. **Stop here** unless they say "Proceed" or "I'm ready."
+1. **Apply the Contrast Principle:** Check the last 3 missions (read their briefs or scripts). The Director brief MUST include a specific NOT list naming those missions. Example: *"Mission 31 was a tea stall phone mix-up. Mission 32 was house hunting with a landlady. Do NOT write a phone scene, a real estate scene, or a tea stall scene."*
+2. **Create the Brief:** Director role writes `content/beats/tierX_missionY_brief.md` including:
+   - Scene seed with **clear stakes or tension** (not just a vocab opportunity)
+   - Word payload (8-12 NEW, plus STRUGGLED for organic use)
+   - Specific NOT list referencing the last 3 missions by name and topic
+   - Debrief calibration notes (e.g., "learner found last episode too fast — use shorter exchanges")
+   - Target duration: 4-5 minutes total (Intercept + Breakdown combined)
+3. **Present Brief:** Show brief to learner. **Stop here** unless they say "Proceed" or "I'm ready."
+
+### Step 3.5: Producer Audit (Blocking Gate)
+After the Architect submits the script, **before audio generation**, the Producer MUST audit the script. This step is **mandatory and blocking** — no script goes to TTS without passing.
+
+The Producer checks exactly three things:
+
+1. **No inline glossing.** No `**word** (English)` patterns anywhere in the Intercept. If a word needs context, the Breakdown handles it. If you find inline glossing, strip it and verify the dialogue still reads naturally.
+2. **Tamil script integrity.** No gibberish, no character corruption, no mixed-encoding artifacts. Read every Tamil line. If anything looks garbled, flag it and send back to Architect.
+3. **The Outsider Test.** Read the Intercept dialogue and ask: would a Coimbatore auto driver say this to his friend? If any line sounds like a textbook or a translation, rewrite it using the spoken register rules in `protocol/roles/producer.md` (Rules 3a-3e).
+
+**If any check fails:** Fix the issue or send back to Architect for rewrite. Do NOT proceed to audio.
+**If all pass:** Approve for rendering.
 
 ### Step 4: Execution (The Act)
-Only after the Brief is approved:
-1. **Script:** Write the script in `content/scripts/`, using the chosen format.
-2. **Audio:** Run `scripts/render_audio.py`.
-3. **RSS:** Run `scripts/rebuild_rss.py`.
-4. **Update State:** Set the new `active_mission` in `learner.json`, record format choice.
+Only after the Brief is approved AND Producer audit passes:
+1. **Audio:** Run `scripts/render_audio.py`.
+2. **RSS:** Run `scripts/rebuild_rss.py`.
+3. **Publish:** Commit script + audio to git, push to GitHub.
+4. **Update State:** Set `active_mission` in `learner.json`.
 
-## The 12-Minute Standard
-To ensure the brain has time to "soak" in the language:
-1. **Target Word Count:** 2,000 - 2,500 words (User + AI combined).
-2. **Target Duration:** 10-12 minutes.
-3. **Pacing:** Balance "Slow Beats" (context, culture, storytelling) with "Fast Explosions" (dense drills, high-stakes roleplay).
+## Target Episode Duration
+1. **Target Duration:** 4-5 minutes total (Intercept + Breakdown combined).
+2. **Quality Over Length:** A focused 4-minute scene with clear stakes beats a padded 10-minute episode.
+3. **Reference Model:** Mission 31 (Wrong Number, Right Stall) at 4:19 is the gold standard for pacing and density.
 
 ---
 
