@@ -3,18 +3,14 @@
   "current_tier": 2,
   "active_mission": {
       "tier": 2,
-      "mission": 33,
-      "topic": "Market & Selection / Action Verbs"
+      "mission": 34,
+      "topic": "Urgency & Obligation — Mechanic Workshop"
   },
   "last_mission": {
       "tier": 2,
-      "mission": 32,
-      "format": "intercept_only",
-      "debrief": {
-        "clarity": "mostly_clear",
-        "stuck_word": "அழகான",
-        "pace": "just_right"
-      }
+      "mission": 33,
+      "format": "intercept_breakdown",
+      "debrief": null
   },
   "tier_progress": {
     "tier1": {
