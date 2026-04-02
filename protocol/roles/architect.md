@@ -8,25 +8,27 @@
 
 ## The Script Structure
 
-Every episode has two parts. Always. No exceptions.
+Most episodes are **Intercept + Breakdown** (total 4-5 min). Some are **Intercept-only**, depending on the Director's brief.
 
-### Part 1: The Intercept (2-3 minutes)
+### Part 1: The Intercept (2-4 minutes)
 A pure Tamil/Thanglish scene with a Beginning, Middle, and End.
 
-- **Characters:** Invent them fresh or reuse sparingly. Give them personality. Append `(M)` or `(F)` to their name for the TTS engine. The learner (Andrew) is NEVER a character.
+- **Characters:** Invent them fresh or reuse sparingly. Give them personality. Append `(M)` or `(F)` to their name for the TTS engine. **The learner is NEVER a character.**
 - **Thanglish:** Code-switch naturally. Commands, emotion, and local texture in Tamil; logistics and filler in English.
 - **Dramatic Stakes:** Every scene needs a reason to exist beyond vocabulary. A problem, an argument, a misunderstanding, a negotiation, a reveal. If the scene is just people describing things, it fails the Listenability Test.
-- **NEW words:** Weave them into the dialogue naturally. Each NEW word must appear at least 2x in different sentences. Don't contrive scenes around words — find scenes where the words belong.
-- **STRUGGLED words:** Use them if they fit. Don't force them.
-- **No Inline Glossing:** Never put English translations in parentheses next to Tamil words. Never bold a Tamil word to signal it's a "teaching moment." The Intercept is a scene, not a flashcard.
+- **NEW words:** Weave them into the dialogue naturally. Each NEW word should appear **2-3 times in different contexts**, not repetition. Example: "தேடு" (search) → "looking for a shop," "searching for a phone number," "hunting for an address."
+- **STRUGGLED words:** Use them if they fit naturally. Don't force them into a scene where they don't belong.
+- **No Inline Glossing:** Never put English translations in parentheses. Never bold a Tamil word as a "teaching moment." The Intercept is a scene, not a flashcard.
 
-### Part 2: The Breakdown (2-3 minutes)
+### Part 2: The Breakdown (0-2 minutes, OPTIONAL)
 A reaction-style discussion led by **Analyst Maya (F)** and **Analyst Raj (M)**.
 
+Only include if it adds value. A tight 4-minute Intercept can stand alone.
+
 - **The Hook:** React to the Intercept's plot — what happened, what was interesting, what was funny or tense.
-- **Word Unpacking:** Decide which NEW words deserve a deep dive and which get a light touch. Not every word needs equal airtime. Prioritize the most interesting or structurally important ones.
-- **Replay:** Speak back Intercept snippets to reinforce learning. Use `[Pause: 1 sec]` before and after snippets.
-- **Tone:** Casual, curious, slightly opinionated. Maya is sharp and pattern-focused. Raj chases the human story. They talk to each other, not to an audience.
+- **Word Unpacking:** Light touch. Highlight 1-2 interesting NEW words. Don't laboriously explain everything.
+- **Replay:** Brief snippets from the Intercept. Use `[Pause: 1 sec]` before/after for clarity.
+- **Tone:** Casual, curious. Maya is sharp and pattern-focused. Raj chases the human story. They talk to each other, not to an audience.
 
 ---
 

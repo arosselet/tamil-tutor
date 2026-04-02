@@ -1,50 +1,58 @@
 # The Immersion Gradient
 
-## Principle: Contrast & Compound
+## Word Categories
 
-As the learner acquires vocabulary, lessons must compound. Words that have been learned stop being taught and start being *used*. To keep the lessons fresh, each mission should contrast with the previous one in setting, tone, and character dynamics.
+Every word in a script falls into one of these three categories, determined by `progress/learner.json`:
 
----
-
-## Word Weaving Modes
-
-Every word in a lesson must belong to one of these three modes. These categories are derived from `progress/learner.json`.
-
-| Mode | Purpose | Script Behavior |
+| Category | Source | How to Write |
 |:---|:---|:---|
-| **NEW** (8-12 words) | Fresh Vocabulary | Used naturally in the Intercept. The Breakdown decides which words get a deep dive and which get a light gloss — no pre-assigned depth. |
-| **USE** (All Known) | Reinforcement | Used freely in pure Tamil without any translation. Never gloss these. |
-| **STRUGGLED** (Organic) | Remediation | Weave struggled words into dialogue *when they fit the scene*. Do not force them into every episode. After 3-4 episodes of exposure, move them to USE. |
-
-### Rules for the Writer
-1. **NEW words** are the episode's vocabulary payload. Pick them from the current Tier JSON, prioritizing words the learner hasn't seen.
-2. **USE words** are invisible to the writer as "learning items." Use them as if you were speaking to a native who knows these specific words.
-3. **STRUGGLED words** are not a mandatory checklist. If a struggled word fits the scene naturally, use it. If it doesn't, skip it. Trust repeated exposure over forced drilling.
-4. **The No-Gloss Rule**: Never pause mid-scene to explain a word. If a word is unknown and not in NEW, **use English**.
+| **NEW** (8-12) | Words pulled for this mission by Director | Weave naturally into Intercept dialogue, 2-3x in different contexts. No glossing mid-scene. |
+| **USE** (Mastered) | From `mastered_words` in learner.json | Use freely in Tamil. Never explain or translate. The learner knows these. |
+| **STRUGGLED** (Remedial) | From `struggled_words` in learner.json | Use only if the scene naturally calls for them. Never force. Skip if they don't fit. |
 
 ---
 
-## The Gradient: Tamil % by Tier
+## Tier-Specific Tamil Density
 
-| Tier | Focus | Intercept (Tamil %) | Breakdown (Tamil %) |
-|:---|:---|:---|:---|
-| **Tier 1** | Survival | 20% | 10% |
-| **Tier 2** | Comfort | 70% | 20% |
-| **Tier 3** | Embedded | 100% | 50% |
+This is how much Tamil (vs. English) should appear in each tier:
 
-**Intercept**: The "Short Film." Thanglish is expected. Characters use Tamil for emotion, commands, and local texture; English for logistics and filler.
-**Breakdown**: The chit-chatty debrief. Keep the Tamil low (quotes and anchors) to avoid cognitive overload.
+| Tier | Intercept | Breakdown |
+|:---|:---|:---|
+| **Tier 1** | ~20% Tamil | ~10% Tamil |
+| **Tier 2** | ~70% Tamil | ~20% Tamil |
+| **Tier 3** | ~100% Tamil | ~50% Tamil |
+
+**Intercept Rule:** Characters use Tamil for emotion, commands, and local color. English for nouns, logistics, filler. This is natural Thanglish.
+
+**Breakdown Rule:** Minimal Tamil. Mostly English analysis with Tamil word quotes/examples.
 
 ---
 
-## The Word Payload
+## The Cardinal Rules
 
-Before writing, generate this quick reference to ensure the correct weaving mode is used.
+1. **NEW words must appear 2-3x in different contexts**, not repeated the same way.
+2. **Never gloss USE words** — they're known, don't explain them.
+3. **STRUGGLED words are optional** — use only if they fit the scene naturally.
+4. **Never inline-gloss mid-dialogue** — no `word (English)` in Intercept. If context doesn't clarify, the Breakdown handles it.
+5. **No textbook Tamil** — sounds like a Coimbatore native speaking, not a textbook being read.
 
-```
-=== WORD PAYLOAD: Tier X, Mission Y ===
+---
 
-NEW: [8-12 words from current Tier JSON]
-USE: [Comfortable/Mastered Words — no need to list all, just be aware]
-STRUGGLED: [Words from struggled list — use organically if they fit]
-```
+## Example: Mission 33 Word Weaving
+
+**NEW words to weave:**
+- தேடு (search) — appears when asking "where are you looking?" and "searching for something"
+- வாங்கு (buy) — appears in "buying vegetables" and "want to buy"
+- விலை (price) — appears naturally when discussing cost
+
+**USE words (never explain):**
+- பாக்குறேன் (I'm looking)
+- வேணும் (need/want)
+- சரி (okay)
+- [etc. from mastered list]
+
+**STRUGGLED words (if organic):**
+- தூக்கு (lift) — if a character picks something up, use it
+- Otherwise skip
+
+**Result:** New words stick because they appear in varied context. Mastered words flow naturally. Struggled words appear or don't, based on scene.
