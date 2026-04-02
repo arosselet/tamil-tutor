@@ -33,28 +33,51 @@ See `protocol/philosophy.md` — Canonical Rules.
 
 ---
 
+## Word Payload Guidance
+
+**NEW words (8-12):**
+- Each should appear **2-3 times** in natural context within the Intercept dialogue
+- Appear in different contexts (not just one sentence repeated)
+- Example: "தேடு" (search) could appear in "looking for a shop," "searching for a number," "hunting for something specific"
+- The Architect should weave them naturally — never glossed mid-dialogue
+
+**STRUGGLED words (optional):**
+- Pull from `learner.json.struggled_words`
+- Use **only if they fit the scene naturally**
+- Do NOT force them into a scene where they don't belong
+- Good rule: If you have to justify why a struggled word is in this scene, skip it
+
+---
+
 ## Output Template: The Brief
 
 The Director produces a `content/beats/tierX_missionY_brief.md` containing:
 
-```
+```markdown
 === MISSION BRIEF: Tier X, Mission Y ===
-
-WORD PAYLOAD:
-  NEW: [8-12 words with Tamil script + transliteration + meaning]
-  STRUGGLED: [Words from struggled list — Architect uses organically if they fit]
 
 SEED: [1-2 sentence scene idea with clear stakes/tension/comedy]
 
-NOT (Last 3 Missions):
-  - Mission [N-2]: [Topic summary]. Do not repeat [specific elements].
-  - Mission [N-1]: [Topic summary]. Do not repeat [specific elements].
-  - Mission [N]: [Topic summary]. Do not repeat [specific elements].
-  - [Any additional negative constraints]
+LISTENABILITY: [Why someone without learning goals would find this interesting]
 
-CALIBRATION: [Debrief notes for Architect, if any. Otherwise omit.]
+NOT (Last 3 Missions):
+  - Mission [N-2]: [Topic]. Do not: [what to avoid].
+  - Mission [N-1]: [Topic]. Do not: [what to avoid].
+  - Mission [N]: [Topic]. Do not: [what to avoid].
+
+WORD PAYLOAD:
+  NEW (8-12):
+    - [Tamil word] (*Transliteration*) — Definition
+      [Target: how many times, in what contexts]
+    
+  STRUGGLED (if organic fit):
+    - [Tamil word] (*Transliteration*) — Definition
+      [Optional: where it might appear naturally]
+
+CALIBRATION: [Debrief notes for Architect, if applicable]
 
 TARGET DURATION: 4-5 minutes (Intercept + Breakdown combined)
+REFERENCE MODEL: Mission 31 (Wrong Number, Right Stall) — use as gold standard for tone/pacing/density
 ```
 
-That's it. No 3-act arc. No in-universe briefing. No Intel Target. Let the Architect create.
+**That's it.** No 3-act structure. No character guide. No dialogue script. The Architect has the seed, the words, and the guardrails. They write the story.
