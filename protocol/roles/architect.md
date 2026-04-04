@@ -16,7 +16,8 @@ A pure Tamil/Thanglish scene with a Beginning, Middle, and End.
 - **Characters:** Invent them fresh or reuse sparingly. Give them personality. Append `(M)` or `(F)` to their name for the TTS engine. **The learner is NEVER a character.**
 - **Thanglish:** Code-switch naturally. Commands, emotion, and local texture in Tamil; logistics and filler in English.
 - **Dramatic Stakes:** Every scene needs a reason to exist beyond vocabulary. A problem, an argument, a misunderstanding, a negotiation, a reveal. If the scene is just people describing things, it fails the Listenability Test.
-- **NEW words:** Weave them into the dialogue naturally. Each NEW word should appear **2-3 times in different contexts**, not repetition. Example: "தேடு" (search) → "looking for a shop," "searching for a phone number," "hunting for an address."
+- **NEW words (4-5 only):** Weave them into the dialogue naturally. Each NEW word should appear **3-4 times in different contexts**, not repetition. Example: "தேடு" (search) → "looking for a shop," "searching for a phone number," "hunting for an address," "I already searched."
+- **The Comprehensible Input Rule (CRITICAL):** Every Tamil word in the Intercept MUST be from the NEW, USE (mastered/comfortable), or STRUGGLED lists. If a word isn't on any list, **use English**. The learner should understand 90%+ of what they hear. Unknown Tamil words that aren't being taught are just noise — they don't create immersion, they create frustration.
 - **STRUGGLED words:** Use them if they fit naturally. Don't force them into a scene where they don't belong.
 - **No Inline Glossing:** Never put English translations in parentheses. Never bold a Tamil word as a "teaching moment." The Intercept is a scene, not a flashcard.
 
@@ -35,11 +36,18 @@ Only include if it adds value. A tight 4-minute Intercept can stand alone.
 ## Word Weaving Checklist
 
 Before submitting the script, verify:
-- [ ] Every NEW word appears at least 2x in the Intercept, in different sentences
+- [ ] Every NEW word appears at least 3x in the Intercept, in different sentences
 - [ ] No USE (mastered) words are glossed or explained
 - [ ] STRUGGLED words are used only where they fit naturally (not forced)
 - [ ] No inline glossing anywhere in the Intercept — no `**word** (English)` patterns
-- [ ] Tamil percentage matches the tier gradient (Tier 2: ~70% Tamil in Intercept, ~20% in Breakdown)
+- [ ] **Every Tamil word in the Intercept is from the NEW, USE, or STRUGGLED lists** — no "bonus" Tamil words. If it's not on a list, it must be in English.
+- [ ] Tamil percentage matches the tier gradient (Tier 2: up to ~70% Tamil in Intercept, ~20% in Breakdown) — but this is a ceiling, not a floor. If reaching it requires unknown Tamil, use less Tamil.
+
+## The Plot Test
+
+Before submitting, ask: **Could the learner follow the plot of the Intercept without the Breakdown?** Not every word — the *plot*. Who is talking? What do they want? What went wrong? How did it resolve?
+
+If the answer is no — if the unknown Tamil makes the story opaque — the scene needs more English scaffolding around the Tamil. The Breakdown should be a victory lap ("oh, THAT's the word he used!"), not a rescue mission ("here's what actually happened").
 
 ---
 

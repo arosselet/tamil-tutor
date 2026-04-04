@@ -22,8 +22,8 @@ If the `last_mission` in `learner.json` has audio rendered but no debrief data, 
 **Update:** Write answers into `learner.json.last_mission.debrief`.
 
 **Infer and calibrate:** Based on answers, adjust the *next mission's difficulty* — not its format:
-- Clarity struggled → Reduce NEW words to 6-8, use shorter exchanges in next Intercept
-- Clarity good → Full 8-12 NEW words, standard density
+- Clarity struggled → Reduce NEW words to 3-4, use shorter exchanges in next Intercept
+- Clarity good → Full 4-5 NEW words, standard density
 - Pace too fast → More natural pauses, slower dialogue rhythm (Director notes this in brief)
 - Pace too slow → Tighter dialogue, more rapid exchanges, fewer SFX pauses
 - Stuck word → Add to STRUGGLED list if not already there, or note as strength if recalled correctly
@@ -33,7 +33,7 @@ Once debrief is complete, design the next mission:
 1. **Apply the Contrast Principle:** Check the last 3 missions (read their briefs or scripts). The Director brief MUST include a specific NOT list naming those missions. Example: *"Mission 31 was a tea stall phone mix-up. Mission 32 was house hunting with a landlady. Do NOT write a phone scene, a real estate scene, or a tea stall scene."*
 2. **Create the Brief:** Director role writes `content/beats/tierX_missionY_brief.md` including:
    - Scene seed with **clear stakes or tension** (not just a vocab opportunity)
-   - Word payload (8-12 NEW, plus STRUGGLED for organic use)
+   - Word payload (4-5 NEW, plus STRUGGLED for organic use)
    - Specific NOT list referencing the last 3 missions by name and topic
    - Debrief calibration notes (e.g., "learner found last episode too fast — use shorter exchanges")
    - Target duration: 4-5 minutes total (Intercept + Breakdown combined)
