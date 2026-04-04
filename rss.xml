@@ -21,6 +21,16 @@
     <itunes:new-feed-url>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/rss.xml</itunes:new-feed-url>
     
     <item>
+      <title>Tier2 Mission35</title>
+      <itunes:author>Andrew R &amp; Gemini</itunes:author>
+      <itunes:summary>Tier2 Mission35</itunes:summary>
+      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission35.mp3" length="455952" type="audio/mpeg"/>
+      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission35.mp3</guid>
+      <pubDate>Sat, 04 Apr 2026 00:12:17 -0400</pubDate>
+      <itunes:duration>00:01:15</itunes:duration>
+    </item>
+
+    <item>
       <title>Tier2 Mission34</title>
       <itunes:author>Andrew R &amp; Gemini</itunes:author>
       <itunes:summary>Tier2 Mission34</itunes:summary>
