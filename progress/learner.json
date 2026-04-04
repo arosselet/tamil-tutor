@@ -10,7 +10,11 @@
       "tier": 2,
       "mission": 33,
       "format": "intercept_breakdown",
-      "debrief": null
+      "debrief": {
+        "clarity": "no strong feedback due to tts format/protocol fixes",
+        "stuck_word": "seekiram",
+        "pace": "not sure"
+      }
   },
   "tier_progress": {
     "tier1": {
@@ -20,7 +24,7 @@
     },
     "tier2": {
       "target": 153,
-      "mastered": 31,
+      "mastered": 32,
       "label": "Comfort"
     },
     "tier3": {
@@ -46,6 +50,7 @@
     "நிமிஷம்"
   ],
   "mastered_words": [
+    "சீக்கிரம்",
     "அழகான",
     "வலது",
     "சொன்னாங்க",
@@ -162,5 +167,5 @@
       "zinger": "புரிஞ்சுது!"
     }
   ],
-  "mission_status": "Ready"
+  "mission_status": "Listening"
 }

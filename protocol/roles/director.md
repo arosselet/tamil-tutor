@@ -8,7 +8,7 @@
 
 ## Responsibilities
 
-1. **The Payload:** Pull 8-12 NEW words from the current Tier JSON. Ensure you aren't reusing words the learner already knows. Check `learner.json` for mastered/comfortable words.
+1. **The Payload:** Pull **4-5 NEW words** from the current Tier JSON. Ensure you aren't reusing words the learner already knows. Check `learner.json` for mastered/comfortable words. Fewer words = deeper exposure per word = stronger retention.
 2. **The Seed:** Write a 1-2 sentence scene idea. Be evocative, not prescriptive. Example: *"A bus stop where height and queue position become the same argument."*
 3. **The NOT List (Cumulative):** Name the last 3 missions and their topics explicitly. Then state what the episode should NOT be. This is the primary defense against repetition. Example: *"Mission 31: tea stall phone mix-up. Mission 32: house hunting with landlady. Mission 33: morning market vendor. Do NOT write a phone scene, a house scene, a market scene, or any domestic/family argument."*
 4. **The Listenability Test:** Would a person who isn't learning Tamil still find the seed interesting? If the answer is no — if it's just a vocabulary opportunity dressed as a scene — find a better seed. Good seeds have tension, stakes, or comedy.
@@ -35,11 +35,12 @@ See `protocol/philosophy.md` — Canonical Rules.
 
 ## Word Payload Guidance
 
-**NEW words (8-12):**
-- Each should appear **2-3 times** in natural context within the Intercept dialogue
+**NEW words (4-5 only):**
+- Each should appear **3-4 times** in natural context within the Intercept dialogue
 - Appear in different contexts (not just one sentence repeated)
-- Example: "தேடு" (search) could appear in "looking for a shop," "searching for a number," "hunting for something specific"
+- Example: "தேடு" (search) could appear in "looking for a shop," "searching for a number," "hunting for something specific," "I already searched"
 - The Architect should weave them naturally — never glossed mid-dialogue
+- **Fewer words, deeper exposure.** 4 words appearing 3-4x each beats 10 words appearing 2x each. The brain needs repetition to acquire, not breadth.
 
 **STRUGGLED words (optional):**
 - Pull from `learner.json.struggled_words`
@@ -66,9 +67,9 @@ NOT (Last 3 Missions):
   - Mission [N]: [Topic]. Do not: [what to avoid].
 
 WORD PAYLOAD:
-  NEW (8-12):
+  NEW (4-5 only):
     - [Tamil word] (*Transliteration*) — Definition
-      [Target: how many times, in what contexts]
+      [Target: 3-4x, in what contexts]
     
   STRUGGLED (if organic fit):
     - [Tamil word] (*Transliteration*) — Definition
