@@ -19,6 +19,7 @@ Spaced repetition at the episode level:
 
 import argparse
 import json
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -29,6 +30,7 @@ BASE = Path(__file__).parent.parent
 VOCAB_STATE_PATH = BASE / "progress" / "vocab_state.json"
 AUDIO_DIR = BASE / "audio"
 OUTPUT_DIR = BASE / "audio" / "playlists"
+PUBLISH_DIR = BASE / "published_playlists"
 
 
 def load_json(path: Path):
@@ -135,6 +137,8 @@ def main():
                         help="Show plan without building audio")
     parser.add_argument("--output", type=str, default=None,
                         help="Output path (default: audio/playlists/playlist_YYYY-MM-DD.mp3)")
+    parser.add_argument("--publish", action="store_true",
+                        help="Copy to published_playlists/ and rebuild playlist RSS feed")
     args = parser.parse_args()
 
     vocab_state = load_json(VOCAB_STATE_PATH)
@@ -167,6 +171,18 @@ def main():
     print(f"\nBuilding {output.name}...")
     concatenate_mp3s(playlist, output)
     print(f"Done: {output}")
+
+    if args.publish:
+        # Copy to published directory, then rebuild RSS
+        PUBLISH_DIR.mkdir(parents=True, exist_ok=True)
+        dest = PUBLISH_DIR / output.name
+        shutil.copy2(output, dest)
+        print(f"Published: {dest}")
+
+        rss_script = BASE / "scripts" / "rebuild_playlist_rss.py"
+        subprocess.run([sys.executable, str(rss_script)], cwd=str(BASE))
+        print(f"\nPlaylist feed: playlist_rss.xml")
+        print(f"Subscribe URL: https://raw.githubusercontent.com/arosselet/tamil-tutor/main/playlist_rss.xml")
 
 
 if __name__ == "__main__":

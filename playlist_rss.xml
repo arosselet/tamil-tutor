@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+    xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Coimbatore Mappillai — Playlists</title>
+    <link>https://github.com/arosselet/tamil-tutor</link>
+    <language>en-us</language>
+    <itunes:author>Andrew R &amp; Gemini</itunes:author>
+    <itunes:summary>Daily re-listen playlists for Tamil immersion. Spaced repetition at the episode level.</itunes:summary>
+    <description>Daily re-listen playlists for Tamil immersion. Spaced repetition at the episode level.</description>
+    <itunes:owner>
+      <itunes:name>Andrew R &amp; Gemini</itunes:name>
+    </itunes:owner>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:category text="Education">
+      <itunes:category text="Language Courses"/>
+    </itunes:category>
+    <itunes:image href="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/logo.jpg"/>
+    <itunes:type>episodic</itunes:type>
+    
+    <item>
+      <title>Playlist — 2026-04-10</title>
+      <itunes:author>Andrew R &amp; Gemini</itunes:author>
+      <itunes:summary>Re-listen playlist for 2026-04-10 (30 min)</itunes:summary>
+      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_playlists/playlist_2026-04-10.mp3" length="7569981" type="audio/mpeg"/>
+      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_playlists/playlist_2026-04-10.mp3</guid>
+      <pubDate>Fri, 10 Apr 2026 02:06:13 -0400</pubDate>
+      <itunes:duration>00:30:29</itunes:duration>
+    </item>
+
+  </channel>
+</rss>
