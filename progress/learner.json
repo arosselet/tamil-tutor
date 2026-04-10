@@ -2,170 +2,37 @@
   "learner": "Andrew",
   "current_tier": 2,
   "active_mission": {
-      "tier": 2,
-      "mission": 34,
-      "topic": "Urgency & Obligation — Mechanic Workshop"
+    "tier": 2,
+    "mission": 39,
+    "topic": "The Comparison Pattern — Ranking the World"
   },
-  "last_mission": {
-      "tier": 2,
-      "mission": 33,
-      "format": "intercept_breakdown",
-      "debrief": {
-        "clarity": "no strong feedback due to tts format/protocol fixes",
-        "stuck_word": "seekiram",
-        "pace": "not sure"
-      }
-  },
-  "tier_progress": {
-    "tier1": {
-      "target": 69,
-      "mastered": 42,
-      "label": "Survival"
-    },
-    "tier2": {
-      "target": 153,
-      "mastered": 32,
-      "label": "Comfort"
-    },
-    "tier3": {
-      "target": 181,
-      "mastered": 0,
-      "label": "Embedded"
-    }
-  },
-  "total_sessions": 20,
   "streak": {
-    "current": 6,
-    "best": 7,
-    "last_date": "2026-04-01"
+    "current": 9,
+    "best": 9,
+    "last_date": "2026-04-09"
   },
-  "struggled_words": [
-    "இன்னைக்கு",
-    "முதல்ல",
-    "கேட்டேன்",
-    "கேட்குறேன்",
-    "கேட்பேன்",
-    "தூக்கு",
-    "வை",
-    "நிமிஷம்"
-  ],
-  "mastered_words": [
-    "சீக்கிரம்",
-    "அழகான",
-    "வலது",
-    "சொன்னாங்க",
-    "நேரா",
-    "நாளைக்கு",
-    "ஆனா",
-    "அவன்",
-    "இருக்கு",
-    "உனக்கு",
-    "அஞ்சு",
-    "வேண்டாம்",
-    "சொல்லுங்க",
-    "அது",
-    "ஒன்னு",
-    "பத்து",
-    "இல்ல",
-    "மாமா",
-    "ரெண்டு",
-    "அதனால",
-    "நேத்து",
-    "அக்கா",
-    "வயிறு ஃபுல்",
-    "காரம்",
-    "நம்ம",
-    "நல்லா இருக்கு",
-    "எங்க",
-    "என்ன?",
-    "போயிட்டு வரேன்",
-    "வணக்கம்",
-    "சூப்பர்",
-    "கொஞ்சம்",
-    "போதும்",
-    "தெரியும்",
-    "தங்கச்சி",
-    "தூங்கினேன்",
-    "அவங்க",
-    "நீங்க",
-    "அத்தை",
-    "நிறுத்துங்க",
-    "வாருங்களா?",
-    "சரி",
-    "வேணும்",
-    "வரேன்",
-    "மூணு",
-    "நாங்க",
-    "போறேன்",
-    "டயர்ட்",
-    "இடது",
-    "அதுக்கு அப்புறம்",
-    "அண்ணா",
-    "பசி",
-    "தம்பி",
-    "செம்மை",
-    "சாப்பிட்டேன்",
-    "நீ",
-    "தெரியாது",
-    "ஆமா",
-    "அவ",
-    "ஏன்னா",
-    "வேற என்ன?",
-    "எழுந்தேன்",
-    "சாப்டீங்களா?",
-    "உப்பு",
-    "எனக்கு",
-    "நூறு",
-    "குடிச்சேன்",
-    "சொன்னாங்க",
-    "கேட்டாங்க",
-    "சொன்னேன்",
-    "கோவம்",
-    "போகணும்",
-    "பார்த்தேன்",
-    "கிட்ட",
-    "சொல்றேன்",
-    "சொல்லுவேன்",
-    "சாப்பிடுங்க",
-    "அப்புறம்",
-    "உள்ள",
-    "எங்க?",
-    "வெளிய",
-    "போனேன்",
-    "பிடிக்கும்"
-  ],
-  "comfortable_words": [
-    "அங்க",
-    "இங்க",
-    "இப்போ",
-    "இல்லையாவா?",
-    "உக்காருங்க",
-    "எடுங்க",
-    "ஒன்னு மட்டும்",
-    "கம்மி",
-    "குடுங்க",
-    "தாகம்",
-    "நிறைய",
-    "நேரம் ஆச்சு",
-    "பரவாயில்லை",
-    "கீழ",
-    "மேல",
-    "முன்னாடியே",
-    "சந்தோஷம்",
-    "பயம்",
-    "கவலை",
-    "பெட்டி",
-    "முடியாது",
-    "தப்பு",
-    "பிடிக்காது"
-  ],
-  "sessions": [
+  "last_debrief": "Successful gossip session. Learner handled 'Nijama?' and 'Apadeengala?' well. 'Ketten' and 'Innaiku' callbacks successfully integrated.",
+  "recent_missions": [
     {
-      "date": "2026-03-29",
-      "tier": 2,
-      "mission": 31,
-      "zinger": "புரிஞ்சுது!"
+      "mission": 38,
+      "title": "Mission 38",
+      "listens": 1
+    },
+    {
+      "mission": 37,
+      "title": "Mission 37",
+      "listens": 1
+    },
+    {
+      "mission": 36,
+      "title": "Mission 36",
+      "listens": 1
+    },
+    {
+      "mission": 35,
+      "title": "Mission 35",
+      "listens": 1
     }
   ],
-  "mission_status": "Listening"
+  "status": "8 episodes under-listened (~21 min). Re-listen playlist recommended before new production."
 }
