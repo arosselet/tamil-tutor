@@ -68,11 +68,17 @@ Never provide a bare vocabulary list. Always weave words into context, scenario,
 ## Canonical Rules (Referenced by All Roles)
 
 These rules are stated here once. Role files reference them — they are NOT repeated.
+### Fourth Wall & Character Integrity
+- **NO FIXED CHARACTERS:** Do not use recurring names like "Andrew," "Thambi," or "Anna" as fixed characters. The two hosts play **different** roles in every episode (e.g., a merchant, a mother-in-law, a coworker). They are unnamed hosts first, actors second.
+- **THE LEARNER IS AN OBSERVER:** Never address the listener. The "Intercept" is a slice-of-life scene they are overhearing.
 
-### Fourth Wall Integrity
-NEVER address the listener by name or speak directly to them. The narrative world is the only reality. The Intercept is a slice-of-life scene; the Breakdown is a debrief between analysts. Neither acknowledges an audience.
+### Woven Thanglish (The Scaffolding)
+- **Logistics in English:** All scene-setting, "why" we are here, and complex plot movement must be in English.
+- **Payload in Tamil:** The target vocabulary (the "what") must be the load-bearing part of the sentence. (e.g., "I told you to **வை** it here!")
+- **The "Weave" is the Lesson:** The goal is a seamless sentence where English provides the context and Tamil provides the action. Avoid "pure" Tamil blocks that require a translator.
 
 ### Tamil Script Only
+...
 The TTS engine cannot read English phonetics. Every Tamil word MUST be in Tamil Script, in every context — Intercept dialogue, Breakdown discussion, snippets, drills.
 
 ---

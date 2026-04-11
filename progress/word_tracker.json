@@ -1,0 +1,7428 @@
+{
+  "வணக்கம்": {
+    "appearances": 6,
+    "last_seen_mission": 33,
+    "missions": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      33
+    ]
+  },
+  "சரி": {
+    "appearances": 36,
+    "last_seen_mission": 38,
+    "missions": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      17,
+      18,
+      18,
+      19,
+      1,
+      20,
+      21,
+      21,
+      22,
+      22,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      7,
+      8,
+      9
+    ]
+  },
+  "ஆமா": {
+    "appearances": 28,
+    "last_seen_mission": 38,
+    "missions": [
+      10,
+      11,
+      12,
+      13,
+      15,
+      17,
+      18,
+      19,
+      1,
+      20,
+      22,
+      23,
+      24,
+      26,
+      27,
+      28,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      7,
+      8,
+      9
+    ]
+  },
+  "இல்ல": {
+    "appearances": 28,
+    "last_seen_mission": 38,
+    "missions": [
+      10,
+      11,
+      12,
+      13,
+      15,
+      17,
+      18,
+      19,
+      19,
+      1,
+      20,
+      20,
+      22,
+      23,
+      24,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      33,
+      34,
+      38,
+      5,
+      7,
+      8,
+      9
+    ]
+  },
+  "இருக்கு": {
+    "appearances": 23,
+    "last_seen_mission": 34,
+    "missions": [
+      10,
+      11,
+      12,
+      15,
+      16,
+      17,
+      18,
+      19,
+      19,
+      1,
+      20,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      32,
+      33,
+      34,
+      6,
+      9
+    ]
+  },
+  "நல்லா": {
+    "appearances": 7,
+    "last_seen_mission": 32,
+    "missions": [
+      10,
+      11,
+      12,
+      23,
+      27,
+      32,
+      9
+    ]
+  },
+  "வேணும்": {
+    "appearances": 5,
+    "last_seen_mission": 33,
+    "missions": [
+      10,
+      25,
+      28,
+      32,
+      33
+    ]
+  },
+  "வேண்டாம்": {
+    "appearances": 5,
+    "last_seen_mission": 29,
+    "missions": [
+      10,
+      21,
+      21,
+      24,
+      29
+    ]
+  },
+  "போறேன்": {
+    "appearances": 8,
+    "last_seen_mission": 36,
+    "missions": [
+      10,
+      11,
+      16,
+      18,
+      27,
+      33,
+      36,
+      6
+    ]
+  },
+  "வரேன்": {
+    "appearances": 12,
+    "last_seen_mission": 36,
+    "missions": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      1,
+      22,
+      25,
+      33,
+      35,
+      36,
+      5
+    ]
+  },
+  "போயிட்டு": {
+    "appearances": 10,
+    "last_seen_mission": 36,
+    "missions": [
+      10,
+      12,
+      13,
+      14,
+      22,
+      25,
+      34,
+      35,
+      36,
+      5
+    ]
+  },
+  "எனக்கு": {
+    "appearances": 20,
+    "last_seen_mission": 35,
+    "missions": [
+      10,
+      11,
+      16,
+      17,
+      18,
+      20,
+      20,
+      21,
+      21,
+      22,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      32,
+      34,
+      35
+    ]
+  },
+  "உனக்கு": {
+    "appearances": 8,
+    "last_seen_mission": 28,
+    "missions": [
+      10,
+      11,
+      22,
+      22,
+      23,
+      24,
+      27,
+      28
+    ]
+  },
+  "கொஞ்சம்": {
+    "appearances": 10,
+    "last_seen_mission": 33,
+    "missions": [
+      10,
+      15,
+      15,
+      21,
+      21,
+      28,
+      32,
+      33,
+      6,
+      7
+    ]
+  },
+  "நிறைய": {
+    "appearances": 2,
+    "last_seen_mission": 22,
+    "missions": [
+      10,
+      22
+    ]
+  },
+  "சாப்பிட்டேன்": {
+    "appearances": 6,
+    "last_seen_mission": 11,
+    "missions": [
+      10,
+      11,
+      5,
+      7,
+      8,
+      9
+    ]
+  },
+  "குடிச்சேன்": {
+    "appearances": 1,
+    "last_seen_mission": 10,
+    "missions": [
+      10
+    ]
+  },
+  "தூங்கினேன்": {
+    "appearances": 1,
+    "last_seen_mission": 10,
+    "missions": [
+      10
+    ]
+  },
+  "பசி": {
+    "appearances": 7,
+    "last_seen_mission": 33,
+    "missions": [
+      10,
+      22,
+      27,
+      33,
+      7,
+      8,
+      9
+    ]
+  },
+  "தாகம்": {
+    "appearances": 2,
+    "last_seen_mission": 22,
+    "missions": [
+      10,
+      22
+    ]
+  },
+  "போதும்": {
+    "appearances": 3,
+    "last_seen_mission": 35,
+    "missions": [
+      10,
+      35,
+      6
+    ]
+  },
+  "சூப்பர்": {
+    "appearances": 6,
+    "last_seen_mission": 28,
+    "missions": [
+      10,
+      11,
+      12,
+      16,
+      23,
+      28
+    ]
+  },
+  "செம்ம": {
+    "appearances": 7,
+    "last_seen_mission": 28,
+    "missions": [
+      10,
+      11,
+      12,
+      1,
+      25,
+      28,
+      9
+    ]
+  },
+  "சொல்லுங்க": {
+    "appearances": 5,
+    "last_seen_mission": 18,
+    "missions": [
+      10,
+      11,
+      16,
+      18,
+      18
+    ]
+  },
+  "இங்க": {
+    "appearances": 11,
+    "last_seen_mission": 36,
+    "missions": [
+      10,
+      15,
+      15,
+      18,
+      26,
+      29,
+      31,
+      32,
+      33,
+      36,
+      9
+    ]
+  },
+  "அங்க": {
+    "appearances": 9,
+    "last_seen_mission": 34,
+    "missions": [
+      10,
+      15,
+      15,
+      16,
+      19,
+      29,
+      33,
+      34,
+      9
+    ]
+  },
+  "எங்க": {
+    "appearances": 14,
+    "last_seen_mission": 29,
+    "missions": [
+      10,
+      15,
+      15,
+      18,
+      18,
+      19,
+      21,
+      21,
+      24,
+      26,
+      28,
+      29,
+      6,
+      9
+    ]
+  },
+  "வலது": {
+    "appearances": 1,
+    "last_seen_mission": 10,
+    "missions": [
+      10
+    ]
+  },
+  "இடது": {
+    "appearances": 1,
+    "last_seen_mission": 10,
+    "missions": [
+      10
+    ]
+  },
+  "நேரா": {
+    "appearances": 2,
+    "last_seen_mission": 18,
+    "missions": [
+      10,
+      18
+    ]
+  },
+  "வெளிய": {
+    "appearances": 5,
+    "last_seen_mission": 33,
+    "missions": [
+      10,
+      21,
+      21,
+      33,
+      6
+    ]
+  },
+  "உள்ள": {
+    "appearances": 9,
+    "last_seen_mission": 30,
+    "missions": [
+      10,
+      18,
+      18,
+      19,
+      20,
+      26,
+      27,
+      30,
+      6
+    ]
+  },
+  "இப்போ": {
+    "appearances": 21,
+    "last_seen_mission": 35,
+    "missions": [
+      10,
+      11,
+      12,
+      15,
+      16,
+      17,
+      17,
+      18,
+      19,
+      20,
+      21,
+      24,
+      26,
+      27,
+      28,
+      31,
+      33,
+      34,
+      35,
+      7,
+      8
+    ]
+  },
+  "நேத்து": {
+    "appearances": 7,
+    "last_seen_mission": 28,
+    "missions": [
+      10,
+      11,
+      18,
+      20,
+      24,
+      28,
+      6
+    ]
+  },
+  "அப்புறம்": {
+    "appearances": 22,
+    "last_seen_mission": 38,
+    "missions": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      18,
+      19,
+      1,
+      20,
+      26,
+      28,
+      29,
+      33,
+      34,
+      35,
+      36,
+      38,
+      5,
+      6,
+      8
+    ]
+  },
+  "நேரம்": {
+    "appearances": 12,
+    "last_seen_mission": 34,
+    "missions": [
+      10,
+      12,
+      18,
+      19,
+      20,
+      21,
+      21,
+      31,
+      34,
+      7,
+      8,
+      9
+    ]
+  },
+  "ஆச்சு": {
+    "appearances": 12,
+    "last_seen_mission": 34,
+    "missions": [
+      10,
+      12,
+      16,
+      19,
+      21,
+      21,
+      30,
+      34,
+      5,
+      7,
+      8,
+      9
+    ]
+  },
+  "ஏன்னா": {
+    "appearances": 8,
+    "last_seen_mission": 12,
+    "missions": [
+      10,
+      11,
+      12,
+      1,
+      5,
+      7,
+      8,
+      9
+    ]
+  },
+  "அதனால": {
+    "appearances": 10,
+    "last_seen_mission": 16,
+    "missions": [
+      10,
+      11,
+      12,
+      16,
+      1,
+      5,
+      6,
+      7,
+      8,
+      9
+    ]
+  },
+  "ஆனா": {
+    "appearances": 20,
+    "last_seen_mission": 38,
+    "missions": [
+      10,
+      11,
+      12,
+      15,
+      17,
+      18,
+      1,
+      20,
+      22,
+      23,
+      24,
+      26,
+      28,
+      32,
+      34,
+      38,
+      6,
+      7,
+      8,
+      9
+    ]
+  },
+  "அண்ணா": {
+    "appearances": 24,
+    "last_seen_mission": 34,
+    "missions": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      15,
+      16,
+      16,
+      17,
+      17,
+      18,
+      18,
+      21,
+      21,
+      22,
+      26,
+      27,
+      29,
+      30,
+      32,
+      34,
+      8,
+      9
+    ]
+  },
+  "அக்கா": {
+    "appearances": 12,
+    "last_seen_mission": 38,
+    "missions": [
+      10,
+      11,
+      12,
+      13,
+      17,
+      17,
+      19,
+      20,
+      27,
+      38,
+      8,
+      9
+    ]
+  },
+  "நீ": {
+    "appearances": 3,
+    "last_seen_mission": 34,
+    "missions": [
+      10,
+      28,
+      34
+    ]
+  },
+  "நீங்க": {
+    "appearances": 12,
+    "last_seen_mission": 38,
+    "missions": [
+      10,
+      11,
+      15,
+      15,
+      16,
+      18,
+      21,
+      21,
+      26,
+      31,
+      32,
+      38
+    ]
+  },
+  "என்ன": {
+    "appearances": 15,
+    "last_seen_mission": 38,
+    "missions": [
+      10,
+      11,
+      15,
+      16,
+      17,
+      20,
+      22,
+      23,
+      26,
+      27,
+      31,
+      33,
+      34,
+      35,
+      38
+    ]
+  },
+  "டயர்ட்": {
+    "appearances": 2,
+    "last_seen_mission": 24,
+    "missions": [
+      10,
+      24
+    ]
+  },
+  "பரவாயில்லை": {
+    "appearances": 4,
+    "last_seen_mission": 34,
+    "missions": [
+      10,
+      11,
+      26,
+      34
+    ]
+  },
+  "தெரியும்": {
+    "appearances": 8,
+    "last_seen_mission": 37,
+    "missions": [
+      10,
+      11,
+      18,
+      26,
+      27,
+      28,
+      31,
+      37
+    ]
+  },
+  "தெரியாது": {
+    "appearances": 4,
+    "last_seen_mission": 24,
+    "missions": [
+      10,
+      11,
+      17,
+      24
+    ]
+  },
+  "உக்காருங்க": {
+    "appearances": 3,
+    "last_seen_mission": 21,
+    "missions": [
+      10,
+      21,
+      21
+    ]
+  },
+  "நிறுத்துங்க": {
+    "appearances": 2,
+    "last_seen_mission": 10,
+    "missions": [
+      10,
+      6
+    ]
+  },
+  "எடுங்க": {
+    "appearances": 5,
+    "last_seen_mission": 24,
+    "missions": [
+      10,
+      14,
+      18,
+      24,
+      6
+    ]
+  },
+  "குடுங்க": {
+    "appearances": 10,
+    "last_seen_mission": 32,
+    "missions": [
+      10,
+      14,
+      15,
+      16,
+      18,
+      21,
+      21,
+      31,
+      32,
+      6
+    ]
+  },
+  "சாப்பிடுங்க": {
+    "appearances": 3,
+    "last_seen_mission": 25,
+    "missions": [
+      10,
+      22,
+      25
+    ]
+  },
+  "வாருங்களா": {
+    "appearances": 1,
+    "last_seen_mission": 10,
+    "missions": [
+      10
+    ]
+  },
+  "ஒன்னு": {
+    "appearances": 4,
+    "last_seen_mission": 33,
+    "missions": [
+      10,
+      26,
+      32,
+      33
+    ]
+  },
+  "ரெண்டு": {
+    "appearances": 2,
+    "last_seen_mission": 33,
+    "missions": [
+      10,
+      33
+    ]
+  },
+  "மூணு": {
+    "appearances": 2,
+    "last_seen_mission": 33,
+    "missions": [
+      10,
+      33
+    ]
+  },
+  "அஞ்சு": {
+    "appearances": 3,
+    "last_seen_mission": 18,
+    "missions": [
+      10,
+      16,
+      18
+    ]
+  },
+  "மட்டும்": {
+    "appearances": 3,
+    "last_seen_mission": 19,
+    "missions": [
+      10,
+      19,
+      6
+    ]
+  },
+  "உப்பு": {
+    "appearances": 1,
+    "last_seen_mission": 10,
+    "missions": [
+      10
+    ]
+  },
+  "காரம்": {
+    "appearances": 2,
+    "last_seen_mission": 24,
+    "missions": [
+      10,
+      24
+    ]
+  },
+  "கம்மி": {
+    "appearances": 6,
+    "last_seen_mission": 18,
+    "missions": [
+      10,
+      16,
+      16,
+      18,
+      18,
+      8
+    ]
+  },
+  "வயிறு": {
+    "appearances": 2,
+    "last_seen_mission": 10,
+    "missions": [
+      10,
+      7
+    ]
+  },
+  "ஃபுல்": {
+    "appearances": 2,
+    "last_seen_mission": 10,
+    "missions": [
+      10,
+      7
+    ]
+  },
+  "சாப்டீங்களா": {
+    "appearances": 4,
+    "last_seen_mission": 12,
+    "missions": [
+      10,
+      11,
+      12,
+      5
+    ]
+  },
+  "நாளைக்கு": {
+    "appearances": 8,
+    "last_seen_mission": 34,
+    "missions": [
+      10,
+      11,
+      12,
+      14,
+      17,
+      33,
+      34,
+      6
+    ]
+  },
+  "வேற": {
+    "appearances": 8,
+    "last_seen_mission": 31,
+    "missions": [
+      10,
+      15,
+      17,
+      18,
+      20,
+      22,
+      22,
+      31
+    ]
+  },
+  "இல்லையா": {
+    "appearances": 5,
+    "last_seen_mission": 30,
+    "missions": [
+      10,
+      18,
+      19,
+      27,
+      30
+    ]
+  },
+  "அதுக்கு": {
+    "appearances": 6,
+    "last_seen_mission": 34,
+    "missions": [
+      10,
+      18,
+      33,
+      34,
+      5,
+      8
+    ]
+  },
+  "எழுந்தேன்": {
+    "appearances": 2,
+    "last_seen_mission": 10,
+    "missions": [
+      10,
+      1
+    ]
+  },
+  "தம்பி": {
+    "appearances": 13,
+    "last_seen_mission": 33,
+    "missions": [
+      10,
+      11,
+      19,
+      20,
+      20,
+      26,
+      27,
+      28,
+      30,
+      32,
+      33,
+      8,
+      9
+    ]
+  },
+  "தங்கச்சி": {
+    "appearances": 4,
+    "last_seen_mission": 11,
+    "missions": [
+      10,
+      11,
+      8,
+      9
+    ]
+  },
+  "மாமா": {
+    "appearances": 13,
+    "last_seen_mission": 38,
+    "missions": [
+      10,
+      11,
+      14,
+      17,
+      19,
+      20,
+      23,
+      24,
+      25,
+      28,
+      38,
+      8,
+      9
+    ]
+  },
+  "அத்தை": {
+    "appearances": 8,
+    "last_seen_mission": 38,
+    "missions": [
+      10,
+      11,
+      21,
+      21,
+      35,
+      38,
+      8,
+      9
+    ]
+  },
+  "முன்னாடி": {
+    "appearances": 21,
+    "last_seen_mission": 30,
+    "missions": [
+      10,
+      11,
+      12,
+      13,
+      15,
+      15,
+      16,
+      17,
+      18,
+      19,
+      19,
+      20,
+      23,
+      25,
+      27,
+      30,
+      5,
+      6,
+      7,
+      8,
+      9
+    ]
+  },
+  "முதல்ல": {
+    "appearances": 26,
+    "last_seen_mission": 38,
+    "missions": [
+      10,
+      12,
+      13,
+      15,
+      15,
+      16,
+      16,
+      18,
+      18,
+      19,
+      1,
+      20,
+      21,
+      21,
+      24,
+      28,
+      29,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      5,
+      6,
+      8
+    ]
+  },
+  "இன்னைக்கு": {
+    "appearances": 20,
+    "last_seen_mission": 38,
+    "missions": [
+      10,
+      11,
+      12,
+      13,
+      17,
+      19,
+      19,
+      1,
+      21,
+      23,
+      26,
+      31,
+      33,
+      34,
+      38,
+      5,
+      6,
+      7,
+      8,
+      9
+    ]
+  },
+  "பார்த்தேன்": {
+    "appearances": 15,
+    "last_seen_mission": 26,
+    "missions": [
+      10,
+      11,
+      12,
+      16,
+      16,
+      17,
+      19,
+      19,
+      1,
+      21,
+      22,
+      26,
+      7,
+      8,
+      9
+    ]
+  },
+  "கிட்ட": {
+    "appearances": 18,
+    "last_seen_mission": 38,
+    "missions": [
+      10,
+      12,
+      13,
+      14,
+      16,
+      16,
+      17,
+      17,
+      18,
+      1,
+      20,
+      26,
+      31,
+      34,
+      38,
+      5,
+      6,
+      8
+    ]
+  },
+  "கீழ": {
+    "appearances": 11,
+    "last_seen_mission": 33,
+    "missions": [
+      10,
+      12,
+      16,
+      16,
+      19,
+      19,
+      1,
+      28,
+      29,
+      33,
+      6
+    ]
+  },
+  "மேல": {
+    "appearances": 12,
+    "last_seen_mission": 33,
+    "missions": [
+      10,
+      12,
+      16,
+      16,
+      19,
+      19,
+      1,
+      24,
+      28,
+      29,
+      33,
+      6
+    ]
+  },
+  "நூறு": {
+    "appearances": 8,
+    "last_seen_mission": 33,
+    "missions": [
+      10,
+      11,
+      12,
+      16,
+      18,
+      33,
+      6,
+      8
+    ]
+  },
+  "பத்து": {
+    "appearances": 8,
+    "last_seen_mission": 30,
+    "missions": [
+      10,
+      12,
+      15,
+      15,
+      16,
+      30,
+      6,
+      8
+    ]
+  },
+  "காபி": {
+    "appearances": 4,
+    "last_seen_mission": 31,
+    "missions": [
+      10,
+      26,
+      31,
+      6
+    ]
+  },
+  "உங்க": {
+    "appearances": 6,
+    "last_seen_mission": 34,
+    "missions": [
+      10,
+      13,
+      15,
+      15,
+      16,
+      34
+    ]
+  },
+  "பால்": {
+    "appearances": 1,
+    "last_seen_mission": 10,
+    "missions": [
+      10
+    ]
+  },
+  "சொன்னாரு": {
+    "appearances": 2,
+    "last_seen_mission": 38,
+    "missions": [
+      10,
+      38
+    ]
+  },
+  "சொன்னாங்க": {
+    "appearances": 6,
+    "last_seen_mission": 38,
+    "missions": [
+      11,
+      12,
+      17,
+      17,
+      18,
+      38
+    ]
+  },
+  "கேட்டாங்க": {
+    "appearances": 3,
+    "last_seen_mission": 38,
+    "missions": [
+      11,
+      12,
+      38
+    ]
+  },
+  "சொன்னேன்": {
+    "appearances": 6,
+    "last_seen_mission": 24,
+    "missions": [
+      11,
+      12,
+      13,
+      14,
+      20,
+      24
+    ]
+  },
+  "கேட்டேன்": {
+    "appearances": 7,
+    "last_seen_mission": 38,
+    "missions": [
+      11,
+      12,
+      13,
+      14,
+      18,
+      31,
+      38
+    ]
+  },
+  "நினைச்சேன்": {
+    "appearances": 5,
+    "last_seen_mission": 38,
+    "missions": [
+      11,
+      27,
+      31,
+      37,
+      38
+    ]
+  },
+  "அப்படீங்களா": {
+    "appearances": 5,
+    "last_seen_mission": 38,
+    "missions": [
+      11,
+      16,
+      17,
+      22,
+      38
+    ]
+  },
+  "நிஜமா": {
+    "appearances": 9,
+    "last_seen_mission": 38,
+    "missions": [
+      11,
+      17,
+      20,
+      20,
+      22,
+      25,
+      26,
+      37,
+      38
+    ]
+  },
+  "புரிஞ்சுது": {
+    "appearances": 3,
+    "last_seen_mission": 31,
+    "missions": [
+      11,
+      12,
+      31
+    ]
+  },
+  "புரியல": {
+    "appearances": 5,
+    "last_seen_mission": 31,
+    "missions": [
+      11,
+      16,
+      17,
+      20,
+      31
+    ]
+  },
+  "அவங்க": {
+    "appearances": 9,
+    "last_seen_mission": 37,
+    "missions": [
+      11,
+      12,
+      13,
+      17,
+      17,
+      18,
+      28,
+      37,
+      9
+    ]
+  },
+  "அவன்": {
+    "appearances": 9,
+    "last_seen_mission": 33,
+    "missions": [
+      11,
+      12,
+      20,
+      21,
+      23,
+      24,
+      28,
+      33,
+      9
+    ]
+  },
+  "நாங்க": {
+    "appearances": 3,
+    "last_seen_mission": 12,
+    "missions": [
+      11,
+      12,
+      9
+    ]
+  },
+  "நம்ம": {
+    "appearances": 5,
+    "last_seen_mission": 28,
+    "missions": [
+      11,
+      12,
+      17,
+      28,
+      9
+    ]
+  },
+  "எவ்ளோ": {
+    "appearances": 5,
+    "last_seen_mission": 35,
+    "missions": [
+      11,
+      23,
+      26,
+      33,
+      35
+    ]
+  },
+  "ன்னு": {
+    "appearances": 7,
+    "last_seen_mission": 38,
+    "missions": [
+      11,
+      17,
+      17,
+      28,
+      31,
+      34,
+      38
+    ]
+  },
+  "புது": {
+    "appearances": 7,
+    "last_seen_mission": 38,
+    "missions": [
+      11,
+      27,
+      28,
+      32,
+      33,
+      34,
+      38
+    ]
+  },
+  "வாங்கினாங்க": {
+    "appearances": 1,
+    "last_seen_mission": 11,
+    "missions": [
+      11
+    ]
+  },
+  "எப்போ": {
+    "appearances": 9,
+    "last_seen_mission": 38,
+    "missions": [
+      11,
+      15,
+      15,
+      17,
+      19,
+      20,
+      24,
+      34,
+      38
+    ]
+  },
+  "க்கு": {
+    "appearances": 6,
+    "last_seen_mission": 34,
+    "missions": [
+      11,
+      18,
+      23,
+      31,
+      34,
+      5
+    ]
+  },
+  "வரீங்களா": {
+    "appearances": 1,
+    "last_seen_mission": 11,
+    "missions": [
+      11
+    ]
+  },
+  "சொல்றேன்": {
+    "appearances": 6,
+    "last_seen_mission": 28,
+    "missions": [
+      12,
+      13,
+      14,
+      20,
+      26,
+      28
+    ]
+  },
+  "சொல்லுவேன்": {
+    "appearances": 2,
+    "last_seen_mission": 13,
+    "missions": [
+      12,
+      13
+    ]
+  },
+  "கேக்குறேன்": {
+    "appearances": 4,
+    "last_seen_mission": 20,
+    "missions": [
+      12,
+      13,
+      14,
+      20
+    ]
+  },
+  "கேட்பேன்": {
+    "appearances": 3,
+    "last_seen_mission": 14,
+    "missions": [
+      12,
+      13,
+      14
+    ]
+  },
+  "அவ": {
+    "appearances": 2,
+    "last_seen_mission": 12,
+    "missions": [
+      12,
+      9
+    ]
+  },
+  "அது": {
+    "appearances": 14,
+    "last_seen_mission": 37,
+    "missions": [
+      12,
+      15,
+      16,
+      17,
+      17,
+      19,
+      20,
+      20,
+      24,
+      26,
+      32,
+      36,
+      37,
+      9
+    ]
+  },
+  "நான்": {
+    "appearances": 23,
+    "last_seen_mission": 38,
+    "missions": [
+      12,
+      13,
+      14,
+      15,
+      15,
+      16,
+      16,
+      17,
+      19,
+      19,
+      1,
+      20,
+      20,
+      24,
+      26,
+      27,
+      30,
+      31,
+      32,
+      34,
+      38,
+      5,
+      6
+    ]
+  },
+  "சொல்றாங்க": {
+    "appearances": 2,
+    "last_seen_mission": 17,
+    "missions": [
+      12,
+      17
+    ]
+  },
+  "சீக்கிரம்": {
+    "appearances": 10,
+    "last_seen_mission": 35,
+    "missions": [
+      12,
+      15,
+      15,
+      18,
+      19,
+      20,
+      21,
+      31,
+      34,
+      35
+    ]
+  },
+  "வா": {
+    "appearances": 5,
+    "last_seen_mission": 32,
+    "missions": [
+      12,
+      14,
+      21,
+      30,
+      32
+    ]
+  },
+  "சொல்லுவாங்க": {
+    "appearances": 1,
+    "last_seen_mission": 12,
+    "missions": [
+      12
+    ]
+  },
+  "கேளு": {
+    "appearances": 2,
+    "last_seen_mission": 28,
+    "missions": [
+      12,
+      28
+    ]
+  },
+  "இன்னும்": {
+    "appearances": 7,
+    "last_seen_mission": 28,
+    "missions": [
+      12,
+      15,
+      15,
+      20,
+      28,
+      7,
+      8
+    ]
+  },
+  "நிமிஷம்": {
+    "appearances": 11,
+    "last_seen_mission": 37,
+    "missions": [
+      12,
+      15,
+      15,
+      24,
+      25,
+      31,
+      32,
+      34,
+      35,
+      36,
+      37
+    ]
+  },
+  "எடு": {
+    "appearances": 4,
+    "last_seen_mission": 34,
+    "missions": [
+      14,
+      19,
+      31,
+      34
+    ]
+  },
+  "வை": {
+    "appearances": 9,
+    "last_seen_mission": 35,
+    "missions": [
+      14,
+      15,
+      19,
+      19,
+      24,
+      25,
+      33,
+      35,
+      6
+    ]
+  },
+  "கொண்டு": {
+    "appearances": 2,
+    "last_seen_mission": 33,
+    "missions": [
+      14,
+      33
+    ]
+  },
+  "தண்ணி": {
+    "appearances": 3,
+    "last_seen_mission": 21,
+    "missions": [
+      14,
+      21,
+      21
+    ]
+  },
+  "குடு": {
+    "appearances": 1,
+    "last_seen_mission": 14,
+    "missions": [
+      14
+    ]
+  },
+  "வாங்கு": {
+    "appearances": 1,
+    "last_seen_mission": 14,
+    "missions": [
+      14
+    ]
+  },
+  "பில்": {
+    "appearances": 1,
+    "last_seen_mission": 14,
+    "missions": [
+      14
+    ]
+  },
+  "வைங்க": {
+    "appearances": 2,
+    "last_seen_mission": 18,
+    "missions": [
+      14,
+      18
+    ]
+  },
+  "பை": {
+    "appearances": 1,
+    "last_seen_mission": 14,
+    "missions": [
+      14
+    ]
+  },
+  "வாங்குவேன்": {
+    "appearances": 1,
+    "last_seen_mission": 14,
+    "missions": [
+      14
+    ]
+  },
+  "இருக்குங்க": {
+    "appearances": 2,
+    "last_seen_mission": 15,
+    "missions": [
+      15,
+      15
+    ]
+  },
+  "பொறுங்க": {
+    "appearances": 2,
+    "last_seen_mission": 15,
+    "missions": [
+      15,
+      15
+    ]
+  },
+  "ஒரு": {
+    "appearances": 12,
+    "last_seen_mission": 38,
+    "missions": [
+      15,
+      15,
+      16,
+      18,
+      24,
+      27,
+      28,
+      31,
+      32,
+      33,
+      34,
+      38
+    ]
+  },
+  "இந்த": {
+    "appearances": 10,
+    "last_seen_mission": 34,
+    "missions": [
+      15,
+      15,
+      17,
+      17,
+      19,
+      20,
+      23,
+      24,
+      31,
+      34
+    ]
+  },
+  "பெட்டி": {
+    "appearances": 9,
+    "last_seen_mission": 29,
+    "missions": [
+      15,
+      15,
+      16,
+      18,
+      24,
+      26,
+      27,
+      28,
+      29
+    ]
+  },
+  "தான்": {
+    "appearances": 20,
+    "last_seen_mission": 38,
+    "missions": [
+      15,
+      15,
+      16,
+      16,
+      18,
+      19,
+      20,
+      23,
+      24,
+      26,
+      27,
+      28,
+      30,
+      31,
+      32,
+      33,
+      34,
+      38,
+      7,
+      8
+    ]
+  },
+  "யாரோ": {
+    "appearances": 3,
+    "last_seen_mission": 31,
+    "missions": [
+      15,
+      15,
+      31
+    ]
+  },
+  "வச்சாங்க": {
+    "appearances": 2,
+    "last_seen_mission": 15,
+    "missions": [
+      15,
+      15
+    ]
+  },
+  "தூக்கு": {
+    "appearances": 1,
+    "last_seen_mission": 15,
+    "missions": [
+      15
+    ]
+  },
+  "தூக்குங்க": {
+    "appearances": 2,
+    "last_seen_mission": 15,
+    "missions": [
+      15,
+      15
+    ]
+  },
+  "தூக்குறீங்க": {
+    "appearances": 1,
+    "last_seen_mission": 15,
+    "missions": [
+      15
+    ]
+  },
+  "தூக்குறேன்": {
+    "appearances": 3,
+    "last_seen_mission": 33,
+    "missions": [
+      15,
+      15,
+      33
+    ]
+  },
+  "கருப்பு": {
+    "appearances": 2,
+    "last_seen_mission": 15,
+    "missions": [
+      15,
+      15
+    ]
+  },
+  "என்": {
+    "appearances": 11,
+    "last_seen_mission": 34,
+    "missions": [
+      15,
+      15,
+      16,
+      16,
+      20,
+      20,
+      24,
+      28,
+      32,
+      34,
+      6
+    ]
+  },
+  "ரயில்": {
+    "appearances": 3,
+    "last_seen_mission": 16,
+    "missions": [
+      15,
+      15,
+      16
+    ]
+  },
+  "வரும்": {
+    "appearances": 4,
+    "last_seen_mission": 32,
+    "missions": [
+      15,
+      15,
+      17,
+      32
+    ]
+  },
+  "இப்பதான்": {
+    "appearances": 2,
+    "last_seen_mission": 15,
+    "missions": [
+      15,
+      15
+    ]
+  },
+  "போத்தனூர்": {
+    "appearances": 2,
+    "last_seen_mission": 15,
+    "missions": [
+      15,
+      15
+    ]
+  },
+  "தாண்டி": {
+    "appearances": 2,
+    "last_seen_mission": 15,
+    "missions": [
+      15,
+      15
+    ]
+  },
+  "வருது": {
+    "appearances": 8,
+    "last_seen_mission": 31,
+    "missions": [
+      15,
+      15,
+      16,
+      20,
+      20,
+      21,
+      23,
+      31
+    ]
+  },
+  "பாரம்": {
+    "appearances": 1,
+    "last_seen_mission": 15,
+    "missions": [
+      15
+    ]
+  },
+  "ரொம்ப": {
+    "appearances": 21,
+    "last_seen_mission": 38,
+    "missions": [
+      15,
+      15,
+      16,
+      18,
+      19,
+      20,
+      20,
+      21,
+      21,
+      22,
+      22,
+      23,
+      24,
+      26,
+      27,
+      28,
+      30,
+      32,
+      33,
+      34,
+      38
+    ]
+  },
+  "பாரமா": {
+    "appearances": 2,
+    "last_seen_mission": 15,
+    "missions": [
+      15,
+      15
+    ]
+  },
+  "கல்லு": {
+    "appearances": 2,
+    "last_seen_mission": 15,
+    "missions": [
+      15,
+      15
+    ]
+  },
+  "வச்சிருக்கீங்களா": {
+    "appearances": 2,
+    "last_seen_mission": 15,
+    "missions": [
+      15,
+      15
+    ]
+  },
+  "வச்சேன்": {
+    "appearances": 2,
+    "last_seen_mission": 15,
+    "missions": [
+      15,
+      15
+    ]
+  },
+  "வச்சிருக்காங்க": {
+    "appearances": 2,
+    "last_seen_mission": 15,
+    "missions": [
+      15,
+      15
+    ]
+  },
+  "பணம்": {
+    "appearances": 3,
+    "last_seen_mission": 18,
+    "missions": [
+      15,
+      15,
+      18
+    ]
+  },
+  "இந்தாங்க": {
+    "appearances": 5,
+    "last_seen_mission": 21,
+    "missions": [
+      15,
+      15,
+      16,
+      21,
+      21
+    ]
+  },
+  "நிமிஷத்துல": {
+    "appearances": 3,
+    "last_seen_mission": 16,
+    "missions": [
+      15,
+      15,
+      16
+    ]
+  },
+  "பிளாட்பார்ம்ல": {
+    "appearances": 2,
+    "last_seen_mission": 15,
+    "missions": [
+      15,
+      15
+    ]
+  },
+  "இருக்கும்": {
+    "appearances": 3,
+    "last_seen_mission": 19,
+    "missions": [
+      15,
+      15,
+      19
+    ]
+  },
+  "மணி": {
+    "appearances": 5,
+    "last_seen_mission": 33,
+    "missions": [
+      15,
+      18,
+      20,
+      31,
+      33
+    ]
+  },
+  "நேரமா": {
+    "appearances": 1,
+    "last_seen_mission": 15,
+    "missions": [
+      15
+    ]
+  },
+  "நிக்கிறேன்": {
+    "appearances": 1,
+    "last_seen_mission": 15,
+    "missions": [
+      15
+    ]
+  },
+  "டிக்கெட்": {
+    "appearances": 2,
+    "last_seen_mission": 30,
+    "missions": [
+      15,
+      30
+    ]
+  },
+  "கைல": {
+    "appearances": 1,
+    "last_seen_mission": 15,
+    "missions": [
+      15
+    ]
+  },
+  "போன்ல": {
+    "appearances": 1,
+    "last_seen_mission": 15,
+    "missions": [
+      15
+    ]
+  },
+  "அதுக்குள்ள": {
+    "appearances": 1,
+    "last_seen_mission": 15,
+    "missions": [
+      15
+    ]
+  },
+  "வச்சிருக்கீங்க": {
+    "appearances": 1,
+    "last_seen_mission": 15,
+    "missions": [
+      15
+    ]
+  },
+  "இதுல": {
+    "appearances": 1,
+    "last_seen_mission": 15,
+    "missions": [
+      15
+    ]
+  },
+  "அதுல": {
+    "appearances": 4,
+    "last_seen_mission": 26,
+    "missions": [
+      15,
+      17,
+      24,
+      26
+    ]
+  },
+  "துணி": {
+    "appearances": 1,
+    "last_seen_mission": 15,
+    "missions": [
+      15
+    ]
+  },
+  "சில": {
+    "appearances": 1,
+    "last_seen_mission": 15,
+    "missions": [
+      15
+    ]
+  },
+  "முக்கியமான": {
+    "appearances": 1,
+    "last_seen_mission": 15,
+    "missions": [
+      15
+    ]
+  },
+  "சாமான்கள்": {
+    "appearances": 1,
+    "last_seen_mission": 15,
+    "missions": [
+      15
+    ]
+  },
+  "சரிங்க": {
+    "appearances": 2,
+    "last_seen_mission": 16,
+    "missions": [
+      15,
+      16
+    ]
+  },
+  "காணோம்": {
+    "appearances": 1,
+    "last_seen_mission": 15,
+    "missions": [
+      15
+    ]
+  },
+  "என்னது": {
+    "appearances": 4,
+    "last_seen_mission": 30,
+    "missions": [
+      15,
+      26,
+      28,
+      30
+    ]
+  },
+  "காணோமா": {
+    "appearances": 1,
+    "last_seen_mission": 15,
+    "missions": [
+      15
+    ]
+  },
+  "பாருங்க": {
+    "appearances": 9,
+    "last_seen_mission": 33,
+    "missions": [
+      15,
+      16,
+      16,
+      1,
+      22,
+      29,
+      32,
+      33,
+      6
+    ]
+  },
+  "அந்த": {
+    "appearances": 12,
+    "last_seen_mission": 38,
+    "missions": [
+      15,
+      16,
+      17,
+      18,
+      19,
+      23,
+      24,
+      26,
+      27,
+      28,
+      34,
+      38
+    ]
+  },
+  "டீ": {
+    "appearances": 3,
+    "last_seen_mission": 31,
+    "missions": [
+      15,
+      18,
+      31
+    ]
+  },
+  "கடை": {
+    "appearances": 1,
+    "last_seen_mission": 15,
+    "missions": [
+      15
+    ]
+  },
+  "பக்கத்துல": {
+    "appearances": 1,
+    "last_seen_mission": 15,
+    "missions": [
+      15
+    ]
+  },
+  "ஒருத்தர்": {
+    "appearances": 2,
+    "last_seen_mission": 18,
+    "missions": [
+      15,
+      18
+    ]
+  },
+  "தூக்கிட்டு": {
+    "appearances": 1,
+    "last_seen_mission": 15,
+    "missions": [
+      15
+    ]
+  },
+  "போறாரே": {
+    "appearances": 1,
+    "last_seen_mission": 15,
+    "missions": [
+      15
+    ]
+  },
+  "இல்லண்ணா": {
+    "appearances": 1,
+    "last_seen_mission": 15,
+    "missions": [
+      15
+    ]
+  },
+  "பெஞ்ச்": {
+    "appearances": 1,
+    "last_seen_mission": 15,
+    "missions": [
+      15
+    ]
+  },
+  "அடியில": {
+    "appearances": 1,
+    "last_seen_mission": 15,
+    "missions": [
+      15
+    ]
+  },
+  "இருக்குதுங்க": {
+    "appearances": 1,
+    "last_seen_mission": 15,
+    "missions": [
+      15
+    ]
+  },
+  "பெட்டியா": {
+    "appearances": 1,
+    "last_seen_mission": 15,
+    "missions": [
+      15
+    ]
+  },
+  "இது": {
+    "appearances": 5,
+    "last_seen_mission": 33,
+    "missions": [
+      15,
+      26,
+      30,
+      32,
+      33
+    ]
+  },
+  "உங்கதா": {
+    "appearances": 1,
+    "last_seen_mission": 15,
+    "missions": [
+      15
+    ]
+  },
+  "நன்றி": {
+    "appearances": 1,
+    "last_seen_mission": 15,
+    "missions": [
+      15
+    ]
+  },
+  "பார்த்தீங்களா": {
+    "appearances": 1,
+    "last_seen_mission": 15,
+    "missions": [
+      15
+    ]
+  },
+  "கிடைச்சிருச்சு": {
+    "appearances": 1,
+    "last_seen_mission": 15,
+    "missions": [
+      15
+    ]
+  },
+  "வாங்க": {
+    "appearances": 6,
+    "last_seen_mission": 33,
+    "missions": [
+      15,
+      16,
+      18,
+      20,
+      33,
+      6
+    ]
+  },
+  "போலாம்": {
+    "appearances": 3,
+    "last_seen_mission": 16,
+    "missions": [
+      15,
+      16,
+      6
+    ]
+  },
+  "பெட்டிய": {
+    "appearances": 3,
+    "last_seen_mission": 19,
+    "missions": [
+      15,
+      19,
+      19
+    ]
+  },
+  "ட்ராலி": {
+    "appearances": 2,
+    "last_seen_mission": 16,
+    "missions": [
+      16,
+      16
+    ]
+  },
+  "இருந்து": {
+    "appearances": 4,
+    "last_seen_mission": 34,
+    "missions": [
+      16,
+      16,
+      18,
+      34
+    ]
+  },
+  "தூக்கியேன்": {
+    "appearances": 2,
+    "last_seen_mission": 16,
+    "missions": [
+      16,
+      16
+    ]
+  },
+  "முன்னாடியே": {
+    "appearances": 4,
+    "last_seen_mission": 18,
+    "missions": [
+      16,
+      16,
+      17,
+      18
+    ]
+  },
+  "கஷ்டம்": {
+    "appearances": 4,
+    "last_seen_mission": 30,
+    "missions": [
+      16,
+      16,
+      18,
+      30
+    ]
+  },
+  "போர்டு": {
+    "appearances": 2,
+    "last_seen_mission": 16,
+    "missions": [
+      16,
+      16
+    ]
+  },
+  "நூத்தி": {
+    "appearances": 2,
+    "last_seen_mission": 16,
+    "missions": [
+      16,
+      16
+    ]
+  },
+  "ஐம்பது": {
+    "appearances": 3,
+    "last_seen_mission": 33,
+    "missions": [
+      16,
+      16,
+      33
+    ]
+  },
+  "ரூபா": {
+    "appearances": 5,
+    "last_seen_mission": 30,
+    "missions": [
+      16,
+      16,
+      18,
+      30,
+      6
+    ]
+  },
+  "போட்டிருக்காங்க": {
+    "appearances": 2,
+    "last_seen_mission": 16,
+    "missions": [
+      16,
+      16
+    ]
+  },
+  "முடியாது": {
+    "appearances": 9,
+    "last_seen_mission": 34,
+    "missions": [
+      16,
+      16,
+      18,
+      18,
+      24,
+      26,
+      28,
+      29,
+      34
+    ]
+  },
+  "இருநூறா": {
+    "appearances": 2,
+    "last_seen_mission": 16,
+    "missions": [
+      16,
+      16
+    ]
+  },
+  "முடியும்": {
+    "appearances": 6,
+    "last_seen_mission": 35,
+    "missions": [
+      16,
+      16,
+      20,
+      24,
+      34,
+      35
+    ]
+  },
+  "போகவே": {
+    "appearances": 2,
+    "last_seen_mission": 16,
+    "missions": [
+      16,
+      16
+    ]
+  },
+  "கூடாது": {
+    "appearances": 4,
+    "last_seen_mission": 31,
+    "missions": [
+      16,
+      16,
+      26,
+      31
+    ]
+  },
+  "ஒப்புக்கோ": {
+    "appearances": 1,
+    "last_seen_mission": 16,
+    "missions": [
+      16
+    ]
+  },
+  "ரேட்": {
+    "appearances": 2,
+    "last_seen_mission": 16,
+    "missions": [
+      16,
+      16
+    ]
+  },
+  "குடுவேன்": {
+    "appearances": 1,
+    "last_seen_mission": 16,
+    "missions": [
+      16
+    ]
+  },
+  "பெட்டிக்கு": {
+    "appearances": 1,
+    "last_seen_mission": 16,
+    "missions": [
+      16
+    ]
+  },
+  "இருநூறு": {
+    "appearances": 1,
+    "last_seen_mission": 16,
+    "missions": [
+      16
+    ]
+  },
+  "தூரமா": {
+    "appearances": 1,
+    "last_seen_mission": 16,
+    "missions": [
+      16
+    ]
+  },
+  "பழைய": {
+    "appearances": 2,
+    "last_seen_mission": 32,
+    "missions": [
+      16,
+      32
+    ]
+  },
+  "ரேட்டுங்க": {
+    "appearances": 1,
+    "last_seen_mission": 16,
+    "missions": [
+      16
+    ]
+  },
+  "ஜாஸ்தி": {
+    "appearances": 4,
+    "last_seen_mission": 18,
+    "missions": [
+      16,
+      18,
+      18,
+      1
+    ]
+  },
+  "சொல்றீங்க": {
+    "appearances": 2,
+    "last_seen_mission": 17,
+    "missions": [
+      16,
+      17
+    ]
+  },
+  "தப்பில்ல": {
+    "appearances": 1,
+    "last_seen_mission": 16,
+    "missions": [
+      16
+    ]
+  },
+  "பாரமுங்க": {
+    "appearances": 1,
+    "last_seen_mission": 16,
+    "missions": [
+      16
+    ]
+  },
+  "அக்கவுண்ட்": {
+    "appearances": 1,
+    "last_seen_mission": 16,
+    "missions": [
+      16
+    ]
+  },
+  "சில்லரை": {
+    "appearances": 1,
+    "last_seen_mission": 16,
+    "missions": [
+      16
+    ]
+  },
+  "இங்கயே": {
+    "appearances": 1,
+    "last_seen_mission": 16,
+    "missions": [
+      16
+    ]
+  },
+  "விடுங்க": {
+    "appearances": 2,
+    "last_seen_mission": 20,
+    "missions": [
+      16,
+      20
+    ]
+  },
+  "போனா": {
+    "appearances": 1,
+    "last_seen_mission": 16,
+    "missions": [
+      16
+    ]
+  },
+  "தானே": {
+    "appearances": 1,
+    "last_seen_mission": 16,
+    "missions": [
+      16
+    ]
+  },
+  "தூக்கணும்": {
+    "appearances": 1,
+    "last_seen_mission": 16,
+    "missions": [
+      16
+    ]
+  },
+  "பால்ல": {
+    "appearances": 1,
+    "last_seen_mission": 16,
+    "missions": [
+      16
+    ]
+  },
+  "நில்லுங்க": {
+    "appearances": 2,
+    "last_seen_mission": 30,
+    "missions": [
+      16,
+      30
+    ]
+  },
+  "ஃபிக்ஸ்": {
+    "appearances": 1,
+    "last_seen_mission": 16,
+    "missions": [
+      16
+    ]
+  },
+  "தினம்": {
+    "appearances": 1,
+    "last_seen_mission": 16,
+    "missions": [
+      16
+    ]
+  },
+  "பார்க்கிறேன்": {
+    "appearances": 1,
+    "last_seen_mission": 16,
+    "missions": [
+      16
+    ]
+  },
+  "இனிமேல்": {
+    "appearances": 1,
+    "last_seen_mission": 16,
+    "missions": [
+      16
+    ]
+  },
+  "பாத்து": {
+    "appearances": 2,
+    "last_seen_mission": 33,
+    "missions": [
+      16,
+      33
+    ]
+  },
+  "யாரு": {
+    "appearances": 6,
+    "last_seen_mission": 38,
+    "missions": [
+      17,
+      17,
+      18,
+      31,
+      37,
+      38
+    ]
+  },
+  "கூப்பிட்டாங்க": {
+    "appearances": 1,
+    "last_seen_mission": 17,
+    "missions": [
+      17
+    ]
+  },
+  "ஏன்": {
+    "appearances": 11,
+    "last_seen_mission": 34,
+    "missions": [
+      17,
+      17,
+      20,
+      21,
+      21,
+      24,
+      27,
+      28,
+      31,
+      34,
+      5
+    ]
+  },
+  "நேரத்துல": {
+    "appearances": 2,
+    "last_seen_mission": 17,
+    "missions": [
+      17,
+      17
+    ]
+  },
+  "கூப்பிட்டீங்க": {
+    "appearances": 3,
+    "last_seen_mission": 31,
+    "missions": [
+      17,
+      17,
+      31
+    ]
+  },
+  "வந்தாங்க": {
+    "appearances": 2,
+    "last_seen_mission": 17,
+    "missions": [
+      17,
+      17
+    ]
+  },
+  "பிரச்சனையை": {
+    "appearances": 2,
+    "last_seen_mission": 17,
+    "missions": [
+      17,
+      17
+    ]
+  },
+  "ஆரம்பிக்கணும்": {
+    "appearances": 2,
+    "last_seen_mission": 17,
+    "missions": [
+      17,
+      17
+    ]
+  },
+  "கவலைப்படாதீங்க": {
+    "appearances": 5,
+    "last_seen_mission": 26,
+    "missions": [
+      17,
+      17,
+      21,
+      21,
+      26
+    ]
+  },
+  "கவலை": {
+    "appearances": 9,
+    "last_seen_mission": 28,
+    "missions": [
+      17,
+      21,
+      21,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28
+    ]
+  },
+  "படாதீங்க": {
+    "appearances": 1,
+    "last_seen_mission": 17,
+    "missions": [
+      17
+    ]
+  },
+  "பேசினீங்களா": {
+    "appearances": 2,
+    "last_seen_mission": 17,
+    "missions": [
+      17,
+      17
+    ]
+  },
+  "கிட்டயும்": {
+    "appearances": 4,
+    "last_seen_mission": 28,
+    "missions": [
+      17,
+      17,
+      1,
+      28
+    ]
+  },
+  "பேசாதீங்க": {
+    "appearances": 2,
+    "last_seen_mission": 17,
+    "missions": [
+      17,
+      17
+    ]
+  },
+  "ஹலோ": {
+    "appearances": 1,
+    "last_seen_mission": 17,
+    "missions": [
+      17
+    ]
+  },
+  "கேக்குதா": {
+    "appearances": 1,
+    "last_seen_mission": 17,
+    "missions": [
+      17
+    ]
+  },
+  "ட்ரெயின்ல": {
+    "appearances": 1,
+    "last_seen_mission": 17,
+    "missions": [
+      17
+    ]
+  },
+  "இருக்கேன்": {
+    "appearances": 1,
+    "last_seen_mission": 17,
+    "missions": [
+      17
+    ]
+  },
+  "என்னாச்சு": {
+    "appearances": 11,
+    "last_seen_mission": 34,
+    "missions": [
+      17,
+      19,
+      21,
+      21,
+      25,
+      26,
+      27,
+      28,
+      31,
+      34,
+      5
+    ]
+  },
+  "வீட்ல": {
+    "appearances": 1,
+    "last_seen_mission": 17,
+    "missions": [
+      17
+    ]
+  },
+  "வீட்டுக்கு": {
+    "appearances": 3,
+    "last_seen_mission": 19,
+    "missions": [
+      17,
+      19,
+      5
+    ]
+  },
+  "வந்தாங்களா": {
+    "appearances": 1,
+    "last_seen_mission": 17,
+    "missions": [
+      17
+    ]
+  },
+  "சாயங்காலமா": {
+    "appearances": 1,
+    "last_seen_mission": 17,
+    "missions": [
+      17
+    ]
+  },
+  "யாரும்": {
+    "appearances": 3,
+    "last_seen_mission": 31,
+    "missions": [
+      17,
+      18,
+      31
+    ]
+  },
+  "சொல்லலை": {
+    "appearances": 2,
+    "last_seen_mission": 18,
+    "missions": [
+      17,
+      18
+    ]
+  },
+  "புரியுது": {
+    "appearances": 1,
+    "last_seen_mission": 17,
+    "missions": [
+      17
+    ]
+  },
+  "போன்": {
+    "appearances": 4,
+    "last_seen_mission": 31,
+    "missions": [
+      17,
+      21,
+      28,
+      31
+    ]
+  },
+  "பண்ணி": {
+    "appearances": 2,
+    "last_seen_mission": 31,
+    "missions": [
+      17,
+      31
+    ]
+  },
+  "சொல்லலையா": {
+    "appearances": 1,
+    "last_seen_mission": 17,
+    "missions": [
+      17
+    ]
+  },
+  "சொல்லாம": {
+    "appearances": 1,
+    "last_seen_mission": 17,
+    "missions": [
+      17
+    ]
+  },
+  "வந்துட்டாங்களா": {
+    "appearances": 1,
+    "last_seen_mission": 17,
+    "missions": [
+      17
+    ]
+  },
+  "அதான்": {
+    "appearances": 6,
+    "last_seen_mission": 34,
+    "missions": [
+      17,
+      1,
+      27,
+      31,
+      34,
+      5
+    ]
+  },
+  "பேசினேன்": {
+    "appearances": 1,
+    "last_seen_mission": 17,
+    "missions": [
+      17
+    ]
+  },
+  "கோவமா": {
+    "appearances": 1,
+    "last_seen_mission": 17,
+    "missions": [
+      17
+    ]
+  },
+  "இருக்காங்களா": {
+    "appearances": 1,
+    "last_seen_mission": 17,
+    "missions": [
+      17
+    ]
+  },
+  "தப்பு": {
+    "appearances": 10,
+    "last_seen_mission": 31,
+    "missions": [
+      17,
+      18,
+      20,
+      20,
+      24,
+      25,
+      26,
+      27,
+      29,
+      31
+    ]
+  },
+  "பண்ணாங்க": {
+    "appearances": 1,
+    "last_seen_mission": 17,
+    "missions": [
+      17
+    ]
+  },
+  "பத்தி": {
+    "appearances": 2,
+    "last_seen_mission": 38,
+    "missions": [
+      17,
+      38
+    ]
+  },
+  "பேசினாங்களா": {
+    "appearances": 1,
+    "last_seen_mission": 17,
+    "missions": [
+      17
+    ]
+  },
+  "விஷயமா": {
+    "appearances": 1,
+    "last_seen_mission": 17,
+    "missions": [
+      17
+    ]
+  },
+  "ஏதோ": {
+    "appearances": 2,
+    "last_seen_mission": 29,
+    "missions": [
+      17,
+      29
+    ]
+  },
+  "காலைல": {
+    "appearances": 2,
+    "last_seen_mission": 31,
+    "missions": [
+      17,
+      31
+    ]
+  },
+  "வந்துடுவேன்": {
+    "appearances": 1,
+    "last_seen_mission": 17,
+    "missions": [
+      17
+    ]
+  },
+  "ட்ரெயின்": {
+    "appearances": 1,
+    "last_seen_mission": 17,
+    "missions": [
+      17
+    ]
+  },
+  "ஆறு": {
+    "appearances": 2,
+    "last_seen_mission": 33,
+    "missions": [
+      17,
+      33
+    ]
+  },
+  "மணிக்கு": {
+    "appearances": 1,
+    "last_seen_mission": 17,
+    "missions": [
+      17
+    ]
+  },
+  "ஆகும்": {
+    "appearances": 4,
+    "last_seen_mission": 34,
+    "missions": [
+      17,
+      18,
+      31,
+      34
+    ]
+  },
+  "வரைக்கும்": {
+    "appearances": 1,
+    "last_seen_mission": 17,
+    "missions": [
+      17
+    ]
+  },
+  "சரியா": {
+    "appearances": 3,
+    "last_seen_mission": 34,
+    "missions": [
+      17,
+      31,
+      34
+    ]
+  },
+  "பண்றேன்": {
+    "appearances": 3,
+    "last_seen_mission": 31,
+    "missions": [
+      17,
+      1,
+      31
+    ]
+  },
+  "வச்சுக்கறேன்": {
+    "appearances": 1,
+    "last_seen_mission": 17,
+    "missions": [
+      17
+    ]
+  },
+  "போகணும்": {
+    "appearances": 4,
+    "last_seen_mission": 34,
+    "missions": [
+      18,
+      18,
+      30,
+      34
+    ]
+  },
+  "போ": {
+    "appearances": 2,
+    "last_seen_mission": 19,
+    "missions": [
+      18,
+      19
+    ]
+  },
+  "கணும்": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "எங்கயும்": {
+    "appearances": 2,
+    "last_seen_mission": 18,
+    "missions": [
+      18,
+      18
+    ]
+  },
+  "போக": {
+    "appearances": 3,
+    "last_seen_mission": 28,
+    "missions": [
+      18,
+      18,
+      28
+    ]
+  },
+  "முடியாதுன்னா": {
+    "appearances": 2,
+    "last_seen_mission": 18,
+    "missions": [
+      18,
+      18
+    ]
+  },
+  "எப்படி": {
+    "appearances": 7,
+    "last_seen_mission": 31,
+    "missions": [
+      18,
+      18,
+      20,
+      23,
+      24,
+      31,
+      8
+    ]
+  },
+  "போகணும்னு": {
+    "appearances": 2,
+    "last_seen_mission": 18,
+    "missions": [
+      18,
+      18
+    ]
+  },
+  "முடியாதா": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "பண்ணணும்": {
+    "appearances": 3,
+    "last_seen_mission": 35,
+    "missions": [
+      18,
+      34,
+      35
+    ]
+  },
+  "சொல்லணும்": {
+    "appearances": 2,
+    "last_seen_mission": 31,
+    "missions": [
+      18,
+      31
+    ]
+  },
+  "மீட்டர்": {
+    "appearances": 2,
+    "last_seen_mission": 18,
+    "missions": [
+      18,
+      18
+    ]
+  },
+  "போடுங்க": {
+    "appearances": 4,
+    "last_seen_mission": 31,
+    "missions": [
+      18,
+      18,
+      31,
+      6
+    ]
+  },
+  "அண்டர்": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "பாஸ்": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "வழியா": {
+    "appearances": 2,
+    "last_seen_mission": 38,
+    "missions": [
+      18,
+      38
+    ]
+  },
+  "போயிடலாம்": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "போடுவீங்களா": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "போடுவாங்க": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "எல்லாம்": {
+    "appearances": 3,
+    "last_seen_mission": 38,
+    "missions": [
+      18,
+      28,
+      38
+    ]
+  },
+  "டி": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "நகர்": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "கோயம்புத்தூர்": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "வந்தேன்": {
+    "appearances": 3,
+    "last_seen_mission": 18,
+    "missions": [
+      18,
+      5,
+      6
+    ]
+  },
+  "மெட்ராஸ்": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "டிராபிக்": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "ஒன்னும்": {
+    "appearances": 2,
+    "last_seen_mission": 23,
+    "missions": [
+      18,
+      23
+    ]
+  },
+  "வராது": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "கிளம்பலாம்": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "வர": {
+    "appearances": 2,
+    "last_seen_mission": 20,
+    "missions": [
+      18,
+      20
+    ]
+  },
+  "மாட்டாங்க": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "பெட்ரோல்": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "விலை": {
+    "appearances": 2,
+    "last_seen_mission": 33,
+    "missions": [
+      18,
+      33
+    ]
+  },
+  "நிக்காது": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "குடுக்க": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "வரவே": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "டிராபிக்ல": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "மாட்டினா": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "கூட": {
+    "appearances": 5,
+    "last_seen_mission": 28,
+    "missions": [
+      18,
+      23,
+      24,
+      28,
+      8
+    ]
+  },
+  "பண்ணுங்க": {
+    "appearances": 3,
+    "last_seen_mission": 21,
+    "missions": [
+      18,
+      21,
+      6
+    ]
+  },
+  "இப்போவே": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "வண்டில": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "ஏறறேன்": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "மெயின்": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "ரோடு": {
+    "appearances": 2,
+    "last_seen_mission": 21,
+    "missions": [
+      18,
+      21
+    ]
+  },
+  "இறக்கிடுவேன்": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "ஏறுங்க": {
+    "appearances": 2,
+    "last_seen_mission": 30,
+    "missions": [
+      18,
+      30
+    ]
+  },
+  "பார்க்கலாம்": {
+    "appearances": 2,
+    "last_seen_mission": 27,
+    "missions": [
+      18,
+      27
+    ]
+  },
+  "அதையும்": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "அப்படியே": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "போடணும்": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "வண்டி": {
+    "appearances": 4,
+    "last_seen_mission": 20,
+    "missions": [
+      18,
+      19,
+      19,
+      20
+    ]
+  },
+  "சொன்னா": {
+    "appearances": 2,
+    "last_seen_mission": 37,
+    "missions": [
+      18,
+      37
+    ]
+  },
+  "சரிதான்": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "வழி": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "போய்": {
+    "appearances": 3,
+    "last_seen_mission": 34,
+    "missions": [
+      18,
+      28,
+      34
+    ]
+  },
+  "லெஃப்ட்": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "எடுக்கணும்": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "தெரியுமா": {
+    "appearances": 3,
+    "last_seen_mission": 38,
+    "missions": [
+      18,
+      26,
+      38
+    ]
+  },
+  "உங்களுக்கு": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "மேப்": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "இல்லாம": {
+    "appearances": 3,
+    "last_seen_mission": 34,
+    "missions": [
+      18,
+      30,
+      34
+    ]
+  },
+  "போங்க": {
+    "appearances": 3,
+    "last_seen_mission": 30,
+    "missions": [
+      18,
+      30,
+      6
+    ]
+  },
+  "பாத்துக்கலாம்": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "போறது": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "அடுத்த": {
+    "appearances": 3,
+    "last_seen_mission": 32,
+    "missions": [
+      18,
+      20,
+      32
+    ]
+  },
+  "முறை": {
+    "appearances": 3,
+    "last_seen_mission": 38,
+    "missions": [
+      18,
+      20,
+      38
+    ]
+  },
+  "நல்லவரு": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "போறோம்": {
+    "appearances": 1,
+    "last_seen_mission": 18,
+    "missions": [
+      18
+    ]
+  },
+  "வீடு": {
+    "appearances": 3,
+    "last_seen_mission": 38,
+    "missions": [
+      19,
+      32,
+      38
+    ]
+  },
+  "வாசல்": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "வாசல்ல": {
+    "appearances": 2,
+    "last_seen_mission": 19,
+    "missions": [
+      19,
+      19
+    ]
+  },
+  "நிக்குது": {
+    "appearances": 2,
+    "last_seen_mission": 19,
+    "missions": [
+      19,
+      19
+    ]
+  },
+  "வாசலில்": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "சின்ன": {
+    "appearances": 4,
+    "last_seen_mission": 38,
+    "missions": [
+      19,
+      19,
+      32,
+      38
+    ]
+  },
+  "ேன்": {
+    "appearances": 2,
+    "last_seen_mission": 31,
+    "missions": [
+      19,
+      31
+    ]
+  },
+  "வீடுக்கு": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "வாடா": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "வர்றேன்": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "இதோ": {
+    "appearances": 3,
+    "last_seen_mission": 32,
+    "missions": [
+      19,
+      22,
+      32
+    ]
+  },
+  "பேக்க": {
+    "appearances": 2,
+    "last_seen_mission": 20,
+    "missions": [
+      19,
+      20
+    ]
+  },
+  "எடுத்துக்குறேன்": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "பேக்": {
+    "appearances": 2,
+    "last_seen_mission": 19,
+    "missions": [
+      19,
+      6
+    ]
+  },
+  "எதுக்கு": {
+    "appearances": 2,
+    "last_seen_mission": 28,
+    "missions": [
+      19,
+      28
+    ]
+  },
+  "அத": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "இங்கேயே": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "பெரிய": {
+    "appearances": 6,
+    "last_seen_mission": 38,
+    "missions": [
+      19,
+      26,
+      28,
+      32,
+      33,
+      38
+    ]
+  },
+  "யாராவது": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "வர்றீங்களா": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "வெயில்": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "அதிகமா": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "வர்றோம்": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "வண்டிக்குள்ள": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "இடம்": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "வேணாம்": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "அப்போ": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "எடுக்க": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "ஈஸியா": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "அங்கேயே": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "வைக்கிறேன்": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "கிளம்ப": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "வீட்டுக்குள்ள": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "வருவீங்களோ": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "வந்துட்டோம்": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "வண்டிய": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "திருப்பு": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "சொல்லு": {
+    "appearances": 2,
+    "last_seen_mission": 26,
+    "missions": [
+      19,
+      26
+    ]
+  },
+  "லேட்": {
+    "appearances": 6,
+    "last_seen_mission": 34,
+    "missions": [
+      19,
+      1,
+      20,
+      30,
+      34,
+      5
+    ]
+  },
+  "ஆயிடுச்சு": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "போவோம்": {
+    "appearances": 2,
+    "last_seen_mission": 20,
+    "missions": [
+      19,
+      20
+    ]
+  },
+  "மத்தத": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "பாக்கலாம்": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "இல்லக்கா": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "இருந்தாலும்": {
+    "appearances": 1,
+    "last_seen_mission": 19,
+    "missions": [
+      19
+    ]
+  },
+  "கதவு": {
+    "appearances": 1,
+    "last_seen_mission": 1,
+    "missions": [
+      1
+    ]
+  },
+  "சாவி": {
+    "appearances": 1,
+    "last_seen_mission": 1,
+    "missions": [
+      1
+    ]
+  },
+  "டைம்": {
+    "appearances": 1,
+    "last_seen_mission": 1,
+    "missions": [
+      1
+    ]
+  },
+  "அடிக்கல": {
+    "appearances": 1,
+    "last_seen_mission": 1,
+    "missions": [
+      1
+    ]
+  },
+  "அலாரம்": {
+    "appearances": 1,
+    "last_seen_mission": 1,
+    "missions": [
+      1
+    ]
+  },
+  "ஓடினேன்": {
+    "appearances": 1,
+    "last_seen_mission": 1,
+    "missions": [
+      1
+    ]
+  },
+  "பஸ்": {
+    "appearances": 2,
+    "last_seen_mission": 30,
+    "missions": [
+      1,
+      30
+    ]
+  },
+  "போயிருச்சு": {
+    "appearances": 1,
+    "last_seen_mission": 1,
+    "missions": [
+      1
+    ]
+  },
+  "ஓடுறேன்": {
+    "appearances": 1,
+    "last_seen_mission": 1,
+    "missions": [
+      1
+    ]
+  },
+  "ஆட்டோ": {
+    "appearances": 1,
+    "last_seen_mission": 1,
+    "missions": [
+      1
+    ]
+  },
+  "அவரு": {
+    "appearances": 2,
+    "last_seen_mission": 38,
+    "missions": [
+      1,
+      38
+    ]
+  },
+  "பார்க்குறாரு": {
+    "appearances": 1,
+    "last_seen_mission": 1,
+    "missions": [
+      1
+    ]
+  },
+  "என்னை": {
+    "appearances": 2,
+    "last_seen_mission": 30,
+    "missions": [
+      1,
+      30
+    ]
+  },
+  "பார்க்கல": {
+    "appearances": 1,
+    "last_seen_mission": 1,
+    "missions": [
+      1
+    ]
+  },
+  "ஆபீஸ்": {
+    "appearances": 2,
+    "last_seen_mission": 6,
+    "missions": [
+      1,
+      6
+    ]
+  },
+  "கேட்குறேன்": {
+    "appearances": 1,
+    "last_seen_mission": 1,
+    "missions": [
+      1
+    ]
+  },
+  "லேட்டா": {
+    "appearances": 1,
+    "last_seen_mission": 1,
+    "missions": [
+      1
+    ]
+  },
+  "தேடினேன்": {
+    "appearances": 1,
+    "last_seen_mission": 1,
+    "missions": [
+      1
+    ]
+  },
+  "ஆட்டோல": {
+    "appearances": 1,
+    "last_seen_mission": 1,
+    "missions": [
+      1
+    ]
+  },
+  "கோவம்": {
+    "appearances": 5,
+    "last_seen_mission": 28,
+    "missions": [
+      20,
+      20,
+      23,
+      24,
+      28
+    ]
+  },
+  "கேக்குறான்ல": {
+    "appearances": 2,
+    "last_seen_mission": 20,
+    "missions": [
+      20,
+      20
+    ]
+  },
+  "கேக்குறான்": {
+    "appearances": 1,
+    "last_seen_mission": 20,
+    "missions": [
+      20
+    ]
+  },
+  "வர்றீங்க": {
+    "appearances": 2,
+    "last_seen_mission": 20,
+    "missions": [
+      20,
+      20
+    ]
+  },
+  "வருகிறீர்கள்": {
+    "appearances": 1,
+    "last_seen_mission": 20,
+    "missions": [
+      20
+    ]
+  },
+  "வந்தாச்சுல்ல": {
+    "appearances": 2,
+    "last_seen_mission": 20,
+    "missions": [
+      20,
+      20
+    ]
+  },
+  "வந்தாச்சு": {
+    "appearances": 1,
+    "last_seen_mission": 20,
+    "missions": [
+      20
+    ]
+  },
+  "ல்ல": {
+    "appearances": 1,
+    "last_seen_mission": 20,
+    "missions": [
+      20
+    ]
+  },
+  "கிளம்பி": {
+    "appearances": 1,
+    "last_seen_mission": 20,
+    "missions": [
+      20
+    ]
+  },
+  "போலாம்னு": {
+    "appearances": 1,
+    "last_seen_mission": 20,
+    "missions": [
+      20
+    ]
+  },
+  "சொன்னான்": {
+    "appearances": 2,
+    "last_seen_mission": 37,
+    "missions": [
+      20,
+      37
+    ]
+  },
+  "வரல": {
+    "appearances": 2,
+    "last_seen_mission": 34,
+    "missions": [
+      20,
+      34
+    ]
+  },
+  "வரணும்னு": {
+    "appearances": 1,
+    "last_seen_mission": 20,
+    "missions": [
+      20
+    ]
+  },
+  "சொல்றேன்ல": {
+    "appearances": 1,
+    "last_seen_mission": 20,
+    "missions": [
+      20
+    ]
+  },
+  "ஸ்டேஷன்": {
+    "appearances": 1,
+    "last_seen_mission": 20,
+    "missions": [
+      20
+    ]
+  },
+  "டிராஃபிக்": {
+    "appearances": 1,
+    "last_seen_mission": 20,
+    "missions": [
+      20
+    ]
+  },
+  "சண்டை": {
+    "appearances": 2,
+    "last_seen_mission": 24,
+    "missions": [
+      20,
+      24
+    ]
+  },
+  "போயி": {
+    "appearances": 1,
+    "last_seen_mission": 20,
+    "missions": [
+      20
+    ]
+  },
+  "சாப்பிடலாம்": {
+    "appearances": 1,
+    "last_seen_mission": 20,
+    "missions": [
+      20
+    ]
+  },
+  "காரணமா": {
+    "appearances": 1,
+    "last_seen_mission": 20,
+    "missions": [
+      20
+    ]
+  },
+  "எங்கேயாவது": {
+    "appearances": 1,
+    "last_seen_mission": 20,
+    "missions": [
+      20
+    ]
+  },
+  "போனீங்களா": {
+    "appearances": 1,
+    "last_seen_mission": 20,
+    "missions": [
+      20
+    ]
+  },
+  "பொய்": {
+    "appearances": 2,
+    "last_seen_mission": 24,
+    "missions": [
+      20,
+      24
+    ]
+  },
+  "சொல்லல": {
+    "appearances": 1,
+    "last_seen_mission": 20,
+    "missions": [
+      20
+    ]
+  },
+  "வண்டிக்குள்ளயே": {
+    "appearances": 1,
+    "last_seen_mission": 20,
+    "missions": [
+      20
+    ]
+  },
+  "அரை": {
+    "appearances": 1,
+    "last_seen_mission": 20,
+    "missions": [
+      20
+    ]
+  },
+  "இருந்தோம்": {
+    "appearances": 1,
+    "last_seen_mission": 20,
+    "missions": [
+      20
+    ]
+  },
+  "கோவப்படாதீங்க": {
+    "appearances": 3,
+    "last_seen_mission": 26,
+    "missions": [
+      20,
+      25,
+      26
+    ]
+  },
+  "இப்படி": {
+    "appearances": 4,
+    "last_seen_mission": 31,
+    "missions": [
+      20,
+      23,
+      26,
+      31
+    ]
+  },
+  "பண்ணாதீங்க": {
+    "appearances": 1,
+    "last_seen_mission": 20,
+    "missions": [
+      20
+    ]
+  },
+  "வைப்போம்": {
+    "appearances": 1,
+    "last_seen_mission": 20,
+    "missions": [
+      20
+    ]
+  },
+  "பேசலாம்": {
+    "appearances": 1,
+    "last_seen_mission": 20,
+    "missions": [
+      20
+    ]
+  },
+  "பசிக்குது": {
+    "appearances": 3,
+    "last_seen_mission": 24,
+    "missions": [
+      20,
+      24,
+      5
+    ]
+  },
+  "சாப்பாடு": {
+    "appearances": 4,
+    "last_seen_mission": 38,
+    "missions": [
+      20,
+      27,
+      33,
+      38
+    ]
+  },
+  "ஆச்சுன்னு": {
+    "appearances": 2,
+    "last_seen_mission": 31,
+    "missions": [
+      20,
+      31
+    ]
+  },
+  "பயம்": {
+    "appearances": 7,
+    "last_seen_mission": 29,
+    "missions": [
+      21,
+      21,
+      23,
+      24,
+      25,
+      28,
+      29
+    ]
+  },
+  "சோகம்": {
+    "appearances": 4,
+    "last_seen_mission": 28,
+    "missions": [
+      21,
+      21,
+      27,
+      28
+    ]
+  },
+  "பண்ணல": {
+    "appearances": 1,
+    "last_seen_mission": 21,
+    "missions": [
+      21
+    ]
+  },
+  "மனசு": {
+    "appearances": 1,
+    "last_seen_mission": 21,
+    "missions": [
+      21
+    ]
+  },
+  "சரியில்லை": {
+    "appearances": 1,
+    "last_seen_mission": 21,
+    "missions": [
+      21
+    ]
+  },
+  "அவனுக்கு": {
+    "appearances": 5,
+    "last_seen_mission": 33,
+    "missions": [
+      21,
+      23,
+      28,
+      31,
+      33
+    ]
+  },
+  "டிவில": {
+    "appearances": 1,
+    "last_seen_mission": 21,
+    "missions": [
+      21
+    ]
+  },
+  "செய்தி": {
+    "appearances": 1,
+    "last_seen_mission": 21,
+    "missions": [
+      21
+    ]
+  },
+  "இல்லப்பா": {
+    "appearances": 2,
+    "last_seen_mission": 38,
+    "missions": [
+      21,
+      38
+    ]
+  },
+  "மழை": {
+    "appearances": 1,
+    "last_seen_mission": 21,
+    "missions": [
+      21
+    ]
+  },
+  "பெய்யுது": {
+    "appearances": 1,
+    "last_seen_mission": 21,
+    "missions": [
+      21
+    ]
+  },
+  "தேங்க்ஸ்": {
+    "appearances": 2,
+    "last_seen_mission": 26,
+    "missions": [
+      21,
+      26
+    ]
+  },
+  "எடுக்குறானா": {
+    "appearances": 1,
+    "last_seen_mission": 21,
+    "missions": [
+      21
+    ]
+  },
+  "வந்துட்டேனா": {
+    "appearances": 1,
+    "last_seen_mission": 21,
+    "missions": [
+      21
+    ]
+  },
+  "சந்தோஷம்": {
+    "appearances": 7,
+    "last_seen_mission": 35,
+    "missions": [
+      21,
+      23,
+      24,
+      25,
+      28,
+      29,
+      35
+    ]
+  },
+  "வச்சிரலாம்": {
+    "appearances": 1,
+    "last_seen_mission": 21,
+    "missions": [
+      21
+    ]
+  },
+  "பிடிக்காது": {
+    "appearances": 6,
+    "last_seen_mission": 28,
+    "missions": [
+      22,
+      22,
+      23,
+      24,
+      27,
+      28
+    ]
+  },
+  "பிடிக்கும்": {
+    "appearances": 7,
+    "last_seen_mission": 32,
+    "missions": [
+      22,
+      22,
+      23,
+      24,
+      25,
+      27,
+      32
+    ]
+  },
+  "எந்த": {
+    "appearances": 2,
+    "last_seen_mission": 22,
+    "missions": [
+      22,
+      22
+    ]
+  },
+  "இஷ்டம்": {
+    "appearances": 4,
+    "last_seen_mission": 28,
+    "missions": [
+      22,
+      22,
+      27,
+      28
+    ]
+  },
+  "உன்": {
+    "appearances": 3,
+    "last_seen_mission": 31,
+    "missions": [
+      22,
+      22,
+      31
+    ]
+  },
+  "படம்": {
+    "appearances": 4,
+    "last_seen_mission": 24,
+    "missions": [
+      22,
+      22,
+      23,
+      24
+    ]
+  },
+  "பிடிக்குமா": {
+    "appearances": 3,
+    "last_seen_mission": 23,
+    "missions": [
+      22,
+      22,
+      23
+    ]
+  },
+  "உட்காருங்க": {
+    "appearances": 1,
+    "last_seen_mission": 22,
+    "missions": [
+      22
+    ]
+  },
+  "போகலாம்": {
+    "appearances": 1,
+    "last_seen_mission": 22,
+    "missions": [
+      22
+    ]
+  },
+  "பாரு": {
+    "appearances": 2,
+    "last_seen_mission": 34,
+    "missions": [
+      23,
+      34
+    ]
+  },
+  "கிடைச்சுது": {
+    "appearances": 4,
+    "last_seen_mission": 31,
+    "missions": [
+      23,
+      24,
+      28,
+      31
+    ]
+  },
+  "படத்துல": {
+    "appearances": 1,
+    "last_seen_mission": 23,
+    "missions": [
+      23
+    ]
+  },
+  "நடந்தா": {
+    "appearances": 1,
+    "last_seen_mission": 23,
+    "missions": [
+      23
+    ]
+  },
+  "வர்றான்": {
+    "appearances": 1,
+    "last_seen_mission": 23,
+    "missions": [
+      23
+    ]
+  },
+  "வீட்டை": {
+    "appearances": 1,
+    "last_seen_mission": 23,
+    "missions": [
+      23
+    ]
+  },
+  "பார்க்குறான்": {
+    "appearances": 1,
+    "last_seen_mission": 23,
+    "missions": [
+      23
+    ]
+  },
+  "அய்யோ": {
+    "appearances": 5,
+    "last_seen_mission": 32,
+    "missions": [
+      23,
+      24,
+      29,
+      31,
+      32
+    ]
+  },
+  "பயமா": {
+    "appearances": 4,
+    "last_seen_mission": 29,
+    "missions": [
+      23,
+      25,
+      28,
+      29
+    ]
+  },
+  "பாப்பா": {
+    "appearances": 1,
+    "last_seen_mission": 23,
+    "missions": [
+      23
+    ]
+  },
+  "தனியா": {
+    "appearances": 1,
+    "last_seen_mission": 23,
+    "missions": [
+      23
+    ]
+  },
+  "ஆகாது": {
+    "appearances": 1,
+    "last_seen_mission": 23,
+    "missions": [
+      23
+    ]
+  },
+  "வந்துடுவான்": {
+    "appearances": 1,
+    "last_seen_mission": 23,
+    "missions": [
+      23
+    ]
+  },
+  "பேசுறான்": {
+    "appearances": 1,
+    "last_seen_mission": 23,
+    "missions": [
+      23
+    ]
+  },
+  "ஏமாத்துறானா": {
+    "appearances": 1,
+    "last_seen_mission": 23,
+    "missions": [
+      23
+    ]
+  },
+  "பண்ணலாம்": {
+    "appearances": 1,
+    "last_seen_mission": 23,
+    "missions": [
+      23
+    ]
+  },
+  "கவலையா": {
+    "appearances": 4,
+    "last_seen_mission": 28,
+    "missions": [
+      23,
+      25,
+      26,
+      28
+    ]
+  },
+  "அம்மா": {
+    "appearances": 6,
+    "last_seen_mission": 34,
+    "missions": [
+      23,
+      24,
+      26,
+      28,
+      31,
+      34
+    ]
+  },
+  "பாவம்": {
+    "appearances": 3,
+    "last_seen_mission": 28,
+    "missions": [
+      23,
+      24,
+      28
+    ]
+  },
+  "சுத்தமா": {
+    "appearances": 3,
+    "last_seen_mission": 33,
+    "missions": [
+      23,
+      28,
+      33
+    ]
+  },
+  "சும்மா": {
+    "appearances": 3,
+    "last_seen_mission": 31,
+    "missions": [
+      24,
+      25,
+      31
+    ]
+  },
+  "பண்ணினது": {
+    "appearances": 1,
+    "last_seen_mission": 24,
+    "missions": [
+      24
+    ]
+  },
+  "போனான்": {
+    "appearances": 1,
+    "last_seen_mission": 24,
+    "missions": [
+      24
+    ]
+  },
+  "ஏமாத்தலாம்": {
+    "appearances": 1,
+    "last_seen_mission": 24,
+    "missions": [
+      24
+    ]
+  },
+  "அவங்களுக்கு": {
+    "appearances": 2,
+    "last_seen_mission": 28,
+    "missions": [
+      24,
+      28
+    ]
+  },
+  "எதுவும்": {
+    "appearances": 1,
+    "last_seen_mission": 24,
+    "missions": [
+      24
+    ]
+  },
+  "எதுவுமே": {
+    "appearances": 1,
+    "last_seen_mission": 24,
+    "missions": [
+      24
+    ]
+  },
+  "இருங்க": {
+    "appearances": 4,
+    "last_seen_mission": 31,
+    "missions": [
+      24,
+      25,
+      31,
+      6
+    ]
+  },
+  "மறந்துட்டேன்": {
+    "appearances": 1,
+    "last_seen_mission": 24,
+    "missions": [
+      24
+    ]
+  },
+  "கல்யாணம்": {
+    "appearances": 2,
+    "last_seen_mission": 38,
+    "missions": [
+      25,
+      38
+    ]
+  },
+  "டேய்": {
+    "appearances": 2,
+    "last_seen_mission": 31,
+    "missions": [
+      26,
+      31
+    ]
+  },
+  "பண்ற": {
+    "appearances": 1,
+    "last_seen_mission": 26,
+    "missions": [
+      26
+    ]
+  },
+  "இருட்டுல": {
+    "appearances": 1,
+    "last_seen_mission": 26,
+    "missions": [
+      26
+    ]
+  },
+  "என்னடா": {
+    "appearances": 1,
+    "last_seen_mission": 26,
+    "missions": [
+      26
+    ]
+  },
+  "தொலைச்சுட்டேன்": {
+    "appearances": 1,
+    "last_seen_mission": 26,
+    "missions": [
+      26
+    ]
+  },
+  "போன": {
+    "appearances": 1,
+    "last_seen_mission": 26,
+    "missions": [
+      26
+    ]
+  },
+  "ஷாப்": {
+    "appearances": 2,
+    "last_seen_mission": 26,
+    "missions": [
+      26,
+      6
+    ]
+  },
+  "போனேன்": {
+    "appearances": 3,
+    "last_seen_mission": 26,
+    "missions": [
+      26,
+      5,
+      6
+    ]
+  },
+  "கடைக்கு": {
+    "appearances": 1,
+    "last_seen_mission": 26,
+    "missions": [
+      26
+    ]
+  },
+  "வந்து": {
+    "appearances": 1,
+    "last_seen_mission": 26,
+    "missions": [
+      26
+    ]
+  },
+  "இருந்துச்சு": {
+    "appearances": 1,
+    "last_seen_mission": 26,
+    "missions": [
+      26
+    ]
+  },
+  "காசு": {
+    "appearances": 3,
+    "last_seen_mission": 28,
+    "missions": [
+      26,
+      28,
+      6
+    ]
+  },
+  "இருக்கா": {
+    "appearances": 3,
+    "last_seen_mission": 31,
+    "missions": [
+      26,
+      29,
+      31
+    ]
+  },
+  "அவ்வளவு": {
+    "appearances": 2,
+    "last_seen_mission": 28,
+    "missions": [
+      26,
+      28
+    ]
+  },
+  "வச்சுட்டு": {
+    "appearances": 1,
+    "last_seen_mission": 26,
+    "missions": [
+      26
+    ]
+  },
+  "எப்படிடா": {
+    "appearances": 1,
+    "last_seen_mission": 26,
+    "missions": [
+      26
+    ]
+  },
+  "தொலைப்ப": {
+    "appearances": 1,
+    "last_seen_mission": 26,
+    "missions": [
+      26
+    ]
+  },
+  "வெட்கமா": {
+    "appearances": 2,
+    "last_seen_mission": 28,
+    "missions": [
+      26,
+      28
+    ]
+  },
+  "என்னால": {
+    "appearances": 3,
+    "last_seen_mission": 34,
+    "missions": [
+      26,
+      29,
+      34
+    ]
+  },
+  "இத": {
+    "appearances": 1,
+    "last_seen_mission": 26,
+    "missions": [
+      26
+    ]
+  },
+  "சொல்ல": {
+    "appearances": 2,
+    "last_seen_mission": 34,
+    "missions": [
+      26,
+      34
+    ]
+  },
+  "காப்பாத்தணும்": {
+    "appearances": 1,
+    "last_seen_mission": 26,
+    "missions": [
+      26
+    ]
+  },
+  "விடு": {
+    "appearances": 1,
+    "last_seen_mission": 26,
+    "missions": [
+      26
+    ]
+  },
+  "கவலைப்படாத": {
+    "appearances": 1,
+    "last_seen_mission": 26,
+    "missions": [
+      26
+    ]
+  },
+  "சார்": {
+    "appearances": 2,
+    "last_seen_mission": 33,
+    "missions": [
+      26,
+      33
+    ]
+  },
+  "பாத்துக்கறேன்": {
+    "appearances": 1,
+    "last_seen_mission": 26,
+    "missions": [
+      26
+    ]
+  },
+  "இன்னொரு": {
+    "appearances": 2,
+    "last_seen_mission": 31,
+    "missions": [
+      26,
+      31
+    ]
+  },
+  "தடவை": {
+    "appearances": 1,
+    "last_seen_mission": 26,
+    "missions": [
+      26
+    ]
+  },
+  "பண்ண": {
+    "appearances": 2,
+    "last_seen_mission": 31,
+    "missions": [
+      26,
+      31
+    ]
+  },
+  "புரிஞ்சுதா": {
+    "appearances": 2,
+    "last_seen_mission": 31,
+    "missions": [
+      26,
+      31
+    ]
+  },
+  "வெட்கம்": {
+    "appearances": 2,
+    "last_seen_mission": 28,
+    "missions": [
+      26,
+      28
+    ]
+  },
+  "சாப்பிடல": {
+    "appearances": 2,
+    "last_seen_mission": 27,
+    "missions": [
+      27,
+      5
+    ]
+  },
+  "கவலைப்படாதே": {
+    "appearances": 1,
+    "last_seen_mission": 27,
+    "missions": [
+      27
+    ]
+  },
+  "பிரியாணி": {
+    "appearances": 1,
+    "last_seen_mission": 27,
+    "missions": [
+      27
+    ]
+  },
+  "விஜய்": {
+    "appearances": 1,
+    "last_seen_mission": 27,
+    "missions": [
+      27
+    ]
+  },
+  "சினிமா": {
+    "appearances": 1,
+    "last_seen_mission": 27,
+    "missions": [
+      27
+    ]
+  },
+  "வந்துருக்கு": {
+    "appearances": 1,
+    "last_seen_mission": 27,
+    "missions": [
+      27
+    ]
+  },
+  "னு": {
+    "appearances": 1,
+    "last_seen_mission": 27,
+    "missions": [
+      27
+    ]
+  },
+  "ரஜினி": {
+    "appearances": 1,
+    "last_seen_mission": 27,
+    "missions": [
+      27
+    ]
+  },
+  "வாட்ச்": {
+    "appearances": 1,
+    "last_seen_mission": 27,
+    "missions": [
+      27
+    ]
+  },
+  "இருந்தது": {
+    "appearances": 3,
+    "last_seen_mission": 38,
+    "missions": [
+      27,
+      38,
+      5
+    ]
+  },
+  "அதானே": {
+    "appearances": 1,
+    "last_seen_mission": 27,
+    "missions": [
+      27
+    ]
+  },
+  "நில்லு": {
+    "appearances": 1,
+    "last_seen_mission": 27,
+    "missions": [
+      27
+    ]
+  },
+  "பத்தியே": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "நினைச்சுட்டு": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "இருக்கியா": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "விடுடா": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "மேட்டர்": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "இதை": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "சுரேஷ்": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "இருக்கான்ல": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "மெட்ராஸ்ல": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "வேலை": {
+    "appearances": 3,
+    "last_seen_mission": 34,
+    "missions": [
+      28,
+      33,
+      34
+    ]
+  },
+  "பண்ணான்": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "நிஜமாவா": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "எல்லாருக்கும்": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "அப்பாக்கு": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "பெருமை": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "சுரேஷுக்கு": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "வந்துடுச்சு": {
+    "appearances": 2,
+    "last_seen_mission": 31,
+    "missions": [
+      28,
+      31
+    ]
+  },
+  "கம்பெனி": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "வில்லன்": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "வந்தான்": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "வீட்டு": {
+    "appearances": 2,
+    "last_seen_mission": 28,
+    "missions": [
+      28,
+      5
+    ]
+  },
+  "ஓனர்": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "சுரேஷை": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "விடல": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "எங்கேயும்": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "சொல்லிட்டான்": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "அப்படி": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "சொல்றான்": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "கெட்ட": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "மனுஷன்": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "பயந்து": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "காசை": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "பெட்": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "ஒளிச்சு": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "வச்சான்": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "கீழயா": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "இல்லடா": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "அவனோட": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "எடுத்துட்டு": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "பைக்": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "வாங்கிட்டான்": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "எடுத்துட்டானா": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "வந்ததே": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "எல்லார்": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "கத்துறான்": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "தம்பியை": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "கோவத்துல": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "இருக்காங்கல": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "வீடே": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "அம்மாக்கு": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "எங்கன்னு": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "தெரியல": {
+    "appearances": 2,
+    "last_seen_mission": 31,
+    "missions": [
+      28,
+      31
+    ]
+  },
+  "கதை": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "இருக்கறது": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "சந்தோஷமா": {
+    "appearances": 1,
+    "last_seen_mission": 28,
+    "missions": [
+      28
+    ]
+  },
+  "டேபிள்": {
+    "appearances": 2,
+    "last_seen_mission": 29,
+    "missions": [
+      29,
+      6
+    ]
+  },
+  "பாக்குறேன்": {
+    "appearances": 3,
+    "last_seen_mission": 33,
+    "missions": [
+      29,
+      31,
+      33
+    ]
+  },
+  "இங்கயும்": {
+    "appearances": 1,
+    "last_seen_mission": 29,
+    "missions": [
+      29
+    ]
+  },
+  "போச்சு": {
+    "appearances": 1,
+    "last_seen_mission": 29,
+    "missions": [
+      29
+    ]
+  },
+  "சோபா": {
+    "appearances": 1,
+    "last_seen_mission": 29,
+    "missions": [
+      29
+    ]
+  },
+  "வேண்டாமே": {
+    "appearances": 1,
+    "last_seen_mission": 29,
+    "missions": [
+      29
+    ]
+  },
+  "பிரிட்ஜ்": {
+    "appearances": 1,
+    "last_seen_mission": 29,
+    "missions": [
+      29
+    ]
+  },
+  "ஏய்": {
+    "appearances": 1,
+    "last_seen_mission": 30,
+    "missions": [
+      30
+    ]
+  },
+  "உயரம்": {
+    "appearances": 1,
+    "last_seen_mission": 30,
+    "missions": [
+      30
+    ]
+  },
+  "விட": {
+    "appearances": 1,
+    "last_seen_mission": 30,
+    "missions": [
+      30
+    ]
+  },
+  "காந்திபுரம்": {
+    "appearances": 1,
+    "last_seen_mission": 30,
+    "missions": [
+      30
+    ]
+  },
+  "சில்லறை": {
+    "appearances": 1,
+    "last_seen_mission": 30,
+    "missions": [
+      30
+    ]
+  },
+  "ஏறுறீங்க": {
+    "appearances": 1,
+    "last_seen_mission": 30,
+    "missions": [
+      30
+    ]
+  },
+  "எனக்கும்": {
+    "appearances": 2,
+    "last_seen_mission": 34,
+    "missions": [
+      30,
+      34
+    ]
+  },
+  "உன்னை": {
+    "appearances": 1,
+    "last_seen_mission": 30,
+    "missions": [
+      30
+    ]
+  },
+  "வேணுமா": {
+    "appearances": 2,
+    "last_seen_mission": 33,
+    "missions": [
+      31,
+      33
+    ]
+  },
+  "யாரையாவது": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "கூப்பிடணும்": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "பேசுறேன்": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "எடுக்கல": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "பேசுரது": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "இருந்தே": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "பாத்தீங்களா": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "வச்சிருக்கேன்": {
+    "appearances": 2,
+    "last_seen_mission": 33,
+    "missions": [
+      31,
+      33
+    ]
+  },
+  "இவ்வளவு": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "பண்ணினேன்": {
+    "appearances": 2,
+    "last_seen_mission": 31,
+    "missions": [
+      31,
+      5
+    ]
+  },
+  "ஒரே": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "ஆளுக்கு": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "அவருக்கு": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "ஆகல": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "போல": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "கூடவே": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "மாதிரி": {
+    "appearances": 2,
+    "last_seen_mission": 32,
+    "missions": [
+      31,
+      32
+    ]
+  },
+  "மெசேஜ்": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "ஆள்": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "பிசி": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "யா": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "இருக்கும்போது": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "சொல்றது": {
+    "appearances": 2,
+    "last_seen_mission": 34,
+    "missions": [
+      31,
+      34
+    ]
+  },
+  "என்னோட": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "விஷயம்": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "ஒண்ணு": {
+    "appearances": 2,
+    "last_seen_mission": 33,
+    "missions": [
+      31,
+      33
+    ]
+  },
+  "ம்ம்": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "ஆறிடுது": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "குடிங்க": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "ஏன்னு": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "ன்னா": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "தப்பா": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "ஆகும்போது": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "கழிச்சு": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "கூப்பிடு": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "குடிக்கணும்": {
+    "appearances": 1,
+    "last_seen_mission": 31,
+    "missions": [
+      31
+    ]
+  },
+  "பண்ணு": {
+    "appearances": 2,
+    "last_seen_mission": 34,
+    "missions": [
+      31,
+      34
+    ]
+  },
+  "முதல்": {
+    "appearances": 1,
+    "last_seen_mission": 32,
+    "missions": [
+      32
+    ]
+  },
+  "இதுவா": {
+    "appearances": 1,
+    "last_seen_mission": 32,
+    "missions": [
+      32
+    ]
+  },
+  "எவ்வளவு": {
+    "appearances": 1,
+    "last_seen_mission": 32,
+    "missions": [
+      32
+    ]
+  },
+  "ஜன்னல்": {
+    "appearances": 1,
+    "last_seen_mission": 32,
+    "missions": [
+      32
+    ]
+  },
+  "பெருசு": {
+    "appearances": 2,
+    "last_seen_mission": 38,
+    "missions": [
+      32,
+      38
+    ]
+  },
+  "தெருவுல": {
+    "appearances": 1,
+    "last_seen_mission": 32,
+    "missions": [
+      32
+    ]
+  },
+  "அழகான": {
+    "appearances": 1,
+    "last_seen_mission": 32,
+    "missions": [
+      32
+    ]
+  },
+  "போலாமா": {
+    "appearances": 1,
+    "last_seen_mission": 32,
+    "missions": [
+      32
+    ]
+  },
+  "புதுசு": {
+    "appearances": 1,
+    "last_seen_mission": 32,
+    "missions": [
+      32
+    ]
+  },
+  "ரவி": {
+    "appearances": 1,
+    "last_seen_mission": 32,
+    "missions": [
+      32
+    ]
+  },
+  "சின்னது": {
+    "appearances": 2,
+    "last_seen_mission": 38,
+    "missions": [
+      32,
+      38
+    ]
+  },
+  "இருக்குல்ல": {
+    "appearances": 1,
+    "last_seen_mission": 32,
+    "missions": [
+      32
+    ]
+  },
+  "யாருப்பா": {
+    "appearances": 1,
+    "last_seen_mission": 32,
+    "missions": [
+      32
+    ]
+  },
+  "பாக்க": {
+    "appearances": 2,
+    "last_seen_mission": 33,
+    "missions": [
+      32,
+      33
+    ]
+  },
+  "வந்தீங்களா": {
+    "appearances": 1,
+    "last_seen_mission": 32,
+    "missions": [
+      32
+    ]
+  },
+  "ஆமாம்மா": {
+    "appearances": 1,
+    "last_seen_mission": 32,
+    "missions": [
+      32
+    ]
+  },
+  "தம்பிக்கு": {
+    "appearances": 1,
+    "last_seen_mission": 32,
+    "missions": [
+      32
+    ]
+  },
+  "தாத்தா": {
+    "appearances": 1,
+    "last_seen_mission": 32,
+    "missions": [
+      32
+    ]
+  },
+  "காலத்து": {
+    "appearances": 1,
+    "last_seen_mission": 32,
+    "missions": [
+      32
+    ]
+  },
+  "ஸ்ட்ராங்": {
+    "appearances": 1,
+    "last_seen_mission": 32,
+    "missions": [
+      32
+    ]
+  },
+  "காத்து": {
+    "appearances": 1,
+    "last_seen_mission": 32,
+    "missions": [
+      32
+    ]
+  },
+  "யோசிக்கணும்": {
+    "appearances": 1,
+    "last_seen_mission": 32,
+    "missions": [
+      32
+    ]
+  },
+  "சு": {
+    "appearances": 1,
+    "last_seen_mission": 32,
+    "missions": [
+      32
+    ]
+  },
+  "து": {
+    "appearances": 1,
+    "last_seen_mission": 32,
+    "missions": [
+      32
+    ]
+  },
+  "பழையது": {
+    "appearances": 2,
+    "last_seen_mission": 34,
+    "missions": [
+      32,
+      34
+    ]
+  },
+  "கோயம்பத்தூர்": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "நெய்": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "மார்க்கெட்": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "சுறசுறப்பு": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "பேரு": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "பொட்டலம்": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "கூடைகள்": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "நல்ல": {
+    "appearances": 2,
+    "last_seen_mission": 33,
+    "missions": [
+      33,
+      6
+    ]
+  },
+  "வாசனை": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "என்ற": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "மார்க்கெட்டுக்குள்ள": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "முடிந்த": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "விதமான": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "சுத்த": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "காய்கறி": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "தேடணும்": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "தாழ்வு": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "அழகாயிருக்கு": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "அவ்ளோ": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "பொட்டலத்துக்கு": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "ரா": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "வயசான": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "வெண்டர்": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "பசியும்": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "நல்லாயிருக்கு": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "ஆமாம்": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "கை": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "பொந்தக்": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "ஒவ்வொரு": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "நினைக்குற": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "ன்": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "பசியை": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "எடுக்குறேன்": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "பாக்கட்ட": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "பொட்டலத்துல": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "இந்தா": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "கிலோ": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "கொடுக்கேன்": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "எண்பது": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "தொமாட்ட": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "வேணுமே": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "பெத்தை": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "செம்ப": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "சிரிப்பு": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "உங்களை": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "பாக்கற": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "ஐயா": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "பாக்கணுமா": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "மொத்தம்": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "பாக்குற": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "கொடுங்கன": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "சுத்தம்": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "சிவப்பு": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "வேண்டும்": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "பொறுக்குறேன்": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "வெறும்": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "அப்ப": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "வாங்குங்க": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "கூடை": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "வெளைஞ்ஞ": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "பக்கத்துக்கு": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "கழ்ந்தை": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "வெண்டை": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "சை": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "மிள்ளை": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "பல": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "விதம்": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "தேர்வு": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "செய்யணும்": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "கணம்": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "சுட்ட": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "கூடையிலிருந்து": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "முண்டு": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "வெளக்க": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "பட்ட": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "நல்லது": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "கிளுவுல": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "கையில": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "தூக்க": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "ஆபாசம்": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "முப்பது": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "இருபத்து": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "நாற்பது": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "நூற்றை": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "விட்டு": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "வெளியா": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "வாங்கிட்டு": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "மறுபடி": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "வணும்": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "கிடைச்சு": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "தே": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "வாங்குனு": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "இந்தப்": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "பொறுகாலம்": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "நாள்": {
+    "appearances": 2,
+    "last_seen_mission": 33,
+    "missions": [
+      33,
+      6
+    ]
+  },
+  "பூரா": {
+    "appearances": 1,
+    "last_seen_mission": 33,
+    "missions": [
+      33
+    ]
+  },
+  "பையன்": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "வருவான்": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "வந்துட்டா": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "நேத்தும்": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "முந்தா": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "நாளும்": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "ஆகுது": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "கிளம்பல": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "வீட்டுல": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "கிளம்பு": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "ஆனாலும்": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "கிளம்புறேன்": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "சொல்லாத": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "மாத்தணும்": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "மாத்து": {
+    "appearances": 2,
+    "last_seen_mission": 35,
+    "missions": [
+      34,
+      35
+    ]
+  },
+  "இருபது": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "இவன்": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "வந்துட்டான்": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "உக்காருறேன்": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "முடிஞ்சதும்": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "கூப்பிடுங்க": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "ம்": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "முடியுமா": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "போடு": {
+    "appearances": 3,
+    "last_seen_mission": 34,
+    "missions": [
+      34,
+      5,
+      6
+    ]
+  },
+  "முடிஞ்சுது": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "மாத்திட்டேன்": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "அட": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "பண்ணிட்ட": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "வந்தாலும்": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "கூப்பிட்டு": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "திரும்பு": {
+    "appearances": 2,
+    "last_seen_mission": 36,
+    "missions": [
+      34,
+      36
+    ]
+  },
+  "திரும்புறேன்": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "ஆகிவிட்டது": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "முடிஞ்சாச்சு": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "ணும்": {
+    "appearances": 1,
+    "last_seen_mission": 34,
+    "missions": [
+      34
+    ]
+  },
+  "சமை": {
+    "appearances": 1,
+    "last_seen_mission": 35,
+    "missions": [
+      35
+    ]
+  },
+  "கழுவு": {
+    "appearances": 1,
+    "last_seen_mission": 35,
+    "missions": [
+      35
+    ]
+  },
+  "ஊத்து": {
+    "appearances": 1,
+    "last_seen_mission": 35,
+    "missions": [
+      35
+    ]
+  },
+  "கலக்கு": {
+    "appearances": 1,
+    "last_seen_mission": 35,
+    "missions": [
+      35
+    ]
+  },
+  "மூடு": {
+    "appearances": 1,
+    "last_seen_mission": 35,
+    "missions": [
+      35
+    ]
+  },
+  "திற": {
+    "appearances": 1,
+    "last_seen_mission": 35,
+    "missions": [
+      35
+    ]
+  },
+  "ஏறு": {
+    "appearances": 1,
+    "last_seen_mission": 36,
+    "missions": [
+      36
+    ]
+  },
+  "ஓடு": {
+    "appearances": 1,
+    "last_seen_mission": 36,
+    "missions": [
+      36
+    ]
+  },
+  "கவனி": {
+    "appearances": 1,
+    "last_seen_mission": 36,
+    "missions": [
+      36
+    ]
+  },
+  "இறங்கு": {
+    "appearances": 2,
+    "last_seen_mission": 37,
+    "missions": [
+      36,
+      37
+    ]
+  },
+  "அப்பாடா": {
+    "appearances": 1,
+    "last_seen_mission": 38,
+    "missions": [
+      38
+    ]
+  },
+  "முடிஞ்சது": {
+    "appearances": 1,
+    "last_seen_mission": 38,
+    "missions": [
+      38
+    ]
+  },
+  "செம": {
+    "appearances": 1,
+    "last_seen_mission": 38,
+    "missions": [
+      38
+    ]
+  },
+  "டயர்டுப்பா": {
+    "appearances": 1,
+    "last_seen_mission": 38,
+    "missions": [
+      38
+    ]
+  },
+  "சூப்பரா": {
+    "appearances": 1,
+    "last_seen_mission": 38,
+    "missions": [
+      38
+    ]
+  },
+  "செம்மை": {
+    "appearances": 1,
+    "last_seen_mission": 38,
+    "missions": [
+      38
+    ]
+  },
+  "மாமன்": {
+    "appearances": 1,
+    "last_seen_mission": 38,
+    "missions": [
+      38
+    ]
+  },
+  "வந்தாருல": {
+    "appearances": 1,
+    "last_seen_mission": 38,
+    "missions": [
+      38
+    ]
+  },
+  "மாமாவா": {
+    "appearances": 1,
+    "last_seen_mission": 38,
+    "missions": [
+      38
+    ]
+  },
+  "கேட்டீங்களா": {
+    "appearances": 1,
+    "last_seen_mission": 38,
+    "missions": [
+      38
+    ]
+  },
+  "அப்படின்னு": {
+    "appearances": 1,
+    "last_seen_mission": 38,
+    "missions": [
+      38
+    ]
+  },
+  "சாப்டியா": {
+    "appearances": 1,
+    "last_seen_mission": 5,
+    "missions": [
+      5
+    ]
+  },
+  "இவ்ளோ": {
+    "appearances": 1,
+    "last_seen_mission": 5,
+    "missions": [
+      5
+    ]
+  },
+  "சோறு": {
+    "appearances": 1,
+    "last_seen_mission": 5,
+    "missions": [
+      5
+    ]
+  },
+  "ஃபேன்": {
+    "appearances": 1,
+    "last_seen_mission": 6,
+    "missions": [
+      6
+    ]
+  },
+  "ஷூ": {
+    "appearances": 1,
+    "last_seen_mission": 6,
+    "missions": [
+      6
+    ]
+  },
+  "செவுரு": {
+    "appearances": 1,
+    "last_seen_mission": 6,
+    "missions": [
+      6
+    ]
+  },
+  "பின்னாடி": {
+    "appearances": 1,
+    "last_seen_mission": 6,
+    "missions": [
+      6
+    ]
+  },
+  "லீவ்": {
+    "appearances": 1,
+    "last_seen_mission": 6,
+    "missions": [
+      6
+    ]
+  },
+  "கிராம்": {
+    "appearances": 1,
+    "last_seen_mission": 6,
+    "missions": [
+      6
+    ]
+  },
+  "ஆயிரம்": {
+    "appearances": 1,
+    "last_seen_mission": 6,
+    "missions": [
+      6
+    ]
+  },
+  "ஐட்டம்": {
+    "appearances": 1,
+    "last_seen_mission": 6,
+    "missions": [
+      6
+    ]
+  },
+  "சாப்பிட்டீங்களா": {
+    "appearances": 2,
+    "last_seen_mission": 8,
+    "missions": [
+      7,
+      8
+    ]
+  },
+  "பிரெண்ட்": {
+    "appearances": 1,
+    "last_seen_mission": 7,
+    "missions": [
+      7
+    ]
+  },
+  "கீழே": {
+    "appearances": 1,
+    "last_seen_mission": 8,
+    "missions": [
+      8
+    ]
+  },
+  "மேலே": {
+    "appearances": 1,
+    "last_seen_mission": 8,
+    "missions": [
+      8
+    ]
+  },
+  "இருக்கீங்க": {
+    "appearances": 1,
+    "last_seen_mission": 8,
+    "missions": [
+      8
+    ]
+  },
+  "அவனை": {
+    "appearances": 1,
+    "last_seen_mission": 9,
+    "missions": [
+      9
+    ]
+  }
+}
