@@ -80,9 +80,15 @@ def generate_rss():
 
         # Extract date and optional version from filename: playlist_2026-04-10_v2.mp3
         date_match = re.search(r"playlist_(\d{4}-\d{2}-\d{2})(?:_v(\d+))?", filename)
-        date_str = date_match.group(1) if date_match else "unknown"
-        version_str = f" (v{date_match.group(2)})" if date_match and date_match.group(2) else ""
-        title = f"Playlist — {date_str}{version_str}"
+        if date_match:
+            date_str = date_match.group(1)
+            version_str = f" (v{date_match.group(2)})" if date_match.group(2) else ""
+            title = f"Playlist — {date_str}{version_str}"
+        else:
+            # Fallback for creative filenames: remove extension and replace underscores
+            clean_name = os.path.splitext(filename)[0].replace("_", " ")
+            date_str = clean_name
+            title = f"Playlist — {clean_name}"
 
         try:
             audio = MP3(audio_path)
