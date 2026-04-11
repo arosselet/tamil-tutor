@@ -97,14 +97,38 @@ def select_episodes(vocab_state: dict, target_min: float) -> list[dict]:
     return playlist
 
 
+def _get_announcement_path(mission: int) -> Path:
+    """Generate or get an 'Episode X' announcement MP3."""
+    announcement_dir = AUDIO_DIR / "announcements"
+    announcement_dir.mkdir(parents=True, exist_ok=True)
+    path = announcement_dir / f"episode_{mission}.mp3"
+    
+    if not path.exists():
+        text = f"Episode {mission}"
+        # Using a reliable edge-tts voice for announcements
+        voice = "en-US-EmmaNeural"
+        print(f"Generating announcement: '{text}'")
+        subprocess.run(
+            ["edge-tts", "--voice", voice, "--text", text, "--write-media", str(path)],
+            capture_output=True
+        )
+    return path
+
+
 def concatenate_mp3s(playlist: list[dict], output_path: Path):
-    """Concatenate MP3 files with 2-second silence between episodes."""
+    """Concatenate MP3 files with announcements and silences."""
     with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
         for i, ep in enumerate(playlist):
+            # Announcement first
+            f.write(f"file '{_get_announcement_path(ep['mission'])}'\n")
+            # 1s pause after announcement
+            f.write(f"file '{_get_silence_path(1)}'\n")
+            # The episode itself
             f.write(f"file '{ep['path']}'\n")
+            
             if i < len(playlist) - 1:
-                # Add 2 seconds of silence between episodes
-                f.write(f"file '{_get_silence_path()}'\n")
+                # Add 3 seconds of silence between episodes
+                f.write(f"file '{_get_silence_path(3)}'\n")
         filelist = f.name
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -116,14 +140,14 @@ def concatenate_mp3s(playlist: list[dict], output_path: Path):
     Path(filelist).unlink()
 
 
-def _get_silence_path() -> Path:
-    """Generate a 2-second silence MP3 if it doesn't exist."""
-    silence = AUDIO_DIR / "playlists" / "_silence_2s.mp3"
+def _get_silence_path(duration: int = 2) -> Path:
+    """Generate a silence MP3 of specified duration if it doesn't exist."""
+    silence = AUDIO_DIR / "playlists" / f"_silence_{duration}s.mp3"
     if not silence.exists():
         silence.parent.mkdir(parents=True, exist_ok=True)
         subprocess.run(
             ["ffmpeg", "-y", "-f", "lavfi", "-i", "anullsrc=r=44100:cl=mono",
-             "-t", "2", "-q:a", "9", str(silence)],
+             "-t", str(duration), "-q:a", "9", str(silence)],
             capture_output=True
         )
     return silence
