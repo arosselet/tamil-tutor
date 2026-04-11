@@ -51,7 +51,7 @@ ITEM_TEMPLATE = """
       <itunes:author>{author}</itunes:author>
       <itunes:summary>{summary}</itunes:summary>
       <enclosure url="{audio_url}" length="{size}" type="audio/mpeg"/>
-      <guid>{audio_url}</guid>
+      <guid>{guid}</guid>
       <pubDate>{pub_date}</pubDate>
       <itunes:duration>{duration}</itunes:duration>
     </item>
@@ -75,6 +75,8 @@ def generate_rss():
         mtime = os.path.getmtime(audio_path)
         pub_date = email.utils.formatdate(mtime, localtime=True)
         audio_url = f"{BASE_URL}/{AUDIO_DIR}/{filename}"
+        # Add timestamp to GUID to force refresh on re-publish
+        guid = f"{audio_url}?t={int(mtime)}"
 
         # Extract date from filename: playlist_2026-04-10.mp3
         date_match = re.search(r"playlist_(\d{4}-\d{2}-\d{2})", filename)
@@ -97,6 +99,7 @@ def generate_rss():
             summary=summary,
             audio_url=audio_url,
             size=size,
+            guid=guid,
             pub_date=pub_date,
             duration=duration,
         ))
