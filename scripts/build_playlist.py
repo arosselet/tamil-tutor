@@ -92,8 +92,8 @@ def select_episodes(vocab_state: dict, target_min: float) -> list[dict]:
         playlist.append(c)
         total += c["duration"]
 
-    # Sort final playlist by mission number for listening order
-    playlist.sort(key=lambda c: c["mission"])
+    # Sort final playlist by mission number (newest first)
+    playlist.sort(key=lambda c: c["mission"], reverse=True)
     return playlist
 
 
