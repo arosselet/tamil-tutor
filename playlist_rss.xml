@@ -20,22 +20,12 @@
     <itunes:type>episodic</itunes:type>
     
     <item>
-      <title>Playlist — 2026-04-10 (v2)</title>
+      <title>Playlist — unknown</title>
       <itunes:author>Andrew R &amp; Gemini</itunes:author>
-      <itunes:summary>Re-listen playlist for 2026-04-10 (18 min)</itunes:summary>
-      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_playlists/playlist_2026-04-10_v2.mp3" length="4542653" type="audio/mpeg"/>
-      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_playlists/playlist_2026-04-10_v2.mp3?t=1775875429</guid>
-      <pubDate>Fri, 10 Apr 2026 22:43:49 -0400</pubDate>
-      <itunes:duration>00:18:08</itunes:duration>
-    </item>
-
-    <item>
-      <title>Playlist — 2026-04-10</title>
-      <itunes:author>Andrew R &amp; Gemini</itunes:author>
-      <itunes:summary>Re-listen playlist for 2026-04-10 (18 min)</itunes:summary>
-      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_playlists/playlist_2026-04-10.mp3" length="4542653" type="audio/mpeg"/>
-      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_playlists/playlist_2026-04-10.mp3?t=1775875318</guid>
-      <pubDate>Fri, 10 Apr 2026 22:41:58 -0400</pubDate>
+      <itunes:summary>Re-listen playlist for unknown (18 min)</itunes:summary>
+      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_playlists/Mission_39_Focus_Playlist.mp3" length="4542653" type="audio/mpeg"/>
+      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_playlists/Mission_39_Focus_Playlist.mp3?t=1775875700</guid>
+      <pubDate>Fri, 10 Apr 2026 22:48:20 -0400</pubDate>
       <itunes:duration>00:18:08</itunes:duration>
     </item>
 
