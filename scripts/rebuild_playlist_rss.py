@@ -78,10 +78,11 @@ def generate_rss():
         # Add timestamp to GUID to force refresh on re-publish
         guid = f"{audio_url}?t={int(mtime)}"
 
-        # Extract date from filename: playlist_2026-04-10.mp3
-        date_match = re.search(r"playlist_(\d{4}-\d{2}-\d{2})", filename)
+        # Extract date and optional version from filename: playlist_2026-04-10_v2.mp3
+        date_match = re.search(r"playlist_(\d{4}-\d{2}-\d{2})(?:_v(\d+))?", filename)
         date_str = date_match.group(1) if date_match else "unknown"
-        title = f"Playlist — {date_str}"
+        version_str = f" (v{date_match.group(2)})" if date_match and date_match.group(2) else ""
+        title = f"Playlist — {date_str}{version_str}"
 
         try:
             audio = MP3(audio_path)
