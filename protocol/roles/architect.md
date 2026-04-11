@@ -30,10 +30,12 @@ What every episode needs, regardless of shape:
 
 ## Comprehensible Input (The 90% Rule)
 
-The learner should understand 90%+ of what they hear. Achieve this through **scaffolding**, not just subtraction. 
+The learner should understand 90%+ of what they hear. Achieve this through **Woven Thanglish**, not just subtraction.
 
-- **Language Glue:** You are encouraged to use common Tamil connectors, particles (-la, -ku, -nnu), and "vibe" words (sari, apparum, illa) freely to make the scene feel like Tamil, even if they aren't on the official word list. Trust the learner to pick up the "glue" through repetition.
-- **Thanglish is the Bridge:** Use English for complex nouns or logistics to keep the plot moving. 
+- **Thanglish is the Scaffolding:** Use English for all logistics, setup, and "narrative why." Use Tamil for the "what" (verbs, nouns, reactions). 
+- **NO NARRATORS:** Do not use a 3rd person Narrator to set the scene or describe the ambiance (e.g., "The vendor's cheer..."). If a detail is important, have a Host say it in English or use a Sound Effect (SFX).
+- **NO Meta-Commentary:** Avoid addressing the "Agent" or the "Learner" during the Intercept. The fourth wall must stay up.
+- **Natural Weave:** The goal is for a sentence to start in English and land on a Tamil verb or noun. (e.g., "I told you to **வை** it on the table!")
 - **No Inline Glossing:** Never put English translations in parentheses. If a word needs explaining, let the hosts riff on it naturally in the Breakdown.
 
 ---

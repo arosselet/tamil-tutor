@@ -131,8 +131,8 @@ def _get_silence_path() -> Path:
 
 def main():
     parser = argparse.ArgumentParser(description="Build a daily re-listen playlist")
-    parser.add_argument("--target-min", type=float, default=20,
-                        help="Target playlist duration in minutes (default: 20)")
+    parser.add_argument("--target-min", type=float, default=15,
+                        help="Target playlist duration in minutes (default: 15)")
     parser.add_argument("--dry-run", action="store_true",
                         help="Show plan without building audio")
     parser.add_argument("--output", type=str, default=None,
