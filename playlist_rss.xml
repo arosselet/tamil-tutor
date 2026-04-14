@@ -29,5 +29,15 @@
       <itunes:duration>00:18:08</itunes:duration>
     </item>
 
+    <item>
+      <title>Playlist — Playlist M41 Review</title>
+      <itunes:author>Andrew R &amp; Gemini</itunes:author>
+      <itunes:summary>Re-listen playlist for Playlist M41 Review (18 min)</itunes:summary>
+      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_playlists/Playlist_M41_Review.mp3" length="4542653" type="audio/mpeg"/>
+      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_playlists/Playlist_M41_Review.mp3?t=1776181551</guid>
+      <pubDate>Tue, 14 Apr 2026 11:45:51 -0400</pubDate>
+      <itunes:duration>00:18:08</itunes:duration>
+    </item>
+
   </channel>
 </rss>
