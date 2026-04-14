@@ -160,7 +160,7 @@
   "episodes": {
     "6": {
       "title": "Mission 6",
-      "listens": 1,
+      "listens": 3,
       "words": [
         "நான்",
         "முதல்ல",
@@ -221,7 +221,7 @@
     },
     "7": {
       "title": "Mission 7",
-      "listens": 1,
+      "listens": 3,
       "words": [
         "ஆச்சு",
         "இப்போ",
@@ -249,7 +249,7 @@
     },
     "8": {
       "title": "Mission 8",
-      "listens": 1,
+      "listens": 3,
       "words": [
         "ஆச்சு",
         "இப்போ",
@@ -291,7 +291,7 @@
     },
     "9": {
       "title": "Mission 9",
-      "listens": 1,
+      "listens": 3,
       "words": [
         "ஆச்சு",
         "பசி",
@@ -330,7 +330,7 @@
     },
     "10": {
       "title": "Mission 10",
-      "listens": 1,
+      "listens": 3,
       "words": [
         "நேரம்",
         "முதல்ல",
@@ -425,7 +425,7 @@
     },
     "11": {
       "title": "Mission 11",
-      "listens": 1,
+      "listens": 3,
       "words": [
         "இப்போ",
         "வாங்கினாங்க",
@@ -489,7 +489,7 @@
     },
     "12": {
       "title": "Mission 12",
-      "listens": 1,
+      "listens": 3,
       "words": [
         "ஆச்சு",
         "இப்போ",
@@ -549,7 +549,7 @@
     },
     "13": {
       "title": "Mission 13",
-      "listens": 1,
+      "listens": 3,
       "words": [
         "நான்",
         "முதல்ல",
@@ -578,7 +578,7 @@
     },
     "14": {
       "title": "Mission 14",
-      "listens": 1,
+      "listens": 3,
       "words": [
         "மாமா",
         "நான்",
@@ -613,13 +613,13 @@
     },
     "21": {
       "title": "Mission 21",
-      "listens": 1,
+      "listens": 3,
       "words": [],
       "duration_min": 3.9744
     },
     "23": {
       "title": "Mission 23",
-      "listens": 1,
+      "listens": 3,
       "words": [
         "ரொம்ப",
         "பிடிக்குமா",
@@ -679,7 +679,7 @@
     },
     "24": {
       "title": "Mission 24",
-      "listens": 1,
+      "listens": 3,
       "words": [
         "அம்மா",
         "இப்போ",
@@ -748,7 +748,7 @@
     },
     "25": {
       "title": "Mission 25",
-      "listens": 1,
+      "listens": 3,
       "words": [
         "மாமா",
         "சாப்பிடுங்க",
@@ -780,7 +780,7 @@
     },
     "27": {
       "title": "Mission 27",
-      "listens": 1,
+      "listens": 3,
       "words": [
         "இப்போ",
         "ரஜினி",
@@ -836,7 +836,7 @@
     },
     "28": {
       "title": "Mission 28",
-      "listens": 1,
+      "listens": 3,
       "words": [
         "ரொம்ப",
         "முதல்ல",
@@ -965,7 +965,7 @@
     },
     "29": {
       "title": "Mission 29",
-      "listens": 1,
+      "listens": 3,
       "words": [
         "ஏதோ",
         "முதல்ல",
@@ -1002,7 +1002,7 @@
     },
     "30": {
       "title": "Mission 30",
-      "listens": 1,
+      "listens": 3,
       "words": [
         "ஆச்சு",
         "இல்லாம",
@@ -1044,7 +1044,7 @@
     },
     "31": {
       "title": "Mission 31",
-      "listens": 1,
+      "listens": 3,
       "words": [
         "போல",
         "நேரம்",
@@ -1155,7 +1155,7 @@
     },
     "32": {
       "title": "Mission 32",
-      "listens": 1,
+      "listens": 3,
       "words": [
         "ரொம்ப",
         "தெருவுல",
@@ -1222,7 +1222,7 @@
     },
     "33": {
       "title": "Mission 33",
-      "listens": 1,
+      "listens": 3,
       "words": [
         "ன்",
         "ஆமாம்",
@@ -1380,7 +1380,7 @@
     },
     "34": {
       "title": "Mission 34",
-      "listens": 1,
+      "listens": 3,
       "words": [
         "இல்லாம",
         "ரொம்ப",
@@ -1481,7 +1481,7 @@
     },
     "35": {
       "title": "Mission 35",
-      "listens": 1,
+      "listens": 3,
       "words": [
         "இப்போ",
         "பண்ணணும்",
@@ -1513,7 +1513,7 @@
     },
     "36": {
       "title": "Mission 36",
-      "listens": 1,
+      "listens": 3,
       "words": [
         "ஓடு",
         "ஏறு",
@@ -1535,7 +1535,7 @@
     },
     "37": {
       "title": "Mission 37",
-      "listens": 1,
+      "listens": 3,
       "words": [
         "யாரு",
         "நிமிஷம்",
@@ -1555,7 +1555,7 @@
     },
     "38": {
       "title": "Mission 38",
-      "listens": 1,
+      "listens": 3,
       "words": [
         "வந்தாருல",
         "ரொம்ப",
@@ -1617,7 +1617,7 @@
     },
     "39": {
       "title": "Mission 39 — The Hallway Crisis",
-      "listens": 0,
+      "listens": 2,
       "words": [
         "விட",
         "புது",
