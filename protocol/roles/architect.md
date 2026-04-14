@@ -8,7 +8,7 @@
 
 ## The Two Voices
 
-Two unnamed hosts with distinct personalities — one sharper and pattern-focused, one warmer and story-focused. They talk **to each other**, never to the listener. The learner is an observer of their world, not an addressee. Think NotebookLM in Coimbatore Tamil: two people who clearly enjoy riffing together, covering a topic with opinion and energy.
+Two unnamed hosts — both **Tamil-native Coimbatore speakers**, distinguished by *style*, not role. One leans more urban and English-fluent, code-switches more often. One leans more local, stays in Tamil longer. On top of that style axis, they have distinct personalities — one sharper and pattern-focused, one warmer and story-focused. Neither is teaching the other. Neither is bridging for the listener. They are peers riffing together. They talk **to each other**, never to the listener — the learner is an observer of their world, not an addressee. Think NotebookLM in Coimbatore Tamil: two people who clearly enjoy riffing together, covering a topic with opinion and energy.
 
 - Tag voices with `**Host A (F):**` and `**Host B (M):**` — one male, one female, so the voices stay distinguishable.
 - The two hosts can play roles within a scene (vendor and customer, mother-in-law and son-in-law), but they remain the two hosts underneath. This isn't theater with a cast — it's two hosts who also act bits out.
@@ -28,15 +28,20 @@ What every episode needs, regardless of shape:
 
 ---
 
-## Comprehensible Input (The 90% Rule)
+## Comprehensible Input (The 80% Rule)
 
-The learner should understand 90%+ of what they hear. Achieve this through **Woven Thanglish**, not just subtraction.
+Across the full episode, the learner should understand **80%+**. The distribution is uneven by design:
 
-- **Thanglish is the Scaffolding:** Use English for all logistics, setup, and "narrative why." Use Tamil for the "what" (verbs, nouns, reactions). 
-- **NO NARRATORS:** Do not use a 3rd person Narrator to set the scene or describe the ambiance (e.g., "The vendor's cheer..."). If a detail is important, have a Host say it in English or use a Sound Effect (SFX).
+- **The Intercept can stretch.** Tamil-dominant stretches are fine; the learner should feel challenged, occasionally lost, pulled forward by curiosity. Do not water it down to hit a per-moment comprehension target.
+- **The Breakdown is the safety net.** Analyst Maya and Raj carry the comprehensibility load — their English-leaning analyst register is what makes it safe for the Intercept to go harder.
+
+### How characters actually speak
+
+- **Native code-switching, not scaffolding.** Both hosts are Coimbatore natives. English appears where a native would naturally reach for it — phone, office, tech, urban nouns, emphatic reactions — not as a frame holding up isolated Tamil words.
+- **Switching often happens at clause boundaries,** driven by emotion or register, not by pedagogy. A full Tamil clause can stand on its own; an English clause can follow as reaction or pivot.
+- **NO NARRATORS:** Do not use a 3rd person Narrator to set the scene or describe the ambiance. If a detail is important, have a Host say it in English or use a Sound Effect (SFX).
 - **NO Meta-Commentary:** Avoid addressing the "Agent" or the "Learner" during the Intercept. The fourth wall must stay up.
-- **Natural Weave:** The goal is for a sentence to start in English and land on a Tamil verb or noun. (e.g., "I told you to **வை** it on the table!")
-- **No Inline Glossing:** Never put English translations in parentheses. If a word needs explaining, let the hosts riff on it naturally in the Breakdown.
+- **No Inline Glossing:** Never put English translations in parentheses. If a word needs explaining, let the Analysts riff on it naturally in the Breakdown.
 
 ---
 
@@ -55,8 +60,3 @@ Every mission must conclude with a **Breakdown** — a dialogue between **Analys
 
 Target **5–8 minutes** for the combined Intercept + Breakdown. If the script feels short, have Maya and Raj dive deeper into the cultural context or provide more varied examples of the NEW words.
 
----
-
-## Taste Anchors
-
-Read `content/scripts/tier2_mission12.md` and `tier2_mission14.md` for warmth and pedagogical instinct. Listen to NotebookLM for two-voice energy. Neither is a template — they're taste anchors. The format of the old episodes is gone; the feeling is what we want back.
