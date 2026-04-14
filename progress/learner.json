@@ -7,32 +7,32 @@
     "topic": "Daily Routine — The Morning Sprint"
   },
   "streak": {
-    "current": 9,
-    "best": 9,
-    "last_date": "2026-04-09"
+    "current": 10,
+    "best": 10,
+    "last_date": "2026-04-14"
   },
-  "last_debrief": "Successful gossip session. Learner handled 'Nijama?' and 'Apadeengala?' well. 'Ketten' and 'Innaiku' callbacks successfully integrated.",
+  "last_debrief": "Mission 41: The Coffee Ritual. Focus on kitchen verbs (Samai, Oothu, Kalakku, Thira, Moodu, Kazhuvu).",
   "recent_missions": [
+    {
+      "mission": 39,
+      "title": "Mission 39 — The Hallway Crisis",
+      "listens": 2
+    },
     {
       "mission": 38,
       "title": "Mission 38",
-      "listens": 1
+      "listens": 3
     },
     {
       "mission": 37,
       "title": "Mission 37",
-      "listens": 1
+      "listens": 3
     },
     {
       "mission": 36,
       "title": "Mission 36",
-      "listens": 1
-    },
-    {
-      "mission": 35,
-      "title": "Mission 35",
-      "listens": 1
+      "listens": 3
     }
   ],
-  "status": "8 episodes under-listened (~21 min). Re-listen playlist recommended before new production."
+  "status": "1 recent episodes under-listened. New episode OK, but re-listen playlist recommended."
 }
