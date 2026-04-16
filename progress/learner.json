@@ -3,36 +3,70 @@
   "current_tier": 2,
   "active_mission": {
     "tier": 2,
-    "mission": 40,
-    "topic": "Daily Routine — The Morning Sprint"
+    "mission": 42,
+    "topic": "The Change Problem",
+    "target_vocab": [
+      "கொடுத்தேன்",
+      "வந்தேன்",
+      "அதான்",
+      "புரிஞ்சுது",
+      "புரியல"
+    ]
   },
+  "tier_progress": {
+    "tier1": {
+      "target": 69,
+      "mastered": 69,
+      "label": "Survival"
+    },
+    "tier2": {
+      "target": 153,
+      "mastered": 85,
+      "label": "Comfort"
+    },
+    "tier3": {
+      "target": 181,
+      "mastered": 0,
+      "label": "Embedded"
+    }
+  },
+  "total_sessions": 42,
   "streak": {
-    "current": 10,
-    "best": 10,
-    "last_date": "2026-04-14"
+    "current": 11,
+    "best": 11,
+    "last_date": "2026-04-15"
   },
+  "struggled_words": [
+    "கேட்குறேன்",
+    "கேட்பேன்",
+    "தூக்கு",
+    "வை"
+  ],
+  "mastered_words": [],
+  "comfortable_words": [],
+  "sessions": [],
   "last_debrief": "Mission 41: The Coffee Ritual. Focus on kitchen verbs (Samai, Oothu, Kalakku, Thira, Moodu, Kazhuvu).",
   "recent_missions": [
     {
+      "mission": 41,
+      "title": "The Coffee Ritual",
+      "listens": 2
+    },
+    {
+      "mission": 40,
+      "title": "The Morning Sprint",
+      "listens": 2
+    },
+    {
       "mission": 39,
       "title": "Mission 39 — The Hallway Crisis",
-      "listens": 2
+      "listens": 4
     },
     {
       "mission": 38,
       "title": "Mission 38",
       "listens": 3
-    },
-    {
-      "mission": 37,
-      "title": "Mission 37",
-      "listens": 3
-    },
-    {
-      "mission": 36,
-      "title": "Mission 36",
-      "listens": 3
     }
   ],
-  "status": "1 recent episodes under-listened. New episode OK, but re-listen playlist recommended."
+  "status": "2 recent episodes under-listened. New episode OK, but re-listen playlist recommended."
 }
