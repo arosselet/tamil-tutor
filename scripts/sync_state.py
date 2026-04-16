@@ -43,10 +43,16 @@ def save_json(path: Path, data):
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 
+def find_mission_file(directory: Path, mission: int, extension: str) -> Path | None:
+    """Find a file for a given mission number, tier-agnostic."""
+    matches = list(directory.glob(f"*mission{mission}{extension}"))
+    return matches[0] if matches else None
+
+
 def get_episode_duration(mission: int) -> float | None:
     """Get duration in minutes for a mission's audio file."""
-    path = AUDIO_DIR / f"tier2_mission{mission}.mp3"
-    if not path.exists():
+    path = find_mission_file(AUDIO_DIR, mission, ".mp3")
+    if path is None:
         return None
     try:
         result = subprocess.run(
@@ -63,7 +69,7 @@ def get_episode_duration(mission: int) -> float | None:
 def get_available_missions() -> list[int]:
     """Return sorted list of mission numbers that have audio."""
     missions = []
-    for f in AUDIO_DIR.glob("tier2_mission*.mp3"):
+    for f in AUDIO_DIR.glob("*.mp3"):
         m = re.search(r"mission(\d+)\.mp3$", f.name)
         if m:
             missions.append(int(m.group(1)))
@@ -72,8 +78,8 @@ def get_available_missions() -> list[int]:
 
 def scan_script_words(mission: int) -> list[str]:
     """Extract Tamil words from a mission script."""
-    script_path = SCRIPTS_DIR / f"tier2_mission{mission}.md"
-    if not script_path.exists():
+    script_path = find_mission_file(SCRIPTS_DIR, mission, ".md")
+    if not script_path:
         return []
     text = script_path.read_text(encoding="utf-8")
     words = re.findall(r"[\u0B80-\u0BFF]{2,}", text)

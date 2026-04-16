@@ -1,5 +1,10 @@
 # Interactive Session Protocol (@tutor)
 
+> **Reads from:**
+> - `progress/learner.json` — current mission, streak, status line
+> - `progress/profile.md` — learner calibration, active gaps, terrain covered
+> - `progress/vocab_state.json` — word lists (Python-managed; read for context)
+>
 > **NOTE:** This protocol is triggered whenever the learner uses the **@tutor** handle or requests an interactive session.
 
 ## The @tutor Pipeline
@@ -7,28 +12,28 @@
 When triggered, you MUST follow this sequence. Do not skip steps. Do not jump to script generation until Step 4 is complete.
 
 ### Step 1: Read & Sync (The State Check)
-Read `progress/learner.json`. It's a thin file — current mission, streak, recent missions with listen counts, and a status line.
-- **Acknowledge:** Greet the learner, mention their streak and last episode.
+Read `progress/learner.json` and `progress/profile.md`.
+- `learner.json` tells you: current mission, streak, recent listen counts, status line.
+- `profile.md` tells you: where Andrew is relative to his goal, active gaps, situation terrain covered, calibration notes.
+- **Acknowledge:** Greet the learner, mention their streak and last episode. Keep it brief.
 - **Read the status line.** It tells you whether to recommend a re-listen playlist or proceed to new production.
 
 ### Step 2: The Debrief (Close the Loop)
 
-**Ask (conversational, not a form):**
-1. **Listens** — How many times have you re-listened since we last talked?
-2. **Clarity** — How easy was it to follow? Anyone too fast or unclear?
-3. **Stuck word** — Any word that tripped you up or surprised you?
-4. **Pace** — Rushed, steady, or slow?
+**Surface the words first.** Read the last mission's brief (`content/beats/tierX_missionY_brief.md`) so you know what was taught. Don't list them at the learner — hold them as context.
 
-**Then run:** `python scripts/sync_state.py update --listens N` (with `--stuck-word "word"` and `--debrief "note"` as applicable). This updates vocab_state.json and recomputes the status line in learner.json.
+**Then open a conversation, not a form.** Two or three beats, casual:
+- How are the words from that episode actually landing? Any that feel solid now — like they're yours? Any that are still slipping?
+- Anything feel off about the episode itself — pace, clarity, a line that didn't land?
+- How many times did you listen since we last talked?
 
-**Re-read learner.json** after the update to see the new status.
+This is a reflection, not a quiz. The goal is to understand what's working, not to test recall.
 
-**Calibrate for next episode:**
-- Clarity struggled → Reduce NEW words to 3-4, shorter exchanges
-- Clarity good → Full 4-5 NEW words, standard density
-- Pace too fast → More natural pauses, slower rhythm
-- Pace too slow → Tighter dialogue, more rapid exchanges
-- Stuck word → sync_state.py handles adding it to struggled list
+**Then run:** `python scripts/sync_state.py update --listens N` (with `--stuck-word "word"` and `--debrief "note"` as applicable). This updates `progress/vocab_state.json` and recomputes the status line in `progress/learner.json`.
+
+**Re-read `progress/learner.json`** after the update to get the new status.
+
+**Update `progress/profile.md`** if the debrief reveals a meaningful pattern — a gap that keeps recurring, a situation type that's clearly working, a calibration shift. Do not append session notes; rewrite the relevant section. Aim to update every ~5 sessions or when something meaningfully changes.
 
 ### Step 3: Act on the Status Line
 
@@ -55,7 +60,7 @@ After the Architect submits the script, **before audio generation**, the Produce
 
 1. **The Riff Test.** Does the Breakdown feel like two friends riffing, not a narrator listing words?
 2. **Tamil script integrity.** No gibberish, no character corruption.
-3. **The Coimbatore Test.** Would a Coimbatore native say this?
+3. **The Coimbatore Test.** Would a Coimbatore native say this? **No Tamil-root + English-suffix hybrids.** Forms like `தூக்கு-ing` or `திற-ed` do not exist in real speech. Use the conjugated Tamil form (`தூக்குறேன்`, `திறக்குறேன்`) — or restructure the line entirely.
 
 **If any check fails:** Fix or send back. Do NOT proceed to audio.
 

@@ -75,7 +75,7 @@ def scan_scripts() -> dict[str, dict]:
     """
     tracker: dict[str, dict] = {}
 
-    for script_path in sorted(SCRIPTS_DIR.glob("tier2_mission*.md")):
+    for script_path in sorted(SCRIPTS_DIR.glob("*.md")):
         mission_num = extract_mission_number(script_path.name)
         if mission_num is None:
             continue

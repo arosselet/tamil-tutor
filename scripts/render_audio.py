@@ -21,6 +21,7 @@ import random
 import json
 import subprocess
 import time
+from pathlib import Path
 
 import edge_tts
 try:
@@ -92,6 +93,9 @@ def parse_script(file_path: str) -> tuple[list[dict], dict]:
     for line in lines:
         line = line.strip()
         if not line:
+            continue
+
+        if "SFX:" in line.upper():
             continue
 
         pause_match = PAUSE_RE.search(line)
@@ -244,6 +248,61 @@ def assign_voices(dialogue, voice_map, provider, voice_type):
 
     return assigned
 
+def register_mission_in_state(script_path: Path, mp3_path: Path):
+    """
+    Registers a new mission in progress/vocab_state.json.
+    """
+    from pathlib import Path
+    VOCAB_STATE_PATH = Path("progress/vocab_state.json")
+    
+    def load_json(path: Path):
+        if not path.exists(): return {}
+        with open(path, "r", encoding="utf-8") as f: return json.load(f)
+
+    def save_json(path: Path, data):
+        with open(path, "w", encoding="utf-8") as f: json.dump(data, f, ensure_ascii=False, indent=2)
+
+    def get_duration(p: Path) -> float:
+        try:
+            res = subprocess.run(["ffprobe", "-v", "quiet", "-show_entries", "format=duration", "-of", "json", str(p)], capture_output=True, text=True)
+            return float(json.loads(res.stdout)["format"]["duration"]) / 60
+        except: return 3.0
+
+    # Extract title and words from script
+    with open(script_path, "r", encoding="utf-8") as f:
+        content = f.read()
+    
+    title_match = re.search(r"^# Tier 2, Mission \d+ — (.*)$", content, re.M)
+    title = title_match.group(1) if title_match else f"Mission {script_path.stem}"
+    words = re.findall(r"\*\*([^\*]+)\*\*", content)
+    cleaned_words = []
+    for w in words:
+        tamil = re.split(r"[\(\s]", w)[0]
+        if tamil and any('\u0b80' <= c <= '\u0bff' for c in tamil) and tamil not in cleaned_words:
+            cleaned_words.append(tamil)
+
+    mission_match = re.search(r"mission(\d+)", script_path.name)
+    if not mission_match: return
+    mission_num = mission_match.group(1)
+    
+    vocab_state = load_json(VOCAB_STATE_PATH)
+    if "episodes" not in vocab_state: vocab_state["episodes"] = {}
+    
+    duration = get_duration(mp3_path)
+    
+    if mission_num not in vocab_state["episodes"]:
+        vocab_state["episodes"][mission_num] = {
+            "title": title, "listens": 0, "words": cleaned_words, "duration_min": duration
+        }
+        print(f"✅ Registered Mission {mission_num} in vocab_state.json")
+    else:
+        vocab_state["episodes"][mission_num].update({
+            "title": title, "words": cleaned_words, "duration_min": duration
+        })
+        print(f"✅ Updated Mission {mission_num} metadata in vocab_state.json")
+    
+    save_json(VOCAB_STATE_PATH, vocab_state)
+
 async def main():
     parser = argparse.ArgumentParser(description="Generate Multi-Voice Tamil Podcast Audio")
     parser.add_argument("input_file", help="Input markdown script")
@@ -309,11 +368,21 @@ async def main():
 
     # Lifecycle hooks
     try:
+        # Register the mission in vocab_state.json
+        register_mission_in_state(Path(args.input_file), Path(args.output_file))
+
         subprocess.run(["python3", "scripts/rebuild_rss.py"], check=True)
-        subprocess.run(["git", "add", "published_audio/", "rss.xml"], check=True)
+
+        # Rebuild playlist feed so it picks up the new episode automatically
+        subprocess.run(["python3", "scripts/build_playlist.py", "--publish"], check=True)
+
+        subprocess.run(["git", "add",
+                        "published_audio/", "rss.xml",
+                        "published_playlists/", "playlist_rss.xml",
+                        "progress/vocab_state.json"], check=True)
         status = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True)
         if status.stdout.strip():
-            subprocess.run(["git", "commit", "-m", f"Add lesson: {os.path.basename(args.output_file)}"], check=True)
+            subprocess.run(["git", "commit", "-m", f"Add lesson: {os.path.basename(args.output_file)} and update state"], check=True)
             subprocess.run(["git", "push"], check=True)
     except Exception as e:
         print(f"⚠️ Lifecycle hooks failed: {e}")
