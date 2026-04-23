@@ -3,70 +3,43 @@
   "current_tier": 2,
   "active_mission": {
     "tier": 2,
-    "mission": 42,
-    "topic": "The Change Problem",
+    "mission": 44,
+    "topic": "The Heat of the Ride",
     "target_vocab": [
-      "கொடுத்தேன்",
-      "வந்தேன்",
-      "அதான்",
-      "புரிஞ்சுது",
-      "புரியல"
+      "சூடு",
+      "குளிர்",
+      "கஷ்டம்",
+      "ஈஸி",
+      "சரியான"
     ]
   },
-  "tier_progress": {
-    "tier1": {
-      "target": 69,
-      "mastered": 69,
-      "label": "Survival"
-    },
-    "tier2": {
-      "target": 153,
-      "mastered": 85,
-      "label": "Comfort"
-    },
-    "tier3": {
-      "target": 181,
-      "mastered": 0,
-      "label": "Embedded"
-    }
-  },
-  "total_sessions": 42,
   "streak": {
-    "current": 11,
-    "best": 11,
-    "last_date": "2026-04-15"
+    "current": 12,
+    "best": 12,
+    "last_date": "2026-04-22"
   },
-  "struggled_words": [
-    "கேட்குறேன்",
-    "கேட்பேன்",
-    "தூக்கு",
-    "வை"
-  ],
-  "mastered_words": [],
-  "comfortable_words": [],
-  "sessions": [],
-  "last_debrief": "Mission 41: The Coffee Ritual. Focus on kitchen verbs (Samai, Oothu, Kalakku, Thira, Moodu, Kazhuvu).",
+  "last_debrief": "Mission 45: The Comparison Game. Introduced 'vida' pattern for ranking quality and size. Forced 'appadingala?' callback. Reinforced present/future verb contrast in restaurant context.",
   "recent_missions": [
+    {
+      "mission": 44,
+      "title": "The Heat of the Ride",
+      "listens": 0
+    },
+    {
+      "mission": 43,
+      "title": "Mission tier2_mission43",
+      "listens": 0
+    },
+    {
+      "mission": 42,
+      "title": "The Change Problem",
+      "listens": 0
+    },
     {
       "mission": 41,
       "title": "The Coffee Ritual",
       "listens": 2
-    },
-    {
-      "mission": 40,
-      "title": "The Morning Sprint",
-      "listens": 2
-    },
-    {
-      "mission": 39,
-      "title": "Mission 39 — The Hallway Crisis",
-      "listens": 4
-    },
-    {
-      "mission": 38,
-      "title": "Mission 38",
-      "listens": 3
     }
   ],
-  "status": "2 recent episodes under-listened. New episode OK, but re-listen playlist recommended."
+  "status": "5 episodes under-listened (~13 min). Re-listen playlist recommended before new production."
 }
