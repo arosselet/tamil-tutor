@@ -379,11 +379,14 @@ async def main():
         subprocess.run(["git", "add",
                         "published_audio/", "rss.xml",
                         "published_playlists/", "playlist_rss.xml",
-                        "progress/vocab_state.json"], check=True)
+                        "progress/vocab_state.json",
+                        str(args.input_file)], check=True)
+        
         status = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True)
         if status.stdout.strip():
             subprocess.run(["git", "commit", "-m", f"Add lesson: {os.path.basename(args.output_file)} and update state"], check=True)
             subprocess.run(["git", "push"], check=True)
+            
     except Exception as e:
         print(f"⚠️ Lifecycle hooks failed: {e}")
 
