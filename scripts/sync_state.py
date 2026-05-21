@@ -279,11 +279,15 @@ def main():
     sub.add_parser("migrate", help="One-time migration from old learner.json")
     sub.add_parser("status", help="Show current state")
 
-    update_p = sub.add_parser("update", help="Update state after debrief")
+    update_p = sub.add_parser("update", help="Update state after interactive session")
     update_p.add_argument("--listens", type=int, default=0,
                           help="Number of re-listens since last session")
-    update_p.add_argument("--stuck-word", type=str, default=None,
-                          help="A word that tripped you up")
+    update_p.add_argument("--mastered-word", type=str, action="append", default=[],
+                          help="Word(s) that are now mastered")
+    update_p.add_argument("--comfortable-word", type=str, action="append", default=[],
+                          help="Word(s) that are now comfortable")
+    update_p.add_argument("--stuck-word", type=str, action="append", default=[],
+                          help="Word(s) that are causing trouble")
     update_p.add_argument("--debrief", type=str, default=None,
                           help="One-line debrief note")
 

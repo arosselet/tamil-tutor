@@ -7,11 +7,11 @@ The Tutor presents a short "Snippet" of Coimbatore Tamil (in Tamil script) based
 
 ## Execution
 
-1. **The Snippet**: Write 2-4 sentences in Tamil script. It should be a coherent thought or dialogue snippet.
+1. **The Snippet**: Write 2-4 sentences in **Tamil script** immediately followed by the **phonetic transliteration**. It should be a coherent thought or dialogue snippet.
 2. **The Question**: Ask the learner a comprehension question about the snippet (e.g., "What is the person asking for?" or "Why are they angry?").
 3. **The Discussion**: 
    - If they get it right, expand on a specific word choice or the linguistic pattern used.
-   - If they struggle, provide a "Phonetic Bridge" (the transliteration) to help them hear the words.
+   - If they struggle, break down the specific "glue" words or the pattern.
 
 ---
 
