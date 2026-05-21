@@ -1,6 +1,6 @@
 # Protocol: Spoken Tamil — Coimbatore Dialect
 
-> **Read by:** `protocol/roles/producer.md` (applies rules), `protocol/roles/architect.md` (writes toward this register)
+> **Read by:** `protocol/roles/producer.md` — owner of the dialect transformation. The Architect does not read this file; Producer rewrites Architect drafts to this register before TTS.
 > **Language-specific:** This file is Tamil/Coimbatore-specific. To teach a different language or dialect, replace this file. The roles that reference it do not change.
 
 The test for every Tamil line: *Would a Coimbatore auto driver say this to his friend?* If it sounds like a textbook or a 1950s TV anchor, it needs work.

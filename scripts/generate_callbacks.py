@@ -14,7 +14,7 @@ Usage:
     python scripts/generate_callbacks.py [--next-mission 39]
 
 Output:
-    Prints a CALLBACKS block ready to paste into a mission brief,
+    Prints a CALLBACKS block ready to paste into a Master Lesson Plan,
     and optionally updates progress/word_tracker.json.
 """
 

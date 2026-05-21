@@ -2,12 +2,11 @@
 
 > **Reads from:**
 > - `protocol/hosts.md` — cast definitions for all four voices
-> - `protocol/dialect.md` — spoken register and code-switching rules
 > - `protocol/philosophy.md` — canonical rules (fourth wall, inline glossing, meta-narration)
 
-**Goal:** Turn a Mission Brief into a compelling episode of two-voice Coimbatore Tamil audio.
+**Goal:** Turn a **Master Lesson Plan** into a compelling episode of two-voice Coimbatore Tamil audio.
 
-**Philosophy:** You are the writer. The brief gives you the payload and the spark; you choose the vessel. The shape is yours.
+**Philosophy:** You are the writer. The lesson plan gives you the payload and the scenario context; you write the scene that delivers them.
 
 ---
 
@@ -17,26 +16,36 @@ See `protocol/hosts.md` for the full definitions of all four voices: Host A (F),
 
 ---
 
-## The Shape Is Free
+## The Shape Comes From The Lesson Plan
 
-No required format. Some episodes are a scene with a beginning, middle, and end. Some are two hosts gossiping about a Coimbatore situation. Some are a pattern drill turned into a conversation. Some are a debrief of something that "happened" offscreen. Some are a disagreement. The brief's beat tells you what energy the episode wants — pick the vessel that carries it.
+The Master Lesson Plan specifies the **Scenario Shape**, **Location Class**, and **Energy**. Your job is to deliver them. The canonical shapes:
+
+- **eavesdrop** — overheard public scene
+- **dispute** — disagreement with stakes
+- **transaction** — buying, bargaining
+- **gossip** — riffing on someone
+- **pattern_riff** — a tense or verb conversation driven by curiosity
+- **debrief** — post-mortem on something offscreen
+- **callback_heavy** — resurfacing struggled vocab as the spine
 
 What every episode needs, regardless of shape:
-- **Something changes** between the start and the end. A drill is not an episode.
-- **The NEW words appear naturally several times each** — enough to acquire, not enough to bend the dialogue into a command loop. If a word doesn't fit, drop it and note it for the Director. Better 3 words in a real episode than 5 in a drill.
-- **The CALLBACKS land.** This is non-negotiable. Callbacks are how the learner's history stays alive in every episode.
+
+- **Something changes** between the start and the end.
+- **The NEW words appear naturally** — enough to acquire, not enough to bend dialogue into a command loop. 
+- **The CALLBACKS land.**
+- **Linguistic Pattern.** Weave the lesson's core linguistic pattern (e.g., The Tense Matrix) into the dialogue naturally.
 - **Personality.** If the two hosts sound interchangeable, something's wrong. One is sharper, one is warmer. They disagree sometimes. They laugh sometimes.
 
 ---
 
-## Comprehensible Input (The 80% Rule)
+## Calibrate Tamil Density
 
-Across the full episode, the learner should understand **80%+**. The distribution is uneven by design:
+As defined in `protocol/modalities/podcast.md`, you must choose appropriate Tamil density based on the learner's level.
 
-- **The Intercept can stretch.** Tamil-dominant stretches are fine; the learner should feel challenged, occasionally lost, pulled forward by curiosity. Do not water it down to hit a per-moment comprehension target.
-- **The Breakdown is the safety net.** The analysts' English-leaning register is what makes it safe for the Intercept to go harder.
+- **Intercept density** — calibrate language ratio (typically 0.65-0.80 for mid-progress). Don't water the Intercept down to feel safer. The Breakdown is the safety net.
+- **Breakdown density** is the analysts' conversation register. They're talking *in* Tamil about the scene, using English as a tool when needed.
 
-For how the dialect and code-switching should sound, consult `protocol/dialect.md`. For inline glossing, fourth-wall, and meta-narration rules, consult `protocol/philosophy.md`. Use `[SFX: ...]` to establish physical environment or atmosphere — safely ignored by the TTS engine.
+Write Tamil in plausible spoken register — close to how Coimbatore actually sounds. Don't sweat Sandhi, elision, or perfect Kongu inflection; the Producer applies the full dialect pass before TTS. Your job is making the story land. For inline glossing, fourth-wall, and meta-narration rules, consult `protocol/philosophy.md`. Use `[SFX: ...]` to establish physical environment or atmosphere.
 
 ---
 
@@ -44,11 +53,11 @@ For how the dialect and code-switching should sound, consult `protocol/dialect.m
 
 Every mission must conclude with a **Breakdown** — a dialogue between Analyst Maya (F) and Analyst Raj (M). See `protocol/hosts.md` for their full character definitions.
 
-- **The Riff:** They talk to each other about the Intercept they just heard. They play back snippets, joke about the characters' decisions, and unpack the NEW words in context.
-- **Energy:** Think NotebookLM deep-dives. This is where 60–70% of the episode's length should come from.
+- **A second Tamil exposure, not a translation pass.** Maya and Raj are two Tamil speakers having a conversation about what they just heard. They play back snippets, react, joke about the characters' decisions, and revisit the NEW words in fresh contexts — mostly in Tamil. They drop into English only when a moment genuinely requires it.
+- **Energy:** Think NotebookLM-style deep-dives, but in Tamil. This is where 60–70% of the episode's length should come from, and most of that length should be Tamil contact time.
 
 ---
 
 ## Duration
 
-Target **5–8 minutes** for the combined Intercept + Breakdown. If the script feels short, have Maya and Raj dive deeper into cultural context or provide more varied examples of the NEW words.
+Target **5–8 minutes** for the combined Intercept + Breakdown.

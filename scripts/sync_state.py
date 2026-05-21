@@ -183,14 +183,24 @@ def cmd_migrate(_args):
 
 
 def cmd_update(args):
-    """Update state after a debrief session."""
+    """Update state after an interactive session or debrief."""
     learner = load_json(LEARNER_PATH)
     vocab_state = load_json(VOCAB_STATE_PATH)
     if not learner or not vocab_state:
         print("Error: Run 'sync_state.py migrate' first.")
         sys.exit(1)
 
-    # Record listens on under-listened episodes (the ones that would be in a playlist)
+    # Helper to move words between state lists
+    def move_word(word, target_list_key):
+        for key in ["mastered_words", "comfortable_words", "struggled_words"]:
+            if word in vocab_state.get(key, []):
+                vocab_state[key].remove(word)
+        
+        target_list = vocab_state.setdefault(target_list_key, [])
+        if word not in target_list:
+            target_list.append(word)
+
+    # Record listens on under-listened episodes
     if args.listens and args.listens > 0:
         bumped = []
         for mission_str in sorted(vocab_state["episodes"].keys(), key=int, reverse=True):
@@ -200,16 +210,19 @@ def cmd_update(args):
                 bumped.append(mission_str)
         if bumped:
             print(f"  Added {args.listens} listen(s) to {len(bumped)} under-listened episodes (M{', M'.join(bumped)})")
-        else:
-            print(f"  No under-listened episodes to update")
 
-    # Record stuck word
-    if args.stuck_word:
-        struggled = vocab_state.get("struggled_words", [])
-        if args.stuck_word not in struggled:
-            struggled.append(args.stuck_word)
-            vocab_state["struggled_words"] = struggled
-            print(f"  Added '{args.stuck_word}' to struggled words")
+    # Record word progress
+    for word in args.mastered_word:
+        move_word(word, "mastered_words")
+        print(f"  Mastered: {word}")
+    
+    for word in args.comfortable_word:
+        move_word(word, "comfortable_words")
+        print(f"  Comfortable: {word}")
+
+    for word in args.stuck_word:
+        move_word(word, "struggled_words")
+        print(f"  Stuck: {word}")
 
     # Update debrief
     if args.debrief:

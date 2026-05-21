@@ -75,10 +75,7 @@ def pack():
     protocol_files = [
         "protocol/PROTOCOL_MAP.md",
         "protocol/philosophy.md",
-        "protocol/learning_loop.md",
-        "protocol/session_protocol.md",
-        "protocol/episode_rotation.md",
-        "protocol/mobile_sync.md",
+        "protocol/tutor_protocol.md",
     ]
 
     progress_files = [

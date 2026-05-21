@@ -32,6 +32,7 @@ def get_tier_words(tiers_data: list) -> dict[int, list[str]]:
 def main():
     base = Path(__file__).parent.parent
     learner = load_json(base / "progress" / "learner.json")
+    vocab_state = load_json(base / "progress" / "vocab_state.json")
     
     # Load all Tier data
     tiers_dir = base / "curriculum" / "tiers"
@@ -40,20 +41,23 @@ def main():
         for f in sorted(tiers_dir.glob("tier_*.json")):
             tiers_data.append(load_json(f))
 
-    if not learner:
-        print("⚠️  No learner.json found. Start a session first.")
+    if not learner or not vocab_state:
+        print("⚠️  No learner.json or vocab_state.json found. Start a session first.")
         return
+
+    # Merge data for display logic (preferring vocab_state for words and sessions)
+    display_data = {**learner, **vocab_state}
 
     print("=" * 55)
     print("📊 COIMBATORE MAPPILLAI — STATUS REPORT")
     print("=" * 55)
 
     # Current position
-    print(f"\n🎯 Current Position: Tier {learner.get('current_tier', 1)}")
-    print(f"📅 Total Sessions: {learner['total_sessions']}")
+    print(f"\n🎯 Current Position: Tier {display_data.get('current_tier', 1)}")
+    print(f"📅 Total Sessions: {display_data.get('total_sessions', 0)}")
 
     # Streak
-    streak = learner.get("streak", {})
+    streak = display_data.get("streak", {})
     current_streak = streak.get("current", 0)
     best_streak = streak.get("best", 0)
     if current_streak > 0:
@@ -66,8 +70,8 @@ def main():
     # Tier progress
     if tiers_data:
         tier_words = get_tier_words(tiers_data)
-        comfortable = set(learner.get("comfortable_words", []))
-        mastered = set(learner.get("mastered_words", []))
+        comfortable = set(display_data.get("comfortable_words", []))
+        mastered = set(display_data.get("mastered_words", []))
         known = comfortable | mastered
 
         total_words = sum(len(ws) for ws in tier_words.values())
@@ -90,7 +94,7 @@ def main():
             print(f"    [{bar}] {count}/{total} ({pct:.0f}%)")
 
     # Struggled words
-    struggled = learner.get("struggled_words", [])
+    struggled = display_data.get("struggled_words", [])
     if struggled:
         print(f"\n⚠️  STRUGGLED WORDS ({len(struggled)})")
         print("-" * 55)
@@ -100,29 +104,30 @@ def main():
             print(f"  ... and {len(struggled) - 10} more")
 
     # Recent sessions
-    sessions = learner.get("sessions", [])
+    sessions = display_data.get("session_history", [])
     if sessions:
         print(f"\n📝 RECENT SESSIONS")
         print("-" * 55)
         for session in sessions[-5:]:
             date = session.get("date", "?")
-            tier = session.get("tier", session.get("level", "?"))
-            mission = session.get("mission", session.get("episode", "?"))
-            energy = session.get("energy", "?")
-            notes = session.get("notes", "")
-            print(f"  {date} | T{tier}M{mission} | {energy} | {notes[:40]}")
+            tier = session.get("tier", "?")
+            mission = session.get("mission", "?")
+            zinger = session.get("zinger", "")
+            print(f"  {date} | T{tier}M{mission} | {zinger}")
 
     # Recommendations
     print(f"\n💡 NEXT STEPS")
     print("-" * 55)
+    print(f"  • Status: {display_data.get('status', 'Ready for more.')}")
     if not sessions:
         print("  • Start with Tier 1: Survival")
         print("  • Run a session: [Tamil Lesson]")
     elif struggled:
         print(f"  • Review your {len(struggled)} struggled words before advancing")
-        print(f"  • Current focus: Tier {learner.get('current_tier', 1)} Missions")
-    else:
-        print(f"  • Continue: Tier {learner.get('current_tier', 1)} Missions")
+    
+    print(f"  • Current focus: Tier {display_data.get('current_tier', 1)} Missions")
+
+    print("\n" + "=" * 55)
 
     print("\n" + "=" * 55)
 

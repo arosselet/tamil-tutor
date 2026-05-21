@@ -45,9 +45,9 @@ scripts/             → Python tools (render, status, compress, RSS)
 
 ### The Production Pipeline
 
-1. **Director** reads your progress and the curriculum, writes a Beat Sheet with vocabulary assignments and a rotation style (Narrative, Drill, Deep-Dive, Remix, or Speed-Dating).
-2. **Architect** turns the Beat Sheet into an engaging dual-voice script following the immersion gradient (Tier 1: ~90% English → Tier 3: ~70% Tamil).
-3. **Producer** enforces Tamil script for all Tamil words, converts to colloquial Kongu forms, and runs a final scrubbing pass for TTS fidelity.
+1. **Director** reads your progress and the curriculum, writes a Beat Sheet with the vocabulary payload (NEW words + spaced-repetition callbacks) and a scene seed.
+2. **Architect** turns the Beat Sheet into an engaging dual-voice script — an Intercept (slice-of-life scene) plus a Breakdown (two analysts unpacking it).
+3. **Producer** applies the Coimbatore dialect pass (verb forms, Sandhi, Kongu layer), enforces Tamil script for every Tamil word, and runs a final scrubbing pass for TTS fidelity.
 4. `render_audio.py` generates the MP3 with randomized voice assignments.
 
 ### The Learning Loop
@@ -88,9 +88,9 @@ Prompt the agent:
 - *"Medium energy"* — sets the audio style (narrative pacing)
 - *"I'm struggling with past tense verbs"* — the system adapts
 
-### On Your Phone (Interactive)
+### On Your Phone
 
-Upload `mobile_bundle.zip` to a Gemini session and type `[Tamil Lesson]`. Set your energy level and go. Progress is captured as JSON blobs you paste back into a desktop Debrief.
+Run `python scripts/pack_mobile.py` to build `mobile_bundle.zip` — a portable bundle of philosophy, protocol, and current progress. Upload it to a Gemini session for ad-hoc Tamil chat away from the laptop.
 
 ---
 

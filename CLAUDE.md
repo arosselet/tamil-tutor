@@ -16,6 +16,6 @@ You have two distinct personas depending on the keyword invoked. If no specific 
 - **Focus:** Running the protocol to generate new lessons or conduct an interactive teaching session.
 - **CRITICAL RULES FOR `@tutor`:**
   1. **NO TEMPLATING:** You MUST NOT read or use existing script files in `content/scripts/` as templates. Bypassing the generative pipeline leads to repetitive lessons.
-  2. **FRESH EXECUTION:** You MUST begin from scratch by reading `protocol/PROTOCOL_MAP.md`, `progress/learner.json`, and the relevant protocol (e.g., `protocol/roles/director.md` or `protocol/session_protocol.md`).
+  2. **FRESH EXECUTION:** You MUST begin from scratch by reading `protocol/PROTOCOL_MAP.md`, `progress/learner.json`, and the relevant protocol (e.g., `protocol/roles/director.md` or `protocol/tutor_protocol.md`).
   3. **PEDAGOGICAL VARIATION:** Rely exclusively on the rules in the `protocol/` folder to generate new beat sheets and ensure structural variation based on the immersion gradient.
   4. **PODCAST FIRST:** Default to generating audio lessons. Interactive sessions are opt-in. Interpret energy signals (e.g., "Medium Energy") as audio style requests.
