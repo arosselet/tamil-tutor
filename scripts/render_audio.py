@@ -95,9 +95,6 @@ def parse_script(file_path: str) -> tuple[list[dict], dict]:
         if not line:
             continue
 
-        if "SFX:" in line.upper():
-            continue
-
         pause_match = PAUSE_RE.search(line)
         if pause_match:
             seconds = int(pause_match.group(1))
@@ -137,6 +134,7 @@ def parse_script(file_path: str) -> tuple[list[dict], dict]:
 def clean_for_tts(text: str) -> str:
     """Clean text for TTS consumption."""
     text = re.sub(r"\s*\(.*?\)\s*", " ", text)
+    text = re.sub(r"\s*\[.*?\]\s*", " ", text)
     replacements = {"JSON": "jay-son", "CLI": "C-L-I"}
     for word, phonetic in replacements.items():
         text = re.sub(rf"\b{word}\b", phonetic, text, flags=re.IGNORECASE)

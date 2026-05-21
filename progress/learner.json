@@ -14,32 +14,32 @@
     ]
   },
   "streak": {
-    "current": 12,
-    "best": 12,
-    "last_date": "2026-04-22"
+    "current": 13,
+    "best": 13,
+    "last_date": "2026-05-04"
   },
-  "last_debrief": "Mission 45: The Comparison Game. Introduced 'vida' pattern for ranking quality and size. Forced 'appadingala?' callback. Reinforced present/future verb contrast in restaurant context.",
+  "last_debrief": "Mission 47: The Weekend Plan. Introduced scheduling 'glue' (Free-ya, Neram irukka, Cancel, Postpone). Targeted present/future verb contrast (Kétkurén vs Kétpén). Anchored placement verbs (Thookku, Vai) in physical room-cleaning context.",
   "recent_missions": [
+    {
+      "mission": 47,
+      "title": "Mission tier2_mission47",
+      "listens": 0
+    },
+    {
+      "mission": 46,
+      "title": "Mission tier2_mission46",
+      "listens": 0
+    },
+    {
+      "mission": 45,
+      "title": "Mission tier2_mission45",
+      "listens": 0
+    },
     {
       "mission": 44,
       "title": "The Heat of the Ride",
       "listens": 0
-    },
-    {
-      "mission": 43,
-      "title": "Mission tier2_mission43",
-      "listens": 0
-    },
-    {
-      "mission": 42,
-      "title": "The Change Problem",
-      "listens": 0
-    },
-    {
-      "mission": 41,
-      "title": "The Coffee Ritual",
-      "listens": 2
     }
   ],
-  "status": "5 episodes under-listened (~13 min). Re-listen playlist recommended before new production."
+  "status": "8 episodes under-listened (~22 min). Re-listen playlist recommended before new production."
 }

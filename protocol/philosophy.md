@@ -83,5 +83,16 @@ The TTS engine cannot read English phonetics. Every Tamil word MUST be in Tamil 
 
 ---
 
-## The Enjoyment Clause
-If any part of a lesson feels tedious, the override command is: **"This isn't working."** The system immediately pauses and switches tactics. There is no guilt for missing days; simply restart where you left off. The goal is momentum, not compliance.
+## The Interactive Loop
+
+### 1. Phonetic Over Script
+**Rule:** For learner input, phonetic Tamil is the primary and preferred mode.
+**Reason:** The goal is low-friction, high-frequency engagement. Forcing the use of a Tamil keyboard or perfect script spelling increases friction. The system must natively understand and validate "poran" as "போறேன்".
+
+### 2. Invisible Assessment
+**Rule:** There is no separate "test" or "debrief." Every interaction is an assessment.
+**Reason:** The Tutor observes the learner's usage of NEW and CALLBACK words during drills and roleplays. This data silently updates the learner's state, ensuring the next lesson is perfectly calibrated.
+
+### 3. Modality Fluidity
+**Rule:** A single Lesson Plan can be consumed as audio, chat, or drill.
+**Reason:** Different days have different friction levels. The system should adapt—one day you listen to the podcast, the next you do a 2-minute roleplay. Both contribute to the same Master Lesson progress.

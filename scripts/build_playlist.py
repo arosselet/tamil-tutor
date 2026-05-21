@@ -208,6 +208,17 @@ def main():
         print(f"\nPlaylist feed: playlist_rss.xml")
         print(f"Subscribe URL: https://raw.githubusercontent.com/arosselet/tamil-tutor/main/playlist_rss.xml")
 
+        # Automatic commit/push
+        try:
+            subprocess.run(["git", "add", str(dest), "playlist_rss.xml"], check=True)
+            status = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True)
+            if status.stdout.strip():
+                subprocess.run(["git", "commit", "-m", f"Publish playlist: {output.name}"], check=True)
+                subprocess.run(["git", "push"], check=True)
+                print("✅ Git commit and push successful.")
+        except Exception as e:
+            print(f"⚠️ Git lifecycle failed: {e}")
+
 
 if __name__ == "__main__":
     main()
