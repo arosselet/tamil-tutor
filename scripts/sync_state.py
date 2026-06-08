@@ -117,6 +117,8 @@ def compute_floor(vocab_state: dict) -> dict:
 
     The production axis lives in vocab_state["production"] as a
     {word: level} map where level is "cold" or "hinted". Absence = "unseen".
+    Keys may be phonetic (e.g. "illa") or Tamil script (e.g. "இல்ல") —
+    vocab_state["phonetic_aliases"] maps phonetic → script for resolution.
     This is the real progress bar for the production-as-accelerant phase.
     """
     recognized = (
@@ -124,7 +126,8 @@ def compute_floor(vocab_state: dict) -> dict:
         | set(vocab_state.get("comfortable_words", []))
     )
     production = vocab_state.get("production", {})
-    cold = {w for w, lvl in production.items() if lvl == "cold"}
+    aliases = vocab_state.get("phonetic_aliases", {})
+    cold = {aliases.get(w, w) for w, lvl in production.items() if lvl == "cold"}
     cleared = recognized & cold
     total = len(recognized)
     pct = (len(cleared) / total * 100) if total else 0.0
@@ -245,12 +248,14 @@ def cmd_update(args):
         print(f"  Stuck: {word}")
 
     # Record production progress (the cold/hinted axis, independent of recognition)
+    # Resolve phonetic keys through aliases so they match the Tamil-script recognized set.
+    aliases = vocab_state.get("phonetic_aliases", {})
     production = vocab_state.setdefault("production", {})
     for word in args.produced_cold:
-        production[word] = "cold"
+        production[aliases.get(word, word)] = "cold"
         print(f"  Produced COLD: {word}")
     for word in args.produced_hinted:
-        production[word] = "hinted"
+        production[aliases.get(word, word)] = "hinted"
         print(f"  Produced (hinted): {word}")
 
     # Update debrief
