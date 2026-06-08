@@ -23,7 +23,17 @@ import subprocess
 import time
 from pathlib import Path
 
+import ssl as _ssl
+
 import edge_tts
+import edge_tts.communicate as _edge_comm
+
+# Remote environments use SSL inspection with self-signed certs.
+# Patch edge_tts's SSL context to skip cert verification.
+_no_verify_ctx = _ssl.create_default_context()
+_no_verify_ctx.check_hostname = False
+_no_verify_ctx.verify_mode = _ssl.CERT_NONE
+_edge_comm._SSL_CTX = _no_verify_ctx
 try:
     from google.cloud import texttospeech
     HAS_GOOGLE = True
@@ -146,10 +156,13 @@ def clean_for_tts(text: str) -> str:
 
 async def generate_segment_edge(text: str, voice: str, index: int, temp_dir: str) -> str:
     """Generate a single audio segment using edge-tts."""
+    import aiohttp as _aiohttp
     opts = EDGE_VOICE_OPTS.get(voice, {"rate": "+0%", "pitch": "+0Hz"})
-    communicate = edge_tts.Communicate(text, voice, rate=opts["rate"], pitch=opts["pitch"])
+    connector = _aiohttp.TCPConnector(ssl=False)
+    communicate = edge_tts.Communicate(text, voice, rate=opts["rate"], pitch=opts["pitch"], connector=connector)
     filename = os.path.join(temp_dir, f"segment_{index:04d}.mp3")
     await communicate.save(filename)
+    await connector.close()
     return filename
 
 
