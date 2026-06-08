@@ -1,0 +1,26 @@
+{
+  "mission": 48,
+  "shape": "gossip",
+  "location_class": "extended_family",
+  "energy": "medium-loud",
+  "intercept_tamil_density": 0.65,
+  "breakdown_tamil_density": 0.55,
+  "new_words_landed": {
+    "யாரு": 4,
+    "ஏன்": 2,
+    "எப்போ": 2,
+    "என்னாச்சு": 3,
+    "புரிஞ்சுது": 2
+  },
+  "callbacks_used": {
+    "நிஜமா": 2,
+    "கேட்குறேன்": 2,
+    "கேட்பேன்": 2,
+    "தூக்கு": 2
+  },
+  "host_roles": {
+    "A": "secret_keeper",
+    "B": "curious_cousin_moving_chairs"
+  },
+  "notes": "Question word chain is the structural spine — yaru/yen/eppoo land as triplet in the Breakdown. ketkureen/ketpaen handoff is explicit in Intercept and replayed in Breakdown. thooku anchored physically to chair-lifting, not just mentioned. No kitchen/morning-rush terrain."
+}
