@@ -1,9 +1,0 @@
-#!/bin/sh
-# Pre-commit hook: rebuild mobile_bundle.zip before every commit
-echo "📦 Rebuilding mobile bundle..."
-python3 scripts/pack_mobile.py
-
-# Stage the updated bundle
-git add mobile_bundle.zip
-
-echo "✅ mobile_bundle.zip updated and staged."
