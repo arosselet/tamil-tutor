@@ -111,6 +111,26 @@ def compute_status(vocab_state: dict) -> str:
         return f"{len(recent_under)} episodes under-listened (~{total_min:.0f} min). Re-listen playlist recommended before new production."
 
 
+def compute_floor(vocab_state: dict) -> dict:
+    """The viability floor: of the words the learner *recognizes*
+    (mastered + comfortable), how many can they *produce cold*?
+
+    The production axis lives in vocab_state["production"] as a
+    {word: level} map where level is "cold" or "hinted". Absence = "unseen".
+    This is the real progress bar for the production-as-accelerant phase.
+    """
+    recognized = (
+        set(vocab_state.get("mastered_words", []))
+        | set(vocab_state.get("comfortable_words", []))
+    )
+    production = vocab_state.get("production", {})
+    cold = {w for w, lvl in production.items() if lvl == "cold"}
+    cleared = recognized & cold
+    total = len(recognized)
+    pct = (len(cleared) / total * 100) if total else 0.0
+    return {"cleared": len(cleared), "total": total, "pct": pct}
+
+
 def compute_recent_missions(vocab_state: dict, n: int = 4) -> list[dict]:
     """Build the recent_missions list for thin learner.json."""
     episodes = vocab_state.get("episodes", {})
@@ -224,6 +244,15 @@ def cmd_update(args):
         move_word(word, "struggled_words")
         print(f"  Stuck: {word}")
 
+    # Record production progress (the cold/hinted axis, independent of recognition)
+    production = vocab_state.setdefault("production", {})
+    for word in args.produced_cold:
+        production[word] = "cold"
+        print(f"  Produced COLD: {word}")
+    for word in args.produced_hinted:
+        production[word] = "hinted"
+        print(f"  Produced (hinted): {word}")
+
     # Update debrief
     if args.debrief:
         learner["last_debrief"] = args.debrief
@@ -262,6 +291,14 @@ def cmd_status(_args):
         struggled = vocab_state.get("struggled_words", [])
         print(f"Words — mastered: {len(words)}, comfortable: {len(comfortable)}, struggled: {len(struggled)}")
 
+        production = vocab_state.get("production", {})
+        cold = sum(1 for v in production.values() if v == "cold")
+        hinted = sum(1 for v in production.values() if v == "hinted")
+        floor = compute_floor(vocab_state)
+        print(f"Production — cold: {cold}, hinted: {hinted}")
+        print(f"Viability floor: {floor['cleared']}/{floor['total']} "
+              f"recognized words fire cold ({floor['pct']:.0f}%)")
+
         episodes = vocab_state.get("episodes", {})
         recent = sorted(episodes.items(), key=lambda x: int(x[0]), reverse=True)[:6]
         print(f"\nRecent episodes:")
@@ -287,7 +324,11 @@ def main():
     update_p.add_argument("--comfortable-word", type=str, action="append", default=[],
                           help="Word(s) that are now comfortable")
     update_p.add_argument("--stuck-word", type=str, action="append", default=[],
-                          help="Word(s) that are causing trouble")
+                          help="Word(s) that are causing trouble (recognition)")
+    update_p.add_argument("--produced-cold", type=str, action="append", default=[],
+                          help="Word(s) the learner produced COLD — no hint (production axis)")
+    update_p.add_argument("--produced-hinted", type=str, action="append", default=[],
+                          help="Word(s) produced only after a hint (production axis)")
     update_p.add_argument("--debrief", type=str, default=None,
                           help="One-line debrief note")
 

@@ -4,21 +4,23 @@
 > **Read by:** `protocol/roles/director.md` before writing each brief.
 > **Purpose:** Give the Director a teacher's view of Andrew — not a log, a living assessment.
 >
-> **Last updated:** 2026-05-18 (reframed for comprehension-first goal)
+> **Last updated:** 2026-06-08 (reframed for production-as-accelerant goal — Anna era)
 
 ---
 
 ## The Goal
 
-**Receptive fluency in Coimbatore Tamil — comprehension-first.** Andrew aims to understand family conversation, follow Tamil media, and consume Coimbatore-flavored Tamil content. Production capacity may emerge later but is not the primary target. Practical near-term marker: by July 2026, follow ~50-60% of casual family dialogue without translation.
+**Clear the viability floor in Coimbatore Tamil — production as the accelerant.** Andrew has soaked in a recognition base (~100 word families, by his own estimate — *not* the inflated counts below) but plateaued: he recognizes the sounds yet freezes when it's his turn to speak, and still context-guesses through Tamil films. The breakthrough is *forced output* — converting soaked recognition into reflex so he stops being a deer in headlights. Practical near-term marker: by **[confirm target date]**, respond without freezing in casual family exchanges and clear the floor on the core glue + phrase set.
 
-This means the system prioritizes **input volume**, **register breadth**, and **recognition speed** over production accuracy.
+**Phase model:** Phase 1 (now) — *narrow and deepen*: force cold production of words he already recognizes; resist widening vocabulary. Phase 2 (post-floor) — native media (films) becomes the vocabulary engine, because the floor finally makes acquisition-from-context work.
+
+This means the system now prioritizes **production reflex** and **recognition-to-cold conversion** (the viability floor) over raw input volume. The audio pipeline remains an immersion tool, not the primary driver.
 
 ---
 
 ## Current Position
 
-- **Tier 2, Mission 47+.** ~85 of 153 Tier 2 comfort words seen in context. Estimated ~600 cumulative word families across all tiers.
+- **Tier 2, Mission 47+.** ~85 of 153 Tier 2 comfort words *seen in context*. Realistically **~100 word families genuinely internalized** — the system's `mastered`/`comfortable` buckets (89/34) over-count, since they were assigned from passive exposure, not cold production. The production axis (floor) is the honest meter; expect Anna's sessions to demote some over-counted "mastered" words as they fail under cold recall.
 - Streak: 13 days. Consistent engagement. No completion anxiety — he listens on the go.
 - Format: podcast/TTS. No interactive drilling. Low friction is non-negotiable.
 
