@@ -225,8 +225,11 @@
     "nalla": "cold",
     "kutti": "cold",
     "ஒன்னு": "cold",
-    "போறேன்": "hinted",
-    "வை": "hinted"
+    "போறேன்": "cold",
+    "வை": "hinted",
+    "முடியாது": "cold",
+    "கொஞ்சம்": "cold",
+    "சந்தோஷம்": "cold"
   },
   "total_sessions": 24,
   "session_history": [
