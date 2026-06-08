@@ -134,7 +134,21 @@
     "கேட்குறேன்",
     "போஸ்ட்போன்"
   ],
-  "production": {},
+  "production": {
+    "thaagam": "cold",
+    "aam": "cold",
+    "anga": "cold",
+    "podhum": "cold",
+    "venum": "cold",
+    "keele": "cold",
+    "illa": "cold",
+    "enaku": "cold",
+    "nalla": "cold",
+    "kutti": "cold",
+    "onnu": "cold",
+    "poren": "hinted",
+    "vai": "hinted"
+  },
   "total_sessions": 24,
   "session_history": [
     {
