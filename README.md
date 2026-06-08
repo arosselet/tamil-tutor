@@ -96,10 +96,7 @@ Prompt the agent:
 
 ### On Your Phone
 
-The repo syncs via GitHub, so Anna runs from your phone with full state — no laptop required:
-
-- **Claude Code on web/mobile** ([claude.ai/code](https://claude.ai/code) or the **Code** tab in the Claude mobile app): open this GitHub repo, then run `/anna`. State commits straight back to GitHub.
-- **Lightweight fallback:** run `python scripts/pack_mobile.py` to build `mobile_bundle.zip` and upload it to a Gemini/Claude chat for ad-hoc practice (no state writeback).
+The repo syncs via GitHub, so Anna runs from your phone with full state — no laptop required. Open the **Code** tab in the Claude mobile app (or **[claude.ai/code](https://claude.ai/code)**), select this GitHub repo, and run `/anna`. State commits straight back to GitHub.
 
 ---
 
