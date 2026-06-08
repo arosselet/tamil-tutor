@@ -15,22 +15,26 @@ A framework for language learning using LLMs. Built to acquire working Tamil for
 
 ## What This Is
 
-An audio-first learning system that generates dual-voice Tamil podcast episodes on demand. An LLM reads a set of protocol files that define three production roles (Director, Architect, Producer), pulls vocabulary from a tiered curriculum, checks the learner's progress, and writes a script. That script is rendered to MP3 via Google Cloud TTS or Edge-TTS.
+An LLM-driven Tamil learning system with two pillars that share one brain — a Python-managed state file plus a teacher's-notebook profile:
 
-The learner listens during dead time (commute, dishes, walking), gives feedback, and the system adapts.
+1. **Anna — the daily tutor.** A persistent, stateful Coimbatore-Tamil coach you chat with for ~10–15 minutes a day. Anna runs a *forced-output* loop — he drops you into a situation and makes you produce, cold — to turn passive recognition into speaking reflex. This is the primary driver.
+2. **The audio pipeline.** On-demand dual-voice Tamil podcast episodes for immersion during dead time (commute, dishes, walking). An LLM reads protocol files defining three production roles (Director, Architect, Producer), pulls from a tiered curriculum, and renders a script to MP3 via Google Cloud TTS or Edge-TTS.
+
+Both feed and read the same progress state, so a word produced in chat and a word heard in a podcast move the same meter.
 
 ### Design Principles
 
 - **Operational capacity over fluency.** Navigate an auto ride, survive dinner with the in-laws, handle a phone call. Not debate philosophy.
 - **Coimbatore Tamil only.** Colloquial Kongu dialect. `போறேன்` not `போகிறேன்`. We ignore literary Tamil entirely.
 - **Glue over vocabulary.** Verbs, connectors, pronouns, particles. The 800 high-frequency words that make up 80% of spoken connectivity. If you know the glue, you can stick any English noun into the sentence and be understood.
-- **Audio first.** Language acquisition happens through listening. Episodes are generated, not handwritten. The system compounds: words you've learned stop being taught and start being *used* without translation.
+- **Production as the accelerant.** Recognition plateaus; forced output breaks through. The system tracks a *viability floor* — of the words you recognize, how many you can fire *cold* — and converts recognition into reflex before widening vocabulary.
+- **Two pathways, one state.** Listening (the audio pipeline) builds recognition; speaking (Anna) builds production. Both compound into the same progress meter.
 - **No guilt.** No streaks, no makeup work. If a lesson isn't working, say "this isn't working" and the system shifts gears.
 
 ## How It Works
 
 ```
-protocol/            → LLM instructions (Director, Architect, Producer roles)
+protocol/            → LLM instructions: Anna (persona + daily_session) + production roles (Director, Architect, Producer)
 curriculum/
     ├── index.json   → Tier manifest
     └── tiers/       → Vocabulary buckets (Survival → Comfort → Embedded)
@@ -39,7 +43,7 @@ content/
     └── scripts/     → Generated podcast scripts (Markdown)
 audio/               → Private MP3 output
 published_audio/     → Public MP3s (served via RSS)
-progress/            → learner.json (your state)
+progress/            → learner.json + vocab_state.json (recognition + production axis)
 scripts/             → Python tools (render, status, compress, RSS)
 ```
 
@@ -50,13 +54,13 @@ scripts/             → Python tools (render, status, compress, RSS)
 3. **Producer** applies the Coimbatore dialect pass (verb forms, Sandhi, Kongu layer), enforces Tamil script for every Tamil word, and runs a final scrubbing pass for TTS fidelity.
 4. `render_audio.py` generates the MP3 with randomized voice assignments.
 
-### The Learning Loop
+### The Daily Loop (Anna)
 
 ```
-Debrief → Production → Passive Listening → Quiet Broadcasting → Interactive (opt-in)
+Warm callback → Cold dispatch → Recast (never lecture) → Log → Field kit
 ```
 
-The default output is a podcast episode. Interactive chat sessions are available but opt-in.
+Anna's daily session is the default. He loads your state, targets words you *recognize but can't yet produce*, and forces you to say them cold. Misses get recast naturally — no grammar lectures. Each session updates the **production axis** and reports where the **viability floor** moved. The audio pipeline is the opt-in immersion layer alongside it.
 
 ## Getting Started
 
@@ -79,6 +83,8 @@ pip install -r requirements.txt
 | `@tutor` (default) | Showrunner & Tutor | Generating lessons, running sessions, tracking progress |
 | `@build` | Engineer | Editing protocols, writing scripts, refining the curriculum |
 
+Or jump straight into a daily session with the **`/anna`** skill (Claude Code) or **`/anna`** command (Gemini CLI).
+
 ### On Your Laptop (The Factory)
 
 Prompt the agent:
@@ -90,7 +96,10 @@ Prompt the agent:
 
 ### On Your Phone
 
-Run `python scripts/pack_mobile.py` to build `mobile_bundle.zip` — a portable bundle of philosophy, protocol, and current progress. Upload it to a Gemini session for ad-hoc Tamil chat away from the laptop.
+The repo syncs via GitHub, so Anna runs from your phone with full state — no laptop required:
+
+- **Claude Code on web/mobile** ([claude.ai/code](https://claude.ai/code) or the **Code** tab in the Claude mobile app): open this GitHub repo, then run `/anna`. State commits straight back to GitHub.
+- **Lightweight fallback:** run `python scripts/pack_mobile.py` to build `mobile_bundle.zip` and upload it to a Gemini/Claude chat for ad-hoc practice (no state writeback).
 
 ---
 

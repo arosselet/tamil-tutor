@@ -2,7 +2,6 @@
   "learner": "Andrew",
   "current_tier": 2,
   "active_mission": {
-    "tier": 2,
     "mission": 44,
     "topic": "The Heat of the Ride",
     "target_vocab": [
@@ -14,11 +13,11 @@
     ]
   },
   "streak": {
-    "current": 14,
-    "best": 14,
-    "last_date": "2026-05-21"
+    "current": 15,
+    "best": 15,
+    "last_date": "2026-05-24"
   },
-  "last_debrief": "Low energy Reading Comp session on Mission 47. Recognized logistics glue; struggled with 'Really?' and 'Are you free?' production.",
+  "last_debrief": "Vocab blitz on M47 payload. Comfortable: கேட்பேன், கேன்சல், நேரம் இருக்கா?. Struggled cold production on: ஃப்ரீ-யா?, தூக்கு, வை, நிஜமா?, கேட்குறேன், போஸ்ட்போன். Andrew notes the issue is boredom/over-rotation, not unfamiliarity — he has heard the sounds. System needs to push more new words, not over-drill the same struggled set.",
   "recent_missions": [
     {
       "mission": 47,

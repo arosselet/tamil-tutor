@@ -4,7 +4,7 @@ This document defines the structure and execution of the Tamil language learning
 
 ## Project Structure
 
-- `curriculum/`          → Tiered vocabulary and grammar progression.
+- `curriculum/`          → Vocabulary pool organized by theme clusters. No tier gates — the Director pulls from any cluster based on coverage gaps.
 - `progress/`            → Learner state: JSON (Python-managed) and profile (LLM-maintained).
 - `protocol/`            → The generative logic (how to write lessons).
 - `protocol/modalities/` → Pluggable learning formats (Podcast, Drill, Roleplay, etc.).
@@ -21,6 +21,8 @@ This document defines the structure and execution of the Tamil language learning
 | **Philosophy** | `protocol/philosophy.md` | Core philosophy, tactical rules, and **canonical rules** |
 | **Director** | `protocol/roles/director.md` | Generates the format-agnostic **Master Lesson Plan**. |
 | **Tutor** | `protocol/tutor_protocol.md` | Central orchestrator. Manages state, offers modalities, and conducts assessment. |
+| **Persona (Anna)** | `protocol/persona.md` | The single persistent voice of the interactive tutor. Loaded by the Daily Session. |
+| **Daily Session** | `protocol/daily_session.md` | Anna's default ~10–15 min forced-output loop. Production-as-accelerant toward the viability floor. |
 | **Dialect** | `protocol/dialect.md` | Tamil/Coimbatore spoken dialect rules. Used by the Producer. |
 | **Hosts** | `protocol/hosts.md` | Cast bible for the Podcast modality. |
 
@@ -40,5 +42,5 @@ This document defines the structure and execution of the Tamil language learning
 | File | Managed by | Purpose |
 |:---|:---|:---|
 | `progress/learner.json` | Python (`sync_state.py`) | Active lesson, status line. |
-| `progress/vocab_state.json` | Python (`sync_state.py`) | Full vocab tracking. Updated automatically by Tutor. |
+| `progress/vocab_state.json` | Python (`sync_state.py`) | Full vocab tracking: recognition lists + the **production axis** (`cold`/`hinted`) + the **viability floor**. Updated automatically by Tutor. |
 | `progress/profile.md` | LLM (`@tutor`) | Teacher's notebook—assessment, gaps, terrain map. |
