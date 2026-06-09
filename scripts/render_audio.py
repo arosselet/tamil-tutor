@@ -285,12 +285,26 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
     
     title_match = re.search(r"^# Tier 2, Mission \d+ — (.*)$", content, re.M)
     title = title_match.group(1) if title_match else f"Mission {script_path.stem}"
-    words = re.findall(r"\*\*([^\*]+)\*\*", content)
+    # Prefer the structured .tags.json sidecar (canonical vocab: new words +
+    # callbacks). The markdown doesn't bold its vocab, so scraping bold tokens
+    # only ever caught English speaker labels. Fall back to that scrape only
+    # when no sidecar exists.
     cleaned_words = []
-    for w in words:
-        tamil = re.split(r"[\(\s]", w)[0]
-        if tamil and any('\u0b80' <= c <= '\u0bff' for c in tamil) and tamil not in cleaned_words:
-            cleaned_words.append(tamil)
+    tags_path = script_path.with_suffix(".tags.json")
+    if tags_path.exists():
+        try:
+            tags = json.loads(tags_path.read_text(encoding="utf-8"))
+            for bucket in ("new_words_landed", "callbacks_used"):
+                for w in tags.get(bucket, {}):
+                    if w not in cleaned_words:
+                        cleaned_words.append(w)
+        except (json.JSONDecodeError, OSError):
+            pass
+    if not cleaned_words:
+        for w in re.findall(r"\*\*([^\*]+)\*\*", content):
+            tamil = re.split(r"[\(\s]", w)[0]
+            if tamil and any('஀' <= c <= '௿' for c in tamil) and tamil not in cleaned_words:
+                cleaned_words.append(tamil)
 
     mission_match = re.search(r"mission(\d+)", script_path.name)
     if not mission_match: return
