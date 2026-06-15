@@ -1,6 +1,6 @@
 # Modality: Vocab Recall
 
-> **Input:** `content/lessons/tierX_lessonY.md` (Master Lesson Plan)
+> **Input:** `content/lessons/tierX_missionY_brief.md` (Master Lesson Plan)
 > **Interface:** Text-based Interactive Chat
 
 A high-speed, Anki-style drill focusing on the **CALLBACKS** and **NEW** words. The goal is recognition speed and recall without context.

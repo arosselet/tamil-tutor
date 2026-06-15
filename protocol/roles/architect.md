@@ -32,9 +32,22 @@ What every episode needs, regardless of shape:
 
 - **Something changes** between the start and the end.
 - **The NEW words appear naturally** — enough to acquire, not enough to bend dialogue into a command loop. 
-- **The CALLBACKS land.**
+- **The CALLBACKS land where they fit** — aim for most; never bend the scene to force every one.
 - **Linguistic Pattern.** Weave the lesson's core linguistic pattern (e.g., The Tense Matrix) into the dialogue naturally.
 - **Personality.** If the two hosts sound interchangeable, something's wrong. One is sharper, one is warmer. They disagree sometimes. They laugh sometimes.
+
+---
+
+## The Episode Form
+
+The Lesson Plan also specifies an **Episode Form** — the *structure* you deliver. Don't default every episode to the analyst deep-dive; that sameness is what makes the feed feel flat.
+
+- **`classic`** — Intercept + full Breakdown. The default, but not the only option.
+- **`vignette`** — Intercept only. **No Breakdown.** A short, punchy slice-of-life that trusts the scene to carry the words. Best when the payload leans on consolidation/callbacks rather than heavy new vocab.
+- **`story`** — one host carries a short told tale (a thing that happened to a cousin, an auto ride gone wrong). Light Breakdown or none. The other host can interject, but one voice leads.
+- **`phone_call`** — a naturalistic call (you hear both sides, or one). Light Breakdown.
+
+The fourth wall and no-fixed-characters rules hold in every form (`protocol/philosophy.md`).
 
 ---
 
@@ -51,10 +64,10 @@ Write Tamil in plausible spoken register — close to how Coimbatore actually so
 
 ## The Two-Voice Breakdown
 
-Every mission must conclude with a **Breakdown** — a dialogue between Analyst Maya (F) and Analyst Raj (M). See `protocol/hosts.md` for their full character definitions.
+**When the Episode Form calls for it** (always in `classic`; lighter in `story` / `phone_call`; omitted in `vignette`), the mission closes with a **Breakdown** — a dialogue between Analyst Maya (F) and Analyst Raj (M). See `protocol/hosts.md` for their full character definitions.
 
 - **A second Tamil exposure, not a translation pass.** Maya and Raj are two Tamil speakers having a conversation about what they just heard. They play back snippets, react, joke about the characters' decisions, and revisit the NEW words in fresh contexts — mostly in Tamil. They drop into English only when a moment genuinely requires it.
-- **Energy:** Think NotebookLM-style deep-dives, but in Tamil. This is where 60–70% of the episode's length should come from, and most of that length should be Tamil contact time.
+- **Energy:** Think NotebookLM-style deep-dives, but in Tamil. When the form includes a full Breakdown, this is where 60–70% of the episode's length comes from — most of it Tamil contact time. In `vignette` form the Intercept carries the whole episode on its own.
 
 ---
 

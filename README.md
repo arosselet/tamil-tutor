@@ -1,6 +1,6 @@
 # Coimbatore Mappillai — The Audio Architect Protocol
 
-<video src="https://github.com/user-attachments/assets/8a9e4c38-9074-4cc5-b0aa-f0a6812108bf" controls="controls"></video>
+<video src="https://github.com/user-attachments/assets/f347ef0f-1fe5-46d8-aaad-f323cf665cc8" controls width="480"></video>
 
 A framework for language learning using LLMs. Built to acquire working Tamil for daily life in Coimbatore.
 
@@ -39,7 +39,7 @@ curriculum/
     ├── index.json   → Tier manifest
     └── tiers/       → Vocabulary buckets (Survival → Comfort → Embedded)
 content/
-    ├── beats/       → Director's planning docs
+    ├── lessons/     → Director's planning docs (mission briefs)
     └── scripts/     → Generated podcast scripts (Markdown)
 audio/               → Private MP3 output
 published_audio/     → Public MP3s (served via RSS)
@@ -57,7 +57,7 @@ scripts/             → Python tools (render, status, compress, RSS)
 ### The Daily Loop (Anna)
 
 ```
-Warm callback → Cold dispatch → Recast (never lecture) → Log → Field kit
+Warm callback → One living scene (cold fires as moves) → Recast (never lecture) → Log → Field kit
 ```
 
 Anna's daily session is the default. He loads your state, targets words you *recognize but can't yet produce*, and forces you to say them cold. Misses get recast naturally — no grammar lectures. Each session updates the **production axis** and reports where the **viability floor** moved. The audio pipeline is the opt-in immersion layer alongside it.

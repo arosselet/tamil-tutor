@@ -1,6 +1,6 @@
 # Modality: Scenario Roleplay
 
-> **Input:** `content/lessons/tierX_lessonY.md` (Master Lesson Plan)
+> **Input:** `content/lessons/tierX_missionY_brief.md` (Master Lesson Plan)
 > **Interface:** Text-based Interactive Chat
 
 Transform the "Scenario Context" into a live roleplay. The Tutor plays a character in the scene, and the learner must navigate the situation using the payload words and linguistic patterns.
