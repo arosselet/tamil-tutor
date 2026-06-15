@@ -8,7 +8,10 @@ words that are due for resurfacing based on a simple interval schedule:
   - Words seen 1x: resurface within next 2 missions
   - Words seen 2-3x: resurface within next 4 missions
   - Words seen 4x+: resurface within next 8 missions
-  - Struggled words get priority regardless of interval
+  - Struggled words get priority BUT are subject to a minimum cooldown of
+    STRUGGLED_MIN_INTERVAL missions — repeated audio exposure doesn't fix
+    cold-production gaps; those belong in interactive modalities (roleplay,
+    pattern drill), not another podcast callback.
 
 Usage:
     python scripts/generate_callbacks.py [--next-mission 39]
@@ -106,6 +109,9 @@ def scan_scripts() -> dict[str, dict]:
     return tracker
 
 
+STRUGGLED_MIN_INTERVAL = 3  # struggled words can appear at most once every N missions
+
+
 def get_resurfacing_interval(appearances: int) -> int:
     """How many missions before this word should reappear."""
     if appearances <= 1:
@@ -139,9 +145,14 @@ def generate_callbacks(
         interval = get_resurfacing_interval(info["appearances"])
         missions_since = next_mission - info["last_seen_mission"]
 
-        # Is this word due?
         is_due = missions_since >= interval or info["appearances"] == 0
         is_struggled = word in struggled
+
+        # Struggled words are benched if they appeared too recently — repeated audio
+        # exposure doesn't improve cold-production recall; rotate them out so fresh
+        # vocabulary gets space, and flag them for interactive modalities instead.
+        if is_struggled and missions_since < STRUGGLED_MIN_INTERVAL:
+            is_struggled = False
 
         if is_due or is_struggled:
             english = tier_vocab.get(word, "")
