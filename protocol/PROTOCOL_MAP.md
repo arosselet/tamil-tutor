@@ -20,13 +20,14 @@ This document defines the structure and execution of the Tamil language learning
 |:---|:---|:---|
 | **Philosophy** | `protocol/philosophy.md` | Core philosophy, tactical rules, and **canonical rules** |
 | **Director** | `protocol/roles/director.md` | Generates the format-agnostic **Master Lesson Plan**. |
-| **Tutor** | `protocol/tutor_protocol.md` | Central orchestrator. Manages state, offers modalities, and conducts assessment. |
-| **Persona (Anna)** | `protocol/persona.md` | The single persistent voice of the interactive tutor. Loaded by the Daily Session. |
-| **Daily Session** | `protocol/daily_session.md` | Anna's default ~10–15 min forced-output loop. Production-as-accelerant toward the viability floor. |
+| **Persona (Anna)** | `protocol/persona.md` | The single persistent voice of the interactive tutor (Anna — Tamil for "elder brother," *he*). Loaded by the Daily Session. |
+| **Daily Session** | `protocol/daily_session.md` | **The interactive front door.** Anna's default ~10–15 min forced-output loop (production toward the viability floor); can deploy the `modalities/` formats as in-session tools. |
 | **Dialect** | `protocol/dialect.md` | Tamil/Coimbatore spoken dialect rules. Used by the Producer. |
 | **Hosts** | `protocol/hosts.md` | Cast bible for the Podcast modality. |
 
 ## Delivery Modalities (`protocol/modalities/`)
+
+The **Podcast** is the audio-generation path (Director → Architect → Producer). The rest are **text tools Anna reaches for** mid-session — not a standalone menu.
 
 | Modality | Protocol | Purpose |
 |:---|:---|:---|
@@ -44,3 +45,23 @@ This document defines the structure and execution of the Tamil language learning
 | `progress/learner.json` | Python (`sync_state.py`) | Active lesson, status line. |
 | `progress/vocab_state.json` | Python (`sync_state.py`) | Full vocab tracking: recognition lists + the **production axis** (`cold`/`hinted`) + the **viability floor**. Updated automatically by Tutor. |
 | `progress/profile.md` | LLM (`@tutor`) | Teacher's notebook—assessment, gaps, terrain map. |
+| `progress/word_tracker.json` | Python (`generate_callbacks.py`) | Per-word appearance + recency data driving spaced-repetition callback selection. |
+
+---
+
+## Python Tooling (`scripts/`)
+
+The LLM is the writer; Python is the brain. These tools own all state writes, spaced repetition, audio rendering, and feed publishing — never hand-edit the JSON they manage.
+
+| Script | Role |
+|:---|:---|
+| `sync_state.py` | **Owns all writes** to `learner.json` + `vocab_state.json` (recognition lists, production axis, viability floor). Never hand-edit those files. |
+| `generate_callbacks.py` | Spaced-repetition picker — selects callbacks due for resurfacing; maintains `word_tracker.json`. |
+| `show_status.py` | Progress dashboard (backs the "Show my status" command). |
+| `render_audio.py` | Renders a final script to MP3 (Google Cloud TTS / Edge-TTS), then triggers the RSS rebuild. |
+| `build_playlist.py` | Concatenates under-listened missions into a daily re-listen playlist MP3. |
+| `rebuild_rss.py` | Regenerates the main podcast RSS feed from `published_audio/`. |
+| `rebuild_playlist_rss.py` | Regenerates the separate playlist podcast feed. |
+| `compress_sessions.py` | Maintenance — folds sessions older than 7 days in `learner.json` into the accumulated word lists. |
+| `tag_clusters.py` | Curriculum enrichment — tags words by cluster and proposes gap-fill additions → `proposed_additions.json`. |
+| `apply_additions.py` | Merges reviewed `proposed_additions.json` into the tier JSONs. |

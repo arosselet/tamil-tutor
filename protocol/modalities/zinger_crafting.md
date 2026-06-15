@@ -1,6 +1,6 @@
 # Modality: Zinger Crafting
 
-> **Input:** `content/lessons/tierX_lessonY.md` (Master Lesson Plan)
+> **Input:** `content/lessons/tierX_missionY_brief.md` (Master Lesson Plan)
 > **Interface:** Text-based Interactive Chat
 
 Focus on "Operational Capacity" and "Social Delight." The Tutor helps the learner craft and practice high-impact, culturally appropriate phrases (Zingers) for the lesson's scenario.
