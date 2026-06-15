@@ -4,711 +4,888 @@
   "vocabulary": [
     {
       "tamil": "போனேன்",
-      "english": "I went"
+      "english": "I went",
+      "cluster": "verb_past"
     },
     {
       "tamil": "வந்தேன்",
-      "english": "I came"
+      "english": "I came",
+      "cluster": "verb_past"
     },
     {
       "tamil": "பண்ணினேன்",
-      "english": "I did"
+      "english": "I did",
+      "cluster": "verb_past"
     },
     {
       "tamil": "கொடுத்தேன்",
-      "english": "I gave"
+      "english": "I gave",
+      "cluster": "verb_past"
     },
     {
       "tamil": "சாப்பிட்டேன்",
-      "english": "I ate"
+      "english": "I ate",
+      "cluster": "verb_past"
     },
     {
       "tamil": "குடிச்சேன்",
-      "english": "I drank"
+      "english": "I drank",
+      "cluster": "verb_past"
     },
     {
       "tamil": "பார்த்தேன்",
-      "english": "I saw / I watched"
+      "english": "I saw / I watched",
+      "cluster": "verb_past"
     },
     {
       "tamil": "தூங்கினேன்",
-      "english": "I slept"
+      "english": "I slept",
+      "cluster": "verb_past"
     },
     {
       "tamil": "எழுந்தேன்",
-      "english": "I woke up"
+      "english": "I woke up",
+      "cluster": "verb_past"
     },
     {
       "tamil": "அதுக்கு அப்புறம்",
-      "english": "After that"
+      "english": "After that",
+      "cluster": "connectors"
     },
     {
       "tamil": "முன்னாடி",
-      "english": "Before"
+      "english": "Before",
+      "cluster": "connectors"
     },
     {
       "tamil": "நேத்து",
-      "english": "Yesterday"
+      "english": "Yesterday",
+      "cluster": "connectors"
     },
     {
       "tamil": "இன்னைக்கு",
-      "english": "Today"
+      "english": "Today",
+      "cluster": "connectors"
     },
     {
       "tamil": "முதல்ல",
-      "english": "First"
+      "english": "First",
+      "cluster": "connectors"
     },
     {
       "tamil": "ஏன்னா",
-      "english": "Because"
+      "english": "Because",
+      "cluster": "connectors"
     },
     {
       "tamil": "அதனால",
-      "english": "Therefore"
+      "english": "Therefore",
+      "cluster": "connectors"
     },
     {
       "tamil": "ஆனா",
-      "english": "But"
+      "english": "But",
+      "cluster": "connectors"
     },
     {
       "tamil": "அதான்",
-      "english": "That's why / Exactly"
+      "english": "That's why / Exactly",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "பார்த்தேன்",
-      "english": "I saw"
+      "english": "I saw",
+      "cluster": "verb_past"
     },
     {
       "tamil": "சாப்பிட்டீங்களா?",
-      "english": "Did you eat? (respectful)"
+      "english": "Did you eat? (respectful)",
+      "cluster": "verb_past"
     },
     {
       "tamil": "இன்னும் இல்ல",
-      "english": "Not yet"
+      "english": "Not yet",
+      "cluster": "connectors"
     },
     {
       "tamil": "இப்போ தான் சாப்பிட்டேன்",
-      "english": "I just ate"
+      "english": "I just ate",
+      "cluster": "verb_past"
     },
     {
       "tamil": "அண்ணா",
-      "english": "Elder brother"
+      "english": "Elder brother",
+      "cluster": "family"
     },
     {
       "tamil": "தம்பி",
-      "english": "Younger brother"
+      "english": "Younger brother",
+      "cluster": "family"
     },
     {
       "tamil": "அக்கா",
-      "english": "Elder sister"
+      "english": "Elder sister",
+      "cluster": "family"
     },
     {
       "tamil": "தங்கச்சி",
-      "english": "Younger sister"
+      "english": "Younger sister",
+      "cluster": "family"
     },
     {
       "tamil": "மாமா",
-      "english": "Uncle (maternal)"
+      "english": "Uncle (maternal)",
+      "cluster": "family"
     },
     {
       "tamil": "அத்தை",
-      "english": "Aunt (paternal)"
+      "english": "Aunt (paternal)",
+      "cluster": "family"
     },
     {
       "tamil": "அவங்க",
-      "english": "They / He-She (respectful)"
+      "english": "They / He-She (respectful)",
+      "cluster": "pronouns"
     },
     {
       "tamil": "அவன்",
-      "english": "He (informal)"
+      "english": "He (informal)",
+      "cluster": "pronouns"
     },
     {
       "tamil": "அவ",
-      "english": "She (informal)"
+      "english": "She (informal)",
+      "cluster": "pronouns"
     },
     {
       "tamil": "அது",
-      "english": "It / That"
+      "english": "It / That",
+      "cluster": "pronouns"
     },
     {
       "tamil": "நம்ம",
-      "english": "Our (inclusive)"
+      "english": "Our (inclusive)",
+      "cluster": "pronouns"
     },
     {
       "tamil": "நாங்க",
-      "english": "We (exclusive)"
+      "english": "We (exclusive)",
+      "cluster": "pronouns"
     },
     {
       "tamil": "சொன்னாங்க",
-      "english": "They said"
+      "english": "They said",
+      "cluster": "verb_past"
     },
     {
       "tamil": "கேட்டாங்க",
-      "english": "They asked"
+      "english": "They asked",
+      "cluster": "verb_past"
     },
     {
       "tamil": "சொன்னேன்",
-      "english": "I said"
+      "english": "I said",
+      "cluster": "verb_past"
     },
     {
       "tamil": "கேட்டேன்",
-      "english": "I asked"
+      "english": "I asked",
+      "cluster": "verb_past"
     },
     {
       "tamil": "நினைச்சேன்",
-      "english": "I thought"
+      "english": "I thought",
+      "cluster": "verb_past"
     },
     {
       "tamil": "அப்படீங்களா?",
-      "english": "Is that so?"
+      "english": "Is that so?",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "நிஜமா?",
-      "english": "Really?"
+      "english": "Really?",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "புரிஞ்சுது",
-      "english": "I understood"
+      "english": "I understood",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "புரியல",
-      "english": "I don't understand"
+      "english": "I don't understand",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "அவங்க",
-      "english": "They (respectful)"
+      "english": "They (respectful)",
+      "cluster": "pronouns"
     },
     {
       "tamil": "முறை மாமன்",
-      "english": "Cross-cousin (marriageable uncle)"
+      "english": "Cross-cousin (marriageable uncle)",
+      "cluster": "family"
     },
     {
       "tamil": "பொண்ணு",
-      "english": "Girl / Daughter"
+      "english": "Girl / Daughter",
+      "cluster": "family"
     },
     {
       "tamil": "பையன்",
-      "english": "Boy / Son"
+      "english": "Boy / Son",
+      "cluster": "family"
     },
     {
       "tamil": "கல்யாணம்",
-      "english": "Wedding / Marriage"
+      "english": "Wedding / Marriage",
+      "cluster": "family"
     },
     {
       "tamil": "வாடா",
-      "english": "Come (informal male)"
+      "english": "Come (informal male)",
+      "cluster": "verb_command"
     },
     {
       "tamil": "வாடி",
-      "english": "Come (informal female)"
+      "english": "Come (informal female)",
+      "cluster": "verb_command"
     },
     {
       "tamil": "என்னுங்கப்பா",
-      "english": "What man! (Kongu casual)"
+      "english": "What man! (Kongu casual)",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "மச்சான்",
-      "english": "Brother-in-law / Close friend"
+      "english": "Brother-in-law / Close friend",
+      "cluster": "family"
     },
     {
       "tamil": "குட்டி",
-      "english": "Little one"
+      "english": "Little one",
+      "cluster": "descriptions"
     },
     {
       "tamil": "பாப்பா",
-      "english": "Baby / Little girl"
+      "english": "Baby / Little girl",
+      "cluster": "family"
     },
     {
       "tamil": "அம்மு",
-      "english": "Precious (affectionate)"
+      "english": "Precious (affectionate)",
+      "cluster": "descriptions"
     },
     {
       "tamil": "சும்மா இருங்க",
-      "english": "Be quiet / Be still (gentle)"
+      "english": "Be quiet / Be still (gentle)",
+      "cluster": "verb_command"
     },
     {
       "tamil": "யாரு?",
-      "english": "Who?"
+      "english": "Who?",
+      "cluster": "questions"
     },
     {
       "tamil": "ஏன்?",
-      "english": "Why?"
+      "english": "Why?",
+      "cluster": "questions"
     },
     {
       "tamil": "எப்போ?",
-      "english": "When?"
+      "english": "When?",
+      "cluster": "questions"
     },
     {
       "tamil": "எப்படி?",
-      "english": "How?"
+      "english": "How?",
+      "cluster": "questions"
     },
     {
       "tamil": "எந்த?",
-      "english": "Which?"
+      "english": "Which?",
+      "cluster": "questions"
     },
     {
       "tamil": "முடியும்",
-      "english": "Can / Possible"
+      "english": "Can / Possible",
+      "cluster": "obligation_ability"
     },
     {
       "tamil": "முடியாது",
-      "english": "Cannot / Impossible"
+      "english": "Cannot / Impossible",
+      "cluster": "obligation_ability"
     },
     {
       "tamil": "கூடாது",
-      "english": "Shouldn't / Must not"
+      "english": "Shouldn't / Must not",
+      "cluster": "obligation_ability"
     },
     {
       "tamil": "போகணும்",
-      "english": "Must go"
+      "english": "Must go",
+      "cluster": "obligation_ability"
     },
     {
       "tamil": "பண்ணணும்",
-      "english": "Must do"
+      "english": "Must do",
+      "cluster": "obligation_ability"
     },
     {
       "tamil": "சொல்லணும்",
-      "english": "Must tell"
+      "english": "Must tell",
+      "cluster": "obligation_ability"
     },
     {
       "tamil": "முடியும்",
-      "english": "Can"
+      "english": "Can",
+      "cluster": "obligation_ability"
     },
     {
       "tamil": "முடியாது",
-      "english": "Cannot"
+      "english": "Cannot",
+      "cluster": "obligation_ability"
     },
     {
       "tamil": "கூடாது",
-      "english": "Must not"
+      "english": "Must not",
+      "cluster": "obligation_ability"
     },
     {
       "tamil": "என்னாச்சு?",
-      "english": "What happened?"
+      "english": "What happened?",
+      "cluster": "questions"
     },
     {
       "tamil": "யாரு கூப்பிட்டாங்க?",
-      "english": "Who called?"
+      "english": "Who called?",
+      "cluster": "questions"
     },
     {
       "tamil": "எங்க போனீங்க?",
-      "english": "Where did you go?"
+      "english": "Where did you go?",
+      "cluster": "questions"
     },
     {
       "tamil": "சந்தோஷம்",
-      "english": "Happy / Joy"
+      "english": "Happy / Joy",
+      "cluster": "emotions"
     },
     {
       "tamil": "பெருமை",
-      "english": "Proud / Pride"
+      "english": "Proud / Pride",
+      "cluster": "emotions"
     },
     {
       "tamil": "கோவம்",
-      "english": "Angry / Anger"
+      "english": "Angry / Anger",
+      "cluster": "emotions"
     },
     {
       "tamil": "பயம்",
-      "english": "Scared / Fear"
+      "english": "Scared / Fear",
+      "cluster": "emotions"
     },
     {
       "tamil": "கோவப்படாதீங்க",
-      "english": "Don't be angry (respectful)"
+      "english": "Don't be angry (respectful)",
+      "cluster": "emotions"
     },
     {
       "tamil": "கவலை",
-      "english": "Worry"
+      "english": "Worry",
+      "cluster": "emotions"
     },
     {
       "tamil": "கவலைப்படாதீங்க",
-      "english": "Don't worry (respectful)"
+      "english": "Don't worry (respectful)",
+      "cluster": "emotions"
     },
     {
       "tamil": "சோகம்",
-      "english": "Sad / Sadness"
+      "english": "Sad / Sadness",
+      "cluster": "emotions"
     },
     {
       "tamil": "வெட்கம்",
-      "english": "Shy / Embarrassment"
+      "english": "Shy / Embarrassment",
+      "cluster": "emotions"
     },
     {
       "tamil": "பிடிக்கும்",
-      "english": "I like / It pleases"
+      "english": "I like / It pleases",
+      "cluster": "emotions"
     },
     {
       "tamil": "பிடிக்காது",
-      "english": "I don't like"
+      "english": "I don't like",
+      "cluster": "emotions"
     },
     {
       "tamil": "இஷ்டம்",
-      "english": "Preference / Liking"
+      "english": "Preference / Liking",
+      "cluster": "emotions"
     },
     {
       "tamil": "சந்தோஷம்",
-      "english": "Happy"
+      "english": "Happy",
+      "cluster": "emotions"
     },
     {
       "tamil": "கோவம்",
-      "english": "Angry"
+      "english": "Angry",
+      "cluster": "emotions"
     },
     {
       "tamil": "பயம்",
-      "english": "Scared"
+      "english": "Scared",
+      "cluster": "emotions"
     },
     {
       "tamil": "பிடிக்கும்",
-      "english": "I like"
+      "english": "I like",
+      "cluster": "emotions"
     },
     {
       "tamil": "எனக்கு சந்தோஷம்",
-      "english": "I am happy (lit: to me, joy)"
+      "english": "I am happy (lit: to me, joy)",
+      "cluster": "emotions"
     },
     {
       "tamil": "எனக்கு பயமா இருக்கு",
-      "english": "I am scared (lit: to me, it is fearful)"
+      "english": "I am scared (lit: to me, it is fearful)",
+      "cluster": "emotions"
     },
     {
       "tamil": "எனக்கு கவலையா இருக்கு",
-      "english": "I am worried (lit: to me, it is worrisome)"
+      "english": "I am worried (lit: to me, it is worrisome)",
+      "cluster": "emotions"
     },
     {
       "tamil": "பெரிய",
-      "english": "Big"
+      "english": "Big",
+      "cluster": "descriptions"
     },
     {
       "tamil": "சின்ன",
-      "english": "Small / Little"
+      "english": "Small / Little",
+      "cluster": "descriptions"
     },
     {
       "tamil": "உயரம்",
-      "english": "Tall / Height"
+      "english": "Tall / Height",
+      "cluster": "descriptions"
     },
     {
       "tamil": "குட்டை",
-      "english": "Short (height)"
+      "english": "Short (height)",
+      "cluster": "descriptions"
     },
     {
       "tamil": "புது",
-      "english": "New"
+      "english": "New",
+      "cluster": "descriptions"
     },
     {
       "tamil": "பழைய",
-      "english": "Old (things)"
+      "english": "Old (things)",
+      "cluster": "descriptions"
     },
     {
       "tamil": "அழகான",
-      "english": "Beautiful"
+      "english": "Beautiful",
+      "cluster": "descriptions"
     },
     {
       "tamil": "நல்ல",
-      "english": "Good (adjective)"
+      "english": "Good (adjective)",
+      "cluster": "descriptions"
     },
     {
       "tamil": "கெட்ட",
-      "english": "Bad"
+      "english": "Bad",
+      "cluster": "descriptions"
     },
     {
       "tamil": "தப்பு",
-      "english": "Wrong / Mistake"
+      "english": "Wrong / Mistake",
+      "cluster": "descriptions"
     },
     {
       "tamil": "சரியான",
-      "english": "Correct / Right"
+      "english": "Correct / Right",
+      "cluster": "descriptions"
     },
     {
       "tamil": "சூடு",
-      "english": "Hot (temperature)"
+      "english": "Hot (temperature)",
+      "cluster": "descriptions"
     },
     {
       "tamil": "குளிர்",
-      "english": "Cold"
+      "english": "Cold",
+      "cluster": "descriptions"
     },
     {
       "tamil": "கஷ்டம்",
-      "english": "Difficult / Hardship"
+      "english": "Difficult / Hardship",
+      "cluster": "descriptions"
     },
     {
       "tamil": "ஈஸி",
-      "english": "Easy"
+      "english": "Easy",
+      "cluster": "descriptions"
     },
     {
       "tamil": "சின்ன",
-      "english": "Small"
+      "english": "Small",
+      "cluster": "descriptions"
     },
     {
       "tamil": "நல்ல",
-      "english": "Good"
+      "english": "Good",
+      "cluster": "descriptions"
     },
     {
       "tamil": "சூடு",
-      "english": "Hot"
+      "english": "Hot",
+      "cluster": "descriptions"
     },
     {
       "tamil": "கஷ்டம்",
-      "english": "Difficult"
+      "english": "Difficult",
+      "cluster": "descriptions"
     },
     {
       "tamil": "விட",
-      "english": "Than (comparison marker)"
+      "english": "Than (comparison marker)",
+      "cluster": "descriptions"
     },
     {
       "tamil": "இதை விட அது நல்லா இருக்கு",
-      "english": "That is better than this"
+      "english": "That is better than this",
+      "cluster": "descriptions"
     },
     {
       "tamil": "என்னை விட உயரம்",
-      "english": "Taller than me"
+      "english": "Taller than me",
+      "cluster": "descriptions"
     },
     {
       "tamil": "எழுந்திரு",
-      "english": "Get up / Wake up"
+      "english": "Get up / Wake up",
+      "cluster": "daily_routine"
     },
     {
       "tamil": "குளி",
-      "english": "Bathe / Shower"
+      "english": "Bathe / Shower",
+      "cluster": "daily_routine"
     },
     {
       "tamil": "பல் தேய்",
-      "english": "Brush teeth"
+      "english": "Brush teeth",
+      "cluster": "daily_routine"
     },
     {
       "tamil": "சட்டை",
-      "english": "Shirt"
+      "english": "Shirt",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "துணி",
-      "english": "Cloth / Clothes"
+      "english": "Cloth / Clothes",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "போடு",
-      "english": "Put on / Wear"
+      "english": "Put on / Wear",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "கழட்டு",
-      "english": "Remove / Take off"
+      "english": "Remove / Take off",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "மாத்து",
-      "english": "Change"
+      "english": "Change",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "வீடு",
-      "english": "House / Home"
+      "english": "House / Home",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "கதவு",
-      "english": "Door"
+      "english": "Door",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "ஜன்னல்",
-      "english": "Window"
+      "english": "Window",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "விசிறி",
-      "english": "Fan"
+      "english": "Fan",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "லைட்",
-      "english": "Light"
+      "english": "Light",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "கிளம்பு",
-      "english": "Leave / Depart"
+      "english": "Leave / Depart",
+      "cluster": "daily_routine"
     },
     {
       "tamil": "திரும்பு",
-      "english": "Return / Come back"
+      "english": "Return / Come back",
+      "cluster": "daily_routine"
     },
     {
       "tamil": "லேட்",
-      "english": "Late"
+      "english": "Late",
+      "cluster": "daily_routine"
     },
     {
       "tamil": "லேட் ஆச்சு",
-      "english": "It's gotten late"
+      "english": "It's gotten late",
+      "cluster": "daily_routine"
     },
     {
       "tamil": "எழுந்திரு",
-      "english": "Get up"
+      "english": "Get up",
+      "cluster": "daily_routine"
     },
     {
       "tamil": "குளி",
-      "english": "Bathe"
+      "english": "Bathe",
+      "cluster": "daily_routine"
     },
     {
       "tamil": "போடு",
-      "english": "Put on"
+      "english": "Put on",
+      "cluster": "daily_routine"
     },
     {
       "tamil": "கழட்டு",
-      "english": "Remove"
+      "english": "Remove",
+      "cluster": "daily_routine"
     },
     {
       "tamil": "கிளம்பு",
-      "english": "Leave"
+      "english": "Leave",
+      "cluster": "daily_routine"
     },
     {
       "tamil": "திரும்பு",
-      "english": "Return"
+      "english": "Return",
+      "cluster": "daily_routine"
     },
     {
       "tamil": "கோலம்",
-      "english": "Kolam (floor design)"
+      "english": "Kolam (floor design)",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "வாசல்",
-      "english": "Doorstep / Entrance"
+      "english": "Doorstep / Entrance",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "காலைல",
-      "english": "In the morning"
+      "english": "In the morning",
+      "cluster": "connectors"
     },
     {
       "tamil": "சமை",
-      "english": "Cook"
+      "english": "Cook",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "ஊத்து",
-      "english": "Pour"
+      "english": "Pour",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "கலக்கு",
-      "english": "Mix / Stir"
+      "english": "Mix / Stir",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "திற",
-      "english": "Open"
+      "english": "Open",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "மூடு",
-      "english": "Close / Shut"
+      "english": "Close / Shut",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "வை",
-      "english": "Keep / Put / Place"
+      "english": "Keep / Put / Place",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "கழுவு",
-      "english": "Wash (dishes, hands, face)"
+      "english": "Wash (dishes, hands, face)",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "துவை",
-      "english": "Wash (clothes)"
+      "english": "Wash (clothes)",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "துடை",
-      "english": "Wipe / Mop"
+      "english": "Wipe / Mop",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "தண்ணி",
-      "english": "Water"
+      "english": "Water",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "அரிசி",
-      "english": "Rice (uncooked)"
+      "english": "Rice (uncooked)",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "பால்",
-      "english": "Milk"
+      "english": "Milk",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "காபி",
-      "english": "Coffee"
+      "english": "Coffee",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "டீ",
-      "english": "Tea"
+      "english": "Tea",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "மூடு",
-      "english": "Close"
+      "english": "Close",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "கழுவு",
-      "english": "Wash"
+      "english": "Wash",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "அரிசி",
-      "english": "Rice"
+      "english": "Rice",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "டிகிரி காபி",
-      "english": "Degree coffee (made with pure milk)"
+      "english": "Degree coffee (made with pure milk)",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "தூள்",
-      "english": "Powder"
+      "english": "Powder",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "டம்ளர்",
-      "english": "Tumbler (steel cup)"
+      "english": "Tumbler (steel cup)",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "கூப்பிடு",
-      "english": "Call (a person)"
+      "english": "Call (a person)",
+      "cluster": "phone_scheduling"
     },
     {
       "tamil": "போன் எடு",
-      "english": "Pick up the phone"
+      "english": "Pick up the phone",
+      "cluster": "phone_scheduling"
     },
     {
       "tamil": "போன் பண்ணு",
-      "english": "Make a phone call"
+      "english": "Make a phone call",
+      "cluster": "phone_scheduling"
     },
     {
       "tamil": "அனுப்பு",
-      "english": "Send"
+      "english": "Send",
+      "cluster": "phone_scheduling"
     },
     {
       "tamil": "கிடைச்சுது",
-      "english": "Received / Got it"
+      "english": "Received / Got it",
+      "cluster": "phone_scheduling"
     },
     {
       "tamil": "மெசேஜ்",
-      "english": "Message"
+      "english": "Message",
+      "cluster": "phone_scheduling"
     },
     {
       "tamil": "ஃப்ரீ-யா?",
-      "english": "Are you free?"
+      "english": "Are you free?",
+      "cluster": "phone_scheduling"
     },
     {
       "tamil": "நேரம் இருக்கா?",
-      "english": "Do you have time?"
+      "english": "Do you have time?",
+      "cluster": "phone_scheduling"
     },
     {
       "tamil": "ரெடி-யா?",
-      "english": "Are you ready?"
+      "english": "Are you ready?",
+      "cluster": "phone_scheduling"
     },
     {
       "tamil": "கன்ஃபர்ம்",
-      "english": "Confirm"
+      "english": "Confirm",
+      "cluster": "phone_scheduling"
     },
     {
       "tamil": "கேன்சல்",
-      "english": "Cancel"
+      "english": "Cancel",
+      "cluster": "phone_scheduling"
     },
     {
       "tamil": "போஸ்ட்போன்",
-      "english": "Postpone"
+      "english": "Postpone",
+      "cluster": "phone_scheduling"
     },
     {
       "tamil": "கூப்பிடு",
-      "english": "Call"
+      "english": "Call",
+      "cluster": "phone_scheduling"
     },
     {
       "tamil": "கிடைச்சுது",
-      "english": "Received"
+      "english": "Received",
+      "cluster": "phone_scheduling"
     },
     {
       "tamil": "ம்ம்",
-      "english": "Hmm (acknowledgment in text)"
+      "english": "Hmm (acknowledgment in text)",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "வரேன் டா",
-      "english": "Coming da (casual text)"
+      "english": "Coming da (casual text)",
+      "cluster": "verb_present"
     },
     {
       "tamil": "சீக்கிரம் வா",
-      "english": "Come quickly (text command)"
+      "english": "Come quickly (text command)",
+      "cluster": "verb_command"
     }
   ],
   "scenarios": [
