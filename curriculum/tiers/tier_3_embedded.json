@@ -4,831 +4,1038 @@
   "vocabulary": [
     {
       "tamil": "போவேன்",
-      "english": "I will go"
+      "english": "I will go",
+      "cluster": "verb_future"
     },
     {
       "tamil": "வருவேன்",
-      "english": "I will come"
+      "english": "I will come",
+      "cluster": "verb_future"
     },
     {
       "tamil": "பண்ணுவேன்",
-      "english": "I will do"
+      "english": "I will do",
+      "cluster": "verb_future"
     },
     {
       "tamil": "சாப்பிடுவேன்",
-      "english": "I will eat"
+      "english": "I will eat",
+      "cluster": "verb_future"
     },
     {
       "tamil": "போலாமா?",
-      "english": "Shall we go?"
+      "english": "Shall we go?",
+      "cluster": "proposals"
     },
     {
       "tamil": "பண்ணலாமா?",
-      "english": "Shall we do?"
+      "english": "Shall we do?",
+      "cluster": "proposals"
     },
     {
       "tamil": "பாக்கலாமா?",
-      "english": "Shall we see?"
+      "english": "Shall we see?",
+      "cluster": "proposals"
     },
     {
       "tamil": "சாப்பிடலாமா?",
-      "english": "Shall we eat?"
+      "english": "Shall we eat?",
+      "cluster": "proposals"
     },
     {
       "tamil": "போலாம்",
-      "english": "Let's go"
+      "english": "Let's go",
+      "cluster": "proposals"
     },
     {
       "tamil": "நாளைக்கு",
-      "english": "Tomorrow"
+      "english": "Tomorrow",
+      "cluster": "connectors"
     },
     {
       "tamil": "அடுத்த வாரம்",
-      "english": "Next week"
+      "english": "Next week",
+      "cluster": "connectors"
     },
     {
       "tamil": "எப்பவும்",
-      "english": "Always"
+      "english": "Always",
+      "cluster": "connectors"
     },
     {
       "tamil": "அப்பப்போ",
-      "english": "Sometimes"
+      "english": "Sometimes",
+      "cluster": "connectors"
     },
     {
       "tamil": "இன்னும் கொஞ்ச நேரம்",
-      "english": "A little more time"
+      "english": "A little more time",
+      "cluster": "connectors"
     },
     {
       "tamil": "வந்தா",
-      "english": "If (someone) comes"
+      "english": "If (someone) comes",
+      "cluster": "connectors"
     },
     {
       "tamil": "போனா",
-      "english": "If (someone) goes"
+      "english": "If (someone) goes",
+      "cluster": "connectors"
     },
     {
       "tamil": "மழை வந்தா",
-      "english": "If it rains"
+      "english": "If it rains",
+      "cluster": "connectors"
     },
     {
       "tamil": "டைம் இருந்தா",
-      "english": "If there is time"
+      "english": "If there is time",
+      "cluster": "connectors"
     },
     {
       "tamil": "வர்றேன்",
-      "english": "I'm coming (present continuous)"
+      "english": "I'm coming (present continuous)",
+      "cluster": "verb_present"
     },
     {
       "tamil": "கிளம்பிட்டேன்",
-      "english": "I've started / I've left"
+      "english": "I've started / I've left",
+      "cluster": "daily_routine"
     },
     {
       "tamil": "வந்துட்டேன்",
-      "english": "I've arrived"
+      "english": "I've arrived",
+      "cluster": "daily_routine"
     },
     {
       "tamil": "சீக்கிரம் வரேன்",
-      "english": "I'll come quickly"
+      "english": "I'll come quickly",
+      "cluster": "verb_future"
     },
     {
       "tamil": "இல்ல?",
-      "english": "Right? / Isn't it?"
+      "english": "Right? / Isn't it?",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "தானே?",
-      "english": "Right? (confirming)"
+      "english": "Right? (confirming)",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "அ?",
-      "english": "Huh? / What?"
+      "english": "Huh? / What?",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "ஆமா இல்லையா?",
-      "english": "Yes or no?"
+      "english": "Yes or no?",
+      "cluster": "questions"
     },
     {
       "tamil": "செம்ம",
-      "english": "Awesome / Extreme"
+      "english": "Awesome / Extreme",
+      "cluster": "descriptions"
     },
     {
       "tamil": "பயங்கரம்",
-      "english": "Terrific / Terrible (intensifier)"
+      "english": "Terrific / Terrible (intensifier)",
+      "cluster": "descriptions"
     },
     {
       "tamil": "மொக்கை",
-      "english": "Boring / Lame"
+      "english": "Boring / Lame",
+      "cluster": "descriptions"
     },
     {
       "tamil": "வேற லெவல்",
-      "english": "Next level"
+      "english": "Next level",
+      "cluster": "descriptions"
     },
     {
       "tamil": "அட்டகாசம்",
-      "english": "Fantastic / Amazing"
+      "english": "Fantastic / Amazing",
+      "cluster": "descriptions"
     },
     {
       "tamil": "சும்மா",
-      "english": "Just / Casually"
+      "english": "Just / Casually",
+      "cluster": "connectors"
     },
     {
       "tamil": "ஆக்சுவலா",
-      "english": "Actually"
+      "english": "Actually",
+      "cluster": "connectors"
     },
     {
       "tamil": "ஒரு நிமிஷம்",
-      "english": "One minute"
+      "english": "One minute",
+      "cluster": "connectors"
     },
     {
       "tamil": "வந்து",
-      "english": "Like / You see (filler)"
+      "english": "Like / You see (filler)",
+      "cluster": "connectors"
     },
     {
       "tamil": "அதான்",
-      "english": "That's it / Exactly"
+      "english": "That's it / Exactly",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "வந்துட்டேன்",
-      "english": "I've arrived (compressed)"
+      "english": "I've arrived (compressed)",
+      "cluster": "verb_past"
     },
     {
       "tamil": "வந்து விட்டேன்",
-      "english": "I've arrived (formal)"
+      "english": "I've arrived (formal)",
+      "cluster": "verb_past"
     },
     {
       "tamil": "போயிட்டேன்",
-      "english": "I've gone (compressed)"
+      "english": "I've gone (compressed)",
+      "cluster": "verb_past"
     },
     {
       "tamil": "போய் விட்டேன்",
-      "english": "I've gone (formal)"
+      "english": "I've gone (formal)",
+      "cluster": "verb_past"
     },
     {
       "tamil": "பண்ணிட்டேன்",
-      "english": "I've done (compressed)"
+      "english": "I've done (compressed)",
+      "cluster": "verb_past"
     },
     {
       "tamil": "இல்ல?",
-      "english": "Right?"
+      "english": "Right?",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "செம்ம",
-      "english": "Awesome"
+      "english": "Awesome",
+      "cluster": "descriptions"
     },
     {
       "tamil": "மொக்கை",
-      "english": "Lame"
+      "english": "Lame",
+      "cluster": "descriptions"
     },
     {
       "tamil": "சும்மா",
-      "english": "Just"
+      "english": "Just",
+      "cluster": "connectors"
     },
     {
       "tamil": "மச்சி",
-      "english": "Dude / Bro"
+      "english": "Dude / Bro",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "டேய்",
-      "english": "Hey (very informal)"
+      "english": "Hey (very informal)",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "ஐயோ",
-      "english": "Oh no! / Alas!"
+      "english": "Oh no! / Alas!",
+      "cluster": "emotions"
     },
     {
       "tamil": "சபாஷ்",
-      "english": "Well done!"
+      "english": "Well done!",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "ஓகே மச்சி",
-      "english": "Okay dude"
+      "english": "Okay dude",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "ஏன் அப்படி?",
-      "english": "Why like that?"
+      "english": "Why like that?",
+      "cluster": "questions"
     },
     {
       "tamil": "என்னாச்சு?",
-      "english": "What happened?"
+      "english": "What happened?",
+      "cluster": "questions"
     },
     {
       "tamil": "விடுங்க",
-      "english": "Leave it (respectful)"
+      "english": "Leave it (respectful)",
+      "cluster": "verb_command"
     },
     {
       "tamil": "பரவாயில்லை",
-      "english": "It's okay"
+      "english": "It's okay",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "மன்னிச்சுக்கங்க",
-      "english": "Please forgive (respectful)"
+      "english": "Please forgive (respectful)",
+      "cluster": "verb_command"
     },
     {
       "tamil": "சிரிப்பு",
-      "english": "Laughter"
+      "english": "Laughter",
+      "cluster": "descriptions"
     },
     {
       "tamil": "காமெடி",
-      "english": "Comedy"
+      "english": "Comedy",
+      "cluster": "descriptions"
     },
     {
       "tamil": "செம ஜோக்",
-      "english": "Great joke"
+      "english": "Great joke",
+      "cluster": "descriptions"
     },
     {
       "tamil": "ஒன்னும் இல்ல",
-      "english": "It's nothing"
+      "english": "It's nothing",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "வேடிக்கை",
-      "english": "Fun / Amusement"
+      "english": "Fun / Amusement",
+      "cluster": "descriptions"
     },
     {
       "tamil": "சீக்கிரம்",
-      "english": "Quickly"
+      "english": "Quickly",
+      "cluster": "descriptions"
     },
     {
       "tamil": "மெதுவா",
-      "english": "Slowly"
+      "english": "Slowly",
+      "cluster": "descriptions"
     },
     {
       "tamil": "கவனமா",
-      "english": "Carefully"
+      "english": "Carefully",
+      "cluster": "descriptions"
     },
     {
       "tamil": "நல்லா",
-      "english": "Well / Nicely"
+      "english": "Well / Nicely",
+      "cluster": "descriptions"
     },
     {
       "tamil": "சரியா",
-      "english": "Correctly / Properly"
+      "english": "Correctly / Properly",
+      "cluster": "descriptions"
     },
     {
       "tamil": "வணக்கம்",
-      "english": "Hello"
+      "english": "Hello",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "நல்லா இருக்கு",
-      "english": "It's good"
+      "english": "It's good",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "வலது",
-      "english": "Right"
+      "english": "Right",
+      "cluster": "descriptions"
     },
     {
       "tamil": "போனேன்",
-      "english": "I went"
+      "english": "I went",
+      "cluster": "verb_past"
     },
     {
       "tamil": "அவங்க",
-      "english": "They (respectful)"
+      "english": "They (respectful)",
+      "cluster": "pronouns"
     },
     {
       "tamil": "நன்றி",
-      "english": "Thank you"
+      "english": "Thank you",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "தமிழ் தெரியும்",
-      "english": "I know Tamil"
+      "english": "I know Tamil",
+      "cluster": "obligation_ability"
     },
     {
       "tamil": "கொஞ்சம் கொஞ்சமா கத்துக்கிட்டு இருக்கேன்",
-      "english": "I'm learning little by little"
+      "english": "I'm learning little by little",
+      "cluster": "verb_present"
     },
     {
       "tamil": "பேசுறேன்",
-      "english": "I am speaking"
+      "english": "I am speaking",
+      "cluster": "verb_present"
     },
     {
       "tamil": "பேசினேன்",
-      "english": "I spoke"
+      "english": "I spoke",
+      "cluster": "verb_past"
     },
     {
       "tamil": "பேசுவேன்",
-      "english": "I will speak"
+      "english": "I will speak",
+      "cluster": "verb_future"
     },
     {
       "tamil": "பேசுங்க",
-      "english": "Speak! (respectful)"
+      "english": "Speak! (respectful)",
+      "cluster": "verb_command"
     },
     {
       "tamil": "பேசாதீங்க",
-      "english": "Don't speak (respectful)"
+      "english": "Don't speak (respectful)",
+      "cluster": "verb_command"
     },
     {
       "tamil": "வாங்குறேன்",
-      "english": "I am buying"
+      "english": "I am buying",
+      "cluster": "verb_present"
     },
     {
       "tamil": "வாங்கினேன்",
-      "english": "I bought"
+      "english": "I bought",
+      "cluster": "verb_past"
     },
     {
       "tamil": "வாங்குவேன்",
-      "english": "I will buy"
+      "english": "I will buy",
+      "cluster": "verb_future"
     },
     {
       "tamil": "வாங்குங்க",
-      "english": "Buy! (respectful)"
+      "english": "Buy! (respectful)",
+      "cluster": "verb_command"
     },
     {
       "tamil": "தேடுறேன்",
-      "english": "I am searching"
+      "english": "I am searching",
+      "cluster": "verb_present"
     },
     {
       "tamil": "தேடினேன்",
-      "english": "I searched"
+      "english": "I searched",
+      "cluster": "verb_past"
     },
     {
       "tamil": "தேடுவேன்",
-      "english": "I will search"
+      "english": "I will search",
+      "cluster": "verb_future"
     },
     {
       "tamil": "தேடுங்க",
-      "english": "Search! (respectful)"
+      "english": "Search! (respectful)",
+      "cluster": "verb_command"
     },
     {
       "tamil": "நடக்கிறேன்",
-      "english": "I am walking"
+      "english": "I am walking",
+      "cluster": "verb_present"
     },
     {
       "tamil": "நடந்தேன்",
-      "english": "I walked"
+      "english": "I walked",
+      "cluster": "verb_past"
     },
     {
       "tamil": "ஓடுறேன்",
-      "english": "I am running"
+      "english": "I am running",
+      "cluster": "verb_present"
     },
     {
       "tamil": "ஓடினேன்",
-      "english": "I ran"
+      "english": "I ran",
+      "cluster": "verb_past"
     },
     {
       "tamil": "ஓடாதீங்க",
-      "english": "Don't run (respectful)"
+      "english": "Don't run (respectful)",
+      "cluster": "verb_command"
     },
     {
       "tamil": "பேசுறேன்",
-      "english": "I speak"
+      "english": "I speak",
+      "cluster": "verb_present"
     },
     {
       "tamil": "தேடுறேன்",
-      "english": "I'm searching"
+      "english": "I'm searching",
+      "cluster": "verb_present"
     },
     {
       "tamil": "போக வேணும்",
-      "english": "Need to go"
+      "english": "Need to go",
+      "cluster": "obligation_ability"
     },
     {
       "tamil": "சாப்பிட முடியாது",
-      "english": "Cannot eat"
+      "english": "Cannot eat",
+      "cluster": "obligation_ability"
     },
     {
       "tamil": "பேச கூடாது",
-      "english": "Shouldn't speak"
+      "english": "Shouldn't speak",
+      "cluster": "obligation_ability"
     },
     {
       "tamil": "வாங்க போறேன்",
-      "english": "I'm going to buy"
+      "english": "I'm going to buy",
+      "cluster": "verb_future"
     },
     {
       "tamil": "மறந்துட்டேன்",
-      "english": "I forgot"
+      "english": "I forgot",
+      "cluster": "verb_past"
     },
     {
       "tamil": "மறக்காதீங்க",
-      "english": "Don't forget (respectful)"
+      "english": "Don't forget (respectful)",
+      "cluster": "verb_command"
     },
     {
       "tamil": "மறந்திடாதீங்க",
-      "english": "Please don't forget"
+      "english": "Please don't forget",
+      "cluster": "verb_command"
     },
     {
       "tamil": "மறக்க முடியாது",
-      "english": "Cannot forget"
+      "english": "Cannot forget",
+      "cluster": "obligation_ability"
     },
     {
       "tamil": "கத்துக்கிறேன்",
-      "english": "I am learning"
+      "english": "I am learning",
+      "cluster": "verb_present"
     },
     {
       "tamil": "கத்துக்கிட்டேன்",
-      "english": "I learned"
+      "english": "I learned",
+      "cluster": "verb_past"
     },
     {
       "tamil": "கத்துக்குவேன்",
-      "english": "I will learn"
+      "english": "I will learn",
+      "cluster": "verb_future"
     },
     {
       "tamil": "கத்துக்குங்க",
-      "english": "Learn! (respectful)"
+      "english": "Learn! (respectful)",
+      "cluster": "verb_command"
     },
     {
       "tamil": "காட்டுங்க",
-      "english": "Show! (respectful)"
+      "english": "Show! (respectful)",
+      "cluster": "verb_command"
     },
     {
       "tamil": "காட்டினேன்",
-      "english": "I showed"
+      "english": "I showed",
+      "cluster": "verb_past"
     },
     {
       "tamil": "காட்டுவேன்",
-      "english": "I will show"
+      "english": "I will show",
+      "cluster": "verb_future"
     },
     {
       "tamil": "காட்டுறேன்",
-      "english": "I am showing"
+      "english": "I am showing",
+      "cluster": "verb_present"
     },
     {
       "tamil": "அடி",
-      "english": "Hit / Beat / Strike"
+      "english": "Hit / Beat / Strike",
+      "cluster": "verb_command"
     },
     {
       "tamil": "அடிக்காதீங்க",
-      "english": "Don't hit (respectful)"
+      "english": "Don't hit (respectful)",
+      "cluster": "verb_command"
     },
     {
       "tamil": "விடு",
-      "english": "Leave / Let / Release"
+      "english": "Leave / Let / Release",
+      "cluster": "verb_command"
     },
     {
       "tamil": "விடுங்க",
-      "english": "Leave it / Let go (respectful)"
+      "english": "Leave it / Let go (respectful)",
+      "cluster": "verb_command"
     },
     {
       "tamil": "கத்துக்கிறேன்",
-      "english": "I'm learning"
+      "english": "I'm learning",
+      "cluster": "verb_present"
     },
     {
       "tamil": "காட்டுங்க",
-      "english": "Show"
+      "english": "Show",
+      "cluster": "verb_command"
     },
     {
       "tamil": "அடி",
-      "english": "Hit"
+      "english": "Hit",
+      "cluster": "verb_command"
     },
     {
       "tamil": "விடுங்க",
-      "english": "Leave it"
+      "english": "Leave it",
+      "cluster": "verb_command"
     },
     {
       "tamil": "சொல்லிடு",
-      "english": "Tell completely / Just tell"
+      "english": "Tell completely / Just tell",
+      "cluster": "verb_command"
     },
     {
       "tamil": "எழுதிப்போடு",
-      "english": "Dash off (write quickly)"
+      "english": "Dash off (write quickly)",
+      "cluster": "verb_command"
     },
     {
       "tamil": "பார்த்துக்கிறேன்",
-      "english": "I'll take care of it / I'll see to it"
+      "english": "I'll take care of it / I'll see to it",
+      "cluster": "verb_future"
     },
     {
       "tamil": "கூட",
-      "english": "Also / Even / Together"
+      "english": "Also / Even / Together",
+      "cluster": "connectors"
     },
     {
       "tamil": "நானும்",
-      "english": "I also / Me too (-um suffix)"
+      "english": "I also / Me too (-um suffix)",
+      "cluster": "pronouns"
     },
     {
       "tamil": "அவங்களும்",
-      "english": "They also (-um suffix)"
+      "english": "They also (-um suffix)",
+      "cluster": "pronouns"
     },
     {
       "tamil": "மட்டும்",
-      "english": "Only"
+      "english": "Only",
+      "cluster": "connectors"
     },
     {
       "tamil": "தான்",
-      "english": "Only / Self / Emphasis"
+      "english": "Only / Self / Emphasis",
+      "cluster": "connectors"
     },
     {
       "tamil": "நானே",
-      "english": "I myself (-e suffix for emphasis)"
+      "english": "I myself (-e suffix for emphasis)",
+      "cluster": "pronouns"
     },
     {
       "tamil": "எல்லாம்",
-      "english": "Everything / All"
+      "english": "Everything / All",
+      "cluster": "connectors"
     },
     {
       "tamil": "ஒன்னுமே இல்ல",
-      "english": "Nothing at all"
+      "english": "Nothing at all",
+      "cluster": "connectors"
     },
     {
       "tamil": "யாரும் இல்ல",
-      "english": "Nobody"
+      "english": "Nobody",
+      "cluster": "connectors"
     },
     {
       "tamil": "எங்கேயும்",
-      "english": "Everywhere / Anywhere"
+      "english": "Everywhere / Anywhere",
+      "cluster": "connectors"
     },
     {
       "tamil": "ஏற்கனவே",
-      "english": "Already"
+      "english": "Already",
+      "cluster": "connectors"
     },
     {
       "tamil": "இன்னும்",
-      "english": "Still / Yet / More"
+      "english": "Still / Yet / More",
+      "cluster": "connectors"
     },
     {
       "tamil": "அல்லது",
-      "english": "Or"
+      "english": "Or",
+      "cluster": "connectors"
     },
     {
       "tamil": "அவ்வளவுதான்",
-      "english": "That's all / That's it"
+      "english": "That's all / That's it",
+      "cluster": "connectors"
     },
     {
       "tamil": "கூட",
-      "english": "Also"
+      "english": "Also",
+      "cluster": "connectors"
     },
     {
       "tamil": "எல்லாம்",
-      "english": "Everything"
+      "english": "Everything",
+      "cluster": "connectors"
     },
     {
       "tamil": "இன்னும்",
-      "english": "Still"
+      "english": "Still",
+      "cluster": "connectors"
     },
     {
       "tamil": "நான் தான் சொன்னேன்",
-      "english": "I'm the one who said it (identity)"
+      "english": "I'm the one who said it (identity)",
+      "cluster": "pronouns"
     },
     {
       "tamil": "சரி தான்",
-      "english": "That's right / Fine then (confirmation/resignation)"
+      "english": "That's right / Fine then (confirmation/resignation)",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "அது தான்",
-      "english": "That's exactly it / That's the thing"
+      "english": "That's exactly it / That's the thing",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "வெயில்",
-      "english": "Sun / Heat / Sunshine"
+      "english": "Sun / Heat / Sunshine",
+      "cluster": "descriptions"
     },
     {
       "tamil": "மழை",
-      "english": "Rain"
+      "english": "Rain",
+      "cluster": "descriptions"
     },
     {
       "tamil": "காத்து",
-      "english": "Wind / Breeze"
+      "english": "Wind / Breeze",
+      "cluster": "descriptions"
     },
     {
       "tamil": "வெக்கை",
-      "english": "Extreme heat / Sweltering"
+      "english": "Extreme heat / Sweltering",
+      "cluster": "descriptions"
     },
     {
       "tamil": "காலைல",
-      "english": "In the morning"
+      "english": "In the morning",
+      "cluster": "connectors"
     },
     {
       "tamil": "மத்தியானம்",
-      "english": "Afternoon"
+      "english": "Afternoon",
+      "cluster": "connectors"
     },
     {
       "tamil": "சாயங்காலம்",
-      "english": "Evening"
+      "english": "Evening",
+      "cluster": "connectors"
     },
     {
       "tamil": "ராத்திரி",
-      "english": "Night"
+      "english": "Night",
+      "cluster": "connectors"
     },
     {
       "tamil": "நாலு",
-      "english": "Four"
+      "english": "Four",
+      "cluster": "descriptions"
     },
     {
       "tamil": "ஆறு",
-      "english": "Six"
+      "english": "Six",
+      "cluster": "descriptions"
     },
     {
       "tamil": "ஏழு",
-      "english": "Seven"
+      "english": "Seven",
+      "cluster": "descriptions"
     },
     {
       "tamil": "எட்டு",
-      "english": "Eight"
+      "english": "Eight",
+      "cluster": "descriptions"
     },
     {
       "tamil": "ஒன்பது",
-      "english": "Nine"
+      "english": "Nine",
+      "cluster": "descriptions"
     },
     {
       "tamil": "மணி",
-      "english": "O'clock / Hour"
+      "english": "O'clock / Hour",
+      "cluster": "connectors"
     },
     {
       "tamil": "ஆயிரம்",
-      "english": "Thousand"
+      "english": "Thousand",
+      "cluster": "descriptions"
     },
     {
       "tamil": "அரை",
-      "english": "Half"
+      "english": "Half",
+      "cluster": "descriptions"
     },
     {
       "tamil": "வெயில்",
-      "english": "Sun/Heat"
+      "english": "Sun/Heat",
+      "cluster": "descriptions"
     },
     {
       "tamil": "காலைல",
-      "english": "Morning"
+      "english": "Morning",
+      "cluster": "connectors"
     },
     {
       "tamil": "மணி",
-      "english": "O'clock"
+      "english": "O'clock",
+      "cluster": "connectors"
     },
     {
       "tamil": "வெள்ளம்",
-      "english": "Flood"
+      "english": "Flood",
+      "cluster": "descriptions"
     },
     {
       "tamil": "மின்சாரம்",
-      "english": "Electricity"
+      "english": "Electricity",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "கரண்ட் போச்சு",
-      "english": "Power went out"
+      "english": "Power went out",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "ஒத்துக்கிறேன்",
-      "english": "I agree"
+      "english": "I agree",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "கரெக்ட்",
-      "english": "Correct"
+      "english": "Correct",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "சரிதான்",
-      "english": "That's right / Exactly"
+      "english": "That's right / Exactly",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "மாட்டேன்",
-      "english": "I won't / I refuse"
+      "english": "I won't / I refuse",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "ஒத்துக்க மாட்டேன்",
-      "english": "I won't agree"
+      "english": "I won't agree",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "அது சரி இல்ல",
-      "english": "That's not right"
+      "english": "That's not right",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "தோணுது",
-      "english": "It occurs to me / I feel like"
+      "english": "It occurs to me / I feel like",
+      "cluster": "emotions"
     },
     {
       "tamil": "-ன்னு நினைக்கிறேன்",
-      "english": "I think that..."
+      "english": "I think that...",
+      "cluster": "emotions"
     },
     {
       "tamil": "யோசி",
-      "english": "Think about it / Consider"
+      "english": "Think about it / Consider",
+      "cluster": "verb_command"
     },
     {
       "tamil": "try பண்ணு",
-      "english": "Try (it)"
+      "english": "Try (it)",
+      "cluster": "verb_command"
     },
     {
       "tamil": "ஒரு தடவை",
-      "english": "One time / Just once"
+      "english": "One time / Just once",
+      "cluster": "connectors"
     },
     {
       "tamil": "பாக்கலாம்",
-      "english": "Let's see / We'll see"
+      "english": "Let's see / We'll see",
+      "cluster": "proposals"
     },
     {
       "tamil": "மாட்டேன்",
-      "english": "I won't"
+      "english": "I won't",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "தோணுது",
-      "english": "I feel like"
+      "english": "I feel like",
+      "cluster": "emotions"
     },
     {
       "tamil": "யோசி",
-      "english": "Think about it"
+      "english": "Think about it",
+      "cluster": "verb_command"
     },
     {
       "tamil": "பாக்கலாம்",
-      "english": "Let's see"
+      "english": "Let's see",
+      "cluster": "proposals"
     },
     {
       "tamil": "உங்க point சரிதான், ஆனா...",
-      "english": "Your point is right, but..."
+      "english": "Your point is right, but...",
+      "cluster": "connectors"
     },
     {
       "tamil": "இப்படி பாருங்க",
-      "english": "Look at it this way"
+      "english": "Look at it this way",
+      "cluster": "verb_command"
     },
     {
       "tamil": "என் opinion-ல",
-      "english": "In my opinion"
+      "english": "In my opinion",
+      "cluster": "emotions"
     },
     {
       "tamil": "அப்படி",
-      "english": "Like that"
+      "english": "Like that",
+      "cluster": "descriptions"
     },
     {
       "tamil": "இப்படி",
-      "english": "Like this"
+      "english": "Like this",
+      "cluster": "descriptions"
     },
     {
       "tamil": "அந்த",
-      "english": "That (adjective)"
+      "english": "That (adjective)",
+      "cluster": "descriptions"
     },
     {
       "tamil": "இந்த",
-      "english": "This (adjective)"
+      "english": "This (adjective)",
+      "cluster": "descriptions"
     },
     {
       "tamil": "அதே",
-      "english": "Same / That same"
+      "english": "Same / That same",
+      "cluster": "descriptions"
     },
     {
       "tamil": "வேற",
-      "english": "Other / Different / Else"
+      "english": "Other / Different / Else",
+      "cluster": "descriptions"
     },
     {
       "tamil": "பாரு",
-      "english": "Look! (informal)"
+      "english": "Look! (informal)",
+      "cluster": "verb_command"
     },
     {
       "tamil": "கேளு",
-      "english": "Listen! (informal)"
+      "english": "Listen! (informal)",
+      "cluster": "verb_command"
     },
     {
       "tamil": "ஜாக்கிரதை",
-      "english": "Careful! / Watch out!"
+      "english": "Careful! / Watch out!",
+      "cluster": "verb_command"
     },
     {
       "tamil": "நில்லு",
-      "english": "Stop! / Stand! (informal)"
+      "english": "Stop! / Stand! (informal)",
+      "cluster": "verb_command"
     },
     {
       "tamil": "ஓடு",
-      "english": "Run! (informal)"
+      "english": "Run! (informal)",
+      "cluster": "verb_command"
     },
     {
       "tamil": "போடா",
-      "english": "Get lost! / Go! (informal, male)"
+      "english": "Get lost! / Go! (informal, male)",
+      "cluster": "verb_command"
     },
     {
       "tamil": "போடி",
-      "english": "Get lost! / Go! (informal, female)"
+      "english": "Get lost! / Go! (informal, female)",
+      "cluster": "verb_command"
     },
     {
       "tamil": "கலக்குறே",
-      "english": "You're killing it / Rocking"
+      "english": "You're killing it / Rocking",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "mass",
-      "english": "Mass / Powerful / Impressive (slang)"
+      "english": "Mass / Powerful / Impressive (slang)",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "ஆஹா",
-      "english": "Wow / Ah (wonder)"
+      "english": "Wow / Ah (wonder)",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "சே",
-      "english": "Tsk / Disappointment"
+      "english": "Tsk / Disappointment",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "கடவுளே",
-      "english": "Oh God!"
+      "english": "Oh God!",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "ஏன் இப்படி?",
-      "english": "Why like this?"
+      "english": "Why like this?",
+      "cluster": "questions"
     },
     {
       "tamil": "பாரு",
-      "english": "Look"
+      "english": "Look",
+      "cluster": "verb_command"
     },
     {
       "tamil": "ஜாக்கிரதை",
-      "english": "Careful"
+      "english": "Careful",
+      "cluster": "descriptions"
     },
     {
       "tamil": "கலக்குறே",
-      "english": "Killing it"
+      "english": "Killing it",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "கடவுளே",
-      "english": "Oh God"
+      "english": "Oh God",
+      "cluster": "social_reaction"
     },
     {
       "tamil": "படம்",
-      "english": "Movie / Film"
+      "english": "Movie / Film",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "பாட்டு",
-      "english": "Song"
+      "english": "Song",
+      "cluster": "home_kitchen"
     },
     {
       "tamil": "கதை",
-      "english": "Story"
+      "english": "Story",
+      "cluster": "home_kitchen"
     }
   ],
   "scenarios": [
