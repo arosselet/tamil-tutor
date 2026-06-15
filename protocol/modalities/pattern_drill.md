@@ -1,6 +1,6 @@
 # Modality: Pattern Drill
 
-> **Input:** `content/lessons/tierX_lessonY.md` (Master Lesson Plan)
+> **Input:** `content/lessons/tierX_missionY_brief.md` (Master Lesson Plan)
 > **Interface:** Text-based Interactive Chat
 
 Focus on muscle memory for the lesson's **Linguistic Pattern**. This is a rapid-fire session where the Tutor challenges the learner to apply the pattern using the payload words.

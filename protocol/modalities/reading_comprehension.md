@@ -1,6 +1,6 @@
 # Modality: Reading Comprehension
 
-> **Input:** `content/lessons/tierX_lessonY.md` (Master Lesson Plan)
+> **Input:** `content/lessons/tierX_missionY_brief.md` (Master Lesson Plan)
 > **Interface:** Text-based Interactive Chat
 
 The Tutor presents a short "Snippet" of Coimbatore Tamil (in Tamil script) based on the Lesson Plan's scenario and payload. The learner must decode it.
