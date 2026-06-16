@@ -13,12 +13,17 @@
     ]
   },
   "streak": {
-    "current": 16,
-    "best": 16,
-    "last_date": "2026-06-08"
+    "current": 17,
+    "best": 17,
+    "last_date": "2026-06-16"
   },
-  "last_debrief": "konjam and sandosham finally produced — both needed one recast then fired. poren settled cold. mudiyaadhu fired clean cold. aamaa confirmed still solid. Next: nail naalaikku and poganum in fresh situations; try a thooku/vai dispatch to crack the placement verbs.",
+  "last_debrief": "thooku fired cold first time. vai and naalaikku poganum both needed a hint — aim cold next session. irukku got a recast (said iruka). field kit: mutter angka vei when placing things. next: naalaikku poganum cold, vai cold dispatch.",
   "recent_missions": [
+    {
+      "mission": 48,
+      "title": "The Wedding Secret",
+      "listens": 0
+    },
     {
       "mission": 47,
       "title": "Mission tier2_mission47",
@@ -32,11 +37,6 @@
     {
       "mission": 45,
       "title": "Mission tier2_mission45",
-      "listens": 0
-    },
-    {
-      "mission": 44,
-      "title": "The Heat of the Ride",
       "listens": 0
     }
   ],
