@@ -1,8 +1,8 @@
-# Coimbatore Mappillai — The Audio Architect Protocol
+# Coimbatore Mappillai — From Recognition to Reflex
 
 <video src="https://github.com/user-attachments/assets/f347ef0f-1fe5-46d8-aaad-f323cf665cc8" controls width="480"></video>
 
-A framework for language learning using LLMs. Built to acquire working Tamil for daily life in Coimbatore.
+A persistent, stateful language coach powered by LLMs. Built for Coimbatore Tamil; the architecture is portable to any language. The system tracks one number: of everything you've heard and recognized, how much can you actually fire cold.
 
 ### 🎧 Subscribe
 
