@@ -13,12 +13,17 @@
     ]
   },
   "streak": {
-    "current": 17,
-    "best": 17,
-    "last_date": "2026-06-16"
+    "current": 18,
+    "best": 18,
+    "last_date": "2026-06-15"
   },
-  "last_debrief": "vocab blitz — ippo, enga, adhu, adhanaal, akka, avar all fired cold. ava/innaiku/appuram/attai/ukkaarunga/unakku/irukku all need work — not firing cold yet. aana missed (said adhan). resume blitz next time: aana, ava, innaiku, appuram, attai, irukku, azhagan.",
+  "last_debrief": "Published 'The Bakery Run' (M49). Collected 'thooku' cold. Handing off to the soak — pick up 'kidaikkum' availability and 'parsal' logistics next session.",
   "recent_missions": [
+    {
+      "mission": 49,
+      "title": "The Bakery Run",
+      "listens": 0
+    },
     {
       "mission": 48,
       "title": "The Wedding Secret",
@@ -32,11 +37,6 @@
     {
       "mission": 46,
       "title": "Mission tier2_mission46",
-      "listens": 0
-    },
-    {
-      "mission": 45,
-      "title": "Mission tier2_mission45",
       "listens": 0
     }
   ],

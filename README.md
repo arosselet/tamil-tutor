@@ -30,6 +30,7 @@ Both feed and read the same progress state, so a word produced in chat and a wor
 - **Production as the accelerant.** Recognition plateaus; forced output breaks through. The system tracks a *viability floor* — of the words you recognize, how many you can fire *cold* — and converts recognition into reflex before widening vocabulary.
 - **Two pathways, one state.** Listening (the audio pipeline) builds recognition; speaking (Anna) builds production. Both compound into the same progress meter.
 - **No guilt.** No streaks, no makeup work. If a lesson isn't working, say "this isn't working" and the system shifts gears.
+- **Fail Forward Storage.** The repository only maintains the **last 8 episodes** and playlists. We don't archive old audio; we move forward. The markdown scripts and briefs remain as the permanent record.
 
 ## How It Works
 
@@ -64,20 +65,10 @@ Anna's daily session is the default. He loads your state, targets words you *rec
 
 ## Getting Started
 
-### Prerequisites
-
-- Python 3.10+
-- An LLM agent ([Gemini CLI](https://github.com/google-gemini/gemini-cli), Antigravity, or similar)
-- TTS authentication:
-  - **Edge-TTS:** No setup required.
-  - **Google Cloud TTS (default):** `gcloud auth login`
-
-```bash
-pip install -r requirements.txt
-```
+If you are new to the repository and want to start your own Tamil learning journey, please follow the **[BOOTSTRAP.md](./BOOTSTRAP.md)** guide. It will walk you through a one-prompt setup to initialize your own tutor, learner profile, and progress tracking.
 
 ### Two Modes
-
+...
 | Keyword | Role | Use For |
 |---------|------|---------|
 | `@tutor` (default) | Showrunner & Tutor | Generating lessons, running sessions, tracking progress |

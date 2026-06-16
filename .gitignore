@@ -9,3 +9,10 @@ __pycache__/
 # OS
 .DS_Store
 .env
+
+# Personal Progress (Tutor/Learner state)
+progress/learner.json
+progress/profile.md
+progress/vocab_state.json
+progress/word_tracker.json
+protocol/persona.md
