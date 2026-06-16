@@ -232,7 +232,8 @@
     "சந்தோஷம்": "cold",
     "தூக்கு": "cold",
     "அங்க வை": "hinted",
-    "நாளைக்கு போகணும்": "hinted"
+    "நாளைக்கு போகணும்": "hinted",
+    "நாளைக்கு": "cold"
   },
   "total_sessions": 24,
   "session_history": [
