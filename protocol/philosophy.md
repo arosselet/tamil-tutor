@@ -94,5 +94,8 @@ The TTS engine cannot read English phonetics. Every Tamil word MUST be in Tamil 
 **Reason:** The Tutor observes the learner's usage of NEW and CALLBACK words during drills and roleplays. This data silently updates the learner's state, ensuring the next lesson is perfectly calibrated.
 
 ### 3. Modality Fluidity
-**Rule:** A single Lesson Plan can be consumed as audio, chat, or drill.
-**Reason:** Different days have different friction levels. The system should adapt—one day you listen to the podcast, the next you do a 2-minute roleplay. Both contribute to the same Master Lesson progress.
+... [rest of section] ...
+
+### 4. Fail Forward Storage
+**Rule:** The repository only maintains the **last 8 episodes** and playlists.
+**Reason:** Language acquisition is about the current "viability floor" and the next mission. We don't archive old audio; we move forward. The markdown scripts and briefs remain as the permanent record of the curriculum, but the repo stays lean by purging old MP3s.
