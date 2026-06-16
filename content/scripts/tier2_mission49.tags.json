@@ -1,0 +1,17 @@
+{
+  "mission": 49,
+  "new_words_landed": {
+    "பார்சல்": "Parcel / Takeaway",
+    "பணம்": "Money",
+    "கிடைக்கும்": "Will be available / Will get",
+    "வேற ஒன்னும் இல்ல": "Nothing else",
+    "பார்சல் பண்ணுங்க": "Make it a parcel / Pack it for takeaway"
+  },
+  "callbacks_used": {
+    "நிஜமா?": "Really?",
+    "ஃப்ரீ-யா?": "Are you free?",
+    "வயிறு ஃபுல்": "Stomach full",
+    "நேரம் இருக்கா?": "Do you have time?",
+    "முறை மாமன்": "Cross-cousin"
+  }
+}
