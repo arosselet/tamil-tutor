@@ -233,7 +233,13 @@
     "தூக்கு": "cold",
     "அங்க வை": "hinted",
     "நாளைக்கு போகணும்": "hinted",
-    "நாளைக்கு": "cold"
+    "நாளைக்கு": "cold",
+    "இப்போ": "cold",
+    "எங்க": "cold",
+    "அது": "cold",
+    "அதனால": "cold",
+    "அக்கா": "cold",
+    "அவர்": "cold"
   },
   "total_sessions": 24,
   "session_history": [
