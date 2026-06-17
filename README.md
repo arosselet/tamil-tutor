@@ -18,7 +18,7 @@ A persistent, stateful language coach powered by LLMs. Built for Coimbatore Tami
 An LLM-driven Tamil learning system with two pillars that share one brain — a Python-managed state file plus a teacher's-notebook profile:
 
 1. **Anna — the daily tutor.** A persistent, stateful Coimbatore-Tamil coach you chat with for ~10–15 minutes a day. Anna runs a *forced-output* loop — he drops you into a situation and makes you produce, cold — to turn passive recognition into speaking reflex. This is the primary driver.
-2. **The audio pipeline.** On-demand dual-voice Tamil podcast episodes for immersion during dead time (commute, dishes, walking). An LLM reads protocol files defining three production roles (Director, Architect, Producer), pulls from a tiered curriculum, and renders a script to MP3 via Google Cloud TTS or Edge-TTS.
+2. **The audio pipeline.** On-demand dual-voice Tamil podcast episodes for immersion during dead time (commute, dishes, walking). An LLM reads protocol files defining three production roles (Director, Architect, Producer), pulls from a word pool, and renders a script to MP3 via Google Cloud TTS or Edge-TTS.
 
 Both feed and read the same progress state, so a word produced in chat and a word heard in a podcast move the same meter.
 
@@ -37,8 +37,7 @@ Both feed and read the same progress state, so a word produced in chat and a wor
 ```
 protocol/            → LLM instructions: Anna (persona + daily_session) + production roles (Director, Architect, Producer)
 curriculum/
-    ├── index.json   → Tier manifest
-    └── tiers/       → Vocabulary buckets (Survival → Comfort → Embedded)
+    └── word_pool.json → Suggestion list of words to learn someday (Anna picks from it)
 content/
     ├── lessons/     → Director's planning docs (mission briefs)
     └── scripts/     → Generated podcast scripts (Markdown)
@@ -50,7 +49,7 @@ scripts/             → Python tools (state, render, status, RSS)
 
 ### The Production Pipeline
 
-1. **Director** reads your progress and the curriculum, writes a Beat Sheet with the vocabulary payload (NEW words + spaced-repetition callbacks) and a scene seed.
+1. **Director** reads your progress and the word pool, writes a Beat Sheet with the vocabulary payload (NEW words + spaced-repetition callbacks) and a scene seed.
 2. **Architect** turns the Beat Sheet into an engaging dual-voice script — an Intercept (slice-of-life scene) plus a Breakdown (two analysts unpacking it).
 3. **Producer** applies the Coimbatore dialect pass (verb forms, Sandhi, Kongu layer), enforces Tamil script for every Tamil word, and runs a final scrubbing pass for TTS fidelity.
 4. `render_audio.py` generates the MP3 with randomized voice assignments.

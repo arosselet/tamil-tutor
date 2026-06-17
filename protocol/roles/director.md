@@ -47,7 +47,7 @@ The Master Lesson Plan carries the core pedagogical targets. Delivery modalities
 
 This is what makes an episode feel alive — it tracks his real week, not an abstract coverage counter.
 
-Pull from the full curriculum word pool (`curriculum/tiers/*.json`). There is no tier gate — pull from any cluster based on coverage gaps. The honest progress meter is the **viability floor** in `progress/lexicon.json` (recognized words that fire `cold`), not tier percentage.
+Pull NEW words from `curriculum/word_pool.json` — a flat suggestion list organized by cluster. Anna decides what to introduce; the Director soaks what Anna has chosen. Skip anything already in `progress/lexicon.json`. The honest progress meter is the **viability floor** (recognized words that fire `cold`), not word count.
 
 Every payload has two active parts:
 

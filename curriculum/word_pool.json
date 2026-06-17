@@ -1,0 +1,1427 @@
+[
+  {
+    "tamil": "அதனால தான்",
+    "gloss": "That's why / That's the reason",
+    "cluster": "connectors"
+  },
+  {
+    "tamil": "அதுக்கு மேல",
+    "gloss": "More than that / Above that",
+    "cluster": "connectors"
+  },
+  {
+    "tamil": "அப்படி இல்ல",
+    "gloss": "It's not like that / Not so",
+    "cluster": "connectors"
+  },
+  {
+    "tamil": "அப்படினா என்ன அர்த்தம்?",
+    "gloss": "Then what does that mean?",
+    "cluster": "connectors"
+  },
+  {
+    "tamil": "அப்படியே",
+    "gloss": "Just like that / As is / Right away",
+    "cluster": "connectors"
+  },
+  {
+    "tamil": "அப்படியே இருங்க",
+    "gloss": "Stay right there / Hold on (on phone)",
+    "cluster": "connectors"
+  },
+  {
+    "tamil": "அப்படியே பண்ணுங்க",
+    "gloss": "Do it just like that / Do it right away",
+    "cluster": "connectors"
+  },
+  {
+    "tamil": "அப்படியே போயிட்டு வாங்க",
+    "gloss": "Just go and come back (casual, quick trip)",
+    "cluster": "connectors"
+  },
+  {
+    "tamil": "அவசரம்",
+    "gloss": "Urgent / Hurry",
+    "cluster": "connectors"
+  },
+  {
+    "tamil": "இதுக்குள்ள",
+    "gloss": "Within this / By now",
+    "cluster": "connectors"
+  },
+  {
+    "tamil": "இன்னும் கொஞ்ச நேரம் கழிச்சு",
+    "gloss": "A little while later",
+    "cluster": "connectors"
+  },
+  {
+    "tamil": "இன்னும் கொஞ்சம்",
+    "gloss": "A little more",
+    "cluster": "connectors"
+  },
+  {
+    "tamil": "இல்லன்னா என்ன ஆகும்?",
+    "gloss": "Otherwise, what will happen?",
+    "cluster": "connectors"
+  },
+  {
+    "tamil": "நேரம்",
+    "gloss": "Time",
+    "cluster": "connectors"
+  },
+  {
+    "tamil": "மதியம்",
+    "gloss": "Noon / Afternoon",
+    "cluster": "connectors"
+  },
+  {
+    "tamil": "ஓய்வு",
+    "gloss": "Rest",
+    "cluster": "daily_routine"
+  },
+  {
+    "tamil": "ஓய்வு எடு",
+    "gloss": "Take rest",
+    "cluster": "daily_routine"
+  },
+  {
+    "tamil": "கண்ணு முழி",
+    "gloss": "Open your eyes / Wake up (informal, often used for kids)",
+    "cluster": "daily_routine"
+  },
+  {
+    "tamil": "காலையில",
+    "gloss": "In the morning",
+    "cluster": "daily_routine"
+  },
+  {
+    "tamil": "சாயங்காலம்",
+    "gloss": "In the evening",
+    "cluster": "daily_routine"
+  },
+  {
+    "tamil": "சீக்கிரம் வா",
+    "gloss": "Come quickly / Come soon",
+    "cluster": "daily_routine"
+  },
+  {
+    "tamil": "தலை சீவு",
+    "gloss": "Comb hair",
+    "cluster": "daily_routine"
+  },
+  {
+    "tamil": "துணி காயப்போடு",
+    "gloss": "Hang the clothes to dry",
+    "cluster": "daily_routine"
+  },
+  {
+    "tamil": "துணி துவை",
+    "gloss": "Wash the clothes",
+    "cluster": "daily_routine"
+  },
+  {
+    "tamil": "தூங்கி எழுந்திரு",
+    "gloss": "Wake up from sleep",
+    "cluster": "daily_routine"
+  },
+  {
+    "tamil": "தூங்கிட்டேன்",
+    "gloss": "I fell asleep",
+    "cluster": "daily_routine"
+  },
+  {
+    "tamil": "தூங்கு",
+    "gloss": "Sleep",
+    "cluster": "daily_routine"
+  },
+  {
+    "tamil": "ராத்திரி",
+    "gloss": "At night",
+    "cluster": "daily_routine"
+  },
+  {
+    "tamil": "ரெடி ஆகு",
+    "gloss": "Get ready",
+    "cluster": "daily_routine"
+  },
+  {
+    "tamil": "வெளிய போயிட்டு வரேன்",
+    "gloss": "I'll go out and come back",
+    "cluster": "daily_routine"
+  },
+  {
+    "tamil": "வேலை",
+    "gloss": "Work",
+    "cluster": "daily_routine"
+  },
+  {
+    "tamil": "வேலை செய்",
+    "gloss": "Do work",
+    "cluster": "daily_routine"
+  },
+  {
+    "tamil": "வேலைக்கு கிளம்பு",
+    "gloss": "Leave for work",
+    "cluster": "daily_routine"
+  },
+  {
+    "tamil": "அப்படியே",
+    "gloss": "Just like that / As is",
+    "cluster": "descriptions"
+  },
+  {
+    "tamil": "அழகு",
+    "gloss": "Beauty",
+    "cluster": "descriptions"
+  },
+  {
+    "tamil": "இனிப்பு",
+    "gloss": "Sweet",
+    "cluster": "descriptions"
+  },
+  {
+    "tamil": "இப்படியே",
+    "gloss": "Just like this / As is",
+    "cluster": "descriptions"
+  },
+  {
+    "tamil": "எப்படி இருக்கு?",
+    "gloss": "How is it?",
+    "cluster": "descriptions"
+  },
+  {
+    "tamil": "கசப்பு",
+    "gloss": "Bitter",
+    "cluster": "descriptions"
+  },
+  {
+    "tamil": "கெட்டது",
+    "gloss": "Bad",
+    "cluster": "descriptions"
+  },
+  {
+    "tamil": "கெட்டியா",
+    "gloss": "Thick / Firmly",
+    "cluster": "descriptions"
+  },
+  {
+    "tamil": "தண்ணியா",
+    "gloss": "Watery / Thin",
+    "cluster": "descriptions"
+  },
+  {
+    "tamil": "துவர்ப்பு",
+    "gloss": "Astringent",
+    "cluster": "descriptions"
+  },
+  {
+    "tamil": "நல்லது",
+    "gloss": "Good",
+    "cluster": "descriptions"
+  },
+  {
+    "tamil": "நல்லா இருக்கா?",
+    "gloss": "Is it good?",
+    "cluster": "descriptions"
+  },
+  {
+    "tamil": "பழசு",
+    "gloss": "Old (object)",
+    "cluster": "descriptions"
+  },
+  {
+    "tamil": "புதுசு",
+    "gloss": "New",
+    "cluster": "descriptions"
+  },
+  {
+    "tamil": "புளிப்பு",
+    "gloss": "Sour",
+    "cluster": "descriptions"
+  },
+  {
+    "tamil": "போதாது",
+    "gloss": "Not enough",
+    "cluster": "descriptions"
+  },
+  {
+    "tamil": "அழாதீங்க",
+    "gloss": "Don't cry (respectful)",
+    "cluster": "emotions"
+  },
+  {
+    "tamil": "ஆச்சரியமா இருக்கு",
+    "gloss": "It's surprising / I'm surprised",
+    "cluster": "emotions"
+  },
+  {
+    "tamil": "எனக்கு கோவமா இருக்கு",
+    "gloss": "I am angry (lit: to me, it is angry)",
+    "cluster": "emotions"
+  },
+  {
+    "tamil": "எனக்கு பிடிக்கல",
+    "gloss": "I don't like it (lit: to me, it is not pleasing)",
+    "cluster": "emotions"
+  },
+  {
+    "tamil": "எனக்கு பிடிச்சிருக்கு",
+    "gloss": "I like it (lit: to me, it is pleasing)",
+    "cluster": "emotions"
+  },
+  {
+    "tamil": "எனக்கு வெட்கமா இருக்கு",
+    "gloss": "I am shy / I am embarrassed (lit: to me, it is shy)",
+    "cluster": "emotions"
+  },
+  {
+    "tamil": "என்ன ஆச்சு?",
+    "gloss": "What happened? (often used to ask why someone is upset/sad)",
+    "cluster": "emotions"
+  },
+  {
+    "tamil": "கோபம்",
+    "gloss": "Anger",
+    "cluster": "emotions"
+  },
+  {
+    "tamil": "சந்தோஷமா இருங்க",
+    "gloss": "Be happy (respectful)",
+    "cluster": "emotions"
+  },
+  {
+    "tamil": "சலிப்பா இருக்கு",
+    "gloss": "I'm bored / It's boring",
+    "cluster": "emotions"
+  },
+  {
+    "tamil": "சிரிங்க",
+    "gloss": "Smile / Laugh (respectful)",
+    "cluster": "emotions"
+  },
+  {
+    "tamil": "சும்மா",
+    "gloss": "Just kidding / Just for fun / For no reason",
+    "cluster": "emotions"
+  },
+  {
+    "tamil": "துக்கம்",
+    "gloss": "Sadness",
+    "cluster": "emotions"
+  },
+  {
+    "tamil": "பரவால்ல",
+    "gloss": "It's okay / Never mind / No problem",
+    "cluster": "emotions"
+  },
+  {
+    "tamil": "அண்ணி",
+    "gloss": "Sister-in-law (elder brother's wife)",
+    "cluster": "family"
+  },
+  {
+    "tamil": "அத்தை வீட்டுக்கு போறோம்",
+    "gloss": "We are going to aunt's house (paternal aunt)",
+    "cluster": "family"
+  },
+  {
+    "tamil": "அப்பா",
+    "gloss": "Father",
+    "cluster": "family"
+  },
+  {
+    "tamil": "அம்மா",
+    "gloss": "Mother",
+    "cluster": "family"
+  },
+  {
+    "tamil": "உங்க வீட்ல எல்லாரும் நல்லா இருக்காங்களா?",
+    "gloss": "Is everyone well at your home? (Common greeting)",
+    "cluster": "family"
+  },
+  {
+    "tamil": "என் புருஷன்",
+    "gloss": "My husband (informal, common among women)",
+    "cluster": "family"
+  },
+  {
+    "tamil": "என் பொண்டாட்டி",
+    "gloss": "My wife (informal, common among men)",
+    "cluster": "family"
+  },
+  {
+    "tamil": "தாத்தா",
+    "gloss": "Grandfather",
+    "cluster": "family"
+  },
+  {
+    "tamil": "பாட்டி",
+    "gloss": "Grandmother",
+    "cluster": "family"
+  },
+  {
+    "tamil": "மச்சினிச்சி",
+    "gloss": "Sister-in-law (wife's younger sister)",
+    "cluster": "family"
+  },
+  {
+    "tamil": "மாமனார்",
+    "gloss": "Father-in-law",
+    "cluster": "family"
+  },
+  {
+    "tamil": "மாமியார்",
+    "gloss": "Mother-in-law",
+    "cluster": "family"
+  },
+  {
+    "tamil": "அமைதியா இரு",
+    "gloss": "Be quiet",
+    "cluster": "home_environment"
+  },
+  {
+    "tamil": "அருகில்",
+    "gloss": "Near",
+    "cluster": "home_environment"
+  },
+  {
+    "tamil": "இரும்பு",
+    "gloss": "Iron",
+    "cluster": "home_environment"
+  },
+  {
+    "tamil": "உள்ளே",
+    "gloss": "Inside",
+    "cluster": "home_environment"
+  },
+  {
+    "tamil": "கண்ணாடி",
+    "gloss": "Glass (material/object)",
+    "cluster": "home_environment"
+  },
+  {
+    "tamil": "கண்ணாடி டம்ளர்",
+    "gloss": "Glass tumbler",
+    "cluster": "home_environment"
+  },
+  {
+    "tamil": "கதவை திற",
+    "gloss": "Open the door",
+    "cluster": "home_environment"
+  },
+  {
+    "tamil": "கதவை மூடு",
+    "gloss": "Close the door",
+    "cluster": "home_environment"
+  },
+  {
+    "tamil": "கீழே",
+    "gloss": "Downstairs / Below",
+    "cluster": "home_environment"
+  },
+  {
+    "tamil": "குளியலறை",
+    "gloss": "Bathroom",
+    "cluster": "home_environment"
+  },
+  {
+    "tamil": "சத்தம்",
+    "gloss": "Noise",
+    "cluster": "home_environment"
+  },
+  {
+    "tamil": "சத்தம் போடாதே",
+    "gloss": "Don't make noise",
+    "cluster": "home_environment"
+  },
+  {
+    "tamil": "ஜன்னலை மூடு",
+    "gloss": "Close the window",
+    "cluster": "home_environment"
+  },
+  {
+    "tamil": "டிவி",
+    "gloss": "TV",
+    "cluster": "home_environment"
+  },
+  {
+    "tamil": "தூரம்",
+    "gloss": "Far",
+    "cluster": "home_environment"
+  },
+  {
+    "tamil": "படுக்கையறை",
+    "gloss": "Bedroom",
+    "cluster": "home_environment"
+  },
+  {
+    "tamil": "பிளாஸ்டிக்",
+    "gloss": "Plastic",
+    "cluster": "home_environment"
+  },
+  {
+    "tamil": "புத்தகம்",
+    "gloss": "Book",
+    "cluster": "home_environment"
+  },
+  {
+    "tamil": "பேப்பர்",
+    "gloss": "Newspaper / Paper",
+    "cluster": "home_environment"
+  },
+  {
+    "tamil": "மரம்",
+    "gloss": "Wood",
+    "cluster": "home_environment"
+  },
+  {
+    "tamil": "மாடி",
+    "gloss": "Upstairs / Floor",
+    "cluster": "home_environment"
+  },
+  {
+    "tamil": "மேலே",
+    "gloss": "Up / Above",
+    "cluster": "home_environment"
+  },
+  {
+    "tamil": "ரிமோட்",
+    "gloss": "Remote",
+    "cluster": "home_environment"
+  },
+  {
+    "tamil": "லைட்டை ஆஃப் பண்ணு",
+    "gloss": "Turn off the light",
+    "cluster": "home_environment"
+  },
+  {
+    "tamil": "லைட்டை போடு",
+    "gloss": "Turn on the light",
+    "cluster": "home_environment"
+  },
+  {
+    "tamil": "விசிறியை போடு",
+    "gloss": "Turn on the fan",
+    "cluster": "home_environment"
+  },
+  {
+    "tamil": "வெளியே",
+    "gloss": "Outside",
+    "cluster": "home_environment"
+  },
+  {
+    "tamil": "ஹால்",
+    "gloss": "Hall / Living room",
+    "cluster": "home_environment"
+  },
+  {
+    "tamil": "அடுப்பு",
+    "gloss": "Stove / Cooker",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "அடுப்பை அணை",
+    "gloss": "Turn off the stove",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "அடுப்பை பத்தவை",
+    "gloss": "Light the stove",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "இட்லி",
+    "gloss": "Idli (steamed rice cake)",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "இனிப்பா இருக்கு",
+    "gloss": "It's sweet",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "இனிப்பு",
+    "gloss": "Sweetness",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "உப்பு பத்தல",
+    "gloss": "Not enough salt",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "எண்ணெய்",
+    "gloss": "Oil",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "என்ன சமைக்கிற?",
+    "gloss": "What are you cooking?",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "கசப்பா இருக்கு",
+    "gloss": "It's bitter",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "கசப்பு",
+    "gloss": "Bitterness",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "கதவை சாத்து",
+    "gloss": "Close the door (another common verb)",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "கரண்டி",
+    "gloss": "Spoon / Ladle",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "கறி",
+    "gloss": "Meat / Curry",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "காய்",
+    "gloss": "Vegetable",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "காய்கறி",
+    "gloss": "Vegetables",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "காய்கறி நறுக்கு",
+    "gloss": "Chop the vegetables",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "காய்கறி வெட்டு",
+    "gloss": "Cut the vegetables",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "காரமா இருக்கு",
+    "gloss": "It's spicy",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "காலையில",
+    "gloss": "In the morning",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "சட்டி",
+    "gloss": "Pot / Pan",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "சட்னி",
+    "gloss": "Chutney",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "சமையலறை",
+    "gloss": "Kitchen",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "சமையல்",
+    "gloss": "Cooking / Cuisine",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "சமையல் பண்ணு",
+    "gloss": "Do the cooking",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "சர்க்கரை",
+    "gloss": "Sugar",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "சாதம்",
+    "gloss": "Cooked rice",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "சாப்பாடு",
+    "gloss": "Cooked rice / Meal",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "சாப்பாடு ரெடி",
+    "gloss": "Food is ready / Rice is ready",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "சாப்பிடு",
+    "gloss": "Eat (command)",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "சாப்பிட்டு முடிச்சீங்களா?",
+    "gloss": "Have you finished eating?",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "சாம்பார்",
+    "gloss": "Sambar (lentil stew)",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "சுவையா இருக்கு",
+    "gloss": "It's tasty",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "தண்ணி ஊத்து",
+    "gloss": "Pour water",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "தயிர்",
+    "gloss": "Curd / Yogurt",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "தோசை",
+    "gloss": "Dosa (savory pancake)",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "பசிக்குது",
+    "gloss": "I'm hungry",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "பஜ்ஜி",
+    "gloss": "Bajji (fritter)",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "பழம்",
+    "gloss": "Fruit",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "பாத்திரம்",
+    "gloss": "Utensil / Dish",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "பாத்திரம் கழுவு",
+    "gloss": "Wash the dishes",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "பிரியாணி",
+    "gloss": "Biryani (rice dish)",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "புளிப்பா இருக்கு",
+    "gloss": "It's sour",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "புளிப்பு",
+    "gloss": "Sourness",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "பொங்கல்",
+    "gloss": "Pongal (rice dish)",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "மீன்",
+    "gloss": "Fish",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "முட்டை",
+    "gloss": "Egg",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "மோர்",
+    "gloss": "Buttermilk",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "ரசம்",
+    "gloss": "Rasam (tamarind soup)",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "வடை",
+    "gloss": "Vada (savory fritter)",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "வீட்டை கூட்டு",
+    "gloss": "Sweep the house",
+    "cluster": "home_kitchen"
+  },
+  {
+    "tamil": "அவசியம்",
+    "gloss": "Necessary / Important (noun)",
+    "cluster": "obligation_ability"
+  },
+  {
+    "tamil": "அவசியம் இல்லை",
+    "gloss": "Not necessary",
+    "cluster": "obligation_ability"
+  },
+  {
+    "tamil": "இன்னைக்கு வர முடியாது",
+    "gloss": "Cannot come today",
+    "cluster": "obligation_ability"
+  },
+  {
+    "tamil": "செய்ய முடியும்",
+    "gloss": "Can do",
+    "cluster": "obligation_ability"
+  },
+  {
+    "tamil": "நான் பாத்துக்கிறேன்",
+    "gloss": "I'll manage / I'll take care of it",
+    "cluster": "obligation_ability"
+  },
+  {
+    "tamil": "நீங்க பாத்துக்கோங்க",
+    "gloss": "You manage / You take care of it (respectful)",
+    "cluster": "obligation_ability"
+  },
+  {
+    "tamil": "பண்ண வேண்டி இருக்கும்",
+    "gloss": "Might have to do / Will have to do",
+    "cluster": "obligation_ability"
+  },
+  {
+    "tamil": "பண்ணி ஆகணும்",
+    "gloss": "Must do (stronger emphasis)",
+    "cluster": "obligation_ability"
+  },
+  {
+    "tamil": "போக வேண்டி இருக்கும்",
+    "gloss": "Might have to go / Will have to go",
+    "cluster": "obligation_ability"
+  },
+  {
+    "tamil": "போய் ஆகணும்",
+    "gloss": "Must go (stronger emphasis)",
+    "cluster": "obligation_ability"
+  },
+  {
+    "tamil": "வர முடியாது",
+    "gloss": "Cannot come",
+    "cluster": "obligation_ability"
+  },
+  {
+    "tamil": "அப்புறமா பேசலாமா?",
+    "gloss": "Shall we talk later?",
+    "cluster": "phone_scheduling"
+  },
+  {
+    "tamil": "எனக்கு போன் பண்ணு",
+    "gloss": "Call me",
+    "cluster": "phone_scheduling"
+  },
+  {
+    "tamil": "எப்ப ஃப்ரீ-யா இருப்ப?",
+    "gloss": "When will you be free?",
+    "cluster": "phone_scheduling"
+  },
+  {
+    "tamil": "டைம் சொல்லு",
+    "gloss": "Tell me the time",
+    "cluster": "phone_scheduling"
+  },
+  {
+    "tamil": "நான் அப்புறமா கூப்பிடுறேன்",
+    "gloss": "I'll call later",
+    "cluster": "phone_scheduling"
+  },
+  {
+    "tamil": "நான் கன்ஃபர்ம் பண்றேன்",
+    "gloss": "I'll confirm",
+    "cluster": "phone_scheduling"
+  },
+  {
+    "tamil": "நான் கூப்பிடுறேன்",
+    "gloss": "I'll call (you)",
+    "cluster": "phone_scheduling"
+  },
+  {
+    "tamil": "பிளான் கேன்சல் பண்ணலாமா?",
+    "gloss": "Shall we cancel the plan?",
+    "cluster": "phone_scheduling"
+  },
+  {
+    "tamil": "போன்ல பேசு",
+    "gloss": "Talk on the phone",
+    "cluster": "phone_scheduling"
+  },
+  {
+    "tamil": "மெசேஜ் வந்துச்சா?",
+    "gloss": "Did you get the message?",
+    "cluster": "phone_scheduling"
+  },
+  {
+    "tamil": "அது உன்னோடது",
+    "gloss": "That is yours (informal)",
+    "cluster": "pronouns"
+  },
+  {
+    "tamil": "அவ வீடு",
+    "gloss": "Her house",
+    "cluster": "pronouns"
+  },
+  {
+    "tamil": "அவங்க வீடு",
+    "gloss": "Their house / His/Her house (respectful)",
+    "cluster": "pronouns"
+  },
+  {
+    "tamil": "அவன் வீடு",
+    "gloss": "His house",
+    "cluster": "pronouns"
+  },
+  {
+    "tamil": "இது அவரோடது",
+    "gloss": "This is his/hers (respectful)",
+    "cluster": "pronouns"
+  },
+  {
+    "tamil": "இது என்னோடது",
+    "gloss": "This is mine",
+    "cluster": "pronouns"
+  },
+  {
+    "tamil": "உங்க",
+    "gloss": "Your (respectful)",
+    "cluster": "pronouns"
+  },
+  {
+    "tamil": "உன்",
+    "gloss": "Your (informal)",
+    "cluster": "pronouns"
+  },
+  {
+    "tamil": "எங்க வீடு",
+    "gloss": "Our house (exclusive)",
+    "cluster": "pronouns"
+  },
+  {
+    "tamil": "என்",
+    "gloss": "My",
+    "cluster": "pronouns"
+  },
+  {
+    "tamil": "நம்ம வீடு",
+    "gloss": "Our house (inclusive)",
+    "cluster": "pronouns"
+  },
+  {
+    "tamil": "யாருது?",
+    "gloss": "Whose is it?",
+    "cluster": "pronouns"
+  },
+  {
+    "tamil": "அப்புறம் பாக்கலாம்.",
+    "gloss": "Let's see later. / We'll see later.",
+    "cluster": "proposals"
+  },
+  {
+    "tamil": "இப்பவே போலாமா?",
+    "gloss": "Shall we go now?",
+    "cluster": "proposals"
+  },
+  {
+    "tamil": "உட்காரலாமா?",
+    "gloss": "Shall we sit?",
+    "cluster": "proposals"
+  },
+  {
+    "tamil": "கேக்கலாமா?",
+    "gloss": "Shall we ask?",
+    "cluster": "proposals"
+  },
+  {
+    "tamil": "செய்யலாமா?",
+    "gloss": "Shall we do (it)?",
+    "cluster": "proposals"
+  },
+  {
+    "tamil": "பேசலாமா?",
+    "gloss": "Shall we talk?",
+    "cluster": "proposals"
+  },
+  {
+    "tamil": "போகலாம்.",
+    "gloss": "Let's go. (More definitive than 'போலாம்')",
+    "cluster": "proposals"
+  },
+  {
+    "tamil": "வரீங்களா?",
+    "gloss": "Are you coming? / Do you want to come?",
+    "cluster": "proposals"
+  },
+  {
+    "tamil": "வாங்க!",
+    "gloss": "Come! / Please come!",
+    "cluster": "proposals"
+  },
+  {
+    "tamil": "அது என்ன?",
+    "gloss": "What is that?",
+    "cluster": "questions"
+  },
+  {
+    "tamil": "இது என்ன?",
+    "gloss": "What is this?",
+    "cluster": "questions"
+  },
+  {
+    "tamil": "எங்க போறீங்க?",
+    "gloss": "Where are you going?",
+    "cluster": "questions"
+  },
+  {
+    "tamil": "எதுக்கு?",
+    "gloss": "For what? / Why?",
+    "cluster": "questions"
+  },
+  {
+    "tamil": "என்ன ஆச்சு?",
+    "gloss": "What happened?",
+    "cluster": "questions"
+  },
+  {
+    "tamil": "என்ன பண்றீங்க?",
+    "gloss": "What are you doing?",
+    "cluster": "questions"
+  },
+  {
+    "tamil": "என்ன விஷயம்?",
+    "gloss": "What's the matter? / What's the news?",
+    "cluster": "questions"
+  },
+  {
+    "tamil": "என்ன வேணும்?",
+    "gloss": "What do you want?",
+    "cluster": "questions"
+  },
+  {
+    "tamil": "என்ன வேணும்?",
+    "gloss": "What do you want?",
+    "cluster": "questions"
+  },
+  {
+    "tamil": "எப்படி இருக்கீங்க?",
+    "gloss": "How are you?",
+    "cluster": "questions"
+  },
+  {
+    "tamil": "எப்படி இருக்கு?",
+    "gloss": "How is it?",
+    "cluster": "questions"
+  },
+  {
+    "tamil": "எப்போ வந்தீங்க?",
+    "gloss": "When did you come?",
+    "cluster": "questions"
+  },
+  {
+    "tamil": "சரியா?",
+    "gloss": "Is that right? / Okay?",
+    "cluster": "questions"
+  },
+  {
+    "tamil": "முடிஞ்சிருச்சா?",
+    "gloss": "Is it finished?",
+    "cluster": "questions"
+  },
+  {
+    "tamil": "யாரு கூட?",
+    "gloss": "With whom?",
+    "cluster": "questions"
+  },
+  {
+    "tamil": "வேணுமா?",
+    "gloss": "Do you want (it)?",
+    "cluster": "questions"
+  },
+  {
+    "tamil": "அடடா",
+    "gloss": "Oh no! / Alas! (expression of mild disappointment or sympathy)",
+    "cluster": "social_reaction"
+  },
+  {
+    "tamil": "அடப்பாவமே",
+    "gloss": "Oh my god! / What a pity! (stronger expression of sympathy or shock)",
+    "cluster": "social_reaction"
+  },
+  {
+    "tamil": "அடேயப்பா",
+    "gloss": "Wow! / Oh my! (expression of surprise, wonder, or sometimes exasperation)",
+    "cluster": "social_reaction"
+  },
+  {
+    "tamil": "அதான் பாக்குறேன்",
+    "gloss": "That's what I'm looking at / That's what I'm thinking (agreement/acknowledgment)",
+    "cluster": "social_reaction"
+  },
+  {
+    "tamil": "அப்படித்தான்",
+    "gloss": "That's how it is / Exactly like that",
+    "cluster": "social_reaction"
+  },
+  {
+    "tamil": "அப்படியா?",
+    "gloss": "Is that so? / Really? (general usage, but good to reinforce)",
+    "cluster": "social_reaction"
+  },
+  {
+    "tamil": "அப்படியாக்கும்?",
+    "gloss": "Is that so? (Kongu specific, often with a hint of surprise/skepticism)",
+    "cluster": "social_reaction"
+  },
+  {
+    "tamil": "அப்பறம்?",
+    "gloss": "Then? / What next? (used to prompt for more information or continue a story)",
+    "cluster": "social_reaction"
+  },
+  {
+    "tamil": "அவ்ளோதான்",
+    "gloss": "That's all / That's it (often used to conclude something or express finality)",
+    "cluster": "social_reaction"
+  },
+  {
+    "tamil": "என்னங்கப்பா?",
+    "gloss": "What is it, man? / What's up? (Kongu casual, often used to get attention or inquire)",
+    "cluster": "social_reaction"
+  },
+  {
+    "tamil": "என்னமோ போங்க",
+    "gloss": "Whatever / Let it be (expression of resignation or mild annoyance)",
+    "cluster": "social_reaction"
+  },
+  {
+    "tamil": "சும்மா",
+    "gloss": "Just / For no reason / Joking (e.g., சும்மா சொன்னேன் - I just said it / I was joking)",
+    "cluster": "social_reaction"
+  },
+  {
+    "tamil": "நல்லா இல்ல",
+    "gloss": "It's not good",
+    "cluster": "social_reaction"
+  },
+  {
+    "tamil": "அழு",
+    "gloss": "Cry",
+    "cluster": "verb_command"
+  },
+  {
+    "tamil": "இங்க வாங்க",
+    "gloss": "Come here (respectful)",
+    "cluster": "verb_command"
+  },
+  {
+    "tamil": "உட்காரு",
+    "gloss": "Sit",
+    "cluster": "verb_command"
+  },
+  {
+    "tamil": "எடு",
+    "gloss": "Take / Pick up",
+    "cluster": "verb_command"
+  },
+  {
+    "tamil": "எழுது",
+    "gloss": "Write",
+    "cluster": "verb_command"
+  },
+  {
+    "tamil": "கவனிங்க",
+    "gloss": "Pay attention / Observe (respectful)",
+    "cluster": "verb_command"
+  },
+  {
+    "tamil": "குடு",
+    "gloss": "Give",
+    "cluster": "verb_command"
+  },
+  {
+    "tamil": "கேளுங்க",
+    "gloss": "Listen / Ask (respectful)",
+    "cluster": "verb_command"
+  },
+  {
+    "tamil": "கேள்",
+    "gloss": "Ask / Listen",
+    "cluster": "verb_command"
+  },
+  {
+    "tamil": "கொண்டு போ",
+    "gloss": "Take (away)",
+    "cluster": "verb_command"
+  },
+  {
+    "tamil": "கொண்டு வா",
+    "gloss": "Bring",
+    "cluster": "verb_command"
+  },
+  {
+    "tamil": "சத்தம் போடாதீங்க",
+    "gloss": "Don't make noise / Be quiet (respectful)",
+    "cluster": "verb_command"
+  },
+  {
+    "tamil": "சத்தம் போடு",
+    "gloss": "Make noise",
+    "cluster": "verb_command"
+  },
+  {
+    "tamil": "சிரி",
+    "gloss": "Laugh",
+    "cluster": "verb_command"
+  },
+  {
+    "tamil": "சீக்கிரம் வாங்க",
+    "gloss": "Come quickly (respectful)",
+    "cluster": "verb_command"
+  },
+  {
+    "tamil": "சொல்லு",
+    "gloss": "Tell / Say",
+    "cluster": "verb_command"
+  },
+  {
+    "tamil": "திறங்க",
+    "gloss": "Open (respectful)",
+    "cluster": "verb_command"
+  },
+  {
+    "tamil": "தூக்குங்க",
+    "gloss": "Lift (respectful)",
+    "cluster": "verb_command"
+  },
+  {
+    "tamil": "நட",
+    "gloss": "Walk",
+    "cluster": "verb_command"
+  },
+  {
+    "tamil": "படி",
+    "gloss": "Read / Study",
+    "cluster": "verb_command"
+  },
+  {
+    "tamil": "பாருங்க",
+    "gloss": "Look / See (respectful)",
+    "cluster": "verb_command"
+  },
+  {
+    "tamil": "பார்",
+    "gloss": "See / Look",
+    "cluster": "verb_command"
+  },
+  {
+    "tamil": "போ",
+    "gloss": "Go",
+    "cluster": "verb_command"
+  },
+  {
+    "tamil": "போங்க",
+    "gloss": "Go (respectful)",
+    "cluster": "verb_command"
+  },
+  {
+    "tamil": "மூடுங்க",
+    "gloss": "Close (respectful)",
+    "cluster": "verb_command"
+  },
+  {
+    "tamil": "வா",
+    "gloss": "Come",
+    "cluster": "verb_command"
+  },
+  {
+    "tamil": "வாங்க",
+    "gloss": "Come (respectful)",
+    "cluster": "verb_command"
+  },
+  {
+    "tamil": "வைங்க",
+    "gloss": "Put / Keep (respectful)",
+    "cluster": "verb_command"
+  },
+  {
+    "tamil": "அப்புறமா வரேன்",
+    "gloss": "I'll come later",
+    "cluster": "verb_future"
+  },
+  {
+    "tamil": "அழைப்பேன்",
+    "gloss": "I will call (someone)",
+    "cluster": "verb_future"
+  },
+  {
+    "tamil": "எடுப்பேன்",
+    "gloss": "I will take",
+    "cluster": "verb_future"
+  },
+  {
+    "tamil": "கேப்பேன்",
+    "gloss": "I will ask",
+    "cluster": "verb_future"
+  },
+  {
+    "tamil": "கொடுப்பேன்",
+    "gloss": "I will give",
+    "cluster": "verb_future"
+  },
+  {
+    "tamil": "நான் பாத்துக்கிறேன்",
+    "gloss": "I'll take care of it (emphatic)",
+    "cluster": "verb_future"
+  },
+  {
+    "tamil": "நாளைக்கு பண்றேன்",
+    "gloss": "I'll do it tomorrow",
+    "cluster": "verb_future"
+  },
+  {
+    "tamil": "பாப்பேன்",
+    "gloss": "I will see / I will watch",
+    "cluster": "verb_future"
+  },
+  {
+    "tamil": "போட்டுருவேன்",
+    "gloss": "I will put (it)",
+    "cluster": "verb_future"
+  },
+  {
+    "tamil": "ஆச்சு",
+    "gloss": "It happened / It's done",
+    "cluster": "verb_past"
+  },
+  {
+    "tamil": "என்ன ஆச்சு?",
+    "gloss": "What happened? (more explicit)",
+    "cluster": "verb_past"
+  },
+  {
+    "tamil": "என்னாச்சு?",
+    "gloss": "What happened?",
+    "cluster": "verb_past"
+  },
+  {
+    "tamil": "சாப்பிடல",
+    "gloss": "Didn't eat (compressed)",
+    "cluster": "verb_past"
+  },
+  {
+    "tamil": "தெரியல",
+    "gloss": "I don't know (compressed, common)",
+    "cluster": "verb_past"
+  },
+  {
+    "tamil": "பண்ணல",
+    "gloss": "Didn't do (compressed)",
+    "cluster": "verb_past"
+  },
+  {
+    "tamil": "போகல",
+    "gloss": "Didn't go (compressed)",
+    "cluster": "verb_past"
+  },
+  {
+    "tamil": "போச்சு",
+    "gloss": "It went (non-human/thing)",
+    "cluster": "verb_past"
+  },
+  {
+    "tamil": "முடிஞ்சுச்சு",
+    "gloss": "It's finished / It's over",
+    "cluster": "verb_past"
+  },
+  {
+    "tamil": "வந்துச்சு",
+    "gloss": "It came (non-human/thing)",
+    "cluster": "verb_past"
+  },
+  {
+    "tamil": "வரல",
+    "gloss": "Didn't come (compressed)",
+    "cluster": "verb_past"
+  },
+  {
+    "tamil": "என்ன பண்ற?",
+    "gloss": "What are you doing? (informal, to a friend/younger person)",
+    "cluster": "verb_present"
+  },
+  {
+    "tamil": "என்ன பாக்குற?",
+    "gloss": "What are you looking at? (informal)",
+    "cluster": "verb_present"
+  },
+  {
+    "tamil": "எழுதுறேன்",
+    "gloss": "I am writing",
+    "cluster": "verb_present"
+  },
+  {
+    "tamil": "குடிக்கிறேன்",
+    "gloss": "I am drinking",
+    "cluster": "verb_present"
+  },
+  {
+    "tamil": "கேக்குறேன்",
+    "gloss": "I am asking / I am listening",
+    "cluster": "verb_present"
+  },
+  {
+    "tamil": "சாப்பிடுறேன்",
+    "gloss": "I am eating",
+    "cluster": "verb_present"
+  },
+  {
+    "tamil": "தூங்குறேன்",
+    "gloss": "I am sleeping",
+    "cluster": "verb_present"
+  },
+  {
+    "tamil": "படிக்குறேன்",
+    "gloss": "I am reading / I am studying",
+    "cluster": "verb_present"
+  },
+  {
+    "tamil": "பண்றேன்",
+    "gloss": "I am doing (it)",
+    "cluster": "verb_present"
+  },
+  {
+    "tamil": "பாக்குறேன்",
+    "gloss": "I am seeing / I am looking",
+    "cluster": "verb_present"
+  },
+  {
+    "tamil": "யோசிக்கிறேன்",
+    "gloss": "I am thinking",
+    "cluster": "verb_present"
+  },
+  {
+    "tamil": "வேலை பண்றேன்",
+    "gloss": "I am working",
+    "cluster": "verb_present"
+  }
+]

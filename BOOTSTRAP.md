@@ -70,7 +70,7 @@ Run the first `/anna` session using the fresh state.
 ## Repository Structure for Portability
 - `protocol/` — The generative logic (persona, daily session, audio pipeline roles).
 - `progress/` — Your personal state (gitignored JSON managed by Python + LLM-maintained profile).
-- `curriculum/` — The shared Tamil vocabulary pool.
+- `curriculum/` — `word_pool.json`: suggestion list of words to learn (Anna picks from it).
 - `scripts/` — Python engine: `sync_state.py` owns all state writes; `render_audio.py`, `show_status.py`, `generate_callbacks.py`, `build_playlist.py` for audio and spaced repetition.
 
 *Keep your `progress/` folder synced to a private Git repository so your tutor remembers you across devices.*
