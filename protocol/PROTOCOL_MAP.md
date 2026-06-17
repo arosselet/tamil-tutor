@@ -4,7 +4,7 @@ This document defines the structure and execution of the Tamil language learning
 
 ## Project Structure
 
-- `curriculum/`          → Vocabulary pool organized by theme clusters. No tier gates — the Director pulls from any cluster based on coverage gaps.
+- `curriculum/`          → `word_pool.json`: flat suggestion list of words to learn someday, organized by cluster. Anna picks from it; the lexicon is the living record.
 - `progress/`            → Learner state: JSON (Python-managed) and profile (LLM-maintained).
 - `protocol/`            → The generative logic (how to write lessons).
 - `protocol/modalities/` → Delivery formats: `podcast.md` (audio pipeline) + `session_tools.md` (5 interactive formats).
@@ -57,5 +57,3 @@ The LLM is the writer; Python is the brain. These tools own all state writes, sp
 | `build_playlist.py` | Concatenates under-listened missions into a daily re-listen playlist MP3. |
 | `rebuild_rss.py` | Regenerates the main podcast RSS feed from `published_audio/`. |
 | `rebuild_playlist_rss.py` | Regenerates the separate playlist podcast feed. |
-| `tag_clusters.py` | Curriculum enrichment — tags words by cluster and proposes gap-fill additions → `proposed_additions.json`. |
-| `apply_additions.py` | Merges reviewed `proposed_additions.json` into the tier JSONs. |

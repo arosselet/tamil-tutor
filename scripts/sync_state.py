@@ -175,7 +175,7 @@ def cmd_update(args):
                 "gloss": "", "phonetic": [], "recognition": level,
                 "production": "none", "seen_in": [], "last_surfaced": today,
             }
-            print(f"  + New word '{word}' → recognition {level} (gloss empty — add to curriculum)")
+            print(f"  + New word '{word}' → recognition {level} (gloss empty — fill in later)")
             return
         lexicon[key]["recognition"] = level
         touch(key)
