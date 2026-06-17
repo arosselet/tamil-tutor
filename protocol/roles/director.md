@@ -40,20 +40,20 @@ The Master Lesson Plan carries the core pedagogical targets. Delivery modalities
 
 ## Step 3: Pick the Payload
 
-**First, read the chat.** Anna's daily sessions are the other half of this loop: the podcast is the *input soak* that feeds what Anna forces Andrew to *produce*. Before picking words, read `progress/vocab_state.json` (the production axis — `cold` / `hinted`) and the `last_debrief` in `progress/profile.md`, and let them bias the payload:
+**First, read the soak order.** At the end of a session Anna writes `soak_order` into `progress/learner.json` — the specific payload she wants this episode to soak (`payload`) plus a one-line `scene_seed`. That is the episode's spine: build from it. This is what makes the podcast provably the other half of the loop — it soaks exactly what chat just strained. Then widen using the production axis in `progress/lexicon.json` (`cold` / `hinted` / `none`) and the `last_debrief` thread (also in `learner.json`):
 - **Fired `cold` recently** → *consolidate.* Let these appear in rich, fast, natural contexts — a reward. He owns them; let him catch them in the wild.
-- **`hinted` / wobbling** → *soak.* Give a pressure-free second exposure. Hearing it used naturally is the safety net for what chat just strained.
-- **The `last_debrief` thread** → when it fits, echo the situation Anna just played in chat. Tuesday's fumble becomes Thursday's scene.
+- **`hinted` or floor-gap (recognized, not yet cold)** → *soak.* Give a pressure-free second exposure. Hearing it used naturally is the safety net for what chat just strained.
+- **The `scene_seed` / `last_debrief` thread** → echo the situation Anna just played in chat. Tuesday's fumble becomes Thursday's scene.
 
 This is what makes an episode feel alive — it tracks his real week, not an abstract coverage counter.
 
-Pull from the full curriculum word pool (`curriculum/tiers/*.json`). There is no tier gate — progress is measured by absolute word count (`progress.known_words / progress.target` in `learner.json`), not by tier percentage.
+Pull from the full curriculum word pool (`curriculum/tiers/*.json`). There is no tier gate — pull from any cluster based on coverage gaps. The honest progress meter is the **viability floor** in `progress/lexicon.json` (recognized words that fire `cold`), not tier percentage.
 
 Every payload has two active parts:
 
-**NEW (4–5 words or phrases):** Fresh items the learner hasn't met. Select by **cluster coverage** — look at the last 5 episode briefs and pick a cluster that hasn't been the focus recently. Within that cluster, pick the highest-frequency, most household-relevant items first. Phrases and chunks are as valid as single words — prefer them when they're more useful than the sum of their parts. Skip anything already in `vocab_state.json` mastered/comfortable/struggled lists.
+**NEW (4–5 words or phrases):** Fresh items the learner hasn't met. Select by **cluster coverage** — look at the last 5 episode briefs and pick a cluster that hasn't been the focus recently. Within that cluster, pick the highest-frequency, most household-relevant items first. Phrases and chunks are as valid as single words — prefer them when they're more useful than the sum of their parts (track a phrase as its own item only when it's salient as a unit, not merely compositional). Skip anything already recorded in `progress/lexicon.json`.
 
-**CALLBACKS (3–5 words):** Run `python scripts/generate_callbacks.py` to get the list. The script uses spaced repetition to pick words that are due for resurfacing — struggled words, overdue words, and words that have never appeared in a script. Treat them as a **soft target: aim to land 2–3; the script leads and the quota follows.** Don't bend the scene to force every one — a callback that won't fit naturally waits for next time (this also keeps any single word from over-rotating). Prefer callbacks that are `hinted` in chat: soaking them here is exactly the safety net.
+**CALLBACKS (3–5 words):** Run `python scripts/generate_callbacks.py` to get the list. The script queries the lexicon for recognized words going stale (by `last_surfaced`), biased toward the floor gap (recognized but not yet `cold`); struggled words are deliberately excluded — they belong in Anna's interactive drills, not another soak. Treat the list as a **soft target: aim to land 2–3; the script leads and the quota follows.** Don't bend the scene to force every one — a callback that won't fit naturally waits for next time (the staleness interval already prevents over-rotation).
 
 ---
 

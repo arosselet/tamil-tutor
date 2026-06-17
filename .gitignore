@@ -13,7 +13,8 @@ __pycache__/
 # Personal Progress (Tutor/Learner state)
 progress/learner.json
 progress/profile.md
-progress/vocab_state.json
-progress/word_tracker.json
+progress/lexicon.json
+progress/episodes.json
+progress/session_log.json
 protocol/persona.md
 Final_Report_Andrew_Rosselet.ipynb

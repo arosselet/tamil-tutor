@@ -261,10 +261,10 @@ def assign_voices(dialogue, voice_map, provider, voice_type):
 
 def register_mission_in_state(script_path: Path, mp3_path: Path):
     """
-    Registers a new mission in progress/vocab_state.json.
+    Registers a new mission in progress/episodes.json.
     """
     from pathlib import Path
-    VOCAB_STATE_PATH = Path("progress/vocab_state.json")
+    EPISODES_PATH = Path("progress/episodes.json")
     
     def load_json(path: Path):
         if not path.exists(): return {}
@@ -310,23 +310,41 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
     if not mission_match: return
     mission_num = mission_match.group(1)
     
-    vocab_state = load_json(VOCAB_STATE_PATH)
-    if "episodes" not in vocab_state: vocab_state["episodes"] = {}
-    
+    episodes = load_json(EPISODES_PATH)
     duration = get_duration(mp3_path)
-    
-    if mission_num not in vocab_state["episodes"]:
-        vocab_state["episodes"][mission_num] = {
+
+    if mission_num not in episodes:
+        episodes[mission_num] = {
             "title": title, "listens": 0, "words": cleaned_words, "duration_min": duration
         }
-        print(f"✅ Registered Mission {mission_num} in vocab_state.json")
+        print(f"✅ Registered Mission {mission_num} in episodes.json")
     else:
-        vocab_state["episodes"][mission_num].update({
+        episodes[mission_num].update({
             "title": title, "words": cleaned_words, "duration_min": duration
         })
-        print(f"✅ Updated Mission {mission_num} metadata in vocab_state.json")
-    
-    save_json(VOCAB_STATE_PATH, vocab_state)
+        print(f"✅ Updated Mission {mission_num} metadata in episodes.json")
+
+    save_json(EPISODES_PATH, episodes)
+
+    # Provenance bridge: record that these declared words appeared in this episode.
+    # seen_in is pure provenance (which episodes a word is in); recency (last_surfaced)
+    # is bumped when the episode is actually listened to, via sync_state --listened.
+    lexicon = load_json(Path("progress/lexicon.json"))
+    if lexicon:
+        mnum = int(mission_num)
+        phon = {p: w for w, r in lexicon.items() for p in r.get("phonetic", [])}
+        tagged = 0
+        for w in cleaned_words:
+            key = w if w in lexicon else phon.get(w)
+            if key:
+                seen = lexicon[key].setdefault("seen_in", [])
+                if mnum not in seen:
+                    seen.append(mnum)
+                    seen.sort()
+                    tagged += 1
+        if tagged:
+            save_json(Path("progress/lexicon.json"), lexicon)
+            print(f"   ↳ tagged {tagged} lexicon words seen_in M{mnum}")
 
 async def main():
     parser = argparse.ArgumentParser(description="Generate Multi-Voice Tamil Podcast Audio")
@@ -393,7 +411,7 @@ async def main():
 
     # Lifecycle hooks
     try:
-        # Register the mission in vocab_state.json
+        # Register the mission in episodes.json + stamp seen_in into the lexicon
         register_mission_in_state(Path(args.input_file), Path(args.output_file))
 
         subprocess.run(["python3", "scripts/rebuild_rss.py"], check=True)
@@ -404,7 +422,7 @@ async def main():
         subprocess.run(["git", "add",
                         "published_audio/", "rss.xml",
                         "published_playlists/", "playlist_rss.xml",
-                        "progress/vocab_state.json",
+                        "progress/episodes.json", "progress/lexicon.json",
                         str(args.input_file)], check=True)
         
         status = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True)

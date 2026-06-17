@@ -27,7 +27,7 @@ from datetime import date
 from pathlib import Path
 
 BASE = Path(__file__).parent.parent
-VOCAB_STATE_PATH = BASE / "progress" / "vocab_state.json"
+EPISODES_PATH = BASE / "progress" / "episodes.json"
 AUDIO_DIR = BASE / "audio"
 OUTPUT_DIR = BASE / "audio" / "playlists"
 PUBLISH_DIR = BASE / "published_playlists"
@@ -54,9 +54,8 @@ def get_duration(mp3_path: Path) -> float | None:
         return None
 
 
-def select_episodes(vocab_state: dict, target_min: float) -> list[dict]:
+def select_episodes(episodes: dict, target_min: float) -> list[dict]:
     """Select episodes for the playlist, prioritizing under-listened ones."""
-    episodes = vocab_state.get("episodes", {})
     candidates = []
 
     for mission_str, ep in episodes.items():
@@ -165,12 +164,12 @@ def main():
                         help="Copy to published_playlists/ and rebuild playlist RSS feed")
     args = parser.parse_args()
 
-    vocab_state = load_json(VOCAB_STATE_PATH)
-    if not vocab_state:
-        print("Error: No vocab_state.json found. Run 'sync_state.py migrate' first.")
+    episodes = load_json(EPISODES_PATH)
+    if not episodes:
+        print("Error: No episodes.json found.")
         sys.exit(1)
 
-    playlist = select_episodes(vocab_state, args.target_min)
+    playlist = select_episodes(episodes, args.target_min)
 
     if not playlist:
         print("No episodes available for playlist.")

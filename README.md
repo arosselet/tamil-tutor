@@ -44,8 +44,8 @@ content/
     └── scripts/     → Generated podcast scripts (Markdown)
 audio/               → Private MP3 output
 published_audio/     → Public MP3s (served via RSS)
-progress/            → learner.json + vocab_state.json (recognition + production axis)
-scripts/             → Python tools (render, status, compress, RSS)
+progress/            → lexicon.json (word brain: recognition + production per word) + learner.json (continuity) + episodes.json + session_log.json
+scripts/             → Python tools (state, render, status, RSS)
 ```
 
 ### The Production Pipeline
@@ -68,10 +68,12 @@ Anna's daily session is the default. He loads your state, targets words you *rec
 If you are new to the repository and want to start your own Tamil learning journey, please follow the **[BOOTSTRAP.md](./BOOTSTRAP.md)** guide. It will walk you through a one-prompt setup to initialize your own tutor, learner profile, and progress tracking.
 
 ### Two Modes
-...
-| Keyword | Role | Use For |
+
+One persistent persona runs by default; one explicit hat is for working *on* the system.
+
+| Mode | Role | Use For |
 |---------|------|---------|
-| `@tutor` (default) | Showrunner & Tutor | Generating lessons, running sessions, tracking progress |
+| **Anna** (default, no keyword) | The coach who drives the learning | Daily sessions, drills, roleplay, commissioning podcasts, tracking progress |
 | `@build` | Engineer | Editing protocols, writing scripts, refining the curriculum |
 
 Or jump straight into a daily session with the **`/anna`** skill (Claude Code) or **`/anna`** command (Gemini CLI).

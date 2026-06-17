@@ -42,10 +42,11 @@ The **Podcast** is the audio-generation path (Director → Architect → Produce
 
 | File | Managed by | Purpose |
 |:---|:---|:---|
-| `progress/learner.json` | Python (`sync_state.py`) | Active lesson, status line. |
-| `progress/vocab_state.json` | Python (`sync_state.py`) | Full vocab tracking: recognition lists + the **production axis** (`cold`/`hinted`) + the **viability floor**. Updated automatically by Tutor. |
-| `progress/profile.md` | LLM (`@tutor`) | Teacher's notebook—assessment, gaps, terrain map. |
-| `progress/word_tracker.json` | Python (`generate_callbacks.py`) | Per-word appearance + recency data driving spaced-repetition callback selection. |
+| `progress/lexicon.json` | Python (`sync_state.py`) | **The word brain.** One record per word: both axes (recognition + production), phonetics, provenance (`seen_in`), `last_surfaced`. The **viability floor** is computed from it. |
+| `progress/learner.json` | Python (`sync_state.py`) | Continuity (thin, LLM-facing): streak, last debrief, **soak order**, status line. |
+| `progress/episodes.json` | Python (`sync_state.py` / `render_audio.py`) | Audio episodes: title, listens, declared words, duration. |
+| `progress/session_log.json` | Python (`sync_state.py`) | Append-only momentum log — one entry per session (floor %, words moved). |
+| `progress/profile.md` | LLM (Anna) | Teacher's notebook—assessment, gaps, terrain map. |
 
 ---
 
@@ -55,13 +56,13 @@ The LLM is the writer; Python is the brain. These tools own all state writes, sp
 
 | Script | Role |
 |:---|:---|
-| `sync_state.py` | **Owns all writes** to `learner.json` + `vocab_state.json` (recognition lists, production axis, viability floor). Never hand-edit those files. |
-| `generate_callbacks.py` | Spaced-repetition picker — selects callbacks due for resurfacing; maintains `word_tracker.json`. |
-| `show_status.py` | Progress dashboard (backs the "Show my status" command). |
-| `render_audio.py` | Renders a final script to MP3 (Google Cloud TTS / Edge-TTS), then triggers the RSS rebuild. |
+| `sync_state.py` | **Owns all writes** to `lexicon.json`, `learner.json`, `episodes.json`, and `session_log.json` (recognition + production axes, soak order, viability floor). Canonical-at-write. Never hand-edit those files. |
+| `generate_callbacks.py` | Spaced-repetition picker — queries the lexicon for recognized words going stale (by `last_surfaced`), biased to the floor gap. |
+| `show_status.py` | Progress dashboard (backs the "Show my status" command) — floor-centric. |
+| `render_audio.py` | Renders a final script to MP3 (Google Cloud TTS / Edge-TTS), registers the episode, stamps `seen_in` into the lexicon, then triggers the RSS rebuild. |
 | `build_playlist.py` | Concatenates under-listened missions into a daily re-listen playlist MP3. |
 | `rebuild_rss.py` | Regenerates the main podcast RSS feed from `published_audio/`. |
 | `rebuild_playlist_rss.py` | Regenerates the separate playlist podcast feed. |
-| `compress_sessions.py` | Maintenance — folds sessions older than 7 days in `learner.json` into the accumulated word lists. |
+| `migrate_lexicon.py` | One-time (spent) migration that folded the old split word-state into `lexicon.json`. |
 | `tag_clusters.py` | Curriculum enrichment — tags words by cluster and proposes gap-fill additions → `proposed_additions.json`. |
 | `apply_additions.py` | Merges reviewed `proposed_additions.json` into the tier JSONs. |
