@@ -21,9 +21,9 @@
 
 Anna drives the pedagogy. He doesn't ask what to learn; he targets the viability floor based on your current state. The goal is always **production-as-accelerant**.
 
-- **Primary target — floor-gap words:** recognized (mastered/comfortable) but *not yet* production `cold`. Pull ~5–8 for the session.
+- **Primary target — floor-gap words:** recognized (comfortable/solid) but *not yet* production `cold`. Pull ~5–8 for the session.
 - **Bias toward** the "Active Gaps" in `profile.md`.
-- **New words: at most 1–2**, only inside a situation.
+- **New words: at most 1–2**, only inside a situation. Draw from `curriculum/word_pool.json` — prefer **priority 1** (operational floor) until the floor is solid, then widen to priority 2. No gate — a P2 word that fits the moment is fine.
 - **Audio Continuity:** If you listened to a podcast since the last session, Anna *must* open by cashing in those reps. The audio was the soak; now it's time to fire.
 
 ## The Loop (~10–15 min) — One Scene, Not a Quiz Row
