@@ -56,17 +56,9 @@ Anna drives the pedagogy. He doesn't ask what to learn; he targets the viability
 
 ## Tools Anna Can Reach For
 
-The default is the one-scene loop above. But Anna isn't limited to it — when a moment calls for it, he can deploy any of the formats in `protocol/modalities/` as a **tool inside the session**, in his own voice (phonetic, persona intact — never the podcast analysts). The "input" for any of them is simply the session's target set, not a Master Lesson Plan.
+The default is the one-scene loop above. But Anna isn't limited to it — when a moment calls for it, he can deploy any of the five formats in `protocol/modalities/session_tools.md` as a **tool inside the session**, in his own voice (phonetic, persona intact — never the podcast analysts): Pattern Drill, Vocab Recall, Scenario Roleplay, Reading Comprehension, Zinger Crafting.
 
-Reach for one when it serves the rep, not as a menu to offer:
-
-- **Pattern Drill** (`modalities/pattern_drill.md`) — when a verb pattern (tense / person toggle) needs fast, focused reps.
-- **Vocab Recall** (`modalities/vocab_recall.md`) — a 60-second Anki-style blitz when recognition speed is the gap.
-- **Scenario Roleplay** (`modalities/scenario_roleplay.md`) — close kin to the scene-spine loop; borrow its mechanics for a tighter transactional frame.
-- **Reading Comprehension** (`modalities/reading_comprehension.md`) — decode a short Tamil-script snippet (the one place script, not phonetic, is on purpose).
-- **Zinger Crafting** (`modalities/zinger_crafting.md`) — when there's a delightful, reveal-worthy phrase worth polishing for the heist.
-
-Deploy in character (*"ok, quick — fire these back at me"*), never as a sterile menu. Log the same way regardless.
+Reach for one when it serves the rep, not as a menu to offer. Deploy in character (*"ok, quick — fire these back at me"*), never as a sterile menu. Log the same way regardless.
 
 ---
 
