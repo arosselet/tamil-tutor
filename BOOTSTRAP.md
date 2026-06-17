@@ -1,24 +1,24 @@
 # Bootstrap Guide: Start Your Tamil Heist
 
-Welcome to the Tamil Learning System. This guide will help you set up your own persistent tutor, define your learner profile, and begin your immersion journey in a single session.
+Welcome to the Tamil Learning System. This guide initializes your own persistent tutor, learner profile, and progress tracking in a single session.
 
 ## Prerequisites
 - **Python 3.10+**
-- **An LLM Agent** (Gemini CLI, Claude Code, or similar)
+- **An LLM Agent** (Claude Code, Gemini CLI, or similar)
 - **TTS Access**:
   - *Edge-TTS* (Free, no setup)
   - *Google Cloud TTS* (Requires `gcloud auth login`)
 
 ---
 
-## 🚀 One-Prompt Setup
+## One-Prompt Setup
 
-Once you have cloned this repository, paste the following prompt into your LLM agent to initialize your environment:
+Clone the repo, then paste this into your LLM agent:
 
 > "I want to bootstrap a new Tamil learning environment. Please act as the System Architect.
 > 1. Read `BOOTSTRAP.md` for the setup protocol.
 > 2. Ask me for my name, my preferred tutor's name/personality (e.g., elder brother, strict coach, casual friend), and my TTS preference (Edge or Google).
-> 3. Initialize `progress/learner.json` and `progress/profile.md` from the templates.
+> 3. Initialize progress files from the `.example` templates.
 > 4. Customize `protocol/persona.md` based on the tutor personality I choose.
 > 5. Guide me through setting up my own git remote.
 > 6. Start our first `/anna` session."
@@ -37,17 +37,22 @@ Ask the user:
 - **TTS Provider**: `edge` or `google`.
 
 ### 2. Initialize State
-Initialize the following files by copying their `.example` counterparts and filling in the user's data:
+Copy each `.example` file to its live counterpart and fill in the user's data:
 
-- `progress/learner.json` (from `progress/learner.json.example`)
-- `progress/profile.md` (from `progress/profile.md.example`)
-- `progress/vocab_state.json` (from `progress/vocab_state.json.example`)
-- `protocol/persona.md` (from `protocol/persona.md.example`)
+| Template | Live file | Purpose |
+|---|---|---|
+| `progress/learner.json.example` | `progress/learner.json` | Continuity: streak, debrief, soak order, status |
+| `progress/lexicon.json.example` | `progress/lexicon.json` | The word brain (starts empty — `sync_state.py` populates it) |
+| `progress/episodes.json.example` | `progress/episodes.json` | Audio episode registry (starts empty) |
+| `progress/session_log.json.example` | `progress/session_log.json` | Append-only momentum log (starts empty) |
+| `progress/profile.md.example` | `progress/profile.md` | Teacher's notebook — fill in learner name, goal, initial assessment |
+
+In `learner.json`, replace `"Your Name"` with the learner's name.
 
 ### 3. Codify the Persona
 Rewrite `protocol/persona.md` to reflect the chosen tutor's voice based on the `persona.md.example` template.
 - Ensure the **"What [Tutor] Never Does"** list is intact.
-- Maintain the **Showrunner** responsibility (Anna is in charge of the pedagogy and audio pipeline).
+- The tutor is the single interactive front door — they drive the pedagogy and can commission audio when it serves the goal.
 
 ### 4. Git Remote Setup
 Remind the user to set up their own private repository:
@@ -63,9 +68,9 @@ Run the first `/anna` session using the fresh state.
 ---
 
 ## Repository Structure for Portability
-- `protocol/` - The brains (Persona, Daily Session, Audio Pipeline).
-- `progress/` - Your personal state (NOT to be shared if you want to keep the heist secret).
-- `curriculum/` - The shared Tamil vocabulary pool.
-- `scripts/` - The Python engine for state and audio.
+- `protocol/` — The generative logic (persona, daily session, audio pipeline roles).
+- `progress/` — Your personal state (gitignored JSON managed by Python + LLM-maintained profile).
+- `curriculum/` — The shared Tamil vocabulary pool.
+- `scripts/` — Python engine: `sync_state.py` owns all state writes; `render_audio.py`, `show_status.py`, `generate_callbacks.py`, `build_playlist.py` for audio and spaced repetition.
 
-*Note: For the best experience, keep your `progress/` folder and `published_audio/` synced to a private Git repository so your tutor remembers you across devices.*
+*Keep your `progress/` folder synced to a private Git repository so your tutor remembers you across devices.*

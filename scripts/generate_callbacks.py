@@ -79,7 +79,7 @@ def main():
 
     lexicon = load_json(LEXICON_PATH)
     if not lexicon:
-        print("Error: progress/lexicon.json not found. Run migrate_lexicon.py first.")
+        print("Error: progress/lexicon.json not found. See BOOTSTRAP.md.")
         return
 
     today = date.today()
