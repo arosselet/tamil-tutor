@@ -47,11 +47,11 @@ The Master Lesson Plan carries the core pedagogical targets. Delivery modalities
 
 This is what makes an episode feel alive — it tracks his real week, not an abstract coverage counter.
 
-Pull NEW words from `curriculum/word_pool.json` — a flat suggestion list organized by cluster. Anna decides what to introduce; the Director soaks what Anna has chosen. Skip anything already in `progress/lexicon.json`. The honest progress meter is the **viability floor** (recognized words that fire `cold`), not word count.
+Pull NEW words from `curriculum/word_pool.json` — a flat suggestion list organized by cluster, each tagged with a `priority` (1 = operational floor, 2 = expansion). **Prefer priority 1 until the viability floor is solid, then widen to priority 2.** No gate — if a P2 word fits the scene naturally, use it. But don't scatter into expansion territory while the foundation has gaps. Skip anything already in `progress/lexicon.json`.
 
 Every payload has two active parts:
 
-**NEW (4–5 words or phrases):** Fresh items the learner hasn't met. Select by **cluster coverage** — look at the last 5 episode briefs and pick a cluster that hasn't been the focus recently. Within that cluster, pick the highest-frequency, most household-relevant items first. Phrases and chunks are as valid as single words — prefer them when they're more useful than the sum of their parts (track a phrase as its own item only when it's salient as a unit, not merely compositional). Skip anything already recorded in `progress/lexicon.json`.
+**NEW (4–5 words or phrases):** Fresh items the learner hasn't met. Select by **cluster coverage** — look at the last 5 episode briefs and pick a cluster that hasn't been the focus recently. Within that cluster, pick the highest-frequency, most household-relevant items first. Prefer priority 1 words. Phrases and chunks are as valid as single words — prefer them when they're more useful than the sum of their parts (track a phrase as its own item only when it's salient as a unit, not merely compositional). Skip anything already recorded in `progress/lexicon.json`.
 
 **CALLBACKS (3–5 words):** Run `python scripts/generate_callbacks.py` to get the list. The script queries the lexicon for recognized words going stale (by `last_surfaced`), biased toward the floor gap (recognized but not yet `cold`); struggled words are deliberately excluded — they belong in Anna's interactive drills, not another soak. Treat the list as a **soft target: aim to land 2–3; the script leads and the quota follows.** Don't bend the scene to force every one — a callback that won't fit naturally waits for next time (the staleness interval already prevents over-rotation).
 
