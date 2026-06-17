@@ -1,0 +1,26 @@
+{
+  "mission": 50,
+  "shape": "debrief",
+  "location_class": "auto",
+  "energy": "medium",
+  "episode_form": "vignette",
+  "intercept_tamil_density": 0.65,
+  "new_words_landed": {
+    "செய்ய முடியும்": 3,
+    "அவசியம் இல்லை": 2,
+    "செய்யணும்": 3,
+    "ஒத்தாசை": 2
+  },
+  "callbacks_used": {
+    "முதல்ல": 3,
+    "கல்யாணம்": 4,
+    "பிடிக்காது": 2,
+    "இங்க": 2,
+    "கம்மி": 2
+  },
+  "host_roles": {
+    "A": "frustrated_cousin_who_did_all_the_work",
+    "B": "late_cousin_making_excuses"
+  },
+  "notes": "Vignette — no Breakdown. Obligation cluster (P1) as spine. All 5 callbacks landed naturally. Wedding prep debrief contrasts M48 gossip and M49 transaction."
+}
