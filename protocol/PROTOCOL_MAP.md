@@ -37,7 +37,7 @@ This document defines the structure and execution of the Tamil language learning
 | File | Managed by | Purpose |
 |:---|:---|:---|
 | `progress/lexicon.json` | Python (`sync_state.py`) | **The word brain.** One record per word: both axes (recognition + production), phonetics, provenance (`seen_in`), `last_surfaced`. The **viability floor** is computed from it. |
-| `progress/learner.json` | Python (`sync_state.py`) | Continuity (thin, LLM-facing): streak, last debrief, **soak order**, status line. |
+| `progress/learner.json` | Python (`sync_state.py`) | Continuity (thin, LLM-facing): streak, the **running story so far** (`last_debrief` — Anna curates it cumulatively), **soak order**, status line. |
 | `progress/episodes.json` | Python (`sync_state.py` / `render_audio.py`) | Audio episodes: title, listens, declared words, duration. |
 | `progress/session_log.json` | Python (`sync_state.py`) | Append-only momentum log — one entry per session (floor %, words moved). |
 | `progress/profile.md` | LLM (Anna) | Teacher's notebook—assessment, gaps, terrain map. |
@@ -52,6 +52,7 @@ The LLM is the writer; Python is the brain. These tools own all state writes, sp
 |:---|:---|
 | `sync_state.py` | **Owns all writes** to `lexicon.json`, `learner.json`, `episodes.json`, and `session_log.json` (recognition + production axes, soak order, viability floor). Canonical-at-write. Never hand-edit those files. |
 | `generate_callbacks.py` | Spaced-repetition picker — queries the lexicon for recognized words going stale (by `last_surfaced`), biased to the floor gap. |
+| `suggest_targets.py` | The session **ticket** — floor-gap words to force + due callbacks (reuses `generate_callbacks`) + priority-1 NEW candidates by cluster coverage. The single menu Anna and the Director read instead of eyeballing the lexicon. |
 | `show_status.py` | Progress dashboard (backs the "Show my status" command) — floor-centric. |
 | `render_audio.py` | Renders a final script to MP3 (Google Cloud TTS / Edge-TTS), registers the episode, stamps `seen_in` into the lexicon, then triggers the RSS rebuild. |
 | `build_playlist.py` | Concatenates under-listened missions into a daily re-listen playlist MP3. |

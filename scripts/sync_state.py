@@ -291,7 +291,7 @@ def cmd_status(_args):
     print(f"Learner: {learner.get('learner')}")
     print(f"Streak: {learner.get('streak', {}).get('current', 0)} days")
     print(f"Status: {learner.get('status', 'unknown')}")
-    print(f"Last: {learner.get('last_debrief', '')}")
+    print(f"Story so far: {learner.get('last_debrief', '')}")
     soak = learner.get("soak_order", {})
     if soak.get("payload") or soak.get("scene_seed"):
         payload = ", ".join(soak.get("payload", []))
@@ -319,6 +319,10 @@ def cmd_status(_args):
             dur = ep.get("duration_min")
             dur_str = f" ({dur:.1f} min)" if dur else ""
             print(f"  M{m}: {ep.get('listens', 0)}x listened{dur_str}")
+        unlogged = [m for m, ep in recent[:4] if ep.get("listens", 0) == 0]
+        if unlogged:
+            print(f"  → Unlogged: M{', M'.join(unlogged)}. Open by asking if he caught them; "
+                  f"log with `--listened N` so the soak reports back.")
 
 
 def main():
@@ -343,7 +347,8 @@ def main():
                     help="Word(s) produced COLD — no hint (production axis)")
     up.add_argument("--produced-hinted", type=str, action="append", default=[],
                     help="Word(s) produced only after a hint (production axis)")
-    up.add_argument("--debrief", type=str, default=None, help="One-line debrief note")
+    up.add_argument("--debrief", type=str, default=None,
+                    help="Running 'story so far' — rewrite cumulatively (carry what matters, prune what resolved); Anna's persistent narrative memory, not a one-line log")
 
     args = parser.parse_args()
     if args.command == "update":
