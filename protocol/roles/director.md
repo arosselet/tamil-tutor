@@ -40,10 +40,10 @@ The Master Lesson Plan carries the core pedagogical targets. Delivery modalities
 
 ## Step 3: Pick the Payload
 
-**First, read the soak order.** At the end of a session Anna writes `soak_order` into `progress/learner.json` — the specific payload she wants this episode to soak (`payload`) plus a one-line `scene_seed`. That is the episode's spine: build from it. This is what makes the podcast provably the other half of the loop — it soaks exactly what chat just strained. Then widen using the production axis in `progress/lexicon.json` (`cold` / `hinted` / `none`) and the `last_debrief` thread (also in `learner.json`):
+**First, read the soak order.** At the end of a session Anna writes `soak_order` into `progress/learner.json` — the specific payload he wants this episode to soak (`payload`) plus a one-line `scene_seed`. Anna is the director — he shapes the episode via the soak order but never appears as a voice, host, or character in the audio. The fourth wall stays up: the learner is never addressed. Build from the soak order. This is what makes the podcast provably the other half of the loop — it soaks exactly what chat just strained. Then widen using the production axis in `progress/lexicon.json` (`cold` / `hinted` / `none`) and the `last_debrief` thread (also in `learner.json`):
 - **Fired `cold` recently** → *consolidate.* Let these appear in rich, fast, natural contexts — a reward. He owns them; let him catch them in the wild.
 - **`hinted` or floor-gap (recognized, not yet cold)** → *soak.* Give a pressure-free second exposure. Hearing it used naturally is the safety net for what chat just strained.
-- **The `scene_seed` / `last_debrief` thread** → echo the situation Anna just played in chat. Tuesday's fumble becomes Thursday's scene.
+- **The `scene_seed` / `last_debrief` thread** → echo the situation Anna just played in chat. Tuesday's fumble becomes Thursday's scene. (Echo the *situation*, not the lesson — the hosts don't know there's a learner.)
 
 This is what makes an episode feel alive — it tracks his real week, not an abstract coverage counter.
 
