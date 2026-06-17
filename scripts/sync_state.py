@@ -154,7 +154,7 @@ def cmd_update(args):
     learner = load_json(LEARNER_PATH)
     episodes = load_json(EPISODES_PATH) or {}
     if lexicon is None or learner is None:
-        print("Error: lexicon.json or learner.json missing. Run migrate_lexicon.py first.")
+        print("Error: lexicon.json or learner.json missing. See BOOTSTRAP.md.")
         sys.exit(1)
 
     phon_index = build_phonetic_index(lexicon)

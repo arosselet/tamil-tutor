@@ -36,7 +36,7 @@ def main():
     session_log = load_json(base / "progress" / "session_log.json") or []
 
     if not learner or not lexicon:
-        print("⚠️  Missing learner.json or lexicon.json. Run migrate_lexicon.py / start a session.")
+        print("⚠️  Missing learner.json or lexicon.json. See BOOTSTRAP.md.")
         return
 
     print("=" * 55)

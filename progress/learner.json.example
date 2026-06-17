@@ -1,20 +1,12 @@
 {
-  "learner": "Learner Name",
-  "current_tier": 1,
-  "active_mission": {
-    "mission": 1,
-    "topic": "The First Encounter",
-    "target_vocab": [
-      "வணக்கம்",
-      "எப்படி இருக்கீங்க?",
-      "நல்லா இருக்கேன்"
-    ]
-  },
+  "learner": "Your Name",
   "streak": {
     "current": 0,
     "best": 0,
     "last_date": null
   },
   "last_debrief": "System initialized.",
-  "status": "Ready for Mission 1."
+  "soak_order": {},
+  "recent_missions": [],
+  "status": "Ready for first session."
 }
