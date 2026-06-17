@@ -2,18 +2,26 @@
 """
 State management for the Tamil learning system.
 
-This script is the single source of truth for progress data. The LLM calls
-this after the @tutor debrief to update state and recompute recommendations.
+Word-state lives in ONE place: progress/lexicon.json — a word-keyed map where each
+record carries both axes (recognition + production), its phonetics, provenance, and
+last-surfaced date. This script owns all writes to it. The LLM (Anna) calls
+`update` at the end of a session to record what it observed.
+
+  progress/lexicon.json     → word-state (this file's domain)
+  progress/learner.json     → continuity: streak, debrief, soak order, status (thin, LLM-facing)
+  progress/episodes.json    → episodes / listens (audio artifacts)
+  progress/session_log.json → append-only momentum log, one entry per session
 
 Usage:
-    # After debrief: record listens and recompute status
-    python scripts/sync_state.py update --listens 3 --stuck-word "வை"
+    # After a session: record production + recognition movement
+    python scripts/sync_state.py update --produced-cold poren --stuck-word வை
 
-    # Show current state summary (what the LLM should read)
+    # Show current state (what Anna reads at session start)
     python scripts/sync_state.py status
 
-    # Migrate: one-time move from old learner.json to new split format
-    python scripts/sync_state.py migrate
+Canonical-at-write: produced/recognition words are resolved phonetic->script against
+the lexicon. A produced word that resolves to no record is WARNED and SKIPPED rather
+than silently poisoning state — production presupposes a recognition record.
 """
 
 import argparse
@@ -25,10 +33,19 @@ from datetime import date
 from pathlib import Path
 
 BASE = Path(__file__).parent.parent
+LEXICON_PATH = BASE / "progress" / "lexicon.json"
 LEARNER_PATH = BASE / "progress" / "learner.json"
-VOCAB_STATE_PATH = BASE / "progress" / "vocab_state.json"
+EPISODES_PATH = BASE / "progress" / "episodes.json"
+SESSION_LOG_PATH = BASE / "progress" / "session_log.json"
 AUDIO_DIR = BASE / "audio"
-SCRIPTS_DIR = BASE / "content" / "scripts"
+
+# Recognition ladder. A word the learner *recognizes* is comfortable or solid;
+# struggled means shaky; unseen means no record. The floor counts cold production
+# among words that are at least comfortable.
+RECOGNITION_LEVELS = ["struggled", "comfortable", "solid"]
+RECOGNIZED = {"comfortable", "solid"}
+DEMOTE = {"solid": "comfortable", "comfortable": "struggled", "struggled": "struggled"}
+TAMIL_RE = re.compile(r"[஀-௿]")
 
 
 def load_json(path: Path):
@@ -43,14 +60,46 @@ def save_json(path: Path, data):
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 
+# --- Lexicon helpers ---------------------------------------------------------
+
+def build_phonetic_index(lexicon: dict) -> dict[str, str]:
+    """{phonetic -> script} built from each record's phonetic list."""
+    index: dict[str, str] = {}
+    for word, rec in lexicon.items():
+        for phon in rec.get("phonetic", []):
+            index.setdefault(phon, word)
+    return index
+
+
+def resolve(word: str, lexicon: dict, phon_index: dict[str, str]) -> str | None:
+    """Resolve a phonetic-or-script token to its canonical lexicon key, or None."""
+    if word in lexicon:
+        return word
+    return phon_index.get(word)
+
+
+def is_tamil(word: str) -> bool:
+    return bool(TAMIL_RE.search(word))
+
+
+def compute_floor(lexicon: dict) -> dict:
+    """The viability floor: of the words recognized (comfortable+solid),
+    how many fire cold? This is the one honest progress meter."""
+    recognized = [w for w, r in lexicon.items() if r.get("recognition") in RECOGNIZED]
+    cleared = [w for w in recognized if lexicon[w].get("production") == "cold"]
+    total = len(recognized)
+    pct = (len(cleared) / total * 100) if total else 0.0
+    return {"cleared": len(cleared), "total": total, "pct": pct}
+
+
+# --- Episode helpers (progress/episodes.json — a flat {id: episode} map) ------
+
 def find_mission_file(directory: Path, mission: int, extension: str) -> Path | None:
-    """Find a file for a given mission number, tier-agnostic."""
     matches = list(directory.glob(f"*mission{mission}{extension}"))
     return matches[0] if matches else None
 
 
 def get_episode_duration(mission: int) -> float | None:
-    """Get duration in minutes for a mission's audio file."""
     path = find_mission_file(AUDIO_DIR, mission, ".mp3")
     if path is None:
         return None
@@ -66,281 +115,238 @@ def get_episode_duration(mission: int) -> float | None:
         return None
 
 
-def get_available_missions() -> list[int]:
-    """Return sorted list of mission numbers that have audio."""
-    missions = []
-    for f in AUDIO_DIR.glob("*.mp3"):
-        m = re.search(r"mission(\d+)\.mp3$", f.name)
-        if m:
-            missions.append(int(m.group(1)))
-    return sorted(missions)
-
-
-def scan_script_words(mission: int) -> list[str]:
-    """Extract Tamil words from a mission script."""
-    script_path = find_mission_file(SCRIPTS_DIR, mission, ".md")
-    if not script_path:
-        return []
-    text = script_path.read_text(encoding="utf-8")
-    words = re.findall(r"[\u0B80-\u0BFF]{2,}", text)
-    return list(set(words))
-
-
-def compute_status(vocab_state: dict) -> str:
-    """Compute a one-line status for learner.json based on listen counts."""
-    episodes = vocab_state.get("episodes", {})
-    under_listened = []
-    for mission_str, ep in episodes.items():
-        listens = ep.get("listens", 0)
-        if listens < 3:
-            under_listened.append((int(mission_str), listens))
-
-    # Only care about recent episodes (last 8)
-    under_listened.sort(key=lambda x: x[0], reverse=True)
-    under_listened = under_listened[:8]
-    recent_under = [(m, l) for m, l in under_listened if l < 3]
-
-    if not recent_under:
+def compute_status(episodes: dict) -> str:
+    under = [(int(m), ep.get("listens", 0)) for m, ep in episodes.items()
+             if ep.get("listens", 0) < 3]
+    under.sort(key=lambda x: x[0], reverse=True)
+    under = under[:8]
+    if not under:
         return "Ready for new episode."
-    elif len(recent_under) <= 2:
-        return f"{len(recent_under)} recent episodes under-listened. New episode OK, but re-listen playlist recommended."
-    else:
-        total_min = sum(
-            get_episode_duration(m) or 3.0 for m, _ in recent_under
-        )
-        return f"{len(recent_under)} episodes under-listened (~{total_min:.0f} min). Re-listen playlist recommended before new production."
+    if len(under) <= 2:
+        return f"{len(under)} recent episodes under-listened. New episode OK, but re-listen playlist recommended."
+    total_min = sum(get_episode_duration(m) or 3.0 for m, _ in under)
+    return f"{len(under)} episodes under-listened (~{total_min:.0f} min). Re-listen playlist recommended before new production."
 
 
-def compute_floor(vocab_state: dict) -> dict:
-    """The viability floor: of the words the learner *recognizes*
-    (mastered + comfortable), how many can they *produce cold*?
-
-    The production axis lives in vocab_state["production"] as a
-    {word: level} map where level is "cold" or "hinted". Absence = "unseen".
-    Keys may be phonetic (e.g. "illa") or Tamil script (e.g. "இல்ல") —
-    vocab_state["phonetic_aliases"] maps phonetic → script for resolution.
-    This is the real progress bar for the production-as-accelerant phase.
-    """
-    recognized = (
-        set(vocab_state.get("mastered_words", []))
-        | set(vocab_state.get("comfortable_words", []))
-    )
-    production = vocab_state.get("production", {})
-    aliases = vocab_state.get("phonetic_aliases", {})
-    cold = {aliases.get(w, w) for w, lvl in production.items() if lvl == "cold"}
-    cleared = recognized & cold
-    total = len(recognized)
-    pct = (len(cleared) / total * 100) if total else 0.0
-    return {"cleared": len(cleared), "total": total, "pct": pct}
-
-
-def compute_recent_missions(vocab_state: dict, n: int = 4) -> list[dict]:
-    """Build the recent_missions list for thin learner.json."""
-    episodes = vocab_state.get("episodes", {})
+def compute_recent_missions(episodes: dict, n: int = 4) -> list[dict]:
     recent = sorted(episodes.items(), key=lambda x: int(x[0]), reverse=True)[:n]
-    result = []
-    for mission_str, ep in recent:
-        result.append({
-            "mission": int(mission_str),
-            "title": ep.get("title", f"Mission {mission_str}"),
-            "listens": ep.get("listens", 0),
-        })
-    return result
+    return [{"mission": int(m), "title": ep.get("title", f"Mission {m}"),
+             "listens": ep.get("listens", 0)} for m, ep in recent]
 
 
-def write_thin_learner(learner: dict, vocab_state: dict):
-    """Rewrite learner.json as the thin LLM-facing file."""
+def write_thin_learner(learner: dict, episodes: dict):
     thin = {
         "learner": learner.get("learner", "Andrew"),
-        "current_tier": learner.get("current_tier", 2),
-        "active_mission": learner.get("active_mission", {}),
         "streak": learner.get("streak", {}),
         "last_debrief": learner.get("last_debrief", ""),
-        "recent_missions": compute_recent_missions(vocab_state),
-        "status": compute_status(vocab_state),
+        "soak_order": learner.get("soak_order", {}),
+        "recent_missions": compute_recent_missions(episodes),
+        "status": compute_status(episodes),
     }
     save_json(LEARNER_PATH, thin)
     print(f"  Updated learner.json ({LEARNER_PATH.relative_to(BASE)})")
 
 
-def cmd_migrate(_args):
-    """Migrate from old learner.json to new split format."""
-    learner = load_json(LEARNER_PATH)
-    if not learner:
-        print("Error: No learner.json found.")
-        sys.exit(1)
-
-    # Build vocab_state from old learner.json
-    vocab_state = {
-        "mastered_words": learner.get("mastered_words", []),
-        "comfortable_words": learner.get("comfortable_words", []),
-        "struggled_words": learner.get("struggled_words", []),
-        "total_sessions": learner.get("total_sessions", 0),
-        "session_history": learner.get("sessions", []),
-        "episodes": {},
-    }
-
-    # Initialize episodes from available audio
-    missions = get_available_missions()
-    for m in missions:
-        # Guess listens: older = more listened. Recent = 1.
-        session_missions = {s.get("mission") for s in learner.get("sessions", [])}
-        listens = 1  # default: heard at least once if audio exists
-        vocab_state["episodes"][str(m)] = {
-            "title": f"Mission {m}",
-            "listens": listens,
-            "words": scan_script_words(m),
-            "duration_min": get_episode_duration(m),
-        }
-
-    save_json(VOCAB_STATE_PATH, vocab_state)
-    print(f"  Created vocab_state.json with {len(vocab_state['episodes'])} episodes")
-
-    # Preserve last_debrief from old format
-    last_mission = learner.get("last_mission", {})
-    debrief = last_mission.get("debrief", "")
-
-    learner["last_debrief"] = debrief
-    write_thin_learner(learner, vocab_state)
-    print("\nMigration complete.")
-
+# --- Commands ----------------------------------------------------------------
 
 def cmd_update(args):
-    """Update state after an interactive session or debrief."""
+    lexicon = load_json(LEXICON_PATH)
     learner = load_json(LEARNER_PATH)
-    vocab_state = load_json(VOCAB_STATE_PATH)
-    if not learner or not vocab_state:
-        print("Error: Run 'sync_state.py migrate' first.")
+    episodes = load_json(EPISODES_PATH) or {}
+    if lexicon is None or learner is None:
+        print("Error: lexicon.json or learner.json missing. Run migrate_lexicon.py first.")
         sys.exit(1)
 
-    # Helper to move words between state lists
-    def move_word(word, target_list_key):
-        for key in ["mastered_words", "comfortable_words", "struggled_words"]:
-            if word in vocab_state.get(key, []):
-                vocab_state[key].remove(word)
-        
-        target_list = vocab_state.setdefault(target_list_key, [])
-        if word not in target_list:
-            target_list.append(word)
+    phon_index = build_phonetic_index(lexicon)
+    today = date.today().isoformat()
+    applied = {"cold": [], "hinted": [], "demoted": []}  # for the session log
 
-    # Record listens on under-listened episodes
-    if args.listens and args.listens > 0:
-        bumped = []
-        for mission_str in sorted(vocab_state["episodes"].keys(), key=int, reverse=True):
-            ep = vocab_state["episodes"][mission_str]
-            if ep.get("listens", 0) < 3:
-                ep["listens"] = ep.get("listens", 0) + args.listens
-                bumped.append(mission_str)
-        if bumped:
-            print(f"  Added {args.listens} listen(s) to {len(bumped)} under-listened episodes (M{', M'.join(bumped)})")
+    def touch(key):
+        lexicon[key]["last_surfaced"] = today
 
-    # Record word progress
-    for word in args.mastered_word:
-        move_word(word, "mastered_words")
-        print(f"  Mastered: {word}")
-    
-    for word in args.comfortable_word:
-        move_word(word, "comfortable_words")
-        print(f"  Comfortable: {word}")
+    def set_recognition(word, level):
+        """Set recognition; create a record if the word is new (script only)."""
+        key = resolve(word, lexicon, phon_index)
+        if key is None:
+            if not is_tamil(word):
+                print(f"  ! '{word}' is new but phonetic — add it in Tamil script so it can be canonical. Skipped.")
+                return
+            lexicon[word] = {
+                "gloss": "", "phonetic": [], "recognition": level,
+                "production": "none", "seen_in": [], "last_surfaced": today,
+            }
+            print(f"  + New word '{word}' → recognition {level} (gloss empty — add to curriculum)")
+            return
+        lexicon[key]["recognition"] = level
+        touch(key)
+        print(f"  Recognition '{key}' → {level}")
 
-    for word in args.stuck_word:
-        move_word(word, "struggled_words")
-        print(f"  Stuck: {word}")
+    def demote_recognition(word):
+        key = resolve(word, lexicon, phon_index)
+        if key is None:
+            print(f"  ! '{word}' not in lexicon — nothing to demote. Skipped.")
+            return
+        cur = lexicon[key].get("recognition", "struggled")
+        new = DEMOTE.get(cur, "struggled")
+        lexicon[key]["recognition"] = new
+        touch(key)
+        applied["demoted"].append(key)
+        print(f"  Recognition '{key}' demoted {cur} → {new}")
 
-    # Record production progress (the cold/hinted axis, independent of recognition)
-    # Resolve phonetic keys through aliases so they match the Tamil-script recognized set.
-    aliases = vocab_state.get("phonetic_aliases", {})
-    production = vocab_state.setdefault("production", {})
-    for word in args.produced_cold:
-        production[aliases.get(word, word)] = "cold"
-        print(f"  Produced COLD: {word}")
-    for word in args.produced_hinted:
-        production[aliases.get(word, word)] = "hinted"
-        print(f"  Produced (hinted): {word}")
+    def set_production(word, level):
+        key = resolve(word, lexicon, phon_index)
+        if key is None:
+            print(f"  ! Produced '{word}' but no record resolves — add recognition first (script). Skipped.")
+            return
+        lexicon[key]["production"] = level
+        touch(key)
+        applied[level].append(key)
+        print(f"  Produced {level.upper()}: {key}")
 
-    # Update debrief
+    # Recognition movement
+    for w in args.mastered_word:
+        set_recognition(w, "solid")
+    for w in args.comfortable_word:
+        set_recognition(w, "comfortable")
+    for w in args.stuck_word:
+        demote_recognition(w)
+
+    # Production axis
+    for w in args.produced_cold:
+        set_production(w, "cold")
+    for w in args.produced_hinted:
+        set_production(w, "hinted")
+
+    # Listened episodes — hearing an episode surfaces its words (audio side of the
+    # recency bridge): bump last_surfaced on each of its words that is in the lexicon.
+    for mission in args.listened:
+        ep = episodes.get(str(mission))
+        if not ep:
+            print(f"  ! No episode M{mission} to log a listen for. Skipped.")
+            continue
+        ep["listens"] = ep.get("listens", 0) + 1
+        surfaced = 0
+        for w in ep.get("words", []):
+            key = resolve(w, lexicon, phon_index)
+            if key:
+                lexicon[key]["last_surfaced"] = today
+                surfaced += 1
+        print(f"  Listened M{mission} (now {ep['listens']}x) — surfaced {surfaced} lexicon words")
+
+    # Soak order — the intentional payload for the NEXT audio episode (what Anna
+    # wants soaked), read by the Director. Overwrites; fail-forward, no history.
+    if args.soak_payload or args.soak_seed:
+        payload = [resolve(w, lexicon, phon_index) or w for w in args.soak_payload]
+        learner["soak_order"] = {
+            "payload": payload,
+            "scene_seed": args.soak_seed or learner.get("soak_order", {}).get("scene_seed", ""),
+            "from": today,
+        }
+        print(f"  Soak order set: {', '.join(payload) or '(seed only)'}")
+
     if args.debrief:
         learner["last_debrief"] = args.debrief
 
-    # Update streak
     streak = learner.get("streak", {})
-    today = date.today().isoformat()
     if streak.get("last_date") != today:
         streak["current"] = streak.get("current", 0) + 1
         streak["best"] = max(streak.get("best", 0), streak["current"])
         streak["last_date"] = today
         learner["streak"] = streak
 
-    save_json(VOCAB_STATE_PATH, vocab_state)
-    write_thin_learner(learner, vocab_state)
-    print("\nState updated.")
+    save_json(LEXICON_PATH, lexicon)
+    if episodes:
+        save_json(EPISODES_PATH, episodes)
+    write_thin_learner(learner, episodes)
+
+    floor = compute_floor(lexicon)
+
+    # Append-only momentum log — one entry per session that did something.
+    if applied["cold"] or applied["hinted"] or applied["demoted"] or args.listened or args.debrief:
+        log = load_json(SESSION_LOG_PATH) or []
+        log.append({
+            "date": today,
+            "floor_pct": round(floor["pct"], 1),
+            "cold": applied["cold"],
+            "hinted": applied["hinted"],
+            "demoted": applied["demoted"],
+            "listened": list(args.listened),
+            "note": args.debrief or "",
+        })
+        save_json(SESSION_LOG_PATH, log)
+        print(f"  Logged session ({len(log)} total)")
+
+    print(f"\nViability floor: {floor['cleared']}/{floor['total']} fire cold ({floor['pct']:.0f}%)")
+    print("State updated.")
 
 
 def cmd_status(_args):
-    """Print current state for the LLM or the human."""
+    lexicon = load_json(LEXICON_PATH)
     learner = load_json(LEARNER_PATH)
-    vocab_state = load_json(VOCAB_STATE_PATH)
+    episodes = load_json(EPISODES_PATH) or {}
     if not learner:
         print("No learner.json found.")
         return
 
     print(f"Learner: {learner.get('learner')}")
-    print(f"Mission: {learner.get('active_mission', {}).get('mission', '?')}")
     print(f"Streak: {learner.get('streak', {}).get('current', 0)} days")
     print(f"Status: {learner.get('status', 'unknown')}")
+    print(f"Last: {learner.get('last_debrief', '')}")
+    soak = learner.get("soak_order", {})
+    if soak.get("payload") or soak.get("scene_seed"):
+        payload = ", ".join(soak.get("payload", []))
+        print(f"Soak order: [{payload}] — {soak.get('scene_seed', '')} (from {soak.get('from', '?')})")
     print()
 
-    if vocab_state:
-        words = vocab_state.get("mastered_words", [])
-        comfortable = vocab_state.get("comfortable_words", [])
-        struggled = vocab_state.get("struggled_words", [])
-        print(f"Words — mastered: {len(words)}, comfortable: {len(comfortable)}, struggled: {len(struggled)}")
-
-        production = vocab_state.get("production", {})
-        cold = sum(1 for v in production.values() if v == "cold")
-        hinted = sum(1 for v in production.values() if v == "hinted")
-        floor = compute_floor(vocab_state)
+    if lexicon:
+        by_level = {lvl: 0 for lvl in RECOGNITION_LEVELS}
+        cold = hinted = 0
+        for r in lexicon.values():
+            by_level[r.get("recognition", "struggled")] = by_level.get(r.get("recognition", "struggled"), 0) + 1
+            if r.get("production") == "cold":
+                cold += 1
+            elif r.get("production") == "hinted":
+                hinted += 1
+        print(f"Recognition — solid: {by_level['solid']}, comfortable: {by_level['comfortable']}, struggled: {by_level['struggled']}")
         print(f"Production — cold: {cold}, hinted: {hinted}")
-        print(f"Viability floor: {floor['cleared']}/{floor['total']} "
-              f"recognized words fire cold ({floor['pct']:.0f}%)")
+        floor = compute_floor(lexicon)
+        print(f"Viability floor: {floor['cleared']}/{floor['total']} recognized words fire cold ({floor['pct']:.0f}%)")
 
-        episodes = vocab_state.get("episodes", {})
+    if episodes:
         recent = sorted(episodes.items(), key=lambda x: int(x[0]), reverse=True)[:6]
-        print(f"\nRecent episodes:")
+        print("\nRecent episodes:")
         for m, ep in recent:
-            listens = ep.get("listens", 0)
             dur = ep.get("duration_min")
             dur_str = f" ({dur:.1f} min)" if dur else ""
-            print(f"  M{m}: {listens}x listened{dur_str}")
+            print(f"  M{m}: {ep.get('listens', 0)}x listened{dur_str}")
 
 
 def main():
     parser = argparse.ArgumentParser(description="Tamil learning state management")
     sub = parser.add_subparsers(dest="command")
-
-    sub.add_parser("migrate", help="One-time migration from old learner.json")
     sub.add_parser("status", help="Show current state")
 
-    update_p = sub.add_parser("update", help="Update state after interactive session")
-    update_p.add_argument("--listens", type=int, default=0,
-                          help="Number of re-listens since last session")
-    update_p.add_argument("--mastered-word", type=str, action="append", default=[],
-                          help="Word(s) that are now mastered")
-    update_p.add_argument("--comfortable-word", type=str, action="append", default=[],
-                          help="Word(s) that are now comfortable")
-    update_p.add_argument("--stuck-word", type=str, action="append", default=[],
-                          help="Word(s) that are causing trouble (recognition)")
-    update_p.add_argument("--produced-cold", type=str, action="append", default=[],
-                          help="Word(s) the learner produced COLD — no hint (production axis)")
-    update_p.add_argument("--produced-hinted", type=str, action="append", default=[],
-                          help="Word(s) produced only after a hint (production axis)")
-    update_p.add_argument("--debrief", type=str, default=None,
-                          help="One-line debrief note")
+    up = sub.add_parser("update", help="Update state after a session")
+    up.add_argument("--listened", type=int, action="append", default=[],
+                    help="Mission number(s) the learner listened to (bumps listens + surfaces words)")
+    up.add_argument("--soak-payload", type=str, action="append", default=[],
+                    help="Word(s) to soak in the next audio episode (the Director's payload)")
+    up.add_argument("--soak-seed", type=str, default=None,
+                    help="One-line scene seed for the next audio soak")
+    up.add_argument("--mastered-word", type=str, action="append", default=[],
+                    help="Word(s) now solid in recognition")
+    up.add_argument("--comfortable-word", type=str, action="append", default=[],
+                    help="Word(s) now comfortable in recognition")
+    up.add_argument("--stuck-word", type=str, action="append", default=[],
+                    help="Word(s) that failed cold recall — demotes recognition one level")
+    up.add_argument("--produced-cold", type=str, action="append", default=[],
+                    help="Word(s) produced COLD — no hint (production axis)")
+    up.add_argument("--produced-hinted", type=str, action="append", default=[],
+                    help="Word(s) produced only after a hint (production axis)")
+    up.add_argument("--debrief", type=str, default=None, help="One-line debrief note")
 
     args = parser.parse_args()
-    if args.command == "migrate":
-        cmd_migrate(args)
-    elif args.command == "update":
+    if args.command == "update":
         cmd_update(args)
     elif args.command == "status":
         cmd_status(args)

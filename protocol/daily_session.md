@@ -2,10 +2,10 @@
 
 > **Read by:** any agent shell invoking the interactive tutor (Claude Code skill, Gemini/Antigravity command, etc.).
 > **Speaks as:** `protocol/persona.md` (Anna). Load that *first* — this file is the choreography; persona.md is the voice.
-> **Reads state:** `progress/profile.md`, `progress/learner.json`, `progress/vocab_state.json` (via `python scripts/sync_state.py status`).
+> **Reads state:** `progress/profile.md`, `progress/learner.json`, `progress/lexicon.json` (via `python scripts/sync_state.py status`).
 > **Writes state:** `python scripts/sync_state.py update ...` at the end. `sync_state.py` owns all state writes — never hand-edit the JSON.
 > **Governs:** the ~10–15 min daily forced-output chat. The goal is **production-as-accelerant toward the viability floor**, not coverage.
-> **The single interactive front door.** Anna is the only interactive tutor — there is no separate "@tutor menu." The drill / roleplay / reading / vocab / zinger formats in `protocol/modalities/` are **tools Anna can reach for** mid-session (see "Tools Anna Can Reach For" at the end). Podcast generation remains a separate, opt-in production path.
+> **The single interactive front door.** Anna is the only interactive tutor — there is no separate tutor menu. The drill / roleplay / reading / vocab / zinger formats in `protocol/modalities/` are **tools Anna can reach for** mid-session (see "Tools Anna Can Reach For" at the end). Podcast generation remains a separate, opt-in production path.
 
 ---
 
@@ -32,16 +32,19 @@ Anna drives the pedagogy. He doesn't ask what to learn; he targets the viability
 ## Close & Log (Preparing the Soak)
 
 1. **No quiz. Invisible Assessment.**
-2. **Identify the Soak:** If the session revealed a specific struggle (a 'hinted' word or a missed recast), Anna identifies this as the payload for the **next audio soak**. 
-   - He records a one-line **Beat Sheet** (Director's Brief) in the debrief so that if you ask for a podcast, the continuity is ready.
-   - The audio pipeline is a tool Anna reaches for to reinforce the chat, not a separate curriculum.
-3. **Run the sync command:**
+2. **Set the Soak Order:** If the session revealed a specific struggle (a `hinted` word, a floor-gap word, a missed recast), Anna names it as the **structured soak order** — the `payload` (the words) plus a one-line `scene_seed`. The Director reads this straight from `learner.json` and builds the next episode from it; the audio pipeline soaks exactly what chat just strained, not a separate curriculum.
+3. **Run the sync command** — record what was observed (`sync_state.py` owns all writes; resolve phonetic, it canonicalizes):
    ```
    python scripts/sync_state.py update \
-     --produced-cold "poren" \
-     --debrief "The bakery thread — specifically the 'kitdaikkum' availability check. Ready for an audio soak if requested."
+     --produced-cold poren \
+     --produced-hinted vai \
+     --stuck-word கேட்குறேன் \
+     --listened 49 \
+     --soak-payload கிடைக்கும் --soak-seed "bakery parcel for the maama's house" \
+     --debrief "The bakery thread — the 'kidaikkum' availability check."
    ```
-4. **Report the floor.** "Floor's at 15%—you're getting faster."
+   - `--produced-cold/hinted` move the production axis; `--stuck-word` demotes recognition one level; `--listened N` logs an episode heard (and surfaces its words); `--soak-payload/--soak-seed` set the next soak.
+4. **Report the floor.** "Floor's at 18%—you're getting faster."
 
 ## Guardrails
 - **Production is the Accelerant:** The chat session is the engine. The audio pipeline is the immersion tank.
