@@ -1,0 +1,26 @@
+{
+  "mission": 47,
+  "shape": "transaction",
+  "location_class": "home_social",
+  "energy": "medium-loud",
+  "intercept_tamil_density": 0.4,
+  "breakdown_tamil_density": 0.2,
+  "new_words_landed": {
+    "ஃப்ரீ-யா?": 2,
+    "நேரம் இருக்கா?": 2,
+    "கேன்சல்": 3,
+    "போஸ்ட்போன்": 2
+  },
+  "callbacks_used": {
+    "கேட்குறேன்": 2,
+    "கேட்பேன்": 2,
+    "தூக்கு": 3,
+    "வை": 3,
+    "நிஜமா?": 2
+  },
+  "host_roles": {
+    "A": "plan_coordinator",
+    "B": "distracted_box_mover"
+  },
+  "notes": "Backfilled sidecar. Phone negotiation of a weekend movie plan while B moves boxes; cancel/postpone scheduling glue is the spine, thooku/vai anchored to box-lifting. Scheduling-logistics terrain shares ground with M43 — vary location/shape next. ketkuren/ketpen contrast appears for the 4th straight episode (M44-47): rest it."
+}

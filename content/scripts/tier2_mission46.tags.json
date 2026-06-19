@@ -1,0 +1,27 @@
+{
+  "mission": 46,
+  "shape": "pattern_riff",
+  "location_class": "home_social",
+  "energy": "medium-loud",
+  "intercept_tamil_density": 0.35,
+  "breakdown_tamil_density": 0.2,
+  "new_words_landed": {
+    "எழுந்திரு": 3,
+    "குளி": 3,
+    "சட்டை": 3,
+    "போடு": 3,
+    "கிளம்பு": 4
+  },
+  "callbacks_used": {
+    "கேட்குறேன்": 3,
+    "கேட்பேன்": 2,
+    "தூக்கு": 3,
+    "வை": 2,
+    "வாருங்களா?": 2
+  },
+  "host_roles": {
+    "A": "drill_sergeant_partner",
+    "B": "groggy_sleeper"
+  },
+  "notes": "Backfilled sidecar. Pre-dawn get-out-the-door imperative chain (wake/bathe/dress/leave) is the spine; physical verbs anchored to phone/bag. English-heavy Intercept (low Tamil density) — the verbs float in English scaffolding. FLAG: Breakdown addresses Andrew by name (fourth-wall break)."
+}

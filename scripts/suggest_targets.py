@@ -46,13 +46,16 @@ def floor_gap_targets(lexicon: dict, today, max_n: int) -> list[dict]:
         gap.append({
             "word": w, "gloss": r.get("gloss", ""),
             "recognition": r.get("recognition"), "production": r.get("production", "none"),
-            "staleness": staleness,
+            "staleness": staleness, "soaked": len(r.get("seen_in", [])),
         })
     # Least-recently-worked first (rotates as Anna logs sessions); among equals,
-    # a hinted word is riper than none, a solid word riper than comfortable.
+    # a hinted word is riper than none, a solid word riper than comfortable, and a
+    # more-soaked word (more episodes heard) is riper than a barely-seen one. The
+    # soak tiebreak is what carries the cold-start window before dates accrue.
     gap.sort(key=lambda c: (-c["staleness"],
                             PROD_ORDER.get(c["production"], 1),
                             RECOG_ORDER.get(c["recognition"], 1),
+                            -c["soaked"],
                             c["word"]))
     return gap[:max_n]
 

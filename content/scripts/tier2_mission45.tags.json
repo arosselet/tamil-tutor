@@ -1,0 +1,25 @@
+{
+  "mission": 45,
+  "shape": "dispute",
+  "location_class": "restaurant",
+  "energy": "medium",
+  "intercept_tamil_density": 0.85,
+  "breakdown_tamil_density": 0.2,
+  "new_words_landed": {
+    "விட": 8,
+    "பெரிய": 3,
+    "சின்ன": 2
+  },
+  "callbacks_used": {
+    "அப்படீங்களா?": 2,
+    "கேட்குறேன்": 2,
+    "கேட்பேன்": 2,
+    "தூக்கு": 2,
+    "வை": 2
+  },
+  "host_roles": {
+    "A": "loyal_to_one_hotel",
+    "B": "contrarian_friend"
+  },
+  "notes": "Backfilled sidecar. Friendly which-hotel/which-sambar debate; the 'vida' comparison marker is the spine, applied to size/quality/people. Near-fully-Tamil Intercept (high density). FLAG: Breakdown breaks the fourth wall ('Andrew, if you're listening at lunch...') — integrity issue, not anti-sameness."
+}
