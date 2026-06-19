@@ -1,0 +1,26 @@
+{
+  "mission": 43,
+  "shape": "transaction",
+  "location_class": "home_social",
+  "energy": "medium-loud",
+  "intercept_tamil_density": 0.45,
+  "breakdown_tamil_density": 0.2,
+  "new_words_landed": {
+    "கூப்பிடு": 3,
+    "அனுப்பு": 3,
+    "கிடைச்சுது": 3,
+    "நேரம் இருக்கா?": 2,
+    "கன்ஃபர்ம்": 2
+  },
+  "callbacks_used": {
+    "தூக்கு": 3,
+    "வை": 3,
+    "கேட்குறேன்": 2,
+    "சாப்டீங்களா?": 3
+  },
+  "host_roles": {
+    "A": "frantic_coordinator",
+    "B": "skeptical_friend"
+  },
+  "notes": "Backfilled sidecar. Phone/group-chat lunch-booking scramble; the communication verbs (call/send/received) are the spine; saaptiingalaa lands as the comic deflection button. Scheduling-logistics terrain — shares ground with M47, so vary the next one off it."
+}

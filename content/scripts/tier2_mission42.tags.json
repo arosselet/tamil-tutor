@@ -1,0 +1,26 @@
+{
+  "mission": 42,
+  "shape": "dispute",
+  "location_class": "restaurant",
+  "energy": "loud",
+  "intercept_tamil_density": 0.6,
+  "breakdown_tamil_density": 0.2,
+  "new_words_landed": {
+    "கொடுத்தேன்": 6,
+    "வந்தேன்": 3,
+    "அதான்": 4,
+    "புரிஞ்சுது": 2,
+    "புரியல": 3
+  },
+  "callbacks_used": {
+    "கேட்குறேன்": 2,
+    "கேட்பேன்": 2,
+    "வை": 3,
+    "எங்க?": 3
+  },
+  "host_roles": {
+    "A": "vindicated_customer",
+    "B": "certain_vendor"
+  },
+  "notes": "Backfilled sidecar (episode predates the tagging step). Tea-stall short-change dispute; kodutten fired by both sides as the structural spine; adaan is the vindication button. The -en past-tense ending (kodutten/vanden) is the pattern. enga used as 'where?' (the question form, not possessive)."
+}

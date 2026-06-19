@@ -289,13 +289,21 @@ def cmd_status(_args):
         return
 
     print(f"Learner: {learner.get('learner')}")
-    print(f"Streak: {learner.get('streak', {}).get('current', 0)} days")
+    last = learner.get("streak", {}).get("last_date")
+    gap = (date.today() - date.fromisoformat(last)).days if last else None
+    gap_str = f" (last active {gap} days ago)" if gap and gap > 1 else ""
+    print(f"Streak: {learner.get('streak', {}).get('current', 0)} days{gap_str}")
     print(f"Status: {learner.get('status', 'unknown')}")
     print(f"Story so far: {learner.get('last_debrief', '')}")
     soak = learner.get("soak_order", {})
     if soak.get("payload") or soak.get("scene_seed"):
         payload = ", ".join(soak.get("payload", []))
-        print(f"Soak order: [{payload}] — {soak.get('scene_seed', '')} (from {soak.get('from', '?')})")
+        soak_from = soak.get("from")
+        soak_age = (date.today() - date.fromisoformat(soak_from)).days if soak_from else None
+        stale = " ⚠ stale — chat hasn't fed the Director lately" if soak_age and soak_age > 7 else ""
+        print(f"Soak order: [{payload}] — {soak.get('scene_seed', '')} (from {soak.get('from', '?')}){stale}")
+    else:
+        print("Soak order: ⚠ none set — chat hasn't handed anything to the Director.")
     print()
 
     if lexicon:

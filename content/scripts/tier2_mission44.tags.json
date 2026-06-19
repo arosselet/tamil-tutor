@@ -1,0 +1,27 @@
+{
+  "mission": 44,
+  "shape": "transaction",
+  "location_class": "auto",
+  "energy": "medium-loud",
+  "intercept_tamil_density": 0.7,
+  "breakdown_tamil_density": 0.2,
+  "new_words_landed": {
+    "சூடு": 6,
+    "குளிர்": 3,
+    "கஷ்டம்": 4,
+    "ஈஸி": 3,
+    "சரியான": 4
+  },
+  "callbacks_used": {
+    "கேட்குறேன்": 3,
+    "கேட்பேன்": 3,
+    "தூக்கு": 3,
+    "வை": 3,
+    "நிஜமா?": 1
+  },
+  "host_roles": {
+    "A": "passenger",
+    "B": "talkative_driver"
+  },
+  "notes": "Backfilled sidecar. Heat/traffic banter on an auto ride → fare transaction → bag handling lands thooku/vai physically. Tamil-heavy Intercept. ketkuren/ketpen present/future contrast foregrounded — note this contrast recurs across M44-M47, consider resting it."
+}
