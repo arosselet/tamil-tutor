@@ -1,0 +1,15 @@
+{
+  "mission": 51,
+  "register": "reconciliation",
+  "dramatic_ingredient": "genre",
+  "episode_form": "classic",
+  "shape": "debrief",
+  "location_class": "extended_family",
+  "energy": "low",
+  "intercept_tamil_density": 0.75,
+  "breakdown_tamil_density": 0.5,
+  "new_words_landed": { "அதனால தான்": 4, "அப்படி இல்ல": 1, "அப்படியே": 1, "அதுக்கு மேல": 1, "அப்படினா என்ன அர்த்தம்?": 2 },
+  "callbacks_used": { "முதல்ல": 3, "கல்யாணம்": 1, "இங்க": 4, "கம்மி": 2, "பிடி": 2 },
+  "host_roles": { "A": "reconciling_elder_sister", "B": "estranged_younger_brother" },
+  "notes": "Reconciliation via ghost-confession at the wedding (continues M50 'The Wedding Setup'). Soaked floor-gap: பார்த்தேன், சரி, முதல்ல, இருக்கு, ஆனா, அண்ணா, கிட்ட, மாமா. Fired engines: முடியல (சொல்ல/தூங்க/வர முடியல), obligation ணும் (சொல்லணும், வரணும்), present/future toggle (போறேன்/போவேன், சொல்வேன்). Moved off the domestic-kitchen reflex per profile."
+}
