@@ -13,11 +13,12 @@
     ]
   },
   "streak": {
-    "current": 18,
-    "best": 18,
-    "last_date": "2026-06-15"
+    "current": 19,
+    "best": 19,
+    "last_date": "2026-06-21"
   },
   "last_debrief": "Published 'The Bakery Run' (M49). Collected 'thooku' cold. Handing off to the soak — pick up 'kidaikkum' availability and 'parsal' logistics next session.",
+  "soak_order": {},
   "recent_missions": [
     {
       "mission": 49,
