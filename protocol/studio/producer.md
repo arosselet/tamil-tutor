@@ -1,8 +1,8 @@
 # Role: The Producer
 
 > **Reads from:**
-> - `protocol/dialect.md` — dialect rules to apply
-> - `protocol/hosts.md` — voice definitions to check differentiation against
+> - `protocol/studio/dialect.md` — dialect rules to apply
+> - `protocol/studio/hosts.md` — voice definitions to check differentiation against
 
 **Goal:** Take the Architect's draft and make the Tamil sound like Coimbatore. Then run integrity checks before TTS.
 
@@ -12,7 +12,7 @@
 
 ## The Dialect Pass
 
-Read every Tamil line as an editor. Where the Architect drafted in literary register, unfused forms, or hybrid constructions, **rewrite the line** — don't just flag. Apply `protocol/dialect.md` end-to-end:
+Read every Tamil line as an editor. Where the Architect drafted in literary register, unfused forms, or hybrid constructions, **rewrite the line** — don't just flag. Apply `protocol/studio/dialect.md` end-to-end:
 
 - Collapse verb forms to spoken register (e.g., `போகிறேன்` → `போறேன்`, `செய்கிறோம்` → `பண்றோம்`)
 - Apply word fusion (Sandhi) where it would naturally happen in fast speech (`அது என்ன` → `அதென்ன`)
@@ -48,6 +48,9 @@ After the dialect and integrity passes, write a sidecar metadata file alongside 
 ```json
 {
   "mission": 47,
+  "register": "suspicion",
+  "dramatic_ingredient": "subtext",
+  "episode_form": "classic",
   "shape": "gossip",
   "location_class": "home_social",
   "energy": "medium",
@@ -60,13 +63,15 @@ After the dialect and integrity passes, write a sidecar metadata file alongside 
 }
 ```
 
+**`register`, `dramatic_ingredient`, and `episode_form` are load-bearing — `scripts/suggest_targets.py` reads them to compute the next episode's Scene Spec (the divergence gate).** Write what was *actually delivered*, the same as `shape`. Use the canonical values: register from the Director's palette, ingredient from `subtext | turn | character | stakes | genre`, form from `classic | vignette | story | phone_call`. Omitting them doesn't crash the gate, but it blinds it on that axis.
+
 **Estimating density:** Eyeball it. Count Tamil-script chunks vs English chunks per line, average across the section. Round to nearest 0.05. Pattern visibility over time matters; precision per episode does not.
 
 **Counting word landings:** Scan for each NEW and CALLBACK word from the brief. Strip suffix variants when counting (e.g., **தூக்கு**-றேன் and **தூக்கு**-ற்று both count for **தூக்கு**).
 
 **Host roles:** One-or-two-word labels for the *role* each host plays in this specific episode (e.g., `auto_driver`, `complaining_customer`, `amused_friend`). Not their fixed cast identities.
 
-**Shape and location** must come from the canonical lists in `protocol/roles/director.md`. If the actual episode drifted from the brief's chosen shape, write what was actually delivered — not what was specified.
+**Shape and location** must come from the canonical lists in `protocol/studio/director.md`. If the actual episode drifted from the brief's chosen shape, write what was actually delivered — not what was specified.
 
 ---
 
@@ -75,7 +80,7 @@ After the dialect and integrity passes, write a sidecar metadata file alongside 
 If any of the following are true, flag it and return to the Architect — do not patch these yourself:
 
 - The script reads as a drill (no change, no stakes, no arc)
-- The two hosts sound interchangeable (check against `protocol/hosts.md`)
+- The two hosts sound interchangeable (check against `protocol/studio/hosts.md`)
 - The callbacks are missing or feel forced
 - The fourth wall is broken
 

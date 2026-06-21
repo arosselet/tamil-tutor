@@ -1,6 +1,6 @@
 # Protocol: Spoken Tamil — Coimbatore Dialect
 
-> **Read by:** `protocol/roles/producer.md` — owner of the dialect transformation. The Architect does not read this file; Producer rewrites Architect drafts to this register before TTS.
+> **Read by:** `protocol/studio/producer.md` — owner of the dialect transformation. The Architect does not read this file; Producer rewrites Architect drafts to this register before TTS.
 > **Language-specific:** This file is Tamil/Coimbatore-specific. To teach a different language or dialect, replace this file. The roles that reference it do not change.
 
 The test for every Tamil line: *Would a Coimbatore auto driver say this to his friend?* If it sounds like a textbook or a 1950s TV anchor, it needs work.
@@ -59,4 +59,4 @@ Repetition: "சரி சரி", "ஆமா ஆமா" — these are not error
 
 ## The Kongu Layer
 
-The `-nga` suffix, phonetic contractions specific to the Coimbatore/Kongu region, and regional expressions. The episode must sound like Coimbatore, not Chennai. Raj (see `protocol/hosts.md`) is the reference ear for this layer — if he would not say it, it is not Kongu enough.
+The `-nga` suffix, phonetic contractions specific to the Coimbatore/Kongu region, and regional expressions. The episode must sound like Coimbatore, not Chennai. Raj (see `protocol/studio/hosts.md`) is the reference ear for this layer — if he would not say it, it is not Kongu enough.

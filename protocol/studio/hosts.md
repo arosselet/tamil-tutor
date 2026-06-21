@@ -1,6 +1,6 @@
 # Protocol: Cast & Voices
 
-> **Read by:** `protocol/roles/architect.md`, `protocol/roles/producer.md`, `protocol/roles/director.md`
+> **Read by:** `protocol/studio/architect.md`, `protocol/studio/producer.md`, `protocol/studio/director.md`
 > **Defines:** All speaking roles across every episode.
 > **Language-specific:** The names Maya and Raj and the Coimbatore identity are Tamil-specific. Swap this file when teaching a different language.
 
@@ -37,6 +37,6 @@ Two named analysts who appear in every Breakdown segment. They talk **to each ot
 
 ## Rules That Apply to All Four Voices
 
-- **Fourth wall stays up.** No "you," no addressing the listener, no meta-narration about the learner's state or activity. The podcast exists in its own world. Canonical rule in `protocol/philosophy.md`.
-- **Tamil script only.** No English phonetics (e.g., "Vanakkam"). Every Tamil word in Tamil script in every context. Canonical rule in `protocol/philosophy.md`.
+- **Fourth wall stays up.** No "you," no addressing the listener, no meta-narration about the learner's state or activity. The podcast exists in its own world. Canonical rule in `protocol/constitution.md`.
+- **Tamil script only.** No English phonetics (e.g., "Vanakkam"). Every Tamil word in Tamil script in every context. Canonical rule in `protocol/constitution.md`.
 - **Gender tag on every speaker line.** `(F)` or `(M)` always present — required by the TTS renderer.
