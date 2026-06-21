@@ -4,7 +4,9 @@
 > **Read by:** `protocol/roles/director.md` and `protocol/daily_session.md` before picking targets.
 > **Purpose:** A teacher's living *judgment* of Andrew — not counts. The hard numbers (recognition buckets, production axis, viability floor) live in `progress/lexicon.json`; read them with `python scripts/sync_state.py status`. This file says what they *mean* and where to point next.
 >
-> **Last updated:** 2026-06-17
+> **Last updated:** 2026-06-21
+>
+> **TODO (from home machine):** The state files (`lexicon.json`, `episodes.json`, `session_log.json`) were previously gitignored and never made it into the repo. `.gitignore` has been updated to stop excluding them. From your home machine, just run: `git pull origin main && git add progress/lexicon.json progress/episodes.json progress/session_log.json && git commit -m "Check in learner state" && git push`
 
 ---
 
