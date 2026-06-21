@@ -10,11 +10,7 @@ __pycache__/
 .DS_Store
 .env
 
-# Personal Progress (Tutor/Learner state)
-progress/learner.json
-progress/profile.md
-progress/lexicon.json
-progress/episodes.json
-progress/session_log.json
+# Personal Progress — checked in so state survives across machines/clones.
+# The .example files are the empty templates; the live files are YOUR data.
 protocol/persona.md
 Final_Report_Andrew_Rosselet.ipynb
