@@ -2,22 +2,28 @@
 
 > **Reads from:**
 > - `progress/profile.md` — learner calibration, active gaps, terrain covered
-> - `progress/learner.json` — active lesson, struggled words, recent lessons
+> - `progress/learner.json` — the soak order, the running story (`last_debrief`), recent missions, streak
 > - `content/scripts/*.tags.json` — last 3-5 missions' structural metadata
 
 **Goal:** Pick the payload, define the scenario context, and identify the core linguistic pattern. Create a format-agnostic Master Lesson Plan that can be delivered via any modality (Podcast, Drill, Roleplay).
 
 ---
 
-## Step 1: Read Recent Tags
+## Step 1: Take the Scene Spec (the variety gate)
 
-Read the last 3-5 `content/scripts/tierX_missionY.tags.json` files. You're looking for what to *not* repeat — scenario shape, location_class, energy. The system drifts toward the same handful of patterns if you don't actively contrast. This is taste, not a blocklist.
+Run `python scripts/suggest_targets.py` and read the **SCENE SPEC** block at the top. Python — not taste — now owns anti-sameness: it reads the last 3 `*.tags.json` sidecars and hands you three axes already forced to diverge from recent episodes:
+
+- **Register** — the emotional tone (`tenderness | dread | mischief | pride | suspicion | grief/nostalgia | delight | embarrassment | defiance | reconciliation`). This is the axis the feed kept collapsing onto "mild irritation." **Honor it** — it is a gate, not a suggestion.
+- **Form** — the episode structure (see Episode Form below).
+- **Dramatic ingredient** — the one thing that makes the scene compelling *without* needing new vocabulary: `subtext | turn | character | stakes | genre`. Build the scene around it.
+
+The spec guarantees range; you write the story inside it. You may still glance at the recent sidecars for `location_class` to vary terrain, but **do not override the register/form/ingredient the spec hands you** — overriding is how the drift came back last time.
 
 ---
 
 ## Step 2: Pick the Calibration
 
-The Master Lesson Plan carries the core pedagogical targets. Delivery modalities (like the Podcast) will later adapt these to their specific formats.
+The Master Lesson Plan carries the core pedagogical targets. Delivery modalities (like the Podcast) will later adapt these to their specific formats. **Register, Form, and the dramatic ingredient come from the Scene Spec (Step 1) — carry them through; don't re-pick them by eye.**
 
 **Linguistic Pattern:** Identify a core structural focus for this lesson. Examples:
 - "The Person Toggle" (I go vs They go)
@@ -31,9 +37,9 @@ The Master Lesson Plan carries the core pedagogical targets. Delivery modalities
 **Location class:** Pick from the canonical list. Prefer terrain marked light or not-covered in `profile.md`.
 `street | market | auto | restaurant | kitchen | home_social | office | extended_family | other`
 
-**Energy:** `low | medium | medium-loud | loud`. Contrast against the last 2-3.
+**Energy:** `low | medium | medium-loud | loud`. Contrast against the last 2-3. (Energy is loud/quiet; **Register** from the Scene Spec is the *emotional tone* — they're independent.)
 
-**Episode Form:** The *structure* of the episode (orthogonal to Shape, which is *what happens*). Not every episode is the analyst deep-dive — contrast against the last 2-3 to fight sameness. The Architect executes whichever you pick.
+**Episode Form (from the Scene Spec):** The *structure* of the episode (orthogonal to Shape, which is *what happens*). The Architect executes whichever the spec handed you.
 `classic` (Intercept + full Breakdown) | `vignette` (Intercept only, no Breakdown — trust the scene) | `story` (one host carries a short told tale; light or no Breakdown) | `phone_call` (naturalistic call; light Breakdown)
 
 ---
@@ -76,6 +82,8 @@ The Scenario is not a plot; it is a sandbox where any modality (a 5-minute podca
 
 ## Core Targets
 - **Linguistic Pattern:** [e.g., The Tense Matrix]
+- **Register:** [from Scene Spec — the emotional tone]
+- **Dramatic Ingredient:** [from Scene Spec — subtext | turn | character | stakes | genre]
 - **Scenario Shape:** [shape from canonical list]
 - **Location class:** [location from canonical list]
 - **Energy:** low | medium | medium-loud | loud

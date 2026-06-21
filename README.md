@@ -30,12 +30,11 @@ Both feed and read the same progress state, so a word produced in chat and a wor
 - **Production as the accelerant.** Recognition plateaus; forced output breaks through. The system tracks a *viability floor* — of the words you recognize, how many you can fire *cold* — and converts recognition into reflex before widening vocabulary.
 - **Two pathways, one state.** Listening (the audio pipeline) builds recognition; speaking (Anna) builds production. Both compound into the same progress meter.
 - **No guilt.** No streaks, no makeup work. If a lesson isn't working, say "this isn't working" and the system shifts gears.
-- **Fail Forward Storage.** The repository only maintains the **last 8 episodes** and playlists. We don't archive old audio; we move forward. The markdown scripts and briefs remain as the permanent record.
 
 ## How It Works
 
 ```
-protocol/            → LLM instructions: Anna (persona + daily_session) + production roles (Director, Architect, Producer)
+protocol/            → Anna (persona + daily_session + session_tools) and studio/ (the isolated production crew: Director, Architect, Producer)
 curriculum/
     └── word_pool.json → Suggestion list of words to learn someday (Anna picks from it)
 content/
@@ -47,17 +46,21 @@ progress/            → lexicon.json (word brain: recognition + production per 
 scripts/             → Python tools (state, render, status, RSS)
 ```
 
-### The Production Pipeline
+*Storage: the repo keeps only the **last 8 episodes** and playlists — old MP3s are purged as new ones land. The Markdown scripts and briefs remain as the permanent record; we move forward, not archive.*
 
-1. **Director** reads your progress and the word pool, writes a Beat Sheet with the vocabulary payload (NEW words + spaced-repetition callbacks) and a scene seed.
-2. **Architect** turns the Beat Sheet into an engaging dual-voice script — an Intercept (slice-of-life scene) plus a Breakdown (two analysts unpacking it).
+### The Studio (Production Pipeline)
+
+The studio is an isolated crew Anna commissions end-to-end (or you run with `/studio`). It takes the **soak-order** Anna set in chat and runs four passes:
+
+1. **Director** reads your progress and the word pool, writes a Master Lesson Plan with the vocabulary payload (NEW words + spaced-repetition callbacks) and a scene seed.
+2. **Architect** turns the Master Lesson Plan into an engaging dual-voice script — an Intercept (slice-of-life scene) plus a Breakdown (two analysts unpacking it).
 3. **Producer** applies the Coimbatore dialect pass (verb forms, Sandhi, Kongu layer), enforces Tamil script for every Tamil word, and runs a final scrubbing pass for TTS fidelity.
 4. `render_audio.py` generates the MP3 with randomized voice assignments.
 
 ### The Daily Loop (Anna)
 
 ```
-Warm callback → One living scene (cold fires as moves) → Recast (never lecture) → Log → Field kit
+Open on the running story (hand over a rep cold) → One living scene (cold fires as moves) → Recast (never lecture) → Close & log → Report the floor
 ```
 
 Anna's daily session is the default. He loads your state, targets words you *recognize but can't yet produce*, and forces you to say them cold. Misses get recast naturally — no grammar lectures. Each session updates the **production axis** and reports where the **viability floor** moved. The audio pipeline is the opt-in immersion layer alongside it.
@@ -75,7 +78,7 @@ One persistent persona runs by default; one explicit hat is for working *on* the
 | **Anna** (default, no keyword) | The coach who drives the learning | Daily sessions, drills, roleplay, commissioning podcasts, tracking progress |
 | `@build` | Engineer | Editing protocols, writing scripts, refining the curriculum |
 
-Or jump straight into a daily session with the **`/anna`** skill (Claude Code) or **`/anna`** command (Gemini CLI).
+Or jump straight into a daily session with the **`/anna`** skill (Claude Code) or **`/anna`** command (Gemini CLI). Run **`/studio`** to produce a podcast episode from the current soak-order — or just ask Anna for one, and he commissions it end-to-end.
 
 ### On Your Laptop (The Factory)
 
