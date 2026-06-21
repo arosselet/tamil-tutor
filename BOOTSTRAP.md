@@ -15,7 +15,7 @@ Welcome to the Tamil Learning System. This guide initializes your own persistent
 
 Clone the repo, then paste this into your LLM agent:
 
-> "I want to bootstrap a new Tamil learning environment. Please act as the System Architect.
+> "I want to bootstrap a new Tamil learning environment. Please act as `@build` (the engineer working *on* the system).
 > 1. Read `BOOTSTRAP.md` for the setup protocol.
 > 2. Ask me for my name, my preferred tutor's name/personality (e.g., elder brother, strict coach, casual friend), and my TTS preference (Edge or Google).
 > 3. Initialize progress files from the `.example` templates.
@@ -72,5 +72,16 @@ Run the first `/anna` session using the fresh state.
 - `progress/` — Your personal state (gitignored JSON managed by Python + LLM-maintained profile).
 - `curriculum/` — `word_pool.json`: suggestion list of words to learn (Anna picks from it).
 - `scripts/` — Python engine: `sync_state.py` owns all state writes; `render_audio.py`, `show_status.py`, `generate_callbacks.py`, `build_playlist.py` for audio and spaced repetition.
+
+### To Teach a Different Language
+
+The bones are language-agnostic; the Coimbatore-Tamil flavor lives in a few files. To retarget the system, replace these — the Python engine, state schema, and daily loop (`daily_session.md`) do **not** change:
+
+| File | Holds | Swap to |
+|---|---|---|
+| `protocol/persona.md` | The tutor's identity, voice, dialect tics | Your tutor in the new language/region |
+| `protocol/hosts.md` | The podcast cast (names + regional identity) | New cast names and regional voice |
+| `protocol/dialect.md` | Spoken-register rules (verb collapse, fusion, slang) | The target dialect's spoken rules |
+| `protocol/constitution.md` | Mostly universal — but the dialect *examples* are Tamil | Edit the inline examples to the new language |
 
 *Keep your `progress/` folder synced to a private Git repository so your tutor remembers you across devices.*
