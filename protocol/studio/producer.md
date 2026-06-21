@@ -33,6 +33,14 @@ The shorthand test after your pass: *Would a Coimbatore auto driver say this to 
 - Gender tag on every speaker line: `(F)` or `(M)` — required by the TTS renderer.
 - `[Pause: N sec]` around any replayed snippets.
 
+## Pacing Check
+
+After the dialect pass, scan for pacing problems — these are **send-back issues**, not cosmetic:
+
+- **Overlong lines:** Any dialogue line with 3+ full sentences should be split. The TTS inserts no breath within a line.
+- **Pause starvation:** The Intercept should have at least one `[Pause]` per 6-8 dialogue lines. Fewer than that and the listener has no processing time.
+- **Wall-of-text runs:** More than 5 consecutive lines with no pause, reaction beat, or short line. Break the wall.
+
 ---
 
 ## Tag the Script

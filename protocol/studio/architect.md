@@ -53,6 +53,24 @@ The fourth wall and no-fixed-characters rules hold in every form (`protocol/stud
 
 ---
 
+## Pacing — The Listenability Gate
+
+A learner who knows every word can still lose the story if lines are too long and gaps too short. Pacing is not a polish step — it's structural.
+
+**Line length:** Each dialogue line should carry **one thought** — one short sentence, or at most two tightly linked clauses. If a line has three sentences, break it into two or three lines (with the same speaker continuing). The TTS inserts a breath between lines; long multi-sentence lines get none.
+
+**Pauses:** Use `[Pause: 1 sec]` (or longer) generously:
+- After any emotionally loaded line where the listener needs to sit with what was said.
+- At scene transitions or topic shifts.
+- Before and after any replayed snippet in the Breakdown.
+- **Minimum:** at least one `[Pause]` per 6-8 dialogue lines in the Intercept; more is fine.
+
+**Rhythm variety:** Alternate between longer and shorter lines. A run of five consecutive long lines is a wall; break it up with a one-word reaction, a laugh marker, or a pause.
+
+**The test:** Read the Intercept aloud at conversational speed. If you can't comfortably follow the story while imagining you know 70% of the words, it's too dense or too fast — add pauses, shorten lines, or both.
+
+---
+
 ## Calibrate Tamil Density
 
 As defined in `protocol/studio/studio.md`, you must choose appropriate Tamil density based on the learner's level.

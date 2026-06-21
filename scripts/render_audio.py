@@ -395,7 +395,7 @@ async def main():
             seg_file = await generate_segment_edge(clean_text, voice, i, temp_dir)
 
         final_audio_data.extend(get_raw_mp3_frames(seg_file))
-        final_audio_data.extend(SILENCE_FRAME * 10) # 250ms breath
+        final_audio_data.extend(SILENCE_FRAME * 21) # ~500ms breath between lines
         os.remove(seg_file)
 
     # Save outputs
