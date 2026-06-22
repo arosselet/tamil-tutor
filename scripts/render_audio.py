@@ -290,6 +290,7 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
     # only ever caught English speaker labels. Fall back to that scrape only
     # when no sidecar exists.
     cleaned_words = []
+    new_word_keys = set()
     tags_path = script_path.with_suffix(".tags.json")
     if tags_path.exists():
         try:
@@ -298,6 +299,7 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
                 for w in tags.get(bucket, {}):
                     if w not in cleaned_words:
                         cleaned_words.append(w)
+            new_word_keys = set(tags.get("new_words_landed", {}))
         except (json.JSONDecodeError, OSError):
             pass
     if not cleaned_words:
@@ -334,17 +336,32 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
         mnum = int(mission_num)
         phon = {p: w for w, r in lexicon.items() for p in r.get("phonetic", [])}
         tagged = 0
+        created = 0
         for w in cleaned_words:
             key = w if w in lexicon else phon.get(w)
+            if key is None and w in new_word_keys and any('஀' <= c <= '௿' for c in w):
+                # Brand-new payload word: introduce it at the bottom of the
+                # recognition ladder — heard, not yet known, so it stays below
+                # the fence until Anna observes recognition. gloss/phonetic
+                # backfill later, the same as sync_state's set_recognition.
+                lexicon[w] = {
+                    "gloss": "", "phonetic": [], "recognition": "struggled",
+                    "production": "none", "seen_in": [mnum], "last_surfaced": None,
+                }
+                created += 1
+                continue
             if key:
                 seen = lexicon[key].setdefault("seen_in", [])
                 if mnum not in seen:
                     seen.append(mnum)
                     seen.sort()
                     tagged += 1
-        if tagged:
+        if tagged or created:
             save_json(Path("progress/lexicon.json"), lexicon)
-            print(f"   ↳ tagged {tagged} lexicon words seen_in M{mnum}")
+            msg = f"   ↳ tagged {tagged} lexicon words seen_in M{mnum}"
+            if created:
+                msg += f"; +{created} NEW words registered (recognition=struggled, gloss empty — backfill later)"
+            print(msg)
 
 async def main():
     parser = argparse.ArgumentParser(description="Generate Multi-Voice Tamil Podcast Audio")
