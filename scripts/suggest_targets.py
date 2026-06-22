@@ -20,6 +20,7 @@ Usage:
 """
 
 import argparse
+import json
 from datetime import date
 from pathlib import Path
 
@@ -28,6 +29,7 @@ from generate_callbacks import due_callbacks, load_json, days_since, NEVER_SURFA
 BASE = Path(__file__).parent.parent
 LEXICON_PATH = BASE / "progress" / "lexicon.json"
 WORD_POOL_PATH = BASE / "curriculum" / "word_pool.json"
+SCRIPTS_DIR = BASE / "content" / "scripts"
 
 RECOGNIZED = {"comfortable", "solid"}
 # Most-ready-to-fire first: hinted is one hint from cold; among equals, the more
@@ -35,10 +37,33 @@ RECOGNIZED = {"comfortable", "solid"}
 PROD_ORDER = {"hinted": 0, "none": 1}
 RECOG_ORDER = {"solid": 0, "comfortable": 1}
 
+# ── Scene-spec palettes ──────────────────────────────────────────────
+# Variety is structural, not taste: Python forces range on the axes that
+# actually make an episode feel fresh, and Anna/the Director write the story
+# inside that frame. The divergence gate forbids repeating any value used in
+# the last DIVERGENCE_WINDOW episodes (read from the *.tags.json sidecars).
+DIVERGENCE_WINDOW = 3
+
+# Emotional tone — the axis that was stuck on "mild irritation".
+REGISTERS = ["tenderness", "dread", "mischief", "pride", "suspicion",
+             "grief/nostalgia", "delight", "embarrassment", "defiance", "reconciliation"]
+# Episode structure (matches the Architect's Episode Form).
+FORMS = ["classic", "vignette", "story", "phone_call"]
+# One dramatic ingredient — all free of vocabulary, all situational.
+INGREDIENTS = {
+    "subtext": "two people want opposite things under polite words",
+    "turn": "the scene flips on a reveal partway through",
+    "character": "a vivid, specific person — a tic, an obsession, a lie",
+    "stakes": "something real is on the line, not just a chore",
+    "genre": "a scam, a confession, a ghost story, a flirtation",
+}
+
 
 def floor_gap_targets(lexicon: dict, today, max_n: int) -> list[dict]:
     gap = []
     for w, r in lexicon.items():
+        if r.get("type") == "pattern":
+            continue  # patterns are forced via the Engines block, not the word floor
         if r.get("recognition") not in RECOGNIZED or r.get("production") == "cold":
             continue
         ds = days_since(r.get("last_surfaced"), today)
@@ -58,6 +83,19 @@ def floor_gap_targets(lexicon: dict, today, max_n: int) -> list[dict]:
                             -c["soaked"],
                             c["word"]))
     return gap[:max_n]
+
+
+def engines_to_fire(lexicon: dict) -> list[dict]:
+    """Generative patterns (lemmas / frames) not yet firing cold. These are forced
+    differently from words: the cold test is producing a NOVEL instance unaided,
+    not reciting a memorized line."""
+    out = []
+    for w, r in lexicon.items():
+        if r.get("type") != "pattern" or r.get("production") == "cold":
+            continue
+        out.append({"key": w, "gloss": r.get("gloss", ""), "production": r.get("production", "none")})
+    out.sort(key=lambda c: (c["production"] != "hinted", c["key"]))  # hinted (riper) first
+    return out
 
 
 def new_candidates_by_cluster(lexicon: dict, word_pool: list, n_clusters: int, per_cluster: int):
@@ -87,6 +125,53 @@ def new_candidates_by_cluster(lexicon: dict, word_pool: list, n_clusters: int, p
     return ranked[:n_clusters], per_cluster
 
 
+def load_recent_sidecars(limit: int | None = None) -> list[dict]:
+    """All *.tags.json sidecars, newest mission first. Skips unreadable ones."""
+    cars = []
+    for p in SCRIPTS_DIR.glob("*.tags.json"):
+        try:
+            d = json.loads(p.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            continue
+        if "mission" in d:
+            cars.append(d)
+    cars.sort(key=lambda d: d.get("mission", 0), reverse=True)
+    return cars[:limit] if limit else cars
+
+
+def pick_divergent(palette, axis_key: str, sidecars: list[dict], rotate: int):
+    """Choose a palette value that diverges from the last DIVERGENCE_WINDOW
+    episodes on `axis_key`. Prefers values never used, then least-recently used.
+    `rotate` (the episode count) spreads cold-start picks so we don't always
+    land on the first palette entry before history accrues."""
+    recent = {c.get(axis_key) for c in sidecars[:DIVERGENCE_WINDOW]}
+    last_used: dict = {}
+    for c in sidecars:  # newest-first → first occurrence is the most recent use
+        v = c.get(axis_key)
+        if v in palette and v not in last_used:
+            last_used[v] = c.get("mission", 0)
+    eligible = [v for v in palette if v not in recent] or list(palette)
+    unused = [v for v in eligible if v not in last_used]
+    if unused:
+        return unused[rotate % len(unused)]
+    return min(eligible, key=lambda v: last_used.get(v, -1))
+
+
+def scene_spec(sidecars: list[dict]) -> dict:
+    """The structural variety gate: register + form + dramatic ingredient,
+    each forced to diverge from the last 3 episodes."""
+    n = len(sidecars)
+    ingredient = pick_divergent(list(INGREDIENTS), "dramatic_ingredient", sidecars, n)
+    return {
+        "register": pick_divergent(REGISTERS, "register", sidecars, n),
+        "form": pick_divergent(FORMS, "episode_form", sidecars, n),
+        "ingredient": ingredient,
+        "ingredient_desc": INGREDIENTS[ingredient],
+        "recent": [(c.get("mission"), c.get("register", "—"), c.get("episode_form", "—"))
+                   for c in sidecars[:DIVERGENCE_WINDOW]],
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description="The session ticket: floor-gap + callbacks + new candidates")
     parser.add_argument("--floor-max", type=int, default=8, help="Max floor-gap words to force (default 8)")
@@ -106,6 +191,17 @@ def main():
     print("SESSION TICKET — Python computes the menu; Anna picks the story.")
     print("=" * 60)
 
+    # 0. Scene spec — structural variety gate (audio episodes especially)
+    spec = scene_spec(load_recent_sidecars())
+    print("\n0. SCENE SPEC  (force range; vary everything EXCEPT the vocabulary)")
+    print("-" * 60)
+    print(f"  Register:   {spec['register']}")
+    print(f"  Form:       {spec['form']}")
+    print(f"  Ingredient: {spec['ingredient']} — {spec['ingredient_desc']}")
+    if spec["recent"]:
+        recent_str = ", ".join(f"M{m} {reg}/{form}" for m, reg, form in spec["recent"])
+        print(f"  (diverging from last {DIVERGENCE_WINDOW}: {recent_str})")
+
     # 1. Floor-gap — what to FORCE
     print("\n1. FLOOR-GAP TARGETS  (recognized, not yet cold — force these)")
     print("-" * 60)
@@ -115,6 +211,15 @@ def main():
     for t in gap:
         tag = "hinted→cold" if t["production"] == "hinted" else f"{t['recognition']}, cold-pending"
         print(f"  - {t['word']} — {t['gloss'] or '[no gloss]'}  [{tag}]")
+
+    # 1b. Engines — generative patterns to force a novel instance of
+    engines = engines_to_fire(lexicon)
+    if engines:
+        print("\n1b. ENGINES TO FIRE  (patterns — force a NOVEL instance, not a memorized line)")
+        print("-" * 60)
+        for e in engines:
+            tag = "hinted→cold" if e["production"] == "hinted" else "cold-pending"
+            print(f"  - {e['key']} — {e['gloss'] or '[no gloss]'}  [{tag}]")
 
     # 2. Callbacks — soft soak (reused logic)
     print("\n2. DUE CALLBACKS  (soft soak — weave in where they fit)")
@@ -138,7 +243,8 @@ def main():
             print(f"      - {cand['tamil']} — {cand['gloss']}")
 
     floor_gap_total = sum(1 for r in lexicon.values()
-                          if r.get("recognition") in RECOGNIZED and r.get("production") != "cold")
+                          if r.get("type") != "pattern"
+                          and r.get("recognition") in RECOGNIZED and r.get("production") != "cold")
     print(f"\nFloor gap: {floor_gap_total} recognized words not yet firing cold.")
 
 

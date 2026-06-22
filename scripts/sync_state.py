@@ -82,14 +82,33 @@ def is_tamil(word: str) -> bool:
     return bool(TAMIL_RE.search(word))
 
 
+def is_pattern(rec: dict) -> bool:
+    """A pattern/lemma record is a generative structure (e.g. the present/future
+    toggle), tracked on the same axes as a word but metered separately."""
+    return rec.get("type") == "pattern"
+
+
 def compute_floor(lexicon: dict) -> dict:
-    """The viability floor: of the words recognized (comfortable+solid),
-    how many fire cold? This is the one honest progress meter."""
-    recognized = [w for w, r in lexicon.items() if r.get("recognition") in RECOGNIZED]
+    """The viability floor: of the WORDS recognized (comfortable+solid),
+    how many fire cold? This is the one honest word-level progress meter.
+    Patterns are excluded — they get their own Engines meter."""
+    recognized = [w for w, r in lexicon.items()
+                  if not is_pattern(r) and r.get("recognition") in RECOGNIZED]
     cleared = [w for w in recognized if lexicon[w].get("production") == "cold"]
     total = len(recognized)
     pct = (len(cleared) / total * 100) if total else 0.0
     return {"cleared": len(cleared), "total": total, "pct": pct}
+
+
+def compute_engines(lexicon: dict) -> dict:
+    """The engine meter: of the tracked generative patterns, how many fire cold —
+    i.e. the learner can produce a NOVEL instance unaided? Reported separately
+    from the word-level viability floor so neither muddies the other."""
+    patterns = [w for w, r in lexicon.items() if is_pattern(r)]
+    online = [w for w in patterns if lexicon[w].get("production") == "cold"]
+    total = len(patterns)
+    pct = (len(online) / total * 100) if total else 0.0
+    return {"online": len(online), "total": total, "pct": pct}
 
 
 # --- Episode helpers (progress/episodes.json — a flat {id: episode} map) ------
@@ -260,6 +279,7 @@ def cmd_update(args):
     write_thin_learner(learner, episodes)
 
     floor = compute_floor(lexicon)
+    engines = compute_engines(lexicon)
 
     # Append-only momentum log — one entry per session that did something.
     if applied["cold"] or applied["hinted"] or applied["demoted"] or args.listened or args.debrief:
@@ -267,6 +287,7 @@ def cmd_update(args):
         log.append({
             "date": today,
             "floor_pct": round(floor["pct"], 1),
+            "engines_pct": round(engines["pct"], 1),
             "cold": applied["cold"],
             "hinted": applied["hinted"],
             "demoted": applied["demoted"],
@@ -277,7 +298,37 @@ def cmd_update(args):
         print(f"  Logged session ({len(log)} total)")
 
     print(f"\nViability floor: {floor['cleared']}/{floor['total']} fire cold ({floor['pct']:.0f}%)")
+    if engines["total"]:
+        print(f"Engines online: {engines['online']}/{engines['total']} ({engines['pct']:.0f}%)")
     print("State updated.")
+
+
+def cmd_add_pattern(args):
+    """Seed a generative pattern/lemma record into the lexicon. Patterns are
+    tracked on the same axes as words but metered separately (Engines). Movement
+    afterward reuses the normal flags, e.g. `update --produced-cold '<key>'` the
+    day the learner generates a NOVEL instance of the pattern unaided."""
+    lexicon = load_json(LEXICON_PATH)
+    if lexicon is None:
+        print("Error: lexicon.json missing. See BOOTSTRAP.md.")
+        sys.exit(1)
+    if args.key in lexicon:
+        print(f"  ! '{args.key}' already exists — not overwriting. Move its axes with `update`.")
+        return
+    today = date.today().isoformat()
+    lexicon[args.key] = {
+        "type": "pattern",
+        "gloss": args.gloss,
+        "phonetic": [],
+        "recognition": args.recognition,
+        "production": "none",
+        "seen_in": [],
+        "last_surfaced": today,
+    }
+    save_json(LEXICON_PATH, lexicon)
+    print(f"  + Pattern '{args.key}' seeded — {args.gloss}")
+    print(f"    (recognition {args.recognition}, production none)")
+    print(f"    Log a cold novel instance later with:  update --produced-cold '{args.key}'")
 
 
 def cmd_status(_args):
@@ -310,6 +361,8 @@ def cmd_status(_args):
         by_level = {lvl: 0 for lvl in RECOGNITION_LEVELS}
         cold = hinted = 0
         for r in lexicon.values():
+            if is_pattern(r):
+                continue  # patterns are metered separately (Engines)
             by_level[r.get("recognition", "struggled")] = by_level.get(r.get("recognition", "struggled"), 0) + 1
             if r.get("production") == "cold":
                 cold += 1
@@ -319,6 +372,9 @@ def cmd_status(_args):
         print(f"Production — cold: {cold}, hinted: {hinted}")
         floor = compute_floor(lexicon)
         print(f"Viability floor: {floor['cleared']}/{floor['total']} recognized words fire cold ({floor['pct']:.0f}%)")
+        engines = compute_engines(lexicon)
+        if engines["total"]:
+            print(f"Engines online: {engines['online']}/{engines['total']} patterns fire cold ({engines['pct']:.0f}%)")
 
     if episodes:
         recent = sorted(episodes.items(), key=lambda x: int(x[0]), reverse=True)[:6]
@@ -358,11 +414,20 @@ def main():
     up.add_argument("--debrief", type=str, default=None,
                     help="Running 'story so far' — rewrite cumulatively (carry what matters, prune what resolved); Anna's persistent narrative memory, not a one-line log")
 
+    ap = sub.add_parser("add-pattern", help="Seed a generative pattern/lemma record (tracked as an Engine)")
+    ap.add_argument("key", help="Canonical key, e.g. 'frame:present-future-toggle'")
+    ap.add_argument("--gloss", required=True,
+                    help="Human description of the engine, e.g. '-உறேன் (now) vs -வேன் (later) on any verb'")
+    ap.add_argument("--recognition", default="comfortable", choices=RECOGNITION_LEVELS,
+                    help="Starting recognition level (default: comfortable)")
+
     args = parser.parse_args()
     if args.command == "update":
         cmd_update(args)
     elif args.command == "status":
         cmd_status(args)
+    elif args.command == "add-pattern":
+        cmd_add_pattern(args)
     else:
         parser.print_help()
 
