@@ -1,0 +1,2414 @@
+{
+  "முதல்ல": {
+    "gloss": "First",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      1,
+      5,
+      6,
+      8,
+      10,
+      12,
+      13,
+      15,
+      16,
+      18,
+      19,
+      20,
+      21,
+      24,
+      28,
+      29,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      50,
+      51
+    ],
+    "last_surfaced": null
+  },
+  "கல்யாணம்": {
+    "gloss": "Wedding / Marriage",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      25,
+      38,
+      50,
+      51
+    ],
+    "last_surfaced": null
+  },
+  "பிடிக்காது": {
+    "gloss": "I don't like",
+    "phonetic": [
+      "pidikkaadhu"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      22,
+      23,
+      24,
+      27,
+      28,
+      50
+    ],
+    "last_surfaced": null
+  },
+  "அங்க": {
+    "gloss": "There",
+    "phonetic": [
+      "anga"
+    ],
+    "recognition": "solid",
+    "production": "cold",
+    "seen_in": [
+      9,
+      10,
+      15,
+      16,
+      19,
+      29,
+      33,
+      34
+    ],
+    "last_surfaced": null
+  },
+  "இங்க": {
+    "gloss": "Here",
+    "phonetic": [
+      "inga"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      9,
+      10,
+      15,
+      18,
+      26,
+      29,
+      31,
+      32,
+      33,
+      36,
+      50,
+      51
+    ],
+    "last_surfaced": null
+  },
+  "கம்மி": {
+    "gloss": "Less",
+    "phonetic": [
+      "kammi"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      8,
+      10,
+      16,
+      18,
+      50,
+      51
+    ],
+    "last_surfaced": null
+  },
+  "சீக்கிரம்": {
+    "gloss": "Quickly",
+    "phonetic": [
+      "seekkiram"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      12,
+      15,
+      18,
+      19,
+      20,
+      21,
+      31,
+      34,
+      35
+    ],
+    "last_surfaced": null
+  },
+  "அழகான": {
+    "gloss": "Beautiful",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      32
+    ],
+    "last_surfaced": null
+  },
+  "வலது": {
+    "gloss": "Right",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      10
+    ],
+    "last_surfaced": null
+  },
+  "சொன்னாங்க": {
+    "gloss": "They said",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      11,
+      12,
+      17,
+      18,
+      38
+    ],
+    "last_surfaced": null
+  },
+  "நேரா": {
+    "gloss": "Straight",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      10,
+      18
+    ],
+    "last_surfaced": null
+  },
+  "நாளைக்கு": {
+    "gloss": "Tomorrow",
+    "phonetic": [
+      "naalaikku"
+    ],
+    "recognition": "solid",
+    "production": "cold",
+    "seen_in": [
+      6,
+      10,
+      11,
+      12,
+      14,
+      17,
+      33,
+      34
+    ],
+    "last_surfaced": null
+  },
+  "ஆனா": {
+    "gloss": "But",
+    "phonetic": [
+      "aana"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      1,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      15,
+      17,
+      18,
+      20,
+      22,
+      23,
+      24,
+      26,
+      28,
+      32,
+      34,
+      38
+    ],
+    "last_surfaced": null
+  },
+  "அவன்": {
+    "gloss": "He (informal)",
+    "phonetic": [
+      "avan"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      9,
+      11,
+      12,
+      20,
+      21,
+      23,
+      24,
+      28,
+      33
+    ],
+    "last_surfaced": null
+  },
+  "இருக்கு": {
+    "gloss": "It is / It exists",
+    "phonetic": [
+      "iruku"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      1,
+      6,
+      9,
+      10,
+      11,
+      12,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      32,
+      33,
+      34
+    ],
+    "last_surfaced": null
+  },
+  "உனக்கு": {
+    "gloss": "To you / For you",
+    "phonetic": [
+      "unakku"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      10,
+      11,
+      22,
+      23,
+      24,
+      27,
+      28
+    ],
+    "last_surfaced": null
+  },
+  "அஞ்சு": {
+    "gloss": "Five",
+    "phonetic": [
+      "anju"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      10,
+      16,
+      18
+    ],
+    "last_surfaced": null
+  },
+  "வேண்டாம்": {
+    "gloss": "I don't want",
+    "phonetic": [
+      "vendam"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      10,
+      21,
+      24,
+      29
+    ],
+    "last_surfaced": null
+  },
+  "சொல்லுங்க": {
+    "gloss": "Tell/Say (respectful)",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      10,
+      11,
+      16,
+      18
+    ],
+    "last_surfaced": null
+  },
+  "அது": {
+    "gloss": "It / That",
+    "phonetic": [
+      "adhu"
+    ],
+    "recognition": "solid",
+    "production": "cold",
+    "seen_in": [
+      9,
+      12,
+      15,
+      16,
+      17,
+      19,
+      20,
+      24,
+      26,
+      32,
+      36,
+      37
+    ],
+    "last_surfaced": null
+  },
+  "ஒன்னு": {
+    "gloss": "One",
+    "phonetic": [
+      "onnu"
+    ],
+    "recognition": "solid",
+    "production": "cold",
+    "seen_in": [
+      10,
+      26,
+      32,
+      33
+    ],
+    "last_surfaced": null
+  },
+  "பத்து": {
+    "gloss": "Ten",
+    "phonetic": [
+      "pathu"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      6,
+      8,
+      10,
+      12,
+      15,
+      16,
+      30
+    ],
+    "last_surfaced": null
+  },
+  "இல்ல": {
+    "gloss": "No",
+    "phonetic": [
+      "illa"
+    ],
+    "recognition": "solid",
+    "production": "cold",
+    "seen_in": [
+      1,
+      5,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      15,
+      17,
+      18,
+      19,
+      20,
+      22,
+      23,
+      24,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      33,
+      34,
+      38
+    ],
+    "last_surfaced": null
+  },
+  "மாமா": {
+    "gloss": "Uncle (maternal)",
+    "phonetic": [
+      "maama"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      8,
+      9,
+      10,
+      11,
+      14,
+      17,
+      19,
+      20,
+      23,
+      24,
+      25,
+      28,
+      38
+    ],
+    "last_surfaced": null
+  },
+  "ரெண்டு": {
+    "gloss": "Two",
+    "phonetic": [
+      "rendu"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      10,
+      33
+    ],
+    "last_surfaced": null
+  },
+  "அதனால": {
+    "gloss": "Therefore",
+    "phonetic": [
+      "adhanaal"
+    ],
+    "recognition": "solid",
+    "production": "cold",
+    "seen_in": [
+      1,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      16
+    ],
+    "last_surfaced": null
+  },
+  "நேத்து": {
+    "gloss": "Yesterday",
+    "phonetic": [
+      "netru"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      6,
+      10,
+      11,
+      18,
+      20,
+      24,
+      28
+    ],
+    "last_surfaced": null
+  },
+  "அக்கா": {
+    "gloss": "Elder sister",
+    "phonetic": [
+      "akka"
+    ],
+    "recognition": "solid",
+    "production": "cold",
+    "seen_in": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      17,
+      19,
+      20,
+      27,
+      38
+    ],
+    "last_surfaced": null
+  },
+  "வயிறு ஃபுல்": {
+    "gloss": "Stomach full",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null
+  },
+  "காரம்": {
+    "gloss": "Spicy",
+    "phonetic": [
+      "kaaram"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      10,
+      24
+    ],
+    "last_surfaced": null
+  },
+  "நம்ம": {
+    "gloss": "Our (inclusive)",
+    "phonetic": [
+      "namma"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      9,
+      11,
+      12,
+      17,
+      28
+    ],
+    "last_surfaced": null
+  },
+  "நல்லா இருக்கு": {
+    "gloss": "It's good",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null
+  },
+  "எங்க": {
+    "gloss": "Our (exclusive)",
+    "phonetic": [
+      "enga"
+    ],
+    "recognition": "solid",
+    "production": "cold",
+    "seen_in": [
+      6,
+      9,
+      10,
+      15,
+      18,
+      19,
+      21,
+      24,
+      26,
+      28,
+      29
+    ],
+    "last_surfaced": null
+  },
+  "என்ன?": {
+    "gloss": "What?",
+    "phonetic": [
+      "enna"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null
+  },
+  "போயிட்டு வரேன்": {
+    "gloss": "I'll go and come back (goodbye)",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null
+  },
+  "வணக்கம்": {
+    "gloss": "Hello",
+    "phonetic": [
+      "vanakkam"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      33
+    ],
+    "last_surfaced": null
+  },
+  "சூப்பர்": {
+    "gloss": "Super",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      10,
+      11,
+      12,
+      16,
+      23,
+      28
+    ],
+    "last_surfaced": null
+  },
+  "கொஞ்சம்": {
+    "gloss": "A little",
+    "phonetic": [
+      "konjam"
+    ],
+    "recognition": "solid",
+    "production": "cold",
+    "seen_in": [
+      6,
+      7,
+      10,
+      15,
+      21,
+      28,
+      32,
+      33
+    ],
+    "last_surfaced": null
+  },
+  "போதும்": {
+    "gloss": "Enough",
+    "phonetic": [
+      "podhum"
+    ],
+    "recognition": "solid",
+    "production": "cold",
+    "seen_in": [
+      6,
+      10,
+      35
+    ],
+    "last_surfaced": null
+  },
+  "தெரியும்": {
+    "gloss": "I know",
+    "phonetic": [
+      "theriyum"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      10,
+      11,
+      18,
+      26,
+      27,
+      28,
+      31,
+      37
+    ],
+    "last_surfaced": null
+  },
+  "தங்கச்சி": {
+    "gloss": "Younger sister",
+    "phonetic": [
+      "thangachi"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      8,
+      9,
+      10,
+      11
+    ],
+    "last_surfaced": null
+  },
+  "தூங்கினேன்": {
+    "gloss": "I slept",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      10
+    ],
+    "last_surfaced": null
+  },
+  "அவங்க": {
+    "gloss": "They / He-She (respectful)",
+    "phonetic": [
+      "avanga"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      9,
+      11,
+      12,
+      13,
+      17,
+      18,
+      28,
+      37
+    ],
+    "last_surfaced": null
+  },
+  "நீங்க": {
+    "gloss": "You (respectful - Elders/Strangers)",
+    "phonetic": [
+      "neenga"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      10,
+      11,
+      15,
+      16,
+      18,
+      21,
+      26,
+      31,
+      32,
+      38
+    ],
+    "last_surfaced": null
+  },
+  "அத்தை": {
+    "gloss": "Aunt (paternal)",
+    "phonetic": [
+      "atthai"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      8,
+      9,
+      10,
+      11,
+      21,
+      35,
+      38
+    ],
+    "last_surfaced": null
+  },
+  "நிறுத்துங்க": {
+    "gloss": "Stop (respectful)",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      6,
+      10
+    ],
+    "last_surfaced": null
+  },
+  "வாருங்களா?": {
+    "gloss": "Will you come?",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null
+  },
+  "சரி": {
+    "gloss": "Okay",
+    "phonetic": [
+      "sari"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      1,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38
+    ],
+    "last_surfaced": null
+  },
+  "வேணும்": {
+    "gloss": "I want / I need",
+    "phonetic": [
+      "venum"
+    ],
+    "recognition": "solid",
+    "production": "cold",
+    "seen_in": [
+      10,
+      25,
+      28,
+      32,
+      33
+    ],
+    "last_surfaced": null
+  },
+  "வரேன்": {
+    "gloss": "I come / I'm coming",
+    "phonetic": [
+      "vareen"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      1,
+      5,
+      10,
+      11,
+      12,
+      13,
+      14,
+      22,
+      25,
+      33,
+      35,
+      36
+    ],
+    "last_surfaced": null
+  },
+  "மூணு": {
+    "gloss": "Three",
+    "phonetic": [
+      "moonu"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      10,
+      33
+    ],
+    "last_surfaced": null
+  },
+  "நாங்க": {
+    "gloss": "We (exclusive)",
+    "phonetic": [
+      "naanga"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      9,
+      11,
+      12
+    ],
+    "last_surfaced": null
+  },
+  "போறேன்": {
+    "gloss": "I go / I'm going",
+    "phonetic": [
+      "poren"
+    ],
+    "recognition": "solid",
+    "production": "cold",
+    "seen_in": [
+      6,
+      10,
+      11,
+      16,
+      18,
+      27,
+      33,
+      36
+    ],
+    "last_surfaced": null
+  },
+  "டயர்ட்": {
+    "gloss": "Tired",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      10,
+      24
+    ],
+    "last_surfaced": null
+  },
+  "இடது": {
+    "gloss": "Left",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      10
+    ],
+    "last_surfaced": null
+  },
+  "அதுக்கு அப்புறம்": {
+    "gloss": "After that",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null
+  },
+  "அண்ணா": {
+    "gloss": "Elder brother",
+    "phonetic": [
+      "anna"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      21,
+      22,
+      26,
+      27,
+      29,
+      30,
+      32,
+      34
+    ],
+    "last_surfaced": null
+  },
+  "பசி": {
+    "gloss": "Hungry",
+    "phonetic": [
+      "pasi"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      7,
+      8,
+      9,
+      10,
+      22,
+      27,
+      33
+    ],
+    "last_surfaced": null
+  },
+  "தம்பி": {
+    "gloss": "Younger brother",
+    "phonetic": [
+      "thambi"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      8,
+      9,
+      10,
+      11,
+      19,
+      20,
+      26,
+      27,
+      28,
+      30,
+      32,
+      33
+    ],
+    "last_surfaced": null
+  },
+  "செம்மை": {
+    "gloss": "Excellent / Perfect",
+    "phonetic": [
+      "semmai"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      38
+    ],
+    "last_surfaced": null
+  },
+  "சாப்பிட்டேன்": {
+    "gloss": "I ate",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      5,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "last_surfaced": null
+  },
+  "நீ": {
+    "gloss": "You (informal - Peers/Cousins)",
+    "phonetic": [
+      "nee"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      10,
+      28,
+      34
+    ],
+    "last_surfaced": null
+  },
+  "தெரியாது": {
+    "gloss": "I don't know",
+    "phonetic": [
+      "theriyaadhu"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      10,
+      11,
+      17,
+      24
+    ],
+    "last_surfaced": null
+  },
+  "ஆமா": {
+    "gloss": "Yes",
+    "phonetic": [
+      "aam",
+      "aama"
+    ],
+    "recognition": "solid",
+    "production": "cold",
+    "seen_in": [
+      1,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      15,
+      17,
+      18,
+      19,
+      20,
+      22,
+      23,
+      24,
+      26,
+      27,
+      28,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38
+    ],
+    "last_surfaced": null
+  },
+  "அவ": {
+    "gloss": "She (informal)",
+    "phonetic": [
+      "ava"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      9,
+      12
+    ],
+    "last_surfaced": null
+  },
+  "ஏன்னா": {
+    "gloss": "Because",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      1,
+      5,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "last_surfaced": null
+  },
+  "வேற என்ன?": {
+    "gloss": "What else?",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null
+  },
+  "எழுந்தேன்": {
+    "gloss": "I woke up",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      1,
+      10
+    ],
+    "last_surfaced": null
+  },
+  "சாப்டீங்களா?": {
+    "gloss": "Did you eat?",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null
+  },
+  "உப்பு": {
+    "gloss": "Salt / Salty",
+    "phonetic": [
+      "uppu"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      10
+    ],
+    "last_surfaced": null
+  },
+  "எனக்கு": {
+    "gloss": "To me / For me",
+    "phonetic": [
+      "enakku",
+      "enaku"
+    ],
+    "recognition": "solid",
+    "production": "cold",
+    "seen_in": [
+      10,
+      11,
+      16,
+      17,
+      18,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      32,
+      34,
+      35
+    ],
+    "last_surfaced": null
+  },
+  "நூறு": {
+    "gloss": "Hundred",
+    "phonetic": [
+      "nooru"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      6,
+      8,
+      10,
+      11,
+      12,
+      16,
+      18,
+      33
+    ],
+    "last_surfaced": null
+  },
+  "குடிச்சேன்": {
+    "gloss": "I drank",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      10
+    ],
+    "last_surfaced": null
+  },
+  "கேட்டாங்க": {
+    "gloss": "They asked",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      11,
+      12,
+      38
+    ],
+    "last_surfaced": null,
+    "lemma": "கேள்"
+  },
+  "சொன்னேன்": {
+    "gloss": "I said",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      11,
+      12,
+      13,
+      14,
+      20,
+      24
+    ],
+    "last_surfaced": null
+  },
+  "கோவம்": {
+    "gloss": "Angry / Anger",
+    "phonetic": [
+      "kovam"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      20,
+      23,
+      24,
+      28
+    ],
+    "last_surfaced": null
+  },
+  "போகணும்": {
+    "gloss": "Must go",
+    "phonetic": [
+      "poganum"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      18,
+      30,
+      34
+    ],
+    "last_surfaced": null
+  },
+  "பார்த்தேன்": {
+    "gloss": "I saw / I watched",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      1,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      16,
+      17,
+      19,
+      21,
+      22,
+      26
+    ],
+    "last_surfaced": null
+  },
+  "கிட்ட": {
+    "gloss": "Near / With (person)",
+    "phonetic": [
+      "kitta"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      1,
+      5,
+      6,
+      8,
+      10,
+      12,
+      13,
+      14,
+      16,
+      17,
+      18,
+      20,
+      26,
+      31,
+      34,
+      38
+    ],
+    "last_surfaced": null
+  },
+  "சொல்றேன்": {
+    "gloss": "I'm telling (present)",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      12,
+      13,
+      14,
+      20,
+      26,
+      28
+    ],
+    "last_surfaced": null
+  },
+  "சொல்லுவேன்": {
+    "gloss": "I will tell (future)",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      12,
+      13
+    ],
+    "last_surfaced": null
+  },
+  "சாப்பிடுங்க": {
+    "gloss": "Please eat (respectful)",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      10,
+      22,
+      25
+    ],
+    "last_surfaced": null
+  },
+  "உள்ள": {
+    "gloss": "Inside",
+    "phonetic": [
+      "ulla"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      6,
+      10,
+      18,
+      19,
+      20,
+      26,
+      27,
+      30
+    ],
+    "last_surfaced": null
+  },
+  "எங்க?": {
+    "gloss": "Where?",
+    "phonetic": [
+      "enga?",
+      "engae"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null
+  },
+  "வெளிய": {
+    "gloss": "Outside",
+    "phonetic": [
+      "veliya"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      6,
+      10,
+      21,
+      33
+    ],
+    "last_surfaced": null
+  },
+  "போனேன்": {
+    "gloss": "I went",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      5,
+      6,
+      26
+    ],
+    "last_surfaced": null
+  },
+  "பிடிக்கும்": {
+    "gloss": "I like / It pleases",
+    "phonetic": [
+      "pidikkum"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      22,
+      23,
+      24,
+      25,
+      27,
+      32
+    ],
+    "last_surfaced": null
+  },
+  "பெரிய": {
+    "gloss": "Big",
+    "phonetic": [
+      "periya"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      19,
+      26,
+      28,
+      32,
+      33,
+      38
+    ],
+    "last_surfaced": null
+  },
+  "சின்ன": {
+    "gloss": "Small / Little",
+    "phonetic": [
+      "sinna"
+    ],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [
+      19,
+      32,
+      38
+    ],
+    "last_surfaced": null
+  },
+  "நல்லா": {
+    "gloss": "Well / Nicely",
+    "phonetic": [
+      "nalla"
+    ],
+    "recognition": "solid",
+    "production": "cold",
+    "seen_in": [
+      9,
+      10,
+      11,
+      12,
+      23,
+      27,
+      32
+    ],
+    "last_surfaced": null
+  },
+  "அவரு": {
+    "gloss": "He/She (respectful)",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "cold",
+    "seen_in": [
+      1,
+      38
+    ],
+    "last_surfaced": null
+  },
+  "குட்டை": {
+    "gloss": "Short (height)",
+    "phonetic": [
+      "kutti"
+    ],
+    "recognition": "solid",
+    "production": "cold",
+    "seen_in": [],
+    "last_surfaced": null
+  },
+  "இப்போ": {
+    "gloss": "Now",
+    "phonetic": [
+      "ippo"
+    ],
+    "recognition": "comfortable",
+    "production": "cold",
+    "seen_in": [
+      7,
+      8,
+      10,
+      11,
+      12,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      24,
+      26,
+      27,
+      28,
+      31,
+      33,
+      34,
+      35
+    ],
+    "last_surfaced": null
+  },
+  "இல்லையாவா?": {
+    "gloss": "Isn't it? / Right?",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null
+  },
+  "உக்காருங்க": {
+    "gloss": "Sit (respectful)",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      10,
+      21
+    ],
+    "last_surfaced": null
+  },
+  "எடுங்க": {
+    "gloss": "Take (respectful)",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      6,
+      10,
+      14,
+      18,
+      24
+    ],
+    "last_surfaced": null
+  },
+  "ஒன்னு மட்டும்": {
+    "gloss": "Only one",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null
+  },
+  "குடுங்க": {
+    "gloss": "Give (respectful)",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      6,
+      10,
+      14,
+      15,
+      16,
+      18,
+      21,
+      31,
+      32
+    ],
+    "last_surfaced": null
+  },
+  "தாகம்": {
+    "gloss": "Thirsty",
+    "phonetic": [
+      "thaagam"
+    ],
+    "recognition": "comfortable",
+    "production": "cold",
+    "seen_in": [
+      10,
+      22
+    ],
+    "last_surfaced": null
+  },
+  "நிறைய": {
+    "gloss": "A lot",
+    "phonetic": [
+      "niraya"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      10,
+      22
+    ],
+    "last_surfaced": null
+  },
+  "நேரம் ஆச்சு": {
+    "gloss": "It's time / Time's up",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null
+  },
+  "பரவாயில்லை": {
+    "gloss": "It's okay / No problem",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      10,
+      11,
+      26,
+      34
+    ],
+    "last_surfaced": null
+  },
+  "கீழ": {
+    "gloss": "Below / Under",
+    "phonetic": [
+      "keele",
+      "keezha"
+    ],
+    "recognition": "comfortable",
+    "production": "cold",
+    "seen_in": [
+      1,
+      6,
+      10,
+      12,
+      16,
+      19,
+      28,
+      29,
+      33
+    ],
+    "last_surfaced": null
+  },
+  "மேல": {
+    "gloss": "On top / Above",
+    "phonetic": [
+      "meela",
+      "mela"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      1,
+      6,
+      10,
+      12,
+      16,
+      19,
+      24,
+      28,
+      29,
+      33
+    ],
+    "last_surfaced": null
+  },
+  "முன்னாடியே": {
+    "gloss": "Already / Beforehand",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      16,
+      17,
+      18
+    ],
+    "last_surfaced": null
+  },
+  "சந்தோஷம்": {
+    "gloss": "Happy / Joy",
+    "phonetic": [
+      "sandosham"
+    ],
+    "recognition": "comfortable",
+    "production": "cold",
+    "seen_in": [
+      21,
+      23,
+      24,
+      25,
+      28,
+      29,
+      35
+    ],
+    "last_surfaced": null
+  },
+  "பயம்": {
+    "gloss": "Scared / Fear",
+    "phonetic": [
+      "payam"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      21,
+      23,
+      24,
+      25,
+      28,
+      29
+    ],
+    "last_surfaced": null
+  },
+  "கவலை": {
+    "gloss": "Worry",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      17,
+      21,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28
+    ],
+    "last_surfaced": null
+  },
+  "பெட்டி": {
+    "gloss": "Box / Suitcase",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      15,
+      16,
+      18,
+      24,
+      26,
+      27,
+      28,
+      29
+    ],
+    "last_surfaced": null
+  },
+  "முடியாது": {
+    "gloss": "Cannot / Impossible",
+    "phonetic": [
+      "mudiyaadhu"
+    ],
+    "recognition": "comfortable",
+    "production": "cold",
+    "seen_in": [
+      16,
+      18,
+      24,
+      26,
+      28,
+      29,
+      34
+    ],
+    "last_surfaced": null
+  },
+  "தப்பு": {
+    "gloss": "Wrong / Mistake",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      17,
+      18,
+      20,
+      24,
+      25,
+      26,
+      27,
+      29,
+      31
+    ],
+    "last_surfaced": null
+  },
+  "அப்படீங்களா?": {
+    "gloss": "Is that so?",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null
+  },
+  "நினைச்சேன்": {
+    "gloss": "I thought",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      11,
+      27,
+      31,
+      37,
+      38
+    ],
+    "last_surfaced": null
+  },
+  "கேட்டேன்": {
+    "gloss": "I asked",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      11,
+      12,
+      13,
+      14,
+      18,
+      31,
+      38
+    ],
+    "last_surfaced": null,
+    "lemma": "கேள்"
+  },
+  "இன்னைக்கு": {
+    "gloss": "Today",
+    "phonetic": [
+      "innaiku"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      1,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      17,
+      19,
+      21,
+      23,
+      26,
+      31,
+      33,
+      34,
+      38
+    ],
+    "last_surfaced": null
+  },
+  "முறை மாமன்": {
+    "gloss": "Cross-cousin (marriageable uncle)",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null
+  },
+  "நிமிஷம்": {
+    "gloss": "Minute (time)",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      12,
+      15,
+      24,
+      25,
+      31,
+      32,
+      34,
+      35,
+      36,
+      37
+    ],
+    "last_surfaced": null
+  },
+  "விட": {
+    "gloss": "Than (comparison marker)",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      30
+    ],
+    "last_surfaced": null
+  },
+  "புது": {
+    "gloss": "New",
+    "phonetic": [
+      "pudhu"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      11,
+      27,
+      28,
+      32,
+      33,
+      34,
+      38
+    ],
+    "last_surfaced": null
+  },
+  "பழைய": {
+    "gloss": "Old (things)",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      16,
+      32
+    ],
+    "last_surfaced": null
+  },
+  "உயரம்": {
+    "gloss": "Tall / Height",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      30
+    ],
+    "last_surfaced": null
+  },
+  "அப்புறம்": {
+    "gloss": "Later / After that",
+    "phonetic": [
+      "appuram"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      1,
+      5,
+      6,
+      8,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      18,
+      19,
+      20,
+      26,
+      28,
+      29,
+      33,
+      34,
+      35,
+      36,
+      38
+    ],
+    "last_surfaced": null
+  },
+  "கேட்பேன்": {
+    "gloss": "I will hear/ask (future)",
+    "phonetic": [
+      "ketpaen"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      12,
+      13,
+      14
+    ],
+    "last_surfaced": null,
+    "lemma": "கேள்"
+  },
+  "கேன்சல்": {
+    "gloss": "Cancel",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null
+  },
+  "நேரம் இருக்கா?": {
+    "gloss": "Do you have time?",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null
+  },
+  "ஃப்ரீ-யா?": {
+    "gloss": "Are you free?",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null
+  },
+  "தூக்கு": {
+    "gloss": "Lift / Carry",
+    "phonetic": [
+      "thooku"
+    ],
+    "recognition": "struggled",
+    "production": "cold",
+    "seen_in": [
+      15
+    ],
+    "last_surfaced": null
+  },
+  "வை": {
+    "gloss": "Keep / Put / Place",
+    "phonetic": [
+      "vai"
+    ],
+    "recognition": "struggled",
+    "production": "hinted",
+    "seen_in": [
+      6,
+      14,
+      15,
+      19,
+      24,
+      25,
+      33,
+      35
+    ],
+    "last_surfaced": null
+  },
+  "நிஜமா?": {
+    "gloss": "Really?",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null
+  },
+  "கேட்குறேன்": {
+    "gloss": "I'm hearing/asking (present)",
+    "phonetic": [
+      "ketkureen"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      1
+    ],
+    "last_surfaced": null,
+    "lemma": "கேள்"
+  },
+  "போஸ்ட்போன்": {
+    "gloss": "Postpone",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null
+  },
+  "கொடுத்தேன்": {
+    "gloss": "I gave",
+    "phonetic": [
+      "kodutten",
+      "koduthen"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      42
+    ],
+    "last_surfaced": null
+  },
+  "வந்தேன்": {
+    "gloss": "I came",
+    "phonetic": [
+      "vanden",
+      "vandhen"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      6,
+      42
+    ],
+    "last_surfaced": null
+  },
+  "அதான்": {
+    "gloss": "That's why / Exactly / See, I told you",
+    "phonetic": [
+      "adaan",
+      "adhaan"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      27,
+      31,
+      34,
+      42
+    ],
+    "last_surfaced": null
+  },
+  "புரிஞ்சுது": {
+    "gloss": "Got it / I understood",
+    "phonetic": [
+      "purinjudhu",
+      "purinjuchu"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      11,
+      12,
+      31,
+      42,
+      48
+    ],
+    "last_surfaced": null
+  },
+  "புரியல": {
+    "gloss": "I don't understand",
+    "phonetic": [
+      "puriyala",
+      "puriyila"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      11,
+      31,
+      42
+    ],
+    "last_surfaced": null
+  },
+  "கூப்பிடு": {
+    "gloss": "Call",
+    "phonetic": [
+      "kuppidu"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      31,
+      43
+    ],
+    "last_surfaced": null
+  },
+  "அனுப்பு": {
+    "gloss": "Send",
+    "phonetic": [
+      "anuppu"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      43
+    ],
+    "last_surfaced": null
+  },
+  "கிடைச்சுது": {
+    "gloss": "Received / Got it",
+    "phonetic": [
+      "kidaichudu",
+      "kidaichuthu"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      23,
+      24,
+      28,
+      31,
+      40,
+      43
+    ],
+    "last_surfaced": null
+  },
+  "கன்ஃபர்ம்": {
+    "gloss": "Confirm",
+    "phonetic": [
+      "kanfarm",
+      "confirm"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      43
+    ],
+    "last_surfaced": null
+  },
+  "சூடு": {
+    "gloss": "Hot (temperature/sensation)",
+    "phonetic": [
+      "soodu",
+      "sudu"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      44
+    ],
+    "last_surfaced": null
+  },
+  "குளிர்": {
+    "gloss": "Cold",
+    "phonetic": [
+      "kulir"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      44
+    ],
+    "last_surfaced": null
+  },
+  "கஷ்டம்": {
+    "gloss": "Difficult / Hardship",
+    "phonetic": [
+      "kashtam"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      30,
+      44
+    ],
+    "last_surfaced": null
+  },
+  "ஈஸி": {
+    "gloss": "Easy",
+    "phonetic": [
+      "easy",
+      "eesi"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      44
+    ],
+    "last_surfaced": null
+  },
+  "சரியான": {
+    "gloss": "Correct / Right / Exact",
+    "phonetic": [
+      "sariyana"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      44
+    ],
+    "last_surfaced": null
+  },
+  "எழுந்திரு": {
+    "gloss": "Get up / Wake up",
+    "phonetic": [
+      "ezhunthiru",
+      "ezhundhiru"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      46
+    ],
+    "last_surfaced": null
+  },
+  "குளி": {
+    "gloss": "Bathe / Shower",
+    "phonetic": [
+      "kuli"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      46
+    ],
+    "last_surfaced": null
+  },
+  "சட்டை": {
+    "gloss": "Shirt",
+    "phonetic": [
+      "sattai"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      46
+    ],
+    "last_surfaced": null
+  },
+  "போடு": {
+    "gloss": "Put on / Wear",
+    "phonetic": [
+      "podu"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      6,
+      34,
+      46
+    ],
+    "last_surfaced": null
+  },
+  "கிளம்பு": {
+    "gloss": "Leave / Depart",
+    "phonetic": [
+      "kilambu",
+      "kelambu"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      34,
+      40,
+      46
+    ],
+    "last_surfaced": null
+  },
+  "frame:present-future-toggle": {
+    "type": "pattern",
+    "gloss": "-உறேன் (now) vs -வேன் (later) on any verb — போறேன்/போவேன், கேட்குறேன்/கேட்பேன்",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-06-20"
+  },
+  "frame:obligation-ணும்": {
+    "type": "pattern",
+    "gloss": "{verb}+ணும் → must {verb} — பண்ணணும், போகணும், சொல்லணும்",
+    "phonetic": [],
+    "recognition": "solid",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-06-20"
+  },
+  "frame:cant-முடியல": {
+    "type": "pattern",
+    "gloss": "{verb} முடியல → can't {verb} — தூக்க முடியல, போக முடியல",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-06-20"
+  }
+}

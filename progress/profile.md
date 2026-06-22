@@ -1,10 +1,10 @@
 # Learner Profile: Andrew
 
 > **Maintained by:** Anna, rewritten (not appended) every ~5 sessions.
-> **Read by:** `protocol/roles/director.md` and `protocol/daily_session.md` before picking targets.
+> **Read by:** `protocol/studio/director.md` and `protocol/daily_session.md` before picking targets.
 > **Purpose:** A teacher's living *judgment* of Andrew — not counts. The hard numbers (recognition buckets, production axis, viability floor) live in `progress/lexicon.json`; read them with `python scripts/sync_state.py status`. This file says what they *mean* and where to point next.
 >
-> **Last updated:** 2026-06-17
+> **Last updated:** 2026-06-21
 
 ---
 
@@ -29,7 +29,7 @@ The honest meter is the **viability floor** (`sync_state.py status`), not the re
 
 - **Social and family vocabulary** is solid: directional words (அங்க, இங்க, வலது), family titles (மாமா, அக்கா, தங்கச்சி, அத்தை), pronouns and quantity words.
 - **Discourse glue** is well-established: சரி, ஆனா, இல்ல, அதனால, கொஞ்சம் — the connective tissue of a sentence.
-- **Tolerates Tamil-heavy stretches.** Does not need hand-holding through the Intercept; the Breakdown is the safety net.
+- **Comfortable with English-scaffolded (Thanglish) input; decodes Tamil script.** Comprehension is fragile to *unknown* words — needs ~95% known-word coverage live (see Calibration).
 
 ---
 
@@ -64,12 +64,18 @@ Mechanical anti-sameness (scene shape, location, energy, episode form) is owned 
 
 ---
 
-## Calibration Notes
+## Calibration Notes — explicit generation parameters
 
-- **Episode (audio) density:** Full 4–5 NEW words is fine — the podcast is the immersion tank and Andrew handles ~80% comprehension at that load. **Chat is the opposite budget:** ≤1–2 new, because the session is for *production*, not soak.
-- **Intercept difficulty:** Can go Tamil-heavy. Tolerates the stretch well.
-- **Breakdown register:** Tamil-leaning (0.35–0.55 density) — a second Tamil exposure, not a translation aid.
-- **Debrief:** Keep it casual — no quiz. Ask how the words are landing in his life, not whether he remembered them.
+These are **hard dials**, read by the Director/Architect. They live here (not in any agent's memory) so every agent and device applies the same calibration — change the number, not a prompt.
+
+- **Live coverage target: ~95%+ known words in the Intercept *as heard*** — the listening-comprehension floor (Nation's lexical-coverage research). Comprehension must hold live.
+- **Density is an OUTPUT, never a target.** It falls out of (fence size × the 95% coverage target). With a small fence, episodes lean heavily on English scaffolding — correct, not watering down. Do not dial a Tamil ratio.
+- **NEW word types: 4–5 (audio) / ≤1–2 (chat).** Each appears 2–3× in answering context. They are *seeds*, not taught to mastery — the chat fires them cold later. Chat is *production*, not soak.
+- **Unfenced strangers (neither known nor payload): ≈0.** Hard cap 2, and only if the context answers them in the same beat. More is a Producer send-back.
+- **Naturalness comes from register, not unknown words** — real spoken Kongu rhythm/idiom built from known vocabulary. Never reach for unknown words to sound "real."
+- **Pacing:** one thought per line; ≥1 `[Pause]` per 6–8 Intercept lines; no run of >5 unbroken lines (the Listenability Gate — see `architect.md`).
+- **Breakdown:** a Tamil-leaning second soak for colour, not a glossary.
+- **Debrief:** casual, no quiz — ask how words are landing in his life.
 
 ---
 
