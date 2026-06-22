@@ -1,44 +1,12 @@
 {
   "learner": "Andrew",
-  "current_tier": 2,
-  "active_mission": {
-    "mission": 44,
-    "topic": "The Heat of the Ride",
-    "target_vocab": [
-      "சூடு",
-      "குளிர்",
-      "கஷ்டம்",
-      "ஈஸி",
-      "சரியான"
-    ]
-  },
   "streak": {
-    "current": 18,
-    "best": 18,
-    "last_date": "2026-06-15"
+    "current": 20,
+    "best": 20,
+    "last_date": "2026-06-22"
   },
-  "last_debrief": "Published 'The Bakery Run' (M49). Collected 'thooku' cold. Handing off to the soak — pick up 'kidaikkum' availability and 'parsal' logistics next session.",
-  "recent_missions": [
-    {
-      "mission": 49,
-      "title": "The Bakery Run",
-      "listens": 0
-    },
-    {
-      "mission": 48,
-      "title": "The Wedding Secret",
-      "listens": 0
-    },
-    {
-      "mission": 47,
-      "title": "Mission tier2_mission47",
-      "listens": 0
-    },
-    {
-      "mission": 46,
-      "title": "Mission tier2_mission46",
-      "listens": 0
-    }
-  ],
-  "status": "8 episodes under-listened (~24 min). Re-listen playlist recommended before new production."
+  "last_debrief": "STORY SO FAR: wedding-hall thread (M51 The Empty Chair). Andrew fired 'athanala thaan' cold after one hint (confused with 'adhu thaan' first pass — knows both, needs the distinction). 'appadi illa' needed two recasts (phonetic: 'applaud' then 'illa' alone). 'kammi' landed with light nudge. Open thread next session: cold-test 'appadi illa' and 'ippa-ve' (heard but not yet fired). The pacing fix on M51 is pending re-render — Andrew confirmed the content landed even at old speed, but re-render before next episode.",
+  "soak_order": {},
+  "recent_missions": [],
+  "status": "Ready for new episode."
 }

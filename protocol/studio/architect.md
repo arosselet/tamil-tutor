@@ -53,12 +53,39 @@ The fourth wall and no-fixed-characters rules hold in every form (`protocol/stud
 
 ---
 
-## Calibrate Tamil Density
+## Pacing — The Listenability Gate
 
-As defined in `protocol/studio/studio.md`, you must choose appropriate Tamil density based on the learner's level.
+A learner who knows every word can still lose the story if lines are too long and gaps too short. Pacing is not a polish step — it's structural.
 
-- **Intercept density** — calibrate language ratio (typically 0.65-0.80 for mid-progress). Don't water the Intercept down to feel safer. The Breakdown is the safety net.
-- **Breakdown density** is the analysts' conversation register. They're talking *in* Tamil about the scene, using English as a tool when needed.
+**Line length:** Each dialogue line should carry **one thought** — one short sentence, or at most two tightly linked clauses. If a line has three sentences, break it into two or three lines (with the same speaker continuing). The TTS inserts a breath between lines; long multi-sentence lines get none.
+
+**Pauses:** Use `[Pause: 1 sec]` (or longer) generously:
+- After any emotionally loaded line where the listener needs to sit with what was said.
+- At scene transitions or topic shifts.
+- Before and after any replayed snippet in the Breakdown.
+- **Minimum:** at least one `[Pause]` per 6-8 dialogue lines in the Intercept; more is fine.
+
+**Rhythm variety:** Alternate between longer and shorter lines. A run of five consecutive long lines is a wall; break it up with a one-word reaction, a laugh marker, or a pause.
+
+**The test:** Read the Intercept aloud at conversational speed. If you can't comfortably follow the story while imagining you know 70% of the words, it's too dense or too fast — add pauses, shorten lines, or both.
+
+---
+
+## The Vocabulary Fence (the 85% rule)
+
+The brief includes a **Vocabulary Fence** — the full list of Tamil words the learner currently recognizes. This is "the sea." The payload words (NEW + CALLBACKS) are the fish. **Everything else in the scene — the connective tissue, the reactions, the scene-building — should draw from the fence.**
+
+This replaces the old density number. You don't target "75% Tamil" — you target **~85-90% comprehension**: the listener should understand the vast majority of what's said, with the remaining 10-15% being inferable from context. The density is a *consequence* of the fence size, not a parameter you choose.
+
+**How to use the fence:**
+
+1. **Build dialogue primarily from fence words.** These are words the learner already recognizes — they're the water. When a character reacts, argues, narrates, the Tamil should be composed of these words and their natural inflections.
+2. **Payload words (NEW) are the +1.** They appear in context that *answers* them — the scene makes the meaning guessable within a few seconds. A new word that lands in an opaque sentence is noise, not input.
+3. **When you need a word that isn't on the fence or in the payload** — a word the scene genuinely requires — make the context answer it immediately: the action demonstrates it, a character echoes it in English, or the meaning is obvious from the situation. Minimize these; more than 2-3 unfenced non-payload words in the Intercept and comprehension drops below the floor.
+4. **If the fence is small (< 50 words):** lean harder on English scaffolding. Short Tamil phrases embedded in English-carried scenes. The density will be lower — that's correct. Don't force high-Tamil output from a thin fence.
+5. **If the fence is large (100+ words):** the scene can be mostly Tamil with light English. The density rises naturally because the learner can swim.
+
+**The test is comprehension, not ratio.** After writing the Intercept, scan it: would a listener who knows exactly the fence words (and no others) follow the story? If not, swap unfenced words for fence words or add English context.
 
 Write Tamil in plausible spoken register — close to how Coimbatore actually sounds. Don't sweat Sandhi, elision, or perfect Kongu inflection; the Producer applies the full dialect pass before TTS. Your job is making the story land. For fourth-wall rules see `protocol/studio/hosts.md`; for meta-narration see `protocol/constitution.md`. Use `[SFX: ...]` to establish physical environment or atmosphere.
 
