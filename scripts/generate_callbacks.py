@@ -54,6 +54,8 @@ def days_since(iso: str | None, today: date) -> int | None:
 def due_callbacks(lexicon: dict, today: date, max_n: int) -> list[dict]:
     candidates: list[dict] = []
     for word, rec in lexicon.items():
+        if rec.get("type") == "pattern":
+            continue  # patterns are tracked engines, not soak words
         if rec.get("recognition") not in RECOGNIZED:
             continue
         prod = rec.get("production", "none")
@@ -96,7 +98,8 @@ def main():
         print(f"  - {cb['word']} — {gloss}  [{gap}]  (last: {when})")
 
     floor_gap = sum(1 for r in lexicon.values()
-                    if r.get("recognition") in RECOGNIZED and r.get("production") != "cold")
+                    if r.get("type") != "pattern"
+                    and r.get("recognition") in RECOGNIZED and r.get("production") != "cold")
     print(f"\nFloor gap: {floor_gap} recognized words not yet firing cold.")
 
 
