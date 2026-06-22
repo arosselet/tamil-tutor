@@ -71,12 +71,21 @@ A learner who knows every word can still lose the story if lines are too long an
 
 ---
 
-## Calibrate Tamil Density
+## The Vocabulary Fence (the 85% rule)
 
-As defined in `protocol/studio/studio.md`, you must choose appropriate Tamil density based on the learner's level.
+The brief includes a **Vocabulary Fence** — the full list of Tamil words the learner currently recognizes. This is "the sea." The payload words (NEW + CALLBACKS) are the fish. **Everything else in the scene — the connective tissue, the reactions, the scene-building — should draw from the fence.**
 
-- **Intercept density** — calibrate language ratio (typically 0.65-0.80 for mid-progress). Don't water the Intercept down to feel safer. The Breakdown is the safety net.
-- **Breakdown density** is the analysts' conversation register. They're talking *in* Tamil about the scene, using English as a tool when needed.
+This replaces the old density number. You don't target "75% Tamil" — you target **~85-90% comprehension**: the listener should understand the vast majority of what's said, with the remaining 10-15% being inferable from context. The density is a *consequence* of the fence size, not a parameter you choose.
+
+**How to use the fence:**
+
+1. **Build dialogue primarily from fence words.** These are words the learner already recognizes — they're the water. When a character reacts, argues, narrates, the Tamil should be composed of these words and their natural inflections.
+2. **Payload words (NEW) are the +1.** They appear in context that *answers* them — the scene makes the meaning guessable within a few seconds. A new word that lands in an opaque sentence is noise, not input.
+3. **When you need a word that isn't on the fence or in the payload** — a word the scene genuinely requires — make the context answer it immediately: the action demonstrates it, a character echoes it in English, or the meaning is obvious from the situation. Minimize these; more than 2-3 unfenced non-payload words in the Intercept and comprehension drops below the floor.
+4. **If the fence is small (< 50 words):** lean harder on English scaffolding. Short Tamil phrases embedded in English-carried scenes. The density will be lower — that's correct. Don't force high-Tamil output from a thin fence.
+5. **If the fence is large (100+ words):** the scene can be mostly Tamil with light English. The density rises naturally because the learner can swim.
+
+**The test is comprehension, not ratio.** After writing the Intercept, scan it: would a listener who knows exactly the fence words (and no others) follow the story? If not, swap unfenced words for fence words or add English context.
 
 Write Tamil in plausible spoken register — close to how Coimbatore actually sounds. Don't sweat Sandhi, elision, or perfect Kongu inflection; the Producer applies the full dialect pass before TTS. Your job is making the story land. For fourth-wall rules see `protocol/studio/hosts.md`; for meta-narration see `protocol/constitution.md`. Use `[SFX: ...]` to establish physical environment or atmosphere.
 

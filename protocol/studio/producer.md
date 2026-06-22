@@ -64,6 +64,8 @@ After the dialect and integrity passes, write a sidecar metadata file alongside 
   "energy": "medium",
   "intercept_tamil_density": 0.55,
   "breakdown_tamil_density": 0.20,
+  "fence_size": 82,
+  "unfenced_words": 2,
   "new_words_landed": { "ஃப்ரீ-யா": 3, "கேன்சல்": 4 },
   "callbacks_used": { "தூக்கு": 4, "வை": 3 },
   "host_roles": { "A": "movie_organizer", "B": "distracted_friend_cleaning" },
@@ -73,7 +75,9 @@ After the dialect and integrity passes, write a sidecar metadata file alongside 
 
 **`register`, `dramatic_ingredient`, and `episode_form` are load-bearing — `scripts/suggest_targets.py` reads them to compute the next episode's Scene Spec (the divergence gate).** Write what was *actually delivered*, the same as `shape`. Use the canonical values: register from the Director's palette, ingredient from `subtext | turn | character | stakes | genre`, form from `classic | vignette | story | phone_call`. Omitting them doesn't crash the gate, but it blinds it on that axis.
 
-**Estimating density:** Eyeball it. Count Tamil-script chunks vs English chunks per line, average across the section. Round to nearest 0.05. Pattern visibility over time matters; precision per episode does not.
+**Estimating density:** Eyeball it. Count Tamil-script chunks vs English chunks per line, average across the section. Round to nearest 0.05. This is a *descriptive* stat for the tags sidecar, not a target — the Architect builds from the vocabulary fence and the density is whatever results.
+
+**Vocabulary audit (new):** Scan the Intercept for Tamil words that are neither in the brief's Vocabulary Fence nor in the Payload (NEW + CALLBACKS). These are "unfenced" words. A few (2-3) are acceptable if the context answers them immediately. More than that is a **send-back issue** — the Architect needs to rewrite using fence words or add English scaffolding.
 
 **Counting word landings:** Scan for each NEW and CALLBACK word from the brief. Strip suffix variants when counting (e.g., **தூக்கு**-றேன் and **தூக்கு**-ற்று both count for **தூக்கு**).
 

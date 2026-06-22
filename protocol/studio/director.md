@@ -73,6 +73,14 @@ The Scenario is not a plot; it is a sandbox where any modality (a 5-minute podca
 
 ---
 
+## Step 5: Include the Vocabulary Fence
+
+`suggest_targets.py` outputs a **VOCABULARY FENCE** — every word the learner recognizes (comfortable/solid) or produces cold. This is "the sea." Copy it into the brief verbatim. The Architect's job is to build dialogue from this pool; the payload words are the fish; everything else in the scene should be water the learner already swims in.
+
+If the fence is empty (cold-start), note that in the brief — the Architect must scaffold heavily with English until the floor has words in it.
+
+---
+
 ## Output
 
 `content/lessons/tierX_missionY_brief.md`:
@@ -100,6 +108,15 @@ The Scenario is not a plot; it is a sandbox where any modality (a 5-minute podca
 
 **CALLBACKS (X words):**
 - **[Tamil]** (*transliteration*) — definition [struggled | overdue | recently-mastered]
+- ...
+
+## Vocabulary Fence (the sea — build from these)
+[Copy the full fence from suggest_targets.py output. Every Tamil word
+the learner recognizes. The Architect builds the scene's connective
+tissue from this pool. Words outside it are the +1 — they must be
+answerable from context within seconds.]
+
+- **[Tamil]** (*transliteration*) — gloss
 - ...
 
 ## Notes (optional)
