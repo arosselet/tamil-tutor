@@ -5,7 +5,7 @@ eyeballing a 2000-line lexicon. Anna chooses the story and meaning; this script
 computes the candidate set. The bright line: Python computes the menu, Anna
 makes the choice.
 
-Three parts:
+Four parts:
   1. FLOOR-GAP TARGETS — words recognized (comfortable/solid) but not yet firing
      cold. These are what to *force* this session. Ordered most-ready-to-fire
      first (a `hinted` word is one hint from cold; a `solid` word is well-soaked).
@@ -14,6 +14,9 @@ Three parts:
   3. NEW CANDIDATES BY CLUSTER — priority-1 word_pool entries not yet in the
      lexicon, grouped by cluster with a coverage stat so Anna can see which
      clusters are thin. Python shows coverage; Anna picks the cluster.
+  4. VOCABULARY FENCE — all recognized words (comfortable/solid) plus cold
+     productions. This is "the sea" the Architect builds from. Every word of
+     dialogue that isn't payload should come from this list.
 
 Usage:
     python scripts/suggest_targets.py [--floor-max 8] [--clusters 5] [--per-cluster 5]
@@ -58,6 +61,23 @@ def floor_gap_targets(lexicon: dict, today, max_n: int) -> list[dict]:
                             -c["soaked"],
                             c["word"]))
     return gap[:max_n]
+
+
+def vocabulary_fence(lexicon: dict) -> list[dict]:
+    """The 'sea' — every word the learner recognizes or produces cold.
+    The Architect builds scenes from this pool. Words outside it are the +1."""
+    fence = []
+    for w, r in lexicon.items():
+        recog = r.get("recognition", "")
+        prod = r.get("production", "")
+        if recog in RECOGNIZED or prod == "cold":
+            fence.append({
+                "word": w,
+                "gloss": r.get("gloss", ""),
+                "phonetic": r.get("phonetic", []),
+            })
+    fence.sort(key=lambda e: e["word"])
+    return fence
 
 
 def new_candidates_by_cluster(lexicon: dict, word_pool: list, n_clusters: int, per_cluster: int):
@@ -137,9 +157,25 @@ def main():
         for cand in c["candidates"][:per_cluster]:
             print(f"      - {cand['tamil']} — {cand['gloss']}")
 
+    # 4. Vocabulary fence — the sea the Architect swims in
+    print("\n4. VOCABULARY FENCE  (the sea — Architect builds from these; everything else is +1)")
+    print("-" * 60)
+    fence = vocabulary_fence(lexicon)
+    if not fence:
+        print("  (empty — no recognized words yet; Architect must scaffold heavily with English)")
+    else:
+        print(f"  {len(fence)} known words. The Architect should build dialogue from this pool.")
+        print(f"  Words outside this list must be answerable from context within seconds.")
+        print()
+        for entry in fence:
+            phon = entry["phonetic"][0] if entry["phonetic"] else ""
+            phon_str = f" ({phon})" if phon else ""
+            print(f"  - {entry['word']}{phon_str} — {entry['gloss'] or '[no gloss]'}")
+
     floor_gap_total = sum(1 for r in lexicon.values()
                           if r.get("recognition") in RECOGNIZED and r.get("production") != "cold")
     print(f"\nFloor gap: {floor_gap_total} recognized words not yet firing cold.")
+    print(f"Vocabulary fence: {len(fence)} words (the sea).")
 
 
 if __name__ == "__main__":
