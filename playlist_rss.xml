@@ -20,6 +20,16 @@
     <itunes:type>episodic</itunes:type>
     
     <item>
+      <title>Playlist — 2026-06-24</title>
+      <itunes:author>Andrew R &amp; Gemini</itunes:author>
+      <itunes:summary>Re-listen playlist for 2026-06-24 (13 min)</itunes:summary>
+      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_playlists/playlist_2026-06-24.mp3" length="3481661" type="audio/mpeg"/>
+      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_playlists/playlist_2026-06-24.mp3?t=1782354487</guid>
+      <pubDate>Wed, 24 Jun 2026 22:28:07 -0400</pubDate>
+      <itunes:duration>00:13:28</itunes:duration>
+    </item>
+
+    <item>
       <title>Playlist — 2026-06-21</title>
       <itunes:author>Andrew R &amp; Gemini</itunes:author>
       <itunes:summary>Re-listen playlist for 2026-06-21 (13 min)</itunes:summary>
