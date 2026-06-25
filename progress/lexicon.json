@@ -30,7 +30,7 @@
       50,
       51
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-06-24"
   },
   "கல்யாணம்": {
     "gloss": "Wedding / Marriage",
@@ -43,7 +43,7 @@
       50,
       51
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-06-24"
   },
   "பிடிக்காது": {
     "gloss": "I don't like",
@@ -58,7 +58,8 @@
       24,
       27,
       28,
-      50
+      50,
+      52
     ],
     "last_surfaced": null
   },
@@ -102,7 +103,7 @@
       50,
       51
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-06-24"
   },
   "கம்மி": {
     "gloss": "Less",
@@ -119,7 +120,7 @@
       50,
       51
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-06-24"
   },
   "சீக்கிரம்": {
     "gloss": "Quickly",
@@ -137,7 +138,8 @@
       21,
       31,
       34,
-      35
+      35,
+      52
     ],
     "last_surfaced": null
   },
@@ -171,7 +173,8 @@
       12,
       17,
       18,
-      38
+      38,
+      52
     ],
     "last_surfaced": null
   },
@@ -2419,7 +2422,7 @@
     "seen_in": [
       51
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-06-24"
   },
   "அப்படி இல்ல": {
     "gloss": "",
@@ -2427,9 +2430,10 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
-      51
+      51,
+      52
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-06-24"
   },
   "அப்படியே": {
     "gloss": "",
@@ -2439,7 +2443,7 @@
     "seen_in": [
       51
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-06-24"
   },
   "அதுக்கு மேல": {
     "gloss": "",
@@ -2449,7 +2453,7 @@
     "seen_in": [
       51
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-06-24"
   },
   "அப்படினா என்ன அர்த்தம்?": {
     "gloss": "",
@@ -2458,6 +2462,36 @@
     "production": "none",
     "seen_in": [
       51
+    ],
+    "last_surfaced": "2026-06-24"
+  },
+  "இப்பவே": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      52
+    ],
+    "last_surfaced": null
+  },
+  "உட்காரு": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      52
+    ],
+    "last_surfaced": null
+  },
+  "என்ன ஆச்சு": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      52
     ],
     "last_surfaced": null
   }
