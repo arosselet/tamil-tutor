@@ -1,12 +1,40 @@
 {
   "learner": "Andrew",
   "streak": {
-    "current": 20,
-    "best": 20,
-    "last_date": "2026-06-22"
+    "current": 21,
+    "best": 21,
+    "last_date": "2026-06-24"
   },
-  "last_debrief": "STORY SO FAR: wedding-hall thread (M51 The Empty Chair). Andrew fired 'athanala thaan' cold after one hint (confused with 'adhu thaan' first pass — knows both, needs the distinction). 'appadi illa' needed two recasts (phonetic: 'applaud' then 'illa' alone). 'kammi' landed with light nudge. Open thread next session: cold-test 'appadi illa' and 'ippa-ve' (heard but not yet fired). The pacing fix on M51 is pending re-render — Andrew confirmed the content landed even at old speed, but re-render before next episode.",
-  "soak_order": {},
-  "recent_missions": [],
-  "status": "Ready for new episode."
+  "last_debrief": "STORY SO FAR: wedding-hall thread (empty chair). Andrew listened to M51 (the re-thinned, less-dense cut) — confirmed it landed. This session he fired 'illa' cold but missed the 'appadi' in 'appadi illa' (recast given; asked to fire back). 'ippa-ve' still heard-not-fired. Open thread: cold-test BOTH 'appadi illa' and 'ippa-ve' next session, AND get Andrew's read on whether the new episode's density felt right (this is a density-check episode).",
+  "soak_order": {
+    "payload": [
+      "appadi illa",
+      "ippa-ve"
+    ],
+    "scene_seed": "Next beat of the empty-chair wedding-hall story: the maama gently corrects Andrew — 'appadi illa' (no, it's not like that) — and tells him to come sit 'ippa-ve' (right now). Built at the lighter post-M51 density as a comprehension-density check.",
+    "from": "2026-06-24"
+  },
+  "recent_missions": [
+    {
+      "mission": 52,
+      "title": "The Maama's Chair",
+      "listens": 0
+    },
+    {
+      "mission": 51,
+      "title": "The Empty Chair",
+      "listens": 1
+    },
+    {
+      "mission": 50,
+      "title": "Mission tier2_mission50",
+      "listens": 0
+    },
+    {
+      "mission": 49,
+      "title": "The Bakery Run",
+      "listens": 0
+    }
+  ],
+  "status": "8 episodes under-listened (~30 min). Re-listen playlist recommended before new production."
 }

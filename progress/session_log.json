@@ -20,5 +20,29 @@
       51
     ],
     "note": "STORY SO FAR: wedding-hall thread (M51 The Empty Chair). Andrew fired 'athanala thaan' cold after one hint (confused with 'adhu thaan' first pass — knows both, needs the distinction). 'appadi illa' needed two recasts (phonetic: 'applaud' then 'illa' alone). 'kammi' landed with light nudge. Open thread next session: cold-test 'appadi illa' and 'ippa-ve' (heard but not yet fired). The pacing fix on M51 is pending re-render — Andrew confirmed the content landed even at old speed, but re-render before next episode."
+  },
+  {
+    "date": "2026-06-24",
+    "floor_pct": 15.3,
+    "engines_pct": 0.0,
+    "cold": [],
+    "hinted": [],
+    "demoted": [],
+    "listened": [
+      51
+    ],
+    "note": "STORY SO FAR: wedding-hall thread (empty chair). Andrew listened to M51 (the re-thinned, less-dense cut) — confirmed it landed. This session he fired 'illa' cold but missed the 'appadi' in 'appadi illa' (recast given; asked to fire back). 'ippa-ve' still heard-not-fired. Open thread: cold-test BOTH 'appadi illa' and 'ippa-ve' next session, AND get Andrew's read on whether the new episode's density felt right (this is a density-check episode)."
+  },
+  {
+    "date": "2026-06-24",
+    "floor_pct": 15.3,
+    "engines_pct": 0.0,
+    "cold": [],
+    "hinted": [
+      "அப்படி இல்ல"
+    ],
+    "demoted": [],
+    "listened": [],
+    "note": ""
   }
 ]

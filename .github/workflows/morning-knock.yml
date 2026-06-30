@@ -1,0 +1,32 @@
+name: Morning Knock
+# Anna's daily audio knock: read state → write a fresh memo → render → commit → push to phone.
+on:
+  schedule:
+    - cron: "0 19 * * *"      # 19:00 UTC = ~3pm EDT / 2pm EST — Andrew's mid-afternoon (cron is UTC, no DST shift).
+  workflow_dispatch: {}        # manual "Run workflow" button in the Actions tab — use this to test.
+
+permissions:
+  contents: write              # the knock commits + pushes its mp3 (jsDelivr serves it from main)
+
+jobs:
+  knock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Write GCP credentials
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        run: printf '%s' "$GCP_SA_KEY" > "$RUNNER_TEMP/gcp.json"
+      - name: Anna knocks
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          ANNA_PUSH_WEBHOOK_URL: ${{ secrets.ANNA_PUSH_WEBHOOK_URL }}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/gcp.json
+        run: |
+          git config user.name "anna-knock"
+          git config user.email "anna@users.noreply.github.com"
+          python scripts/morning_knock.py
