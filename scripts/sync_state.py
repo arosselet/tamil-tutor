@@ -398,10 +398,9 @@ def cmd_status(_args):
 # the soak: it bumps the latest published episode's listens + surfaces its words.
 #   ack      — "got it / played the memo"      → knock marked landed, no learning write
 #   listened — "I listened to the episode"     → knock marked landed + episode soak credit
-#   landed   — legacy alias for ack (the old single button)
-KNOCK_RESPONSES = {"ack", "listened", "landed"}
+KNOCK_RESPONSES = {"ack", "listened"}
 # A later tap may only *upgrade* an earlier one (strictly more signal); same-or-less is a no-op.
-KNOCK_UPGRADES = {None: KNOCK_RESPONSES, "ack": {"listened"}, "landed": {"listened"}}
+KNOCK_UPGRADES = {None: KNOCK_RESPONSES, "ack": {"listened"}}
 
 
 def credit_latest_episode_listen() -> str | None:
