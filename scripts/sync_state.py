@@ -37,6 +37,7 @@ LEXICON_PATH = BASE / "progress" / "lexicon.json"
 LEARNER_PATH = BASE / "progress" / "learner.json"
 EPISODES_PATH = BASE / "progress" / "episodes.json"
 SESSION_LOG_PATH = BASE / "progress" / "session_log.json"
+FEEDBACK_LOG_PATH = BASE / "progress" / "feedback_log.json"
 AUDIO_DIR = BASE / "audio"
 
 # Recognition ladder. A word the learner *recognizes* is comfortable or solid;
@@ -389,6 +390,24 @@ def cmd_status(_args):
                   f"log with `--listened N` so the soak reports back.")
 
 
+def cmd_feedback(args):
+    """Capture (append a dated note) or read (list recent) the feedback ledger.
+    Feeds the Diagnosis pass (protocol/diagnosis.md): Anna proposes fixes from
+    REPRODUCED patterns, never one-offs — capture is cheap, change is not."""
+    log = load_json(FEEDBACK_LOG_PATH) or []
+    if args.note:
+        log.append({"date": date.today().isoformat(), "note": args.note})
+        save_json(FEEDBACK_LOG_PATH, log)
+        print(f"  Logged feedback ({len(log)} total): {args.note}")
+        return
+    if not log:
+        print("No feedback logged yet.")
+        return
+    print(f"FEEDBACK LEDGER ({len(log)} entries) — diagnose patterns, not one-offs:")
+    for e in log[-args.n:]:
+        print(f"  {e['date']}  {e['note']}")
+
+
 def main():
     parser = argparse.ArgumentParser(description="Tamil learning state management")
     sub = parser.add_subparsers(dest="command")
@@ -421,6 +440,10 @@ def main():
     ap.add_argument("--recognition", default="comfortable", choices=RECOGNITION_LEVELS,
                     help="Starting recognition level (default: comfortable)")
 
+    fb = sub.add_parser("feedback", help="Append a feedback note (capture), or list recent (diagnosis)")
+    fb.add_argument("note", nargs="?", default=None, help="The feedback to log; omit to list recent")
+    fb.add_argument("-n", type=int, default=20, help="How many recent entries to show when listing")
+
     args = parser.parse_args()
     if args.command == "update":
         cmd_update(args)
@@ -428,6 +451,8 @@ def main():
         cmd_status(args)
     elif args.command == "add-pattern":
         cmd_add_pattern(args)
+    elif args.command == "feedback":
+        cmd_feedback(args)
     else:
         parser.print_help()
 
