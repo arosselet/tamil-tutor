@@ -38,6 +38,7 @@ LEARNER_PATH = BASE / "progress" / "learner.json"
 EPISODES_PATH = BASE / "progress" / "episodes.json"
 SESSION_LOG_PATH = BASE / "progress" / "session_log.json"
 FEEDBACK_LOG_PATH = BASE / "progress" / "feedback_log.json"
+KNOCK_LOG_PATH = BASE / "progress" / "knock_log.json"
 AUDIO_DIR = BASE / "audio"
 
 # Recognition ladder. A word the learner *recognizes* is comfortable or solid;
@@ -390,6 +391,24 @@ def cmd_status(_args):
                   f"log with `--listened N` so the soak reports back.")
 
 
+def cmd_knock_response(args):
+    """Record Andrew's tap response ('landed') against the most recent knock.
+    Called by the log-knock-response GitHub Actions workflow when HA fires the event."""
+    from datetime import datetime
+    log = load_json(KNOCK_LOG_PATH) or []
+    if not log:
+        print("No knocks in knock_log.json to respond to.")
+        sys.exit(1)
+    last = log[-1]
+    if last.get("response"):
+        print(f"  Most recent knock ({last['date']}) already has response '{last['response']}'. Skipping.")
+        return
+    last["response"] = args.response
+    last["response_at"] = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+    save_json(KNOCK_LOG_PATH, log)
+    print(f"  Knock {last['date']} marked '{args.response}'")
+
+
 def cmd_feedback(args):
     """Capture (append a dated note) or read (list recent) the feedback ledger.
     Feeds the Diagnosis pass (protocol/diagnosis.md): Anna proposes fixes from
@@ -440,6 +459,9 @@ def main():
     ap.add_argument("--recognition", default="comfortable", choices=RECOGNITION_LEVELS,
                     help="Starting recognition level (default: comfortable)")
 
+    kr = sub.add_parser("knock-response", help="Log Andrew's tap response against the most recent knock")
+    kr.add_argument("response", help="The response value, e.g. 'landed'")
+
     fb = sub.add_parser("feedback", help="Append a feedback note (capture), or list recent (diagnosis)")
     fb.add_argument("note", nargs="?", default=None, help="The feedback to log; omit to list recent")
     fb.add_argument("-n", type=int, default=20, help="How many recent entries to show when listing")
@@ -453,6 +475,8 @@ def main():
         cmd_add_pattern(args)
     elif args.command == "feedback":
         cmd_feedback(args)
+    elif args.command == "knock-response":
+        cmd_knock_response(args)
     else:
         parser.print_help()
 
