@@ -37,7 +37,7 @@ OPENROUTER_BASE = "https://openrouter.ai/api/v1"   # OpenAI-compatible; one key,
 MODEL = "anthropic/claude-sonnet-4.6"   # Andrew's default; fallback e.g. "google/gemini-2.5-flash"
 ANNA_VOICE = "ta-IN-Chirp3-HD-Orus"     # pinned: Anna always sounds like the same someone
 REPO = "arosselet/tamil-tutor"          # for the jsDelivr URL
-KNOCKS_DIR = BASE / "audio" / "knocks"
+KNOCKS_DIR = BASE / "published_audio" / "knocks"   # audio/ is gitignored; published_audio/ is the tracked, jsDelivr-served dir
 
 # The choreography (persona.md is the voice; this is the loop). The policy is a
 # JUDGMENT, not a decision tree: hand Anna the state + a palette, let him choose.
