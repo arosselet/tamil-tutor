@@ -3,8 +3,6 @@ name: Morning Knock
 on:
   schedule:
     - cron: "0 19 * * *"      # 19:00 UTC = ~3pm EDT / 2pm EST — Andrew's mid-afternoon (cron is UTC, no DST shift).
-    - cron: "6 12 30 6 *"     # ONE-OFF: 2026-06-30 12:06 UTC = ~8:06am EDT — Andrew asked for a joke knock at 8am.
-                              # TODO remove this line after it fires once (won't refire until June 30 next year).
   workflow_dispatch: {}        # manual "Run workflow" button in the Actions tab — use this to test.
 
 permissions:
