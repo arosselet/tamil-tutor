@@ -1,0 +1,27 @@
+name: Log Knock Response
+# Triggered by Home Assistant when Andrew taps "It landed" on the knock notification.
+# Appends the response to the most recent entry in progress/knock_log.json and commits.
+on:
+  repository_dispatch:
+    types: [knock-response]
+
+permissions:
+  contents: write
+
+jobs:
+  log:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Log response
+        run: python scripts/sync_state.py knock-response "${{ github.event.client_payload.response }}"
+      - name: Commit
+        run: |
+          git config user.name "anna-knock"
+          git config user.email "anna@users.noreply.github.com"
+          git add progress/knock_log.json
+          git diff --cached --quiet || git commit -m "Knock response: ${{ github.event.client_payload.response }}"
+          git push origin HEAD:main
