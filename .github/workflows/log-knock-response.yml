@@ -1,6 +1,8 @@
 name: Log Knock Response
-# Triggered by Home Assistant when Andrew taps "It landed" on the knock notification.
-# Appends the response to the most recent entry in progress/knock_log.json and commits.
+# Triggered by Home Assistant when Andrew taps a button on the knock notification.
+# Two taps: 'ack' (got it) and 'listened' (heard the episode). Both mark the knock
+# as landed; 'listened' also credits the latest published episode's soak, which
+# touches episodes.json + lexicon.json — so all three state files are committed.
 on:
   repository_dispatch:
     types: [knock-response]
@@ -22,6 +24,7 @@ jobs:
         run: |
           git config user.name "anna-knock"
           git config user.email "anna@users.noreply.github.com"
-          git add progress/knock_log.json
+          # 'listened' surfaces words + bumps listens, so stage the soak files too.
+          git add progress/knock_log.json progress/episodes.json progress/learner.json progress/lexicon.json
           git diff --cached --quiet || git commit -m "Knock response: ${{ github.event.client_payload.response }}"
           git push origin HEAD:main
