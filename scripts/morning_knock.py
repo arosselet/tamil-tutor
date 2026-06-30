@@ -90,11 +90,35 @@ def load_env(path: Path):
 
 
 def gather_briefing() -> str:
-    """The state Anna reads. sync_state status is compact and already carries everything the
-    memo needs: streak, the running story, the soak order, unlogged episodes, the floor."""
+    """The state Anna reads before writing a knock.
+    Core state from sync_state + knock history so Anna knows if recent knocks landed or were ignored."""
     out = subprocess.run([sys.executable, str(BASE / "scripts" / "sync_state.py"), "status"],
                          capture_output=True, text=True)
-    return out.stdout.strip()
+    status = out.stdout.strip()
+
+    # Knock history: how many sent since last session, how many tapped "landed"
+    klog_path = BASE / "progress" / "knock_log.json"
+    slog_path = BASE / "progress" / "session_log.json"
+    knock_summary = ""
+    if klog_path.exists():
+        klog = json.loads(klog_path.read_text(encoding="utf-8"))
+        last_session = None
+        if slog_path.exists():
+            slog = json.loads(slog_path.read_text(encoding="utf-8"))
+            if slog:
+                last_session = slog[-1].get("date")
+        recent = [k for k in klog if not last_session or k["date"] > last_session]
+        if recent:
+            landed = sum(1 for k in recent if k.get("response") == "landed")
+            knock_summary = (
+                f"\nKnocks since last session: {len(recent)} sent, {landed} tapped 'It landed'."
+            )
+            if landed == 0 and len(recent) >= 2:
+                knock_summary += " Try a different angle today."
+            elif landed > 0:
+                knock_summary += f" Word is resonating — can test it cold next session."
+
+    return status + knock_summary
 
 
 def write_memo(briefing: str) -> dict:
