@@ -38,7 +38,8 @@ MODEL = "anthropic/claude-sonnet-4.6"   # Andrew's default; fallback e.g. "googl
 ANNA_VOICE = "ta-IN-Chirp3-HD-Orus"     # pinned: Anna always sounds like the same someone
 REPO = "arosselet/tamil-tutor"          # for the jsDelivr URL
 KNOCKS_DIR = BASE / "published_audio" / "knocks"   # audio/ is gitignored; published_audio/ is the tracked, jsDelivr-served dir
-MIN_KNOCK_INTERVAL_HOURS = 4   # gate: never re-knock within this window (8am EDT→1pm EDT is 5h, so 4h clears it)
+MIN_KNOCK_INTERVAL_HOURS = 4    # gate: never re-knock within this window (8am EDT→1pm EDT is 5h, so 4h clears it)
+LANDED_KNOCK_INTERVAL_HOURS = 20  # if the last knock was tapped (ack/listened), it landed — back off hard, don't re-advertise the same day
 
 # The choreography (persona.md is the voice; this is the loop). The policy is a
 # JUDGMENT, not a decision tree: hand Anna the state + a palette, let him choose.
@@ -98,8 +99,11 @@ def check_gate(force: bool) -> tuple[bool, str]:
     last_ts = datetime.fromisoformat(ts_str)
     now = datetime.now(timezone.utc)
     hours_since = (now - last_ts).total_seconds() / 3600
-    if hours_since < MIN_KNOCK_INTERVAL_HOURS:
-        return False, f"last knock {hours_since:.1f}h ago (min {MIN_KNOCK_INTERVAL_HOURS}h)"
+    # A tapped knock landed — back off hard so the loop doesn't keep re-pitching it.
+    interval = LANDED_KNOCK_INTERVAL_HOURS if last.get("response") else MIN_KNOCK_INTERVAL_HOURS
+    if hours_since < interval:
+        kind = "landed" if last.get("response") else "min"
+        return False, f"last knock {hours_since:.1f}h ago ({kind} gate {interval}h)"
     return True, f"last knock {hours_since:.1f}h ago — ok"
 
 
@@ -122,8 +126,10 @@ def gather_briefing() -> str:
                          capture_output=True, text=True)
     status = out.stdout.strip()
 
-    # Knock context: did Andrew open a session since the last knock?
-    # A session is the signal — no button needed.
+    # Knock context: did the last knocks land? Two signals now — a chat session
+    # (the old "no button needed" signal) OR a tap on the knock itself ('ack'/
+    # 'listened', logged by the log-knock-response workflow). A tapped knock is
+    # answered, so don't keep re-advertising the same thing.
     klog_path = BASE / "progress" / "knock_log.json"
     slog_path = BASE / "progress" / "session_log.json"
     knock_summary = ""
@@ -135,9 +141,16 @@ def gather_briefing() -> str:
             if slog:
                 last_session = slog[-1].get("date")
         recent = [k for k in klog if not last_session or k["date"] > last_session]
-        if recent:
-            knock_summary = f"\nKnocks since last session: {len(recent)} sent, none answered yet."
-            if len(recent) >= 2:
+        unanswered = [k for k in recent if not k.get("response")]
+        listened = [k for k in recent if k.get("response") == "listened"]
+        if listened:
+            knock_summary = ("\nLast knock got a LISTEN tap — he heard the episode. The soak "
+                             "landed; pick up from there, don't re-pitch the same audio.")
+        elif recent and not unanswered:
+            knock_summary = "\nKnocks since last session were tapped/acknowledged — they landed. Keep the energy up, fresh angle."
+        elif unanswered:
+            knock_summary = f"\nKnocks since last session: {len(unanswered)} sent, none answered yet."
+            if len(unanswered) >= 2:
                 knock_summary += " Try a different angle today."
         elif klog and last_session and klog[-1]["date"] <= last_session:
             knock_summary = "\nLast knock led to a session — it worked. Keep the energy up."

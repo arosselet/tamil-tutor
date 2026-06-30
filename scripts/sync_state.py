@@ -391,22 +391,78 @@ def cmd_status(_args):
                   f"log with `--listened N` so the soak reports back.")
 
 
+# Knock tap responses (from Home Assistant's actionable notification). Both are
+# SOAK-tier signals — they record that the knock landed and let the nudge gate
+# back off; neither touches the production/viability floor (that only flips when
+# Anna witnesses an unaided cold fire in chat). 'listened' additionally credits
+# the soak: it bumps the latest published episode's listens + surfaces its words.
+#   ack      — "got it / played the memo"      → knock marked landed, no learning write
+#   listened — "I listened to the episode"     → knock marked landed + episode soak credit
+KNOCK_RESPONSES = {"ack", "listened"}
+# A later tap may only *upgrade* an earlier one (strictly more signal); same-or-less is a no-op.
+KNOCK_UPGRADES = {None: KNOCK_RESPONSES, "ack": {"listened"}}
+
+
+def credit_latest_episode_listen() -> str | None:
+    """Soak credit for a 'listened' tap. 'Latest published' = the highest mission
+    key in episodes.json (the newest one in the feed). Mirrors `update --listened`,
+    but a tap can't name a mission so it always credits the newest episode.
+    Returns a one-line summary, or None if there's nothing to credit."""
+    episodes = load_json(EPISODES_PATH) or {}
+    if not episodes:
+        return None
+    mission = max(episodes, key=int)
+    ep = episodes[mission]
+    lexicon = load_json(LEXICON_PATH) or {}
+    learner = load_json(LEARNER_PATH) or {}
+    phon_index = build_phonetic_index(lexicon)
+    today = date.today().isoformat()
+    ep["listens"] = ep.get("listens", 0) + 1
+    surfaced = 0
+    for w in ep.get("words", []):
+        key = resolve(w, lexicon, phon_index)
+        if key:
+            lexicon[key]["last_surfaced"] = today
+            surfaced += 1
+    save_json(EPISODES_PATH, episodes)
+    save_json(LEXICON_PATH, lexicon)
+    write_thin_learner(learner, episodes)  # refresh recent_missions + under-listened status
+    return f"M{mission} '{ep.get('title', mission)}' now {ep['listens']}x — surfaced {surfaced} words"
+
+
 def cmd_knock_response(args):
-    """Record Andrew's tap response ('landed') against the most recent knock.
-    Called by the log-knock-response GitHub Actions workflow when HA fires the event."""
+    """Record Andrew's tap response against the most recent knock.
+    Called by the log-knock-response GitHub Actions workflow when HA fires the event.
+    Idempotent: a duplicate tap is a no-op, but 'listened' may upgrade a prior 'ack'."""
     from datetime import datetime
+    response = args.response.strip().lower()
+    if response not in KNOCK_RESPONSES:
+        print(f"  Unknown knock response '{response}' (expected one of {sorted(KNOCK_RESPONSES)}). Skipping.")
+        return
     log = load_json(KNOCK_LOG_PATH) or []
     if not log:
         print("No knocks in knock_log.json to respond to.")
         sys.exit(1)
     last = log[-1]
-    if last.get("response"):
-        print(f"  Most recent knock ({last['date']}) already has response '{last['response']}'. Skipping.")
+    prior = last.get("response")
+    if prior is not None and response not in KNOCK_UPGRADES.get(prior, set()):
+        print(f"  Most recent knock ({last['date']}) already '{prior}'; '{response}' adds nothing. Skipping.")
         return
-    last["response"] = args.response
+
+    last["response"] = response
     last["response_at"] = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+
+    # 'listened' is the only response that credits a soak (the episode, not the knock).
+    if response == "listened":
+        summary = credit_latest_episode_listen()
+        if summary:
+            last["episode_credit"] = summary
+            print(f"  Listened → {summary}")
+        else:
+            print("  Listened, but no episodes in episodes.json to credit.")
+
     save_json(KNOCK_LOG_PATH, log)
-    print(f"  Knock {last['date']} marked '{args.response}'")
+    print(f"  Knock {last['date']} marked '{response}'")
 
 
 def cmd_feedback(args):
@@ -460,7 +516,7 @@ def main():
                     help="Starting recognition level (default: comfortable)")
 
     kr = sub.add_parser("knock-response", help="Log Andrew's tap response against the most recent knock")
-    kr.add_argument("response", help="The response value, e.g. 'landed'")
+    kr.add_argument("response", help="The tap value: 'ack' (got it) or 'listened' (heard the episode → soak credit)")
 
     fb = sub.add_parser("feedback", help="Append a feedback note (capture), or list recent (diagnosis)")
     fb.add_argument("note", nargs="?", default=None, help="The feedback to log; omit to list recent")
