@@ -5,14 +5,16 @@
     "best": 21,
     "last_date": "2026-06-24"
   },
-  "last_debrief": "STORY SO FAR: wedding-hall thread (empty chair). Andrew listened to M51 (the re-thinned, less-dense cut) — confirmed it landed. This session he fired 'illa' cold but missed the 'appadi' in 'appadi illa' (recast given; asked to fire back). 'ippa-ve' still heard-not-fired. Open thread: cold-test BOTH 'appadi illa' and 'ippa-ve' next session, AND get Andrew's read on whether the new episode's density felt right (this is a density-check episode). [ONE-OFF KNOCK DIRECTIVE — TODAY ONLY: Andrew explicitly asked for a Tamil joke. Today's 8am knock should be a short, genuinely funny joke in woven Thanglish (Tamil payload in Tamil script + tiny English gloss), not a regular nudge — still in persona, still ~60-90s, but the content IS the joke. This directive applies ONLY to the 8am one-off knock on 2026-06-30 — ignore it in every other context, including any real chat session and the regular afternoon knock.]",
+  "last_debrief": "STORY SO FAR: wedding-hall thread (empty chair) closed out — 'appadi illa' landed (cold-fired earlier today, confirmed by the 18:03 knock), 'ippa-ve' still heard-not-fired but the thread itself is done. Andrew is mid-workday, acknowledged the last knock worked, asked to stay out of a lesson right now, and explicitly asked to leave the wedding hall behind for a new scene. New scene seeded below: the kitchen, post-wedding-hall. Next real session: open on the kitchen scene cold, and still circle back to 'ippa-ve' opportunistically since it never got fired.",
   "soak_order": {
     "payload": [
-      "appadi illa",
-      "ippa-ve"
+      "சமையலறை (samayalarai — kitchen)",
+      "என்ன சமைக்கிற? (enna samaikkira — what are you cooking?)",
+      "சுவையா இருக்கு (suvaiya irukku — it's tasty)",
+      "சாப்பாடு ரெடி (saappaadu ready — food is ready)"
     ],
-    "scene_seed": "Next beat of the empty-chair wedding-hall story: the maama gently corrects Andrew — 'appadi illa' (no, it's not like that) — and tells him to come sit 'ippa-ve' (right now). Built at the lighter post-M51 density as a comprehension-density check.",
-    "from": "2026-06-24"
+    "scene_seed": "New scene, deliberate break from the wedding hall: Andrew walks into the kitchen (சமையலறை) — someone's cooking, he asks 'என்ன சமைக்கிற?', gets pulled in, and it lands as 'சுவையா இருக்கு' right before 'சாப்பாடு ரெடி' is called out. Light, domestic, low-stakes after the formality of the wedding-hall thread.",
+    "from": "2026-06-30"
   },
   "recent_missions": [
     {
