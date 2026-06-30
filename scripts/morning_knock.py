@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """
-The Morning Knock — Anna's once-a-day between-session audio nudge.
+Anna's between-session audio knock — fires up to 2x/day with a 6-hour gate.
 
-One-shot pipeline: read the briefing -> Anna (one Anthropic call) writes a FRESH
-memo -> single-voice Chirp render -> commit -> jsDelivr serves it -> Home Assistant
-pushes it to the phone. READ-ONLY on the learning brain: the knock observes, it never
-logs reps or advances the floor.
+Pipeline: gate check → read state → Anna writes a FRESH memo → single-voice Chirp render
+→ commit → jsDelivr serves it → Home Assistant pushes to phone. READ-ONLY on the learning
+brain: the knock observes, it never logs reps or advances the floor.
 
   python scripts/morning_knock.py --dry-run   # generate + render only (no commit/push/notify)
-  python scripts/morning_knock.py             # full: commit the mp3, fire the HA push
+  python scripts/morning_knock.py             # full: gate check, then commit + push + notify
+  python scripts/morning_knock.py --force     # skip gate (for manual one-offs)
 
 Secrets (in .env locally; GitHub Actions secrets in CI):
   OPENROUTER_API_KEY     — the one-shot that writes the memo (one key, any model)
@@ -22,7 +22,7 @@ import os
 import subprocess
 import sys
 import urllib.request
-from datetime import date
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 from openai import OpenAI
@@ -38,6 +38,7 @@ MODEL = "anthropic/claude-sonnet-4.6"   # Andrew's default; fallback e.g. "googl
 ANNA_VOICE = "ta-IN-Chirp3-HD-Orus"     # pinned: Anna always sounds like the same someone
 REPO = "arosselet/tamil-tutor"          # for the jsDelivr URL
 KNOCKS_DIR = BASE / "published_audio" / "knocks"   # audio/ is gitignored; published_audio/ is the tracked, jsDelivr-served dir
+MIN_KNOCK_INTERVAL_HOURS = 4   # gate: never re-knock within this window (8am EDT→1pm EDT is 5h, so 4h clears it)
 
 # The choreography (persona.md is the voice; this is the loop). The policy is a
 # JUDGMENT, not a decision tree: hand Anna the state + a palette, let him choose.
@@ -77,6 +78,31 @@ Tamil payload in Tamil script."
 """
 
 
+def check_gate(force: bool) -> tuple[bool, str]:
+    """Returns (should_fire, reason). Reads only knock_log.json — no API calls."""
+    if force:
+        return True, "forced"
+    klog_path = BASE / "progress" / "knock_log.json"
+    if not klog_path.exists():
+        return True, "no knock history"
+    klog = json.loads(klog_path.read_text(encoding="utf-8"))
+    if not klog:
+        return True, "no knock history"
+    last = klog[-1]
+    ts_str = last.get("timestamp")
+    if not ts_str:
+        # Legacy entry without timestamp — fall back to date-level dedupe
+        if last.get("date") == date.today().isoformat():
+            return False, "already knocked today (legacy entry, no timestamp)"
+        return True, "no timestamp in log — date clear"
+    last_ts = datetime.fromisoformat(ts_str)
+    now = datetime.now(timezone.utc)
+    hours_since = (now - last_ts).total_seconds() / 3600
+    if hours_since < MIN_KNOCK_INTERVAL_HOURS:
+        return False, f"last knock {hours_since:.1f}h ago (min {MIN_KNOCK_INTERVAL_HOURS}h)"
+    return True, f"last knock {hours_since:.1f}h ago — ok"
+
+
 def load_env(path: Path):
     """Minimal .env -> os.environ (don't overwrite anything already set, e.g. CI secrets)."""
     if not path.exists():
@@ -96,7 +122,8 @@ def gather_briefing() -> str:
                          capture_output=True, text=True)
     status = out.stdout.strip()
 
-    # Knock history: how many sent since last session, how many tapped "landed"
+    # Knock context: did Andrew open a session since the last knock?
+    # A session is the signal — no button needed.
     klog_path = BASE / "progress" / "knock_log.json"
     slog_path = BASE / "progress" / "session_log.json"
     knock_summary = ""
@@ -109,14 +136,11 @@ def gather_briefing() -> str:
                 last_session = slog[-1].get("date")
         recent = [k for k in klog if not last_session or k["date"] > last_session]
         if recent:
-            landed = sum(1 for k in recent if k.get("response") == "landed")
-            knock_summary = (
-                f"\nKnocks since last session: {len(recent)} sent, {landed} tapped 'It landed'."
-            )
-            if landed == 0 and len(recent) >= 2:
+            knock_summary = f"\nKnocks since last session: {len(recent)} sent, none answered yet."
+            if len(recent) >= 2:
                 knock_summary += " Try a different angle today."
-            elif landed > 0:
-                knock_summary += f" Word is resonating — can test it cold next session."
+        elif klog and last_session and klog[-1]["date"] <= last_session:
+            knock_summary = "\nLast knock led to a session — it worked. Keep the energy up."
 
     return status + knock_summary
 
@@ -175,12 +199,22 @@ def push_to_phone(body: str, audio_url: str):
 
 
 def main():
-    ap = argparse.ArgumentParser(description="Anna's daily audio knock")
+    ap = argparse.ArgumentParser(description="Anna's between-session audio knock")
     ap.add_argument("--dry-run", action="store_true",
                     help="generate + render only; no commit, no push, no notification")
+    ap.add_argument("--force", action="store_true",
+                    help="skip the time gate (for manual one-offs; always fires)")
     args = ap.parse_args()
 
     load_env(BASE / ".env")
+
+    should_fire, reason = check_gate(args.force)
+    if not should_fire:
+        print(f"[gate] skipping — {reason}")
+        return
+
+    print(f"[gate] firing — {reason}")
+    now = datetime.now(timezone.utc)
 
     print("1. briefing…")
     briefing = gather_briefing()
@@ -189,7 +223,9 @@ def main():
     print("\n--- notification body ---\n" + memo["notification_body"])
     print("\n--- memo script ---\n" + memo["memo_script"] + "\n")
 
-    mp3 = KNOCKS_DIR / f"knock_{date.today().isoformat()}.mp3"
+    # Datetime-based filename so multiple fires on the same day don't collide,
+    # and jsDelivr always serves the fresh file (no stale CDN cache).
+    mp3 = KNOCKS_DIR / f"knock_{now.strftime('%Y-%m-%dT%H-%M')}.mp3"
     print("3. render…")
     asyncio.run(render_memo(memo["memo_script"], mp3))
 
@@ -202,12 +238,17 @@ def main():
     # (the knock never fakes reps); it lets the chat cash in ("caught the one I sent?").
     klog_path = BASE / "progress" / "knock_log.json"
     klog = json.loads(klog_path.read_text(encoding="utf-8")) if klog_path.exists() else []
-    klog.append({"date": date.today().isoformat(), "body": memo["notification_body"],
-                 "audio_url": audio_url, "mp3": str(mp3.relative_to(BASE))})
+    klog.append({
+        "date": now.date().isoformat(),
+        "timestamp": now.isoformat(),   # needed by check_gate for 6-hour window
+        "body": memo["notification_body"],
+        "audio_url": audio_url,
+        "mp3": str(mp3.relative_to(BASE)),
+    })
     klog_path.write_text(json.dumps(klog, ensure_ascii=False, indent=2), encoding="utf-8")
 
     print("4. commit + push the audio + knock-log (so jsDelivr can serve it)…")
-    commit_and_push([mp3, klog_path], f"Morning knock {mp3.stem}")
+    commit_and_push([mp3, klog_path], f"Anna knock {mp3.stem}")
     print("5. notify…")
     push_to_phone(memo["notification_body"], audio_url)
     print("\ndone — knock delivered & logged.")
