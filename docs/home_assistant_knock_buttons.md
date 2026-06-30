@@ -33,7 +33,22 @@ Duplicate taps are no-ops, so a double-tap can't double-count.
 
 ---
 
-## 1. The secret — a GitHub PAT
+## 1. The secrets
+
+Two values live in HA's `secrets.yaml` — neither is ever inlined into a config
+file:
+
+```yaml
+# secrets.yaml
+github_dispatch_auth: "Bearer github_pat_xxxxxxxxxxxxxxxxxxxxxxxx"  # the GitHub PAT (§1a)
+anna_knock_webhook_id: "anna_knock_xxxxxxxxxxxxxxxxxxxx"            # the path in ANNA_PUSH_WEBHOOK_URL
+```
+
+`anna_knock_webhook_id` is the last path segment of your existing
+`ANNA_PUSH_WEBHOOK_URL` (i.e. `…/api/webhook/<this>`). It's referenced by
+`!secret` everywhere below.
+
+### 1a. The GitHub PAT
 
 `repository_dispatch` needs a token that can write to `arosselet/tamil-tutor`.
 
@@ -44,13 +59,8 @@ Fine-grained tokens → Generate new.
   `dispatches` endpoint is gated on Contents-write).
 - Copy the token (`github_pat_…`).
 
-Store the **whole `Authorization` header value** in HA's `secrets.yaml` (so the
-PAT never appears inline in a config file):
-
-```yaml
-# secrets.yaml
-github_dispatch_auth: "Bearer github_pat_xxxxxxxxxxxxxxxxxxxxxxxx"
-```
+Store the **whole `Authorization` header value** (the word `Bearer` + a space +
+the token) as `github_dispatch_auth` above, so the PAT never appears inline.
 
 > Classic PAT works too — scope `repo` — but fine-grained scoped to this one repo
 > is tighter. Rotate it if it ever leaks; nothing else depends on it.
@@ -83,7 +93,8 @@ A successful dispatch returns HTTP **204** with no body.
 
 This is the automation that already fires on the `ANNA_PUSH_WEBHOOK_URL` webhook
 (your existing "Notify Andrew"). The only change is the `actions:` list under
-`data:`. Adjust `webhook_id` / `notify.mobile_app_…` to your existing values.
+`data:`. The `webhook_id` comes from the `anna_knock_webhook_id` secret; the
+notify service is `notify.mobile_app_blue_dragonfly`.
 
 ```yaml
 automation:
@@ -163,8 +174,9 @@ automation:
 
 ## Notes / gotchas
 
-- **`secrets.yaml` needs `anna_knock_webhook_id`** if you adopt the `!secret`
-  reference above — or just inline your existing webhook id.
+- **Both secrets must exist in `secrets.yaml`** — `github_dispatch_auth` and
+  `anna_knock_webhook_id`. HA fails to load the automation if a referenced
+  `!secret` is missing, so add them before reloading.
 - **`listened` credits the *latest published* episode** (highest mission number),
   not necessarily the one the knock was about. That's the agreed model — a tap
   can't name a mission, so it credits the newest thing in the feed. If you binge
