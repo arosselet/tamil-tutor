@@ -1,5 +1,12 @@
 # Home Assistant — knock buttons (the feedback loop)
 
+> **Current setup wires only the `ack` ("Got it 👍") button** — the 2026-06-30
+> pivot stopped chasing listens, so the `listened` soak-credit button is no
+> longer wired (the code path still exists). For the live, paste-ready
+> walkthrough with this instance's specifics, see
+> [`ha_knock_buttons_todo.md`](ha_knock_buttons_todo.md). This doc keeps the
+> generic two-button reference below.
+
 Closes the loop on the between-session knock. The knock notification gets **two
 tap buttons**; tapping one fires a GitHub `repository_dispatch`, which runs the
 `log-knock-response` workflow → `sync_state.py knock-response`.
