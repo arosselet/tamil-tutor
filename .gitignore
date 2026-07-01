@@ -15,3 +15,6 @@ __pycache__/
 protocol/persona.md
 Final_Report_Andrew_Rosselet.ipynb
 anna_knock_automation.yaml
+
+# Local HA paste helper (contains webhook id / PAT placeholder) — never commit
+ha_local_paste.md

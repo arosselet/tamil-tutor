@@ -113,6 +113,19 @@ def compute_engines(lexicon: dict) -> dict:
     return {"online": len(online), "total": total, "pct": pct}
 
 
+def compute_deck(lexicon: dict, deck: str = "trip") -> dict:
+    """A named deck is a finite, deadline-driven set (e.g. the India-trip survival
+    phrases) tagged `deck: "<name>"`. Its meter is the headline during a sprint:
+    of the deck's members, how many fire cold? Members are counted regardless of
+    type — a chunk fires cold when said whole, a frame when a novel slot-fill lands.
+    Anna narrates the countdown to the deadline (Python counts; Anna narrates)."""
+    members = [w for w, r in lexicon.items() if r.get("deck") == deck]
+    cleared = [w for w in members if lexicon[w].get("production") == "cold"]
+    total = len(members)
+    pct = (len(cleared) / total * 100) if total else 0.0
+    return {"cleared": len(cleared), "total": total, "pct": pct}
+
+
 # --- Episode helpers (progress/episodes.json — a flat {id: episode} map) ------
 
 def find_mission_file(directory: Path, mission: int, extension: str) -> Path | None:
@@ -302,6 +315,9 @@ def cmd_update(args):
     print(f"\nViability floor: {floor['cleared']}/{floor['total']} fire cold ({floor['pct']:.0f}%)")
     if engines["total"]:
         print(f"Engines online: {engines['online']}/{engines['total']} ({engines['pct']:.0f}%)")
+    deck = compute_deck(lexicon)
+    if deck["total"]:
+        print(f"Trip Deck: {deck['cleared']}/{deck['total']} fire cold ({deck['pct']:.0f}%)")
     print("State updated.")
 
 
@@ -331,6 +347,69 @@ def cmd_add_pattern(args):
     print(f"  + Pattern '{args.key}' seeded — {args.gloss}")
     print(f"    (recognition {args.recognition}, production none)")
     print(f"    Log a cold novel instance later with:  update --produced-cold '{args.key}'")
+
+
+def cmd_seed_deck(args):
+    """Idempotently load a curated deck file (e.g. curriculum/trip_deck.json) into
+    the lexicon, tagging each entry `deck: <name>`. The deck file is CONTENT (Anna
+    drafts it, the Oracle vets it); this command is the MECHANISM that lands it —
+    the same LLM-writes / Python-owns-state split as word_pool.json.
+
+    Each deck entry: {"tamil", "gloss", "phonetic": [...], "type": "chunk"|"frame",
+    "recognition"?}. A "frame" is stored as a lexicon `pattern` (an Engine); a
+    "chunk" is word-like (counts in the viability floor). Re-runnable as the deck
+    grows: existing entries get the deck tag + any missing gloss/phonetic without
+    clobbering their learning state; new entries are created."""
+    path = Path(args.file)
+    if not path.is_absolute():
+        path = BASE / path
+    entries = load_json(path)
+    if entries is None:
+        print(f"Error: deck file not found: {path}")
+        sys.exit(1)
+    lexicon = load_json(LEXICON_PATH)
+    if lexicon is None:
+        print("Error: lexicon.json missing. See BOOTSTRAP.md.")
+        sys.exit(1)
+    today = date.today().isoformat()
+    created = updated = 0
+    for e in entries:
+        tamil = e.get("tamil")
+        if not tamil:
+            print(f"  ! deck entry missing 'tamil' — skipped: {e}")
+            continue
+        lex_type = "pattern" if e.get("type") == "frame" else e.get("type", "chunk")
+        # Chunks/words must be canonical Tamil script; frames use the `frame:...`
+        # key convention (like add-pattern), so they're exempt from the script check.
+        if lex_type != "pattern" and not is_tamil(tamil):
+            print(f"  ! '{tamil}' isn't Tamil script — chunks must be canonical script. Skipped.")
+            continue
+        if tamil in lexicon:
+            rec = lexicon[tamil]
+            rec["deck"] = args.deck
+            rec.setdefault("type", lex_type)
+            if not rec.get("gloss") and e.get("gloss"):
+                rec["gloss"] = e["gloss"]
+            for phon in e.get("phonetic", []):
+                if phon not in rec.setdefault("phonetic", []):
+                    rec["phonetic"].append(phon)
+            updated += 1
+        else:
+            lexicon[tamil] = {
+                "type": lex_type,
+                "gloss": e.get("gloss", ""),
+                "phonetic": e.get("phonetic", []),
+                "recognition": e.get("recognition", "comfortable"),
+                "production": "none",
+                "seen_in": [],
+                "last_surfaced": None,
+                "deck": args.deck,
+            }
+            created += 1
+    save_json(LEXICON_PATH, lexicon)
+    deck = compute_deck(lexicon, args.deck)
+    print(f"  Seeded deck '{args.deck}': +{created} new, {updated} re-tagged.")
+    print(f"  Trip Deck now: {deck['cleared']}/{deck['total']} fire cold ({deck['pct']:.0f}%)")
 
 
 def cmd_status(_args):
@@ -377,18 +456,17 @@ def cmd_status(_args):
         engines = compute_engines(lexicon)
         if engines["total"]:
             print(f"Engines online: {engines['online']}/{engines['total']} patterns fire cold ({engines['pct']:.0f}%)")
+        deck = compute_deck(lexicon)
+        if deck["total"]:
+            print(f"Trip Deck: {deck['cleared']}/{deck['total']} deck phrases fire cold ({deck['pct']:.0f}%) — the sprint headline")
 
     if episodes:
         recent = sorted(episodes.items(), key=lambda x: int(x[0]), reverse=True)[:6]
-        print("\nRecent episodes:")
+        print("\nRecent episodes (immersion tank — no listen bookkeeping; each is a self-contained dose):")
         for m, ep in recent:
             dur = ep.get("duration_min")
             dur_str = f" ({dur:.1f} min)" if dur else ""
-            print(f"  M{m}: {ep.get('listens', 0)}x listened{dur_str}")
-        unlogged = [m for m, ep in recent[:4] if ep.get("listens", 0) == 0]
-        if unlogged:
-            print(f"  → Unlogged: M{', M'.join(unlogged)}. Open by asking if he caught them; "
-                  f"log with `--listened N` so the soak reports back.")
+            print(f"  M{m}: {ep.get('title', m)}{dur_str}")
 
 
 # Knock tap responses (from Home Assistant's actionable notification). Both are
@@ -515,6 +593,10 @@ def main():
     ap.add_argument("--recognition", default="comfortable", choices=RECOGNITION_LEVELS,
                     help="Starting recognition level (default: comfortable)")
 
+    sd = sub.add_parser("seed-deck", help="Load a curated deck file (chunks/frames) into the lexicon, tagged with a deck name")
+    sd.add_argument("file", help="Path to the deck JSON (e.g. curriculum/trip_deck.json), absolute or repo-relative")
+    sd.add_argument("--deck", default="trip", help="Deck name to tag entries with (default: trip)")
+
     kr = sub.add_parser("knock-response", help="Log Andrew's tap response against the most recent knock")
     kr.add_argument("response", help="The tap value: 'ack' (got it) or 'listened' (heard the episode → soak credit)")
 
@@ -529,6 +611,8 @@ def main():
         cmd_status(args)
     elif args.command == "add-pattern":
         cmd_add_pattern(args)
+    elif args.command == "seed-deck":
+        cmd_seed_deck(args)
     elif args.command == "feedback":
         cmd_feedback(args)
     elif args.command == "knock-response":
