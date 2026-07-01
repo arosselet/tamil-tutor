@@ -43,14 +43,10 @@ def main():
     print("📊 COIMBATORE MAPPILLAI — STATUS REPORT")
     print("=" * 55)
 
-    streak = learner.get("streak", {})
-    cur, best = streak.get("current", 0), streak.get("best", 0)
-    if cur > 0:
-        print(f"\n🔥 Streak: {cur} days (Best: {best})")
-    elif best > 0:
-        print(f"\n💤 Streak: broken (Best was {best})")
-    else:
-        print("\n🚀 Streak: Start your first session!")
+    # No streak theatre — recency is the honest signal, guilt-free (Enjoyment Clause).
+    last = learner.get("streak", {}).get("last_date")
+    if last:
+        print(f"\n📅 Last logged session: {last}")
 
     # --- The viability floor: the one honest meter ---
     recognized = [w for w, r in lexicon.items() if r.get("recognition") in RECOGNIZED]

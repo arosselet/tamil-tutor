@@ -27,7 +27,6 @@ than silently poisoning state — production presupposes a recognition record.
 import argparse
 import json
 import re
-import subprocess
 import sys
 from datetime import date
 from pathlib import Path
@@ -39,7 +38,10 @@ EPISODES_PATH = BASE / "progress" / "episodes.json"
 SESSION_LOG_PATH = BASE / "progress" / "session_log.json"
 FEEDBACK_LOG_PATH = BASE / "progress" / "feedback_log.json"
 KNOCK_LOG_PATH = BASE / "progress" / "knock_log.json"
-AUDIO_DIR = BASE / "audio"
+
+# The sprint deadline (profile.md Phase 1.5): Andrew lands in India the week of
+# 2026-08-12. The deck countdown is computed against this; clear it after the trip.
+TRIP_DATE = date(2026, 8, 12)
 
 # Recognition ladder. A word the learner *recognizes* is comfortable or solid;
 # struggled means shaky; unseen means no record. The floor counts cold production
@@ -128,38 +130,17 @@ def compute_deck(lexicon: dict, deck: str = "trip") -> dict:
 
 # --- Episode helpers (progress/episodes.json — a flat {id: episode} map) ------
 
-def find_mission_file(directory: Path, mission: int, extension: str) -> Path | None:
-    matches = list(directory.glob(f"*mission{mission}{extension}"))
-    return matches[0] if matches else None
-
-
-def get_episode_duration(mission: int) -> float | None:
-    path = find_mission_file(AUDIO_DIR, mission, ".mp3")
-    if path is None:
-        return None
-    try:
-        result = subprocess.run(
-            ["ffprobe", "-v", "quiet", "-show_entries", "format=duration",
-             "-of", "json", str(path)],
-            capture_output=True, text=True
-        )
-        d = json.loads(result.stdout)
-        return float(d["format"]["duration"]) / 60
-    except Exception:
-        return None
-
-
-def compute_status(episodes: dict) -> str:
-    under = [(int(m), ep.get("listens", 0)) for m, ep in episodes.items()
-             if ep.get("listens", 0) < 3]
-    under.sort(key=lambda x: x[0], reverse=True)
-    under = under[:8]
-    if not under:
-        return "Ready for new episode."
-    if len(under) <= 2:
-        return f"{len(under)} recent episodes under-listened. New episode OK, but re-listen playlist recommended."
-    total_min = sum(get_episode_duration(m) or 3.0 for m, _ in under)
-    return f"{len(under)} episodes under-listened (~{total_min:.0f} min). Re-listen playlist recommended before new production."
+def compute_status() -> str:
+    """The status line IS the scoreboard (post the 2026-06-30 listens pivot):
+    the deck countdown during a sprint, the floor otherwise. Never a chore line —
+    episodes are self-contained doses; nothing is ever 'under-listened'."""
+    lexicon = load_json(LEXICON_PATH) or {}
+    deck = compute_deck(lexicon)
+    if deck["total"]:
+        days = (TRIP_DATE - date.today()).days
+        return f"Trip Deck {deck['cleared']}/{deck['total']} fire cold · {days} days to touchdown"
+    floor = compute_floor(lexicon)
+    return f"Viability floor {floor['cleared']}/{floor['total']} fire cold ({floor['pct']:.0f}%)"
 
 
 def compute_recent_missions(episodes: dict, n: int = 4) -> list[dict]:
@@ -175,7 +156,7 @@ def write_thin_learner(learner: dict, episodes: dict):
         "last_debrief": learner.get("last_debrief", ""),
         "soak_order": learner.get("soak_order", {}),
         "recent_missions": compute_recent_missions(episodes),
-        "status": compute_status(episodes),
+        "status": compute_status(),
     }
     save_json(LEARNER_PATH, thin)
     print(f"  Updated learner.json ({LEARNER_PATH.relative_to(BASE)})")
@@ -421,10 +402,13 @@ def cmd_status(_args):
         return
 
     print(f"Learner: {learner.get('learner')}")
+    # No streak theatre — the honest signal is recency (a scoreboard that lies
+    # teaches the player to ignore all the meters).
     last = learner.get("streak", {}).get("last_date")
     gap = (date.today() - date.fromisoformat(last)).days if last else None
-    gap_str = f" (last active {gap} days ago)" if gap and gap > 1 else ""
-    print(f"Streak: {learner.get('streak', {}).get('current', 0)} days{gap_str}")
+    if last:
+        gap_str = "today" if not gap else f"{gap} day{'s' if gap != 1 else ''} ago"
+        print(f"Last logged session: {last} ({gap_str})")
     print(f"Status: {learner.get('status', 'unknown')}")
     print(f"Story so far: {learner.get('last_debrief', '')}")
     soak = learner.get("soak_order", {})
