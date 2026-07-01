@@ -1,0 +1,28 @@
+{
+  "mission": 53,
+  "register": "suspicion",
+  "dramatic_ingredient": "stakes",
+  "episode_form": "phone_call",
+  "shape": "eavesdrop",
+  "location_class": "kitchen",
+  "energy": "medium",
+  "intercept_tamil_density": 0.90,
+  "breakdown_tamil_density": 0.80,
+  "fence_size": 166,
+  "unfenced_words": 1,
+  "new_words_landed": {
+    "சமையலறை": 3,
+    "என்ன சமைக்கிற?": 6,
+    "சுவையா இருக்கு": 3,
+    "சாப்பாடு ரெடி": 3
+  },
+  "callbacks_used": {
+    "சீக்கிரம்": 1,
+    "சொன்னாங்க": 1
+  },
+  "host_roles": {
+    "A": "caught_at_home_cooking",
+    "B": "suspicious_caller"
+  },
+  "notes": "phone_call form with kitchen scene seed. Focal word 'என்ன சமைக்கிற?' given 6 answering-context appearances (knocked on today, came back hinted). Unfenced word: சாம்பார் (1). Callbacks சீக்கிரம் and சொன்னாங்க land naturally; both 1 appearance. Two-beat drama: Host B predicts 'சுவையா இருக்கு', Host A confirms it — maama reveal. 'சாப்பாடு ரெடி' closes the call as admission. Light Breakdown only."
+}
