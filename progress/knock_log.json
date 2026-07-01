@@ -35,5 +35,15 @@
     "body": "kitchen-la yaaro samaikkira — *என்ன சமைக்கிற?* (what are you cooking?) — reply in tamizh. that's the whole ask 🍳",
     "response": "ack",
     "response_at": "2026-07-01T14:08:16Z"
+  },
+  {
+    "date": "2026-07-01",
+    "timestamp": "2026-07-01T18:40:50.126020+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "kitchen cold-fire",
+    "rationale": "No session in 7 days — cold-start risk is real; kitchen scene is already seeded and low-stakes, so a single reply-in-tamizh text ask is the lowest-friction re-opener without pressuring or pitching.",
+    "next_check": "2026-07-02T00:40:50.126020+00:00",
+    "body": "சமையலறை-ல யாரோ cooking பண்றாங்க. Andrew walks in — what does he say? (enna samaikkira 👀)"
   }
 ]
