@@ -518,10 +518,13 @@ def cmd_knock_response(args):
         print(f"  Unknown knock response '{response}' (expected one of {sorted(KNOCK_RESPONSES)}). Skipping.")
         return
     log = load_json(KNOCK_LOG_PATH) or []
-    if not log:
-        print("No knocks in knock_log.json to respond to.")
+    # Only FIRED reaches can be tapped; silence entries (acted=False) carry no
+    # notification, so skip them and mark the most recent actual knock.
+    fired = [k for k in log if k.get("acted", True)]
+    if not fired:
+        print("No fired knocks in knock_log.json to respond to.")
         sys.exit(1)
-    last = log[-1]
+    last = fired[-1]
     prior = last.get("response")
     if prior is not None and response not in KNOCK_UPGRADES.get(prior, set()):
         print(f"  Most recent knock ({last['date']}) already '{prior}'; '{response}' adds nothing. Skipping.")
