@@ -58,10 +58,10 @@
     "expected_target": "என்ன சமைக்கிற?",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Hungry?",
+    "reply": "pipeline test from the terminal, English only",
     "reply_verdict": "chat",
     "reply_fired": [],
-    "reply_line": "ha — fair instinct, but that's your stomach talking, not your Tamil 😄 next time: *enna samaikkira?* — keep it warm.",
-    "reply_at": "2026-07-01T22:10:42Z"
+    "reply_line": "pipeline's alive 👍 — enna samaikkira is still waiting for you though.",
+    "reply_at": "2026-07-01T22:21:18Z"
   }
 ]
