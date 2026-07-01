@@ -56,6 +56,12 @@
     "next_check": "2026-07-02T18:05:46.375404+00:00",
     "body": "someone's in the kitchen. smell hits you first. you walk in — what do you ask? 🍛 (one line, tamizh)",
     "expected_target": "என்ன சமைக்கிற?",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Hungry?",
+    "reply_verdict": "chat",
+    "reply_fired": [],
+    "reply_line": "ha — fair instinct, but that's your stomach talking, not your Tamil 😄 next time: *enna samaikkira?* — keep it warm.",
+    "reply_at": "2026-07-01T22:10:42Z"
   }
 ]
