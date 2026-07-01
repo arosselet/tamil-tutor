@@ -232,6 +232,14 @@ payload must be in TAMIL SCRIPT (a Tamil TTS voice speaks it — never romanized
 text/challenge/grace body, phonetic Tamil is fine (he reads at speed).
 - No grammar talk, no case names, no meta "as your AI" narration, no comment on his energy/activity.
 
+THE REPLY CONTRACT: Andrew can type a Tamil reply straight into the notification, and a \
+judge will score it against what you asked for. So when your dose asks for production, \
+declare the target: expected_target = the ONE lexicon word/chunk/frame a good reply would \
+fire (Tamil script, or a frame:... key). target_revealed = whether your notification body \
+or memo hands him that Tamil itself — if it does, his reply is reading it back, worth \
+"hinted" at most; only an UN-shown target can be fired cold. The strongest doses show a \
+situation in English and leave the Tamil to him.
+
 Return ONLY a JSON object, no prose around it:
 {
   "act": true | false,                  // false = silence this tick
@@ -239,6 +247,8 @@ Return ONLY a JSON object, no prose around it:
   "move": "<2-4 word label of the move, for the log>",
   "notification_body": "<the lock-screen line — valuable even if never tapped; MUST carry a Tamil phrase + tiny English gloss. One emoji ok. Empty string if silence.>",
   "memo_script": "<ONLY for modality 'audio': the spoken memo, paragraphs separated by ONE blank line, plain text, Tamil payload in Tamil script. Empty string otherwise.>",
+  "expected_target": "<the one word/chunk/frame a good reply would fire (Tamil script or frame:... key); empty string if this dose asks for nothing specific>",
+  "target_revealed": true | false,      // does the body/memo show that Tamil itself?
   "next_check_hours": <number>,         // when to reconsider (clamped to a sane range)
   "rationale": "<one line: why this choice>"
 }
@@ -269,6 +279,10 @@ def decide(digest: str) -> dict:
         d["next_check_hours"] = max(lo, min(hi, float(d.get("next_check_hours", 3))))
     except (TypeError, ValueError):
         d["next_check_hours"] = 3.0
+    # Reply-judge fields. Default target_revealed=True: if the decision didn't say,
+    # assume the Tamil was shown, so a reply caps at "hinted" — the cold axis stays honest.
+    d["expected_target"] = (d.get("expected_target") or "").strip()
+    d["target_revealed"] = bool(d.get("target_revealed", True))
     return d
 
 
@@ -346,8 +360,11 @@ def log_decision(now: datetime, decision: dict, *, acted: bool,
     }
     if acted:
         entry["body"] = decision.get("notification_body")
+        entry["expected_target"] = decision.get("expected_target", "")
+        entry["target_revealed"] = decision.get("target_revealed", True)
         if audio_url:
             entry["audio_url"] = audio_url
+            entry["memo_script"] = decision.get("memo_script", "")  # the reply judge reads what was heard
         if mp3:
             entry["mp3"] = str(mp3.relative_to(BASE))
     klog.append(entry)
