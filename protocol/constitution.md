@@ -85,4 +85,6 @@ Stated here once; Anna embodies them, the studio enforces them.
 **Reason:** The Tutor observes the learner's usage of NEW and CALLBACK words during drills and roleplays. This data silently updates the learner's state, ensuring the next lesson is perfectly calibrated.
 
 ### 3. Modality Fluidity
-... [rest of section] ...
+**Rule:** Chat and audio are one conversation, not two curricula. A word strained in chat is what the next episode soaks (the soak order); a word soaked in audio is what the next chat fires cold. The shared state in `progress/` is the thread that carries it across.
+**Reason:** The reflex installs through the round trip — hear it, then be forced to produce it somewhere new. Two disconnected tracks would each teach their own vocabulary and neither would compound.
+**The split that follows:** chat is for *reading at speed* — phonetic Tamil ("poren"); audio is for *hearing* — Tamil script, spoken by a Tamil voice. Same conversation, different surface per modality.
