@@ -83,15 +83,45 @@ A successful dispatch returns HTTP **204** (no body).
 
 ## 4a. Update the existing "Notify Andrew" automation — add the button
 
-Under the notify `data:` → inner `data:` block, add an `actions:` list (additive;
-the lock-screen body and tap-to-play are unchanged). This is exactly what's now
-in the repo mirror `anna_knock_automation.yaml`:
+**Edit in YAML mode, replacing the whole automation — not the visual editor.**
+The visual editor mangles the nested `data.actions` button list and HA rejects
+the save with `Message malformed: value should be a string ... data['actions'][0]['action']`.
+
+Two things make it save cleanly: call the notify with **`service:`** (not the
+new `action:` alias — it collides with the button's own `action:` key), and
+**quote** the button's action value. The full known-good automation:
 
 ```yaml
+alias: Notify Andrew
+description: ""
+triggers:
+  - trigger: webhook
+    allowed_methods:
+      - POST
+      - PUT
+    local_only: false
+    webhook_id: "-boz9pFKLzslxz3tiljDYumKk"
+conditions: []
+actions:
+  - service: notify.mobile_app_blue_dragonfly
+    data:
+      title: "{{ trigger.json.title | default('Anna', true) }}"
+      message: "{{ trigger.json.text_content }}"
+      data:
+        tag: anna-knock
+        url: "{{ trigger.json.audio_url }}"
+        attachment:
+          url: "{{ trigger.json.audio_url }}"
+          content-type: mp3
         actions:
-          - action: ANNA_ACK
+          - action: "ANNA_ACK"
             title: "Got it 👍"
+mode: single
 ```
+
+> Gotcha: if it still won't save, temporarily drop the `attachment:` block —
+> some iOS/HA versions choke when `attachment` and `actions` coexist; re-add it
+> after confirming the buttons save.
 
 ## 4b. Add a NEW automation — the tap handler
 
