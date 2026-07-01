@@ -2494,5 +2494,553 @@
       52
     ],
     "last_surfaced": null
+  },
+  "இன்னும் கொஞ்சம் சாப்பிடுங்க": {
+    "type": "chunk",
+    "gloss": "Eat a little more (she will say this)",
+    "phonetic": [
+      "innum konjam saapidunga"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு": {
+    "type": "chunk",
+    "gloss": "No thanks, I'm full",
+    "phonetic": [
+      "vendaamma, vayiru nerainjiduchu"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "உங்க கை ருசி சூப்பர்": {
+    "type": "chunk",
+    "gloss": "Your cooking (hand-taste) is superb",
+    "phonetic": [
+      "unga kai ruchi super"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "நானே எடுத்துக்கறேன்": {
+    "type": "chunk",
+    "gloss": "I'll serve myself",
+    "phonetic": [
+      "naane eduthukkaren"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "கொஞ்சம் தண்ணி குடுங்க": {
+    "type": "chunk",
+    "gloss": "Please give a little water",
+    "phonetic": [
+      "konjam thanni kudunga"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "கை கழுவிட்டு வரேன்": {
+    "type": "chunk",
+    "gloss": "I'll wash my hands and come",
+    "phonetic": [
+      "kai kazhuvittu varen"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "உட்கார்ந்து பேசுங்க": {
+    "type": "chunk",
+    "gloss": "Sit and talk",
+    "phonetic": [
+      "ukkaandhu pesunga"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "நீங்க சாப்பிட்டீங்களா?": {
+    "type": "chunk",
+    "gloss": "Did you eat? (respectful — asking her back)",
+    "phonetic": [
+      "ninga saaptingala"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "அவங்க என்ன சொன்னாங்க?": {
+    "type": "chunk",
+    "gloss": "What did they say?",
+    "phonetic": [
+      "avanga enna sonnaanga"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "யாருக்கு தெரியும்?": {
+    "type": "chunk",
+    "gloss": "Who knows?",
+    "phonetic": [
+      "yaarukku theriyum"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "கேள்விப்பட்டியா?": {
+    "type": "chunk",
+    "gloss": "Did you hear (the news)?",
+    "phonetic": [
+      "kelvipattiya"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "அது உண்மையா?": {
+    "type": "chunk",
+    "gloss": "Is that true?",
+    "phonetic": [
+      "adhu unmaiya"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "சும்மா சொல்றாங்க": {
+    "type": "chunk",
+    "gloss": "They're just talking / gossiping",
+    "phonetic": [
+      "summa solraanga"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "எனக்கு ஒன்னும் தெரியாது": {
+    "type": "chunk",
+    "gloss": "I don't know anything (staying out of it)",
+    "phonetic": [
+      "enakku onnum theriyaadhu"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "என்னமோ பிரச்சனை": {
+    "type": "chunk",
+    "gloss": "Some problem or other",
+    "phonetic": [
+      "ennamo prachanai"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "விட்டுடு": {
+    "type": "chunk",
+    "gloss": "Let it go / drop it",
+    "phonetic": [
+      "vittudu"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "எவ்வளவு ஆகும்?": {
+    "type": "chunk",
+    "gloss": "How much will it be?",
+    "phonetic": [
+      "evvalavu aagum"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "கொஞ்சம் குறையுங்க": {
+    "type": "chunk",
+    "gloss": "Reduce it a little (bargaining)",
+    "phonetic": [
+      "konjam kuraiyunga"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "ரொம்ப அதிகம்": {
+    "type": "chunk",
+    "gloss": "That's too much",
+    "phonetic": [
+      "romba adhigam"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "இங்க நிறுத்துங்க": {
+    "type": "chunk",
+    "gloss": "Stop here (to a driver)",
+    "phonetic": [
+      "inga niruthunga"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "நேரா போங்க": {
+    "type": "chunk",
+    "gloss": "Go straight",
+    "phonetic": [
+      "nera ponga"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "வலது பக்கம் திரும்புங்க": {
+    "type": "chunk",
+    "gloss": "Turn right",
+    "phonetic": [
+      "valadu pakkam thirumbunga"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "சில்லறை இருக்கா?": {
+    "type": "chunk",
+    "gloss": "Do you have change?",
+    "phonetic": [
+      "sillarai irukka"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "கார்டு வேலை செய்யுமா?": {
+    "type": "chunk",
+    "gloss": "Does card work / is card accepted?",
+    "phonetic": [
+      "card velai seiyuma"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "அவசரம் இருக்கு": {
+    "type": "chunk",
+    "gloss": "I'm in a hurry",
+    "phonetic": [
+      "avasaram irukku"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "கொஞ்சம் நில்லுங்க": {
+    "type": "chunk",
+    "gloss": "Wait a moment (respectful)",
+    "phonetic": [
+      "konjam nillunga"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "எப்படி இருக்கீங்க?": {
+    "type": "chunk",
+    "gloss": "How are you? (respectful)",
+    "phonetic": [
+      "eppadi irukkinga"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "ரொம்ப நாளாச்சு": {
+    "type": "chunk",
+    "gloss": "It's been a long time",
+    "phonetic": [
+      "romba naalaachu"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "வந்துட்டேன்": {
+    "type": "chunk",
+    "gloss": "I've arrived / I came",
+    "phonetic": [
+      "vandhutten"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "கிளம்பலாமா?": {
+    "type": "chunk",
+    "gloss": "Shall we get going?",
+    "phonetic": [
+      "kilambalaama"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "பிறகு பார்க்கலாம்": {
+    "type": "chunk",
+    "gloss": "See you later",
+    "phonetic": [
+      "piragu paakkalaam"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "உங்களை பார்த்ததுல சந்தோஷம்": {
+    "type": "chunk",
+    "gloss": "Happy to meet you",
+    "phonetic": [
+      "ungalai paathadhula sandhosham"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "கவலைப்படாதீங்க": {
+    "type": "chunk",
+    "gloss": "Don't worry (respectful)",
+    "phonetic": [
+      "kavalaipadaadhinga"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "நல்லா இருங்க": {
+    "type": "chunk",
+    "gloss": "Take care / be well",
+    "phonetic": [
+      "nalla irunga"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "ஒரு நிமிஷம்": {
+    "type": "chunk",
+    "gloss": "One moment / just a minute",
+    "phonetic": [
+      "oru nimisham"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "நான் கோயம்புத்தூர்காரன் மாதிரி ஆயிட்டேன்": {
+    "type": "chunk",
+    "gloss": "I've become like a Coimbatore local",
+    "phonetic": [
+      "naan coimbatore-kaaran maadhiri aayitten"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "இதெல்லாம் எனக்கு புடிக்கும்": {
+    "type": "chunk",
+    "gloss": "I like all this (the food/the place/the people)",
+    "phonetic": [
+      "idhellaam enakku pudikkum"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "அடுத்த தடவ நானே சமைக்கறேன்": {
+    "type": "chunk",
+    "gloss": "Next time I'll cook myself",
+    "phonetic": [
+      "aduthha thadava naane samaikkaren"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "கொஞ்சம் கொஞ்சம் புரியுது": {
+    "type": "chunk",
+    "gloss": "I understand a little by little",
+    "phonetic": [
+      "konjam konjam puriyudhu"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "frame:want-noun": {
+    "type": "pattern",
+    "gloss": "{English noun} வேணும் → I want {noun} (e.g. 'auto வேணும்')",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "frame:where-noun": {
+    "type": "pattern",
+    "gloss": "{noun} எங்க? → where is {noun}? (e.g. 'bus stop எங்க?')",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "frame:isthere-noun": {
+    "type": "pattern",
+    "gloss": "{noun} இருக்கா? → is there {noun}? (e.g. 'coffee இருக்கா?')",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "frame:howmuch-noun": {
+    "type": "pattern",
+    "gloss": "{noun} எவ்வளவு? → how much is {noun}? (e.g. 'idhu evvalavu?')",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "frame:mayi-laama": {
+    "type": "pattern",
+    "gloss": "நான் {verb}-லாமா? → may I {verb}? (permission, e.g. 'ukkaralaama?')",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "frame:giveme-noun": {
+    "type": "pattern",
+    "gloss": "{noun} குடுங்க → give me {noun} (e.g. 'oru tea kudunga')",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "frame:needtogo-place": {
+    "type": "pattern",
+    "gloss": "{place}-க்கு போகணும் → (I) need to go to {place}",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
+  },
+  "frame:nearby-noun": {
+    "type": "pattern",
+    "gloss": "பக்கத்துல {noun} இருக்கா? → is there {noun} nearby?",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip"
   }
 }

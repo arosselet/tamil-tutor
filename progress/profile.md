@@ -4,7 +4,7 @@
 > **Read by:** `protocol/studio/director.md` and `protocol/daily_session.md` before picking targets.
 > **Purpose:** A teacher's living *judgment* of Andrew — not counts. The hard numbers (recognition buckets, production axis, viability floor) live in `progress/lexicon.json`; read them with `python scripts/sync_state.py status`. This file says what they *mean* and where to point next.
 >
-> **Last updated:** 2026-06-21
+> **Last updated:** 2026-06-30
 
 ---
 
@@ -12,7 +12,22 @@
 
 **Clear the viability floor in Coimbatore Tamil — production as the accelerant.** Andrew has soaked in a recognition base (~100 word families by his own estimate) but plateaued: he recognizes the sounds yet freezes when it's his turn to speak. The breakthrough is *forced output* — converting soaked recognition into reflex so he stops being a deer in headlights. Near-term marker: by **[confirm target date]**, respond without freezing in casual family exchanges and clear the floor on the core glue + phrase set.
 
-**Phase model:** Phase 1 (now) — *narrow and deepen*: force cold production of words he already recognizes; resist widening vocabulary. Phase 2 (post-floor) — native media (films) becomes the vocabulary engine, because the floor finally makes acquisition-from-context work.
+**Phase model:** Phase 1 (the base) — *narrow and deepen*: force cold production of words he already recognizes; resist widening vocabulary. **Phase 1.5 (NOW — the Trip Sprint, see below)** interrupts the floor climb until the trip. Phase 2 (post-floor) — native media (films) becomes the vocabulary engine, because the floor finally makes acquisition-from-context work.
+
+---
+
+## Phase 1.5 — The Trip Sprint (ACTIVE — overrides the floor climb)
+
+**Deadline:** Andrew is in India the **week of 2026-08-12** (~6 weeks out as of 2026-06-30). This is the first time the goal has a face and a date: don't freeze when his mother-in-law speaks to him across the table; catch the drift of family gossip; survive public/transaction settings. That countdown is the motivation — Anna narrates it every session ("N days out; M of the deck fire cold now").
+
+**The pivot:** pause the abstract "800-lemma" climb. Deepen a **finite, visible Trip Deck** of survival phrases instead. Andrew already has food / kitchen / domestic; the glue to accelerate is the *social-public* register.
+
+- **The Trip Deck is the headline meter.** ~55 chunks/frames tagged `deck:"trip"` in `lexicon.json`; `sync_state.py status` and `suggest_targets.py` surface it first. During the sprint Anna reports **Trip Deck: X/N fire cold** as the number that matters — the viability floor is secondary (and will dip as deck entries land recognized-not-cold; that's expected, not regression).
+- **Phrases are first-class.** The unit of the deck is the *chunk* (fixed formulaic phrase deployed whole — `saapta?`, `paravaayilla`, `enna aachu`) and the *frame* (a slot template — `___ venum`, `___ enga?`, `enna ___ panren` — an Engine). Not isolated words. This is the constitution's "Glue Over Vocabulary" / "Pattern Over List" finally made the curriculum spine.
+- **Competent > local, for THIS sprint.** Optimize clear, correct, understood-and-understanding Tamil over hyper-local Kongu markers. Standard Coimbatore-colloquial is the target register; don't reach for native-mimicry flourishes to "pass as a local" — that heist is the long game (`persona.md`), not the trip goal. Andrew would rather be *competent* in a month than sound native.
+- **Target registers for the deck:** mother-in-law table-talk and deference; overheard family gossip (comprehension-first — catch it, needn't produce it); public survival (auto/shop/directions/transactions); and a couple of warm zingers to delight the in-laws.
+- **Sourcing:** Anna drafts the deck into `curriculum/trip_deck.json`; the Oracle (wife) does 60-second vibe-checks; `python scripts/sync_state.py seed-deck curriculum/trip_deck.json` lands the vetted set. Re-runnable as it grows.
+- **After the trip:** clear the sprint — the deck entries become ordinary vocabulary and the floor climb (Phase 1 → 2) resumes. Revert this section then.
 
 ---
 
@@ -44,6 +59,8 @@ The production-reflex gaps that matter most right now:
 ---
 
 ## What's Needed Next
+
+> **During the Trip Sprint (Phase 1.5), the Trip Deck is the priority set** — its curated social-public chunks/frames override the "priority-1 floor only" guidance below, which resumes after the trip. The *deepen, don't widen* discipline still holds *within* the deck: force its members cold, don't sprawl past it.
 
 Phase 1 is *deepen, don't widen.* For the next stretch of sessions and episodes:
 
