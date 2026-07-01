@@ -2,3 +2,4 @@ edge-tts
 google-cloud-texttospeech
 mutagen
 openai
+tzdata
