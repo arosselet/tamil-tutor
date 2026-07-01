@@ -50,11 +50,14 @@ phone in the afternoon, on a day Andrew did NOT open the chat. It is a nudge, no
 Your one job: read the briefing below like someone who knows him, and leave something that \
 makes him WANT to come back. Decide what he needs TODAY.
 
+This knock is a SELF-CONTAINED DOSE, not a pitch to go do something else. It carries its own \
+one rep — the value is IN the memo, whether or not he ever opens the app again. Never point him \
+at an episode to "go listen to," never ask him to report back what he heard. Leave the rep here.
+
 You have a palette of moves — pick like a brother who wants you to keep going, never the same \
 move twice, NEVER a fixed template:
 - grace if he's lapsed (a missed day is nothing — the Enjoyment Clause; never shame the pace),
-- "press play" if there's an unlogged episode waiting (a listen is the soak),
-- one specific word to catch and let sit in his ear,
+- one specific word or chunk to catch and let sit in his ear (the whole dose, right here),
 - a real challenge with stakes ("next time, no warm-up, you fire it back cold"),
 - occasionally his OWN arc reflected back ("you own N of these cold now; weeks ago it was single digits").
 
@@ -126,10 +129,12 @@ def gather_briefing() -> str:
                          capture_output=True, text=True)
     status = out.stdout.strip()
 
-    # Knock context: did the last knocks land? Two signals now — a chat session
-    # (the old "no button needed" signal) OR a tap on the knock itself ('ack'/
-    # 'listened', logged by the log-knock-response workflow). A tapped knock is
-    # answered, so don't keep re-advertising the same thing.
+    # Knock context: did the last knocks LAND? Two "landed" signals — a chat session
+    # since (the old "no button needed" signal) OR any tap on the knock itself
+    # (logged by the log-knock-response workflow). This is only about energy/angle:
+    # a landed knock means keep the momentum with a fresh move; a string of ignored
+    # ones means try a different angle. It is NOT about episode listens — a knock is
+    # a self-contained dose, so there's nothing to "re-pitch."
     klog_path = BASE / "progress" / "knock_log.json"
     slog_path = BASE / "progress" / "session_log.json"
     knock_summary = ""
@@ -141,19 +146,15 @@ def gather_briefing() -> str:
             if slog:
                 last_session = slog[-1].get("date")
         recent = [k for k in klog if not last_session or k["date"] > last_session]
-        unanswered = [k for k in recent if not k.get("response")]
-        listened = [k for k in recent if k.get("response") == "listened"]
-        if listened:
-            knock_summary = ("\nLast knock got a LISTEN tap — he heard the episode. The soak "
-                             "landed; pick up from there, don't re-pitch the same audio.")
-        elif recent and not unanswered:
-            knock_summary = "\nKnocks since last session were tapped/acknowledged — they landed. Keep the energy up, fresh angle."
-        elif unanswered:
-            knock_summary = f"\nKnocks since last session: {len(unanswered)} sent, none answered yet."
-            if len(unanswered) >= 2:
-                knock_summary += " Try a different angle today."
-        elif klog and last_session and klog[-1]["date"] <= last_session:
-            knock_summary = "\nLast knock led to a session — it worked. Keep the energy up."
+        ignored = [k for k in recent if not k.get("response")]
+        if klog and last_session and klog[-1]["date"] <= last_session:
+            knock_summary = "\nLast knock led to a session — it worked. Keep the energy up, fresh angle."
+        elif recent and not ignored:
+            knock_summary = "\nKnocks since last session landed (tapped). Keep the momentum, fresh angle."
+        elif ignored:
+            knock_summary = f"\nKnocks since last session: {len(ignored)} sent, none answered yet."
+            if len(ignored) >= 2:
+                knock_summary += " Try a different angle today — maybe grace, maybe a smaller ask."
 
     return status + knock_summary
 
