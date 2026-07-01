@@ -1,8 +1,9 @@
 name: Log Knock Response
-# Triggered by Home Assistant when Andrew taps a button on the knock notification.
-# Two taps: 'ack' (got it) and 'listened' (heard the episode). Both mark the knock
-# as landed; 'listened' also credits the latest published episode's soak, which
-# touches episodes.json + lexicon.json — so all three state files are committed.
+# Triggered by Home Assistant when Andrew responds to the knock notification.
+# Taps: 'ack' (got it) / 'listened' (episode soak credit) mark the knock landed.
+# 'reply' carries typed Tamil: knock_reply.py judges it against the knock's target,
+# moves the production axis, and pushes the recast + deck score back to the phone
+# (it owns its own commit+push, same as morning_knock.py).
 on:
   repository_dispatch:
     types: [knock-response]
@@ -18,9 +19,22 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Log response
+      - name: Judge Tamil reply
+        if: github.event.client_payload.response == 'reply'
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          ANNA_PUSH_WEBHOOK_URL: ${{ secrets.ANNA_PUSH_WEBHOOK_URL }}
+          REPLY_TEXT: ${{ github.event.client_payload.text }}
+        run: |
+          pip install -r requirements.txt
+          git config user.name "anna-knock"
+          git config user.email "anna@users.noreply.github.com"
+          python scripts/knock_reply.py "$REPLY_TEXT"
+      - name: Log tap
+        if: github.event.client_payload.response != 'reply'
         run: python scripts/sync_state.py knock-response "${{ github.event.client_payload.response }}"
-      - name: Commit
+      - name: Commit tap
+        if: github.event.client_payload.response != 'reply'
         run: |
           git config user.name "anna-knock"
           git config user.email "anna@users.noreply.github.com"
