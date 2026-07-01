@@ -1,82 +1,62 @@
-# Home Assistant — knock buttons (the feedback loop)
+# Home Assistant — the knock notification + "landed" button
 
-> **Current setup wires only the `ack` ("Got it 👍") button** — the 2026-06-30
-> pivot stopped chasing listens, so the `listened` soak-credit button is no
-> longer wired (the code path still exists). For the live, paste-ready
-> walkthrough with this instance's specifics, see
-> [`ha_knock_buttons_todo.md`](ha_knock_buttons_todo.md). This doc keeps the
-> generic two-button reference below.
+The one doc for wiring Anna's knock to the phone: a notification with a single
+**Got it 👍** button whose tap flows back to GitHub. Your instance's specifics are
+filled in; the only secret you add is the PAT (§1).
 
-Closes the loop on the between-session knock. The knock notification gets **two
-tap buttons**; tapping one fires a GitHub `repository_dispatch`, which runs the
-`log-knock-response` workflow → `sync_state.py knock-response`.
+> **Secrets note (repo is PUBLIC):** never commit real values. The webhook_id and
+> the finished automation live in the gitignored **`anna_knock_automation.yaml`**
+> (the mirror of your real HA config — copy from there). This doc uses placeholders.
+
+## What it does
 
 ```
-knock push ──▶ iOS notification ──▶ Andrew taps a button
-                                          │
-              ┌───────────────────────────┘
-              ▼
-  mobile_app_notification_action event
-              │
-              ▼
-  rest_command.anna_knock_response  (curl → GitHub API)
-              │
-              ▼
-  repository_dispatch: knock-response  →  log-knock-response.yml
-              │
-              ▼
-  sync_state.py knock-response  <ack | listened>
+knock push ─▶ iOS notification ─▶ tap "Got it 👍"
+                                      │
+             mobile_app_notification_action  (event: ANNA_ACK)
+                                      │
+             rest_command.anna_knock_response  (curl → GitHub dispatches API)
+                                      │
+             repository_dispatch: knock-response  ─▶  log-knock-response.yml
+                                      │
+             sync_state.py knock-response ack   (commits knock_log.json)
 ```
 
-Two taps, both **soak-tier** (they never touch the viability floor — that only
-moves when Anna witnesses a cold fire in chat):
-
-| Button     | `response`   | Effect                                                                 |
-|------------|--------------|------------------------------------------------------------------------|
-| **Got it** | `ack`        | Marks the knock landed → the nudge gate backs off (no learning write). |
-| **Listened** | `listened` | Marks it landed **and** credits the latest published episode's soak (`listens++`, surfaces its words). `listened` upgrades a prior `ack`. |
-
-Duplicate taps are no-ops, so a double-tap can't double-count.
+The tap is a **landed** signal only: it marks the knock answered so the rails gate
+backs off and Anna won't re-pitch. It never writes learning state — the floor only
+moves when Anna witnesses a cold fire in chat. (The `listened`/soak-credit path
+still exists in code but is intentionally not wired to a button, post the
+2026-06-30 listens pivot.)
 
 ---
 
-## 1. The secrets
+## 1. GitHub PAT (do this yourself — never paste the token into chat)
 
-Two values live in HA's `secrets.yaml` — neither is ever inlined into a config
-file:
+The `dispatches` endpoint needs write access to `arosselet/tamil-tutor`.
+
+1. github.com → **Settings → Developer settings → Fine-grained tokens → Generate new**
+2. **Name** `ha-anna-knock`; set an expiry you'll rotate.
+3. **Repository access:** *Only select repositories* → `arosselet/tamil-tutor`
+4. **Permissions:** *Repository permissions → Contents → Read and write* (the only one needed).
+5. Generate; copy the `github_pat_…`.
+
+---
+
+## 2. `secrets.yaml`
 
 ```yaml
-# secrets.yaml
-github_dispatch_auth: "Bearer github_pat_xxxxxxxxxxxxxxxxxxxxxxxx"  # the GitHub PAT (§1a)
-anna_knock_webhook_id: "anna_knock_xxxxxxxxxxxxxxxxxxxx"            # the path in ANNA_PUSH_WEBHOOK_URL
+github_dispatch_auth: "Bearer github_pat_xxxxxxxxxxxxxxxxxxxx"   # the WHOLE header value: "Bearer " + the token
 ```
 
-`anna_knock_webhook_id` is the last path segment of your existing
-`ANNA_PUSH_WEBHOOK_URL` (i.e. `…/api/webhook/<this>`). It's referenced by
-`!secret` everywhere below.
-
-### 1a. The GitHub PAT
-
-`repository_dispatch` needs a token that can write to `arosselet/tamil-tutor`.
-
-**Fine-grained PAT (recommended):** github.com → Settings → Developer settings →
-Fine-grained tokens → Generate new.
-- **Repository access:** Only select repositories → `arosselet/tamil-tutor`
-- **Permissions:** *Repository permissions → Contents → **Read and write*** (the
-  `dispatches` endpoint is gated on Contents-write).
-- Copy the token (`github_pat_…`).
-
-Store the **whole `Authorization` header value** (the word `Bearer` + a space +
-the token) as `github_dispatch_auth` above, so the PAT never appears inline.
-
-> Classic PAT works too — scope `repo` — but fine-grained scoped to this one repo
-> is tighter. Rotate it if it ever leaks; nothing else depends on it.
+Store `Bearer ` + a space + the token, so the raw PAT never appears inline.
+(The webhook_id is inline in the automation below / the mirror — no secret needed
+for it.)
 
 ---
 
-## 2. The `rest_command` — fires the dispatch
+## 3. `configuration.yaml` — the `rest_command`
 
-Add to `configuration.yaml` (merge if you already have a `rest_command:` block):
+Merge into an existing `rest_command:` block if you have one.
 
 ```yaml
 rest_command:
@@ -88,107 +68,118 @@ rest_command:
       Accept: application/vnd.github+json
       X-GitHub-Api-Version: "2022-11-28"
     content_type: "application/json"
-    # response is 'ack' or 'listened', passed in by the handler automation below.
     payload: '{"event_type":"knock-response","client_payload":{"response":"{{ response }}"}}'
 ```
 
-A successful dispatch returns HTTP **204** with no body.
+A successful dispatch returns HTTP **204**.
 
 ---
 
-## 3. The notification — add the two buttons
+## 4. The "Notify Andrew" automation
 
-This is the automation that already fires on the `ANNA_PUSH_WEBHOOK_URL` webhook
-(your existing "Notify Andrew"). The only change is the `actions:` list under
-`data:`. The `webhook_id` comes from the `anna_knock_webhook_id` secret; the
-notify service is `notify.mobile_app_blue_dragonfly`.
+**Edit in YAML mode (⋮ → Edit in YAML), replacing the whole automation — not the
+visual editor** (it mangles the nested `data.actions` list). Three things make it
+save cleanly and render every modality:
+
+- call notify with **`service:`** (not the `action:` alias — it collides with the button's `action:` key),
+- **quote** the button's action value,
+- make audio **conditional** — Anna's text/challenge/grace doses send no `audio_url`, so an unconditional `attachment` renders an empty file (iOS: *"bad file type"*). Branch on whether an `audio_url` is present.
 
 ```yaml
-automation:
-  - alias: "Anna Knock — notify with buttons"
-    id: anna_knock_notify
-    trigger:
-      - platform: webhook
-        webhook_id: !secret anna_knock_webhook_id   # the path in ANNA_PUSH_WEBHOOK_URL
-        local_only: false
-        allowed_methods: [POST]
-    action:
-      - service: notify.mobile_app_blue_dragonfly      # your iOS device
+alias: Notify Andrew
+description: "Anna's knock — audio conditional so text doses don't error"
+triggers:
+  - trigger: webhook
+    allowed_methods:
+      - POST
+      - PUT
+    local_only: false          # GitHub runners are remote; the webhook_id is the secret
+    webhook_id: "<YOUR_WEBHOOK_ID>"   # real value in the gitignored anna_knock_automation.yaml
+conditions: []
+actions:
+  - if:
+      - condition: template
+        value_template: "{{ trigger.json.audio_url is defined and trigger.json.audio_url }}"
+    then:
+      # AUDIO knock — inline player + tap-to-play
+      - service: notify.mobile_app_blue_dragonfly
         data:
-          title: "{{ trigger.json.title | default('Anna') }}"
+          title: "{{ trigger.json.title | default('Anna', true) }}"
           message: "{{ trigger.json.text_content }}"
           data:
-            tag: anna-knock                            # self-replacing (one knock at a time)
-            url: "{{ trigger.json.audio_url }}"        # default tap still = play the memo
+            tag: anna-knock                 # self-replacing — one knock at a time
+            url: "{{ trigger.json.audio_url }}"
             attachment:
               url: "{{ trigger.json.audio_url }}"
-              content-type: audio/mpeg                 # inline player on long-press
+              content-type: audio/mpeg
             actions:
-              - action: ANNA_ACK
+              - action: "ANNA_ACK"
                 title: "Got it 👍"
-              - action: ANNA_LISTENED
-                title: "Listened 🎧"
+    else:
+      # TEXT / challenge / grace knock — no attachment; the body IS the dose
+      - service: notify.mobile_app_blue_dragonfly
+        data:
+          title: "{{ trigger.json.title | default('Anna', true) }}"
+          message: "{{ trigger.json.text_content }}"
+          data:
+            tag: anna-knock
+            actions:
+              - action: "ANNA_ACK"
+                title: "Got it 👍"
+mode: single
 ```
 
-> The lock-screen body still carries the Tamil phrase, and the default tap still
-> opens the audio — the buttons are additive. An un-tapped knock is unchanged.
-
----
-
-## 4. The handler — tap → `rest_command`
+## 5. Tap-handler automation (new, YAML mode)
 
 ```yaml
-  - alias: "Anna Knock — handle button tap"
-    id: anna_knock_tap
-    trigger:
-      - platform: event
-        event_type: mobile_app_notification_action
-        event_data:
-          action: ANNA_ACK
-      - platform: event
-        event_type: mobile_app_notification_action
-        event_data:
-          action: ANNA_LISTENED
-    action:
-      - service: rest_command.anna_knock_response
-        data:
-          response: >-
-            {{ 'listened' if trigger.event.data.action == 'ANNA_LISTENED' else 'ack' }}
+alias: "Anna Knock — handle button tap"
+triggers:
+  - trigger: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: ANNA_ACK
+actions:
+  - action: rest_command.anna_knock_response
+    data:
+      response: ack
+mode: single
 ```
+
+Reload automations (or restart HA) after saving.
 
 ---
 
-## Test it without waiting for a knock
+## 6. Test before trusting it live
 
-1. **Dispatch path only** (no phone needed) — fire the GitHub side directly:
-   ```bash
-   curl -X POST https://api.github.com/repos/arosselet/tamil-tutor/dispatches \
-     -H "Authorization: Bearer github_pat_xxx" \
-     -H "Accept: application/vnd.github+json" \
-     -d '{"event_type":"knock-response","client_payload":{"response":"ack"}}'
-   ```
-   Watch the `log-knock-response` run appear in the repo's Actions tab; it commits
-   `Knock response: ack`.
+**GitHub side (terminal — don't paste the PAT into chat):**
+```bash
+curl -X POST https://api.github.com/repos/arosselet/tamil-tutor/dispatches \
+  -H "Authorization: Bearer github_pat_xxx" \
+  -H "Accept: application/vnd.github+json" \
+  -d '{"event_type":"knock-response","client_payload":{"response":"ack"}}'
+```
+Expect 204, then a **Log Knock Response** run committing `Knock response: ack`.
 
-2. **Full path** — HA → *Developer Tools → Actions →* `rest_command.anna_knock_response`
-   with `{"response": "listened"}`, or fire the actual knock
-   (`workflow_dispatch` on **Anna Knock**, `force: true`) and tap a button on the phone.
+**HA side:** Developer Tools → Actions → `rest_command.anna_knock_response` with
+`{response: ack}` (note the `data:` wrapper). Same result.
 
-3. **End to end:** a `listened` tap should bump `progress/episodes.json` (latest
-   mission `listens++`) and `progress/lexicon.json` (`last_surfaced` on that
-   episode's words). The next knock's gate then backs off (20 h) instead of
-   re-advertising the same audio.
+**End to end:** fire a real knock (Actions → **Anna Knock** → Run workflow,
+`force: true`), long-press the notification, tap **Got it 👍**.
 
-## Notes / gotchas
+---
 
-- **Both secrets must exist in `secrets.yaml`** — `github_dispatch_auth` and
-  `anna_knock_webhook_id`. HA fails to load the automation if a referenced
-  `!secret` is missing, so add them before reloading.
-- **`listened` credits the *latest published* episode** (highest mission number),
-  not necessarily the one the knock was about. That's the agreed model — a tap
-  can't name a mission, so it credits the newest thing in the feed. If you binge
-  two episodes, only the newest is credited per tap; Anna reconciles the rest in
-  chat.
-- **The floor is never touched here.** No tap writes `production: cold`. A future
-  third button ("fired it back") would *queue a fire-check* for the next chat, not
-  write the floor directly.
+## 7. Gotchas
+
+- **Repo is public** — real webhook_id / PAT never go in tracked files; keep them in
+  `secrets.yaml` and the gitignored `anna_knock_automation.yaml`.
+- **YAML mode, not the visual editor**, for the notify automation (nested actions).
+- **Audio is conditional** — text doses carry no `audio_url`; the `if/else` prevents
+  the "bad file type" attachment error.
+- **`!secret` is read at platform load** — after changing `secrets.yaml`, reload REST
+  commands (or restart HA), or the old value 401s.
+- **Both secrets must exist before reload** — HA won't load an automation whose
+  `!secret` is missing.
+- **The floor is never touched here** — a tap only records "landed."
+- **iOS action buttons are hidden until you long-press / pull down** the notification.
+- **Mirror stays honest:** `anna_knock_automation.yaml` (gitignored) mirrors your real
+  HA config — if you tweak HA, update it so it doesn't drift.
