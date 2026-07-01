@@ -6,7 +6,3 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 - **Voice loop** — give Anna speech-in / speech-out on the phone, so downtime becomes *conversation* (the loop closes by talking, not by accounting). The highest-leverage next move.
 - **Pull the wife in as the north star** — the real viability floor is "can I say this to her." Anna could hand a line: "try this one, tell me how it landed tomorrow." Costs no code.
-
-## Known holes (found during the 1.0 reorg)
-
-- `constitution.md` "Modality Fluidity" and a Tamil-Script line are literal `...` stubs — sections that were never actually written. Fill or cut.
