@@ -1,19 +1,32 @@
 #!/usr/bin/env python3
 """
-Anna's between-session audio knock — fires up to 2x/day with a 6-hour gate.
+Anna's between-session outreach — an AGENT deciding whether/how/when to reach out,
+not a fixed cron job. The schedule is the heartbeat (a tick + a safety net); the
+POLICY is Anna's.
 
-Pipeline: gate check → read state → Anna writes a FRESH memo → single-voice Chirp render
-→ commit → jsDelivr serves it → Home Assistant pushes to phone. READ-ONLY on the learning
-brain: the knock observes, it never logs reps or advances the floor.
+Division of labour:
+  - Python owns the RAILS (hard, non-negotiable) and the TICK: waking hours, a
+    daily cap, a minimum gap, and Anna's own `next_check` soft-gate. It cheaply
+    skips a tick (no LLM) unless a reach is actually possible and due.
+  - Anna owns the POLICY: at each wake he decides fire-or-silence, the move, the
+    MODALITY (text micro-dose / audio memo / challenge / grace / silence), his own
+    next check-in time (self-pacing), and logs a one-line rationale so his choices
+    stay inspectable — and so he can learn from what worked.
 
-  python scripts/morning_knock.py --dry-run   # generate + render only (no commit/push/notify)
-  python scripts/morning_knock.py             # full: gate check, then commit + push + notify
-  python scripts/morning_knock.py --force     # skip gate (for manual one-offs)
+The reward Anna optimises for is ANDREW SHOWING UP (chat sessions / returns), not
+taps. A tap is a weak "it landed" signal; an ignored streak means back off or
+change the approach. READ-ONLY on the learning brain: outreach never logs reps or
+advances the floor.
+
+  python scripts/morning_knock.py --dry-run   # gate + decide + render only (no commit/push/notify)
+  python scripts/morning_knock.py             # full: rails gate, then Anna decides & (maybe) reaches out
+  python scripts/morning_knock.py --force      # skip the rails gate (manual one-off)
 
 Secrets (in .env locally; GitHub Actions secrets in CI):
-  OPENROUTER_API_KEY     — the one-shot that writes the memo (one key, any model)
+  OPENROUTER_API_KEY     — the one-shot that makes the decision (one key, any model)
   ANNA_PUSH_WEBHOOK_URL  — the Home Assistant webhook
-GCP TTS auth comes from ADC locally / a service-account secret in CI (same as render_audio.py).
+GCP TTS auth comes from ADC locally / a service-account secret in CI (only needed
+when Anna chooses the audio modality).
 """
 import argparse
 import asyncio
@@ -22,8 +35,9 @@ import os
 import subprocess
 import sys
 import urllib.request
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 from openai import OpenAI
 
@@ -32,83 +46,233 @@ sys.path.insert(0, str(BASE / "scripts"))
 from render_audio import generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME
 
 OPENROUTER_BASE = "https://openrouter.ai/api/v1"   # OpenAI-compatible; one key, many models
-# Voice-critical but tiny/daily — default to a top model; Flash is a one-line swap + an easy A/B.
-# Confirm exact slugs at https://openrouter.ai/models   [VERIFY]
 MODEL = "anthropic/claude-sonnet-4.6"   # Andrew's default; fallback e.g. "google/gemini-2.5-flash"
 ANNA_VOICE = "ta-IN-Chirp3-HD-Orus"     # pinned: Anna always sounds like the same someone
 REPO = "arosselet/tamil-tutor"          # for the jsDelivr URL
-KNOCKS_DIR = BASE / "published_audio" / "knocks"   # audio/ is gitignored; published_audio/ is the tracked, jsDelivr-served dir
-MIN_KNOCK_INTERVAL_HOURS = 4    # gate: never re-knock within this window (8am EDT→1pm EDT is 5h, so 4h clears it)
-LANDED_KNOCK_INTERVAL_HOURS = 20  # if the last knock was tapped (ack/listened), it landed — back off hard, don't re-advertise the same day
+KNOCKS_DIR = BASE / "published_audio" / "knocks"   # tracked, jsDelivr-served dir
+KNOCK_LOG_PATH = BASE / "progress" / "knock_log.json"
+SESSION_LOG_PATH = BASE / "progress" / "session_log.json"
 
-# The choreography (persona.md is the voice; this is the loop). The policy is a
-# JUDGMENT, not a decision tree: hand Anna the state + a palette, let him choose.
-KNOCK_MANDATE = """\
-You are writing ONE between-session "knock" — a short audio memo Anna leaves on Andrew's \
-phone in the afternoon, on a day Andrew did NOT open the chat. It is a nudge, not a lesson.
+# ── The rails (hard, Python-enforced — Anna cannot cross these) ───────────────
+# Andrew's local timezone; DST-correct (EDT/EST) so the waking window is honest
+# year-round. The cron ticks a superset in UTC; this is the precise filter.
+LOCAL_TZ = ZoneInfo("America/New_York")
+WAKING_START_HOUR = 8      # inclusive, local
+WAKING_END_HOUR = 21       # exclusive, local (last reach can land at 20:59)
+MAX_REACHES_PER_DAY = 3    # a "reach" = a knock that actually fired (silence doesn't count)
+MIN_GAP_HOURS = 3          # minimum spacing between reaches
+NEXT_CHECK_CLAMP = (0.5, 24.0)   # Anna's self-set next_check is clamped to this many hours
 
-Your one job: read the briefing below like someone who knows him, and leave something that \
-makes him WANT to come back. Decide what he needs TODAY.
+MODALITIES = {"text", "audio", "challenge", "grace", "silence"}
 
-This knock is a SELF-CONTAINED DOSE, not a pitch to go do something else. It carries its own \
-one rep — the value is IN the memo, whether or not he ever opens the app again. Never point him \
-at an episode to "go listen to," never ask him to report back what he heard. Leave the rep here.
 
-You have a palette of moves — pick like a brother who wants you to keep going, never the same \
-move twice, NEVER a fixed template:
-- grace if he's lapsed (a missed day is nothing — the Enjoyment Clause; never shame the pace),
-- one specific word or chunk to catch and let sit in his ear (the whole dose, right here),
-- a real challenge with stakes ("next time, no warm-up, you fire it back cold"),
-- occasionally his OWN arc reflected back ("you own N of these cold now; weeks ago it was single digits").
+# ── State helpers ─────────────────────────────────────────────────────────────
 
-HARD RULES:
-- The scene is DISPOSABLE — a vivid one-use peg for a word, then dropped. NO serialized saga, \
-NO cliffhanger, NO manufactured suspense over a fictional plot. The only real narrative is \
-ANDREW'S arc (the heist: passing as a local, the floor climbing toward the reveal to his wife).
-- Woven Thanglish: English carries the logistics, Tamil carries the payload. The load-bearing \
-action words are Tamil, in TAMIL SCRIPT (this is spoken by a Tamil TTS voice — never romanized/phonetic).
+def load_json(path: Path):
+    if not path.exists():
+        return None
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def is_fire(entry: dict) -> bool:
+    """A reach that actually went out. Legacy entries (no 'acted') were all fires."""
+    return entry.get("acted", True)
+
+
+def local_date(ts_iso: str):
+    try:
+        return datetime.fromisoformat(ts_iso).astimezone(LOCAL_TZ).date()
+    except (ValueError, TypeError):
+        return None
+
+
+def last_fire(klog: list) -> dict | None:
+    fires = [k for k in klog if is_fire(k) and k.get("timestamp")]
+    return fires[-1] if fires else None
+
+
+def fires_today(klog: list, now_local_date) -> int:
+    return sum(1 for k in klog if is_fire(k) and local_date(k.get("timestamp", "")) == now_local_date)
+
+
+# ── The rails gate (no LLM — cheap; runs every tick) ──────────────────────────
+
+def rails_gate(force: bool, now: datetime | None = None) -> tuple[bool, str]:
+    """Should this tick WAKE Anna to decide? True only if a reach is genuinely
+    possible now: inside waking hours, under the daily cap, past the min gap, and
+    past Anna's own next_check. Everything here is deterministic and free — the
+    LLM is only spent when a reach is actually on the table. `now` is injectable
+    for testing (defaults to the real UTC clock)."""
+    if force:
+        return True, "forced"
+    now = now or datetime.now(timezone.utc)
+    now_local = now.astimezone(LOCAL_TZ)
+
+    if not (WAKING_START_HOUR <= now_local.hour < WAKING_END_HOUR):
+        return False, f"quiet hours ({now_local:%H:%M} {now_local.tzname()})"
+
+    klog = load_json(KNOCK_LOG_PATH) or []
+    n_today = fires_today(klog, now_local.date())
+    if n_today >= MAX_REACHES_PER_DAY:
+        return False, f"daily cap reached ({n_today}/{MAX_REACHES_PER_DAY})"
+
+    lf = last_fire(klog)
+    if lf:
+        gap = (now - datetime.fromisoformat(lf["timestamp"])).total_seconds() / 3600
+        if gap < MIN_GAP_HOURS:
+            return False, f"min-gap not met ({gap:.1f}h < {MIN_GAP_HOURS}h)"
+
+    # Anna's own soft gate — his chosen cadence. Set on the most recent decision.
+    if klog:
+        nc = klog[-1].get("next_check")
+        if nc and now < datetime.fromisoformat(nc):
+            return False, f"Anna's next_check not due (set for {nc})"
+
+    return True, f"eligible ({n_today}/{MAX_REACHES_PER_DAY} today) — waking Anna to decide"
+
+
+# ── The digest Anna reads (state + outcome memory + his remaining room) ────────
+
+def outcome_memory(klog: list, now: datetime) -> str:
+    """The learning substrate: recent reaches with their outcomes, framed around
+    the real reward (did Andrew SHOW UP?), plus the ignore-streak. This is what
+    lets Anna adapt instead of repeating a rigid policy."""
+    slog = load_json(SESSION_LOG_PATH) or []
+    last_session = slog[-1].get("date") if slog else None
+    fires = [k for k in klog if is_fire(k)]
+
+    lines = []
+    for k in fires[-5:]:
+        tapped = "tapped" if k.get("response") else "no-tap"
+        modality = k.get("modality", "audio")
+        move = k.get("move", "—")
+        lines.append(f"    {k.get('date','?')} · {modality}/{move} · {tapped}")
+
+    # Ignore streak = trailing reaches with no tap AND no session since.
+    streak = 0
+    for k in reversed(fires):
+        after = local_date(k.get("timestamp", ""))
+        session_after = last_session and after and last_session >= after.isoformat()
+        if k.get("response") or session_after:
+            break
+        streak += 1
+
+    since = "never" if not last_session else last_session
+    verdict = ""
+    if streak >= 3:
+        verdict = (f"  ⚠ {streak} reaches in a row led to no session and no tap — the current "
+                   "approach isn't converting. Give space, or change the move/modality entirely.")
+    elif last_session and (now.astimezone(LOCAL_TZ).date() - date.fromisoformat(last_session)).days >= 3:
+        verdict = "  ⚠ No session in 3+ days — cold-start risk; a low-friction reply-in-tamizh ask may re-open the loop."
+
+    body = "\n".join(lines) if lines else "    (no reaches logged yet)"
+    return (f"OUTREACH MEMORY (reward = Andrew showing up in chat, NOT taps):\n"
+            f"  Last chat session: {since}\n"
+            f"  Recent reaches (newest last):\n{body}\n"
+            f"  Ignore-streak: {streak} unanswered reaches.{verdict}")
+
+
+def remaining_room(klog: list, now: datetime) -> str:
+    now_local = now.astimezone(LOCAL_TZ)
+    n_today = fires_today(klog, now_local.date())
+    lf = last_fire(klog)
+    gap_str = "no reach yet today"
+    if lf:
+        gap = (now - datetime.fromisoformat(lf["timestamp"])).total_seconds() / 3600
+        gap_str = f"last reach {gap:.1f}h ago"
+    return (f"RAILS (hard — stay well inside; silence is free):\n"
+            f"  Waking window {WAKING_START_HOUR}:00–{WAKING_END_HOUR}:00 {now_local.tzname()}; "
+            f"now {now_local:%H:%M}.\n"
+            f"  Reaches today: {n_today}/{MAX_REACHES_PER_DAY}. Min gap {MIN_GAP_HOURS}h ({gap_str}).")
+
+
+def build_digest() -> str:
+    """Everything Anna needs to make a policy call: learning state + outcome memory
+    + how much room the rails leave him right now."""
+    out = subprocess.run([sys.executable, str(BASE / "scripts" / "sync_state.py"), "status"],
+                         capture_output=True, text=True)
+    status = out.stdout.strip()
+    klog = load_json(KNOCK_LOG_PATH) or []
+    now = datetime.now(timezone.utc)
+    return f"{status}\n\n{outcome_memory(klog, now)}\n\n{remaining_room(klog, now)}"
+
+
+# ── The decision (LLM — only reached when the rails gate opened) ───────────────
+
+OUTREACH_MANDATE = """\
+You are Anna, deciding a single OUTREACH TICK. The rails already cleared, so a reach \
+is POSSIBLE — but possible is not obligatory. Your job is judgment: decide whether to \
+reach out at all, and if so, how — then choose when you want to think about this next.
+
+THE REWARD you are optimising: **Andrew showing up and producing in chat** (a session, \
+a reply in Tamil). NOT taps. A tap ("Got it") is only a weak "it landed" signal; do not \
+farm easy taps. If reaches aren't converting into sessions, the right move is usually to \
+back off or change approach — read the OUTREACH MEMORY and adapt. Silence is a first-class \
+choice; presence is not pestering.
+
+YOUR MODALITIES (pick what fits THIS moment; never the same move twice in a row):
+- "text"      — a one-line micro-dose answered right in the reply ("saapta? reply in tamizh — that's the whole ask"). No audio. Lowest friction; often the best re-opener after a gap.
+- "audio"     — a self-contained ~60-90s spoken memo (a vivid one-use peg for a word). A dose in itself, never a pitch to "go listen to an episode."
+- "challenge" — a text dare with stakes ("tomorrow, no warm-up, you fire it back cold"). Text delivery.
+- "grace"     — a warm, no-pressure note when he's lapsed (a missed day is nothing — the Enjoyment Clause). Text delivery.
+- "silence"   — reach nothing this tick. Set act=false. Choose this freely; often correct.
+
+SELF-PACING: set next_check_hours = how long until you want to reconsider reaching out \
+(you are choosing your own cadence, inside the rails). Sooner if momentum is hot; longer \
+to give space after an ignored streak.
+
+RATIONALE: one honest line on WHY this move/modality/timing — this is your memory; it's \
+how you learn what works.
+
+CONTENT RULES (unchanged):
+- The scene is DISPOSABLE — a vivid one-use peg, then dropped. NO serialized saga, NO \
+cliffhanger. The only real narrative is ANDREW'S arc (the heist toward the reveal).
+- Woven Thanglish: English carries logistics, Tamil carries the payload. In AUDIO, Tamil \
+payload must be in TAMIL SCRIPT (a Tamil TTS voice speaks it — never romanized). In a \
+text/challenge/grace body, phonetic Tamil is fine (he reads at speed).
 - No grammar talk, no case names, no meta "as your AI" narration, no comment on his energy/activity.
-- ~60-90 seconds spoken (roughly 120-170 words).
 
 Return ONLY a JSON object, no prose around it:
 {
-  "notification_body": "one short lock-screen line that is valuable even if never tapped — it \
-MUST contain the target Tamil phrase (Tamil script) and a tiny English gloss, e.g. \
-'அப்படி இல்ல · \\"not like that\\"'. One emoji ok.",
-  "memo_script": "the spoken memo. Paragraphs separated by ONE blank line (the renderer splits \
-on blank lines for pacing). Plain text only — no markdown, no stage directions, no speaker labels. \
-Tamil payload in Tamil script."
+  "act": true | false,                  // false = silence this tick
+  "modality": "text" | "audio" | "challenge" | "grace" | "silence",
+  "move": "<2-4 word label of the move, for the log>",
+  "notification_body": "<the lock-screen line — valuable even if never tapped; MUST carry a Tamil phrase + tiny English gloss. One emoji ok. Empty string if silence.>",
+  "memo_script": "<ONLY for modality 'audio': the spoken memo, paragraphs separated by ONE blank line, plain text, Tamil payload in Tamil script. Empty string otherwise.>",
+  "next_check_hours": <number>,         // when to reconsider (clamped to a sane range)
+  "rationale": "<one line: why this choice>"
 }
 """
 
 
-def check_gate(force: bool) -> tuple[bool, str]:
-    """Returns (should_fire, reason). Reads only knock_log.json — no API calls."""
-    if force:
-        return True, "forced"
-    klog_path = BASE / "progress" / "knock_log.json"
-    if not klog_path.exists():
-        return True, "no knock history"
-    klog = json.loads(klog_path.read_text(encoding="utf-8"))
-    if not klog:
-        return True, "no knock history"
-    last = klog[-1]
-    ts_str = last.get("timestamp")
-    if not ts_str:
-        # Legacy entry without timestamp — fall back to date-level dedupe
-        if last.get("date") == date.today().isoformat():
-            return False, "already knocked today (legacy entry, no timestamp)"
-        return True, "no timestamp in log — date clear"
-    last_ts = datetime.fromisoformat(ts_str)
-    now = datetime.now(timezone.utc)
-    hours_since = (now - last_ts).total_seconds() / 3600
-    # A tapped knock landed — back off hard so the loop doesn't keep re-pitching it.
-    interval = LANDED_KNOCK_INTERVAL_HOURS if last.get("response") else MIN_KNOCK_INTERVAL_HOURS
-    if hours_since < interval:
-        kind = "landed" if last.get("response") else "min"
-        return False, f"last knock {hours_since:.1f}h ago ({kind} gate {interval}h)"
-    return True, f"last knock {hours_since:.1f}h ago — ok"
+def decide(digest: str) -> dict:
+    persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
+    client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
+    resp = client.chat.completions.create(
+        model=MODEL,
+        max_tokens=1600,
+        messages=[
+            {"role": "system", "content": persona + "\n\n---\n\n" + OUTREACH_MANDATE},
+            {"role": "user", "content": f"TODAY'S DIGEST:\n\n{digest}"},
+        ],
+    )
+    text = resp.choices[0].message.content.strip()
+    if text.startswith("```"):
+        text = text.split("```")[1].lstrip("json").strip()
+    d = json.loads(text, strict=False)
+    # Normalise / guard the fields Python relies on.
+    d["modality"] = d.get("modality") if d.get("modality") in MODALITIES else "text"
+    if d["modality"] == "silence":
+        d["act"] = False
+    lo, hi = NEXT_CHECK_CLAMP
+    try:
+        d["next_check_hours"] = max(lo, min(hi, float(d.get("next_check_hours", 3))))
+    except (TypeError, ValueError):
+        d["next_check_hours"] = 3.0
+    return d
 
+
+# ── Delivery plumbing (proven — preserved) ────────────────────────────────────
 
 def load_env(path: Path):
     """Minimal .env -> os.environ (don't overwrite anything already set, e.g. CI secrets)."""
@@ -120,60 +284,6 @@ def load_env(path: Path):
             continue
         k, v = line.split("=", 1)
         os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
-
-
-def gather_briefing() -> str:
-    """The state Anna reads before writing a knock.
-    Core state from sync_state + knock history so Anna knows if recent knocks landed or were ignored."""
-    out = subprocess.run([sys.executable, str(BASE / "scripts" / "sync_state.py"), "status"],
-                         capture_output=True, text=True)
-    status = out.stdout.strip()
-
-    # Knock context: did the last knocks LAND? Two "landed" signals — a chat session
-    # since (the old "no button needed" signal) OR any tap on the knock itself
-    # (logged by the log-knock-response workflow). This is only about energy/angle:
-    # a landed knock means keep the momentum with a fresh move; a string of ignored
-    # ones means try a different angle. It is NOT about episode listens — a knock is
-    # a self-contained dose, so there's nothing to "re-pitch."
-    klog_path = BASE / "progress" / "knock_log.json"
-    slog_path = BASE / "progress" / "session_log.json"
-    knock_summary = ""
-    if klog_path.exists():
-        klog = json.loads(klog_path.read_text(encoding="utf-8"))
-        last_session = None
-        if slog_path.exists():
-            slog = json.loads(slog_path.read_text(encoding="utf-8"))
-            if slog:
-                last_session = slog[-1].get("date")
-        recent = [k for k in klog if not last_session or k["date"] > last_session]
-        ignored = [k for k in recent if not k.get("response")]
-        if klog and last_session and klog[-1]["date"] <= last_session:
-            knock_summary = "\nLast knock led to a session — it worked. Keep the energy up, fresh angle."
-        elif recent and not ignored:
-            knock_summary = "\nKnocks since last session landed (tapped). Keep the momentum, fresh angle."
-        elif ignored:
-            knock_summary = f"\nKnocks since last session: {len(ignored)} sent, none answered yet."
-            if len(ignored) >= 2:
-                knock_summary += " Try a different angle today — maybe grace, maybe a smaller ask."
-
-    return status + knock_summary
-
-
-def write_memo(briefing: str) -> dict:
-    persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
-    client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
-    resp = client.chat.completions.create(
-        model=MODEL,
-        max_tokens=1500,
-        messages=[
-            {"role": "system", "content": persona + "\n\n---\n\n" + KNOCK_MANDATE},
-            {"role": "user", "content": f"TODAY'S BRIEFING:\n\n{briefing}"},
-        ],
-    )
-    text = resp.choices[0].message.content.strip()
-    if text.startswith("```"):
-        text = text.split("```")[1].lstrip("json").strip()
-    return json.loads(text, strict=False)  # tolerate literal newlines inside the memo_script string
 
 
 async def render_memo(memo_script: str, out_path: Path):
@@ -195,7 +305,7 @@ def commit_and_push(paths: list[Path], msg: str):
     rels = [str(p.relative_to(BASE)) for p in paths]
     subprocess.run(["git", "add", *rels], cwd=BASE, check=True)
     subprocess.run(["git", "commit", "-m", msg], cwd=BASE, check=True)
-    subprocess.run(["git", "push", "origin", "HEAD:main"], cwd=BASE, check=True)  # works from CI's detached HEAD too
+    subprocess.run(["git", "push", "origin", "HEAD:main"], cwd=BASE, check=True)
 
 
 def jsdelivr_url(mp3: Path) -> str:
@@ -203,69 +313,104 @@ def jsdelivr_url(mp3: Path) -> str:
     return f"https://cdn.jsdelivr.net/gh/{REPO}@main/{rel}"  # unique daily filename => always fresh
 
 
-def push_to_phone(body: str, audio_url: str):
+def push_to_phone(body: str, audio_url: str | None):
+    """Push a notification. audio_url is optional — a text/challenge/grace dose has none."""
     webhook = os.environ["ANNA_PUSH_WEBHOOK_URL"]
-    payload = json.dumps({"title": "Anna", "text_content": body, "audio_url": audio_url}).encode()
-    req = urllib.request.Request(webhook, data=payload,
+    payload = {"title": "Anna", "text_content": body}
+    if audio_url:
+        payload["audio_url"] = audio_url
+    req = urllib.request.Request(webhook, data=json.dumps(payload).encode(),
                                  headers={"Content-Type": "application/json"}, method="POST")
     with urllib.request.urlopen(req) as r:
         print(f"   HA push -> HTTP {r.status}")
 
 
+# ── Orchestration ─────────────────────────────────────────────────────────────
+
+def log_decision(now: datetime, decision: dict, *, acted: bool,
+                 audio_url: str | None = None, mp3: Path | None = None) -> Path:
+    """Record every WAKE — fire or silence — so the self-schedule (next_check) and
+    the rationale persist across stateless CI runs, and the outcome memory grows."""
+    klog = load_json(KNOCK_LOG_PATH) or []
+    entry = {
+        "date": now.date().isoformat(),
+        "timestamp": now.isoformat(),
+        "acted": acted,
+        "modality": decision.get("modality"),
+        "move": decision.get("move"),
+        "rationale": decision.get("rationale"),
+        "next_check": (now + timedelta(hours=decision["next_check_hours"])).isoformat(),
+    }
+    if acted:
+        entry["body"] = decision.get("notification_body")
+        if audio_url:
+            entry["audio_url"] = audio_url
+        if mp3:
+            entry["mp3"] = str(mp3.relative_to(BASE))
+    klog.append(entry)
+    KNOCK_LOG_PATH.write_text(json.dumps(klog, ensure_ascii=False, indent=2), encoding="utf-8")
+    return KNOCK_LOG_PATH
+
+
 def main():
-    ap = argparse.ArgumentParser(description="Anna's between-session audio knock")
+    ap = argparse.ArgumentParser(description="Anna's agentic between-session outreach")
     ap.add_argument("--dry-run", action="store_true",
-                    help="generate + render only; no commit, no push, no notification")
+                    help="gate + decide + render only; no commit, push, or notification")
     ap.add_argument("--force", action="store_true",
-                    help="skip the time gate (for manual one-offs; always fires)")
+                    help="skip the rails gate (manual one-off; still respects the daily cap at fire time)")
     args = ap.parse_args()
 
     load_env(BASE / ".env")
 
-    should_fire, reason = check_gate(args.force)
-    if not should_fire:
-        print(f"[gate] skipping — {reason}")
+    should_wake, reason = rails_gate(args.force)
+    if not should_wake:
+        print(f"[rails] skip — {reason}")
+        return
+    print(f"[rails] wake — {reason}")
+
+    now = datetime.now(timezone.utc)
+    print("1. digest…")
+    digest = build_digest()
+    print("2. Anna decides…")
+    decision = decide(digest)
+    print(f"   → act={decision.get('act')} modality={decision['modality']} "
+          f"move={decision.get('move')!r} next_check={decision['next_check_hours']}h")
+    print(f"   rationale: {decision.get('rationale')}")
+
+    acting = bool(decision.get("act")) and decision["modality"] != "silence"
+
+    if not acting:
+        print("   Anna chose silence.")
+        if args.dry_run:
+            print("[dry-run] would log the silence + next_check; stopping.")
+            return
+        path = log_decision(now, decision, acted=False)
+        commit_and_push([path], f"Anna: silence ({decision.get('rationale','')[:50]})")
+        print("done — silence logged, next_check set.")
         return
 
-    print(f"[gate] firing — {reason}")
-    now = datetime.now(timezone.utc)
+    body = decision.get("notification_body", "")
+    mp3 = None
+    audio_url = None
+    if decision["modality"] == "audio":
+        print("3. render…")
+        mp3 = KNOCKS_DIR / f"knock_{now.strftime('%Y-%m-%dT%H-%M')}.mp3"
+        asyncio.run(render_memo(decision.get("memo_script", ""), mp3))
+        audio_url = jsdelivr_url(mp3)
 
-    print("1. briefing…")
-    briefing = gather_briefing()
-    print("2. Anna writes the knock…")
-    memo = write_memo(briefing)
-    print("\n--- notification body ---\n" + memo["notification_body"])
-    print("\n--- memo script ---\n" + memo["memo_script"] + "\n")
-
-    # Datetime-based filename so multiple fires on the same day don't collide,
-    # and jsDelivr always serves the fresh file (no stale CDN cache).
-    mp3 = KNOCKS_DIR / f"knock_{now.strftime('%Y-%m-%dT%H-%M')}.mp3"
-    print("3. render…")
-    asyncio.run(render_memo(memo["memo_script"], mp3))
+    print("\n--- notification body ---\n" + body + "\n")
 
     if args.dry_run:
-        print("\n[dry-run] stopping before commit/push/notify. Listen:", mp3)
+        print(f"[dry-run] would push ({decision['modality']}) + log; stopping.", mp3 or "")
         return
 
-    audio_url = jsdelivr_url(mp3)
-    # Record that Anna reached out — his outreach memory. NOT a learning-state change
-    # (the knock never fakes reps); it lets the chat cash in ("caught the one I sent?").
-    klog_path = BASE / "progress" / "knock_log.json"
-    klog = json.loads(klog_path.read_text(encoding="utf-8")) if klog_path.exists() else []
-    klog.append({
-        "date": now.date().isoformat(),
-        "timestamp": now.isoformat(),   # needed by check_gate for 6-hour window
-        "body": memo["notification_body"],
-        "audio_url": audio_url,
-        "mp3": str(mp3.relative_to(BASE)),
-    })
-    klog_path.write_text(json.dumps(klog, ensure_ascii=False, indent=2), encoding="utf-8")
-
-    print("4. commit + push the audio + knock-log (so jsDelivr can serve it)…")
-    commit_and_push([mp3, klog_path], f"Anna knock {mp3.stem}")
+    path = log_decision(now, decision, acted=True, audio_url=audio_url, mp3=mp3)
+    commit_paths = [path] if mp3 is None else [mp3, path]
+    print("4. commit + push…")
+    commit_and_push(commit_paths, f"Anna reach ({decision['modality']}/{decision.get('move')})")
     print("5. notify…")
-    push_to_phone(memo["notification_body"], audio_url)
-    print("\ndone — knock delivered & logged.")
+    push_to_phone(body, audio_url)
+    print("\ndone — reached out & logged.")
 
 
 if __name__ == "__main__":
