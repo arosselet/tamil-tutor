@@ -1,0 +1,29 @@
+{
+  "mission": 52,
+  "register": "dread",
+  "dramatic_ingredient": "character",
+  "episode_form": "story",
+  "shape": "debrief",
+  "location_class": "extended_family",
+  "energy": "low",
+  "intercept_tamil_density": 0.55,
+  "breakdown_tamil_density": 0.45,
+  "fence_size": 148,
+  "unfenced_words": 2,
+  "new_words_landed": {
+    "அப்படி இல்ல": 6,
+    "இப்பவே": 5,
+    "உட்காரு": 5,
+    "என்ன ஆச்சு": 2
+  },
+  "callbacks_used": {
+    "சீக்கிரம்": 4,
+    "சொன்னாங்க": 2,
+    "பிடிக்காது": 3
+  },
+  "host_roles": {
+    "A": "morning_coffee_listener",
+    "B": "younger_brother_telling_last_night"
+  },
+  "notes": "Density-check episode: deliberately spacious. Story form — Host B carries a told tale of last night's confrontation with the maama. Only 2 payload + 2 new = 4 total new-information items. Generous pauses, short lines. Continues M51 empty-chair wedding-hall thread. Maama's chair-arm-tap tic is the character ingredient."
+}
