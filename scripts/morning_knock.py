@@ -305,6 +305,9 @@ def commit_and_push(paths: list[Path], msg: str):
     rels = [str(p.relative_to(BASE)) for p in paths]
     subprocess.run(["git", "add", *rels], cwd=BASE, check=True)
     subprocess.run(["git", "commit", "-m", msg], cwd=BASE, check=True)
+    # main has three writers (knock CI, ack CI, the laptop) and this checkout goes
+    # minutes stale during the LLM/TTS steps — land our commit on top of theirs.
+    subprocess.run(["git", "pull", "--rebase", "--autostash", "origin", "main"], cwd=BASE, check=True)
     subprocess.run(["git", "push", "origin", "HEAD:main"], cwd=BASE, check=True)
 
 
