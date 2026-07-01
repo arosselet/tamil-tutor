@@ -51,7 +51,7 @@ The GitHub `dispatches` endpoint needs a token that can write to
 
 ```yaml
 github_dispatch_auth: "Bearer github_pat_xxxxxxxxxxxxxxxxxxxxxxxx"   # your PAT from step 1, prefixed with "Bearer "
-anna_knock_webhook_id: "-boz9pFKLzslxz3tiljDYumKk"                   # the path in ANNA_PUSH_WEBHOOK_URL (already known)
+anna_knock_webhook_id: "<YOUR_WEBHOOK_ID>"                          # path segment of ANNA_PUSH_WEBHOOK_URL — real value is in the gitignored ha_local_paste.md (never commit it; repo is public)
 ```
 
 Store the **whole `Authorization` header value** — the word `Bearer`, a space,
@@ -100,7 +100,7 @@ triggers:
       - POST
       - PUT
     local_only: false
-    webhook_id: "-boz9pFKLzslxz3tiljDYumKk"
+    webhook_id: "<YOUR_WEBHOOK_ID>"   # real value in the gitignored ha_local_paste.md
 conditions: []
 actions:
   - service: notify.mobile_app_blue_dragonfly
