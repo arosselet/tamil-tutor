@@ -330,6 +330,40 @@ def cmd_add_pattern(args):
     print(f"    Log a cold novel instance later with:  update --produced-cold '{args.key}'")
 
 
+def cmd_add_word(args):
+    """Seed a word/chunk record with its gloss and phonetics in one shot — the
+    proper birth of a new lexicon entry (update --comfortable-word creates
+    gloss-less stubs; soak orders don't create records at all). Without a record,
+    a word can never be resolved, scored, or surface on a ticket."""
+    lexicon = load_json(LEXICON_PATH)
+    if lexicon is None:
+        print("Error: lexicon.json missing. See BOOTSTRAP.md.")
+        sys.exit(1)
+    if not is_tamil(args.key):
+        print(f"  ! '{args.key}' isn't Tamil script — records must be canonical script.")
+        sys.exit(1)
+    if args.key in lexicon:
+        rec = lexicon[args.key]
+        if args.gloss and not rec.get("gloss"):
+            rec["gloss"] = args.gloss
+        for phon in args.phonetic:
+            if phon not in rec.setdefault("phonetic", []):
+                rec["phonetic"].append(phon)
+        save_json(LEXICON_PATH, lexicon)
+        print(f"  '{args.key}' already exists — merged gloss/phonetics, learning state untouched.")
+        return
+    lexicon[args.key] = {
+        "gloss": args.gloss,
+        "phonetic": list(args.phonetic),
+        "recognition": args.recognition,
+        "production": "none",
+        "seen_in": [],
+        "last_surfaced": date.today().isoformat(),
+    }
+    save_json(LEXICON_PATH, lexicon)
+    print(f"  + '{args.key}' — {args.gloss} (recognition {args.recognition}, phonetic {list(args.phonetic)})")
+
+
 def cmd_seed_deck(args):
     """Idempotently load a curated deck file (e.g. curriculum/trip_deck.json) into
     the lexicon, tagging each entry `deck: <name>`. The deck file is CONTENT (Anna
@@ -580,6 +614,14 @@ def main():
     ap.add_argument("--recognition", default="comfortable", choices=RECOGNITION_LEVELS,
                     help="Starting recognition level (default: comfortable)")
 
+    aw = sub.add_parser("add-word", help="Seed a word/chunk record (gloss + phonetics) — a word without a record can't be resolved or scored")
+    aw.add_argument("key", help="Canonical Tamil script, e.g. 'என்ன சமைக்கிற?'")
+    aw.add_argument("--gloss", required=True, help="English gloss")
+    aw.add_argument("--phonetic", action="append", default=[],
+                    help="Phonetic spelling(s) Andrew might type (repeatable)")
+    aw.add_argument("--recognition", default="comfortable", choices=RECOGNITION_LEVELS,
+                    help="Starting recognition level (default: comfortable)")
+
     sd = sub.add_parser("seed-deck", help="Load a curated deck file (chunks/frames) into the lexicon, tagged with a deck name")
     sd.add_argument("file", help="Path to the deck JSON (e.g. curriculum/trip_deck.json), absolute or repo-relative")
     sd.add_argument("--deck", default="trip", help="Deck name to tag entries with (default: trip)")
@@ -598,6 +640,8 @@ def main():
         cmd_status(args)
     elif args.command == "add-pattern":
         cmd_add_pattern(args)
+    elif args.command == "add-word":
+        cmd_add_word(args)
     elif args.command == "seed-deck":
         cmd_seed_deck(args)
     elif args.command == "feedback":

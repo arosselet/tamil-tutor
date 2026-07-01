@@ -3042,5 +3042,48 @@
     "seen_in": [],
     "last_surfaced": null,
     "deck": "trip"
+  },
+  "என்ன சமைக்கிற?": {
+    "gloss": "What are you cooking? (informal)",
+    "phonetic": [
+      "enna samaikkira",
+      "enna samaikkira?",
+      "enna samaikkireenga"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-07-01"
+  },
+  "சுவையா இருக்கு": {
+    "gloss": "It's tasty",
+    "phonetic": [
+      "suvaiya irukku"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-07-01"
+  },
+  "சாப்பாடு ரெடி": {
+    "gloss": "Food is ready",
+    "phonetic": [
+      "saappaadu ready",
+      "saapadu ready"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-07-01"
+  },
+  "சமையலறை": {
+    "gloss": "Kitchen",
+    "phonetic": [
+      "samayalarai"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-07-01"
   }
 }
