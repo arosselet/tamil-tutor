@@ -88,6 +88,26 @@ def floor_gap_targets(lexicon: dict, today, max_n: int) -> list[dict]:
     return gap[:max_n]
 
 
+def deck_status(lexicon: dict, deck: str = "trip") -> dict | None:
+    """A finite, deadline-driven deck (the India-trip survival set), tagged
+    `deck: "<name>"`. During a sprint this is the HEADLINE priority — Anna forces
+    its not-yet-cold members first. Returns progress + the pending items (all types:
+    chunks are said whole, frames want a novel slot-fill), or None if no deck exists."""
+    members = [(w, r) for w, r in lexicon.items() if r.get("deck") == deck]
+    if not members:
+        return None
+    cold = [w for w, r in members if r.get("production") == "cold"]
+    pending = [{
+        "word": w, "gloss": r.get("gloss", ""),
+        "kind": "frame" if r.get("type") == "pattern" else r.get("type", "chunk"),
+        "recognition": r.get("recognition"), "production": r.get("production", "none"),
+    } for w, r in members if r.get("production") != "cold"]
+    # Ripest first: hinted before none, solid before comfortable.
+    pending.sort(key=lambda c: (PROD_ORDER.get(c["production"], 1),
+                                RECOG_ORDER.get(c["recognition"], 1), c["word"]))
+    return {"total": len(members), "cold": len(cold), "pending": pending}
+
+
 def engines_to_fire(lexicon: dict) -> list[dict]:
     """Generative patterns (lemmas / frames) not yet firing cold. These are forced
     differently from words: the cold test is producing a NOVEL instance unaided,
@@ -210,6 +230,18 @@ def main():
     print("=" * 60)
     print("SESSION TICKET — Python computes the menu; Anna picks the story.")
     print("=" * 60)
+
+    # Trip Deck — the finite, deadline-driven sprint set. When it exists it is the
+    # HEADLINE: force its not-yet-cold members first (Anna narrates the countdown).
+    deck = deck_status(lexicon)
+    if deck:
+        print("\n★ TRIP DECK  (the sprint headline — force these before the general floor)")
+        print("-" * 60)
+        print(f"  {deck['cold']}/{deck['total']} deck phrases fire cold. "
+              f"Not-yet-cold ({len(deck['pending'])}) — pick from these first:")
+        for t in deck["pending"][:12]:
+            tag = "hinted→cold" if t["production"] == "hinted" else f"{t['recognition']}, cold-pending"
+            print(f"  - [{t['kind']}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{tag}]")
 
     # 0. Scene spec — structural variety gate (audio episodes especially)
     spec = scene_spec(load_recent_sidecars())
