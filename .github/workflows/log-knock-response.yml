@@ -27,4 +27,6 @@ jobs:
           # 'listened' surfaces words + bumps listens, so stage the soak files too.
           git add progress/knock_log.json progress/episodes.json progress/learner.json progress/lexicon.json
           git diff --cached --quiet || git commit -m "Knock response: ${{ github.event.client_payload.response }}"
+          # main has other writers (the knock workflow, the laptop) — rebase before pushing
+          git pull --rebase origin main
           git push origin HEAD:main
