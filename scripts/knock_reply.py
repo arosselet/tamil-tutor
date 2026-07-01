@@ -51,7 +51,9 @@ or it needed the knock's scaffold, or it's partially off but would land.
 - "chat"   — not a rep at all (English chat, a question, logistics). No state moves.
 
 HARD RULE: if the knock revealed the target Tamil (target_revealed=true), that word \
-scores at most "hinted". Cold is unaided production only. (Python re-checks this.)
+scores at most "hinted". Same for anything your own recast handed him in a \
+prior_exchange on this knock — echoing it back is a read-back, not a fire. Cold is \
+unaided production only. (Python re-checks this.)
 
 "fired": every Tamil word/chunk/frame the reply genuinely produced, in CANONICAL Tamil \
 script — copy the expected-target record's exact script when it matches — or the \
@@ -100,6 +102,11 @@ def judge(knock: dict, reply_text: str, target_record: dict | None) -> dict:
         "expected_target_lexicon_record": target_record,
         "andrew_reply": reply_text,
     }
+    # A second reply to the same knock is judged knowing the first exchange —
+    # Tamil that Anna's recast already handed him is a read-back, not a cold fire.
+    if knock.get("reply"):
+        context["prior_exchange"] = {"andrew_said": knock["reply"],
+                                     "anna_recast": knock.get("reply_line", "")}
     client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
     resp = client.chat.completions.create(
         model=MODEL,
@@ -121,9 +128,11 @@ def judge(knock: dict, reply_text: str, target_record: dict | None) -> dict:
 
 
 def shown_in_knock(key: str, rec: dict, knock: dict) -> bool:
-    """Deterministic check of the hard rule: did the knock's own text show this
-    Tamil (script or any known phonetic)? Shown ⇒ the reply caps at 'hinted'."""
-    shown = f"{knock.get('body', '')} {knock.get('memo_script', '')}".lower()
+    """Deterministic check of the hard rule: did the knock's own text — or a
+    recast Anna already pushed back on an earlier reply — show this Tamil
+    (script or any known phonetic)? Shown ⇒ the reply caps at 'hinted'."""
+    shown = (f"{knock.get('body', '')} {knock.get('memo_script', '')} "
+             f"{knock.get('reply_line', '')}").lower()
     if key.lower() in shown:
         return True
     return any(p.lower() in shown for p in rec.get("phonetic", []) if p)
