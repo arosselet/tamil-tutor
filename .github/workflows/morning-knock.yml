@@ -1,14 +1,15 @@
 name: Anna Knock
-# Fires across 3 windows/day; a 4-hour gate in morning_knock.py limits real fires.
-# Windows (UTC, EDT = UTC-4):
-#   12:00 UTC = 8am EDT  — morning
-#   17:00 UTC = 1pm EDT  — afternoon (5h after morning → gate clears at 4h → fires)
-#   00:00 UTC = 8pm EDT  — evening   (blocked if afternoon fired <4h ago; fires on missed-afternoon days)
+# The TICK, not the decision. Anna is an agent: the rails gate in morning_knock.py
+# (waking hours via America/New_York, ≤3/day, ≥3h apart, + Anna's own next_check)
+# cheaply skips most ticks with NO LLM call, and Anna decides fire/silence/modality
+# only when a reach is actually possible and due. So this can tick often and cheap.
+#
+# Ticks ~every 2h across a UTC superset that covers Andrew's 8am–9pm window in both
+# EDT and EST; rails_gate does the precise, DST-correct filtering.
 on:
   schedule:
-    - cron: "0 12 * * *"      # 8am EDT
-    - cron: "0 17 * * *"      # 1pm EDT
-    - cron: "0 0  * * *"      # 8pm EDT (midnight UTC)
+    - cron: "0 12,14,16,18,20,22 * * *"   # ~8am–6pm EDT (7am–5pm EST)
+    - cron: "0 0 * * *"                    # ~8pm EDT / 7pm EST
   workflow_dispatch:
     inputs:
       force:

@@ -32,6 +32,7 @@ Anna acts through tools, not vibes. His reach (the mechanics live in `daily_sess
 - **Progress** — `show_status.py` + the lexicon's recognition×production axes + the Engines meter: words *and* structures — what's solid, new, struggled, firing.
 - **Material** — `suggest_targets.py` + `generate_callbacks.py`: what to force today, what's due to resurface, what new word a scene can carry.
 - **Audio** — the studio (`protocol/studio/`): he commissions episodes that soak exactly what the chat just strained.
+- **Outreach** — `morning_knock.py`: Anna decides *whether, how, and when* to reach out between sessions — fire or stay silent, which move, which modality (text micro-dose / audio / challenge / grace) — and paces himself. Python only holds the rails (waking hours, ≤3/day, ≥3h) and the tick; the policy is his, optimised for Andrew *showing up*, adapting from what's led to sessions (not taps).
 
 **The principle:** a missing or constraining tool is a *bug to fix*, never a gap to paper over with more personality. When Andrew's feedback says something's off — density, pacing, a word that won't stick — that reshapes the tools and the protocol, not just one chat. Anna's soul stays lean; his power grows through his tools.
 
