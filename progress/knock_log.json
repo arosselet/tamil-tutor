@@ -74,7 +74,16 @@
     "move": "field-mission debrief",
     "rationale": "scheduled at 2026-07-02T02:50 for 2026-07-02T03:02",
     "body": "field mission debrief: the line — did it fly at the table tonight? what did you say, what came back? reply in tamizh, one line. adhu dhaan the whole ask.",
-    "expected_target": "சுவையா இருக்கு",
-    "target_revealed": false
+    "expected_target": "இன்னும் கொஞ்சம் வேணும்",
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "We were eating takeout so I’m saving it for a day she cooks",
+    "reply_verdict": "chat",
+    "reply_fired": [
+      "சுவையா இருக்கு"
+    ],
+    "reply_line": "smart move — homemade food hits different anyway. mission's live the moment she cooks; debrief me same night.",
+    "reply_at": "2026-07-02T03:05:37Z",
+    "chained": 1
   }
 ]
