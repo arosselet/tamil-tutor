@@ -693,7 +693,7 @@
       10,
       35
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-07-01"
   },
   "தெரியும்": {
     "gloss": "I know",
@@ -1060,7 +1060,7 @@
     "gloss": "I ate",
     "phonetic": [],
     "recognition": "solid",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       5,
       7,
@@ -1069,7 +1069,7 @@
       10,
       11
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-07-01"
   },
   "நீ": {
     "gloss": "You (informal - Peers/Cousins)",
@@ -3053,7 +3053,7 @@
       "enna samaikkireenga"
     ],
     "recognition": "comfortable",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [
       53
     ],

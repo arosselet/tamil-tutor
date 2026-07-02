@@ -2,7 +2,7 @@
 
 > **Reads from:**
 > - `progress/profile.md` — learner calibration, active gaps, terrain covered
-> - `progress/learner.json` — the soak order, the running story (`last_debrief`), recent missions, streak
+> - `progress/learner.json` — the soak order, the running story (`last_debrief`), recent missions
 > - `content/scripts/*.tags.json` — last 3-5 missions' structural metadata
 
 **Goal:** Pick the payload, define the scenario context, and identify the core linguistic pattern. Create a format-agnostic Master Lesson Plan that can be delivered via any modality (Podcast, Drill, Roleplay).

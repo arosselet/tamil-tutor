@@ -143,6 +143,22 @@ def compute_status() -> str:
     return f"Viability floor {floor['cleared']}/{floor['total']} fire cold ({floor['pct']:.0f}%)"
 
 
+def fires_today() -> int:
+    """Words fired (cold or hinted) TODAY, across chat sessions and phone replies —
+    the fast per-day reward counter appended to the scoreboard. Computed live from
+    the logs, never stored (a stored counter is a meter that can lie)."""
+    today = date.today().isoformat()
+    n = 0
+    for s in load_json(SESSION_LOG_PATH) or []:
+        if s.get("date") == today:
+            n += len(s.get("cold", [])) + len(s.get("hinted", []))
+    for k in load_json(KNOCK_LOG_PATH) or []:
+        # reply_fired is only ever non-empty for a scored (cold/hinted) reply
+        if k.get("reply_at", "").startswith(today):
+            n += len(k.get("reply_fired", []))
+    return n
+
+
 def compute_recent_missions(episodes: dict, n: int = 4) -> list[dict]:
     recent = sorted(episodes.items(), key=lambda x: int(x[0]), reverse=True)[:n]
     return [{"mission": int(m), "title": ep.get("title", f"Mission {m}"),
@@ -152,7 +168,6 @@ def compute_recent_missions(episodes: dict, n: int = 4) -> list[dict]:
 def write_thin_learner(learner: dict, episodes: dict):
     thin = {
         "learner": learner.get("learner", "Andrew"),
-        "streak": learner.get("streak", {}),
         "last_debrief": learner.get("last_debrief", ""),
         "soak_order": learner.get("soak_order", {}),
         "recent_missions": compute_recent_missions(episodes),
@@ -262,12 +277,9 @@ def cmd_update(args):
     if args.debrief:
         learner["last_debrief"] = args.debrief
 
-    streak = learner.get("streak", {})
-    if streak.get("last_date") != today:
-        streak["current"] = streak.get("current", 0) + 1
-        streak["best"] = max(streak.get("best", 0), streak["current"])
-        streak["last_date"] = today
-        learner["streak"] = streak
+    # No streak bookkeeping — recency comes from the session log, and a stored
+    # streak is a meter that lies the moment a day is skipped (Enjoyment Clause).
+    learner.pop("streak", None)
 
     save_json(LEXICON_PATH, lexicon)
     if episodes:
@@ -299,6 +311,7 @@ def cmd_update(args):
     deck = compute_deck(lexicon)
     if deck["total"]:
         print(f"Trip Deck: {deck['cleared']}/{deck['total']} fire cold ({deck['pct']:.0f}%)")
+    print(f"Fired today: {fires_today()}")
     print("State updated.")
 
 
@@ -438,7 +451,8 @@ def cmd_status(_args):
     print(f"Learner: {learner.get('learner')}")
     # No streak theatre — the honest signal is recency (a scoreboard that lies
     # teaches the player to ignore all the meters).
-    last = learner.get("streak", {}).get("last_date")
+    slog = load_json(SESSION_LOG_PATH) or []
+    last = slog[-1].get("date") if slog else None
     gap = (date.today() - date.fromisoformat(last)).days if last else None
     if last:
         gap_str = "today" if not gap else f"{gap} day{'s' if gap != 1 else ''} ago"
@@ -477,6 +491,7 @@ def cmd_status(_args):
         deck = compute_deck(lexicon)
         if deck["total"]:
             print(f"Trip Deck: {deck['cleared']}/{deck['total']} deck phrases fire cold ({deck['pct']:.0f}%) — the sprint headline")
+        print(f"Fired today: {fires_today()}")
 
     if episodes:
         recent = sorted(episodes.items(), key=lambda x: int(x[0]), reverse=True)[:6]
@@ -522,7 +537,7 @@ def credit_latest_episode_listen() -> str | None:
             surfaced += 1
     save_json(EPISODES_PATH, episodes)
     save_json(LEXICON_PATH, lexicon)
-    write_thin_learner(learner, episodes)  # refresh recent_missions + under-listened status
+    write_thin_learner(learner, episodes)  # refresh recent_missions + status line
     return f"M{mission} '{ep.get('title', mission)}' now {ep['listens']}x — surfaced {surfaced} words"
 
 

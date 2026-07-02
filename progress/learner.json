@@ -1,22 +1,19 @@
 {
   "learner": "Andrew",
-  "streak": {
-    "current": 21,
-    "best": 21,
-    "last_date": "2026-06-24"
-  },
-  "last_debrief": "STORY SO FAR: wedding-hall thread (empty chair) closed out — 'appadi illa' landed (cold-fired earlier today, confirmed by the 18:03 knock), 'ippa-ve' still heard-not-fired but the thread itself is done. Andrew is mid-workday, acknowledged the last knock worked, asked to stay out of a lesson right now, and explicitly asked to leave the wedding hall behind for a new scene. New scene seeded below: the kitchen, post-wedding-hall. Next real session: open on the kitchen scene cold, and still circle back to 'ippa-ve' opportunistically since it never got fired.",
+  "last_debrief": "STORY SO FAR: the kitchen scene at the maama's house is live and mid-beat. Andrew walked in post-wedding, fired 'enna samaikkireenga' (self-upgraded to neenga-forms for the atthai — register instinct is real; needed one recast on pronunciation), then blocked the plate COLD with 'podhum, naan saapitten' — both fired, no hint. The scene froze right at the verdict beat: the atthai served him anyway, it's genuinely great, and 'suvaiya irukku' is UN-FIRED. That exact line is now a FIELD MISSION: deploy at supper tonight (2026-07-01), unprompted, wife unwitting. Collect the debrief at the evening knock / next session — if it survived live fire, log it cold. 'ippa-ve' still heard-not-fired from the wedding thread; opportunistic only. Andrew also re-chartered Anna today with explicit authority over tools/pedagogy/config/curriculum — engineering shift running while he eats.",
   "soak_order": {
     "payload": [
-      "சமையலறை (samayalarai — kitchen)",
-      "என்ன சமைக்கிற? (enna samaikkira — what are you cooking?)",
-      "சுவையா இருக்கு (suvaiya irukku — it's tasty)",
-      "சாப்பாடு ரெடி (saappaadu ready — food is ready)"
+      "சுவையா இருக்கு"
     ],
-    "scene_seed": "New scene, deliberate break from the wedding hall: Andrew walks into the kitchen (சமையலறை) — someone's cooking, he asks 'என்ன சமைக்கிற?', gets pulled in, and it lands as 'சுவையா இருக்கு' right before 'சாப்பாடு ரெடி' is called out. Light, domestic, low-stakes after the formality of the wedding-hall thread.",
-    "from": "2026-06-30"
+    "scene_seed": "the atthai's kitchen, verdict beat: the plate landed, she's watching his face for the word",
+    "from": "2026-07-01"
   },
   "recent_missions": [
+    {
+      "mission": 53,
+      "title": "The Kitchen Call",
+      "listens": 0
+    },
     {
       "mission": 52,
       "title": "The Maama's Chair",
@@ -30,11 +27,6 @@
     {
       "mission": 50,
       "title": "Mission tier2_mission50",
-      "listens": 0
-    },
-    {
-      "mission": 49,
-      "title": "The Bakery Run",
       "listens": 0
     }
   ],
