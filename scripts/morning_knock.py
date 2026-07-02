@@ -37,7 +37,6 @@ import sys
 import urllib.request
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
-from zoneinfo import ZoneInfo
 
 from openai import OpenAI
 
@@ -54,9 +53,9 @@ KNOCK_LOG_PATH = BASE / "progress" / "knock_log.json"
 SESSION_LOG_PATH = BASE / "progress" / "session_log.json"
 
 # ── The rails (hard, Python-enforced — Anna cannot cross these) ───────────────
-# Andrew's local timezone; DST-correct (EDT/EST) so the waking window is honest
-# year-round. The cron ticks a superset in UTC; this is the precise filter.
-LOCAL_TZ = ZoneInfo("America/New_York")
+# Andrew's local timezone (canonical in sync_state; DST-correct EDT/EST) so the
+# waking window is honest year-round. The cron ticks a UTC superset; this filters.
+from sync_state import LOCAL_TZ
 WAKING_START_HOUR = 8      # inclusive, local
 WAKING_END_HOUR = 21       # exclusive, local (last reach can land at 20:59)
 MAX_REACHES_PER_DAY = 3    # a "reach" = a knock that actually fired (silence doesn't count)
@@ -243,6 +242,14 @@ or memo hands him that Tamil itself — if it does, his reply is reading it back
 "hinted" at most; only an UN-shown target can be fired cold. The strongest doses show a \
 situation in English and leave the Tamil to him.
 
+SCHEDULING (optional; works even when you choose silence NOW): you may plant ONE \
+future push at a precise local time via "schedule" — a fully-composed dose that fires \
+as-is with no further thought (a field-mission debrief collect tomorrow morning, a \
+due-word resurface at 19:00, a follow-up on today's thread). The digest's "Now:" line \
+is your clock. Its body obeys the same content rules and reply contract; it is logged \
+as a reach when it fires, so the rails see it. null to skip — which is usual; schedule \
+only when a PRECISE time genuinely serves the rep better than your next wake.
+
 Return ONLY a JSON object, no prose around it:
 {
   "act": true | false,                  // false = silence this tick
@@ -253,9 +260,33 @@ Return ONLY a JSON object, no prose around it:
   "expected_target": "<the one word/chunk/frame a good reply would fire (Tamil script or frame:... key); empty string if this dose asks for nothing specific>",
   "target_revealed": true | false,      // does the body/memo show that Tamil itself?
   "next_check_hours": <number>,         // when to reconsider (clamped to a sane range)
+  "schedule": {"at_local": "YYYY-MM-DDTHH:MM", "body": "<the full dose>", "expected_target": "<or empty>", "target_revealed": true | false, "move": "<2-4 words>"} | null,
   "rationale": "<one line: why this choice>"
 }
 """
+
+
+def maybe_enqueue_schedule(decision: dict) -> Path | None:
+    """If the decision planted a scheduled push, land it in the queue (text-only;
+    fires via the hourly drain). Returns the queue path for the commit, or None."""
+    s = decision.get("schedule")
+    if not isinstance(s, dict) or not s.get("at_local") or not s.get("body"):
+        return None
+    from push_queue import enqueue, QUEUE_PATH  # lazy: push_queue imports this module
+    try:
+        due = datetime.fromisoformat(s["at_local"])
+        if due.tzinfo is None:
+            due = due.replace(tzinfo=LOCAL_TZ)
+    except ValueError:
+        print(f"   ! schedule.at_local unparseable ({s.get('at_local')!r}) — dropped")
+        return None
+    if due <= datetime.now(timezone.utc):
+        print(f"   ! schedule.at_local is in the past ({s['at_local']}) — dropped")
+        return None
+    enqueue(s["body"], due, expected_target=s.get("expected_target", ""),
+            target_revealed=bool(s.get("target_revealed", True)),
+            move=s.get("move", "scheduled follow-up"))
+    return QUEUE_PATH
 
 
 def decide(digest: str) -> dict:
@@ -286,6 +317,7 @@ def decide(digest: str) -> dict:
     # assume the Tamil was shown, so a reply caps at "hinted" — the cold axis stays honest.
     d["expected_target"] = (d.get("expected_target") or "").strip()
     d["target_revealed"] = bool(d.get("target_revealed", True))
+    d["schedule"] = d.get("schedule") if isinstance(d.get("schedule"), dict) else None
     return d
 
 
@@ -407,8 +439,11 @@ def main():
         if args.dry_run:
             print("[dry-run] would log the silence + next_check; stopping.")
             return
-        path = log_decision(now, decision, acted=False)
-        commit_and_push([path], f"Anna: silence ({decision.get('rationale','')[:50]})")
+        paths = [log_decision(now, decision, acted=False)]
+        qp = maybe_enqueue_schedule(decision)
+        if qp:
+            paths.append(qp)
+        commit_and_push(paths, f"Anna: silence ({decision.get('rationale','')[:50]})")
         print("done — silence logged, next_check set.")
         return
 
@@ -429,6 +464,9 @@ def main():
 
     path = log_decision(now, decision, acted=True, audio_url=audio_url, mp3=mp3)
     commit_paths = [path] if mp3 is None else [mp3, path]
+    qp = maybe_enqueue_schedule(decision)
+    if qp:
+        commit_paths.append(qp)
     print("4. commit + push…")
     commit_and_push(commit_paths, f"Anna reach ({decision['modality']}/{decision.get('move')})")
     print("5. notify…")
