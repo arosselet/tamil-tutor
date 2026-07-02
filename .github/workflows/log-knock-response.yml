@@ -27,8 +27,8 @@ jobs:
           REPLY_TEXT: ${{ github.event.client_payload.text }}
         run: |
           pip install -r requirements.txt
-          git config user.name "anna-knock"
-          git config user.email "anna@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           python scripts/knock_reply.py "$REPLY_TEXT"
       - name: Log tap
         if: github.event.client_payload.response != 'reply'
@@ -36,8 +36,8 @@ jobs:
       - name: Commit tap
         if: github.event.client_payload.response != 'reply'
         run: |
-          git config user.name "anna-knock"
-          git config user.email "anna@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           # 'listened' surfaces words + bumps listens, so stage the soak files too.
           git add progress/knock_log.json progress/episodes.json progress/learner.json progress/lexicon.json
           git diff --cached --quiet || git commit -m "Knock response: ${{ github.event.client_payload.response }}"
