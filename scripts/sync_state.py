@@ -28,7 +28,7 @@ import argparse
 import json
 import re
 import sys
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -151,9 +151,36 @@ def compute_status() -> str:
     deck = compute_deck(lexicon)
     if deck["total"]:
         days = (TRIP_DATE - date.today()).days
-        return f"Trip Deck {deck['cleared']}/{deck['total']} fire cold · {days} days to touchdown"
+        return (f"Trip Deck {deck['cleared']}/{deck['total']} fire cold · "
+                f"{days} days to touchdown · {burn_rate(deck, days)}")
     floor = compute_floor(lexicon)
     return f"Viability floor {floor['cleared']}/{floor['total']} fire cold ({floor['pct']:.0f}%)"
+
+
+def cold_fires_recent(days: int = 7) -> int:
+    """COLD fires in the trailing `days`-day window, across chat sessions and phone
+    replies — the pace side of the burn rate. Live from the logs, never stored.
+    (A chained knock's reply_fired can mix hinted fires under a cold verdict —
+    close enough for a pace meter; the lexicon axis itself stays exact.)"""
+    cutoff = (date.today() - timedelta(days=days - 1)).isoformat()
+    n = 0
+    for s in load_json(SESSION_LOG_PATH) or []:
+        if s.get("date", "") >= cutoff:
+            n += len(s.get("cold", []))
+    for k in load_json(KNOCK_LOG_PATH) or []:
+        if k.get("reply_at", "") >= cutoff and k.get("reply_verdict") == "cold":
+            n += len(k.get("reply_fired", []))
+    return n
+
+
+def burn_rate(deck: dict, days_left: int, window: int = 7) -> str:
+    """The honest pace line: cold/day needed to clear the deck's fire side by the
+    deadline vs. the trailing cold/day actually happening. Python states the math;
+    Anna narrates what it means."""
+    pending = deck["total"] - deck["cleared"]
+    need = pending / max(days_left, 1)
+    pace = cold_fires_recent(window) / window
+    return f"need {need:.1f} cold/day, trailing {window}-day pace {pace:.1f}/day"
 
 
 def fires_today() -> int:
@@ -490,7 +517,7 @@ def cmd_status(_args):
     if last:
         gap_str = "today" if not gap else f"{gap} day{'s' if gap != 1 else ''} ago"
         print(f"Last logged session: {last} ({gap_str})")
-    print(f"Status: {learner.get('status', 'unknown')}")
+    print(f"Status: {compute_status()}")  # live — the stored learner.json copy goes stale between updates
     print(f"Story so far: {learner.get('last_debrief', '')}")
     soak = learner.get("soak_order", {})
     if soak.get("payload") or soak.get("scene_seed"):

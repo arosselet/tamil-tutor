@@ -185,15 +185,35 @@ def remaining_room(klog: list, now: datetime) -> str:
             f"  Reaches today: {n_today}/{MAX_REACHES_PER_DAY}. Min gap {MIN_GAP_HOURS}h ({gap_str}).")
 
 
+def deck_due_list(max_fire: int = 6, max_catch: int = 2) -> str:
+    """The sprint deck's due items, ripest first, so a knock's expected_target can
+    hit what's actually due instead of improvising off the story. `sync_state
+    status` carries only the deck METER; this is the menu."""
+    from suggest_targets import deck_status  # lazy: keeps module import light
+    from sync_state import LEXICON_PATH
+    deck = deck_status(load_json(LEXICON_PATH) or {})
+    if not deck or not deck["pending"]:
+        return ""
+    lines = ["DECK DUE (the sprint menu — expected_target should usually come from here):"]
+    for t in deck["pending"][:max_fire]:
+        state = "hinted→cold" if t["production"] == "hinted" else f"{t['recognition']}, cold-pending"
+        lines.append(f"    [{t['kind']}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{state}]")
+    for t in deck["catch_pending"][:max_catch]:
+        lines.append(f"    [ear-only] {t['word']} — {t['gloss'] or '[no gloss]'}  "
+                     f"(soak/eavesdrop dose only — never ask him to fire it)")
+    return "\n".join(lines)
+
+
 def build_digest() -> str:
-    """Everything Anna needs to make a policy call: learning state + outcome memory
-    + how much room the rails leave him right now."""
+    """Everything Anna needs to make a policy call: learning state + the deck's
+    due menu + outcome memory + how much room the rails leave him right now."""
     out = subprocess.run([sys.executable, str(BASE / "scripts" / "sync_state.py"), "status"],
                          capture_output=True, text=True)
     status = out.stdout.strip()
     klog = load_json(KNOCK_LOG_PATH) or []
     now = datetime.now(timezone.utc)
-    return f"{status}\n\n{outcome_memory(klog, now)}\n\n{remaining_room(klog, now)}"
+    parts = [status, deck_due_list(), outcome_memory(klog, now), remaining_room(klog, now)]
+    return "\n\n".join(p for p in parts if p)
 
 
 # ── The decision (LLM — only reached when the rails gate opened) ───────────────
@@ -241,6 +261,12 @@ fire (Tamil script, or a frame:... key). target_revealed = whether your notifica
 or memo hands him that Tamil itself — if it does, his reply is reading it back, worth \
 "hinted" at most; only an UN-shown target can be fired cold. The strongest doses show a \
 situation in English and leave the Tamil to him.
+
+TARGETING: while a deck sprint is active the digest carries a DECK DUE menu — pick \
+expected_target from it most of the time; clearing the deck IS the sprint, and a knock \
+that fires a due deck item counts on the scoreboard he sees. The running story is the \
+*flavour* wrapped around a due item, not the source of targets. (Ear-only items are \
+soak doses: play/show them, ask for nothing back.)
 
 SCHEDULING (optional; works even when you choose silence NOW): you may plant ONE \
 future push at a precise local time via "schedule" — a fully-composed dose that fires \

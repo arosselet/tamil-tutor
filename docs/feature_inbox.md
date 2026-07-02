@@ -4,6 +4,10 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
-- **Voice loop** — give Anna speech-in / speech-out on the phone, so downtime becomes *conversation* (the loop closes by talking, not by accounting). The highest-leverage next move.
+- **Voice loop (speech-IN half)** — let Anna *hear* Andrew: a phone voice-note lands, gets transcribed, judged like a knock reply. The speech-OUT half shipped 2026-07-02 as the drill track (`render_drill.py`); what remains open is Andrew's voice coming back in.
 - **Pull the wife in as the north star** — the real viability floor is "can I say this to her." Anna could hand a line: "try this one, tell me how it landed tomorrow." Costs no code.
-- **Knock digest could carry the ticket's deck top** — today the outreach decision sees only `sync_state status` + the story, so knock targets come from the running thread. Appending the top few due deck items (fire-side only) would let doses hit what's actually due. Small `build_digest()` change; evidence: knocks currently can't target the deck directly.
+- **Drill as a knock modality** — `morning_knock.py` could choose "drill" and commission `render_drill.py` itself (today Anna-in-session or Andrew runs it). Wait until a few drills prove the format.
+
+## Shipped
+
+- ~~Knock digest could carry the ticket's deck top~~ — DONE 2026-07-02: `build_digest()` appends the deck-due menu (fire + ear-only), and the mandate points `expected_target` at it.
