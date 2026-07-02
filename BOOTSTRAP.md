@@ -41,7 +41,7 @@ Copy each `.example` file to its live counterpart and fill in the user's data:
 
 | Template | Live file | Purpose |
 |---|---|---|
-| `progress/learner.json.example` | `progress/learner.json` | Continuity: streak, debrief, soak order, status |
+| `progress/learner.json.example` | `progress/learner.json` | Continuity: running story (debrief), soak order, status |
 | `progress/lexicon.json.example` | `progress/lexicon.json` | The word brain (starts empty — `sync_state.py` populates it) |
 | `progress/episodes.json.example` | `progress/episodes.json` | Audio episode registry (starts empty) |
 | `progress/session_log.json.example` | `progress/session_log.json` | Append-only momentum log (starts empty) |
@@ -70,8 +70,8 @@ Run the first `/anna` session using the fresh state.
 ## Repository Structure for Portability
 - `protocol/` — The generative logic (persona, daily session, audio pipeline roles).
 - `progress/` — Your personal state (gitignored JSON managed by Python + LLM-maintained profile).
-- `curriculum/` — `word_pool.json`: suggestion list of words to learn (Anna picks from it).
-- `scripts/` — Python engine: `sync_state.py` owns all state writes; `render_audio.py`, `show_status.py`, `generate_callbacks.py`, `build_playlist.py` for audio and spaced repetition.
+- `curriculum/` — `word_pool.json` (suggestion list of words; Anna picks from it) plus optional curated deck files (e.g. a finite sprint deck like `trip_deck.json`) loaded via `sync_state.py seed-deck`.
+- `scripts/` — Python engine: `sync_state.py` owns all state writes; `suggest_targets.py` computes the session ticket; `render_audio.py`, `show_status.py`, `generate_callbacks.py`, `build_playlist.py` for audio and spaced repetition; `morning_knock.py` / `knock_reply.py` / `push_queue.py` for the optional phone-outreach loop.
 
 ### To Teach a Different Language
 

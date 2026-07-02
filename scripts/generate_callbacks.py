@@ -67,6 +67,7 @@ def due_callbacks(lexicon: dict, today: date, max_n: int) -> list[dict]:
                 "word": word,
                 "gloss": rec.get("gloss", ""),
                 "production": prod,
+                "direction": rec.get("direction", "fire"),
                 "last_surfaced": rec.get("last_surfaced"),
                 "overdue": overdue,
             })
@@ -94,7 +95,11 @@ def main():
     for cb in callbacks:
         gloss = cb["gloss"] or "[no gloss]"
         when = cb["last_surfaced"] or "never surfaced"
-        gap = "floor-gap" if cb["production"] != "cold" else "retention"
+        # An ear-only (catch) item is soak-by-design, not production debt.
+        if cb["direction"] == "catch":
+            gap = "ear"
+        else:
+            gap = "floor-gap" if cb["production"] != "cold" else "retention"
         print(f"  - {cb['word']} — {gloss}  [{gap}]  (last: {when})")
 
     floor_gap = sum(1 for r in lexicon.values()

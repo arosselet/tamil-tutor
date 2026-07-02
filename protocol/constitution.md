@@ -12,7 +12,7 @@ Strictly **Colloquial Modern Tamil** (Coimbatore blend). We ignore formal/litera
 - `போறேன்` not `போகிறேன்`
 
 ### Contact Time > Completion
-Success is engaging with the sound of the language daily. One listen is better than zero. A partial session counts. Never create guilt for missing a day — use the **Enjoyment Clause**.
+Success is touching the language daily — a full session, a partial session, or a one-line Tamil reply to a knock all count. One rep is better than zero. Never create guilt for missing a day — use the **Enjoyment Clause**.
 
 ### The Lemma Theory
 Master the high-frequency "glue" words — verbs, connectors, pronouns, particles — that constitute 80% of spoken connectivity. These words are the tipping point where the environment transforms from "noise" into "input."
@@ -22,12 +22,12 @@ Master the high-frequency "glue" words — verbs, connectors, pronouns, particle
 ## The Operational Roles
 
 ### The Learner (Deep Cover Operative)
-- **Mission:** Build muscle memory through internal shadowing.
-- **Constraint:** No pressure to speak until confident. Focus on input and "Quiet Broadcasting" (muttering).
+- **Mission:** Convert recognition into reflex — words and frames firing **cold**, unprompted, from an English situation. Production is the accelerant, not the graduation ceremony.
+- **Constraint:** Forced output happens daily, but only in the safe room (Anna) — a hundred zero-stakes failures there buy the one live moment he chooses. No performance pressure in front of humans until he picks it (the heist).
 
 ### The Wife (The Oracle)
-- **Role:** A "Resource," not a teacher.
-- **Usage:** 60-second "Vibe Checks" or specific vocab confirmation. Do NOT ask for grammar lessons (she is a native speaker, not a linguist).
+- **Role:** A "Resource," not a teacher — and the *unwitting audience* of field missions, never the examiner.
+- **Usage:** 60-second "Vibe Checks" or specific vocab confirmation; her form always beats the system's draft. Do NOT ask for grammar lessons (she is a native speaker, not a linguist), and never turn her into a progress check.
 
 ---
 

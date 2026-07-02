@@ -55,6 +55,8 @@ This is what makes an episode feel alive — it tracks his real week, not an abs
 
 For everything beyond the soak order, **run `python scripts/suggest_targets.py` — the same session ticket Anna reads.** It computes the candidate set so you don't re-derive it by eye: floor-gap words, due callbacks, and priority-1 NEW candidates grouped by cluster coverage (already deduped against `progress/lexicon.json`). **Prefer priority 1 until the floor is solid;** a priority-2 word that fits the scene naturally is fine, but don't scatter into expansion while the foundation has gaps.
 
+**If the ticket shows a ★ deck block (a sprint is on), the deck is the payload bias:** deck items outrank generic new-word picking, and the deck's **EAR-ONLY (catch)** items are prime soak material — they clear by being *heard* into solid recognition, which is exactly what an episode does best. Weave them in over fresh cluster grabs.
+
 Every payload has two active parts:
 
 **NEW (4–5 words or phrases):** Fresh items the learner hasn't met — from the ticket's *new candidates*. Pick a **thin cluster** (the ticket shows per-cluster coverage) and take the highest-frequency, most household-relevant items in it. Phrases and chunks count as items — prefer them when they're more useful than the sum of their parts (track a phrase as its own item only when it's salient as a unit, not merely compositional).
