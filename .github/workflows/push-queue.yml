@@ -29,6 +29,6 @@ jobs:
         env:
           ANNA_PUSH_WEBHOOK_URL: ${{ secrets.ANNA_PUSH_WEBHOOK_URL }}
         run: |
-          git config user.name "anna-knock"
-          git config user.email "anna@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           python scripts/push_queue.py drain
