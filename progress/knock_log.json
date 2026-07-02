@@ -114,6 +114,12 @@
     "next_check": "2026-07-03T13:18:51.593563+00:00",
     "body": "🚨 aunty ambush drill. she spots you at the door: 'eppo vandheenga? evvalo naala iruppeenga?' — don't think. fire the FAQ back. (oru maasam / nethu dhaan / software engineer-a irukken — all in one go, neenga-register)",
     "expected_target": "frame:day-recap",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Nalla irukku!",
+    "reply_verdict": "miss",
+    "reply_fired": [],
+    "reply_line": "close on the feeling, but she asked *when* you came and how long you're staying — aunty wants the FAQ, not just a vibe 😄 try: 'nethu dhaan vandhom, oru maasam iruppom' — neenga-register, both lines.",
+    "reply_at": "2026-07-02T19:25:11Z"
   }
 ]
