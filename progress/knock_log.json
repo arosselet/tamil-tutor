@@ -63,5 +63,18 @@
     "reply_fired": [],
     "reply_line": "pipeline's alive 👍 — enna samaikkira is still waiting for you though.",
     "reply_at": "2026-07-01T22:21:18Z"
+  },
+  {
+    "date": "2026-07-02",
+    "timestamp": "2026-07-02T03:02:31.505304+00:00",
+    "acted": true,
+    "scheduled": true,
+    "queue_id": "q1782960605",
+    "modality": "text",
+    "move": "field-mission debrief",
+    "rationale": "scheduled at 2026-07-02T02:50 for 2026-07-02T03:02",
+    "body": "field mission debrief: the line — did it fly at the table tonight? what did you say, what came back? reply in tamizh, one line. adhu dhaan the whole ask.",
+    "expected_target": "சுவையா இருக்கு",
+    "target_revealed": false
   }
 ]
