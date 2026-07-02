@@ -4,7 +4,7 @@ Progress dashboard for the Tamil learning system — the human-facing "Show my s
 
 Word-state is read from progress/lexicon.json (the single source). The centerpiece
 is the viability floor: of the words recognized, how many fire cold. Continuity
-(streak, status line) comes from learner.json; episodes from episodes.json.
+(status line) comes from learner.json; episodes from episodes.json.
 
 Usage:
     python scripts/show_status.py
@@ -44,7 +44,7 @@ def main():
     print("=" * 55)
 
     # No streak theatre — recency is the honest signal, guilt-free (Enjoyment Clause).
-    last = learner.get("streak", {}).get("last_date")
+    last = session_log[-1].get("date") if session_log else None
     if last:
         print(f"\n📅 Last logged session: {last}")
 

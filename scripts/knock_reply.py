@@ -33,10 +33,11 @@ sys.path.insert(0, str(BASE / "scripts"))
 from morning_knock import (OPENROUTER_BASE, MODEL, KNOCK_LOG_PATH,
                            load_env, push_to_phone, commit_and_push)
 from sync_state import (LEXICON_PATH, TRIP_DATE, load_json, save_json,
-                        build_phonetic_index, resolve, compute_deck)
+                        build_phonetic_index, resolve, compute_deck, fires_today)
 
 PRODUCTION_RANK = {"none": 0, "hinted": 1, "cold": 2}
 VERDICTS = {"cold", "hinted", "miss", "chat"}
+CHAIN_CAP = 3  # max chained follow-up asks per knock — momentum, not a treadmill
 
 JUDGE_MANDATE = """\
 You are Anna, judging ONE phone reply from Andrew against the knock you sent him. \
@@ -64,11 +65,22 @@ move on, no lecture ("close — we'd say 'poren'. adhu dhaan next time"). If col
 celebrate, short ("adhu dhaan! 🔥"). Phonetic Tamil is fine here (it's a text \
 notification). Do NOT append any score — Python adds the deck line.
 
+MOMENTUM CHAIN: if (and ONLY if) the verdict is "cold" or "hinted", you MAY ride the \
+momentum with ONE follow-up micro-ask ("follow_up_ask"): a single short line handing \
+the NEXT rep — an English situation that wants one Tamil line back, never re-asking \
+what he just fired. Leave the Tamil to him (follow_up_target_revealed=false is the \
+strong form; a shown target caps at hinted). On "miss" or "chat" NO chain — the recast \
+is the whole dose. Skipping the chain (empty strings) is often right; he replies when \
+he replies.
+
 Return ONLY a JSON object, no prose around it:
 {
   "verdict": "cold" | "hinted" | "miss" | "chat",
   "fired": ["<canonical Tamil script or frame:... key>", ...],
   "reply_line": "<one line>",
+  "follow_up_ask": "<one line chaining the next rep; empty string to stop>",
+  "follow_up_target": "<the one word/chunk/frame it asks for (Tamil script or frame:... key); empty if no chain>",
+  "follow_up_target_revealed": true | false,
   "rationale": "<one line, for the log>"
 }
 """
@@ -80,12 +92,15 @@ def last_fired_knock(klog: list) -> dict | None:
 
 
 def scoreboard(lexicon: dict) -> str:
-    """The one score, appended to every push-back: deck cleared + days to touchdown."""
+    """The one score, appended to every push-back: deck cleared + days to touchdown
+    + the fast per-day reward (fires today, live from the logs)."""
     deck = compute_deck(lexicon)
     if not deck["total"]:
         return ""
     days = (TRIP_DATE - date.today()).days
-    return f"Deck {deck['cleared']}/{deck['total']} · {days}d"
+    n = fires_today()
+    fires = f" · {n} fired today" if n else ""
+    return f"Deck {deck['cleared']}/{deck['total']} · {days}d{fires}"
 
 
 def judge(knock: dict, reply_text: str, target_record: dict | None) -> dict:
@@ -124,6 +139,9 @@ def judge(knock: dict, reply_text: str, target_record: dict | None) -> dict:
         d["verdict"] = "chat"
     d["fired"] = [w for w in d.get("fired", []) if isinstance(w, str) and w.strip()]
     d["reply_line"] = (d.get("reply_line") or "").strip()
+    d["follow_up_ask"] = (d.get("follow_up_ask") or "").strip()
+    d["follow_up_target"] = (d.get("follow_up_target") or "").strip()
+    d["follow_up_target_revealed"] = bool(d.get("follow_up_target_revealed", True))
     return d
 
 
@@ -202,8 +220,17 @@ def main():
     verdict = judge(knock, reply_text, target_record)
     print(f"   → {verdict['verdict']} | fired={verdict['fired']} | {verdict.get('rationale', '')}")
 
+    # Momentum chain: on a scored reply, the push-back may carry the NEXT micro-ask.
+    # The knock's expected target moves to the chained one, so the next reply is
+    # judged against what was actually asked (prior_exchange covers the recast).
+    follow = ""
+    if (verdict["verdict"] in ("cold", "hinted") and verdict["follow_up_ask"]
+            and knock.get("chained", 0) < CHAIN_CAP):
+        follow = verdict["follow_up_ask"]
+
     if args.dry_run:
-        print(f"[dry-run] would apply, then push: {verdict['reply_line']} · {scoreboard(lexicon)}")
+        chain_str = f" ↪ chain: {follow}" if follow else ""
+        print(f"[dry-run] would apply, then push: {verdict['reply_line']} · {scoreboard(lexicon)}{chain_str}")
         return
 
     print("2. state…")
@@ -213,9 +240,16 @@ def main():
     knock["response"] = "reply"  # the strongest "landed" signal there is
     knock["reply"] = reply_text
     knock["reply_verdict"] = verdict["verdict"]
-    knock["reply_fired"] = verdict["fired"]
-    knock["reply_line"] = verdict["reply_line"]
+    # accumulate across a chain — the fires-today counter reads this
+    knock["reply_fired"] = knock.get("reply_fired", []) + verdict["fired"]
+    # store the FULL push-back (recast + chained ask): the next judge call reads it
+    # as prior_exchange, and shown_in_knock scans it for revealed Tamil
+    knock["reply_line"] = " · ".join(p for p in (verdict["reply_line"], follow) if p)
     knock["reply_at"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    if follow:
+        knock["chained"] = knock.get("chained", 0) + 1
+        knock["expected_target"] = verdict["follow_up_target"]
+        knock["target_revealed"] = verdict["follow_up_target_revealed"]
 
     save_json(LEXICON_PATH, lexicon)
     save_json(KNOCK_LOG_PATH, klog)
@@ -226,7 +260,7 @@ def main():
 
     print("4. push back…")
     score = scoreboard(lexicon)
-    body = f"{verdict['reply_line']} · {score}" if score else verdict["reply_line"]
+    body = " · ".join(p for p in (knock["reply_line"], score) if p)
     push_to_phone(body, None)
     print("done — reply judged, scored, answered.")
 
