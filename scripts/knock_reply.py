@@ -31,7 +31,8 @@ from openai import OpenAI
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from morning_knock import (OPENROUTER_BASE, MODEL, KNOCK_LOG_PATH,
-                           load_env, push_to_phone, commit_and_push)
+                           load_env, push_to_phone, commit_and_push,
+                           maybe_enqueue_schedule)
 from sync_state import (LEXICON_PATH, TRIP_DATE, load_json, save_json,
                         build_phonetic_index, resolve, compute_deck, fires_today)
 
@@ -73,6 +74,11 @@ strong form; a shown target caps at hinted). On "miss" or "chat" NO chain — th
 is the whole dose. Skipping the chain (empty strings) is often right; he replies when \
 he replies.
 
+SCHEDULING (optional): you may also plant ONE future push at a precise local time via \
+"schedule" — a fully-composed dose that fires as-is later (collect tonight's field \
+mission tomorrow morning; resurface today's wobble at 19:00). Use the exchange itself \
+to pick the moment; null to skip, which is usual.
+
 Return ONLY a JSON object, no prose around it:
 {
   "verdict": "cold" | "hinted" | "miss" | "chat",
@@ -81,6 +87,7 @@ Return ONLY a JSON object, no prose around it:
   "follow_up_ask": "<one line chaining the next rep; empty string to stop>",
   "follow_up_target": "<the one word/chunk/frame it asks for (Tamil script or frame:... key); empty if no chain>",
   "follow_up_target_revealed": true | false,
+  "schedule": {"at_local": "YYYY-MM-DDTHH:MM", "body": "<the full dose>", "expected_target": "<or empty>", "target_revealed": true | false, "move": "<2-4 words>"} | null,
   "rationale": "<one line, for the log>"
 }
 """
@@ -142,6 +149,7 @@ def judge(knock: dict, reply_text: str, target_record: dict | None) -> dict:
     d["follow_up_ask"] = (d.get("follow_up_ask") or "").strip()
     d["follow_up_target"] = (d.get("follow_up_target") or "").strip()
     d["follow_up_target_revealed"] = bool(d.get("follow_up_target_revealed", True))
+    d["schedule"] = d.get("schedule") if isinstance(d.get("schedule"), dict) else None
     return d
 
 
@@ -255,7 +263,11 @@ def main():
     save_json(KNOCK_LOG_PATH, klog)
 
     print("3. commit + push…")
-    commit_and_push([LEXICON_PATH, KNOCK_LOG_PATH],
+    commit_paths = [LEXICON_PATH, KNOCK_LOG_PATH]
+    qp = maybe_enqueue_schedule(verdict)
+    if qp:
+        commit_paths.append(qp)
+    commit_and_push(commit_paths,
                     f"Knock reply: {verdict['verdict']} ({', '.join(verdict['fired']) or 'no fire'})")
 
     print("4. push back…")

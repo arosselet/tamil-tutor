@@ -1,0 +1,13 @@
+[
+  {
+    "id": "q1782960605",
+    "due": "2026-07-02T03:02:00+00:00",
+    "body": "field mission debrief: the line — did it fly at the table tonight? what did you say, what came back? reply in tamizh, one line. adhu dhaan the whole ask.",
+    "expected_target": "சுவையா இருக்கு",
+    "target_revealed": false,
+    "audio_url": null,
+    "move": "field-mission debrief",
+    "force": true,
+    "queued_at": "2026-07-02T02:50:05.786562+00:00"
+  }
+]

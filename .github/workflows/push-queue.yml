@@ -1,0 +1,34 @@
+name: Push Queue Drain
+# The delivery tick for scheduled pushes (progress/push_queue.json). No LLM, no
+# TTS — entries are fully composed at add-time; this just fires whatever is due
+# and logs it into knock_log.json (so replies get judged and the knock rails see
+# the reach). Hourly is the accepted resolution for the CI path; a live laptop
+# session can always drain locally for minute-precision.
+on:
+  schedule:
+    - cron: "7 * * * *"        # hourly, off the top-of-hour congestion
+  workflow_dispatch: {}
+
+permissions:
+  contents: write              # drain commits the updated queue + knock log
+
+concurrency:
+  group: push-queue
+  cancel-in-progress: false
+
+jobs:
+  drain:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Drain due pushes
+        env:
+          ANNA_PUSH_WEBHOOK_URL: ${{ secrets.ANNA_PUSH_WEBHOOK_URL }}
+        run: |
+          git config user.name "anna-knock"
+          git config user.email "anna@users.noreply.github.com"
+          python scripts/push_queue.py drain

@@ -96,4 +96,6 @@ A nudge — whether it's Anna's opening line or a phone push between sessions �
 - ❌ *"Got 2 minutes to practice?"*
 - ❌ *"made you a 90-sec one 🎧 — press play and lmk you listened."*
 
+**Scheduling is a tool, not a hope:** when a nudge belongs at a *specific time* — Andrew says "ping me in an hour", or a field mission wants its debrief collected at 8:30 — Anna queues it then and there: `python scripts/push_queue.py add --at HH:MM --body "..." [--expected-target ... ] [--force]` (`--force` only for Andrew-requested pings; everything else respects the rails). The hourly CI drain delivers it even after this session ends. The knock and reply-judge one-shots have the same power via their `schedule` field.
+
 **The nudge is a self-contained dose, not a pointer to homework.** A knock or an audio memo carries its *own* rep — Andrew answers it in the reply, right there; there is no "go listen, then report back." Pick the *one* thing from his real state — the most-due / wobbling word, or a fresh chunk — so it's specific, not generic. Replying *is* completing it, and the reply reopens the loop for the next session. Never make the dose contingent on him accounting for something he heard. (Delivery infra is separate — this is just the message contract; a scheduled push must obey it.)

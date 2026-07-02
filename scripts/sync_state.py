@@ -28,8 +28,12 @@ import argparse
 import json
 import re
 import sys
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
+from zoneinfo import ZoneInfo
+
+# Andrew's local clock — canonical here; outreach scripts import it for the rails.
+LOCAL_TZ = ZoneInfo("America/New_York")
 
 BASE = Path(__file__).parent.parent
 LEXICON_PATH = BASE / "progress" / "lexicon.json"
@@ -448,6 +452,9 @@ def cmd_status(_args):
         print("No learner.json found.")
         return
 
+    # Anna is time-aware at inference: every load path reads this line, so "ping
+    # me in an hour" / "tonight at 9" can become a real scheduled push (push_queue.py).
+    print(f"Now: {datetime.now(LOCAL_TZ):%a %Y-%m-%d %H:%M %Z}")
     print(f"Learner: {learner.get('learner')}")
     # No streak theatre — the honest signal is recency (a scoreboard that lies
     # teaches the player to ignore all the meters).
