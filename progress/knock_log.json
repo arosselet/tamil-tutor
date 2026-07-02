@@ -103,5 +103,17 @@
     "reply_fired": [],
     "reply_line": "good morning da 😄 — glad it landed! now sollu — what exactly came out of your mouth? exact words.",
     "reply_at": "2026-07-02T13:23:41Z"
+  },
+  {
+    "date": "2026-07-02",
+    "timestamp": "2026-07-02T19:18:51.593563+00:00",
+    "acted": true,
+    "modality": "challenge",
+    "move": "arrival gauntlet cold-fire",
+    "rationale": "session happened today, engine is warm, ignore-streak is zero — a live cold-fire drill on the open thread (arrival gauntlet) is the highest-value move right now; it's the exact scenario the deck exists for, and firing the FAQ script in one go is the rep that matters most at 41 days out.",
+    "next_check": "2026-07-03T13:18:51.593563+00:00",
+    "body": "🚨 aunty ambush drill. she spots you at the door: 'eppo vandheenga? evvalo naala iruppeenga?' — don't think. fire the FAQ back. (oru maasam / nethu dhaan / software engineer-a irukken — all in one go, neenga-register)",
+    "expected_target": "frame:day-recap",
+    "target_revealed": false
   }
 ]
