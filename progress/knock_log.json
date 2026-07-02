@@ -113,13 +113,16 @@
     "rationale": "session happened today, engine is warm, ignore-streak is zero — a live cold-fire drill on the open thread (arrival gauntlet) is the highest-value move right now; it's the exact scenario the deck exists for, and firing the FAQ script in one go is the rep that matters most at 41 days out.",
     "next_check": "2026-07-03T13:18:51.593563+00:00",
     "body": "🚨 aunty ambush drill. she spots you at the door: 'eppo vandheenga? evvalo naala iruppeenga?' — don't think. fire the FAQ back. (oru maasam / nethu dhaan / software engineer-a irukken — all in one go, neenga-register)",
-    "expected_target": "frame:day-recap",
+    "expected_target": "சாஃப்ட்வேர் இன்ஜினியர்-ஆ இருக்கோம்",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Nalla irukku!",
-    "reply_verdict": "miss",
-    "reply_fired": [],
-    "reply_line": "close on the feeling, but she asked *when* you came and how long you're staying — aunty wants the FAQ, not just a vibe 😄 try: 'nethu dhaan vandhom, oru maasam iruppom' — neenga-register, both lines.",
-    "reply_at": "2026-07-02T19:25:11Z"
+    "reply": "Bethune dhaan vandhom",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "வந்தோம்"
+    ],
+    "reply_line": "vandhom is landing — neenga-register, good instinct. but aunty wants the full FAQ: nethu dhaan vandhom, oru maasam iruppom. sollu once more, both lines. · ok, aunty nods and asks: 'enna panreenga inge?' — what do you tell her about the job? one line, neenga-register.",
+    "reply_at": "2026-07-02T19:27:50Z",
+    "chained": 1
   }
 ]
