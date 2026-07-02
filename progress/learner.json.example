@@ -1,10 +1,5 @@
 {
   "learner": "Your Name",
-  "streak": {
-    "current": 0,
-    "best": 0,
-    "last_date": null
-  },
   "last_debrief": "System initialized.",
   "soak_order": {},
   "recent_missions": [],

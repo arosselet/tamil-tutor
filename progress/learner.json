@@ -1,12 +1,12 @@
 {
   "learner": "Andrew",
-  "last_debrief": "STORY SO FAR: the kitchen scene at the maama's house is live and mid-beat. Andrew walked in post-wedding, fired 'enna samaikkireenga' (self-upgraded to neenga-forms for the atthai — register instinct is real; needed one recast on pronunciation), then blocked the plate COLD with 'podhum, naan saapitten' — both fired, no hint. The scene froze right at the verdict beat: the atthai served him anyway, it's genuinely great, and 'suvaiya irukku' is UN-FIRED. That exact line is now a FIELD MISSION: deploy at supper tonight (2026-07-01), unprompted, wife unwitting. Collect the debrief at the evening knock / next session — if it survived live fire, log it cold. 'ippa-ve' still heard-not-fired from the wedding thread; opportunistic only. Andrew also re-chartered Anna today with explicit authority over tools/pedagogy/config/curriculum — engineering shift running while he eats.",
+  "last_debrief": "STORY SO FAR: the reveal-prep arc. 'suvaiya irukku' survived live fire at supper 2026-07-01 (field mission #1, logged cold). 2026-07-02: Andrew ran the 8-question Oracle chat — she vetted the deck and UPGRADED it: 'vai therantha kaakka kothittu poidum' (her own stuffed-idiom, now the crown zinger), pazhagippochu, evlo (never evvalavu), freeya vidunga, 'software engineer-a irukken', praise > asking for seconds ('romba nallarukku' is THE melt line), gossip opens with 'namma {person} irukkaan-la' / 'theriyuma', and the register law: neenga for EVERYONE incl. younger relatives, nee only for the very close. All corrections seeded (deck 0/59 fire + 0/8 catch). OPEN THREAD: the arrival gauntlet — next session opens with the aunties running the FAQ interrogation and Andrew firing his corrected script (oru maasam iruppom / nethu dhaan vandhom / software engineer-a irukken / Canada-la irukkom / romba pidichirukku / kaaram paravaayilla pazhagippochu). None have fired yet. 'ippa-ve' still opportunistic.",
   "soak_order": {
     "payload": [
-      "சுவையா இருக்கு"
+      "ரொம்ப நல்லா இருக்கு"
     ],
-    "scene_seed": "the atthai's kitchen, verdict beat: the plate landed, she's watching his face for the word",
-    "from": "2026-07-01"
+    "scene_seed": "the arrival gauntlet — aunties descend on the ginger fella with the standard interrogation; the corrected FAQ script gets its first live-fire rehearsal",
+    "from": "2026-07-02"
   },
   "recent_missions": [
     {
@@ -30,5 +30,5 @@
       "listens": 0
     }
   ],
-  "status": "Trip Deck 0/47 fire cold · 42 days to touchdown"
+  "status": "Trip Deck 0/59 fire cold · 41 days to touchdown"
 }

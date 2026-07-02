@@ -71,11 +71,11 @@ A learner who knows every word can still lose the story if lines are too long an
 
 ---
 
-## The Vocabulary Fence (the 85% rule)
+## The Vocabulary Fence (the coverage rule)
 
 The brief includes a **Vocabulary Fence** — the full list of Tamil words the learner currently recognizes. This is "the sea." The payload words (NEW + CALLBACKS) are the fish. **Everything else in the scene — the connective tissue, the reactions, the scene-building — should draw from the fence.**
 
-This replaces the old density number. You don't target "75% Tamil" — you target **~85-90% comprehension**: the listener should understand the vast majority of what's said, with the remaining 10-15% being inferable from context. The density is a *consequence* of the fence size, not a parameter you choose.
+This replaces the old density number. You don't target "75% Tamil" — you target **comprehension as heard**. The exact coverage dial is a hard parameter in `progress/profile.md` → Calibration Notes (currently ~95%+ known-word coverage live); read it there, don't carry a number in this file. The density is a *consequence* of the fence size, not a parameter you choose. (One exception exists: a brief that explicitly marks an eavesdrop/"gossip-tape" segment runs native-speed with deliberately partial coverage — see the carve-out in the Calibration Notes.)
 
 **How to use the fence:**
 

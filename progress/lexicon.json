@@ -2202,7 +2202,10 @@
       31,
       42
     ],
-    "last_surfaced": null
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire",
+    "type": "chunk"
   },
   "கூப்பிடு": {
     "gloss": "Call",
@@ -2499,7 +2502,7 @@
   },
   "இன்னும் கொஞ்சம் சாப்பிடுங்க": {
     "type": "chunk",
-    "gloss": "Eat a little more (she will say this)",
+    "gloss": "Eat a little more (HER line — hear it coming)",
     "phonetic": [
       "innum konjam saapidunga"
     ],
@@ -2507,7 +2510,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "catch"
   },
   "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு": {
     "type": "chunk",
@@ -2518,8 +2522,7 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": null,
-    "deck": "trip"
+    "last_surfaced": null
   },
   "உங்க கை ருசி சூப்பர்": {
     "type": "chunk",
@@ -2531,7 +2534,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "நானே எடுத்துக்கறேன்": {
     "type": "chunk",
@@ -2543,7 +2547,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "கொஞ்சம் தண்ணி குடுங்க": {
     "type": "chunk",
@@ -2555,7 +2560,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "கை கழுவிட்டு வரேன்": {
     "type": "chunk",
@@ -2567,7 +2573,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "உட்கார்ந்து பேசுங்க": {
     "type": "chunk",
@@ -2579,7 +2586,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "நீங்க சாப்பிட்டீங்களா?": {
     "type": "chunk",
@@ -2591,11 +2599,12 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "அவங்க என்ன சொன்னாங்க?": {
     "type": "chunk",
-    "gloss": "What did they say?",
+    "gloss": "What did they say? (your eavesdrop question)",
     "phonetic": [
       "avanga enna sonnaanga"
     ],
@@ -2603,11 +2612,12 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "யாருக்கு தெரியும்?": {
     "type": "chunk",
-    "gloss": "Who knows?",
+    "gloss": "Who knows? (the shrug)",
     "phonetic": [
       "yaarukku theriyum"
     ],
@@ -2615,7 +2625,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "கேள்விப்பட்டியா?": {
     "type": "chunk",
@@ -2626,8 +2637,7 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": null,
-    "deck": "trip"
+    "last_surfaced": null
   },
   "அது உண்மையா?": {
     "type": "chunk",
@@ -2639,11 +2649,12 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "சும்மா சொல்றாங்க": {
     "type": "chunk",
-    "gloss": "They're just talking / gossiping",
+    "gloss": "They're just talking / making it up (the dismissal — hear it)",
     "phonetic": [
       "summa solraanga"
     ],
@@ -2651,11 +2662,12 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "catch"
   },
   "எனக்கு ஒன்னும் தெரியாது": {
     "type": "chunk",
-    "gloss": "I don't know anything (staying out of it)",
+    "gloss": "I don't know anything (staying out of it — comedy gold fired deadpan)",
     "phonetic": [
       "enakku onnum theriyaadhu"
     ],
@@ -2663,11 +2675,12 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "என்னமோ பிரச்சனை": {
     "type": "chunk",
-    "gloss": "Some problem or other",
+    "gloss": "Some problem or other (the gossip hum — catch the drift)",
     "phonetic": [
       "ennamo prachanai"
     ],
@@ -2675,11 +2688,12 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "catch"
   },
   "விட்டுடு": {
     "type": "chunk",
-    "gloss": "Let it go / drop it",
+    "gloss": "Let it go / drop it (nee-form — cousins say it to each other)",
     "phonetic": [
       "vittudu"
     ],
@@ -2687,7 +2701,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "catch"
   },
   "எவ்வளவு ஆகும்?": {
     "type": "chunk",
@@ -2698,8 +2713,7 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": null,
-    "deck": "trip"
+    "last_surfaced": null
   },
   "கொஞ்சம் குறையுங்க": {
     "type": "chunk",
@@ -2710,8 +2724,7 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": null,
-    "deck": "trip"
+    "last_surfaced": null
   },
   "ரொம்ப அதிகம்": {
     "type": "chunk",
@@ -2723,7 +2736,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "இங்க நிறுத்துங்க": {
     "type": "chunk",
@@ -2735,7 +2749,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "நேரா போங்க": {
     "type": "chunk",
@@ -2747,7 +2762,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "வலது பக்கம் திரும்புங்க": {
     "type": "chunk",
@@ -2759,11 +2775,12 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "சில்லறை இருக்கா?": {
     "type": "chunk",
-    "gloss": "Do you have change?",
+    "gloss": "Do you have change? (you're the cash man on this trip)",
     "phonetic": [
       "sillarai irukka"
     ],
@@ -2771,7 +2788,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "கார்டு வேலை செய்யுமா?": {
     "type": "chunk",
@@ -2782,8 +2800,7 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": null,
-    "deck": "trip"
+    "last_surfaced": null
   },
   "அவசரம் இருக்கு": {
     "type": "chunk",
@@ -2795,7 +2812,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "கொஞ்சம் நில்லுங்க": {
     "type": "chunk",
@@ -2807,7 +2825,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "எப்படி இருக்கீங்க?": {
     "type": "chunk",
@@ -2819,7 +2838,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "ரொம்ப நாளாச்சு": {
     "type": "chunk",
@@ -2831,7 +2851,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "வந்துட்டேன்": {
     "type": "chunk",
@@ -2843,7 +2864,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "கிளம்பலாமா?": {
     "type": "chunk",
@@ -2855,7 +2877,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "பிறகு பார்க்கலாம்": {
     "type": "chunk",
@@ -2866,8 +2889,7 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": null,
-    "deck": "trip"
+    "last_surfaced": null
   },
   "உங்களை பார்த்ததுல சந்தோஷம்": {
     "type": "chunk",
@@ -2878,8 +2900,7 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": null,
-    "deck": "trip"
+    "last_surfaced": null
   },
   "கவலைப்படாதீங்க": {
     "type": "chunk",
@@ -2890,8 +2911,7 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": null,
-    "deck": "trip"
+    "last_surfaced": null
   },
   "நல்லா இருங்க": {
     "type": "chunk",
@@ -2903,7 +2923,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "ஒரு நிமிஷம்": {
     "type": "chunk",
@@ -2915,7 +2936,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "நான் கோயம்புத்தூர்காரன் மாதிரி ஆயிட்டேன்": {
     "type": "chunk",
@@ -2927,7 +2949,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "இதெல்லாம் எனக்கு புடிக்கும்": {
     "type": "chunk",
@@ -2939,7 +2962,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "அடுத்த தடவ நானே சமைக்கறேன்": {
     "type": "chunk",
@@ -2951,7 +2975,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "கொஞ்சம் கொஞ்சம் புரியுது": {
     "type": "chunk",
@@ -2963,7 +2988,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "frame:want-noun": {
     "type": "pattern",
@@ -2973,7 +2999,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "frame:where-noun": {
     "type": "pattern",
@@ -2983,7 +3010,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "frame:isthere-noun": {
     "type": "pattern",
@@ -2993,17 +3021,19 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "frame:howmuch-noun": {
     "type": "pattern",
-    "gloss": "{noun} எவ்வளவு? → how much is {noun}? (e.g. 'idhu evvalavu?')",
+    "gloss": "{noun} எவ்ளோ? → how much is {noun}? (e.g. 'idhu evlo?' — Oracle: always the contracted 'evlo')",
     "phonetic": [],
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "frame:mayi-laama": {
     "type": "pattern",
@@ -3013,7 +3043,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "frame:giveme-noun": {
     "type": "pattern",
@@ -3023,7 +3054,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "frame:needtogo-place": {
     "type": "pattern",
@@ -3033,7 +3065,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "frame:nearby-noun": {
     "type": "pattern",
@@ -3043,7 +3076,8 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": null,
-    "deck": "trip"
+    "deck": "trip",
+    "direction": "fire"
   },
   "என்ன சமைக்கிற?": {
     "gloss": "What are you cooking? (informal)",
@@ -3065,7 +3099,7 @@
       "suvaiya irukku"
     ],
     "recognition": "comfortable",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       53
     ],
@@ -3095,5 +3129,368 @@
       53
     ],
     "last_surfaced": "2026-07-01"
+  },
+  "ஒரு மாசம் இருப்போம்": {
+    "type": "chunk",
+    "gloss": "We're staying one month (the 'evlo naal irupeenga?' answer)",
+    "phonetic": [
+      "oru maasam iruppom"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "நேத்து தான் வந்தோம்": {
+    "type": "chunk",
+    "gloss": "We arrived just yesterday (the 'eppo vandheenga?' answer — swap the day word as needed)",
+    "phonetic": [
+      "nethu dhaan vandhom"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "சாஃப்ட்வேர் வேலை பண்றேன்": {
+    "type": "chunk",
+    "gloss": "I work in software (the 'enna velai?' answer)",
+    "phonetic": [
+      "software velai panren"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null
+  },
+  "கனடாவுல இருக்கோம்": {
+    "type": "chunk",
+    "gloss": "We live in Canada (the 'enga irukkeenga?' answer)",
+    "phonetic": [
+      "canada-la irukkom"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "ரொம்ப பிடிச்சிருக்கு": {
+    "type": "chunk",
+    "gloss": "I really like it — food/place/people (the default delight answer)",
+    "phonetic": [
+      "romba pidichirukku"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "காரம் பரவாயில்ல, பழக்கமாயிடுச்சு": {
+    "type": "chunk",
+    "gloss": "Spice is fine — I'm used to it (the answer they won't expect from the ginger fella)",
+    "phonetic": [
+      "kaaram paravaayilla, pazhakkamaayiduchu"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null
+  },
+  "கொஞ்சம் மெதுவா சொல்லுங்க": {
+    "type": "chunk",
+    "gloss": "Say it a bit slowly (the freeze-breaker — always a legal move)",
+    "phonetic": [
+      "konjam medhuva sollunga"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "இன்னொரு தடவ சொல்லுங்க": {
+    "type": "chunk",
+    "gloss": "Say it once more",
+    "phonetic": [
+      "innoru thadava sollunga"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "என்ன சொன்னீங்க?": {
+    "type": "chunk",
+    "gloss": "What did you say? (neenga-form)",
+    "phonetic": [
+      "enna sonneenga"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "தமிழ்ல எப்படி சொல்றது?": {
+    "type": "chunk",
+    "gloss": "How do you say it in Tamil?",
+    "phonetic": [
+      "tamizh-la eppadi solradhu"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "ஆமா ஆமா": {
+    "type": "chunk",
+    "gloss": "Yeah, yeah (backchannel — keeps the speaker going, holds your seat in the conversation)",
+    "phonetic": [
+      "aama aama"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "அப்படியா?!": {
+    "type": "chunk",
+    "gloss": "Oh really?! (backchannel — surprise/interest)",
+    "phonetic": [
+      "appadiya"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "சரி சரி": {
+    "type": "chunk",
+    "gloss": "Right, right (backchannel — agreement)",
+    "phonetic": [
+      "seri seri"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "இன்னும் கொஞ்சம் போடுங்க": {
+    "type": "chunk",
+    "gloss": "Serve me a little more (optional — seconds come unasked; praise first, this second)",
+    "phonetic": [
+      "innum konjam podunga"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "frame:polite-nga": {
+    "type": "pattern",
+    "gloss": "{verb}+ங்க → the polite ask — சொல்லுங்க, குடுங்க, உக்காருங்க, வாங்க: one machine, every verb he owns",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "frame:we-om": {
+    "type": "pattern",
+    "gloss": "{I-form}+ஓம் → we — வந்தோம், போனோம், இருப்போம், சாப்பிட்டோம்: the trip is a 'we' trip",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "frame:day-recap": {
+    "type": "pattern",
+    "gloss": "{place} போனோம், ரொம்ப நல்லா இருந்துச்சு → we went to {place}, it was great (the nightly 'inniki enna panninga?' answer)",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "frame:quote-nu": {
+    "type": "pattern",
+    "gloss": "…-னு சொன்னாங்க → 'she said that…' — the quotative -னு; every reported line in gossip hangs on it (EAR ONLY)",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "catch"
+  },
+  "frame:hearsay-aam": {
+    "type": "pattern",
+    "gloss": "…-ஆம் → 'apparently / they say' — the hearsay tag gossip runs on (varaanga-laam = apparently they're coming) (EAR ONLY)",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "catch"
+  },
+  "அப்புறம் பார்க்கலாம்": {
+    "type": "chunk",
+    "gloss": "See you later (colloquial — nobody says 'piragu' at the door)",
+    "phonetic": [
+      "appuram paakkalaam"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "ரொம்ப சந்தோஷம்": {
+    "type": "chunk",
+    "gloss": "So happy (to meet you / about this) — with the smile, it's complete",
+    "phonetic": [
+      "romba sandhosham"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "சாஃப்ட்வேர் இன்ஜினியரா இருக்கேன்": {
+    "type": "chunk",
+    "gloss": "I'm a software engineer (the 'enna velai?' answer — Oracle's form)",
+    "phonetic": [
+      "software engineer-a irukken"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "காரம் பரவாயில்ல, பழகிப்போச்சு": {
+    "type": "chunk",
+    "gloss": "Spice is fine — I'm used to it now (the answer they won't expect from the ginger fella)",
+    "phonetic": [
+      "kaaram paravaayilla, pazhagippochu"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "ரொம்ப நல்லா இருக்கு": {
+    "type": "chunk",
+    "gloss": "It's really good — THE melt line (Oracle: praise beats asking; seconds arrive unasked)",
+    "phonetic": [
+      "romba nallarukku"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "தெரியுமா?": {
+    "type": "chunk",
+    "gloss": "You know…? (a real gossip opener — Oracle-confirmed)",
+    "phonetic": [
+      "theriyuma"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "catch"
+  },
+  "frame:youknow-la": {
+    "type": "pattern",
+    "gloss": "நம்ம {person} இருக்கான்ல… → 'you know our {person}, right…' — THE gossip opener; the -ல tag means 'right?' (EAR ONLY, Oracle-confirmed)",
+    "phonetic": [
+      "namma thambi irukkaan-la"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "catch"
+  },
+  "எவ்ளோ ஆகும்?": {
+    "type": "chunk",
+    "gloss": "How much will it be? (Oracle: it's always 'evlo' in the mouth, never 'evvalavu')",
+    "phonetic": [
+      "evlo aagum"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "ஃப்ரீயா விடுங்க": {
+    "type": "chunk",
+    "gloss": "Don't worry / let it go (Oracle's form — 'freeya vidu' only to very close cousins/friends)",
+    "phonetic": [
+      "freeya vidunga"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "வாய் திறந்தா காக்கா கொத்திட்டு போயிடும்": {
+    "type": "chunk",
+    "gloss": "If I open my mouth a crow will peck it away — I'm THAT stuffed (the wife's own sassy idiom)",
+    "phonetic": [
+      "vai therantha kaakka kothittu poidum"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
   }
 }

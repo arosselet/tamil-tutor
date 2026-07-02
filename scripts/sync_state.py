@@ -8,7 +8,7 @@ last-surfaced date. This script owns all writes to it. The LLM (Anna) calls
 `update` at the end of a session to record what it observed.
 
   progress/lexicon.json     → word-state (this file's domain)
-  progress/learner.json     → continuity: streak, debrief, soak order, status (thin, LLM-facing)
+  progress/learner.json     → continuity: running story (debrief), soak order, status (thin, LLM-facing)
   progress/episodes.json    → episodes / listens (audio artifacts)
   progress/session_log.json → append-only momentum log, one entry per session
 
@@ -124,12 +124,21 @@ def compute_deck(lexicon: dict, deck: str = "trip") -> dict:
     phrases) tagged `deck: "<name>"`. Its meter is the headline during a sprint:
     of the deck's members, how many fire cold? Members are counted regardless of
     type — a chunk fires cold when said whole, a frame when a novel slot-fill lands.
-    Anna narrates the countdown to the deadline (Python counts; Anna narrates)."""
-    members = [w for w, r in lexicon.items() if r.get("deck") == deck]
-    cleared = [w for w in members if lexicon[w].get("production") == "cold"]
-    total = len(members)
+    Anna narrates the countdown to the deadline (Python counts; Anna narrates).
+
+    Members carry a `direction`: "fire" (default — cleared when production goes
+    cold) or "catch" (ear-only — the win is comprehension, cleared when recognition
+    reaches solid; never forced to fire). cleared/total/pct stay the FIRE side so
+    every caller's headline is honest; caught/catch_total meter the ear."""
+    members = {w: r for w, r in lexicon.items() if r.get("deck") == deck}
+    fire = [w for w, r in members.items() if r.get("direction", "fire") != "catch"]
+    catch = [w for w, r in members.items() if r.get("direction") == "catch"]
+    cleared = [w for w in fire if members[w].get("production") == "cold"]
+    caught = [w for w in catch if members[w].get("recognition") == "solid"]
+    total = len(fire)
     pct = (len(cleared) / total * 100) if total else 0.0
-    return {"cleared": len(cleared), "total": total, "pct": pct}
+    return {"cleared": len(cleared), "total": total, "pct": pct,
+            "caught": len(caught), "catch_total": len(catch)}
 
 
 # --- Episode helpers (progress/episodes.json — a flat {id: episode} map) ------
@@ -314,7 +323,8 @@ def cmd_update(args):
         print(f"Engines online: {engines['online']}/{engines['total']} ({engines['pct']:.0f}%)")
     deck = compute_deck(lexicon)
     if deck["total"]:
-        print(f"Trip Deck: {deck['cleared']}/{deck['total']} fire cold ({deck['pct']:.0f}%)")
+        catch = f" · catch {deck['caught']}/{deck['catch_total']} solid" if deck["catch_total"] else ""
+        print(f"Trip Deck: {deck['cleared']}/{deck['total']} fire cold ({deck['pct']:.0f}%){catch}")
     print(f"Fired today: {fires_today()}")
     print("State updated.")
 
@@ -388,10 +398,13 @@ def cmd_seed_deck(args):
     the same LLM-writes / Python-owns-state split as word_pool.json.
 
     Each deck entry: {"tamil", "gloss", "phonetic": [...], "type": "chunk"|"frame",
-    "recognition"?}. A "frame" is stored as a lexicon `pattern` (an Engine); a
-    "chunk" is word-like (counts in the viability floor). Re-runnable as the deck
-    grows: existing entries get the deck tag + any missing gloss/phonetic without
-    clobbering their learning state; new entries are created."""
+    "recognition"?, "direction"?: "fire"|"catch"}. A "frame" is stored as a lexicon
+    `pattern` (an Engine); a "chunk" is word-like (counts in the viability floor).
+    "catch" marks ear-only items (cleared by recognition, never forced to fire).
+    Re-runnable and the file is the source of truth: existing entries get the deck
+    tag + direction + any missing gloss/phonetic without clobbering their learning
+    state; new entries are created; lexicon entries tagged with this deck but no
+    longer in the file are un-tagged (their learning state stays)."""
     path = Path(args.file)
     if not path.is_absolute():
         path = BASE / path
@@ -419,9 +432,10 @@ def cmd_seed_deck(args):
         if tamil in lexicon:
             rec = lexicon[tamil]
             rec["deck"] = args.deck
+            rec["direction"] = e.get("direction", "fire")
             rec.setdefault("type", lex_type)
-            if not rec.get("gloss") and e.get("gloss"):
-                rec["gloss"] = e["gloss"]
+            if e.get("gloss"):
+                rec["gloss"] = e["gloss"]  # deck file is the curated content source — its gloss wins
             for phon in e.get("phonetic", []):
                 if phon not in rec.setdefault("phonetic", []):
                     rec["phonetic"].append(phon)
@@ -436,12 +450,24 @@ def cmd_seed_deck(args):
                 "seen_in": [],
                 "last_surfaced": None,
                 "deck": args.deck,
+                "direction": e.get("direction", "fire"),
             }
             created += 1
+    # The deck file is the source of truth: un-tag lexicon entries that left it.
+    in_file = {e.get("tamil") for e in entries}
+    pruned = []
+    for w, rec in lexicon.items():
+        if rec.get("deck") == args.deck and w not in in_file:
+            del rec["deck"]
+            rec.pop("direction", None)
+            pruned.append(w)
     save_json(LEXICON_PATH, lexicon)
     deck = compute_deck(lexicon, args.deck)
-    print(f"  Seeded deck '{args.deck}': +{created} new, {updated} re-tagged.")
-    print(f"  Trip Deck now: {deck['cleared']}/{deck['total']} fire cold ({deck['pct']:.0f}%)")
+    print(f"  Seeded deck '{args.deck}': +{created} new, {updated} re-tagged, {len(pruned)} un-tagged.")
+    for w in pruned:
+        print(f"    - un-tagged (stays in lexicon): {w}")
+    print(f"  Trip Deck now: {deck['cleared']}/{deck['total']} fire cold ({deck['pct']:.0f}%)"
+          + (f" · catch {deck['caught']}/{deck['catch_total']} solid" if deck["catch_total"] else ""))
 
 
 def cmd_status(_args):
@@ -497,7 +523,8 @@ def cmd_status(_args):
             print(f"Engines online: {engines['online']}/{engines['total']} patterns fire cold ({engines['pct']:.0f}%)")
         deck = compute_deck(lexicon)
         if deck["total"]:
-            print(f"Trip Deck: {deck['cleared']}/{deck['total']} deck phrases fire cold ({deck['pct']:.0f}%) — the sprint headline")
+            catch = f" · catch {deck['caught']}/{deck['catch_total']} solid" if deck["catch_total"] else ""
+            print(f"Trip Deck: {deck['cleared']}/{deck['total']} deck phrases fire cold ({deck['pct']:.0f}%){catch} — the sprint headline")
         print(f"Fired today: {fires_today()}")
 
     if episodes:

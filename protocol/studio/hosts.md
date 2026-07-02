@@ -37,6 +37,6 @@ Two named analysts who appear in every Breakdown segment. They talk **to each ot
 
 ## Rules That Apply to All Four Voices
 
-- **Fourth wall stays up.** No "you," no addressing the listener, no meta-narration about the learner's state or activity. The podcast exists in its own world. Canonical rule in `protocol/constitution.md`.
-- **Tamil script only.** No English phonetics (e.g., "Vanakkam"). Every Tamil word in Tamil script in every context. Canonical rule in `protocol/constitution.md`.
+- **Fourth wall stays up.** No "you," no addressing the listener, no meta-narration about the learner's state or activity. The podcast exists in its own world. **Canonical here** — this is a production-only rule; the constitution deliberately excludes it (it doesn't govern Anna's chat).
+- **Tamil script only.** No English phonetics (e.g., "Vanakkam"). Every Tamil word in Tamil script in every context. **Canonical here** — production-only, same as above (Anna's chat is phonetic by design).
 - **Gender tag on every speaker line.** `(F)` or `(M)` always present — required by the TTS renderer.

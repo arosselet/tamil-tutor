@@ -43,15 +43,18 @@ Anna can commission the studio end-to-end mid-session; `/studio` also runs stand
 
 | File | Owner | Holds |
 |---|---|---|
-| `lexicon.json` | `sync_state.py` | Word brain: recognition + production axes, patterns/engines, viability floor |
-| `learner.json` | `sync_state.py` | Continuity: streak, running story (`last_debrief`), `soak_order`, status |
+| `lexicon.json` | `sync_state.py` | Word brain: recognition + production axes, patterns/engines, deck tags + fire/catch direction, viability floor |
+| `learner.json` | `sync_state.py` | Continuity: running story (`last_debrief`), `soak_order`, status (no streak — recency from the session log is the honest signal) |
 | `episodes.json` | `sync_state.py` / `render_audio.py` | Episode registry |
 | `session_log.json` | `sync_state.py` | Append-only momentum log |
-| `profile.md` | Anna (LLM) | Teacher's notebook — assessment, gaps, terrain |
+| `feedback_log.json` | `sync_state.py feedback` | The ledger the diagnosis pass reads |
+| `knock_log.json` | `morning_knock.py` / `knock_reply.py` | Anna's outreach memory: every wake (fire or silence), replies, verdicts |
+| `push_queue.json` | `push_queue.py` | Scheduled pushes, fully composed at add-time; drained hourly by CI |
+| `profile.md` | Anna (LLM) | Teacher's notebook — assessment, gaps, calibration dials, sprint priorities |
 
 ## Python brain (`scripts/`)
 
-`sync_state.py` (owns all state writes) · `suggest_targets.py` (the ticket + scene-spec divergence gate) · `generate_callbacks.py` (spaced repetition) · `render_audio.py` (TTS + register episode + RSS) · `show_status.py` · `build_playlist.py` · `rebuild_rss.py` / `rebuild_playlist_rss.py`.
+`sync_state.py` (owns all state writes; `seed-deck` loads curated decks from `curriculum/`) · `suggest_targets.py` (the ticket + scene-spec divergence gate) · `generate_callbacks.py` (spaced repetition) · `render_audio.py` (TTS + register episode + RSS) · `show_status.py` (human dashboard) · `morning_knock.py` (agentic outreach: rails gate + Anna's fire/silence policy) · `knock_reply.py` (judges phone replies, moves the production axis) · `push_queue.py` (durable "ping me at X") · `build_playlist.py` · `rebuild_rss.py` / `rebuild_playlist_rss.py`.
 
 The LLM is the writer; Python is the brain. Never hand-edit Python-owned JSON.
 

@@ -67,6 +67,8 @@ def floor_gap_targets(lexicon: dict, today, max_n: int) -> list[dict]:
     for w, r in lexicon.items():
         if r.get("type") == "pattern":
             continue  # patterns are forced via the Engines block, not the word floor
+        if r.get("direction") == "catch":
+            continue  # ear-only deck items — never forced to fire
         if r.get("recognition") not in RECOGNIZED or r.get("production") == "cold":
             continue
         ds = days_since(r.get("last_surfaced"), today)
@@ -91,21 +93,35 @@ def floor_gap_targets(lexicon: dict, today, max_n: int) -> list[dict]:
 def deck_status(lexicon: dict, deck: str = "trip") -> dict | None:
     """A finite, deadline-driven deck (the India-trip survival set), tagged
     `deck: "<name>"`. During a sprint this is the HEADLINE priority — Anna forces
-    its not-yet-cold members first. Returns progress + the pending items (all types:
-    chunks are said whole, frames want a novel slot-fill), or None if no deck exists."""
+    its not-yet-cold members first. Members split by `direction`: "fire" (default —
+    force to cold production) vs "catch" (ear-only — the win is solid recognition
+    via eavesdrop/soak; NEVER force these to fire). Returns fire progress + pending
+    fire items (chunks said whole, frames want a novel slot-fill) + pending catch
+    items, or None if no deck exists."""
     members = [(w, r) for w, r in lexicon.items() if r.get("deck") == deck]
     if not members:
         return None
-    cold = [w for w, r in members if r.get("production") == "cold"]
+    fire = [(w, r) for w, r in members if r.get("direction", "fire") != "catch"]
+    catch = [(w, r) for w, r in members if r.get("direction") == "catch"]
+    cold = [w for w, r in fire if r.get("production") == "cold"]
     pending = [{
         "word": w, "gloss": r.get("gloss", ""),
         "kind": "frame" if r.get("type") == "pattern" else r.get("type", "chunk"),
         "recognition": r.get("recognition"), "production": r.get("production", "none"),
-    } for w, r in members if r.get("production") != "cold"]
+    } for w, r in fire if r.get("production") != "cold"]
     # Ripest first: hinted before none, solid before comfortable.
     pending.sort(key=lambda c: (PROD_ORDER.get(c["production"], 1),
                                 RECOG_ORDER.get(c["recognition"], 1), c["word"]))
-    return {"total": len(members), "cold": len(cold), "pending": pending}
+    catch_pending = [{
+        "word": w, "gloss": r.get("gloss", ""),
+        "kind": "frame" if r.get("type") == "pattern" else r.get("type", "chunk"),
+        "recognition": r.get("recognition"),
+    } for w, r in catch if r.get("recognition") != "solid"]
+    catch_pending.sort(key=lambda c: (RECOG_ORDER.get(c["recognition"], 1), c["word"]))
+    return {"total": len(fire), "cold": len(cold), "pending": pending,
+            "catch_total": len(catch),
+            "caught": sum(1 for _, r in catch if r.get("recognition") == "solid"),
+            "catch_pending": catch_pending}
 
 
 def engines_to_fire(lexicon: dict) -> list[dict]:
@@ -116,6 +132,9 @@ def engines_to_fire(lexicon: dict) -> list[dict]:
     for w, r in lexicon.items():
         if r.get("type") != "pattern" or r.get("production") == "cold":
             continue
+        if r.get("direction") == "catch":
+            continue  # ear-only patterns (e.g. the quotative -nu) — train the ear, don't force
+
         out.append({"key": w, "gloss": r.get("gloss", ""), "production": r.get("production", "none")})
     out.sort(key=lambda c: (c["production"] != "hinted", c["key"]))  # hinted (riper) first
     return out
@@ -242,6 +261,11 @@ def main():
         for t in deck["pending"][:12]:
             tag = "hinted→cold" if t["production"] == "hinted" else f"{t['recognition']}, cold-pending"
             print(f"  - [{t['kind']}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{tag}]")
+        if deck["catch_total"]:
+            print(f"\n  EAR-ONLY ({deck['caught']}/{deck['catch_total']} solid) — eavesdrop/soak targets; "
+                  f"win = recognition, never force these to fire:")
+            for t in deck["catch_pending"][:8]:
+                print(f"  - [{t['kind']}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{t['recognition']}]")
 
     # 0. Scene spec — structural variety gate (audio episodes especially)
     spec = scene_spec(load_recent_sidecars())
@@ -280,7 +304,10 @@ def main():
     if not callbacks:
         print("  (nothing due — the recognized set is fresh)")
     for cb in callbacks:
-        gap_tag = "floor-gap" if cb["production"] != "cold" else "retention"
+        if cb.get("direction") == "catch":
+            gap_tag = "ear"  # soak-by-design, not production debt
+        else:
+            gap_tag = "floor-gap" if cb["production"] != "cold" else "retention"
         print(f"  - {cb['word']} — {cb['gloss'] or '[no gloss]'}  [{gap_tag}]")
 
     # 3. New candidates by cluster — Anna picks the cluster

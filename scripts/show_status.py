@@ -11,7 +11,12 @@ Usage:
 """
 
 import json
+import sys
+from datetime import date
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent))
+from sync_state import compute_floor, compute_engines, compute_deck, TRIP_DATE
 
 RECOGNIZED = {"comfortable", "solid"}
 
@@ -48,37 +53,62 @@ def main():
     if last:
         print(f"\n📅 Last logged session: {last}")
 
-    # --- The viability floor: the one honest meter ---
-    recognized = [w for w, r in lexicon.items() if r.get("recognition") in RECOGNIZED]
-    cold = [w for w in recognized if lexicon[w].get("production") == "cold"]
-    total = len(recognized)
-    pct = (len(cold) / total * 100) if total else 0
+    # --- The deck: the headline during a sprint (same math as sync_state) ---
+    deck = compute_deck(lexicon)
+    if deck["total"]:
+        days = (TRIP_DATE - date.today()).days
+        print(f"\n★ TRIP DECK — the sprint headline · {days} days to touchdown")
+        print("-" * 55)
+        print(f"    [{bar(deck['pct'])}] {deck['cleared']}/{deck['total']} fire cold ({deck['pct']:.0f}%)")
+        if deck["catch_total"]:
+            print(f"    Ear-only (catch): {deck['caught']}/{deck['catch_total']} solid")
+
+    # --- The viability floor (compute_floor: patterns excluded, same as sync_state) ---
+    floor = compute_floor(lexicon)
     print(f"\n🎯 VIABILITY FLOOR — recognized words that fire cold")
     print("-" * 55)
-    print(f"    [{bar(pct)}] {len(cold)}/{total} ({pct:.0f}%)")
-    print(f"    Floor gap: {total - len(cold)} recognized words not yet cold.")
+    print(f"    [{bar(floor['pct'])}] {floor['cleared']}/{floor['total']} ({floor['pct']:.0f}%)")
+    print(f"    Floor gap: {floor['total'] - floor['cleared']} recognized words not yet cold.")
 
-    # --- Recognition breakdown ---
+    # --- Engines: generative patterns firing cold ---
+    engines = compute_engines(lexicon)
+    if engines["total"]:
+        print(f"\n⚙️  ENGINES — patterns that fire a novel instance cold")
+        print("-" * 55)
+        print(f"    [{bar(engines['pct'])}] {engines['online']}/{engines['total']} online ({engines['pct']:.0f}%)")
+
+    # --- Recognition breakdown (words only; patterns are metered above) ---
     levels = {"solid": 0, "comfortable": 0, "struggled": 0}
+    n_words = 0
     for r in lexicon.values():
+        if r.get("type") == "pattern":
+            continue
+        n_words += 1
         levels[r.get("recognition", "struggled")] = levels.get(r.get("recognition", "struggled"), 0) + 1
-    print(f"\n📚 RECOGNITION ({len(lexicon)} words tracked)")
+    print(f"\n📚 RECOGNITION ({n_words} words tracked)")
     print("-" * 55)
     print(f"    solid: {levels['solid']}   comfortable: {levels['comfortable']}   struggled: {levels['struggled']}")
 
-    struggled = sorted(w for w, r in lexicon.items() if r.get("recognition") == "struggled")
+    # Words only (patterns are Engines, metered above); ear-only items are marked —
+    # they want soak, not drilling.
+    struggled = sorted(
+        w + (" (ear)" if r.get("direction") == "catch" else "")
+        for w, r in lexicon.items()
+        if r.get("recognition") == "struggled" and r.get("type") != "pattern")
     if struggled:
         print(f"\n⚠️  STRUGGLED ({len(struggled)}) — candidates for interactive drilling")
         print("-" * 55)
         print("    " + ", ".join(struggled[:12]) + (" ..." if len(struggled) > 12 else ""))
 
-    # --- Episodes ---
+    # --- Episodes (self-contained doses — no listen bookkeeping) ---
     if episodes:
         recent = sorted(episodes.items(), key=lambda x: int(x[0]), reverse=True)[:5]
-        print(f"\n🎧 RECENT EPISODES")
+        print(f"\n🎧 RECENT EPISODES (the immersion tank)")
         print("-" * 55)
         for m, ep in recent:
-            print(f"    M{m}: {ep.get('listens', 0)}x — {ep.get('title', '')}")
+            dur = ep.get("duration_min")
+            dur_str = f" ({dur:.1f} min)" if dur else ""
+            print(f"    M{m}: {ep.get('title', '')}{dur_str}")
 
     # --- Momentum: recent sessions from the append-only log ---
     if session_log:

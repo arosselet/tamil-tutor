@@ -19,7 +19,7 @@ An LLM-driven Tamil learning system. Anna — a persistent, stateful coach with 
 
 1. **Anna — the daily tutor.** A Coimbatore-Tamil coach you chat with for ~10–15 minutes a day. Anna runs a *forced-output* loop — he drops you into a situation and makes you produce, cold — to turn passive recognition into speaking reflex. This is the primary driver.
 2. **The audio pipeline.** On-demand dual-voice Tamil podcast episodes for immersion during dead time (commute, dishes, walking). An LLM reads protocol files defining three production roles (Director, Architect, Producer), pulls from a word pool, and renders a script to MP3 via Google Cloud TTS or Edge-TTS.
-3. **The morning knock.** A scheduled job (GitHub Actions) in which Anna, *unprompted*, leaves a short audio nudge on your phone each day — written fresh from your real state, rendered to MP3, served over a CDN, and delivered as a notification. It attacks the hardest problem in self-study: not the reps, but the cold start of beginning them. One knock a day, no nagging, no guilt.
+3. **The knock loop.** Anna reaches your phone between sessions — *unprompted*, written fresh from your real state — and the notification is a two-way rep: type phonetic Tamil straight into the reply and a judge scores it, moves your production axis, and pushes Anna's recast back. It attacks the hardest problem in self-study: not the reps, but the cold start of beginning them. Hard rails (waking hours, a daily cap, minimum spacing) keep presence from becoming pestering — and silence is a first-class choice Anna makes freely.
 
 All three feed and read the same progress state, so a word produced in chat and a word heard in a podcast move the same meter.
 
@@ -35,17 +35,18 @@ All three feed and read the same progress state, so a word produced in chat and 
 ## How It Works
 
 ```
-.github/workflows/   → Morning Knock — the daily cron that pushes an audio nudge to your phone
+.github/workflows/   → The outreach ticks: knock decisions, hourly push-queue drain, reply judging
 protocol/            → Anna (persona + daily_session + session_tools + diagnosis) and studio/ (the isolated production crew: Director, Architect, Producer)
 curriculum/
-    └── word_pool.json → Suggestion list of words to learn someday (Anna picks from it)
+    ├── word_pool.json → Suggestion list of words to learn someday (Anna picks from it)
+    └── trip_deck.json → A curated, deadline-driven deck (chunks + frames, fire/catch) seeded via sync_state.py seed-deck
 content/
     ├── lessons/     → Director's planning docs (mission briefs)
     └── scripts/     → Generated podcast scripts (Markdown)
 audio/               → Private MP3 output (gitignored scratch)
 published_audio/     → Public MP3s served over RSS/CDN; knocks/ holds the daily morning-knock audio
-progress/            → lexicon.json (word brain) + learner.json (continuity) + episodes.json + session_log.json + feedback_log.json (calibration) + knock_log.json (Anna's outreach memory)
-scripts/             → Python tools (state, render, status, RSS, morning_knock)
+progress/            → lexicon.json (word brain) + learner.json (continuity) + episodes.json + session_log.json + feedback_log.json (calibration) + knock_log.json (Anna's outreach memory) + push_queue.json (scheduled pushes)
+scripts/             → Python tools (state, targets, render, status, RSS, morning_knock, knock_reply, push_queue)
 ```
 
 *Storage: the repo keeps only the **last 8 episodes** and playlists — old MP3s are purged as new ones land. The Markdown scripts and briefs remain as the permanent record; we move forward, not archive.*
@@ -67,9 +68,11 @@ Open on the running story (hand over a rep cold) → One living scene (cold fire
 
 Anna's daily session is the default. He loads your state, targets words you *recognize but can't yet produce*, and forces you to say them cold. Misses get recast naturally — no grammar lectures. Each session updates the **production axis** and reports where the **viability floor** moved. The audio pipeline is the opt-in immersion layer alongside it.
 
-### The Morning Knock (Anna's between-session reach)
+### The Knock Loop (Anna's between-session reach)
 
-The reps aren't the chore — the cold start is. So Anna doesn't wait to be opened: once a day a GitHub Actions cron runs `scripts/morning_knock.py`, which reads your state, has Anna write a fresh ~60–90s memo (English logistics, Tamil-script payload), renders it in his pinned voice, commits the MP3 (served inline via jsDelivr), and fires it to your phone through a Home Assistant webhook. The contract is deliberately gentle: **one knock a day, no nag, self-replacing, and the target phrase sits in the notification text** so even an un-tapped push lands a 2-second rep. Anna logs each knock (`progress/knock_log.json`) so the chat can cash in on it later ("caught the one I sent?"). Read-only on the learning brain — the knock observes, it never fakes reps.
+The reps aren't the chore — the cold start is. So Anna doesn't wait to be opened. A GitHub Actions tick wakes `scripts/morning_knock.py` every couple of hours; a cheap Python **rails gate** (waking hours, ≤3 reaches/day, ≥3h apart, plus Anna's own self-set next-check) skips most ticks for free, and only when a reach is genuinely possible does Anna decide — fire or silence, and in which modality: a one-line **text micro-dose**, a ~60–90s **audio memo** in his pinned voice (rendered, committed, served via jsDelivr), a **challenge** with stakes (including field missions), or **grace** after a lapse. Every dose is self-contained: the Tamil sits in the notification text, so even an un-tapped push lands a 2-second rep.
+
+**The reply is the rep.** Type phonetic Tamil straight into the notification and `scripts/knock_reply.py` judges it against what the knock asked for — *cold* only for unaided production (Tamil the knock showed you caps at *hinted*; Python enforces that deterministically) — moves the production axis, and pushes back Anna's one-line recast plus the deck score. A scored reply can chain one follow-up micro-ask, so a hot moment becomes two or three reps. Anna can also plant a **scheduled push** at a precise time ("ping me at 8:30 to collect the field-mission debrief") via `scripts/push_queue.py`; an hourly CI drain delivers it, and the rails count it like any reach. Outreach itself never fakes reps — only a judged reply moves the axis.
 
 Feedback heals the tools, not the soul: `sync_state.py feedback "…"` captures what you react to, and a periodic **diagnosis** pass (`protocol/diagnosis.md`) proposes a dial-twist or a prune from *reproduced* patterns — never one-offs — keeping the system focused instead of diffuse.
 
@@ -103,4 +106,4 @@ The repo syncs via GitHub, so Anna runs from your phone with full state — no l
 
 ---
 
-*Contact time > completion. One listen is better than zero.*
+*Contact time > completion. One rep is better than zero.*
