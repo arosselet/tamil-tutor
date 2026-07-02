@@ -16,7 +16,7 @@ from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from sync_state import compute_floor, compute_engines, compute_deck, TRIP_DATE
+from sync_state import compute_floor, compute_engines, compute_deck, burn_rate, TRIP_DATE
 
 RECOGNIZED = {"comfortable", "solid"}
 
@@ -60,6 +60,7 @@ def main():
         print(f"\n★ TRIP DECK — the sprint headline · {days} days to touchdown")
         print("-" * 55)
         print(f"    [{bar(deck['pct'])}] {deck['cleared']}/{deck['total']} fire cold ({deck['pct']:.0f}%)")
+        print(f"    Burn rate: {burn_rate(deck, days)}")
         if deck["catch_total"]:
             print(f"    Ear-only (catch): {deck['caught']}/{deck['catch_total']} solid")
 

@@ -60,6 +60,11 @@ def clean_title(raw_title: str, filename: str) -> str:
     Input:  "Tier 2 Mission 15: The Overheard Argument", "tier2_mission15_intercept.mp3"
     Output: "Ep 15 — The Overheard Argument · Intercept"
     """
+    # Drill tracks (spoken production volleys) carry their date, not a mission number
+    drill = re.match(r"drill_(\d{4}-\d{2}-\d{2})", filename)
+    if drill:
+        return f"Drill — {drill.group(1)} · say it out loud"
+
     # Detect episode type from filename
     ep_type = None
     if re.search(r"_intercept", filename, re.IGNORECASE):
@@ -101,14 +106,18 @@ def generate_rss():
 
     audio_files = [f for f in os.listdir(AUDIO_DIR) if f.endswith('.mp3')]
 
-    # Filter: only tier-based episodes (skip legacy level4_*, demos, tests, and standalone intercepts)
-    episodes = [f for f in audio_files if f.startswith('tier') and not f.endswith('_intercept.mp3')]
+    # Filter: tier-based episodes + drill tracks (skip legacy level4_*, demos, tests, and standalone intercepts)
+    episodes = [f for f in audio_files
+                if (f.startswith('tier') or f.startswith('drill_')) and not f.endswith('_intercept.mp3')]
 
-    # Sort by mission number descending (newest first)
+    # Sort by mission number descending (newest first); drills sort above by date/time
     def sort_key(filename):
         match = re.search(r"tier(\d+)_mission(\d+)", filename)
         if match:
             return (int(match.group(1)), int(match.group(2)))
+        match = re.search(r"drill_(\d{4})-(\d{2})-(\d{2})(?:_(\d{4}))?", filename)
+        if match:
+            return (9, int("".join(g or "0" for g in match.groups())))
         return (0, 0)
 
     episodes.sort(key=sort_key, reverse=True)
