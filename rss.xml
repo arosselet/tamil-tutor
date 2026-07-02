@@ -21,6 +21,16 @@
     <itunes:new-feed-url>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/rss.xml</itunes:new-feed-url>
     
     <item>
+      <title>Drill — 2026-07-02 · say it out loud</title>
+      <itunes:author>Andrew R &amp; Gemini</itunes:author>
+      <itunes:summary>Drill — 2026-07-02 · say it out loud</itunes:summary>
+      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/drill_2026-07-02_1225.mp3" length="748512" type="audio/mpeg"/>
+      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/drill_2026-07-02_1225.mp3</guid>
+      <pubDate>Thu, 02 Jul 2026 12:26:20 -0400</pubDate>
+      <itunes:duration>00:03:07</itunes:duration>
+    </item>
+
+    <item>
       <title>Tier2 Mission53</title>
       <itunes:author>Andrew R &amp; Gemini</itunes:author>
       <itunes:summary>Tier2 Mission53</itunes:summary>
