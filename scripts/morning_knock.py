@@ -393,6 +393,15 @@ def jsdelivr_url(mp3: Path) -> str:
 
 def push_to_phone(body: str, audio_url: str | None):
     """Push a notification. audio_url is optional — a text/challenge/grace dose has none."""
+    if audio_url:
+        # Pre-warm the CDN: iOS fetches the attachment the instant the notification
+        # lands, and a never-before-requested jsDelivr path can take seconds on its
+        # first pull from GitHub — long enough for iOS to drop the inline player.
+        try:
+            with urllib.request.urlopen(audio_url, timeout=60) as r:
+                r.read()
+        except OSError as e:
+            print(f"   ⚠ CDN pre-warm failed ({e}) — pushing anyway")
     webhook = os.environ["ANNA_PUSH_WEBHOOK_URL"]
     payload = {"title": "Anna", "text_content": body}
     if audio_url:
