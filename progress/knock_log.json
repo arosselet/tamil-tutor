@@ -96,6 +96,12 @@
     "next_check": "2026-07-02T16:41:00.115821+00:00",
     "body": "da — last night at supper. 'suvaiya irukku' 🍽️ — did it come out? what happened? sollu.",
     "expected_target": "சுவையா இருக்கு",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Yep it worked out. Good morning Anna",
+    "reply_verdict": "chat",
+    "reply_fired": [],
+    "reply_line": "good morning da 😄 — glad it landed! now sollu — what exactly came out of your mouth? exact words.",
+    "reply_at": "2026-07-02T13:23:41Z"
   }
 ]
