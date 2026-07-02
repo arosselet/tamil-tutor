@@ -85,5 +85,17 @@
     "reply_line": "smart move — homemade food hits different anyway. mission's live the moment she cooks; debrief me same night.",
     "reply_at": "2026-07-02T03:05:37Z",
     "chained": 1
+  },
+  {
+    "date": "2026-07-02",
+    "timestamp": "2026-07-02T12:41:00.115821+00:00",
+    "acted": true,
+    "modality": "challenge",
+    "move": "field-mission debrief collect",
+    "rationale": "The field mission was assigned yesterday — debrief collect is the exact right move at 8:41 the next morning; it's the open loop Anna always cashes in, the word is still un-fired cold, and the last reach was tapped so Andrew is responsive.",
+    "next_check": "2026-07-02T16:41:00.115821+00:00",
+    "body": "da — last night at supper. 'suvaiya irukku' 🍽️ — did it come out? what happened? sollu.",
+    "expected_target": "சுவையா இருக்கு",
+    "target_revealed": false
   }
 ]
