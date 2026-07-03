@@ -145,6 +145,9 @@ def judge(knock: dict, reply_text: str, target_record: dict | None) -> dict:
     if d.get("verdict") not in VERDICTS:
         d["verdict"] = "chat"
     d["fired"] = [w for w in d.get("fired", []) if isinstance(w, str) and w.strip()]
+    if d["verdict"] not in ("cold", "hinted"):
+        d["fired"] = []  # the mandate says so; Python re-enforces it (fires_today
+        # and the burn rate count reply_fired, so a chatty judge mustn't pad them)
     d["reply_line"] = (d.get("reply_line") or "").strip()
     d["follow_up_ask"] = (d.get("follow_up_ask") or "").strip()
     d["follow_up_target"] = (d.get("follow_up_target") or "").strip()

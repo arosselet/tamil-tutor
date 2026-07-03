@@ -67,8 +67,11 @@ Details live in git history; this is the index of the *conclusions*.
 - **Outreach policy is Anna's; Python holds only the rails** (2026-07-01). Waking hours,
   daily cap, min gap = deterministic gate; whether/how/when = Anna's decision, optimized
   for Andrew *showing up*, never taps. The busy/back-off social contract is real signal.
-- **Cloud never renders** (2026-06-15). No TTS key in cloud contexts; cloud writes
-  append-only to `main`; local renders and publishes.
+- **Cloud never renders episodes** (2026-06-15; amended 2026-07-03). No TTS in cloud for
+  episode/playlist production — cloud writes append-only to `main`; local renders and
+  publishes. **Exception, superseded in practice 2026-06-29 by the knock system:** knock
+  memos are one-shot, self-contained doses that `morning_knock.py` renders in CI with its
+  own service-account secret; that carve-out is deliberate and stays.
 - **Portability is documented, not engineered** (2026-07-03). The pedagogy generalizes;
   this repo stays a *reference implementation* of it — no framework extraction, no
   language-pack config layer, no fork maintenance for an n-of-1 system. The clues live in

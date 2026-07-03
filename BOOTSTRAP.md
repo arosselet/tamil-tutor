@@ -102,6 +102,5 @@ Two constitution rules are language-*culture* dependent, not universal. **Woven 
 
 The blank templates boot a coherent state: `sync_state.py status` runs fine and reports *floor 0/0 (0%), story: "System initialized."* On day zero there are no floor-gaps, no callbacks, no engines — the ticket's only meaningful section is *new candidates by cluster* from the word pool. So the first session inverts the usual ratio: instead of forcing known words cold with 1–2 new ones as a treat, the tutor seeds one or two survival clusters inside a single scene built from the profile's goal (`profile.md` → "What's Needed Next" *is* the day-zero story), and the first Close & Log writes the first real debrief and soak order. The loop is self-priming: session two already has floor-gaps to force.
 
-*(Known wart: `suggest_targets.py` currently treats an **empty** lexicon as **missing** and refuses to print a ticket — logged in `docs/feature_inbox.md`. Until that lands, day zero runs off the profile and word pool directly.)*
 
 *Keep your `progress/` folder synced to a private Git repository so your tutor remembers you across devices.*

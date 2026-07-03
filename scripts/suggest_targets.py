@@ -241,7 +241,9 @@ def main():
 
     lexicon = load_json(LEXICON_PATH)
     word_pool = load_json(WORD_POOL_PATH)
-    if not lexicon or not word_pool:
+    # An EMPTY lexicon ({}) is a valid day-zero state — the ticket still serves
+    # the new-candidates section. Only a MISSING file is an error.
+    if lexicon is None or not word_pool:
         print("Error: lexicon.json or word_pool.json not found. See BOOTSTRAP.md.")
         return
     today = date.today()
@@ -337,7 +339,7 @@ def main():
             print(f"  - {entry['word']}{phon_str} — {entry['gloss'] or '[no gloss]'}")
 
     floor_gap_total = sum(1 for r in lexicon.values()
-                          if r.get("type") != "pattern"
+                          if r.get("type") != "pattern" and r.get("direction") != "catch"
                           and r.get("recognition") in RECOGNIZED and r.get("production") != "cold")
     print(f"\nFloor gap: {floor_gap_total} recognized words not yet firing cold.")
     print(f"Vocabulary fence: {len(fence)} words (the sea).")

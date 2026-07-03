@@ -15,24 +15,20 @@
   },
   "recent_missions": [
     {
+      "mission": 54,
+      "title": "The Stall Between Wants"
+    },
+    {
       "mission": 53,
-      "title": "The Kitchen Call",
-      "listens": 0
+      "title": "The Kitchen Call"
     },
     {
       "mission": 52,
-      "title": "The Maama's Chair",
-      "listens": 0
+      "title": "The Maama's Chair"
     },
     {
       "mission": 51,
-      "title": "The Empty Chair",
-      "listens": 1
-    },
-    {
-      "mission": 50,
-      "title": "Mission tier2_mission50",
-      "listens": 0
+      "title": "The Empty Chair"
     }
   ],
   "status": "Trip Deck 0/59 fire cold · 40 days to touchdown · need 1.5 cold/day, trailing 7-day pace 0.4/day"
