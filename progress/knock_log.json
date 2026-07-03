@@ -171,15 +171,16 @@
     "expected_target": "ரொம்ப நல்லா இருந்துச்சு",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Romba nalla sappiten",
-    "reply_verdict": "miss",
+    "reply": "Rendu naal iruppom",
+    "reply_verdict": "hinted",
     "reply_fired": [
       "மாதம்",
       "ஒரு மாசம் இருப்போம்",
-      "சாப்பிட்டேன்"
+      "சாப்பிட்டேன்",
+      "இருப்போம்"
     ],
-    "reply_line": "close on the feeling — but she asked 'how long will you stay?' not 'did you eat'. we'd say something like 'rendu naal iruppom' or 'konja naal irupom'. adhu try panni sollu.",
-    "reply_at": "2026-07-03T17:45:20Z",
+    "reply_line": "rendu naal iruppom — adhu dhaan! she'd nod and move on. now the follow-up: she smiles and asks 'saapitta?' — what do you say?",
+    "reply_at": "2026-07-03T17:46:35Z",
     "chained": 3
   }
 ]
