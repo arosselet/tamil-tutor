@@ -2,7 +2,7 @@
 
 <video src="https://github.com/user-attachments/assets/f347ef0f-1fe5-46d8-aaad-f323cf665cc8" controls width="480"></video>
 
-A persistent, stateful language coach powered by LLMs. Built for Coimbatore Tamil; the architecture is portable to any language. The system tracks one number: of everything you've heard and recognized, how much can you actually fire cold.
+A persistent, stateful language coach powered by LLMs. Built for Coimbatore Tamil; the pedagogy and the architecture are portable to any language. The system tracks one number: of everything you've heard and recognized, how much can you actually fire cold.
 
 ### 🎧 Subscribe
 
@@ -15,28 +15,71 @@ A persistent, stateful language coach powered by LLMs. Built for Coimbatore Tami
 
 ## What This Is
 
-An LLM-driven Tamil learning system. Anna — a persistent, stateful coach with one charge, *install a reflex in your brain* — is the single continuous relationship, and he reaches you across three surfaces that share one brain (a Python-managed state file plus a teacher's-notebook profile):
+Not a chatbot you quiz, and not a flashcard app with an AI skin. **Anna** — Tamil for "elder brother" — is a persistent, stateful coach with one charge: *install a reflex in your brain*. He already knows where you are, decides what's next, produces the material, and reaches you first. He drives; he doesn't wait to be summoned. One continuous relationship across every surface — chat, podcast feed, lock screen — all sharing one brain (Python-managed state plus a teacher's-notebook profile).
 
-1. **Anna — the daily tutor.** A Coimbatore-Tamil coach you chat with for ~10–15 minutes a day. Anna runs a *forced-output* loop — he drops you into a situation and makes you produce, cold — to turn passive recognition into speaking reflex. This is the primary driver.
-2. **The audio pipeline.** On-demand dual-voice Tamil podcast episodes for immersion during dead time (commute, dishes, walking). An LLM reads protocol files defining three production roles (Director, Architect, Producer), pulls from a word pool, and renders a script to MP3 via Google Cloud TTS or Edge-TTS.
-3. **The knock loop.** Anna reaches your phone between sessions — *unprompted*, written fresh from your real state — and the notification is a two-way rep: type phonetic Tamil straight into the reply and a judge scores it, moves your production axis, and pushes Anna's recast back. It attacks the hardest problem in self-study: not the reps, but the cold start of beginning them. Hard rails (waking hours, a daily cap, minimum spacing) keep presence from becoming pestering — and silence is a first-class choice Anna makes freely.
+## The Pedagogy
 
-All three feed and read the same progress state, so a word produced in chat and a word heard in a podcast move the same meter.
+The theory the whole machine serves:
 
-### Design Principles
+- **Recognition plateaus; production breaks through.** Pure comprehensible input builds a big passive vocabulary, then stalls. The engine is *forced cold output* — an English situation in, the target language out, no multiple choice, no warm-up. The headline meter is the **viability floor**: of the words you recognize, the share you can fire cold. The system narrows and deepens toward that floor before it widens vocabulary.
+- **The reps aren't the chore — the cold start is.** The hardest problem in self-study isn't doing the work, it's beginning it. So every touch is engineered for momentum: contact time beats completion, one rep beats zero, a partial session counts, and the coach initiates contact instead of waiting. No streaks, no guilt, no makeup work.
+- **Engines, not word lists.** High-utility verbs are taught as generative patterns — the tense matrix, the person toggle, the obligation frame — and tested by demanding a *novel* instance: a verb never drilled in that frame. When it comes back cold, that pattern is metered as an **engine online**. The goal is a conjugation engine in the head, not a dictionary.
+- **Glue over vocabulary.** Verbs, connectors, pronouns, particles — the high-frequency words that carry most of spoken connectivity. Know the glue and you can slot any English noun into the sentence and be understood (modern spoken Coimbatore Tamil is heavily Thanglish; pure-Tamil nouns mark you as a scholar, not a local).
+- **Register-first, ruthlessly.** The dialect people actually speak — `போறேன்` not `போகிறேன்` — and literary Tamil ignored entirely. The measure is operational capacity: navigate an auto ride, survive dinner with the in-laws, land a zinger. Not debate philosophy.
+- **Assessment is invisible; correction is a recast.** No quizzes, no debrief forms, no "dative case." When you're off, Anna says it the natural way and moves on — the way a real elder brother mutters the fix across the table — and quietly updates state with what fired cold, what needed a hint, what missed.
+- **The only narrative is yours.** Scenes are disposable one-use pegs for a word, then dropped — no serialized saga, no manufactured suspense. The story with real stakes is the learner's own arc, floor climbing toward the reveal. Climax = mastery.
 
-- **Operational capacity over fluency.** Navigate an auto ride, survive dinner with the in-laws, handle a phone call. Not debate philosophy.
-- **Coimbatore Tamil only.** Colloquial Kongu dialect. `போறேன்` not `போகிறேன்`. We ignore literary Tamil entirely.
-- **Glue over vocabulary.** Verbs, connectors, pronouns, particles. The 800 high-frequency words that make up 80% of spoken connectivity. If you know the glue, you can stick any English noun into the sentence and be understood.
-- **Production as the accelerant.** Recognition plateaus; forced output breaks through. The system tracks a *viability floor* — of the words you recognize, how many you can fire *cold* — and converts recognition into reflex before widening vocabulary.
-- **Two pathways, one state.** Listening (the audio pipeline) builds recognition; speaking (Anna) builds production. Both compound into the same progress meter.
-- **No guilt.** No streaks, no makeup work. If a lesson isn't working, say "this isn't working" and the system shifts gears.
+## The Learning Modes
 
-## How It Works
+One brain, many surfaces. Every mode below reads and writes the same `progress/` state, so a word strained in chat, soaked in a podcast, and fired on a lock screen moves the same meter.
+
+### The daily session (the primary driver)
+
+A ~10–15 minute forced-output chat. Anna opens by cashing in the running story's open thread — a cold dispatch in your hands before you've settled in, never "what do you want to do today?" While a deck sprint is active, a rapid **deck blitz** volleys 6–8 due items first (instant = cold, hesitation = hinted, miss = recast-and-move). Then **one living scene**, not a quiz row: a single situation that naturally demands the words you recognize but can't yet produce, with cold fires as moves inside the scene. Anna also plays the table — **mask-work** (he becomes the mother-in-law demanding deference forms, the cousin bantering at full speed, then steps out and recasts as himself) and the **eavesdrop drill** (two voices gossiping *past* you — *enna sonnaanga?* — what did you catch?). At close he rewrites the running story, names what the next episode should soak, and reports where the floor moved.
+
+### The soak (audio pipeline)
+
+Dual-voice podcast episodes for dead time — commute, dishes, walking. Anna commissions the **studio**, an isolated three-role crew, end-to-end: the **Director** turns the soak-order and your progress into a lesson plan, the **Architect** writes a two-voice script (a slice-of-life Intercept plus a Breakdown by two analysts), and the **Producer** applies the Coimbatore dialect pass and TTS-fidelity scrub. `render_audio.py` renders the MP3 and publishes to the RSS feed. What chat just strained is exactly what the next episode soaks — one conversation, two surfaces.
+
+### The drill track (mouth reps, hands-free)
+
+When the right dose is *speaking*, not listening: `render_drill.py` cuts a spoken production volley from the deck's due list — an English cue, then silence while you say the Tamil out loud, then the answer, twice. Built for the car and the kitchen. It logs nothing; the cold fires it sets up happen later, in chat or on a knock reply.
+
+### The knock loop (Anna reaches first)
+
+A CI tick wakes `morning_knock.py` every couple of hours; a cheap deterministic **rails gate** (waking hours 8:00–21:00, ≤5 reaches/day, ≥3h apart) skips most ticks for free. Only when a reach is genuinely possible does Anna decide — fire or silence, and in which modality: a one-line **text micro-dose**, a ~60–90s **audio memo** in his pinned voice, a **challenge** with stakes, or **grace** after a lapse. Silence is a first-class choice, and "I'm busy" is a real answer that widens the gap — presence, never pestering. Every dose is self-contained: the Tamil sits in the notification text, so even an un-tapped push lands a 2-second rep.
+
+**The reply is the rep.** Type phonetic Tamil straight into the notification and `knock_reply.py` judges it against what the knock asked for — *cold* credit only for unaided production; if the knock showed you the Tamil, Python caps the verdict at *hinted*, deterministically — moves the production axis, and pushes back Anna's one-line recast. A scored reply can chain one follow-up micro-ask, so a hot moment becomes two or three reps. Anna can also plant a **scheduled push** at a precise time ("ping me at 8:30 to collect the debrief") via `push_queue.py`. Outreach never fakes reps — only a judged reply moves the axis.
+
+### Field missions (live fire)
+
+A covert drop assigned for tonight: one line, deployed at home, unprompted — *"'suvaiya irukku' at dinner, when she isn't expecting it. Debrief tomorrow."* Next contact, Anna collects: did it land, what came back. A line that survives live fire is the strongest cold-fire evidence there is. All other production happens in the safe room at zero stakes; the live moment is always the learner's to pick.
+
+### Deck sprints (a deadline changes the math)
+
+When a real deadline exists — a trip, a wedding — a finite, curated deck (`curriculum/trip_deck.json`, seeded via `sync_state.py seed-deck`) becomes the headline meter: chunks and frames, each tagged fire (produce) or catch (comprehend), burned down against the date. The abstract floor climb resumes after.
+
+### The feedback loop (heals the tools, not the soul)
+
+`sync_state.py feedback "…"` captures what lands and what grates; a periodic **diagnosis** pass (`protocol/diagnosis.md`) proposes a dial-twist or a prune from *reproduced* patterns — never one-offs. When something's off, it reshapes the tools and the protocol, not just one chat.
+
+## The System Design
+
+The engineering theses, as deliberate as the pedagogy (the full ledger of settled decisions lives in [`docs/DECISIONS.md`](./docs/DECISIONS.md)):
+
+- **LLM is the writer, Python is the brain.** All reasoning that can be deterministic is: state writes go through `sync_state.py` (never hand-edited), the session ticket is computed by `suggest_targets.py`, the knock rails and reply-verdict caps are enforced in code. Python computes the *menu*; the LLM makes the *choice and the meaning*.
+- **Two halves, one interface.** Conversation (Anna) and production (the studio) are isolated and meet at exactly one contract — the **soak-order**: the words chat just strained plus a one-line scene seed. Anna hands meaning; the studio owns craft.
+- **Continuity is prose memory, not a schema.** The running story is one cumulative debrief Anna rewrites at every close — carry what matters, prune what resolved. A thread-tracking schema with due-ness scoring was built, tried, and rejected: curation at inference beats bookkeeping.
+- **Fresh execution, structural variety.** No templating — past scripts are never reused as models. Every session and episode generates fresh from protocol files and live state, and variety is enforced by a deterministic scene-spec gate, not by taste (taste is how the drift crept back).
+- **Fix the tool, not the personality.** When the coach seems dumb, forgetful, or pushy, the answer is in the plumbing — logs and timestamps — not in thickening the persona. Anna's soul stays lean; his power grows through his tools.
+- **Every addition must earn its place.** Before any new file, field, rule, or script: what does it replace or simplify? The system's worst moments were accumulation; its best moves were separations. Structure is frozen at Anna 1.0 — rows of data are free, schema changes wait.
+
+## Repository Map
 
 ```
 .github/workflows/   → The outreach ticks: knock decisions, hourly push-queue drain, reply judging
 protocol/            → Anna (persona + daily_session + session_tools + diagnosis) and studio/ (the isolated production crew: Director, Architect, Producer)
+docs/                → Engineer's references: PROTOCOL_MAP.md (architecture), DECISIONS.md (settled decisions)
 curriculum/
     ├── word_pool.json → Suggestion list of words to learn someday (Anna picks from it)
     └── trip_deck.json → A curated, deadline-driven deck (chunks + frames, fire/catch) seeded via sync_state.py seed-deck
@@ -46,39 +89,14 @@ content/
 audio/               → Private MP3 output (gitignored scratch)
 published_audio/     → Public MP3s served over RSS/CDN; knocks/ holds the daily morning-knock audio
 progress/            → lexicon.json (word brain) + learner.json (continuity) + episodes.json + session_log.json + feedback_log.json (calibration) + knock_log.json (Anna's outreach memory) + push_queue.json (scheduled pushes)
-scripts/             → Python tools (state, targets, render, status, RSS, morning_knock, knock_reply, push_queue)
+scripts/             → Python tools (state, targets, render, drills, status, RSS, morning_knock, knock_reply, push_queue)
 ```
 
 *Storage: the repo keeps only the **last 8 episodes** and playlists — old MP3s are purged as new ones land. The Markdown scripts and briefs remain as the permanent record; we move forward, not archive.*
 
-### The Studio (Production Pipeline)
-
-The studio is an isolated crew Anna commissions end-to-end (or you run with `/studio`). It takes the **soak-order** Anna set in chat and runs four passes:
-
-1. **Director** reads your progress and the word pool, writes a Master Lesson Plan with the vocabulary payload (NEW words + spaced-repetition callbacks) and a scene seed.
-2. **Architect** turns the Master Lesson Plan into an engaging dual-voice script — an Intercept (slice-of-life scene) plus a Breakdown (two analysts unpacking it).
-3. **Producer** applies the Coimbatore dialect pass (verb forms, Sandhi, Kongu layer), enforces Tamil script for every Tamil word, and runs a final scrubbing pass for TTS fidelity.
-4. `render_audio.py` generates the MP3 with randomized voice assignments.
-
-### The Daily Loop (Anna)
-
-```
-Open on the running story (hand over a rep cold) → One living scene (cold fires as moves) → Recast (never lecture) → Close & log → Report the floor
-```
-
-Anna's daily session is the default. He loads your state, targets words you *recognize but can't yet produce*, and forces you to say them cold. Misses get recast naturally — no grammar lectures. Each session updates the **production axis** and reports where the **viability floor** moved. The audio pipeline is the opt-in immersion layer alongside it.
-
-### The Knock Loop (Anna's between-session reach)
-
-The reps aren't the chore — the cold start is. So Anna doesn't wait to be opened. A GitHub Actions tick wakes `scripts/morning_knock.py` every couple of hours; a cheap Python **rails gate** (waking hours, ≤3 reaches/day, ≥3h apart, plus Anna's own self-set next-check) skips most ticks for free, and only when a reach is genuinely possible does Anna decide — fire or silence, and in which modality: a one-line **text micro-dose**, a ~60–90s **audio memo** in his pinned voice (rendered, committed, served via jsDelivr), a **challenge** with stakes (including field missions), or **grace** after a lapse. Every dose is self-contained: the Tamil sits in the notification text, so even an un-tapped push lands a 2-second rep.
-
-**The reply is the rep.** Type phonetic Tamil straight into the notification and `scripts/knock_reply.py` judges it against what the knock asked for — *cold* only for unaided production (Tamil the knock showed you caps at *hinted*; Python enforces that deterministically) — moves the production axis, and pushes back Anna's one-line recast plus the deck score. A scored reply can chain one follow-up micro-ask, so a hot moment becomes two or three reps. Anna can also plant a **scheduled push** at a precise time ("ping me at 8:30 to collect the field-mission debrief") via `scripts/push_queue.py`; an hourly CI drain delivers it, and the rails count it like any reach. Outreach itself never fakes reps — only a judged reply moves the axis.
-
-Feedback heals the tools, not the soul: `sync_state.py feedback "…"` captures what you react to, and a periodic **diagnosis** pass (`protocol/diagnosis.md`) proposes a dial-twist or a prune from *reproduced* patterns — never one-offs — keeping the system focused instead of diffuse.
-
 ## Getting Started
 
-If you are new to the repository and want to start your own Tamil learning journey, please follow the **[BOOTSTRAP.md](./BOOTSTRAP.md)** guide. It will walk you through a one-prompt setup to initialize your own tutor, learner profile, and progress tracking.
+To start your own learning journey, follow the **[BOOTSTRAP.md](./BOOTSTRAP.md)** guide — a one-prompt setup that initializes your own tutor, learner profile, and progress tracking. This repo is a *reference implementation, not a framework* — but the pedagogy generalizes, and BOOTSTRAP's **"What Generalizes"** section maps the four layers (pedagogy / machinery / language pack / learner pack), the honest port surface, and how the first session sounds from a blank state.
 
 ### Two Modes
 
@@ -97,8 +115,8 @@ Prompt the agent:
 
 - *"Show my status"* — progress dashboard
 - *"I'm ready for the next episode"* — generates a new lesson
-- *"Medium energy"* — sets the audio style (narrative pacing)
 - *"I'm struggling with past tense verbs"* — the system adapts
+- *"This isn't working"* — the system shifts gears, no guilt attached
 
 ### On Your Phone
 
