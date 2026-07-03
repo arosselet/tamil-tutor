@@ -59,7 +59,8 @@
       27,
       28,
       50,
-      52
+      52,
+      54
     ],
     "last_surfaced": null
   },
@@ -140,7 +141,8 @@
       34,
       35,
       52,
-      53
+      53,
+      54
     ],
     "last_surfaced": null
   },
@@ -176,7 +178,8 @@
       18,
       38,
       52,
-      53
+      53,
+      54
     ],
     "last_surfaced": null
   },
@@ -3138,7 +3141,9 @@
     ],
     "recognition": "struggled",
     "production": "hinted",
-    "seen_in": [],
+    "seen_in": [
+      54
+    ],
     "last_surfaced": "2026-07-03",
     "deck": "trip",
     "direction": "fire"
@@ -3492,5 +3497,55 @@
     "last_surfaced": null,
     "deck": "trip",
     "direction": "fire"
+  },
+  "frame:isthere-noun (இருக்கா?)": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      54
+    ],
+    "last_surfaced": null
+  },
+  "frame:giveme-noun (குடுங்க)": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      54
+    ],
+    "last_surfaced": null
+  },
+  "frame:howmuch-noun (எவ்ளோ?)": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      54
+    ],
+    "last_surfaced": null
+  },
+  "frame:want-noun (வேணும்)": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      54
+    ],
+    "last_surfaced": null
+  },
+  "frame:where-noun (எங்க?)": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      54
+    ],
+    "last_surfaced": null
   }
 }
