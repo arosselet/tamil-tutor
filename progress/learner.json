@@ -3,10 +3,15 @@
   "last_debrief": "STORY SO FAR: the reveal-prep arc. 'suvaiya irukku' survived live fire at supper 2026-07-01 (field mission #1, logged cold). 2026-07-02: Andrew ran the 8-question Oracle chat — she vetted the deck and UPGRADED it: 'vai therantha kaakka kothittu poidum' (her own stuffed-idiom, now the crown zinger), pazhagippochu, evlo (never evvalavu), freeya vidunga, 'software engineer-a irukken', praise > asking for seconds ('romba nallarukku' is THE melt line), gossip opens with 'namma {person} irukkaan-la' / 'theriyuma', and the register law: neenga for EVERYONE incl. younger relatives, nee only for the very close. All corrections seeded (deck 0/59 fire + 0/8 catch). OPEN THREAD: the arrival gauntlet — next session opens with the aunties running the FAQ interrogation and Andrew firing his corrected script (oru maasam iruppom / nethu dhaan vandhom / software engineer-a irukken / Canada-la irukkom / romba pidichirukku / kaaram paravaayilla pazhagippochu). None have fired yet. 'ippa-ve' still opportunistic.",
   "soak_order": {
     "payload": [
-      "ரொம்ப நல்லா இருக்கு"
+      "ஒரு மாசம் இருப்போம்",
+      "frame:giveme-noun",
+      "frame:howmuch-noun",
+      "frame:isthere-noun",
+      "frame:want-noun",
+      "frame:where-noun"
     ],
-    "scene_seed": "the arrival gauntlet — aunties descend on the ginger fella with the standard interrogation; the corrected FAQ script gets its first live-fire rehearsal",
-    "from": "2026-07-02"
+    "scene_seed": "at the tea stall, everyone's too polite to say what they actually want — Andrew has to read between the lines while asking for his own",
+    "from": "2026-07-03"
   },
   "recent_missions": [
     {
@@ -30,5 +35,5 @@
       "listens": 0
     }
   ],
-  "status": "Trip Deck 0/59 fire cold · 41 days to touchdown"
+  "status": "Trip Deck 0/59 fire cold · 40 days to touchdown · need 1.5 cold/day, trailing 7-day pace 0.4/day"
 }
