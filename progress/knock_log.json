@@ -168,17 +168,18 @@
     "rationale": "He fired 'software engineer-la' this morning (hinted, but he showed up) — gauntlet is warm and the next due deck item is exactly the 'evlo naal irupeenga?' answer; cold dispatch now while momentum is alive.",
     "next_check": "2026-07-03T21:21:04.598717+00:00",
     "body": "auntie leans in: 'evlo naal irupeenga?' — don't think, just fire back. (one line, tamizh)",
-    "expected_target": "சாப்பிட்டோம்",
+    "expected_target": "ரொம்ப நல்லா இருந்துச்சு",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Oru maasam iruppom",
-    "reply_verdict": "hinted",
+    "reply": "Ama sappiten",
+    "reply_verdict": "cold",
     "reply_fired": [
       "மாதம்",
-      "ஒரு மாசம் இருப்போம்"
+      "ஒரு மாசம் இருப்போம்",
+      "சாப்பிட்டேன்"
     ],
-    "reply_line": "hinted — but you fired it clean after the recast, so I'll take it. adhu dhaan the move: wrap the duration, own the sentence. 💪 · same auntie, now she's asking 'saapitteengalaa?' — don't think, what do you tell her?",
-    "reply_at": "2026-07-03T17:43:02Z",
-    "chained": 2
+    "reply_line": "adhu dhaan! 🔥 (we'd say 'sappittEN' — that -en ending seals it as yours. but it landed, no question.) · now she turns to your wife and asks if *you* liked the food — your wife looks at you. what do you tell auntie? (one line)",
+    "reply_at": "2026-07-03T17:44:01Z",
+    "chained": 3
   }
 ]
