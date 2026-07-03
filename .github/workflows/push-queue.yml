@@ -2,11 +2,13 @@ name: Push Queue Drain
 # The delivery tick for scheduled pushes (progress/push_queue.json). No LLM, no
 # TTS — entries are fully composed at add-time; this just fires whatever is due
 # and logs it into knock_log.json (so replies get judged and the knock rails see
-# the reach). Hourly is the accepted resolution for the CI path; a live laptop
-# session can always drain locally for minute-precision.
+# the reach). Public repo => GitHub-hosted minutes are free, so this runs every
+# 15 min for close-to-precise delivery (GitHub's own schedule dispatch can still
+# slip under load — a live laptop session can always drain locally for exact
+# timing).
 on:
   schedule:
-    - cron: "7 * * * *"        # hourly, off the top-of-hour congestion
+    - cron: "*/15 * * * *"     # every 15 min, off the top-of-hour congestion
   workflow_dispatch: {}
 
 permissions:

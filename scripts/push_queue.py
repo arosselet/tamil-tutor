@@ -150,6 +150,7 @@ def cmd_drain(args):
     n_today = reaches_today(klog, now.astimezone(LOCAL_TZ).date())
 
     fired, kept = [], []
+    non_forced_fired = False
     for e in queue:
         due = datetime.fromisoformat(e["due"])
         if due > now:
@@ -163,8 +164,19 @@ def cmd_drain(args):
             kept.append(e)
             print(f"  {e['id']} due but daily cap ({n_today}/{MAX_REACHES_PER_DAY}) — deferred.")
             continue
+        if not e.get("force") and non_forced_fired:
+            # Two non-forced entries firing in the same batch land on the phone
+            # near-simultaneously, and knock_reply.py can only judge a reply
+            # against the LAST logged fire — the earlier one becomes unreachable.
+            # One non-forced fire per drain keeps every reach reply-addressable;
+            # the rest catches the very next tick (15 min away, not a real delay).
+            kept.append(e)
+            print(f"  {e['id']} due but another non-forced push already fired this tick — deferred 15min.")
+            continue
         fired.append(e)
         n_today += 1
+        if not e.get("force"):
+            non_forced_fired = True
 
     if not fired:
         print("Nothing eligible to fire.")
