@@ -171,13 +171,14 @@
     "expected_target": "சாப்பிட்டோம்",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Maadham",
+    "reply": "Oru maasam iruppom",
     "reply_verdict": "hinted",
     "reply_fired": [
-      "மாதம்"
+      "மாதம்",
+      "ஒரு மாசம் இருப்போம்"
     ],
-    "reply_line": "maadham — correct word, and she knows what you mean. full fire is 'oru maasam iruppom' — wrap the duration in a sentence and you own it. · same auntie, now she asks 'saapitteengalaa?' — what do you say?",
-    "reply_at": "2026-07-03T17:28:39Z",
-    "chained": 1
+    "reply_line": "hinted — but you fired it clean after the recast, so I'll take it. adhu dhaan the move: wrap the duration, own the sentence. 💪 · same auntie, now she's asking 'saapitteengalaa?' — don't think, what do you tell her?",
+    "reply_at": "2026-07-03T17:43:02Z",
+    "chained": 2
   }
 ]
