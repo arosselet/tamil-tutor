@@ -153,10 +153,10 @@
     "expected_target": "",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Software engineer la what happened with the earlier scheduled job?",
+    "reply": "Software engineer-la",
     "reply_verdict": "chat",
     "reply_fired": [],
-    "reply_line": "that's a system question — check with whoever's running the scripts, not my lane. but you're here, so: maama's still waiting. where do you work? sollu.",
-    "reply_at": "2026-07-03T14:10:06Z"
+    "reply_line": "ha — yeah that lands, 'software engineer-la irukken' is exactly how you'd say it. but that's the prior exchange leaking in, not the gauntlet debrief. so: yesterday's arrival drill — which line froze you? the greeting, the name intro, the job line, or something else?",
+    "reply_at": "2026-07-03T14:15:04Z"
   }
 ]
