@@ -126,5 +126,31 @@
     "reply_line": "almost there da — 'software engineer-la' is a bit loose. the aunty-register line is 'software engineer-a irukkoom' (irukkoom, not irukken). sollu again. · ok one more shot — aunty now asks 'enna velai seiyreenga?' give her the full job line, neenga-register, clean.",
     "reply_at": "2026-07-03T03:01:54Z",
     "chained": 2
+  },
+  {
+    "date": "2026-07-03",
+    "timestamp": "2026-07-03T13:03:54.783331+00:00",
+    "acted": true,
+    "scheduled": true,
+    "queue_id": "q1783047866",
+    "modality": "text",
+    "move": "birthday grace note",
+    "rationale": "scheduled at 2026-07-03T03:04 for 2026-07-03T12:15",
+    "body": "vanakkam, birthday boy 🎂 pirandha naal vazhthukkal — that's 'happy birthday' for when they say it today and you don't wanna look lost. no deck today, no push. go enjoy it — back to it tomorrow.",
+    "expected_target": "",
+    "target_revealed": false
+  },
+  {
+    "date": "2026-07-03",
+    "timestamp": "2026-07-03T13:03:54.783331+00:00",
+    "acted": true,
+    "scheduled": true,
+    "queue_id": "q1783019941",
+    "modality": "text",
+    "move": "gauntlet debrief collect",
+    "rationale": "scheduled at 2026-07-02T19:19 for 2026-07-03T12:45",
+    "body": "morning debrief — yesterday's arrival gauntlet drill. did it run smooth or did one line freeze? reply with the one that felt shakiest and we fix it cold.",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]
