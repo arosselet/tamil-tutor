@@ -58,7 +58,7 @@ SESSION_LOG_PATH = BASE / "progress" / "session_log.json"
 from sync_state import LOCAL_TZ
 WAKING_START_HOUR = 8      # inclusive, local
 WAKING_END_HOUR = 21       # exclusive, local (last reach can land at 20:59)
-MAX_REACHES_PER_DAY = 3    # a "reach" = a knock that actually fired (silence doesn't count)
+MAX_REACHES_PER_DAY = 5    # a "reach" = a knock that actually fired (silence doesn't count)
 MIN_GAP_HOURS = 3          # minimum spacing between reaches
 NEXT_CHECK_CLAMP = (0.5, 24.0)   # Anna's self-set next_check is clamped to this many hours
 
@@ -142,10 +142,17 @@ def outcome_memory(klog: list, now: datetime) -> str:
 
     lines = []
     for k in fires[-5:]:
-        tapped = "tapped" if k.get("response") else "no-tap"
         modality = k.get("modality", "audio")
         move = k.get("move", "—")
-        lines.append(f"    {k.get('date','?')} · {modality}/{move} · {tapped}")
+        if k.get("reply"):
+            # a typed reply carries real signal (incl. "busy"/"back off") — surface
+            # it verbatim so Anna reads intent, not just a tap/no-tap count.
+            detail = f'replied ({k.get("reply_verdict", "?")}): "{k["reply"][:60]}"'
+        elif k.get("response"):
+            detail = f"tapped ({k['response']})"
+        else:
+            detail = "no-tap"
+        lines.append(f"    {k.get('date','?')} · {modality}/{move} · {detail}")
 
     # Ignore streak = trailing reaches with no tap AND no session since.
     streak = 0
@@ -228,6 +235,11 @@ a reply in Tamil). NOT taps. A tap ("Got it") is only a weak "it landed" signal;
 farm easy taps. If reaches aren't converting into sessions, the right move is usually to \
 back off or change approach — read the OUTREACH MEMORY and adapt. Silence is a first-class \
 choice; presence is not pestering.
+
+THE SOCIAL CONTRACT: you have standing authority to open a thread and pick it back up \
+later unasked — no permission needed each time. But if a recent reply in OUTREACH MEMORY \
+says he's busy, to back off, or anything in that spirit, treat it as a real answer: widen \
+next_check_hours (or go quiet) rather than pushing harder or re-litigating it next tick.
 
 YOUR MODALITIES (pick what fits THIS moment; never the same move twice in a row):
 - "text"      — a one-line micro-dose answered right in the reply ("saapta? reply in tamizh — that's the whole ask"). No audio. Lowest friction; often the best re-opener after a gap.
