@@ -121,7 +121,9 @@ conditions: []
 actions:
   - if:
       - condition: template
-        value_template: "{{ trigger.json.audio_url is defined and trigger.json.audio_url }}"
+        # must render a literal boolean — "is defined and x" yields the STRING x,
+        # which HA (post 2026-07 core) counts as false, silently taking the else branch
+        value_template: "{{ trigger.json.audio_url | default('') | length > 0 }}"
     then:
       # AUDIO knock — inline player + tap-to-play
       - service: notify.mobile_app_blue_dragonfly
@@ -133,7 +135,7 @@ actions:
             url: "{{ trigger.json.audio_url }}"
             attachment:
               url: "{{ trigger.json.audio_url }}"
-              content-type: audio/mpeg
+              content-type: mp3   # file EXTENSION, not MIME — audio/mpeg errors on current iOS app
             actions:
               - action: "ANNA_REPLY"
                 title: "Reply ✍️"
@@ -249,3 +251,38 @@ Expect 204, a **Log Knock Response** run through the *Judge Tamil reply* step, a
   the phonetic is a better rep than typing (the table needs your mouth, not your thumbs).
 - **Mirror stays honest:** `anna_knock_automation.yaml` (gitignored) mirrors your real
   HA config — if you tweak HA, update it so it doesn't drift.
+- **Template conditions must render literal booleans** — `{{ x is defined and x }}`
+  returns the *string* x, which HA counts as false; use `| default('') | length > 0`.
+  Debug branch choices via the automation's **Traces** UI first (`choice: else` is the
+  smoking gun) — it pinpoints the failing branch in one step.
+- **`attachment.content-type` is a file extension** (`mp3`), not a MIME type — current
+  iOS companion app errors on `audio/mpeg`. Audio attachments cap at **5 MB** (~20 min
+  at our bitrate; drills ≈ 700 KB / 3 min).
+- **Pre-warm the CDN before an audio push** — iOS fetches the attachment the instant the
+  notification lands; a never-requested jsDelivr path can be too slow on first pull.
+  `push_to_phone()` in `morning_knock.py` GETs the URL before notifying for this reason.
+
+---
+
+## 8. Home-screen "Tell Anna" button (iOS Shortcut → same pipeline)
+
+A standalone Shortcut that opens the reply channel without a live notification on
+screen — same endpoint, same judge. Confirmed working 2026-07-02.
+
+1. **Ask for Input** — Text, prompt "Tell Anna:"
+2. **Get Contents of URL**:
+   - URL: `https://api.github.com/repos/arosselet/tamil-tutor/dispatches`
+   - Method: POST
+   - Headers: `Authorization: Bearer <fine-grained PAT, this repo only, Contents: R/W>`,
+     `Accept: application/vnd.github+json`
+   - Request Body (JSON):
+     - `event_type` (Text) = `knock-response`
+     - `client_payload` (**Dictionary** type — the one field that needs nesting):
+       - `response` (Text) = `reply`
+       - `text` (Text) = the *Provided Input* variable (inserted as a variable chip)
+
+**The one real gotcha:** every field row in the Shortcuts JSON editor shows a key box
+*and* a value box — that's normal, not nesting. Nesting only happens when a field's
+**type** is explicitly set to Dictionary (or Array). If a plain-string field (like
+`event_type`) shows its own "Add new field" underneath, its type got flipped to
+Dictionary by mistake — set it back to Text.

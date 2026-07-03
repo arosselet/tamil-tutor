@@ -65,6 +65,11 @@ Never provide a bare vocabulary list. Always weave words into context, scenario,
 
 Stated here once; Anna embodies them, the studio enforces them.
 
+### Fresh Execution (generation law)
+- **No templating:** never read or reuse past episode scripts (`content/scripts/*.md`) as models — that produces repetitive lessons. (The `.tags.json` sidecars are metadata, not scripts; the Director reads those by design.)
+- **Fresh every time:** generate from the `protocol/` files, live `progress/` state, and the `suggest_targets.py` ticket — never from memory of past sessions.
+- **Variation is structural:** the scene-spec gate and `protocol/` rules own variety; never repeat the same scene / shape / energy back-to-back.
+
 ### Woven Thanglish (The Scaffolding)
 - **Logistics in English:** All scene-setting, "why" we are here, and complex plot movement must be in English.
 - **Payload in Tamil:** The target vocabulary (the "what") must be the load-bearing part of the sentence. (e.g., "I told you to **வை** it here!")
