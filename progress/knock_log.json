@@ -182,5 +182,17 @@
     "reply_line": "close — 'ama, saapitten' lands it. 'sappiten' wants that extra 'a' in the middle. adhu dhaan the shape though.",
     "reply_at": "2026-07-03T17:47:20Z",
     "chained": 3
+  },
+  {
+    "date": "2026-07-03",
+    "timestamp": "2026-07-03T22:58:29.694630+00:00",
+    "acted": true,
+    "modality": "challenge",
+    "move": "gauntlet miss recast + cold dare",
+    "rationale": "the miss was a real stumble (sappiten for Canada) — a warm recast + immediate cold retry closes the loop tonight without letting it sit overnight; schedule picks up the streak tomorrow morning with the next gauntlet line.",
+    "next_check": "2026-07-04T12:58:29.694630+00:00",
+    "body": "da — 'sappiten' is eating, not where you're from 😄 the aunties asked 'enga irukeenga?' — fire it back: Canada-la irukkom. one shot, cold.",
+    "expected_target": "Canada-la irukkom",
+    "target_revealed": false
   }
 ]
