@@ -171,15 +171,15 @@
     "expected_target": "ரொம்ப நல்லா இருந்துச்சு",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Ama sappiten",
-    "reply_verdict": "cold",
+    "reply": "Romba nalla sappiten",
+    "reply_verdict": "miss",
     "reply_fired": [
       "மாதம்",
       "ஒரு மாசம் இருப்போம்",
       "சாப்பிட்டேன்"
     ],
-    "reply_line": "adhu dhaan! 🔥 (we'd say 'sappittEN' — that -en ending seals it as yours. but it landed, no question.) · now she turns to your wife and asks if *you* liked the food — your wife looks at you. what do you tell auntie? (one line)",
-    "reply_at": "2026-07-03T17:44:01Z",
+    "reply_line": "close on the feeling — but she asked 'how long will you stay?' not 'did you eat'. we'd say something like 'rendu naal iruppom' or 'konja naal irupom'. adhu try panni sollu.",
+    "reply_at": "2026-07-03T17:45:20Z",
     "chained": 3
   }
 ]
