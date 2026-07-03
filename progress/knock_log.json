@@ -158,5 +158,17 @@
     "reply_fired": [],
     "reply_line": "ha — yeah that lands, 'software engineer-la irukken' is exactly how you'd say it. but that's the prior exchange leaking in, not the gauntlet debrief. so: yesterday's arrival drill — which line froze you? the greeting, the name intro, the job line, or something else?",
     "reply_at": "2026-07-03T14:15:04Z"
+  },
+  {
+    "date": "2026-07-03",
+    "timestamp": "2026-07-03T17:21:04.598717+00:00",
+    "acted": true,
+    "modality": "challenge",
+    "move": "arrival gauntlet next line",
+    "rationale": "He fired 'software engineer-la' this morning (hinted, but he showed up) — gauntlet is warm and the next due deck item is exactly the 'evlo naal irupeenga?' answer; cold dispatch now while momentum is alive.",
+    "next_check": "2026-07-03T21:21:04.598717+00:00",
+    "body": "auntie leans in: 'evlo naal irupeenga?' — don't think, just fire back. (one line, tamizh)",
+    "expected_target": "ஒரு மாசம் இருப்போம்",
+    "target_revealed": false
   }
 ]
