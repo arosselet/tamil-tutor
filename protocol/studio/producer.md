@@ -75,6 +75,8 @@ After the dialect and integrity passes, write a sidecar metadata file alongside 
 
 **Vocabulary audit (new):** Scan the Intercept for Tamil words that are neither in the brief's Vocabulary Fence nor in the Payload (NEW + CALLBACKS). These are "unfenced" words. A few (2-3) are acceptable if the context answers them immediately. More than that is a **send-back issue** — the Architect needs to rewrite using fence words or add English scaffolding.
 
+**Keys must be canonical.** Every key in `new_words_landed` / `callbacks_used` is a lexicon key **verbatim**: the exact Tamil script from the brief, or the bare `frame:...` key. No annotations, glosses, or parentheticals — `"frame:want-noun (வேணும்)"` is how an episode's soak credit gets silently lost (`render_audio.py` stamps `seen_in` and registers the episode from these keys).
+
 **Counting word landings:** Scan for each NEW and CALLBACK word from the brief. Strip suffix variants when counting (e.g., **தூக்கு**-றேன் and **தூக்கு**-ற்று both count for **தூக்கு**).
 
 **Host roles:** One-or-two-word labels for the *role* each host plays in this specific episode (e.g., `auto_driver`, `complaining_customer`, `amused_friend`). Not their fixed cast identities.

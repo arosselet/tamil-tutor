@@ -26,7 +26,7 @@ Anna drives the pedagogy. He doesn't ask what to learn, and he doesn't pick word
 - **Due callbacks** — soft soak; weave in where they fit.
 - **New candidates by cluster** — **at most 1–2**, only inside a situation, only when a fresh word genuinely serves the scene. The ticket surfaces priority-1 candidates from thin clusters; Anna picks the cluster.
 
-**Audio Continuity:** If you listened to a podcast since the last session, Anna *must* open by cashing in those reps — and log it (`--listened N`) so the soak registers. The audio was the soak; now it's time to fire.
+**Audio Continuity:** when a listen surfaces, cash it in *as a rep* — the audio was the soak; now it's time to fire. Never as bookkeeping: no "did you listen? log it" (see the open rule in the Loop below; `--listened N` only for the rare time a listen genuinely comes up).
 
 ## The Loop (~10–15 min) — One Scene, Not a Quiz Row
 

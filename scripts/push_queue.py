@@ -169,9 +169,9 @@ def cmd_drain(args):
             # near-simultaneously, and knock_reply.py can only judge a reply
             # against the LAST logged fire — the earlier one becomes unreachable.
             # One non-forced fire per drain keeps every reach reply-addressable;
-            # the rest catches the very next tick (15 min away, not a real delay).
+            # the rest catches the very next tick (≤30 min away, not a real delay).
             kept.append(e)
-            print(f"  {e['id']} due but another non-forced push already fired this tick — deferred 15min.")
+            print(f"  {e['id']} due but another non-forced push already fired this tick — deferred to next tick.")
             continue
         fired.append(e)
         n_today += 1

@@ -289,6 +289,23 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
     # callbacks). The markdown doesn't bold its vocab, so scraping bold tokens
     # only ever caught English speaker labels. Fall back to that scrape only
     # when no sidecar exists.
+    # Canonical-at-write, same law as sync_state: every key that lands in
+    # episodes.json / seen_in must resolve to a lexicon record, or be a genuinely
+    # new Tamil-script payload word. A Producer annotation like
+    # "frame:want-noun (வேணும்)" must credit frame:want-noun — not spawn a ghost.
+    lexicon = load_json(Path("progress/lexicon.json"))
+    phon = {p: w for w, r in lexicon.items() for p in r.get("phonetic", [])}
+
+    def canonical(w: str) -> str | None:
+        """Resolve a sidecar key to its lexicon key, tolerating a trailing
+        ' (…)' annotation. None if nothing resolves."""
+        for cand in (w, re.sub(r"\s*\([^)]*\)\s*$", "", w).strip()):
+            if cand in lexicon:
+                return cand
+            if cand in phon:
+                return phon[cand]
+        return None
+
     cleaned_words = []
     new_word_keys = set()
     tags_path = script_path.with_suffix(".tags.json")
@@ -297,9 +314,20 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
             tags = json.loads(tags_path.read_text(encoding="utf-8"))
             for bucket in ("new_words_landed", "callbacks_used"):
                 for w in tags.get(bucket, {}):
-                    if w not in cleaned_words:
-                        cleaned_words.append(w)
-            new_word_keys = set(tags.get("new_words_landed", {}))
+                    key = canonical(w)
+                    if key is None:
+                        base = re.sub(r"\s*\([^)]*\)\s*$", "", w).strip()
+                        if base.startswith("frame:"):
+                            # Frames are seeded via add-pattern / seed-deck, never
+                            # born in a render — an unresolvable one is a sidecar
+                            # typo, and creating it would poison the word axes.
+                            print(f"   ! sidecar frame '{w}' resolves to no lexicon pattern — skipped")
+                            continue
+                        key = base  # may be a brand-new payload word (created below)
+                    if key not in cleaned_words:
+                        cleaned_words.append(key)
+                        if bucket == "new_words_landed":
+                            new_word_keys.add(key)
         except (json.JSONDecodeError, OSError):
             pass
     if not cleaned_words:
@@ -331,10 +359,9 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
     # Provenance bridge: record that these declared words appeared in this episode.
     # seen_in is pure provenance (which episodes a word is in); recency (last_surfaced)
     # is bumped when the episode is actually listened to, via sync_state --listened.
-    lexicon = load_json(Path("progress/lexicon.json"))
+    # (lexicon + phon were loaded above; cleaned_words are already canonical.)
     if lexicon:
         mnum = int(mission_num)
-        phon = {p: w for w, r in lexicon.items() for p in r.get("phonetic", [])}
         tagged = 0
         created = 0
         for w in cleaned_words:
@@ -436,11 +463,16 @@ async def main():
         # Rebuild playlist feed so it picks up the new episode automatically
         subprocess.run(["python3", "scripts/build_playlist.py", "--publish"], check=True)
 
+        # The .tags.json sidecar is load-bearing (the divergence gate reads it
+        # next episode) and the brief is the Director's record — stage both.
+        tags_file = Path(args.input_file).with_suffix(".tags.json")
+        extra = [str(tags_file)] if tags_file.exists() else []
         subprocess.run(["git", "add",
                         "published_audio/", "rss.xml",
                         "published_playlists/", "playlist_rss.xml",
                         "progress/episodes.json", "progress/lexicon.json",
-                        str(args.input_file)], check=True)
+                        "content/lessons/",
+                        str(args.input_file), *extra], check=True)
         
         status = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True)
         if status.stdout.strip():

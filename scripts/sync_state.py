@@ -99,9 +99,12 @@ def is_pattern(rec: dict) -> bool:
 def compute_floor(lexicon: dict) -> dict:
     """The viability floor: of the WORDS recognized (comfortable+solid),
     how many fire cold? This is the one honest word-level progress meter.
-    Patterns are excluded — they get their own Engines meter."""
+    Patterns are excluded — they get their own Engines meter. Ear-only
+    (direction=catch) items are excluded too: they clear on recognition and
+    are never forced to fire, so counting them makes the meter lie."""
     recognized = [w for w, r in lexicon.items()
-                  if not is_pattern(r) and r.get("recognition") in RECOGNIZED]
+                  if not is_pattern(r) and r.get("direction") != "catch"
+                  and r.get("recognition") in RECOGNIZED]
     cleared = [w for w in recognized if lexicon[w].get("production") == "cold"]
     total = len(recognized)
     pct = (len(cleared) / total * 100) if total else 0.0
@@ -111,8 +114,11 @@ def compute_floor(lexicon: dict) -> dict:
 def compute_engines(lexicon: dict) -> dict:
     """The engine meter: of the tracked generative patterns, how many fire cold —
     i.e. the learner can produce a NOVEL instance unaided? Reported separately
-    from the word-level viability floor so neither muddies the other."""
-    patterns = [w for w, r in lexicon.items() if is_pattern(r)]
+    from the word-level viability floor so neither muddies the other. Ear-only
+    (direction=catch) patterns are excluded — they clear on recognition (the
+    deck's catch side meters them), so they'd pin this meter below 100% forever."""
+    patterns = [w for w, r in lexicon.items()
+                if is_pattern(r) and r.get("direction") != "catch"]
     online = [w for w in patterns if lexicon[w].get("production") == "cold"]
     total = len(patterns)
     pct = (len(online) / total * 100) if total else 0.0
@@ -200,9 +206,10 @@ def fires_today() -> int:
 
 
 def compute_recent_missions(episodes: dict, n: int = 4) -> list[dict]:
-    recent = sorted(episodes.items(), key=lambda x: int(x[0]), reverse=True)[:n]
-    return [{"mission": int(m), "title": ep.get("title", f"Mission {m}"),
-             "listens": ep.get("listens", 0)} for m, ep in recent]
+    # No listens count here — each episode is a self-contained dose (the
+    # 2026-06-30 pivot); surfacing a counter to Anna invites listen-chasing.
+    return [{"mission": int(m), "title": ep.get("title", f"Mission {m}")}
+            for m, ep in sorted(episodes.items(), key=lambda x: int(x[0]), reverse=True)[:n]]
 
 
 def write_thin_learner(learner: dict, episodes: dict):

@@ -1,6 +1,6 @@
 name: Anna Knock
 # The TICK, not the decision. Anna is an agent: the rails gate in morning_knock.py
-# (waking hours via America/New_York, ≤3/day, ≥3h apart, + Anna's own next_check)
+# (waking hours via America/New_York, ≤5/day, ≥3h apart, + Anna's own next_check)
 # cheaply skips most ticks with NO LLM call, and Anna decides fire/silence/modality
 # only when a reach is actually possible and due. So this can tick often and cheap.
 #
@@ -13,7 +13,7 @@ on:
   workflow_dispatch:
     inputs:
       force:
-        description: "Skip the 4-hour gate (manual one-off)"
+        description: "Skip the rails gate (manual one-off)"
         required: false
         default: "false"
         type: choice

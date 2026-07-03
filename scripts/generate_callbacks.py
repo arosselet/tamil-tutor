@@ -81,7 +81,7 @@ def main():
     args = parser.parse_args()
 
     lexicon = load_json(LEXICON_PATH)
-    if not lexicon:
+    if lexicon is None:  # empty ({}) is valid day-zero state; only missing is an error
         print("Error: progress/lexicon.json not found. See BOOTSTRAP.md.")
         return
 
@@ -103,7 +103,7 @@ def main():
         print(f"  - {cb['word']} — {gloss}  [{gap}]  (last: {when})")
 
     floor_gap = sum(1 for r in lexicon.values()
-                    if r.get("type") != "pattern"
+                    if r.get("type") != "pattern" and r.get("direction") != "catch"
                     and r.get("recognition") in RECOGNIZED and r.get("production") != "cold")
     print(f"\nFloor gap: {floor_gap} recognized words not yet firing cold.")
 

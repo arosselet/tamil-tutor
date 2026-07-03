@@ -1,0 +1,31 @@
+{
+  "mission": 54,
+  "register": "embarrassment",
+  "dramatic_ingredient": "subtext",
+  "episode_form": "vignette",
+  "shape": "transaction",
+  "location_class": "market",
+  "energy": "medium-loud",
+  "intercept_tamil_density": 0.65,
+  "breakdown_tamil_density": null,
+  "fence_size": 172,
+  "unfenced_words": 1,
+  "new_words_landed": {
+    "ஒரு மாசம் இருப்போம்": 2,
+    "frame:isthere-noun": 2,
+    "frame:giveme-noun": 1,
+    "frame:howmuch-noun": 1,
+    "frame:want-noun": 2,
+    "frame:where-noun": 1
+  },
+  "callbacks_used": {
+    "சொன்னாங்க": 2,
+    "பிடிக்காது": 1,
+    "சீக்கிரம்": 1
+  },
+  "host_roles": {
+    "A": "direct_orderer",
+    "B": "indirect_wanter"
+  },
+  "notes": "Vignette form — no Breakdown. All five transaction frames deploy naturally in a morning tea stall transaction. Chunk ஒரு மாசம் இருப்போம் answers vendor's how-long question (line 28); echoed by Host B savouring the month ahead (line 34). Embarrassment peak: Host B mutters 'tea பிடிக்காது-ன்னு சொல்லலாம்ன்னு நினைச்சேன்' just as tea arrives — Host A catches it. Unfenced: நாப்பது (40, price context answers immediately). Frame:want-noun lands twice (vada and extra sugar). Three callbacks all land naturally."
+}

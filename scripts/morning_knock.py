@@ -459,7 +459,7 @@ def main():
     ap.add_argument("--dry-run", action="store_true",
                     help="gate + decide + render only; no commit, push, or notification")
     ap.add_argument("--force", action="store_true",
-                    help="skip the rails gate (manual one-off; still respects the daily cap at fire time)")
+                    help="skip the rails gate entirely — waking hours, cap, gaps (manual one-off)")
     args = ap.parse_args()
 
     load_env(BASE / ".env")
