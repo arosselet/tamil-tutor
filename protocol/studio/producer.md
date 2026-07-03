@@ -35,11 +35,7 @@ The shorthand test after your pass: *Would a Coimbatore auto driver say this to 
 
 ## Pacing Check
 
-After the dialect pass, scan for pacing problems — these are **send-back issues**, not cosmetic:
-
-- **Overlong lines:** Any dialogue line with 3+ full sentences should be split. The TTS inserts no breath within a line.
-- **Pause starvation:** The Intercept should have at least one `[Pause]` per 6-8 dialogue lines. Fewer than that and the listener has no processing time.
-- **Wall-of-text runs:** More than 5 consecutive lines with no pause, reaction beat, or short line. Break the wall.
+After the dialect pass, enforce the Architect's Listenability Gate (`protocol/studio/architect.md` → Pacing — the thresholds live there, once): overlong lines, pause starvation, wall-of-text runs. These are **send-back issues**, not cosmetic.
 
 ---
 
