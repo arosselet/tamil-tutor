@@ -166,15 +166,20 @@ def compute_status() -> str:
 def cold_fires_recent(days: int = 7) -> int:
     """COLD fires in the trailing `days`-day window, across chat sessions and phone
     replies — the pace side of the burn rate. Live from the logs, never stored.
-    (A chained knock's reply_fired can mix hinted fires under a cold verdict —
-    close enough for a pace meter; the lexicon axis itself stays exact.)"""
+    Replies count per word via reply_fired_cold (the judge grades each word on its
+    own, post revealed-cap); entries from before per-word verdicts (2026-07-03)
+    fall back to the flat verdict-gated count."""
     cutoff = (date.today() - timedelta(days=days - 1)).isoformat()
     n = 0
     for s in load_json(SESSION_LOG_PATH) or []:
         if s.get("date", "") >= cutoff:
             n += len(s.get("cold", []))
     for k in load_json(KNOCK_LOG_PATH) or []:
-        if k.get("reply_at", "") >= cutoff and k.get("reply_verdict") == "cold":
+        if k.get("reply_at", "") < cutoff:
+            continue
+        if "reply_fired_cold" in k:
+            n += len(k["reply_fired_cold"])
+        elif k.get("reply_verdict") == "cold":
             n += len(k.get("reply_fired", []))
     return n
 
