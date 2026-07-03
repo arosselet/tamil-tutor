@@ -8,11 +8,12 @@ reply against what that knock asked for, moves the production axis, and pushes o
 line back — the recast (or the celebration) plus the deck scoreboard.
 
 Judge philosophy: this is the recast across the table, not an exam. Anna is
-generous in spirit but honest on the axis — and Python re-enforces the one hard
-rule: Tamil the notification SHOWED him can score at most "hinted"; "cold" is
-reserved for unaided production. Andrew stays the court of appeal: every verdict
-is visible in the push-back and in knock_log.json, and chat sessions can always
-correct state.
+generous in spirit but honest on the axis — each fired word is graded on its OWN
+merits (per-word verdicts: one shaky word must not drag down a clean one) — and
+Python re-enforces the one hard rule per word: Tamil the notification SHOWED him
+can score at most "hinted"; "cold" is reserved for unaided production. Andrew
+stays the court of appeal: every verdict is visible in the push-back and in
+knock_log.json, and chat sessions can always correct state.
 
   python scripts/knock_reply.py "naan poren"            # judge, write state, commit+push, notify
   python scripts/knock_reply.py --dry-run "naan poren"  # judge + print only (no writes)
@@ -44,22 +45,30 @@ JUDGE_MANDATE = """\
 You are Anna, judging ONE phone reply from Andrew against the knock you sent him. \
 This is the recast across the table, not an exam — generous in spirit, honest on the axis.
 
-VERDICTS:
-- "cold"   — the reply fires real Tamil the notification did NOT show him. Phonetic \
-spelling is fine and expected ("poren" IS போறேன்); judge the Tamil, not the spelling.
-- "hinted" — real Tamil, but the knock showed it to him (reading back is not firing), \
-or it needed the knock's scaffold, or it's partially off but would land.
-- "miss"   — he tried, but it's off enough that it wouldn't land at the table.
-- "chat"   — not a rep at all (English chat, a question, logistics). No state moves.
+GRADES (per word — a multi-word reply is judged word by word, never as one lump; \
+one shaky word must not drag down a clean one, and one clean word must not carry a \
+scaffolded one):
+- "cold"   — THAT word/chunk/frame is real Tamil the notification did NOT show him, \
+produced unaided. Phonetic spelling is fine and expected ("poren" IS போறேன்); judge \
+the Tamil, not the spelling.
+- "hinted" — real Tamil, but the knock showed that word to him (reading back is not \
+firing), or it needed the knock's scaffold, or it's partially off but would land.
+
+"fired": one entry per Tamil word/chunk/frame the reply genuinely produced, each \
+graded on its OWN merits: [{"word": ..., "verdict": "cold"|"hinted"}, ...]. "word" \
+in CANONICAL Tamil script — copy the expected-target record's exact script when it \
+matches — or the frame:... key for a frame. Empty list when nothing creditable fired.
+
+"verdict" — the reply as a whole (for the log and your reply_line's tone):
+- "cold" / "hinted" — something fired; set it to the best word's grade (Python \
+re-derives this from "fired" regardless).
+- "miss" — he tried, but it's off enough that nothing would land at the table. Empty fired.
+- "chat" — not a rep at all (English chat, a question, logistics). Empty fired. No state moves.
 
 HARD RULE: if the knock revealed the target Tamil (target_revealed=true), that word \
 scores at most "hinted". Same for anything your own recast handed him in a \
 prior_exchange on this knock — echoing it back is a read-back, not a fire. Cold is \
-unaided production only. (Python re-checks this.)
-
-"fired": every Tamil word/chunk/frame the reply genuinely produced, in CANONICAL Tamil \
-script — copy the expected-target record's exact script when it matches — or the \
-frame:... key for a frame. Empty list for miss/chat.
+unaided production only. (Python re-checks this per word.)
 
 "reply_line": the one line Anna pushes back. If he's off — recast the natural way and \
 move on, no lecture ("close — we'd say 'poren'. adhu dhaan next time"). If cold — \
@@ -82,7 +91,7 @@ to pick the moment; null to skip, which is usual.
 Return ONLY a JSON object, no prose around it:
 {
   "verdict": "cold" | "hinted" | "miss" | "chat",
-  "fired": ["<canonical Tamil script or frame:... key>", ...],
+  "fired": [{"word": "<canonical Tamil script or frame:... key>", "verdict": "cold" | "hinted"}, ...],
   "reply_line": "<one line>",
   "follow_up_ask": "<one line chaining the next rep; empty string to stop>",
   "follow_up_target": "<the one word/chunk/frame it asks for (Tamil script or frame:... key); empty if no chain>",
@@ -141,13 +150,34 @@ def judge(knock: dict, reply_text: str, target_record: dict | None) -> dict:
     text = resp.choices[0].message.content.strip()
     if text.startswith("```"):
         text = text.split("```")[1].lstrip("json").strip()
-    d = json.loads(text, strict=False)
+    return normalize_verdict(json.loads(text, strict=False))
+
+
+def normalize_verdict(d: dict) -> dict:
+    """Guard the judge's JSON into the shape Python relies on. Per-word verdicts
+    (2026-07-03): each fired item carries its own cold/hinted grade — one flat
+    grade flattened multi-word replies. The reply's overall verdict is DERIVED
+    (best word wins) so the log and chain never contradict the axis; a scored
+    verdict with no fired words degrades to "miss" (nothing creditable, no chain
+    padding — fires_today and the burn rate count reply_fired)."""
     if d.get("verdict") not in VERDICTS:
         d["verdict"] = "chat"
-    d["fired"] = [w for w in d.get("fired", []) if isinstance(w, str) and w.strip()]
-    if d["verdict"] not in ("cold", "hinted"):
-        d["fired"] = []  # the mandate says so; Python re-enforces it (fires_today
-        # and the burn rate count reply_fired, so a chatty judge mustn't pad them)
+    fired = []
+    for item in d.get("fired", []):
+        if isinstance(item, str):  # tolerate the pre-per-word flat shape
+            item = {"word": item, "verdict": d["verdict"]}
+        if not isinstance(item, dict):
+            continue
+        w = (item.get("word") or "").strip()
+        if w:
+            v = item.get("verdict") if item.get("verdict") == "cold" else "hinted"
+            fired.append({"word": w, "verdict": v})
+    d["fired"] = fired if d["verdict"] in ("cold", "hinted") else []
+    if d["fired"]:
+        d["verdict"] = ("cold" if any(i["verdict"] == "cold" for i in d["fired"])
+                        else "hinted")
+    elif d["verdict"] in ("cold", "hinted"):
+        d["verdict"] = "miss"
     d["reply_line"] = (d.get("reply_line") or "").strip()
     d["follow_up_ask"] = (d.get("follow_up_ask") or "").strip()
     d["follow_up_target"] = (d.get("follow_up_target") or "").strip()
@@ -167,34 +197,35 @@ def shown_in_knock(key: str, rec: dict, knock: dict) -> bool:
     return any(p.lower() in shown for p in rec.get("phonetic", []) if p)
 
 
-def apply_verdict(verdict: dict, knock: dict, lexicon: dict) -> list[str]:
-    """Move the production axis for what fired. Upgrades only — a phone rep never
-    demotes (chat sessions own corrections). Returns a summary line per word."""
+def apply_verdict(verdict: dict, knock: dict, lexicon: dict) -> tuple[list[str], list[str]]:
+    """Move the production axis for what fired — each word on its OWN grade
+    (per-word verdicts, 2026-07-03). Upgrades only — a phone rep never demotes
+    (chat sessions own corrections). Returns (summary lines, the words whose
+    EFFECTIVE grade was cold after the revealed-cap — the pace meters read these)."""
     phon_index = build_phonetic_index(lexicon)
     today = date.today().isoformat()
-    level = verdict["verdict"] if verdict["verdict"] in ("cold", "hinted") else None
     revealed_key = (resolve(knock.get("expected_target", ""), lexicon, phon_index)
                     if knock.get("target_revealed", True) else None)
-    summary = []
-    for w in verdict["fired"]:
-        key = resolve(w, lexicon, phon_index)
+    summary, cold_credited = [], []
+    for item in verdict["fired"]:
+        key = resolve(item["word"], lexicon, phon_index)
         if key is None:
-            summary.append(f"! '{w}' resolves to no lexicon record — not scored")
+            summary.append(f"! '{item['word']}' resolves to no lexicon record — not scored")
             continue
         rec = lexicon[key]
-        target = level
+        target = item["verdict"]
         if target == "cold" and (key == revealed_key or shown_in_knock(key, rec, knock)):
-            target = "hinted"  # the hard rule, enforced deterministically
-        if target is None:
-            continue
+            target = "hinted"  # the hard rule, enforced deterministically per word
+        if target == "cold":
+            cold_credited.append(key)  # a re-fire of an already-cold word still counts as pace
         cur = rec.get("production", "none")
         if PRODUCTION_RANK[target] > PRODUCTION_RANK.get(cur, 0):
             rec["production"] = target
             summary.append(f"{key} → {target.upper()}")
         else:
-            summary.append(f"{key} already {cur} — kept")
+            summary.append(f"{key} already {cur} — kept ({target} fire)")
         rec["last_surfaced"] = today
-    return summary
+    return summary, cold_credited
 
 
 def main():
@@ -229,7 +260,8 @@ def main():
     print(f"1. judging reply against knock {knock.get('timestamp', '?')[:16]} "
           f"({knock.get('modality')}/{knock.get('move')})…")
     verdict = judge(knock, reply_text, target_record)
-    print(f"   → {verdict['verdict']} | fired={verdict['fired']} | {verdict.get('rationale', '')}")
+    fired_str = ", ".join(f"{i['word']}:{i['verdict']}" for i in verdict["fired"]) or "—"
+    print(f"   → {verdict['verdict']} | fired: {fired_str} | {verdict.get('rationale', '')}")
 
     # Momentum chain: on a scored reply, the push-back may carry the NEXT micro-ask.
     # The knock's expected target moves to the chained one, so the next reply is
@@ -245,14 +277,19 @@ def main():
         return
 
     print("2. state…")
-    for line in apply_verdict(verdict, knock, lexicon):
+    summary, cold_credited = apply_verdict(verdict, knock, lexicon)
+    for line in summary:
         print(f"   {line}")
 
     knock["response"] = "reply"  # the strongest "landed" signal there is
     knock["reply"] = reply_text
     knock["reply_verdict"] = verdict["verdict"]
-    # accumulate across a chain — the fires-today counter reads this
-    knock["reply_fired"] = knock.get("reply_fired", []) + verdict["fired"]
+    # accumulate across a chain — fires_today reads reply_fired (every scored
+    # word); the cold pace meter reads reply_fired_cold (effective grade after
+    # the revealed-cap, per word)
+    fired_words = [i["word"] for i in verdict["fired"]]
+    knock["reply_fired"] = knock.get("reply_fired", []) + fired_words
+    knock["reply_fired_cold"] = knock.get("reply_fired_cold", []) + cold_credited
     # store the FULL push-back (recast + chained ask): the next judge call reads it
     # as prior_exchange, and shown_in_knock scans it for revealed Tamil
     knock["reply_line"] = " · ".join(p for p in (verdict["reply_line"], follow) if p)
@@ -271,7 +308,7 @@ def main():
     if qp:
         commit_paths.append(qp)
     commit_and_push(commit_paths,
-                    f"Knock reply: {verdict['verdict']} ({', '.join(verdict['fired']) or 'no fire'})")
+                    f"Knock reply: {verdict['verdict']} ({', '.join(fired_words) or 'no fire'})")
 
     print("4. push back…")
     score = scoreboard(lexicon)
