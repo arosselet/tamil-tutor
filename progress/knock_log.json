@@ -116,13 +116,15 @@
     "expected_target": "சாஃப்ட்வேர் இன்ஜினியர்-ஆ இருக்கோம்",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Hey can you hear me? This is a test",
-    "reply_verdict": "chat",
+    "reply": "Nethu vandhom. Oru maasam iruppom software engineer-la",
+    "reply_verdict": "hinted",
     "reply_fired": [
-      "வந்தோம்"
+      "வந்தோம்",
+      "நெத்து வந்தோம்",
+      "ஒரு மாசம் இருப்போம்"
     ],
-    "reply_line": "loud and clear da — audio check passed 🟢 aunty's still waiting at the door though. nethu vandhom, oru maasam iruppom — and the job line, neenga-register. fire it.",
-    "reply_at": "2026-07-03T02:58:25Z",
-    "chained": 1
+    "reply_line": "almost there da — 'software engineer-la' is a bit loose. the aunty-register line is 'software engineer-a irukkoom' (irukkoom, not irukken). sollu again. · ok one more shot — aunty now asks 'enna velai seiyreenga?' give her the full job line, neenga-register, clean.",
+    "reply_at": "2026-07-03T03:01:54Z",
+    "chained": 2
   }
 ]
