@@ -7,7 +7,7 @@ delivers pushes Anna already decided on, at a chosen TIME — "ping me in an hou
 "field-mission debrief at 9pm", "deck rep tomorrow 8:15". Entries are fully
 composed at add-time (no LLM at fire-time), live in progress/push_queue.json on
 main, and are drained by a cheap CI tick (.github/workflows/push-queue.yml,
-every 15 min) or by any local drain — whoever gets there first; the queue is
+every 30 min) or by any local drain — whoever gets there first; the queue is
 the single source of truth.
 
 Every fired entry is logged into knock_log.json exactly like a knock, so:
