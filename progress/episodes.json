@@ -1702,5 +1702,21 @@
       "சொன்னாங்க"
     ],
     "duration_min": 2.2168
+  },
+  "54": {
+    "title": "The Stall Between Wants",
+    "listens": 0,
+    "words": [
+      "ஒரு மாசம் இருப்போம்",
+      "frame:isthere-noun (இருக்கா?)",
+      "frame:giveme-noun (குடுங்க)",
+      "frame:howmuch-noun (எவ்ளோ?)",
+      "frame:want-noun (வேணும்)",
+      "frame:where-noun (எங்க?)",
+      "சொன்னாங்க",
+      "பிடிக்காது",
+      "சீக்கிரம்"
+    ],
+    "duration_min": 1.7626
   }
 }
