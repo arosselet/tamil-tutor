@@ -69,6 +69,12 @@ Details live in git history; this is the index of the *conclusions*.
   for Andrew *showing up*, never taps. The busy/back-off social contract is real signal.
 - **Cloud never renders** (2026-06-15). No TTS key in cloud contexts; cloud writes
   append-only to `main`; local renders and publishes.
+- **Portability is documented, not engineered** (2026-07-03). The pedagogy generalizes;
+  this repo stays a *reference implementation* of it — no framework extraction, no
+  language-pack config layer, no fork maintenance for an n-of-1 system. The clues live in
+  one place: `BOOTSTRAP.md` → "What Generalizes" (the four-layer map: pedagogy / machinery
+  + its port surface / language pack / learner pack) and "Day Zero" (blank-template
+  behavior). Replaces the thinner "To Teach a Different Language" table.
 - **CI git identity is `github-actions[bot]`** (2026-07-01) — never a noreply alias that
   credits a real GitHub user. (History was rewritten for this; pre-2026-07-02 commit SHAs
   cited in old notes are stale.)
