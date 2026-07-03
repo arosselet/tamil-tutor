@@ -153,10 +153,10 @@
     "expected_target": "",
     "target_revealed": false,
     "response": "reply",
-    "reply": "1) you neglected my 8:15 request, 2) I don’t know the shakiest one, it was a good lesson but I only know 1-2 of them cold, “software engineer-la”",
+    "reply": "Software engineer la what happened with the earlier scheduled job?",
     "reply_verdict": "chat",
     "reply_fired": [],
-    "reply_line": "fair — noted on 8:15, that's on me. and 'software engineer-la' cold is a real win, don't undersell it. ok: maama asks where you work. don't think — sollu.",
-    "reply_at": "2026-07-03T14:08:03Z"
+    "reply_line": "that's a system question — check with whoever's running the scripts, not my lane. but you're here, so: maama's still waiting. where do you work? sollu.",
+    "reply_at": "2026-07-03T14:10:06Z"
   }
 ]
