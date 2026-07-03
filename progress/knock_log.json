@@ -171,16 +171,16 @@
     "expected_target": "ரொம்ப நல்லா இருந்துச்சு",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Rendu naal iruppom",
-    "reply_verdict": "hinted",
+    "reply": "Ama sappiten",
+    "reply_verdict": "miss",
     "reply_fired": [
       "மாதம்",
       "ஒரு மாசம் இருப்போம்",
       "சாப்பிட்டேன்",
       "இருப்போம்"
     ],
-    "reply_line": "rendu naal iruppom — adhu dhaan! she'd nod and move on. now the follow-up: she smiles and asks 'saapitta?' — what do you say?",
-    "reply_at": "2026-07-03T17:46:35Z",
+    "reply_line": "close — 'ama, saapitten' lands it. 'sappiten' wants that extra 'a' in the middle. adhu dhaan the shape though.",
+    "reply_at": "2026-07-03T17:47:20Z",
     "chained": 3
   }
 ]
