@@ -168,7 +168,16 @@
     "rationale": "He fired 'software engineer-la' this morning (hinted, but he showed up) — gauntlet is warm and the next due deck item is exactly the 'evlo naal irupeenga?' answer; cold dispatch now while momentum is alive.",
     "next_check": "2026-07-03T21:21:04.598717+00:00",
     "body": "auntie leans in: 'evlo naal irupeenga?' — don't think, just fire back. (one line, tamizh)",
-    "expected_target": "ஒரு மாசம் இருப்போம்",
-    "target_revealed": false
+    "expected_target": "சாப்பிட்டோம்",
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Maadham",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "மாதம்"
+    ],
+    "reply_line": "maadham — correct word, and she knows what you mean. full fire is 'oru maasam iruppom' — wrap the duration in a sentence and you own it. · same auntie, now she asks 'saapitteengalaa?' — what do you say?",
+    "reply_at": "2026-07-03T17:28:39Z",
+    "chained": 1
   }
 ]
