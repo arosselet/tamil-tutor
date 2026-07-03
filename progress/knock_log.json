@@ -116,13 +116,13 @@
     "expected_target": "சாஃப்ட்வேர் இன்ஜினியர்-ஆ இருக்கோம்",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Bethune dhaan vandhom",
-    "reply_verdict": "hinted",
+    "reply": "Hey can you hear me? This is a test",
+    "reply_verdict": "chat",
     "reply_fired": [
       "வந்தோம்"
     ],
-    "reply_line": "vandhom is landing — neenga-register, good instinct. but aunty wants the full FAQ: nethu dhaan vandhom, oru maasam iruppom. sollu once more, both lines. · ok, aunty nods and asks: 'enna panreenga inge?' — what do you tell her about the job? one line, neenga-register.",
-    "reply_at": "2026-07-02T19:27:50Z",
+    "reply_line": "loud and clear da — audio check passed 🟢 aunty's still waiting at the door though. nethu vandhom, oru maasam iruppom — and the job line, neenga-register. fire it.",
+    "reply_at": "2026-07-03T02:58:25Z",
     "chained": 1
   }
 ]
