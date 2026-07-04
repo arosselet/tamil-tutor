@@ -264,6 +264,16 @@
     "next_check": "2026-07-04T21:06:58.098445+00:00",
     "body": "oru maasam — solid. now the auntie leans in, eyes bright: 'namma Coimbatore pidichirukka?' She wants the melt line. Fire it cold. 🫶",
     "expected_target": "ரொம்ப பிடிச்சிருக்கு",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Romba pittikum!",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "ரொம்ப பிடிச்சிருக்கு"
+    ],
+    "reply_fired_cold": [],
+    "reply_line": "aamaa, almost! — present fire is 'romba pidichirukku'. 'pittikum' is future-flavoured, like 'you'll probably like it'. auntie wants to hear it's already got you. try it: romba pidichirukku. 🔥 · auntie nods, smiles, then turns to her daughter and says it for you — 'sollu, nee enna solvay?' Your turn. Fire it clean.",
+    "reply_at": "2026-07-04T18:08:14Z",
+    "chained": 1
   }
 ]

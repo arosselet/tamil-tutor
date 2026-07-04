@@ -27,6 +27,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **14:06 · Anna**  ·  challenge / gauntlet next line cold dare
 > oru maasam — solid. now the auntie leans in, eyes bright: 'namma Coimbatore pidichirukka?' She wants the melt line. Fire it cold. 🫶
 
+**14:08 · Andrew** — **HINTED** · chain ×1
+> Romba pittikum!
+
+**Anna ↩**
+> aamaa, almost! — present fire is 'romba pidichirukku'. 'pittikum' is future-flavoured, like 'you'll probably like it'. auntie wants to hear it's already got you. try it: romba pidichirukku. 🔥 · auntie nods, smiles, then turns to her daughter and says it for you — 'sollu, nee enna solvay?' Your turn. Fire it clean.
+
 
 ## Friday 2026-07-03
 
