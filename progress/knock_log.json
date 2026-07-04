@@ -263,17 +263,18 @@
     "rationale": "Andrew is warm and self-assessing in a good groove today — two engaged replies, he flagged podhum as cold; the gauntlet is rolling and the next due deck item (romba pidichirukku, hinted→cold) slots perfectly as the auntie's delight-check; no Tamil shown, genuine cold-fire attempt.",
     "next_check": "2026-07-04T21:06:58.098445+00:00",
     "body": "oru maasam — solid. now the auntie leans in, eyes bright: 'namma Coimbatore pidichirukka?' She wants the melt line. Fire it cold. 🫶",
-    "expected_target": "ரொம்ப பிடிச்சிருக்கு",
+    "expected_target": "கொஞ்ச நாளா படிக்கிறேன்",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Romba pittikum!",
+    "reply": "Romba pidichirukku",
     "reply_verdict": "hinted",
     "reply_fired": [
+      "ரொம்ப பிடிச்சிருக்கு",
       "ரொம்ப பிடிச்சிருக்கு"
     ],
     "reply_fired_cold": [],
-    "reply_line": "aamaa, almost! — present fire is 'romba pidichirukku'. 'pittikum' is future-flavoured, like 'you'll probably like it'. auntie wants to hear it's already got you. try it: romba pidichirukku. 🔥 · auntie nods, smiles, then turns to her daughter and says it for you — 'sollu, nee enna solvay?' Your turn. Fire it clean.",
-    "reply_at": "2026-07-04T18:08:14Z",
-    "chained": 1
+    "reply_line": "hinted — Anna showed you 'romba pidichirukku' in the recast last round, so it can't go cold this exchange. but you heard it, you filed it, and you fired it clean. that's the word living in your mouth now. auntie's face? pure melt. 🫶 · she turns to her daughter, proud, then looks back at you — 'evalo naala tamizh padikre?' How long have you been learning? Don't freeze. Fire it.",
+    "reply_at": "2026-07-04T18:11:45Z",
+    "chained": 2
   }
 ]
