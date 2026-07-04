@@ -72,6 +72,14 @@ Details live in git history; this is the index of the *conclusions*.
   publishes. **Exception, superseded in practice 2026-06-29 by the knock system:** knock
   memos are one-shot, self-contained doses that `morning_knock.py` renders in CI with its
   own service-account secret; that carve-out is deliberate and stays.
+- **Stories are curriculum — the lore pivot** (2026-07-03). The anti-teacher bans
+  over-corrected into a scenario monoculture; language-lore (etymology / culture / myth /
+  cross-language kinship) is now first-class *input*: a `lore` episode form in the palette,
+  a persona-native tangent in chat, and a no-ask lore dose in the knock repertoire. Loosens
+  the implicit everything-is-a-scenario rule. Guardrails: the scene-spec gate rotates lore
+  like any form (it may not take over the feed the way soak did); production (deck / floor)
+  stays the engine and gains no debt from lore; "No Academic Terms" still bans terminology —
+  it never banned stories. Lore is one of Anna's skills, not a new persona.
 - **Portability is documented, not engineered** (2026-07-03). The pedagogy generalizes;
   this repo stays a *reference implementation* of it — no framework extraction, no
   language-pack config layer, no fork maintenance for an n-of-1 system. The clues live in

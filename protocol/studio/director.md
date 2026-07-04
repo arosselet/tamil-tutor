@@ -40,7 +40,7 @@ The Master Lesson Plan carries the core pedagogical targets. Delivery modalities
 **Energy:** `low | medium | medium-loud | loud`. Contrast against the last 2-3. (Energy is loud/quiet; **Register** from the Scene Spec is the *emotional tone* — they're independent.)
 
 **Episode Form (from the Scene Spec):** The *structure* of the episode (orthogonal to Shape, which is *what happens*). The Architect executes whichever the spec handed you.
-`classic` (Intercept + full Breakdown) | `vignette` (Intercept only, no Breakdown — trust the scene) | `story` (one host carries a short told tale; light or no Breakdown) | `phone_call` (naturalistic call; light Breakdown)
+`classic` (Intercept + full Breakdown) | `vignette` (Intercept only, no Breakdown — trust the scene) | `story` (one host carries a short told tale; light or no Breakdown) | `phone_call` (naturalistic call; light Breakdown) | `lore` (Maya & Raj lead end-to-end; the payload word is the protagonist — history, kinship, myth, culture; 1–2 words told deep)
 
 ---
 
@@ -97,7 +97,7 @@ If the fence is empty (cold-start), note that in the brief — the Architect mus
 - **Scenario Shape:** [shape from canonical list]
 - **Location class:** [location from canonical list]
 - **Energy:** low | medium | medium-loud | loud
-- **Episode Form:** classic | vignette | story | phone_call
+- **Episode Form:** classic | vignette | story | phone_call | lore
 
 ## Scenario Context
 [A few sentences — atmosphere, tension, what is happening.]

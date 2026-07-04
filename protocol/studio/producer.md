@@ -69,7 +69,7 @@ After the dialect and integrity passes, write a sidecar metadata file alongside 
 }
 ```
 
-**`register`, `dramatic_ingredient`, and `episode_form` are load-bearing — `scripts/suggest_targets.py` reads them to compute the next episode's Scene Spec (the divergence gate).** Write what was *actually delivered*, the same as `shape`. Use the canonical values: register from the Director's palette, ingredient from `subtext | turn | character | stakes | genre`, form from `classic | vignette | story | phone_call`. Omitting them doesn't crash the gate, but it blinds it on that axis.
+**`register`, `dramatic_ingredient`, and `episode_form` are load-bearing — `scripts/suggest_targets.py` reads them to compute the next episode's Scene Spec (the divergence gate).** Write what was *actually delivered*, the same as `shape`. Use the canonical values: register from the Director's palette, ingredient from `subtext | turn | character | stakes | genre`, form from `classic | vignette | story | phone_call | lore`. Omitting them doesn't crash the gate, but it blinds it on that axis.
 
 **Estimating density:** Eyeball it. Count Tamil-script chunks vs English chunks per line, average across the section. Round to nearest 0.05. This is a *descriptive* stat for the tags sidecar, not a target — the Architect builds from the vocabulary fence and the density is whatever results.
 
