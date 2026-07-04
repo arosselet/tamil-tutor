@@ -218,15 +218,15 @@
     "expected_target": "திரும்பி போவோம்",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Naal varangal",
-    "reply_verdict": "cold",
+    "reply": "I meant to respond slightly off your plan “4 weeks” instead of “1 month” was I right?",
+    "reply_verdict": "chat",
     "reply_fired": [
       "நாள்",
       "வரைக்கும்"
     ],
     "reply_fired_cold": [],
-    "reply_line": "close da — 'naal' is there, that's real. but the frame we'd use: 'oru maasam iruppom' — one month, we're staying. varangal works too but sounds a bit stiff; iruppom is smoother at the table. · ok — same auntie now looks at your wife and asks *you* when you're leaving. Don't say the duration this time — say the date you're going back.",
-    "reply_at": "2026-07-04T13:18:33Z",
+    "reply_line": "ha — 'naal varangal' landed as the attempt, and that's fair. '4 weeks' vs '1 month' doesn't matter to the auntie — she hears the number either way. the word gap is the leaving-date frame, not the duration. we'll come back to it.",
+    "reply_at": "2026-07-04T13:20:37Z",
     "chained": 1
   }
 ]
