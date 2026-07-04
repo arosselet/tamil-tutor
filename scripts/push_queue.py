@@ -38,6 +38,7 @@ from pathlib import Path
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
+from render_chat import render_chat
 from morning_knock import (KNOCK_LOG_PATH, LOCAL_TZ, WAKING_START_HOUR,
                            WAKING_END_HOUR, MAX_REACHES_PER_DAY, load_json,
                            load_env, push_to_phone, commit_and_push,
@@ -208,7 +209,7 @@ def cmd_drain(args):
     KNOCK_LOG_PATH.write_text(json.dumps(klog, ensure_ascii=False, indent=2), encoding="utf-8")
     save_queue(kept)
     if not args.no_commit:
-        commit_and_push([QUEUE_PATH, KNOCK_LOG_PATH],
+        commit_and_push([QUEUE_PATH, KNOCK_LOG_PATH, render_chat()],
                         f"Scheduled push fired ({', '.join(e['id'] for e in fired)})")
     print(f"done — fired {len(fired)}, {len(kept)} still queued.")
 

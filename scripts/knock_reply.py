@@ -31,6 +31,7 @@ from openai import OpenAI
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
+from render_chat import render_chat
 from morning_knock import (OPENROUTER_BASE, MODEL, KNOCK_LOG_PATH,
                            load_env, push_to_phone, commit_and_push,
                            maybe_enqueue_schedule)
@@ -303,7 +304,7 @@ def main():
     save_json(KNOCK_LOG_PATH, klog)
 
     print("3. commit + push…")
-    commit_paths = [LEXICON_PATH, KNOCK_LOG_PATH]
+    commit_paths = [LEXICON_PATH, KNOCK_LOG_PATH, render_chat()]
     qp = maybe_enqueue_schedule(verdict)
     if qp:
         commit_paths.append(qp)
