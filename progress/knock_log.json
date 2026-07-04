@@ -195,15 +195,15 @@
     "expected_target": "rendu varusham",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Canada la irukkom",
-    "reply_verdict": "cold",
+    "reply": "38 years",
+    "reply_verdict": "chat",
     "reply_fired": [
       "Canada-la irukkom",
       "Canada-la irukkom"
     ],
     "reply_fired_cold": [],
-    "reply_line": "adhu dhaan! 🔥 'Canada-la irukkom' — clean, cold, exactly how the aunties hear it. · same auntie now asks how long you've been there — 'eppo vanteenga?' — how many years? fire it back.",
-    "reply_at": "2026-07-04T02:56:41Z",
+    "reply_line": "38 years da — ok, so we need 'muppatthettu varusham aachu' 😄 that's a mouthful. let's make it simple: 'romba varusham aachu' — 'it's been a long time.' that one you can fire cold anywhere.",
+    "reply_at": "2026-07-04T02:57:47Z",
     "chained": 2
   }
 ]
