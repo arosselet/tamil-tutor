@@ -276,5 +276,17 @@
     "reply_line": "hinted — Anna showed you 'romba pidichirukku' in the recast last round, so it can't go cold this exchange. but you heard it, you filed it, and you fired it clean. that's the word living in your mouth now. auntie's face? pure melt. 🫶 · she turns to her daughter, proud, then looks back at you — 'evalo naala tamizh padikre?' How long have you been learning? Don't freeze. Fire it.",
     "reply_at": "2026-07-04T18:11:45Z",
     "chained": 2
+  },
+  {
+    "date": "2026-07-04",
+    "timestamp": "2026-07-04T22:55:19.965331+00:00",
+    "acted": true,
+    "modality": "challenge",
+    "move": "arrival gauntlet cold-fire",
+    "rationale": "He's been replying all day — streak hot, zero ignore, three hinted fires on the gauntlet; now it's Saturday evening, low-friction window, and 'oru maasam iruppom' is top of the deck-due list hinted→cold. One clean English situation, one shot to fire it cold — exactly the move the sprint needs.",
+    "next_check": "2026-07-05T12:55:19.965331+00:00",
+    "body": "auntie clocks you at the door: 'evlo naal irupeenga?' — don't think. fire it back. 🎯",
+    "expected_target": "ஒரு மாசம் இருப்போம்",
+    "target_revealed": false
   }
 ]
