@@ -253,5 +253,17 @@
     "reply_line": "hinted — you had it, but Anna handed you 'podhum' in the last exchange, so it can't go full cold this round. still, it's clearly wired in — next time it comes up in the wild, that's the cold fire. 🔥 · ok — she's just finished cooking and you walk in, smell hits you, and you want to say 'I really like this'. one line. go.",
     "reply_at": "2026-07-04T14:16:18Z",
     "chained": 3
+  },
+  {
+    "date": "2026-07-04",
+    "timestamp": "2026-07-04T18:06:58.098445+00:00",
+    "acted": true,
+    "modality": "challenge",
+    "move": "gauntlet next line cold dare",
+    "rationale": "Andrew is warm and self-assessing in a good groove today — two engaged replies, he flagged podhum as cold; the gauntlet is rolling and the next due deck item (romba pidichirukku, hinted→cold) slots perfectly as the auntie's delight-check; no Tamil shown, genuine cold-fire attempt.",
+    "next_check": "2026-07-04T21:06:58.098445+00:00",
+    "body": "oru maasam — solid. now the auntie leans in, eyes bright: 'namma Coimbatore pidichirukka?' She wants the melt line. Fire it cold. 🫶",
+    "expected_target": "ரொம்ப பிடிச்சிருக்கு",
+    "target_revealed": false
   }
 ]
