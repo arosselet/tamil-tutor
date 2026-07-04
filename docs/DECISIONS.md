@@ -31,6 +31,12 @@ Details live in git history; this is the index of the *conclusions*.
 - **Calibration dials live in `progress/profile.md` → Calibration Notes** — coverage %,
   new-word counts, pacing. Change the parameter; never encode a dial's value in protocol
   prose or assistant memory.
+- **A fade is palatability data, not a discipline failure** (2026-07-04). Contact is king
+  *only when the input is palatable and reliably varying* — the Apr–May fade wasn't
+  absence, it was episodes grating (too dense, too contrived, same scenario re-run) and
+  the fade-era refactors were a search for the fix. When contact drops: diagnose the
+  grating first; never answer a fade with accountability machinery. A build-itch during a
+  fade carries the diagnosis — mine it before parking it.
 
 ## Settled design decisions
 
