@@ -32,7 +32,7 @@ from openai import OpenAI
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from render_chat import render_chat
-from morning_knock import (OPENROUTER_BASE, MODEL, KNOCK_LOG_PATH,
+from morning_knock import (OPENROUTER_BASE, MODEL, KNOCK_LOG_PATH, parse_llm_json,
                            load_env, push_to_phone, commit_and_push,
                            maybe_enqueue_schedule)
 from sync_state import (LEXICON_PATH, TRIP_DATE, load_json, save_json,
@@ -162,10 +162,7 @@ def judge(knock: dict, reply_text: str, target_record: dict | None) -> dict:
             {"role": "user", "content": json.dumps(context, ensure_ascii=False, indent=2)},
         ],
     )
-    text = resp.choices[0].message.content.strip()
-    if text.startswith("```"):
-        text = text.split("```")[1].lstrip("json").strip()
-    return normalize_verdict(json.loads(text, strict=False))
+    return normalize_verdict(parse_llm_json(resp.choices[0].message.content))
 
 
 def normalize_verdict(d: dict) -> dict:

@@ -339,6 +339,25 @@ def maybe_enqueue_schedule(decision: dict) -> Path | None:
     return QUEUE_PATH
 
 
+def parse_llm_json(text: str) -> dict:
+    """The mandates say 'return ONLY a JSON object', but models occasionally
+    wrap it in a code fence or a line of prose anyway (CI failure 2026-07-04:
+    'Expecting value: char 0' killed a knock tick). Strip fences, then fall
+    back to the outermost {...} slice; print the raw text before giving up so
+    the Action log shows WHAT came back, not just that it didn't parse."""
+    text = text.strip()
+    if text.startswith("```"):
+        text = text.split("```")[1].lstrip("json").strip()
+    try:
+        return json.loads(text, strict=False)
+    except json.JSONDecodeError:
+        start, end = text.find("{"), text.rfind("}")
+        if start == -1 or end <= start:
+            print(f"--- unparseable LLM response ---\n{text}\n---")
+            raise
+        return json.loads(text[start:end + 1], strict=False)
+
+
 def decide(digest: str) -> dict:
     persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
     client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
@@ -350,10 +369,7 @@ def decide(digest: str) -> dict:
             {"role": "user", "content": f"TODAY'S DIGEST:\n\n{digest}"},
         ],
     )
-    text = resp.choices[0].message.content.strip()
-    if text.startswith("```"):
-        text = text.split("```")[1].lstrip("json").strip()
-    d = json.loads(text, strict=False)
+    d = parse_llm_json(resp.choices[0].message.content)
     # Normalise / guard the fields Python relies on.
     d["modality"] = d.get("modality") if d.get("modality") in MODALITIES else "text"
     if d["modality"] == "silence":
