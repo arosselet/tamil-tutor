@@ -152,7 +152,8 @@
     "recognition": "solid",
     "production": "none",
     "seen_in": [
-      32
+      32,
+      55
     ],
     "last_surfaced": null
   },
@@ -179,7 +180,8 @@
       38,
       52,
       53,
-      54
+      54,
+      55
     ],
     "last_surfaced": null
   },
@@ -3001,7 +3003,8 @@
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [
-      54
+      54,
+      55
     ],
     "last_surfaced": null,
     "deck": "trip",
