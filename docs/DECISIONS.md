@@ -68,10 +68,16 @@ Details live in git history; this is the index of the *conclusions*.
   daily cap, min gap = deterministic gate; whether/how/when = Anna's decision, optimized
   for Andrew *showing up*, never taps. The busy/back-off social contract is real signal.
 - **Cloud never renders episodes** (2026-06-15; amended 2026-07-03). No TTS in cloud for
-  episode/playlist production — cloud writes append-only to `main`; local renders and
+  episode production — cloud writes append-only to `main`; local renders and
   publishes. **Exception, superseded in practice 2026-06-29 by the knock system:** knock
   memos are one-shot, self-contained doses that `morning_knock.py` renders in CI with its
   own service-account secret; that carve-out is deliberate and stays.
+- **Playlist retired** (2026-07-03). Built to chain short episodes so Andrew didn't have to
+  press play repeatedly; his listening changed to pick-one-and-repeat, and the playlist's
+  selection signal (listen counts) went blind the day the stop-chasing-listens pivot stopped
+  feeding it. It also masked the feed: a stale concatenation got mistaken for the newest
+  episode. Removed whole: `build_playlist.py`, `rebuild_playlist_rss.py`, `playlist_rss.xml`,
+  `published_playlists/`, and the render lifecycle hook. `rss.xml` is the only feed.
 - **Stories are curriculum — the lore pivot** (2026-07-03). The anti-teacher bans
   over-corrected into a scenario monoculture; language-lore (etymology / culture / myth /
   cross-language kinship) is now first-class *input*: a `lore` episode form in the palette,

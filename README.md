@@ -92,7 +92,7 @@ progress/            → lexicon.json (word brain) + learner.json (continuity) +
 scripts/             → Python tools (state, targets, render, drills, status, RSS, morning_knock, knock_reply, push_queue)
 ```
 
-*Storage: the repo keeps only the **last 8 episodes** and playlists; old MP3s are purged as new ones land. The Markdown scripts and briefs remain as the permanent record. We move forward, not archive.*
+*Storage: the repo keeps only the **last 8 episodes**; old MP3s are purged as new ones land. The Markdown scripts and briefs remain as the permanent record. We move forward, not archive.*
 
 ## Getting Started
 
