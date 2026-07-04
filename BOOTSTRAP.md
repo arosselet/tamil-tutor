@@ -71,7 +71,7 @@ Run the first `/anna` session using the fresh state.
 - `protocol/` — The generative logic (persona, daily session, audio pipeline roles).
 - `progress/` — Your personal state (gitignored JSON managed by Python + LLM-maintained profile).
 - `curriculum/` — `word_pool.json` (suggestion list of words; Anna picks from it) plus optional curated deck files (e.g. a finite sprint deck like `trip_deck.json`) loaded via `sync_state.py seed-deck`.
-- `scripts/` — Python engine: `sync_state.py` owns all state writes; `suggest_targets.py` computes the session ticket; `render_audio.py`, `show_status.py`, `generate_callbacks.py`, `build_playlist.py` for audio and spaced repetition; `morning_knock.py` / `knock_reply.py` / `push_queue.py` for the optional phone-outreach loop.
+- `scripts/` — Python engine: `sync_state.py` owns all state writes; `suggest_targets.py` computes the session ticket; `render_audio.py`, `show_status.py`, `generate_callbacks.py` for audio and spaced repetition; `morning_knock.py` / `knock_reply.py` / `push_queue.py` for the optional phone-outreach loop.
 
 ### What Generalizes (the layer map)
 

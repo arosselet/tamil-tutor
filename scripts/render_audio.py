@@ -460,16 +460,12 @@ async def main():
 
         subprocess.run(["python3", "scripts/rebuild_rss.py"], check=True)
 
-        # Rebuild playlist feed so it picks up the new episode automatically
-        subprocess.run(["python3", "scripts/build_playlist.py", "--publish"], check=True)
-
         # The .tags.json sidecar is load-bearing (the divergence gate reads it
         # next episode) and the brief is the Director's record — stage both.
         tags_file = Path(args.input_file).with_suffix(".tags.json")
         extra = [str(tags_file)] if tags_file.exists() else []
         subprocess.run(["git", "add",
                         "published_audio/", "rss.xml",
-                        "published_playlists/", "playlist_rss.xml",
                         "progress/episodes.json", "progress/lexicon.json",
                         "content/lessons/",
                         str(args.input_file), *extra], check=True)
