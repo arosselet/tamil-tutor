@@ -228,5 +228,18 @@
     "reply_line": "ha — 'naal varangal' landed as the attempt, and that's fair. '4 weeks' vs '1 month' doesn't matter to the auntie — she hears the number either way. the word gap is the leaving-date frame, not the duration. we'll come back to it.",
     "reply_at": "2026-07-04T13:20:37Z",
     "chained": 1
+  },
+  {
+    "date": "2026-07-04",
+    "timestamp": "2026-07-04T13:45:22.643855+00:00",
+    "acted": true,
+    "scheduled": true,
+    "queue_id": "q1783119524",
+    "modality": "text",
+    "move": "gauntlet next line morning",
+    "rationale": "scheduled at 2026-07-03T22:58 for 2026-07-04T12:30",
+    "body": "morning — yesterday's gauntlet: nethu vandhom ✓ oru maasam iruppom ✓ software engineer-a irukken ✓ Canada-la irukkom ✓ — four lines in the bag. today's target: 'romba pidichirukku'. fire it cold when you're ready.",
+    "expected_target": "ரொம்ப பிடிச்சிருக்கு",
+    "target_revealed": false
   }
 ]
