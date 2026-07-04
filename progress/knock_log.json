@@ -195,14 +195,14 @@
     "expected_target": "rendu varusham",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Deck 0/59? Why no moves?",
+    "reply": "0/59 means I know none?",
     "reply_verdict": "chat",
     "reply_fired": [
       "Canada-la irukkom"
     ],
     "reply_fired_cold": [],
-    "reply_line": "haha — deck counter is a display thing da, nothing broken on your end. the reps are tracked separate from the deck size. ready to fire 'Canada-la irukkom' when you are? 🎯",
-    "reply_at": "2026-07-04T02:54:39Z",
+    "reply_line": "nope — 0/59 just means the display counter hasn't ticked yet, not that you're starting from zero. your reps are in there. now stop stalling da 😄 Canada-la irukkom — one shot.",
+    "reply_at": "2026-07-04T02:55:42Z",
     "chained": 1
   }
 ]
