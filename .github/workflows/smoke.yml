@@ -1,0 +1,28 @@
+name: Smoke Test
+# Plumbing regression net for the rep channel (knock / reply judge / queue
+# drain / chat record). Drives the real production functions against a
+# sandboxed copy of the repo with the LLM, phone push, and git stubbed —
+# no secrets, no network, runs in seconds. Push-time is when regressions
+# enter, so push-time is when this runs; the cron workflows stay lean.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/**"
+      - ".github/workflows/**"
+      - "requirements.txt"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python scripts/smoke_test.py
