@@ -43,6 +43,7 @@ from openai import OpenAI
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from render_audio import generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME
+from render_chat import render_chat
 
 OPENROUTER_BASE = "https://openrouter.ai/api/v1"   # OpenAI-compatible; one key, many models
 MODEL = "anthropic/claude-sonnet-4.6"   # Andrew's default; fallback e.g. "google/gemini-2.5-flash"
@@ -493,7 +494,7 @@ def main():
         if args.dry_run:
             print("[dry-run] would log the silence + next_check; stopping.")
             return
-        paths = [log_decision(now, decision, acted=False)]
+        paths = [log_decision(now, decision, acted=False), render_chat()]
         qp = maybe_enqueue_schedule(decision)
         if qp:
             paths.append(qp)
@@ -517,7 +518,7 @@ def main():
         return
 
     path = log_decision(now, decision, acted=True, audio_url=audio_url, mp3=mp3)
-    commit_paths = [path] if mp3 is None else [mp3, path]
+    commit_paths = [path, render_chat()] if mp3 is None else [mp3, path, render_chat()]
     qp = maybe_enqueue_schedule(decision)
     if qp:
         commit_paths.append(qp)
