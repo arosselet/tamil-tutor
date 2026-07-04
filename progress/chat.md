@@ -4,6 +4,27 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Saturday 2026-07-04
+
+**09:16 · Anna**  ·  challenge / arrival gauntlet cold-fire
+> ☕ Auntie leans in: 'evlo naal irupeenga?' — don't think. fire it back.
+
+**09:20 · Andrew** — **CHAT** · chain ×1
+> I meant to respond slightly off your plan “4 weeks” instead of “1 month” was I right?
+
+**Anna ↩**
+> ha — 'naal varangal' landed as the attempt, and that's fair. '4 weeks' vs '1 month' doesn't matter to the auntie — she hears the number either way. the word gap is the leaving-date frame, not the duration. we'll come back to it.
+
+**09:45 · Anna**  ·  text / gauntlet next line morning
+> morning — yesterday's gauntlet: nethu vandhom ✓ oru maasam iruppom ✓ software engineer-a irukken ✓ Canada-la irukkom ✓ — four lines in the bag. today's target: 'romba pidichirukku'. fire it cold when you're ready.
+
+**10:16 · Andrew** — **HINTED** · chain ×3
+> Podhum (this one fires cold it was one of the first Tamil words I learned)
+
+**Anna ↩**
+> hinted — you had it, but Anna handed you 'podhum' in the last exchange, so it can't go full cold this round. still, it's clearly wired in — next time it comes up in the wild, that's the cold fire. 🔥 · ok — she's just finished cooking and you walk in, smell hits you, and you want to say 'I really like this'. one line. go.
+
+
 ## Friday 2026-07-03
 
 **09:03 · Anna**  ·  text / birthday grace note
@@ -30,11 +51,11 @@ Newest day first. **Derived file — edits here are overwritten.**
 **18:58 · Anna**  ·  challenge / gauntlet miss recast + cold dare
 > da — 'sappiten' is eating, not where you're from 😄 the aunties asked 'enga irukeenga?' — fire it back: Canada-la irukkom. one shot, cold.
 
-**19:03 · Andrew** — **COLD** · chain ×1
-> Canada-la irukkom
+**22:57 · Andrew** — **CHAT** · chain ×2
+> 38 years
 
 **Anna ↩**
-> adhu dhaan! 🔥 clean, cold, zero hesitation — the aunties would've nodded and moved on like you've been there the whole time. · same aunties, now they want to know how long you've been in Canada — 'evvalavu naala?' — one shot.
+> 38 years da — ok, so we need 'muppatthettu varusham aachu' 😄 that's a mouthful. let's make it simple: 'romba varusham aachu' — 'it's been a long time.' that one you can fire cold anywhere.
 
 
 ## Thursday 2026-07-02
