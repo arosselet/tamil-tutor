@@ -195,14 +195,14 @@
     "expected_target": "rendu varusham",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Good evening. Tell me a joke",
+    "reply": "Deck 0/59? Why no moves?",
     "reply_verdict": "chat",
     "reply_fired": [
       "Canada-la irukkom"
     ],
     "reply_fired_cold": [],
-    "reply_line": "ha — noted. why did the auntie stare at the clock? because someone said 'sappiten' when she asked where he's from 😄 catch you next round da.",
-    "reply_at": "2026-07-04T02:53:33Z",
+    "reply_line": "haha — deck counter is a display thing da, nothing broken on your end. the reps are tracked separate from the deck size. ready to fire 'Canada-la irukkom' when you are? 🎯",
+    "reply_at": "2026-07-04T02:54:39Z",
     "chained": 1
   }
 ]
