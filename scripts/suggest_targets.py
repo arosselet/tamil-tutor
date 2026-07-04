@@ -50,8 +50,10 @@ DIVERGENCE_WINDOW = 3
 # Emotional tone — the axis that was stuck on "mild irritation".
 REGISTERS = ["tenderness", "dread", "mischief", "pride", "suspicion",
              "grief/nostalgia", "delight", "embarrassment", "defiance", "reconciliation"]
-# Episode structure (matches the Architect's Episode Form).
-FORMS = ["classic", "vignette", "story", "phone_call"]
+# Episode structure (matches the Architect's Episode Form). "lore" is the
+# stories-are-curriculum lens (constitution): the payload word as protagonist —
+# gate-rotated like every form so it can't take over the feed.
+FORMS = ["classic", "vignette", "story", "phone_call", "lore"]
 # One dramatic ingredient — all free of vocabulary, all situational.
 INGREDIENTS = {
     "subtext": "two people want opposite things under polite words",

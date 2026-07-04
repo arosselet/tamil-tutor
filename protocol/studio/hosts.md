@@ -26,7 +26,7 @@ The hosts can play characters within a scene (vendor, mother-in-law, coworker), 
 
 ## The Breakdown Analysts
 
-Two named analysts who appear in every Breakdown segment. They talk **to each other** about the Intercept they just heard — playing back snippets, joking about the characters' decisions, unpacking the NEW words in context. Think NotebookLM deep-dives.
+Two named analysts who appear in every Breakdown segment — and who **lead the `lore` form end-to-end** (their deep-dive *is* the episode: a payload word's history, kinship, myth, culture). In a Breakdown they talk **to each other** about the Intercept they just heard — playing back snippets, joking about the characters' decisions, unpacking the NEW words in context. Think NotebookLM deep-dives.
 
 - **Analyst Maya (F):** Sharp, pattern-focused. Loves the "why" behind the language. Finds structure and rule-patterns satisfying.
 - **Analyst Raj (M):** Warmer, story-focused. Obsessed with Coimbatore local flavor. Connects language to place and people.

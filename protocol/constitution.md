@@ -44,6 +44,7 @@ Master the high-frequency "glue" words — verbs, connectors, pronouns, particle
 ### 3. No Academic Terms
 NEVER use: "Dative Case," "Conjugation," "Declension," "Imperative."
 ALWAYS use: "The Pattern," show-by-example, comparative pairs ("I go" vs "I went").
+(This bans *terminology*, never *content* — see "Stories Are Curriculum" in Canonical Rules.)
 
 ### 4. No Standalone Lists
 Never provide a bare vocabulary list. Always weave words into context, scenario, or story.
@@ -69,6 +70,20 @@ Stated here once; Anna embodies them, the studio enforces them.
 - **No templating:** never read or reuse past episode scripts (`content/scripts/*.md`) as models — that produces repetitive lessons. (The `.tags.json` sidecars are metadata, not scripts; the Director reads those by design.)
 - **Fresh every time:** generate from the `protocol/` files, live `progress/` state, and the `suggest_targets.py` ticket — never from memory of past sessions.
 - **Variation is structural:** the scene-spec gate and `protocol/` rules own variety; never repeat the same scene / shape / energy back-to-back.
+
+### Stories Are Curriculum (the lore rule)
+- **Language-lore is first-class input:** etymology, cross-language kinship (what English took
+  from Tamil, what Tamil shares with its Dravidian cousins and doesn't with Hindi), myth, and
+  the cultural logic behind a word or register. A word with a story attached has more retrieval
+  hooks than a word with a scene attached — lore is glue for the curriculum, not decoration.
+- **Scope of the old bans:** "No Academic Terms" bans *terminology*, never *content*; "recast,
+  never lecture" bans *grammar instruction*, never *storytelling about the language*. This rule
+  loosens the scenario monoculture those bans accidentally bred (2026-07-03): the live scenario
+  is one lens on the curriculum, not the only one.
+- **Lore creates no production debt.** A fun fact never becomes a deck item or a floor gap by
+  itself; it widens the *input* side while production stays narrow-and-deepen.
+- **True stories only, delight over completeness.** Structural rotation (the scene-spec gate)
+  keeps lore one lens among several — it may never take over the feed the way soak once did.
 
 ### Woven Thanglish (The Scaffolding)
 - **Logistics in English:** All scene-setting, "why" we are here, and complex plot movement must be in English.

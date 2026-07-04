@@ -48,6 +48,15 @@ The Lesson Plan also specifies an **Episode Form** — the *structure* you deliv
 - **`vignette`** — Intercept only. **No Breakdown.** A short, punchy slice-of-life that trusts the scene to carry the words. Best when the payload leans on consolidation/callbacks rather than heavy new vocab.
 - **`story`** — one host carries a short told tale (a thing that happened to a cousin, an auto ride gone wrong). Light Breakdown or none. The other host can interject, but one voice leads.
 - **`phone_call`** — a naturalistic call (you hear both sides, or one). Light Breakdown.
+- **`lore`** — the payload word is the **protagonist**, not a prop: its history, its relatives
+  (loans, cognates, what English took from Tamil — *catamaran*, *curry*, *mango*), the myth or
+  cultural logic behind it, why the register bends around it. **Maya and Raj lead the whole
+  episode** — this is their native format (she chases the *why*, he ties it to place and people).
+  An optional ~30-second Intercept vignette may open as the *specimen* they dissect; otherwise no
+  Intercept at all. Mostly-English carried is **correct** here (Woven Thanglish: English tells the
+  story, Tamil carries the payload); the coverage rule governs the Tamil lines. **One or two
+  payload words told deep — never a survey**; during a deck sprint the protagonist comes from the
+  deck. True stories only; delight over completeness (constitution → Stories Are Curriculum).
 
 The fourth wall and no-fixed-characters rules hold in every form (`protocol/studio/hosts.md`).
 
