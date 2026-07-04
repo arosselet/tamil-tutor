@@ -239,7 +239,17 @@
     "move": "gauntlet next line morning",
     "rationale": "scheduled at 2026-07-03T22:58 for 2026-07-04T12:30",
     "body": "morning — yesterday's gauntlet: nethu vandhom ✓ oru maasam iruppom ✓ software engineer-a irukken ✓ Canada-la irukkom ✓ — four lines in the bag. today's target: 'romba pidichirukku'. fire it cold when you're ready.",
-    "expected_target": "ரொம்ப பிடிச்சிருக்கு",
-    "target_revealed": false
+    "expected_target": "போதும்",
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Romba pidichirukku",
+    "reply_verdict": "cold",
+    "reply_fired": [
+      "ரொம்ப பிடிச்சிருக்கு"
+    ],
+    "reply_fired_cold": [],
+    "reply_line": "adhu dhaan! 🔥 clean cold fire — that one's yours now. · ok, next line. your maama just put more food on your plate and says 'saapdu saapdu!' — what do you say back?",
+    "reply_at": "2026-07-04T14:12:27Z",
+    "chained": 1
   }
 ]
