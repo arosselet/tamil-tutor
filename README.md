@@ -1,6 +1,6 @@
 # Coimbatore Mappillai — From Recognition to Reflex
 
-<video src="https://github.com/user-attachments/assets/88cbc4e4-5275-4d8d-b11b-733709225275" controls width="240" height="240"></video>
+<video src="https://github.com/user-attachments/assets/4d5077be-b969-4e5d-b748-6800b2c6b913" controls width="240" height="240"></video>
 
 A persistent, stateful language coach powered by LLMs. Built for Coimbatore Tamil; the pedagogy and the architecture are portable to any language. The system tracks one number: of everything you've heard and recognized, how much can you actually fire cold.
 
