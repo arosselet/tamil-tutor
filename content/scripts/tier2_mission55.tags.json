@@ -1,0 +1,17 @@
+{
+  "mission": 55,
+  "register": "mischief",
+  "dramatic_ingredient": "turn",
+  "episode_form": "lore",
+  "shape": "debrief",
+  "location_class": "other",
+  "energy": "medium",
+  "intercept_tamil_density": 0.65,
+  "breakdown_tamil_density": 0.20,
+  "fence_size": 172,
+  "unfenced_words": 0,
+  "new_words_landed": { "frame:want-noun": 8 },
+  "callbacks_used": { "சொன்னாங்க": 1, "அழகான": 1 },
+  "host_roles": { "Maya": "structural_analyst", "Raj": "cultural_storyteller" },
+  "notes": "First lore form episode. Maya and Raj lead end-to-end. Specimen vignette (~5 lines) opens with both forms of the root (வேணும் / வேண்டாம்) back-to-back; lore discussion covers: literary->spoken compression (வேண்டும்->வேணும்), Tamil's refusal to split want/need, Sangam-era root, negation mirror வேண்டாம், and the 'வேணும் வேண்டாம்' mixed-feelings reading. Turn: the grandmother's moral-command use of வேணும் flips the frame — same word as the tea order, categorically different weight."
+}
