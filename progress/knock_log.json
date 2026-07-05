@@ -287,6 +287,13 @@
     "next_check": "2026-07-05T12:55:19.965331+00:00",
     "body": "auntie clocks you at the door: 'evlo naal irupeenga?' — don't think. fire it back. 🎯",
     "expected_target": "ஒரு மாசம் இருப்போம்",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Naal vaaranga",
+    "reply_verdict": "miss",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_line": "close on the word, but naal vaaranga is 'days are coming' — auntie asked how long you're staying, so you want 'oru maasam iruppom' — we're here one month. that's the line.",
+    "reply_at": "2026-07-05T01:20:48Z"
   }
 ]

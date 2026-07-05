@@ -36,6 +36,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **18:55 · Anna**  ·  challenge / arrival gauntlet cold-fire
 > auntie clocks you at the door: 'evlo naal irupeenga?' — don't think. fire it back. 🎯
 
+**21:20 · Andrew** — **MISS**
+> Naal vaaranga
+
+**Anna ↩**
+> close on the word, but naal vaaranga is 'days are coming' — auntie asked how long you're staying, so you want 'oru maasam iruppom' — we're here one month. that's the line.
+
 
 ## Friday 2026-07-03
 
