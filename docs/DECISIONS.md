@@ -98,6 +98,12 @@ Details live in git history; this is the index of the *conclusions*.
   one place: `BOOTSTRAP.md` → "What Generalizes" (the four-layer map: pedagogy / machinery
   + its port surface / language pack / learner pack) and "Day Zero" (blank-template
   behavior). Replaces the thinner "To Teach a Different Language" table.
+- **All audio lands on the podcast feed** (2026-07-05). A push notification is ephemeral —
+  dismissing it must not lose the dose. `rebuild_rss.py` now includes `published_audio/knocks/`
+  (titled from the knock log's move), and an audio knock rebuilds `rss.xml` in its own CI
+  commit (`refresh_feed()`, failure-tolerant: feed polish never kills a knock). Convenience
+  beats feed purity; knocks mingling with episodes is accepted. Replaces the
+  notification-only life of knock audio; knocks stay read-only on session state.
 - **CI git identity is `github-actions[bot]`** (2026-07-01) — never a noreply alias that
   credits a real GitHub user. (History was rewritten for this; pre-2026-07-02 commit SHAs
   cited in old notes are stale.)
