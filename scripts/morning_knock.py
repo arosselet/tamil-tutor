@@ -65,6 +65,15 @@ NEXT_CHECK_CLAMP = (0.5, 24.0)   # Anna's self-set next_check is clamped to this
 
 MODALITIES = {"text", "audio", "challenge", "grace", "silence"}
 
+# Lock-screen render budget. The mandate asks for ≤140; past ~160 iOS cuts the
+# body and the dose dies unseen (2026-07-05 feedback). Warn-only — a trimmed
+# dose is worse than a logged warning; the fix belongs in the composer.
+BODY_BUDGET = 160
+
+
+def over_budget(text: str, budget: int = BODY_BUDGET) -> bool:
+    return len(text or "") > budget
+
 
 # ── State helpers ─────────────────────────────────────────────────────────────
 
@@ -179,6 +188,19 @@ def outcome_memory(klog: list, now: datetime) -> str:
             f"  Ignore-streak: {streak} unanswered reaches.{verdict}")
 
 
+def demand_streak(klog: list) -> int:
+    """Trailing consecutive FIRES that carried an ask (non-empty expected_target).
+    The variety rule reads this: after 2, the next fire must be a no-ask dose or
+    silence — Python counts; the mandate owns the rule (policy stays Anna's)."""
+    n = 0
+    for k in reversed([k for k in klog if is_fire(k)]):
+        if k.get("expected_target"):
+            n += 1
+        else:
+            break
+    return n
+
+
 def remaining_room(klog: list, now: datetime) -> str:
     now_local = now.astimezone(LOCAL_TZ)
     n_today = fires_today(klog, now_local.date())
@@ -187,24 +209,35 @@ def remaining_room(klog: list, now: datetime) -> str:
     if lf:
         gap = (now - datetime.fromisoformat(lf["timestamp"])).total_seconds() / 3600
         gap_str = f"last reach {gap:.1f}h ago"
+    streak = demand_streak(klog)
+    streak_str = f"\n  Demand-streak: {streak} consecutive fires carried an ask"
+    if streak >= 2:
+        streak_str += " — the variety rule says the next fire must be a NO-ASK dose or silence."
     return (f"RAILS (hard — stay well inside; silence is free):\n"
             f"  Waking window {WAKING_START_HOUR}:00–{WAKING_END_HOUR}:00 {now_local.tzname()}; "
             f"now {now_local:%H:%M}.\n"
-            f"  Reaches today: {n_today}/{MAX_REACHES_PER_DAY}. Min gap {MIN_GAP_HOURS}h ({gap_str}).")
+            f"  Reaches today: {n_today}/{MAX_REACHES_PER_DAY}. Min gap {MIN_GAP_HOURS}h ({gap_str})."
+            f"{streak_str}")
 
 
 def deck_due_list(max_fire: int = 6, max_catch: int = 2) -> str:
     """The sprint deck's due items, ripest first, so a knock's expected_target can
     hit what's actually due instead of improvising off the story. `sync_state
-    status` carries only the deck METER; this is the menu."""
+    status` carries only the deck METER; this is the menu. Items that have never
+    been soaked anywhere (no episode, no surfacing) are flagged UNSEEN — the
+    mandate forbids cold-quizzing those (teach first, show dose)."""
     from suggest_targets import deck_status  # lazy: keeps module import light
     from sync_state import LEXICON_PATH
-    deck = deck_status(load_json(LEXICON_PATH) or {})
+    lex = load_json(LEXICON_PATH) or {}
+    deck = deck_status(lex)
     if not deck or not deck["pending"]:
         return ""
     lines = ["DECK DUE (the sprint menu — expected_target should usually come from here):"]
     for t in deck["pending"][:max_fire]:
         state = "hinted→cold" if t["production"] == "hinted" else f"{t['recognition']}, cold-pending"
+        rec = lex.get(t["word"], {})
+        if not rec.get("seen_in") and not rec.get("last_surfaced"):
+            state += " · ⚠ UNSEEN — teach first (show dose), don't quiz"
         lines.append(f"    [{t['kind']}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{state}]")
     for t in deck["catch_pending"][:max_catch]:
         lines.append(f"    [ear-only] {t['word']} — {t['gloss'] or '[no gloss]'}  "
@@ -241,6 +274,17 @@ THE SOCIAL CONTRACT: you have standing authority to open a thread and pick it ba
 later unasked — no permission needed each time. But if a recent reply in OUTREACH MEMORY \
 says he's busy, to back off, or anything in that spirit, treat it as a real answer: widen \
 next_check_hours (or go quiet) rather than pushing harder or re-litigating it next tick.
+
+VARIETY IS STRUCTURAL (knocks obey the same law as episodes — sameness is how the \
+feed died once already): never run the same scenario peg (the same scene/frame — e.g. \
+the aunty-at-the-door gauntlet) two fires in a row, and no peg more than once in any \
+3 consecutive fires — the OUTREACH MEMORY lists your recent moves; diverge from them. \
+After TWO consecutive demand-doses (any fire with a non-empty expected_target — the \
+digest's Demand-streak line counts this for you), the next fire MUST be a no-ask dose \
+(lore, audio memo, show dose, grace) or silence. And when the digest shows no chat \
+session for 3+ days, this channel is carrying the whole curriculum — bias toward \
+TEACHING and soaking (show doses, audio, lore), not collection; you cannot quiz him \
+into momentum.
 
 YOUR MODALITIES (pick what fits THIS moment; never the same move twice in a row):
 - "text"      — a one-line micro-dose answered right in the reply ("saapta? reply in tamizh — that's the whole ask"). No audio. Lowest friction; often the best re-opener after a gap.
@@ -286,11 +330,23 @@ or memo hands him that Tamil itself — if it does, his reply is reading it back
 "hinted" at most; only an UN-shown target can be fired cold. The strongest doses show a \
 situation in English and leave the Tamil to him.
 
-TARGETING: while a deck sprint is active the digest carries a DECK DUE menu — pick \
-expected_target from it most of the time; clearing the deck IS the sprint, and a knock \
-that fires a due deck item counts on the scoreboard he sees. The running story is the \
-*flavour* wrapped around a due item, not the source of targets. (Ear-only items are \
-soak doses: play/show them, ask for nothing back.)
+TARGETING — THE COHERENCE LAW: choose the target FIRST, then write the body AS THE ASK \
+FOR THAT TARGET. expected_target must be the natural answer to your body's own question \
+— if the body asks 'evlo naal irupeenga?', the target is the staying-answer and nothing \
+else. A body that asks one thing while expected_target names a different deck item \
+wastes the rep and gets him graded against a question he was never asked (this \
+happened for days; it is the cardinal sin of this loop). While a deck sprint is active, \
+pick WHICH item to ask about from the DECK DUE menu — clearing the deck IS the sprint — \
+but the running story is only the *flavour* around that one item, never a source of \
+extra targets. (Ear-only items are soak doses: play/show them, ask for nothing back.)
+
+TEACH BEFORE QUIZ: a menu item flagged ⚠ UNSEEN has never been soaked anywhere — no \
+episode, no session, no memo. Never cold-quiz one. Give it a SHOW dose first (a text or \
+audio that HANDS him the line and when it's used — expected_target EMPTY), and let a \
+later knock ask for it unrevealed in a fresh context. Likewise never re-ask Tamil that \
+this knock's own body (or your last recast) reveals — a revealed word can only ever \
+score hinted, so an immediate re-ask is a treadmill, not a rep; plant the unrevealed \
+ask via "schedule" a day out instead, or leave it to the wild.
 
 SCHEDULING (optional; works even when you choose silence NOW): you may plant ONE \
 future push at a precise local time via "schedule" — a fully-composed dose that fires \
@@ -305,7 +361,7 @@ Return ONLY a JSON object, no prose around it:
   "act": true | false,                  // false = silence this tick
   "modality": "text" | "audio" | "challenge" | "grace" | "silence",
   "move": "<2-4 word label of the move, for the log>",
-  "notification_body": "<the lock-screen line — valuable even if never tapped; MUST carry a Tamil phrase + tiny English gloss. One emoji ok. Empty string if silence.>",
+  "notification_body": "<the lock-screen line — valuable even if never tapped; MUST carry a Tamil phrase + tiny English gloss. One emoji ok. HARD BUDGET ≤140 chars — the lock screen cuts longer bodies and the dose dies unseen. Empty string if silence.>",
   "memo_script": "<ONLY for modality 'audio': the spoken memo, paragraphs separated by ONE blank line, plain text, Tamil payload in Tamil script. Empty string otherwise.>",
   "expected_target": "<the one word/chunk/frame a good reply would fire (Tamil script or frame:... key); empty string if this dose asks for nothing specific>",
   "target_revealed": true | false,      // does the body/memo show that Tamil itself?
@@ -532,6 +588,8 @@ def main():
         audio_url = jsdelivr_url(mp3)
 
     print("\n--- notification body ---\n" + body + "\n")
+    if over_budget(body):
+        print(f"   ⚠ body is {len(body)} chars (budget {BODY_BUDGET}) — the lock screen will cut it")
 
     if args.dry_run:
         print(f"[dry-run] would push ({decision['modality']}) + log; stopping.", mp3 or "")

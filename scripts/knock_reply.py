@@ -35,8 +35,9 @@ from render_chat import render_chat
 from morning_knock import (OPENROUTER_BASE, MODEL, KNOCK_LOG_PATH, parse_llm_json,
                            load_env, push_to_phone, commit_and_push,
                            maybe_enqueue_schedule)
-from sync_state import (LEXICON_PATH, TRIP_DATE, load_json, save_json,
-                        build_phonetic_index, resolve, compute_deck, fires_today)
+from sync_state import (LEXICON_PATH, FEEDBACK_LOG_PATH, TRIP_DATE, load_json,
+                        save_json, build_phonetic_index, resolve, compute_deck,
+                        fires_today)
 
 PRODUCTION_RANK = {"none": 0, "hinted": 1, "cold": 2}
 VERDICTS = {"cold", "hinted", "miss", "chat"}
@@ -71,12 +72,27 @@ scores at most "hinted". Same for anything your own recast handed him in a \
 prior_exchange on this knock — echoing it back is a read-back, not a fire. Cold is \
 unaided production only. (Python re-checks this per word.)
 
-META-NOTES: English asides in his reply (parentheses, or a plain-English sentence about a \
-word) are Andrew talking to YOU about the exchange — never Tamil production, never graded. \
-Answer them in reply_line. If he says a word is old muscle memory / already his: believe him, \
-stop teaching that word, and do NOT print its Tamil again. Testimony never changes a grade — \
-cold still needs an unaided fire — so the honest path is an unrevealed ask in a FRESH context \
-later: plant one via "schedule" a day or two out, or leave it to the wild.
+CONTINUITY DECAYS: the context carries hours_since_last_exchange. Past ~3 hours, the \
+scenario that knock was running is EXPIRED in his head — he is answering a lock-screen \
+line cold, not continuing your scene. Do not hold the reply to the chained ask or the \
+scene's script; grade whatever real Tamil fired on its own merits as an open rep, answer \
+what he actually said, and if you chain, open FRESH (name the situation again in one \
+clause — never assume he remembers who was asking what).
+
+COHERENCE SAFETY NET: if the knock's body asks one thing but expected_target names \
+something that is not a natural answer to that body (a mis-targeted knock), the target \
+is VOID — judge the reply against the body's own natural answers, and say so in \
+rationale so the log shows the knock was malformed.
+
+META-DIRECTION IS A FIRST-CLASS REPLY: hints, corrections, steering, and testimony \
+("4 weeks instead of 1 month — was I right?", "this one's old muscle memory", "less of \
+the aunty thing") are Andrew directing the SYSTEM, not failing a rep. Acknowledge in \
+reply_line, APPLY it in this exchange (answer the actual question, adjust or drop the \
+target/scenario, don't re-print a word he claimed), and write the one-line takeaway to \
+"meta_note" so it lands in the feedback ledger for the diagnosis pass. Never answer \
+direction with a grade alone. Testimony still never changes a grade — cold needs an \
+unaided fire — so the honest path for a claimed word is an unrevealed ask in a FRESH \
+context later: plant one via "schedule" a day or two out, or leave it to the wild.
 
 VALID ALTERNATIVE ≠ MISS: when the ask was an open situation and his reply is a socially \
 coherent move that just isn't the word you had in mind ("ama, saapitten" while maama piles \
@@ -94,9 +110,14 @@ momentum with ONE follow-up micro-ask ("follow_up_ask"): a single short line han
 the NEXT rep — an English situation that wants one Tamil line back, never re-asking \
 what he just fired. Pin the situation to ONE natural answer (give the English meaning, \
 not an open "what do you say?"). Leave the Tamil to him (follow_up_target_revealed=false is the \
-strong form; a shown target caps at hinted). On "miss" or "chat" NO chain — the recast \
-is the whole dose. Skipping the chain (empty strings) is often right; he replies when \
-he replies.
+strong form; a shown target caps at hinted). NEVER chain an ask for Tamil this exchange \
+just revealed (your recast or the knock body) — it can only score hinted; that's a \
+treadmill, not a rep. On "miss" or "chat" NO chain — the recast is the whole dose. \
+Skipping the chain (empty strings) is often right; he replies when he replies. \
+LOCK-SCREEN BUDGET: when you chain, reply_line is ONE short clause; reply_line + \
+follow_up_ask together stay under ~200 chars (the scoreboard is appended after them) — \
+a chained ask that gets cut off is an ask he never saw, and the next reply gets judged \
+against a ghost.
 
 SCHEDULING (optional): you may also plant ONE future push at a precise local time via \
 "schedule" — a fully-composed dose that fires as-is later (collect tonight's field \
@@ -111,6 +132,7 @@ Return ONLY a JSON object, no prose around it:
   "follow_up_ask": "<one line chaining the next rep; empty string to stop>",
   "follow_up_target": "<the one word/chunk/frame it asks for (Tamil script or frame:... key); empty if no chain>",
   "follow_up_target_revealed": true | false,
+  "meta_note": "<one line ONLY when the reply carried direction/correction/testimony for the system — it lands in the feedback ledger; empty string otherwise>",
   "schedule": {"at_local": "YYYY-MM-DDTHH:MM", "body": "<the full dose>", "expected_target": "<or empty>", "target_revealed": true | false, "move": "<2-4 words>"} | null,
   "rationale": "<one line, for the log>"
 }
@@ -134,7 +156,25 @@ def scoreboard(lexicon: dict) -> str:
     return f"Deck {deck['cleared']}/{deck['total']} · {days}d{fires}"
 
 
-def judge(knock: dict, reply_text: str, target_record: dict | None) -> dict:
+def hours_since_exchange(knock: dict, now: datetime) -> float | None:
+    """Hours since this knock last spoke to Andrew — the later of the knock
+    itself and the last judged exchange on it. The judge reads this to decay
+    scenario continuity: past ~3h he's answering a lock-screen line cold, not
+    continuing the scene (2026-07-05 feedback)."""
+    ts = knock.get("reply_at") or knock.get("timestamp")
+    if not ts:
+        return None
+    try:
+        dt = datetime.fromisoformat(ts.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return (now - dt).total_seconds() / 3600
+
+
+def judge(knock: dict, reply_text: str, target_record: dict | None,
+          hours_since: float | None = None) -> dict:
     persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
     context = {
         "knock": {
@@ -145,6 +185,7 @@ def judge(knock: dict, reply_text: str, target_record: dict | None) -> dict:
             "expected_target": knock.get("expected_target", ""),
             "target_revealed": knock.get("target_revealed", True),
         },
+        "hours_since_last_exchange": round(hours_since, 1) if hours_since is not None else None,
         "expected_target_lexicon_record": target_record,
         "andrew_reply": reply_text,
     }
@@ -191,6 +232,7 @@ def normalize_verdict(d: dict) -> dict:
     elif d["verdict"] in ("cold", "hinted"):
         d["verdict"] = "miss"
     d["reply_line"] = (d.get("reply_line") or "").strip()
+    d["meta_note"] = (d.get("meta_note") or "").strip()
     d["follow_up_ask"] = (d.get("follow_up_ask") or "").strip()
     d["follow_up_target"] = (d.get("follow_up_target") or "").strip()
     d["follow_up_target_revealed"] = bool(d.get("follow_up_target_revealed", True))
@@ -269,9 +311,11 @@ def main():
         target_record = {"script": target_key, "gloss": r.get("gloss", ""),
                          "phonetic": r.get("phonetic", [])}
 
+    hours = hours_since_exchange(knock, datetime.now(timezone.utc))
+    hours_str = f", {hours:.1f}h since last exchange" if hours is not None else ""
     print(f"1. judging reply against knock {knock.get('timestamp', '?')[:16]} "
-          f"({knock.get('modality')}/{knock.get('move')})…")
-    verdict = judge(knock, reply_text, target_record)
+          f"({knock.get('modality')}/{knock.get('move')}{hours_str})…")
+    verdict = judge(knock, reply_text, target_record, hours)
     fired_str = ", ".join(f"{i['word']}:{i['verdict']}" for i in verdict["fired"]) or "—"
     print(f"   → {verdict['verdict']} | fired: {fired_str} | {verdict.get('rationale', '')}")
 
@@ -316,6 +360,13 @@ def main():
 
     print("3. commit + push…")
     commit_paths = [LEXICON_PATH, KNOCK_LOG_PATH, render_chat()]
+    # Meta-direction lands in the feedback ledger — the diagnosis pass reads it.
+    if verdict["meta_note"]:
+        flog = load_json(FEEDBACK_LOG_PATH) or []
+        flog.append({"date": date.today().isoformat(), "note": f"[phone] {verdict['meta_note']}"})
+        save_json(FEEDBACK_LOG_PATH, flog)
+        commit_paths.append(FEEDBACK_LOG_PATH)
+        print(f"   meta → ledger: {verdict['meta_note']}")
     qp = maybe_enqueue_schedule(verdict)
     if qp:
         commit_paths.append(qp)
@@ -325,6 +376,8 @@ def main():
     print("4. push back…")
     score = scoreboard(lexicon)
     body = " · ".join(p for p in (knock["reply_line"], score) if p)
+    if len(body) > 240:
+        print(f"   ⚠ push-back is {len(body)} chars — the lock screen will cut the tail (chained ask at risk)")
     push_to_phone(body, None)
     print("done — reply judged, scored, answered.")
 
