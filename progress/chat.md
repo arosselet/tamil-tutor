@@ -36,11 +36,11 @@ Newest day first. **Derived file — edits here are overwritten.**
 **18:55 · Anna**  ·  challenge / arrival gauntlet cold-fire
 > auntie clocks you at the door: 'evlo naal irupeenga?' — don't think. fire it back. 🎯
 
-**21:20 · Andrew** — **MISS**
-> Naal vaaranga
+**21:21 · Andrew** — **CHAT**
+> And I was trying to say “4 weeks” naal vaarangel
 
 **Anna ↩**
-> close on the word, but naal vaaranga is 'days are coming' — auntie asked how long you're staying, so you want 'oru maasam iruppom' — we're here one month. that's the line.
+> yeah, 'naal vaarangal' is the shape — 'naal' means days, 'vaarangal' means weeks, so you landed on 'days-weeks' which is a mashup da 😄 but the real issue is the frame: auntie wants to know your plan, not a count. 'oru maasam iruppom' — we're staying one month — is what she's waiting for. that's the whole line.
 
 
 ## Friday 2026-07-03

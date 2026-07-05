@@ -289,11 +289,11 @@
     "expected_target": "ஒரு மாசம் இருப்போம்",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Naal vaaranga",
-    "reply_verdict": "miss",
+    "reply": "And I was trying to say “4 weeks” naal vaarangel",
+    "reply_verdict": "chat",
     "reply_fired": [],
     "reply_fired_cold": [],
-    "reply_line": "close on the word, but naal vaaranga is 'days are coming' — auntie asked how long you're staying, so you want 'oru maasam iruppom' — we're here one month. that's the line.",
-    "reply_at": "2026-07-05T01:20:48Z"
+    "reply_line": "yeah, 'naal vaarangal' is the shape — 'naal' means days, 'vaarangal' means weeks, so you landed on 'days-weeks' which is a mashup da 😄 but the real issue is the frame: auntie wants to know your plan, not a count. 'oru maasam iruppom' — we're staying one month — is what she's waiting for. that's the whole line.",
+    "reply_at": "2026-07-05T01:21:53Z"
   }
 ]
