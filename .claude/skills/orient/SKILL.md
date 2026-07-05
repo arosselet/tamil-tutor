@@ -9,7 +9,7 @@ description: First-session onboarding for this repo — what the system is, the 
 
 An n-of-1 Tamil-learning system for one learner (Andrew). One persistent LLM persona — **Anna** (elder brother, he/him) — runs a daily forced-output chat loop: Anna hands the learner an English situation, the learner must produce the Tamil back. A **studio** pipeline produces podcast episodes that soak exactly what the chat session just strained, closing the recognition-to-production loop. Between sessions, a **knock** system (GitHub Actions cron + `scripts/morning_knock.py`) does agentic phone outreach; Andrew types Tamil replies that `scripts/knock_reply.py` judges. Scheduled nudges live in `progress/push_queue.json`, drained every 30 minutes by CI. All learner state lives in `progress/` as Python-owned JSON — never hand-edit it.
 
-The design principle is **"LLM is the writer, Python is the brain"**: the LLM generates content from `protocol/` files and live state, but Python owns every state write (`scripts/sync_state.py`), all candidate computation (`scripts/suggest_targets.py`, `scripts/generate_callbacks.py`), and all automation. The system is frozen at **Anna 1.0** — adding content (words, episodes, sessions) is always open; schema changes park in `docs/feature_inbox.md`. Two sources of truth govern all engineering work: `docs/DECISIONS.md` (settled decisions — do not re-litigate) and `docs/PROTOCOL_MAP.md` (architecture map). Read them before proposing any structural change.
+The design principle is **"LLM is the writer, Python is the brain"** — Python owns every state write. Structure is frozen at **Anna 1.0**: content rows are always free; schema changes park in `docs/feature_inbox.md`. Full law lives in `docs/DECISIONS.md` (settled decisions — do not re-litigate) and `docs/PROTOCOL_MAP.md` (the architecture map); read both before any structural work.
 
 ---
 
@@ -19,14 +19,7 @@ The design principle is **"LLM is the writer, Python is the brain"**: the LLM ge
 
 No keyword needed. Invoked via `/anna` (Claude Code) or `.gemini/commands/anna.toml` (Gemini).
 
-Files Anna loads — in this order:
-
-1. `protocol/persona.md` — who he is (voice, heist, masks, the social contract)
-2. `protocol/daily_session.md` — the loop choreography (open → scene → close & log)
-3. `python scripts/sync_state.py status` — live recognition + production counts, viability floor %
-4. `progress/profile.md` — teacher's judgment: active gaps, calibration dials, sprint priorities
-5. `python scripts/suggest_targets.py` — the session ticket (floor-gap targets, callbacks, new candidates)
-6. `protocol/session_tools.md` — formats Anna can reach for mid-session (drill, roleplay, reading, zinger)
+His identity, loading order, and the session loop are owned by `.claude/skills/anna/SKILL.md` (which routes to `protocol/persona.md` + `protocol/daily_session.md`) — don't restate them here; read that shim if you need the sequence.
 
 Anna does **not** load `docs/PROTOCOL_MAP.md`, `docs/DECISIONS.md`, or `BOOTSTRAP.md`. Those are the engineer's map.
 

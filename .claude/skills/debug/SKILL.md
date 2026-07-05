@@ -18,6 +18,9 @@ Do not touch prompts, protocol files, or persona until you have a log-confirmed
 root cause. If the root cause points to a code change, stop here and use `/extend`
 for the fix and `/verify` to prove it.
 
+Unfamiliar with the jargon below (rails gate, deck, `expected_target`, soak order)?
+Start with `/orient` → `references/glossary.md`.
+
 ---
 
 ## 2. Triage Table
@@ -30,10 +33,11 @@ for the fix and `/verify` to prove it.
 | Reply scored wrong ("miss" when Andrew fired it) | Judge saw stale / mis-targeted knock | `knock_log.json` last entry → `target_revealed`, `expected_target`, `reply`, `reply_verdict` |
 | Push arrived twice (or never) | Push queue multi-fire or drain skip | `python scripts/push_queue.py list` + `knock_log.json` → `scheduled` entries |
 | Push arrived at wrong time | Queue entry `due` field / quiet-hours deferral | `knock_log.json` → `rationale` field on `scheduled: true` entry |
-| Feed shows stale / wrong episode | RSS rebuild didn't run, or episodes.json out of sync | `cat rss.xml \| grep -c '<item>'` vs `python -c "import json; e=json.load(open('progress/episodes.json')); print(len(e))"` |
+| Feed shows stale / wrong episode | RSS rebuild didn't run, or episodes.json out of sync | `grep '<title>' rss.xml \| head -5` vs newest `.mp3` in `published_audio/` (+ `knocks/`) — first titles should match the newest files |
 | Status looks wrong (floor/deck numbers) | `lexicon.json` state, compute logic | `python scripts/sync_state.py status` (safe) |
 | CI red — smoke workflow | Regression in knock/reply/queue plumbing | `gh run list --workflow=smoke.yml --limit 5` then `gh run view <id> --log` |
 | CI red — knock/queue workflow | Missing secret, commit conflict, JSON parse fail | `gh run view <id> --log` |
+| Audio knock missing from the podcast feed | Feed refresh failed in that knock run (all audio → feed since 2026-07-05; `morning_knock.py refresh_feed()` is failure-tolerant by design) | `gh run view <id> --log` → look for `⚠ rss rebuild failed`; recover the URL from `knock_log.json` → `audio_url`, or rerun `python scripts/rebuild_rss.py` locally |
 | Anna keeps making the same mistake | May be a protocol bug, not plumbing | read `progress/feedback_log.json`; if pattern appears 2+ times → `/extend` |
 
 ---

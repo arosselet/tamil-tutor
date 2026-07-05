@@ -37,8 +37,10 @@ Ask: *does this add a row of data, or change a schema / add a file / add a meter
 Andrew is an architect. When he names a problem he wants the shape and tradeoffs
 explored together first. (`docs/DECISIONS.md` → "Explore before implementing.")
 
-**Stop condition:** Andrew has not yet signaled alignment. State the real situation
-sharply; do not produce a bullet-pointed action plan.
+**Stop condition:** Andrew has not yet *explicitly* said yes — named the approach,
+approved the tradeoff, or said "do it." Silence, a question, or non-objection is NOT
+alignment. Until then: state the real situation sharply; do not produce a
+bullet-pointed action plan, and write no code.
 
 ---
 

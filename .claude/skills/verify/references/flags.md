@@ -10,11 +10,11 @@ Source: `scripts/morning_knock.py` — `main()` at line 541.
 
 | Flag | LLM fires? | TTS fires? | Files written? | Commit/push? | Phone push? |
 |---|---|---|---|---|---|
-| *(bare)* | YES | YES if Anna picks audio | `knock_log.json`, MP3 (audio), `chat.md` | YES | YES |
+| *(bare)* | YES | YES if Anna picks audio | `knock_log.json`, MP3 (audio), `rss.xml` (audio — via `refresh_feed()`, failure-tolerant), `chat.md` | YES | YES |
 | `--dry-run` | **YES** | **YES if audio** | MP3 only (audio modality; written before the dry-run gate at line 594) | NO | NO |
 | `--force` | YES | YES if audio | same as bare | YES | YES |
 
-`--dry-run` detail: `rails_gate()` runs (no LLM), `build_digest()` runs (calls `sync_state.py status` as a subprocess — read-only), `decide(digest)` runs (LLM). For silence: the gate fires early (line 571), no writes. For fire: TTS renders if audio (line 587 calls `render_memo()`), then the dry-run gate at line 594 returns before `log_decision()`, `push_to_phone()`, or `commit_and_push()`.
+`--dry-run` detail: `rails_gate()` runs (no LLM), `build_digest()` runs (calls `sync_state.py status` as a subprocess — read-only), `decide(digest)` runs (LLM). For silence: the gate fires early (line 570), no writes. For fire: TTS renders if audio (line 587 calls `render_memo()`), then the dry-run gate returns before `log_decision()`, `refresh_feed()` (no rss.xml write on dry-run), `push_to_phone()`, or `commit_and_push()`.
 
 `--force` detail: skips the rails gate's waking-hours/daily-cap/min-gap/next_check checks (line 115: `if force: return True, "forced"`). No other change — everything else runs identically to the bare invocation.
 
@@ -51,7 +51,7 @@ Source: `scripts/push_queue.py` — `cmd_drain()` at line 140, `cmd_add()` at li
 
 ### add subcommand
 
-`--no-commit`: `enqueue()` is called unconditionally (writes `push_queue.json`); `commit_and_push()` is behind `if not args.no_commit:` (line 111).
+`--no-commit`: `enqueue()` is called unconditionally (writes `push_queue.json`); `commit_and_push()` is behind `if not args.no_commit:` (line 110).
 
 ### cancel subcommand
 
@@ -69,9 +69,9 @@ Source: `scripts/render_drill.py` — `main()` at line 154.
 | `--dry-run` | **YES** | NO | NO | NO | NO |
 | `--no-publish` | YES | **YES** | `published_audio/drill_*.mp3` | NO | NO |
 
-`--dry-run` detail: `write_sheet(pending)` is called at line 174 (LLM fires). The gate at lines 175–177 prints the JSON sheet and returns before `asyncio.run(render(...))`, any file writes, `rebuild_rss.py`, `commit_and_push()`, or `push_to_phone()`.
+`--dry-run` detail: `write_sheet(pending)` is called at line 172 (LLM fires). The gate at lines 175–177 prints the JSON sheet and returns before `asyncio.run(render(...))`, any file writes, `rebuild_rss.py`, `commit_and_push()`, or `push_to_phone()`.
 
-`--no-publish` detail: `write_sheet()` runs (LLM), `asyncio.run(render(sheet, mp3, args.gap))` runs (TTS, MP3 written). The gate at lines 183–185 returns before `rebuild_rss.py`, `commit_and_push()`, and `push_to_phone()`.
+`--no-publish` detail: `write_sheet()` runs (LLM), `asyncio.run(render(sheet, mp3, args.gap))` runs (TTS, MP3 written). The gate at lines 184–185 returns before `rebuild_rss.py`, `commit_and_push()`, and `push_to_phone()`.
 
 ---
 
