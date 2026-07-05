@@ -185,7 +185,7 @@ def canned_verdict(fired: list, reply_line: str = "adhu dhaan") -> dict:
     return {"verdict": best, "reply_line": reply_line, "rationale": "smoke",
             "fired": [{"word": w, "verdict": v} for w, v in fired],
             "follow_up_ask": "", "follow_up_target": "",
-            "follow_up_target_revealed": True, "schedule": None}
+            "follow_up_target_revealed": True, "meta_note": "", "schedule": None}
 
 
 def s5_reply_judge(mk, kr, sb: Path):
@@ -210,7 +210,7 @@ def s5_reply_judge(mk, kr, sb: Path):
                 "body": body, "expected_target": target, "target_revealed": revealed}
 
     def reply(text: str, verdict: dict):
-        kr.judge = lambda k, r, t: verdict
+        kr.judge = lambda k, r, t, h=None: verdict
         sys.argv = ["knock_reply.py", text]
         kr.main()
 
@@ -256,6 +256,20 @@ def s5_reply_judge(mk, kr, sb: Path):
     reply("it went great, talk tomorrow", canned_verdict([]))
     check("chat verdict leaves the lexicon untouched",
           lex_path.read_text(encoding="utf-8") == before)
+
+    # meta-direction in a reply → feedback ledger (2026-07-05)
+    flog_path = prog / "feedback_log.json"
+    n_before = len(read_json(flog_path)) if flog_path.exists() else 0
+    log = read_json(klog_path)
+    log.append(knock("gauntlet line — fire it", "போதும்", False))
+    write_json(klog_path, log)
+    v = canned_verdict([("போதும்", "hinted")])
+    v["meta_note"] = "podhum is old muscle memory — stop teaching it"
+    reply("Podhum (old muscle memory, this one's mine)", v)
+    flog = read_json(flog_path)
+    check("meta_note lands in the feedback ledger",
+          len(flog) == n_before + 1 and flog[-1]["note"].startswith("[phone]"),
+          str(flog[-1:]))
 
 
 def s6_queue_drain(mk, pq, sb: Path):
@@ -309,6 +323,62 @@ def s6_queue_drain(mk, pq, sb: Path):
         pq.WAKING_START_HOUR, pq.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = saved
 
 
+def s8_variety_and_decay(mk, kr, sb: Path):
+    """The 2026-07-05 push-feedback fixes: demand-streak surfaced to the digest,
+    body budgets, continuity decay clock, UNSEEN teach-first flags."""
+    print("\n8. Variety + decay helpers")
+    now = datetime.now(timezone.utc)
+
+    # demand streak counts trailing FIRES that carried an ask; silence skipped
+    klog = [
+        {"acted": True, "expected_target": "x"},
+        {"acted": True, "expected_target": ""},
+        {"acted": True, "expected_target": "y"},
+        {"acted": False, "expected_target": ""},
+        {"acted": True, "expected_target": "z"},
+    ]
+    check("demand_streak counts trailing asks", mk.demand_streak(klog) == 2,
+          str(mk.demand_streak(klog)))
+    check("demand_streak zero after a no-ask fire",
+          mk.demand_streak([{"acted": True, "expected_target": ""}]) == 0)
+
+    # the rails digest carries the no-ask directive once the streak hits 2
+    fired = [{"acted": True, "expected_target": "x", "date": now.date().isoformat(),
+              "timestamp": (now - timedelta(hours=5 - i)).isoformat()}
+             for i in range(2)]
+    room = mk.remaining_room(fired, now)
+    check("digest carries the NO-ASK directive at streak 2", "NO-ASK" in room,
+          room.splitlines()[-1])
+
+    # lock-screen body budget
+    check("over_budget flags a long body",
+          mk.over_budget("x" * 200) and not mk.over_budget("x" * 100))
+
+    # continuity decay clock (judge context)
+    k = {"timestamp": (now - timedelta(hours=5)).isoformat()}
+    h = kr.hours_since_exchange(k, now)
+    check("hours_since_exchange reads the knock time", h is not None and 4.9 < h < 5.1, str(h))
+    k["reply_at"] = (now - timedelta(hours=1)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    h = kr.hours_since_exchange(k, now)
+    check("last exchange (reply_at) wins over the knock time",
+          h is not None and 0.9 < h < 1.1, str(h))
+    check("missing timestamps → None", kr.hours_since_exchange({}, now) is None)
+
+    # never-soaked deck items are flagged UNSEEN on the menu (teach before quiz)
+    lex_path = sb / "progress" / "lexicon.json"
+    write_json(lex_path, {
+        "வணக்கம்": {"gloss": "hello", "phonetic": ["vanakkam"], "recognition": "struggled",
+                     "production": "none", "seen_in": [], "last_surfaced": None,
+                     "deck": "trip", "direction": "fire"},
+    })
+    menu = mk.deck_due_list()
+    check("never-soaked deck item flagged UNSEEN", "UNSEEN" in menu, menu)
+    lex = read_json(lex_path)
+    lex["வணக்கம்"]["last_surfaced"] = "2026-07-01"
+    write_json(lex_path, lex)
+    check("soaked item loses the UNSEEN flag", "UNSEEN" not in mk.deck_due_list())
+
+
 def s7_integrity(sb: Path):
     print("\n7. State integrity sweep")
     for f in sorted((sb / "progress").glob("*.json")):
@@ -337,6 +407,7 @@ def main():
         s5_reply_judge(mk, kr, sb)
         s6_queue_drain(mk, pq, sb)
         s7_integrity(sb)
+        s8_variety_and_decay(mk, kr, sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)
