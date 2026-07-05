@@ -12,11 +12,11 @@ Newest day first. **Derived file — edits here are overwritten.**
 **13:05 · Anna**  ·  challenge / gauntlet next line cold dare
 > auntie asks: 'software-la enna panra?' — reply in tamizh 👇
 
-**13:58 · Andrew** — **HINTED** · chain ×1
-> Software engineer-a irukken
+**18:16 · Andrew** — **CHAT** · chain ×1
+> I want another audio episode soaking the words I’ve been practicing this week. I think you’ll have to schedule this for my next session on my laptop
 
 **Anna ↩**
-> hinted — prior exchange handed you the line, so it can't go cold this round. but it's in the mouth now, adhu dhaan. next time auntie asks, it fires unaided. · auntie nods, then turns to her husband: 'avan Oracle-la pandra' — now she asks YOU directly: 'Oracle-la romba years acha?' How long have you been there — what do you say?
+> Got it — audio episode soaking this week's words, queued for your next laptop session.
 
 
 ## Saturday 2026-07-04
