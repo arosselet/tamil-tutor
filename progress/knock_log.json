@@ -323,14 +323,17 @@
     "rationale": "Ignore-streak is 1 (audio got no tap), but yesterday's challenges got hinted replies — text cold-fire on the gauntlet keeps momentum without raising friction; 'software engineer-a irukken' is a deck item not yet fired cold and this situation pins it to exactly one answer.",
     "next_check": "2026-07-05T21:05:08.192151+00:00",
     "body": "auntie asks: 'software-la enna panra?' — reply in tamizh 👇",
-    "expected_target": "software engineer-a irukken",
+    "expected_target": "X years aachu",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Senior developer",
-    "reply_verdict": "miss",
-    "reply_fired": [],
+    "reply": "Software engineer-a irukken",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "சாஃப்ட்வேர் இன்ஜினியரா இருக்கேன்"
+    ],
     "reply_fired_cold": [],
-    "reply_line": "close on the content, but auntie needs the Tamil — 'software engineer-a irukken' is the move. that's the one to load.",
-    "reply_at": "2026-07-05T17:57:58Z"
+    "reply_line": "hinted — prior exchange handed you the line, so it can't go cold this round. but it's in the mouth now, adhu dhaan. next time auntie asks, it fires unaided. · auntie nods, then turns to her husband: 'avan Oracle-la pandra' — now she asks YOU directly: 'Oracle-la romba years acha?' How long have you been there — what do you say?",
+    "reply_at": "2026-07-05T17:58:52Z",
+    "chained": 1
   }
 ]

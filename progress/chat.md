@@ -12,11 +12,11 @@ Newest day first. **Derived file — edits here are overwritten.**
 **13:05 · Anna**  ·  challenge / gauntlet next line cold dare
 > auntie asks: 'software-la enna panra?' — reply in tamizh 👇
 
-**13:57 · Andrew** — **MISS**
-> Senior developer
+**13:58 · Andrew** — **HINTED** · chain ×1
+> Software engineer-a irukken
 
 **Anna ↩**
-> close on the content, but auntie needs the Tamil — 'software engineer-a irukken' is the move. that's the one to load.
+> hinted — prior exchange handed you the line, so it can't go cold this round. but it's in the mouth now, adhu dhaan. next time auntie asks, it fires unaided. · auntie nods, then turns to her husband: 'avan Oracle-la pandra' — now she asks YOU directly: 'Oracle-la romba years acha?' How long have you been there — what do you say?
 
 
 ## Saturday 2026-07-04
