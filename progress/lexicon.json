@@ -3004,7 +3004,8 @@
     "production": "none",
     "seen_in": [
       54,
-      55
+      55,
+      56
     ],
     "last_surfaced": null,
     "deck": "trip",
@@ -3017,7 +3018,8 @@
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [
-      54
+      54,
+      56
     ],
     "last_surfaced": null,
     "deck": "trip",
@@ -3030,7 +3032,8 @@
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [
-      54
+      54,
+      56
     ],
     "last_surfaced": null,
     "deck": "trip",
@@ -3043,7 +3046,8 @@
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [
-      54
+      54,
+      56
     ],
     "last_surfaced": null,
     "deck": "trip",
@@ -3067,7 +3071,8 @@
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [
-      54
+      54,
+      56
     ],
     "last_surfaced": null,
     "deck": "trip",
@@ -3155,7 +3160,8 @@
     "recognition": "struggled",
     "production": "hinted",
     "seen_in": [
-      54
+      54,
+      56
     ],
     "last_surfaced": "2026-07-05",
     "deck": "trip",

@@ -1728,5 +1728,18 @@
       "அழகான"
     ],
     "duration_min": 4.7462
+  },
+  "56": {
+    "title": "Mission tier2_mission56",
+    "listens": 0,
+    "words": [
+      "ஒரு மாசம் இருப்போம்",
+      "frame:giveme-noun",
+      "frame:howmuch-noun",
+      "frame:isthere-noun",
+      "frame:want-noun",
+      "frame:where-noun"
+    ],
+    "duration_min": 2.1332
   }
 }
