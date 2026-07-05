@@ -286,14 +286,17 @@
     "rationale": "He's been replying all day — streak hot, zero ignore, three hinted fires on the gauntlet; now it's Saturday evening, low-friction window, and 'oru maasam iruppom' is top of the deck-due list hinted→cold. One clean English situation, one shot to fire it cold — exactly the move the sprint needs.",
     "next_check": "2026-07-05T12:55:19.965331+00:00",
     "body": "auntie clocks you at the door: 'evlo naal irupeenga?' — don't think. fire it back. 🎯",
-    "expected_target": "ஒரு மாசம் இருப்போம்",
+    "expected_target": "கடைக்கு போறோம்",
     "target_revealed": false,
     "response": "reply",
-    "reply": "And I was trying to say “4 weeks” naal vaarangel",
-    "reply_verdict": "chat",
-    "reply_fired": [],
+    "reply": "Oru masaam iruppom",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "ஒரு மாசம் இருப்போம்"
+    ],
     "reply_fired_cold": [],
-    "reply_line": "yeah, 'naal vaarangal' is the shape — 'naal' means days, 'vaarangal' means weeks, so you landed on 'days-weeks' which is a mashup da 😄 but the real issue is the frame: auntie wants to know your plan, not a count. 'oru maasam iruppom' — we're staying one month — is what she's waiting for. that's the whole line.",
-    "reply_at": "2026-07-05T01:21:53Z"
+    "reply_line": "hinted — you had the frame, but I handed you 'oru maasam iruppom' in the last exchange, so that one can't fire cold yet. phonetics were clean though ('masaam' for 'maasam' — auntie wouldn't blink). let's earn the cold fire properly. · same auntie, next morning — she wants to know if you're heading out: 'enga poreengal?' don't think. one line back.",
+    "reply_at": "2026-07-05T01:23:28Z",
+    "chained": 1
   }
 ]
