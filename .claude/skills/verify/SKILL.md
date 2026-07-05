@@ -46,6 +46,8 @@ python scripts/show_status.py         # read-only dashboard
 
 Every fixed bug gets a case the day it's fixed. Pattern (from the existing s1–s8 in `smoke_test.py`):
 
+All helpers used below (`canned_decision`, `Recorder`, `write_json`, `read_json`, `check`, `make_sandbox`) are defined at the top of `scripts/smoke_test.py` itself — no imports needed.
+
 **Step 1 — Write the function** (add after the last `sN_*` function):
 
 ```python
@@ -53,7 +55,8 @@ def sN_your_description(mk, kr, pq, sb: Path):
     print("\nN. What this regression guards against")
     prog = sb / "progress"
 
-    # Always replace the three stubbed boundaries on the relevant module:
+    # Always replace the stubbed boundaries on the relevant module (LLM, push,
+    # commit — plus render_memo if the scenario takes the audio path):
     pushes, commits = Recorder(), Recorder()
     mk.push_to_phone, mk.commit_and_push = pushes, commits
 

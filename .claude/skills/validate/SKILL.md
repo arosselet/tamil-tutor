@@ -26,7 +26,7 @@ Run these layers in order. Stop at the first failure and route to `/debug`.
 python scripts/smoke_test.py
 ```
 
-**Safe.** Sandboxed: copies the repo to a tempdir, stubs LLM / push / git. No writes outside the sandbox. Runs in seconds.
+**Safe.** Sandboxed: copies the repo to a tempdir, stubs LLM / TTS render / push / git. No writes outside the sandbox. Runs in seconds.
 
 **Pass:** last line is `ALL GREEN`.  
 **Fail:** any `[FAIL]` line prints the failing check name and detail. Stop here → `/debug`.
@@ -74,7 +74,7 @@ ls published_audio/tier*_mission*.mp3 2>/dev/null | wc -l
 grep -c '<item>' rss.xml 2>/dev/null || echo "rss.xml missing"
 ```
 
-**Pass:** `episodes.json` count roughly matches `published_audio/tier*_mission*.mp3` count; `rss.xml` has at least as many `<item>` lines (it also includes the polyglot_demo welcome track). Exact numbers may differ if a file was rendered to `audio/` only (not `published_audio/`).
+**Pass:** `episodes.json` count roughly matches `published_audio/tier*_mission*.mp3` count; `rss.xml` items = episodes + drills + knocks (`published_audio/knocks/`) + the welcome track, so it exceeds the episode count. Exact numbers may differ if a file was rendered to `audio/` only (not `published_audio/`).
 
 **Fail / mismatch:** An episode registered in `episodes.json` but missing from `published_audio/` means the render didn't complete. An `rss.xml` that predates the newest audio file means `rebuild_rss.py` didn't run. Route to `/debug`.
 
@@ -111,7 +111,7 @@ gh run list --workflow=smoke.yml --limit=5
 | `render_chat.py` | (no args) | **MUTATING** | `progress/chat.md` (derived — rebuilds from `knock_log.json`) |
 | `rebuild_rss.py` | (no args) | **MUTATING** | `rss.xml` (reads `published_audio/*.mp3` + `content/scripts/*.md`) |
 | `morning_knock.py` | `--dry-run` | **MUTATING (audio path)** | No log/commit/push — but if Anna picks the audio modality, a real MP3 is written to `published_audio/knocks/` *before* the dry-run gate, and the LLM call fires. See `/verify` → `references/flags.md` |
-| `morning_knock.py` | (no args) | **MUTATING** | `knock_log.json`, `progress/chat.md`; may push audio to `published_audio/knocks/`; commits + git push |
+| `morning_knock.py` | (no args) | **MUTATING** | `knock_log.json`, `progress/chat.md`; audio: `published_audio/knocks/` + `rss.xml` (all audio → feed); commits + git push |
 | `morning_knock.py` | `--force` | **MUTATING** | Same as above, skipping the rails gate |
 | `knock_reply.py` | `--dry-run "<text>"` | **SAFE** | Nothing written (judge + print only — the LLM judge call still fires) |
 | `knock_reply.py` | `"<text>"` | **MUTATING** | `lexicon.json`, `knock_log.json`, `feedback_log.json` (if meta_note); commits + git push |

@@ -127,7 +127,7 @@ Defined: `protocol/constitution.md` — "The Wife (The Oracle)"; `progress/profi
 
 ## recast
 
-Anna's correction method: when the learner is off, say it the natural way and move on — no grammar tables, no case names, no lecture. The way an older brother mutters the fix across the table. Phonetic is fine ("poran" is போறேன்). Recast is the only permitted form of correction; "recast, never lecture" is a canonical rule.
+Anna's correction method: when the learner is off, say it the natural way and move on — no grammar tables, no case names, no lecture. The way an older brother mutters the fix across the table. Phonetic is fine ("poren" is போறேன் — `knock_reply.py` judge mandate). Recast is the only permitted form of correction; "recast, never lecture" is a canonical rule.
 
 Defined: `protocol/constitution.md` — "Canonical Rules"; `protocol/daily_session.md` — The Loop step 4
 
@@ -167,7 +167,7 @@ Defined: `docs/DECISIONS.md` — "Trip Sprint (2026-06-30)"; `progress/profile.m
 
 ## viability floor
 
-The threshold of words and frames firing cold that stops the freeze response — enough operational capacity to navigate Coimbatore without going blank. Measured as a percentage: `scripts/sync_state.py status` reports it as "Floor: X%." Production counts (cold fires) move the floor; recognition without production does not. The floor is the headline metric for Phase 1.
+The threshold of words and frames firing cold that stops the freeze response — enough operational capacity to navigate Coimbatore without going blank. `scripts/sync_state.py status` reports it as `Viability floor: X/Y recognized words fire cold (Z%)` (`sync_state.py:559`). Production counts (cold fires) move the floor; recognition without production does not. The floor is the headline metric for Phase 1.
 
 Defined: `docs/DECISIONS.md` — "Absorption-first, then production-as-accelerant"; `protocol/persona.md` — "The Charge"; `progress/profile.md` — "Current Position"
 
