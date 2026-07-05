@@ -335,5 +335,20 @@
     "reply_line": "Got it — audio episode soaking this week's words, queued for your next laptop session.",
     "reply_at": "2026-07-05T22:16:14Z",
     "chained": 1
+  },
+  {
+    "date": "2026-07-05",
+    "timestamp": "2026-07-05T22:58:43.765228+00:00",
+    "acted": true,
+    "modality": "audio",
+    "move": "arrival gauntlet soak memo",
+    "rationale": "Andrew directly asked for an audio soak of his practiced words — honor it; delivers the three hinted→cold gauntlet lines as a vivid scene he can just listen to, no demand, resets the demand streak, and plants a cold-fire collect tomorrow morning.",
+    "next_check": "2026-07-06T12:58:43.765228+00:00",
+    "body": "🎧 you asked for a soak — here's the gauntlet, full speed. three lines, one landing.",
+    "expected_target": "",
+    "target_revealed": true,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-07-05T22-58.mp3",
+    "memo_script": "Picture the moment.\n\nYou've just walked through the front door. Bags down. And before you can even breathe, an aunty materialises — the fast kind, the one who asks three questions before you've answered the first.\n\nShe hits you with: \"Evlo naal irupeenga?\"\n\nAnd you don't hesitate. You say it clean:\n\nஒரு மாசம் இருப்போம்.\n\nOne month, we're staying. That's it. Short, settled, no fumbling. She nods — already moving to the next one.\n\n\"Enna velai paakareenga?\"\n\nAnd this is where a lot of people freeze. But not you. You've got:\n\nசாஃப்ட்வேர் இன்ஜினியரா இருக்கேன்.\n\nI'm a software engineer. That's your Oracle-approved form — not any other version, this one. She's already half-impressed, half-figuring out who to tell.\n\nThen she gestures around — at the house, at the family spilling out of the kitchen — and she asks what she actually wants to hear:\n\n\"Pidichirukka?\"\n\nAnd you land it:\n\nரொம்ப பிடிச்சிருக்கு.\n\nI really like it. Not polite. Real. That's the melt line — food, place, people, all of it, one phrase.\n\nThree questions. Three answers. ஒரு மாசம் இருப்போம். சாஃப்ட்வேர் இன்ஜினியரா இருக்கேன். ரொம்ப பிடிச்சிருக்கு.\n\nThe gauntlet's yours. Let them run it.",
+    "mp3": "published_audio/knocks/knock_2026-07-05T22-58.mp3"
   }
 ]

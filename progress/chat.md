@@ -18,6 +18,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > Got it — audio episode soaking this week's words, queued for your next laptop session.
 
+**18:58 · Anna** 🎧  ·  audio / arrival gauntlet soak memo
+> 🎧 you asked for a soak — here's the gauntlet, full speed. three lines, one landing.
+
 
 ## Saturday 2026-07-04
 

@@ -9,5 +9,16 @@
     "move": "deck due: duration cold-fire",
     "force": false,
     "queued_at": "2026-07-05T13:22:56.690194+00:00"
+  },
+  {
+    "id": "q1783292363",
+    "due": "2026-07-06T13:30:00+00:00",
+    "body": "aunty's at the door. 'evlo naal irupeenga?' — no hints, no warm-up. reply in tamizh. 🎯",
+    "expected_target": "ஒரு மாசம் இருப்போம்",
+    "target_revealed": false,
+    "audio_url": null,
+    "move": "arrival gauntlet cold fire",
+    "force": false,
+    "queued_at": "2026-07-05T22:59:23.528041+00:00"
   }
 ]
