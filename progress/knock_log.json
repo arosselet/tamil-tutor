@@ -313,5 +313,17 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-07-05T13-22.mp3",
     "memo_script": "da — quick one. no homework in this one, just something I want you to have in your ear before the trip.\n\nThere's a little word the aunties run on. Everything they know, they heard from someone, who heard it from someone else. And Tamil has a tag for exactly that — the hearsay tag.\n\n-ஆம்.\n\nYou stick it on the end. வராங்கலாம் — apparently they're coming. சாப்பிட்டாங்களாம் — apparently they ate. ஊர்ல இல்லையாம் — apparently he's not in town.\n\nYou don't need to fire it. You just need to catch it — because it's going to be everywhere at that table. Every piece of gossip that comes at you will be trailing one of these. Once you hear it once, you'll hear it in everything.\n\nஅந்த -ஆம் — that's the sound of someone passing along what they heard. The aunties live in that register.\n\nThat's it. Just let it soak. see you soon.",
     "mp3": "published_audio/knocks/knock_2026-07-05T13-22.mp3"
+  },
+  {
+    "date": "2026-07-05",
+    "timestamp": "2026-07-05T17:05:08.192151+00:00",
+    "acted": true,
+    "modality": "challenge",
+    "move": "gauntlet next line cold dare",
+    "rationale": "Ignore-streak is 1 (audio got no tap), but yesterday's challenges got hinted replies — text cold-fire on the gauntlet keeps momentum without raising friction; 'software engineer-a irukken' is a deck item not yet fired cold and this situation pins it to exactly one answer.",
+    "next_check": "2026-07-05T21:05:08.192151+00:00",
+    "body": "auntie asks: 'software-la enna panra?' — reply in tamizh 👇",
+    "expected_target": "software engineer-a irukken",
+    "target_revealed": false
   }
 ]
