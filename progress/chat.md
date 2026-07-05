@@ -36,11 +36,11 @@ Newest day first. **Derived file — edits here are overwritten.**
 **18:55 · Anna**  ·  challenge / arrival gauntlet cold-fire
 > auntie clocks you at the door: 'evlo naal irupeenga?' — don't think. fire it back. 🎯
 
-**21:21 · Andrew** — **CHAT**
-> And I was trying to say “4 weeks” naal vaarangel
+**21:23 · Andrew** — **HINTED** · chain ×1
+> Oru masaam iruppom
 
 **Anna ↩**
-> yeah, 'naal vaarangal' is the shape — 'naal' means days, 'vaarangal' means weeks, so you landed on 'days-weeks' which is a mashup da 😄 but the real issue is the frame: auntie wants to know your plan, not a count. 'oru maasam iruppom' — we're staying one month — is what she's waiting for. that's the whole line.
+> hinted — you had the frame, but I handed you 'oru maasam iruppom' in the last exchange, so that one can't fire cold yet. phonetics were clean though ('masaam' for 'maasam' — auntie wouldn't blink). let's earn the cold fire properly. · same auntie, next morning — she wants to know if you're heading out: 'enga poreengal?' don't think. one line back.
 
 
 ## Friday 2026-07-03
