@@ -1,0 +1,24 @@
+{
+  "mission": 56,
+  "register": "public",
+  "dramatic_ingredient": "genre",
+  "episode_form": "vignette",
+  "shape": "vignette",
+  "location_class": "public_street",
+  "energy": "low",
+  "intercept_tamil_density": 0.50,
+  "breakdown_tamil_density": 0.20,
+  "fence_size": 172,
+  "unfenced_words": 0,
+  "new_words_landed": { 
+    "ஒரு மாசம் இருப்போம்": 1, 
+    "frame:giveme-noun": 2, 
+    "frame:howmuch-noun": 1, 
+    "frame:isthere-noun": 1, 
+    "frame:want-noun": 2, 
+    "frame:where-noun": 1 
+  },
+  "callbacks_used": {},
+  "host_roles": { "A": "customer", "B": "stall_master" },
+  "notes": "Midnight snack calm energy."
+}
