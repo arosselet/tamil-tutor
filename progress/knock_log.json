@@ -324,6 +324,13 @@
     "next_check": "2026-07-05T21:05:08.192151+00:00",
     "body": "auntie asks: 'software-la enna panra?' — reply in tamizh 👇",
     "expected_target": "software engineer-a irukken",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Senior developer",
+    "reply_verdict": "miss",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_line": "close on the content, but auntie needs the Tamil — 'software engineer-a irukken' is the move. that's the one to load.",
+    "reply_at": "2026-07-05T17:57:58Z"
   }
 ]
