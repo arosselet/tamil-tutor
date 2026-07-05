@@ -482,6 +482,18 @@ def commit_and_push(paths: list[Path], msg: str):
     subprocess.run(["git", "push", "origin", "HEAD:main"], cwd=BASE, check=True)
 
 
+def refresh_feed() -> Path | None:
+    """All audio lands on the podcast feed (2026-07-05): rebuild rss.xml so a
+    dismissed audio memo stays findable. Feed polish must never kill the knock."""
+    try:
+        subprocess.run([sys.executable, str(BASE / "scripts" / "rebuild_rss.py")],
+                       cwd=BASE, check=True)
+        return BASE / "rss.xml"
+    except Exception as e:
+        print(f"   ⚠ rss rebuild failed ({e}) — continuing without feed update")
+        return None
+
+
 def jsdelivr_url(mp3: Path) -> str:
     rel = mp3.relative_to(BASE).as_posix()
     return f"https://cdn.jsdelivr.net/gh/{REPO}@main/{rel}"  # unique daily filename => always fresh
@@ -597,6 +609,10 @@ def main():
 
     path = log_decision(now, decision, acted=True, audio_url=audio_url, mp3=mp3)
     commit_paths = [path, render_chat()] if mp3 is None else [mp3, path, render_chat()]
+    if mp3 is not None:
+        rss = refresh_feed()
+        if rss:
+            commit_paths.append(rss)
     qp = maybe_enqueue_schedule(decision)
     if qp:
         commit_paths.append(qp)

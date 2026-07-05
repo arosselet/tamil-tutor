@@ -2,9 +2,9 @@
 """
 Smoke test for the rep channel — the plumbing that carries knocks, judged
 replies, and scheduled pushes. Drives the REAL production functions against a
-sandbox copy of the repo with exactly three boundaries stubbed: the LLM call,
-push_to_phone, and commit_and_push. No secrets, no network, no writes outside
-the sandbox. CI runs it on any push that touches the machinery (smoke.yml);
+sandbox copy of the repo with the outside-world boundaries stubbed: the LLM call,
+the TTS render (audio scenarios only), push_to_phone, and commit_and_push. No
+secrets, no network, no writes outside the sandbox. CI runs it on any push that touches the machinery (smoke.yml);
 locally:
 
   python scripts/smoke_test.py
@@ -395,6 +395,32 @@ def s7_integrity(sb: Path):
         check("knock_log entries carry date+timestamp", True)
 
 
+def s9_audio_knock_feed(mk, sb: Path):
+    print("\n9. Audio knock refreshes the feed (all audio -> rss.xml, 2026-07-05)")
+    mk.rails_gate = lambda force, now=None: (True, "smoke-open")
+    mk.build_digest = lambda: "SMOKE DIGEST"
+    pushes, commits = Recorder(), Recorder()
+    mk.push_to_phone, mk.commit_and_push = pushes, commits
+
+    async def fake_render(memo_script, out_path):
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_bytes(b"smoke-mp3")
+    mk.render_memo = fake_render
+
+    d = canned_decision(True, "smoke audio dose")
+    d["modality"] = "audio"
+    d["memo_script"] = "வணக்கம் டா"
+    mk.decide = lambda digest: d
+    sys.argv = ["morning_knock.py"]
+    mk.main()
+
+    paths = [str(p) for p in commits[-1][0]]
+    check("audio knock commits the mp3", any("knocks" in p for p in paths), f"paths={paths}")
+    check("audio knock commits rss.xml", any(p.endswith("rss.xml") for p in paths), f"paths={paths}")
+    check("audio knock logs audio_url",
+          bool(read_json(sb / "progress" / "knock_log.json")[-1].get("audio_url")))
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -408,6 +434,7 @@ def main():
         s6_queue_drain(mk, pq, sb)
         s7_integrity(sb)
         s8_variety_and_decay(mk, kr, sb)
+        s9_audio_knock_feed(mk, sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)
