@@ -298,5 +298,20 @@
     "reply_line": "hinted — you had the frame, but I handed you 'oru maasam iruppom' in the last exchange, so that one can't fire cold yet. phonetics were clean though ('masaam' for 'maasam' — auntie wouldn't blink). let's earn the cold fire properly. · same auntie, next morning — she wants to know if you're heading out: 'enga poreengal?' don't think. one line back.",
     "reply_at": "2026-07-05T01:23:28Z",
     "chained": 1
+  },
+  {
+    "date": "2026-07-05",
+    "timestamp": "2026-07-05T13:22:32.510429+00:00",
+    "acted": true,
+    "modality": "audio",
+    "move": "lore memo: hearsay tag",
+    "rationale": "3-day session gap with ignore-streak 0 — he's been replying but not coming in for a full session; Andrew asked for more audio (2026-07-04), and the ear-only -ஆம் soak is due, so a lore memo costs zero social budget and zero production pressure, a warm re-open after the gap; evening challenge scheduled for the top hinted→cold deck item.",
+    "next_check": "2026-07-05T16:22:32.510429+00:00",
+    "body": "☕ tea stall is open — new memo in your ear. 'varaanga-laam' — apparently they're coming. one minute, no ask.",
+    "expected_target": "",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-07-05T13-22.mp3",
+    "memo_script": "da — quick one. no homework in this one, just something I want you to have in your ear before the trip.\n\nThere's a little word the aunties run on. Everything they know, they heard from someone, who heard it from someone else. And Tamil has a tag for exactly that — the hearsay tag.\n\n-ஆம்.\n\nYou stick it on the end. வராங்கலாம் — apparently they're coming. சாப்பிட்டாங்களாம் — apparently they ate. ஊர்ல இல்லையாம் — apparently he's not in town.\n\nYou don't need to fire it. You just need to catch it — because it's going to be everywhere at that table. Every piece of gossip that comes at you will be trailing one of these. Once you hear it once, you'll hear it in everything.\n\nஅந்த -ஆம் — that's the sound of someone passing along what they heard. The aunties live in that register.\n\nThat's it. Just let it soak. see you soon.",
+    "mp3": "published_audio/knocks/knock_2026-07-05T13-22.mp3"
   }
 ]
