@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Sunday 2026-07-05
+
+**09:22 · Anna** 🎧  ·  audio / lore memo: hearsay tag
+> ☕ tea stall is open — new memo in your ear. 'varaanga-laam' — apparently they're coming. one minute, no ask.
+
+
 ## Saturday 2026-07-04
 
 **09:16 · Anna**  ·  challenge / arrival gauntlet cold-fire
