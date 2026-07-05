@@ -1,0 +1,29 @@
+{
+  "mission": 55,
+  "register": "tenderness",
+  "dramatic_ingredient": "character",
+  "episode_form": "classic",
+  "shape": "transaction",
+  "location_class": "street",
+  "energy": "low",
+  "intercept_tamil_density": 0.90,
+  "breakdown_tamil_density": 0.20,
+  "fence_size": 172,
+  "unfenced_words": 1,
+  "new_words_landed": {
+    "ஒரு மாசம் இருப்போம்": 1,
+    "frame:giveme-noun": 2,
+    "frame:howmuch-noun": 1,
+    "frame:isthere-noun": 1,
+    "frame:want-noun": 2,
+    "frame:where-noun": 1
+  },
+  "callbacks_used": {
+    "பிடிக்காது": 1,
+    "அழகான": 1
+  },
+  "host_roles": {
+    "A": "observant_daughter",
+    "B": "warm_tea_master"
+  }
+}
