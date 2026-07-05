@@ -104,3 +104,5 @@ The blank templates boot a coherent state: `sync_state.py status` runs fine and 
 
 
 *Keep your `progress/` folder synced to a private Git repository so your tutor remembers you across devices.*
+
+*One expected rough edge on a fresh clone: the cron workflows (knock, queue drain) will fail red until you configure the Actions secrets (`OPENROUTER_API_KEY`, `ANNA_PUSH_WEBHOOK_URL`) — either add them first or disable Actions until you do. This repo stays deliberately loud about missing secrets: on a live system a silent skip would mask a dead key. The extracted [language-tutor](https://github.com/arosselet/language-tutor) template skips its ticks cleanly until bootstrapped instead, because a blank template is a valid state, not an outage.*
