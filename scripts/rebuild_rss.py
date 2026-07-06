@@ -122,7 +122,26 @@ def get_title_from_md(md_path):
     return os.path.basename(md_path)
 
 
+def existing_pub_dates():
+    """Return {guid_url: pubDate} from the current rss.xml so rebuilds don't clobber old dates."""
+    if not os.path.exists(RSS_FILE):
+        return {}
+    try:
+        import xml.etree.ElementTree as ET
+        root = ET.parse(RSS_FILE).getroot()
+        result = {}
+        for item in root.iter("item"):
+            guid = item.findtext("guid")
+            pub_date = item.findtext("pubDate")
+            if guid and pub_date:
+                result[guid] = pub_date
+        return result
+    except Exception:
+        return {}
+
+
 def generate_rss():
+    saved_dates = existing_pub_dates()
     items = []
     if not os.path.exists(AUDIO_DIR):
         print(f"❌ {AUDIO_DIR} not found!")
@@ -174,9 +193,10 @@ def generate_rss():
         else:
             title = clean_title(raw_title, filename)
         size = os.path.getsize(audio_path)
-        mtime = os.path.getmtime(audio_path)
-        pub_date = email.utils.formatdate(mtime, localtime=True)
         audio_url = f"{BASE_URL}/{AUDIO_DIR}/{filename}"
+        pub_date = saved_dates.get(audio_url) or email.utils.formatdate(
+            os.path.getmtime(audio_path), localtime=True
+        )
 
         # Calculate real duration from the MP3 file
         try:
@@ -216,7 +236,9 @@ def generate_rss():
             summary="An introduction to the Coimbatore Mappillai project and how it works.",
             audio_url=demo_url,
             size=demo_size,
-            pub_date=email.utils.formatdate(os.path.getmtime(demo_path), localtime=True),
+            pub_date=saved_dates.get(demo_url) or email.utils.formatdate(
+                os.path.getmtime(demo_path), localtime=True
+            ),
             duration=demo_duration
         ))
 
