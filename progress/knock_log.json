@@ -392,15 +392,19 @@
     "expected_target": "வேண்டாம்",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Ama sappiten",
-    "reply_verdict": "hinted",
+    "reply": "Ama saapiteengom. Ama coffee venum",
+    "reply_verdict": "cold",
     "reply_fired": [
       "ஒரு மாசம் இருப்போம்",
-      "சாப்பிட்டேன்"
+      "சாப்பிட்டேன்",
+      "சாப்பிட்டோம்",
+      "வேணும்"
     ],
-    "reply_fired_cold": [],
-    "reply_line": "close — but she asked 'saapitteengala?' so she wants neenga-form: 'ama, saapitteengalom' (we've eaten) or 'saapitteengom' depending how you count yourself in. adhu dhaan the family form. 🎯 · she smiles and calls inside — 'kaapi vaenuma?' (want coffee?) — wave it off politely, 'enough, I'm fine'. one line.",
-    "reply_at": "2026-07-06T16:59:53Z",
-    "chained": 2
+    "reply_fired_cold": [
+      "வேணும்"
+    ],
+    "reply_line": "ha — 'venum' fired clean 🔥 but she's already pouring. wave it off: 'enough, I'm full' — one line. · politely decline the coffee — 'no thanks, I'm fine'. tamizh.",
+    "reply_at": "2026-07-06T17:06:13Z",
+    "chained": 3
   }
 ]
