@@ -408,5 +408,17 @@
     "reply_line": "ha, noted — system's alive. come back when aunty's actually at the door 😄",
     "reply_at": "2026-07-06T19:20:17Z",
     "chained": 3
+  },
+  {
+    "date": "2026-07-06",
+    "timestamp": "2026-07-06T21:25:50.935132+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "deck due: engineer cold-fire",
+    "rationale": "Demand-streak is 1 so one more ask is fine; 'software engineer-a irukken' is hinted→cold and the aunty FAQ scene makes it the obvious natural answer — coherence law satisfied, target unrevealed, low friction.",
+    "next_check": "2026-07-07T13:25:50.935132+00:00",
+    "body": "Aunty leans in: 'enna velai pannreenga?' 🧑‍💻 Don't think — what do you say back? (reply in tamizh)",
+    "expected_target": "சாஃப்ட்வேர் இன்ஜினியரா இருக்கேன்",
+    "target_revealed": false
   }
 ]
