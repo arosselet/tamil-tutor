@@ -389,17 +389,18 @@
     "move": "arrival gauntlet cold fire",
     "rationale": "scheduled at 2026-07-05T22:59 for 2026-07-06T13:30",
     "body": "aunty's at the door. 'evlo naal irupeenga?' — no hints, no warm-up. reply in tamizh. 🎯",
-    "expected_target": "சாப்பிட்டோம்",
+    "expected_target": "வேண்டாம்",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Oru masam",
+    "reply": "Ama sappiten",
     "reply_verdict": "hinted",
     "reply_fired": [
-      "ஒரு மாசம் இருப்போம்"
+      "ஒரு மாசம் இருப்போம்",
+      "சாப்பிட்டேன்"
     ],
     "reply_fired_cold": [],
-    "reply_line": "close da — 'oru maasam iruppom'. the 'iruppom' is the whole answer, otherwise aunty's left hanging. · ok she nods and asks 'saapitteengala?' — don't think, just fire.",
-    "reply_at": "2026-07-06T16:51:35Z",
-    "chained": 1
+    "reply_line": "close — but she asked 'saapitteengala?' so she wants neenga-form: 'ama, saapitteengalom' (we've eaten) or 'saapitteengom' depending how you count yourself in. adhu dhaan the family form. 🎯 · she smiles and calls inside — 'kaapi vaenuma?' (want coffee?) — wave it off politely, 'enough, I'm fine'. one line.",
+    "reply_at": "2026-07-06T16:59:53Z",
+    "chained": 2
   }
 ]
