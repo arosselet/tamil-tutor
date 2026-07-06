@@ -27,6 +27,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > Almost da — 'software engineer-a irukken, electronics startup-la' — the '-la' earns its place after the company/place, not after the role. Two moves, both landed. 🤙 · Now she nods and asks if you work from home or office — 'veetla irundhu pannreenga, illa office poreenga?' Don't think, one line. (from home)
 
+**19:39 · Anna**  ·  text / cold-fire: romba pidichirukku
+> ok — auntie just put the plate down and she's watching. romba pidichirukku. fire it back at me cold. 🔥
+
 
 ## Sunday 2026-07-05
 
