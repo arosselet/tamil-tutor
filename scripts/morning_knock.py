@@ -162,7 +162,13 @@ def outcome_memory(klog: list, now: datetime) -> str:
             detail = f"tapped ({k['response']})"
         else:
             detail = "no-tap"
-        lines.append(f"    {k.get('date','?')} · {modality}/{move} · {detail}")
+        # the ask itself, not just the move name — move names hid same-ask
+        # repeats from the variety law ('evlo naal' fired 5× in 4 days under
+        # differently-named moves, 2026-07-06)
+        ask = k.get("expected_target") or "no-ask"
+        body_head = (k.get("body") or "").replace("\n", " ")[:48]
+        lines.append(f"    {k.get('date','?')} · {modality}/{move} · "
+                     f"asked: {ask} · “{body_head}…” · {detail}")
 
     # Ignore streak = trailing reaches with no tap AND no session since.
     streak = 0
@@ -220,24 +226,60 @@ def remaining_room(klog: list, now: datetime) -> str:
             f"{streak_str}")
 
 
+def recent_ask_counts(klog: list, lexicon: dict, days: int = 3) -> dict:
+    """word → how many fired knocks in the last `days` asked for it (the original
+    expected_target) or printed it (body/memo/recast, whole chains). Ripest-first
+    alone kept the same headliner on top of the menu every day — the same ask
+    fired 5× in 4 days and capped itself at hinted forever (2026-07-06)."""
+    cutoff = datetime.now(timezone.utc) - timedelta(days=days)
+    recent = []
+    for k in klog:
+        if not is_fire(k):
+            continue
+        try:
+            ts = datetime.fromisoformat((k.get("timestamp") or "").replace("Z", "+00:00"))
+        except ValueError:
+            continue
+        if ts.tzinfo is None:
+            ts = ts.replace(tzinfo=timezone.utc)
+        if ts < cutoff:
+            continue
+        texts = [k.get("body", ""), k.get("memo_script", ""), k.get("reply_line", "")]
+        texts += [x.get("reply_line", "") for x in k.get("exchanges", [])]
+        recent.append((k.get("expected_target", ""), " ".join(t for t in texts if t).lower()))
+    counts = {}
+    for word, rec in lexicon.items():
+        probes = [word.lower()] + [p.lower() for p in rec.get("phonetic", []) if p]
+        n = sum(1 for tgt, blob in recent
+                if tgt == word or any(p in blob for p in probes))
+        if n:
+            counts[word] = n
+    return counts
+
+
 def deck_due_list(max_fire: int = 6, max_catch: int = 2) -> str:
-    """The sprint deck's due items, ripest first, so a knock's expected_target can
-    hit what's actually due instead of improvising off the story. `sync_state
-    status` carries only the deck METER; this is the menu. Items that have never
-    been soaked anywhere (no episode, no surfacing) are flagged UNSEEN — the
-    mandate forbids cold-quizzing those (teach first, show dose)."""
+    """The sprint deck's due items, ripest first BUT recently-asked last, so a
+    knock's expected_target can hit what's actually due instead of re-running
+    yesterday's ask. `sync_state status` carries only the deck METER; this is
+    the menu. Items never soaked anywhere are flagged UNSEEN — the mandate
+    forbids cold-quizzing those (teach first, show dose)."""
     from suggest_targets import deck_status  # lazy: keeps module import light
     from sync_state import LEXICON_PATH
     lex = load_json(LEXICON_PATH) or {}
     deck = deck_status(lex)
     if not deck or not deck["pending"]:
         return ""
+    asked = recent_ask_counts(load_json(KNOCK_LOG_PATH) or [], lex)
+    pending = sorted(deck["pending"], key=lambda t: asked.get(t["word"], 0))
     lines = ["DECK DUE (the sprint menu — expected_target should usually come from here):"]
-    for t in deck["pending"][:max_fire]:
+    for t in pending[:max_fire]:
         state = "hinted→cold" if t["production"] == "hinted" else f"{t['recognition']}, cold-pending"
         rec = lex.get(t["word"], {})
         if not rec.get("seen_in") and not rec.get("last_surfaced"):
             state += " · ⚠ UNSEEN — teach first (show dose), don't quiz"
+        n = asked.get(t["word"], 0)
+        if n:
+            state += f" · ⚠ asked/shown {n}× in last 3d — needs a genuinely new scene, or pick another item"
         lines.append(f"    [{t['kind']}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{state}]")
     for t in deck["catch_pending"][:max_catch]:
         lines.append(f"    [ear-only] {t['word']} — {t['gloss'] or '[no gloss]'}  "
@@ -279,6 +321,13 @@ VARIETY IS STRUCTURAL (knocks obey the same law as episodes — sameness is how 
 feed died once already): never run the same scenario peg (the same scene/frame — e.g. \
 the aunty-at-the-door gauntlet) two fires in a row, and no peg more than once in any \
 3 consecutive fires — the OUTREACH MEMORY lists your recent moves; diverge from them. \
+The memory shows each reach's actual ASK: the same target or the same surface question \
+twice in 3 days is the same peg no matter what the move was called, and the DECK DUE \
+menu marks items already asked/shown recently — a marked item needs a genuinely new \
+scene, or pick another item (a re-ask inside the reveal window can only ever score \
+hinted; it farms the treadmill, not the deck). NEVER print deck Tamil the body isn't \
+asking for — a ✓-praise recap that lists yesterday's lines re-reveals them and caps \
+the next fire at hinted; celebrate with the meter, never the Tamil. \
 After TWO consecutive demand-doses (any fire with a non-empty expected_target — the \
 digest's Demand-streak line counts this for you), the next fire MUST be a no-ask dose \
 (lore, audio memo, show dose, grace) or silence. And when the digest shows no chat \

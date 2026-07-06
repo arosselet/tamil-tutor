@@ -7,9 +7,9 @@ scheduled pushes, judged replies). This renders it as the transcript Andrew
 can actually open on his phone: every writer of the log (morning_knock.py,
 knock_reply.py, push_queue.py drain) regenerates the file into its own
 commit, so progress/chat.md on GitHub is always current. Chained replies
-overwrite a knock's reply fields in the log — the latest exchange wins in
-this file, and each earlier turn survives in the file's git history because
-a fresh render was committed per reply.
+append to a knock's `exchanges` list, so every turn of a chain renders
+(entries from before 2026-07-06 kept only their last exchange — those
+render as-is; earlier turns survive in this file's git history).
 
 Derived output — never hand-edit. Rebuild any time:
 
@@ -60,15 +60,19 @@ def render_chat() -> Path:
             audio = " 🎧" if e.get("audio_url") else ""
             lines += [f"**{t:%H:%M} · Anna**{audio}  ·  {tag}".rstrip(" ·"),
                       _quote(e["body"]), ""]
-            if e.get("reply"):
-                when = f"{_local(e['reply_at']):%H:%M} · " if e.get("reply_at") else ""
-                verdict = (e.get("reply_verdict") or "").upper()
-                chain = f" · chain ×{e['chained']}" if e.get("chained") else ""
-                lines += [f"**{when}Andrew** — **{verdict}**{chain}",
-                          _quote(e["reply"]), ""]
-                if e.get("reply_line"):
-                    lines += ["**Anna ↩**", _quote(e["reply_line"]), ""]
-            elif e.get("response") == "ack":
+            exchanges = e.get("exchanges")
+            if not exchanges and e.get("reply"):  # pre-2026-07-06 entries: last exchange only
+                exchanges = [{"at": e.get("reply_at"), "reply": e["reply"],
+                              "verdict": e.get("reply_verdict"),
+                              "reply_line": e.get("reply_line")}]
+            for x in exchanges or []:
+                when = f"{_local(x['at']):%H:%M} · " if x.get("at") else ""
+                verdict = (x.get("verdict") or "").upper()
+                lines += [f"**{when}Andrew** — **{verdict}**",
+                          _quote(x.get("reply", "")), ""]
+                if x.get("reply_line"):
+                    lines += ["**Anna ↩**", _quote(x["reply_line"]), ""]
+            if not exchanges and e.get("response") == "ack":
                 lines += ["**Andrew** · 👍 acked", ""]
 
     CHAT_PATH.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")

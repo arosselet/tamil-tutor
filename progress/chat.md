@@ -12,7 +12,7 @@ Newest day first. **Derived file — edits here are overwritten.**
 **12:39 · Anna**  ·  text / arrival gauntlet cold fire
 > aunty's at the door. 'evlo naal irupeenga?' — no hints, no warm-up. reply in tamizh. 🎯
 
-**15:20 · Andrew** — **CHAT** · chain ×3
+**15:20 · Andrew** — **CHAT**
 > Hello this is a test
 
 **Anna ↩**
@@ -21,7 +21,7 @@ Newest day first. **Derived file — edits here are overwritten.**
 **17:25 · Anna**  ·  text / deck due: engineer cold-fire
 > Aunty leans in: 'enna velai pannreenga?' 🧑‍💻 Don't think — what do you say back? (reply in tamizh)
 
-**18:26 · Andrew** — **HINTED** · chain ×2
+**18:26 · Andrew** — **HINTED**
 > Software engineer a irukken. Electronics startup
 
 **Anna ↩**
@@ -36,7 +36,7 @@ Newest day first. **Derived file — edits here are overwritten.**
 **13:05 · Anna**  ·  challenge / gauntlet next line cold dare
 > auntie asks: 'software-la enna panra?' — reply in tamizh 👇
 
-**18:16 · Andrew** — **CHAT** · chain ×1
+**18:16 · Andrew** — **CHAT**
 > I want another audio episode soaking the words I’ve been practicing this week. I think you’ll have to schedule this for my next session on my laptop
 
 **Anna ↩**
@@ -54,7 +54,7 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:16 · Anna**  ·  challenge / arrival gauntlet cold-fire
 > ☕ Auntie leans in: 'evlo naal irupeenga?' — don't think. fire it back.
 
-**09:20 · Andrew** — **CHAT** · chain ×1
+**09:20 · Andrew** — **CHAT**
 > I meant to respond slightly off your plan “4 weeks” instead of “1 month” was I right?
 
 **Anna ↩**
@@ -63,7 +63,7 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:45 · Anna**  ·  text / gauntlet next line morning
 > morning — yesterday's gauntlet: nethu vandhom ✓ oru maasam iruppom ✓ software engineer-a irukken ✓ Canada-la irukkom ✓ — four lines in the bag. today's target: 'romba pidichirukku'. fire it cold when you're ready.
 
-**10:16 · Andrew** — **HINTED** · chain ×3
+**10:16 · Andrew** — **HINTED**
 > Podhum (this one fires cold it was one of the first Tamil words I learned)
 
 **Anna ↩**
@@ -72,7 +72,7 @@ Newest day first. **Derived file — edits here are overwritten.**
 **14:06 · Anna**  ·  challenge / gauntlet next line cold dare
 > oru maasam — solid. now the auntie leans in, eyes bright: 'namma Coimbatore pidichirukka?' She wants the melt line. Fire it cold. 🫶
 
-**14:11 · Andrew** — **HINTED** · chain ×2
+**14:11 · Andrew** — **HINTED**
 > Romba pidichirukku
 
 **Anna ↩**
@@ -81,7 +81,7 @@ Newest day first. **Derived file — edits here are overwritten.**
 **18:55 · Anna**  ·  challenge / arrival gauntlet cold-fire
 > auntie clocks you at the door: 'evlo naal irupeenga?' — don't think. fire it back. 🎯
 
-**21:23 · Andrew** — **HINTED** · chain ×1
+**21:23 · Andrew** — **HINTED**
 > Oru masaam iruppom
 
 **Anna ↩**
@@ -105,7 +105,7 @@ Newest day first. **Derived file — edits here are overwritten.**
 **13:21 · Anna**  ·  challenge / arrival gauntlet next line
 > auntie leans in: 'evlo naal irupeenga?' — don't think, just fire back. (one line, tamizh)
 
-**13:47 · Andrew** — **MISS** · chain ×3
+**13:47 · Andrew** — **MISS**
 > Ama sappiten
 
 **Anna ↩**
@@ -114,7 +114,7 @@ Newest day first. **Derived file — edits here are overwritten.**
 **18:58 · Anna**  ·  challenge / gauntlet miss recast + cold dare
 > da — 'sappiten' is eating, not where you're from 😄 the aunties asked 'enga irukeenga?' — fire it back: Canada-la irukkom. one shot, cold.
 
-**22:57 · Andrew** — **CHAT** · chain ×2
+**22:57 · Andrew** — **CHAT**
 > 38 years
 
 **Anna ↩**
@@ -135,7 +135,7 @@ Newest day first. **Derived file — edits here are overwritten.**
 **15:18 · Anna**  ·  challenge / arrival gauntlet cold-fire
 > 🚨 aunty ambush drill. she spots you at the door: 'eppo vandheenga? evvalo naala iruppeenga?' — don't think. fire the FAQ back. (oru maasam / nethu dhaan / software engineer-a irukken — all in one go, neenga-register)
 
-**23:01 · Andrew** — **HINTED** · chain ×2
+**23:01 · Andrew** — **HINTED**
 > Nethu vandhom. Oru maasam iruppom software engineer-la
 
 **Anna ↩**
@@ -164,7 +164,7 @@ Newest day first. **Derived file — edits here are overwritten.**
 **23:02 · Anna**  ·  text / field-mission debrief
 > field mission debrief: the line — did it fly at the table tonight? what did you say, what came back? reply in tamizh, one line. adhu dhaan the whole ask.
 
-**23:05 · Andrew** — **CHAT** · chain ×1
+**23:05 · Andrew** — **CHAT**
 > We were eating takeout so I’m saving it for a day she cooks
 
 **Anna ↩**

@@ -24,7 +24,7 @@ import argparse
 import json
 import os
 import sys
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 from openai import OpenAI
@@ -68,9 +68,14 @@ re-derives this from "fired" regardless).
 - "chat" — not a rep at all (English chat, a question, logistics). Empty fired. No state moves.
 
 HARD RULE: if the knock revealed the target Tamil (target_revealed=true), that word \
-scores at most "hinted". Same for anything your own recast handed him in a \
-prior_exchange on this knock — echoing it back is a read-back, not a fire. Cold is \
-unaided production only. (Python re-checks this per word.)
+scores at most "hinted". Same for anything your own recast handed him in the \
+prior_exchanges on this knock — echoing it back is a read-back, not a fire. Cold is \
+unaided production only. (Python re-checks this per word.) The context's \
+"revealed_recently" lists the Tamil ACTUALLY shown to him in the last 48h of knock \
+traffic — computed from the log, not from memory. You may deny a cold as "I handed \
+him that recently" ONLY when the word is on that list (or revealed by this knock / \
+its prior_exchanges). If it is not listed and he produced it unaided, it is COLD — \
+never invent a reveal.
 
 CONTINUITY DECAYS: the context carries hours_since_last_exchange. Past ~3 hours, the \
 scenario that knock was running is EXPIRED in his head — he is answering a lock-screen \
@@ -174,26 +179,33 @@ def hours_since_exchange(knock: dict, now: datetime) -> float | None:
 
 
 def judge(knock: dict, reply_text: str, target_record: dict | None,
-          hours_since: float | None = None) -> dict:
+          hours_since: float | None = None,
+          revealed_recent: list | None = None) -> dict:
     persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
+    pin, pin_revealed = current_pin(knock)
     context = {
         "knock": {
             "modality": knock.get("modality"),
             "move": knock.get("move"),
             "notification_body": knock.get("body", ""),
             "memo_script": knock.get("memo_script", ""),
-            "expected_target": knock.get("expected_target", ""),
-            "target_revealed": knock.get("target_revealed", True),
+            "expected_target": pin,
+            "target_revealed": pin_revealed,
         },
         "hours_since_last_exchange": round(hours_since, 1) if hours_since is not None else None,
         "expected_target_lexicon_record": target_record,
+        "revealed_recently": revealed_recent or [],
         "andrew_reply": reply_text,
     }
-    # A second reply to the same knock is judged knowing the first exchange —
-    # Tamil that Anna's recast already handed him is a read-back, not a cold fire.
-    if knock.get("reply"):
-        context["prior_exchange"] = {"andrew_said": knock["reply"],
-                                     "anna_recast": knock.get("reply_line", "")}
+    # A later reply to the same knock is judged knowing the whole chain —
+    # Tamil that Anna's recasts already handed him is a read-back, not a cold fire.
+    if knock.get("exchanges"):
+        context["prior_exchanges"] = [
+            {"andrew_said": x.get("reply", ""), "anna_recast": x.get("reply_line", "")}
+            for x in knock["exchanges"][-4:]]
+    elif knock.get("reply"):
+        context["prior_exchanges"] = [{"andrew_said": knock["reply"],
+                                       "anna_recast": knock.get("reply_line", "")}]
     client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
     resp = client.chat.completions.create(
         model=MODEL,
@@ -243,12 +255,55 @@ def normalize_verdict(d: dict) -> dict:
 def shown_in_knock(key: str, rec: dict, knock: dict) -> bool:
     """Deterministic check of the hard rule: did the knock's own text — or a
     recast Anna already pushed back on an earlier reply — show this Tamil
-    (script or any known phonetic)? Shown ⇒ the reply caps at 'hinted'."""
-    shown = (f"{knock.get('body', '')} {knock.get('memo_script', '')} "
-             f"{knock.get('reply_line', '')}").lower()
+    (script or any known phonetic)? Shown ⇒ the reply caps at 'hinted'.
+    Scans the WHOLE chain, not just the last recast."""
+    parts = [knock.get("body", ""), knock.get("memo_script", ""),
+             knock.get("reply_line", "")]
+    parts += [x.get("reply_line", "") for x in knock.get("exchanges", [])]
+    shown = " ".join(p for p in parts if p).lower()
     if key.lower() in shown:
         return True
     return any(p.lower() in shown for p in rec.get("phonetic", []) if p)
+
+
+def current_pin(knock: dict) -> tuple[str, bool]:
+    """What this knock is asking for RIGHT NOW: the chained follow-up pin when
+    one exists, else the original ask. A chain moves the pin without touching
+    expected_target — the original ask stays on record (before 2026-07-06 the
+    chain overwrote it, which made the log unreadable for audits)."""
+    if knock.get("pinned_target") is not None:
+        return knock["pinned_target"], bool(knock.get("pinned_revealed", True))
+    return knock.get("expected_target", ""), bool(knock.get("target_revealed", True))
+
+
+def revealed_recently(klog: list, lexicon: dict, hours: float = 48.0) -> list[str]:
+    """Lexicon keys whose Tamil (script or any phonetic) actually appeared in
+    the last `hours` of knock traffic — bodies, memo scripts, recasts, whole
+    chains. The judge may deny a cold as "recently handed to him" ONLY for
+    words on this list: Python owns the evidence of what was shown; trusting
+    the model's memory denied a real cold (the 2026-07-04 'podhum' case)."""
+    cutoff = datetime.now(timezone.utc) - timedelta(hours=hours)
+    texts = []
+    for k in klog:
+        try:
+            ts = datetime.fromisoformat((k.get("timestamp") or "").replace("Z", "+00:00"))
+        except ValueError:
+            continue
+        if ts.tzinfo is None:
+            ts = ts.replace(tzinfo=timezone.utc)
+        if ts < cutoff:
+            continue
+        texts += [k.get("body", ""), k.get("memo_script", ""), k.get("reply_line", "")]
+        texts += [x.get("reply_line", "") for x in k.get("exchanges", [])]
+    blob = " ".join(t for t in texts if t).lower()
+    if not blob:
+        return []
+    out = []
+    for key, rec in lexicon.items():
+        probes = [key] + [p for p in rec.get("phonetic", []) if p]
+        if any(p.lower() in blob for p in probes):
+            out.append(key)
+    return sorted(out)
 
 
 def apply_verdict(verdict: dict, knock: dict, lexicon: dict) -> tuple[list[str], list[str]]:
@@ -258,8 +313,8 @@ def apply_verdict(verdict: dict, knock: dict, lexicon: dict) -> tuple[list[str],
     EFFECTIVE grade was cold after the revealed-cap — the pace meters read these)."""
     phon_index = build_phonetic_index(lexicon)
     today = date.today().isoformat()
-    revealed_key = (resolve(knock.get("expected_target", ""), lexicon, phon_index)
-                    if knock.get("target_revealed", True) else None)
+    pin, pin_revealed = current_pin(knock)
+    revealed_key = resolve(pin, lexicon, phon_index) if pin_revealed else None
     summary, cold_credited = [], []
     for item in verdict["fired"]:
         key = resolve(item["word"], lexicon, phon_index)
@@ -303,7 +358,7 @@ def main():
 
     lexicon = load_json(LEXICON_PATH) or {}
     phon_index = build_phonetic_index(lexicon)
-    target = knock.get("expected_target", "")
+    target, _ = current_pin(knock)
     target_key = resolve(target, lexicon, phon_index) if target else None
     target_record = None
     if target_key:
@@ -315,7 +370,8 @@ def main():
     hours_str = f", {hours:.1f}h since last exchange" if hours is not None else ""
     print(f"1. judging reply against knock {knock.get('timestamp', '?')[:16]} "
           f"({knock.get('modality')}/{knock.get('move')}{hours_str})…")
-    verdict = judge(knock, reply_text, target_record, hours)
+    verdict = judge(knock, reply_text, target_record, hours,
+                    revealed_recently(klog, lexicon))
     fired_str = ", ".join(f"{i['word']}:{i['verdict']}" for i in verdict["fired"]) or "—"
     print(f"   → {verdict['verdict']} | fired: {fired_str} | {verdict.get('rationale', '')}")
 
@@ -337,6 +393,8 @@ def main():
     for line in summary:
         print(f"   {line}")
 
+    # Top-level reply fields are the LATEST-exchange view (outcome memory and
+    # legacy renders read them); the full history lives in `exchanges` below.
     knock["response"] = "reply"  # the strongest "landed" signal there is
     knock["reply"] = reply_text
     knock["reply_verdict"] = verdict["verdict"]
@@ -347,13 +405,20 @@ def main():
     knock["reply_fired"] = knock.get("reply_fired", []) + fired_words
     knock["reply_fired_cold"] = knock.get("reply_fired_cold", []) + cold_credited
     # store the FULL push-back (recast + chained ask): the next judge call reads it
-    # as prior_exchange, and shown_in_knock scans it for revealed Tamil
+    # as a prior exchange, and shown_in_knock scans it for revealed Tamil
     knock["reply_line"] = " · ".join(p for p in (verdict["reply_line"], follow) if p)
     knock["reply_at"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    knock.setdefault("exchanges", []).append({
+        "at": knock["reply_at"], "reply": reply_text,
+        "verdict": verdict["verdict"], "fired": fired_words,
+        "fired_cold": cold_credited, "reply_line": knock["reply_line"],
+    })
     if follow:
+        # The chain moves the PIN; expected_target stays the original ask so the
+        # log stays auditable (overwriting it here was the 2026-07-06 bug).
         knock["chained"] = knock.get("chained", 0) + 1
-        knock["expected_target"] = verdict["follow_up_target"]
-        knock["target_revealed"] = verdict["follow_up_target_revealed"]
+        knock["pinned_target"] = verdict["follow_up_target"]
+        knock["pinned_revealed"] = verdict["follow_up_target_revealed"]
 
     save_json(LEXICON_PATH, lexicon)
     save_json(KNOCK_LOG_PATH, klog)

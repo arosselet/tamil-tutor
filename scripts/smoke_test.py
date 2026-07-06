@@ -12,6 +12,7 @@ locally:
 A fixed bug becomes a case here the day it's fixed:
   #1  queue drain: oldest-due fires first, one non-forced per tick (2026-07-03)
   #2  prose-wrapped LLM JSON killed a knock tick (2026-07-04)
+  #3  chained follow-up overwrote the original ask; chat lost chained replies (2026-07-06)
 """
 import argparse
 import importlib
@@ -210,7 +211,7 @@ def s5_reply_judge(mk, kr, sb: Path):
                 "body": body, "expected_target": target, "target_revealed": revealed}
 
     def reply(text: str, verdict: dict):
-        kr.judge = lambda k, r, t, h=None: verdict
+        kr.judge = lambda k, r, t, h=None, rr=None: verdict
         sys.argv = ["knock_reply.py", text]
         kr.main()
 
@@ -421,6 +422,72 @@ def s9_audio_knock_feed(mk, sb: Path):
           bool(read_json(sb / "progress" / "knock_log.json")[-1].get("audio_url")))
 
 
+def s10_chain_history(mk, kr, sb: Path):
+    """#3 (2026-07-06): a chained follow-up must move the PIN, not overwrite the
+    original ask; every exchange lands in `exchanges`; chat.md renders the full
+    chain; revealed_recently() computes reveals from the log, not model memory."""
+    print("\n10. Chain history + grounded reveals (regression #3)")
+    prog = sb / "progress"
+    lex_path, klog_path = prog / "lexicon.json", prog / "knock_log.json"
+    write_json(lex_path, {
+        "ஒரு மாசம் இருப்போம்": {"gloss": "We're staying one month",
+                                  "phonetic": ["oru maasam iruppom"],
+                                  "recognition": "solid", "production": "none", "seen_in": []},
+        "வேண்டாம்": {"gloss": "Don't want / no thanks", "phonetic": ["vendaam"],
+                      "recognition": "solid", "production": "none", "seen_in": []},
+    })
+    kr.push_to_phone, kr.commit_and_push = Recorder(), Recorder()
+    now = datetime.now(timezone.utc)
+    log = read_json(klog_path)
+    log.append({"date": now.date().isoformat(), "timestamp": now.isoformat(),
+                "acted": True, "modality": "text", "move": "smoke chain",
+                "body": "evlo naal irupeenga? fire it back",
+                "expected_target": "ஒரு மாசம் இருப்போம்", "target_revealed": False})
+    write_json(klog_path, log)
+
+    # first reply fires cold; the judge chains a follow-up ask for a NEW target
+    v = canned_verdict([("ஒரு மாசம் இருப்போம்", "cold")])
+    v["follow_up_ask"] = "she piles more food — wave it off"
+    v["follow_up_target"] = "வேண்டாம்"
+    v["follow_up_target_revealed"] = False
+    kr.judge = lambda k, r, t, h=None, rr=None: v
+    sys.argv = ["knock_reply.py", "oru maasam iruppom"]
+    kr.main()
+    entry = read_json(klog_path)[-1]
+    check("original ask survives the chain",
+          entry["expected_target"] == "ஒரு மாசம் இருப்போம்",
+          f"got {entry.get('expected_target')}")
+    check("pin moved to the follow-up", entry.get("pinned_target") == "வேண்டாம்")
+
+    # second reply is graded against the PIN, and both exchanges are on record
+    kr.judge = lambda k, r, t, h=None, rr=None: canned_verdict([("வேண்டாம்", "cold")])
+    sys.argv = ["knock_reply.py", "vendaam!"]
+    kr.main()
+    entry = read_json(klog_path)[-1]
+    check("both exchanges recorded", len(entry.get("exchanges", [])) == 2,
+          f"got {len(entry.get('exchanges', []))}")
+    check("second reply graded against the pin",
+          read_json(lex_path)["வேண்டாம்"]["production"] == "cold")
+    check("fired accumulates across the chain",
+          entry.get("reply_fired") == ["ஒரு மாசம் இருப்போம்", "வேண்டாம்"],
+          f"got {entry.get('reply_fired')}")
+
+    # the chat record shows every turn of the chain, not just the last
+    chat = (prog / "chat.md").read_text(encoding="utf-8")
+    check("chat renders the full chain",
+          "oru maasam iruppom" in chat and "vendaam!" in chat)
+
+    # grounded reveals: only Tamil actually printed in recent knock traffic lists
+    log = read_json(klog_path)
+    log.append({"date": now.date().isoformat(), "timestamp": now.isoformat(),
+                "acted": True, "modality": "text", "move": "smoke recap",
+                "body": "yesterday: oru maasam iruppom ✓ — solid",
+                "expected_target": "", "target_revealed": False})
+    write_json(klog_path, log)
+    rr = kr.revealed_recently(read_json(klog_path), read_json(lex_path))
+    check("revealed_recently sees the printed word", "ஒரு மாசம் இருப்போம்" in rr, f"got {rr}")
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -435,6 +502,7 @@ def main():
         s7_integrity(sb)
         s8_variety_and_decay(mk, kr, sb)
         s9_audio_knock_feed(mk, sb)
+        s10_chain_history(mk, kr, sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)
