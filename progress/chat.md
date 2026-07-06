@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **11:23 · Anna** 🎧  ·  audio / lore memo: romba pidichirukku story
 > 🎙️ 90 seconds on the phrase that melts every auntie — no ask, just the story. worth a listen.
 
+**12:39 · Anna**  ·  text / arrival gauntlet cold fire
+> aunty's at the door. 'evlo naal irupeenga?' — no hints, no warm-up. reply in tamizh. 🎯
+
 
 ## Sunday 2026-07-05
 
