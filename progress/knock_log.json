@@ -363,5 +363,20 @@
     "body": "auntie walks in. 'evlo naal iruppeenga?' — don't think. fire it back. 🎯",
     "expected_target": "ஒரு மாசம் இருப்போம்",
     "target_revealed": false
+  },
+  {
+    "date": "2026-07-06",
+    "timestamp": "2026-07-06T15:23:36.183509+00:00",
+    "acted": true,
+    "modality": "audio",
+    "move": "lore memo: romba pidichirukku story",
+    "rationale": "Ignore-streak of 2 + no session in 4 days + demand-streak at 1 = this tick needs to rebuild the want-to-open reflex, not collect; a lore memo on the deck's most emotionally resonant phrase (the melt line Andrew's wife's family will hear most) is pull without social budget spend — plant the cold-fire ask for tonight when the story has had hours to settle.",
+    "next_check": "2026-07-06T21:23:36.183509+00:00",
+    "body": "🎙️ 90 seconds on the phrase that melts every auntie — no ask, just the story. worth a listen.",
+    "expected_target": "",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-07-06T15-23.mp3",
+    "memo_script": "Picture this.\n\nYou've just eaten. The plate is clean. The auntie who cooked is watching you from the corner of the room — she's pretending to arrange something on the counter, but she's watching.\n\nIn England, you say \"that was delicious.\" Nice. Polite. Forgotten by morning.\n\nIn a Coimbatore kitchen, you say: ரொம்ப பிடிச்சிருக்கு.\n\nரொம்ப — so much, really, deeply. பிடிச்சிருக்கு — it has grabbed me. It has *caught* me and won't let go.\n\nNot \"I liked it.\" Not \"it was good.\" The food reached across the plate and took hold of something in you. That's what you're telling her.\n\nAnd here's the thing about Tamil aunties and food — cooking is not just cooking. It's years of learning her mother-in-law's hand, the exact ratio of chilli to coriander her family expects, the pride that goes into every pot. When you say ரொம்ப பிடிச்சிருக்கு, you're not reviewing a dish. You're telling her the years landed.\n\nYour wife's family is going to put food in front of you approximately every forty-five minutes. This phrase is your single most powerful tool in that house.\n\nரொம்ப பிடிச்சிருக்கு. Romba pidichirukku.\n\nHold that. You'll know exactly when.",
+    "mp3": "published_audio/knocks/knock_2026-07-06T15-23.mp3"
   }
 ]

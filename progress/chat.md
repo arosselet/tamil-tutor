@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Monday 2026-07-06
+
+**11:23 · Anna** 🎧  ·  audio / lore memo: romba pidichirukku story
+> 🎙️ 90 seconds on the phrase that melts every auntie — no ask, just the story. worth a listen.
+
+
 ## Sunday 2026-07-05
 
 **09:22 · Anna** 🎧  ·  audio / lore memo: hearsay tag
