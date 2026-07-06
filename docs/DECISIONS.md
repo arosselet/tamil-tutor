@@ -107,3 +107,10 @@ Details live in git history; this is the index of the *conclusions*.
 - **CI git identity is `github-actions[bot]`** (2026-07-01) — never a noreply alias that
   credits a real GitHub user. (History was rewritten for this; pre-2026-07-02 commit SHAs
   cited in old notes are stale.)
+- **Cross-agent access is symlinks; `CLAUDE.md` / `.claude/skills/` stay canon**
+  (2026-07-06). Root `AGENTS.md → CLAUDE.md` and `.agents/skills → .claude/skills` give
+  Antigravity and any AGENTS.md-reading tool the router and skill library with zero
+  duplication. Replaces the hand-copied `.agents/AGENTS.md` (a drift trap that rode in on
+  a lesson commit). Same pattern globally: `~/.agents/AGENT.md` is cross-agent canon —
+  imported by `~/.claude/CLAUDE.md`, symlinked from `~/.gemini/AGENTS.md` (verified:
+  `agy` 1.0.16 reads global config from `~/.gemini/`, not `~/.agents/`).

@@ -1,7 +1,8 @@
 # Tamil Learning Repository Context
 
 This file is a **thin router** — all substance lives in `protocol/` and `docs/` so the
-system behaves identically under any agent. It is automatically loaded by Claude Code for
+system behaves identically under any agent. It loads automatically in Claude Code
+(`CLAUDE.md`) and in any AGENTS.md-reading agent (root `AGENTS.md` symlinks here) for
 zero-setup portability when cloning this repository.
 
 ## Operational Modes
@@ -29,7 +30,8 @@ editing the machine.
   Andrew before writing code.
 - **Behavior:** Standard coding behaviors apply. You may look at existing `.py` and `.md`
   files for context or as code templates.
-- **Skill library:** `.claude/skills/` holds the engineering playbooks — `/orient`
+- **Skill library:** `.claude/skills/` (canon; mirrored at `.agents/skills` for
+  Antigravity) holds the engineering playbooks — `/orient`
   (onboarding + glossary), `/debug` (triage), `/validate` (health checks + safe/mutating
   command inventory), `/extend` (change discipline), `/verify` (proving changes). Start
   any `@build` task with `/orient` if the system is unfamiliar.
