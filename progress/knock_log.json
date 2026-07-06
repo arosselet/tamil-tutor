@@ -431,5 +431,18 @@
     "reply_line": "Almost da — 'software engineer-a irukken, electronics startup-la' — the '-la' earns its place after the company/place, not after the role. Two moves, both landed. 🤙 · Now she nods and asks if you work from home or office — 'veetla irundhu pannreenga, illa office poreenga?' Don't think, one line. (from home)",
     "reply_at": "2026-07-06T22:26:06Z",
     "chained": 2
+  },
+  {
+    "date": "2026-07-06",
+    "timestamp": "2026-07-06T23:39:36.321462+00:00",
+    "acted": true,
+    "scheduled": true,
+    "queue_id": "q1783351446",
+    "modality": "text",
+    "move": "cold-fire: romba pidichirukku",
+    "rationale": "scheduled at 2026-07-06T15:24 for 2026-07-06T23:30",
+    "body": "ok — auntie just put the plate down and she's watching. romba pidichirukku. fire it back at me cold. 🔥",
+    "expected_target": "ரொம்ப பிடிச்சிருக்கு",
+    "target_revealed": false
   }
 ]
