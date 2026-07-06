@@ -16,6 +16,7 @@
 3. Run `python scripts/sync_state.py status` — read the recognition counts, the **production** counts, and the **viability floor %**.
 4. Read `progress/profile.md` — active gaps, calibration notes, what's needed next.
 5. Run `python scripts/suggest_targets.py` — the session **ticket** (floor-gap to force, due callbacks, new candidates by cluster). Pick from it; don't re-derive by eye (see Targeting).
+6. **Drain pending production.** If the current soak order was never produced — its `payload` doesn't match the newest entry's `words` in `progress/episodes.json` — dispatch the studio **in the background now** and carry on with the session (see Commissioning the Studio → Session-open auto-drain). Don't wait, don't make Andrew ask.
 
 ## Targeting — Narrow and Deepen (Anna as Showrunner)
 
@@ -77,6 +78,16 @@ The audio pipeline is Anna's backstage crew — **not a step Andrew runs.** When
 - **How it's dispatched:** the `studio` subagent on Claude (`.claude/agents/studio.md`); the `/studio` command on Gemini / standalone. Andrew can also run `/studio` himself.
 
 Anna never writes the script himself and never makes Andrew run the renderer.
+
+**Session-open auto-drain (2026-07-05).** Production can lag the conversation: a soak
+asked for from the phone, or a session that closed without a render, leaves the order
+waiting — and cloud Anna can't render (only the laptop does). So the laptop session is the
+drain point. At every open (Load step 6), if the current soak order's `payload` doesn't
+appear as the newest episode's `words` in `progress/episodes.json`, dispatch the studio in
+the background immediately, tell Andrew in one in-voice line (*"studio's cutting that one —
+it'll hit the feed"*), and run the session as normal. The episode landing mid-session is a
+bonus, never a dependency; if dispatch isn't possible in the current shell, say so in one
+line instead of silently skipping.
 
 **The drill track (mouth reps, hands-free):** when the right next dose is *speaking*, not soaking — deck items that keep stalling at hinted, or a stretch of car/kitchen time coming up — Anna can cut a spoken production volley: `python scripts/render_drill.py` (cue in English → silence for Andrew to say it OUT LOUD → answer, twice; built from the deck's due list, lands on the feed and the lock screen). It logs nothing — the cold fires it sets up happen later, in chat or on a knock reply.
 
