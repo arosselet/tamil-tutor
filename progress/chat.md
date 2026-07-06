@@ -12,11 +12,11 @@ Newest day first. **Derived file — edits here are overwritten.**
 **12:39 · Anna**  ·  text / arrival gauntlet cold fire
 > aunty's at the door. 'evlo naal irupeenga?' — no hints, no warm-up. reply in tamizh. 🎯
 
-**13:06 · Andrew** — **COLD** · chain ×3
-> Ama saapiteengom. Ama coffee venum
+**13:07 · Andrew** — **COLD** · chain ×3
+> Podhum vaira full
 
 **Anna ↩**
-> ha — 'venum' fired clean 🔥 but she's already pouring. wave it off: 'enough, I'm full' — one line. · politely decline the coffee — 'no thanks, I'm fine'. tamizh.
+> adhu dhaan! 'podhum' cold 🔥 — vaira full is very Coimbatore, we'd say 'vairu niranjuduchu' for the full picture but podhum lands clean.
 
 
 ## Sunday 2026-07-05
