@@ -1708,5 +1708,293 @@
     "gloss": "I am working",
     "cluster": "verb_present",
     "priority": 1
+  },
+  {
+    "tamil": "ரொம்ப",
+    "gloss": "Very / a lot — the universal intensifier (locked in 5 deck chunks)",
+    "cluster": "descriptions",
+    "priority": 1
+  },
+  {
+    "tamil": "மெதுவா",
+    "gloss": "Slowly",
+    "cluster": "descriptions",
+    "priority": 1
+  },
+  {
+    "tamil": "அதிகம்",
+    "gloss": "Much / too much (opposite of கம்மி)",
+    "cluster": "descriptions",
+    "priority": 1
+  },
+  {
+    "tamil": "பக்கம்",
+    "gloss": "Side / direction — வலது பக்கம், இடது பக்கம்",
+    "cluster": "descriptions",
+    "priority": 1
+  },
+  {
+    "tamil": "இன்னும்",
+    "gloss": "More / still / yet",
+    "cluster": "connectors",
+    "priority": 1
+  },
+  {
+    "tamil": "மாதிரி",
+    "gloss": "Like / similar to — X மாதிரி",
+    "cluster": "connectors",
+    "priority": 1
+  },
+  {
+    "tamil": "எல்லாம்",
+    "gloss": "All / everything — இதெல்லாம்",
+    "cluster": "connectors",
+    "priority": 1
+  },
+  {
+    "tamil": "அடுத்த",
+    "gloss": "Next — அடுத்த தடவ",
+    "cluster": "connectors",
+    "priority": 1
+  },
+  {
+    "tamil": "நான்",
+    "gloss": "I",
+    "cluster": "pronouns",
+    "priority": 1
+  },
+  {
+    "tamil": "இந்த",
+    "gloss": "This (before a noun) — இந்த சட்டை எவ்ளோ?",
+    "cluster": "pronouns",
+    "priority": 1
+  },
+  {
+    "tamil": "அந்த",
+    "gloss": "That (before a noun)",
+    "cluster": "pronouns",
+    "priority": 1
+  },
+  {
+    "tamil": "ஒரு",
+    "gloss": "A / one (before a noun)",
+    "cluster": "pronouns",
+    "priority": 2
+  },
+  {
+    "tamil": "நாம",
+    "gloss": "We (including you)",
+    "cluster": "pronouns",
+    "priority": 2
+  },
+  {
+    "tamil": "ஏன்",
+    "gloss": "Why? (only lived fused inside ஏன்னா 'because')",
+    "cluster": "questions",
+    "priority": 1
+  },
+  {
+    "tamil": "எத்தனை",
+    "gloss": "How many? (count — people, days, kids)",
+    "cluster": "questions",
+    "priority": 1
+  },
+  {
+    "tamil": "எப்போ",
+    "gloss": "When?",
+    "cluster": "questions",
+    "priority": 1
+  },
+  {
+    "tamil": "யாரு",
+    "gloss": "Who?",
+    "cluster": "questions",
+    "priority": 1
+  },
+  {
+    "tamil": "எப்படி",
+    "gloss": "How?",
+    "cluster": "questions",
+    "priority": 1
+  },
+  {
+    "tamil": "நாள்",
+    "gloss": "Day (the unit — எவ்ளோ நாள்?)",
+    "cluster": "time_units",
+    "priority": 1
+  },
+  {
+    "tamil": "வாரம்",
+    "gloss": "Week",
+    "cluster": "time_units",
+    "priority": 1
+  },
+  {
+    "tamil": "மாசம்",
+    "gloss": "Month",
+    "cluster": "time_units",
+    "priority": 1
+  },
+  {
+    "tamil": "வருஷம்",
+    "gloss": "Year",
+    "cluster": "time_units",
+    "priority": 1
+  },
+  {
+    "tamil": "தடவ",
+    "gloss": "Time / occasion — இன்னொரு தடவ",
+    "cluster": "time_units",
+    "priority": 1
+  },
+  {
+    "tamil": "நாலு",
+    "gloss": "Four",
+    "cluster": "numbers",
+    "priority": 1
+  },
+  {
+    "tamil": "ஆறு",
+    "gloss": "Six",
+    "cluster": "numbers",
+    "priority": 1
+  },
+  {
+    "tamil": "ஏழு",
+    "gloss": "Seven",
+    "cluster": "numbers",
+    "priority": 1
+  },
+  {
+    "tamil": "எட்டு",
+    "gloss": "Eight",
+    "cluster": "numbers",
+    "priority": 1
+  },
+  {
+    "tamil": "ஒம்பது",
+    "gloss": "Nine",
+    "cluster": "numbers",
+    "priority": 1
+  },
+  {
+    "tamil": "ஐம்பது",
+    "gloss": "Fifty",
+    "cluster": "numbers",
+    "priority": 1
+  },
+  {
+    "tamil": "ஆயிரம்",
+    "gloss": "Thousand",
+    "cluster": "numbers",
+    "priority": 1
+  },
+  {
+    "tamil": "இருபது",
+    "gloss": "Twenty",
+    "cluster": "numbers",
+    "priority": 2
+  },
+  {
+    "tamil": "முப்பது",
+    "gloss": "Thirty",
+    "cluster": "numbers",
+    "priority": 2
+  },
+  {
+    "tamil": "நாப்பது",
+    "gloss": "Forty (spoken; written நாற்பது)",
+    "cluster": "numbers",
+    "priority": 2
+  },
+  {
+    "tamil": "அறுபது",
+    "gloss": "Sixty",
+    "cluster": "numbers",
+    "priority": 2
+  },
+  {
+    "tamil": "எழுபது",
+    "gloss": "Seventy",
+    "cluster": "numbers",
+    "priority": 2
+  },
+  {
+    "tamil": "எண்பது",
+    "gloss": "Eighty",
+    "cluster": "numbers",
+    "priority": 2
+  },
+  {
+    "tamil": "தொண்ணூறு",
+    "gloss": "Ninety",
+    "cluster": "numbers",
+    "priority": 2
+  },
+  {
+    "tamil": "சில்லறை",
+    "gloss": "Small change (money)",
+    "cluster": "numbers",
+    "priority": 1
+  },
+  {
+    "tamil": "கை",
+    "gloss": "Hand",
+    "cluster": "body",
+    "priority": 1
+  },
+  {
+    "tamil": "வாய்",
+    "gloss": "Mouth",
+    "cluster": "body",
+    "priority": 1
+  },
+  {
+    "tamil": "திரும்பு",
+    "gloss": "Turn (nee-form) — வலது பக்கம் திரும்புங்க",
+    "cluster": "verb_command",
+    "priority": 1
+  },
+  {
+    "tamil": "விடு",
+    "gloss": "Let go / leave it (nee-form)",
+    "cluster": "verb_command",
+    "priority": 1
+  },
+  {
+    "tamil": "பேசு",
+    "gloss": "Speak / talk (nee-form)",
+    "cluster": "verb_command",
+    "priority": 1
+  },
+  {
+    "tamil": "நில்",
+    "gloss": "Stand / wait (nee-form) — நில்லுங்க",
+    "cluster": "verb_command",
+    "priority": 1
+  },
+  {
+    "tamil": "பழகு",
+    "gloss": "Get used to — பழகிப்போச்சு",
+    "cluster": "verb_command",
+    "priority": 1
+  },
+  {
+    "tamil": "ருசி",
+    "gloss": "Taste — கை ருசி",
+    "cluster": "home_kitchen",
+    "priority": 1
+  },
+  {
+    "tamil": "உண்மை",
+    "gloss": "Truth — அது உண்மையா?",
+    "cluster": "social_reaction",
+    "priority": 1
+  },
+  {
+    "tamil": "பிரச்சனை",
+    "gloss": "Problem — பிரச்சனை இல்ல",
+    "cluster": "social_reaction",
+    "priority": 1
   }
 ]
