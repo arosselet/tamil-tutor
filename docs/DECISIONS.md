@@ -114,6 +114,13 @@ Details live in git history; this is the index of the *conclusions*.
   a lesson commit). Same pattern globally: `~/.agents/AGENT.md` is cross-agent canon —
   imported by `~/.claude/CLAUDE.md`, symlinked from `~/.gemini/AGENTS.md` (verified:
   `agy` 1.0.16 reads global config from `~/.gemini/`, not `~/.agents/`).
+- **The judge caps a cold only against computed evidence** (2026-07-06). "LLM writes,
+  Python is the brain" applied to reveals: `revealed_recently()` lists what knock traffic
+  actually showed in 48h; the judge may deny a cold as "recently handed" only from that
+  list (model memory hallucinated a reveal and denied a real cold). Same audit: chains
+  move a `pinned_target` (never `expected_target` — the log records the original ask),
+  and the deck menu demotes recently-asked items so ripest-first can't farm the same
+  headliner into a permanent hinted. Root causes in `/debug` → KF-6.
 - **language-tutor syncs by milestone re-extraction, never per-fix backports**
   (2026-07-06). The template is an agent *elaboration* of Tamil@`1691c34` (tagged
   `template-v1-source`), not a file copy — fixes can't port as patches, and per-fix

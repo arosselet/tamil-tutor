@@ -96,6 +96,22 @@ feed; listen-count signal that drove it went blind after the stop-chasing-listen
 **Verify:** `cat rss.xml | grep '<title>' | head -5` — first episode title should match
 the newest `.mp3` in `published_audio/`.
 
+### KF-6: Chain pin destroyed the ask · menu blind to recency · hallucinated reveals (2026-07-06, fixed)
+**Symptom:** Log's `expected_target` absurd vs the body (looked like KF-3 returning);
+the same surface ask fired 5× in 4 days under different move names; correct unaided
+productions stuck at hinted (a real cold denied for a reveal that never happened);
+chat.md showed only the last reply of a chain — real cold fires vanished under a test reply.
+**Root cause (three-part):** chained follow-ups overwrote `expected_target` and the reply
+fields (only fired lists accumulated); `deck_due_list` ranked ripest-first with no recency
+signal while outcome memory showed move names only, so the variety law had no evidence of
+same-ask repeats; the judge's reveal-cap trusted model memory of what had been shown.
+**Fix:** chain moves `pinned_target`/`pinned_revealed`; every exchange appends to
+`exchanges` (chat renders the full chain); menu demotes+marks items asked/shown in 3 days
+and outcome memory carries the ask; `revealed_recently()` computes reveals from the log —
+the judge may cap against that list only.
+**Verify:** `python scripts/smoke_test.py` → section 10 (regression #3).
+**Commit:** `a13d3b9`
+
 ---
 
 ## 5. Exit: Once Root-Caused
