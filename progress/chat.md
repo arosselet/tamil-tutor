@@ -21,6 +21,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **17:25 · Anna**  ·  text / deck due: engineer cold-fire
 > Aunty leans in: 'enna velai pannreenga?' 🧑‍💻 Don't think — what do you say back? (reply in tamizh)
 
+**18:24 · Andrew** — **HINTED** · chain ×1
+> Software engineer la
+
+**Anna ↩**
+> Close da — drop the 'la', it's 'software engineer-a irukken'. The '-a' does the job of 'I am'; 'la' pulls it the wrong way. · Same aunty, now she squints: 'enga company?' — where do you work? One line back.
+
 
 ## Sunday 2026-07-05
 
