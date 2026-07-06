@@ -389,7 +389,17 @@
     "move": "arrival gauntlet cold fire",
     "rationale": "scheduled at 2026-07-05T22:59 for 2026-07-06T13:30",
     "body": "aunty's at the door. 'evlo naal irupeenga?' — no hints, no warm-up. reply in tamizh. 🎯",
-    "expected_target": "ஒரு மாசம் இருப்போம்",
-    "target_revealed": false
+    "expected_target": "சாப்பிட்டோம்",
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Oru masam",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "ஒரு மாசம் இருப்போம்"
+    ],
+    "reply_fired_cold": [],
+    "reply_line": "close da — 'oru maasam iruppom'. the 'iruppom' is the whole answer, otherwise aunty's left hanging. · ok she nods and asks 'saapitteengala?' — don't think, just fire.",
+    "reply_at": "2026-07-06T16:51:35Z",
+    "chained": 1
   }
 ]
