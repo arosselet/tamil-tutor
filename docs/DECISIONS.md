@@ -114,3 +114,9 @@ Details live in git history; this is the index of the *conclusions*.
   a lesson commit). Same pattern globally: `~/.agents/AGENT.md` is cross-agent canon —
   imported by `~/.claude/CLAUDE.md`, symlinked from `~/.gemini/AGENTS.md` (verified:
   `agy` 1.0.16 reads global config from `~/.gemini/`, not `~/.agents/`).
+- **language-tutor syncs by milestone re-extraction, never per-fix backports**
+  (2026-07-06). The template is an agent *elaboration* of Tamil@`1691c34` (tagged
+  `template-v1-source`), not a file copy — fixes can't port as patches, and per-fix
+  backporting into a mid-QA moving target is recurring manual work. Let it drift; re-run
+  the extraction wholesale once Anna 1.0 QA settles (or before actively sharing the
+  template). Honors "no fork maintenance" from the portability entry above.
