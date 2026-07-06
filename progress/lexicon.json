@@ -3516,5 +3516,108 @@
     "last_surfaced": null,
     "deck": "trip",
     "direction": "fire"
+  },
+  "frame:done-ittu": {
+    "type": "pattern",
+    "gloss": "{verb}+இட்டு/‑ட்டு → done-and-dusted / off-I-go — வந்துட்டேன், கழுவிட்டு வரேன், விட்டுடு, ஆயிட்டேன்: the completive already inside 7 deck items",
+    "phonetic": [
+      "vandhutten",
+      "kazhuvittu varen",
+      "poyittu varen"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "frame:adverb-aa": {
+    "type": "pattern",
+    "gloss": "{X}+ஆ → 'X-ly / as X' — நல்லா, மெதுவா, தண்ணியா, இன்ஜினியரா இருக்கேன்: one machine turns anything into an adverb",
+    "phonetic": [
+      "medhuvaa",
+      "freeyaa",
+      "engineer-aa irukken"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "frame:in-la": {
+    "type": "pattern",
+    "gloss": "{noun}+ல → in/at/on — கனடாவுல, தமிழ்ல, வீட்ல, போன்ல: the everywhere locative",
+    "phonetic": [
+      "canada-la",
+      "tamil-la",
+      "veettula"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "frame:happened-aachu": {
+    "type": "pattern",
+    "gloss": "{V}+ச்சு / ஆச்சு → 'it happened / it's become' — ஆச்சு, போச்சு, முடிஞ்சுச்சு, நேரம் ஆச்சு: the it-verb the pool is already full of",
+    "phonetic": [
+      "aachu",
+      "pochu",
+      "mudinjuchu"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "frame:if-ndhaa": {
+    "type": "pattern",
+    "gloss": "{verb}+ந்தா / இல்லன்னா → 'if…' — வாய் திறந்தா…, இல்லன்னா என்ன ஆகும்?: the conditional",
+    "phonetic": [
+      "thorandhaa",
+      "illannaa"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "frame:spice-dhaan": {
+    "type": "pattern",
+    "gloss": "the sass clitics: ‑தான் 'just/exactly', ‑ஏ '-self/very', ‑உம் 'even/any', ‑ஓ 'some-or-other' — நேத்து தான், நானே, ஒன்னும், என்னமோ (EAR ONLY)",
+    "phonetic": [
+      "nethu dhaan",
+      "naane",
+      "onnum"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "catch"
+  },
+  "frame:myself-thukka": {
+    "type": "pattern",
+    "gloss": "{verb}+த்துக்க → do-for-myself — எடுத்துக்கறேன், பாத்துக்கிறேன், பாத்துக்கோங்க (EAR ONLY)",
+    "phonetic": [
+      "eduthukkaren",
+      "paathukkiren"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "catch"
   }
 }
