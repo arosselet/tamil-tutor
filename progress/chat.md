@@ -18,6 +18,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > ha, noted — system's alive. come back when aunty's actually at the door 😄
 
+**17:25 · Anna**  ·  text / deck due: engineer cold-fire
+> Aunty leans in: 'enna velai pannreenga?' 🧑‍💻 Don't think — what do you say back? (reply in tamizh)
+
 
 ## Sunday 2026-07-05
 
