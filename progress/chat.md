@@ -12,6 +12,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **12:39 · Anna**  ·  text / arrival gauntlet cold fire
 > aunty's at the door. 'evlo naal irupeenga?' — no hints, no warm-up. reply in tamizh. 🎯
 
+**12:51 · Andrew** — **HINTED** · chain ×1
+> Oru masam
+
+**Anna ↩**
+> close da — 'oru maasam iruppom'. the 'iruppom' is the whole answer, otherwise aunty's left hanging. · ok she nods and asks 'saapitteengala?' — don't think, just fire.
+
 
 ## Sunday 2026-07-05
 
