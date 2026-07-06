@@ -418,17 +418,18 @@
     "rationale": "Demand-streak is 1 so one more ask is fine; 'software engineer-a irukken' is hinted→cold and the aunty FAQ scene makes it the obvious natural answer — coherence law satisfied, target unrevealed, low friction.",
     "next_check": "2026-07-07T13:25:50.935132+00:00",
     "body": "Aunty leans in: 'enna velai pannreenga?' 🧑‍💻 Don't think — what do you say back? (reply in tamizh)",
-    "expected_target": "Oracle-la irukken",
+    "expected_target": "வீட்லே இருந்து பண்றேன்",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Software engineer la",
+    "reply": "Software engineer a irukken. Electronics startup",
     "reply_verdict": "hinted",
     "reply_fired": [
-      "சாஃப்ட்வேர் இன்ஜினியரா இருக்கேன்"
+      "சாஃப்ட்வேர் இன்ஜினியரா இருக்கேன்",
+      "இருக்கேன்"
     ],
     "reply_fired_cold": [],
-    "reply_line": "Close da — drop the 'la', it's 'software engineer-a irukken'. The '-a' does the job of 'I am'; 'la' pulls it the wrong way. · Same aunty, now she squints: 'enga company?' — where do you work? One line back.",
-    "reply_at": "2026-07-06T22:24:05Z",
-    "chained": 1
+    "reply_line": "Almost da — 'software engineer-a irukken, electronics startup-la' — the '-la' earns its place after the company/place, not after the role. Two moves, both landed. 🤙 · Now she nods and asks if you work from home or office — 'veetla irundhu pannreenga, illa office poreenga?' Don't think, one line. (from home)",
+    "reply_at": "2026-07-06T22:26:06Z",
+    "chained": 2
   }
 ]
