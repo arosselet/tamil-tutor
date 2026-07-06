@@ -12,11 +12,11 @@ Newest day first. **Derived file — edits here are overwritten.**
 **12:39 · Anna**  ·  text / arrival gauntlet cold fire
 > aunty's at the door. 'evlo naal irupeenga?' — no hints, no warm-up. reply in tamizh. 🎯
 
-**12:59 · Andrew** — **HINTED** · chain ×2
-> Ama sappiten
+**13:06 · Andrew** — **COLD** · chain ×3
+> Ama saapiteengom. Ama coffee venum
 
 **Anna ↩**
-> close — but she asked 'saapitteengala?' so she wants neenga-form: 'ama, saapitteengalom' (we've eaten) or 'saapitteengom' depending how you count yourself in. adhu dhaan the family form. 🎯 · she smiles and calls inside — 'kaapi vaenuma?' (want coffee?) — wave it off politely, 'enough, I'm fine'. one line.
+> ha — 'venum' fired clean 🔥 but she's already pouring. wave it off: 'enough, I'm full' — one line. · politely decline the coffee — 'no thanks, I'm fine'. tamizh.
 
 
 ## Sunday 2026-07-05
