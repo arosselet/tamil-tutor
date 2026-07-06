@@ -21,6 +21,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **18:58 · Anna** 🎧  ·  audio / arrival gauntlet soak memo
 > 🎧 you asked for a soak — here's the gauntlet, full speed. three lines, one landing.
 
+**20:12 · Anna**  ·  text / deck due: duration cold-fire
+> auntie walks in. 'evlo naal iruppeenga?' — don't think. fire it back. 🎯
+
 
 ## Saturday 2026-07-04
 

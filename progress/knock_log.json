@@ -350,5 +350,18 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-07-05T22-58.mp3",
     "memo_script": "Picture the moment.\n\nYou've just walked through the front door. Bags down. And before you can even breathe, an aunty materialises — the fast kind, the one who asks three questions before you've answered the first.\n\nShe hits you with: \"Evlo naal irupeenga?\"\n\nAnd you don't hesitate. You say it clean:\n\nஒரு மாசம் இருப்போம்.\n\nOne month, we're staying. That's it. Short, settled, no fumbling. She nods — already moving to the next one.\n\n\"Enna velai paakareenga?\"\n\nAnd this is where a lot of people freeze. But not you. You've got:\n\nசாஃப்ட்வேர் இன்ஜினியரா இருக்கேன்.\n\nI'm a software engineer. That's your Oracle-approved form — not any other version, this one. She's already half-impressed, half-figuring out who to tell.\n\nThen she gestures around — at the house, at the family spilling out of the kitchen — and she asks what she actually wants to hear:\n\n\"Pidichirukka?\"\n\nAnd you land it:\n\nரொம்ப பிடிச்சிருக்கு.\n\nI really like it. Not polite. Real. That's the melt line — food, place, people, all of it, one phrase.\n\nThree questions. Three answers. ஒரு மாசம் இருப்போம். சாஃப்ட்வேர் இன்ஜினியரா இருக்கேன். ரொம்ப பிடிச்சிருக்கு.\n\nThe gauntlet's yours. Let them run it.",
     "mp3": "published_audio/knocks/knock_2026-07-05T22-58.mp3"
+  },
+  {
+    "date": "2026-07-06",
+    "timestamp": "2026-07-06T00:12:17.430828+00:00",
+    "acted": true,
+    "scheduled": true,
+    "queue_id": "q1783257776",
+    "modality": "text",
+    "move": "deck due: duration cold-fire",
+    "rationale": "scheduled at 2026-07-05T13:22 for 2026-07-05T23:00",
+    "body": "auntie walks in. 'evlo naal iruppeenga?' — don't think. fire it back. 🎯",
+    "expected_target": "ஒரு மாசம் இருப்போம்",
+    "target_revealed": false
   }
 ]
