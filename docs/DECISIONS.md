@@ -127,3 +127,11 @@ Details live in git history; this is the index of the *conclusions*.
   backporting into a mid-QA moving target is recurring manual work. Let it drift; re-run
   the extraction wholesale once Anna 1.0 QA settles (or before actively sharing the
   template). Honors "no fork maintenance" from the portability entry above.
+- **TTS text gets defanged at the renderer, not by prompt discipline** (2026-07-07).
+  Google TTS voices a hyphen glued to a word as "minus" ("-இட்டு" → "minus ittu",
+  done-ittu memo, Andrew's report): `defang_hyphens()` in `render_audio.py` now guards
+  all three audio paths (episodes/drills via `clean_for_tts`, knock memos directly —
+  memos skip full `clean_for_tts` because it strips sentence periods and would wreck
+  memo pacing). Rejects "tell the generator to avoid hyphens": prompt rules drift, the
+  renderer is the one chokepoint. Same audit: the unprompted lore-memo knock move is
+  validated (9/10 from Andrew) — keep it in rotation under the existing rails.

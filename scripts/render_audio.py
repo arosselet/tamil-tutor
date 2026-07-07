@@ -141,6 +141,11 @@ def parse_script(file_path: str) -> tuple[list[dict], dict]:
     return final_dialogue, voice_map
 
 
+def defang_hyphens(text: str) -> str:
+    """TTS voices a hyphen glued to a word as 'minus' ('-இட்டு' → 'minus ittu')."""
+    return re.sub(r"-(?=\w)|(?<=\w)-", " ", text)
+
+
 def clean_for_tts(text: str) -> str:
     """Clean text for TTS consumption."""
     text = re.sub(r"\s*\(.*?\)\s*", " ", text)
@@ -150,6 +155,7 @@ def clean_for_tts(text: str) -> str:
         text = re.sub(rf"\b{word}\b", phonetic, text, flags=re.IGNORECASE)
     text = text.replace(".", "")
     text = re.sub(r"[*_#`]", "", text)
+    text = defang_hyphens(text)
     text = re.sub(r"\s+", " ", text).strip()
     return text
 
