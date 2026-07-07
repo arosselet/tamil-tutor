@@ -458,6 +458,23 @@
     "target_revealed": false,
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-07-07T14-23.mp3",
     "memo_script": "So there's this little suffix that Tamil speakers stick onto almost everything — and once you hear it, you'll hear it everywhere.\n\nIt's -இட்டு. Or in fast speech, just -ட்டு. And it means the thing is *done*. Finished. Off you go.\n\nவந்துட்டேன் — I've arrived, I'm here, done.\nகழுவிட்டு வரேன் — let me wash up and I'll come, I'll be right there.\nஆயிட்டேன் — I'm ready, sorted, done.\nவிட்டுடு — just let it go, leave it, it's over.\n\nNative speakers don't decide to add it. It just *falls out*. It's the sound of wrapping something up without making a big deal of it. Very Coimbatore — we don't linger on the transition, we just move.\n\nThe English cousin is 'I've gone and done it' — but we do it in one breath, not five words.\n\nYou already have seven deck items that live inside this pattern. Next time you see ட்டு at the end of something, you'll know exactly what it's doing.\n\nNo homework. Just let it sit.",
-    "mp3": "published_audio/knocks/knock_2026-07-07T14-23.mp3"
+    "mp3": "published_audio/knocks/knock_2026-07-07T14-23.mp3",
+    "response": "reply",
+    "reply": "Received the latest lore memo. Thanks.",
+    "reply_verdict": "chat",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_line": "good — let it marinate. ட்டு is everywhere once you notice it.",
+    "reply_at": "2026-07-07T14:31:07Z",
+    "exchanges": [
+      {
+        "at": "2026-07-07T14:31:07Z",
+        "reply": "Received the latest lore memo. Thanks.",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "reply_line": "good — let it marinate. ட்டு is everywhere once you notice it."
+      }
+    ]
   }
 ]
