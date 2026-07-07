@@ -446,11 +446,14 @@ def maybe_enqueue_schedule(decision: dict) -> Path | None:
 
 def parse_llm_json(text: str) -> dict:
     """The mandates say 'return ONLY a JSON object', but models occasionally
-    wrap it in a code fence or a line of prose anyway (CI failure 2026-07-04:
-    'Expecting value: char 0' killed a knock tick). Strip fences, then fall
-    back to the outermost {...} slice; print the raw text before giving up so
-    the Action log shows WHAT came back, not just that it didn't parse."""
-    text = text.strip()
+    wrap it in a code fence, prose, or a Python-style dict (2026-07-04: empty
+    text killed a knock; 2026-07-07: single-quoted keys bypassed the {..} slice
+    fallback — 'Expecting property name enclosed in double quotes: char 1').
+    Strategy: strip fences → json.loads → {..} slice + json.loads →
+    ast.literal_eval (handles single quotes + Python True/False/None).
+    Print the raw text before any re-raise so the Action log shows WHAT came back."""
+    import ast as _ast
+    text = (text or "").strip()
     if text.startswith("```"):
         text = text.split("```")[1].lstrip("json").strip()
     try:
@@ -458,9 +461,21 @@ def parse_llm_json(text: str) -> dict:
     except json.JSONDecodeError:
         start, end = text.find("{"), text.rfind("}")
         if start == -1 or end <= start:
-            print(f"--- unparseable LLM response ---\n{text}\n---")
+            print(f"--- unparseable LLM response (no braces) ---\n{text}\n---")
             raise
-        return json.loads(text[start:end + 1], strict=False)
+        slice_ = text[start : end + 1]
+        try:
+            return json.loads(slice_, strict=False)
+        except json.JSONDecodeError:
+            # Python-style dict: single-quoted keys, True/False/None literals
+            try:
+                result = _ast.literal_eval(slice_)
+                if isinstance(result, dict):
+                    return result
+            except (ValueError, SyntaxError):
+                pass
+            print(f"--- unparseable LLM response (all fallbacks failed) ---\n{text}\n---")
+            raise
 
 
 def decide(digest: str) -> dict:
