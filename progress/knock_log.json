@@ -476,5 +476,17 @@
         "reply_line": "good — let it marinate. ட்டு is everywhere once you notice it."
       }
     ]
+  },
+  {
+    "date": "2026-07-07",
+    "timestamp": "2026-07-07T20:55:09.261039+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "done-ittu cold fire",
+    "rationale": "done-ittu was soaked in this morning's audio memo (show dose fulfilled); now a fresh door-scene fires it cold without revealing the Tamil — low friction, single clear answer, breaks the 5-day session gap with a reply-in-tamizh hook.",
+    "next_check": "2026-07-08T00:55:09.261039+00:00",
+    "body": "maami opens the door before you knock. 'vandheengala?' — you just got in. one word. 🚪",
+    "expected_target": "வந்துட்டேன்",
+    "target_revealed": false
   }
 ]
