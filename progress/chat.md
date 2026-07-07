@@ -18,6 +18,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **16:55 · Anna**  ·  text / done-ittu cold fire
 > maami opens the door before you knock. 'vandheengala?' — you just got in. one word. 🚪
 
+**17:01 · Andrew** — **HINTED**
+> Ama
+
+**Anna ↩**
+> ama works — she's happy! but maami wants the full landing: 'vandhutten' — sollu. · say it — you just walked in. 'vandhutten.' one shot.
+
 
 ## Monday 2026-07-06
 
