@@ -96,6 +96,13 @@ feed; listen-count signal that drove it went blind after the stop-chasing-listen
 **Verify:** `cat rss.xml | grep '<title>' | head -5` — first episode title should match
 the newest `.mp3` in `published_audio/`.
 
+### KF-7: Single-quoted Python dict bypassed {..} slice fallback (2026-07-07, fixed)
+**Symptom:** Anna Knock CI fails with two chained JSONDecodeErrors: first `Expecting value: char 0`, then `Expecting property name enclosed in double quotes: line 1 column 2 (char 1)`. No raw LLM text printed (the print only fires on the `start == -1` path, not on slice-fallback failure).
+**Root cause:** Model returned a Python-style dict (`{'act': True, ...}` single-quoted keys). The `{..}` slice found the braces but `json.loads` rejects single quotes. The tell: second error at `char 1` (char after `{` is `'`, not `"`).
+**Fix:** `ast.literal_eval` added as third fallback (handles single quotes + Python `True`/`False`/`None`). Logging added before all re-raise paths so the raw text always prints.
+**Verify:** `python scripts/smoke_test.py` → section 1 (single-quoted keys, python-dict in prose).
+**Commit:** `a3f42f9` (TBD)
+
 ### KF-6: Chain pin destroyed the ask · menu blind to recency · hallucinated reveals (2026-07-06, fixed)
 **Symptom:** Log's `expected_target` absurd vs the body (looked like KF-3 returning);
 the same surface ask fired 5× in 4 days under different move names; correct unaided

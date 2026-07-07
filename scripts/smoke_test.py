@@ -87,6 +87,12 @@ def s1_parse_llm_json(mk):
     check("code fence", p('```json\n{"a": 1}\n```') == {"a": 1})
     check("prose-wrapped", p('My decision:\n{"a": {"b": 2}}\nHope that helps!')
           == {"a": {"b": 2}})
+    # 2026-07-07: model returned single-quoted Python dict; {..} slice fallback found
+    # braces but json.loads rejected single quotes → crash. ast.literal_eval now catches it.
+    check("single-quoted keys", p("{'act': True, 'modality': 'text'}")
+          == {"act": True, "modality": "text"})
+    check("python-dict in prose", p("Here ya go: {'a': 1, 'b': False}")
+          == {"a": 1, "b": False})
     try:
         p("no json here")
         check("garbage raises", False, "did not raise")
