@@ -24,6 +24,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > ama works — she's happy! but maami wants the full landing: 'vandhutten' — sollu. · say it — you just walked in. 'vandhutten.' one shot.
 
+**17:05 · Andrew** — **CHAT**
+> Vandhutten what does it mean
+
+**Anna ↩**
+> 'vandhutten' = 'I've arrived / I came' — the done-ittu form of 'vanthen'. you fired it right, da. now say it like you mean it next time maami opens the door.
+
 
 ## Monday 2026-07-06
 
