@@ -444,5 +444,20 @@
     "body": "ok — auntie just put the plate down and she's watching. romba pidichirukku. fire it back at me cold. 🔥",
     "expected_target": "ரொம்ப பிடிச்சிருக்கு",
     "target_revealed": false
+  },
+  {
+    "date": "2026-07-07",
+    "timestamp": "2026-07-07T14:23:11.412020+00:00",
+    "acted": true,
+    "modality": "audio",
+    "move": "lore memo: done-ittu",
+    "rationale": "Demand-streak at 3 mandates a no-ask dose; 3+ days no session means teaching over quizzing; audio was under-used and Andrew explicitly asked for more — a lore memo on frame:done-ittu (UNSEEN, teach-first required) is the right move, zero friction, no reply needed, plants the pattern before any quiz.",
+    "next_check": "2026-07-07T19:23:11.412020+00:00",
+    "body": "🎙️ The Tamil word that says 'done and dusted' — ஆயிட்டேன். 90 sec, no homework.",
+    "expected_target": "",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-07-07T14-23.mp3",
+    "memo_script": "So there's this little suffix that Tamil speakers stick onto almost everything — and once you hear it, you'll hear it everywhere.\n\nIt's -இட்டு. Or in fast speech, just -ட்டு. And it means the thing is *done*. Finished. Off you go.\n\nவந்துட்டேன் — I've arrived, I'm here, done.\nகழுவிட்டு வரேன் — let me wash up and I'll come, I'll be right there.\nஆயிட்டேன் — I'm ready, sorted, done.\nவிட்டுடு — just let it go, leave it, it's over.\n\nNative speakers don't decide to add it. It just *falls out*. It's the sound of wrapping something up without making a big deal of it. Very Coimbatore — we don't linger on the transition, we just move.\n\nThe English cousin is 'I've gone and done it' — but we do it in one breath, not five words.\n\nYou already have seven deck items that live inside this pattern. Next time you see ட்டு at the end of something, you'll know exactly what it's doing.\n\nNo homework. Just let it sit.",
+    "mp3": "published_audio/knocks/knock_2026-07-07T14-23.mp3"
   }
 ]
