@@ -42,7 +42,7 @@ from openai import OpenAI
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
-from render_audio import generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME, defang_hyphens
+from render_audio import generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME, clean_memo_for_tts
 from render_chat import render_chat
 
 OPENROUTER_BASE = "https://openrouter.ai/api/v1"   # OpenAI-compatible; one key, many models
@@ -411,7 +411,7 @@ Return ONLY a JSON object, no prose around it:
   "modality": "text" | "audio" | "challenge" | "grace" | "silence",
   "move": "<2-4 word label of the move, for the log>",
   "notification_body": "<the lock-screen line — valuable even if never tapped; MUST carry a Tamil phrase + tiny English gloss. One emoji ok. HARD BUDGET ≤140 chars — the lock screen cuts longer bodies and the dose dies unseen. Empty string if silence.>",
-  "memo_script": "<ONLY for modality 'audio': the spoken memo, paragraphs separated by ONE blank line, plain text, Tamil payload in Tamil script. Empty string otherwise.>",
+  "memo_script": "<ONLY for modality 'audio': the spoken memo, paragraphs separated by ONE blank line (\\n\\n) — never single \\n within a paragraph. Tamil payload in Tamil script. Empty string otherwise.>",
   "expected_target": "<the one word/chunk/frame a good reply would fire (Tamil script or frame:... key); empty string if this dose asks for nothing specific>",
   "target_revealed": true | false,      // does the body/memo show that Tamil itself?
   "next_check_hours": <number>,         // when to reconsider (clamped to a sane range)
@@ -512,8 +512,7 @@ async def render_memo(memo_script: str, out_path: Path):
     audio = bytearray()
     tmp = tempfile.mkdtemp()
     for i, para in enumerate(paras):
-        # full clean_for_tts strips periods — memo prose keeps them; only the hyphen bites
-        seg = await generate_segment_google(defang_hyphens(para), ANNA_VOICE, i, tmp)
+        seg = await generate_segment_google(clean_memo_for_tts(para), ANNA_VOICE, i, tmp)
         audio.extend(get_raw_mp3_frames(seg))
         audio.extend(SILENCE_FRAME * 25)  # ~0.6s breath between paragraphs
         os.remove(seg)

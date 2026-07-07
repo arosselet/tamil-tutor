@@ -146,6 +146,23 @@ def defang_hyphens(text: str) -> str:
     return re.sub(r"-(?=\w)|(?<=\w)-", " ", text)
 
 
+def clean_memo_for_tts(text: str) -> str:
+    """Clean an English-narrated memo paragraph for TTS.
+
+    Preserves Tamil script (the Tamil voice renders it correctly) and preserves periods
+    (memo prose needs them). Strips markdown formatting and collapses internal newlines
+    (single-\\n example lists from the LLM land in one TTS call and confuse the voice).
+    """
+    # Detach hyphens glued to words — '-இட்டு' was voiced as 'minus ittu'
+    text = defang_hyphens(text)
+    # Markdown bold/italic/code — asterisks get voiced or disrupt TTS parsing
+    text = re.sub(r"[*_#`]", "", text)
+    # Collapse internal newlines (single-\n within a paragraph) to spaces
+    text = text.replace("\n", " ")
+    text = re.sub(r"\s{2,}", " ", text).strip()
+    return text
+
+
 def clean_for_tts(text: str) -> str:
     """Clean text for TTS consumption."""
     text = re.sub(r"\s*\(.*?\)\s*", " ", text)
