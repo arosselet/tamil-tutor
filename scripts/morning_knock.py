@@ -481,15 +481,23 @@ def parse_llm_json(text: str) -> dict:
 def decide(digest: str) -> dict:
     persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
     client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
-    resp = client.chat.completions.create(
-        model=MODEL,
-        max_tokens=1600,
-        messages=[
-            {"role": "system", "content": persona + "\n\n---\n\n" + OUTREACH_MANDATE},
-            {"role": "user", "content": f"TODAY'S DIGEST:\n\n{digest}"},
-        ],
-    )
-    d = parse_llm_json(resp.choices[0].message.content)
+    messages = [
+        {"role": "system", "content": persona + "\n\n---\n\n" + OUTREACH_MANDATE},
+        {"role": "user", "content": f"TODAY'S DIGEST:\n\n{digest}"},
+    ]
+    last_err: Exception | None = None
+    for attempt in range(1, 4):
+        resp = client.chat.completions.create(model=MODEL, max_tokens=1600, messages=messages)
+        try:
+            d = parse_llm_json(resp.choices[0].message.content)
+            if attempt > 1:
+                print(f"   [ok] parsed on attempt {attempt}")
+            break
+        except (json.JSONDecodeError, ValueError) as exc:
+            print(f"   ⚠ parse failed (attempt {attempt}/3): {exc}")
+            last_err = exc
+    else:
+        raise last_err  # all 3 attempts returned unparseable JSON
     # Normalise / guard the fields Python relies on.
     d["modality"] = d.get("modality") if d.get("modality") in MODALITIES else "text"
     if d["modality"] == "silence":
