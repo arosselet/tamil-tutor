@@ -18,5 +18,9 @@
   {
     "date": "2026-07-05",
     "note": "[phone] Andrew wants an audio episode built around words practiced this week — schedule for next laptop session, not a phone push."
+  },
+  {
+    "date": "2026-07-07",
+    "note": "done-ittu lore memo (2026-07-07 knock): 9/10 — 'an example of what I've been searching for months for'; unprompted lore-memo move validated, keep it in rotation (guardrails already cap frequency). One defect: TTS voiced the glued hyphen as 'minus' ('-இட்டு' → 'minus ittu') — fixed at the renderer (defang_hyphens in render_audio.py, all three audio paths)."
   }
 ]

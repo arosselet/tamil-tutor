@@ -42,7 +42,7 @@ from openai import OpenAI
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
-from render_audio import generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME
+from render_audio import generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME, defang_hyphens
 from render_chat import render_chat
 
 OPENROUTER_BASE = "https://openrouter.ai/api/v1"   # OpenAI-compatible; one key, many models
@@ -512,7 +512,8 @@ async def render_memo(memo_script: str, out_path: Path):
     audio = bytearray()
     tmp = tempfile.mkdtemp()
     for i, para in enumerate(paras):
-        seg = await generate_segment_google(para, ANNA_VOICE, i, tmp)
+        # full clean_for_tts strips periods — memo prose keeps them; only the hyphen bites
+        seg = await generate_segment_google(defang_hyphens(para), ANNA_VOICE, i, tmp)
         audio.extend(get_raw_mp3_frames(seg))
         audio.extend(SILENCE_FRAME * 25)  # ~0.6s breath between paragraphs
         os.remove(seg)
