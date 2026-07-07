@@ -9,6 +9,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **10:23 · Anna** 🎧  ·  audio / lore memo: done-ittu
 > 🎙️ The Tamil word that says 'done and dusted' — ஆயிட்டேன். 90 sec, no homework.
 
+**10:31 · Andrew** — **CHAT**
+> Received the latest lore memo. Thanks.
+
+**Anna ↩**
+> good — let it marinate. ட்டு is everywhere once you notice it.
+
 
 ## Monday 2026-07-06
 
