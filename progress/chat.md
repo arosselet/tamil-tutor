@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Wednesday 2026-07-08
+
+**09:53 · Anna** 🎧  ·  audio / lore memo: -la locative
+> 🎙️ One suffix does the work of in/at/on/over-the-phone — and you already said it at dinner.
+
+
 ## Tuesday 2026-07-07
 
 **10:23 · Anna** 🎧  ·  audio / lore memo: done-ittu
