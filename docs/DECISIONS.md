@@ -127,6 +127,27 @@ Details live in git history; this is the index of the *conclusions*.
   backporting into a mid-QA moving target is recurring manual work. Let it drift; re-run
   the extraction wholesale once Anna 1.0 QA settles (or before actively sharing the
   template). Honors "no fork maintenance" from the portability entry above.
+- **Pedagogy verdict — the ideas held; dose and meters lagged them** (2026-07-08).
+  Full learning-science review, endorsed by Andrew on all fronts: retrieval volume ran
+  ~5× under the sprint math because the highest-yield tool (the deck blitz) was locked
+  inside the rarest event (the laptop session), and the anti-drill aesthetic had
+  inverted the delight/volume ratio. "Contact > completion" stays motivation policy but
+  never again sets the dose. The philosophy itself — forced cold retrieval,
+  chunks/frames, transfer-specific rehearsal, the heist — is confirmed; don't
+  re-litigate it.
+- **The volley knock — the deck blitz un-caged** (2026-07-08). Most sprint days one
+  knock is a 3-item volley: Python's target picks are **binding** (Anna's taste farmed
+  six headliners while 50+ deck items sat untouched), Anna writes the English
+  situations, each reply's push-back hands the next item, miss = recast-and-move.
+  Deliberately narrows "Python computes the menu; Anna makes the choice" for volley
+  *items* only — whether/when to fire stays Anna's. Replaces improvised one-item knocks
+  as the deck's volume channel.
+- **Capped fires graduate cross-day** (2026-07-08). A cold-quality fire blocked only by
+  the reveal window is logged `capped`; capped fires on 2 distinct local days graduate
+  the word to cold. Rejects the reveal-cap as a permanent bar — a daily-knocked word
+  could never reach cold through the very channel drilling it ('oru maasam iruppom'
+  fired correctly across days and sat at hinted). KF-6 now audits both directions: a
+  shown "cold" downgrades to capped, an unverifiable "capped" upgrades to cold.
 - **TTS text gets defanged at the renderer, not by prompt discipline** (2026-07-07).
   Google TTS voices a hyphen glued to a word as "minus" ("-இட்டு" → "minus ittu",
   done-ittu memo, Andrew's report): `defang_hyphens()` in `render_audio.py` now guards
