@@ -534,12 +534,14 @@
     "expected_target": "frame:day-recap",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Onnu madham",
-    "reply_verdict": "miss",
-    "reply_fired": [],
+    "reply": "Market ponnom",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "போனோம்"
+    ],
     "reply_fired_cold": [],
-    "reply_line": "ha — 'onnu madham' is one month, da 😄 she asked what you *did* today — try: 'market ponnom, ரொம்ப நல்லா இருந்துச்சு' or wherever you went.",
-    "reply_at": "2026-07-08T01:07:05Z",
+    "reply_line": "close — 'ponnom' is good, but she wants the full picture: 'market ponnom, romba nalla irundhuchu.' sollu again? · whole thing — 'we went to the market, it was great.' one line.",
+    "reply_at": "2026-07-08T01:08:12Z",
     "exchanges": [
       {
         "at": "2026-07-08T01:07:05Z",
@@ -548,7 +550,20 @@
         "fired": [],
         "fired_cold": [],
         "reply_line": "ha — 'onnu madham' is one month, da 😄 she asked what you *did* today — try: 'market ponnom, ரொம்ப நல்லா இருந்துச்சு' or wherever you went."
+      },
+      {
+        "at": "2026-07-08T01:08:12Z",
+        "reply": "Market ponnom",
+        "verdict": "hinted",
+        "fired": [
+          "போனோம்"
+        ],
+        "fired_cold": [],
+        "reply_line": "close — 'ponnom' is good, but she wants the full picture: 'market ponnom, romba nalla irundhuchu.' sollu again? · whole thing — 'we went to the market, it was great.' one line."
       }
-    ]
+    ],
+    "chained": 1,
+    "pinned_target": "frame:day-recap",
+    "pinned_revealed": false
   }
 ]
