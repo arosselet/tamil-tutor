@@ -520,5 +520,18 @@
     "chained": 1,
     "pinned_target": "வந்துட்டேன்",
     "pinned_revealed": true
+  },
+  {
+    "date": "2026-07-08",
+    "timestamp": "2026-07-08T00:01:58.915984+00:00",
+    "acted": true,
+    "scheduled": true,
+    "queue_id": "q1783434218",
+    "modality": "text",
+    "move": "show dose: day-recap",
+    "rationale": "scheduled at 2026-07-07T14:23 for 2026-07-07T23:00",
+    "body": "ok — you just got back from somewhere. she asks 'enna panninga inniki?' 🗓️ Don't think. One line. Where'd you go, how was it?",
+    "expected_target": "frame:day-recap",
+    "target_revealed": false
   }
 ]

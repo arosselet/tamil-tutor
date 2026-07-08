@@ -30,6 +30,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > 'vandhutten' = 'I've arrived / I came' — the done-ittu form of 'vanthen'. you fired it right, da. now say it like you mean it next time maami opens the door.
 
+**20:01 · Anna**  ·  text / show dose: day-recap
+> ok — you just got back from somewhere. she asks 'enna panninga inniki?' 🗓️ Don't think. One line. Where'd you go, how was it?
+
 
 ## Monday 2026-07-06
 
