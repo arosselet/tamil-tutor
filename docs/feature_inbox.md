@@ -4,6 +4,13 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+Endorsed in principle 2026-07-08 (pedagogy review — direction approved, design not yet explored):
+
+- **Explicit contrast beat** — amend "recast, never lecture" with a ten-second *why* ("you said X — it's Y, because aunties get -nga"); recasts alone have low noticing, and Engines 0/19 is the evidence. Canon-level change — explore with Andrew first.
+- **Fixed-time anchor push** — one predictable daily slot (habit research favors it) alongside the opportunistic reaches; likely the volley's home.
+- **Daily spoken reps** — the trip test is mouth-under-pressure, nearly all current production is typed; put `render_drill.py` into actual rotation (pairs with the voice-loop idea below).
+- **Cold decay / re-test dates** — cold is a one-way door today; confirmations at ~2/7/21 days or it demotes. Interacts with the deck meter — design carefully.
+
 - **Voice loop (speech-IN half)** — let Anna *hear* Andrew: a phone voice-note lands, gets transcribed, judged like a knock reply. The speech-OUT half shipped 2026-07-02 as the drill track (`render_drill.py`); what remains open is Andrew's voice coming back in.
 - **Pull the wife in as the north star** — the real viability floor is "can I say this to her." Anna could hand a line: "try this one, tell me how it landed tomorrow." Costs no code.
 - **Drill as a knock modality** — `morning_knock.py` could choose "drill" and commission `render_drill.py` itself (today Anna-in-session or Andrew runs it). Wait until a few drills prove the format.
