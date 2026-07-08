@@ -63,7 +63,8 @@ MAX_REACHES_PER_DAY = 5    # a "reach" = a knock that actually fired (silence do
 MIN_GAP_HOURS = 3          # minimum spacing between reaches
 NEXT_CHECK_CLAMP = (0.5, 24.0)   # Anna's self-set next_check is clamped to this many hours
 
-MODALITIES = {"text", "audio", "challenge", "grace", "silence"}
+MODALITIES = {"text", "audio", "challenge", "volley", "grace", "silence"}
+VOLLEY_SIZE = 3   # deck items per volley knock — one per exchange, chained by Python
 
 # Lock-screen render budget. The mandate asks for ≤140; past ~160 iOS cuts the
 # body and the dose dies unseen (2026-07-05 feedback). Warn-only — a trimmed
@@ -287,6 +288,41 @@ def deck_due_list(max_fire: int = 6, max_catch: int = 2) -> str:
     return "\n".join(lines)
 
 
+def volley_targets(n: int = VOLLEY_SIZE) -> list[dict]:
+    """The BINDING item list for a volley knock — Python picks so deck coverage
+    stays honest (Anna's taste concentrated reps on the same few headliners while
+    50+ items got zero touches, 2026-07-08). Due-first, recently-asked last,
+    UNSEEN and ear-only items excluded (teach-first / never-fire laws)."""
+    from suggest_targets import deck_status  # lazy: keeps module import light
+    from sync_state import LEXICON_PATH
+    lex = load_json(LEXICON_PATH) or {}
+    deck = deck_status(lex)
+    if not deck or not deck["pending"]:
+        return []
+    asked = recent_ask_counts(load_json(KNOCK_LOG_PATH) or [], lex)
+    pending = sorted(deck["pending"], key=lambda t: asked.get(t["word"], 0))
+    out = []
+    for t in pending:
+        rec = lex.get(t["word"], {})
+        if not rec.get("seen_in") and not rec.get("last_surfaced"):
+            continue  # UNSEEN — teach first (show dose), never cold-quiz
+        out.append({"target": t["word"], "gloss": t.get("gloss", "")})
+        if len(out) == n:
+            break
+    return out
+
+
+def volley_block() -> str:
+    vt = volley_targets()
+    if len(vt) < 2:
+        return ""
+    lines = ["VOLLEY TARGETS (binding, in this order — Python picked the due items; "
+             "you write the English situations if you fire a volley):"]
+    lines += [f"    {i}. {t['target']} — {t['gloss'] or '[no gloss]'}"
+              for i, t in enumerate(vt, 1)]
+    return "\n".join(lines)
+
+
 def build_digest() -> str:
     """Everything Anna needs to make a policy call: learning state + the deck's
     due menu + outcome memory + how much room the rails leave him right now."""
@@ -295,7 +331,8 @@ def build_digest() -> str:
     status = out.stdout.strip()
     klog = load_json(KNOCK_LOG_PATH) or []
     now = datetime.now(timezone.utc)
-    parts = [status, deck_due_list(), outcome_memory(klog, now), remaining_room(klog, now)]
+    parts = [status, deck_due_list(), volley_block(),
+             outcome_memory(klog, now), remaining_room(klog, now)]
     return "\n\n".join(p for p in parts if p)
 
 
@@ -346,6 +383,16 @@ picks one you didn't score, the rep is wasted and the "correction" reveals a wor
 Includes the FIELD MISSION: assign one line to deploy at home tonight, unprompted ("'suvaiya \
 irukku' at dinner — debrief tomorrow"). The wife is the unwitting audience, NEVER the examiner; \
 collect the debrief at next contact.
+- "volley"    — the daily deck blitz as a knock: the digest's VOLLEY TARGETS, one item per \
+exchange. You write volley_asks — one-line ENGLISH situations, index-matched to the targets \
+(the target list is BINDING; Python picked it so deck coverage stays honest — your craft is \
+the situations, not the picks), each pinned to ONE natural answer, never showing the Tamil, \
+≤110 chars each. Item 1 rides the notification; after each judged reply Python appends the \
+next item to your recast (miss = recast-and-move, the blitz law). While a deck sprint is on, \
+most days should carry ONE volley — it is where the deck's volume lives; read the status \
+line's burn rate (need vs. trailing pace): that gap is what the volley exists to close. It \
+counts as ONE demand dose for the variety law, and its best slot is usually the day's first \
+reach.
 - "grace"     — a warm, no-pressure note when he's lapsed (a missed day is nothing — the Enjoyment Clause). Text delivery.
 - "silence"   — reach nothing this tick. Set act=false. Choose this freely; often correct.
 
@@ -414,6 +461,7 @@ Return ONLY a JSON object, no prose around it:
   "memo_script": "<ONLY for modality 'audio': the spoken memo, paragraphs separated by ONE blank line (\\n\\n) — never single \\n within a paragraph. Tamil payload in Tamil script. Empty string otherwise.>",
   "expected_target": "<the one word/chunk/frame a good reply would fire (Tamil script or frame:... key); empty string if this dose asks for nothing specific>",
   "target_revealed": true | false,      // does the body/memo show that Tamil itself?
+  "volley_asks": ["<one-line English situation for VOLLEY TARGET 1>", "<…for TARGET 2>", "<…for TARGET 3>"],   // ONLY for modality "volley"; omit otherwise. Python zips these with its binding targets and composes the body from ask 1.
   "next_check_hours": <number>,         // when to reconsider (clamped to a sane range)
   "schedule": {"at_local": "YYYY-MM-DDTHH:MM", "body": "<the full dose>", "expected_target": "<or empty>", "target_revealed": true | false, "move": "<2-4 words>"} | null,
   "rationale": "<one line: why this choice>"
@@ -478,7 +526,40 @@ def parse_llm_json(text: str) -> dict:
             raise
 
 
-def decide(digest: str) -> dict:
+def normalize_decision(d: dict, volley_menu: list | None = None) -> dict:
+    """Guard the decision's JSON into the shape Python relies on. For a volley,
+    Anna's asks are zipped with PYTHON's binding targets (volley_targets) —
+    the model writes the situations, never the picks — and the body is composed
+    from ask 1 so the coherence law holds by construction."""
+    d["modality"] = d.get("modality") if d.get("modality") in MODALITIES else "text"
+    if d["modality"] == "silence":
+        d["act"] = False
+    lo, hi = NEXT_CHECK_CLAMP
+    try:
+        d["next_check_hours"] = max(lo, min(hi, float(d.get("next_check_hours", 3))))
+    except (TypeError, ValueError):
+        d["next_check_hours"] = 3.0
+    # Reply-judge fields. Default target_revealed=True: if the decision didn't say,
+    # assume the Tamil was shown, so a reply caps at "hinted" — the cold axis stays honest.
+    d["expected_target"] = (d.get("expected_target") or "").strip()
+    d["target_revealed"] = bool(d.get("target_revealed", True))
+    d["schedule"] = d.get("schedule") if isinstance(d.get("schedule"), dict) else None
+    if d["modality"] == "volley":
+        asks = [a.strip() for a in (d.get("volley_asks") or [])
+                if isinstance(a, str) and a.strip()]
+        items = [{"target": t["target"], "ask": a}
+                 for t, a in zip(volley_menu or [], asks)]
+        if len(items) >= 2:
+            d["volley"] = items
+            d["expected_target"] = items[0]["target"]
+            d["target_revealed"] = False  # volley asks are English situations by contract
+            d["notification_body"] = f"⚡ volley 1/{len(items)} — {items[0]['ask']}"
+        else:
+            d["modality"] = "text"  # no binding menu / no usable asks — plain dose
+    return d
+
+
+def decide(digest: str, volley_menu: list | None = None) -> dict:
     persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
     client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
     messages = [
@@ -498,21 +579,7 @@ def decide(digest: str) -> dict:
             last_err = exc
     else:
         raise last_err  # all 3 attempts returned unparseable JSON
-    # Normalise / guard the fields Python relies on.
-    d["modality"] = d.get("modality") if d.get("modality") in MODALITIES else "text"
-    if d["modality"] == "silence":
-        d["act"] = False
-    lo, hi = NEXT_CHECK_CLAMP
-    try:
-        d["next_check_hours"] = max(lo, min(hi, float(d.get("next_check_hours", 3))))
-    except (TypeError, ValueError):
-        d["next_check_hours"] = 3.0
-    # Reply-judge fields. Default target_revealed=True: if the decision didn't say,
-    # assume the Tamil was shown, so a reply caps at "hinted" — the cold axis stays honest.
-    d["expected_target"] = (d.get("expected_target") or "").strip()
-    d["target_revealed"] = bool(d.get("target_revealed", True))
-    d["schedule"] = d.get("schedule") if isinstance(d.get("schedule"), dict) else None
-    return d
+    return normalize_decision(d, volley_menu)
 
 
 # ── Delivery plumbing (proven — preserved) ────────────────────────────────────
@@ -612,6 +679,10 @@ def log_decision(now: datetime, decision: dict, *, acted: bool,
         entry["body"] = decision.get("notification_body")
         entry["expected_target"] = decision.get("expected_target", "")
         entry["target_revealed"] = decision.get("target_revealed", True)
+        if decision.get("volley"):
+            # the reply judge walks this queue deterministically (knock_reply.py)
+            entry["volley"] = decision["volley"]
+            entry["volley_next"] = 1
         if audio_url:
             entry["audio_url"] = audio_url
             entry["memo_script"] = decision.get("memo_script", "")  # the reply judge reads what was heard
@@ -642,7 +713,7 @@ def main():
     print("1. digest…")
     digest = build_digest()
     print("2. Anna decides…")
-    decision = decide(digest)
+    decision = decide(digest, volley_targets())
     print(f"   → act={decision.get('act')} modality={decision['modality']} "
           f"move={decision.get('move')!r} next_check={decision['next_check_hours']}h")
     print(f"   rationale: {decision.get('rationale')}")

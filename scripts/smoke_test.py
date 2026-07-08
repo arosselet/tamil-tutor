@@ -13,6 +13,8 @@ A fixed bug becomes a case here the day it's fixed:
   #1  queue drain: oldest-due fires first, one non-forced per tick (2026-07-03)
   #2  prose-wrapped LLM JSON killed a knock tick (2026-07-04)
   #3  chained follow-up overwrote the original ask; chat lost chained replies (2026-07-06)
+  #4  hinted-forever: reveal-capped fires now graduate cross-day (2026-07-08)
+  #5  volley knock: binding targets + deterministic chain advance (2026-07-08)
 """
 import argparse
 import importlib
@@ -151,7 +153,7 @@ def s3_knock_paths(mk, sb: Path):
     pushes, commits = Recorder(), Recorder()
     mk.push_to_phone, mk.commit_and_push = pushes, commits
 
-    mk.decide = lambda digest: canned_decision(False)
+    mk.decide = lambda digest, vt=None: canned_decision(False)
     sys.argv = ["morning_knock.py"]
     mk.main()
     log = read_json(klog_path)
@@ -161,7 +163,7 @@ def s3_knock_paths(mk, sb: Path):
     check("silence still commits the log", len(commits) == 1)
 
     body = "smoke dose — sollu da"
-    mk.decide = lambda digest: canned_decision(True, body)
+    mk.decide = lambda digest, vt=None: canned_decision(True, body)
     mk.main()
     log = read_json(klog_path)
     check("fire logs acted=true with body", log[-1].get("acted") and log[-1]["body"] == body)
@@ -417,7 +419,7 @@ def s9_audio_knock_feed(mk, sb: Path):
     d = canned_decision(True, "smoke audio dose")
     d["modality"] = "audio"
     d["memo_script"] = "வணக்கம் டா"
-    mk.decide = lambda digest: d
+    mk.decide = lambda digest, vt=None: d
     sys.argv = ["morning_knock.py"]
     mk.main()
 
@@ -494,6 +496,172 @@ def s10_chain_history(mk, kr, sb: Path):
     check("revealed_recently sees the printed word", "ஒரு மாசம் இருப்போம்" in rr, f"got {rr}")
 
 
+def s11_capped_graduation(kr, sb: Path):
+    """#4 (2026-07-08): the reveal-cap's hinted-forever trap. Cold-quality fires
+    the reveal window blocks are recorded CAPPED; capped fires on 2 distinct
+    local days graduate the word to cold. Judge claims resolve against computed
+    evidence (KF-6): a 'capped' with no reveal on record upgrades to cold; a
+    'cold' on shown Tamil downgrades to capped."""
+    print("\n11. Capped lane + cross-day graduation (regression #4)")
+    prog = sb / "progress"
+    lex_path, klog_path = prog / "lexicon.json", prog / "knock_log.json"
+    kr.push_to_phone, kr.commit_and_push = Recorder(), Recorder()
+    now = datetime.now(timezone.utc)
+    yday = now - timedelta(days=1)
+
+    # (a) day 2 of capped fires → graduation to COLD, pace credited
+    write_json(lex_path, {
+        "பழகிப்போச்சு": {"gloss": "I'm used to it", "phonetic": ["pazhagippochu"],
+                          "recognition": "solid", "production": "hinted",
+                          "seen_in": [], "last_surfaced": "2026-07-01"},
+    })
+    day1 = {"date": yday.date().isoformat(), "timestamp": yday.isoformat(),
+            "acted": True, "modality": "text", "move": "smoke lore",
+            "body": "pazhagippochu — 'used to it'. let it sit in your ear.",
+            "expected_target": "", "target_revealed": False,
+            "exchanges": [{"at": yday.strftime("%Y-%m-%dT%H:%M:%SZ"),
+                           "reply": "pazhagippochu", "verdict": "hinted",
+                           "fired": ["பழகிப்போச்சு"], "fired_cold": [],
+                           "fired_capped": ["பழகிப்போச்சு"], "graduated": [],
+                           "reply_line": "adhu dhaan"}]}
+    day2 = {"date": now.date().isoformat(), "timestamp": now.isoformat(),
+            "acted": True, "modality": "text", "move": "smoke ask",
+            "body": "aunty warns the food is spicy — brush it off, you're used to it",
+            "expected_target": "பழகிப்போச்சு", "target_revealed": False}
+    write_json(klog_path, [day1, day2])
+    kr.judge = lambda k, r, t, h=None, rr=None: canned_verdict([("பழகிப்போச்சு", "capped")])
+    sys.argv = ["knock_reply.py", "pazhagippochu"]
+    kr.main()
+    lex = read_json(lex_path)
+    check("2nd distinct capped day graduates to COLD",
+          lex["பழகிப்போச்சு"]["production"] == "cold", lex["பழகிப்போச்சு"]["production"])
+    entry = read_json(klog_path)[-1]
+    check("graduation credits the cold pace",
+          entry.get("reply_fired_cold") == ["பழகிப்போச்சு"],
+          str(entry.get("reply_fired_cold")))
+    check("exchange records the graduation",
+          entry["exchanges"][-1].get("graduated") == ["பழகிப்போச்சு"],
+          str(entry["exchanges"][-1]))
+
+    # (b) judge says 'capped' but nothing on record revealed the word → COLD (KF-6)
+    write_json(lex_path, {
+        "வேண்டாம்": {"gloss": "don't want / no thanks", "phonetic": ["vendaam"],
+                      "recognition": "solid", "production": "none",
+                      "seen_in": [], "last_surfaced": "2026-07-01"},
+    })
+    write_json(klog_path, [{
+        "date": now.date().isoformat(), "timestamp": now.isoformat(),
+        "acted": True, "modality": "text", "move": "smoke ask",
+        "body": "she piles more food — wave it off", "expected_target": "வேண்டாம்",
+        "target_revealed": False}])
+    kr.judge = lambda k, r, t, h=None, rr=None: canned_verdict([("வேண்டாம்", "capped")])
+    sys.argv = ["knock_reply.py", "vendaam"]
+    kr.main()
+    check("unverifiable capped claim upgrades to COLD",
+          read_json(lex_path)["வேண்டாம்"]["production"] == "cold")
+
+    # (c) judge says 'cold' on Tamil the knock itself printed → capped (day 1: hinted)
+    write_json(lex_path, {
+        "போதும்": {"gloss": "enough", "phonetic": ["podhum"],
+                    "recognition": "solid", "production": "none",
+                    "seen_in": [], "last_surfaced": "2026-07-01"},
+    })
+    write_json(klog_path, [{
+        "date": now.date().isoformat(), "timestamp": now.isoformat(),
+        "acted": True, "modality": "text", "move": "smoke reveal",
+        "body": "fire it back: podhum — one shot", "expected_target": "போதும்",
+        "target_revealed": True}])
+    kr.judge = lambda k, r, t, h=None, rr=None: canned_verdict([("போதும்", "cold")])
+    sys.argv = ["knock_reply.py", "podhum"]
+    kr.main()
+    entry = read_json(klog_path)[-1]
+    check("shown 'cold' lands as capped (axis holds at hinted on day 1)",
+          read_json(lex_path)["போதும்"]["production"] == "hinted"
+          and entry.get("reply_fired_capped") == ["போதும்"],
+          f"prod={read_json(lex_path)['போதும்']['production']} capped={entry.get('reply_fired_capped')}")
+
+
+def s12_volley(mk, kr, sb: Path):
+    """#5 (2026-07-08): the standalone daily blitz. normalize_decision zips
+    Anna's asks with Python's BINDING targets; the reply judge advances the
+    volley pin deterministically — even on a miss (recast-and-move), ignoring
+    the judge's own chain — and the queue is finite."""
+    print("\n12. Volley knock — binding targets + deterministic advance (regression #5)")
+    prog = sb / "progress"
+    lex_path, klog_path = prog / "lexicon.json", prog / "knock_log.json"
+    w1, w2, w3 = "போதும்", "வேண்டாம்", "பழகிப்போச்சு"
+    menu = [{"target": w, "gloss": "g"} for w in (w1, w2, w3)]
+
+    # normalize_decision: binding zip + Python-composed body
+    raw = {"act": True, "modality": "volley", "move": "daily volley",
+           "rationale": "smoke", "next_check_hours": 3,
+           "notification_body": "model's own body — must be overridden",
+           "expected_target": "", "target_revealed": True,
+           "volley_asks": ["ask one", "ask two", "ask three"], "schedule": None}
+    d = mk.normalize_decision(dict(raw), menu)
+    check("volley zips asks with Python's targets",
+          d.get("volley") == [{"target": w1, "ask": "ask one"},
+                              {"target": w2, "ask": "ask two"},
+                              {"target": w3, "ask": "ask three"}], str(d.get("volley")))
+    check("volley body is composed from ask 1, target unrevealed",
+          d["notification_body"] == "⚡ volley 1/3 — ask one"
+          and d["expected_target"] == w1 and d["target_revealed"] is False)
+    d = mk.normalize_decision(dict(raw), [])
+    check("volley without a binding menu degrades to text",
+          d["modality"] == "text" and not d.get("volley"))
+
+    # reply flow: cold → advance; MISS → still advance; queue exhausts
+    write_json(lex_path, {
+        w: {"gloss": "g", "phonetic": [p], "recognition": "solid",
+            "production": "none", "seen_in": [], "last_surfaced": "2026-07-01"}
+        for w, p in [(w1, "podhum"), (w2, "vendaam"), (w3, "pazhagippochu")]})
+    kr.push_to_phone, kr.commit_and_push = Recorder(), Recorder()
+    now = datetime.now(timezone.utc)
+    write_json(klog_path, [{
+        "date": now.date().isoformat(), "timestamp": now.isoformat(),
+        "acted": True, "modality": "volley", "move": "daily volley",
+        "body": "⚡ volley 1/3 — ask one", "expected_target": w1,
+        "target_revealed": False,
+        "volley": [{"target": w1, "ask": "ask one"}, {"target": w2, "ask": "ask two"},
+                   {"target": w3, "ask": "ask three"}],
+        "volley_next": 1}])
+
+    v = canned_verdict([(w1, "cold")])
+    v["follow_up_ask"] = "judge's own chain — must be ignored"
+    v["follow_up_target"] = w3
+    kr.judge = lambda k, r, t, h=None, rr=None: v
+    sys.argv = ["knock_reply.py", "podhum"]
+    kr.main()
+    entry = read_json(klog_path)[-1]
+    check("volley advance ignores the judge's chain and pins item 2",
+          entry.get("pinned_target") == w2 and entry.get("volley_next") == 2,
+          f"pin={entry.get('pinned_target')} next={entry.get('volley_next')}")
+    check("push-back carries item 2's ask", "2/3 — ask two" in entry.get("reply_line", ""),
+          entry.get("reply_line"))
+
+    miss = canned_verdict([])
+    miss["verdict"], miss["reply_line"] = "miss", "close — vendaam. adhu dhaan next time"
+    kr.judge = lambda k, r, t, h=None, rr=None: miss
+    sys.argv = ["knock_reply.py", "vanda"]
+    kr.main()
+    entry = read_json(klog_path)[-1]
+    check("a MISS still advances the volley (recast-and-move)",
+          entry.get("pinned_target") == w3 and entry.get("volley_next") == 3,
+          f"pin={entry.get('pinned_target')} next={entry.get('volley_next')}")
+
+    kr.judge = lambda k, r, t, h=None, rr=None: canned_verdict([(w3, "cold")])
+    sys.argv = ["knock_reply.py", "pazhagippochu"]
+    kr.main()
+    entry = read_json(klog_path)[-1]
+    check("exhausted volley chains nothing further",
+          entry.get("volley_next") == 3
+          and entry["exchanges"][-1]["reply_line"] == "adhu dhaan",
+          f"next={entry.get('volley_next')} line={entry.get('reply_line')}")
+    check("volley graded item 3 against its pin",
+          read_json(lex_path)[w3]["production"] == "cold")
+    check("original volley ask survives on record", entry.get("expected_target") == w1)
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -509,6 +677,8 @@ def main():
         s8_variety_and_decay(mk, kr, sb)
         s9_audio_knock_feed(mk, sb)
         s10_chain_history(mk, kr, sb)
+        s11_capped_graduation(kr, sb)
+        s12_volley(mk, kr, sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)
