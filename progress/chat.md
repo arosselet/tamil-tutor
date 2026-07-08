@@ -20,6 +20,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > close! tea kudunga — 'venum' works at home, but the stall counter wants kudunga 💪 · 2/3 — you point at a murukku packet. 'how much is this?' — one line.
 
+**15:22 · Andrew** — **COLD**
+> Evlo ?
+
+**Anna ↩**
+> adhu dhaan! 🔥 clean cold fire. · 3/3 — you're hoping for filter coffee. 'is there coffee?' — go.
+
 
 ## Tuesday 2026-07-07
 
