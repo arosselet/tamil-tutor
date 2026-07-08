@@ -395,7 +395,7 @@
       32,
       33
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-07-08"
   },
   "பத்து": {
     "gloss": "Ten",
@@ -3069,12 +3069,12 @@
     "gloss": "{noun} குடுங்க → give me {noun} (e.g. 'oru tea kudunga')",
     "phonetic": [],
     "recognition": "comfortable",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [
       54,
       56
     ],
-    "last_surfaced": null,
+    "last_surfaced": "2026-07-08",
     "deck": "trip",
     "direction": "fire"
   },

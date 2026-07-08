@@ -14,6 +14,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **15:19 · Anna**  ·  volley / tea stall blitz
 > ⚡ volley 1/3 — tea stall counter. 'one chai, please' — what's the ask?
 
+**15:21 · Andrew** — **HINTED**
+> Onnu tea venum
+
+**Anna ↩**
+> close! tea kudunga — 'venum' works at home, but the stall counter wants kudunga 💪 · 2/3 — you point at a murukku packet. 'how much is this?' — one line.
+
 
 ## Tuesday 2026-07-07
 
