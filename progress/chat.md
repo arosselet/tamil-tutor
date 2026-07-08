@@ -26,6 +26,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! 🔥 clean cold fire. · 3/3 — you're hoping for filter coffee. 'is there coffee?' — go.
 
+**15:23 · Andrew** — **COLD**
+> Coffee iruka?
+
+**Anna ↩**
+> adhu dhaan! 🔥 coffee irukka — that's the frame, fired clean.
+
 
 ## Tuesday 2026-07-07
 
