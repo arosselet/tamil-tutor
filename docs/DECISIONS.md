@@ -148,6 +148,10 @@ Details live in git history; this is the index of the *conclusions*.
   could never reach cold through the very channel drilling it ('oru maasam iruppom'
   fired correctly across days and sat at hinted). KF-6 now audits both directions: a
   shown "cold" downgrades to capped, an unverifiable "capped" upgrades to cold.
+- **The Contrast Beat — a recast may carry one clause of why** (2026-07-08). Recast-only
+  feedback under-notices (Engines 0/19 after weeks of pure recasts); one clause, by
+  example, never terminology — two clauses is a lecture. Loosens "recast, never lecture"
+  the way lore loosened the scenario monoculture; "No Academic Terms" untouched.
 - **TTS text gets defanged at the renderer, not by prompt discipline** (2026-07-07).
   Google TTS voices a hyphen glued to a word as "minus" ("-இட்டு" → "minus ittu",
   done-ittu memo, Andrew's report): `defang_hyphens()` in `render_audio.py` now guards
