@@ -532,6 +532,23 @@
     "rationale": "scheduled at 2026-07-07T14:23 for 2026-07-07T23:00",
     "body": "ok — you just got back from somewhere. she asks 'enna panninga inniki?' 🗓️ Don't think. One line. Where'd you go, how was it?",
     "expected_target": "frame:day-recap",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Onnu madham",
+    "reply_verdict": "miss",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_line": "ha — 'onnu madham' is one month, da 😄 she asked what you *did* today — try: 'market ponnom, ரொம்ப நல்லா இருந்துச்சு' or wherever you went.",
+    "reply_at": "2026-07-08T01:07:05Z",
+    "exchanges": [
+      {
+        "at": "2026-07-08T01:07:05Z",
+        "reply": "Onnu madham",
+        "verdict": "miss",
+        "fired": [],
+        "fired_cold": [],
+        "reply_line": "ha — 'onnu madham' is one month, da 😄 she asked what you *did* today — try: 'market ponnom, ரொம்ப நல்லா இருந்துச்சு' or wherever you went."
+      }
+    ]
   }
 ]
