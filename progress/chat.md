@@ -9,6 +9,11 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:53 · Anna** 🎧  ·  audio / lore memo: -la locative
 > 🎙️ One suffix does the work of in/at/on/over-the-phone — and you already said it at dinner.
 
+**Andrew** · 👍 acked
+
+**15:19 · Anna**  ·  volley / tea stall blitz
+> ⚡ volley 1/3 — tea stall counter. 'one chai, please' — what's the ask?
+
 
 ## Tuesday 2026-07-07
 

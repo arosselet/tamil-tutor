@@ -582,5 +582,32 @@
     "mp3": "published_audio/knocks/knock_2026-07-08T13-53.mp3",
     "response": "ack",
     "response_at": "2026-07-08T14:03:13Z"
+  },
+  {
+    "date": "2026-07-08",
+    "timestamp": "2026-07-08T19:19:17.923274+00:00",
+    "acted": true,
+    "modality": "volley",
+    "move": "tea stall blitz",
+    "rationale": "Andrew replied hinted just hours ago — he's warm right now; a volley on the three soaked comfortable frames burns sprint deck while the window is open, and chains him into replies without needing a full session.",
+    "next_check": "2026-07-09T13:19:17.923274+00:00",
+    "body": "⚡ volley 1/3 — tea stall counter. 'one chai, please' — what's the ask?",
+    "expected_target": "frame:giveme-noun",
+    "target_revealed": false,
+    "volley": [
+      {
+        "target": "frame:giveme-noun",
+        "ask": "tea stall counter. 'one chai, please' — what's the ask?"
+      },
+      {
+        "target": "frame:howmuch-noun",
+        "ask": "you point at a murukku packet. 'how much is this?' — one line."
+      },
+      {
+        "target": "frame:isthere-noun",
+        "ask": "you're hoping for filter coffee. 'is there coffee?' — go."
+      }
+    ],
+    "volley_next": 1
   }
 ]
