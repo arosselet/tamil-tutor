@@ -21,6 +21,16 @@
     <itunes:new-feed-url>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/rss.xml</itunes:new-feed-url>
     
     <item>
+      <title>Drill — 2026-07-08 · say it out loud</title>
+      <itunes:author>Andrew R &amp; Gemini</itunes:author>
+      <itunes:summary>Drill — 2026-07-08 · say it out loud</itunes:summary>
+      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/drill_2026-07-08_0951.mp3" length="769536" type="audio/mpeg"/>
+      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/drill_2026-07-08_0951.mp3</guid>
+      <pubDate>Wed, 08 Jul 2026 09:52:16 -0400</pubDate>
+      <itunes:duration>00:03:12</itunes:duration>
+    </item>
+
+    <item>
       <title>Drill — 2026-07-02 · say it out loud</title>
       <itunes:author>Andrew R &amp; Gemini</itunes:author>
       <itunes:summary>Drill — 2026-07-02 · say it out loud</itunes:summary>
@@ -34,10 +44,10 @@
       <title>Knock — 2026-07-07 14:23 · lore memo: done-ittu</title>
       <itunes:author>Andrew R &amp; Gemini</itunes:author>
       <itunes:summary>Knock — 2026-07-07 14:23 · lore memo: done-ittu</itunes:summary>
-      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/knocks/knock_2026-07-07T14-23.mp3" length="256944" type="audio/mpeg"/>
+      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/knocks/knock_2026-07-07T14-23.mp3" length="248976" type="audio/mpeg"/>
       <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/knocks/knock_2026-07-07T14-23.mp3</guid>
       <pubDate>Tue, 07 Jul 2026 14:23:38 +0000</pubDate>
-      <itunes:duration>00:01:04</itunes:duration>
+      <itunes:duration>00:01:02</itunes:duration>
     </item>
 
     <item>
