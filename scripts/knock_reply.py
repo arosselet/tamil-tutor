@@ -11,9 +11,13 @@ Judge philosophy: this is the recast across the table, not an exam. Anna is
 generous in spirit but honest on the axis — each fired word is graded on its OWN
 merits (per-word verdicts: one shaky word must not drag down a clean one) — and
 Python re-enforces the one hard rule per word: Tamil the notification SHOWED him
-can score at most "hinted"; "cold" is reserved for unaided production. Andrew
-stays the court of appeal: every verdict is visible in the push-back and in
-knock_log.json, and chat sessions can always correct state.
+can score at most "hinted"; "cold" is reserved for unaided production. The one
+release valve (2026-07-08): a cold-QUALITY fire the reveal window blocks is
+recorded CAPPED, and capped fires on GRADUATION_DAYS distinct local days
+graduate the word to cold — otherwise a daily-knocked word could never escape
+hinted through the very channel drilling it. Andrew stays the court of appeal:
+every verdict is visible in the push-back and in knock_log.json, and chat
+sessions can always correct state.
 
   python scripts/knock_reply.py "naan poren"            # judge, write state, commit+push, notify
   python scripts/knock_reply.py --dry-run "naan poren"  # judge + print only (no writes)
@@ -53,17 +57,24 @@ scaffolded one):
 - "cold"   — THAT word/chunk/frame is real Tamil the notification did NOT show him, \
 produced unaided. Phonetic spelling is fine and expected ("poren" IS போறேன்); judge \
 the Tamil, not the spelling.
-- "hinted" — real Tamil, but the knock showed that word to him (reading back is not \
-firing), or it needed the knock's scaffold, or it's partially off but would land.
+- "hinted" — real Tamil, but it needed the knock's scaffold, or it's partially off \
+but would land.
+- "capped" — cold-QUALITY (clean, unaided THIS exchange) but the reveal window blocks \
+cold: this knock/chain printed it, or it is on revealed_recently. Use it INSTEAD of \
+"hinted" when the ONLY thing between the word and cold is the reveal. Python verifies \
+every capped claim against the computed evidence and counts capped fires across days — \
+enough distinct days graduates the word to cold (a word he keeps firing unaided across \
+sleeps IS installed; without this lane the words knocked on daily could never escape \
+hinted through the very channel drilling them).
 
 "fired": one entry per Tamil word/chunk/frame the reply genuinely produced, each \
-graded on its OWN merits: [{"word": ..., "verdict": "cold"|"hinted"}, ...]. "word" \
-in CANONICAL Tamil script — copy the expected-target record's exact script when it \
-matches — or the frame:... key for a frame. Empty list when nothing creditable fired.
+graded on its OWN merits: [{"word": ..., "verdict": "cold"|"capped"|"hinted"}, ...]. \
+"word" in CANONICAL Tamil script — copy the expected-target record's exact script when \
+it matches — or the frame:... key for a frame. Empty list when nothing creditable fired.
 
 "verdict" — the reply as a whole (for the log and your reply_line's tone):
-- "cold" / "hinted" — something fired; set it to the best word's grade (Python \
-re-derives this from "fired" regardless).
+- "cold" / "hinted" — something fired; set it to the best word's grade (a capped word \
+counts as hinted here; Python re-derives this from "fired" regardless).
 - "miss" — he tried, but it's off enough that nothing would land at the table. Empty fired.
 - "chat" — not a rep at all (English chat, a question, logistics). Empty fired. No state moves.
 
@@ -124,6 +135,12 @@ follow_up_ask together stay under ~200 chars (the scoreboard is appended after t
 a chained ask that gets cut off is an ask he never saw, and the next reply gets judged \
 against a ghost.
 
+VOLLEY KNOCK: when the knock context carries volley_in_progress, this is the daily \
+deck blitz — one item per exchange, recast-and-move, no teaching between reps. Grade \
+the current line only. Do NOT write follow_up_ask (Python appends the next volley item \
+to your recast itself); keep reply_line to ONE short clause so the appended ask still \
+fits the lock screen.
+
 SCHEDULING (optional): you may also plant ONE future push at a precise local time via \
 "schedule" — a fully-composed dose that fires as-is later (collect tonight's field \
 mission tomorrow morning; resurface today's wobble at 19:00). Use the exchange itself \
@@ -132,7 +149,7 @@ to pick the moment; null to skip, which is usual.
 Return ONLY a JSON object, no prose around it:
 {
   "verdict": "cold" | "hinted" | "miss" | "chat",
-  "fired": [{"word": "<canonical Tamil script or frame:... key>", "verdict": "cold" | "hinted"}, ...],
+  "fired": [{"word": "<canonical Tamil script or frame:... key>", "verdict": "cold" | "capped" | "hinted"}, ...],
   "reply_line": "<one line>",
   "follow_up_ask": "<one line chaining the next rep; empty string to stop>",
   "follow_up_target": "<the one word/chunk/frame it asks for (Tamil script or frame:... key); empty if no chain>",
@@ -197,6 +214,9 @@ def judge(knock: dict, reply_text: str, target_record: dict | None,
         "revealed_recently": revealed_recent or [],
         "andrew_reply": reply_text,
     }
+    if knock.get("volley"):
+        context["knock"]["volley_in_progress"] = (
+            f"item {min(knock.get('volley_next', 1), len(knock['volley']))} of {len(knock['volley'])}")
     # A later reply to the same knock is judged knowing the whole chain —
     # Tamil that Anna's recasts already handed him is a read-back, not a cold fire.
     if knock.get("exchanges"):
@@ -235,7 +255,7 @@ def normalize_verdict(d: dict) -> dict:
             continue
         w = (item.get("word") or "").strip()
         if w:
-            v = item.get("verdict") if item.get("verdict") == "cold" else "hinted"
+            v = item.get("verdict") if item.get("verdict") in ("cold", "capped") else "hinted"
             fired.append({"word": w, "verdict": v})
     d["fired"] = fired if d["verdict"] in ("cold", "hinted") else []
     if d["fired"]:
@@ -306,35 +326,89 @@ def revealed_recently(klog: list, lexicon: dict, hours: float = 48.0) -> list[st
     return sorted(out)
 
 
-def apply_verdict(verdict: dict, knock: dict, lexicon: dict) -> tuple[list[str], list[str]]:
+GRADUATION_DAYS = 2  # distinct local days of capped-quality fires that prove a word cold
+
+
+def capped_fire_days(key: str, klog: list) -> set:
+    """Local dates on which `key` fired CAPPED (cold-quality, reveal-blocked) in
+    judged knock traffic — the graduation evidence, computed from the log the
+    same way revealed_recently() computes reveals (never from model memory)."""
+    from sync_state import LOCAL_TZ
+    days = set()
+    for k in klog:
+        for x in k.get("exchanges", []):
+            if key not in x.get("fired_capped", []):
+                continue
+            try:
+                dt = datetime.fromisoformat((x.get("at") or "").replace("Z", "+00:00"))
+            except ValueError:
+                continue
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+            days.add(dt.astimezone(LOCAL_TZ).date())
+    return days
+
+
+def apply_verdict(verdict: dict, knock: dict, lexicon: dict, klog: list,
+                  revealed_recent: list | None = None,
+                  ) -> tuple[list[str], list[str], list[str], list[str]]:
     """Move the production axis for what fired — each word on its OWN grade
     (per-word verdicts, 2026-07-03). Upgrades only — a phone rep never demotes
-    (chat sessions own corrections). Returns (summary lines, the words whose
-    EFFECTIVE grade was cold after the revealed-cap — the pace meters read these)."""
+    (chat sessions own corrections).
+
+    The capped lane (2026-07-08): a cold-quality fire the reveal window blocks
+    is recorded CAPPED instead of flattened into hinted, and Python resolves
+    every capped/cold grade against the computed reveal evidence (KF-6): a
+    shown "cold" downgrades to capped; a "capped" with no reveal on record
+    upgrades to cold. Capped fires on GRADUATION_DAYS distinct local days
+    graduate the word to cold — repeated unaided production across sleeps is
+    exactly the evidence the reveal window exists to demand; without this, a
+    daily-knocked word could never escape hinted through the very channel
+    drilling it.
+
+    Returns (summary lines, cold-credited keys — true colds plus graduations,
+    the pace meters read these —, capped keys, graduated keys)."""
+    from sync_state import LOCAL_TZ
     phon_index = build_phonetic_index(lexicon)
     today = date.today().isoformat()
+    today_local = datetime.now(timezone.utc).astimezone(LOCAL_TZ).date()
     pin, pin_revealed = current_pin(knock)
     revealed_key = resolve(pin, lexicon, phon_index) if pin_revealed else None
-    summary, cold_credited = [], []
+    revealed_recent = revealed_recent or []
+    summary, cold_credited, capped_keys, graduated = [], [], [], []
     for item in verdict["fired"]:
         key = resolve(item["word"], lexicon, phon_index)
         if key is None:
             summary.append(f"! '{item['word']}' resolves to no lexicon record — not scored")
             continue
         rec = lexicon[key]
-        target = item["verdict"]
-        if target == "cold" and (key == revealed_key or shown_in_knock(key, rec, knock)):
-            target = "hinted"  # the hard rule, enforced deterministically per word
+        grade = item["verdict"]
+        shown = key == revealed_key or shown_in_knock(key, rec, knock)
+        if grade == "cold" and shown:
+            grade = "capped"  # the hard rule, enforced deterministically per word
+        elif grade == "capped" and not (shown or key in revealed_recent):
+            grade = "cold"  # the judge invented a reveal — the computed evidence says unaided
+        target = grade
+        if grade == "capped":
+            capped_keys.append(key)
+            days = capped_fire_days(key, klog) | {today_local}
+            if len(days) >= GRADUATION_DAYS:
+                target = "cold"  # graduation: unaided-quality fires across distinct days
+                if rec.get("production") != "cold":
+                    graduated.append(key)
+            else:
+                target = "hinted"  # capped rides the hinted rung until it graduates
         if target == "cold":
             cold_credited.append(key)  # a re-fire of an already-cold word still counts as pace
         cur = rec.get("production", "none")
         if PRODUCTION_RANK[target] > PRODUCTION_RANK.get(cur, 0):
             rec["production"] = target
-            summary.append(f"{key} → {target.upper()}")
+            grad = " 🎓 graduated — capped fires on ≥2 days" if key in graduated else ""
+            summary.append(f"{key} → {target.upper()}{grad}")
         else:
-            summary.append(f"{key} already {cur} — kept ({target} fire)")
+            summary.append(f"{key} already {cur} — kept ({grade} fire)")
         rec["last_surfaced"] = today
-    return summary, cold_credited
+    return summary, cold_credited, capped_keys, graduated
 
 
 def main():
@@ -370,16 +444,26 @@ def main():
     hours_str = f", {hours:.1f}h since last exchange" if hours is not None else ""
     print(f"1. judging reply against knock {knock.get('timestamp', '?')[:16]} "
           f"({knock.get('modality')}/{knock.get('move')}{hours_str})…")
-    verdict = judge(knock, reply_text, target_record, hours,
-                    revealed_recently(klog, lexicon))
+    revealed = revealed_recently(klog, lexicon)
+    verdict = judge(knock, reply_text, target_record, hours, revealed)
     fired_str = ", ".join(f"{i['word']}:{i['verdict']}" for i in verdict["fired"]) or "—"
     print(f"   → {verdict['verdict']} | fired: {fired_str} | {verdict.get('rationale', '')}")
 
     # Momentum chain: on a scored reply, the push-back may carry the NEXT micro-ask.
     # The knock's expected target moves to the chained one, so the next reply is
     # judged against what was actually asked (prior_exchange covers the recast).
-    follow = ""
-    if (verdict["verdict"] in ("cold", "hinted") and verdict["follow_up_ask"]
+    # A VOLLEY knock chains DETERMINISTICALLY instead: Python hands the next deck
+    # item on ANY judged verdict (miss = recast-and-move, the blitz law) and the
+    # judge's own follow_up is ignored — finite by construction, no CHAIN_CAP.
+    follow, volley_pin = "", None
+    vq = knock.get("volley")
+    if vq:
+        if verdict["verdict"] != "chat":
+            nxt = knock.get("volley_next", 1)
+            if nxt < len(vq):
+                volley_pin = vq[nxt]
+                follow = f"{nxt + 1}/{len(vq)} — {volley_pin['ask']}"
+    elif (verdict["verdict"] in ("cold", "hinted") and verdict["follow_up_ask"]
             and knock.get("chained", 0) < CHAIN_CAP):
         follow = verdict["follow_up_ask"]
 
@@ -389,7 +473,8 @@ def main():
         return
 
     print("2. state…")
-    summary, cold_credited = apply_verdict(verdict, knock, lexicon)
+    summary, cold_credited, capped_keys, graduated = apply_verdict(
+        verdict, knock, lexicon, klog, revealed)
     for line in summary:
         print(f"   {line}")
 
@@ -404,6 +489,7 @@ def main():
     fired_words = [i["word"] for i in verdict["fired"]]
     knock["reply_fired"] = knock.get("reply_fired", []) + fired_words
     knock["reply_fired_cold"] = knock.get("reply_fired_cold", []) + cold_credited
+    knock["reply_fired_capped"] = knock.get("reply_fired_capped", []) + capped_keys
     # store the FULL push-back (recast + chained ask): the next judge call reads it
     # as a prior exchange, and shown_in_knock scans it for revealed Tamil
     knock["reply_line"] = " · ".join(p for p in (verdict["reply_line"], follow) if p)
@@ -411,9 +497,17 @@ def main():
     knock.setdefault("exchanges", []).append({
         "at": knock["reply_at"], "reply": reply_text,
         "verdict": verdict["verdict"], "fired": fired_words,
-        "fired_cold": cold_credited, "reply_line": knock["reply_line"],
+        "fired_cold": cold_credited, "fired_capped": capped_keys,
+        "graduated": graduated, "reply_line": knock["reply_line"],
     })
-    if follow:
+    if volley_pin is not None:
+        # Volley advance is Python's: the pin walks the queue Python composed;
+        # expected_target stays the original first ask (auditable, 2026-07-06 law).
+        knock["chained"] = knock.get("chained", 0) + 1
+        knock["volley_next"] = knock.get("volley_next", 1) + 1
+        knock["pinned_target"] = volley_pin["target"]
+        knock["pinned_revealed"] = False
+    elif follow:
         # The chain moves the PIN; expected_target stays the original ask so the
         # log stays auditable (overwriting it here was the 2026-07-06 bug).
         knock["chained"] = knock.get("chained", 0) + 1
