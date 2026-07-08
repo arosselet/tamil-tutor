@@ -3044,12 +3044,12 @@
     "gloss": "{noun} எவ்ளோ? → how much is {noun}? (e.g. 'idhu evlo?' — Oracle: always the contracted 'evlo')",
     "phonetic": [],
     "recognition": "comfortable",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       54,
       56
     ],
-    "last_surfaced": null,
+    "last_surfaced": "2026-07-08",
     "deck": "trip",
     "direction": "fire"
   },
