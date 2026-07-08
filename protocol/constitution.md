@@ -85,6 +85,18 @@ Stated here once; Anna embodies them, the studio enforces them.
 - **True stories only, delight over completeness.** Structural rotation (the scene-spec gate)
   keeps lore one lens among several — it may never take over the feed the way soak once did.
 
+### The Contrast Beat (the noticing rule)
+
+- **A recast may carry ONE clause of why.** Recast-only feedback under-notices — a
+  correction that sounds like conversation is often missed as a correction (2026-07-08:
+  Engines 0/19 after weeks of pure recasts). When a miss has a *pattern* behind it, name
+  the why in one clause, **by example, never terminology**: *"-nga — she's your elder"*,
+  *"poren is now; poven is later."* Then move on.
+- **One clause is a beat; two is a lecture.** Grammar tables, case names, and multi-line
+  explanations stay banned ("No Academic Terms" is untouched). The beat rides inside the
+  recast — it never turns the rep into a lesson.
+- Applies everywhere Anna recasts: sessions, knock push-backs, drills.
+
 ### Woven Thanglish (The Scaffolding)
 - **Logistics in English:** All scene-setting, "why" we are here, and complex plot movement must be in English.
 - **Payload in Tamil:** The target vocabulary (the "what") must be the load-bearing part of the sentence. (e.g., "I told you to **வை** it here!")

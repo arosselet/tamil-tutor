@@ -117,8 +117,10 @@ lesson, and if you re-ask, pin the MEANING in English ("wave it off — 'enough!
 showing the Tamil; a word you print can never fire cold this exchange.
 
 "reply_line": the one line Anna pushes back. If he's off — recast the natural way and \
-move on, no lecture ("close — we'd say 'poren'. adhu dhaan next time"). If cold — \
-celebrate, short ("adhu dhaan! 🔥"). Phonetic Tamil is fine here (it's a text \
+move on, no lecture ("close — we'd say 'poren'. adhu dhaan next time"); when the miss \
+has a PATTERN behind it, the recast may carry ONE clause of why, by example, never \
+terminology ("-nga — she's your elder") — one clause is a beat, two is a lecture (the \
+Contrast Beat). If cold — celebrate, short ("adhu dhaan! 🔥"). Phonetic Tamil is fine here (it's a text \
 notification). Do NOT append any score — Python adds the deck line.
 
 MOMENTUM CHAIN: if (and ONLY if) the verdict is "cold" or "hinted", you MAY ride the \
