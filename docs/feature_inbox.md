@@ -4,12 +4,11 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
-Endorsed in principle 2026-07-08 (pedagogy review — direction approved, design not yet explored):
+Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
 
-- **Explicit contrast beat** — amend "recast, never lecture" with a ten-second *why* ("you said X — it's Y, because aunties get -nga"); recasts alone have low noticing, and Engines 0/19 is the evidence. Canon-level change — explore with Andrew first.
-- **Fixed-time anchor push** — one predictable daily slot (habit research favors it) alongside the opportunistic reaches; likely the volley's home.
-- **Daily spoken reps** — the trip test is mouth-under-pressure, nearly all current production is typed; put `render_drill.py` into actual rotation (pairs with the voice-loop idea below).
-- **Cold decay / re-test dates** — cold is a one-way door today; confirmations at ~2/7/21 days or it demotes. Interacts with the deck meter — design carefully.
+- **Fixed-time anchor push** — one predictable daily slot alongside the opportunistic reaches; likely the volley's home. **Deliberately deferred 2026-07-08 (Andrew):** watch a week of volley timing first — if Anna reliably fires morning volleys on his own, this is moot; a Python-forced anchor would also reopen "outreach policy is Anna's."
+- **Daily spoken reps** — the trip test is mouth-under-pressure, nearly all current production is typed. **Experiment started by hand 2026-07-08:** first drill cut and on the feed ('Cold Fire: Eight Due'); machinery (drill-as-knock, below) waits until a few drills prove the format.
+- **Cold decay / re-test dates** — cold is a one-way door today; confirmations at ~2/7/21 days or it demotes. Interacts with the deck meter (headline could go backward mid-sprint) and needs graduation data that doesn't exist yet — **defer past the trip.**
 
 - **Voice loop (speech-IN half)** — let Anna *hear* Andrew: a phone voice-note lands, gets transcribed, judged like a knock reply. The speech-OUT half shipped 2026-07-02 as the drill track (`render_drill.py`); what remains open is Andrew's voice coming back in.
 - **Pull the wife in as the north star** — the real viability floor is "can I say this to her." Anna could hand a line: "try this one, tell me how it landed tomorrow." Costs no code.
@@ -18,6 +17,10 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved, design
 
 ## Shipped
 
+- ~~Explicit contrast beat~~ — DONE 2026-07-08 (same-day canon amendment, Andrew approved):
+  a recast may carry ONE clause of why, by example, never terminology — one clause is a
+  beat, two is a lecture. Canonical in `constitution.md` → The Contrast Beat; echoed in
+  persona/daily_session/judge mandate.
 - ~~Per-word verdicts in the reply judge~~ — DONE 2026-07-03 (same day it was found —
   Andrew approved building it): the judge grades each fired word on its own
   (`fired: [{word, verdict}]`), Python derives the reply's overall verdict as the best
