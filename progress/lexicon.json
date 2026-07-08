@@ -3030,12 +3030,12 @@
     "gloss": "{noun} இருக்கா? → is there {noun}? (e.g. 'coffee இருக்கா?')",
     "phonetic": [],
     "recognition": "comfortable",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       54,
       56
     ],
-    "last_surfaced": null,
+    "last_surfaced": "2026-07-08",
     "deck": "trip",
     "direction": "fire"
   },
