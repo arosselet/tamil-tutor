@@ -753,5 +753,32 @@
     "chained": 1,
     "pinned_target": "frame:in-la",
     "pinned_revealed": false
+  },
+  {
+    "date": "2026-07-09",
+    "timestamp": "2026-07-09T19:39:05.943553+00:00",
+    "acted": true,
+    "modality": "volley",
+    "move": "tea stall blitz",
+    "rationale": "He's replied twice today so the loop is warm — volley now hits the deck's worst burn rate while demand-streak allows one more ask, and all three targets are unseen-safe cold items.",
+    "next_check": "2026-07-10T00:39:05.943553+00:00",
+    "body": "⚡ volley 1/3 — counter. you want one chai. what do you tell him?",
+    "expected_target": "frame:want-noun",
+    "target_revealed": false,
+    "volley": [
+      {
+        "target": "frame:want-noun",
+        "ask": "counter. you want one chai. what do you tell him?"
+      },
+      {
+        "target": "frame:where-noun",
+        "ask": "you need the bus stop. ask the guy at the stall."
+      },
+      {
+        "target": "புரியல",
+        "ask": "she's explaining something fast and you've lost the thread completely. what do you say?"
+      }
+    ],
+    "volley_next": 1
   }
 ]
