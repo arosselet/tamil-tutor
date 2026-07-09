@@ -32,6 +32,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! 🔥 coffee irukka — that's the frame, fired clean.
 
+**21:16 · Andrew** — **CHAT**
+> “Oru masam irrupom” i want a little lore about that suffix pom
+
+**Anna ↩**
+> ok — 'iruppom' is actually magic. '-om' is 'we' baked into the verb: 'iruppa' (to be/stay) + '-om' = 'we will be'. so 'oru masam iruppom' = 'we'll be here one month' — no separate word for 'we', the ending IS we. same trick: 'porOm' (we're going), 'saapiduvom' (we'll eat). Kongu people drop it casually all the time — it's commitment + we, one syllable.
+
 
 ## Tuesday 2026-07-07
 
