@@ -15,6 +15,7 @@ A fixed bug becomes a case here the day it's fixed:
   #3  chained follow-up overwrote the original ask; chat lost chained replies (2026-07-06)
   #4  hinted-forever: reveal-capped fires now graduate cross-day (2026-07-08)
   #5  volley knock: binding targets + deterministic chain advance (2026-07-08)
+  #6  eavesdrop dose: catch replies move recognition only, never production (2026-07-09)
 """
 import argparse
 import importlib
@@ -411,7 +412,7 @@ def s9_audio_knock_feed(mk, sb: Path):
     pushes, commits = Recorder(), Recorder()
     mk.push_to_phone, mk.commit_and_push = pushes, commits
 
-    async def fake_render(memo_script, out_path):
+    async def fake_render(memo_script, out_path, voice=None):
         out_path.parent.mkdir(parents=True, exist_ok=True)
         out_path.write_bytes(b"smoke-mp3")
     mk.render_memo = fake_render
@@ -662,6 +663,72 @@ def s12_volley(mk, kr, sb: Path):
     check("original volley ask survives on record", entry.get("expected_target") == w1)
 
 
+def s13_eavesdrop(mk, kr, sb: Path):
+    """#6 (2026-07-09): the catch-axis knock. An eavesdrop reply is judged on
+    the drift mandate and moves RECOGNITION one rung per catch (upgrades only,
+    solid = the deck win); production and the fire meters never move."""
+    print("\n13. Eavesdrop dose — drift replies move the catch axis only (regression #6)")
+    prog = sb / "progress"
+    lex_path, klog_path = prog / "lexicon.json", prog / "knock_log.json"
+    w = "தெரியுமா"
+
+    # normalize_decision: a tape-less eavesdrop degrades to text; a real one
+    # keeps the modality and never counts as a revealed production ask
+    raw = {"act": True, "modality": "eavesdrop", "move": "gossip tape",
+           "rationale": "smoke", "next_check_hours": 3, "memo_script": "",
+           "notification_body": "who's the news about?", "expected_target": w,
+           "target_revealed": True, "schedule": None}
+    d = mk.normalize_decision(dict(raw))
+    check("tape-less eavesdrop degrades to text", d["modality"] == "text")
+    raw["memo_script"] = "தெரியுமா… அவங்க பொண்ணு Chennai-ல வேலை-ஆம்!"
+    d = mk.normalize_decision(dict(raw))
+    check("eavesdrop keeps modality, target unrevealed",
+          d["modality"] == "eavesdrop" and d["target_revealed"] is False)
+
+    write_json(lex_path, {w: {
+        "gloss": "you know?", "phonetic": ["theriyuma"], "recognition": "struggled",
+        "production": "none", "seen_in": [], "last_surfaced": "2026-07-01",
+        "deck": "trip", "direction": "catch", "type": "chunk"}})
+    kr.push_to_phone, kr.commit_and_push = Recorder(), Recorder()
+    now = datetime.now(timezone.utc)
+
+    def eavesdrop_knock() -> dict:
+        return {"date": now.date().isoformat(), "timestamp": now.isoformat(),
+                "acted": True, "modality": "eavesdrop", "move": "gossip tape",
+                "body": "who's the news about?", "memo_script": raw["memo_script"],
+                "expected_target": w, "target_revealed": False}
+
+    def reply(text: str, verdict: str):
+        kr.judge_catch = lambda k, r: {"verdict": verdict, "reply_line": "adhu dhaan 🎧",
+                                       "meta_note": "", "rationale": "smoke"}
+        sys.argv = ["knock_reply.py", text]
+        kr.main()
+
+    # caught → one rung; caught again → solid; production never moves
+    log = read_json(klog_path); log.append(eavesdrop_knock()); write_json(klog_path, log)
+    reply("her daughter got a job in Chennai", "caught")
+    lex = read_json(lex_path)
+    check("caught bumps recognition one rung", lex[w]["recognition"] == "comfortable")
+    check("production untouched by a catch", lex[w]["production"] == "none")
+    entry = read_json(klog_path)[-1]
+    check("catch reply logs no production fire",
+          entry.get("reply_fired") is None and entry["exchanges"][-1]["fired"] == [],
+          str(entry.get("reply_fired")))
+    check("catch verdict on record", entry.get("reply_verdict") == "caught")
+
+    log = read_json(klog_path); log.append(eavesdrop_knock()); write_json(klog_path, log)
+    reply("something about a wedding date", "caught")
+    check("second catch reaches solid — the deck win",
+          read_json(lex_path)[w]["recognition"] == "solid")
+
+    # missed / chat move nothing
+    log = read_json(klog_path); log.append(eavesdrop_knock()); write_json(klog_path, log)
+    before = read_json(lex_path)[w]
+    reply("no idea, too fast", "missed")
+    after = read_json(lex_path)[w]
+    check("missed drift moves no axis", after["recognition"] == before["recognition"])
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -679,6 +746,7 @@ def main():
         s10_chain_history(mk, kr, sb)
         s11_capped_graduation(kr, sb)
         s12_volley(mk, kr, sb)
+        s13_eavesdrop(mk, kr, sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)

@@ -5,7 +5,10 @@ The reply half of the knock loop — the micro-session on the lock screen.
 Andrew types phonetic Tamil straight into the knock notification; Home Assistant
 routes it here (via repository_dispatch → log-knock-response.yml). Anna judges the
 reply against what that knock asked for, moves the production axis, and pushes one
-line back — the recast (or the celebration) plus the deck scoreboard.
+line back — the recast (or the celebration) plus the deck scoreboard. An EAVESDROP
+knock takes a separate lane (2026-07-09): the reply is an English drift answer,
+judged for comprehension on its own small mandate, and moves the RECOGNITION axis
+of the dose's ear-only deck item — the catch half of the sprint meter.
 
 Judge philosophy: this is the recast across the table, not an exam. Anna is
 generous in spirit but honest on the axis — each fired word is graded on its OWN
@@ -161,6 +164,146 @@ Return ONLY a JSON object, no prose around it:
   "rationale": "<one line, for the log>"
 }
 """
+
+
+CATCH_VERDICTS = {"caught", "half-caught", "missed", "chat"}
+RECOGNITION_NEXT = {"struggled": "comfortable", "comfortable": "solid"}
+
+CATCH_JUDGE_MANDATE = """\
+You are Anna, judging ONE reply to an EAVESDROP dose — Andrew heard a short overheard \
+tape (memo_script) and the notification asked him a drift question in English. This \
+grades COMPREHENSION (the deck's catch axis), never production: did he catch who/what/mood?
+
+GRADES:
+- "caught"      — his answer shows he got the drift (who / what / mood — the gist, never \
+a transcript). English answers are expected and fine; Tamil in the reply is a warm bonus, \
+not required and not graded here.
+- "half-caught" — partial: the who but not the what, the mood but not the news.
+- "missed"      — the answer shows the tape didn't land.
+- "chat"        — not an answer at all (English logistics, a question, meta-direction).
+
+Never grade wording, spelling, or completeness of detail — the win condition is the DRIFT. \
+This judge moves no production state, ever.
+
+"reply_line": the one line Anna pushes back — celebrate a catch short ("adhu dhaan — you \
+caught it 🎧"), or hand the missed gist in ONE clause (English fine; you may quote the \
+tape's key Tamil line). No lecture, no replay-homework.
+
+META-DIRECTION IS A FIRST-CLASS REPLY: corrections and steering land in "meta_note" for \
+the feedback ledger, exactly as in chat replies.
+
+Return ONLY a JSON object, no prose around it:
+{
+  "verdict": "caught" | "half-caught" | "missed" | "chat",
+  "reply_line": "<one line>",
+  "meta_note": "<one line ONLY when the reply carried direction/correction for the system; empty string otherwise>",
+  "rationale": "<one line, for the log>"
+}
+"""
+
+
+def judge_catch(knock: dict, reply_text: str) -> dict:
+    """The comprehension judge for an eavesdrop dose — a deliberately separate,
+    smaller mandate so the production judge's rules (reveal caps, chains,
+    per-word grades) never leak into a drift grade."""
+    persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
+    context = {
+        "tape_memo_script": knock.get("memo_script", ""),
+        "drift_question": knock.get("body", ""),
+        "ear_only_target": knock.get("expected_target", ""),
+        "andrew_reply": reply_text,
+    }
+    client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
+    resp = client.chat.completions.create(
+        model=MODEL,
+        max_tokens=400,
+        messages=[
+            {"role": "system", "content": persona + "\n\n---\n\n" + CATCH_JUDGE_MANDATE},
+            {"role": "user", "content": json.dumps(context, ensure_ascii=False, indent=2)},
+        ],
+    )
+    d = parse_llm_json(resp.choices[0].message.content)
+    if d.get("verdict") not in CATCH_VERDICTS:
+        d["verdict"] = "chat"
+    d["reply_line"] = (d.get("reply_line") or "").strip()
+    d["meta_note"] = (d.get("meta_note") or "").strip()
+    return d
+
+
+def apply_catch_verdict(verdict: dict, knock: dict, lexicon: dict) -> list[str]:
+    """Move the RECOGNITION axis for the dose's ear-only target — one rung per
+    full catch (struggled → comfortable → solid), upgrades only, mirroring the
+    production judge's never-demote rule. 'solid' on a catch item is the deck's
+    win condition; production is never touched from here."""
+    if verdict["verdict"] != "caught":
+        return [f"no axis move ({verdict['verdict']})"]
+    key = resolve(knock.get("expected_target", ""), lexicon, build_phonetic_index(lexicon))
+    if key is None:
+        return [f"! eavesdrop target {knock.get('expected_target')!r} resolves to no lexicon record — not scored"]
+    rec = lexicon[key]
+    cur = rec.get("recognition", "struggled")
+    nxt = RECOGNITION_NEXT.get(cur)
+    rec["last_surfaced"] = date.today().isoformat()
+    if nxt is None:
+        return [f"{key} already {cur} — kept (caught)"]
+    rec["recognition"] = nxt
+    return [f"{key} recognition → {nxt.upper()} (caught)"]
+
+
+def catch_meter(lexicon: dict) -> str:
+    from suggest_targets import deck_status  # lazy: keeps module import light
+    deck = deck_status(lexicon)
+    if not deck or not deck.get("catch_total"):
+        return ""
+    days = (TRIP_DATE - date.today()).days
+    return f"Catch {deck['caught']}/{deck['catch_total']} · {days}d"
+
+
+def handle_catch_reply(knock: dict, reply_text: str, klog: list,
+                       lexicon: dict, dry_run: bool):
+    """The eavesdrop counterpart of the production flow below: judge the drift,
+    move recognition, log the exchange in the same shape (chat.md and the
+    outcome memory read it unchanged), push one line back. No chains, no
+    volley, no production meters."""
+    print(f"1. judging DRIFT reply against eavesdrop knock {knock.get('timestamp', '?')[:16]}…")
+    verdict = judge_catch(knock, reply_text)
+    print(f"   → {verdict['verdict']} | {verdict.get('rationale', '')}")
+
+    if dry_run:
+        print(f"[dry-run] would apply, then push: {verdict['reply_line']} · {catch_meter(lexicon)}")
+        return
+
+    print("2. state…")
+    for line in apply_catch_verdict(verdict, knock, lexicon):
+        print(f"   {line}")
+
+    knock["response"] = "reply"
+    knock["reply"] = reply_text
+    knock["reply_verdict"] = verdict["verdict"]
+    knock["reply_line"] = verdict["reply_line"]
+    knock["reply_at"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    knock.setdefault("exchanges", []).append({
+        "at": knock["reply_at"], "reply": reply_text,
+        "verdict": verdict["verdict"], "fired": [],
+        "reply_line": knock["reply_line"],
+    })
+    save_json(LEXICON_PATH, lexicon)
+    save_json(KNOCK_LOG_PATH, klog)
+
+    print("3. commit + push…")
+    commit_paths = [LEXICON_PATH, KNOCK_LOG_PATH, render_chat()]
+    if verdict["meta_note"]:
+        flog = load_json(FEEDBACK_LOG_PATH) or []
+        flog.append({"date": date.today().isoformat(), "note": f"[phone] {verdict['meta_note']}"})
+        save_json(FEEDBACK_LOG_PATH, flog)
+        commit_paths.append(FEEDBACK_LOG_PATH)
+        print(f"   meta → ledger: {verdict['meta_note']}")
+    commit_and_push(commit_paths, f"Knock reply: {verdict['verdict']} (eavesdrop)")
+
+    print("4. push back…")
+    body = " · ".join(p for p in (verdict["reply_line"], catch_meter(lexicon)) if p)
+    push_to_phone(body, None)
+    print("done — drift judged, catch axis scored, answered.")
 
 
 def last_fired_knock(klog: list) -> dict | None:
@@ -433,6 +576,14 @@ def main():
         return
 
     lexicon = load_json(LEXICON_PATH) or {}
+
+    if knock.get("modality") == "eavesdrop":
+        # Comprehension dose — the reply grades the CATCH axis, on its own
+        # smaller mandate; nothing below (reveal caps, chains, volley walk,
+        # production meters) applies to a drift answer.
+        handle_catch_reply(knock, reply_text, klog, lexicon, args.dry_run)
+        return
+
     phon_index = build_phonetic_index(lexicon)
     target, _ = current_pin(knock)
     target_key = resolve(target, lexicon, phon_index) if target else None
