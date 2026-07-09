@@ -696,5 +696,18 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-07-09T14-49.mp3",
     "memo_script": "You asked about the ending on ஒரு மாசம் இருப்போம் — that last syllable, -om.\n\nTamil verbs carry the person right inside them. Not a separate word like 'we' stuck on front — the verb itself changes shape to say who's doing it. And -om is the shape it takes when it's *we, together, and it's settled*.\n\nஇருப்போம் — we'll be staying. Not 'maybe we'll stay.' Not 'we are staying.' *We'll be there* — committed, collective, done.\n\nThe same -om runs through everything:\n\nசாப்பிடுவோம் — we'll eat.\n\nபோவோம் — let's go.\n\nபாப்போம் — we'll see.\n\nListen for it at the table. When your maama says போவோம், he's not asking — he's announcing. The car is already started in his head.\n\nSo ஒரு மாசம் இருப்போம் — that's not 'we're planning to stay one month.' That's 'one month — we're there.' The -om is the full stop.\n\nOne suffix. Whole vibe.",
     "mp3": "published_audio/knocks/knock_2026-07-09T14-49.mp3"
+  },
+  {
+    "date": "2026-07-09",
+    "timestamp": "2026-07-09T15:42:27.407910+00:00",
+    "acted": true,
+    "scheduled": true,
+    "queue_id": "q1783518864",
+    "modality": "text",
+    "move": "cold fire: -la locative",
+    "rationale": "scheduled at 2026-07-08T13:54 for 2026-07-09T13:00",
+    "body": "ok — maami picks up the phone. 'enna, phone-la pesareenga, veetla illeenga-ah?' 📞 Where are you — fire it back: one word + ல",
+    "expected_target": "frame:in-la",
+    "target_revealed": false
   }
 ]

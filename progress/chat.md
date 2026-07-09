@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **10:49 · Anna** 🎧  ·  audio / lore memo: -om suffix
 > 🎙️ you asked about that -om ending — iruppom, pairom, saapiduvom. one suffix does the work of 'we've decided.' 90 seconds.
 
+**11:42 · Anna**  ·  text / cold fire: -la locative
+> ok — maami picks up the phone. 'enna, phone-la pesareenga, veetla illeenga-ah?' 📞 Where are you — fire it back: one word + ல
+
 
 ## Wednesday 2026-07-08
 
