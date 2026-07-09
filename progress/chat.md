@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Thursday 2026-07-09
+
+**10:49 · Anna** 🎧  ·  audio / lore memo: -om suffix
+> 🎙️ you asked about that -om ending — iruppom, pairom, saapiduvom. one suffix does the work of 'we've decided.' 90 seconds.
+
+
 ## Wednesday 2026-07-08
 
 **09:53 · Anna** 🎧  ·  audio / lore memo: -la locative

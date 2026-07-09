@@ -681,5 +681,20 @@
     "chained": 2,
     "pinned_target": "frame:isthere-noun",
     "pinned_revealed": false
+  },
+  {
+    "date": "2026-07-09",
+    "timestamp": "2026-07-09T14:49:08.598295+00:00",
+    "acted": true,
+    "modality": "audio",
+    "move": "lore memo: -om suffix",
+    "rationale": "Andrew explicitly asked for lore on the -om suffix in his last reply — close the open thread with audio (he asked for more of those), no production ask to reset the demand-streak, and plant tomorrow's cold-fire ask for ஒரு மாசம் இருப்போம் once the lore has soaked overnight.",
+    "next_check": "2026-07-09T19:49:08.598295+00:00",
+    "body": "🎙️ you asked about that -om ending — iruppom, pairom, saapiduvom. one suffix does the work of 'we've decided.' 90 seconds.",
+    "expected_target": "",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-07-09T14-49.mp3",
+    "memo_script": "You asked about the ending on ஒரு மாசம் இருப்போம் — that last syllable, -om.\n\nTamil verbs carry the person right inside them. Not a separate word like 'we' stuck on front — the verb itself changes shape to say who's doing it. And -om is the shape it takes when it's *we, together, and it's settled*.\n\nஇருப்போம் — we'll be staying. Not 'maybe we'll stay.' Not 'we are staying.' *We'll be there* — committed, collective, done.\n\nThe same -om runs through everything:\n\nசாப்பிடுவோம் — we'll eat.\n\nபோவோம் — let's go.\n\nபாப்போம் — we'll see.\n\nListen for it at the table. When your maama says போவோம், he's not asking — he's announcing. The car is already started in his head.\n\nSo ஒரு மாசம் இருப்போம் — that's not 'we're planning to stay one month.' That's 'one month — we're there.' The -om is the full stop.\n\nOne suffix. Whole vibe.",
+    "mp3": "published_audio/knocks/knock_2026-07-09T14-49.mp3"
   }
 ]
