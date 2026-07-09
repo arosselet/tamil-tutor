@@ -152,6 +152,24 @@ Details live in git history; this is the index of the *conclusions*.
   feedback under-notices (Engines 0/19 after weeks of pure recasts); one clause, by
   example, never terminology — two clauses is a lecture. Loosens "recast, never lecture"
   the way lore loosened the scenario monoculture; "No Academic Terms" untouched.
+- **The eavesdrop dose — catch gets its own phone channel** (2026-07-09). Catch sat 0/10
+  with its only training locked inside the laptop session (the volley disease, untreated on
+  the listening side); a knock modality now plays a one-sided phone-call tape in a pinned
+  aunty voice and asks one English drift question, and a separate drift-judge lane moves the
+  ear-only item's recognition one rung per catch (upgrades only; solid = the deck win).
+  Production meters untouched; rides the knock-memo render carve-out and the gossip-tape
+  coverage carve-out. Replaces the session-only eavesdrop drill as catch's sole channel.
+- **Volley size 3→4; deck tiering rejected** (2026-07-09). Pace ran ~1.5 cold/day vs the
+  1.8 the meter demands; Andrew chose a bigger volley over a tiered "core deck" headline —
+  the deck is small enough to clear whole and he wants no item deprioritized. Amends the
+  07-08 three-item spec; next lever if pace still trails is a second daily volley.
+- **The wife channel stays opportunistic** (2026-07-09). Daily/scheduled micro field-missions
+  rejected; Anna hands a home fire only when a deck item is ripe and the moment is obvious
+  (the 'suvaiya irukku' pattern). The Oracle protections stand unchanged.
+- **Speech-in is parked on evidence, not desire** (2026-07-09). Andrew's block is confidence
+  that models parse spoken Thanglish, not friction — he does the spoken drills as rendered;
+  de-risk with a spike (a few real voice notes through an audio-capable model) before any
+  machinery. Rejects building the voice loop straight from the inbox item.
 - **TTS text gets defanged at the renderer, not by prompt discipline** (2026-07-07).
   Google TTS voices a hyphen glued to a word as "minus" ("-இட்டு" → "minus ittu",
   done-ittu memo, Andrew's report): `defang_hyphens()` in `render_audio.py` now guards
