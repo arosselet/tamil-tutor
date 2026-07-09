@@ -3016,12 +3016,12 @@
     "gloss": "{noun} எங்க? → where is {noun}? (e.g. 'bus stop எங்க?')",
     "phonetic": [],
     "recognition": "comfortable",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       54,
       56
     ],
-    "last_surfaced": null,
+    "last_surfaced": "2026-07-09",
     "deck": "trip",
     "direction": "fire"
   },
