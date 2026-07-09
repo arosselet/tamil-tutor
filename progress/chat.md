@@ -12,6 +12,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **11:42 · Anna**  ·  text / cold fire: -la locative
 > ok — maami picks up the phone. 'enna, phone-la pesareenga, veetla illeenga-ah?' 📞 Where are you — fire it back: one word + ல
 
+**12:41 · Andrew** — **HINTED**
+> Veetla
+
+**Anna ↩**
+> adhu dhaan! veetla — perfect. 🔥 · maami asks what you're doing there. one word + ல — 'I'm at the office.' fire it.
+
 
 ## Wednesday 2026-07-08
 

@@ -3556,9 +3556,9 @@
       "veettula"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [],
-    "last_surfaced": null,
+    "last_surfaced": "2026-07-09",
     "deck": "trip",
     "direction": "fire"
   },
