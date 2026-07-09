@@ -9,7 +9,8 @@ Division of labour:
     daily cap, a minimum gap, and Anna's own `next_check` soft-gate. It cheaply
     skips a tick (no LLM) unless a reach is actually possible and due.
   - Anna owns the POLICY: at each wake he decides fire-or-silence, the move, the
-    MODALITY (text micro-dose / audio memo / challenge / grace / silence), his own
+    MODALITY (text micro-dose / audio memo / challenge / volley / eavesdrop tape /
+    grace / silence), his own
     next check-in time (self-pacing), and logs a one-line rationale so his choices
     stay inspectable — and so he can learn from what worked.
 
@@ -48,6 +49,7 @@ from render_chat import render_chat
 OPENROUTER_BASE = "https://openrouter.ai/api/v1"   # OpenAI-compatible; one key, many models
 MODEL = "anthropic/claude-sonnet-4.6"   # Andrew's default; fallback e.g. "google/gemini-2.5-flash"
 ANNA_VOICE = "ta-IN-Chirp3-HD-Orus"     # pinned: Anna always sounds like the same someone
+EAVESDROP_VOICE = "ta-IN-Chirp3-HD-Kore"  # pinned: the overheard aunty is one consistent voice too — ear-training tracks a speaker, and the trip's real voices are the aunties, not Anna
 REPO = "arosselet/tamil-tutor"          # for the jsDelivr URL
 KNOCKS_DIR = BASE / "published_audio" / "knocks"   # tracked, jsDelivr-served dir
 KNOCK_LOG_PATH = BASE / "progress" / "knock_log.json"
@@ -63,8 +65,10 @@ MAX_REACHES_PER_DAY = 5    # a "reach" = a knock that actually fired (silence do
 MIN_GAP_HOURS = 3          # minimum spacing between reaches
 NEXT_CHECK_CLAMP = (0.5, 24.0)   # Anna's self-set next_check is clamped to this many hours
 
-MODALITIES = {"text", "audio", "challenge", "volley", "grace", "silence"}
-VOLLEY_SIZE = 3   # deck items per volley knock — one per exchange, chained by Python
+MODALITIES = {"text", "audio", "challenge", "volley", "eavesdrop", "grace", "silence"}
+VOLLEY_SIZE = 4   # deck items per volley knock — one per exchange, chained by Python
+                  # (3→4 2026-07-09: pace trailed 1.5 vs 1.8 needed; Andrew chose a bigger
+                  # volley over deck tiering — next lever if it still trails is a 2nd volley)
 
 # Lock-screen render budget. The mandate asks for ≤140; past ~160 iOS cuts the
 # body and the dose dies unseen (2026-07-05 feedback). Warn-only — a trimmed
@@ -393,6 +397,16 @@ most days should carry ONE volley — it is where the deck's volume lives; read 
 line's burn rate (need vs. trailing pace): that gap is what the volley exists to close. It \
 counts as ONE demand dose for the variety law, and its best slot is usually the day's first \
 reach.
+- "eavesdrop" — the CATCH-axis dose: memo_script is an overheard TAPE, not Anna talking — \
+one side of a phone call in a rendered aunty voice (gossip reaches Andrew exactly this way). \
+Weave ONE ear-only deck item (the digest marks them) into ~45-90s of natural chatter, Tamil \
+script only, real spoken rhythm; the 95%-coverage rule does NOT apply here — catching the \
+DRIFT of partly-unknown speech IS the skill (the gossip-tape carve-out). notification_body = \
+one English drift-question about the tape ("who got the job?" / "what's the aunty worked up \
+about?") — the reply is ENGLISH comprehension, never a production ask. expected_target = that \
+ear-only item's key; set target_revealed=false. The deck's catch half advances ONLY through \
+this move: when the status line shows catch trailing and an ear-only item is due, this dose \
+is usually a better spend than another production ask.
 - "grace"     — a warm, no-pressure note when he's lapsed (a missed day is nothing — the Enjoyment Clause). Text delivery.
 - "silence"   — reach nothing this tick. Set act=false. Choose this freely; often correct.
 
@@ -458,10 +472,10 @@ Return ONLY a JSON object, no prose around it:
   "modality": "text" | "audio" | "challenge" | "grace" | "silence",
   "move": "<2-4 word label of the move, for the log>",
   "notification_body": "<the lock-screen line — valuable even if never tapped; MUST carry a Tamil phrase + tiny English gloss. One emoji ok. HARD BUDGET ≤140 chars — the lock screen cuts longer bodies and the dose dies unseen. Empty string if silence.>",
-  "memo_script": "<ONLY for modality 'audio': the spoken memo, paragraphs separated by ONE blank line (\\n\\n) — never single \\n within a paragraph. Tamil payload in Tamil script. Empty string otherwise.>",
+  "memo_script": "<ONLY for modality 'audio' or 'eavesdrop': the spoken memo (audio) or the overheard tape (eavesdrop), paragraphs separated by ONE blank line (\\n\\n) — never single \\n within a paragraph. Tamil payload in Tamil script. Empty string otherwise.>",
   "expected_target": "<the one word/chunk/frame a good reply would fire (Tamil script or frame:... key); empty string if this dose asks for nothing specific>",
   "target_revealed": true | false,      // does the body/memo show that Tamil itself?
-  "volley_asks": ["<one-line English situation for VOLLEY TARGET 1>", "<…for TARGET 2>", "<…for TARGET 3>"],   // ONLY for modality "volley"; omit otherwise. Python zips these with its binding targets and composes the body from ask 1.
+  "volley_asks": ["<one-line English situation for VOLLEY TARGET 1>", "<…one per listed VOLLEY TARGET, index-matched>"],   // ONLY for modality "volley"; omit otherwise. Python zips these with its binding targets and composes the body from ask 1.
   "next_check_hours": <number>,         // when to reconsider (clamped to a sane range)
   "schedule": {"at_local": "YYYY-MM-DDTHH:MM", "body": "<the full dose>", "expected_target": "<or empty>", "target_revealed": true | false, "move": "<2-4 words>"} | null,
   "rationale": "<one line: why this choice>"
@@ -544,6 +558,11 @@ def normalize_decision(d: dict, volley_menu: list | None = None) -> dict:
     d["expected_target"] = (d.get("expected_target") or "").strip()
     d["target_revealed"] = bool(d.get("target_revealed", True))
     d["schedule"] = d.get("schedule") if isinstance(d.get("schedule"), dict) else None
+    if d["modality"] == "eavesdrop":
+        if (d.get("memo_script") or "").strip():
+            d["target_revealed"] = False  # the tape plays Tamil, but the ask is comprehension
+        else:
+            d["modality"] = "text"  # no tape to render — plain dose
     if d["modality"] == "volley":
         asks = [a.strip() for a in (d.get("volley_asks") or [])
                 if isinstance(a, str) and a.strip()]
@@ -596,13 +615,13 @@ def load_env(path: Path):
         os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
 
 
-async def render_memo(memo_script: str, out_path: Path):
+async def render_memo(memo_script: str, out_path: Path, voice: str = ANNA_VOICE):
     import tempfile
     paras = [p.strip() for p in memo_script.split("\n\n") if p.strip()]
     audio = bytearray()
     tmp = tempfile.mkdtemp()
     for i, para in enumerate(paras):
-        seg = await generate_segment_google(clean_memo_for_tts(para), ANNA_VOICE, i, tmp)
+        seg = await generate_segment_google(clean_memo_for_tts(para), voice, i, tmp)
         audio.extend(get_raw_mp3_frames(seg))
         audio.extend(SILENCE_FRAME * 25)  # ~0.6s breath between paragraphs
         os.remove(seg)
@@ -736,10 +755,11 @@ def main():
     body = decision.get("notification_body", "")
     mp3 = None
     audio_url = None
-    if decision["modality"] == "audio":
+    if decision["modality"] in ("audio", "eavesdrop"):
         print("3. render…")
         mp3 = KNOCKS_DIR / f"knock_{now.strftime('%Y-%m-%dT%H-%M')}.mp3"
-        asyncio.run(render_memo(decision.get("memo_script", ""), mp3))
+        voice = EAVESDROP_VOICE if decision["modality"] == "eavesdrop" else ANNA_VOICE
+        asyncio.run(render_memo(decision.get("memo_script", ""), mp3, voice))
         audio_url = jsdelivr_url(mp3)
 
     print("\n--- notification body ---\n" + body + "\n")
