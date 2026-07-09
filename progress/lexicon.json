@@ -395,7 +395,7 @@
       32,
       33
     ],
-    "last_surfaced": "2026-07-08"
+    "last_surfaced": "2026-07-09"
   },
   "பத்து": {
     "gloss": "Ten",
@@ -3001,13 +3001,13 @@
     "gloss": "{English noun} வேணும் → I want {noun} (e.g. 'auto வேணும்')",
     "phonetic": [],
     "recognition": "comfortable",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [
       54,
       55,
       56
     ],
-    "last_surfaced": null,
+    "last_surfaced": "2026-07-09",
     "deck": "trip",
     "direction": "fire"
   },

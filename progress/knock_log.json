@@ -779,6 +779,35 @@
         "ask": "she's explaining something fast and you've lost the thread completely. what do you say?"
       }
     ],
-    "volley_next": 1
+    "volley_next": 2,
+    "response": "reply",
+    "reply": "Onnu tea kuttinge",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "ஒன்னு",
+      "frame:want-noun"
+    ],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line": "close! 'ஒரு tea வேணும்' — 'onnu' is a count on its own; here you want 'oru tea venum' 🍵 · 2/3 — you need the bus stop. ask the guy at the stall.",
+    "reply_at": "2026-07-09T19:42:59Z",
+    "exchanges": [
+      {
+        "at": "2026-07-09T19:42:59Z",
+        "reply": "Onnu tea kuttinge",
+        "verdict": "hinted",
+        "fired": [
+          "ஒன்னு",
+          "frame:want-noun"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "close! 'ஒரு tea வேணும்' — 'onnu' is a count on its own; here you want 'oru tea venum' 🍵 · 2/3 — you need the bus stop. ask the guy at the stall."
+      }
+    ],
+    "chained": 1,
+    "pinned_target": "frame:where-noun",
+    "pinned_revealed": false
   }
 ]
