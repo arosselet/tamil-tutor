@@ -152,6 +152,16 @@ Details live in git history; this is the index of the *conclusions*.
   feedback under-notices (Engines 0/19 after weeks of pure recasts); one clause, by
   example, never terminology — two clauses is a lecture. Loosens "recast, never lecture"
   the way lore loosened the scenario monoculture; "No Academic Terms" untouched.
+- **The constitution's goal line stands — the dual goal is confirmed** (2026-07-09).
+  Stealth-foreigner in public AND family connection are both true and neither edits the
+  other: understanding-when-nobody-expects-it (the zinger) is the dopamine engine, and with
+  the English-fluent in-laws the visible *trying* is itself the connection win. Rejects the
+  "goal drift" concern from the 07-09 review; no canon edit.
+- **Push-led weeks are a valid mode, not a lapse** (2026-07-09). A busy week carried
+  entirely by knocks and memos still progressed — every memo heard multiple times, "a
+  weight lifted" vs the old episode grind. A session gap during an engaged reply streak is
+  channel-shift, not fade; refines "a fade is palatability data" — never point
+  accountability at session cadence while replies are flowing.
 - **The eavesdrop dose — catch gets its own phone channel** (2026-07-09). Catch sat 0/10
   with its only training locked inside the laptop session (the volley disease, untreated on
   the listening side); a knock modality now plays a one-sided phone-call tape in a pinned
