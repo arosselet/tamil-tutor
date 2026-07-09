@@ -39,6 +39,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! 🔥 bus stop எங்க — clean. · 3/3 — she's explaining something fast and you've lost the thread completely. what do you say?
 
+**15:47 · Andrew** — **HINTED**
+> Puriyavillai
+
+**Anna ↩**
+> close — we'd say 'puriyala'. adhu dhaan the shape. 🍵
+
 
 ## Wednesday 2026-07-08
 
