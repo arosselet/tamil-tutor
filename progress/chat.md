@@ -18,6 +18,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! veetla — perfect. 🔥 · maami asks what you're doing there. one word + ல — 'I'm at the office.' fire it.
 
+**12:42 · Andrew** — **HINTED**
+> Officela
+
+**Anna ↩**
+> officela — adhu dhaan! 🔥
+
 
 ## Wednesday 2026-07-08
 

@@ -710,15 +710,18 @@
     "expected_target": "frame:in-la",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Veetla",
+    "reply": "Officela",
     "reply_verdict": "hinted",
     "reply_fired": [
+      "frame:in-la",
       "frame:in-la"
     ],
     "reply_fired_cold": [],
-    "reply_fired_capped": [],
-    "reply_line": "adhu dhaan! veetla — perfect. 🔥 · maami asks what you're doing there. one word + ல — 'I'm at the office.' fire it.",
-    "reply_at": "2026-07-09T16:41:12Z",
+    "reply_fired_capped": [
+      "frame:in-la"
+    ],
+    "reply_line": "officela — adhu dhaan! 🔥",
+    "reply_at": "2026-07-09T16:42:03Z",
     "exchanges": [
       {
         "at": "2026-07-09T16:41:12Z",
@@ -731,6 +734,20 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "adhu dhaan! veetla — perfect. 🔥 · maami asks what you're doing there. one word + ல — 'I'm at the office.' fire it."
+      },
+      {
+        "at": "2026-07-09T16:42:03Z",
+        "reply": "Officela",
+        "verdict": "hinted",
+        "fired": [
+          "frame:in-la"
+        ],
+        "fired_cold": [],
+        "fired_capped": [
+          "frame:in-la"
+        ],
+        "graduated": [],
+        "reply_line": "officela — adhu dhaan! 🔥"
       }
     ],
     "chained": 1,
