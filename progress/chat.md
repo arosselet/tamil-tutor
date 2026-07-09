@@ -27,6 +27,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **15:39 · Anna**  ·  volley / tea stall blitz
 > ⚡ volley 1/3 — counter. you want one chai. what do you tell him?
 
+**15:42 · Andrew** — **HINTED**
+> Onnu tea kuttinge
+
+**Anna ↩**
+> close! 'ஒரு tea வேணும்' — 'onnu' is a count on its own; here you want 'oru tea venum' 🍵 · 2/3 — you need the bus stop. ask the guy at the stall.
+
 
 ## Wednesday 2026-07-08
 
