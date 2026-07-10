@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Friday 2026-07-10
+
+**09:28 · Anna**  ·  text / cold fire: iruppom
+> maama corners you the moment you land: 'evlo naal irupeenga?' — don't think. fire back. 🎯
+
+
 ## Thursday 2026-07-09
 
 **10:49 · Anna** 🎧  ·  audio / lore memo: -om suffix

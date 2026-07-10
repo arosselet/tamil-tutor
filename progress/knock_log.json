@@ -839,5 +839,18 @@
     "chained": 2,
     "pinned_target": "புரியல",
     "pinned_revealed": false
+  },
+  {
+    "date": "2026-07-10",
+    "timestamp": "2026-07-10T13:28:33.039025+00:00",
+    "acted": true,
+    "scheduled": true,
+    "queue_id": "q1783608584",
+    "modality": "text",
+    "move": "cold fire: iruppom",
+    "rationale": "scheduled at 2026-07-09T14:49 for 2026-07-10T13:00",
+    "body": "maama corners you the moment you land: 'evlo naal irupeenga?' — don't think. fire back. 🎯",
+    "expected_target": "ஒரு மாசம் இருப்போம்",
+    "target_revealed": false
   }
 ]
