@@ -152,6 +152,16 @@ Details live in git history; this is the index of the *conclusions*.
   feedback under-notices (Engines 0/19 after weeks of pure recasts); one clause, by
   example, never terminology — two clauses is a lecture. Loosens "recast, never lecture"
   the way lore loosened the scenario monoculture; "No Academic Terms" untouched.
+- **Foundation over performance pieces** (2026-07-09). The goal is generative capacity to
+  connect — "I don't need Tamil to survive; I'm doing it to connect" — not memorized set
+  pieces for appreciation. Rejects the greenfield review's dress-rehearsal idea (drilling
+  the known trip scenarios whole, at speed): frames/engines stay the spine, scenarios stay
+  disposable pegs. Also corrects that review's dinner-table framing — the table is one venue
+  of a standing relationship, never the goal's center.
+- **The studio's three passes are earned complexity** (2026-07-09). Deliberate machinery for
+  the hard problem of synthesizing spoken colloquial Tamil, not accretion — reaffirms
+  "Producer owns the dialect transformation"; the greenfield review mis-read it as cruft and
+  Andrew corrected.
 - **The constitution's goal line stands — the dual goal is confirmed** (2026-07-09).
   Stealth-foreigner in public AND family connection are both true and neither edits the
   other: understanding-when-nobody-expects-it (the zinger) is the dopamine engine, and with
