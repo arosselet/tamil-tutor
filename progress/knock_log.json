@@ -851,6 +851,30 @@
     "rationale": "scheduled at 2026-07-09T14:49 for 2026-07-10T13:00",
     "body": "maama corners you the moment you land: 'evlo naal irupeenga?' — don't think. fire back. 🎯",
     "expected_target": "ஒரு மாசம் இருப்போம்",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Oru mesam irupeenga",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "ஒரு மாசம் இருப்போம்"
+    ],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line": "close — 'maasam', and flip it: 'iruppom' (we stay, not y'all). oru maasam iruppom. 💪",
+    "reply_at": "2026-07-10T14:18:28Z",
+    "exchanges": [
+      {
+        "at": "2026-07-10T14:18:28Z",
+        "reply": "Oru mesam irupeenga",
+        "verdict": "hinted",
+        "fired": [
+          "ஒரு மாசம் இருப்போம்"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "close — 'maasam', and flip it: 'iruppom' (we stay, not y'all). oru maasam iruppom. 💪"
+      }
+    ]
   }
 ]
