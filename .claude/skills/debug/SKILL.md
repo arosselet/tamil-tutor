@@ -101,7 +101,7 @@ the newest `.mp3` in `published_audio/`.
 **Root cause:** Model returned a Python-style dict (`{'act': True, ...}` single-quoted keys). The `{..}` slice found the braces but `json.loads` rejects single quotes. The tell: second error at `char 1` (char after `{` is `'`, not `"`).
 **Fix:** `ast.literal_eval` added as third fallback (handles single quotes + Python `True`/`False`/`None`). Logging added before all re-raise paths so the raw text always prints.
 **Verify:** `python scripts/smoke_test.py` → section 1 (single-quoted keys, python-dict in prose).
-**Commit:** `a3f42f9` (TBD)
+**Commit:** `1f5c38f`
 
 ### KF-6: Chain pin destroyed the ask · menu blind to recency · hallucinated reveals (2026-07-06, fixed)
 **Symptom:** Log's `expected_target` absurd vs the body (looked like KF-3 returning);
