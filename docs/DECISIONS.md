@@ -152,6 +152,15 @@ Details live in git history; this is the index of the *conclusions*.
   feedback under-notices (Engines 0/19 after weeks of pure recasts); one clause, by
   example, never terminology — two clauses is a lecture. Loosens "recast, never lecture"
   the way lore loosened the scenario monoculture; "No Academic Terms" untouched.
+- **agy/Gemini is the default studio writer; the Claude subagent is the fallback**
+  (2026-07-09). `scripts/run_studio.py` runs Director → Architect → Producer as three
+  sandboxed **print-only** agy calls — Gemini never writes a file or sees git; Python
+  persists, lints, and renders (the writer-only split, tightened). Chosen for Gemini token
+  headroom + long-context writing. The evidence trail: collapsing the passes into one shot
+  corrupted anchor lines twice (a semantic inversion, then a -ங்க mutation) — reaffirming
+  "the studio's three passes are earned complexity" — and each failure became a permanent
+  lint rule (deck-payload verbatim fidelity, Woven-Thanglish density tripwire, self-insert
+  fourth-wall labels). Falling back on any lint failure is the contract, not an error.
 - **Foundation over performance pieces** (2026-07-09). The goal is generative capacity to
   connect — "I don't need Tamil to survive; I'm doing it to connect" — not memorized set
   pieces for appreciation. Rejects the greenfield review's dress-rehearsal idea (drilling
