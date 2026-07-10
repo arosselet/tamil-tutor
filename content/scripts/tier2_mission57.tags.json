@@ -1,0 +1,36 @@
+{
+  "mission": 57,
+  "register": "tenderness",
+  "dramatic_ingredient": "character",
+  "episode_form": "classic",
+  "shape": "eavesdrop",
+  "location_class": "street",
+  "energy": "medium",
+  "intercept_tamil_density": 0.65,
+  "breakdown_tamil_density": 0.35,
+  "fence_size": 172,
+  "unfenced_words": 3,
+  "new_words_landed": {
+    "ஒரு மாசம் இருப்போம்": 1,
+    "frame:want-noun": 3,
+    "frame:giveme-noun": 2,
+    "frame:howmuch-noun": 1,
+    "frame:isthere-noun": 1,
+    "frame:where-noun": 1,
+    "அட்டா": 2,
+    "அடேயப்பா": 1,
+    "அப்படித்தான்": 2
+  },
+  "callbacks_used": {
+    "சொன்னாங்க": 1,
+    "சீக்கிரம்": 1,
+    "பிடிக்காது": 1
+  },
+  "host_roles": {
+    "A": "observer_narrator",
+    "B": "reluctant_orderer",
+    "Maya": "structural_analyst",
+    "Raj": "relational_storyteller"
+  },
+  "notes": "Classic form — first episode with a full Breakdown after two consecutive vignettes (M54, M56). Old regular's wordless 'என்ன இருக்கா?' is the vivid character ingredient; Host B accidentally mirrors the tic ('எதுவாவது சரிதான்') before Host A calls her out. Breakdown obsesses over ONE beat: question-as-want (இருக்கா? vs வேணும்) — Maya reads structure, Raj reads relationship. Tenderness register holds throughout: the old man is beloved, not mocked. Unfenced: கிழவரு (old man — visually obvious), ரோஜூம் (every day — context answers it), வருஷக்கணக்கா (for years — context answers it)."
+}
