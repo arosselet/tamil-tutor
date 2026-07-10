@@ -4,6 +4,12 @@
 
 A persistent, stateful language coach powered by LLMs. Built for Coimbatore Tamil; the pedagogy and the architecture are portable to any language. The system tracks one number: of everything you've heard and recognized, how much can you actually fire cold.
 
+> **Want one of these for yourself?** This repo is the reference implementation — one
+> learner, one language, months of daily state. To bootstrap your *own* tutor (any
+> language, any dialect, your starting level), start from
+> [**language-tutor**](https://github.com/arosselet/language-tutor): clone it, open your
+> coding agent, and say *"set up my tutor."*
+
 ### 🎧 Subscribe
 
 [**Apple Podcasts**](https://podcasts.apple.com/us/podcast/coimbatore-mappillai/id1880268803)
