@@ -469,7 +469,7 @@ only when a PRECISE time genuinely serves the rep better than your next wake.
 Return ONLY a JSON object, no prose around it:
 {
   "act": true | false,                  // false = silence this tick
-  "modality": "text" | "audio" | "challenge" | "grace" | "silence",
+  "modality": "text" | "audio" | "challenge" | "volley" | "eavesdrop" | "grace" | "silence",
   "move": "<2-4 word label of the move, for the log>",
   "notification_body": "<the lock-screen line — valuable even if never tapped; MUST carry a Tamil phrase + tiny English gloss. One emoji ok. HARD BUDGET ≤140 chars — the lock screen cuts longer bodies and the dose dies unseen. Empty string if silence.>",
   "memo_script": "<ONLY for modality 'audio' or 'eavesdrop': the spoken memo (audio) or the overheard tape (eavesdrop), paragraphs separated by ONE blank line (\\n\\n) — never single \\n within a paragraph. Tamil payload in Tamil script. Empty string otherwise.>",
