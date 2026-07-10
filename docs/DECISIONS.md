@@ -127,6 +127,23 @@ Details live in git history; this is the index of the *conclusions*.
   backporting into a mid-QA moving target is recurring manual work. Let it drift; re-run
   the extraction wholesale once Anna 1.0 QA settles (or before actively sharing the
   template). Honors "no fork maintenance" from the portability entry above.
+- **First milestone re-sync executed; the seam law is mechanism/dial/personal**
+  (2026-07-10). language-tutor now elaborates Tamil@`template-v2-source` (this tag):
+  every engine fix since v1 re-applied semantically in the template's config-driven
+  idiom. The seam that made it cheap: *mechanisms* port as code (capped lane, chain pin,
+  grounded reveals, volley walk, eavesdrop lane), *Anna's choices* port as config dials
+  (`outreach.volley_size`, `tts.eavesdrop_voice` — empty = modality off), *personal
+  state/studio-local automation* never ports. Confirms the 2026-07-06 entry over the
+  alternative (shared-engine packaging), which was considered and rejected: Anna's
+  weekly API churn would freeze the wrong abstraction.
+- **Machinery commits name their port surface** (2026-07-10). The "Port surface:"
+  paragraph the knock-loop commits already carry is what made the re-sync enumerable —
+  keep writing it; it is the cheap end of the milestone-re-extraction contract.
+- **The @build skill library travels with any extraction** (2026-07-10, Andrew). The
+  skills are the guard rails against bloat/drift, so the template gets them generalized:
+  repo-canon discipline (structure freeze, surgical routing, smoke-case contract,
+  safe/mutating inventory) ports; Andrew-specific collaboration prose generalizes to
+  "the repo owner." Replaces treating the skills as Tamil-local tooling.
 - **Pedagogy verdict — the ideas held; dose and meters lagged them** (2026-07-08).
   Full learning-science review, endorsed by Andrew on all fronts: retrieval volume ran
   ~5× under the sprint math because the highest-yield tool (the deck blitz) was locked
