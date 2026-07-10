@@ -43,6 +43,8 @@ Anna hands **meaning**; the studio derives the rest (register / form / ingredien
 
 Anna can commission the studio end-to-end mid-session; `/studio` also runs standalone (e.g. on Gemini for the long mixed-language script writing).
 
+**Default episode dispatch (2026-07-09 — the writer-only split):** `python scripts/run_studio.py` — three sandboxed **print-only** agy/Gemini calls (Director → Architect → Producer; Gemini never writes a file, never sees git); Python persists the three artifacts, lints them deterministically (sidecar schema, Woven-Thanglish density tripwire, fourth wall, deck-payload **verbatim** fidelity), and `render_audio.py` owns render/registration/commit. Non-zero exit ⇒ fall back to the Claude studio subagent.
+
 ## State (`progress/` — Python-owned, never hand-edit)
 
 | File | Owner | Holds |
