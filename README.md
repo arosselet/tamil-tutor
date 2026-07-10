@@ -7,8 +7,8 @@ A persistent, stateful language coach powered by LLMs. Built for Coimbatore Tami
 > **Want one of these for yourself?** This repo is the reference implementation — one
 > learner, one language, months of daily state. To bootstrap your *own* tutor (any
 > language, any dialect, your starting level), start from
-> [**language-tutor**](https://github.com/arosselet/language-tutor): clone it, open your
-> coding agent, and say *"set up my tutor."*
+> [**Sollu**](https://github.com/arosselet/language-tutor) (சொல்லு — "say it!"): clone
+> it, open your coding agent, and say *"set up my tutor."*
 
 ### 🎧 Subscribe
 
