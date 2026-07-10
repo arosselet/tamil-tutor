@@ -1741,5 +1741,24 @@
       "frame:where-noun"
     ],
     "duration_min": 2.1332
+  },
+  "57": {
+    "title": "The Regular",
+    "listens": 0,
+    "words": [
+      "ஒரு மாசம் இருப்போம்",
+      "frame:want-noun",
+      "frame:giveme-noun",
+      "frame:howmuch-noun",
+      "frame:isthere-noun",
+      "frame:where-noun",
+      "அட்டா",
+      "அடேயப்பா",
+      "அப்படித்தான்",
+      "சொன்னாங்க",
+      "சீக்கிரம்",
+      "பிடிக்காது"
+    ],
+    "duration_min": 3.0736
   }
 }

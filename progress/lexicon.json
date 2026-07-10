@@ -60,7 +60,8 @@
       28,
       50,
       52,
-      54
+      54,
+      57
     ],
     "last_surfaced": null
   },
@@ -142,7 +143,8 @@
       35,
       52,
       53,
-      54
+      54,
+      57
     ],
     "last_surfaced": null
   },
@@ -181,7 +183,8 @@
       52,
       53,
       54,
-      55
+      55,
+      57
     ],
     "last_surfaced": null
   },
@@ -3005,7 +3008,8 @@
     "seen_in": [
       54,
       55,
-      56
+      56,
+      57
     ],
     "last_surfaced": "2026-07-09",
     "deck": "trip",
@@ -3019,7 +3023,8 @@
     "production": "cold",
     "seen_in": [
       54,
-      56
+      56,
+      57
     ],
     "last_surfaced": "2026-07-09",
     "deck": "trip",
@@ -3033,7 +3038,8 @@
     "production": "cold",
     "seen_in": [
       54,
-      56
+      56,
+      57
     ],
     "last_surfaced": "2026-07-08",
     "deck": "trip",
@@ -3047,7 +3053,8 @@
     "production": "cold",
     "seen_in": [
       54,
-      56
+      56,
+      57
     ],
     "last_surfaced": "2026-07-08",
     "deck": "trip",
@@ -3072,7 +3079,8 @@
     "production": "hinted",
     "seen_in": [
       54,
-      56
+      56,
+      57
     ],
     "last_surfaced": "2026-07-08",
     "deck": "trip",
@@ -3161,7 +3169,8 @@
     "production": "hinted",
     "seen_in": [
       54,
-      56
+      56,
+      57
     ],
     "last_surfaced": "2026-07-06",
     "deck": "trip",
@@ -3619,5 +3628,35 @@
     "last_surfaced": null,
     "deck": "trip",
     "direction": "catch"
+  },
+  "அட்டா": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      57
+    ],
+    "last_surfaced": null
+  },
+  "அடேயப்பா": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      57
+    ],
+    "last_surfaced": null
+  },
+  "அப்படித்தான்": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      57
+    ],
+    "last_surfaced": null
   }
 }
