@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Saturday 2026-07-11
+
+**10:49 · Anna**  ·  volley / tea stall deck blitz
+> ⚡ volley 1/4 — uncle leans over: 'enna velai paakreenga?' — you're a software engineer. what do you say?
+
+
 ## Friday 2026-07-10
 
 **09:28 · Anna**  ·  text / cold fire: iruppom
@@ -17,6 +23,8 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 **13:44 · Anna** 🎧  ·  audio / lore memo: -aachu frame
 > 🎙️ the word that means 'it happened, move on' — ஆச்சு. one ending, a hundred situations. 60 sec.
+
+**Andrew** · 👍 acked
 
 
 ## Thursday 2026-07-09
