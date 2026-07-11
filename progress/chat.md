@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **10:49 · Anna**  ·  volley / tea stall deck blitz
 > ⚡ volley 1/4 — uncle leans over: 'enna velai paakreenga?' — you're a software engineer. what do you say?
 
+**16:42 · Anna** 🎧  ·  audio / lore memo: -ittu frame
+> 🎙️ the word hiding inside 'I'm done' — வந்துட்டேன், ஆயிட்டேன், விட்டுடு — one suffix, every completion
+
 
 ## Friday 2026-07-10
 
