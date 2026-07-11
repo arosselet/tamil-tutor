@@ -893,5 +893,36 @@
     "mp3": "published_audio/knocks/knock_2026-07-10T17-44.mp3",
     "response": "ack",
     "response_at": "2026-07-11T00:11:05Z"
+  },
+  {
+    "date": "2026-07-11",
+    "timestamp": "2026-07-11T14:49:04.308540+00:00",
+    "acted": true,
+    "modality": "volley",
+    "move": "tea stall deck blitz",
+    "rationale": "9 days since last session, burn rate badly behind at 0.7/day vs 1.9 needed, ignore-streak just cleared with yesterday's replies — momentum is tentatively there; a volley is the highest-volume deck move and the right spend to close the gap, with the two hinted→cold items riding first.",
+    "next_check": "2026-07-11T19:49:04.308540+00:00",
+    "body": "⚡ volley 1/4 — uncle leans over: 'enna velai paakreenga?' — you're a software engineer. what do you say?",
+    "expected_target": "சாஃப்ட்வேர் இன்ஜினியரா இருக்கேன்",
+    "target_revealed": false,
+    "volley": [
+      {
+        "target": "சாஃப்ட்வேர் இன்ஜினியரா இருக்கேன்",
+        "ask": "uncle leans over: 'enna velai paakreenga?' — you're a software engineer. what do you say?"
+      },
+      {
+        "target": "ரொம்ப பிடிச்சிருக்கு",
+        "ask": "he nods, slides you a chai. 'pidichirukka?' — you really like it here. one line."
+      },
+      {
+        "target": "frame:giveme-noun",
+        "ask": "the stall's out of biscuits but you want one more tea. ask the counter uncle for it."
+      },
+      {
+        "target": "frame:in-la",
+        "ask": "he asks where you're staying — 'veedu enga?' — you answer: at home (veetla). show him the -la."
+      }
+    ],
+    "volley_next": 1
   }
 ]
