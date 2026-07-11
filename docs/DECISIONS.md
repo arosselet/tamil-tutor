@@ -216,6 +216,7 @@ Details live in git history; this is the index of the *conclusions*.
   that models parse spoken Thanglish, not friction — he does the spoken drills as rendered;
   de-risk with a spike (a few real voice notes through an audio-capable model) before any
   machinery. Rejects building the voice loop straight from the inbox item.
+- **Session engagement redesign — pull over push** (2026-07-11). Andrew stopped looking forward to sessions because the protocol optimized for production velocity (reps/minute) at the expense of intrinsic pull. Root cause: the session opened cold into a quiz, had no delight moment built in, and its progress was metered but not narrated. Four protocol changes to `daily_session.md`: (1) warm open with field mission collect + trip countdown before the first rep; (2) mandatory delight beat per scene (mask moment / zinger / lore tangent — structural, not optional); (3) in-session win narration ("adhu dhaan — that one froze you last week"); (4) session closes with one concrete "what moved" sentence and a specific field mission assignment, collected at the next open. Session duration softened to 8–15 min; deck volume stays with the volleys — the session's job is story, engines, and one delight beat. Rejects making more drills the answer to a palatability problem.
 - **TTS text gets defanged at the renderer, not by prompt discipline** (2026-07-07).
   Google TTS voices a hyphen glued to a word as "minus" ("-இட்டு" → "minus ittu",
   done-ittu memo, Andrew's report): `defang_hyphens()` in `render_audio.py` now guards
