@@ -1,6 +1,6 @@
 ---
 name: debug
-description: Symptom-to-root-cause triage for the knock loop, push queue, reply judge, studio/feed, session state, and CI. Use when a knock didn't arrive, a reply scored wrong, the feed is stale, CI is red, the push queue misfired, or Anna's behaviour looks like a plumbing bug.
+description: Symptom-to-root-cause triage for the knock loop, push queue, reply judge, studio/feed, session state, and CI. Use when a knock didn't arrive, a reply scored wrong, the feed is stale, CI is red, the push queue misfired, Anna's behaviour looks like a plumbing bug, or Anna over-uses a format / the doses have drifted samey (behavioural drift is a plumbing symptom too).
 ---
 
 # Debug — Triage and Root-Cause
@@ -17,6 +17,12 @@ Full law: `docs/DECISIONS.md` → "Fix the tool, not the personality."
 Do not touch prompts, protocol files, or persona until you have a log-confirmed
 root cause. If the root cause points to a code change, stop here and use `/extend`
 for the fix and `/verify` to prove it.
+
+This applies to **behavioural drift**, not just breakage: "Anna sends too much of
+one thing" or "the doses all feel the same shape" is a triage-able symptom whose
+evidence lives in the log's move labels and the decide prompt's incentive lines —
+never propose a quota, rule, or mechanism from taste alone (KF-8: the drift had a
+one-line author in the prompt, and no quota would have found it).
 
 Unfamiliar with the jargon below (rails gate, deck, `expected_target`, soak order)?
 Start with `/orient` → `references/glossary.md`.
@@ -39,6 +45,7 @@ Start with `/orient` → `references/glossary.md`.
 | CI red — knock/queue workflow | Missing secret, commit conflict, JSON parse fail | `gh run view <id> --log` |
 | Audio knock missing from the podcast feed | Feed refresh failed in that knock run (all audio → feed since 2026-07-05; `morning_knock.py refresh_feed()` is failure-tolerant by design) | `gh run view <id> --log` → look for `⚠ rss rebuild failed`; recover the URL from `knock_log.json` → `audio_url`, or rerun `python scripts/rebuild_rss.py` locally |
 | Anna keeps making the same mistake | May be a protocol bug, not plumbing | read `progress/feedback_log.json`; if pattern appears 2+ times → `/extend` |
+| Anna over-uses a format / doses feel same-shaped | Incentive drift in the decide prompt (a preference line, a reward framing) — not persona | `grep -o '"move": "[^"]*"' progress/knock_log.json \| tail -15` → then read the prompt's incentive lines in `morning_knock.py` |
 
 ---
 
@@ -118,6 +125,23 @@ and outcome memory carries the ask; `revealed_recently()` computes reveals from 
 the judge may cap against that list only.
 **Verify:** `python scripts/smoke_test.py` → section 10 (regression #3).
 **Commit:** `a13d3b9`
+
+### KF-8: Lore format takeover — incentive drift, not taste (2026-07-11, fixed)
+**Symptom:** Andrew: today's lore push "basically a duplicate" of last week's; the format
+"took over." Log confirmed worse: four lore memos in four consecutive days (07-07→10),
+every one a frame etymology.
+**Root cause (three-part):** the variety law guarded pegs and asks but no *format family*
+— "lore memo" had no cooldown; the decide prompt's own line "Prefer a deck word's story
+while the sprint is on" funneled every lore dose into frame etymology (the deck is all
+frames during the sprint); and OUTREACH MEMORY's reward framing closed the loop — lore
+converts → memory shows lore converting → lore fires again.
+**Fix:** `last_lore()` + `LORE_COOLDOWN_DAYS` (the `demand_streak` seam: Python counts,
+the RAILS mandate owns the rule); the preference line deleted, vein rotation in its place;
+constitution → Fresh Execution gains "Formats drift like content."
+**The meta-lesson:** the first proposal was a quota, offered before anyone read the file —
+a mechanism proposed before diagnosis is a symptom cap. The better half of the real fix
+was a *deletion*, which only reading the plumbing could find.
+**Verify:** `python scripts/smoke_test.py` → section 8 (lore cooldown cases).
 
 ---
 

@@ -70,6 +70,11 @@ Stated here once; Anna embodies them, the studio enforces them.
 - **No templating:** never read or reuse past episode scripts (`content/scripts/*.md`) as models — that produces repetitive lessons. (The `.tags.json` sidecars are metadata, not scripts; the Director reads those by design.)
 - **Fresh every time:** generate from the `protocol/` files, live `progress/` state, and the `suggest_targets.py` ticket — never from memory of past sessions.
 - **Variation is structural:** the scene-spec gate and `protocol/` rules own variety; never repeat the same scene / shape / energy back-to-back.
+- **Formats drift like content:** engagement with a dose is evidence of its *properties* —
+  surprise, connection, timing — never a mandate to repeat its format. A format that
+  converts is a bet that paid off; find the next bet with those properties, don't re-place
+  the same one. (2026-07-11: the lore memo fired four days running, every one a frame
+  etymology — fresh sentences, templated shape.)
 
 ### Stories Are Curriculum (the lore rule)
 - **Language-lore is first-class input:** etymology, cross-language kinship (what English took
