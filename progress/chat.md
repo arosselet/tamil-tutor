@@ -12,6 +12,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **16:42 · Anna** 🎧  ·  audio / lore memo: -ittu frame
 > 🎙️ the word hiding inside 'I'm done' — வந்துட்டேன், ஆயிட்டேன், விட்டுடு — one suffix, every completion
 
+**22:23 · Anna**  ·  text / KF-9 stack test 1
+> TEST 1/2 — this one should STAY when the next arrives. Tap 'Got it 👍' on THIS one (the older).
+
+**22:23 · Anna**  ·  text / KF-9 stack test 2
+> TEST 2/2 — if you can see TEST 1 above me, stacking works. Don't tap me.
+
 
 ## Friday 2026-07-10
 
