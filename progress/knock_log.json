@@ -978,5 +978,31 @@
     "body": "TEST 3 — single retry after HA paste. If you see me, we're back.",
     "expected_target": "",
     "target_revealed": false
+  },
+  {
+    "date": "2026-07-12",
+    "timestamp": "2026-07-12T02:34:04.590275+00:00",
+    "acted": true,
+    "scheduled": true,
+    "queue_id": "q1783823633",
+    "modality": "text",
+    "move": "KF-9 stack test A",
+    "rationale": "scheduled at 2026-07-12T02:33 for 2026-07-12T02:33",
+    "body": "TEST A — the OLDER one. If TEST B stacks below/above me, tap 'Got it 👍' HERE.",
+    "expected_target": "",
+    "target_revealed": false
+  },
+  {
+    "date": "2026-07-12",
+    "timestamp": "2026-07-12T02:34:04.689071+00:00",
+    "acted": true,
+    "scheduled": true,
+    "queue_id": "q1783823638",
+    "modality": "text",
+    "move": "KF-9 stack test B",
+    "rationale": "scheduled at 2026-07-12T02:33 for 2026-07-12T02:33",
+    "body": "TEST B — the newer one. Don't tap me; tap Got it on TEST A.",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]

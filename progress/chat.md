@@ -21,6 +21,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **22:30 · Anna**  ·  text / KF-9 stack test 3
 > TEST 3 — single retry after HA paste. If you see me, we're back.
 
+**22:34 · Anna**  ·  text / KF-9 stack test A
+> TEST A — the OLDER one. If TEST B stacks below/above me, tap 'Got it 👍' HERE.
+
+**22:34 · Anna**  ·  text / KF-9 stack test B
+> TEST B — the newer one. Don't tap me; tap Got it on TEST A.
+
 
 ## Friday 2026-07-10
 
