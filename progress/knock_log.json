@@ -952,5 +952,18 @@
     "body": "STACK A (older) — when STACK B joins me, tap 'Got it 👍' on ME.",
     "expected_target": "",
     "target_revealed": false
+  },
+  {
+    "date": "2026-07-12",
+    "timestamp": "2026-07-12T02:43:04.305952+00:00",
+    "acted": true,
+    "scheduled": true,
+    "queue_id": "q1783824179",
+    "modality": "text",
+    "move": "KF-9 stack test B3",
+    "rationale": "scheduled at 2026-07-12T02:42 for 2026-07-12T02:42",
+    "body": "STACK B (newer) — is STACK A still visible? Then we stack. Don't tap me.",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]
