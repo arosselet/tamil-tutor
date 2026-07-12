@@ -146,6 +146,20 @@ Jinja `default('')` gets mangled by YAML quote-escaping — use `default("")`.
 to the *older* one, check `knock_log.json` → the reply lands on the older entry.
 **HA side must be re-pasted** (automation + both tap-handlers + `rest_command`) — mirrors
 in `docs/anna_knock_automation.yaml` and `docs/home_assistant_knock_buttons.md`.
+**Live-verified 2026-07-12:** two test fires logged in the same second (microsecond
+stamps kept the ids distinct); the ack dispatched while the *other* knock was
+last-fired and still landed on the tapped one — full round trip through HA proven.
+**Gotchas from the live test:**
+- *Mirror drift:* the gitignored automation mirror carried a stale `webhook_id` from a
+  half-finished rotation (HA/.env/GHA updated, mirror not) — re-pasting it took all
+  knocks down for an evening while HA kept answering 200 (it 200s every webhook POST,
+  registered or not; a delivered CI knock earlier the same day is the tell that the
+  *sender's* id is fine). A rotation touches all four: HA + GHA secret + `.env` + mirror.
+- *Webhook re-registration:* after editing a webhook trigger's id, "reload automations"
+  can leave the old listener live — toggle the automation off/on.
+- *`mode: single` drops stacked sends:* two webhook POSTs ~1s apart lost the second
+  (trigger discarded mid-run). With correlation ids, simultaneous pushes are legitimate
+  → the notify automation should be `mode: queued` (HA-side edit).
 
 ### KF-8: Lore format takeover — incentive drift, not taste (2026-07-11, fixed)
 **Symptom:** Andrew: today's lore push "basically a duplicate" of last week's; the format
