@@ -965,5 +965,18 @@
     "body": "TEST 2/2 — if you can see TEST 1 above me, stacking works. Don't tap me.",
     "expected_target": "",
     "target_revealed": false
+  },
+  {
+    "date": "2026-07-12",
+    "timestamp": "2026-07-12T02:30:42.281145+00:00",
+    "acted": true,
+    "scheduled": true,
+    "queue_id": "q1783823436",
+    "modality": "text",
+    "move": "KF-9 stack test 3",
+    "rationale": "scheduled at 2026-07-12T02:30 for 2026-07-12T02:30",
+    "body": "TEST 3 — single retry after HA paste. If you see me, we're back.",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]
