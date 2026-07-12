@@ -990,7 +990,9 @@
     "rationale": "scheduled at 2026-07-12T02:33 for 2026-07-12T02:33",
     "body": "TEST A — the OLDER one. If TEST B stacks below/above me, tap 'Got it 👍' HERE.",
     "expected_target": "",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "ack",
+    "response_at": "2026-07-12T02:34:58Z"
   },
   {
     "date": "2026-07-12",
