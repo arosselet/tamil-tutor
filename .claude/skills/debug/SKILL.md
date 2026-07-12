@@ -160,6 +160,10 @@ last-fired and still landed on the tapped one — full round trip through HA pro
 - *`mode: single` drops stacked sends:* two webhook POSTs ~1s apart lost the second
   (trigger discarded mid-run). With correlation ids, simultaneous pushes are legitimate
   → the notify automation should be `mode: queued` (HA-side edit).
+- *A "missing ack" is usually a body-tap:* tapping the notification body opens the app
+  and dismisses it WITHOUT firing any action event — no dispatch, no log entry, no bug.
+  Only the long-press action buttons ("Got it" / "Reply") reach the tap-handlers.
+  (Observed twice on 2026-07-12 before the cause was spotted.)
 
 ### KF-8: Lore format takeover — incentive drift, not taste (2026-07-11, fixed)
 **Symptom:** Andrew: today's lore push "basically a duplicate" of last week's; the format
