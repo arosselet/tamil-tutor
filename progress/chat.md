@@ -27,6 +27,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **22:34 · Anna**  ·  text / KF-9 stack test B
 > TEST B — the newer one. Don't tap me; tap Got it on TEST A.
 
+**22:35 · Anna**  ·  text / KF-9 stack test B2
+> TEST B (retry) — if TEST A is still on your screen with me, stacking works. Tap 'Got it 👍' on TEST A (the older one).
+
 
 ## Friday 2026-07-10
 
