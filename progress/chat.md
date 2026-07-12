@@ -12,23 +12,8 @@ Newest day first. **Derived file — edits here are overwritten.**
 **16:42 · Anna** 🎧  ·  audio / lore memo: -ittu frame
 > 🎙️ the word hiding inside 'I'm done' — வந்துட்டேன், ஆயிட்டேன், விட்டுடு — one suffix, every completion
 
-**22:23 · Anna**  ·  text / KF-9 stack test 1
-> TEST 1/2 — this one should STAY when the next arrives. Tap 'Got it 👍' on THIS one (the older).
-
-**22:23 · Anna**  ·  text / KF-9 stack test 2
-> TEST 2/2 — if you can see TEST 1 above me, stacking works. Don't tap me.
-
-**22:30 · Anna**  ·  text / KF-9 stack test 3
-> TEST 3 — single retry after HA paste. If you see me, we're back.
-
-**22:34 · Anna**  ·  text / KF-9 stack test A
-> TEST A — the OLDER one. If TEST B stacks below/above me, tap 'Got it 👍' HERE.
-
-**22:34 · Anna**  ·  text / KF-9 stack test B
-> TEST B — the newer one. Don't tap me; tap Got it on TEST A.
-
-**22:35 · Anna**  ·  text / KF-9 stack test B2
-> TEST B (retry) — if TEST A is still on your screen with me, stacking works. Tap 'Got it 👍' on TEST A (the older one).
+**22:42 · Anna**  ·  text / KF-9 stack test A2
+> STACK A (older) — when STACK B joins me, tap 'Got it 👍' on ME.
 
 
 ## Friday 2026-07-10

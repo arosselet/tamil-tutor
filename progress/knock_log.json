@@ -939,5 +939,18 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-07-11T20-42.mp3",
     "memo_script": "ok da — you know that feeling when something's finished and you're already moving on? Tamil has one suffix that does exactly that.\n\nIt's -இட்டு. Or in fast speech, just -ட்டு. Stuck onto a verb, it means: done. already happened. move on.\n\nவந்துட்டேன் — I came (and I'm here, it's done). கழுவிட்டு வரேன் — I'll wash up and come (wash: done, coming: next). ஆயிட்டேன் — I'm ready, I'm done, we're good.\n\nThe beautiful thing? It isn't just 'finished' like a past tense. It has attitude. It says: that chapter closed, this chapter opened. The completive already sitting inside seven items in your deck — pazhagippochu, vandhutten, ayitten — they all run on this same engine.\n\nவிட்டுடு — let it go, drop it, done with it. One word. Kongu Tamil runs on this suffix because the whole dialect has this energy: say it, do it, move on, don't fuss.\n\nNext time you hear someone say வந்துட்டாங்க — they're here and it's settled, no drama. You already know what's powering it.",
     "mp3": "published_audio/knocks/knock_2026-07-11T20-42.mp3"
+  },
+  {
+    "date": "2026-07-12",
+    "timestamp": "2026-07-12T02:42:44.619138+00:00",
+    "acted": true,
+    "scheduled": true,
+    "queue_id": "q1783824159",
+    "modality": "text",
+    "move": "KF-9 stack test A2",
+    "rationale": "scheduled at 2026-07-12T02:42 for 2026-07-12T02:42",
+    "body": "STACK A (older) — when STACK B joins me, tap 'Got it 👍' on ME.",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]
