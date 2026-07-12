@@ -126,6 +126,27 @@ the judge may cap against that list only.
 **Verify:** `python scripts/smoke_test.py` → section 10 (regression #3).
 **Commit:** `a13d3b9`
 
+### KF-9: Notifications clobbered each other — deliberate tag, obsolete reason (2026-07-11, fixed)
+**Symptom:** Each push replaces the previous on the phone; a volley landed, then vanished
+when a lore memo arrived — logged as "no-tap" though Andrew never dismissed it.
+**Root cause:** `tag: anna-knock` fixed in the HA notify automation, *commented as
+deliberate* ("self-replacing — one knock at a time"). The fence it guarded: the reply
+pipeline had no correlation field, so `knock_reply.py` judged every reply against
+`last_fired_knock()` — one visible knock at a time made that safe.
+**Fix:** Correlation replaces the fence. Every push carries its log-entry timestamp as
+`knock_id`; HA sets a unique tag (`anna-<knock_id>`) and echoes the id via the
+notification's `action_data`, which the tap-handlers forward through `rest_command` →
+`client_payload` → workflow env. `find_knock()` (judge) and `--knock-id` (ack) target
+the exact entry; last-fired stays as fallback for id-less events. Notifications now
+stack until dismissed.
+**Gotcha:** on iOS the `tag` does not round-trip through reply actions — `action_data`
+does; that's why the id rides both. And inside a single-quoted YAML `payload:` scalar,
+Jinja `default('')` gets mangled by YAML quote-escaping — use `default("")`.
+**Verify:** `python scripts/smoke_test.py` → section 14. Live: fire two knocks, reply
+to the *older* one, check `knock_log.json` → the reply lands on the older entry.
+**HA side must be re-pasted** (automation + both tap-handlers + `rest_command`) — mirrors
+in `docs/anna_knock_automation.yaml` and `docs/home_assistant_knock_buttons.md`.
+
 ### KF-8: Lore format takeover — incentive drift, not taste (2026-07-11, fixed)
 **Symptom:** Andrew: today's lore push "basically a duplicate" of last week's; the format
 "took over." Log confirmed worse: four lore memos in four consecutive days (07-07→10),

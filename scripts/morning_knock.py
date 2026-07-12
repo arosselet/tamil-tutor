@@ -703,8 +703,12 @@ def jsdelivr_url(mp3: Path) -> str:
     return f"https://cdn.jsdelivr.net/gh/{REPO}@main/{rel}"  # unique daily filename => always fresh
 
 
-def push_to_phone(body: str, audio_url: str | None):
-    """Push a notification. audio_url is optional — a text/challenge/grace dose has none."""
+def push_to_phone(body: str, audio_url: str | None, knock_id: str = ""):
+    """Push a notification. audio_url is optional — a text/challenge/grace dose has none.
+    knock_id = the knock's log-entry timestamp; it rides the notification's action_data
+    and comes back with taps/replies so the judge grades the knock Andrew actually
+    answered. Notifications stack (unique HA tag per knock, 2026-07-11) — last-fired
+    correlation is only the fallback for id-less events."""
     if audio_url:
         # Pre-warm the CDN: iOS fetches the attachment the instant the notification
         # lands, and a never-before-requested jsDelivr path can take seconds on its
@@ -716,6 +720,8 @@ def push_to_phone(body: str, audio_url: str | None):
             print(f"   ⚠ CDN pre-warm failed ({e}) — pushing anyway")
     webhook = os.environ["ANNA_PUSH_WEBHOOK_URL"]
     payload = {"title": "Anna", "text_content": body}
+    if knock_id:
+        payload["knock_id"] = knock_id
     if audio_url:
         payload["audio_url"] = audio_url
     req = urllib.request.Request(webhook, data=json.dumps(payload).encode(),
@@ -828,7 +834,7 @@ def main():
     print("4. commit + push…")
     commit_and_push(commit_paths, f"Anna reach ({decision['modality']}/{decision.get('move')})")
     print("5. notify…")
-    push_to_phone(body, audio_url)
+    push_to_phone(body, audio_url, knock_id=now.isoformat())
     print("\ndone — reached out & logged.")
 
 

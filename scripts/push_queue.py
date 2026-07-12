@@ -166,11 +166,11 @@ def cmd_drain(args):
             print(f"  {e['id']} due but daily cap ({n_today}/{MAX_REACHES_PER_DAY}) — deferred.")
             continue
         if not e.get("force") and non_forced_fired:
-            # Two non-forced entries firing in the same batch land on the phone
-            # near-simultaneously, and knock_reply.py can only judge a reply
-            # against the LAST logged fire — the earlier one becomes unreachable.
-            # One non-forced fire per drain keeps every reach reply-addressable;
-            # the rest catches the very next tick (≤30 min away, not a real delay).
+            # One non-forced fire per drain. Originally this kept every reach
+            # reply-addressable (pre-correlation, the judge could only target the
+            # LAST logged fire); since 2026-07-11 replies carry knock_id, so what
+            # remains is pacing — two doses landing in the same minute reads as
+            # spam, and the next tick is ≤30 min away.
             kept.append(e)
             print(f"  {e['id']} due but another non-forced push already fired this tick — deferred to next tick.")
             continue
@@ -187,10 +187,13 @@ def cmd_drain(args):
         print(f"  fire {e['id']} · {e.get('move','')} · {e['body'][:70]}")
         if args.dry_run:
             continue
-        push_to_phone(e["body"], e.get("audio_url"))
+        # per-entry stamp, not the batch's `now` — it doubles as the reply
+        # correlation id, so same-tick fires must never share one
+        fired_at = datetime.now(timezone.utc).isoformat()
+        push_to_phone(e["body"], e.get("audio_url"), knock_id=fired_at)
         klog.append({
             "date": now.date().isoformat(),
-            "timestamp": now.isoformat(),
+            "timestamp": fired_at,
             "acted": True,
             "scheduled": True,
             "queue_id": e["id"],

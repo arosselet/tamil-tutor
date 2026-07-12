@@ -630,7 +630,14 @@ def cmd_knock_response(args):
     if not fired:
         print("No fired knocks in knock_log.json to respond to.")
         sys.exit(1)
-    last = fired[-1]
+    # Notifications stack (2026-07-11): a tap carries its knock's timestamp as
+    # knock_id, so an old notification acks the right entry. No id → last fired.
+    kid = (getattr(args, "knock_id", "") or "").strip()
+    last = next((k for k in reversed(fired) if k.get("timestamp") == kid), None) if kid else None
+    if last is None:
+        if kid:
+            print(f"  ⚠ knock_id {kid!r} not in the log — marking the most recent knock")
+        last = fired[-1]
     prior = last.get("response")
     if prior is not None and response not in KNOCK_UPGRADES.get(prior, set()):
         print(f"  Most recent knock ({last['date']}) already '{prior}'; '{response}' adds nothing. Skipping.")
@@ -714,8 +721,10 @@ def main():
     sd.add_argument("file", help="Path to the deck JSON (e.g. curriculum/trip_deck.json), absolute or repo-relative")
     sd.add_argument("--deck", default="trip", help="Deck name to tag entries with (default: trip)")
 
-    kr = sub.add_parser("knock-response", help="Log Andrew's tap response against the most recent knock")
+    kr = sub.add_parser("knock-response", help="Log Andrew's tap response against its knock (by --knock-id; most recent if absent)")
     kr.add_argument("response", help="The tap value: 'ack' (got it) or 'listened' (heard the episode → soak credit)")
+    kr.add_argument("--knock-id", default="", dest="knock_id",
+                    help="The knock's log timestamp (from the notification's action_data); empty → most recent")
 
     fb = sub.add_parser("feedback", help="Append a feedback note (capture), or list recent (diagnosis)")
     fb.add_argument("note", nargs="?", default=None, help="The feedback to log; omit to list recent")
