@@ -1006,5 +1006,18 @@
     "body": "TEST B — the newer one. Don't tap me; tap Got it on TEST A.",
     "expected_target": "",
     "target_revealed": false
+  },
+  {
+    "date": "2026-07-12",
+    "timestamp": "2026-07-12T02:35:19.612468+00:00",
+    "acted": true,
+    "scheduled": true,
+    "queue_id": "q1783823714",
+    "modality": "text",
+    "move": "KF-9 stack test B2",
+    "rationale": "scheduled at 2026-07-12T02:35 for 2026-07-12T02:35",
+    "body": "TEST B (retry) — if TEST A is still on your screen with me, stacking works. Tap 'Got it 👍' on TEST A (the older one).",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]
