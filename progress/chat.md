@@ -15,6 +15,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **22:42 · Anna**  ·  text / KF-9 stack test A2
 > STACK A (older) — when STACK B joins me, tap 'Got it 👍' on ME.
 
+**22:43 · Anna**  ·  text / KF-9 stack test B3
+> STACK B (newer) — is STACK A still visible? Then we stack. Don't tap me.
+
 
 ## Friday 2026-07-10
 
