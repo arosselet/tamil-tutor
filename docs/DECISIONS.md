@@ -217,6 +217,21 @@ Details live in git history; this is the index of the *conclusions*.
   de-risk with a spike (a few real voice notes through an audio-capable model) before any
   machinery. Rejects building the voice loop straight from the inbox item.
 - **Session engagement redesign — pull over push** (2026-07-11). Andrew stopped looking forward to sessions because the protocol optimized for production velocity (reps/minute) at the expense of intrinsic pull. Root cause: the session opened cold into a quiz, had no delight moment built in, and its progress was metered but not narrated. Four protocol changes to `daily_session.md`: (1) warm open with field mission collect + trip countdown before the first rep; (2) mandatory delight beat per scene (mask moment / zinger / lore tangent — structural, not optional); (3) in-session win narration ("adhu dhaan — that one froze you last week"); (4) session closes with one concrete "what moved" sentence and a specific field mission assignment, collected at the next open. Session duration softened to 8–15 min; deck volume stays with the volleys — the session's job is story, engines, and one delight beat. Rejects making more drills the answer to a palatability problem.
+- **The trailer — recruit the session with unlearned curriculum; discipline stays Andrew's**
+  (2026-07-11). The sprint's real bottleneck is upstream: 64 of 71 pending deck items are
+  UNSEEN, which the push channel may not quiz (teach-first law) — the pipeline is
+  session-teaches → push-drills → cold, and nine push-led days starved it (volley pool: 7
+  items; the lore takeover was partly Anna running out of legal asks). The system cannot
+  install discipline and stops pretending to: it owns *activation energy and open loops*.
+  New no-ask knock move, the **trailer** — pitch ONE unseen item's payoff ("the past-tense
+  switch — one letter, and elders notice"), never deliver it in the notification; the next
+  session opens by paying it off; one open loop at a time (an unpaid trailer changes the
+  bait, never the volume). Replaces thread-nostalgia pulls ("the aunties are waiting") and
+  redirects the lore hook's energy from destination to door. **Amends Trip Sprint
+  (2026-06-30):** daily terminal session until touchdown, Andrew's own mandate — a finite
+  block for a date-certain event chosen while replies flow, NOT accountability machinery
+  answering a fade (that stays banned). "Push-led weeks are a valid mode" (2026-07-09)
+  stays true in steady state and is suspended for the sprint by the 64/7 arithmetic.
 - **Formats drift like content — engagement is evidence, not a mandate** (2026-07-11).
   Engagement with a dose proves its *properties* (surprise, connection, timing), never
   that its format should repeat: the lore memo fired four days running (07-07→10), every
