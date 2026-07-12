@@ -950,6 +950,26 @@
     "next_check": "2026-07-13T14:52:35.395364+00:00",
     "body": "da — 10 days. the aunties aren't waiting. one word back: 'romba pidichirukku' — what's it mean? 🎯",
     "expected_target": "ரொம்ப பிடிச்சிருக்கு",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "I like it a lot",
+    "reply_verdict": "chat",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line": "exactly — 'romba pidichirukku' is your mouth saying exactly that. it's on the revealed list already so I can't count a cold fire, but the meaning's locked ✓",
+    "reply_at": "2026-07-12T15:03:56Z",
+    "exchanges": [
+      {
+        "at": "2026-07-12T15:03:56Z",
+        "reply": "I like it a lot",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "exactly — 'romba pidichirukku' is your mouth saying exactly that. it's on the revealed list already so I can't count a cold fire, but the meaning's locked ✓"
+      }
+    ]
   }
 ]
