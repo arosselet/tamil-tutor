@@ -401,6 +401,28 @@ def s8_variety_and_decay(mk, kr, sb: Path):
     check("soaked item loses the UNSEEN flag", "UNSEEN" not in mk.deck_due_list())
 
 
+def s14_reply_correlation(kr):
+    """2026-07-11 (KF-9): notifications stack (unique HA tag per knock); taps and
+    replies carry the knock's log timestamp back as knock_id. find_knock targets
+    the exact entry; a missing/stale/empty id returns None so callers fall back
+    to last-fired (pre-migration notifications stay judgeable)."""
+    print("\n14. Reply correlation (stacked notifications)")
+    klog = [
+        {"acted": True, "timestamp": "2026-07-11T08:00:00+00:00", "move": "volley"},
+        {"acted": False, "timestamp": "2026-07-11T10:00:00+00:00", "move": "silence"},
+        {"acted": True, "timestamp": "2026-07-11T12:00:00+00:00", "move": "lore memo"},
+    ]
+    hit = kr.find_knock(klog, "2026-07-11T08:00:00+00:00")
+    check("find_knock targets an older stacked knock by id",
+          hit is not None and hit["move"] == "volley")
+    check("unknown id → None (caller falls back to last-fired)",
+          kr.find_knock(klog, "2026-07-13T00:00:00+00:00") is None)
+    check("empty id → None (id-less events keep last-fired behavior)",
+          kr.find_knock(klog, "") is None)
+    check("silence entries never match (no notification existed)",
+          kr.find_knock(klog, "2026-07-11T10:00:00+00:00") is None)
+
+
 def s7_integrity(sb: Path):
     print("\n7. State integrity sweep")
     for f in sorted((sb / "progress").glob("*.json")):
@@ -759,6 +781,7 @@ def main():
         s11_capped_graduation(kr, sb)
         s12_volley(mk, kr, sb)
         s13_eavesdrop(mk, kr, sb)
+        s14_reply_correlation(kr)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)

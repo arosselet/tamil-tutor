@@ -217,6 +217,15 @@ Details live in git history; this is the index of the *conclusions*.
   de-risk with a spike (a few real voice notes through an audio-capable model) before any
   machinery. Rejects building the voice loop straight from the inbox item.
 - **Session engagement redesign — pull over push** (2026-07-11). Andrew stopped looking forward to sessions because the protocol optimized for production velocity (reps/minute) at the expense of intrinsic pull. Root cause: the session opened cold into a quiz, had no delight moment built in, and its progress was metered but not narrated. Four protocol changes to `daily_session.md`: (1) warm open with field mission collect + trip countdown before the first rep; (2) mandatory delight beat per scene (mask moment / zinger / lore tangent — structural, not optional); (3) in-session win narration ("adhu dhaan — that one froze you last week"); (4) session closes with one concrete "what moved" sentence and a specific field mission assignment, collected at the next open. Session duration softened to 8–15 min; deck volume stays with the volleys — the session's job is story, engines, and one delight beat. Rejects making more drills the answer to a palatability problem.
+- **Notifications stack; replies correlate by knock_id** (2026-07-11). The fixed HA tag
+  ("self-replacing — one knock at a time") was a deliberate fence guarding last-fired
+  reply judging, and it was eating doses — today's volley logged "no-tap" because the
+  lore memo replaced it on the lock screen. Every push now carries its log timestamp as
+  `knock_id` (via the notification's `action_data`, the field iOS round-trips); judge and
+  ack target that entry, last-fired only as fallback. Replaces the one-knock-at-a-time
+  design; `push_queue`'s one-per-tick cap survives as pacing, no longer as the only
+  safety. Root-cause trail: `/debug` → KF-9. HA-side YAML must be re-pasted from the
+  mirrors.
 - **The trailer — recruit the session with unlearned curriculum; discipline stays Andrew's**
   (2026-07-11). The sprint's real bottleneck is upstream: 64 of 71 pending deck items are
   UNSEEN, which the push channel may not quiz (teach-first law) — the pipeline is

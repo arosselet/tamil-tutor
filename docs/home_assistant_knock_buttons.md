@@ -80,7 +80,7 @@ rest_command:
       Accept: application/vnd.github+json
       X-GitHub-Api-Version: "2022-11-28"
     content_type: "application/json"
-    payload: '{"event_type":"knock-response","client_payload":{"response":"{{ response }}"}}'
+    payload: '{"event_type":"knock-response","client_payload":{"response":"{{ response }}","knock_id":"{{ knock_id | default("") }}"}}'
   anna_knock_reply:
     url: https://api.github.com/repos/arosselet/tamil-tutor/dispatches
     method: POST
@@ -90,7 +90,7 @@ rest_command:
       X-GitHub-Api-Version: "2022-11-28"
     content_type: "application/json"
     # tojson quotes AND escapes the typed text, so quotes/emoji can't break the JSON
-    payload: '{"event_type":"knock-response","client_payload":{"response":"reply","text":{{ text | tojson }}}}'
+    payload: '{"event_type":"knock-response","client_payload":{"response":"reply","text":{{ text | tojson }},"knock_id":"{{ knock_id | default("") }}"}}'
 ```
 
 A successful dispatch returns HTTP **204**.
@@ -131,7 +131,11 @@ actions:
           title: "{{ trigger.json.title | default('Anna', true) }}"
           message: "{{ trigger.json.text_content }}"
           data:
-            tag: anna-knock                 # self-replacing — one knock at a time
+            # unique per knock (2026-07-11): notifications STACK until dismissed;
+            # knock_id rides back with taps/replies so the judge grades the right knock
+            tag: "anna-{{ trigger.json.knock_id | default('knock', true) }}"
+            action_data:
+              knock_id: "{{ trigger.json.knock_id | default('', true) }}"
             url: "{{ trigger.json.audio_url }}"
             attachment:
               url: "{{ trigger.json.audio_url }}"
@@ -151,7 +155,9 @@ actions:
           title: "{{ trigger.json.title | default('Anna', true) }}"
           message: "{{ trigger.json.text_content }}"
           data:
-            tag: anna-knock
+            tag: "anna-{{ trigger.json.knock_id | default('knock', true) }}"
+            action_data:
+              knock_id: "{{ trigger.json.knock_id | default('', true) }}"
             actions:
               - action: "ANNA_REPLY"
                 title: "Reply ✍️"
@@ -178,6 +184,9 @@ actions:
   - action: rest_command.anna_knock_response
     data:
       response: ack
+      # the notification's action_data comes back in the event — this is what
+      # lets a tap on an OLD stacked notification ack the right knock
+      knock_id: "{{ trigger.event.data.action_data.knock_id | default('') }}"
 mode: single
 ```
 
@@ -196,6 +205,7 @@ actions:
   - action: rest_command.anna_knock_reply
     data:
       text: "{{ trigger.event.data.reply_text }}"
+      knock_id: "{{ trigger.event.data.action_data.knock_id | default('') }}"
 mode: single
 ```
 

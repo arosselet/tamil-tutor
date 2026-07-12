@@ -302,13 +302,26 @@ def handle_catch_reply(knock: dict, reply_text: str, klog: list,
 
     print("4. push back…")
     body = " · ".join(p for p in (verdict["reply_line"], catch_meter(lexicon)) if p)
-    push_to_phone(body, None)
+    push_to_phone(body, None, knock_id=knock.get("timestamp", ""))
     print("done — drift judged, catch axis scored, answered.")
 
 
 def last_fired_knock(klog: list) -> dict | None:
     fired = [k for k in klog if k.get("acted", True)]
     return fired[-1] if fired else None
+
+
+def find_knock(klog: list, knock_id: str) -> dict | None:
+    """The knock a reply belongs to, by its log timestamp (= the notification's
+    action_data.knock_id, round-tripped through HA). Notifications stack since
+    2026-07-11, so answering an older one is legal — last-fired is only the
+    fallback for id-less events (pre-migration notifications, manual runs)."""
+    if not knock_id:
+        return None
+    for k in reversed(klog):
+        if k.get("acted", True) and k.get("timestamp") == knock_id:
+            return k
+    return None
 
 
 def scoreboard(lexicon: dict) -> str:
@@ -570,10 +583,13 @@ def main():
         return
 
     klog = load_json(KNOCK_LOG_PATH) or []
-    knock = last_fired_knock(klog)
+    knock_id = os.environ.get("REPLY_KNOCK_ID", "").strip()
+    knock = find_knock(klog, knock_id) or last_fired_knock(klog)
     if knock is None:
         print("No fired knock to judge a reply against — logging nothing.")
         return
+    if knock_id and knock.get("timestamp") != knock_id:
+        print(f"   ⚠ knock_id {knock_id!r} not in the log — falling back to last fired")
 
     lexicon = load_json(LEXICON_PATH) or {}
 
@@ -690,7 +706,8 @@ def main():
     body = " · ".join(p for p in (knock["reply_line"], score) if p)
     if len(body) > 240:
         print(f"   ⚠ push-back is {len(body)} chars — the lock screen will cut the tail (chained ask at risk)")
-    push_to_phone(body, None)
+    # the chain's own id: a reply to this push-back correlates to the same knock entry
+    push_to_phone(body, None, knock_id=knock.get("timestamp", ""))
     print("done — reply judged, scored, answered.")
 
 

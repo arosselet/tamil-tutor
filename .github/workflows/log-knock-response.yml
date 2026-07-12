@@ -25,6 +25,7 @@ jobs:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           ANNA_PUSH_WEBHOOK_URL: ${{ secrets.ANNA_PUSH_WEBHOOK_URL }}
           REPLY_TEXT: ${{ github.event.client_payload.text }}
+          REPLY_KNOCK_ID: ${{ github.event.client_payload.knock_id }}
         run: |
           pip install -r requirements.txt
           git config user.name "github-actions[bot]"
@@ -32,7 +33,7 @@ jobs:
           python scripts/knock_reply.py "$REPLY_TEXT"
       - name: Log tap
         if: github.event.client_payload.response != 'reply'
-        run: python scripts/sync_state.py knock-response "${{ github.event.client_payload.response }}"
+        run: python scripts/sync_state.py knock-response "${{ github.event.client_payload.response }}" --knock-id "${{ github.event.client_payload.knock_id }}"
       - name: Commit tap
         if: github.event.client_payload.response != 'reply'
         run: |
