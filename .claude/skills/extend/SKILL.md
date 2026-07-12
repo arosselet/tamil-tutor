@@ -42,6 +42,13 @@ approved the tradeoff, or said "do it." Silence, a question, or non-objection is
 alignment. Until then: state the real situation sharply; do not produce a
 bullet-pointed action plan, and write no code.
 
+**Exploring includes the plumbing.** Read the owning file and the relevant log *before*
+proposing any mechanism — never hand Andrew a choice between mechanisms the evidence
+hasn't earned. A mechanism proposed before diagnosis is a symptom cap, and the better
+half of the real fix is often a deletion only reading the file can find (2026-07-11:
+the lore-quota debate dissolved once the log showed four lore fires in four days and
+one prompt line authored the monoculture — `/debug` → KF-8).
+
 ---
 
 ## Gate 4 — What does this replace?

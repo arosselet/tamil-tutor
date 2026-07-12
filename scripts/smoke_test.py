@@ -335,7 +335,8 @@ def s6_queue_drain(mk, pq, sb: Path):
 
 def s8_variety_and_decay(mk, kr, sb: Path):
     """The 2026-07-05 push-feedback fixes: demand-streak surfaced to the digest,
-    body budgets, continuity decay clock, UNSEEN teach-first flags."""
+    body budgets, continuity decay clock, UNSEEN teach-first flags. Plus the
+    2026-07-11 lore format cooldown (four frame-etymology memos in four days)."""
     print("\n8. Variety + decay helpers")
     now = datetime.now(timezone.utc)
 
@@ -359,6 +360,17 @@ def s8_variety_and_decay(mk, kr, sb: Path):
     room = mk.remaining_room(fired, now)
     check("digest carries the NO-ASK directive at streak 2", "NO-ASK" in room,
           room.splitlines()[-1])
+
+    # lore format cooldown: SPENT inside the window, vein reminder after, silent when none
+    lored = [{"acted": True, "move": "lore memo: -aachu frame",
+              "timestamp": (now - timedelta(days=1)).isoformat()}]
+    check("digest marks lore SPENT inside the cooldown",
+          "SPENT" in mk.remaining_room(lored, now))
+    lored[0]["timestamp"] = (now - timedelta(days=mk.LORE_COOLDOWN_DAYS + 2)).isoformat()
+    check("expired cooldown becomes the different-vein reminder",
+          "different vein" in mk.remaining_room(lored, now))
+    check("no lore fires → no lore line in the rails",
+          "lore" not in mk.remaining_room([], now).lower())
 
     # lock-screen body budget
     check("over_budget flags a long body",

@@ -217,6 +217,23 @@ Details live in git history; this is the index of the *conclusions*.
   de-risk with a spike (a few real voice notes through an audio-capable model) before any
   machinery. Rejects building the voice loop straight from the inbox item.
 - **Session engagement redesign — pull over push** (2026-07-11). Andrew stopped looking forward to sessions because the protocol optimized for production velocity (reps/minute) at the expense of intrinsic pull. Root cause: the session opened cold into a quiz, had no delight moment built in, and its progress was metered but not narrated. Four protocol changes to `daily_session.md`: (1) warm open with field mission collect + trip countdown before the first rep; (2) mandatory delight beat per scene (mask moment / zinger / lore tangent — structural, not optional); (3) in-session win narration ("adhu dhaan — that one froze you last week"); (4) session closes with one concrete "what moved" sentence and a specific field mission assignment, collected at the next open. Session duration softened to 8–15 min; deck volume stays with the volleys — the session's job is story, engines, and one delight beat. Rejects making more drills the answer to a palatability problem.
+- **Formats drift like content — engagement is evidence, not a mandate** (2026-07-11).
+  Engagement with a dose proves its *properties* (surprise, connection, timing), never
+  that its format should repeat: the lore memo fired four days running (07-07→10), every
+  one a frame etymology — fresh sentences, templated shape. Three-part cause (no
+  format-family guard in the variety law; the prompt's own "prefer a deck word's story"
+  line funneling the vein; OUTREACH MEMORY reward framing closing the loop) in `/debug`
+  → KF-8. Fresh Execution now covers formats; `last_lore()`/7-day cooldown rides the
+  `demand_streak` seam (Python counts, the mandate owns the rule); the preference line
+  is deleted — vein rotation in its place. Extends "variety is structural" (2026-06-20)
+  to the knock channel's format families.
+- **A mechanism proposed before diagnosis is a symptom cap** (2026-07-11). The first
+  answer to the lore drift was a quota, offered before anyone read the file — the log
+  and one prompt line held the real cause, and the better half of the fix was a
+  *deletion* only reading the plumbing could find. Exploring a problem includes the
+  plumbing; never hand Andrew a choice between mechanisms the evidence hasn't earned.
+  Encoded in `/extend` Gate 3 and `/debug` doctrine; refines "explore before
+  implementing" and generalizes "fix the tool, not the personality" to proposals.
 - **TTS text gets defanged at the renderer, not by prompt discipline** (2026-07-07).
   Google TTS voices a hyphen glued to a word as "minus" ("-இட்டு" → "minus ittu",
   done-ittu memo, Andrew's report): `defang_hyphens()` in `render_audio.py` now guards

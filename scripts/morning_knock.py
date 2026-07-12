@@ -212,6 +212,21 @@ def demand_streak(klog: list) -> int:
     return n
 
 
+LORE_COOLDOWN_DAYS = 7  # a converting format is a bet that paid off, not one to re-place
+
+
+def last_lore(klog: list) -> dict | None:
+    """Most recent fired lore dose ('lore' in the move label — the log's naming
+    convention). Lore had no format-level guard: it fired four days running
+    (2026-07-07→10), every one a frame etymology, because engagement with the
+    format read as a mandate to repeat it (2026-07-11). Python counts; the
+    mandate owns the rule — same seam as demand_streak."""
+    for k in reversed([k for k in klog if is_fire(k)]):
+        if "lore" in (k.get("move") or "").lower():
+            return k
+    return None
+
+
 def remaining_room(klog: list, now: datetime) -> str:
     now_local = now.astimezone(LOCAL_TZ)
     n_today = fires_today(klog, now_local.date())
@@ -224,11 +239,24 @@ def remaining_room(klog: list, now: datetime) -> str:
     streak_str = f"\n  Demand-streak: {streak} consecutive fires carried an ask"
     if streak >= 2:
         streak_str += " — the variety rule says the next fire must be a NO-ASK dose or silence."
+    lore_str = ""
+    lore = last_lore(klog)
+    if lore:
+        ldate = local_date(lore.get("timestamp", ""))
+        if ldate:
+            age = (now_local.date() - ldate).days
+            if age < LORE_COOLDOWN_DAYS:
+                until = (ldate + timedelta(days=LORE_COOLDOWN_DAYS)).isoformat()
+                lore_str = (f"\n  Lore-cooldown: “{lore.get('move', 'lore')}” fired {age}d ago — "
+                            f"lore is SPENT until {until}; pick another move.")
+            else:
+                lore_str = (f"\n  Last lore: “{lore.get('move', 'lore')}” ({age}d ago) — a new "
+                            f"lore dose must take a different vein than that one.")
     return (f"RAILS (hard — stay well inside; silence is free):\n"
             f"  Waking window {WAKING_START_HOUR}:00–{WAKING_END_HOUR}:00 {now_local.tzname()}; "
             f"now {now_local:%H:%M}.\n"
             f"  Reaches today: {n_today}/{MAX_REACHES_PER_DAY}. Min gap {MIN_GAP_HOURS}h ({gap_str})."
-            f"{streak_str}")
+            f"{streak_str}{lore_str}")
 
 
 def recent_ask_counts(klog: list, lexicon: dict, days: int = 3) -> dict:
@@ -415,7 +443,11 @@ word (its history, a cousin in another language, the myth behind it, what Englis
 Tamil, why the aunties bend it that way). It asks for NOTHING back (expected_target empty); \
 its job is pull, not reps — strong bait when he's gone quiet or the ignore-streak is growing, \
 because it rebuilds the wanting-to-open-the-notification muscle without spending any social \
-budget on a demand. Prefer a deck word's story while the sprint is on.
+budget on a demand. Lore is a rare treat, not a channel: the RAILS' Lore-cooldown line is \
+BINDING (a converting format is a bet that already paid off — find the next bet, don't \
+re-place this one), and each lore dose takes a DIFFERENT VEIN than the last — history, myth, \
+food/kinship culture, cross-language cousins, Kongu texture, film/music — never two frame \
+etymologies running (the RAILS line names the last vein; diverge from it).
 
 SELF-PACING: set next_check_hours = how long until you want to reconsider reaching out \
 (you are choosing your own cadence, inside the rails). Sooner if momentum is hot; longer \
