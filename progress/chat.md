@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Sunday 2026-07-12
+
+**10:52 · Anna**  ·  text / grace + low-friction re-open
+> da — 10 days. the aunties aren't waiting. one word back: 'romba pidichirukku' — what's it mean? 🎯
+
+
 ## Saturday 2026-07-11
 
 **10:49 · Anna**  ·  volley / tea stall deck blitz
@@ -11,12 +17,6 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 **16:42 · Anna** 🎧  ·  audio / lore memo: -ittu frame
 > 🎙️ the word hiding inside 'I'm done' — வந்துட்டேன், ஆயிட்டேன், விட்டுடு — one suffix, every completion
-
-**22:42 · Anna**  ·  text / KF-9 stack test A2
-> STACK A (older) — when STACK B joins me, tap 'Got it 👍' on ME.
-
-**22:43 · Anna**  ·  text / KF-9 stack test B3
-> STACK B (newer) — is STACK A still visible? Then we stack. Don't tap me.
 
 
 ## Friday 2026-07-10
