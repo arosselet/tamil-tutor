@@ -21,6 +21,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! 🔥 · 3/4 — Tea stall. They're looking at you. No menu. You want tea.
 
+**14:47 · Andrew** — **COLD**
+> Tea venum
+
+**Anna ↩**
+> adhu dhaan! tea வேணும் — natural as breathing. 🔥 · 4/4 — Maama fires three sentences too fast. One word to stop him.
+
 
 ## Sunday 2026-07-12
 

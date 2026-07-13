@@ -1011,20 +1011,22 @@
         "ask": "Maama fires three sentences too fast. One word to stop him."
       }
     ],
-    "volley_next": 3,
+    "volley_next": 4,
     "response": "reply",
-    "reply": "Canada la",
+    "reply": "Tea venum",
     "reply_verdict": "cold",
     "reply_fired": [
       "frame:giveme-noun",
-      "frame:in-la"
+      "frame:in-la",
+      "frame:want-noun"
     ],
     "reply_fired_cold": [
-      "frame:in-la"
+      "frame:in-la",
+      "frame:want-noun"
     ],
     "reply_fired_capped": [],
-    "reply_line": "adhu dhaan! 🔥 · 3/4 — Tea stall. They're looking at you. No menu. You want tea.",
-    "reply_at": "2026-07-13T18:29:38Z",
+    "reply_line": "adhu dhaan! tea வேணும் — natural as breathing. 🔥 · 4/4 — Maama fires three sentences too fast. One word to stop him.",
+    "reply_at": "2026-07-13T18:47:30Z",
     "exchanges": [
       {
         "at": "2026-07-13T18:13:36Z",
@@ -1051,10 +1053,24 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "adhu dhaan! 🔥 · 3/4 — Tea stall. They're looking at you. No menu. You want tea."
+      },
+      {
+        "at": "2026-07-13T18:47:30Z",
+        "reply": "Tea venum",
+        "verdict": "cold",
+        "fired": [
+          "frame:want-noun"
+        ],
+        "fired_cold": [
+          "frame:want-noun"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! tea வேணும் — natural as breathing. 🔥 · 4/4 — Maama fires three sentences too fast. One word to stop him."
       }
     ],
-    "chained": 2,
-    "pinned_target": "frame:want-noun",
+    "chained": 3,
+    "pinned_target": "புரியல",
     "pinned_revealed": false
   }
 ]
