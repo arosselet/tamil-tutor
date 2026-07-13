@@ -1095,5 +1095,17 @@
     "chained": 3,
     "pinned_target": "புரியல",
     "pinned_revealed": false
+  },
+  {
+    "date": "2026-07-13",
+    "timestamp": "2026-07-13T22:53:01.223645+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "trailer: -idum machine",
+    "rationale": "Demand-streak=2 forces a no-ask dose; the -idum open loop is trailer-grade bait owed from the story so far — tease the payoff, recruit tomorrow's session, then collect the field-mission debrief at 9am when the booking moment will have passed.",
+    "next_check": "2026-07-14T12:53:01.223645+00:00",
+    "body": "one engine left to name — the line that got you 'poirum' at the airport. tonight. next session pays it off 🔥",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]
