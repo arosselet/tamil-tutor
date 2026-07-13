@@ -96,6 +96,16 @@ def s1_parse_llm_json(mk):
           == {"act": True, "modality": "text"})
     check("python-dict in prose", p("Here ya go: {'a': 1, 'b': False}")
           == {"a": 1, "b": False})
+    # 2026-07-13: judge narrated its reasoning — including a literal `{noun}` frame
+    # gloss — BEFORE its ```json fence; startswith fence-strip never fired and the
+    # {..} slice bit on `{noun}` → crash, and a real cold fire was lost. Fenced
+    # block anywhere in the text now wins.
+    check("prose with {braces} before a json fence",
+          p('The `{noun} kudunga` frame applies.\n```json\n{"verdict": "cold"}\n```')
+          == {"verdict": "cold"})
+    check("last fence wins when prose precedes multiple fences",
+          p('thinking…\n```json\n{"draft": 1}\n```\nrevised:\n```json\n{"final": 2}\n```')
+          == {"final": 2})
     try:
         p("no json here")
         check("garbage raises", False, "did not raise")
