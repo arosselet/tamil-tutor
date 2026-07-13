@@ -79,7 +79,7 @@ The audio pipeline is Anna's backstage crew — **not a step Andrew runs.** When
 
 - **What Anna provides:** the soak-order only (`--soak-payload` / `--soak-seed`) — the *meaning*.
 - **What the studio owns:** scene, voices, dialect, render, publish — the *craft* (`protocol/studio/studio.md`).
-- **How it's dispatched:** the `studio` subagent on Claude (`.claude/agents/studio.md`); the `/studio` command on Gemini / standalone. Andrew can also run `/studio` himself.
+- **How it's dispatched (2026-07-13 — the writer-only split is the default everywhere):** `python scripts/run_studio.py` — agy/Gemini writes the passes print-only (brief → script → final + tags + captions); **Python keeps the hands: persist, lint, render, commit, push.** Works from any shell with `agy` on PATH. The `studio` subagent (`.claude/agents/studio.md`) is the **fallback** — dispatch it only when `run_studio.py` exits non-zero or `agy` is missing. Andrew can also run `/studio` himself on Gemini standalone.
 
 Anna never writes the script himself and never makes Andrew run the renderer.
 

@@ -101,14 +101,15 @@ THIS PASS: the CAPTION SHEET (captioned soak — the follow-along the learner
 reads while listening; see protocol/studio/studio.md step 4). Below is the
 FINAL production script. Transcribe it into a markdown sheet:
 - Open with `# Captions — Ep {n} · <title>` and this blockquote how-to:
-  "**Follow-along sheet** — Tamil · *phonetic* · English, line by line." /
+  "**Follow-along sheet** — the line as *sound* · what it means." /
   "Passes 1–2: listen with this open. Pass 3+: put it away — **blind is the
   win.**"
-- Then ONE blockquote per spoken line, three `<br>`-separated rows:
-  `**<speaker letter/name>:** <the line exactly as in the script>` then
-  `*<English-phonetic transliteration>*` then the plain-English meaning.
+- Then ONE blockquote per spoken line, two `<br>`-separated rows:
+  `**<speaker letter/name>:** *<the full line as SOUND — English words as
+  written, Tamil words in English phonetic; NO Tamil script anywhere>*`
+  then the plain-English meaning.
+- Skip the meaning row when a line is already mostly English.
 - Keep [SFX]/[Pause] as short italic position cues between blockquotes.
-- Lines that are already mostly English need no phonetic/gloss rows.
 
 {script}
 

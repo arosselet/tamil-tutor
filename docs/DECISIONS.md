@@ -286,7 +286,9 @@ Details live in git history; this is the index of the *conclusions*.
   item's show notes. Pass structure: captioned listens until it snaps, then blind —
   blind is the win. Captions are a companion, never a gate (a failed sheet doesn't
   block an episode). The density dial is UNCHANGED pending blind-pass evidence —
-  captions do not yet license hotter episodes.
+  captions do not yet license hotter episodes. *Amended same day after first live use:*
+  sheets are **two rows — sound · meaning, no Tamil script** (Andrew: script can't be
+  read at follow-along speed; script belongs to TTS, per the standing modality split).
 - **TTS text gets defanged at the renderer, not by prompt discipline** (2026-07-07).
   Google TTS voices a hyphen glued to a word as "minus" ("-இட்டு" → "minus ittu",
   done-ittu memo, Andrew's report): `defang_hyphens()` in `render_audio.py` now guards
