@@ -1011,6 +1011,33 @@
         "ask": "Maama fires three sentences too fast. One word to stop him."
       }
     ],
-    "volley_next": 1
+    "volley_next": 2,
+    "response": "reply",
+    "reply": "Pen venom",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "frame:giveme-noun"
+    ],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line": "close — 'pen kudunga' da. the frame is '{noun} kudunga' 🖊️ · 2/4 — She asks where you learned Tamil. Answer: in Canada.",
+    "reply_at": "2026-07-13T18:13:36Z",
+    "exchanges": [
+      {
+        "at": "2026-07-13T18:13:36Z",
+        "reply": "Pen venom",
+        "verdict": "hinted",
+        "fired": [
+          "frame:giveme-noun"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "close — 'pen kudunga' da. the frame is '{noun} kudunga' 🖊️ · 2/4 — She asks where you learned Tamil. Answer: in Canada."
+      }
+    ],
+    "chained": 1,
+    "pinned_target": "frame:in-la",
+    "pinned_revealed": false
   }
 ]
