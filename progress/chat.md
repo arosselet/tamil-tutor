@@ -33,6 +33,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > real Tamil, but that's 'speak slowly' — the one word to freeze him cold is 'puriyala.' adhu try pannunga.
 
+**14:49 · Andrew** — **HINTED**
+> Puriyala
+
+**Anna ↩**
+> adhu dhaan — puriyala lands every time. 🔥
+
 
 ## Sunday 2026-07-12
 
