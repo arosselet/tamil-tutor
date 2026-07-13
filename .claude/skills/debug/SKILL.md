@@ -165,6 +165,23 @@ last-fired and still landed on the tapped one — full round trip through HA pro
   Only the long-press action buttons ("Got it" / "Reply") reach the tap-handlers.
   (Observed twice on 2026-07-12 before the cause was spotted.)
 
+### KF-10: Prose + `{noun}` gloss before the judge's json fence (2026-07-13, fixed)
+**Symptom:** knock-response run fails with the KF-7 error signature (`Expecting value:
+char 0`, then `property name … char 1`) even though the raw dump in the log shows a
+well-formed ```json block; the judged reply — a real cold fire — is lost, no state
+written, no push-back fired.
+**Root cause:** the judge narrated its reasoning *before* the fence, and the prose
+quoted a frame gloss containing literal braces (`{noun} வேணும்`). `parse_llm_json`'s
+fence-strip only fires on a *leading* fence, so it never ran; the `{..}` slice fallback
+then bit on the `{` of `{noun}` — garbage for both `json.loads` and `ast.literal_eval`.
+**Fix:** a fenced-block-anywhere stage (last fence wins — it's the artifact) between
+whole-text `json.loads` and the `{..}` slice.
+**Recovery for a lost reply:** the payload survives in the failed run's env block
+(`gh run view <id> --log` → `REPLY_TEXT:` / `REPLY_KNOCK_ID:`); replay locally with
+`REPLY_KNOCK_ID=… python scripts/knock_reply.py "<REPLY_TEXT>"` *after* the fix is in.
+**Verify:** `python scripts/smoke_test.py` → section 1 ("prose with {braces} before a
+json fence", "last fence wins when prose precedes multiple fences").
+
 ### KF-8: Lore format takeover — incentive drift, not taste (2026-07-11, fixed)
 **Symptom:** Andrew: today's lore push "basically a duplicate" of last week's; the format
 "took over." Log confirmed worse: four lore memos in four consecutive days (07-07→10),

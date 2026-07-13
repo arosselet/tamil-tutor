@@ -426,7 +426,11 @@ collect the debrief at next contact.
 exchange. You write volley_asks — one-line ENGLISH situations, index-matched to the targets \
 (the target list is BINDING; Python picked it so deck coverage stays honest — your craft is \
 the situations, not the picks), each pinned to ONE natural answer, never showing the Tamil, \
-≤110 chars each. Item 1 rides the notification; after each judged reply Python appends the \
+≤110 chars each. PINNED means the ask's English meaning EXCLUDES the sibling frames: "ask \
+him to HAND it to you" forces kudunga; "you need a pen — what do you say?" admits venum too, \
+and the valid answer you didn't score is a wasted rep (2026-07-13). And write each ask with \
+the WHOLE target list in view: no ask may have a LATER volley item's target as a natural \
+answer, or you burn that item before its turn. Item 1 rides the notification; after each judged reply Python appends the \
 next item to your recast (miss = recast-and-move, the blitz law). While a deck sprint is on, \
 most days should carry ONE volley — it is where the deck's volume lives; read the status \
 line's burn rate (need vs. trailing pace): that gap is what the volley exists to close. It \
@@ -562,17 +566,27 @@ def parse_llm_json(text: str) -> dict:
     """The mandates say 'return ONLY a JSON object', but models occasionally
     wrap it in a code fence, prose, or a Python-style dict (2026-07-04: empty
     text killed a knock; 2026-07-07: single-quoted keys bypassed the {..} slice
-    fallback — 'Expecting property name enclosed in double quotes: char 1').
-    Strategy: strip fences → json.loads → {..} slice + json.loads →
+    fallback — 'Expecting property name enclosed in double quotes: char 1';
+    2026-07-13: prose BEFORE a ```json fence, with a literal `{noun}` frame
+    gloss in the prose — the startswith fence-strip never fired and the {..}
+    slice bit on `{noun}`).
+    Strategy: strip a leading fence → json.loads → fenced block ANYWHERE
+    (last one wins — it's the artifact) → {..} slice + json.loads →
     ast.literal_eval (handles single quotes + Python True/False/None).
     Print the raw text before any re-raise so the Action log shows WHAT came back."""
     import ast as _ast
+    import re as _re
     text = (text or "").strip()
     if text.startswith("```"):
         text = text.split("```")[1].lstrip("json").strip()
     try:
         return json.loads(text, strict=False)
     except json.JSONDecodeError:
+        for block in reversed(_re.findall(r"```(?:json)?\s*\n(.*?)```", text, _re.DOTALL)):
+            try:
+                return json.loads(block.strip(), strict=False)
+            except json.JSONDecodeError:
+                continue
         start, end = text.find("{"), text.rfind("}")
         if start == -1 or end <= start:
             print(f"--- unparseable LLM response (no braces) ---\n{text}\n---")
