@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "id": "q1783983196",
+    "due": "2026-07-14T13:00:00+00:00",
+    "body": "da — did the moment come? 'ok-na, book pannu' — what happened? 👀",
+    "expected_target": "",
+    "target_revealed": false,
+    "audio_url": null,
+    "move": "field mission debrief",
+    "force": false,
+    "queued_at": "2026-07-13T22:53:16.629376+00:00"
+  }
+]
