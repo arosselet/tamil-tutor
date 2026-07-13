@@ -274,9 +274,14 @@ def lint(n: int, baseline: set[str] | None = None) -> list[str]:
     # Nothing beyond the three artifacts may have appeared — measured against
     # the PRE-RUN tree (a clean-tree assumption false-flagged the operator's
     # own uncommitted work on the first run). Print-only passes make this a
-    # tripwire for agy misbehaviour, not an expected failure.
+    # tripwire for agy misbehaviour, not an expected failure. Scoped to
+    # content/ (2026-07-13): agy can only plausibly misbehave in the studio's
+    # own domain; progress/ churn is other agents legitimately writing state
+    # mid-run (the session-open dispatch guarantees that overlap) and aborted
+    # a good episode once.
     allowed = {str(p.relative_to(BASE)) for p in paths.values()}
-    stray = git_dirty() - (baseline or set()) - allowed
+    stray = {p for p in git_dirty() - (baseline or set()) - allowed
+             if p.startswith("content/")}
     if stray:
         problems.append(f"stray writes outside the episode files: {sorted(stray)}")
     return problems

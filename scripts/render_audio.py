@@ -490,7 +490,7 @@ async def main():
         subprocess.run(["git", "add",
                         "published_audio/", "rss.xml",
                         "progress/episodes.json", "progress/lexicon.json",
-                        "content/lessons/",
+                        "content/lessons/", "content/captions/",
                         str(args.input_file), *extra], check=True)
         
         status = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True)
