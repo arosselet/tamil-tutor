@@ -1,0 +1,29 @@
+{
+  "mission": 58,
+  "register": "pride",
+  "dramatic_ingredient": "stakes",
+  "episode_form": "story",
+  "shape": "debrief",
+  "location_class": "auto",
+  "energy": "medium-loud",
+  "intercept_tamil_density": 0.60,
+  "breakdown_tamil_density": 0.35,
+  "fence_size": 172,
+  "unfenced_words": 2,
+  "new_words_landed": {
+    "கொஞ்சம் மெதுவா சொல்லுங்க": 3,
+    "என்ன சொன்னீங்க?": 2,
+    "இன்னொரு தடவ சொல்லுங்க": 2,
+    "தமிழ்ல எப்படி சொல்றது?": 4,
+    "அப்படியா?!": 3
+  },
+  "callbacks_used": {
+    "சொன்னாங்க": 2,
+    "சீக்கிரம்": 3
+  },
+  "host_roles": {
+    "A": "surprised_listener",
+    "B": "triumphant_narrator"
+  },
+  "notes": "Story form — Host B narrates the auto stand gauntlet; pride register builds with each repair-kit rescue. Five unseen antifreeze phrases soaked in sequence through the retelling — the story structure earns this density because each phrase gets a dramatic beat, not a list dump. The meta-move 'தமிழ்ல எப்படி சொல்றது?' is the Breakdown's obsession: asking in Tamil how to speak Tamil was the moment the driver's attitude shifted. Unfenced: mapillai (son-in-law, fits running-story thread), மரியாதை (respect, answered immediately by context). Diverges from M57 tenderness/classic/eavesdrop, M56 public/vignette, M55 mischief/lore."
+}

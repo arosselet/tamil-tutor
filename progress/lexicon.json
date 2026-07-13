@@ -144,7 +144,8 @@
       52,
       53,
       54,
-      57
+      57,
+      58
     ],
     "last_surfaced": null
   },
@@ -184,7 +185,8 @@
       53,
       54,
       55,
-      57
+      57,
+      58
     ],
     "last_surfaced": null
   },
@@ -3245,7 +3247,9 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
+    "seen_in": [
+      58
+    ],
     "last_surfaced": null,
     "deck": "trip",
     "direction": "fire"
@@ -3258,7 +3262,9 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
+    "seen_in": [
+      58
+    ],
     "last_surfaced": null,
     "deck": "trip",
     "direction": "fire"
@@ -3271,7 +3277,9 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
+    "seen_in": [
+      58
+    ],
     "last_surfaced": null,
     "deck": "trip",
     "direction": "fire"
@@ -3284,7 +3292,9 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
+    "seen_in": [
+      58
+    ],
     "last_surfaced": null,
     "deck": "trip",
     "direction": "fire"
@@ -3310,7 +3320,9 @@
     ],
     "recognition": "comfortable",
     "production": "none",
-    "seen_in": [],
+    "seen_in": [
+      58
+    ],
     "last_surfaced": null,
     "deck": "trip",
     "direction": "fire"
