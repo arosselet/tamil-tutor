@@ -1,4 +1,4 @@
-# Tier 2, Mission 58 — Five Lines at the Auto Stand
+# Tier 2 Mission 58: Five Lines at the Auto Stand
 
 [SFX: auto stand — idling engines, a horn blast, a driver shouting a destination in the distance]
 

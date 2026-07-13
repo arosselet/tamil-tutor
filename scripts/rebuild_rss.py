@@ -11,6 +11,7 @@ BASE_URL = "https://raw.githubusercontent.com/arosselet/tamil-tutor/main"
 SITE_URL = "https://github.com/arosselet/tamil-tutor"
 AUDIO_DIR = "published_audio"
 SCRIPTS_DIR = "content/scripts"
+CAPTIONS_DIR = "content/captions"  # follow-along sheets; GitHub blob URL renders the md
 RSS_FILE = "rss.xml"
 AUTHOR = "Andrew R &amp; Gemini"
 
@@ -44,13 +45,29 @@ ITEM_TEMPLATE = """
     <item>
       <title>{title}</title>
       <itunes:author>{author}</itunes:author>
-      <itunes:summary>{summary}</itunes:summary>
+      <itunes:summary>{summary}</itunes:summary>{caption_block}
       <enclosure url="{audio_url}" length="{size}" type="audio/mpeg"/>
       <guid>{audio_url}</guid>
       <pubDate>{pub_date}</pubDate>
       <itunes:duration>{duration}</itunes:duration>
     </item>
 """
+
+# Show-notes block for episodes that ship a follow-along caption sheet
+# (captioned soak, 2026-07-13). <link> + an anchor in <description> — podcast
+# apps render one or the other; either way the sheet is one tap from the player.
+CAPTION_BLOCK = """
+      <link>{caption_url}</link>
+      <description><![CDATA[\U0001F4D6 <a href="{caption_url}">Captions — follow along (Tamil · phonetic · English)</a>]]></description>"""
+
+
+def caption_block_for(script_md_name: str) -> str:
+    """Non-empty show-notes block iff a caption sheet exists for this episode's
+    script name (e.g. "tier2_mission58.md")."""
+    if not os.path.exists(os.path.join(CAPTIONS_DIR, script_md_name)):
+        return ""
+    return CAPTION_BLOCK.format(
+        caption_url=f"{SITE_URL}/blob/main/{CAPTIONS_DIR}/{script_md_name}")
 
 
 def clean_title(raw_title: str, filename: str) -> str:
@@ -213,6 +230,7 @@ def generate_rss():
             title=title,
             author=AUTHOR,
             summary=title,
+            caption_block=caption_block_for(base_name),
             audio_url=audio_url,
             size=size,
             pub_date=pub_date,
@@ -234,6 +252,7 @@ def generate_rss():
             title="Welcome — What Is This?",
             author=AUTHOR,
             summary="An introduction to the Coimbatore Mappillai project and how it works.",
+            caption_block="",
             audio_url=demo_url,
             size=demo_size,
             pub_date=saved_dates.get(demo_url) or email.utils.formatdate(

@@ -277,6 +277,16 @@ Details live in git history; this is the index of the *conclusions*.
   eavesdrop drift; drill it as mask-work at full pace where an antifreeze repair line
   counts as a pass out loud. Rejects a new drill script or meter — parameterizes
   existing mask-work; lives as a profile.md sprint bullet.
+- **Scaffold beside the audio, not inside it — the captioned soak** (2026-07-13,
+  Andrew's discovery). Listening while reading a glossed transcript snaps
+  heard-but-shallow words into form-meaning pairs the ear can't map alone at speed;
+  the recurring "too dense — add more English" pressure was pointing at the wrong
+  dial. Every episode now ships a caption sheet (`content/captions/<ep>.md` — Tamil ·
+  phonetic · gloss, written by the studio from the final script) linked in the feed
+  item's show notes. Pass structure: captioned listens until it snaps, then blind —
+  blind is the win. Captions are a companion, never a gate (a failed sheet doesn't
+  block an episode). The density dial is UNCHANGED pending blind-pass evidence —
+  captions do not yet license hotter episodes.
 - **TTS text gets defanged at the renderer, not by prompt discipline** (2026-07-07).
   Google TTS voices a hyphen glued to a word as "minus" ("-இட்டு" → "minus ittu",
   done-ittu memo, Andrew's report): `defang_hyphens()` in `render_audio.py` now guards
