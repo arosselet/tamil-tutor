@@ -15,6 +15,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > exactly — 'romba pidichirukku' is your mouth saying exactly that. it's on the revealed list already so I can't count a cold fire, but the meaning's locked ✓
 
+**23:04 · Andrew** — **CHAT**
+> Why so few messages today?
+
+**Anna ↩**
+> haha — 10 days gap, da. today was a soft re-open, not a flood. you're back, that's the move.
+
 
 ## Saturday 2026-07-11
 
