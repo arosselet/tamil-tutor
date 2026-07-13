@@ -9,6 +9,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **13:52 · Anna**  ·  volley / afternoon deck blitz
 > ⚡ volley 1/4 — Hotel desk guy's on his phone, ignoring you. You need a pen. What do you say?
 
+**14:13 · Andrew** — **HINTED**
+> Pen venom
+
+**Anna ↩**
+> close — 'pen kudunga' da. the frame is '{noun} kudunga' 🖊️ · 2/4 — She asks where you learned Tamil. Answer: in Canada.
+
 
 ## Sunday 2026-07-12
 
