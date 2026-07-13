@@ -145,7 +145,8 @@
       53,
       54,
       57,
-      58
+      58,
+      59
     ],
     "last_surfaced": null
   },
@@ -186,7 +187,8 @@
       54,
       55,
       57,
-      58
+      58,
+      59
     ],
     "last_surfaced": null
   },
@@ -3370,7 +3372,9 @@
     "phonetic": [],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
+    "seen_in": [
+      59
+    ],
     "last_surfaced": null,
     "deck": "trip",
     "direction": "fire"
@@ -3607,7 +3611,9 @@
     ],
     "recognition": "struggled",
     "production": "hinted",
-    "seen_in": [],
+    "seen_in": [
+      59
+    ],
     "last_surfaced": "2026-07-13",
     "deck": "trip",
     "direction": "fire"
@@ -3694,7 +3700,9 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
+    "seen_in": [
+      59
+    ],
     "last_surfaced": null,
     "deck": "trip",
     "direction": "fire"
@@ -3708,7 +3716,9 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
+    "seen_in": [
+      59
+    ],
     "last_surfaced": null,
     "deck": "trip",
     "direction": "fire"

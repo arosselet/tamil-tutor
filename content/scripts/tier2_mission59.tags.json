@@ -1,0 +1,30 @@
+{
+  "mission": 59,
+  "register": "defiance",
+  "dramatic_ingredient": "subtext",
+  "episode_form": "phone_call",
+  "shape": "transaction",
+  "location_class": "home_social",
+  "energy": "medium",
+  "intercept_tamil_density": 0.60,
+  "breakdown_tamil_density": 0.25,
+  "fence_size": 173,
+  "unfenced_words": 2,
+  "new_words_landed": {
+    "முடிஞ்சா": 4,
+    "கடைசில பாக்கலாம்": 3,
+    "frame:if-ndhaa": 7,
+    "frame:we-om": 8
+  },
+  "callbacks_used": {
+    "சொன்னாங்க": 2,
+    "சீக்கிரம்": 1
+  },
+  "host_roles": {
+    "A": "frustrated_caller",
+    "B": "deferring_host",
+    "Maya": "structural_analyst",
+    "Raj": "cultural_storyteller"
+  },
+  "notes": "Phone_call form — defiance register through quiet immovability, not aggression: Host B deploys seven distinct conditional shapes (irundha/ok-na/kidaiccha/vandha/illainna/mudinja) as a wall of polite 'no.' Subtext: 'கடைசில பாக்கலாம்' is the family verdict both sides already know before it's spoken. முடிஞ்சா and கடைசில பாக்கலாம் are UNSEEN (first soak — episode makes them volley-legal). frame:we-om lands in all three target shapes: வாரோம் (x3), போலாம் (x3), பாக்கலாம் (x4 across both). Breakdown obsesses over ONE beat: 'கடைசில பாக்கலாம்' as the Tamil family non-decision decision — the polite door that never said no. Unfenced: அம்மா (mother — universally obvious), அத்தை (paternal aunt — obvious from booking context). Diverges from M58 pride/story/auto, M57 tenderness/classic/street, M56 public/vignette."
+}
