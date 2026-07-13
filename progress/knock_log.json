@@ -1106,6 +1106,26 @@
     "next_check": "2026-07-14T12:53:01.223645+00:00",
     "body": "one engine left to name — the line that got you 'poirum' at the airport. tonight. next session pays it off 🔥",
     "expected_target": "",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "This is a bit cryptic, what tonight?",
+    "reply_verdict": "chat",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line": "haha fair — the -idum engine: 'poirum' (it'll go), 'varum' (it'll come), 'sollidum' (I'll tell ya). the pattern that prints futures. next session we name it and drill it. tonight or tomorrow, your call.",
+    "reply_at": "2026-07-13T22:54:36Z",
+    "exchanges": [
+      {
+        "at": "2026-07-13T22:54:36Z",
+        "reply": "This is a bit cryptic, what tonight?",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "haha fair — the -idum engine: 'poirum' (it'll go), 'varum' (it'll come), 'sollidum' (I'll tell ya). the pattern that prints futures. next session we name it and drill it. tonight or tomorrow, your call."
+      }
+    ]
   }
 ]
