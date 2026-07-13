@@ -32,6 +32,7 @@ from pathlib import Path
 BASE = Path(__file__).parent.parent
 SCRIPTS_DIR = BASE / "content" / "scripts"
 LESSONS_DIR = BASE / "content" / "lessons"
+CAPTIONS_DIR = BASE / "content" / "captions"
 AUDIO_DIR = BASE / "published_audio"
 
 AGY_MODEL = "Gemini 3.1 Pro (High)"   # pinned: the long-context writer
@@ -95,6 +96,25 @@ PRINT exactly two fenced blocks and nothing else:
    the existing content/scripts/*.tags.json files
 """
 
+CAPTIONS = PREAMBLE + """
+THIS PASS: the CAPTION SHEET (captioned soak — the follow-along the learner
+reads while listening; see protocol/studio/studio.md step 4). Below is the
+FINAL production script. Transcribe it into a markdown sheet:
+- Open with `# Captions — Ep {n} · <title>` and this blockquote how-to:
+  "**Follow-along sheet** — Tamil · *phonetic* · English, line by line." /
+  "Passes 1–2: listen with this open. Pass 3+: put it away — **blind is the
+  win.**"
+- Then ONE blockquote per spoken line, three `<br>`-separated rows:
+  `**<speaker letter/name>:** <the line exactly as in the script>` then
+  `*<English-phonetic transliteration>*` then the plain-English meaning.
+- Keep [SFX]/[Pause] as short italic position cues between blockquotes.
+- Lines that are already mostly English need no phonetic/gloss rows.
+
+{script}
+
+PRINT one ```markdown fence with the caption sheet and nothing else.
+"""
+
 
 def next_mission() -> int:
     nums = [int(m.group(1)) for p in SCRIPTS_DIR.glob("tier2_mission*.md")
@@ -105,7 +125,8 @@ def next_mission() -> int:
 def episode_paths(n: int) -> dict[str, Path]:
     return {"brief": LESSONS_DIR / f"tier2_mission{n}_brief.md",
             "script": SCRIPTS_DIR / f"tier2_mission{n}.md",
-            "tags": SCRIPTS_DIR / f"tier2_mission{n}.tags.json"}
+            "tags": SCRIPTS_DIR / f"tier2_mission{n}.tags.json",
+            "captions": CAPTIONS_DIR / f"tier2_mission{n}.md"}
 
 
 def agy_print(label: str, prompt: str) -> str | None:
@@ -158,6 +179,16 @@ def write_episode(n: int) -> bool:
     paths["brief"].write_text(plan + "\n", encoding="utf-8")
     paths["script"].write_text(script + "\n", encoding="utf-8")
     paths["tags"].write_text(tags + "\n", encoding="utf-8")
+
+    # Caption sheet — companion, never a gate: a failed pass warns and the
+    # episode still ships (the feed simply carries no caption link for it).
+    sheet_out = agy_print("Captions", CAPTIONS.format(n=n, script=script))
+    sheet = fenced_block(sheet_out, "markdown") if sheet_out else None
+    if sheet:
+        paths["captions"].parent.mkdir(parents=True, exist_ok=True)
+        paths["captions"].write_text(sheet + "\n", encoding="utf-8")
+    else:
+        print("   ⚠ caption sheet pass failed — episode ships without captions")
     return True
 
 
