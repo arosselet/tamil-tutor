@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Monday 2026-07-13
+
+**13:52 · Anna**  ·  volley / afternoon deck blitz
+> ⚡ volley 1/4 — Hotel desk guy's on his phone, ignoring you. You need a pen. What do you say?
+
+
 ## Sunday 2026-07-12
 
 **10:52 · Anna**  ·  text / grace + low-friction re-open
