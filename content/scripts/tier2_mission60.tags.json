@@ -1,0 +1,38 @@
+{
+  "mission": 60,
+  "register": "nostalgia",
+  "dramatic_ingredient": "character",
+  "episode_form": "classic",
+  "shape": "story",
+  "location_class": "home_social",
+  "energy": "low",
+  "intercept_tamil_density": 0.0,
+  "breakdown_tamil_density": 0.15,
+  "fence_size": 200,
+  "unfenced_words": 0,
+  "new_words_landed": {
+    "அலைச்சல்": 6,
+    "அப்பா": 5,
+    "அம்மா": 4,
+    "மாமா": 3,
+    "பாப்போம்": 2,
+    "போவோம்": 4,
+    "-ஓம்": 1,
+    "இல்ல": 1,
+    "ஆமா": 3,
+    "கிட்ட": 2,
+    "ஆனா": 3,
+    "சொன்னாங்க": 2,
+    "சீக்கிரம்": 2
+  },
+  "callbacks_used": {
+    "முடிஞ்சா": 10,
+    "கடைசில பாக்கலாம்": 5,
+    "பாக்கலாம்": 1
+  },
+  "host_roles": {
+    "Maya": "analytical_host",
+    "Raj": "reflective_storyteller"
+  },
+  "notes": "Classic breakdown episode. Raj shares a personal memory shifting the meaning of the targets from stall tactics to acts of love. Beautiful pacing. Applied Kongu layer respectfully with discourse markers (ஆமா, சரி, தெரியுமா) and one imperative with -ங்க (பாருங்க)."
+}
