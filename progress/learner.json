@@ -1,35 +1,34 @@
 {
   "learner": "Andrew",
-  "last_debrief": "STORY SO FAR: the reveal-prep arc. 'suvaiya irukku' survived live fire at supper 2026-07-01 (field mission #1, logged cold). 2026-07-02: Andrew ran the 8-question Oracle chat — she vetted the deck and UPGRADED it: 'vai therantha kaakka kothittu poidum' (her own stuffed-idiom, now the crown zinger), pazhagippochu, evlo (never evvalavu), freeya vidunga, 'software engineer-a irukken', praise > asking for seconds ('romba nallarukku' is THE melt line), gossip opens with 'namma {person} irukkaan-la' / 'theriyuma', and the register law: neenga for EVERYONE incl. younger relatives, nee only for the very close. All corrections seeded (deck 0/59 fire + 0/8 catch). OPEN THREAD: the arrival gauntlet — next session opens with the aunties running the FAQ interrogation and Andrew firing his corrected script (oru maasam iruppom / nethu dhaan vandhom / software engineer-a irukken / Canada-la irukkom / romba pidichirukku / kaaram paravaayilla pazhagippochu). None have fired yet. 'ippa-ve' still opportunistic.",
+  "last_debrief": "STORY SO FAR: the reveal-prep arc, now on war footing. 2026-07-13 war council: 30 days to touchdown, pace was 0.4/day — Andrew set the touchdown bar HIMSELF: survival (fast speech aimed at him — follow it or repair it, transact) outranks delight (sisters-in-law seeing the trying: faq script, mil-table, social); zingers/gossip are dessert and soak. He pledged a daily lunch-break session; the machine was reordered to match (tiered ticket/volleys, lunch-anchor knock policy). A fired repair line counts as a PASS out loud, every time. OPEN THREAD unchanged: the arrival gauntlet — aunties running the FAQ interrogation, none of his corrected script fired yet (oru maasam iruppom / nethu dhaan vandhom / software engineer-a irukken / Canada-la irukkom / romba pidichirukku / kaaram paravaayilla pazhagippochu). First lunch session opens THERE, then drills the repair kit under speed (mask at pace). Soak order: the antifreeze kit — all UNSEEN, the episode is what makes them volley-legal.",
   "soak_order": {
     "payload": [
-      "ஒரு மாசம் இருப்போம்",
-      "frame:giveme-noun",
-      "frame:howmuch-noun",
-      "frame:isthere-noun",
-      "frame:want-noun",
-      "frame:where-noun"
+      "கொஞ்சம் மெதுவா சொல்லுங்க",
+      "இன்னொரு தடவ சொல்லுங்க",
+      "என்ன சொன்னீங்க?",
+      "தமிழ்ல எப்படி சொல்றது?",
+      "அப்படியா?!"
     ],
-    "scene_seed": "at the tea stall, everyone's too polite to say what they actually want — Andrew has to read between the lines while asking for his own",
-    "from": "2026-07-03"
+    "scene_seed": "the auto stand at full speed — a driver machine-guns questions at Andrew; the repair kit is the hero, every rescue earns respect",
+    "from": "2026-07-13"
   },
   "recent_missions": [
     {
+      "mission": 57,
+      "title": "The Regular"
+    },
+    {
+      "mission": 56,
+      "title": "Mission tier2_mission56"
+    },
+    {
+      "mission": 55,
+      "title": "வேணும்: The Word That Doesn't Choose"
+    },
+    {
       "mission": 54,
       "title": "The Stall Between Wants"
-    },
-    {
-      "mission": 53,
-      "title": "The Kitchen Call"
-    },
-    {
-      "mission": 52,
-      "title": "The Maama's Chair"
-    },
-    {
-      "mission": 51,
-      "title": "The Empty Chair"
     }
   ],
-  "status": "Trip Deck 0/59 fire cold · 40 days to touchdown · need 1.5 cold/day, trailing 7-day pace 0.4/day"
+  "status": "Trip Deck 3/64 fire cold · 30 days to touchdown · need 2.0 cold/day, trailing 7-day pace 0.4/day"
 }
