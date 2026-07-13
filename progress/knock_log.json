@@ -981,5 +981,36 @@
         "reply_line": "haha — 10 days gap, da. today was a soft re-open, not a flood. you're back, that's the move."
       }
     ]
+  },
+  {
+    "date": "2026-07-13",
+    "timestamp": "2026-07-13T17:52:05.274899+00:00",
+    "acted": true,
+    "modality": "volley",
+    "move": "afternoon deck blitz",
+    "rationale": "Session logged today (anchor served), demand-streak is 1 and Andrew signalled yesterday he wants more contact — volley is the right afternoon spend: hinted→cold items ready to fire, sprint pace is dire, and this clears demand-streak to 2 so the next fire must be no-ask.",
+    "next_check": "2026-07-13T21:52:05.274899+00:00",
+    "body": "⚡ volley 1/4 — Hotel desk guy's on his phone, ignoring you. You need a pen. What do you say?",
+    "expected_target": "frame:giveme-noun",
+    "target_revealed": false,
+    "volley": [
+      {
+        "target": "frame:giveme-noun",
+        "ask": "Hotel desk guy's on his phone, ignoring you. You need a pen. What do you say?"
+      },
+      {
+        "target": "frame:in-la",
+        "ask": "She asks where you learned Tamil. Answer: in Canada."
+      },
+      {
+        "target": "frame:want-noun",
+        "ask": "Tea stall. They're looking at you. No menu. You want tea."
+      },
+      {
+        "target": "புரியல",
+        "ask": "Maama fires three sentences too fast. One word to stop him."
+      }
+    ],
+    "volley_next": 1
   }
 ]
