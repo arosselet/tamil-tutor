@@ -27,6 +27,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! tea வேணும் — natural as breathing. 🔥 · 4/4 — Maama fires three sentences too fast. One word to stop him.
 
+**14:48 · Andrew** — **MISS**
+> Medhuva solla
+
+**Anna ↩**
+> real Tamil, but that's 'speak slowly' — the one word to freeze him cold is 'puriyala.' adhu try pannunga.
+
 
 ## Sunday 2026-07-12
 

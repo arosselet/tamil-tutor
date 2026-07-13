@@ -1013,8 +1013,8 @@
     ],
     "volley_next": 4,
     "response": "reply",
-    "reply": "Tea venum",
-    "reply_verdict": "cold",
+    "reply": "Medhuva solla",
+    "reply_verdict": "miss",
     "reply_fired": [
       "frame:giveme-noun",
       "frame:in-la",
@@ -1025,8 +1025,8 @@
       "frame:want-noun"
     ],
     "reply_fired_capped": [],
-    "reply_line": "adhu dhaan! tea வேணும் — natural as breathing. 🔥 · 4/4 — Maama fires three sentences too fast. One word to stop him.",
-    "reply_at": "2026-07-13T18:47:30Z",
+    "reply_line": "real Tamil, but that's 'speak slowly' — the one word to freeze him cold is 'puriyala.' adhu try pannunga.",
+    "reply_at": "2026-07-13T18:48:55Z",
     "exchanges": [
       {
         "at": "2026-07-13T18:13:36Z",
@@ -1067,6 +1067,16 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "adhu dhaan! tea வேணும் — natural as breathing. 🔥 · 4/4 — Maama fires three sentences too fast. One word to stop him."
+      },
+      {
+        "at": "2026-07-13T18:48:55Z",
+        "reply": "Medhuva solla",
+        "verdict": "miss",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "real Tamil, but that's 'speak slowly' — the one word to freeze him cold is 'puriyala.' adhu try pannunga."
       }
     ],
     "chained": 3,
