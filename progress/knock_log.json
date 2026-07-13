@@ -952,13 +952,13 @@
     "expected_target": "ரொம்ப பிடிச்சிருக்கு",
     "target_revealed": false,
     "response": "reply",
-    "reply": "I like it a lot",
+    "reply": "Why so few messages today?",
     "reply_verdict": "chat",
     "reply_fired": [],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "exactly — 'romba pidichirukku' is your mouth saying exactly that. it's on the revealed list already so I can't count a cold fire, but the meaning's locked ✓",
-    "reply_at": "2026-07-12T15:03:56Z",
+    "reply_line": "haha — 10 days gap, da. today was a soft re-open, not a flood. you're back, that's the move.",
+    "reply_at": "2026-07-13T03:04:04Z",
     "exchanges": [
       {
         "at": "2026-07-12T15:03:56Z",
@@ -969,6 +969,16 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "exactly — 'romba pidichirukku' is your mouth saying exactly that. it's on the revealed list already so I can't count a cold fire, but the meaning's locked ✓"
+      },
+      {
+        "at": "2026-07-13T03:04:04Z",
+        "reply": "Why so few messages today?",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "haha — 10 days gap, da. today was a soft re-open, not a flood. you're back, that's the move."
       }
     ]
   }
