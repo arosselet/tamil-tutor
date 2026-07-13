@@ -3670,5 +3670,103 @@
       57
     ],
     "last_surfaced": null
+  },
+  "ஊரு": {
+    "type": "chunk",
+    "gloss": "Hometown / the village — THE family word for the native place",
+    "phonetic": [
+      "ooru",
+      "oor"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "கடைசில பாக்கலாம்": {
+    "type": "chunk",
+    "gloss": "We'll see at the end / last minute (the family-planning verdict)",
+    "phonetic": [
+      "kadaisila paakalam",
+      "kadaisila pakkalam"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "முடிஞ்சா": {
+    "type": "chunk",
+    "gloss": "If possible / if I can — the one-word softener",
+    "phonetic": [
+      "mudinja",
+      "mudinjaa"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "அலைச்சல்": {
+    "type": "chunk",
+    "gloss": "The hassle / the running-around",
+    "phonetic": [
+      "alaichal",
+      "alaichchal"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "catch"
+  },
+  "ஜாஸ்தி": {
+    "type": "chunk",
+    "gloss": "Too much / extra (days, price, anything)",
+    "phonetic": [
+      "jasthi",
+      "jaasthi"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "catch"
+  },
+  "ஒரே கல்லுல ரெண்டு மாங்கா": {
+    "type": "chunk",
+    "gloss": "Two mangoes with one stone (two birds, one stone)",
+    "phonetic": [
+      "ore kallula rendu manga",
+      "orey kallula rendu maanga"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
+  },
+  "பிறந்தநாள் வாழ்த்துக்கள்": {
+    "type": "chunk",
+    "gloss": "Happy birthday (for amma — her birthday lands ~Aug 24, mid-CBE stay)",
+    "phonetic": [
+      "pirandhanaal vaazhthukkal",
+      "piranda naal vazhthukal"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
   }
 }
