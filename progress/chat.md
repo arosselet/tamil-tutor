@@ -42,6 +42,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **18:53 · Anna**  ·  text / trailer: -idum machine
 > one engine left to name — the line that got you 'poirum' at the airport. tonight. next session pays it off 🔥
 
+**18:54 · Andrew** — **CHAT**
+> This is a bit cryptic, what tonight?
+
+**Anna ↩**
+> haha fair — the -idum engine: 'poirum' (it'll go), 'varum' (it'll come), 'sollidum' (I'll tell ya). the pattern that prints futures. next session we name it and drill it. tonight or tomorrow, your call.
+
 
 ## Sunday 2026-07-12
 
