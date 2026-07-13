@@ -258,6 +258,25 @@ Details live in git history; this is the index of the *conclusions*.
   plumbing; never hand Andrew a choice between mechanisms the evidence hasn't earned.
   Encoded in `/extend` Gate 3 and `/debug` doctrine; refines "explore before
   implementing" and generalizes "fix the tool, not the personality" to proposals.
+- **The touchdown bar is two tiers — survival first, delight second, dessert last**
+  (2026-07-13). Andrew's own framing the day the trip date went firm (30 days out,
+  trailing pace 0.4/day vs 2.0 flat-bar): fast speech *aimed at him* — follow it, repair
+  it, transact (antifreeze / public / frames; a fired repair line is a PASS) — outranks
+  the visible-trying wins at the family table (faq / mil-table / social); zingers and
+  gossip are dessert and soak. Tier ordering + the touchdown bar only — nothing leaves
+  the deck. **Supersedes "deck tiering rejected" (2026-07-09)**, which was decided at
+  pace 1.5 vs 1.8 with no firm date; the accepted tradeoff: lower-tier items see fewer
+  reps until survival ripens. `suggest_targets.py` orders ticket and volley by tier.
+- **The daily session's home is the lunch break** (2026-07-13, Andrew's commitment).
+  Gives the 07-11 daily-session mandate a fixed slot; knock policy tees up a
+  late-morning session bell (trailer / no-ask) and moves collection asks — volley
+  included — to the afternoon. Amends the 07-08 "volley's best slot is the day's first
+  reach."
+- **Respond-under-speed is a session move, not new machinery** (2026-07-13). Directed
+  fast speech (an instruction or question fired AT Andrew) is a distinct skill from
+  eavesdrop drift; drill it as mask-work at full pace where an antifreeze repair line
+  counts as a pass out loud. Rejects a new drill script or meter — parameterizes
+  existing mask-work; lives as a profile.md sprint bullet.
 - **TTS text gets defanged at the renderer, not by prompt discipline** (2026-07-07).
   Google TTS voices a hyphen glued to a word as "minus" ("-இட்டு" → "minus ittu",
   done-ittu memo, Andrew's report): `defang_hyphens()` in `render_audio.py` now guards

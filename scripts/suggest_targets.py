@@ -92,6 +92,28 @@ def floor_gap_targets(lexicon: dict, today, max_n: int) -> list[dict]:
     return gap[:max_n]
 
 
+# Touchdown bar (2026-07-13, Andrew — supersedes "deck tiering rejected" 2026-07-09,
+# re-decided at trailing pace 0.4/day with 30 days left): survival (fast speech aimed
+# at him — repair it, transact, don't freeze) outranks delight (the visible-trying
+# wins at the family table); gossip/zinger are soak & dessert. Ordering only —
+# nothing leaves the deck; the ambition is still to clear it whole.
+DECK_TIERS = {"antifreeze": 0, "public": 0, "frame": 0,
+              "faq": 1, "mil-table": 1, "social": 1,
+              "gossip": 2, "zinger": 2}
+TIER_NAMES = {0: "survival", 1: "delight", 2: "dessert"}
+
+
+def deck_registers(deck: str = "trip") -> dict:
+    """word → curriculum register, joined at menu time from the deck's curriculum
+    file — ordering is a menu concern, not state, so the lexicon schema stays
+    frozen. Missing file or register degrades to flat ordering."""
+    path = BASE / "curriculum" / f"{deck}_deck.json"
+    if not path.exists():
+        return {}
+    return {i.get("tamil", ""): i.get("register", "")
+            for i in json.loads(path.read_text(encoding="utf-8"))}
+
+
 def deck_status(lexicon: dict, deck: str = "trip") -> dict | None:
     """A finite, deadline-driven deck (the India-trip survival set), tagged
     `deck: "<name>"`. During a sprint this is the HEADLINE priority — Anna forces
@@ -103,6 +125,7 @@ def deck_status(lexicon: dict, deck: str = "trip") -> dict | None:
     members = [(w, r) for w, r in lexicon.items() if r.get("deck") == deck]
     if not members:
         return None
+    regs = deck_registers(deck)
     fire = [(w, r) for w, r in members if r.get("direction", "fire") != "catch"]
     catch = [(w, r) for w, r in members if r.get("direction") == "catch"]
     cold = [w for w, r in fire if r.get("production") == "cold"]
@@ -110,9 +133,12 @@ def deck_status(lexicon: dict, deck: str = "trip") -> dict | None:
         "word": w, "gloss": r.get("gloss", ""),
         "kind": "frame" if r.get("type") == "pattern" else r.get("type", "chunk"),
         "recognition": r.get("recognition"), "production": r.get("production", "none"),
+        "tier": TIER_NAMES.get(DECK_TIERS.get(regs.get(w, ""), 1)),
     } for w, r in fire if r.get("production") != "cold"]
-    # Ripest first: hinted before none, solid before comfortable.
-    pending.sort(key=lambda c: (PROD_ORDER.get(c["production"], 1),
+    # Touchdown-bar tier first; within a tier, ripest first: hinted before none,
+    # solid before comfortable.
+    pending.sort(key=lambda c: (DECK_TIERS.get(regs.get(c["word"], ""), 1),
+                                PROD_ORDER.get(c["production"], 1),
                                 RECOG_ORDER.get(c["recognition"], 1), c["word"]))
     catch_pending = [{
         "word": w, "gloss": r.get("gloss", ""),
@@ -264,7 +290,8 @@ def main():
               f"Not-yet-cold ({len(deck['pending'])}) — pick from these first:")
         for t in deck["pending"][:12]:
             tag = "hinted→cold" if t["production"] == "hinted" else f"{t['recognition']}, cold-pending"
-            print(f"  - [{t['kind']}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{tag}]")
+            tier = f" · {t['tier']}" if t.get("tier") else ""
+            print(f"  - [{t['kind']}{tier}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{tag}]")
         if deck["catch_total"]:
             print(f"\n  EAR-ONLY ({deck['caught']}/{deck['catch_total']} solid) — eavesdrop/soak targets; "
                   f"win = recognition, never force these to fire:")
