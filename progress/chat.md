@@ -15,6 +15,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > close — 'pen kudunga' da. the frame is '{noun} kudunga' 🖊️ · 2/4 — She asks where you learned Tamil. Answer: in Canada.
 
+**14:29 · Andrew** — **COLD**
+> Canada la
+
+**Anna ↩**
+> adhu dhaan! 🔥 · 3/4 — Tea stall. They're looking at you. No menu. You want tea.
+
 
 ## Sunday 2026-07-12
 

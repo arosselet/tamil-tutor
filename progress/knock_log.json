@@ -1011,17 +1011,20 @@
         "ask": "Maama fires three sentences too fast. One word to stop him."
       }
     ],
-    "volley_next": 2,
+    "volley_next": 3,
     "response": "reply",
-    "reply": "Pen venom",
-    "reply_verdict": "hinted",
+    "reply": "Canada la",
+    "reply_verdict": "cold",
     "reply_fired": [
-      "frame:giveme-noun"
+      "frame:giveme-noun",
+      "frame:in-la"
     ],
-    "reply_fired_cold": [],
+    "reply_fired_cold": [
+      "frame:in-la"
+    ],
     "reply_fired_capped": [],
-    "reply_line": "close — 'pen kudunga' da. the frame is '{noun} kudunga' 🖊️ · 2/4 — She asks where you learned Tamil. Answer: in Canada.",
-    "reply_at": "2026-07-13T18:13:36Z",
+    "reply_line": "adhu dhaan! 🔥 · 3/4 — Tea stall. They're looking at you. No menu. You want tea.",
+    "reply_at": "2026-07-13T18:29:38Z",
     "exchanges": [
       {
         "at": "2026-07-13T18:13:36Z",
@@ -1034,10 +1037,24 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "close — 'pen kudunga' da. the frame is '{noun} kudunga' 🖊️ · 2/4 — She asks where you learned Tamil. Answer: in Canada."
+      },
+      {
+        "at": "2026-07-13T18:29:38Z",
+        "reply": "Canada la",
+        "verdict": "cold",
+        "fired": [
+          "frame:in-la"
+        ],
+        "fired_cold": [
+          "frame:in-la"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! 🔥 · 3/4 — Tea stall. They're looking at you. No menu. You want tea."
       }
     ],
-    "chained": 1,
-    "pinned_target": "frame:in-la",
+    "chained": 2,
+    "pinned_target": "frame:want-noun",
     "pinned_revealed": false
   }
 ]
