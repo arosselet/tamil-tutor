@@ -53,6 +53,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > mudivu = decision / the act of deciding. 'mudivu pannu' — make the decision. (you nearly had it last round.)
 
+**18:54 · Anna**  ·  text / mudivu answer + backchannel cold ask
+> mudivu = decision 🎯 'mudivu pannu' = make a call. she drops surprising news — job, a trip. you're caught off guard. one word back — go.
+
 
 ## Monday 2026-07-13
 

@@ -1295,5 +1295,17 @@
     "chained": 1,
     "pinned_target": "decide pannு / முடிவு பண்ணு",
     "pinned_revealed": false
+  },
+  {
+    "date": "2026-07-14",
+    "timestamp": "2026-07-14T22:54:32.249938+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "mudivu answer + backchannel cold ask",
+    "rationale": "Andrew left a live question ('mudivu pannu what does mudivu mean?') — answering it keeps the thread warm; the surprise-news frame pins naturally to அப்படியா cold, demand-streak is 0, and this closes the open question without launching a heavy volley at 18:54.",
+    "next_check": "2026-07-15T12:54:32.249938+00:00",
+    "body": "mudivu = decision 🎯 'mudivu pannu' = make a call. she drops surprising news — job, a trip. you're caught off guard. one word back — go.",
+    "expected_target": "அப்படியா?!",
+    "target_revealed": false
   }
 ]
