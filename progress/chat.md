@@ -48,6 +48,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > haha fair — the -idum engine: 'poirum' (it'll go), 'varum' (it'll come), 'sollidum' (I'll tell ya). the pattern that prints futures. next session we name it and drill it. tonight or tomorrow, your call.
 
+**20:38 · Andrew** — **CHAT**
+> Ep61 alichal didn’t translate what does it mean?
+
+**Anna ↩**
+> 'alichal' — scratch that, not a real word. autocorrect ghost. the engine you already have: 'poirum', 'varum', 'sollidum' — all futures. next session we just NAME the pattern and drill it.
+
 
 ## Sunday 2026-07-12
 
