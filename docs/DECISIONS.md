@@ -297,3 +297,17 @@ Details live in git history; this is the index of the *conclusions*.
   memo pacing). Rejects "tell the generator to avoid hyphens": prompt rules drift, the
   renderer is the one chokepoint. Same audit: the unprompted lore-memo knock move is
   validated (9/10 from Andrew) — keep it in rotation under the existing rails.
+- **The studio's stray-write tripwire polices only `content/`** (2026-07-13).
+  Session-open dispatch + session-close state writes *guarantee* legitimate mid-run
+  `progress/` churn, and the whole-tree baseline diff aborted a good episode (M60) over
+  it. agy can only plausibly misbehave in the studio's own domain. Replaces the
+  whole-tree stray check in `run_studio.py`'s lint.
+- **The `lexicon.json` concurrent-write race is known and deferred** (2026-07-13,
+  Andrew). `sync_state.py` and `render_audio.py` both read-modify-write it; a session
+  close landing inside a render's load→save window is silently lost (last-writer-wins).
+  A `flock` over both writers was proposed and deferred, not rejected — revisit when
+  sessions and renders actually overlap, or on first evidence of a lost write.
+- **Payload fidelity bends the sidecar, never the script** (2026-07-13). The verbatim
+  lint is lemma-literal and false-flags correct inflections (M61 claimed தூக்கு; the
+  script's தூக்க முடியல is right Tamil). Repair = drop the sidecar's over-claim; forcing
+  a lemma verbatim into a natural line corrupts the rep to satisfy bookkeeping.
