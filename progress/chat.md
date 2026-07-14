@@ -54,6 +54,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > 'alichal' — scratch that, not a real word. autocorrect ghost. the engine you already have: 'poirum', 'varum', 'sollidum' — all futures. next session we just NAME the pattern and drill it.
 
+**20:42 · Andrew** — **CHAT**
+> Read this script and tell me https://github.com/arosselet/tamil-tutor/commit/9f0fdba3cea24d1366064c555d68c3a1302ab664
+
+**Anna ↩**
+> reading it now — give me a sec.
+
 
 ## Sunday 2026-07-12
 

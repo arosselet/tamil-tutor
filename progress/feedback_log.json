@@ -50,5 +50,9 @@
   {
     "date": "2026-07-14",
     "note": "[phone] Andrew flagged 'alichal' as untranslatable — likely autocorrect artifact, not a real Tamil word he encountered; no lexicon action needed."
+  },
+  {
+    "date": "2026-07-14",
+    "note": "[phone] Andrew linked a GitHub commit for review — likely a code/protocol change to assess and respond to directly next exchange."
   }
 ]
