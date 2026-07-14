@@ -41,6 +41,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > close da — 'poven' is 'I'll go'; for 'just decide' it's 'mudivu pannu'. adhu dhaan.
 
+**17:40 · Andrew** — **CHAT**
+> Mudivu pannu what does mudivu mean?
+
+**Anna ↩**
+> mudivu = decision / the act of deciding. 'mudivu pannu' — make the decision. (you nearly had it last round.)
+
 
 ## Monday 2026-07-13
 

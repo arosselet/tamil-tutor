@@ -1239,15 +1239,15 @@
     "expected_target": "",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Decision la poven?",
-    "reply_verdict": "miss",
+    "reply": "Mudivu pannu what does mudivu mean?",
+    "reply_verdict": "chat",
     "reply_fired": [
       "ok-na book pannu"
     ],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "close da — 'poven' is 'I'll go'; for 'just decide' it's 'mudivu pannu'. adhu dhaan.",
-    "reply_at": "2026-07-14T21:29:25Z",
+    "reply_line": "mudivu = decision / the act of deciding. 'mudivu pannu' — make the decision. (you nearly had it last round.)",
+    "reply_at": "2026-07-14T21:40:04Z",
     "exchanges": [
       {
         "at": "2026-07-14T21:19:16Z",
@@ -1270,6 +1270,16 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "close da — 'poven' is 'I'll go'; for 'just decide' it's 'mudivu pannu'. adhu dhaan."
+      },
+      {
+        "at": "2026-07-14T21:40:04Z",
+        "reply": "Mudivu pannu what does mudivu mean?",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "mudivu = decision / the act of deciding. 'mudivu pannu' — make the decision. (you nearly had it last round.)"
       }
     ],
     "chained": 1,
