@@ -1108,13 +1108,13 @@
     "expected_target": "",
     "target_revealed": false,
     "response": "reply",
-    "reply": "This is a bit cryptic, what tonight?",
+    "reply": "Ep61 alichal didn’t translate what does it mean?",
     "reply_verdict": "chat",
     "reply_fired": [],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "haha fair — the -idum engine: 'poirum' (it'll go), 'varum' (it'll come), 'sollidum' (I'll tell ya). the pattern that prints futures. next session we name it and drill it. tonight or tomorrow, your call.",
-    "reply_at": "2026-07-13T22:54:36Z",
+    "reply_line": "'alichal' — scratch that, not a real word. autocorrect ghost. the engine you already have: 'poirum', 'varum', 'sollidum' — all futures. next session we just NAME the pattern and drill it.",
+    "reply_at": "2026-07-14T00:38:45Z",
     "exchanges": [
       {
         "at": "2026-07-13T22:54:36Z",
@@ -1125,6 +1125,16 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "haha fair — the -idum engine: 'poirum' (it'll go), 'varum' (it'll come), 'sollidum' (I'll tell ya). the pattern that prints futures. next session we name it and drill it. tonight or tomorrow, your call."
+      },
+      {
+        "at": "2026-07-14T00:38:45Z",
+        "reply": "Ep61 alichal didn’t translate what does it mean?",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "'alichal' — scratch that, not a real word. autocorrect ghost. the engine you already have: 'poirum', 'varum', 'sollidum' — all futures. next session we just NAME the pattern and drill it."
       }
     ]
   }

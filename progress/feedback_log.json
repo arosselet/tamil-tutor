@@ -46,5 +46,9 @@
   {
     "date": "2026-07-13",
     "note": "[phone] trailer knock landed as cryptic — 'poirum at the airport' callback wasn't enough context without the session to anchor it; future trailers need a one-line explainer of the pattern"
+  },
+  {
+    "date": "2026-07-14",
+    "note": "[phone] Andrew flagged 'alichal' as untranslatable — likely autocorrect artifact, not a real Tamil word he encountered; no lexicon action needed."
   }
 ]
