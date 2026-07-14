@@ -1204,6 +1204,33 @@
     "rationale": "scheduled at 2026-07-14T13:25 for 2026-07-14T19:00",
     "body": "enna da — booking moment ever come? 'ok-na, book pannu' — did it fire? debrief me.",
     "expected_target": "",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Ok na book pannu",
+    "reply_verdict": "cold",
+    "reply_fired": [
+      "ok-na book pannu"
+    ],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line": "adhu dhaan! 🔥 fired it live — that's the whole mission right there. · now she's dithering on a restaurant. push her: 'just decide!' — one line, Tamil.",
+    "reply_at": "2026-07-14T21:19:16Z",
+    "exchanges": [
+      {
+        "at": "2026-07-14T21:19:16Z",
+        "reply": "Ok na book pannu",
+        "verdict": "cold",
+        "fired": [
+          "ok-na book pannu"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! 🔥 fired it live — that's the whole mission right there. · now she's dithering on a restaurant. push her: 'just decide!' — one line, Tamil."
+      }
+    ],
+    "chained": 1,
+    "pinned_target": "decide pannு / முடிவு பண்ணு",
+    "pinned_revealed": false
   }
 ]
