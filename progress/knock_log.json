@@ -1239,15 +1239,15 @@
     "expected_target": "",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Ok na book pannu",
-    "reply_verdict": "cold",
+    "reply": "Decision la poven?",
+    "reply_verdict": "miss",
     "reply_fired": [
       "ok-na book pannu"
     ],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "adhu dhaan! 🔥 fired it live — that's the whole mission right there. · now she's dithering on a restaurant. push her: 'just decide!' — one line, Tamil.",
-    "reply_at": "2026-07-14T21:19:16Z",
+    "reply_line": "close da — 'poven' is 'I'll go'; for 'just decide' it's 'mudivu pannu'. adhu dhaan.",
+    "reply_at": "2026-07-14T21:29:25Z",
     "exchanges": [
       {
         "at": "2026-07-14T21:19:16Z",
@@ -1260,6 +1260,16 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "adhu dhaan! 🔥 fired it live — that's the whole mission right there. · now she's dithering on a restaurant. push her: 'just decide!' — one line, Tamil."
+      },
+      {
+        "at": "2026-07-14T21:29:25Z",
+        "reply": "Decision la poven?",
+        "verdict": "miss",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "close da — 'poven' is 'I'll go'; for 'just decide' it's 'mudivu pannu'. adhu dhaan."
       }
     ],
     "chained": 1,
