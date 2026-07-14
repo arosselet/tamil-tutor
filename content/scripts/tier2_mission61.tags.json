@@ -1,0 +1,49 @@
+{
+ "mission": 61,
+ "register": "revelation",
+ "dramatic_ingredient": "subtext",
+ "episode_form": "classic",
+ "shape": "gossip",
+ "location_class": "home_social",
+ "energy": "medium",
+ "intercept_tamil_density": 0.0,
+ "breakdown_tamil_density": 0.25,
+ "fence_size": 120,
+ "unfenced_words": 0,
+ "new_words_landed": {
+  "அலைச்சல்": 7,
+  "இருக்கார்ல": 3,
+  "ல": 1,
+  "பழைய": 1,
+  "பெட்டி": 2,
+  "பெரிய": 1,
+  "டயர்ட்": 1,
+  "அப்படியா": 1,
+  "சீக்கிரம்": 4,
+  "ஆ": 1,
+  "சந்தோஷம்": 3
+ },
+ "callbacks_used": {
+  "கல்யாணம்": 1,
+  "நம்ம": 3,
+  "மாமா": 3,
+  "முடியல": 1,
+  "நேரம்": 1,
+  "ஆச்சு": 2,
+  "முடியாது": 1,
+  "ஆமா": 4,
+  "இங்க": 1,
+  "உக்காரு": 1,
+  "நல்லா": 1,
+  "சாப்பிடு": 1,
+  "என்னாச்சு": 1,
+  "சரி": 1,
+  "இல்ல": 1,
+  "ஆனா": 1
+ },
+ "host_roles": {
+  "Maya": "cultural_decoder",
+  "Raj": "exhausted_nephew"
+ },
+ "notes": "Added discourse markers (என்னாச்சு, சரி, ஆமா, ஆனா, இல்ல) for natural Kongu flow. Ensured all payload words remain untouched. Replaced inline translations to avoid TTS reading them awkwardly. Added [Pause: 1 sec] to standardize pause tags."
+}
