@@ -773,6 +773,51 @@ def s13_eavesdrop(mk, kr, sb: Path):
     check("missed drift moves no axis", after["recognition"] == before["recognition"])
 
 
+def s15_push_retry(mk):
+    print("\n15. Push delivery retry (regression #4)")
+    # 2026-07-14: a transient runner-DNS blip killed the notify step after the
+    # knock was already logged and committed — a phantom "fired" knock, red run.
+    # push_to_phone now retries transient OSErrors; a final failure still raises.
+    import os, urllib.error
+
+    class FakeResp:
+        status = 200
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+
+    calls = {"n": 0}
+    sleeps = []
+    real_urlopen, real_sleep = mk.urllib.request.urlopen, mk.time.sleep
+    os.environ["ANNA_PUSH_WEBHOOK_URL"] = "https://smoke.invalid/hook"
+    try:
+        mk.time.sleep = sleeps.append
+
+        def flaky(req, *a, **kw):
+            calls["n"] += 1
+            if calls["n"] < 3:
+                raise urllib.error.URLError(OSError("Temporary failure in name resolution"))
+            return FakeResp()
+        mk.urllib.request.urlopen = flaky
+        mk.push_to_phone("smoke", None, knock_id="smoke")
+        check("two blips then success — delivered", calls["n"] == 3, f"{calls['n']} calls")
+        check("backoff between attempts", sleeps == [5, 10], f"sleeps={sleeps}")
+
+        calls["n"] = 0
+        def dead(req, *a, **kw):
+            calls["n"] += 1
+            raise urllib.error.URLError(OSError("no route"))
+        mk.urllib.request.urlopen = dead
+        try:
+            mk.push_to_phone("smoke", None, knock_id="smoke")
+            check("unreachable webhook still raises", False, "did not raise")
+        except OSError:
+            check("unreachable webhook still raises", True)
+        check("gave up after 3 attempts", calls["n"] == 3, f"{calls['n']} calls")
+    finally:
+        mk.urllib.request.urlopen, mk.time.sleep = real_urlopen, real_sleep
+        os.environ.pop("ANNA_PUSH_WEBHOOK_URL", None)
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -780,6 +825,7 @@ def main():
         mk, kr, pq = load_modules(sb)
         s1_parse_llm_json(mk)
         s2_rails_gate(mk, sb / "progress" / "knock_log.json")
+        s15_push_retry(mk)   # needs the real push_to_phone — s3+ stub it out
         s3_knock_paths(mk, sb)
         s4_normalize(kr)
         s5_reply_judge(mk, kr, sb)

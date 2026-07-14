@@ -35,6 +35,7 @@ import json
 import os
 import subprocess
 import sys
+import time
 import urllib.request
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -746,8 +747,21 @@ def push_to_phone(body: str, audio_url: str | None, knock_id: str = ""):
         payload["audio_url"] = audio_url
     req = urllib.request.Request(webhook, data=json.dumps(payload).encode(),
                                  headers={"Content-Type": "application/json"}, method="POST")
-    with urllib.request.urlopen(req) as r:
-        print(f"   HA push -> HTTP {r.status}")
+    # Delivery is the one network hop we don't control end-to-end: a transient
+    # DNS blip on the runner (2026-07-14, first occurrence) killed an otherwise
+    # perfect run at the last step. Retry absorbs blips; the final failure still
+    # raises so a genuinely unreachable webhook stays a red run, not a silent drop.
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(req) as r:
+                print(f"   HA push -> HTTP {r.status}")
+            return
+        except OSError as e:  # URLError, gaierror, timeouts
+            if attempt == 2:
+                raise
+            wait = 5 * (attempt + 1)
+            print(f"   ⚠ push attempt {attempt + 1} failed ({e}) — retrying in {wait}s")
+            time.sleep(wait)
 
 
 # ── Orchestration ─────────────────────────────────────────────────────────────
