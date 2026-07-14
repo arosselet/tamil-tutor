@@ -17,6 +17,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **15:26 · Anna**  ·  text / field mission debrief collect
 > enna da — booking moment ever come? 'ok-na, book pannu' — did it fire? debrief me.
 
+**17:19 · Andrew** — **COLD**
+> Ok na book pannu
+
+**Anna ↩**
+> adhu dhaan! 🔥 fired it live — that's the whole mission right there. · now she's dithering on a restaurant. push her: 'just decide!' — one line, Tamil.
+
 
 ## Monday 2026-07-13
 
