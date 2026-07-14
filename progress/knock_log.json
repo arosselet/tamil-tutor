@@ -1192,5 +1192,18 @@
       }
     ],
     "volley_next": 1
+  },
+  {
+    "date": "2026-07-14",
+    "timestamp": "2026-07-14T19:26:35.113258+00:00",
+    "acted": true,
+    "scheduled": true,
+    "queue_id": "q1784035519",
+    "modality": "text",
+    "move": "field mission debrief collect",
+    "rationale": "scheduled at 2026-07-14T13:25 for 2026-07-14T19:00",
+    "body": "enna da — booking moment ever come? 'ok-na, book pannu' — did it fire? debrief me.",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]

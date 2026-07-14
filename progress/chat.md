@@ -14,6 +14,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **15:13 · Anna**  ·  volley / afternoon deck volley
 > ⚡ volley 1/4 — Cousin asks 'beach Sunday-ah?' — you want to say 'if there's time…' Reply with the Tamil 'if' frame.
 
+**15:26 · Anna**  ·  text / field mission debrief collect
+> enna da — booking moment ever come? 'ok-na, book pannu' — did it fire? debrief me.
+
 
 ## Monday 2026-07-13
 
