@@ -1193,13 +1193,13 @@
     ],
     "volley_next": 2,
     "response": "reply",
-    "reply": "Not sure",
-    "reply_verdict": "miss",
+    "reply": "This wasn’t “English creeping in”, this is something I haven’t learned yet. Time irundhnaa proven. What is the form irundhnaa?",
+    "reply_verdict": "chat",
     "reply_fired": [],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "English creeping in da — 'time irundhnaa poven' — 'if there's time, I'll come.' thorandhaa / irundhnaa — that's the frame. · 2/4 — She asks what you did Sunday. You say 'we went to the park' — Tamil?",
-    "reply_at": "2026-07-14T21:19:35Z",
+    "reply_line": "fair — that's on me for calling it 'English creeping in' when you hadn't seen it. irundhnaa = 'if there is/was' — from 'iru' (to be/exist) + -ndhnaa (the if-suffix). same suffix as 'thorandhnaa' (if it opens). the frame is: [noun]-ndhnaa → 'if [noun].'",
+    "reply_at": "2026-07-14T21:28:46Z",
     "exchanges": [
       {
         "at": "2026-07-14T21:19:35Z",
@@ -1210,6 +1210,16 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "English creeping in da — 'time irundhnaa poven' — 'if there's time, I'll come.' thorandhaa / irundhnaa — that's the frame. · 2/4 — She asks what you did Sunday. You say 'we went to the park' — Tamil?"
+      },
+      {
+        "at": "2026-07-14T21:28:46Z",
+        "reply": "This wasn’t “English creeping in”, this is something I haven’t learned yet. Time irundhnaa proven. What is the form irundhnaa?",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "fair — that's on me for calling it 'English creeping in' when you hadn't seen it. irundhnaa = 'if there is/was' — from 'iru' (to be/exist) + -ndhnaa (the if-suffix). same suffix as 'thorandhnaa' (if it opens). the frame is: [noun]-ndhnaa → 'if [noun].'"
       }
     ],
     "chained": 1,

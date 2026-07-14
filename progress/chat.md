@@ -20,6 +20,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > English creeping in da — 'time irundhnaa poven' — 'if there's time, I'll come.' thorandhaa / irundhnaa — that's the frame. · 2/4 — She asks what you did Sunday. You say 'we went to the park' — Tamil?
 
+**17:28 · Andrew** — **CHAT**
+> This wasn’t “English creeping in”, this is something I haven’t learned yet. Time irundhnaa proven. What is the form irundhnaa?
+
+**Anna ↩**
+> fair — that's on me for calling it 'English creeping in' when you hadn't seen it. irundhnaa = 'if there is/was' — from 'iru' (to be/exist) + -ndhnaa (the if-suffix). same suffix as 'thorandhnaa' (if it opens). the frame is: [noun]-ndhnaa → 'if [noun].'
+
 **15:26 · Anna**  ·  text / field mission debrief collect
 > enna da — booking moment ever come? 'ok-na, book pannu' — did it fire? debrief me.
 
