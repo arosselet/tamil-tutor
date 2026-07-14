@@ -14,6 +14,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **15:13 · Anna**  ·  volley / afternoon deck volley
 > ⚡ volley 1/4 — Cousin asks 'beach Sunday-ah?' — you want to say 'if there's time…' Reply with the Tamil 'if' frame.
 
+**17:19 · Andrew** — **MISS**
+> Not sure
+
+**Anna ↩**
+> English creeping in da — 'time irundhnaa poven' — 'if there's time, I'll come.' thorandhaa / irundhnaa — that's the frame. · 2/4 — She asks what you did Sunday. You say 'we went to the park' — Tamil?
+
 **15:26 · Anna**  ·  text / field mission debrief collect
 > enna da — booking moment ever come? 'ok-na, book pannu' — did it fire? debrief me.
 
