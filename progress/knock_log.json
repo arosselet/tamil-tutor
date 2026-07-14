@@ -1147,5 +1147,17 @@
         "reply_line": "reading it now — give me a sec."
       }
     ]
+  },
+  {
+    "date": "2026-07-14",
+    "timestamp": "2026-07-14T13:25:02.438212+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "trailer: paathukkaren + session bell",
+    "rationale": "Lunch anchor: 09:25 is session-bell territory — trailer recruits the session rather than spending a demand dose before the day's primary rep opportunity; schedule the field-mission debrief collect for 15:00, after the session slot.",
+    "next_check": "2026-07-14T18:25:02.438212+00:00",
+    "body": "da — paathukkaren is half-yours. today's lunch session, we fire it cold + close the kudunga gap. 30 mins, then it's locked 🔒",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]
