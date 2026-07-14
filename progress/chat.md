@@ -35,6 +35,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! 🔥 fired it live — that's the whole mission right there. · now she's dithering on a restaurant. push her: 'just decide!' — one line, Tamil.
 
+**17:29 · Andrew** — **MISS**
+> Decision la poven?
+
+**Anna ↩**
+> close da — 'poven' is 'I'll go'; for 'just decide' it's 'mudivu pannu'. adhu dhaan.
+
 
 ## Monday 2026-07-13
 
