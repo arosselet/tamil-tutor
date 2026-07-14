@@ -26,6 +26,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > fair — that's on me for calling it 'English creeping in' when you hadn't seen it. irundhnaa = 'if there is/was' — from 'iru' (to be/exist) + -ndhnaa (the if-suffix). same suffix as 'thorandhnaa' (if it opens). the frame is: [noun]-ndhnaa → 'if [noun].'
 
+**17:40 · Andrew** — **CHAT**
+> Make sure this is taught later
+
+**Anna ↩**
+> noted — planting frame:if-ndhaa in tomorrow's deck so it gets a proper cold run.
+
 **15:26 · Anna**  ·  text / field mission debrief collect
 > enna da — booking moment ever come? 'ok-na, book pannu' — did it fire? debrief me.
 
