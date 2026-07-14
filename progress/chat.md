@@ -9,6 +9,11 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:25 · Anna**  ·  text / trailer: paathukkaren + session bell
 > da — paathukkaren is half-yours. today's lunch session, we fire it cold + close the kudunga gap. 30 mins, then it's locked 🔒
 
+**Andrew** · 👍 acked
+
+**15:13 · Anna**  ·  volley / afternoon deck volley
+> ⚡ volley 1/4 — Cousin asks 'beach Sunday-ah?' — you want to say 'if there's time…' Reply with the Tamil 'if' frame.
+
 
 ## Monday 2026-07-13
 
