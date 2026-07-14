@@ -26,6 +26,11 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
   inflections (M61: தூக்கு vs தூக்க); a stem-tolerant match would stop the recurring
   manual sidecar repair. See the 2026-07-13 "bends the sidecar" decision for the
   interim rule.
+- **Phantom-fired knock on delivery failure** — the knock logs + commits *before* the
+  notify step, so a push that fails all retries leaves `acted: true` for a dose Andrew
+  never saw (rails count it; judge could grade against it). Seen once (2026-07-14 DNS
+  blip, now retried at the chokepoint). A `delivered: false` mark on final failure
+  would make the log honest. Wait for a second occurrence post-retry.
 - **Real-media library (songs, kids' TV)** — the Jabberwocky principle: melody stores sound-sequences below comprehension (Andrew still carries sung gibberish from decades ago). Curate Oracle-vetted YouTube links (her childhood film songs, Tamil Dora) as rows of data; Anna sends one as a no-ask dose, lore-style — a skill, not a DJ persona. Feeds the starving catch axis (0/8) and buys shared cultural ground before the trip. Guardrails: stop-chasing-listens applies in full (zero-debt, no follow-up); curation happens at the laptop, studio-style, never in-session. Machinery (a knock "song dose" type) waits until the library exists and a few doses prove the format by hand.
 
 ## Shipped
