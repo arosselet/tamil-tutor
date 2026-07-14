@@ -1191,7 +1191,30 @@
         "ask": "Maami says something fast and you missed it. What do you say to get her to repeat?"
       }
     ],
-    "volley_next": 1
+    "volley_next": 2,
+    "response": "reply",
+    "reply": "Not sure",
+    "reply_verdict": "miss",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line": "English creeping in da — 'time irundhnaa poven' — 'if there's time, I'll come.' thorandhaa / irundhnaa — that's the frame. · 2/4 — She asks what you did Sunday. You say 'we went to the park' — Tamil?",
+    "reply_at": "2026-07-14T21:19:35Z",
+    "exchanges": [
+      {
+        "at": "2026-07-14T21:19:35Z",
+        "reply": "Not sure",
+        "verdict": "miss",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "English creeping in da — 'time irundhnaa poven' — 'if there's time, I'll come.' thorandhaa / irundhnaa — that's the frame. · 2/4 — She asks what you did Sunday. You say 'we went to the park' — Tamil?"
+      }
+    ],
+    "chained": 1,
+    "pinned_target": "frame:we-om",
+    "pinned_revealed": false
   },
   {
     "date": "2026-07-14",
