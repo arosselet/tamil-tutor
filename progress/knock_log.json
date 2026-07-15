@@ -1331,5 +1331,18 @@
     "body": "da — 'podhum, vayiru full, mudinjuchu' — dinner tonight, waving off seconds. did it land? 🍛",
     "expected_target": "",
     "target_revealed": false
+  },
+  {
+    "date": "2026-07-15",
+    "timestamp": "2026-07-15T19:46:22.811429+00:00",
+    "acted": true,
+    "scheduled": true,
+    "queue_id": "q1784122078",
+    "modality": "text",
+    "move": "volley opener",
+    "rationale": "scheduled at 2026-07-15T13:27 for 2026-07-15T18:30",
+    "body": "⚡ afternoon volley — reply in Tamil and we clear four deck items. ready? First: cousin just said something fast — you didn't catch it. What do you say? (neenga-form)",
+    "expected_target": "என்ன சொன்னீங்க?",
+    "target_revealed": false
   }
 ]
