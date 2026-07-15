@@ -298,7 +298,7 @@ def deck_due_list(max_fire: int = 6, max_catch: int = 2) -> str:
     the menu. Items never soaked anywhere are flagged UNSEEN — the mandate
     forbids cold-quizzing those (teach first, show dose)."""
     from suggest_targets import deck_status  # lazy: keeps module import light
-    from sync_state import LEXICON_PATH
+    from sync_state import LEXICON_PATH, is_unseen
     lex = load_json(LEXICON_PATH) or {}
     deck = deck_status(lex)
     if not deck or not deck["pending"]:
@@ -308,8 +308,7 @@ def deck_due_list(max_fire: int = 6, max_catch: int = 2) -> str:
     lines = ["DECK DUE (the sprint menu — expected_target should usually come from here):"]
     for t in pending[:max_fire]:
         state = "hinted→cold" if t["production"] == "hinted" else f"{t['recognition']}, cold-pending"
-        rec = lex.get(t["word"], {})
-        if not rec.get("seen_in") and not rec.get("last_surfaced"):
+        if is_unseen(lex.get(t["word"], {})):
             state += " · ⚠ UNSEEN — teach first (show dose), don't quiz"
         n = asked.get(t["word"], 0)
         if n:
@@ -327,7 +326,7 @@ def volley_targets(n: int = VOLLEY_SIZE) -> list[dict]:
     50+ items got zero touches, 2026-07-08). Due-first, recently-asked last,
     UNSEEN and ear-only items excluded (teach-first / never-fire laws)."""
     from suggest_targets import deck_status  # lazy: keeps module import light
-    from sync_state import LEXICON_PATH
+    from sync_state import LEXICON_PATH, is_unseen
     lex = load_json(LEXICON_PATH) or {}
     deck = deck_status(lex)
     if not deck or not deck["pending"]:
@@ -336,8 +335,7 @@ def volley_targets(n: int = VOLLEY_SIZE) -> list[dict]:
     pending = sorted(deck["pending"], key=lambda t: asked.get(t["word"], 0))
     out = []
     for t in pending:
-        rec = lex.get(t["word"], {})
-        if not rec.get("seen_in") and not rec.get("last_surfaced"):
+        if is_unseen(lex.get(t["word"], {})):
             continue  # UNSEEN — teach first (show dose), never cold-quiz
         out.append({"target": t["word"], "gloss": t.get("gloss", "")})
         if len(out) == n:

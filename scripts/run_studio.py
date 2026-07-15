@@ -25,9 +25,16 @@ Needs: agy on PATH (authenticated), GCP ADC for the render step.
 import argparse
 import json
 import re
+import shutil
 import subprocess
 import sys
 from pathlib import Path
+
+# Windows consoles and pipes default to cp1252, which can't carry Tamil — both
+# this script's own prints and every captured subprocess stream (2026-07-15: the
+# ticket capture crashed the reader thread before agy was even reached).
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
 
 BASE = Path(__file__).parent.parent
 SCRIPTS_DIR = BASE / "content" / "scripts"
@@ -137,7 +144,8 @@ def agy_print(label: str, prompt: str) -> str | None:
         r = subprocess.run(
             ["agy", "--model", AGY_MODEL, "--sandbox",
              "--print-timeout", "14m", "--print", prompt],
-            cwd=BASE, timeout=PASS_TIMEOUT_S, capture_output=True, text=True)
+            cwd=BASE, timeout=PASS_TIMEOUT_S, capture_output=True,
+            encoding="utf-8", errors="replace")
     except (subprocess.TimeoutExpired, FileNotFoundError) as e:
         print(f"   ✗ {label}: {e}")
         return None
@@ -159,7 +167,8 @@ def write_episode(n: int) -> bool:
     """Run the three passes; persist the three artifacts. Python is the only
     thing that touches disk."""
     ticket = subprocess.run([sys.executable, str(BASE / "scripts" / "suggest_targets.py")],
-                            capture_output=True, text=True, cwd=BASE, check=True).stdout
+                            capture_output=True, encoding="utf-8", errors="replace",
+                            cwd=BASE, check=True).stdout
     plan = agy_print("Director", DIRECTOR.format(ticket=ticket))
     if not plan:
         return False
@@ -292,6 +301,13 @@ def main():
     ap.add_argument("--dry-run", action="store_true",
                     help="passes + lint only; no render, no state, no commit")
     args = ap.parse_args()
+
+    # Preflight — fail fast and legibly. Exit 1 IS the fallback contract; the
+    # caller should read this one line, not a WinError traceback (2026-07-15).
+    if not shutil.which("agy"):
+        print("✗ agy is not on PATH — dispatch the Claude studio subagent instead "
+              "(.claude/agents/studio.md), or install/authenticate agy.")
+        sys.exit(1)
 
     n = next_mission()
     print(f"Mission {n} — three-pass print-only dispatch")

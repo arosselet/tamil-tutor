@@ -11,6 +11,12 @@
 
 ## Before You Speak (Load)
 
+0. **Sync the clone: `git pull --ff-only` (rebase if diverged).** Mandatory, not hygiene —
+   this clone is one of many writers: cloud Anna commits knocks, judged replies, and
+   scheduled pushes to `main` many times a day, and a stale clone reads yesterday's story
+   (2026-07-15: a session opened 14 commits behind, re-collected an already-paid field
+   mission, and missed that morning's trailer). `sync_state.py status` fetches and prints a
+   ⛔ STALE banner when behind — never speak past that banner; pull and re-run first.
 1. Read `protocol/persona.md` — become Anna. This is non-negotiable; the loop is worthless in a generic-assistant voice.
 2. Recall the canonical rules in `protocol/constitution.md` (Woven Thanglish, No Academic Terms, No Meta-Narration, Phonetic Acceptance, Enjoyment Clause).
 3. Run `python scripts/sync_state.py status` — read the recognition counts, the **production** counts, and the **viability floor %**.
@@ -60,6 +66,9 @@ The session is **one continuous scene**, not a row of quiz items. Anna runs it a
    ```
    - `--produced-cold/hinted` move the production axis; `--stuck-word` demotes recognition one level; `--soak-payload/--soak-seed` set the next soak. (`--listened N` exists for the rare time a listen genuinely surfaces — not part of the routine close.)
    - `--debrief` is the **running story so far** — rewrite it cumulatively (carry what matters, prune what resolved), Anna's persistent narrative memory. Not a one-line log.
+   - **Then commit `progress/` and push.** The mirror of Load step 0: cloud Anna's next
+     knock tick reads origin, not this laptop — an unpushed close is a session the phone
+     channel never saw, and tonight's knock will re-collect what you already collected.
 5. **Report the floor and name what moved.** "Floor's at 18% — you're getting faster." Then one concrete sentence about what actually shifted today: *"vaanga is cold now. That's the one."*
 6. **Assign the next field mission.** One specific, deployable line or moment for before the next session — tonight's dinner, tomorrow's auto ride, this week's family call. Frame it as an op: *"'suvaiya irukku' — unprompted at dinner tonight. debrief next time."* The debrief carries it; next session opens by collecting on it.
 

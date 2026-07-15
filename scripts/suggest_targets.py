@@ -24,10 +24,16 @@ Usage:
 
 import argparse
 import json
+import sys
 from datetime import date
 from pathlib import Path
 
 from generate_callbacks import due_callbacks, load_json, days_since, NEVER_SURFACED
+from sync_state import is_unseen
+
+# Windows consoles default to cp1252, which can't print Tamil (2026-07-15).
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
 
 BASE = Path(__file__).parent.parent
 LEXICON_PATH = BASE / "progress" / "lexicon.json"
@@ -134,6 +140,7 @@ def deck_status(lexicon: dict, deck: str = "trip") -> dict | None:
         "kind": "frame" if r.get("type") == "pattern" else r.get("type", "chunk"),
         "recognition": r.get("recognition"), "production": r.get("production", "none"),
         "tier": TIER_NAMES.get(DECK_TIERS.get(regs.get(w, ""), 1)),
+        "unseen": is_unseen(r),
     } for w, r in fire if r.get("production") != "cold"]
     # Touchdown-bar tier first; within a tier, ripest first: hinted before none,
     # solid before comfortable.
@@ -163,7 +170,8 @@ def engines_to_fire(lexicon: dict) -> list[dict]:
         if r.get("direction") == "catch":
             continue  # ear-only patterns (e.g. the quotative -nu) — train the ear, don't force
 
-        out.append({"key": w, "gloss": r.get("gloss", ""), "production": r.get("production", "none")})
+        out.append({"key": w, "gloss": r.get("gloss", ""),
+                    "production": r.get("production", "none"), "unseen": is_unseen(r)})
     out.sort(key=lambda c: (c["production"] != "hinted", c["key"]))  # hinted (riper) first
     return out
 
@@ -290,6 +298,8 @@ def main():
               f"Not-yet-cold ({len(deck['pending'])}) — pick from these first:")
         for t in deck["pending"][:12]:
             tag = "hinted→cold" if t["production"] == "hinted" else f"{t['recognition']}, cold-pending"
+            if t.get("unseen"):
+                tag += " · ⚠ UNSEEN — teach first (show it, gloss it), NEVER cold-quiz"
             tier = f" · {t['tier']}" if t.get("tier") else ""
             print(f"  - [{t['kind']}{tier}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{tag}]")
         if deck["catch_total"]:
@@ -326,6 +336,8 @@ def main():
         print("-" * 60)
         for e in engines:
             tag = "hinted→cold" if e["production"] == "hinted" else "cold-pending"
+            if e.get("unseen"):
+                tag += " · ⚠ UNSEEN — teach first (show it, gloss it), NEVER cold-quiz"
             print(f"  - {e['key']} — {e['gloss'] or '[no gloss]'}  [{tag}]")
 
     # 2. Callbacks — soft soak (reused logic)

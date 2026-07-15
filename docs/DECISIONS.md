@@ -307,6 +307,19 @@ Details live in git history; this is the index of the *conclusions*.
   close landing inside a render's load→save window is silently lost (last-writer-wins).
   A `flock` over both writers was proposed and deferred, not rejected — revisit when
   sessions and renders actually overlap, or on first evidence of a lost write.
+- **Pull before read, push after write — the clone is one of many writers**
+  (2026-07-15, Andrew: "more than a best practice, it's mandatory in our design").
+  Cloud Anna commits knocks, judged replies, and scheduled pushes to `main` many
+  times a day; any laptop session that reads `progress/` without syncing reads
+  yesterday's story (a session 14 commits behind re-collected a paid field mission
+  and missed the morning trailer — the trip-sprint's laptop-switching makes this
+  routine, not exotic). Enforced in the tool, not agent memory: `sync_state.py
+  status` fetches and prints a ⛔ STALE banner above everything else; the digest
+  also carries the knock thread since the last session, the unpaid-trailer flag,
+  and a computed produced-✓/NOT-YET-PRODUCED verdict on the soak order — replacing
+  the agent-remembered knock_log read, trailer rule, and drain-check comparison.
+  Same audit: UNSEEN teach-first flags now come from one `is_unseen()` definition
+  shared by ticket, knock menu, and volley picker.
 - **Payload fidelity bends the sidecar, never the script** (2026-07-13). The verbatim
   lint is lemma-literal and false-flags correct inflections (M61 claimed தூக்கு; the
   script's தூக்க முடியல is right Tamil). Repair = drop the sidecar's over-claim; forcing
