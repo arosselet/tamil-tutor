@@ -1368,5 +1368,14 @@
         "reply_line": "close — 'pesunga' is speak/talk, not 'huh, what?' We'd say 'enna sonneenga?' adhu dhaan."
       }
     ]
+  },
+  {
+    "date": "2026-07-15",
+    "timestamp": "2026-07-15T22:55:59.157057+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "silence — mission live",
+    "rationale": "Mission is firing right now at dinner — another knock would be noise; let it land, collect the debrief tomorrow morning.",
+    "next_check": "2026-07-16T11:55:59.157057+00:00"
   }
 ]
