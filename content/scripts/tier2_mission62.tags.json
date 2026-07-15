@@ -1,0 +1,30 @@
+{
+  "mission": 62,
+  "register": "grief/nostalgia",
+  "dramatic_ingredient": "turn",
+  "episode_form": "lore",
+  "shape": "debrief",
+  "location_class": "extended_family",
+  "energy": "low",
+  "intercept_tamil_density": 0.60,
+  "breakdown_tamil_density": 0.10,
+  "fence_size": 173,
+  "unfenced_words": 2,
+  "new_words_landed": {
+    "frame:idum": 20,
+    "பாத்துக்கறேன்": 8
+  },
+  "callbacks_used": {
+    "பிடிக்காது": 1,
+    "சீக்கிரம்": 2,
+    "அழகான": 2,
+    "சொன்னாங்க": 2
+  },
+  "host_roles": {
+    "A": "tea_table_niece",
+    "B": "worrying_maama",
+    "Maya": "structural_analyst",
+    "Raj": "grandson_storyteller"
+  },
+  "notes": "Lore form built around the soak order's two chat-mined items: frame:idum (the fated hands-off -idum machine, taught 2026-07-13, 'engine online') and பாத்துக்கறேன் (fresh-seeded catch-all, cold-pending). Specimen vignette opens with a maama's worry-list waved off with -idum shrugs, closing on the catch-all promise. Breakdown dissects the grammar (இடு completive + future = fated done-deal; boundary: clean single verb only, not a compound like கூட்டிட்டு வரோ), then delivers the turn: Raj's grandmother spoke exactly like the vignette maama her whole life, until her final year, when she switched from the passive shrug to the active promise — and Raj discovers mid-conversation that he's now the one saying it. Diverges from M61 (revelation/classic/gossip/home_social), M60 (nostalgia/classic/story/home_social), M59 (defiance/phone_call/transaction/home_social): first lore form and first turn-ingredient in the recent run, and location_class broken out of the three-episode home_social streak into extended_family. Unfenced (2, both context-scaffolded): பாட்டி (grandmother — echoed in English at first mention), அம்மா (mother — same 'universally obvious' precedent as M59/M60). frame:idum seeded fresh into the lexicon via add-pattern (recognition: comfortable) ahead of this render — it did not previously exist as a lexicon record despite being taught in chat 2026-07-13; without seeding, render_audio.py would have skipped crediting it (frames are exempt from the auto-create-on-render path). Callbacks landed generously (all 4 offered, not just the 2-3 soft target) because they folded naturally into the worry-list and the reported-speech beats."
+}
