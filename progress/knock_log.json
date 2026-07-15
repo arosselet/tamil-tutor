@@ -1307,5 +1307,17 @@
     "body": "mudivu = decision 🎯 'mudivu pannu' = make a call. she drops surprising news — job, a trip. you're caught off guard. one word back — go.",
     "expected_target": "அப்படியா?!",
     "target_revealed": false
+  },
+  {
+    "date": "2026-07-15",
+    "timestamp": "2026-07-15T13:27:48.649702+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "session bell trailer",
+    "rationale": "Lunch anchor moment (09:27, session hasn't fired today) — trailer recruits the session by naming a specific unseen payoff (ஆச்சு), not guilt; afternoon volley queued for 14:30 after the session slot has had its turn.",
+    "next_check": "2026-07-15T17:27:48.649702+00:00",
+    "body": "da — lunch session today? I want to show you ஆச்சு ('it happened / done') — one syllable the whole family runs on. 5 mins pays off all week. 🔔",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]
