@@ -721,7 +721,7 @@
       10,
       35
     ],
-    "last_surfaced": "2026-07-06"
+    "last_surfaced": "2026-07-15"
   },
   "தெரியும்": {
     "gloss": "I know",
@@ -3623,9 +3623,9 @@
       "mudinjuchu"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "cold",
     "seen_in": [],
-    "last_surfaced": null,
+    "last_surfaced": "2026-07-15",
     "deck": "trip",
     "direction": "fire"
   },
