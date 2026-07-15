@@ -15,6 +15,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **15:46 · Anna**  ·  text / volley opener
 > ⚡ afternoon volley — reply in Tamil and we clear four deck items. ready? First: cousin just said something fast — you didn't catch it. What do you say? (neenga-form)
 
+**15:49 · Andrew** — **HINTED**
+> Mwdhuva pesunga
+
+**Anna ↩**
+> close — 'pesunga' is speak/talk, not 'huh, what?' We'd say 'enna sonneenga?' adhu dhaan.
+
 
 ## Tuesday 2026-07-14
 
