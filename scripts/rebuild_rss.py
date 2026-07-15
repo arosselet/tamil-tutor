@@ -132,7 +132,7 @@ def knock_title(filename: str, moves: dict) -> str:
 def get_title_from_md(md_path):
     if not os.path.exists(md_path):
         return None
-    with open(md_path, 'r') as f:
+    with open(md_path, 'r', encoding='utf-8') as f:
         first_line = f.readline().strip()
         if first_line.startswith('#'):
             return first_line.lstrip('#').strip()
@@ -268,7 +268,7 @@ def generate_rss():
         items="".join(items)
     )
 
-    with open(RSS_FILE, 'w') as f:
+    with open(RSS_FILE, 'w', encoding='utf-8') as f:
         f.write(rss_content)
     print(f"✅ Generated {RSS_FILE} with {len(items)} episodes.")
 

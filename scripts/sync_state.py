@@ -27,10 +27,17 @@ than silently poisoning state — production presupposes a recognition record.
 import argparse
 import json
 import re
+import subprocess
 import sys
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
+
+# Windows consoles default to cp1252, which can't print Tamil — the status digest
+# crashed mid-print on a fresh laptop (2026-07-15) and a dead digest invites the
+# agent to improvise state. Harmless everywhere else.
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
 
 # Andrew's local clock — canonical here; outreach scripts import it for the rails.
 LOCAL_TZ = ZoneInfo("America/New_York")
@@ -88,6 +95,23 @@ def resolve(word: str, lexicon: dict, phon_index: dict[str, str]) -> str | None:
 
 def is_tamil(word: str) -> bool:
     return bool(TAMIL_RE.search(word))
+
+
+def canon_payload(items: list[str]) -> list[str]:
+    """Split comma-joined payload elements into a flat word list. A close once
+    passed `--soak-payload "frame:idum,பாத்துக்கறேன்"` as one string (2026-07-13);
+    the stored blob could never textually match an episode's words, so the
+    session-open drain check read 'not produced' forever. Applied at write AND
+    at read, so already-stored blobs heal too."""
+    return [p.strip() for item in items for p in item.split(",") if p.strip()]
+
+
+def is_unseen(rec: dict) -> bool:
+    """Never soaked anywhere — no episode appearance, never surfaced. The
+    teach-first law hangs on this: an UNSEEN item may be TAUGHT (shown, with its
+    meaning) but never cold-quizzed. One definition; the knock menu, the volley
+    picker, and the session ticket all read it."""
+    return not rec.get("seen_in") and not rec.get("last_surfaced")
 
 
 def is_pattern(rec: dict) -> bool:
@@ -318,7 +342,8 @@ def cmd_update(args):
     # Soak order — the intentional payload for the NEXT audio episode (what Anna
     # wants soaked), read by the Director. Overwrites; fail-forward, no history.
     if args.soak_payload or args.soak_seed:
-        payload = [resolve(w, lexicon, phon_index) or w for w in args.soak_payload]
+        payload = [resolve(w, lexicon, phon_index) or w
+                   for w in canon_payload(args.soak_payload)]
         learner["soak_order"] = {
             "payload": payload,
             "scene_seed": args.soak_seed or learner.get("soak_order", {}).get("scene_seed", ""),
@@ -509,6 +534,90 @@ def cmd_seed_deck(args):
           + (f" · catch {deck['caught']}/{deck['catch_total']} solid" if deck["catch_total"] else ""))
 
 
+def git_sync_counts() -> tuple[int, int] | None:
+    """(behind, ahead) of origin/main after a fetch, or None when it can't be
+    known (offline, no git, not a clone). The clone is ONE OF MANY writers —
+    cloud Anna (knocks, judged replies, scheduled pushes) commits to main all
+    day — so status must know whether it's reading today's story or yesterday's."""
+    try:
+        subprocess.run(["git", "fetch", "--quiet", "origin", "main"],
+                       cwd=BASE, timeout=20, capture_output=True, check=True)
+        out = subprocess.run(
+            ["git", "rev-list", "--left-right", "--count", "HEAD...origin/main"],
+            cwd=BASE, timeout=10, capture_output=True, text=True, check=True).stdout
+        ahead, behind = (int(x) for x in out.split())
+        return behind, ahead
+    except (subprocess.SubprocessError, FileNotFoundError, ValueError, OSError):
+        return None
+
+
+def sync_banner(counts: tuple[int, int] | None) -> str | None:
+    """The staleness gate's voice — printed ABOVE everything else in the digest
+    so no agent can read state past it. 2026-07-15: a session opened on a clone
+    14 commits behind and re-collected a paid field mission, missed the morning
+    trailer, and taught past the story. Pull-before-read is design, not hygiene."""
+    if counts is None:
+        return ("⚠ SYNC UNKNOWN — couldn't reach origin. If this machine has been "
+                "offline or idle, this digest may be stale; reconnect and `git pull "
+                "--ff-only` before trusting it.")
+    behind, ahead = counts
+    lines = []
+    if behind:
+        lines.append(f"⛔ STATE IS STALE — {behind} commit{'s' if behind != 1 else ''} "
+                     f"behind origin/main. STOP: run `git pull --ff-only` (or rebase if "
+                     f"diverged) and re-run status. Everything below may be yesterday's story.")
+    if ahead:
+        lines.append(f"⚠ {ahead} local commit{'s' if ahead != 1 else ''} not on origin — "
+                     f"push after the session close, or cloud Anna knocks on stale state.")
+    return "\n".join(lines) or None
+
+
+def knocks_since(klog: list, last_session: str | None, cap: int = 6) -> list[dict]:
+    """Knock-log entries on/after the last logged session date, newest last —
+    the between-session story the debrief alone can't carry (replies, fires,
+    and trailers land on origin while the laptop sleeps)."""
+    if not klog:
+        return []
+    entries = [k for k in klog if not last_session or k.get("date", "") >= last_session]
+    return entries[-cap:]
+
+
+def knock_line(k: dict) -> str:
+    """One digest line per knock: what went out, what came back."""
+    body = (k.get("body") or "").replace("\n", " ")
+    if len(body) > 90:
+        body = body[:87] + "…"
+    if k.get("reply"):
+        n = len(k.get("exchanges", [])) or 1
+        reply = k["reply"].replace("\n", " ")
+        if len(reply) > 40:
+            reply = reply[:37] + "…"
+        back = f"→ {n} repl{'ies' if n != 1 else 'y'}, last: '{reply}' ({k.get('reply_verdict', '?')})"
+        fired = k.get("reply_fired_cold") or []
+        if fired:
+            back += f" · fired COLD: {', '.join(fired)}"
+    elif k.get("response"):
+        back = f"→ {k['response']}"
+    else:
+        back = "→ (no response yet)"
+    return f"  {k.get('date', '?')} [{k.get('modality', '?')}] {k.get('move', '?')} — \"{body}\" {back}"
+
+
+def unpaid_trailer(klog: list, last_session: str | None) -> dict | None:
+    """The newest knock, if it's a trailer whose promised teach no session has
+    paid off yet (no session logged on/after its date). daily_session.md: an
+    outstanding trailer's payoff IS the opening beat — this makes that rule
+    data the agent can't overlook."""
+    if not klog:
+        return None
+    k = klog[-1]
+    if "trailer" not in (k.get("move") or "").lower():
+        return None
+    if last_session and last_session >= k.get("date", ""):
+        return None
+    return k
+
+
 def cmd_status(_args):
     lexicon = load_json(LEXICON_PATH)
     learner = load_json(LEARNER_PATH)
@@ -516,6 +625,11 @@ def cmd_status(_args):
     if not learner:
         print("No learner.json found.")
         return
+
+    banner = sync_banner(git_sync_counts())
+    if banner:
+        print(banner)
+        print()
 
     # Anna is time-aware at inference: every load path reads this line, so "ping
     # me in an hour" / "tonight at 9" can become a real scheduled push (push_queue.py).
@@ -533,13 +647,36 @@ def cmd_status(_args):
     print(f"Story so far: {learner.get('last_debrief', '')}")
     soak = learner.get("soak_order", {})
     if soak.get("payload") or soak.get("scene_seed"):
-        payload = ", ".join(soak.get("payload", []))
+        items = canon_payload(soak.get("payload", []))
         soak_from = soak.get("from")
         soak_age = (date.today() - date.fromisoformat(soak_from)).days if soak_from else None
         stale = " ⚠ stale — chat hasn't fed the Director lately" if soak_age and soak_age > 7 else ""
-        print(f"Soak order: [{payload}] — {soak.get('scene_seed', '')} (from {soak.get('from', '?')}){stale}")
+        # The auto-drain answer, computed — not left to the agent's eye: has the
+        # newest episode carried this payload yet?
+        newest_words = (episodes[max(episodes, key=int)].get("words", [])
+                        if episodes else [])
+        if items and all(w in newest_words for w in items):
+            drain = " · produced ✓ (newest episode carries it — no dispatch needed)"
+        else:
+            drain = " · ⚠ NOT YET PRODUCED — dispatch the studio in the background now (session-open auto-drain)"
+        print(f"Soak order: [{', '.join(items)}] — {soak.get('scene_seed', '')} (from {soak.get('from', '?')}){stale}{drain}")
     else:
         print("Soak order: ⚠ none set — chat hasn't handed anything to the Director.")
+
+    # The between-session story — what the phone channel did while no laptop was
+    # open. The debrief is Anna's memory of the last CLOSE; these are the doses
+    # and replies SINCE. Re-collecting something listed here as answered is the
+    # bug this section exists to prevent (2026-07-15).
+    klog = load_json(KNOCK_LOG_PATH) or []
+    since = knocks_since(klog, last)
+    if since:
+        print(f"\nKnocks since last logged session ({len(since)} shown — replies here are already judged; don't re-collect):")
+        for k in since:
+            print(knock_line(k))
+    trailer = unpaid_trailer(klog, last)
+    if trailer:
+        body = (trailer.get("body") or "").replace("\n", " ")
+        print(f"🎬 UNPAID TRAILER: \"{body}\" — its promised teach OPENS the session (pay it off in the first two exchanges).")
     print()
 
     if lexicon:

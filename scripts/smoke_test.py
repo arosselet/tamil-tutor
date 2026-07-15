@@ -16,6 +16,7 @@ A fixed bug becomes a case here the day it's fixed:
   #4  hinted-forever: reveal-capped fires now graduate cross-day (2026-07-08)
   #5  volley knock: binding targets + deterministic chain advance (2026-07-08)
   #6  eavesdrop dose: catch replies move recognition only, never production (2026-07-09)
+  #7  stale clone read yesterday's story; comma-joined soak payload never matched (2026-07-15)
 """
 import argparse
 import importlib
@@ -818,6 +819,41 @@ def s15_push_retry(mk):
         os.environ.pop("ANNA_PUSH_WEBHOOK_URL", None)
 
 
+def s16_stale_clone_gates(sb: Path):
+    print("\n16. Stale-clone gates + payload canon (regression 2026-07-15)")
+    # A session opened on a clone 14 commits behind origin: re-collected a paid
+    # field mission, missed the morning trailer, and the comma-joined soak payload
+    # could never match an episode's words. The pure halves of the fixes:
+    sys.path.insert(0, str(sb / "scripts"))
+    ss = importlib.import_module("sync_state")
+
+    check("behind origin → STALE banner", "STALE" in (ss.sync_banner((14, 0)) or ""))
+    check("ahead only → unpushed warning", "not on origin" in (ss.sync_banner((0, 1)) or ""))
+    check("in sync → no banner", ss.sync_banner((0, 0)) is None)
+    check("sync unknown → soft warning", "SYNC UNKNOWN" in (ss.sync_banner(None) or ""))
+
+    check("comma-joined payload splits",
+          ss.canon_payload(["frame:idum,பாத்துக்கறேன்"]) == ["frame:idum", "பாத்துக்கறேன்"])
+    check("clean payload passes through",
+          ss.canon_payload(["a", "b"]) == ["a", "b"])
+
+    check("no record → unseen", ss.is_unseen({}))
+    check("surfaced → not unseen", not ss.is_unseen({"last_surfaced": "2026-07-01"}))
+    check("in an episode → not unseen", not ss.is_unseen({"seen_in": ["M60"]}))
+
+    trailer = {"date": "2026-07-15", "move": "session bell trailer", "body": "ஆச்சு today"}
+    volley = {"date": "2026-07-15", "move": "afternoon volley", "body": "…"}
+    check("newest-knock trailer with no session after → unpaid",
+          ss.unpaid_trailer([volley, trailer], "2026-07-13") is trailer)
+    check("session on/after trailer date → paid",
+          ss.unpaid_trailer([trailer], "2026-07-15") is None)
+    check("newest knock not a trailer → nothing owed",
+          ss.unpaid_trailer([trailer, volley], "2026-07-13") is None)
+    check("knocks_since filters to the gap",
+          [k["date"] for k in ss.knocks_since([{"date": "2026-07-10"}, {"date": "2026-07-14"}],
+                                              "2026-07-13")] == ["2026-07-14"])
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -838,6 +874,7 @@ def main():
         s12_volley(mk, kr, sb)
         s13_eavesdrop(mk, kr, sb)
         s14_reply_correlation(kr)
+        s16_stale_clone_gates(sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)
