@@ -62,7 +62,8 @@
       50,
       52,
       54,
-      57
+      57,
+      62
     ],
     "last_surfaced": null
   },
@@ -150,7 +151,8 @@
       58,
       59,
       60,
-      61
+      61,
+      62
     ],
     "last_surfaced": null
   },
@@ -161,7 +163,8 @@
     "production": "none",
     "seen_in": [
       32,
-      55
+      55,
+      62
     ],
     "last_surfaced": null
   },
@@ -193,7 +196,8 @@
       57,
       58,
       59,
-      60
+      60,
+      62
     ],
     "last_surfaced": null
   },
@@ -3894,6 +3898,27 @@
     "production": "none",
     "seen_in": [
       61
+    ],
+    "last_surfaced": null
+  },
+  "frame:idum": {
+    "type": "pattern",
+    "gloss": "{verb}+ஆகிடும்/-இடும் → it'll {verb} itself / it's-handled — the fated, hands-off future-completive: சரியாயிடும், முடிஞ்சிடும், போயிடும், புக் பண்ணிடும் — bolts onto a clean single verb, not a compound (use பாத்துக்கறேன் there instead)",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [
+      62
+    ],
+    "last_surfaced": "2026-07-15"
+  },
+  "பாத்துக்கறேன்": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      62
     ],
     "last_surfaced": null
   }
