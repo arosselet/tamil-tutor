@@ -1377,5 +1377,17 @@
     "move": "silence — mission live",
     "rationale": "Mission is firing right now at dinner — another knock would be noise; let it land, collect the debrief tomorrow morning.",
     "next_check": "2026-07-16T11:55:59.157057+00:00"
+  },
+  {
+    "date": "2026-07-16",
+    "timestamp": "2026-07-16T13:41:30.555645+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "trailer: done-ittu engine",
+    "rationale": "Morning slot = trailer, not ask; done-ittu is UNSEEN but already embedded in Andrew's soak words — the 'you've been hearing this' hook is strong, and the session pays it off; demand-streak stays at 1 (no-ask dose).",
+    "next_check": "2026-07-16T18:41:30.555645+00:00",
+    "body": "da — lunch session today? -ட்டு is hiding inside 7 words you already know. one pattern, and suddenly they all click. 🔓",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]
