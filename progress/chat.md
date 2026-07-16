@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Thursday 2026-07-16
+
+**09:41 · Anna**  ·  text / trailer: done-ittu engine
+> da — lunch session today? -ட்டு is hiding inside 7 words you already know. one pattern, and suddenly they all click. 🔓
+
+
 ## Wednesday 2026-07-15
 
 **09:27 · Anna**  ·  text / session bell trailer
