@@ -213,7 +213,8 @@ def demand_streak(klog: list) -> int:
     return n
 
 
-LORE_COOLDOWN_DAYS = 7  # a converting format is a bet that paid off, not one to re-place
+LORE_COOLDOWN_DAYS = 7    # a converting format is a bet that paid off, not one to re-place
+EAVESDROP_CADENCE_DAYS = 3  # catch items need an eavesdrop dose at least this often
 
 
 def last_lore(klog: list) -> dict | None:
@@ -224,6 +225,15 @@ def last_lore(klog: list) -> dict | None:
     mandate owns the rule — same seam as demand_streak."""
     for k in reversed([k for k in klog if is_fire(k)]):
         if "lore" in (k.get("move") or "").lower():
+            return k
+    return None
+
+
+def last_eavesdrop(klog: list) -> dict | None:
+    """Most recent fired eavesdrop dose. Catch items advance ONLY through this
+    modality; the cadence gate enforces a floor frequency."""
+    for k in reversed([k for k in klog if is_fire(k)]):
+        if k.get("modality") == "eavesdrop":
             return k
     return None
 
@@ -253,11 +263,36 @@ def remaining_room(klog: list, now: datetime) -> str:
             else:
                 lore_str = (f"\n  Last lore: “{lore.get('move', 'lore')}” ({age}d ago) — a new "
                             f"lore dose must take a different vein than that one.")
+    # Eavesdrop cadence — catch items advance ONLY through eavesdrop; surface a
+    # warning when the cadence has lapsed so Anna doesn't keep skipping it.
+    eavesdrop_str = ""
+    try:
+        from suggest_targets import deck_status
+        from sync_state import LEXICON_PATH as _LP
+        _lex = load_json(_LP) or {}
+        _deck = deck_status(_lex)
+        _catch_pending = (_deck.get("catch_pending") or []) if _deck else []
+        if _catch_pending:
+            le = last_eavesdrop(klog)
+            if le is None:
+                eavesdrop_str = (f"\n  ⚠ Eavesdrop: {len(_catch_pending)} catch item(s) pending, "
+                                 f"NEVER fired — catch advances ONLY through eavesdrop; "
+                                 f"this is the highest-value move right now.")
+            else:
+                ld = local_date(le.get("timestamp", ""))
+                age = (now_local.date() - ld).days if ld else EAVESDROP_CADENCE_DAYS
+                if age >= EAVESDROP_CADENCE_DAYS:
+                    eavesdrop_str = (f"\n  ⚠ Eavesdrop: {len(_catch_pending)} catch item(s) pending, "
+                                     f"last eavesdrop {age}d ago (cadence: every {EAVESDROP_CADENCE_DAYS}d) — "
+                                     f"consider eavesdrop this tick.")
+    except Exception:
+        pass  # never let a cadence check kill a reach
+
     return (f"RAILS (hard — stay well inside; silence is free):\n"
             f"  Waking window {WAKING_START_HOUR}:00–{WAKING_END_HOUR}:00 {now_local.tzname()}; "
             f"now {now_local:%H:%M}.\n"
             f"  Reaches today: {n_today}/{MAX_REACHES_PER_DAY}. Min gap {MIN_GAP_HOURS}h ({gap_str})."
-            f"{streak_str}{lore_str}")
+            f"{streak_str}{lore_str}{eavesdrop_str}")
 
 
 def recent_ask_counts(klog: list, lexicon: dict, days: int = 3) -> dict:
@@ -526,6 +561,7 @@ Return ONLY a JSON object, no prose around it:
   "act": true | false,                  // false = silence this tick
   "modality": "text" | "audio" | "challenge" | "volley" | "eavesdrop" | "grace" | "silence",
   "move": "<2-4 word label of the move, for the log>",
+  "introduces": ["<frame:key or lexicon key>"],   // ONLY for lore/trailer doses: list any frame/word keys this dose introduces for the first time (teaches, shows, names as a pattern). Python marks them as seen in the lexicon so they are no longer UNSEEN. Empty list if not a teaching dose.
   "notification_body": "<the lock-screen line — valuable even if never tapped; MUST carry a Tamil phrase + tiny English gloss. One emoji ok. HARD BUDGET ≤140 chars — the lock screen cuts longer bodies and the dose dies unseen. Empty string if silence.>",
   "memo_script": "<ONLY for modality 'audio' or 'eavesdrop': the spoken memo (audio) or the overheard tape (eavesdrop), paragraphs separated by ONE blank line (\\n\\n) — never single \\n within a paragraph. Tamil payload in Tamil script. Empty string otherwise.>",
   "expected_target": "<the one word/chunk/frame a good reply would fire (Tamil script or frame:... key); empty string if this dose asks for nothing specific>",
@@ -536,6 +572,25 @@ Return ONLY a JSON object, no prose around it:
   "rationale": "<one line: why this choice>"
 }
 """
+
+
+def mark_frames_seen(keys: list[str]) -> None:
+    """When a lore or trailer knock introduces a frame, mark it seen in the lexicon
+    (last_surfaced = today). Closes the pipeline gap: lore memos were leaving
+    frames UNSEEN even after Andrew heard them (2026-07-16)."""
+    from sync_state import LEXICON_PATH, load_json as _load, save_json as _save
+    lex = _load(LEXICON_PATH) or {}
+    today = date.today().isoformat()
+    changed = []
+    for key in keys:
+        if key in lex:
+            lex[key]["last_surfaced"] = today
+            changed.append(key)
+        else:
+            print(f"   ⚠ introduces: '{key}' not in lexicon — skipped")
+    if changed:
+        _save(LEXICON_PATH, lex)
+        print(f"   Marked seen (introduces): {', '.join(changed)}")
 
 
 def maybe_enqueue_schedule(decision: dict) -> Path | None:
@@ -622,6 +677,7 @@ def normalize_decision(d: dict, volley_menu: list | None = None) -> dict:
     # assume the Tamil was shown, so a reply caps at "hinted" — the cold axis stays honest.
     d["expected_target"] = (d.get("expected_target") or "").strip()
     d["target_revealed"] = bool(d.get("target_revealed", True))
+    d["introduces"] = [k for k in (d.get("introduces") or []) if isinstance(k, str) and k.strip()]
     d["schedule"] = d.get("schedule") if isinstance(d.get("schedule"), dict) else None
     if d["modality"] == "eavesdrop":
         if (d.get("memo_script") or "").strip():
@@ -855,7 +911,13 @@ def main():
         return
 
     path = log_decision(now, decision, acted=True, audio_url=audio_url, mp3=mp3)
+    from sync_state import LEXICON_PATH as _LP
+    extra_paths: list[Path] = []
+    if decision.get("introduces"):
+        mark_frames_seen(decision["introduces"])
+        extra_paths.append(_LP)
     commit_paths = [path, render_chat()] if mp3 is None else [mp3, path, render_chat()]
+    commit_paths.extend(extra_paths)
     if mp3 is not None:
         rss = refresh_feed()
         if rss:
