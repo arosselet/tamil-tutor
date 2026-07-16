@@ -1,0 +1,34 @@
+{
+  "mission": 64,
+  "register": "tension",
+  "dramatic_ingredient": "subtext",
+  "episode_form": "story",
+  "shape": "gossip",
+  "location_class": "home_social",
+  "energy": "low",
+  "intercept_tamil_density": 0.0,
+  "breakdown_tamil_density": 0.15,
+  "fence_size": 15,
+  "unfenced_words": 0,
+  "new_words_landed": {
+    "வேணும்": 4,
+    "கிட்ட இருக்கு": 2,
+    "ஆனா": 2,
+    "குடுங்க": 3,
+    "இல்லன்னா": 2,
+    "சாப்பிடுங்க": 1,
+    "-ன்னு சொன்னாங்க": 1
+  },
+  "callbacks_used": {
+    "மாமா": 4,
+    "சரி": 1,
+    "சீக்கிரம்": 1,
+    "அண்ணா": 2,
+    "எனக்கு பிடிக்காது": 1
+  },
+  "host_roles": {
+    "A": "cultural_commentator",
+    "B": "storyteller_nephew"
+  },
+  "notes": "No explicit intercept; host B tells a story entirely in Breakdown mode to illustrate tea table politics and polite verbs."
+}

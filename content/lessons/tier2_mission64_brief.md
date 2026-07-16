@@ -1,0 +1,222 @@
+```markdown
+# Tier 2, Mission 64 — The Tea Table Stand-off
+
+## Core Targets
+- **Linguistic Pattern:** The Give-Me vs Want Distinction (kudunga vs venum)
+- **Register:** reconciliation
+- **Dramatic Ingredient:** stakes
+- **Scenario Shape:** transaction
+- **Location class:** home_social
+- **Energy:** low
+- **Episode Form:** story
+
+## Scenario Context
+A quiet tea table setting in the extended family home. A recent, minor misunderstanding with an uncle is being smoothed over (reconciliation), and the stakes are real: restoring family harmony without anyone losing face. It is an intimate, low-energy moment where things are passed hand-to-hand to rebuild connection. The softer `குடுங்க` (give me) is the currency of the table, purposely replacing the demanding `வேணும்` (I want). It's a gentle transaction of food and tea where simple, polite acts repair the bridge.
+
+## Word Payload
+
+**NEW (5 words):**
+- **frame:giveme-noun** — {noun} குடுங்க → give me {noun} (the core focus)
+- **frame:polite-nga** — {verb}+ங்க → the polite ask (e.g. உக்காருங்க, சொல்லுங்க)
+- **frame:if-ndhaa** — {verb}+ந்தா / இல்லன்னா → 'if…'
+- **இன்னும் கொஞ்சம் சாப்பிடுங்க** (*innum konjam saappidunga*) — Eat a little more (EAR ONLY - catch target)
+- **frame:quote-nu** — …-னு சொன்னாங்க → 'she said that…' (EAR ONLY - catch target)
+
+**CALLBACKS (9 words):**
+- **சரி** (*sari*) — Okay [floor-gap]
+- **ஆனா** (*aana*) — But [floor-gap]
+- **இருக்கு** (*iruku*) — It is / It exists [floor-gap]
+- **அண்ணா** (*anna*) — Elder brother [floor-gap]
+- **கிட்ட** (*kitta*) — Near / With (person) [floor-gap]
+- **மாமா** (*maama*) — Uncle (maternal) [floor-gap]
+- **சீக்கிரம்** (*seekkiram*) — Quickly [due callback, floor-gap]
+- **சொன்னாங்க** (*sonnaanga*) — They said [due callback, floor-gap]
+- **பிடிக்காது** (*pidikkaadhu*) — I don't like [due callback, floor-gap]
+
+## Vocabulary Fence (the sea — build from these)
+175 known words. The Architect should build dialogue from this pool.
+Words outside this list must be answerable from context within seconds.
+
+- frame:cant-முடியல — {verb} முடியல → can't {verb} — தூக்க முடியல, போக முடியல
+- frame:giveme-noun — {noun} குடுங்க → give me {noun} (e.g. 'oru tea kudunga')
+- frame:happened-aachu (aachu) — {V}+ச்சு / ஆச்சு → 'it happened / it's become' — ஆச்சு, போச்சு, முடிஞ்சுச்சு, நேரம் ஆச்சு: the it-verb the pool is already full of
+- frame:howmuch-noun — {noun} எவ்ளோ? → how much is {noun}? (e.g. 'idhu evlo?' — Oracle: always the contracted 'evlo')
+- frame:idum — {verb}+ஆகிடும்/-இடும் → it'll {verb} itself / it's-handled — the fated, hands-off future-completive: சரியாயிடும், முடிஞ்சிடும், போயிடும், புக் பண்ணிடும் — bolts onto a clean single verb, not a compound (use பாத்துக்கறேன் there instead)
+- frame:in-la (canada-la) — {noun}+ல → in/at/on — கனடாவுல, தமிழ்ல, வீட்ல, போன்ல: the everywhere locative
+- frame:isthere-noun — {noun} இருக்கா? → is there {noun}? (e.g. 'coffee இருக்கா?')
+- frame:needtogo-place — {place}-க்கு போகணும் → (I) need to go to {place}
+- frame:obligation-ணும் — {verb}+ணும் → must {verb} — பண்ணணும், போகணும், சொல்லணும்
+- frame:polite-nga — {verb}+ங்க → the polite ask — சொல்லுங்க, குடுங்க, உக்காருங்க, வாங்க: one machine, every verb he owns
+- frame:present-future-toggle — -உறேன் (now) vs -வேன் (later) on any verb — போறேன்/போவேன், கேட்குறேன்/கேட்பேன்
+- frame:want-noun — {English noun} வேணும் → I want {noun} (e.g. 'auto வேணும்')
+- frame:where-noun — {noun} எங்க? → where is {noun}? (e.g. 'bus stop எங்க?')
+- அக்கா (akka) — Elder sister
+- அங்க (anga) — There
+- அஞ்சு (anju) — Five
+- அண்ணா (anna) — Elder brother
+- அதனால (adhanaal) — Therefore
+- அதான் (adaan) — That's why / Exactly / See, I told you
+- அது (adhu) — It / That
+- அதுக்கு அப்புறம் — After that
+- அத்தை (atthai) — Aunt (paternal)
+- அனுப்பு (anuppu) — Send
+- அப்படியா?! (appadiya) — Oh really?! (backchannel — surprise/interest)
+- அப்படீங்களா? — Is that so?
+- அப்புறம் (appuram) — Later / After that
+- அழகான — Beautiful
+- அவ (ava) — She (informal)
+- அவங்க (avanga) — They / He-She (respectful)
+- அவன் (avan) — He (informal)
+- அவரு — He/She (respectful)
+- ஆனா (aana) — But
+- ஆமா (aam) — Yes
+- ஆமா ஆமா (aama aama) — Yeah, yeah (backchannel — keeps the speaker going, holds your seat in the conversation)
+- இங்க (inga) — Here
+- இங்க நிறுத்துங்க (inga niruthunga) — Stop here (to a driver)
+- இடது — Left
+- இன்னைக்கு (innaiku) — Today
+- இப்போ (ippo) — Now
+- இருக்கு (iruku) — It is / It exists
+- இல்ல (illa) — No
+- இல்லையாவா? — Isn't it? / Right?
+- ஈஸி (easy) — Easy
+- உக்காருங்க — Sit (respectful)
+- உனக்கு (unakku) — To you / For you
+- உப்பு (uppu) — Salt / Salty
+- உயரம் — Tall / Height
+- உள்ள (ulla) — Inside
+- எங்க (enga) — Our (exclusive)
+- எங்க? (enga?) — Where?
+- எடுங்க — Take (respectful)
+- எனக்கு (enakku) — To me / For me
+- என்ன சமைக்கிற? (enna samaikkira) — What are you cooking? (informal)
+- என்ன? (enna) — What?
+- எப்படி இருக்கீங்க? (eppadi irukkinga) — How are you? (respectful)
+- எழுந்திரு (ezhunthiru) — Get up / Wake up
+- எழுந்தேன் — I woke up
+- ஏன்னா — Because
+- ஒன்னு (onnu) — One
+- ஒன்னு மட்டும் — Only one
+- ஒரு நிமிஷம் (oru nimisham) — One moment / just a minute
+- கன்ஃபர்ம் (kanfarm) — Confirm
+- கம்மி (kammi) — Less
+- கல்யாணம் — Wedding / Marriage
+- கவலை — Worry
+- கஷ்டம் (kashtam) — Difficult / Hardship
+- காரம் (kaaram) — Spicy
+- கிடைச்சுது (kidaichudu) — Received / Got it
+- கிட்ட (kitta) — Near / With (person)
+- கிளம்பு (kilambu) — Leave / Depart
+- கீழ (keele) — Below / Under
+- குடிச்சேன் — I drank
+- குடுங்க — Give (respectful)
+- குட்டை (kutti) — Short (height)
+- குளி (kuli) — Bathe / Shower
+- குளிர் (kulir) — Cold
+- கூப்பிடு (kuppidu) — Call
+- கேட்டாங்க — They asked
+- கேட்டேன் — I asked
+- கேட்பேன் (ketpaen) — I will hear/ask (future)
+- கேன்சல் — Cancel
+- கொஞ்சம் (konjam) — A little
+- கொஞ்சம் தண்ணி குடுங்க (konjam thanni kudunga) — Please give a little water
+- கொடுத்தேன் (kodutten) — I gave
+- கோவம் (kovam) — Angry / Anger
+- சட்டை (sattai) — Shirt
+- சந்தோஷம் (sandosham) — Happy / Joy
+- சமையலறை (samayalarai) — Kitchen
+- சரி (sari) — Okay
+- சரி சரி (seri seri) — Right, right (backchannel — agreement)
+- சரியான (sariyana) — Correct / Right / Exact
+- சாப்டீங்களா? — Did you eat?
+- சாப்பாடு ரெடி (saappaadu ready) — Food is ready
+- சாப்பிடுங்க — Please eat (respectful)
+- சாப்பிட்டேன் — I ate
+- சின்ன (sinna) — Small / Little
+- சீக்கிரம் (seekkiram) — Quickly
+- சுவையா இருக்கு (suvaiya irukku) — It's tasty
+- சூடு (soodu) — Hot (temperature/sensation)
+- சூப்பர் — Super
+- செம்மை (semmai) — Excellent / Perfect
+- சொன்னாங்க — They said
+- சொன்னேன் — I said
+- சொல்றேன் — I'm telling (present)
+- சொல்லுங்க — Tell/Say (respectful)
+- சொல்லுவேன் — I will tell (future)
+- டயர்ட் — Tired
+- தங்கச்சி (thangachi) — Younger sister
+- தப்பு — Wrong / Mistake
+- தம்பி (thambi) — Younger brother
+- தாகம் (thaagam) — Thirsty
+- தூக்கு (thooku) — Lift / Carry
+- தூங்கினேன் — I slept
+- தெரியாது (theriyaadhu) — I don't know
+- தெரியுமா? (theriyuma) — You know…? (a real gossip opener — Oracle-confirmed)
+- தெரியும் (theriyum) — I know
+- நம்ம (namma) — Our (inclusive)
+- நல்லா (nalla) — Well / Nicely
+- நல்லா இருக்கு — It's good
+- நாங்க (naanga) — We (exclusive)
+- நாளைக்கு (naalaikku) — Tomorrow
+- நினைச்சேன் — I thought
+- நிமிஷம் — Minute (time)
+- நிறுத்துங்க — Stop (respectful)
+- நிறைய (niraya) — A lot
+- நீ (nee) — You (informal - Peers/Cousins)
+- நீங்க (neenga) — You (respectful - Elders/Strangers)
+- நீங்க சாப்பிட்டீங்களா? (ninga saaptingala) — Did you eat? (respectful — asking her back)
+- நூறு (nooru) — Hundred
+- நேத்து (netru) — Yesterday
+- நேரம் ஆச்சு — It's time / Time's up
+- நேரம் இருக்கா? — Do you have time?
+- நேரா — Straight
+- நேரா போங்க (nera ponga) — Go straight
+- பசி (pasi) — Hungry
+- பத்து (pathu) — Ten
+- பயம் (payam) — Scared / Fear
+- பரவாயில்லை — It's okay / No problem
+- பழைய — Old (things)
+- பார்த்தேன் — I saw / I watched
+- பிடிக்காது (pidikkaadhu) — I don't like
+- பிடிக்கும் (pidikkum) — I like / It pleases
+- புது (pudhu) — New
+- புரிஞ்சுது (purinjudhu) — Got it / I understood
+- புரியல (puriyala) — I don't understand
+- பெட்டி — Box / Suitcase
+- பெரிய (periya) — Big
+- போகணும் (poganum) — Must go
+- போடு (podu) — Put on / Wear
+- போதும் (podhum) — Enough
+- போனேன் — I went
+- போயிட்டு வரேன் — I'll go and come back (goodbye)
+- போறேன் (poren) — I go / I'm going
+- மாமா (maama) — Uncle (maternal)
+- முடியாது (mudiyaadhu) — Cannot / Impossible
+- முதல்ல — First
+- முன்னாடியே — Already / Beforehand
+- முறை மாமன் — Cross-cousin (marriageable uncle)
+- மூணு (moonu) — Three
+- மேல (meela) — On top / Above
+- ரெண்டு (rendu) — Two
+- ரொம்ப அதிகம் (romba adhigam) — That's too much
+- ரொம்ப நல்லா இருக்கு (romba nallarukku) — It's really good — THE melt line (Oracle: praise beats asking; seconds arrive unasked)
+- வணக்கம் (vanakkam) — Hello
+- வந்துட்டேன் (vandhutten) — I've arrived / I came
+- வந்தேன் (vanden) — I came
+- வயிறு ஃபுல் — Stomach full
+- வரேன் (vareen) — I come / I'm coming
+- வலது — Right
+- வாருங்களா? — Will you come?
+- விட — Than (comparison marker)
+- வெளிய (veliya) — Outside
+- வேணும் (venum) — I want / I need
+- வேண்டாம் (vendam) — I don't want
+- வேற என்ன? — What else?
+
+## Notes
+- **Trip Sprint ACTIVE (Phase 1.5):** We are heavily indexing the Trip Deck. The Architect should execute this as a `story` form: one host carries a short told tale; light or no Breakdown.
+- **The Scene Seed / Core Tension:** The lesson directly echoes Tuesday's chat session ("the last_debrief thread"). Andrew's mouth defaults to `venum` (announce a need), but the softer `kudunga` (ask them to pass it) is the actual family move. The table is the setting where this transition plays out safely under low pressure.
+- **Catch Items:** `இன்னும் கொஞ்சம் சாப்பிடுங்க` and `quote-nu` are EAR ONLY. They are designed to be recognized and understood by context. Never force production on these in the lesson mechanics.
+- **Coverage Check:** Ensure we strictly maintain ~95%+ known words in the Intercept as heard (except for the marked gossip/eavesdrop bits which are about catching the drift). Any unknown words must be fully resolvable within seconds from English context scaffolding. Unfenced strangers strictly bounded to ~0-2 max.
+- **Register Default:** Always use the respectful `neenga/-nga` for everyone unless dealing with a strictly confirmed sibling/peer.
+```
