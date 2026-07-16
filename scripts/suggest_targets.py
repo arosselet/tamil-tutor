@@ -277,6 +277,7 @@ def main():
 
     lexicon = load_json(LEXICON_PATH)
     word_pool = load_json(WORD_POOL_PATH)
+    learner = load_json(BASE / "progress" / "learner.json") or {}
     # An EMPTY lexicon ({}) is a valid day-zero state — the ticket still serves
     # the new-candidates section. Only a MISSING file is an error.
     if lexicon is None or not word_pool:
@@ -287,6 +288,18 @@ def main():
     print("=" * 60)
     print("SESSION TICKET — Python computes the menu; Anna picks the story.")
     print("=" * 60)
+
+    # Next engine focus — the deliberate unlock priority (set via sync_state update
+    # --next-engine). Surfaced first so Anna never re-derives the order session by session.
+    next_engine_key = learner.get("next_engine", "")
+    if next_engine_key and lexicon:
+        r = lexicon.get(next_engine_key, {})
+        prod = r.get("production", "none")
+        if prod != "cold":
+            gloss = r.get("gloss", "")
+            unseen_flag = " · ⚠ UNSEEN — teach first (show it), NEVER cold-quiz" if is_unseen(r) else ""
+            print(f"\n🎯 NEXT ENGINE: {next_engine_key} — {gloss}  [production: {prod}{unseen_flag}]")
+            print(f"   One cold novel instance of this pattern = engine online.")
 
     # Trip Deck — the finite, deadline-driven sprint set. When it exists it is the
     # HEADLINE: force its not-yet-cold members first (Anna narrates the countdown).

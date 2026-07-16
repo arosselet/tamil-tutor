@@ -8,7 +8,16 @@
     "scene_seed": "tea table — every ask passed hand-to-hand with kudunga, never announced with venum; the softer give-me the family runs on",
     "from": "2026-07-15"
   },
+  "next_engine": "frame:polite-nga",
   "recent_missions": [
+    {
+      "mission": 64,
+      "title": "Mission tier2_mission64"
+    },
+    {
+      "mission": 63,
+      "title": "குடுங்க — The Softest Scam at the Tea Table"
+    },
     {
       "mission": 62,
       "title": "இடும் & பாத்துக்கறேன்: The Shrug and the Promise"
@@ -16,15 +25,7 @@
     {
       "mission": 61,
       "title": "Mission tier2_mission61"
-    },
-    {
-      "mission": 60,
-      "title": "Mission tier2_mission60"
-    },
-    {
-      "mission": 59,
-      "title": "கடைசில பாக்கலாம் — The Family Verdict"
     }
   ],
-  "status": "Trip Deck 6/69 fire cold · 28 days to touchdown · need 2.2 cold/day, trailing 7-day pace 0.7/day"
+  "status": "Trip Deck 6/69 fire cold · 27 days to touchdown · need 2.3 cold/day, trailing 7-day pace 0.7/day"
 }

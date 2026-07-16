@@ -246,6 +246,7 @@ def write_thin_learner(learner: dict, episodes: dict):
         "learner": learner.get("learner", "Andrew"),
         "last_debrief": learner.get("last_debrief", ""),
         "soak_order": learner.get("soak_order", {}),
+        "next_engine": learner.get("next_engine", ""),
         "recent_missions": compute_recent_missions(episodes),
         "status": compute_status(),
     }
@@ -338,6 +339,20 @@ def cmd_update(args):
                 lexicon[key]["last_surfaced"] = today
                 surfaced += 1
         print(f"  Listened M{mission} (now {ep['listens']}x) — surfaced {surfaced} lexicon words")
+
+    # Next engine focus — the frame to unlock next, surfaced in the ticket and digest.
+    if args.next_engine:
+        learner["next_engine"] = args.next_engine
+        print(f"  Next engine set: {args.next_engine}")
+
+    # Mark-seen — update last_surfaced without touching recognition/production.
+    # Closes the lore-memo gap: a frame a knock introduced is no longer UNSEEN.
+    for key in args.mark_seen:
+        if key in lexicon:
+            lexicon[key]["last_surfaced"] = today
+            print(f"  Marked seen: {key}")
+        else:
+            print(f"  ! '{key}' not in lexicon — skipped")
 
     # Soak order — the intentional payload for the NEXT audio episode (what Anna
     # wants soaked), read by the Director. Overwrites; fail-forward, no history.
@@ -645,6 +660,16 @@ def cmd_status(_args):
         print(f"Last logged session: {last} ({gap_str})")
     print(f"Status: {compute_status()}")  # live — the stored learner.json copy goes stale between updates
     print(f"Story so far: {learner.get('last_debrief', '')}")
+    next_engine = learner.get("next_engine", "")
+    if next_engine and lexicon:
+        r = lexicon.get(next_engine, {})
+        prod = r.get("production", "none")
+        if prod != "cold":
+            gloss = r.get("gloss", "")
+            unseen = is_unseen(r)
+            tag = "UNSEEN — teach first" if unseen else f"production: {prod}"
+            print(f"Next engine: {next_engine} — {gloss}  [{tag}]")
+
     soak = learner.get("soak_order", {})
     if soak.get("payload") or soak.get("scene_seed"):
         items = canon_payload(soak.get("payload", []))
@@ -838,6 +863,10 @@ def main():
                     help="Word(s) produced only after a hint (production axis)")
     up.add_argument("--debrief", type=str, default=None,
                     help="Running 'story so far' — rewrite cumulatively (carry what matters, prune what resolved); Anna's persistent narrative memory, not a one-line log")
+    up.add_argument("--next-engine", type=str, default=None,
+                    help="Frame key to set as the engine to unlock next (e.g. 'frame:polite-nga')")
+    up.add_argument("--mark-seen", type=str, action="append", default=[],
+                    help="Frame/word key(s) to mark as seen today (sets last_surfaced; closes lore-memo gap)")
 
     ap = sub.add_parser("add-pattern", help="Seed a generative pattern/lemma record (tracked as an Engine)")
     ap.add_argument("key", help="Canonical key, e.g. 'frame:present-future-toggle'")
