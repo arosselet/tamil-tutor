@@ -1,0 +1,29 @@
+{
+  "mission": 63,
+  "register": "delight",
+  "dramatic_ingredient": "genre",
+  "episode_form": "vignette",
+  "shape": "gossip",
+  "location_class": "home_social",
+  "energy": "medium",
+  "intercept_tamil_density": 0.50,
+  "breakdown_tamil_density": 0.0,
+  "fence_size": 175,
+  "unfenced_words": 1,
+  "new_words_landed": {
+    "frame:giveme-noun": 6,
+    "சாயங்காலம்": 2,
+    "தட்டு": 2,
+    "தெரியல": 1,
+    "டீ": 1
+  },
+  "callbacks_used": {
+    "பிடிக்காது": 1,
+    "சீக்கிரம்": 1
+  },
+  "host_roles": {
+    "A": "pattern_spotter",
+    "B": "soft_scammer"
+  },
+  "notes": "Vignette form (no Breakdown) delivering scene spec: delight / genre(scam). Primary soak target frame:giveme-noun (குடுங்க, hinted→cold per trip deck) lands 6 times across distinct noun slots: தட்டு (pass the plate), அது (give me that), டீ (one tea), and three abstract slot uses (the explanation and closing lines). The reveal arc: Host A notices Host B has cleared the tea spread using only குடுங்க — hand-to-hand, no announcement — and calls it a scam; Host B explains the system (வேணும் opens questions; குடுங்க bypasses them); the twist is Host B even used குடுங்க for a sweet she doesn't like, then passed it to Elder Sister; Host A is converted and plans to deploy the system at tomorrow's tea. Callbacks: பிடிக்காது (the disliked sweet) and சீக்கிரம் (describing the speed of the hand-to-hand move) both land naturally. New words: சாயங்காலம் (evening, twice — scene-opener and closing plan line), தட்டு (plate, the first kudunga prop), தெரியல (compressed 'don't know', Host B's reaction to being caught), டீ (tea, ultra-answerable at a tea table). Unfenced: 'எல்லாமே' (everything, 1 occurrence) — universally obvious from context, used in prior episodes without marking. Diverges cleanly from M62 grief/nostalgia/lore, M61 revelation/classic, M60 nostalgia/classic: first vignette and first delight and first genre-ingredient episode in the recent run."
+}

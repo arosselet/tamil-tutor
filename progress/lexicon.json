@@ -63,7 +63,8 @@
       52,
       54,
       57,
-      62
+      62,
+      63
     ],
     "last_surfaced": null
   },
@@ -152,7 +153,8 @@
       59,
       60,
       61,
-      62
+      62,
+      63
     ],
     "last_surfaced": null
   },
@@ -3111,7 +3113,8 @@
     "seen_in": [
       54,
       56,
-      57
+      57,
+      63
     ],
     "last_surfaced": "2026-07-13",
     "deck": "trip",
@@ -3919,6 +3922,46 @@
     "production": "none",
     "seen_in": [
       62
+    ],
+    "last_surfaced": null
+  },
+  "சாயங்காலம்": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      63
+    ],
+    "last_surfaced": null
+  },
+  "தட்டு": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      63
+    ],
+    "last_surfaced": null
+  },
+  "தெரியல": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      63
+    ],
+    "last_surfaced": null
+  },
+  "டீ": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      63
     ],
     "last_surfaced": null
   }
