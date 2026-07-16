@@ -142,7 +142,7 @@ def agy_print(label: str, prompt: str) -> str | None:
     print(f"   [{label}] agy ({AGY_MODEL})…")
     try:
         r = subprocess.run(
-            ["agy", "--model", AGY_MODEL, "--sandbox",
+            ["agy", "--model", AGY_MODEL, "--sandbox", "--dangerously-skip-permissions",
              "--print-timeout", "14m", "--print", prompt],
             cwd=BASE, timeout=PASS_TIMEOUT_S, capture_output=True,
             encoding="utf-8", errors="replace")
