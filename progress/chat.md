@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:41 · Anna**  ·  text / trailer: done-ittu engine
 > da — lunch session today? -ட்டு is hiding inside 7 words you already know. one pattern, and suddenly they all click. 🔓
 
+**15:03 · Anna** 🎧  ·  eavesdrop / first eavesdrop: hearsay-aam tape
+> 📞 overheard — aunty on the phone. what's the gossip? (English reply fine)
+
 
 ## Wednesday 2026-07-15
 
