@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Friday 2026-07-17
+
+**09:19 · Anna**  ·  text / trailer: polite-nga engine
+> da — one pattern and every elder in the room hears you differently. tonight's session. 💪
+
+
 ## Thursday 2026-07-16
 
 **09:41 · Anna**  ·  text / trailer: done-ittu engine

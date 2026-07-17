@@ -1418,5 +1418,17 @@
         "reply_line": "close-ish energy, but no baby — a girl in the family just landed a job in Chennai, and they're hiding it from her sister who tried and didn't get one 🤫"
       }
     ]
+  },
+  {
+    "date": "2026-07-17",
+    "timestamp": "2026-07-17T13:19:08.932341+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "trailer: polite-nga engine",
+    "rationale": "Demand-streak is 1 so a no-ask dose is fine; it's the lunch-anchor window so a trailer teeing up today's session is the highest-value move. Next engine (polite-nga) is UNSEEN so it needs a show dose first — the trailer pitches the payoff without teaching it, keeping the reveal for the session. One clean open loop, nothing to re-collect, no peg reuse.",
+    "next_check": "2026-07-17T16:19:08.932341+00:00",
+    "body": "da — one pattern and every elder in the room hears you differently. tonight's session. 💪",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]
