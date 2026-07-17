@@ -6,7 +6,6 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
 
-- **Fixed-time anchor push** — one predictable daily slot alongside the opportunistic reaches; likely the volley's home. **Deliberately deferred 2026-07-08 (Andrew):** watch a week of volley timing first — if Anna reliably fires morning volleys on his own, this is moot; a Python-forced anchor would also reopen "outreach policy is Anna's."
 - **Daily spoken reps** — the trip test is mouth-under-pressure, nearly all current production is typed. **Experiment started by hand 2026-07-08:** first drill cut and on the feed ('Cold Fire: Eight Due'); machinery (drill-as-knock, below) waits until a few drills prove the format.
 - **Cold decay / re-test dates** — cold is a one-way door today; confirmations at ~2/7/21 days or it demotes. Interacts with the deck meter (headline could go backward mid-sprint) and needs graduation data that doesn't exist yet — **defer past the trip.**
 
@@ -31,6 +30,10 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
 
 ## Shipped
 
+- ~~Fixed-time anchor push~~ — MOOT, closed by the 2026-07-17 review on the deferral's own
+  test: Anna fires volleys reliably unforced (07-14 15:13, 07-15 15:46, 07-17 13:07 EDT —
+  the afternoon slot the 07-13 lunch-anchor decision assigned). No Python-forced anchor;
+  "outreach policy is Anna's" stands untouched.
 - ~~`frame:idum` has no lexicon record~~ — RESOLVED by 2026-07-17 review: a full record
   exists (new engine record, not folded into done-ittu — gloss even names the boundary:
   "bolts onto a clean single verb, not a compound"). The 07-13 cold fire (`book
