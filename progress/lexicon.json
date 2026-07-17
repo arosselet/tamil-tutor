@@ -2489,8 +2489,10 @@
     "last_surfaced": "2026-06-20"
   },
   "அதனால தான்": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "that is exactly why / that is the reason",
+    "phonetic": [
+      "adhanaala dhaan"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -2499,8 +2501,10 @@
     "last_surfaced": "2026-06-24"
   },
   "அப்படி இல்ல": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "no / it is not like that (gentle correction)",
+    "phonetic": [
+      "appadi illa"
+    ],
     "recognition": "struggled",
     "production": "hinted",
     "seen_in": [
@@ -2510,8 +2514,10 @@
     "last_surfaced": "2026-06-24"
   },
   "அப்படியே": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "just like that / as it is",
+    "phonetic": [
+      "appadiye"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -2520,8 +2526,10 @@
     "last_surfaced": "2026-06-24"
   },
   "அதுக்கு மேல": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "on top of that / beyond that",
+    "phonetic": [
+      "adhukku mela"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -2530,8 +2538,10 @@
     "last_surfaced": "2026-06-24"
   },
   "அப்படினா என்ன அர்த்தம்?": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "what does that mean?",
+    "phonetic": [
+      "appadina enna artham"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -2540,8 +2550,10 @@
     "last_surfaced": "2026-06-24"
   },
   "இப்பவே": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "right now (emphatic)",
+    "phonetic": [
+      "ippave"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -2550,8 +2562,10 @@
     "last_surfaced": null
   },
   "உட்காரு": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "sit (informal command)",
+    "phonetic": [
+      "utkaaru"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -2560,8 +2574,10 @@
     "last_surfaced": null
   },
   "என்ன ஆச்சு": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "what happened?",
+    "phonetic": [
+      "enna aachu"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -3709,8 +3725,10 @@
     "direction": "catch"
   },
   "அட்டா": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "oh! / alas! (mild disappointment, amused surprise)",
+    "phonetic": [
+      "attaa"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -3719,8 +3737,10 @@
     "last_surfaced": null
   },
   "அடேயப்பா": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "wow! / oh my! (genuine surprise, warm exasperation)",
+    "phonetic": [
+      "adeyappa"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -3729,8 +3749,10 @@
     "last_surfaced": null
   },
   "அப்படித்தான்": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "that is how it is / exactly like that",
+    "phonetic": [
+      "appadithaan"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -3846,8 +3868,10 @@
     "direction": "fire"
   },
   "அப்பா": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "dad / father (also an exclamation: oh man!)",
+    "phonetic": [
+      "appa"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -3856,8 +3880,10 @@
     "last_surfaced": null
   },
   "அம்மா": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "mom / mother (also an exclamation)",
+    "phonetic": [
+      "amma"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -3866,8 +3892,10 @@
     "last_surfaced": null
   },
   "பாப்போம்": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "we will see",
+    "phonetic": [
+      "paappom"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -3876,8 +3904,10 @@
     "last_surfaced": null
   },
   "போவோம்": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "let us go / we will go",
+    "phonetic": [
+      "povom"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -3886,8 +3916,10 @@
     "last_surfaced": null
   },
   "-ஓம்": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "the we-tail: {verb}+ஓம் → we did it together — போனோம், சாப்பிட்டோம்",
+    "phonetic": [
+      "om"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -3896,8 +3928,10 @@
     "last_surfaced": null
   },
   "இருக்கார்ல": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "the gossip opener: you know (he) is there, right… — நம்ம மாமா இருக்கார்ல",
+    "phonetic": [
+      "irukkaarla"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -3906,8 +3940,10 @@
     "last_surfaced": null
   },
   "ல": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "the …right? tag tacked on a verb — நம்ம மாமா இருக்கார்ல",
+    "phonetic": [
+      "la"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -3916,8 +3952,10 @@
     "last_surfaced": null
   },
   "அப்படியா": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "oh really?! (backchannel — surprise/interest)",
+    "phonetic": [
+      "appadiya"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -3927,8 +3965,10 @@
     "last_surfaced": null
   },
   "ஆ": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "the adverb tail: சீக்கிரம் quick → சீக்கிரமா quickly",
+    "phonetic": [
+      "aa"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -3948,8 +3988,10 @@
     "last_surfaced": "2026-07-15"
   },
   "பாத்துக்கறேன்": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "I will see to it / I will take care of it (the shrug-promise)",
+    "phonetic": [
+      "paathukkaren"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -3958,8 +4000,10 @@
     "last_surfaced": null
   },
   "சாயங்காலம்": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "evening / late afternoon (tea time)",
+    "phonetic": [
+      "saayangaalam"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -3968,8 +4012,10 @@
     "last_surfaced": null
   },
   "தட்டு": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "plate",
+    "phonetic": [
+      "thattu"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -3978,8 +4024,10 @@
     "last_surfaced": null
   },
   "தெரியல": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "I do not know / cannot say (spoken தெரியவில்லை)",
+    "phonetic": [
+      "theriyala"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -3988,8 +4036,11 @@
     "last_surfaced": null
   },
   "டீ": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "tea",
+    "phonetic": [
+      "tea",
+      "dee"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -3998,8 +4049,10 @@
     "last_surfaced": null
   },
   "கிட்ட இருக்கு": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "have it with (someone): என் கிட்ட இருக்கு → I have it on me",
+    "phonetic": [
+      "kitta irukku"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -4008,8 +4061,10 @@
     "last_surfaced": null
   },
   "இல்லன்னா": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "otherwise / if not",
+    "phonetic": [
+      "illanna"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -4018,8 +4073,10 @@
     "last_surfaced": null
   },
   "-ன்னு சொன்னாங்க": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "the quote tail: … -ன்னு சொன்னாங்க → they said that…",
+    "phonetic": [
+      "nnu sonnaanga"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -4028,8 +4085,10 @@
     "last_surfaced": null
   },
   "குடிக்குறேன்": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "I am drinking (spoken Coimbatore form of குடிக்கிறேன்)",
+    "phonetic": [
+      "kudikkureen"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -4038,8 +4097,10 @@
     "last_surfaced": null
   },
   "என்ன பண்ற?": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "what are (you/they) doing? / what is going on?",
+    "phonetic": [
+      "enna panra"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -4048,8 +4109,10 @@
     "last_surfaced": null
   },
   "நான் பாத்துக்குறேன்": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "I will take care of it / I am handling it",
+    "phonetic": [
+      "naan paathukkureen"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -4058,8 +4121,10 @@
     "last_surfaced": null
   },
   "அப்புறம் பாக்கலாம்": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "let us see later / some things take time",
+    "phonetic": [
+      "appuram paakalaam"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -4068,8 +4133,10 @@
     "last_surfaced": null
   },
   "தப்பாச்சு": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "a mistake happened / (I) messed up (தப்பு ஆச்சு fused)",
+    "phonetic": [
+      "thappaachu"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -4078,8 +4145,10 @@
     "last_surfaced": null
   },
   "போன் பண்ணுங்க": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "call (me) on the phone — polite -ங்க ask",
+    "phonetic": [
+      "phone pannunga"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -4088,8 +4157,10 @@
     "last_surfaced": null
   },
   "கூப்பிடுறேன்": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "I will call (you)",
+    "phonetic": [
+      "kooppiduren"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -4098,8 +4169,10 @@
     "last_surfaced": null
   },
   "ஃப்ரீ-யா": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "free? — loan word + -ஆ: eppa free-ya iruppa? → when will you be free?",
+    "phonetic": [
+      "free-ya"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -4108,8 +4181,10 @@
     "last_surfaced": null
   },
   "பேசலாமா": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "shall we talk? (பேசு + -லாம் + ஆ)",
+    "phonetic": [
+      "pesalaama"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
