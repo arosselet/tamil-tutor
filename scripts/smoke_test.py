@@ -884,6 +884,28 @@ def s17_campaign_digest(mk, sb: Path):
     profile.write_text(original, encoding="utf-8")
 
 
+# Word budgets for the protocol's prose surfaces (2026-07-16): every incident since
+# April landed as a paragraph, and prose only accumulates — "earn its place" didn't
+# enforce itself. Growth past a budget is a red run; raising a budget must ride the
+# same diff as the growth, and the commit names the lines it retired (/extend Gate 4).
+PROSE_BUDGETS = {
+    "protocol/persona.md": 2000,
+    "protocol/constitution.md": 1750,
+    "protocol/daily_session.md": 1250,
+    "OUTREACH_MANDATE": 2000,
+}
+
+
+def s18_prose_budgets(mk, sb: Path):
+    print("\n18. Protocol prose word budgets (2026-07-16 — the subtraction mechanism)")
+    for rel, budget in PROSE_BUDGETS.items():
+        words = (len(mk.OUTREACH_MANDATE.split()) if rel == "OUTREACH_MANDATE"
+                 else len((sb / rel).read_text(encoding="utf-8").split()))
+        check(f"{rel}: {words}/{budget} words", words <= budget,
+              f"over by {words - budget} — retire lines, or raise the budget in this "
+              f"same diff and name what it retired")
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -906,6 +928,7 @@ def main():
         s14_reply_correlation(kr)
         s16_stale_clone_gates(sb)
         s17_campaign_digest(mk, sb)
+        s18_prose_budgets(mk, sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)

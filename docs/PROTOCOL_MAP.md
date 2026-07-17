@@ -14,8 +14,7 @@ The system splits cleanly into **conversation** (Anna — always-on, small) and 
 protocol/
 ├── persona.md          Anna — the one persistent voice (elder brother, he/him)
 ├── constitution.md     Universal law: philosophy, tactical & canonical rules
-├── daily_session.md    The ~10–15 min forced-output loop (the choreography)
-├── session_tools.md    Anna's live formats (drill, roleplay, recall, reading, zinger)
+├── daily_session.md    The ~8–15 min forced-output loop (invariants + shapes + campaign)
 └── studio/             The backstage production crew — runs in an isolated context
     ├── studio.md       Orchestrator + the soak-order contract (the front door)
     ├── director.md     Soak-order + ticket → Master Lesson Plan

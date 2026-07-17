@@ -370,3 +370,31 @@ Details live in git history; this is the index of the *conclusions*.
   denominator ("this week's 12: 7 down") activates. The burn rate stays on the
   status line as an engineering number; it leaves Anna's mouth. Refines the
   07-13 touchdown-bar narration; the Enjoyment Clause applies to meters too.
+- **Protocol prose is budgeted — subtraction is a mechanism, not a value**
+  (2026-07-16). Every incident since April landed as prose, and prose only
+  accumulates; "every addition must earn its place" demonstrably did not enforce
+  itself (not on the 07-11 redesign, not on the 07-17 walk build). The four prose
+  surfaces — `persona.md`, `constitution.md`, `daily_session.md`, the outreach
+  mandate — now carry word budgets asserted by smoke case s18 (`PROSE_BUDGETS`,
+  the industry size-budget/ratchet pattern): growth past budget is a red run; a
+  budget raise must ride the same diff as the growth and the commit names the
+  lines it retired; a file that keeps hitting its ceiling is carrying crud or
+  doing two jobs — a split-or-retire signal (Andrew). Replaces the unenforced
+  prose form of "earn its place" for protocol files (`/extend` Gate 4 carries it).
+- **The minimum-law restructure — trust the persona, mandate only invariants**
+  (2026-07-16). Over-prescription is a symptom of not trusting the persona:
+  pile up mandated beats and you get checklist execution — the bookkeeper voice
+  Anna was built to kill. The behavior contract is persona + constitution +
+  campaign + ticket, with `daily_session.md` cut 176→~60 lines (invariants,
+  shapes, campaign contract, close mechanics; the numbered choreography deleted)
+  and the outreach mandate cut ~2360→~1560 words — every incident-hardened rule
+  surviving as one operative line, the narrative justifications living here and
+  in git history, not in the prompt. Teach-first now has one home (constitution →
+  The Teach Beat); other surfaces carry a pointer, plus the compressed operative
+  echo the self-contained cloud prompt needs. Completes the 07-17 shapes entry —
+  this is its deletion-first half.
+- **session_tools.md deleted** (2026-07-16). Five pre-Anna menu formats: roleplay,
+  vocab recall, and pattern drill were absorbed by the living scene, the blitz,
+  and the Teach Beat; the two survivors — script-reading (kept occasional —
+  secondary to the audio-comprehension goals, Andrew) and zinger-crafting — folded
+  into `daily_session.md` as one-line moves any shape may reach for.
