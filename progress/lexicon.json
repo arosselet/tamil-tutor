@@ -42,7 +42,8 @@
       38,
       50,
       51,
-      61
+      61,
+      65
     ],
     "last_surfaced": "2026-06-24"
   },
@@ -65,6 +66,7 @@
       57,
       62,
       63,
+      65,
       66
     ],
     "last_surfaced": null
@@ -169,7 +171,8 @@
     "seen_in": [
       32,
       55,
-      62
+      62,
+      65
     ],
     "last_surfaced": null
   },
@@ -203,6 +206,7 @@
       59,
       60,
       62,
+      65,
       66
     ],
     "last_surfaced": null
@@ -233,7 +237,8 @@
       14,
       17,
       33,
-      34
+      34,
+      65
     ],
     "last_surfaced": null
   },
@@ -367,7 +372,8 @@
       10,
       21,
       24,
-      29
+      29,
+      65
     ],
     "last_surfaced": null
   },
@@ -502,7 +508,8 @@
       38,
       60,
       61,
-      64
+      64,
+      65
     ],
     "last_surfaced": null
   },
@@ -679,7 +686,8 @@
       12,
       13,
       14,
-      33
+      33,
+      65
     ],
     "last_surfaced": null
   },
@@ -893,7 +901,8 @@
       37,
       38,
       61,
-      64
+      64,
+      65
     ],
     "last_surfaced": null
   },
@@ -1040,7 +1049,8 @@
       30,
       32,
       34,
-      64
+      64,
+      65
     ],
     "last_surfaced": null
   },
@@ -1179,7 +1189,8 @@
       37,
       38,
       60,
-      61
+      61,
+      65
     ],
     "last_surfaced": "2026-07-07"
   },
@@ -1349,7 +1360,8 @@
       20,
       23,
       24,
-      28
+      28,
+      65
     ],
     "last_surfaced": null
   },
@@ -1629,7 +1641,8 @@
       31,
       33,
       34,
-      35
+      35,
+      65
     ],
     "last_surfaced": null
   },
@@ -1690,6 +1703,7 @@
       31,
       32,
       64,
+      65,
       66
     ],
     "last_surfaced": null
@@ -1938,7 +1952,8 @@
       14,
       18,
       31,
-      38
+      38,
+      65
     ],
     "last_surfaced": null,
     "lemma": "கேள்"
@@ -2253,7 +2268,8 @@
     "seen_in": [
       11,
       31,
-      42
+      42,
+      65
     ],
     "last_surfaced": "2026-07-13",
     "deck": "trip",
@@ -2987,7 +3003,9 @@
     ],
     "recognition": "comfortable",
     "production": "none",
-    "seen_in": [],
+    "seen_in": [
+      65
+    ],
     "last_surfaced": null,
     "deck": "trip",
     "direction": "fire"
@@ -3903,7 +3921,8 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
-      61
+      61,
+      65
     ],
     "last_surfaced": null
   },
@@ -4045,6 +4064,56 @@
     "production": "none",
     "seen_in": [
       66
+    ],
+    "last_surfaced": null
+  },
+  "தப்பாச்சு": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      65
+    ],
+    "last_surfaced": null
+  },
+  "போன் பண்ணுங்க": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      65
+    ],
+    "last_surfaced": null
+  },
+  "கூப்பிடுறேன்": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      65
+    ],
+    "last_surfaced": null
+  },
+  "ஃப்ரீ-யா": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      65
+    ],
+    "last_surfaced": null
+  },
+  "பேசலாமா": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      65
     ],
     "last_surfaced": null
   }
