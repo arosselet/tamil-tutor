@@ -12,6 +12,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **13:07 · Anna**  ·  volley / afternoon volley sprint
 > ⚡ volley 1/3 — She finishes washing up and says she'll be right back. How does she say it?
 
+**18:44 · Anna** 🎧  ·  audio / teach beat: polite-nga
+> da — one pattern, every elder hears it. 🎙️ 90 sec, then you'll see kudunga differently.
+
 
 ## Thursday 2026-07-16
 
