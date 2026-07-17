@@ -47,7 +47,30 @@
 > unseen), which days teach / drill / soak, tomorrow's session shape, and what the
 > trailer pitches next.
 
-_(no campaign live yet — kick one off at the next session)_
+**🎯 The Ask-Machine Week** (kicked off live 2026-07-17, runs ~through 07-23). Everything
+at a family table moves by asking someone politely, and one machine sits under all of it:
+**verb + -nga**. The unit collapses forms Andrew already says (kudunga, sollunga,
+ukkarunga) into one lever, and lands the week's headline: **kudunga fires cold by Friday
+07-24** — the venum→kudunga swap is the open wound.
+
+- **Engine:** `frame:polite-nga` — **UNSEEN, Teach Beat first** (Sat 07-18).
+- **Headline:** `frame:giveme-noun` (kudunga) — hinted → cold.
+- **Second unseen:** `frame:mayi-laama` ("may I…?") — teach Sat, soak via next episode.
+- **Antifreeze riders:** புரியல (hinted→cold), கொஞ்சம் மெதுவா சொல்லுங்க (a fired repair
+  line is a PASS, out loud, every time).
+- **Known -nga family to re-strain as one machine:** சொல்லுங்க, உக்காருங்க, எடுங்க,
+  சாப்பிடுங்க, நிறுத்துங்க, கொஞ்சம் தண்ணி குடுங்க.
+- **Carry-over rider:** `frame:done-ittu` — hinted today (mudichittu varén); ride it to
+  cold inside ask-scenes, don't headline it.
+
+**Days:** Fri 07-17 ✓ (done-ittu payoff + person-tail lore, campaign drafted) → Sat
+**Teach Day** (polite-nga + mayi-laama, generous, story-rich; light firing aims at
+done-ittu) → Sun **Gauntlet** (volume on the asks) → Mon **soak/eavesdrop** (episode
+seeds mayi-laama) → Tue **Table Rehearsal** (mother-in-law mask, every ask in -nga under
+speed) → Wed/Thu clear stragglers, kudunga cold check Friday.
+
+**Tomorrow's shape:** Teach Day. **Trailer pitches:** "one syllable makes every verb
+polite — the lever you've been pulling blind."
 
 ---
 

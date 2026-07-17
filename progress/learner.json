@@ -1,15 +1,19 @@
 {
   "learner": "Andrew",
-  "last_debrief": "STORY SO FAR: war footing, 28 days out, deck 5/69 cold. Today (07-15 lunch): PAID OFF THE aachu TRAILER — named the it-happened/it's-done machine (aachu/poachu/mudinjuchu/neram aachu). Andrew fired mudinjuchu COLD first try, neram aachu COLD, podhum COLD — the happened-aachu engine is ONLINE. Bonus: taught 'pasi poachu' (the hunger went) and Andrew found the po=went/gone thread himself (poachu = it vanished; bus poachu). GIVEME-NOUN still the live gap: he reached for venum, produced 'kudunga' only after recast (hinted, clean on second try) — he named himself that kudunga is fresh in the ear and his mouth grabs venum. OPEN THREAD: keep sliding kudunga back in front of him till automatic; venum-vs-kudunga (announce-a-need vs ask-them-to-act) is the distinction to deepen. FIELD MISSION COLLECTED: old 'ok-na book pannu' op — Andrew says it was fine but CONTRIVED (needed a specific moment that may never come). NOTE FOR KNOCK/MISSION POLICY: missions must ride a daily-guaranteed moment, not a contrived pretext. NEW MISSION LIVE: 'podhum, vayiru full, mudinjuchu' waving off seconds at dinner tonight — organic, fires today's exact haul; collect next time.",
+  "last_debrief": "STORY SO FAR: CAMPAIGN LIVE — Ask-Machine Week (block in profile.md): polite-nga is the engine (UNSEEN, teach Sat), kudunga-cold-by-Friday is the headline. Today (07-17 morning): paid off the done-ittu trailer — Andrew built mudichittu varén from the root up (hinted, after recast), fired plain saaptén cold in-scene, and read vandhaanga as 'they' instantly. The person-tail pattern is NAMED now: -én=I, -aanga=they, -chu=it; his recurring miss is stopping at the -ttu participle (sapittu, poittu) because English front-loads the subject — 'the -ttu is a comma, the -én is the throw' landed as the fix; watch every sentence for the landing tail. CORRECTION: mudinjuchu's 07-15 cold was premature — Andrew flagged it himself; demoted to stuck, resurface inside the aachu family. Lore that stuck: mudi root = finish; mudiyaadhu = 'it won't come to completion'. kudunga NOT drilled today — tomorrow's Teach Day folds it in as the -nga family flagship. FIELD MISSION: Wednesday's 'podhum vayiru full mudinjuchu' did NOT fire (no guilt); re-armed tonight SIMPLIFIED to today's own win: 'podhum, saaptutén' waving off seconds — collect next open. Tomorrow: Teach Day, polite-nga + mayi-laama, generous; light firing aims at done-ittu.",
   "soak_order": {
     "payload": [
-      "kudunga"
+      "frame:mayi-laama"
     ],
-    "scene_seed": "tea table — every ask passed hand-to-hand with kudunga, never announced with venum; the softer give-me the family runs on",
-    "from": "2026-07-15"
+    "scene_seed": "permission at the maama's house — ukkaralaama? kekalaama? every door asked before it opens; seeds mayi-laama for the Ask-Machine week",
+    "from": "2026-07-17"
   },
   "next_engine": "frame:polite-nga",
   "recent_missions": [
+    {
+      "mission": 66,
+      "title": "Tea Table Protocol: வேணும் to the Universe"
+    },
     {
       "mission": 64,
       "title": "Mission tier2_mission64"
@@ -21,11 +25,7 @@
     {
       "mission": 62,
       "title": "இடும் & பாத்துக்கறேன்: The Shrug and the Promise"
-    },
-    {
-      "mission": 61,
-      "title": "Mission tier2_mission61"
     }
   ],
-  "status": "Trip Deck 6/69 fire cold · 27 days to touchdown · need 2.3 cold/day, trailing 7-day pace 0.7/day"
+  "status": "Trip Deck 6/69 fire cold · 26 days to touchdown · need 2.4 cold/day, trailing 7-day pace 0.7/day"
 }
