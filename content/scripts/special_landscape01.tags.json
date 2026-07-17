@@ -1,0 +1,20 @@
+{
+  "mission": "special_landscape01",
+  "register": "pride",
+  "dramatic_ingredient": "character",
+  "episode_form": "lore",
+  "shape": "pattern_riff",
+  "location_class": "other",
+  "energy": "low",
+  "intercept_tamil_density": 0.0,
+  "breakdown_tamil_density": 0.30,
+  "fence_size": 175,
+  "unfenced_words": 0,
+  "new_words_landed": {},
+  "callbacks_used": {},
+  "host_roles": {
+    "Maya": "landscape_guide_pattern",
+    "Raj": "landscape_guide_culture"
+  },
+  "notes": "Special reference episode — The Landscape Tape. A guided audio tour through the six cheat-sheet sections in order: person-tails, ask-machines, must/can, done machines, time/manner, antifreeze+table. No soak order consumed; no lexicon stamping. Items marked circle-not-taught (polite-nga machine, mayi-laama, adverb-aa, day-recap, pakkathula, place-ku poganum) receive preview-only mention, never drilled. mudi root lore (mudi=finish) is the centrepiece of section 3. The law about -ttu/-i as comma and tail as period anchors section 1. Register: pride at the breadth of what has been built. The closing insight — 30 machines times every verb you own — is the episode's thesis."
+}
