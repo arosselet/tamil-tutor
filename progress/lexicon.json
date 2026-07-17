@@ -1110,7 +1110,7 @@
       10,
       11
     ],
-    "last_surfaced": "2026-07-06"
+    "last_surfaced": "2026-07-17"
   },
   "நீ": {
     "gloss": "You (informal - Peers/Cousins)",
@@ -3594,9 +3594,9 @@
       "poyittu varen"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [],
-    "last_surfaced": "2026-07-16",
+    "last_surfaced": "2026-07-17",
     "deck": "trip",
     "direction": "fire"
   },
@@ -3641,7 +3641,7 @@
     "recognition": "struggled",
     "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-07-15",
+    "last_surfaced": "2026-07-17",
     "deck": "trip",
     "direction": "fire"
   },
