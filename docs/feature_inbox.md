@@ -18,10 +18,6 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
   per-item stage: heard → understood → spoken-scaffolded → spoken-cold → survived-live,
   everything else derived. From the 2026-07-09 greenfield review; a consolidation, so it
   must *delete* more state than it adds or it doesn't happen.
-- **`frame:idum` has no lexicon record** — the it's-handled engine was taught and fired
-  cold (`book pannidum`, 2026-07-13) but `--produced-cold 'frame:idum'` was skipped:
-  no record resolves. Decide: new engine record vs fold into `frame:done-ittu` (same
-  -இடு morphology, different force). Until then the meter under-counts a live engine.
 - **Payload lint could match inflected stems** — the verbatim check false-flags correct
   inflections (M61: தூக்கு vs தூக்க); a stem-tolerant match would stop the recurring
   manual sidecar repair. See the 2026-07-13 "bends the sidecar" decision for the
@@ -34,6 +30,11 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
 - **Real-media library (songs, kids' TV)** — the Jabberwocky principle: melody stores sound-sequences below comprehension (Andrew still carries sung gibberish from decades ago). Curate Oracle-vetted YouTube links (her childhood film songs, Tamil Dora) as rows of data; Anna sends one as a no-ask dose, lore-style — a skill, not a DJ persona. Feeds the starving catch axis (0/8) and buys shared cultural ground before the trip. Guardrails: stop-chasing-listens applies in full (zero-debt, no follow-up); curation happens at the laptop, studio-style, never in-session. Machinery (a knock "song dose" type) waits until the library exists and a few doses prove the format by hand.
 
 ## Shipped
+
+- ~~`frame:idum` has no lexicon record~~ — RESOLVED by 2026-07-17 review: a full record
+  exists (new engine record, not folded into done-ittu — gloss even names the boundary:
+  "bolts onto a clean single verb, not a compound"). The 07-13 cold fire (`book
+  pannidum`) that was skipped for want of a record was applied during the review.
 
 - ~~Explicit contrast beat~~ — DONE 2026-07-08 (same-day canon amendment, Andrew approved):
   a recast may carry ONE clause of why, by example, never terminology — one clause is a
