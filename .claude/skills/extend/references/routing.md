@@ -11,8 +11,7 @@ report — do not create a substitute.
 | Podcast cast names and regional voice identity | `protocol/studio/hosts.md` | Script-only rules live here (fourth wall, no ad-libs) |
 | Word selection ticket (floor-gap targets, engines, new candidates) | `scripts/suggest_targets.py` | |
 | Scene-spec divergence gate (register / form / dramatic ingredient) | `scripts/suggest_targets.py` | `scene_spec()` at line 221; divergence window = 3 |
-| Session choreography (the ~10–15 min forced-output loop) | `protocol/daily_session.md` | |
-| Anna's live formats (drill, roleplay, recall, reading, zinger) | `protocol/session_tools.md` | |
+| Session law (invariants, shapes, campaign contract, close mechanics) | `protocol/daily_session.md` | Word-budgeted — see `/extend` Gate 4 |
 | Pedagogical law and canonical rules (Fresh Execution, recast rules) | `protocol/constitution.md` | Dialect *examples* are Tamil; edit inline for other languages |
 | All state writes to `progress/*.json` | `scripts/sync_state.py` | Never hand-edit Python-owned JSON directly |
 | Lexicon key script enforcement (`TAMIL_RE`) | `scripts/sync_state.py` line 56 | Port surface — see `/extend` Gate 6 |

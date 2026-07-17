@@ -56,6 +56,13 @@ one prompt line authored the monoculture — `/debug` → KF-8).
 Every addition must earn its place. Before writing any code, state out loud:
 *"This replaces / simplifies ___."* (`docs/DECISIONS.md` → "Every addition must earn its place.")
 
+**The word budget (2026-07-16).** The protocol's prose surfaces — `persona.md`,
+`constitution.md`, `daily_session.md`, the outreach mandate — carry word budgets asserted
+by `scripts/smoke_test.py` → `PROSE_BUDGETS`; growth past budget is a red run. Raising a
+budget is allowed only in the same diff as the growth, and the commit must name the lines
+it retired. A file that keeps hitting its ceiling is carrying crud or doing too many jobs —
+a split-or-retire signal, never a bump-the-number reflex.
+
 If you cannot name what it replaces, that is the signal to stop.
 
 ---

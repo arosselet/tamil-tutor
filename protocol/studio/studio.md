@@ -21,9 +21,9 @@ If `soak_order` is empty, build from `python scripts/suggest_targets.py` alone (
 **A soak-order may also point *forward* — the seed order (2026-07-17).** When a campaign
 is live (`progress/profile.md` → "The Campaign — This Week"), Anna may hand a payload of
 2–4 **unseen** deck items from its next chapter instead of chat's last strain. This
-episode *teaches*: the payload items are its NEW word types (the 4–5 calibration cap
-holds; each answered 2–3× in context) and the caption sheet is the primary companion —
-write it with extra care. The render stamps `seen_in` as always, which is what legally
+episode *teaches*: the payload items are its NEW word types (the Calibration Notes'
+NEW-word rules apply) and the caption sheet is the primary companion — write it with
+extra care. The render stamps `seen_in` as always, which is what legally
 opens these items to the volley and knock channels the next day. Nothing else about the
 pipeline changes.
 

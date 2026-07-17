@@ -84,7 +84,7 @@ The engineering theses, as deliberate as the pedagogy (the full ledger of settle
 
 ```
 .github/workflows/   → The outreach ticks: knock decisions, hourly push-queue drain, reply judging
-protocol/            → Anna (persona + daily_session + session_tools + diagnosis) and studio/ (the isolated production crew: Director, Architect, Producer)
+protocol/            → Anna (persona + daily_session + diagnosis) and studio/ (the isolated production crew: Director, Architect, Producer)
 docs/                → Engineer's references: PROTOCOL_MAP.md (architecture), DECISIONS.md (settled decisions)
 curriculum/
     ├── word_pool.json → Suggestion list of words to learn someday (Anna picks from it)
