@@ -1,0 +1,48 @@
+{
+  "mission": 65,
+  "register": "tension",
+  "dramatic_ingredient": "stakes",
+  "episode_form": "phone_call",
+  "shape": "confrontation",
+  "location_class": "remote",
+  "energy": "medium",
+  "intercept_tamil_density": 1.0,
+  "breakdown_tamil_density": 0.0,
+  "fence_size": 26,
+  "unfenced_words": 0,
+  "new_words_landed": {
+    "கோவம்": 2,
+    "வேண்டாம்": 1,
+    "குடுங்க": 1,
+    "தப்பாச்சு": 1,
+    "புரியல": 2,
+    "அழகான": 1,
+    "கல்யாணம்": 1,
+    "போன் பண்ணுங்க": 1,
+    "கூப்பிடுறேன்": 1,
+    "ஃப்ரீ-யா": 1,
+    "பேசலாமா": 1
+  },
+  "callbacks_used": {
+    "மாமா": 4,
+    "வணக்கம்": 1,
+    "என்ன வேணும்": 1,
+    "ஒரு நிமிஷம்": 1,
+    "நேரம்": 2,
+    "சீக்கிரம் சொல்லு": 1,
+    "அண்ணா": 2,
+    "கேட்டேன்": 1,
+    "சொன்னாங்க": 1,
+    "பிடிக்காது": 1,
+    "அப்படியா": 1,
+    "ஆமா": 1,
+    "இப்போ": 2,
+    "நாளைக்கு": 1,
+    "சரி": 2
+  },
+  "host_roles": {
+    "A": "caller_nephew",
+    "B": "angry_uncle"
+  },
+  "notes": "Applied dialect rules for spoken Coimbatore Tamil. Fused 'நேரம் இல்ல' into 'நேரமில்ல' and 'தப்பு ஆச்சு' into 'தப்பாச்சு'. Elided subject pronouns ('நான் கேட்டேன்' -> 'கேட்டேன்'). Verified polite '-ங்க' register. Stripped English parentheticals and director notes from dialogue."
+}
