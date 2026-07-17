@@ -221,14 +221,16 @@ def new_candidates_by_cluster(lexicon: dict, word_pool: list, n_clusters: int, p
 
 
 def load_recent_sidecars(limit: int | None = None) -> list[dict]:
-    """All *.tags.json sidecars, newest mission first. Skips unreadable ones."""
+    """All *.tags.json sidecars, newest mission first. Skips unreadable ones.
+    Only integer missions count: special_* reference tapes carry a string
+    mission and belong to the feed, not the scene rotation."""
     cars = []
     for p in SCRIPTS_DIR.glob("*.tags.json"):
         try:
             d = json.loads(p.read_text(encoding="utf-8"))
         except (json.JSONDecodeError, OSError):
             continue
-        if "mission" in d:
+        if isinstance(d.get("mission"), int):
             cars.append(d)
     cars.sort(key=lambda d: d.get("mission", 0), reverse=True)
     return cars[:limit] if limit else cars
