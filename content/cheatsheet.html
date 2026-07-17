@@ -1,0 +1,229 @@
+<title>Tamil Machines — The Landscape</title>
+<style>
+  :root {
+    --paper: #FBFAF6;
+    --card: #FFFFFF;
+    --ink: #23211C;
+    --ink-soft: #5C594F;
+    --line: #DFE3DA;
+    --leaf: #2F6B4F;       /* online / firing */
+    --leaf-soft: #E7F0EA;
+    --brass: #97741F;      /* upcoming / unseen */
+    --brass-soft: #F5EEDC;
+    --rose: #8C4A3C;       /* in-progress */
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #141714; --card: #1B1F1B; --ink: #E9E7DE; --ink-soft: #A5A296;
+      --line: #2E332D; --leaf: #85C2A1; --leaf-soft: #223328;
+      --brass: #D9B36A; --brass-soft: #2E2919; --rose: #D49483;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #141714; --card: #1B1F1B; --ink: #E9E7DE; --ink-soft: #A5A296;
+    --line: #2E332D; --leaf: #85C2A1; --leaf-soft: #223328;
+    --brass: #D9B36A; --brass-soft: #2E2919; --rose: #D49483;
+  }
+  :root[data-theme="light"] {
+    --paper: #FBFAF6; --card: #FFFFFF; --ink: #23211C; --ink-soft: #5C594F;
+    --line: #DFE3DA; --leaf: #2F6B4F; --leaf-soft: #E7F0EA;
+    --brass: #97741F; --brass-soft: #F5EEDC; --rose: #8C4A3C;
+  }
+
+  body { background: var(--paper); color: var(--ink);
+    font-family: system-ui, "Segoe UI", "Noto Sans", "Noto Sans Tamil", sans-serif;
+    font-size: 14px; line-height: 1.45; margin: 0; padding: 2rem 1rem; }
+  .sheet { max-width: 60rem; margin: 0 auto; }
+
+  header { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem 1.25rem;
+    border-bottom: 3px solid var(--leaf); padding-bottom: .6rem; margin-bottom: 1.2rem; }
+  h1 { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    font-size: 1.7rem; margin: 0; letter-spacing: -.01em; }
+  h1 .ta { color: var(--leaf); }
+  .sub { color: var(--ink-soft); font-size: .85rem; }
+  .legend { margin-left: auto; font-size: .78rem; color: var(--ink-soft);
+    display: flex; gap: .9rem; }
+
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+  @media (max-width: 44rem) { .cols { grid-template-columns: 1fr; } }
+
+  section { background: var(--card); border: 1px solid var(--line); border-radius: 6px;
+    padding: .8rem .9rem; break-inside: avoid; }
+  h2 { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    font-size: 1.02rem; margin: 0 0 .15rem; color: var(--leaf); }
+  h2 .why { font-family: system-ui, sans-serif; font-weight: 400; font-size: .78rem;
+    color: var(--ink-soft); font-style: italic; }
+
+  .m { display: grid; grid-template-columns: 1.1rem 11.5rem 1fr; gap: .35rem;
+    padding: .32rem 0; border-top: 1px dashed var(--line); align-items: baseline; }
+  .m:first-of-type { border-top: none; }
+  .dot { font-size: .8rem; line-height: 1.5; }
+  .dot.on { color: var(--leaf); } .dot.mid { color: var(--rose); } .dot.new { color: var(--brass); }
+  .pat { font-weight: 650; }
+  .pat .slot { color: var(--ink-soft); font-weight: 400; }
+  .gl { color: var(--ink-soft); }
+  .gl b { color: var(--ink); font-weight: 600; }
+  .gl .ex { display: block; font-size: .85rem; }
+
+  .note { background: var(--leaf-soft); border-radius: 4px; padding: .5rem .65rem;
+    font-size: .85rem; margin-top: .55rem; }
+  .note.gold { background: var(--brass-soft); }
+  .note b { color: var(--leaf); }
+  .note.gold b { color: var(--brass); }
+
+  .pagebreak { break-before: page; height: 0; }
+  footer { margin-top: 1.1rem; padding-top: .5rem; border-top: 1px solid var(--line);
+    font-size: .78rem; color: var(--ink-soft); display: flex; justify-content: space-between;
+    flex-wrap: wrap; gap: .5rem; }
+
+  @media print {
+    body { padding: 0; font-size: 11.2px; background: #fff; color: #1a1915; }
+    :root, :root[data-theme="dark"] { --paper:#fff; --card:#fff; --ink:#1a1915; --ink-soft:#4c4a42;
+      --line:#c9cec4; --leaf:#245640; --leaf-soft:#eef3ef; --brass:#7d5f16; --brass-soft:#f4efdf; --rose:#7c4034; }
+    .sheet { max-width: none; }
+    section { border-radius: 0; padding: .45rem .55rem; }
+    .cols { gap: .55rem; }
+  }
+</style>
+
+<div class="sheet">
+<header>
+  <h1>Tamil Machines <span class="ta">· the landscape</span></h1>
+  <span class="sub">Coimbatore colloquial — Andrew's map, not the lessons</span>
+  <span class="legend"><span style="color:var(--leaf)">● firing</span>
+    <span style="color:var(--rose)">◐ in progress</span>
+    <span style="color:var(--brass)">○ not taught yet — don't sweat it</span></span>
+</header>
+
+<div class="cols">
+
+<section>
+  <h2>The Tails — who did it <span class="why">· the last syllable IS the pronoun</span></h2>
+  <div class="m"><span class="dot on">●</span><span class="pat">-én <span class="slot">= I</span></span>
+    <span class="gl"><b>saaptén</b> I ate · <b>varén</b> I'm coming · <b>sonnén</b> I said</span></div>
+  <div class="m"><span class="dot on">●</span><span class="pat">-aanga <span class="slot">= they / one elder</span></span>
+    <span class="gl"><b>vandhaanga</b> they came · <b>sonnaanga</b> they said</span></div>
+  <div class="m"><span class="dot on">●</span><span class="pat">-chu <span class="slot">= it</span></span>
+    <span class="gl"><b>aachu</b> it happened · <b>mudinjuchu</b> it wrapped up</span></div>
+  <div class="m"><span class="dot mid">◐</span><span class="pat">-om <span class="slot">= we</span></span>
+    <span class="gl"><b>ponom</b> we went · <b>saaptom</b> we ate — the trip is a “we” trip</span></div>
+  <div class="m"><span class="dot new">○</span><span class="pat">-nga <span class="slot">= polite you</span></span>
+    <span class="gl"><b>sollunga</b> please tell · <b>ukkarunga</b> please sit</span></div>
+  <div class="note"><b>The law:</b> a <b>-ttu / -i</b> word (saapittu, poyittu) is a <em>comma</em> —
+    “having done that…”. The tail is the <em>period</em>. Land every sentence on a tail:
+    the wind-up needs the throw.</div>
+</section>
+
+<section>
+  <h2>Ask Machines <span class="why">· how everything moves at a table</span></h2>
+  <div class="m"><span class="dot on">●</span><span class="pat"><span class="slot">___</span> venum</span>
+    <span class="gl">I want ___ <span class="ex"><b>auto venum</b> — announces a need (points at you)</span></span></div>
+  <div class="m"><span class="dot mid">◐</span><span class="pat"><span class="slot">___</span> kudunga</span>
+    <span class="gl">pass me ___ <span class="ex"><b>oru tea kudunga</b> — asks <em>them</em> to act. The family runs on this one.</span></span></div>
+  <div class="m"><span class="dot new">○</span><span class="pat">verb + nga</span>
+    <span class="gl">the polite lever <span class="ex"><b>sollu → sollunga</b> · one syllable politens every verb</span></span></div>
+  <div class="m"><span class="dot on">●</span><span class="pat"><span class="slot">___</span> enga?</span>
+    <span class="gl">where's ___? <span class="ex"><b>bus stop enga?</b></span></span></div>
+  <div class="m"><span class="dot on">●</span><span class="pat"><span class="slot">___</span> irukka?</span>
+    <span class="gl">is there ___? <span class="ex"><b>coffee irukka?</b> · <b>neram irukka?</b> got time?</span></span></div>
+  <div class="m"><span class="dot on">●</span><span class="pat"><span class="slot">idhu</span> evlo?</span>
+    <span class="gl">how much (is this)?</span></div>
+  <div class="m"><span class="dot new">○</span><span class="pat">pakkathula <span class="slot">___</span> irukka?</span>
+    <span class="gl">is there ___ nearby?</span></div>
+  <div class="m"><span class="dot new">○</span><span class="pat">verb + laama?</span>
+    <span class="gl">may I / shall we? <span class="ex"><b>ukkaralaama?</b> may I sit? · <b>polaama?</b> shall we go?</span></span></div>
+</section>
+
+<section>
+  <h2>Must &amp; Can Machines</h2>
+  <div class="m"><span class="dot mid">◐</span><span class="pat">verb + num</span>
+    <span class="gl">must ___ <span class="ex"><b>poganum</b> must go · <b>pannanum</b> must do · <b>sollanum</b> must say</span></span></div>
+  <div class="m"><span class="dot new">○</span><span class="pat"><span class="slot">place</span>-ku poganum</span>
+    <span class="gl">need to go to ___ <span class="ex"><b>Coimbatore-ku poganum</b></span></span></div>
+  <div class="m"><span class="dot mid">◐</span><span class="pat">verb + mudiyala</span>
+    <span class="gl">can't ___ <span class="ex"><b>pooga mudiyala</b> can't go · <b>mudiyaadhu</b> — no chance, ever</span></span></div>
+  <div class="m"><span class="dot mid">◐</span><span class="pat">verb + idum</span>
+    <span class="gl">it'll sort itself <span class="ex"><b>sariyaayidum</b> it'll be fine · hands-off future</span></span></div>
+  <div class="note gold"><b>Root lore — mudi = finish.</b> mudinju<b>chu</b> “it finished” ·
+    mudichitt<b>én</b> “I finished it” · mudi<b>yum</b> “can” (it'll come to completion) ·
+    mudi<b>yaadhu</b> “can't” (it never will). Tamil doesn't say you lack ability —
+    it says the thing won't finish itself.</div>
+</section>
+
+<section>
+  <h2>Done Machines <span class="why">· today's breakthrough</span></h2>
+  <div class="m"><span class="dot on">●</span><span class="pat">-chu family <span class="slot">(it-did-it)</span></span>
+    <span class="gl"><b>aachu</b> it happened · <b>poachu</b> it's gone · <b>mudinjuchu</b> it wrapped up ·
+      <b>neram aachu</b> time's up · <b>pasi poachu</b> hunger's gone</span></div>
+  <div class="m"><span class="dot mid">◐</span><span class="pat">verb + ttu <span class="slot">(done-and-dusted)</span></span>
+    <span class="gl">the completive click <span class="ex"><b>vandhuttén</b> I'm here, done · <b>saaptuttén</b> ate, done ·
+      <b>mudichittu varén</b> I'll wrap up &amp; come · <b>poyittu varén</b> the goodbye</span></span></div>
+</section>
+
+<section>
+  <h2>Time &amp; Manner Machines</h2>
+  <div class="m"><span class="dot mid">◐</span><span class="pat">-uren <span class="slot">now</span> / -ven <span class="slot">later</span></span>
+    <span class="gl"><b>poren</b> I'm going ↔ <b>poven</b> I'll go · <b>solren</b> ↔ <b>solluven</b></span></div>
+  <div class="m"><span class="dot on">●</span><span class="pat">noun + la</span>
+    <span class="gl">in / at / on <span class="ex"><b>Canada-la</b> · <b>veetla</b> at home · <b>phone-la</b></span></span></div>
+  <div class="m"><span class="dot new">○</span><span class="pat"><span class="slot">X</span> + aa</span>
+    <span class="gl">makes anything “-ly” <span class="ex"><b>nalla</b> well · <b>medhuvaa</b> slowly · <b>seekrama</b> quickly</span></span></div>
+  <div class="m"><span class="dot mid">◐</span><span class="pat">verb + ndhaa / illanna</span>
+    <span class="gl">if… / otherwise… <span class="ex"><b>illanna enna aagum?</b> what happens if not?</span></span></div>
+  <div class="m"><span class="dot new">○</span><span class="pat">day recap</span>
+    <span class="gl"><b><span class="slot">place</span> ponom, romba nalla irundhuchu</b>
+      <span class="ex">the nightly “what did you do today?” answer</span></span></div>
+</section>
+
+<div class="pagebreak"></div>
+
+<section>
+  <h2>The Antifreeze Kit <span class="why">· freezing is the only fail — a fired repair line is a PASS</span></h2>
+  <div class="m"><span class="dot mid">◐</span><span class="pat">puriyala</span><span class="gl">I don't understand</span></div>
+  <div class="m"><span class="dot mid">◐</span><span class="pat">konjam medhuva sollunga</span><span class="gl">say it a little slower, please</span></div>
+  <div class="m"><span class="dot on">●</span><span class="pat">oru nimisham</span><span class="gl">one moment</span></div>
+  <div class="m"><span class="dot on">●</span><span class="pat">theriyaadhu</span><span class="gl">I don't know</span></div>
+  <div class="m"><span class="dot on">●</span><span class="pat">paravaayilla</span><span class="gl">it's okay / no problem</span></div>
+</section>
+
+<section>
+  <h2>Backchannels <span class="why">· hold your seat in the conversation</span></h2>
+  <div class="m"><span class="dot on">●</span><span class="pat">aama aama</span><span class="gl">yeah, yeah — keep going</span></div>
+  <div class="m"><span class="dot on">●</span><span class="pat">seri seri</span><span class="gl">right, right</span></div>
+  <div class="m"><span class="dot mid">◐</span><span class="pat">appadiya?!</span><span class="gl">oh really?!</span></div>
+  <div class="m"><span class="dot on">●</span><span class="pat">adhaan</span><span class="gl">exactly — that's what I said</span></div>
+  <div class="m"><span class="dot on">●</span><span class="pat">appuram? / veera enna?</span><span class="gl">and then? / what else?</span></div>
+</section>
+
+<section>
+  <h2>The Table <span class="why">· melt lines &amp; survival</span></h2>
+  <div class="m"><span class="dot on">●</span><span class="pat">romba nallarukku</span>
+    <span class="gl"><b>THE melt line.</b> Praise beats asking — seconds arrive unasked.</span></div>
+  <div class="m"><span class="dot on">●</span><span class="pat">suvaiya irukku</span><span class="gl">it's tasty</span></div>
+  <div class="m"><span class="dot mid">◐</span><span class="pat">podhum — saaptuttén</span><span class="gl">enough — I've eaten, done <span class="ex">waving off seconds; add <b>vayiru full</b> for effect</span></span></div>
+  <div class="m"><span class="dot on">●</span><span class="pat">neenga saaptingala?</span><span class="gl">did <em>you</em> eat? — asking her back</span></div>
+  <div class="m"><span class="dot on">●</span><span class="pat">konjam thanni kudunga</span><span class="gl">a little water, please</span></div>
+  <div class="m"><span class="dot on">●</span><span class="pat">inga niruthunga</span><span class="gl">stop here (to a driver)</span></div>
+  <div class="m"><span class="dot on">●</span><span class="pat">poyittu varén</span><span class="gl">the goodbye — “I'll go and come back”</span></div>
+</section>
+
+<section>
+  <h2>The Register Rule <span class="why">· one rule covers the whole family</span></h2>
+  <div class="note"><b>When in doubt: -nga.</b> Everyone gets <b>neenga</b> / -nga forms —
+    elders, strangers, even younger relatives. <b>nee</b> is only for genuinely close
+    cousins and siblings. The safe register is also the correct one in this family.
+    Bonus: <b>vandhaanga</b> might be a crowd, or just one respected elder — deference
+    is baked into the grammar.</div>
+  <div class="note gold"><b>How to read this sheet:</b> ~30 machines is the whole
+    landscape. Every machine is one pattern × every verb you own — one machine online
+    is fifty sentences never memorized. The lessons install them; this map just shows
+    the terrain.</div>
+</section>
+
+</div>
+
+<footer>
+  <span>Coimbatore Tamil · Ask-Machine Week · 2026-07-17</span>
+  <span>● 6/20 engines firing — the map fills in as you do</span>
+</footer>
+</div>
