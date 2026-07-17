@@ -1457,5 +1457,20 @@
       }
     ],
     "volley_next": 1
+  },
+  {
+    "date": "2026-07-17",
+    "timestamp": "2026-07-17T22:44:25.145404+00:00",
+    "acted": true,
+    "modality": "audio",
+    "move": "teach beat: polite-nga",
+    "rationale": "Teach Day is tomorrow but it's 6:44 PM and the session happened today — priming the engine NOW with a rich audio teach beat means tomorrow's session can go straight to firing; the trailer from this morning went untapped so a voice memo with the actual payload is stronger bait than another no-ask text; demand-streak is 1 so an audio teach (no ask) resets it cleanly and introduces the UNSEEN frame legitimately.",
+    "next_check": "2026-07-18T12:44:25.145404+00:00",
+    "body": "da — one pattern, every elder hears it. 🎙️ 90 sec, then you'll see kudunga differently.",
+    "expected_target": "",
+    "target_revealed": true,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-07-17T22-44.mp3",
+    "memo_script": "da Andrew —\n\nYou already know kudunga. You know sollunga. You've heard ukkarunga.\n\nYou think those are three different words you memorised. They're not. They're one machine.\n\nAny verb you know — just add -nga to the end. That's it. That's the whole engine.\n\nபோ becomes போங்க. வா becomes வாங்க. சொல் becomes சொல்லுங்க. குடு becomes குடுங்க.\n\nThe -nga doesn't mean please. It doesn't mean formal. It means: I see you, you're my elder, and I'm asking — not demanding.\n\nYour maama hands you a plate. You want more rice. You don't reach. You don't point. You say: சாதம் குடுங்க.\n\nYour athai is mid-story and going too fast. You don't interrupt. You say: கொஞ்சம் மெதுவா சொல்லுங்க.\n\nYour mother-in-law is standing at the door. You want her to sit. One word: உக்காருங்க.\n\nEvery verb you already own just got a polite version. Every single one.\n\nTomorrow in session — I'm going to hand you elders and situations, and you're going to fire -nga at all of them. kudunga cold by Friday. That's the week.\n\nOne syllable. Every elder in the room hears it.",
+    "mp3": "published_audio/knocks/knock_2026-07-17T22-44.mp3"
   }
 ]
