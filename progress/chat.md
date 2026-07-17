@@ -12,6 +12,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **15:03 · Anna** 🎧  ·  eavesdrop / first eavesdrop: hearsay-aam tape
 > 📞 overheard — aunty on the phone. what's the gossip? (English reply fine)
 
+**21:27 · Andrew** — **MISSED**
+> Sister is expecting?
+
+**Anna ↩**
+> close-ish energy, but no baby — a girl in the family just landed a job in Chennai, and they're hiding it from her sister who tried and didn't get one 🤫
+
 
 ## Wednesday 2026-07-15
 
