@@ -3,13 +3,17 @@
   "last_debrief": "STORY SO FAR: CAMPAIGN LIVE — Ask-Machine Week (block in profile.md): polite-nga is the engine (UNSEEN, teach Sat), kudunga-cold-by-Friday is the headline. Today (07-17 morning): paid off the done-ittu trailer — Andrew built mudichittu varén from the root up (hinted, after recast), fired plain saaptén cold in-scene, and read vandhaanga as 'they' instantly. The person-tail pattern is NAMED now: -én=I, -aanga=they, -chu=it; his recurring miss is stopping at the -ttu participle (sapittu, poittu) because English front-loads the subject — 'the -ttu is a comma, the -én is the throw' landed as the fix; watch every sentence for the landing tail. CORRECTION: mudinjuchu's 07-15 cold was premature — Andrew flagged it himself; demoted to stuck, resurface inside the aachu family. Lore that stuck: mudi root = finish; mudiyaadhu = 'it won't come to completion'. kudunga NOT drilled today — tomorrow's Teach Day folds it in as the -nga family flagship. FIELD MISSION: Wednesday's 'podhum vayiru full mudinjuchu' did NOT fire (no guilt); re-armed tonight SIMPLIFIED to today's own win: 'podhum, saaptutén' waving off seconds — collect next open. Tomorrow: Teach Day, polite-nga + mayi-laama, generous; light firing aims at done-ittu.",
   "soak_order": {
     "payload": [
-      "frame:mayi-laama"
+      "-லாமா"
     ],
-    "scene_seed": "permission at the maama's house — ukkaralaama? kekalaama? every door asked before it opens; seeds mayi-laama for the Ask-Machine week",
+    "scene_seed": "permission at the maama's house — ukkaralaama? kekalaama? every door asked before it opens; seeds mayi-laama for the Ask-Machine week (produced: M67)",
     "from": "2026-07-17"
   },
   "next_engine": "frame:polite-nga",
   "recent_missions": [
+    {
+      "mission": 67,
+      "title": "Mission tier2_mission67"
+    },
     {
       "mission": 66,
       "title": "Tea Table Protocol: வேணும் to the Universe"
@@ -21,11 +25,7 @@
     {
       "mission": 64,
       "title": "Mission tier2_mission64"
-    },
-    {
-      "mission": 63,
-      "title": "குடுங்க — The Softest Scam at the Tea Table"
     }
   ],
-  "status": "Trip Deck 6/69 fire cold · 26 days to touchdown · need 2.4 cold/day, trailing 7-day pace 0.9/day"
+  "status": "Trip Deck 6/69 fire cold · 26 days to touchdown · need 2.4 cold/day, trailing 7-day pace 1.0/day"
 }
