@@ -1,0 +1,31 @@
+{
+  "mission": 66,
+  "register": "reconciliation",
+  "dramatic_ingredient": "character",
+  "episode_form": "classic",
+  "shape": "gossip",
+  "location_class": "home_social",
+  "energy": "low",
+  "intercept_tamil_density": 0.25,
+  "breakdown_tamil_density": 0.35,
+  "fence_size": 175,
+  "unfenced_words": 0,
+  "new_words_landed": {
+    "குடிக்குறேன்": 2,
+    "என்ன பண்ற?": 2,
+    "நான் பாத்துக்குறேன்": 2,
+    "அப்புறம் பாக்கலாம்": 2
+  },
+  "callbacks_used": {
+    "குடுங்க": 10,
+    "frame:giveme-noun": 1,
+    "சொன்னாங்க": 2,
+    "பிடிக்காது": 1,
+    "சீக்கிரம்": 2
+  },
+  "host_roles": {
+    "A": "converted_niece",
+    "B": "warm_explainer"
+  },
+  "notes": "Primary soak: குடுங்க (hinted→cold, 10 landings). Dialect pass applied throughout: குடிக்கிறேன்→குடிக்குறேன், பாத்துக்கிறேன்→பாத்துக்குறேன். The -ங்க suffix gets one deep Breakdown beat (previewing frame:polite-nga without formally teaching it). Register is reconciliation: Host A's arc from annoyance to warmth lands before the episode closes. Both new-word forms appear twice — once in Intercept (answerable from context) and once in Breakdown (second soak). M63 was the first குடுங்க episode (delight/vignette); this is the second exposure from a completely different angle (character/reconciliation/classic)."
+}

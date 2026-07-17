@@ -64,7 +64,8 @@
       54,
       57,
       62,
-      63
+      63,
+      66
     ],
     "last_surfaced": null
   },
@@ -155,7 +156,8 @@
       61,
       62,
       63,
-      64
+      64,
+      66
     ],
     "last_surfaced": null
   },
@@ -200,7 +202,8 @@
       58,
       59,
       60,
-      62
+      62,
+      66
     ],
     "last_surfaced": null
   },
@@ -1686,7 +1689,8 @@
       21,
       31,
       32,
-      64
+      64,
+      66
     ],
     "last_surfaced": null
   },
@@ -3122,7 +3126,8 @@
       54,
       56,
       57,
-      63
+      63,
+      66
     ],
     "last_surfaced": "2026-07-13",
     "deck": "trip",
@@ -4000,6 +4005,46 @@
     "production": "none",
     "seen_in": [
       64
+    ],
+    "last_surfaced": null
+  },
+  "குடிக்குறேன்": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      66
+    ],
+    "last_surfaced": null
+  },
+  "என்ன பண்ற?": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      66
+    ],
+    "last_surfaced": null
+  },
+  "நான் பாத்துக்குறேன்": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      66
+    ],
+    "last_surfaced": null
+  },
+  "அப்புறம் பாக்கலாம்": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      66
     ],
     "last_surfaced": null
   }
