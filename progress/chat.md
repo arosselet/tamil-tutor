@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:19 · Anna**  ·  text / trailer: polite-nga engine
 > da — one pattern and every elder in the room hears you differently. tonight's session. 💪
 
+**13:07 · Anna**  ·  volley / afternoon volley sprint
+> ⚡ volley 1/3 — She finishes washing up and says she'll be right back. How does she say it?
+
 
 ## Thursday 2026-07-16
 
