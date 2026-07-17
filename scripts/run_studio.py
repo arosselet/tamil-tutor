@@ -296,6 +296,43 @@ def lint(n: int, baseline: set[str] | None = None) -> list[str]:
     return problems
 
 
+def claim_payload(n: int) -> None:
+    """Deterministic sidecar repair ('bends the sidecar', pointed forward): the
+    soak order this dispatch consumed must be CLAIMED by the sidecar, or the
+    render never stamps the payload seen_in (the Teach Beat's unlock) and the
+    produced-verdict can't clear — a frame key is unrecoverable from surface
+    forms downstream. Frames inject unconditionally (verbatim-exempt slot
+    templates); a non-frame key injects only when the script carries it
+    verbatim — an absent one is reported, never invented."""
+    paths = episode_paths(n)
+    try:
+        soak = (json.loads((BASE / "progress" / "learner.json").read_text(encoding="utf-8"))
+                .get("soak_order") or {})
+    except (OSError, json.JSONDecodeError):
+        return
+    payload = [w for w in soak.get("payload", []) if w]
+    if not payload:
+        return
+    tags = json.loads(paths["tags"].read_text(encoding="utf-8"))
+    script = paths["script"].read_text(encoding="utf-8")
+    strip = lambda w: re.sub(r"\s*\([^)]*\)\s*$", "", w).strip()
+    claimed = {strip(w) for w in
+               set(tags.get("new_words_landed", {})) | set(tags.get("callbacks_used", {}))}
+    added = []
+    for key in payload:
+        if key in claimed:
+            continue
+        if key.startswith("frame:") or key in script:
+            tags.setdefault("new_words_landed", {})[key] = 0
+            added.append(key)
+        else:
+            print(f"   ⚠ soak payload '{key}' neither claimed by the sidecar nor verbatim in the script")
+    if added:
+        paths["tags"].write_text(json.dumps(tags, ensure_ascii=False, indent=2) + "\n",
+                                 encoding="utf-8")
+        print(f"   payload claimed into sidecar: {', '.join(added)}")
+
+
 def main():
     ap = argparse.ArgumentParser(description="agy-writer studio dispatch (Claude subagent is the fallback)")
     ap.add_argument("--dry-run", action="store_true",
@@ -324,6 +361,7 @@ def main():
         print("   artifacts left in place for inspection — falling back is safe")
         sys.exit(1)
     print("   all checks pass")
+    claim_payload(n)
 
     if args.dry_run:
         print(f"[dry-run] would render: tier2_mission{n}.mp3 — stopping before state.")

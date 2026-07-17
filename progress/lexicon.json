@@ -3148,10 +3148,14 @@
   "frame:mayi-laama": {
     "type": "pattern",
     "gloss": "நான் {verb}-லாமா? → may I {verb}? (permission, e.g. 'ukkaralaama?')",
-    "phonetic": [],
+    "phonetic": [
+      "laama"
+    ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
+    "seen_in": [
+      67
+    ],
     "last_surfaced": null,
     "deck": "trip",
     "direction": "fire"
@@ -3441,10 +3445,15 @@
   "frame:polite-nga": {
     "type": "pattern",
     "gloss": "{verb}+ங்க → the polite ask — சொல்லுங்க, குடுங்க, உக்காருங்க, வாங்க: one machine, every verb he owns",
-    "phonetic": [],
+    "phonetic": [
+      "nga"
+    ],
     "recognition": "comfortable",
     "production": "none",
-    "seen_in": [],
+    "seen_in": [
+      65,
+      67
+    ],
     "last_surfaced": "2026-07-17",
     "deck": "trip",
     "direction": "fire"
@@ -4226,30 +4235,6 @@
     "gloss": "send (it) — polite -ng-a ask",
     "phonetic": [
       "anuppunga"
-    ],
-    "recognition": "struggled",
-    "production": "none",
-    "seen_in": [
-      67
-    ],
-    "last_surfaced": null
-  },
-  "-லாமா": {
-    "gloss": "the may-I tail: {verb}+லாமா? → shall/may (I/we) {verb}? — உட்காரலாமா, கேக்கலாமா",
-    "phonetic": [
-      "laama"
-    ],
-    "recognition": "struggled",
-    "production": "none",
-    "seen_in": [
-      67
-    ],
-    "last_surfaced": null
-  },
-  "-ங்க": {
-    "gloss": "the polite tail: {verb}+ங்க → the respectful ask — சொல்லுங்க, குடுங்க, வாங்க",
-    "phonetic": [
-      "nga"
     ],
     "recognition": "struggled",
     "production": "none",

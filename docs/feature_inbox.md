@@ -4,15 +4,6 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
-- **Registration canonical-at-write** (2026-07-17 review, evidence in git: b748231) —
-  `render_audio.py` registration exact-matches sidecar surface forms while the rest of
-  the brain resolves canonically. Three symptoms, one cause: seed episodes don't stamp
-  their frame payloads `seen_in` (M65→polite-nga, M67→mayi-laama), frame-payload soak
-  orders never show produced-✓ (double-dispatch risk, interim-repaired), and duplicate
-  records get born (`-லாமா` shadowing `frame:mayi-laama`, `-ங்க` shadowing
-  `frame:polite-nga` — these two still need merging). Fix: registration resolves via
-  the same `resolve()` path `update` uses + stamps soak-payload keys after the
-  payload-fidelity lint passes. Proposed to Andrew, awaiting nod.
 - **Self-healing production** (2026-07-17 review) — nothing Anna orders should wait for
   human hands: a laptop-side awake-check (login hook / local cron, honoring
   cloud-never-renders) that notices an unrendered script or unproduced soak order and
@@ -49,6 +40,10 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
 
 ## Shipped
 
+- ~~Registration canonical-at-write~~ — SHIPPED 2026-07-17 same evening (Andrew's
+  token-discretion grant): `claim_payload()` in `run_studio.py`; corrected diagnosis
+  and full record in DECISIONS ("The sidecar must claim the soak payload"). Dupes
+  merged; M65/M67 stamps repaired.
 - ~~Fixed-time anchor push~~ — MOOT, closed by the 2026-07-17 review on the deferral's own
   test: Anna fires volleys reliably unforced (07-14 15:13, 07-15 15:46, 07-17 13:07 EDT —
   the afternoon slot the 07-13 lunch-anchor decision assigned). No Python-forced anchor;
