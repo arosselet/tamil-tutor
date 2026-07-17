@@ -1,0 +1,35 @@
+{
+  "mission": 67,
+  "register": "revelation",
+  "dramatic_ingredient": "character",
+  "episode_form": "lore",
+  "shape": "gossip",
+  "location_class": "home_social",
+  "energy": "medium",
+  "intercept_tamil_density": 0.0,
+  "breakdown_tamil_density": 0.2,
+  "fence_size": 20,
+  "unfenced_words": 0,
+  "new_words_landed": {
+    "உட்காரலாமா?": 3,
+    "கேக்கலாமா?": 3,
+    "அனுப்பு": 1,
+    "அனுப்புங்க": 2,
+    "-லாமா": 2,
+    "-ங்க": 3
+  },
+  "callbacks_used": {
+    "மாமா": 4,
+    "பயம்": 1,
+    "பெரிய": 1,
+    "பிடிக்காது": 1,
+    "மாமா கிட்ட": 1,
+    "சொன்னாங்க": 2,
+    "நான்": 1
+  },
+  "host_roles": {
+    "A": "pattern_analyst",
+    "B": "story_analyst"
+  },
+  "notes": "Dialect pass applied end-to-end: Removed English phonetics and stray markdown italics. Enforced proper Breakdown Analyst gender tags. Changed 'இருக்கான்ல' to 'இருக்காருல' to resolve register clash (the strict Kongu uncle forcing the -nga machine cannot be addressed with the impolite pronoun). Formatted pause correctly as [Pause: 2 sec]."
+}
