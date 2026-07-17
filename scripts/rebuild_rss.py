@@ -102,6 +102,10 @@ def clean_title(raw_title: str, filename: str) -> str:
         base = f"Ep {mission} — {subtitle}"
         return f"{base} · {ep_type}" if ep_type else base
 
+    # Special reference episodes: use the script's H1 title if it's meaningful
+    if filename.startswith("special_") and raw_title and raw_title != filename:
+        return raw_title
+
     # Fallback: use filename without extension
     return filename.replace(".mp3", "").replace("_", " ").title()
 
@@ -166,9 +170,11 @@ def generate_rss():
 
     audio_files = [f for f in os.listdir(AUDIO_DIR) if f.endswith('.mp3')]
 
-    # Filter: tier-based episodes + drill tracks (skip legacy level4_*, demos, tests, and standalone intercepts)
+    # Filter: tier-based episodes + drill tracks + special reference episodes
+    # (skip legacy level4_*, demos, tests, and standalone intercepts)
     episodes = [f for f in audio_files
-                if (f.startswith('tier') or f.startswith('drill_')) and not f.endswith('_intercept.mp3')]
+                if (f.startswith('tier') or f.startswith('drill_') or f.startswith('special_'))
+                and not f.endswith('_intercept.mp3')]
 
     # Knock memos are feed-worthy too (2026-07-05): the push notification is
     # ephemeral; the feed is where a dismissed audio dose can be found again.
@@ -177,7 +183,8 @@ def generate_rss():
         episodes += [f"knocks/{f}" for f in os.listdir(knocks_dir) if f.endswith('.mp3')]
     knock_moves = knock_move_labels()
 
-    # Sort by mission number descending (newest first); drills sort above by date/time
+    # Sort by mission number descending (newest first); drills sort above by date/time;
+    # specials sort at the very top (10, ordinal) so they're visible when published.
     def sort_key(filename):
         match = re.search(r"tier(\d+)_mission(\d+)", filename)
         if match:
@@ -188,6 +195,8 @@ def generate_rss():
         match = re.search(r"knock_(\d{4})-(\d{2})-(\d{2})(?:T(\d{2})-(\d{2}))?", filename)
         if match:
             return (8, int("".join(g or "0" for g in match.groups())))
+        if filename.startswith("special_"):
+            return (10, 0)
         return (0, 0)
 
     episodes.sort(key=sort_key, reverse=True)
