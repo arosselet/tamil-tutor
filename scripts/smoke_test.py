@@ -854,6 +854,36 @@ def s16_stale_clone_gates(sb: Path):
                                               "2026-07-13")] == ["2026-07-14"])
 
 
+def s17_campaign_digest(mk, sb: Path):
+    print("\n17. Campaign block in the knock digest (2026-07-17)")
+    # The campaign is Andrew-initiated prose in profile.md; the digest carries it
+    # so cloud Anna steers by it. No section / placeholder / missing file ⇒ "".
+    profile = sb / "progress" / "profile.md"
+    original = profile.read_text(encoding="utf-8")
+    # The day-zero example profile ships the section with the placeholder line.
+    check("day-zero placeholder → no campaign block", mk.campaign_block() == "")
+
+    profile.write_text(
+        original.split("## The Campaign — This Week", 1)[0]
+        + "## The Campaign — This Week\n\n"
+        "> Contract: see daily_session.md.\n\n"
+        "**Ask-machine week** (07-20 → 07-26): kudunga, sollunga, vaanga.\n"
+        "- Mon: teach day\n\n## After The Campaign\n\nunrelated\n",
+        encoding="utf-8")
+    block = mk.campaign_block()
+    check("live campaign lands in the digest", "Ask-machine week" in block)
+    check("contract blockquote stripped", "Contract" not in block)
+    check("next section not swept in", "unrelated" not in block)
+
+    profile.write_text(profile.read_text(encoding="utf-8").replace(
+        "**Ask-machine week** (07-20 → 07-26): kudunga, sollunga, vaanga.\n"
+        "- Mon: teach day",
+        "_(no campaign live yet — kick one off at the next session)_"),
+        encoding="utf-8")
+    check("placeholder → no campaign block", mk.campaign_block() == "")
+    profile.write_text(original, encoding="utf-8")
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -875,6 +905,7 @@ def main():
         s13_eavesdrop(mk, kr, sb)
         s14_reply_correlation(kr)
         s16_stale_clone_gates(sb)
+        s17_campaign_digest(mk, sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)

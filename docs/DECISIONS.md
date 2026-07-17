@@ -324,3 +324,49 @@ Details live in git history; this is the index of the *conclusions*.
   lint is lemma-literal and false-flags correct inflections (M61 claimed தூக்கு; the
   script's தூக்க முடியல is right Tamil). Repair = drop the sidecar's over-claim; forcing
   a lemma verbatim into a natural line corrupts the rep to satisfy bookkeeping.
+- **The Teach Beat — teaching is a defined move, and every medium may teach**
+  (2026-07-17, Andrew endorsed the diagnosis by name). The system prescribed drilling
+  exquisitely and teaching not at all: first-contact had no shape anywhere in the
+  protocol, so it happened as improvised asides — the direct cause of both the
+  drip-fed feel Andrew reported and the pace shortfall (63 UNSEEN deck items queued
+  behind ~2 sessions/week at 26 days out). First contact now has a canonical shape
+  (constitution → The Teach Beat: payoff, one hook clause, 2–3 living contexts, one
+  scaffolded rep = SEEN), and the latent machinery becomes doctrine: **seed episodes**
+  teach 2–4 unseen deck items (the render's `seen_in` stamp already unlocked them —
+  the soak-order may now point forward; studio.md), **knock show doses** teach one
+  (`introduces`, built 07-16), sessions teach generously on campaign teach days.
+  Supersedes the "unseen deck items are session-only" premise of the 07-11 trailer
+  arithmetic. Amends the trailer: unpaid at evening, the knock pays it off itself as
+  a show dose ("trailer payoff") — the open loop recruits the session, it never
+  withholds the curriculum overnight.
+- **The Campaign — the week ahead is Andrew's move, planned in chat, visible in prose**
+  (2026-07-17). Continuity was entirely backward-looking (debrief = what happened,
+  soak = what just strained); nothing in the system said *what's coming*, and
+  anticipation was the cheapest engagement lever it had none of. A campaign = a
+  one-week unit from the deck's tiers — name, ~10–14 items, which days teach/drill/
+  soak, what each medium carries — **born only in a live session on Andrew's ask**,
+  drafted by Anna in chat, adjusted by Andrew, written to `profile.md` → "The
+  Campaign — This Week" at close. All mediums steer by it (the knock digest carries
+  the block; trailers pitch its next chapter; seed episodes soak its next batch).
+  Calendar/cron-driven planning explicitly rejected (Andrew: it must happen in the
+  main agent, not a GitHub Action) — cloud Anna reads, never writes. Supersedes the
+  "second daily volley" as the named next pace lever (2026-07-09): volley threads
+  stall after the first exchange, and the bottleneck was teach bandwidth, not ask
+  volume. Also replaces the trailer's random-unseen-item bait with next-chapter bait.
+- **Session shapes — the liturgy demoted to a palette** (2026-07-17). The 07-11
+  engagement redesign fixed content but froze form: its fixes accreted as MUSTs
+  until a 10-minute session carried ~eleven mandated beats — re-creating, as a
+  fixed daily liturgy, the sameness it set out to cure ("formats drift like
+  content" covered scenes, episodes, and knock formats; never the session's own
+  shape). Now three invariants (open on the thread/trailer; honest cold volume;
+  Close & Log with one forward hook) plus a rotating named shape — Gauntlet /
+  Teach Day / Story / Deep-Dive / Table Rehearsal — no shape twice running, the
+  campaign naming tomorrow's so Andrew knows what he's sitting down to. The
+  mandatory delight beat is absorbed by the shapes (a Deep-Dive IS the delight);
+  the blitz becomes shape-weighted instead of unconditional.
+- **Anna narrates the campaign's denominators, never the global deficit**
+  (2026-07-17). "Need 2.4/day, trailing 0.7" recited at every touch is guilt
+  machinery in a warm voice — a 3.4× deficit demotivates where a small unit
+  denominator ("this week's 12: 7 down") activates. The burn rate stays on the
+  status line as an engineering number; it leaves Anna's mouth. Refines the
+  07-13 touchdown-bar narration; the Enjoyment Clause applies to meters too.

@@ -29,10 +29,12 @@ protocol/
 
 Anna writes it at Close & Log; the studio consumes it. It is the *only* thing that crosses between the two halves (`progress/learner.json` → `soak_order`):
 
-- `payload` — the words chat just strained
+- `payload` — the words chat just strained — or, when a campaign is live, a **seed order**: 2–4 unseen deck items the episode teaches first (captions carry the load; the render's `seen_in` stamp is what opens them to the drilling channels)
 - `scene_seed` — one line of the running story
 
 Anna hands **meaning**; the studio derives the rest (register / form / ingredient, callbacks, density) and owns the **craft**.
+
+A second, softer interface exists since 2026-07-17: the **campaign block** (`progress/profile.md` → "The Campaign — This Week") — an Andrew-initiated one-week unit plan in Anna-owned prose. Sessions, the studio, and the knock digest all read it; only a live session writes it.
 
 ## Invocation shells (thin, per-agent — all substance lives in `protocol/`)
 

@@ -102,6 +102,23 @@ Stated here once; Anna embodies them, the studio enforces them.
   recast — it never turns the rep into a lesson.
 - Applies everywhere Anna recasts: sessions, knock push-backs, drills.
 
+### The Teach Beat (the first-contact rule)
+
+- **Teaching is a defined move, not an aside.** A new chunk or frame enters play through
+  one generous beat: **name what it buys** (one line — the payoff, never grammar), **hook
+  it** (one clause of story — lore, a contrast, a cousin word; hooks are retrieval), **show
+  it living** in 2–3 fresh contexts (meaning answered in the same beat), then **one
+  scaffolded rep back** — an echo or a slot-fill, never cold. That is SEEN: the teach-first
+  law is satisfied and the drilling channels may quiz it unrevealed from the next day.
+- **Generous first contact, stingy thereafter.** The beat gives freely — no cold quiz
+  hiding inside it, no "guess what this means." The demand machinery starts the *next*
+  time the item surfaces. (The old failure was the opposite pole: drilling engineered
+  exquisitely, teaching left as improvised asides — which read as being drip-fed.)
+- **Every medium owns a size of it.** Chat: the full beat, inside the scene. Audio: a
+  seed episode carries 2–4 unseen items as its NEW word types, captions doing the
+  heavy lifting (the render marks them seen). Knock: the show dose — hand the line and
+  when it's used, ask nothing back.
+
 ### Woven Thanglish (The Scaffolding)
 - **Logistics in English:** All scene-setting, "why" we are here, and complex plot movement must be in English.
 - **Payload in Tamil:** The target vocabulary (the "what") must be the load-bearing part of the sentence. (e.g., "I told you to **வை** it here!")
