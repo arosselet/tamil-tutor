@@ -4,6 +4,25 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **Registration canonical-at-write** (2026-07-17 review, evidence in git: b748231) —
+  `render_audio.py` registration exact-matches sidecar surface forms while the rest of
+  the brain resolves canonically. Three symptoms, one cause: seed episodes don't stamp
+  their frame payloads `seen_in` (M65→polite-nga, M67→mayi-laama), frame-payload soak
+  orders never show produced-✓ (double-dispatch risk, interim-repaired), and duplicate
+  records get born (`-லாமா` shadowing `frame:mayi-laama`, `-ங்க` shadowing
+  `frame:polite-nga` — these two still need merging). Fix: registration resolves via
+  the same `resolve()` path `update` uses + stamps soak-payload keys after the
+  payload-fidelity lint passes. Proposed to Andrew, awaiting nod.
+- **Self-healing production** (2026-07-17 review) — nothing Anna orders should wait for
+  human hands: a laptop-side awake-check (login hook / local cron, honoring
+  cloud-never-renders) that notices an unrendered script or unproduced soak order and
+  runs the existing dispatch. Evidence: M65 sat fully-scripted and unrendered for 9 h;
+  the soak-order banner instructed a *human* to dispatch. Part of the operator-burden
+  diagnosis (ledger 2026-07-17).
+- **`suggest_targets.py` has zero smoke coverage** (2026-07-17) — the string-mission
+  crash proved it load-bearing and untested; one sandbox case (ticket runs end-to-end)
+  would have caught it at commit time.
+
 Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
 
 - **Daily spoken reps** — the trip test is mouth-under-pressure, nearly all current production is typed. **Experiment started by hand 2026-07-08:** first drill cut and on the feed ('Cold Fire: Eight Due'); machinery (drill-as-knock, below) waits until a few drills prove the format.
