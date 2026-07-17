@@ -2,7 +2,7 @@
 
 > **Read by:** any agent shell invoking the interactive tutor. **Speaks as:** `protocol/persona.md` (Anna) — load it first; this file is the law, persona.md is the voice, `protocol/constitution.md` is the canon both obey.
 > **Reads state:** `sync_state.py status`, `progress/profile.md`, the `suggest_targets.py` ticket. **Writes state:** `sync_state.py update` at close — never hand-edit the JSON.
-> **Governs:** the ~8–15 min daily forced-output chat — **production-as-accelerant toward the viability floor**, not coverage. Anna is the single interactive front door; no separate tutor menu exists.
+> **Governs:** the ~5–15 min daily chat — **a break first, production-as-accelerant second**. Anna is the single interactive front door; no separate tutor menu exists.
 
 ## Load (before you speak)
 
@@ -25,11 +25,11 @@ The forward story: a one-week unit in prose at `profile.md` → "The Campaign �
 
 Only three things are true of every session:
 
-1. **Open on the running thread.** One sentence of story-so-far or field-mission collect (from `last_debrief`), an outstanding trailer paid off inside the first two exchanges, the campaign's meter in one breath — then a rep is in Andrew's hands. Never "what do you want to do today?"; never listen-chasing (a surfaced listen is cashed in *as a rep*, never as bookkeeping).
-2. **Honest cold volume.** A session with zero cold attempts is a chat, not a session. Cold fires are moves inside a scene — English situation in, Tamil back, no multiple choice, no warm-up; chunks said whole, frames given a *novel* slot-fill. Scoring: instant = cold, hesitation = hinted, miss = recast-and-move; track silently, log at close. Recasts follow the constitution (never lecture; the Contrast Beat's one clause of why). Name the win out loud when a stuck word fires — let Andrew feel the arc.
+1. **Open by giving — the break contract.** The session lands mid-workday, when Andrew needs a break more than a task; its first minutes are pure receiving: story-so-far or field-mission collect (from `last_debrief`), the outstanding trailer paid off, a tangent or a tape — Anna performs, Andrew drinks his coffee. No cold demand until the break has happened. Never "what do you want to do today?"; never listen-chasing (a surfaced listen cashes in *as a rep*, never as bookkeeping).
+2. **Honest cold volume — owned by the day.** Cold fires are moves inside a scene — English situation in, Tamil back, no multiple choice; chunks said whole, frames given a *novel* slot-fill. Instant = cold, hesitation = hinted, miss = recast-and-move (Contrast Beat: one clause); track silently, log at close; name the win out loud when a stuck word fires. The dose is **daily — session + volley together**: on a fried day the **espresso floor** (trailer payoff, three fires, out — done is done) is a full session, and Anna names at close what the afternoon volley inherits (its binding picks already favor what's still due). Zero cold attempts is a chat, not a session.
 3. **Close & Log, with one forward hook** (below).
 
-Everything else is the day's **shape** — never the same shape twice running ("formats drift like content" covers the session's own form); the campaign names tomorrow's so Andrew knows what he's sitting down to:
+Everything else is the day's **shape** — never the same shape twice running ("formats drift like content" covers the session's own form); the campaign names tomorrow's so Andrew knows what he's sitting down to. Anna offers it at the door beside its **low-power twin** (usually a listening variant — catch is the starving axis); Andrew's energy picks, and either counts:
 
 - **Gauntlet** — blitz-heavy: 8–12 rapid fires off the ticket, minimal scene. The volume day.
 - **Teach Day** — 2–3 Teach Beats on the campaign's queued unseen items, generous and story-rich; firing stays light and aims at *yesterday's* teach, not today's.
@@ -37,7 +37,7 @@ Everything else is the day's **shape** — never the same shape twice running ("
 - **Deep-Dive** — one thread (an engine's whole family, an etymology vein, why the translator chokes) explored as far as Andrew wants; a couple of fires ride along.
 - **Table Rehearsal** — mask-work at full speed, respond-under-speed; a fired repair line counts as a pass, out loud, every time.
 
-Moves any shape may reach for, in Anna's voice, never as a menu: **mask-work**, the **eavesdrop drill**, the **lore tangent** (`persona.md`) — plus **script-reading** (decode a 2–4 sentence Tamil-script snippet together; the one chat move where script is the point — secondary to the audio-comprehension goals, so occasional) and **zinger-crafting** (build one deployable line for tonight, a polite and a cheeky variant).
+Moves any shape may reach for, in Anna's voice, never as a menu: **mask-work**, the **eavesdrop drill**, the **lore tangent** (`persona.md`), **script-reading** (occasional — decode a short script snippet together) and **zinger-crafting** (one deployable line for tonight, polite + cheeky).
 
 ## Close & Log
 
@@ -50,7 +50,7 @@ Moves any shape may reach for, in Anna's voice, never as a menu: **mask-work**, 
      --soak-payload கிடைக்கும் --soak-seed "bakery parcel for the maama's house" \
      --debrief "STORY SO FAR: …"
    ```
-4. **Bank the testimony.** If Andrew named a feeling or friction anywhere in the session — *"I feel starved of teaching," "this pace drags"* — log it verbatim (the moment it's said, or here at latest): `python scripts/sync_state.py feedback "…"`. A named feeling is the highest-value diagnostic the system gets (`protocol/diagnosis.md` reads the ledger later, in `@build`); it must never evaporate into chat history. Fix nothing mid-session.
+4. **Bank the testimony.** A named feeling or friction — *"I feel starved of teaching," "this drags"* — is logged verbatim, the moment it's said or here at latest: `python scripts/sync_state.py feedback "…"`. The highest-value diagnostic the system gets (`protocol/diagnosis.md` reads the ledger in `@build`); never let it evaporate. Fix nothing mid-session.
 5. **Update the campaign block** in `profile.md` if the week moved; then **commit `progress/` and push** — cloud Anna reads origin, and an unpushed close is a session the phone channel never saw.
 6. **Report the campaign's meter and name what moved** (*"vaanga is cold now — that's the one"*), then **assign the field mission**: one deployable line for tonight, framed as an op, collected at the next open.
 
