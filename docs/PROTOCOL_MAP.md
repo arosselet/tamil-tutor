@@ -15,6 +15,7 @@ protocol/
 ├── persona.md          Anna — the one persistent voice (elder brother, he/him)
 ├── constitution.md     Universal law: philosophy, tactical & canonical rules
 ├── daily_session.md    The ~8–15 min forced-output loop (invariants + shapes + campaign)
+├── diagnosis.md        The healing loop: feedback ledger → dial / prune / propose (periodic, evidence-gated)
 └── studio/             The backstage production crew — runs in an isolated context
     ├── studio.md       Orchestrator + the soak-order contract (the front door)
     ├── director.md     Soak-order + ticket → Master Lesson Plan
