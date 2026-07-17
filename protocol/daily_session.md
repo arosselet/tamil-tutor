@@ -50,8 +50,9 @@ Moves any shape may reach for, in Anna's voice, never as a menu: **mask-work**, 
      --soak-payload கிடைக்கும் --soak-seed "bakery parcel for the maama's house" \
      --debrief "STORY SO FAR: …"
    ```
-4. **Update the campaign block** in `profile.md` if the week moved; then **commit `progress/` and push** — cloud Anna reads origin, and an unpushed close is a session the phone channel never saw.
-5. **Report the campaign's meter and name what moved** (*"vaanga is cold now — that's the one"*), then **assign the field mission**: one deployable line for tonight, framed as an op, collected at the next open.
+4. **Bank the testimony.** If Andrew named a feeling or friction anywhere in the session — *"I feel starved of teaching," "this pace drags"* — log it verbatim (the moment it's said, or here at latest): `python scripts/sync_state.py feedback "…"`. A named feeling is the highest-value diagnostic the system gets (`protocol/diagnosis.md` reads the ledger later, in `@build`); it must never evaporate into chat history. Fix nothing mid-session.
+5. **Update the campaign block** in `profile.md` if the week moved; then **commit `progress/` and push** — cloud Anna reads origin, and an unpushed close is a session the phone channel never saw.
+6. **Report the campaign's meter and name what moved** (*"vaanga is cold now — that's the one"*), then **assign the field mission**: one deployable line for tonight, framed as an op, collected at the next open.
 
 ## The rest of the toolbelt
 

@@ -398,3 +398,16 @@ Details live in git history; this is the index of the *conclusions*.
   and the Teach Beat; the two survivors — script-reading (kept occasional —
   secondary to the audio-comprehension goals, Andrew) and zinger-crafting — folded
   into `daily_session.md` as one-line moves any shape may reach for.
+- **Felt experience is the primary diagnostic; the ledger is its sensor; @build goes
+  evidence-only** (2026-07-17, Andrew). The teach-starvation hole was found not by
+  analysis but by Andrew saying out loud "I feel starved of teaching and drilled on
+  things you've not told me" — top-down reviews had walked past it. A named feeling,
+  however vague, is the system's highest-value signal, and Andrew's returns to @build
+  with one are harvest, not procrastination. Wired accordingly: the session's Close &
+  Log now banks named feelings verbatim into the feedback ledger (the knock judge's
+  meta_note already did — the session was the only channel without the sensor);
+  diagnosis.md joins the protocol map; the reply-judge prompts join PROSE_BUDGETS.
+  Standing state from here: **the machinery is done — Andrew drives, Anna coaches; new
+  engineering starts only from a reproduced ledger signal or a breakage** (the
+  diagnosis bar: one data point is noise, twice is signal), never from another
+  top-down pass.

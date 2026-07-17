@@ -893,13 +893,18 @@ PROSE_BUDGETS = {
     "protocol/constitution.md": 1750,
     "protocol/daily_session.md": 1250,
     "OUTREACH_MANDATE": 2000,
+    "JUDGE_MANDATE": 1500,
+    "CATCH_JUDGE_MANDATE": 300,
 }
 
 
-def s18_prose_budgets(mk, sb: Path):
+def s18_prose_budgets(mk, kr, sb: Path):
     print("\n18. Protocol prose word budgets (2026-07-16 — the subtraction mechanism)")
+    strings = {"OUTREACH_MANDATE": mk.OUTREACH_MANDATE,
+               "JUDGE_MANDATE": kr.JUDGE_MANDATE,
+               "CATCH_JUDGE_MANDATE": kr.CATCH_JUDGE_MANDATE}
     for rel, budget in PROSE_BUDGETS.items():
-        words = (len(mk.OUTREACH_MANDATE.split()) if rel == "OUTREACH_MANDATE"
+        words = (len(strings[rel].split()) if rel in strings
                  else len((sb / rel).read_text(encoding="utf-8").split()))
         check(f"{rel}: {words}/{budget} words", words <= budget,
               f"over by {words - budget} — retire lines, or raise the budget in this "
@@ -928,7 +933,7 @@ def main():
         s14_reply_correlation(kr)
         s16_stale_clone_gates(sb)
         s17_campaign_digest(mk, sb)
-        s18_prose_budgets(mk, sb)
+        s18_prose_budgets(mk, kr, sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)
