@@ -4199,8 +4199,10 @@
     "last_surfaced": null
   },
   "உட்காரலாமா?": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "shall we sit? / may I sit? (permission ask)",
+    "phonetic": [
+      "utkaaralaama"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -4209,8 +4211,10 @@
     "last_surfaced": null
   },
   "கேக்கலாமா?": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "shall we ask? / may I ask?",
+    "phonetic": [
+      "kekkalaama"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -4219,8 +4223,10 @@
     "last_surfaced": null
   },
   "அனுப்புங்க": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "send (it) — polite -ng-a ask",
+    "phonetic": [
+      "anuppunga"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -4229,8 +4235,10 @@
     "last_surfaced": null
   },
   "-லாமா": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "the may-I tail: {verb}+லாமா? → shall/may (I/we) {verb}? — உட்காரலாமா, கேக்கலாமா",
+    "phonetic": [
+      "laama"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -4239,8 +4247,10 @@
     "last_surfaced": null
   },
   "-ங்க": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "the polite tail: {verb}+ங்க → the respectful ask — சொல்லுங்க, குடுங்க, வாங்க",
+    "phonetic": [
+      "nga"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
