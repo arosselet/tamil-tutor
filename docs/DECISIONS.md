@@ -403,14 +403,20 @@ Details live in git history; this is the index of the *conclusions*.
   admits integer missions only. Root cause of the day the ticket and studio dispatch
   went down (the landscape tape's sidecar crashed the sort); a reference tape also
   must not consume a divergence-window slot.
-- **Registration lacks canonical-at-write — the two-vocabulary defect** (2026-07-17,
-  root cause; fix parked in the inbox awaiting Andrew's nod). The studio's sidecar
-  speaks surface forms; the brain speaks canonical keys; `render_audio.py` registration
-  exact-matches where everything else resolves. One cause, three symptoms: seed
-  episodes fail to stamp their frame payloads `seen_in` (the Teach Beat's unlock
-  silently depends on LLM whim), frame-payload soak orders never show produced-✓
-  (double-dispatch at session open), and duplicate lexicon records get born
-  (`-லாமா` / `-ங்க` shadowing their frames, still unmerged).
+- **The sidecar must claim the soak payload — Python injects it, never trusts the
+  whim** (2026-07-17; diagnosed, then fixed same evening under Andrew's discretion
+  grant). Registration already resolves canonically (`canonical()` in
+  `render_audio.py`), but a frame key is *unrecoverable* from the surface forms the
+  Producer writes — so whether the payload reached the sidecar rode LLM whim (M63/M66
+  yes, M65/M67 no). Symptoms: seed episodes failed to stamp their frame payloads
+  `seen_in` (the Teach Beat's unlock), frame-payload soak orders never showed
+  produced-✓ (double-dispatch at session open), duplicate records got born. Fix at the
+  correct seam: `run_studio.py` `claim_payload()` after lint — frames inject
+  unconditionally (verbatim-exempt), non-frames only when verbatim in the script, an
+  absent one is reported, never invented. Tonight's dupes (`-லாமா`/`-ங்க`) merged into
+  their frames while stateless; both campaign engines now legally SEEN via their seed
+  episodes. Extends "payload fidelity bends the sidecar, never the script" (2026-07-13)
+  from over-claims to under-claims.
 - **The session is a break first — the day owns the dose** (2026-07-17, Andrew).
   Third felt-signal on the same axis (07-11 "stopped looking forward", 07-17 "starved
   of teaching", now "it's a chore — midday I need a break more"): the session leaned
