@@ -398,6 +398,30 @@ Details live in git history; this is the index of the *conclusions*.
   and the Teach Beat; the two survivors — script-reading (kept occasional —
   secondary to the audio-comprehension goals, Andrew) and zinger-crafting — folded
   into `daily_session.md` as one-line moves any shape may reach for.
+- **Specials are feed-only — never scene-rotation** (2026-07-17). A `special_*`
+  reference tape's sidecar carries a string mission; `load_recent_sidecars()` now
+  admits integer missions only. Root cause of the day the ticket and studio dispatch
+  went down (the landscape tape's sidecar crashed the sort); a reference tape also
+  must not consume a divergence-window slot.
+- **Registration lacks canonical-at-write — the two-vocabulary defect** (2026-07-17,
+  root cause; fix parked in the inbox awaiting Andrew's nod). The studio's sidecar
+  speaks surface forms; the brain speaks canonical keys; `render_audio.py` registration
+  exact-matches where everything else resolves. One cause, three symptoms: seed
+  episodes fail to stamp their frame payloads `seen_in` (the Teach Beat's unlock
+  silently depends on LLM whim), frame-payload soak orders never show produced-✓
+  (double-dispatch at session open), and duplicate lexicon records get born
+  (`-லாமா` / `-ங்க` shadowing their frames, still unmerged).
+- **The session is a break first — the day owns the dose** (2026-07-17, Andrew).
+  Third felt-signal on the same axis (07-11 "stopped looking forward", 07-17 "starved
+  of teaching", now "it's a chore — midday I need a break more"): the session leaned
+  extractive at the lowest-energy point of the day. Now canon in `daily_session.md`:
+  give-first open (no cold demand until the break has happened), cold volume owned by
+  session + volley together, the espresso floor (payoff, three fires, out) is a full
+  session, every shape offers a low-power listening twin (catch is the starving axis).
+  **Session demotion (phone-loop-as-spine) explored and rejected** — Andrew: the knock
+  channel is structurally too thin (volley threads stall after one exchange); the
+  daily session stays. Content/delight redesigns of the session are saturated; the
+  remaining engagement axis is energy cost, not attractiveness.
 - **Felt experience is the primary diagnostic; the ledger is its sensor; @build goes
   evidence-only** (2026-07-17, Andrew). The teach-starvation hole was found not by
   analysis but by Andrew saying out loud "I feel starved of teaching and drilled on
