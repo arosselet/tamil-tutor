@@ -18,6 +18,15 @@ Read `progress/learner.json` → `soak_order`:
 
 If `soak_order` is empty, build from `python scripts/suggest_targets.py` alone (no chat hand-off this round). But **prefer the soak-order when set** — that is what makes the episode the other half of the loop: it soaks exactly what chat just strained.
 
+**A soak-order may also point *forward* — the seed order (2026-07-17).** When a campaign
+is live (`progress/profile.md` → "The Campaign — This Week"), Anna may hand a payload of
+2–4 **unseen** deck items from its next chapter instead of chat's last strain. This
+episode *teaches*: the payload items are its NEW word types (the 4–5 calibration cap
+holds; each answered 2–3× in context) and the caption sheet is the primary companion —
+write it with extra care. The render stamps `seen_in` as always, which is what legally
+opens these items to the volley and knock channels the next day. Nothing else about the
+pipeline changes.
+
 Everything else — register, form, dramatic ingredient, callbacks, density — **you derive** (the Director pass owns this). Anna hands *meaning*; you own *craft*.
 
 ---

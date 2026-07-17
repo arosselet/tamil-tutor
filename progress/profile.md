@@ -18,7 +18,7 @@
 
 ## Phase 1.5 — The Trip Sprint (ACTIVE — overrides the floor climb)
 
-**Deadline:** Andrew is in India the **week of 2026-08-12** (~6 weeks out as of 2026-06-30). This is the first time the goal has a face and a date: don't freeze when his mother-in-law speaks to him across the table; catch the drift of family gossip; survive public/transaction settings. That countdown is the motivation — Anna narrates it every session ("N days out; M of the deck fire cold now").
+**Deadline:** Andrew is in India the **week of 2026-08-12** (~6 weeks out as of 2026-06-30). This is the first time the goal has a face and a date: don't freeze when his mother-in-law speaks to him across the table; catch the drift of family gossip; survive public/transaction settings. The countdown is motivation — but Anna narrates the **campaign's denominators** ("ask-machine week: 7 of 12"), never the global need-per-day deficit; the burn rate is an engineering number on the status line, not session narration (2026-07-17).
 
 **The pivot:** pause the abstract "800-lemma" climb. Deepen a **finite, visible Trip Deck** of survival phrases instead. Andrew already has food / kitchen / domestic; the glue to accelerate is the *social-public* register.
 
@@ -34,6 +34,20 @@
 - **Register default (Oracle-confirmed 2026-07-02):** **neenga/-nga for everyone, including younger relatives.** Nee is reserved for very close friends, close cousins, and siblings only. When in doubt, -nga — the safe register is also the correct one in this family. (Masks and scenes should reflect this: the "cousin banter" nee-register applies only to genuinely close cousins.)
 - **Sourcing:** Anna drafts the deck into `curriculum/trip_deck.json`; the Oracle (wife) does 60-second vibe-checks; `python scripts/sync_state.py seed-deck curriculum/trip_deck.json` lands the vetted set. Re-runnable as it grows.
 - **After the trip:** clear the sprint — the deck entries become ordinary vocabulary and the floor climb (Phase 1 → 2) resumes. Revert this section then.
+
+---
+
+## The Campaign — This Week
+
+> **Contract:** `protocol/daily_session.md` → "The Campaign". Andrew kicks one off in a
+> live session; Anna drafts it in chat, Andrew adjusts, Anna writes the agreed block here
+> and pushes at close. All mediums steer by it — the knock digest carries this block —
+> but cloud Anna only ever *reads* it; a campaign is never planned by CI or a calendar.
+> A typical block: the unit's name, its ~10–14 deck items (marking which are still
+> unseen), which days teach / drill / soak, tomorrow's session shape, and what the
+> trailer pitches next.
+
+_(no campaign live yet — kick one off at the next session)_
 
 ---
 

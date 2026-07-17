@@ -389,15 +389,36 @@ def volley_block() -> str:
     return "\n".join(lines)
 
 
+def campaign_block() -> str:
+    """The live campaign — Andrew-initiated week plan in profile.md (contract in
+    protocol/daily_session.md → The Campaign). Cloud Anna steers by it — trailers
+    pitch its next chapter, show doses teach its queued items, volleys drill what
+    it already taught — but only a live session ever writes it."""
+    try:
+        text = (BASE / "progress" / "profile.md").read_text(encoding="utf-8")
+    except OSError:
+        return ""
+    marker = "## The Campaign — This Week"
+    if marker not in text:
+        return ""
+    body = text.split(marker, 1)[1].split("\n## ", 1)[0]
+    # Drop the standing contract blockquote; the mandate already carries the rules.
+    body = "\n".join(l for l in body.splitlines() if not l.lstrip().startswith(">")).strip()
+    if not body or "no campaign live" in body:
+        return ""
+    return "CAMPAIGN (the live week plan — steer by it):\n" + body[:1500]
+
+
 def build_digest() -> str:
-    """Everything Anna needs to make a policy call: learning state + the deck's
-    due menu + outcome memory + how much room the rails leave him right now."""
+    """Everything Anna needs to make a policy call: learning state + the live
+    campaign + the deck's due menu + outcome memory + how much room the rails
+    leave him right now."""
     out = subprocess.run([sys.executable, str(BASE / "scripts" / "sync_state.py"), "status"],
                          capture_output=True, text=True)
     status = out.stdout.strip()
     klog = load_json(KNOCK_LOG_PATH) or []
     now = datetime.now(timezone.utc)
-    parts = [status, deck_due_list(), volley_block(),
+    parts = [status, campaign_block(), deck_due_list(), volley_block(),
              outcome_memory(klog, now), remaining_room(klog, now)]
     return "\n\n".join(p for p in parts if p)
 
@@ -434,10 +455,11 @@ the next fire at hinted; celebrate with the meter, never the Tamil. \
 After TWO consecutive demand-doses (any fire with a non-empty expected_target — the \
 digest's Demand-streak line counts this for you), the next fire MUST be a no-ask dose \
 (trailer, lore, audio memo, show dose, grace) or silence. And when the digest shows no chat \
-session for 3+ days, this channel is NOT carrying the whole curriculum — it CANNOT (unseen \
-deck items are session-only); bias toward the TRAILER and soaking (show doses, audio), \
-not collection; you cannot quiz him into momentum, but you can make him want to hear \
-the rest.
+session for 3+ days, this channel cannot carry the whole curriculum alone — its teach \
+bandwidth is one show dose at a time (the sessions and seed episodes are the volume \
+teachers); bias toward the TRAILER, show doses on the CAMPAIGN's queued items, and \
+soaking (audio), not collection; you cannot quiz him into momentum, but you can make \
+him want to hear the rest.
 
 THE LUNCH ANCHOR (2026-07-13): Andrew has committed to a daily terminal session on his \
 workday lunch break. Late morning the highest-value move is usually the session bell — \
@@ -503,9 +525,16 @@ proved the hook works; their sin was paying off inside the notification). Never 
 "come back," never thread-nostalgia — pitch the curriculum, not the obligation. Reach for it \
 when the last-session line is aging: unseen deck items enter play ONLY through a session, so \
 recruiting one outranks any ask this channel can make. Log the move as "trailer: <topic>" — \
-the next session opens by paying it off. ONE open loop at a time: never fire a second \
-trailer while one sits unpaid; if the first didn't pull, the pitch was wrong — change the \
-bait, not the volume.
+the next session opens by paying it off. When the digest carries a CAMPAIGN block, the \
+trailer pitches the campaign's NEXT CHAPTER — the thing this week is building toward — \
+never a random unseen item; the campaign is the story the bait belongs to. ONE open loop \
+at a time: never fire a second trailer while one sits unpaid; if the first didn't pull, \
+the pitch was wrong — change the bait, not the volume. AND THE LOOP NEVER STARVES THE \
+DOSE (2026-07-17): if the evening is here and today's trailer sits unpaid — no session \
+came — pay it off YOURSELF: a show dose that hands the promised line and when it's used, \
+asks nothing back, lists the item in "introduces", logged as "trailer payoff: <topic>". \
+The trailer recruits the session; it never withholds the curriculum overnight. Tomorrow's \
+trailer changes the bait.
 
 SELF-PACING: set next_check_hours = how long until you want to reconsider reaching out \
 (you are choosing your own cadence, inside the rails). Sooner if momentum is hot; longer \
@@ -541,9 +570,12 @@ but the running story is only the *flavour* around that one item, never a source
 extra targets. (Ear-only items are soak doses: play/show them, ask for nothing back.)
 
 TEACH BEFORE QUIZ: a menu item flagged ⚠ UNSEEN has never been soaked anywhere — no \
-episode, no session, no memo. Never cold-quiz one. Give it a SHOW dose first (a text or \
-audio that HANDS him the line and when it's used — expected_target EMPTY), and let a \
-later knock ask for it unrevealed in a fresh context. Likewise never re-ask Tamil that \
+episode, no session, no memo. Never cold-quiz one. Give it a SHOW dose first — the \
+knock-sized Teach Beat (constitution): name what the line BUYS, one clause of hook \
+(a story, a contrast), the line itself and when it's used — expected_target EMPTY, \
+the item in "introduces" — and let a later knock ask for it unrevealed in a fresh \
+context. When a CAMPAIGN block is in the digest, teach ITS queued items first; the \
+week has an order and the show dose is this channel's page of it. Likewise never re-ask Tamil that \
 this knock's own body (or your last recast) reveals — a revealed word can only ever \
 score hinted, so an immediate re-ask is a treadmill, not a rep; plant the unrevealed \
 ask via "schedule" a day out instead, or leave it to the wild.
@@ -561,7 +593,7 @@ Return ONLY a JSON object, no prose around it:
   "act": true | false,                  // false = silence this tick
   "modality": "text" | "audio" | "challenge" | "volley" | "eavesdrop" | "grace" | "silence",
   "move": "<2-4 word label of the move, for the log>",
-  "introduces": ["<frame:key or lexicon key>"],   // ONLY for lore/trailer doses: list any frame/word keys this dose introduces for the first time (teaches, shows, names as a pattern). Python marks them as seen in the lexicon so they are no longer UNSEEN. Empty list if not a teaching dose.
+  "introduces": ["<frame:key or lexicon key>"],   // ONLY for teaching doses (show dose / lore / trailer payoff): list any frame/word keys this dose introduces for the first time (teaches, shows, names as a pattern). Python marks them as seen in the lexicon so they are no longer UNSEEN. Empty list if not a teaching dose.
   "notification_body": "<the lock-screen line — valuable even if never tapped; MUST carry a Tamil phrase + tiny English gloss. One emoji ok. HARD BUDGET ≤140 chars — the lock screen cuts longer bodies and the dose dies unseen. Empty string if silence.>",
   "memo_script": "<ONLY for modality 'audio' or 'eavesdrop': the spoken memo (audio) or the overheard tape (eavesdrop), paragraphs separated by ONE blank line (\\n\\n) — never single \\n within a paragraph. Tamil payload in Tamil script. Empty string otherwise.>",
   "expected_target": "<the one word/chunk/frame a good reply would fire (Tamil script or frame:... key); empty string if this dose asks for nothing specific>",
