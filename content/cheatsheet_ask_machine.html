@@ -1,0 +1,160 @@
+<title>Ask-Machine Week — the battlefield</title>
+<style>
+  :root {
+    --paper: #FBFAF6;
+    --card: #FFFFFF;
+    --ink: #23211C;
+    --ink-soft: #5C594F;
+    --line: #DFE3DA;
+    --leaf: #2F6B4F;       /* online / firing */
+    --leaf-soft: #E7F0EA;
+    --brass: #97741F;      /* upcoming / unseen */
+    --brass-soft: #F5EEDC;
+    --rose: #8C4A3C;       /* in-progress */
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #141714; --card: #1B1F1B; --ink: #E9E7DE; --ink-soft: #A5A296;
+      --line: #2E332D; --leaf: #85C2A1; --leaf-soft: #223328;
+      --brass: #D9B36A; --brass-soft: #2E2919; --rose: #D49483;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #141714; --card: #1B1F1B; --ink: #E9E7DE; --ink-soft: #A5A296;
+    --line: #2E332D; --leaf: #85C2A1; --leaf-soft: #223328;
+    --brass: #D9B36A; --brass-soft: #2E2919; --rose: #D49483;
+  }
+  :root[data-theme="light"] {
+    --paper: #FBFAF6; --card: #FFFFFF; --ink: #23211C; --ink-soft: #5C594F;
+    --line: #DFE3DA; --leaf: #2F6B4F; --leaf-soft: #E7F0EA;
+    --brass: #97741F; --brass-soft: #F5EEDC; --rose: #8C4A3C;
+  }
+
+  body { background: var(--paper); color: var(--ink);
+    font-family: system-ui, "Segoe UI", "Noto Sans", "Noto Sans Tamil", sans-serif;
+    font-size: 14px; line-height: 1.45; margin: 0; padding: 2rem 1rem; }
+  .sheet { max-width: 60rem; margin: 0 auto; }
+
+  header { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem 1.25rem;
+    border-bottom: 3px solid var(--leaf); padding-bottom: .6rem; margin-bottom: 1.2rem; }
+  h1 { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    font-size: 1.7rem; margin: 0; letter-spacing: -.01em; }
+  h1 .ta { color: var(--leaf); }
+  .sub { color: var(--ink-soft); font-size: .85rem; }
+  .legend { margin-left: auto; font-size: .78rem; color: var(--ink-soft);
+    display: flex; gap: .9rem; }
+
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+  @media (max-width: 44rem) { .cols { grid-template-columns: 1fr; } }
+
+  section { background: var(--card); border: 1px solid var(--line); border-radius: 6px;
+    padding: .8rem .9rem; break-inside: avoid; }
+  h2 { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    font-size: 1.02rem; margin: 0 0 .15rem; color: var(--leaf); }
+  h2 .why { font-family: system-ui, sans-serif; font-weight: 400; font-size: .78rem;
+    color: var(--ink-soft); font-style: italic; }
+
+  .m { display: grid; grid-template-columns: 1.1rem 11.5rem 1fr; gap: .35rem;
+    padding: .32rem 0; border-top: 1px dashed var(--line); align-items: baseline; }
+  .m:first-of-type { border-top: none; }
+  .dot { font-size: .8rem; line-height: 1.5; }
+  .dot.on { color: var(--leaf); } .dot.mid { color: var(--rose); } .dot.new { color: var(--brass); }
+  .pat { font-weight: 650; }
+  .pat .slot { color: var(--ink-soft); font-weight: 400; }
+  .gl { color: var(--ink-soft); }
+  .gl b { color: var(--ink); font-weight: 600; }
+  .gl .ex { display: block; font-size: .85rem; }
+
+  .note { background: var(--leaf-soft); border-radius: 4px; padding: .5rem .65rem;
+    font-size: .85rem; margin-top: .55rem; }
+  .note.gold { background: var(--brass-soft); }
+  .note b { color: var(--leaf); }
+  .note.gold b { color: var(--brass); }
+
+  footer { margin-top: 1.1rem; padding-top: .5rem; border-top: 1px solid var(--line);
+    font-size: .78rem; color: var(--ink-soft); display: flex; justify-content: space-between;
+    flex-wrap: wrap; gap: .5rem; }
+
+  @media print {
+    body { padding: 0; font-size: 11.2px; background: #fff; color: #1a1915; }
+  }
+</style>
+
+<div class="sheet">
+<header>
+  <h1>Ask-Machine Week <span class="ta">· the battlefield</span></h1>
+  <span class="sub">One machine under everything at a family table: <b>verb + nga</b> · runs ~07-18 → 07-24</span>
+  <span class="legend"><span style="color:var(--leaf)">● firing</span>
+    <span style="color:var(--rose)">◐ in progress</span>
+    <span style="color:var(--brass)">○ lands this week</span></span>
+</header>
+
+<div class="cols">
+
+<section>
+  <h2>The One Lever <span class="why">· one syllable politens every verb you own</span></h2>
+  <div class="m"><span class="dot mid">◐</span><span class="pat">verb + nga</span>
+    <span class="gl">the polite ask <span class="ex"><b>sollu → sollunga</b> please tell · <b>ukkaru → ukkarunga</b> please sit</span></span></div>
+  <div class="m"><span class="dot mid">◐</span><span class="pat">the family you own</span>
+    <span class="gl"><b>kudunga</b> give · <b>saapidunga</b> eat · <b>edunga</b> take · <b>niruthunga</b> stop · <b>anuppunga</b> send · <b>vaanga</b> come</span></div>
+  <div class="m"><span class="dot mid">◐</span><span class="pat">konjam thanni kudunga</span>
+    <span class="gl">a little water, please — <b>konjam</b> softens any ask</span></div>
+  <div class="note"><b>The law:</b> -nga rides <em>commands and you</em> only — never yourself.
+    <b>irukkén</b> stays <b>irukkén</b>. If you're the subject, no -nga.</div>
+</section>
+
+<section>
+  <h2>The Headline <span class="why">· the venum → kudunga swap — this week's open wound</span></h2>
+  <div class="m"><span class="dot on">●</span><span class="pat"><span class="slot">___</span> venum</span>
+    <span class="gl">I want ___ <span class="ex"><b>auto venum</b> — announces a need. Everyone looks at you. Nothing moves.</span></span></div>
+  <div class="m"><span class="dot mid">◐</span><span class="pat"><span class="slot">___</span> kudunga</span>
+    <span class="gl">pass me ___ <span class="ex"><b>oru tea kudunga</b> — asks <em>a person</em>. The table moves. </span></span></div>
+  <div class="note gold"><b>Friday's bar:</b> kudunga fires cold by 07-24. When the want rises, kill
+    <em>venum</em> in your mouth and aim <em>kudunga</em> at someone.</div>
+</section>
+
+<section>
+  <h2>The May-I Machine <span class="why">· every door asked before it opens (Ep 67 is this)</span></h2>
+  <div class="m"><span class="dot new">○</span><span class="pat">verb + laama?</span>
+    <span class="gl">may I / shall we? <span class="ex"><b>ukkaralaama?</b> may I sit? · <b>kekkalaama?</b> may I ask? · <b>polaama?</b> shall we go? · <b>pesalaama?</b> shall we talk?</span></span></div>
+  <div class="m"><span class="dot new">○</span><span class="pat">appuram <span class="slot">+ laama?</span></span>
+    <span class="gl">later, then? <span class="ex"><b>appurama pesalaama?</b> shall we talk later?</span></span></div>
+  <div class="note">At the maama's house nobody barges — <b>-laama?</b> is how respect sounds
+    before an action. Pair it with -nga: ask permission, then ask politely.</div>
+</section>
+
+<section>
+  <h2>Antifreeze <span class="why">· a fired repair line is a PASS — out loud, every time</span></h2>
+  <div class="m"><span class="dot mid">◐</span><span class="pat">puriyala</span>
+    <span class="gl">I don't understand — say it early, not after drowning</span></div>
+  <div class="m"><span class="dot new">○</span><span class="pat">konjam medhuva sollunga</span>
+    <span class="gl">say it a bit slower, please — the -nga machine <em>rescuing</em> you</span></div>
+  <div class="m"><span class="dot new">○</span><span class="pat">appadina enna artham?</span>
+    <span class="gl">what does that mean?</span></div>
+  <div class="m"><span class="dot mid">◐</span><span class="pat">verb + ittu <span class="slot">(rider)</span></span>
+    <span class="gl">wrapped-it-up-and… <span class="ex"><b>mudichittu varén</b> — I'll finish and come. Ride it inside ask-scenes.</span></span></div>
+</section>
+
+</div>
+
+<section style="margin-top:1.1rem">
+  <h2>The Week <span class="why">· what each day carries</span></h2>
+  <div class="m"><span class="dot on">●</span><span class="pat">Fri 07-17 ✓</span>
+    <span class="gl">done-ittu paid off · campaign drafted · Ep 65 + 67 cut and on the feed</span></div>
+  <div class="m"><span class="dot new">○</span><span class="pat">Sat — Teach Day</span>
+    <span class="gl">polite-nga + mayi-laama, generous and story-rich; light firing aims at done-ittu</span></div>
+  <div class="m"><span class="dot new">○</span><span class="pat">Sun — Gauntlet</span>
+    <span class="gl">volume on the asks (or its listening twin — your energy picks at the door)</span></div>
+  <div class="m"><span class="dot new">○</span><span class="pat">Mon — soak</span>
+    <span class="gl">Ep 67 "permission at the maama's house" — captioned passes, then blind. Blind is the win.</span></div>
+  <div class="m"><span class="dot new">○</span><span class="pat">Tue — Table Rehearsal</span>
+    <span class="gl">mother-in-law mask, every ask in -nga under speed</span></div>
+  <div class="m"><span class="dot new">○</span><span class="pat">Wed–Thu → Fri</span>
+    <span class="gl">clear stragglers → <b>kudunga cold check</b></span></div>
+</section>
+
+<footer>
+  <span>Ask-Machine Week · the campaign's page — the landscape map is the big picture</span>
+  <span>sound-spelling only on purpose: script belongs to the audio</span>
+</footer>
+</div>
