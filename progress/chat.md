@@ -52,6 +52,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > ha — no, you're good. the volley's actually done; that last 'I don't know' counted as the miss on 3/3. we're through it.
 
+**12:13 · Andrew** — **CHAT**
+> But we had to go back because you caught the wrong one so we got re graded against 1, saw 2 again, then never saw 3
+
+**Anna ↩**
+> yeah, the volley got tangled — logged. fresh one later, clean slate.
+
 **18:44 · Anna** 🎧  ·  audio / teach beat: polite-nga
 > da — one pattern, every elder hears it. 🎙️ 90 sec, then you'll see kudunga differently.
 
