@@ -14,6 +14,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **12:53 · Anna** 🎧  ·  fielding / fielding: enna venum
 > 🍵 "enna venum?" — answer her. (what do you want?)
 
+**12:57 · Andrew** — **HINTED**
+> Tanni venum
+
+**Anna ↩**
+> adhu dhaan! tanni venum — clean. now she's pouring — stop her at one cup. · one cup only. how do you say 'enough, enough!'?
+
 
 ## Friday 2026-07-17
 
