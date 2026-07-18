@@ -441,3 +441,28 @@ Details live in git history; this is the index of the *conclusions*.
   engineering starts only from a reproduced ledger signal or a breakage** (the
   diagnosis bar: one data point is noise, twice is signal), never from another
   top-down pass.
+- **Production is self-healing — the watchdog owns undone studio work** (2026-07-18,
+  Andrew-commissioned from the setup audit). `scripts/studio_watchdog.py` (hourly local
+  cron, awake-check semantics, cloud-never-renders intact) notices a scripted-but-
+  unrendered episode (re-lints first; a lint-failing script stops for inspection, never
+  renders) or an unproduced soak order, and runs the *existing* dispatch. `.studio.lock`
+  is shared with `run_studio.py` so a tick and a session-open dispatch can never stack.
+  Ships the parked "self-healing production" inbox item (M65 sat scripted 9 h; two
+  session-open dispatches died silently in background). Replaces the human as the only
+  retry path.
+- **`/anna` opens with an intent gate** (2026-07-18). An engineering-shaped opener routes
+  to @build with no persona/protocol load; ambiguous asks get one clarifying line first.
+  Three sessions (07-01, 07-16, 07-17) paid the full session boot for zero lesson.
+- **`flags.md` is the single owner of command safety** (2026-07-18). The safe/mutating
+  inventory and all dry-run semantics live in `/verify` → `references/flags.md` alone;
+  `/validate` §3 and `/verify` §4 are pointers. The `morning_knock --dry-run`
+  writes-an-MP3 quirk was being maintained in three places.
+- **`/recalibrate` bounds pedagogy re-litigation** (2026-07-18). Felt signal captured
+  verbatim → settled-check against DECISIONS + ledger → read-only evidence sweep → at
+  most one move (diagnosis.md law: dial / prune / gated proposal; default = change
+  nothing). ~10 from-scratch re-derivations of "the system isn't landing" across
+  June–July earned it. Replaces the unscoped top-down review session.
+- **`/backport` codifies milestone re-extraction** (2026-07-18). Last `template-v*-source`
+  tag → delta → seam-law buckets (mechanism / dial / language slot / never-ports) →
+  apply in the template with smoke → new tag, distill in both repos. Replaces the
+  by-hand diff walk of 07-16.

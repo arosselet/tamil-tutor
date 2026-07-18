@@ -1,6 +1,50 @@
-# Flag Semantics — Full Reference
+# Command Safety & Flag Semantics — Full Reference
 
-All claims verified in source. Line numbers are stable as of the commit this skill was written against.
+The single owner of "what does this command touch" (2026-07-18 consolidation —
+`/validate` §3 and `/verify` §4 point here instead of restating). All claims
+verified in source. Line numbers are stable as of the commit this skill was
+written against.
+
+---
+
+## Command inventory — safe vs mutating
+
+| Script | Subcommand / invocation | Safe / Mutating | What it changes |
+|---|---|---|---|
+| `smoke_test.py` | (no args) | **SAFE** | Sandbox only — nothing in the real repo |
+| `sync_state.py` | `status` | **SAFE** | Nothing |
+| `sync_state.py` | `feedback` (no note arg) | **SAFE** | Nothing |
+| `show_status.py` | (no args) | **SAFE** | Nothing |
+| `suggest_targets.py` | (no args) | **SAFE** | Nothing |
+| `generate_callbacks.py` | (no args) | **SAFE** | Nothing |
+| `push_queue.py` | `list` | **SAFE** | Nothing |
+| `studio_watchdog.py` | (no args, nothing pending) | **SAFE** | Nothing — pure reads until a pending state is found |
+| `sync_state.py` | `update [flags]` | **MUTATING** | `lexicon.json`, `learner.json`, `episodes.json` (if `--listened`), `session_log.json` |
+| `sync_state.py` | `add-word <key> --gloss …` | **MUTATING** | `lexicon.json` |
+| `sync_state.py` | `add-pattern <key> --gloss …` | **MUTATING** | `lexicon.json` |
+| `sync_state.py` | `seed-deck <file> [--deck <name>]` | **MUTATING** | `lexicon.json` |
+| `sync_state.py` | `feedback "<note>"` | **MUTATING** | `feedback_log.json` |
+| `sync_state.py` | `knock-response ack\|listened` | **MUTATING** | `knock_log.json`; if `listened`: also `episodes.json`, `lexicon.json`, `learner.json` |
+| `render_chat.py` | (no args) | **MUTATING** | `progress/chat.md` (derived — rebuilds from `knock_log.json`) |
+| `rebuild_rss.py` | (no args) | **MUTATING** | `rss.xml` (reads `published_audio/*.mp3` + `content/scripts/*.md`) |
+| `studio_watchdog.py` | (no args, something pending) | **MUTATING** | Runs the existing dispatch: `render_audio.py` or `run_studio.py` — see those rows |
+| `run_studio.py` | (no args) | **MUTATING** | Episode artifacts in `content/`, then everything `render_audio.py` touches |
+| `morning_knock.py` | `--dry-run` | **MUTATING (audio path)** | No log/commit/push — but if Anna picks the audio modality, a real MP3 is written to `published_audio/knocks/` *before* the dry-run gate, and the LLM call fires (details below) |
+| `morning_knock.py` | (no args) | **MUTATING** | `knock_log.json`, `progress/chat.md`; audio: `published_audio/knocks/` + `rss.xml` (all audio → feed); commits + git push |
+| `morning_knock.py` | `--force` | **MUTATING** | Same as above, skipping the rails gate |
+| `knock_reply.py` | `--dry-run "<text>"` | **SAFE** | Nothing written (judge + print only — the LLM judge call still fires) |
+| `knock_reply.py` | `"<text>"` | **MUTATING** | `lexicon.json`, `knock_log.json`, `feedback_log.json` (if meta_note); commits + git push |
+| `push_queue.py` | `add --body … [flags]` | **MUTATING** | `push_queue.json`; commits unless `--no-commit` |
+| `push_queue.py` | `drain [--dry-run] [--no-commit]` | **MUTATING** (default); `--dry-run` skips firing/commit | `push_queue.json`, `knock_log.json`; may push audio; commits + git push unless `--no-commit` |
+| `push_queue.py` | `cancel <id> [--no-commit]` | **MUTATING** | `push_queue.json`; commits unless `--no-commit` |
+| `render_drill.py` | `--dry-run` | **SAFE** | Prints the JSON cue sheet to stdout (the LLM sheet call fires) — no TTS, no file writes |
+| `render_drill.py` | `--no-publish` | **MUTATING** | Renders to `published_audio/` only — skips RSS/commit/push/notify |
+| `render_drill.py` | (no args) | **MUTATING** | `published_audio/`, `rss.xml`; commits + git push; phone push |
+| `render_audio.py` | `<script> <output>` | **MUTATING** | `audio/`, `published_audio/`, `progress/episodes.json`, `progress/lexicon.json`, `rss.xml`; commits + git push |
+
+> `progress/` holds real, irreplaceable learner state. Never run a mutating command against live `progress/` unless you mean it. The smoke test's sandbox pattern is the safe harness — extend it, don't bypass it.
+>
+> Commands marked "LLM … fires" need `OPENROUTER_API_KEY` — locally it's read from the repo's gitignored `.env` (`morning_knock.py` `load_env()`); in CI it's an Actions secret. A dry-run without the key fails at the LLM call, not silently.
 
 ---
 

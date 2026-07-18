@@ -93,39 +93,10 @@ gh run list --workflow=smoke.yml --limit=5
 
 ## 3. Command inventory — safe vs mutating
 
-| Script | Subcommand / invocation | Safe / Mutating | What it changes |
-|---|---|---|---|
-| `smoke_test.py` | (no args) | **SAFE** | Sandbox only — nothing in the real repo |
-| `sync_state.py` | `status` | **SAFE** | Nothing |
-| `sync_state.py` | `feedback` (no note arg) | **SAFE** | Nothing |
-| `show_status.py` | (no args) | **SAFE** | Nothing |
-| `suggest_targets.py` | (no args) | **SAFE** | Nothing |
-| `generate_callbacks.py` | (no args) | **SAFE** | Nothing |
-| `push_queue.py` | `list` | **SAFE** | Nothing |
-| `sync_state.py` | `update [flags]` | **MUTATING** | `lexicon.json`, `learner.json`, `episodes.json` (if `--listened`), `session_log.json` |
-| `sync_state.py` | `add-word <key> --gloss …` | **MUTATING** | `lexicon.json` |
-| `sync_state.py` | `add-pattern <key> --gloss …` | **MUTATING** | `lexicon.json` |
-| `sync_state.py` | `seed-deck <file> [--deck <name>]` | **MUTATING** | `lexicon.json` |
-| `sync_state.py` | `feedback "<note>"` | **MUTATING** | `feedback_log.json` |
-| `sync_state.py` | `knock-response ack\|listened` | **MUTATING** | `knock_log.json`; if `listened`: also `episodes.json`, `lexicon.json`, `learner.json` |
-| `render_chat.py` | (no args) | **MUTATING** | `progress/chat.md` (derived — rebuilds from `knock_log.json`) |
-| `rebuild_rss.py` | (no args) | **MUTATING** | `rss.xml` (reads `published_audio/*.mp3` + `content/scripts/*.md`) |
-| `morning_knock.py` | `--dry-run` | **MUTATING (audio path)** | No log/commit/push — but if Anna picks the audio modality, a real MP3 is written to `published_audio/knocks/` *before* the dry-run gate, and the LLM call fires. See `/verify` → `references/flags.md` |
-| `morning_knock.py` | (no args) | **MUTATING** | `knock_log.json`, `progress/chat.md`; audio: `published_audio/knocks/` + `rss.xml` (all audio → feed); commits + git push |
-| `morning_knock.py` | `--force` | **MUTATING** | Same as above, skipping the rails gate |
-| `knock_reply.py` | `--dry-run "<text>"` | **SAFE** | Nothing written (judge + print only — the LLM judge call still fires) |
-| `knock_reply.py` | `"<text>"` | **MUTATING** | `lexicon.json`, `knock_log.json`, `feedback_log.json` (if meta_note); commits + git push |
-| `push_queue.py` | `add --body … [flags]` | **MUTATING** | `push_queue.json`; commits unless `--no-commit` |
-| `push_queue.py` | `drain [--dry-run] [--no-commit]` | **MUTATING** (default); `--dry-run` skips firing/commit | `push_queue.json`, `knock_log.json`; may push audio; commits + git push unless `--no-commit` |
-| `push_queue.py` | `cancel <id> [--no-commit]` | **MUTATING** | `push_queue.json`; commits unless `--no-commit` |
-| `render_drill.py` | `--dry-run` | **SAFE** | Prints the JSON cue sheet to stdout (the LLM sheet call fires) — no TTS, no file writes. See `/verify` → `references/flags.md` |
-| `render_drill.py` | `--no-publish` | **MUTATING** | Renders to `published_audio/` only — skips RSS/commit/push/notify |
-| `render_drill.py` | (no args) | **MUTATING** | `published_audio/`, `rss.xml`; commits + git push; phone push |
-| `render_audio.py` | `<script> <output>` | **MUTATING** | `audio/`, `published_audio/`, `progress/episodes.json`, `progress/lexicon.json`, `rss.xml`; commits + git push |
-
-> `progress/` holds real, irreplaceable learner state. Never run a mutating command against live `progress/` unless you mean it. The smoke test's sandbox pattern is the safe harness — extend it, don't bypass it. See `/verify` for the sandbox mechanics.
->
-> Commands marked "LLM … fires" need `OPENROUTER_API_KEY` — locally it's read from the repo's gitignored `.env` (`morning_knock.py` `load_env()`, line 449); in CI it's an Actions secret. A dry-run without the key fails at the LLM call, not silently.
+One owner, no restating (2026-07-18): the full inventory — every script, every
+flag, safe vs mutating, exactly what each writes — lives in
+**`/verify` → `references/flags.md`**. Read it before running anything you're
+not certain about; `progress/` holds real, irreplaceable learner state.
 
 ---
 
@@ -136,7 +107,7 @@ Validation checks **plumbing** (JSON, invariants, CI green). It cannot catch:
 - **LLM-behavior quality:** Anna's voice drift, persona softening, wrong register, teaching pattern, soak-order staleness, or session choreography failures.
 - **Content errors:** a word gloss that's wrong, a lexicon entry with bad phonetics, an episode that contains the wrong Tamil.
 
-These are not plumbing — route behaviour complaints to `/debug`, and ledger-based quality diagnosis to `protocol/diagnosis.md`.
+These are not plumbing — route behaviour complaints to `/debug`, and pedagogy felt-signals to `/recalibrate` (which wraps `protocol/diagnosis.md`).
 
 ---
 

@@ -4,12 +4,6 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
-- **Self-healing production** (2026-07-17 review) — nothing Anna orders should wait for
-  human hands: a laptop-side awake-check (login hook / local cron, honoring
-  cloud-never-renders) that notices an unrendered script or unproduced soak order and
-  runs the existing dispatch. Evidence: M65 sat fully-scripted and unrendered for 9 h;
-  the soak-order banner instructed a *human* to dispatch. Part of the operator-burden
-  diagnosis (ledger 2026-07-17).
 - **`suggest_targets.py` has zero smoke coverage** (2026-07-17) — the string-mission
   crash proved it load-bearing and untested; one sandbox case (ticket runs end-to-end)
   would have caught it at commit time.

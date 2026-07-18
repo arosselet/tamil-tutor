@@ -32,6 +32,7 @@ editing the machine.
   files for context or as code templates.
 - **Skill library:** `.claude/skills/` (canon; mirrored at `.agents/skills` for
   Antigravity) holds the engineering playbooks — `/orient`
-  (onboarding + glossary), `/debug` (triage), `/validate` (health checks + safe/mutating
-  command inventory), `/extend` (change discipline), `/verify` (proving changes). Start
+  (onboarding + glossary), `/debug` (triage), `/validate` (health checks), `/extend`
+  (change discipline), `/verify` (proving changes), `/recalibrate` (pedagogy
+  felt-signals — evidence before mechanisms). Start
   any `@build` task with `/orient` if the system is unfamiliar.

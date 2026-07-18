@@ -90,13 +90,10 @@ Three invariants the sandbox enforces — do not break them:
 
 ## 4. Flag semantics
 
-Full per-script table with exact what-is-skipped detail: **`references/flags.md`**.
-
-Key surprises (load the reference for the full picture):
-- `morning_knock.py --dry-run` still calls the LLM and, if Anna picks audio modality, still renders TTS and **writes the MP3** to `published_audio/knocks/` — the dry-run gate fires after the render.
-- `knock_reply.py --dry-run` still calls the LLM judge.
-- `render_drill.py --dry-run` still calls the LLM sheet writer.
-- `render_audio.py` has no dry-run flag at all.
+The single owner of command safety + flag semantics is **`references/flags.md`**
+(full inventory + per-flag what-is-skipped detail). One standing warning worth
+carrying everywhere: several `--dry-run` flags still fire the LLM — and
+`morning_knock.py --dry-run` still writes a real MP3 on the audio path.
 
 ---
 
