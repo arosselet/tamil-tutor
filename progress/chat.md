@@ -26,6 +26,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! போதும் போதும் — perfect stop. 🔥
 
+**18:44 · Anna**  ·  challenge / field mission: kudunga
+> da — tonight's mission: 'oru tea kudunga' at the table, unprompted. one ask. debrief tomorrow. 🫖
+
 
 ## Friday 2026-07-17
 
