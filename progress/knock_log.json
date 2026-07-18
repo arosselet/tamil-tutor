@@ -1628,5 +1628,17 @@
     "chained": 1,
     "pinned_target": "போதும் போதும்",
     "pinned_revealed": false
+  },
+  {
+    "date": "2026-07-18",
+    "timestamp": "2026-07-18T22:44:03.964688+00:00",
+    "acted": true,
+    "modality": "challenge",
+    "move": "field mission: kudunga",
+    "rationale": "Reveal day (07-18) + kudunga is the week's headline cold target — one live fire at the family table tonight is the highest-value rep in the system right now; field mission burns the rep in real stakes.",
+    "next_check": "2026-07-19T12:44:03.964688+00:00",
+    "body": "da — tonight's mission: 'oru tea kudunga' at the table, unprompted. one ask. debrief tomorrow. 🫖",
+    "expected_target": "குடுங்க",
+    "target_revealed": true
   }
 ]
