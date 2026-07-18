@@ -911,6 +911,58 @@ def s18_prose_budgets(mk, kr, sb: Path):
               f"same diff and name what it retired")
 
 
+def s20_fielding(mk, kr, sb: Path):
+    """The fielding dose (2026-07-18): a Tamil question fired AT him, reply graded
+    as production by the NORMAL judge — never the catch judge. The stimulus half
+    of the exchange finally has a channel."""
+    print("\n20. Fielding dose — heard question in, produced answer out")
+    prog = sb / "progress"
+    lex_path, klog_path = prog / "lexicon.json", prog / "knock_log.json"
+    w = "சாப்பிட்டேன்"
+
+    raw = {"act": True, "modality": "fielding", "move": "field the FAQ",
+           "rationale": "smoke", "next_check_hours": 3, "memo_script": "",
+           "notification_body": "she's asking you something — answer her",
+           "expected_target": w, "target_revealed": True, "schedule": None}
+    d = mk.normalize_decision(dict(raw))
+    check("question-less fielding degrades to text", d["modality"] == "text")
+    raw["memo_script"] = "சாப்டீங்களா?"
+    d = mk.normalize_decision(dict(raw))
+    check("fielding keeps modality, answer unrevealed",
+          d["modality"] == "fielding" and d["target_revealed"] is False)
+
+    mk.rails_gate = lambda force, now=None: (True, "smoke-open")
+    mk.build_digest = lambda: "SMOKE DIGEST"
+    mk.push_to_phone, mk.commit_and_push = Recorder(), Recorder()
+
+    async def fake_render(memo_script, out_path, voice=None):
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_bytes(b"smoke-mp3")
+        fake_render.voice = voice
+    mk.render_memo = fake_render
+    mk.decide = lambda digest, vt=None: dict(d)
+    sys.argv = ["morning_knock.py"]
+    mk.main()
+    entry = read_json(klog_path)[-1]
+    check("fielding renders audio and logs the url", bool(entry.get("audio_url")))
+    check("fielding speaks in the family voice, not Anna's",
+          fake_render.voice == mk.EAVESDROP_VOICE)
+
+    write_json(lex_path, {w: {
+        "gloss": "I ate", "phonetic": ["saapten"], "recognition": "comfortable",
+        "production": "none", "seen_in": ["M1"], "last_surfaced": "2026-07-01",
+        "deck": "trip", "direction": "fire", "type": "chunk"}})
+    kr.push_to_phone, kr.commit_and_push = Recorder(), Recorder()
+    catch_calls = Recorder()
+    kr.judge_catch = catch_calls
+    kr.judge = lambda k, r, t, h=None, rr=None: canned_verdict([(w, "cold")])
+    sys.argv = ["knock_reply.py", "saapten!"]
+    kr.main()
+    check("fielding reply routes to the PRODUCTION judge", len(catch_calls) == 0)
+    check("fielded answer moves the production axis",
+          read_json(lex_path)[w]["production"] == "cold")
+
+
 def s19_watchdog_detection(sb: Path):
     print("\n19. Studio watchdog detection (self-healing production, 2026-07-18)")
     # The watchdog answers two questions before touching any dispatch; both
@@ -960,6 +1012,7 @@ def main():
         s17_campaign_digest(mk, sb)
         s18_prose_budgets(mk, kr, sb)
         s19_watchdog_detection(sb)
+        s20_fielding(mk, kr, sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)

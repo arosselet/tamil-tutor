@@ -66,6 +66,9 @@ ukkarunga) into one lever, and lands the week's headline: **kudunga fires cold b
 - **Catch targets:** `frame:quote-nu` + `frame:hearsay-aam` — Monday's episode seeds
   mayi-laama and carries a gossip-tape beat; eavesdrop doses through the week (the
   07-16 hearsay tape proved the format). Win = solid recognition, never a forced fire.
+- **Fielding doses (new channel, 07-18):** the week's asks come AT him in the family
+  voice — saapteengala?, evlo naal irupeenga?, enna venum? — question in phonetics on
+  the lock screen, answered with the deck's own answers; a fired repair line is a PASS.
 
 **Days:** Fri 07-17 ✓ (done-ittu payoff + person-tail lore, campaign drafted) → Sat
 **Teach Day** (polite-nga + mayi-laama, generous, story-rich; light firing aims at
