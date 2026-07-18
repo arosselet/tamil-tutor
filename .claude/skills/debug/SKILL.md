@@ -182,6 +182,24 @@ whole-text `json.loads` and the `{..}` slice.
 **Verify:** `python scripts/smoke_test.py` → section 1 ("prose with {braces} before a
 json fence", "last fence wins when prose precedes multiple fences").
 
+### KF-11: Volley surface desynced from the pin — the judge improvised the chain (2026-07-18, fixed)
+**Symptom:** Andrew: "you caught the wrong one so we got re-graded against 1, saw 2 again,
+then never saw 3." Log shows Python's pin walked 1→2→3 correctly the whole time.
+**Root cause (three-part, all judge-side):** on the miss at item 2 the recast revealed
+*item 1's* answer (an already-fired word — and the campaign's headline item went unrecast);
+Andrew's meta-correction drew a chat verdict, and chat mid-volley appended nothing — the
+open 3/3 vanished from the surface, so the judge improvised a "fresh start" re-ask of
+item 2 while the pin sat on 3; then it *claimed* the next "I don't know" had been scored
+as the miss on 3/3 when its own verdict was chat (confabulated bookkeeping).
+**Fix:** Python re-presents the pinned ask on any chat verdict while the volley is open
+(`represent` in `knock_reply.py`); the last judged item sets `volley_done` so a closed
+chain can't be re-presented; JUDGE_MANDATE gains volley discipline (recast the pinned
+item only; never re-ask earlier items, declare the volley done, or claim unrecorded
+scores).
+**The meta-lesson:** the LLM must never own chain *surface* any more than chain *state* —
+whatever Python tracks, Python must also say.
+**Verify:** `python scripts/smoke_test.py` → section 21.
+
 ### KF-8: Lore format takeover — incentive drift, not taste (2026-07-11, fixed)
 **Symptom:** Andrew: today's lore push "basically a duplicate" of last week's; the format
 "took over." Log confirmed worse: four lore memos in four consecutive days (07-07→10),

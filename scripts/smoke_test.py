@@ -963,6 +963,63 @@ def s20_fielding(mk, kr, sb: Path):
           read_json(lex_path)[w]["production"] == "cold")
 
 
+def s21_volley_represent(kr, sb: Path):
+    """KF-11 (2026-07-18): a chat/meta reply mid-volley let the open ask vanish
+    and the judge improvised the chain surface (re-asked an earlier item,
+    declared the volley done, claimed an unrecorded score). Python now
+    re-presents the pinned ask on chat verdicts and marks the chain closed
+    after the last judged item."""
+    print("\n21. Volley re-present on chat replies (KF-11)")
+    prog = sb / "progress"
+    klog_path = prog / "knock_log.json"
+    write_json(prog / "lexicon.json", {})
+    kr.commit_and_push = Recorder()
+
+    def volley_knock(nxt: int, done: bool = False) -> dict:
+        k = {"date": "2026-07-18", "timestamp": f"2026-07-18T15:0{nxt}:00+00:00",
+             "acted": True, "modality": "volley", "move": "smoke volley",
+             "body": "⚡ volley 1/3 — ask one", "expected_target": "t1",
+             "target_revealed": False, "volley_next": nxt,
+             "pinned_target": f"t{min(nxt, 3)}", "pinned_revealed": False,
+             "volley": [{"target": "t1", "ask": "ask one"},
+                        {"target": "t2", "ask": "ask two"},
+                        {"target": "t3", "ask": "ask three"}]}
+        if done:
+            k["volley_done"] = True
+        return k
+
+    def reply(text: str, verdict: dict):
+        kr.judge = lambda k, r, t, h=None, rr=None: verdict
+        kr.push_to_phone = pushes = Recorder()
+        sys.argv = ["knock_reply.py", text]
+        kr.main()
+        return pushes[-1][0]
+
+    chat = {"verdict": "chat", "reply_line": "ha, all good", "rationale": "smoke",
+            "fired": [], "follow_up_ask": "", "follow_up_target": "",
+            "follow_up_target_revealed": True, "meta_note": "", "schedule": None}
+
+    # chat mid-volley → the pinned ask is re-presented; pin and chain untouched
+    write_json(klog_path, [volley_knock(nxt=2)])
+    body = reply("wait, which one are we on?", dict(chat))
+    entry = read_json(klog_path)[-1]
+    check("chat mid-volley re-presents the open ask", "still open · 2/3 — ask two" in body, body)
+    check("pin does not move on chat", entry["volley_next"] == 2 and entry["pinned_target"] == "t2")
+    check("chat does not count as a chain step", entry.get("chained", 0) == 0)
+
+    # judged reply on the LAST item closes the chain
+    write_json(klog_path, [volley_knock(nxt=3)])
+    miss = dict(chat); miss["verdict"] = "miss"; miss["reply_line"] = "adhu 'ask three' dhaan"
+    body = reply("no idea", miss)
+    entry = read_json(klog_path)[-1]
+    check("last judged item marks the volley done", entry.get("volley_done") is True)
+    check("no re-present after the chain closes", "still open" not in body, body)
+
+    # chat AFTER the volley is done stays a plain chat
+    body = reply("thanks anna", dict(chat))
+    check("chat on a finished volley adds no ask", "still open" not in body, body)
+
+
 def s19_watchdog_detection(sb: Path):
     print("\n19. Studio watchdog detection (self-healing production, 2026-07-18)")
     # The watchdog answers two questions before touching any dispatch; both
@@ -1013,6 +1070,7 @@ def main():
         s18_prose_budgets(mk, kr, sb)
         s19_watchdog_detection(sb)
         s20_fielding(mk, kr, sb)
+        s21_volley_represent(kr, sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)
