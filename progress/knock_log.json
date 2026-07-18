@@ -1472,5 +1472,17 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-07-17T22-44.mp3",
     "memo_script": "da Andrew —\n\nYou already know kudunga. You know sollunga. You've heard ukkarunga.\n\nYou think those are three different words you memorised. They're not. They're one machine.\n\nAny verb you know — just add -nga to the end. That's it. That's the whole engine.\n\nபோ becomes போங்க. வா becomes வாங்க. சொல் becomes சொல்லுங்க. குடு becomes குடுங்க.\n\nThe -nga doesn't mean please. It doesn't mean formal. It means: I see you, you're my elder, and I'm asking — not demanding.\n\nYour maama hands you a plate. You want more rice. You don't reach. You don't point. You say: சாதம் குடுங்க.\n\nYour athai is mid-story and going too fast. You don't interrupt. You say: கொஞ்சம் மெதுவா சொல்லுங்க.\n\nYour mother-in-law is standing at the door. You want her to sit. One word: உக்காருங்க.\n\nEvery verb you already own just got a polite version. Every single one.\n\nTomorrow in session — I'm going to hand you elders and situations, and you're going to fire -nga at all of them. kudunga cold by Friday. That's the week.\n\nOne syllable. Every elder in the room hears it.",
     "mp3": "published_audio/knocks/knock_2026-07-17T22-44.mp3"
+  },
+  {
+    "date": "2026-07-18",
+    "timestamp": "2026-07-18T13:05:39.923914+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "trailer payoff: polite-nga",
+    "rationale": "Yesterday's polite-nga trailer went overnight unpaid — campaign rule says pay it off with a show dose; Saturday is Teach Day so the delivery is exactly on-plan; text (not audio) since the audio teach beat is already sitting unread, different format serves better; no ask, just the engine named and in his hands.",
+    "next_check": "2026-07-18T16:05:39.923914+00:00",
+    "body": "da — paid. verb+ங்க = 'please do it.' kudunga, sollunga, vaanga — one machine, every elder hears respect. that's today's engine. 🔧",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]

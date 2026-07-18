@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Saturday 2026-07-18
+
+**09:05 · Anna**  ·  text / trailer payoff: polite-nga
+> da — paid. verb+ங்க = 'please do it.' kudunga, sollunga, vaanga — one machine, every elder hears respect. that's today's engine. 🔧
+
+
 ## Friday 2026-07-17
 
 **09:19 · Anna**  ·  text / trailer: polite-nga engine
