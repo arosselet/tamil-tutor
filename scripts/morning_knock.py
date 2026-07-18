@@ -66,7 +66,7 @@ MAX_REACHES_PER_DAY = 5    # a "reach" = a knock that actually fired (silence do
 MIN_GAP_HOURS = 3          # minimum spacing between reaches
 NEXT_CHECK_CLAMP = (0.5, 24.0)   # Anna's self-set next_check is clamped to this many hours
 
-MODALITIES = {"text", "audio", "challenge", "volley", "eavesdrop", "grace", "silence"}
+MODALITIES = {"text", "audio", "challenge", "volley", "eavesdrop", "fielding", "grace", "silence"}
 VOLLEY_SIZE = 4   # deck items per volley knock — one per exchange, chained by Python
                   # (3→4 2026-07-09: pace trailed 1.5 vs 1.8 needed; Andrew chose a bigger
                   # volley over deck tiering — next lever if it still trails is a 2nd volley)
@@ -467,6 +467,7 @@ YOUR MODALITIES (pick what fits THIS moment; never the same move twice in a row)
 - "challenge" — a text dare with stakes ("tomorrow, no warm-up, you fire it back cold"). Pin the ask to ONE answer by giving its English MEANING ("she piles more food — wave it off: enough!"); an open "what do you say back?" has many valid answers, and the one you didn't score is a wasted rep. Includes the FIELD MISSION: one line to deploy at home tonight, unprompted; the wife is the unwitting audience, NEVER the examiner; collect the debrief at next contact.
 - "volley"    — the deck blitz as a knock. The digest's VOLLEY TARGETS are BINDING (Python picked them so coverage stays honest); your craft is volley_asks: one-line English situations, index-matched, ≤110 chars, each pinned so its meaning EXCLUDES the sibling frames ("ask him to HAND it to you" forces kudunga; "you need a pen" admits venum too) — and no ask may have a LATER item's target as a natural answer. Item 1 rides the notification; after each judged reply Python appends the next item (miss = recast-and-move). While a sprint is on, most days carry ONE volley — it is where the deck's volume lives; the status line's burn-rate gap is what it closes. Counts as ONE demand dose; best slot is the afternoon (see LUNCH ANCHOR).
 - "eavesdrop" — the CATCH dose: memo_script is an overheard TAPE, not Anna talking — one side of a phone call in the pinned aunty voice (gossip reaches Andrew exactly this way). Weave ONE ear-only deck item into ~45-90s of natural chatter, Tamil script only; the 95%-coverage rule does NOT apply — catching the DRIFT is the skill. notification_body = one English drift-question about the tape; the reply is ENGLISH comprehension, never production. expected_target = the ear-only item's key; target_revealed=false. The deck's catch half advances ONLY through this move — so while any catch item sits below solid, one eavesdrop most days is NORMAL rotation, not a novelty (catch 0/12 after one tape ever is the starvation this line exists to end, 2026-07-18).
+- "fielding"  — the STIMULUS half of the exchange (2026-07-18): memo_script is ONE short question fired AT him in the family voice (Tamil script for TTS only, fence words — he must PARSE it, so the 95% rule applies, unlike eavesdrop), whose natural answer is a due SEEN fire item; expected_target = that answer's key. notification_body carries the question in ENGLISH PHONETICS plus a tiny frame — he reads phonetics at speed, script not at all, and NEVER give its translation ("saapteengala? — answer her"). No other channel trains heard-question → produced-answer. A fired repair line back (புரியல, மெதுவா சொல்லுங்க) is a PASS, never a miss.
 - "grace"     — a warm, no-pressure note when he's lapsed (a missed day is nothing — the Enjoyment Clause). Text delivery.
 - "silence"   — reach nothing this tick; act=false. Free; often correct.
 
@@ -532,11 +533,11 @@ move/modality/timing — it's your memory; it's how you learn what works.
 Return ONLY a JSON object, no prose around it:
 {
   "act": true | false,                  // false = silence this tick
-  "modality": "text" | "audio" | "challenge" | "volley" | "eavesdrop" | "grace" | "silence",
+  "modality": "text" | "audio" | "challenge" | "volley" | "eavesdrop" | "fielding" | "grace" | "silence",
   "move": "<2-4 word label of the move, for the log>",
   "introduces": ["<frame:key or lexicon key>"],   // ONLY for teaching doses (show dose / lore / trailer payoff): list any frame/word keys this dose introduces for the first time (teaches, shows, names as a pattern). Python marks them as seen in the lexicon so they are no longer UNSEEN. Empty list if not a teaching dose.
   "notification_body": "<the lock-screen line — valuable even if never tapped; MUST carry a Tamil phrase + tiny English gloss. One emoji ok. HARD BUDGET ≤140 chars — the lock screen cuts longer bodies and the dose dies unseen. Empty string if silence.>",
-  "memo_script": "<ONLY for modality 'audio' or 'eavesdrop': the spoken memo (audio) or the overheard tape (eavesdrop), paragraphs separated by ONE blank line (\\n\\n) — never single \\n within a paragraph. Tamil payload in Tamil script. Empty string otherwise.>",
+  "memo_script": "<ONLY for modality 'audio', 'eavesdrop', or 'fielding': the spoken memo (audio), the overheard tape (eavesdrop), or the question fired at him (fielding), paragraphs separated by ONE blank line (\\n\\n) — never single \\n within a paragraph. Tamil payload in Tamil script. Empty string otherwise.>",
   "expected_target": "<the one word/chunk/frame a good reply would fire (Tamil script or frame:... key); empty string if this dose asks for nothing specific>",
   "target_revealed": true | false,      // does the body/memo show that Tamil itself?
   "volley_asks": ["<one-line English situation for VOLLEY TARGET 1>", "<…one per listed VOLLEY TARGET, index-matched>"],   // ONLY for modality "volley"; omit otherwise. Python zips these with its binding targets and composes the body from ask 1.
@@ -657,6 +658,11 @@ def normalize_decision(d: dict, volley_menu: list | None = None) -> dict:
             d["target_revealed"] = False  # the tape plays Tamil, but the ask is comprehension
         else:
             d["modality"] = "text"  # no tape to render — plain dose
+    if d["modality"] == "fielding":
+        if (d.get("memo_script") or "").strip():
+            d["target_revealed"] = False  # the question plays Tamil; the ANSWER was never shown
+        else:
+            d["modality"] = "text"  # no question to render — plain dose
     if d["modality"] == "volley":
         asks = [a.strip() for a in (d.get("volley_asks") or [])
                 if isinstance(a, str) and a.strip()]
@@ -868,10 +874,11 @@ def main():
     body = decision.get("notification_body", "")
     mp3 = None
     audio_url = None
-    if decision["modality"] in ("audio", "eavesdrop"):
+    if decision["modality"] in ("audio", "eavesdrop", "fielding"):
         print("3. render…")
         mp3 = KNOCKS_DIR / f"knock_{now.strftime('%Y-%m-%dT%H-%M')}.mp3"
-        voice = EAVESDROP_VOICE if decision["modality"] == "eavesdrop" else ANNA_VOICE
+        # fielding speaks in the family voice too — the question comes AT him, not from Anna
+        voice = EAVESDROP_VOICE if decision["modality"] in ("eavesdrop", "fielding") else ANNA_VOICE
         asyncio.run(render_memo(decision.get("memo_script", ""), mp3, voice))
         audio_url = jsdelivr_url(mp3)
 

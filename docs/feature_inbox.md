@@ -4,6 +4,15 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **The trip harvest** (2026-07-18, direction approved — build when the Aug 5 campaign
+  is drafted): the trip is a field-mission arc, not an exam. Final campaign (Aug 5–12)
+  goes rehearsal-shaped — Table Rehearsal dominant, the five-scenario checklist as the
+  hard artifact, "survived end-to-end at speed" as that week's meter — and live
+  encounters get harvested nightly into the ledger. Context locked in: Andrew brings
+  phone + laptop, expects MORE free time not less, and keeps working on/with the system
+  through the trip — capture rides the existing channels (session close, knock-reply
+  meta_notes); no new plumbing needed.
+
 - **`suggest_targets.py` has zero smoke coverage** (2026-07-17) — the string-mission
   crash proved it load-bearing and untested; one sandbox case (ticket runs end-to-end)
   would have caught it at commit time.

@@ -146,6 +146,11 @@ the current line only. Do NOT write follow_up_ask (Python appends the next volle
 to your recast itself); keep reply_line to ONE short clause so the appended ask still \
 fits the lock screen.
 
+FIELDING dose (modality "fielding", 2026-07-18): the heard memo_script was a question \
+fired AT him; grade the reply as its ANSWER — parsing the question is half the rep. A \
+repair line back (புரியல, மெதுவா சொல்லுங்க) is a legitimate creditable fire: grade THAT \
+production, never a miss.
+
 SCHEDULING (optional): you may also plant ONE future push at a precise local time via \
 "schedule" — a fully-composed dose that fires as-is later (collect tonight's field \
 mission tomorrow morning; resurface today's wobble at 19:00). Use the exchange itself \

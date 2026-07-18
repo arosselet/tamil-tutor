@@ -495,3 +495,13 @@ Details live in git history; this is the index of the *conclusions*.
   call anyone makes in advance. The operational bar is unchanged (reproduced ledger
   signal or breakage; never a top-down pass); what changed is the posture: expect
   bugs, keep the discovery channels warm, and never treat a quiet week as proof.
+- **The fielding dose — the stimulus half of the exchange gets a channel** (2026-07-18,
+  Andrew, commissioned from the blank-slate exercise). Every production channel handed
+  him an ENGLISH situation; the table hands him a TAMIL question at speed, and nothing
+  trained heard-question → produced-answer. New knock modality "fielding": one short
+  question in the family voice (audio — the 95% rule applies: parse it, don't drift it),
+  lock-screen body carries the question in English phonetics (Andrew reads phonetics at
+  speed, Tamil script not at all — his note, mid-build), reply graded by the normal
+  production judge, and a fired repair line is a PASS, never a miss. One mechanism
+  feeds both starved sides: ear training with a production payoff. Smoke: s20. The
+  sibling finding (the trip-as-harvest arc) parked in the inbox with trip context.
