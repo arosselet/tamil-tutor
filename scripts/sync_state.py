@@ -167,8 +167,22 @@ def compute_deck(lexicon: dict, deck: str = "trip") -> dict:
     caught = [w for w in catch if members[w].get("recognition") == "solid"]
     total = len(fire)
     pct = (len(cleared) / total * 100) if total else 0.0
+    # Survival-tier headline (2026-07-18, Andrew — refines the 07-13 touchdown bar:
+    # the narrated meter counts the tier that decides freezing at the table, not the
+    # whole inventory; a 2.5/day full-deck ask read as failure at a winnable 1.1/day
+    # survival pace). Tier stays a menu concern owned by suggest_targets — joined
+    # lazily so the lexicon schema stays frozen; no curriculum file → survival
+    # degrades to the whole fire side.
+    try:
+        from suggest_targets import DECK_TIERS, deck_registers
+        regs = deck_registers(deck)
+        surv = [w for w in fire if DECK_TIERS.get(regs.get(w, ""), 1) == 0] if regs else fire
+    except Exception:
+        surv = fire
     return {"cleared": len(cleared), "total": total, "pct": pct,
-            "caught": len(caught), "catch_total": len(catch)}
+            "caught": len(caught), "catch_total": len(catch),
+            "surv_cleared": sum(1 for w in surv if members[w].get("production") == "cold"),
+            "surv_total": len(surv)}
 
 
 # --- Episode helpers (progress/episodes.json — a flat {id: episode} map) ------
@@ -181,8 +195,10 @@ def compute_status() -> str:
     deck = compute_deck(lexicon)
     if deck["total"]:
         days = (TRIP_DATE - date.today()).days
-        return (f"Trip Deck {deck['cleared']}/{deck['total']} fire cold · "
-                f"{days} days to touchdown · {burn_rate(deck, days)}")
+        return (f"Trip Deck {deck['surv_cleared']}/{deck['surv_total']} survival cold · "
+                f"{days} days to touchdown · "
+                f"{burn_rate(deck['surv_total'] - deck['surv_cleared'], days)} · "
+                f"full deck {deck['cleared']}/{deck['total']}")
     floor = compute_floor(lexicon)
     return f"Viability floor {floor['cleared']}/{floor['total']} fire cold ({floor['pct']:.0f}%)"
 
@@ -208,11 +224,10 @@ def cold_fires_recent(days: int = 7) -> int:
     return n
 
 
-def burn_rate(deck: dict, days_left: int, window: int = 7) -> str:
-    """The honest pace line: cold/day needed to clear the deck's fire side by the
-    deadline vs. the trailing cold/day actually happening. Python states the math;
-    Anna narrates what it means."""
-    pending = deck["total"] - deck["cleared"]
+def burn_rate(pending: int, days_left: int, window: int = 7) -> str:
+    """The honest pace line: cold/day needed to clear the given pending count by
+    the deadline vs. the trailing cold/day actually happening (survival tier since
+    2026-07-18). Python states the math; Anna narrates what it means."""
     need = pending / max(days_left, 1)
     pace = cold_fires_recent(window) / window
     return f"need {need:.1f} cold/day, trailing {window}-day pace {pace:.1f}/day"
@@ -403,7 +418,8 @@ def cmd_update(args):
     deck = compute_deck(lexicon)
     if deck["total"]:
         catch = f" · catch {deck['caught']}/{deck['catch_total']} solid" if deck["catch_total"] else ""
-        print(f"Trip Deck: {deck['cleared']}/{deck['total']} fire cold ({deck['pct']:.0f}%){catch}")
+        print(f"Trip Deck: {deck['surv_cleared']}/{deck['surv_total']} survival cold · "
+              f"full deck {deck['cleared']}/{deck['total']}{catch}")
     print(f"Fired today: {fires_today()}")
     print("State updated.")
 
