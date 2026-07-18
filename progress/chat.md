@@ -40,6 +40,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > got it — volley got tangled. fresh start: your maama wants more tea, ask the auntie to give him some.
 
+**12:10 · Andrew** — **CHAT**
+> I don’t know
+
+**Anna ↩**
+> all good — 'puriyala' is the one word for that (I don't understand). volley's done, we'll pick it up next round.
+
 **18:44 · Anna** 🎧  ·  audio / teach beat: polite-nga
 > da — one pattern, every elder hears it. 🎙️ 90 sec, then you'll see kudunga differently.
 

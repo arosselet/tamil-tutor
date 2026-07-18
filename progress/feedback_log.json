@@ -78,5 +78,9 @@
   {
     "date": "2026-07-18",
     "note": "[phone] Andrew flagged a volley sequencing error — his 'kalavita varen' reply was to item 1 but was judged against item 2's expected_target; the prior_exchanges show the chain got misaligned."
+  },
+  {
+    "date": "2026-07-18",
+    "note": "[phone] Volley got tangled across prior exchanges — Andrew's replies were arriving out of order / mismatched to items. Consider single-item volleys or explicit item labels Andrew echoes back."
   }
 ]
