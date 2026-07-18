@@ -4,7 +4,7 @@
 
 ---
 
-My wife is a native Tamil speaker from Coimbatore. The dream was always specific: to answer back one day in clean Kongu Tamil at a family gathering, the ginger fella nobody expected. Everything below serves that jaw-drop.
+My wife is a native Tamil speaker from Coimbatore. The dream was always specific: to sit at a family gathering and answer back in her family's own Kongu Tamil. Not as a party trick. It's about connection and respect: meeting her people in their language. Everything below serves that.
 
 This is the story of the machine I built to get there, including the parts where it fell apart.
 
