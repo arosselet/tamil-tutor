@@ -86,5 +86,9 @@
   {
     "date": "2026-07-18",
     "note": "[phone] Andrew confused by volley numbering — the tangled prior_exchanges left him unsure where the sprint ended; flag for cleaner volley state tracking."
+  },
+  {
+    "date": "2026-07-18",
+    "note": "[phone] Volley 1-2-3 got corrupted mid-chain (wrong item re-graded against item 1, item 2 re-shown, item 3 never fired cleanly); Andrew flagging this so the session log reflects no valid reps from this sprint."
   }
 ]

@@ -1460,7 +1460,7 @@
     ],
     "volley_next": 3,
     "response": "reply",
-    "reply": "What about 3/3? You’re cutting me off because I missed 2?",
+    "reply": "But we had to go back because you caught the wrong one so we got re graded against 1, saw 2 again, then never saw 3",
     "reply_verdict": "chat",
     "reply_fired": [
       "frame:done-ittu"
@@ -1469,8 +1469,8 @@
       "frame:done-ittu"
     ],
     "reply_fired_capped": [],
-    "reply_line": "ha — no, you're good. the volley's actually done; that last 'I don't know' counted as the miss on 3/3. we're through it.",
-    "reply_at": "2026-07-18T16:11:51Z",
+    "reply_line": "yeah, the volley got tangled — logged. fresh one later, clean slate.",
+    "reply_at": "2026-07-18T16:13:28Z",
     "exchanges": [
       {
         "at": "2026-07-18T16:06:29Z",
@@ -1525,6 +1525,16 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "ha — no, you're good. the volley's actually done; that last 'I don't know' counted as the miss on 3/3. we're through it."
+      },
+      {
+        "at": "2026-07-18T16:13:28Z",
+        "reply": "But we had to go back because you caught the wrong one so we got re graded against 1, saw 2 again, then never saw 3",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "yeah, the volley got tangled — logged. fresh one later, clean slate."
       }
     ],
     "chained": 2,
