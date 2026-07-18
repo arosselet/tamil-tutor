@@ -11,6 +11,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 **Andrew** · 👍 acked
 
+**12:53 · Anna** 🎧  ·  fielding / fielding: enna venum
+> 🍵 "enna venum?" — answer her. (what do you want?)
+
 
 ## Friday 2026-07-17
 
