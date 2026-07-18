@@ -437,10 +437,11 @@ Details live in git history; this is the index of the *conclusions*.
   Log now banks named feelings verbatim into the feedback ledger (the knock judge's
   meta_note already did — the session was the only channel without the sensor);
   diagnosis.md joins the protocol map; the reply-judge prompts join PROSE_BUDGETS.
-  Standing state from here: **the machinery is done — Andrew drives, Anna coaches; new
-  engineering starts only from a reproduced ledger signal or a breakage** (the
-  diagnosis bar: one data point is noise, twice is signal), never from another
-  top-down pass.
+  Standing state from here: **the machinery has converged — Andrew drives, Anna
+  coaches; new engineering starts only from a reproduced ledger signal or a breakage**
+  (the diagnosis bar: one data point is noise, twice is signal), never from another
+  top-down pass. *(Amended 2026-07-18 — original read "the machinery is done";
+  Andrew: done is observed, never declared — see the 07-18 entry.)*
 - **Production is self-healing — the watchdog owns undone studio work** (2026-07-18,
   Andrew-commissioned from the setup audit). `scripts/studio_watchdog.py` (hourly local
   cron, awake-check semantics, cloud-never-renders intact) notices a scripted-but-
@@ -487,3 +488,10 @@ Details live in git history; this is the index of the *conclusions*.
   is coherent, cited, and budget-policed; the three real repairs (survival headline,
   catch bias, drill usage) were all delivery of machinery already built. Reinforces
   07-17: no more top-down prose passes — the ledger steers.
+- **"Done" is observed, never declared** (2026-07-18, Andrew). The 07-17 entry's "the
+  machinery is done" overstated the ruling: the system is maybe 80% converged, and
+  things that sound off — technical and pedagogical both — will keep surfacing for
+  weeks. Converging toward no-more-engineering is a trailing sign of maturity, not a
+  call anyone makes in advance. The operational bar is unchanged (reproduced ledger
+  signal or breakage; never a top-down pass); what changed is the posture: expect
+  bugs, keep the discovery channels warm, and never treat a quiet week as proof.
