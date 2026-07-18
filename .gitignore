@@ -18,3 +18,7 @@ Final_Report_Andrew_Rosselet.ipynb
 # Live HA config mirror — has the real webhook_id; repo is public, never commit.
 # Sanitized template lives in docs/home_assistant_knock_buttons.md.
 docs/anna_knock_automation.yaml
+
+# Studio watchdog — local runtime droppings, never repo state
+.studio.lock
+studio_watchdog.log

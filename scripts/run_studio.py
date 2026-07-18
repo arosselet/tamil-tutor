@@ -333,11 +333,29 @@ def claim_payload(n: int) -> None:
         print(f"   payload claimed into sidecar: {', '.join(added)}")
 
 
+def acquire_dispatch_lock():
+    """One dispatch at a time — studio_watchdog.py shares this lock, so a
+    session-open dispatch and a watchdog tick can never stack. Held for the
+    process lifetime; no-op where fcntl is missing (Windows)."""
+    try:
+        import fcntl
+    except ImportError:
+        return None
+    fd = open(BASE / ".studio.lock", "w")
+    try:
+        fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except OSError:
+        print("✗ another studio dispatch holds .studio.lock — not stacking a second run.")
+        sys.exit(1)
+    return fd
+
+
 def main():
     ap = argparse.ArgumentParser(description="agy-writer studio dispatch (Claude subagent is the fallback)")
     ap.add_argument("--dry-run", action="store_true",
                     help="passes + lint only; no render, no state, no commit")
     args = ap.parse_args()
+    lock = acquire_dispatch_lock()  # noqa: F841 — held until exit
 
     # Preflight — fail fast and legibly. Exit 1 IS the fallback contract; the
     # caller should read this one line, not a WinError traceback (2026-07-15).

@@ -911,6 +911,31 @@ def s18_prose_budgets(mk, kr, sb: Path):
               f"same diff and name what it retired")
 
 
+def s19_watchdog_detection(sb: Path):
+    print("\n19. Studio watchdog detection (self-healing production, 2026-07-18)")
+    # The watchdog answers two questions before touching any dispatch; both
+    # must be pure reads. Dispatch itself is the existing scripts, not tested here.
+    sw = importlib.import_module("studio_watchdog")
+
+    n = sw.next_mission() - 1
+    check("newest script with no MP3 → unrendered", sw.scripted_unrendered() == n,
+          f"got {sw.scripted_unrendered()}, want {n}")
+    sw.AUDIO_DIR.mkdir(parents=True, exist_ok=True)
+    (sw.AUDIO_DIR / f"tier2_mission{n}.mp3").write_bytes(b"x")
+    check("MP3 present → nothing unrendered", sw.scripted_unrendered() is None)
+
+    learner = read_json(sb / "progress" / "learner.json")
+    learner["soak_order"] = {"payload": ["வேணும்"], "scene_seed": "s", "from": "2026-07-18"}
+    write_json(sb / "progress" / "learner.json", learner)
+    write_json(sb / "progress" / "episodes.json", {})
+    check("payload + no episode carrying it → soak pending", sw.soak_pending())
+    write_json(sb / "progress" / "episodes.json", {"71": {"words": ["வேணும்"]}})
+    check("newest episode carries payload → produced", not sw.soak_pending())
+    learner["soak_order"] = {}
+    write_json(sb / "progress" / "learner.json", learner)
+    check("no soak order → nothing pending", not sw.soak_pending())
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -934,6 +959,7 @@ def main():
         s16_stale_clone_gates(sb)
         s17_campaign_digest(mk, sb)
         s18_prose_budgets(mk, kr, sb)
+        s19_watchdog_detection(sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)
