@@ -17,6 +17,8 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:19 · Anna**  ·  text / trailer: polite-nga engine
 > da — one pattern and every elder in the room hears you differently. tonight's session. 💪
 
+**Andrew** · 👍 acked
+
 **13:07 · Anna**  ·  volley / afternoon volley sprint
 > ⚡ volley 1/3 — She finishes washing up and says she'll be right back. How does she say it?
 
@@ -25,6 +27,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 **Anna ↩**
 > adhu dhaan! 🔥 kazhuvittu varen is the classic — yours lands the same way. · 2/3 — Your maama wants more tea — ask the auntie to give him some.
+
+**12:07 · Andrew** — **MISS**
+> I don’t know
+
+**Anna ↩**
+> no worries — she'd say 'kazhuvittu varen' (washing done, coming back). Next volley item 3/3 coming. · 3/3 — You didn't catch what she said — one word, no fuss.
 
 **18:44 · Anna** 🎧  ·  audio / teach beat: polite-nga
 > da — one pattern, every elder hears it. 🎙️ 90 sec, then you'll see kudunga differently.
