@@ -1429,7 +1429,9 @@
     "next_check": "2026-07-17T16:19:08.932341+00:00",
     "body": "da — one pattern and every elder in the room hears you differently. tonight's session. 💪",
     "expected_target": "",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "ack",
+    "response_at": "2026-07-18T16:06:31Z"
   },
   {
     "date": "2026-07-17",
