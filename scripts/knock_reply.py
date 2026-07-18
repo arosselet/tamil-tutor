@@ -146,6 +146,12 @@ the current line only. Do NOT write follow_up_ask (Python appends the next volle
 to your recast itself); keep reply_line to ONE short clause so the appended ask still \
 fits the lock screen.
 
+VOLLEY discipline (KF-11, 2026-07-18): grade ONLY against the current pinned item. On \
+a miss, your recast reveals THAT item's answer — never a previous exchange's \
+(prior_exchanges are context, not the subject). Never re-ask an earlier item, never \
+declare the volley finished, and never claim a score your returned verdict doesn't \
+produce — Python owns the chain and re-presents the open ask itself.
+
 FIELDING dose (modality "fielding", 2026-07-18): the heard memo_script was a question \
 fired AT him; grade the reply as its ANSWER — parsing the question is half the rep. A \
 repair line back (புரியல, மெதுவா சொல்லுங்க) is a legitimate creditable fire: grade THAT \
@@ -631,12 +637,22 @@ def main():
     # judge's own follow_up is ignored — finite by construction, no CHAIN_CAP.
     follow, volley_pin = "", None
     vq = knock.get("volley")
+    represent = None  # KF-11: deterministic re-present of the still-open ask
     if vq:
         if verdict["verdict"] != "chat":
             nxt = knock.get("volley_next", 1)
             if nxt < len(vq):
                 volley_pin = vq[nxt]
                 follow = f"{nxt + 1}/{len(vq)} — {volley_pin['ask']}"
+            else:
+                knock["volley_done"] = True  # last item judged — chain closed
+        elif not knock.get("volley_done"):
+            # KF-11 (2026-07-18): a chat/meta reply mid-volley must never let the
+            # open ask vanish from the surface — the judge improvised ("fresh
+            # start", re-asking an earlier item) and the thread desynced from the
+            # pin. Python owns the chain; Python re-presents it.
+            cur = min(knock.get("volley_next", 1), len(vq))
+            represent = f"still open · {cur}/{len(vq)} — {vq[cur - 1]['ask']}"
     elif (verdict["verdict"] in ("cold", "hinted") and verdict["follow_up_ask"]
             and knock.get("chained", 0) < CHAIN_CAP):
         follow = verdict["follow_up_ask"]
@@ -666,7 +682,7 @@ def main():
     knock["reply_fired_capped"] = knock.get("reply_fired_capped", []) + capped_keys
     # store the FULL push-back (recast + chained ask): the next judge call reads it
     # as a prior exchange, and shown_in_knock scans it for revealed Tamil
-    knock["reply_line"] = " · ".join(p for p in (verdict["reply_line"], follow) if p)
+    knock["reply_line"] = " · ".join(p for p in (verdict["reply_line"], follow or represent) if p)
     knock["reply_at"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     knock.setdefault("exchanges", []).append({
         "at": knock["reply_at"], "reply": reply_text,

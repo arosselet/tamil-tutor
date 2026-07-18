@@ -512,3 +512,10 @@ Details live in git history; this is the index of the *conclusions*.
   tiers had already voted this way (delight = the visible trying; zingers capped at
   "five is greed"). The heist mechanics — secrecy, the safe room, field missions —
   stand unchanged; only the stated why moved.
+- **Python re-presents what Python tracks — the volley surface is plumbing** (2026-07-18,
+  KF-11). A chat/meta reply mid-volley used to append nothing, so the open ask vanished
+  and the judge improvised the chain surface (re-asked an earlier item, declared the
+  volley done, claimed an unrecorded score). Now: chat verdicts re-present the pinned
+  ask deterministically; the last judged item closes the chain (`volley_done`); the
+  judge mandate forbids recasting anything but the pinned item. Extends the 2026-07-06
+  "grounded verdicts" law from state to surface: whatever Python tracks, Python says.
