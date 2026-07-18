@@ -1583,6 +1583,37 @@
     "target_revealed": false,
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-07-18T16-53.mp3",
     "memo_script": "ஏய், ஏண்ணா — என்ன வேணும்?",
-    "mp3": "published_audio/knocks/knock_2026-07-18T16-53.mp3"
+    "mp3": "published_audio/knocks/knock_2026-07-18T16-53.mp3",
+    "response": "reply",
+    "reply": "Tanni venum",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "வேணும்"
+    ],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [
+      "வேணும்"
+    ],
+    "reply_line": "adhu dhaan! tanni venum — clean. now she's pouring — stop her at one cup. · one cup only. how do you say 'enough, enough!'?",
+    "reply_at": "2026-07-18T16:57:52Z",
+    "exchanges": [
+      {
+        "at": "2026-07-18T16:57:52Z",
+        "reply": "Tanni venum",
+        "verdict": "hinted",
+        "fired": [
+          "வேணும்"
+        ],
+        "fired_cold": [],
+        "fired_capped": [
+          "வேணும்"
+        ],
+        "graduated": [],
+        "reply_line": "adhu dhaan! tanni venum — clean. now she's pouring — stop her at one cup. · one cup only. how do you say 'enough, enough!'?"
+      }
+    ],
+    "chained": 1,
+    "pinned_target": "போதும் போதும்",
+    "pinned_revealed": false
   }
 ]
