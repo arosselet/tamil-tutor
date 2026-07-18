@@ -1639,6 +1639,8 @@
     "next_check": "2026-07-19T12:44:03.964688+00:00",
     "body": "da — tonight's mission: 'oru tea kudunga' at the table, unprompted. one ask. debrief tomorrow. 🫖",
     "expected_target": "குடுங்க",
-    "target_revealed": true
+    "target_revealed": true,
+    "response": "ack",
+    "response_at": "2026-07-18T23:55:26Z"
   }
 ]
