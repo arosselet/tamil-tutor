@@ -34,6 +34,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > no worries — she'd say 'kazhuvittu varen' (washing done, coming back). Next volley item 3/3 coming. · 3/3 — You didn't catch what she said — one word, no fuss.
 
+**12:09 · Andrew** — **CHAT**
+> Oops that was the response i got to the first volley! You then asked me to say give tea
+
+**Anna ↩**
+> got it — volley got tangled. fresh start: your maama wants more tea, ask the auntie to give him some.
+
 **18:44 · Anna** 🎧  ·  audio / teach beat: polite-nga
 > da — one pattern, every elder hears it. 🎙️ 90 sec, then you'll see kudunga differently.
 
