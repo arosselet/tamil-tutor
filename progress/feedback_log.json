@@ -82,5 +82,9 @@
   {
     "date": "2026-07-18",
     "note": "[phone] Volley got tangled across prior exchanges — Andrew's replies were arriving out of order / mismatched to items. Consider single-item volleys or explicit item labels Andrew echoes back."
+  },
+  {
+    "date": "2026-07-18",
+    "note": "[phone] Andrew confused by volley numbering — the tangled prior_exchanges left him unsure where the sprint ended; flag for cleaner volley state tracking."
   }
 ]
