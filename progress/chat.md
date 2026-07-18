@@ -9,6 +9,8 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:05 · Anna**  ·  text / trailer payoff: polite-nga
 > da — paid. verb+ங்க = 'please do it.' kudunga, sollunga, vaanga — one machine, every elder hears respect. that's today's engine. 🔧
 
+**Andrew** · 👍 acked
+
 
 ## Friday 2026-07-17
 
@@ -17,6 +19,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 **13:07 · Anna**  ·  volley / afternoon volley sprint
 > ⚡ volley 1/3 — She finishes washing up and says she'll be right back. How does she say it?
+
+**12:06 · Andrew** — **COLD**
+> Kalavita varen
+
+**Anna ↩**
+> adhu dhaan! 🔥 kazhuvittu varen is the classic — yours lands the same way. · 2/3 — Your maama wants more tea — ask the auntie to give him some.
 
 **18:44 · Anna** 🎧  ·  audio / teach beat: polite-nga
 > da — one pattern, every elder hears it. 🎙️ 90 sec, then you'll see kudunga differently.
