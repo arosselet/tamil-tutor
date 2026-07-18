@@ -22,7 +22,7 @@
 
 **The pivot:** pause the abstract "800-lemma" climb. Deepen a **finite, visible Trip Deck** of survival phrases instead. Andrew already has food / kitchen / domestic; the glue to accelerate is the *social-public* register.
 
-- **The Trip Deck is the headline meter.** ~65 chunks/frames tagged `deck:"trip"` in `lexicon.json`; `sync_state.py status` and `suggest_targets.py` surface it first. During the sprint Anna reports **Trip Deck: X/N fire cold** as the number that matters — the viability floor is secondary (and will dip as deck entries land recognized-not-cold; that's expected, not regression).
+- **The survival tier is the headline meter (2026-07-18 — refines 07-13; the narrated number must be winnable).** ~80 chunks/frames tagged `deck:"trip"` in `lexicon.json`; `sync_state.py status` and `suggest_targets.py` surface it first. During the sprint Anna reports **X/N survival cold** as the number that matters — the tier that decides freezing at the table, at a pace (~1.1/day) his actual trailing pace can win. The full deck stays in rotation and on the status line; delight is the lane he graduates into (and celebrates) as survival clears. The viability floor is secondary (and will dip as deck entries land recognized-not-cold; that's expected, not regression).
 - **Phrases are first-class.** The unit of the deck is the *chunk* (fixed formulaic phrase deployed whole — `saapta?`, `paravaayilla`, `enna aachu`) and the *frame* (a slot template — `___ venum`, `___ enga?`, `enna ___ panren` — an Engine). Not isolated words. This is the constitution's "Glue Over Vocabulary" / "Pattern Over List" finally made the curriculum spine.
 - **Fire vs. catch (2026-07-01 redesign).** Every deck item carries a `direction`: **fire** (force to cold production) or **catch** (ear-only — the win is solid recognition via eavesdrop drills and soak; *never* force these to fire). The gossip register is mostly catch: the decoders `frame:quote-nu` (…-னு சொன்னாங்க, reported speech) and `frame:hearsay-aam` (…-ஆம், hearsay) are the comprehension unlock for overheard family talk. The meter reads both sides: `X/N fire cold · Y/M catch solid`.
 - **The touchdown bar — two tiers, Andrew's own (2026-07-13; supersedes the 07-09 "no tiering" call and the older respond-first order — re-decided at trailing pace 0.4/day, 30 days out).** Production stays the north star; these tiers say what gets forced *first* and what must be true at touchdown — ordering only, nothing leaves the deck. **(1) Survival** — someone walks up speaking fast: follow it, or repair it, and get his own wants/needs across. The antifreeze kit (a fired `konjam medhuva sollunga` is a PASS — freezing is the only fail), the public/transactional chunks (he pays **cash**, accompanied 9/10 times), and the frames (each engine online is fifty sentences never memorized). **(2) Delight** — the sisters-in-law seeing how much he's trying: the faq interrogation script (his facts: one-month stay, software work, lives in Canada), mil-table (`romba nallarukku` is THE melt line), social greetings. **Dessert** — zingers (1–2 land the reveal; five is greed) and the gossip registers (the eavesdrop knock channel owns catch; in-session it's soak, never the headline). `suggest_targets.py` orders the ticket and the volley menu by these tiers.
@@ -44,8 +44,9 @@
 > and pushes at close. All mediums steer by it — the knock digest carries this block —
 > but cloud Anna only ever *reads* it; a campaign is never planned by CI or a calendar.
 > A typical block: the unit's name, its ~10–14 deck items (marking which are still
-> unseen), which days teach / drill / soak, tomorrow's session shape, and what the
-> trailer pitches next.
+> unseen), **its catch targets** (every campaign names ear-only items alongside fire
+> items — catch starves when only fire gets named, 2026-07-18), which days teach /
+> drill / soak, tomorrow's session shape, and what the trailer pitches next.
 
 **🎯 The Ask-Machine Week** (kicked off live 2026-07-17, runs ~through 07-23). Everything
 at a family table moves by asking someone politely, and one machine sits under all of it:
@@ -62,6 +63,9 @@ ukkarunga) into one lever, and lands the week's headline: **kudunga fires cold b
   சாப்பிடுங்க, நிறுத்துங்க, கொஞ்சம் தண்ணி குடுங்க.
 - **Carry-over rider:** `frame:done-ittu` — hinted today (mudichittu varén); ride it to
   cold inside ask-scenes, don't headline it.
+- **Catch targets:** `frame:quote-nu` + `frame:hearsay-aam` — Monday's episode seeds
+  mayi-laama and carries a gossip-tape beat; eavesdrop doses through the week (the
+  07-16 hearsay tape proved the format). Win = solid recognition, never a forced fire.
 
 **Days:** Fri 07-17 ✓ (done-ittu payoff + person-tail lore, campaign drafted) → Sat
 **Teach Day** (polite-nga + mayi-laama, generous, story-rich; light firing aims at

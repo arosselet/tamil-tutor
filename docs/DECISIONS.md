@@ -466,3 +466,24 @@ Details live in git history; this is the index of the *conclusions*.
   tag → delta → seam-law buckets (mechanism / dial / language slot / never-ports) →
   apply in the template with smoke → new tag, distill in both repos. Replaces the
   by-hand diff walk of 07-16.
+- **The survival tier is the narrated headline** (2026-07-18, Andrew — refines the
+  07-13 touchdown bar, which ordered the ticket but left the meter counting the whole
+  inventory). 6/69 at a needed 2.5/day read as failure inside a winning sprint;
+  6/33 survival at 1.1/day is winnable at the actual trailing pace, and survival is
+  the tier that decides freezing at the table. Nothing leaves the deck; the full-deck
+  count stays on the status line; delight is the celebration lane as survival clears.
+- **Every campaign names catch targets; eavesdrop is normal rotation** (2026-07-18).
+  Catch starved structurally (0/12 solid, one tape ever cut) because campaigns only
+  named fire targets and the mandate framed the eavesdrop dose as exotic. Campaign
+  contract + mandate now carry the bias; the Ask-Machine block gained its catch line
+  (quote-nu, hearsay-aam).
+- **Drills stay opportunistic; voice-IN stays parked** (2026-07-18, Andrew). The
+  Thanglish-mangling fear belongs to the parked voice-IN spike — the drill track
+  hears nothing (speech-OUT only), so it was never blocked by it. Anna cuts one when
+  the deck's due list runs fat; never a daily obligation (the chore signal governs).
+  Typed cold proves retrieval; the drill is where articulation catches up.
+- **The content surfaces audited clean — the gaps were delivery, not law**
+  (2026-07-18 pristine-pass audit). persona/constitution/daily_session/studio prose
+  is coherent, cited, and budget-policed; the three real repairs (survival headline,
+  catch bias, drill usage) were all delivery of machinery already built. Reinforces
+  07-17: no more top-down prose passes — the ledger steers.

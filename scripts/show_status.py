@@ -57,10 +57,12 @@ def main():
     deck = compute_deck(lexicon)
     if deck["total"]:
         days = (TRIP_DATE - date.today()).days
+        surv_pct = deck["surv_cleared"] / deck["surv_total"] * 100 if deck["surv_total"] else 0.0
         print(f"\n★ TRIP DECK — the sprint headline · {days} days to touchdown")
         print("-" * 55)
-        print(f"    [{bar(deck['pct'])}] {deck['cleared']}/{deck['total']} fire cold ({deck['pct']:.0f}%)")
-        print(f"    Burn rate: {burn_rate(deck, days)}")
+        print(f"    [{bar(surv_pct)}] {deck['surv_cleared']}/{deck['surv_total']} survival cold ({surv_pct:.0f}%)")
+        print(f"    Full deck: {deck['cleared']}/{deck['total']} fire cold")
+        print(f"    Burn rate: {burn_rate(deck['surv_total'] - deck['surv_cleared'], days)}")
         if deck["catch_total"]:
             print(f"    Ear-only (catch): {deck['caught']}/{deck['catch_total']} solid")
 
