@@ -3,7 +3,7 @@
 ## Core Philosophy
 
 ### Operational Capacity, Not Fluency
-The goal is **never** academic fluency. The goal is **Operational Capacity** — the ability to navigate Coimbatore, understand family gossip, handle transactions, and deploy surprise "zingers" that delight locals and in-laws.
+The goal is **never** academic fluency. The goal is **Operational Capacity** — connecting with family in their own language and earning respect at their table: navigate Coimbatore, understand family gossip, handle transactions. The surprise "zingers" that delight locals and in-laws are dessert, not the goal (respect loud, jaw-drop quiet — 2026-07-18).
 
 ### Dialect: Coimbatore Tamil Only
 Strictly **Colloquial Modern Tamil** (Coimbatore blend). We ignore formal/literary Tamil (Senthamil) completely.

@@ -505,3 +505,10 @@ Details live in git history; this is the index of the *conclusions*.
   production judge, and a fired repair line is a PASS, never a miss. One mechanism
   feeds both starved sides: ear training with a production payoff. Smoke: s20. The
   sibling finding (the trip-as-harvest arc) parked in the inbox with trip context.
+- **Respect loud, jaw-drop quiet** (2026-07-18, Andrew — noticed while writing the
+  public journey piece). The motive hierarchy is connection and earning respect at
+  her family's table; the reveal/zinger dopamine is dessert, never the meal.
+  persona.md's Heist and the constitution's goal line re-anchored; the touchdown
+  tiers had already voted this way (delight = the visible trying; zingers capped at
+  "five is greed"). The heist mechanics — secrecy, the safe room, field missions —
+  stand unchanged; only the stated why moved.
