@@ -46,6 +46,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > all good — 'puriyala' is the one word for that (I don't understand). volley's done, we'll pick it up next round.
 
+**12:11 · Andrew** — **CHAT**
+> What about 3/3? You’re cutting me off because I missed 2?
+
+**Anna ↩**
+> ha — no, you're good. the volley's actually done; that last 'I don't know' counted as the miss on 3/3. we're through it.
+
 **18:44 · Anna** 🎧  ·  audio / teach beat: polite-nga
 > da — one pattern, every elder hears it. 🎙️ 90 sec, then you'll see kudunga differently.
 
