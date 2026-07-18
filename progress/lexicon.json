@@ -2274,7 +2274,8 @@
       11,
       31,
       42,
-      65
+      65,
+      68
     ],
     "last_surfaced": "2026-07-13",
     "deck": "trip",
@@ -2599,7 +2600,9 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
+    "seen_in": [
+      68
+    ],
     "last_surfaced": null,
     "deck": "trip",
     "direction": "catch"
@@ -2777,7 +2780,9 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
+    "seen_in": [
+      68
+    ],
     "last_surfaced": null,
     "deck": "trip",
     "direction": "catch"
@@ -2901,7 +2906,9 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
+    "seen_in": [
+      68
+    ],
     "last_surfaced": null,
     "deck": "trip",
     "direction": "fire"
@@ -3154,7 +3161,8 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
-      67
+      67,
+      68
     ],
     "last_surfaced": null,
     "deck": "trip",
@@ -3171,7 +3179,8 @@
       56,
       57,
       63,
-      66
+      66,
+      68
     ],
     "last_surfaced": "2026-07-13",
     "deck": "trip",
@@ -3183,7 +3192,9 @@
     "phonetic": [],
     "recognition": "comfortable",
     "production": "none",
-    "seen_in": [],
+    "seen_in": [
+      68
+    ],
     "last_surfaced": null,
     "deck": "trip",
     "direction": "fire"
@@ -3194,7 +3205,9 @@
     "phonetic": [],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
+    "seen_in": [
+      68
+    ],
     "last_surfaced": null,
     "deck": "trip",
     "direction": "fire"
@@ -3410,7 +3423,8 @@
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [
-      58
+      58,
+      68
     ],
     "last_surfaced": null,
     "deck": "trip",
@@ -3452,7 +3466,8 @@
     "production": "none",
     "seen_in": [
       65,
-      67
+      67,
+      68
     ],
     "last_surfaced": "2026-07-18",
     "deck": "trip",
@@ -3465,7 +3480,8 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
-      59
+      59,
+      68
     ],
     "last_surfaced": null,
     "deck": "trip",
@@ -3477,7 +3493,9 @@
     "phonetic": [],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
+    "seen_in": [
+      68
+    ],
     "last_surfaced": null,
     "deck": "trip",
     "direction": "fire"
@@ -3488,7 +3506,9 @@
     "phonetic": [],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
+    "seen_in": [
+      68
+    ],
     "last_surfaced": null,
     "deck": "trip",
     "direction": "catch"
@@ -3499,7 +3519,9 @@
     "phonetic": [],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
+    "seen_in": [
+      68
+    ],
     "last_surfaced": null,
     "deck": "trip",
     "direction": "catch"
@@ -3590,7 +3612,9 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
+    "seen_in": [
+      68
+    ],
     "last_surfaced": null,
     "deck": "trip",
     "direction": "catch"

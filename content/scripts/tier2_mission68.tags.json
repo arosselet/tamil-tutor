@@ -1,0 +1,25 @@
+{
+  "mission": 68,
+  "new_words_landed": {
+    "frame:polite-nga": 0,
+    "frame:giveme-noun": 0,
+    "frame:mayi-laama": 0,
+    "frame:needtogo-place": 0,
+    "frame:nearby-noun": 0,
+    "frame:day-recap": 0,
+    "அவசரம் இருக்கு": 0,
+    "புரியல": 0,
+    "frame:we-om": 0,
+    "frame:youknow-la": 0,
+    "frame:hearsay-aam": 0,
+    "frame:quote-nu": 0,
+    "இன்னும் கொஞ்சம் சாப்பிடுங்க": 0,
+    "என்னமோ பிரச்சனை": 0
+  },
+  "callbacks_used": {
+    "அப்படியா?!": 1
+  },
+  "register": "dread",
+  "dramatic_ingredient": "turn",
+  "episode_form": "week_arc"
+}

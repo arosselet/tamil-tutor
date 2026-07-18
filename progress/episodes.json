@@ -1959,5 +1959,27 @@
       "நான்"
     ],
     "duration_min": 2.7550000000000003
+  },
+  "68": {
+    "title": "Mission tier2_mission68",
+    "listens": 0,
+    "words": [
+      "frame:polite-nga",
+      "frame:giveme-noun",
+      "frame:mayi-laama",
+      "frame:needtogo-place",
+      "frame:nearby-noun",
+      "frame:day-recap",
+      "அவசரம் இருக்கு",
+      "புரியல",
+      "frame:we-om",
+      "frame:youknow-la",
+      "frame:hearsay-aam",
+      "frame:quote-nu",
+      "இன்னும் கொஞ்சம் சாப்பிடுங்க",
+      "என்னமோ பிரச்சனை",
+      "அப்படியா?!"
+    ],
+    "duration_min": 15.532399999999999
   }
 }
