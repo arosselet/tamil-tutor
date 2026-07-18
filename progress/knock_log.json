@@ -1456,7 +1456,38 @@
         "ask": "You didn't catch what she said — one word, no fuss."
       }
     ],
-    "volley_next": 1
+    "volley_next": 2,
+    "response": "reply",
+    "reply": "Kalavita varen",
+    "reply_verdict": "cold",
+    "reply_fired": [
+      "frame:done-ittu"
+    ],
+    "reply_fired_cold": [
+      "frame:done-ittu"
+    ],
+    "reply_fired_capped": [],
+    "reply_line": "adhu dhaan! 🔥 kazhuvittu varen is the classic — yours lands the same way. · 2/3 — Your maama wants more tea — ask the auntie to give him some.",
+    "reply_at": "2026-07-18T16:06:29Z",
+    "exchanges": [
+      {
+        "at": "2026-07-18T16:06:29Z",
+        "reply": "Kalavita varen",
+        "verdict": "cold",
+        "fired": [
+          "frame:done-ittu"
+        ],
+        "fired_cold": [
+          "frame:done-ittu"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! 🔥 kazhuvittu varen is the classic — yours lands the same way. · 2/3 — Your maama wants more tea — ask the auntie to give him some."
+      }
+    ],
+    "chained": 1,
+    "pinned_target": "frame:giveme-noun",
+    "pinned_revealed": false
   },
   {
     "date": "2026-07-17",
