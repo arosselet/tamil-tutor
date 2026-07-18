@@ -999,6 +999,15 @@ def s21_volley_represent(kr, sb: Path):
             "fired": [], "follow_up_ask": "", "follow_up_target": "",
             "follow_up_target_revealed": True, "meta_note": "", "schedule": None}
 
+    # the one owner of "the current ask" — judge context and re-presents both read it
+    check("volley_open_ask names the current item",
+          kr.volley_open_ask(volley_knock(nxt=2)) == "2/3 — ask two")
+    check("volley_open_ask starts at ask one",
+          kr.volley_open_ask(volley_knock(nxt=1)) == "1/3 — ask one")
+    check("volley_open_ask clamps past the end",
+          kr.volley_open_ask(volley_knock(nxt=3)) == "3/3 — ask three")
+    check("no volley → no open ask", kr.volley_open_ask({"body": "x"}) is None)
+
     # chat mid-volley → the pinned ask is re-presented; pin and chain untouched
     write_json(klog_path, [volley_knock(nxt=2)])
     body = reply("wait, which one are we on?", dict(chat))

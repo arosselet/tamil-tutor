@@ -364,16 +364,31 @@ def hours_since_exchange(knock: dict, now: datetime) -> float | None:
     return (now - dt).total_seconds() / 3600
 
 
+def volley_open_ask(knock: dict) -> str | None:
+    """The CURRENT volley ask as 'N/M — <ask>', or None outside a volley.
+    Python owns this string everywhere it surfaces (judge context, chat
+    re-presents). KF-11 root cause lived here: the logged body stays frozen at
+    ask 1 while the pin walks, so handing the raw body to the judge made every
+    later item read as a KF-3 mis-target — and the coherence safety net then
+    LAWFULLY voided the pin and recast item 1's answer."""
+    vq = knock.get("volley")
+    if not vq:
+        return None
+    cur = min(knock.get("volley_next", 1), len(vq))
+    return f"{cur}/{len(vq)} — {vq[cur - 1]['ask']}"
+
+
 def judge(knock: dict, reply_text: str, target_record: dict | None,
           hours_since: float | None = None,
           revealed_recent: list | None = None) -> dict:
     persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
     pin, pin_revealed = current_pin(knock)
+    open_ask = volley_open_ask(knock)
     context = {
         "knock": {
             "modality": knock.get("modality"),
             "move": knock.get("move"),
-            "notification_body": knock.get("body", ""),
+            "notification_body": f"volley {open_ask}" if open_ask else knock.get("body", ""),
             "memo_script": knock.get("memo_script", ""),
             "expected_target": pin,
             "target_revealed": pin_revealed,
@@ -648,11 +663,9 @@ def main():
                 knock["volley_done"] = True  # last item judged — chain closed
         elif not knock.get("volley_done"):
             # KF-11 (2026-07-18): a chat/meta reply mid-volley must never let the
-            # open ask vanish from the surface — the judge improvised ("fresh
-            # start", re-asking an earlier item) and the thread desynced from the
-            # pin. Python owns the chain; Python re-presents it.
-            cur = min(knock.get("volley_next", 1), len(vq))
-            represent = f"still open · {cur}/{len(vq)} — {vq[cur - 1]['ask']}"
+            # open ask vanish from the surface. Python owns the chain; Python
+            # re-presents it (same owner as the judge's context: volley_open_ask).
+            represent = f"still open · {volley_open_ask(knock)}"
     elif (verdict["verdict"] in ("cold", "hinted") and verdict["follow_up_ask"]
             and knock.get("chained", 0) < CHAIN_CAP):
         follow = verdict["follow_up_ask"]
