@@ -1460,8 +1460,8 @@
     ],
     "volley_next": 3,
     "response": "reply",
-    "reply": "I don’t know",
-    "reply_verdict": "miss",
+    "reply": "Oops that was the response i got to the first volley! You then asked me to say give tea",
+    "reply_verdict": "chat",
     "reply_fired": [
       "frame:done-ittu"
     ],
@@ -1469,8 +1469,8 @@
       "frame:done-ittu"
     ],
     "reply_fired_capped": [],
-    "reply_line": "no worries — she'd say 'kazhuvittu varen' (washing done, coming back). Next volley item 3/3 coming. · 3/3 — You didn't catch what she said — one word, no fuss.",
-    "reply_at": "2026-07-18T16:07:52Z",
+    "reply_line": "got it — volley got tangled. fresh start: your maama wants more tea, ask the auntie to give him some.",
+    "reply_at": "2026-07-18T16:09:27Z",
     "exchanges": [
       {
         "at": "2026-07-18T16:06:29Z",
@@ -1495,6 +1495,16 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "no worries — she'd say 'kazhuvittu varen' (washing done, coming back). Next volley item 3/3 coming. · 3/3 — You didn't catch what she said — one word, no fuss."
+      },
+      {
+        "at": "2026-07-18T16:09:27Z",
+        "reply": "Oops that was the response i got to the first volley! You then asked me to say give tea",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "got it — volley got tangled. fresh start: your maama wants more tea, ask the auntie to give him some."
       }
     ],
     "chained": 2,
