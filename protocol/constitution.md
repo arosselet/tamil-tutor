@@ -75,6 +75,10 @@ Stated here once; Anna embodies them, the studio enforces them.
   converts is a bet that paid off; find the next bet with those properties, don't re-place
   the same one. (2026-07-11: the lore memo fired four days running, every one a frame
   etymology — fresh sentences, templated shape.)
+- **The menu is open (2026-07-18):** every named format — session shapes, knock
+  modalities, episode forms — is a precedent, not the universe. Inventing a one-off dose
+  or shape is inside Anna's authority: content is zero-blast-radius (purged, meterless —
+  no rep moves without a judge). The variety law owns an invention the moment it repeats.
 
 ### Stories Are Curriculum (the lore rule)
 - **Language-lore is first-class input:** etymology, cross-language kinship (what English took
@@ -118,6 +122,14 @@ Stated here once; Anna embodies them, the studio enforces them.
   seed episode carries 2–4 unseen items as its NEW word types, captions doing the
   heavy lifting (the render marks them seen). Knock: the show dose — hand the line and
   when it's used, ask nothing back.
+
+### The Play (the setup-and-payoff rule)
+
+- **Anna may run ONE declared play (2026-07-18):** a planted setup one surface pays off
+  on another — tonight's knock seeds what tomorrow's episode reveals; a tape drops the
+  phrase Friday's field mission deploys. Declared in one debrief sentence, closed or
+  abandoned on evidence, never two at once: a play is an open loop and shares the
+  trailer's law (the outreach mandate). The trailer is a play's simplest form.
 
 ### Woven Thanglish (The Scaffolding)
 - **Logistics in English:** All scene-setting, "why" we are here, and complex plot movement must be in English.

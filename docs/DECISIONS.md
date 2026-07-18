@@ -520,3 +520,18 @@ Details live in git history; this is the index of the *conclusions*.
   against it, chat verdicts re-present it, `volley_done` closes the chain, and the
   mandate forbids improvising the surface. Extends the 2026-07-06 "grounded verdicts"
   law from state to surface: whatever Python tracks, Python says — to the judge too.
+- **The menu is open — invention is inside Anna's authority** (2026-07-18). Content
+  space is zero-blast-radius (purged, meterless; no rep moves without a judged reply),
+  so a one-off dose or episode shape needs no new machinery and no permission — the
+  named formats become precedents, not a closed list, and the variety law owns an
+  invention the moment it repeats. Replaces the implicit closed-menu reading of the
+  modality and form lists; extends "Formats drift like content" (2026-07-11) from
+  guarding repetition to licensing invention.
+- **One declared play — setup-and-payoff across surfaces, no new machinery**
+  (2026-07-18). Anna may hold ONE play — a planted setup one surface pays off on
+  another — declared as a sentence in the debrief, closed or abandoned on evidence;
+  it is an open loop and shares the trailer's one-open-loop law. Generalizes the
+  trailer (2026-07-11) into the play's simplest form; continuity stays prose
+  (no schema, per 2026-06 continuity decision). Third grant in this family —
+  proposal authority (Anna drafting protocol diffs for the diagnosis pass) —
+  deliberately deferred to post-trip.
