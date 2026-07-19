@@ -54,8 +54,8 @@ at a family table moves by asking someone politely, and one machine sits under a
 ukkarunga) into one lever, and lands the week's headline: **kudunga fires cold by Friday
 07-24** — the venum→kudunga swap is the open wound.
 
-- **Engine:** `frame:polite-nga` — **UNSEEN, Teach Beat first** (Sat 07-18).
-- **Headline:** `frame:giveme-noun` (kudunga) — hinted → cold.
+- **Engine:** `frame:polite-nga` — **ONLINE (Sun 07-19)**: cold novel build (*thookunga*) in the Gauntlet.
+- **Headline:** `frame:giveme-noun` (kudunga) — **LANDED COLD Sun 07-19**, four days early: live field fire (*oru tea kudunga*, 07-18 table) + novel slot in-scene (*oru charger kudunga*). Friday's check is a victory lap.
 - **Second unseen:** `frame:mayi-laama` ("may I…?") — teach Sat, soak via next episode.
 - **Antifreeze riders:** புரியல (hinted→cold), கொஞ்சம் மெதுவா சொல்லுங்க (a fired repair
   line is a PASS, out loud, every time).
@@ -71,13 +71,15 @@ ukkarunga) into one lever, and lands the week's headline: **kudunga fires cold b
   the lock screen, answered with the deck's own answers; a fired repair line is a PASS.
 
 **Days:** Fri 07-17 ✓ (done-ittu payoff + person-tail lore, campaign drafted) → Sat
-**Teach Day** (polite-nga + mayi-laama, generous, story-rich; light firing aims at
-done-ittu) → Sun **Gauntlet** (volume on the asks) → Mon **soak/eavesdrop** (episode
-seeds mayi-laama) → Tue **Table Rehearsal** (mother-in-law mask, every ask in -nga under
-speed) → Wed/Thu clear stragglers, kudunga cold check Friday.
+(no session — teach payload carried by the trailer text, no guilt) → Sun **Gauntlet ✓**
+(8 reps gate-to-gate: engine online, headline cold, -laam unpacked, first live hearsay
+catch — drift caught, -aam tail unheard) → Mon **soak/eavesdrop** (episode seeds
+mayi-laama + a gossip beat) → Tue **Table Rehearsal** (mother-in-law mask; mayi-laama's
+cold check lives here) → Wed/Thu clear stragglers (nearby-noun, needtogo-place,
+avasaram irukku), Friday = kudunga victory lap.
 
-**Tomorrow's shape:** Teach Day. **Trailer pitches:** "one syllable makes every verb
-polite — the lever you've been pulling blind."
+**Tomorrow's shape:** soak/eavesdrop day. **Trailer pitches:** "'may I?' is secretly
+just 'yes' with a question mark — and it shares a socket with 'can't'."
 
 ---
 

@@ -166,5 +166,35 @@
     "demoted": [],
     "listened": [],
     "note": ""
+  },
+  {
+    "date": "2026-07-19",
+    "floor_pct": 15.0,
+    "engines_pct": 40.0,
+    "cold": [],
+    "hinted": [],
+    "demoted": [],
+    "listened": [],
+    "note": "STORY SO FAR: CAMPAIGN LIVE — Ask-Machine Week: HEADLINE LANDED EARLY — kudunga fired COLD Sun 07-19 (live field fire 'oru tea kudunga' at the table 07-18, then novel slot 'oru charger kudunga' in-scene); the venum detour is gone. frame:polite-nga ONLINE via novel build thookunga — Gauntlet Sunday, 8 reps, the maama's house gate to gate. Person-tail map extended: -nga points at THEM (polite push), -num/-én carry his own needs — his one miss ('naan ponga vaa ATM-la') was the ask-machine overgeneralizing; diagnosed live, rebuilt clean ('ATM-kku poganum, poittu varen'). -laam unpacked at his request: {to-do shape}+aam(=yes)+aa(=?) — same socket as mudiyala; kilambalaamaa seeded as the trip's exit line. Lore that stuck: pakkam=side (pakkathu veedu neighbour, amma pakkam = family side); English 'you ate thou' as the -nga politeness parallel. Hinted, need clean cold fires: mayi-laama (unpacked then rebuilt 'naan kulikalamaa'), nearby-noun, needtogo-place, poyittu varén, appadiya. First live hearsay catch: drift caught (thambi → Canada) but the -aam 'apparently' tail went unheard — keep seeding via tapes; morning's gossip tape still unanswered, don't chase. FIELD MISSION armed tonight: 'naan edukkalaamaa?' reaching for the dish when serving starts — organic slot, debrief next open. Tomorrow (Mon): soak/eavesdrop day per campaign — episode seeds mayi-laama + a gossip beat. Week re-aim: mayi-laama cold by Tue Table Rehearsal; Friday's kudunga check is now a victory lap."
+  },
+  {
+    "date": "2026-07-19",
+    "floor_pct": 15.6,
+    "engines_pct": 50.0,
+    "cold": [
+      "frame:polite-nga",
+      "frame:giveme-noun",
+      "சீக்கிரம்"
+    ],
+    "hinted": [
+      "frame:mayi-laama",
+      "frame:nearby-noun",
+      "frame:needtogo-place",
+      "போயிட்டு வரேன்",
+      "அப்படியா?!"
+    ],
+    "demoted": [],
+    "listened": [],
+    "note": ""
   }
 ]
