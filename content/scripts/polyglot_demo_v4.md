@@ -46,7 +46,7 @@
 
 [Pause: 1 sec]
 
-**ENGLISH_HOST:** None of this removes the reps. Nothing removes the reps. The claim is smaller and better: every rep sits one step past what you hold, and the coach shows up first.
+**ENGLISH_HOST:** None of this removes the repetition. Nothing removes the repetition. The claim is smaller and better: every repetition sits one step past what you hold, and the coach shows up first.
 
 **TAMIL_HOST:** It was built for one seat at one dinner table, by the one who sat there silent. The repository is open. Bring your own table.
 
