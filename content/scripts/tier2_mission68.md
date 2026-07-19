@@ -1,3 +1,9 @@
+# Tier 2, Mission 68 — The Midnight Suitcase
+
+<!-- Voice Map: {"HOST (M)": "ta-IN-Chirp3-HD-Charon"} -->
+<!-- Narrator pinned to Charon — the english_demo proved its English↔Tamil
+     code-switching; in-scene characters stay pool-cast. -->
+
 ### SCENE 1: THE LATE CALL
 
 [SFX: The dull, rhythmic whir of a ceiling fan. Outside, the steady drone of crickets. A digital clock on the nightstand flips to 3:14 AM. Suddenly, the harsh, jarring ringtone of a cheap smartphone shatters the silence.]
@@ -269,7 +275,7 @@
 **HOST (M):** Atthai slowly places her hand on the brass latches.
 **ATTHAI (F):** பார்த்தா...
 **HOST (M):** If seen...
-**HOST (M):** That *-ndhaa* ending again. The conditional 'if'.
+**HOST (M):** That -த்தா ending again. The conditional 'if'.
 **ATTHAI (F):** செம்மையா இருக்கும்!
 **HOST (M):** It will be excellent!
 [SFX: The sharp, metallic clack of the suitcase latches springing open. The heavy lid creaks backward. A tense, high-pitched musical swell completely cuts out to dead silence.]
