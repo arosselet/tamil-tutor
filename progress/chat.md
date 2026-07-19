@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Sunday 2026-07-19
+
+**09:08 · Anna** 🎧  ·  eavesdrop / eavesdrop: hearsay-aam gossip tape
+> 📻 overheard at the neighbour's gate — what's the aunty saying is happening next door?
+
+
 ## Saturday 2026-07-18
 
 **09:05 · Anna**  ·  text / trailer payoff: polite-nga
@@ -28,6 +34,8 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 **18:44 · Anna**  ·  challenge / field mission: kudunga
 > da — tonight's mission: 'oru tea kudunga' at the table, unprompted. one ask. debrief tomorrow. 🫖
+
+**Andrew** · 👍 acked
 
 
 ## Friday 2026-07-17
