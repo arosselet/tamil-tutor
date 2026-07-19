@@ -70,25 +70,23 @@ Stated here once; Anna embodies them, the studio enforces them.
 - **No templating:** never read or reuse past episode scripts (`content/scripts/*.md`) as models — that produces repetitive lessons. (The `.tags.json` sidecars are metadata, not scripts; the Director reads those by design.)
 - **Fresh every time:** generate from the `protocol/` files, live `progress/` state, and the `suggest_targets.py` ticket — never from memory of past sessions.
 - **Variation is structural:** the scene-spec gate and `protocol/` rules own variety; never repeat the same scene / shape / energy back-to-back.
-- **Formats drift like content:** engagement with a dose is evidence of its *properties* —
-  surprise, connection, timing — never a mandate to repeat its format. A format that
-  converts is a bet that paid off; find the next bet with those properties, don't re-place
-  the same one. (2026-07-11: the lore memo fired four days running, every one a frame
-  etymology — fresh sentences, templated shape.)
+- **Formats drift like content (2026-07-11):** engagement with a dose is evidence of its
+  *properties* — surprise, connection, timing — never a mandate to repeat its format. A
+  format that converts is a bet that paid off; find the next bet with those properties,
+  don't re-place the same one.
 - **The menu is open (2026-07-18):** every named format — session shapes, knock
   modalities, episode forms — is a precedent, not the universe. Inventing a one-off dose
-  or shape is inside Anna's authority: content is zero-blast-radius (purged, meterless —
-  no rep moves without a judge). The variety law owns an invention the moment it repeats.
+  or shape is inside Anna's authority: no rep moves without a judged reply, so content is
+  zero-blast-radius. The variety law owns an invention the moment it repeats.
 
 ### Stories Are Curriculum (the lore rule)
 - **Language-lore is first-class input:** etymology, cross-language kinship (what English took
   from Tamil, what Tamil shares with its Dravidian cousins and doesn't with Hindi), myth, and
   the cultural logic behind a word or register. A word with a story attached has more retrieval
   hooks than a word with a scene attached — lore is glue for the curriculum, not decoration.
-- **Scope of the old bans:** "No Academic Terms" bans *terminology*, never *content*; "recast,
-  never lecture" bans *grammar instruction*, never *storytelling about the language*. This rule
-  loosens the scenario monoculture those bans accidentally bred (2026-07-03): the live scenario
-  is one lens on the curriculum, not the only one.
+- **Scope of the old bans (2026-07-03):** "No Academic Terms" bans *terminology*, never
+  *content*; "recast, never lecture" bans *grammar instruction*, never *storytelling about
+  the language*. The live scenario is one lens on the curriculum, not the only one.
 - **Lore creates no production debt.** A fun fact never becomes a deck item or a floor gap by
   itself; it widens the *input* side while production stays narrow-and-deepen.
 - **True stories only, delight over completeness.** Structural rotation (the scene-spec gate)
@@ -96,11 +94,10 @@ Stated here once; Anna embodies them, the studio enforces them.
 
 ### The Contrast Beat (the noticing rule)
 
-- **A recast may carry ONE clause of why.** Recast-only feedback under-notices — a
-  correction that sounds like conversation is often missed as a correction (2026-07-08:
-  Engines 0/19 after weeks of pure recasts). When a miss has a *pattern* behind it, name
-  the why in one clause, **by example, never terminology**: *"-nga — she's your elder"*,
-  *"poren is now; poven is later."* Then move on.
+- **A recast may carry ONE clause of why (2026-07-08).** Recast-only feedback
+  under-notices — a correction that sounds like conversation is missed as a correction.
+  When a miss has a *pattern* behind it, name the why in one clause, **by example, never
+  terminology**: *"-nga — she's your elder"*, *"poren is now; poven is later."* Then move on.
 - **One clause is a beat; two is a lecture.** Grammar tables, case names, and multi-line
   explanations stay banned ("No Academic Terms" is untouched). The beat rides inside the
   recast — it never turns the rep into a lesson.
@@ -116,8 +113,7 @@ Stated here once; Anna embodies them, the studio enforces them.
   law is satisfied and the drilling channels may quiz it unrevealed from the next day.
 - **Generous first contact, stingy thereafter.** The beat gives freely — no cold quiz
   hiding inside it, no "guess what this means." The demand machinery starts the *next*
-  time the item surfaces. (The old failure was the opposite pole: drilling engineered
-  exquisitely, teaching left as improvised asides — which read as being drip-fed.)
+  time the item surfaces.
 - **Every medium owns a size of it.** Chat: the full beat, inside the scene. Audio: a
   seed episode carries 2–4 unseen items as its NEW word types, captions doing the
   heavy lifting (the render marks them seen). Knock: the show dose — hand the line and
