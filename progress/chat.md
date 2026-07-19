@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:08 · Anna** 🎧  ·  eavesdrop / eavesdrop: hearsay-aam gossip tape
 > 📻 overheard at the neighbour's gate — what's the aunty saying is happening next door?
 
+**15:00 · Anna** 🎧  ·  audio / lore memo: adverb-aa machine
+> 🎙️ da — one suffix turns anything into an adverb. நல்லா, மெதுவா, தண்ணியா — same machine. 90 sec.
+
 
 ## Saturday 2026-07-18
 
