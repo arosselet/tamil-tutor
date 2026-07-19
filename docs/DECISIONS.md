@@ -550,6 +550,14 @@ Details live in git history; this is the index of the *conclusions*.
   `[SFX]` lines, which the renderer silently dropped,
   now become a 1.5 s beat (smoke #8) — a cue buys air, never silence-vanishes; a real
   SFX library stays unbuilt.
+- **Second milestone re-sync — `template-v3-source`** (2026-07-16; recorded 2026-07-19,
+  backfilled — the sync pre-dated `/backport`'s distill contract). language-tutor now
+  elaborates Tamil@`2b752fb`: the knock-loop engine advance since v2 re-applied
+  semantically — knock_id reply correlation (KF-9), fenced-JSON parse fallback (KF-10),
+  lore/eavesdrop cooldown guards, teach-first `introduces` + shared `is_unseen()`,
+  pull-before-read status banner, delivery retry, deck-tier ordering. The seam law held
+  and produced one template-side correction, recorded there: "learner-dependent surfaces
+  are setup-time elaborations" (deck tiers ride `config` + SETUP.md, never hardcoded).
 - **One declared play — setup-and-payoff across surfaces, no new machinery**
   (2026-07-18). Anna may hold ONE play — a planted setup one surface pays off on
   another — declared as a sentence in the debrief, closed or abandoned on evidence;
@@ -558,3 +566,18 @@ Details live in git history; this is the index of the *conclusions*.
   (no schema, per 2026-06 continuity decision). Third grant in this family —
   proposal authority (Anna drafting protocol diffs for the diagnosis pass) —
   deliberately deferred to post-trip.
+- **The year's LLM-systems doctrine is promoted to `~/.agents/AGENT.md`**
+  (2026-07-19, wrap-up session). Six rules that generalize beyond this repo —
+  writer/brain split, prompt separation-of-concerns, mechanism-and-test over prose,
+  the felt-signal ledger discipline, structural variety, honest meters — now live in
+  the cross-agent global canon, each condensed to one operative line with this repo's
+  DECISIONS/JOURNEY as the evidence trail. Replaces re-deriving them per repo; the
+  full narratives stay here. (`~/.agents` is not under version control — noted to
+  Andrew as a gap.)
+- **The constitution reads operative-only** (2026-07-19, Andrew-commissioned wrap-up).
+  Crisping pass ahead of daily driving by Opus/Sonnet: narrative justifications retired
+  to this file's existing entries (each named in commit 31a87e2), dates moved into rule
+  headers, headroom 24→81 words. Completes the 07-16 subtraction law for the
+  constitution; `daily_session.md` (12 words free) and the outreach mandate (12 words
+  free) are the next ceiling-huggers — split-or-retire is *their* next move, not a
+  budget bump.
