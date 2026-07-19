@@ -17,6 +17,7 @@ A fixed bug becomes a case here the day it's fixed:
   #5  volley knock: binding targets + deterministic chain advance (2026-07-08)
   #6  eavesdrop dose: catch replies move recognition only, never production (2026-07-09)
   #7  stale clone read yesterday's story; comma-joined soak payload never matched (2026-07-15)
+  #8  [SFX] lines silently dropped by the renderer — now a beat of air (2026-07-18)
 """
 import argparse
 import importlib
@@ -1054,6 +1055,26 @@ def s19_watchdog_detection(sb: Path):
     check("no soak order → nothing pending", not sw.soak_pending())
 
 
+def s22_sfx_pause(sb: Path):
+    print("\n22. [SFX] cues render as air, never dropped (M68 drama, 2026-07-18)")
+    ra = importlib.import_module("render_audio")
+    script = sb / "content" / "scripts" / "smoke_sfx.md"
+    script.write_text(
+        "# Tier 2, Mission 99 — Smoke\n\n"
+        "[SFX: A phone rings in the dark.]\n\n"
+        "**HOST (M):** Three fourteen in the morning.\n\n"
+        "[SFX: Sheets rustle.]\n"
+        "[Pause: 2 sec]\n", encoding="utf-8")
+    dialogue, _ = ra.parse_script(str(script))
+    check("SFX cue becomes a pause",
+          dialogue[0]["speaker"] == "PAUSE" and dialogue[0]["seconds"] == 1.5,
+          f"got {dialogue[0]}")
+    check("SFX text never reaches a voice",
+          not any("phone rings" in d.get("text", "") for d in dialogue))
+    check("adjacent SFX + pause coalesce",
+          dialogue[-1] == {"speaker": "PAUSE", "seconds": 3.5}, f"got {dialogue[-1]}")
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -1080,6 +1101,7 @@ def main():
         s19_watchdog_detection(sb)
         s20_fielding(mk, kr, sb)
         s21_volley_represent(kr, sb)
+        s22_sfx_pause(sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)

@@ -80,6 +80,7 @@ SPEAKER_RE = re.compile(
     r"^\s*(?:\*\s*)?\*\*\s*([^:]+)\s*:\s*(?:\*\*\s*)?(.*)", re.IGNORECASE
 )
 PAUSE_RE = re.compile(r"\[Pause:\s*(\d+)\s*sec.*\]", re.IGNORECASE)
+SFX_RE = re.compile(r"^\[SFX\b", re.IGNORECASE)
 EMBED_RE = re.compile(r"\[Intercept (audio )?plays\]", re.IGNORECASE)
 VOICE_MAP_RE = re.compile(r"Voice Map\s*:\s*(\{.*?\})", re.DOTALL | re.IGNORECASE)
 
@@ -103,6 +104,11 @@ def parse_script(file_path: str) -> tuple[list[dict], dict]:
     for line in lines:
         line = line.strip()
         if not line:
+            continue
+
+        if SFX_RE.match(line):
+            # No sound library — an SFX cue becomes a beat of air, never silence-dropped
+            dialogue.append({"speaker": "PAUSE", "seconds": 1.5})
             continue
 
         pause_match = PAUSE_RE.search(line)

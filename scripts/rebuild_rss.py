@@ -92,7 +92,7 @@ def clean_title(raw_title: str, filename: str) -> str:
 
     # Try to extract tier, mission, and subtitle from the raw title
     match = re.match(
-        r"Tier\s+(\d+)\s+Mission\s+(\d+):\s*(.+)", raw_title, re.IGNORECASE
+        r"Tier\s+(\d+),?\s+Mission\s+(\d+)\s*[:—-]\s*(.+)", raw_title, re.IGNORECASE
     )
     if match:
         mission = match.group(2)
@@ -204,7 +204,7 @@ def generate_rss():
     for filename in episodes:
         audio_path = os.path.join(AUDIO_DIR, filename)
         # Try to find matching script — strip _intercept/_breakdown suffix so we find the base script
-        base_name = re.sub(r"_(intercept|breakdown)\.mp3$", ".md", filename, flags=re.IGNORECASE)
+        base_name = re.sub(r"_(intercept|breakdown|v\d+)\.mp3$", ".md", filename, flags=re.IGNORECASE)
         if not base_name.endswith(".md"):
             base_name = filename.replace('.mp3', '.md')
         # Also try specific intercept/breakdown script files
