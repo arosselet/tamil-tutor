@@ -527,6 +527,27 @@ Details live in git history; this is the index of the *conclusions*.
   invention the moment it repeats. Replaces the implicit closed-menu reading of the
   modality and form lists; extends "Formats drift like content" (2026-07-11) from
   guarding repetition to licensing invention.
+- **The narrated drama is a real form** (2026-07-18, Andrew — by ear, on the M68
+  "Midnight Suitcase" experiment). It succeeded where the months-ago attempt failed;
+  what changed is the substrate (fence + soak-order + scene spec + unified memory), so
+  the format rides the system now instead of replacing it. Long-form is the
+  **batch-soak channel**: ~15–25 items bought with minutes, tiered teach-first /
+  cold-engine / ear-only. Commissioned by Anna via soak order (`form:
+  "narrated_drama"`, `scale: "long"`); **not** in the rotation gate until several
+  episodes prove it. Deck/meter accounting is normal — `seen_in` already handles a
+  batch episode like any other; no special-casing.
+- **Narration obeys Tamil-script-only** (2026-07-18). The M68 demo's Latin phonetics
+  were a pipeline bypass, not a style: every ta-IN voice reads Latin as English
+  orthography. The `hosts.md` rule already covers this; the drama form adds no
+  exception — the dialect pass stays dialogue-only, narration takes the integrity
+  checks (`producer.md`).
+- **A re-render bumps the filename; SFX cues render as air** (2026-07-18). RSS guid =
+  audio URL, so an in-place audio replace serves cached bad audio (April's cache war) —
+  a fix re-renders to `_vN`, deletes the old mp3, and the feed resolves `_vN` back to
+  the base script for title/captions (mission parse reads the *script* name, so state
+  registration is untouched). And `[SFX]` lines, which the renderer silently dropped,
+  now become a 1.5 s beat (smoke #8) — a cue buys air, never silence-vanishes; a real
+  SFX library stays unbuilt.
 - **One declared play — setup-and-payoff across surfaces, no new machinery**
   (2026-07-18). Anna may hold ONE play — a planted setup one surface pays off on
   another — declared as a sentence in the debrief, closed or abandoned on evidence;

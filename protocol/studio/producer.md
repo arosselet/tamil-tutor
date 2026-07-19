@@ -30,6 +30,10 @@ The shorthand test after your pass: *Would a Coimbatore auto driver say this to 
 - Every Tamil word in Tamil script (no English phonetics like "Vanakkam" — use வணக்கம்).
 - No gibberish, encoding artifacts, or mid-word corruption.
 - No stray markdown (`*`, `#`, backticks) inside spoken lines.
+- **Mixed-language narration (`narrated_drama`):** the dialect pass covers Tamil
+  *dialogue* only; narration lines take the integrity checks — embedded Tamil in Tamil
+  script (a ta-IN voice reads Latin phonetics as English orthography), no stray
+  markdown, pacing.
 - Gender tag on every speaker line: `(F)` or `(M)` — required by the TTS renderer.
 - `[Pause: N sec]` around any replayed snippets.
 
@@ -69,7 +73,7 @@ After the dialect and integrity passes, write a sidecar metadata file alongside 
 }
 ```
 
-**`register`, `dramatic_ingredient`, and `episode_form` are load-bearing — `scripts/suggest_targets.py` reads them to compute the next episode's Scene Spec (the divergence gate).** Write what was *actually delivered*, the same as `shape`. Use the canonical values: register from the Director's palette, ingredient from `subtext | turn | character | stakes | genre`, form from `classic | vignette | story | phone_call | lore`. Omitting them doesn't crash the gate, but it blinds it on that axis.
+**`register`, `dramatic_ingredient`, and `episode_form` are load-bearing — `scripts/suggest_targets.py` reads them to compute the next episode's Scene Spec (the divergence gate).** Write what was *actually delivered*, the same as `shape`. Use the canonical values: register from the Director's palette, ingredient from `subtext | turn | character | stakes | genre`, form from `classic | vignette | story | phone_call | lore | narrated_drama`. Omitting them doesn't crash the gate, but it blinds it on that axis.
 
 **Estimating density:** Eyeball it. Count Tamil-script chunks vs English chunks per line, average across the section. Round to nearest 0.05. This is a *descriptive* stat for the tags sidecar, not a target — the Architect builds from the vocabulary fence and the density is whatever results.
 
