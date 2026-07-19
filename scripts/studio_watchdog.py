@@ -63,7 +63,9 @@ def scripted_unrendered() -> int | None:
     n = next_mission() - 1
     if n < 1:
         return None
-    if episode_paths(n)["script"].exists() and not (AUDIO_DIR / f"tier2_mission{n}.mp3").exists():
+    rendered = (AUDIO_DIR / f"tier2_mission{n}.mp3").exists() or any(
+        AUDIO_DIR.glob(f"tier2_mission{n}_v*.mp3"))  # a _vN re-render counts
+    if episode_paths(n)["script"].exists() and not rendered:
         return n
     return None
 

@@ -1042,6 +1042,10 @@ def s19_watchdog_detection(sb: Path):
     sw.AUDIO_DIR.mkdir(parents=True, exist_ok=True)
     (sw.AUDIO_DIR / f"tier2_mission{n}.mp3").write_bytes(b"x")
     check("MP3 present → nothing unrendered", sw.scripted_unrendered() is None)
+    (sw.AUDIO_DIR / f"tier2_mission{n}.mp3").unlink()
+    (sw.AUDIO_DIR / f"tier2_mission{n}_v2.mp3").write_bytes(b"x")
+    check("_vN re-render counts as rendered", sw.scripted_unrendered() is None)
+    (sw.AUDIO_DIR / f"tier2_mission{n}.mp3").write_bytes(b"x")
 
     learner = read_json(sb / "progress" / "learner.json")
     learner["soak_order"] = {"payload": ["வேணும்"], "scene_seed": "s", "from": "2026-07-18"}

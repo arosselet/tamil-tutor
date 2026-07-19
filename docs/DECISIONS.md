@@ -545,7 +545,9 @@ Details live in git history; this is the index of the *conclusions*.
   audio URL, so an in-place audio replace serves cached bad audio (April's cache war) —
   a fix re-renders to `_vN`, deletes the old mp3, and the feed resolves `_vN` back to
   the base script for title/captions (mission parse reads the *script* name, so state
-  registration is untouched). And `[SFX]` lines, which the renderer silently dropped,
+  registration is untouched; the watchdog counts a `_vN` file as rendered — its
+  exact-name check resurrected the old-guid mp3 within the hour of the first bump). And
+  `[SFX]` lines, which the renderer silently dropped,
   now become a 1.5 s beat (smoke #8) — a cue buys air, never silence-vanishes; a real
   SFX library stays unbuilt.
 - **One declared play — setup-and-payoff across surfaces, no new machinery**
