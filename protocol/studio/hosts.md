@@ -35,6 +35,17 @@ Two named analysts who appear in every Breakdown segment — and who **lead the 
 
 ---
 
+## The Drama Cast (`narrated_drama` only)
+
+One **Narrator** plus up to 2–3 in-scene character voices, every line gender-tagged like
+all cast. The Narrator speaks English scaffolding in second person, present tense — and
+his "you" addresses the **protagonist inside the story**, never the listener: "you
+squint at the screen" is in-world narration; "you learned this last week" is a
+fourth-wall break and a send-back. The Tamil-script-only rule binds the Narrator's
+embedded Tamil with no exception.
+
+---
+
 ## Rules That Apply to All Four Voices
 
 - **Fourth wall stays up.** No "you," no addressing the listener, no meta-narration about the learner's state or activity. The podcast exists in its own world. **Canonical here** — this is a production-only rule; the constitution deliberately excludes it (it doesn't govern Anna's chat).

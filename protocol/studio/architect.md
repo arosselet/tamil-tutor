@@ -58,6 +58,15 @@ The Lesson Plan also specifies an **Episode Form** — the *structure* you deliv
   payload words told deep — never a survey**; during a deck sprint the protagonist comes from the
   deck. True stories only; delight over completeness (constitution → Stories Are Curriculum).
 
+- **`narrated_drama`** — **commissioned only** (arrives via the soak order, never the
+  Scene Spec). A multi-scene story with real stakes, ~12–18 min. A single **Narrator**
+  carries the scaffolding in English — second person, present tense ("you squint at the
+  screen"), addressing the *protagonist* (cast rules in `hosts.md`) — while characters
+  live entirely in Tamil. Narrator craft: the Tamil beat lands first, the gloss follows
+  it — never before — and the line gets a second of air before the gloss closes the gap.
+  The Narrator's embedded Tamil is Tamil script, always. Buy payload with minutes, not
+  density — the fence rule holds inside every scene.
+
 The fourth wall and no-fixed-characters rules hold in every form (`protocol/studio/hosts.md`).
 
 ---

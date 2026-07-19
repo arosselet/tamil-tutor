@@ -43,23 +43,34 @@ Two flaws, both production artifacts, not format flaws:
 
 ### Needs the laptop (render/publish + Andrew's judgement)
 
-- [ ] **Re-render M68** from the cleaned script: `python scripts/render_audio.py
-      content/scripts/tier2_mission68.md`. Registration is idempotent (update path
-      exists; `seen_in` dedupes) — safe. **Gotcha:** RSS guid = audio URL and pubDate is
-      preserved, so an in-place replace keeps the guid — the podcast app may serve the
-      cached bad audio (April's cache war). Decide: force re-download in the app, or
-      bump the filename (new guid, but check the mission-number parse before renaming).
-- [ ] **Listen-check M68 v2** — the walk verdict wants "a couple of touch-ups for the
-      sound": confirm the code-switched narration flows, and decide whether dropped SFX
-      cues should become short pauses (cheap: treat `[SFX]` like a 1–2 s pause in
-      `render_audio.py`) or stay silent.
-- [ ] **Review + render polyglot v4** (same render config as v3), publish next to v3.
-- [ ] **Producer-pass sanity on M68's narration lines** (dialect pass is for Tamil
-      dialogue; narration needs only the integrity checks — script-only Tamil, no stray
-      markdown, pacing).
-- [ ] **Write the DECISIONS entries** (drafts below) and move the feature from this doc
-      into canon; update `suggest_targets.py`/protocol per "Formalizing" below.
-- [ ] **LinkedIn post** — see below; Andrew edits voice, then posts.
+Laptop pass executed 2026-07-18 (evening). All four open questions settled by Andrew:
+filename bump / SFX-as-pause (1.5 s) / `narrated_drama` + `scale: long` / normal accounting.
+
+- [x] **Re-render M68** — rendered to `tier2_mission68_v2.mp3` (filename bump = new
+      guid; old mp3 deleted; mission parse reads the *script* name, so registration
+      untouched). `rebuild_rss.py` now resolves a `_vN` suffix back to the base script
+      for title + captions, and its dead Ep-title regex was fixed in passing (scripts'
+      real H1 convention "Tier 2, Mission N — X" never matched — every mission sat on
+      the filename fallback). M68 got its missing H1: "The Midnight Suitcase".
+- [ ] **Listen-check M68 v2** — ANDREW. SFX cues now render as a 1.5 s beat (smoke
+      #8/s22). Narrator pinned to Charon (english_demo's proven code-switch voice) via
+      Voice Map in the script.
+- [x] **Polyglot v4 rendered** — one-off renderer (v3's was never committed and its
+      exact cast is unrecoverable from transcripts; cast reuses the welcome-demo family:
+      en-US-Leda host, fr-CA-Leda/Puck French, ta-IN Orus/Fenrir). EAR CHECK pending —
+      v3 voice continuity not guaranteed.
+- [x] **Producer-pass sanity on M68 narration** — one leftover Latin phonetic found and
+      fixed (`*-ndhaa*` → -த்தா, line 278); sweep otherwise clean.
+- [x] **DECISIONS entries written** (three: form, script-only narration, re-render/SFX
+      policy) and protocol touched — director/architect/producer/hosts, one small block
+      each. `suggest_targets.py` deliberately untouched (commissioned, not rotated);
+      verified an unknown `episode_form` in a sidecar can't trip the divergence gate.
+- [ ] **LinkedIn post** — ANDREW edits voice, then posts (draft below).
+- [ ] **Merge this branch + delete this file** — after the two listen-checks pass.
+
+Note: the pending soak order in `learner.json` (maama's-house week-arc, "Long-form,
+multi-scene") is this form's first commission — it predates the field convention; Anna
+can carry `form`/`scale` explicitly from the next commission on.
 
 ## Formalizing the format (proposal — the "move forward" part)
 
