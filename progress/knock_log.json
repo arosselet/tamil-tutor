@@ -1657,5 +1657,20 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-07-19T13-08.mp3",
     "memo_script": "ஹலோ? ஆமா ஆமா, நான் தான்…\n\nஏன் தெரியுமா? அந்த வீட்டுல பொண்ணுக்கு கல்யாணம் ஆகுதாம். இந்த மாசமே. யாரோ சொன்னாங்க — ஆம்பளை அமெரிக்காவுல இருக்காராம். நல்ல படிச்சவராம், ரொம்ப நல்லவராம்னு சொல்றாங்க.\n\nஆனா கேக்கோ — அம்மா ஒத்துக்கலையாம் முதல்ல. அப்புறம் பொண்ணே கேட்டுக்கிட்டாளாம். இப்போ எல்லாரும் சரின்னு சொல்றாங்களாம்.\n\nஆமா, இந்த வாரமே function வச்சிருக்காங்களாம்! நம்ம ஊர்ல இப்படித்தான் — ஒரே week-ல எல்லாம் decide ஆயிடும்.\n\nசரி, நான் போறேன் — அவங்க வீட்டுல ஒரு பாத்திரம் வாங்கணும். ok bye!",
     "mp3": "published_audio/knocks/knock_2026-07-19T13-08.mp3"
+  },
+  {
+    "date": "2026-07-19",
+    "timestamp": "2026-07-19T19:00:29.615281+00:00",
+    "acted": true,
+    "modality": "audio",
+    "move": "lore memo: adverb-aa machine",
+    "rationale": "Demand-streak at 3 forces a no-ask dose; adverb-aa is UNSEEN and needs a show dose before any quiz — lore memo kills both birds; lore cooldown is 8d on a different vein (-ittu frame), so clear; audio fits the moment and Andrew has asked for more voice doses.",
+    "next_check": "2026-07-19T23:00:29.615281+00:00",
+    "body": "🎙️ da — one suffix turns anything into an adverb. நல்லா, மெதுவா, தண்ணியா — same machine. 90 sec.",
+    "expected_target": "",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-07-19T19-00.mp3",
+    "memo_script": "da.\n\nOne suffix. That's it. -ஆ at the end of any word, and it becomes an adverb.\n\nநல்லா — nalla means good. நல்லா means *well*. நல்லா சாப்பிடு — eat well. நல்லா தெரியும் — I know it well.\n\nமெதுவா — methu means slow. மெதுவா சொல்லுங்க — say it slowly. You already use that one. You've been using the machine this whole time without knowing it.\n\nதண்ணியா — thin, watery. தண்ணியா பண்ணாதே — don't make it watery. Same shape.\n\nAnd here's the one that'll stop you cold at the table — இன்ஜினியரா இருக்கேன். Not 'I am an engineer.' *இன்ஜினியரா* — as an engineer, in the role of engineer. -ஆ doesn't just make adverbs. It makes the thing you *are*. Engineer-aa irukken. That's how the maama introduces you. That's the shape.\n\nOne socket. Anything goes in. நல்லா, மெதுவா, தண்ணியா, இன்ஜினியரா. The machine is already running in your mouth — now you know its name.",
+    "mp3": "published_audio/knocks/knock_2026-07-19T19-00.mp3"
   }
 ]
