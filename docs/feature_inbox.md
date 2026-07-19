@@ -13,10 +13,6 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
   through the trip — capture rides the existing channels (session close, knock-reply
   meta_notes); no new plumbing needed.
 
-- **`suggest_targets.py` has zero smoke coverage** (2026-07-17) — the string-mission
-  crash proved it load-bearing and untested; one sandbox case (ticket runs end-to-end)
-  would have caught it at commit time.
-
 Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
 
 - **Daily spoken reps** — the trip test is mouth-under-pressure, nearly all current production is typed. **Experiment started by hand 2026-07-08:** first drill cut and on the feed ('Cold Fire: Eight Due'); machinery (drill-as-knock, below) waits until a few drills prove the format.
@@ -43,6 +39,9 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
 
 ## Shipped
 
+- ~~`suggest_targets.py` has zero smoke coverage~~ — SHIPPED 2026-07-19 (wrap-up
+  session): smoke case s23 plants the proven crash class (a `special_*` string-mission
+  sidecar) and runs the full ticket end-to-end on day-zero state.
 - ~~Registration canonical-at-write~~ — SHIPPED 2026-07-17 same evening (Andrew's
   token-discretion grant): `claim_payload()` in `run_studio.py`; corrected diagnosis
   and full record in DECISIONS ("The sidecar must claim the soak payload"). Dupes

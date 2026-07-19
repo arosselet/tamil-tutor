@@ -18,6 +18,8 @@ A fixed bug becomes a case here the day it's fixed:
   #6  eavesdrop dose: catch replies move recognition only, never production (2026-07-09)
   #7  stale clone read yesterday's story; comma-joined soak payload never matched (2026-07-15)
   #8  [SFX] lines silently dropped by the renderer — now a beat of air (2026-07-18)
+  #9  special_* string-mission sidecar crashed the ticket sort; the ticket now
+      smoke-runs end-to-end on day-zero state (2026-07-19, inbox item)
 """
 import argparse
 import importlib
@@ -1079,6 +1081,38 @@ def s22_sfx_pause(sb: Path):
           dialogue[-1] == {"speaker": "PAUSE", "seconds": 3.5}, f"got {dialogue[-1]}")
 
 
+def s23_ticket_end_to_end(sb: Path):
+    print("\n23. suggest_targets: the ticket runs end-to-end (inbox 2026-07-17)")
+    import contextlib
+    import io
+    st = importlib.import_module("suggest_targets")
+    # The proven crash class: a special_* reference sidecar carries a STRING
+    # mission; sorting it against integers took the ticket down (2026-07-17).
+    (sb / "content" / "scripts" / "special_smoke.tags.json").write_text(
+        json.dumps({"mission": "smoke reference tape", "register": "neutral"}),
+        encoding="utf-8")
+    cars = st.load_recent_sidecars()
+    check("string-mission sidecar never enters the rotation",
+          all(isinstance(c.get("mission"), int) for c in cars))
+    check("sidecar history survives the special_ fixture", len(cars) > 0)
+
+    argv, out = sys.argv, io.StringIO()
+    try:
+        sys.argv = ["suggest_targets.py"]
+        with contextlib.redirect_stdout(out):
+            st.main()
+        ran = True
+    except Exception as e:  # noqa: BLE001 — the check IS "it doesn't raise"
+        ran, out = False, io.StringIO(f"raised {e!r}")
+    finally:
+        sys.argv = argv
+    text = out.getvalue()
+    check("ticket runs end-to-end on day-zero state", ran, text[:200])
+    check("ticket prints the menu header", "SESSION TICKET" in text)
+    check("day-zero ticket still serves new candidates",
+          "not found" not in text, text[:200])
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -1106,6 +1140,7 @@ def main():
         s20_fielding(mk, kr, sb)
         s21_volley_represent(kr, sb)
         s22_sfx_pause(sb)
+        s23_ticket_end_to_end(sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)
