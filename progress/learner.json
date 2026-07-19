@@ -3,10 +3,24 @@
   "last_debrief": "STORY SO FAR: CAMPAIGN LIVE — Ask-Machine Week (block in profile.md): polite-nga is the engine (UNSEEN, teach Sat), kudunga-cold-by-Friday is the headline. Today (07-17 morning): paid off the done-ittu trailer — Andrew built mudichittu varén from the root up (hinted, after recast), fired plain saaptén cold in-scene, and read vandhaanga as 'they' instantly. The person-tail pattern is NAMED now: -én=I, -aanga=they, -chu=it; his recurring miss is stopping at the -ttu participle (sapittu, poittu) because English front-loads the subject — 'the -ttu is a comma, the -én is the throw' landed as the fix; watch every sentence for the landing tail. CORRECTION: mudinjuchu's 07-15 cold was premature — Andrew flagged it himself; demoted to stuck, resurface inside the aachu family. Lore that stuck: mudi root = finish; mudiyaadhu = 'it won't come to completion'. kudunga NOT drilled today — tomorrow's Teach Day folds it in as the -nga family flagship. FIELD MISSION: Wednesday's 'podhum vayiru full mudinjuchu' did NOT fire (no guilt); re-armed tonight SIMPLIFIED to today's own win: 'podhum, saaptutén' waving off seconds — collect next open. Tomorrow: Teach Day, polite-nga + mayi-laama, generous; light firing aims at done-ittu.",
   "soak_order": {
     "payload": [
-      "frame:mayi-laama"
+      "frame:polite-nga",
+      "frame:giveme-noun",
+      "frame:mayi-laama",
+      "frame:needtogo-place",
+      "frame:nearby-noun",
+      "frame:day-recap",
+      "அவசரம் இருக்கு",
+      "புரியல",
+      "அப்படியா?!",
+      "frame:we-om",
+      "frame:youknow-la",
+      "frame:hearsay-aam",
+      "frame:quote-nu",
+      "இன்னும் கொஞ்சம் சாப்பிடுங்க",
+      "என்னமோ பிரச்சனை"
     ],
-    "scene_seed": "permission at the maama's house — ukkaralaama? kekalaama? every door asked before it opens; seeds mayi-laama for the Ask-Machine week (produced: M67)",
-    "from": "2026-07-17"
+    "scene_seed": "WEEK-ARC one-off (Andrew, 2026-07-18): one full visit to the maama's house, gate to gate — arrive in a hurry, ask your way through every door and every favour, survive the food offensive while the gossip hums past, day-recap on the ride home. Long-form, multi-scene.",
+    "from": "2026-07-18"
   },
   "next_engine": "frame:polite-nga",
   "recent_missions": [
@@ -27,5 +41,5 @@
       "title": "Mission tier2_mission64"
     }
   ],
-  "status": "Trip Deck 6/69 fire cold · 26 days to touchdown · need 2.4 cold/day, trailing 7-day pace 1.0/day"
+  "status": "Trip Deck 7/33 survival cold · 25 days to touchdown · need 1.0 cold/day, trailing 7-day pace 1.1/day · full deck 7/69"
 }
