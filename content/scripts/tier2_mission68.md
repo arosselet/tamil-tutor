@@ -25,11 +25,11 @@
 
 **HOST (M):** He skips the pleasantries entirely.
 **HOST (M):** He's whispering, but it's an intense, terrifying whisper.
-**HOST (M):** He uses *'seekkiram'* right out of the gate. Quickly.
+**HOST (M):** He uses சீக்கிரம் right out of the gate. Quickly.
 **HOST (M):** And he's immediately annoyed that you didn't call him first.
-**HOST (M):** *'Enakku phone pannu-nu sonnaen-la?'*
+**HOST (M):** எனக்கு போன் பண்ணு-னு சொன்னேன்-ல?
 **HOST (M):** I told you to call me, didn't I?
-**HOST (M):** Listen to how he slips that *'-nu'* in there to quote his own previous instruction.
+**HOST (M):** Listen to how he slips that -னு in there to quote his own previous instruction.
 
 **PROTAGONIST (M):** (Confused, trying to force his brain to wake up)
 **PROTAGONIST (M):** Call you? I was asleep.
@@ -38,16 +38,16 @@
 **PROTAGONIST (M):** என்ன பிரச்சனை?
 
 **HOST (M):** You are stating a plain, objective fact about your current state.
-**HOST (M):** *'Bayam irukku.'* There is fear.
+**HOST (M):** பயம் இருக்கு. There is fear.
 **HOST (M):** Because uncles don't whisper into the phone at three a.m. for no reason.
-**HOST (M):** You ask the only question that matters. *'Enna prachanai?'* What's the problem?
+**HOST (M):** You ask the only question that matters. என்ன பிரச்சனை? What's the problem?
 
 **MAAMA (M):** We do not have time to discuss the details over the phone.
 **MAAMA (M):** அவசரம் இருக்கு.
 
-**HOST (M):** He says *'Avasaram irukku'*... he is in a serious hurry.
-**HOST (M):** *'Avasaram'* is urgency. A high-stakes emergency.
-**HOST (M):** It exists right now. *'Irukku.'*
+**HOST (M):** He says அவசரம் இருக்கு... he is in a serious hurry.
+**HOST (M):** அவசரம் is urgency. A high-stakes emergency.
+**HOST (M):** It exists right now. இருக்கு.
 
 **PROTAGONIST (M):** (Rubbing his eyes, pleading)
 **PROTAGONIST (M):** மாமா...
@@ -56,10 +56,10 @@
 
 **HOST (M):** You are desperately trying to negotiate your way out of this.
 **HOST (M):** You want to know if you can just handle this tomorrow instead.
-**HOST (M):** *'Naalaikku varalaama?'* May I come tomorrow?
-**HOST (M):** You use that polite *'-laama'* ending to ask for permission.
+**HOST (M):** நாளைக்கு வரலாமா? May I come tomorrow?
+**HOST (M):** You use that polite -லாமா ending to ask for permission.
 **HOST (M):** And you give him a very human, biological reason.
-**HOST (M):** *'Thoonga mudiyala.'*
+**HOST (M):** தூங்க முடியல.
 **HOST (M):** I can't sleep. The ability to sleep has been completely disrupted.
 
 **MAAMA (M):** (Harshly, cutting you off)
@@ -68,26 +68,26 @@
 **MAAMA (M):** பெட்டி எடுங்க.
 
 **HOST (M):** He completely rejects your negotiation.
-**HOST (M):** *'Mudiyathu.'* Cannot. It is not possible.
-**HOST (M):** He brings down the hammer with that *'-num'* sound of pure obligation.
-**HOST (M):** *'Innaikku varanum.'* You must come today.
+**HOST (M):** முடியாது. Cannot. It is not possible.
+**HOST (M):** He brings down the hammer with that -ணும் sound of pure obligation.
+**HOST (M):** இன்னைக்கு வரணும். You must come today.
 **HOST (M):** And then he gives you an instruction that makes absolutely no sense.
-**HOST (M):** *'Petti edunga.'*
-**HOST (M):** Take the suitcase. He uses the polite *'-nga'* ending, but make no mistake, it's a direct order.
+**HOST (M):** பெட்டி எடுங்க.
+**HOST (M):** Take the suitcase. He uses the polite -ங்க ending, but make no mistake, it's a direct order.
 
 **PROTAGONIST (M):** A suitcase? Why do I need a suitcase?
 **PROTAGONIST (M):** Are we leaving town?
 **PROTAGONIST (M):** எங்க போகணும்?
 
 **HOST (M):** You throw the obligation right back at him.
-**HOST (M):** Where must we go? *'Enga poganum?'*
+**HOST (M):** Where must we go? எங்க போகணும்?
 
 **MAAMA (M):** We are leaving right now.
 **MAAMA (M):** மதுரைக்கு போகணும்.
 
-**HOST (M):** He's pulling the trigger: *'Madurai-kku poganum'*.
+**HOST (M):** He's pulling the trigger: மதுரைக்கு போகணும்.
 **HOST (M):** He needs to go to Madurai right now.
-**HOST (M):** That *'-kku'* sound pins the destination on the map.
+**HOST (M):** That -க்கு sound pins the destination on the map.
 **HOST (M):** To Madurai.
 
 **PROTAGONIST (M):** (Sits bolt upright in bed, heart rate spiking)
@@ -96,25 +96,25 @@
 **PROTAGONIST (M):** அப்புறமா பேசலாமா?
 **PROTAGONIST (M):** நான் கிளம்பணும்.
 
-**HOST (M):** You accept the terrifying mission. *'Sari.'*
+**HOST (M):** You accept the terrifying mission. சரி.
 **HOST (M):** But you need to get off the phone so you can actually pack this suitcase.
-**HOST (M):** *'Appurama pesalaama?'* Shall we talk later?
-**HOST (M):** *'Naan kilambanum.'* I must leave. More obligation.
+**HOST (M):** அப்புறமா பேசலாமா? Shall we talk later?
+**HOST (M):** நான் கிளம்பணும். I must leave. More obligation.
 
 **MAAMA (M):** No. Listen to me very carefully.
 **MAAMA (M):** டைம் சொல்லு.
 
 **HOST (M):** He ignores your request to hang up.
-**HOST (M):** *'Time sollu.'* Tell me the time. He wants an exact ETA for when you will be ready.
+**HOST (M):** டைம் சொல்லு. Tell me the time. He wants an exact ETA for when you will be ready.
 
 **PROTAGONIST (M):** (Looking wildly at the clock)
 **PROTAGONIST (M):** Give me ten minutes to pack.
 **PROTAGONIST (M):** பத்து நிமிஷம்.
 **PROTAGONIST (M):** நான் அப்புறமா கூப்பிடுறேன்.
 
-**HOST (M):** You promise him ten minutes. *'Pathu nimisham.'*
+**HOST (M):** You promise him ten minutes. பத்து நிமிஷம்.
 **HOST (M):** And you assure him you'll call him back later.
-**HOST (M):** *'Naan appurama kooppiduraen.'* I will call later.
+**HOST (M):** நான் அப்புறமா கூப்பிடுறேன். I will call later.
 
 **MAAMA (M):** I am waiting outside in the dark.
 **MAAMA (M):** எப்ப ஃப்ரீ-யா இருப்ப?
@@ -123,8 +123,8 @@
 [SFX: A sharp, metallic click. The line goes completely dead.]
 
 **HOST (M):** Wait, he's outside right now?
-**HOST (M):** He just asked when you will be free, *'Eppa free-yaa iruppa?'*
-**HOST (M):** And ordered you to call him back quickly. *'Seekkiram kooppidu.'*
+**HOST (M):** He just asked when you will be free, எப்ப ஃப்ரீ-யா இருப்ப?
+**HOST (M):** And ordered you to call him back quickly. சீக்கிரம் கூப்பிடு.
 **HOST (M):** Then he hung up on you.
 
 **PROTAGONIST (M):** (Staring at the dead screen of the phone, terrified)
@@ -134,10 +134,10 @@
 **PROTAGONIST (M):** இப்போ போறேன்.
 
 **HOST (M):** You are processing the grim reality of the situation.
-**HOST (M):** You had a future plan. *'Appurama povaen...'* I will go later.
-**HOST (M):** *'Aaana'*... but.
+**HOST (M):** You had a future plan. அப்புறமா போவேன்... I will go later.
+**HOST (M):** ஆனா... but.
 **HOST (M):** The future is canceled. The dread is happening right now in the present.
-**HOST (M):** *'Ippo poraen.'* Now, I am going.
+**HOST (M):** இப்போ போறேன். Now, I am going.
 
 [SFX: The heavy, slow, metallic zip of a large canvas suitcase being dragged open in the dark.]
 
@@ -153,12 +153,12 @@
 **PROTAGONIST (M):** மெதுவா போங்க.
 [Pause: 2s]
 **HOST (M):** You are begging him.
-**HOST (M):** *'Medhuva ponga.'*
+**HOST (M):** மெதுவா போங்க.
 **HOST (M):** Go slow-ly.
-**HOST (M):** You know the word *medhu* for slow.
+**HOST (M):** You know the word மெது for slow.
 **HOST (M):** But right now, you need it to be an action. A description of how he is driving.
-**HOST (M):** You turn it into an adverb by slapping that *-aa* sound onto the end of it.
-**HOST (M):** *'Medhuva.'* Slowly.
+**HOST (M):** You turn it into an adverb by slapping that ஆ sound onto the end of it.
+**HOST (M):** மெதுவா. Slowly.
 **PROTAGONIST (M):** மாமா. மெதுவா போங்க.
 **MAAMA (M):** நேரம் ஆச்சு.
 **MAAMA (M):** நேரா போறேன்.
@@ -170,16 +170,16 @@
 **PROTAGONIST (M):** என்ன இருக்கு?
 [Pause: 2s]
 **HOST (M):** You're checking your surroundings.
-**HOST (M):** *'Pakkathula enna irukku?'*
+**HOST (M):** பக்கத்துல என்ன இருக்கு?
 **HOST (M):** What is nearby?
-**HOST (M):** *Pakkathula*... in the vicinity. Around us.
+**HOST (M):** பக்கத்துல... in the vicinity. Around us.
 **PROTAGONIST (M):** பக்கத்துல என்ன இருக்கு மாமா?
 **MAAMA (M):** (Silence. Just the tense, rigid posture of a man on a desperate mission.)
 **HOST (M):** Your throat is completely dry. Your heart is hammering in your chest.
 **PROTAGONIST (M):** கொஞ்சம் தண்ணி குடுங்க.
 **HOST (M):** Give me a little water.
-**HOST (M):** Notice how you naturally used the polite *-nga* sound at the end of the action.
-**HOST (M):** *'Kudunga.'* Give.
+**HOST (M):** Notice how you naturally used the polite -ங்க sound at the end of the action.
+**HOST (M):** குடுங்க. Give.
 **HOST (M):** Even in absolute terror, you instinctively respect the elders.
 **MAAMA (M):** (Muttering, speaking entirely to himself, completely ignoring you)
 **MAAMA (M):** நம்ம அண்ணா இருக்கான்ல...
@@ -187,16 +187,16 @@
 **HOST (M):** He's just talking to the dashboard now. The speed of his voice is jarring.
 **PROTAGONIST (M):** என்ன மாமா?
 **PROTAGONIST (M):** எனக்கு புரியல.
-**HOST (M):** *'Enakku puriyala.'*
+**HOST (M):** எனக்கு புரியல.
 **HOST (M):** I do not understand.
 **HOST (M):** A cold, hard fact. You have no idea what is happening or where you are going.
 **MAAMA (M):** (Sighs heavily, grips the wheel tighter)
 **MAAMA (M):** ஒன்னும் இல்ல.
 **MAAMA (M):** நேத்து கல்யாணத்துக்கு போனோம்.
 **HOST (M):** Nothing, he says.
-**HOST (M):** Yesterday, we went to the wedding. *'Ponom.'* We went.
+**HOST (M):** Yesterday, we went to the wedding. போனோம். We went.
 **PROTAGONIST (M):** அப்படியா?!
-**HOST (M):** *'Appadiya?!'*
+**HOST (M):** அப்படியா?!
 **HOST (M):** Oh really?!
 **HOST (M):** It slips out of you with pure, unfiltered disbelief. You were literally just at the wedding together.
 **PROTAGONIST (M):** ஆனா...
@@ -205,7 +205,7 @@
 **PROTAGONIST (M):** மாமா கிட்ட பெட்டி இருக்கு...
 **HOST (M):** The heavy canvas suitcase.
 **HOST (M):** It is sitting right behind his seat, practically radiating dread.
-**HOST (M):** *'Maama kitta petti irukku.'*
+**HOST (M):** மாமா கிட்ட பெட்டி இருக்கு.
 **HOST (M):** Uncle has the box.
 **HOST (M):** He ignores your question completely. His mind is somewhere else entirely.
 **MAAMA (M):** மதுரைக்கு போனோம்...
@@ -213,22 +213,22 @@
 [Pause: 3s]
 **HOST (M):** He slips into the standard day-recap out of absolutely nowhere.
 **HOST (M):** It is completely unsettling.
-**HOST (M):** *'Madurai-kku ponom... romba nalla irundhuchu.'*
+**HOST (M):** மதுரைக்கு போனோம்... ரொம்ப நல்லா இருந்துச்சு.
 **HOST (M):** We went to Madurai, it was really good.
 **HOST (M):** Why is he talking about how nice the trip was while driving like a maniac into the darkness?
 **PROTAGONIST (M):** மாமா... என்ன பிரச்சனை? சொல்லுங்க...
 **MAAMA (M):** அங்க போனா...
 **MAAMA (M):** தெரியும்.
-**HOST (M):** *'Anga ponaa... theriyum.'*
+**HOST (M):** அங்க போனா... தெரியும்.
 **HOST (M):** If we go there... you will know.
-**HOST (M):** Notice that *'-ndhaa'* or *'-naa'* ending clipped onto the action. The 'if'.
+**HOST (M):** Notice that -ந்தா or -னா ending clipped onto the action. The 'if'.
 **HOST (M):** If we go.
 **HOST (M):** He goes back to muttering to the windshield. Fast, breathless, disconnected.
 **MAAMA (M):** சட்டை அங்க இருக்காம்...
 **MAAMA (M):** அவரே பாத்துக்கறாராம்...
 **MAAMA (M):** அலைச்சல்.
 **HOST (M):** You catch fragments of the gossip frame.
-**HOST (M):** Something about a shirt being there. Someone looking after it himself. The heavy, exhausting word for running-around... *alaichal*.
+**HOST (M):** Something about a shirt being there. Someone looking after it himself. The heavy, exhausting word for running-around... அலைச்சல்.
 **HOST (M):** None of it makes any sense.
 **HOST (M):** And then, without warning, he slams on the brakes.
 [SFX: The violent crunch of tires tearing off the pavement and skidding onto a dirt driveway. The headlights cut through the darkness, washing over the towering, jagged facade of a massive, silent old house in the middle of nowhere. The engine dies abruptly.]
@@ -244,28 +244,28 @@
 **HOST (M):** You squint toward the heavy wooden door.
 **PROTAGONIST (M):** பார்க்க முடியல.
 **HOST (M):** I can't see.
-**HOST (M):** That *mudiyala*. The inability to do something.
+**HOST (M):** That முடியல. The inability to do something.
 **HOST (M):** Maama is already marching up the stone steps, gripping the suitcase like a shield.
 **HOST (M):** You hesitate at the threshold.
 **PROTAGONIST (M):** உள்ள வரலாமா?
 **HOST (M):** You ask permission.
-**HOST (M):** *Ulla varalaama?*
+**HOST (M):** உள்ள வரலாமா?
 **HOST (M):** May I come inside?
-**HOST (M):** That *-laama* ending gently floating the question.
+**HOST (M):** That -லாமா ending gently floating the question.
 **HOST (M):** The heavy wooden door creaks open before Maama even knocks.
 **HOST (M):** Standing in the dim glow of a single yellow bulb is an older woman. Atthai.
 **ATTHAI (F):** உள்ள வாங்க!
 **HOST (M):** Come inside.
-**HOST (M):** Notice the respect marker. The *nga*.
+**HOST (M):** Notice the respect marker. The -ங்க.
 **ATTHAI (F):** உக்காருங்க!
-**HOST (M):** Sit. *Ukkaarunga*.
+**HOST (M):** Sit. உக்காருங்க.
 **HOST (M):** You step inside.
 **HOST (M):** The tension is unbearable.
 **HOST (M):** Maama places the heavy suitcase on the ancient wooden table.
 **MAAMA (M):** பெட்டி கொண்டு வந்தோம்.
 **HOST (M):** We brought the box.
-**HOST (M):** The *om* sound. We did this. We brought it.
-**HOST (M):** *Vandhom*.
+**HOST (M):** The -ஓம் sound. We did this. We brought it.
+**HOST (M):** வந்தோம்.
 **HOST (M):** Atthai slowly places her hand on the brass latches.
 **ATTHAI (F):** பார்த்தா...
 **HOST (M):** If seen...
@@ -280,13 +280,13 @@
 **HOST (M):** This... is a wedding shirt.
 **PROTAGONIST (M):** ரொம்ப அழகான சட்டை!
 **HOST (M):** You pull that familiar word out of the absurdity.
-**HOST (M):** *Azhagaana*. Beautiful.
+**HOST (M):** அழகான. Beautiful.
 **ATTHAI (F):** ஆமா!
 **HOST (M):** Yes!
 **ATTHAI (F):** அதான் பிரச்சனை-னு சொன்னாங்க.
 **HOST (M):** The gossip frames blur past you at full speed.
-**HOST (M):** *Adhaan*. That's the thing.
-**HOST (M):** *Prachana-nu sonnaanga*. They said it was a problem.
+**HOST (M):** அதான். That's the thing.
+**HOST (M):** பிரச்சனை-னு சொன்னாங்க. They said it was a problem.
 **ATTHAI (F):** அவன் சட்டை தப்பு.
 **HOST (M):** His shirt is wrong.
 **ATTHAI (F):** இதை போடு!
@@ -294,10 +294,10 @@
 **HOST (M):** Maama is pointing frantically at your chest.
 **MAAMA (M):** சீக்கிரம் போடு!
 **HOST (M):** Put it on quickly!
-**HOST (M):** *Seekkiram*.
+**HOST (M):** சீக்கிரம்.
 **MAAMA (M):** வலது தப்பு!
 **HOST (M):** He's pointing at the right side of the shirt you're currently wearing.
-**HOST (M):** *Valadhu*. The right side is wrong.
+**HOST (M):** வலது. The right side is wrong.
 **HOST (M):** The midnight run.
 **HOST (M):** The frantic phone call.
 **HOST (M):** The terrifying old house.
@@ -317,9 +317,9 @@
 **PROTAGONIST (M):** எனக்கு உன்னோட அலைச்சல் பிடிக்காது!
 **HOST (M):** I don't like your running-around!
 **HOST (M):** You finally use his word against him.
-**HOST (M):** The *alaichal*. The frantic nonsense.
+**HOST (M):** The அலைச்சல். The frantic nonsense.
 **HOST (M):** And you hit it with that firm refusal.
-**HOST (M):** *Pudikkaadhu*. I don't like it.
+**HOST (M):** பிடிக்காது. I don't like it.
 **HOST (M):** Maama just shrugs, completely unbothered.
 **MAAMA (M):** சரி சரி.
 **HOST (M):** Right, right.
@@ -331,11 +331,11 @@
 **HOST (M):** You hold up a finger. You are not letting this go.
 **PROTAGONIST (M):** நான் கேப்பேன்.
 **HOST (M):** I will ask.
-**HOST (M):** You shift the present tense *kekkren* to the future.
-**HOST (M):** I *will* ask. *Keppen*.
+**HOST (M):** You shift the present tense கேக்குறேன் to the future.
+**HOST (M):** I *will* ask. கேப்பேன்.
 **PROTAGONIST (M):** நீங்க சொல்லணும்!
 **HOST (M):** You must tell!
-**HOST (M):** *Sollanum*. That hard obligation.
+**HOST (M):** சொல்லணும். That hard obligation.
 **HOST (M):** You will demand an explanation, and he will have to give it.
 **HOST (M):** But for now, you just have to put on the pink shirt.
 [SFX: A heavy sigh, followed by the rustle of stiff silk being unfolded, cutting directly into the upbeat closing theme.]
