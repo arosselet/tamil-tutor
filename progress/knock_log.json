@@ -1642,5 +1642,20 @@
     "target_revealed": true,
     "response": "ack",
     "response_at": "2026-07-18T23:55:26Z"
+  },
+  {
+    "date": "2026-07-19",
+    "timestamp": "2026-07-19T13:08:15.175639+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "eavesdrop: hearsay-aam gossip tape",
+    "rationale": "Demand-streak forces a no-ask dose; eavesdrop cadence is due and 12 catch items are starved at 0/12 solid — a hearsay-aam gossip tape soaks the week's catch target naturally, Sunday morning is a light-touch moment, and the aunty-gate format has already proven itself.",
+    "next_check": "2026-07-19T18:08:15.175639+00:00",
+    "body": "📻 overheard at the neighbour's gate — what's the aunty saying is happening next door?",
+    "expected_target": "frame:hearsay-aam",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-07-19T13-08.mp3",
+    "memo_script": "ஹலோ? ஆமா ஆமா, நான் தான்…\n\nஏன் தெரியுமா? அந்த வீட்டுல பொண்ணுக்கு கல்யாணம் ஆகுதாம். இந்த மாசமே. யாரோ சொன்னாங்க — ஆம்பளை அமெரிக்காவுல இருக்காராம். நல்ல படிச்சவராம், ரொம்ப நல்லவராம்னு சொல்றாங்க.\n\nஆனா கேக்கோ — அம்மா ஒத்துக்கலையாம் முதல்ல. அப்புறம் பொண்ணே கேட்டுக்கிட்டாளாம். இப்போ எல்லாரும் சரின்னு சொல்றாங்களாம்.\n\nஆமா, இந்த வாரமே function வச்சிருக்காங்களாம்! நம்ம ஊர்ல இப்படித்தான் — ஒரே week-ல எல்லாம் decide ஆயிடும்.\n\nசரி, நான் போறேன் — அவங்க வீட்டுல ஒரு பாத்திரம் வாங்கணும். ok bye!",
+    "mp3": "published_audio/knocks/knock_2026-07-19T13-08.mp3"
   }
 ]
