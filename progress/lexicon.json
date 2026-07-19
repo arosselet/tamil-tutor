@@ -138,7 +138,7 @@
       "seekkiram"
     ],
     "recognition": "solid",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       12,
       15,
@@ -162,7 +162,7 @@
       64,
       66
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-07-19"
   },
   "அழகான": {
     "gloss": "Beautiful",
@@ -672,9 +672,9 @@
     "gloss": "I'll go and come back (goodbye)",
     "phonetic": [],
     "recognition": "solid",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [],
-    "last_surfaced": null
+    "last_surfaced": "2026-07-19"
   },
   "வணக்கம்": {
     "gloss": "Hello",
@@ -3159,12 +3159,12 @@
       "laama"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [
       67,
       68
     ],
-    "last_surfaced": null,
+    "last_surfaced": "2026-07-19",
     "deck": "trip",
     "direction": "fire"
   },
@@ -3173,7 +3173,7 @@
     "gloss": "{noun} குடுங்க → give me {noun} (e.g. 'oru tea kudunga')",
     "phonetic": [],
     "recognition": "comfortable",
-    "production": "hinted",
+    "production": "cold",
     "seen_in": [
       54,
       56,
@@ -3182,7 +3182,7 @@
       66,
       68
     ],
-    "last_surfaced": "2026-07-13",
+    "last_surfaced": "2026-07-19",
     "deck": "trip",
     "direction": "fire"
   },
@@ -3191,11 +3191,11 @@
     "gloss": "{place}-க்கு போகணும் → (I) need to go to {place}",
     "phonetic": [],
     "recognition": "comfortable",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [
       68
     ],
-    "last_surfaced": null,
+    "last_surfaced": "2026-07-19",
     "deck": "trip",
     "direction": "fire"
   },
@@ -3204,11 +3204,11 @@
     "gloss": "பக்கத்துல {noun} இருக்கா? → is there {noun} nearby?",
     "phonetic": [],
     "recognition": "struggled",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [
       68
     ],
-    "last_surfaced": null,
+    "last_surfaced": "2026-07-19",
     "deck": "trip",
     "direction": "fire"
   },
@@ -3421,12 +3421,12 @@
       "appadiya"
     ],
     "recognition": "comfortable",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [
       58,
       68
     ],
-    "last_surfaced": null,
+    "last_surfaced": "2026-07-19",
     "deck": "trip",
     "direction": "fire"
   },
@@ -3463,13 +3463,13 @@
       "nga"
     ],
     "recognition": "comfortable",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       65,
       67,
       68
     ],
-    "last_surfaced": "2026-07-18",
+    "last_surfaced": "2026-07-19",
     "deck": "trip",
     "direction": "fire"
   },

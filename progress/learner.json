@@ -1,29 +1,24 @@
 {
   "learner": "Andrew",
-  "last_debrief": "STORY SO FAR: CAMPAIGN LIVE — Ask-Machine Week (block in profile.md): polite-nga is the engine (UNSEEN, teach Sat), kudunga-cold-by-Friday is the headline. Today (07-17 morning): paid off the done-ittu trailer — Andrew built mudichittu varén from the root up (hinted, after recast), fired plain saaptén cold in-scene, and read vandhaanga as 'they' instantly. The person-tail pattern is NAMED now: -én=I, -aanga=they, -chu=it; his recurring miss is stopping at the -ttu participle (sapittu, poittu) because English front-loads the subject — 'the -ttu is a comma, the -én is the throw' landed as the fix; watch every sentence for the landing tail. CORRECTION: mudinjuchu's 07-15 cold was premature — Andrew flagged it himself; demoted to stuck, resurface inside the aachu family. Lore that stuck: mudi root = finish; mudiyaadhu = 'it won't come to completion'. kudunga NOT drilled today — tomorrow's Teach Day folds it in as the -nga family flagship. FIELD MISSION: Wednesday's 'podhum vayiru full mudinjuchu' did NOT fire (no guilt); re-armed tonight SIMPLIFIED to today's own win: 'podhum, saaptutén' waving off seconds — collect next open. Tomorrow: Teach Day, polite-nga + mayi-laama, generous; light firing aims at done-ittu.",
+  "last_debrief": "STORY SO FAR: CAMPAIGN LIVE — Ask-Machine Week: HEADLINE LANDED EARLY — kudunga fired COLD Sun 07-19 (live field fire 'oru tea kudunga' at the table 07-18, then novel slot 'oru charger kudunga' in-scene); the venum detour is gone. frame:polite-nga ONLINE via novel build thookunga — Gauntlet Sunday, 8 reps, the maama's house gate to gate. Person-tail map extended: -nga points at THEM (polite push), -num/-én carry his own needs — his one miss ('naan ponga vaa ATM-la') was the ask-machine overgeneralizing; diagnosed live, rebuilt clean ('ATM-kku poganum, poittu varen'). -laam unpacked at his request: {to-do shape}+aam(=yes)+aa(=?) — same socket as mudiyala; kilambalaamaa seeded as the trip's exit line. Lore that stuck: pakkam=side (pakkathu veedu neighbour, amma pakkam = family side); English 'you ate thou' as the -nga politeness parallel. Hinted, need clean cold fires: mayi-laama (unpacked then rebuilt 'naan kulikalamaa'), nearby-noun, needtogo-place, poyittu varén, appadiya. First live hearsay catch: drift caught (thambi → Canada) but the -aam 'apparently' tail went unheard — keep seeding via tapes; morning's gossip tape still unanswered, don't chase. FIELD MISSION armed tonight: 'naan edukkalaamaa?' reaching for the dish when serving starts — organic slot, debrief next open. Tomorrow (Mon): soak/eavesdrop day per campaign — episode seeds mayi-laama + a gossip beat. Week re-aim: mayi-laama cold by Tue Table Rehearsal; Friday's kudunga check is now a victory lap.",
   "soak_order": {
     "payload": [
-      "frame:polite-nga",
-      "frame:giveme-noun",
       "frame:mayi-laama",
-      "frame:needtogo-place",
       "frame:nearby-noun",
-      "frame:day-recap",
+      "frame:needtogo-place",
       "அவசரம் இருக்கு",
-      "புரியல",
-      "அப்படியா?!",
-      "frame:we-om",
-      "frame:youknow-la",
       "frame:hearsay-aam",
-      "frame:quote-nu",
-      "இன்னும் கொஞ்சம் சாப்பிடுங்க",
-      "என்னமோ பிரச்சனை"
+      "frame:quote-nu"
     ],
-    "scene_seed": "WEEK-ARC one-off (Andrew, 2026-07-18): one full visit to the maama's house, gate to gate — arrive in a hurry, ask your way through every door and every favour, survive the food offensive while the gossip hums past, day-recap on the ride home. Long-form, multi-scene.",
-    "from": "2026-07-18"
+    "scene_seed": "temple-street scam vignette (suspicion register): a too-smooth stranger works the maama's gate — permission asks fly, and the aunty's hearsay hum tells the truth first",
+    "from": "2026-07-19"
   },
   "next_engine": "frame:polite-nga",
   "recent_missions": [
+    {
+      "mission": 68,
+      "title": "The Midnight Suitcase"
+    },
     {
       "mission": 67,
       "title": "Mission tier2_mission67"
@@ -35,11 +30,7 @@
     {
       "mission": 65,
       "title": "Mission tier2_mission65"
-    },
-    {
-      "mission": 64,
-      "title": "Mission tier2_mission64"
     }
   ],
-  "status": "Trip Deck 7/33 survival cold · 25 days to touchdown · need 1.0 cold/day, trailing 7-day pace 1.1/day · full deck 7/69"
+  "status": "Trip Deck 9/33 survival cold · 24 days to touchdown · need 1.0 cold/day, trailing 7-day pace 1.1/day · full deck 9/69"
 }
