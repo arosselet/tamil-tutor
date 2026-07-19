@@ -11,10 +11,8 @@
       `/debug` the specific wrongness.
 - [ ] **LinkedIn post** — edit voice, then post (draft below). Links in the first
       comment, not the body; weekday morning. Show HN later with `docs/JOURNEY.md`.
-      ⚠ **Run `/backport` first** — the post shares the language-tutor template, and
-      the delta since `template-v3-source` is milestone-sized (fielding dose, KF-11,
-      claim_payload, watchdog, campaign/Teach-Beat protocol, /recalibrate + /backport
-      skills). The sync policy's own trigger is "before actively sharing the template."
+      ✓ Backport done — `template-v4-source` shipped 2026-07-19; the template is
+      current and safe to share.
 
 ## Draft (Andrew's voice to edit)
 

@@ -574,6 +574,20 @@ Details live in git history; this is the index of the *conclusions*.
   DECISIONS/JOURNEY as the evidence trail. Replaces re-deriving them per repo; the
   full narratives stay here. (`~/.agents` is not under version control — noted to
   Andrew as a gap.)
+- **Third milestone re-sync — `template-v4-source`** (2026-07-19, run on Andrew's
+  ask ahead of the public post — the sync policy's own "before actively sharing"
+  trigger). language-tutor now elaborates Tamil@this tag: fielding dose, KF-11
+  volley surface, campaign (block + digest + seed orders), mandate subtraction
+  (including the KF-8 lore-preference deletion the v3 sync missed), Teach Beat +
+  Play canon, minimum-law daily_session (session_tools deleted), narrated_drama,
+  tier-0 deck headline, SFX beat, _vN feed resolution, ticket crash guard,
+  /recalibrate + intent gate + one-owner flags + KF-9/10, prose budgets
+  (template-measured), and smoke parity s14–s23 — the v3 sync had shipped
+  mechanisms without their regression cases; that gap is closed. Deliberately
+  left behind: `claim_payload()` as code (no deterministic seam in the
+  agent-dispatched template studio — it landed as producer.md prose, flagged as
+  a known gap in the template's DECISIONS), the watchdog + lunch anchor
+  (learner/local pack), /backport (this side of the sync).
 - **The constitution reads operative-only** (2026-07-19, Andrew-commissioned wrap-up).
   Crisping pass ahead of daily driving by Opus/Sonnet: narrative justifications retired
   to this file's existing entries (each named in commit 31a87e2), dates moved into rule
