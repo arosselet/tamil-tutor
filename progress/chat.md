@@ -24,6 +24,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! verb fired cold 🔥 — we'd drop the full present ending and say 'ukkaren' or 'ukkarlaam', but the table heard you. · now she pushes a cup of tea toward you — wave it off, 'enough, I'm fine'. (one line)
 
+**16:34 · Andrew** — **COLD**
+> Podhum
+
+**Anna ↩**
+> adhu dhaan 🔥 — podhum, natural as anything. table heard that clean. · now she says 'saapitta?' — did you eat? she's eyeing the plate. (one word: yes or no, your call)
+
 
 ## Sunday 2026-07-19
 
