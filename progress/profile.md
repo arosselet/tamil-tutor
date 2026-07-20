@@ -56,7 +56,13 @@ ukkarunga) into one lever, and lands the week's headline: **kudunga fires cold b
 
 - **Engine:** `frame:polite-nga` — **ONLINE (Sun 07-19)**: cold novel build (*thookunga*) in the Gauntlet.
 - **Headline:** `frame:giveme-noun` (kudunga) — **LANDED COLD Sun 07-19**, four days early: live field fire (*oru tea kudunga*, 07-18 table) + novel slot in-scene (*oru charger kudunga*). Friday's check is a victory lap.
-- **Second unseen:** `frame:mayi-laama` ("may I…?") — teach Sat, soak via next episode.
+- **Second unseen:** `frame:mayi-laama` ("may I…?") — **ONLINE (Mon 07-20)**: cold on the
+  third verb, and he contracted it himself to the living form *polaamaa* (poga-laam→polaam),
+  never taught. Both of the week's unseen items are now cleared.
+- **The live collision (surfaced Mon 07-20):** `-nga` is now SO warm it overgeneralizes —
+  two misses reached for the polite-command tail before the permission tail (*naan
+  patharunga*), same failure family as Sunday's *naan ponga vaa ATM-la*. The engine works;
+  the *choice between engines* under speed is the open edge. Tuesday aims here.
 - **Antifreeze riders:** புரியல (hinted→cold), கொஞ்சம் மெதுவா சொல்லுங்க (a fired repair
   line is a PASS, out loud, every time).
 - **Known -nga family to re-strain as one machine:** சொல்லுங்க, உக்காருங்க, எடுங்க,
@@ -73,13 +79,20 @@ ukkarunga) into one lever, and lands the week's headline: **kudunga fires cold b
 **Days:** Fri 07-17 ✓ (done-ittu payoff + person-tail lore, campaign drafted) → Sat
 (no session — teach payload carried by the trailer text, no guilt) → Sun **Gauntlet ✓**
 (8 reps gate-to-gate: engine online, headline cold, -laam unpacked, first live hearsay
-catch — drift caught, -aam tail unheard) → Mon **soak/eavesdrop** (episode seeds
-mayi-laama + a gossip beat) → Tue **Table Rehearsal** (mother-in-law mask; mayi-laama's
-cold check lives here) → Wed/Thu clear stragglers (nearby-noun, needtogo-place,
-avasaram irukku), Friday = kudunga victory lap.
+catch — drift caught, -aam tail unheard) → Mon **soak/eavesdrop ✓** (mayi-laama online;
+eavesdrop drill run — who+what caught, -aam missed a third time) → Tue **Table Rehearsal**
+(mother-in-law mask; mayi-laama's check is a victory lap, so the real aim is the
+**-nga vs -laamaa collision at speed**) → Wed/Thu clear stragglers (nearby-noun,
+needtogo-place, avasaram irukku), Friday = kudunga victory lap.
 
-**Tomorrow's shape:** soak/eavesdrop day. **Trailer pitches:** "'may I?' is secretly
-just 'yes' with a question mark — and it shares a socket with 'can't'."
+**-aam watch (2026-07-20):** third contact went past him — 4 load-bearing instances in one
+tape, drift caught without the tail. Flag planted, deliberately not chased. Keep seeding
+via tapes and episodes; if the fourth contact also misses, that's signal for a real move,
+not a bigger dose.
+
+**Tomorrow's shape:** Table Rehearsal — mother-in-law mask at speed. **Trailer pitches:**
+"she asks you two questions back to back. one wants -nga, one wants -laamaa. pick wrong and
+you've just ordered your mother-in-law around."
 
 ---
 
