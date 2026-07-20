@@ -12,6 +12,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **13:57 · Anna** 🎧  ·  fielding / fielding: mayi-laama trailer payoff
 > 🎙️ "ukkaruveengala?" — she's waving at the chair. answer her. (fielding — reply in chat)
 
+**16:29 · Andrew** — **CHAT**
+> Ama? She’s asking will I please but I don’t know what she wants
+
+**Anna ↩**
+> ha — close read. "ukkaruveengala" = "will you sit?" she's waving at the chair, asking you to take a seat. now answer her — one word, something like "sure, I'll sit."
+
 
 ## Sunday 2026-07-19
 
