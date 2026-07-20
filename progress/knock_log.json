@@ -1702,13 +1702,16 @@
     "memo_script": "உக்காருவீங்களா?\n\nShe's already looking at you, hand out toward the chair.",
     "mp3": "published_audio/knocks/knock_2026-07-20T17-57.mp3",
     "response": "reply",
-    "reply": "Ama? She’s asking will I please but I don’t know what she wants",
-    "reply_verdict": "chat",
-    "reply_fired": [],
+    "reply": "Aam. Naan utkaarukiraen",
+    "reply_verdict": "cold",
+    "reply_fired": [
+      "ஆமா",
+      "உட்காருகிறேன்"
+    ],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "ha — close read. \"ukkaruveengala\" = \"will you sit?\" she's waving at the chair, asking you to take a seat. now answer her — one word, something like \"sure, I'll sit.\"",
-    "reply_at": "2026-07-20T20:29:58Z",
+    "reply_line": "adhu dhaan! verb fired cold 🔥 — we'd drop the full present ending and say 'ukkaren' or 'ukkarlaam', but the table heard you. · now she pushes a cup of tea toward you — wave it off, 'enough, I'm fine'. (one line)",
+    "reply_at": "2026-07-20T20:31:35Z",
     "exchanges": [
       {
         "at": "2026-07-20T20:29:58Z",
@@ -1719,7 +1722,23 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "ha — close read. \"ukkaruveengala\" = \"will you sit?\" she's waving at the chair, asking you to take a seat. now answer her — one word, something like \"sure, I'll sit.\""
+      },
+      {
+        "at": "2026-07-20T20:31:35Z",
+        "reply": "Aam. Naan utkaarukiraen",
+        "verdict": "cold",
+        "fired": [
+          "ஆமா",
+          "உட்காருகிறேன்"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! verb fired cold 🔥 — we'd drop the full present ending and say 'ukkaren' or 'ukkarlaam', but the table heard you. · now she pushes a cup of tea toward you — wave it off, 'enough, I'm fine'. (one line)"
       }
-    ]
+    ],
+    "chained": 1,
+    "pinned_target": "வேண்டாம்",
+    "pinned_revealed": false
   }
 ]

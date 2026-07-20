@@ -18,6 +18,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > ha — close read. "ukkaruveengala" = "will you sit?" she's waving at the chair, asking you to take a seat. now answer her — one word, something like "sure, I'll sit."
 
+**16:31 · Andrew** — **COLD**
+> Aam. Naan utkaarukiraen
+
+**Anna ↩**
+> adhu dhaan! verb fired cold 🔥 — we'd drop the full present ending and say 'ukkaren' or 'ukkarlaam', but the table heard you. · now she pushes a cup of tea toward you — wave it off, 'enough, I'm fine'. (one line)
+
 
 ## Sunday 2026-07-19
 
