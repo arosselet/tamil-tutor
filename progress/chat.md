@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:57 · Anna**  ·  text / trailer: mayi-laama
 > da — 'naan ukkaralaama?' before you sit. one frame, elders notice. today's session pays it off 🎯
 
+**13:57 · Anna** 🎧  ·  fielding / fielding: mayi-laama trailer payoff
+> 🎙️ "ukkaruveengala?" — she's waving at the chair. answer her. (fielding — reply in chat)
+
 
 ## Sunday 2026-07-19
 

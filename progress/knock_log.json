@@ -1686,5 +1686,20 @@
     "body": "da — 'naan ukkaralaama?' before you sit. one frame, elders notice. today's session pays it off 🎯",
     "expected_target": "",
     "target_revealed": false
+  },
+  {
+    "date": "2026-07-20",
+    "timestamp": "2026-07-20T17:57:09.351998+00:00",
+    "acted": true,
+    "modality": "fielding",
+    "move": "fielding: mayi-laama trailer payoff",
+    "rationale": "Trailer sat unpaid all afternoon — the protocol says pay it off before evening; fielding is the tightest possible payoff: she asks, he has to produce the mayi-laama frame to answer her — teaches and scores in one beat, no reveal in the body, cold-fire eligible.",
+    "next_check": "2026-07-20T22:57:09.351998+00:00",
+    "body": "🎙️ \"ukkaruveengala?\" — she's waving at the chair. answer her. (fielding — reply in chat)",
+    "expected_target": "உக்காரலாமா",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-07-20T17-57.mp3",
+    "memo_script": "உக்காருவீங்களா?\n\nShe's already looking at you, hand out toward the chair.",
+    "mp3": "published_audio/knocks/knock_2026-07-20T17-57.mp3"
   }
 ]
