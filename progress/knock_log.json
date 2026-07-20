@@ -1674,5 +1674,17 @@
     "mp3": "published_audio/knocks/knock_2026-07-19T19-00.mp3",
     "response": "ack",
     "response_at": "2026-07-19T20:24:31Z"
+  },
+  {
+    "date": "2026-07-20",
+    "timestamp": "2026-07-20T13:57:04.051790+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "trailer: mayi-laama",
+    "rationale": "Monday is soak/eavesdrop day per campaign; mayi-laama is the week's second unseen and needs a show dose before any ask — trailer recruits the lunch session to pay it off, pitching the concrete payoff (elders notice when you ask permission before sitting), no curriculum delivered here.",
+    "next_check": "2026-07-20T17:57:04.051790+00:00",
+    "body": "da — 'naan ukkaralaama?' before you sit. one frame, elders notice. today's session pays it off 🎯",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]
