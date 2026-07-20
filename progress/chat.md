@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Monday 2026-07-20
+
+**09:57 · Anna**  ·  text / trailer: mayi-laama
+> da — 'naan ukkaralaama?' before you sit. one frame, elders notice. today's session pays it off 🎯
+
+
 ## Sunday 2026-07-19
 
 **09:08 · Anna** 🎧  ·  eavesdrop / eavesdrop: hearsay-aam gossip tape
@@ -11,6 +17,8 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 **15:00 · Anna** 🎧  ·  audio / lore memo: adverb-aa machine
 > 🎙️ da — one suffix turns anything into an adverb. நல்லா, மெதுவா, தண்ணியா — same machine. 90 sec.
+
+**Andrew** · 👍 acked
 
 
 ## Saturday 2026-07-18
