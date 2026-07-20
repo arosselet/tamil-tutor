@@ -1702,16 +1702,19 @@
     "memo_script": "உக்காருவீங்களா?\n\nShe's already looking at you, hand out toward the chair.",
     "mp3": "published_audio/knocks/knock_2026-07-20T17-57.mp3",
     "response": "reply",
-    "reply": "Aam. Naan utkaarukiraen",
+    "reply": "Podhum",
     "reply_verdict": "cold",
     "reply_fired": [
       "ஆமா",
-      "உட்காருகிறேன்"
+      "உட்காருகிறேன்",
+      "போதும்"
     ],
-    "reply_fired_cold": [],
+    "reply_fired_cold": [
+      "போதும்"
+    ],
     "reply_fired_capped": [],
-    "reply_line": "adhu dhaan! verb fired cold 🔥 — we'd drop the full present ending and say 'ukkaren' or 'ukkarlaam', but the table heard you. · now she pushes a cup of tea toward you — wave it off, 'enough, I'm fine'. (one line)",
-    "reply_at": "2026-07-20T20:31:35Z",
+    "reply_line": "adhu dhaan 🔥 — podhum, natural as anything. table heard that clean. · now she says 'saapitta?' — did you eat? she's eyeing the plate. (one word: yes or no, your call)",
+    "reply_at": "2026-07-20T20:34:14Z",
     "exchanges": [
       {
         "at": "2026-07-20T20:29:58Z",
@@ -1735,10 +1738,24 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "adhu dhaan! verb fired cold 🔥 — we'd drop the full present ending and say 'ukkaren' or 'ukkarlaam', but the table heard you. · now she pushes a cup of tea toward you — wave it off, 'enough, I'm fine'. (one line)"
+      },
+      {
+        "at": "2026-07-20T20:34:14Z",
+        "reply": "Podhum",
+        "verdict": "cold",
+        "fired": [
+          "போதும்"
+        ],
+        "fired_cold": [
+          "போதும்"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan 🔥 — podhum, natural as anything. table heard that clean. · now she says 'saapitta?' — did you eat? she's eyeing the plate. (one word: yes or no, your call)"
       }
     ],
-    "chained": 1,
-    "pinned_target": "வேண்டாம்",
+    "chained": 2,
+    "pinned_target": "சாப்பிட்டேன்",
     "pinned_revealed": false
   }
 ]
