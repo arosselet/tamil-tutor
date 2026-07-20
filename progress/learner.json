@@ -1,17 +1,14 @@
 {
   "learner": "Andrew",
-  "last_debrief": "STORY SO FAR: CAMPAIGN LIVE — Ask-Machine Week: HEADLINE LANDED EARLY — kudunga fired COLD Sun 07-19 (live field fire 'oru tea kudunga' at the table 07-18, then novel slot 'oru charger kudunga' in-scene); the venum detour is gone. frame:polite-nga ONLINE via novel build thookunga — Gauntlet Sunday, 8 reps, the maama's house gate to gate. Person-tail map extended: -nga points at THEM (polite push), -num/-én carry his own needs — his one miss ('naan ponga vaa ATM-la') was the ask-machine overgeneralizing; diagnosed live, rebuilt clean ('ATM-kku poganum, poittu varen'). -laam unpacked at his request: {to-do shape}+aam(=yes)+aa(=?) — same socket as mudiyala; kilambalaamaa seeded as the trip's exit line. Lore that stuck: pakkam=side (pakkathu veedu neighbour, amma pakkam = family side); English 'you ate thou' as the -nga politeness parallel. Hinted, need clean cold fires: mayi-laama (unpacked then rebuilt 'naan kulikalamaa'), nearby-noun, needtogo-place, poyittu varén, appadiya. First live hearsay catch: drift caught (thambi → Canada) but the -aam 'apparently' tail went unheard — keep seeding via tapes; morning's gossip tape still unanswered, don't chase. FIELD MISSION armed tonight: 'naan edukkalaamaa?' reaching for the dish when serving starts — organic slot, debrief next open. Tomorrow (Mon): soak/eavesdrop day per campaign — episode seeds mayi-laama + a gossip beat. Week re-aim: mayi-laama cold by Tue Table Rehearsal; Friday's kudunga check is now a victory lap.",
+  "last_debrief": "STORY SO FAR: CAMPAIGN LIVE — Ask-Machine Week: BOTH unseen items now cleared. kudunga landed cold Sun 07-19 (live table fire + novel slot). MAYI-LAAMA ONLINE Mon 07-20 — third verb, no scaffolding, and he contracted it himself to the living form 'polaamaa' (poga-laam→polaam) which was never taught; aimed it correctly with naan. Path there: missed twice first — grabbed the -nga tail ('naan patharunga') showing the polite-command socket is now SO warm it overgeneralizes, same failure family as Sunday's 'naan ponga vaa ATM-la'. -nga is the reflex, -laamaa has to beat it. Andrew's own frame was 'I'm still learning this phrase' — corrected live: mayi-laama is a machine, not a phrase; that reframe landed and the next fire was cold. Greeting lore stuck: he opened with 'madhiya vanakkam' at 18:00 — taught the dictionary-vs-living gap (maalai vanakkam is news-reader Tamil; a real Coimbatore mouth says bare 'vanakkam' or nothing). FIELD MISSION 07-19 (naan edukkalaamaa at the dish) — Andrew reports 'it was fine', no detail, didn't push. CATCH — eavesdrop drill run (2 aunties, gate, Kamala's son quit his job, asking for money, register=pity not scandal). Andrew caught WHO+WHAT, self-reported 'most of this I didn't catch' — reframed as a pass, that IS the win condition. -aam went past him a THIRD time (4 instances in the tape, all load-bearing); flag planted, not chased — next contact is the one to watch. -nu sonnaanga and the -la gossip opener taught cold-free, no demand. Tomorrow (Tue): Table Rehearsal, mother-in-law mask — mayi-laama's cold check is now a victory lap, so re-aim Tuesday at the -nga/-laamaa collision under speed (she asks, he must pick the right tail fast). Week left: nearby-noun, needtogo-place, avasaram irukku still hinted.",
   "soak_order": {
     "payload": [
-      "frame:mayi-laama",
-      "frame:nearby-noun",
-      "frame:needtogo-place",
-      "அவசரம் இருக்கு",
       "frame:hearsay-aam",
-      "frame:quote-nu"
+      "frame:quote-nu",
+      "frame:youknow-la"
     ],
-    "scene_seed": "temple-street scam vignette (suspicion register): a too-smooth stranger works the maama's gate — permission asks fly, and the aunty's hearsay hum tells the truth first",
-    "from": "2026-07-19"
+    "scene_seed": "the gate verdict: one aunty saw it herself, the other only heard it — same story told twice, and the -aam tells you which is which",
+    "from": "2026-07-20"
   },
   "next_engine": "frame:polite-nga",
   "recent_missions": [
@@ -32,5 +29,5 @@
       "title": "Mission tier2_mission65"
     }
   ],
-  "status": "Trip Deck 9/33 survival cold · 24 days to touchdown · need 1.0 cold/day, trailing 7-day pace 1.1/day · full deck 9/69"
+  "status": "Trip Deck 10/33 survival cold · 23 days to touchdown · need 1.0 cold/day, trailing 7-day pace 1.6/day · full deck 10/69"
 }

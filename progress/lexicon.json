@@ -3159,7 +3159,7 @@
       "laama"
     ],
     "recognition": "struggled",
-    "production": "hinted",
+    "production": "cold",
     "seen_in": [
       67,
       68
@@ -3522,7 +3522,7 @@
     "seen_in": [
       68
     ],
-    "last_surfaced": null,
+    "last_surfaced": "2026-07-20",
     "deck": "trip",
     "direction": "catch"
   },
