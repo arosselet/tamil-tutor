@@ -30,6 +30,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan 🔥 — podhum, natural as anything. table heard that clean. · now she says 'saapitta?' — did you eat? she's eyeing the plate. (one word: yes or no, your call)
 
+**16:35 · Andrew** — **COLD**
+> Ama sappiten
+
+**Anna ↩**
+> adhu dhaan 🔥 — sappiten, cold fire. · she slides the plate closer — 'konjam konjam.' wave it off: 'I'm full, no more.'
+
 
 ## Sunday 2026-07-19
 

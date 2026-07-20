@@ -1702,19 +1702,24 @@
     "memo_script": "உக்காருவீங்களா?\n\nShe's already looking at you, hand out toward the chair.",
     "mp3": "published_audio/knocks/knock_2026-07-20T17-57.mp3",
     "response": "reply",
-    "reply": "Podhum",
+    "reply": "Ama sappiten",
     "reply_verdict": "cold",
     "reply_fired": [
       "ஆமா",
       "உட்காருகிறேன்",
-      "போதும்"
+      "போதும்",
+      "ஆமா",
+      "சாப்பிட்டேன்"
     ],
     "reply_fired_cold": [
-      "போதும்"
+      "போதும்",
+      "சாப்பிட்டேன்"
     ],
-    "reply_fired_capped": [],
-    "reply_line": "adhu dhaan 🔥 — podhum, natural as anything. table heard that clean. · now she says 'saapitta?' — did you eat? she's eyeing the plate. (one word: yes or no, your call)",
-    "reply_at": "2026-07-20T20:34:14Z",
+    "reply_fired_capped": [
+      "ஆமா"
+    ],
+    "reply_line": "adhu dhaan 🔥 — sappiten, cold fire. · she slides the plate closer — 'konjam konjam.' wave it off: 'I'm full, no more.'",
+    "reply_at": "2026-07-20T20:35:19Z",
     "exchanges": [
       {
         "at": "2026-07-20T20:29:58Z",
@@ -1752,10 +1757,27 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "adhu dhaan 🔥 — podhum, natural as anything. table heard that clean. · now she says 'saapitta?' — did you eat? she's eyeing the plate. (one word: yes or no, your call)"
+      },
+      {
+        "at": "2026-07-20T20:35:19Z",
+        "reply": "Ama sappiten",
+        "verdict": "cold",
+        "fired": [
+          "ஆமா",
+          "சாப்பிட்டேன்"
+        ],
+        "fired_cold": [
+          "சாப்பிட்டேன்"
+        ],
+        "fired_capped": [
+          "ஆமா"
+        ],
+        "graduated": [],
+        "reply_line": "adhu dhaan 🔥 — sappiten, cold fire. · she slides the plate closer — 'konjam konjam.' wave it off: 'I'm full, no more.'"
       }
     ],
-    "chained": 2,
-    "pinned_target": "சாப்பிட்டேன்",
+    "chained": 3,
+    "pinned_target": "போதும்",
     "pinned_revealed": false
   }
 ]
