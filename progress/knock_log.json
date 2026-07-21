@@ -1841,6 +1841,39 @@
         "ask": "her cousin just got promoted — what do you say back? (surprise backchannel)"
       }
     ],
-    "volley_next": 1
+    "volley_next": 2,
+    "response": "reply",
+    "reply": "Neenga readyaa irundhaa naam polaam",
+    "reply_verdict": "cold",
+    "reply_fired": [
+      "frame:if-ndhaa",
+      "நாம்"
+    ],
+    "reply_fired_cold": [
+      "frame:if-ndhaa"
+    ],
+    "reply_fired_capped": [],
+    "reply_line": "adhu dhaan! 🔥 'irundhaa' snapped clean — that's the if-tail. · 2/4 — you need a pharmacy — ask if there's one nearby",
+    "reply_at": "2026-07-21T19:48:21Z",
+    "exchanges": [
+      {
+        "at": "2026-07-21T19:48:21Z",
+        "reply": "Neenga readyaa irundhaa naam polaam",
+        "verdict": "cold",
+        "fired": [
+          "frame:if-ndhaa",
+          "நாம்"
+        ],
+        "fired_cold": [
+          "frame:if-ndhaa"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! 🔥 'irundhaa' snapped clean — that's the if-tail. · 2/4 — you need a pharmacy — ask if there's one nearby"
+      }
+    ],
+    "chained": 1,
+    "pinned_target": "frame:nearby-noun",
+    "pinned_revealed": false
   }
 ]

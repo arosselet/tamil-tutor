@@ -12,6 +12,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **15:14 · Anna**  ·  volley / volley: if-ndhaa first
 > ⚡ volley 1/4 — she says 5 more minutes — tell her: if you're ready, we'll go (force the 'if' tail)
 
+**15:48 · Andrew** — **COLD**
+> Neenga readyaa irundhaa naam polaam
+
+**Anna ↩**
+> adhu dhaan! 🔥 'irundhaa' snapped clean — that's the if-tail. · 2/4 — you need a pharmacy — ask if there's one nearby
+
 
 ## Monday 2026-07-20
 
