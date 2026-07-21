@@ -4,6 +4,7 @@ import os
 import re
 from datetime import datetime
 import email.utils
+from xml.sax.saxutils import escape as xml_escape
 from mutagen.mp3 import MP3
 
 # Configuration
@@ -144,21 +145,43 @@ def get_title_from_md(md_path):
 
 
 def existing_pub_dates():
-    """Return {guid_url: pubDate} from the current rss.xml so rebuilds don't clobber old dates."""
+    """Return {guid_url: pubDate} from the current rss.xml so rebuilds don't clobber old dates.
+
+    Date preservation must NOT depend on the feed being well-formed XML. A single
+    unescaped character in one episode title once wiped every saved date: the strict
+    parse threw, this function returned {}, and every episode fell through to the
+    mtime fallback — which on a fresh clone is the checkout time, collapsing the whole
+    feed to a single "now" timestamp. So we parse strictly when we can, but fall back
+    to a tolerant text scan for guid/pubDate pairs, which survives malformed markup.
+    """
     if not os.path.exists(RSS_FILE):
         return {}
+    with open(RSS_FILE, encoding="utf-8") as f:
+        raw = f.read()
+
+    import xml.etree.ElementTree as ET
     try:
-        import xml.etree.ElementTree as ET
-        root = ET.parse(RSS_FILE).getroot()
+        root = ET.fromstring(raw)
         result = {}
         for item in root.iter("item"):
             guid = item.findtext("guid")
             pub_date = item.findtext("pubDate")
             if guid and pub_date:
-                result[guid] = pub_date
-        return result
-    except Exception:
-        return {}
+                result[guid.strip()] = pub_date.strip()
+        if result:
+            return result
+    except ET.ParseError as e:
+        print(f"⚠️  rss.xml is not well-formed ({e}); recovering saved dates via text scan.")
+
+    # Tolerant fallback: pull guid + pubDate out of each <item> block by text, so one
+    # bad character can never again reset every episode's date.
+    result = {}
+    for block in re.findall(r"<item>(.*?)</item>", raw, re.S):
+        g = re.search(r"<guid>(.*?)</guid>", block, re.S)
+        p = re.search(r"<pubDate>(.*?)</pubDate>", block, re.S)
+        if g and p:
+            result[g.group(1).strip()] = p.group(1).strip()
+    return result
 
 
 def generate_rss():
@@ -235,10 +258,13 @@ def generate_rss():
         except Exception:
             duration = "00:05:00"  # Fallback
 
+        # Escape titles/summaries: episode titles carry Tamil script and arbitrary
+        # punctuation (e.g. a raw "&" from a script H1), which is illegal as bare
+        # element text and would make the whole feed unparseable if emitted directly.
         items.append(ITEM_TEMPLATE.format(
-            title=title,
+            title=xml_escape(title),
             author=AUTHOR,
-            summary=title,
+            summary=xml_escape(title),
             caption_block=caption_block_for(base_name),
             audio_url=audio_url,
             size=size,
@@ -258,9 +284,9 @@ def generate_rss():
         except Exception:
             demo_duration = "00:03:30"
         items.append(ITEM_TEMPLATE.format(
-            title="Welcome — What Is This?",
+            title=xml_escape("Welcome — What Is This?"),
             author=AUTHOR,
-            summary="An introduction to the Coimbatore Mappillai project and how it works.",
+            summary=xml_escape("An introduction to the Coimbatore Mappillai project and how it works."),
             caption_block="",
             audio_url=demo_url,
             size=demo_size,
