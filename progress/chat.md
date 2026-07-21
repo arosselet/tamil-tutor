@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Tuesday 2026-07-21
+
+**09:38 · Anna**  ·  text / trailer: nga-laamaa collision
+> da — you can ask AND command now. but under speed, which tail fires? mother-in-law's waiting. today's session is the drill. 🎯
+
+
 ## Monday 2026-07-20
 
 **09:57 · Anna**  ·  text / trailer: mayi-laama
