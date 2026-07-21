@@ -170,13 +170,18 @@ def clean_memo_for_tts(text: str) -> str:
 
 
 def clean_for_tts(text: str) -> str:
-    """Clean text for TTS consumption."""
+    """Clean a script dialogue line for TTS consumption.
+
+    Preserves periods: they are the sentence breaks Chirp3-HD needs for prosody.
+    Stripping them (the old behaviour) flattened multi-sentence lines into one
+    breathless run-on and swallowed the tails of short sentences (the memo path
+    already routed around this, DECISIONS 2026-07-07; now fixed at the source).
+    """
     text = re.sub(r"\s*\(.*?\)\s*", " ", text)
     text = re.sub(r"\s*\[.*?\]\s*", " ", text)
     replacements = {"JSON": "jay-son", "CLI": "C-L-I"}
     for word, phonetic in replacements.items():
         text = re.sub(rf"\b{word}\b", phonetic, text, flags=re.IGNORECASE)
-    text = text.replace(".", "")
     text = re.sub(r"[*_#`]", "", text)
     text = defang_hyphens(text)
     text = re.sub(r"\s+", " ", text).strip()

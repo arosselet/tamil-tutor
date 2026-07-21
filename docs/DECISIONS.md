@@ -595,3 +595,12 @@ Details live in git history; this is the index of the *conclusions*.
   constitution; `daily_session.md` (12 words free) and the outreach mandate (12 words
   free) are the next ceiling-huggers — split-or-retire is *their* next move, not a
   budget bump.
+- **`clean_for_tts` no longer strips sentence periods** (2026-07-21). The strip
+  flattened multi-sentence TTS lines into one breathless run-on and swallowed the tails
+  of short sentences (surfaced in the Anna-intro demo: "He's strict... The arrangement
+  works" cut off). Fixed at the source in `render_audio.py`, so it heals the real
+  episode and drill paths too, not just the demo. Supersedes the period half of the
+  2026-07-07 memo note: memos still use their own `clean_memo_for_tts` (it also skips
+  paren/bracket and JSON/CLI handling), but no longer *need* to on account of periods.
+  Deleted the `clean_keep_periods` workaround that render_demo.py carried for one day —
+  root fix retires it.

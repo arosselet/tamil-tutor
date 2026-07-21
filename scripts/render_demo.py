@@ -15,17 +15,14 @@ Difference from render_audio: language_code is derived per-voice (ta-IN / en-US 
 fr-CA ...) instead of pinned to ta-IN, so multi-language demos render here too.
 Pin voices with a `Voice Map: {"SPEAKER": "voice-name"}` comment in the script.
 
-Also differs on cleaning: this path uses clean_keep_periods, not render_audio's
-clean_for_tts. clean_for_tts strips every "." (a known pacing-wrecker — memos skip it
-for the same reason, DECISIONS 2026-07-07). A showcase piece is long-form narration:
-without sentence periods Chirp3-HD renders it as one breathless run-on and swallows the
-tails of short sentences. Keep the periods; keep the breath long (~800ms).
+Showcase pieces are long-form narration, so the breath between segments runs long
+(~800ms) — more air than a lesson wants. Cleaning is shared with render_audio's
+clean_for_tts (which now preserves sentence periods, the pacing this piece needs).
 """
 
 import argparse
 import asyncio
 import os
-import re
 import sys
 from pathlib import Path
 
@@ -33,19 +30,8 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from google.cloud import texttospeech
 
-from render_audio import (SILENCE_FRAME, assign_voices, defang_hyphens,
+from render_audio import (SILENCE_FRAME, assign_voices, clean_for_tts,
                           get_raw_mp3_frames, parse_script)
-
-
-def clean_keep_periods(text: str) -> str:
-    """clean_for_tts, minus the period strip — sentence breaks are the pacing here."""
-    text = re.sub(r"\s*\(.*?\)\s*", " ", text)
-    text = re.sub(r"\s*\[.*?\]\s*", " ", text)
-    for word, phonetic in {"JSON": "jay-son", "CLI": "C-L-I"}.items():
-        text = re.sub(rf"\b{word}\b", phonetic, text, flags=re.IGNORECASE)
-    text = re.sub(r"[*_#`]", "", text)
-    text = defang_hyphens(text)
-    return re.sub(r"\s+", " ", text).strip()
 
 
 def lang_of(voice: str) -> str:
@@ -87,7 +73,7 @@ async def main():
         if line["speaker"] == "PAUSE":
             audio.extend(SILENCE_FRAME * int(line.get("seconds", 1) * 41.666))
             continue
-        text = clean_keep_periods(line["text"])
+        text = clean_for_tts(line["text"])
         if not text:
             continue
         voice = cast[line["speaker"]]
