@@ -1841,20 +1841,22 @@
         "ask": "her cousin just got promoted — what do you say back? (surprise backchannel)"
       }
     ],
-    "volley_next": 2,
+    "volley_next": 3,
     "response": "reply",
-    "reply": "Neenga readyaa irundhaa naam polaam",
+    "reply": "Pakkala pharmacy irukaa?",
     "reply_verdict": "cold",
     "reply_fired": [
       "frame:if-ndhaa",
-      "நாம்"
+      "நாம்",
+      "frame:nearby-noun"
     ],
     "reply_fired_cold": [
-      "frame:if-ndhaa"
+      "frame:if-ndhaa",
+      "frame:nearby-noun"
     ],
     "reply_fired_capped": [],
-    "reply_line": "adhu dhaan! 🔥 'irundhaa' snapped clean — that's the if-tail. · 2/4 — you need a pharmacy — ask if there's one nearby",
-    "reply_at": "2026-07-21T19:48:21Z",
+    "reply_line": "adhu dhaan! 🔥 'pakkathuLa pharmacy irukka?' — drop the 'la' on the end for the full frame, but this lands. · 3/4 — tell the auto driver: I need to go to the airport",
+    "reply_at": "2026-07-21T19:50:17Z",
     "exchanges": [
       {
         "at": "2026-07-21T19:48:21Z",
@@ -1870,10 +1872,24 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "adhu dhaan! 🔥 'irundhaa' snapped clean — that's the if-tail. · 2/4 — you need a pharmacy — ask if there's one nearby"
+      },
+      {
+        "at": "2026-07-21T19:50:17Z",
+        "reply": "Pakkala pharmacy irukaa?",
+        "verdict": "cold",
+        "fired": [
+          "frame:nearby-noun"
+        ],
+        "fired_cold": [
+          "frame:nearby-noun"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! 🔥 'pakkathuLa pharmacy irukka?' — drop the 'la' on the end for the full frame, but this lands. · 3/4 — tell the auto driver: I need to go to the airport"
       }
     ],
-    "chained": 1,
-    "pinned_target": "frame:nearby-noun",
+    "chained": 2,
+    "pinned_target": "frame:needtogo-place",
     "pinned_revealed": false
   }
 ]
