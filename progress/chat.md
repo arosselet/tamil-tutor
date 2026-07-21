@@ -24,6 +24,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! 🔥 'pakkathuLa pharmacy irukka?' — drop the 'la' on the end for the full frame, but this lands. · 3/4 — tell the auto driver: I need to go to the airport
 
+**15:51 · Andrew** — **HINTED**
+> Naan airport polam
+
+**Anna ↩**
+> close — 'airport-ku pokanum' is the frame. naan/polam works casual but this ask wants the need. 4/4 — amma made too much food, wave it off · 4/4 — her cousin just got promoted — what do you say back? (surprise backchannel)
+
 
 ## Monday 2026-07-20
 
