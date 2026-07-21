@@ -42,6 +42,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > nalla = 'good/well' — nal is the root, nalla is the spoken form. the -a ending softens it into an adverb or intensifier. but that's a tangent — you were on a roll back there. 🔥
 
+**20:38 · Andrew** — **CHAT**
+> So nal and nalla mean the same but then give me an example of the normal and adverb forms?
+
+**Anna ↩**
+> nal = the root 'good' — bare, bookish. nalla = the everyday spoken form, works as adjective AND adverb ('nalla saapidu' = eat well / 'nalla pasam' = good bond). the -a just makes it flow. that's the whole pattern.
+
 
 ## Sunday 2026-07-19
 
