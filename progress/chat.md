@@ -18,6 +18,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! 🔥 'irundhaa' snapped clean — that's the if-tail. · 2/4 — you need a pharmacy — ask if there's one nearby
 
+**15:50 · Andrew** — **COLD**
+> Pakkala pharmacy irukaa?
+
+**Anna ↩**
+> adhu dhaan! 🔥 'pakkathuLa pharmacy irukka?' — drop the 'la' on the end for the full frame, but this lands. · 3/4 — tell the auto driver: I need to go to the airport
+
 
 ## Monday 2026-07-20
 
