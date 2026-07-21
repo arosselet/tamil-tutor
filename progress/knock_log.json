@@ -1811,5 +1811,36 @@
     "body": "da — you can ask AND command now. but under speed, which tail fires? mother-in-law's waiting. today's session is the drill. 🎯",
     "expected_target": "",
     "target_revealed": false
+  },
+  {
+    "date": "2026-07-21",
+    "timestamp": "2026-07-21T19:14:34.794422+00:00",
+    "acted": true,
+    "modality": "volley",
+    "move": "volley: if-ndhaa first",
+    "rationale": "Afternoon is the right volley slot; demand-streak is 0; Andrew replied in chat yesterday so momentum is live; one unpaid trailer already holds the open loop so no second trailer — a volley clears the binding deck items and the first ask pins frame:if-ndhaa cold.",
+    "next_check": "2026-07-21T23:14:34.794422+00:00",
+    "body": "⚡ volley 1/4 — she says 5 more minutes — tell her: if you're ready, we'll go (force the 'if' tail)",
+    "expected_target": "frame:if-ndhaa",
+    "target_revealed": false,
+    "volley": [
+      {
+        "target": "frame:if-ndhaa",
+        "ask": "she says 5 more minutes — tell her: if you're ready, we'll go (force the 'if' tail)"
+      },
+      {
+        "target": "frame:nearby-noun",
+        "ask": "you need a pharmacy — ask if there's one nearby"
+      },
+      {
+        "target": "frame:needtogo-place",
+        "ask": "tell the auto driver: I need to go to the airport"
+      },
+      {
+        "target": "அப்படியா?!",
+        "ask": "her cousin just got promoted — what do you say back? (surprise backchannel)"
+      }
+    ],
+    "volley_next": 1
   }
 ]

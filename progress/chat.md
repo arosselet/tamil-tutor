@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:38 · Anna**  ·  text / trailer: nga-laamaa collision
 > da — you can ask AND command now. but under speed, which tail fires? mother-in-law's waiting. today's session is the drill. 🎯
 
+**15:14 · Anna**  ·  volley / volley: if-ndhaa first
+> ⚡ volley 1/4 — she says 5 more minutes — tell her: if you're ready, we'll go (force the 'if' tail)
+
 
 ## Monday 2026-07-20
 
