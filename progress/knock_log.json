@@ -1843,21 +1843,27 @@
     ],
     "volley_next": 4,
     "response": "reply",
-    "reply": "Naan airport polam",
-    "reply_verdict": "hinted",
+    "reply": "Closing the last volley: podhum, appidya! Vazhthukkal!",
+    "reply_verdict": "cold",
     "reply_fired": [
       "frame:if-ndhaa",
       "நாம்",
       "frame:nearby-noun",
-      "frame:needtogo-place"
+      "frame:needtogo-place",
+      "போதும்",
+      "அப்படியா?!",
+      "வாழ்த்துக்கள்!"
     ],
     "reply_fired_cold": [
       "frame:if-ndhaa",
-      "frame:nearby-noun"
+      "frame:nearby-noun",
+      "அப்படியா?!"
     ],
-    "reply_fired_capped": [],
-    "reply_line": "close — 'airport-ku pokanum' is the frame. naan/polam works casual but this ask wants the need. 4/4 — amma made too much food, wave it off · 4/4 — her cousin just got promoted — what do you say back? (surprise backchannel)",
-    "reply_at": "2026-07-21T19:51:38Z",
+    "reply_fired_capped": [
+      "போதும்"
+    ],
+    "reply_line": "adhu dhaan! appadiya + vazhthukkal in one breath — that's a full native reaction. 🔥",
+    "reply_at": "2026-07-21T19:55:56Z",
     "exchanges": [
       {
         "at": "2026-07-21T19:48:21Z",
@@ -1899,10 +1905,29 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "close — 'airport-ku pokanum' is the frame. naan/polam works casual but this ask wants the need. 4/4 — amma made too much food, wave it off · 4/4 — her cousin just got promoted — what do you say back? (surprise backchannel)"
+      },
+      {
+        "at": "2026-07-21T19:55:56Z",
+        "reply": "Closing the last volley: podhum, appidya! Vazhthukkal!",
+        "verdict": "cold",
+        "fired": [
+          "போதும்",
+          "அப்படியா?!",
+          "வாழ்த்துக்கள்!"
+        ],
+        "fired_cold": [
+          "அப்படியா?!"
+        ],
+        "fired_capped": [
+          "போதும்"
+        ],
+        "graduated": [],
+        "reply_line": "adhu dhaan! appadiya + vazhthukkal in one breath — that's a full native reaction. 🔥"
       }
     ],
     "chained": 3,
     "pinned_target": "அப்படியா?!",
-    "pinned_revealed": false
+    "pinned_revealed": false,
+    "volley_done": true
   }
 ]
