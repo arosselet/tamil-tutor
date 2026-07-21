@@ -1,14 +1,13 @@
 {
   "learner": "Andrew",
-  "last_debrief": "STORY SO FAR: CAMPAIGN LIVE — Ask-Machine Week: BOTH unseen items now cleared. kudunga landed cold Sun 07-19 (live table fire + novel slot). MAYI-LAAMA ONLINE Mon 07-20 — third verb, no scaffolding, and he contracted it himself to the living form 'polaamaa' (poga-laam→polaam) which was never taught; aimed it correctly with naan. Path there: missed twice first — grabbed the -nga tail ('naan patharunga') showing the polite-command socket is now SO warm it overgeneralizes, same failure family as Sunday's 'naan ponga vaa ATM-la'. -nga is the reflex, -laamaa has to beat it. Andrew's own frame was 'I'm still learning this phrase' — corrected live: mayi-laama is a machine, not a phrase; that reframe landed and the next fire was cold. Greeting lore stuck: he opened with 'madhiya vanakkam' at 18:00 — taught the dictionary-vs-living gap (maalai vanakkam is news-reader Tamil; a real Coimbatore mouth says bare 'vanakkam' or nothing). FIELD MISSION 07-19 (naan edukkalaamaa at the dish) — Andrew reports 'it was fine', no detail, didn't push. CATCH — eavesdrop drill run (2 aunties, gate, Kamala's son quit his job, asking for money, register=pity not scandal). Andrew caught WHO+WHAT, self-reported 'most of this I didn't catch' — reframed as a pass, that IS the win condition. -aam went past him a THIRD time (4 instances in the tape, all load-bearing); flag planted, not chased — next contact is the one to watch. -nu sonnaanga and the -la gossip opener taught cold-free, no demand. Tomorrow (Tue): Table Rehearsal, mother-in-law mask — mayi-laama's cold check is now a victory lap, so re-aim Tuesday at the -nga/-laamaa collision under speed (she asks, he must pick the right tail fast). Week left: nearby-noun, needtogo-place, avasaram irukku still hinted.",
+  "last_debrief": "STORY SO FAR: CAMPAIGN — Ask-Machine Week, essentially WON. Both unseen cleared (kudunga cold 07-19, mayi-laama online 07-20). Tue 07-21 TABLE REHEARSAL (mother-in-law mask): the -nga/-laamaa COLLISION — the week's last open edge — now fires BOTH directions cold. Ran the mask gate-to-gate: naan ukkaralaamaa (may I sit — hinted->cold, -nga tried to sneak into the tail as 'ukkarungalaamaa', recast to bare stem) -> konjam thanni kudunga (flipped to -nga correctly pointing at HER; the -laamaa reflex bled back as a '-laa' question tail, trimmed) -> naan edukkalaamaa (COLD, training wheels OFF, on a FRESH verb 'edu'; picked the permission tail with no scaffolding — the real win) -> podhum ukkarunga (COLD, unscaffolded flip back to command on the SAME verb from the top of the scene). So both tails fire cold under speed and the CHOICE is made unassisted. Mon's overgeneralization (-nga jumping the queue) is easing: it still tried twice early but he self-corrected fast after one clause of why. META WIN (curriculum): he stopped on 'konjam' and read it himself as a politeness softener; taught it as an imposition-shrinker (= English 'just'), a reusable free politeness dial — pocketed for the trip. NOTE: he stacked the myself-thukka reflexive onto edu (eduthukka-laamaa) — a real form, flagged as a SECOND engine not to bolt on under speed yet. FIELD MISSION 07-21: naan edukkalaamaa at dinner tonight (reach for a dish, ask before taking) — organic, rides the guaranteed dinner slot; collect tomorrow. Week left: nearby-noun, needtogo-place, avasaram irukku still hinted (Wed/Thu stragglers); -aam still on watch (3 misses, next contact is the tell, seeded by the produced hearsay tape); Fri = kudunga victory lap.",
   "soak_order": {
     "payload": [
-      "frame:hearsay-aam",
-      "frame:quote-nu",
-      "frame:youknow-la"
+      "frame:mayi-laama",
+      "frame:polite-nga"
     ],
-    "scene_seed": "the gate verdict: one aunty saw it herself, the other only heard it — same story told twice, and the -aam tells you which is which",
-    "from": "2026-07-20"
+    "scene_seed": "First visit to the girlfriend's family home — the boy asks permission for every small move (naan ukkaralaamaa / edukkalaamaa / kudikkalaamaa) while the grandmother keeps commanding him to relax (ukkarunga, saapdunga, podhum-nu vidunga). Permission-tail vs command-tail rubbing against each other all scene. Vignette, a little will-he-pass suspense.",
+    "from": "2026-07-21"
   },
   "next_engine": "frame:polite-nga",
   "recent_missions": [
@@ -29,5 +28,5 @@
       "title": "Mission tier2_mission65"
     }
   ],
-  "status": "Trip Deck 10/33 survival cold · 23 days to touchdown · need 1.0 cold/day, trailing 7-day pace 1.6/day · full deck 10/69"
+  "status": "Trip Deck 13/33 survival cold · 22 days to touchdown · need 0.9 cold/day, trailing 7-day pace 2.4/day · full deck 13/69"
 }
