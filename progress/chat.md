@@ -36,6 +36,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! appadiya + vazhthukkal in one breath — that's a full native reaction. 🔥
 
+**17:07 · Andrew** — **CHAT**
+> What is “naan” in the sentence “naan polama” as in, may I go?
+
+**Anna ↩**
+> 'naan' = I. so 'naan polama?' — 'may I go?' (polama is the soft-ask form of poga). quick grammar beat, then: her cousin just got promoted — backchannel it.
+
 
 ## Monday 2026-07-20
 
