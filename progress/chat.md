@@ -30,6 +30,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > close — 'airport-ku pokanum' is the frame. naan/polam works casual but this ask wants the need. 4/4 — amma made too much food, wave it off · 4/4 — her cousin just got promoted — what do you say back? (surprise backchannel)
 
+**15:55 · Andrew** — **COLD**
+> Closing the last volley: podhum, appidya! Vazhthukkal!
+
+**Anna ↩**
+> adhu dhaan! appadiya + vazhthukkal in one breath — that's a full native reaction. 🔥
+
 
 ## Monday 2026-07-20
 
