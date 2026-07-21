@@ -33,6 +33,16 @@
     </item>
 
     <item>
+      <title>Anna Introduces Himself</title>
+      <itunes:author>Andrew R &amp; Gemini</itunes:author>
+      <itunes:summary>Anna Introduces Himself</itunes:summary>
+      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/special_anna_intro.mp3" length="801792" type="audio/mpeg"/>
+      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/special_anna_intro.mp3</guid>
+      <pubDate>Tue, 21 Jul 2026 09:35:51 -0400</pubDate>
+      <itunes:duration>00:03:20</itunes:duration>
+    </item>
+
+    <item>
       <title>Drill — 2026-07-08 · say it out loud</title>
       <itunes:author>Andrew R &amp; Gemini</itunes:author>
       <itunes:summary>Drill — 2026-07-08 · say it out loud</itunes:summary>
@@ -58,7 +68,7 @@
       <itunes:summary>Knock — 2026-07-20 17:57 · fielding: mayi-laama trailer payoff</itunes:summary>
       <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/knocks/knock_2026-07-20T17-57.mp3" length="27168" type="audio/mpeg"/>
       <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/knocks/knock_2026-07-20T17-57.mp3</guid>
-      <pubDate>Mon, 20 Jul 2026 17:57:00 +0000</pubDate>
+      <pubDate>Mon, 20 Jul 2026 18:02:48 -0400</pubDate>
       <itunes:duration>00:00:06</itunes:duration>
     </item>
 
@@ -68,7 +78,7 @@
       <itunes:summary>Knock — 2026-07-19 19:00 · lore memo: adverb-aa machine</itunes:summary>
       <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/knocks/knock_2026-07-19T19-00.mp3" length="241584" type="audio/mpeg"/>
       <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/knocks/knock_2026-07-19T19-00.mp3</guid>
-      <pubDate>Sun, 19 Jul 2026 19:00:00 +0000</pubDate>
+      <pubDate>Mon, 20 Jul 2026 18:02:48 -0400</pubDate>
       <itunes:duration>00:01:00</itunes:duration>
     </item>
 
@@ -78,7 +88,7 @@
       <itunes:summary>Knock — 2026-07-19 13:08 · eavesdrop: hearsay-aam gossip tape</itunes:summary>
       <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/knocks/knock_2026-07-19T13-08.mp3" length="151344" type="audio/mpeg"/>
       <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/knocks/knock_2026-07-19T13-08.mp3</guid>
-      <pubDate>Sun, 19 Jul 2026 13:08:45 +0000</pubDate>
+      <pubDate>Sun, 19 Jul 2026 11:37:21 -0400</pubDate>
       <itunes:duration>00:00:37</itunes:duration>
     </item>
 
@@ -250,7 +260,7 @@
       <description><![CDATA[📖 <a href="https://github.com/arosselet/tamil-tutor/blob/main/content/captions/tier2_mission68.md">Captions — follow along (Tamil · phonetic · English)</a>]]></description>
       <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission68_v2.mp3" length="3686880" type="audio/mpeg"/>
       <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission68_v2.mp3</guid>
-      <pubDate>Sat, 18 Jul 2026 22:02:33 -0400</pubDate>
+      <pubDate>Sun, 19 Jul 2026 11:37:21 -0400</pubDate>
       <itunes:duration>00:10:14</itunes:duration>
     </item>
 
