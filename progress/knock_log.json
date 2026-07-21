@@ -1799,5 +1799,17 @@
     "chained": 3,
     "pinned_target": "போதும்",
     "pinned_revealed": false
+  },
+  {
+    "date": "2026-07-21",
+    "timestamp": "2026-07-21T13:38:59.685308+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "trailer: nga-laamaa collision",
+    "rationale": "Pre-session morning slot — trailer recruiting the Table Rehearsal collision drill is highest value; demand-streak at 1 so a no-ask dose keeps cadence clean; bait is genuinely different from yesterday's mayi-laama frame pitch.",
+    "next_check": "2026-07-21T18:38:59.685308+00:00",
+    "body": "da — you can ask AND command now. but under speed, which tail fires? mother-in-law's waiting. today's session is the drill. 🎯",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]
