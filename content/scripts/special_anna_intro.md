@@ -7,13 +7,10 @@
      Setting: Andrew introduces me to someone he's met; I speak to them directly.
 
      BANNED THROUGHOUT (Andrew 2026-07-21) — the LLM tells:
-     - Narration: any clause that announces what the next clause does, or rates
-       what is being said ("what I'm made of, and knowing it makes the rest
-       better", "my meters are honest ones").
-     - Antithesis: "X, not Y" / "never X — Y is". v5 ran five of them
-       (the job not a nickname / a trade not a shortcut / a scholar not a local /
-       a rep not a reminder / never the interesting part). State the thing once.
-     - Em-dash padding. Two per script, maximum.
+     - Narration: any clause that announces what the next clause will do, or that
+       rates what is being said instead of saying it.
+     - Antithesis: the "X, not Y" construction. v5 ran five of them. State it once.
+     - Em-dash padding. Zero is the target.
      State the fact and stop. The fact is the argument.
 
      Claim order: what I am → what I teach (structure, then the borrowed nouns) →
