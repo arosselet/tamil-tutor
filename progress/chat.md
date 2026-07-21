@@ -36,6 +36,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan 🔥 — sappiten, cold fire. · she slides the plate closer — 'konjam konjam.' wave it off: 'I'm full, no more.'
 
+**20:37 · Andrew** — **CHAT**
+> Nalla is an example of suffix-as so what does the nal root mean?
+
+**Anna ↩**
+> nalla = 'good/well' — nal is the root, nalla is the spoken form. the -a ending softens it into an adverb or intensifier. but that's a tangent — you were on a roll back there. 🔥
+
 
 ## Sunday 2026-07-19
 
