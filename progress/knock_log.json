@@ -1951,5 +1951,20 @@
     "body": "da — dinner last night: did 'naan edukkalaamaa' land? 🍽️ what happened? (one line back — that's the whole ask)",
     "expected_target": "நான் எடுக்கலாமா",
     "target_revealed": true
+  },
+  {
+    "date": "2026-07-22",
+    "timestamp": "2026-07-22T17:12:54.707816+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "eavesdrop: hearsay-aam tape",
+    "rationale": "Demand-streak=2 forces a no-ask dose; catch 0/12 is the sprint headline and eavesdrop cadence is due; hearsay-aam runs through the whole gossip deck so soaking it now primes every future catch item — one overheard phone call, drift question only, no production.",
+    "next_check": "2026-07-22T22:12:54.707816+00:00",
+    "body": "🎙️ overheard — aunty on the phone. what's the gossip? (english drift, one line back)",
+    "expected_target": "frame:hearsay-aam",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-07-22T17-12.mp3",
+    "memo_script": "ஹலோ? ஆமா, நான்தான்… அடி, கேளு கேளு — அவங்க வீட்டுல ஒரு பையன் வருவாங்க-லாம். ரொம்ப நல்லவன்-ஆம். வெளிநாட்டுல இருக்காரு-ஆம், தெரியுமா?\n\nஆமா ஆமா… அவரோட அம்மா சொன்னாங்க. அவங்களுக்கு ரொம்ப பிடிச்சிருக்கு-ஆம் அந்த பொண்ணு. கல்யாணம் பேசுவாங்க-ஆம் இந்த வருஷமே!\n\nடேய், யாரோட கிட்டயும் சொல்லாத. நான் கேட்டேன்னு தெரிஞ்சா அம்மா திட்டுவாங்க. சரியா?",
+    "mp3": "published_audio/knocks/knock_2026-07-22T17-12.mp3"
   }
 ]

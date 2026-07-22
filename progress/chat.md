@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:42 · Anna**  ·  text / field mission debrief collect
 > da — dinner last night: did 'naan edukkalaamaa' land? 🍽️ what happened? (one line back — that's the whole ask)
 
+**13:12 · Anna** 🎧  ·  eavesdrop / eavesdrop: hearsay-aam tape
+> 🎙️ overheard — aunty on the phone. what's the gossip? (english drift, one line back)
+
 
 ## Tuesday 2026-07-21
 
