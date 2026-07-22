@@ -1112,6 +1112,21 @@ def s23_ticket_end_to_end(sb: Path):
     check("day-zero ticket still serves new candidates",
           "not found" not in text, text[:200])
 
+    print("\n24. feed duration is counted, not estimated (2026-07-22)")
+    ra = importlib.import_module("render_audio")
+    rr = importlib.import_module("rebuild_rss")
+    # Our mp3s are raw frame concatenations with no Xing header, so a
+    # filesize/bitrate estimate ran 3-5% long on every episode. 100 silence
+    # frames is a known 2.4s: 24ms per frame at 24 kHz Layer III.
+    fake = sb / "counted.mp3"
+    fake.write_bytes(ra.SILENCE_FRAME * 100)
+    check("frame scan is exact on a known frame count",
+          abs(rr.mp3_duration(fake) - 2.4) < 0.01, rr.mp3_duration(fake))
+    check("duration_hms rounds to the counted second",
+          rr.duration_hms(fake, "FALLBACK") == "00:00:02", rr.duration_hms(fake, "x"))
+    check("an unreadable file falls back instead of raising",
+          rr.duration_hms(sb / "nope.mp3", "00:03:30") == "00:03:30")
+
 
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:

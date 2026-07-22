@@ -5,7 +5,6 @@ import re
 from datetime import datetime
 import email.utils
 from xml.sax.saxutils import escape as xml_escape
-from mutagen.mp3 import MP3
 
 # Configuration
 BASE_URL = "https://raw.githubusercontent.com/arosselet/tamil-tutor/main"
@@ -184,6 +183,70 @@ def existing_pub_dates():
     return result
 
 
+# MPEG audio frame tables, Layer III only (everything here is TTS mp3).
+_BITRATES = {  # kb/s, indexed by the header's 4-bit bitrate index
+    1: [0, 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320],  # MPEG 1
+    2: [0, 8, 16, 24, 32, 40, 48, 56, 64, 80, 96, 112, 128, 144, 160],      # MPEG 2 / 2.5
+}
+_RATES = {3: [44100, 48000, 32000], 2: [22050, 24000, 16000], 0: [11025, 12000, 8000]}
+
+
+def mp3_duration(path):
+    """Exact seconds, by summing every frame header. None if the file won't parse.
+
+    Why not mutagen: these files are raw frame concatenations (TTS segments plus
+    SILENCE_FRAME copies for pauses), so they carry no Xing/VBR header. Without one,
+    mutagen falls back to filesize x 8 / first-frame-bitrate — it assumes the first
+    frame's rate holds for the whole file. Google's frames average higher than that
+    32 kb/s opener, so every episode came out 3-5% long (a 4:50 piece announced as
+    5:04). Each frame header states its own bitrate, so adding up frame durations is
+    exact and needs no decoding.
+    """
+    with open(path, "rb") as f:
+        data = f.read()
+
+    i = 0
+    if data[:3] == b"ID3":  # skip the tag: its size is 4 syncsafe bytes at offset 6
+        i = 10 + int.from_bytes(bytes(b & 0x7F for b in data[6:10]), "big")
+        if data[5] & 0x10:  # footer present
+            i += 10
+
+    seconds = 0.0
+    end = len(data)
+    while i + 4 <= end:
+        if data[i] != 0xFF or (data[i + 1] & 0xE0) != 0xE0:
+            i += 1  # not a sync word (ID3v1 trailer, junk between segments)
+            continue
+        h = data[i + 1:i + 4]
+        version = (h[0] >> 3) & 0x03           # 3=MPEG1, 2=MPEG2, 0=MPEG2.5
+        layer = (h[0] >> 1) & 0x03             # 1 = Layer III
+        bitrate_idx = (h[1] >> 4) & 0x0F
+        rate_idx = (h[1] >> 2) & 0x03
+        if layer != 1 or version == 1 or rate_idx == 3 or bitrate_idx in (0, 15):
+            i += 1
+            continue
+        rate = _RATES[version][rate_idx]
+        bitrate = _BITRATES[1 if version == 3 else 2][bitrate_idx] * 1000
+        samples = 1152 if version == 3 else 576
+        length = (samples // 8) * bitrate // rate + ((h[1] >> 1) & 0x01)
+        if length <= 0:
+            i += 1
+            continue
+        seconds += samples / rate
+        i += length
+
+    return seconds or None
+
+
+def duration_hms(path, fallback):
+    """"HH:MM:SS" for the feed, from the exact frame scan."""
+    try:
+        total = int(mp3_duration(path))
+    except Exception:
+        return fallback
+    return f"{total // 3600:02d}:{(total % 3600) // 60:02d}:{total % 60:02d}"
+
+
 def generate_rss():
     saved_dates = existing_pub_dates()
     items = []
@@ -247,16 +310,7 @@ def generate_rss():
             os.path.getmtime(audio_path), localtime=True
         )
 
-        # Calculate real duration from the MP3 file
-        try:
-            audio = MP3(audio_path)
-            total_seconds = int(audio.info.length)
-            hours = total_seconds // 3600
-            minutes = (total_seconds % 3600) // 60
-            seconds = total_seconds % 60
-            duration = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
-        except Exception:
-            duration = "00:05:00"  # Fallback
+        duration = duration_hms(audio_path, "00:05:00")
 
         # Escape titles/summaries: episode titles carry Tamil script and arbitrary
         # punctuation (e.g. a raw "&" from a script H1), which is illegal as bare
@@ -277,12 +331,7 @@ def generate_rss():
     if os.path.exists(demo_path):
         demo_size = os.path.getsize(demo_path)
         demo_url = f"{BASE_URL}/{AUDIO_DIR}/polyglot_demo.mp3"
-        try:
-            demo_audio = MP3(demo_path)
-            ds = int(demo_audio.info.length)
-            demo_duration = f"{ds // 3600:02d}:{(ds % 3600) // 60:02d}:{ds % 60:02d}"
-        except Exception:
-            demo_duration = "00:03:30"
+        demo_duration = duration_hms(demo_path, "00:03:30")
         items.append(ITEM_TEMPLATE.format(
             title=xml_escape("Welcome — What Is This?"),
             author=AUTHOR,
