@@ -2905,11 +2905,11 @@
       "avasaram irukku"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [
       68
     ],
-    "last_surfaced": null,
+    "last_surfaced": "2026-07-22",
     "deck": "trip",
     "direction": "fire"
   },
@@ -3164,7 +3164,7 @@
       67,
       68
     ],
-    "last_surfaced": "2026-07-21",
+    "last_surfaced": "2026-07-22",
     "deck": "trip",
     "direction": "fire"
   },
@@ -3195,7 +3195,7 @@
     "seen_in": [
       68
     ],
-    "last_surfaced": "2026-07-21",
+    "last_surfaced": "2026-07-22",
     "deck": "trip",
     "direction": "fire"
   },
@@ -3469,7 +3469,7 @@
       67,
       68
     ],
-    "last_surfaced": "2026-07-21",
+    "last_surfaced": "2026-07-22",
     "deck": "trip",
     "direction": "fire"
   },
