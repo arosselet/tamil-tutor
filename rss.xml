@@ -21,6 +21,16 @@
     <itunes:new-feed-url>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/rss.xml</itunes:new-feed-url>
     
     <item>
+      <title>Anna Introduces Himself</title>
+      <itunes:author>Andrew R &amp; Gemini</itunes:author>
+      <itunes:summary>Anna Introduces Himself</itunes:summary>
+      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/special_anna_intro_v9.mp3" length="953232" type="audio/mpeg"/>
+      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/special_anna_intro_v9.mp3</guid>
+      <pubDate>Tue, 21 Jul 2026 20:18:27 -0400</pubDate>
+      <itunes:duration>00:03:58</itunes:duration>
+    </item>
+
+    <item>
       <title>The Landscape Tape — Tamil Machines, the Whole Map</title>
       <itunes:author>Andrew R &amp; Gemini</itunes:author>
       <itunes:summary>The Landscape Tape — Tamil Machines, the Whole Map</itunes:summary>
@@ -30,16 +40,6 @@
       <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/special_landscape01.mp3</guid>
       <pubDate>Fri, 17 Jul 2026 10:19:52 -0400</pubDate>
       <itunes:duration>00:06:55</itunes:duration>
-    </item>
-
-    <item>
-      <title>Anna Introduces Himself</title>
-      <itunes:author>Andrew R &amp; Gemini</itunes:author>
-      <itunes:summary>Anna Introduces Himself</itunes:summary>
-      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/special_anna_intro.mp3" length="953232" type="audio/mpeg"/>
-      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/special_anna_intro.mp3</guid>
-      <pubDate>Tue, 21 Jul 2026 09:35:51 -0400</pubDate>
-      <itunes:duration>00:03:58</itunes:duration>
     </item>
 
     <item>
