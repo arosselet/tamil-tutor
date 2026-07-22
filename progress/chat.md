@@ -21,6 +21,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > good catch — 'pollama' is actually two pieces, not three: 'po' (go) + 'lama' (shall we / let's). 'lama' is the whole suffix — it bundles the 'we' and the 'shall we?' together. no separate 'lam' + 'aa' split. so 'saapidlama?' = 'shall we eat?', 'pomlama?' = 'shall we come?'
 
+**19:04 · Andrew** — **CHAT**
+> So then there’s no valamma? Which would be shall we come?
+
+**Anna ↩**
+> exact — 'valama' doesn't exist as a standalone chunk. 'varlama?' = shall we come? — 'var' + 'lama', full stop.
+
 
 ## Tuesday 2026-07-21
 
