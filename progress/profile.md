@@ -65,6 +65,9 @@ ukkarunga) into one lever, and lands the week's headline: **kudunga fires cold b
   the *choice between engines* under speed is the open edge. Tuesday aims here.
 - **Antifreeze riders:** புரியல (hinted→cold), கொஞ்சம் மெதுவா சொல்லுங்க (a fired repair
   line is a PASS, out loud, every time).
+- **Collision — CLOSED (Wed 07-22):** the -nga/-laamaa choice now fires cold both
+  directions, and *edukkalaamaa* landed LIVE at a real dinner table (07-21 mission).
+  The week's open wound is stitched.
 - **Known -nga family to re-strain as one machine:** சொல்லுங்க, உக்காருங்க, எடுங்க,
   சாப்பிடுங்க, நிறுத்துங்க, கொஞ்சம் தண்ணி குடுங்க.
 - **Carry-over rider:** `frame:done-ittu` — hinted today (mudichittu varén); ride it to
@@ -82,17 +85,21 @@ ukkarunga) into one lever, and lands the week's headline: **kudunga fires cold b
 catch — drift caught, -aam tail unheard) → Mon **soak/eavesdrop ✓** (mayi-laama online;
 eavesdrop drill run — who+what caught, -aam missed a third time) → Tue **Table Rehearsal**
 (mother-in-law mask; mayi-laama's check is a victory lap, so the real aim is the
-**-nga vs -laamaa collision at speed**) → Wed/Thu clear stragglers (nearby-noun,
-needtogo-place, avasaram irukku), Friday = kudunga victory lap.
+**-nga vs -laamaa collision at speed** — CLOSED, both directions cold) → Wed **✓**
+(collision re-fired cold + live-fire confirmed; stragglers *poganum* and *avasaram
+irukku* pried loose, both hinted) → Thu clear the last stragglers in a leaving-scene,
+Friday = kudunga victory lap.
 
 **-aam watch (2026-07-20):** third contact went past him — 4 load-bearing instances in one
 tape, drift caught without the tail. Flag planted, deliberately not chased. Keep seeding
 via tapes and episodes; if the fourth contact also misses, that's signal for a real move,
 not a bigger dose.
 
-**Tomorrow's shape:** Table Rehearsal — mother-in-law mask at speed. **Trailer pitches:**
-"she asks you two questions back to back. one wants -nga, one wants -laamaa. pick wrong and
-you've just ordered your mother-in-law around."
+**Tomorrow's shape:** a leaving-scene — running late for the train, the family fussing him
+to sit and eat one more bite while he insists he has to go. Drills *poganum* and *avasaram
+irukku* to cold against the -nga fuss-lines (ukkarunga, saapdunga). **Trailer pitches:**
+"you're late for the train and the whole family's blocking the door with one more idli.
+tell them you have to GO — and that you're in a hurry — without freezing."
 
 ---
 
