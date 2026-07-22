@@ -1979,13 +1979,13 @@
     "expected_target": "",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Question about the suffix lama as in pollama. It’s three pieces? Po lam (we go) aa (shall?) not po lama?",
+    "reply": "So then there’s no valamma? Which would be shall we come?",
     "reply_verdict": "chat",
     "reply_fired": [],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "good catch — 'pollama' is actually two pieces, not three: 'po' (go) + 'lama' (shall we / let's). 'lama' is the whole suffix — it bundles the 'we' and the 'shall we?' together. no separate 'lam' + 'aa' split. so 'saapidlama?' = 'shall we eat?', 'pomlama?' = 'shall we come?'",
-    "reply_at": "2026-07-22T23:02:05Z",
+    "reply_line": "exact — 'valama' doesn't exist as a standalone chunk. 'varlama?' = shall we come? — 'var' + 'lama', full stop.",
+    "reply_at": "2026-07-22T23:04:07Z",
     "exchanges": [
       {
         "at": "2026-07-22T23:02:05Z",
@@ -1996,6 +1996,16 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "good catch — 'pollama' is actually two pieces, not three: 'po' (go) + 'lama' (shall we / let's). 'lama' is the whole suffix — it bundles the 'we' and the 'shall we?' together. no separate 'lam' + 'aa' split. so 'saapidlama?' = 'shall we eat?', 'pomlama?' = 'shall we come?'"
+      },
+      {
+        "at": "2026-07-22T23:04:07Z",
+        "reply": "So then there’s no valamma? Which would be shall we come?",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "exact — 'valama' doesn't exist as a standalone chunk. 'varlama?' = shall we come? — 'var' + 'lama', full stop."
       }
     ]
   }
