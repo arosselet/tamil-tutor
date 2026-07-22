@@ -1939,5 +1939,17 @@
     "pinned_target": "அப்படியா?!",
     "pinned_revealed": false,
     "volley_done": true
+  },
+  {
+    "date": "2026-07-22",
+    "timestamp": "2026-07-22T13:42:14.776212+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "field mission debrief collect",
+    "rationale": "Field mission debrief is the highest-value open loop — real-world fire at the dinner table, uncollected; collecting it pulls him into chat and sets up the lunch session naturally, demand-streak goes to 2 so next fire must be no-ask.",
+    "next_check": "2026-07-22T16:42:14.776212+00:00",
+    "body": "da — dinner last night: did 'naan edukkalaamaa' land? 🍽️ what happened? (one line back — that's the whole ask)",
+    "expected_target": "நான் எடுக்கலாமா",
+    "target_revealed": true
   }
 ]
