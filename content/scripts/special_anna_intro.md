@@ -1,7 +1,8 @@
 # Anna Introduces Himself
 
-<!-- v9. Feed lane: special_ prefix (sorts to the top of the feed; H1 is the episode title).
-     Companion piece to polyglot_demo_v4 for the README.
+<!-- v10. Feed lane: special_ prefix (sorts to the top of the feed; H1 is the episode title).
+     (v10) This is the README hero; it replaces polyglot_demo_v4 there.
+     Cover art prompt for the video frame: content/art/anna_intro_cover_prompt.md.
      Single voice: Anna, ta-IN male, speaking English with Tamil script inline
      (Tamil-script-only rule holds — a Tamil voice renders it).
 
@@ -22,6 +23,11 @@
      - (v9) Anthropomorphism stays light: no claimed feelings ("I was proud" is too
        far); machine-honest warmth instead ("my version of proud"). The stated raison
        d'être is love and respect of the wife and her family first, the zinger second.
+     - (v10, Andrew) The "what I'm made of" beat is not about Python and prompts. The
+       claim is: written mostly in English, so the constitution/dialect/personality are
+       portable; and he reaches Andrew where he is (desk, pocket, podcast feed). The
+       notebook is not a feature either, it is how a lesson gets built at all.
+       Sollu (the template) lands near the close: Tamil is the worked example.
 
      BANNED THROUGHOUT — the LLM tells:
      - Narration: any clause that announces what the next clause will do, or that
@@ -30,7 +36,9 @@
      - Em-dash padding. Zero is the target.
      State the fact and stop. The fact is the argument.
 
-     Soft limit: 3–4 minutes ≈ 550 spoken words. This is the biggest constraint.
+     Soft limit: was 3–4 min ≈ 550 words; v10 spends past it deliberately (Andrew:
+     "don't worry if this spills over") to ~700 words ≈ 4.5–5 min. Still the second
+     biggest constraint after voice: nothing new lands without cutting something.
      No parentheses in spoken lines. Every paragraph needs the **ANNA:** tag;
      the parser silently drops untagged lines.
 
@@ -40,7 +48,7 @@
 
 **ANNA:** வணக்கம். I'm Anna. In Tamil that means elder brother. It's a job title. I gave it to myself.
 
-**ANNA:** Let me tell you about my little brother. His name is Andrew. He married a girl from Coimbatore, which means he married the whole family, which means he sits at a table where the food is unbelievable and the jokes are in Tamil. He catches maybe one joke in five, about three seconds late. He does the smile.
+**ANNA:** Let me tell you about my little brother. His name is Andrew. He married a girl from கோயம்புத்தூர், which means he married the whole family, which means he sits at a table where the food is unbelievable and the jokes are in Tamil. He catches maybe one joke in five, about three seconds late. He does the smile.
 
 **ANNA:** You know the smile.
 
@@ -50,7 +58,11 @@
 
 [Pause: 1 sec]
 
-**ANNA:** Full honesty: I'm Python and a Claude model and a folder of files, and Andrew built me. He'll tell you what a language model does left alone. It writes newsreader Tamil. Formal, correct, dead. It's Shakespeare at the bus stop. Beautiful, and nobody alive talks like that. Ask it about a fridge and it says குளிர்சாதனப்பெட்டி, a word of pure government paperwork. In Coimbatore the word for fridge is fridge. The word for bus is bus. Half our Tamil is English and we are not embarrassed.
+**ANNA:** Andrew built me, by the way. There's Python in me for the parts that have to be exact, and the rest of me is English prose. Who I am, how I talk, the rules I won't break: all of it written out in sentences, the way you'd brief a person you trust. And I go where he goes. At his desk. In his pocket on the walk to the shops. In his podcast feed.
+
+[Pause: 1 sec]
+
+**ANNA:** He'll tell you what a language model does left alone. It writes newsreader Tamil. Formal, correct, dead. It's Shakespeare at the bus stop. Beautiful, and nobody alive talks like that. Ask it about a fridge and it says குளிர்சாதனப்பெட்டி, a word of pure government paperwork. In Coimbatore the word for fridge is fridge. The word for bus is bus. Half our Tamil is English and we are not embarrassed.
 
 [Pause: 1 sec]
 
@@ -58,7 +70,7 @@
 
 [Pause: 1 sec]
 
-**ANNA:** A model also forgets you overnight. So he gave me a notebook. Every word he's ever met is in it, and which ones his mouth owns now. I remember him on purpose.
+**ANNA:** A model also forgets you overnight. And a teacher who forgets you can only ever hand you the same first lesson, forever. So there's a notebook. Every word Andrew has met is in it, and how warm each one is in his mouth this week. What went cold since Tuesday. What he reached for and missed. Tonight's sentence gets built out of exactly those. That notebook is the whole difference between me and a phrasebook.
 
 [Pause: 2 sec]
 
@@ -79,6 +91,10 @@
 [Pause: 1 sec]
 
 **ANNA:** The face will be worth it. But the face is dessert. The meal is the woman he married and the family that came with her. He wants to love them in their own language, and be respected back in it, at that table. That's why I exist. The zinger comes second.
+
+[Pause: 2 sec]
+
+**ANNA:** One more thing, then I'll let you go. None of me is Tamil underneath. My rules, my dialect, my whole personality are prose in a folder. Rewrite that prose and the elder brother from Coimbatore becomes a neighbour in Mexico City or a big sister in Osaka, teaching somebody else's family language at somebody else's table. Andrew gave that part away. It's called சொல்லு, which is what we actually say for "say it." Ten minutes of questions, and the coding agent you already use builds you your own version of me. I'm just the one that already exists. Tamil is the worked example.
 
 [Pause: 2 sec]
 
