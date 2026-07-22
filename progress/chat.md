@@ -12,6 +12,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **13:12 · Anna** 🎧  ·  eavesdrop / eavesdrop: hearsay-aam tape
 > 🎙️ overheard — aunty on the phone. what's the gossip? (english drift, one line back)
 
+**18:57 · Anna**  ·  text / trailer: poganum live tonight
+> da — the drill already put the exit line in your mouth. tonight's table is the real rep. 🚪 tomorrow we collect.
+
 
 ## Tuesday 2026-07-21
 
