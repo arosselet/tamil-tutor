@@ -1977,6 +1977,26 @@
     "next_check": "2026-07-23T11:57:53.578867+00:00",
     "body": "da — the drill already put the exit line in your mouth. tonight's table is the real rep. 🚪 tomorrow we collect.",
     "expected_target": "",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Question about the suffix lama as in pollama. It’s three pieces? Po lam (we go) aa (shall?) not po lama?",
+    "reply_verdict": "chat",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line": "good catch — 'pollama' is actually two pieces, not three: 'po' (go) + 'lama' (shall we / let's). 'lama' is the whole suffix — it bundles the 'we' and the 'shall we?' together. no separate 'lam' + 'aa' split. so 'saapidlama?' = 'shall we eat?', 'pomlama?' = 'shall we come?'",
+    "reply_at": "2026-07-22T23:02:05Z",
+    "exchanges": [
+      {
+        "at": "2026-07-22T23:02:05Z",
+        "reply": "Question about the suffix lama as in pollama. It’s three pieces? Po lam (we go) aa (shall?) not po lama?",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "good catch — 'pollama' is actually two pieces, not three: 'po' (go) + 'lama' (shall we / let's). 'lama' is the whole suffix — it bundles the 'we' and the 'shall we?' together. no separate 'lam' + 'aa' split. so 'saapidlama?' = 'shall we eat?', 'pomlama?' = 'shall we come?'"
+      }
+    ]
   }
 ]

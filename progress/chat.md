@@ -15,6 +15,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **18:57 · Anna**  ·  text / trailer: poganum live tonight
 > da — the drill already put the exit line in your mouth. tonight's table is the real rep. 🚪 tomorrow we collect.
 
+**19:02 · Andrew** — **CHAT**
+> Question about the suffix lama as in pollama. It’s three pieces? Po lam (we go) aa (shall?) not po lama?
+
+**Anna ↩**
+> good catch — 'pollama' is actually two pieces, not three: 'po' (go) + 'lama' (shall we / let's). 'lama' is the whole suffix — it bundles the 'we' and the 'shall we?' together. no separate 'lam' + 'aa' split. so 'saapidlama?' = 'shall we eat?', 'pomlama?' = 'shall we come?'
+
 
 ## Tuesday 2026-07-21
 
