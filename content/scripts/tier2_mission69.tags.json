@@ -1,0 +1,33 @@
+{
+  "mission": 69,
+  "register": "suspicion",
+  "dramatic_ingredient": "stakes",
+  "episode_form": "vignette",
+  "shape": "dispute",
+  "location_class": "home_social",
+  "energy": "medium-loud",
+  "intercept_tamil_density": 0.15,
+  "breakdown_tamil_density": 0.0,
+  "fence_size": 20,
+  "unfenced_words": 0,
+  "new_words_landed": {
+    "சொன்னாங்க": 1,
+    "ஆனா": 1,
+    "பிடிக்காது": 2,
+    "ஆமா": 1,
+    "மேனேஜர் கிட்ட": 1,
+    "சரி": 1,
+    "frame:needtogo-place": 0
+  },
+  "callbacks_used": {
+    "ஸ்டேஷனுக்கு போகணும்": 1,
+    "கொஞ்சம் நில்லுங்க": 1,
+    "இன்னும் கொஞ்சம் சாப்பிடுங்க": 1,
+    "அவசரம் இருக்கு": 2,
+    "என்னமோ பிரச்சனை": 2
+  },
+  "host_roles": {
+    "You": "escaping_nephew",
+    "Atthai": "suspicious_aunt"
+  }
+}

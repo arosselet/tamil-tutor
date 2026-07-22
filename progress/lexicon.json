@@ -68,7 +68,8 @@
       63,
       65,
       66,
-      67
+      67,
+      69
     ],
     "last_surfaced": null
   },
@@ -209,7 +210,8 @@
       62,
       65,
       66,
-      67
+      67,
+      69
     ],
     "last_surfaced": null
   },
@@ -274,7 +276,8 @@
       38,
       60,
       61,
-      64
+      64,
+      69
     ],
     "last_surfaced": null
   },
@@ -905,7 +908,8 @@
       38,
       61,
       64,
-      65
+      65,
+      69
     ],
     "last_surfaced": null
   },
@@ -1193,7 +1197,8 @@
       38,
       60,
       61,
-      65
+      65,
+      69
     ],
     "last_surfaced": "2026-07-20"
   },
@@ -2601,7 +2606,8 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
-      68
+      68,
+      69
     ],
     "last_surfaced": null,
     "deck": "trip",
@@ -2781,7 +2787,8 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
-      68
+      68,
+      69
     ],
     "last_surfaced": null,
     "deck": "trip",
@@ -2907,7 +2914,8 @@
     "recognition": "struggled",
     "production": "hinted",
     "seen_in": [
-      68
+      68,
+      69
     ],
     "last_surfaced": "2026-07-22",
     "deck": "trip",
@@ -2921,7 +2929,9 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
+    "seen_in": [
+      69
+    ],
     "last_surfaced": null,
     "deck": "trip",
     "direction": "fire"
@@ -3193,7 +3203,8 @@
     "recognition": "comfortable",
     "production": "hinted",
     "seen_in": [
-      68
+      68,
+      69
     ],
     "last_surfaced": "2026-07-22",
     "deck": "trip",
@@ -4264,6 +4275,16 @@
     "production": "none",
     "seen_in": [
       67
+    ],
+    "last_surfaced": null
+  },
+  "மேனேஜர் கிட்ட": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      69
     ],
     "last_surfaced": null
   }
