@@ -27,6 +27,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > exact — 'valama' doesn't exist as a standalone chunk. 'varlama?' = shall we come? — 'var' + 'lama', full stop.
 
+**19:05 · Andrew** — **CHAT**
+> But “shall we come” varlamma is fine?
+
+**Anna ↩**
+> ஆமா — 'varlama?' is the one. clean.
+
 
 ## Tuesday 2026-07-21
 

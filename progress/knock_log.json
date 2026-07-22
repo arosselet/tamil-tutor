@@ -1979,13 +1979,13 @@
     "expected_target": "",
     "target_revealed": false,
     "response": "reply",
-    "reply": "So then there’s no valamma? Which would be shall we come?",
+    "reply": "But “shall we come” varlamma is fine?",
     "reply_verdict": "chat",
     "reply_fired": [],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "exact — 'valama' doesn't exist as a standalone chunk. 'varlama?' = shall we come? — 'var' + 'lama', full stop.",
-    "reply_at": "2026-07-22T23:04:07Z",
+    "reply_line": "ஆமா — 'varlama?' is the one. clean.",
+    "reply_at": "2026-07-22T23:05:12Z",
     "exchanges": [
       {
         "at": "2026-07-22T23:02:05Z",
@@ -2006,6 +2006,16 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "exact — 'valama' doesn't exist as a standalone chunk. 'varlama?' = shall we come? — 'var' + 'lama', full stop."
+      },
+      {
+        "at": "2026-07-22T23:05:12Z",
+        "reply": "But “shall we come” varlamma is fine?",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "ஆமா — 'varlama?' is the one. clean."
       }
     ]
   }
