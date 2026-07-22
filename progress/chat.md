@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Wednesday 2026-07-22
+
+**09:42 · Anna**  ·  text / field mission debrief collect
+> da — dinner last night: did 'naan edukkalaamaa' land? 🍽️ what happened? (one line back — that's the whole ask)
+
+
 ## Tuesday 2026-07-21
 
 **09:38 · Anna**  ·  text / trailer: nga-laamaa collision
