@@ -2028,5 +2028,20 @@
         "reply_line": "noted — 9am, audio, greet her + one thing you've been drilling. I'll make it land clean."
       }
     ]
+  },
+  {
+    "date": "2026-07-23",
+    "timestamp": "2026-07-23T13:47:44.220801+00:00",
+    "acted": true,
+    "modality": "fielding",
+    "move": "fielding: avasaram exit",
+    "rationale": "He's in the car with his wife right now — fielding is lowest friction (parse + one-line reply), the leaving-scene fires both avasaram and poganum naturally from the soak order, and it's his first demand of the day; the Tamil in the memo is TTS script, English phonetic anchors the notification so he reads it at speed without a keyboard fight.",
+    "next_check": "2026-07-23T17:47:44.220801+00:00",
+    "body": "🚪 avasaram irukku — she calls from the kitchen as you grab your keys. what do you say back? (one line)",
+    "expected_target": "அவசரம் இருக்கு",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-07-23T13-47.mp3",
+    "memo_script": "அவசரம் இருக்கு, நான் போகணும்!",
+    "mp3": "published_audio/knocks/knock_2026-07-23T13-47.mp3"
   }
 ]
