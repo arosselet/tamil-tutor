@@ -15,6 +15,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan — 'avasaram irukku, poren!' both pieces landed 🙌
 
+**11:32 · Anna**  ·  text / collect + cold dispatch: poganum
+> da — last night: did 'naan poganum' make it to the table? 🚉 one line back. (and: station-kku poganum — no warm-up, just fire it)
+
 
 ## Wednesday 2026-07-22
 

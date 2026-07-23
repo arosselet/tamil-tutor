@@ -2075,5 +2075,18 @@
         "reply_line": "adhu dhaan — 'avasaram irukku, poren!' both pieces landed 🙌"
       }
     ]
+  },
+  {
+    "date": "2026-07-23",
+    "timestamp": "2026-07-23T15:32:50.784952+00:00",
+    "acted": true,
+    "scheduled": true,
+    "queue_id": "q1784761094",
+    "modality": "text",
+    "move": "collect + cold dispatch: poganum",
+    "rationale": "scheduled at 2026-07-22T22:58 for 2026-07-23T14:00",
+    "body": "da — last night: did 'naan poganum' make it to the table? 🚉 one line back. (and: station-kku poganum — no warm-up, just fire it)",
+    "expected_target": "station-க்கு போகணும்",
+    "target_revealed": false
   }
 ]
