@@ -1,0 +1,40 @@
+{
+  "mission": 70,
+  "register": "suspicion",
+  "dramatic_ingredient": "stakes",
+  "episode_form": "story",
+  "shape": "story",
+  "location_class": "home_social",
+  "energy": "medium-loud",
+  "intercept_tamil_density": 0.4,
+  "breakdown_tamil_density": 0.0,
+  "fence_size": 25,
+  "unfenced_words": 0,
+  "new_words_landed": {
+    "நேரம் ஆச்சு": 1,
+    "ஸ்டேஷனுக்கு போகணும்": 2,
+    "உக்காருங்க": 2,
+    "கொஞ்சம் சாப்பிடுங்க": 1,
+    "எனக்கு ரொம்ப அவசரம் இருக்கு": 1,
+    "ஒன்னு மட்டும் சாப்பிடுங்க": 1,
+    "எனக்கு இட்லி பிடிக்காது": 1,
+    "பெரிய தப்பு": 1,
+    "அவங்களுக்கு கோவம்": 1,
+    "அவசரமா வெளிய போனேன்": 1,
+    "frame:needtogo-place": 0
+  },
+  "callbacks_used": {
+    "அத்தை வீட்ல": 1,
+    "அத்தை கிட்ட": 1,
+    "அவங்களுக்கு புரியல": 1,
+    "அவசரம் இருக்கு": 1,
+    "சாப்பிடுங்க": 1,
+    "வேற என்ன": 1,
+    "நேரா ஸ்டேஷனுக்கு போனேன்": 1,
+    "வந்துட்டேன்": 1
+  },
+  "host_roles": {
+    "Maya": "escaping_niece",
+    "Raj": "amused_coworker"
+  }
+}
