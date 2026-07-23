@@ -2088,5 +2088,17 @@
     "body": "da — last night: did 'naan poganum' make it to the table? 🚉 one line back. (and: station-kku poganum — no warm-up, just fire it)",
     "expected_target": "station-க்கு போகணும்",
     "target_revealed": false
+  },
+  {
+    "date": "2026-07-23",
+    "timestamp": "2026-07-23T19:08:48.112841+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "trailer: campaign close",
+    "rationale": "Demand-streak=2 forces a no-ask dose; trailer closes the campaign arc cleanly, ties to the live Brampton dinner context, and recruits the session without guilt or an ask — the leaving-scene soak is unproduced and tonight is the natural payoff moment.",
+    "next_check": "2026-07-23T22:38:48.112841+00:00",
+    "body": "da — Ask-Machine Week closes tonight. one scene left: the door exit, avasaram + poganum, both in your mouth. that's tonight's session. 🚪",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]
