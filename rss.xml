@@ -21,16 +21,6 @@
     <itunes:new-feed-url>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/rss.xml</itunes:new-feed-url>
     
     <item>
-      <title>Anna Introduces Himself</title>
-      <itunes:author>Andrew R &amp; Gemini</itunes:author>
-      <itunes:summary>Anna Introduces Himself</itunes:summary>
-      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/special_anna_intro_v11.mp3" length="959376" type="audio/mpeg"/>
-      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/special_anna_intro_v11.mp3</guid>
-      <pubDate>Thu, 23 Jul 2026 00:11:04 -0400</pubDate>
-      <itunes:duration>00:03:48</itunes:duration>
-    </item>
-
-    <item>
       <title>The Landscape Tape — Tamil Machines, the Whole Map</title>
       <itunes:author>Andrew R &amp; Gemini</itunes:author>
       <itunes:summary>The Landscape Tape — Tamil Machines, the Whole Map</itunes:summary>
@@ -40,6 +30,16 @@
       <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/special_landscape01.mp3</guid>
       <pubDate>Fri, 17 Jul 2026 10:19:52 -0400</pubDate>
       <itunes:duration>00:06:32</itunes:duration>
+    </item>
+
+    <item>
+      <title>Anna Introduces Himself</title>
+      <itunes:author>Andrew R &amp; Gemini</itunes:author>
+      <itunes:summary>Anna Introduces Himself</itunes:summary>
+      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/special_anna_intro_v11.mp3" length="959376" type="audio/mpeg"/>
+      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/special_anna_intro_v11.mp3</guid>
+      <pubDate>Thu, 23 Jul 2026 00:11:04 -0400</pubDate>
+      <itunes:duration>00:03:48</itunes:duration>
     </item>
 
     <item>
@@ -70,6 +70,16 @@
       <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/drill_2026-07-02_1225.mp3</guid>
       <pubDate>Thu, 02 Jul 2026 12:26:20 -0400</pubDate>
       <itunes:duration>00:02:31</itunes:duration>
+    </item>
+
+    <item>
+      <title>Knock — 2026-07-23 13:47 · fielding: avasaram exit</title>
+      <itunes:author>Andrew R &amp; Gemini</itunes:author>
+      <itunes:summary>Knock — 2026-07-23 13:47 · fielding: avasaram exit</itunes:summary>
+      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/knocks/knock_2026-07-23T13-47.mp3" length="13104" type="audio/mpeg"/>
+      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/knocks/knock_2026-07-23T13-47.mp3</guid>
+      <pubDate>Thu, 23 Jul 2026 13:47:53 +0000</pubDate>
+      <itunes:duration>00:00:02</itunes:duration>
     </item>
 
     <item>
