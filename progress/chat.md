@@ -21,6 +21,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **15:08 · Anna**  ·  text / trailer: campaign close
 > da — Ask-Machine Week closes tonight. one scene left: the door exit, avasaram + poganum, both in your mouth. that's tonight's session. 🚪
 
+**18:52 · Anna**  ·  text / trailer payoff: exit scene
+> da — poganum + avasaram, the door scene: 'avasaram irukku, station-kku poganum' — that's the whole exit. two lines, one door. 🚪
+
 
 ## Wednesday 2026-07-22
 

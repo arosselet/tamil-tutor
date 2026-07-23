@@ -2100,5 +2100,17 @@
     "body": "da — Ask-Machine Week closes tonight. one scene left: the door exit, avasaram + poganum, both in your mouth. that's tonight's session. 🚪",
     "expected_target": "",
     "target_revealed": false
+  },
+  {
+    "date": "2026-07-23",
+    "timestamp": "2026-07-23T22:52:41.405613+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "trailer payoff: exit scene",
+    "rationale": "Unpaid trailer rule: window closes in 8 min, two ignores today — pay off the promised lines now as a no-ask show dose, clear the loop, and let tomorrow open fresh with a different bait.",
+    "next_check": "2026-07-24T10:52:41.405613+00:00",
+    "body": "da — poganum + avasaram, the door scene: 'avasaram irukku, station-kku poganum' — that's the whole exit. two lines, one door. 🚪",
+    "expected_target": "",
+    "target_revealed": true
   }
 ]
