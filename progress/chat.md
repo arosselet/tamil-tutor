@@ -33,6 +33,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > ஆமா — 'varlama?' is the one. clean.
 
+**08:33 · Andrew** — **CHAT**
+> I am driving with my wife to Brampton this morning. When you knock, send an audio message, greet her and say something I’ve been learning this week. Not yet I mean 9am would be good.
+
+**Anna ↩**
+> noted — 9am, audio, greet her + one thing you've been drilling. I'll make it land clean.
+
 
 ## Tuesday 2026-07-21
 
