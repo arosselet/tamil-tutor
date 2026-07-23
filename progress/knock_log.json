@@ -1979,13 +1979,13 @@
     "expected_target": "",
     "target_revealed": false,
     "response": "reply",
-    "reply": "But “shall we come” varlamma is fine?",
+    "reply": "I am driving with my wife to Brampton this morning. When you knock, send an audio message, greet her and say something I’ve been learning this week. Not yet I mean 9am would be good.",
     "reply_verdict": "chat",
     "reply_fired": [],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "ஆமா — 'varlama?' is the one. clean.",
-    "reply_at": "2026-07-22T23:05:12Z",
+    "reply_line": "noted — 9am, audio, greet her + one thing you've been drilling. I'll make it land clean.",
+    "reply_at": "2026-07-23T12:33:44Z",
     "exchanges": [
       {
         "at": "2026-07-22T23:02:05Z",
@@ -2016,6 +2016,16 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "ஆமா — 'varlama?' is the one. clean."
+      },
+      {
+        "at": "2026-07-23T12:33:44Z",
+        "reply": "I am driving with my wife to Brampton this morning. When you knock, send an audio message, greet her and say something I’ve been learning this week. Not yet I mean 9am would be good.",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "noted — 9am, audio, greet her + one thing you've been drilling. I'll make it land clean."
       }
     ]
   }
