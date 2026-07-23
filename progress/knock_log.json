@@ -2087,7 +2087,9 @@
     "rationale": "scheduled at 2026-07-22T22:58 for 2026-07-23T14:00",
     "body": "da — last night: did 'naan poganum' make it to the table? 🚉 one line back. (and: station-kku poganum — no warm-up, just fire it)",
     "expected_target": "station-க்கு போகணும்",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "ack",
+    "response_at": "2026-07-23T22:53:37Z"
   },
   {
     "date": "2026-07-23",
