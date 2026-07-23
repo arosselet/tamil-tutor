@@ -18,6 +18,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **11:32 · Anna**  ·  text / collect + cold dispatch: poganum
 > da — last night: did 'naan poganum' make it to the table? 🚉 one line back. (and: station-kku poganum — no warm-up, just fire it)
 
+**15:08 · Anna**  ·  text / trailer: campaign close
+> da — Ask-Machine Week closes tonight. one scene left: the door exit, avasaram + poganum, both in your mouth. that's tonight's session. 🚪
+
 
 ## Wednesday 2026-07-22
 
