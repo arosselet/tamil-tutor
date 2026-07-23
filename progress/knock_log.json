@@ -2042,6 +2042,38 @@
     "target_revealed": false,
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-07-23T13-47.mp3",
     "memo_script": "அவசரம் இருக்கு, நான் போகணும்!",
-    "mp3": "published_audio/knocks/knock_2026-07-23T13-47.mp3"
+    "mp3": "published_audio/knocks/knock_2026-07-23T13-47.mp3",
+    "response": "reply",
+    "reply": "There is hurry I say poren",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "அவசரம் இருக்கு",
+      "போகணும்"
+    ],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [
+      "அவசரம் இருக்கு",
+      "போகணும்"
+    ],
+    "reply_line": "adhu dhaan — 'avasaram irukku, poren!' both pieces landed 🙌",
+    "reply_at": "2026-07-23T13:54:16Z",
+    "exchanges": [
+      {
+        "at": "2026-07-23T13:54:16Z",
+        "reply": "There is hurry I say poren",
+        "verdict": "hinted",
+        "fired": [
+          "அவசரம் இருக்கு",
+          "போகணும்"
+        ],
+        "fired_cold": [],
+        "fired_capped": [
+          "அவசரம் இருக்கு",
+          "போகணும்"
+        ],
+        "graduated": [],
+        "reply_line": "adhu dhaan — 'avasaram irukku, poren!' both pieces landed 🙌"
+      }
+    ]
   }
 ]
