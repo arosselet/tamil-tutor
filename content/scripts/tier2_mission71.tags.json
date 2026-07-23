@@ -1,0 +1,42 @@
+{
+  "mission": 71,
+  "register": "suspicion",
+  "dramatic_ingredient": "stakes",
+  "episode_form": "phone_call",
+  "shape": "story",
+  "location_class": "home_social",
+  "energy": "medium-loud",
+  "intercept_tamil_density": 0.4,
+  "breakdown_tamil_density": 0.2,
+  "fence_size": 25,
+  "unfenced_words": 0,
+  "new_words_landed": {
+    "உக்காருங்க-னு சொன்னாங்க": 3,
+    "எனக்கு புரியல": 2,
+    "வயிறு ஃபுல்": 2,
+    "எனக்கு பிடிக்காது": 1,
+    "போதும்": 1,
+    "வெளிய வாங்க": 1,
+    "நான் அப்புறமா கூப்பிடுறேன்": 2,
+    "செம்ம": 1,
+    "frame:needtogo-place": 0
+  },
+  "callbacks_used": {
+    "ஸ்டேஷனுக்கு போகணும்": 4,
+    "நேரம் ஆச்சு": 2,
+    "உக்காருங்க": 2,
+    "சாப்பிடுங்க": 3,
+    "கொஞ்சம் சாப்பிடுங்க": 1,
+    "அவசரம் இருக்கு": 4,
+    "ஆமா": 4,
+    "ஆனா": 3,
+    "அதான்": 2,
+    "பயம்": 1
+  },
+  "host_roles": {
+    "A": "amused_friend",
+    "B": "trapped_guest",
+    "Maya": "analyst",
+    "Raj": "analyst"
+  }
+}
