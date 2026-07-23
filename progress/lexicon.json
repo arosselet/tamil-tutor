@@ -1472,7 +1472,8 @@
       10,
       22,
       25,
-      64
+      64,
+      70
     ],
     "last_surfaced": null
   },
@@ -1670,7 +1671,8 @@
     "production": "none",
     "seen_in": [
       10,
-      21
+      21,
+      70
     ],
     "last_surfaced": null
   },
@@ -1748,7 +1750,9 @@
     "phonetic": [],
     "recognition": "comfortable",
     "production": "none",
-    "seen_in": [],
+    "seen_in": [
+      70
+    ],
     "last_surfaced": null
   },
   "பரவாயில்லை": {
@@ -2915,7 +2919,8 @@
     "production": "hinted",
     "seen_in": [
       68,
-      69
+      69,
+      70
     ],
     "last_surfaced": "2026-07-22",
     "deck": "trip",
@@ -2970,7 +2975,9 @@
     ],
     "recognition": "comfortable",
     "production": "none",
-    "seen_in": [],
+    "seen_in": [
+      70
+    ],
     "last_surfaced": null,
     "deck": "trip",
     "direction": "fire"
@@ -3204,7 +3211,8 @@
     "production": "hinted",
     "seen_in": [
       68,
-      69
+      69,
+      70
     ],
     "last_surfaced": "2026-07-22",
     "deck": "trip",
@@ -4285,6 +4293,86 @@
     "production": "none",
     "seen_in": [
       69
+    ],
+    "last_surfaced": null
+  },
+  "ஸ்டேஷனுக்கு போகணும்": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      70
+    ],
+    "last_surfaced": null
+  },
+  "கொஞ்சம் சாப்பிடுங்க": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      70
+    ],
+    "last_surfaced": null
+  },
+  "எனக்கு ரொம்ப அவசரம் இருக்கு": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      70
+    ],
+    "last_surfaced": null
+  },
+  "ஒன்னு மட்டும் சாப்பிடுங்க": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      70
+    ],
+    "last_surfaced": null
+  },
+  "எனக்கு இட்லி பிடிக்காது": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      70
+    ],
+    "last_surfaced": null
+  },
+  "பெரிய தப்பு": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      70
+    ],
+    "last_surfaced": null
+  },
+  "அவங்களுக்கு கோவம்": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      70
+    ],
+    "last_surfaced": null
+  },
+  "அவசரமா வெளிய போனேன்": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      70
     ],
     "last_surfaced": null
   }
