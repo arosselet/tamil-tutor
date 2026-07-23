@@ -1384,13 +1384,13 @@
       "poganum"
     ],
     "recognition": "solid",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [
       18,
       30,
       34
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-07-23"
   },
   "பார்த்தேன்": {
     "gloss": "I saw / I watched",
@@ -2933,7 +2933,7 @@
       70,
       71
     ],
-    "last_surfaced": "2026-07-22",
+    "last_surfaced": "2026-07-23",
     "deck": "trip",
     "direction": "fire"
   },
