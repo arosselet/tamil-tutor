@@ -74,6 +74,17 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
   inflections (M61: தூக்கு vs தூக்க); a stem-tolerant match would stop the recurring
   manual sidecar repair. See the 2026-07-13 "bends the sidecar" decision for the
   interim rule.
+- **Concurrent drains could double-fire one queue entry** (introduced 2026-07-24 by the
+  workflow consolidation — an honest residual, not a sighting). The drain used to be
+  serialized by `push-queue.yml`'s own `concurrency: push-queue`. Now it runs at the start
+  of every wake-up, and `anna.yml` deliberately gives each reply its own concurrency lane
+  (a reply must never queue behind a knock render), so two runs *can* overlap: two replies
+  to DIFFERENT knocks inside the same ~30s, with an entry due. Both would push, then the
+  second's queue write rebases onto the first — a duplicate notification and a duplicate
+  klog entry. Narrow (replies to the same knock share a lane and serialize; the drain is
+  the first step, so the window is seconds) and low-consequence. The real fix is a claim/
+  lease on a queue entry — a schema change, so it waits per Gate 2. Revisit on first
+  sighting, or if scheduled pushes get frequent enough to make the window matter.
 - **Phantom-fired knock on delivery failure** — the knock logs + commits *before* the
   notify step, so a push that fails all retries leaves `acted: true` for a dose Andrew
   never saw (rails count it; judge could grade against it). Seen once (2026-07-14 DNS
