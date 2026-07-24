@@ -19,11 +19,22 @@ import asyncio
 import argparse
 import random
 import json
+import shutil
 import subprocess
+import sys
+import tempfile
 import time
+from datetime import date
 from pathlib import Path
 
 import ssl as _ssl
+
+BASE = Path(__file__).parent.parent
+
+# This host is not a studio host — a missing credential, not a failure. Callers
+# (run_studio.py, studio_watchdog.py) read this code as "skip, don't retry":
+# retrying an absent secret hourly just fills the log (2026-07-23, work laptop).
+EXIT_NOT_CONFIGURED = 3
 
 import edge_tts
 import edge_tts.communicate as _edge_comm
@@ -39,6 +50,66 @@ try:
     HAS_GOOGLE = True
 except ImportError:
     HAS_GOOGLE = False
+
+
+def google_credentials_ready() -> str | None:
+    """None when Google TTS can authenticate, else the reason. Local and cheap
+    (no network) — google.auth.default() just resolves ADC. Checked ONCE before
+    the render loop so a credential-less host skips in a second instead of
+    burning five backoff retries on segment 0 (2026-07-23)."""
+    if not HAS_GOOGLE:
+        return "google-cloud-texttospeech is not installed"
+    try:
+        import google.auth
+        google.auth.default()
+    except Exception as e:
+        return f"no Google application-default credentials ({type(e).__name__})"
+    return None
+
+
+def is_auth_error(e: Exception) -> bool:
+    """Credential/permission failures are permanent — backing off five times
+    cannot fix an absent secret. Everything else stays retryable."""
+    name = type(e).__name__
+    if name in ("DefaultCredentialsError", "Unauthenticated", "PermissionDenied",
+                "Forbidden", "RefreshError"):
+        return True
+    return any(s in str(e).lower() for s in
+               ("credential", "unauthenticated", "permission denied", "api key"))
+
+
+def new_scratch_dir() -> str:
+    """A fresh TTS scratch dir per render. Named (not inlined) so the smoke test
+    can assert the invariant that actually broke: two concurrent renders must
+    never share one."""
+    return tempfile.mkdtemp(prefix="tts_segments_")
+
+
+def acquire_state_lock():
+    """Serialize the state tail (episodes.json → rss.xml → commit/push) against
+    any other studio process. Shares `.studio.lock` with run_studio.py and
+    studio_watchdog.py; when a parent already holds it we inherit rather than
+    deadlock against our own spawner (STUDIO_LOCK_HELD). The render itself is
+    NOT covered — per-run temp dirs make concurrent renders safe, and holding a
+    lock across ten minutes of TTS would serialize the slow part for nothing."""
+    if os.environ.get("STUDIO_LOCK_HELD") == "1":
+        return None
+    try:
+        import fcntl
+    except ImportError:
+        return None
+    fd = open(BASE / ".studio.lock", "w")
+    for attempt in range(60):  # up to ~60s: the tail is seconds long, not minutes
+        try:
+            fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            return fd
+        except OSError:
+            if attempt == 0:
+                print("   ⏳ another studio process holds .studio.lock — waiting to publish…")
+            time.sleep(1)
+    fd.close()
+    print("   ⚠️ gave up waiting for .studio.lock — publishing without it")
+    return None
 
 # Voice pools — Indian Tamil
 # Expanded Chirp pool with 30+ voices
@@ -214,6 +285,8 @@ async def generate_segment_google(text: str, voice: str, index: int, temp_dir: s
                 out.write(response.audio_content)
             return filename
         except Exception as e:
+            if is_auth_error(e):
+                raise  # permanent — no amount of backoff conjures a credential
             if attempt == max_retries - 1:
                 raise
             wait = 2 ** attempt + random.random()
@@ -379,7 +452,10 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
 
     if mission_num not in episodes:
         episodes[mission_num] = {
-            "title": title, "listens": 0, "words": cleaned_words, "duration_min": duration
+            "title": title, "listens": 0, "words": cleaned_words, "duration_min": duration,
+            # produced-on date: the unattended-production cap counts these, so a
+            # stuck trigger can never flood the feed again (2026-07-23).
+            "produced": date.today().isoformat(),
         }
         print(f"✅ Registered Mission {mission_num} in episodes.json")
     else:
@@ -438,43 +514,58 @@ async def main():
         print("❌ No dialogue lines found!")
         return
 
+    if args.provider == "google":
+        reason = google_credentials_ready()
+        if reason:
+            print(f"⏭️  Skipping render — {reason}.\n"
+                  f"    This host is not set up to produce audio; copy the credentials over "
+                  f"(see task: studio secrets) or render on the personal laptop.")
+            sys.exit(EXIT_NOT_CONFIGURED)
+
     speaker_assignments = assign_voices(dialogue, voice_map, args.provider, args.voice_type)
     print(f"🎭 Cast Assignments:")
     for s, v in speaker_assignments.items():
         print(f"   - {s}: {v}")
 
-    temp_dir = "temp_audio_segments"
-    os.makedirs(temp_dir, exist_ok=True)
+    # Per-run scratch dir. Was a fixed "temp_audio_segments" shared by every
+    # render on the machine, so whichever finished first rmdir'd it out from
+    # under the other — that raced the watchdog into a FileNotFoundError and
+    # cost a draft episode (2026-07-23). Concurrency is now safe by construction.
+    temp_dir = new_scratch_dir()
     os.makedirs(os.path.dirname(args.output_file) or ".", exist_ok=True)
 
     print("🎙️ Generating audio segments...")
     final_audio_data = bytearray()
 
-    for i, line in enumerate(dialogue):
-        speaker = line["speaker"]
-        if speaker == "PAUSE":
-            seconds = line.get("seconds", 1)
-            final_audio_data.extend(SILENCE_FRAME * int(seconds * 41.666))
-            continue
+    try:
+        for i, line in enumerate(dialogue):
+            speaker = line["speaker"]
+            if speaker == "PAUSE":
+                seconds = line.get("seconds", 1)
+                final_audio_data.extend(SILENCE_FRAME * int(seconds * 41.666))
+                continue
 
-        if speaker == "EMBED_INTERCEPT":
-            print(f"   [{i+1}/{len(dialogue)}] ⚠️ Skipping [Intercept audio plays] — deprecated in single-script mode")
-            continue
+            if speaker == "EMBED_INTERCEPT":
+                print(f"   [{i+1}/{len(dialogue)}] ⚠️ Skipping [Intercept audio plays] — deprecated in single-script mode")
+                continue
 
-        voice = speaker_assignments.get(speaker)
-        clean_text = clean_for_tts(line["text"])
-        if not clean_text: continue
+            voice = speaker_assignments.get(speaker)
+            clean_text = clean_for_tts(line["text"])
+            if not clean_text: continue
 
-        print(f"   [{i+1}/{len(dialogue)}] {speaker} ({voice}): {clean_text[:40]}...")
+            print(f"   [{i+1}/{len(dialogue)}] {speaker} ({voice}): {clean_text[:40]}...")
 
-        if args.provider == "google":
-            seg_file = await generate_segment_google(clean_text, voice, i, temp_dir)
-        else:
-            seg_file = await generate_segment_edge(clean_text, voice, i, temp_dir)
+            if args.provider == "google":
+                seg_file = await generate_segment_google(clean_text, voice, i, temp_dir)
+            else:
+                seg_file = await generate_segment_edge(clean_text, voice, i, temp_dir)
 
-        final_audio_data.extend(get_raw_mp3_frames(seg_file))
-        final_audio_data.extend(SILENCE_FRAME * 21) # ~500ms breath between lines
-        os.remove(seg_file)
+            final_audio_data.extend(get_raw_mp3_frames(seg_file))
+            final_audio_data.extend(SILENCE_FRAME * 21) # ~500ms breath between lines
+            os.remove(seg_file)
+    finally:
+        # try/finally so a crashed render stops leaking scratch dirs
+        shutil.rmtree(temp_dir, ignore_errors=True)
 
     # Save outputs
     for folder in ["audio", "published_audio"]:
@@ -484,33 +575,47 @@ async def main():
             f.write(final_audio_data)
         print(f"💾 Saved → {path}")
 
-    os.rmdir(temp_dir)
     print(f"✅ Success! ({len(final_audio_data)/(1024*1024):.1f} MB)")
 
-    # Lifecycle hooks
+    # Lifecycle hooks — state + publish. Held under .studio.lock so two studio
+    # processes can never interleave episodes.json / rss.xml / the commit.
+    lock = acquire_state_lock()
     try:
         # Register the mission in episodes.json + stamp seen_in into the lexicon
         register_mission_in_state(Path(args.input_file), Path(args.output_file))
 
-        subprocess.run(["python3", "scripts/rebuild_rss.py"], check=True)
+        subprocess.run([sys.executable, str(BASE / "scripts" / "rebuild_rss.py")], check=True)
 
-        # The .tags.json sidecar is load-bearing (the divergence gate reads it
-        # next episode) and the brief is the Director's record — stage both.
-        tags_file = Path(args.input_file).with_suffix(".tags.json")
-        extra = [str(tags_file)] if tags_file.exists() else []
-        subprocess.run(["git", "add",
-                        "published_audio/", "rss.xml",
-                        "progress/episodes.json", "progress/lexicon.json",
-                        "content/lessons/", "content/captions/",
-                        str(args.input_file), *extra], check=True)
-        
-        status = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True)
-        if status.stdout.strip():
+        # Stage THIS mission's files by name. Staging whole content/ directories
+        # swept a concurrently-written draft episode into this commit, which was
+        # then deleted as a stray (2026-07-23) — a commit must only ever carry
+        # the episode it rendered.
+        stem = Path(args.input_file).stem
+        candidates = [
+            Path("rss.xml"),
+            Path("progress/episodes.json"),
+            Path("progress/lexicon.json"),
+            Path("published_audio") / os.path.basename(args.output_file),
+            Path("content/lessons") / f"{stem}_brief.md",
+            Path("content/captions") / f"{stem}.md",
+            Path(args.input_file),
+            Path(args.input_file).with_suffix(".tags.json"),
+        ]
+        paths = [str(p) for p in candidates if (BASE / p).exists()]
+        subprocess.run(["git", "add", "--", *paths], check=True)
+
+        staged = subprocess.run(["git", "diff", "--cached", "--quiet"])
+        if staged.returncode != 0:  # non-zero = something is staged
             subprocess.run(["git", "commit", "-m", f"Add lesson: {os.path.basename(args.output_file)} and update state"], check=True)
             subprocess.run(["git", "push"], check=True)
-            
+        else:
+            print("   nothing staged — no commit")
+
     except Exception as e:
         print(f"⚠️ Lifecycle hooks failed: {e}")
+    finally:
+        if lock is not None:
+            lock.close()
 
 if __name__ == "__main__":
     asyncio.run(main())

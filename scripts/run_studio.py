@@ -24,6 +24,7 @@ Needs: agy on PATH (authenticated), GCP ADC for the render step.
 """
 import argparse
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -37,6 +38,11 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
 BASE = Path(__file__).parent.parent
+
+# Cross-process contract, mirrored in render_audio.py and read by
+# studio_watchdog.py: "this host lacks the secrets" — skip, never retry.
+EXIT_NOT_CONFIGURED = 3
+
 SCRIPTS_DIR = BASE / "content" / "scripts"
 LESSONS_DIR = BASE / "content" / "lessons"
 CAPTIONS_DIR = BASE / "content" / "captions"
@@ -333,6 +339,29 @@ def claim_payload(n: int) -> None:
         print(f"   payload claimed into sidecar: {', '.join(added)}")
 
 
+def renderer_preflight() -> str | None:
+    """None when this host can RENDER (TTS credentials + deps), else the reason.
+    Separate from the writer check because rendering an already-written script
+    needs no agy — the watchdog's re-render path must not be blocked by it."""
+    sys.path.insert(0, str(BASE / "scripts"))
+    try:
+        from render_audio import google_credentials_ready
+    except ImportError as e:
+        return f"the renderer's dependencies are not installed ({e.name})"
+    return google_credentials_ready()
+
+
+def preflight() -> str | None:
+    """None when this host can produce an episode END TO END (write + render),
+    else the reason. Checked BEFORE any expensive pass so a machine without the
+    secrets says so in a second — Andrew runs lessons on two laptops and only
+    one carries the credentials (2026-07-23). Local and cheap: no network, no
+    agy invocation."""
+    if not shutil.which("agy"):
+        return "agy is not on PATH (the Gemini writer)"
+    return renderer_preflight()
+
+
 def acquire_dispatch_lock():
     """One dispatch at a time — studio_watchdog.py shares this lock, so a
     session-open dispatch and a watchdog tick can never stack. Held for the
@@ -357,12 +386,16 @@ def main():
     args = ap.parse_args()
     lock = acquire_dispatch_lock()  # noqa: F841 — held until exit
 
-    # Preflight — fail fast and legibly. Exit 1 IS the fallback contract; the
-    # caller should read this one line, not a WinError traceback (2026-07-15).
-    if not shutil.which("agy"):
-        print("✗ agy is not on PATH — dispatch the Claude studio subagent instead "
-              "(.claude/agents/studio.md), or install/authenticate agy.")
-        sys.exit(1)
+    # Preflight — fail fast and legibly. The caller should read one line, not a
+    # WinError traceback (2026-07-15). A MISSING CREDENTIAL is not a failure:
+    # it exits EXIT_NOT_CONFIGURED so the watchdog skips instead of retrying an
+    # absent secret every hour, and Anna doesn't fall back to the subagent
+    # (which needs the same secrets and would fail identically).
+    reason = preflight()
+    if reason:
+        print(f"⏭️  Not a studio host — {reason}.\n"
+              f"    Copy the credentials over, or produce on the personal laptop.")
+        sys.exit(EXIT_NOT_CONFIGURED)
 
     n = next_mission()
     print(f"Mission {n} — three-pass print-only dispatch")
@@ -388,11 +421,38 @@ def main():
     print("3. render + publish (render_audio.py owns state and the commit)…")
     script = episode_paths(n)["script"]
     mp3 = AUDIO_DIR / f"tier2_mission{n}.mp3"
+    # STUDIO_LOCK_HELD: we already hold .studio.lock for this process's lifetime,
+    # so the child inherits it rather than blocking on its own parent.
     r = subprocess.run([sys.executable, str(BASE / "scripts" / "render_audio.py"),
-                        str(script), str(mp3)], cwd=BASE)
+                        str(script), str(mp3)], cwd=BASE,
+                       env={**os.environ, "STUDIO_LOCK_HELD": "1"})
+    if r.returncode == EXIT_NOT_CONFIGURED:
+        print("   ⏭️  render skipped — this host lacks the TTS credentials.")
+        sys.exit(EXIT_NOT_CONFIGURED)
     if r.returncode != 0:
         print(f"   ✗ render failed (exit {r.returncode})")
         sys.exit(1)
+
+    # Tell him it exists. The drill and the soak loop both push to the phone on
+    # publish; the episode channel never did, so a commissioned episode landed
+    # silently on the feed and Andrew had no way to know (2026-07-23: he asked
+    # for audio to take to the park and never learned it was ready). Quiet hours
+    # are the knock rails' window — an overnight render waits for morning.
+    try:
+        sys.path.insert(0, str(BASE / "scripts"))
+        from morning_knock import (push_to_phone, jsdelivr_url, LOCAL_TZ,
+                                   WAKING_START_HOUR, WAKING_END_HOUR)
+        from datetime import datetime
+        hour = datetime.now(LOCAL_TZ).hour
+        if WAKING_START_HOUR <= hour < WAKING_END_HOUR:
+            title = episode_paths(n)["script"].stem
+            push_to_phone(f"new episode's up — {title} 🎧", jsdelivr_url(mp3))
+            print("   phone: notified.")
+        else:
+            print(f"   phone: quiet hours ({hour:02d}:00) — it's on the feed for the morning.")
+    except Exception as e:
+        print(f"   ⚠ publish notification failed (episode is still live): {e}")
+
     print(f"done — Mission {n} rendered and published.")
 
 

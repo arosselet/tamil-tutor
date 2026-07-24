@@ -106,6 +106,57 @@ def canon_payload(items: list[str]) -> list[str]:
     return [p.strip() for item in items for p in item.split(",") if p.strip()]
 
 
+def resolve_soak_item(token: str, lexicon: dict, phon_index: dict[str, str]) -> str | None:
+    """A soak-payload token → its canonical lexicon key, or None.
+
+    Wider than resolve() on purpose: Anna writes the soak order in prose and
+    reaches for the bare headword ('avasaram') where the lexicon key is the
+    whole chunk ('அவசரம் இருக்கு', phonetic 'avasaram irukku'). A payload item
+    that resolves to nothing can never appear in an episode's word list, so the
+    produced-check stays False forever — on 2026-07-23 that dispatched a fresh
+    episode every hour until the cron was pulled (M72, M73, M74 in one evening).
+    """
+    exact = resolve(token, lexicon, phon_index)
+    if exact is not None:
+        return exact
+    t = token.strip().lower()
+    if not t:
+        return None
+    # a phonetic that STARTS with the token ('avasaram' → 'avasaram irukku')
+    for key, rec in lexicon.items():
+        for p in rec.get("phonetic", []):
+            if p and (p.lower() == t or p.lower().startswith(t + " ")):
+                return key
+    # a Tamil token that is a prefix of a longer chunk key
+    if is_tamil(token):
+        for key in lexicon:
+            if key.startswith(token):
+                return key
+    return None
+
+
+def split_payload(items: list[str], lexicon: dict) -> tuple[list[str], list[str]]:
+    """(resolved canonical keys, tokens that resolve to nothing). Callers must
+    treat the unresolved list as a WARNING and never as 'still pending' — an
+    unverifiable item is a broken order, not unfinished work."""
+    phon_index = build_phonetic_index(lexicon)
+    resolved, unresolved = [], []
+    for token in canon_payload(items):
+        key = resolve_soak_item(token, lexicon, phon_index)
+        if key:
+            resolved.append(key)
+        elif is_tamil(token) or token.startswith("frame:"):
+            # A brand-new payload word is legitimately absent from the lexicon
+            # until the episode that teaches it registers it — Tamil script and
+            # frame keys stay verifiable, because that is exactly the form an
+            # episode's word list stores. Only a LATIN fragment that resolves to
+            # nothing ('avasaram' vs 'அவசரம் இருக்கு') can never match anything.
+            resolved.append(token)
+        else:
+            unresolved.append(token)
+    return resolved, unresolved
+
+
 def is_unseen(rec: dict) -> bool:
     """Never soaked anywhere — no episode appearance, never surfaced. The
     teach-first law hangs on this: an UNSEEN item may be TAUGHT (shown, with its
@@ -693,10 +744,19 @@ def cmd_status(_args):
         soak_age = (date.today() - date.fromisoformat(soak_from)).days if soak_from else None
         stale = " ⚠ stale — chat hasn't fed the Director lately" if soak_age and soak_age > 7 else ""
         # The auto-drain answer, computed — not left to the agent's eye: has the
-        # newest episode carried this payload yet?
+        # newest episode carried this payload yet? Resolved the same way the
+        # watchdog resolves it (split_payload), because these two checks drive
+        # the SAME dispatch from two doors — the session-open drain and the
+        # cron. On 2026-07-23 only the cron's copy was fixed and this one kept
+        # saying NOT YET PRODUCED, which would have re-armed the loop at the
+        # next session. One rule, one resolver.
+        resolved, unresolved = split_payload(soak.get("payload", []), lexicon)
         newest_words = (episodes[max(episodes, key=int)].get("words", [])
                         if episodes else [])
-        if items and all(w in newest_words for w in items):
+        if unresolved:
+            drain = (f" · ⚠ payload unverifiable ({', '.join(unresolved)}) — fix the soak "
+                     f"order; NOT dispatching on an item that can never match")
+        elif resolved and all(w in newest_words for w in resolved):
             drain = " · produced ✓ (newest episode carries it — no dispatch needed)"
         else:
             drain = " · ⚠ NOT YET PRODUCED — dispatch the studio in the background now (session-open auto-drain)"

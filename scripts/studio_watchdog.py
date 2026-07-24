@@ -26,16 +26,26 @@ and the anaconda python:
   (crontab -l 2>/dev/null; \
    echo '17 * * * * cd $HOME/projects/Tamil && SSH_AUTH_SOCK=/run/user/1000/keyring/ssh PATH=$HOME/.local/bin:$HOME/anaconda3/bin:/usr/bin:/bin python3 scripts/studio_watchdog.py >> studio_watchdog.log 2>&1') | crontab -
 """
+import os
 import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from run_studio import AUDIO_DIR, BASE, episode_paths, git_dirty, lint, next_mission
+from run_studio import (AUDIO_DIR, BASE, EXIT_NOT_CONFIGURED, episode_paths,
+                        git_dirty, lint, next_mission, preflight,
+                        renderer_preflight)
 from sync_state import EPISODES_PATH, LEARNER_PATH, canon_payload, load_json
 
 LOCK_PATH = BASE / ".studio.lock"
+
+# Unattended production is capped, hard. The watchdog exists to catch work
+# Andrew's absence stranded — not to set the pace. On 2026-07-23 a stuck
+# produced-check dispatched M72/M73/M74 in one evening, three episodes nobody
+# asked for; the root cause is fixed, but rate is now a rail, not a hope.
+# Anna commissioning in-session is unaffected — this bounds the CRON only.
+MAX_UNATTENDED_PER_DAY = 1
 
 
 def stamp(msg: str):
@@ -72,14 +82,44 @@ def scripted_unrendered() -> int | None:
 
 def soak_pending() -> bool:
     """True when the current soak order hasn't been carried by the newest
-    episode — the same answer sync_state status prints as NOT YET PRODUCED."""
+    episode — the same answer sync_state status prints as NOT YET PRODUCED.
+
+    Only VERIFIABLE items count. A payload token that resolves to no lexicon
+    key can never appear in an episode's word list, so counting it as pending
+    is an infinite dispatch loop, not a to-do (2026-07-23: 'avasaram' against
+    the key 'அவசரம் இருக்கு' produced three unwanted episodes in one evening)."""
     soak = (load_json(LEARNER_PATH) or {}).get("soak_order") or {}
-    items = canon_payload([w for w in soak.get("payload", []) if w])
-    if not items:
+    raw = [w for w in soak.get("payload", []) if w]
+    if not raw:
+        return False
+    from sync_state import LEXICON_PATH, split_payload
+    resolved, unresolved = split_payload(raw, load_json(LEXICON_PATH) or {})
+    if unresolved:
+        stamp(f"⚠ soak payload unresolvable, ignored for the produced-check: "
+              f"{', '.join(unresolved)} — fix the soak order")
+    if not resolved:
         return False
     episodes = load_json(EPISODES_PATH) or {}
     newest = episodes[max(episodes, key=int)].get("words", []) if episodes else []
-    return not all(w in newest for w in items)
+    return not all(w in newest for w in resolved)
+
+
+def outcome(code: int, what: str) -> str:
+    """One honest line per tick. EXIT_NOT_CONFIGURED is not a failure — this
+    host simply isn't a studio host, so say so once and don't dress it as a
+    retryable error (an absent secret never heals on the next tick)."""
+    if code == 0:
+        return f"{what} done"
+    if code == EXIT_NOT_CONFIGURED:
+        return f"{what} skipped — this host lacks the studio credentials (no retry)"
+    return f"{what} failed (exit {code}) — retry next tick"
+
+
+def produced_today() -> int:
+    """Episodes this cron already produced today, from episodes.json stamps."""
+    today = datetime.now().date().isoformat()
+    episodes = load_json(EPISODES_PATH) or {}
+    return sum(1 for e in episodes.values() if e.get("produced") == today)
 
 
 def main():
@@ -96,18 +136,36 @@ def main():
             for p in problems:
                 print(f"   ✗ {p}")
             return
+        # Re-rendering an existing script needs TTS credentials only — never agy.
+        reason = renderer_preflight()
+        if reason:
+            stamp(f"mission {n} unrendered but this host cannot render — {reason}; skipping (no retry)")
+            return
         stamp(f"mission {n} scripted but unrendered — rendering now")
+        # We hold the lock; hand it to the child rather than have it wait on us.
         r = subprocess.run([sys.executable, str(BASE / "scripts" / "render_audio.py"),
                             str(episode_paths(n)["script"]),
-                            str(AUDIO_DIR / f"tier2_mission{n}.mp3")], cwd=BASE)
-        stamp(f"render {'done' if r.returncode == 0 else f'failed (exit {r.returncode}) — retry next tick'}")
+                            str(AUDIO_DIR / f"tier2_mission{n}.mp3")], cwd=BASE,
+                           env={**os.environ, "STUDIO_LOCK_HELD": "1"})
+        stamp(outcome(r.returncode, "render"))
         return
 
     if soak_pending():
+        n_today = produced_today()
+        if n_today >= MAX_UNATTENDED_PER_DAY:
+            stamp(f"soak order pending but {n_today}/{MAX_UNATTENDED_PER_DAY} episodes "
+                  f"already produced unattended today — holding for a session")
+            return
+        # A fresh episode needs the writer AND the renderer.
+        reason = preflight()
+        if reason:
+            stamp(f"soak order pending but this host is not a studio host — {reason}; "
+                  f"skipping (no retry)")
+            return
         stamp("soak order not yet produced — dispatching run_studio.py")
         lock.close()  # run_studio takes the same lock itself
         r = subprocess.run([sys.executable, str(BASE / "scripts" / "run_studio.py")], cwd=BASE)
-        stamp(f"dispatch {'done' if r.returncode == 0 else f'failed (exit {r.returncode}) — retry next tick'}")
+        stamp(outcome(r.returncode, "dispatch"))
 
 
 if __name__ == "__main__":

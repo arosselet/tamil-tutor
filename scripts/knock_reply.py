@@ -30,6 +30,7 @@ Secrets: OPENROUTER_API_KEY (the judge), ANNA_PUSH_WEBHOOK_URL (the push-back).
 import argparse
 import json
 import os
+import re
 import sys
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -157,10 +158,17 @@ fired AT him; grade the reply as its ANSWER — parsing the question is half the
 repair line back (புரியல, மெதுவா சொல்லுங்க) is a legitimate creditable fire: grade THAT \
 production, never a miss.
 
-SCHEDULING (optional): you may also plant ONE future push at a precise local time via \
-"schedule" — a fully-composed dose that fires as-is later (collect tonight's field \
-mission tomorrow morning; resurface today's wobble at 19:00). Use the exchange itself \
-to pick the moment; null to skip, which is usual.
+SCHEDULING: you may plant ONE future push at a precise local time via "schedule" — a \
+fully-composed dose that fires as-is later. Unprompted, null-to-skip is usual.
+
+A CLOCK-BOUND REQUEST IS MANDATORY. Asked for something at a time ("send me X at 9am"), \
+you MUST return a schedule object, composing the body NOW as it \
+should read when it fires. "Noted, I'll do it" with schedule:null is a promise the machine \
+cannot keep, and he waits for a push nobody queued (2026-07-23). Python re-asks you once.
+
+TEXT ONLY, and say so. The drain runs no TTS and no model (cloud-never-renders); audio \
+rides only as a feed URL. For a bespoke voice dose at a time, tell him it needs the laptop \
+and schedule the text instead — never promise a voice you cannot render.
 
 Return ONLY a JSON object, no prose around it:
 {
@@ -378,9 +386,46 @@ def volley_open_ask(knock: dict) -> str | None:
     return f"{cur}/{len(vq)} — {vq[cur - 1]['ask']}"
 
 
+# A clock in Andrew's own words. Deliberately generous: a false positive costs
+# one re-ask, a false negative costs him a push he asked for and never got.
+TIME_REQUEST_RE = re.compile(
+    r"\b("
+    r"\d{1,2}\s*(?::\d{2})?\s*(?:am|pm)"          # 9am, 9:15 pm
+    r"|(?:at|by|around)\s+\d{1,2}(?::\d{2})?\b"   # at 9, by 9:15
+    r"|in\s+(?:an?\s+)?(?:half\s+an?\s+)?(?:hour|minute|min)s?"
+    r"|tomorrow|tonight|this\s+(?:morning|afternoon|evening)"
+    r"|later\s+today|before\s+bed|first\s+thing"
+    r")\b", re.I)
+
+ASK_RE = re.compile(
+    r"\b(send|ping|knock|remind|message|text|call|wake|greet|give|do)\b", re.I)
+
+
+def wants_scheduled_push(text: str) -> bool:
+    """True when Andrew's reply reads as 'do something for me at <time>'.
+
+    The mandate says a clock-bound request MUST produce a schedule; this is the
+    mechanism that makes the rule real. A prose rule with no enforcement is how
+    the 2026-07-23 9am greeting got acknowledged and then silently dropped —
+    the judge is steered toward meta_note (a ledger note for later) when what
+    Andrew wanted was a queue entry."""
+    return bool(TIME_REQUEST_RE.search(text) and ASK_RE.search(text))
+
+
+FORCE_SCHEDULE_ADDENDUM = """\
+
+OVERRIDE — THIS REPLY CARRIES A TIME-BOUND REQUEST. Python detected a clock in what \
+Andrew asked for and your previous answer returned schedule:null. You MUST return a \
+non-null "schedule" object now: pick the exact local time he named, and compose "body" \
+in full as the dose that fires at that moment. If what he wants is bespoke AUDIO, still \
+schedule the TEXT dose and say in reply_line that the voice version needs the laptop. \
+Do not acknowledge without scheduling."""
+
+
 def judge(knock: dict, reply_text: str, target_record: dict | None,
           hours_since: float | None = None,
-          revealed_recent: list | None = None) -> dict:
+          revealed_recent: list | None = None,
+          force_schedule: bool = False) -> dict:
     persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
     pin, pin_revealed = current_pin(knock)
     open_ask = volley_open_ask(knock)
@@ -410,12 +455,13 @@ def judge(knock: dict, reply_text: str, target_record: dict | None,
     elif knock.get("reply"):
         context["prior_exchanges"] = [{"andrew_said": knock["reply"],
                                        "anna_recast": knock.get("reply_line", "")}]
+    mandate = JUDGE_MANDATE + (FORCE_SCHEDULE_ADDENDUM if force_schedule else "")
     client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
     resp = client.chat.completions.create(
         model=MODEL,
         max_tokens=800,
         messages=[
-            {"role": "system", "content": persona + "\n\n---\n\n" + JUDGE_MANDATE},
+            {"role": "system", "content": persona + "\n\n---\n\n" + mandate},
             {"role": "user", "content": json.dumps(context, ensure_ascii=False, indent=2)},
         ],
     )
@@ -643,6 +689,26 @@ def main():
     verdict = judge(knock, reply_text, target_record, hours, revealed)
     fired_str = ", ".join(f"{i['word']}:{i['verdict']}" for i in verdict["fired"]) or "—"
     print(f"   → {verdict['verdict']} | fired: {fired_str} | {verdict.get('rationale', '')}")
+
+    # The clock-request backstop: a time-bound ask that came back with no
+    # schedule gets exactly one forced re-ask. Cheap (one call, rare) and it
+    # closes the gap that swallowed the 9am greeting — the mandate alone had
+    # already told Anna scheduling was "usual to skip", so prose could not fix
+    # prose here.
+    if wants_scheduled_push(reply_text) and not verdict.get("schedule"):
+        print("   ⏰ time-bound request with no schedule — re-asking once, forced…")
+        forced = judge(knock, reply_text, target_record, hours, revealed,
+                       force_schedule=True)
+        if forced.get("schedule"):
+            verdict = forced
+            print(f"   → scheduled: {forced['schedule'].get('at_local')} "
+                  f"· {forced['schedule'].get('body', '')[:60]}")
+        else:
+            print("   ⚠ still no schedule — logging the miss to the ledger")
+            verdict["meta_note"] = (verdict.get("meta_note") or "").strip() or (
+                f"MISSED SCHEDULE: Andrew asked for something at a time "
+                f"({reply_text[:80]!r}) and no push was queued — the judge "
+                f"declined twice. Check the schedule lane.")
 
     # Momentum chain: on a scored reply, the push-back may carry the NEXT micro-ask.
     # The knock's expected target moves to the chained one, so the next reply is
