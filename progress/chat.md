@@ -24,6 +24,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > James arriving at 8 — got it. Queuing a text push for then (text only on the drain; voice needs the laptop). No Tamil on him tonight — just a welcome.
 
+**17:37 · Andrew** — **CHAT**
+> Audio please you have the keys and tools to produce it. If not we need to fix this
+
+**Anna ↩**
+> da — text only on the drain; the renderer never runs in background pushes. audio needs the laptop open and a manual run. that's a real gap — noted as a fix.
+
 
 ## Thursday 2026-07-23
 
