@@ -18,6 +18,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > logged — that's exactly the feedback the soak protocol needed to hear.
 
+**17:36 · Andrew** — **CHAT**
+> My brother James is arriving at 8pm. Schedule a push and say hello (aloud a traditional greeting and a couple key survival items)
+
+**Anna ↩**
+> James arriving at 8 — got it. Queuing a text push for then (text only on the drain; voice needs the laptop). No Tamil on him tonight — just a welcome.
+
 
 ## Thursday 2026-07-23
 

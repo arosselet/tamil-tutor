@@ -2153,13 +2153,13 @@
     "target_revealed": false,
     "response": "reply",
     "response_at": "2026-07-24T19:23:54Z",
-    "reply": "Feedback: the corrected 7-23 soak is a big improvement and pretty much what I had hoped for when I said “exhausting day long episode for the park”.",
+    "reply": "My brother James is arriving at 8pm. Schedule a push and say hello (aloud a traditional greeting and a couple key survival items)",
     "reply_verdict": "chat",
     "reply_fired": [],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "logged — that's exactly the feedback the soak protocol needed to hear.",
-    "reply_at": "2026-07-24T21:35:13Z",
+    "reply_line": "James arriving at 8 — got it. Queuing a text push for then (text only on the drain; voice needs the laptop). No Tamil on him tonight — just a welcome.",
+    "reply_at": "2026-07-24T21:36:49Z",
     "exchanges": [
       {
         "at": "2026-07-24T21:35:13Z",
@@ -2170,6 +2170,16 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "logged — that's exactly the feedback the soak protocol needed to hear."
+      },
+      {
+        "at": "2026-07-24T21:36:49Z",
+        "reply": "My brother James is arriving at 8pm. Schedule a push and say hello (aloud a traditional greeting and a couple key survival items)",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "James arriving at 8 — got it. Queuing a text push for then (text only on the drain; voice needs the laptop). No Tamil on him tonight — just a welcome."
       }
     ]
   }
