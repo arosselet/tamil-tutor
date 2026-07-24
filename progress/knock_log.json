@@ -2153,13 +2153,13 @@
     "target_revealed": false,
     "response": "reply",
     "response_at": "2026-07-24T19:23:54Z",
-    "reply": "My brother James is arriving at 8pm. Schedule a push and say hello (aloud a traditional greeting and a couple key survival items)",
+    "reply": "Audio please you have the keys and tools to produce it. If not we need to fix this",
     "reply_verdict": "chat",
     "reply_fired": [],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "James arriving at 8 — got it. Queuing a text push for then (text only on the drain; voice needs the laptop). No Tamil on him tonight — just a welcome.",
-    "reply_at": "2026-07-24T21:36:49Z",
+    "reply_line": "da — text only on the drain; the renderer never runs in background pushes. audio needs the laptop open and a manual run. that's a real gap — noted as a fix.",
+    "reply_at": "2026-07-24T21:37:59Z",
     "exchanges": [
       {
         "at": "2026-07-24T21:35:13Z",
@@ -2180,6 +2180,16 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "James arriving at 8 — got it. Queuing a text push for then (text only on the drain; voice needs the laptop). No Tamil on him tonight — just a welcome."
+      },
+      {
+        "at": "2026-07-24T21:37:59Z",
+        "reply": "Audio please you have the keys and tools to produce it. If not we need to fix this",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "da — text only on the drain; the renderer never runs in background pushes. audio needs the laptop open and a manual run. that's a real gap — noted as a fix."
       }
     ]
   }
