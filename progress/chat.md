@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:27 · Anna**  ·  volley / volley: needtogo + puriyala
 > ⚡ volley 1/2 — you're at the table, someone's holding you up — 'I need to go to the station'
 
+**15:19 · Anna**  ·  grace / campaign close: kudunga won
+> da — Ask-Machine Week is done. kudunga fired cold at a real table 07-18. that's the headline. 🏆
+
 
 ## Thursday 2026-07-23
 
