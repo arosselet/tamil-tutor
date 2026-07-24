@@ -957,7 +957,8 @@
       25,
       33,
       35,
-      36
+      36,
+      73
     ],
     "last_surfaced": null
   },
@@ -1393,7 +1394,8 @@
       18,
       30,
       34,
-      72
+      72,
+      73
     ],
     "last_surfaced": "2026-07-23"
   },
@@ -2463,7 +2465,8 @@
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [
-      46
+      46,
+      73
     ],
     "last_surfaced": null
   },
@@ -3238,7 +3241,8 @@
       69,
       70,
       71,
-      72
+      72,
+      73
     ],
     "last_surfaced": "2026-07-22",
     "deck": "trip",
@@ -4465,6 +4469,46 @@
     "production": "none",
     "seen_in": [
       71
+    ],
+    "last_surfaced": null
+  },
+  "கேப்பேன்": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      73
+    ],
+    "last_surfaced": null
+  },
+  "எடுப்பேன்": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      73
+    ],
+    "last_surfaced": null
+  },
+  "கொடுப்பேன்": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      73
+    ],
+    "last_surfaced": null
+  },
+  "அழைப்பேன்": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      73
     ],
     "last_surfaced": null
   }
