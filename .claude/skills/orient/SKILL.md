@@ -53,11 +53,11 @@ For the Python brain: read the script you intend to change, plus `scripts/smoke_
 |---|---|---|
 | Chat loop (Anna) | `.claude/skills/anna/SKILL.md` | Daily forced-output session; commissions studio, queues pushes |
 | Studio (audio) | `protocol/studio/studio.md` | Three-pass episode pipeline: Director → Architect → Producer → render |
-| Knock (outreach) | `scripts/morning_knock.py` | Agentic phone reach: rails gate + Anna's fire/silence policy; CI workflow: `.github/workflows/morning-knock.yml` |
-| Push queue | `scripts/push_queue.py` | Durable scheduled pushes, fully composed at add-time; drained every 30 min by CI: `.github/workflows/push-queue.yml` |
-| Reply judge | `scripts/knock_reply.py` | Judges typed Tamil replies; moves the production axis; triggered by `.github/workflows/log-knock-response.yml` |
+| Knock (outreach) | `scripts/morning_knock.py` | Agentic phone reach: rails gate + Anna's fire/silence policy; CI workflow: `.github/workflows/anna.yml` |
+| Push queue | `scripts/push_queue.py` | Durable scheduled pushes, composed at add-time (voice doses rendered at fire time); drained at the start of every Anna wake-up by `.github/workflows/anna.yml` |
+| Reply judge | `scripts/knock_reply.py` | Judges typed Tamil replies; moves the production axis; triggered by `.github/workflows/anna.yml` |
 | State | `scripts/sync_state.py` | Owns all writes to `progress/`; run `python scripts/sync_state.py status` to inspect safely |
-| CI | `.github/workflows/` | Four workflows: `morning-knock.yml`, `push-queue.yml`, `log-knock-response.yml`, `smoke.yml` |
+| CI | `.github/workflows/` | Two workflows: `anna.yml` (every trigger, every secret — consolidated 2026-07-24) and `smoke.yml` |
 
 ---
 

@@ -22,17 +22,19 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
        studio commits/pushes first, then the knock-log commit — no double-push.
     2. The digest must surface the soak-pending signal so Anna can see there's something to
        produce (build_digest currently doesn't).
-    3. **Drop the "Cloud never renders episodes" rule** (`DECISIONS.md:76`) — land it WITH
-       the trigger, not before (dropping it with no cloud producer is a gap). Correct the
-       two wrong entries from 2026-07-23 (the 9am greeting was unfulfillable *as wired*, not
-       fundamentally). `morning-knock.yml` already carries GCP_SA_KEY + OPENROUTER_API_KEY,
-       so no workflow change is needed.
+    3. ~~**Drop the "Cloud never renders episodes" rule**~~ — **DONE 2026-07-24**, in the
+       canon (DECISIONS marked SUPERSEDED/CORRECTED) and then in the machine: the rule also
+       lived as prose in `JUDGE_MANDATE`, in `/extend` Gate 6, and as a smoke assertion that
+       *required* the refusal text — so Anna went on refusing for eight hours after the
+       canon changed. Lesson recorded: a dropped rule must be hunted in code, prompts,
+       skills and tests, not just in DECISIONS.
     4. **Retire the local cron for real** (currently paused in crontab; backup in the
        07-23 session scratchpad). Keep `studio_watchdog.py` only if a manual command still
        earns its place; otherwise delete it.
-    5. **The 9am-audio lane** now unblocked: a scheduled audio dose is a knock-memo with a
-       clock — wire GCP into `push-queue.yml` (or route scheduled audio through the knock
-       renderer) so `knock_reply`'s schedule can carry a rendered voice, not just text.
+    5. ~~**The 9am-audio lane**~~ — **DONE 2026-07-24.** Shipped as the workflow
+       consolidation rather than as a GCP wire-up of `push-queue.yml`: one `anna.yml`
+       carries every trigger and every secret, `memo_script` rides the queue entry, and the
+       drain renders it at fire time. See DECISIONS "One runner, every capability."
   - *Small determinism fix (do alongside):* Python stamps the `scene_spec`-decided
     `episode_form`/`register`/`ingredient` into the sidecar instead of trusting the writer
     to echo them down the Director→Architect→Producer chain (the thin slice caught Flash

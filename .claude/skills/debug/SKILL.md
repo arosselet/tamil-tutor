@@ -33,7 +33,7 @@ Start with `/orient` → `references/glossary.md`.
 
 | Observed symptom | Suspect subsystem | First evidence command |
 |---|---|---|
-| No knock arrived today | Rails gate blocked, or CI never ran | `gh run list --workflow=morning-knock.yml --limit 10` |
+| No knock arrived today | Rails gate blocked, or CI never ran | `gh run list --workflow=anna.yml --limit 10` |
 | Knock arrived but no audio / "bad file type" | HA automation template branch | check `knock_log.json` → `audio_url` present? + HA Traces |
 | Knock body asked X, reply scored against Y | Coherence mismatch (`expected_target` vs body) | read last entry in `knock_log.json` → compare `body` and `expected_target` |
 | Reply scored wrong ("miss" when Andrew fired it) | Judge saw stale / mis-targeted knock | `knock_log.json` last entry → `target_revealed`, `expected_target`, `reply`, `reply_verdict` |

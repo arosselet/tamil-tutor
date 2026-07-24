@@ -91,9 +91,12 @@ the commit body if you touch one. (`BOOTSTRAP.md` → "What Generalizes" → Lay
 Also check: `REPO = "arosselet/tamil-tutor"` (`scripts/morning_knock.py` line 51) —
 the jsDelivr CDN URL for knock audio; a fork must update this.
 
-**Cloud-never-renders rule:** cloud CI (`morning-knock.yml`) renders *only* knock memos
-(`morning_knock.py`). Episode TTS runs locally only. Do not add TTS calls to other
-workflows. (`docs/DECISIONS.md` → "Cloud never renders episodes.")
+**Cloud rendering:** the cloud DOES render — knock memos and scheduled voice doses, in
+`anna.yml`, the single workflow that carries every secret. The old "cloud never renders /
+do not add TTS to other workflows" rule was dropped 2026-07-24 (it was misnamed: the
+blocker was always the *writer*, `agy`, never the renderer). Episode TTS is still local
+today, but that is a build not yet done, not a law. (`docs/DECISIONS.md` → "Cloud produces
+episodes" and "One runner, every capability.")
 
 ---
 

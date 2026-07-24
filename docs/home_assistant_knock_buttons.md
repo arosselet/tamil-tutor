@@ -25,7 +25,7 @@ knock push ─▶ iOS notification ─┬▶ tap "Got it 👍"          ─▶ e
                                       │
              rest_command.anna_knock_response / anna_knock_reply  (→ GitHub dispatches API)
                                       │
-             repository_dispatch: knock-response  ─▶  log-knock-response.yml
+             repository_dispatch: knock-response  ─▶  anna.yml
                                       │
              ack   → sync_state.py knock-response ack      (knock marked landed)
              reply → knock_reply.py "<text>"               (Anna judges the rep, moves the
