@@ -2139,5 +2139,17 @@
       }
     ],
     "volley_next": 1
+  },
+  {
+    "date": "2026-07-24",
+    "timestamp": "2026-07-24T19:19:03.435910+00:00",
+    "acted": true,
+    "modality": "grace",
+    "move": "campaign close: kudunga won",
+    "rationale": "Two consecutive no-taps; channel is cold — a warm no-ask campaign-close beat costs him nothing and closes the week's story without adding to the demand pile; reassess Saturday morning.",
+    "next_check": "2026-07-25T13:19:03.435910+00:00",
+    "body": "da — Ask-Machine Week is done. kudunga fired cold at a real table 07-18. that's the headline. 🏆",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]
