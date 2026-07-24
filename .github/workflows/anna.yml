@@ -59,10 +59,17 @@ jobs:
     # Job-level env is the whole point of the consolidation: one place, every
     # capability, inherited by every step below. Adding a lane can no longer
     # mean forgetting to wire it.
+    # NB: job-level env may use `secrets`, `github`, `vars`, `inputs` — but NOT
+    # `runner`. `${{ runner.temp }}` here is a workflow-file VALIDATION error:
+    # GitHub rejects the whole file, posts a zero-duration failed run against the
+    # push, and never runs the workflow at all. It cost this file its first four
+    # pushes on 2026-07-24 — silently, because the failure lands on anna.yml
+    # while smoke.yml goes green beside it. Hence the literal path below (outside
+    # the workspace, so a service-account key can never be swept into a commit).
     env:
       OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
       ANNA_PUSH_WEBHOOK_URL: ${{ secrets.ANNA_PUSH_WEBHOOK_URL }}
-      GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/gcp.json
+      GOOGLE_APPLICATION_CREDENTIALS: /tmp/anna-gcp.json
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -82,7 +89,9 @@ jobs:
         # 2026-07-24 refusal.
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
-        run: printf '%s' "$GCP_SA_KEY" > "$RUNNER_TEMP/gcp.json"
+        run: |
+          printf '%s' "$GCP_SA_KEY" > "$GOOGLE_APPLICATION_CREDENTIALS"
+          chmod 600 "$GOOGLE_APPLICATION_CREDENTIALS"
 
       - name: Drain due pushes
         # Unconditional, and first. Best-effort by design: a webhook blip here

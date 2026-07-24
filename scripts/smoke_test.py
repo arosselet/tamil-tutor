@@ -28,6 +28,7 @@ import argparse
 import importlib
 import json
 import os
+import re
 import shutil
 import sys
 import tempfile
@@ -1385,9 +1386,22 @@ def s29_one_runner_every_capability(mk, pq, kr, sb: Path):
         check(f"{secret} is wired once, for every lane", anna.count(secret) >= 1)
     # Job-level env is what makes capability structural rather than remembered:
     # a new step cannot be added without it.
-    job_env = anna.split("steps:")[0]
+    # Comment lines stripped: this file EXPLAINS the bad context in prose, and a
+    # guard that trips on its own documentation is a guard nobody keeps.
+    job_env = "\n".join(ln for ln in anna.split("steps:")[0].splitlines()
+                        if not ln.lstrip().startswith("#"))
     for var in ("OPENROUTER_API_KEY", "ANNA_PUSH_WEBHOOK_URL", "GOOGLE_APPLICATION_CREDENTIALS"):
         check(f"{var} is job-level, not per-step", var in job_env)
+    # The 2026-07-24 outage: job-level env may use secrets/github/vars/inputs but
+    # NOT `runner`. GitHub rejects the whole FILE — anna.yml never ran, four
+    # pushes in a row, while smoke.yml went green beside it and hid it. YAML that
+    # parses is not a workflow that runs; this is the cheapest guard for the gap.
+    check("job-level env uses no `runner` context (file-invalidating)",
+          "runner." not in job_env, "job env references the runner context")
+    for ctx in re.findall(r"\$\{\{\s*([a-z]+)\.", job_env):
+        check(f"job-level env context `{ctx}` is legal there",
+              ctx in {"secrets", "github", "vars", "inputs", "needs", "strategy", "matrix"},
+              f"`{ctx}` is not available in jobs.<id>.env")
     check("one hourly cron replaces three expressions",
           anna.count("- cron:") == 1 and '- cron: "0 * * * *"' in anna)
     # Drain-first is load-bearing: it logs a reach, and rails_gate counts today's
