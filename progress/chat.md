@@ -12,6 +12,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **15:19 · Anna**  ·  grace / campaign close: kudunga won
 > da — Ask-Machine Week is done. kudunga fired cold at a real table 07-18. that's the headline. 🏆
 
+**17:35 · Andrew** — **CHAT**
+> Feedback: the corrected 7-23 soak is a big improvement and pretty much what I had hoped for when I said “exhausting day long episode for the park”.
+
+**Anna ↩**
+> logged — that's exactly the feedback the soak protocol needed to hear.
+
 
 ## Thursday 2026-07-23
 
