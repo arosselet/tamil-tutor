@@ -48,8 +48,17 @@ LESSONS_DIR = BASE / "content" / "lessons"
 CAPTIONS_DIR = BASE / "content" / "captions"
 AUDIO_DIR = BASE / "published_audio"
 
-AGY_MODEL = "Gemini 3.1 Pro (High)"   # pinned: the long-context writer
+AGY_MODEL = "Gemini 3.1 Pro (High)"   # pinned: the local agy long-context writer
 PASS_TIMEOUT_S = 900                  # 15 min per pass — each is one print turn
+
+# The cloud writer: no agy binary and no Claude Code subagent live in a GitHub
+# runner, so a cloud/agy-less host writes each pass through the OpenRouter API —
+# the same path memos already use. Gemini to match agy's model family (Andrew's
+# "good at languages + long context" rationale); Flash tier for cost, since the
+# cloud pays per token where local agy spends Andrew's standing Gemini quota
+# (2026-07-24 decision). ~$0.03/episode at this tier.
+CLOUD_WRITER_MODEL = "google/gemini-3-flash-preview"
+OPENROUTER_BASE = "https://openrouter.ai/api/v1"
 
 TAMIL_RE = re.compile(r"[஀-௿]")
 SPEAKER_RE = re.compile(r"^\s*(?:\*\s*)?\*\*[^:]+:")
@@ -164,24 +173,103 @@ def agy_print(label: str, prompt: str) -> str | None:
     return out
 
 
+CANON_REF_RE = re.compile(r"protocol/[\w/]+\.md")
+
+
+def newest_tags_sample() -> str | None:
+    """The freshest real sidecar, as the schema example for the cloud Producer."""
+    tags = sorted(SCRIPTS_DIR.glob("tier2_mission*.tags.json"),
+                  key=lambda p: p.stat().st_mtime, reverse=True)
+    return tags[0].read_text(encoding="utf-8").strip() if tags else None
+
+
+def inline_canon(prompt: str) -> str:
+    """Carry the protocol INTO the prompt for the filesystem-less cloud writer.
+
+    agy reads 'protocol/studio/producer.md' off disk; a single-shot API call
+    can't, so every file a pass says to 'Read' must ride in the prompt — exactly
+    how morning_knock inlines persona.md. The prompt's OWN file references are
+    the manifest: whatever a pass names, Python inlines, so the two never drift
+    (2026-07-24 — the thin slice caught the cloud writer inventing a schema it
+    had no way to see)."""
+    seen, blocks = [], []
+    for ref in CANON_REF_RE.findall(prompt):
+        if ref in seen:
+            continue
+        seen.append(ref)
+        p = BASE / ref
+        blocks.append(f"===== {ref} =====\n{p.read_text(encoding='utf-8').strip()}"
+                      if p.exists() else f"===== {ref} (referenced but missing) =====")
+    if ".tags.json" in prompt:
+        sample = newest_tags_sample()
+        if sample:
+            blocks.append("===== EXAMPLE .tags.json — match THIS schema exactly "
+                          f"(your content, its keys) =====\n{sample}")
+    if not blocks:
+        return prompt
+    return ("CANON — the files this pass refers to, inlined because you have no "
+            "filesystem. Follow them exactly:\n\n"
+            + "\n\n".join(blocks)
+            + "\n\n===== YOUR TASK =====\n" + prompt)
+
+
+def openrouter_pass(label: str, prompt: str) -> str | None:
+    """One writer pass through the OpenRouter API — the cloud/agy-less executor.
+    Same contract as agy_print: prompt in, printed artifact out, or None on
+    failure. The prompts are identical to agy's; inline_canon supplies the files
+    agy would have read, so the pipeline is the same and only the executor
+    differs."""
+    from openai import OpenAI
+    print(f"   [{label}] openrouter ({CLOUD_WRITER_MODEL})…")
+    try:
+        client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
+        resp = client.chat.completions.create(
+            model=CLOUD_WRITER_MODEL,
+            max_tokens=8000,
+            messages=[{"role": "user", "content": inline_canon(prompt)}],
+            timeout=PASS_TIMEOUT_S,
+        )
+        out = (resp.choices[0].message.content or "").strip()
+    except Exception as e:
+        print(f"   ✗ {label}: {type(e).__name__}: {str(e)[:200]}")
+        return None
+    if len(out) < 200:
+        print(f"   ✗ {label}: {len(out)} chars — too short")
+        return None
+    print(f"   [{label}] {len(out)} chars")
+    return out
+
+
+def resolve_writer(prefer: str = "auto"):
+    """Pick the pass executor. 'auto' prefers local agy (Andrew's Gemini quota,
+    ~free) and falls back to OpenRouter where agy is absent — which is every
+    cloud runner. 'agy'/'openrouter' force one, for the A/B."""
+    if prefer == "agy":
+        return agy_print
+    if prefer == "openrouter":
+        return openrouter_pass
+    return agy_print if shutil.which("agy") else openrouter_pass
+
+
 def fenced_block(text: str, lang: str) -> str | None:
     m = re.findall(rf"```{lang}\s*\n(.*?)```", text, re.DOTALL)
     return m[-1].strip() if m else None
 
 
-def write_episode(n: int) -> bool:
+def write_episode(n: int, write_pass=agy_print) -> bool:
     """Run the three passes; persist the three artifacts. Python is the only
-    thing that touches disk."""
+    thing that touches disk. `write_pass` is the executor (agy or OpenRouter) —
+    same prompts, same contract, either environment."""
     ticket = subprocess.run([sys.executable, str(BASE / "scripts" / "suggest_targets.py")],
                             capture_output=True, encoding="utf-8", errors="replace",
                             cwd=BASE, check=True).stdout
-    plan = agy_print("Director", DIRECTOR.format(ticket=ticket))
+    plan = write_pass("Director", DIRECTOR.format(ticket=ticket))
     if not plan:
         return False
-    draft = agy_print("Architect", ARCHITECT.format(plan=plan))
+    draft = write_pass("Architect", ARCHITECT.format(plan=plan))
     if not draft:
         return False
-    final = agy_print("Producer", PRODUCER.format(draft=draft, n=n))
+    final = write_pass("Producer", PRODUCER.format(draft=draft, n=n))
     if not final:
         return False
 
@@ -198,7 +286,7 @@ def write_episode(n: int) -> bool:
 
     # Caption sheet — companion, never a gate: a failed pass warns and the
     # episode still ships (the feed simply carries no caption link for it).
-    sheet_out = agy_print("Captions", CAPTIONS.format(n=n, script=script))
+    sheet_out = write_pass("Captions", CAPTIONS.format(n=n, script=script))
     sheet = fenced_block(sheet_out, "markdown") if sheet_out else None
     if sheet:
         paths["captions"].parent.mkdir(parents=True, exist_ok=True)
@@ -351,15 +439,27 @@ def renderer_preflight() -> str | None:
     return google_credentials_ready()
 
 
-def preflight() -> str | None:
+def writer_preflight(prefer: str = "auto") -> str | None:
+    """None when a writer is available for `prefer`, else the reason. agy needs
+    the binary; openrouter needs the API key; auto is happy with either."""
+    have_agy = bool(shutil.which("agy"))
+    have_or = bool(os.environ.get("OPENROUTER_API_KEY"))
+    if prefer == "agy" and not have_agy:
+        return "agy is not on PATH (the local Gemini writer)"
+    if prefer == "openrouter" and not have_or:
+        return "OPENROUTER_API_KEY is not set (the cloud writer)"
+    if prefer == "auto" and not (have_agy or have_or):
+        return "no writer available — need agy on PATH or OPENROUTER_API_KEY"
+    return None
+
+
+def preflight(prefer: str = "auto") -> str | None:
     """None when this host can produce an episode END TO END (write + render),
     else the reason. Checked BEFORE any expensive pass so a machine without the
     secrets says so in a second — Andrew runs lessons on two laptops and only
     one carries the credentials (2026-07-23). Local and cheap: no network, no
-    agy invocation."""
-    if not shutil.which("agy"):
-        return "agy is not on PATH (the Gemini writer)"
-    return renderer_preflight()
+    writer invocation."""
+    return writer_preflight(prefer) or renderer_preflight()
 
 
 def acquire_dispatch_lock():
@@ -380,28 +480,37 @@ def acquire_dispatch_lock():
 
 
 def main():
-    ap = argparse.ArgumentParser(description="agy-writer studio dispatch (Claude subagent is the fallback)")
+    ap = argparse.ArgumentParser(description="Studio dispatch — agy (local) or OpenRouter (cloud) writer + Python renderer")
     ap.add_argument("--dry-run", action="store_true",
                     help="passes + lint only; no render, no state, no commit")
+    ap.add_argument("--writer", choices=["auto", "agy", "openrouter"], default="auto",
+                    help="pass executor: auto (agy if present, else OpenRouter), or force one (A/B)")
     args = ap.parse_args()
+
+    # Load .env for the OpenRouter writer key (local); in the cloud the workflow
+    # sets it directly, so a missing .env is fine. agy authenticates separately.
+    sys.path.insert(0, str(BASE / "scripts"))
+    from morning_knock import load_env
+    load_env(BASE / ".env")
+
     lock = acquire_dispatch_lock()  # noqa: F841 — held until exit
 
     # Preflight — fail fast and legibly. The caller should read one line, not a
     # WinError traceback (2026-07-15). A MISSING CREDENTIAL is not a failure:
     # it exits EXIT_NOT_CONFIGURED so the watchdog skips instead of retrying an
-    # absent secret every hour, and Anna doesn't fall back to the subagent
-    # (which needs the same secrets and would fail identically).
-    reason = preflight()
+    # absent secret every tick.
+    reason = preflight(args.writer)
     if reason:
         print(f"⏭️  Not a studio host — {reason}.\n"
-              f"    Copy the credentials over, or produce on the personal laptop.")
+              f"    Copy the credentials over, or produce on a configured host.")
         sys.exit(EXIT_NOT_CONFIGURED)
 
+    write_pass = resolve_writer(args.writer)
     n = next_mission()
-    print(f"Mission {n} — three-pass print-only dispatch")
+    print(f"Mission {n} — three-pass print-only dispatch ({write_pass.__name__})")
     baseline = git_dirty()
     print("1. passes…")
-    if not write_episode(n):
+    if not write_episode(n, write_pass):
         sys.exit(1)
 
     print("2. lint…")

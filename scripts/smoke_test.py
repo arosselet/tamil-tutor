@@ -1306,6 +1306,53 @@ def s27_schedule_and_soak_guards(sb: Path):
     check("produced_today counts only today's", sw.produced_today() == 1)
 
 
+def s28_cloud_writer(sb: Path):
+    print("\n28. Studio writer is executor-agnostic; cloud carries its canon (2026-07-24)")
+    rs = importlib.import_module("run_studio")
+
+    # The resolver: agy local (Andrew's Gemini quota), OpenRouter in the cloud
+    # where no agy/subagent binary exists.
+    check("force agy → agy_print", rs.resolve_writer("agy").__name__ == "agy_print")
+    check("force openrouter → openrouter_pass",
+          rs.resolve_writer("openrouter").__name__ == "openrouter_pass")
+
+    real_which = rs.shutil.which
+    rs.shutil.which = lambda c: None if c == "agy" else real_which(c)
+    try:
+        check("auto with no agy → openrouter", rs.resolve_writer("auto").__name__ == "openrouter_pass")
+        prev = os.environ.pop("OPENROUTER_API_KEY", None)
+        try:
+            check("no agy + no key → auto preflight fails",
+                  rs.writer_preflight("auto") is not None)
+            os.environ["OPENROUTER_API_KEY"] = "x"
+            check("no agy + key → auto preflight ok", rs.writer_preflight("auto") is None)
+            check("forced agy without agy → preflight fails",
+                  rs.writer_preflight("agy") is not None)
+        finally:
+            os.environ.pop("OPENROUTER_API_KEY", None)
+            if prev is not None:
+                os.environ["OPENROUTER_API_KEY"] = prev
+    finally:
+        rs.shutil.which = real_which
+
+    # inline_canon: the fix that made the cloud writer produce on-canon. The
+    # thin slice caught it inventing a tags schema it had no filesystem to read;
+    # the prompt's OWN 'protocol/...md' references are the manifest Python inlines.
+    producer_prompt = rs.PRODUCER.format(draft="DRAFT", n=99)
+    inlined = rs.inline_canon(producer_prompt)
+    check("inline_canon pulls producer.md content into the prompt",
+          "===== protocol/studio/producer.md =====" in inlined
+          and len(inlined) > len(producer_prompt) + 1000)
+    check("inline_canon includes a sample sidecar when tags are asked for",
+          "EXAMPLE .tags.json" in inlined)
+    # a prompt that references nothing is passed through untouched
+    check("inline_canon is a no-op without file refs",
+          rs.inline_canon("just do the thing") == "just do the thing")
+    # the manifest follows the prompt: a made-up ref is reported, never fabricated
+    check("inline_canon flags a missing referenced file",
+          "referenced but missing" in rs.inline_canon("Read protocol/studio/nope.md now"))
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -1337,6 +1384,7 @@ def main():
         s25_studio_concurrency_and_secrets(sb)
         s26_capacity_routing(sb)
         s27_schedule_and_soak_guards(sb)
+        s28_cloud_writer(sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)
