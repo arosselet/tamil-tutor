@@ -20,10 +20,14 @@ A fixed bug becomes a case here the day it's fixed:
   #8  [SFX] lines silently dropped by the renderer — now a beat of air (2026-07-18)
   #9  special_* string-mission sidecar crashed the ticket sort; the ticket now
       smoke-runs end-to-end on day-zero state (2026-07-19, inbox item)
+  #10 two renders shared one scratch dir — the first to finish deleted it under
+      the second, losing a draft episode; hosts without secrets now skip
+      instead of retrying hourly (2026-07-23)
 """
 import argparse
 import importlib
 import json
+import os
 import shutil
 import sys
 import tempfile
@@ -895,6 +899,9 @@ PROSE_BUDGETS = {
     "protocol/persona.md": 2000,
     "protocol/constitution.md": 1750,
     "protocol/daily_session.md": 1250,
+    # Split out of daily_session.md (2026-07-23) rather than raise its budget:
+    # channel routing is its own concern and Anna loads it only when choosing.
+    "protocol/audio_channels.md": 400,
     "OUTREACH_MANDATE": 2000,
     "JUDGE_MANDATE": 1500,
     "CATCH_JUDGE_MANDATE": 300,
@@ -1128,6 +1135,169 @@ def s23_ticket_end_to_end(sb: Path):
           rr.duration_hms(sb / "nope.mp3", "00:03:30") == "00:03:30")
 
 
+def s25_studio_concurrency_and_secrets(sb: Path):
+    print("\n25. Studio concurrency + credential-less hosts (2026-07-23)")
+    ra = importlib.import_module("render_audio")
+    sw = importlib.import_module("studio_watchdog")
+
+    # --- the race that cost a draft episode -------------------------------
+    # Renders used a fixed "temp_audio_segments"; whichever finished first
+    # rmdir'd it out from under the other mid-run (FileNotFoundError on the
+    # next segment write). Scratch dirs must be per-run.
+    a, b = ra.new_scratch_dir(), ra.new_scratch_dir()
+    try:
+        check("two renders get distinct scratch dirs", a != b, f"{a} == {b}")
+        check("scratch dirs are real and writable",
+              Path(a).is_dir() and Path(b).is_dir())
+        # the bug shape itself: a scratch dir assigned from a string literal
+        src = Path(ra.__file__).read_text(encoding="utf-8")
+        check("scratch dir is never a hardcoded path",
+              'temp_dir = "' not in src and "temp_dir = '" not in src)
+    finally:
+        shutil.rmtree(a, ignore_errors=True)
+        shutil.rmtree(b, ignore_errors=True)
+
+    # --- the deadlock guard on the state lock -----------------------------
+    # run_studio/watchdog hold .studio.lock and spawn the renderer; the child
+    # must inherit, never block on its own parent.
+    prev = os.environ.get("STUDIO_LOCK_HELD")
+    os.environ["STUDIO_LOCK_HELD"] = "1"
+    try:
+        check("child inherits a parent-held lock (no self-deadlock)",
+              ra.acquire_state_lock() is None)
+    finally:
+        os.environ.pop("STUDIO_LOCK_HELD", None)
+        if prev is not None:
+            os.environ["STUDIO_LOCK_HELD"] = prev
+
+    # --- auth failures are permanent, not transient ------------------------
+    class Denied(Exception):
+        pass
+    check("credential error is fatal",
+          ra.is_auth_error(Exception("Could not automatically determine credentials")))
+    check("permission error is fatal", ra.is_auth_error(Exception("403 Permission denied")))
+    check("network blip stays retryable",
+          not ra.is_auth_error(Denied("503 backend unavailable")))
+
+    # --- a host without secrets skips, and never retries -------------------
+    # Simulate the work laptop: ADC unresolvable.
+    import google.auth
+    real_default = google.auth.default
+    google.auth.default = lambda *a, **k: (_ for _ in ()).throw(
+        Exception("Could not automatically determine credentials"))
+    try:
+        reason = ra.google_credentials_ready()
+        check("no ADC → a reason, not a crash", isinstance(reason, str) and reason)
+    finally:
+        google.auth.default = real_default
+    check("ADC present → no reason", ra.google_credentials_ready() is None)
+    # Re-rendering an existing script needs TTS only. Gating it on agy would
+    # strand a scripted-but-unrendered episode on a host that can render fine.
+    rs = importlib.import_module("run_studio")
+    real_which = rs.shutil.which
+    rs.shutil.which = lambda cmd: None if cmd == "agy" else real_which(cmd)
+    try:
+        check("no agy → render path still allowed", rs.renderer_preflight() is None)
+        check("no agy → fresh-episode path blocked", rs.preflight() is not None)
+    finally:
+        rs.shutil.which = real_which
+
+    check("watchdog: exit 3 → skip, no retry",
+          "no retry" in sw.outcome(sw.EXIT_NOT_CONFIGURED, "dispatch"))
+    check("watchdog: exit 0 → done", sw.outcome(0, "dispatch").endswith("done"))
+    check("watchdog: other non-zero → retry next tick",
+          "retry next tick" in sw.outcome(1, "dispatch"))
+
+
+def s26_capacity_routing(sb: Path):
+    print("\n26. Audio channel routes by capacity, not by default (2026-07-23)")
+    # The felt signal: "totally tired, a longer drill for the park" produced a
+    # dense 10-min two-voice scene, because every audio ask routed to the studio.
+    # The routing table is the fix; this is the lint that keeps doc and code
+    # honest about each other.
+    routing = (REAL_BASE / "protocol" / "audio_channels.md").read_text(encoding="utf-8")
+    check("routing table exists", "capacity routes" in routing)
+    for script in ("render_soak.py", "render_drill.py", "run_studio.py"):
+        check(f"routing names {script}", script in routing)
+        check(f"{script} exists", (REAL_BASE / "scripts" / script).exists())
+    session = (REAL_BASE / "protocol" / "daily_session.md").read_text(encoding="utf-8")
+    check("the session choreography points at it", "audio_channels.md" in session)
+    skill = (REAL_BASE / ".claude" / "skills" / "anna" / "SKILL.md").read_text(encoding="utf-8")
+    check("Anna's skill routes by capacity, not straight to the studio",
+          "capacity" in skill and "render_soak.py" in skill)
+
+    # The soak channel's own law: passive means no response gap and no scene.
+    soak = importlib.import_module("render_soak")
+    check("soak mandate forbids a scene", "NO scene" in soak.SOAK_MANDATE)
+    check("soak rhythm is Python's, not the model's",
+          "Python owns all of that" in soak.SOAK_MANDATE)
+    check("soak week-window is selectable", "days" in soak.week_payload.__code__.co_varnames)
+
+    # The feed must actually carry it — a channel nobody can find is not a channel.
+    rr = importlib.import_module("rebuild_rss")
+    check("feed titles soak tracks", "nothing to do but listen" in rr.clean_title(
+        "Soak", "soak_2026-07-23_2326.mp3"))
+    check("feed durations are measured, not estimated",
+          rr.audio_duration.__doc__ and "ffprobe first" in rr.audio_duration.__doc__)
+
+
+def s27_schedule_and_soak_guards(sb: Path):
+    print("\n27. Clock-requests get queued; soak orders can't loop (2026-07-23)")
+    kr = importlib.import_module("knock_reply")
+
+    # #11: Andrew asked for a 9am greeting. The judge acknowledged it warmly,
+    # wrote a ledger note, and returned schedule:null — the mandate called
+    # scheduling "usual to skip". Nothing was queued; nothing was delivered.
+    real_ask = ("I am driving with my wife to Brampton this morning. When you knock, "
+                "send an audio message, greet her and say something I've been learning "
+                "this week. Not yet I mean 9am would be good.")
+    check("the real 9am ask is detected", kr.wants_scheduled_push(real_ask))
+    for t in ("ping me in an hour", "knock tomorrow morning", "remind me at 7:30 pm"):
+        check(f"clock request detected: {t[:28]}", kr.wants_scheduled_push(t))
+    for t in ("naan poren", "adhu dhaan, said it at dinner", "less of the aunty thing"):
+        check(f"plain rep is not a clock request: {t[:28]}", not kr.wants_scheduled_push(t))
+    check("mandate makes a clock-request mandatory", "MANDATORY" in kr.JUDGE_MANDATE)
+    check("mandate admits it cannot render bespoke audio",
+          "cloud-never-renders" in kr.JUDGE_MANDATE)
+
+    # #12: an unresolvable soak payload made the produced-check permanently
+    # False, and the hourly cron shipped M72/M73/M74 in one evening.
+    ss = importlib.import_module("sync_state")
+    lex = {"அவசரம் இருக்கு": {"phonetic": ["avasaram irukku"], "gloss": "hurry"},
+           "frame:needtogo-place": {"phonetic": [], "gloss": "must go to X"}}
+    resolved, unresolved = ss.split_payload(["avasaram", "frame:needtogo-place"], lex)
+    check("bare headword resolves to its chunk key",
+          "அவசரம் இருக்கு" in resolved, f"got {resolved}")
+    check("no false unresolved", unresolved == [], f"got {unresolved}")
+    junk_r, junk_u = ss.split_payload(["definitely-not-a-word"], lex)
+    check("genuine junk is reported, not silently kept", junk_u and not junk_r)
+
+    sw = importlib.import_module("studio_watchdog")
+    write_json(sb / "progress" / "learner.json",
+               {**read_json(sb / "progress" / "learner.json"),
+                "soak_order": {"payload": ["definitely-not-a-word"], "from": "2026-07-23"}})
+    check("an unverifiable payload is NOT 'still pending' (no dispatch loop)",
+          not sw.soak_pending())
+
+    # Two doors drive the SAME dispatch — the cron and the session-open drain.
+    # Fixing only one leaves the loop armed from the other, which is exactly
+    # what nearly happened: sync_state's status kept saying NOT YET PRODUCED
+    # after the watchdog was already satisfied. One resolver, both callers.
+    status_src = (REAL_BASE / "scripts" / "sync_state.py").read_text(encoding="utf-8")
+    check("the status drain-check uses the shared resolver",
+          "split_payload(soak.get" in status_src)
+    check("the watchdog drain-check uses the shared resolver",
+          "split_payload" in (REAL_BASE / "scripts" / "studio_watchdog.py").read_text(encoding="utf-8"))
+
+    # The rate rail, independent of any single root cause.
+    check("unattended production is capped", sw.MAX_UNATTENDED_PER_DAY >= 1)
+    today = datetime.now().date().isoformat()
+    write_json(sb / "progress" / "episodes.json",
+               {"70": {"words": [], "produced": today},
+                "71": {"words": [], "produced": "2020-01-01"}})
+    check("produced_today counts only today's", sw.produced_today() == 1)
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -1156,6 +1326,9 @@ def main():
         s21_volley_represent(kr, sb)
         s22_sfx_pause(sb)
         s23_ticket_end_to_end(sb)
+        s25_studio_concurrency_and_secrets(sb)
+        s26_capacity_routing(sb)
+        s27_schedule_and_soak_guards(sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)

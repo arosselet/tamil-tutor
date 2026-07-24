@@ -2,6 +2,7 @@
 import json
 import os
 import re
+import subprocess
 from datetime import datetime
 import email.utils
 from xml.sax.saxutils import escape as xml_escape
@@ -82,6 +83,12 @@ def clean_title(raw_title: str, filename: str) -> str:
     drill = re.match(r"drill_(\d{4}-\d{2}-\d{2})", filename)
     if drill:
         return f"Drill — {drill.group(1)} · say it out loud"
+
+    # Soak loops (passive repetition) — the title says the contract out loud, so
+    # a tired ear scrolling the feed can tell it from a drill at a glance.
+    soak = re.match(r"soak_(\d{4}-\d{2}-\d{2})", filename)
+    if soak:
+        return f"Soak — {soak.group(1)} · nothing to do but listen"
 
     # Detect episode type from filename
     ep_type = None
@@ -238,10 +245,38 @@ def mp3_duration(path):
     return seconds or None
 
 
-def duration_hms(path, fallback):
-    """"HH:MM:SS" for the feed, from the exact frame scan."""
+def ffprobe_duration(path):
+    """Seconds by decoding the real stream — the SAME authority episodes.json
+    uses (render_audio.register_mission_in_state). None if ffprobe is absent."""
     try:
-        total = int(mp3_duration(path))
+        r = subprocess.run(
+            ["ffprobe", "-v", "error", "-show_entries", "format=duration",
+             "-of", "csv=p=0", str(path)],
+            capture_output=True, text=True, timeout=60)
+        return float(r.stdout.strip()) or None
+    except Exception:
+        return None
+
+
+def audio_duration(path):
+    """Seconds for the feed. ffprobe first, frame scan as the pure-python
+    fallback.
+
+    The scan alone was wrong in BOTH directions — measured 2026-07-23 against
+    ffprobe: M69 +40%, M73 +37%, M72 +32%, M74 -16%, M70/M71 -8%. These files
+    are raw frame concatenations (TTS segments plus SILENCE_FRAME copies), and
+    a single bad header desyncs the walk: it either skips frames or resyncs a
+    byte at a time and recounts. M72 was announced to the feed as 13:12 for a
+    10:04 episode — Andrew read the wrong number off his podcast player and
+    judged the episode by it. Honest meters or none.
+    """
+    return ffprobe_duration(path) or mp3_duration(path)
+
+
+def duration_hms(path, fallback):
+    """"HH:MM:SS" for the feed."""
+    try:
+        total = int(audio_duration(path))
     except Exception:
         return fallback
     return f"{total // 3600:02d}:{(total % 3600) // 60:02d}:{total % 60:02d}"
@@ -256,10 +291,11 @@ def generate_rss():
 
     audio_files = [f for f in os.listdir(AUDIO_DIR) if f.endswith('.mp3')]
 
-    # Filter: tier-based episodes + drill tracks + special reference episodes
-    # (skip legacy level4_*, demos, tests, and standalone intercepts)
+    # Filter: tier-based episodes + drill tracks + soak loops + special reference
+    # episodes (skip legacy level4_*, demos, tests, and standalone intercepts)
     episodes = [f for f in audio_files
-                if (f.startswith('tier') or f.startswith('drill_') or f.startswith('special_'))
+                if (f.startswith('tier') or f.startswith('drill_')
+                    or f.startswith('soak_') or f.startswith('special_'))
                 and not f.endswith('_intercept.mp3')]
 
     # Knock memos are feed-worthy too (2026-07-05): the push notification is
@@ -275,7 +311,8 @@ def generate_rss():
         match = re.search(r"tier(\d+)_mission(\d+)", filename)
         if match:
             return (int(match.group(1)), int(match.group(2)))
-        match = re.search(r"drill_(\d{4})-(\d{2})-(\d{2})(?:_(\d{4}))?", filename)
+        # drills and soak loops are both dated tracks — one band, chronological
+        match = re.search(r"(?:drill|soak)_(\d{4})-(\d{2})-(\d{2})(?:_(\d{4}))?", filename)
         if match:
             return (9, int("".join(g or "0" for g in match.groups())))
         match = re.search(r"knock_(\d{4})-(\d{2})-(\d{2})(?:T(\d{2})-(\d{2}))?", filename)

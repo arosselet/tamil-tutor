@@ -4,6 +4,21 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **DECIDE: does the hourly studio cron stay?** (2026-07-23 — Andrew's call, not the
+  agent's; the cron is **paused** in his crontab, one `sed` from restored, backup in the
+  session scratchpad). Premise endorsed by Andrew: local-not-CI is right, and the gap is
+  real — the queue starves when he doesn't sit down. Against: 5 days, 4 actions, 2 clean;
+  it produced 3 unwanted episodes on 07-23. Now fixed — verifiable trigger, rate cap 1/day,
+  clean skip on a secret-less host. Three options: **(a)** restore as-is, **(b)** restore
+  with state 2 removed so it only ever *finishes* interrupted work and never *originates*
+  a new episode, **(c)** delete the cron, keep `studio_watchdog.py` as a manual command.
+- **DECIDE: should machine-made commits carry a machine identity?** (2026-07-23). The
+  watchdog commits as `Andrew Rosselet <arosselet@gmail.com>` — M70/M71 read as his work
+  in `git log` but were made by cron at 22:42 and 23:25. CI is already honest
+  (`github-actions[bot]`). In a repo whose governing principle is *the repo is the
+  memory*, history currently misattributes. One-line fix, but it is Andrew's repo and his
+  name; raised twice, never ruled.
+
 - **The trip harvest** (2026-07-18, direction approved — build when the Aug 5 campaign
   is drafted): the trip is a field-mission arc, not an exam. Final campaign (Aug 5–12)
   goes rehearsal-shaped — Table Rehearsal dominant, the five-scenario checklist as the

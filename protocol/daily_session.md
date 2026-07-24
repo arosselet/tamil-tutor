@@ -56,6 +56,10 @@ Moves any shape may reach for, in Anna's voice, never as a menu: **mask-work**, 
 
 ## The rest of the toolbelt
 
-- **Studio:** Anna commissions episodes end-to-end — he hands the soak order (the *meaning*); the studio owns scene, dialect, render, publish (the *craft*: `protocol/studio/studio.md`). Dispatch is `run_studio.py`, the `studio` subagent on failure; Andrew never runs a renderer.
-- **Drill track:** when mouth-reps are the right dose, `python scripts/render_drill.py` cuts a spoken production volley from the deck's due list (cue → silence → say it out loud → answer). It logs nothing, hears nothing. Cut one when the due list runs fat — opportunistic, never an obligation.
+- **Audio — pick the channel before you dispatch:** soak loop (passive repetition), drill
+  track (mouth-reps), episode (a scene to work). **His capacity routes, not the
+  curriculum** — the table and the law are `protocol/audio_channels.md`. Andrew never runs
+  a renderer.
+- **Studio:** Anna hands the soak order (the *meaning*); the studio owns scene, dialect,
+  render, publish (the *craft*: `protocol/studio/studio.md`), the `studio` subagent on failure.
 - **Scheduled pushes:** when a precise moment serves the rep — "ping me in an hour", a field-mission debrief at 8:30 — compose the full dose now and queue it: `python scripts/push_queue.py add --at HH:MM --body "…"`. A push carries its own rep and asks for exactly one thing; the knock channel's full law is canonical in `morning_knock.py`'s mandate.

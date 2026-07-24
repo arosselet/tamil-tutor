@@ -604,3 +604,65 @@ Details live in git history; this is the index of the *conclusions*.
   paren/bracket and JSON/CLI handling), but no longer *need* to on account of periods.
   Deleted the `clean_keep_periods` workaround that render_demo.py carried for one day —
   root fix retires it.
+- **Capacity routes the audio channel; the curriculum only fills it** (2026-07-23,
+  Andrew's felt signal). Exhausted after a day of paperwork he asked for "a longer drill
+  to listen to at the park — repetitions, iterating over words and endings, mental
+  autopilot" and received a dense 10-minute two-voice scene: `scene_spec()`'s only input
+  is divergence from the last 3 episodes, and Anna's skill routed *every* audio ask to the
+  studio. The soak order decides what a dose carries; what his attention is free to do now
+  decides which channel carries it (`protocol/audio_channels.md`). Explicitly does NOT
+  reopen "variety is structural" (2026-06-20) — capacity picks the channel, divergence
+  still picks within the episode. The routing was **split** into its own file rather than
+  bumping `daily_session.md`'s budget, per that file's own 07-19 ruling ("split-or-retire
+  is *their* next move, not a budget bump"); it came out 22 words leaner than before.
+- **The soak loop is the third audio channel** (2026-07-23). The episode demands
+  comprehension and the drill demands speech; neither serves an ear on autopilot in
+  company, which is most of when Andrew actually has headphones in. `render_soak.py`:
+  Python owns the rhythm (Tamil → gloss once → Tamil → Tamil, then a Tamil-only echo of
+  the whole thread), the model only clusters this week's surfaced items by shared ending
+  and glosses them. Replaces "stretch an episode when he wants something longer" — the one
+  lever that responded to the park brief, and the one that widened the mismatch.
+- **A clock-bound request must produce a queue entry, never an acknowledgement**
+  (2026-07-23). The 9am greeting was never scheduled, and the runner was not at fault:
+  it had `contents: write`, both secrets, and a working `maybe_enqueue_schedule` path. The
+  judge mandate called scheduling "optional … null to skip, which is usual" and routed
+  system-direction into `meta_note` — a ledger note for a human to read later. Anna
+  followed her instructions exactly. The mandate now makes a clock-bound ask MANDATORY and
+  `wants_scheduled_push()` forces one re-ask when Python catches the contradiction; prose
+  had already failed here once, so the detector is the mechanism.
+- **The cloud cannot render bespoke audio, and Anna must say so out loud** (2026-07-23).
+  `maybe_enqueue_schedule` is text-only and the drain workflow carries no TTS and no model
+  by design (cloud-never-renders) — so the 9am ask, which was for *audio*, was
+  unfulfillable end-to-end even had it been queued. Anna now names the limit and offers
+  the text dose rather than promising a voice she cannot produce.
+- **An unattended production trigger must be verifiable, and capped regardless**
+  (2026-07-23). A soak payload of `avasaram` can never match the lexicon key
+  `அவசரம் இருக்கு`, so the produced-check stayed False forever and the hourly cron shipped
+  M72, M73 and M74 in one evening — three episodes nobody asked for, while Andrew was out.
+  `split_payload()` resolves headword→chunk and drops genuinely unverifiable tokens (Tamil
+  script and `frame:` keys still pass: a brand-new payload word is legitimately
+  pre-lexicon). `MAX_UNATTENDED_PER_DAY = 1` bounds the rate whatever the next stuck
+  trigger turns out to be — rate is now a rail, not a hope.
+- **Feed durations are measured, never estimated** (2026-07-23). The 07-22 frame-scan fix
+  was wrong in *both* directions — M69 +40%, M73 +37%, M72 +32%, M74 −16% — because one
+  bad header desyncs the walk and it resyncs a byte at a time, recounting. M72 was
+  announced to the feed as 13:12 for a 10:04 episode, and Andrew judged the episode partly
+  by the number his podcast player showed him. `rebuild_rss` now uses ffprobe — the same
+  authority `episodes.json` already used — with the scan as fallback. Honest meters or none.
+- **Concurrent renders are safe by construction; a commit carries only its own episode**
+  (2026-07-23). `temp_audio_segments/` was a fixed relative path shared by every render, so
+  whichever finished first `rmdir`'d it out from under the other; that raced the watchdog
+  mid-render and cost a draft episode, which `git add content/captions/` had already swept
+  into an unrelated commit. Now: per-run `mkdtemp` with `try/finally`, the state tail under
+  `.studio.lock` with `STUDIO_LOCK_HELD` inheritance so a child never deadlocks on its
+  parent, and staging by explicit filename. `.studio.lock` had only ever guarded
+  *dispatches* — the renderer is the thing that mutates state.
+- **The watchdog's premise stands; its 07-18 reliability claim does not** (2026-07-23,
+  Andrew: it "snuck in"). Provenance: parked in the inbox's unendorsed `## Ideas` tier on
+  07-17, shipped the next day inside four-feature audit-night commit `4003b6b`. Five days,
+  four actions: two clean, one needing a same-day patch (`_vN` resurrection put a stale
+  GUID back in the feed), one outright failure that destroyed a draft. Local-not-CI is
+  right and the session-open drain stays primary. The cron is **paused** pending Andrew's
+  call; it now preflights, caps its rate, and skips cleanly on a host without secrets.
+  Amends — does not replace — "Production is self-healing" (2026-07-18); that entry's
+  mechanism survives, its "replaces the human as the only retry path" does not.
