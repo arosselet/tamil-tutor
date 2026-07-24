@@ -1,32 +1,33 @@
 {
   "learner": "Andrew",
-  "last_debrief": "STORY SO FAR: CAMPAIGN — Ask-Machine Week WON and CLOSED. Both unseen cleared (kudunga cold 07-19, mayi-laama online 07-20); the -nga/-laamaa collision fires cold BOTH directions (re-confirmed Wed 07-22). Wed 07-22 (afternoon session): FIELD MISSION 07-21 LANDED LIVE — naan edukkalaamaa fired cold at a real dinner table, permission tail correct (strongest cold evidence yet). In-session collision re-fired cold: konjam rice edukkalaamaa, then flipped to ukkarunga / saapdunga command (the -nga CHOICE correct; stem slurred to 'uttaknga', saapteengala slipped to did-you-eat, both recast one clause). STRAGGLERS OPEN: needtogo-place — 'naan ponga' overgeneralized -nga onto SELF (the known bleed), recast to station-kku POGANUM; clean on say-back, still hinted->cold pending live. avasaram irukku — NEW word 07-22, taught as 'hurry exists' (= also emergency), hooked to avasaramaa via the -aa machine; hinted. -aam WATCH CLOSED (Wed 07-22 evening): performed the hearsay tape live in chat and he caught the drift unprompted — got 'Kamala sonnaanga' (quotative) and 'veetha vitutu poraanga-aam' (they're leaving their house); missed the opening 'oorukku varaanga-aam'. Catch axis moving for the first time; hearsay-aam + quote-nu both bumped to comfortable. NO SESSION Wed evening — he came in only to have a drill produced (his other laptop has no API keys); drill_2026-07-22_1641 cut and pushed: 13 items, poganum x2 / avasaram / medhuva / purila / aama aama / we-om x3 / ingka niruthunga / innoru thadava sollunga / enna sonneenga. Straggler drill is now IN HIS EAR, not just planned. Thu = collect the drill's poganum+avasaram cold, in a leaving-scene; Fri = kudunga victory lap. FIELD MISSION 07-22 still live: 'naan poganum' at the dinner-table exit tonight.",
+  "last_debrief": "STORY SO FAR: CAMPAIGN — Ask-Machine Week WON and CLOSED Fri 07-24, victory lap fired clean. Fri 07-24 (afternoon, ANDREW-INITIATED — he brought the words): overheard 'prachanai' and 'kitta' off HIS WIFE AND HER SISTER talking to each other, full speed, unaimed at him, and carried both home. First real-world catch evidence in the system — the eavesdrop axis moved outside the lab. Ran as a meta/lore day on his two words and cleared the lot: KITTA cold (akka-kitta ketten, novel slot), KETKUREN cold (naan maama-kitta ketkuren — the present/future toggle that was a listed gap), then the exit scene in one unbroken breath: AVASARAM IRUKKU cold, STATION-KKU POGANUM cold, KEYS EN-KITTA KUDUNGA cold (kudunga victory lap with kitta bolted on). BOTH 07-22 STRAGGLERS CLOSED. Taught: kel = ask AND hear, one verb, and kitta is the switch (person in the sentence -> asked; thing -> heard); en/un as the lying-down stems he already owned via enakku/enga/unakku; the vanishing object — Tamil deletes what context carries — which HE found himself. One recast: drop redundant 'naan', the -en tail already says I (same deletion law, second sighting). TESTIMONY, twice, unprompted: 'overwhelms me a bit and also makes me feel like I am actually making progress — my theory of limited lemmas and picking up context is starting to pay off', and the big one: 'it feels more intuitive straight in tamil and not thinking about how the sentence is translated — not cumbersome natively but challenging to translate.' That is the deer-in-headlights antidote in his own words. KEEP DENSITY LOW while this holds — he named overwhelm in the same breath as progress. FIELD MISSION 07-24: 'en-kitta kudunga' at the dinner table tonight (guaranteed slot — something always needs passing), plus a standing CATCH order: bring back one word overheard from the sisters. NEXT CAMPAIGN PITCHED, NOT YET AGREED — The Overhear Week: catch is the starving axis (0/12) and he just proved catch works in the wild; quote-nu, hearsay-aam, youknow-la, ennamo prachanai, alaichal as catch targets, the kel/kitta family riding as fire. Andrew adjusts it at the next open. -aam watch still open at 3 misses.",
   "soak_order": {
     "payload": [
-      "avasaram",
-      "frame:needtogo-place"
+      "கிட்ட",
+      "பிரச்சனை",
+      "கேட்டேன்"
     ],
-    "scene_seed": "The boy is running late for the train; the family fusses him to sit and eat one more bite while he insists he has to go — avasaram irukku / station-kku poganum rubbing against ukkarunga / saapdunga at the door.",
-    "from": "2026-07-22"
+    "scene_seed": "Two sisters mid-gossip in the next room — ennamo prachanai, nobody says what; the nephew wanders in and asks who they asked, and the same verb keeps flipping between asking and hearing depending on whether a person is in the sentence",
+    "from": "2026-07-24"
   },
   "next_engine": "frame:polite-nga",
   "recent_missions": [
     {
-      "mission": 68,
-      "title": "The Midnight Suitcase"
+      "mission": 74,
+      "title": "Mission tier2_mission74"
     },
     {
-      "mission": 67,
-      "title": "Mission tier2_mission67"
+      "mission": 73,
+      "title": "Mission tier2_mission73"
     },
     {
-      "mission": 66,
-      "title": "Tea Table Protocol: வேணும் to the Universe"
+      "mission": 72,
+      "title": "ஒரு வாய் சாப்பிடுங்க"
     },
     {
-      "mission": 65,
-      "title": "Mission tier2_mission65"
+      "mission": 71,
+      "title": "Mission tier2_mission71"
     }
   ],
-  "status": "Trip Deck 13/33 survival cold · 21 days to touchdown · need 1.0 cold/day, trailing 7-day pace 2.4/day · full deck 13/69"
+  "status": "Trip Deck 15/33 survival cold · 19 days to touchdown · need 0.9 cold/day, trailing 7-day pace 2.1/day · full deck 15/69"
 }
