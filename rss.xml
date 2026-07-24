@@ -21,6 +21,16 @@
     <itunes:new-feed-url>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/rss.xml</itunes:new-feed-url>
     
     <item>
+      <title>Anna Introduces Himself</title>
+      <itunes:author>Andrew R &amp; Gemini</itunes:author>
+      <itunes:summary>Anna Introduces Himself</itunes:summary>
+      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/special_anna_intro_v11.mp3" length="959376" type="audio/mpeg"/>
+      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/special_anna_intro_v11.mp3</guid>
+      <pubDate>Thu, 23 Jul 2026 00:11:04 -0400</pubDate>
+      <itunes:duration>00:03:48</itunes:duration>
+    </item>
+
+    <item>
       <title>The Landscape Tape — Tamil Machines, the Whole Map</title>
       <itunes:author>Andrew R &amp; Gemini</itunes:author>
       <itunes:summary>The Landscape Tape — Tamil Machines, the Whole Map</itunes:summary>
@@ -30,16 +40,6 @@
       <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/special_landscape01.mp3</guid>
       <pubDate>Fri, 17 Jul 2026 10:19:52 -0400</pubDate>
       <itunes:duration>00:06:32</itunes:duration>
-    </item>
-
-    <item>
-      <title>Anna Introduces Himself</title>
-      <itunes:author>Andrew R &amp; Gemini</itunes:author>
-      <itunes:summary>Anna Introduces Himself</itunes:summary>
-      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/special_anna_intro_v11.mp3" length="959376" type="audio/mpeg"/>
-      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/special_anna_intro_v11.mp3</guid>
-      <pubDate>Thu, 23 Jul 2026 00:11:04 -0400</pubDate>
-      <itunes:duration>00:03:48</itunes:duration>
     </item>
 
     <item>
@@ -280,6 +280,18 @@
       <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/knocks/knock_2026-06-30.mp3</guid>
       <pubDate>Tue, 30 Jun 2026 14:02:02 -0400</pubDate>
       <itunes:duration>00:00:50</itunes:duration>
+    </item>
+
+    <item>
+      <title>Ep 72 — ஒரு வாய் சாப்பிடுங்க</title>
+      <itunes:author>Andrew R &amp; Gemini</itunes:author>
+      <itunes:summary>Ep 72 — ஒரு வாய் சாப்பிடுங்க</itunes:summary>
+      <link>https://github.com/arosselet/tamil-tutor/blob/main/content/captions/tier2_mission72.md</link>
+      <description><![CDATA[📖 <a href="https://github.com/arosselet/tamil-tutor/blob/main/content/captions/tier2_mission72.md">Captions — follow along (Tamil · phonetic · English)</a>]]></description>
+      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission72.mp3" length="3129696" type="audio/mpeg"/>
+      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission72.mp3</guid>
+      <pubDate>Thu, 23 Jul 2026 20:12:40 -0400</pubDate>
+      <itunes:duration>00:11:23</itunes:duration>
     </item>
 
     <item>

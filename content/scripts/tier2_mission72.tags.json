@@ -1,0 +1,40 @@
+{
+  "mission": 72,
+  "register": "embarrassment",
+  "dramatic_ingredient": "genre",
+  "episode_form": "classic",
+  "shape": "dispute",
+  "location_class": "home_social",
+  "energy": "medium-loud",
+  "intercept_tamil_density": 0.60,
+  "breakdown_tamil_density": 0.45,
+  "fence_size": 181,
+  "unfenced_words": 1,
+  "new_words_landed": {
+    "அவசரம் இருக்கு": 9,
+    "frame:needtogo-place": 8
+  },
+  "callbacks_used": {
+    "உக்காருங்க": 6,
+    "சாப்பிடுங்க": 7,
+    "இன்னும் கொஞ்சம் சாப்பிடுங்க": 4,
+    "நேரம் ஆச்சு": 2,
+    "ரொம்ப நல்லா இருக்கு": 3,
+    "போதும்": 1,
+    "வேண்டாம்": 2,
+    "சரி சரி": 3,
+    "குடுங்க": 2,
+    "சொல்லுங்க": 3,
+    "நிறுத்துங்க": 1,
+    "போகணும்": 10,
+    "frame:mayi-laama": 5,
+    "கொஞ்சம் நில்லுங்க": 1
+  },
+  "host_roles": {
+    "A": "amma_and_thatha_impressionist",
+    "B": "trapped_guest",
+    "Maya": "pattern_analyst",
+    "Raj": "personal_anecdote_teller"
+  },
+  "notes": "Long soak commission — extended classic form targeting 10+ min passive listening. Intercept runs multiple rounds of 'trapped guest trying to leave' comedy. Breakdown replays key lines explicitly with pause-before/after for consolidation. Frame:needtogo-place and avusram irukku both land 8-9 times across Intercept + Breakdown replays. The -nga command machine dissected in the Breakdown (ukkarunga, saapidungka, niruttungka, kudungka, sollungka). Unfenced word: 'tactic' (English, answered by context). EAR-ONLY innoru thadava sollungka woven in naturally as Raj's replay cue."
+}
