@@ -25,9 +25,16 @@ sessions can always correct state.
   python scripts/knock_reply.py "naan poren"            # judge, write state, commit+push, notify
   python scripts/knock_reply.py --dry-run "naan poren"  # judge + print only (no writes)
 
-Secrets: OPENROUTER_API_KEY (the judge), ANNA_PUSH_WEBHOOK_URL (the push-back).
+Anna may answer ALOUD (2026-07-24): when the sound IS the answer — how a line is
+pronounced, a greeting for someone standing in the room — the judge returns
+`voice_reply` and Python renders it into this same push-back. Rationed by the
+mandate, because the render costs ~90s while Andrew waits at the lock screen.
+
+Secrets: OPENROUTER_API_KEY (the judge), ANNA_PUSH_WEBHOOK_URL (the push-back),
+GCP TTS auth (only when Anna answers aloud).
 """
 import argparse
+import asyncio
 import json
 import os
 import re
@@ -40,9 +47,10 @@ from openai import OpenAI
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from render_chat import render_chat
-from morning_knock import (OPENROUTER_BASE, MODEL, KNOCK_LOG_PATH, parse_llm_json,
-                           load_env, push_to_phone, commit_and_push,
-                           maybe_enqueue_schedule)
+from morning_knock import (OPENROUTER_BASE, MODEL, KNOCK_LOG_PATH, KNOCKS_DIR,
+                           ANNA_VOICE, parse_llm_json, load_env, push_to_phone,
+                           commit_and_push, maybe_enqueue_schedule, render_memo,
+                           jsdelivr_url, refresh_feed)
 from sync_state import (LEXICON_PATH, FEEDBACK_LOG_PATH, TRIP_DATE, load_json,
                         save_json, build_phonetic_index, resolve, compute_deck,
                         fires_today)
@@ -158,18 +166,6 @@ fired AT him; grade the reply as its ANSWER — parsing the question is half the
 repair line back (புரியல, மெதுவா சொல்லுங்க) is a legitimate creditable fire: grade THAT \
 production, never a miss.
 
-SCHEDULING: you may plant ONE future push at a precise local time via "schedule" — a \
-fully-composed dose that fires as-is later. Unprompted, null-to-skip is usual.
-
-A CLOCK-BOUND REQUEST IS MANDATORY. Asked for something at a time ("send me X at 9am"), \
-you MUST return a schedule object, composing the body NOW as it \
-should read when it fires. "Noted, I'll do it" with schedule:null is a promise the machine \
-cannot keep, and he waits for a push nobody queued (2026-07-23). Python re-asks you once.
-
-A SCHEDULED DOSE MAY CARRY VOICE: put the spoken words in "memo_script" and the drain \
-renders them at fire time. Same rules as an audio knock — \
-Tamil payload in Tamil SCRIPT, paragraphs split by ONE blank line. Empty means text.
-
 Return ONLY a JSON object, no prose around it:
 {
   "verdict": "cold" | "hinted" | "miss" | "chat",
@@ -179,9 +175,37 @@ Return ONLY a JSON object, no prose around it:
   "follow_up_target": "<the one word/chunk/frame it asks for (Tamil script or frame:... key); empty if no chain>",
   "follow_up_target_revealed": true | false,
   "meta_note": "<one line ONLY when the reply carried direction/correction/testimony for the system — it lands in the feedback ledger; empty string otherwise>",
+  "voice_reply": "<spoken words when this answer wants to be HEARD; empty string otherwise — see REACH>",
   "schedule": {"at_local": "YYYY-MM-DDTHH:MM", "body": "<the full dose>", "memo_script": "<spoken words for a VOICE dose; empty for text>","expected_target": "<or empty>", "target_revealed": true | false, "move": "<2-4 words>"} | null,
   "rationale": "<one line, for the log>"
 }
+"""
+
+
+REACH_MANDATE = """\
+--- REACH: what this reply can do BEYOND the text line ---
+
+SCHEDULING: you may plant ONE future push at a precise local time via "schedule" — a \
+fully-composed dose that fires as-is later. Unprompted, null-to-skip is usual.
+
+A CLOCK-BOUND REQUEST IS MANDATORY. Asked for something at a time ("send me X at 9am"), \
+you MUST return a schedule object, composing the body NOW as it \
+should read when it fires. "Noted, I'll do it" with schedule:null is a promise the machine \
+cannot keep, and he waits for a push nobody queued (2026-07-23). Python re-asks you once.
+
+A SCHEDULED DOSE MAY CARRY VOICE: put the spoken words in the schedule's "memo_script" and \
+the drain renders them at fire time. Nothing composes at fire time — what you write now is \
+exactly what speaks then.
+
+SPEAK BACK, NOW ("voice_reply"): when the answer wants to be HEARD rather than read, put \
+the spoken words here and Python renders them into this very push-back. Reach for it when \
+the SOUND is the answer — he asked how something is pronounced, asked you to say or sing \
+something, or there is someone in the room he wants to hear you. Everything else stays \
+text: rendering costs him ~90 seconds of waiting at the lock screen, so a recast he could \
+have read in two is a worse dose for being spoken. Never both explain in text and repeat \
+it in voice — the text line stays the short recast; the voice carries what only sound can. \
+Same rules as an audio memo: Tamil payload in Tamil SCRIPT (a Tamil voice speaks it), \
+paragraphs separated by ONE blank line. Empty string is the normal answer.
 """
 
 
@@ -463,7 +487,8 @@ def judge(knock: dict, reply_text: str, target_record: dict | None,
     elif knock.get("reply"):
         context["prior_exchanges"] = [{"andrew_said": knock["reply"],
                                        "anna_recast": knock.get("reply_line", "")}]
-    mandate = JUDGE_MANDATE + (FORCE_SCHEDULE_ADDENDUM if force_schedule else "")
+    mandate = (JUDGE_MANDATE + "\n" + REACH_MANDATE
+               + (FORCE_SCHEDULE_ADDENDUM if force_schedule else ""))
     client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
     resp = client.chat.completions.create(
         model=MODEL,
@@ -506,6 +531,7 @@ def normalize_verdict(d: dict) -> dict:
     d["follow_up_ask"] = (d.get("follow_up_ask") or "").strip()
     d["follow_up_target"] = (d.get("follow_up_target") or "").strip()
     d["follow_up_target_revealed"] = bool(d.get("follow_up_target_revealed", True))
+    d["voice_reply"] = (d.get("voice_reply") or "").strip()
     d["schedule"] = d.get("schedule") if isinstance(d.get("schedule"), dict) else None
     return d
 
@@ -647,6 +673,28 @@ def apply_verdict(verdict: dict, knock: dict, lexicon: dict, klog: list,
             summary.append(f"{key} already {cur} — kept ({grade} fire)")
         rec["last_surfaced"] = today
     return summary, cold_credited, capped_keys, graduated
+
+
+def render_voice_reply(spoken: str) -> tuple[Path | None, str | None]:
+    """Render Anna's spoken answer for THIS push-back. Returns (mp3, url).
+
+    The other half of the loop (2026-07-24): the knock lane could always speak
+    TO Andrew, but the reply lane pushed `audio_url=None` hard-coded, so Anna
+    could never speak BACK — a lock-screen ask for "how does that sound?" could
+    only ever be answered in writing. The renderer was never the blocker; the
+    reply workflow simply had no TTS secret until the workflows were merged.
+
+    Deliberately best-effort: a TTS failure must still deliver the text recast.
+    Costs ~60-90s while Andrew waits at the lock screen, which is why the
+    mandate rations it to answers where the sound IS the answer."""
+    stamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H-%M-%S")
+    mp3 = KNOCKS_DIR / f"reply_{stamp}.mp3"
+    try:
+        asyncio.run(render_memo(spoken, mp3, ANNA_VOICE))
+    except Exception as exc:                       # noqa: BLE001 — text must still land
+        print(f"   ⚠ voice reply failed to render ({exc}) — pushing the text alone")
+        return None, None
+    return mp3, jsdelivr_url(mp3)
 
 
 def main():
@@ -794,8 +842,28 @@ def main():
     save_json(LEXICON_PATH, lexicon)
     save_json(KNOCK_LOG_PATH, klog)
 
+    # Anna may answer ALOUD. Rendered before the commit below because
+    # push_to_phone pre-warms the jsDelivr URL and the CDN can only serve a path
+    # already on main — knock_reply already commits before it notifies, so the
+    # mp3 just rides the existing commit.
+    # .get, not [], so any caller that hands us an un-normalised verdict (the
+    # smoke harness stubs judge() directly) simply gets a silent text reply.
+    voice_url, vmp3 = None, None
+    if verdict.get("voice_reply"):
+        print("2b. render voice reply…")
+        vmp3, voice_url = render_voice_reply(verdict["voice_reply"])
+        if voice_url:
+            knock["reply_audio_url"] = voice_url
+            knock["reply_memo_script"] = verdict["voice_reply"]
+            save_json(KNOCK_LOG_PATH, klog)
+
     print("3. commit + push…")
     commit_paths = [LEXICON_PATH, KNOCK_LOG_PATH, render_chat()]
+    if voice_url:
+        commit_paths.insert(0, vmp3)
+        rss = refresh_feed()   # all audio lands on the feed (2026-07-05)
+        if rss:
+            commit_paths.append(rss)
     # Meta-direction lands in the feedback ledger — the diagnosis pass reads it.
     if verdict["meta_note"]:
         flog = load_json(FEEDBACK_LOG_PATH) or []
@@ -815,8 +883,8 @@ def main():
     if len(body) > 240:
         print(f"   ⚠ push-back is {len(body)} chars — the lock screen will cut the tail (chained ask at risk)")
     # the chain's own id: a reply to this push-back correlates to the same knock entry
-    push_to_phone(body, None, knock_id=knock.get("timestamp", ""))
-    print("done — reply judged, scored, answered.")
+    push_to_phone(body, voice_url, knock_id=knock.get("timestamp", ""))
+    print(f"done — reply judged, scored, answered{' (aloud 🎧)' if voice_url else ''}.")
 
 
 if __name__ == "__main__":
