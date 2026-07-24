@@ -4,14 +4,41 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
-- **DECIDE: does the hourly studio cron stay?** (2026-07-23 — Andrew's call, not the
-  agent's; the cron is **paused** in his crontab, one `sed` from restored, backup in the
-  session scratchpad). Premise endorsed by Andrew: local-not-CI is right, and the gap is
-  real — the queue starves when he doesn't sit down. Against: 5 days, 4 actions, 2 clean;
-  it produced 3 unwanted episodes on 07-23. Now fixed — verifiable trigger, rate cap 1/day,
-  clean skip on a secret-less host. Three options: **(a)** restore as-is, **(b)** restore
-  with state 2 removed so it only ever *finishes* interrupted work and never *originates*
-  a new episode, **(c)** delete the cron, keep `studio_watchdog.py` as a manual command.
+- **BUILD (decided 2026-07-24): autonomous cloud episode production, inside the knock
+  tick.** The cron question is settled — the local watchdog cron is RETIRED, replaced by
+  cloud production. Direction locked with Andrew:
+  - *Foundation DONE* (commit dc94bf2 / pushed 737fef5): the studio writer is now
+    executor-agnostic — `agy` locally, OpenRouter→`google/gemini-3-flash-preview` in the
+    cloud, with `inline_canon()` carrying the protocol files into the single-shot prompt
+    (a bare API call has no filesystem). Proven on-canon, ~$0.03/episode, CI green.
+  - *Remaining, one coherent phase (touches the KNOCK LOOP — the primary channel; a bug
+    there fails silently, so build fail-safe + dry-run-tested before it goes live):*
+    1. **New `episode` move in the knock tick.** Anna (he) may CHOOSE to produce (he
+       decides *when* — Andrew's call, not a fixed cadence), but Python's guardrails
+       dispose: only if `soak_pending()`, `produced_today() < MAX_UNATTENDED_PER_DAY`, and
+       waking hours. A gated-out choice logs as grace/silence, never overspends. On go, it
+       dispatches `run_studio.py` (which owns write→render→publish→commit→push, incl. the
+       "go listen" phone push); then the tick logs the reach so the rails see it. Ordering:
+       studio commits/pushes first, then the knock-log commit — no double-push.
+    2. The digest must surface the soak-pending signal so Anna can see there's something to
+       produce (build_digest currently doesn't).
+    3. **Drop the "Cloud never renders episodes" rule** (`DECISIONS.md:76`) — land it WITH
+       the trigger, not before (dropping it with no cloud producer is a gap). Correct the
+       two wrong entries from 2026-07-23 (the 9am greeting was unfulfillable *as wired*, not
+       fundamentally). `morning-knock.yml` already carries GCP_SA_KEY + OPENROUTER_API_KEY,
+       so no workflow change is needed.
+    4. **Retire the local cron for real** (currently paused in crontab; backup in the
+       07-23 session scratchpad). Keep `studio_watchdog.py` only if a manual command still
+       earns its place; otherwise delete it.
+    5. **The 9am-audio lane** now unblocked: a scheduled audio dose is a knock-memo with a
+       clock — wire GCP into `push-queue.yml` (or route scheduled audio through the knock
+       renderer) so `knock_reply`'s schedule can carry a rendered voice, not just text.
+  - *Small determinism fix (do alongside):* Python stamps the `scene_spec`-decided
+    `episode_form`/`register`/`ingredient` into the sidecar instead of trusting the writer
+    to echo them down the Director→Architect→Producer chain (the thin slice caught Flash
+    labeling a `vignette` as `classic`; the script was right, the label drifted). Hardens
+    `agy` too. Needs the structured spec plumbed into `write_episode` (today it's only in
+    the ticket TEXT).
 - **DECIDE: should machine-made commits carry a machine identity?** (2026-07-23). The
   watchdog commits as `Andrew Rosselet <arosselet@gmail.com>` — M70/M71 read as his work
   in `git log` but were made by cron at 22:42 and 23:25. CI is already honest
