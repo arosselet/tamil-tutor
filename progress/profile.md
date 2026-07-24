@@ -48,7 +48,13 @@
 > items — catch starves when only fire gets named, 2026-07-18), which days teach /
 > drill / soak, tomorrow's session shape, and what the trailer pitches next.
 
-**🎯 The Ask-Machine Week** (kicked off live 2026-07-17, runs ~through 07-23). Everything
+**🏁 The Ask-Machine Week — WON AND CLOSED Fri 2026-07-24.** Every item cleared; the
+victory lap fired clean (*keys en-kitta kudunga* at the door, cold). Both 07-22 stragglers
+(*poganum*, *avasaram irukku*) closed in the same breath. Survival tier moved 13 → 15/33.
+Kept below as the record of the unit; the next campaign is pitched at the end of this block
+and awaits Andrew's adjustment.
+
+**🎯 The Ask-Machine Week** (kicked off live 2026-07-17, ran through 07-24). Everything
 at a family table moves by asking someone politely, and one machine sits under all of it:
 **verb + -nga**. The unit collapses forms Andrew already says (kudunga, sollunga,
 ukkarunga) into one lever, and lands the week's headline: **kudunga fires cold by Friday
@@ -95,11 +101,39 @@ tape, drift caught without the tail. Flag planted, deliberately not chased. Keep
 via tapes and episodes; if the fourth contact also misses, that's signal for a real move,
 not a bigger dose.
 
-**Tomorrow's shape:** a leaving-scene — running late for the train, the family fussing him
-to sit and eat one more bite while he insists he has to go. Drills *poganum* and *avasaram
-irukku* to cold against the -nga fuss-lines (ukkarunga, saapdunga). **Trailer pitches:**
-"you're late for the train and the whole family's blocking the door with one more idli.
-tell them you have to GO — and that you're in a hurry — without freezing."
+**Fri 07-24 ✓ — the close, and Andrew brought the material.** He walked in with two words
+overheard off **his wife and her sister talking to each other** — full speed, unaimed at
+him — and asked to keep them: *prachanai* and *kitta*. First real-world catch evidence the
+system has ever had; the eavesdrop axis moved outside the lab. Ran as a meta/lore day on
+his own two words and cleared seven colds inside it, including the leaving-scene above in
+one unbroken breath.
+
+---
+
+## The Campaign — PITCHED, awaiting Andrew's adjustment
+
+**🎯 The Overhear Week** (drafted by Anna 2026-07-24 at close; **not yet agreed** — Andrew
+adjusts or replaces it at the next open, per the contract above).
+
+**Why this one:** catch is the starving axis — **0/12 solid**, untouched all month while
+fire went 13 → 15 — and on 07-24 Andrew proved, unprompted and in the wild, that his ear
+already works. The unit chases the thing he accidentally demonstrated.
+
+- **Catch targets (the headline, ear-only — never forced to fire):** `frame:quote-nu`,
+  `frame:hearsay-aam`, `frame:youknow-la`, என்னமோ பிரச்சனை, அலைச்சல்.
+- **Fire riders:** the **kel / kitta family** — *kitta* as the person-postposition
+  (ask/hear disambiguator), *ketten* / *ketkuren* across the present-future toggle,
+  and `frame:in-la` re-strained against it (places take -la, people take -kitta).
+- **The -aam watch, fourth contact.** Three misses on record (07-16, 07-20, and the
+  tail unheard on 07-22 despite the drift being caught). This campaign is where it gets
+  a real move rather than a bigger dose.
+- **Standing catch order (field mission, renewable):** bring back one word overheard from
+  the sisters. Organic by construction — they talk daily; nothing to stage; the heist
+  stays sacred because he produces nothing.
+
+**Density note (2026-07-24, his words):** he named *overwhelm* and *progress* in the same
+breath. Keep the dose low and the lore high while that holds — the meta thread is what
+produced seven cold fires today, not volume.
 
 ---
 

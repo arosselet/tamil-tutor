@@ -1427,7 +1427,7 @@
       "kitta"
     ],
     "recognition": "solid",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       1,
       5,
@@ -1447,7 +1447,7 @@
       38,
       60
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-07-24"
   },
   "சொல்றேன்": {
     "gloss": "I'm telling (present)",
@@ -1718,7 +1718,7 @@
     "gloss": "Give (respectful)",
     "phonetic": [],
     "recognition": "comfortable",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       6,
       10,
@@ -1734,7 +1734,7 @@
       66,
       72
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-07-24"
   },
   "தாகம்": {
     "gloss": "Thirsty",
@@ -2216,11 +2216,11 @@
       "ketkureen"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       1
     ],
-    "last_surfaced": null,
+    "last_surfaced": "2026-07-24",
     "lemma": "கேள்"
   },
   "போஸ்ட்போன்": {
@@ -2504,9 +2504,9 @@
     "gloss": "-உறேன் (now) vs -வேன் (later) on any verb — போறேன்/போவேன், கேட்குறேன்/கேட்பேன்",
     "phonetic": [],
     "recognition": "comfortable",
-    "production": "none",
+    "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-06-20"
+    "last_surfaced": "2026-07-24"
   },
   "frame:obligation-ணும்": {
     "type": "pattern",
@@ -2940,7 +2940,7 @@
       "avasaram irukku"
     ],
     "recognition": "struggled",
-    "production": "hinted",
+    "production": "cold",
     "seen_in": [
       68,
       69,
@@ -2949,7 +2949,7 @@
       72,
       74
     ],
-    "last_surfaced": "2026-07-23",
+    "last_surfaced": "2026-07-24",
     "deck": "trip",
     "direction": "fire"
   },
@@ -3228,7 +3228,7 @@
       66,
       68
     ],
-    "last_surfaced": "2026-07-21",
+    "last_surfaced": "2026-07-24",
     "deck": "trip",
     "direction": "fire"
   },
@@ -3237,7 +3237,7 @@
     "gloss": "{place}-க்கு போகணும் → (I) need to go to {place}",
     "phonetic": [],
     "recognition": "comfortable",
-    "production": "hinted",
+    "production": "cold",
     "seen_in": [
       68,
       69,
@@ -3247,7 +3247,7 @@
       73,
       74
     ],
-    "last_surfaced": "2026-07-22",
+    "last_surfaced": "2026-07-24",
     "deck": "trip",
     "direction": "fire"
   },
@@ -4556,5 +4556,17 @@
       74
     ],
     "last_surfaced": null
+  },
+  "பிரச்சனை": {
+    "gloss": "Problem / trouble / issue (from Sanskrit prashna, 'a question')",
+    "phonetic": [
+      "prachanai",
+      "prachana",
+      "prachchanai"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-07-24"
   }
 }
