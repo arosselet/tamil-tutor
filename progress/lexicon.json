@@ -379,7 +379,8 @@
       21,
       24,
       29,
-      65
+      65,
+      72
     ],
     "last_surfaced": null
   },
@@ -392,7 +393,8 @@
       10,
       11,
       16,
-      18
+      18,
+      72
     ],
     "last_surfaced": null
   },
@@ -745,7 +747,8 @@
       6,
       10,
       35,
-      71
+      71,
+      72
     ],
     "last_surfaced": "2026-07-21"
   },
@@ -858,7 +861,8 @@
     "production": "none",
     "seen_in": [
       6,
-      10
+      10,
+      72
     ],
     "last_surfaced": null
   },
@@ -1388,7 +1392,8 @@
     "seen_in": [
       18,
       30,
-      34
+      34,
+      72
     ],
     "last_surfaced": "2026-07-23"
   },
@@ -1479,7 +1484,8 @@
       25,
       64,
       70,
-      71
+      71,
+      72
     ],
     "last_surfaced": null
   },
@@ -1679,7 +1685,8 @@
       10,
       21,
       70,
-      71
+      71,
+      72
     ],
     "last_surfaced": null
   },
@@ -1722,7 +1729,8 @@
       32,
       64,
       65,
-      66
+      66,
+      72
     ],
     "last_surfaced": null
   },
@@ -1759,7 +1767,8 @@
     "production": "none",
     "seen_in": [
       70,
-      71
+      71,
+      72
     ],
     "last_surfaced": null
   },
@@ -2621,7 +2630,8 @@
     "production": "none",
     "seen_in": [
       68,
-      69
+      69,
+      72
     ],
     "last_surfaced": null,
     "deck": "trip",
@@ -2931,7 +2941,8 @@
       68,
       69,
       70,
-      71
+      71,
+      72
     ],
     "last_surfaced": "2026-07-23",
     "deck": "trip",
@@ -2946,7 +2957,8 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
-      69
+      69,
+      72
     ],
     "last_surfaced": null,
     "deck": "trip",
@@ -3190,7 +3202,8 @@
     "production": "cold",
     "seen_in": [
       67,
-      68
+      68,
+      72
     ],
     "last_surfaced": "2026-07-22",
     "deck": "trip",
@@ -3224,7 +3237,8 @@
       68,
       69,
       70,
-      71
+      71,
+      72
     ],
     "last_surfaced": "2026-07-22",
     "deck": "trip",
@@ -3469,7 +3483,9 @@
     ],
     "recognition": "comfortable",
     "production": "none",
-    "seen_in": [],
+    "seen_in": [
+      72
+    ],
     "last_surfaced": null,
     "deck": "trip",
     "direction": "fire"
@@ -3617,7 +3633,9 @@
     ],
     "recognition": "comfortable",
     "production": "none",
-    "seen_in": [],
+    "seen_in": [
+      72
+    ],
     "last_surfaced": null,
     "deck": "trip",
     "direction": "fire"
