@@ -1,0 +1,32 @@
+{
+  "mission": 73,
+  "register": "confrontation",
+  "dramatic_ingredient": "subtext",
+  "episode_form": "classic",
+  "shape": "dispute",
+  "location_class": "home_social",
+  "energy": "medium-high",
+  "intercept_tamil_density": 1.0,
+  "breakdown_tamil_density": 0.15,
+  "fence_size": 110,
+  "unfenced_words": 0,
+  "new_words_landed": {
+    "கேப்பேன்": 3,
+    "எடுப்பேன்": 3,
+    "கொடுப்பேன்": 2,
+    "அழைப்பேன்": 2,
+    "frame:needtogo-place": 0
+  },
+  "callbacks_used": {
+    "போனோம்": 2,
+    "போகணும்": 2,
+    "முடியல": 2,
+    "வரேன்": 2,
+    "சட்டை": 6
+  },
+  "host_roles": {
+    "Maya": "pattern_analyst",
+    "Raj": "color_commentator"
+  },
+  "notes": "Classic episode highlighting 1st person future tense with the -ப்பேன் suffix. Intercept runs as a sibling dispute over a shirt, revealing subtext. Verbs (கேப்பேன், எடுப்பேன், கொடுப்பேன், அழைப்பேன்) are drilled heavily. 'அழைப்பேன்' retained exactly as drafted to match the grammatical anchor."
+}
