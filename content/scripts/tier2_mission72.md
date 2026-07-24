@@ -326,6 +326,38 @@
 
 [Pause: 3 sec]
 
+**Analyst Maya (F):** அந்த scene-ல ஒரு more thing — "ஆமா ஆமா"-னு சொல்றாங்க. எங்கும் வருது.
+
+**Analyst Raj (M):** ஆமா. அது backchannel. "நான் கேக்குறேன், நீ சொல்லு" — அந்த signal.
+
+**Analyst Maya (F):** Coimbatore family-ல "ஆமா ஆமா" ரொம்ப important. Silent-ஆ உக்காந்தா, அவங்களுக்கு feel ஆகாது.
+
+**Analyst Raj (M):** "ஆமா ஆமா"-னு சொன்னா — அந்த person continue பண்ணுவாங்க. Nice or not nice — continue பண்ணுவாங்க.
+
+**Analyst Maya (F):** [Laughs] Dangerous-ஆ use பண்ணணும். இன்னும் கொஞ்சம் சாப்பாட்டுக்கு "ஆமா ஆமா"-னு சொன்னா...
+
+**Analyst Raj (M):** ...plate full.
+
+**Analyst Maya (F):** Correct.
+
+[Pause: 3 sec]
+
+**Analyst Raj (M):** அந்த interview-ல என்னாச்சு-னு கேக்கலைய?
+
+**Analyst Maya (F):** [Curious] என்னாச்சு?
+
+**Analyst Raj (M):** Coffee குடிச்சேன். அதுக்கப்புறம் இன்னும் ஒரு coffee. Paatti "போகலாம் வாங்க"-னு சொல்லி auto-ஐ கூப்பிட்டாங்க.
+
+**Analyst Maya (F):** Paatti-யே auto கூப்பிட்டாங்களா?
+
+**Analyst Raj (M):** ஆமா. "சீக்கிரம் போ, interview miss ஆகாத"-னு. Paatti-தான் என்னை விட rush-ஆ இருந்தாங்க.
+
+**Analyst Maya (F):** [Laughing] "சீக்கிரம் போ"-னு சொன்னாங்க — கஷ்டப்பட்டு உக்காரவச்சிட்ட பிறகு!
+
+**Analyst Raj (M):** ஆமா. அது Coimbatore logic. They feed you, they rush you. ரெண்டும் love.
+
+[Pause: 3 sec]
+
 **Analyst Maya (F):** ஒரு விஷயம் — அவன் "ரொம்ப நல்லா இருக்கு"-னு சொன்னான். அது tactic mistake.
 
 **Analyst Raj (M):** ஆமா. அந்த line சொன்னா — seconds வரும். அது guarantee.
@@ -370,7 +402,33 @@
 
 [Pause: 3 sec]
 
-**Analyst Raj (M):** இந்த episode-ல train விட்டுட்டான். ஆனா ஒரு விஷயம் clear ஆச்சு.
+**Analyst Raj (M):** சரி. இந்த -லாம் tail — ஒரு நிமிஷம் பாக்கலாம்.
+
+**Analyst Maya (F):** என்ன சொல்றே?
+
+**Analyst Raj (M):** "போகலாமா" — may I go. அது question. ஆனா "போகலாம்" — let's go. Statement.
+
+**Analyst Maya (F):** ஆமா ஆமா. ரெண்டும் same tail, different use.
+
+**Analyst Raj (M):** "சாப்பிடலாமா" — shall we eat? "சாப்பிடலாம்" — let's eat.
+
+**Analyst Maya (F):** "போகலாம் வாங்க" — classic. Come, let's go.
+
+**Analyst Raj (M):** ஒரே machine. -லாம்-னு சொன்னா invitation, -லாமா-னு சொன்னா permission request.
+
+[Pause: 2 sec]
+
+**Analyst Maya (F):** அந்த பையன் "போகலாமா"-னு கேட்டான். Correct. Question-ஆ, soft-ஆ.
+
+**Analyst Raj (M):** Permission mode-ல இருந்தான். அம்மா "தண்ணி குடுங்க"-னு சொன்னாங்க.
+
+**Analyst Maya (F):** Permission rejected. போகலாம்-னு சொல்லி போயிருக்கணும்.
+
+**Analyst Raj (M):** [Laughs] அது bold move. அந்த வீட்ல safe ஆ இல்ல.
+
+[Pause: 3 sec]
+
+**Analyst Raj (M):** சரி. இந்த episode-ல train விட்டுட்டான். ஆனா ஒரு விஷயம் clear ஆச்சு.
 
 **Analyst Maya (F):** என்ன?
 
