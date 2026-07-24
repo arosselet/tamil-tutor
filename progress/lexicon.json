@@ -2634,7 +2634,8 @@
     "seen_in": [
       68,
       69,
-      72
+      72,
+      74
     ],
     "last_surfaced": null,
     "deck": "trip",
@@ -2945,7 +2946,8 @@
       69,
       70,
       71,
-      72
+      72,
+      74
     ],
     "last_surfaced": "2026-07-23",
     "deck": "trip",
@@ -3242,7 +3244,8 @@
       70,
       71,
       72,
-      73
+      73,
+      74
     ],
     "last_surfaced": "2026-07-22",
     "deck": "trip",
@@ -4337,7 +4340,8 @@
     "production": "none",
     "seen_in": [
       70,
-      71
+      71,
+      74
     ],
     "last_surfaced": null
   },
@@ -4378,7 +4382,8 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
-      70
+      70,
+      74
     ],
     "last_surfaced": null
   },
@@ -4509,6 +4514,46 @@
     "production": "none",
     "seen_in": [
       73
+    ],
+    "last_surfaced": null
+  },
+  "வயிறு ஃபுல்-ஆ இருக்கு": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      74
+    ],
+    "last_surfaced": null
+  },
+  "இட்லி சூப்பர்-ஆ இருக்கு": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      74
+    ],
+    "last_surfaced": null
+  },
+  "ஆட்டோக்கு போகணும்": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      74
+    ],
+    "last_surfaced": null
+  },
+  "-னு சொன்னாங்க": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      74
     ],
     "last_surfaced": null
   }

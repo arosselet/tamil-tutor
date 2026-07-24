@@ -1,0 +1,32 @@
+{
+  "mission": 74,
+  "register": "gossip",
+  "dramatic_ingredient": "character",
+  "episode_form": "lore",
+  "shape": "story",
+  "location_class": "studio",
+  "energy": "medium-high",
+  "intercept_tamil_density": 0.35,
+  "breakdown_tamil_density": 0.2,
+  "fence_size": 25,
+  "unfenced_words": 0,
+  "new_words_landed": {
+    "ஸ்டேஷனுக்கு போகணும்": 3,
+    "அவசரம் இருக்கு": 4,
+    "இன்னும் கொஞ்சம் சாப்பிடுங்க": 3,
+    "வயிறு ஃபுல்-ஆ இருக்கு": 2,
+    "எனக்கு இட்லி பிடிக்காது": 2,
+    "இட்லி சூப்பர்-ஆ இருக்கு": 2,
+    "ஆட்டோக்கு போகணும்": 1,
+    "-னு சொன்னாங்க": 2,
+    "frame:needtogo-place": 0
+  },
+  "callbacks_used": {
+    "இல்ல இல்ல": 1
+  },
+  "host_roles": {
+    "Maya": "pattern_analyst",
+    "Raj": "storyteller"
+  },
+  "notes": "Added missing [Pause: 1 sec] tags around isolated Tamil payload items per the pacing/integrity checks. Dialect kept strictly verbatim per payload rules; Kongu '-nga' suffix intentionally not added to the brother's first-person intent statements ('போகணும்', 'இருக்கு'), whilst honoring the explicitly drafted third-person polite verb ('சொன்னாங்க')."
+}
