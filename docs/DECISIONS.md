@@ -768,3 +768,25 @@ Details live in git history; this is the index of the *conclusions*.
   concatenated, so the model's prompt is unchanged in substance; the budget now guards two
   concerns separately instead of one blurred one. JUDGE_MANDATE fell to 1388 while GAINING
   a capability, which is the test a split should pass.
+- **Every pushed dose lands in the feed, and the feed carries only playable audio**
+  (2026-07-24, Andrew — extends "All audio lands on the podcast feed", 2026-07-05). His
+  ruling in full: *"all audio you push me should go in the feed… if I dismiss something I
+  want to be able to go and easily play it back"* — the lock screen is ephemeral, the feed
+  is the archive. Feed pollution is accepted explicitly (he is the only consumer and this
+  is an experiment); **unplayable entries are not** — a dead item he taps is worse than a
+  missing one, so `rebuild_rss` now enforces a size floor rather than trusting the `.mp3`
+  extension (a truncated render or an lfs pointer passes the extension test). This settles
+  the open question about whether short spoken replies belong on the feed: they do.
+- **The feed learned the two new audio producers** (2026-07-24). `published_audio/knocks/`
+  now has three writers — `knock_` (ambient), `queued_q<id>_` (a scheduled dose rendered at
+  fire time) and `reply_` (Anna answering aloud) — but `rebuild_rss` only ever knew
+  `knock_`, so the two new kinds titled as their raw filename and sorted to `(0, 0)`, below
+  every episode in the feed. Titles now name the kind; the move label resolves from `mp3`
+  OR `audio_url` (the knock lane logs a repo path, the drain and reply judge log only the
+  CDN url they pushed). Found by auditing the day's own diff — the shipping sessions never
+  looked downstream of the filenames they invented.
+- **Feed order is a function of the library, not of `os.listdir()`** (2026-07-24). The two
+  `special_` files both score `(10, 0)`; ties fell through to filesystem order, so a
+  rebuild on a different machine silently swapped them and produced a feed diff that looked
+  like a real change and wasn't. Filename now breaks the tie. Latent since the specials
+  were added; surfaced by rebuilding in a cloud container instead of on the laptop.
