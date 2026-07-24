@@ -39,12 +39,12 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
     labeling a `vignette` as `classic`; the script was right, the label drifted). Hardens
     `agy` too. Needs the structured spec plumbed into `write_episode` (today it's only in
     the ticket TEXT).
-- **DECIDE: should machine-made commits carry a machine identity?** (2026-07-23). The
-  watchdog commits as `Andrew Rosselet <arosselet@gmail.com>` — M70/M71 read as his work
-  in `git log` but were made by cron at 22:42 and 23:25. CI is already honest
-  (`github-actions[bot]`). In a repo whose governing principle is *the repo is the
-  memory*, history currently misattributes. One-line fix, but it is Andrew's repo and his
-  name; raised twice, never ruled.
+<!-- RESOLVED 2026-07-24: machine-commit-identity — Andrew is OK with automated commits
+     signing as him for now. The ambiguity is automated-vs-human-initiated (cloud already
+     self-labels github-actions[bot]; only the retiring local cron committed as him
+     unattended), and cron retirement mostly dissolves it. No self-labeling machinery to
+     build. See DECISIONS.md "Machine commits masquerading as Andrew are acceptable for now". -->
+
 
 - **The trip harvest** (2026-07-18, direction approved — build when the Aug 5 campaign
   is drafted): the trip is a field-mission arc, not an exam. Final campaign (Aug 5–12)

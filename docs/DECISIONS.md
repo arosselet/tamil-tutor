@@ -73,7 +73,8 @@ Details live in git history; this is the index of the *conclusions*.
 - **Outreach policy is Anna's; Python holds only the rails** (2026-07-01). Waking hours,
   daily cap, min gap = deterministic gate; whether/how/when = Anna's decision, optimized
   for Andrew *showing up*, never taps. The busy/back-off social contract is real signal.
-- **Cloud never renders episodes** (2026-06-15; amended 2026-07-03). No TTS in cloud for
+- **Cloud never renders episodes** (2026-06-15; amended 2026-07-03; **SUPERSEDED
+  2026-07-24 — see "Cloud produces episodes" below**). No TTS in cloud for
   episode production — cloud writes append-only to `main`; local renders and
   publishes. **Exception, superseded in practice 2026-06-29 by the knock system:** knock
   memos are one-shot, self-contained doses that `morning_knock.py` renders in CI with its
@@ -630,11 +631,15 @@ Details live in git history; this is the index of the *conclusions*.
   followed her instructions exactly. The mandate now makes a clock-bound ask MANDATORY and
   `wants_scheduled_push()` forces one re-ask when Python catches the contradiction; prose
   had already failed here once, so the detector is the mechanism.
-- **The cloud cannot render bespoke audio, and Anna must say so out loud** (2026-07-23).
-  `maybe_enqueue_schedule` is text-only and the drain workflow carries no TTS and no model
-  by design (cloud-never-renders) — so the 9am ask, which was for *audio*, was
-  unfulfillable end-to-end even had it been queued. Anna now names the limit and offers
-  the text dose rather than promising a voice she cannot produce.
+- **The cloud cannot render bespoke audio, and Anna must say so out loud** (2026-07-23;
+  **CORRECTED 2026-07-24 — the diagnosis was wrong**). Original claim: the audio ask was
+  "unfulfillable end-to-end by design (cloud-never-renders)." False — the knock workflow
+  renders audio in the cloud *every day* with `GCP_SA_KEY`. The real limit is a WIRING gap:
+  `push-queue.yml` was never given the TTS secret or a render step, and `maybe_enqueue_schedule`
+  is text-only. So audio-at-a-scheduled-time is entirely achievable in the cloud; it just
+  isn't wired. Anna's "I can't render bespoke audio" line is therefore PROVISIONAL — relax it
+  once the schedule lane carries the renderer (inbox: the 9am-audio lane). See "Cloud produces
+  episodes" below.
 - **An unattended production trigger must be verifiable, and capped regardless**
   (2026-07-23). A soak payload of `avasaram` can never match the lexicon key
   `அவசரம் இருக்கு`, so the produced-check stayed False forever and the hourly cron shipped
@@ -666,3 +671,36 @@ Details live in git history; this is the index of the *conclusions*.
   call; it now preflights, caps its rate, and skips cleanly on a host without secrets.
   Amends — does not replace — "Production is self-healing" (2026-07-18); that entry's
   mechanism survives, its "replaces the human as the only retry path" does not.
+- **Cloud produces episodes — the "never renders" rule is dropped** (2026-07-24, Andrew).
+  The 2026-06-15 rule was misnamed: the cloud renders knock memos daily, and the real
+  reason episodes stayed local was the *writer* (`agy`, a local CLI absent from any GitHub
+  runner), never the renderer. With the writer made executor-agnostic, the cloud can
+  write → render → publish. Supersedes "Cloud never renders episodes" (2026-06-15). The
+  foundation shipped this session; the autonomous trigger is the remaining build (inbox).
+- **The studio writer is executor-agnostic; the cloud writer is a single-shot call with
+  Python-inlined canon** (2026-07-24). `agy` locally (Andrew's standing Gemini quota),
+  OpenRouter → `google/gemini-3-flash-preview` in the cloud. Chosen over putting a real
+  agent in the runner because it is the exact pattern Anna's knocks already run on — a
+  single `chat.completions` call with Python inlining `persona.md` + state — and it is
+  ~100× cheaper than agent-loop token volumes. The key realization: **Anna is a single
+  concatenated prompt, not a file-reading agent** — he "knows the canon" because Python
+  reads the files and bakes them in. `inline_canon()` does the same for the studio, using
+  each pass's own `protocol/…md` references as the manifest so prompt and files never
+  drift. Rejects: installing/authing an agent CLI in the runner ("feels more authentic"
+  lost to the code — the single-shot is correct and cheaper).
+- **Autonomous production lives in the knock tick; Anna (he) chooses when, Python caps it**
+  (2026-07-24, Andrew — two explicit choices: "inside the knock tick" and "Anna decides,
+  capped"). Not a second scheduler, not a fixed cadence. The local watchdog cron is
+  RETIRED; the cloud knock tick (already `github-actions[bot]`, already waking-hours +
+  daily-cap aware) gains an `episode` move gated by `soak_pending()` +
+  `MAX_UNATTENDED_PER_DAY`. Replaces the local-cron approach whole. Build steps in the inbox.
+- **Machine commits masquerading as Andrew are acceptable for now** (2026-07-24, Andrew's
+  ruling). The ambiguity is automated-vs-human-initiated, not laptop-vs-cloud: cloud commits
+  already self-label `github-actions[bot]`; only the (now-retiring) local cron ever committed
+  as Andrew unattended, and retiring it mostly dissolves the issue. Closes the "should machine
+  commits carry a machine identity?" question — no self-labeling machinery to build.
+- **CI tests stay hermetic — never depend on ambient credentials** (2026-07-24). The smoke
+  runner carries no secrets by design; a test that only passed with real GCP credentials went
+  red on CI — the very credential-less host the graceful-skip feature exists for. Tests mock
+  credential presence/absence (`google.auth.default`), never require live keys. Root cause of
+  the 2026-07-24 red build.
