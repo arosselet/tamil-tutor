@@ -3,7 +3,7 @@
 The reply half of the knock loop — the micro-session on the lock screen.
 
 Andrew types phonetic Tamil straight into the knock notification; Home Assistant
-routes it here (via repository_dispatch → log-knock-response.yml). Anna judges the
+routes it here (via repository_dispatch → anna.yml). Anna judges the
 reply against what that knock asked for, moves the production axis, and pushes one
 line back — the recast (or the celebration) plus the deck scoreboard. An EAVESDROP
 knock takes a separate lane (2026-07-09): the reply is an English drift answer,
@@ -166,9 +166,9 @@ you MUST return a schedule object, composing the body NOW as it \
 should read when it fires. "Noted, I'll do it" with schedule:null is a promise the machine \
 cannot keep, and he waits for a push nobody queued (2026-07-23). Python re-asks you once.
 
-TEXT ONLY, and say so. The drain runs no TTS and no model (cloud-never-renders); audio \
-rides only as a feed URL. For a bespoke voice dose at a time, tell him it needs the laptop \
-and schedule the text instead — never promise a voice you cannot render.
+A SCHEDULED DOSE MAY CARRY VOICE: put the spoken words in "memo_script" and the drain \
+renders them at fire time. Same rules as an audio knock — \
+Tamil payload in Tamil SCRIPT, paragraphs split by ONE blank line. Empty means text.
 
 Return ONLY a JSON object, no prose around it:
 {
@@ -179,7 +179,7 @@ Return ONLY a JSON object, no prose around it:
   "follow_up_target": "<the one word/chunk/frame it asks for (Tamil script or frame:... key); empty if no chain>",
   "follow_up_target_revealed": true | false,
   "meta_note": "<one line ONLY when the reply carried direction/correction/testimony for the system — it lands in the feedback ledger; empty string otherwise>",
-  "schedule": {"at_local": "YYYY-MM-DDTHH:MM", "body": "<the full dose>", "expected_target": "<or empty>", "target_revealed": true | false, "move": "<2-4 words>"} | null,
+  "schedule": {"at_local": "YYYY-MM-DDTHH:MM", "body": "<the full dose>", "memo_script": "<spoken words for a VOICE dose; empty for text>","expected_target": "<or empty>", "target_revealed": true | false, "move": "<2-4 words>"} | null,
   "rationale": "<one line, for the log>"
 }
 """
@@ -398,7 +398,8 @@ TIME_REQUEST_RE = re.compile(
     r")\b", re.I)
 
 ASK_RE = re.compile(
-    r"\b(send|ping|knock|remind|message|text|call|wake|greet|give|do)\b", re.I)
+    r"\b(send|ping|knock|remind|message|text|call|wake|greet\w*|give|do"
+    r"|schedul\w*|queue|push|play|say|speak|sing|record|tell|wish)\b", re.I)
 
 
 def wants_scheduled_push(text: str) -> bool:
@@ -408,7 +409,14 @@ def wants_scheduled_push(text: str) -> bool:
     mechanism that makes the rule real. A prose rule with no enforcement is how
     the 2026-07-23 9am greeting got acknowledged and then silently dropped —
     the judge is steered toward meta_note (a ledger note for later) when what
-    Andrew wanted was a queue entry."""
+    Andrew wanted was a queue entry.
+
+    The verb list is deliberately WIDE (2026-07-24). "Schedule a push and say
+    hello" — the most literal possible phrasing of the request — matched the
+    clock and missed the verb, so the backstop built the day before to catch
+    exactly this never fired and the 8pm greeting was dropped a second time.
+    A false positive costs one re-ask; a false negative costs Andrew a push he
+    asked for and never got. Widen on sight."""
     return bool(TIME_REQUEST_RE.search(text) and ASK_RE.search(text))
 
 
@@ -417,8 +425,8 @@ FORCE_SCHEDULE_ADDENDUM = """\
 OVERRIDE — THIS REPLY CARRIES A TIME-BOUND REQUEST. Python detected a clock in what \
 Andrew asked for and your previous answer returned schedule:null. You MUST return a \
 non-null "schedule" object now: pick the exact local time he named, and compose "body" \
-in full as the dose that fires at that moment. If what he wants is bespoke AUDIO, still \
-schedule the TEXT dose and say in reply_line that the voice version needs the laptop. \
+in full as the dose that fires at that moment. If what he wants is AUDIO, put the spoken \
+words in "memo_script" — the drain renders it at fire time. \
 Do not acknowledge without scheduling."""
 
 

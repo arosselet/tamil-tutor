@@ -3,7 +3,8 @@
 Studio watchdog — self-healing production (feature inbox 2026-07-17, commissioned
 2026-07-18). Nothing Anna orders should wait for human hands: each awake tick
 notices work the studio left undone and runs the EXISTING dispatch — it never
-invents a pipeline of its own. Local only (cloud-never-renders).
+invents a pipeline of its own. Local only — not because the cloud cannot render (it
+can, and does), but because the knock-tick episode move is not built yet.
 
 Two pending states, checked in order:
   1. scripted-but-unrendered — the newest mission script has no MP3. Re-lint

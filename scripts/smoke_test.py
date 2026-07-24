@@ -1265,8 +1265,13 @@ def s27_schedule_and_soak_guards(sb: Path):
     for t in ("naan poren", "adhu dhaan, said it at dinner", "less of the aunty thing"):
         check(f"plain rep is not a clock request: {t[:28]}", not kr.wants_scheduled_push(t))
     check("mandate makes a clock-request mandatory", "MANDATORY" in kr.JUDGE_MANDATE)
-    check("mandate admits it cannot render bespoke audio",
-          "cloud-never-renders" in kr.JUDGE_MANDATE)
+    # Inverted 2026-07-24. This assertion used to require the refusal
+    # ("cloud-never-renders" in JUDGE_MANDATE) and so pinned the bug in place:
+    # the canon was corrected that morning while the test still demanded the
+    # stale prose. A guard that outlives its rule enforces the rule.
+    check("mandate no longer claims the cloud cannot render",
+          "cloud-never-renders" not in kr.JUDGE_MANDATE
+          and "needs the laptop" not in kr.JUDGE_MANDATE)
 
     # #12: an unresolvable soak payload made the produced-check permanently
     # False, and the hourly cron shipped M72/M73/M74 in one evening.
@@ -1353,6 +1358,146 @@ def s28_cloud_writer(sb: Path):
           "referenced but missing" in rs.inline_canon("Read protocol/studio/nope.md now"))
 
 
+def s29_one_runner_every_capability(mk, pq, kr, sb: Path):
+    print("\n29. One workflow, every capability; the drain renders voice (2026-07-24)")
+
+    # --- the consolidation ------------------------------------------------
+    # Three workflows held three different subsets of the secrets, so what Anna
+    # could DO depended on which event woke him. Andrew asked for a 20:00 voice
+    # greeting for his brother; the reply lane had no TTS secret, so Anna
+    # refused — while the knock lane rendered Tamil TTS in the same cloud daily.
+    wf_dir = REAL_BASE / ".github" / "workflows"
+    for retired in ("morning-knock.yml", "log-knock-response.yml", "push-queue.yml"):
+        check(f"{retired} is retired", not (wf_dir / retired).exists())
+    anna = (wf_dir / "anna.yml").read_text(encoding="utf-8")
+    for trigger in ("schedule:", "repository_dispatch:", "workflow_dispatch:"):
+        check(f"anna.yml carries the {trigger.rstrip(':')} trigger", trigger in anna)
+    for secret in ("OPENROUTER_API_KEY", "ANNA_PUSH_WEBHOOK_URL", "GCP_SA_KEY"):
+        check(f"{secret} is wired once, for every lane", anna.count(secret) >= 1)
+    # Job-level env is what makes capability structural rather than remembered:
+    # a new step cannot be added without it.
+    job_env = anna.split("steps:")[0]
+    for var in ("OPENROUTER_API_KEY", "ANNA_PUSH_WEBHOOK_URL", "GOOGLE_APPLICATION_CREDENTIALS"):
+        check(f"{var} is job-level, not per-step", var in job_env)
+    check("one hourly cron replaces three expressions",
+          anna.count("- cron:") == 1 and '- cron: "0 * * * *"' in anna)
+    # Drain-first is load-bearing: it logs a reach, and rails_gate counts today's
+    # reaches when deciding whether to knock. Drain last would double-push.
+    # Search the steps block only — the header comment names these scripts too.
+    steps = anna.split("steps:", 1)[1]
+    check("the drain runs before the knock",
+          steps.index("push_queue.py drain") < steps.index("morning_knock.py"))
+    check("the drain runs before the reply judge",
+          steps.index("push_queue.py drain") < steps.index("knock_reply.py"))
+    check("the drain is unconditional (no `if:` gate on its step)",
+          "continue-on-error: true\n        run: python scripts/push_queue.py drain" in anna)
+
+    # --- the detector that dropped the 8pm push ---------------------------
+    # Built 2026-07-23 to catch exactly this; it needed a clock AND a verb, and
+    # "schedule" was not in the verb list — the most literal phrasing possible.
+    real_8pm_ask = ("My brother James is arriving at 8pm. Schedule a push and say hello "
+                    "(aloud a traditional greeting and a couple key survival items)")
+    check("the real 8pm ask is detected", kr.wants_scheduled_push(real_8pm_ask))
+    for t in ("queue something for 9pm", "play me a line at 7:30am",
+              "wish her good morning tomorrow", "record a greeting for tonight"):
+        check(f"clock request detected: {t[:30]}", kr.wants_scheduled_push(t))
+    for t in ("naan poren", "said it at dinner", "less of the aunty thing",
+              "adhu dhaan, she understood"):
+        check(f"plain rep is not a clock request: {t[:30]}", not kr.wants_scheduled_push(t))
+
+    # --- memo_script survives the trip from judge to queue ----------------
+    # It used to be dropped on the floor here: maybe_enqueue_schedule was
+    # text-only, so even a judge that composed a voice dose lost it.
+    qpath = sb / "progress" / "push_queue.json"
+    write_json(qpath, [])
+    future = (datetime.now(timezone.utc) + timedelta(hours=2))
+    out = mk.maybe_enqueue_schedule({"schedule": {
+        "at_local": future.astimezone(mk.LOCAL_TZ).strftime("%Y-%m-%dT%H:%M"),
+        "body": "James is here — say hello 🎧",
+        "memo_script": "வணக்கம் ஜேம்ஸ்! நல்லா இருக்கீங்களா?",
+        "move": "welcome james"}})
+    check("a scheduled voice dose lands in the queue", out is not None)
+    queued = read_json(qpath)
+    check("memo_script survives judge → queue",
+          len(queued) == 1 and "வணக்கம்" in queued[0].get("memo_script", ""),
+          f"got {queued}")
+    check("it is marked as needing a render", pq.needs_render(queued[0]))
+    check("an already-rendered entry is not re-rendered",
+          not pq.needs_render({**queued[0], "audio_url": "https://cdn/x.mp3"}))
+    check("a text dose never asks for TTS",
+          not pq.needs_render({"body": "text only", "memo_script": ""}))
+
+    # --- the render itself, stubbed: fills audio_url, returns the mp3 -----
+    calls = []
+    real_render = pq.render_memo
+
+    async def fake_render(script, out_path, voice):   # render_memo is a coroutine
+        calls.append((script, voice))
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_bytes(b"ID3fake")
+
+    pq.render_memo = fake_render
+    try:
+        entry = dict(queued[0])
+        mp3 = pq.render_entry(entry)
+        check("render_entry returns an mp3 to commit", mp3 is not None and mp3.exists())
+        check("it speaks the queued script", calls and "வணக்கம்" in calls[0][0])
+        check("scheduled voice uses Anna's pinned voice", calls[0][1] == mk.ANNA_VOICE)
+        check("audio_url is filled from the rendered path",
+              entry.get("audio_url", "").startswith("https://cdn.jsdelivr.net/gh/")
+              and entry["audio_url"].endswith(".mp3"))
+        check("a rendered entry no longer needs rendering", not pq.needs_render(entry))
+    finally:
+        pq.render_memo = real_render
+
+    # A TTS failure must not swallow the dose — the text still fires.
+    pq.render_memo = lambda *a, **k: (_ for _ in ()).throw(RuntimeError("403 Permission denied"))
+    try:
+        broken = dict(queued[0])
+        check("TTS failure returns no mp3", pq.render_entry(broken) is None)
+        check("TTS failure leaves no audio_url", not broken.get("audio_url"))
+        check("TTS failure is recorded on the entry", "403" in broken.get("render_failed", ""))
+    finally:
+        pq.render_memo = real_render
+
+    # --- the whole drain, end to end, with ORDER asserted -----------------
+    # The ordering is the subtle part: push_to_phone pre-warms the jsDelivr URL,
+    # so the mp3 has to be committed to main BEFORE the notification goes out —
+    # otherwise the CDN has nothing to serve and iOS drops the inline player.
+    # Committing the mp3 separately (not with the state) is what keeps the
+    # retry property: a failed push leaves the entry queued.
+    prog = sb / "progress"
+    klog_path, q_path = prog / "knock_log.json", prog / "push_queue.json"
+    events, saved = [], (pq.WAKING_START_HOUR, pq.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY)
+    real_push, real_commit, real_feed = pq.push_to_phone, pq.commit_and_push, pq.refresh_feed
+    pq.push_to_phone = lambda body, url=None, knock_id="": events.append(("push", url))
+    pq.commit_and_push = lambda paths, msg: events.append(
+        ("commit", "mp3" if any(str(p).endswith(".mp3") for p in paths) else "state"))
+    pq.refresh_feed = lambda: None
+    pq.render_memo = fake_render
+    try:
+        pq.WAKING_START_HOUR, pq.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = 0, 24, 99
+        write_json(klog_path, [])
+        write_json(q_path, [{**queued[0], "id": "qVOICE", "force": True,
+                             "due": (datetime.now(timezone.utc) - timedelta(minutes=5)).isoformat()}])
+        pq.cmd_drain(argparse.Namespace(dry_run=False, no_commit=False))
+        kinds = [e[0] for e in events]
+        check("mp3 is committed before the notification fires",
+              kinds[:2] == ["commit", "push"] and events[0][1] == "mp3", f"got {events}")
+        check("state is committed after the push", kinds[-1] == "commit" and events[-1][1] == "state")
+        check("the notification carries the rendered audio_url",
+              (events[1][1] or "").startswith("https://cdn.jsdelivr.net/gh/"), f"got {events[1]}")
+        logged = read_json(klog_path)[-1]
+        check("the fired voice dose logs as modality audio", logged.get("modality") == "audio")
+        check("the log keeps what was HEARD for the reply judge",
+              "வணக்கம்" in logged.get("memo_script", ""))
+        check("the queue is emptied once fired", read_json(q_path) == [])
+    finally:
+        pq.WAKING_START_HOUR, pq.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = saved
+        pq.push_to_phone, pq.commit_and_push, pq.refresh_feed = real_push, real_commit, real_feed
+        pq.render_memo = real_render
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -1385,6 +1530,7 @@ def main():
         s26_capacity_routing(sb)
         s27_schedule_and_soak_guards(sb)
         s28_cloud_writer(sb)
+        s29_one_runner_every_capability(mk, pq, kr, sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)

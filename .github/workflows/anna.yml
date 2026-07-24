@@ -1,0 +1,119 @@
+name: Anna
+# ONE runner, every trigger. Anna's capabilities must not depend on which event
+# woke him.
+#
+# This file replaces morning-knock.yml + log-knock-response.yml + push-queue.yml
+# (2026-07-24, Andrew). Those three grew separately and each got exactly the
+# secrets its first job happened to need: the knock had GCP + OpenRouter, the
+# reply judge had OpenRouter only, the drain had neither. So "can Anna render
+# audio right now?" was answerable only by knowing which YAML file was running —
+# an accident of file layout, not a design. That accident is what refused a
+# bespoke 8pm voice greeting on 2026-07-24 while the knock tick was rendering
+# Tamil TTS in this very same cloud, every single day. Consolidated so the
+# question can no longer be asked: every lane carries every secret, and
+# scheduling, judging, rendering and pushing are first-class tools regardless of
+# what woke Anna up.
+#
+# The drain runs FIRST on every wake-up, unconditionally (Andrew, 2026-07-24).
+# Ordering is load-bearing: the drain logs its fire into knock_log.json, and
+# rails_gate counts today's reaches when deciding whether to knock — so a
+# scheduled push correctly suppresses an ambient knock in the same tick. Drain
+# LAST would double-push. It also means timed pushes now get a delivery
+# opportunity on every reply and every dispatch, not only on the clock tick.
+on:
+  schedule:
+    # One hourly heartbeat, replacing three cron expressions across two files
+    # (knock: 0 12,14,16,18,20,22 + 0 0; drain: */30). The rails in
+    # morning_knock.py already do the DST-correct waking-hours filtering and
+    # skip a tick with NO LLM call, so the cron does not need to encode a
+    # schedule — it only needs to be frequent enough for the rails to have
+    # something to filter. Hourly is that; */30 was delivery precision we don't
+    # need now that every reply and dispatch also drains.
+    - cron: "0 * * * *"
+  repository_dispatch:
+    types: [knock-response]
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Skip the rails gate (manual one-off knock)"
+        required: false
+        default: "false"
+        type: choice
+        options: ["false", "true"]
+
+permissions:
+  contents: write              # every lane commits: queue, knock log, mp3s, state
+
+concurrency:
+  # A reply must NEVER queue behind a knock render — Andrew is standing at the
+  # lock screen waiting for the recast, and a knock's TTS + commit + CDN
+  # pre-warm can run well over a minute. Ticks serialise with each other (they
+  # share the queue and the knock log); each reply gets its own lane, keyed by
+  # the knock it answers.
+  group: anna-${{ github.event_name == 'repository_dispatch' && github.event.client_payload.knock_id || 'tick' }}
+  cancel-in-progress: false
+
+jobs:
+  anna:
+    runs-on: ubuntu-latest
+    # Job-level env is the whole point of the consolidation: one place, every
+    # capability, inherited by every step below. Adding a lane can no longer
+    # mean forgetting to wire it.
+    env:
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      ANNA_PUSH_WEBHOOK_URL: ${{ secrets.ANNA_PUSH_WEBHOOK_URL }}
+      GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/gcp.json
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+
+      - name: Git identity
+        # CI commits sign as the bot, never as a noreply alias for a real user
+        # (DECISIONS: "CI git identity is github-actions[bot]").
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Write GCP credentials
+        # Every lane, not just the knock. This single line is the fix for the
+        # 2026-07-24 refusal.
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        run: printf '%s' "$GCP_SA_KEY" > "$RUNNER_TEMP/gcp.json"
+
+      - name: Drain due pushes
+        # Unconditional, and first. Best-effort by design: a webhook blip here
+        # must not stop the reply judge below, which is the step Andrew is
+        # actually waiting on. push_queue keeps an entry queued when its push
+        # fails, so a skipped drain retries on the next wake-up.
+        continue-on-error: true
+        run: python scripts/push_queue.py drain
+
+      - name: Judge Tamil reply
+        if: github.event_name == 'repository_dispatch' && github.event.client_payload.response == 'reply'
+        env:
+          REPLY_TEXT: ${{ github.event.client_payload.text }}
+          REPLY_KNOCK_ID: ${{ github.event.client_payload.knock_id }}
+        run: python scripts/knock_reply.py "$REPLY_TEXT"
+
+      - name: Log tap
+        if: github.event_name == 'repository_dispatch' && github.event.client_payload.response != 'reply'
+        run: |
+          python scripts/sync_state.py knock-response \
+            "${{ github.event.client_payload.response }}" \
+            --knock-id "${{ github.event.client_payload.knock_id }}"
+          # 'listened' surfaces words + bumps listens, so stage the soak files too.
+          git add progress/knock_log.json progress/episodes.json progress/learner.json progress/lexicon.json
+          git diff --cached --quiet || git commit -m "Knock response: ${{ github.event.client_payload.response }}"
+          git pull --rebase --autostash origin main
+          git push origin HEAD:main
+
+      - name: Anna knocks
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: |
+          FORCE_FLAG=""
+          if [ "${{ github.event.inputs.force }}" = "true" ]; then FORCE_FLAG="--force"; fi
+          python scripts/morning_knock.py $FORCE_FLAG

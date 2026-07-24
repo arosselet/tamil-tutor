@@ -21,9 +21,10 @@ report — do not create a substitute.
 | CDN/repo URL for knock audio links (jsDelivr) | `scripts/morning_knock.py` line 51 | `REPO = "arosselet/tamil-tutor"` — update on a fork |
 | Knock reply judge prompt (phonetic→script matching, verdict rules) | `scripts/knock_reply.py` | Port surface — Tamil-specific rules embedded in prose |
 | Drill script prompt (cue/answer format, Tamil script rule) | `scripts/render_drill.py` | Port surface — Tamil-specific rules embedded in prose |
-| Episode TTS voice pool (Chirp / WaveNet / Edge pools) | `scripts/render_audio.py` lines 44–74 | Local-render only; cloud never calls this |
+| Episode TTS voice pool (Chirp / WaveNet / Edge pools) | `scripts/render_audio.py` lines 44–74 | Episode pools are local-render today; the cloud calls this module's Google segment renderer for knocks and scheduled voice doses |
 | RSS feed structure | `scripts/rebuild_rss.py` | `rss.xml` is the only feed (playlist retired 2026-07-03) |
 | Calibration dials (coverage %, new-word counts, pacing) | `progress/profile.md` → Calibration Notes | Change the number, not a prompt or protocol prose |
 | Spaced-repetition callback generation | `scripts/generate_callbacks.py` | |
-| Scheduled push composition and queue drain | `scripts/push_queue.py` | `drain --dry-run` previews without firing |
+| Scheduled push composition and queue drain | `scripts/push_queue.py` | `drain --dry-run` previews without firing; `memo_script` makes an entry a voice dose rendered at fire time |
+| CI workflow — triggers, secrets, step order | `.github/workflows/anna.yml` | ONE workflow for every trigger; job-level `env` so no lane can miss a secret |
 | Smoke-test regression cases | `scripts/smoke_test.py` | Add a case the day a bug is fixed — never ad-hoc scripts |

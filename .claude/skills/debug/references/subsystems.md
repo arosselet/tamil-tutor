@@ -6,7 +6,7 @@ and numbered steps.
 
 ---
 
-## A. Knock Loop (`morning_knock.py` + `morning-knock.yml`)
+## A. Knock Loop (`morning_knock.py` + `anna.yml`)
 
 **What it does:** GitHub Actions cron ticks every ~2h (UTC superset covering Andrew's
 8am–9pm EDT). The Rails Gate in `morning_knock.py` cheaply skips most ticks (no LLM).
@@ -30,7 +30,7 @@ via Google TTS → commits to `main` → pushes HA webhook.
 **Playbook — no knock arrived:**
 ```
 # SAFE (read-only)
-gh run list --workflow=morning-knock.yml --limit 10
+gh run list --workflow=anna.yml --limit 10
 ```
 1. Check: did the workflow even trigger? If missing today: GitHub schedule slip (common under load) — wait or use `workflow_dispatch` to trigger manually.
 2. If it ran: `gh run view <run-id> --log` — look for `[rails] skip — ` lines. Common skip reasons:
@@ -50,10 +50,10 @@ gh run list --workflow=morning-knock.yml --limit 10
 
 ---
 
-## B. Push Queue (`push_queue.py` + `push-queue.yml`)
+## B. Push Queue (`push_queue.py` + `anna.yml`)
 
 **What it does:** Durable "ping me at X" layer. Entries are fully composed at add-time
-and drained by a 30-min CI tick (`push-queue.yml`). Each fired entry is logged into
+and drained at the START of every Anna wake-up (`anna.yml` — hourly tick, reply, or dispatch). Each fired entry is logged into
 `knock_log.json` (field `scheduled: true`) so the reply judge and the rails see it.
 Quiet hours and the daily cap apply to non-forced entries; `force: true` bypasses both.
 
@@ -65,12 +65,12 @@ Quiet hours and the daily cap apply to non-forced entries; `force: true` bypasse
 ```
 # SAFE (read-only)
 python scripts/push_queue.py list
-gh run list --workflow=push-queue.yml --limit 10
+gh run list --workflow=anna.yml --limit 10
 ```
 1. Is the entry still in the queue? (`list` shows pending). If yes: check its `due` timestamp (UTC) vs now.
 2. Is `force: false` and the entry is due in quiet hours? It defers silently to the next waking tick.
 3. Is the daily cap already at 5 for today? Non-forced entry defers until the next day.
-4. Did the drain workflow run? `gh run list --workflow=push-queue.yml` — if missing, GitHub schedule slipped.
+4. Did the drain step run? `gh run list --workflow=anna.yml` — the drain is the first step of EVERY run, so a missing drain means no run at all.
 5. Drain locally (mutating!): only if you have confirmed the entry should fire and secrets are set.
 
 ```
@@ -94,7 +94,7 @@ python scripts/push_queue.py drain --dry-run
 
 ---
 
-## C. Reply Judge (`knock_reply.py` + `log-knock-response.yml`)
+## C. Reply Judge (`knock_reply.py` + `anna.yml`)
 
 **What it does:** Home Assistant fires a `repository_dispatch: knock-response` event when
 Andrew taps or replies. The workflow calls either `sync_state.py knock-response ack` (tap)
@@ -134,7 +134,7 @@ python scripts/knock_reply.py --dry-run "naan poren"
 
 ## D. Studio / Audio / RSS / Feed (`render_audio.py` + `rebuild_rss.py`)
 
-**What it does:** Local-only pipeline (cloud never renders episodes — see `docs/DECISIONS.md`).
+**What it does:** Local-only pipeline today — not a law: the cloud can render, but the knock-tick episode move is unbuilt (see `docs/DECISIONS.md`).
 `render_audio.py` reads a markdown script, calls Google TTS, stitches MP3, writes to
 `published_audio/`, registers the episode in `progress/episodes.json`, stamps `seen_in`
 in `progress/lexicon.json`, and calls `rebuild_rss.py` as a lifecycle hook.
@@ -199,9 +199,7 @@ python scripts/sync_state.py update --produced-cold 'போதும்'
 
 | Workflow file | Name in Actions UI | Trigger | What it does |
 |---|---|---|---|
-| `morning-knock.yml` | Anna Knock | cron + dispatch | Runs `morning_knock.py`; commits audio + log |
-| `push-queue.yml` | Push Queue Drain | cron (*/30 min) | Runs `push_queue.py drain`; commits queue + log |
-| `log-knock-response.yml` | Log Knock Response | `repository_dispatch: knock-response` | Runs `knock_reply.py` (reply) or `sync_state.py knock-response` (tap) |
+| `anna.yml` | Anna | cron (hourly) + `repository_dispatch: knock-response` + dispatch | Every lane, every secret. Always drains the queue first (`push_queue.py drain`), then runs `morning_knock.py` (tick/dispatch), `knock_reply.py` (reply) or `sync_state.py knock-response` (tap) |
 | `smoke.yml` | Smoke Test | push to main (scripts/**, workflows/**, requirements.txt) | Runs `smoke_test.py` sandboxed |
 
 **Playbook — CI red:**

@@ -632,7 +632,7 @@ Details live in git history; this is the index of the *conclusions*.
   `wants_scheduled_push()` forces one re-ask when Python catches the contradiction; prose
   had already failed here once, so the detector is the mechanism.
 - **The cloud cannot render bespoke audio, and Anna must say so out loud** (2026-07-23;
-  **CORRECTED 2026-07-24 — the diagnosis was wrong**). Original claim: the audio ask was
+  **CORRECTED then RETIRED 2026-07-24 — see "One runner, every capability"**). Original claim: the audio ask was
   "unfulfillable end-to-end by design (cloud-never-renders)." False — the knock workflow
   renders audio in the cloud *every day* with `GCP_SA_KEY`. The real limit is a WIRING gap:
   `push-queue.yml` was never given the TTS secret or a render step, and `maybe_enqueue_schedule`
@@ -704,3 +704,47 @@ Details live in git history; this is the index of the *conclusions*.
   red on CI — the very credential-less host the graceful-skip feature exists for. Tests mock
   credential presence/absence (`google.auth.default`), never require live keys. Root cause of
   the 2026-07-24 red build.
+- **One runner, every capability — the three workflows are one** (2026-07-24, Andrew).
+  `morning-knock.yml` + `log-knock-response.yml` + `push-queue.yml` → `anna.yml`, with
+  job-level `env` carrying every secret to every lane. The three grew separately and each
+  got exactly the secrets its first job needed (knock: GCP + OpenRouter; reply: OpenRouter;
+  drain: neither), so *what Anna could do depended on which event woke him* — an accident
+  of file layout, not a design. Andrew's framing: "these are first-class tools regardless
+  of what was the input waking Anna up." Consolidation makes the capability structural
+  instead of remembered — you cannot forget to wire a lane that does not exist. Rejected: a
+  composite action for the shared setup (composite actions **cannot read the `secrets`
+  context**; each caller must pass them in, so the forgot-to-wire bug survives) and a
+  `workflow_call` reusable workflow with three thin callers (correct, but ceremony for a
+  solo-operator repo).
+- **The drain runs first on every wake-up; one hourly cron** (2026-07-24, Andrew). The
+  queue drain is no longer a lane, it is the opening step of every Anna wake-up — hourly
+  tick, lock-screen reply, manual dispatch. Ordering is load-bearing: the drain logs its
+  fire into `knock_log.json` and `rails_gate` counts today's reaches, so a scheduled push
+  correctly suppresses an ambient knock in the same tick (drain-LAST would double-push).
+  Three cron expressions across two files (`0 12,14,16,18,20,22` + `0 0` + `*/30`) collapse
+  to a single `0 * * * *`: the rails already do the DST-correct waking-hours filtering and
+  skip a tick with no LLM call, so the cron only has to be frequent enough to filter. The
+  lost delivery precision (30 min → 60 min worst case) is more than repaid by replies and
+  dispatches also draining.
+- **A scheduled dose may carry voice; TTS runs at fire time, not add time** (2026-07-24).
+  `memo_script` on a queue entry makes it a voice dose; the drain renders it and fills
+  `audio_url` itself. Composed-at-add-time was never the same law as rendered-at-add-time —
+  `push_queue.py`'s invariant is *no LLM at fire-time*, and TTS is not an LLM. Rendering in
+  the reply lane instead was rejected on latency: Andrew is standing at the lock screen
+  waiting for the recast, and TTS + commit + CDN pre-warm is a minute-plus on the one
+  channel that must feel instant. The mp3 is committed in its OWN commit before the
+  notification fires (jsDelivr can only serve what is already on `main`), which also keeps
+  the drain's retry property — a failed push leaves the entry queued.
+- **A dropped rule must be hunted through code, prompts, skills and tests** (2026-07-24).
+  "Cloud never renders" was marked SUPERSEDED in this file at 09:55 and Anna went on
+  refusing bespoke audio until 21:00, because the rule also lived in `JUDGE_MANDATE`, in
+  `FORCE_SCHEDULE_ADDENDUM`, in `/extend` Gate 6, in `routing.md`, in `subsystems.md` — and
+  as a smoke assertion that *required* the refusal text (`"cloud-never-renders" in
+  JUDGE_MANDATE`). A guard that outlives its rule enforces the rule. Correcting DECISIONS is
+  the start of retiring a rule, never the end.
+- **The clock-request detector's verb list is deliberately wide** (2026-07-24). "Schedule a
+  push and say hello" — the most literal possible phrasing — matched the clock and missed
+  the verb, because `schedule` was absent from `ASK_RE`. The backstop built the day before
+  for exactly this failure never fired, and an 8pm greeting was silently dropped for the
+  second day running. A false positive costs one re-ask; a false negative costs Andrew a
+  push he asked for and never got. Widen on sight.

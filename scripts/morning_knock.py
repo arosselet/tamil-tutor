@@ -568,8 +568,14 @@ def mark_frames_seen(keys: list[str]) -> None:
 
 
 def maybe_enqueue_schedule(decision: dict) -> Path | None:
-    """If the decision planted a scheduled push, land it in the queue (text-only;
-    fires via the hourly drain). Returns the queue path for the commit, or None."""
+    """If the decision planted a scheduled push, land it in the queue; it fires
+    via the drain on the next Anna wake-up. Returns the queue path for the
+    commit, or None.
+
+    Carries `memo_script` through since 2026-07-24: a scheduled dose may be a
+    VOICE dose, rendered by the drain at fire time. Dropping it here was half of
+    why "audio at a time" was impossible — the other half was the drain's
+    workflow having no TTS secret."""
     s = decision.get("schedule")
     if not isinstance(s, dict) or not s.get("at_local") or not s.get("body"):
         return None
@@ -586,6 +592,7 @@ def maybe_enqueue_schedule(decision: dict) -> Path | None:
         return None
     enqueue(s["body"], due, expected_target=s.get("expected_target", ""),
             target_revealed=bool(s.get("target_revealed", True)),
+            memo_script=(s.get("memo_script") or "").strip(),
             move=s.get("move", "scheduled follow-up"))
     return QUEUE_PATH
 
