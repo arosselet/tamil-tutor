@@ -4568,5 +4568,48 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": "2026-07-24"
+  },
+  "frame:negative-la": {
+    "type": "pattern",
+    "gloss": "{verb-stem}+ல → didn't / doesn't / can't — புரியல, முடியல, தெரியல, கேட்கல, பண்ணல: the everyday spoken negative (verb + illa, contracted). He already owns puriyala + mudiyala as separate chunks; this is the one machine under them.",
+    "phonetic": [],
+    "recognition": "comfortable",
+    "production": "cold",
+    "seen_in": [],
+    "last_surfaced": "2026-07-24"
+  },
+  "வந்துடுச்சு": {
+    "gloss": "It's come / it's arrived (of a thing) — vandhu + completive -ttu + it-tail -uchu; the 'it' twin of vandhutten",
+    "phonetic": [
+      "vandhuduchu",
+      "vandhuruchu",
+      "vandhiruchu"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-07-24"
+  },
+  "அதுக்கு": {
+    "gloss": "For that / to that — adhu + the -kku tail (same tail as station-kku)",
+    "phonetic": [
+      "adhuku",
+      "adhukku"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-07-24"
+  },
+  "பண்ணல": {
+    "gloss": "Didn't do / haven't done — panna + illa contracted (frame:negative-la)",
+    "phonetic": [
+      "pannala",
+      "pannla"
+    ],
+    "recognition": "comfortable",
+    "production": "cold",
+    "seen_in": [],
+    "last_surfaced": "2026-07-24"
   }
 }
