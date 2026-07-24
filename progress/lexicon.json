@@ -2400,12 +2400,12 @@
       "kashtam"
     ],
     "recognition": "comfortable",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       30,
       44
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-07-24"
   },
   "ஈஸி": {
     "gloss": "Easy",
@@ -3740,7 +3740,7 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-07-19",
+    "last_surfaced": "2026-07-24",
     "deck": "trip",
     "direction": "fire"
   },
