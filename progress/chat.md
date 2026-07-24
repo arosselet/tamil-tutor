@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Friday 2026-07-24
+
+**09:27 · Anna**  ·  volley / volley: needtogo + puriyala
+> ⚡ volley 1/2 — you're at the table, someone's holding you up — 'I need to go to the station'
+
+
 ## Thursday 2026-07-23
 
 **09:47 · Anna** 🎧  ·  fielding / fielding: avasaram exit
@@ -18,8 +24,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **11:32 · Anna**  ·  text / collect + cold dispatch: poganum
 > da — last night: did 'naan poganum' make it to the table? 🚉 one line back. (and: station-kku poganum — no warm-up, just fire it)
 
+**Andrew** · 👍 acked
+
 **15:08 · Anna**  ·  text / trailer: campaign close
 > da — Ask-Machine Week closes tonight. one scene left: the door exit, avasaram + poganum, both in your mouth. that's tonight's session. 🚪
+
+**Andrew** · 👍 acked
 
 **18:52 · Anna**  ·  text / trailer payoff: exit scene
 > da — poganum + avasaram, the door scene: 'avasaram irukku, station-kku poganum' — that's the whole exit. two lines, one door. 🚪

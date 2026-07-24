@@ -2116,5 +2116,28 @@
     "body": "da — poganum + avasaram, the door scene: 'avasaram irukku, station-kku poganum' — that's the whole exit. two lines, one door. 🚪",
     "expected_target": "",
     "target_revealed": true
+  },
+  {
+    "date": "2026-07-24",
+    "timestamp": "2026-07-24T13:27:44.350821+00:00",
+    "acted": true,
+    "modality": "volley",
+    "move": "volley: needtogo + puriyala",
+    "rationale": "Demand-streak is 0, last session was 2 days ago, ignore-streak just 1 — safe to ask. Lunch anchor is 2–3h away so a volley now lands before the session bell slot without competing with it; the sprint's headline gap is production cold, and needtogo-place + puriyala are the top two binding targets. Two-item volley keeps it tight and closeable in a notification reply.",
+    "next_check": "2026-07-24T17:27:44.350821+00:00",
+    "body": "⚡ volley 1/2 — you're at the table, someone's holding you up — 'I need to go to the station'",
+    "expected_target": "frame:needtogo-place",
+    "target_revealed": false,
+    "volley": [
+      {
+        "target": "frame:needtogo-place",
+        "ask": "you're at the table, someone's holding you up — 'I need to go to the station'"
+      },
+      {
+        "target": "புரியல",
+        "ask": "the uncle is talking too fast — one line to slow him down"
+      }
+    ],
+    "volley_next": 1
   }
 ]
