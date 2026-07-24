@@ -1578,6 +1578,63 @@ def s30_anna_speaks_back(mk, kr, sb: Path):
           "if voice_url:" in src and "push_to_phone(body, voice_url" in src)
 
 
+def s31_feed_carries_every_pushed_dose(sb: Path):
+    print("\n31. Every pushed dose is findable in the feed (2026-07-24)")
+    rr = importlib.import_module("rebuild_rss")
+
+    # Andrew's rule: "all audio you push me should go in the feed" — a dismissed
+    # notification must stay replayable. Three producers write to knocks/, and
+    # only `knock_` was ever taught to the feed, so a scheduled dose and a spoken
+    # reply titled as their raw filename and sorted BELOW every episode.
+    cases = {
+        "knocks/knock_2026-07-05T22-58.mp3": "Knock",
+        "knocks/queued_q1784931404_2026-07-24T23-50-00.mp3": "Scheduled",
+        "knocks/reply_2026-07-24T23-55-10.mp3": "Reply",
+    }
+    for path, kind in cases.items():
+        title = rr.knock_title(path, {})
+        check(f"{kind.lower()} audio gets a real title", title.startswith(f"{kind} — 2026-"),
+              f"got {title!r}")
+        check(f"{kind.lower()} title carries no raw filename",
+              ".mp3" not in title and "_" not in title.split("·")[0], f"got {title!r}")
+        m = rr.KNOCK_AUDIO_RE.match(os.path.basename(path))
+        check(f"{kind.lower()} audio sorts in the dated push band", m is not None)
+
+    # The move label: the knock lane logs `mp3` (repo path), while the drain and
+    # the reply judge log only the CDN url they pushed. Both must resolve.
+    log = sb / "progress" / "knock_log.json"
+    cdn = "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks"
+    write_json(log, [
+        {"move": "ambient dose", "mp3": "published_audio/knocks/knock_2026-07-05T22-58.mp3"},
+        {"move": "welcome james", "audio_url": f"{cdn}/queued_q1784931404_2026-07-24T23-50-00.mp3"},
+        {"move": "said it aloud", "reply_audio_url": f"{cdn}/reply_2026-07-24T23-55-10.mp3"},
+    ])
+    # rebuild_rss addresses the repo by RELATIVE path (AUDIO_DIR, the knock log),
+    # so it must be exercised from a repo root — here, the sandbox's.
+    cwd = os.getcwd()
+    try:
+        os.chdir(sb)
+        labels = rr.knock_move_labels()
+    finally:
+        os.chdir(cwd)
+    for path, move in (("knocks/knock_2026-07-05T22-58.mp3", "ambient dose"),
+                       ("knocks/queued_q1784931404_2026-07-24T23-50-00.mp3", "welcome james"),
+                       ("knocks/reply_2026-07-24T23-55-10.mp3", "said it aloud")):
+        check(f"move label resolves: {move}", labels.get(path) == move, f"got {labels.get(path)!r}")
+        check(f"title carries the move: {move}", move in rr.knock_title(path, labels))
+
+    # "Nothing that isn't playable by my podcast player" (Andrew): extension is
+    # not proof — a truncated render or an lfs pointer is a .mp3 that is not audio.
+    check("a playability floor exists", rr.MIN_PLAYABLE_BYTES > 0)
+
+    # Feed order must be a function of the library, not the host's listdir():
+    # the two special_ files tie at (10, 0), and a rebuild on another machine
+    # silently swapped them.
+    src = (REAL_BASE / "scripts" / "rebuild_rss.py").read_text(encoding="utf-8")
+    check("feed sort is deterministic (filename breaks ties)",
+          "key=lambda f: (sort_key(f), f)" in src)
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -1612,6 +1669,7 @@ def main():
         s28_cloud_writer(sb)
         s29_one_runner_every_capability(mk, pq, kr, sb)
         s30_anna_speaks_back(mk, kr, sb)
+        s31_feed_carries_every_pushed_dose(sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)

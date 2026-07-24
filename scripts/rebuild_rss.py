@@ -12,6 +12,9 @@ BASE_URL = "https://raw.githubusercontent.com/arosselet/tamil-tutor/main"
 SITE_URL = "https://github.com/arosselet/tamil-tutor"
 AUDIO_DIR = "published_audio"
 SCRIPTS_DIR = "content/scripts"
+# Below this, a .mp3 is a stub, a truncated write, or an lfs pointer — not audio.
+# The shortest real dose in the library is a knock memo at ~100 KB.
+MIN_PLAYABLE_BYTES = 2048
 CAPTIONS_DIR = "content/captions"  # follow-along sheets; GitHub blob URL renders the md
 RSS_FILE = "rss.xml"
 AUTHOR = "Andrew R &amp; Gemini"
@@ -117,27 +120,56 @@ def clean_title(raw_title: str, filename: str) -> str:
     return filename.replace(".mp3", "").replace("_", " ").title()
 
 
+# Every mp3 Anna pushes lands in `published_audio/knocks/`, whatever sent it
+# (Andrew, 2026-07-24: "all audio you push me should go in the feed" — a
+# dismissed notification must stay replayable, and the lock screen is
+# ephemeral). Three producers write there, each with its own prefix:
+#   knock_<ts>              — morning_knock.py, the ambient dose
+#   queued_q<id>_<ts>       — push_queue.py, a scheduled dose rendered at fire time
+#   reply_<ts>              — knock_reply.py, Anna answering a lock-screen reply aloud
+# Only `knock_` existed when this file was written, so the other two titled as
+# their raw filename and sorted to the very bottom of the feed.
+KNOCK_AUDIO_RE = re.compile(
+    r"^(knock|queued|reply)_(?:q\d+_)?(\d{4})-(\d{2})-(\d{2})(?:T(\d{2})-(\d{2}))?")
+
+KNOCK_KIND = {"knock": "Knock", "queued": "Scheduled", "reply": "Reply"}
+
+
 def knock_move_labels():
     """Map an mp3 path relative to AUDIO_DIR ("knocks/knock_….mp3") -> Anna's move
-    label from the knock log, so feed titles say what the memo was, not just when."""
+    label from the knock log, so feed titles say what the memo was, not just when.
+
+    Reads `mp3` OR `audio_url`: the knock lane records a repo-relative path, while
+    the drain and the reply judge record only the CDN url they pushed. Both end in
+    the same basename, which is all this mapping needs."""
     try:
         with open("progress/knock_log.json", encoding="utf-8") as f:
             entries = json.load(f)
-        return {e["mp3"].split(f"{AUDIO_DIR}/", 1)[-1]: e.get("move") or ""
-                for e in entries if e.get("mp3")}
     except Exception:
         return {}
+    labels = {}
+    for e in entries:
+        ref = e.get("mp3") or e.get("audio_url") or e.get("reply_audio_url") or ""
+        if ".mp3" not in ref:
+            continue
+        labels[f"knocks/{os.path.basename(ref)}"] = e.get("move") or ""
+    return labels
 
 
 def knock_title(filename: str, moves: dict) -> str:
-    """"knocks/knock_2026-07-05T22-58.mp3" -> "Knock — 2026-07-05 22:58 · <move>"."""
+    """"knocks/knock_2026-07-05T22-58.mp3" -> "Knock — 2026-07-05 22:58 · <move>".
+    Scheduled doses and spoken replies get their own word, same shape."""
     base = os.path.basename(filename)
-    m = re.match(r"knock_(\d{4}-\d{2}-\d{2})(?:T(\d{2})-(\d{2}))?", base)
+    m = KNOCK_AUDIO_RE.match(base)
     when = base.replace(".mp3", "")
+    kind = "Knock"
     if m:
-        when = f"{m.group(1)} {m.group(2)}:{m.group(3)}" if m.group(2) else m.group(1)
+        kind = KNOCK_KIND.get(m.group(1), "Knock")
+        when = f"{m.group(2)}-{m.group(3)}-{m.group(4)}"
+        if m.group(5):
+            when += f" {m.group(5)}:{m.group(6)}"
     move = moves.get(filename, "")
-    return f"Knock — {when} · {move}" if move else f"Knock — {when}"
+    return f"{kind} — {when} · {move}" if move else f"{kind} — {when}"
 
 
 def get_title_from_md(md_path):
@@ -303,6 +335,21 @@ def generate_rss():
     knocks_dir = os.path.join(AUDIO_DIR, "knocks")
     if os.path.isdir(knocks_dir):
         episodes += [f"knocks/{f}" for f in os.listdir(knocks_dir) if f.endswith('.mp3')]
+
+    # The feed carries only things the podcast player can actually PLAY (Andrew,
+    # 2026-07-24). Extension alone isn't proof: a render that dies mid-write, or
+    # a git-lfs pointer on a fresh clone, leaves a .mp3 that is not audio. An
+    # unplayable item is worse than a missing one — it's a dead entry he taps.
+    playable, skipped = [], []
+    for f in episodes:
+        p = os.path.join(AUDIO_DIR, f)
+        if os.path.isfile(p) and os.path.getsize(p) >= MIN_PLAYABLE_BYTES:
+            playable.append(f)
+        else:
+            skipped.append(f)
+    if skipped:
+        print(f"⚠ skipping {len(skipped)} unplayable file(s): {', '.join(skipped[:5])}")
+    episodes = playable
     knock_moves = knock_move_labels()
 
     # Sort by mission number descending (newest first); drills sort above by date/time;
@@ -315,14 +362,21 @@ def generate_rss():
         match = re.search(r"(?:drill|soak)_(\d{4})-(\d{2})-(\d{2})(?:_(\d{4}))?", filename)
         if match:
             return (9, int("".join(g or "0" for g in match.groups())))
-        match = re.search(r"knock_(\d{4})-(\d{2})-(\d{2})(?:T(\d{2})-(\d{2}))?", filename)
+        # every pushed dose — knock, scheduled, spoken reply — is one dated band,
+        # newest first; matching only `knock_` dumped the other two at (0, 0),
+        # i.e. below every episode in the feed
+        match = KNOCK_AUDIO_RE.match(os.path.basename(filename))
         if match:
-            return (8, int("".join(g or "0" for g in match.groups())))
+            return (8, int("".join(g or "0" for g in match.groups()[1:])))
         if filename.startswith("special_"):
             return (10, 0)
         return (0, 0)
 
-    episodes.sort(key=sort_key, reverse=True)
+    # Filename breaks ties so the order is a function of the library, not of the
+    # host's os.listdir(). The two special_ files both score (10, 0), so a rebuild
+    # on a different machine silently swapped them and produced a feed diff that
+    # looked like a real change and wasn't.
+    episodes.sort(key=lambda f: (sort_key(f), f), reverse=True)
 
     for filename in episodes:
         audio_path = os.path.join(AUDIO_DIR, filename)
