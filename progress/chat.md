@@ -30,6 +30,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > da — text only on the drain; the renderer never runs in background pushes. audio needs the laptop open and a manual run. that's a real gap — noted as a fix.
 
+**19:56 · Anna** 🎧  ·  audio / welcome james
+> 🎧 da — James is here. two minutes, in the car, both of you. he gets his first three Tamil words — and podhum is yours to back up. வாங்க.
+
 
 ## Thursday 2026-07-23
 
