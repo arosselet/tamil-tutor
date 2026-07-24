@@ -291,5 +291,18 @@
     "demoted": [],
     "listened": [],
     "note": ""
+  },
+  {
+    "date": "2026-07-24",
+    "floor_pct": 17.7,
+    "engines_pct": 76.2,
+    "cold": [
+      "frame:negative-la",
+      "பண்ணல"
+    ],
+    "hinted": [],
+    "demoted": [],
+    "listened": [],
+    "note": ""
   }
 ]
