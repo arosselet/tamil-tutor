@@ -904,6 +904,12 @@ PROSE_BUDGETS = {
     "protocol/audio_channels.md": 400,
     "OUTREACH_MANDATE": 2000,
     "JUDGE_MANDATE": 1500,
+    # Split out of JUDGE_MANDATE (2026-07-24) rather than raise its budget, the
+    # same move audio_channels.md made on daily_session.md: "what this reply can
+    # do beyond the text line" (schedule a push, speak back) is its own concern,
+    # and the mandate was at 1498/1500 — a ceiling is a split signal, not a
+    # bump-the-number signal.
+    "REACH_MANDATE": 300,
     "CATCH_JUDGE_MANDATE": 300,
 }
 
@@ -912,6 +918,7 @@ def s18_prose_budgets(mk, kr, sb: Path):
     print("\n18. Protocol prose word budgets (2026-07-16 — the subtraction mechanism)")
     strings = {"OUTREACH_MANDATE": mk.OUTREACH_MANDATE,
                "JUDGE_MANDATE": kr.JUDGE_MANDATE,
+               "REACH_MANDATE": kr.REACH_MANDATE,
                "CATCH_JUDGE_MANDATE": kr.CATCH_JUDGE_MANDATE}
     for rel, budget in PROSE_BUDGETS.items():
         words = (len(strings[rel].split()) if rel in strings
@@ -1264,14 +1271,16 @@ def s27_schedule_and_soak_guards(sb: Path):
         check(f"clock request detected: {t[:28]}", kr.wants_scheduled_push(t))
     for t in ("naan poren", "adhu dhaan, said it at dinner", "less of the aunty thing"):
         check(f"plain rep is not a clock request: {t[:28]}", not kr.wants_scheduled_push(t))
-    check("mandate makes a clock-request mandatory", "MANDATORY" in kr.JUDGE_MANDATE)
+    # The scheduling rules moved to REACH_MANDATE (2026-07-24 split); the judge
+    # still sees both, concatenated.
+    check("mandate makes a clock-request mandatory", "MANDATORY" in kr.REACH_MANDATE)
     # Inverted 2026-07-24. This assertion used to require the refusal
     # ("cloud-never-renders" in JUDGE_MANDATE) and so pinned the bug in place:
     # the canon was corrected that morning while the test still demanded the
     # stale prose. A guard that outlives its rule enforces the rule.
+    both = kr.JUDGE_MANDATE + kr.REACH_MANDATE
     check("mandate no longer claims the cloud cannot render",
-          "cloud-never-renders" not in kr.JUDGE_MANDATE
-          and "needs the laptop" not in kr.JUDGE_MANDATE)
+          "cloud-never-renders" not in both and "needs the laptop" not in both)
 
     # #12: an unresolvable soak payload made the produced-check permanently
     # False, and the hourly cron shipped M72/M73/M74 in one evening.
@@ -1498,6 +1507,63 @@ def s29_one_runner_every_capability(mk, pq, kr, sb: Path):
         pq.render_memo = real_render
 
 
+def s30_anna_speaks_back(mk, kr, sb: Path):
+    print("\n30. Anna can answer ALOUD from the lock screen (2026-07-24)")
+
+    # The loop was three-quarters closed: audio out on the knock, text in from
+    # the phone, cloud judgment, text back. push_to_phone(body, None, ...) was
+    # hard-coded in BOTH reply paths, so Anna could never speak back.
+    src = (REAL_BASE / "scripts" / "knock_reply.py").read_text(encoding="utf-8")
+    check("the production reply no longer hard-codes a silent push",
+          "push_to_phone(body, voice_url" in src)
+    check("voice_reply is in the judge's return schema", '"voice_reply"' in kr.JUDGE_MANDATE)
+    check("REACH rations it against lock-screen latency",
+          "90 seconds" in kr.REACH_MANDATE and "SPEAK BACK" in kr.REACH_MANDATE)
+    # The judge must see the split halves as one prompt.
+    check("the split mandate is concatenated for the model",
+          "JUDGE_MANDATE + \"\\n\" + REACH_MANDATE" in src)
+
+    # normalize_verdict guards the new field the same way it guards the others.
+    check("a missing voice_reply normalises to empty",
+          kr.normalize_verdict({"verdict": "chat"})["voice_reply"] == "")
+    check("a null voice_reply normalises to empty",
+          kr.normalize_verdict({"verdict": "chat", "voice_reply": None})["voice_reply"] == "")
+    check("a whitespace voice_reply normalises to empty",
+          kr.normalize_verdict({"verdict": "chat", "voice_reply": "  "})["voice_reply"] == "")
+    spoken = kr.normalize_verdict({"verdict": "chat", "voice_reply": " வணக்கம் "})["voice_reply"]
+    check("a real voice_reply survives normalisation", spoken == "வணக்கம்")
+
+    # The render: fills a URL, uses Anna's pinned voice, and a TTS failure must
+    # still let the TEXT recast go out — silence is the one unacceptable outcome.
+    calls, real_render = [], kr.render_memo
+
+    async def fake_render(script, out_path, voice):
+        calls.append((script, voice))
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_bytes(b"ID3fake")
+
+    kr.render_memo = fake_render
+    try:
+        mp3, url = kr.render_voice_reply("வணக்கம் James")
+        check("voice reply renders an mp3", mp3 is not None and mp3.exists())
+        check("it speaks what the judge wrote", calls and calls[0][0] == "வணக்கம் James")
+        check("Anna answers in his own pinned voice", calls[0][1] == mk.ANNA_VOICE)
+        check("the mp3 is served from the CDN, not a local path",
+              (url or "").startswith("https://cdn.jsdelivr.net/gh/") and url.endswith(".mp3"))
+    finally:
+        kr.render_memo = real_render
+
+    kr.render_memo = lambda *a, **k: (_ for _ in ()).throw(RuntimeError("503 backend unavailable"))
+    try:
+        mp3, url = kr.render_voice_reply("வணக்கம்")
+        check("a TTS failure yields no mp3 and no url", mp3 is None and url is None)
+    finally:
+        kr.render_memo = real_render
+    # ...and the push still goes out, because voice_url is simply None by then.
+    check("the text recast is never gated on the render succeeding",
+          "if voice_url:" in src and "push_to_phone(body, voice_url" in src)
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -1531,6 +1597,7 @@ def main():
         s27_schedule_and_soak_guards(sb)
         s28_cloud_writer(sb)
         s29_one_runner_every_capability(mk, pq, kr, sb)
+        s30_anna_speaks_back(mk, kr, sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)

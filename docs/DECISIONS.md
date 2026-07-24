@@ -748,3 +748,23 @@ Details live in git history; this is the index of the *conclusions*.
   for exactly this failure never fired, and an 8pm greeting was silently dropped for the
   second day running. A false positive costs one re-ask; a false negative costs Andrew a
   push he asked for and never got. Widen on sight.
+- **Anna answers aloud; the agentic loop closes** (2026-07-24, Andrew). Both reply paths in
+  `knock_reply.py` called `push_to_phone(body, None, ...)` — `audio_url` hard-coded — so
+  Anna could speak TO Andrew on a knock but never BACK on a reply. The renderer was never
+  the blocker; the reply workflow simply had no TTS secret until the workflows merged, so
+  this landed as ~30 lines on top of that. The judge may now return `voice_reply` and Python
+  renders it into the same push-back. **Rationed by prose, on purpose:** TTS + commit + CDN
+  pre-warm costs ~90s while Andrew stands at the lock screen, so the mandate reserves it for
+  answers where the SOUND is the answer (pronunciation, a greeting for someone in the room)
+  and keeps ordinary recasts instant. Andrew accepted the latency explicitly ("it doesn't
+  need to be faster, that's not the purpose"). A TTS failure still delivers the text —
+  silence is the one unacceptable outcome. The catch (eavesdrop) lane stays text-only; its
+  smaller mandate is deliberately separate.
+- **A mandate at its ceiling gets split, not raised** (2026-07-24). `JUDGE_MANDATE` sat at
+  1498/1500 words when the voice-reply rules needed to land. Rather than bump the number,
+  the three paragraphs about reaching *beyond the text line* (schedule a future push, speak
+  back now) moved to `REACH_MANDATE` with its own budget — the same move
+  `protocol/audio_channels.md` made on `daily_session.md` (2026-07-23). The judge sees both
+  concatenated, so the model's prompt is unchanged in substance; the budget now guards two
+  concerns separately instead of one blurred one. JUDGE_MANDATE fell to 1388 while GAINING
+  a capability, which is the test a split should pass.
