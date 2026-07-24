@@ -1179,28 +1179,36 @@ def s25_studio_concurrency_and_secrets(sb: Path):
     check("network blip stays retryable",
           not ra.is_auth_error(Denied("503 backend unavailable")))
 
-    # --- a host without secrets skips, and never retries -------------------
-    # Simulate the work laptop: ADC unresolvable.
+    # --- credential detection: BOTH outcomes mocked, so the test is hermetic --
+    # These assertions are the whole point of the feature — "skip cleanly when
+    # the secret is absent" — so they must not themselves depend on the host's
+    # secrets. The first version did, and CI (which has NO credentials, exactly
+    # the case the feature targets) went red: the tests for graceful-skip broke
+    # on a host with nothing to skip. Mock google.auth.default both ways.
     import google.auth
     real_default = google.auth.default
-    google.auth.default = lambda *a, **k: (_ for _ in ()).throw(
-        Exception("Could not automatically determine credentials"))
     try:
+        google.auth.default = lambda *a, **k: (_ for _ in ()).throw(
+            Exception("Could not automatically determine credentials"))
         reason = ra.google_credentials_ready()
-        check("no ADC → a reason, not a crash", isinstance(reason, str) and reason)
+        check("no ADC → a reason, not a crash", isinstance(reason, str) and bool(reason))
+
+        google.auth.default = lambda *a, **k: (object(), "fake-project")
+        check("ADC present → no reason", ra.google_credentials_ready() is None)
+
+        # Re-rendering an existing script needs TTS only. Gating it on agy would
+        # strand a scripted-but-unrendered episode on a host that can render.
+        # (ADC still mocked-present here, so this isolates the agy axis.)
+        rs = importlib.import_module("run_studio")
+        real_which = rs.shutil.which
+        rs.shutil.which = lambda cmd: None if cmd == "agy" else real_which(cmd)
+        try:
+            check("no agy → render path still allowed", rs.renderer_preflight() is None)
+            check("no agy → fresh-episode path blocked", rs.preflight() is not None)
+        finally:
+            rs.shutil.which = real_which
     finally:
         google.auth.default = real_default
-    check("ADC present → no reason", ra.google_credentials_ready() is None)
-    # Re-rendering an existing script needs TTS only. Gating it on agy would
-    # strand a scripted-but-unrendered episode on a host that can render fine.
-    rs = importlib.import_module("run_studio")
-    real_which = rs.shutil.which
-    rs.shutil.which = lambda cmd: None if cmd == "agy" else real_which(cmd)
-    try:
-        check("no agy → render path still allowed", rs.renderer_preflight() is None)
-        check("no agy → fresh-episode path blocked", rs.preflight() is not None)
-    finally:
-        rs.shutil.which = real_which
 
     check("watchdog: exit 3 → skip, no retry",
           "no retry" in sw.outcome(sw.EXIT_NOT_CONFIGURED, "dispatch"))
