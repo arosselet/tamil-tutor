@@ -2354,9 +2354,9 @@
         "ask": "maama just said something fast — ask him to say it one more time"
       }
     ],
-    "volley_next": 3,
+    "volley_next": 4,
     "response": "reply",
-    "reply": "Beach-la poganum, Romba nalla irukku",
+    "reply": "Ama sappiten. Can you teach me the irunduhuchu form?",
     "reply_verdict": "miss",
     "reply_fired": [
       "frame:adverb-aa"
@@ -2365,8 +2365,8 @@
       "frame:adverb-aa"
     ],
     "reply_fired_capped": [],
-    "reply_line": "close on the vibe — but 'poganum' is 'must go', not 'we went'. try: 'beach-la ponoom, romba nalla irundhuchu'. · 3/4 — wife asks if you two ate — say 'we ate'",
-    "reply_at": "2026-07-25T18:58:43Z",
+    "reply_line": "sappiten is 'I ate' — for 'we ate' it's saapittoom. try it back. · 4/4 — maama just said something fast — ask him to say it one more time",
+    "reply_at": "2026-07-25T19:00:12Z",
     "exchanges": [
       {
         "at": "2026-07-25T18:56:32Z",
@@ -2391,10 +2391,20 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "close on the vibe — but 'poganum' is 'must go', not 'we went'. try: 'beach-la ponoom, romba nalla irundhuchu'. · 3/4 — wife asks if you two ate — say 'we ate'"
+      },
+      {
+        "at": "2026-07-25T19:00:12Z",
+        "reply": "Ama sappiten. Can you teach me the irunduhuchu form?",
+        "verdict": "miss",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "sappiten is 'I ate' — for 'we ate' it's saapittoom. try it back. · 4/4 — maama just said something fast — ask him to say it one more time"
       }
     ],
-    "chained": 2,
-    "pinned_target": "frame:we-om",
+    "chained": 3,
+    "pinned_target": "இன்னொரு தடவ சொல்லுங்க",
     "pinned_revealed": false
   }
 ]
