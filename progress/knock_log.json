@@ -2324,5 +2324,36 @@
         "reply_line": "that's a system note, not a drift answer — what did you *catch* from the tape? even a rough 'someone showed up unexpectedly and there's some kind of problem' counts."
       }
     ]
+  },
+  {
+    "date": "2026-07-25",
+    "timestamp": "2026-07-25T18:53:29.246899+00:00",
+    "acted": true,
+    "modality": "volley",
+    "move": "volley: adverb-aa sprint",
+    "rationale": "Session fired today, afternoon slot, demand-streak only 1 — volley is the right volume move; adverb-aa is the top struggled cold-pending item and has been soaked, fair to quiz cold; completely different peg from today's eavesdrop.",
+    "next_check": "2026-07-25T22:53:29.246899+00:00",
+    "body": "⚡ volley 1/4 — she's talking too fast — tell her: speak slowly (one word fires it)",
+    "expected_target": "frame:adverb-aa",
+    "target_revealed": false,
+    "volley": [
+      {
+        "target": "frame:adverb-aa",
+        "ask": "she's talking too fast — tell her: speak slowly (one word fires it)"
+      },
+      {
+        "target": "frame:day-recap",
+        "ask": "maama asks what you all did today — you went to the beach, it was really good. answer him"
+      },
+      {
+        "target": "frame:we-om",
+        "ask": "wife asks if you two ate — say 'we ate'"
+      },
+      {
+        "target": "இன்னொரு தடவ சொல்லுங்க",
+        "ask": "maama just said something fast — ask him to say it one more time"
+      }
+    ],
+    "volley_next": 1
   }
 ]
