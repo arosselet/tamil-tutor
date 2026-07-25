@@ -42,6 +42,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > close on the vibe — but 'poganum' is 'must go', not 'we went'. try: 'beach-la ponoom, romba nalla irundhuchu'. · 3/4 — wife asks if you two ate — say 'we ate'
 
+**15:00 · Andrew** — **MISS**
+> Ama sappiten. Can you teach me the irunduhuchu form?
+
+**Anna ↩**
+> sappiten is 'I ate' — for 'we ate' it's saapittoom. try it back. · 4/4 — maama just said something fast — ask him to say it one more time
+
 
 ## Friday 2026-07-24
 
