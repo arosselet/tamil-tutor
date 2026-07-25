@@ -2354,6 +2354,37 @@
         "ask": "maama just said something fast — ask him to say it one more time"
       }
     ],
-    "volley_next": 1
+    "volley_next": 2,
+    "response": "reply",
+    "reply": "Medhuva solla",
+    "reply_verdict": "cold",
+    "reply_fired": [
+      "frame:adverb-aa"
+    ],
+    "reply_fired_cold": [
+      "frame:adverb-aa"
+    ],
+    "reply_fired_capped": [],
+    "reply_line": "adhu dhaan! 🔥 medhuvaa — and a bonus: solla is perfect too. · 2/4 — maama asks what you all did today — you went to the beach, it was really good. answer him",
+    "reply_at": "2026-07-25T18:56:32Z",
+    "exchanges": [
+      {
+        "at": "2026-07-25T18:56:32Z",
+        "reply": "Medhuva solla",
+        "verdict": "cold",
+        "fired": [
+          "frame:adverb-aa"
+        ],
+        "fired_cold": [
+          "frame:adverb-aa"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! 🔥 medhuvaa — and a bonus: solla is perfect too. · 2/4 — maama asks what you all did today — you went to the beach, it was really good. answer him"
+      }
+    ],
+    "chained": 1,
+    "pinned_target": "frame:day-recap",
+    "pinned_revealed": false
   }
 ]
