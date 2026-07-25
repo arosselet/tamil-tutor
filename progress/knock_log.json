@@ -2140,16 +2140,16 @@
     ],
     "volley_next": 2,
     "response": "reply",
-    "reply": "Medhuva solla",
-    "reply_verdict": "cold",
+    "reply": "Remind me what puryila\nMeans",
+    "reply_verdict": "chat",
     "reply_fired": [
       "frame:needtogo-place",
       "மெதுவா சொல்லு"
     ],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "adhu dhaan! — add 'puriyala' first: 'puriyala, medhuva sollu' 🔥",
-    "reply_at": "2026-07-25T04:21:21Z",
+    "reply_line": "'puriyala' — I don't understand.",
+    "reply_at": "2026-07-25T04:22:28Z",
     "exchanges": [
       {
         "at": "2026-07-25T04:18:39Z",
@@ -2174,6 +2174,16 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "adhu dhaan! — add 'puriyala' first: 'puriyala, medhuva sollu' 🔥"
+      },
+      {
+        "at": "2026-07-25T04:22:28Z",
+        "reply": "Remind me what puryila\nMeans",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "'puriyala' — I don't understand."
       }
     ],
     "chained": 1,

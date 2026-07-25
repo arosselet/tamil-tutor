@@ -21,6 +21,13 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! — add 'puriyala' first: 'puriyala, medhuva sollu' 🔥
 
+**00:22 · Andrew** — **CHAT**
+> Remind me what puryila
+> Means
+
+**Anna ↩**
+> 'puriyala' — I don't understand.
+
 **15:19 · Anna**  ·  grace / campaign close: kudunga won
 > da — Ask-Machine Week is done. kudunga fired cold at a real table 07-18. that's the headline. 🏆
 
