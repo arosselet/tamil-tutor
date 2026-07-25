@@ -235,14 +235,14 @@ def deck_coverage(lexicon: dict, deck: str = "trip", today=None) -> dict | None:
     """COVERAGE, not progress — the meter the deck never had. `compute_deck`
     answers "how many fire cold?"; this answers "how many have ever been WORKED
     at all?" (a session rep, a judged reply, or a show dose — anything that sets
-    `last_surfaced`; an ask with no reply does not count, which is why
-    `recent_ask_counts` still guards the knock menu separately).
+    `last_surfaced`). An ask with no reply does not count, which is exactly why
+    `recent_ask_counts` is the third term of the sort key and not this meter.
 
     The pair matters because a value-ordered queue starves its tail silently: on
     2026-07-25 the headline read 15/34 survival at 3.4 cold/day against a needed
-    1.1 — a won sprint — while 45 of 70 fire items had never been touched once,
+    1.1 — a won sprint — while 50 of 70 fire items had never been worked at all,
     and the two survival registers that decide freezing at the table
-    (antifreeze, public) sat at 2/18. cold/total is honest about what it counts
+    (antifreeze, public) sat at 3/18. cold/total is honest about what it counts
     and structurally blind to distribution. Reported per tier and per register so
     the blindness has nowhere to hide.
 
@@ -285,14 +285,8 @@ def deck_coverage(lexicon: dict, deck: str = "trip", today=None) -> dict | None:
             })
     untouched.sort(key=lambda c: (DECK_TIERS.get(
         regs.get(c["word"], ""), 1), c["word"]))
-    # The oldest working rep still outstanding — the tail's actual depth, and
-    # what the starvation guard reads.
-    pending_stale = [
-        c["staleness"] for c in ((deck_status(lexicon, deck, today) or {}).get("pending") or [])
-    ]
     return {"tiers": tiers, "registers": registers, "untouched": untouched,
-            "fire": fire, "catch": catch,
-            "stalest_pending": max(pending_stale) if pending_stale else 0}
+            "fire": fire, "catch": catch}
 
 
 def engines_to_fire(lexicon: dict) -> list[dict]:
@@ -468,6 +462,7 @@ def main():
     cov = deck_coverage(lexicon, today=today)
     if cov:
         print("\n★ DECK COVERAGE  (how many have been WORKED — the meter cold/total can't see)")
+        print("  ENGINEERING NUMBERS — they steer selection; they are never narrated to Andrew.")
         print("-" * 60)
         for tier in ("survival", "delight", "dessert"):
             b = cov["tiers"].get(tier)

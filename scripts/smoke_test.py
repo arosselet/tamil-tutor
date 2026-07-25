@@ -1933,8 +1933,20 @@ def s32_deck_rotation_and_coverage(mk, sb: Path):
         check("soaked-but-never-asked is distinguished from never-encountered",
               [u["soaked_only"] for u in cov["untouched"]
                if u["word"] == "smoke:surv-unseen"] == [False], f"got {cov['untouched']}")
-        check("the tail's depth is reported for the guard",
-              cov["stalest_pending"] == st.NEVER_SURFACED, f"got {cov['stalest_pending']}")
+        # A global deficit in a warm voice is guilt machinery (2026-07-17), and
+        # this number is bigger and scarier than the burn rate that rule was
+        # written for. Both surfaces that carry it must say so.
+        import contextlib
+        import io
+        argv, out = sys.argv, io.StringIO()
+        try:
+            sys.argv = ["suggest_targets.py"]
+            with contextlib.redirect_stdout(out):
+                st.main()
+        finally:
+            sys.argv = argv
+        check("the ticket marks coverage as an engineering number",
+              "never narrated" in out.getvalue(), "coverage block carries no narration guard")
 
         # The headline meter carries the same count, so a green sprint can never
         # again hide a starved deck.

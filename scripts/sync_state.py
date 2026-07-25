@@ -818,7 +818,9 @@ def cmd_status(_args):
             if deck["untouched"] or deck["catch_untouched"]:
                 ear = f" + {deck['catch_untouched']} ear-only" if deck["catch_untouched"] else ""
                 print(f"  ⚠ Coverage: {deck['untouched']} fire item(s){ear} never worked "
-                      f"({deck['surv_untouched']} of them survival tier) — see the ticket for the register breakdown")
+                      f"({deck['surv_untouched']} of them survival tier) — see the ticket for the register breakdown.")
+                print("    ENGINEERING NUMBER — steers what Python picks; never narrated to Andrew "
+                      "(a global deficit recited in a warm voice is guilt machinery, 2026-07-17).")
         print(f"Fired today: {fires_today()}")
 
     if episodes:
