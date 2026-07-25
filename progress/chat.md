@@ -15,6 +15,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > அதுதான்! — 'station-ku poganum', clean. போகணும் was on the recent list so hinted, but the frame fired right. · 2/2 — the uncle is talking too fast — one line to slow him down
 
+**00:21 · Andrew** — **COLD**
+> Medhuva solla
+
+**Anna ↩**
+> adhu dhaan! — add 'puriyala' first: 'puriyala, medhuva sollu' 🔥
+
 **15:19 · Anna**  ·  grace / campaign close: kudunga won
 > da — Ask-Machine Week is done. kudunga fired cold at a real table 07-18. that's the headline. 🏆
 
