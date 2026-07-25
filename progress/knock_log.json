@@ -2295,6 +2295,20 @@
     "target_revealed": false,
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-07-25T13-02.mp3",
     "memo_script": "ஹலோ, ஹலோ — கேக்குதா?\n\nஆமா, நேத்து அவங்க வந்துட்டாங்களாம். யாரும் சொல்லலாம்னு நினைக்கல — திடீர்னு வந்துட்டாங்க.\n\nஏன்னு கேட்டியா? அவங்க சொன்னது என்னன்னா — ஏதோ ஒரு பிரச்சனை இருக்காம். என்னன்னு சரியா தெரியல.\n\nஆனா, அக்கா சொன்னா — கவலைப்படாதன்னு. சரியாயிடும்னு சொன்னாங்களாம்.\n\nஓக்கே சரி, பிறகு பேசுவோம் — கிட்ட இருக்கேன் சொல்லு.",
-    "mp3": "published_audio/knocks/knock_2026-07-25T13-02.mp3"
+    "mp3": "published_audio/knocks/knock_2026-07-25T13-02.mp3",
+    "response": "reply",
+    "reply": "They’re talking about gossip someone said there’s a problem. Can I have a hint",
+    "reply_verdict": "half-caught",
+    "reply_line": "half there — you got 'problem, something happened' but missed the shape: someone showed up suddenly, unannounced, and akka's line was 'don't worry, it'll be fine.' the key word doing all the work: *aam* — she heard it secondhand, she doesn't actually know what's wrong.",
+    "reply_at": "2026-07-25T15:18:58Z",
+    "exchanges": [
+      {
+        "at": "2026-07-25T15:18:58Z",
+        "reply": "They’re talking about gossip someone said there’s a problem. Can I have a hint",
+        "verdict": "half-caught",
+        "fired": [],
+        "reply_line": "half there — you got 'problem, something happened' but missed the shape: someone showed up suddenly, unannounced, and akka's line was 'don't worry, it'll be fine.' the key word doing all the work: *aam* — she heard it secondhand, she doesn't actually know what's wrong."
+      }
+    ]
   }
 ]

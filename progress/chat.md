@@ -9,6 +9,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:02 · Anna** 🎧  ·  eavesdrop / eavesdrop: hearsay-aam gossip
 > 🎧 overheard — two sisters on the phone. what's the drift? (English answer ok)
 
+**11:18 · Andrew** — **HALF-CAUGHT**
+> They’re talking about gossip someone said there’s a problem. Can I have a hint
+
+**Anna ↩**
+> half there — you got 'problem, something happened' but missed the shape: someone showed up suddenly, unannounced, and akka's line was 'don't worry, it'll be fine.' the key word doing all the work: *aam* — she heard it secondhand, she doesn't actually know what's wrong.
+
 
 ## Friday 2026-07-24
 
