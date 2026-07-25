@@ -2140,15 +2140,16 @@
     ],
     "volley_next": 2,
     "response": "reply",
-    "reply": "Station ku poganum",
-    "reply_verdict": "hinted",
+    "reply": "Medhuva solla",
+    "reply_verdict": "cold",
     "reply_fired": [
-      "frame:needtogo-place"
+      "frame:needtogo-place",
+      "மெதுவா சொல்லு"
     ],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "அதுதான்! — 'station-ku poganum', clean. போகணும் was on the recent list so hinted, but the frame fired right. · 2/2 — the uncle is talking too fast — one line to slow him down",
-    "reply_at": "2026-07-25T04:18:39Z",
+    "reply_line": "adhu dhaan! — add 'puriyala' first: 'puriyala, medhuva sollu' 🔥",
+    "reply_at": "2026-07-25T04:21:21Z",
     "exchanges": [
       {
         "at": "2026-07-25T04:18:39Z",
@@ -2161,11 +2162,24 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "அதுதான்! — 'station-ku poganum', clean. போகணும் was on the recent list so hinted, but the frame fired right. · 2/2 — the uncle is talking too fast — one line to slow him down"
+      },
+      {
+        "at": "2026-07-25T04:21:21Z",
+        "reply": "Medhuva solla",
+        "verdict": "cold",
+        "fired": [
+          "மெதுவா சொல்லு"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! — add 'puriyala' first: 'puriyala, medhuva sollu' 🔥"
       }
     ],
     "chained": 1,
     "pinned_target": "புரியல",
-    "pinned_revealed": false
+    "pinned_revealed": false,
+    "volley_done": true
   },
   {
     "date": "2026-07-24",
