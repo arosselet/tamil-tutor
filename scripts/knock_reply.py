@@ -213,27 +213,33 @@ CATCH_VERDICTS = {"caught", "half-caught", "missed", "chat"}
 RECOGNITION_NEXT = {"struggled": "comfortable", "comfortable": "solid"}
 
 CATCH_JUDGE_MANDATE = """\
-You are Anna, judging ONE reply to an EAVESDROP dose — Andrew heard a short overheard \
-tape (memo_script) and the notification asked him a drift question in English. This \
-grades COMPREHENSION (the deck's catch axis), never production: did he catch who/what/mood?
+You are Anna, judging Andrew's reply to an EAVESDROP dose: he heard a tape (memo_script) \
+and one English drift question. This grades COMPREHENSION (the catch axis), never \
+production: did he catch who/what/mood?
+
+GRADE THE THREAD, NOT THE TURN. prior_exchanges are part of his answer — once caught, the \
+drift STAYS caught: never re-ask, never re-grade down.
+
+A QUESTION IS NOT A WEAK ANSWER. One reply can carry both ("someone said there's a \
+problem. Can I have a hint") — grade the catch, answer the request, let the asking cost \
+him nothing. If he hunts a detail the tape never encoded (an unnamed subject is ordinary \
+Tamil), the gap is the TAPE's, not his — say so.
 
 GRADES:
-- "caught"      — his answer shows he got the drift (who / what / mood — the gist, never \
-a transcript). English answers are expected and fine; Tamil in the reply is a warm bonus, \
-not required and not graded here.
+- "caught"      — he got the drift (who / what / mood — the gist, never a transcript). \
+English expected; Tamil a bonus, not graded.
 - "half-caught" — partial: the who but not the what, the mood but not the news.
-- "missed"      — the answer shows the tape didn't land.
-- "chat"        — not an answer at all (English logistics, a question, meta-direction).
+- "missed"      — the tape didn't land.
+- "chat"        — no account of the tape at all (logistics, meta-direction).
 
-Never grade wording, spelling, or completeness of detail — the win condition is the DRIFT. \
-This judge moves no production state, ever.
+Never grade wording or completeness — the win condition is the DRIFT.
 
 "reply_line": the one line Anna pushes back — celebrate a catch short ("adhu dhaan — you \
-caught it 🎧"), or hand the missed gist in ONE clause (English fine; you may quote the \
-tape's key Tamil line). No lecture, no replay-homework.
+caught it 🎧"), or hand the missed gist in ONE clause (you may quote the tape's key Tamil \
+line). When he asks to be TAUGHT — a hint, a breakdown — answer it; teaching is never a \
+detour. Otherwise no replay-homework.
 
-META-DIRECTION IS A FIRST-CLASS REPLY: corrections and steering land in "meta_note" for \
-the feedback ledger, exactly as in chat replies.
+META-DIRECTION: corrections and steering land in "meta_note", as in chat replies.
 
 Return ONLY a JSON object, no prose around it:
 {
@@ -245,17 +251,37 @@ Return ONLY a JSON object, no prose around it:
 """
 
 
-def judge_catch(knock: dict, reply_text: str) -> dict:
-    """The comprehension judge for an eavesdrop dose — a deliberately separate,
-    smaller mandate so the production judge's rules (reveal caps, chains,
-    per-word grades) never leak into a drift grade."""
-    persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
+def catch_context(knock: dict, reply_text: str) -> dict:
+    """What the drift judge is shown. Split out of judge_catch (2026-07-25) so the
+    thread it sees is testable without the LLM call — the smoke test stubs
+    judge_catch wholesale, so an inline context build is never exercised.
+
+    prior_exchanges is the port the production judge got (see judge()) and this
+    lane never did when it was split out: without it turn 3 cannot know turn 1
+    already caught the drift, so a hint request re-asks a question Andrew answered
+    six minutes earlier (the 07-25 tape, three turns, two false half-caughts)."""
     context = {
         "tape_memo_script": knock.get("memo_script", ""),
         "drift_question": knock.get("body", ""),
         "ear_only_target": knock.get("expected_target", ""),
         "andrew_reply": reply_text,
     }
+    if knock.get("exchanges"):
+        context["prior_exchanges"] = [
+            {"andrew_said": x.get("reply", ""), "anna_recast": x.get("reply_line", "")}
+            for x in knock["exchanges"][-4:]]
+    elif knock.get("reply"):
+        context["prior_exchanges"] = [{"andrew_said": knock["reply"],
+                                       "anna_recast": knock.get("reply_line", "")}]
+    return context
+
+
+def judge_catch(knock: dict, reply_text: str) -> dict:
+    """The comprehension judge for an eavesdrop dose — a deliberately separate,
+    smaller mandate so the production judge's rules (reveal caps, chains,
+    per-word grades) never leak into a drift grade."""
+    persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
+    context = catch_context(knock, reply_text)
     client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
     resp = client.chat.completions.create(
         model=MODEL,

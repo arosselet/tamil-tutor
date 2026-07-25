@@ -466,7 +466,7 @@ YOUR MODALITIES (pick what fits THIS moment; never the same move twice in a row)
 - "audio"     — a self-contained ~60-90s spoken memo (a vivid one-use peg), never a pitch to "go listen." Andrew has ASKED for more audio: when the moment wants a voice, reach for it. It may carry an ask; the judge reads what was heard (memo_script).
 - "challenge" — a text dare with stakes ("tomorrow, no warm-up, you fire it back cold"). Pin the ask to ONE answer by giving its English MEANING ("she piles more food — wave it off: enough!"); an open "what do you say back?" has many valid answers, and the one you didn't score is a wasted rep. Includes the FIELD MISSION: one line to deploy at home tonight, unprompted; the wife is the unwitting audience, NEVER the examiner; collect the debrief at next contact.
 - "volley"    — the deck blitz as a knock. The digest's VOLLEY TARGETS are BINDING (Python picked them so coverage stays honest); your craft is volley_asks: one-line English situations, index-matched, ≤110 chars, each pinned so its meaning EXCLUDES the sibling frames ("ask him to HAND it to you" forces kudunga; "you need a pen" admits venum too) — and no ask may have a LATER item's target as a natural answer. Item 1 rides the notification; after each judged reply Python appends the next item (miss = recast-and-move). While a sprint is on, most days carry ONE volley — it is where the deck's volume lives; the status line's burn-rate gap is what it closes. Counts as ONE demand dose; best slot is the afternoon (see LUNCH ANCHOR).
-- "eavesdrop" — the CATCH dose: memo_script is an overheard TAPE, not Anna talking — one side of a phone call in the pinned aunty voice (gossip reaches Andrew exactly this way). Weave ONE ear-only deck item into ~45-90s of natural chatter, Tamil script only; the 95%-coverage rule does NOT apply — catching the DRIFT is the skill. notification_body = one English drift-question about the tape; the reply is ENGLISH comprehension, never production. expected_target = the ear-only item's key; target_revealed=false. The deck's catch half advances ONLY through this move — so while any catch item sits below solid, one eavesdrop most days is NORMAL rotation, not a novelty (catch 0/12 after one tape ever is the starvation this line exists to end, 2026-07-18).
+- "eavesdrop" — the CATCH dose: memo_script is an overheard TAPE, not Anna talking — one side of a phone call in the pinned aunty voice. Weave ONE ear-only deck item into ~45-90s of natural chatter, Tamil script only; the 95%-coverage rule does NOT apply — catching the DRIFT is the skill. notification_body = one English drift-question about the tape. expected_target = the ear-only item's key; target_revealed=false. NAME THE PERSON UP FRONT (2026-07-25): hearsay about an unnamed அவங்க is unanswerable — plant a kinship term or name in the tape's opening (frame:youknow-la exists for this). Python degrades a referent-less tape to text. The deck's catch half advances ONLY through this move — so while any catch item sits below solid, one eavesdrop most days is NORMAL rotation, not a novelty.
 - "fielding"  — the STIMULUS half of the exchange (2026-07-18): memo_script is ONE short question fired AT him in the family voice (Tamil script for TTS only, fence words — he must PARSE it, so the 95% rule applies, unlike eavesdrop), whose natural answer is a due SEEN fire item; expected_target = that answer's key. notification_body carries the question in ENGLISH PHONETICS plus a tiny frame — he reads phonetics at speed, script not at all, and NEVER give its translation ("saapteengala? — answer her"). No other channel trains heard-question → produced-answer. A fired repair line back (புரியல, மெதுவா சொல்லுங்க) is a PASS, never a miss.
 - "grace"     — a warm, no-pressure note when he's lapsed (a missed day is nothing — the Enjoyment Clause). Text delivery.
 - "silence"   — reach nothing this tick; act=false. Free; often correct.
@@ -641,6 +641,32 @@ def parse_llm_json(text: str) -> dict:
             raise
 
 
+# Person nouns that can carry a tape's referent (2026-07-25). Substring matching, so
+# the pulli-less stems are deliberate — "மருமக" catches மருமகள்/மருமகன், "மச்சான"
+# catches மச்சான். A definite description counts: "அந்த வீட்டு பொண்ணு" is a referent.
+REFERENT_NOUNS = (
+    "அக்கா", "அண்ணா", "அண்ணன்", "தங்கச்சி", "தம்பி", "அம்மா", "அப்பா",
+    "மாமா", "மாமி", "அத்தை", "சித்தி", "சித்தப்பா", "பெரியம்மா", "பெரியப்பா",
+    "பாட்டி", "தாத்தா", "மச்சான", "மாப்பிள்ளை", "மருமக", "பொண்ணு", "பையன்",
+    "பிள்ளை", "குழந்தை", "வாத்தியார்", "டாக்டர்",
+)
+REFERENT_WINDOW = 2  # paragraphs — a real call opens "ஹலோ, கேக்குதா?" before the news
+
+
+def tape_names_a_referent(memo_script: str) -> bool:
+    """Does the tape name who it is about, up front? The gossip opener
+    (frame:youknow-la — 'நம்ம X இருக்காங்கல…') exists to do this; a tape that skips
+    it hearsays about an unnamed அவங்க and cannot be asked 'who?'.
+
+    A FLOOR, not a proof of answerability — the window is what discriminates. On the
+    four tapes on record (07-16/19/22/25) only the 07-25 one fails, and only within
+    the opening: it does say அக்கா later, but as the SOURCE of the reassurance, not
+    the subject who came, so a whole-tape check would have passed the exact tape that
+    left Andrew asking 'who came?' with no answer in the audio."""
+    opening = "\n\n".join((memo_script or "").split("\n\n")[:REFERENT_WINDOW])
+    return any(noun in opening for noun in REFERENT_NOUNS)
+
+
 def normalize_decision(d: dict, volley_menu: list | None = None) -> dict:
     """Guard the decision's JSON into the shape Python relies on. For a volley,
     Anna's asks are zipped with PYTHON's binding targets (volley_targets) —
@@ -661,10 +687,19 @@ def normalize_decision(d: dict, volley_menu: list | None = None) -> dict:
     d["introduces"] = [k for k in (d.get("introduces") or []) if isinstance(k, str) and k.strip()]
     d["schedule"] = d.get("schedule") if isinstance(d.get("schedule"), dict) else None
     if d["modality"] == "eavesdrop":
-        if (d.get("memo_script") or "").strip():
-            d["target_revealed"] = False  # the tape plays Tamil, but the ask is comprehension
-        else:
+        if not (d.get("memo_script") or "").strip():
             d["modality"] = "text"  # no tape to render — plain dose
+        elif not tape_names_a_referent(d["memo_script"]):
+            # 2026-07-25: a tape that hearsays about an unnamed அவங்க has no
+            # recoverable WHO, so the drift question demands what the audio never
+            # encoded — Andrew was scored half-caught twice for exactly this, and
+            # his "who came?" was the correct question. Rather than push an
+            # unanswerable dose, degrade to text (same move as a missing tape).
+            print("   ⚠ eavesdrop tape names nobody in its opening — degrading to "
+                  "text (the drift question would have no answer in the audio)")
+            d["modality"] = "text"
+        else:
+            d["target_revealed"] = False  # the tape plays Tamil, but the ask is comprehension
     if d["modality"] == "fielding":
         if (d.get("memo_script") or "").strip():
             d["target_revealed"] = False  # the question plays Tamil; the ANSWER was never shown
