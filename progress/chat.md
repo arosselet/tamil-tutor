@@ -15,6 +15,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > half there — you got 'problem, something happened' but missed the shape: someone showed up suddenly, unannounced, and akka's line was 'don't worry, it'll be fine.' the key word doing all the work: *aam* — she heard it secondhand, she doesn't actually know what's wrong.
 
+**11:21 · Andrew** — **HALF-CAUGHT**
+> Anna came unexpectedly? She heard and she said not problem
+
+**Anna ↩**
+> close — the surprise visit you got, and akka said 'don't worry, it'll be fine' (கவலைப்படாதன்னு). but there's a problem underneath — they don't fully know what it is yet. that part slipped past you.
+
 
 ## Friday 2026-07-24
 
