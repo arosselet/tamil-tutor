@@ -96,10 +96,22 @@ eavesdrop drill run — who+what caught, -aam missed a third time) → Tue **Tab
 irukku* pried loose, both hinted) → Thu clear the last stragglers in a leaving-scene,
 Friday = kudunga victory lap.
 
-**-aam watch (2026-07-20):** third contact went past him — 4 load-bearing instances in one
-tape, drift caught without the tail. Flag planted, deliberately not chased. Keep seeding
-via tapes and episodes; if the fourth contact also misses, that's signal for a real move,
-not a bigger dose.
+**-aam watch — CLOSED, CAUGHT (2026-07-25).** Fourth contact **landed on the first pass**:
+his reply was *"they're talking about gossip someone said there's a problem"* — unnamed
+source, second-hand stance, the tail's whole job. `frame:hearsay-aam` → recognition SOLID;
+catch axis 0/12 → 1/12, the first item ever cleared on that side.
+
+The three prior "misses" (07-16, 07-20, 07-22) stand as recorded, but read them with
+suspicion: the same judge bug that cost him this one may have been eating them too.
+**The 07-25 tape scored him half-caught twice for information it never contained** — it
+ran `-aam` with no antecedent and without `frame:youknow-la`, the opener whose entire job
+is to plant the referent, so the drift question "what's the gossip" had no recoverable
+*who*. His actual question, twice, was **"who came?"** — the correct question, asked of a
+tape that had no answer in it. Two rules follow: an eavesdrop tape carrying `-aam` must
+establish its subject in the first line or the drift question must not ask for one; and
+his instinct to hunt the missing subject is a comprehension WIN to be fed, not a gap.
+(Andrew, verbatim: *"I was asking for a hint and responding what I knew and it felt like
+it was asking for a question I couldn't answer."*)
 
 **Fri 07-24 ✓ — the close, and Andrew brought the material.** He walked in with two words
 overheard off **his wife and her sister talking to each other** — full speed, unaimed at
@@ -115,18 +127,26 @@ one unbroken breath.
 **🎯 The Overhear Week** (drafted by Anna 2026-07-24 at close; **not yet agreed** — Andrew
 adjusts or replaces it at the next open, per the contract above).
 
-**Why this one:** catch is the starving axis — **0/12 solid**, untouched all month while
+**Why this one:** catch is the starving axis — **1/12 solid** (was 0/12 all month) while
 fire went 13 → 15 — and on 07-24 Andrew proved, unprompted and in the wild, that his ear
 already works. The unit chases the thing he accidentally demonstrated.
 
 - **Catch targets (the headline, ear-only — never forced to fire):** `frame:quote-nu`,
-  `frame:hearsay-aam`, `frame:youknow-la`, என்னமோ பிரச்சனை, அலைச்சல்.
+  `frame:youknow-la`, என்னமோ பிரச்சனை, அலைச்சல். (`frame:hearsay-aam` **cleared 07-25** —
+  retired from the headline; keep it in the tapes as ambient, not as a target.)
+- **`frame:youknow-la` is now the load-bearing item, not a co-equal.** The 07-25 tape
+  proved why: `-aam` without an opener produces an unanswerable tape. Every tape that
+  hearsays about a person needs the opener that names them.
 - **Fire riders:** the **kel / kitta family** — *kitta* as the person-postposition
   (ask/hear disambiguator), *ketten* / *ketkuren* across the present-future toggle,
   and `frame:in-la` re-strained against it (places take -la, people take -kitta).
-- **The -aam watch, fourth contact.** Three misses on record (07-16, 07-20, and the
-  tail unheard on 07-22 despite the drift being caught). This campaign is where it gets
-  a real move rather than a bigger dose.
+- **The -aam watch is CLOSED — caught 07-25, first pass.** See the watch entry above.
+  The move this campaign owes is not to `-aam` but to the **judge and the tape**: grade a
+  reply's catch separately from its questions, and answer a request to be taught instead
+  of re-asking the drift question.
+- **Feed the missing-subject instinct.** He hunts the referent; that's the right reflex.
+  `யாரு?` (*yaaru?*) — "who?" — is the repair line that belongs in the antifreeze kit,
+  pending Oracle vibe-check and Andrew's call (it would move survival 33 → 34).
 - **Standing catch order (field mission, renewable):** bring back one word overheard from
   the sisters. Organic by construction — they talk daily; nothing to stage; the heist
   stays sacred because he produces nothing.
