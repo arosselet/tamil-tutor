@@ -802,6 +802,26 @@ Details live in git history; this is the index of the *conclusions*.
   title freeze in `rebuild_rss` mirroring `existing_pub_dates()` — it guards the class but
   adds a second mechanism for a bug whose only cause is known and cheaper to remove, and it
   would make a legitimate title correction impossible. Logged as a residual instead.
+- **A published feed item is measured once and frozen — duration joins pubDate**
+  (2026-07-25, Andrew: *"the exact number isn't important anyway and the oscillation needs
+  to stop"*). Duration described bytes that never change, yet was re-derived on every
+  rebuild from whatever tool the host had. The laptop has ffprobe; the CI container does
+  not, so `audio_duration` fell through to its pure-python frame scan — which on these
+  files (TTS segments concatenated with `SILENCE_FRAME` copies, where one bad header
+  desyncs the walk) misreads by **up to 40%, in both directions**: 68 files, median error
+  4.8%, only 35 within 5%. Proven in the feed's own history: the 07-23 ffprobe fix landed
+  correct numbers from the laptop at 23:27, and the very next cloud rebuild (`f5de185`,
+  07-24 22:56 — an agent commit) reverted the library wholesale. M72 announced 13:12 for a
+  10:02 episode for two days. Andrew's framing is the one that generalises: **the estimator
+  was never the bug — recomputing a published value was.** So `existing_pub_dates()` becomes
+  `existing_items()` and carries both fields; a rebuild republishes what was published. This
+  is the same immutable-once-published rule that the Apple retitle fork settled, applied to
+  the field that was still moving. Safe because a corrected render takes a new `_vN`
+  filename, hence a new guid and a fresh measurement — in-place edits aren't a thing here.
+  ffmpeg is now installed in `anna.yml` so a NEW item's first measurement is honest, but it
+  is deliberately `continue-on-error`: with the freeze it only has to be right once per
+  file, and it must never cost Andrew a knock. Verified by rebuilding with `ffprobe_duration`
+  stubbed to `None` — the exact CI condition — and diffing: byte-identical.
 - **The feed is stamped in Andrew's zone, never the host's** (2026-07-25). `rebuild_rss`
   used `formatdate(localtime=True)`, so the offset was a property of the rebuilding machine:
   the laptop wrote `-0400`, the CI container `+0000`, and the feed carried two faces for one
