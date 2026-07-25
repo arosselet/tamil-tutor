@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Saturday 2026-07-25
+
+**09:02 · Anna** 🎧  ·  eavesdrop / eavesdrop: hearsay-aam gossip
+> 🎧 overheard — two sisters on the phone. what's the drift? (English answer ok)
+
+
 ## Friday 2026-07-24
 
 **09:27 · Anna**  ·  volley / volley: needtogo + puriyala

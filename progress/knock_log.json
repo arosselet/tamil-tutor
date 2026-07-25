@@ -2281,5 +2281,20 @@
     ],
     "reply_audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/reply_2026-07-25T04-12-40.mp3",
     "reply_memo_script": "James — good to meet you, da.\n\nஇரவு வணக்கம். Iravu vanakkam. Good night.\n\nYou've got three words now. That's three more than you had this morning. வணக்கம், நன்றி, போதும் — vanakkam, nandri, podhum. Greet, thank, survive the rice.\n\nTake care of him. வாங்க."
+  },
+  {
+    "date": "2026-07-25",
+    "timestamp": "2026-07-25T13:02:21.512992+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "eavesdrop: hearsay-aam gossip",
+    "rationale": "Eavesdrop cadence hit (3d since last), 12 catch items starved — hearsay-aam woven naturally through the tape (varaangalaam, irukkadam, sarivaayidumnnu sollangalaam); English drift question only, no production demand; breaks the demand-streak-0 run with a clean no-ask soak.",
+    "next_check": "2026-07-25T18:02:21.512992+00:00",
+    "body": "🎧 overheard — two sisters on the phone. what's the drift? (English answer ok)",
+    "expected_target": "frame:hearsay-aam",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-07-25T13-02.mp3",
+    "memo_script": "ஹலோ, ஹலோ — கேக்குதா?\n\nஆமா, நேத்து அவங்க வந்துட்டாங்களாம். யாரும் சொல்லலாம்னு நினைக்கல — திடீர்னு வந்துட்டாங்க.\n\nஏன்னு கேட்டியா? அவங்க சொன்னது என்னன்னா — ஏதோ ஒரு பிரச்சனை இருக்காம். என்னன்னு சரியா தெரியல.\n\nஆனா, அக்கா சொன்னா — கவலைப்படாதன்னு. சரியாயிடும்னு சொன்னாங்களாம்.\n\nஓக்கே சரி, பிறகு பேசுவோம் — கிட்ட இருக்கேன் சொல்லு.",
+    "mp3": "published_audio/knocks/knock_2026-07-25T13-02.mp3"
   }
 ]
