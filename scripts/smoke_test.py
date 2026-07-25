@@ -25,6 +25,7 @@ A fixed bug becomes a case here the day it's fixed:
       instead of retrying hourly (2026-07-23)
 """
 import argparse
+import email.utils
 import importlib
 import json
 import os
@@ -32,6 +33,7 @@ import re
 import shutil
 import sys
 import tempfile
+import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -1392,16 +1394,20 @@ def s29_one_runner_every_capability(mk, pq, kr, sb: Path):
                         if not ln.lstrip().startswith("#"))
     for var in ("OPENROUTER_API_KEY", "ANNA_PUSH_WEBHOOK_URL", "GOOGLE_APPLICATION_CREDENTIALS"):
         check(f"{var} is job-level, not per-step", var in job_env)
-    # The 2026-07-24 outage: job-level env may use secrets/github/vars/inputs but
-    # NOT `runner`. GitHub rejects the whole FILE — anna.yml never ran, four
-    # pushes in a row, while smoke.yml went green beside it and hid it. YAML that
-    # parses is not a workflow that runs; this is the cheapest guard for the gap.
-    check("job-level env uses no `runner` context (file-invalidating)",
-          "runner." not in job_env, "job env references the runner context")
-    for ctx in re.findall(r"\$\{\{\s*([a-z]+)\.", job_env):
-        check(f"job-level env context `{ctx}` is legal there",
-              ctx in {"secrets", "github", "vars", "inputs", "needs", "strategy", "matrix"},
-              f"`{ctx}` is not available in jobs.<id>.env")
+    # The 2026-07-24 outage — `runner` in job-level env, valid YAML that GitHub
+    # rejects outright — was guarded here by a hand-rolled context whitelist.
+    # RETIRED 2026-07-25 for actionlint in smoke.yml, which knows the whole
+    # context-availability table (not just jobs.<id>.env), plus schema, action
+    # refs and expression syntax. Verified against the real broken file: it flags
+    # line 65 with the exact legal-context list the whitelist hard-coded.
+    # What's asserted here now is that the mechanism is still WIRED — this suite
+    # runs locally where actionlint may be absent, so the guard it can still keep
+    # is "CI has not quietly dropped the linter".
+    smoke_yml = (wf_dir / "smoke.yml").read_text(encoding="utf-8")
+    check("CI lints the workflow files themselves", "./actionlint" in smoke_yml)
+    check("the linter is version-pinned",
+          re.search(r"actionlint_\d+\.\d+\.\d+_linux", smoke_yml) is not None)
+    check("workflow changes trigger the lint", ".github/workflows/**" in smoke_yml)
     check("one hourly cron replaces three expressions",
           anna.count("- cron:") == 1 and '- cron: "0 * * * *"' in anna)
     # Drain-first is load-bearing: it logs a reach, and rails_gate counts today's
@@ -1495,8 +1501,22 @@ def s29_one_runner_every_capability(mk, pq, kr, sb: Path):
     real_push, real_commit, real_feed = pq.push_to_phone, pq.commit_and_push, pq.refresh_feed
     pq.push_to_phone = lambda body, url=None, knock_id="": events.append(("push", url))
     pq.commit_and_push = lambda paths, msg: events.append(
-        ("commit", "mp3" if any(str(p).endswith(".mp3") for p in paths) else "state"))
-    pq.refresh_feed = lambda: None
+        ("commit", "mp3" if any(str(p).endswith(".mp3") for p in paths) else "state",
+         any(str(p).endswith("rss.xml") for p in paths)))
+
+    # rebuild_rss titles a dose from knock_log.json, so WHEN the feed is rebuilt
+    # decides whether the published title carries the move label. Record what the
+    # log looked like at rebuild time — a label-less first write means a later
+    # lane retitles a published item, which Apple Podcasts forks into a second
+    # episode (2026-07-24 8pm dose, seen twice on one guid).
+    rss_stub = sb / "rss.xml"
+
+    def fake_feed():
+        entries = read_json(klog_path) or []
+        events.append(("feed", any(e.get("queue_id") == "qVOICE" for e in entries)))
+        return rss_stub
+
+    pq.refresh_feed = fake_feed
     pq.render_memo = fake_render
     try:
         pq.WAKING_START_HOUR, pq.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = 0, 24, 99
@@ -1508,6 +1528,13 @@ def s29_one_runner_every_capability(mk, pq, kr, sb: Path):
         check("mp3 is committed before the notification fires",
               kinds[:2] == ["commit", "push"] and events[0][1] == "mp3", f"got {events}")
         check("state is committed after the push", kinds[-1] == "commit" and events[-1][1] == "state")
+        feeds = [e for e in events if e[0] == "feed"]
+        check("the feed is rebuilt exactly once per drain", len(feeds) == 1, f"got {feeds}")
+        check("the feed is rebuilt only AFTER the fired dose is in the knock log",
+              feeds and feeds[0][1], "rebuilt before the log write — title would publish label-less")
+        check("the mp3 commit carries no feed rebuild",
+              events[0][2] is False, f"got {events[0]}")
+        check("rss.xml rides the state commit", events[-1][2] is True, f"got {events[-1]}")
         check("the notification carries the rendered audio_url",
               (events[1][1] or "").startswith("https://cdn.jsdelivr.net/gh/"), f"got {events[1]}")
         logged = read_json(klog_path)[-1]
@@ -1633,6 +1660,31 @@ def s31_feed_carries_every_pushed_dose(sb: Path):
     src = (REAL_BASE / "scripts" / "rebuild_rss.py").read_text(encoding="utf-8")
     check("feed sort is deterministic (filename breaks ties)",
           "key=lambda f: (sort_key(f), f)" in src)
+
+    # A dose is announced in Andrew's zone no matter which machine rebuilds.
+    # `localtime=True` stamped the HOST's zone, so the laptop wrote -0400 and the
+    # CI container +0000 for one listener in one timezone. Same instant, two
+    # faces. Simulate a UTC host: the offset must not move.
+    stamp = datetime(2026, 7, 24, 19, 56, 25, tzinfo=rr.LOCAL_TZ).timestamp()
+    saved_tz = os.environ.get("TZ")
+    try:
+        os.environ["TZ"] = "UTC"
+        time.tzset()
+        pub = email.utils.format_datetime(datetime.fromtimestamp(stamp, rr.LOCAL_TZ))
+        check("a pubDate is stamped in Andrew's zone on a UTC host", pub.endswith("-0400"),
+              f"got {pub}")
+        check("the pubDate names the local wall clock", "19:56:25" in pub, f"got {pub}")
+    finally:
+        if saved_tz is None:
+            os.environ.pop("TZ", None)
+        else:
+            os.environ["TZ"] = saved_tz
+        time.tzset()
+    # Comments stripped, per s29: rebuild_rss EXPLAINS the retired host-clock call
+    # in prose, and a guard that trips on its own documentation is one nobody keeps.
+    code = "\n".join(ln for ln in src.splitlines() if not ln.lstrip().startswith("#"))
+    check("the feed never stamps in the host's zone",
+          "localtime=True" not in code, "rebuild_rss still uses the host clock")
 
 
 def main():

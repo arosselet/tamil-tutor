@@ -245,10 +245,12 @@ def cmd_drain(args):
     # separate commit preserves the drain's retry property — a push that fails
     # below leaves the entry queued (save_queue runs after), so it fires again
     # next wake-up against an mp3 that is already published.
+    #
+    # The mp3 ONLY. The feed rebuild belongs with the knock-log write below, not
+    # here — see the comment at that commit.
     rendered = [p for p in (render_entry(e) for e in fired) if p is not None]
     if rendered and not args.no_commit:
-        rss = refresh_feed()
-        commit_and_push(rendered + ([rss] if rss else []),
+        commit_and_push(rendered,
                         f"Scheduled voice dose rendered ({', '.join(e['id'] for e in fired if e.get('memo_script'))})")
 
     for e in fired:
@@ -276,7 +278,18 @@ def cmd_drain(args):
     KNOCK_LOG_PATH.write_text(json.dumps(klog, ensure_ascii=False, indent=2), encoding="utf-8")
     save_queue(kept)
     if not args.no_commit:
-        commit_and_push([QUEUE_PATH, KNOCK_LOG_PATH, render_chat()],
+        # Feed AFTER the log, never before. rebuild_rss titles each pushed dose
+        # from knock_log.json, so rebuilding up in the mp3 commit — where the
+        # entry does not exist yet — publishes a label-less title, and the next
+        # lane to rebuild silently retitles an item Andrew's client already has.
+        # Apple Podcasts treats a published item's title as part of its identity:
+        # the 2026-07-24 8pm dose forked into TWO episodes on a stable guid, one
+        # "Scheduled — 2026-07-24 23:56", one "… · welcome james".
+        # morning_knock and knock_reply already order it log→feed→commit; the
+        # drain was the only lane that didn't, because its legitimate two-commit
+        # split (CDN pre-warm, above) swept the rebuild along with the mp3.
+        rss = refresh_feed()
+        commit_and_push([QUEUE_PATH, KNOCK_LOG_PATH, render_chat()] + ([rss] if rss else []),
                         f"Scheduled push fired ({', '.join(e['id'] for e in fired)})")
     print(f"done — fired {len(fired)}, {len(kept)} still queued.")
 

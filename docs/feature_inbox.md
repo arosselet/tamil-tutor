@@ -85,6 +85,17 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
   the first step, so the window is seconds) and low-consequence. The real fix is a claim/
   lease on a queue entry — a schema change, so it waits per Gate 2. Revisit on first
   sighting, or if scheduled pushes get frequent enough to make the window matter.
+- **Published feed titles could still be mutated by any writer** (residual of the
+  2026-07-25 Apple-Podcasts fork; the *cause* is fixed, the *class* is not). Apple treats a
+  retitle of a published item as a new episode, and `rebuild_rss` derives every knock/
+  scheduled/reply title from `knock_log.json` at rebuild time — so any later change to a
+  `move` string (a hand repair, a judge rewrite, a klog migration) silently forks that
+  episode in Andrew's player. The drain, the only lane that actually did this, now rebuilds
+  after the log write (smoke s29 asserts it). The class-level guard is an `existing_titles()`
+  in `rebuild_rss` mirroring `existing_pub_dates()`: once published, a title is frozen. ~8
+  lines, same shape as code already there. Held per the one-sighting bar, and because it
+  would make a genuine title correction unfixable without hand-editing `rss.xml`. Revisit on
+  a second fork, or the first time we want to rewrite move labels in bulk.
 - **Phantom-fired knock on delivery failure** — the knock logs + commits *before* the
   notify step, so a push that fails all retries leaves `acted: true` for a dose Andrew
   never saw (rails count it; judge could grade against it). Seen once (2026-07-14 DNS

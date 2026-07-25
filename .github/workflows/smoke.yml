@@ -21,6 +21,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # anna.yml does NOT run on push, and it must not: a push-triggered Anna
+      # would drain the queue, judge replies and notify Andrew's phone on every
+      # commit. So nothing exercised that file until its next hourly cron —
+      # which is how it sat unrunnable through four pushes on 2026-07-24 while
+      # this workflow went green beside it (`runner` context in job-level env:
+      # valid YAML, rejected by GitHub, zero-duration "failures" on the push).
+      # A file that parses is not a workflow that runs. actionlint validates the
+      # schema, context availability per position, and expression syntax — the
+      # closest thing to "would GitHub accept this" without running it, and with
+      # no side effects. Pinned; the tarball is the release artifact, not a
+      # curl|bash of a moving branch.
+      - name: Lint the workflow files themselves
+        run: |
+          curl -sSfL -o actionlint.tgz \
+            https://github.com/rhysd/actionlint/releases/download/v1.7.7/actionlint_1.7.7_linux_amd64.tar.gz
+          tar xzf actionlint.tgz actionlint
+          ./actionlint -color
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
