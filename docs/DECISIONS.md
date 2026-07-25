@@ -921,3 +921,32 @@ Details live in git history; this is the index of the *conclusions*.
   headline" (2026-07-18): that entry fixed a demoralizing denominator and the new one hid a
   distribution — honest meters must show both. Smoke `s32` (registry #12) guards the ordering
   law and the coverage split; it goes red on the old sort key (verified).
+- **One selector, one ordering law — the predecessors are retired, not stacked**
+  (2026-07-25, Andrew: "if we've tried to fix the bug before and it hasn't worked out, we
+  should identify the right fix and retire the previous [patch]"). Applied to the four
+  prior attempts at deck starvation. **`recent_ask_counts` moves from `morning_knock` into
+  `suggest_targets`** and becomes the third term of the one sort key —
+  `tier → -staleness → asks → ripeness → key`. The knock module's two copies of
+  `sorted(pending, key=asked)` are **deleted**, which also repairs a defect they carried:
+  a stable re-sort by ask count alone made it the OUTERMOST key, so an asked-once
+  *survival* item fell below an unasked *dessert* one. The move is down a layer —
+  outreach may depend on selection, never the reverse; `suggest_targets` must stay
+  importable without the OpenAI/TTS stack, since it is what opens every session. The
+  ticket had no ask-demotion at all before this and now inherits it for free. Ask-count
+  is what breaks the tie staleness cannot: 50 items sit together at `NEVER_SURFACED`,
+  and an ask that got no reply never sets `last_surfaced`, so a missed item would
+  otherwise be re-asked forever (the original KF-6 symptom). Same audit fixed the count
+  itself: **a volley's items 2..n were never counted as asked** — `expected_target` names
+  only item 1 — while the volley is the deck's main volume channel, so the demotion was
+  blind to most of the asking. First measured effect: yesterday's two volley frames left
+  the head of the queue and the volley reached four never-asked antifreeze/public chunks
+  for the first time. **`render_drill.deck_due_payload`'s frame/chunk interleave is kept
+  but re-justified** — its stated reason (ASCII `frame:` keys sorting ahead of Tamil
+  script) is dead; a plain top-6 now measures 2 frames / 4 chunks. It survives only as a
+  pedagogy choice (a drill wants alternating slot-fill and said-whole work) and its
+  docstring now says so, with the deletion condition named. Keeping a workaround whose
+  comment describes a bug that no longer exists is how a file becomes untouchable.
+  **Known and left alone:** `recent_ask_counts` matches phonetics by substring, so
+  1–2 character lexicon keys (`ல`, `ஆ`, `அவ`) collect false hits — inert here, because
+  only deck members are read from the counts and none are that short. Revisit if a short
+  deck item is ever seeded.

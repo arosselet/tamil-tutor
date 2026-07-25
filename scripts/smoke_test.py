@@ -1834,12 +1834,55 @@ def s32_deck_rotation_and_coverage(mk, sb: Path):
     lex = {k: {kk: vv for kk, vv in v.items() if kk != "_reg"} for k, v in fixture.items()}
     deck_file = sb / "curriculum" / "trip_deck.json"
     lex_path = sb / "progress" / "lexicon.json"
-    saved = (deck_file.read_bytes(), lex_path.read_bytes())
+    klog_path = sb / "progress" / "knock_log.json"
+    saved = (deck_file.read_bytes(), lex_path.read_bytes(), klog_path.read_bytes())
+    # Yesterday's volley asked surv-tail as its SECOND item — `expected_target`
+    # names only item 1, so items 2..n were invisible to the ask count while the
+    # volley is the deck's main volume channel.
+    recent_ts = (datetime.now(timezone.utc) - timedelta(hours=8)).isoformat()
+    klog = [{"acted": True, "timestamp": recent_ts, "modality": "volley",
+             "expected_target": "smoke:surv-mid", "body": "volley 1/2",
+             "volley": [{"target": "smoke:surv-mid", "ask": "a"},
+                        {"target": "smoke:surv-tail", "ask": "b"}]}]
     try:
         write_json(deck_file, [{"tamil": k, "register": v["_reg"], "gloss": "x"}
                                for k, v in fixture.items()])
         write_json(lex_path, lex)
+        write_json(klog_path, klog)
+
+        asked = st.recent_ask_counts(klog, lex)
+        check("a volley's later items count as asked, not just item 1",
+              asked.get("smoke:surv-tail") == 1, f"got {asked}")
+        check("the volley's opening item still counts",
+              asked.get("smoke:surv-mid") == 1, f"got {asked}")
+
+        # Ask-count breaks the tie the 50-item never-worked cohort sits in:
+        # surv-tail and surv-unseen are both NEVER_SURFACED, and tail was asked.
         deck = st.deck_status(lex, today=today)
+        order = [t["word"] for t in deck["pending"]]
+        check("within the never-worked cohort, least-asked leads (not alphabetical)",
+              order.index("smoke:surv-unseen") < order.index("smoke:surv-tail"), f"got {order}")
+        check("ask-count stays subordinate to tier: an asked survival item still "
+              "outranks an unasked dessert one",
+              order.index("smoke:surv-tail") < order.index("smoke:dessert-new"), f"got {order}")
+        check("the ask count rides on the item for the menu's warning",
+              [t["asks"] for t in deck["pending"] if t["word"] == "smoke:surv-tail"] == [1],
+              f"got {deck['pending']}")
+        check("the knock menu names the recent ask",
+              "asked/shown 1×" in mk.deck_due_list(), f"got {mk.deck_due_list()}")
+        # One owner: the knock channel no longer re-sorts, so its picks must be
+        # the selector's own order.
+        vt = [t["target"] for t in mk.volley_targets(n=4)]
+        pend = [t["word"] for t in deck["pending"]]
+        check("the volley reads the selector's order, it does not re-sort",
+              [w for w in pend if w in vt] == vt, f"volley={vt} pending={pend}")
+        check("recent_ask_counts has one home",
+              not hasattr(mk, "recent_ask_counts"), "the knock-side copy survived")
+
+        # Re-run the ordering laws with an empty log, so the coverage assertions
+        # below read the same fixture the rest of the case was written against.
+        write_json(klog_path, [])
+        deck = st.deck_status(lex, today=today, asked={})
         order = [t["word"] for t in deck["pending"]]
 
         # The regression: under the old key the ripe, recently-worked headliner
@@ -1902,6 +1945,7 @@ def s32_deck_rotation_and_coverage(mk, sb: Path):
     finally:
         deck_file.write_bytes(saved[0])
         lex_path.write_bytes(saved[1])
+        klog_path.write_bytes(saved[2])
 
 
 def main():
