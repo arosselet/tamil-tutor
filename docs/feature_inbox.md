@@ -4,6 +4,16 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **`--debrief` alone counts as a session (found 2026-07-25).** `sync_state.py update`
+  appends a session-log row when *any* of cold/hinted/demoted/listened/debrief is present
+  (line 451), so correcting a debrief for bookkeeping reasons writes a zero-fire "session"
+  — it moved *last logged session* to today and put a zero-fire day into the trailing-pace
+  window, both of which steer knock policy. Found while correcting the 07-25 -aam record.
+  A debrief edit is not a rep. Options: gate the append on cold/hinted/demoted/listened
+  only; or a `--bookkeeping` flag that suppresses it. Schema-adjacent → waits for Andrew.
+  (The stray 2026-07-25 row is still in `session_log.json`; there is no CLI to remove one,
+  and hand-editing Python-owned state is out of bounds.)
+
 - **BUILD (decided 2026-07-24): autonomous cloud episode production, inside the knock
   tick.** The cron question is settled — the local watchdog cron is RETIRED, replaced by
   cloud production. Direction locked with Andrew:
