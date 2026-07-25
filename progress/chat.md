@@ -21,6 +21,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > close — the surprise visit you got, and akka said 'don't worry, it'll be fine' (கவலைப்படாதன்னு). but there's a problem underneath — they don't fully know what it is yet. that part slipped past you.
 
+**11:24 · Andrew** — **CHAT**
+> Ok can you re cast this into a breakdown line by line what was said?
+
+**Anna ↩**
+> that's a system note, not a drift answer — what did you *catch* from the tape? even a rough 'someone showed up unexpectedly and there's some kind of problem' counts.
+
 
 ## Friday 2026-07-24
 

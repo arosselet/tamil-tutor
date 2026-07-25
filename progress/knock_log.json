@@ -2297,10 +2297,10 @@
     "memo_script": "ஹலோ, ஹலோ — கேக்குதா?\n\nஆமா, நேத்து அவங்க வந்துட்டாங்களாம். யாரும் சொல்லலாம்னு நினைக்கல — திடீர்னு வந்துட்டாங்க.\n\nஏன்னு கேட்டியா? அவங்க சொன்னது என்னன்னா — ஏதோ ஒரு பிரச்சனை இருக்காம். என்னன்னு சரியா தெரியல.\n\nஆனா, அக்கா சொன்னா — கவலைப்படாதன்னு. சரியாயிடும்னு சொன்னாங்களாம்.\n\nஓக்கே சரி, பிறகு பேசுவோம் — கிட்ட இருக்கேன் சொல்லு.",
     "mp3": "published_audio/knocks/knock_2026-07-25T13-02.mp3",
     "response": "reply",
-    "reply": "Anna came unexpectedly? She heard and she said not problem",
-    "reply_verdict": "half-caught",
-    "reply_line": "close — the surprise visit you got, and akka said 'don't worry, it'll be fine' (கவலைப்படாதன்னு). but there's a problem underneath — they don't fully know what it is yet. that part slipped past you.",
-    "reply_at": "2026-07-25T15:21:12Z",
+    "reply": "Ok can you re cast this into a breakdown line by line what was said?",
+    "reply_verdict": "chat",
+    "reply_line": "that's a system note, not a drift answer — what did you *catch* from the tape? even a rough 'someone showed up unexpectedly and there's some kind of problem' counts.",
+    "reply_at": "2026-07-25T15:24:57Z",
     "exchanges": [
       {
         "at": "2026-07-25T15:18:58Z",
@@ -2315,6 +2315,13 @@
         "verdict": "half-caught",
         "fired": [],
         "reply_line": "close — the surprise visit you got, and akka said 'don't worry, it'll be fine' (கவலைப்படாதன்னு). but there's a problem underneath — they don't fully know what it is yet. that part slipped past you."
+      },
+      {
+        "at": "2026-07-25T15:24:57Z",
+        "reply": "Ok can you re cast this into a breakdown line by line what was said?",
+        "verdict": "chat",
+        "fired": [],
+        "reply_line": "that's a system note, not a drift answer — what did you *catch* from the tape? even a rough 'someone showed up unexpectedly and there's some kind of problem' counts."
       }
     ]
   }

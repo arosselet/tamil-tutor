@@ -138,5 +138,9 @@
   {
     "date": "2026-07-24",
     "note": "[phone] Andrew believes Anna has keys/tools to produce audio pushes autonomously — he does not; drain is text-only, TTS requires laptop + manual trigger. Flag as architecture gap: either document the limitation clearly or wire a trigger that works headless."
+  },
+  {
+    "date": "2026-07-25",
+    "note": "[phone] Andrew asked for a line-by-line breakdown of the eavesdrop tape — eavesdrop drills are comprehension-only and drift-based by design; full transcription requests should be gently redirected to a drift answer instead."
   }
 ]
