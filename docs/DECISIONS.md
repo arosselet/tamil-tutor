@@ -818,10 +818,16 @@ Details live in git history; this is the index of the *conclusions*.
   is the same immutable-once-published rule that the Apple retitle fork settled, applied to
   the field that was still moving. Safe because a corrected render takes a new `_vN`
   filename, hence a new guid and a fresh measurement — in-place edits aren't a thing here.
-  ffmpeg is now installed in `anna.yml` so a NEW item's first measurement is honest, but it
-  is deliberately `continue-on-error`: with the freeze it only has to be right once per
-  file, and it must never cost Andrew a knock. Verified by rebuilding with `ffprobe_duration`
-  stubbed to `None` — the exact CI condition — and diffing: byte-identical.
+  ffmpeg is now installed in `anna.yml` so a NEW item's first measurement is honest (the
+  runner-images manifest confirms ubuntu-24.04 ships none; MediaInfo is the only media tool
+  present), but it is deliberately `continue-on-error`: with the freeze it only has to be
+  right once per file, and it must never cost Andrew a knock. Verified by rebuilding with
+  `ffprobe_duration` stubbed to `None` — the exact CI condition — and diffing: byte-identical.
+  **Not installed on `repository_dispatch`** — that is the lock-screen lane, and ~20s of apt
+  in front of a recast would have re-broken the latency constraint that already keeps
+  rendering out of the reply path. Caught as a self-inflicted regression the same night it
+  shipped. The accepted cost: a voice reply's duration is first measured by the frame scan
+  and frozen there — a few seconds on a ~19s clip, on the one lane nobody browses by length.
 - **The feed is stamped in Andrew's zone, never the host's** (2026-07-25). `rebuild_rss`
   used `formatdate(localtime=True)`, so the offset was a property of the rebuilding machine:
   the laptop wrote `-0400`, the CI container `+0000`, and the feed carried two faces for one

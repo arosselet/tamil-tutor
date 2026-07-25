@@ -1408,6 +1408,15 @@ def s29_one_runner_every_capability(mk, pq, kr, sb: Path):
     check("the linter is version-pinned",
           re.search(r"actionlint_\d+\.\d+\.\d+_linux", smoke_yml) is not None)
     check("workflow changes trigger the lint", ".github/workflows/**" in smoke_yml)
+    # ffprobe is installed because ubuntu-24.04 has no ffmpeg — but never on the
+    # lock-screen lane, which has a standing latency constraint (rendering was kept
+    # out of the reply path for the same reason). ~20s of apt before a recast is a
+    # regression, and durations freeze at first publication anyway.
+    ffstep = anna.split("Install ffprobe", 1)[1].split("- name:", 1)[0]
+    check("ffprobe is installed for the lanes that publish new audio", "ffmpeg" in ffstep)
+    check("the lock-screen lane skips the install",
+          "if: github.event_name != 'repository_dispatch'" in ffstep)
+    check("a failed install cannot cost a knock", "continue-on-error: true" in ffstep)
     check("one hourly cron replaces three expressions",
           anna.count("- cron:") == 1 and '- cron: "0 * * * *"' in anna)
     # Drain-first is load-bearing: it logs a reach, and rails_gate counts today's
