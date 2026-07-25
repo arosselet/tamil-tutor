@@ -2138,7 +2138,34 @@
         "ask": "the uncle is talking too fast — one line to slow him down"
       }
     ],
-    "volley_next": 1
+    "volley_next": 2,
+    "response": "reply",
+    "reply": "Station ku poganum",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "frame:needtogo-place"
+    ],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line": "அதுதான்! — 'station-ku poganum', clean. போகணும் was on the recent list so hinted, but the frame fired right. · 2/2 — the uncle is talking too fast — one line to slow him down",
+    "reply_at": "2026-07-25T04:18:39Z",
+    "exchanges": [
+      {
+        "at": "2026-07-25T04:18:39Z",
+        "reply": "Station ku poganum",
+        "verdict": "hinted",
+        "fired": [
+          "frame:needtogo-place"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "அதுதான்! — 'station-ku poganum', clean. போகணும் was on the recent list so hinted, but the frame fired right. · 2/2 — the uncle is talking too fast — one line to slow him down"
+      }
+    ],
+    "chained": 1,
+    "pinned_target": "புரியல",
+    "pinned_revealed": false
   },
   {
     "date": "2026-07-24",

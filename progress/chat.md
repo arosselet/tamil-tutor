@@ -9,6 +9,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:27 · Anna**  ·  volley / volley: needtogo + puriyala
 > ⚡ volley 1/2 — you're at the table, someone's holding you up — 'I need to go to the station'
 
+**00:18 · Andrew** — **HINTED**
+> Station ku poganum
+
+**Anna ↩**
+> அதுதான்! — 'station-ku poganum', clean. போகணும் was on the recent list so hinted, but the frame fired right. · 2/2 — the uncle is talking too fast — one line to slow him down
+
 **15:19 · Anna**  ·  grace / campaign close: kudunga won
 > da — Ask-Machine Week is done. kudunga fired cold at a real table 07-18. that's the headline. 🏆
 
