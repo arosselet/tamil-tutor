@@ -73,9 +73,16 @@ Return ONLY a JSON object, no prose around it:
 
 
 def deck_due_payload(max_entries: int) -> list[dict]:
-    """Ripest-first, but interleaved frame/chunk — deck_status ties break
-    alphabetically and 'frame:' keys sort before Tamil script, so a straight
-    head-slice would starve the chunks."""
+    """The selector's order, but interleaved frame/chunk — a drill is mouth-reps,
+    and a slot-fill and a said-whole phrase are different work, so a run of six
+    frames is a worse drill than an alternating six.
+
+    That is now the ONLY reason. Until 2026-07-25 this also worked around a
+    starving sort: `deck_status` broke ties alphabetically and ASCII 'frame:'
+    keys sorted ahead of every Tamil-script chunk, so a straight head-slice was
+    all frames. The selector is coverage-first now (a plain top-6 measures 2
+    frames / 4 chunks), so this is a pedagogy choice and no longer a guard —
+    delete it the day that stops being true."""
     deck = deck_status(load_json(LEXICON_PATH) or {})
     if not deck or not deck["pending"]:
         return []

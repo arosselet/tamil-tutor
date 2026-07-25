@@ -295,59 +295,28 @@ def remaining_room(klog: list, now: datetime) -> str:
             f"{streak_str}{lore_str}{eavesdrop_str}")
 
 
-def recent_ask_counts(klog: list, lexicon: dict, days: int = 3) -> dict:
-    """word → how many fired knocks in the last `days` asked for it (the original
-    expected_target) or printed it (body/memo/recast, whole chains). Ripest-first
-    alone kept the same headliner on top of the menu every day — the same ask
-    fired 5× in 4 days and capped itself at hinted forever (2026-07-06)."""
-    cutoff = datetime.now(timezone.utc) - timedelta(days=days)
-    recent = []
-    for k in klog:
-        if not is_fire(k):
-            continue
-        try:
-            ts = datetime.fromisoformat((k.get("timestamp") or "").replace("Z", "+00:00"))
-        except ValueError:
-            continue
-        if ts.tzinfo is None:
-            ts = ts.replace(tzinfo=timezone.utc)
-        if ts < cutoff:
-            continue
-        texts = [k.get("body", ""), k.get("memo_script", ""), k.get("reply_line", "")]
-        texts += [x.get("reply_line", "") for x in k.get("exchanges", [])]
-        recent.append((k.get("expected_target", ""), " ".join(t for t in texts if t).lower()))
-    counts = {}
-    for word, rec in lexicon.items():
-        probes = [word.lower()] + [p.lower() for p in rec.get("phonetic", []) if p]
-        n = sum(1 for tgt, blob in recent
-                if tgt == word or any(p in blob for p in probes))
-        if n:
-            counts[word] = n
-    return counts
-
-
 def deck_due_list(max_fire: int = 6, max_catch: int = 2) -> str:
-    """The sprint deck's due items, ripest first BUT recently-asked last, so a
-    knock's expected_target can hit what's actually due instead of re-running
-    yesterday's ask. `sync_state status` carries only the deck METER; this is
-    the menu. Items never soaked anywhere are flagged UNSEEN — the mandate
-    forbids cold-quizzing those (teach first, show dose)."""
+    """The sprint deck's due items in the selector's own order — coverage-first,
+    recently-asked demoted, both owned by `deck_status` since 2026-07-25 (this
+    module used to re-sort by its own ask counts, which let an asked-once
+    SURVIVAL item fall below an unasked dessert one). `sync_state status` carries
+    only the deck METER; this is the menu. Items never soaked anywhere are
+    flagged UNSEEN — the mandate forbids cold-quizzing those (teach first,
+    show dose)."""
     from suggest_targets import deck_status  # lazy: keeps module import light
     from sync_state import LEXICON_PATH, is_unseen
     lex = load_json(LEXICON_PATH) or {}
     deck = deck_status(lex)
     if not deck or not deck["pending"]:
         return ""
-    asked = recent_ask_counts(load_json(KNOCK_LOG_PATH) or [], lex)
-    pending = sorted(deck["pending"], key=lambda t: asked.get(t["word"], 0))
     lines = ["DECK DUE (the sprint menu — expected_target should usually come from here):"]
-    for t in pending[:max_fire]:
+    for t in deck["pending"][:max_fire]:
         state = "hinted→cold" if t["production"] == "hinted" else f"{t['recognition']}, cold-pending"
         if is_unseen(lex.get(t["word"], {})):
             state += " · ⚠ UNSEEN — teach first (show dose), don't quiz"
-        n = asked.get(t["word"], 0)
-        if n:
-            state += f" · ⚠ asked/shown {n}× in last 3d — needs a genuinely new scene, or pick another item"
+        if t["asks"]:
+            state += (f" · ⚠ asked/shown {t['asks']}× in last 3d — needs a genuinely "
+                      f"new scene, or pick another item")
         lines.append(f"    [{t['kind']}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{state}]")
     for t in deck["catch_pending"][:max_catch]:
         lines.append(f"    [ear-only] {t['word']} — {t['gloss'] or '[no gloss]'}  "
@@ -358,18 +327,17 @@ def deck_due_list(max_fire: int = 6, max_catch: int = 2) -> str:
 def volley_targets(n: int = VOLLEY_SIZE) -> list[dict]:
     """The BINDING item list for a volley knock — Python picks so deck coverage
     stays honest (Anna's taste concentrated reps on the same few headliners while
-    50+ items got zero touches, 2026-07-08). Due-first, recently-asked last,
-    UNSEEN and ear-only items excluded (teach-first / never-fire laws)."""
+    50+ items got zero touches, 2026-07-08). The order is `deck_status`'s own —
+    coverage-first, recently-asked demoted (2026-07-25); UNSEEN and ear-only
+    items excluded (teach-first / never-fire laws)."""
     from suggest_targets import deck_status  # lazy: keeps module import light
     from sync_state import LEXICON_PATH, is_unseen
     lex = load_json(LEXICON_PATH) or {}
     deck = deck_status(lex)
     if not deck or not deck["pending"]:
         return []
-    asked = recent_ask_counts(load_json(KNOCK_LOG_PATH) or [], lex)
-    pending = sorted(deck["pending"], key=lambda t: asked.get(t["word"], 0))
     out = []
-    for t in pending:
+    for t in deck["pending"]:
         if is_unseen(lex.get(t["word"], {})):
             continue  # UNSEEN — teach first (show dose), never cold-quiz
         out.append({"target": t["word"], "gloss": t.get("gloss", "")})

@@ -25,7 +25,7 @@ Usage:
 import argparse
 import json
 import sys
-from datetime import date
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 from generate_callbacks import due_callbacks, load_json, days_since, NEVER_SURFACED
@@ -38,6 +38,7 @@ if hasattr(sys.stdout, "reconfigure"):
 BASE = Path(__file__).parent.parent
 LEXICON_PATH = BASE / "progress" / "lexicon.json"
 WORD_POOL_PATH = BASE / "curriculum" / "word_pool.json"
+KNOCK_LOG_PATH = BASE / "progress" / "knock_log.json"
 SCRIPTS_DIR = BASE / "content" / "scripts"
 
 RECOGNIZED = {"comfortable", "solid"}
@@ -120,7 +121,52 @@ def deck_registers(deck: str = "trip") -> dict:
             for i in json.loads(path.read_text(encoding="utf-8"))}
 
 
-def deck_status(lexicon: dict, deck: str = "trip", today=None) -> dict | None:
+def recent_ask_counts(klog: list, lexicon: dict, days: int = 3, now=None) -> dict:
+    """word → how many fired knocks in the last `days` asked for it (the original
+    `expected_target`) or printed it (body/memo/recast, whole chains).
+
+    Lives here, not in `morning_knock`, because the selector is shared and the
+    ticket must stay importable without the OpenAI/TTS stack (2026-07-25). It
+    guards a gap staleness cannot see: an ask with no reply never sets
+    `last_surfaced`, so a missed item stays maximally stale and would be
+    re-asked forever — the original KF-6 symptom (the same ask fired 5× in 4
+    days and capped itself at hinted, 2026-07-06)."""
+    now = now or datetime.now(timezone.utc)
+    cutoff = now - timedelta(days=days)
+    recent = []
+    for k in klog:
+        if not k.get("acted", True):  # legacy entries (no 'acted') were all fires
+            continue
+        try:
+            ts = datetime.fromisoformat((k.get("timestamp") or "").replace("Z", "+00:00"))
+        except ValueError:
+            continue
+        if ts.tzinfo is None:
+            ts = ts.replace(tzinfo=timezone.utc)
+        if ts < cutoff:
+            continue
+        texts = [k.get("body", ""), k.get("memo_script", ""), k.get("reply_line", "")]
+        texts += [x.get("reply_line", "") for x in k.get("exchanges", [])]
+        # Every item of a volley was asked, not just the one that opened it —
+        # `expected_target` names item 1 and Python walks the rest, so items 2..n
+        # were invisible to this count while being the deck's main volume channel
+        # (2026-07-25). Their asks are English situations, so only the targets
+        # carry the signal.
+        targets = {k.get("expected_target", "")}
+        targets |= {v.get("target", "") for v in (k.get("volley") or [])}
+        recent.append((targets, " ".join(t for t in texts if t).lower()))
+    counts = {}
+    for word, rec in lexicon.items():
+        probes = [word.lower()] + [p.lower() for p in rec.get("phonetic", []) if p]
+        n = sum(1 for tgts, blob in recent
+                if word in tgts or any(p in blob for p in probes))
+        if n:
+            counts[word] = n
+    return counts
+
+
+def deck_status(lexicon: dict, deck: str = "trip", today=None,
+                asked: dict | None = None) -> dict | None:
     """A finite, deadline-driven deck (the India-trip survival set), tagged
     `deck: "<name>"`. During a sprint this is the HEADLINE priority — Anna forces
     its not-yet-cold members first. Members split by `direction`: "fire" (default —
@@ -133,6 +179,8 @@ def deck_status(lexicon: dict, deck: str = "trip", today=None) -> dict | None:
         return None
     today = today or date.today()
     regs = deck_registers(deck)
+    if asked is None:
+        asked = recent_ask_counts(load_json(KNOCK_LOG_PATH) or [], lexicon)
     fire = [(w, r) for w, r in members if r.get("direction", "fire") != "catch"]
     catch = [(w, r) for w, r in members if r.get("direction") == "catch"]
     cold = [w for w, r in fire if r.get("production") == "cold"]
@@ -147,31 +195,35 @@ def deck_status(lexicon: dict, deck: str = "trip", today=None) -> dict | None:
         "recognition": r.get("recognition"), "production": r.get("production", "none"),
         "tier": TIER_NAMES.get(DECK_TIERS.get(regs.get(w, ""), 1)),
         "unseen": is_unseen(r), "staleness": stale(r),
-        "last_surfaced": r.get("last_surfaced"),
+        "last_surfaced": r.get("last_surfaced"), "asks": asked.get(w, 0),
     } for w, r in fire if r.get("production") != "cold"]
-    # Touchdown-bar tier first — survival still outranks delight (2026-07-13).
-    # Within a tier: LEAST-RECENTLY-WORKED first, the same coverage-first law
-    # floor_gap_targets has always used. Ripeness-first alone was rich-get-richer
-    # (an item only becomes `hinted` by being worked, which promoted it again),
-    # and the final tiebreak was alphabetical — a frozen head and a permanent
-    # tail: 16 frames took 51 of the deck's 74 lifetime reps while 45 of 70 fire
-    # items had never been asked once (2026-07-25 audit). Ripeness now breaks
-    # ties between items of equal staleness, where it belongs. Third recurrence
-    # of this failure — KF-6 (2026-07-06) and the binding volley picks
-    # (2026-07-08) each patched it in one channel; this is the shared selector.
+    # ONE ordering law, owned here, read by every channel (2026-07-25):
+    #   tier → least-recently-WORKED → least-recently-ASKED → ripeness → key
+    # Tier is the 07-13 touchdown bar and stays primary. Staleness is the same
+    # coverage-first law floor_gap_targets has always used; ripeness-first alone
+    # was rich-get-richer (an item only becomes `hinted` by being worked, which
+    # promoted it again) and the last tiebreak was alphabetical, so the head of
+    # each tier froze: 16 frames took 51 of the deck's 74 lifetime reps while 50
+    # of 70 fire items had never been worked at all (2026-07-25 audit).
+    # Ask-count breaks the ties staleness cannot: 50 items sit together at
+    # NEVER_SURFACED, and an ask that got no reply never sets `last_surfaced` —
+    # so without this a missed item would be re-asked forever (KF-6, 2026-07-06).
+    # Subordinating it to tier also repairs the knock-side version this replaces,
+    # where a stable re-sort by ask count alone let an asked-once SURVIVAL item
+    # fall below an unasked dessert one.
     pending.sort(key=lambda c: (DECK_TIERS.get(regs.get(c["word"], ""), 1),
-                                -c["staleness"],
+                                -c["staleness"], c["asks"],
                                 PROD_ORDER.get(c["production"], 1),
                                 RECOG_ORDER.get(c["recognition"], 1), c["word"]))
     catch_pending = [{
         "word": w, "gloss": r.get("gloss", ""),
         "kind": "frame" if r.get("type") == "pattern" else r.get("type", "chunk"),
         "recognition": r.get("recognition"), "staleness": stale(r),
-        "last_surfaced": r.get("last_surfaced"),
+        "last_surfaced": r.get("last_surfaced"), "asks": asked.get(w, 0),
     } for w, r in catch if r.get("recognition") != "solid"]
     # Same law on the ear: catch starved hardest of all (1 of 12 items ever
     # touched, and that one took all 5 catch reps).
-    catch_pending.sort(key=lambda c: (-c["staleness"],
+    catch_pending.sort(key=lambda c: (-c["staleness"], c["asks"],
                                       RECOG_ORDER.get(c["recognition"], 1), c["word"]))
     return {"total": len(fire), "cold": len(cold), "pending": pending,
             "catch_total": len(catch),
