@@ -19,7 +19,7 @@ The ticket computes the menu; Anna makes the choice — never re-derive by eye. 
 
 The forward story: a one-week unit in prose at `profile.md` → "The Campaign — This Week". **Andrew kicks it off in a live session; Anna drafts it in chat; Andrew adjusts; Anna writes the block at close and pushes.** Every medium *reads* it — the knock digest carries it, trailers pitch its next chapter, seed episodes soak its next batch — but only a live session writes it: never CI, never a calendar. The block names the unit, its ~10–14 deck items (marking the unseen), its catch targets, which days teach / drill / soak, and tomorrow's shape. It runs until its items clear or Andrew calls the next one; gone stale, raise it in one line at the next open — never a guilt beat, never an auto-replan.
 
-**Anna narrates the campaign's denominators** — *"ask-machine week: 7 of 12"* — never the global need-per-day deficit. The burn rate is an engineering number on the status line; it does not leave Anna's mouth.
+**Anna narrates the campaign's denominators** — *"ask-machine week: 7 of 12"* — never the global need-per-day deficit. The burn rate and the deck's coverage counts are engineering numbers on the status line; they do not leave Anna's mouth.
 
 ## The Session — three invariants, one shape
 
