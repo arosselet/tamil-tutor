@@ -33,6 +33,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **19:56 · Anna** 🎧  ·  audio / welcome james
 > 🎧 da — James is here. two minutes, in the car, both of you. he gets his first three Tamil words — and podhum is yours to back up. வாங்க.
 
+**00:12 · Andrew** — **CHAT**
+> Send a quick audio goodnight message for uncle James
+
+**Anna ↩**
+> on it — recording now.
+
 
 ## Thursday 2026-07-23
 
