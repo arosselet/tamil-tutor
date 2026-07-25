@@ -120,7 +120,7 @@ def deck_registers(deck: str = "trip") -> dict:
             for i in json.loads(path.read_text(encoding="utf-8"))}
 
 
-def deck_status(lexicon: dict, deck: str = "trip") -> dict | None:
+def deck_status(lexicon: dict, deck: str = "trip", today=None) -> dict | None:
     """A finite, deadline-driven deck (the India-trip survival set), tagged
     `deck: "<name>"`. During a sprint this is the HEADLINE priority — Anna forces
     its not-yet-cold members first. Members split by `direction`: "fire" (default —
@@ -131,32 +131,116 @@ def deck_status(lexicon: dict, deck: str = "trip") -> dict | None:
     members = [(w, r) for w, r in lexicon.items() if r.get("deck") == deck]
     if not members:
         return None
+    today = today or date.today()
     regs = deck_registers(deck)
     fire = [(w, r) for w, r in members if r.get("direction", "fire") != "catch"]
     catch = [(w, r) for w, r in members if r.get("direction") == "catch"]
     cold = [w for w, r in fire if r.get("production") == "cold"]
+
+    def stale(r: dict) -> int:
+        ds = days_since(r.get("last_surfaced"), today)
+        return NEVER_SURFACED if ds is None else ds
+
     pending = [{
         "word": w, "gloss": r.get("gloss", ""),
         "kind": "frame" if r.get("type") == "pattern" else r.get("type", "chunk"),
         "recognition": r.get("recognition"), "production": r.get("production", "none"),
         "tier": TIER_NAMES.get(DECK_TIERS.get(regs.get(w, ""), 1)),
-        "unseen": is_unseen(r),
+        "unseen": is_unseen(r), "staleness": stale(r),
+        "last_surfaced": r.get("last_surfaced"),
     } for w, r in fire if r.get("production") != "cold"]
-    # Touchdown-bar tier first; within a tier, ripest first: hinted before none,
-    # solid before comfortable.
+    # Touchdown-bar tier first — survival still outranks delight (2026-07-13).
+    # Within a tier: LEAST-RECENTLY-WORKED first, the same coverage-first law
+    # floor_gap_targets has always used. Ripeness-first alone was rich-get-richer
+    # (an item only becomes `hinted` by being worked, which promoted it again),
+    # and the final tiebreak was alphabetical — a frozen head and a permanent
+    # tail: 16 frames took 51 of the deck's 74 lifetime reps while 45 of 70 fire
+    # items had never been asked once (2026-07-25 audit). Ripeness now breaks
+    # ties between items of equal staleness, where it belongs. Third recurrence
+    # of this failure — KF-6 (2026-07-06) and the binding volley picks
+    # (2026-07-08) each patched it in one channel; this is the shared selector.
     pending.sort(key=lambda c: (DECK_TIERS.get(regs.get(c["word"], ""), 1),
+                                -c["staleness"],
                                 PROD_ORDER.get(c["production"], 1),
                                 RECOG_ORDER.get(c["recognition"], 1), c["word"]))
     catch_pending = [{
         "word": w, "gloss": r.get("gloss", ""),
         "kind": "frame" if r.get("type") == "pattern" else r.get("type", "chunk"),
-        "recognition": r.get("recognition"),
+        "recognition": r.get("recognition"), "staleness": stale(r),
+        "last_surfaced": r.get("last_surfaced"),
     } for w, r in catch if r.get("recognition") != "solid"]
-    catch_pending.sort(key=lambda c: (RECOG_ORDER.get(c["recognition"], 1), c["word"]))
+    # Same law on the ear: catch starved hardest of all (1 of 12 items ever
+    # touched, and that one took all 5 catch reps).
+    catch_pending.sort(key=lambda c: (-c["staleness"],
+                                      RECOG_ORDER.get(c["recognition"], 1), c["word"]))
     return {"total": len(fire), "cold": len(cold), "pending": pending,
             "catch_total": len(catch),
             "caught": sum(1 for _, r in catch if r.get("recognition") == "solid"),
             "catch_pending": catch_pending}
+
+
+def deck_coverage(lexicon: dict, deck: str = "trip", today=None) -> dict | None:
+    """COVERAGE, not progress — the meter the deck never had. `compute_deck`
+    answers "how many fire cold?"; this answers "how many have ever been WORKED
+    at all?" (a session rep, a judged reply, or a show dose — anything that sets
+    `last_surfaced`; an ask with no reply does not count, which is why
+    `recent_ask_counts` still guards the knock menu separately).
+
+    The pair matters because a value-ordered queue starves its tail silently: on
+    2026-07-25 the headline read 15/34 survival at 3.4 cold/day against a needed
+    1.1 — a won sprint — while 45 of 70 fire items had never been touched once,
+    and the two survival registers that decide freezing at the table
+    (antifreeze, public) sat at 2/18. cold/total is honest about what it counts
+    and structurally blind to distribution. Reported per tier and per register so
+    the blindness has nowhere to hide.
+
+    `soaked_only` = never worked, but heard in an episode: a different state from
+    never encountered, and the cheaper one to fix."""
+    members = [(w, r) for w, r in lexicon.items() if r.get("deck") == deck]
+    if not members:
+        return None
+    today = today or date.today()
+    regs = deck_registers(deck)
+
+    def bucket() -> dict:
+        return {"total": 0, "touched": 0, "untouched": 0, "cleared": 0}
+
+    # Tier/register buckets are the FIRE side only — the same split every other
+    # caller keeps ("cleared/total/pct stay the FIRE side so every caller's
+    # headline is honest", compute_deck). The ear gets its own bucket; folding it
+    # into the tiers would inflate survival with catch frames.
+    tiers: dict[str, dict] = {}
+    registers: dict[str, dict] = {}
+    untouched: list[dict] = []
+    fire, catch = bucket(), bucket()
+    for w, r in members:
+        is_catch = r.get("direction") == "catch"
+        reg = regs.get(w, "")
+        tier = TIER_NAMES.get(DECK_TIERS.get(reg, 1), "delight")
+        worked = bool(r.get("last_surfaced"))
+        done = (r.get("recognition") == "solid") if is_catch else (r.get("production") == "cold")
+        buckets = [catch] if is_catch else [fire, tiers.setdefault(tier, bucket()),
+                                            registers.setdefault(reg or "?", bucket())]
+        for b in buckets:
+            b["total"] += 1
+            b["touched" if worked else "untouched"] += 1
+            b["cleared"] += done
+        if not worked and not done:
+            untouched.append({
+                "word": w, "gloss": r.get("gloss", ""), "tier": tier,
+                "register": reg or "?", "direction": "catch" if is_catch else "fire",
+                "soaked_only": bool(r.get("seen_in")),
+            })
+    untouched.sort(key=lambda c: (DECK_TIERS.get(
+        regs.get(c["word"], ""), 1), c["word"]))
+    # The oldest working rep still outstanding — the tail's actual depth, and
+    # what the starvation guard reads.
+    pending_stale = [
+        c["staleness"] for c in ((deck_status(lexicon, deck, today) or {}).get("pending") or [])
+    ]
+    return {"tiers": tiers, "registers": registers, "untouched": untouched,
+            "fire": fire, "catch": catch,
+            "stalest_pending": max(pending_stale) if pending_stale else 0}
 
 
 def engines_to_fire(lexicon: dict) -> list[dict]:
@@ -305,7 +389,7 @@ def main():
 
     # Trip Deck — the finite, deadline-driven sprint set. When it exists it is the
     # HEADLINE: force its not-yet-cold members first (Anna narrates the countdown).
-    deck = deck_status(lexicon)
+    deck = deck_status(lexicon, today=today)
     if deck:
         print("\n★ TRIP DECK  (the sprint headline — force these before the general floor)")
         print("-" * 60)
@@ -315,13 +399,51 @@ def main():
             tag = "hinted→cold" if t["production"] == "hinted" else f"{t['recognition']}, cold-pending"
             if t.get("unseen"):
                 tag += " · ⚠ UNSEEN — teach first (show it, gloss it), NEVER cold-quiz"
+            if t["staleness"] >= NEVER_SURFACED:
+                tag += " · never worked"
             tier = f" · {t['tier']}" if t.get("tier") else ""
             print(f"  - [{t['kind']}{tier}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{tag}]")
+        hidden = len(deck["pending"]) - 12
+        if hidden > 0:
+            print(f"  … {hidden} more below the cut (least-recently-worked first — the tail rotates up)")
         if deck["catch_total"]:
             print(f"\n  EAR-ONLY ({deck['caught']}/{deck['catch_total']} solid) — eavesdrop/soak targets; "
                   f"win = recognition, never force these to fire:")
             for t in deck["catch_pending"][:8]:
-                print(f"  - [{t['kind']}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{t['recognition']}]")
+                never = " · never worked" if t["staleness"] >= NEVER_SURFACED else ""
+                print(f"  - [{t['kind']}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{t['recognition']}{never}]")
+
+    cov = deck_coverage(lexicon, today=today)
+    if cov:
+        print("\n★ DECK COVERAGE  (how many have been WORKED — the meter cold/total can't see)")
+        print("-" * 60)
+        for tier in ("survival", "delight", "dessert"):
+            b = cov["tiers"].get(tier)
+            if not b:
+                continue
+            regs_in = sorted((r, x) for r, x in cov["registers"].items()
+                             if TIER_NAMES.get(DECK_TIERS.get(r, 1), "delight") == tier)
+            detail = ", ".join(f"{r} {x['touched']}/{x['total']}" for r, x in regs_in)
+            flag = "  ⚠" if b["untouched"] else ""
+            print(f"  {tier:9} worked {b['touched']:2}/{b['total']:2} · cold {b['cleared']:2}{flag}"
+                  + (f"   ({detail})" if detail else ""))
+        c = cov["catch"]
+        if c["total"]:
+            print(f"  {'ear-only':9} worked {c['touched']:2}/{c['total']:2} · solid {c['cleared']:2}"
+                  + ("  ⚠" if c["untouched"] else ""))
+        if cov["untouched"]:
+            u_fire = [u for u in cov["untouched"] if u["direction"] == "fire"]
+            u_catch = [u for u in cov["untouched"] if u["direction"] == "catch"]
+            soaked = sum(1 for u in cov["untouched"] if u["soaked_only"])
+            ear = f" + {len(u_catch)} ear-only" if u_catch else ""
+            print(f"\n  ⚠ NEVER WORKED: {len(u_fire)} fire item(s){ear} "
+                  f"({soaked} heard in an episode but never asked).")
+            starving = [f"{r} ({x['untouched']})" for r, x in sorted(
+                cov["registers"].items(), key=lambda kv: -kv[1]["untouched"])
+                if x["untouched"]]
+            if starving:
+                print("     Starving registers: " + ", ".join(starving))
+            print("     They now sort to the head of their tier — fire from the top and this drains.")
 
     # 0. Scene spec — structural variety gate (audio episodes especially)
     spec = scene_spec(load_recent_sidecars())

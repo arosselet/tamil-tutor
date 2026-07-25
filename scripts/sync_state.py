@@ -230,10 +230,19 @@ def compute_deck(lexicon: dict, deck: str = "trip") -> dict:
         surv = [w for w in fire if DECK_TIERS.get(regs.get(w, ""), 1) == 0] if regs else fire
     except Exception:
         surv = fire
+    # Coverage rides alongside the headline (2026-07-25): cold/total is honest
+    # about what it counts and blind to distribution — it read as a won sprint
+    # while 50 of 70 fire items had never been worked. `untouched` is the count
+    # of members with no `last_surfaced` at all; the per-tier/per-register
+    # breakdown lives on the ticket (suggest_targets → deck_coverage).
+    untouched = sum(1 for w in fire if not members[w].get("last_surfaced"))
+    surv_untouched = sum(1 for w in surv if not members[w].get("last_surfaced"))
     return {"cleared": len(cleared), "total": total, "pct": pct,
             "caught": len(caught), "catch_total": len(catch),
             "surv_cleared": sum(1 for w in surv if members[w].get("production") == "cold"),
-            "surv_total": len(surv)}
+            "surv_total": len(surv),
+            "untouched": untouched, "surv_untouched": surv_untouched,
+            "catch_untouched": sum(1 for w in catch if not members[w].get("last_surfaced"))}
 
 
 # --- Episode helpers (progress/episodes.json — a flat {id: episode} map) ------
@@ -246,10 +255,11 @@ def compute_status() -> str:
     deck = compute_deck(lexicon)
     if deck["total"]:
         days = (TRIP_DATE - date.today()).days
+        never = (f" · {deck['untouched']} never worked" if deck["untouched"] else "")
         return (f"Trip Deck {deck['surv_cleared']}/{deck['surv_total']} survival cold · "
                 f"{days} days to touchdown · "
                 f"{burn_rate(deck['surv_total'] - deck['surv_cleared'], days)} · "
-                f"full deck {deck['cleared']}/{deck['total']}")
+                f"full deck {deck['cleared']}/{deck['total']}{never}")
     floor = compute_floor(lexicon)
     return f"Viability floor {floor['cleared']}/{floor['total']} fire cold ({floor['pct']:.0f}%)"
 
@@ -471,6 +481,9 @@ def cmd_update(args):
         catch = f" · catch {deck['caught']}/{deck['catch_total']} solid" if deck["catch_total"] else ""
         print(f"Trip Deck: {deck['surv_cleared']}/{deck['surv_total']} survival cold · "
               f"full deck {deck['cleared']}/{deck['total']}{catch}")
+        if deck["untouched"]:
+            print(f"  ⚠ Coverage: {deck['untouched']} fire item(s) never worked "
+                  f"({deck['surv_untouched']} survival)")
     print(f"Fired today: {fires_today()}")
     print("State updated.")
 
@@ -802,6 +815,10 @@ def cmd_status(_args):
         if deck["total"]:
             catch = f" · catch {deck['caught']}/{deck['catch_total']} solid" if deck["catch_total"] else ""
             print(f"Trip Deck: {deck['cleared']}/{deck['total']} deck phrases fire cold ({deck['pct']:.0f}%){catch} — the sprint headline")
+            if deck["untouched"] or deck["catch_untouched"]:
+                ear = f" + {deck['catch_untouched']} ear-only" if deck["catch_untouched"] else ""
+                print(f"  ⚠ Coverage: {deck['untouched']} fire item(s){ear} never worked "
+                      f"({deck['surv_untouched']} of them survival tier) — see the ticket for the register breakdown")
         print(f"Fired today: {fires_today()}")
 
     if episodes:

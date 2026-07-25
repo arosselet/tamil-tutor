@@ -26,6 +26,9 @@ A fixed bug becomes a case here the day it's fixed:
   #11 an eavesdrop tape hearsayed about an unnamed அவங்க and the drift question
       asked WHO — unanswerable from the audio; the thread-blind catch judge then
       re-asked a catch that had already landed on turn 1 (2026-07-25)
+  #12 the deck selector had no staleness term: tier → ripeness → alphabetical
+      froze the head of every tier, 45 of 70 fire items were never asked once,
+      and cold/total reported a winning sprint throughout (2026-07-25)
 """
 import argparse
 import email.utils
@@ -37,7 +40,7 @@ import shutil
 import sys
 import tempfile
 import time
-from datetime import datetime, timedelta, timezone
+from datetime import date as date_cls, datetime, timedelta, timezone
 from pathlib import Path
 
 REAL_BASE = Path(__file__).resolve().parent.parent
@@ -1785,6 +1788,122 @@ def s31_feed_carries_every_pushed_dose(sb: Path):
           "rebuild_rss still recomputes a published duration")
 
 
+def s32_deck_rotation_and_coverage(mk, sb: Path):
+    """Deck starvation (2026-07-25 audit). The deck's selector ordered by tier →
+    ripeness → alphabetical, with no staleness term — so the head of each tier
+    was frozen and the tail never surfaced: 16 frames took 51 of the deck's 74
+    lifetime reps while 45 of 70 fire items had never been asked once, and
+    `cold/total` reported a winning sprint throughout because it counts progress
+    and cannot see distribution. Ripeness-first was rich-get-richer (an item only
+    becomes `hinted` by being worked, which promoted it again).
+
+    Two mechanisms, both proven here: least-recently-worked sorts first WITHIN a
+    tier (the tier prefix itself is the 07-13 touchdown bar and must survive),
+    and `deck_coverage` counts worked/total so the tail is legible."""
+    print("\n32. Deck rotation + coverage: the tail is not starved (2026-07-25)")
+    st = importlib.import_module("suggest_targets")
+    ss = importlib.import_module("sync_state")
+    today = date_cls.today()
+
+    def ago(n):
+        return (today - timedelta(days=n)).isoformat()
+
+    def item(reg, **kw):
+        base = {"deck": "trip", "gloss": "x", "phonetic": [], "type": "chunk",
+                "recognition": "struggled", "production": "none",
+                "seen_in": [1], "last_surfaced": None, "_reg": reg}
+        base.update(kw)
+        return base
+
+    fixture = {
+        # survival tier (antifreeze/frame/public), one row per starvation state
+        "smoke:surv-hot": item("frame", type="pattern", production="hinted",
+                               recognition="solid", last_surfaced=ago(2)),
+        "smoke:surv-mid": item("antifreeze", recognition="comfortable", last_surfaced=ago(30)),
+        "smoke:surv-tail": item("antifreeze"),                    # never worked, soaked
+        "smoke:surv-unseen": item("public", seen_in=[]),          # never worked, never seen
+        "smoke:surv-done": item("frame", type="pattern", production="cold",
+                                recognition="solid", last_surfaced=ago(1)),
+        "smoke:delight-new": item("social"),
+        "smoke:dessert-new": item("gossip"),
+        # ear-only: same law, and must never land in the fire tiers
+        "smoke:ear-stale": item("gossip", direction="catch"),
+        "smoke:ear-fresh": item("gossip", direction="catch",
+                                recognition="comfortable", last_surfaced=ago(1)),
+    }
+    lex = {k: {kk: vv for kk, vv in v.items() if kk != "_reg"} for k, v in fixture.items()}
+    deck_file = sb / "curriculum" / "trip_deck.json"
+    lex_path = sb / "progress" / "lexicon.json"
+    saved = (deck_file.read_bytes(), lex_path.read_bytes())
+    try:
+        write_json(deck_file, [{"tamil": k, "register": v["_reg"], "gloss": "x"}
+                               for k, v in fixture.items()])
+        write_json(lex_path, lex)
+        deck = st.deck_status(lex, today=today)
+        order = [t["word"] for t in deck["pending"]]
+
+        # The regression: under the old key the ripe, recently-worked headliner
+        # led its tier forever. Least-recently-worked now leads.
+        check("a never-worked item outranks the ripe recently-worked headliner",
+              order[0] == "smoke:surv-tail", f"got {order}")
+        check("the worked headliner falls to the back of its tier",
+              order.index("smoke:surv-hot") > order.index("smoke:surv-mid"), f"got {order}")
+        check("staleness beats ripeness, not tier: survival still precedes delight",
+              order.index("smoke:surv-unseen") < order.index("smoke:delight-new"), f"got {order}")
+        check("the touchdown bar survives: delight still precedes dessert",
+              order.index("smoke:delight-new") < order.index("smoke:dessert-new"), f"got {order}")
+        check("a cold item leaves the pending queue", "smoke:surv-done" not in order)
+
+        # The ear starved worst of all (1 of 12 ever touched) — same law applies.
+        catch_order = [t["word"] for t in deck["catch_pending"]]
+        check("the ear rotates too: the never-worked catch item leads",
+              catch_order[0] == "smoke:ear-stale", f"got {catch_order}")
+
+        # Rotation must not smuggle an UNSEEN item into a cold quiz (teach-first).
+        vt = [t["target"] for t in mk.volley_targets(n=4)]
+        check("rotation respects teach-first: UNSEEN stays out of the volley",
+              "smoke:surv-unseen" not in vt, f"got {vt}")
+        check("a never-worked but soaked item IS volley-eligible",
+              "smoke:surv-tail" in vt, f"got {vt}")
+
+        cov = st.deck_coverage(lex, today=today)
+        surv, delight, dessert = (cov["tiers"][t] for t in ("survival", "delight", "dessert"))
+        check("survival coverage counts worked, not cold",
+              (surv["touched"], surv["total"], surv["cleared"]) == (3, 5, 1),
+              f"got {surv}")
+        check("ear-only items never inflate a fire tier",
+              dessert["total"] == 1, f"dessert={dessert}")
+        check("the ear is metered on its own axis",
+              (cov["catch"]["touched"], cov["catch"]["total"]) == (1, 2), f"got {cov['catch']}")
+        check("a fully starved register is visible by name",
+              cov["registers"]["public"]["untouched"] == 1
+              and cov["registers"]["antifreeze"]["touched"] == 1,
+              f"got {cov['registers']}")
+        check("delight/dessert starvation is reported, not hidden",
+              (delight["untouched"], dessert["untouched"]) == (1, 1),
+              f"got {delight} {dessert}")
+        never = {u["word"] for u in cov["untouched"]}
+        check("every never-worked item is named",
+              never == {"smoke:surv-tail", "smoke:surv-unseen",
+                        "smoke:delight-new", "smoke:dessert-new", "smoke:ear-stale"},
+              f"got {sorted(never)}")
+        check("soaked-but-never-asked is distinguished from never-encountered",
+              [u["soaked_only"] for u in cov["untouched"]
+               if u["word"] == "smoke:surv-unseen"] == [False], f"got {cov['untouched']}")
+        check("the tail's depth is reported for the guard",
+              cov["stalest_pending"] == st.NEVER_SURFACED, f"got {cov['stalest_pending']}")
+
+        # The headline meter carries the same count, so a green sprint can never
+        # again hide a starved deck.
+        cd = ss.compute_deck(lex)
+        check("the status meter carries the coverage count",
+              (cd["untouched"], cd["surv_untouched"], cd["catch_untouched"]) == (4, 2, 1),
+              f"got {cd}")
+    finally:
+        deck_file.write_bytes(saved[0])
+        lex_path.write_bytes(saved[1])
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -1820,6 +1939,7 @@ def main():
         s29_one_runner_every_capability(mk, pq, kr, sb)
         s30_anna_speaks_back(mk, kr, sb)
         s31_feed_carries_every_pushed_dose(sb)
+        s32_deck_rotation_and_coverage(mk, sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)

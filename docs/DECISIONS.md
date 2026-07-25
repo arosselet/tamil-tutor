@@ -891,3 +891,33 @@ Details live in git history; this is the index of the *conclusions*.
   known failure mode; the learner is the court of appeal (already the rule for state, now the
   rule for reading history too). The 07-16 and 07-19 "misses" are flagged as suspect for the
   same reason: both tapes also named nobody in their opening.
+- **Deck selection is coverage-first within a tier; the meter reports coverage beside
+  progress** (2026-07-25, Andrew's felt signal: "my worry is we are still starving some of
+  these"). `deck_status` ordered by tier → ripeness → **alphabetical**, with no staleness
+  term, so the head of every tier was frozen: 16 frames took 51 of the deck's 74 lifetime
+  reps and cleared 14/16, while 50 of 70 fire items had never been worked at all (45 of them
+  never even appearing as an ask in any log) and the two survival registers that decide
+  freezing at the table sat at antifreeze 1/10, public 1/8.
+  Ripeness-first is rich-get-richer — an item becomes `hinted` only by being worked, which
+  promotes it again — and the alphabetical tiebreak sorted ASCII `frame:` keys ahead of
+  every Tamil-script chunk. **Fourth recurrence of one failure:** KF-6 (2026-07-06) added a
+  3-day ask demotion, the binding volley picks (2026-07-08) moved the farming from Anna's
+  taste to the sort key, and `render_drill.deck_due_payload` had already hand-interleaved
+  frames and chunks around it — each a local patch in the channel where it was noticed,
+  because "no item starves" was never expressed as a property of the shared selector. Now
+  `deck_status` sorts least-recently-worked first *within* a tier (the same `-staleness`
+  law `floor_gap_targets` has always had; `last_surfaced` is the shared definition), ripeness
+  demoted to a tiebreak, catch_pending under the same law — every channel that reads the
+  selector is fixed at once. The tier prefix is untouched: **survival still outranks delight,
+  and delight/dessert starvation remains the accepted 07-13 touchdown-bar tradeoff**, not a
+  bug. Teach-first is untouched — rotation lifts UNSEEN items onto the *ticket* to be taught,
+  and `volley_targets` still excludes them from cold quizzes. `recent_ask_counts` **stays**:
+  an ask with no reply never sets `last_surfaced`, so it guards a genuinely different gap.
+  Second half, the meter: every meter counted `cold/total` and none counted `worked/total`,
+  so the headline read 15/34 survival at 3.4 cold/day against a needed 1.1 — a won sprint —
+  while most of the deck had never been touched. `deck_coverage()` reports worked/total per
+  tier and per register on the ticket, and `compute_deck` carries the count onto the status
+  line, the update summary, and the dashboard. Refines "the survival tier is the narrated
+  headline" (2026-07-18): that entry fixed a demoralizing denominator and the new one hid a
+  distribution — honest meters must show both. Smoke `s32` (registry #12) guards the ordering
+  law and the coverage split; it goes red on the old sort key (verified).
