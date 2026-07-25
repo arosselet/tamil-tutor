@@ -65,6 +65,13 @@ def main():
         print(f"    Burn rate: {burn_rate(deck['surv_total'] - deck['surv_cleared'], days)}")
         if deck["catch_total"]:
             print(f"    Ear-only (catch): {deck['caught']}/{deck['catch_total']} solid")
+        # Coverage beside progress (2026-07-25): cold/total cannot see the tail —
+        # it read as a won sprint while most of the deck had never been worked.
+        if deck["untouched"] or deck["catch_untouched"]:
+            worked = deck["total"] - deck["untouched"]
+            ear = f" · +{deck['catch_untouched']} ear-only" if deck["catch_untouched"] else ""
+            print(f"    ⚠ Coverage: {worked}/{deck['total']} ever worked — "
+                  f"{deck['untouched']} never touched ({deck['surv_untouched']} survival){ear}")
 
     # --- The viability floor (compute_floor: patterns excluded, same as sync_state) ---
     floor = compute_floor(lexicon)
