@@ -27,6 +27,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > that's a system note, not a drift answer — what did you *catch* from the tape? even a rough 'someone showed up unexpectedly and there's some kind of problem' counts.
 
+**14:53 · Anna**  ·  volley / volley: adverb-aa sprint
+> ⚡ volley 1/4 — she's talking too fast — tell her: speak slowly (one word fires it)
+
 
 ## Friday 2026-07-24
 
