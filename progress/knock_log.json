@@ -2356,7 +2356,7 @@
     ],
     "volley_next": 4,
     "response": "reply",
-    "reply": "Ama sappiten. Can you teach me the irunduhuchu form?",
+    "reply": "Medhuva solla. Ama sapitoom. Solla repeat?",
     "reply_verdict": "miss",
     "reply_fired": [
       "frame:adverb-aa"
@@ -2365,8 +2365,8 @@
       "frame:adverb-aa"
     ],
     "reply_fired_capped": [],
-    "reply_line": "sappiten is 'I ate' — for 'we ate' it's saapittoom. try it back. · 4/4 — maama just said something fast — ask him to say it one more time",
-    "reply_at": "2026-07-25T19:00:12Z",
+    "reply_line": "close try — it's 'innoru thadava sollunga'. that wraps the sprint.",
+    "reply_at": "2026-07-25T19:01:58Z",
     "exchanges": [
       {
         "at": "2026-07-25T18:56:32Z",
@@ -2401,10 +2401,21 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "sappiten is 'I ate' — for 'we ate' it's saapittoom. try it back. · 4/4 — maama just said something fast — ask him to say it one more time"
+      },
+      {
+        "at": "2026-07-25T19:01:58Z",
+        "reply": "Medhuva solla. Ama sapitoom. Solla repeat?",
+        "verdict": "miss",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "close try — it's 'innoru thadava sollunga'. that wraps the sprint."
       }
     ],
     "chained": 3,
     "pinned_target": "இன்னொரு தடவ சொல்லுங்க",
-    "pinned_revealed": false
+    "pinned_revealed": false,
+    "volley_done": true
   }
 ]
