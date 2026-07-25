@@ -60,6 +60,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > innoru = 'one more', thadava = 'time/instance' — so 'innoru thadava sollunga' = say it one more time. but it's on revealed_recently so this one can't fire cold here — we'll catch it fresh another day.
 
+**19:14 · Andrew** — **HINTED**
+> Innoru thadava sollunga
+
+**Anna ↩**
+> adhu dhaan! full phrase, clean. 🔥 prior exchange showed it though, so we'll catch it cold another day.
+
 
 ## Friday 2026-07-24
 
