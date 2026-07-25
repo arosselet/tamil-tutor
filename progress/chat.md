@@ -66,6 +66,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! full phrase, clean. 🔥 prior exchange showed it though, so we'll catch it cold another day.
 
+**19:52 · Anna** 🎧  ·  audio / lore memo: myself-thukka
+> 🎧 one move, three uses — எடுத்துக்கறேன் (eduthukren). two minutes, no ask.
+
 
 ## Friday 2026-07-24
 
