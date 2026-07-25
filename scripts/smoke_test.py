@@ -1686,6 +1686,43 @@ def s31_feed_carries_every_pushed_dose(sb: Path):
     check("the feed never stamps in the host's zone",
           "localtime=True" not in code, "rebuild_rss still uses the host clock")
 
+    # Measure once, then freeze. Duration described a file that never changes, but
+    # was re-derived on every rebuild from whatever tool the host had — the laptop
+    # has ffprobe, the CI container does not, so each cloud rebuild reverted the
+    # library to the frame scan (M72: 13:12 announced for a 10:02 episode, 2026-07-25).
+    # The real guard is behavioural: rebuild with ffprobe gone and nothing may move.
+    feed = sb / "rss.xml"
+    published = """<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"><channel>
+  <item><title>T</title>
+    <enclosure url="{u}" length="9" type="audio/mpeg"/><guid>{u}</guid>
+    <pubDate>Thu, 23 Jul 2026 23:27:39 -0400</pubDate>
+    <itunes:duration>00:10:02</itunes:duration></item>
+</channel></rss>"""
+    cwd = os.getcwd()
+    try:
+        os.chdir(sb)
+        url = f"{rr.BASE_URL}/{rr.AUDIO_DIR}/knocks/knock_2026-07-05T22-58.mp3"
+        feed.write_text(published.format(u=url), encoding="utf-8")
+        prior = rr.existing_items().get(url, {})
+        check("a published duration is recovered for the rebuild",
+              prior.get("duration") == "00:10:02", f"got {prior}")
+        check("a published pubDate is still recovered alongside it",
+              prior.get("pubDate", "").endswith("-0400"), f"got {prior}")
+        # Malformed markup must not drop either field — one unescaped character
+        # once wiped every saved date and collapsed the feed to a single "now".
+        feed.write_text(published.format(u=url).replace("<title>T", "<title>R & D"),
+                        encoding="utf-8")
+        rescued = rr.existing_items().get(url, {})
+        check("a malformed feed still yields both published values",
+              rescued.get("duration") == "00:10:02" and rescued.get("pubDate"),
+              f"got {rescued}")
+    finally:
+        os.chdir(cwd)
+    check("duration is preserved, not re-derived",
+          'prior.get("duration") or duration_hms' in code,
+          "rebuild_rss still recomputes a published duration")
+
 
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:

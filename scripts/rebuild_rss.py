@@ -184,15 +184,27 @@ def get_title_from_md(md_path):
     return os.path.basename(md_path)
 
 
-def existing_pub_dates():
-    """Return {guid_url: pubDate} from the current rss.xml so rebuilds don't clobber old dates.
+def existing_items():
+    """Return {guid_url: {"pubDate": …, "duration": …}} from the current rss.xml, so a
+    rebuild republishes what was published rather than re-deriving it.
 
-    Date preservation must NOT depend on the feed being well-formed XML. A single
-    unescaped character in one episode title once wiped every saved date: the strict
-    parse threw, this function returned {}, and every episode fell through to the
-    mtime fallback — which on a fresh clone is the checkout time, collapsing the whole
-    feed to a single "now" timestamp. So we parse strictly when we can, but fall back
-    to a tolerant text scan for guid/pubDate pairs, which survives malformed markup.
+    MEASURE ONCE, THEN FREEZE. Both fields describe an mp3 that never changes after
+    publication (a fix re-renders to `_vN` under a new filename, so it gets a new guid
+    and a fresh measurement — in-place edits are not a thing here). Re-deriving them on
+    every rebuild bought nothing and cost twice:
+
+    - pubDate fell through to the file's mtime, which on a fresh clone is the CHECKOUT
+      time, collapsing the whole feed to a single "now".
+    - duration fell through to whatever measuring tool the rebuilding host happened to
+      have. The laptop has ffprobe and the CI container does not, so every cloud rebuild
+      silently reverted the library to the frame-scan estimate — M72 announced as 13:12
+      for a 10:02 episode, for two days, undoing the 2026-07-23 ffprobe fix (2026-07-25).
+
+    Preservation must NOT depend on the feed being well-formed XML. A single unescaped
+    character in one episode title once wiped every saved date: the strict parse threw,
+    this returned {}, and everything fell through to the mtime fallback. So we parse
+    strictly when we can, and fall back to a tolerant text scan that survives malformed
+    markup.
     """
     if not os.path.exists(RSS_FILE):
         return {}
@@ -207,20 +219,24 @@ def existing_pub_dates():
             guid = item.findtext("guid")
             pub_date = item.findtext("pubDate")
             if guid and pub_date:
-                result[guid.strip()] = pub_date.strip()
+                dur = item.findtext("{http://www.itunes.com/dtds/podcast-1.0.dtd}duration")
+                result[guid.strip()] = {"pubDate": pub_date.strip(),
+                                        "duration": (dur or "").strip()}
         if result:
             return result
     except ET.ParseError as e:
-        print(f"⚠️  rss.xml is not well-formed ({e}); recovering saved dates via text scan.")
+        print(f"⚠️  rss.xml is not well-formed ({e}); recovering published values via text scan.")
 
-    # Tolerant fallback: pull guid + pubDate out of each <item> block by text, so one
-    # bad character can never again reset every episode's date.
+    # Tolerant fallback: pull the fields out of each <item> block by text, so one bad
+    # character can never again reset every episode.
     result = {}
     for block in re.findall(r"<item>(.*?)</item>", raw, re.S):
         g = re.search(r"<guid>(.*?)</guid>", block, re.S)
         p = re.search(r"<pubDate>(.*?)</pubDate>", block, re.S)
+        d = re.search(r"<itunes:duration>(.*?)</itunes:duration>", block, re.S)
         if g and p:
-            result[g.group(1).strip()] = p.group(1).strip()
+            result[g.group(1).strip()] = {"pubDate": p.group(1).strip(),
+                                          "duration": d.group(1).strip() if d else ""}
     return result
 
 
@@ -317,7 +333,7 @@ def duration_hms(path, fallback):
 
 
 def generate_rss():
-    saved_dates = existing_pub_dates()
+    published = existing_items()
     items = []
     if not os.path.exists(AUDIO_DIR):
         print(f"❌ {AUDIO_DIR} not found!")
@@ -406,11 +422,13 @@ def generate_rss():
         # zone a dose is announced in should be the zone he hears it in.
         # Preserved dates short-circuit first: an already-published item is never
         # restamped, per the immutable-once-published rule.
-        pub_date = saved_dates.get(audio_url) or email.utils.format_datetime(
+        prior = published.get(audio_url, {})
+        pub_date = prior.get("pubDate") or email.utils.format_datetime(
             datetime.fromtimestamp(os.path.getmtime(audio_path), LOCAL_TZ)
         )
-
-        duration = duration_hms(audio_path, "00:05:00")
+        # Measured once, at first publication, by whatever tool this host has.
+        # Never re-derived — see existing_items().
+        duration = prior.get("duration") or duration_hms(audio_path, "00:05:00")
 
         # Escape titles/summaries: episode titles carry Tamil script and arbitrary
         # punctuation (e.g. a raw "&" from a script H1), which is illegal as bare
@@ -431,7 +449,8 @@ def generate_rss():
     if os.path.exists(demo_path):
         demo_size = os.path.getsize(demo_path)
         demo_url = f"{BASE_URL}/{AUDIO_DIR}/polyglot_demo.mp3"
-        demo_duration = duration_hms(demo_path, "00:03:30")
+        demo_prior = published.get(demo_url, {})
+        demo_duration = demo_prior.get("duration") or duration_hms(demo_path, "00:03:30")
         items.append(ITEM_TEMPLATE.format(
             title=xml_escape("Welcome — What Is This?"),
             author=AUTHOR,
@@ -439,7 +458,7 @@ def generate_rss():
             caption_block="",
             audio_url=demo_url,
             size=demo_size,
-            pub_date=saved_dates.get(demo_url) or email.utils.format_datetime(
+            pub_date=demo_prior.get("pubDate") or email.utils.format_datetime(
                 datetime.fromtimestamp(os.path.getmtime(demo_path), LOCAL_TZ)
             ),
             duration=demo_duration
