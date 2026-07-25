@@ -54,6 +54,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > close try — it's 'innoru thadava sollunga'. that wraps the sprint.
 
+**18:56 · Andrew** — **MISS**
+> Ok two words here innoru and thadava need teaching, I don’t recognize either
+
+**Anna ↩**
+> innoru = 'one more', thadava = 'time/instance' — so 'innoru thadava sollunga' = say it one more time. but it's on revealed_recently so this one can't fire cold here — we'll catch it fresh another day.
+
 
 ## Friday 2026-07-24
 

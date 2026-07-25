@@ -2356,7 +2356,7 @@
     ],
     "volley_next": 4,
     "response": "reply",
-    "reply": "Medhuva solla. Ama sapitoom. Solla repeat?",
+    "reply": "Ok two words here innoru and thadava need teaching, I don’t recognize either",
     "reply_verdict": "miss",
     "reply_fired": [
       "frame:adverb-aa"
@@ -2365,8 +2365,8 @@
       "frame:adverb-aa"
     ],
     "reply_fired_capped": [],
-    "reply_line": "close try — it's 'innoru thadava sollunga'. that wraps the sprint.",
-    "reply_at": "2026-07-25T19:01:58Z",
+    "reply_line": "innoru = 'one more', thadava = 'time/instance' — so 'innoru thadava sollunga' = say it one more time. but it's on revealed_recently so this one can't fire cold here — we'll catch it fresh another day.",
+    "reply_at": "2026-07-25T22:56:56Z",
     "exchanges": [
       {
         "at": "2026-07-25T18:56:32Z",
@@ -2411,6 +2411,16 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "close try — it's 'innoru thadava sollunga'. that wraps the sprint."
+      },
+      {
+        "at": "2026-07-25T22:56:56Z",
+        "reply": "Ok two words here innoru and thadava need teaching, I don’t recognize either",
+        "verdict": "miss",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "innoru = 'one more', thadava = 'time/instance' — so 'innoru thadava sollunga' = say it one more time. but it's on revealed_recently so this one can't fire cold here — we'll catch it fresh another day."
       }
     ],
     "chained": 3,
