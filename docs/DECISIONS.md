@@ -790,3 +790,48 @@ Details live in git history; this is the index of the *conclusions*.
   rebuild on a different machine silently swapped them and produced a feed diff that looked
   like a real change and wasn't. Filename now breaks the tie. Latent since the specials
   were added; surfaced by rebuilding in a cloud container instead of on the laptop.
+- **A published item's title is part of its identity — Apple Podcasts forks on a retitle,
+  stable guid or not** (2026-07-25, confirmed against Andrew's client). The 8pm dose of
+  07-24 arrived correctly and then appeared TWICE: one copy `Scheduled — 2026-07-24 23:56`,
+  one `… · welcome james`. Same guid, same enclosure, same pubDate, one `<item>` in the
+  feed at every moment — the fork happened entirely inside the client, 4h16m after
+  publication, when an unrelated lane rebuilt `rss.xml` and picked up a move label the
+  original write couldn't see. So the feed invariant is not "one item per dose", it is
+  **an item is immutable once published**; `existing_pub_dates()` had been enforcing the
+  weak half of this since the pubDate-reset bug, one field early. Rejected as the fix: a
+  title freeze in `rebuild_rss` mirroring `existing_pub_dates()` — it guards the class but
+  adds a second mechanism for a bug whose only cause is known and cheaper to remove, and it
+  would make a legitimate title correction impossible. Logged as a residual instead.
+- **The feed is stamped in Andrew's zone, never the host's** (2026-07-25). `rebuild_rss`
+  used `formatdate(localtime=True)`, so the offset was a property of the rebuilding machine:
+  the laptop wrote `-0400`, the CI container `+0000`, and the feed carried two faces for one
+  listener in one timezone. Nothing was ever *wrong* — the instants agree — but a dose should
+  be announced in the zone it is heard in, and `LOCAL_TZ` was already canonical in
+  `sync_state.py` for exactly this. Both stamp sites (episodes and the demo item) now use
+  `format_datetime(fromtimestamp(mtime, LOCAL_TZ))`. Existing entries are NOT restamped:
+  `saved_dates` short-circuits first, so a rebuild changes zero published pubDates (verified —
+  the only lines a local rebuild touches are durations, see below). Smoke asserts the stamp
+  under a forced-UTC host.
+- **`anna.yml` must not run on push; the gap it leaves is closed by linting, not by running**
+  (2026-07-25, Andrew asked whether it could be closed). A push-triggered Anna would drain the
+  queue, judge replies and notify Andrew's phone on every commit — a side effect, not a test.
+  So the file is exercised by nothing until its next hourly cron, which is how it sat
+  unrunnable through four pushes on 07-24 while `smoke.yml` went green beside it. The residual
+  gap is narrow: `smoke_test.py` already covers script-level regressions at push time against
+  sandboxed copies, so the only thing uncovered was *the workflow file being unrunnable*.
+  `actionlint` (pinned 1.7.7, release tarball, not a `curl|bash` of a moving branch) now runs
+  in `smoke.yml` and closes exactly that, statically and without side effects. Verified against
+  the real broken file: it flags the `runner` context at line 65 with the same legal-context
+  list the hand-rolled guard hard-coded. **Retires** that guard (the s29 context whitelist);
+  s29 now asserts only that the linter is still wired, since this suite also runs locally where
+  actionlint may be absent.
+- **The drain rebuilds the feed AFTER the knock log, like every other lane** (2026-07-25).
+  Root cause of the fork above. `rebuild_rss` titles a dose from `knock_log.json`, and the
+  drain called `refresh_feed()` in its mp3 commit — three lines before the log entry exists
+  — so it published a label-less title and never wrote the real one at all; the correction
+  waited for whichever lane rebuilt next. `morning_knock` (`:900`→`:909`) and `knock_reply`
+  (`:843`→`:864`) already ordered it log→feed→commit; the drain was the sole violator, and
+  only because its legitimate two-commit split (mp3 first, so jsDelivr can serve the CDN
+  pre-warm) swept the rebuild along with the mp3. Restoring the invariant moves one call and
+  adds no state. The mp3-first commit and the retry property are untouched. Smoke s29 now
+  records the log's contents at rebuild time, so a rebuild-before-log is red.

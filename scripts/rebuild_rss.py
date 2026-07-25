@@ -7,6 +7,8 @@ from datetime import datetime
 import email.utils
 from xml.sax.saxutils import escape as xml_escape
 
+from sync_state import LOCAL_TZ  # Andrew's clock, canonical there
+
 # Configuration
 BASE_URL = "https://raw.githubusercontent.com/arosselet/tamil-tutor/main"
 SITE_URL = "https://github.com/arosselet/tamil-tutor"
@@ -397,8 +399,15 @@ def generate_rss():
             title = clean_title(raw_title, filename)
         size = os.path.getsize(audio_path)
         audio_url = f"{BASE_URL}/{AUDIO_DIR}/{filename}"
-        pub_date = saved_dates.get(audio_url) or email.utils.formatdate(
-            os.path.getmtime(audio_path), localtime=True
+        # Andrew's clock, never the host's. `localtime=True` stamped whatever zone
+        # the rebuilding machine happened to be in — the laptop wrote -0400, the
+        # CI container +0000 — so the feed carried two offsets for one listener in
+        # one timezone. Same instant either way (nothing was ever wrong), but the
+        # zone a dose is announced in should be the zone he hears it in.
+        # Preserved dates short-circuit first: an already-published item is never
+        # restamped, per the immutable-once-published rule.
+        pub_date = saved_dates.get(audio_url) or email.utils.format_datetime(
+            datetime.fromtimestamp(os.path.getmtime(audio_path), LOCAL_TZ)
         )
 
         duration = duration_hms(audio_path, "00:05:00")
@@ -430,8 +439,8 @@ def generate_rss():
             caption_block="",
             audio_url=demo_url,
             size=demo_size,
-            pub_date=saved_dates.get(demo_url) or email.utils.formatdate(
-                os.path.getmtime(demo_path), localtime=True
+            pub_date=saved_dates.get(demo_url) or email.utils.format_datetime(
+                datetime.fromtimestamp(os.path.getmtime(demo_path), LOCAL_TZ)
             ),
             duration=demo_duration
         ))
