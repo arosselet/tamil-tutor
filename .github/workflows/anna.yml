@@ -78,13 +78,25 @@ jobs:
       - run: pip install -r requirements.txt
 
       - name: Install ffprobe
-        # The runner has no ffmpeg, so rebuild_rss fell through to its pure-python
-        # frame scan — which on these files (TTS segments concatenated with silence
-        # frames) misreads by up to 40% in either direction. That reverted the whole
-        # library's durations on every cloud rebuild and announced M72 as 13:12 for a
-        # 10:02 episode (2026-07-25). Durations are now frozen at first publication,
-        # so this only has to be right ONCE per file — which is exactly why a failure
-        # here must not cost Andrew his knock.
+        # ubuntu-24.04 ships no ffmpeg (verified against the runner-images manifest:
+        # MediaInfo is the only media tool present), so rebuild_rss fell through to
+        # its pure-python frame scan — which on these files (TTS segments
+        # concatenated with silence frames) misreads by up to 40% in either
+        # direction. That reverted the whole library's durations on every cloud
+        # rebuild and announced M72 as 13:12 for a 10:02 episode (2026-07-25).
+        #
+        # NOT on repository_dispatch. That is the lock-screen lane, where Andrew is
+        # waiting on the recast — the same latency constraint that already kept
+        # rendering out of the reply path. ~20s of apt in front of a reply is the
+        # regression this clause exists to prevent. The cost is that a voice reply's
+        # duration is first measured by the frame scan and then frozen there; on a
+        # ~19s clip that is a few seconds, on a lane nobody browses by length.
+        # Knocks and scheduled doses — where new library audio is actually born —
+        # arrive on schedule/workflow_dispatch and do get the real probe.
+        #
+        # Durations are frozen at first publication, so this only has to be right
+        # ONCE per file — which is why a failure here must not cost Andrew a knock.
+        if: github.event_name != 'repository_dispatch'
         continue-on-error: true
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
 
