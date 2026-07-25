@@ -2356,17 +2356,18 @@
     ],
     "volley_next": 4,
     "response": "reply",
-    "reply": "Ok two words here innoru and thadava need teaching, I don’t recognize either",
-    "reply_verdict": "miss",
+    "reply": "Innoru thadava sollunga",
+    "reply_verdict": "hinted",
     "reply_fired": [
-      "frame:adverb-aa"
+      "frame:adverb-aa",
+      "இன்னொரு தடவ சொல்லுங்க"
     ],
     "reply_fired_cold": [
       "frame:adverb-aa"
     ],
     "reply_fired_capped": [],
-    "reply_line": "innoru = 'one more', thadava = 'time/instance' — so 'innoru thadava sollunga' = say it one more time. but it's on revealed_recently so this one can't fire cold here — we'll catch it fresh another day.",
-    "reply_at": "2026-07-25T22:56:56Z",
+    "reply_line": "adhu dhaan! full phrase, clean. 🔥 prior exchange showed it though, so we'll catch it cold another day.",
+    "reply_at": "2026-07-25T23:14:11Z",
     "exchanges": [
       {
         "at": "2026-07-25T18:56:32Z",
@@ -2421,6 +2422,18 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "innoru = 'one more', thadava = 'time/instance' — so 'innoru thadava sollunga' = say it one more time. but it's on revealed_recently so this one can't fire cold here — we'll catch it fresh another day."
+      },
+      {
+        "at": "2026-07-25T23:14:11Z",
+        "reply": "Innoru thadava sollunga",
+        "verdict": "hinted",
+        "fired": [
+          "இன்னொரு தடவ சொல்லுங்க"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! full phrase, clean. 🔥 prior exchange showed it though, so we'll catch it cold another day."
       }
     ],
     "chained": 3,
