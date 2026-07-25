@@ -23,6 +23,9 @@ A fixed bug becomes a case here the day it's fixed:
   #10 two renders shared one scratch dir — the first to finish deleted it under
       the second, losing a draft episode; hosts without secrets now skip
       instead of retrying hourly (2026-07-23)
+  #11 an eavesdrop tape hearsayed about an unnamed அவங்க and the drift question
+      asked WHO — unanswerable from the audio; the thread-blind catch judge then
+      re-asked a catch that had already landed on turn 1 (2026-07-25)
 """
 import argparse
 import email.utils
@@ -782,6 +785,55 @@ def s13_eavesdrop(mk, kr, sb: Path):
     reply("no idea, too fast", "missed")
     after = read_json(lex_path)[w]
     check("missed drift moves no axis", after["recognition"] == before["recognition"])
+
+    # ---- #11 (2026-07-25): the unanswerable tape + the thread-blind judge ----
+    # A tape that hearsays about an unnamed அவங்க has no recoverable WHO, so the
+    # drift question asks for what the audio never encoded. Andrew was scored
+    # half-caught twice for exactly that, and his "who came?" was the right
+    # question. Two guards: the tape must name someone up front, and the judge
+    # must see its own thread so a later turn can't re-ask a settled catch.
+    named = "நம்ம அக்கா இருக்காங்கல… அவங்க நேத்து வந்துட்டாங்களாம்!"
+    unnamed = "ஹலோ? ஆமா, அவங்க நேத்து வந்துட்டாங்களாம். ஏதோ பிரச்சனை இருக்காம்."
+    # A real call opens with a greeting, so the window is the opening TWO paragraphs —
+    # a paragraph-one rule would have degraded the 07-19 and 07-22 tapes, which name
+    # their subject perfectly well one beat in.
+    greeted = "ஹலோ? ஆமா ஆமா, நான் தான்…\n\nஅந்த வீட்டு பொண்ணுக்கு கல்யாணம் ஆகுதாம்."
+    # The 07-25 tape verbatim: it DOES say அக்கா — in paragraph 4, as the source of
+    # the reassurance, never as the subject who came. A whole-tape check passes it;
+    # that is the tape that left Andrew asking "who came?" with no answer in it.
+    tape_0725 = ("ஹலோ, ஹலோ — கேக்குதா?\n\n"
+                 "ஆமா, நேத்து அவங்க வந்துட்டாங்களாம்.\n\n"
+                 "ஏதோ ஒரு பிரச்சனை இருக்காம்.\n\n"
+                 "ஆனா, அக்கா சொன்னா — கவலைப்படாதன்னு.")
+    check("tape naming a person passes the referent guard",
+          mk.tape_names_a_referent(named))
+    check("referent-less tape fails the guard", not mk.tape_names_a_referent(unnamed))
+    check("a greeting first, referent one beat in, still passes",
+          mk.tape_names_a_referent(greeted))
+    check("the 07-25 tape fails — அக்கா arrives too late and is not the subject",
+          not mk.tape_names_a_referent(tape_0725))
+    raw["memo_script"] = unnamed
+    check("referent-less eavesdrop degrades to text — never pushed unanswerable",
+          mk.normalize_decision(dict(raw))["modality"] == "text")
+    raw["memo_script"] = named
+    check("named-referent eavesdrop still fires",
+          mk.normalize_decision(dict(raw))["modality"] == "eavesdrop")
+
+    # The judge sees the whole thread, not just the latest turn.
+    fresh = eavesdrop_knock()
+    check("first turn carries no prior_exchanges",
+          "prior_exchanges" not in kr.catch_context(fresh, "someone turned up"))
+    threaded = dict(fresh, exchanges=[
+        {"at": "2026-07-25T15:18:58Z", "reply": "someone said there's a problem",
+         "verdict": "caught", "fired": [], "reply_line": "adhu dhaan 🎧"}])
+    ctx = kr.catch_context(threaded, "ok can you break it down line by line?")
+    check("later turn is judged knowing the catch already landed",
+          len(ctx.get("prior_exchanges", [])) == 1
+          and "problem" in ctx["prior_exchanges"][0]["andrew_said"],
+          str(ctx.get("prior_exchanges")))
+    legacy = dict(fresh, reply="someone said there's a problem", reply_line="adhu dhaan")
+    check("pre-exchanges knock still surfaces its one prior turn",
+          len(kr.catch_context(legacy, "hint?").get("prior_exchanges", [])) == 1)
 
 
 def s15_push_retry(mk):
