@@ -143,6 +143,18 @@
     "note": "already his — now on deck duty as part of the anti-freeze kit"
   },
   {
+    "register": "antifreeze",
+    "type": "chunk",
+    "tamil": "யாரு?",
+    "gloss": "Who? (the referent repair — when you followed the sentence but lost who it's about)",
+    "phonetic": [
+      "yaaru"
+    ],
+    "recognition": "struggled",
+    "direction": "fire",
+    "note": "Andrew's own question, 2026-07-25: he followed the gossip tape and asked 'who came?' in English — the kit had no Tamil move for a lost referent, only for lost words (medhuva sollunga, puriyala). ORACLE: confirm bare யாரு? is not curt mid-conversation with an elder, vs யாரு வந்தாங்க?"
+  },
+  {
     "register": "mil-table",
     "type": "chunk",
     "tamil": "இன்னும் கொஞ்சம் சாப்பிடுங்க",

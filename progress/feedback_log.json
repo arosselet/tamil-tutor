@@ -142,5 +142,9 @@
   {
     "date": "2026-07-25",
     "note": "[phone] Andrew asked for a line-by-line breakdown of the eavesdrop tape — eavesdrop drills are comprehension-only and drift-based by design; full transcription requests should be gently redirected to a drift answer instead."
+  },
+  {
+    "date": "2026-07-25",
+    "note": "[eavesdrop judge] 07-25 tape, Andrew verbatim: 'I heard the tail. My challenge was *who* came... I was asking for a hint and responding what I knew and it felt like it was asking for a question I couldn't answer.' And: 'It was landed on contact 1 and then there was a back and forth I was asking for a hint then I was asking for a breakdown to help me understand it.' ROOT CAUSE: catch judge grades the reply as ONE blended unit (knock_reply.py CATCH_JUDGE_MANDATE), so a reply carrying a landed catch + a hint question collapses to 'half-caught' and the catch is lost — the per-element grading the production judge already has (line 15: 'one shaky word must not drag down a clean one') never reached the catch judge. Second flaw: mandate line 226 classifies 'a question' as chat, and reply_line rule 'No lecture, no replay-homework' made it REFUSE his line-by-line breakdown request. Contacts 2+3 were a question and a teaching request, both graded as weak answers. frame:hearsay-aam corrected to solid (caught on contact 1); catch 0/12 -> 1/12. Knock-log verdicts left as-is deliberately: they are the audit trail of the bug. THIRD finding: the tape ran hearsay-aam with no antecedent and no frame:youknow-la opener, so 'who came?' was unanswerable from the audio — the drift question demanded information the tape never encoded."
   }
 ]

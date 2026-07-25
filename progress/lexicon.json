@@ -3571,12 +3571,12 @@
     "type": "pattern",
     "gloss": "…-ஆம் → 'apparently / they say' — the hearsay tag gossip runs on (varaanga-laam = apparently they're coming) (EAR ONLY)",
     "phonetic": [],
-    "recognition": "comfortable",
+    "recognition": "solid",
     "production": "none",
     "seen_in": [
       68
     ],
-    "last_surfaced": "2026-07-22",
+    "last_surfaced": "2026-07-25",
     "deck": "trip",
     "direction": "catch"
   },
@@ -4611,5 +4611,18 @@
     "production": "cold",
     "seen_in": [],
     "last_surfaced": "2026-07-24"
+  },
+  "யாரு?": {
+    "type": "chunk",
+    "gloss": "Who? (the referent repair — when you followed the sentence but lost who it's about)",
+    "phonetic": [
+      "yaaru"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
   }
 }
