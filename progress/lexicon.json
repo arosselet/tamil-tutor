@@ -1464,7 +1464,8 @@
       75
     ],
     "last_surfaced": "2026-07-26",
-    "exposures": 2
+    "exposures": 2,
+    "reps": 1
   },
   "சொல்றேன்": {
     "gloss": "I'm telling (present)",
@@ -1995,7 +1996,7 @@
     "gloss": "I asked",
     "phonetic": [],
     "recognition": "comfortable",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       11,
       12,
@@ -2009,7 +2010,8 @@
     ],
     "last_surfaced": "2026-07-26",
     "lemma": "கேள்",
-    "exposures": 2
+    "exposures": 2,
+    "reps": 1
   },
   "இன்னைக்கு": {
     "gloss": "Today",
@@ -2835,15 +2837,16 @@
     "phonetic": [
       "ennamo prachanai"
     ],
-    "recognition": "struggled",
+    "recognition": "solid",
     "production": "none",
     "seen_in": [
       68,
       69
     ],
-    "last_surfaced": null,
+    "last_surfaced": "2026-07-26",
     "deck": "trip",
-    "direction": "catch"
+    "direction": "catch",
+    "reps": 1
   },
   "விட்டுடு": {
     "type": "chunk",
@@ -3594,14 +3597,15 @@
     "type": "pattern",
     "gloss": "…-னு சொன்னாங்க → 'she said that…' — the quotative -னு; every reported line in gossip hangs on it (EAR ONLY)",
     "phonetic": [],
-    "recognition": "comfortable",
+    "recognition": "solid",
     "production": "none",
     "seen_in": [
       68
     ],
-    "last_surfaced": "2026-07-22",
+    "last_surfaced": "2026-07-26",
     "deck": "trip",
-    "direction": "catch"
+    "direction": "catch",
+    "reps": 1
   },
   "frame:hearsay-aam": {
     "type": "pattern",
@@ -3711,7 +3715,8 @@
     "last_surfaced": "2026-07-26",
     "deck": "trip",
     "direction": "catch",
-    "exposures": 1
+    "exposures": 1,
+    "reps": 1
   },
   "எவ்ளோ ஆகும்?": {
     "type": "chunk",
@@ -3793,12 +3798,12 @@
       "veettula"
     ],
     "recognition": "struggled",
-    "production": "cold",
+    "production": "hinted",
     "seen_in": [],
-    "last_surfaced": "2026-07-13",
+    "last_surfaced": "2026-07-26",
     "deck": "trip",
     "direction": "fire",
-    "reps": 3
+    "reps": 4
   },
   "frame:happened-aachu": {
     "type": "pattern",
@@ -3952,15 +3957,16 @@
       "alaichal",
       "alaichchal"
     ],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "none",
     "seen_in": [
       60,
       61
     ],
-    "last_surfaced": null,
+    "last_surfaced": "2026-07-26",
     "deck": "trip",
-    "direction": "catch"
+    "direction": "catch",
+    "reps": 1
   },
   "ஜாஸ்தி": {
     "type": "chunk",
@@ -4170,7 +4176,8 @@
     "seen_in": [
       63
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-07-26",
+    "reps": 1
   },
   "டீ": {
     "gloss": "tea",
@@ -4666,8 +4673,9 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": null,
+    "last_surfaced": "2026-07-26",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 1
   }
 }

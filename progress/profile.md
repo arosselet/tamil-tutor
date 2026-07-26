@@ -151,6 +151,16 @@ already works. The unit chases the thing he accidentally demonstrated.
   the sisters. Organic by construction — they talk daily; nothing to stage; the heist
   stays sacred because he produces nothing.
 
+**Ran unagreed, Sun 2026-07-26 — and it worked.** The campaign question was put to Andrew
+twice at that open and he answered neither time (he picked the *shape* — Story Day — and
+skipped the campaign). Rather than stall, the session ran this block's shape anyway: the
+catch headline (a native-speed aththai/akka gossip tape) plus the kel/kitta fire riders.
+Result: **catch axis 1/12 → 3/12** (என்னமோ பிரச்சனை and `frame:quote-nu` both solid on
+first contact, அலைச்சல் glossed correctly unprompted) and *maami-kitta ketten* cold on a
+novel person. `frame:youknow-la` remains **uncaught and load-bearing** — the opener planted
+Vasanthi by name and he still didn't surface the referent. Ask for the campaign call ONCE
+more at the next open; if he skips a third time, stop asking and run it as agreed-in-fact.
+
 **Density note (2026-07-24, his words):** he named *overwhelm* and *progress* in the same
 breath. Keep the dose low and the lore high while that holds — the meta thread is what
 produced seven cold fires today, not volume.
