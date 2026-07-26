@@ -2503,5 +2503,17 @@
     "chained": 1,
     "pinned_target": "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு",
     "pinned_revealed": false
+  },
+  {
+    "date": "2026-07-26",
+    "timestamp": "2026-07-26T20:06:30.365484+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "eavesdrop: youknow-la gossip",
+    "rationale": "Sunday afternoon is prime gossip-tape territory; both ear-only items (frame:youknow-la, ஜாஸ்தி) get a soak dose, referent planted up front per 07-25 fix, no production demand keeps streak at 1 and fits the Overhear Week pitch naturally.",
+    "next_check": "2026-07-27T14:06:30.365484+00:00",
+    "body": "🎧 overheard — one side of a call. நம்ம Mala akka இருக்காங்கல்ல… what's the drift? (English ok)",
+    "expected_target": "frame:youknow-la",
+    "target_revealed": true
   }
 ]

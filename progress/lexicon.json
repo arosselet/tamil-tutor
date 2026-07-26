@@ -3708,9 +3708,10 @@
     "seen_in": [
       68
     ],
-    "last_surfaced": null,
+    "last_surfaced": "2026-07-26",
     "deck": "trip",
-    "direction": "catch"
+    "direction": "catch",
+    "exposures": 1
   },
   "எவ்ளோ ஆகும்?": {
     "type": "chunk",

@@ -15,6 +15,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > illa — that's real 🔥 full form is 'vendaamma, vayiru nerainjiduchu' — but maami heard you. · now she smiles and says 'oru piece cake vaangu' — wave THAT off too. same move.
 
+**16:06 · Anna**  ·  text / eavesdrop: youknow-la gossip
+> 🎧 overheard — one side of a call. நம்ம Mala akka இருக்காங்கல்ல… what's the drift? (English ok)
+
 
 ## Saturday 2026-07-25
 
