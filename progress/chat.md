@@ -9,6 +9,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **10:28 · Anna** 🎧  ·  fielding / fielding: eat-more refusal
 > 🍽️ maami leans over — "innoru thadava saapidunga" — wave it off. what do you say back?
 
+**11:43 · Andrew** — **COLD**
+> Illa vaira full
+
+**Anna ↩**
+> illa — that's real 🔥 full form is 'vendaamma, vayiru nerainjiduchu' — but maami heard you. · now she smiles and says 'oru piece cake vaangu' — wave THAT off too. same move.
+
 
 ## Saturday 2026-07-25
 
