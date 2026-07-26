@@ -43,8 +43,7 @@ from openai import OpenAI
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from morning_knock import (OPENROUTER_BASE, MODEL, ANNA_VOICE, load_env,
-                           push_to_phone, commit_and_push, jsdelivr_url,
-                           LOCAL_TZ)
+                           push_to_phone, commit_and_push, jsdelivr_url)
 from render_audio import (generate_segment_google, get_raw_mp3_frames,
                           SILENCE_FRAME, clean_for_tts, google_credentials_ready,
                           EXIT_NOT_CONFIGURED)
