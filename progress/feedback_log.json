@@ -154,5 +154,9 @@
   {
     "date": "2026-07-25",
     "note": "[phone] Andrew explicitly flagged 'innoru' and 'thadava' as unrecognized — both need dedicated drilling before this phrase can fire cold."
+  },
+  {
+    "date": "2026-07-26",
+    "note": "Curriculum architecture: the curriculum/deck/machinery/catch-response layers grew by iteration and discovery, not top-down design. Want the abstraction clean and precise — no muddiness, redundancy, or accumulated fixtures — and the deck must not starve the larger goal."
   }
 ]
