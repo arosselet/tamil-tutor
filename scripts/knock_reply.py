@@ -51,9 +51,9 @@ from morning_knock import (OPENROUTER_BASE, MODEL, KNOCK_LOG_PATH, KNOCKS_DIR,
                            ANNA_VOICE, parse_llm_json, load_env, push_to_phone,
                            commit_and_push, maybe_enqueue_schedule, render_memo,
                            jsdelivr_url, refresh_feed)
-from sync_state import (LEXICON_PATH, FEEDBACK_LOG_PATH, TRIP_DATE, load_json,
-                        save_json, build_phonetic_index, resolve, compute_deck,
-                        fires_today)
+from sync_state import (LEXICON_PATH, LEARNER_PATH, FEEDBACK_LOG_PATH, TRIP_DATE,
+                        load_json, save_json, build_phonetic_index, resolve,
+                        compute_deck, fires_today)
 
 PRODUCTION_RANK = {"none": 0, "hinted": 1, "cold": 2}
 VERDICTS = {"cold", "hinted", "miss", "chat"}
@@ -700,6 +700,10 @@ def apply_verdict(verdict: dict, knock: dict, lexicon: dict, klog: list,
         else:
             summary.append(f"{key} already {cur} — kept ({grade} fire)")
         rec["last_surfaced"] = today
+        # The knock half of the rep ledger (2026-07-26): every word in a judged
+        # reply's fired list is a DECLARED production — any verdict, partial
+        # counts. This counter replaced mining Anna's prose for mentions.
+        rec["reps"] = rec.get("reps", 0) + 1
     return summary, cold_credited, capped_keys, graduated
 
 
@@ -870,6 +874,17 @@ def main():
     save_json(LEXICON_PATH, lexicon)
     save_json(KNOCK_LOG_PATH, klog)
 
+    # A phone graduation opens a focus seat — reconcile the stored cohort at
+    # this write seam exactly as cmd_update does at the session seam.
+    from suggest_targets import reconcile_focus  # lazy: keeps module import light
+    learner = load_json(LEARNER_PATH) or {}
+    new_cohort = reconcile_focus(lexicon, learner.get("focus_cohort", []))
+    cohort_changed = set(new_cohort) != set(learner.get("focus_cohort", []))
+    if cohort_changed:
+        learner["focus_cohort"] = new_cohort
+        save_json(LEARNER_PATH, learner)
+        print(f"   focus cohort reconciled ({len(new_cohort)} seats held)")
+
     # Anna may answer ALOUD. Rendered before the commit below because
     # push_to_phone pre-warms the jsDelivr URL and the CDN can only serve a path
     # already on main — knock_reply already commits before it notifies, so the
@@ -887,6 +902,8 @@ def main():
 
     print("3. commit + push…")
     commit_paths = [LEXICON_PATH, KNOCK_LOG_PATH, render_chat()]
+    if cohort_changed:
+        commit_paths.append(LEARNER_PATH)
     if voice_url:
         commit_paths.insert(0, vmp3)
         rss = refresh_feed()   # all audio lands on the feed (2026-07-05)

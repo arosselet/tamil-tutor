@@ -280,6 +280,11 @@ def cmd_drain(args):
 
     KNOCK_LOG_PATH.write_text(json.dumps(klog, ensure_ascii=False, indent=2), encoding="utf-8")
     save_queue(kept)
+    # A scheduled dose is a knock push: a revealed target is a declared exposure
+    # (2026-07-26 ledger law), stamped at the same seam that fired it.
+    from sync_state import LEXICON_PATH, record_exposure
+    exposed = record_exposure([e["expected_target"] for e in fired
+                               if e.get("expected_target") and e.get("target_revealed", True)])
     if not args.no_commit:
         # Feed AFTER the log, never before. rebuild_rss titles each pushed dose
         # from knock_log.json, so rebuilding up in the mp3 commit — where the
@@ -292,7 +297,8 @@ def cmd_drain(args):
         # drain was the only lane that didn't, because its legitimate two-commit
         # split (CDN pre-warm, above) swept the rebuild along with the mp3.
         rss = refresh_feed()
-        commit_and_push([QUEUE_PATH, KNOCK_LOG_PATH, render_chat()] + ([rss] if rss else []),
+        commit_and_push([QUEUE_PATH, KNOCK_LOG_PATH, render_chat()]
+                        + ([LEXICON_PATH] if exposed else []) + ([rss] if rss else []),
                         f"Scheduled push fired ({', '.join(e['id'] for e in fired)})")
     print(f"done — fired {len(fired)}, {len(kept)} still queued.")
 

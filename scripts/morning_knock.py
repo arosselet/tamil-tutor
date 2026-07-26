@@ -523,23 +523,19 @@ Return ONLY a JSON object, no prose around it:
 """
 
 
-def mark_frames_seen(keys: list[str]) -> None:
-    """When a lore or trailer knock introduces a frame, mark it seen in the lexicon
-    (last_surfaced = today). Closes the pipeline gap: lore memos were leaving
-    frames UNSEEN even after Andrew heard them (2026-07-16)."""
-    from sync_state import LEXICON_PATH, load_json as _load, save_json as _save
-    lex = _load(LEXICON_PATH) or {}
-    today = date.today().isoformat()
-    changed = []
-    for key in keys:
-        if key in lex:
-            lex[key]["last_surfaced"] = today
-            changed.append(key)
-        else:
-            print(f"   ⚠ introduces: '{key}' not in lexicon — skipped")
-    if changed:
-        _save(LEXICON_PATH, lex)
-        print(f"   Marked seen (introduces): {', '.join(changed)}")
+def knock_exposures(decision: dict) -> list[str]:
+    """The DECLARED exposure of a knock — what Tamil actually went out the door
+    (2026-07-26 ledger law; never mined from the dose's prose):
+      - `introduces` keys (teaching doses show the item — the 2026-07-16 gap),
+      - a revealed `expected_target` (the body/memo printed the Tamil itself),
+      - an eavesdrop's target (the tape SPEAKS it; target_revealed is false
+        there only because the ask is comprehension, not because it was hidden).
+    A hidden target is an ASK — spend, not exposure — and stamps nothing."""
+    keys = list(decision.get("introduces") or [])
+    target = (decision.get("expected_target") or "").strip()
+    if target and (decision.get("target_revealed") or decision.get("modality") == "eavesdrop"):
+        keys.append(target)
+    return keys
 
 
 def maybe_enqueue_schedule(decision: dict) -> Path | None:
@@ -932,10 +928,9 @@ def main():
         return
 
     path = log_decision(now, decision, acted=True, audio_url=audio_url, mp3=mp3)
-    from sync_state import LEXICON_PATH as _LP
+    from sync_state import LEXICON_PATH as _LP, record_exposure
     extra_paths: list[Path] = []
-    if decision.get("introduces"):
-        mark_frames_seen(decision["introduces"])
+    if record_exposure(knock_exposures(decision)):
         extra_paths.append(_LP)
     commit_paths = [path, render_chat()] if mp3 is None else [mp3, path, render_chat()]
     commit_paths.extend(extra_paths)

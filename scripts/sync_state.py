@@ -97,6 +97,47 @@ def is_tamil(word: str) -> bool:
     return bool(TAMIL_RE.search(word))
 
 
+def mark_exposed(lexicon: dict, keys: list[str], phon_index: dict | None = None,
+                 today: str | None = None) -> list[str]:
+    """A dose carrying these words went OUT THE DOOR — stamp the delivery.
+
+    Exposure is one of the ledger's three declared events (2026-07-26): a rep is
+    Andrew producing the word, an ask is spend, an exposure is delivery. It is
+    declared by the seam that ASSEMBLES the dose (episode registration, soak
+    sheet, drill sheet, knock push), never mined from prose. The stamp is what
+    closes the background rotation loop: being exposed moves a word to the back
+    of its own queue, so coverage is guaranteed instead of hoped for.
+
+    Mutates in place; callers own the save. Returns the keys actually stamped."""
+    if phon_index is None:
+        phon_index = build_phonetic_index(lexicon)
+    today = today or date.today().isoformat()
+    marked = []
+    for k in keys:
+        key = resolve(k, lexicon, phon_index)
+        if key is None:
+            print(f"   ⚠ exposure: '{k}' not in lexicon — skipped")
+            continue
+        lexicon[key]["last_surfaced"] = today
+        lexicon[key]["exposures"] = lexicon[key].get("exposures", 0) + 1
+        marked.append(key)
+    return marked
+
+
+def record_exposure(keys: list[str]) -> list[str]:
+    """Load-stamp-save wrapper around `mark_exposed` for delivery seams that do
+    not already hold the lexicon in memory (knock push, soak, drill, drain).
+    The caller adds LEXICON_PATH to its commit when this returns anything."""
+    lexicon = load_json(LEXICON_PATH)
+    if lexicon is None or not keys:
+        return []
+    marked = mark_exposed(lexicon, keys)
+    if marked:
+        save_json(LEXICON_PATH, lexicon)
+        print(f"   Exposure stamped: {', '.join(marked)}")
+    return marked
+
+
 def canon_payload(items: list[str]) -> list[str]:
     """Split comma-joined payload elements into a flat word list. A close once
     passed `--soak-payload "frame:idum,பாத்துக்கறேன்"` as one string (2026-07-13);
@@ -323,6 +364,9 @@ def write_thin_learner(learner: dict, episodes: dict):
         "last_debrief": learner.get("last_debrief", ""),
         "soak_order": learner.get("soak_order", {}),
         "next_engine": learner.get("next_engine", ""),
+        # The ≤FOCUS_SIZE drill cohort — stored state, not an emergent sort
+        # (2026-07-26): membership is a fact in a file, immune to counting bugs.
+        "focus_cohort": learner.get("focus_cohort", []),
         "recent_missions": compute_recent_missions(episodes),
         "status": compute_status(),
     }
@@ -347,9 +391,9 @@ def cmd_update(args):
     def touch(key):
         """Worked in a session: refresh the date AND count the rep.
         `last_surfaced` is one overwritten date, so it can say WHEN but never HOW
-        MANY — and the focus set needs a count (2026-07-26). The knock channel is
-        counted from knock_log; this is the session channel's half, and
-        `suggest_targets.rep_counts` is the one place they are summed."""
+        MANY — and the focus set needs a count (2026-07-26). Both channels write
+        THIS counter now: sessions here, knocks at the judge seam
+        (knock_reply.apply_verdict) — declared events, never text forensics."""
         lexicon[key]["last_surfaced"] = today
         lexicon[key]["reps"] = lexicon[key].get("reps", 0) + 1
 
@@ -454,6 +498,17 @@ def cmd_update(args):
     # No streak bookkeeping — recency comes from the session log, and a stored
     # streak is a meter that lies the moment a day is skipped (Enjoyment Clause).
     learner.pop("streak", None)
+
+    # Focus cohort — stored membership, reconciled only here and at the judge
+    # seam: leave on graduation, enter on seat-open (2026-07-26).
+    from suggest_targets import reconcile_focus  # lazy: suggest_targets imports us
+    old_cohort = learner.get("focus_cohort", [])
+    learner["focus_cohort"] = reconcile_focus(lexicon, old_cohort)
+    left = sorted(set(old_cohort) - set(learner["focus_cohort"]))
+    entered = sorted(set(learner["focus_cohort"]) - set(old_cohort))
+    if left or entered:
+        print(f"  Focus cohort: -{left or '[]'} +{entered or '[]'}"
+              f" ({len(learner['focus_cohort'])} seats held)")
 
     save_json(LEXICON_PATH, lexicon)
     if episodes:
@@ -587,10 +642,18 @@ def cmd_seed_deck(args):
     # `pairs_with` is the ONE relation the schema carries: a catch item names the
     # chunk Andrew must say back to it (hear X → say Y). It lives on the catch
     # side because that is the direction of the drill, and it must resolve inside
-    # the same file — an unresolvable pair is a split pair, which is exactly the
+    # the same file — an unresolvable pair is a SPLIT pair, which is exactly the
     # failure it exists to prevent (2026-07-26: the maami's "eat more" kept its
-    # deck slot while its refusal was dropped, and nothing could notice).
+    # deck slot while its refusal was dropped, and nothing could notice). A split
+    # pair refuses the whole seed BEFORE any write: fix the file, re-run.
     in_file = {e.get("tamil") for e in entries}
+    split = [(e.get("tamil"), e.get("pairs_with")) for e in entries
+             if e.get("pairs_with") and e["pairs_with"] not in in_file]
+    if split:
+        for tamil, pair in split:
+            print(f"  ✗ '{tamil}' pairs_with '{pair}', which is not in this deck — split pair.")
+        print("  Error: seed refused, nothing written. A pair must resolve inside the file.")
+        sys.exit(1)
     created = updated = 0
     for e in entries:
         tamil = e.get("tamil")
@@ -598,9 +661,6 @@ def cmd_seed_deck(args):
             print(f"  ! deck entry missing 'tamil' — skipped: {e}")
             continue
         pair = e.get("pairs_with")
-        if pair and pair not in in_file:
-            print(f"  ! '{tamil}' pairs_with '{pair}', which is not in this deck — pair dropped.")
-            pair = None
         lex_type = "pattern" if e.get("type") == "frame" else e.get("type", "chunk")
         # Chunks/words must be canonical Tamil script; frames use the `frame:...`
         # key convention (like add-pattern), so they're exempt from the script check.

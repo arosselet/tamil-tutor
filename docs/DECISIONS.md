@@ -1078,3 +1078,20 @@ Details live in git history; this is the index of the *conclusions*.
   unlogged exposure was a positive feedback loop (the exposed get more exposed). The
   delivery-time exposure write above is the closing mechanism; smoke s34, which
   hand-modeled the write inside its own loop, must assert the real seam once built.
+- **Rep backfill from judged replies only** (2026-07-26, Andrew's yes at build time).
+  The ledger build seeded the new counters by replaying the knock log's declared
+  `fired` lists — 49 reps onto 26 words; 19 historical fired-words resolving to no
+  record stayed unscored, exactly as the judge left them at the time. Rejects any
+  backfill from targeted asks or text matches — that is the pollution the build removed.
+- **The deck sort carries the ask-cooldown as an explicit term** (2026-07-26, found by
+  smoke while deleting the rep miner). The miner had been providing KF-6 protection by
+  accident — a targeted ask counted as a lifetime "rep" and pushed the item back; with
+  reps declared-only, a hidden-target ask would sit at the queue head and re-fire
+  forever. The 3-day cooldown now rides between tier and `coverage_key`, the same term
+  the floor already applies inside its focus set. Replaces an accidental mechanism with
+  the explicit one; "deck and floor share one law" is why it is the *same* term.
+- **An eavesdrop's target is an exposure despite `target_revealed: false`** (2026-07-26,
+  @build's reading of the ledger law — flag if wrong). The tape *speaks* the word; the
+  flag is false only because the ask is comprehension, not because the Tamil was hidden.
+  A hidden production target remains spend-only. Declared at the knock seam
+  (`knock_exposures`), never mined from the memo text.
