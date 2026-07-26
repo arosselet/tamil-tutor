@@ -4,6 +4,84 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **CURRICULUM ARCHITECTURE AUDIT (2026-07-26, `/recalibrate`, Andrew's felt signal:
+  "the curriculum/deck/machinery/catch-response layers grew by iteration and discovery,
+  not top-down design — make the abstraction clean, and don't let the deck starve the
+  larger goal").** Third strike on this axis (07-18 "wants curriculum/pedagogy made
+  pristine" → 07-25 "we are still starving some of these" → today). The 07-25 ruling fixed
+  starvation *inside* the deck; Andrew's question today is about everything outside it,
+  which has not been ruled on. Read-only evidence sweep, six findings, ordered by cost:
+
+  1. **The floor selector never got the 07-25 ordering law — this is the "deck starves the
+     larger goal" mechanism.** `docs/DECISIONS.md` (07-25, "One selector, one ordering law
+     — the predecessors are retired, not stacked") records `recent_ask_counts` becoming the
+     third term of the one sort key. It landed in `deck_status` only.
+     `suggest_targets.floor_gap_targets` (`scripts/suggest_targets.py:94`) still sorts
+     `-staleness → ripeness → soak → alphabetical`, **no `asks` term**. Not theoretical:
+     121 of 134 pending floor words tie at `NEVER_SURFACED`, so the tiebreak does all the
+     work (41 distinct key prefixes over 134 items; largest tie group 14, broken purely
+     alphabetically) — and **7 of the current top 14 floor targets were asked within the
+     last 3 days** (சரி, ஆனா, இருக்கு, அண்ணா, சொன்னாங்க, மாமா, அவங்க). Exactly the
+     rich-get-richer freeze the 07-25 entry diagnosed, still live on the larger goal.
+     *Cheapest real move: add the `asks` term, completing a decision already made.*
+
+  2. **The deck doesn't steal reps — it monopolizes instrumentation.** Knock targeting is
+     roughly balanced (deck 24 / non-deck 5 / no target 34 / novel 12 across 75 knocks).
+     But the deck has tier ordering, a coverage meter (`deck_coverage`), a deadline
+     countdown, a status headline and a 3-term sort; the other 230 lexicon words have a
+     floor percentage and nothing else — no coverage meter, no tier, no ask term. What gets
+     measured gets worked.
+
+  3. **There is no curriculum layer any more; there are three, and the original is dead.**
+     `curriculum/word_pool.json` — 333 rows / 322 unique (11 duplicate rows), 20 clusters,
+     priority 1|2 — is the abstraction the project was designed around. **27 of 322 have
+     ever entered the lexicon (8%); 189 of 212 priority-1 entries never used.**
+     `curriculum/trip_deck.json` (82 items, richer schema) is the real working curriculum,
+     and shares exactly **1** entry with the word pool — the two were drafted independently,
+     have incompatible schemas (`cluster`/`priority` vs `register`/`type`/`direction`), and
+     only the deck can express machinery or ear-only. Meanwhile **209 lexicon entries are in
+     neither file** — created ad-hoc in session. That is the largest de facto curriculum and
+     it has no source file, no taxonomy, and no Oracle vetting. Options: retire the word
+     pool as a fixture; or re-seat it as the post-trip curriculum with the deck's schema.
+
+  4. **`register` is three axes wearing one field.** Topical (gossip/mil-table/faq/social/
+     public/antifreeze/zinger), type restated (`frame`, on 20 of 21 frames), and priority
+     (via `DECK_TIERS` register→tier). So `DECK_TIERS["frame"]=0` means *all machinery is
+     auto-survival* — a pedagogy policy hidden inside a taxonomy collision. The single frame
+     that declared a topic instead, `frame:youknow-la` (THE gossip opener, Oracle-confirmed),
+     is tiered **dessert** — bottom of the queue — purely because its author filled a
+     different field. Separately, `REGISTERS` at `suggest_targets.py:58` is the *emotional
+     tone* palette (tenderness, dread, mischief…) — an unrelated meaning of the same word in
+     the same module as `deck_registers()`.
+
+  5. **"Catch and response" has no representation at all.** Andrew names it as a first-class
+     curriculum kind. The schema has `direction: catch` (12 items — not the 5–6 he
+     remembered; 1 cleared), but the *pairing* — hear X → say Y — exists only as English
+     prose in `note`/`gloss`: "the 'eppo vandheenga?' answer", "HER line — hear it coming".
+     No `pairs_with`/`response_to` field anywhere in the repo. The whole `faq` register is
+     answers to prompts that live in parentheses, and nothing can drill a pair as a pair or
+     meter it. Concrete casualty: the catch item இன்னும் கொஞ்சம் சாப்பிடுங்க (the maami's
+     *eat more*) is in the deck; its natural response வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு is an
+     orphan (see 6) — the pair was split and nothing noticed, because nothing knows it's a pair.
+
+  6. **`seed-deck` is an orphan factory (hygiene + silent state loss, not a lying meter).**
+     `sync_state.cmd_seed_deck` un-tags departed items (drops `deck` + `direction`) but
+     leaves `type`, stranding 15 rows: 10 chunks + 5 frames. Most of the 10 chunks are
+     **superseded rephrasings** where the Oracle changed the wording and the old row stayed —
+     எவ்வளவு ஆகும்? / எவ்ளோ ஆகும்? (one phrase, two spellings), பிறகு பார்க்கலாம் /
+     அப்புறம் பார்க்கலாம், சாஃப்ட்வேர் வேலை பண்றேன் / …இன்ஜினியரா இருக்கேன்,
+     காரம் …பழக்கமாயிடுச்சு / …பழகிப்போச்சு. **Learning state does not transfer to the new
+     wording**, so a soaked phrase resets to zero under its new spelling. Good news: they do
+     not corrupt the meters — 0 of 10 reach the floor denominator (all still `struggled`).
+     The 5 orphan *frames* are the opposite of a bug and should be left alone:
+     present-future-toggle, obligation-ணும், cant-முடியல, idum, negative-la are organically
+     discovered machinery and **are** counted in Engines (21 = 16 deck-fire + 5 orphan) —
+     the machinery axis absorbs discovery correctly. Options: a `supersedes` field on deck
+     entries so a rephrase migrates state; or a one-time reconciliation pass.
+
+  *Not proposing all six. Per `/recalibrate`, one move — #1 is the cheapest and is the
+  one Andrew's felt signal actually names. #3–#5 are schema changes and wait for his yes/no.*
+
 - **`--debrief` alone counts as a session (found 2026-07-25).** `sync_state.py update`
   appends a session-log row when *any* of cold/hinted/demoted/listened/debrief is present
   (line 451), so correcting a debrief for bookkeeping reasons writes a zero-fire "session"
