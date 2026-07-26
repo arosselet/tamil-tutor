@@ -212,10 +212,11 @@
       66,
       67,
       69,
-      75
+      75,
+      76
     ],
     "last_surfaced": "2026-07-26",
-    "exposures": 2
+    "exposures": 3
   },
   "நேரா": {
     "gloss": "Straight",
@@ -494,10 +495,12 @@
       34,
       38,
       60,
-      61
+      61,
+      76
     ],
     "last_surfaced": "2026-07-26",
-    "reps": 1
+    "reps": 1,
+    "exposures": 1
   },
   "மாமா": {
     "gloss": "Uncle (maternal)",
@@ -1119,9 +1122,11 @@
       28,
       30,
       32,
-      33
+      33,
+      76
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-07-26",
+    "exposures": 1
   },
   "செம்மை": {
     "gloss": "Excellent / Perfect",
@@ -1221,10 +1226,12 @@
       61,
       65,
       69,
-      71
+      71,
+      76
     ],
-    "last_surfaced": "2026-07-20",
-    "reps": 3
+    "last_surfaced": "2026-07-26",
+    "reps": 3,
+    "exposures": 1
   },
   "அவ": {
     "gloss": "She (informal)",
@@ -1461,10 +1468,11 @@
       34,
       38,
       60,
-      75
+      75,
+      76
     ],
     "last_surfaced": "2026-07-26",
-    "exposures": 2,
+    "exposures": 3,
     "reps": 1
   },
   "சொல்றேன்": {
@@ -1801,9 +1809,11 @@
       10,
       11,
       26,
-      34
+      34,
+      76
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-07-26",
+    "exposures": 1
   },
   "கீழ": {
     "gloss": "Below / Under",
@@ -1894,9 +1904,11 @@
       28,
       29,
       67,
-      71
+      71,
+      76
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-07-26",
+    "exposures": 1
   },
   "கவலை": {
     "gloss": "Worry",
@@ -1911,9 +1923,11 @@
       25,
       26,
       27,
-      28
+      28,
+      76
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-07-26",
+    "exposures": 1
   },
   "பெட்டி": {
     "gloss": "Box / Suitcase",
@@ -2006,11 +2020,12 @@
       31,
       38,
       65,
-      75
+      75,
+      76
     ],
     "last_surfaced": "2026-07-26",
     "lemma": "கேள்",
-    "exposures": 2,
+    "exposures": 3,
     "reps": 1
   },
   "இன்னைக்கு": {
@@ -3961,12 +3976,14 @@
     "production": "none",
     "seen_in": [
       60,
-      61
+      61,
+      76
     ],
     "last_surfaced": "2026-07-26",
     "deck": "trip",
     "direction": "catch",
-    "reps": 1
+    "reps": 1,
+    "exposures": 1
   },
   "ஜாஸ்தி": {
     "type": "chunk",
@@ -4616,10 +4633,11 @@
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [
-      75
+      75,
+      76
     ],
     "last_surfaced": "2026-07-26",
-    "exposures": 2
+    "exposures": 3
   },
   "frame:negative-la": {
     "type": "pattern",
@@ -4677,5 +4695,27 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 1
+  },
+  "சரியாயிடும்": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      76
+    ],
+    "last_surfaced": "2026-07-26",
+    "exposures": 1
+  },
+  "கேட்டீங்களா": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      76
+    ],
+    "last_surfaced": "2026-07-26",
+    "exposures": 1
   }
 }
