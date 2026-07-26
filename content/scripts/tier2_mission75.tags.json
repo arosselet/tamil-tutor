@@ -1,0 +1,29 @@
+{
+  "mission": 75,
+  "register": "mischief",
+  "dramatic_ingredient": "turn",
+  "episode_form": "vignette",
+  "shape": "gossip",
+  "location_class": "home_social",
+  "energy": "medium",
+  "intercept_tamil_density": 0.70,
+  "breakdown_tamil_density": 0.0,
+  "fence_size": 189,
+  "unfenced_words": 2,
+  "new_words_landed": {
+    "கிட்ட": 6,
+    "பிரச்சனை": 4,
+    "கேட்டேன்": 4
+  },
+  "callbacks_used": {
+    "அவங்க": 1,
+    "ஆனா": 2,
+    "நாங்க": 1,
+    "சொன்னாங்க": 2
+  },
+  "host_roles": {
+    "A": "gossiping_sister",
+    "B": "curious_relative_wandering_in"
+  },
+  "notes": "Vignette delivering the person-toggle: ketten alone = HEAR; [person]-kitta ketten = ASK. frame:youknow-la in line 1 (namma Ramesh irukkaan-la) plants the referent before the -aam hearsay lands — fix for the 2026-07-25 referent-less tape bug. Turn lands when no one in the gossip chain ever asked Ramesh directly: 'kerkave prachanai-aa aachu.' Unfenced words: ellaarum (everyone, context-transparent), ketkave (emphatic verb stem, context-answered by the verb chain running the whole scene). Dialect: verb forms collapsed to spoken register (ketkala, kettom, kekkala, aachu); discourse markers added (aamaangga, -n-nu sonna); code-switching on Host A only (Exactly, Just, properly, So)."
+}
