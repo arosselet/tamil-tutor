@@ -466,12 +466,15 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
 
     save_json(EPISODES_PATH, episodes)
 
-    # Provenance bridge: record that these declared words appeared in this episode.
-    # seen_in is pure provenance (which episodes a word is in); recency (last_surfaced)
-    # is bumped when the episode is actually listened to, via sync_state --listened.
+    # Delivery seam (2026-07-26 ledger law): the episode going out the door IS
+    # the exposure — stamped here at registration, not on a confirmed listen
+    # (confirmed-listen is unreliable by Andrew's own account; the counter's job
+    # is rotation fairness). seen_in stays pure provenance alongside it.
     # (lexicon + phon were loaded above; cleaned_words are already canonical.)
     if lexicon:
+        from sync_state import mark_exposed
         mnum = int(mission_num)
+        today = date.today().isoformat()
         tagged = 0
         created = 0
         for w in cleaned_words:
@@ -483,7 +486,8 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
                 # backfill later, the same as sync_state's set_recognition.
                 lexicon[w] = {
                     "gloss": "", "phonetic": [], "recognition": "struggled",
-                    "production": "none", "seen_in": [mnum], "last_surfaced": None,
+                    "production": "none", "seen_in": [mnum],
+                    "last_surfaced": today, "exposures": 1,
                 }
                 created += 1
                 continue
@@ -492,10 +496,11 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
                 if mnum not in seen:
                     seen.append(mnum)
                     seen.sort()
-                    tagged += 1
+                mark_exposed(lexicon, [key], phon_index=phon, today=today)
+                tagged += 1
         if tagged or created:
             save_json(Path("progress/lexicon.json"), lexicon)
-            msg = f"   ↳ tagged {tagged} lexicon words seen_in M{mnum}"
+            msg = f"   ↳ exposed {tagged} lexicon words via M{mnum} (seen_in + delivery stamp)"
             if created:
                 msg += f"; +{created} NEW words registered (recognition=struggled, gloss empty — backfill later)"
             print(msg)

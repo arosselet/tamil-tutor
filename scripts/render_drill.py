@@ -8,9 +8,10 @@ while Andrew SAYS THE TAMIL OUT LOUD, then the answer lands (twice). Built strai
 from the due fire-side deck items, so a walk or the dishes becomes deck reps.
 
 Same one-shot family as the knock: the LLM writes the sheet (cues + answers),
-Python owns the menu (deck due list), the render, and the publish. READ-ONLY on
-the learning brain — listening isn't producing; no reps are logged. The cold
-fires happen later, in chat or on a knock reply, where a judge can hear them.
+Python owns the menu (deck due list), the render, and the publish. Listening
+isn't producing — NO reps are logged; publishing stamps a declared EXPOSURE on
+the drilled items (the 2026-07-26 ledger law: exposure = it went out the door).
+The cold fires happen later, in chat or on a knock reply, where a judge hears them.
 
   python scripts/render_drill.py --dry-run     # write + print the sheet only
   python scripts/render_drill.py               # sheet → render → RSS + commit/push + phone push
@@ -36,7 +37,7 @@ from morning_knock import (OPENROUTER_BASE, MODEL, ANNA_VOICE, load_env,
                            push_to_phone, commit_and_push, jsdelivr_url)
 from render_audio import generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME, clean_for_tts
 from suggest_targets import deck_status
-from sync_state import LEXICON_PATH, load_json
+from sync_state import LEXICON_PATH, load_json, record_exposure
 
 DRILLS_DIR = BASE / "published_audio"   # feed root — rebuild_rss picks up drill_*.mp3
 SILENCE_PER_SEC = 41.666                # frames per second (matches render_audio)
@@ -192,8 +193,12 @@ def main():
         return
 
     print("3. publish…")
+    # Delivery seam (2026-07-26 ledger law): the due items Python put on the
+    # sheet went out the door — declared exposure, stamped at publish.
+    exposed = record_exposure([t["word"] for t in pending])
     subprocess.run([sys.executable, str(BASE / "scripts" / "rebuild_rss.py")], cwd=BASE, check=True)
-    commit_and_push([mp3, BASE / "rss.xml"], f"Drill track: {sheet.get('title', mp3.stem)}")
+    commit_and_push([mp3, BASE / "rss.xml"] + ([LEXICON_PATH] if exposed else []),
+                    f"Drill track: {sheet.get('title', mp3.stem)}")
     # This lane had NO quiet-hours check at all and pushed a drill at 23:42
     # (2026-07-26). The guard lives in push_to_phone now, so every lane —
     # including ones not written yet — inherits it.

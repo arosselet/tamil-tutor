@@ -4,33 +4,6 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
-- **BUILD (decided 2026-07-26): the declared-events ledger.** Design settled with Andrew
-  (see DECISIONS "The word ledger is declared events" + the two entries after it); this
-  is the build plan. Mostly deletion — the one genuine addition is the exposure write.
-  1. **Rep = declared production.** `sync_state.touch` already writes it. Add the knock
-     half at the judge seam: each word in a judged reply's `fired` list (any verdict —
-     partial counts) increments the lexicon `reps`. Delete the mention-mining from
-     `rep_counts`: the knock-side sum becomes a read of declared counters, not a scan of
-     Anna's prose. `recent_ask_counts` keeps its probe matching for the 3-day
-     reveal-cooldown ONLY (there Anna's free prose is genuinely the source).
-  2. **Exposure = the word went out the door.** One write at each delivery seam
-     (episode render/registration, soak render, drill render, knock push) stamping an
-     exposure date/count. Flip or drop `-soaked` for the background band — more-soaked
-     currently sorts EARLIER, the anti-coverage direction for an exposure queue.
-  3. **Focus cohort as stored state.** The ≤12 names in Python-owned state (learner.json
-     is the natural home); enter on seat-open, leave on graduation only. The selector
-     reads membership instead of re-deriving it.
-  4. **Backfill question for Andrew at build time:** seed the new rep counter from the
-     knock log's *judged replies* (declared `fired` lists — deterministic, no mining)?
-     Recommend yes; never backfill from targeted asks or text matches.
-  5. Rewire smoke: s34 asserts the real exposure seam (today it hand-writes
-     `last_surfaced` inside its own loop — it tests the intent, not the pipeline).
-     While in `sync_state`: the `pairs_with` "pair dropped" print should be a hard
-     seed-time error, as the DECISIONS entry already claims it is.
-  Timing: the live ticket is steering on polluted counts today (false STUCK flag,
-  mention-seated focus), so this build is *what makes the watch period meaningful* —
-  build in a fresh @build session, don't wait out the focus/background watch first.
-
 - **Upsert `word_pool.json` into the lexicon, then retire the file (2026-07-26, Andrew's
   call — supersedes the assistant's "just delete it").** Verified safe: `compute_floor`
   counts only comfortable/solid, and `floor_gap_targets` requires the same, so ~295
@@ -243,6 +216,15 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
 - **Real-media library (songs, kids' TV)** — the Jabberwocky principle: melody stores sound-sequences below comprehension (Andrew still carries sung gibberish from decades ago). Curate Oracle-vetted YouTube links (her childhood film songs, Tamil Dora) as rows of data; Anna sends one as a no-ask dose, lore-style — a skill, not a DJ persona. Feeds the starving catch axis (0/8) and buys shared cultural ground before the trip. Guardrails: stop-chasing-listens applies in full (zero-debt, no follow-up); curation happens at the laptop, studio-style, never in-session. Machinery (a knock "song dose" type) waits until the library exists and a few doses prove the format by hand.
 
 ## Shipped
+
+- ~~The declared-events ledger build~~ — SHIPPED 2026-07-26 (dedicated @build session,
+  same day as the design): judge-seam rep increments + `rep_counts` reads declared
+  counters only; delivery-seam exposure stamps (`sync_state.mark_exposed`) at episode
+  registration, soak, drill, knock push and the queue drain; `-soaked` flipped to a
+  least-exposed term in `coverage_key`; focus cohort stored in `learner.json`
+  (reconciled at the two graduation seams); reps backfilled from judged replies
+  (Andrew's yes — 49 reps / 26 words); s32/s33/s34 rewired to the real seams;
+  `pairs_with` split now refuses the whole seed. See DECISIONS 2026-07-26 entries.
 
 - ~~`suggest_targets.py` has zero smoke coverage~~ — SHIPPED 2026-07-19 (wrap-up
   session): smoke case s23 plants the proven crash class (a `special_*` string-mission

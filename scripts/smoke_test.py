@@ -1900,26 +1900,39 @@ def s32_deck_rotation_and_coverage(mk, sb: Path):
         check("recent_ask_counts has one home",
               not hasattr(mk, "recent_ask_counts"), "the knock-side copy survived")
 
-        # THE 2026-07-26 defect. `floor-a` was asked FIVE days ago, so the 3-day
-        # cooldown has forgotten it — and under the cooldown-as-coverage key it
-        # tied with never-asked `floor-b` and won on alphabetical. That reset is
-        # why a rotating cohort of ~24 words cycled forever while 110 of 134 were
-        # unreachable. Lifetime reps do not forget.
-        reps = st.rep_counts(lex, klog)
+        # THE 2026-07-26 defects, both halves. (1) The cooldown-as-coverage key
+        # forgot floor-a's work on day 4 — that reset is why ~24 words cycled
+        # forever while 110 of 134 were unreachable. (2) The knock rep counter
+        # MINED Anna's prose for mentions — the same-day audit measured 100% of
+        # live knock "reps" as mentions. Reps are DECLARED now: the judge seam
+        # increments the lexicon counter per fired word (any verdict — partial
+        # counts) and `rep_counts` reads that counter, never the log.
+        kr = importlib.import_module("knock_reply")
+        kr.apply_verdict({"fired": [{"word": "smoke:floor-a", "verdict": "hinted"}]},
+                         {}, lex, [])
+        check("a judged fired word increments the declared rep counter",
+              lex["smoke:floor-a"].get("reps") == 1, f"got {lex['smoke:floor-a']}")
+        reps = st.rep_counts(lex)
+        mention = {"acted": True, "timestamp": recent_ts, "modality": "text",
+                   "expected_target": "", "body": "Anna printed smoke:floor-b in prose"}
+        check("a word PRINTED in a knock is a mention, never a rep",
+              "smoke:floor-b" not in reps, f"got {reps}")
+        check("the mention still feeds the reveal-cooldown — its one legitimate home",
+              st.recent_ask_counts(klog + [mention], lex).get("smoke:floor-b") == 1,
+              "the cooldown lost its probe matching")
         check("coverage counts LIFETIME reps, not the 3-day cooldown",
-              reps.get("smoke:floor-a") == 1 and "smoke:floor-b" not in reps,
-              f"got {reps}")
-        check("the cooldown still forgets — it is a different question",
-              not asked.get("smoke:floor-a"), f"got {asked}")
-        focus, _bg = st.floor_gap_targets(lex, today, 20, asked=asked, reps=reps)
+              reps.get("smoke:floor-a") == 1 and not asked.get("smoke:floor-a"),
+              f"got {reps} / asked {asked}")
+        focus, _bg = st.floor_gap_targets(lex, today, 20, asked=asked, reps=reps,
+                                          cohort=[])
         order = [t["word"] for t in focus]
         check("the never-drilled word leads the drilled one (not alphabetical)",
               order.index("smoke:floor-b") < order.index("smoke:floor-a"), f"got {order}")
         check("the rep count rides on the item so the ticket can show it",
               [t["reps"] for t in focus if t["word"] == "smoke:floor-a"] == [1],
               "floor item lost its reps")
-        check("the floor selector reads both channels when handed no counts",
-              [t["word"] for t in st.floor_gap_targets(lex, today, 20)[0]] == order,
+        check("the selector's default path reads the same declared counter",
+              [t["word"] for t in st.floor_gap_targets(lex, today, 20, cohort=[])[0]] == order,
               "the default path disagrees with the injected one")
         # One law, one definition: the deck prefixes tier and then defers.
         check("both selectors share the ordering law",
@@ -2075,14 +2088,18 @@ def s33_catch_response_pairs(mk, sb: Path):
               f"got {mk.deck_due_list()}")
 
         # THE regression: the response was dropped from the deck file while its
-        # prompt stayed. Silent before; now the file cannot express a split pair.
-        out, lex = seed([paired[0]])
-        check("a pair pointing outside the deck is refused, loudly",
-              "not in this deck" in out, f"got {out!r}")
-        check("the split pair leaves no stale relation on the lexicon",
-              "pairs_with" not in lex[prompt], f"got {lex[prompt]}")
-        check("the dropped answer keeps its learning state, it is only un-tagged",
-              answer in lex and "deck" not in lex[answer], f"got {lex.get(answer)}")
+        # prompt stayed. Silent before, then a loud drop — a HARD seed-time
+        # error now (2026-07-26): the seed is refused whole BEFORE any write,
+        # so a split pair can never half-land. Fix the file, re-run.
+        before = lex_path.read_bytes()
+        try:
+            seed([paired[0]])
+            check("a split pair refuses the whole seed", False, "seed did not exit")
+        except SystemExit as e:
+            check("a split pair refuses the whole seed, loudly", e.code == 1,
+                  f"exit code {e.code}")
+        check("a refused seed writes NOTHING — no half-landed deck",
+              lex_path.read_bytes() == before, "lexicon changed on a refused seed")
     finally:
         deck_file.write_bytes(saved[0])
         lex_path.write_bytes(saved[1])
@@ -2099,6 +2116,7 @@ def s34_focus_and_background(sb: Path):
     of 240 asks on ten words. Splitting the budget is what makes both hold."""
     print("\n34. Focus set + background: dense reps without starving the tail (2026-07-26)")
     st = importlib.import_module("suggest_targets")
+    ss = importlib.import_module("sync_state")
     lex_path = sb / "progress" / "lexicon.json"
     klog_path = sb / "progress" / "knock_log.json"
     saved = (lex_path.read_bytes(), klog_path.read_bytes())
@@ -2113,7 +2131,8 @@ def s34_focus_and_background(sb: Path):
     try:
         write_json(lex_path, lex)
         write_json(klog_path, [])
-        focus, background = st.floor_gap_targets(lex, today, 99)
+        # cohort=[] is the SEED path — no membership stored yet.
+        focus, background = st.floor_gap_targets(lex, today, 99, cohort=[])
         fw = [t["word"] for t in focus]
 
         check("the focus set is capped at FOCUS_SIZE",
@@ -2121,7 +2140,7 @@ def s34_focus_and_background(sb: Path):
         check("everything else lands in background, nothing is dropped",
               len(focus) + len(background) == len(lex),
               f"{len(focus)}+{len(background)} != {len(lex)}")
-        check("words already started hold their focus seats",
+        check("seeding gives words already started their focus seats",
               all(f"smoke:w{i:02d}" in fw for i in range(5)), f"got {fw}")
         check("open seats are filled from the never-drilled words",
               len([w for w in fw if not lex[w].get("reps")]) == st.FOCUS_SIZE - 5, f"got {fw}")
@@ -2130,36 +2149,61 @@ def s34_focus_and_background(sb: Path):
         check("within the focus set the least-drilled lead, so the cohort advances together",
               [t["reps"] for t in focus] == sorted(t["reps"] for t in focus), f"got {fw}")
 
-        # Graduation: cold leaves the drill list entirely and never returns.
+        # Membership is STORED STATE (2026-07-26): reconcile persists the seed,
+        # and held seats then stand regardless of what any counter says —
+        # a membership fact in a file cannot be reallocated by a counting bug.
+        cohort = st.reconcile_focus(lex, [])
+        check("reconcile seeds the same cohort the seed derivation shows",
+              sorted(cohort) == sorted(fw), f"got {cohort}")
+        noisy = {w: 99 for w in cohort}  # a corrupt counter must not move seats
+        held = [t["word"] for t in st.floor_gap_targets(lex, today, 99, reps=noisy,
+                                                        cohort=cohort)[0]]
+        check("stored membership holds its seats against counter noise",
+              sorted(held) == sorted(cohort), f"got {held}")
+
+        # Graduation: cold leaves the cohort for good and the seat refills from
+        # the background order — the ONLY way membership changes.
         lex["smoke:w00"]["production"] = "cold"
-        focus2, bg2 = st.floor_gap_targets(lex, today, 99)
-        check("a word that fires cold leaves the drill list for good",
-              "smoke:w00" not in [t["word"] for t in focus2] + [t["word"] for t in bg2],
-              "a graduated word came back")
+        cohort2 = st.reconcile_focus(lex, cohort)
+        check("a word that fires cold leaves the cohort for good",
+              "smoke:w00" not in cohort2, f"got {cohort2}")
+        check("the other seats survive the graduation",
+              set(cohort) - {"smoke:w00"} <= set(cohort2), f"got {cohort2}")
+        focus2, bg2 = st.floor_gap_targets(lex, today, 99, cohort=cohort2)
         check("its seat is refilled from the background",
               len(focus2) == st.FOCUS_SIZE, f"got {len(focus2)}")
+        check("the graduated word is gone from both budgets",
+              "smoke:w00" not in [t["word"] for t in focus2] + [t["word"] for t in bg2],
+              "a graduated word came back")
 
         # The tail must actually be reachable — the property the first fix lacked.
         # 6 drills + 2 exposures a day is Anna's pacing, not a code constant —
         # the property under test is that the ORDER spreads reps, at any pace.
         seen, reps = set(), {}
         for _ in range(40):
-            f, b = st.floor_gap_targets(lex, today, 99, asked={}, reps=dict(reps))
+            f, b = st.floor_gap_targets(lex, today, 99, asked={}, reps=dict(reps),
+                                        cohort=[])
             for t in f[:6]:
                 seen.add(t["word"])
                 reps[t["word"]] = reps.get(t["word"], 0) + 1
-            # Exposure closes the loop through `last_surfaced` — the same field
-            # `sync_state update --listened` writes when an episode airs. Without
-            # a write, the background order never changes and the SAME two words
-            # are exposed forever: the rotation is only guaranteed because being
-            # exposed moves a word to the back of its own queue.
+            # Exposure closes the loop through the REAL delivery seam
+            # (sync_state.mark_exposed — the write every dose channel calls).
+            # Without it the background order never changes and the SAME two
+            # words are exposed forever: rotation is only guaranteed because
+            # being exposed moves a word to the back of its own queue.
             for t in b[:2]:
                 seen.add(t["word"])
-                lex[t["word"]]["last_surfaced"] = today.isoformat()
+                ss.mark_exposed(lex, [t["word"]], today=today.isoformat())
         check("every word is reachable — no word is stranded behind the alphabet",
               len(seen) == len(lex) - 1, f"reached {len(seen)} of {len(lex) - 1}")
         check("no word is hammered while others wait",
               max(reps.values()) - min(reps.values()) <= 2, f"spread {sorted(reps.values())}")
+        check("the delivery stamp counts as well as dates",
+              any(r.get("exposures") for r in lex.values()), "mark_exposed wrote no count")
+        check("less-exposed sorts ahead of more-exposed — the 07-26 flip of `-soaked`",
+              st.coverage_key({"word": "x", "exposures": 0})
+              < st.coverage_key({"word": "x", "exposures": 3}),
+              "coverage_key still rewards prior exposure")
     finally:
         lex_path.write_bytes(saved[0])
         klog_path.write_bytes(saved[1])

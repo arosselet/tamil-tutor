@@ -434,7 +434,8 @@
       32,
       33
     ],
-    "last_surfaced": "2026-07-09"
+    "last_surfaced": "2026-07-09",
+    "reps": 2
   },
   "பத்து": {
     "gloss": "Ten",
@@ -491,7 +492,8 @@
       60,
       61
     ],
-    "last_surfaced": "2026-07-26"
+    "last_surfaced": "2026-07-26",
+    "reps": 1
   },
   "மாமா": {
     "gloss": "Uncle (maternal)",
@@ -750,7 +752,8 @@
       71,
       72
     ],
-    "last_surfaced": "2026-07-21"
+    "last_surfaced": "2026-07-21",
+    "reps": 4
   },
   "தெரியும்": {
     "gloss": "I know",
@@ -936,7 +939,8 @@
       33,
       64
     ],
-    "last_surfaced": "2026-07-18"
+    "last_surfaced": "2026-07-18",
+    "reps": 2
   },
   "வரேன்": {
     "gloss": "I come / I'm coming",
@@ -1136,7 +1140,8 @@
       10,
       11
     ],
-    "last_surfaced": "2026-07-20"
+    "last_surfaced": "2026-07-20",
+    "reps": 4
   },
   "நீ": {
     "gloss": "You (informal - Peers/Cousins)",
@@ -1210,7 +1215,8 @@
       69,
       71
     ],
-    "last_surfaced": "2026-07-20"
+    "last_surfaced": "2026-07-20",
+    "reps": 3
   },
   "அவ": {
     "gloss": "She (informal)",
@@ -1397,7 +1403,8 @@
       72,
       73
     ],
-    "last_surfaced": "2026-07-23"
+    "last_surfaced": "2026-07-23",
+    "reps": 1
   },
   "பார்த்தேன்": {
     "gloss": "I saw / I watched",
@@ -2310,7 +2317,8 @@
     "last_surfaced": "2026-07-13",
     "deck": "trip",
     "direction": "fire",
-    "type": "chunk"
+    "type": "chunk",
+    "reps": 2
   },
   "கூப்பிடு": {
     "gloss": "Call",
@@ -2954,7 +2962,8 @@
     ],
     "last_surfaced": "2026-07-24",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 1
   },
   "கொஞ்சம் நில்லுங்க": {
     "type": "chunk",
@@ -3153,7 +3162,8 @@
     ],
     "last_surfaced": "2026-07-13",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 2
   },
   "frame:where-noun": {
     "type": "pattern",
@@ -3168,7 +3178,8 @@
     ],
     "last_surfaced": "2026-07-09",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 1
   },
   "frame:isthere-noun": {
     "type": "pattern",
@@ -3183,7 +3194,8 @@
     ],
     "last_surfaced": "2026-07-08",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 1
   },
   "frame:howmuch-noun": {
     "type": "pattern",
@@ -3198,7 +3210,8 @@
     ],
     "last_surfaced": "2026-07-08",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 1
   },
   "frame:mayi-laama": {
     "type": "pattern",
@@ -3233,7 +3246,8 @@
     ],
     "last_surfaced": "2026-07-24",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 2
   },
   "frame:needtogo-place": {
     "type": "pattern",
@@ -3252,7 +3266,8 @@
     ],
     "last_surfaced": "2026-07-25",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 2
   },
   "frame:nearby-noun": {
     "type": "pattern",
@@ -3265,7 +3280,8 @@
     ],
     "last_surfaced": "2026-07-21",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 1
   },
   "என்ன சமைக்கிற?": {
     "gloss": "What are you cooking? (informal)",
@@ -3291,7 +3307,8 @@
     "seen_in": [
       53
     ],
-    "last_surfaced": "2026-07-01"
+    "last_surfaced": "2026-07-01",
+    "reps": 1
   },
   "சாப்பாடு ரெடி": {
     "gloss": "Food is ready",
@@ -3333,7 +3350,8 @@
     ],
     "last_surfaced": "2026-07-10",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 5
   },
   "நேத்து தான் வந்தோம்": {
     "type": "chunk",
@@ -3383,7 +3401,8 @@
     "seen_in": [],
     "last_surfaced": "2026-07-04",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 3
   },
   "காரம் பரவாயில்ல, பழக்கமாயிடுச்சு": {
     "type": "chunk",
@@ -3424,7 +3443,8 @@
     ],
     "last_surfaced": "2026-07-25",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 1
   },
   "என்ன சொன்னீங்க?": {
     "type": "chunk",
@@ -3483,7 +3503,8 @@
     ],
     "last_surfaced": "2026-07-21",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 1
   },
   "சரி சரி": {
     "type": "chunk",
@@ -3620,7 +3641,8 @@
     "seen_in": [],
     "last_surfaced": "2026-07-06",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 2
   },
   "காரம் பரவாயில்ல, பழகிப்போச்சு": {
     "type": "chunk",
@@ -3730,7 +3752,8 @@
     "seen_in": [],
     "last_surfaced": "2026-07-18",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 1
   },
   "frame:adverb-aa": {
     "type": "pattern",
@@ -3745,7 +3768,8 @@
     "seen_in": [],
     "last_surfaced": "2026-07-25",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 1
   },
   "frame:in-la": {
     "type": "pattern",
@@ -3760,7 +3784,8 @@
     "seen_in": [],
     "last_surfaced": "2026-07-13",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 3
   },
   "frame:happened-aachu": {
     "type": "pattern",
@@ -3791,7 +3816,8 @@
     ],
     "last_surfaced": "2026-07-21",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 1
   },
   "frame:spice-dhaan": {
     "type": "pattern",
