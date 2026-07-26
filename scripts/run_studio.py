@@ -549,16 +549,12 @@ def main():
     # are the knock rails' window — an overnight render waits for morning.
     try:
         sys.path.insert(0, str(BASE / "scripts"))
-        from morning_knock import (push_to_phone, jsdelivr_url, LOCAL_TZ,
-                                   WAKING_START_HOUR, WAKING_END_HOUR)
-        from datetime import datetime
-        hour = datetime.now(LOCAL_TZ).hour
-        if WAKING_START_HOUR <= hour < WAKING_END_HOUR:
-            title = episode_paths(n)["script"].stem
-            push_to_phone(f"new episode's up — {title} 🎧", jsdelivr_url(mp3))
+        from morning_knock import push_to_phone, jsdelivr_url
+        title = episode_paths(n)["script"].stem
+        # Quiet hours are the chokepoint's job now — this lane's hand-rolled hour
+        # compare was one of three copies, and two other lanes had none (2026-07-26).
+        if push_to_phone(f"new episode's up — {title} 🎧", jsdelivr_url(mp3)):
             print("   phone: notified.")
-        else:
-            print(f"   phone: quiet hours ({hour:02d}:00) — it's on the feed for the morning.")
     except Exception as e:
         print(f"   ⚠ publish notification failed (episode is still live): {e}")
 

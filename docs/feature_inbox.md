@@ -4,6 +4,22 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **Upsert `word_pool.json` into the lexicon, then retire the file (2026-07-26, Andrew's
+  call — supersedes the assistant's "just delete it").** Verified safe: `compute_floor`
+  counts only comfortable/solid, and `floor_gap_targets` requires the same, so ~295
+  imported rows land inert — no meter moves, nothing floods the drill list, and
+  `is_unseen` already means "in the curriculum, never encountered", so teach-first covers
+  them on day one. Wins: one store instead of two incompatible schemas, and the 11
+  duplicate rows dedupe for free on a keyed upsert. **The one thing that must survive the
+  move is `cluster`** — it is what lets intake say "food vocabulary is thin, pull there"
+  instead of picking at random; it becomes a lexicon field and
+  `new_candidates_by_cluster` reads the lexicon instead of the file. Deliberately NOT done
+  in the 07-26 session: it is a 295-row change to Andrew's learning state and the
+  focus/background split shipped the same night should be watched for a few real sessions
+  first (ship the thin slice, widen after it works). Open sub-question for Andrew: do the
+  27 rows already in the lexicon keep their live gloss, or does the pool's gloss win?
+  (Recommend: live gloss wins — the pool was never vetted by the Oracle.)
+
 - **CURRICULUM ARCHITECTURE AUDIT (2026-07-26, `/recalibrate`, Andrew's felt signal:
   "the curriculum/deck/machinery/catch-response layers grew by iteration and discovery,
   not top-down design — make the abstraction clean, and don't let the deck starve the
@@ -79,8 +95,16 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
      the machinery axis absorbs discovery correctly. Options: a `supersedes` field on deck
      entries so a rephrase migrates state; or a one-time reconciliation pass.
 
-  *Not proposing all six. Per `/recalibrate`, one move — #1 is the cheapest and is the
-  one Andrew's felt signal actually names. #3–#5 are schema changes and wait for his yes/no.*
+  **RESOLVED 2026-07-26** (see `DECISIONS.md`): #1 landed — and was *wrong the first way*,
+  because a 3-day cooldown is not a coverage term; the real fix is lifetime `rep_counts`,
+  `coverage_key` as the one shared law, and a focus/background split (Andrew's design).
+  #5 landed as `pairs_with`; the four missing FAQ *questions* are an open Oracle content ask.
+  #6 closed as no-mechanism — all four rephrase pairs had zero state on both sides.
+  #4 (`register` carrying three axes) is **still open** and deliberately deferred: it is a
+  schema change with pedagogy consequences and it is not hurting the trip.
+  #3 (`word_pool.json`) is **still open** — retirement was proposed and *overruled*: Andrew
+  wants it incorporated, not deleted, by upserting its 322 entries into the lexicon with
+  their `cluster` tag so there is one store and one schema. Not done; see below.
 
 - **`--debrief` alone counts as a session (found 2026-07-25).** `sync_state.py update`
   appends a session-log row when *any* of cold/hinted/demoted/listened/debrief is present

@@ -49,7 +49,7 @@ BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from render_chat import render_chat
 from morning_knock import (KNOCK_LOG_PATH, KNOCKS_DIR, ANNA_VOICE, LOCAL_TZ,
-                           WAKING_START_HOUR, WAKING_END_HOUR,
+                           in_waking_window,
                            MAX_REACHES_PER_DAY, load_json, load_env,
                            push_to_phone, commit_and_push, render_memo,
                            jsdelivr_url, refresh_feed,
@@ -82,8 +82,8 @@ def parse_due(at: str | None, in_minutes: float | None) -> datetime:
     return dt.astimezone(timezone.utc)
 
 
-def in_waking_window(now: datetime) -> bool:
-    return WAKING_START_HOUR <= now.astimezone(LOCAL_TZ).hour < WAKING_END_HOUR
+# `in_waking_window` is imported from morning_knock — one definition, read by the
+# rails gate, this queue's deferral, and push_to_phone's backstop (2026-07-26).
 
 
 def needs_render(entry: dict) -> bool:
@@ -257,7 +257,10 @@ def cmd_drain(args):
         # per-entry stamp, not the batch's `now` — it doubles as the reply
         # correlation id, so same-tick fires must never share one
         fired_at = datetime.now(timezone.utc).isoformat()
-        push_to_phone(e["body"], e.get("audio_url"), knock_id=fired_at)
+        # `force` is Andrew asking for it — the chokepoint's exemption, same
+        # meaning as the deferral check above.
+        push_to_phone(e["body"], e.get("audio_url"), knock_id=fired_at,
+                      requested=bool(e.get("force")))
         klog.append({
             "date": now.date().isoformat(),
             "timestamp": fired_at,

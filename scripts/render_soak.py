@@ -44,7 +44,7 @@ BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from morning_knock import (OPENROUTER_BASE, MODEL, ANNA_VOICE, load_env,
                            push_to_phone, commit_and_push, jsdelivr_url,
-                           LOCAL_TZ, WAKING_START_HOUR, WAKING_END_HOUR)
+                           LOCAL_TZ)
 from render_audio import (generate_segment_google, get_raw_mp3_frames,
                           SILENCE_FRAME, clean_for_tts, google_credentials_ready,
                           EXIT_NOT_CONFIGURED)
@@ -251,17 +251,12 @@ def main():
     print("3. publish…")
     subprocess.run([sys.executable, str(BASE / "scripts" / "rebuild_rss.py")], cwd=BASE, check=True)
     commit_and_push([mp3, BASE / "rss.xml"], f"Soak loop: {sheet.get('title', mp3.stem)}")
-    # Quiet hours, same window the knock rails use: a loop produced overnight
-    # is waiting on the feed in the morning; it does not wake him to say so.
-    hour = datetime.now(LOCAL_TZ).hour
-    if WAKING_START_HOUR <= hour < WAKING_END_HOUR:
-        print("4. notify…")
-        push_to_phone(f"soak loop's up — {n} sounds, nothing to do but listen 🎧",
-                      jsdelivr_url(mp3))
-        print("done — soak loop on the feed and the lock screen.")
-    else:
-        print(f"4. notify… skipped (quiet hours, {hour:02d}:00) — it's on the feed for the morning.")
-        print("done — soak loop on the feed.")
+    # Quiet hours are enforced inside push_to_phone now — this lane's own copy of
+    # the hour compare was one of four, and render_drill had none (2026-07-26).
+    print("4. notify…")
+    pushed = push_to_phone(f"soak loop's up — {n} sounds, nothing to do but listen 🎧",
+                           jsdelivr_url(mp3))
+    print(f"done — soak loop on the feed{' and the lock screen' if pushed else ''}.")
 
 
 if __name__ == "__main__":

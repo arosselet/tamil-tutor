@@ -315,7 +315,9 @@ def s6_queue_drain(mk, pq, sb: Path):
     klog_path, q_path = prog / "knock_log.json", prog / "push_queue.json"
     pushes, commits = Recorder(), Recorder()
     pq.push_to_phone, pq.commit_and_push = pushes, commits
-    saved = (pq.WAKING_START_HOUR, pq.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY)
+    # The waking window lives in morning_knock now — one owner, read by the
+    # rails, this queue, and push_to_phone's backstop. Patch where it lives.
+    saved = (mk.WAKING_START_HOUR, mk.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY)
     now = datetime.now(timezone.utc)
 
     def q_entry(qid: str, due_hours: float, force: bool = False) -> dict:
@@ -326,7 +328,7 @@ def s6_queue_drain(mk, pq, sb: Path):
 
     args = argparse.Namespace(dry_run=False, no_commit=False)
     try:
-        pq.WAKING_START_HOUR, pq.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = 0, 24, 99
+        mk.WAKING_START_HOUR, mk.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = 0, 24, 99
         write_json(klog_path, [])
         write_json(q_path, [q_entry("qOLD", -2), q_entry("qNEW", -1), q_entry("qFUT", +6)])
         pq.cmd_drain(args)
@@ -342,7 +344,7 @@ def s6_queue_drain(mk, pq, sb: Path):
               len(pushes) == 2 and pushes[1][0] == "dose qNEW")
 
         # quiet hours defer non-forced; --force punches through
-        pq.WAKING_START_HOUR, pq.WAKING_END_HOUR = 0, 0
+        mk.WAKING_START_HOUR, mk.WAKING_END_HOUR = 0, 0
         write_json(q_path, [q_entry("qQUIET", -1), q_entry("qFORCE", -1, force=True)])
         pq.cmd_drain(args)
         check("quiet hours defers non-forced, fires forced",
@@ -350,14 +352,14 @@ def s6_queue_drain(mk, pq, sb: Path):
               and [e["id"] for e in read_json(q_path)] == ["qQUIET"])
 
         # daily cap defers non-forced; forced ignores it
-        pq.WAKING_START_HOUR, pq.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = 0, 24, 0
+        mk.WAKING_START_HOUR, mk.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = 0, 24, 0
         write_json(q_path, [q_entry("qCAP", -1), q_entry("qFORCE2", -1, force=True)])
         pq.cmd_drain(args)
         check("cap defers non-forced, fires forced",
               len(pushes) == 4 and pushes[3][0] == "dose qFORCE2"
               and [e["id"] for e in read_json(q_path)] == ["qCAP"])
     finally:
-        pq.WAKING_START_HOUR, pq.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = saved
+        mk.WAKING_START_HOUR, mk.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = saved
 
 
 def s8_variety_and_decay(mk, kr, sb: Path):
@@ -864,7 +866,10 @@ def s15_push_retry(mk):
                 raise urllib.error.URLError(OSError("Temporary failure in name resolution"))
             return FakeResp()
         mk.urllib.request.urlopen = flaky
-        mk.push_to_phone("smoke", None, knock_id="smoke")
+        # requested=True: this case is about DELIVERY retry, not the rails —
+        # without it the quiet-hours chokepoint short-circuits the whole test
+        # whenever the suite runs after 21:00 local (2026-07-26).
+        mk.push_to_phone("smoke", None, knock_id="smoke", requested=True)
         check("two blips then success — delivered", calls["n"] == 3, f"{calls['n']} calls")
         check("backoff between attempts", sleeps == [5, 10], f"sleeps={sleeps}")
 
@@ -874,7 +879,7 @@ def s15_push_retry(mk):
             raise urllib.error.URLError(OSError("no route"))
         mk.urllib.request.urlopen = dead
         try:
-            mk.push_to_phone("smoke", None, knock_id="smoke")
+            mk.push_to_phone("smoke", None, knock_id="smoke", requested=True)
             check("unreachable webhook still raises", False, "did not raise")
         except OSError:
             check("unreachable webhook still raises", True)
@@ -1561,9 +1566,10 @@ def s29_one_runner_every_capability(mk, pq, kr, sb: Path):
     # retry property: a failed push leaves the entry queued.
     prog = sb / "progress"
     klog_path, q_path = prog / "knock_log.json", prog / "push_queue.json"
-    events, saved = [], (pq.WAKING_START_HOUR, pq.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY)
+    events, saved = [], (mk.WAKING_START_HOUR, mk.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY)
     real_push, real_commit, real_feed = pq.push_to_phone, pq.commit_and_push, pq.refresh_feed
-    pq.push_to_phone = lambda body, url=None, knock_id="": events.append(("push", url))
+    pq.push_to_phone = lambda body, url=None, knock_id="", requested=False: (
+        events.append(("push", url)))
     pq.commit_and_push = lambda paths, msg: events.append(
         ("commit", "mp3" if any(str(p).endswith(".mp3") for p in paths) else "state",
          any(str(p).endswith("rss.xml") for p in paths)))
@@ -1583,7 +1589,7 @@ def s29_one_runner_every_capability(mk, pq, kr, sb: Path):
     pq.refresh_feed = fake_feed
     pq.render_memo = fake_render
     try:
-        pq.WAKING_START_HOUR, pq.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = 0, 24, 99
+        mk.WAKING_START_HOUR, mk.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = 0, 24, 99
         write_json(klog_path, [])
         write_json(q_path, [{**queued[0], "id": "qVOICE", "force": True,
                              "due": (datetime.now(timezone.utc) - timedelta(minutes=5)).isoformat()}])
@@ -1607,7 +1613,7 @@ def s29_one_runner_every_capability(mk, pq, kr, sb: Path):
               "வணக்கம்" in logged.get("memo_script", ""))
         check("the queue is emptied once fired", read_json(q_path) == [])
     finally:
-        pq.WAKING_START_HOUR, pq.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = saved
+        mk.WAKING_START_HOUR, mk.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = saved
         pq.push_to_phone, pq.commit_and_push, pq.refresh_feed = real_push, real_commit, real_feed
         pq.render_memo = real_render
 
@@ -1832,6 +1838,18 @@ def s32_deck_rotation_and_coverage(mk, sb: Path):
                                 recognition="comfortable", last_surfaced=ago(1)),
     }
     lex = {k: {kk: vv for kk, vv in v.items() if kk != "_reg"} for k, v in fixture.items()}
+    # The OTHER population (2026-07-26): non-deck words, governed by
+    # floor_gap_targets. Both never-surfaced and identical on every other term,
+    # so the ask count is the only thing that can separate them — and `-a` sorts
+    # first alphabetically, which is what the old key fell through to.
+    lex.update({
+        "smoke:floor-a": {"gloss": "asked 2 days ago", "phonetic": [], "type": "chunk",
+                          "recognition": "comfortable", "production": "none",
+                          "seen_in": [1], "last_surfaced": None},
+        "smoke:floor-b": {"gloss": "never asked", "phonetic": [], "type": "chunk",
+                          "recognition": "comfortable", "production": "none",
+                          "seen_in": [1], "last_surfaced": None},
+    })
     deck_file = sb / "curriculum" / "trip_deck.json"
     lex_path = sb / "progress" / "lexicon.json"
     klog_path = sb / "progress" / "knock_log.json"
@@ -1840,10 +1858,13 @@ def s32_deck_rotation_and_coverage(mk, sb: Path):
     # names only item 1, so items 2..n were invisible to the ask count while the
     # volley is the deck's main volume channel.
     recent_ts = (datetime.now(timezone.utc) - timedelta(hours=8)).isoformat()
+    old_ts = (datetime.now(timezone.utc) - timedelta(days=5)).isoformat()
     klog = [{"acted": True, "timestamp": recent_ts, "modality": "volley",
              "expected_target": "smoke:surv-mid", "body": "volley 1/2",
              "volley": [{"target": "smoke:surv-mid", "ask": "a"},
-                        {"target": "smoke:surv-tail", "ask": "b"}]}]
+                        {"target": "smoke:surv-tail", "ask": "b"}]},
+            {"acted": True, "timestamp": old_ts, "modality": "knock",
+             "expected_target": "smoke:floor-a", "body": "the floor ask"}]
     try:
         write_json(deck_file, [{"tamil": k, "register": v["_reg"], "gloss": "x"}
                                for k, v in fixture.items()])
@@ -1878,6 +1899,32 @@ def s32_deck_rotation_and_coverage(mk, sb: Path):
               [w for w in pend if w in vt] == vt, f"volley={vt} pending={pend}")
         check("recent_ask_counts has one home",
               not hasattr(mk, "recent_ask_counts"), "the knock-side copy survived")
+
+        # THE 2026-07-26 defect. `floor-a` was asked FIVE days ago, so the 3-day
+        # cooldown has forgotten it — and under the cooldown-as-coverage key it
+        # tied with never-asked `floor-b` and won on alphabetical. That reset is
+        # why a rotating cohort of ~24 words cycled forever while 110 of 134 were
+        # unreachable. Lifetime reps do not forget.
+        reps = st.rep_counts(lex, klog)
+        check("coverage counts LIFETIME reps, not the 3-day cooldown",
+              reps.get("smoke:floor-a") == 1 and "smoke:floor-b" not in reps,
+              f"got {reps}")
+        check("the cooldown still forgets — it is a different question",
+              not asked.get("smoke:floor-a"), f"got {asked}")
+        focus, _bg = st.floor_gap_targets(lex, today, 20, asked=asked, reps=reps)
+        order = [t["word"] for t in focus]
+        check("the never-drilled word leads the drilled one (not alphabetical)",
+              order.index("smoke:floor-b") < order.index("smoke:floor-a"), f"got {order}")
+        check("the rep count rides on the item so the ticket can show it",
+              [t["reps"] for t in focus if t["word"] == "smoke:floor-a"] == [1],
+              "floor item lost its reps")
+        check("the floor selector reads both channels when handed no counts",
+              [t["word"] for t in st.floor_gap_targets(lex, today, 20)[0]] == order,
+              "the default path disagrees with the injected one")
+        # One law, one definition: the deck prefixes tier and then defers.
+        check("both selectors share the ordering law",
+              st.coverage_key({"word": "x", "reps": 0}) < st.coverage_key({"word": "x", "reps": 1}),
+              "coverage_key does not lead with reps")
 
         # Re-run the ordering laws with an empty log, so the coverage assertions
         # below read the same fixture the rest of the case was written against.
@@ -1960,6 +2007,234 @@ def s32_deck_rotation_and_coverage(mk, sb: Path):
         klog_path.write_bytes(saved[2])
 
 
+def s33_catch_response_pairs(mk, sb: Path):
+    """Catch-and-response is a first-class curriculum kind, and the schema had no
+    way to say it (2026-07-26 audit). The pairing lived as English prose in
+    `note`/`gloss` — "the maami's line at the table" — so nothing could drill a
+    pair as a pair, and nothing noticed when `seed-deck` dropped the response
+    while its prompt kept its deck slot. `pairs_with` is the one relation the
+    schema carries; it must resolve inside the deck file, ride onto the lexicon,
+    and reach both surfaces that show catch items."""
+    print("\n33. Catch/response pairs: hear X → say Y is representable (2026-07-26)")
+    import contextlib
+    import io
+    st = importlib.import_module("suggest_targets")
+    ss = importlib.import_module("sync_state")
+    deck_file = sb / "curriculum" / "trip_deck.json"
+    lex_path = sb / "progress" / "lexicon.json"
+    saved = (deck_file.read_bytes(), lex_path.read_bytes())
+
+    class Args:
+        deck = "trip"
+
+    def seed(entries):
+        write_json(deck_file, entries)
+        a = Args()
+        a.file = str(deck_file)
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            ss.cmd_seed_deck(a)
+        return buf.getvalue(), json.loads(lex_path.read_text(encoding="utf-8"))
+
+    def ticket_text():
+        argv, out = sys.argv, io.StringIO()
+        try:
+            sys.argv = ["suggest_targets.py"]
+            with contextlib.redirect_stdout(out):
+                st.main()
+        finally:
+            sys.argv = argv
+        return out.getvalue()
+
+    prompt = "இன்னும் கொஞ்சம் சாப்பிடுங்க"
+    answer = "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு"
+    paired = [
+        {"tamil": prompt, "gloss": "eat more", "type": "chunk", "direction": "catch",
+         "recognition": "struggled", "phonetic": ["innum konjam saapidunga"],
+         "pairs_with": answer},
+        {"tamil": answer, "gloss": "no thanks, I'm full", "type": "chunk",
+         "recognition": "struggled", "phonetic": ["vendaamma"]},
+    ]
+    try:
+        write_json(lex_path, {})
+        out, lex = seed(paired)
+        check("the pair rides from the deck file onto the lexicon",
+              lex[prompt].get("pairs_with") == answer, f"got {lex.get(prompt)}")
+        check("the answer is a FIRE item — the catch half alone is not the win",
+              lex[answer].get("direction") == "fire", f"got {lex.get(answer)}")
+
+        deck = st.deck_status(lex, today=date_cls.today(), asked={})
+        cp = [t for t in deck["catch_pending"] if t["word"] == prompt]
+        check("deck_status resolves the pair for the drill",
+              cp and cp[0]["pairs_with"] == answer and cp[0]["response_gloss"] == "no thanks, I'm full",
+              f"got {cp}")
+        check("the ticket names the answer under the line he'll hear",
+              "he answers:" in ticket_text(), "the ear-only block hid the pair")
+        check("the knock menu marks a paired item so Anna plays HER line",
+              "[pair]" in mk.deck_due_list() and "never quiz the catch half alone" in mk.deck_due_list(),
+              f"got {mk.deck_due_list()}")
+
+        # THE regression: the response was dropped from the deck file while its
+        # prompt stayed. Silent before; now the file cannot express a split pair.
+        out, lex = seed([paired[0]])
+        check("a pair pointing outside the deck is refused, loudly",
+              "not in this deck" in out, f"got {out!r}")
+        check("the split pair leaves no stale relation on the lexicon",
+              "pairs_with" not in lex[prompt], f"got {lex[prompt]}")
+        check("the dropped answer keeps its learning state, it is only un-tagged",
+              answer in lex and "deck" not in lex[answer], f"got {lex.get(answer)}")
+    finally:
+        deck_file.write_bytes(saved[0])
+        lex_path.write_bytes(saved[1])
+
+
+def s34_focus_and_background(sb: Path):
+    """Two budgets, not one ranked list (Andrew, 2026-07-26: "10-15 getting most
+    reps until they fire cold, the remaining on a slow guaranteed background").
+
+    Coverage-first and dense-repetition genuinely conflict: one ranked list either
+    touches every word once a month and graduates nothing, or hammers a dozen and
+    lets the tail rot. The first attempt at the fix used a 3-day cooldown as the
+    coverage term and reached 24 of 134 words in a simulated month, spending 100
+    of 240 asks on ten words. Splitting the budget is what makes both hold."""
+    print("\n34. Focus set + background: dense reps without starving the tail (2026-07-26)")
+    st = importlib.import_module("suggest_targets")
+    lex_path = sb / "progress" / "lexicon.json"
+    klog_path = sb / "progress" / "knock_log.json"
+    saved = (lex_path.read_bytes(), klog_path.read_bytes())
+    today = date_cls.today()
+
+    # 20 words, all recognized and none cold: more than the focus set can hold.
+    lex = {f"smoke:w{i:02d}": {"gloss": f"w{i}", "phonetic": [], "type": "chunk",
+                               "recognition": "comfortable", "production": "none",
+                               "seen_in": [1], "last_surfaced": None,
+                               **({"reps": 3} if i < 5 else {})}
+           for i in range(20)}
+    try:
+        write_json(lex_path, lex)
+        write_json(klog_path, [])
+        focus, background = st.floor_gap_targets(lex, today, 99)
+        fw = [t["word"] for t in focus]
+
+        check("the focus set is capped at FOCUS_SIZE",
+              len(focus) == st.FOCUS_SIZE, f"got {len(focus)}")
+        check("everything else lands in background, nothing is dropped",
+              len(focus) + len(background) == len(lex),
+              f"{len(focus)}+{len(background)} != {len(lex)}")
+        check("words already started hold their focus seats",
+              all(f"smoke:w{i:02d}" in fw for i in range(5)), f"got {fw}")
+        check("open seats are filled from the never-drilled words",
+              len([w for w in fw if not lex[w].get("reps")]) == st.FOCUS_SIZE - 5, f"got {fw}")
+        check("the background is exposure-only and knows it",
+              all(t["band"] == "background" for t in background), "band mislabelled")
+        check("within the focus set the least-drilled lead, so the cohort advances together",
+              [t["reps"] for t in focus] == sorted(t["reps"] for t in focus), f"got {fw}")
+
+        # Graduation: cold leaves the drill list entirely and never returns.
+        lex["smoke:w00"]["production"] = "cold"
+        focus2, bg2 = st.floor_gap_targets(lex, today, 99)
+        check("a word that fires cold leaves the drill list for good",
+              "smoke:w00" not in [t["word"] for t in focus2] + [t["word"] for t in bg2],
+              "a graduated word came back")
+        check("its seat is refilled from the background",
+              len(focus2) == st.FOCUS_SIZE, f"got {len(focus2)}")
+
+        # The tail must actually be reachable — the property the first fix lacked.
+        # 6 drills + 2 exposures a day is Anna's pacing, not a code constant —
+        # the property under test is that the ORDER spreads reps, at any pace.
+        seen, reps = set(), {}
+        for _ in range(40):
+            f, b = st.floor_gap_targets(lex, today, 99, asked={}, reps=dict(reps))
+            for t in f[:6]:
+                seen.add(t["word"])
+                reps[t["word"]] = reps.get(t["word"], 0) + 1
+            # Exposure closes the loop through `last_surfaced` — the same field
+            # `sync_state update --listened` writes when an episode airs. Without
+            # a write, the background order never changes and the SAME two words
+            # are exposed forever: the rotation is only guaranteed because being
+            # exposed moves a word to the back of its own queue.
+            for t in b[:2]:
+                seen.add(t["word"])
+                lex[t["word"]]["last_surfaced"] = today.isoformat()
+        check("every word is reachable — no word is stranded behind the alphabet",
+              len(seen) == len(lex) - 1, f"reached {len(seen)} of {len(lex) - 1}")
+        check("no word is hammered while others wait",
+              max(reps.values()) - min(reps.values()) <= 2, f"spread {sorted(reps.values())}")
+    finally:
+        lex_path.write_bytes(saved[0])
+        klog_path.write_bytes(saved[1])
+
+
+def s35_quiet_hours_chokepoint(sb: Path):
+    """Quiet hours belong to `push_to_phone`, not to each lane (2026-07-26).
+
+    They used to be enforced per-lane: `rails_gate` for knocks, `in_waking_window`
+    in the queue, and a hand-rolled hour compare in both `run_studio` and
+    `render_soak` — FOUR copies, and `render_drill` had none, which is how a drill
+    reached the phone at 23:42. The gap was not on a CI lane, so nothing had fired
+    from the runner — this case is what keeps it that way when a lane is added."""
+    print("\n35. Quiet hours: one chokepoint, no per-lane copies (2026-07-26)")
+    import contextlib
+    import io
+    mk = importlib.import_module("morning_knock")
+    src_dir = Path(__file__).parent
+
+    real_urlopen = mk.urllib.request.urlopen
+    sent = []
+
+    class FakeResp:
+        status = 200
+        def read(self): return b""
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+
+    def fake_urlopen(req, *a, **k):
+        sent.append(getattr(req, "full_url", req))
+        return FakeResp()
+
+    night = datetime(2026, 7, 26, 3, 42, tzinfo=timezone.utc)   # 23:42 EDT
+    noon = datetime(2026, 7, 26, 16, 0, tzinfo=timezone.utc)    # 12:00 EDT
+    real_env = os.environ.get("ANNA_PUSH_WEBHOOK_URL")
+    try:
+        mk.urllib.request.urlopen = fake_urlopen
+        os.environ["ANNA_PUSH_WEBHOOK_URL"] = "http://smoke.invalid/push"
+        check("the waking window has ONE definition",
+              mk.in_waking_window(noon) and not mk.in_waking_window(night),
+              "in_waking_window disagrees with the rails")
+
+        real_now = mk.in_waking_window
+        mk.in_waking_window = lambda now=None: False
+        try:
+            out = io.StringIO()
+            with contextlib.redirect_stdout(out):
+                pushed = mk.push_to_phone("a drill at 23:42", None)
+            check("an UNrequested push is refused during quiet hours",
+                  pushed is False and not sent, f"sent={sent}")
+            check("the refusal says where the artifact went",
+                  "on the feed for the morning" in out.getvalue(), f"got {out.getvalue()!r}")
+            with contextlib.redirect_stdout(io.StringIO()):
+                pushed = mk.push_to_phone("your reply", None, requested=True)
+            check("a REQUESTED push still lands — answering his tap is not an interruption",
+                  pushed is True and len(sent) == 1, f"sent={sent}")
+        finally:
+            mk.in_waking_window = real_now
+    finally:
+        mk.urllib.request.urlopen = real_urlopen
+        if real_env is None:
+            os.environ.pop("ANNA_PUSH_WEBHOOK_URL", None)
+        else:
+            os.environ["ANNA_PUSH_WEBHOOK_URL"] = real_env
+
+    # No lane may re-implement the rule; every push must go through the chokepoint.
+    for name in ("run_studio.py", "push_queue.py", "render_drill.py", "render_soak.py"):
+        src = (src_dir / name).read_text(encoding="utf-8")
+        check(f"{name} does not hand-roll the waking-hour compare",
+              "WAKING_START_HOUR <=" not in src, f"{name} carries its own copy")
+    check("in_waking_window has one home",
+          "def in_waking_window" not in (src_dir / "push_queue.py").read_text(encoding="utf-8"),
+          "the queue's copy survived")
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -1968,6 +2243,7 @@ def main():
         s1_parse_llm_json(mk)
         s2_rails_gate(mk, sb / "progress" / "knock_log.json")
         s15_push_retry(mk)   # needs the real push_to_phone — s3+ stub it out
+        s35_quiet_hours_chokepoint(sb)   # ditto: asserts on the real function
         s3_knock_paths(mk, sb)
         s4_normalize(kr)
         s5_reply_judge(mk, kr, sb)
@@ -1996,6 +2272,8 @@ def main():
         s30_anna_speaks_back(mk, kr, sb)
         s31_feed_carries_every_pushed_dose(sb)
         s32_deck_rotation_and_coverage(mk, sb)
+        s33_catch_response_pairs(mk, sb)
+        s34_focus_and_background(sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)

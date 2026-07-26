@@ -371,7 +371,9 @@ def handle_catch_reply(knock: dict, reply_text: str, klog: list,
 
     print("4. push back…")
     body = " · ".join(p for p in (verdict["reply_line"], catch_meter(lexicon)) if p)
-    push_to_phone(body, None, knock_id=knock.get("timestamp", ""))
+    # requested: he replied to a knock — answering him is not an interruption,
+    # so the quiet-hours chokepoint must not swallow it (2026-07-26).
+    push_to_phone(body, None, knock_id=knock.get("timestamp", ""), requested=True)
     print("done — drift judged, catch axis scored, answered.")
 
 
@@ -909,7 +911,7 @@ def main():
     if len(body) > 240:
         print(f"   ⚠ push-back is {len(body)} chars — the lock screen will cut the tail (chained ask at risk)")
     # the chain's own id: a reply to this push-back correlates to the same knock entry
-    push_to_phone(body, voice_url, knock_id=knock.get("timestamp", ""))
+    push_to_phone(body, voice_url, knock_id=knock.get("timestamp", ""), requested=True)
     print(f"done — reply judged, scored, answered{' (aloud 🎧)' if voice_url else ''}.")
 
 

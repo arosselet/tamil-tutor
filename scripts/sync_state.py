@@ -345,7 +345,13 @@ def cmd_update(args):
     applied = {"cold": [], "hinted": [], "demoted": []}  # for the session log
 
     def touch(key):
+        """Worked in a session: refresh the date AND count the rep.
+        `last_surfaced` is one overwritten date, so it can say WHEN but never HOW
+        MANY — and the focus set needs a count (2026-07-26). The knock channel is
+        counted from knock_log; this is the session channel's half, and
+        `suggest_targets.rep_counts` is the one place they are summed."""
         lexicon[key]["last_surfaced"] = today
+        lexicon[key]["reps"] = lexicon[key].get("reps", 0) + 1
 
     def set_recognition(word, level):
         """Set recognition; create a record if the word is new (script only)."""
@@ -425,7 +431,7 @@ def cmd_update(args):
     # Closes the lore-memo gap: a frame a knock introduced is no longer UNSEEN.
     for key in args.mark_seen:
         if key in lexicon:
-            lexicon[key]["last_surfaced"] = today
+            touch(key)
             print(f"  Marked seen: {key}")
         else:
             print(f"  ! '{key}' not in lexicon — skipped")
@@ -557,9 +563,11 @@ def cmd_seed_deck(args):
     the same LLM-writes / Python-owns-state split as word_pool.json.
 
     Each deck entry: {"tamil", "gloss", "phonetic": [...], "type": "chunk"|"frame",
-    "recognition"?, "direction"?: "fire"|"catch"}. A "frame" is stored as a lexicon
+    "recognition"?, "direction"?: "fire"|"catch", "pairs_with"?}. A "frame" is stored as a lexicon
     `pattern` (an Engine); a "chunk" is word-like (counts in the viability floor).
-    "catch" marks ear-only items (cleared by recognition, never forced to fire).
+    "catch" marks ear-only items (cleared by recognition, never forced to fire);
+    "pairs_with" names the chunk that answers it — hear X → say Y, validated to
+    resolve inside the same file so a pair can never be silently split.
     Re-runnable and the file is the source of truth: existing entries get the deck
     tag + direction + any missing gloss/phonetic without clobbering their learning
     state; new entries are created; lexicon entries tagged with this deck but no
@@ -576,12 +584,23 @@ def cmd_seed_deck(args):
         print("Error: lexicon.json missing. See BOOTSTRAP.md.")
         sys.exit(1)
     today = date.today().isoformat()
+    # `pairs_with` is the ONE relation the schema carries: a catch item names the
+    # chunk Andrew must say back to it (hear X → say Y). It lives on the catch
+    # side because that is the direction of the drill, and it must resolve inside
+    # the same file — an unresolvable pair is a split pair, which is exactly the
+    # failure it exists to prevent (2026-07-26: the maami's "eat more" kept its
+    # deck slot while its refusal was dropped, and nothing could notice).
+    in_file = {e.get("tamil") for e in entries}
     created = updated = 0
     for e in entries:
         tamil = e.get("tamil")
         if not tamil:
             print(f"  ! deck entry missing 'tamil' — skipped: {e}")
             continue
+        pair = e.get("pairs_with")
+        if pair and pair not in in_file:
+            print(f"  ! '{tamil}' pairs_with '{pair}', which is not in this deck — pair dropped.")
+            pair = None
         lex_type = "pattern" if e.get("type") == "frame" else e.get("type", "chunk")
         # Chunks/words must be canonical Tamil script; frames use the `frame:...`
         # key convention (like add-pattern), so they're exempt from the script check.
@@ -593,6 +612,10 @@ def cmd_seed_deck(args):
             rec["deck"] = args.deck
             rec["direction"] = e.get("direction", "fire")
             rec.setdefault("type", lex_type)
+            if pair:
+                rec["pairs_with"] = pair
+            else:
+                rec.pop("pairs_with", None)  # the file is the source of truth
             if e.get("gloss"):
                 rec["gloss"] = e["gloss"]  # deck file is the curated content source — its gloss wins
             for phon in e.get("phonetic", []):
@@ -610,15 +633,16 @@ def cmd_seed_deck(args):
                 "last_surfaced": None,
                 "deck": args.deck,
                 "direction": e.get("direction", "fire"),
+                **({"pairs_with": pair} if pair else {}),
             }
             created += 1
     # The deck file is the source of truth: un-tag lexicon entries that left it.
-    in_file = {e.get("tamil") for e in entries}
     pruned = []
     for w, rec in lexicon.items():
         if rec.get("deck") == args.deck and w not in in_file:
             del rec["deck"]
             rec.pop("direction", None)
+            rec.pop("pairs_with", None)
             pruned.append(w)
     save_json(LEXICON_PATH, lexicon)
     deck = compute_deck(lexicon, args.deck)

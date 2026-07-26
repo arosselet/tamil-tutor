@@ -164,7 +164,19 @@
     ],
     "recognition": "struggled",
     "direction": "catch",
-    "note": "the maami's line at the table"
+    "note": "the maami's line at the table — the pair Andrew must own: hear it, refuse it warmly",
+    "pairs_with": "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு"
+  },
+  {
+    "register": "mil-table",
+    "type": "chunk",
+    "tamil": "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு",
+    "gloss": "No thanks, I'm full — the refusal to the maami's 'eat more'",
+    "phonetic": [
+      "vendaamma, vayiru nerainjiduchu"
+    ],
+    "recognition": "struggled",
+    "note": "re-landed 2026-07-26: it was dropped from the deck while its prompt stayed, and nothing noticed because nothing knew they were a pair"
   },
   {
     "register": "mil-table",
