@@ -4,6 +4,33 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **BUILD (decided 2026-07-26): the declared-events ledger.** Design settled with Andrew
+  (see DECISIONS "The word ledger is declared events" + the two entries after it); this
+  is the build plan. Mostly deletion — the one genuine addition is the exposure write.
+  1. **Rep = declared production.** `sync_state.touch` already writes it. Add the knock
+     half at the judge seam: each word in a judged reply's `fired` list (any verdict —
+     partial counts) increments the lexicon `reps`. Delete the mention-mining from
+     `rep_counts`: the knock-side sum becomes a read of declared counters, not a scan of
+     Anna's prose. `recent_ask_counts` keeps its probe matching for the 3-day
+     reveal-cooldown ONLY (there Anna's free prose is genuinely the source).
+  2. **Exposure = the word went out the door.** One write at each delivery seam
+     (episode render/registration, soak render, drill render, knock push) stamping an
+     exposure date/count. Flip or drop `-soaked` for the background band — more-soaked
+     currently sorts EARLIER, the anti-coverage direction for an exposure queue.
+  3. **Focus cohort as stored state.** The ≤12 names in Python-owned state (learner.json
+     is the natural home); enter on seat-open, leave on graduation only. The selector
+     reads membership instead of re-deriving it.
+  4. **Backfill question for Andrew at build time:** seed the new rep counter from the
+     knock log's *judged replies* (declared `fired` lists — deterministic, no mining)?
+     Recommend yes; never backfill from targeted asks or text matches.
+  5. Rewire smoke: s34 asserts the real exposure seam (today it hand-writes
+     `last_surfaced` inside its own loop — it tests the intent, not the pipeline).
+     While in `sync_state`: the `pairs_with` "pair dropped" print should be a hard
+     seed-time error, as the DECISIONS entry already claims it is.
+  Timing: the live ticket is steering on polluted counts today (false STUCK flag,
+  mention-seated focus), so this build is *what makes the watch period meaningful* —
+  build in a fresh @build session, don't wait out the focus/background watch first.
+
 - **Upsert `word_pool.json` into the lexicon, then retire the file (2026-07-26, Andrew's
   call — supersedes the assistant's "just delete it").** Verified safe: `compute_floor`
   counts only comfortable/solid, and `floor_gap_targets` requires the same, so ~295
