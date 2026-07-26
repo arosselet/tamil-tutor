@@ -1,0 +1,38 @@
+{
+  "mission": 76,
+  "register": "suspicion",
+  "dramatic_ingredient": "subtext",
+  "episode_form": "vignette",
+  "shape": "gossip",
+  "location_class": "home_social",
+  "energy": "low",
+  "intercept_tamil_density": 1.0,
+  "breakdown_tamil_density": 0.0,
+  "fence_size": 120,
+  "unfenced_words": 0,
+  "new_words_landed": {
+    "பிரச்சனை": 3,
+    "அலைச்சல்": 2,
+    "கவலை": 1,
+    "பயம்": 1,
+    "பரவாயில்லை": 1,
+    "சரியாயிடும்": 1,
+    "கேட்டேன்": 4,
+    "கேட்டீங்களா": 2,
+    "கிட்ட": 4
+  },
+  "callbacks_used": {
+    "சொன்னாங்க": 3,
+    "சொன்னாங்களா": 2,
+    "தம்பி": 8,
+    "யாரு": 3,
+    "ஆமா": 4,
+    "இல்ல": 2
+  },
+  "host_roles": {
+    "A": "Amma",
+    "B": "Atthai",
+    "C": "Nephew"
+  },
+  "notes": "Vignette. 'நான்' dropped following spoken Tamil pronoun elision rules. English stage directions extracted from dialogue into an SFX block to pass integrity checks. Gender tags added for TTS renderer. Added polite -ங்க to second person only (தெரியுமாங்க)."
+}
