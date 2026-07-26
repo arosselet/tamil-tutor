@@ -211,9 +211,11 @@
       65,
       66,
       67,
-      69
+      69,
+      75
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-07-26",
+    "exposures": 1
   },
   "நேரா": {
     "gloss": "Straight",
@@ -278,9 +280,11 @@
       61,
       64,
       69,
-      71
+      71,
+      75
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-07-26",
+    "exposures": 1
   },
   "அவன்": {
     "gloss": "He (informal)",
@@ -814,9 +818,11 @@
       17,
       18,
       28,
-      37
+      37,
+      75
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-07-26",
+    "exposures": 1
   },
   "நீங்க": {
     "gloss": "You (respectful - Elders/Strangers)",
@@ -989,9 +995,11 @@
     "seen_in": [
       9,
       11,
-      12
+      12,
+      75
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-07-26",
+    "exposures": 1
   },
   "போறேன்": {
     "gloss": "I go / I'm going",
@@ -1452,9 +1460,11 @@
       31,
       34,
       38,
-      60
+      60,
+      75
     ],
-    "last_surfaced": "2026-07-24"
+    "last_surfaced": "2026-07-26",
+    "exposures": 1
   },
   "சொல்றேன்": {
     "gloss": "I'm telling (present)",
@@ -1994,10 +2004,12 @@
       18,
       31,
       38,
-      65
+      65,
+      75
     ],
-    "last_surfaced": null,
-    "lemma": "கேள்"
+    "last_surfaced": "2026-07-26",
+    "lemma": "கேள்",
+    "exposures": 1
   },
   "இன்னைக்கு": {
     "gloss": "Today",
@@ -4595,8 +4607,11 @@
     ],
     "recognition": "comfortable",
     "production": "none",
-    "seen_in": [],
-    "last_surfaced": "2026-07-24"
+    "seen_in": [
+      75
+    ],
+    "last_surfaced": "2026-07-26",
+    "exposures": 1
   },
   "frame:negative-la": {
     "type": "pattern",
