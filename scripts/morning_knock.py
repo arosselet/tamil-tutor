@@ -319,8 +319,15 @@ def deck_due_list(max_fire: int = 6, max_catch: int = 2) -> str:
                       f"new scene, or pick another item")
         lines.append(f"    [{t['kind']}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{state}]")
     for t in deck["catch_pending"][:max_catch]:
-        lines.append(f"    [ear-only] {t['word']} — {t['gloss'] or '[no gloss]'}  "
-                     f"(soak/eavesdrop dose only — never ask him to fire it)")
+        if t.get("pairs_with"):
+            # A paired catch item is the one ear-only case he DOES answer: the
+            # line is aimed at him and silence is the failure (2026-07-26).
+            lines.append(f"    [pair] {t['word']} — {t['gloss'] or '[no gloss]'}  "
+                         f"→ he answers: {t['pairs_with']} — {t['response_gloss'] or '[no gloss]'}  "
+                         f"(play HER line, let him answer — never quiz the catch half alone)")
+        else:
+            lines.append(f"    [ear-only] {t['word']} — {t['gloss'] or '[no gloss]'}  "
+                         f"(soak/eavesdrop dose only — never ask him to fire it)")
     return "\n".join(lines)
 
 
@@ -767,12 +774,36 @@ def jsdelivr_url(mp3: Path) -> str:
     return f"https://cdn.jsdelivr.net/gh/{REPO}@main/{rel}"  # unique daily filename => always fresh
 
 
-def push_to_phone(body: str, audio_url: str | None, knock_id: str = ""):
+def in_waking_window(now: datetime | None = None) -> bool:
+    """Is it inside Andrew's waking hours, local time? The ONE definition — the
+    rails gate, the queue's deferral, and `push_to_phone` all read this."""
+    now = now or datetime.now(timezone.utc)
+    return WAKING_START_HOUR <= now.astimezone(LOCAL_TZ).hour < WAKING_END_HOUR
+
+
+def push_to_phone(body: str, audio_url: str | None, knock_id: str = "",
+                  requested: bool = False) -> bool:
     """Push a notification. audio_url is optional — a text/challenge/grace dose has none.
     knock_id = the knock's log-entry timestamp; it rides the notification's action_data
     and comes back with taps/replies so the judge grades the knock Andrew actually
     answered. Notifications stack (unique HA tag per knock, 2026-07-11) — last-fired
-    correlation is only the fallback for id-less events."""
+    correlation is only the fallback for id-less events.
+
+    QUIET HOURS ARE ENFORCED HERE, at the one chokepoint every lane shares
+    (2026-07-26). They used to be enforced per-lane: `rails_gate` for knocks, a
+    hand-rolled hour compare in `run_studio`, `in_waking_window` in the queue —
+    and NOTHING in `render_drill` or `render_soak`, which is how a drill reached
+    the phone at 23:42. Three copies and two gaps is the same shape as the
+    ordering-law drift found the same day; the fix is one owner, not a fourth copy.
+
+    `requested=True` is the deliberate exemption: a reply Andrew's own tap asked
+    for is not an interruption, and the rails exist to stop UNrequested reaches.
+    Returns True if it pushed, False if quiet hours held it back."""
+    if not requested and not in_waking_window():
+        local = datetime.now(LOCAL_TZ)
+        print(f"   phone: quiet hours ({local:%H:%M} {local.tzname()}) — not pushed. "
+              f"The artifact is on the feed for the morning.")
+        return False
     if audio_url:
         # Pre-warm the CDN: iOS fetches the attachment the instant the notification
         # lands, and a never-before-requested jsDelivr path can take seconds on its
@@ -798,7 +829,7 @@ def push_to_phone(body: str, audio_url: str | None, knock_id: str = ""):
         try:
             with urllib.request.urlopen(req) as r:
                 print(f"   HA push -> HTTP {r.status}")
-            return
+            return True
         except OSError as e:  # URLError, gaierror, timeouts
             if attempt == 2:
                 raise

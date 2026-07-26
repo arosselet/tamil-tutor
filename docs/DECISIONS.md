@@ -949,4 +949,95 @@ Details live in git history; this is the index of the *conclusions*.
   **Known and left alone:** `recent_ask_counts` matches phonetics by substring, so
   1–2 character lexicon keys (`ல`, `ஆ`, `அவ`) collect false hits — inert here, because
   only deck members are read from the counts and none are that short. Revisit if a short
-  deck item is ever seeded.
+  deck item is ever seeded. *(Superseded 2026-07-26 — `rep_counts` reads the whole
+  lexicon, which made it live; see below.)*
+
+- **A cooldown is not a coverage term — the 07-25 fix reached one selector and was the
+  wrong term anyway** (2026-07-26, Andrew: *"I don't think the 'last 3 days' fixes the
+  problem… then there's a big list of 1's"*). Two defects, one entry, because the second
+  is only visible once the first is fixed. **(a)** The 07-25 law landed in `deck_status`
+  alone; `floor_gap_targets` — the other 235 words, the "larger goal" the deck was accused
+  of starving — never got it, and 7 of its top 14 targets had been asked within 3 days.
+  **(b)** Adding the same 3-day term there fixes almost nothing: the window *forgets*, so
+  on day 4 a word's count resets to zero and it rejoins the head of the alphabet. Simulated
+  over 30 days at 8 targets/day it reaches **24 of 134 words**, spending 100 of 240 asks on
+  ten of them; 110 words are unreachable. **Lifetime reps** reach 121 of 134 with nothing
+  asked more than twice. So `recent_ask_counts` is demoted to what it was always for — a
+  cooldown, applied *inside* the focus set — and `rep_counts` is the coverage number.
+  Rejected: pseudorandom selection (Andrew's suggestion) — it gives coupon-collector
+  behaviour, cannot distinguish a starved word from an unlucky one, and a counter is
+  inspectable where a die roll is not; randomness survives only as `stable_jitter`, the
+  final tiebreak, replacing alphabetical. **`coverage_key` is now the single definition**
+  both selectors read (the deck prefixes tier and then defers) — the 07-25 entry's "one
+  ordering law" was true as prose and false as structure, since it was two hand-copied
+  sort keys in two files. That is what let it drift in a day. **Reps need a real counter:**
+  `last_surfaced` is one overwritten date and can say *when* but never *how many*, and the
+  session log records outcomes, not attempts — so `reps` becomes a lexicon field written by
+  `sync_state.touch`, summed with the knock-log count in `rep_counts` and nowhere else.
+  Fixing the substring probe above was a **prerequisite**, not a bonus: counting the whole
+  lexicon made the latent false-hit bug live, and it had `நீ` at 17 reps against a true 7.
+
+- **Two budgets, because coverage and depth genuinely conflict** (2026-07-26, Andrew:
+  *"10-15 getting most reps until they fire cold… the remaining on a slow guaranteed
+  background"*, and *"we need to make sure everything goes into the rotation without
+  starving the dense learning of a current week"*). One ranked list can be broad or deep,
+  never both: pure coverage touches 134 words once a month and graduates nothing; dense
+  repetition graduates words and rots the tail. So the floor splits — a **focus set** of
+  `FOCUS_SIZE` (12) words in dense rotation with sticky membership (the cohort advances and
+  graduates together rather than churning), and a **background** that is *exposure only* —
+  soak candidates that keep a word warm and are never forced to fire. **Graduation is
+  production going cold, and it is final**: a cold word is never drilled again, it is just
+  used, never re-tested (Andrew: *"never tested just assumed"*). Simulated over 60 days: 66
+  graduate, 132 of 134 touched, no word drilled more than 5×. The background rotation is
+  guaranteed only because exposure writes `last_surfaced`, which moves a word to the back
+  of its own queue — without that write the same two words are exposed forever, so the
+  smoke case models the write rather than the intent. **Stuck words are flagged, never
+  evicted** (`STUCK_REPS` = 10, twice the p90 of the 33 words that have actually gone cold —
+  median 2, max 15): past that, the *approach* is what needs changing, and Anna is told so.
+  Deliberately not an eviction rule — 33 data points cannot justify giving up on a word,
+  and a silently parked word is exactly the starvation this change exists to end.
+  **Rejected: retiring `word_pool.json`** (proposed by the assistant, overruled by Andrew:
+  *"if it's being ignored, then we should be fixing that"*). Deleting the only planned
+  vocabulary-intake path because nobody used it treats the symptom; the file is not broken,
+  it is queued.
+
+- **`pairs_with` — catch-and-response is a relation, and the schema now carries it**
+  (2026-07-26, from the curriculum audit). Andrew names catch-and-response as a first-class
+  curriculum kind; the schema had `direction: catch` but no way to say *hear X → say Y*, so
+  the pairing lived as English prose in `note`/`gloss` and nothing could drill a pair as a
+  pair. Concrete casualty: the maami's இன்னும் கொஞ்சம் சாப்பிடுங்க kept its deck slot while
+  its refusal வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு was dropped from the deck file, and nothing
+  noticed. One field, on the **catch** side (the direction of the drill), **validated to
+  resolve inside the same deck file** — so a split pair is now a loud seed-time error rather
+  than a silent one. **The curriculum is two surfaces, not four or five**: `type` is
+  `chunk` | `frame` and that is the whole taxonomy; `direction` and `register` are
+  attributes of those two, not kinds beside them. **Left open, needs Oracle content:** five
+  of six `faq` answers name their prompt only as romanised English inside the gloss
+  (*"eppo vandheenga?"*, *"enna velai?"*, *"enga irukkeenga?"*, *"evlo naal irupeenga?"*) —
+  the questions Andrew will actually be asked exist nowhere in the repo, so he has the
+  answers to questions he cannot recognise. Not guessable; it goes to the Oracle.
+
+- **Quiet hours belong to `push_to_phone`, not to each lane** (2026-07-26, after a drill
+  reached Andrew's phone at 23:42). The rails (08:00–21:00 local) were correct and were
+  enforced **four** separate times — `rails_gate` for knocks, `in_waking_window` in the
+  push queue, and a hand-rolled `WAKING_START_HOUR <= hour` compare in both `run_studio`
+  and `render_soak` — while `render_drill` had none at all. Four copies and one gap, and
+  the gap is the lane that fired. Same shape as the ordering-law drift found the same day,
+  which is the argument for the same remedy: **one owner**. The guard moves into
+  `push_to_phone`, the single chokepoint every lane already goes through, and all four
+  copies are deleted; `in_waking_window` moves to `morning_knock` beside the constants it
+  reads. `requested=True` is the one exemption — a reply to Andrew's own tap is not an
+  interruption, and the rails exist to stop *unrequested* reaches (`knock_reply`'s two
+  pushes and the queue's `force` entries). The queue keeps its own deferral check because
+  it does something different with the answer: it re-queues rather than dropping.
+  **Honest scope:** no CI lane was ever ungated — `anna.yml` runs only the queue drain and
+  `morning_knock`, both gated — so Anna in a runner could not have done this; the exposure
+  was laptop-only and would have become real the day an evening drill was scheduled.
+
+- **The rephrase state-loss hazard is real but has cost nothing — no mechanism**
+  (2026-07-26). `seed-deck` un-tags departed items but leaves `type`, stranding rows, and
+  the audit proposed a `supersedes` field so a re-worded phrase migrates its learning
+  state. All four superseded pairs were checked: **`seen_in` empty and `last_surfaced` null
+  on both spellings, in every case**. Nothing was ever lost, so a migration field would be
+  machinery for zero rows. The 9 remaining orphan chunks are inert (none reach the floor
+  denominator). Revisit only if a *soaked* phrase is ever re-worded.

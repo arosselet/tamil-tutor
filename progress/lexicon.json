@@ -2639,18 +2639,21 @@
     ],
     "last_surfaced": null,
     "deck": "trip",
-    "direction": "catch"
+    "direction": "catch",
+    "pairs_with": "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு"
   },
   "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு": {
     "type": "chunk",
-    "gloss": "No thanks, I'm full",
+    "gloss": "No thanks, I'm full — the refusal to the maami's 'eat more'",
     "phonetic": [
       "vendaamma, vayiru nerainjiduchu"
     ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": null
+    "last_surfaced": null,
+    "deck": "trip",
+    "direction": "fire"
   },
   "உங்க கை ருசி சூப்பர்": {
     "type": "chunk",

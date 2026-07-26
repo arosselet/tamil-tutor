@@ -194,10 +194,13 @@ def main():
     print("3. publish…")
     subprocess.run([sys.executable, str(BASE / "scripts" / "rebuild_rss.py")], cwd=BASE, check=True)
     commit_and_push([mp3, BASE / "rss.xml"], f"Drill track: {sheet.get('title', mp3.stem)}")
+    # This lane had NO quiet-hours check at all and pushed a drill at 23:42
+    # (2026-07-26). The guard lives in push_to_phone now, so every lane —
+    # including ones not written yet — inherits it.
     print("4. notify…")
-    push_to_phone(f"drill's up — {len(sheet['items'])} out loud, gaps are yours 🎧",
-                  jsdelivr_url(mp3))
-    print("done — drill on the feed and the lock screen.")
+    pushed = push_to_phone(f"drill's up — {len(sheet['items'])} out loud, gaps are yours 🎧",
+                           jsdelivr_url(mp3))
+    print(f"done — drill on the feed{' and the lock screen' if pushed else ''}.")
 
 
 if __name__ == "__main__":

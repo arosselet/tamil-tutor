@@ -6,9 +6,12 @@ computes the candidate set. The bright line: Python computes the menu, Anna
 makes the choice.
 
 Four parts:
-  1. FLOOR-GAP TARGETS — words recognized (comfortable/solid) but not yet firing
-     cold. These are what to *force* this session. Ordered most-ready-to-fire
-     first (a `hinted` word is one hint from cold; a `solid` word is well-soaked).
+  1. FOCUS SET + BACKGROUND — words recognized (comfortable/solid) but not yet
+     firing cold, split into TWO BUDGETS. The focus set is ≤FOCUS_SIZE words in
+     dense rotation, drilled until they fire cold and then never drilled again.
+     The background is everything not yet started: exposure only — soak them into
+     scenes so the tail can't rot, never force them to fire. One ranked list
+     cannot do both jobs, and trying made it do neither.
   2. DUE CALLBACKS — soft soak targets, reusing generate_callbacks.py (no
      duplicated logic).
   3. NEW CANDIDATES BY CLUSTER — priority-1 word_pool entries not yet in the
@@ -23,7 +26,9 @@ Usage:
 """
 
 import argparse
+import hashlib
 import json
+import re
 import sys
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -71,7 +76,112 @@ INGREDIENTS = {
 }
 
 
-def floor_gap_targets(lexicon: dict, today, max_n: int) -> list[dict]:
+# How many words are in dense rotation at once, and how many of them get drilled
+# on a given day (Andrew, 2026-07-26: "10-15 getting most reps until they fire
+# cold, the remaining on a slow guaranteed background"). Graduation is production
+# going cold — after that a word is never drilled again, it is just used.
+FOCUS_SIZE = 12
+# Drilling that isn't working, flagged not evicted. Measured 2026-07-26 over the
+# 33 words that have actually gone cold: median 2 reps, p90 5, max 15. A word
+# past 10 is at twice the p90 and the approach — not the word — is what needs
+# changing. It keeps its seat (it IS unfinished); Anna is told to switch angle.
+# Deliberately NOT an eviction rule: 33 data points cannot justify giving up on
+# a word, and a silently parked word is the starvation this whole change fixes.
+STUCK_REPS = 10
+
+
+TOKEN_RE = re.compile(r"\w+", re.UNICODE)
+
+
+def probe_hit(probe: str, blob: str, tokens: set) -> bool:
+    """Did this knock mention this lexicon entry?
+
+    A multi-word probe is a phrase and matches as a substring. A SINGLE-word
+    probe must match a whole token, because substring matching makes short keys
+    swallow longer ones: நீ ('you', 2 chars) is inside நீங்க, and the 2026-07-26
+    audit logged it at 17 reps when the real figure is far lower. That was inert
+    while only deck members were counted; `rep_counts` reads the whole lexicon,
+    which is what made it live."""
+    if not probe:
+        return False
+    parts = TOKEN_RE.findall(probe)
+    if len(parts) > 1:
+        return probe in blob
+    return bool(parts) and parts[0] in tokens
+
+
+def stable_jitter(word: str) -> str:
+    """The last tiebreak. Alphabetical was the old one, and it is the reason the
+    head of a tie group froze: every pass through a cohort happened in the same
+    order, so the tail of the alphabet was unreachable. A hash of the word is
+    arbitrary but STABLE — deterministic for tests, and it spreads the cohort
+    instead of ordering it by a property that correlates with nothing."""
+    return hashlib.sha1(word.encode("utf-8")).hexdigest()
+
+
+def coverage_key(c: dict) -> tuple:
+    """THE ordering law, defined once and read by BOTH selectors — the deck and
+    the general floor. It exists as a function because the 07-25 version was two
+    hand-copied sort keys in two files: the law was extended in one and not the
+    other, and the un-extended half froze for a day before anyone noticed
+    (2026-07-26). A term added here reaches every channel or none.
+
+        fewest LIFETIME reps → least-recently-worked → ripeness → soak → jitter
+
+    Reps lead because coverage is the property that fails silently; staleness
+    cannot break the tie when most of the population has never been worked at
+    all. Callers may prefix their own terms (the deck prefixes tier — the 07-13
+    touchdown bar) but may not reorder or drop these."""
+    return (c.get("reps", 0),
+            -c.get("staleness", 0),
+            PROD_ORDER.get(c.get("production"), 1),
+            RECOG_ORDER.get(c.get("recognition"), 1),
+            -c.get("soaked", 0),
+            stable_jitter(c["word"]))
+
+
+def rep_counts(lexicon: dict, klog: list | None = None) -> dict:
+    """word → LIFETIME reps, both channels summed. THE coverage number.
+
+    Two sources because there are genuinely two channels: sessions write `reps`
+    onto the lexicon row (sync_state.touch), knocks are counted from knock_log.
+    They are summed here and nowhere else, so a caller can never read half of it.
+
+    Not to be confused with `recent_ask_counts`, which is a 3-day COOLDOWN — a
+    different question with a different answer. Using the cooldown as the
+    coverage term was the 2026-07-26 defect: on day 4 a word's count resets to
+    zero and it rejoins the front of the queue, so a rotating cohort of ~24
+    cycled forever while 110 of 134 words were never reachable at all."""
+    if klog is None:
+        klog = load_json(KNOCK_LOG_PATH) or []
+    counts = {w: r.get("reps", 0) for w, r in lexicon.items() if r.get("reps")}
+    for w, n in recent_ask_counts(klog, lexicon, days=None).items():
+        counts[w] = counts.get(w, 0) + n
+    return counts
+
+
+def floor_gap_targets(lexicon: dict, today, max_n: int,
+                      asked: dict | None = None, reps: dict | None = None) -> list[dict]:
+    """The general floor — everything outside the deck. TWO BUDGETS, not one
+    ranked list (2026-07-26):
+
+      FOCUS      ≤ FOCUS_SIZE words already started, drilled densely until they
+                 fire cold. Membership is sticky (most-repped stay in) so the
+                 cohort advances together instead of churning.
+      BACKGROUND everything not yet started. It is an EXPOSURE queue, not a drill
+                 queue — soak/episode candidates that keep a word warm without
+                 forcing it to fire. Least-repped first, so coverage is
+                 guaranteed rather than hoped for.
+
+    Coverage-first and dense-repetition are in real tension: one ranked list
+    either touches all 134 words once a month (breadth, nothing graduates) or
+    hammers a dozen (depth, the tail rots). Splitting the budget is what lets
+    both hold. Simulated over 60 days: 66 graduate, 132 of 134 touched, no word
+    drilled more than 5×."""
+    if asked is None:
+        asked = recent_ask_counts(load_json(KNOCK_LOG_PATH) or [], lexicon)
+    if reps is None:
+        reps = rep_counts(lexicon)
     gap = []
     for w, r in lexicon.items():
         if r.get("type") == "pattern":
@@ -86,17 +196,32 @@ def floor_gap_targets(lexicon: dict, today, max_n: int) -> list[dict]:
             "word": w, "gloss": r.get("gloss", ""),
             "recognition": r.get("recognition"), "production": r.get("production", "none"),
             "staleness": staleness, "soaked": len(r.get("seen_in", [])),
+            "asks": asked.get(w, 0), "reps": reps.get(w, 0),
         })
-    # Least-recently-worked first (rotates as Anna logs sessions); among equals,
-    # a hinted word is riper than none, a solid word riper than comfortable, and a
-    # more-soaked word (more episodes heard) is riper than a barely-seen one. The
-    # soak tiebreak is what carries the cold-start window before dates accrue.
-    gap.sort(key=lambda c: (-c["staleness"],
-                            PROD_ORDER.get(c["production"], 1),
-                            RECOG_ORDER.get(c["recognition"], 1),
-                            -c["soaked"],
-                            c["word"]))
-    return gap[:max_n]
+    # FOCUS membership is sticky: the most-repped in-progress words hold their
+    # seats so the cohort advances together and graduates together. Churning the
+    # set every day is how you get 134 words each half-learned.
+    started = sorted((c for c in gap if c["reps"]),
+                     key=lambda c: (-c["reps"], stable_jitter(c["word"])))
+    focus = started[:FOCUS_SIZE]
+    held = {c["word"] for c in focus}
+    background = sorted((c for c in gap if c["word"] not in held), key=coverage_key)
+    seats_open = FOCUS_SIZE - len(focus)
+    if seats_open > 0:
+        focus += background[:seats_open]
+        background = background[seats_open:]
+    # Within the focus set, least-repped first — spread the reps across the
+    # cohort rather than finishing one word at a time.
+    focus.sort(key=coverage_key)
+    for c in focus:
+        c["band"] = "focus"
+    for c in background:
+        c["band"] = "background"
+    # The cooldown still applies INSIDE the focus set: a word asked in the last
+    # 3 days drops behind its cohort-mates for a couple of days. That is the job
+    # `asks` was built for and the only job it does now.
+    focus.sort(key=lambda c: (c["asks"], coverage_key(c)))
+    return (focus[:max_n], background)
 
 
 # Touchdown bar (2026-07-13, Andrew — supersedes "deck tiering rejected" 2026-07-09,
@@ -121,7 +246,7 @@ def deck_registers(deck: str = "trip") -> dict:
             for i in json.loads(path.read_text(encoding="utf-8"))}
 
 
-def recent_ask_counts(klog: list, lexicon: dict, days: int = 3, now=None) -> dict:
+def recent_ask_counts(klog: list, lexicon: dict, days: int | None = 3, now=None) -> dict:
     """word → how many fired knocks in the last `days` asked for it (the original
     `expected_target`) or printed it (body/memo/recast, whole chains).
 
@@ -132,7 +257,8 @@ def recent_ask_counts(klog: list, lexicon: dict, days: int = 3, now=None) -> dic
     re-asked forever — the original KF-6 symptom (the same ask fired 5× in 4
     days and capped itself at hinted, 2026-07-06)."""
     now = now or datetime.now(timezone.utc)
-    cutoff = now - timedelta(days=days)
+    # days=None is the lifetime count (`rep_counts`); an int is the cooldown.
+    cutoff = None if days is None else now - timedelta(days=days)
     recent = []
     for k in klog:
         if not k.get("acted", True):  # legacy entries (no 'acted') were all fires
@@ -143,7 +269,7 @@ def recent_ask_counts(klog: list, lexicon: dict, days: int = 3, now=None) -> dic
             continue
         if ts.tzinfo is None:
             ts = ts.replace(tzinfo=timezone.utc)
-        if ts < cutoff:
+        if cutoff is not None and ts < cutoff:
             continue
         texts = [k.get("body", ""), k.get("memo_script", ""), k.get("reply_line", "")]
         texts += [x.get("reply_line", "") for x in k.get("exchanges", [])]
@@ -154,19 +280,20 @@ def recent_ask_counts(klog: list, lexicon: dict, days: int = 3, now=None) -> dic
         # carry the signal.
         targets = {k.get("expected_target", "")}
         targets |= {v.get("target", "") for v in (k.get("volley") or [])}
-        recent.append((targets, " ".join(t for t in texts if t).lower()))
+        blob = " ".join(t for t in texts if t).lower()
+        recent.append((targets, blob, set(TOKEN_RE.findall(blob))))
     counts = {}
     for word, rec in lexicon.items():
         probes = [word.lower()] + [p.lower() for p in rec.get("phonetic", []) if p]
-        n = sum(1 for tgts, blob in recent
-                if word in tgts or any(p in blob for p in probes))
+        n = sum(1 for tgts, blob, tokens in recent
+                if word in tgts or any(probe_hit(p, blob, tokens) for p in probes))
         if n:
             counts[word] = n
     return counts
 
 
 def deck_status(lexicon: dict, deck: str = "trip", today=None,
-                asked: dict | None = None) -> dict | None:
+                asked: dict | None = None, reps: dict | None = None) -> dict | None:
     """A finite, deadline-driven deck (the India-trip survival set), tagged
     `deck: "<name>"`. During a sprint this is the HEADLINE priority — Anna forces
     its not-yet-cold members first. Members split by `direction`: "fire" (default —
@@ -181,6 +308,8 @@ def deck_status(lexicon: dict, deck: str = "trip", today=None,
     regs = deck_registers(deck)
     if asked is None:
         asked = recent_ask_counts(load_json(KNOCK_LOG_PATH) or [], lexicon)
+    if reps is None:
+        reps = rep_counts(lexicon)
     fire = [(w, r) for w, r in members if r.get("direction", "fire") != "catch"]
     catch = [(w, r) for w, r in members if r.get("direction") == "catch"]
     cold = [w for w, r in fire if r.get("production") == "cold"]
@@ -196,35 +325,32 @@ def deck_status(lexicon: dict, deck: str = "trip", today=None,
         "tier": TIER_NAMES.get(DECK_TIERS.get(regs.get(w, ""), 1)),
         "unseen": is_unseen(r), "staleness": stale(r),
         "last_surfaced": r.get("last_surfaced"), "asks": asked.get(w, 0),
+        "reps": reps.get(w, 0), "soaked": len(r.get("seen_in", [])),
     } for w, r in fire if r.get("production") != "cold"]
-    # ONE ordering law, owned here, read by every channel (2026-07-25):
-    #   tier → least-recently-WORKED → least-recently-ASKED → ripeness → key
-    # Tier is the 07-13 touchdown bar and stays primary. Staleness is the same
-    # coverage-first law floor_gap_targets has always used; ripeness-first alone
-    # was rich-get-richer (an item only becomes `hinted` by being worked, which
-    # promoted it again) and the last tiebreak was alphabetical, so the head of
-    # each tier froze: 16 frames took 51 of the deck's 74 lifetime reps while 50
-    # of 70 fire items had never been worked at all (2026-07-25 audit).
-    # Ask-count breaks the ties staleness cannot: 50 items sit together at
-    # NEVER_SURFACED, and an ask that got no reply never sets `last_surfaced` —
-    # so without this a missed item would be re-asked forever (KF-6, 2026-07-06).
-    # Subordinating it to tier also repairs the knock-side version this replaces,
-    # where a stable re-sort by ask count alone let an asked-once SURVIVAL item
-    # fall below an unasked dessert one.
+    # tier → coverage_key. Tier is the 07-13 touchdown bar and stays primary; the
+    # rest is `coverage_key`, the SHARED law, so the deck and the general floor
+    # can no longer drift apart (that drift is what happened on 07-25 → 07-26).
+    # The deck keeps no focus/background split: it is a finite deadline set, so
+    # every member has to clear, and the tiers already say what leads.
     pending.sort(key=lambda c: (DECK_TIERS.get(regs.get(c["word"], ""), 1),
-                                -c["staleness"], c["asks"],
-                                PROD_ORDER.get(c["production"], 1),
-                                RECOG_ORDER.get(c["recognition"], 1), c["word"]))
+                                coverage_key(c)))
     catch_pending = [{
         "word": w, "gloss": r.get("gloss", ""),
         "kind": "frame" if r.get("type") == "pattern" else r.get("type", "chunk"),
         "recognition": r.get("recognition"), "staleness": stale(r),
         "last_surfaced": r.get("last_surfaced"), "asks": asked.get(w, 0),
+        # The pair, resolved for the drill: hear this, say that. A catch item
+        # with a partner is drillable as a UNIT — recognizing it is only half
+        # the win if the answer doesn't arrive (2026-07-26).
+        "pairs_with": r.get("pairs_with"),
+        "response_gloss": lexicon.get(r.get("pairs_with") or "", {}).get("gloss", ""),
+        "reps": reps.get(w, 0), "soaked": len(r.get("seen_in", [])),
+        "production": r.get("production", "none"),
     } for w, r in catch if r.get("recognition") != "solid"]
-    # Same law on the ear: catch starved hardest of all (1 of 12 items ever
-    # touched, and that one took all 5 catch reps).
-    catch_pending.sort(key=lambda c: (-c["staleness"], c["asks"],
-                                      RECOG_ORDER.get(c["recognition"], 1), c["word"]))
+    # Same shared law on the ear — no tier prefix, because catch items clear on
+    # recognition and the touchdown bar is a production idea. The ear starved
+    # hardest of all (1 of 12 items ever touched, and that one took all 5 reps).
+    catch_pending.sort(key=coverage_key)
     return {"total": len(fire), "cold": len(cold), "pending": pending,
             "catch_total": len(catch),
             "caught": sum(1 for _, r in catch if r.get("recognition") == "solid"),
@@ -401,7 +527,8 @@ def scene_spec(sidecars: list[dict]) -> dict:
 
 def main():
     parser = argparse.ArgumentParser(description="The session ticket: floor-gap + callbacks + new candidates")
-    parser.add_argument("--floor-max", type=int, default=8, help="Max floor-gap words to force (default 8)")
+    parser.add_argument("--floor-max", type=int, default=FOCUS_SIZE,
+                        help=f"Max focus-set words to show (default {FOCUS_SIZE} — the whole cohort)")
     parser.add_argument("--callbacks-max", type=int, default=5, help="Max due callbacks (default 5)")
     parser.add_argument("--clusters", type=int, default=5, help="Max thin clusters to surface (default 5)")
     parser.add_argument("--per-cluster", type=int, default=5, help="Max new candidates per cluster (default 5)")
@@ -435,7 +562,11 @@ def main():
 
     # Trip Deck — the finite, deadline-driven sprint set. When it exists it is the
     # HEADLINE: force its not-yet-cold members first (Anna narrates the countdown).
-    deck = deck_status(lexicon, today=today)
+    # One knock-log read, one ask count, both selectors — they share the ordering
+    # law, so they must share the term that implements it.
+    asked = recent_ask_counts(load_json(KNOCK_LOG_PATH) or [], lexicon)
+    reps = rep_counts(lexicon)
+    deck = deck_status(lexicon, today=today, asked=asked, reps=reps)
     if deck:
         print("\n★ TRIP DECK  (the sprint headline — force these before the general floor)")
         print("-" * 60)
@@ -458,6 +589,9 @@ def main():
             for t in deck["catch_pending"][:8]:
                 never = " · never worked" if t["staleness"] >= NEVER_SURFACED else ""
                 print(f"  - [{t['kind']}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{t['recognition']}{never}]")
+                if t.get("pairs_with"):
+                    print(f"      ↳ he answers: {t['pairs_with']} — {t['response_gloss'] or '[no gloss]'}"
+                          f"  (drill the PAIR: hear it, answer it — recognition alone isn't the win here)")
 
     cov = deck_coverage(lexicon, today=today)
     if cov:
@@ -503,15 +637,33 @@ def main():
         recent_str = ", ".join(f"M{m} {reg}/{form}" for m, reg, form in spec["recent"])
         print(f"  (diverging from last {DIVERGENCE_WINDOW}: {recent_str})")
 
-    # 1. Floor-gap — what to FORCE
-    print("\n1. FLOOR-GAP TARGETS  (recognized, not yet cold — force these)")
+    # 1. Floor-gap — two budgets. FOCUS is drilled; BACKGROUND is only exposed.
+    print(f"\n1. FOCUS SET  (≤{FOCUS_SIZE} in dense rotation — DRILL these until they fire cold)")
     print("-" * 60)
-    gap = floor_gap_targets(lexicon, today, args.floor_max)
+    gap, background = floor_gap_targets(lexicon, today, args.floor_max,
+                                        asked=asked, reps=reps)
     if not gap:
         print("  (floor is clear — nothing recognized is stuck below cold)")
     for t in gap:
         tag = "hinted→cold" if t["production"] == "hinted" else f"{t['recognition']}, cold-pending"
-        print(f"  - {t['word']} — {t['gloss'] or '[no gloss]'}  [{tag}]")
+        rep = f"{t['reps']} rep{'s' if t['reps'] != 1 else ''}" if t["reps"] else "never drilled"
+        cool = "  · asked in last 3d — vary the scene or take the next one" if t["asks"] else ""
+        if t["reps"] >= STUCK_REPS:
+            cool = (f"  · ⚠ STUCK — {t['reps']} reps and still not cold (most words take 2). "
+                    f"Drilling it again won't work; change the angle.")
+        print(f"  - {t['word']} — {t['gloss'] or '[no gloss]'}  [{tag} · {rep}]{cool}")
+    print(f"  Graduation is production going COLD. After that a word is never "
+          f"drilled again — it is just used.")
+
+    if background:
+        print(f"\n1a. BACKGROUND  ({len(background)} not yet started — EXPOSE, don't drill)")
+        print("-" * 60)
+        print("  Soak/episode candidates: work them into scenes so they stay warm and")
+        print("  the tail can't rot. Never force these to fire — they are not the focus.")
+        for t in background[:8]:
+            print(f"  - {t['word']} — {t['gloss'] or '[no gloss]'}")
+        if len(background) > 8:
+            print(f"  … {len(background) - 8} more waiting behind them")
 
     # 1b. Engines — generative patterns to force a novel instance of
     engines = engines_to_fire(lexicon)
