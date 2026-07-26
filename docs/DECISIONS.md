@@ -1041,3 +1041,40 @@ Details live in git history; this is the index of the *conclusions*.
   on both spellings, in every case**. Nothing was ever lost, so a migration field would be
   machinery for zero rows. The 9 remaining orphan chunks are inert (none reach the floor
   denominator). Revisit only if a *soaked* phrase is ever re-worded.
+
+- **The word ledger is declared events, never text forensics — rep, exposure, and spend
+  are three different things** (2026-07-26, Andrew's ruling on the from-scratch review).
+  A **rep** is Andrew producing the word, fully or partially — "you heard it from me"
+  (the session's `touch`, the judge's per-word `fired` list — both already declared).
+  An **exposure** is the word going out the door in any dose, written at render/push
+  time: confirmed-listen is unreliable by his own account, the counter's job is rotation
+  fairness rather than truth, and his side of the contract is consuming what ships and
+  feeding back. An unanswered **ask** is spend — it feeds the 3-day cooldown and nothing
+  else; ignoring the phone must not advance the curriculum. Python declares all three at
+  the seam where it assembles or grades the dose; probe/substring mining leaves the
+  counting path and survives only in the reveal-cooldown, where Anna's free prose
+  genuinely is the only source. **Supersedes the rep half of the coverage entry above**:
+  `rep_counts`' knock-side sum counted words *printed in Anna's own text* as reps, and
+  the same-day audit measured the damage — the session `reps` field was still empty, so
+  100% of live "reps" were mentions (`டீ`/"tea" at 21, `ல`/"la" at 22 — the whole-token
+  fix missed English-collision phonetics and romanized suffix tokens), என்ன? carried a
+  false STUCK flag having never been drilled, and focus seats were allocated by mention
+  frequency. The two-budgets architecture itself is untouched; this corrects its input.
+- **The focus cohort is stored state, not an emergent sort** (2026-07-26, Andrew: "the
+  alternative sounds more reliable"). The ≤12 names live as explicit Python-owned state;
+  a word enters when a seat opens and leaves only on graduation. Derived-from-counters
+  stickiness is only as sticky as the noisiest counter — membership becomes a fact
+  readable in a file, immune to counting bugs by construction. Same inspectability
+  argument that rejected pseudorandom selection.
+- **Deck and floor share one ledger and one law; they differ only in dosing and
+  promotion** (2026-07-26, Andrew). Same counters, same `coverage_key`; the deck keeps
+  its tier prefix and deadline policy, the floor keeps focus/background. Decided
+  explicitly so the next selector drift has no ambiguity to grow from.
+- **The background exposure loop must close at the delivery seam** (2026-07-26, from
+  the same review). "Guaranteed background rotation" was prose: the only `last_surfaced`
+  writers were `--listened` (unused — zero listens logged in weeks, per the
+  stop-chasing-listens policy) and `--mark-seen`, while episode delivery wrote `seen_in`
+  only — and `seen_in` raises `soaked`, which `coverage_key` sorts *earlier*, so
+  unlogged exposure was a positive feedback loop (the exposed get more exposed). The
+  delivery-time exposure write above is the closing mechanism; smoke s34, which
+  hand-modeled the write inside its own loop, must assert the real seam once built.
