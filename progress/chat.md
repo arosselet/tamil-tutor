@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Sunday 2026-07-26
+
+**10:28 · Anna** 🎧  ·  fielding / fielding: eat-more refusal
+> 🍽️ maami leans over — "innoru thadava saapidunga" — wave it off. what do you say back?
+
+
 ## Saturday 2026-07-25
 
 **09:02 · Anna** 🎧  ·  eavesdrop / eavesdrop: hearsay-aam gossip

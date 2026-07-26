@@ -2455,5 +2455,20 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-07-25T23-52.mp3",
     "memo_script": "da — you stole two words off the sisters this week without trying. that's the machine working.\n\nhere's one more piece you'll start hearing everywhere, now that I'm pointing at it.\n\nwhen someone does something *for themselves* — not for you, not for the family — Tamil squashes that right into the verb. you take something: எடுக்கிறேன். you take it *for yourself*: எடுத்துக்கிறேன். you look after something: பாக்கிறேன். you look after yourself: பாத்துக்கிறேன்.\n\nthat extra த்துக்க in the middle — that's the whole signal. do-for-myself. one chunk, bolted on.\n\nyou'll hear it at the table as a kind of polite wave-off too: பாத்துக்கோங்க — 'I'll manage, don't worry about me.' the aunties say it when someone tries to serve them and they're being gracious about it.\n\nyou don't need to fire this one. just let it land. next time you hear something that sounds like -துக்க in the middle of a verb, that's the tell — somebody's doing it for themselves.\n\nஅவ்வளவுதான்.",
     "mp3": "published_audio/knocks/knock_2026-07-25T23-52.mp3"
+  },
+  {
+    "date": "2026-07-26",
+    "timestamp": "2026-07-26T14:28:29.640304+00:00",
+    "acted": true,
+    "modality": "fielding",
+    "move": "fielding: eat-more refusal",
+    "rationale": "Demand-streak is 0, lore is spent, last knock was audio (no-tap), and the eat-more/refusal pair has been sitting unseen in the deck — fielding fires the heard-question→produced-answer pathway the deck's catch half needs, plants the maami voice naturally on a Sunday morning, and the target is unrevealed so a clean answer scores cold.",
+    "next_check": "2026-07-26T19:28:29.640304+00:00",
+    "body": "🍽️ maami leans over — \"innoru thadava saapidunga\" — wave it off. what do you say back?",
+    "expected_target": "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-07-26T14-28.mp3",
+    "memo_script": "இன்னொரு தடவை சாப்பிடுங்க — இன்னொரு தடவை சாப்பிடுங்க.\n\nவேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு சொல்லுங்க.",
+    "mp3": "published_audio/knocks/knock_2026-07-26T14-28.mp3"
   }
 ]
