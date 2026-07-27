@@ -1196,3 +1196,16 @@ Details live in git history; this is the index of the *conclusions*.
   so five honorific imperatives sitting at recognition-solid/production-none are **one lever,
   not five words**. Rejects reading the gap as carelessness, and rejects drilling the five as
   vocabulary.
+- **The second-level extraction may only go toward more domains, never more users**
+  (2026-07-27, @build's analysis; Andrew asked what is novel and portable here and has not
+  ruled). What makes this system unusual is three co-occurring properties — a months-long
+  horizon, an n=1 audience, and an agent that initiates — and two of its mechanisms are
+  load-bearing *because* of n=1: the felt-signal ledger ("twice is signal, default verdict
+  change nothing") degrades into ordinary analytics the moment there is a population to A/B,
+  and git-as-runtime breaks on commit contention and Actions minutes the moment there are
+  tenants. So a validating second consumer must be **one human, months-long,
+  adherence-metered, with the system controlling the stimulus** (pre-registration has no
+  purchase on open-ended chat — the 07-27 chat-lane entry above) and a gradeable response
+  coming back; instrument practice is the closest non-language twin, rehab and strength
+  programming the next. Sharpens the "no second consumer, don't extract" rejection above by
+  naming what would clear it, and rules out the multi-tenant reading of "more general."
