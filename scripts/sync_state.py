@@ -138,6 +138,34 @@ def record_exposure(keys: list[str]) -> list[str]:
     return marked
 
 
+def mark_soak_delivered(channel: str) -> bool:
+    """The lane that RENDERED the standing order stamps it consumed.
+
+    The episode lane clears itself for free: registration writes the payload
+    into episodes.json and creates any missing lexicon row, so "newest episode
+    carries it" is answerable. The soak and drill lanes have neither — and
+    inferring delivery from `last_surfaced` fails on exactly the words that
+    matter, because `split_payload` deliberately passes Tamil-script payload
+    items that are legitimately PRE-lexicon (a brand-new word), while
+    `mark_exposed` can only stamp rows that already exist. One such word
+    (நிறைஞ்சிடுச்சு, 2026-07-27) held an order at NOT YET PRODUCED through a
+    successful render — the M72/M73/M74 re-dispatch loop, one layer in.
+
+    So the lane declares it instead of the checker guessing. Same ledger law as
+    exposure (2026-07-26): delivery is declared by the seam that ships the dose.
+
+    Returns False when there is no order to stamp; callers add LEARNER_PATH to
+    their commit when this returns True."""
+    learner = load_json(LEARNER_PATH)
+    if not learner or not (learner.get("soak_order") or {}):
+        return False
+    learner["soak_order"]["delivered"] = {
+        "channel": channel, "at": date.today().isoformat()}
+    save_json(LEARNER_PATH, learner)
+    print(f"   Soak order marked delivered by the {channel} lane")
+    return True
+
+
 def canon_payload(items: list[str]) -> list[str]:
     """Split comma-joined payload elements into a flat word list. A close once
     passed `--soak-payload "frame:idum,பாத்துக்கறேன்"` as one string (2026-07-13);
@@ -509,6 +537,11 @@ def cmd_update(args):
             order["channel"] = args.soak_channel
         if args.soak_form is not None:
             order["form"] = args.soak_form
+        # A re-set order is a NEW order: drop any prior lane's delivery stamp, or
+        # a close on the same day a dose already shipped would read as already
+        # produced and never render (date compare alone can't see it — `from` and
+        # `delivered.at` are both today). Any change to the brief invalidates it.
+        order.pop("delivered", None)
         order["from"] = today
         learner["soak_order"] = order
         extra = "".join(f" · {k}: {order[k]}"
@@ -882,13 +915,13 @@ def cmd_status(_args):
         else:
             # The soak and drill lanes register no episode, so the newest-episode
             # compare can NEVER clear them — that is the 2026-07-23 re-dispatch
-            # loop (M72/M73/M74 in one evening) with a new trigger. They declare
-            # delivery the other way the ledger allows: record_exposure() stamps
-            # last_surfaced at publish (2026-07-26), so the order is produced once
-            # every resolved word has gone out the door since the order was set.
-            produced = bool(resolved) and all(
-                (lexicon.get(w, {}).get("last_surfaced") or "") >= (soak_from or "")
-                for w in resolved)
+            # loop (M72/M73/M74 in one evening) with a new trigger. The lane that
+            # rendered the order stamps it delivered (mark_soak_delivered); an
+            # earlier version of this check read last_surfaced instead and hung
+            # forever on a pre-lexicon payload word, which is the same loop.
+            deliv = soak.get("delivered") or {}
+            produced = (deliv.get("channel") == channel
+                        and (deliv.get("at") or "") >= (soak_from or ""))
         if unresolved:
             drain = (f" · ⚠ payload unverifiable ({', '.join(unresolved)}) — fix the soak "
                      f"order; NOT dispatching on an item that can never match")

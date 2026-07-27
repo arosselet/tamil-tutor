@@ -2423,11 +2423,34 @@ def s36_soak_order_carries_shape(sb: Path):
         status = _capture(ss.cmd_status)
         check("an undelivered soak order routes to the soak lane, not the studio",
               "render_soak.py" in status and "run_studio.py" not in status, status[:400])
-        lex = read_json(lex_path)
-        lex["போறேன்"]["last_surfaced"] = date_cls.today().isoformat()
-        write_json(lex_path, lex)
-        check("exposure at publish clears it — no second dispatch",
+        check("the rendering lane's own stamp clears it — no second dispatch",
+              ss.mark_soak_delivered("soak")
+              and "produced ✓" in _capture(ss.cmd_status))
+
+        # The shape that hung a real order through a SUCCESSFUL render: a
+        # Tamil-script payload word that is legitimately pre-lexicon. It passes
+        # split_payload by design, but mark_exposed can only stamp rows that
+        # exist, so any last_surfaced-based check waits on it forever.
+        learner = read_json(learner_path)
+        learner["soak_order"]["payload"] = ["நிறைஞ்சிடுச்சு"]   # not in this lexicon
+        write_json(learner_path, learner)
+        res, unres = ss.split_payload(["நிறைஞ்சிடுச்சு"], read_json(lex_path))
+        check("a pre-lexicon Tamil payload word is resolvable, not junk",
+              res == ["நிறைஞ்சிடுச்சு"] and not unres, f"{res} / {unres}")
+        check("...and a delivered order still clears with one in the payload",
               "produced ✓" in _capture(ss.cmd_status))
+
+        # A stamp from ANOTHER lane must not clear this one.
+        ss.mark_soak_delivered("drill")
+        check("a stamp from a different lane does not clear a soak order",
+              "NOT YET PRODUCED" in _capture(ss.cmd_status))
+        ss.mark_soak_delivered("soak")
+
+        # A NEW order supersedes an old delivery — `from` moves, the stamp doesn't.
+        update(soak_payload=["போறேன்"])
+        check("a freshly-set order is pending again despite the old stamp",
+              "NOT YET PRODUCED" in _capture(ss.cmd_status))
+        ss.mark_soak_delivered("soak")
 
         # The reader half: the brief only reaches the sheet on the soak channel.
         rs = importlib.import_module("render_soak")
