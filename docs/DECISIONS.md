@@ -1095,7 +1095,7 @@ Details live in git history; this is the index of the *conclusions*.
   flag is false only because the ask is comprehension, not because the Tamil was hidden.
   A hidden production target remains spend-only. Declared at the knock seam
   (`knock_exposures`), never mined from the memo text.
-- **The campaign keeps its story and loses its paperwork** (2026-07-27, Andrew: "keep the
+- **The campaign keeps its story and loses its paperwork** (2026-07-26, Andrew: "keep the
   story, drop the paperwork"). The 07-17 campaign was built when nothing named what was
   coming *and* nothing ranked the curriculum; it took both jobs. The 07-25/07-26 selector
   work took the second one back — the focus set is a stored ≤12 cohort that graduates on
@@ -1117,7 +1117,7 @@ Details live in git history; this is the index of the *conclusions*.
   profile block 130 lines → 8. The narrated-denominator rule (07-17) survives unchanged;
   only its source moves to the ticket's focus set.
 - **One campaign heading, always — a finished week is overwritten, not archived**
-  (2026-07-27, found while auditing the above). `campaign_block()` parses `profile.md` by
+  (2026-07-26, found while auditing the above). `campaign_block()` parses `profile.md` by
   an exact heading string, so the 07-24 close — which kept the won Ask-Machine week under
   that heading and put the live one under "## The Campaign — PITCHED …" — silently
   orphaned the live campaign. **Three days of knocks steered by a won-and-closed
