@@ -80,7 +80,7 @@ sleeps IS installed; without this lane the words knocked on daily could never es
 hinted through the very channel drilling them).
 
 "fired": one entry per Tamil word/chunk/frame the reply genuinely produced, each \
-graded on its OWN merits: [{"word": ..., "verdict": "cold"|"capped"|"hinted"}, ...]. \
+graded on its OWN merits: [{"word": ..., "said": ..., "verdict": "cold"|"capped"|"hinted"}, ...]. \
 "word" in CANONICAL Tamil script — copy the expected-target record's exact script when \
 it matches — or the frame:... key for a frame. Empty list when nothing creditable fired.
 
@@ -122,10 +122,15 @@ direction with a grade alone. Testimony still never changes a grade — cold nee
 unaided fire — so the honest path for a claimed word is an unrevealed ask in a FRESH \
 context later: plant one via "schedule" a day or two out, or leave it to the wild.
 
-VALID ALTERNATIVE ≠ MISS: when the ask was an open situation and his reply is a socially \
-coherent move that just isn't the word you had in mind ("ama, saapitten" while maama piles \
-food), the target was never really tested — grade what fired on its own merits, skip the \
-lesson, and if you re-ask, pin the MEANING in English ("wave it off — 'enough!'") without \
+CREDIT WHAT HE SAID, NOT WHAT YOU WANTED (2026-07-27): fire the lexicon key HIS OWN \
+words produced, never the target he routed around. A socially coherent substitute is a \
+real rep — "puriyala" for "enna sonneenga?", "oru nimisham" for "konjam nillunga", "ama, \
+saapitten" while maama piles food: credit புரியல / ஒரு நிமிஷம் on their own merits, leave \
+the untested target where it is, skip the lesson. A target he keeps substituting away \
+from is signal for chat, not a miss to punish. Every fired entry carries "said" — the \
+exact span of his reply that produced it, copied verbatim from andrew_reply. Python drops \
+any fire whose "said" is not literally in his reply, so a word he never typed can never \
+score. If you re-ask, pin the MEANING in English ("wave it off — 'enough!'") without \
 showing the Tamil; a word you print can never fire cold this exchange.
 
 "reply_line": the one line Anna pushes back. If he's off — recast the natural way and \
@@ -169,7 +174,7 @@ production, never a miss.
 Return ONLY a JSON object, no prose around it:
 {
   "verdict": "cold" | "hinted" | "miss" | "chat",
-  "fired": [{"word": "<canonical Tamil script or frame:... key>", "verdict": "cold" | "capped" | "hinted"}, ...],
+  "fired": [{"word": "<canonical Tamil script or frame:... key>", "said": "<the exact span of andrew_reply that produced it>", "verdict": "cold" | "capped" | "hinted"}, ...],
   "reply_line": "<one line>",
   "follow_up_ask": "<one line chaining the next rep; empty string to stop>",
   "follow_up_target": "<the one word/chunk/frame it asks for (Tamil script or frame:... key); empty if no chain>",
@@ -526,28 +531,72 @@ def judge(knock: dict, reply_text: str, target_record: dict | None,
             {"role": "user", "content": json.dumps(context, ensure_ascii=False, indent=2)},
         ],
     )
-    return normalize_verdict(parse_llm_json(resp.choices[0].message.content))
+    return normalize_verdict(parse_llm_json(resp.choices[0].message.content), reply_text)
 
 
-def normalize_verdict(d: dict) -> dict:
+_FLATTEN_RE = re.compile(r"[^\w]+", re.UNICODE)
+
+
+def flatten_for_match(s: str) -> str:
+    """Casefold, punctuation → space, runs collapsed. Loose enough that quoting
+    'Oru nimsham.' matches 'oru nimsham' in his reply; strict enough that the
+    letters must actually be there."""
+    return _FLATTEN_RE.sub(" ", (s or "").casefold()).strip()
+
+
+def said_in_reply(said: str, reply_text: str) -> bool:
+    """Did Andrew actually type this? The credit-side twin of shown_in_knock.
+
+    That guard is asymmetric — it can only DEMOTE a fire the knock revealed.
+    Nothing checked that a fired word appeared in his reply at all, so the judge
+    was free to credit the target it wanted. 2026-07-27 volley: reply "Oru
+    nimsham" fired கொஞ்சம் + நில்லுங்க — a phrase containing neither — and Python
+    derived a COLD headline from it, pushing back "நில்லுங்க fired cold 🔥" for a
+    word he never said, while his real substitution (ஒரு நிமிஷம், production
+    'none') scored nothing. Credit belongs to the word he used.
+
+    Python owns the honesty check, not the matching: he types 'nimsham' where the
+    lexicon stores 'nimisham', so a deterministic phonetic match would strip
+    legitimate credit. The judge names the canonical key AND quotes the span; this
+    verifies the span is his."""
+    flat_reply = flatten_for_match(reply_text)
+    flat_said = flatten_for_match(said)
+    return bool(flat_said) and bool(flat_reply) and flat_said in flat_reply
+
+
+def normalize_verdict(d: dict, reply_text: str = "") -> dict:
     """Guard the judge's JSON into the shape Python relies on. Per-word verdicts
     (2026-07-03): each fired item carries its own cold/hinted grade — one flat
     grade flattened multi-word replies. The reply's overall verdict is DERIVED
     (best word wins) so the log and chain never contradict the axis; a scored
     verdict with no fired words degrades to "miss" (nothing creditable, no chain
-    padding — fires_today and the burn rate count reply_fired)."""
+    padding — fires_today and the burn rate count reply_fired).
+
+    Credit is verified against his reply (2026-07-27): a fired word whose "said"
+    span is not literally in reply_text is DROPPED, not scored — see
+    said_in_reply(). The word itself is accepted as its own evidence (he replied
+    in script, or the judge quoted nothing), so a judge that forgets the field
+    still credits an on-the-nose Tamil reply. Dropped fires land on
+    d["unverified"] so the failure is loud in the run log, never silent."""
     if d.get("verdict") not in VERDICTS:
         d["verdict"] = "chat"
-    fired = []
+    fired, unverified = [], []
     for item in d.get("fired", []):
         if isinstance(item, str):  # tolerate the pre-per-word flat shape
             item = {"word": item, "verdict": d["verdict"]}
         if not isinstance(item, dict):
             continue
         w = (item.get("word") or "").strip()
-        if w:
-            v = item.get("verdict") if item.get("verdict") in ("cold", "capped") else "hinted"
-            fired.append({"word": w, "verdict": v})
+        if not w:
+            continue
+        said = (item.get("said") or "").strip()
+        if reply_text and not (said_in_reply(said, reply_text)
+                               or said_in_reply(w, reply_text)):
+            unverified.append(f"{w} (claimed {said!r})" if said else f"{w} (no span)")
+            continue
+        v = item.get("verdict") if item.get("verdict") in ("cold", "capped") else "hinted"
+        fired.append({"word": w, "said": said or w, "verdict": v})
+    d["unverified"] = unverified
     d["fired"] = fired if d["verdict"] in ("cold", "hinted") else []
     if d["fired"]:
         d["verdict"] = ("cold" if any(i["verdict"] == "cold" for i in d["fired"])
@@ -777,6 +826,8 @@ def main():
     verdict = judge(knock, reply_text, target_record, hours, revealed)
     fired_str = ", ".join(f"{i['word']}:{i['verdict']}" for i in verdict["fired"]) or "—"
     print(f"   → {verdict['verdict']} | fired: {fired_str} | {verdict.get('rationale', '')}")
+    for claim in verdict.get("unverified", []):
+        print(f"   ⚠ dropped — not in his reply: {claim}")
 
     # The clock-request backstop: a time-bound ask that came back with no
     # schedule gets exactly one forced re-ask. Cheap (one call, rare) and it

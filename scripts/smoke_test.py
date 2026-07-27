@@ -206,7 +206,8 @@ def s4_normalize(kr):
     print("\n4. Verdict normalization")
     n = kr.normalize_verdict
     d = n({"verdict": "hinted", "fired": ["போதும்"], "reply_line": "x"})
-    check("flat legacy fired tolerated", d["fired"] == [{"word": "போதும்", "verdict": "hinted"}])
+    check("flat legacy fired tolerated",
+          d["fired"] == [{"word": "போதும்", "said": "போதும்", "verdict": "hinted"}])
     d = n({"verdict": "hinted", "fired": [{"word": "a", "verdict": "cold"},
                                           {"word": "b", "verdict": "hinted"}]})
     check("overall verdict = best word", d["verdict"] == "cold")
@@ -214,6 +215,29 @@ def s4_normalize(kr):
     check("scored-but-empty degrades to miss", d["verdict"] == "miss")
     d = n({"verdict": "??", "fired": [{"word": "a", "verdict": "cold"}]})
     check("junk verdict → chat, fired cleared", d["verdict"] == "chat" and d["fired"] == [])
+
+    # Credit is verified against his reply (2026-07-27). The 07-27 volley judge
+    # fired கொஞ்சம்/நில்லுங்க against "Oru nimsham" — a phrase containing neither —
+    # and Python derived a COLD headline from it. shown_in_knock can only demote;
+    # nothing checked that a fired word was in the reply at all.
+    d = n({"verdict": "cold", "fired": [{"word": "நில்லுங்க", "said": "nillunga",
+                                          "verdict": "cold"}]}, "Oru nimsham")
+    check("a fire he never typed is dropped", d["fired"] == [])
+    check("...and the headline degrades, not celebrates", d["verdict"] == "miss")
+    check("...and the drop is loud, not silent", len(d["unverified"]) == 1)
+    d = n({"verdict": "cold", "fired": [{"word": "ஒரு நிமிஷம்", "said": "Oru nimsham",
+                                          "verdict": "cold"}]}, "Oru nimsham")
+    check("the substitution he DID say is credited to its own key",
+          [i["word"] for i in d["fired"]] == ["ஒரு நிமிஷம்"] and d["verdict"] == "cold")
+    d = n({"verdict": "cold", "fired": [{"word": "புரியல", "said": "Puriyila.",
+                                          "verdict": "cold"}]}, "puriyila")
+    check("case and punctuation don't cost him the credit", len(d["fired"]) == 1)
+    d = n({"verdict": "hinted", "fired": [{"word": "போதும்", "verdict": "hinted"}]},
+          "போதும் anna")
+    check("a script reply is its own evidence when the judge quotes nothing",
+          len(d["fired"]) == 1)
+    d = n({"verdict": "hinted", "fired": [{"word": "போதும்", "verdict": "hinted"}]})
+    check("no reply text ⇒ nothing to verify against, fire stands", len(d["fired"]) == 1)
 
 
 def canned_verdict(fired: list, reply_line: str = "adhu dhaan") -> dict:
