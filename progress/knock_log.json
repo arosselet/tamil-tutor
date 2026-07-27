@@ -2557,5 +2557,36 @@
         "reply_line": "noted — 'romba athigam' is yours when you're ready. cassa works fine anywhere Tamil doesn't."
       }
     ]
+  },
+  {
+    "date": "2026-07-27",
+    "timestamp": "2026-07-27T21:03:19.536378+00:00",
+    "acted": true,
+    "modality": "volley",
+    "move": "antifreeze kit volley",
+    "rationale": "Demand-streak 0 + afternoon slot = volley is clean; the four antifreeze-kit lines all live inside the auto ride scene and the campaign through-line, situations pin each target so only the right line answers.",
+    "next_check": "2026-07-28T13:03:19.536378+00:00",
+    "body": "⚡ volley 1/4 — auto driver rattles off a long street name — you caught nothing. ask him to slow down",
+    "expected_target": "கொஞ்சம் மெதுவா சொல்லுங்க",
+    "target_revealed": false,
+    "volley": [
+      {
+        "target": "கொஞ்சம் மெதுவா சொல்லுங்க",
+        "ask": "auto driver rattles off a long street name — you caught nothing. ask him to slow down"
+      },
+      {
+        "target": "என்ன சொன்னீங்க?",
+        "ask": "driver just said something — you heard sounds, no meaning. ask him to repeat it (neenga-form)"
+      },
+      {
+        "target": "தமிழ்ல எப்படி சொல்றது?",
+        "ask": "you know the thing but the Tamil word is gone. ask him how to say it in Tamil"
+      },
+      {
+        "target": "கொஞ்சம் நில்லுங்க",
+        "ask": "driver's about to pull into traffic — you need one more second before he moves. tell him wait a moment"
+      }
+    ],
+    "volley_next": 1
   }
 ]
