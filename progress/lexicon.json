@@ -1418,8 +1418,9 @@
       72,
       73
     ],
-    "last_surfaced": "2026-07-23",
-    "reps": 1
+    "last_surfaced": "2026-07-27",
+    "reps": 1,
+    "exposures": 1
   },
   "பார்த்தேன்": {
     "gloss": "I saw / I watched",
@@ -2256,8 +2257,9 @@
     "seen_in": [
       1
     ],
-    "last_surfaced": "2026-07-24",
-    "lemma": "கேள்"
+    "last_surfaced": "2026-07-27",
+    "lemma": "கேள்",
+    "exposures": 1
   },
   "போஸ்ட்போன்": {
     "gloss": "Postpone",
@@ -4659,7 +4661,8 @@
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-07-24"
+    "last_surfaced": "2026-07-27",
+    "exposures": 1
   },
   "அதுக்கு": {
     "gloss": "For that / to that — adhu + the -kku tail (same tail as station-kku)",
