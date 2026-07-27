@@ -1292,6 +1292,61 @@ def s25_studio_concurrency_and_secrets(sb: Path):
     finally:
         google.auth.default = real_default
 
+    # --- GCP_SA_KEY → ADC, the same bridge anna.yml builds (2026-07-27) -----
+    # CI writes the secret to a file and points GOOGLE_APPLICATION_CREDENTIALS
+    # at it; a laptop had no equivalent, so a clone carrying the SAME secret in
+    # .env still reported "this host cannot produce audio". A .env value must
+    # also survive on one line, hence base64.
+    import base64
+    import contextlib
+    import io
+    saved_env = {k: os.environ.get(k) for k in ("GCP_SA_KEY", "GOOGLE_APPLICATION_CREDENTIALS")}
+    key_file = Path(tempfile.gettempdir()) / "anna-gcp.json"
+    try:
+        doc = {"type": "service_account", "project_id": "smoke",
+               "private_key": "-----BEGIN PRIVATE KEY-----\nx\n-----END PRIVATE KEY-----\n",
+               "client_email": "a@smoke.iam.gserviceaccount.com"}
+        for label, val in (("raw JSON", json.dumps(doc)),
+                           ("base64 JSON", base64.b64encode(
+                               json.dumps(doc).encode()).decode())):
+            os.environ.pop("GOOGLE_APPLICATION_CREDENTIALS", None)
+            key_file.unlink(missing_ok=True)
+            os.environ["GCP_SA_KEY"] = val
+            check(f"{label} secret materializes a credentials file",
+                  ra.materialize_sa_key() and key_file.exists())
+            check(f"{label} secret points ADC at it",
+                  os.environ.get("GOOGLE_APPLICATION_CREDENTIALS") == str(key_file))
+            check(f"{label} round-trips intact",
+                  json.loads(key_file.read_text(encoding="utf-8")) == doc)
+
+        # A value that is not a key must be IGNORED, never written and never
+        # half-configured: the real 2026-07-27 .env held 40 chars of something
+        # else, and a silent write would have produced an auth error at
+        # segment 0 instead of a legible reason before the render starts.
+        os.environ.pop("GOOGLE_APPLICATION_CREDENTIALS", None)
+        key_file.unlink(missing_ok=True)
+        os.environ["GCP_SA_KEY"] = "2" * 40
+        with contextlib.redirect_stdout(io.StringIO()) as warned:
+            wrote = ra.materialize_sa_key()
+        check("a non-key GCP_SA_KEY is ignored", wrote is None and not key_file.exists())
+        check("...and says why, before any render starts",
+              "not a service-account key" in warned.getvalue(), warned.getvalue())
+        check("...and leaves ADC unconfigured rather than half-configured",
+              not os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"))
+
+        # An operator-supplied path always wins over the secret.
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/preexisting.json"
+        os.environ["GCP_SA_KEY"] = json.dumps(doc)
+        check("an existing GOOGLE_APPLICATION_CREDENTIALS is never clobbered",
+              ra.materialize_sa_key() is None
+              and os.environ["GOOGLE_APPLICATION_CREDENTIALS"] == "/preexisting.json")
+    finally:
+        key_file.unlink(missing_ok=True)
+        for k, v in saved_env.items():
+            os.environ.pop(k, None)
+            if v is not None:
+                os.environ[k] = v
+
     check("watchdog: exit 3 → skip, no retry",
           "no retry" in sw.outcome(sw.EXIT_NOT_CONFIGURED, "dispatch"))
     check("watchdog: exit 0 → done", sw.outcome(0, "dispatch").endswith("done"))
