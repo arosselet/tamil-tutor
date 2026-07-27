@@ -4,6 +4,45 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **Scheduled/unattended episode production — DEFERRED 2026-07-27 by Andrew after
+  exploring it.** Wanted: Anna (or Andrew) commissions from either machine, it builds and
+  publishes at a chosen time, and the phone gets told. Andrew proposed a `push_queue`
+  variant; explored and **not** the recommended shape, for three reasons read out of
+  `push_queue.py`: the drain runs at the START of every wake-up including every
+  lock-screen reply (a memo is ~1 min of TTS, an episode is three LLM passes plus ~10 min
+  — Andrew would wait at a blank shade); the drain has no claim/lease, and the known
+  double-fire residual costs a duplicate buzz today but would cost two renders, two
+  mission numbers and two racing commits for an episode; and every drain gate
+  (`MAX_REACHES_PER_DAY`, one-non-forced-per-tick pacing, quiet-hours deferral) is built
+  for *reaches*, so an episode would eat a knock slot.
+
+  **The shape that converges with the parked 07-24 plan:** the soak order already IS the
+  queue-of-one — payload / scene_seed / focus / channel / form / from / delivered, with
+  `soak_pending()` as the predicate and `MAX_UNATTENDED_PER_DAY` as the rail. It needs a
+  `due` field and the HOURLY TICK (never the drain) acting on it, dispatching by `channel`
+  through the door built 2026-07-27. One field, one workflow step.
+
+  **Two hazards that block anything unattended, whichever shape wins — fix first:**
+  1. `run_studio.next_mission()` is `max(glob) + 1` off the local filesystem. A cloud tick
+     and a laptop will claim the same number. Impossible today only because laptops are the
+     sole producers and Andrew serialises them by hand. Wants claim-by-commit.
+  2. `.studio.lock` is a local file lock and **cannot** exclude a GitHub runner from the
+     laptop. Nothing serialises two machines today.
+
+  **Recommended first step (also deferred):** a `workflow_dispatch` input that produces ONE
+  cloud episode manually — no policy, no tick integration, no autonomy — to hear whether a
+  Flash-written episode holds up before Anna may make them unattended. Andrew's own context
+  for the deferral: the starvation that motivated auto-production (episodes arriving only
+  when he sat for a lesson) has eased because he is showing up reliably now.
+
+- **`inline_canon()` follows references one level deep only (found 2026-07-27).**
+  `CANON_REF_RE.findall(prompt)` scans the PROMPT for `protocol/**.md` and inlines those
+  files; it does not follow references *inside* them. Safe today only because the studio
+  prompts were written to name every file explicitly. Add a "see `hosts.md`" line inside
+  `producer.md` and the agy path reads it off disk while the one-shot cloud path silently
+  does not — surfacing as a subtly off episode, not an error. Latent, not sighted. Wants a
+  lint (or a recursive scan) if episodes ever move to the cloud in earnest.
+
 - **Upsert `word_pool.json` into the lexicon, then retire the file (2026-07-26, Andrew's
   call — supersedes the assistant's "just delete it").** Verified safe: `compute_floor`
   counts only comfortable/solid, and `floor_gap_targets` requires the same, so ~295
