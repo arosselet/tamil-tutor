@@ -2587,17 +2587,18 @@
         "ask": "driver's about to pull into traffic — you need one more second before he moves. tell him wait a moment"
       }
     ],
-    "volley_next": 2,
+    "volley_next": 3,
     "response": "reply",
-    "reply": "Medhuva pesa",
+    "reply": "Puriyila",
     "reply_verdict": "hinted",
     "reply_fired": [
-      "கொஞ்சம் மெதுவா சொல்லுங்க"
+      "கொஞ்சம் மெதுவா சொல்லுங்க",
+      "புரியில"
     ],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "close — 'mেdhuva pesa' works, but at the table we'd say 'konjam medhuva sollunga' — sollunga is the move here (he's a stranger, needs the -nga). · 2/4 — driver just said something — you heard sounds, no meaning. ask him to repeat it (neenga-form)",
-    "reply_at": "2026-07-27T21:05:00Z",
+    "reply_line": "close — we'd say 'puriyala' (புரியல). · 3/4 — · 3/4 — you know the thing but the Tamil word is gone. ask him how to say it in Tamil",
+    "reply_at": "2026-07-27T21:07:19Z",
     "exchanges": [
       {
         "at": "2026-07-27T21:05:00Z",
@@ -2610,10 +2611,22 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "close — 'mেdhuva pesa' works, but at the table we'd say 'konjam medhuva sollunga' — sollunga is the move here (he's a stranger, needs the -nga). · 2/4 — driver just said something — you heard sounds, no meaning. ask him to repeat it (neenga-form)"
+      },
+      {
+        "at": "2026-07-27T21:07:19Z",
+        "reply": "Puriyila",
+        "verdict": "hinted",
+        "fired": [
+          "புரியில"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "close — we'd say 'puriyala' (புரியல). · 3/4 — · 3/4 — you know the thing but the Tamil word is gone. ask him how to say it in Tamil"
       }
     ],
-    "chained": 1,
-    "pinned_target": "என்ன சொன்னீங்க?",
+    "chained": 2,
+    "pinned_target": "தமிழ்ல எப்படி சொல்றது?",
     "pinned_revealed": false
   }
 ]
