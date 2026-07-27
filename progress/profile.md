@@ -39,131 +39,11 @@
 
 ## The Campaign — This Week
 
-> **Contract:** `protocol/daily_session.md` → "The Campaign". Andrew kicks one off in a
-> live session; Anna drafts it in chat, Andrew adjusts, Anna writes the agreed block here
-> and pushes at close. All mediums steer by it — the knock digest carries this block —
-> but cloud Anna only ever *reads* it; a campaign is never planned by CI or a calendar.
-> A typical block: the unit's name, its ~10–14 deck items (marking which are still
-> unseen), **its catch targets** (every campaign names ear-only items alongside fire
-> items — catch starves when only fire gets named, 2026-07-18), which days teach /
-> drill / soak, tomorrow's session shape, and what the trailer pitches next.
+> **Contract:** `protocol/daily_session.md` → "The Campaign". Anna writes it at close; Andrew overrides at will. One block, five lines — the ticket owns *which* items.
 
-**🏁 The Ask-Machine Week — WON AND CLOSED Fri 2026-07-24.** Every item cleared; the
-victory lap fired clean (*keys en-kitta kudunga* at the door, cold). Both 07-22 stragglers
-(*poganum*, *avasaram irukku*) closed in the same breath. Survival tier moved 13 → 15/33.
-Kept below as the record of the unit; the next campaign is pitched at the end of this block
-and awaits Andrew's adjustment.
+**🎯 The Auto Ride Week** (written 2026-07-27). Through-line: **the `public` register is one scene, not six phrases** — a whole transaction with a stranger, curb to change (நேரா போங்க → இங்க நிறுத்துங்க → எவ்ளோ ஆகும்? → ரொம்ப அதிகம் → சில்லறை இருக்கா?). The antifreeze kit rides *inside* the ride: a moving auto is exactly where கொஞ்சம் மெதுவா சொல்லுங்க and என்ன சொன்னீங்க? earn their keep. Catch stays ambient in the tapes, never a second headline — `frame:youknow-la` is still uncaught and still load-bearing. The trailer pitches the fare haggle.
 
-**🎯 The Ask-Machine Week** (kicked off live 2026-07-17, ran through 07-24). Everything
-at a family table moves by asking someone politely, and one machine sits under all of it:
-**verb + -nga**. The unit collapses forms Andrew already says (kudunga, sollunga,
-ukkarunga) into one lever, and lands the week's headline: **kudunga fires cold by Friday
-07-24** — the venum→kudunga swap is the open wound.
-
-- **Engine:** `frame:polite-nga` — **ONLINE (Sun 07-19)**: cold novel build (*thookunga*) in the Gauntlet.
-- **Headline:** `frame:giveme-noun` (kudunga) — **LANDED COLD Sun 07-19**, four days early: live field fire (*oru tea kudunga*, 07-18 table) + novel slot in-scene (*oru charger kudunga*). Friday's check is a victory lap.
-- **Second unseen:** `frame:mayi-laama` ("may I…?") — **ONLINE (Mon 07-20)**: cold on the
-  third verb, and he contracted it himself to the living form *polaamaa* (poga-laam→polaam),
-  never taught. Both of the week's unseen items are now cleared.
-- **The live collision (surfaced Mon 07-20):** `-nga` is now SO warm it overgeneralizes —
-  two misses reached for the polite-command tail before the permission tail (*naan
-  patharunga*), same failure family as Sunday's *naan ponga vaa ATM-la*. The engine works;
-  the *choice between engines* under speed is the open edge. Tuesday aims here.
-- **Antifreeze riders:** புரியல (hinted→cold), கொஞ்சம் மெதுவா சொல்லுங்க (a fired repair
-  line is a PASS, out loud, every time).
-- **Collision — CLOSED (Wed 07-22):** the -nga/-laamaa choice now fires cold both
-  directions, and *edukkalaamaa* landed LIVE at a real dinner table (07-21 mission).
-  The week's open wound is stitched.
-- **Known -nga family to re-strain as one machine:** சொல்லுங்க, உக்காருங்க, எடுங்க,
-  சாப்பிடுங்க, நிறுத்துங்க, கொஞ்சம் தண்ணி குடுங்க.
-- **Carry-over rider:** `frame:done-ittu` — hinted today (mudichittu varén); ride it to
-  cold inside ask-scenes, don't headline it.
-- **Catch targets:** `frame:quote-nu` + `frame:hearsay-aam` — Monday's episode seeds
-  mayi-laama and carries a gossip-tape beat; eavesdrop doses through the week (the
-  07-16 hearsay tape proved the format). Win = solid recognition, never a forced fire.
-- **Fielding doses (new channel, 07-18):** the week's asks come AT him in the family
-  voice — saapteengala?, evlo naal irupeenga?, enna venum? — question in phonetics on
-  the lock screen, answered with the deck's own answers; a fired repair line is a PASS.
-
-**Days:** Fri 07-17 ✓ (done-ittu payoff + person-tail lore, campaign drafted) → Sat
-(no session — teach payload carried by the trailer text, no guilt) → Sun **Gauntlet ✓**
-(8 reps gate-to-gate: engine online, headline cold, -laam unpacked, first live hearsay
-catch — drift caught, -aam tail unheard) → Mon **soak/eavesdrop ✓** (mayi-laama online;
-eavesdrop drill run — who+what caught, -aam missed a third time) → Tue **Table Rehearsal**
-(mother-in-law mask; mayi-laama's check is a victory lap, so the real aim is the
-**-nga vs -laamaa collision at speed** — CLOSED, both directions cold) → Wed **✓**
-(collision re-fired cold + live-fire confirmed; stragglers *poganum* and *avasaram
-irukku* pried loose, both hinted) → Thu clear the last stragglers in a leaving-scene,
-Friday = kudunga victory lap.
-
-**-aam watch — CLOSED, CAUGHT (2026-07-25).** Fourth contact **landed on the first pass**:
-his reply was *"they're talking about gossip someone said there's a problem"* — unnamed
-source, second-hand stance, the tail's whole job. `frame:hearsay-aam` → recognition SOLID;
-catch axis 0/12 → 1/12, the first item ever cleared on that side.
-
-The three prior "misses" (07-16, 07-20, 07-22) stand as recorded, but read them with
-suspicion: the same judge bug that cost him this one may have been eating them too.
-**The 07-25 tape scored him half-caught twice for information it never contained** — it
-ran `-aam` with no antecedent and without `frame:youknow-la`, the opener whose entire job
-is to plant the referent, so the drift question "what's the gossip" had no recoverable
-*who*. His actual question, twice, was **"who came?"** — the correct question, asked of a
-tape that had no answer in it. Two rules follow: an eavesdrop tape carrying `-aam` must
-establish its subject in the first line or the drift question must not ask for one; and
-his instinct to hunt the missing subject is a comprehension WIN to be fed, not a gap.
-(Andrew, verbatim: *"I was asking for a hint and responding what I knew and it felt like
-it was asking for a question I couldn't answer."*)
-
-**Fri 07-24 ✓ — the close, and Andrew brought the material.** He walked in with two words
-overheard off **his wife and her sister talking to each other** — full speed, unaimed at
-him — and asked to keep them: *prachanai* and *kitta*. First real-world catch evidence the
-system has ever had; the eavesdrop axis moved outside the lab. Ran as a meta/lore day on
-his own two words and cleared seven colds inside it, including the leaving-scene above in
-one unbroken breath.
-
----
-
-## The Campaign — PITCHED, awaiting Andrew's adjustment
-
-**🎯 The Overhear Week** (drafted by Anna 2026-07-24 at close; **not yet agreed** — Andrew
-adjusts or replaces it at the next open, per the contract above).
-
-**Why this one:** catch is the starving axis — **1/12 solid** (was 0/12 all month) while
-fire went 13 → 15 — and on 07-24 Andrew proved, unprompted and in the wild, that his ear
-already works. The unit chases the thing he accidentally demonstrated.
-
-- **Catch targets (the headline, ear-only — never forced to fire):** `frame:quote-nu`,
-  `frame:youknow-la`, என்னமோ பிரச்சனை, அலைச்சல். (`frame:hearsay-aam` **cleared 07-25** —
-  retired from the headline; keep it in the tapes as ambient, not as a target.)
-- **`frame:youknow-la` is now the load-bearing item, not a co-equal.** The 07-25 tape
-  proved why: `-aam` without an opener produces an unanswerable tape. Every tape that
-  hearsays about a person needs the opener that names them.
-- **Fire riders:** the **kel / kitta family** — *kitta* as the person-postposition
-  (ask/hear disambiguator), *ketten* / *ketkuren* across the present-future toggle,
-  and `frame:in-la` re-strained against it (places take -la, people take -kitta).
-- **The -aam watch is CLOSED — caught 07-25, first pass.** See the watch entry above.
-  The move this campaign owes is not to `-aam` but to the **judge and the tape**: grade a
-  reply's catch separately from its questions, and answer a request to be taught instead
-  of re-asking the drift question.
-- **Feed the missing-subject instinct.** He hunts the referent; that's the right reflex.
-  `யாரு?` (*yaaru?*) — "who?" — is the repair line that belongs in the antifreeze kit,
-  pending Oracle vibe-check and Andrew's call (it would move survival 33 → 34).
-- **Standing catch order (field mission, renewable):** bring back one word overheard from
-  the sisters. Organic by construction — they talk daily; nothing to stage; the heist
-  stays sacred because he produces nothing.
-
-**Ran unagreed, Sun 2026-07-26 — and it worked.** The campaign question was put to Andrew
-twice at that open and he answered neither time (he picked the *shape* — Story Day — and
-skipped the campaign). Rather than stall, the session ran this block's shape anyway: the
-catch headline (a native-speed aththai/akka gossip tape) plus the kel/kitta fire riders.
-Result: **catch axis 1/12 → 3/12** (என்னமோ பிரச்சனை and `frame:quote-nu` both solid on
-first contact, அலைச்சல் glossed correctly unprompted) and *maami-kitta ketten* cold on a
-novel person. `frame:youknow-la` remains **uncaught and load-bearing** — the opener planted
-Vasanthi by name and he still didn't surface the referent. Ask for the campaign call ONCE
-more at the next open; if he skips a third time, stop asking and run it as agreed-in-fact.
-
-**Density note (2026-07-24, his words):** he named *overwhelm* and *progress* in the same
-breath. Keep the dose low and the lore high while that holds — the meta thread is what
-produced seven cold fires today, not volume.
+**Standing catch order (renewable):** one word overheard off the sisters.
 
 ---
 
@@ -225,6 +105,7 @@ Learner-specific preferences for how Anna runs the live session. These live here
 
 - **Meta is curriculum; weave Tamil freely (2026-07-15, Andrew's words).** The exploratory/meta thread — *why that ending, where a word comes from, why Google Translate chokes on it* — is "as important to my journey as the subject at hand… so I can explore, not just checklist." Let Tamil live throughout the whole conversation (sign-offs, asides, mutters), and treat *anything* Anna drops as fair game for Andrew to stop and poke at — that poking **is** the lesson, never a detour from "real work." Do **not** frame Anna's own Tamil as a "slip" he "caught" — it's the persona, not an error. Use the dictionary-vs-living-register gap as a feature: colloquial Kongu (completive tails *poidu/poachu*, clitics, dropped endings) is exactly what machine translators mangle — reframe that as proof he's learning the real spoken register, with Anna as the Kongu dictionary. This is the constitution's "tangent is a tool" / "stories are curriculum" made a standing preference for Andrew.
 - **Field missions must be organic (2026-07-15).** A mission that needs a *specific moment to show up* (e.g. the old "ok-na, book pannu" waiting on her to book flights) is weak — Andrew called it "a bit contrived." Half the time the moment never comes and the line dies unfired. Build missions that ride something guaranteed to happen within ~24h (the dinner offer of seconds, the auto ride, the "did you eat?" greeting), so there's always a slot to fire it. Shapes the knock/mission policy, not just one session.
+- **Density low, lore high while the overwhelm signal holds (2026-07-24, his words).** He named *overwhelm* and *progress* in the same breath. Keep the dose small and the meta/lore thread rich until that changes — on 07-24 and again on 07-26, two fires plus one gossip tape produced more than any gauntlet had.
 
 ## Calibration Notes — explicit generation parameters
 

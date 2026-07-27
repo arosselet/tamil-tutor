@@ -34,7 +34,7 @@ Anna writes it at Close & Log; the studio consumes it. It is the *only* thing th
 
 Anna hands **meaning**; the studio derives the rest (register / form / ingredient, callbacks, density) and owns the **craft**.
 
-A second, softer interface exists since 2026-07-17: the **campaign block** (`progress/profile.md` → "The Campaign — This Week") — an Andrew-initiated one-week unit plan in Anna-owned prose. Sessions, the studio, and the knock digest all read it; only a live session writes it.
+A second, softer interface exists since 2026-07-17, cut back to its through-line on 2026-07-27: the **campaign block** (`progress/profile.md` → "The Campaign — This Week") — the week's name and what its days add up to, in Anna-owned prose. It names no items; the ticket owns those. Sessions, the studio, and the knock digest all read it; only a live session writes it, and exactly one such heading may exist.
 
 ## Invocation shells (thin, per-agent — all substance lives in `protocol/`)
 
