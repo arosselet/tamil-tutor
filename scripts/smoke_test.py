@@ -2316,7 +2316,7 @@ def s36_soak_order_carries_shape(sb: Path):
     saved = (learner_path.read_bytes(), lex_path.read_bytes())
 
     defaults = dict(listened=[], soak_payload=[], soak_seed=None, soak_focus=None,
-                    soak_channel=None, mastered_word=[], comfortable_word=[],
+                    soak_channel=None, soak_form=None, mastered_word=[], comfortable_word=[],
                     stuck_word=[], produced_cold=[], produced_hinted=[],
                     mark_seen=[], next_engine=None, debrief=None)
 
@@ -2393,6 +2393,43 @@ def s36_soak_order_carries_shape(sb: Path):
         update(soak_payload=["போறேன்"], soak_channel="episode")
         check("an episode-channel order does NOT hijack the soak lane",
               rs.soak_brief() == (None, []))
+
+        # --- The commissioned form: doctrine since 2026-07-18, wired 2026-07-27 ---
+        st = importlib.import_module("suggest_targets")
+        check("the divergence gate cannot roll a commissioned form by itself",
+              all(f not in st.FORMS for f in st.COMMISSIONED_FORMS))
+        check("ALL_FORMS is the one palette the CLI and the gate share",
+              set(st.ALL_FORMS) == set(st.FORMS) | set(st.COMMISSIONED_FORMS))
+
+        order = update(soak_form="narrated_drama")
+        check("the order carries a commissioned form", order.get("form") == "narrated_drama")
+        check("suggest_targets reads it back", st.commissioned_form() == "narrated_drama")
+
+        sidecars = [{"mission": 70, "register": "dread", "episode_form": "classic",
+                     "dramatic_ingredient": list(st.INGREDIENTS)[0]}]
+        spec = st.scene_spec(sidecars, st.commissioned_form())
+        check("a commissioned form overrides the gate", spec["form"] == "narrated_drama")
+        check("and says so, so the Director does not re-pick", spec["commissioned"])
+        check("register still diverges — commissioning a form costs no other variety",
+              spec["register"] != "dread")
+        check("an uncommissioned spec stays inside the rotated palette",
+              st.scene_spec(sidecars)["form"] in st.FORMS
+              and not st.scene_spec(sidecars)["commissioned"])
+
+        # A typo must not steer the Director off-palette, and must never mean
+        # "no episode" — the order still dispatches, the gate just rolls.
+        learner = read_json(learner_path)
+        learner["soak_order"]["form"] = "narrated_dramaa"
+        write_json(learner_path, learner)
+        with contextlib.redirect_stdout(io.StringIO()) as warned:
+            bad = st.commissioned_form()
+        check("an unbuildable form is ignored, not obeyed", bad is None)
+        check("...and says so out loud rather than failing silently",
+              "cannot build" in warned.getvalue(), warned.getvalue())
+
+        update(soak_form="narrated_drama", soak_channel="soak")
+        check("a form on a non-episode order does not reach the studio",
+              st.commissioned_form() is None)
     finally:
         learner_path.write_bytes(saved[0])
         lex_path.write_bytes(saved[1])

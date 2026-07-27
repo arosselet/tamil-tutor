@@ -491,7 +491,8 @@ def cmd_update(args):
     # hand-placed one died at the next close. The order is a BRIEFING now —
     # unnamed keys survive, and it carries `channel` (which lane renders it)
     # and `focus` (what to permute over the payload) beside the words.
-    if args.soak_payload or args.soak_seed or args.soak_focus or args.soak_channel:
+    if (args.soak_payload or args.soak_seed or args.soak_focus
+            or args.soak_channel or args.soak_form):
         order = dict(learner.get("soak_order") or {})
         # Per-field, not rebuild-from-args. The old code recomputed `payload`
         # on every write, so once the order also carried a focus and a channel,
@@ -506,9 +507,12 @@ def cmd_update(args):
             order["focus"] = args.soak_focus
         if args.soak_channel is not None:
             order["channel"] = args.soak_channel
+        if args.soak_form is not None:
+            order["form"] = args.soak_form
         order["from"] = today
         learner["soak_order"] = order
-        extra = "".join(f" · {k}: {order[k]}" for k in ("channel", "focus") if order.get(k))
+        extra = "".join(f" · {k}: {order[k]}"
+                        for k in ("channel", "form", "focus") if order.get(k))
         print(f"  Soak order set: {', '.join(order['payload']) or '(seed only)'}{extra}")
 
     if args.debrief:
@@ -1075,6 +1079,13 @@ def main():
                     choices=["episode", "soak", "drill"],
                     help="Which lane renders the order (default: episode). Capacity "
                          "routes this, never the curriculum — protocol/audio_channels.md")
+    # Deferred import: suggest_targets imports THIS module, so a module-level
+    # import would be circular. The palette has one owner either way.
+    from suggest_targets import ALL_FORMS, COMMISSIONED_FORMS
+    up.add_argument("--soak-form", type=str, default=None, choices=ALL_FORMS,
+                    help=f"Commission an episode FORM instead of letting the divergence "
+                         f"gate roll one. {'/'.join(COMMISSIONED_FORMS)} can ONLY arrive "
+                         f"this way; the rest are normally spec-rotated and this pins them.")
     up.add_argument("--mastered-word", type=str, action="append", default=[],
                     help="Word(s) now solid in recognition")
     up.add_argument("--comfortable-word", type=str, action="append", default=[],

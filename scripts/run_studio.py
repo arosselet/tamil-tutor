@@ -427,6 +427,44 @@ def claim_payload(n: int) -> None:
         print(f"   payload claimed into sidecar: {', '.join(added)}")
 
 
+def claim_spec(n: int) -> None:
+    """Python stamps the scene spec into the sidecar; the writer only obeys it.
+
+    Same seam and same reasoning as claim_payload: the spec was decided by
+    `scene_spec()`, then travelled as PROSE through Director → Architect →
+    Producer and came back as a label the writer chose for itself. The thin
+    slice caught Flash filing a `vignette` as `classic` — script right, label
+    wrong — and the label is not cosmetic: `pick_divergent` reads these
+    sidecars, so a mislabelled episode corrupts the next three choices.
+
+    It matters more now that a form can be COMMISSIONED. An unstamped
+    narrated_drama that reports itself `classic` would leave the divergence
+    gate believing a form it never rolled had just been used.
+
+    Never invents: an absent spec (no sidecar, unreadable) is left alone."""
+    sys.path.insert(0, str(BASE / "scripts"))
+    from suggest_targets import commissioned_form, load_recent_sidecars, scene_spec
+    paths = episode_paths(n)
+    try:
+        tags = json.loads(paths["tags"].read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return
+    # Recomputed, not re-read: pick_divergent is a pure function of the sidecars,
+    # and the dispatch lock means they cannot move mid-run — so this is the same
+    # spec the ticket printed, without threading it through a subprocess boundary.
+    spec = scene_spec(load_recent_sidecars(), commissioned_form())
+    stamped = {"register": spec["register"], "episode_form": spec["form"],
+               "dramatic_ingredient": spec["ingredient"]}
+    drifted = {k: (tags.get(k), v) for k, v in stamped.items() if tags.get(k) != v}
+    if not drifted:
+        return
+    tags.update(stamped)
+    paths["tags"].write_text(json.dumps(tags, ensure_ascii=False, indent=2) + "\n",
+                             encoding="utf-8")
+    for k, (was, now) in drifted.items():
+        print(f"   spec stamped: {k} {was!r} → {now!r} (Python decides, the writer obeys)")
+
+
 def renderer_preflight() -> str | None:
     """None when this host can RENDER (TTS credentials + deps), else the reason.
     Separate from the writer check because rendering an already-written script
@@ -522,6 +560,7 @@ def main():
         sys.exit(1)
     print("   all checks pass")
     claim_payload(n)
+    claim_spec(n)
 
     if args.dry_run:
         print(f"[dry-run] would render: tier2_mission{n}.mp3 — stopping before state.")
