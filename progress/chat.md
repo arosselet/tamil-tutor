@@ -15,6 +15,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > athigam = 'too much' / 'a lot'. romba athigam — romba is 'very', so together: 'way too much'. driver says 180₹ — that's your line back at him.
 
+**11:40 · Andrew** — **CHAT**
+> Romba cassa I might reach for but now I’ll practice Romba athaga.
+
+**Anna ↩**
+> noted — 'romba athigam' is yours when you're ready. cassa works fine anywhere Tamil doesn't.
+
 
 ## Sunday 2026-07-26
 
