@@ -319,3 +319,14 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
   denominator that replaces `15/34 survival cold` on the status line is the one decision
   that cannot be deferred past touchdown — and it depends on what the trip exposes, so it
   is deliberately left open rather than guessed now.
+- **A pure state correction inflates the session count** (2026-07-27). `sync_state.py update`
+  appends a `session_log.json` row unconditionally, so crediting the two 07-27 volley fires
+  from the court-of-appeal path wrote a second 07-27 session with an empty note. Recency from
+  the session log is the honest momentum signal (no streak, by design) — a correction is not a
+  session, and adherence numbers read off that log now carry a small overcount. One data point.
+  Cheap version is a `--correction` flag that skips the row, not a schema change.
+- **Volley chained recasts can double the re-presented ask** (2026-07-27). Exchange 2 of the
+  antifreeze volley pushed back `· 3/4 — · 3/4 — you know the thing but…`, and one reply_line
+  carried mojibake (`mেdhuva`, a Bengali vowel sign spliced into the Latin). Cosmetic, and the
+  lock-screen budget makes a doubled prefix cost real characters. Both are one-line fixes in
+  the volley re-present path; neither has recurred yet.
