@@ -2526,6 +2526,26 @@
     "next_check": "2026-07-27T19:37:36.720466+00:00",
     "body": "ரொம்ப அதிகம் (romba athigam) — 'that's too much.' driver names 180₹. this is your whole reply. 🛺",
     "expected_target": "",
-    "target_revealed": true
+    "target_revealed": true,
+    "response": "reply",
+    "reply": "What does athigam mean?",
+    "reply_verdict": "chat",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line": "athigam = 'too much' / 'a lot'. romba athigam — romba is 'very', so together: 'way too much'. driver says 180₹ — that's your line back at him.",
+    "reply_at": "2026-07-27T15:39:17Z",
+    "exchanges": [
+      {
+        "at": "2026-07-27T15:39:17Z",
+        "reply": "What does athigam mean?",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "athigam = 'too much' / 'a lot'. romba athigam — romba is 'very', so together: 'way too much'. driver says 180₹ — that's your line back at him."
+      }
+    ]
   }
 ]
