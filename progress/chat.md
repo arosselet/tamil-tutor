@@ -30,6 +30,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > close — 'mেdhuva pesa' works, but at the table we'd say 'konjam medhuva sollunga' — sollunga is the move here (he's a stranger, needs the -nga). · 2/4 — driver just said something — you heard sounds, no meaning. ask him to repeat it (neenga-form)
 
+**17:07 · Andrew** — **HINTED**
+> Puriyila
+
+**Anna ↩**
+> close — we'd say 'puriyala' (புரியல). · 3/4 — · 3/4 — you know the thing but the Tamil word is gone. ask him how to say it in Tamil
+
 
 ## Sunday 2026-07-26
 
