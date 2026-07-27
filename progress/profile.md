@@ -41,7 +41,7 @@
 
 > **Contract:** `protocol/daily_session.md` → "The Campaign". Anna writes it at close; Andrew overrides at will. One block, five lines — the ticket owns *which* items.
 
-**🎯 The Auto Ride Week** (written 2026-07-27). Through-line: **the `public` register is one scene, not six phrases** — a whole transaction with a stranger, curb to change (நேரா போங்க → இங்க நிறுத்துங்க → எவ்ளோ ஆகும்? → ரொம்ப அதிகம் → சில்லறை இருக்கா?). The antifreeze kit rides *inside* the ride: a moving auto is exactly where கொஞ்சம் மெதுவா சொல்லுங்க and என்ன சொன்னீங்க? earn their keep. Catch stays ambient in the tapes, never a second headline — `frame:youknow-la` is still uncaught and still load-bearing. The trailer pitches the fare haggle.
+**🎯 The Auto Ride Week** (written 2026-07-26). Through-line: **the `public` register is one scene, not six phrases** — a whole transaction with a stranger, curb to change (நேரா போங்க → இங்க நிறுத்துங்க → எவ்ளோ ஆகும்? → ரொம்ப அதிகம் → சில்லறை இருக்கா?). The antifreeze kit rides *inside* the ride: a moving auto is exactly where கொஞ்சம் மெதுவா சொல்லுங்க and என்ன சொன்னீங்க? earn their keep. Catch stays ambient in the tapes, never a second headline — `frame:youknow-la` is still uncaught and still load-bearing. The trailer pitches the fare haggle.
 
 **Standing catch order (renewable):** one word overheard off the sisters.
 

@@ -368,7 +368,7 @@ def campaign_block() -> str:
     """The live campaign — the named week and its through-line in profile.md
     (contract in protocol/daily_session.md → The Campaign). Cloud Anna steers by
     it: trailers pitch its next chapter, doses are framed by its story. It names
-    no items — the ticket owns those (2026-07-27). Only a live session writes it,
+    no items — the ticket owns those (2026-07-26). Only a live session writes it,
     and exactly one such heading exists: the two-heading split that shipped on
     07-24 fed three days of knocks a won-and-closed campaign (smoke s17)."""
     try:

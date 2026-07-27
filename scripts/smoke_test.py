@@ -953,7 +953,7 @@ def s17_campaign_digest(mk, sb: Path):
     check("placeholder → no campaign block", mk.campaign_block() == "")
     profile.write_text(original, encoding="utf-8")
 
-    # 2026-07-27 regression: the block is parsed by an exact heading string, so a
+    # 2026-07-26 regression: the block is parsed by an exact heading string, so a
     # SECOND "## The Campaign …" section silently orphans the live one. It shipped —
     # the won-and-closed week sat under the parsed heading from 07-24 while the live
     # week sat under "## The Campaign — PITCHED …", and three days of knocks steered
