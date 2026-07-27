@@ -480,17 +480,36 @@ def cmd_update(args):
         else:
             print(f"  ! '{key}' not in lexicon — skipped")
 
-    # Soak order — the intentional payload for the NEXT audio episode (what Anna
-    # wants soaked), read by the Director. Overwrites; fail-forward, no history.
-    if args.soak_payload or args.soak_seed:
-        payload = [resolve(w, lexicon, phon_index) or w
-                   for w in canon_payload(args.soak_payload)]
-        learner["soak_order"] = {
-            "payload": payload,
-            "scene_seed": args.soak_seed or learner.get("soak_order", {}).get("scene_seed", ""),
-            "from": today,
-        }
-        print(f"  Soak order set: {', '.join(payload) or '(seed only)'}")
+    # Soak order — the intentional payload for the NEXT audio dose (what Anna
+    # wants soaked), read by the Director and by the soak sheet. Overwrites;
+    # fail-forward, no history.
+    #
+    # It used to REBUILD the dict from three keys, which silently ate every
+    # other key on the next write. That is why the 2026-07-18 narrated_drama
+    # decision ("commissioned by Anna via soak order, form: …, scale: …") never
+    # had an implementation: nothing wrote a form, nothing read one, and a
+    # hand-placed one died at the next close. The order is a BRIEFING now —
+    # unnamed keys survive, and it carries `channel` (which lane renders it)
+    # and `focus` (what to permute over the payload) beside the words.
+    if args.soak_payload or args.soak_seed or args.soak_focus or args.soak_channel:
+        order = dict(learner.get("soak_order") or {})
+        # Per-field, not rebuild-from-args. The old code recomputed `payload`
+        # on every write, so once the order also carried a focus and a channel,
+        # setting one of those ALONE would have silently wiped the words — the
+        # same class of bug as the clobber above, introduced by fixing it.
+        if args.soak_payload:
+            order["payload"] = [resolve(w, lexicon, phon_index) or w
+                                for w in canon_payload(args.soak_payload)]
+        order.setdefault("payload", [])
+        order["scene_seed"] = args.soak_seed or order.get("scene_seed", "")
+        if args.soak_focus is not None:
+            order["focus"] = args.soak_focus
+        if args.soak_channel is not None:
+            order["channel"] = args.soak_channel
+        order["from"] = today
+        learner["soak_order"] = order
+        extra = "".join(f" · {k}: {order[k]}" for k in ("channel", "focus") if order.get(k))
+        print(f"  Soak order set: {', '.join(order['payload']) or '(seed only)'}{extra}")
 
     if args.debrief:
         learner["last_debrief"] = args.debrief
@@ -850,14 +869,33 @@ def cmd_status(_args):
         resolved, unresolved = split_payload(soak.get("payload", []), lexicon)
         newest_words = (episodes[max(episodes, key=int)].get("words", [])
                         if episodes else [])
+        channel = soak.get("channel") or "episode"
+        lane = {"soak": "python scripts/render_soak.py",
+                "drill": "python scripts/render_drill.py"}.get(
+                    channel, "python scripts/run_studio.py")
+        if channel == "episode":
+            produced = bool(resolved) and all(w in newest_words for w in resolved)
+        else:
+            # The soak and drill lanes register no episode, so the newest-episode
+            # compare can NEVER clear them — that is the 2026-07-23 re-dispatch
+            # loop (M72/M73/M74 in one evening) with a new trigger. They declare
+            # delivery the other way the ledger allows: record_exposure() stamps
+            # last_surfaced at publish (2026-07-26), so the order is produced once
+            # every resolved word has gone out the door since the order was set.
+            produced = bool(resolved) and all(
+                (lexicon.get(w, {}).get("last_surfaced") or "") >= (soak_from or "")
+                for w in resolved)
         if unresolved:
             drain = (f" · ⚠ payload unverifiable ({', '.join(unresolved)}) — fix the soak "
                      f"order; NOT dispatching on an item that can never match")
-        elif resolved and all(w in newest_words for w in resolved):
-            drain = " · produced ✓ (newest episode carries it — no dispatch needed)"
+        elif produced:
+            drain = f" · produced ✓ (the {channel} lane carried it — no dispatch needed)"
         else:
-            drain = " · ⚠ NOT YET PRODUCED — dispatch the studio in the background now (session-open auto-drain)"
-        print(f"Soak order: [{', '.join(items)}] — {soak.get('scene_seed', '')} (from {soak.get('from', '?')}){stale}{drain}")
+            drain = (f" · ⚠ NOT YET PRODUCED — dispatch `{lane}` in the background now "
+                     f"(session-open auto-drain)")
+        focus = f" · focus: {soak['focus']}" if soak.get("focus") else ""
+        print(f"Soak order [{channel}]: [{', '.join(items)}] — {soak.get('scene_seed', '')}"
+              f"{focus} (from {soak.get('from', '?')}){stale}{drain}")
     else:
         print("Soak order: ⚠ none set — chat hasn't handed anything to the Director.")
 
@@ -1030,6 +1068,13 @@ def main():
                     help="Word(s) to soak in the next audio episode (the Director's payload)")
     up.add_argument("--soak-seed", type=str, default=None,
                     help="One-line scene seed for the next audio soak")
+    up.add_argument("--soak-focus", type=str, default=None,
+                    help="What the next dose PERMUTES, free text ('the -ஆச்சு tail over "
+                         "போ and முடி') — a carousel brief, not a word list")
+    up.add_argument("--soak-channel", type=str, default=None,
+                    choices=["episode", "soak", "drill"],
+                    help="Which lane renders the order (default: episode). Capacity "
+                         "routes this, never the curriculum — protocol/audio_channels.md")
     up.add_argument("--mastered-word", type=str, action="append", default=[],
                     help="Word(s) now solid in recognition")
     up.add_argument("--comfortable-word", type=str, action="append", default=[],

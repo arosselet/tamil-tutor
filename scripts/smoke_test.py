@@ -2291,6 +2291,113 @@ def s35_quiet_hours_chokepoint(sb: Path):
           "the queue's copy survived")
 
 
+def s36_soak_order_carries_shape(sb: Path):
+    """The soak order is a BRIEFING, not a word list (2026-07-27, Andrew: "soak
+    is one flavour of briefing — why does learner.json need to change?").
+
+    It didn't: nothing validates that file. What was broken is that `cmd_update`
+    REBUILT the dict from three keys on every write, so any other key died at the
+    next close — which is why the 2026-07-18 narrated_drama decision ("commissioned
+    via soak order, form: …, scale: …") had no implementation anywhere in the repo.
+    A shape could be decided in canon and never reach a renderer."""
+    print("\n36. The soak order carries shape and focus, and no lane loops (2026-07-27)")
+    import contextlib
+    import io
+    ss = importlib.import_module("sync_state")
+
+    def _capture(fn):
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            fn(argparse.Namespace())
+        return out.getvalue()
+
+    learner_path = sb / "progress" / "learner.json"
+    lex_path = sb / "progress" / "lexicon.json"
+    saved = (learner_path.read_bytes(), lex_path.read_bytes())
+
+    defaults = dict(listened=[], soak_payload=[], soak_seed=None, soak_focus=None,
+                    soak_channel=None, mastered_word=[], comfortable_word=[],
+                    stuck_word=[], produced_cold=[], produced_hinted=[],
+                    mark_seen=[], next_engine=None, debrief=None)
+
+    def update(**kw):
+        for k, v in defaults.items():
+            kw.setdefault(k, v)
+        with contextlib.redirect_stdout(io.StringIO()):
+            ss.cmd_update(argparse.Namespace(**kw))
+        return read_json(learner_path).get("soak_order", {})
+
+    try:
+        write_json(lex_path, {"போறேன்": {"gloss": "I go", "phonetic": ["poren"],
+                                         "type": "chunk", "recognition": "solid",
+                                         "production": "cold", "seen_in": [],
+                                         "last_surfaced": None}})
+        learner = read_json(learner_path)
+        learner["soak_order"] = {}
+        write_json(learner_path, learner)
+
+        order = update(soak_payload=["போறேன்"], soak_seed="s",
+                       soak_focus="the -ஆச்சு tail over போ", soak_channel="soak")
+        check("the order carries a focus", order.get("focus") == "the -ஆச்சு tail over போ")
+        check("the order carries a channel", order.get("channel") == "soak")
+
+        # THE BUG: a later close that touches only the payload used to rebuild the
+        # dict down to three keys and silently drop everything else.
+        order = update(soak_payload=["போறேன்"])
+        check("a payload-only rewrite does not eat the focus",
+              order.get("focus") == "the -ஆச்சு tail over போ", f"got {order}")
+        check("a payload-only rewrite does not eat the channel",
+              order.get("channel") == "soak", f"got {order}")
+
+        # …and the inverse: setting a shape alone must not wipe the words.
+        order = update(soak_focus="the -ல negative over முடி")
+        check("a focus-only rewrite does not eat the payload",
+              order.get("payload") == ["போறேன்"], f"got {order}")
+
+        # And an unknown key survives, so the NEXT shape needs no writer change.
+        learner = read_json(learner_path)
+        learner["soak_order"]["scale"] = "long"
+        write_json(learner_path, learner)
+        check("an unnamed key survives a rewrite — the door is open",
+              update(soak_payload=["போறேன்"]).get("scale") == "long")
+
+        # A soak-channel order can never be cleared by the newest-EPISODE compare
+        # (soak registers no episode), which is the 2026-07-23 M72/M73/M74
+        # re-dispatch loop with a new trigger. Delivery clears it instead.
+        write_json(sb / "progress" / "episodes.json", {})
+        status = _capture(ss.cmd_status)
+        check("an undelivered soak order routes to the soak lane, not the studio",
+              "render_soak.py" in status and "run_studio.py" not in status, status[:400])
+        lex = read_json(lex_path)
+        lex["போறேன்"]["last_surfaced"] = date_cls.today().isoformat()
+        write_json(lex_path, lex)
+        check("exposure at publish clears it — no second dispatch",
+              "produced ✓" in _capture(ss.cmd_status))
+
+        # The reader half: the brief only reaches the sheet on the soak channel.
+        rs = importlib.import_module("render_soak")
+        rs_focus, rs_payload = rs.soak_brief()
+        check("render_soak reads the order's focus",
+              rs_focus == "the -ல negative over முடி", f"got {rs_focus!r}")
+        check("a focused sheet gets the carousel brief",
+              "CAROUSEL" in rs.FOCUS_BRIEF and "stays out" in rs.FOCUS_BRIEF)
+
+        # A lane that ignores its payload can never satisfy the order that
+        # dispatched it — that is the re-dispatch loop arriving through the door.
+        check("the ordered words lead the menu even when the week-window missed them",
+              [r["word"] for r in rs.with_payload([], rs_payload)] == ["போறேன்"])
+        check("an ordered word already in the menu is not duplicated",
+              len(rs.with_payload([{"word": "போறேன்", "gloss": "", "production": "cold",
+                                    "last_surfaced": None}], rs_payload)) == 1)
+
+        update(soak_payload=["போறேன்"], soak_channel="episode")
+        check("an episode-channel order does NOT hijack the soak lane",
+              rs.soak_brief() == (None, []))
+    finally:
+        learner_path.write_bytes(saved[0])
+        lex_path.write_bytes(saved[1])
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -2330,6 +2437,7 @@ def main():
         s32_deck_rotation_and_coverage(mk, sb)
         s33_catch_response_pairs(mk, sb)
         s34_focus_and_background(sb)
+        s36_soak_order_carries_shape(sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)
