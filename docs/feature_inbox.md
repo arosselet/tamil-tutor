@@ -294,3 +294,28 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
   the single "hinted".
 - ~~Day-zero ticket guard~~ — DONE 2026-07-03: `suggest_targets.py` (and `generate_callbacks.py`) now treat an *empty* lexicon as valid day-zero state; only a missing file errors. A fresh learner gets a real first-session ticket.
 - ~~Knock digest could carry the ticket's deck top~~ — DONE 2026-07-02: `build_digest()` appends the deck-due menu (fire + ear-only), and the mandate points `expected_target` at it.
+
+- **Fielding has no cadence gate, and it is a sole-owner channel** (2026-07-27, noticed
+  while mapping the architecture). Catch and heard-question→produced-answer are each
+  trained by exactly one modality. Catch has `EAVESDROP_CADENCE_DAYS = 3`, a floor
+  frequency that exists because the axis already stalled once. Fielding — which
+  `OUTREACH_MANDATE` itself says no other channel trains — has no equivalent term, so
+  variety pressure can steer away from it indefinitely and nothing in the digest says so.
+  One data point, no evidence it has actually stalled. Cheap version is a digest line,
+  not a gate. Do not act mid-sprint.
+- **Pre-registering the chat rep's target** (2026-07-27, from the coach/judge discussion —
+  see DECISIONS same date). Would give the chat lane the property that makes the phone
+  grade meaningful: the target committed before the rep, not reconstructed at close from
+  Anna's own account. Schema-adjacent, so it sits under the structure freeze; and there is
+  no evidence yet the chat floor is inflated. Revisit only if the trip contradicts the
+  floor number.
+- **The post-trip arc — three proposals, none chosen** (2026-07-27, awaiting Andrew).
+  Diagnosis is in DECISIONS same date. (a) Name the trip itself as the `/recalibrate`
+  run — eight days of live fire is the highest-quality felt signal the system will ever
+  get, and the existing skill designs the successor from it with zero new structure.
+  (b) Let the trip author the next deck: the phrases he needed and did not have, captured
+  live via knock replies and `sync_state.py feedback` (both already work from the phone),
+  informant-vetted by construction because the informants are the table. (c) The
+  denominator that replaces `15/34 survival cold` on the status line is the one decision
+  that cannot be deferred past touchdown — and it depends on what the trip exposes, so it
+  is deliberately left open rather than guessed now.

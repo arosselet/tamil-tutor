@@ -1126,3 +1126,41 @@ Details live in git history; this is the index of the *conclusions*.
   it; it now asserts the real `profile.md` carries exactly one `## The Campaign` heading.
   The five-line rewrite removes the failure mode by construction — there is no longer a
   record to archive in the file, because git is the record.
+- **language-tutor already carries the domain-independent doctrine and its mechanisms;
+  what it does not carry is domain-independent *bindings*** (2026-07-27, correcting
+  @build's wrong claim earlier the same session that the template held the doctrine only
+  incidentally — the claim was asserted without reading the repo). Verified in
+  `../language-tutor`: `docs/DECISIONS.md` opens with the "How to work on this system"
+  doctrine section (LLM-writer/Python-brain, every addition earns its place, surgical
+  edits, fix the tool not the personality, structure freeze, fade-is-data), and the
+  enforcing mechanisms came with it — `PROSE_BUDGETS` + `s18_prose_budgets`, 23 of
+  Tamil's 34 smoke cases, the feedback ledger in `sync_state.py` / `diagnosis.md`. The
+  residual: those budgets bind tutor-shaped filenames, so the immune system is extracted
+  one level (Tamil → any language) and not two (language tutor → any recurring-generative
+  system). **Rejects extracting that second level now** — there is no second consumer,
+  and the Dutch cold-elaboration precedent (template DECISIONS, 2026-07-19) is that an
+  extraction gets validated against a real second case, never guessed from one.
+- **The phone lane's trustworthiness is pre-registration, not the separate judge — so the
+  chat lane must not copy the split** (2026-07-27, @build's reading; Andrew asked whether
+  the separate mandate was better or worse and has not ruled). The `knock_reply.py` split
+  was *forced*, not chosen: the reply lands asynchronously in another process with no
+  conversational context, so independence came free. In chat it costs the Contrast Beat
+  (recast-with-one-clause **is** the grading act, in voice), costs the grading context a
+  transcript loses, and buys nothing — a post-hoc judge reads the record Anna authored,
+  including how the situation was framed and what was on screen, so it audits the writer
+  using the writer's own notes. What actually makes the phone grade meaningful is
+  `expected_target` pinned with `target_revealed: false` **before** the dose ships; chat
+  has no equivalent. Rejects porting the split; names pre-registration as the transferable
+  property if the hole is ever evidenced. No evidence yet that the chat floor is inflated
+  — the argument is structural, and one theoretical hole is noise by the diagnosis gate.
+- **The post-trip horizon gap is adherence infrastructure, not curriculum** (2026-07-27,
+  diagnosis only — Andrew asked what to propose and has not ruled on the response). The
+  Trip Deck does three jobs and only one survives 2026-08-12: *selecting what to work*
+  lives on (the 07-26 selector took it back — deck and floor share one ledger and one
+  law), but the **winnable denominator** (15/34 survival cold → 31/164 floor) and the
+  **deadline** both die at touchdown with no successor. May faded with no deadline;
+  June–July surged with one. The failure to avoid is arriving home on 2026-08-20 with
+  nothing on the status line that can be won — the corrosion "honest meters or none"
+  already names. Explicitly **not** a call to build a post-trip planner: the campaign's
+  co-authoring contract was retired on evidence nine days earlier (07-26), and a planning
+  ceremony with a longer horizon is the same rejected object.
