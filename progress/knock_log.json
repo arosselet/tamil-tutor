@@ -2587,18 +2587,18 @@
         "ask": "driver's about to pull into traffic — you need one more second before he moves. tell him wait a moment"
       }
     ],
-    "volley_next": 3,
+    "volley_next": 4,
     "response": "reply",
-    "reply": "Puriyila",
-    "reply_verdict": "hinted",
+    "reply": "Enna naan tamizh sollen?",
+    "reply_verdict": "miss",
     "reply_fired": [
       "கொஞ்சம் மெதுவா சொல்லுங்க",
       "புரியில"
     ],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "close — we'd say 'puriyala' (புரியல). · 3/4 — · 3/4 — you know the thing but the Tamil word is gone. ask him how to say it in Tamil",
-    "reply_at": "2026-07-27T21:07:19Z",
+    "reply_line": "close attempt — we'd say 'tamizh-la eppadi solradhu?' — that's the full frame. · 4/4 — driver's about to pull into traffic — you need one more second before he moves. tell him wait a moment",
+    "reply_at": "2026-07-27T21:11:19Z",
     "exchanges": [
       {
         "at": "2026-07-27T21:05:00Z",
@@ -2623,10 +2623,20 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "close — we'd say 'puriyala' (புரியல). · 3/4 — · 3/4 — you know the thing but the Tamil word is gone. ask him how to say it in Tamil"
+      },
+      {
+        "at": "2026-07-27T21:11:19Z",
+        "reply": "Enna naan tamizh sollen?",
+        "verdict": "miss",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "close attempt — we'd say 'tamizh-la eppadi solradhu?' — that's the full frame. · 4/4 — driver's about to pull into traffic — you need one more second before he moves. tell him wait a moment"
       }
     ],
-    "chained": 2,
-    "pinned_target": "தமிழ்ல எப்படி சொல்றது?",
+    "chained": 3,
+    "pinned_target": "கொஞ்சம் நில்லுங்க",
     "pinned_revealed": false
   }
 ]

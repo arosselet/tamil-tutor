@@ -36,6 +36,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > close — we'd say 'puriyala' (புரியல). · 3/4 — · 3/4 — you know the thing but the Tamil word is gone. ask him how to say it in Tamil
 
+**17:11 · Andrew** — **MISS**
+> Enna naan tamizh sollen?
+
+**Anna ↩**
+> close attempt — we'd say 'tamizh-la eppadi solradhu?' — that's the full frame. · 4/4 — driver's about to pull into traffic — you need one more second before he moves. tell him wait a moment
+
 
 ## Sunday 2026-07-26
 
