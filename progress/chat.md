@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Monday 2026-07-27
+
+**11:37 · Anna**  ·  text / show dose: romba athigam
+> ரொம்ப அதிகம் (romba athigam) — 'that's too much.' driver names 180₹. this is your whole reply. 🛺
+
+
 ## Sunday 2026-07-26
 
 **10:28 · Anna** 🎧  ·  fielding / fielding: eat-more refusal
