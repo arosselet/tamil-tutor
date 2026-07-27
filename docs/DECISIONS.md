@@ -1164,3 +1164,35 @@ Details live in git history; this is the index of the *conclusions*.
   already names. Explicitly **not** a call to build a post-trip planner: the campaign's
   co-authoring contract was retired on evidence nine days earlier (07-26), and a planning
   ceremony with a longer horizon is the same rejected object.
+- **A fire must be verified against what Andrew typed — credit belongs to the word he
+  produced, never the target the judge wanted** (2026-07-27, Andrew's ask: "if it's still
+  valid in context, then I should get credit against the word I did use"). Root cause of a
+  phantom cold on the 07-27 antifreeze volley: `shown_in_knock` is asymmetric — it can only
+  *demote* a fire the knock revealed, and nothing ever checked that a fired word appeared in
+  the reply. Reply "Oru nimsham" fired கொஞ்சம் + நில்லுங்க, Python derived a COLD headline and
+  pushed back "நில்லுங்க fired cold 🔥"; meanwhile his two real substitutions were deck items
+  that scored nothing (புரியல — whose phonetic list already carried "puriyila" — and
+  ஒரு நிமிஷம், both produced unaided). The axis stayed honest only by luck: நில்லுங்க is not a
+  lexicon key. Each `fired` entry now carries `said`, the span of the reply that produced it;
+  Python drops any fire whose span is not literally in the reply and the headline re-derives.
+  **Rejects a deterministic phonetic match on the Python side** — he types "nimsham" where
+  the lexicon stores "nimisham", so matching in code strips real credit, the opposite and
+  worse failure. The model owns the morphology, Python owns "did he type it." Extends
+  "the verdict is the suspect" (07-25) from reading history to scoring it.
+- **A target he substitutes away from is signal to teach, not a miss to punish**
+  (2026-07-27, Andrew's framing: "enna sonneenga may go starved on catch if I don't reach for
+  it, but that's signal that you can use to teach me"). A socially coherent substitute is a
+  real rep — the target was never tested, so it stays where it is and the substitute scores on
+  its own merits. What the starvation earns is one Contrast Beat about *what each line buys*
+  (புரியல closes the conversation, என்ன சொன்னீங்க? reopens it), never a re-drill of the target
+  as though he had failed it. Generalizes the existing `VALID ALTERNATIVE ≠ MISS` rule from
+  "don't call it a miss" to "route the credit."
+- **A word from muscle memory arrives in one frozen form; a word from drilling arrives with
+  its paradigm** (2026-07-27, diagnostic reading — the பேச case is unconfirmed pending the
+  Oracle). Andrew produced `pesa` unprompted, a verb the system never taught (12 சொல் records
+  in the lexicon, 2 பேசு, neither produced) — and produced it as the bare *infinitive*, the
+  form that lives inside frozen high-frequency frames (`தமிழ் பேச தெரியுமா?`). The tell matters
+  because it reframes the `-ங்க` gap: he cannot inflect a chunk that was never a verb to him,
+  so five honorific imperatives sitting at recognition-solid/production-none are **one lever,
+  not five words**. Rejects reading the gap as carelessness, and rejects drilling the five as
+  vocabulary.
