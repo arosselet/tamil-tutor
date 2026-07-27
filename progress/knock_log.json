@@ -2515,5 +2515,17 @@
     "body": "🎧 overheard — one side of a call. நம்ம Mala akka இருக்காங்கல்ல… what's the drift? (English ok)",
     "expected_target": "frame:youknow-la",
     "target_revealed": true
+  },
+  {
+    "date": "2026-07-27",
+    "timestamp": "2026-07-27T15:37:36.720466+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "show dose: romba athigam",
+    "rationale": "Demand-streak=2 forces a no-ask dose; show dose on romba athigam pays the campaign's next page (fare-haggle payoff line), marks it seen, and sets up a cold-quiz this afternoon.",
+    "next_check": "2026-07-27T19:37:36.720466+00:00",
+    "body": "ரொம்ப அதிகம் (romba athigam) — 'that's too much.' driver names 180₹. this is your whole reply. 🛺",
+    "expected_target": "",
+    "target_revealed": true
   }
 ]

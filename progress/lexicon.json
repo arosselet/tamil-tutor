@@ -2907,9 +2907,10 @@
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": null,
+    "last_surfaced": "2026-07-27",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "exposures": 1
   },
   "இங்க நிறுத்துங்க": {
     "type": "chunk",
