@@ -7,7 +7,9 @@
       "வந்துடுச்சு"
     ],
     "scene_seed": "The completive tail: an aththai who will not accept that anything is finished — the rice is eaten, the bus has gone, the marriage fell through — every closed fact answered with -iduchu until she gives up",
-    "from": "2026-07-26"
+    "from": "2026-07-27",
+    "focus": "A conjugation carousel over three roots — the endings are the lesson, the words are just the carrier. (1) போ: போறேன் / போவேன் / போறோம் / போவோம் / போனேன் / போனோம் / போகணும் — same root, person and tense moving underneath it. (2) முடி for finishing: முடிஞ்சிடுச்சு / முடியல / முடியாது / முடிஞ்சா. (3) the DONE tail, -ஆச்சு and -இடுச்சு: நேரம் ஆச்சு / சாப்பிட்டாச்சு / வந்துடுச்சு / நிறைஞ்சிடுச்சு. Andrew has met all of these; none is reflex. Put the forms back to back so the tails separate by ear.",
+    "channel": "soak"
   },
   "next_engine": "frame:polite-nga",
   "focus_cohort": [
@@ -26,6 +28,10 @@
   ],
   "recent_missions": [
     {
+      "mission": 76,
+      "title": "Mission tier2_mission76"
+    },
+    {
       "mission": 75,
       "title": "Mission tier2_mission75"
     },
@@ -36,11 +42,7 @@
     {
       "mission": 73,
       "title": "Mission tier2_mission73"
-    },
-    {
-      "mission": 72,
-      "title": "ஒரு வாய் சாப்பிடுங்க"
     }
   ],
-  "status": "Trip Deck 15/34 survival cold · 17 days to touchdown · need 1.1 cold/day, trailing 7-day pace 3.6/day · full deck 15/71 · 49 never worked"
+  "status": "Trip Deck 15/34 survival cold · 16 days to touchdown · need 1.2 cold/day, trailing 7-day pace 3.4/day · full deck 15/71 · 48 never worked"
 }

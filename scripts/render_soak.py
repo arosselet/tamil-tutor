@@ -113,17 +113,66 @@ def week_payload(days: int, max_items: int) -> list[dict]:
     return rows[:max_items]
 
 
-def write_sheet(items: list[dict]) -> dict:
+FOCUS_BRIEF = """\
+
+FOCUS — this loop is a CAROUSEL, not a survey of the week:
+{focus}
+
+Build EVERY cluster on that focus; a week item that does not serve it stays out. \
+Each cluster is one root or one ending, and the forms inside it differ only by the \
+part being drilled — that contrast is the whole lesson. Inflect the focus roots \
+freely into whatever forms the thread needs, including forms not on the list below: \
+a conjugation carousel is unhearable if the endings are missing. The no-new-vocabulary \
+rule still binds everything OUTSIDE the focus.
+"""
+
+
+def soak_brief() -> tuple[str | None, list[str]]:
+    """The standing soak order, when it is addressed to THIS lane → (focus, payload).
+
+    The soak order is the one briefing door (payload = which words, scene_seed =
+    which scene, focus = what to permute over them, channel = which lane renders
+    it). Until 2026-07-27 the order was rebuilt from three keys on every write and
+    no lane read anything but `payload`, so a shape could be decided and never
+    delivered.
+
+    The payload matters here for the same reason it matters in the studio: the
+    produced-check clears only when the ordered words are actually delivered, so
+    a lane that ignores its payload can never satisfy the order that dispatched
+    it — and re-dispatches forever (the 2026-07-23 loop, M72/M73/M74)."""
+    order = (load_json(BASE / "progress" / "learner.json") or {}).get("soak_order") or {}
+    if (order.get("channel") or "episode") != "soak":
+        return None, []
+    focus = (order.get("focus") or "").strip() or None
+    return focus, [w for w in order.get("payload") or [] if w]
+
+
+def with_payload(items: list[dict], payload: list[str]) -> list[dict]:
+    """The ordered words lead the menu, whatever the week-window turned up.
+    A payload word is why the dose was commissioned; the week is context."""
+    if not payload:
+        return items
+    lexicon = load_json(LEXICON_PATH) or {}
+    have = {r["word"] for r in items}
+    head = [{"word": w, "gloss": lexicon.get(w, {}).get("gloss", ""),
+             "production": lexicon.get(w, {}).get("production", "none"),
+             "last_surfaced": lexicon.get(w, {}).get("last_surfaced")}
+            for w in payload if w in lexicon and w not in have]
+    return head + items
+
+
+def write_sheet(items: list[dict], focus: str | None = None) -> dict:
     persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
     menu = "\n".join(
         f"- {r['word']} — {r['gloss'] or '[no gloss]'} [{r['production']}]"
         for r in items)
+    mandate = SOAK_MANDATE + (FOCUS_BRIEF.format(focus=focus) if focus else "")
     client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
     resp = client.chat.completions.create(
         model=MODEL,
         max_tokens=2400,
         messages=[
-            {"role": "system", "content": persona + "\n\n---\n\n" + SOAK_MANDATE},
+            {"role": "system", "content": persona + "\n\n---\n\n" + mandate},
             {"role": "user", "content": f"THIS WEEK'S ITEMS:\n{menu}"},
         ],
     )
@@ -214,6 +263,9 @@ def main():
     ap.add_argument("--days", type=int, default=7, help="how far back 'this week' reaches (default 7)")
     ap.add_argument("--items", type=int, default=16, help="max items to draw from (default 16)")
     ap.add_argument("--passes", type=int, default=2, help="times through the whole loop (default 2)")
+    ap.add_argument("--focus", type=str, default=None,
+                    help="Carousel brief — what to permute ('the -ஆச்சு tail over போ and முடி'). "
+                         "Defaults to the soak order's `focus` when its channel is 'soak'.")
     ap.add_argument("--dry-run", action="store_true", help="write + print the sheet; no TTS or publish")
     ap.add_argument("--no-publish", action="store_true", help="render only; skip RSS/commit/push/notify")
     args = ap.parse_args()
@@ -225,8 +277,13 @@ def main():
         print(f"Nothing surfaced in the last {args.days} days — nothing to soak.")
         return
 
-    print(f"1. sheet… ({len(items)} items from the last {args.days} days)")
-    sheet = write_sheet(items)
+    ordered_focus, payload = soak_brief()
+    focus = args.focus or ordered_focus
+    items = with_payload(items, payload)
+    print(f"1. sheet… ({len(items)} items from the last {args.days} days"
+          f"{f' + {len(payload)} ordered' if payload else ''}"
+          f"{' · FOCUS: ' + focus if focus else ''})")
+    sheet = write_sheet(items, focus)
     n = sum(len(c["items"]) for c in sheet["clusters"])
     print(f"   → '{sheet.get('title', 'Soak')}' · {len(sheet['clusters'])} threads, {n} items")
 
@@ -250,7 +307,21 @@ def main():
     print("3. publish…")
     # Delivery seam (2026-07-26 ledger law): the words Python put on the sheet
     # went out the door — declared exposure, stamped at publish.
-    exposed = record_exposure([r["word"] for r in items])
+    #
+    # Under a FOCUS the menu is a candidate pool, not the dose: most of the week's
+    # items are deliberately left out, and stamping them anyway would book delivery
+    # for words that never played — an inflated ledger that sorts them to the back
+    # of the rotation they never got. So a focused run stamps only what is audible
+    # in the finished sheet. `frame:` keys are dropped there on purpose: a slot
+    # template has no surface form to match, so it cannot be verified, and the
+    # ledger under-claims rather than invents (the claim_payload rule, 2026-07-17).
+    if focus:
+        spoken = " ".join(i["ta"] for c in sheet["clusters"] for i in c["items"])
+        delivered = [r["word"] for r in items if r["word"] in spoken]
+        print(f"   focused run — {len(delivered)}/{len(items)} menu items audible in the sheet")
+    else:
+        delivered = [r["word"] for r in items]
+    exposed = record_exposure(delivered)
     subprocess.run([sys.executable, str(BASE / "scripts" / "rebuild_rss.py")], cwd=BASE, check=True)
     commit_and_push([mp3, BASE / "rss.xml"] + ([LEXICON_PATH] if exposed else []),
                     f"Soak loop: {sheet.get('title', mp3.stem)}")
