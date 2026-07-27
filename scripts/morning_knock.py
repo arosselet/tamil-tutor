@@ -365,10 +365,12 @@ def volley_block() -> str:
 
 
 def campaign_block() -> str:
-    """The live campaign — Andrew-initiated week plan in profile.md (contract in
-    protocol/daily_session.md → The Campaign). Cloud Anna steers by it — trailers
-    pitch its next chapter, show doses teach its queued items, volleys drill what
-    it already taught — but only a live session ever writes it."""
+    """The live campaign — the named week and its through-line in profile.md
+    (contract in protocol/daily_session.md → The Campaign). Cloud Anna steers by
+    it: trailers pitch its next chapter, doses are framed by its story. It names
+    no items — the ticket owns those (2026-07-27). Only a live session writes it,
+    and exactly one such heading exists: the two-heading split that shipped on
+    07-24 fed three days of knocks a won-and-closed campaign (smoke s17)."""
     try:
         text = (BASE / "progress" / "profile.md").read_text(encoding="utf-8")
     except OSError:
@@ -433,7 +435,7 @@ reaches Andrew's ears (a recited deficit is guilt in a warm voice).
 fire MUST be a no-ask dose (trailer, lore, audio memo, show dose, grace) or silence.
 - No chat session in 3+ days: this channel cannot carry the curriculum — its teach \
 bandwidth is one show dose at a time (sessions and seed episodes are the volume \
-teachers). Bias toward the TRAILER, show doses on the CAMPAIGN's queued items, and \
+teachers). Bias toward the TRAILER, show doses on the CAMPAIGN's unseen items, and \
 soaking; you cannot quiz him into momentum, but you can make him want to hear the rest.
 
 YOUR MODALITIES (pick what fits THIS moment; never the same move twice in a row):
@@ -470,8 +472,8 @@ TEACH BEFORE QUIZ: a menu item flagged ⚠ UNSEEN has never been soaked anywhere
 cold-quiz one. Give it a SHOW dose first — the knock-sized Teach Beat: name what the \
 line BUYS, one clause of hook (a story, a contrast), the line itself and when it's \
 used; expected_target EMPTY, the item in "introduces" — and let a later knock ask for \
-it unrevealed in a fresh context. With a CAMPAIGN in the digest, teach ITS queued items \
-first; the week has an order and the show dose is this channel's page of it. Likewise \
+it unrevealed in a fresh context. With a CAMPAIGN in the digest, pick the UNSEEN item that \
+fits its through-line; the show dose is this channel's page of the week's story. Likewise \
 never re-ask Tamil that this knock's own body (or your last recast) reveals — a \
 revealed word can only score hinted; plant the unrevealed ask via "schedule" a day out, \
 or leave it to the wild.
