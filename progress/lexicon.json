@@ -2338,7 +2338,7 @@
       "puriyila"
     ],
     "recognition": "comfortable",
-    "production": "hinted",
+    "production": "cold",
     "seen_in": [
       11,
       31,
@@ -2346,11 +2346,11 @@
       65,
       68
     ],
-    "last_surfaced": "2026-07-13",
+    "last_surfaced": "2026-07-27",
     "deck": "trip",
     "direction": "fire",
     "type": "chunk",
-    "reps": 2
+    "reps": 3
   },
   "கூப்பிடு": {
     "gloss": "Call",
@@ -3125,13 +3125,14 @@
       "oru nimisham"
     ],
     "recognition": "comfortable",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       65
     ],
-    "last_surfaced": null,
+    "last_surfaced": "2026-07-27",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 1
   },
   "நான் கோயம்புத்தூர்காரன் மாதிரி ஆயிட்டேன்": {
     "type": "chunk",
