@@ -19,7 +19,12 @@ SCRIPTS_DIR = "content/scripts"
 MIN_PLAYABLE_BYTES = 2048
 CAPTIONS_DIR = "content/captions"  # follow-along sheets; GitHub blob URL renders the md
 RSS_FILE = "rss.xml"
-AUTHOR = "Andrew R &amp; Gemini"
+AUTHOR = "Andrew &amp; Claude"   # 2026-07-27, Andrew's call. Note: `agy`/Gemini still
+                                # writes the episodes (run_studio); Claude writes the
+                                # knock/drill/soak/reply lanes (morning_knock.MODEL).
+                                # Per-item attribution is possible — rebuild_rss already
+                                # knows each item's lane — if the single line ever stops
+                                # being the credit Andrew wants.
 
 RSS_TEMPLATE = """<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" 
