@@ -3458,13 +3458,14 @@
       "konjam medhuva sollunga"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [
       58
     ],
-    "last_surfaced": null,
+    "last_surfaced": "2026-07-27",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 1
   },
   "இன்னொரு தடவ சொல்லுங்க": {
     "type": "chunk",
