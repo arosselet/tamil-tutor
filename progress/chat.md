@@ -9,6 +9,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **11:37 · Anna**  ·  text / show dose: romba athigam
 > ரொம்ப அதிகம் (romba athigam) — 'that's too much.' driver names 180₹. this is your whole reply. 🛺
 
+**11:39 · Andrew** — **CHAT**
+> What does athigam mean?
+
+**Anna ↩**
+> athigam = 'too much' / 'a lot'. romba athigam — romba is 'very', so together: 'way too much'. driver says 180₹ — that's your line back at him.
+
 
 ## Sunday 2026-07-26
 
