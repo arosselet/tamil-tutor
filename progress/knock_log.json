@@ -2589,16 +2589,20 @@
     ],
     "volley_next": 4,
     "response": "reply",
-    "reply": "Enna naan tamizh sollen?",
-    "reply_verdict": "miss",
+    "reply": "Oru nimsham",
+    "reply_verdict": "cold",
     "reply_fired": [
       "கொஞ்சம் மெதுவா சொல்லுங்க",
-      "புரியில"
+      "புரியில",
+      "கொஞ்சம்",
+      "நில்லுங்க"
     ],
     "reply_fired_cold": [],
-    "reply_fired_capped": [],
-    "reply_line": "close attempt — we'd say 'tamizh-la eppadi solradhu?' — that's the full frame. · 4/4 — driver's about to pull into traffic — you need one more second before he moves. tell him wait a moment",
-    "reply_at": "2026-07-27T21:11:19Z",
+    "reply_fired_capped": [
+      "கொஞ்சம்"
+    ],
+    "reply_line": "close — 'konjam nillunga' is the full line. நில்லுங்க fired cold though — that's the hard part. 🔥",
+    "reply_at": "2026-07-27T21:14:57Z",
     "exchanges": [
       {
         "at": "2026-07-27T21:05:00Z",
@@ -2633,10 +2637,26 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "close attempt — we'd say 'tamizh-la eppadi solradhu?' — that's the full frame. · 4/4 — driver's about to pull into traffic — you need one more second before he moves. tell him wait a moment"
+      },
+      {
+        "at": "2026-07-27T21:14:57Z",
+        "reply": "Oru nimsham",
+        "verdict": "cold",
+        "fired": [
+          "கொஞ்சம்",
+          "நில்லுங்க"
+        ],
+        "fired_cold": [],
+        "fired_capped": [
+          "கொஞ்சம்"
+        ],
+        "graduated": [],
+        "reply_line": "close — 'konjam nillunga' is the full line. நில்லுங்க fired cold though — that's the hard part. 🔥"
       }
     ],
     "chained": 3,
     "pinned_target": "கொஞ்சம் நில்லுங்க",
-    "pinned_revealed": false
+    "pinned_revealed": false,
+    "volley_done": true
   }
 ]
