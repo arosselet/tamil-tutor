@@ -1,0 +1,19 @@
+# Line endings have ONE owner: git, at the boundary.
+#
+# The clone is one of many writers (2026-07-15) — cloud Anna commits from a
+# Linux runner, Andrew's laptop is Windows. Every JSON writer in scripts/ uses
+# text mode without newline="", so Python translates \n on write and a Windows
+# state write flips the WHOLE file: one 2026-07-27 close produced 6871 changed
+# lines in lexicon.json with zero content change, and would have conflicted
+# line-for-line with the next cloud write.
+#
+# Normalising here rather than passing newline="\n" at nine call sites is the
+# same argument as quiet hours moving into push_to_phone (2026-07-26): four
+# copies of a rule and one gap, and the gap is the lane that fires. This covers
+# every writer, including the ones not written yet.
+* text=auto eol=lf
+
+# Audio and images are bytes; never let the filter touch them.
+*.mp3 binary
+*.jpg binary
+*.png binary

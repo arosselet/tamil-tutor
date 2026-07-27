@@ -66,6 +66,13 @@ REGISTERS = ["tenderness", "dread", "mischief", "pride", "suspicion",
 # stories-are-curriculum lens (constitution): the payload word as protagonist —
 # gate-rotated like every form so it can't take over the feed.
 FORMS = ["classic", "vignette", "story", "phone_call", "lore"]
+# Commissioned-only forms: Anna asks for one through the soak order and the
+# divergence gate must never roll it by itself — narrated_drama is a 12–18 min
+# batch soak that has to be *chosen* ("commissioned, never spec-rotated",
+# 2026-07-18). ALL_FORMS is the single owner of what the studio can build, so
+# the gate, the CLI's --soak-form and the sidecar stamp cannot drift apart.
+COMMISSIONED_FORMS = ["narrated_drama"]
+ALL_FORMS = FORMS + COMMISSIONED_FORMS
 # One dramatic ingredient — all free of vocabulary, all situational.
 INGREDIENTS = {
     "subtext": "two people want opposite things under polite words",
@@ -551,14 +558,43 @@ def pick_divergent(palette, axis_key: str, sidecars: list[dict], rotate: int):
     return min(eligible, key=lambda v: last_used.get(v, -1))
 
 
-def scene_spec(sidecars: list[dict]) -> dict:
+def commissioned_form(learner: dict | None = None) -> str | None:
+    """The form the standing soak order ASKS FOR, or None to let the gate roll.
+
+    Anna hands meaning, the studio owns craft (studio.md) — with one exception,
+    the commissioned forms, which exist precisely because they cannot be rolled.
+    Until 2026-07-27 this was doctrine with no implementation: `director.md` and
+    `architect.md` both document narrated_drama arriving "via the soak order",
+    but nothing wrote a form onto the order and nothing read one back.
+
+    An unrecognised form is ignored rather than obeyed — a typo must not send the
+    Director off-palette, and it must never silently mean 'no episode'."""
+    if learner is None:
+        learner = load_json(BASE / "progress" / "learner.json") or {}
+    order = learner.get("soak_order") or {}
+    if (order.get("channel") or "episode") != "episode":
+        return None
+    form = (order.get("form") or "").strip()
+    if form and form not in ALL_FORMS:
+        print(f"  ⚠ soak order asks for form '{form}', which the studio cannot "
+              f"build — ignoring; the spec rolls as usual")
+        return None
+    return form or None
+
+
+def scene_spec(sidecars: list[dict], commissioned: str | None = None) -> dict:
     """The structural variety gate: register + form + dramatic ingredient,
-    each forced to diverge from the last 3 episodes."""
+    each forced to diverge from the last 3 episodes.
+
+    A COMMISSIONED form overrides the form axis only — register and ingredient
+    still diverge, so commissioning a shape never costs the variety it was not
+    asked to decide."""
     n = len(sidecars)
     ingredient = pick_divergent(list(INGREDIENTS), "dramatic_ingredient", sidecars, n)
     return {
         "register": pick_divergent(REGISTERS, "register", sidecars, n),
-        "form": pick_divergent(FORMS, "episode_form", sidecars, n),
+        "form": commissioned or pick_divergent(FORMS, "episode_form", sidecars, n),
+        "commissioned": bool(commissioned),
         "ingredient": ingredient,
         "ingredient_desc": INGREDIENTS[ingredient],
         "recent": [(c.get("mission"), c.get("register", "—"), c.get("episode_form", "—"))
@@ -668,11 +704,12 @@ def main():
             print("     They now sort to the head of their tier — fire from the top and this drains.")
 
     # 0. Scene spec — structural variety gate (audio episodes especially)
-    spec = scene_spec(load_recent_sidecars())
+    spec = scene_spec(load_recent_sidecars(), commissioned_form())
     print("\n0. SCENE SPEC  (force range; vary everything EXCEPT the vocabulary)")
     print("-" * 60)
     print(f"  Register:   {spec['register']}")
-    print(f"  Form:       {spec['form']}")
+    print(f"  Form:       {spec['form']}"
+          f"{'  ← COMMISSIONED by the soak order; do NOT re-pick' if spec['commissioned'] else ''}")
     print(f"  Ingredient: {spec['ingredient']} — {spec['ingredient_desc']}")
     if spec["recent"]:
         recent_str = ", ".join(f"M{m} {reg}/{form}" for m, reg, form in spec["recent"])
