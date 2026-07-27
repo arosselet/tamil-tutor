@@ -24,6 +24,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **17:03 · Anna**  ·  volley / antifreeze kit volley
 > ⚡ volley 1/4 — auto driver rattles off a long street name — you caught nothing. ask him to slow down
 
+**17:05 · Andrew** — **HINTED**
+> Medhuva pesa
+
+**Anna ↩**
+> close — 'mেdhuva pesa' works, but at the table we'd say 'konjam medhuva sollunga' — sollunga is the move here (he's a stranger, needs the -nga). · 2/4 — driver just said something — you heard sounds, no meaning. ask him to repeat it (neenga-form)
+
 
 ## Sunday 2026-07-26
 
