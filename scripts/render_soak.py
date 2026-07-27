@@ -47,7 +47,7 @@ from morning_knock import (OPENROUTER_BASE, MODEL, ANNA_VOICE, load_env,
 from render_audio import (generate_segment_google, get_raw_mp3_frames,
                           SILENCE_FRAME, clean_for_tts, google_credentials_ready,
                           EXIT_NOT_CONFIGURED)
-from sync_state import LEXICON_PATH, load_json, record_exposure
+from sync_state import LEXICON_PATH, load_json, mark_soak_delivered, record_exposure
 
 SOAK_DIR = BASE / "published_audio"     # feed root — rebuild_rss picks up soak_*.mp3
 SILENCE_PER_SEC = 41.666                # frames per second (matches render_audio)
@@ -322,8 +322,12 @@ def main():
     else:
         delivered = [r["word"] for r in items]
     exposed = record_exposure(delivered)
+    # The order this run consumed is now spent — declare it, so the session-open
+    # drain doesn't dispatch a second identical loop (see mark_soak_delivered).
+    stamped = mark_soak_delivered("soak") if (focus or payload) else False
     subprocess.run([sys.executable, str(BASE / "scripts" / "rebuild_rss.py")], cwd=BASE, check=True)
-    commit_and_push([mp3, BASE / "rss.xml"] + ([LEXICON_PATH] if exposed else []),
+    commit_and_push([mp3, BASE / "rss.xml"] + ([LEXICON_PATH] if exposed else [])
+                    + ([BASE / "progress" / "learner.json"] if stamped else []),
                     f"Soak loop: {sheet.get('title', mp3.stem)}")
     # Quiet hours are enforced inside push_to_phone now — this lane's own copy of
     # the hour compare was one of four, and render_drill had none (2026-07-26).
