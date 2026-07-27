@@ -17,6 +17,7 @@ import re
 import os
 import asyncio
 import argparse
+import base64
 import random
 import json
 import shutil
@@ -52,6 +53,48 @@ except ImportError:
     HAS_GOOGLE = False
 
 
+def materialize_sa_key() -> str | None:
+    """GCP_SA_KEY (the CI secret's own name) → a file ADC can resolve.
+
+    `anna.yml` writes the secret to a path and points GOOGLE_APPLICATION_CREDENTIALS
+    at it; a laptop had no equivalent, so a clone whose .env carried the very same
+    secret still reported "this host cannot produce audio" (2026-07-27). One
+    chokepoint, because every audio lane already calls google_credentials_ready().
+
+    Accepts raw JSON or base64 — a .env value has to survive on ONE line, and the
+    line-based parser silently keeps only the first line of a pasted document.
+    Written outside the repo at 0600 so a credential can never be committed;
+    an existing GOOGLE_APPLICATION_CREDENTIALS always wins.
+
+    Returns the path written, or None when there is nothing usable to write.
+    Never logs the secret — only whether it parsed."""
+    if os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
+        return None
+    raw = (os.environ.get("GCP_SA_KEY") or "").strip()
+    if not raw:
+        return None
+    doc = None
+    try:
+        doc = json.loads(raw)
+    except ValueError:
+        try:
+            doc = json.loads(base64.b64decode(raw))
+        except Exception:
+            doc = None
+    if not isinstance(doc, dict) or "private_key" not in doc:
+        print(f"   ⚠ GCP_SA_KEY is set ({len(raw)} chars) but is not a service-account "
+              f"key — expected JSON (or base64 of it) carrying private_key. Ignoring it.")
+        return None
+    path = Path(tempfile.gettempdir()) / "anna-gcp.json"
+    path.write_text(json.dumps(doc), encoding="utf-8")
+    try:
+        os.chmod(path, 0o600)
+    except OSError:
+        pass          # best-effort; Windows ACLs don't map onto POSIX modes
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = str(path)
+    return str(path)
+
+
 def google_credentials_ready() -> str | None:
     """None when Google TTS can authenticate, else the reason. Local and cheap
     (no network) — google.auth.default() just resolves ADC. Checked ONCE before
@@ -59,6 +102,7 @@ def google_credentials_ready() -> str | None:
     burning five backoff retries on segment 0 (2026-07-23)."""
     if not HAS_GOOGLE:
         return "google-cloud-texttospeech is not installed"
+    materialize_sa_key()
     try:
         import google.auth
         google.auth.default()
@@ -314,8 +358,7 @@ def get_raw_mp3_frames(filepath: str) -> bytes:
     return data[offset:end_offset]
 
 
-import base64
-SILENCE_FRAME_B64 = "//NkxJoiPA4Vgc1AAVXPcXO05CbzflKqdX8LXO/PQy7v6mbnkYz3BsVdxH7xI1psbFEYzt6Fxl0w17Szht3EmOWRKhJANxpojDXhk+E+3qNp+0+oomHuYca0xPxKUOihtdfcvPB+yzd2o2Sbh5zuLHVDDK9juB8rHhbq9lYT0XEdvYWKCGEeTvz8YP2XWipB"
+SILENCE_FRAME_B64 ="//NkxJoiPA4Vgc1AAVXPcXO05CbzflKqdX8LXO/PQy7v6mbnkYz3BsVdxH7xI1psbFEYzt6Fxl0w17Szht3EmOWRKhJANxpojDXhk+E+3qNp+0+oomHuYca0xPxKUOihtdfcvPB+yzd2o2Sbh5zuLHVDDK9juB8rHhbq9lYT0XEdvYWKCGEeTvz8YP2XWipB"
 SILENCE_FRAME = base64.b64decode(SILENCE_FRAME_B64)
 
 def assign_voices(dialogue, voice_map, provider, voice_type):
