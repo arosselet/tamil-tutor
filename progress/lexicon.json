@@ -1410,7 +1410,7 @@
       "poganum"
     ],
     "recognition": "solid",
-    "production": "hinted",
+    "production": "cold",
     "seen_in": [
       18,
       30,
@@ -1419,7 +1419,7 @@
       73
     ],
     "last_surfaced": "2026-07-27",
-    "reps": 1,
+    "reps": 2,
     "exposures": 1
   },
   "பார்த்தேன்": {
@@ -2921,11 +2921,12 @@
       "inga niruthunga"
     ],
     "recognition": "comfortable",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [],
-    "last_surfaced": null,
+    "last_surfaced": "2026-07-27",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 1
   },
   "நேரா போங்க": {
     "type": "chunk",
@@ -2936,9 +2937,10 @@
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": null,
+    "last_surfaced": "2026-07-27",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 1
   },
   "வலது பக்கம் திரும்புங்க": {
     "type": "chunk",
@@ -2960,11 +2962,12 @@
       "sillarai irukka"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [],
-    "last_surfaced": null,
+    "last_surfaced": "2026-07-27",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 1
   },
   "கார்டு வேலை செய்யுமா?": {
     "type": "chunk",
@@ -3745,9 +3748,10 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": null,
+    "last_surfaced": "2026-07-27",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 1
   },
   "ஃப்ரீயா விடுங்க": {
     "type": "chunk",
@@ -3995,12 +3999,13 @@
       "jasthi",
       "jaasthi"
     ],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": null,
+    "last_surfaced": "2026-07-27",
     "deck": "trip",
-    "direction": "catch"
+    "direction": "catch",
+    "reps": 1
   },
   "ஒரே கல்லுல ரெண்டு மாங்கா": {
     "type": "chunk",

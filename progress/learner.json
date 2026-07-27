@@ -1,19 +1,16 @@
 {
   "learner": "Andrew",
-  "last_debrief": "STORY SO FAR: Sun 07-26 — a STORY DAY on the kel/kitta toggle, low dose, and the catch axis finally moved in-session. Opened on the fielding knock he answered COLD off the lock screen that morning (maami's 'innoru thadava saapidunga' -> 'Illa, vayiru full') and paid it off with the -iduchu completive tail: nirainjiduchu, hooked to வந்துடுச்சு which he had STOLEN off his wife and sister on 07-24 without knowing what the tail was. He liked the machine but did NOT fire it — asked twice for 'vayiru ___' and both times answered 'full' in English. FIRST CONTACT ONLY; teach beat done, demand it next time, do not treat as a miss. THE CATCH WIN: ran a full-speed aththai/akka gossip tape (youknow-la opener planting Vasanthi by name, ennamo prachanai, alaichal, -nu sollraanga, theriyala) and he caught the drift clean — aththai has gossip, prachanai at somebody's house, reported second-hand, Chennai back-and-forth, and he glossed ALAICHAL correctly as 'very busy' unprompted. Three never-taught words in a native-speed tape and the drift survived. Two recasts: (1) theriyala read as 'I know' — it is the NEGATIVE, theriyum+illa, and it is HIS OWN -la engine (saapidala/puriyala/mudiyala) not firing in a new verb; watch this, the -la tail is productive but not yet automatic in comprehension. (2) kalyanam NIKKAADHU — he got the reported frame but missed the payload (the marriage is falling through). He did NOT name the referent even though the opener planted it — frame:youknow-la still uncaught, still the load-bearing catch item. MY BUG, owned to him: the tape used 'appa' (அப்ப, then/so) and he read it as appaa (father). Phonetic collision — do not put அப்ப in a phonetic tape again. THE TOGGLE LANDED, both directions in one exchange: 'maami-kitta ketten' fired COLD instantly on a novel person, and person-less 'hall-la ketten' = I HEARD it came back with the verb right and the case wrong (hall-ku, dative-for-locative) plus verb-before-place order; he self-corrected to hall-la ketten on the recast. First miss of the sequence was reaching for SOLLU (akka solaa) when asked to ASK — the ask/tell confusion is upstream of the kitta switch, worth one more strain. yaaru? TAUGHT today (unseen -> seen), framed as the repair for his own 07-25 referent-hunting instinct; demand it next time. STUDIO/ENGINEERING RESIDUE, all his to handle in @build: run_studio.py's agy writer failed lint twice (996-char stub + FOURTH WALL, it named Andrew as a speaker) so M75 went to the studio subagent, which produced clean at 54s and pushed 63f3636 — I misread its 1:27pm intermediate commit as a truncated render and told him there was a render bug; there is not, and I corrected it in-session. Four untracked mission76 artifacts are sitting in his tree. THE OVERHEAR WEEK IS STILL NOT AGREED — pitched 07-24, raised twice today, he answered neither time (he answered 'story day' to the shape question and skipped the campaign question). Today RAN its shape anyway (catch headline + kel/kitta fire riders) and it worked. Ask ONCE more at the next open; if he skips it a third time, stop asking and just run it. STANDING CATCH ORDER still live and unrenewed today. Still unanswered from 07-24: 'wande' and 'velam' — asked for surrounding sentence twice now, no answer; drop them if he skips again. Replies shortened to fragments by the end — he was done, and was let go, same as Friday. DENSITY LOW, LORE HIGH still holds: two fires and one gossip tape produced more than any gauntlet.",
+  "last_debrief": "STORY SO FAR: Mon 07-27 — a TABLE REHEARSAL, driver mask at full speed, the whole auto ride curb to change in one unbroken scene (Auto Ride Week's through-line, run as one transaction rather than six phrases — it worked; keep running the sequence, not the parts). THE HEADLINE, respond-under-speed: I fired a directed Coimbatore-speed line at him ('seri seri ukkaarunga, aana traffic romba JAASTI, nooru rubaa aagum') ninety seconds after handing him jaasti as lore, and he caught the WHOLE line including jaasti on first exposure and translated it back unprompted. That is the survival tier's real test and he passed it cold. jaasti bumped to comfortable. THE TOGGLE IS REPAIRED: yesterday he gave hall-ku for 'at the hall'; today 'kovil-KU poganum' fired COLD on the open, then 'kovil pakkathu-LA' after recast — both halves of the -ku/-la toggle correct inside one ride, going vs being-at. poganum is now COLD (was hinted, 1 rep). HE HAGGLED, UNPROMPTED AND IN TAMIL: 'nooru illa, aimbadhu' — a real counter-offer, not a translation exercise. Recast to 'romba jaasti-nga, aimbadhu podhum' (illa never attaches to a number; podhum is the whole haggle in one word and he has had it for weeks). ONE RECAST THAT MATTERS: he read 'nooru rubaa aagum' as 'a hundred MORE' — aagum is will-come-to, the total, sibling of aachu (it's-done). That aagum/aachu contrast is the exact carousel already in the soak lane; keep them adjacent. STILL NOT FIRED: romba adhigam — he had it as a lock-screen show dose this morning, said he would practice it, and then reached for arithmetic when the slot came. It is seen, wanted, and unfired; give it the slot again and do not accept numbers. TEACH BEATS, both produced immediately after teaching so both logged HINTED not cold — 'inga nirutthunga' and 'sillarai irukka?'; demand both cold next time, they are the last two pieces of the ride. His 'temple pakkalam' reach got pakkathula plus the paakkalaam ('let's have a look') collision as a lore beat — he enjoys these, they cost nothing. HE ASKED, MID-SESSION, what Python errors I had hit before greeting him, then answered the rep in the same message. Answered plainly in two sentences and it cost the session nothing — the meta-is-curriculum preference (07-15) is real and he context-switches fine; do not treat an engineering aside as a session break. CARRIED, UNPAID: (1) the -iduchu completive tail — taught 07-26, liked, never fired; no auto-ride slot existed today, make one. (2) 'yaaru?' taught 07-26, still never demanded. (3) frame:youknow-la STILL uncaught and still the load-bearing catch item; the Sunday-evening Mala-akka eavesdrop knock got NO reply at all — do not listen-chase it, fold the referent-hunt into a tape instead. (4) the -la negative tail (theriyala/saapidala) is productive in his mouth but not yet automatic in COMPREHENSION — watch it. PRODUCTION RULE, standing: never put அப்ப (then/so) in a phonetic tape — he reads it as appaa (father). DROPPED: 'wande' and 'velam' from 07-24 — asked twice, never answered, gone. STANDING CATCH ORDER still live. DENSITY LOW / LORE HIGH holds for a third session running: three fires, one etymology (adhigam from Sanskrit adhika, jaasti from Persian ziyaada through the traders) and one at-speed tape beat everything a gauntlet has produced.",
   "soak_order": {
     "payload": [
-      "நிறைஞ்சிடுச்சு",
-      "வந்துடுச்சு"
+      "எவ்ளோ ஆகும்?",
+      "நேரா போங்க",
+      "சில்லறை இருக்கா?"
     ],
-    "scene_seed": "The completive tail: an aththai who will not accept that anything is finished — the rice is eaten, the bus has gone, the marriage fell through — every closed fact answered with -iduchu until she gives up",
+    "scene_seed": "one auto ride end to end — a passenger who knows exactly four sentences and uses all four, curb to change",
     "from": "2026-07-27",
-    "focus": "A conjugation carousel over three roots — the endings are the lesson, the words are just the carrier. (1) போ: போறேன் / போவேன் / போறோம் / போவோம் / போனேன் / போனோம் / போகணும் — same root, person and tense moving underneath it. (2) முடி for finishing: முடிஞ்சிடுச்சு / முடியல / முடியாது / முடிஞ்சா. (3) the DONE tail, -ஆச்சு and -இடுச்சு: நேரம் ஆச்சு / சாப்பிட்டாச்சு / வந்துடுச்சு / நிறைஞ்சிடுச்சு. Andrew has met all of these; none is reflex. Put the forms back to back so the tails separate by ear.",
-    "channel": "soak",
-    "delivered": {
-      "channel": "soak",
-      "at": "2026-07-27"
-    }
+    "focus": "The ride as one continuous transaction, in order, so the sequence itself becomes the memory: நேரா போங்க / இங்க நிறுத்துங்க (direct the driver) → எவ்ளோ ஆகும்? / ரொம்ப அதிகம் / ரொம்ப ஜாஸ்தி / போதும் (settle the price) → சில்லறை இருக்கா? (pay). Andrew has now met all of these; only போகணும் fires cold. Run the sequence more than once with different fares and streets so the ORDER is the lesson, not any one line. Keep ஆகும் vs ஆச்சு adjacent — will-come-to vs it's-done — that contrast was today's recast.",
+    "channel": "soak"
   },
   "next_engine": "frame:polite-nga",
   "focus_cohort": [
@@ -22,12 +19,12 @@
     "அவங்க",
     "ஆனா",
     "காரம்",
+    "கேட்டாங்க",
     "சொல்றேன்",
     "சொல்லுங்க",
     "நாங்க",
     "புரியல",
     "பெரிய",
-    "போகணும்",
     "வெளிய"
   ],
   "recent_missions": [
@@ -48,5 +45,5 @@
       "title": "Mission tier2_mission73"
     }
   ],
-  "status": "Trip Deck 15/34 survival cold · 16 days to touchdown · need 1.2 cold/day, trailing 7-day pace 3.4/day · full deck 15/71 · 48 never worked"
+  "status": "Trip Deck 15/34 survival cold · 16 days to touchdown · need 1.2 cold/day, trailing 7-day pace 3.6/day · full deck 15/71 · 44 never worked"
 }
