@@ -194,5 +194,9 @@
   {
     "date": "2026-07-28",
     "note": "[phone] Andrew reports his message was truncated — possible display/delivery issue with Tamil script or long recast lines. worth checking knock formatting."
+  },
+  {
+    "date": "2026-07-28",
+    "note": "[phone] Andrew flagged '6 fired today' as confusing in a morning context — the session counter or deck display may be surfacing stale/unexpected numbers at knock time; worth checking what the scoreboard line shows when a new day opens."
   }
 ]
