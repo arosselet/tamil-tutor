@@ -2691,13 +2691,13 @@
     "expected_target": "frame:youknow-la",
     "target_revealed": false,
     "response": "reply",
-    "reply": "I don’t see either an attachment here or an item in my feed.",
+    "reply": "I can’t read that text",
     "reply_verdict": "chat",
     "reply_fired": [],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "ha — no audio this time, it's the eavesdrop drill in your head. Priya akka is calling her friend and she says: \"நம்ம தம்பி இருக்கான்ல…\" — what's she about to do?",
-    "reply_at": "2026-07-28T15:15:34Z",
+    "reply_line": "ah, my bad — phonetic version: \"namma thambi irukkaan-la…\" — that's Priya akka's opener. what's she about to do?",
+    "reply_at": "2026-07-28T15:16:39Z",
     "exchanges": [
       {
         "at": "2026-07-28T15:15:34Z",
@@ -2708,6 +2708,16 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "ha — no audio this time, it's the eavesdrop drill in your head. Priya akka is calling her friend and she says: \"நம்ம தம்பி இருக்கான்ல…\" — what's she about to do?"
+      },
+      {
+        "at": "2026-07-28T15:16:39Z",
+        "reply": "I can’t read that text",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "ah, my bad — phonetic version: \"namma thambi irukkaan-la…\" — that's Priya akka's opener. what's she about to do?"
       }
     ]
   }

@@ -15,6 +15,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > ha — no audio this time, it's the eavesdrop drill in your head. Priya akka is calling her friend and she says: "நம்ம தம்பி இருக்கான்ல…" — what's she about to do?
 
+**11:16 · Andrew** — **CHAT**
+> I can’t read that text
+
+**Anna ↩**
+> ah, my bad — phonetic version: "namma thambi irukkaan-la…" — that's Priya akka's opener. what's she about to do?
+
 
 ## Monday 2026-07-27
 
