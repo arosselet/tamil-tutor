@@ -645,7 +645,8 @@
       61
     ],
     "last_surfaced": "2026-07-28",
-    "reps": 1
+    "reps": 1,
+    "exposures": 1
   },
   "நல்லா இருக்கு": {
     "gloss": "It's good",
@@ -1130,7 +1131,7 @@
       76
     ],
     "last_surfaced": "2026-07-28",
-    "exposures": 1,
+    "exposures": 2,
     "reps": 1
   },
   "செம்மை": {
@@ -1567,7 +1568,8 @@
       33
     ],
     "last_surfaced": "2026-07-28",
-    "reps": 1
+    "reps": 1,
+    "exposures": 1
   },
   "போனேன்": {
     "gloss": "I went",
@@ -4747,7 +4749,8 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-07-28"
+    "last_surfaced": "2026-07-28",
+    "exposures": 1
   },
   "ஆச்சு": {
     "gloss": "it happened / it's done (neuter past + -இடு finality)",
