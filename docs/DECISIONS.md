@@ -1463,3 +1463,27 @@ Details live in git history; this is the index of the *conclusions*.
   schema-adjacent; it stays in the inbox under the structure freeze. **Consequence while it
   stays open: a `frame:` order can read PAID when it was not**, so a frame commission is the
   one case where the ledger cannot be trusted without listening.
+- **Scope and format are two questions; a collision only answers the first** (2026-07-28
+  evening, Andrew, AMENDING the same-day commissioning law above). The rule shipped that
+  afternoon read *"a collision that survived its correction earns its own order — contrast
+  explains a collision, **a chunk fires it**."* The first half is scope and is right. The
+  second half names a FORMAT — a chunk is what `render_soak.py` makes — so the rule as
+  written told Anna that every mix-up gets the loop. Andrew, hours later: *"when I'm
+  struggling to hear the difference between two words, it shouldn't just be a slow
+  repetitive loop… using them in context can be very effective for sticking in my brain."*
+  **He is right on the evidence, and it is his own:** the 07-28 deep-dive gave him the full
+  minimal-pair contrast and ninety seconds later, under production load, he still said
+  *"temple-ku pakkalam."* His ear was never the broken part — repetition in a quiet room
+  does not train the seam that failed, and what fixed it inside one exchange was the chunk
+  carrying load. **The fix:** the scope bullet now says out loud that it sets scope and not
+  format, and the channel section gains *"capacity vetoes; the ERROR chooses"* — can't hear
+  them apart → soak; hears them fine but the mouth takes the wrong one → episode; has it and
+  is slow → drill. Plus an escalation rule that did not exist: **the same mistake twice
+  through one format is that format's answer — change format, never loop harder.** Capacity
+  is untouched and still vetoes (07-23 stands): the error picks among what his attention
+  allows, it does not overrule it. **Budget:** 550 → 640 in the same diff, the SECOND raise
+  in one day, flagged as such at the constant. Retired to pay for it: the `chunk fires it`
+  clause, the *"route by the situation"* bullet (its veto half is now the table's opening
+  line), and the 07-23 story compressed — 33 words back. **A third raise is refused in
+  advance**; the next growth splits "what it carries" from "which format carries it".
+  Smoke `s37` extended: it now asserts the format clause is *gone* and cannot grow back.
