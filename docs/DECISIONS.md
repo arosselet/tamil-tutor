@@ -1360,6 +1360,30 @@ Details live in git history; this is the index of the *conclusions*.
   that an error earned one at all. The whole content policy was one clause in Close & Log
   step 2 (*"payload… **may** be a seed order"*), a menu rather than a priority, so the
   campaign's forward-teaching pull outranked the backward repair need by default.
+
+  **CORRECTED same day, after reading the history: this was a REGRESSION, not an
+  oversight — and the word-budget pass is what caused it.** Andrew's surprise
+  (*"I thought commissioning was part of the point"*) was justified; he wrote the rule
+  himself on **2026-06-16** (`c340e0d`, titled "close the chat↔audio loop"): *"**Set the
+  Soak Order:** IF THE SESSION REVEALED A SPECIFIC STRUGGLE (a `hinted` word, a floor-gap
+  word, a missed recast), Anna names it as the structured soak order… the audio pipeline
+  soaks exactly what chat just strained, not a separate curriculum."* Same rule, same
+  population. **2026-07-16** (`b62454b`, the subtraction pass) compressed it to *"payload
+  (what chat strained)"* — the **conditional** and the **qualifying list** collapsed into a
+  parenthetical gloss, turning an instruction about what to put in the field into a
+  description of the field. **2026-07-17** (`497d9f2`) added the seed order beside a rule
+  disarmed the day before, so the two read co-equal; **07-26**'s campaign rewrite then gave
+  forward a name, a through-line and a `profile.md` block while backward still had a
+  parenthetical. Forward never won a fair fight.
+  **The general hazard, and the reason this is worth writing down: prose compression is
+  lossy in one direction — it keeps nouns and drops conditionals.** *"If X, do Y"* becomes
+  *"Y (X)"*, which reads fine and instructs nothing. `b62454b` rewrote all of
+  `daily_session.md`; **other conditionals may have gone the same way and nobody has
+  looked.** Note also that `studio.md` never lost it — its contract still reads *"what Anna
+  just strained in chat… the other half of the loop"* — so the CONSUMER kept faith while the
+  WRITER stopped handing it repairs, which is exactly why nothing looked broken for five
+  days: episodes kept arriving on time and well-made, about the wrong thing. The June rule
+  had no regression net; today's has `s37`, which is the actual difference.
   **The fix:** the payload is drawn *first* from the day's unclosed repairs — hinted,
   recast, or corrected-and-still-wrong — and points forward as a seed order only when the
   day leaves none. A collision that survived its correction earns its **own** order, not a
