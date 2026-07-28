@@ -1293,3 +1293,25 @@ Details live in git history; this is the index of the *conclusions*.
   **Method note worth keeping:** this was found by measuring the actual run history
   while verifying an unrelated change, not by reasoning about the cron expression. The
   07-24 entry reasoned correctly from a premise nobody had checked.
+- **The local notify hop fails behind work TLS inspection; accepted, not a bug**
+  (2026-07-28, Andrew: "it's a work machine on a work network so it's their
+  prerogative. Let's let it be."). `push_to_phone` raises
+  `CERTIFICATE_VERIFY_FAILED` from the laptop because `ykf.duckdns.org:4444`
+  presents `CN=FGT80FTK23007353, O=Fortinet` — a FortiGate appliance's factory
+  self-signed CA substituted mid-handshake, not Home Assistant's own certificate.
+  Verified it is environmental and not a Python config gap: the Windows system
+  store AND certifi's full Mozilla bundle both reject it, and no Fortinet CA
+  exists in `LocalMachine\Root`, `LocalMachine\CA` or `CurrentUser\Root`. **CI is
+  unaffected** — GitHub's runners are not behind that interface, which is why the
+  knock lane has never missed a push. **Rejected: disabling verification** for that
+  call (trusting whatever answers on the port). **Deferred, not rejected:** routing
+  local renders' notifications through `push_queue` so the cloud drain delivers
+  them — architecturally the better answer (it removes the laptop from the delivery
+  path entirely), revisit if local renders ever need to reach the phone.
+  **The real cost is a reporting bug, not the cert.** A local render publishes the
+  tape, commits, pushes and rebuilds the feed — and *then* raises at the notify
+  step, so a fully successful run exits non-zero with a traceback as its last
+  output. On 07-28 that read as total failure, the render was re-run, and a second
+  soak tape published against an order the first run had already consumed. The
+  honest fix is for the notify step to be best-effort like the drain
+  (`continue-on-error` in spirit) and for the run to report what it actually did.

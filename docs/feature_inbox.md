@@ -342,3 +342,10 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
   today, production unset — one row, no schema change. This is the write-side twin of the
   07-27 credit-the-word-he-said fix: that one taught the judge to credit a substitution,
   this one lets a taught word exist at all.
+  **Second and third data points, same day (2026-07-28):** the 07-28 close wrote
+  **three** `session_log` rows — fires, debrief, then a debrief correction — because a
+  close split across multiple `update` calls appends a row each time. Any multi-call
+  close inflates it, not just the court-of-appeal path, so the `--correction` flag
+  above is really "don't append a row when this call carries no fires," which is the
+  common case for `--debrief`-only and `--soak-*`-only calls. Adherence read off this
+  log now overcounts 07-28 by 2.
