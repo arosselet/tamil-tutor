@@ -4,6 +4,41 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **The episode lane does not reliably CONSUME the commission, and for a `frame:` payload
+  it SELF-CERTIFIES delivery without evidence (sighted 2026-07-28, first real exercise of
+  the repair-first law).** Two separate defects, found by commissioning
+  `frame:youknow-la` as an episode and watching what came back.
+  1. **The ticket has no soak-order section.** `suggest_targets.py` hands the Director a
+     computed `FOCUS SET` headed *"DRILL these until they fire cold"*, plus deck, coverage,
+     background and callbacks. The commissioned payload appears NOWHERE as a commission —
+     `frame:youknow-la` shows up only as one of eight undifferentiated ear-only deck rows.
+     The Director's only route to the order is one prose clause in `DIRECTOR` (*"read the
+     soak-order in progress/learner.json"*), an agentic read competing with an emphatic
+     code-assembled list. It lost: the episode dramatised the focus set and the payload was
+     absent. Note the contrast in the SAME run — `form: phone_call` arrived through
+     `scene_spec()`/`claim_spec()` as computed context and landed perfectly. **This is the
+     repo's own doctrine failing in the exact direction it predicts** (code-assembled
+     context beats an agentic read when the invariant is known). The fix is likely a ticket
+     section, not a prompt sentence — the same move that made the form stick.
+  2. **`claim_payload()` rubber-stamps frames** (`run_studio.py:418`):
+     `if key.startswith("frame:") or key in script:` injects into `new_words_landed`
+     unconditionally, because a slot template is verbatim-exempt. So a frame payload is
+     claimed whether or not one instance is audible; the produced-check then clears, the
+     order stamps delivered, and the debt reads PAID with no evidence. Non-frame keys are
+     correctly checked and reported. This is the 07-27 judge fix one lane over — crediting
+     the target you wanted rather than what actually happened — and it means the ledger can
+     book a repair that never shipped. **The hard part is the design, not the patch:** a
+     frame has no fixed surface form, which is *why* it is exempt. Verifying it needs a
+     pattern the frame record itself carries (e.g. the invariant tail `…ல`), so it is
+     schema-adjacent and sits under the structure freeze — hence parked, not fixed.
+  Evidence lives in the 07-28 run: the failed Mission 77 sidecar claimed a 28-item payload
+  drawn from the focus set with no `frame:youknow-la` in it. Caught only because the writer
+  ALSO broke the fourth wall and failed lint on unrelated grounds; had it passed, the debt
+  would have been marked delivered. **Correction to the session-log entry at the bottom of
+  this file:** it says a `--soak-*`-only call appends a session row. Verified against
+  `sync_state.py:617` — the append is conditional on `cold/hinted/demoted/listened/debrief`,
+  so a soak-order-only write appends NOTHING. `--debrief`-only does append; that half stands.
+
 - **Audio is a queue-of-one — give it a real queue (2026-07-28, deliberately NOT bundled
   with the repair-first commissioning law that shipped the same day).**
   `learner.json.soak_order` is a single dict: a new order overwrites the old. Text pushes
