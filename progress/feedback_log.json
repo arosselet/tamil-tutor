@@ -174,5 +174,9 @@
   {
     "date": "2026-07-27",
     "note": "POSITIVE (2026-07-27, verbatim): \"I feel that our work over the weekend is paying off, new words are entering our lessons.\" Unprompted, at sign-off. Plausibly the seed order + deck coverage work (07-25 selector, 07-26 campaign rewrite, 07-27 seed order points at the ticket). One data point — no move. If it recurs, the thing to protect is whatever is pulling UNSEEN items in, not the lesson format."
+  },
+  {
+    "date": "2026-07-28",
+    "note": "[phone] Audio soak TTS is vocalising punctuation (e.g. '...' spoken as a pause-marker word, '?' audible). Bug in memo_script rendering — punctuation should be stripped or replaced before TTS hand-off."
   }
 ]

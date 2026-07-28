@@ -48,6 +48,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > close — 'konjam nillunga' is the full line. நில்லுங்க fired cold though — that's the hard part. 🔥
 
+**22:09 · Andrew** — **CHAT**
+> Latest soak feedback: some punctuation seem to be spoken out loud. Such as, sounds like “…will hear podukrai ask kaetpaen”
+
+**Anna ↩**
+> noted — ellipsis and punctuation shouldn't be spoken aloud, that's a TTS rendering bug. logging it now.
+
 
 ## Sunday 2026-07-26
 
