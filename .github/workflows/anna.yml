@@ -22,14 +22,24 @@ name: Anna
 # opportunity on every reply and every dispatch, not only on the clock tick.
 on:
   schedule:
-    # One hourly heartbeat, replacing three cron expressions across two files
-    # (knock: 0 12,14,16,18,20,22 + 0 0; drain: */30). The rails in
-    # morning_knock.py already do the DST-correct waking-hours filtering and
-    # skip a tick with NO LLM call, so the cron does not need to encode a
-    # schedule — it only needs to be frequent enough for the rails to have
-    # something to filter. Hourly is that; */30 was delivery precision we don't
-    # need now that every reply and dispatch also drains.
-    - cron: "0 * * * *"
+    # The cron does not encode a schedule — the rails in morning_knock.py do the
+    # DST-correct waking-hours filtering and skip a tick with NO LLM call. It only
+    # has to be frequent enough for the rails to have something to filter.
+    #
+    # Back to */30 (2026-07-28, Andrew), reopening the 07-24 collapse to "0 * * * *"
+    # on measurement rather than argument. That decision assumed hourly WAS hourly.
+    # It never has been: the last 20 scheduled runs landed 62–232 minutes apart,
+    # median ~2h, every one of those gaps predating any change here. GitHub
+    # deprioritises schedules under load and simply drops ticks — so an hourly
+    # expression bought a ~2-hourly heartbeat, and the "60 min worst case" the
+    # collapse was costed against was fiction. */30 does not promise 30 minutes
+    # either; it buys twice the chances, which is the only lever this end owns.
+    #
+    # Interaction with the serialised group below: ticks now arrive twice as often
+    # into one lane. A skipped tick is cheap (rails exit before any LLM call) and
+    # `queue: max` absorbs the pile-up, but a reply CAN now wait behind a tick more
+    # often than before. That is the tradeoff already accepted for the group.
+    - cron: "*/30 * * * *"
   repository_dispatch:
     types: [knock-response]
   workflow_dispatch:
