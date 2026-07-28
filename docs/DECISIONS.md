@@ -1315,3 +1315,36 @@ Details live in git history; this is the index of the *conclusions*.
   soak tape published against an order the first run had already consumed. The
   honest fix is for the notify step to be best-effort like the drain
   (`continue-on-error` in spirit) and for the run to report what it actually did.
+
+- **The 10–15 minute dose is the right dose, and adherence is why** (2026-07-28, Andrew's
+  spoken testimony — learner-side confirmation of the density-low/lore-high pattern the
+  debrief had already observed four sessions running). Verbatim: *"It's feeling about the
+  right length… if it only takes me ten, fifteen minutes to go through the whole thing,
+  that's a bit better than a longer session."* The mechanism he names is **adherence, not
+  comfort**: a short dose means *"I'm more likely to push through and get the dopamine of
+  having finished it than have an open session when I get distracted or have to switch to
+  another task"* — he interleaves sessions into his workday as a break from other work, and
+  a session he can finish is a session he starts tomorrow. He is explicitly torn (a longer
+  session *"feels necessary"*) and lands on short anyway; the felt pull toward length is
+  **not** a mandate to lengthen. Paired signal, same breath: *"the coffee before scenario
+  idea is a success, and I genuinely enjoy that little dose of lore I'm getting each day —
+  lore in this way is high density learning."* **Consequences, both directions:** the
+  break-first contract and the lore tangent are load-bearing for daily adherence and must
+  not be traded for reps; and the espresso floor is a real full session, not a shortfall.
+  **Do not raise the dose or lengthen the session to solve an unrelated complaint** — the
+  07-28 audio-commissioning signal arrived in the very same conversation and is explicitly
+  *not* a volume ask.
+- **A miss is data Andrew wants; grade honestly** (2026-07-28, his own words, settling the
+  softening question for good). *"The cold axis where I produce it unprompted is the most
+  honest… I'm trying my best to mumble through the sentences and trust that where I get it
+  wrong, it will help me identify HOW I get it wrong, and reflect the teaching I need back
+  at me. I would rather get it wrong than make a false signal that I've learned something
+  that I haven't."* The recast-and-move contract and honest grading have the learner's
+  explicit blessing — a generous grade is not a kindness, it is a corrupted meter he has
+  asked us not to hand him. The second clause is the load-bearing one and is currently
+  **unhonoured**: *"reflect the teaching I need back at me"* means the error is supposed to
+  steer what gets taught and dosed next. That is the contract the audio side does not yet
+  keep (feature_inbox: "THE REPAIR EARNS THE DOSE"). **Open and unanswered:** he doubts the
+  HINTED tier retains — *"I just worry how much is going in and out"* — and he is right that
+  the system has no answer, since cold is a one-way door with no re-test (inbox: "Cold decay
+  / re-test dates", deferred past the trip) and hinted has no follow-up path at all.

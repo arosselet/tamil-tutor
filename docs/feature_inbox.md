@@ -4,6 +4,63 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **THE REPAIR EARNS THE DOSE — audio commissioned off his errors, not off the campaign
+  (2026-07-28, `/recalibrate`, Andrew's spoken felt signal; AWAITING HIS YES/NO).**
+  Verbatim: *"I don't feel like Anna is commissioning enough audio, and specifically audio
+  to close the gap in the mistakes I'm making… I shouldn't have to beg for a soak or an
+  episode… The rails are there and functioning… the plumbing isn't lacking. It's the prompt
+  instruction, and the guidance."* **His diagnosis is correct and it is prompt-side.**
+
+  **The gap, named:** the system has a channel-ROUTING law (`audio_channels.md` — capacity
+  routes) and a PRODUCTION law (`studio.md` — end-to-end), and **no COMMISSIONING law.**
+  Nothing states which gaps earn a dose, or that an error earns one at all. The entire
+  content policy is one clause — `daily_session.md` Close & Log step 2: *"payload (what
+  chat strained) + a one-line `scene_seed`; with a campaign live it **may** be a seed order
+  of 2–4 unseen items."* Two options, "may", no trigger, no obligation — so the campaign's
+  forward-teaching pull competes head-on with the backward repair need, and forward wins.
+
+  **The exhibit is 07-28's own session.** The debrief concluded *"assembly loses to
+  retrieval under load"* — a diagnosis whose remedy is repetition-under-no-load, i.e.
+  `render_soak.py` by its own docstring. பக்கத்துல *did* reach the soak order, as one of
+  three items beside two unpaid carries; hours later Andrew still names the collision as
+  the thing he cannot do. **Diagnosed correctly, dosed insufficiently.** Independent second
+  proof: catch is 3/12, the campaign block calls it *"the one lane going backwards"*, and
+  `frame:youknow-la` has failed two text-knock eavesdrops running under the standing
+  written verdict *"wire real audio or do not run them."* Twice the system diagnosed, in
+  writing, a gap only audio can close — and commissioned no audio. Not Anna forgetting:
+  nothing turns a diagnosis into an order.
+
+  **Third-strike count (6 in 5 days, every one of them ANDREW commissioning):** 07-24
+  believes Anna can produce audio autonomously · 07-25 asked to be taught இருந்துச்சு
+  ("plant a dedicated knock") · 07-25 flagged இன்னொரு + தடவ ("need dedicated drilling") ·
+  07-27 commissioned pakkam-vs-paakkalaam **by name** · 07-28am eavesdrop-needs-real-audio,
+  unacted · 07-28pm this. Past the `/recalibrate` bar — design flaw, not noise.
+
+  **PROPOSED MOVE (one, prose-only, reversible).** Replace the Close & Log step-2 clause
+  with a priority, not a menu: *the soak order's payload is drawn **first** from the day's
+  unclosed repairs — anything hinted, recast, or corrected-and-still-wrong. Only when the
+  day leaves none does the order point forward as a seed order.* **Backward beats
+  forward.** Plus one dosage sentence carrying 07-28's own method finding (*contrast
+  explains, chunk fires*): **a collision that survived its correction earns a DEDICATED
+  dose, not a third of a mixed tape.** Nothing structural — it replaces one clause and
+  reorders one priority, and it removes "Andrew must ask" from the path entirely. It rides
+  the session-open auto-drain that already dispatches `run_studio.py` in the background, so
+  it needs no new lane and none of the unattended-autonomy hazards below.
+
+  **DELIBERATELY NOT BUNDLED — audio is a queue-of-one.** `learner.json.soak_order` is a
+  single dict; a new order overwrites the old. Text pushes have a real queue
+  (`push_queue.py`) with a drain, retries and pacing rails; audio has a slot. So one repair
+  per day survives and the rest fall into debrief prose — memory for the next *chat*, never
+  a commission. The fix is already specced below (the `due` field + the hourly tick). **Hold
+  it** until the prose rule has run several days: if backward-first alone closes the felt
+  signal the queue is unnecessary machinery, and this repo's standing rule is that new
+  engineering starts from a reproduced signal, not a plan.
+
+  **NOT THE ASK — volume.** He wants *targeted* audio, not more of it.
+  `MAX_UNATTENDED_PER_DAY = 1` exists because three unwanted episodes shipped in one
+  evening (07-23); do not read this signal as a rate increase. Nor is it a session-length
+  change — he confirmed the 10–15 min dose is right in the same breath.
+
 - **Scheduled/unattended episode production — DEFERRED 2026-07-27 by Andrew after
   exploring it.** Wanted: Anna (or Andrew) commissions from either machine, it builds and
   publishes at a chosen time, and the phone gets told. Andrew proposed a `push_queue`
@@ -34,6 +91,18 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
   Flash-written episode holds up before Anna may make them unattended. Andrew's own context
   for the deferral: the starvation that motivated auto-production (episodes arriving only
   when he sat for a lesson) has eased because he is showing up reliably now.
+
+  **⚠ THE DEFERRAL'S PREMISE IS CONTRADICTED (2026-07-28) — but this item stays deferred.**
+  The daily ritual did land (*"I'm finally getting into a daily ritual of sitting down and
+  doing at least one session"*), so the 07-27 reasoning held on its own terms. The
+  starvation did not ease, though — it **changed shape**. It is no longer *"episodes arrive
+  only when I sit for a lesson"*; it is *"the episodes that arrive don't target the mistakes
+  I'm making, and I have to ask for the ones that would."* His reliability cannot fix that
+  one: showing up is precisely what generates the errors that go undosed. **This does not
+  reopen unattended production** — the new signal is about WHAT gets loaded into the rails,
+  not about who pulls the trigger, and the attended session-open dispatch already works.
+  Both hazards below (mission-number claim race, cross-machine lock) remain unfixed and
+  remain blocking for anything unattended. See "THE REPAIR EARNS THE DOSE" at the top.
 
 - **`inline_canon()` follows references one level deep only (found 2026-07-27).**
   `CANON_REF_RE.findall(prompt)` scans the PROMPT for `protocol/**.md` and inlines those
