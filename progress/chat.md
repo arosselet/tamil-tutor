@@ -39,6 +39,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > ha — yeah, 6 fired is the session count from earlier, not a new ask. and it's morning so the deck is fresh. no drill debt on you.
 
+**18:01 · Anna**  ·  text / trailer: yaaru session
+> Tomorrow's session has one job — 'yaaru?' (who?) fires cold. One word, three sessions untouched. The crowded lunch scene waits. 🍽️
+
 
 ## Monday 2026-07-27
 

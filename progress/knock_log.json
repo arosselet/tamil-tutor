@@ -2759,5 +2759,17 @@
     "chained": 1,
     "pinned_target": "frame:youknow-la",
     "pinned_revealed": false
+  },
+  {
+    "date": "2026-07-28",
+    "timestamp": "2026-07-28T22:01:43.630018+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "trailer: yaaru session",
+    "rationale": "Demand-streak=2 forces no-ask; lore spent; eavesdrop can't run without audio; a trailer for tomorrow's Story Day session recruits the session cleanly and pays off the three-session yaaru? debt without wasting it as a text knock tonight.",
+    "next_check": "2026-07-29T13:01:43.630018+00:00",
+    "body": "Tomorrow's session has one job — 'yaaru?' (who?) fires cold. One word, three sessions untouched. The crowded lunch scene waits. 🍽️",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]
