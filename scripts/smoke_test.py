@@ -2441,7 +2441,7 @@ def s36_soak_order_carries_shape(sb: Path):
     lex_path = sb / "progress" / "lexicon.json"
     saved = (learner_path.read_bytes(), lex_path.read_bytes())
 
-    defaults = dict(listened=[], soak_payload=[], soak_seed=None, soak_focus=None,
+    defaults = dict(listened=[], teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
                     soak_channel=None, soak_form=None, mastered_word=[], comfortable_word=[],
                     stuck_word=[], produced_cold=[], produced_hinted=[],
                     mark_seen=[], next_engine=None, debrief=None)
@@ -2639,6 +2639,64 @@ def s37_repair_earns_the_dose(sb: Path):
           "hourly local cron) retries any miss" not in anna_skill)
 
 
+def s38_teach_enters_the_lexicon(sb: Path):
+    """A word taught in-session can now exist (2026-07-28).
+
+    The pakkam/paakkalaam deep-dive taught பக்கத்துல, ஆச்சு and இருக்கேன் and
+    recorded none of them: --mastered/--comfortable overstate a first contact,
+    --stuck-word and --mark-seen refuse an absent key, and seed-deck is a
+    deck-authoring flow. So the live teaching surface wrote nothing, the next
+    ticket could not know, and a queued soak order named a word the lexicon had
+    never heard of. This is the write-side twin of the 07-27 credit-the-word-he-
+    said fix: that taught the judge to credit a substitution, this lets a taught
+    word exist at all."""
+    print("\n38. A word taught in-session enters the lexicon (2026-07-28)")
+    import argparse as _ap
+    import contextlib, io
+    ss = importlib.import_module("sync_state")
+    lex_path, learner_path = sb / "progress" / "lexicon.json", sb / "progress" / "learner.json"
+    saved = (lex_path.read_bytes(), learner_path.read_bytes())
+
+    defaults = dict(listened=[], teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
+                    soak_channel=None, soak_form=None, mastered_word=[], comfortable_word=[],
+                    stuck_word=[], produced_cold=[], produced_hinted=[],
+                    mark_seen=[], next_engine=None, debrief=None)
+
+    def update(**kw):
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            ss.cmd_update(_ap.Namespace(**{**defaults, **kw}))
+        return read_json(lex_path), out.getvalue()
+
+    try:
+        word = "பக்கத்துல"
+        lex, _ = update(teach=[f"{word}=beside/next to"])
+        rec = lex.get(word)
+        check("a taught word is created", rec is not None, "still absent")
+        check("...at struggled recognition, not solid",
+              rec and rec["recognition"] == "struggled", f"got {rec}")
+        check("...with production unset, so the floor cannot inflate",
+              rec and rec["production"] == "none", f"got {rec}")
+        check("...carrying the gloss", rec and rec["gloss"] == "beside/next to")
+        check("...and seen today", rec and rec["last_surfaced"] == date_cls.today().isoformat())
+
+        # Teaching runs before the axes, so teach-then-fire in ONE close resolves.
+        lex, _ = update(teach=["ஆச்சு=it happened / it's done"], produced_cold=["ஆச்சு"])
+        check("a word taught and fired in the same close is credited",
+              lex["ஆச்சு"]["production"] == "cold", f"got {lex.get('ஆச்சு')}")
+
+        # Re-teaching must not silently demote a word he already owns.
+        lex, _ = update(teach=[word])
+        check("re-teaching a known word does not reset its recognition",
+              lex[word]["recognition"] == "struggled", f"got {lex[word]}")
+        lex, out = update(teach=["pakkathula"])
+        check("a phonetic teach is refused, so keys stay canonical",
+              "pakkathula" not in lex and "phonetic" in out)
+    finally:
+        lex_path.write_bytes(saved[0])
+        learner_path.write_bytes(saved[1])
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -2680,6 +2738,7 @@ def main():
         s34_focus_and_background(sb)
         s36_soak_order_carries_shape(sb)
         s37_repair_earns_the_dose(sb)
+        s38_teach_enters_the_lexicon(sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)

@@ -4740,5 +4740,29 @@
     ],
     "last_surfaced": "2026-07-26",
     "exposures": 1
+  },
+  "பக்கத்துல": {
+    "gloss": "beside / next to (one indivisible chunk, never பக்கம்+ல)",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-07-28"
+  },
+  "ஆச்சு": {
+    "gloss": "it happened / it's done (neuter past + -இடு finality)",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-07-28"
+  },
+  "இருக்கேன்": {
+    "gloss": "I am / I'm here (-ஏன் = I)",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-07-28"
   }
 }
