@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Tuesday 2026-07-28
+
+**11:13 · Anna**  ·  text / cousins tape: youknow-la
+> 🎧 Priya akka's on the phone — catch the drift. what's she trying to tell her friend to do?
+
+
 ## Monday 2026-07-27
 
 **11:37 · Anna**  ·  text / show dose: romba athigam
