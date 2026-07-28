@@ -1275,3 +1275,21 @@ Details live in git history; this is the index of the *conclusions*.
   **Supersedes the per-`knock_id` group** introduced silently in `f94d924`
   (2026-07-24), which never had a DECISIONS entry — its whole justification lived in
   a code comment, which is how an unexamined preference got to read as a law.
+- **The tick returns to `*/30`; "hourly" was never hourly** (2026-07-28, Andrew).
+  Reopens the 07-24 collapse to a single `0 * * * *`, which was costed on the
+  assumption that the lost precision was "30 min → 60 min worst case." Measured over
+  the last 20 scheduled runs, the gaps are **62–232 minutes, median ~2h** — all of it
+  predating any change to this file. GitHub deprioritises and silently drops scheduled
+  ticks under load, so an hourly expression bought a roughly two-hourly heartbeat and
+  the number the decision was argued against did not exist. **This is new evidence, not
+  a re-litigation:** the collapse of three expressions into ONE still holds (that was
+  the real point), and the rails still own the schedule — the cron only has to be
+  frequent enough for the rails to have something to filter. `*/30` does not promise 30
+  minutes either; it buys twice the chances, which is the only lever this end owns.
+  **Interaction with the serialised group** (same day, above): ticks now enter that one
+  lane twice as often. A skipped tick is cheap — the rails exit before any LLM call —
+  and `queue: max` absorbs the pile-up, but a reply can wait behind a tick more often
+  than before. That is the tradeoff already accepted when the group was serialised.
+  **Method note worth keeping:** this was found by measuring the actual run history
+  while verifying an unrelated change, not by reasoning about the cron expression. The
+  07-24 entry reasoned correctly from a premise nobody had checked.
