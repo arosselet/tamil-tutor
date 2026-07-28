@@ -2689,6 +2689,26 @@
     "next_check": "2026-07-28T19:13:07.596018+00:00",
     "body": "🎧 Priya akka's on the phone — catch the drift. what's she trying to tell her friend to do?",
     "expected_target": "frame:youknow-la",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "I don’t see either an attachment here or an item in my feed.",
+    "reply_verdict": "chat",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line": "ha — no audio this time, it's the eavesdrop drill in your head. Priya akka is calling her friend and she says: \"நம்ம தம்பி இருக்கான்ல…\" — what's she about to do?",
+    "reply_at": "2026-07-28T15:15:34Z",
+    "exchanges": [
+      {
+        "at": "2026-07-28T15:15:34Z",
+        "reply": "I don’t see either an attachment here or an item in my feed.",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "ha — no audio this time, it's the eavesdrop drill in your head. Priya akka is calling her friend and she says: \"நம்ம தம்பி இருக்கான்ல…\" — what's she about to do?"
+      }
+    ]
   }
 ]
