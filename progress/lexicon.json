@@ -761,8 +761,9 @@
       71,
       72
     ],
-    "last_surfaced": "2026-07-21",
-    "reps": 4
+    "last_surfaced": "2026-07-28",
+    "reps": 4,
+    "exposures": 1
   },
   "தெரியும்": {
     "gloss": "I know",
@@ -1764,7 +1765,8 @@
       66,
       72
     ],
-    "last_surfaced": "2026-07-24"
+    "last_surfaced": "2026-07-28",
+    "exposures": 1
   },
   "தாகம்": {
     "gloss": "Thirsty",
@@ -2926,10 +2928,11 @@
     "recognition": "comfortable",
     "production": "hinted",
     "seen_in": [],
-    "last_surfaced": "2026-07-27",
+    "last_surfaced": "2026-07-28",
     "deck": "trip",
     "direction": "fire",
-    "reps": 1
+    "reps": 1,
+    "exposures": 1
   },
   "நேரா போங்க": {
     "type": "chunk",
@@ -2940,10 +2943,11 @@
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-07-27",
+    "last_surfaced": "2026-07-28",
     "deck": "trip",
     "direction": "fire",
-    "reps": 1
+    "reps": 1,
+    "exposures": 1
   },
   "வலது பக்கம் திரும்புங்க": {
     "type": "chunk",
@@ -2967,10 +2971,11 @@
     "recognition": "struggled",
     "production": "hinted",
     "seen_in": [],
-    "last_surfaced": "2026-07-27",
+    "last_surfaced": "2026-07-28",
     "deck": "trip",
     "direction": "fire",
-    "reps": 1
+    "reps": 1,
+    "exposures": 1
   },
   "கார்டு வேலை செய்யுமா?": {
     "type": "chunk",
@@ -3753,10 +3758,11 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-07-27",
+    "last_surfaced": "2026-07-28",
     "deck": "trip",
     "direction": "fire",
-    "reps": 1
+    "reps": 1,
+    "exposures": 1
   },
   "ஃப்ரீயா விடுங்க": {
     "type": "chunk",
