@@ -5,9 +5,9 @@
     "payload": [
       "frame:youknow-la"
     ],
-    "scene_seed": "Two aunties on the phone trading family news — each fresh piece of gossip opens the same way, நம்ம {person} இருக்கான்ல…, about a different relative every time. Andrew only has to CATCH the opener; he is never asked to say it.",
+    "scene_seed": "Two aunties on the phone trading family news — each fresh piece of gossip opens the same way, நம்ம {person} இருக்கான்ல…, about a different relative every time. The listener only has to CATCH the opener; it is never demanded back.",
     "from": "2026-07-28",
-    "focus": "The -ல tag as THE gossip opener — EAR ONLY (direction: catch). நம்ம {person} இருக்கான்ல… must land four or five times across different people (தம்பி, அக்கா, மாமா, the neighbour), the same shape in the same mouth-position every time, so the ear locks onto the tag rather than the person. Never a production demand — this frame is Oracle-confirmed ear-only. It has now failed TWICE as a text knock (Mala akka 07-26, Priya akka 07-28am): Tamil script does not render on his lock screen and the 🎧 promised a clip that was not there. This tape IS the clip that was promised.",
+    "focus": "The -ல tag as THE gossip opener — EAR ONLY (direction: catch). நம்ம {person} இருக்கான்ல… must land four or five times across different people (தம்பி, அக்கா, மாமா, the neighbour), the same shape every time, so the ear locks onto the tag rather than the person. NEVER a production demand — this frame is Oracle-confirmed ear-only. It has failed TWICE as a text knock (07-26, 07-28am): Tamil script does not render on a lock screen and the 🎧 promised a clip that was not there. This tape IS that clip. The fourth wall stays up: no character is ever the learner, and the learner's name appears nowhere.",
     "channel": "episode",
     "form": "phone_call"
   },
