@@ -1,0 +1,26 @@
+{
+  "mission": 77,
+  "register": "tenderness",
+  "dramatic_ingredient": "stakes",
+  "episode_form": "phone_call",
+  "shape": "gossip",
+  "location_class": "home_social",
+  "energy": "low",
+  "intercept_tamil_density": 0.70,
+  "breakdown_tamil_density": 0.25,
+  "fence_size": 182,
+  "unfenced_words": 2,
+  "new_words_landed": {
+    "frame:youknow-la": 5
+  },
+  "callbacks_used": {
+    "அழகான": 1,
+    "அவன்": 1,
+    "இருக்கு": 2
+  },
+  "host_roles": {
+    "A": "news_bearer_auntie",
+    "B": "listening_auntie"
+  },
+  "notes": "phone_call form; frame:youknow-la lands 5 times in intercept (நம்ம தம்பி இருக்கான்ல / நம்ம அக்கா இருக்காங்கல / நம்ம மாமா இருக்காங்கல / நம்ம அத்தை இருக்காங்கல / நம்ம பக்கத்து வீட்டுக்காரங்க இருக்காங்கல) plus 3 replay instances by Raj in the breakdown. Stakes: அக்கா unable to attend due to health — genuine concern. Tenderness throughout. Unfenced: உடம்பு (body/health — context doctor/rest/not-fine answers immediately), வீட்டுக்காரங்க (next-door people — context: helping with gathering). Polite -ங்க on imperatives and second person only (சொல்லுங்க, எடுங்க, வாங்க). Not applied to first-person or third-person forms."
+}
