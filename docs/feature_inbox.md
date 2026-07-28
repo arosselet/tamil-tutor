@@ -365,7 +365,17 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
   carried mojibake (`mেdhuva`, a Bengali vowel sign spliced into the Latin). Cosmetic, and the
   lock-screen budget makes a doubled prefix cost real characters. Both are one-line fixes in
   the volley re-present path; neither has recurred yet.
-- **A word taught in-session cannot enter the lexicon** (2026-07-28). The pakkam/paakkalaam
+- **A word taught in-session cannot enter the lexicon** — ~~first half~~ **SHIPPED
+  2026-07-28** as `sync_state.py update --teach "WORD=gloss"`: creates the record at
+  `struggled` recognition, seen today, production unset (so it can never inflate the floor),
+  Tamil-script-only so keys stay canonical, and it runs BEFORE the axes so a word taught and
+  fired in the same close resolves instead of being refused. Re-teaching a known word
+  refreshes it without resetting recognition. `பக்கத்துல`, `ஆச்சு` and `இருக்கேன்` were
+  entered the same day. Smoke case `s38`. **STILL OPEN: the session_log inflation below**
+  (a `--debrief`-only call appends a row, so a multi-call close overcounts — 07-28 wrote
+  three rows for one session, and adherence read off this log overcounts that day by 2).
+  Original report follows.
+  The pakkam/paakkalaam
   deep-dive taught `பக்கத்துல`, `ஆச்சு` and `இருக்கேன்`; all three were refused at close
   (`not in lexicon — add recognition first`), and `--mark-seen` refuses them for the same
   reason. The only entry path is `seed-deck` from `curriculum/trip_deck.json`, which is a

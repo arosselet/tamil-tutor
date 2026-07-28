@@ -464,6 +464,45 @@ def cmd_update(args):
         applied[level].append(key)
         print(f"  Produced {level.upper()}: {key}")
 
+    def teach_word(spec):
+        """A word taught in-session enters the lexicon at `struggled` recognition.
+
+        The live teaching surface had NO write path (2026-07-28): `--mastered`/
+        `--comfortable` overstate what one generous first contact proves,
+        `--stuck-word` and `--mark-seen` both refuse an absent key, and
+        `seed-deck` is a deck-authoring flow. So the pakkam/paakkalaam deep-dive
+        taught பக்கத்துல, ஆச்சு and இருக்கேன் and recorded NONE of them — the next
+        ticket could not know they were taught, and a queued soak order carried a
+        word the lexicon had never heard of. `struggled` is the honest level: it
+        is what a first contact buys. Production stays unset until he fires it,
+        so this can never inflate the floor. Accepts `WORD` or `WORD=gloss`.
+        """
+        word, _, gloss = spec.partition("=")
+        word, gloss = word.strip(), gloss.strip()
+        if not is_tamil(word):
+            print(f"  ! '{word}' is phonetic — teach it in Tamil script so the key "
+                  f"can be canonical. Skipped.")
+            return
+        key = resolve(word, lexicon, phon_index)
+        if key is not None:
+            touch(key)
+            if gloss and not lexicon[key].get("gloss"):
+                lexicon[key]["gloss"] = gloss
+            print(f"  Taught (already known): {key} — refreshed, recognition left "
+                  f"at {lexicon[key].get('recognition', 'struggled')}")
+            return
+        lexicon[word] = {
+            "gloss": gloss, "phonetic": [], "recognition": "struggled",
+            "production": "none", "seen_in": [], "last_surfaced": today,
+        }
+        print(f"  + Taught '{word}' → recognition struggled"
+              f"{', gloss: ' + gloss if gloss else ' (gloss empty — fill in later)'}")
+
+    # Taught this session — must run BEFORE the axes below, so a word taught and
+    # then fired in the same close resolves instead of being refused.
+    for spec in args.teach:
+        teach_word(spec)
+
     # Recognition movement
     for w in args.mastered_word:
         set_recognition(w, "solid")
@@ -1119,6 +1158,12 @@ def main():
                     help=f"Commission an episode FORM instead of letting the divergence "
                          f"gate roll one. {'/'.join(COMMISSIONED_FORMS)} can ONLY arrive "
                          f"this way; the rest are normally spec-rotated and this pins them.")
+    up.add_argument("--teach", type=str, action="append", default=[],
+                    metavar="WORD[=GLOSS]",
+                    help="Word(s) TAUGHT this session — creates the lexicon record at "
+                         "`struggled` recognition, seen today, production unset. The "
+                         "entry path the Teach Beat and lore tangent never had; Tamil "
+                         "script only, so the key stays canonical.")
     up.add_argument("--mastered-word", type=str, action="append", default=[],
                     help="Word(s) now solid in recognition")
     up.add_argument("--comfortable-word", type=str, action="append", default=[],
