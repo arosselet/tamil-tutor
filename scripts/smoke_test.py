@@ -1581,6 +1581,31 @@ def s29_one_runner_every_capability(mk, pq, kr, sb: Path):
     check("the drain is unconditional (no `if:` gate on its step)",
           "continue-on-error: true\n        run: python scripts/push_queue.py drain" in anna)
 
+    # --- one serialised lane; nothing cancelled (2026-07-28) ---------------
+    # Per-knock_id groups let two reply lanes run in parallel. On 07-28 a reply
+    # to a stale notification raced the reply to that morning's knock; both
+    # appended to the tail of the feedback_log array, the rebase conflicted, and
+    # commit_and_push died — losing a judged exchange, not just a green tick.
+    conc = anna.split("concurrency:", 1)[1].split("jobs:", 1)[0]
+    conc_keys = "\n".join(ln for ln in conc.splitlines() if not ln.lstrip().startswith("#"))
+    check("every lane shares ONE concurrency group",
+          re.search(r"^\s*group:\s*anna\s*$", conc_keys, re.M) is not None)
+    check("no lane is keyed by the knock it answers", "knock_id" not in conc_keys)
+    # The half that makes serialising safe. Without it the group holds ONE
+    # pending run and GitHub cancels it when the next reply arrives — which
+    # would silently eat the middle of a burst (six dispatches in six minutes,
+    # 07-28). `queue: max` holds 100, FIFO.
+    check("the group queues instead of cancelling",
+          re.search(r"^\s*queue:\s*max\s*$", conc_keys, re.M) is not None)
+    # GitHub rejects the whole file if these two combine.
+    check("cancel-in-progress stays false (illegal beside queue: max)",
+          re.search(r"^\s*cancel-in-progress:\s*false\s*$", conc_keys, re.M) is not None)
+    # `queue:` shipped 2026-05-07, after actionlint's newest release — the lint
+    # step carries a message-exact suppression so the key can land. It is a lag,
+    # not a waiver: if the pin ever moves past the key, drop the flag.
+    check("the lint step tolerates the queue key actionlint doesn't know yet",
+          "-ignore 'unexpected key \"queue\" for \"concurrency\" section'" in smoke_yml)
+
     # --- the detector that dropped the 8pm push ---------------------------
     # Built 2026-07-23 to catch exactly this; it needed a clock AND a verb, and
     # "schedule" was not in the verb list — the most literal phrasing possible.

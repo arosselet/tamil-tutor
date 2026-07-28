@@ -45,12 +45,38 @@ permissions:
   contents: write              # every lane commits: queue, knock log, mp3s, state
 
 concurrency:
-  # A reply must NEVER queue behind a knock render — Andrew is standing at the
-  # lock screen waiting for the recast, and a knock's TTS + commit + CDN
-  # pre-warm can run well over a minute. Ticks serialise with each other (they
-  # share the queue and the knock log); each reply gets its own lane, keyed by
-  # the knock it answers.
-  group: anna-${{ github.event_name == 'repository_dispatch' && github.event.client_payload.knock_id || 'tick' }}
+  # ONE lane for every wake-up. Replaces per-knock_id group keying (2026-07-28,
+  # Andrew), whose comment claimed it protected lock-screen latency — "a reply
+  # must NEVER queue behind a knock render." That was a preference written as an
+  # invariant, and it was never the load-bearing property.
+  #
+  # What per-knock keying actually bought was DELIVERY. GitHub cancels a pending
+  # run when a newer one joins its group ("any existing pending job or workflow
+  # in the same concurrency group will be canceled and the new queued job or
+  # workflow will take its place"), so a shared group at the default queue depth
+  # of 1 would silently eat the middle of a reply burst — six dispatches landed
+  # inside six minutes on 2026-07-28. Separate lanes dodged that rule; they did
+  # not exist to make replies fast.
+  #
+  # The cost was a real parallel writer. That same morning a reply to a STALE
+  # notification (the 07-27 volley, still sitting on the lock screen) ran beside
+  # the reply to that morning's knock. Both appended to the tail of the
+  # progress/feedback_log.json array, `git pull --rebase` hit a content conflict,
+  # and commit_and_push died mid-rebase under check=True. The run went red AND
+  # the judged exchange was lost — verdict, fires and ledger note all computed,
+  # then thrown away with the commit.
+  #
+  # `queue: max` raises the group from 1 pending to 100 (GitHub changelog
+  # 2026-05-07), so serialising no longer means dropping: one CI writer at a
+  # time, FIFO, nothing cancelled. Andrew took the tradeoff — a reply may now
+  # wait behind a render — because it removes the race structurally instead of
+  # retrying around it. NB `queue: max` with `cancel-in-progress: true` is a
+  # validation error; this must stay false.
+  #
+  # Does NOT cover the laptop, a third writer outside every group. That stays
+  # the standing "pull before read, push after write" discipline.
+  group: anna
+  queue: max
   cancel-in-progress: false
 
 jobs:
