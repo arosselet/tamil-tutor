@@ -4,62 +4,18 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
-- **THE REPAIR EARNS THE DOSE — audio commissioned off his errors, not off the campaign
-  (2026-07-28, `/recalibrate`, Andrew's spoken felt signal; AWAITING HIS YES/NO).**
-  Verbatim: *"I don't feel like Anna is commissioning enough audio, and specifically audio
-  to close the gap in the mistakes I'm making… I shouldn't have to beg for a soak or an
-  episode… The rails are there and functioning… the plumbing isn't lacking. It's the prompt
-  instruction, and the guidance."* **His diagnosis is correct and it is prompt-side.**
-
-  **The gap, named:** the system has a channel-ROUTING law (`audio_channels.md` — capacity
-  routes) and a PRODUCTION law (`studio.md` — end-to-end), and **no COMMISSIONING law.**
-  Nothing states which gaps earn a dose, or that an error earns one at all. The entire
-  content policy is one clause — `daily_session.md` Close & Log step 2: *"payload (what
-  chat strained) + a one-line `scene_seed`; with a campaign live it **may** be a seed order
-  of 2–4 unseen items."* Two options, "may", no trigger, no obligation — so the campaign's
-  forward-teaching pull competes head-on with the backward repair need, and forward wins.
-
-  **The exhibit is 07-28's own session.** The debrief concluded *"assembly loses to
-  retrieval under load"* — a diagnosis whose remedy is repetition-under-no-load, i.e.
-  `render_soak.py` by its own docstring. பக்கத்துல *did* reach the soak order, as one of
-  three items beside two unpaid carries; hours later Andrew still names the collision as
-  the thing he cannot do. **Diagnosed correctly, dosed insufficiently.** Independent second
-  proof: catch is 3/12, the campaign block calls it *"the one lane going backwards"*, and
-  `frame:youknow-la` has failed two text-knock eavesdrops running under the standing
-  written verdict *"wire real audio or do not run them."* Twice the system diagnosed, in
-  writing, a gap only audio can close — and commissioned no audio. Not Anna forgetting:
-  nothing turns a diagnosis into an order.
-
-  **Third-strike count (6 in 5 days, every one of them ANDREW commissioning):** 07-24
-  believes Anna can produce audio autonomously · 07-25 asked to be taught இருந்துச்சு
-  ("plant a dedicated knock") · 07-25 flagged இன்னொரு + தடவ ("need dedicated drilling") ·
-  07-27 commissioned pakkam-vs-paakkalaam **by name** · 07-28am eavesdrop-needs-real-audio,
-  unacted · 07-28pm this. Past the `/recalibrate` bar — design flaw, not noise.
-
-  **PROPOSED MOVE (one, prose-only, reversible).** Replace the Close & Log step-2 clause
-  with a priority, not a menu: *the soak order's payload is drawn **first** from the day's
-  unclosed repairs — anything hinted, recast, or corrected-and-still-wrong. Only when the
-  day leaves none does the order point forward as a seed order.* **Backward beats
-  forward.** Plus one dosage sentence carrying 07-28's own method finding (*contrast
-  explains, chunk fires*): **a collision that survived its correction earns a DEDICATED
-  dose, not a third of a mixed tape.** Nothing structural — it replaces one clause and
-  reorders one priority, and it removes "Andrew must ask" from the path entirely. It rides
-  the session-open auto-drain that already dispatches `run_studio.py` in the background, so
-  it needs no new lane and none of the unattended-autonomy hazards below.
-
-  **DELIBERATELY NOT BUNDLED — audio is a queue-of-one.** `learner.json.soak_order` is a
-  single dict; a new order overwrites the old. Text pushes have a real queue
-  (`push_queue.py`) with a drain, retries and pacing rails; audio has a slot. So one repair
-  per day survives and the rest fall into debrief prose — memory for the next *chat*, never
-  a commission. The fix is already specced below (the `due` field + the hourly tick). **Hold
-  it** until the prose rule has run several days: if backward-first alone closes the felt
-  signal the queue is unnecessary machinery, and this repo's standing rule is that new
-  engineering starts from a reproduced signal, not a plan.
-
-  **NOT THE ASK — volume.** He wants *targeted* audio, not more of it.
-  `MAX_UNATTENDED_PER_DAY = 1` exists because three unwanted episodes shipped in one
-  evening (07-23); do not read this signal as a rate increase. Nor is it a session-length
-  change — he confirmed the 10–15 min dose is right in the same breath.
+- **Audio is a queue-of-one — give it a real queue (2026-07-28, deliberately NOT bundled
+  with the repair-first commissioning law that shipped the same day).**
+  `learner.json.soak_order` is a single dict: a new order overwrites the old. Text pushes
+  have a real queue (`push_queue.py`) with a drain, retries and pacing rails; audio has a
+  slot. So exactly one repair per day survives and the rest fall into debrief prose —
+  memory for the next *chat*, never a commission. Under the new backward-first rule this
+  binds harder, because a day with three unclosed repairs now genuinely wants three orders.
+  The shape is already specced below (the `due` field + the hourly tick acting on it,
+  dispatching by `channel`). **HOLD** until the prose rule has run several days: if
+  backward-first alone closes the felt signal, the queue is machinery Andrew doesn't need,
+  and the standing rule is that new engineering starts from a reproduced signal, not a
+  plan. Re-open on evidence — a session close where Anna visibly has to *drop* a repair.
 
 - **Scheduled/unattended episode production — DEFERRED 2026-07-27 by Andrew after
   exploring it.** Wanted: Anna (or Andrew) commissions from either machine, it builds and
@@ -324,6 +280,16 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
 - **Real-media library (songs, kids' TV)** — the Jabberwocky principle: melody stores sound-sequences below comprehension (Andrew still carries sung gibberish from decades ago). Curate Oracle-vetted YouTube links (her childhood film songs, Tamil Dora) as rows of data; Anna sends one as a no-ask dose, lore-style — a skill, not a DJ persona. Feeds the starving catch axis (0/8) and buys shared cultural ground before the trip. Guardrails: stop-chasing-listens applies in full (zero-debt, no follow-up); curation happens at the laptop, studio-style, never in-session. Machinery (a knock "song dose" type) waits until the library exists and a few doses prove the format by hand.
 
 ## Shipped
+
+- ~~THE REPAIR EARNS THE DOSE — audio commissioned off his errors~~ — SHIPPED 2026-07-28
+  (same session as the `/recalibrate` pass that found it; Andrew: *"I agree with your
+  diagnosis and want to fix this now"*). The commissioning law now lives in
+  `protocol/audio_channels.md` → "What it carries", split there rather than bumping
+  `daily_session.md`'s budget; Close & Log step 2 fires it and points at it. Repairs
+  outrank the forward seed order, a survived collision earns its own order, and
+  `MAX_UNATTENDED_PER_DAY` went 1 → 3 (Andrew: *"guardrails to a problem that was
+  temporary"*). Smoke case s37 is the regression net. The queue-of-one fix stayed
+  deliberately unbundled — see the item under Ideas. DECISIONS 2026-07-28 entries.
 
 - ~~The declared-events ledger build~~ — SHIPPED 2026-07-26 (dedicated @build session,
   same day as the design): judge-seam rep increments + `rep_counts` reads declared

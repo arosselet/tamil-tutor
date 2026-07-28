@@ -143,9 +143,11 @@ Defined: `protocol/studio/director.md` — "Step 1: Take the Scene Spec"; `docs/
 
 ## soak-order
 
-The handoff from the chat session to the studio. Anna writes it at Close & Log into `progress/learner.json` → `soak_order`: two fields — **`payload`** (the words chat just strained) and **`scene_seed`** (one line situating the next beat of the running story). The studio consumes it as its only input from the conversation half; everything else the Director derives. This is the only interface between the two halves of the system.
+The handoff from the chat session to the studio. Anna writes it at Close & Log into `progress/learner.json` → `soak_order`: **`payload`** (what the dose carries), **`scene_seed`** (one line situating the next beat of the running story), plus optional `focus`, `channel` and `form`. The studio consumes it as its only input from the conversation half; everything else the Director derives. This is the only interface between the two halves of the system.
 
-Defined: `docs/PROTOCOL_MAP.md` — "The interface: the soak-order"; `protocol/daily_session.md` — Close & Log step 3
+**The payload has a priority, not a menu (2026-07-28): the repair earns the dose.** It is drawn *first* from the day's unclosed repairs — hinted, recast, or corrected-and-still-wrong — and points forward as a **seed order** of unseen items only when the day leaves no repair owing. Backward beats forward; a collision that survived its correction earns its own order rather than a share of a mixed one.
+
+Defined: `docs/PROTOCOL_MAP.md` — "The interface: the soak-order"; `protocol/daily_session.md` — Close & Log step 2
 
 ---
 

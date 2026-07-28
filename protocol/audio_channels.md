@@ -1,8 +1,31 @@
-# Choosing the audio channel — capacity routes, curriculum fills
+# Commissioning a dose — the repair earns it, capacity routes it
 
 The soak order decides *what* a dose carries. **What Andrew's attention is free to do
-decides which channel carries it.** Ask one question before spending a render: what is his
-attention doing while this plays?
+decides which channel carries it.** Two separate questions, both answered here.
+
+## What it carries — the repair earns the dose
+
+**Draw the payload first from the day's unclosed repairs** — hinted, recast, or corrected
+and still came out wrong. Only when the day leaves none does the order point forward as a
+**seed order** of unseen items. **Backward beats forward**; he never has to ask for the dose
+that closes his own mistake.
+
+- **A collision that survived its correction earns its own order**, not a slot in a mixed
+  one — *contrast explains a collision, a chunk fires it* (07-28). One appearance in a
+  three-item tape is a mention, not a dose.
+- **A gap already diagnosed in writing is owed a dose, not a note.** `frame:youknow-la` sat
+  under a standing "wire real audio" verdict while catch went backwards.
+- The seed order is not demoted — it still teaches the campaign's next page
+  (`protocol/studio/studio.md`); it just no longer outranks a mistake he is still making.
+
+**The failure this prevents** (2026-07-28, Andrew): *"I shouldn't have to beg for a soak or
+an episode."* A routing law and a production law existed; **no commissioning law** did — so
+forward pull won by default, pakkam/paakkalaam was dosed one item in three, and was still
+open that evening.
+
+## Which channel carries it — capacity routes, curriculum fills
+
+Ask one question before spending a render: what is his attention doing while this plays?
 
 | His situation | Channel | Command |
 |---|---|---|
