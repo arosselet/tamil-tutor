@@ -1427,3 +1427,39 @@ Details live in git history; this is the index of the *conclusions*.
   Fixed alongside: Anna's skill promised *"`studio_watchdog.py` (hourly local cron) retries
   any miss"* — false since 07-24, and a retry that does not exist is worse than none because
   it makes a dropped dose look covered.
+- **A commission reaches the episode lane as computed context, never as an agentic read**
+  (2026-07-28 evening, found on the first real exercise of the law above and fixed in the
+  retrospective the next turn). `frame:youknow-la` was commissioned as an episode and the
+  FIRST M77 attempt came back dramatising the computed `FOCUS SET` — a 28-item sidecar with
+  the commissioned payload absent. (The retry landed: the shipped M77 opens
+  நம்ம தம்பி இருக்கான்ல… and carries the frame. It succeeded because the `scene_seed` was
+  hand-sharpened until the frame *was* the whole scene, which is exactly the manual step the
+  law was written to remove.) The ticket had
+  **no commission section at all**: the order reached the Director only through one prose
+  clause in `DIRECTOR` (*"read the soak-order in `progress/learner.json`"*), competing with
+  a code-assembled list headed *"DRILL these until they fire cold"* — and lost. The same run
+  is the control: the commissioned `form: phone_call` landed perfectly because it arrived
+  through `scene_spec()`/`claim_spec()` as computed context. **This is the repo's own
+  doctrine failing in the direction it predicts** — code-assembled context beats an agentic
+  read when the invariant is known — so the payload now arrives the way the form does:
+  `suggest_targets` prints section **0. THE COMMISSION** (payload, focus, scene_seed, the
+  date and the "this outranks every list below" heading) ahead of everything it computes,
+  and the FOCUS SET says out loud that it is outranked. **What it replaces:** the prose
+  clause in `DIRECTOR` is no longer load-bearing, and `episode_commission()` is now the one
+  predicate for "is there a live commission for this lane", with `commissioned_form()`
+  delegating to it. That fixes a second, quieter bug in the same read: `commissioned_form()`
+  asked only *"is the order routed here"*, never *"is it still owed"* — so a FILLED order
+  went on pinning the next episode's form for ever. `frame:youknow-la` shipped in M77 and
+  the gate was still locked to `phone_call` afterwards, an axis of the variety gate held
+  shut by a debt already paid. Owed now reads BOTH seams, which disagree by design: the
+  episode lane clears itself by registering the payload (`soak_pending()`), the soak and
+  drill lanes stamp `delivered` because they have nothing to register. To read both,
+  `soak_pending()` moved from `studio_watchdog` down into `sync_state` — the ticket needs
+  the answer and cannot import the studio without pulling the whole render stack — and the
+  watchdog re-exports it. One definition, three readers. Smoke case `s39`. **Still open, deliberately** — `claim_payload()` (`run_studio.py:418`) injects any
+  `frame:` key into `new_words_landed` unconditionally, because a slot template is
+  verbatim-exempt, so a frame commission can stamp *delivered* with no evidence it was ever
+  audible. Verifying a frame needs a pattern the frame record itself carries, which is
+  schema-adjacent; it stays in the inbox under the structure freeze. **Consequence while it
+  stays open: a `frame:` order can read PAID when it was not**, so a frame commission is the
+  one case where the ledger cannot be trusted without listening.

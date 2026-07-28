@@ -226,6 +226,34 @@ def split_payload(items: list[str], lexicon: dict) -> tuple[list[str], list[str]
     return resolved, unresolved
 
 
+def soak_pending() -> bool:
+    """True when the standing soak order hasn't been carried by the newest
+    episode — the same answer `status` prints as NOT YET PRODUCED.
+
+    Only VERIFIABLE items count. A payload token that resolves to no lexicon
+    key can never appear in an episode's word list, so counting it as pending
+    is an infinite dispatch loop, not a to-do (2026-07-23: 'avasaram' against
+    the key 'அவசரம் இருக்கு' produced three unwanted episodes in one evening).
+
+    Lives here rather than in `studio_watchdog` (2026-07-28) because the session
+    ticket needs the same answer and cannot import the studio — `run_studio`
+    pulls the whole render stack. One definition, three readers; the watchdog
+    re-exports it."""
+    soak = (load_json(LEARNER_PATH) or {}).get("soak_order") or {}
+    raw = [w for w in soak.get("payload", []) if w]
+    if not raw:
+        return False
+    resolved, unresolved = split_payload(raw, load_json(LEXICON_PATH) or {})
+    if unresolved:
+        print(f"  ⚠ soak payload unresolvable, ignored for the produced-check: "
+              f"{', '.join(unresolved)} — fix the soak order")
+    if not resolved:
+        return False
+    episodes = load_json(EPISODES_PATH) or {}
+    newest = episodes[max(episodes, key=int)].get("words", []) if episodes else []
+    return not all(w in newest for w in resolved)
+
+
 def is_unseen(rec: dict) -> bool:
     """Never soaked anywhere — no episode appearance, never surfaced. The
     teach-first law hangs on this: an UNSEEN item may be TAUGHT (shown, with its

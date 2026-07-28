@@ -2697,6 +2697,101 @@ def s38_teach_enters_the_lexicon(sb: Path):
         learner_path.write_bytes(saved[1])
 
 
+def s39_ticket_carries_the_commission(sb: Path):
+    """The episode lane must CONSUME the commission (2026-07-28, first real
+    exercise of the repair-first law).
+
+    frame:youknow-la was commissioned as an episode; M77 came back drilling the
+    computed FOCUS SET with the payload absent. Cause: the ticket had no
+    commission section at all. The order reached the Director only as one prose
+    clause in DIRECTOR ("read the soak-order in progress/learner.json") — an
+    agentic read competing with a code-assembled list headed "DRILL these until
+    they fire cold" — and lost. In the SAME run the commissioned FORM landed
+    perfectly, because it arrived through scene_spec() as computed context.
+
+    That is the repo's own doctrine failing in the direction it predicts:
+    code-assembled context beats an agentic read when the invariant is known.
+    So the payload arrives the way the form does."""
+    print("\n39. The ticket carries the commission, ahead of the focus set (2026-07-28)")
+    import contextlib, io
+    st = importlib.import_module("suggest_targets")
+    learner_path = sb / "progress" / "learner.json"
+    saved = learner_path.read_bytes()
+
+    order = {"payload": ["frame:youknow-la"], "scene_seed": "Two aunties on the phone.",
+             "focus": "The -ல tag as THE gossip opener.", "from": "2026-07-28",
+             "channel": "episode", "form": "phone_call"}
+
+    def ticket(o):
+        learner = read_json(learner_path)
+        if o is None:
+            learner.pop("soak_order", None)
+        else:
+            learner["soak_order"] = o
+        write_json(learner_path, learner)
+        argv, out = sys.argv, io.StringIO()
+        try:
+            sys.argv = ["suggest_targets.py"]
+            with contextlib.redirect_stdout(out):
+                st.main()
+        finally:
+            sys.argv = argv
+        return out.getvalue()
+
+    try:
+        text = ticket(order)
+        check("the commissioned payload is IN the ticket, not left to an agentic read",
+              "frame:youknow-la" in text.split("FOCUS SET")[0], text[:400])
+        check("...with the focus that says what the dose is for",
+              order["focus"] in text)
+        check("...and the scene seed", order["scene_seed"] in text)
+        check("...headed so it cannot be read as one more list",
+              "THE COMMISSION" in text and "OUTRANKS" in text)
+        check("the focus set says out loud that it is outranked",
+              "A COMMISSION IS LIVE" in text.split("FOCUS SET")[1])
+        check("the form is still pinned by the same order",
+              "COMMISSIONED by the soak order" in text)
+
+        # A consumed order must not keep steering the next episode. Before this,
+        # commissioned_form() ignored `delivered` entirely.
+        done = ticket({**order, "delivered": {"channel": "episode", "at": "2026-07-28"}})
+        check("a delivered order stops commanding the ticket",
+              "THE COMMISSION" not in done)
+        check("...and stops pinning the form, so the divergence gate rolls again",
+              "COMMISSIONED by the soak order" not in done)
+
+        # The episode lane never stamps `delivered` — it clears itself by
+        # registering the payload into episodes.json. Reading only the stamp
+        # would leave a filled order commanding every future ticket, which is
+        # the 07-23 three-episodes-in-one-evening failure wearing a new hat.
+        eps_path = sb / "progress" / "episodes.json"
+        saved_eps = eps_path.read_bytes()
+        try:
+            eps = read_json(eps_path)
+            newest = str(max((int(k) for k in eps), default=0) + 1)
+            eps[newest] = {"title": f"Mission {newest}", "listens": 0,
+                           "words": ["frame:youknow-la"], "duration_min": 1.6,
+                           "produced": "2026-07-28"}
+            write_json(eps_path, eps)
+            carried = ticket(order)
+            check("an order the newest episode already carries is no longer live",
+                  "THE COMMISSION" not in carried)
+            check("...and the divergence gate takes the form axis back",
+                  "COMMISSIONED by the soak order" not in carried)
+        finally:
+            eps_path.write_bytes(saved_eps)
+
+        soaked = ticket({**order, "channel": "soak", "delivered": None})
+        check("an order routed elsewhere does not command the episode ticket",
+              "THE COMMISSION" not in soaked)
+        empty = ticket({"payload": [], "channel": "episode"})
+        check("an empty order is not a commission", "THE COMMISSION" not in empty)
+        check("no order at all still builds a ticket",
+              "SESSION TICKET" in ticket(None))
+    finally:
+        learner_path.write_bytes(saved)
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -2739,6 +2834,7 @@ def main():
         s36_soak_order_carries_shape(sb)
         s37_repair_earns_the_dose(sb)
         s38_teach_enters_the_lexicon(sb)
+        s39_ticket_carries_the_commission(sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)

@@ -4,22 +4,24 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
-- **The episode lane does not reliably CONSUME the commission, and for a `frame:` payload
-  it SELF-CERTIFIES delivery without evidence (sighted 2026-07-28, first real exercise of
-  the repair-first law).** Two separate defects, found by commissioning
-  `frame:youknow-la` as an episode and watching what came back.
-  1. **The ticket has no soak-order section.** `suggest_targets.py` hands the Director a
-     computed `FOCUS SET` headed *"DRILL these until they fire cold"*, plus deck, coverage,
-     background and callbacks. The commissioned payload appears NOWHERE as a commission —
-     `frame:youknow-la` shows up only as one of eight undifferentiated ear-only deck rows.
-     The Director's only route to the order is one prose clause in `DIRECTOR` (*"read the
-     soak-order in progress/learner.json"*), an agentic read competing with an emphatic
-     code-assembled list. It lost: the episode dramatised the focus set and the payload was
-     absent. Note the contrast in the SAME run — `form: phone_call` arrived through
-     `scene_spec()`/`claim_spec()` as computed context and landed perfectly. **This is the
-     repo's own doctrine failing in the exact direction it predicts** (code-assembled
-     context beats an agentic read when the invariant is known). The fix is likely a ticket
-     section, not a prompt sentence — the same move that made the form stick.
+- **For a `frame:` payload the episode lane SELF-CERTIFIES delivery without evidence
+  (sighted 2026-07-28, first real exercise of the repair-first law).** Two defects were
+  found by commissioning `frame:youknow-la` as an episode and watching what came back;
+  the first is now fixed, the second is schema-adjacent and stays here.
+  1. ~~**The ticket has no soak-order section.**~~ **SHIPPED 2026-07-28 evening** as
+     `suggest_targets` section **0. THE COMMISSION** — payload, focus, scene_seed and an
+     "outranks every list below" heading, printed ahead of everything the ticket computes,
+     with the FOCUS SET stating that it is outranked. `episode_commission()` is the one
+     predicate; `commissioned_form()` delegates to it and therefore now respects
+     `delivered` (a consumed order used to keep pinning the next episode's form). Smoke
+     case `s39`. See DECISIONS, "A commission reaches the episode lane as computed
+     context". Original report: the Director's only route to the order was one prose clause
+     in `DIRECTOR` (*"read the soak-order in progress/learner.json"*), an agentic read
+     competing with a code-assembled list headed *"DRILL these until they fire cold"*. It
+     lost — the episode dramatised the focus set and the payload was absent — while in the
+     SAME run `form: phone_call` arrived through `scene_spec()`/`claim_spec()` as computed
+     context and landed perfectly. The repo's own doctrine failing in the direction it
+     predicts.
   2. **`claim_payload()` rubber-stamps frames** (`run_studio.py:418`):
      `if key.startswith("frame:") or key in script:` injects into `new_words_landed`
      unconditionally, because a slot template is verbatim-exempt. So a frame payload is
