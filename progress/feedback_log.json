@@ -178,5 +178,9 @@
   {
     "date": "2026-07-28",
     "note": "[phone] Audio soak TTS is vocalising punctuation (e.g. '...' spoken as a pause-marker word, '?' audible). Bug in memo_script rendering — punctuation should be stripped or replaced before TTS hand-off."
+  },
+  {
+    "date": "2026-07-28",
+    "note": "[phone] Andrew noticed no morning greeting — worth checking whether morning_knock.py fired a session-open knock today or if the volley continuation swallowed it."
   }
 ]
