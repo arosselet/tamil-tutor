@@ -10,7 +10,11 @@
     "scene_seed": "the auto pulls up at the gate in the rain — vandhuduchu shouted through the door, then the fare settled and aachu closes it",
     "from": "2026-07-28",
     "focus": "the -இடுச்சு completive tail permuted over வா/போ/முடி, kept adjacent to ஆகும் vs ஆச்சு — future total vs done-and-released. Andrew took the tail apart himself today (root + விடு + past -சு); the tape's job is to make it ORDINARY in the ear, not to explain it again.",
-    "channel": "soak"
+    "channel": "soak",
+    "delivered": {
+      "channel": "soak",
+      "at": "2026-07-28"
+    }
   },
   "next_engine": "frame:polite-nga",
   "focus_cohort": [
