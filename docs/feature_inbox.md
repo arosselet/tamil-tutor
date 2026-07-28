@@ -330,3 +330,15 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
   carried mojibake (`mেdhuva`, a Bengali vowel sign spliced into the Latin). Cosmetic, and the
   lock-screen budget makes a doubled prefix cost real characters. Both are one-line fixes in
   the volley re-present path; neither has recurred yet.
+- **A word taught in-session cannot enter the lexicon** (2026-07-28). The pakkam/paakkalaam
+  deep-dive taught `பக்கத்துல`, `ஆச்சு` and `இருக்கேன்`; all three were refused at close
+  (`not in lexicon — add recognition first`), and `--mark-seen` refuses them for the same
+  reason. The only entry path is `seed-deck` from `curriculum/trip_deck.json`, which is a
+  deck-authoring flow, not a session one. So the live teaching surface — the Teach Beat,
+  the lore tangent, an Active Gaps item Andrew asked for **by name** — writes nothing, and
+  the next ticket cannot know the word was taught. Worse in the soak lane: `ஆச்சு` is now
+  the payload of a queued order for a word the lexicon has never heard of. Cheap version is
+  a `--teach WORD --gloss "…"` that creates the record at `struggled` recognition, seen
+  today, production unset — one row, no schema change. This is the write-side twin of the
+  07-27 credit-the-word-he-said fix: that one taught the judge to credit a substitution,
+  this one lets a taught word exist at all.
