@@ -1209,3 +1209,35 @@ Details live in git history; this is the index of the *conclusions*.
   coming back; instrument practice is the closest non-language twin, rehab and strength
   programming the next. Sharpens the "no second consumer, don't extract" rejection above by
   naming what would clear it, and rules out the multi-tenant reading of "more general."
+- **Fourth milestone re-sync — `template-v5-source`, the selection/ledger overhaul**
+  (2026-07-27, Andrew's ask: "anything salient to back port or not yet?"). The
+  delta since v4 was 149 commits and four milestone-sized stories; this sync
+  carried exactly one of them, because the template was not merely behind on it —
+  it shipped the *defects* the 07-25/07-26 work fixed. Verified before porting,
+  not assumed: `-soaked` sorting the already-heard earlier (the anti-coverage
+  feedback loop), alphabetical as the final tiebreak (every tie group's head
+  frozen), `recent_ask_counts` still in `morning_knock` with both
+  `sorted(pending, key=asked)` re-sorts intact (ask count as the OUTERMOST key),
+  and no `reps`/`exposures`/`focus_cohort` anywhere. Ported: `coverage_key` as the
+  one shared law, the two-budget floor with a stored cohort, the three-event
+  ledger declared at four delivery seams, `deck_coverage`, `pairs_with` with a
+  split-pair seed refusal, and smoke s25–s27 (55 checks) from Tamil's s32–s34.
+  **Deliberately left behind:** the soak-lane exposure seam (the template has no
+  soak lane — it rides with the studio driver), feed hardening, the judge
+  corrections, and the one-runner consolidation. Those are v6, and splitting them
+  out is what kept this milestone legible.
+- **A milestone re-extraction is scoped by where the template is WRONG, not by
+  what is newest** (2026-07-27, from running the v5 sync). Four stories qualified
+  on size; the selection overhaul was taken first because the template was
+  actively shipping the bugs, while the other three were merely absent. Absence is
+  a gap a user never sees; a shipped defect silently starves their curriculum.
+  Sharpens the milestone-re-extraction policy (2026-07-06/07-10), which said *when*
+  to sync but not *what to take first* when a delta holds several milestones.
+- **The template's generalizations outrank the reference implementation's
+  originals** (2026-07-27, found mid-port). Tamil hardcodes `DECK_TIERS`/`TIER_NAMES`
+  with its own register names and defaults an unlisted register to tier 1;
+  language-tutor derives both from `config.deck.tiers` and sinks unlisted registers
+  below every configured tier. A port that copies Tamil's version faithfully would
+  have REGRESSED the template. The rule: where the template already solved a seam
+  more generally, the port adapts to the template and Tamil's literal is the thing
+  discarded. Rejects "port verbatim, then generalize" as the working order.
