@@ -2678,5 +2678,17 @@
     "pinned_target": "கொஞ்சம் நில்லுங்க",
     "pinned_revealed": false,
     "volley_done": true
+  },
+  {
+    "date": "2026-07-28",
+    "timestamp": "2026-07-28T15:13:07.596018+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "cousins tape: youknow-la",
+    "rationale": "Eavesdrop cadence due (3d), youknow-la still uncaught and load-bearing; naming Priya akka up front fixes the referent failure from Sunday; விட்டுடு soaks as ambient ear-only; lunch anchor timing — he hears it now, session this afternoon pays it off.",
+    "next_check": "2026-07-28T19:13:07.596018+00:00",
+    "body": "🎧 Priya akka's on the phone — catch the drift. what's she trying to tell her friend to do?",
+    "expected_target": "frame:youknow-la",
+    "target_revealed": false
   }
 ]
