@@ -37,7 +37,8 @@ sys.path.insert(0, str(Path(__file__).parent))
 from run_studio import (AUDIO_DIR, BASE, EXIT_NOT_CONFIGURED, episode_paths,
                         git_dirty, lint, next_mission, preflight,
                         renderer_preflight)
-from sync_state import EPISODES_PATH, LEARNER_PATH, canon_payload, load_json
+from sync_state import (EPISODES_PATH, LEARNER_PATH, canon_payload, load_json,
+                        soak_pending)  # noqa: F401 — re-exported; the tick reads it here
 
 LOCK_PATH = BASE / ".studio.lock"
 
@@ -90,30 +91,6 @@ def scripted_unrendered() -> int | None:
     if episode_paths(n)["script"].exists() and not rendered:
         return n
     return None
-
-
-def soak_pending() -> bool:
-    """True when the current soak order hasn't been carried by the newest
-    episode — the same answer sync_state status prints as NOT YET PRODUCED.
-
-    Only VERIFIABLE items count. A payload token that resolves to no lexicon
-    key can never appear in an episode's word list, so counting it as pending
-    is an infinite dispatch loop, not a to-do (2026-07-23: 'avasaram' against
-    the key 'அவசரம் இருக்கு' produced three unwanted episodes in one evening)."""
-    soak = (load_json(LEARNER_PATH) or {}).get("soak_order") or {}
-    raw = [w for w in soak.get("payload", []) if w]
-    if not raw:
-        return False
-    from sync_state import LEXICON_PATH, split_payload
-    resolved, unresolved = split_payload(raw, load_json(LEXICON_PATH) or {})
-    if unresolved:
-        stamp(f"⚠ soak payload unresolvable, ignored for the produced-check: "
-              f"{', '.join(unresolved)} — fix the soak order")
-    if not resolved:
-        return False
-    episodes = load_json(EPISODES_PATH) or {}
-    newest = episodes[max(episodes, key=int)].get("words", []) if episodes else []
-    return not all(w in newest for w in resolved)
 
 
 def outcome(code: int, what: str) -> str:

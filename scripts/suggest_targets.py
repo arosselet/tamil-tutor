@@ -34,7 +34,7 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 from generate_callbacks import due_callbacks, load_json, days_since, NEVER_SURFACED
-from sync_state import is_unseen
+from sync_state import is_unseen, soak_pending
 
 # Windows consoles default to cp1252, which can't print Tamil (2026-07-15).
 if hasattr(sys.stdout, "reconfigure"):
@@ -558,6 +558,32 @@ def pick_divergent(palette, axis_key: str, sidecars: list[dict], rotate: int):
     return min(eligible, key=lambda v: last_used.get(v, -1))
 
 
+def episode_commission(learner: dict | None = None) -> dict | None:
+    """The standing soak order when it is a LIVE commission for THIS lane, else
+    None. One predicate, read by both the form pin and the ticket section.
+
+    Live means: it has a payload, it is routed to the episode channel, and it is
+    still OWED. A consumed order must not keep commanding the ticket or pinning
+    the next episode's form (2026-07-28) — that is how 07-23 produced three
+    unwanted episodes in one evening.
+
+    Owed is `soak_pending()` (does the newest episode carry the payload) OR the
+    absence of a `delivered` stamp — the two seams disagree by design: the
+    episode lane clears itself through registration and never stamps, the soak
+    and drill lanes stamp because they have nothing to register. Reading both
+    means neither lane can leave a filled order looking open."""
+    if learner is None:
+        learner = load_json(BASE / "progress" / "learner.json") or {}
+    order = learner.get("soak_order") or {}
+    if not [w for w in order.get("payload", []) if w]:
+        return None
+    if (order.get("channel") or "episode") != "episode":
+        return None
+    if order.get("delivered") or not soak_pending():
+        return None
+    return order
+
+
 def commissioned_form(learner: dict | None = None) -> str | None:
     """The form the standing soak order ASKS FOR, or None to let the gate roll.
 
@@ -569,10 +595,8 @@ def commissioned_form(learner: dict | None = None) -> str | None:
 
     An unrecognised form is ignored rather than obeyed — a typo must not send the
     Director off-palette, and it must never silently mean 'no episode'."""
-    if learner is None:
-        learner = load_json(BASE / "progress" / "learner.json") or {}
-    order = learner.get("soak_order") or {}
-    if (order.get("channel") or "episode") != "episode":
+    order = episode_commission(learner)
+    if order is None:
         return None
     form = (order.get("form") or "").strip()
     if form and form not in ALL_FORMS:
@@ -703,8 +727,32 @@ def main():
                 print("     Starving registers: " + ", ".join(starving))
             print("     They now sort to the head of their tier — fire from the top and this drains.")
 
+    # 0. THE COMMISSION — the repair that earned this dose, ahead of everything
+    # the ticket computes. Before 2026-07-28 the order reached the Director only
+    # as one prose clause in DIRECTOR ("read the soak-order in learner.json"), an
+    # agentic read competing with a code-assembled list headed "DRILL these until
+    # they fire cold". It lost: M77 dramatised the focus set and the commissioned
+    # payload was absent. The FORM landed in the same run because it arrived as
+    # computed context via scene_spec — so the commission arrives that way too.
+    commission = episode_commission(learner)
+    if commission:
+        print("\n★ THE COMMISSION  (⚠ THIS OUTRANKS EVERY LIST BELOW — build the "
+              "episode around it)")
+        print("-" * 60)
+        print("  PAYLOAD (must be audible in the script, repeatedly):")
+        for item in [w for w in commission.get("payload", []) if w]:
+            print(f"    → {item}")
+        if commission.get("focus"):
+            print(f"\n  FOCUS: {commission['focus']}")
+        if commission.get("scene_seed"):
+            print(f"\n  SCENE SEED: {commission['scene_seed']}")
+        print(f"\n  Commissioned {commission.get('from', '—')} off a mistake Andrew is "
+              f"still making. The lists below are the SEA this scene swims in; the")
+        print("  payload above is what it is FOR. An episode that does not carry it "
+              "has not filled the order, however good it is.")
+
     # 0. Scene spec — structural variety gate (audio episodes especially)
-    spec = scene_spec(load_recent_sidecars(), commissioned_form())
+    spec = scene_spec(load_recent_sidecars(), commissioned_form(learner))
     print("\n0. SCENE SPEC  (force range; vary everything EXCEPT the vocabulary)")
     print("-" * 60)
     print(f"  Register:   {spec['register']}")
@@ -718,6 +766,9 @@ def main():
     # 1. Floor-gap — two budgets. FOCUS is drilled; BACKGROUND is only exposed.
     print(f"\n1. FOCUS SET  (≤{FOCUS_SIZE} in dense rotation — DRILL these until they fire cold)")
     print("-" * 60)
+    if commission:
+        print("  ⚠ A COMMISSION IS LIVE (top of the ticket). It outranks this list — these are "
+              "what the scene may draw on, not what it is about.")
     gap, background = floor_gap_targets(lexicon, today, args.floor_max,
                                         asked=asked, reps=reps,
                                         cohort=learner.get("focus_cohort"))
