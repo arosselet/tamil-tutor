@@ -2589,7 +2589,7 @@
     ],
     "volley_next": 4,
     "response": "reply",
-    "reply": "Latest soak feedback: some punctuation seem to be spoken out loud. Such as, sounds like “…will hear podukrai ask kaetpaen”",
+    "reply": "Why no greeting yet this morning?",
     "reply_verdict": "chat",
     "reply_fired": [
       "கொஞ்சம் மெதுவா சொல்லுங்க",
@@ -2601,8 +2601,8 @@
     "reply_fired_capped": [
       "கொஞ்சம்"
     ],
-    "reply_line": "noted — ellipsis and punctuation shouldn't be spoken aloud, that's a TTS rendering bug. logging it now.",
-    "reply_at": "2026-07-28T02:09:49Z",
+    "reply_line": "morning da — volley wrapped last night, you were 3/4 on the kit. good runs on நில்லுங்க and புரியல.",
+    "reply_at": "2026-07-28T15:04:26Z",
     "exchanges": [
       {
         "at": "2026-07-27T21:05:00Z",
@@ -2662,6 +2662,16 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "noted — ellipsis and punctuation shouldn't be spoken aloud, that's a TTS rendering bug. logging it now."
+      },
+      {
+        "at": "2026-07-28T15:04:26Z",
+        "reply": "Why no greeting yet this morning?",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "morning da — volley wrapped last night, you were 3/4 on the kit. good runs on நில்லுங்க and புரியல."
       }
     ],
     "chained": 3,
