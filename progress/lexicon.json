@@ -174,9 +174,11 @@
       32,
       55,
       62,
-      65
+      65,
+      77
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-07-28",
+    "exposures": 1
   },
   "வலது": {
     "gloss": "Right",
@@ -304,9 +306,11 @@
       23,
       24,
       28,
-      33
+      33,
+      77
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-07-28",
+    "exposures": 1
   },
   "இருக்கு": {
     "gloss": "It is / It exists",
@@ -337,9 +341,11 @@
       29,
       32,
       33,
-      34
+      34,
+      77
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-07-28",
+    "exposures": 1
   },
   "உனக்கு": {
     "gloss": "To you / For you",
@@ -3745,12 +3751,13 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
-      68
+      68,
+      77
     ],
-    "last_surfaced": "2026-07-26",
+    "last_surfaced": "2026-07-28",
     "deck": "trip",
     "direction": "catch",
-    "exposures": 1,
+    "exposures": 2,
     "reps": 1
   },
   "எவ்ளோ ஆகும்?": {

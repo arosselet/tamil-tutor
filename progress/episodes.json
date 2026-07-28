@@ -2147,5 +2147,17 @@
     ],
     "duration_min": 0.7292000000000001,
     "produced": "2026-07-26"
+  },
+  "77": {
+    "title": "Mission tier2_mission77",
+    "listens": 0,
+    "words": [
+      "frame:youknow-la",
+      "அழகான",
+      "அவன்",
+      "இருக்கு"
+    ],
+    "duration_min": 1.6464,
+    "produced": "2026-07-28"
   }
 }
