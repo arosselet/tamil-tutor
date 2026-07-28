@@ -41,12 +41,23 @@ from sync_state import EPISODES_PATH, LEARNER_PATH, canon_payload, load_json
 
 LOCK_PATH = BASE / ".studio.lock"
 
-# Unattended production is capped, hard. The watchdog exists to catch work
-# Andrew's absence stranded — not to set the pace. On 2026-07-23 a stuck
-# produced-check dispatched M72/M73/M74 in one evening, three episodes nobody
-# asked for; the root cause is fixed, but rate is now a rail, not a hope.
+# Unattended production is capped. The watchdog exists to catch work Andrew's
+# absence stranded — not to set the pace. On 2026-07-23 a stuck produced-check
+# dispatched M72/M73/M74 in one evening, three episodes nobody asked for; the
+# root cause is fixed (split_payload), but rate stays a rail, not a hope.
 # Anna commissioning in-session is unaffected — this bounds the CRON only.
-MAX_UNATTENDED_PER_DAY = 1
+#
+# RAISED 1 -> 3 (2026-07-28, Andrew: "guardrails to a problem that was
+# temporary — remove it or raise it"). He is right that 1 was sized to a fixed
+# bug. It also became BINDING under the repair-first commissioning rule
+# (daily_session.md Close & Log 2): when a day's unclosed repairs each earn
+# their own order, one dose a day is the constraint that starves the fix. Kept
+# rather than removed, because the cap never guarded that one bug — it bounds
+# whatever the NEXT stuck predicate turns out to be, and the blast radius is
+# unattended: renders, feed entries and phone pushes fired while he is out.
+# Three is headroom (a repair dose, a campaign dose, one spare); the rail is
+# that the number is finite, not that it is small.
+MAX_UNATTENDED_PER_DAY = 3
 
 
 def stamp(msg: str):

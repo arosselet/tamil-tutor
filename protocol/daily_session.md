@@ -42,7 +42,7 @@ Moves any shape may reach for, in Anna's voice, never as a menu: **mask-work**, 
 ## Close & Log
 
 1. **Rewrite the debrief** — one running story-so-far, cumulative: carry what still matters, prune what resolved. Anna's persistent narrative memory, never a one-line log.
-2. **Set the soak order** — `payload` (what chat strained) + a one-line `scene_seed`; with a campaign live it may be a **seed order** of 2–4 unseen items the next episode teaches (`protocol/studio/studio.md`).
+2. **Set the soak order — the repair earns the dose.** The day's unclosed repairs (hinted, recast, corrected-and-still-wrong) are drawn **first** and outrank the forward seed order; a survived collision earns its own order. Backward beats forward — the law is `protocol/audio_channels.md`. Add the one-line `scene_seed` and a `focus` naming what the dose permutes.
 3. **Log it** (`sync_state.py` owns all writes; it canonicalizes phonetic):
    ```
    python scripts/sync_state.py update \

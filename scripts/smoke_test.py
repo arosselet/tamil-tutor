@@ -1000,7 +1000,15 @@ PROSE_BUDGETS = {
     "protocol/daily_session.md": 1250,
     # Split out of daily_session.md (2026-07-23) rather than raise its budget:
     # channel routing is its own concern and Anna loads it only when choosing.
-    "protocol/audio_channels.md": 400,
+    # 400 -> 550 (2026-07-28): the file's JOB doubled by deliberate split, not by
+    # crud. It always framed itself as two questions — what a dose carries, and
+    # which channel carries it — and owned only the second; the commissioning law
+    # ("the repair earns the dose") moved IN from daily_session.md Close & Log,
+    # which kept a pointer and came out 43 words leaner. Same move audio_channels
+    # itself made in 07-23 and JUDGE_MANDATE in 07-24: a ceiling is a split
+    # signal. Raising this is the exception the rule allows — growth and raise in
+    # one diff, naming what it retired — not the bump-the-number reflex.
+    "protocol/audio_channels.md": 550,
     "OUTREACH_MANDATE": 2000,
     "JUDGE_MANDATE": 1500,
     # Split out of JUDGE_MANDATE (2026-07-24) rather than raise its budget, the
@@ -1465,8 +1473,16 @@ def s27_schedule_and_soak_guards(sb: Path):
     check("the watchdog drain-check uses the shared resolver",
           "split_payload" in (REAL_BASE / "scripts" / "studio_watchdog.py").read_text(encoding="utf-8"))
 
-    # The rate rail, independent of any single root cause.
+    # The rate rail, independent of any single root cause. Raised 1 -> 3 on
+    # 2026-07-28 (Andrew) once repair-first commissioning made one-a-day the
+    # binding constraint; the invariant was never the NUMBER, it is that the
+    # number is FINITE — an unattended dispatcher with no ceiling is the
+    # M72/M73/M74 evening waiting on the next stuck predicate.
     check("unattended production is capped", sw.MAX_UNATTENDED_PER_DAY >= 1)
+    check("...and the cap is finite — never removed outright",
+          isinstance(sw.MAX_UNATTENDED_PER_DAY, int)
+          and sw.MAX_UNATTENDED_PER_DAY < 10,
+          f"got {sw.MAX_UNATTENDED_PER_DAY!r} — raise it if it binds, never unbound")
     today = datetime.now().date().isoformat()
     write_json(sb / "progress" / "episodes.json",
                {"70": {"words": [], "produced": today},
@@ -2568,6 +2584,61 @@ def s36_soak_order_carries_shape(sb: Path):
         lex_path.write_bytes(saved[1])
 
 
+def s37_repair_earns_the_dose(sb: Path):
+    """The repair earns the dose (2026-07-28, Andrew's spoken felt signal:
+    "I don't feel like Anna is commissioning enough audio, and specifically
+    audio to close the gap in the mistakes I'm making... I shouldn't have to
+    beg for a soak or an episode").
+
+    The system had a channel-ROUTING law (audio_channels.md) and a PRODUCTION
+    law (studio.md) and NO COMMISSIONING law: nothing said which gaps earn a
+    dose. Close & Log step 2 was a menu ("payload... MAY be a seed order"), so
+    the campaign's forward pull outranked the backward repair need and his
+    errors went undosed — pakkathula reached the order as one of three items
+    and the collision was still open hours later.
+
+    This is a PROSE rule, so a prose lint is its only regression net. The
+    2026-07-24 lesson (a dropped rule must be hunted in code, prompts, skills
+    and tests) applies in reverse: assert every surface that carries it."""
+    print("\n37. The repair earns the dose — commissioning is a priority (2026-07-28)")
+    # The law lives in audio_channels.md, split there rather than bumping
+    # daily_session.md's budget — the same move that file made in 2026-07-23 and
+    # JUDGE_MANDATE made in 07-24. It is the natural owner: it already split
+    # "what a dose carries" from "which channel carries it" and owned only the
+    # second half. Close & Log keeps a pointer, because that is where it fires.
+    routing = (REAL_BASE / "protocol" / "audio_channels.md").read_text(encoding="utf-8")
+    check("the commissioning law exists", "repair earns the dose" in routing)
+    check("...and it is an ORDER of precedence, not a menu",
+          "Backward beats forward" in routing)
+    check("...naming the repair population (hinted / recast / still-wrong)",
+          all(w in routing for w in ("hinted", "recast", "came out wrong")))
+    check("...and he never has to ask for it", "never has\nto ask" in routing
+          or "never has to ask" in routing)
+    check("a survived collision earns its own order, not a share of a mixed one",
+          "earns its own order" in routing)
+    check("the forward seed order survives as the fallback, not the default",
+          "seed order" in routing and "Only when the day leaves none" in routing)
+    check("both halves now live in one file — what it carries, and which channel",
+          "What it carries" in routing and "Which channel carries it" in routing)
+
+    session = (REAL_BASE / "protocol" / "daily_session.md").read_text(encoding="utf-8")
+    check("Close & Log fires the rule at the moment the order is set",
+          "repair earns the dose" in session and "Backward beats forward" in session)
+    check("...and points at the file that owns it", "audio_channels.md" in session)
+
+    # The glossary is what a new engineer reads before touching the interface.
+    glossary = (REAL_BASE / ".claude" / "skills" / "orient" / "references"
+                / "glossary.md").read_text(encoding="utf-8")
+    check("the glossary carries the priority too", "repair earns the dose" in glossary)
+
+    # A retry that does not exist is worse than no retry: it makes a dropped
+    # dose look covered. The local cron was retired 2026-07-24.
+    anna_skill = (REAL_BASE / ".claude" / "skills" / "anna"
+                  / "SKILL.md").read_text(encoding="utf-8")
+    check("Anna's skill does not promise a cron retry that was retired",
+          "hourly local cron) retries any miss" not in anna_skill)
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -2608,6 +2679,7 @@ def main():
         s33_catch_response_pairs(mk, sb)
         s34_focus_and_background(sb)
         s36_soak_order_carries_shape(sb)
+        s37_repair_earns_the_dose(sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)

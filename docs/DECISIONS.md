@@ -1348,3 +1348,58 @@ Details live in git history; this is the index of the *conclusions*.
   HINTED tier retains — *"I just worry how much is going in and out"* — and he is right that
   the system has no answer, since cold is a one-way door with no re-test (inbox: "Cold decay
   / re-test dates", deferred past the trip) and hinted has no follow-up path at all.
+
+- **The repair earns the dose — audio is commissioned off his errors, backward before
+  forward** (2026-07-28, Andrew's spoken felt signal, diagnosed via `/recalibrate` and
+  built the same session on his "fix this now"). His words: *"I don't feel like Anna is
+  commissioning enough audio, and specifically audio to close the gap in the mistakes I'm
+  making… I shouldn't have to beg for a soak or an episode… the plumbing isn't lacking.
+  It's the prompt instruction."* **His diagnosis was correct and it was prompt-side.** The
+  system had a channel-ROUTING law (`audio_channels.md`) and a PRODUCTION law
+  (`studio.md`) and **no COMMISSIONING law** — nothing said which gaps earn a dose, or
+  that an error earned one at all. The whole content policy was one clause in Close & Log
+  step 2 (*"payload… **may** be a seed order"*), a menu rather than a priority, so the
+  campaign's forward-teaching pull outranked the backward repair need by default.
+  **The fix:** the payload is drawn *first* from the day's unclosed repairs — hinted,
+  recast, or corrected-and-still-wrong — and points forward as a seed order only when the
+  day leaves none. A collision that survived its correction earns its **own** order, not a
+  slot in a mixed one (07-28's own method finding: *contrast explains a collision, a chunk
+  fires it*). The seed order is **not** demoted — it still teaches the campaign's next page;
+  it just no longer outranks a mistake he is still making, which is a refinement of the
+  07-17/07-26 seed-order calls, not a reversal. **Evidence it was structural, not taste:**
+  six instances in five days, *every one of them Andrew commissioning* (07-24 believing
+  Anna could produce audio unaided · 07-25 ×2 asking for இருந்துச்சு and இன்னொரு/தடவ
+  drilling · 07-27 commissioning pakkam-vs-paakkalaam by name · 07-28am the unacted
+  eavesdrop-needs-real-audio verdict · 07-28pm this), well past the `/recalibrate`
+  third-strike bar. The exhibit: the 07-28 debrief concluded *"assembly loses to retrieval
+  under load"* — a diagnosis whose remedy is `render_soak.py`'s literal job — and பக்கத்துல
+  reached the order as one item of three, still open that evening. **Housed in
+  `audio_channels.md`, not `daily_session.md`** — that file always framed itself as two
+  questions (what a dose carries, which channel carries it) and owned only the second;
+  Close & Log keeps a firing pointer and came out leaner. Same split move that file made in
+  07-23 and `JUDGE_MANDATE` made in 07-24: **a ceiling is a split signal.** Its budget went
+  400 → 550 in the same diff, which is the exception the word-budget rule allows (growth and
+  raise together, naming what moved) rather than the bump-the-number reflex — the first
+  attempt put the law in `daily_session.md`, hit 1244/1250, and the mechanism correctly
+  refused it. Smoke case `s37` is the regression net, per the 07-24 lesson that a rule must
+  be planted in code, prompts, skills *and* tests: it lints the law, the Close & Log
+  pointer, and the glossary. **NOT the ask — volume**: he wants *targeted* audio, and this
+  is explicitly not a session-length change (see the same-day dose-size entry).
+- **`MAX_UNATTENDED_PER_DAY` raised 1 → 3; the rail is that it is finite, not that it is
+  small** (2026-07-28, Andrew: *"guardrails to a problem that was temporary — remove it or
+  raise it"*). Amends "An unattended production trigger must be verifiable, and capped
+  regardless" (2026-07-23); the **verifiable** half stands untouched. He is right that 1 was
+  sized to a fixed bug — `split_payload()` closed the stuck produced-check that shipped
+  M72/M73/M74 in one evening. It also became *binding* under repair-first commissioning:
+  when each unclosed repair can earn its own order, one dose a day is the constraint that
+  starves the fix. **Raised rather than removed** (his instruction allowed either): the cap
+  never guarded that one bug — it bounds whatever the next stuck predicate turns out to be,
+  and the blast radius is unattended, firing renders, feed entries and phone pushes while
+  he is out. Smoke asserts the cap is finite and under 10, so a future "just remove it" has
+  to argue with a test. **Latent today:** the local watchdog cron is retired (07-24), so
+  this constant currently gates only a manual `studio_watchdog.py` run and the unbuilt
+  `episode` move in the knock tick. What actually delivers more targeted audio right now is
+  the commissioning law plus the session-open auto-drain, which is attended and works.
+  Fixed alongside: Anna's skill promised *"`studio_watchdog.py` (hourly local cron) retries
+  any miss"* — false since 07-24, and a retry that does not exist is worse than none because
+  it makes a dropped dose look covered.
