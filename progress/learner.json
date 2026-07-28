@@ -10,7 +10,11 @@
     "scene_seed": "one auto ride end to end — a passenger who knows exactly four sentences and uses all four, curb to change",
     "from": "2026-07-27",
     "focus": "The ride as one continuous transaction, in order, so the sequence itself becomes the memory: நேரா போங்க / இங்க நிறுத்துங்க (direct the driver) → எவ்ளோ ஆகும்? / ரொம்ப அதிகம் / ரொம்ப ஜாஸ்தி / போதும் (settle the price) → சில்லறை இருக்கா? (pay). Andrew has now met all of these; only போகணும் fires cold. Run the sequence more than once with different fares and streets so the ORDER is the lesson, not any one line. Keep ஆகும் vs ஆச்சு adjacent — will-come-to vs it's-done — that contrast was today's recast.",
-    "channel": "soak"
+    "channel": "soak",
+    "delivered": {
+      "channel": "soak",
+      "at": "2026-07-28"
+    }
   },
   "next_engine": "frame:polite-nga",
   "focus_cohort": [
