@@ -634,7 +634,7 @@
       "namma"
     ],
     "recognition": "solid",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [
       9,
       11,
@@ -643,7 +643,8 @@
       28,
       61
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-07-28",
+    "reps": 1
   },
   "நல்லா இருக்கு": {
     "gloss": "It's good",
@@ -1110,7 +1111,7 @@
       "thambi"
     ],
     "recognition": "solid",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [
       8,
       9,
@@ -1126,8 +1127,9 @@
       33,
       76
     ],
-    "last_surfaced": "2026-07-26",
-    "exposures": 1
+    "last_surfaced": "2026-07-28",
+    "exposures": 1,
+    "reps": 1
   },
   "செம்மை": {
     "gloss": "Excellent / Perfect",

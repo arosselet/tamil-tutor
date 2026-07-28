@@ -2691,13 +2691,16 @@
     "expected_target": "frame:youknow-la",
     "target_revealed": false,
     "response": "reply",
-    "reply": "I can’t read that text",
-    "reply_verdict": "chat",
-    "reply_fired": [],
+    "reply": "Our brother is going to be here?",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "நம்ம",
+      "தம்பி"
+    ],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "ah, my bad — phonetic version: \"namma thambi irukkaan-la…\" — that's Priya akka's opener. what's she about to do?",
-    "reply_at": "2026-07-28T15:16:39Z",
+    "reply_line": "close! not a question — it's the gossip opener. \"irukkaan-la\" = \"he's around, right?\" — she's about to spill something about him. · so she's pulling her friend in. what's the English vibe of that -la tag at the end — confirmation, question, or command?",
+    "reply_at": "2026-07-28T15:17:51Z",
     "exchanges": [
       {
         "at": "2026-07-28T15:15:34Z",
@@ -2718,7 +2721,23 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "ah, my bad — phonetic version: \"namma thambi irukkaan-la…\" — that's Priya akka's opener. what's she about to do?"
+      },
+      {
+        "at": "2026-07-28T15:17:51Z",
+        "reply": "Our brother is going to be here?",
+        "verdict": "hinted",
+        "fired": [
+          "நம்ம",
+          "தம்பி"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "close! not a question — it's the gossip opener. \"irukkaan-la\" = \"he's around, right?\" — she's about to spill something about him. · so she's pulling her friend in. what's the English vibe of that -la tag at the end — confirmation, question, or command?"
       }
-    ]
+    ],
+    "chained": 1,
+    "pinned_target": "frame:youknow-la",
+    "pinned_revealed": false
   }
 ]

@@ -21,6 +21,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > ah, my bad — phonetic version: "namma thambi irukkaan-la…" — that's Priya akka's opener. what's she about to do?
 
+**11:17 · Andrew** — **HINTED**
+> Our brother is going to be here?
+
+**Anna ↩**
+> close! not a question — it's the gossip opener. "irukkaan-la" = "he's around, right?" — she's about to spill something about him. · so she's pulling her friend in. what's the English vibe of that -la tag at the end — confirmation, question, or command?
+
 
 ## Monday 2026-07-27
 
