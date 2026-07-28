@@ -1008,7 +1008,15 @@ PROSE_BUDGETS = {
     # itself made in 07-23 and JUDGE_MANDATE in 07-24: a ceiling is a split
     # signal. Raising this is the exception the rule allows — growth and raise in
     # one diff, naming what it retired — not the bump-the-number reflex.
-    "protocol/audio_channels.md": 550,
+    # 550 -> 640 (2026-07-28 evening, SECOND raise in one day — flagged as such).
+    # The growth is a law the file did not have: capacity said WHEN a channel is
+    # usable and nothing said WHICH format an error deserves, so "a chunk fires a
+    # collision" was the only format guidance and it pointed at the loop for every
+    # mix-up. Retired in the same diff: that clause, the "route by the situation"
+    # bullet (its veto half is now the table's opening line), and the 07-23 story
+    # compressed — 33 words back. THIS IS THE CEILING'S SECOND WARNING. A third
+    # raise is not allowed: split "what it carries" from "which format carries it".
+    "protocol/audio_channels.md": 640,
     "OUTREACH_MANDATE": 2000,
     "JUDGE_MANDATE": 1500,
     # Split out of JUDGE_MANDATE (2026-07-24) rather than raise its budget, the
@@ -2616,6 +2624,23 @@ def s37_repair_earns_the_dose(sb: Path):
           or "never has to ask" in routing)
     check("a survived collision earns its own order, not a share of a mixed one",
           "earns its own order" in routing)
+    # 2026-07-28 evening, Andrew: "using them in context can be very effective for
+    # sticking in my brain... it shouldn't be the only choice when I'm struggling
+    # regardless of whether two words sound similar." The scope rule had a format
+    # clause welded to it ("a chunk fires it") and a chunk is what the soak loop
+    # makes — so the rule read as "every mix-up gets the loop". Scope and format
+    # are now separate questions, and format follows the ERROR, not the collision.
+    check("the collision rule no longer prescribes a format",
+          "chunk fires it" not in routing)
+    check("...it says so explicitly, so the clause cannot grow back",
+          "says nothing about its format" in routing)
+    check("format follows the error, and capacity keeps its veto",
+          "Capacity vetoes" in routing and "the ERROR chooses" in routing)
+    check("...naming the mouth-takes-the-wrong-one case as an EPISODE, not a loop",
+          "his mouth takes the wrong one" in routing)
+    check("a repeated mistake escalates the format instead of repeating it",
+          "same mistake twice through one format" in routing
+          and "never loop harder" in routing)
     check("the forward seed order survives as the fallback, not the default",
           "seed order" in routing and "Only when the day leaves none" in routing)
     check("both halves now live in one file — what it carries, and which channel",
