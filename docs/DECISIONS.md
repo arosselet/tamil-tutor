@@ -1241,3 +1241,37 @@ Details live in git history; this is the index of the *conclusions*.
   have REGRESSED the template. The rule: where the template already solved a seam
   more generally, the port adapts to the template and Tamil's literal is the thing
   discarded. Rejects "port verbatim, then generalize" as the working order.
+- **One serialised CI lane, held open by `queue: max`** (2026-07-28, Andrew).
+  `anna.yml` keyed its concurrency group by `knock_id`, so every reply got its own
+  lane and two replies could run in parallel. On 07-28 a reply to a *stale*
+  notification (the 07-27 volley, still on the lock screen) raced the reply to that
+  morning's knock; both appended to the tail of the `feedback_log.json` array,
+  `git pull --rebase` hit a content conflict, and `commit_and_push` died mid-rebase
+  under `check=True`. The cost was not the red run — it was a **judged exchange
+  lost**: verdict, fires and ledger note all computed, then discarded with the
+  commit. Now `group: anna` for every trigger.
+  **What the old keying actually protected was delivery, not latency.** Its comment
+  claimed "a reply must NEVER queue behind a knock render" — a preference written as
+  an invariant. The real property was that GitHub cancels a *pending* run when a
+  newer one joins its group (default queue depth 1), so a naive shared group would
+  have silently eaten the middle of a reply burst — six dispatches inside six
+  minutes that same morning. That failure is quiet and frequent; the conflict was
+  loud and rare, so the naive fix was strictly worse. `queue: max` (GitHub
+  changelog 2026-05-07) holds 100 pending FIFO and buys both properties at once.
+  Andrew accepted the tradeoff — a reply may now wait behind a render — because it
+  removes the race structurally rather than retrying around it.
+  **Honest scope:** this closes CI-vs-CI only. The laptop is a third writer outside
+  every group and still relies on "pull before read, push after write" (2026-07-15).
+  A conflict-aware `commit_and_push` (re-apply the mutation against fresh state) and
+  JSONL append-safe logs were both explored and **deferred, not rejected** — revisit
+  if a laptop-vs-cloud conflict ever actually bites. Related but distinct: the
+  `lexicon.json` last-writer-wins race (2026-07-13) is in-process, not git-level, and
+  is untouched by this.
+  **Linter lag, not a waiver:** `queue:` postdates actionlint's newest release
+  (v1.7.12, 2026-03-30), which rejects the key as a syntax error, so `smoke.yml`
+  carries a message-exact `-ignore`. Verified against 1.7.7 and 1.7.12 that the
+  suppression is narrow — the `runner`-in-job-env outage the lint step exists for is
+  still caught. Delete the flag when actionlint learns the key.
+  **Supersedes the per-`knock_id` group** introduced silently in `f94d924`
+  (2026-07-24), which never had a DECISIONS entry — its whole justification lived in
+  a code comment, which is how an unexamined preference got to read as a law.
