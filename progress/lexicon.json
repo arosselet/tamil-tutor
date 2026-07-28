@@ -182,11 +182,12 @@
     "gloss": "Right",
     "phonetic": [],
     "recognition": "solid",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       10
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-07-28",
+    "reps": 1
   },
   "சொன்னாங்க": {
     "gloss": "They said",
@@ -1558,14 +1559,15 @@
       "veliya"
     ],
     "recognition": "solid",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [
       6,
       10,
       21,
       33
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-07-28",
+    "reps": 1
   },
   "போனேன்": {
     "gloss": "I went",
@@ -2926,12 +2928,12 @@
       "inga niruthunga"
     ],
     "recognition": "comfortable",
-    "production": "hinted",
+    "production": "cold",
     "seen_in": [],
     "last_surfaced": "2026-07-28",
     "deck": "trip",
     "direction": "fire",
-    "reps": 1,
+    "reps": 2,
     "exposures": 1
   },
   "நேரா போங்க": {
@@ -4675,10 +4677,11 @@
       "vandhiruchu"
     ],
     "recognition": "comfortable",
-    "production": "none",
+    "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-07-27",
-    "exposures": 1
+    "last_surfaced": "2026-07-28",
+    "exposures": 1,
+    "reps": 1
   },
   "அதுக்கு": {
     "gloss": "For that / to that — adhu + the -kku tail (same tail as station-kku)",
