@@ -190,5 +190,9 @@
   {
     "date": "2026-07-28",
     "note": "[phone] eavesdrop drill format unclear to Andrew twice in a row — the Tamil script in the recast is the blocker; phonetic-first in chat eavesdrop drills going forward"
+  },
+  {
+    "date": "2026-07-28",
+    "note": "[phone] Andrew reports his message was truncated — possible display/delivery issue with Tamil script or long recast lines. worth checking knock formatting."
   }
 ]

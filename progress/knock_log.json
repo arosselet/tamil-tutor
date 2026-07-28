@@ -2691,16 +2691,16 @@
     "expected_target": "frame:youknow-la",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Our brother is going to be here?",
-    "reply_verdict": "hinted",
+    "reply": "Oh I see. I think your message was truncated it ended with D.",
+    "reply_verdict": "chat",
     "reply_fired": [
       "நம்ம",
       "தம்பி"
     ],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "close! not a question — it's the gossip opener. \"irukkaan-la\" = \"he's around, right?\" — she's about to spill something about him. · so she's pulling her friend in. what's the English vibe of that -la tag at the end — confirmation, question, or command?",
-    "reply_at": "2026-07-28T15:17:51Z",
+    "reply_line": "ah — looks like the message cut off on your end. nothing lost; you're mid-drill. she said \"namma thambi irukkaan-la…\" — that -la tag at the end, what's the vibe: confirmation, question, or command?",
+    "reply_at": "2026-07-28T15:19:19Z",
     "exchanges": [
       {
         "at": "2026-07-28T15:15:34Z",
@@ -2734,6 +2734,16 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "close! not a question — it's the gossip opener. \"irukkaan-la\" = \"he's around, right?\" — she's about to spill something about him. · so she's pulling her friend in. what's the English vibe of that -la tag at the end — confirmation, question, or command?"
+      },
+      {
+        "at": "2026-07-28T15:19:19Z",
+        "reply": "Oh I see. I think your message was truncated it ended with D.",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "ah — looks like the message cut off on your end. nothing lost; you're mid-drill. she said \"namma thambi irukkaan-la…\" — that -la tag at the end, what's the vibe: confirmation, question, or command?"
       }
     ],
     "chained": 1,
