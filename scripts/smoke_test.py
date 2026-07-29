@@ -2817,6 +2817,131 @@ def s39_ticket_carries_the_commission(sb: Path):
         learner_path.write_bytes(saved)
 
 
+def s40_drill_consumes_its_commission(sb: Path):
+    """`--soak-channel drill` was a dead value (2026-07-28).
+
+    `sync_state` accepted and stored it, `render_drill` never read it, and no lane
+    stamped it delivered. Three consequences, all silent: the repair became an
+    ordinary deck drill, the order stayed pending, and the session-open auto-drain
+    then dispatched an EPISODE for it — the one lane Andrew had explicitly not
+    chosen. Of the three channels on the routing table, only two worked.
+
+    LEAD, not replace (Andrew's call): the repair leads and takes three angles,
+    the due deck fills out the rest. A whole tape built from one item is the slow
+    repetitive loop this lane exists to escape."""
+    print("\n40. The drill lane consumes its commission (2026-07-28)")
+    import argparse as _ap
+    import contextlib, io
+    ss = importlib.import_module("sync_state")
+    rd = importlib.import_module("render_drill")
+    lex_path, learner_path = sb / "progress" / "lexicon.json", sb / "progress" / "learner.json"
+    saved = (lex_path.read_bytes(), learner_path.read_bytes())
+
+    defaults = dict(listened=[], teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
+                    soak_channel=None, soak_form=None, mastered_word=[], comfortable_word=[],
+                    stuck_word=[], produced_cold=[], produced_hinted=[],
+                    mark_seen=[], next_engine=None, debrief=None)
+
+    def update(**kw):
+        with contextlib.redirect_stdout(io.StringIO()):
+            ss.cmd_update(_ap.Namespace(**{**defaults, **kw}))
+
+    def brief():
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            focus, lead = rd.drill_brief()
+        return focus, lead, out.getvalue()
+
+    try:
+        # Planted rather than scanned: earlier cases blank the sandbox lexicon, and
+        # this one needs one fire-side row and one ear-only row to exist for sure.
+        fireable, earonly = "பக்கத்துல", "விட்டுடு"
+        lex = read_json(lex_path)
+        lex[fireable] = {"gloss": "beside/next to", "recognition": "struggled",
+                         "production": "none"}
+        lex[earonly] = {"gloss": "let it go", "recognition": "struggled",
+                        "production": "none", "direction": "catch", "deck": "trip"}
+        write_json(lex_path, lex)
+
+        update(soak_payload=[fireable], soak_focus="close the pakkam collision",
+               soak_channel="drill")
+        focus, lead, _ = brief()
+        check("a drill-routed order reaches the drill lane at all",
+              [t["word"] for t in lead] == [fireable], f"got {lead}")
+        check("...carrying the focus that says what the repair is",
+              focus == "close the pakkam collision", f"got {focus!r}")
+
+        # The repair leads; the deck fills the rest. Not replace.
+        deck = [{"word": "X", "gloss": "", "kind": "chunk"},
+                {"word": "Y", "gloss": "", "kind": "frame"}]
+        merged = rd.with_lead(deck, lead)
+        check("the repair leads the tape and the deck follows",
+              [t["word"] for t in merged] == [fireable, "X", "Y"], f"got {merged}")
+        check("...and a lead item already on the deck list is not drilled twice",
+              [t["word"] for t in rd.with_lead(deck + lead, lead)]
+              == [fireable, "X", "Y"])
+        check("a commission still gets a tape when the deck has nothing due",
+              [t["word"] for t in rd.with_lead([], lead)] == [fireable])
+
+        # The mandate has to SAY it, or the writer treats the lead as deck rep one.
+        brief_text = rd.COMMISSION_BRIEF.format(n=1, focus="\nWhat: the collision")
+        check("the sheet writer is told the lead is a repair, not a deck rep",
+              "REPAIR" in brief_text and "THREE items instead of one" in brief_text)
+        check("...and told to vary the situation rather than the target",
+              "never the target" in brief_text)
+
+        # Ear-only is a recognition win. A drill's silence is a production demand,
+        # and the deck law is that catch items are NEVER forced to fire.
+        if earonly:
+            update(soak_payload=[earonly], soak_channel="drill")
+            _, lead_catch, warned = brief()
+            check("an ear-only item routed to the drill lane is refused, not demanded",
+                  lead_catch == [], f"got {lead_catch}")
+            check("...and says why, so the mis-route is visible",
+                  "ear-only" in warned and "soak or episode" in warned, warned)
+
+        update(soak_payload=[fireable], soak_channel="soak")
+        check("an order routed to another lane does not reach the drill",
+              brief()[1] == [])
+        update(soak_payload=[fireable], soak_channel="episode")
+        check("...including the default episode lane", brief()[1] == [])
+
+        # Without the stamp the order reads pending forever and the drain sends
+        # an episode for a repair the drill already delivered.
+        # The pieces above are only worth having if main() actually calls them.
+        # Stub the LLM and run the real entry point through --dry-run.
+        update(soak_payload=[fireable], soak_focus="the pakkam collision",
+               soak_channel="drill")
+        seen = {}
+        real_write, real_argv = rd.write_sheet, sys.argv
+        try:
+            def spy(pending, n_lead=0, focus=None):
+                seen.update(pending=[t["word"] for t in pending],
+                            n_lead=n_lead, focus=focus)
+                return {"title": "T", "intro": "i", "outro": "o", "items": []}
+            rd.write_sheet = spy
+            sys.argv = ["render_drill.py", "--dry-run"]
+            with contextlib.redirect_stdout(io.StringIO()):
+                rd.main()
+        finally:
+            rd.write_sheet, sys.argv = real_write, real_argv
+        check("main() hands the commission to the sheet writer",
+              seen.get("pending", [None])[0] == fireable, f"got {seen.get('pending')}")
+        check("...counted as lead items, so the brief fires",
+              seen.get("n_lead") == 1, f"got {seen.get('n_lead')}")
+        check("...with the focus attached", seen.get("focus") == "the pakkam collision")
+
+        with contextlib.redirect_stdout(io.StringIO()):
+            stamped = ss.mark_soak_delivered("drill")
+        order = read_json(learner_path)["soak_order"]
+        check("the drill lane can stamp the order consumed", stamped)
+        check("...naming itself as the lane that carried it",
+              (order.get("delivered") or {}).get("channel") == "drill", f"got {order}")
+    finally:
+        lex_path.write_bytes(saved[0])
+        learner_path.write_bytes(saved[1])
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -2860,6 +2985,7 @@ def main():
         s37_repair_earns_the_dose(sb)
         s38_teach_enters_the_lexicon(sb)
         s39_ticket_carries_the_commission(sb)
+        s40_drill_consumes_its_commission(sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)

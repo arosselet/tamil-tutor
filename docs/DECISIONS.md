@@ -1487,3 +1487,29 @@ Details live in git history; this is the index of the *conclusions*.
   line), and the 07-23 story compressed — 33 words back. **A third raise is refused in
   advance**; the next growth splits "what it carries" from "which format carries it".
   Smoke `s37` extended: it now asserts the format clause is *gone* and cannot grow back.
+- **The drill lane consumes its commission; ear-only is refused, not demanded**
+  (2026-07-28 evening, Andrew: *"let's fix drill now then"*). `--soak-channel drill` was a
+  DEAD VALUE — `sync_state` accepted and stored it, `render_drill` never read it, and no
+  lane stamped it delivered. Three silent consequences: the repair became an ordinary deck
+  drill, the order stayed pending, and the session-open auto-drain then dispatched an
+  EPISODE for it, the one lane he had explicitly not chosen. So of the three channels the
+  routing table advertises, only two worked, and the third failed by quietly substituting
+  the most expensive one. Found while answering his question about which formats belong on
+  the commissioning menu — the honest answer was *fewer than the table claims*.
+  **LEAD, not replace** (his call, taken on the recommendation): the commissioned item leads
+  the tape and the writer is told to give it THREE cues in three different situations, same
+  target; the due deck fills out the rest and keeps its normal shape. A tape built entirely
+  from one item is the slow repetitive loop this lane was commissioned to escape — the same
+  reasoning as the format amendment above, applied one layer down. Mirrors `render_soak`'s
+  `soak_brief`/`with_payload` exactly, so the two lanes now read the order the same way.
+  **The ear-only refusal is the load-bearing part.** A drill's silence is a production
+  demand and `direction: catch` items are never forced to fire (deck law). A catch item
+  routed here is a mis-route, so `drill_brief()` reports it and leaves the order standing
+  for the soak or episode lane rather than turning it into a demand he cannot meet — the
+  failure would have been invisible, because a refused word and a drilled word both produce
+  a tape. `frame:youknow-la` is exactly such an item and was live on the order today.
+  **Also:** the lane now stamps `mark_soak_delivered("drill")`, closing the pending-forever
+  path, and a commission still gets a tape on a day the deck has nothing due (the old
+  early-return killed the run before the order was ever read). Smoke case `s40`, including
+  a stubbed-LLM run of `main()` itself — the pieces are only worth having if the entry
+  point calls them.

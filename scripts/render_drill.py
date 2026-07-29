@@ -37,7 +37,8 @@ from morning_knock import (OPENROUTER_BASE, MODEL, ANNA_VOICE, load_env,
                            push_to_phone, commit_and_push, jsdelivr_url)
 from render_audio import generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME, clean_for_tts
 from suggest_targets import deck_status
-from sync_state import LEXICON_PATH, load_json, record_exposure
+from sync_state import (LEXICON_PATH, canon_payload, load_json,
+                        mark_soak_delivered, record_exposure)
 
 DRILLS_DIR = BASE / "published_audio"   # feed root — rebuild_rss picks up drill_*.mp3
 SILENCE_PER_SEC = 41.666                # frames per second (matches render_audio)
@@ -72,6 +73,20 @@ Return ONLY a JSON object, no prose around it:
 }
 """
 
+# Appended when the standing order routed a REPAIR to this lane. The commissioned
+# item leads and gets three angles; the deck fills the rest of the tape. LEAD, not
+# replace (2026-07-28, Andrew's call): a whole drill built from one item is the
+# slow repetitive loop this lane was commissioned to escape.
+COMMISSION_BRIEF = """
+
+THE COMMISSION — the FIRST {n} item(s) of the DECK DUE list are a REPAIR, not routine \
+deck reps. Give each of them THREE items instead of one: three different cues, three \
+different everyday situations, the same target every time. Vary the situation, never the \
+target — using it in context is the whole point of drilling it again. Everything after \
+them is the ordinary drill and keeps its normal shape (one item per chunk, two per \
+frame).{focus}
+"""
+
 
 def deck_due_payload(max_entries: int) -> list[dict]:
     """The selector's order, but interleaved frame/chunk — a drill is mouth-reps,
@@ -98,16 +113,62 @@ def deck_due_payload(max_entries: int) -> list[dict]:
     return out
 
 
-def write_sheet(pending: list[dict]) -> dict:
+def drill_brief() -> tuple[str | None, list[dict]]:
+    """The standing soak order, when it is addressed to THIS lane → (focus, lead items).
+
+    Until 2026-07-28 `--soak-channel drill` was a dead value: `sync_state` accepted
+    and stored it, this module never read it, and no lane stamped it delivered. So
+    a repair routed here silently became an ordinary deck drill, the order stayed
+    pending, and the next session-open auto-drain dispatched an EPISODE for it —
+    the one lane Andrew had explicitly not chosen.
+
+    EAR-ONLY items are REFUSED, never demanded. `direction: catch` means the win is
+    recognition, and a drill's silence is a production demand — the deck law is that
+    these are never forced to fire. A catch commission routed here is a mis-route,
+    so it is reported and left standing for the soak or episode lane rather than
+    quietly turned into a demand the learner cannot meet."""
+    order = (load_json(BASE / "progress" / "learner.json") or {}).get("soak_order") or {}
+    if (order.get("channel") or "episode") != "drill":
+        return None, []
+    focus = (order.get("focus") or "").strip() or None
+    lexicon = load_json(LEXICON_PATH) or {}
+    lead = []
+    for w in canon_payload(order.get("payload") or []):
+        rec = lexicon.get(w) or {}
+        if rec.get("direction") == "catch":
+            print(f"   ⚠ '{w}' is ear-only (direction: catch) — a drill demands "
+                  f"production, so it is NOT drilled. Route it to soak or episode.")
+            continue
+        lead.append({
+            "word": w, "gloss": rec.get("gloss", ""),
+            "kind": "frame" if w.startswith("frame:") or rec.get("type") == "pattern"
+                    else "chunk"})
+    return focus, lead
+
+
+def with_lead(pending: list[dict], lead: list[dict]) -> list[dict]:
+    """The commissioned repair leads the tape; the due deck fills out the rest.
+    A lead item already on the deck list is not drilled twice."""
+    if not lead:
+        return pending
+    have = {t["word"] for t in lead}
+    return lead + [t for t in pending if t["word"] not in have]
+
+
+def write_sheet(pending: list[dict], n_lead: int = 0, focus: str | None = None) -> dict:
     persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
     menu = "\n".join(f"- [{t['kind']}] {t['word']} — {t['gloss'] or '[no gloss]'}"
                      for t in pending)
+    mandate = DRILL_MANDATE
+    if n_lead:
+        mandate += COMMISSION_BRIEF.format(
+            n=n_lead, focus=f"\nWhat the repair is about: {focus}" if focus else "")
     client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
     resp = client.chat.completions.create(
         model=MODEL,
         max_tokens=2400,
         messages=[
-            {"role": "system", "content": persona + "\n\n---\n\n" + DRILL_MANDATE},
+            {"role": "system", "content": persona + "\n\n---\n\n" + mandate},
             {"role": "user", "content": f"DECK DUE:\n{menu}"},
         ],
     )
@@ -171,13 +232,18 @@ def main():
 
     load_env(BASE / ".env")
 
-    pending = deck_due_payload(args.entries)
+    # The commission is read FIRST: a repair routed here must still get its tape
+    # on a day the deck happens to have nothing due.
+    focus, lead = drill_brief()
+    pending = with_lead(deck_due_payload(args.entries), lead)
     if not pending:
         print("No due fire-side deck items — nothing to drill.")
         return
 
-    print(f"1. sheet… ({len(pending)} deck entries)")
-    sheet = write_sheet(pending)
+    print(f"1. sheet… ({len(pending)} deck entries"
+          f"{f' · {len(lead)} COMMISSIONED, leading' if lead else ''}"
+          f"{' · FOCUS: ' + focus if focus else ''})")
+    sheet = write_sheet(pending, len(lead), focus)
     print(f"   → '{sheet.get('title', 'Drill')}' · {len(sheet['items'])} items")
 
     if args.dry_run:
@@ -196,8 +262,12 @@ def main():
     # Delivery seam (2026-07-26 ledger law): the due items Python put on the
     # sheet went out the door — declared exposure, stamped at publish.
     exposed = record_exposure([t["word"] for t in pending])
+    # The order this run consumed is spent — declare it, or the session-open drain
+    # sees an unfilled order and dispatches an EPISODE for a repair already drilled.
+    stamped = mark_soak_delivered("drill") if (focus or lead) else False
     subprocess.run([sys.executable, str(BASE / "scripts" / "rebuild_rss.py")], cwd=BASE, check=True)
-    commit_and_push([mp3, BASE / "rss.xml"] + ([LEXICON_PATH] if exposed else []),
+    commit_and_push([mp3, BASE / "rss.xml"] + ([LEXICON_PATH] if exposed else [])
+                    + ([BASE / "progress" / "learner.json"] if stamped else []),
                     f"Drill track: {sheet.get('title', mp3.stem)}")
     # This lane had NO quiet-hours check at all and pushed a drill at 23:42
     # (2026-07-26). The guard lives in push_to_phone now, so every lane —
