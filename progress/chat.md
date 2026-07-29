@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **11:11 · Anna** 🎧  ·  eavesdrop / sisters tape: vittidu
 > 🎧 overheard — Kavitha akka's side of a call. catch the drift: what did she want her sister to do?
 
+**17:33 · Anna**  ·  text / trailer: romba nallairuku
+> tomorrow's session has one job — ரொம்ப நல்லாருக்கு (romba nallairuku). two words. maami melts. tomorrow.
+
 
 ## Tuesday 2026-07-28
 

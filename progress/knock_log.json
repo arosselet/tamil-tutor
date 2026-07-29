@@ -2788,5 +2788,17 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-07-29T15-11.mp3",
     "memo_script": "கவிதா அக்கா பேசுறாங்க — போன் வச்சுக்கணும்னு தெரியுது, ஆனா விடவே மாட்டேங்குறாங்க.\n\nஆமா ஆமா, நான் சொன்னேன்ல அவகிட்ட. சரியா கேக்கல. அவங்களுக்கு என்னன்னு புரியுதோ புரியலையோ — நான் என்ன பண்றது?\n\nவிட்டுடு, அக்கா. விட்டுடு. அந்த விஷயம் முடிஞ்சுடுச்சு, கண்ணு. நீ எதுக்கு இன்னும் பிடிச்சுக்கிட்டு இருக்க?\n\nஆனா என்னோட மனசு ஒத்துக்கலை, தம்பி. ஒத்துக்கலை.\n\nவிட்டுடு-ன்னு சொல்றேன். விட்டுடு.",
     "mp3": "published_audio/knocks/knock_2026-07-29T15-11.mp3"
+  },
+  {
+    "date": "2026-07-29",
+    "timestamp": "2026-07-29T21:33:18.376080+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "trailer: romba nallairuku",
+    "rationale": "Strong session day deserves a forward-pitch, not another ask; the campaign's first unpitched chapter is ரொம்ப நல்லாருக்கு and the mil-table mask — pitch the payoff, recruit tomorrow's Teach Day, leave the loop open overnight.",
+    "next_check": "2026-07-30T12:33:18.376080+00:00",
+    "body": "tomorrow's session has one job — ரொம்ப நல்லாருக்கு (romba nallairuku). two words. maami melts. tomorrow.",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]
