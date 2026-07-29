@@ -1293,6 +1293,20 @@ Details live in git history; this is the index of the *conclusions*.
   **Method note worth keeping:** this was found by measuring the actual run history
   while verifying an unrelated change, not by reasoning about the cron expression. The
   07-24 entry reasoned correctly from a premise nobody had checked.
+  **AMENDMENT (2026-07-29, first day of data): the predicted benefit did not appear.**
+  Measured over the first 8 scheduled gaps under `*/30`: **median 158.5 min, mean 148**
+  — against **median 106.5, mean 114** over the preceding 46 gaps under `0 * * * *`.
+  Gaps were 88–223 min. So doubling the expression's frequency did not shorten the
+  heartbeat and may have lengthened it; GitHub appears to drop proportionally more of a
+  denser schedule, which makes "it buys twice the chances" — the claim the entry above
+  rests on — **unsupported**. Left in place rather than reverted for now: n=8 against
+  n=46, and the sample is mostly overnight, so this cannot yet separate "worse" from
+  noise. **The honest status is: the change is unproven, not vindicated.** Revisit with a
+  full day of daylight data; reverting to hourly costs nothing if the gap holds, and
+  hourly is cheaper in runner minutes for identical delivery.
+  Noted against ourselves: the entry above criticised the 07-24 decision for reasoning
+  from an unchecked premise, and then asserted its own unchecked premise in the same
+  breath. The measurement discipline has to survive contact with our own proposals.
 - **The local notify hop fails behind work TLS inspection; accepted, not a bug**
   (2026-07-28, Andrew: "it's a work machine on a work network so it's their
   prerogative. Let's let it be."). `push_to_phone` raises
