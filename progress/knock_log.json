@@ -2773,5 +2773,20 @@
     "target_revealed": false,
     "response": "ack",
     "response_at": "2026-07-28T22:25:08Z"
+  },
+  {
+    "date": "2026-07-29",
+    "timestamp": "2026-07-29T15:11:25.473933+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "sisters tape: vittidu",
+    "rationale": "Session done, demand-streak at 0, eavesdrop 4d overdue per rails, campaign says 'standing catch order: one word overheard off the sisters' — Kavitha akka's tape plants விட்டுடு (ear-only deck item, cousins register) naturally in a sisters' argument, referent named upfront, drift question only, no production asked.",
+    "next_check": "2026-07-29T20:11:25.473933+00:00",
+    "body": "🎧 overheard — Kavitha akka's side of a call. catch the drift: what did she want her sister to do?",
+    "expected_target": "விட்டுடு",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-07-29T15-11.mp3",
+    "memo_script": "கவிதா அக்கா பேசுறாங்க — போன் வச்சுக்கணும்னு தெரியுது, ஆனா விடவே மாட்டேங்குறாங்க.\n\nஆமா ஆமா, நான் சொன்னேன்ல அவகிட்ட. சரியா கேக்கல. அவங்களுக்கு என்னன்னு புரியுதோ புரியலையோ — நான் என்ன பண்றது?\n\nவிட்டுடு, அக்கா. விட்டுடு. அந்த விஷயம் முடிஞ்சுடுச்சு, கண்ணு. நீ எதுக்கு இன்னும் பிடிச்சுக்கிட்டு இருக்க?\n\nஆனா என்னோட மனசு ஒத்துக்கலை, தம்பி. ஒத்துக்கலை.\n\nவிட்டுடு-ன்னு சொல்றேன். விட்டுடு.",
+    "mp3": "published_audio/knocks/knock_2026-07-29T15-11.mp3"
   }
 ]
