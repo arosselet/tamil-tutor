@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Wednesday 2026-07-29
+
+**11:11 · Anna** 🎧  ·  eavesdrop / sisters tape: vittidu
+> 🎧 overheard — Kavitha akka's side of a call. catch the drift: what did she want her sister to do?
+
+
 ## Tuesday 2026-07-28
 
 **11:13 · Anna**  ·  text / cousins tape: youknow-la
@@ -41,6 +47,8 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 **18:01 · Anna**  ·  text / trailer: yaaru session
 > Tomorrow's session has one job — 'yaaru?' (who?) fires cold. One word, three sessions untouched. The crowded lunch scene waits. 🍽️
+
+**Andrew** · 👍 acked
 
 
 ## Monday 2026-07-27
