@@ -1020,7 +1020,7 @@
     "phonetic": [
       "poren"
     ],
-    "recognition": "solid",
+    "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
       6,
@@ -1032,7 +1032,8 @@
       33,
       36
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-07-29",
+    "reps": 1
   },
   "டயர்ட்": {
     "gloss": "Tired",
@@ -2922,12 +2923,13 @@
       "romba adhigam"
     ],
     "recognition": "comfortable",
-    "production": "none",
+    "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-07-27",
+    "last_surfaced": "2026-07-29",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 1
+    "exposures": 1,
+    "reps": 1
   },
   "இங்க நிறுத்துங்க": {
     "type": "chunk",
@@ -2979,12 +2981,12 @@
       "sillarai irukka"
     ],
     "recognition": "struggled",
-    "production": "hinted",
+    "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-07-28",
+    "last_surfaced": "2026-07-29",
     "deck": "trip",
     "direction": "fire",
-    "reps": 1,
+    "reps": 2,
     "exposures": 1
   },
   "கார்டு வேலை செய்யுமா?": {
@@ -3247,10 +3249,10 @@
       56,
       57
     ],
-    "last_surfaced": "2026-07-08",
+    "last_surfaced": "2026-07-29",
     "deck": "trip",
     "direction": "fire",
-    "reps": 1
+    "reps": 2
   },
   "frame:howmuch-noun": {
     "type": "pattern",
@@ -3643,10 +3645,10 @@
     "seen_in": [
       68
     ],
-    "last_surfaced": "2026-07-26",
+    "last_surfaced": "2026-07-29",
     "deck": "trip",
     "direction": "catch",
-    "reps": 1
+    "reps": 2
   },
   "frame:hearsay-aam": {
     "type": "pattern",
@@ -4022,12 +4024,12 @@
       "jaasthi"
     ],
     "recognition": "comfortable",
-    "production": "none",
+    "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-07-27",
+    "last_surfaced": "2026-07-29",
     "deck": "trip",
     "direction": "catch",
-    "reps": 1
+    "reps": 2
   },
   "ஒரே கல்லுல ரெண்டு மாங்கா": {
     "type": "chunk",
@@ -4223,8 +4225,8 @@
     "seen_in": [
       63
     ],
-    "last_surfaced": "2026-07-26",
-    "reps": 1
+    "last_surfaced": "2026-07-29",
+    "reps": 2
   },
   "டீ": {
     "gloss": "tea",
@@ -4721,12 +4723,12 @@
       "yaaru"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-07-26",
+    "last_surfaced": "2026-07-29",
     "deck": "trip",
     "direction": "fire",
-    "reps": 1
+    "reps": 2
   },
   "சரியாயிடும்": {
     "gloss": "",
