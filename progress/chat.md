@@ -14,6 +14,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **14:55 · Anna**  ·  volley / afternoon volley: table-week frames
 > ⚡ volley 1/4 — maami asks what you all did today — wrap it up: 'we went to [place], it was great'
 
+**14:57 · Andrew** — **HINTED**
+> Market ku ponnam, Romba nalla irukku
+
+**Anna ↩**
+> close! 'ponnom' not 'ponnam' — and past tense: 'nalla irundhuchu'. market ku ponnom, romba nalla irundhuchu. · 2/4 — she explains which bus stop to use for the third time. nod along: 'right, right'
+
 
 ## Wednesday 2026-07-29
 
