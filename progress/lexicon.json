@@ -3572,13 +3572,14 @@
       "seri seri"
     ],
     "recognition": "comfortable",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [
       72
     ],
-    "last_surfaced": null,
+    "last_surfaced": "2026-07-30",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 1
   },
   "இன்னும் கொஞ்சம் போடுங்க": {
     "type": "chunk",
