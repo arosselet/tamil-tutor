@@ -2889,5 +2889,20 @@
     "chained": 2,
     "pinned_target": "முடிஞ்சா",
     "pinned_revealed": false
+  },
+  {
+    "date": "2026-07-30",
+    "timestamp": "2026-07-30T23:02:40.381721+00:00",
+    "acted": true,
+    "modality": "fielding",
+    "move": "maami piles more",
+    "rationale": "Dinner hour, Table Week campaign — maami's 'eat more' fires the one refusal line he needs cold before touchdown; fielding keeps demand-streak at 2 (still legal) and the scene is viscerally right for 19:00.",
+    "next_check": "2026-07-31T12:02:40.381721+00:00",
+    "body": "இன்னும் கொஞ்சம் சாப்பிடுங்க — innum konjam saapdunga. she's piling more rice. wave it off 🍽️",
+    "expected_target": "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-07-30T23-02.mp3",
+    "memo_script": "இன்னும் கொஞ்சம் சாப்பிடுங்க!",
+    "mp3": "published_audio/knocks/knock_2026-07-30T23-02.mp3"
   }
 ]

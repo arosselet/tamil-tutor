@@ -26,6 +26,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > close — we'd say 'seri seri' for that nod. Am am is more Hindi vibes da. · 3/4 — akka asks if you can pick up something on the way home — you're not sure you can: 'if possible'
 
+**19:02 · Anna** 🎧  ·  fielding / maami piles more
+> இன்னும் கொஞ்சம் சாப்பிடுங்க — innum konjam saapdunga. she's piling more rice. wave it off 🍽️
+
 
 ## Wednesday 2026-07-29
 
