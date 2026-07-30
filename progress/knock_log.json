@@ -2846,18 +2846,19 @@
         "ask": "someone asks if you and priya went to the temple — confirm it: 'we went'"
       }
     ],
-    "volley_next": 2,
+    "volley_next": 3,
     "response": "reply",
-    "reply": "Market ku ponnam, Romba nalla irukku",
+    "reply": "Am am",
     "reply_verdict": "hinted",
     "reply_fired": [
       "போனோம்",
-      "ரொம்ப நல்லா இருக்கு"
+      "ரொம்ப நல்லா இருக்கு",
+      "சரி சரி"
     ],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "close! 'ponnom' not 'ponnam' — and past tense: 'nalla irundhuchu'. market ku ponnom, romba nalla irundhuchu. · 2/4 — she explains which bus stop to use for the third time. nod along: 'right, right'",
-    "reply_at": "2026-07-30T18:57:42Z",
+    "reply_line": "close — we'd say 'seri seri' for that nod. Am am is more Hindi vibes da. · 3/4 — akka asks if you can pick up something on the way home — you're not sure you can: 'if possible'",
+    "reply_at": "2026-07-30T20:49:06Z",
     "exchanges": [
       {
         "at": "2026-07-30T18:57:42Z",
@@ -2871,10 +2872,22 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "close! 'ponnom' not 'ponnam' — and past tense: 'nalla irundhuchu'. market ku ponnom, romba nalla irundhuchu. · 2/4 — she explains which bus stop to use for the third time. nod along: 'right, right'"
+      },
+      {
+        "at": "2026-07-30T20:49:06Z",
+        "reply": "Am am",
+        "verdict": "hinted",
+        "fired": [
+          "சரி சரி"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "close — we'd say 'seri seri' for that nod. Am am is more Hindi vibes da. · 3/4 — akka asks if you can pick up something on the way home — you're not sure you can: 'if possible'"
       }
     ],
-    "chained": 1,
-    "pinned_target": "சரி சரி",
+    "chained": 2,
+    "pinned_target": "முடிஞ்சா",
     "pinned_revealed": false
   }
 ]
