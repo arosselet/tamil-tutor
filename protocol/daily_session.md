@@ -42,17 +42,19 @@ Moves any shape may reach for, in Anna's voice, never as a menu: **mask-work**, 
 ## Close & Log
 
 1. **Rewrite the debrief** — one running story-so-far, cumulative: carry what still matters, prune what resolved. Anna's persistent narrative memory, never a one-line log.
-2. **Set the soak order — the repair earns the dose.** The day's unclosed repairs (hinted, recast, corrected-and-still-wrong) are drawn **first** and outrank the forward seed order; a survived collision earns its own order. Backward beats forward — the law is `protocol/audio_channels.md`. Add the one-line `scene_seed` and a `focus` naming what the dose permutes.
-3. **Log it** (`sync_state.py` owns all writes; it canonicalizes phonetic):
+2. **Record every slip** — the *pattern*, not just the wrong word. `--slip 'tag|said|wanted|one clause'`, reusing an existing tag. The debrief is overwritten; the ledger accumulates and is what the next lesson reads. A wrong ending on a right word always earns one.
+3. **Set the soak order — the repair earns the dose.** The live slips are drawn **first** and outrank the forward seed order; a survived collision earns its own order. Backward beats forward — the law is `protocol/audio_channels.md`. Add the one-line `scene_seed` and a `focus` naming what the dose permutes.
+4. **Log it** (`sync_state.py` owns all writes; it canonicalizes phonetic):
    ```
    python scripts/sync_state.py update \
      --produced-cold poren --produced-hinted vai --stuck-word கேட்குறேன் \
+     --slip "past-tense|irukku|irundhuchu|reaches for present when the scene is past" \
      --soak-payload கிடைக்கும் --soak-seed "bakery parcel for the maama's house" \
      --debrief "STORY SO FAR: …"
    ```
-4. **Bank the testimony.** A named feeling or friction — *"I feel starved of teaching," "this drags"* — is logged verbatim, the moment it's said or here at latest: `python scripts/sync_state.py feedback "…"`. The highest-value diagnostic the system gets (`protocol/diagnosis.md` reads the ledger in `@build`); never let it evaporate. Fix nothing mid-session.
-5. **Update the campaign block** in `profile.md` if the week moved; then **commit `progress/` and push** — cloud Anna reads origin, and an unpushed close is a session the phone channel never saw.
-6. **Report the campaign's meter and name what moved** (*"vaanga is cold now — that's the one"*), then **assign the field mission**: one deployable line for tonight, framed as an op, collected at the next open.
+5. **Bank the testimony.** A named feeling or friction — *"I feel starved of teaching," "this drags"* — is logged verbatim, the moment it's said or here at latest: `python scripts/sync_state.py feedback "…"`. The highest-value diagnostic the system gets (`protocol/diagnosis.md` reads the ledger in `@build`); never let it evaporate. Fix nothing mid-session.
+6. **Update the campaign block** in `profile.md` if the week moved; then **commit `progress/` and push** — cloud Anna reads origin, and an unpushed close is a session the phone channel never saw.
+7. **Report the campaign's meter and name what moved** (*"vaanga is cold now — that's the one"*), then **assign the field mission**: one deployable line for tonight, framed as an op, collected at the next open.
 
 ## The rest of the toolbelt
 

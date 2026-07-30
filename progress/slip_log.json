@@ -1,0 +1,145 @@
+[
+  {
+    "at": "2026-07-30T21:48:18Z",
+    "date": "2026-07-03",
+    "lane": "knock",
+    "modality": "backfill",
+    "tag": "vowel-length",
+    "said": "sappiten",
+    "want": "saapitten",
+    "note": "clips the long vowel in the middle of the verb",
+    "word": ""
+  },
+  {
+    "at": "2026-07-30T21:48:18Z",
+    "date": "2026-07-06",
+    "lane": "knock",
+    "modality": "backfill",
+    "tag": "la-locative",
+    "said": "electronics startup",
+    "want": "electronics startup-la",
+    "note": "drops the -la that marks where he works",
+    "word": "frame:in-la"
+  },
+  {
+    "at": "2026-07-30T21:48:18Z",
+    "date": "2026-07-08",
+    "lane": "knock",
+    "modality": "backfill",
+    "tag": "venum-for-kudunga",
+    "said": "tea venum",
+    "want": "tea kudunga",
+    "note": "announces his need where the move is to ask them to pass it",
+    "word": "குடுங்க"
+  },
+  {
+    "at": "2026-07-30T21:48:18Z",
+    "date": "2026-07-13",
+    "lane": "knock",
+    "modality": "backfill",
+    "tag": "venum-for-kudunga",
+    "said": "pen venom",
+    "want": "pen kudunga",
+    "note": "announces his need where the move is to ask them to pass it",
+    "word": "குடுங்க"
+  },
+  {
+    "at": "2026-07-30T21:48:18Z",
+    "date": "2026-07-25",
+    "lane": "knock",
+    "modality": "backfill",
+    "tag": "1pl-past-om",
+    "said": "poganum",
+    "want": "ponoom",
+    "note": "reaches for must-go where the scene asked what they did",
+    "word": "frame:day-recap"
+  },
+  {
+    "at": "2026-07-30T21:48:18Z",
+    "date": "2026-07-25",
+    "lane": "knock",
+    "modality": "backfill",
+    "tag": "past-tense",
+    "said": "irukku",
+    "want": "irundhuchu",
+    "note": "present tense for a scene that already happened",
+    "word": "ரொம்ப நல்லா இருக்கு"
+  },
+  {
+    "at": "2026-07-30T21:48:18Z",
+    "date": "2026-07-25",
+    "lane": "knock",
+    "modality": "backfill",
+    "tag": "1pl-past-om",
+    "said": "sappiten",
+    "want": "saapittoom",
+    "note": "I-form where the question was about we",
+    "word": ""
+  },
+  {
+    "at": "2026-07-30T21:48:18Z",
+    "date": "2026-07-27",
+    "lane": "knock",
+    "modality": "backfill",
+    "tag": "stranger-nga",
+    "said": "pesa",
+    "want": "sollunga",
+    "note": "bare stem to a stranger; the -nga IS the register",
+    "word": "சொல்லுங்க"
+  },
+  {
+    "at": "2026-07-30T21:48:18Z",
+    "date": "2026-07-27",
+    "lane": "knock",
+    "modality": "backfill",
+    "tag": "puriyala-vowel",
+    "said": "puriyila",
+    "want": "புரியல",
+    "note": "the vowel in the negative tail",
+    "word": "புரியல"
+  },
+  {
+    "at": "2026-07-30T21:48:18Z",
+    "date": "2026-07-27",
+    "lane": "knock",
+    "modality": "backfill",
+    "tag": "english-word-order",
+    "said": "enna naan tamizh sollen",
+    "want": "tamizh-la eppadi solradhu",
+    "note": "builds the English sentence and translates it; the frame is fixed",
+    "word": "தமிழ்ல எப்படி சொல்றது?"
+  },
+  {
+    "at": "2026-07-30T21:48:18Z",
+    "date": "2026-07-30",
+    "lane": "knock",
+    "modality": "backfill",
+    "tag": "1pl-past-om",
+    "said": "ponnam",
+    "want": "ponnom",
+    "note": "reaches for must-go where the scene asked what they did",
+    "word": "frame:day-recap"
+  },
+  {
+    "at": "2026-07-30T21:48:18Z",
+    "date": "2026-07-30",
+    "lane": "knock",
+    "modality": "backfill",
+    "tag": "past-tense",
+    "said": "irukku",
+    "want": "irundhuchu",
+    "note": "present tense for a scene that already happened",
+    "word": "ரொம்ப நல்லா இருக்கு"
+  },
+  {
+    "at": "2026-07-30T21:48:18Z",
+    "date": "2026-07-30",
+    "lane": "knock",
+    "modality": "backfill",
+    "tag": "hindi-reflex",
+    "said": "am am",
+    "want": "சரி சரி",
+    "note": "reaches for a Hindi backchannel instead of the Tamil one",
+    "word": "சரி சரி"
+  }
+]
