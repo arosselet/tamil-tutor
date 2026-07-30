@@ -225,12 +225,78 @@ Everything else is fence or English noun. **boring** is deliberately the English
 it's what a Coimbatore speaker actually reaches for, and it's the pivot of beat 5, so it
 has to land with zero decoding cost.
 
+**Gap this audit missed, found by the v6 pass (2026-07-30).** The நம்ம/நாங்க door line
+(`ஒரு வார்த்தைல கதவ திறக்குறோம். இன்னொரு வார்த்தைல மூடுறோம்.`) carries **three unfenced
+items in one sentence** — கதவு, திற, மூடு — sitting mid-payload on a line he plays blind to
+a stranger without the caption. The table above accounts for none of them. The surrounding
+நம்ம/நாங்க and சின்ன வயசுலயே do carry it and the image is strong enough to survive one
+unknown noun, so this is recorded as a *known* cost rather than a cut. Next audit: count
+unfenced items per sentence, not just per piece — a beat can pass a whole-script fence
+check and still have one sentence the learner cannot enter.
+
+Two more table corrections from the same pass: **நேரம்** is not a standalone lexicon key
+(it lives in `நேரம் ஆச்சு` / `நேரம் இருக்கா?`), so "he owns it cold" rests on chunk
+membership; and **வார்த்தை** is unfenced, though the script establishes it twice before the
+வா/வாங்க beat needs it.
+
 ---
 
 ## Open Flag — Oracle check before this gets carried
 
 This is a public-facing artefact he will play to strangers, so a wrong ending costs more
-here than in a lesson. Recommend a 60-second Oracle (wife) vibe-check on the Tamil before
-render — specifically the நம்ம/நாங்க demo lines and the closing invitation, where register
-matters most. The system's own dialect pass can't verify itself, and the secret is not at
-risk: this piece is already something he intends to play out loud.
+here than in a lesson. The system's own dialect pass can't verify itself, and the secret is
+not at risk: this piece is already something he intends to play out loud.
+
+**v6 (2026-07-30) ran that dialect pass** — six sections, each reviewed against attested
+spoken usage rather than grammar-book correctness. The confident, zero-cost fixes are
+applied (see the script header). What follows is what the pass could *not* settle: seven
+register and trade-off questions where the reviewers explicitly deferred, ranked by what a
+wrong answer costs. This is the Oracle sheet — she does not need to read the script, only
+rule on these.
+
+### The seven open questions, ranked
+
+1. **`பொண்டாட்டி` (L72).** Real spoken Kongu, but overwhelmingly used about one's *own*
+   wife in male-to-male talk. Said about the man beside you, to a stranger, in a piece
+   whose job is to charm — does it land blunt? Alternatives: `வொய்ஃப்` (kinship terms are
+   heavily code-switched; costs nothing and removes an unfenced Tamil word) or `மனைவி`
+   (respectful, drifts formal for Anna's mouth). **She is also the person being named, so
+   this is doubly hers.**
+2. **The L174 apodosis.** The mixed imperative/declarative frame is fixed; which gloss is
+   right is not. Currently `நம்ம போலாம்னா நீங்களும் வர்றீங்க. நாங்க போறோம்னா நாங்க மட்டும்.`
+   The alternative for the shut-out pole is `நீங்க வரல`. Warmer from the inside, or clearer
+   from the outside?
+3. **`மூடு` vs `சாத்து` at the door (L176).** மூடு is a lid/box/eye verb; a door takes
+   சாத்து, and `கதவ சாத்திட்டாங்க` is the live idiom this line wants. **But the corpus
+   taught திற and மூடு together as a pair (tier2_mission41), and சாத்து appears nowhere
+   in it** — so the idiomatic fix costs a brand-new word mid-payload on a line he plays
+   blind. Idiom or comprehension? (Third option: restructure off the door metaphor.)
+4. **`ங்க-க்கு` (L202).** A bare suffix carrying a case suffix. Spoken aloud it is
+   "ngakku" with no boundary for the ear, and `defang_hyphens` will hand the voice
+   "ங்க க்கு" as two words. `அந்த ங்க-க்கு` gives the ear a landing strip but doesn't fix
+   the pile-up. Worth restructuring the clause?
+5. **`விழுந்துடும்` for a dropped suffix (L194).** விழு works metaphorically in Tamil
+   (`விலை விழுந்துடுச்சு`), but for an ending falling off a spoken word the reviewer could
+   only vouch for `வராது` and `விட்டுப்போயிடும்`. Possible calque of English "falls off".
+6. **`சரி சமம்` (L202).** Attested, but leans written/formal (`சரிசமமான உரிமை`). A
+   Coimbatore speaker settling a score says `சமம்` alone, or reaches for the accounts
+   idiom `கணக்கு சரியாயிடுச்சு` — which extends the free/pay frame beautifully but costs
+   an unfenced noun at the beat's emotional peak.
+7. **`நேரம் வந்திருக்கு` (L182).** Does the portentous "the moment has come" reading
+   dominate? The beat wants time turning up as a guest that isn't yours. The preceding
+   existence frame probably sets it, but the reviewer would not vouch for it.
+
+### Also worth one question, if she has patience
+
+- **`கொடு` vs `குடு` (L86, L90).** குடு is the spoken grapheme and the script uses it at
+  L106/L162, so the file is internally inconsistent. But the repo *and the lexicon* carry
+  both (`குடுங்க` alongside `கொடுத்தேன்`, `கொடுப்பேன்`), so this is a repo-wide
+  normalisation question, not a local typo. Don't normalise the corpus off one intro.
+- **`ஆளு` (L68).** Kept. Sits slightly rough against the honorific `இருக்காரே` in the same
+  breath, but Anna's robot bluntness may carry it. `இவரு இருக்காரே` is the neutral option.
+  (The `-ஏ` presentative itself is native and should stay — it's how Anna gestures at a man
+  while being a voice from a phone.)
+- **`சின்ன வயசுலயே நமக்கு இது தெரியும்` (L176).** Anna, who opened by saying he isn't
+  human, claims a Tamil childhood. Probably load-bearing: the inclusive நம்ம is what stops
+  the beat inverting into a foreigner's program explaining Tamil to a Tamil. If she snags,
+  `சின்ன பிள்ளைக்கே இது தெரியும்` is the cheap fix.
