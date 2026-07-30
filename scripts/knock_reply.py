@@ -51,9 +51,9 @@ from morning_knock import (OPENROUTER_BASE, MODEL, KNOCK_LOG_PATH, KNOCKS_DIR,
                            ANNA_VOICE, parse_llm_json, load_env, push_to_phone,
                            commit_and_push, maybe_enqueue_schedule, render_memo,
                            jsdelivr_url, refresh_feed)
-from sync_state import (LEXICON_PATH, LEARNER_PATH, FEEDBACK_LOG_PATH, TRIP_DATE,
-                        load_json, save_json, build_phonetic_index, resolve,
-                        compute_deck, fires_today)
+from sync_state import (LEXICON_PATH, LEARNER_PATH, FEEDBACK_LOG_PATH, SLIP_LOG_PATH,
+                        TRIP_DATE, load_json, save_json, build_phonetic_index, resolve,
+                        compute_deck, fires_today, append_slips, slip_patterns)
 
 PRODUCTION_RANK = {"none": 0, "hinted": 1, "cold": 2}
 VERDICTS = {"cold", "hinted", "miss", "chat"}
@@ -179,11 +179,37 @@ Return ONLY a JSON object, no prose around it:
   "follow_up_ask": "<one line chaining the next rep; empty string to stop>",
   "follow_up_target": "<the one word/chunk/frame it asks for (Tamil script or frame:... key); empty if no chain>",
   "follow_up_target_revealed": true | false,
+  "slips": [{"tag": "<stable pattern name>", "said": "<his form>", "want": "<the right form>", "note": "<one clause>"}, ...],
   "meta_note": "<one line ONLY when the reply carried direction/correction/testimony for the system — it lands in the feedback ledger; empty string otherwise>",
   "voice_reply": "<spoken words when this answer wants to be HEARD; empty string otherwise — see REACH>",
   "schedule": {"at_local": "YYYY-MM-DDTHH:MM", "body": "<the full dose>", "memo_script": "<spoken words for a VOICE dose; empty for text>","expected_target": "<or empty>", "target_revealed": true | false, "move": "<2-4 words>"} | null,
   "rationale": "<one line, for the log>"
 }
+"""
+
+
+SLIP_MANDATE = """\
+--- SLIPS: the error record that outlives this exchange ---
+
+Whenever you recast — ANY verdict, including a "hinted" that mostly landed — also return \
+the mistake in "slips". The recast repairs this instance; the slip is what lets the \
+system teach the thing underneath it later.
+
+"tag" names the machine that failed, not this instance, and must stay STABLE across \
+instances — Python counts recurrences by that exact string. `1pl-om` covers both \
+"ponnam"→"ponnom" and "sappiten"→"saapittoom"; `past-tense` covers "irukku"→"irundhuchu"; \
+`stranger-nga` covers "pesa"→"pesunga". The context lists tags already on the ledger — \
+reuse one rather than coining a synonym. "said"/"want" are the two FORMS, not sentences; \
+"note" is one clause, no terminology.
+
+Return [] when nothing was wrong, when the miss is pure vocabulary never taught, or when \
+he substituted a line that works — a substitution is signal to teach, not a slip (07-27). \
+A wrong ENDING on a right word is always a slip: that is the gap this exists for.
+
+A CORRECTED ITEM IS NOT A FIRE — a word you recast does not also go in "fired". Python \
+drops any fire matching a slip's "want" (07-30: ரொம்ப நல்லா இருக்கு scored a hinted fire \
+while the same line corrected its tense, so a wrong answer moved the axis and took a rep). \
+Credit what landed; slip what didn't.
 """
 
 
@@ -507,6 +533,14 @@ def judge(knock: dict, reply_text: str, target_record: dict | None,
         "expected_target_lexicon_record": target_record,
         "revealed_recently": revealed_recent or [],
         "andrew_reply": reply_text,
+        # Tags already on the ledger, so the judge matches an existing pattern
+        # instead of coining a synonym for it. Counting is by exact string, so
+        # `past-tense` and `wrong-tense` as two rows would hide the very
+        # recurrence the ledger exists to expose — this is the cheap guard, and
+        # it costs nothing when the ledger is empty.
+        "slip_tags_in_use": [
+            {"tag": p["tag"], "seen": p["count"], "means": p["notes"][-1] if p["notes"] else ""}
+            for p in slip_patterns() if p["live"]][:12],
     }
     if knock.get("volley"):
         context["knock"]["volley_in_progress"] = (
@@ -520,7 +554,7 @@ def judge(knock: dict, reply_text: str, target_record: dict | None,
     elif knock.get("reply"):
         context["prior_exchanges"] = [{"andrew_said": knock["reply"],
                                        "anna_recast": knock.get("reply_line", "")}]
-    mandate = (JUDGE_MANDATE + "\n" + REACH_MANDATE
+    mandate = (JUDGE_MANDATE + "\n" + SLIP_MANDATE + "\n" + REACH_MANDATE
                + (FORCE_SCHEDULE_ADDENDUM if force_schedule else ""))
     client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
     resp = client.chat.completions.create(
@@ -596,6 +630,41 @@ def normalize_verdict(d: dict, reply_text: str = "") -> dict:
             continue
         v = item.get("verdict") if item.get("verdict") in ("cold", "capped") else "hinted"
         fired.append({"word": w, "said": said or w, "verdict": v})
+    # Slips: the structured error record. Guard the shape here so a judge that
+    # returns junk cannot poison the ledger — a tag is mandatory (Python counts
+    # by it), everything else is best-effort prose.
+    slips = []
+    for s in d.get("slips", []) or []:
+        if not isinstance(s, dict):
+            continue
+        tag = (s.get("tag") or "").strip()
+        if not tag:
+            continue
+        slips.append({"tag": tag, "said": (s.get("said") or "").strip(),
+                      "want": (s.get("want") or "").strip(),
+                      "note": (s.get("note") or "").strip()})
+    d["slips"] = slips
+
+    # A word the judge corrected cannot also be a word it credited. The mandate
+    # says so; Python enforces it, because the mandate said "credit what he said"
+    # since 07-27 and the 07-30 volley still fired ரொம்ப நல்லா இருக்கு off a reply
+    # whose own recast fixed its tense. Matching is on the flattened `want` —
+    # against both the fired key and the span he typed, so it catches the case
+    # where the judge names the canonical key and quotes his phonetic attempt.
+    corrected = {flatten_for_match(s["want"]) for s in slips if s["want"]}
+    if corrected:
+        kept = []
+        for item in fired:
+            hit = next((c for c in corrected
+                        if c and (c == flatten_for_match(item["word"])
+                                  or c == flatten_for_match(item["said"]))), None)
+            if hit:
+                unverified.append(f"{item['word']} (corrected in the same breath — "
+                                  f"slipped, not fired)")
+                continue
+            kept.append(item)
+        fired = kept
+
     d["unverified"] = unverified
     d["fired"] = fired if d["verdict"] in ("cold", "hinted") else []
     if d["fired"]:
@@ -907,7 +976,32 @@ def main():
         "verdict": verdict["verdict"], "fired": fired_words,
         "fired_cold": cold_credited, "fired_capped": capped_keys,
         "graduated": graduated, "reply_line": knock["reply_line"],
+        "slips": [s["tag"] for s in verdict.get("slips") or []],
     })
+
+    # The slip ledger — the phone lane's half. This is the seam that did not
+    # exist: knock corrections lived only as prose in reply_line, which nothing
+    # read as error signal, so a mistake made on the phone could never reach the
+    # next lesson's selection. Written through sync_state because sync_state owns
+    # every write to progress/ (LLM is the writer, Python is the brain).
+    if verdict.get("slips"):
+        learner_now = load_json(LEARNER_PATH) or {}
+        from sync_state import LOCAL_TZ
+        written = append_slips(
+            verdict["slips"], lane="knock", modality=knock.get("modality", ""),
+            dose_channel=(learner_now.get("soak_order") or {}).get("channel", ""),
+            when=datetime.now(timezone.utc).astimezone(LOCAL_TZ).date().isoformat())
+        for row in written:
+            print(f"   slip: {row['tag']} — “{row['said']}” → “{row['want']}”")
+        repeated = {p["tag"]: p for p in slip_patterns() if p["pattern"] and p["live"]}
+        for row in written:
+            p = repeated.get(row["tag"])
+            if p:
+                print(f"   ⚠ {p['tag']} is {p['count']}× over {p['span_days']}d "
+                      f"— pattern, not a one-off"
+                      + ("; NEVER COMMISSIONED" if p["uncommissioned"]
+                         else f"; ESCALATE past {p['channels'][0]}" if p["escalate"]
+                         else ""))
     if volley_pin is not None:
         # Volley advance is Python's: the pin walks the queue Python composed;
         # expected_target stays the original first ask (auditable, 2026-07-06 law).
@@ -955,6 +1049,10 @@ def main():
     commit_paths = [LEXICON_PATH, KNOCK_LOG_PATH, render_chat()]
     if cohort_changed:
         commit_paths.append(LEARNER_PATH)
+    # The ledger is written on the runner; unpushed it dies with the container,
+    # and the accumulation this whole mechanism exists for never happens.
+    if verdict.get("slips"):
+        commit_paths.append(SLIP_LOG_PATH)
     if voice_url:
         commit_paths.insert(0, vmp3)
         rss = refresh_feed()   # all audio lands on the feed (2026-07-05)

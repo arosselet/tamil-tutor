@@ -49,6 +49,16 @@ EPISODES_PATH = BASE / "progress" / "episodes.json"
 SESSION_LOG_PATH = BASE / "progress" / "session_log.json"
 FEEDBACK_LOG_PATH = BASE / "progress" / "feedback_log.json"
 KNOCK_LOG_PATH = BASE / "progress" / "knock_log.json"
+SLIP_LOG_PATH = BASE / "progress" / "slip_log.json"
+
+# How a slip stops being live. A tag goes QUIET after this many days with no
+# recurrence — it is not "fixed", it is just no longer evidence, and re-appearing
+# revives it with its whole history intact (the ledger never forgets, the SURFACE
+# forgets). Anna can also close one by name when he has actually seen it land.
+SLIP_QUIET_DAYS = 21
+# Recurrence that makes a slip a pattern rather than a one-off — the same bar
+# protocol/diagnosis.md sets for the system's own bugs: one is noise, two is signal.
+SLIP_PATTERN_COUNT = 2
 
 # The sprint deadline (profile.md Phase 1.5): Andrew lands in India the week of
 # 2026-08-12. The deck countdown is computed against this; clear it after the trip.
@@ -618,6 +628,31 @@ def cmd_update(args):
     if args.debrief:
         learner["last_debrief"] = args.debrief
 
+    # The chat lane's half of the slip ledger. `last_debrief` above is prose and
+    # is OVERWRITTEN every close by design (it is the running story); a mistake
+    # recorded only there survives exactly as long as Anna keeps retyping it.
+    # This is the accumulating half — same ledger the knock judge writes to, so
+    # a slip made at the table and a slip made on the phone are one history.
+    slip_rows = []
+    for raw in getattr(args, "slip", None) or []:
+        parts = [p.strip() for p in raw.split("|")]
+        if not parts or not parts[0]:
+            print(f"  ! --slip {raw!r} has no tag before the first '|' — skipped")
+            continue
+        parts += [""] * (4 - len(parts))
+        slip_rows.append({"tag": parts[0], "said": parts[1],
+                          "want": parts[2], "note": parts[3]})
+    if slip_rows:
+        channel = (learner.get("soak_order") or {}).get("channel", "")
+        written = append_slips(slip_rows, lane="chat", modality="session",
+                               dose_channel=channel)
+        for row in written:
+            print(f"  Slip logged: {row['tag']} — “{row['said']}” → “{row['want']}”")
+        for p in slip_patterns():
+            if p["pattern"] and p["live"] and p["tag"] in {r["tag"] for r in written}:
+                print(f"  ⚠ {p['tag']} is now {p['count']}× over {p['span_days']}d "
+                      f"— it is a pattern, not a one-off.")
+
     # No streak bookkeeping — recency comes from the session log, and a stored
     # streak is a meter that lies the moment a day is skipped (Enjoyment Clause).
     learner.pop("streak", None)
@@ -898,6 +933,17 @@ def knock_line(k: dict) -> str:
         fired = k.get("reply_fired_cold") or []
         if fired:
             back += f" · fired COLD: {', '.join(fired)}"
+        # What Anna actually CORRECTED, not just that a reply happened. Until
+        # 2026-07-30 this line stopped at the verdict, so a session opened knowing
+        # Andrew replied and it was "hinted" with no idea what was wrong — the
+        # correction sat in reply_line, read back only by the reveal-window and
+        # deck-coverage scans. That is how the same recast could ship three times
+        # in three weeks and look like normal progress.
+        recasts = [x.get("reply_line", "") for x in k.get("exchanges", [])] or \
+                  [k.get("reply_line", "")]
+        recasts = [r.split(" · ")[0].strip() for r in recasts if r]
+        if recasts:
+            back += "\n      corrected: " + " | ".join(r[:88] for r in recasts[-2:])
     elif k.get("response"):
         back = f"→ {k['response']}"
     else:
@@ -1017,6 +1063,16 @@ def cmd_status(_args):
     if trailer:
         body = (trailer.get("body") or "").replace("\n", " ")
         print(f"🎬 UNPAID TRAILER: \"{body}\" — its promised teach OPENS the session (pay it off in the first two exchanges).")
+
+    # The error memory, ahead of the meters. A word being not-yet-cold says it
+    # needs another rep; a repeated slip says HOW the rep keeps failing, which is
+    # the difference between re-asking the same thing the same way and teaching
+    # the thing that is actually broken.
+    slip_block = format_slip_block(slip_patterns())
+    if slip_block:
+        print()
+        for line in slip_block:
+            print(line)
     print()
 
     if lexicon:
@@ -1142,6 +1198,230 @@ def cmd_knock_response(args):
     print(f"  Knock {last['date']} marked '{response}'")
 
 
+_TAG_RE = re.compile(r"[^a-z0-9]+")
+
+
+def canon_tag(s: str) -> str:
+    """Normalise a slip tag to a stable slug. The JUDGE names the pattern (it owns
+    the morphology — same seam as the fired-word contract); Python only makes the
+    name comparable, so 'Past tense' and 'past-tense' are one row and not two.
+
+    Deliberately NOT a closed vocabulary. A fixed enum would force every new error
+    into a pre-imagined bucket and silently mislabel the ones that matter most —
+    the whole point of the ledger is to show a pattern nobody named in advance.
+    The cost is drift (two slugs for one pattern), which is visible in the summary
+    and cheap for Anna to merge; the cost of an enum is invisible and is not."""
+    return _TAG_RE.sub("-", (s or "").strip().casefold()).strip("-")
+
+
+def append_slips(entries: list[dict], lane: str, modality: str = "",
+                 dose_channel: str = "", when: str = "") -> list[dict]:
+    """Append structured errors to the slip ledger. THE LEDGER IS APPEND-ONLY —
+    nothing here ever rewrites or prunes a row.
+
+    That is the whole reason this file exists rather than a field on learner.json:
+    the system's existing error memory was `last_debrief`, a single string
+    OVERWRITTEN on every close (2026-07-30 audit), so a mistake survived only as
+    long as Anna retyped it. It also never crossed lanes — `daily_session.md`
+    drew repairs from "the day's" chat session, and knock corrections lived only
+    as prose in knock_log.json that nothing read back. Result: 'romba nalla
+    irukku' → 'irundhuchu' was corrected on 07-08, 07-25 and 07-30, near-verbatim,
+    with no mechanism able to notice.
+
+    `dose_channel` is the channel of the soak order live when the slip happened —
+    the counter behind audio_channels.md's "the same mistake twice through one
+    format is that format's answer." That law shipped 2026-07-28 with nothing
+    counting formats, so it could never fire.
+
+    `when` overrides the stamped date. Spans and recurrence are computed from it,
+    so it must be the date the mistake was MADE, not the date it was recorded: a
+    reply typed at 9pm local is judged after midnight UTC on the runner, and
+    `date.today()` there files it under tomorrow — the same local-vs-UTC seam
+    apply_verdict already handles with `today_local` for capped fires."""
+    if not entries:
+        return []
+    log = load_json(SLIP_LOG_PATH) or []
+    now = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+    today = when or datetime.now(LOCAL_TZ).date().isoformat()
+    # Resolve `want` to a lexicon key here, once, so every caller gets the same
+    # answer and the ticket can hang a slip off the floor-gap row it belongs to.
+    # An unresolvable want is normal and fine — a slip about an ENDING often has
+    # no single word behind it, and the tag carries the meaning regardless.
+    lexicon = load_json(LEXICON_PATH) or {}
+    phon_index = build_phonetic_index(lexicon)
+    written = []
+    for e in entries:
+        tag = canon_tag(e.get("tag", ""))
+        if not tag:
+            continue
+        if not e.get("word"):
+            e = dict(e, word=resolve(e.get("want", ""), lexicon, phon_index) or "")
+        row = {
+            "at": now,
+            "date": today,
+            "lane": lane,
+            "modality": modality,
+            "tag": tag,
+            "said": (e.get("said") or "").strip(),
+            "want": (e.get("want") or "").strip(),
+            "note": (e.get("note") or "").strip(),
+            "word": (e.get("word") or "").strip(),
+        }
+        if dose_channel:
+            row["dose_channel"] = dose_channel
+        log.append(row)
+        written.append(row)
+    if written:
+        save_json(SLIP_LOG_PATH, log)
+    return written
+
+
+def slip_patterns(log: list | None = None, today=None) -> list[dict]:
+    """Aggregate the ledger by tag, newest-recurrence first. The MENU, not the
+    choice — Python counts and groups; Anna reads the group and decides what it
+    means and what to do about it (the 2026-06-17 division of labour).
+
+    Returns one row per tag: how often, over how long, in which lanes, through
+    which dose channels, and whether it is still live. `escalate` marks the case
+    the channel law cares about — recurred, and every attempt so far went through
+    ONE format."""
+    log = load_json(SLIP_LOG_PATH) if log is None else log
+    log = log or []
+    today = today or date.today()
+    closed = {canon_tag(t) for t in (load_json(LEARNER_PATH) or {}).get("slips_closed", [])}
+    by_tag: dict[str, dict] = {}
+    for row in log:
+        tag = row.get("tag")
+        if not tag:
+            continue
+        agg = by_tag.setdefault(tag, {
+            "tag": tag, "count": 0, "first": row.get("date"), "last": row.get("date"),
+            "lanes": [], "channels": [], "words": [], "examples": [], "notes": [],
+        })
+        agg["count"] += 1
+        agg["last"] = row.get("date") or agg["last"]
+        if row.get("date") and row["date"] < (agg["first"] or row["date"]):
+            agg["first"] = row["date"]
+        for key, field in (("lanes", "lane"), ("channels", "dose_channel"), ("words", "word")):
+            v = row.get(field)
+            if v and v not in agg[key]:
+                agg[key].append(v)
+        if row.get("said") or row.get("want"):
+            agg["examples"].append((row.get("date"), row.get("said", ""), row.get("want", "")))
+        if row.get("note") and row["note"] not in agg["notes"]:
+            agg["notes"].append(row["note"])
+
+    out = []
+    for agg in by_tag.values():
+        try:
+            days_quiet = (today - date.fromisoformat(agg["last"])).days
+        except (TypeError, ValueError):
+            days_quiet = 0
+        agg["days_quiet"] = days_quiet
+        agg["span_days"] = _span_days(agg["first"], agg["last"])
+        agg["closed"] = agg["tag"] in closed
+        agg["live"] = not agg["closed"] and days_quiet <= SLIP_QUIET_DAYS
+        agg["pattern"] = agg["count"] >= SLIP_PATTERN_COUNT
+        # Two different failures, two different instructions. NEVER COMMISSIONED
+        # means he has been corrected in passing and nothing was ever built for
+        # it — the fix is to commission anything at all. ESCALATE means a dose
+        # was built, through one format, and he slipped again anyway — that is
+        # the audio_channels law, and telling it to "change format" when no
+        # format was ever tried would be advice for a problem he doesn't have.
+        agg["uncommissioned"] = agg["pattern"] and agg["live"] and not agg["channels"]
+        agg["escalate"] = (agg["pattern"] and agg["live"]
+                           and len(agg["channels"]) == 1)
+        out.append(agg)
+    out.sort(key=lambda a: (a["live"], a["pattern"], a["last"] or "", a["count"]), reverse=True)
+    return out
+
+
+def _span_days(first: str, last: str) -> int:
+    try:
+        return (date.fromisoformat(last) - date.fromisoformat(first)).days
+    except (TypeError, ValueError):
+        return 0
+
+
+def format_slip_block(patterns: list[dict], limit: int = 6,
+                      width: int = 0) -> list[str]:
+    """Render live repeated slips for a reader surface. One renderer, three
+    callers (status, the knock context, the ticket) — the 07-26 quiet-hours
+    argument: four copies of a rule means one of them is the gap, and the gap is
+    the lane that fires."""
+    live = [p for p in patterns if p["live"] and p["pattern"]]
+    if not live:
+        return []
+    lines = ["REPEATED SLIPS — mistakes he has made more than once, newest first.",
+             "  These are the primary signal for what to drill. A slip is not closed by",
+             "  being corrected; it is closed by firing right, unaided, later."]
+    for p in live[:limit]:
+        when = (f"{p['count']}× over {p['span_days']}d" if p["span_days"]
+                else f"{p['count']}×")
+        quiet = f", last {p['days_quiet']}d ago" if p["days_quiet"] else ", today"
+        lines.append(f"  ⚠ {p['tag']} — {when}{quiet}")
+        for d, said, want in p["examples"][-2:]:
+            lines.append(f"      {d}: said “{said}” → wanted “{want}”")
+        if p["notes"]:
+            lines.append(f"      pattern: {p['notes'][-1]}")
+        if p["uncommissioned"]:
+            lines.append("      ⚠ NEVER COMMISSIONED — corrected in passing every "
+                         "time and no dose was ever built for it. This one is owed "
+                         "a soak order, not another recast.")
+        elif p["escalate"]:
+            lines.append(f"      ⚠ ESCALATE — a {p['channels'][0]} dose was built "
+                         f"for this and he slipped again. audio_channels.md: change "
+                         f"the format, never loop harder.")
+    if len(live) > limit:
+        lines.append(f"  … {len(live) - limit} more live slip(s) behind these")
+    return lines
+
+
+def cmd_slips(args):
+    """Read the slip ledger (aggregated), or close a tag by name.
+
+    Capture is NOT here: slips are written by the judge that saw the mistake
+    (knock_reply.py) and by `update --slip` at session close, both through
+    append_slips(). Reading is the common case — this is Anna's error memory."""
+    if args.close:
+        learner = load_json(LEARNER_PATH) or {}
+        closed = [canon_tag(t) for t in learner.get("slips_closed", [])]
+        for tag in args.close:
+            t = canon_tag(tag)
+            if t and t not in closed:
+                closed.append(t)
+                print(f"  Slip closed: {t} — it stops surfacing; its history stays.")
+        learner["slips_closed"] = closed
+        save_json(LEARNER_PATH, learner)
+        return
+
+    patterns = slip_patterns()
+    if not patterns:
+        print("No slips logged yet.")
+        return
+    live = [p for p in patterns if p["live"] and p["pattern"]]
+    print(f"SLIP LEDGER ({sum(p['count'] for p in patterns)} slips, "
+          f"{len(patterns)} patterns, {len(live)} live and repeated):")
+    for p in patterns[:args.n]:
+        state = ("LIVE" if p["live"] and p["pattern"] else
+                 "closed" if p["closed"] else
+                 "quiet" if not p["live"] else "once")
+        print(f"\n  [{state}] {p['tag']} — {p['count']}× "
+              f"({p['first']} → {p['last']}, {p['span_days']}d span)")
+        if p["lanes"]:
+            print(f"        lanes: {', '.join(p['lanes'])}"
+                  + (f" · dose channels tried: {', '.join(p['channels'])}"
+                     if p["channels"] else " · no dose ever commissioned for it"))
+        for d, said, want in p["examples"][-3:]:
+            print(f"        {d}: “{said}” → “{want}”")
+        if p["notes"]:
+            print(f"        pattern: {p['notes'][-1]}")
+        if p["uncommissioned"]:
+            print("        ⚠ NEVER COMMISSIONED — owed a dose, not another recast.")
+        elif p["escalate"]:
+            print(f"        ⚠ ESCALATE — {p['channels'][0]} was tried; change format.")
+
+
 def cmd_feedback(args):
     """Capture (append a dated note) or read (list recent) the feedback ledger.
     Feeds the Diagnosis pass (protocol/diagnosis.md): Anna proposes fixes from
@@ -1208,6 +1488,10 @@ def main():
                     help="Frame key to set as the engine to unlock next (e.g. 'frame:polite-nga')")
     up.add_argument("--mark-seen", type=str, action="append", default=[],
                     help="Frame/word key(s) to mark as seen today (sets last_surfaced; closes lore-memo gap)")
+    up.add_argument("--slip", type=str, action="append", default=[],
+                    help="A mistake worth remembering: 'tag|what he said|what it should be|the pattern in one clause'. "
+                         "Repeatable. Appends to the slip ledger — never overwrites. The knock judge writes these "
+                         "itself; this is the chat lane's half, so a session mistake accumulates the same way.")
 
     ap = sub.add_parser("add-pattern", help="Seed a generative pattern/lemma record (tracked as an Engine)")
     ap.add_argument("key", help="Canonical key, e.g. 'frame:present-future-toggle'")
@@ -1237,6 +1521,11 @@ def main():
     fb.add_argument("note", nargs="?", default=None, help="The feedback to log; omit to list recent")
     fb.add_argument("-n", type=int, default=20, help="How many recent entries to show when listing")
 
+    sl = sub.add_parser("slips", help="Read the slip ledger (what Andrew keeps getting wrong), or close a tag")
+    sl.add_argument("-n", type=int, default=15, help="How many patterns to show")
+    sl.add_argument("--close", action="append", default=[],
+                    help="Tag(s) to stop surfacing — use when the pattern has actually landed; history is kept")
+
     args = parser.parse_args()
     if args.command == "update":
         cmd_update(args)
@@ -1250,6 +1539,8 @@ def main():
         cmd_seed_deck(args)
     elif args.command == "feedback":
         cmd_feedback(args)
+    elif args.command == "slips":
+        cmd_slips(args)
     elif args.command == "knock-response":
         cmd_knock_response(args)
     else:
