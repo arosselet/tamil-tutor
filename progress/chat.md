@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Thursday 2026-07-30
+
+**09:08 · Anna**  ·  text / trailer payoff bell
+> "romba nallairuku" — two words, her face changes. today's session pays it off. 🍽️
+
+
 ## Wednesday 2026-07-29
 
 **11:11 · Anna** 🎧  ·  eavesdrop / sisters tape: vittidu
@@ -11,6 +17,8 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 **17:33 · Anna**  ·  text / trailer: romba nallairuku
 > tomorrow's session has one job — ரொம்ப நல்லாருக்கு (romba nallairuku). two words. maami melts. tomorrow.
+
+**Andrew** · 👍 acked
 
 
 ## Tuesday 2026-07-28
