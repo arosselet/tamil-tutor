@@ -5,7 +5,7 @@ Pass 3+: put it away. Blind is the win — and blind is the point, because you'l
 
 ---
 
-> **ANNA:** Vanakkam. En peru Anna. Naan oru manushan illa. Oru program.<br>
+> **ANNA:** Vanakkam. En peru Anna. Naan manushan illa. Oru program.<br>
 > Hello. My name is Anna. I'm not a person. A program.
 
 > **ANNA:** Indha aalu irukkaare, ivaru peru Andrew. Ivaru dhaan enna ezhudhunaaru.<br>
@@ -13,16 +13,16 @@ Pass 3+: put it away. Blind is the win — and blind is the point, because you'l
 
 *[Pause]*
 
-> **ANNA:** Ivaroda pondaatti Coimbatore. Andha veetla ellaarum tamizh-la pesuvaanga.<br>
+> **ANNA:** Ivaroda pondaatti ooru Coimbatore. Andha veetla ellaarum tamizh-la pesuvaanga.<br>
 > His wife is from Coimbatore. In that house everyone speaks Tamil.
 
-> **ANNA:** Ivaru mattum sirichittu ukkaandhiruppaaru.<br>
+> **ANNA:** Ivaru mattum sirichitté ukkaandhiruppaaru.<br>
 > He alone will be sitting there smiling.
 
 *[Pause]*
 
-> **ANNA:** Tamizh kathukkarathu ivarukku oru malai maadhiri therinjadhu. Oru naalaikku anju kallu thookkuna podhum.<br>
-> Learning Tamil looked like a mountain to him. Lift five stones a day and that's enough.
+> **ANNA:** Tamizh kathukkarathu ivarukku malai maadhiri irundhuchu. Oru naalaikku anju kallu thookkuna podhum.<br>
+> Learning Tamil felt like a mountain to him. Lift five stones a day and that's enough.
 
 > **ANNA:** Kashtam andha anju kallu illa. Innaiku endha anju-nu theriyanum. Adhu dhaan kashtam.<br>
 > The difficulty isn't the five stones. You have to know *which* five today. That's the hard part.
@@ -45,10 +45,10 @@ Pass 3+: put it away. Blind is the win — and blind is the point, because you'l
 
 *[Pause]*
 
-> **ANNA:** Appuram ivaru thaané oru Google Doc-la ettu vaarathukku paadam ezhudhi vechaaru.<br>
+> **ANNA:** Appuram ivaré oru Google Doc-la ettu vaarathukku paadam ezhudhi vechaaru.<br>
 > Then he himself wrote eight weeks of lessons into a Google Doc.
 
-> **ANNA:** Appa ivarukku tamizhé theriyaadhu. Aana enna kathukkanum-ngaradha ivaru dhaan mudivu pannaaru.<br>
+> **ANNA:** Appa ivarukku tamizhé theriyaadhu. Aana enna kathukkanum-nu ivaru dhaan mudivu pannaaru.<br>
 > At that point he didn't know any Tamil at all. But he was the one deciding what he should learn.
 
 *[Pause]*
@@ -79,18 +79,18 @@ Pass 3+: put it away. Blind is the win — and blind is the point, because you'l
 
 *[Pause]*
 
-> **ANNA:** Fridge-ai eppadi solradhu-nu kelunga. Kulirsaadhanappetti-nnu sollum.<br>
-> Ask it how to say "fridge." It'll say *kulirsaadhanappetti*.
+> **ANNA:** Fridge tamizh-la eppadi solradhu-nu kettu paarunga. Kulirsaadhanappetti-nnu sollum.<br>
+> Ask it how you say "fridge" in Tamil. It'll say *kulirsaadhanappetti*.
 
 *[Pause]*
 
-> **ANNA:** Yaaru appadi pesuradhu? Inga fridge-naa fridge dhaan. Bus-naa bus dhaan.<br>
+> **ANNA:** Yaaru appadi pesuradhu? Inga fridge-nnaa fridge dhaan. Bus-nnaa bus dhaan.<br>
 > Who talks like that? Here a fridge is a fridge. A bus is a bus.
 
 *[Pause]*
 
-> **ANNA:** Innoru prachanaiyum irundhuchu. Munnaadiyé ezhudhi vecha plan-kku week three-la enna irukku-nnu theriyum. Sevvaaykkizhamai ivaru edha thappa sonnaaru-nnu theriyaadhu.<br>
-> There was another problem too. A plan written in advance knows what's in week three. It doesn't know what he got wrong on Tuesday.
+> **ANNA:** Innoru prachanaiyum irundhuchu. Munnaadiyé ezhudhi vecha plan-ai paatha, week three-la enna irukku-nnu theriyum. Sevvaaykkizhamai ivaru edha thappa sonnaaru-nnu theriyaadhu.<br>
+> There was another problem too. Look at a plan written in advance and you know what's in week three. It doesn't know what he got wrong on Tuesday.
 
 *[Pause]*
 
@@ -105,10 +105,10 @@ Pass 3+: put it away. Blind is the win — and blind is the point, because you'l
 
 *[Pause]*
 
-> **ANNA:** Ennoda thappu-nnu ivaru solliyirukkalaam. Sollala.<br>
+> **ANNA:** Ivaru ennoda thappu-nnu solliyirukkalaam. Sollala.<br>
 > He could have said it was his own fault. He didn't.
 
-> **ANNA:** Boring-aa irundhuchu-nnaa, adhu machine-oda thappu. Adhu ippa oru rule.<br>
+> **ANNA:** Boring-aa irundhaa, adhu machine-oda thappu dhaan. Adhu ippa oru rule.<br>
 > If it was boring, that's the machine's fault. That's a rule now.
 
 *[Pause]*
@@ -116,15 +116,15 @@ Pass 3+: put it away. Blind is the win — and blind is the point, because you'l
 > **ANNA:** Appuram enakku oru memory ezhudhunaaru. Adhula AI onnum illa. Saadhaarana code.<br>
 > Then he wrote me a memory. There's no AI in it. Ordinary code.
 
-> **ANNA:** Adhula ellaa vaarthaiyum irukku. Edhu nalla theriyum, edhu marandhu pochu, sevvaaykkizhamai edha thappa sonnaaru.<br>
+> **ANNA:** Adhula ellaa vaarthaiyum irukku. Edhu ivarukku nalla theriyum, edhu marandhu pochu, sevvaaykkizhamai edha thappa sonnaaru.<br>
 > Every word is in it. What he knows well, what's been forgotten, what he got wrong on Tuesday.
 
-> **ANNA:** Ippa enakku theriyum, innaiku endha anju kallu-nu.<br>
+> **ANNA:** Innaiku endha anju kallu-nu ippa enakku theriyum.<br>
 > Now I know which five stones today.
 
 *[Pause]*
 
-> **ANNA:** Andha kulirsaadhanappetti prachanaikkum oru fix pannaaru. Enakku English-la oru file ezhudhunaaru. Ippadi pesu, Coimbatore maadhiri pesu-nnu.<br>
+> **ANNA:** Andha kulirsaadhanappetti prachanaiyaiyum fix pannaaru. Enakku English-la oru file ezhudhunaaru. Ippadi pesu, Coimbatore maadhiri pesu-nnu.<br>
 > He fixed that *kulirsaadhanappetti* problem too. He wrote me a file, in English. Talk like this. Talk like Coimbatore.
 
 *[Pause]*
@@ -132,34 +132,34 @@ Pass 3+: put it away. Blind is the win — and blind is the point, because you'l
 > **ANNA:** Ippa naan ivar-kitta varuven. Kaalaila phone-kku oru message. Bus stop-la andha podcast.<br>
 > Now I come to him. A message to his phone in the morning. At the bus stop, that podcast.
 
-> **ANNA:** Raathiri tired-aa vandhaaru-nnaa, rendu nimisham kuduthuttu, poi thoonguga-nnu sollriduven.<br>
+> **ANNA:** Raathiri tired-aa vandhaaru-nnaa, rendu nimisham kuduthuttu, poi thoongunga-nnu solliduven.<br>
 > If he comes home tired at night, I give him two minutes and tell him to go to sleep.
 
 *[Pause]*
 
-> **ANNA:** Ivarukku tamizh romba pudhusu. Aana namma tamizh-la sila vishayam irukku, English-la adhe kidaiyaadhu.<br>
+> **ANNA:** Ivarukku tamizh romba pudhusu. Aana namma tamizh-la sila vishayam irukku. English-la adhellaam kidaiyaadhu.<br>
 > Tamil is very new to him. But our Tamil has some things English simply doesn't have.
 
 > **ANNA:** English-la "we"-nnu ore vaarthai. Avlo dhaan.<br>
 > In English there's one word, "we." That's it.
 
-> **ANNA:** Namakku rendu irukku. Namma. Naanga.<br>
+> **ANNA:** Namakku rendu irukku paarunga. Namma. Naanga.<br>
 > We have two. *Namma.* *Naanga.*
 
 *[Pause]*
 
-> **ANNA:** Namma polaam-naa neengalum vaanga. Naanga poroam-naa neenga illa.<br>
-> *Namma polaam* means you're coming too. *Naanga poroam* means you're not.
+> **ANNA:** Namma polaamnaa neengalum varreenga. Naanga poroamnaa naanga mattum.<br>
+> *Namma polaam* means you're coming too. *Naanga poroam* means it's just us.
 
 > **ANNA:** Oru vaarthaila kadhava thirakkuroam. Innoru vaarthaila muduroam. Sinna vayasulaye namakku idhu theriyum.<br>
 > With one word we open the door. With the other we shut it. We know this from when we're small.
 
 *[Pause]*
 
-> **ANNA:** Innonnu. English-la "I have time"-nnu solraanga. Nerathai pudichittu irukkira maadhiri.<br>
+> **ANNA:** Innonnu. English-la "I have time"-nnu solraanga. Nerathai pudichittu irukkara maadhiri.<br>
 > Another one. In English they say "I have time." As though you'd grabbed hold of it.
 
-> **ANNA:** Naama enna solroam? Enakku neram irukku. Neram vandhirukku. Adhu ennodadhu illa.<br>
+> **ANNA:** Namma enna solroam? Enakku neram irukku. Neram vandhirukku. Adhu ennodadhu illa.<br>
 > What do we say? *Time exists, to me.* The time has come. It isn't mine.
 
 *[Pause]*
@@ -170,34 +170,34 @@ Pass 3+: put it away. Blind is the win — and blind is the point, because you'l
 > **ANNA:** English-la "come"-nnu ore vaarthai. Boss-kittayum adhe. Thambi-kittayum adhe.<br>
 > In English there's one word, "come." Same for your boss. Same for your little brother.
 
-> **ANNA:** Namakku vaa irukku, vaanga irukku. Mariyaadhai verb-layé irukku.<br>
-> We have *vaa*, we have *vaanga*. The respect is inside the verb itself.
+> **ANNA:** Namakku appadi illa. Boss-kitta vaanga. Thambi-kitta vaa. Mariyaadhai vaarthailayé irukku.<br>
+> We don't work like that. To your boss, *vaanga*. To your little brother, *vaa*. The respect sits inside the word itself.
 
 *[Pause]*
 
-> **ANNA:** Ivaru nalla dhaan solraaru. Aana kadaisila andha -nga vizhundhudum. Sollunga-nnu sollanum, sollu-nnu sollriduvaaru.<br>
-> He says it well enough. But the *-nga* falls off the end. He should say *sollunga*, and out comes *sollu*.
+> **ANNA:** Ivaru nalla dhaan solraaru. Aana kadaisila andha -nga vizhundhudum. "Sollunga"-nnu sollanum. Vaayla "sollu" dhaan varum.<br>
+> He says it well enough. But the *-nga* falls off the end. He should say *sollunga*. What comes out of his mouth is *sollu*.
 
-> **ANNA:** Dhinamum naan adha dhaan paathuttu irukken.<br>
+> **ANNA:** Dhinamum adha dhaan paathukkittu irukken.<br>
 > That's the thing I watch for, every day.
 
 *[Pause]*
 
-> **ANNA:** Aana niyaayamaa paatha, neenga English kathukkittappa oru prachanai irundhirukkum. "a", "the", idhellaam. Tamizh-la appadi onnume kidaiyaadhu.<br>
-> But fair's fair — when you learned English there was a problem waiting for you. "a," "the," all that. Tamil has nothing of the kind.
+> **ANNA:** Aana niyaayamaa paatha, English kathukkittappa ungalukkum oru prachanai irundhirukkum. "a", "the", idhellaam. Namma tamizh-la appadi onnume kidaiyaadhu.<br>
+> But fair's fair — when you learned English there was a problem waiting for you too. "a," "the," all that. Our Tamil has nothing of the kind.
 
-> **ANNA:** Adhu ivarukku free-aa kidaichadhu. Ippa ivaru -nga-kku kaasu kattittu irukkaaru. Rendu perum sari samam.<br>
+> **ANNA:** Adhu ivarukku free-aa kidaichadhu. Ippa ivaru andha -nga-kku kaasu kattittu irukkaaru. Rendu perum sari samam.<br>
 > He got that for free. Now he's paying the bill for *-nga*. The two of you are even.
 
 *[Pause]*
 
-> **ANNA:** Ippa onnu solren. Ivaru tamizh nalla pesa maattaaru. Konjam puriyum. Konjam puriyaadhu.<br>
-> Now let me say one thing. He doesn't speak Tamil well. Some he'll catch. Some he won't.
+> **ANNA:** Ippa onnu solren. Ivarukku tamizh nalla pesa varaadhu. Konjam puriyum. Konjam puriyaadhu.<br>
+> Now let me say one thing. He can't speak Tamil well. Some he'll catch. Some he won't.
 
 > **ANNA:** Aana ivaru try pannuvaaru. Neenga konjam medhuvaa pesunga. Avlo podhum.<br>
 > But he'll try. Just speak a little slowly. That's enough.
 
 *[Pause]*
 
-> **ANNA:** Sari. Ivar-kitta edhaavadhu tamizh-la sollunga. Enna panraaru-nu paapom.<br>
-> Right. Say something to him in Tamil. Let's see what he does.
+> **ANNA:** Sari. Ivar-kitta tamizh-la edhaavadhu sollunga. Enna solraaru-nu paakkalaam.<br>
+> Right. Say something to him in Tamil. Let's see what he says.
