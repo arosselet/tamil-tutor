@@ -2816,5 +2816,36 @@
     "target_revealed": false,
     "response": "ack",
     "response_at": "2026-07-30T14:25:56Z"
+  },
+  {
+    "date": "2026-07-30",
+    "timestamp": "2026-07-30T18:55:24.420494+00:00",
+    "acted": true,
+    "modality": "volley",
+    "move": "afternoon volley: table-week frames",
+    "rationale": "afternoon is the volley slot, demand-streak is 0, he's acked the trailer twice — a sprint volley on the table-week frames closes the gap and may pull him into the session the trailer promised",
+    "next_check": "2026-07-30T22:55:24.420494+00:00",
+    "body": "⚡ volley 1/4 — maami asks what you all did today — wrap it up: 'we went to [place], it was great'",
+    "expected_target": "frame:day-recap",
+    "target_revealed": false,
+    "volley": [
+      {
+        "target": "frame:day-recap",
+        "ask": "maami asks what you all did today — wrap it up: 'we went to [place], it was great'"
+      },
+      {
+        "target": "சரி சரி",
+        "ask": "she explains which bus stop to use for the third time. nod along: 'right, right'"
+      },
+      {
+        "target": "முடிஞ்சா",
+        "ask": "akka asks if you can pick up something on the way home — you're not sure you can: 'if possible'"
+      },
+      {
+        "target": "frame:we-om",
+        "ask": "someone asks if you and priya went to the temple — confirm it: 'we went'"
+      }
+    ],
+    "volley_next": 1
   }
 ]
