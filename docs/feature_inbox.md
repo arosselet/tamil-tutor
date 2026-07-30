@@ -4,6 +4,50 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **AT THE COMPUTER: finish the Andrew-intro naturalness pass — it is blocked on the Oracle,
+  not on work (2026-07-30).** Branch `claude/tamil-intro-naturalness-cr4wy2` carries a
+  six-section Coimbatore-ear review of `special_andrew_intro.md`, judged against attested
+  spoken usage rather than grammar-book correctness. The confident zero-cost fixes are
+  applied and committed; **the script has NOT been re-rendered and the existing
+  `published_audio/special_andrew_intro.mp3` is now stale against it.**
+  What was wrong, for context on why this is worth finishing: `பேச மாட்டாரு` was negative
+  *volition* ("he refuses to speak Tamil") three sentences before the piece hands the
+  conversation to a stranger; the நம்ம/நாங்க beat used a third form (`நாம`) for one of the
+  two words it was teaching; the counterfactual fronted its quote so a listener could hear
+  `என்னோட தப்பு` as *Anna's* fault two lines before the machine is blamed; and
+  `plan-க்கு தெரியும்` gave a sheet of paper a dative mind.
+  **The blocking step is her ruling on seven register questions**, written up ranked in
+  `content/lessons/special_andrew_intro_brief.md` → Open Flag (on that branch). She does not
+  need to read the script, only rule on the seven. Top of the list is `பொண்டாட்டி` — blunt
+  said about a man to a stranger, and she is the person being named. Then re-render, then
+  merge. **Do not merge before the ruling**: it is a public-facing artefact he plays to
+  strangers, and three of the seven change what a native hears in the first twenty seconds.
+
+- **A word-adjacent hyphen becomes a SPACE before TTS, so every Tamil suffix written with a
+  hyphen reaches the voice as its own word (2026-07-30, found while reviewing the Andrew
+  intro; affects EVERY episode, not that one file).** `clean_for_tts` →
+  `defang_hyphens` is `re.sub(r"-(?=\w)|(?<=\w)-", " ", text)`. It exists for a good reason
+  (the voice reads a glued hyphen as "minus"), but the cure detaches the suffix: `போலாம்-னா`
+  went to Chirp3 as `போலாம் னா`, which severs the "X means Y" gloss — and that was on the
+  intro's emotional heart, the நம்ம/நாங்க demo. Fixed *in that one file* by fusing to
+  `போலாம்னா`, matching the fusion the same script already uses for `இருந்துச்சுன்னா` and
+  `வந்தாருன்னா`.
+  **The class is unfixed and is house-wide.** Two shapes:
+  1. *Tamil root + Tamil suffix* — always fusible, always should be (`ங்க-க்கு` in the
+     intro, still open; it is also a consonant pile-up with no boundary for the ear).
+  2. *Tamil-script root + Tamil suffix where house convention hyphenates anyway* —
+     `டயர்ட்-ஆ`, and the lexicon itself carries `ஃப்ரீ-யா?`, `இட்லி சூப்பர்-ஆ இருக்கு`,
+     `வயிறு ஃபுல்-ஆ இருக்கு`. These all detach at render. Fusing them (`டயர்ட்டா`) is
+     probably right but changes an orthographic convention that spans the corpus and the
+     lexicon keys, so it is **not** a one-off edit.
+  English-root cases (`boring-ஆ`, `phone-க்கு`, `machine-ஓட`) detach too but there is no
+  better option — a Latin/Tamil-script join with no separator is worse. Cheapest honest
+  move is a lint that flags a hyphen with Tamil script on *both* sides (case 1 only, which
+  is unambiguous); the case-2 convention question needs Andrew. **No sighting in a lesson
+  episode yet** — this was found by reading the render path, so it is latent-by-inspection
+  and sits under the one-sighting bar. Worth one deliberate listen for a detached suffix on
+  the next episode before spending anything on it.
+
 - **For a `frame:` payload the episode lane SELF-CERTIFIES delivery without evidence
   (sighted 2026-07-28, first real exercise of the repair-first law).** Two defects were
   found by commissioning `frame:youknow-la` as an episode and watching what came back;
