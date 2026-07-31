@@ -241,62 +241,38 @@ membership; and **வார்த்தை** is unfenced, though the script esta
 
 ---
 
-## Open Flag — Oracle check before this gets carried
+## Oracle — RULED (2026-07-31)
 
-This is a public-facing artefact he will play to strangers, so a wrong ending costs more
-here than in a lesson. The system's own dialect pass can't verify itself, and the secret is
-not at risk: this piece is already something he intends to play out loud.
+The v6 dialect pass deferred seven register questions plus three minor ones. All ten were
+put to the Oracle (native Coimbatore speaker, and an engineer — the sheet was written to
+peer register, with the coverage and TTS constraints stated rather than hidden). **Her
+rulings, verbatim from the sheet:**
 
-**v6 (2026-07-30) ran that dialect pass** — six sections, each reviewed against attested
-spoken usage rather than grammar-book correctness. The confident, zero-cost fixes are
-applied (see the script header). What follows is what the pass could *not* settle: seven
-register and trade-off questions where the reviewers explicitly deferred, ranked by what a
-wrong answer costs. This is the Oracle sheet — she does not need to read the script, only
-rule on these.
+| # | Item | Ruling | Effect |
+|---|---|---|---|
+| 1 | `பொண்டாட்டி` (L84) | **Use `வொய்ஃப்`** | changed |
+| 2 | apodosis (L186) | **Keep `நாங்க மட்டும்`** | no change |
+| 3 | `மூடு` vs `சாத்து` (L188) | **Use `சாத்து`** | changed |
+| 4 | `ங்க-க்கு` (L214) | **It survives** | no change |
+| 5 | `விழுந்துடும்` (L206) | **Use `வராது`** | changed |
+| 6 | `சரி சமம்` (L214) | **Keep** | no change |
+| 7 | `நேரம் வந்திருக்கு` (L194) | **Too portentous — reword** | wording OPEN |
+| — | `ஆளு` (L80) | **Keep** | no change |
+| — | `சின்ன வயசுலயே` (L188) | **Keep** | no change |
+| — | `கொடு`/`குடு` | **Both are fine** | no change; corpus NOT normalised |
 
-### The seven open questions, ranked
+**What the rulings settle beyond this script.** #3 overrode the coverage objection: she chose
+the idiom over the fence, so `சாத்து` enters unfenced and the corpus owes it a teach —
+the fence argument loses to a native-speaker idiom call, which is the whole point of having
+an Oracle. #10 closes the `கொடு`/`குடு` normalisation question in the *negative*: both are
+live, so the lexicon keeps carrying both and no repo-wide pass is owed. #1 removes an
+unfenced Tamil word as a side effect, which is free.
 
-1. **`பொண்டாட்டி` (L72).** Real spoken Kongu, but overwhelmingly used about one's *own*
-   wife in male-to-male talk. Said about the man beside you, to a stranger, in a piece
-   whose job is to charm — does it land blunt? Alternatives: `வொய்ஃப்` (kinship terms are
-   heavily code-switched; costs nothing and removes an unfenced Tamil word) or `மனைவி`
-   (respectful, drifts formal for Anna's mouth). **She is also the person being named, so
-   this is doubly hers.**
-2. **The L174 apodosis.** The mixed imperative/declarative frame is fixed; which gloss is
-   right is not. Currently `நம்ம போலாம்னா நீங்களும் வர்றீங்க. நாங்க போறோம்னா நாங்க மட்டும்.`
-   The alternative for the shut-out pole is `நீங்க வரல`. Warmer from the inside, or clearer
-   from the outside?
-3. **`மூடு` vs `சாத்து` at the door (L176).** மூடு is a lid/box/eye verb; a door takes
-   சாத்து, and `கதவ சாத்திட்டாங்க` is the live idiom this line wants. **But the corpus
-   taught திற and மூடு together as a pair (tier2_mission41), and சாத்து appears nowhere
-   in it** — so the idiomatic fix costs a brand-new word mid-payload on a line he plays
-   blind. Idiom or comprehension? (Third option: restructure off the door metaphor.)
-4. **`ங்க-க்கு` (L202).** A bare suffix carrying a case suffix. Spoken aloud it is
-   "ngakku" with no boundary for the ear, and `defang_hyphens` will hand the voice
-   "ங்க க்கு" as two words. `அந்த ங்க-க்கு` gives the ear a landing strip but doesn't fix
-   the pile-up. Worth restructuring the clause?
-5. **`விழுந்துடும்` for a dropped suffix (L194).** விழு works metaphorically in Tamil
-   (`விலை விழுந்துடுச்சு`), but for an ending falling off a spoken word the reviewer could
-   only vouch for `வராது` and `விட்டுப்போயிடும்`. Possible calque of English "falls off".
-6. **`சரி சமம்` (L202).** Attested, but leans written/formal (`சரிசமமான உரிமை`). A
-   Coimbatore speaker settling a score says `சமம்` alone, or reaches for the accounts
-   idiom `கணக்கு சரியாயிடுச்சு` — which extends the free/pay frame beautifully but costs
-   an unfenced noun at the beat's emotional peak.
-7. **`நேரம் வந்திருக்கு` (L182).** Does the portentous "the moment has come" reading
-   dominate? The beat wants time turning up as a guest that isn't yours. The preceding
-   existence frame probably sets it, but the reviewer would not vouch for it.
+**#7 is ruled but not resolved.** She rejected `நேரம் வந்திருக்கு` without supplying a
+replacement, and the beat's intent — *time turning up as a guest that isn't yours*, against
+the English "holding" image set one line earlier — is exactly the kind of thing the system
+must not invent for itself. Left OPEN rather than guessed; see the line note below.
 
-### Also worth one question, if she has patience
-
-- **`கொடு` vs `குடு` (L86, L90).** குடு is the spoken grapheme and the script uses it at
-  L106/L162, so the file is internally inconsistent. But the repo *and the lexicon* carry
-  both (`குடுங்க` alongside `கொடுத்தேன்`, `கொடுப்பேன்`), so this is a repo-wide
-  normalisation question, not a local typo. Don't normalise the corpus off one intro.
-- **`ஆளு` (L68).** Kept. Sits slightly rough against the honorific `இருக்காரே` in the same
-  breath, but Anna's robot bluntness may carry it. `இவரு இருக்காரே` is the neutral option.
-  (The `-ஏ` presentative itself is native and should stay — it's how Anna gestures at a man
-  while being a voice from a phone.)
-- **`சின்ன வயசுலயே நமக்கு இது தெரியும்` (L176).** Anna, who opened by saying he isn't
-  human, claims a Tamil childhood. Probably load-bearing: the inclusive நம்ம is what stops
-  the beat inverting into a foreigner's program explaining Tamil to a Tamil. If she snags,
-  `சின்ன பிள்ளைக்கே இது தெரியும்` is the cheap fix.
+**Line numbers in this brief were stale** (they predated the v6 edits — the old sheet
+pointed `பொண்டாட்டி` at L72, which is a comment). The table above is re-verified against
+the current file.
