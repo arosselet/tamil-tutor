@@ -4,6 +4,20 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **RE-RENDER THE ANDREW INTRO AT v8 — next laptop session** (2026-07-31, Andrew).
+  The script is v8 (register pass, "state the fact and stop" retired for the Tamil lane);
+  the mp3 on the feed is still v7, because the cloud session that wrote v8 has no Google
+  credentials (`google_credentials_ready` -> `DefaultCredentialsError`). One command on a
+  host that has them:
+  `python scripts/render_demo.py content/scripts/special_andrew_intro.md <out>.mp3`
+  (never `render_audio.py` — the special_ lane must touch no state and reach no feed).
+  **Then the test, which is the actual point:** she has heard v7, so play v8 without
+  saying what changed and ask *"does anything sound wrong now"* rather than "is it
+  better" — the nine comma-joins are the risk (over-joining trades staccato for the
+  breathless run-on of the 2026-07-07 finding), and change #10, the native quotative
+  reorder, is the one expected to move the needle. The unruled sheet is in the brief,
+  one row per change, ready for the same Oracle sitting as the ல/ள–ர/ற audio A/B.
+
 - **THE TTS OVER-ARTICULATES — a corpus-wide finding wearing a demo's clothes** (2026-07-31,
   Andrew's wife, Coimbatore native, on the rendered Andrew intro: natives mostly do not
   pronounce the ல/ள and ர/ற distinctions, the voice does, and that is what reads as uncanny).

@@ -3579,6 +3579,89 @@ def s43_sidecar_callback_never_drops_silently(sb: Path):
           "load_env" in src, "a hand-run render still cannot find GCP_SA_KEY")
 
 
+def s45_concurrent_appends_merge(mk, sb: Path):
+    """Two writers appending to one state array must BOTH survive (2026-07-31).
+
+    The 20:56 Anna tick died on `git pull --rebase` with a conflict in
+    push_queue.json: Anna had queued a 20:30 collect while another lane pushed a
+    queue entry during the LLM step. `check=True` raised, the whole tick's work
+    was lost — decision, log row and queued dose — and CI went red. The two
+    appends never disagreed; git only saw adjacent edits to one JSON array.
+
+    TEETH IN THE DIRECTION THAT FAILS SILENTLY (Gate 7.2): the dangerous outcome
+    is not a crash, it is resolving the conflict the WRONG WAY and dropping the
+    other writer's row — during a rebase, stage :2 is upstream and :3 is ours, so
+    a plausible-looking implementation loses exactly one entry and looks fine. So
+    these assert the EFFECT on the pushed file, per writer, not that it ran.
+    """
+    print("\n45. Concurrent appends to one state array (both writers survive)")
+    import subprocess as sp
+    # A FRESH module object, not the shared `mk`: earlier cases replace
+    # mk.commit_and_push with a Recorder stub, and the first draft of this case
+    # spent a run testing that stub. It "passed" the survives-a-conflict check
+    # because a no-op never raises. Gate 7.2 in miniature — the execution
+    # assertion was green on a dead function; only the effect assertion caught it.
+    spec = importlib.util.spec_from_file_location("mk_live", mk.__file__)
+    live = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(live)
+    check("the case holds the REAL writer, not a stub",
+          not isinstance(live.commit_and_push, Recorder)
+          and callable(getattr(live, "_union_conflict", None)))
+    root = sb / "gitlab"
+    root.mkdir(exist_ok=True)
+    origin, runner, other = root / "origin.git", root / "runner", root / "other"
+
+    def git(cwd, *a, **kw):
+        return sp.run(["git", *a], cwd=cwd, capture_output=True, text=True, **kw)
+
+    sp.run(["git", "init", "-q", "--bare", "-b", "main", str(origin)], check=True)
+    sp.run(["git", "clone", "-q", str(origin), str(runner)], check=True)
+    for c in (runner,):
+        git(c, "config", "user.email", "a@b.c"); git(c, "config", "user.name", "t")
+    (runner / "progress").mkdir()
+    qp = runner / "progress" / "push_queue.json"
+    qp.write_text("[]", encoding="utf-8")
+    git(runner, "add", "-A"); git(runner, "commit", "-qm", "base")
+    git(runner, "push", "-q", "origin", "HEAD:main")
+    sp.run(["git", "clone", "-q", str(origin), str(other)], check=True)
+    git(other, "config", "user.email", "a@b.c"); git(other, "config", "user.name", "t")
+
+    # THE OTHER WRITER lands first (a laptop session, or a second lane).
+    theirs = {"id": "qTHEIRS", "due": "2026-07-31T22:00:00+00:00", "body": "theirs"}
+    (other / "progress" / "push_queue.json").write_text(
+        json.dumps([theirs], ensure_ascii=False, indent=2), encoding="utf-8")
+    git(other, "add", "-A"); git(other, "commit", "-qm", "other writer")
+    git(other, "push", "-q", "origin", "HEAD:main")
+
+    # THE RUNNER, still on the stale base, appends its own and commits+pushes.
+    mine = {"id": "qMINE", "due": "2026-07-31T21:00:00+00:00", "body": "mine"}
+    qp.write_text(json.dumps([mine], ensure_ascii=False, indent=2), encoding="utf-8")
+    live.BASE = runner
+    try:
+        live.commit_and_push([qp], "Anna: silence")
+        crashed = ""
+    except Exception as e:
+        crashed = f"{type(e).__name__}: {e}"
+
+    check("the tick survives a concurrent append", not crashed, crashed)
+    pushed = json.loads(git(origin, "show", "main:progress/push_queue.json").stdout or "[]")
+    ids = [e.get("id") for e in pushed]
+    check("OUR entry reached main", "qMINE" in ids, str(ids))
+    check("...and the OTHER writer's entry was not dropped (rebase :2/:3 inversion)",
+          "qTHEIRS" in ids, str(ids))
+    check("no row is duplicated", len(ids) == len(set(ids)), str(ids))
+    check("the queue stays ordered by due", ids == sorted(ids, key=lambda i:
+          {"qMINE": "21", "qTHEIRS": "22"}[i]), str(ids))
+    check("nothing is left mid-rebase", not (runner / ".git" / "rebase-merge").exists()
+          and not (runner / ".git" / "rebase-apply").exists())
+
+    # A conflict OUTSIDE the unionable set must still be loud, not merged.
+    check("only true append-arrays are auto-resolvable",
+          set(live.UNIONABLE) == {"progress/push_queue.json", "progress/knock_log.json"},
+          f"{sorted(live.UNIONABLE)} — session_log merges same-day rows by rule and "
+          "feedback_log has no key; a conflict in either is a real disagreement")
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -3627,6 +3710,7 @@ def main():
         s42_session_log_one_row_per_day(sb)
         s43_sidecar_callback_never_drops_silently(sb)
         s44_a_commission_can_discharge_the_flag(sb)
+        s45_concurrent_appends_merge(mk, sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)
