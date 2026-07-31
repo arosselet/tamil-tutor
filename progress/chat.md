@@ -29,6 +29,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **19:02 · Anna** 🎧  ·  fielding / maami piles more
 > இன்னும் கொஞ்சம் சாப்பிடுங்க — innum konjam saapdunga. she's piling more rice. wave it off 🍽️
 
+**20:09 · Andrew** — **COLD**
+> Podhum vaira full
+
+**Anna ↩**
+> adhu dhaan! 🔥 'podhum' plus 'vaira' — both cold. natural way: 'podhum maami, vayiru nirainjidichu' — throw the maami in, she loves it. · she insists again — 'just one more spoon!' shut it down, one line.
+
 
 ## Wednesday 2026-07-29
 
