@@ -26,20 +26,22 @@ on:
     # DST-correct waking-hours filtering and skip a tick with NO LLM call. It only
     # has to be frequent enough for the rails to have something to filter.
     #
-    # Back to */30 (2026-07-28, Andrew), reopening the 07-24 collapse to "0 * * * *"
-    # on measurement rather than argument. That decision assumed hourly WAS hourly.
-    # It never has been: the last 20 scheduled runs landed 62–232 minutes apart,
-    # median ~2h, every one of those gaps predating any change here. GitHub
-    # deprioritises schedules under load and simply drops ticks — so an hourly
-    # expression bought a ~2-hourly heartbeat, and the "60 min worst case" the
-    # collapse was costed against was fiction. */30 does not promise 30 minutes
-    # either; it buys twice the chances, which is the only lever this end owns.
+    # Hourly, restored 2026-07-30 (Andrew) after */30 was MEASURED and bought
+    # nothing. The 07-28 switch to */30 rested on "it buys twice the chances";
+    # GitHub deprioritises schedules under load and drops ticks, and it turns out
+    # it drops proportionally more of a denser expression, so the extra ticks
+    # evaporate. 75 scheduled runs, matched slice against matched slice:
     #
-    # Interaction with the serialised group below: ticks now arrive twice as often
-    # into one lane. A skipped tick is cheap (rails exit before any LLM call) and
-    # `queue: max` absorbs the pile-up, but a reply CAN now wait behind a tick more
-    # often than before. That is the tradeoff already accepted for the group.
-    - cron: "*/30 * * * *"
+    #                 hourly   */30
+    #   all hours      108.7   108.9   (median minutes between runs)
+    #   daylight       135.6   149.9
+    #   overnight       69.2    88.9
+    #
+    # Identical at best, mildly worse in every matched slice, at twice the runner
+    # minutes. The delivery cadence is GitHub's to give and is ~2-hourly whatever
+    # we write here; the only real levers are repository_dispatch and the reply
+    # path, which already fire off-clock. Do not re-open this without new data.
+    - cron: "0 * * * *"
   repository_dispatch:
     types: [knock-response]
   workflow_dispatch:

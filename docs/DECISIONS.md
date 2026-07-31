@@ -1307,6 +1307,22 @@ Details live in git history; this is the index of the *conclusions*.
   Noted against ourselves: the entry above criticised the 07-24 decision for reasoning
   from an unchecked premise, and then asserted its own unchecked premise in the same
   breath. The measurement discipline has to survive contact with our own proposals.
+  **RESOLVED — reverted to `0 * * * *` (2026-07-30, Andrew), on the day of daylight data
+  the amendment asked for.** 75 scheduled runs, n=24 post-change against n=50 before,
+  compared slice-to-matched-slice rather than against a pooled baseline — median minutes
+  between scheduled runs: all hours **108.7 hourly / 108.9 `*/30`**; daylight **135.6 /
+  149.9**; overnight **69.2 / 88.9**. So `*/30` is identical at best and mildly worse in
+  both matched slices, at twice the runner minutes — and the amendment's alarming
+  158.5-vs-106.5 was an artefact of an n=8 overnight-heavy sample, not a real regression.
+  Both readings of the 07-28 claim are now dead: doubling the expression neither shortened
+  the heartbeat (the claim) nor lengthened it (the amendment's worry). GitHub drops
+  proportionally more of a denser schedule, so the extra ticks evaporate.
+  **The standing conclusion: cadence is not a lever this end owns.** The scheduled
+  heartbeat is ~2-hourly whatever expression we write; the levers that actually fire
+  off-clock are `repository_dispatch` and the reply path, both already wired. Do not
+  re-open the cron expression without new data — the three prior rounds (07-24 collapse,
+  07-28 reopen, 07-29 amendment) all argued from a premise about GitHub's behaviour that
+  only measurement could settle, and this is the measurement.
 - **The local notify hop fails behind work TLS inspection; accepted, not a bug**
   (2026-07-28, Andrew: "it's a work machine on a work network so it's their
   prerogative. Let's let it be."). `push_to_phone` raises
