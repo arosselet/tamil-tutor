@@ -3500,10 +3500,11 @@
     "seen_in": [
       58
     ],
-    "last_surfaced": "2026-07-25",
+    "last_surfaced": "2026-07-31",
     "deck": "trip",
     "direction": "fire",
-    "reps": 1
+    "reps": 1,
+    "exposures": 1
   },
   "என்ன சொன்னீங்க?": {
     "type": "chunk",
@@ -4228,8 +4229,9 @@
     "seen_in": [
       63
     ],
-    "last_surfaced": "2026-07-29",
-    "reps": 2
+    "last_surfaced": "2026-07-31",
+    "reps": 2,
+    "exposures": 1
   },
   "டீ": {
     "gloss": "tea",
@@ -4717,7 +4719,8 @@
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-07-24"
+    "last_surfaced": "2026-07-31",
+    "exposures": 1
   },
   "யாரு?": {
     "type": "chunk",
