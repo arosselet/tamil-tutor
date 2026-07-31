@@ -4,7 +4,21 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
-- **NEVER COMMISSIONED can only be cleared by FAILING again — nothing links a soak order to
+- **~~NEVER COMMISSIONED can only be cleared by FAILING again~~ — SHIPPED 2026-07-31 as
+  option A (`update --slip-commissioned TAG`), Andrew's choice.** The close now declares
+  which debt the order it just set pays off; the flag discharges, the surface reports the
+  dose instead of the warning, and ESCALATE waits for a slip dated after the dose rather
+  than accusing a brand-new one. **The wiring turned up a worse bug and fixed it:**
+  `write_thin_learner` is a WHITELIST and `slip_closes` was not on it, so
+  `--slip-tested tag:landed` wrote a close that the very same update deleted — **no slip had
+  ever actually closed since that mechanism shipped 2026-07-30**, invisibly, because a wiped
+  close looks exactly like never having tested. Smoke `s44`. **STILL OPEN, deliberately:**
+  whether the flag should also GATE the close. Worth asking only now that it can be turned
+  off; a hard gate on the daily ritual is the kind of mechanism the Enjoyment Clause has
+  beaten before, and the softer shapes (print the order it would have written; refuse only
+  after N closes) were never tested. Original diagnosis follows.
+
+  **NEVER COMMISSIONED can only be cleared by FAILING again — nothing links a soak order to
   a slip tag (2026-07-31, sharpened by Andrew's question the same evening; supersedes this
   entry's first draft, which called it "a detector with no actuator" and understated it).**
   The trigger: the ledger correctly flagged three uncommissioned slips at the head of the
