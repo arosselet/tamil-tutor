@@ -4,6 +4,47 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **TESTS WITHOUT TEETH — a cursory audit, 2026-07-31** (Andrew asked for other axes where a
+  case exists but not in the dimension that can fail). Three real findings, none built:
+  1. **`render_audio` swallows an UNREADABLE sidecar** (`except (json.JSONDecodeError,
+     OSError): pass`, then falls through to scraping `**bold**` words out of the script).
+     A corrupt tags file therefore yields a *plausible* word list from a different source,
+     silently. This is the same file and the same function the 07-31 pass just made loud
+     for *unresolvable keys* — the fix covered the resolvable-but-missing case and left the
+     unreadable-file case exactly as it was. Highest blast radius of the three: wrong data,
+     not absent data.
+  2. **`s32` pins the ordering law, not the property the bug violated.** KF-12 was *45 of
+     70 deck items never asked while the meter reported a winning sprint*, and its
+     regression case asserts sort-key comparisons on single calls — nothing iterates. The
+     floor's twin, `s34`, DOES iterate (`for _ in range(40)` → "every word is reachable",
+     "no word is hammered while others wait") because it was written the day after the
+     starvation lesson. The deck never got the same treatment. Copy `s34`'s loop into `s32`.
+  3. **`s8` (KF-8, lore format takeover) has the same shape.** The bug was *four lore memos
+     in four consecutive days*; the case tests that `demand_streak` counts and that the
+     cooldown line renders. Nothing simulates N days and asserts no format family exceeds a
+     share. Format drift is a distribution property and it is tested pointwise.
+  Also measured, for calibration: **22 of 43 smoke cases drive a real command entry point
+  AND re-read persisted state.** The other 21 are mostly legitimate pure-function cases
+  (`s1` parsing, `s4` normalize, `s18` budgets) — the number is not a defect count, it is
+  the denominator to think with when adding the next case.
+  **Contained, checked and clean:** `write_thin_learner` is the ONLY whitelist-style writer
+  in the codebase (the 07-31 bug class does not have siblings), and the one
+  `except Exception: pass` in `morning_knock` is deliberate and correctly commented
+  ("never let a cadence check kill a reach") — fail-open on an advisory line, though it
+  does mean the eavesdrop-cadence warning can silently never appear.
+
+- **A VOLLEY WHOSE NOTIFICATION IS LOST IS STRANDED BY DESIGN** (2026-07-31, found live —
+  Andrew replied to the 17:22 volley and it never reached GitHub). `morning_knock` reads no
+  open-volley state: every knock is a fresh decision, so the only re-present path is the
+  reply lane (KF-11's chat handler), which needs a reply to arrive — the exact thing that
+  was broken. The entry sits at `volley_next: 1` forever, items 2-4 orphaned, and **nothing
+  reads "open and stale"**: state is honest, no lane acts on it. Textbook Gate 7.2 —
+  indistinguishable from a volley he simply hasn't answered yet. A resend via the queue is
+  only a partial recovery (a queued push mints its own `knock_id` and carries no `volley`
+  array, so the chain cannot resume). Shape when it comes off the shelf: the rails already
+  compute a min-gap, so the cheapest honest version is a rails-side check — an open volley
+  older than N hours with no reply is re-presented rather than a new dose being chosen.
+
 - **ORACLE CROSS-POLLINATION — the intro script is a pipeline, not a demo** (2026-07-31,
   Andrew's stated intent; NOT IN SCOPE YET, filed so it isn't re-derived). `special_andrew_intro`
   was never a pocket party trick: the loop is *write a longer script in target Tamil → put a

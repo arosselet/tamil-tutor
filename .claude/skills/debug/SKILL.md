@@ -227,7 +227,9 @@ was a *deletion*, which only reading the plumbing could find.
 
 1. If the fix is a code change → use `/extend` (change discipline gate → surgical edit → smoke case).
 2. Use `/verify` to prove the fix end-to-end.
-3. Every fixed plumbing bug gets a new smoke case in `scripts/smoke_test.py` — this is the contract that keeps KF-1 and KF-2 from recurring.
+3. Every fixed plumbing bug gets a new smoke case in `scripts/smoke_test.py` — this is the contract that keeps KF-1 and KF-2 from recurring. **Put teeth in the dimension that failed** (`/extend` Gate 7.2, the silent no-op test): assert the *effect*, round-trip through the writer and re-read the state file, and make the absence loud. A green case on a dead feature is the 2026-07-30 `s41` result.
+
+**Triage note for the quiet class.** The KF archive below is loud failures — crashes, parse errors, visible desync — because that is what daily use surfaced first. Since 2026-07-24 the live class is *quiet*: nothing fails, every instrument reads green, and the dose is simply about the wrong thing. When Andrew's felt signal is "this doesn't feel like it's working on my mistakes" rather than "this broke", **do not start from the error log — there won't be one.** Start from the claim: name what the subsystem promises, then find the one place that would prove it happened, and check whether anything reads it.
 4. If the fix is HA config → update the gitignored `docs/anna_knock_automation.yaml` mirror.
 5. If the root cause is a pattern of 2+ feedback entries → log with `python scripts/sync_state.py feedback "note"` (mutating — appends to `progress/feedback_log.json`) before proposing the fix.
 
