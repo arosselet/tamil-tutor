@@ -439,6 +439,17 @@ def write_thin_learner(learner: dict, episodes: dict):
         # The ≤FOCUS_SIZE drill cohort — stored state, not an emergent sort
         # (2026-07-26): membership is a fact in a file, immune to counting bugs.
         "focus_cohort": learner.get("focus_cohort", []),
+        # The slip ledger's two learner-side books. THIS IS A WHITELIST — a key
+        # missing here is DELETED on the next update, not merely left stale.
+        # `slip_closes` was absent from it, so `--slip-tested tag:landed` wrote a
+        # close and the very same close's write_thin_learner erased it: no slip
+        # had ever actually been closed since the mechanism shipped 2026-07-30,
+        # and nothing surfaced the loss because a wiped close is indistinguishable
+        # from never having tested. Found 2026-07-31 while wiring
+        # slip_commissions, which landed in the identical trap on its first run.
+        # Any future learner-side book must be added here too.
+        "slip_closes": learner.get("slip_closes", {}),
+        "slip_commissions": learner.get("slip_commissions", {}),
         "recent_missions": compute_recent_missions(episodes),
         "status": compute_status(),
     }
@@ -666,6 +677,27 @@ def cmd_update(args):
     for tag, outcome, msg in record_slip_test(getattr(args, "slip_tested", None) or []):
         mark = {"landed": "✓", "missed": "✗", "bad": "!"}[outcome]
         print(f"  {mark} slip {tag}: {msg}")
+
+    # Which debt does the order just set actually PAY? Declared, never inferred:
+    # a payload word and a slip tag are different vocabularies, and the slips
+    # that most need a dose (1pl-past-om, past-tense) hang off no single word.
+    # Reads the order from `learner` as mutated above, so setting the order and
+    # naming its debt in ONE close works — which is the only ergonomic worth
+    # having here (2026-07-31, Andrew's option A).
+    for tag, msg in record_slip_commission(getattr(args, "slip_commissioned", None) or [],
+                                           learner.get("soak_order") or {}):
+        mark = "✓" if msg.startswith("commissioned") else "!"
+        print(f"  {mark} slip {tag}: {msg}")
+
+    # Both writers above persist straight to LEARNER_PATH, but this function is
+    # holding a `learner` read BEFORE they ran and write_thin_learner rebuilds
+    # the file from it — so without this re-read the close or commission is
+    # erased by the very call that made it. That is exactly how slip_closes was
+    # lost silently for a day (2026-07-30 → 07-31).
+    fresh = load_json(LEARNER_PATH) or {}
+    for book in ("slip_closes", "slip_commissions"):
+        if fresh.get(book):
+            learner[book] = fresh[book]
 
     # No streak bookkeeping — recency comes from the session log, and a stored
     # streak is a meter that lies the moment a day is skipped (Enjoyment Clause).
@@ -1319,6 +1351,63 @@ def slip_closes() -> dict[str, str]:
     return {canon_tag(k): v for k, v in raw.items() if v}
 
 
+def slip_commissions() -> dict[str, list[dict]]:
+    """tag → the doses built to pay that debt: [{channel, at, payload}, …].
+
+    The missing link (2026-07-31, Andrew). `dose_channel` is stamped onto a slip
+    ROW at the instant it is written, from whatever order happened to be standing
+    — so `channels` answered "has he ever slipped while SOME order stood", never
+    "was a dose built for THIS". Commissioning the right dose could not clear
+    NEVER COMMISSIONED; only slipping again could. The flag was cleared by
+    failing and ignored by fixing, which is why it became noise to read past.
+
+    Stored like `slip_closes`: on the learner, keyed by canonical tag, dated.
+    A list rather than one entry, because trying a SECOND format is exactly the
+    event `audio_channels.md`'s escalation law needs to see."""
+    raw = (load_json(LEARNER_PATH) or {}).get("slip_commissions") or {}
+    return {canon_tag(k): list(v) for k, v in raw.items() if v}
+
+
+def record_slip_commission(tags: list[str], order: dict,
+                           today: str = "") -> list[tuple[str, str]]:
+    """Declare that the standing soak order pays off these slip tags.
+
+    The seam that does the work declares it — the same law as the delivery stamp
+    (`mark_soak_delivered`) and the exposure stamp. Python cannot infer this: a
+    payload word and a slip tag are different vocabularies, and guessing the link
+    from word overlap would be a silent wrong answer on exactly the ending-shaped
+    slips (1pl-past-om, past-tense) that hang off no single word."""
+    today = today or datetime.now(LOCAL_TZ).date().isoformat()
+    if not tags:
+        return []
+    channel = (order or {}).get("channel") or ""
+    payload = list((order or {}).get("payload") or [])
+    learner = load_json(LEARNER_PATH) or {}
+    book = dict(learner.get("slip_commissions") or {})
+    out = []
+    known = {p["tag"] for p in slip_patterns()}
+    for raw in tags:
+        tag = canon_tag(raw)
+        if not tag:
+            out.append((raw, "expected a slip tag"))
+            continue
+        if not channel:
+            out.append((tag, "no soak order is standing — set one in this same call"))
+            continue
+        # A tag with no ledger history is a typo, and silently booking a
+        # commission against it would mark a debt paid that never existed.
+        if tag not in known:
+            out.append((tag, "no slip logged under that tag — check the spelling"))
+            continue
+        entries = list(book.get(tag) or [])
+        entries.append({"channel": channel, "at": today, "payload": payload})
+        book[tag] = entries
+        out.append((tag, f"commissioned via the {channel} lane"))
+    learner["slip_commissions"] = book
+    save_json(LEARNER_PATH, learner)
+    return out
+
+
 def record_slip_test(results: list[str], today: str = "") -> list[tuple[str, str, str]]:
     """Log the OUTCOME of putting a retired slip to the test: 'tag:landed' or
     'tag:missed'. This is the observation the ledger's own standard demands —
@@ -1374,6 +1463,7 @@ def slip_patterns(log: list | None = None, today=None) -> list[dict]:
     log = log or []
     today = today or date.today()
     closes = slip_closes()
+    commissions = slip_commissions()
     by_tag: dict[str, dict] = {}
     for row in log:
         tag = row.get("tag")
@@ -1382,7 +1472,13 @@ def slip_patterns(log: list | None = None, today=None) -> list[dict]:
         agg = by_tag.setdefault(tag, {
             "tag": tag, "count": 0, "first": row.get("date"), "last": row.get("date"),
             "lanes": [], "channels": [], "words": [], "examples": [], "notes": [],
+            # rows that carry a legacy dose_channel: a slip made WHILE an order
+            # stood, which is the pre-2026-07-31 evidence that a dose existed.
+            "dosed_rows": [],
         })
+        if row.get("dose_channel"):
+            agg["dosed_rows"].append((row.get("date") or "", row["dose_channel"],
+                                      row.get("lane") or ""))
         agg["count"] += 1
         # first/last are MIN/MAX over the rows, not first-seen/last-seen. The
         # ledger is append-only but not guaranteed date-ordered: append_slips
@@ -1439,9 +1535,27 @@ def slip_patterns(log: list | None = None, today=None) -> list[dict]:
         # was built, through one format, and he slipped again anyway — that is
         # the audio_channels law, and telling it to "change format" when no
         # format was ever tried would be advice for a problem he doesn't have.
+        # Doses DECLARED for this tag (2026-07-31), merged with the legacy
+        # dose_channel stamps so "which formats have been tried" is one answer.
+        agg["commissions"] = sorted(commissions.get(agg["tag"], []),
+                                    key=lambda c: c.get("at") or "")
+        for c in agg["commissions"]:
+            if c.get("channel") and c["channel"] not in agg["channels"]:
+                agg["channels"].append(c["channel"])
         agg["uncommissioned"] = agg["pattern"] and agg["live"] and not agg["channels"]
+        # ESCALATE means a dose was built and he slipped ANYWAY — so it needs a
+        # slip dated after a dose existed, not merely a dose and a live tag. A
+        # legacy dose_channel row qualifies by construction (the order stood when
+        # that slip was made); a declared commission has to be beaten by a later
+        # slip. Without this, commissioning a debt today would instantly accuse
+        # the new dose of having failed, on evidence that predates it.
+        dosed_since = min(
+            [c["at"] for c in agg["commissions"] if c.get("at")]
+            + [d for d, _, _ in agg.get("dosed_rows", [])] or [""]) or ""
+        agg["slipped_after_dose"] = bool(dosed_since) and (agg["last"] or "") > dosed_since
         agg["escalate"] = (agg["pattern"] and agg["live"]
-                           and len(agg["channels"]) == 1)
+                           and len(agg["channels"]) == 1
+                           and (agg["slipped_after_dose"] or bool(agg.get("dosed_rows"))))
         out.append(agg)
     # Live first, then the unverified rechecks, then everything settled.
     out.sort(key=lambda a: (a["live"] and a["pattern"], a["unverified"],
@@ -1486,10 +1600,25 @@ def format_slip_block(patterns: list[dict], limit: int = 6) -> list[str]:
             lines.append(f"      {d}: said “{said}” → wanted “{want}”")
         if p["notes"]:
             lines.append(f"      pattern: {p['notes'][-1]}")
+        if p.get("commissions"):
+            c = p["commissions"][-1]
+            lines.append(f"      ✓ dose commissioned {c.get('at','')} "
+                         f"({c.get('channel','?')} lane"
+                         + (f": {', '.join(c['payload'])}" if c.get("payload") else "")
+                         + ") — don't re-order it; test whether it landed.")
         if p["uncommissioned"]:
+            # The instruction names the exact flag, because the flag is the only
+            # thing that can turn this warning off and prose has already failed
+            # here once: daily_session.md sits at its word ceiling and
+            # audio_channels.md had a third raise refused in advance, so the
+            # place to say it is where the agent is already looking. Same law as
+            # the 07-23 scheduling detector — when prose has been walked past,
+            # the mechanism carries the rule (2026-07-31).
             lines.append("      ⚠ NEVER COMMISSIONED — corrected in passing every "
                          "time and no dose was ever built for it. This one is owed "
                          "a soak order, not another recast.")
+            lines.append(f"        → order it, then DECLARE it in the same close: "
+                         f"--soak-payload … --slip-commissioned {p['tag']}")
         elif p["escalate"]:
             lines.append(f"      ⚠ ESCALATE — a {p['channels'][0]} dose was built "
                          f"for this and he slipped again. audio_channels.md: change "
@@ -1550,6 +1679,10 @@ def cmd_slips(args):
             print(f"        {d}: “{said}” → “{want}”")
         if p["notes"]:
             print(f"        pattern: {p['notes'][-1]}")
+        for c in p.get("commissions", []):
+            print(f"        ✓ dose commissioned {c.get('at','')} via the "
+                  f"{c.get('channel','?')} lane"
+                  + (f" — {', '.join(c['payload'])}" if c.get("payload") else ""))
         if p["uncommissioned"]:
             print("        ⚠ NEVER COMMISSIONED — owed a dose, not another recast.")
         elif p["escalate"]:
@@ -1706,6 +1839,12 @@ def main():
                     help="Report an UNVERIFIED slip you deliberately tested this session. 'landed' closes it as of "
                          "today (a later miss revives it); 'missed' logs the failure and keeps it live. Only for a "
                          "slip you actually put in his mouth unaided — it asserts an observation, not a verdict.")
+    up.add_argument("--slip-commissioned", type=str, action="append", default=[], metavar="TAG",
+                    help="Declare that the soak order set in THIS call pays off that slip tag. Repeatable. "
+                         "Without it a dose cannot clear NEVER COMMISSIONED — nothing links a payload word to a "
+                         "tag, so the flag would stay on for ever no matter what was built. Only for a dose that "
+                         "genuinely targets the pattern; it says a debt was ordered, never that it landed "
+                         "(that is --slip-tested).")
 
     ap = sub.add_parser("add-pattern", help="Seed a generative pattern/lemma record (tracked as an Engine)")
     ap.add_argument("key", help="Canonical key, e.g. 'frame:present-future-toggle'")
