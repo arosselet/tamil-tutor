@@ -1666,3 +1666,55 @@ Details live in git history; this is the index of the *conclusions*.
   Port surface: none — no prompts, no `TAMIL_RE`, no voice IDs, no `REPO`. Same residual
   `PROSE_BUDGETS` already carries: the table binds this repo's filenames, so a port inherits
   the mechanism and must re-census the numbers.
+- **The silent no-op test — meters must measure effect, not execution** (2026-07-31,
+  distilled from Andrew's engineering-vs-learning audit). He asked whether the deep bugs of
+  the past fortnight were placeholders, under-described features, or true regressions.
+  Answer: **all three are present** — commissioning was a real regression (worked from
+  `c340e0d` 06-16, killed by the `b62454b` 07-16 compression pass), deck starvation was
+  *never built* (the sort had no staleness term; prose said rotation, code said
+  alphabetical), the sidecar callback branch was a **placeholder whose partiality was never
+  recorded**, and the `session_log` append was simply wrong from the start. But that cut
+  does not explain them. **The unifying property does: every one was a state
+  indistinguishable from success.** The instruments were present and confirmed success —
+  they measured that a step RAN, never that its PURPOSE was served. Soak order *set* vs.
+  *contains the day's repair*; item *surfaced* vs. *coverage across the deck*; callback *in
+  the script* vs. *lexicon record exists*; close *written* vs. *close survives the write*.
+  **The evidence that settles it:** `9c2da01` (07-30) shipped `slip_closes` with a DECISIONS
+  entry AND a smoke case, and the feature was dead on arrival for a full day — `s41` tested
+  the judge-side slip logic, never called `cmd_update`, never re-read `learner.json`. Green
+  suite, dead feature, correct process. The root cause wearing best practice as camouflage.
+  **Now canon as `/extend` Gate 7.2** (and cross-referenced from `/debug` §5): before the
+  case is written, answer *"what does this look like when it silently does nothing, and can
+  the system tell that apart from success?"* — assert the effect not the execution, round-trip
+  through the writer and re-read the state file, make the absence loud. If the honest answer
+  is "exactly like success", the bug is still in the diff. Replaces nothing; it sharpens Gate
+  7.1, which mandated a case per fixed bug and never said what the case must bite.
+- **The quiet class is a promotion, not decay — and it is load-gated** (2026-07-31). KF-1
+  through KF-11 are LOUD (crashes, parse failures, clobbered notifications, visible desync):
+  found because something broke in front of him. Everything since 07-24 is QUIET: nothing
+  fails, the dose is merely about the wrong thing. That transition is caused by **usage**,
+  not rot — the system crossed from "does it run" into "does it do what it claims", and only
+  a user can sense the second. **Four of the seven were load-dependent, not
+  contact-dependent:** `session_log` needed multi-call closes, the CWD-path bug needed a
+  second caller, the callback gap needed a word-shaped callback, starvation needed the deck
+  to outgrow its frozen head. At 2 session-days in 19 these were unreachable at any level of
+  care. **Therefore the honest convergence metric is not the defect rate** — that tracks
+  rising load and should keep producing hits while load rises — **it is repeat felt-signal on
+  an already-diagnosed axis.** The record holds exactly one 3-peat (07-11 "stopped looking
+  forward" → 07-17 "starved of teaching" → 07-17 "it's a chore"), and it terminated properly
+  in a structural change plus an explicit rejection. A fourth complaint on a diagnosed axis is
+  the signal to reopen the complexity question; nothing has produced one.
+- **The ratio inverted, measured, and it moved the outcome** (2026-07-31, the audit's
+  numbers — recorded so the question is not re-derived from feel). Engineering commits per
+  learning session, with share of days carrying a real session: **June 11.3/session at 10% of
+  days; Jul 1-12 30.0/session at 17%** (nine of twelve days engineering-only — the peak of
+  the failure mode, and it is behind him); **Jul 13-17 7.7 at 60%; Jul 18-24 7.0 at 71%; Jul
+  25-31 8.7 at 86%**, one engineering-only day in seven. Absolute engineering volume barely
+  fell — it stopped *replacing* sessions and started *attaching* to them. **`floor_pct` is the
+  proof it was not whack-a-mole:** flat 15.3 → 16.2 across the 28 days 06-24→07-22
+  (0.03pp/day), then 16.2 → 23.8 in nine days (0.84pp/day), a ~26x slope change; cold fires
+  per session 1.6 → 3.2. Whack-a-mole holds the outcome flat while the commit count climbs.
+  **The prose budget is the mechanism that held:** protocol words 8866 (07-01) → 11511
+  (07-15) → 10671 (07-31), flat for three weeks with a net deletion in one of them, having
+  refused the commissioning law twice and forced it into Python on the third. That is the
+  precedent `CODE_BUDGETS` was extended from, the same day.
