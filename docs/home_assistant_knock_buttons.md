@@ -312,4 +312,4 @@ mint here so the next expiry is a calendar entry instead of a debugging session.
 | Minted | Expiry chosen | Notes |
 |---|---|---|
 | ~2026-06-30 | unrecorded | The original. Last successful dispatch 2026-07-31T00:08:30Z (20:08 EDT 07-30); every reply after that was lost silently. Consistent with GitHub's default 30-day expiry on a 06-30 mint. |
-| | | |
+| 2026-07-31 | **FILL THIS IN** | Rotated the night the first one died. Verified live: `rest_command.anna_knock_response` → 204 → Anna run → commit `5f34702 Knock response: ack`. **Write the expiry date in this cell** — an empty cell here is the whole failure mode. |
