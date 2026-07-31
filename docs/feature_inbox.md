@@ -4,6 +4,31 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **THE REPLY PATH CAN DIE AND THE SYSTEM READS IT AS "HE DIDN'T ANSWER"** (2026-07-31,
+  found live — Andrew replied twice, to the 17:22 volley and the 22:04 resend, and neither
+  produced a `repository_dispatch`). **The dead-token diagnosis is in the session notes; this
+  entry is about the part that is ours.** Nothing in the repo failed and nothing warned:
+  `knock_log.json` simply carries `reply: null` on those knocks, which is byte-identical to
+  a knock he ignored. Downstream, silence is not neutral — it is *data*: `demand_streak`
+  counts trailing asks, `recent_ask_counts` demotes items that "got no reply", the deck's
+  staleness term reads unanswered asks, and the slip ledger never gets the fires he actually
+  made. **So an outage on the inbound leg does not merely lose replies; it writes a false
+  portrait of a non-responsive learner into the state that steers selection.** Textbook Gate
+  7.2: absence indistinguishable from success, except here the absence is indistinguishable
+  from a *learner behaviour* the system then acts on.
+  **The asymmetry that makes this cheap to detect:** outbound and inbound both traverse the
+  same Home Assistant, so a knock landing on the phone PROVES the middle is alive. Anna
+  already computes `hours_since_exchange`. The shape when it comes off the shelf is a
+  liveness check, not a new meter — *N consecutive knocks carrying an `expected_target`,
+  every one with no inbound event of ANY kind (no ack, no tap, no reply), while knocks are
+  still being delivered* is not a quiet learner, it is a broken return path, and it should
+  say so on the status line rather than deepening the demand streak. Deliberately NOT built
+  tonight: it is a new detector (Gate 2) and the immediate fix is a credential rotation.
+  **Second, smaller:** `docs/home_assistant_knock_buttons.md` §1 says "set an expiry you'll
+  rotate" and nothing anywhere records WHICH expiry was chosen or when the token was minted.
+  A dated line in that doc at rotation time costs nothing and turns a silent outage into a
+  calendar entry.
+
 - **RE-RENDER THE ANDREW INTRO AT v8 — next laptop session** (2026-07-31, Andrew).
   The script is v8 (register pass, "state the fact and stop" retired for the Tamil lane);
   the mp3 on the feed is still v7, because the cloud session that wrote v8 has no Google
