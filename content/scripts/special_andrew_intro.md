@@ -1,6 +1,6 @@
 # ஆண்ட்ரூ யாருன்னு சொல்றேன்
 
-<!-- v7. Feed lane: special_ prefix, README/pocket artefact. Sibling of
+<!-- v8. Feed lane: special_ prefix, README/pocket artefact. Sibling of
      special_anna_intro.md, inverted on every axis. Beat sheet and cultural
      rationale: content/lessons/special_andrew_intro_brief.md — edit the beat
      sheet first, then rewrite from it.
@@ -18,6 +18,22 @@
      It also left ten items open for the Oracle. L116's -ும்போது was reviewed and
      deliberately KEPT: -றப்ப is rarer in this corpus and costs comprehension on a
      discovery beat.
+
+     v8 (register pass, 2026-07-31): the native-ear verdict on the v7 render said
+     the sentence structures were "mostly good, although evidently composed by not
+     a native speaker". Root cause was OURS, not the model's — see the retired ban
+     below. Ten changes, all register, ZERO vocabulary changes and nothing
+     Oracle-ruled touched: nine sentence-joins that let clauses chain the way
+     speech does (அதே வார்த்தை, அதே கதை / கொஞ்சம் புரியும், கொஞ்சம் புரியாது), the
+     அதான் contraction and the -ஏ emphatic on the pebble beat, தான் on the
+     "சாதாரண code" line, அதனால as the causal link into the fade, and the thought
+     beat rebuilt into native quotative order (quote + -ன்னு + verb) instead of
+     English order (verb, then quote). Every one is comma-level; the sentence
+     count and the 191-word fence are unchanged, so Andrew can still follow it.
+     ALL TEN ARE ORACLE-CHECKABLE and none has been ruled — the table is in the
+     brief. NOT TOUCHED, deliberately (Andrew's call): the ல/ள and ர/ற
+     orthography. Technically-correct spelling costs nothing in comprehension,
+     and a learner sounding slightly machine-taught surprises nobody.
 
      v7 (Oracle ruled, 2026-07-31): all ten put to a native Coimbatore speaker; the
      rulings and their consequences are the table in the brief. Three changed the
@@ -73,7 +89,18 @@
 
      BANNED, same as the companion: any clause that announces what the next clause
      will do; the "X, not Y" antithesis; em-dashes; feature enumeration.
-     State the fact and stop.
+
+     "STATE THE FACT AND STOP" IS RETIRED FROM THIS FILE (v8, 2026-07-31, Andrew).
+     It was written for the ENGLISH companion, where clipped declaratives are the
+     cure for LLM slop, and copied here as "same as the companion" — where its
+     side effect was a register no Coimbatore speaker uses. Measured before the
+     retirement: 121 sentences, median 4 words, 67% at four words or shorter,
+     -றப்ப 0, ஆமா/இல்ல?/தெரியுமா/ஏன்னா/அதான் all 0. That profile is what the
+     native ear heard as "evidently composed by not a native speaker."
+     The other four bans STAY — they are slop in any language. What is permitted
+     now: chained clauses, and the discourse particles a speaker actually uses.
+     Production episodes were never affected; architect.md's line rule is about
+     TTS breath and already allows "at most two tightly linked clauses".
 
      OPEN FLAG CLOSED (2026-07-31): the vibe-check happened post-render — Andrew
      played the episode to his wife. Neither the நம்ம/நாங்க demo nor the closing
@@ -115,13 +142,13 @@
 
 **ANNA:** தமிழ் கத்துக்கறது இவருக்கு மலை மாதிரி இருந்துச்சு. ஒரு நாளைக்கு அஞ்சு கல்லு தூக்குனா போதும்.
 
-**ANNA:** கஷ்டம் அந்த அஞ்சு கல்லு இல்ல. இன்னைக்கு எந்த அஞ்சுன்னு தெரியணும். அது தான் கஷ்டம்.
+**ANNA:** கஷ்டம் அந்த அஞ்சு கல்லு இல்ல. இன்னைக்கு எந்த அஞ்சுன்னு தெரியணுமே, அதான் கஷ்டம்.
 
 [Pause: 2 sec]
 
 **ANNA:** முதல்ல, இவரு Gemini-ன்னு ஒரு program-கிட்ட சும்மா பேசிட்டு இருந்தாரு. நீங்க ஏதாவது கேட்டா, அது சொல்லும். அவ்ளோ தான்.
 
-**ANNA:** ஒரு நாள் இவரு நினைச்சாரு. இது எனக்கு தமிழ் சொல்லிக்கொடுக்குமா?
+**ANNA:** ஒரு நாள் இவரு, இது எனக்கு தமிழ் சொல்லிக்கொடுக்குமா-ன்னு நினைச்சாரு.
 
 [Pause: 1 sec]
 
@@ -161,7 +188,7 @@
 
 [Pause: 2 sec]
 
-**ANNA:** யாரு அப்படி பேசுறது? இங்க fridge-ன்னா fridge தான். Bus-ன்னா bus தான்.
+**ANNA:** யாரு அப்படி பேசுறது? இங்க fridge-ன்னா fridge தான், bus-ன்னா bus தான்.
 
 [Pause: 2 sec]
 
@@ -169,11 +196,11 @@
 
 [Pause: 1 sec]
 
-**ANNA:** கொஞ்ச நாள்ல ரொம்ப boring-ஆ போச்சு. அதே வார்த்தை. அதே கதை.
+**ANNA:** கொஞ்ச நாள்ல ரொம்ப boring-ஆ போச்சு. அதே வார்த்தை, அதே கதை.
 
-**ANNA:** ஒரு மாசம் இவரு நிறுத்திட்டாரு. ஒன்னுமே பண்ணல.
+**ANNA:** அதனால ஒரு மாசம் இவரு நிறுத்திட்டாரு, ஒன்னுமே பண்ணல.
 
-**ANNA:** அது ஒரு தடவ மட்டும் இல்ல. நிறைய தடவ இப்படி நின்னு போச்சு.
+**ANNA:** அது ஒரு தடவ மட்டும் இல்ல, நிறைய தடவ இப்படி நின்னு போச்சு.
 
 [Pause: 2 sec]
 
@@ -183,7 +210,7 @@
 
 [Pause: 2 sec]
 
-**ANNA:** அப்புறம் எனக்கு ஒரு memory எழுதுனாரு. அதுல AI ஒன்னும் இல்ல. சாதாரண code.
+**ANNA:** அப்புறம் எனக்கு ஒரு memory எழுதுனாரு. அதுல AI ஒன்னும் இல்ல, சாதாரண code தான்.
 
 **ANNA:** அதுல எல்லா வார்த்தையும் இருக்கு. எது இவருக்கு நல்லா தெரியும், எது மறந்து போச்சு, செவ்வாய்க்கிழமை எத தப்பா சொன்னாரு.
 
@@ -201,7 +228,7 @@
 
 [Pause: 2 sec]
 
-**ANNA:** இவருக்கு தமிழ் ரொம்ப புதுசு. ஆனா நம்ம தமிழ்ல சில விஷயம் இருக்கு. English-ல அதெல்லாம் கிடையாது.
+**ANNA:** இவருக்கு தமிழ் ரொம்ப புதுசு. ஆனா நம்ம தமிழ்ல சில விஷயம் இருக்கு, English-ல அதெல்லாம் கிடையாது.
 
 **ANNA:** English-ல "we"ன்னு ஒரே வார்த்தை. அவ்ளோ தான்.
 
@@ -241,9 +268,9 @@
 
 [Pause: 2 sec]
 
-**ANNA:** இப்ப ஒண்ணு சொல்றேன். இவருக்கு தமிழ் நல்லா பேச வராது. கொஞ்சம் புரியும். கொஞ்சம் புரியாது.
+**ANNA:** இப்ப ஒண்ணு சொல்றேன். இவருக்கு தமிழ் நல்லா பேச வராது. கொஞ்சம் புரியும், கொஞ்சம் புரியாது.
 
-**ANNA:** ஆனா இவரு try பண்ணுவாரு. நீங்க கொஞ்சம் மெதுவா பேசுங்க. அவ்ளோ போதும்.
+**ANNA:** ஆனா இவரு try பண்ணுவாரு. நீங்க கொஞ்சம் மெதுவா பேசுங்க, அவ்ளோ போதும்.
 
 [Pause: 1 sec]
 
