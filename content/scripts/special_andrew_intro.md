@@ -1,6 +1,6 @@
 # ஆண்ட்ரூ யாருன்னு சொல்றேன்
 
-<!-- v5. Feed lane: special_ prefix, README/pocket artefact. Sibling of
+<!-- v7. Feed lane: special_ prefix, README/pocket artefact. Sibling of
      special_anna_intro.md, inverted on every axis. Beat sheet and cultural
      rationale: content/lessons/special_andrew_intro_brief.md — edit the beat
      sheet first, then rewrite from it.
@@ -15,11 +15,21 @@
      plan-ஐ பாத்தா for the inanimate dative, subject-first on the சொல்லியிருக்கலாம்
      counterfactual, நம்ம for நாம inside the inclusive-we beat, வராது for மாட்டாரு before
      the handoff, and the வா/வாங்க citation rebuilt as a demonstration.
-     LEFT OPEN for the Oracle, deliberately — do not apply without her ruling:
-     பொண்டாட்டி vs வொய்ஃப் (L72), ஆளு (L68), மூடு vs சாத்து at the door (L176),
-     கொடு vs குடு spelling (L86/L90), the L174 apodosis, சரி சமம் (L202), and
-     விழுந்துடும் (L194). L116's -ும்போது was reviewed and deliberately KEPT: -றப்ப is
-     rarer in this corpus and costs comprehension on a discovery beat.
+     It also left ten items open for the Oracle. L116's -ும்போது was reviewed and
+     deliberately KEPT: -றப்ப is rarer in this corpus and costs comprehension on a
+     discovery beat.
+
+     v7 (Oracle ruled, 2026-07-31): all ten put to a native Coimbatore speaker; the
+     rulings and their consequences are the table in the brief. Three changed the
+     script — வொய்ஃப் for பொண்டாட்டி, சாத்து for மூடு at the door, வராது for விழுந்துடும்.
+     Six were ruled KEEP (the apodosis, ங்க-க்கு, சரி சமம், ஆளு, சின்ன வயசுலயே, and
+     கொடு/குடு — the last closing the repo-wide normalisation question in the negative:
+     both are live, the corpus is NOT normalised off this intro).
+     One was CUT: நேரம் வந்திருக்கு read portentous, and asked for a replacement she said
+     multiple forms are correct and it depends on context — so the beat now rests on the
+     dative alone. Do not re-add an arrival verb here without settling the frame first.
+     NOTE: சாத்து entered on her call and is UNFENCED — zero occurrences in the corpus.
+     That was accepted as an idiom-over-fence trade; the corpus owes it a teach.
 
      v5 (Andrew, 2026-07-29): trimmed from ~6 min to ~4.5. Every cut came out of
      the journey's connective tissue and the pause padding; all three grammar
