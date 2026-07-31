@@ -4790,8 +4790,12 @@
     "last_surfaced": "2026-07-28"
   },
   "போனோம்": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "We went (the -om we-tail — the trip is a we trip)",
+    "phonetic": [
+      "ponom",
+      "ponnom",
+      "ponnoom"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -4845,8 +4849,12 @@
     "exposures": 1
   },
   "இருந்துச்சு": {
-    "gloss": "",
-    "phonetic": [],
+    "gloss": "It was / it turned out (past of irukku — the second half of the day-recap)",
+    "phonetic": [
+      "irundhuchu",
+      "irunduchu",
+      "irundhuchi"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
