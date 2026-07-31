@@ -4,6 +4,52 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **THE TTS OVER-ARTICULATES — a corpus-wide finding wearing a demo's clothes** (2026-07-31,
+  Andrew's wife, Coimbatore native, on the rendered Andrew intro: natives mostly do not
+  pronounce the ல/ள and ர/ற distinctions, the voice does, and that is what reads as uncanny).
+  **Scope first: this is not about the demo.** Episodes, drills, soaks and knock memos all
+  route through one `clean_for_tts` in `render_audio.py` and the same Chirp3-HD voices, so
+  whatever the fix is, it lands once and covers everything. The pedagogy question it opens is
+  bigger than the artefact: Andrew has been training his ear — and his mouth — on a register
+  no one at the table speaks, which is the same class of problem as the fridge
+  (`குளிர்சாதனப்பெட்டி`), one layer down from the words into the phonemes.
+  **The concentration measured on this script, which makes the experiment cheap:** the ழ
+  inventory is essentially TWO roots (`தமிழ்`, `எழுது-`) plus `செவ்வாய்க்கிழமை` — 23 tokens,
+  3 lemmas. Roughly two-thirds of the ற tokens are ONE morpheme: the present/relative
+  participle `-ற-` (`சொல்றேன்`, `பேசுற`, `இருக்கற`, `வர்றதுக்கு`), which recurs every other
+  sentence and is a light tap in Coimbatore speech. So the uncanny surface is not diffuse —
+  it is one high-frequency suffix and two lemmas.
+  **DO NOT respell blind, and do not treat this as settled.** Non-standard orthography
+  (`சொல்ரேன்`) may make Chirp3 worse, not better, and no one here can hear the output. The
+  cheap honest path is an A/B: render one paragraph both ways at the `clean_for_tts` seam
+  behind a flag, and let the Oracle judge — a dialect-realisation call is hers by the same
+  law that gave her `சாத்து`. Second lever worth pricing in the same experiment: a different
+  voice may already do this, in which case the fix is a constant, not a transform.
+
+- **THE STACCATO IS OURS, NOT THE MODEL'S — why the Tamil reads "composed"** (2026-07-31,
+  second half of the native-ear verdict: "sentence structures are mostly good, although they
+  are evidently composed by not a native speaker"). **Measured on `special_andrew_intro.md`:
+  121 sentences, median 4 words, mean 4.1, 67% at four words or shorter, longest 11.** Clause
+  chaining is nearly absent (`-ட்டு` 11, `-னா` 7, `-றப்ப` 0, `-ும்போது` 2) and so are the
+  discourse particles a Coimbatore speaker leans on (`ஆமா` 0, `இல்ல?` 0, `தெரியுமா` 0,
+  `ஏன்னா` 0, `அதான்` 0). Uniformly short, unchained, unhedged declaratives — which is a very
+  good description of "composed by a non-native".
+  **The finding is that this is enforced, not emergent.** The script's own banned list says
+  *"State the fact and stop"*, no announcing clauses, no `X, not Y` antithesis, no em-dashes.
+  Those rules were written to kill LLM-slop rhetoric in the ENGLISH companion demo and were
+  carried across to the Tamil lane, where their side effect is a staccato register no one
+  speaks. The model is not failing to write natural Tamil; it is obeying a style rule that
+  forbids it. **So the cheap move is a brief-level edit, not a rewrite:** keep the ban on
+  announcing clauses and antithesis (those are still slop in any language), and lift the
+  full-stop rule for the Tamil lane specifically — allow chained clauses and a handful of
+  particles. Worth pairing with the render A/B so one Oracle sitting judges both.
+  **Third factor, noted and not actionable yet:** both `special_` pieces are MONOLOGUES,
+  and this system's founding insight (`JOURNEY.md` ch.2) is that two people chatting is what
+  surfaces natural register — a lesson can hide in book Tamil, a conversation cannot. A
+  one-voice piece is structurally the form most likely to sound composed. That is a real
+  constraint on how natural this artefact can ever get, and it is worth knowing before
+  anyone spends effort making a monologue sound spontaneous.
+
 - **TESTS WITHOUT TEETH — a cursory audit, 2026-07-31** (Andrew asked for other axes where a
   case exists but not in the dimension that can fail). Three real findings, none built:
   1. **`render_audio` swallows an UNREADABLE sidecar** (`except (json.JSONDecodeError,

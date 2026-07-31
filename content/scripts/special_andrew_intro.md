@@ -75,8 +75,24 @@
      will do; the "X, not Y" antithesis; em-dashes; feature enumeration.
      State the fact and stop.
 
-     OPEN FLAG: Oracle vibe-check recommended before render — the நம்ம/நாங்க demo
-     and the closing invitation are where register costs the most.
+     OPEN FLAG CLOSED (2026-07-31): the vibe-check happened post-render — Andrew
+     played the episode to his wife. Neither the நம்ம/நாங்க demo nor the closing
+     invitation drew an objection, so the two beats this flag was worried about
+     are cleared. Her verdict overall: the ways it is slightly wrong are not
+     catastrophic. Two findings came back, BOTH filed to the inbox and NEITHER a
+     defect in this script — do not edit the text for them:
+       1. The TTS pronounces the ல/ள and ர/ற distinctions that natives mostly
+          drop, which is what sounds uncanny. That lives at clean_for_tts and in
+          the voice choice, and it is corpus-wide, not this file's problem. Two
+          thirds of this script's ற is one morpheme (the present/RP -ற-) and its
+          ழ is two roots, so it is a cheap A/B when someone runs it — but the
+          Oracle judges the realisation, nobody respells blind.
+       2. "Evidently composed by not a native speaker" traces to the BANNED list
+          below, not to the model: "state the fact and stop" yields a median
+          4-word sentence, 67% at four words or shorter, near-zero clause
+          chaining and no discourse particles. If that is ever relaxed, relax it
+          in the brief for the Tamil lane only, and keep the bans on announcing
+          clauses and antithesis — those are slop in any language.
 
      Every paragraph needs the bold speaker prefix; the parser silently drops
      untagged lines and reads speaker tags even inside this comment, so none is
