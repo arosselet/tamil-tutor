@@ -4,22 +4,44 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
-- **NEVER COMMISSIONED is a detector with no actuator — give the flag teeth (2026-07-31,
-  Andrew's second report of the same complaint).** The ledger correctly identified three
-  uncommissioned slips and printed them at the head of the status digest and the ticket.
-  Anna read the warning, ran a good session, and still shipped no dose — so Andrew had to
-  ask a **second time** for the இருந்துச்சு dose he first asked for on 07-25, which is
-  precisely the failure `audio_channels.md` was written to prevent (*"I shouldn't have to
-  beg for a soak or an episode"*, 07-28). The commissioning law exists, is correct, and
-  did not fire: nothing forces a dose at close, so the flag is advice a busy agent can
-  read and walk past. **Not built, deliberately** — this is a new gate, not a bug fix, and
-  it needs Andrew's design call first: the obvious shape (a close carrying a live
-  NEVER COMMISSIONED slip *fails* until `--soak-payload` is set) is a hard gate on the one
-  ritual that must never become a chore, and the Enjoyment Clause has beaten harder
-  mechanisms than this before. Softer options exist (the close PRINTS the unbuilt dose it
-  would have ordered; or `update` refuses only when the same tag has been flagged N
-  closes running). Route through `/recalibrate` — the felt signal is banked verbatim in
-  the feedback ledger, second occurrence, past the diagnosis bar.
+- **NEVER COMMISSIONED can only be cleared by FAILING again — nothing links a soak order to
+  a slip tag (2026-07-31, sharpened by Andrew's question the same evening; supersedes this
+  entry's first draft, which called it "a detector with no actuator" and understated it).**
+  The trigger: the ledger correctly flagged three uncommissioned slips at the head of the
+  status digest and the ticket, Anna read the warning, ran a good session, and still shipped
+  no dose — so Andrew had to ask a **second time** for the இருந்துச்சு dose he first asked
+  for on 07-25, precisely the failure `audio_channels.md` exists to prevent (*"I shouldn't
+  have to beg for a soak or an episode"*, 07-28).
+
+  **But the deeper defect, found when Andrew asked why the session-open drain hadn't covered
+  this:** `agg["uncommissioned"] = pattern and live and not agg["channels"]`
+  (`sync_state.py:1442`), and `channels` aggregates `dose_channel`, which is stamped onto a
+  slip **only at the instant the slip row is written**, copied from whatever soak order
+  happened to be standing right then (`sync_state.py:652`, `knock_reply.py:998`). Nothing,
+  anywhere, associates a commission with a slip TAG. So the flag does not mean "no dose was
+  built for this" — it means "he has never made this mistake while some unrelated order
+  happened to be standing." **Commissioning the correct dose cannot clear it; only slipping
+  again can.** The flag is cleared by failing and ignored by fixing. Live proof on the day it
+  was found: the போனோம் episode shipped and reads `produced ✓`, and both slips it was built
+  for still print NEVER COMMISSIONED, permanently. A warning that can never be discharged
+  becomes noise that must be learned-past — which is the mechanical reason it got walked
+  past, not agent inattention.
+
+  **Distinct from the session-open drain, which works** (verified 2026-07-31: digest said NOT
+  YET PRODUCED → `render_soak.py` → tape on the feed → `produced ✓`). The drain PRODUCES an
+  order that exists; commissioning WRITES the order. A debt that never became an order is
+  invisible to it. Note also that the drain is now the only live door — `studio_watchdog.py`'s
+  cron was retired 2026-07-24.
+
+  **Not built, deliberately — Andrew's design call.** Cheapest shape, matching an idiom
+  already in the file: `--slip-commissioned TAG` beside the existing
+  `--slip-tested TAG:landed|missed`, so the close declares which debt an order pays — the
+  same "the seam that does the work declares it" law the delivery stamp follows. The
+  alternative, a `for_slip` field on the soak order, is schema and waits on the structure
+  freeze. Only ONCE the flag is dischargeable is it worth asking whether it should also gate
+  the close; a hard gate on the daily ritual is exactly the kind of mechanism the Enjoyment
+  Clause has beaten before. Route through `/recalibrate` — the felt signal is banked verbatim
+  in the feedback ledger, second occurrence, past the diagnosis bar.
 
 - **AT THE COMPUTER: finish the Andrew-intro naturalness pass — it is blocked on the Oracle,
   not on work (2026-07-30).** Branch `claude/tamil-intro-naturalness-cr4wy2` carries a
