@@ -55,12 +55,25 @@ precedent lives in `/debug` → KF-8).
 Every addition must earn its place. Before writing any code, state out loud:
 *"This replaces / simplifies ___."* (`docs/DECISIONS.md` → "Every addition must earn its place.")
 
-**The word budget (2026-07-16).** The protocol's prose surfaces — `persona.md`,
-`constitution.md`, `daily_session.md`, the outreach mandate — carry word budgets asserted
-by `scripts/smoke_test.py` → `PROSE_BUDGETS`; growth past budget is a red run. Raising a
-budget is allowed only in the same diff as the growth, and the commit must name the lines
-it retired. A file that keeps hitting its ceiling is carrying crud or doing too many jobs —
-a split-or-retire signal, never a bump-the-number reflex.
+**The size budgets.** Both surfaces are ratcheted, asserted by the same smoke case
+(`scripts/smoke_test.py` → `s18_size_budgets`):
+
+| Surface | Table | Unit | Since |
+|---|---|---|---|
+| Protocol prose — `persona.md`, `constitution.md`, `daily_session.md`, `audio_channels.md`, the LLM mandates | `PROSE_BUDGETS` | words | 2026-07-16 |
+| Every `scripts/*.py` | `CODE_BUDGETS` | code lines (blanks, comments and docstrings are **free**) | 2026-07-31 |
+
+One law for both: growth past budget is a red run; raising a budget is allowed only in the
+same diff as the growth, and the commit must name what it retired. A file that keeps
+hitting its ceiling is carrying crud or doing too many jobs — a split-or-retire signal,
+never a bump-the-number reflex.
+
+Two things specific to code. **Comments cost nothing** — the diagnosis layer is a third of
+this codebase and it is why the silent-failure bugs were findable; the budget bounds
+mechanism, so explain freely and cut logic. **A new `scripts/*.py` with no entry in
+`CODE_BUDGETS` is itself a red run** — adding a file is the obvious way past a ceiling, so
+budget it in the same diff that creates it. `smoke_test.py` is exempt on purpose (Gate 7
+demands a case per fixed bug; test volume is the one growth this system wants unbounded).
 
 If you cannot name what it replaces, that is the signal to stop.
 

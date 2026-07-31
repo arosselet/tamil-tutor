@@ -1634,3 +1634,35 @@ Details live in git history; this is the index of the *conclusions*.
   1250/1250 (retired the duplicated commissioning law, now a pointer to `audio_channels.md`,
   plus three restating clauses) — the close half was added without a budget raise. Smoke
   `s41` grew the full lifecycle: retire → unverified → landed → **recurs → live again**.
+- **Python is budgeted too — the ratchet moves one layer down** (2026-07-31, Andrew's
+  call, from the engineering-vs-learning audit). Evidence that opened it: through July the
+  word budget held prose FLAT (8866 words 07-01 → 11511 on 07-15 → 10671 on 07-31, a net
+  deletion in one of those weeks) while production Python went 2566 → 6032 lines at a ~10%
+  deletion rate, +1207/−115 in the final week alone. **April's failure mode did not die; it
+  moved to the surface with no ceiling.** `CODE_BUDGETS` + the completeness guard in `s18`
+  (renamed `s18_size_budgets` — one case, one law, two units, rather than a second parallel
+  mechanism) now bind every `scripts/*.py` on exactly the terms `PROSE_BUDGETS` already
+  carries: growth past budget is a red run, a raise rides the same diff as the growth and
+  names what it retired, and a file that keeps hitting its ceiling is doing two jobs —
+  split-or-retire, never bump-the-number.
+  **The unit is CODE LINES — blanks, comments and docstrings are free.** A third of this
+  codebase (33%) is comment, and that third is the diagnosis layer; the 07-31 silent-failure
+  family was findable only because the "why" sits beside the mechanism. Taxing explanation
+  would buy smaller files by deleting what makes them debuggable. `code_lines()` strips
+  comments via `tokenize` and docstrings via `ast`, so a comment-only diff cannot move the
+  number and a mechanism-only diff cannot hide from it (both proved before commit).
+  **`smoke_test.py` is exempt, deliberately:** `/extend` Gate 7 requires a new case the day
+  a bug is fixed, so budgeting the regression net would put two mechanisms in conflict and
+  the budget would win — a fixed bug would arrive with a reason not to pin it. Test volume
+  is the one growth this system wants unbounded. The completeness guard is what stops the
+  exemption becoming a hiding place: a `scripts/*.py` with no budget is itself a red run,
+  because adding a file is the obvious way past a ceiling.
+  **Budgets set at the 07-31 census, rounded up to the next 25 with a 25-line minimum
+  headroom** — tight enough to bind within weeks at a normal pace, loose enough that one
+  ordinary repair lands without ceremony. Headroom is room to repair, not an allowance to
+  spend. Replaces nothing; it extends the 2026-07-16 prose-budget law to the surface that
+  never had it, and retires the informal expectation that `/extend` Gate 4 alone would hold
+  Python back — the same expectation that demonstrably failed for prose before 07-16.
+  Port surface: none — no prompts, no `TAMIL_RE`, no voice IDs, no `REPO`. Same residual
+  `PROSE_BUDGETS` already carries: the table binds this repo's filenames, so a port inherits
+  the mechanism and must re-census the numbers.
