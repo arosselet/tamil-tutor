@@ -26,7 +26,32 @@
     "பெரிய",
     "வெளிய"
   ],
+  "slip_closes": {},
+  "slip_commissions": {
+    "1pl-past-om": [
+      {
+        "channel": "episode",
+        "at": "2026-07-31",
+        "payload": [
+          "போனோம்"
+        ]
+      }
+    ],
+    "past-tense": [
+      {
+        "channel": "episode",
+        "at": "2026-07-31",
+        "payload": [
+          "போனோம்"
+        ]
+      }
+    ]
+  },
   "recent_missions": [
+    {
+      "mission": 78,
+      "title": "Mission tier2_mission78"
+    },
     {
       "mission": 77,
       "title": "Mission tier2_mission77"
@@ -38,10 +63,6 @@
     {
       "mission": 75,
       "title": "Mission tier2_mission75"
-    },
-    {
-      "mission": 74,
-      "title": "Mission tier2_mission74"
     }
   ],
   "status": "Trip Deck 20/34 survival cold · 12 days to touchdown · need 1.2 cold/day, trailing 7-day pace 2.6/day · full deck 21/71 · 38 never worked"

@@ -3133,6 +3133,124 @@ def s40_drill_consumes_its_commission(sb: Path):
         learner_path.write_bytes(saved[1])
 
 
+def s44_a_commission_can_discharge_the_flag(sb: Path):
+    """NEVER COMMISSIONED could only ever be cleared by FAILING again (2026-07-31).
+
+    `uncommissioned` read `agg["channels"]`, fed by `dose_channel` — stamped onto
+    a slip ROW at the instant it is written, from whatever soak order happened to
+    be standing. So the flag answered "has he ever slipped while SOME order
+    stood", never "was a dose built for THIS". Nothing anywhere associated a
+    commission with a tag, so building the right dose could not clear it and only
+    a fresh slip could: cleared by failing, ignored by fixing. Proof on the day it
+    was found — the போனோம் episode shipped and read `produced ✓` while both slips
+    it was built for still printed the warning, permanently. A warning that can
+    never be discharged becomes noise you learn to read past, which is the
+    mechanical reason it was walked past rather than agent inattention.
+
+    Andrew's option A: the close DECLARES which debt an order pays. Python cannot
+    infer it — a payload word and a slip tag are different vocabularies, and the
+    slips that most need a dose (1pl-past-om, past-tense) hang off no single word.
+
+    The second bug, found wiring the first and far worse: `write_thin_learner` is
+    a WHITELIST, and `slip_closes` was not on it. So `--slip-tested tag:landed`
+    wrote a close and the very same close's update DELETED it. No slip had ever
+    actually closed since the mechanism shipped 2026-07-30, and nothing surfaced
+    the loss, because a wiped close looks exactly like never having tested."""
+    print("\n44. A commissioned dose discharges the flag; a close survives (2026-07-31)")
+    import argparse as _ap
+    import contextlib, io
+    ss = importlib.import_module("sync_state")
+    learner_path = sb / "progress" / "learner.json"
+    slip_path = sb / "progress" / "slip_log.json"
+    saved = (learner_path.read_bytes(),
+             slip_path.read_bytes() if slip_path.exists() else None)
+
+    defaults = dict(listened=[], teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
+                    soak_channel=None, soak_form=None, mastered_word=[], comfortable_word=[],
+                    stuck_word=[], produced_cold=[], produced_hinted=[], mark_seen=[],
+                    next_engine=None, debrief=None, slip=[], slip_tested=[],
+                    slip_commissioned=[])
+
+    def update(**kw):
+        with contextlib.redirect_stdout(io.StringIO()):
+            ss.cmd_update(_ap.Namespace(**{**defaults, **kw}))
+
+    def pat(tag):
+        return {p["tag"]: p for p in ss.slip_patterns()}.get(tag)
+
+    try:
+        slip_path.write_text("[]", encoding="utf-8")
+        learner = read_json(learner_path)
+        for k in ("slip_closes", "slip_commissions"):
+            learner.pop(k, None)
+        write_json(learner_path, learner)
+
+        # A pattern: same mistake twice, nothing ever built for it.
+        with contextlib.redirect_stdout(io.StringIO()):
+            ss.append_slips([{"tag": "smoke-tag", "said": "x", "want": "y"}],
+                            lane="chat", when="2026-01-01")
+            ss.append_slips([{"tag": "smoke-tag", "said": "x", "want": "y"}],
+                            lane="chat", when=date_cls.today().isoformat())
+        p = pat("smoke-tag")
+        check("a twice-made mistake with no dose reads NEVER COMMISSIONED",
+              p and p["uncommissioned"], f"got {p and p.get('uncommissioned')}")
+        check("...and the surface names the flag that would clear it",
+              any("--slip-commissioned smoke-tag" in ln
+                  for ln in ss.format_slip_block([p])), "the instruction is missing")
+
+        # Commissioning WITHOUT an order standing must refuse, not book a lie.
+        update(slip_commissioned=["smoke-tag"])
+        check("a commission with no standing order is refused",
+              pat("smoke-tag")["uncommissioned"], "it booked a phantom dose")
+
+        # The real path: set the order and name its debt in ONE close.
+        update(soak_payload=["ஸ்மோக்பேலோடு"], soak_channel="episode",
+               slip_commissioned=["smoke-tag"])
+        p = pat("smoke-tag")
+        check("declaring the debt in the same close clears the flag",
+              not p["uncommissioned"], "still NEVER COMMISSIONED")
+        check("...recording which lane carried it",
+              p["commissions"] and p["commissions"][-1]["channel"] == "episode",
+              f"got {p['commissions']}")
+        check("...and the surface reports the dose instead of the warning",
+              any("dose commissioned" in ln for ln in ss.format_slip_block([p]))
+              and not any("NEVER COMMISSIONED" in ln for ln in ss.format_slip_block([p])))
+        check("...but it does NOT accuse the new dose of having failed",
+              not p["escalate"], "escalated on evidence that predates the dose")
+
+        # It survives the next ordinary close — the whitelist bug.
+        update(produced_cold=[], debrief="a later close")
+        check("the commission survives a later update",
+              not pat("smoke-tag")["uncommissioned"], "the whitelist ate it")
+
+        # Only a slip DATED AFTER the dose escalates.
+        with contextlib.redirect_stdout(io.StringIO()):
+            ss.append_slips([{"tag": "smoke-tag", "said": "x", "want": "y"}],
+                            lane="chat", when="2099-01-01")
+        check("a slip made AFTER the dose escalates the format",
+              pat("smoke-tag")["escalate"], "escalation never fired")
+
+        # A tag with no history is a typo, not a debt.
+        update(soak_payload=["ஸ்மோக்பேலோடு"], soak_channel="soak",
+               slip_commissioned=["no-such-tag-at-all"])
+        check("an unknown tag cannot be booked as commissioned",
+              "no-such-tag-at-all" not in ss.slip_commissions(), "a typo booked a debt")
+
+        # --- the whitelist bug, on the mechanism it actually broke -------------
+        with contextlib.redirect_stdout(io.StringIO()):
+            ss.record_slip_test(["smoke-tag:landed"])
+        check("a close is recorded", ss.slip_closes().get("smoke-tag"))
+        update(debrief="the close that used to erase it")
+        check("...and SURVIVES the update that follows it",
+              ss.slip_closes().get("smoke-tag"), "write_thin_learner deleted the close")
+    finally:
+        learner_path.write_bytes(saved[0])
+        if saved[1] is not None:
+            slip_path.write_bytes(saved[1])
+        else:
+            slip_path.unlink(missing_ok=True)
+
+
 def s42_session_log_one_row_per_day(sb: Path):
     """A close is one session however many update calls it takes (2026-07-31).
 
@@ -3417,6 +3535,7 @@ def main():
         s41_slip_ledger(kr, sb)
         s42_session_log_one_row_per_day(sb)
         s43_sidecar_callback_never_drops_silently(sb)
+        s44_a_commission_can_discharge_the_flag(sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)
