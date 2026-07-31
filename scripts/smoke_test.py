@@ -1893,19 +1893,30 @@ def s31_feed_carries_every_pushed_dose(sb: Path):
     # faces. Simulate a UTC host: the offset must not move.
     stamp = datetime(2026, 7, 24, 19, 56, 25, tzinfo=rr.LOCAL_TZ).timestamp()
     saved_tz = os.environ.get("TZ")
+    # `time.tzset()` is POSIX-only. Calling it unguarded raised AttributeError on
+    # Andrew's Windows box, and because it fired mid-suite it aborted every case
+    # AFTER this one — so the local health check has never once run to completion
+    # there, only in CI (2026-07-31). The ASSERTIONS are host-zone independent by
+    # construction (fromtimestamp is handed rr.LOCAL_TZ explicitly), so they run
+    # everywhere; only the belt-and-braces UTC-host SIMULATION needs the syscall,
+    # and it is skipped where the OS has none. Never guard by re-raising: a
+    # cross-platform gap in the harness must not read as a failure of the code.
+    can_simulate_host_tz = hasattr(time, "tzset")
     try:
-        os.environ["TZ"] = "UTC"
-        time.tzset()
+        if can_simulate_host_tz:
+            os.environ["TZ"] = "UTC"
+            time.tzset()
         pub = email.utils.format_datetime(datetime.fromtimestamp(stamp, rr.LOCAL_TZ))
         check("a pubDate is stamped in Andrew's zone on a UTC host", pub.endswith("-0400"),
               f"got {pub}")
         check("the pubDate names the local wall clock", "19:56:25" in pub, f"got {pub}")
     finally:
-        if saved_tz is None:
-            os.environ.pop("TZ", None)
-        else:
-            os.environ["TZ"] = saved_tz
-        time.tzset()
+        if can_simulate_host_tz:
+            if saved_tz is None:
+                os.environ.pop("TZ", None)
+            else:
+                os.environ["TZ"] = saved_tz
+            time.tzset()
     # Comments stripped, per s29: rebuild_rss EXPLAINS the retired host-clock call
     # in prose, and a guard that trips on its own documentation is one nobody keeps.
     code = "\n".join(ln for ln in src.splitlines() if not ln.lstrip().startswith("#"))
@@ -3122,6 +3133,192 @@ def s40_drill_consumes_its_commission(sb: Path):
         learner_path.write_bytes(saved[1])
 
 
+def s42_session_log_one_row_per_day(sb: Path):
+    """A close is one session however many update calls it takes (2026-07-31).
+
+    The momentum log appended unconditionally, so every extra `update` in a close
+    forged a session — repairing a bad key, or setting the soak order in a second
+    command, each minted a row. By 2026-07-31 it held 38 rows for 26 real
+    session-days: 12 duplicated dates, the counter ~46% high, and show_status's
+    last-5 view padded with near-empty rows. The quiet half is worse than the
+    cosmetic one: cold_fires_recent() and fires_today() SUM word lists across
+    entries, so a word logged twice in one close inflated the trailing pace that
+    the burn rate — and therefore the sprint's whole honest-meter story — is
+    computed from. Merging restores the documented contract rather than guarding
+    it from outside."""
+    print("\n42. One session-day, one log row (2026-07-31)")
+    import argparse as _ap
+    import contextlib, io
+    ss = importlib.import_module("sync_state")
+    lex_path = sb / "progress" / "lexicon.json"
+    learner_path = sb / "progress" / "learner.json"
+    slog_path = sb / "progress" / "session_log.json"
+    saved = (lex_path.read_bytes(), learner_path.read_bytes(),
+             slog_path.read_bytes() if slog_path.exists() else None)
+
+    defaults = dict(listened=[], teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
+                    soak_channel=None, soak_form=None, mastered_word=[], comfortable_word=[],
+                    stuck_word=[], produced_cold=[], produced_hinted=[],
+                    mark_seen=[], next_engine=None, debrief=None)
+
+    def update(**kw):
+        with contextlib.redirect_stdout(io.StringIO()):
+            ss.cmd_update(_ap.Namespace(**{**defaults, **kw}))
+        return read_json(slog_path) or []
+
+    try:
+        slog_path.write_text("[]", encoding="utf-8")
+        today = date_cls.today().isoformat()
+        # Seed two words the sandbox lexicon can actually resolve, so the axes move.
+        lex = read_json(lex_path)
+        for w in ("ஸ்மோக்ஒன்", "ஸ்மோக்டூ"):
+            lex.setdefault(w, {"gloss": "smoke", "phonetic": [], "recognition": "solid",
+                               "production": "none", "seen_in": []})
+        write_json(lex_path, lex)
+
+        log = update(produced_cold=["ஸ்மோக்ஒன்"])
+        check("the first call of a close opens the day's row", len(log) == 1, f"got {len(log)}")
+
+        log = update(produced_cold=["ஸ்மோக்டூ"])
+        check("a second update in the same close does NOT forge a session",
+              len(log) == 1, f"got {len(log)} rows")
+        check("...and its fires land in the same row",
+              set(log[-1]["cold"]) == {"ஸ்மோக்ஒன்", "ஸ்மோக்டூ"}, f"got {log[-1]['cold']}")
+
+        # The pace-corrupting half: re-logging one word must not count it twice.
+        before = len(log[-1]["cold"])
+        log = update(produced_cold=["ஸ்மோக்ஒன்"])
+        check("...a word re-logged in the same day stays one fire, not two",
+              len(log[-1]["cold"]) == before, f"got {log[-1]['cold']}")
+
+        log = update(debrief="STORY SO FAR: first pass")
+        log = update(soak_payload=["ஸ்மோக்டூ"], debrief="STORY SO FAR: rewritten")
+        check("a later debrief supersedes rather than appending a row",
+              len(log) == 1 and log[-1]["note"] == "STORY SO FAR: rewritten",
+              f"got {len(log)} rows, note={log[-1]['note'][:40]!r}")
+
+        log = update(produced_cold=["ஸ்மோக்ஒன்"])
+        check("...and an update carrying no debrief never blanks the one written",
+              log[-1]["note"] == "STORY SO FAR: rewritten", f"got {log[-1]['note'][:40]!r}")
+
+        check("the row is still dated today", log[-1]["date"] == today)
+        check("...and still carries the snapshot meters",
+              "floor_pct" in log[-1] and "engines_pct" in log[-1], f"got {sorted(log[-1])}")
+
+        # Yesterday's row is untouched: merging is same-day only, never a fold-up.
+        log = read_json(slog_path)
+        log.insert(0, {"date": "2020-01-01", "cold": ["old"], "hinted": [], "demoted": [],
+                       "listened": [], "note": "ancient"})
+        write_json(slog_path, log)
+        log = update(produced_cold=["ஸ்மோக்டூ"])
+        check("an older day is never merged into today", len(log) == 2, f"got {len(log)}")
+        check("...and keeps its own note", log[0]["note"] == "ancient")
+    finally:
+        lex_path.write_bytes(saved[0])
+        learner_path.write_bytes(saved[1])
+        if saved[2] is not None:
+            slog_path.write_bytes(saved[2])
+
+
+def s43_sidecar_callback_never_drops_silently(sb: Path):
+    """An unregisterable sidecar word is reported, never swallowed (2026-07-31).
+
+    M78's sidecar filed இருந்துச்சு under `callbacks_used`, but the word had never
+    entered the lexicon — Anna had recast it in chat three times and never
+    registered it. Only `new_words_landed` may CREATE a record, so the branch fell
+    through in total silence: the episode shipped with three real exposures of the
+    one word Andrew had been asking for since 07-25, and the ledger held no trace
+    of it. Unschedulable, uncollectable, invisible to suggest_targets — and
+    indistinguishable from success in the log.
+
+    Creating it here would be the wrong fix: a callback CLAIMS the word already
+    exists, so an unresolvable one is far more likely a variant of a real record,
+    and inventing a duplicate poisons the axes. The frame branch above had the
+    right answer all along — report and skip. Silence is the only thing ruled out.
+
+    Also covers the standalone renderer's .env gap found the same hour: a render
+    inside run_studio always had credentials because IT loaded .env, while the
+    same command run by hand reported 'this host cannot produce audio'."""
+    print("\n43. A sidecar callback that resolves to nothing is loud (2026-07-31)")
+    import contextlib, io, inspect
+    ra = importlib.import_module("render_audio")
+
+    script = sb / "content" / "scripts" / "tier2_mission97.md"
+    script.parent.mkdir(parents=True, exist_ok=True)
+    # A word the lexicon cannot possibly hold — இருந்துச்சு itself was registered
+    # the day this case was written, and a fixture that drifts into existence
+    # turns a regression test green for the wrong reason.
+    ghost = "ஸ்மோக்பூதம்"
+    script.write_text(f"# Tier 2, Mission 97 — Smoke\n\n**Anna:** {ghost}.\n",
+                      encoding="utf-8")
+    (script.with_suffix(".tags.json")).write_text(json.dumps({
+        "callbacks_used": {ghost: 3},      # never registered — the bug
+        "new_words_landed": {},
+    }, ensure_ascii=False), encoding="utf-8")
+
+    lex_path = sb / "progress" / "lexicon.json"
+    saved_lex = lex_path.read_bytes()
+    # No mp3 is written: register_mission_in_state's nested get_duration swallows
+    # a missing file and returns its 3.0 default, so duration is not under test here.
+    #
+    # The day-zero fixture is an EMPTY lexicon, and the exposure block is guarded
+    # by a bare `if lexicon:` — so on the fixture as shipped this whole code path
+    # is skipped and every assertion below would pass vacuously. Seed one row.
+    # (Worth knowing on its own: a genuinely blank day-zero clone registers no
+    # words from its first episode at all. Left alone here — day-zero behaviour
+    # is BOOTSTRAP's question, not this case's.)
+    try:
+        lex = read_json(lex_path)
+        lex["ஸ்மோக்ஆங்கர்"] = {"gloss": "anchor", "phonetic": [], "recognition": "solid",
+                               "production": "none", "seen_in": []}
+        write_json(lex_path, lex)
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            ra.register_mission_in_state(script, sb / "published_audio" / "tier2_mission97.mp3")
+        text = out.getvalue()
+        lex = read_json(lex_path)
+
+        check("an unresolvable callback is NOT invented as a lexicon record",
+              ghost not in lex, "a duplicate record was created")
+        check("...and the drop is reported, not silent",
+              "resolve to no lexicon word" in text, f"got {text[:300]!r}")
+        check("...naming the word so the operator can re-file it",
+              ghost in text, f"got {text[:300]!r}")
+        check("...and saying what to do about it",
+              "new_words_landed" in text, f"got {text[:300]!r}")
+
+        # The control: filed correctly, it registers and stops warning.
+        (script.with_suffix(".tags.json")).write_text(json.dumps({
+            "callbacks_used": {},
+            "new_words_landed": {ghost: 3},
+        }, ensure_ascii=False), encoding="utf-8")
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            ra.register_mission_in_state(script, sb / "published_audio" / "tier2_mission97.mp3")
+        lex = read_json(lex_path)
+        check("the same word filed as NEW does enter the lexicon",
+              ghost in lex, "still absent")
+        check("...and nothing is reported unresolved",
+              "resolve to no lexicon word" not in out.getvalue())
+
+        # Found by this very case on its first run: the state paths were
+        # CWD-relative, so importing the sandbox module without chdir'ing wrote
+        # a fake mission into the REAL progress/ files. Assert the containment,
+        # not just the behaviour — a test that mutates live state is worse than none.
+        real_lex = read_json(REAL_BASE / "progress" / "lexicon.json")
+        real_eps = read_json(REAL_BASE / "progress" / "episodes.json")
+        check("the render's state writes stay inside the sandbox",
+              ghost not in real_lex, "the smoke run wrote into the real lexicon")
+        check("...including the episode registry",
+              "97" not in real_eps, "the smoke run wrote into the real episodes.json")
+    finally:
+        lex_path.write_bytes(saved_lex)
+
+    src = inspect.getsource(ra.main)
+    check("the standalone renderer loads .env, like run_studio does before it",
+          "load_env" in src, "a hand-run render still cannot find GCP_SA_KEY")
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -3167,6 +3364,8 @@ def main():
         s39_ticket_carries_the_commission(sb)
         s40_drill_consumes_its_commission(sb)
         s41_slip_ledger(kr, sb)
+        s42_session_log_one_row_per_day(sb)
+        s43_sidecar_callback_never_drops_silently(sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)

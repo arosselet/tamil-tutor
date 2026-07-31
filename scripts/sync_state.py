@@ -10,7 +10,8 @@ last-surfaced date. This script owns all writes to it. The LLM (Anna) calls
   progress/lexicon.json     → word-state (this file's domain)
   progress/learner.json     → continuity: running story (debrief), soak order, status (thin, LLM-facing)
   progress/episodes.json    → episodes / listens (audio artifacts)
-  progress/session_log.json → append-only momentum log, one entry per session
+  progress/session_log.json → momentum log, one entry per session-DAY (repeat
+      update calls in one close merge into that day's entry, never mint a row)
 
 Usage:
     # After a session: record production + recognition movement
@@ -689,19 +690,36 @@ def cmd_update(args):
     floor = compute_floor(lexicon)
     engines = compute_engines(lexicon)
 
-    # Append-only momentum log — one entry per session that did something.
+    # Momentum log — ONE entry per session-day that did something.
+    #
+    # It used to append unconditionally, so every extra `update` call in a close
+    # forged a session: repairing a bad key, or setting the soak order in a
+    # second command, each minted a row. 38 rows for 26 real days by 2026-07-31
+    # — 12 duplicated dates, the counter ~46% high, and the last-5 view in
+    # show_status padded with near-empty rows. Worse, cold_fires_recent() and
+    # fires_today() SUM word lists across entries, so a word logged twice in one
+    # close inflated the trailing pace the burn rate is computed from.
+    # Merging restores the documented contract instead of adding a guard on top.
     if applied["cold"] or applied["hinted"] or applied["demoted"] or args.listened or args.debrief:
         log = load_json(SESSION_LOG_PATH) or []
-        log.append({
-            "date": today,
-            "floor_pct": round(floor["pct"], 1),
-            "engines_pct": round(engines["pct"], 1),
-            "cold": applied["cold"],
-            "hinted": applied["hinted"],
-            "demoted": applied["demoted"],
-            "listened": list(args.listened),
-            "note": args.debrief or "",
-        })
+        entry = log[-1] if log and log[-1].get("date") == today else None
+        if entry is None:
+            entry = {"date": today, "cold": [], "hinted": [], "demoted": [],
+                     "listened": [], "note": ""}
+            log.append(entry)
+        # Union, not concatenate — the same word re-logged is one fire, not two.
+        for field, values in (("cold", applied["cold"]), ("hinted", applied["hinted"]),
+                              ("demoted", applied["demoted"]), ("listened", list(args.listened))):
+            have = entry.setdefault(field, [])
+            have.extend(v for v in values if v not in have)
+        # Percentages are a snapshot: the latest call is the truest.
+        entry["floor_pct"] = round(floor["pct"], 1)
+        entry["engines_pct"] = round(engines["pct"], 1)
+        # The debrief is rewritten whole and cumulatively by Anna, so a later
+        # one supersedes rather than appends. An update that carries no debrief
+        # must never blank the one already written.
+        if args.debrief:
+            entry["note"] = args.debrief
         save_json(SESSION_LOG_PATH, log)
         print(f"  Logged session ({len(log)} total)")
 
