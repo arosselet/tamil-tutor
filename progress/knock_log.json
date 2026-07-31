@@ -2995,5 +2995,18 @@
     "target_revealed": false,
     "response": "ack",
     "response_at": "2026-07-31T22:35:28Z"
+  },
+  {
+    "date": "2026-07-31",
+    "timestamp": "2026-07-31T23:56:18.642679+00:00",
+    "acted": true,
+    "scheduled": true,
+    "queue_id": "q1785537549",
+    "modality": "text",
+    "move": "volley 1/4 resend (2nd)",
+    "rationale": "scheduled at 2026-07-31T22:39 for 2026-07-31T22:40",
+    "body": "⚡ volley 1/4 — Maami says something fast across the kitchen — you caught nothing. Ask her: what did you say?",
+    "expected_target": "என்ன சொன்னீங்க?",
+    "target_revealed": false
   }
 ]
