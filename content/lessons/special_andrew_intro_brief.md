@@ -60,6 +60,12 @@ The form is the argument: own the joints, the furniture comes free.
   a mountain line. Git holds the 6-minute cut if any of it is wanted back.
 - Same bans as the companion: no clause that announces what the next clause will do, no
   "X, not Y" antithesis, no em-dashes, no feature enumeration.
+- **"State the fact and stop" is RETIRED for the Tamil lane** (v8, 2026-07-31, Andrew's
+  call). It belongs to the ENGLISH companion, where clipped declaratives are the cure for
+  LLM slop. Carried here as "same as the companion", its side effect was a register no
+  Coimbatore speaker uses — the four bans above do the anti-slop work in any language, and
+  this fifth one was doing something else. Chained clauses and discourse particles are
+  permitted; write the way the language runs. The other four still bind.
 
 ---
 
@@ -286,3 +292,43 @@ useful record is *why* it has no answer yet.
 **Line numbers in this brief were stale** (they predated the v6 edits — the old sheet
 pointed `பொண்டாட்டி` at L72, which is a comment). The table above is re-verified against
 the current file.
+
+
+---
+
+## Oracle sheet — the v8 register pass (UNRULED, 2026-07-31)
+
+Ten changes, all register. **Zero vocabulary changes; nothing the 07-31 Oracle sitting
+ruled was touched.** The question for each is the same one: *does a Coimbatore speaker
+run these clauses together like this, or does the join sound wrong?* A "no" costs one
+comma to revert.
+
+| # | Was (v7) | Now (v8) | The move |
+|---|---|---|---|
+| 1 | `…தெரியணும். அது தான் கஷ்டம்.` | `…தெரியணுமே, அதான் கஷ்டம்.` | `-ஏ` emphatic + the `அதான்` contraction |
+| 2 | `fridge தான். Bus-ன்னா bus தான்.` | `fridge தான், bus-ன்னா bus தான்.` | one breath for a two-item list |
+| 3 | `அதே வார்த்தை. அதே கதை.` | `அதே வார்த்தை, அதே கதை.` | same |
+| 4 | `ஒரு மாசம் இவரு நிறுத்திட்டாரு. ஒன்னுமே பண்ணல.` | `அதனால ஒரு மாசம் இவரு நிறுத்திட்டாரு, ஒன்னுமே பண்ணல.` | causal link into the fade + join |
+| 5 | `…மட்டும் இல்ல. நிறைய தடவ…` | `…மட்டும் இல்ல, நிறைய தடவ…` | join |
+| 6 | `அதுல AI ஒன்னும் இல்ல. சாதாரண code.` | `அதுல AI ஒன்னும் இல்ல, சாதாரண code தான்.` | join + `தான்` |
+| 7 | `…சில விஷயம் இருக்கு. English-ல அதெல்லாம் கிடையாது.` | `…சில விஷயம் இருக்கு, English-ல அதெல்லாம் கிடையாது.` | join |
+| 8 | `கொஞ்சம் புரியும். கொஞ்சம் புரியாது.` | `கொஞ்சம் புரியும், கொஞ்சம் புரியாது.` | join |
+| 9 | `…மெதுவா பேசுங்க. அவ்ளோ போதும்.` | `…மெதுவா பேசுங்க, அவ்ளோ போதும்.` | join |
+| 10 | `இவரு நினைச்சாரு. இது…சொல்லிக்கொடுக்குமா?` | `இவரு, இது…சொல்லிக்கொடுக்குமா-ன்னு நினைச்சாரு.` | **native quotative order** — quote + `-ன்னு` + verb, instead of English order |
+
+**#10 is the one to watch.** The other nine are commas; this one reorders a clause. It is
+also the only change that fixes a structural anglicism rather than a rhythmic one — v7 put
+the verb first and the thought after it, which is how English reports a thought and not how
+Tamil does. If any single change moves the "composed by a non-native" needle, expect it to
+be this one.
+
+**Measured effect:** median sentence length is unchanged at 4 words (these are joins, not
+expansions), but sentences at four words or shorter fall 67% → 59% and the mean rises
+4.1 → 4.5. Deliberately modest — `clean_for_tts` preserves periods because they are the
+prosody Chirp3 breathes on, so over-joining trades a staccato problem for a breathless one
+(the 2026-07-07 finding). Ten joins across 111 sentences is the small end on purpose.
+
+**Not touched, on Andrew's instruction:** the `ல`/`ள` and `ர`/`ற` orthography stays
+technically correct. Nobody misunderstands it, nobody is surprised that a man learning from
+a machine sounds slightly machine-taught, and mangling the spelling to flatter one TTS voice
+would corrupt the corpus for every future one.
