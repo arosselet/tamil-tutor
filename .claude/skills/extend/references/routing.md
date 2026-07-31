@@ -21,7 +21,8 @@ report — do not create a substitute.
 | CDN/repo URL for knock audio links (jsDelivr) | `scripts/morning_knock.py` line 51 | `REPO = "arosselet/tamil-tutor"` — update on a fork |
 | Knock reply judge prompt (phonetic→script matching, verdict rules) | `scripts/knock_reply.py` | Port surface — Tamil-specific rules embedded in prose |
 | Slip contract — how an error is named as a pattern (`SLIP_MANDATE`) | `scripts/knock_reply.py` | Port surface — its worked examples are Tamil morphology |
-| The slip ledger: capture, aggregation, quiet window, escalation | `scripts/sync_state.py` | `SLIP_QUIET_DAYS`, `SLIP_PATTERN_COUNT`; one renderer (`format_slip_block`) feeds all three surfaces |
+| The slip ledger: capture, aggregation, retirement, escalation | `scripts/sync_state.py` | `SLIP_RETIRE_DAYS` (matches `INTERVAL_DAYS["cold"]`), `SLIP_PATTERN_COUNT`; one renderer (`format_slip_block`) feeds all three surfaces |
+| How a slip CLOSES — the observation, not a verdict | `scripts/sync_state.py` | `record_slip_test`/`slip_closes`; closes are dated so a later miss revives them. Never reintroduce a bare-tag close list |
 | Drill script prompt (cue/answer format, Tamil script rule) | `scripts/render_drill.py` | Port surface — Tamil-specific rules embedded in prose |
 | Episode TTS voice pool (Chirp / WaveNet / Edge pools) | `scripts/render_audio.py` lines 44–74 | Episode pools are local-render today; the cloud calls this module's Google segment renderer for knocks and scheduled voice doses |
 | RSS feed structure | `scripts/rebuild_rss.py` | `rss.xml` is the only feed (playlist retired 2026-07-03) |
