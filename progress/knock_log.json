@@ -2937,5 +2937,17 @@
     "chained": 1,
     "pinned_target": "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு",
     "pinned_revealed": false
+  },
+  {
+    "date": "2026-07-31",
+    "timestamp": "2026-07-31T12:51:58.453510+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "trailer: after the melt",
+    "rationale": "Demand-streak at 2 forces a no-ask dose; morning anchor slot calls for a trailer recruiting the lunch session; the campaign's natural next chapter is 'after the melt' — the FAQ freeze-breakers that follow romba nallairuku — so the trailer closes the loop opened by two days of that pitch and points forward.",
+    "next_check": "2026-07-31T16:51:58.453510+00:00",
+    "body": "romba nallairuku lands — then she asks. today's session: what you say next 🍽️",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]
