@@ -414,7 +414,14 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
     Registers a new mission in progress/episodes.json.
     """
     from pathlib import Path
-    EPISODES_PATH = Path("progress/episodes.json")
+    # Absolute, off BASE — these were CWD-relative, so the state this function
+    # writes landed wherever the caller happened to be standing. Production hid
+    # it (run_studio shells out with cwd=BASE), but the smoke suite imports the
+    # SANDBOX copy without chdir'ing, so a test run wrote a fake mission and its
+    # words straight into the real progress/ files (2026-07-31, caught by s43 on
+    # its first run). A test that mutates live state is worse than no test.
+    EPISODES_PATH = BASE / "progress" / "episodes.json"
+    LEXICON_PATH = BASE / "progress" / "lexicon.json"
     
     def load_json(path: Path):
         if not path.exists(): return {}
@@ -443,7 +450,7 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
     # episodes.json / seen_in must resolve to a lexicon record, or be a genuinely
     # new Tamil-script payload word. A Producer annotation like
     # "frame:want-noun (வேணும்)" must credit frame:want-noun — not spawn a ghost.
-    lexicon = load_json(Path("progress/lexicon.json"))
+    lexicon = load_json(LEXICON_PATH)
     phon = {p: w for w, r in lexicon.items() for p in r.get("phonetic", [])}
 
     def canonical(w: str) -> str | None:
@@ -520,6 +527,7 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
         today = date.today().isoformat()
         tagged = 0
         created = 0
+        unresolved = []
         for w in cleaned_words:
             key = w if w in lexicon else phon.get(w)
             if key is None and w in new_word_keys and any('஀' <= c <= '௿' for c in w):
@@ -541,8 +549,26 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
                     seen.sort()
                 mark_exposed(lexicon, [key], phon_index=phon, today=today)
                 tagged += 1
+            else:
+                # A callbacks_used key that resolves to nothing used to fall out
+                # here in silence: only new_words_landed may CREATE a record, so
+                # the word shipped with real exposures on the tape and no trace
+                # in the ledger — unschedulable, uncollectable, invisible to
+                # suggest_targets (2026-07-31: இருந்துச்சு, the very word Andrew
+                # had asked for). Creating it here is wrong — a callback claims
+                # the word already exists, so an unresolvable one is far more
+                # likely a variant of a real record, and inventing a duplicate
+                # poisons the axes (the same reasoning as the frame branch
+                # above). So: report it, exactly as the frame case does, and let
+                # the operator re-file it. A silent drop is the only thing ruled out.
+                unresolved.append(w)
+        if unresolved:
+            print(f"   ! sidecar callback(s) resolve to no lexicon word — NOT registered, "
+                  f"NOT exposed: {unresolved}")
+            print(f"     → if one is genuinely new, move it to new_words_landed in "
+                  f"{tags_path.name} and re-run; if it is a variant, fix the sidecar spelling.")
         if tagged or created:
-            save_json(Path("progress/lexicon.json"), lexicon)
+            save_json(LEXICON_PATH, lexicon)
             msg = f"   ↳ exposed {tagged} lexicon words via M{mnum} (seen_in + delivery stamp)"
             if created:
                 msg += f"; +{created} NEW words registered (recognition=struggled, gloss empty — backfill later)"
@@ -555,6 +581,17 @@ async def main():
     parser.add_argument("--provider", choices=["edge", "google"], default="google", help="TTS provider (default: google)")
     parser.add_argument("--voice-type", choices=["chirp", "wavenet"], default="chirp", help="Google voice tier (default: chirp)")
     args = parser.parse_args()
+
+    # Load .env for GCP_SA_KEY (local). run_studio.py did this before shelling
+    # out here, so a render inside the studio always had credentials while the
+    # SAME command run by hand reported "this host cannot produce audio"
+    # (2026-07-31) — the standalone entry point was the only lane without it.
+    # Kept inside main(): this module is imported by the cloud knock/dose lanes,
+    # which get their secrets from the workflow, and an import-time side effect
+    # would reach them too. load_env uses setdefault, so a real env always wins.
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from morning_knock import load_env
+    load_env(Path(__file__).resolve().parent.parent / ".env")
 
     print(f"📖 Parsing {args.input_file}...")
     dialogue, voice_map = parse_script(args.input_file)
