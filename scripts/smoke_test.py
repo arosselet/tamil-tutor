@@ -1025,6 +1025,13 @@ PROSE_BUDGETS = {
     # and the mandate was at 1498/1500 — a ceiling is a split signal, not a
     # bump-the-number signal.
     "REACH_MANDATE": 300,
+    # Split out of JUDGE_MANDATE (2026-07-30) for the third time that file has
+    # paid for growth by splitting rather than raising. The slip contract landed
+    # it at 1764/1500; recording an error is its own concern from grading one
+    # (the judge can grade without it, and a port swapping the Tamil examples
+    # touches only this string), so it left as REACH_MANDATE and
+    # CATCH_JUDGE_MANDATE did. JUDGE_MANDATE keeps only the JSON key.
+    "SLIP_MANDATE": 250,
     "CATCH_JUDGE_MANDATE": 300,
 }
 
@@ -1034,6 +1041,7 @@ def s18_prose_budgets(mk, kr, sb: Path):
     strings = {"OUTREACH_MANDATE": mk.OUTREACH_MANDATE,
                "JUDGE_MANDATE": kr.JUDGE_MANDATE,
                "REACH_MANDATE": kr.REACH_MANDATE,
+               "SLIP_MANDATE": kr.SLIP_MANDATE,
                "CATCH_JUDGE_MANDATE": kr.CATCH_JUDGE_MANDATE}
     for rel, budget in PROSE_BUDGETS.items():
         words = (len(strings[rel].split()) if rel in strings
@@ -1778,7 +1786,7 @@ def s30_anna_speaks_back(mk, kr, sb: Path):
           "90 seconds" in kr.REACH_MANDATE and "SPEAK BACK" in kr.REACH_MANDATE)
     # The judge must see the split halves as one prompt.
     check("the split mandate is concatenated for the model",
-          "JUDGE_MANDATE + \"\\n\" + REACH_MANDATE" in src)
+          "JUDGE_MANDATE + \"\\n\" + SLIP_MANDATE + \"\\n\" + REACH_MANDATE" in src)
 
     # normalize_verdict guards the new field the same way it guards the others.
     check("a missing voice_reply normalises to empty",
@@ -2618,8 +2626,16 @@ def s37_repair_earns_the_dose(sb: Path):
     check("the commissioning law exists", "repair earns the dose" in routing)
     check("...and it is an ORDER of precedence, not a menu",
           "Backward beats forward" in routing)
-    check("...naming the repair population (hinted / recast / still-wrong)",
-          all(w in routing for w in ("hinted", "recast", "came out wrong")))
+    # The repair population used to be enumerated in prose ("hinted, recast, or
+    # corrected and still came out wrong") and scoped to "the day's" repairs —
+    # which meant the chat session's own day, so a mistake made on the phone was
+    # never in the draw at all (2026-07-30 audit: the same recast shipped 07-08,
+    # 07-25 and 07-30). The population is now the slip ledger, which is that
+    # enumeration made durable and cross-lane.
+    check("...drawing the payload from the ledger, not one session's memory",
+          "live slips" in routing and "sync_state.py slips" in routing)
+    check("...and the ledger spans every lane, not just the day's session",
+          "every* lane" in routing or "every lane" in routing)
     check("...and he never has to ask for it", "never has\nto ask" in routing
           or "never has to ask" in routing)
     check("a survived collision earns its own order, not a share of a mixed one",
@@ -2642,7 +2658,9 @@ def s37_repair_earns_the_dose(sb: Path):
           "same mistake twice through one format" in routing
           and "never loop harder" in routing)
     check("the forward seed order survives as the fallback, not the default",
-          "seed order" in routing and "Only when the day leaves none" in routing)
+          "seed order" in routing and "Only when none are live" in routing)
+    check("the escalation law names the counter that makes it fireable",
+          "ledger counts recurrences" in routing)
     check("both halves now live in one file — what it carries, and which channel",
           "What it carries" in routing and "Which channel carries it" in routing)
 
@@ -2720,6 +2738,123 @@ def s38_teach_enters_the_lexicon(sb: Path):
     finally:
         lex_path.write_bytes(saved[0])
         learner_path.write_bytes(saved[1])
+
+
+def s41_slip_ledger(kr, sb: Path):
+    """Mistakes accumulate, cross lanes, and reach the next lesson (2026-07-30).
+
+    The audit that produced this: 'romba nalla irukku' → 'irundhuchu' was pushed
+    back on 07-08, 07-25 and 07-30, near-verbatim, and nothing in the system
+    could notice. Three independent holes, one per direction of the loop:
+
+    1. CAPTURE — the diagnosis existed only as prose in knock_log's reply_line.
+       The synthesis lived in learner.last_debrief, a single string OVERWRITTEN
+       every close, so an error survived exactly as long as Anna retyped it.
+    2. CREDIT — apply_verdict is upgrade-only on the phone, and the 07-30 volley
+       scored ரொம்ப நல்லா இருக்கு as a hinted FIRE off a reply whose own recast
+       corrected its tense. A wrong answer moved the axis and took a rep.
+    3. RESURFACE — reply_line was read back only by the reveal-window and
+       deck-coverage scans. Nothing on the status digest or the ticket said what
+       he keeps getting wrong, so selection re-offered the item and the scene
+       re-asked it the same way.
+    """
+    print("\n41. The slip ledger — errors accumulate and steer the next lesson (2026-07-30)")
+    ss = importlib.import_module("sync_state")
+    st = importlib.import_module("suggest_targets")
+    slip_path = sb / "progress" / "slip_log.json"
+    if slip_path.exists():
+        slip_path.unlink()
+
+    # --- 2. credit: a corrected item is not a fire -----------------------------
+    d = kr.normalize_verdict(
+        {"verdict": "hinted",
+         "fired": [{"word": "ரொம்ப நல்லா இருக்கு", "said": "Romba nalla irukku",
+                    "verdict": "hinted"}],
+         "slips": [{"tag": "past-tense", "said": "irukku",
+                    "want": "ரொம்ப நல்லா இருக்கு", "note": "present for a past scene"}],
+         "reply_line": "x"},
+        "Market ku ponnam, Romba nalla irukku")
+    check("a word corrected in the same breath is not credited", d["fired"] == [])
+    check("...and the headline degrades rather than celebrating", d["verdict"] == "miss")
+    check("...and the drop is loud, not silent",
+          any("corrected in the same breath" in u for u in d["unverified"]))
+    d = kr.normalize_verdict(
+        {"verdict": "cold",
+         "fired": [{"word": "ஒரு நிமிஷம்", "said": "Oru nimsham", "verdict": "cold"}],
+         "slips": [{"tag": "stranger-nga", "said": "pesa", "want": "pesunga", "note": "n"}],
+         "reply_line": "x"}, "Oru nimsham")
+    check("an unrelated slip does not cost him a clean fire",
+          [i["word"] for i in d["fired"]] == ["ஒரு நிமிஷம்"] and d["verdict"] == "cold")
+    check("a slip with no tag cannot enter the ledger",
+          kr.normalize_verdict({"verdict": "chat", "slips": [{"said": "x", "want": "y"}]},
+                               "")["slips"] == [])
+
+    # --- 1. capture: append-only, cross-lane, dated by when it happened --------
+    ss.append_slips([{"tag": "Past tense", "said": "irukku", "want": "irundhuchu",
+                      "note": "present for a past scene"}],
+                    lane="knock", when="2026-07-25")
+    ss.append_slips([{"tag": "past-tense", "said": "irukku", "want": "irundhuchu",
+                      "note": "present for a past scene"}],
+                    lane="chat", when="2026-07-30")
+    rows = read_json(slip_path)
+    check("the ledger is append-only — the second write keeps the first", len(rows) == 2)
+    check("...and tag casing/punctuation collapses to one pattern",
+          {r["tag"] for r in rows} == {"past-tense"})
+    check("...and each row keeps the lane it came from",
+          {r["lane"] for r in rows} == {"knock", "chat"})
+    pats = {p["tag"]: p for p in ss.slip_patterns(today=date_cls(2026, 7, 30))}
+    p = pats["past-tense"]
+    check("a mistake made twice is a pattern, not a one-off", p["pattern"] and p["count"] == 2)
+    check("...spanning the real days it happened on, not the day it was written",
+          p["span_days"] == 5 and p["first"] == "2026-07-25")
+    check("...and it crosses lanes — the phone and the table are one history",
+          sorted(p["lanes"]) == ["chat", "knock"])
+    check("a pattern nothing was ever built for is NOT told to change format",
+          p["uncommissioned"] and not p["escalate"])
+
+    # A dose was commissioned and he slipped anyway — that is the escalation the
+    # audio_channels law describes, and it could not fire before this counter.
+    ss.append_slips([{"tag": "past-tense", "said": "irukku", "want": "irundhuchu"}],
+                    lane="knock", dose_channel="soak", when="2026-07-30")
+    p = {x["tag"]: x for x in ss.slip_patterns(today=date_cls(2026, 7, 30))}["past-tense"]
+    check("a slip that survived a dose escalates the FORMAT",
+          p["escalate"] and p["channels"] == ["soak"])
+
+    # --- quiet + close: the surface forgets, the ledger never does -------------
+    p = {x["tag"]: x for x in ss.slip_patterns(today=date_cls(2026, 9, 30))}["past-tense"]
+    check("a long-quiet slip stops surfacing", not p["live"] and p["count"] == 3)
+    check("...but its history is still on the record", p["count"] == 3)
+    check("a quiet slip renders nothing", ss.format_slip_block([p]) == [])
+
+    # --- 3. resurface: status, and the ticket that picks the next lesson -------
+    block = "\n".join(ss.format_slip_block(ss.slip_patterns(today=date_cls(2026, 7, 30))))
+    check("the digest names the pattern, not just that a reply happened",
+          "past-tense" in block and "irundhuchu" in block)
+    check("...and says a recast does not close it",
+          "closed by firing right" in block)
+
+    src = (REAL_BASE / "scripts" / "sync_state.py").read_text(encoding="utf-8")
+    check("the session digest shows what Anna CORRECTED on the phone",
+          "corrected: " in src)
+    check("the knock reply commits the ledger — an unpushed slip dies with the runner",
+          "commit_paths.append(SLIP_LOG_PATH)" in
+          (REAL_BASE / "scripts" / "knock_reply.py").read_text(encoding="utf-8"))
+
+    # The ticket hangs the slip off the item it belongs to, so a selected word
+    # arrives with HOW it keeps failing, not just that it is due.
+    # An explicit key, not one scraped from the sandbox lexicon: the linkage under
+    # test is slip → row, and it must hold whether or not the want resolves.
+    key = "frame:day-recap"
+    ss.append_slips([{"tag": "ending", "said": "ponnam", "want": "ponnom", "word": key,
+                      "note": "the ending"}], lane="knock", when="2026-07-30")
+    hung = st.slips_by_word(ss.slip_patterns(today=date_cls(2026, 7, 30)))
+    check("a slip attaches to the lexicon row it is about", key in hung)
+    check("...and annotates it with what he actually said",
+          "SLIPPED" in st.slip_note(hung[key]))
+    check("a single slip still annotates an item already selected",
+          "once" in st.slip_note(hung[key]))
+
+    slip_path.unlink()
 
 
 def s39_ticket_carries_the_commission(sb: Path):
@@ -2986,6 +3121,7 @@ def main():
         s38_teach_enters_the_lexicon(sb)
         s39_ticket_carries_the_commission(sb)
         s40_drill_consumes_its_commission(sb)
+        s41_slip_ledger(kr, sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)

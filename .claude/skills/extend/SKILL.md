@@ -84,7 +84,7 @@ the commit body if you touch one. (`BOOTSTRAP.md` → "What Generalizes" → Lay
 
 | Item | Location |
 |---|---|
-| LLM prompts with Tamil-specific prose rules (script vs. phonetic, Woven Thanglish) | `scripts/morning_knock.py` (decide prompt), `scripts/knock_reply.py` (judge prompt), `scripts/render_drill.py` (drill-script prompt) |
+| LLM prompts with Tamil-specific prose rules (script vs. phonetic, Woven Thanglish) | `scripts/morning_knock.py` (decide prompt), `scripts/knock_reply.py` (judge prompt + `SLIP_MANDATE`), `scripts/render_drill.py` (drill-script prompt) |
 | `TAMIL_RE` — script-detection regex that enforces Tamil script as canonical lexicon keys | `scripts/sync_state.py` line 56 |
 | Pinned TTS voice IDs — `ANNA_VOICE` for knocks/drills; voice pools for episodes | `scripts/morning_knock.py` line 50; `scripts/render_audio.py` |
 

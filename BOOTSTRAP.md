@@ -45,6 +45,7 @@ Copy each `.example` file to its live counterpart and fill in the user's data:
 | `progress/lexicon.json.example` | `progress/lexicon.json` | The word brain (starts empty — `sync_state.py` populates it) |
 | `progress/episodes.json.example` | `progress/episodes.json` | Audio episode registry (starts empty) |
 | `progress/session_log.json.example` | `progress/session_log.json` | Append-only momentum log (starts empty) |
+| `progress/slip_log.json.example` | `progress/slip_log.json` | Append-only error ledger — what the learner keeps getting wrong (starts empty) |
 | `progress/profile.md.example` | `progress/profile.md` | Teacher's notebook — fill in learner name, goal, initial assessment |
 
 In `learner.json`, replace `"Your Name"` with the learner's name.
@@ -81,7 +82,7 @@ This repo is a **reference implementation, not a framework** — the goal here i
 
 **Layer 1 — the machinery (mostly general, with a known port surface).** The Python engine, state schema, and daily-loop choreography carry over unchanged, *except*:
 
-- **LLM prompts embedded in the Python.** `morning_knock.py` (the outreach-decision prompt), `knock_reply.py` (the judge prompt), and `render_drill.py` (the drill-script prompt) state Tamil-specific rules in prose — Tamil script vs. phonetic, Woven Thanglish. This is the port surface a swap-the-`.md`-files pass will miss.
+- **LLM prompts embedded in the Python.** `morning_knock.py` (the outreach-decision prompt), `knock_reply.py` (the judge prompt **and `SLIP_MANDATE`**, whose worked examples are Tamil morphology — the `-ōm` ending, the honorific `-nga`), and `render_drill.py` (the drill-script prompt) state Tamil-specific rules in prose — Tamil script vs. phonetic, Woven Thanglish. This is the port surface a swap-the-`.md`-files pass will miss.
 - **Constants.** The script-detection regex (`TAMIL_RE` in `sync_state.py` — canonical lexicon keys must be Tamil script), the pinned TTS voice IDs (`ta-IN-…` in `morning_knock.py` / `render_audio.py`), and the repo URL used for CDN links.
 
 **Layer 2 — the language pack (swap these files):**

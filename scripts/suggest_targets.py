@@ -34,7 +34,7 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 from generate_callbacks import due_callbacks, load_json, days_since, NEVER_SURFACED
-from sync_state import is_unseen, soak_pending
+from sync_state import is_unseen, soak_pending, slip_patterns, format_slip_block
 
 # Windows consoles default to cp1252, which can't print Tamil (2026-07-15).
 if hasattr(sys.stdout, "reconfigure"):
@@ -606,6 +606,35 @@ def commissioned_form(learner: dict | None = None) -> str | None:
     return form or None
 
 
+def slips_by_word(patterns: list[dict]) -> dict[str, list[dict]]:
+    """Lexicon key → the live slip patterns that attach to it, worst first.
+
+    Annotates a row Python ALREADY selected, so the bar is lower than the one
+    format_slip_block uses: a single slip is not enough to commission a dose off
+    (one is noise), but when the item is on the menu anyway, "last time he said
+    pesa" is exactly what stops the next scene being the same scene."""
+    out: dict[str, list[dict]] = {}
+    for p in patterns:
+        if not p["live"]:
+            continue
+        for w in p["words"]:
+            out.setdefault(w, []).append(p)
+    for rows in out.values():
+        rows.sort(key=lambda p: p["count"], reverse=True)
+    return out
+
+
+def slip_note(patterns: list[dict]) -> str:
+    """The one-line annotation hung off a selected item."""
+    p = patterns[0]
+    said = p["examples"][-1][1] if p["examples"] else ""
+    times = f"{p['count']}×" if p["count"] > 1 else "once"
+    tail = ("Not a repetition problem — teach the pattern."
+            if p["count"] > 1 else "Worth one clause of contrast.")
+    return (f"      ↳ SLIPPED {times} ({p['tag']})"
+            + (f" — last time he said “{said}”. " if said else ". ") + tail)
+
+
 def scene_spec(sidecars: list[dict], commissioned: str | None = None) -> dict:
     """The structural variety gate: register + form + dramatic ingredient,
     each forced to diverge from the last 3 episodes.
@@ -667,6 +696,10 @@ def main():
     # law, so they must share the term that implements it.
     asked = recent_ask_counts(load_json(KNOCK_LOG_PATH) or [], lexicon)
     reps = rep_counts(lexicon)
+    # One ledger read for the whole ticket: the deck list, the floor gap, and the
+    # ledger block below all hang off it.
+    slips = slip_patterns()
+    slipped = slips_by_word(slips)
     deck = deck_status(lexicon, today=today, asked=asked, reps=reps)
     if deck:
         print("\n★ TRIP DECK  (the sprint headline — force these before the general floor)")
@@ -681,6 +714,8 @@ def main():
                 tag += " · never worked"
             tier = f" · {t['tier']}" if t.get("tier") else ""
             print(f"  - [{t['kind']}{tier}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{tag}]")
+            if t["word"] in slipped:
+                print(slip_note(slipped[t["word"]]))
         hidden = len(deck["pending"]) - 12
         if hidden > 0:
             print(f"  … {hidden} more below the cut (least-recently-worked first — the tail rotates up)")
@@ -726,6 +761,23 @@ def main():
             if starving:
                 print("     Starving registers: " + ", ".join(starving))
             print("     They now sort to the head of their tier — fire from the top and this drains.")
+
+    # 0. THE SLIP LEDGER — what he actually keeps getting wrong, ahead of the
+    # commission because it is the evidence a commission is drawn FROM. Every
+    # list below this answers "which item is due"; only this one answers "how is
+    # he failing", and until 2026-07-30 nothing on the ticket answered that at
+    # all. A floor-gap row says ரொம்ப நல்லா இருக்கு is not yet cold, so the ticket
+    # re-offers it and the scene re-asks it the same way; the ledger says he has
+    # reached for the present tense three times running, which is a different
+    # lesson entirely.
+    slip_block = format_slip_block(slips)
+    if slip_block:
+        print("\n★ SLIP LEDGER  (repeated mistakes — the primary signal for what to teach)")
+        print("-" * 60)
+        for line in slip_block:
+            print(line)
+        print("\n  A slip is not closed by being corrected — it closes when the right form")
+        print("  fires unaided, later, in a scene that did not hand it over. Build for that.")
 
     # 0. THE COMMISSION — the repair that earned this dose, ahead of everything
     # the ticket computes. Before 2026-07-28 the order reached the Director only
@@ -774,6 +826,10 @@ def main():
                                         cohort=learner.get("focus_cohort"))
     if not gap:
         print("  (floor is clear — nothing recognized is stuck below cold)")
+    # Which live slips attach to which floor-gap word. STUCK_REPS still stands on
+    # its own evidence (median 2 reps to cold, p90 5) but it fires at 10 and only
+    # ever says "this isn't working"; a slip fires at 2 and says WHAT isn't
+    # working, which is the part a fresh scene needs in order to be different.
     for t in gap:
         tag = "hinted→cold" if t["production"] == "hinted" else f"{t['recognition']}, cold-pending"
         rep = f"{t['reps']} rep{'s' if t['reps'] != 1 else ''}" if t["reps"] else "never drilled"
@@ -782,6 +838,8 @@ def main():
             cool = (f"  · ⚠ STUCK — {t['reps']} reps and still not cold (most words take 2). "
                     f"Drilling it again won't work; change the angle.")
         print(f"  - {t['word']} — {t['gloss'] or '[no gloss]'}  [{tag} · {rep}]{cool}")
+        if t["word"] in slipped:
+            print(slip_note(slipped[t["word"]]))
     print(f"  Graduation is production going COLD. After that a word is never "
           f"drilled again — it is just used.")
 

@@ -1527,3 +1527,58 @@ Details live in git history; this is the index of the *conclusions*.
   early-return killed the run before the order was ever read). Smoke case `s40`, including
   a stubbed-LLM run of `main()` itself — the pieces are only worth having if the entry
   point calls them.
+- **Mistakes are a ledger, not prose — errors accumulate, cross lanes, and steer selection**
+  (2026-07-30, Andrew's ask: *"make very, very sure that these mistakes are used as direct
+  signal to direct subsequent lessons"*). **Evidence, not a felt signal:** `romba nalla
+  irukku` → `irundhuchu` was pushed back on **07-08, 07-25 and 07-30**, near-verbatim; the
+  1pl `-ōm` ending was corrected on 07-25 twice (`poganum`→`ponoom`, `sappiten`→`saapittoom`)
+  and again on 07-30 (`ponnam`→`ponnom`); `venum`-for-`kudunga` on 07-08 and 07-13. Well past
+  the `/recalibrate` bar, and none of it was visible to any selector. **Three holes, one per
+  direction of the loop:** (1) CAPTURE — the diagnosis existed only as free prose in
+  `knock_log`'s `reply_line`; the synthesis lived in `learner.last_debrief`, a single string
+  **overwritten every close**, so an error survived exactly as long as Anna retyped it, and
+  `daily_session.md` drew repairs from *"the day's"* chat session so a phone correction was
+  never in the draw at all. (2) CREDIT — `apply_verdict` is upgrade-only on the phone, and the
+  07-30 volley scored ரொம்ப நல்லா இருக்கு as a hinted **fire** off a reply whose own recast
+  corrected its tense: a wrong answer moved the production axis and took a rep. (3) RESURFACE
+  — `reply_line` was read back only by the reveal-window and deck-coverage scans, so
+  `sync_state status` showed *"replied (hinted)"* with no hint of what was wrong, and the
+  ticket could only ever say an item was **due**, never **how it keeps failing**. Selection
+  therefore re-offered the item and the scene re-asked it the same way, which is precisely
+  how one recast shipped three times in three weeks looking like normal progress.
+  **The fix:** `progress/slip_log.json`, append-only, written by the judge that saw the
+  mistake and by `update --slip` at close; `SLIP_MANDATE` (split out of `JUDGE_MANDATE`,
+  which the contract took to 1764/1500) makes the judge name the *pattern*, not the
+  instance; Python drops any fire matching a slip's `want`; and one renderer feeds all three
+  reader surfaces (status, the knock digest, the ticket) with per-row annotations hung off
+  the deck and floor-gap items themselves.
+  **Explicitly NOT a reversal of "continuity is prose memory, not a schema" (2026-06-17).**
+  What was rejected there was `threads.json` *with due-ness scoring* — a schema that would
+  make the **choice**. This makes none: it counts and groups, and Anna reads the group and
+  decides. That decision's own second sentence is the argument for this one — *Python computes
+  the menu; Anna makes the choice and the meaning* — and Python was computing no menu for
+  errors at all, leaving the meaning to a string that gets overwritten nightly. `last_debrief`
+  is untouched and still the running story.
+  **What it replaces:** Anna hand-retyping error memory into the debrief each close (lossy,
+  and it never covered the phone); and it supplies the missing counter for a law that shipped
+  two days earlier and had been dead prose since — *"the same mistake twice through one format
+  is that format's answer"* (`audio_channels.md`, 07-28) had nothing counting formats. That
+  law now distinguishes **NEVER COMMISSIONED** (corrected in passing, no dose ever built —
+  the state all three live patterns were actually in) from **ESCALATE** (a dose was built and
+  he slipped anyway); telling him to "change format" when no format was ever tried is advice
+  for a problem he does not have. `STUCK_REPS = 10` stands on its own evidence but fires late
+  and only says *this isn't working*; a slip fires at 2 and says *what*.
+  **Paid for in the same diff, per the word-budget rule:** `audio_channels.md` 659 → 633
+  (retired the enumerated repair population, now the ledger's definition, and compressed the
+  07-28 origin story) against its unchanged 640 ceiling — the split its constant demands is
+  still owed, not taken here. `JUDGE_MANDATE` split rather than raised, for the third time
+  that file has paid that way. Ledger seeded from the 13 corrections recoverable from
+  `knock_log`, each verified against the reply that produced it before writing; substitutions
+  excluded on the 07-27 law. Smoke case `s41`.
+  **Residual, deliberate:** tags are free strings the judge coins, not an enum — an enum would
+  force every new error into a pre-imagined bucket and mislabel exactly the ones worth seeing.
+  The cost is drift (two slugs for one pattern); the guard is that the judge is shown the tags
+  already in use, and drift is visible in `sync_state.py slips` and cheap to merge. Also: a
+  slip's `want` resolves to a lexicon key only when the phonetic data supports it, and several
+  records carry empty `phonetic` lists, so ending-shaped slips often hang off no row — the tag
+  carries the meaning there, and the ticket annotation is best-effort by design.
