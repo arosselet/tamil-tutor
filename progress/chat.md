@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Friday 2026-07-31
+
+**08:51 · Anna**  ·  text / trailer: after the melt
+> romba nallairuku lands — then she asks. today's session: what you say next 🍽️
+
+
 ## Thursday 2026-07-30
 
 **09:08 · Anna**  ·  text / trailer payoff bell
