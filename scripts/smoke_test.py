@@ -3213,6 +3213,57 @@ def s42_session_log_one_row_per_day(sb: Path):
         log = update(produced_cold=["ஸ்மோக்டூ"])
         check("an older day is never merged into today", len(log) == 2, f"got {len(log)}")
         check("...and keeps its own note", log[0]["note"] == "ancient")
+
+        # --- the one-time repair of rows minted before the merge landed --------
+        # Its first dry run reported 20 phantom collapsed fires: `dict(row)` is a
+        # SHALLOW copy, so the merged row shared list objects with its source and
+        # extending one extended the other — the conservation check was comparing
+        # the mutated history against itself. A migration that quietly corrupts
+        # the record it is repairing is the worst failure mode this tool has.
+        forged = [
+            {"date": "2021-05-05", "cold": ["a", "b"], "hinted": ["h"], "demoted": [],
+             "listened": [], "note": "first pass", "floor_pct": 1.0, "engines_pct": 2.0},
+            {"date": "2021-05-05", "cold": ["c"], "hinted": [], "demoted": ["d"],
+             "listened": [], "note": "", "floor_pct": 1.5, "engines_pct": 2.5},
+            {"date": "2021-05-05", "cold": [], "hinted": [], "demoted": [],
+             "listened": [], "note": "rewritten whole", "floor_pct": 1.7, "engines_pct": 2.7},
+            {"date": "2021-05-06", "cold": ["e"], "hinted": [], "demoted": [],
+             "listened": [], "note": "next day", "floor_pct": 2.0, "engines_pct": 3.0},
+        ]
+        write_json(slog_path, forged)
+        before = json.loads(json.dumps(forged))     # an untouchable reference copy
+
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            ss.cmd_migrate_session_log(_ap.Namespace(apply=False))
+        check("a dry run writes nothing at all",
+              read_json(slog_path) == before, "the preview mutated the file")
+        check("...and says so", "DRY RUN" in out.getvalue())
+        # a+b+c on 05-05 and e on 05-06 = 4 fires, and the merge must move none
+        # of them. A "→" showing a DROP here is the shallow-copy bug returning.
+        check("...and reports fires as conserved, not collapsed",
+              "cold     4 → 4" in out.getvalue(), f"got {out.getvalue()!r}")
+
+        with contextlib.redirect_stdout(io.StringIO()):
+            ss.cmd_migrate_session_log(_ap.Namespace(apply=True))
+        after = read_json(slog_path)
+        check("--apply collapses the forged rows", len(after) == 2, f"got {len(after)}")
+        check("...conserving every fire across the merge",
+              sorted(after[0]["cold"]) == ["a", "b", "c"], f"got {after[0]['cold']}")
+        check("...and every hint and demotion",
+              after[0]["hinted"] == ["h"] and after[0]["demoted"] == ["d"], f"got {after[0]}")
+        check("...keeping the LAST debrief of the day, not the first",
+              after[0]["note"] == "rewritten whole", f"got {after[0]['note']!r}")
+        check("...and the latest meter snapshot",
+              after[0]["floor_pct"] == 1.7, f"got {after[0]['floor_pct']}")
+        check("...while a separate day is left entirely alone",
+              after[1] == forged[3], f"got {after[1]}")
+
+        with contextlib.redirect_stdout(out := io.StringIO()):
+            ss.cmd_migrate_session_log(_ap.Namespace(apply=True))
+        check("re-running on clean data is a no-op",
+              read_json(slog_path) == after and "nothing to do" in out.getvalue(),
+              f"got {out.getvalue()!r}")
     finally:
         lex_path.write_bytes(saved[0])
         learner_path.write_bytes(saved[1])

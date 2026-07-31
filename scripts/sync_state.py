@@ -1579,6 +1579,77 @@ def cmd_feedback(args):
         print(f"  {e['date']}  {e['note']}")
 
 
+def cmd_migrate_session_log(args):
+    """One-time repair of rows minted before the same-day merge landed (2026-07-31).
+
+    Until today the momentum log appended on every `update`, so a close split
+    across several calls — repairing a key, setting the soak order separately,
+    rewriting a debrief — wrote one row per CALL. 38 rows for 19 real
+    session-days: the log read exactly double.
+
+    Merging is lossless in the way that matters. Word lists union (and on this
+    history no word appears in two rows of one day, so no count moves). The
+    debrief is rewritten whole and cumulatively by Anna, so the last non-empty
+    one supersedes rather than concatenating — that is the same rule the live
+    path now follows. Meters are a snapshot: the last row that carries them wins.
+
+    Previews by default; --apply writes. Deliberately NOT run by anything
+    automatic — it edits the record of what Andrew actually did, which is his
+    call to make once, not a repair that should quietly re-run."""
+    log = load_json(SESSION_LOG_PATH) or []
+    if not log:
+        print("session_log.json is empty — nothing to migrate.")
+        return
+
+    merged, by_date = [], {}
+    for row in log:
+        d = row.get("date")
+        if d not in by_date:
+            # deepcopy, not dict(): a shallow copy shares the LIST objects with
+            # the source row, so extending the merged row silently extended the
+            # original too — and the before/after conservation check below then
+            # compared the mutated history against itself and reported phantom
+            # duplicates. Caught on this migration's first dry run.
+            import copy
+            by_date[d] = copy.deepcopy(row)
+            merged.append(by_date[d])
+            continue
+        into = by_date[d]
+        for field in ("cold", "hinted", "demoted", "listened"):
+            have = into.setdefault(field, [])
+            have.extend(v for v in row.get(field, []) if v not in have)
+        for meter in ("floor_pct", "engines_pct"):
+            if row.get(meter) is not None:
+                into[meter] = row[meter]
+        if row.get("note"):
+            into["note"] = row["note"]
+
+    dupes = len(log) - len(merged)
+    print(f"session_log.json: {len(log)} rows over {len(merged)} session-days "
+          f"({dupes} forged by multi-call closes)")
+    if not dupes:
+        print("  nothing to do.")
+        return
+
+    # Prove the merge conserves the numbers anything downstream reads.
+    for field in ("cold", "hinted", "demoted"):
+        before = sum(len(r.get(field, [])) for r in log)
+        after = sum(len(r.get(field, [])) for r in merged)
+        flag = "" if before == after else f"  ⚠ {before - after} duplicate(s) collapsed"
+        print(f"  {field:<8} {before} → {after}{flag}")
+    lost = sum(1 for r in log if r.get("note")) - sum(1 for r in merged if r.get("note"))
+    print(f"  {'debriefs':<8} {sum(1 for r in log if r.get('note'))} → "
+          f"{sum(1 for r in merged if r.get('note'))}"
+          f"{'' if not lost else f'  ({lost} superseded — the last of each day is kept)'}")
+
+    if not args.apply:
+        print("\n  DRY RUN — nothing written. Re-run with --apply to commit the change.")
+        print("  (git holds the current file; `git checkout -- progress/session_log.json` reverts.)")
+        return
+    save_json(SESSION_LOG_PATH, merged)
+    print(f"\n  ✅ written — {len(merged)} rows, one per session-day.")
+
+
 def main():
     parser = argparse.ArgumentParser(description="Tamil learning state management")
     sub = parser.add_subparsers(dest="command")
@@ -1671,6 +1742,12 @@ def main():
                          "(a later miss revives it, history intact); 'missed' logs the failure and keeps it live. "
                          "This asserts an observation — that he fired it right unaided — not a verdict.")
 
+    ml = sub.add_parser("migrate-session-log",
+                        help="One-time repair: collapse same-day momentum rows minted by "
+                             "multi-call closes (2026-07-31). Previews unless --apply.")
+    ml.add_argument("--apply", action="store_true",
+                    help="Actually write. Without it this only reports what would change.")
+
     args = parser.parse_args()
     if args.command == "update":
         cmd_update(args)
@@ -1688,6 +1765,8 @@ def main():
         cmd_slips(args)
     elif args.command == "knock-response":
         cmd_knock_response(args)
+    elif args.command == "migrate-session-log":
+        cmd_migrate_session_log(args)
     else:
         parser.print_help()
 
