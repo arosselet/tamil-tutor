@@ -2719,9 +2719,10 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": null,
+    "last_surfaced": "2026-07-31",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 1
   },
   "நானே எடுத்துக்கறேன்": {
     "type": "chunk",
@@ -2784,9 +2785,10 @@
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": null,
+    "last_surfaced": "2026-07-31",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 1
   },
   "அவங்க என்ன சொன்னாங்க?": {
     "type": "chunk",
@@ -2926,11 +2928,11 @@
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-07-29",
+    "last_surfaced": "2026-07-31",
     "deck": "trip",
     "direction": "fire",
     "exposures": 1,
-    "reps": 1
+    "reps": 2
   },
   "இங்க நிறுத்துங்க": {
     "type": "chunk",
@@ -2984,10 +2986,10 @@
     "recognition": "struggled",
     "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-07-29",
+    "last_surfaced": "2026-07-31",
     "deck": "trip",
     "direction": "fire",
-    "reps": 2,
+    "reps": 3,
     "exposures": 1
   },
   "கார்டு வேலை செய்யுமா?": {
