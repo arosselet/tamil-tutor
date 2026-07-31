@@ -4,6 +4,23 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **NEVER COMMISSIONED is a detector with no actuator — give the flag teeth (2026-07-31,
+  Andrew's second report of the same complaint).** The ledger correctly identified three
+  uncommissioned slips and printed them at the head of the status digest and the ticket.
+  Anna read the warning, ran a good session, and still shipped no dose — so Andrew had to
+  ask a **second time** for the இருந்துச்சு dose he first asked for on 07-25, which is
+  precisely the failure `audio_channels.md` was written to prevent (*"I shouldn't have to
+  beg for a soak or an episode"*, 07-28). The commissioning law exists, is correct, and
+  did not fire: nothing forces a dose at close, so the flag is advice a busy agent can
+  read and walk past. **Not built, deliberately** — this is a new gate, not a bug fix, and
+  it needs Andrew's design call first: the obvious shape (a close carrying a live
+  NEVER COMMISSIONED slip *fails* until `--soak-payload` is set) is a hard gate on the one
+  ritual that must never become a chore, and the Enjoyment Clause has beaten harder
+  mechanisms than this before. Softer options exist (the close PRINTS the unbuilt dose it
+  would have ordered; or `update` refuses only when the same tag has been flagged N
+  closes running). Route through `/recalibrate` — the felt signal is banked verbatim in
+  the feedback ledger, second occurrence, past the diagnosis bar.
+
 - **AT THE COMPUTER: finish the Andrew-intro naturalness pass — it is blocked on the Oracle,
   not on work (2026-07-30).** Branch `claude/tamil-intro-naturalness-cr4wy2` carries a
   six-section Coimbatore-ear review of `special_andrew_intro.md`, judged against attested
@@ -452,9 +469,14 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
   Tamil-script-only so keys stay canonical, and it runs BEFORE the axes so a word taught and
   fired in the same close resolves instead of being refused. Re-teaching a known word
   refreshes it without resetting recognition. `பக்கத்துல`, `ஆச்சு` and `இருக்கேன்` were
-  entered the same day. Smoke case `s38`. **STILL OPEN: the session_log inflation below**
-  (a `--debrief`-only call appends a row, so a multi-call close overcounts — 07-28 wrote
-  three rows for one session, and adherence read off this log overcounts that day by 2).
+  entered the same day. Smoke case `s38`. **SECOND HALF SHIPPED 2026-07-31** — the
+  session_log inflation below is closed: same-day `update` calls now MERGE into that
+  day's row instead of appending (union on the word lists, a later debrief supersedes,
+  an absent one never blanks). It had reached 38 rows for 26 real session-days by the
+  day it was fixed — and the cosmetic overcount was the smaller half, since
+  `cold_fires_recent()` and `fires_today()` sum word lists across entries, so a word
+  logged twice in one close inflated the trailing pace the burn rate is computed from.
+  Historical rows left as they are pending Andrew's call on a backfill. Smoke case `s42`.
   Original report follows.
   The pakkam/paakkalaam
   deep-dive taught `பக்கத்துல`, `ஆச்சு` and `இருக்கேன்`; all three were refused at close
