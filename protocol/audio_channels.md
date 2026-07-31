@@ -5,10 +5,10 @@ decides which channel carries it.** Two separate questions, both answered here.
 
 ## What it carries — the repair earns the dose
 
-**Draw the payload first from the day's unclosed repairs** — hinted, recast, or corrected
-and still came out wrong. Only when the day leaves none does the order point forward as a
-**seed order** of unseen items. **Backward beats forward**; he never has to ask for the dose
-that closes his own mistake.
+**Draw the payload first from the live slips** — `sync_state.py slips`, the ledger of what
+he keeps getting wrong across *every* lane, not just this session's.
+Only when none are live does the order point forward as a **seed order** of unseen items.
+**Backward beats forward**; he never has to ask for the dose that closes his own mistake.
 
 - **A collision that survived its correction earns its own order**, not a slot in a mixed
   one. One appearance in a three-item tape is a mention, not a dose. This sets the dose's
@@ -16,12 +16,10 @@ that closes his own mistake.
 - **A gap already diagnosed in writing is owed a dose, not a note.** `frame:youknow-la` sat
   under a standing "wire real audio" verdict while catch went backwards.
 - The seed order is not demoted — it still teaches the campaign's next page
-  (`protocol/studio/studio.md`); it just no longer outranks a mistake he is still making.
+  (`protocol/studio/studio.md`); it just no longer outranks a live slip.
 
 **The failure this prevents** (2026-07-28, Andrew): *"I shouldn't have to beg for a soak or
-an episode."* Routing and production laws existed; **no commissioning law** did — so forward
-pull won by default, pakkam/paakkalaam got one slot in three, and was still open that
-evening.
+an episode."* No commissioning law existed, so forward pull won by default.
 
 ## Which channel carries it — capacity routes, curriculum fills
 
@@ -43,8 +41,9 @@ what actually broke — never the bare fact that two words sound alike:
 | He has it, he's just slow | **drill** — the silence is the demand |
 
 - **The same mistake twice through one format is that format's answer.** Change format;
-  never loop harder. *"Using them in context can be very effective for sticking in my
-  brain"* (2026-07-28, Andrew) — a collision is not a standing order for repetition.
+  never loop harder — the ledger counts recurrences and flags this ESCALATE. *"Using them
+  in context can be very effective for sticking in my brain"* (2026-07-28, Andrew) — a
+  collision is not a standing order for repetition.
 - **A drill's silence is a demand.** The gap only works if he can speak out loud; in
   company it is dead air he cannot use.
 - **An episode is the most expensive and most demanding dose there is** — it earns its place
