@@ -1010,10 +1010,11 @@
       9,
       11,
       12,
-      75
+      75,
+      78
     ],
-    "last_surfaced": "2026-07-26",
-    "exposures": 2
+    "last_surfaced": "2026-07-31",
+    "exposures": 3
   },
   "போறேன்": {
     "gloss": "I go / I'm going",
@@ -1655,9 +1656,11 @@
       23,
       27,
       32,
-      61
+      61,
+      78
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-07-31",
+    "exposures": 1
   },
   "அவரு": {
     "gloss": "He/She (respectful)",
@@ -4014,13 +4017,14 @@
     "seen_in": [
       60,
       61,
-      76
+      76,
+      78
     ],
-    "last_surfaced": "2026-07-26",
+    "last_surfaced": "2026-07-31",
     "deck": "trip",
     "direction": "catch",
     "reps": 1,
-    "exposures": 1
+    "exposures": 2
   },
   "ஜாஸ்தி": {
     "type": "chunk",
@@ -4784,5 +4788,60 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": "2026-07-28"
+  },
+  "போனோம்": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      78
+    ],
+    "last_surfaced": "2026-07-31",
+    "exposures": 1
+  },
+  "சாப்பிட்டோம்": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      78
+    ],
+    "last_surfaced": "2026-07-31",
+    "exposures": 1
+  },
+  "வந்தோம்": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      78
+    ],
+    "last_surfaced": "2026-07-31",
+    "exposures": 1
+  },
+  "பார்த்தோம்": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      78
+    ],
+    "last_surfaced": "2026-07-31",
+    "exposures": 1
+  },
+  "பண்ணோம்": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      78
+    ],
+    "last_surfaced": "2026-07-31",
+    "exposures": 1
   }
 }

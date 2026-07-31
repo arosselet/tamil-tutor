@@ -1,0 +1,31 @@
+{
+  "mission": 78,
+  "register": "defiance",
+  "dramatic_ingredient": "genre",
+  "episode_form": "narrated_drama",
+  "shape": "gossip",
+  "location_class": "home_social",
+  "energy": "medium",
+  "intercept_tamil_density": 0.45,
+  "breakdown_tamil_density": 0.2,
+  "fence_size": 42,
+  "unfenced_words": 1,
+  "new_words_landed": {
+    "நாங்க": 12,
+    "போனோம்": 3,
+    "சாப்பிட்டோம்": 3,
+    "வந்தோம்": 4,
+    "பார்த்தோம்": 4,
+    "பண்ணோம்": 3
+  },
+  "callbacks_used": {
+    "அலைச்சல்": 2,
+    "இருந்துச்சு": 3,
+    "நல்லா": 2
+  },
+  "host_roles": {
+    "A": "triumphant_cousin_1",
+    "B": "triumphant_cousin_2"
+  },
+  "notes": "Narrated drama form focusing on the first-person plural past tense (-ோம்). Coimbatore elisions applied (வந்துட்டோம், கூட்டம்தெரியுமா). Payload items preserved verbatim to ensure TTS/Lexicon alignment. Unfenced word 'கூட்டம்' (crowd) is clear from context and English scaffolding."
+}
