@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **08:51 · Anna**  ·  text / trailer: after the melt
 > romba nallairuku lands — then she asks. today's session: what you say next 🍽️
 
+**13:22 · Anna**  ·  volley / afternoon volley: freeze-breakers
+> ⚡ volley 1/4 — Maami says something fast across the kitchen — you caught nothing. Ask her: what did you say?
+
 
 ## Thursday 2026-07-30
 

@@ -2949,5 +2949,36 @@
     "body": "romba nallairuku lands — then she asks. today's session: what you say next 🍽️",
     "expected_target": "",
     "target_revealed": false
+  },
+  {
+    "date": "2026-07-31",
+    "timestamp": "2026-07-31T17:22:58.262606+00:00",
+    "acted": true,
+    "modality": "volley",
+    "move": "afternoon volley: freeze-breakers",
+    "rationale": "Session done, demand-streak at 0, afternoon is the volley slot — four freeze-breaker chunks all cold-pending and the sprint needs the burn rate; youknow-la collect held for tomorrow's door per campaign shape.",
+    "next_check": "2026-07-31T21:22:58.262606+00:00",
+    "body": "⚡ volley 1/4 — Maami says something fast across the kitchen — you caught nothing. Ask her: what did you say?",
+    "expected_target": "என்ன சொன்னீங்க?",
+    "target_revealed": false,
+    "volley": [
+      {
+        "target": "என்ன சொன்னீங்க?",
+        "ask": "Maami says something fast across the kitchen — you caught nothing. Ask her: what did you say?"
+      },
+      {
+        "target": "தமிழ்ல எப்படி சொல்றது?",
+        "ask": "You want to ask how to say 'traffic jam' in Tamil. What's your line?"
+      },
+      {
+        "target": "கொஞ்சம் நில்லுங்க",
+        "ask": "Auto driver's moving too fast and you need a beat to think. Tell him: hold on a moment."
+      },
+      {
+        "target": "கொஞ்சம் மெதுவா சொல்லுங்க",
+        "ask": "She fires a question at full speed. You need her to slow down — what do you say?"
+      }
+    ],
+    "volley_next": 1
   }
 ]
