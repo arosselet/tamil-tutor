@@ -698,9 +698,10 @@
     "gloss": "I'll go and come back (goodbye)",
     "phonetic": [],
     "recognition": "solid",
-    "production": "hinted",
+    "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-07-19"
+    "last_surfaced": "2026-07-31",
+    "reps": 1
   },
   "வணக்கம்": {
     "gloss": "Hello",
