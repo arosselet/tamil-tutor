@@ -745,13 +745,80 @@ async def render_memo(memo_script: str, out_path: Path, voice: str = ANNA_VOICE)
     print(f"   rendered -> {out_path} ({len(audio)/1024:.0f} KB)")
 
 
+# Append-only state arrays whose rows carry a genuinely unique key. Two writers
+# appending between one checkout and its push collide TEXTUALLY on rows that do
+# not disagree — git sees adjacent edits to one JSON array, not two independent
+# appends. rel -> (identity key, sort key). Nothing else is auto-resolvable:
+# session_log merges same-day rows by rule (2026-07-31) and feedback_log has no
+# key at all, so a conflict in either is a real disagreement and must stay loud.
+UNIONABLE = {"progress/push_queue.json": ("id", "due"),
+             "progress/knock_log.json": ("timestamp", "timestamp")}
+
+
+def _union_conflict(rel: str) -> bool:
+    """Resolve ONE conflicted append-only array by keeping every row from both
+    sides. Returns False if anything is off-pattern, which keeps the abort loud.
+
+    NOTE THE REBASE INVERSION: replaying our commit onto origin/main, stage :2 is
+    UPSTREAM (what they pushed) and :3 is OURS. Getting this backwards silently
+    drops the other writer's row, which is the failure this exists to prevent."""
+    key, order = UNIONABLE[rel]
+
+    def side(stage: int):
+        r = subprocess.run(["git", "show", f":{stage}:{rel}"], cwd=BASE,
+                           capture_output=True, text=True)
+        return json.loads(r.stdout) if r.returncode == 0 and r.stdout.strip() else None
+
+    theirs, ours = side(2), side(3)
+    if not isinstance(theirs, list) or not isinstance(ours, list):
+        return False
+    merged, seen = [], set()
+    for row in theirs + ours:
+        if not isinstance(row, dict) or row.get(key) is None:
+            return False       # a keyless row cannot be deduped; refuse rather than guess
+        if row[key] in seen:
+            continue
+        seen.add(row[key])
+        merged.append(row)
+    merged.sort(key=lambda r: str(r.get(order, "")))
+    (BASE / rel).write_text(json.dumps(merged, ensure_ascii=False, indent=2), encoding="utf-8")
+    subprocess.run(["git", "add", rel], cwd=BASE, check=True)
+    print(f"   ↳ merged {rel}: {len(theirs)} theirs + {len(ours)} ours -> {len(merged)}")
+    return True
+
+
+def _rebase_onto_main() -> bool:
+    """Land our commit on origin/main, union-resolving append conflicts. False if
+    a conflict is real, with the rebase aborted so the tree is left clean."""
+    for _ in range(5):
+        if subprocess.run(["git", "pull", "--rebase", "--autostash", "origin", "main"],
+                          cwd=BASE).returncode == 0:
+            return True
+        stopped = subprocess.run(["git", "diff", "--name-only", "--diff-filter=U"],
+                                 cwd=BASE, capture_output=True, text=True).stdout.split()
+        if not stopped or any(f not in UNIONABLE for f in stopped):
+            print(f"   ⚠ unresolvable rebase conflict: {stopped or 'none reported'}")
+            break
+        if not all(_union_conflict(f) for f in stopped):
+            break
+        subprocess.run(["git", "rebase", "--continue"], cwd=BASE,
+                       env={**os.environ, "GIT_EDITOR": "true"}, check=True)
+        return True
+    subprocess.run(["git", "rebase", "--abort"], cwd=BASE)
+    return False
+
+
 def commit_and_push(paths: list[Path], msg: str):
     rels = [str(p.relative_to(BASE)) for p in paths]
     subprocess.run(["git", "add", *rels], cwd=BASE, check=True)
     subprocess.run(["git", "commit", "-m", msg], cwd=BASE, check=True)
     # main has three writers (knock CI, ack CI, the laptop) and this checkout goes
     # minutes stale during the LLM/TTS steps — land our commit on top of theirs.
-    subprocess.run(["git", "pull", "--rebase", "--autostash", "origin", "main"], cwd=BASE, check=True)
+    # A conflict here used to raise and lose the whole tick's work, decision
+    # included (2026-07-31): two lanes appending to push_queue.json in one window
+    # is routine, not a disagreement, so it is merged rather than surrendered.
+    if not _rebase_onto_main():
+        raise RuntimeError("rebase onto origin/main needs a human — tree left clean")
     subprocess.run(["git", "push", "origin", "HEAD:main"], cwd=BASE, check=True)
 
 
