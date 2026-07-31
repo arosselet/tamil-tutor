@@ -382,7 +382,13 @@ def lint(n: int, baseline: set[str] | None = None) -> list[str]:
     # own domain; progress/ churn is other agents legitimately writing state
     # mid-run (the session-open dispatch guarantees that overlap) and aborted
     # a good episode once.
-    allowed = {str(p.relative_to(BASE)) for p in paths.values()}
+    # as_posix, not str(): `git status --porcelain` always prints forward
+    # slashes, but str(Path) on Windows yields 'content\scripts\…' — so the
+    # set difference subtracted nothing and the episode's OWN four artifacts
+    # were reported as strays, failing every local run on this box
+    # (2026-07-31). Same normalisation on both sides or the check is a coin
+    # flip on the operating system.
+    allowed = {p.relative_to(BASE).as_posix() for p in paths.values()}
     stray = {p for p in git_dirty() - (baseline or set()) - allowed
              if p.startswith("content/")}
     if stray:
