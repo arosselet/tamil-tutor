@@ -1600,14 +1600,16 @@ def s29_one_runner_every_capability(mk, pq, kr, sb: Path):
     check("the lock-screen lane skips the install",
           "if: github.event_name != 'repository_dispatch'" in ffstep)
     check("a failed install cannot cost a knock", "continue-on-error: true" in ffstep)
-    # ONE expression still (the 07-24 collapse of three holds); the interval went
-    # back to */30 on 2026-07-28 after measuring that "hourly" delivered ~2-hourly
-    # — GitHub drops scheduled ticks under load, so the cron buys chances, not a
-    # cadence. The single-expression property is the one worth guarding.
+    # ONE expression still (the 07-24 collapse of three holds). The interval is
+    # back to hourly (2026-07-30): */30 ran for two days and was measured against
+    # hourly slice-for-slice — 108.9 vs 108.7 median minutes between runs — so the
+    # denser expression bought nothing at twice the runner minutes. GitHub drops
+    # proportionally more of a denser schedule. The single-expression property and
+    # the "don't re-open without data" conclusion are what this guards.
     check("one cron expression replaces three",
           anna.count("- cron:") == 1)
-    check("the tick is every 30 min (hourly measured ~2h in practice)",
-          '- cron: "*/30 * * * *"' in anna)
+    check("the tick is hourly (*/30 measured identical, at 2x runner minutes)",
+          '- cron: "0 * * * *"' in anna)
     # Drain-first is load-bearing: it logs a reach, and rails_gate counts today's
     # reaches when deciding whether to knock. Drain last would double-push.
     # Search the steps block only — the header comment names these scripts too.
