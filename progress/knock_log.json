@@ -2992,6 +2992,8 @@
     "rationale": "scheduled at 2026-07-31T20:55 for 2026-07-31T20:56",
     "body": "⚡ volley 1/4 (resend) — Maami says something fast across the kitchen — you caught nothing. Ask her: what did you say?",
     "expected_target": "என்ன சொன்னீங்க?",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "ack",
+    "response_at": "2026-07-31T22:35:28Z"
   }
 ]
