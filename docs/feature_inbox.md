@@ -4,6 +4,22 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **ORACLE CROSS-POLLINATION — the intro script is a pipeline, not a demo** (2026-07-31,
+  Andrew's stated intent; NOT IN SCOPE YET, filed so it isn't re-derived). `special_andrew_intro`
+  was never a pocket party trick: the loop is *write a longer script in target Tamil → put a
+  numbered question sheet to the Oracle → feed her rulings back into the colloquial engine*.
+  Evidence the format works, from this round: she ruled 10, changed 3, and **refused #7** —
+  "multiple are correct, but it depends on context" — which is knowledge a generator working
+  from a static canon structurally cannot have. Her meta-remark (relayed 07-31, banked in the
+  feedback ledger): the agent had *genuinely thought hard*, because several distinctions the
+  sheet raised are ones **Tamilians do not consciously notice** — they cling to one form, or a
+  form carries a connotation they have never had to name. That is the real asset: the sheet
+  surfaces tacit knowledge no corpus holds. **Open questions when this comes off the shelf:**
+  where rulings land so they bind generation (`architect.md`? a dialect canon file? lexicon
+  connotation fields — a schema change, so frozen), whether a refusal like #7 is storable at
+  all or only ever prose, and how a ruling reaches the episode writer without re-litigating
+  the fence rules. Do not build before the trip.
+
 - **~~NEVER COMMISSIONED can only be cleared by FAILING again~~ — SHIPPED 2026-07-31 as
   option A (`update --slip-commissioned TAG`), Andrew's choice.** The close now declares
   which debt the order it just set pays off; the flag discharges, the surface reports the
