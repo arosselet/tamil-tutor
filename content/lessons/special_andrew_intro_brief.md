@@ -256,7 +256,7 @@ rulings, verbatim from the sheet:**
 | 4 | `ங்க-க்கு` (L214) | **It survives** | no change |
 | 5 | `விழுந்துடும்` (L206) | **Use `வராது`** | changed |
 | 6 | `சரி சமம்` (L214) | **Keep** | no change |
-| 7 | `நேரம் வந்திருக்கு` (L194) | **Too portentous — reword** | wording OPEN |
+| 7 | `நேரம் வந்திருக்கு` (L194) | **Too portentous** — cut for now | sentence removed |
 | — | `ஆளு` (L80) | **Keep** | no change |
 | — | `சின்ன வயசுலயே` (L188) | **Keep** | no change |
 | — | `கொடு`/`குடு` | **Both are fine** | no change; corpus NOT normalised |
@@ -268,10 +268,20 @@ an Oracle. #10 closes the `கொடு`/`குடு` normalisation question i
 live, so the lexicon keeps carrying both and no repo-wide pass is owed. #1 removes an
 unfenced Tamil word as a side effect, which is free.
 
-**#7 is ruled but not resolved.** She rejected `நேரம் வந்திருக்கு` without supplying a
-replacement, and the beat's intent — *time turning up as a guest that isn't yours*, against
-the English "holding" image set one line earlier — is exactly the kind of thing the system
-must not invent for itself. Left OPEN rather than guessed; see the line note below.
+**#7 was cut, not reworded — and the reason is the finding.** She rejected `நேரம் வந்திருக்கு`
+and, asked for a replacement, declined to name one: **"multiple are correct, but it depends on
+context"** (2026-07-31). That is a stronger result than any single wording would have been.
+The arrival image the beat wanted — *time turning up as a guest that isn't yours* — is not
+carried by one fixed phrase in Coimbatore Tamil; the right form is selected by the frame around
+it, which is precisely the knowledge a generator working from a static canon does not have.
+So the sentence is **removed** and the payoff now rests on the dative alone
+(`எனக்கு நேரம் இருக்கு. அது என்னோடது இல்ல.`), which already carries the possession contrast
+without reaching for an arrival verb. Revisit when the surrounding frame is settled.
+
+**The generalisable point:** the Oracle's most valuable answers are the ones that refuse the
+question's shape. Six rulings picked a form; #7 said the question had no context-free answer.
+A system that only records verdicts would have logged this as unresolved and re-asked it; the
+useful record is *why* it has no answer yet.
 
 **Line numbers in this brief were stale** (they predated the v6 edits — the old sheet
 pointed `பொண்டாட்டி` at L72, which is a comment). The table above is re-verified against

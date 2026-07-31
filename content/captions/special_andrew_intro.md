@@ -159,8 +159,8 @@ Pass 3+: put it away. Blind is the win — and blind is the point, because you'l
 > **ANNA:** Innonnu. English-la "I have time"-nnu solraanga. Nerathai pudichittu irukkara maadhiri.<br>
 > Another one. In English they say "I have time." As though you'd grabbed hold of it.
 
-> **ANNA:** Namma enna solroam? Enakku neram irukku. Neram vandhirukku. Adhu ennodadhu illa.<br>
-> What do we say? *Time exists, to me.* The time has come. It isn't mine.
+> **ANNA:** Namma enna solroam? Enakku neram irukku. Adhu ennodadhu illa.<br>
+> What do we say? *Time exists, to me.* It isn't mine.
 
 *[Pause]*
 
