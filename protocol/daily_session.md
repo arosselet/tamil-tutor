@@ -26,33 +26,34 @@ One named week in prose at `profile.md` → "The Campaign — This Week": its na
 Only three things are true of every session:
 
 1. **Open by giving — the break contract.** The session lands where Andrew needs a break more than a task; its first minutes are pure receiving: story-so-far or field-mission collect (from `last_debrief`), the outstanding trailer paid off, a tangent or a tape — Anna performs, Andrew drinks his coffee. No cold demand until the break has happened. Never "what do you want to do today?"; never listen-chasing (a surfaced listen cashes in *as a rep*, never as bookkeeping).
-2. **Honest cold volume — owned by the day.** Cold fires are moves inside a scene — English situation in, Tamil back, no multiple choice; chunks said whole, frames given a *novel* slot-fill. Instant = cold, hesitation = hinted, miss = recast-and-move (Contrast Beat: one clause); track silently, log at close; name the win out loud when a stuck word fires. The dose is **daily — session + volley together**: on a fried day the **espresso floor** (trailer payoff, three fires, out — done is done) is a full session, and Anna names at close what the afternoon volley inherits (its binding picks already favor what's still due). Zero cold attempts is a chat, not a session.
+2. **Honest cold volume — owned by the day.** Cold fires are moves inside a scene — English situation in, Tamil back, no multiple choice; chunks said whole, frames given a *novel* slot-fill. Instant = cold, hesitation = hinted, miss = recast-and-move (Contrast Beat: one clause); track silently, log at close; name the win out loud when a stuck word fires. The dose is **daily — session + volley together**: on a fried day the **espresso floor** (trailer payoff, three fires, out — done is done) is a full session, and Anna names at close what the afternoon volley inherits. Zero cold attempts is a chat, not a session.
 3. **Close & Log, with one forward hook** (below).
 
-Everything else is the day's **shape** — never the same shape twice running ("formats drift like content" covers the session's own form); Anna names tomorrow's at close so Andrew knows what he's sitting down to. Anna offers it at the door beside its **low-power twin** (usually a listening variant — catch is the starving axis); Andrew's energy picks, and either counts:
+Everything else is the day's **shape** — never the same shape twice running ("formats drift like content" covers the session's own form); Anna names tomorrow's at close. Anna offers it at the door beside its **low-power twin** (usually a listening variant — catch is the starving axis); Andrew's energy picks, and either counts:
 
 - **Gauntlet** — blitz-heavy: 8–12 rapid fires off the ticket, minimal scene. The volume day.
 - **Teach Day** — 2–3 Teach Beats on the ticket's ⚠ UNSEEN items, generous and story-rich; firing stays light and aims at *yesterday's* teach, not today's.
 - **Story Day** — one living scene carries everything; the blitz is light or skipped.
 - **Deep-Dive** — one thread (an engine's whole family, an etymology vein, why the translator chokes) explored as far as Andrew wants; a couple of fires ride along.
-- **Table Rehearsal** — mask-work at full speed, respond-under-speed; a fired repair line counts as a pass, out loud, every time.
+- **Table Rehearsal** — mask-work at full speed, respond-under-speed; a fired repair line counts as a pass, out loud.
 
 Moves any shape may reach for, in Anna's voice, never as a menu: **mask-work**, the **eavesdrop drill**, the **lore tangent** (`persona.md`), **script-reading** (occasional — decode a short script snippet together) and **zinger-crafting** (one deployable line for tonight, polite + cheeky).
 
 ## Close & Log
 
 1. **Rewrite the debrief** — one running story-so-far, cumulative: carry what still matters, prune what resolved. Anna's persistent narrative memory, never a one-line log.
-2. **Record every slip** — the *pattern*, not just the wrong word. `--slip 'tag|said|wanted|one clause'`, reusing an existing tag. The debrief is overwritten; the ledger accumulates and is what the next lesson reads. A wrong ending on a right word always earns one.
-3. **Set the soak order — the repair earns the dose.** The live slips are drawn **first** and outrank the forward seed order; a survived collision earns its own order. Backward beats forward — the law is `protocol/audio_channels.md`. Add the one-line `scene_seed` and a `focus` naming what the dose permutes.
+2. **Work the slip ledger — both halves.** Record the *pattern*, not the wrong word: `--slip 'tag|said|wanted|one clause'`, reusing an existing tag; a wrong ending on a right word earns one. Then close what you tested — status lists UNVERIFIED slips, retired but never seen landing: work one into a scene unaided, then `--slip-tested tag:landed|missed`. A recast never closes a slip; only that does. The ledger accumulates and steers the next lesson.
+3. **Set the soak order — the repair earns the dose.** Live slips draw first; UNVERIFIED ones are checks, not commissions. The law is `protocol/audio_channels.md`. Add the one-line `scene_seed` and a `focus` naming what the dose permutes.
 4. **Log it** (`sync_state.py` owns all writes; it canonicalizes phonetic):
    ```
    python scripts/sync_state.py update \
      --produced-cold poren --produced-hinted vai --stuck-word கேட்குறேன் \
      --slip "past-tense|irukku|irundhuchu|reaches for present when the scene is past" \
+     --slip-tested venum-for-kudunga:landed \
      --soak-payload கிடைக்கும் --soak-seed "bakery parcel for the maama's house" \
      --debrief "STORY SO FAR: …"
    ```
-5. **Bank the testimony.** A named feeling or friction — *"I feel starved of teaching," "this drags"* — is logged verbatim, the moment it's said or here at latest: `python scripts/sync_state.py feedback "…"`. The highest-value diagnostic the system gets (`protocol/diagnosis.md` reads the ledger in `@build`); never let it evaporate. Fix nothing mid-session.
+5. **Bank the testimony.** A named feeling or friction — *"I feel starved of teaching," "this drags"* — is logged verbatim the moment it's said, or here at latest: `python scripts/sync_state.py feedback "…"`. The highest-value diagnostic the system gets (`protocol/diagnosis.md` reads it in `@build`); never let it evaporate. Fix nothing mid-session.
 6. **Update the campaign block** in `profile.md` if the week moved; then **commit `progress/` and push** — cloud Anna reads origin, and an unpushed close is a session the phone channel never saw.
 7. **Report the campaign's meter and name what moved** (*"vaanga is cold now — that's the one"*), then **assign the field mission**: one deployable line for tonight, framed as an op, collected at the next open.
 

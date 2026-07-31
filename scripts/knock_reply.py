@@ -538,9 +538,15 @@ def judge(knock: dict, reply_text: str, target_record: dict | None,
         # `past-tense` and `wrong-tense` as two rows would hide the very
         # recurrence the ledger exists to expose — this is the cheap guard, and
         # it costs nothing when the ledger is empty.
+        # Live AND retired-unverified tags. The retired ones matter most: a
+        # pattern coming back after going quiet is the single most informative
+        # event the ledger records, and it is only visible if the judge reuses
+        # the old tag instead of coining a synonym for it — a new slug would
+        # file the return as a brand-new one-off and hide the whole recurrence.
         "slip_tags_in_use": [
-            {"tag": p["tag"], "seen": p["count"], "means": p["notes"][-1] if p["notes"] else ""}
-            for p in slip_patterns() if p["live"]][:12],
+            {"tag": p["tag"], "seen": p["count"], "means": p["notes"][-1] if p["notes"] else "",
+             "state": "live" if p["live"] else "retired — reuse this tag if it returns"}
+            for p in slip_patterns() if p["live"] or p["unverified"]][:12],
     }
     if knock.get("volley"):
         context["knock"]["volley_in_progress"] = (

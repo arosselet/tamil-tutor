@@ -51,11 +51,16 @@ FEEDBACK_LOG_PATH = BASE / "progress" / "feedback_log.json"
 KNOCK_LOG_PATH = BASE / "progress" / "knock_log.json"
 SLIP_LOG_PATH = BASE / "progress" / "slip_log.json"
 
-# How a slip stops being live. A tag goes QUIET after this many days with no
-# recurrence — it is not "fixed", it is just no longer evidence, and re-appearing
-# revives it with its whole history intact (the ledger never forgets, the SURFACE
-# forgets). Anna can also close one by name when he has actually seen it land.
-SLIP_QUIET_DAYS = 21
+# How a slip stops being live evidence. After this many days with no recurrence a
+# tag RETIRES — it is not "fixed", it is just no longer evidence. Retiring is not
+# disappearing: a retired tag that was never confirmed landed comes back as
+# UNVERIFIED, a re-eligible check (Andrew, 2026-07-30). The ledger never forgets;
+# the SURFACE forgets, and then asks again.
+#
+# 21 days deliberately matches generate_callbacks.INTERVAL_DAYS["cold"] — a
+# pattern and a cold word age on the same clock, so there is one recheck rhythm
+# in the system rather than two constants drifting apart.
+SLIP_RETIRE_DAYS = 21
 # Recurrence that makes a slip a pattern rather than a one-off — the same bar
 # protocol/diagnosis.md sets for the system's own bugs: one is noise, two is signal.
 SLIP_PATTERN_COUNT = 2
@@ -652,6 +657,14 @@ def cmd_update(args):
             if p["pattern"] and p["live"] and p["tag"] in {r["tag"] for r in written}:
                 print(f"  ⚠ {p['tag']} is now {p['count']}× over {p['span_days']}d "
                       f"— it is a pattern, not a one-off.")
+
+    # The other half of the loop: a slip he was deliberately TESTED on. Capture
+    # says what broke; this says whether it healed — and without it a slip can
+    # only ever age out on the clock, which cannot distinguish "he learned it"
+    # from "nothing asked him".
+    for tag, outcome, msg in record_slip_test(getattr(args, "slip_tested", None) or []):
+        mark = {"landed": "✓", "missed": "✗", "bad": "!"}[outcome]
+        print(f"  {mark} slip {tag}: {msg}")
 
     # No streak bookkeeping — recency comes from the session log, and a stored
     # streak is a meter that lies the moment a day is skipped (Enjoyment Clause).
@@ -1276,6 +1289,60 @@ def append_slips(entries: list[dict], lane: str, modality: str = "",
     return written
 
 
+def slip_closes() -> dict[str, str]:
+    """tag → the date it was last observed LANDING. Read-side of the only way a
+    slip closes: somebody watched him fire it right, unaided, later.
+
+    Stored dated, never as a bare tag. `slips_closed` (a flat list of names,
+    2026-07-30, removed the same day) made closing permanent and unfalsifiable —
+    a tag on that list could never be live again no matter how often he missed
+    it. A date can be voided by a later failure; a name cannot."""
+    raw = (load_json(LEARNER_PATH) or {}).get("slip_closes") or {}
+    return {canon_tag(k): v for k, v in raw.items() if v}
+
+
+def record_slip_test(results: list[str], today: str = "") -> list[tuple[str, str, str]]:
+    """Log the OUTCOME of putting a retired slip to the test: 'tag:landed' or
+    'tag:missed'. This is the observation the ledger's own standard demands —
+    "a slip is not closed by being corrected; it is closed by firing right,
+    unaided, later" — and it is the half that never existed, so nothing could
+    ever close except by hand, permanently, on Anna's say-so.
+
+    landed → a dated close. missed → a slip row, because a failed test IS a
+    recurrence: it revives the tag, bumps the count, and keeps one ledger rather
+    than a second parallel record of the same event.
+
+    Word-anchored slips could in principle close themselves off the lexicon
+    going cold; ending-shaped ones (1pl-past-om, past-tense) hang off no row and
+    cannot. Rather than build two close paths with different guarantees, both go
+    through this one and Anna reports. The weaker guarantee is stated out loud
+    in the protocol: this asserts an OBSERVATION, not a verdict."""
+    today = today or datetime.now(LOCAL_TZ).date().isoformat()
+    learner = load_json(LEARNER_PATH) or {}
+    closes = dict(learner.get("slip_closes") or {})
+    out, missed = [], []
+    for raw in results:
+        tag, _, outcome = (raw or "").rpartition(":")
+        tag, outcome = canon_tag(tag), outcome.strip().lower()
+        if not tag or outcome not in ("landed", "missed"):
+            out.append((raw, "bad", "expected 'tag:landed' or 'tag:missed'"))
+            continue
+        if outcome == "landed":
+            closes[tag] = today
+            out.append((tag, "landed", f"closed as of {today} — revives if it comes back"))
+        else:
+            closes.pop(tag, None)
+            missed.append({"tag": tag, "said": "", "want": "",
+                           "note": "tested and missed — still not landed"})
+            out.append((tag, "missed", "still live; the failed test is on the ledger"))
+    if missed:
+        append_slips(missed, lane="chat", modality="test", when=today)
+    learner["slip_closes"] = closes
+    learner.pop("slips_closed", None)   # the bare-tag list this replaces
+    save_json(LEARNER_PATH, learner)
+    return out
+
+
 def slip_patterns(log: list | None = None, today=None) -> list[dict]:
     """Aggregate the ledger by tag, newest-recurrence first. The MENU, not the
     choice — Python counts and groups; Anna reads the group and decides what it
@@ -1288,7 +1355,7 @@ def slip_patterns(log: list | None = None, today=None) -> list[dict]:
     log = load_json(SLIP_LOG_PATH) if log is None else log
     log = log or []
     today = today or date.today()
-    closed = {canon_tag(t) for t in (load_json(LEARNER_PATH) or {}).get("slips_closed", [])}
+    closes = slip_closes()
     by_tag: dict[str, dict] = {}
     for row in log:
         tag = row.get("tag")
@@ -1299,7 +1366,14 @@ def slip_patterns(log: list | None = None, today=None) -> list[dict]:
             "lanes": [], "channels": [], "words": [], "examples": [], "notes": [],
         })
         agg["count"] += 1
-        agg["last"] = row.get("date") or agg["last"]
+        # first/last are MIN/MAX over the rows, not first-seen/last-seen. The
+        # ledger is append-only but not guaranteed date-ordered: append_slips
+        # takes a `when` override precisely so a slip is filed under the day the
+        # mistake was MADE, and the 07-30 seeding backfilled three weeks of
+        # history in one write. A last-seen `last` collapses the span and
+        # inflates days_quiet, which can retire a slip that is still live.
+        if row.get("date") and row["date"] > (agg["last"] or ""):
+            agg["last"] = row["date"]
         if row.get("date") and row["date"] < (agg["first"] or row["date"]):
             agg["first"] = row["date"]
         for key, field in (("lanes", "lane"), ("channels", "dose_channel"), ("words", "word")):
@@ -1319,9 +1393,28 @@ def slip_patterns(log: list | None = None, today=None) -> list[dict]:
             days_quiet = 0
         agg["days_quiet"] = days_quiet
         agg["span_days"] = _span_days(agg["first"], agg["last"])
-        agg["closed"] = agg["tag"] in closed
-        agg["live"] = not agg["closed"] and days_quiet <= SLIP_QUIET_DAYS
+        # A close is DATED, and a failure after it voids it. That is the whole
+        # difference between retiring a pattern and losing it: "he landed it on
+        # 08-20" is a claim about 08-20, not about all future time, so a slip
+        # that comes back on 09-02 is live again with its history intact. The
+        # bare-tag close this replaces (2026-07-30, removed same day) silenced a
+        # tag permanently — which muted the single most informative event the
+        # ledger can record: a pattern you believed had landed, coming back.
+        closed_on = closes.get(agg["tag"], "")
+        agg["closed_on"] = closed_on if closed_on and closed_on >= (agg["last"] or "") else ""
+        agg["closed"] = bool(agg["closed_on"])
+        agg["reopened"] = bool(closed_on) and not agg["closed"]
+        agg["live"] = not agg["closed"] and days_quiet <= SLIP_RETIRE_DAYS
         agg["pattern"] = agg["count"] >= SLIP_PATTERN_COUNT
+        # RETIRED but never confirmed: quiet long enough to stop being evidence,
+        # yet nothing ever observed him getting it right. Silence has two causes
+        # — he learned it, or nothing ever asked him — and the ledger cannot tell
+        # them apart, so it must not pretend. This surfaces as a re-eligible
+        # CHECK rather than vanishing (Andrew, 2026-07-30: "words shouldn't
+        # disappear into the aether; they should be retired and then come back").
+        # Passive by design: it asks for a test, it does not earn a commission.
+        agg["unverified"] = (agg["pattern"] and not agg["live"]
+                             and not agg["closed"])
         # Two different failures, two different instructions. NEVER COMMISSIONED
         # means he has been corrected in passing and nothing was ever built for
         # it — the fix is to commission anything at all. ESCALATE means a dose
@@ -1332,7 +1425,9 @@ def slip_patterns(log: list | None = None, today=None) -> list[dict]:
         agg["escalate"] = (agg["pattern"] and agg["live"]
                            and len(agg["channels"]) == 1)
         out.append(agg)
-    out.sort(key=lambda a: (a["live"], a["pattern"], a["last"] or "", a["count"]), reverse=True)
+    # Live first, then the unverified rechecks, then everything settled.
+    out.sort(key=lambda a: (a["live"] and a["pattern"], a["unverified"],
+                            a["last"] or "", a["count"]), reverse=True)
     return out
 
 
@@ -1343,18 +1438,27 @@ def _span_days(first: str, last: str) -> int:
         return 0
 
 
-def format_slip_block(patterns: list[dict], limit: int = 6,
-                      width: int = 0) -> list[str]:
-    """Render live repeated slips for a reader surface. One renderer, three
-    callers (status, the knock context, the ticket) — the 07-26 quiet-hours
-    argument: four copies of a rule means one of them is the gap, and the gap is
-    the lane that fires."""
+def format_slip_block(patterns: list[dict], limit: int = 6) -> list[str]:
+    """Render repeated slips for a reader surface. One renderer, three callers
+    (status, the knock context, the ticket) — the 07-26 quiet-hours argument:
+    four copies of a rule means one of them is the gap, and the gap is the lane
+    that fires.
+
+    Two sections, because they carry two different instructions. LIVE is
+    evidence and earns a dose. UNVERIFIED is a question — it has gone quiet
+    without anyone ever seeing him get it right, and the only honest thing to do
+    with it is test it."""
     live = [p for p in patterns if p["live"] and p["pattern"]]
-    if not live:
+    unverified = [p for p in patterns if p["unverified"]]
+    if not live and not unverified:
         return []
-    lines = ["REPEATED SLIPS — mistakes he has made more than once, newest first.",
-             "  These are the primary signal for what to drill. A slip is not closed by",
-             "  being corrected; it is closed by firing right, unaided, later."]
+    lines = []
+    if not live:
+        lines.append("No live slips — nothing repeated recently.")
+    else:
+        lines += ["REPEATED SLIPS — mistakes he has made more than once, newest first.",
+                  "  These are the primary signal for what to drill. A slip is not closed by",
+                  "  being corrected; it is closed by firing right, unaided, later."]
     for p in live[:limit]:
         when = (f"{p['count']}× over {p['span_days']}d" if p["span_days"]
                 else f"{p['count']}×")
@@ -1374,6 +1478,22 @@ def format_slip_block(patterns: list[dict], limit: int = 6,
                          f"the format, never loop harder.")
     if len(live) > limit:
         lines.append(f"  … {len(live) - limit} more live slip(s) behind these")
+    if unverified:
+        lines.append("")
+        lines.append("RETIRED BUT UNVERIFIED — quiet, and never once confirmed landed.")
+        lines.append("  Silence here has two causes and the ledger cannot tell them apart:")
+        lines.append("  he learned it, or nothing ever asked him. Worth a CHECK, not a dose —")
+        lines.append("  slip it into a scene and see. Report with --slip-tested tag:landed|missed.")
+        for p in unverified[:limit]:
+            ago = f"{p['days_quiet']}d quiet" if p["days_quiet"] else "today"
+            lines.append(f"  ○ {p['tag']} — {p['count']}× to {p['last']}, {ago}"
+                         + ("  · came back after a close" if p["reopened"] else ""))
+            for d, said, want in p["examples"][-1:]:
+                lines.append(f"      {d}: said “{said}” → wanted “{want}”")
+            if p["notes"]:
+                lines.append(f"      pattern: {p['notes'][-1]}")
+        if len(unverified) > limit:
+            lines.append(f"  … {len(unverified) - limit} more unverified behind these")
     return lines
 
 
@@ -1383,16 +1503,10 @@ def cmd_slips(args):
     Capture is NOT here: slips are written by the judge that saw the mistake
     (knock_reply.py) and by `update --slip` at session close, both through
     append_slips(). Reading is the common case — this is Anna's error memory."""
-    if args.close:
-        learner = load_json(LEARNER_PATH) or {}
-        closed = [canon_tag(t) for t in learner.get("slips_closed", [])]
-        for tag in args.close:
-            t = canon_tag(tag)
-            if t and t not in closed:
-                closed.append(t)
-                print(f"  Slip closed: {t} — it stops surfacing; its history stays.")
-        learner["slips_closed"] = closed
-        save_json(LEARNER_PATH, learner)
+    if args.tested:
+        for tag, outcome, msg in record_slip_test(args.tested):
+            mark = {"landed": "✓", "missed": "✗", "bad": "!"}[outcome]
+            print(f"  {mark} {tag}: {msg}")
         return
 
     patterns = slip_patterns()
@@ -1400,11 +1514,13 @@ def cmd_slips(args):
         print("No slips logged yet.")
         return
     live = [p for p in patterns if p["live"] and p["pattern"]]
+    unver = [p for p in patterns if p["unverified"]]
     print(f"SLIP LEDGER ({sum(p['count'] for p in patterns)} slips, "
-          f"{len(patterns)} patterns, {len(live)} live and repeated):")
+          f"{len(patterns)} patterns, {len(live)} live, {len(unver)} awaiting a check):")
     for p in patterns[:args.n]:
         state = ("LIVE" if p["live"] and p["pattern"] else
-                 "closed" if p["closed"] else
+                 f"closed {p['closed_on']}" if p["closed"] else
+                 "UNVERIFIED" if p["unverified"] else
                  "quiet" if not p["live"] else "once")
         print(f"\n  [{state}] {p['tag']} — {p['count']}× "
               f"({p['first']} → {p['last']}, {p['span_days']}d span)")
@@ -1420,6 +1536,11 @@ def cmd_slips(args):
             print("        ⚠ NEVER COMMISSIONED — owed a dose, not another recast.")
         elif p["escalate"]:
             print(f"        ⚠ ESCALATE — {p['channels'][0]} was tried; change format.")
+        if p["unverified"]:
+            print("        ○ never confirmed landed — test it, then --tested "
+                  f"{p['tag']}:landed|missed")
+        if p["reopened"]:
+            print("        ⚠ CAME BACK after being closed — the loudest signal here.")
 
 
 def cmd_feedback(args):
@@ -1492,6 +1613,10 @@ def main():
                     help="A mistake worth remembering: 'tag|what he said|what it should be|the pattern in one clause'. "
                          "Repeatable. Appends to the slip ledger — never overwrites. The knock judge writes these "
                          "itself; this is the chat lane's half, so a session mistake accumulates the same way.")
+    up.add_argument("--slip-tested", type=str, action="append", default=[], metavar="TAG:landed|missed",
+                    help="Report an UNVERIFIED slip you deliberately tested this session. 'landed' closes it as of "
+                         "today (a later miss revives it); 'missed' logs the failure and keeps it live. Only for a "
+                         "slip you actually put in his mouth unaided — it asserts an observation, not a verdict.")
 
     ap = sub.add_parser("add-pattern", help="Seed a generative pattern/lemma record (tracked as an Engine)")
     ap.add_argument("key", help="Canonical key, e.g. 'frame:present-future-toggle'")
@@ -1521,10 +1646,12 @@ def main():
     fb.add_argument("note", nargs="?", default=None, help="The feedback to log; omit to list recent")
     fb.add_argument("-n", type=int, default=20, help="How many recent entries to show when listing")
 
-    sl = sub.add_parser("slips", help="Read the slip ledger (what Andrew keeps getting wrong), or close a tag")
+    sl = sub.add_parser("slips", help="Read the slip ledger (what Andrew keeps getting wrong), or report a test")
     sl.add_argument("-n", type=int, default=15, help="How many patterns to show")
-    sl.add_argument("--close", action="append", default=[],
-                    help="Tag(s) to stop surfacing — use when the pattern has actually landed; history is kept")
+    sl.add_argument("--tested", action="append", default=[], metavar="TAG:landed|missed",
+                    help="Report the outcome of putting a slip to the test. 'landed' closes it AS OF TODAY "
+                         "(a later miss revives it, history intact); 'missed' logs the failure and keeps it live. "
+                         "This asserts an observation — that he fired it right unaided — not a verdict.")
 
     args = parser.parse_args()
     if args.command == "update":

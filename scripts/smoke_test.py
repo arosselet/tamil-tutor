@@ -2667,9 +2667,16 @@ def s37_repair_earns_the_dose(sb: Path):
           "What it carries" in routing and "Which channel carries it" in routing)
 
     session = (REAL_BASE / "protocol" / "daily_session.md").read_text(encoding="utf-8")
+    # The PRIORITY must be stated where the order is actually set — a pointer
+    # alone would make the loop depend on Anna following a link mid-close. The
+    # wording moved to the ledger's vocabulary on 2026-07-30 ("live slips draw
+    # first" IS backward-beats-forward); the duplicated law behind it was
+    # retired to a pointer, so assert the rule and the owner, not the phrasing.
     check("Close & Log fires the rule at the moment the order is set",
-          "repair earns the dose" in session and "Backward beats forward" in session)
+          "repair earns the dose" in session and "Live slips draw first" in session)
     check("...and points at the file that owns it", "audio_channels.md" in session)
+    check("...and says an unverified slip is a check, not a commission",
+          "checks, not commissions" in session)
 
     # The glossary is what a new engineer reads before touching the interface.
     glossary = (REAL_BASE / ".claude" / "skills" / "orient" / "references"
@@ -2822,11 +2829,47 @@ def s41_slip_ledger(kr, sb: Path):
     check("a slip that survived a dose escalates the FORMAT",
           p["escalate"] and p["channels"] == ["soak"])
 
-    # --- quiet + close: the surface forgets, the ledger never does -------------
+    # --- retire → verify → revive: the surface forgets, then ASKS AGAIN --------
+    # Andrew, 2026-07-30: "words shouldn't disappear into the aether. They should
+    # be retired and then come back." Retiring on the clock alone cannot tell
+    # "he learned it" from "nothing ever asked him", so a retired slip that was
+    # never confirmed landed comes back as a CHECK rather than vanishing.
     p = {x["tag"]: x for x in ss.slip_patterns(today=date_cls(2026, 9, 30))}["past-tense"]
-    check("a long-quiet slip stops surfacing", not p["live"] and p["count"] == 3)
+    check("a long-quiet slip stops being live evidence", not p["live"])
     check("...but its history is still on the record", p["count"] == 3)
-    check("a quiet slip renders nothing", ss.format_slip_block([p]) == [])
+    check("...and it does NOT vanish — it returns as an unverified check",
+          p["unverified"] and not p["closed"])
+    block = "\n".join(ss.format_slip_block([p]))
+    check("...which the reader surface asks for by name",
+          "UNVERIFIED" in block and "past-tense" in block)
+    check("...and an unverified slip is a check, not a commission",
+          "not a dose" in block.lower() or "worth a check" in block.lower())
+
+    # Closing is an OBSERVATION and it is DATED. The bare-tag list this replaced
+    # silenced a pattern permanently — muting the most informative event the
+    # ledger can record: one you believed had landed, coming back.
+    out = ss.record_slip_test(["past-tense:landed"], today="2026-09-30")
+    check("a landed test closes the slip as of that date",
+          out and out[0][1] == "landed")
+    p = {x["tag"]: x for x in ss.slip_patterns(today=date_cls(2026, 10, 1))}["past-tense"]
+    check("...and a closed slip stops surfacing entirely",
+          p["closed"] and not p["unverified"] and ss.format_slip_block([p]) == [])
+    check("...but the close is dated, not permanent", p["closed_on"] == "2026-09-30")
+
+    ss.append_slips([{"tag": "past-tense", "said": "irukku", "want": "irundhuchu"}],
+                    lane="knock", when="2026-11-02")
+    p = {x["tag"]: x for x in ss.slip_patterns(today=date_cls(2026, 11, 2))}["past-tense"]
+    check("A CLOSED SLIP THAT COMES BACK IS LIVE AGAIN — the close is voided",
+          p["live"] and not p["closed"] and p["reopened"])
+    check("...with its whole history intact, not restarted at one", p["count"] == 4)
+
+    # A failed test is itself a recurrence — one ledger, not a parallel record.
+    ss.record_slip_test(["past-tense:missed"], today="2026-11-03")
+    p = {x["tag"]: x for x in ss.slip_patterns(today=date_cls(2026, 11, 3))}["past-tense"]
+    check("a failed test lands on the ledger as a recurrence",
+          p["count"] == 5 and p["live"])
+    check("a malformed test report is rejected, not guessed at",
+          ss.record_slip_test(["nonsense"])[0][1] == "bad")
 
     # --- 3. resurface: status, and the ticket that picks the next lesson -------
     block = "\n".join(ss.format_slip_block(ss.slip_patterns(today=date_cls(2026, 7, 30))))

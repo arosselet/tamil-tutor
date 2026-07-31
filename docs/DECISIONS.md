@@ -1598,3 +1598,39 @@ Details live in git history; this is the index of the *conclusions*.
   slip's `want` resolves to a lexicon key only when the phonetic data supports it, and several
   records carry empty `phonetic` lists, so ending-shaped slips often hang off no row — the tag
   carries the meaning there, and the ticket annotation is best-effort by design.
+- **A slip retires, it never disappears — and a close is a dated observation, not a verdict**
+  (2026-07-30, Andrew: *"words shouldn't disappear into the aether. They should be retired
+  and then come back... re-eligible after a few weeks"*). The ledger shipped the same day
+  with two ways for a pattern to go silent, and **both lost information**. (1) `--close`
+  wrote a **bare tag** to `learner.slips_closed`, and `live` was `not closed and ...` — so a
+  closed tag could never be live again, at any distance, no matter how many times he missed
+  it. That silenced the single most informative event the ledger can record: *a pattern you
+  believed had landed, coming back*. (2) The 21-day quiet window looked correct and was the
+  same bug on a timer: `days_quiet` counts **days since he last failed**, which has two
+  causes the code could not tell apart — he learned it, or **nothing ever asked him**. All
+  three live slips were flagged NEVER COMMISSIONED, i.e. squarely the second case, so the
+  window was on course to convert *"we never checked"* into *"gone"* without anyone acting.
+  **The fix, one mechanism replacing two broken halves:** a quiet tag now RETIRES to
+  `unverified` and surfaces as a re-eligible **check** ("never confirmed landed — test it"),
+  passive by design — it asks for a scene, it never earns a commission (Andrew's call; the
+  alternative, letting rechecks compete for the soak order, would crowd out new ground).
+  Closing moved to `record_slip_test` — `--slip-tested tag:landed|missed` — which stores a
+  **date**, so a slip dated after its close voids it and returns `reopened`, history intact.
+  `missed` appends a slip row rather than a parallel record: a failed test *is* a recurrence.
+  **Why Anna reports rather than code observing it:** word-anchored slips could close off the
+  lexicon going cold, but the ending-shaped ones (`1pl-past-om`, `past-tense` — two of the
+  three live) hang off no lexicon row, and nothing observes "this scene created a chance to
+  get the ending wrong." Two close paths with different guarantees is worse than one honest
+  one, so both go through the report and the protocol says out loud that it asserts an
+  **observation, not a verdict**. Residual, named: it leans on Anna reporting honestly.
+  **Also fixed in the same pass:** `slip_patterns` took `last` as *last-seen* rather than
+  `max` while `first` already took a proper min — latent, because `append_slips(when=…)`
+  exists precisely to backdate and the 07-30 seed backfilled three weeks in one write; an
+  out-of-order pair read span 0d/quiet 6d instead of 5d/quiet 1d, which can retire a slip
+  that is still live. `SLIP_QUIET_DAYS` → `SLIP_RETIRE_DAYS`, pinned to
+  `generate_callbacks.INTERVAL_DAYS["cold"]` so patterns and cold words age on one clock.
+  The judge is now shown retired tags too — a return is only visible if it reuses the old
+  tag instead of coining a synonym. Paid for in the same diff: `daily_session.md` holds at
+  1250/1250 (retired the duplicated commissioning law, now a pointer to `audio_channels.md`,
+  plus three restating clauses) — the close half was added without a budget raise. Smoke
+  `s41` grew the full lifecycle: retire → unverified → landed → **recurs → live again**.
