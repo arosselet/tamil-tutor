@@ -31,8 +31,10 @@ A fixed bug becomes a case here the day it's fixed:
       and cold/total reported a winning sprint throughout (2026-07-25)
 """
 import argparse
+import ast
 import email.utils
 import importlib
+import io
 import json
 import os
 import re
@@ -40,6 +42,7 @@ import shutil
 import sys
 import tempfile
 import time
+import tokenize
 from datetime import date as date_cls, datetime, timedelta, timezone
 from pathlib import Path
 
@@ -1035,9 +1038,79 @@ PROSE_BUDGETS = {
     "CATCH_JUDGE_MANDATE": 300,
 }
 
+# Code budgets for the Python surfaces (2026-07-31): the same ratchet, one layer
+# down. The word budget held prose FLAT through July's build-out (8866 words on
+# 07-01, 10671 on 07-31) while production Python went 2566 -> 6032 lines with a
+# ~10% deletion rate — so April's "fight drift by adding" failure mode simply
+# moved to the surface that had no ceiling. Growth past a budget is a red run,
+# on the same terms as PROSE_BUDGETS: a raise rides the same diff as the growth
+# and the commit names what it retired; a file that keeps hitting its ceiling is
+# doing two jobs — split-or-retire, never the bump-the-number reflex.
+#
+# THE UNIT IS CODE LINES — blanks, comments and docstrings are NOT counted. A
+# third of this codebase is comment, and that third is the diagnosis layer: the
+# 07-31 silent-failure family was findable only because the "why" sits next to
+# the mechanism. A budget that taxed explanation would buy smaller files by
+# deleting the thing that makes them debuggable. This bounds mechanism only.
+#
+# Budgets were set at the 07-31 census rounded up to the next 25 with a minimum
+# of 25 lines of headroom — tight enough to bind within weeks at a normal pace,
+# loose enough that one ordinary bug fix does not trip it. Headroom is not an
+# allowance to spend; it is the room to land a repair without ceremony.
+CODE_BUDGETS = {
+    "scripts/generate_callbacks.py": 100,
+    "scripts/knock_reply.py": 775,
+    "scripts/morning_knock.py": 700,
+    "scripts/push_queue.py": 250,
+    "scripts/rebuild_rss.py": 350,
+    "scripts/render_audio.py": 500,
+    "scripts/render_chat.py": 100,
+    "scripts/render_demo.py": 100,
+    "scripts/render_drill.py": 225,
+    "scripts/render_soak.py": 275,
+    "scripts/run_studio.py": 425,
+    "scripts/show_status.py": 125,
+    "scripts/studio_watchdog.py": 125,
+    "scripts/suggest_targets.py": 575,
+    "scripts/sync_state.py": 1250,
+}
 
-def s18_prose_budgets(mk, kr, sb: Path):
-    print("\n18. Protocol prose word budgets (2026-07-16 — the subtraction mechanism)")
+# EXEMPT, deliberately: /extend Gate 7 requires a new case here the day a bug is
+# fixed. Budgeting the file that carries the regression net would put the two
+# mechanisms in direct conflict and the budget would win — a fixed bug would
+# arrive with a reason not to pin it. Test volume is the one growth this system
+# wants unbounded. The completeness guard below is what keeps this from becoming
+# a hiding place: every OTHER scripts/*.py must carry a budget.
+CODE_BUDGET_EXEMPT = {"scripts/smoke_test.py"}
+
+
+def code_lines(src: str) -> int:
+    """Executable lines: everything that is not blank, a comment, or a docstring."""
+    doc: set[int] = set()
+    for node in ast.walk(ast.parse(src)):
+        if isinstance(node, (ast.Module, ast.FunctionDef, ast.AsyncFunctionDef,
+                             ast.ClassDef)):
+            body = getattr(node, "body", None)
+            if (body and isinstance(body[0], ast.Expr)
+                    and isinstance(body[0].value, ast.Constant)
+                    and isinstance(body[0].value.value, str)):
+                doc.update(range(body[0].lineno, body[0].end_lineno + 1))
+    comment = {tok.start[0] for tok in
+               tokenize.generate_tokens(io.StringIO(src).readline)
+               if tok.type == tokenize.COMMENT}
+    n = 0
+    for i, line in enumerate(src.splitlines(), 1):
+        stripped = line.strip()
+        if not stripped or i in doc:
+            continue
+        if i in comment and stripped.startswith("#"):
+            continue
+        n += 1
+    return n
+
+
+def s18_size_budgets(mk, kr, sb: Path):
+    print("\n18. Size budgets — protocol prose (words) + Python (code lines)")
     strings = {"OUTREACH_MANDATE": mk.OUTREACH_MANDATE,
                "JUDGE_MANDATE": kr.JUDGE_MANDATE,
                "REACH_MANDATE": kr.REACH_MANDATE,
@@ -1049,6 +1122,24 @@ def s18_prose_budgets(mk, kr, sb: Path):
         check(f"{rel}: {words}/{budget} words", words <= budget,
               f"over by {words - budget} — retire lines, or raise the budget in this "
               f"same diff and name what it retired")
+
+    # Read the real tree, not the sandbox: the budget binds the source as
+    # committed, and the sandbox omits files by ignore-pattern.
+    for rel, budget in CODE_BUDGETS.items():
+        lines = code_lines((REAL_BASE / rel).read_text(encoding="utf-8"))
+        check(f"{rel}: {lines}/{budget} code lines", lines <= budget,
+              f"over by {lines - budget} — retire code, or raise the budget in this "
+              f"same diff and name what it retired (comments and docstrings are "
+              f"free; this counts mechanism only)")
+
+    # A new file is the obvious way past a ceiling, so an unbudgeted one is a
+    # red run rather than a silent exemption.
+    on_disk = {f"scripts/{p.name}" for p in (REAL_BASE / "scripts").glob("*.py")}
+    unbudgeted = sorted(on_disk - set(CODE_BUDGETS) - CODE_BUDGET_EXEMPT)
+    check(f"every scripts/*.py carries a code budget ({len(on_disk)} files)",
+          not unbudgeted,
+          f"unbudgeted: {', '.join(unbudgeted)} — add each to CODE_BUDGETS in "
+          f"the same diff that adds the file")
 
 
 def s20_fielding(mk, kr, sb: Path):
@@ -3511,7 +3602,7 @@ def main():
         s14_reply_correlation(kr)
         s16_stale_clone_gates(sb)
         s17_campaign_digest(mk, sb)
-        s18_prose_budgets(mk, kr, sb)
+        s18_size_budgets(mk, kr, sb)
         s19_watchdog_detection(sb)
         s20_fielding(mk, kr, sb)
         s21_volley_represent(kr, sb)
