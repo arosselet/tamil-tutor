@@ -13,7 +13,7 @@ Pass 3+: put it away. Blind is the win — and blind is the point, because you'l
 
 *[Pause]*
 
-> **ANNA:** Ivaroda pondaatti ooru Coimbatore. Andha veetla ellaarum tamizh-la pesuvaanga.<br>
+> **ANNA:** Ivaroda wife ooru Coimbatore. Andha veetla ellaarum tamizh-la pesuvaanga.<br>
 > His wife is from Coimbatore. In that house everyone speaks Tamil.
 
 > **ANNA:** Ivaru mattum sirichitté ukkaandhiruppaaru.<br>
@@ -151,7 +151,7 @@ Pass 3+: put it away. Blind is the win — and blind is the point, because you'l
 > **ANNA:** Namma polaamnaa neengalum varreenga. Naanga poroamnaa naanga mattum.<br>
 > *Namma polaam* means you're coming too. *Naanga poroam* means it's just us.
 
-> **ANNA:** Oru vaarthaila kadhava thirakkuroam. Innoru vaarthaila muduroam. Sinna vayasulaye namakku idhu theriyum.<br>
+> **ANNA:** Oru vaarthaila kadhava thirakkuroam. Innoru vaarthaila saathuroam. Sinna vayasulaye namakku idhu theriyum.<br>
 > With one word we open the door. With the other we shut it. We know this from when we're small.
 
 *[Pause]*
@@ -175,8 +175,8 @@ Pass 3+: put it away. Blind is the win — and blind is the point, because you'l
 
 *[Pause]*
 
-> **ANNA:** Ivaru nalla dhaan solraaru. Aana kadaisila andha -nga vizhundhudum. "Sollunga"-nnu sollanum. Vaayla "sollu" dhaan varum.<br>
-> He says it well enough. But the *-nga* falls off the end. He should say *sollunga*. What comes out of his mouth is *sollu*.
+> **ANNA:** Ivaru nalla dhaan solraaru. Aana kadaisila andha -nga varaadhu. "Sollunga"-nnu sollanum. Vaayla "sollu" dhaan varum.<br>
+> He says it well enough. But at the end, the *-nga* doesn't come. He should say *sollunga*. What comes out of his mouth is *sollu*.
 
 > **ANNA:** Dhinamum adha dhaan paathukkittu irukken.<br>
 > That's the thing I watch for, every day.
