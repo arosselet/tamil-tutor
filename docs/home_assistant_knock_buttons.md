@@ -276,23 +276,163 @@ Expect 204, a **Log Knock Response** run through the *Judge Tamil reply* step, a
 
 ## 8. Home-screen "Tell Anna" button (iOS Shortcut → same pipeline)
 
-A standalone Shortcut that opens the reply channel without a live notification on
-screen — same endpoint, same judge. Confirmed working 2026-07-02.
+A standalone Shortcut that opens the reply channel **without a live notification on
+screen** — same endpoint, same judge, same scoring. Confirmed working 2026-07-02.
+This is the path that survives a dismissed, expired, or never-rendered notification:
+it needs nothing but the phone and the internet.
 
-1. **Ask for Input** — Text, prompt "Tell Anna:"
-2. **Get Contents of URL**:
-   - URL: `https://api.github.com/repos/arosselet/tamil-tutor/dispatches`
-   - Method: POST
-   - Headers: `Authorization: Bearer <fine-grained PAT, this repo only, Contents: R/W>`,
-     `Accept: application/vnd.github+json`
-   - Request Body (JSON):
-     - `event_type` (Text) = `knock-response`
-     - `client_payload` (**Dictionary** type — the one field that needs nesting):
-       - `response` (Text) = `reply`
-       - `text` (Text) = the *Provided Input* variable (inserted as a variable chip)
+### 8.1 Build it from scratch
 
-**The one real gotcha:** every field row in the Shortcuts JSON editor shows a key box
-*and* a value box — that's normal, not nesting. Nesting only happens when a field's
-**type** is explicitly set to Dictionary (or Array). If a plain-string field (like
-`event_type`) shows its own "Add new field" underneath, its type got flipped to
-Dictionary by mistake — set it back to Text.
+Two actions. Ten minutes including the token.
+
+**Step 0 — the PAT.** The Shortcut carries its own token; it does not share HA's.
+If you still have the `github_pat_…` from the old shortcut saved somewhere, reuse it.
+Otherwise mint a fresh one exactly as in §1 (fine-grained · *Only select repositories*
+→ `arosselet/tamil-tutor` · **Contents: Read and write**, nothing else). Name it
+`ios-tell-anna` so it's separately revocable from HA's. Copy it — GitHub shows it once.
+
+**Step 1 — new Shortcut.** Shortcuts app → **+** (top right) → rename it **Tell Anna**
+(tap the name at the top → Rename).
+
+**Step 2 — Ask for Input.** Search actions for *Ask for Input*, add it.
+- **Input Type:** Text
+- **Prompt:** `Tell Anna:`
+- Leave *Default Answer* empty.
+
+**Step 3 — Get Contents of URL.** Search for *Get Contents of URL*, add it below.
+- **URL:** `https://api.github.com/repos/arosselet/tamil-tutor/dispatches`
+- Expand **Show More** (the arrow) to reveal Method / Headers / Request Body.
+- **Method:** `POST`
+- **Headers** — three rows, *Add new header* for each:
+
+  | Key | Value |
+  |---|---|
+  | `Authorization` | `Bearer github_pat_…` (the word `Bearer`, a space, then the token) |
+  | `Accept` | `application/vnd.github+json` |
+  | `X-GitHub-Api-Version` | `2022-11-28` |
+
+- **Request Body:** `JSON`
+- Build **two top-level fields** with *Add new field*:
+
+  | Field | Type | Value |
+  |---|---|---|
+  | `event_type` | **Text** | `knock-response` |
+  | `client_payload` | **Dictionary** | (expands — fill in below) |
+
+- Inside `client_payload` (its own *Add new field* rows):
+
+  | Field | Type | Value |
+  |---|---|---|
+  | `response` | **Text** | `reply` |
+  | `text` | **Text** | the **Provided Input** variable — inserted as a blue variable chip, not typed |
+
+  To insert the chip: tap the value box, then pick **Provided Input** from the
+  variable bar above the keyboard (or *Select Variable* → *Provided Input*, the
+  output of the Ask for Input action). If it reads as the literal words "Provided
+  Input" in plain black text, it's a string, not the variable — delete and re-insert.
+
+**Step 4 — put it on the Home Screen.** Shortcut details (ⓘ or the ⌄ by the name) →
+**Add to Home Screen** → name it, pick an icon, **Add**. The tile launches straight
+into the "Tell Anna:" prompt.
+
+**Step 5 — first run.** Tap it once and send anything (`vanakkam` will do). iOS asks
+permission to contact `api.github.com` the first time — **Allow**. It only asks once.
+
+The finished JSON body, for reference — this is exactly what the two nested fields
+serialise to:
+
+```json
+{"event_type":"knock-response",
+ "client_payload":{"response":"reply","text":"<whatever you typed>"}}
+```
+
+### 8.2 Prove it worked
+
+A dispatch returns **204 No Content**, so the Shortcut just ends with no visible
+output — success looks identical to nothing happening. Confirm downstream instead:
+
+1. **Actions tab** → an **Anna** run with event `repository_dispatch` starts within
+   seconds of the tap.
+2. That run's **Judge Tamil reply** step runs (not `skipped`).
+3. A commit lands on `main`: `Knock reply: <verdict> (…)`.
+4. A **push-back notification** arrives on the phone — the recast plus the scoreboard
+   line ending `Deck X/47 · Nd`.
+
+If step 1 never happens, the tap never left the phone (token or body problem —
+see 8.4). If step 1 happens but step 4 doesn't, the phone leg is fine and it's the
+HA notify path — §6.
+
+### 8.3 What the reply gets graded against
+
+The Shortcut sends **no `knock_id`** — unlike the notification's Reply ✍️ button,
+which round-trips one in `action_data`. Without it, `knock_reply.py` falls back to
+`last_fired_knock()`: your reply is judged against **the most recent knock Anna
+fired**, whatever it was. That's the right default for "I want to say something to
+Anna now", and it's also why the Shortcut can answer a volley whose notification you
+already swiped away — the knock is still the last one in the log.
+
+Consequence worth knowing: if a newer knock has fired since the one you meant to
+answer, the Shortcut will grade you against the *newer* one. Use the notification's
+own Reply ✍️ button when a specific older knock is the one you're answering, and the
+Shortcut when you just want the channel open.
+
+### 8.4 Gotchas
+
+- **Nesting is set by field *type*, not by the key box.** Every field row in the
+  Shortcuts JSON editor shows a key box *and* a value box — that's normal. Nesting
+  only happens when a field's **type** is explicitly Dictionary (or Array). If a
+  plain-string field like `event_type` sprouts its own "Add new field" underneath,
+  its type got flipped to Dictionary — set it back to Text.
+- **404 from `api.github.com` means the token, not the URL.** GitHub returns 404
+  (never 403) for a PAT that is expired, revoked, scoped to the wrong repo, or missing
+  *Contents: Read and write*. Re-mint per §1.
+- **`Bearer ` is part of the header value.** `Authorization: github_pat_…` without the
+  prefix fails the same way.
+- **Dictation beats typing.** Tap the mic in the "Tell Anna:" prompt and say the line —
+  iOS transcribes the phonetic. The table needs your mouth, not your thumbs.
+- **The token lives in the Shortcut.** Deleting the Shortcut deletes your only copy of
+  it. Rebuilding means a new PAT unless you saved it; revoke the orphaned one in
+  GitHub → Settings → Developer settings → Fine-grained tokens.
+- **To debug a silent failure**, temporarily add a *Show Result* action after Get
+  Contents of URL — 204 shows empty, an error shows GitHub's JSON message. Remove it
+  once it works.
+
+---
+
+## 9. Which leg breaks when — reading a "it disappeared" symptom
+
+The two directions do **not** share a network path, and confusing them costs a day.
+
+| | Outbound (Anna → phone) | Inbound (phone → Anna) |
+|---|---|---|
+| Path | GitHub runner → `ykf.duckdns.org:4444` (HA webhook) → Apple APNs → phone | phone → `api.github.com:443` → `repository_dispatch` → **Anna** workflow |
+| Who makes the call | a GitHub Actions runner | the phone itself (notification button *or* the §8 Shortcut) |
+| Port 4444 involved? | **yes** | **no — never** |
+| Your laptop involved? | no | no |
+| Your Wi-Fi involved? | only for the phone's APNs connection (443, same as any app) | yes, but only as ordinary HTTPS on 443 |
+
+So:
+
+- **A Wi-Fi network blocking 4444 cannot break either direction.** The 4444 hop is made
+  by a GitHub runner in Amazon's network, not by anything on your Wi-Fi. The only
+  documented 4444 failure is *your laptop* doing a local render behind work TLS
+  inspection (DECISIONS, 2026-07-28) — CI has never been affected by it.
+- **The Shortcut pointing at GitHub is correct, not a misconfiguration.** Both inbound
+  paths — the notification's Reply ✍️ and the Shortcut — go to `api.github.com`. HA is
+  a *relay* on the way in (button → HA `rest_command` → GitHub); the Shortcut simply
+  skips the relay. Neither one touches 4444.
+
+**How to tell which leg actually failed, in under a minute:**
+
+1. **Actions tab → the Anna run for that time.** The drain step prints
+   `HA push -> HTTP 200` on a successful outbound push. A 200 there means GitHub
+   handed the notification to Home Assistant and the outbound leg did its job —
+   anything missing after that is HA-side (§5 automations, quiet-hours on the phone,
+   Focus mode, a stacked/replaced notification tag) or a swipe.
+2. **Look for a `repository_dispatch` run.** One exists ⇔ the phone successfully
+   reached GitHub. No run = nothing left the phone: dead Shortcut, dead PAT, or an
+   action button whose HA automation didn't fire.
+3. **A run with `Judge Tamil reply` *skipped*** means the dispatch arrived carrying
+   `response: ack`, not `reply` — a **Got it 👍** tap, not a graded rep. This is the
+   one that reads as "my reply disappeared" when it didn't: the ack landed, the reply
+   was never sent.
