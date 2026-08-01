@@ -444,7 +444,11 @@ Details live in git history; this is the index of the *conclusions*.
   top-down pass. *(Amended 2026-07-18 — original read "the machinery is done";
   Andrew: done is observed, never declared — see the 07-18 entry.)*
 - **Production is self-healing — the watchdog owns undone studio work** (2026-07-18,
-  Andrew-commissioned from the setup audit). `scripts/studio_watchdog.py` (hourly local
+  Andrew-commissioned from the setup audit; **CORRECTED in two later entries:** the local
+  cron was paused 07-23 ("The watchdog's premise stands…") and RETIRED 07-24 ("Autonomous
+  production lives in the knock tick"), and "cloud-never-renders" was dropped 07-24
+  ("Cloud produces episodes") — `studio_watchdog.py` survives as a manual command only).
+  Original entry: `scripts/studio_watchdog.py` (hourly local
   cron, awake-check semantics, cloud-never-renders intact) notices a scripted-but-
   unrendered episode (re-lints first; a lint-failing script stops for inspection, never
   renders) or an unproduced soak order, and runs the *existing* dispatch. `.studio.lock`

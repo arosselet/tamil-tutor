@@ -4,6 +4,13 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **Post-trip: reseed the focus cohort** (2026-08-01, month-end audit). The stored ≤12
+  cohort was seeded pre-sprint and is correctly dormant during it, but the membership is
+  stale: 7/12 never worked, none are trip-deck items, zero graduations. When the sprint
+  ends, reseed from whatever the post-trip denominator becomes (rides "The post-trip
+  horizon gap", DECISIONS 07-27) and verify the reconcile sweep evicted சொல்லுங்க — it
+  went cold in-session 08-01 while still holding a seat.
+
 - **THE REPLY PATH CAN DIE AND THE SYSTEM READS IT AS "HE DIDN'T ANSWER"** (2026-07-31,
   found live — Andrew replied twice, to the 17:22 volley and the 22:04 resend, and neither
   produced a `repository_dispatch`). **The dead-token diagnosis is in the session notes; this
@@ -480,9 +487,10 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
        *required* the refusal text — so Anna went on refusing for eight hours after the
        canon changed. Lesson recorded: a dropped rule must be hunted in code, prompts,
        skills and tests, not just in DECISIONS.
-    4. **Retire the local cron for real** (currently paused in crontab; backup in the
-       07-23 session scratchpad). Keep `studio_watchdog.py` only if a manual command still
-       earns its place; otherwise delete it.
+    4. ~~**Retire the local cron for real**~~ — **DONE 2026-08-01** (drift audit): the
+       paused line is deleted from the crontab. `studio_watchdog.py` stays as a manual
+       command — the session-open drain is the live door; the watchdog is the hand-run
+       retry for a laptop session that wants one.
     5. ~~**The 9am-audio lane**~~ — **DONE 2026-07-24.** Shipped as the workflow
        consolidation rather than as a GCP wire-up of `push-queue.yml`: one `anna.yml`
        carries every trigger and every secret, `memo_script` rides the queue entry, and the

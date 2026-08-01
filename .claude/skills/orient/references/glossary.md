@@ -95,7 +95,7 @@ Defined: `protocol/studio/architect.md` — "The Episode Form" (the `classic` de
 
 ## knock
 
-The agentic phone-outreach system. `scripts/morning_knock.py` runs on a CI cron, checks the rails gate (waking hours, ≤5/day, ≥3 h apart), then Anna decides fire or silence and which modality — the valid set is `text`, `audio`, `challenge`, `grace`, `silence` (`morning_knock.py:66`, `MODALITIES`; anything else falls back to `text`). A knock memo is a self-contained dose. Andrew's typed Tamil reply is judged by `scripts/knock_reply.py`, which moves the production axis.
+The agentic phone-outreach system. `scripts/morning_knock.py` runs on a CI cron, checks the rails gate (waking hours, ≤5/day, ≥3 h apart), then Anna decides fire or silence and which modality — the valid set is `text`, `audio`, `challenge`, `volley`, `eavesdrop`, `fielding`, `grace`, `silence` (`MODALITIES` in `morning_knock.py`; anything else falls back to `text`). A knock memo is a self-contained dose. Andrew's typed Tamil reply is judged by `scripts/knock_reply.py`, which moves the production axis.
 
 Defined: `docs/PROTOCOL_MAP.md` — Python brain and knock_log.json rows; `docs/DECISIONS.md` — "Outreach policy is Anna's"
 
