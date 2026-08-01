@@ -218,7 +218,7 @@ def cmd_drain(args):
             # reply-addressable (pre-correlation, the judge could only target the
             # LAST logged fire); since 2026-07-11 replies carry knock_id, so what
             # remains is pacing — two doses landing in the same minute reads as
-            # spam, and the next tick is ≤30 min away.
+            # spam, and the next wake-up (tick, reply, or dispatch) will drain it.
             kept.append(e)
             print(f"  {e['id']} due but another non-forced push already fired this tick — deferred to next tick.")
             continue

@@ -8,8 +8,10 @@ and numbered steps.
 
 ## A. Knock Loop (`morning_knock.py` + `anna.yml`)
 
-**What it does:** GitHub Actions cron ticks every ~2h (UTC superset covering Andrew's
-8am–9pm EDT). The Rails Gate in `morning_knock.py` cheaply skips most ticks (no LLM).
+**What it does:** GitHub Actions cron is `0 * * * *` (24/7 hourly expression); GitHub
+drops many scheduled ticks, so actual delivery is ~2h median — measured 2026-07-30,
+and cadence is not a lever this end owns. The 8am–9pm local window is enforced by the
+Rails Gate in `morning_knock.py`, NOT by the cron. The gate cheaply skips most ticks (no LLM).
 When open, Anna decides fire/silence/modality via OpenRouter → optionally renders audio
 via Google TTS → commits to `main` → pushes HA webhook.
 
@@ -19,7 +21,7 @@ via Google TTS → commits to `main` → pushes HA webhook.
 
 **Key knock_log fields to read:**
 - `acted` (bool) — `false` = silence; no notification sent.
-- `modality` — `"text"` | `"audio"` | `"challenge"` | `"grace"` | `"silence"`
+- `modality` — `"text"` | `"audio"` | `"challenge"` | `"volley"` | `"eavesdrop"` | `"fielding"` | `"grace"` | `"silence"`
 - `rationale` — Anna's one-line reason; shows why he chose silence or this move.
 - `next_check` — when Anna set his next wake; if this is far in the future, it explains a quiet day.
 - `body` — the notification line.
