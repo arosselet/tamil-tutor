@@ -3007,6 +3007,27 @@
     "rationale": "scheduled at 2026-07-31T22:39 for 2026-07-31T22:40",
     "body": "⚡ volley 1/4 — Maami says something fast across the kitchen — you caught nothing. Ask her: what did you say?",
     "expected_target": "என்ன சொன்னீங்க?",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Vanakkam this is a test",
+    "reply_verdict": "chat",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line": "ha — system check noted. ready when you are da.",
+    "reply_at": "2026-08-01T01:30:05Z",
+    "exchanges": [
+      {
+        "at": "2026-08-01T01:30:05Z",
+        "reply": "Vanakkam this is a test",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "ha — system check noted. ready when you are da.",
+        "slips": []
+      }
+    ]
   }
 ]
