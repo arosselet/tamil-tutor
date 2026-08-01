@@ -769,7 +769,9 @@ def s13_eavesdrop(mk, kr, sb: Path):
            "notification_body": "who's the news about?", "expected_target": w,
            "target_revealed": True, "schedule": None}
     d = mk.normalize_decision(dict(raw))
-    check("tape-less eavesdrop degrades to text", d["modality"] == "text")
+    check("tape-less eavesdrop is REFUSED — text eavesdrops are banned (08-01; "
+          "was degrade-to-text until the 07-28 double signal)",
+          d["modality"] == "silence" and d["act"] is False)
     raw["memo_script"] = "தெரியுமா… அவங்க பொண்ணு Chennai-ல வேலை-ஆம்!"
     d = mk.normalize_decision(dict(raw))
     check("eavesdrop keeps modality, target unrevealed",
@@ -845,8 +847,9 @@ def s13_eavesdrop(mk, kr, sb: Path):
     check("the 07-25 tape fails — அக்கா arrives too late and is not the subject",
           not mk.tape_names_a_referent(tape_0725))
     raw["memo_script"] = unnamed
-    check("referent-less eavesdrop degrades to text — never pushed unanswerable",
-          mk.normalize_decision(dict(raw))["modality"] == "text")
+    check("referent-less eavesdrop is refused — never pushed unanswerable, and "
+          "never a tape-less text promise either",
+          mk.normalize_decision(dict(raw))["modality"] == "silence")
     raw["memo_script"] = named
     check("named-referent eavesdrop still fires",
           mk.normalize_decision(dict(raw))["modality"] == "eavesdrop")
@@ -1019,7 +1022,14 @@ PROSE_BUDGETS = {
     # bullet (its veto half is now the table's opening line), and the 07-23 story
     # compressed — 33 words back. THIS IS THE CEILING'S SECOND WARNING. A third
     # raise is not allowed: split "what it carries" from "which format carries it".
-    "protocol/audio_channels.md": 640,
+    # 640 -> 475 (2026-08-01): THE SPLIT WAS TAKEN, as the line above demanded —
+    # "what it carries" left for commissioning.md; this file keeps only routing
+    # and format, re-censused down with headroom.
+    "protocol/audio_channels.md": 475,
+    # Split out of audio_channels.md (2026-08-01) — the commissioning law
+    # ("the repair earns the dose") is its own concern from channel routing,
+    # and the parent had a third raise refused in advance.
+    "protocol/commissioning.md": 300,
     "OUTREACH_MANDATE": 2000,
     "JUDGE_MANDATE": 1500,
     # Split out of JUDGE_MANDATE (2026-07-24) rather than raise its budget, the
@@ -1037,6 +1047,14 @@ PROSE_BUDGETS = {
     "SLIP_MANDATE": 250,
     "CATCH_JUDGE_MANDATE": 300,
 }
+
+# Words allowed per NEW docs/DECISIONS.md entry (dated 2026-08-02 or later).
+# The log's own header has promised "the index of the conclusions — details
+# live in git history" since April; July's entries ran 300-600 words of
+# narrative each and the file reached 22k words, the accumulation pattern the
+# word budgets killed everywhere else (2026-08-01, Andrew's forward cap). The
+# archive is deliberately untouched: git owns the narratives already written.
+DECISION_ENTRY_BUDGET = 150
 
 # Code budgets for the Python surfaces (2026-07-31): the same ratchet, one layer
 # down. The word budget held prose FLAT through July's build-out (8866 words on
@@ -1060,7 +1078,16 @@ PROSE_BUDGETS = {
 CODE_BUDGETS = {
     "scripts/generate_callbacks.py": 100,
     "scripts/knock_reply.py": 775,
-    "scripts/morning_knock.py": 700,
+    # 700 -> 625 (2026-08-01): re-censused DOWN after OUTREACH_MANDATE moved to
+    # mandates.py — the file sat at 699/700, one mechanical fix from a red build.
+    # The split is the ceiling law working, not an allowance: prompt canon and
+    # dispatch machinery are two concerns, and only one of them is code.
+    "scripts/morning_knock.py": 625,
+    # The mandate as a module: almost entirely prompt string (word-budgeted as
+    # OUTREACH_MANDATE in PROSE_BUDGETS above), so its code budget exists only
+    # to satisfy the every-file-is-budgeted guard and to catch machinery
+    # sneaking into a prose module.
+    "scripts/mandates.py": 150,
     "scripts/push_queue.py": 250,
     "scripts/rebuild_rss.py": 350,
     "scripts/render_audio.py": 500,
@@ -1131,6 +1158,30 @@ def s18_size_budgets(mk, kr, sb: Path):
               f"over by {lines - budget} — retire code, or raise the budget in this "
               f"same diff and name what it retired (comments and docstrings are "
               f"free; this counts mechanism only)")
+
+    # The decision log's forward entry cap — same law, third unit. Only entries
+    # dated on/after 2026-08-02 are bound; a long conclusion goes in the commit
+    # message, where the header says details live.
+    entries, cur = [], None
+    for line in (REAL_BASE / "docs" / "DECISIONS.md").read_text(encoding="utf-8").splitlines():
+        if line.startswith("- **"):
+            cur = [line]
+            entries.append(cur)
+        elif cur is not None and (line.startswith("  ") or not line.strip()):
+            cur.append(line)
+        else:
+            cur = None
+    over = []
+    for e in entries:
+        m = re.search(r"\((\d{4}-\d{2}-\d{2})", " ".join(e[:2]))
+        if m and m.group(1) >= "2026-08-02":
+            words = sum(len(ln.split()) for ln in e)
+            if words > DECISION_ENTRY_BUDGET:
+                over.append(f"“{e[0][4:50]}…” at {words}")
+    check(f"new DECISIONS entries stay ≤{DECISION_ENTRY_BUDGET} words "
+          f"({len(entries)} entries scanned)", not over,
+          "; ".join(over) + " — the log is an index of conclusions; the "
+          "narrative belongs in the commit message (2026-08-01)")
 
     # A new file is the obvious way past a ceiling, so an unbudgeted one is a
     # red run rather than a silent exemption.
@@ -2725,12 +2776,11 @@ def s37_repair_earns_the_dose(sb: Path):
     2026-07-24 lesson (a dropped rule must be hunted in code, prompts, skills
     and tests) applies in reverse: assert every surface that carries it."""
     print("\n37. The repair earns the dose — commissioning is a priority (2026-07-28)")
-    # The law lives in audio_channels.md, split there rather than bumping
-    # daily_session.md's budget — the same move that file made in 2026-07-23 and
-    # JUDGE_MANDATE made in 07-24. It is the natural owner: it already split
-    # "what a dose carries" from "which channel carries it" and owned only the
-    # second half. Close & Log keeps a pointer, because that is where it fires.
-    routing = (REAL_BASE / "protocol" / "audio_channels.md").read_text(encoding="utf-8")
+    # The law lived in audio_channels.md from 07-28 and moved to its own file on
+    # 2026-08-01 when the refused-in-advance third raise came due — "what a dose
+    # carries" and "which channel carries it" are two files now, each pointing
+    # at the other. Close & Log keeps a pointer, because that is where it fires.
+    routing = (REAL_BASE / "protocol" / "commissioning.md").read_text(encoding="utf-8")
     check("the commissioning law exists", "repair earns the dose" in routing)
     check("...and it is an ORDER of precedence, not a menu",
           "Backward beats forward" in routing)
@@ -2758,19 +2808,20 @@ def s37_repair_earns_the_dose(sb: Path):
           "chunk fires it" not in routing)
     check("...it says so explicitly, so the clause cannot grow back",
           "says nothing about its format" in routing)
+    channels = (REAL_BASE / "protocol" / "audio_channels.md").read_text(encoding="utf-8")
     check("format follows the error, and capacity keeps its veto",
-          "Capacity vetoes" in routing and "the ERROR chooses" in routing)
+          "Capacity vetoes" in channels and "the ERROR chooses" in channels)
     check("...naming the mouth-takes-the-wrong-one case as an EPISODE, not a loop",
-          "his mouth takes the wrong one" in routing)
+          "his mouth takes the wrong one" in channels)
     check("a repeated mistake escalates the format instead of repeating it",
-          "same mistake twice through one format" in routing
-          and "never loop harder" in routing)
+          "same mistake twice through one format" in channels
+          and "never loop harder" in channels)
     check("the forward seed order survives as the fallback, not the default",
           "seed order" in routing and "Only when none are live" in routing)
     check("the escalation law names the counter that makes it fireable",
-          "ledger counts recurrences" in routing)
-    check("both halves now live in one file — what it carries, and which channel",
-          "What it carries" in routing and "Which channel carries it" in routing)
+          "ledger counts recurrences" in channels)
+    check("the two halves are two files, each pointing at the other (08-01 split)",
+          "audio_channels.md" in routing and "commissioning.md" in channels)
 
     session = (REAL_BASE / "protocol" / "daily_session.md").read_text(encoding="utf-8")
     # The PRIORITY must be stated where the order is actually set — a pointer

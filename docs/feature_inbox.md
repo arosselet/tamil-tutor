@@ -161,11 +161,13 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
   `write_thin_learner` is a WHITELIST and `slip_closes` was not on it, so
   `--slip-tested tag:landed` wrote a close that the very same update deleted — **no slip had
   ever actually closed since that mechanism shipped 2026-07-30**, invisibly, because a wiped
-  close looks exactly like never having tested. Smoke `s44`. **STILL OPEN, deliberately:**
-  whether the flag should also GATE the close. Worth asking only now that it can be turned
-  off; a hard gate on the daily ritual is the kind of mechanism the Enjoyment Clause has
-  beaten before, and the softer shapes (print the order it would have written; refuse only
-  after N closes) were never tested. Original diagnosis follows.
+  close looks exactly like never having tested. Smoke `s44`. ~~**STILL OPEN, deliberately:**
+  whether the flag should also GATE the close.~~ **CLOSED 2026-08-01 — Andrew chose the
+  hard gate** (over auto-commission and advisory-print, both offered): a close over a live
+  uncommissioned pattern is refused before any write; `--slip-commissioned` pays the debt,
+  `--slip-tested tag:landed` discharges it, `--no-commission '<why>'` overrides with the
+  reason echoed on the record. The Enjoyment-Clause worry is answered by the override being
+  one flag with a reason, not a ceremony. Smoke `s46`. Original diagnosis follows.
 
   **NEVER COMMISSIONED can only be cleared by FAILING again — nothing links a soak order to
   a slip tag (2026-07-31, sharpened by Andrew's question the same evening; supersedes this

@@ -1,27 +1,8 @@
-# Commissioning a dose — the repair earns it, capacity routes it
+# Which channel carries a dose — capacity routes, curriculum fills
 
-The soak order decides *what* a dose carries. **What Andrew's attention is free to do
-decides which channel carries it.** Two separate questions, both answered here.
-
-## What it carries — the repair earns the dose
-
-**Draw the payload first from the live slips** — `sync_state.py slips`, the ledger of what
-he keeps getting wrong across *every* lane, not just this session's.
-Only when none are live does the order point forward as a **seed order** of unseen items.
-**Backward beats forward**; he never has to ask for the dose that closes his own mistake.
-
-- **A collision that survived its correction earns its own order**, not a slot in a mixed
-  one. One appearance in a three-item tape is a mention, not a dose. This sets the dose's
-  SCOPE and says nothing about its format — that is the next section's question.
-- **A gap already diagnosed in writing is owed a dose, not a note.** `frame:youknow-la` sat
-  under a standing "wire real audio" verdict while catch went backwards.
-- The seed order is not demoted — it still teaches the campaign's next page
-  (`protocol/studio/studio.md`); it just no longer outranks a live slip.
-
-**The failure this prevents** (2026-07-28, Andrew): *"I shouldn't have to beg for a soak or
-an episode."* No commissioning law existed, so forward pull won by default.
-
-## Which channel carries it — capacity routes, curriculum fills
+What a dose *carries* is `protocol/commissioning.md`'s question (the repair earns the
+dose). This file answers the other one: **what Andrew's attention is free to do decides
+which channel carries it.**
 
 Ask one question before spending a render: what is his attention doing while this plays?
 
