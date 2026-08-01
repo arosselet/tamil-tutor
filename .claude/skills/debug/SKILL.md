@@ -45,6 +45,7 @@ Start with `/orient` → `references/glossary.md`.
 | CI red — knock/queue workflow | Missing secret, commit conflict, JSON parse fail | `gh run view <id> --log` |
 | Audio knock missing from the podcast feed | Feed refresh failed in that knock run (all audio → feed since 2026-07-05; `morning_knock.py refresh_feed()` is failure-tolerant by design) | `gh run view <id> --log` → look for `⚠ rss rebuild failed`; recover the URL from `knock_log.json` → `audio_url`, or rerun `python scripts/rebuild_rss.py` locally |
 | Anna keeps making the same mistake | May be a protocol bug, not plumbing | read `progress/feedback_log.json`; if pattern appears 2+ times → `/extend` |
+| **I replied and NOTHING happened — no run, no error, no trace** | Inbound leg dead: expired PAT, or the ANNA_REPLY automation (KF-12) | Actions list → filter `repository_dispatch`. **Zero since a datestamp = the return path, not your reply.** Knocks still arriving PROVES HA is alive — outbound crosses the same HA — so suspect the one thing unique to inbound: the token |
 | Anna over-uses a format / doses feel same-shaped | Incentive drift in the decide prompt (a preference line, a reward framing) — not persona | `grep -o '"move": "[^"]*"' progress/knock_log.json \| tail -15` → then read the prompt's incentive lines in `morning_knock.py` |
 
 ---
@@ -204,6 +205,33 @@ items, declare the volley done, or claim unrecorded scores).
 whatever Python tracks, Python must also say.
 **Verify:** `python scripts/smoke_test.py` → section 21.
 
+### KF-12: Expired GitHub PAT killed the reply path, silently (2026-07-31, fixed)
+**Symptom:** Andrew replies from the phone; no workflow run, no error, no trace anywhere.
+Twice in an evening. Knocks kept arriving normally the whole time.
+**Root cause:** the fine-grained PAT in HA's `secrets.yaml` (`github_dispatch_auth`) hit its
+expiry. GitHub 401s the `dispatches` call, HA's `rest_command` logs it locally, and the repo
+sees *nothing* — there is no failed run to find, because no run is created.
+**The elimination that localises it in one move:** outbound (`push_to_phone` → HA webhook →
+phone) and inbound (notification → HA automation → `rest_command` → GitHub) cross the SAME
+Home Assistant. A knock landing on the phone proves HA, its webhook and its automation engine
+are all alive, which rules out HA-down, `webhook_id` drift and the KF-9 mirror trap. What is
+left is the component unique to the failing direction: the token.
+**Dating it:** the last successful `repository_dispatch` run is the outage's start. On
+2026-07-31 that was `00:08:30Z` — 20:08 EDT on the 30th, consistent with GitHub's default
+30-day expiry on a token minted 2026-06-30.
+**Fix:** rotate; replace `github_dispatch_auth` in `secrets.yaml` keeping the `Bearer ` prefix;
+reload Rest commands. `configuration.yaml` needs no change — both `rest_command`s read the
+same secret, so one line restores the ack path and the reply path together.
+**Verify:** Developer Tools → Actions → `rest_command.anna_knock_response` with `response: ack`
+→ expect 204 AND an **Anna** run committing `Knock response: ack`. The 204 alone is not proof
+the loop works; look for the commit.
+**THE EXPENSIVE HALF, and the reason this is a KF and not a footnote:** the outage is not
+neutral to state. `knock_log` records `reply: null`, byte-identical to an ignored knock, and
+downstream `demand_streak`, `recent_ask_counts` and the deck's staleness term all read silence
+as a learner behaviour. A dead return path therefore writes a false portrait of a
+non-responsive learner into the state that steers selection — for as long as it lasts.
+**Where:** `docs/home_assistant_knock_buttons.md` §1 and §8 (rotation log — record every mint).
+
 ### KF-8: Lore format takeover — incentive drift, not taste (2026-07-11, fixed)
 **Symptom:** Andrew: today's lore push "basically a duplicate" of last week's; the format
 "took over." Log confirmed worse: four lore memos in four consecutive days (07-07→10),
@@ -227,7 +255,9 @@ was a *deletion*, which only reading the plumbing could find.
 
 1. If the fix is a code change → use `/extend` (change discipline gate → surgical edit → smoke case).
 2. Use `/verify` to prove the fix end-to-end.
-3. Every fixed plumbing bug gets a new smoke case in `scripts/smoke_test.py` — this is the contract that keeps KF-1 and KF-2 from recurring.
+3. Every fixed plumbing bug gets a new smoke case in `scripts/smoke_test.py` — this is the contract that keeps KF-1 and KF-2 from recurring. **Put teeth in the dimension that failed** (`/extend` Gate 7.2, the silent no-op test): assert the *effect*, round-trip through the writer and re-read the state file, and make the absence loud. A green case on a dead feature is the 2026-07-30 `s41` result.
+
+**Triage note for the quiet class.** The KF archive below is loud failures — crashes, parse errors, visible desync — because that is what daily use surfaced first. Since 2026-07-24 the live class is *quiet*: nothing fails, every instrument reads green, and the dose is simply about the wrong thing. When Andrew's felt signal is "this doesn't feel like it's working on my mistakes" rather than "this broke", **do not start from the error log — there won't be one.** Start from the claim: name what the subsystem promises, then find the one place that would prove it happened, and check whether anything reads it.
 4. If the fix is HA config → update the gitignored `docs/anna_knock_automation.yaml` mirror.
 5. If the root cause is a pattern of 2+ feedback entries → log with `python scripts/sync_state.py feedback "note"` (mutating — appends to `progress/feedback_log.json`) before proposing the fix.
 
