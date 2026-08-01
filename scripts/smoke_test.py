@@ -2564,7 +2564,11 @@ def s36_soak_order_carries_shape(sb: Path):
     defaults = dict(listened=[], teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
                     soak_channel=None, soak_form=None, mastered_word=[], comfortable_word=[],
                     stuck_word=[], produced_cold=[], produced_hinted=[],
-                    mark_seen=[], next_engine=None, debrief=None)
+                    mark_seen=[], next_engine=None, debrief=None,
+                    # the sandbox copies REAL slip state, so a live pattern out
+                    # in the world must not red these unrelated cases — the
+                    # commission gate is s46's subject, waived everywhere else
+                    no_commission="smoke sandbox")
 
     def update(**kw):
         for k, v in defaults.items():
@@ -2814,7 +2818,11 @@ def s38_teach_enters_the_lexicon(sb: Path):
     defaults = dict(listened=[], teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
                     soak_channel=None, soak_form=None, mastered_word=[], comfortable_word=[],
                     stuck_word=[], produced_cold=[], produced_hinted=[],
-                    mark_seen=[], next_engine=None, debrief=None)
+                    mark_seen=[], next_engine=None, debrief=None,
+                    # the sandbox copies REAL slip state, so a live pattern out
+                    # in the world must not red these unrelated cases — the
+                    # commission gate is s46's subject, waived everywhere else
+                    no_commission="smoke sandbox")
 
     def update(**kw):
         out = io.StringIO()
@@ -3122,7 +3130,11 @@ def s40_drill_consumes_its_commission(sb: Path):
     defaults = dict(listened=[], teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
                     soak_channel=None, soak_form=None, mastered_word=[], comfortable_word=[],
                     stuck_word=[], produced_cold=[], produced_hinted=[],
-                    mark_seen=[], next_engine=None, debrief=None)
+                    mark_seen=[], next_engine=None, debrief=None,
+                    # the sandbox copies REAL slip state, so a live pattern out
+                    # in the world must not red these unrelated cases — the
+                    # commission gate is s46's subject, waived everywhere else
+                    no_commission="smoke sandbox")
 
     def update(**kw):
         with contextlib.redirect_stdout(io.StringIO()):
@@ -3290,7 +3302,11 @@ def s44_a_commission_can_discharge_the_flag(sb: Path):
                   for ln in ss.format_slip_block([p])), "the instruction is missing")
 
         # Commissioning WITHOUT an order standing must refuse, not book a lie.
-        update(slip_commissioned=["smoke-tag"])
+        # (The 08-01 gate would refuse this whole close — a declared tag with no
+        # order does not cover the debt — so the override rides along; the gate
+        # itself is s46's subject.)
+        update(slip_commissioned=["smoke-tag"],
+               no_commission="smoke: exercising the phantom-dose refusal")
         check("a commission with no standing order is refused",
               pat("smoke-tag")["uncommissioned"], "it booked a phantom dose")
 
@@ -3368,7 +3384,11 @@ def s42_session_log_one_row_per_day(sb: Path):
     defaults = dict(listened=[], teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
                     soak_channel=None, soak_form=None, mastered_word=[], comfortable_word=[],
                     stuck_word=[], produced_cold=[], produced_hinted=[],
-                    mark_seen=[], next_engine=None, debrief=None)
+                    mark_seen=[], next_engine=None, debrief=None,
+                    # the sandbox copies REAL slip state, so a live pattern out
+                    # in the world must not red these unrelated cases — the
+                    # commission gate is s46's subject, waived everywhere else
+                    no_commission="smoke sandbox")
 
     def update(**kw):
         with contextlib.redirect_stdout(io.StringIO()):
@@ -3478,6 +3498,233 @@ def s42_session_log_one_row_per_day(sb: Path):
         learner_path.write_bytes(saved[1])
         if saved[2] is not None:
             slog_path.write_bytes(saved[2])
+
+
+def s46_the_commission_gate_blocks_the_close(sb: Path):
+    """A live slip pattern with no dose refuses the close (2026-08-01, Andrew).
+
+    NEVER COMMISSIONED was advisory and got walked past for mechanical reasons —
+    venum-for-kudunga sat 24 days between first slip and first dose while the
+    ticket warned daily, and the 07-31 feedback entry named the escalation
+    itself ("the flag needs teeth"). The gate is the wants_scheduled_push law
+    applied to the close: Python catches the contradiction and forces the
+    re-ask. It runs BEFORE any write, so a refused close is safely re-runnable.
+
+    Gate 7.2 — a gate that never fires looks exactly like a compliant close, so
+    the case asserts the REFUSAL (exit code AND, the effect, that nothing was
+    written: no cold, no debrief, no slip row), then that each legal door
+    opens: the override with a reason, a commission covering the debt in the
+    same close, and a landed test discharging its own tag."""
+    print("\n46. The commission gate blocks the close (2026-08-01)")
+    import argparse as _ap
+    import contextlib, io
+    ss = importlib.import_module("sync_state")
+    lex_path = sb / "progress" / "lexicon.json"
+    learner_path = sb / "progress" / "learner.json"
+    slip_path = sb / "progress" / "slip_log.json"
+    slog_path = sb / "progress" / "session_log.json"
+    saved = (lex_path.read_bytes(), learner_path.read_bytes(),
+             slip_path.read_bytes() if slip_path.exists() else None,
+             slog_path.read_bytes() if slog_path.exists() else None)
+
+    defaults = dict(listened=[], teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
+                    soak_channel=None, soak_form=None, mastered_word=[], comfortable_word=[],
+                    stuck_word=[], produced_cold=[], produced_hinted=[], mark_seen=[],
+                    next_engine=None, debrief=None, slip=[], slip_tested=[],
+                    slip_commissioned=[], no_commission=None)
+
+    def update(**kw):
+        out, code = io.StringIO(), 0
+        try:
+            with contextlib.redirect_stdout(out):
+                ss.cmd_update(_ap.Namespace(**{**defaults, **kw}))
+        except SystemExit as e:
+            code = e.code
+        return code, out.getvalue()
+
+    try:
+        # Clean ledger, then one live uncommissioned pattern.
+        slip_path.write_text("[]", encoding="utf-8")
+        learner = read_json(learner_path)
+        for k in ("slip_closes", "slip_commissions"):
+            learner.pop(k, None)
+        write_json(learner_path, learner)
+        lex = read_json(lex_path)
+        lex["கேட்வேர்ட்"] = {"gloss": "gate word", "recognition": "solid",
+                            "production": "none", "phonetic": [], "seen_in": []}
+        write_json(lex_path, lex)
+        with contextlib.redirect_stdout(io.StringIO()):
+            ss.append_slips([{"tag": "gate-tag", "said": "a", "want": "b"}],
+                            lane="chat", when="2026-01-01")
+            ss.append_slips([{"tag": "gate-tag", "said": "a", "want": "b"}],
+                            lane="chat", when=date_cls.today().isoformat())
+
+        before = (lex_path.read_bytes(), learner_path.read_bytes(),
+                  slip_path.read_bytes())
+        code, out = update(produced_cold=["கேட்வேர்ட்"], debrief="a close over a debt")
+        check("the close is refused, loudly, naming the tag",
+              code == 2 and "gate-tag" in out, f"exit {code}")
+        check("...and a refused close writes NOTHING — no rep, no cold, no debrief",
+              (lex_path.read_bytes(), learner_path.read_bytes(),
+               slip_path.read_bytes()) == before, "a partial close leaked")
+
+        # Door 1: the override, reason on the record.
+        code, out = update(produced_cold=["கேட்வேர்ட்"], no_commission="trip-eve triage")
+        check("the override closes, echoing the reason",
+              code == 0 and "trip-eve triage" in out, f"exit {code}")
+        check("...and the overridden close actually applied",
+              read_json(lex_path)["கேட்வேர்ட்"]["production"] == "cold")
+
+        # Door 2: commission the debt in the same close.
+        code, _ = update(soak_payload=["கேட்வேர்ட்"], soak_channel="soak",
+                         slip_commissioned=["gate-tag"])
+        check("a close that commissions the debt passes the gate", code == 0)
+        check("...and the debt is booked",
+              "gate-tag" in ss.slip_commissions(), "the gate passed but nothing was booked")
+
+        # The sim path: a slip whose SECOND occurrence arrives in this very
+        # close is already a pattern to the gate.
+        with contextlib.redirect_stdout(io.StringIO()):
+            ss.append_slips([{"tag": "gate-tag3", "said": "a", "want": "b"}],
+                            lane="chat", when="2026-01-03")
+        n_rows = len(read_json(slip_path))
+        code, out = update(slip=["gate-tag3|x|y|"])
+        check("a second occurrence landing IN the close trips the gate",
+              code == 2 and "gate-tag3" in out, f"exit {code}")
+        check("...and the refused slip row was NOT appended",
+              len(read_json(slip_path)) == n_rows, "the gate wrote before refusing")
+
+        # Door 3: a landed test in the same close discharges its own tag.
+        with contextlib.redirect_stdout(io.StringIO()):
+            ss.append_slips([{"tag": "gate-tag4", "said": "a", "want": "b"}],
+                            lane="chat", when="2026-01-04")
+            ss.append_slips([{"tag": "gate-tag4", "said": "a", "want": "b"}],
+                            lane="chat", when=date_cls.today().isoformat())
+        code, _ = update(slip_tested=["gate-tag4:landed"])
+        check("a landed test in the same close discharges its own tag", code == 0)
+    finally:
+        lex_path.write_bytes(saved[0])
+        learner_path.write_bytes(saved[1])
+        if saved[2] is not None:
+            slip_path.write_bytes(saved[2])
+        if saved[3] is not None:
+            slog_path.write_bytes(saved[3])
+
+
+def s47_hinted_retest_block(sb: Path):
+    """Hinted had no follow-up path ("open and unanswered", DECISIONS 07-28;
+    built 2026-08-01). `coverage_key` leads with fewest-reps, so a
+    repped-but-stale hinted item sorts behind every never-worked item in its
+    tier FOREVER — the three FAQ answers sat hinted 22–28 days silent at 11
+    days to touchdown. The retest block cuts across the sort on staleness.
+
+    Gate 7.2 — the silent no-op is an empty block reading as "nothing stale",
+    so the case asserts presence, ordering, the fresh and ear-only exclusions,
+    and that the real ticket entry point prints the block at all."""
+    print("\n47. Hinted items going dark get a retest block (2026-08-01)")
+    import contextlib, io
+    st = importlib.import_module("suggest_targets")
+    lex_path = sb / "progress" / "lexicon.json"
+    saved = lex_path.read_bytes()
+    try:
+        lex = read_json(lex_path)
+        mk_day = lambda d: (date_cls.today() - timedelta(days=d)).isoformat()
+        lex["ரீடெஸ்ட்1"] = {"gloss": "stale hinted", "production": "hinted",
+                           "recognition": "solid", "last_surfaced": mk_day(20), "reps": 5}
+        lex["ரீடெஸ்ட்2"] = {"gloss": "staler hinted", "production": "hinted",
+                           "recognition": "solid", "last_surfaced": mk_day(30), "reps": 2}
+        lex["ரீடெஸ்ட்3"] = {"gloss": "fresh hinted", "production": "hinted",
+                           "recognition": "solid", "last_surfaced": mk_day(3), "reps": 1}
+        lex["ரீடெஸ்ட்4"] = {"gloss": "stale but ear-only", "production": "hinted",
+                           "recognition": "solid", "last_surfaced": mk_day(30),
+                           "direction": "catch", "reps": 0}
+        write_json(lex_path, lex)
+        rows = st.retest_targets(lex, date_cls.today(), max_n=100)
+        words = [r["word"] for r in rows]
+        check("a hinted item silent past RETEST_DAYS surfaces", "ரீடெஸ்ட்1" in words)
+        check("...most-stale first",
+              "ரீடெஸ்ட்2" in words and words.index("ரீடெஸ்ட்2") < words.index("ரீடெஸ்ட்1"))
+        check("a recently-worked hinted item does not", "ரீடெஸ்ட்3" not in words)
+        check("ear-only items are excluded — a retest is a production move",
+              "ரீடெஸ்ட்4" not in words)
+
+        out, real_argv = io.StringIO(), sys.argv
+        try:
+            sys.argv = ["suggest_targets.py"]
+            with contextlib.redirect_stdout(out):
+                st.main()
+        finally:
+            sys.argv = real_argv
+        check("the ticket prints the block — the pieces are only worth having "
+              "if the entry point calls them", "HINTED, GOING DARK" in out.getvalue())
+    finally:
+        lex_path.write_bytes(saved)
+
+
+def s48_drill_answer_key_lint(sb: Path):
+    """The drill lane had no answer-key validation (2026-08-01): the 08-01 tape
+    shipped இடது பக்கம்ல where the oblique பக்கத்துல is right — a wrong case
+    form repeated aloud ten times, on the tape commissioned to fix the top
+    slip. The lint applies the studio contract: grade every answer against its
+    cue, ANY fail stops the run, and a grader that errors or miscounts is
+    fail-CLOSED — an unverified sheet must not ship.
+
+    Gate 7.2 — the silent no-op is a lint that always passes (a parse bug reads
+    every verdict as PASS), so the case feeds a FAIL and asserts the run STOPS,
+    and feeds a miscounted verdict list and asserts the raise."""
+    print("\n48. The drill answer key is linted; a fail stops the run (2026-08-01)")
+    import contextlib, io
+    rd = importlib.import_module("render_drill")
+    sheet = {"title": "T", "intro": "i", "outro": "o",
+             "items": [{"cue": "ask for tea", "answer_ta": "டீ குடுங்க"},
+                       {"cue": "say: next to the temple", "answer_ta": "இடது பக்கம்ல"}]}
+    real_ask = rd.ask_json
+    try:
+        rd.ask_json = lambda *a, **k: {"verdicts": [
+            {"n": 1, "verdict": "PASS", "reason": ""},
+            {"n": 2, "verdict": "FAIL", "reason": "needs the oblique stem"}]}
+        fails = rd.lint_sheet(sheet)
+        check("a failing answer is caught, naming the line and the why",
+              len(fails) == 1 and "பக்கம்ல" in fails[0] and "oblique" in fails[0],
+              f"got {fails}")
+
+        rd.ask_json = lambda *a, **k: {"verdicts": [
+            {"n": 1, "verdict": "PASS"}, {"n": 2, "verdict": "PASS"}]}
+        check("an all-pass sheet returns no failures", rd.lint_sheet(sheet) == [])
+
+        rd.ask_json = lambda *a, **k: {"verdicts": [{"n": 1, "verdict": "PASS"}]}
+        try:
+            rd.lint_sheet(sheet)
+            miscount = False
+        except ValueError:
+            miscount = True
+        check("a miscounted verdict list fails CLOSED, never open", miscount)
+
+        check("an empty sheet needs no grader call",
+              rd.lint_sheet({"items": []}) == [])
+
+        # main() must ACT on the verdict — stub the writer to return the bad
+        # sheet and assert the run stops before anything renders.
+        real = (rd.write_sheet, rd.drill_brief, rd.deck_due_payload, sys.argv)
+        rd.ask_json = lambda *a, **k: {"verdicts": [
+            {"n": 1, "verdict": "FAIL", "reason": "wrong case"},
+            {"n": 2, "verdict": "PASS", "reason": ""}]}
+        try:
+            rd.write_sheet = lambda *a, **k: sheet
+            rd.drill_brief = lambda: (None, [])
+            rd.deck_due_payload = lambda n: [{"word": "X", "gloss": "", "kind": "chunk"}]
+            sys.argv = ["render_drill.py", "--dry-run"]
+            stopped = False
+            with contextlib.redirect_stdout(io.StringIO()):
+                try:
+                    rd.main()
+                except SystemExit as e:
+                    stopped = bool(e.code)
+            check("main() stops on a lint fail — nothing renders", stopped)
+        finally:
+            rd.write_sheet, rd.drill_brief, rd.deck_due_payload, sys.argv = real
+    finally:
+        rd.ask_json = real_ask
 
 
 def s43_sidecar_callback_never_drops_silently(sb: Path):
@@ -3711,6 +3958,9 @@ def main():
         s43_sidecar_callback_never_drops_silently(sb)
         s44_a_commission_can_discharge_the_flag(sb)
         s45_concurrent_appends_merge(mk, sb)
+        s46_the_commission_gate_blocks_the_close(sb)
+        s47_hinted_retest_block(sb)
+        s48_drill_answer_key_lint(sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)
