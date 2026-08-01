@@ -3061,5 +3061,17 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-01T17-56.mp3",
     "memo_script": "சித்ரா அக்கா பேசுறாங்க — போன்ல, யாரோட அம்மாகிட்டயோ.\n\nஆமா ஆமா, நேத்து வந்தாங்க. ரொம்ப நல்லா இருந்துச்சு. அவங்க பையன் — தெரியுமா? — கனடாவுல இருக்காரு. தமிழ் கொஞ்சம் கொஞ்சம் பேசுவாரு, ரொம்ப சுட்டியா இருக்காரு.\n\nஆமா, அவங்க அம்மா சமைச்சாங்க — அடடா, என்ன சாப்பாடு! கை ருசி சூப்பர்னு சொன்னோம். அவங்களுக்கு ரொம்ப சந்தோஷமா இருந்துச்சு.\n\nசரி சரி, நாளைக்கு பாக்கலாம். வருவீங்களா? சரி, வாங்க.",
     "mp3": "published_audio/knocks/knock_2026-08-01T17-56.mp3"
+  },
+  {
+    "date": "2026-08-01",
+    "timestamp": "2026-08-01T22:47:37.574724+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "trailer: story day tomorrow",
+    "rationale": "Strong session today, demand-streak at 1 — a no-ask trailer earns tomorrow's Story Day without adding pressure; names the drill payoff as the hook so the session has a clear opening question.",
+    "next_check": "2026-08-02T12:47:37.574724+00:00",
+    "body": "🍽️ Tomorrow: dinner scene — the -ஓம் tail under load, on a real table. Did the drill reach your mouth? Session pays it off.",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]
