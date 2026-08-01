@@ -230,7 +230,8 @@ neutral to state. `knock_log` records `reply: null`, byte-identical to an ignore
 downstream `demand_streak`, `recent_ask_counts` and the deck's staleness term all read silence
 as a learner behaviour. A dead return path therefore writes a false portrait of a
 non-responsive learner into the state that steers selection — for as long as it lasts.
-**Where:** `docs/home_assistant_knock_buttons.md` §1 and §8 (rotation log — record every mint).
+**Where:** `docs/home_assistant_knock_buttons.md` §1 and §10 (rotation log — record every mint);
+§9 is the outbound-vs-inbound table that localises which leg died.
 
 ### KF-8: Lore format takeover — incentive drift, not taste (2026-07-11, fixed)
 **Symptom:** Andrew: today's lore push "basically a duplicate" of last week's; the format
