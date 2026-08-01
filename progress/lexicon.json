@@ -2365,11 +2365,11 @@
       65,
       68
     ],
-    "last_surfaced": "2026-07-27",
+    "last_surfaced": "2026-08-01",
     "deck": "trip",
     "direction": "fire",
     "type": "chunk",
-    "reps": 3
+    "reps": 4
   },
   "கூப்பிடு": {
     "gloss": "Call",
@@ -3035,14 +3035,15 @@
       "konjam nillunga"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       69,
       72
     ],
-    "last_surfaced": null,
+    "last_surfaced": "2026-08-01",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 1
   },
   "எப்படி இருக்கீங்க?": {
     "type": "chunk",
@@ -3486,14 +3487,14 @@
       "konjam medhuva sollunga"
     ],
     "recognition": "struggled",
-    "production": "hinted",
+    "production": "cold",
     "seen_in": [
       58
     ],
-    "last_surfaced": "2026-07-27",
+    "last_surfaced": "2026-08-01",
     "deck": "trip",
     "direction": "fire",
-    "reps": 1
+    "reps": 2
   },
   "இன்னொரு தடவ சொல்லுங்க": {
     "type": "chunk",
@@ -3519,13 +3520,14 @@
       "enna sonneenga"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [
       58
     ],
-    "last_surfaced": null,
+    "last_surfaced": "2026-08-01",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 1
   },
   "தமிழ்ல எப்படி சொல்றது?": {
     "type": "chunk",
@@ -3534,13 +3536,14 @@
       "tamizh-la eppadi solradhu"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       58
     ],
-    "last_surfaced": null,
+    "last_surfaced": "2026-08-01",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 1
   },
   "ஆமா ஆமா": {
     "type": "chunk",
