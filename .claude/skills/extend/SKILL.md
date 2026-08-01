@@ -55,12 +55,25 @@ precedent lives in `/debug` → KF-8).
 Every addition must earn its place. Before writing any code, state out loud:
 *"This replaces / simplifies ___."* (`docs/DECISIONS.md` → "Every addition must earn its place.")
 
-**The word budget (2026-07-16).** The protocol's prose surfaces — `persona.md`,
-`constitution.md`, `daily_session.md`, the outreach mandate — carry word budgets asserted
-by `scripts/smoke_test.py` → `PROSE_BUDGETS`; growth past budget is a red run. Raising a
-budget is allowed only in the same diff as the growth, and the commit must name the lines
-it retired. A file that keeps hitting its ceiling is carrying crud or doing too many jobs —
-a split-or-retire signal, never a bump-the-number reflex.
+**The size budgets.** Both surfaces are ratcheted, asserted by the same smoke case
+(`scripts/smoke_test.py` → `s18_size_budgets`):
+
+| Surface | Table | Unit | Since |
+|---|---|---|---|
+| Protocol prose — `persona.md`, `constitution.md`, `daily_session.md`, `audio_channels.md`, the LLM mandates | `PROSE_BUDGETS` | words | 2026-07-16 |
+| Every `scripts/*.py` | `CODE_BUDGETS` | code lines (blanks, comments and docstrings are **free**) | 2026-07-31 |
+
+One law for both: growth past budget is a red run; raising a budget is allowed only in the
+same diff as the growth, and the commit must name what it retired. A file that keeps
+hitting its ceiling is carrying crud or doing too many jobs — a split-or-retire signal,
+never a bump-the-number reflex.
+
+Two things specific to code. **Comments cost nothing** — the diagnosis layer is a third of
+this codebase and it is why the silent-failure bugs were findable; the budget bounds
+mechanism, so explain freely and cut logic. **A new `scripts/*.py` with no entry in
+`CODE_BUDGETS` is itself a red run** — adding a file is the obvious way past a ceiling, so
+budget it in the same diff that creates it. `smoke_test.py` is exempt on purpose (Gate 7
+demands a case per fixed bug; test volume is the one growth this system wants unbounded).
 
 If you cannot name what it replaces, that is the signal to stop.
 
@@ -113,17 +126,46 @@ Run these after every non-trivial change to the machinery:
    python scripts/smoke_test.py
    ```
 
-2. **Run `/verify`** — the sibling skill that proves the change end-to-end.
+2. **THE SILENT NO-OP TEST — answer it out loud before the case is written**
+   (2026-07-31). *"What does this look like when it silently does nothing, and can the
+   system tell that state apart from success?"*
 
-3. **Never hand-edit Python-owned JSON.** State advances through `sync_state.py`;
+   Every deep bug of 2026-07-24→31 was a state **indistinguishable from success**: the
+   soak order was set but held no repair; the deck surfaced items but 45 of 70 were never
+   asked while the meter reported a winning sprint; a callback rode the script but minted
+   no lexicon record; `--slip-tested` wrote a close the same update erased. Nothing
+   crashed. Every instrument read green. The common root cause: **the meters measured
+   that a step RAN, never that its PURPOSE was served.**
+
+   So the case must have teeth *in the dimension the thing can actually fail*:
+
+   - **Assert the effect, not the execution.** Not "the order was written" but "the order
+     contains the day's repair". Not "the item was surfaced" but "over N selections every
+     item is reached" (`s34`'s `range(40)` loop is the pattern to copy).
+   - **Round-trip through the writer.** Drive the real command entry point, then RE-READ
+     the state file. `s41` shipped 2026-07-30 with a green case that never called
+     `cmd_update` and never re-read `learner.json` — the feature was dead on arrival for a
+     day because the whitelist in `write_thin_learner` deleted the field. The test tested
+     the function; the bug was in the round trip.
+   - **An absence must be loud.** A lookup that resolves to nothing, an unreadable
+     sidecar, a flag nothing can discharge — report it. A warning that cannot be
+     discharged is noise by construction, and gets walked past for mechanical reasons,
+     not inattention.
+
+   If the honest answer is "it would look exactly like success", the change is not
+   finished — that is the bug, still in the diff.
+
+3. **Run `/verify`** — the sibling skill that proves the change end-to-end.
+
+4. **Never hand-edit Python-owned JSON.** State advances through `sync_state.py`;
    `progress/*.json` files are the brain. (`docs/DECISIONS.md` → "LLM is the writer,
    Python is the brain.")
 
-4. **Commit hygiene.** Match the house style from the real log:
+5. **Commit hygiene.** Match the house style from the real log:
    `Subsystem: what changed (context if needed)` — short subject, sentence case,
    parenthetical for date/feedback attribution. No ticket numbers.
 
-5. **CI git identity is `github-actions[bot]`** — never a noreply alias that credits
+6. **CI git identity is `github-actions[bot]`** — never a noreply alias that credits
    a real GitHub user. (`docs/DECISIONS.md` → "CI git identity is `github-actions[bot]`.")
 
 ---

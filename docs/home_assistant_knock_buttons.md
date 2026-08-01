@@ -47,7 +47,10 @@ pivot.)
 The `dispatches` endpoint needs write access to `arosselet/tamil-tutor`.
 
 1. github.com → **Settings → Developer settings → Fine-grained tokens → Generate new**
-2. **Name** `ha-anna-knock`; set an expiry you'll rotate.
+2. **Name** `ha-anna-knock`; set an expiry you'll rotate. **Write the mint date and the
+   expiry into the log at the bottom of this file when you do** — an expired token is a
+   SILENT outage (GitHub 401s, HA logs it, the repo sees nothing, and the state machine
+   reads your unanswered knocks as a quiet learner). 2026-07-31 cost an evening to this.
 3. **Repository access:** *Only select repositories* → `arosselet/tamil-tutor`
 4. **Permissions:** *Repository permissions → Contents → Read and write* (the only one needed).
 5. Generate; copy the `github_pat_…`.
@@ -222,7 +225,9 @@ curl -X POST https://api.github.com/repos/arosselet/tamil-tutor/dispatches \
   -H "Accept: application/vnd.github+json" \
   -d '{"event_type":"knock-response","client_payload":{"response":"ack"}}'
 ```
-Expect 204, then a **Log Knock Response** run committing `Knock response: ack`.
+Expect 204, then an **Anna** run committing `Knock response: ack`. (The workflow is
+named **Anna** since the 2026-07-24 consolidation — one runner, every trigger. The old
+`Log Knock Response` / `Anna Knock` entries no longer exist in the Actions list.)
 
 **HA side:** Developer Tools → Actions → `rest_command.anna_knock_response` with
 `{response: ack}` (note the `data:` wrapper). Same result.
@@ -234,10 +239,10 @@ curl -X POST https://api.github.com/repos/arosselet/tamil-tutor/dispatches \
   -H "Accept: application/vnd.github+json" \
   -d '{"event_type":"knock-response","client_payload":{"response":"reply","text":"naan poren"}}'
 ```
-Expect 204, a **Log Knock Response** run through the *Judge Tamil reply* step, a
+Expect 204, an **Anna** run through the *Judge Tamil reply* step, a
 `Knock reply: …` commit, and a push-back notification ending in `Deck X/47 · Nd`.
 
-**End to end:** fire a real knock (Actions → **Anna Knock** → Run workflow,
+**End to end:** fire a real knock (Actions → **Anna** → Run workflow,
 `force: true`), long-press the notification, type into **Reply ✍️** — or tap
 **Got it 👍** for the landed-only path.
 
@@ -296,3 +301,15 @@ screen — same endpoint, same judge. Confirmed working 2026-07-02.
 **type** is explicitly set to Dictionary (or Array). If a plain-string field (like
 `event_type`) shows its own "Add new field" underneath, its type got flipped to
 Dictionary by mistake — set it back to Text.
+
+---
+
+## 8. PAT rotation log
+
+An expired PAT breaks the reply path with no error anywhere the repo can see. Record every
+mint here so the next expiry is a calendar entry instead of a debugging session.
+
+| Minted | Expiry chosen | Notes |
+|---|---|---|
+| ~2026-06-30 | unrecorded | The original. Last successful dispatch 2026-07-31T00:08:30Z (20:08 EDT 07-30); every reply after that was lost silently. Consistent with GitHub's default 30-day expiry on a 06-30 mint. |
+| 2026-07-31 | **FILL THIS IN** | Rotated the night the first one died. Verified live: `rest_command.anna_knock_response` → 204 → Anna run → commit `5f34702 Knock response: ack`. **Write the expiry date in this cell** — an empty cell here is the whole failure mode. |
