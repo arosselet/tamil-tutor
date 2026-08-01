@@ -60,7 +60,7 @@ Every addition must earn its place. Before writing any code, state out loud:
 
 | Surface | Table | Unit | Since |
 |---|---|---|---|
-| Protocol prose — `persona.md`, `constitution.md`, `daily_session.md`, `audio_channels.md`, the LLM mandates | `PROSE_BUDGETS` | words | 2026-07-16 |
+| Protocol prose — `persona.md`, `constitution.md`, `daily_session.md`, `audio_channels.md`, `commissioning.md`, the LLM mandates | `PROSE_BUDGETS` | words | 2026-07-16 |
 | Every `scripts/*.py` | `CODE_BUDGETS` | code lines (blanks, comments and docstrings are **free**) | 2026-07-31 |
 
 One law for both: growth past budget is a red run; raising a budget is allowed only in the
