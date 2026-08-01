@@ -95,6 +95,10 @@ FOCUS_SIZE = 12
 # Deliberately NOT an eviction rule: 33 data points cannot justify giving up on
 # a word, and a silently parked word is the starvation this whole change fixes.
 STUCK_REPS = 10
+# Hinted items silent this long surface for a cold retest (2026-08-01). Hinted
+# had no follow-up path at all ("open and unanswered", DECISIONS 07-28): cold is
+# a one-way door and hinted was a no-way door.
+RETEST_DAYS = 14
 
 
 TOKEN_RE = re.compile(r"\w+", re.UNICODE)
@@ -606,6 +610,33 @@ def commissioned_form(learner: dict | None = None) -> str | None:
     return form or None
 
 
+def retest_targets(lexicon: dict, today=None, max_n: int = 5) -> list[dict]:
+    """Hinted items going dark — the follow-up path hinted never had (2026-08-01).
+
+    `coverage_key` leads with fewest-lifetime-reps, so a repped-but-stale hinted
+    item sorts BEHIND every never-worked item in its tier forever: the three FAQ
+    answers (ஒரு மாசம் இருப்போம் at 5 reps…) sat hinted 22–28 days silent while
+    the ticket kept offering fresh ground — at 11 days to touchdown, the day-1
+    aunt questions. This block cuts across the coverage sort on the staleness
+    axis alone. A retest is a SESSION move — a scene that makes the item fire
+    unaided — never a commission (the parked cold-decay item stays parked, and
+    rechecks must not crowd the soak order out of new ground, the same call as
+    slip retirement)."""
+    today = today or date.today()
+    out = []
+    for w, r in lexicon.items():
+        if r.get("production") != "hinted" or r.get("direction") == "catch":
+            continue
+        ds = days_since(r.get("last_surfaced"), today)
+        stale = NEVER_SURFACED if ds is None else ds
+        if stale < RETEST_DAYS:
+            continue
+        out.append({"word": w, "gloss": r.get("gloss", ""), "staleness": stale,
+                    "reps": r.get("reps", 0), "deck": r.get("deck", "")})
+    out.sort(key=lambda c: (-c["staleness"], stable_jitter(c["word"])))
+    return out[:max_n]
+
+
 def slips_by_word(patterns: list[dict]) -> dict[str, list[dict]]:
     """Lexicon key → the live slip patterns that attach to it, worst first.
 
@@ -778,6 +809,18 @@ def main():
             print(line)
         print("\n  A slip is not closed by being corrected — it closes when the right form")
         print("  fires unaided, later, in a scene that did not hand it over. Build for that.")
+
+    retests = retest_targets(lexicon, today)
+    if retests:
+        print("\n★ HINTED, GOING DARK  (repped, then silent — retest cold in a scene)")
+        print("-" * 60)
+        for t in retests:
+            age = ("hinted but NEVER surfaced — a stamp with no work behind it, worth asking why"
+                   if t["staleness"] >= NEVER_SURFACED else f"{t['staleness']}d silent")
+            deck_tag = " · DECK" if t["deck"] else ""
+            print(f"  - {t['word']} — {t['gloss'] or '[no gloss]'}"
+                  f"  [{t['reps']} rep{'s' if t['reps'] != 1 else ''} · {age}{deck_tag}]")
+        print("  A hit fires it cold for real; a miss is honest data — log the slip.")
 
     # 0. THE COMMISSION — the repair that earned this dose, ahead of everything
     # the ticket computes. Before 2026-07-28 the order reached the Director only

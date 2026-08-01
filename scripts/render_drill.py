@@ -155,6 +155,20 @@ def with_lead(pending: list[dict], lead: list[dict]) -> list[dict]:
     return lead + [t for t in pending if t["word"] not in have]
 
 
+def ask_json(system: str, user: str, max_tokens: int = 2400) -> dict:
+    """One single-shot LLM call → parsed JSON (fenced or bare). Shared by the
+    sheet writer and the answer-key lint so the fence handling lives once."""
+    client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
+    resp = client.chat.completions.create(
+        model=MODEL, max_tokens=max_tokens,
+        messages=[{"role": "system", "content": system},
+                  {"role": "user", "content": user}])
+    text = resp.choices[0].message.content.strip()
+    if text.startswith("```"):
+        text = text.split("```")[1].lstrip("json").strip()
+    return json.loads(text, strict=False)
+
+
 def write_sheet(pending: list[dict], n_lead: int = 0, focus: str | None = None) -> dict:
     persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
     menu = "\n".join(f"- [{t['kind']}] {t['word']} — {t['gloss'] or '[no gloss]'}"
@@ -163,22 +177,50 @@ def write_sheet(pending: list[dict], n_lead: int = 0, focus: str | None = None) 
     if n_lead:
         mandate += COMMISSION_BRIEF.format(
             n=n_lead, focus=f"\nWhat the repair is about: {focus}" if focus else "")
-    client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
-    resp = client.chat.completions.create(
-        model=MODEL,
-        max_tokens=2400,
-        messages=[
-            {"role": "system", "content": persona + "\n\n---\n\n" + mandate},
-            {"role": "user", "content": f"DECK DUE:\n{menu}"},
-        ],
-    )
-    text = resp.choices[0].message.content.strip()
-    if text.startswith("```"):
-        text = text.split("```")[1].lstrip("json").strip()
-    sheet = json.loads(text, strict=False)
+    sheet = ask_json(persona + "\n\n---\n\n" + mandate, f"DECK DUE:\n{menu}")
     sheet["items"] = [i for i in sheet.get("items", [])
                       if i.get("cue", "").strip() and i.get("answer_ta", "").strip()]
     return sheet
+
+
+LINT_MANDATE = """\
+You are a strict checker of spoken Coimbatore colloquial Tamil. Each numbered item \
+pairs an English cue with the Tamil answer a learner will repeat aloud ten times. \
+FAIL any answer a native speaker would flag as wrong: a wrong case suffix (locative \
+-ல where dative -க்கு is needed; பக்கம்ல for the oblique பக்கத்துல), a wrong tense or \
+person ending, or an unnatural form for the cue's meaning. Colloquial contractions, \
+register variation and Thanglish loanwords are FINE — this is spoken language, not \
+textbook Tamil. When genuinely unsure, PASS.
+Return ONLY JSON: {"verdicts": [{"n": 1, "verdict": "PASS|FAIL", "reason": "<one clause>"}]} \
+— exactly one verdict per item."""
+
+
+def lint_sheet(sheet: dict) -> list[str]:
+    """Answer-key gate — the studio's lint contract on the drill lane (2026-08-01).
+
+    The 08-01 tape shipped இடது பக்கம்ல where the oblique பக்கத்துல is right — a
+    wrong case form repeated aloud ten times, on the very tape commissioned to fix
+    the top slip. A drill answer is load-bearing in a way a chat line is not: it
+    IS the model he rehearses. So a second single-shot call grades every answer
+    against its cue, and the caller stops the run on ANY fail — never ships.
+    Raises (rather than passing) when the grader itself misbehaves: an errored or
+    miscounted verdict list is an UNVERIFIED sheet, and unverified wrong forms
+    ×10 are worse than a late drill (fail-closed)."""
+    items = sheet.get("items", [])
+    if not items:
+        return []
+    listing = "\n".join(f"{n}. cue: {i['cue']}\n   answer: {i['answer_ta']}"
+                        for n, i in enumerate(items, 1))
+    verdicts = ask_json(LINT_MANDATE, listing, max_tokens=1200).get("verdicts", [])
+    if len(verdicts) != len(items):
+        raise ValueError(f"lint returned {len(verdicts)} verdicts for {len(items)} items")
+    fails = []
+    for v in verdicts:
+        if str(v.get("verdict", "")).strip().upper() != "PASS":
+            n = v.get("n")
+            ans = items[n - 1]["answer_ta"] if isinstance(n, int) and 1 <= n <= len(items) else "?"
+            fails.append(f"item {n}: {ans} — {v.get('reason', '') or 'no reason given'}")
+    return fails
 
 
 def silence(seconds: float) -> bytes:
@@ -245,6 +287,20 @@ def main():
           f"{' · FOCUS: ' + focus if focus else ''})")
     sheet = write_sheet(pending, len(lead), focus)
     print(f"   → '{sheet.get('title', 'Drill')}' · {len(sheet['items'])} items")
+
+    # Lint before the dry-run gate on purpose: the sheet a dry run prints should
+    # carry the same verdict the real run would act on.
+    try:
+        fails = lint_sheet(sheet)
+    except Exception as e:
+        sys.exit(f"✗ answer-key lint could not run ({e}) — unverified sheet; not rendering.")
+    if fails:
+        for line in fails:
+            print(f"   ✗ {line}")
+        sys.exit("✗ answer key failed lint — stopped for inspection, nothing rendered. "
+                 "Re-run for a fresh sheet.")
+    if sheet["items"]:
+        print(f"   ✓ lint: {len(sheet['items'])} answers pass")
 
     if args.dry_run:
         print(json.dumps(sheet, ensure_ascii=False, indent=2))

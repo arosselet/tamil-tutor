@@ -471,6 +471,43 @@ def cmd_update(args):
     today = date.today().isoformat()
     applied = {"cold": [], "hinted": [], "demoted": []}  # for the session log
 
+    # ── THE COMMISSION GATE (2026-08-01, Andrew: "block the close") ──────
+    # NEVER COMMISSIONED was advisory and got walked past for mechanical
+    # reasons — venum-for-kudunga sat 24 days between first slip and first
+    # dose while the ticket warned daily ("the flag needs teeth", feedback
+    # 07-31, second occurrence of the commissioning complaint). Same law as
+    # wants_scheduled_push: when prose fails, Python catches the
+    # contradiction and forces the re-ask. Runs BEFORE any write so a
+    # refused close is safely re-runnable — touch() counts reps, so a
+    # partially-applied close must never happen.
+    slip_rows = parse_slip_args(getattr(args, "slip", None) or [])
+    declared = {canon_tag(t) for t in getattr(args, "slip_commissioned", None) or []}
+    landed_now = {canon_tag(r.rpartition(":")[0])
+                  for r in getattr(args, "slip_tested", None) or []
+                  if r.strip().lower().endswith(":landed")}
+    # A declared tag only counts as covered if an order will actually stand —
+    # a --slip-commissioned with no order is the typo record_slip_commission
+    # rejects later, and it must not sweet-talk the gate first.
+    order_stands = bool(args.soak_channel or args.soak_payload
+                        or (learner.get("soak_order") or {}).get("channel"))
+    sim = [{"tag": canon_tag(r["tag"]), "date": today} for r in slip_rows]
+    owed = [p for p in slip_patterns(log=(load_json(SLIP_LOG_PATH) or []) + sim)
+            if p["uncommissioned"] and p["tag"] not in landed_now
+            and not (p["tag"] in declared and order_stands)]
+    reason = getattr(args, "no_commission", None)
+    if owed and not reason:
+        print("⛔ CLOSE REFUSED — live slip pattern(s) with no dose ever built:")
+        for p in owed:
+            print(f"   ⚠ {p['tag']} — {p['count']}× over {p['span_days']}d")
+        print("   Commission in THIS close:   --soak-payload … --soak-channel "
+              "soak|episode|drill --slip-commissioned <tag>")
+        print("   …or close over it, reason on the record:   --no-commission '<why>'")
+        print("   Nothing was written. Re-run the FULL close with one of the above.")
+        sys.exit(2)
+    if owed:
+        print(f"  ⚠ closing over uncommissioned slip(s) "
+              f"({', '.join(p['tag'] for p in owed)}) — reason: {reason}")
+
     def touch(key):
         """Worked in a session: refresh the date AND count the rep.
         `last_surfaced` is one overwritten date, so it can say WHEN but never HOW
@@ -650,15 +687,7 @@ def cmd_update(args):
     # recorded only there survives exactly as long as Anna keeps retyping it.
     # This is the accumulating half — same ledger the knock judge writes to, so
     # a slip made at the table and a slip made on the phone are one history.
-    slip_rows = []
-    for raw in getattr(args, "slip", None) or []:
-        parts = [p.strip() for p in raw.split("|")]
-        if not parts or not parts[0]:
-            print(f"  ! --slip {raw!r} has no tag before the first '|' — skipped")
-            continue
-        parts += [""] * (4 - len(parts))
-        slip_rows.append({"tag": parts[0], "said": parts[1],
-                          "want": parts[2], "note": parts[3]})
+    # (parsed once, up at the gate — the gate and the writer must see one list)
     if slip_rows:
         channel = (learner.get("soak_order") or {}).get("channel", "")
         written = append_slips(slip_rows, lane="chat", modality="session",
@@ -1277,6 +1306,23 @@ def canon_tag(s: str) -> str:
     return _TAG_RE.sub("-", (s or "").strip().casefold()).strip("-")
 
 
+def parse_slip_args(raw_specs: list[str]) -> list[dict]:
+    """CLI `--slip 'tag|said|want|note'` specs → ledger rows. Shared by the
+    close's writer AND the commission gate, which must judge the same rows the
+    close is about to append — a slip whose second occurrence lands in this very
+    close becomes a pattern the gate already has to see."""
+    rows = []
+    for raw in raw_specs:
+        parts = [p.strip() for p in raw.split("|")]
+        if not parts or not parts[0]:
+            print(f"  ! --slip {raw!r} has no tag before the first '|' — skipped")
+            continue
+        parts += [""] * (4 - len(parts))
+        rows.append({"tag": parts[0], "said": parts[1],
+                     "want": parts[2], "note": parts[3]})
+    return rows
+
+
 def append_slips(entries: list[dict], lane: str, modality: str = "",
                  dose_channel: str = "", when: str = "") -> list[dict]:
     """Append structured errors to the slip ledger. THE LEDGER IS APPEND-ONLY —
@@ -1845,6 +1891,10 @@ def main():
                          "tag, so the flag would stay on for ever no matter what was built. Only for a dose that "
                          "genuinely targets the pattern; it says a debt was ordered, never that it landed "
                          "(that is --slip-tested).")
+    up.add_argument("--no-commission", type=str, default=None, metavar="REASON", dest="no_commission",
+                    help="Close despite a live uncommissioned slip pattern, with the reason on the record. "
+                         "Without this (or a --slip-commissioned covering the debt) the gate REFUSES the "
+                         "close and writes nothing (2026-08-01, Andrew's call).")
 
     ap = sub.add_parser("add-pattern", help="Seed a generative pattern/lemma record (tracked as an Engine)")
     ap.add_argument("key", help="Canonical key, e.g. 'frame:present-future-toggle'")
