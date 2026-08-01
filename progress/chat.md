@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:22 · Anna** 🎧  ·  audio / trailer payoff: day-recap
 > 💬 போனோம், நல்லா இருந்துச்சு — the two-part answer to 'what did you all do?' Memo inside 🎙️
 
+**13:56 · Anna** 🎧  ·  eavesdrop / aunties tape: youknow-la collect
+> 📻 Overheard: Chitra akka on the phone — what's the gossip? (drift question inside)
+
 
 ## Friday 2026-07-31
 
