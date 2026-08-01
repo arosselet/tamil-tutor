@@ -290,11 +290,17 @@ it needs nothing but the phone and the internet.
 
 Two actions. Ten minutes including the token.
 
-**Step 0 — the PAT.** The Shortcut carries its own token; it does not share HA's.
-If you still have the `github_pat_…` from the old shortcut saved somewhere, reuse it.
-Otherwise mint a fresh one exactly as in §1 (fine-grained · *Only select repositories*
-→ `arosselet/tamil-tutor` · **Contents: Read and write**, nothing else). Name it
-`ios-tell-anna` so it's separately revocable from HA's. Copy it — GitHub shows it once.
+**Step 0 — the PAT.** The Shortcut needs a token in its own `Authorization` header; it
+cannot read HA's. It may either *be* the same token as HA's or a second one — **as of
+2026-08-01 this setup shares one** (`ha-anna-knock`, minted 07-31). Paste that value and
+move on.
+
+Minting a separate one — same recipe as §1 (fine-grained · *Only select repositories* →
+`arosselet/tamil-tutor` · **Contents: Read and write**, nothing else), named
+`ios-tell-anna` — buys independent revocation and, more usefully, makes an expiry visible:
+with two tokens the dead one takes only its own leg, so *one path working and the other
+not* localises the fault immediately (§9). Shared, both legs die at the same instant and
+that signal is gone. Either is fine; §10 records which is live.
 
 **Step 1 — new Shortcut.** Shortcuts app → **+** (top right) → rename it **Tell Anna**
 (tap the name at the top → Rename).
@@ -449,13 +455,18 @@ So:
 An expired PAT breaks the reply path with no error anywhere the repo can see. Record every
 mint here so the next expiry is a calendar entry instead of a debugging session.
 
-**Two independent tokens** — they expire on their own schedules and each kills only its own
-leg. HA's death takes the notification buttons (Reply ✍️ and Got it 👍); the Shortcut's death
-takes only the home-screen button. If one path works and the other doesn't, that asymmetry
-*is* the diagnosis.
+**One token currently carries both legs.** Since 2026-08-01 the Shortcut reuses
+`ha-anna-knock` rather than holding its own. Consequence to plan around: **its expiry takes
+the notification buttons and the home-screen button out at the same instant**, so the
+"one leg works, the other doesn't" asymmetry that §9 leans on will not appear — a total
+inbound blackout with knocks still arriving is the shape to expect instead. Rotating is
+also a two-place edit now: HA's `secrets.yaml` *and* the Shortcut's `Authorization` header.
 
-| Minted | Token | Expiry chosen | Notes |
-|---|---|---|---|
-| ~2026-06-30 | `ha-anna-knock` (HA `secrets.yaml`) | unrecorded | The original. Last successful dispatch 2026-07-31T00:08:30Z (20:08 EDT 07-30); every reply after that was lost silently. Consistent with GitHub's default 30-day expiry on a 06-30 mint. See `/debug` KF-12. |
-| 2026-07-31 | `ha-anna-knock` (HA `secrets.yaml`) | **FILL THIS IN** | Rotated the night the first one died. Verified live: `rest_command.anna_knock_response` → 204 → Anna run → commit `5f34702 Knock response: ack`. **Write the expiry date in this cell** — an empty cell here is the whole failure mode. |
-| 2026-08-01 | `ios-tell-anna` (Shortcut) | **FILL THIS IN** | Minted when the Shortcut's *Get Contents of URL* action was accidentally deleted, taking its only copy of the old token with it (§8.4). Rebuilt per §8.1; verified with a `Vanakkam this is a test` round-trip → `08ade23 Knock reply: chat (no fire)`. If the old token was not reused, **revoke the orphan** in GitHub → Settings → Developer settings → Fine-grained tokens. |
+| Minted | Token | Used by | Expiry chosen | Notes |
+|---|---|---|---|---|
+| ~2026-06-30 | `ha-anna-knock` | HA | unrecorded | The original. Last successful dispatch 2026-07-31T00:08:30Z (20:08 EDT 07-30); every reply after that was lost silently. Consistent with GitHub's default 30-day expiry on a 06-30 mint. See `/debug` KF-12. |
+| 2026-07-31 | `ha-anna-knock` | HA **+ Shortcut** (since 08-01) | **FILL THIS IN** | Rotated the night the first one died. Verified on the HA leg: `rest_command.anna_knock_response` → 204 → Anna run → commit `5f34702 Knock response: ack`. Reused for the rebuilt Shortcut on 08-01 after its *Get Contents of URL* action was deleted, taking its only copy of the previous token with it (§8.4); verified on that leg by a `Vanakkam this is a test` round-trip → `08ade23 Knock reply: chat (no fire)`. **Write the expiry date in this cell** — an empty cell here is the whole failure mode, and this token is now a single point of failure for all inbound traffic. |
+
+**Orphan to clean up:** the Shortcut's previous PAT was never revoked — it was lost with the
+deleted action, not retired. Revoke it in GitHub → Settings → Developer settings →
+Fine-grained tokens (it is the one *not* named `ha-anna-knock`).
