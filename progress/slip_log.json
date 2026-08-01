@@ -141,5 +141,17 @@
     "want": "சரி சரி",
     "note": "reaches for a Hindi backchannel instead of the Tamil one",
     "word": "சரி சரி"
+  },
+  {
+    "at": "2026-08-01T20:55:20Z",
+    "date": "2026-08-01",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "puriyala-for-reopen",
+    "said": "puriyala",
+    "want": "enna sonneenga",
+    "note": "reaches for the conversation-CLOSING line where the move is to REOPEN it",
+    "word": "என்ன சொன்னீங்க?",
+    "dose_channel": "episode"
   }
 ]
