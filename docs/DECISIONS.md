@@ -879,7 +879,9 @@ Details live in git history; this is the index of the *conclusions*.
   correct. Answering a hint/translation/breakdown request is now explicit, narrowing that rule
   to replay-homework only. Extends profile.md's "meta is curriculum" preference (2026-07-15)
   from the session to the knock channel, where it had never been stated.
-- **An eavesdrop tape must name its subject in the opening, or it isn't a dose** (2026-07-25).
+- **An eavesdrop tape must name its subject in the opening, or it isn't a dose** (2026-07-25;
+  **the degrade-to-text remedy SUPERSEDED 2026-08-01 — a defective eavesdrop is now refused,
+  see below**).
   Gossip grammar hides the referent by design — an unnamed respectful `அவங்க` plus the `-ஆம்`
   hearsay tail is *how* you talk about people without naming them — so a tape built that way
   cannot be asked "what's the drift?" and Andrew's "who came?" was the correct question with no
@@ -1722,3 +1724,47 @@ Details live in git history; this is the index of the *conclusions*.
   (07-15) → 10671 (07-31), flat for three weeks with a net deletion in one of them, having
   refused the commissioning law twice and forced it into Python on the third. That is the
   precedent `CODE_BUDGETS` was extended from, the same day.
+- **The commission gate blocks the close** (2026-08-01, Andrew — chose the hard gate over
+  auto-commission and advisory-print). A close over a live NEVER-COMMISSIONED slip pattern
+  is refused before any write; `--slip-commissioned` pays the debt, `--slip-tested :landed`
+  discharges it, `--no-commission '<why>'` overrides with the reason on the record. Python
+  stays the detector, never the chooser. Ships "the flag needs teeth" (07-31). Smoke s46.
+- **Hinted gets a follow-up path — the retest block** (2026-08-01). `coverage_key`'s
+  fewest-reps-first buries a repped-but-stale hinted item behind never-worked ones for
+  ever (the three FAQ answers, 22–28d silent); the ticket now surfaces hinted items silent
+  ≥14d for a cold retest in a scene. A session move, never a commission — the parked
+  cold-decay item stays parked. Smoke s47.
+- **The drill answer key is linted — any fail stops the run, and a broken grader is a fail**
+  (2026-08-01). The 08-01 tape rehearsed இடது பக்கம்ல for பக்கத்துல ×10 on the tape fixing
+  the top slip; a second single-shot grader now checks every answer against its cue, on the
+  studio's stop-for-inspection contract. Smoke s48.
+- **A defective eavesdrop is refused, never degraded to text** (2026-08-01). Supersedes the
+  07-25 degrade-to-text remedy: the body is a drift question about a tape, so a text
+  degrade IS the broken audio promise reported twice on 07-28. A lost dose is cheaper than
+  a broken one; fielding keeps its degrade (its body is a self-contained phonetic question).
+- **The audio_channels split was taken — `commissioning.md` owns "what it carries"**
+  (2026-08-01). The third raise refused in advance (07-28) came due: audio_channels keeps
+  routing + format, commissioning.md carries the repair-first law, each pointing at the
+  other; daily_session's Close & Log pointer re-aimed. s37 asserts the seam.
+- **A ceiling split re-censuses the budget DOWN** (2026-08-01). OUTREACH_MANDATE →
+  `mandates.py` took morning_knock 699/700 → 598/625, the first down-census. A split that
+  leaves the old ceiling standing converts the freed room into an allowance — the
+  bump-the-number reflex through the back door.
+- **The decision log gets a forward entry cap; no retro pass** (2026-08-01, Andrew).
+  Entries dated 2026-08-02+ lint at ≤150 words (s18): this file's own contract is "the
+  index of the conclusions" and July ran it to 22k words — the accumulation pattern the
+  budgets killed everywhere else, on a surface that had none. Narrative belongs in the
+  commit message; the July archive stays as written, git owns it.
+- **The work-TLS notify failure is a quiet accept, not an error** (2026-08-01, Andrew:
+  "not worth engineering around"). `push_to_phone` returns False on
+  CERTIFICATE_VERIFY_FAILED with the known-cause line, so a successful local render no
+  longer exits non-zero (the 07-28 duplicate-tape cause). Rejects the deferred
+  route-via-queue alternative outright — the feed is the delivery guarantee.
+- **The lexicon flock stays deferred — fcntl cannot guard the machine at risk**
+  (2026-08-01). The 07-13 revisit condition fired (session-open renders made overlap
+  structural), but the trip's primary machine is the Windows work laptop where fcntl does
+  not exist, and no lost write has ever been observed. Revisit on first evidence, with a
+  portable lock.
+- **Reference docs anchor to function names, never line numbers** (2026-08-01). flags.md's
+  numbers drifted by hundreds twice under a "stable as of this commit" policy; names
+  survive edits and grep finds the spot. The resync ritual is retired, not repeated.
