@@ -3641,9 +3641,10 @@
     "seen_in": [
       68
     ],
-    "last_surfaced": null,
+    "last_surfaced": "2026-08-01",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "exposures": 1
   },
   "frame:quote-nu": {
     "type": "pattern",

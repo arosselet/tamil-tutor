@@ -3029,5 +3029,20 @@
         "slips": []
       }
     ]
+  },
+  {
+    "date": "2026-08-01",
+    "timestamp": "2026-08-01T13:22:53.131409+00:00",
+    "acted": true,
+    "modality": "audio",
+    "move": "trailer payoff: day-recap",
+    "rationale": "Demand-streak=3 forces no-ask; yesterday's trailer went overnight unpaid so the law requires a trailer-payoff show dose now; audio on a Saturday morning fits the requested-more-audio signal; introduces frame:day-recap cleanly so the afternoon session can cold-demand it.",
+    "next_check": "2026-08-01T17:22:53.131409+00:00",
+    "body": "💬 போனோம், நல்லா இருந்துச்சு — the two-part answer to 'what did you all do?' Memo inside 🎙️",
+    "expected_target": "",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-01T13-22.mp3",
+    "memo_script": "da — yesterday I promised you what comes next after romba nallairuku lands.\n\nHere it is.\n\nEvery dinner table in that house is going to ask you one question. Maybe Maami, maybe one of the sisters-in-law, maybe her cousin who turns up on day three. The question is always the same:\n\nஇன்னிக்கி என்ன பண்ணீங்க?\n\nInniki enna panninga. What did you all do today.\n\nAnd if you answer போனேன் — that is 'I went.' You just told a table full of people that you went somewhere alone and left her behind. That is not the trip you are taking.\n\nThe answer is two parts. One machine, used forever.\n\nFirst half: where you went, with the WE-tail.\n\nகோவிலுக்கு போனோம். We went to the temple.\nமார்க்கெட்டுக்கு போனோம். We went to the market.\nSilks-க்கு போனோம். We went to Silks.\n\nPonoom is WRONG. That is a different form that Tamil does not use like this. Poanom — long O — poa-NOM. The tail is always ஓம்.\n\nSecond half: how it was. One phrase covers everything.\n\nரொம்ப நல்லா இருந்துச்சு.\n\nRomba nalla irundhuchu. It was really good.\n\nThe whole thing together:\n\nகோவிலுக்கு போனோம், ரொம்ப நல்லா இருந்துச்சு.\n\nThat is a complete answer. That is a guest who went somewhere WITH her and came back to report.\n\nNo quiz today. Just let it sit. The session pays it off.",
+    "mp3": "published_audio/knocks/knock_2026-08-01T13-22.mp3"
   }
 ]
