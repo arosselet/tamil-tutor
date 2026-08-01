@@ -153,5 +153,51 @@
     "note": "reaches for the conversation-CLOSING line where the move is to REOPEN it",
     "word": "என்ன சொன்னீங்க?",
     "dose_channel": "episode"
+  },
+  {
+    "at": "2026-08-01T21:23:17Z",
+    "date": "2026-08-01",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "1pl-past-om",
+    "said": "poganum",
+    "want": "ponnom",
+    "note": "reached for the OBLIGATION form (-anum, 'must go') — under load he grabs any non-past form and never marks the scene as past at all",
+    "word": "போனோம்",
+    "dose_channel": "episode"
+  },
+  {
+    "at": "2026-08-01T21:23:17Z",
+    "date": "2026-08-01",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "past-tense",
+    "said": "iruka",
+    "want": "irundhuchu",
+    "note": "present tense for a scene that already happened",
+    "word": "இருந்துச்சு",
+    "dose_channel": "episode"
+  },
+  {
+    "at": "2026-08-01T21:23:17Z",
+    "date": "2026-08-01",
+    "lane": "chat",
+    "modality": "test",
+    "tag": "1pl-past-om",
+    "said": "",
+    "want": "",
+    "note": "tested and missed — still not landed",
+    "word": ""
+  },
+  {
+    "at": "2026-08-01T21:23:17Z",
+    "date": "2026-08-01",
+    "lane": "chat",
+    "modality": "test",
+    "tag": "past-tense",
+    "said": "",
+    "want": "",
+    "note": "tested and missed — still not landed",
+    "word": ""
   }
 ]
