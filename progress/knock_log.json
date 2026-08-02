@@ -3088,5 +3088,17 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-02T13-15.mp3",
     "memo_script": "நீங்க எல்லாரும் சாப்பிட்டீங்களா?\n\nShe's looking right at you. The whole table went out last night — she wants to know how it went.\n\nஉங்களுக்கு தெரியும் இந்த answer. The drill had it ten times.\n\nசொல்லுங்க.",
     "mp3": "published_audio/knocks/knock_2026-08-02T13-15.mp3"
+  },
+  {
+    "date": "2026-08-02",
+    "timestamp": "2026-08-02T20:07:23.325281+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "lore: feeding as greeting",
+    "rationale": "Three no-taps since this morning, Sunday afternoon, fielding knock still live — pull not push; lore is 8 days cold and he's asked for breakdowns himself; the feeding-as-greeting vein is kinship culture (different from the -ஏ/self vein last time), primes the saapteengala pair that's due without asking for it, and gives him something warm to sit with before the evening session window opens.",
+    "next_check": "2026-08-03T00:07:23.325281+00:00",
+    "body": "சாப்பிட்டீங்களா? — Tamil's real 'hello.' Not 'how are you?' — 'have you eaten?' Every auntie. Every door. Same first question. 🍚",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]
