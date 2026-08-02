@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:15 · Anna** 🎧  ·  fielding / drill debrief: past-tense mouth
 > 📻 "Neenga ellaarum saapteengala?" — she's asking the table. Answer her 🎙️
 
+**16:07 · Anna**  ·  text / lore: feeding as greeting
+> சாப்பிட்டீங்களா? — Tamil's real 'hello.' Not 'how are you?' — 'have you eaten?' Every auntie. Every door. Same first question. 🍚
+
 
 ## Saturday 2026-08-01
 
