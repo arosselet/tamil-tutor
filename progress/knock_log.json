@@ -3073,5 +3073,20 @@
     "body": "🍽️ Tomorrow: dinner scene — the -ஓம் tail under load, on a real table. Did the drill reach your mouth? Session pays it off.",
     "expected_target": "",
     "target_revealed": false
+  },
+  {
+    "date": "2026-08-02",
+    "timestamp": "2026-08-02T13:15:02.135246+00:00",
+    "acted": true,
+    "modality": "fielding",
+    "move": "drill debrief: past-tense mouth",
+    "rationale": "The drill was commissioned yesterday for exactly this — past tense under load, mouth not just ears; fielding is the one channel that trains heard-question → produced-answer cold, and Sunday morning before the session window is the right moment to see if the drill reached his mouth. One question, one target, nothing revealed.",
+    "next_check": "2026-08-02T18:15:02.135246+00:00",
+    "body": "📻 \"Neenga ellaarum saapteengala?\" — she's asking the table. Answer her 🎙️",
+    "expected_target": "சாப்பிட்டோம்",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-02T13-15.mp3",
+    "memo_script": "நீங்க எல்லாரும் சாப்பிட்டீங்களா?\n\nShe's looking right at you. The whole table went out last night — she wants to know how it went.\n\nஉங்களுக்கு தெரியும் இந்த answer. The drill had it ten times.\n\nசொல்லுங்க.",
+    "mp3": "published_audio/knocks/knock_2026-08-02T13-15.mp3"
   }
 ]
