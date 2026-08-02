@@ -12,6 +12,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **16:07 · Anna**  ·  text / lore: feeding as greeting
 > சாப்பிட்டீங்களா? — Tamil's real 'hello.' Not 'how are you?' — 'have you eaten?' Every auntie. Every door. Same first question. 🍚
 
+**16:20 · Andrew** — **CHAT**
+> I can’t read the Tamil I need this phonetic in text
+
+**Anna ↩**
+> fair — saapitteenga? That's the one. Every auntie, every door, before 'hello.'
+
 
 ## Saturday 2026-08-01
 
