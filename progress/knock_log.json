@@ -3101,13 +3101,13 @@
     "expected_target": "",
     "target_revealed": false,
     "response": "reply",
-    "reply": "I want an audio greeting for Doodah introducing yourself and a couple basic words in Tamil",
+    "reply": "He’s an anglophone who doesn’t know any Tamil. Teach him simple things like wannakam and podhum",
     "reply_verdict": "chat",
     "reply_fired": [],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "On it — check audio shortly.",
-    "reply_at": "2026-08-02T20:21:41Z",
+    "reply_line": "da — Andrew is you. I'm Anna, you're Andrew, and you already know two Tamil words: 'saapitteenga?' and 'podhum.' Start there. wannakam is fine for strangers; your people say 'saapitteenga?' before anything else.",
+    "reply_at": "2026-08-02T20:23:28Z",
     "exchanges": [
       {
         "at": "2026-08-02T20:20:42Z",
@@ -3129,6 +3129,17 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "On it — check audio shortly.",
+        "slips": []
+      },
+      {
+        "at": "2026-08-02T20:23:28Z",
+        "reply": "He’s an anglophone who doesn’t know any Tamil. Teach him simple things like wannakam and podhum",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "da — Andrew is you. I'm Anna, you're Andrew, and you already know two Tamil words: 'saapitteenga?' and 'podhum.' Start there. wannakam is fine for strangers; your people say 'saapitteenga?' before anything else.",
         "slips": []
       }
     ],

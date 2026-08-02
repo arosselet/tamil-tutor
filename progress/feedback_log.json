@@ -238,5 +238,9 @@
   {
     "date": "2026-08-02",
     "note": "[phone] Andrew wants an audio greeting for Doodah (his dog?) — intro + a couple basic Tamil words. Commission a short TTS memo: Anna introduces himself in Kongu Tamil, drops saapitteenga + maybe nalla irukkeengala, warm and simple."
+  },
+  {
+    "date": "2026-08-02",
+    "note": "[phone] Andrew sent a third-person prompt asking to teach a beginner — possibly a misfire or testing the system; treated as chat/logistics and redirected."
   }
 ]
