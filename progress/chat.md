@@ -30,6 +30,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > da — Andrew is you. I'm Anna, you're Andrew, and you already know two Tamil words: 'saapitteenga?' and 'podhum.' Start there. wannakam is fine for strangers; your people say 'saapitteenga?' before anything else.
 
+**16:24 · Andrew** — **CHAT**
+> So I still need that audio greeting for Doodah
+
+**Anna ↩**
+> still pending — said 'check audio shortly' before I clocked who Doodah is. is this a real person you want to introduce to Tamil, or a future-you test scenario?
+
 
 ## Saturday 2026-08-01
 
