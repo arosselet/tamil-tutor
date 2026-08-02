@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Sunday 2026-08-02
+
+**09:15 · Anna** 🎧  ·  fielding / drill debrief: past-tense mouth
+> 📻 "Neenga ellaarum saapteengala?" — she's asking the table. Answer her 🎙️
+
+
 ## Saturday 2026-08-01
 
 **09:22 · Anna** 🎧  ·  audio / trailer payoff: day-recap
