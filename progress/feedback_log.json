@@ -246,5 +246,13 @@
   {
     "date": "2026-08-02",
     "note": "[phone] Andrew is asking for an audio greeting for a third party (Doodah) — an anglophone with no Tamil. Clarify whether this is a real person to introduce to the language or a persona/scenario before composing audio."
+  },
+  {
+    "date": "2026-08-02",
+    "note": "I can't fluently read this Tamil. In chat you're supposed to give me phonetics. The Tamil writing is intended for tts"
+  },
+  {
+    "date": "2026-08-02",
+    "note": "I tried asking for a greeting via Anna on my phone and I'm concerned the prompt / actions are narrower than I think because of the way it replied"
   }
 ]

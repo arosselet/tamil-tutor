@@ -1,0 +1,31 @@
+{
+  "mission": 79,
+  "register": "social_pressure",
+  "dramatic_ingredient": "stakes",
+  "episode_form": "narrated_drama",
+  "shape": "vignette",
+  "location_class": "home_social",
+  "energy": "medium",
+  "intercept_tamil_density": 0.40,
+  "breakdown_tamil_density": 0.00,
+  "fence_size": 20,
+  "unfenced_words": 1,
+  "new_words_landed": {
+    "குடுங்க": 4,
+    "வேண்டாம்": 2,
+    "காரம்": 3,
+    "பிடிச்சிருக்கு": 2,
+    "தண்ணி": 1,
+    "சாதம்": 1,
+    "உப்பு": 1
+  },
+  "callbacks_used": {
+    "வை": 2,
+    "போனீங்க": 2
+  },
+  "host_roles": {
+    "Andrew": "protagonist",
+    "Aunt": "insistent_host"
+  },
+  "notes": "Applied Coimbatore dialect pass. Fused words like பாத்துதான் and அதுக்கப்புறம். Transliterated English suffix plate-a to பிளேட்ட to pass script integrity."
+}
