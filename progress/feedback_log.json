@@ -234,5 +234,9 @@
   {
     "date": "2026-08-02",
     "note": "[phone] Andrew cannot read Tamil script in notifications — deliver phonetic Tamil in knock bodies going forward."
+  },
+  {
+    "date": "2026-08-02",
+    "note": "[phone] Andrew wants an audio greeting for Doodah (his dog?) — intro + a couple basic Tamil words. Commission a short TTS memo: Anna introduces himself in Kongu Tamil, drops saapitteenga + maybe nalla irukkeengala, warm and simple."
   }
 ]
