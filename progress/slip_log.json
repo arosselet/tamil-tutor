@@ -199,5 +199,63 @@
     "want": "",
     "note": "tested and missed — still not landed",
     "word": ""
+  },
+  {
+    "at": "2026-08-02T20:39:53Z",
+    "date": "2026-08-02",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "1pl-past-om",
+    "said": "sappiten",
+    "want": "saaptom",
+    "note": "echoed her neenga and took the one-man tail",
+    "word": "",
+    "dose_channel": "episode"
+  },
+  {
+    "at": "2026-08-02T20:39:53Z",
+    "date": "2026-08-02",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "past-tense",
+    "said": "poganom",
+    "want": "ponom",
+    "note": "took the must-go body, not the went body",
+    "word": "போனோம்",
+    "dose_channel": "episode"
+  },
+  {
+    "at": "2026-08-02T20:39:53Z",
+    "date": "2026-08-02",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "it-tail-uchu",
+    "said": "paarthuchu",
+    "want": "paarthom",
+    "note": "-uchu is the it-tail; four people at a table need -om",
+    "word": "",
+    "dose_channel": "episode"
+  },
+  {
+    "at": "2026-08-02T20:39:53Z",
+    "date": "2026-08-02",
+    "lane": "chat",
+    "modality": "test",
+    "tag": "1pl-past-om",
+    "said": "",
+    "want": "",
+    "note": "tested and missed — still not landed",
+    "word": ""
+  },
+  {
+    "at": "2026-08-02T20:39:53Z",
+    "date": "2026-08-02",
+    "lane": "chat",
+    "modality": "test",
+    "tag": "past-tense",
+    "said": "",
+    "want": "",
+    "note": "tested and missed — still not landed",
+    "word": ""
   }
 ]
