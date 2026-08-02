@@ -18,6 +18,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > fair — saapitteenga? That's the one. Every auntie, every door, before 'hello.'
 
+**16:21 · Andrew** — **CHAT**
+> I want an audio greeting for Doodah introducing yourself and a couple basic words in Tamil
+
+**Anna ↩**
+> On it — check audio shortly.
+
 
 ## Saturday 2026-08-01
 

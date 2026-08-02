@@ -3101,13 +3101,13 @@
     "expected_target": "",
     "target_revealed": false,
     "response": "reply",
-    "reply": "I can’t read the Tamil I need this phonetic in text",
+    "reply": "I want an audio greeting for Doodah introducing yourself and a couple basic words in Tamil",
     "reply_verdict": "chat",
     "reply_fired": [],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "fair — saapitteenga? That's the one. Every auntie, every door, before 'hello.'",
-    "reply_at": "2026-08-02T20:20:42Z",
+    "reply_line": "On it — check audio shortly.",
+    "reply_at": "2026-08-02T20:21:41Z",
     "exchanges": [
       {
         "at": "2026-08-02T20:20:42Z",
@@ -3119,7 +3119,20 @@
         "graduated": [],
         "reply_line": "fair — saapitteenga? That's the one. Every auntie, every door, before 'hello.'",
         "slips": []
+      },
+      {
+        "at": "2026-08-02T20:21:41Z",
+        "reply": "I want an audio greeting for Doodah introducing yourself and a couple basic words in Tamil",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "On it — check audio shortly.",
+        "slips": []
       }
-    ]
+    ],
+    "reply_audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/reply_2026-08-02T20-21-41.mp3",
+    "reply_memo_script": "ஹலோ Doodah! நான் Anna — Andrew-ஓட Tamil friend. ஒரு கேள்வி: சாப்பிட்டீங்களா? 🍚 நல்லா இருக்கீங்களா?"
   }
 ]
