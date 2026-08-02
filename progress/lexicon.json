@@ -375,9 +375,11 @@
     "seen_in": [
       10,
       16,
-      18
+      18,
+      80
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-02",
+    "exposures": 1
   },
   "வேண்டாம்": {
     "gloss": "I don't want",
@@ -631,9 +633,11 @@
     "production": "none",
     "seen_in": [
       10,
-      24
+      24,
+      80
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-02",
+    "exposures": 1
   },
   "நம்ம": {
     "gloss": "Our (inclusive)",
@@ -1293,9 +1297,11 @@
     "production": "none",
     "seen_in": [
       1,
-      10
+      10,
+      80
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-02",
+    "exposures": 1
   },
   "சாப்டீங்களா?": {
     "gloss": "Did you eat?",
@@ -1313,9 +1319,11 @@
     "recognition": "solid",
     "production": "none",
     "seen_in": [
-      10
+      10,
+      80
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-02",
+    "exposures": 1
   },
   "எனக்கு": {
     "gloss": "To me / For me",
@@ -1383,10 +1391,12 @@
     "seen_in": [
       11,
       12,
-      38
+      38,
+      80
     ],
-    "last_surfaced": null,
-    "lemma": "கேள்"
+    "last_surfaced": "2026-08-02",
+    "lemma": "கேள்",
+    "exposures": 1
   },
   "சொன்னேன்": {
     "gloss": "I said",
@@ -1415,9 +1425,11 @@
       23,
       24,
       28,
-      65
+      65,
+      80
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-02",
+    "exposures": 1
   },
   "போகணும்": {
     "gloss": "Must go",
@@ -1588,9 +1600,11 @@
     "seen_in": [
       5,
       6,
-      26
+      26,
+      80
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-02",
+    "exposures": 1
   },
   "பிடிக்கும்": {
     "gloss": "I like / It pleases",
@@ -1778,10 +1792,11 @@
       64,
       65,
       66,
-      72
+      72,
+      80
     ],
-    "last_surfaced": "2026-07-28",
-    "exposures": 1
+    "last_surfaced": "2026-08-02",
+    "exposures": 2
   },
   "தாகம்": {
     "gloss": "Thirsty",
@@ -1964,9 +1979,11 @@
       27,
       28,
       29,
-      61
+      61,
+      80
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-02",
+    "exposures": 1
   },
   "முடியாது": {
     "gloss": "Cannot / Impossible",
@@ -4045,11 +4062,14 @@
     ],
     "recognition": "comfortable",
     "production": "cold",
-    "seen_in": [],
-    "last_surfaced": "2026-07-29",
+    "seen_in": [
+      80
+    ],
+    "last_surfaced": "2026-08-02",
     "deck": "trip",
     "direction": "catch",
-    "reps": 2
+    "reps": 2,
+    "exposures": 1
   },
   "ஒரே கல்லுல ரெண்டு மாங்கா": {
     "type": "chunk",
@@ -4871,6 +4891,17 @@
       78
     ],
     "last_surfaced": "2026-07-31",
+    "exposures": 1
+  },
+  "சமைச்சோம்": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      80
+    ],
+    "last_surfaced": "2026-08-02",
     "exposures": 1
   }
 }

@@ -1,0 +1,34 @@
+{
+  "mission": 80,
+  "register": "pride",
+  "dramatic_ingredient": "character",
+  "episode_form": "narrated_drama",
+  "shape": "vignette",
+  "location_class": "home_social",
+  "energy": "medium",
+  "intercept_tamil_density": 0.4,
+  "breakdown_tamil_density": 0.0,
+  "fence_size": 25,
+  "unfenced_words": 1,
+  "new_words_landed": {
+    "எழுந்தேன்": 1,
+    "சமைச்சோம்": 1,
+    "குடுங்க": 3,
+    "கேட்டாங்க": 1,
+    "காரம்": 2,
+    "பெட்டி": 1,
+    "கோவம்": 1
+  },
+  "callbacks_used": {
+    "தண்ணி": 1,
+    "உப்பு": 1,
+    "ஜாஸ்தி": 2,
+    "போனேன்": 2,
+    "அஞ்சு": 1
+  },
+  "host_roles": {
+    "Host": "narrator",
+    "Aunt": "insistent_aunt"
+  },
+  "notes": "Applied Coimbatore dialect pass. Dropped redundant pronouns (நான், எனக்கு), fused அதுக்கு அப்புறம் to அதுக்கப்புறம். Changed [Pause] to [Pause: 1 sec]. Kept first-person verbs strictly without -ங்க as requested."
+}
