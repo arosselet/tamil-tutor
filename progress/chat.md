@@ -24,6 +24,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > On it — check audio shortly.
 
+**16:23 · Andrew** — **CHAT**
+> He’s an anglophone who doesn’t know any Tamil. Teach him simple things like wannakam and podhum
+
+**Anna ↩**
+> da — Andrew is you. I'm Anna, you're Andrew, and you already know two Tamil words: 'saapitteenga?' and 'podhum.' Start there. wannakam is fine for strangers; your people say 'saapitteenga?' before anything else.
+
 
 ## Saturday 2026-08-01
 
