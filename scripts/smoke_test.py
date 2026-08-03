@@ -4098,6 +4098,84 @@ def s49_thread_continuity(mk, kr, sb: Path):
         klog_path.write_bytes(saved_log)
 
 
+def s50_read_surfaces_are_phonetic(mk, kr, sb: Path):
+    """Tamil script never reaches a surface Andrew READS (2026-08-03).
+
+    The modality split is canon in constitution.md and stated twice in
+    mandates.py — script in memo_script (a Tamil voice speaks it), phonetics in
+    a notification body (he reads at speed). It held about three times in four:
+    23 of 95 knock bodies carried script between 06-30 and 08-03, and Andrew
+    reported it three times in two days. Prose with no mechanism is a coin flip.
+
+    Gate: the swap is longest-key-first, spoken surfaces keep their script, an
+    unresolvable knock body is REFUSED, and the log records what he was sent.
+    """
+    print("\n50. Read surfaces are phonetic; spoken surfaces keep script (2026-08-03)")
+    lex = {"ரொம்ப நல்லா இருக்கு": {"phonetic": ["romba nallarukku"], "gloss": "the melt line"},
+           "நல்லா": {"phonetic": ["nalla"], "gloss": "well"},
+           "இருக்கு": {"phonetic": ["irukku"], "gloss": "is"}}
+
+    out, left = mk.phonetic_body("today: ரொம்ப நல்லா இருக்கு — the melt line", lex)
+    check("script is swapped for its phonetic", "romba nallarukku" in out, out)
+    check("...leaving nothing unresolved", not left, str(left))
+    check("the PHRASE wins over its component words — longest key first",
+          "nalla irukku" not in out, out)
+    check("English around it is untouched", out.endswith("— the melt line"), out)
+
+    _, left = mk.phonetic_body("what about கிடைக்கும்?", lex)
+    check("script with no phonetic on record is reported, not silently dropped",
+          left == ["கிடைக்கும்"], str(left))
+    check("a body with no Tamil at all is returned unchanged",
+          mk.phonetic_body("romba nallarukku — say it", lex) == ("romba nallarukku — say it", []))
+
+    # End to end: the knock lane must REFUSE an unreadable body, and must never
+    # log or push a body different from the one it decided to send.
+    klog_path = sb / "progress" / "knock_log.json"
+    before = len(read_json(klog_path))
+    pushes, mk.push_to_phone = Recorder(), None
+    mk.push_to_phone, mk.commit_and_push = pushes, Recorder()
+    # The composer transliterates its own body first; the lexicon is the backstop
+    # for what it misses, and refusal is the backstop for that.
+    rewrites = []
+    mk.rephrase_phonetic = lambda b: (rewrites.append(b), "today's line — romba nallarukku")[1]
+    d = {"act": True, "modality": "text", "move": "smoke script", "rationale": "smoke",
+         "notification_body": "today's line — ரொம்ப நல்லா இருக்கு", "memo_script": "",
+         "expected_target": "", "target_revealed": False, "schedule": None,
+         "next_check_hours": 4}
+    mk.decide = lambda digest, vt=None: dict(d)
+    sys.argv = ["morning_knock.py"]
+    mk.main()
+    entry = read_json(klog_path)[-1]
+    check("the knock ships phonetics", "romba nallarukku" in (entry.get("body") or ""),
+          str(entry.get("body")))
+    check("...and the LOG records what he was actually sent, not the draft",
+          "ரொம்ப" not in (entry.get("body") or ""), str(entry.get("body")))
+    check("...matching the body that reached the phone",
+          pushes and "romba nallarukku" in str(pushes[-1]), str(pushes[-1] if pushes else None))
+
+    check("the composer was asked to transliterate its own body first",
+          len(rewrites) == 1 and "ரொம்ப" in rewrites[0], str(rewrites))
+
+    # A composer that ignores the re-ask must not get a broken dose through.
+    d2 = dict(d, notification_body="try கிடைக்கும் today")
+    mk.rephrase_phonetic = lambda b: b          # refuses to comply
+    mk.decide = lambda digest, vt=None: dict(d2)
+    n_before = len(read_json(klog_path))
+    mk.main()
+    check("an unreadable body is REFUSED — nothing logged, nothing pushed",
+          len(read_json(klog_path)) == n_before, "the broken dose went out")
+    assert before <= n_before  # the first knock did land
+
+    # The spoken half is the whole point of the split: it MUST keep its script,
+    # so no call site may ever feed it a memo_script or a voice_reply.
+    for f in ("morning_knock.py", "knock_reply.py"):
+        calls = re.findall(r"phonetic_body\((.{0,80})",
+                           (REAL_BASE / "scripts" / f).read_text(encoding="utf-8"), re.S)
+        check(f"{f}: only read surfaces are transformed, never the spoken script",
+              calls and all("memo_script" not in c and "voice_reply" not in c for c in calls),
+              str(calls))
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -4151,6 +4229,7 @@ def main():
         s47_hinted_retest_block(sb)
         s48_drill_answer_key_lint(sb)
         s49_thread_continuity(mk, kr, sb)
+        s50_read_surfaces_are_phonetic(mk, kr, sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)

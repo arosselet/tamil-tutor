@@ -50,7 +50,7 @@ from render_chat import render_chat
 from morning_knock import (OPENROUTER_BASE, MODEL, KNOCK_LOG_PATH, KNOCKS_DIR,
                            ANNA_VOICE, parse_llm_json, load_env, push_to_phone,
                            commit_and_push, maybe_enqueue_schedule, render_memo,
-                           jsdelivr_url, refresh_feed)
+                           jsdelivr_url, refresh_feed, phonetic_body)
 from sync_state import (LEXICON_PATH, LEARNER_PATH, FEEDBACK_LOG_PATH, SLIP_LOG_PATH,
                         TRIP_DATE, load_json, save_json, build_phonetic_index, resolve,
                         compute_deck, fires_today, append_slips, slip_patterns,
@@ -1054,7 +1054,14 @@ def main():
     knock["reply_fired_capped"] = knock.get("reply_fired_capped", []) + capped_keys
     # store the FULL push-back (recast + chained ask): the next judge call reads it
     # as a prior exchange, and shown_in_knock scans it for revealed Tamil
-    knock["reply_line"] = " · ".join(p for p in (verdict["reply_line"], follow or represent) if p)
+    # Same read-surface law as a knock body (2026-08-03) — covers the chained
+    # ask and the volley re-present too, both of which carry deck Tamil. The
+    # asymmetry is deliberate: a knock with unreadable script is REFUSED, but a
+    # reply must never go silent after he has typed, so this warns and ships.
+    knock["reply_line"], left = phonetic_body(
+        " · ".join(p for p in (verdict["reply_line"], follow or represent) if p), lexicon)
+    if left:
+        print(f"   ⚠ push-back keeps Tamil with no phonetic on record: {' '.join(left)}")
     knock["reply_at"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     sched = verdict.get("schedule") or {}
     knock.setdefault("exchanges", []).append({
