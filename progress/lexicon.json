@@ -3645,29 +3645,31 @@
     "gloss": "{I-form}+ஓம் → we — வந்தோம், போனோம், இருப்போம், சாப்பிட்டோம்: the trip is a 'we' trip",
     "phonetic": [],
     "recognition": "struggled",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       59,
       68
     ],
-    "last_surfaced": "2026-08-01",
+    "last_surfaced": "2026-08-02",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 1
+    "exposures": 1,
+    "reps": 1
   },
   "frame:day-recap": {
     "type": "pattern",
     "gloss": "{place} போனோம், ரொம்ப நல்லா இருந்துச்சு → we went to {place}, it was great (the nightly 'inniki enna panninga?' answer)",
     "phonetic": [],
     "recognition": "struggled",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       68
     ],
-    "last_surfaced": "2026-08-01",
+    "last_surfaced": "2026-08-02",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 2
+    "exposures": 2,
+    "reps": 1
   },
   "frame:quote-nu": {
     "type": "pattern",
@@ -4887,12 +4889,13 @@
       "irundhuchi"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       78
     ],
-    "last_surfaced": "2026-07-31",
-    "exposures": 1
+    "last_surfaced": "2026-08-02",
+    "exposures": 1,
+    "reps": 1
   },
   "சமைச்சோம்": {
     "gloss": "",
