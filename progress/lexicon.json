@@ -2046,7 +2046,10 @@
   },
   "கேட்டேன்": {
     "gloss": "I asked",
-    "phonetic": [],
+    "phonetic": [
+      "keten",
+      "ketten"
+    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -4907,5 +4910,27 @@
     ],
     "last_surfaced": "2026-08-02",
     "exposures": 1
+  },
+  "தாலாட்டு": {
+    "gloss": "Lullaby",
+    "phonetic": [
+      "thalattu",
+      "thaalaattu"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-08-03"
+  },
+  "பாட்டு": {
+    "gloss": "Song",
+    "phonetic": [
+      "pattu",
+      "paattu"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-08-03"
   }
 }
