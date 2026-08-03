@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Monday 2026-08-03
+
+**09:35 · Anna**  ·  text / trailer: melt line
+> ரொம்ப நல்லாருக்கு — the melt line. Said *while* eating, under everyone's eyes. That's tonight's session. 🍽️
+
+
 ## Sunday 2026-08-02
 
 **09:15 · Anna** 🎧  ·  fielding / drill debrief: past-tense mouth

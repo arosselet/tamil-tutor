@@ -3156,5 +3156,17 @@
     ],
     "reply_audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/reply_2026-08-02T20-21-41.mp3",
     "reply_memo_script": "ஹலோ Doodah! நான் Anna — Andrew-ஓட Tamil friend. ஒரு கேள்வி: சாப்பிட்டீங்களா? 🍚 நல்லா இருக்கீங்களா?"
+  },
+  {
+    "date": "2026-08-03",
+    "timestamp": "2026-08-03T13:35:34.339134+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "trailer: melt line",
+    "rationale": "Lunch session bell — it's 09:35, the anchor window; trailer pitches the campaign's next chapter (romba nalla irukku, the delight tier's first real target, already soak-queued) without carrying the curriculum or asking for anything; schedule plants the evening payoff in case the session doesn't come.",
+    "next_check": "2026-08-03T17:35:34.339134+00:00",
+    "body": "ரொம்ப நல்லாருக்கு — the melt line. Said *while* eating, under everyone's eyes. That's tonight's session. 🍽️",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]
