@@ -4101,77 +4101,91 @@ def s49_thread_continuity(mk, kr, sb: Path):
 def s50_read_surfaces_are_phonetic(mk, kr, sb: Path):
     """Tamil script never reaches a surface Andrew READS (2026-08-03).
 
-    The modality split is canon in constitution.md and stated twice in
-    mandates.py — script in memo_script (a Tamil voice speaks it), phonetics in
-    a notification body (he reads at speed). It held about three times in four:
-    23 of 95 knock bodies carried script between 06-30 and 08-03, and Andrew
-    reported it three times in two days. Prose with no mechanism is a coin flip.
+    23 of 95 knock bodies carried script between 06-30 and 08-03 and he reported
+    it three times in two days. The rule was never missing — it was stated four
+    different ways, three of them scoped to "chat", and mandates.py enumerated
+    "text/challenge/grace" so an AUDIO knock's body was never covered at all:
+    7 of the 23 came through that hole. The fix is one question asked by SURFACE
+    (which sense receives it?) instead of four phrasings keyed to modality.
 
-    Gate: the swap is longest-key-first, spoken surfaces keep their script, an
-    unresolvable knock body is REFUSED, and the log records what he was sent.
+    The composer transliterates its own line, so Andrew's colloquial
+    contractions survive — a lexicon-substitution version was built and retired
+    the same morning for flattening நல்லாருக்கு into the dictionary key's
+    "nalla irukku" (Andrew: "brittle, and it violates my colloquial
+    contractions"). Leftovers warn and ship: he reads enough for contextual
+    clues, so a leaked word is cheaper than a lost dose.
     """
     print("\n50. Read surfaces are phonetic; spoken surfaces keep script (2026-08-03)")
-    lex = {"ரொம்ப நல்லா இருக்கு": {"phonetic": ["romba nallarukku"], "gloss": "the melt line"},
-           "நல்லா": {"phonetic": ["nalla"], "gloss": "well"},
-           "இருக்கு": {"phonetic": ["irukku"], "gloss": "is"}}
 
-    out, left = mk.phonetic_body("today: ரொம்ப நல்லா இருக்கு — the melt line", lex)
-    check("script is swapped for its phonetic", "romba nallarukku" in out, out)
-    check("...leaving nothing unresolved", not left, str(left))
-    check("the PHRASE wins over its component words — longest key first",
-          "nalla irukku" not in out, out)
-    check("English around it is untouched", out.endswith("— the melt line"), out)
+    # The rule is asked by surface, and no longer enumerates modalities.
+    from mandates import OUTREACH_MANDATE
+    check("the mandate rules the body on EVERY modality, not a lane list",
+          "text/challenge/grace body" not in OUTREACH_MANDATE
+          and "audio and volley included" in OUTREACH_MANDATE)
+    check("the reply push-back is mandatory, not 'fine'",
+          "Phonetic Tamil is fine here" not in kr.JUDGE_MANDATE
+          and "ENGLISH PHONETICS" in kr.JUDGE_MANDATE)
+    canon = (REAL_BASE / "protocol" / "constitution.md").read_text(encoding="utf-8")
+    for f in ("protocol/persona.md", ".claude/skills/anna/SKILL.md"):
+        txt = (REAL_BASE / f).read_text(encoding="utf-8")
+        check(f"{f} states the SAME surface rule, not a 'chat' paraphrase",
+              "surface" in txt.lower() and "voice" in txt.lower(), f)
+    check("the constitution asks which sense receives it",
+          "which SENSE receives it" in canon)
 
-    _, left = mk.phonetic_body("what about கிடைக்கும்?", lex)
-    check("script with no phonetic on record is reported, not silently dropped",
-          left == ["கிடைக்கும்"], str(left))
-    check("a body with no Tamil at all is returned unchanged",
-          mk.phonetic_body("romba nallarukku — say it", lex) == ("romba nallarukku — say it", []))
+    # The transform itself: composer-driven, so contractions survive.
+    seen = []
+    mk.rephrase_phonetic = lambda b: (seen.append(b), "romba nallarukku — the melt line")[1]
+    out = mk.to_phonetic("ரொம்ப நல்லாருக்கு — the melt line")
+    check("script goes to the composer, which keeps his contraction",
+          out == "romba nallarukku — the melt line" and "nalla irukku" not in out, out)
+    check("...and it was handed the original line", seen == ["ரொம்ப நல்லாருக்கு — the melt line"])
 
-    # End to end: the knock lane must REFUSE an unreadable body, and must never
-    # log or push a body different from the one it decided to send.
+    seen.clear()
+    clean = "romba nallarukku — say it"
+    check("a body with no Tamil never calls the model at all",
+          mk.to_phonetic(clean) == clean and not seen)
+
+    mk.rephrase_phonetic = lambda b: b          # composer ignores the ask
+    check("a surviving leak warns and SHIPS — a lost dose costs him more",
+          mk.to_phonetic("try கிடைக்கும் today") == "try கிடைக்கும் today")
+
+    # End to end: what he was sent is what got logged.
     klog_path = sb / "progress" / "knock_log.json"
-    before = len(read_json(klog_path))
-    pushes, mk.push_to_phone = Recorder(), None
+    pushes = Recorder()
     mk.push_to_phone, mk.commit_and_push = pushes, Recorder()
-    # The composer transliterates its own body first; the lexicon is the backstop
-    # for what it misses, and refusal is the backstop for that.
-    rewrites = []
-    mk.rephrase_phonetic = lambda b: (rewrites.append(b), "today's line — romba nallarukku")[1]
-    d = {"act": True, "modality": "text", "move": "smoke script", "rationale": "smoke",
-         "notification_body": "today's line — ரொம்ப நல்லா இருக்கு", "memo_script": "",
-         "expected_target": "", "target_revealed": False, "schedule": None,
-         "next_check_hours": 4}
+    mk.rephrase_phonetic = lambda b: "today's line — romba nallarukku"
+    d = {"act": True, "modality": "audio", "move": "smoke script", "rationale": "smoke",
+         "notification_body": "today's line — ரொம்ப நல்லாருக்கு",
+         "memo_script": "ரொம்ப நல்லாருக்கு", "expected_target": "",
+         "target_revealed": False, "schedule": None, "next_check_hours": 4}
     mk.decide = lambda digest, vt=None: dict(d)
-    sys.argv = ["morning_knock.py"]
-    mk.main()
+    rendered = []
+    async def fake_render(script, out_path, voice):
+        rendered.append(script)
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_bytes(b"ID3fake")
+    real_render, mk.render_memo = mk.render_memo, fake_render
+    mk.refresh_feed = lambda: None
+    try:
+        sys.argv = ["morning_knock.py"]
+        mk.main()
+    finally:
+        mk.render_memo = real_render
     entry = read_json(klog_path)[-1]
-    check("the knock ships phonetics", "romba nallarukku" in (entry.get("body") or ""),
-          str(entry.get("body")))
-    check("...and the LOG records what he was actually sent, not the draft",
-          "ரொம்ப" not in (entry.get("body") or ""), str(entry.get("body")))
-    check("...matching the body that reached the phone",
+    check("an AUDIO knock's body is transformed too — the hole that leaked 7",
+          "romba nallarukku" in (entry.get("body") or "")
+          and "ரொம்ப" not in (entry.get("body") or ""), str(entry.get("body")))
+    check("...the log records what he was sent, not the draft",
           pushes and "romba nallarukku" in str(pushes[-1]), str(pushes[-1] if pushes else None))
+    check("...and the SPOKEN memo keeps its script — a Tamil voice needs it",
+          rendered == ["ரொம்ப நல்லாருக்கு"], str(rendered))
 
-    check("the composer was asked to transliterate its own body first",
-          len(rewrites) == 1 and "ரொம்ப" in rewrites[0], str(rewrites))
-
-    # A composer that ignores the re-ask must not get a broken dose through.
-    d2 = dict(d, notification_body="try கிடைக்கும் today")
-    mk.rephrase_phonetic = lambda b: b          # refuses to comply
-    mk.decide = lambda digest, vt=None: dict(d2)
-    n_before = len(read_json(klog_path))
-    mk.main()
-    check("an unreadable body is REFUSED — nothing logged, nothing pushed",
-          len(read_json(klog_path)) == n_before, "the broken dose went out")
-    assert before <= n_before  # the first knock did land
-
-    # The spoken half is the whole point of the split: it MUST keep its script,
-    # so no call site may ever feed it a memo_script or a voice_reply.
+    # No call site may ever feed the spoken surfaces through the transform.
     for f in ("morning_knock.py", "knock_reply.py"):
-        calls = re.findall(r"phonetic_body\((.{0,80})",
+        calls = re.findall(r"to_phonetic\((.{0,80})",
                            (REAL_BASE / "scripts" / f).read_text(encoding="utf-8"), re.S)
-        check(f"{f}: only read surfaces are transformed, never the spoken script",
+        check(f"{f}: only read surfaces are transformed",
               calls and all("memo_script" not in c and "voice_reply" not in c for c in calls),
               str(calls))
 
