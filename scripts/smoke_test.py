@@ -2909,7 +2909,7 @@ def s38_teach_enters_the_lexicon(sb: Path):
         check("...with production unset, so the floor cannot inflate",
               rec and rec["production"] == "none", f"got {rec}")
         check("...carrying the gloss", rec and rec["gloss"] == "beside/next to")
-        check("...and seen today", rec and rec["last_surfaced"] == date_cls.today().isoformat())
+        check("...and seen today", rec and rec["last_surfaced"] == ss.local_today().isoformat())
 
         # Teaching runs before the axes, so teach-then-fire in ONE close resolves.
         lex, _ = update(teach=["ஆச்சு=it happened / it's done"], produced_cold=["ஆச்சு"])
@@ -3362,7 +3362,7 @@ def s44_a_commission_can_discharge_the_flag(sb: Path):
             ss.append_slips([{"tag": "smoke-tag", "said": "x", "want": "y"}],
                             lane="chat", when="2026-01-01")
             ss.append_slips([{"tag": "smoke-tag", "said": "x", "want": "y"}],
-                            lane="chat", when=date_cls.today().isoformat())
+                            lane="chat", when=ss.local_today().isoformat())
         p = pat("smoke-tag")
         check("a twice-made mistake with no dose reads NEVER COMMISSIONED",
               p and p["uncommissioned"], f"got {p and p.get('uncommissioned')}")
@@ -3466,7 +3466,7 @@ def s42_session_log_one_row_per_day(sb: Path):
 
     try:
         slog_path.write_text("[]", encoding="utf-8")
-        today = date_cls.today().isoformat()
+        today = ss.local_today().isoformat()
         # Seed two words the sandbox lexicon can actually resolve, so the axes move.
         lex = read_json(lex_path)
         for w in ("ஸ்மோக்ஒன்", "ஸ்மோக்டூ"):
@@ -3626,7 +3626,7 @@ def s46_the_commission_gate_blocks_the_close(sb: Path):
             ss.append_slips([{"tag": "gate-tag", "said": "a", "want": "b"}],
                             lane="chat", when="2026-01-01")
             ss.append_slips([{"tag": "gate-tag", "said": "a", "want": "b"}],
-                            lane="chat", when=date_cls.today().isoformat())
+                            lane="chat", when=ss.local_today().isoformat())
 
         before = (lex_path.read_bytes(), learner_path.read_bytes(),
                   slip_path.read_bytes())
@@ -3668,7 +3668,7 @@ def s46_the_commission_gate_blocks_the_close(sb: Path):
             ss.append_slips([{"tag": "gate-tag4", "said": "a", "want": "b"}],
                             lane="chat", when="2026-01-04")
             ss.append_slips([{"tag": "gate-tag4", "said": "a", "want": "b"}],
-                            lane="chat", when=date_cls.today().isoformat())
+                            lane="chat", when=ss.local_today().isoformat())
         code, _ = update(slip_tested=["gate-tag4:landed"])
         check("a landed test in the same close discharges its own tag", code == 0)
     finally:
