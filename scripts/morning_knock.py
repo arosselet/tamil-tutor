@@ -100,30 +100,28 @@ def rephrase_phonetic(body: str) -> str:
     return (resp.choices[0].message.content or "").strip()
 
 
-def phonetic_body(text: str, lexicon: dict) -> tuple[str, list[str]]:
-    """Tamil script → phonetic, for a surface Andrew READS.
+def to_phonetic(text: str, label: str = "body") -> str:
+    """Transliterate a surface Andrew READS, if the composer left script on it.
 
-    The modality split has been canon since April (constitution.md) and is
-    stated twice in this file's own mandate — script in memo_script because a
-    Tamil voice speaks it, phonetics in a body because he reads at speed. The
-    model complied about three times in four: 23 of 95 knock bodies shipped
-    script between 2026-06-30 and 08-03, and Andrew reported it three times in
-    two days ("I can't read the Tamil"). Prose with no mechanism is a coin flip
-    — so Python owns it now, the same way it owns every other invariant.
+    The composer does the work, not a lookup table: it knows how it spelt the
+    thing, so ரொம்ப நல்லாருக்கு comes back "romba nallarukku" with the colloquial
+    contraction intact. A lexicon substitution was tried first (2026-08-03) and
+    retired the same morning — it resolved 8 of 23 real bodies, and on the ones
+    it did hit it swapped Andrew's contraction for the dictionary key's
+    phonetic, flattening exactly the Kongu register the constitution exists to
+    protect. Andrew: "brittle, and it violates my colloquial contractions."
 
-    Longest key first, so a phrase beats its own component words (ரொம்ப
-    நல்லாருக்கு must not become "romba nalla irukku" via two separate hits).
-    Returns the rewritten text and any script runs with no phonetic on record —
-    the caller decides what an unreadable body is worth.
+    Leftovers WARN and ship. He reads enough script to take contextual clues, so
+    a leaked word costs him far less than a dose he never gets — the opposite of
+    the eavesdrop case, where the whole dose was the broken part.
     """
-    for key in sorted((k for k in lexicon if TAMIL_RUN.search(k)), key=len, reverse=True):
-        phon = next((p for p in lexicon[key].get("phonetic", []) if p), "")
-        if phon:
-            # Delimited, never a substring: நல்லா sits inside நல்லாருக்கு, and a
-            # raw replace shreds that into "ரொம்ப nalla ருக்கு" — a body that is
-            # now BOTH unreadable and wrong.
-            text = re.sub(rf"(?<![஀-௿]){re.escape(key)}(?![஀-௿])", phon, text)
-    return text, TAMIL_RUN.findall(text)
+    if not TAMIL_RUN.search(text):
+        return text
+    print(f"   ✎ {label} carries Tamil script — asking for phonetics…")
+    out = rephrase_phonetic(text) or text
+    if TAMIL_RUN.search(out):
+        print(f"   ⚠ script survived the rewrite: {' '.join(TAMIL_RUN.findall(out))}")
+    return out
 
 
 # ── State helpers ─────────────────────────────────────────────────────────────
@@ -916,21 +914,8 @@ def main():
     # The body is READ; memo_script below is SPOKEN and keeps its script.
     # Written back into `decision` so the log and chat.md record what he was
     # actually sent, not what the model first wrote.
-    from sync_state import LEXICON_PATH as _LEX
-    lex = load_json(_LEX) or {}
-    body = decision.get("notification_body", "")
-    if TAMIL_RUN.search(body):
-        print("   ✎ body carries Tamil script — asking for phonetics…")
-        body = rephrase_phonetic(body) or body
-    body, unreadable = phonetic_body(body, lex)
-    if unreadable:
-        # A lost dose is cheaper than a broken one (2026-08-01 eavesdrop ruling),
-        # and a body he cannot read is broken.
-        print(f"   ⛔ refusing — Tamil with no phonetic on record: {' '.join(unreadable)}")
-        return
-    if body != decision.get("notification_body", ""):
-        print(f"   ✎ script → phonetic: {body}")
-    decision["notification_body"] = body
+    decision["notification_body"] = body = to_phonetic(
+        decision.get("notification_body", ""))
     mp3 = None
     audio_url = None
     if decision["modality"] in ("audio", "eavesdrop", "fielding"):
