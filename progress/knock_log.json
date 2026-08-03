@@ -3168,5 +3168,36 @@
     "body": "ரொம்ப நல்லாருக்கு — the melt line. Said *while* eating, under everyone's eyes. That's tonight's session. 🍽️",
     "expected_target": "",
     "target_revealed": false
+  },
+  {
+    "date": "2026-08-03",
+    "timestamp": "2026-08-03T18:45:47.760340+00:00",
+    "acted": true,
+    "modality": "volley",
+    "move": "table volley sprint",
+    "rationale": "Session happened today, demand-streak is 0, lore is spent, no open loop — afternoon is the right volley slot per the lunch anchor rule, and the sprint needs volume on the nav deck; four situations, index-matched, each pinned to exclude sibling frames.",
+    "next_check": "2026-08-03T22:45:47.760340+00:00",
+    "body": "⚡ volley 1/4 — You want the window seat but it's not guaranteed — tell the host 'if possible' before he assigns you",
+    "expected_target": "முடிஞ்சா",
+    "target_revealed": false,
+    "volley": [
+      {
+        "target": "முடிஞ்சா",
+        "ask": "You want the window seat but it's not guaranteed — tell the host 'if possible' before he assigns you"
+      },
+      {
+        "target": "வலது பக்கம் திரும்புங்க",
+        "ask": "Auto driver missed the turn — one word, direct him right"
+      },
+      {
+        "target": "இன்னொரு தடவ சொல்லுங்க",
+        "ask": "You caught maybe 60% of what the uncle just said — ask him to say it once more"
+      },
+      {
+        "target": "எவ்ளோ ஆகும்?",
+        "ask": "Rickshaw stopped, meter's off — what do you ask before you get out?"
+      }
+    ],
+    "volley_next": 1
   }
 ]

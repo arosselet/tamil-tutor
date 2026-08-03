@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:35 · Anna**  ·  text / trailer: melt line
 > ரொம்ப நல்லாருக்கு — the melt line. Said *while* eating, under everyone's eyes. That's tonight's session. 🍽️
 
+**14:45 · Anna**  ·  volley / table volley sprint
+> ⚡ volley 1/4 — You want the window seat but it's not guaranteed — tell the host 'if possible' before he assigns you
+
 
 ## Sunday 2026-08-02
 
