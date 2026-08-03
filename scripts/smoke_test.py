@@ -274,7 +274,7 @@ def s5_reply_judge(mk, kr, sb: Path):
                 "body": body, "expected_target": target, "target_revealed": revealed}
 
     def reply(text: str, verdict: dict):
-        kr.judge = lambda k, r, t, h=None, rr=None: verdict
+        kr.judge = lambda k, r, t, h=None, rr=None, **kw: verdict
         sys.argv = ["knock_reply.py", text]
         kr.main()
 
@@ -549,7 +549,7 @@ def s10_chain_history(mk, kr, sb: Path):
     v["follow_up_ask"] = "she piles more food — wave it off"
     v["follow_up_target"] = "வேண்டாம்"
     v["follow_up_target_revealed"] = False
-    kr.judge = lambda k, r, t, h=None, rr=None: v
+    kr.judge = lambda k, r, t, h=None, rr=None, **kw: v
     sys.argv = ["knock_reply.py", "oru maasam iruppom"]
     kr.main()
     entry = read_json(klog_path)[-1]
@@ -559,7 +559,7 @@ def s10_chain_history(mk, kr, sb: Path):
     check("pin moved to the follow-up", entry.get("pinned_target") == "வேண்டாம்")
 
     # second reply is graded against the PIN, and both exchanges are on record
-    kr.judge = lambda k, r, t, h=None, rr=None: canned_verdict([("வேண்டாம்", "cold")])
+    kr.judge = lambda k, r, t, h=None, rr=None, **kw: canned_verdict([("வேண்டாம்", "cold")])
     sys.argv = ["knock_reply.py", "vendaam!"]
     kr.main()
     entry = read_json(klog_path)[-1]
@@ -620,7 +620,7 @@ def s11_capped_graduation(kr, sb: Path):
             "body": "aunty warns the food is spicy — brush it off, you're used to it",
             "expected_target": "பழகிப்போச்சு", "target_revealed": False}
     write_json(klog_path, [day1, day2])
-    kr.judge = lambda k, r, t, h=None, rr=None: canned_verdict([("பழகிப்போச்சு", "capped")])
+    kr.judge = lambda k, r, t, h=None, rr=None, **kw: canned_verdict([("பழகிப்போச்சு", "capped")])
     sys.argv = ["knock_reply.py", "pazhagippochu"]
     kr.main()
     lex = read_json(lex_path)
@@ -645,7 +645,7 @@ def s11_capped_graduation(kr, sb: Path):
         "acted": True, "modality": "text", "move": "smoke ask",
         "body": "she piles more food — wave it off", "expected_target": "வேண்டாம்",
         "target_revealed": False}])
-    kr.judge = lambda k, r, t, h=None, rr=None: canned_verdict([("வேண்டாம்", "capped")])
+    kr.judge = lambda k, r, t, h=None, rr=None, **kw: canned_verdict([("வேண்டாம்", "capped")])
     sys.argv = ["knock_reply.py", "vendaam"]
     kr.main()
     check("unverifiable capped claim upgrades to COLD",
@@ -662,7 +662,7 @@ def s11_capped_graduation(kr, sb: Path):
         "acted": True, "modality": "text", "move": "smoke reveal",
         "body": "fire it back: podhum — one shot", "expected_target": "போதும்",
         "target_revealed": True}])
-    kr.judge = lambda k, r, t, h=None, rr=None: canned_verdict([("போதும்", "cold")])
+    kr.judge = lambda k, r, t, h=None, rr=None, **kw: canned_verdict([("போதும்", "cold")])
     sys.argv = ["knock_reply.py", "podhum"]
     kr.main()
     entry = read_json(klog_path)[-1]
@@ -720,7 +720,7 @@ def s12_volley(mk, kr, sb: Path):
     v = canned_verdict([(w1, "cold")])
     v["follow_up_ask"] = "judge's own chain — must be ignored"
     v["follow_up_target"] = w3
-    kr.judge = lambda k, r, t, h=None, rr=None: v
+    kr.judge = lambda k, r, t, h=None, rr=None, **kw: v
     sys.argv = ["knock_reply.py", "podhum"]
     kr.main()
     entry = read_json(klog_path)[-1]
@@ -732,7 +732,7 @@ def s12_volley(mk, kr, sb: Path):
 
     miss = canned_verdict([])
     miss["verdict"], miss["reply_line"] = "miss", "close — vendaam. adhu dhaan next time"
-    kr.judge = lambda k, r, t, h=None, rr=None: miss
+    kr.judge = lambda k, r, t, h=None, rr=None, **kw: miss
     sys.argv = ["knock_reply.py", "vanda"]
     kr.main()
     entry = read_json(klog_path)[-1]
@@ -740,7 +740,7 @@ def s12_volley(mk, kr, sb: Path):
           entry.get("pinned_target") == w3 and entry.get("volley_next") == 3,
           f"pin={entry.get('pinned_target')} next={entry.get('volley_next')}")
 
-    kr.judge = lambda k, r, t, h=None, rr=None: canned_verdict([(w3, "cold")])
+    kr.judge = lambda k, r, t, h=None, rr=None, **kw: canned_verdict([(w3, "cold")])
     sys.argv = ["knock_reply.py", "pazhagippochu"]
     kr.main()
     entry = read_json(klog_path)[-1]
@@ -791,8 +791,8 @@ def s13_eavesdrop(mk, kr, sb: Path):
                 "expected_target": w, "target_revealed": False}
 
     def reply(text: str, verdict: str):
-        kr.judge_catch = lambda k, r: {"verdict": verdict, "reply_line": "adhu dhaan 🎧",
-                                       "meta_note": "", "rationale": "smoke"}
+        kr.judge_catch = lambda k, r, *a, **kw: {"verdict": verdict, "reply_line": "adhu dhaan 🎧",
+                                                 "meta_note": "", "rationale": "smoke"}
         sys.argv = ["knock_reply.py", text]
         kr.main()
 
@@ -1045,6 +1045,13 @@ PROSE_BUDGETS = {
     # touches only this string), so it left as REACH_MANDATE and
     # CATCH_JUDGE_MANDATE did. JUDGE_MANDATE keeps only the JSON key.
     "SLIP_MANDATE": 250,
+    # Split out of JUDGE_MANDATE (2026-08-02), the FOURTH time that file has paid
+    # for growth by splitting instead of raising. Thread continuity — the 3-hour
+    # scene decay, plus reading prior_exchanges across knocks as fact about what
+    # Anna already sent — is its own concern from grading a reply, and both the
+    # production judge and the catch judge need it identically. The retired lines
+    # are JUDGE_MANDATE's old standalone "CONTINUITY DECAYS" paragraph, folded in.
+    "THREAD_MANDATE": 250,
     "CATCH_JUDGE_MANDATE": 300,
 }
 
@@ -1077,7 +1084,17 @@ DECISION_ENTRY_BUDGET = 150
 # allowance to spend; it is the room to land a repair without ceremony.
 CODE_BUDGETS = {
     "scripts/generate_callbacks.py": 100,
-    "scripts/knock_reply.py": 775,
+    # 775 -> 785 (2026-08-02) for the thread-continuity window. Retired in the
+    # same diff: three inlined ISO-timestamp parsers collapsed into _ts(), the
+    # two duplicated per-knock context builders replaced by one recent_exchanges,
+    # and the dead reply_memo_script write (nothing ever read it). That paid for
+    # most of the feature; these 10 are the remainder.
+    # NOTE for the next raise: REFUSE it and split instead. ~150 of this file's
+    # lines are prompt strings (JUDGE/SLIP/REACH/THREAD/CATCH mandates), which
+    # code_lines counts as mechanism. mandates.py already exists as the home for
+    # prompt canon — morning_knock.py made exactly this move on 2026-08-01 and
+    # was re-censused DOWN afterwards. This file should follow, not grow again.
+    "scripts/knock_reply.py": 785,
     # 700 -> 625 (2026-08-01): re-censused DOWN after OUTREACH_MANDATE moved to
     # mandates.py — the file sat at 699/700, one mechanical fix from a red build.
     # The split is the ceiling law working, not an allowance: prompt canon and
@@ -1142,6 +1159,7 @@ def s18_size_budgets(mk, kr, sb: Path):
                "JUDGE_MANDATE": kr.JUDGE_MANDATE,
                "REACH_MANDATE": kr.REACH_MANDATE,
                "SLIP_MANDATE": kr.SLIP_MANDATE,
+               "THREAD_MANDATE": kr.THREAD_MANDATE,
                "CATCH_JUDGE_MANDATE": kr.CATCH_JUDGE_MANDATE}
     for rel, budget in PROSE_BUDGETS.items():
         words = (len(strings[rel].split()) if rel in strings
@@ -1237,7 +1255,7 @@ def s20_fielding(mk, kr, sb: Path):
     kr.push_to_phone, kr.commit_and_push = Recorder(), Recorder()
     catch_calls = Recorder()
     kr.judge_catch = catch_calls
-    kr.judge = lambda k, r, t, h=None, rr=None: canned_verdict([(w, "cold")])
+    kr.judge = lambda k, r, t, h=None, rr=None, **kw: canned_verdict([(w, "cold")])
     sys.argv = ["knock_reply.py", "saapten!"]
     kr.main()
     check("fielding reply routes to the PRODUCTION judge", len(catch_calls) == 0)
@@ -1271,7 +1289,7 @@ def s21_volley_represent(kr, sb: Path):
         return k
 
     def reply(text: str, verdict: dict):
-        kr.judge = lambda k, r, t, h=None, rr=None: verdict
+        kr.judge = lambda k, r, t, h=None, rr=None, **kw: verdict
         kr.push_to_phone = pushes = Recorder()
         sys.argv = ["knock_reply.py", text]
         kr.main()
@@ -3960,6 +3978,126 @@ def s45_concurrent_appends_merge(mk, sb: Path):
           "feedback_log has no key; a conflict in either is a real disagreement")
 
 
+def s49_thread_continuity(mk, kr, sb: Path):
+    """The reply thread must carry what Anna DID, across knocks (2026-08-02).
+
+    The live failure: Andrew asked from his phone for an audio greeting for a
+    third party. Turn 2 composed it, rendered it, and pushed it — but the
+    exchange record stored only `reply` and `reply_line`, so turn 3 could not
+    see the artefact existed. It read "he's an anglophone who doesn't know any
+    Tamil" against a two-field transcript, resolved "he" to Andrew, and
+    lectured him about his own name; turn 4 then called a delivered file "still
+    pending". The window was also `knock["exchanges"][-4:]` — one knock — so a
+    reply to the NEXT knock started from nothing at all.
+
+    Gate: the write records the action, the read carries it across knocks, and
+    the wider window never touches cold-fire accounting.
+    """
+    print("\n49. Reply thread carries actions, across knocks (2026-08-02)")
+    prog = sb / "progress"
+    klog_path = prog / "knock_log.json"
+    lex_path = prog / "lexicon.json"
+    saved_lex, saved_log = lex_path.read_bytes(), klog_path.read_bytes()
+    try:
+        now = datetime.now(timezone.utc)
+        stamp = lambda mins: (now - timedelta(minutes=mins)).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+        # An OLDER knock, still inside the window, with a turn of its own; and a
+        # third knock old enough to have fallen out of it entirely.
+        stale = {"date": (now - timedelta(days=3)).date().isoformat(),
+                 "timestamp": (now - timedelta(days=3)).isoformat(),
+                 "acted": True, "modality": "text", "move": "ancient history",
+                 "body": "long gone",
+                 "exchanges": [{"at": (now - timedelta(days=3)).strftime("%Y-%m-%dT%H:%M:%SZ"),
+                                "reply": "FORGOTTEN", "reply_line": "old news"}]}
+        earlier = {"date": now.date().isoformat(),
+                   "timestamp": (now - timedelta(minutes=90)).isoformat(),
+                   "acted": True, "modality": "text", "move": "lore: feeding as greeting",
+                   "body": "saapitteenga?",
+                   "exchanges": [{"at": stamp(80), "reply": "I need this phonetic in text",
+                                  "reply_line": "fair — saapitteenga?"}]}
+        current = {"date": now.date().isoformat(), "timestamp": now.isoformat(),
+                   "acted": True, "modality": "text", "move": "smoke continuity",
+                   "body": "anything", "expected_target": "", "target_revealed": False}
+        write_json(klog_path, [stale, earlier, current])
+
+        # --- the window itself (pure function, no LLM) ---
+        klog = read_json(klog_path)
+        win = kr.recent_exchanges(klog, klog[-1])
+        said = [r["andrew_said"] for r in win]
+        check("a turn from an EARLIER knock is in the thread",
+              "I need this phonetic in text" in said, str(said))
+        check("...tagged as belonging to another thread",
+              any(r.get("earlier_thread") for r in win if
+                  r["andrew_said"] == "I need this phonetic in text"))
+        check("a turn older than the window is dropped", "FORGOTTEN" not in said, str(said))
+        check("the field is anna_said, not anna_recast — a logistics turn is "
+              "not a Tamil correction", all("anna_recast" not in r for r in win)
+              and all("anna_said" in r for r in win))
+
+        # --- the write: a voice reply must leave a trace on its own exchange ---
+        kr.push_to_phone, kr.commit_and_push = Recorder(), Recorder()
+        kr.refresh_feed = lambda: None
+        real_render = kr.render_memo
+
+        async def fake_render(script, out_path, voice):
+            out_path.parent.mkdir(parents=True, exist_ok=True)
+            out_path.write_bytes(b"ID3fake")
+
+        kr.render_memo = fake_render
+        try:
+            v = canned_verdict([], reply_line="On it — check audio shortly.")
+            v["voice_reply"] = "வணக்கம் Doodah"
+            kr.judge = lambda k, r, t, h=None, rr=None, **kw: v
+            sys.argv = ["knock_reply.py", "an audio greeting for Doodah please"]
+            kr.main()
+        finally:
+            kr.render_memo = real_render
+
+        entry = read_json(klog_path)[-1]
+        ex = entry["exchanges"][-1]
+        check("the exchange records that Anna SPOKE, and what he said",
+              ex.get("spoke") == "வணக்கம் Doodah", str(ex.get("spoke")))
+        check("...and the URL of what was delivered",
+              (ex.get("audio_url") or "").endswith(".mp3"), str(ex.get("audio_url")))
+
+        # --- the read: the NEXT turn must know the artefact exists ---
+        klog = read_json(klog_path)
+        win = kr.recent_exchanges(klog, klog[-1])
+        sent = [r for r in win if r.get("anna_sent_audio")]
+        check("the next turn sees the audio already went out",
+              len(sent) == 1 and sent[0]["anna_sent_audio"] == "வணக்கம் Doodah", str(win))
+        check("a turn with no artefact carries no claim of one",
+              all("anna_sent_audio" not in r for r in win
+                  if r["andrew_said"] == "I need this phonetic in text"))
+
+        # The mandate has to tell the model what the fields MEAN, or they are
+        # just unexplained keys in a JSON blob.
+        check("the mandate reads absence as fact, not as silence",
+              "anna_sent_audio" in kr.THREAD_MANDATE and "anna_queued_push" in kr.THREAD_MANDATE)
+        check("...and scopes the 3-hour decay to the SCENE, not the record",
+              "THE SCENE DECAYS; THE RECORD NEVER DOES" in kr.THREAD_MANDATE)
+        # Both judges must be handed it: the catch lane hit this same bug on
+        # 2026-07-25 and a rule only one judge reads is half a rule.
+        src = (REAL_BASE / "scripts" / "knock_reply.py").read_text(encoding="utf-8")
+        check("both judges are handed the thread mandate",
+              src.count('+ "\\n" + THREAD_MANDATE') == 2,
+              f"{src.count(chr(43) + chr(32) + 'THREAD_MANDATE')} assembly sites")
+
+        # The load-bearing safety property: this window is continuity ONLY.
+        # No grading field may ride into the judge's view of history, or the
+        # thread could start minting or denying colds — that evidence belongs
+        # to revealed_recently()/shown_in_knock(), which are Python-owned.
+        allowed = {"andrew_said", "anna_said", "earlier_thread",
+                   "anna_sent_audio", "anna_queued_push"}
+        leaked = {k for r in win for k in r} - allowed
+        check("no grading field leaks into the thread — continuity can never "
+              "mint or deny a cold", not leaked, f"leaked {leaked}")
+    finally:
+        lex_path.write_bytes(saved_lex)
+        klog_path.write_bytes(saved_log)
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -4012,6 +4150,7 @@ def main():
         s46_the_commission_gate_blocks_the_close(sb)
         s47_hinted_retest_block(sb)
         s48_drill_answer_key_lint(sb)
+        s49_thread_continuity(mk, kr, sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)

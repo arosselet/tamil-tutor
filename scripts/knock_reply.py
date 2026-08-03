@@ -100,12 +100,7 @@ him that recently" ONLY when the word is on that list (or revealed by this knock
 its prior_exchanges). If it is not listed and he produced it unaided, it is COLD — \
 never invent a reveal.
 
-CONTINUITY DECAYS: the context carries hours_since_last_exchange. Past ~3 hours, the \
-scenario that knock was running is EXPIRED in his head — he is answering a lock-screen \
-line cold, not continuing your scene. Do not hold the reply to the chained ask or the \
-scene's script; grade whatever real Tamil fired on its own merits as an open rep, answer \
-what he actually said, and if you chain, open FRESH (name the situation again in one \
-clause — never assume he remembers who was asking what).
+CONTINUITY: how to read the thread you are in — THREAD_MANDATE, below.
 
 COHERENCE SAFETY NET: if the knock's body asks one thing but expected_target names \
 something that is not a natural answer to that body (a mis-targeted knock), the target \
@@ -185,6 +180,33 @@ Return ONLY a JSON object, no prose around it:
   "schedule": {"at_local": "YYYY-MM-DDTHH:MM", "body": "<the full dose>", "memo_script": "<spoken words for a VOICE dose; empty for text>","expected_target": "<or empty>", "target_revealed": true | false, "move": "<2-4 words>"} | null,
   "rationale": "<one line, for the log>"
 }
+"""
+
+
+# Split out of JUDGE_MANDATE (2026-08-02), the fourth time that file has paid for
+# growth by splitting rather than raising: reading the conversation you are in is
+# its own concern from grading a reply, and both judges — production and catch —
+# need it identically. Provenance lives here, in a comment, not in the string: the
+# model is not the audience for a changelog, and comments are budget-free.
+THREAD_MANDATE = """\
+--- THE THREAD: what continuity means, and what it does not ---
+
+THE SCENE DECAYS; THE RECORD NEVER DOES. Past ~3 hours (hours_since_last_exchange) the \
+scenario that knock was running is EXPIRED in his head: do not hold him to the chained \
+ask, grade whatever Tamil fired as an open rep, and chain FRESH if you chain.
+
+But prior_exchanges — the recent thread, ACROSS knocks — stays FACT, however old. Read \
+it as one conversation. Resolve his pronouns and requests against it before anything \
+else: "he doesn't know any Tamil", right after he asked you for something for someone \
+else, is about THAT person, not about Andrew. Never re-introduce yourself, and never \
+re-ask what he already told you, in a thread already running.
+
+WHAT YOU DID IS ON THE RECORD — NEVER GUESS AT IT. A turn carrying "anna_sent_audio" \
+means that audio was rendered and delivered, to his phone and his feed: do not call it \
+pending, do not promise it again, and when he is correcting it ("too dense", "he can't \
+read that"), fix it and send the NEW one. "anna_queued_push" means a push is really \
+queued. Their ABSENCE is equally factual — an earlier turn that promised something and \
+carries neither field delivered nothing, so say that plainly and do it now.
 """
 
 
@@ -282,7 +304,77 @@ Return ONLY a JSON object, no prose around it:
 """
 
 
-def catch_context(knock: dict, reply_text: str) -> dict:
+RECENT_WINDOW_HOURS = 24.0
+RECENT_WINDOW_TURNS = 8
+
+
+def _ts(raw: str | None) -> datetime | None:
+    """A log timestamp as an aware datetime, or None if it is unparseable.
+    Three functions parsed this inline (revealed_recently, capped_fire_days,
+    and this file's window); one copy, so a naive stamp can never sneak past
+    only two of them."""
+    try:
+        dt = datetime.fromisoformat((raw or "").replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
+
+
+def recent_exchanges(klog: list, knock: dict,
+                     hours: float = RECENT_WINDOW_HOURS,
+                     limit: int = RECENT_WINDOW_TURNS) -> list[dict]:
+    """The conversation Anna is actually in — across knocks, not just this one.
+
+    Before 2026-08-02 this was `knock["exchanges"][-4:]`: one knock, four turns,
+    and a reply to a NEW knock started from nothing. It also carried only two
+    fields — what Andrew typed and what Anna wrote — so nothing on the record
+    said what Anna *did*. He composed and sent a whole audio greeting on one
+    turn, and told Andrew it was "still pending" on the next, because the record
+    only ever showed the promise. Same gap ate a referent: "he's an anglophone"
+    resolved to Andrew, because the turn that introduced the third party had
+    been reduced to a line of text.
+
+    Safe to widen: cold-fire accounting does NOT read this window.
+    `revealed_recently()` owns the evidence of what Tamil was shown (Python-owned,
+    48h, whole log) and `shown_in_knock()` stays scoped to its own knock. This is
+    continuity only — it can never mint or deny a cold.
+
+    The current knock's own tail is always carried, however old, so this can
+    never show less than the per-knock view it replaces.
+    """
+    cutoff = datetime.now(timezone.utc) - timedelta(hours=hours)
+    keep = {id(x) for x in (knock.get("exchanges") or [])[-4:]}   # never regress
+    sources = list(klog) + ([] if any(k is knock for k in klog) else [knock])
+    rows, seen = [], set()
+    for k in sources:
+        for x in k.get("exchanges", []):
+            at = _ts(x.get("at"))
+            if at is None or id(x) in seen or (at < cutoff and id(x) not in keep):
+                continue
+            seen.add(id(x))
+            rows.append((at, k, x))
+    rows.sort(key=lambda r: r[0])
+    out = []
+    for _, k, x in rows[-limit:]:
+        row = {"andrew_said": x.get("reply", ""),
+               "anna_said": x.get("reply_line", "")}
+        if k is not knock:
+            row["earlier_thread"] = k.get("move", "") or k.get("modality", "")
+        # What Anna DID. Absent means he did not do it — a promise with no
+        # matching field here was never kept.
+        row.update({out_key: x[src_key] for src_key, out_key in
+                    (("spoke", "anna_sent_audio"), ("scheduled", "anna_queued_push"))
+                    if x.get(src_key)})
+        out.append(row)
+
+    if not out and knock.get("reply"):
+        # Legacy knock: replies predating the `exchanges` list live at top level.
+        out = [{"andrew_said": knock["reply"],
+                "anna_said": knock.get("reply_line", "")}]
+    return out
+
+
+def catch_context(knock: dict, reply_text: str, klog: list | None = None) -> dict:
     """What the drift judge is shown. Split out of judge_catch (2026-07-25) so the
     thread it sees is testable without the LLM call — the smoke test stubs
     judge_catch wholesale, so an inline context build is never exercised.
@@ -297,28 +389,25 @@ def catch_context(knock: dict, reply_text: str) -> dict:
         "ear_only_target": knock.get("expected_target", ""),
         "andrew_reply": reply_text,
     }
-    if knock.get("exchanges"):
-        context["prior_exchanges"] = [
-            {"andrew_said": x.get("reply", ""), "anna_recast": x.get("reply_line", "")}
-            for x in knock["exchanges"][-4:]]
-    elif knock.get("reply"):
-        context["prior_exchanges"] = [{"andrew_said": knock["reply"],
-                                       "anna_recast": knock.get("reply_line", "")}]
+    prior = recent_exchanges(klog if klog is not None else [knock], knock)
+    if prior:
+        context["prior_exchanges"] = prior
     return context
 
 
-def judge_catch(knock: dict, reply_text: str) -> dict:
+def judge_catch(knock: dict, reply_text: str, klog: list | None = None) -> dict:
     """The comprehension judge for an eavesdrop dose — a deliberately separate,
     smaller mandate so the production judge's rules (reveal caps, chains,
     per-word grades) never leak into a drift grade."""
     persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
-    context = catch_context(knock, reply_text)
+    context = catch_context(knock, reply_text, klog)
     client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
     resp = client.chat.completions.create(
         model=MODEL,
         max_tokens=400,
         messages=[
-            {"role": "system", "content": persona + "\n\n---\n\n" + CATCH_JUDGE_MANDATE},
+            {"role": "system", "content": persona + "\n\n---\n\n" + CATCH_JUDGE_MANDATE
+                                          + "\n" + THREAD_MANDATE},
             {"role": "user", "content": json.dumps(context, ensure_ascii=False, indent=2)},
         ],
     )
@@ -366,7 +455,7 @@ def handle_catch_reply(knock: dict, reply_text: str, klog: list,
     outcome memory read it unchanged), push one line back. No chains, no
     volley, no production meters."""
     print(f"1. judging DRIFT reply against eavesdrop knock {knock.get('timestamp', '?')[:16]}…")
-    verdict = judge_catch(knock, reply_text)
+    verdict = judge_catch(knock, reply_text, klog)
     print(f"   → {verdict['verdict']} | {verdict.get('rationale', '')}")
 
     if dry_run:
@@ -516,7 +605,8 @@ Do not acknowledge without scheduling."""
 def judge(knock: dict, reply_text: str, target_record: dict | None,
           hours_since: float | None = None,
           revealed_recent: list | None = None,
-          force_schedule: bool = False) -> dict:
+          force_schedule: bool = False,
+          klog: list | None = None) -> dict:
     persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
     pin, pin_revealed = current_pin(knock)
     open_ask = volley_open_ask(knock)
@@ -551,16 +641,15 @@ def judge(knock: dict, reply_text: str, target_record: dict | None,
     if knock.get("volley"):
         context["knock"]["volley_in_progress"] = (
             f"item {min(knock.get('volley_next', 1), len(knock['volley']))} of {len(knock['volley'])}")
-    # A later reply to the same knock is judged knowing the whole chain —
-    # Tamil that Anna's recasts already handed him is a read-back, not a cold fire.
-    if knock.get("exchanges"):
-        context["prior_exchanges"] = [
-            {"andrew_said": x.get("reply", ""), "anna_recast": x.get("reply_line", "")}
-            for x in knock["exchanges"][-4:]]
-    elif knock.get("reply"):
-        context["prior_exchanges"] = [{"andrew_said": knock["reply"],
-                                       "anna_recast": knock.get("reply_line", "")}]
+    # The recent thread across knocks, carrying what Anna DID and not only what
+    # he wrote (recent_exchanges). Tamil already handed to him is still a
+    # read-back rather than a cold fire — but that judgment belongs to
+    # revealed_recent/shown_in_knock, which are Python-owned and unchanged.
+    prior = recent_exchanges(klog if klog is not None else [knock], knock)
+    if prior:
+        context["prior_exchanges"] = prior
     mandate = (JUDGE_MANDATE + "\n" + SLIP_MANDATE + "\n" + REACH_MANDATE
+               + "\n" + THREAD_MANDATE
                + (FORCE_SCHEDULE_ADDENDUM if force_schedule else ""))
     client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
     resp = client.chat.completions.create(
@@ -721,13 +810,8 @@ def revealed_recently(klog: list, lexicon: dict, hours: float = 48.0) -> list[st
     cutoff = datetime.now(timezone.utc) - timedelta(hours=hours)
     texts = []
     for k in klog:
-        try:
-            ts = datetime.fromisoformat((k.get("timestamp") or "").replace("Z", "+00:00"))
-        except ValueError:
-            continue
-        if ts.tzinfo is None:
-            ts = ts.replace(tzinfo=timezone.utc)
-        if ts < cutoff:
+        ts = _ts(k.get("timestamp"))
+        if ts is None or ts < cutoff:
             continue
         texts += [k.get("body", ""), k.get("memo_script", ""), k.get("reply_line", "")]
         texts += [x.get("reply_line", "") for x in k.get("exchanges", [])]
@@ -753,15 +837,9 @@ def capped_fire_days(key: str, klog: list) -> set:
     days = set()
     for k in klog:
         for x in k.get("exchanges", []):
-            if key not in x.get("fired_capped", []):
-                continue
-            try:
-                dt = datetime.fromisoformat((x.get("at") or "").replace("Z", "+00:00"))
-            except ValueError:
-                continue
-            if dt.tzinfo is None:
-                dt = dt.replace(tzinfo=timezone.utc)
-            days.add(dt.astimezone(LOCAL_TZ).date())
+            dt = _ts(x.get("at")) if key in x.get("fired_capped", []) else None
+            if dt is not None:
+                days.add(dt.astimezone(LOCAL_TZ).date())
     return days
 
 
@@ -898,7 +976,7 @@ def main():
     print(f"1. judging reply against knock {knock.get('timestamp', '?')[:16]} "
           f"({knock.get('modality')}/{knock.get('move')}{hours_str})…")
     revealed = revealed_recently(klog, lexicon)
-    verdict = judge(knock, reply_text, target_record, hours, revealed)
+    verdict = judge(knock, reply_text, target_record, hours, revealed, klog=klog)
     fired_str = ", ".join(f"{i['word']}:{i['verdict']}" for i in verdict["fired"]) or "—"
     print(f"   → {verdict['verdict']} | fired: {fired_str} | {verdict.get('rationale', '')}")
     for claim in verdict.get("unverified", []):
@@ -912,7 +990,7 @@ def main():
     if wants_scheduled_push(reply_text) and not verdict.get("schedule"):
         print("   ⏰ time-bound request with no schedule — re-asking once, forced…")
         forced = judge(knock, reply_text, target_record, hours, revealed,
-                       force_schedule=True)
+                       force_schedule=True, klog=klog)
         if forced.get("schedule"):
             verdict = forced
             print(f"   → scheduled: {forced['schedule'].get('at_local')} "
@@ -977,12 +1055,21 @@ def main():
     # as a prior exchange, and shown_in_knock scans it for revealed Tamil
     knock["reply_line"] = " · ".join(p for p in (verdict["reply_line"], follow or represent) if p)
     knock["reply_at"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    sched = verdict.get("schedule") or {}
     knock.setdefault("exchanges", []).append({
         "at": knock["reply_at"], "reply": reply_text,
         "verdict": verdict["verdict"], "fired": fired_words,
         "fired_cold": cold_credited, "fired_capped": capped_keys,
         "graduated": graduated, "reply_line": knock["reply_line"],
         "slips": [s["tag"] for s in verdict.get("slips") or []],
+        # What Anna DID this turn, not just what he wrote (2026-08-02). The
+        # record used to hold words only, so the next turn could not tell a
+        # delivered artefact from a promise to deliver one — Anna sent a whole
+        # audio greeting and called it "still pending" sixty seconds later.
+        # `audio_url` is backfilled below, after the render actually succeeds.
+        "spoke": verdict.get("voice_reply") or "",
+        "scheduled": " · ".join(v for v in (sched.get("at_local", ""),
+                                            sched.get("move", "")) if v),
     })
 
     # The slip ledger — the phone lane's half. This is the seam that did not
@@ -1046,10 +1133,17 @@ def main():
     if verdict.get("voice_reply"):
         print("2b. render voice reply…")
         vmp3, voice_url = render_voice_reply(verdict["voice_reply"])
+        # onto the exchange too: the top-level field is the LATEST view, overwritten
+        # by the next voice reply, so only the per-exchange copy survives as thread
+        # history. reply_memo_script retired here — nothing ever read it, and
+        # `spoke` on the exchange is the copy that gets used. On a render failure,
+        # clear `spoke`: better a silent record than one claiming audio he never got.
         if voice_url:
             knock["reply_audio_url"] = voice_url
-            knock["reply_memo_script"] = verdict["voice_reply"]
+            knock["exchanges"][-1].update(audio_url=voice_url)
             save_json(KNOCK_LOG_PATH, klog)
+        else:
+            knock["exchanges"][-1].update(spoke="", audio_failed=True)
 
     print("3. commit + push…")
     commit_paths = [LEXICON_PATH, KNOCK_LOG_PATH, render_chat()]
