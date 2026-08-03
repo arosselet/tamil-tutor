@@ -9,7 +9,11 @@
     "from": "2026-08-02",
     "focus": "the melt line said WHILE eating, not after: romba nalla irukku in the PRESENT, under everyone's eyes. He just fired the past form (irundhuchu) cold; this is its twin in the moment, and the twin law says never teach them in one breath — the tape carries the present only",
     "channel": "episode",
-    "form": "narrated_drama"
+    "form": "narrated_drama",
+    "delivered": {
+      "channel": "soak",
+      "at": "2026-08-03"
+    }
   },
   "next_engine": "frame:polite-nga",
   "focus_cohort": [

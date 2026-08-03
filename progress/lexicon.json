@@ -757,8 +757,9 @@
       32,
       33
     ],
-    "last_surfaced": "2026-07-27",
-    "reps": 1
+    "last_surfaced": "2026-08-03",
+    "reps": 1,
+    "exposures": 1
   },
   "போதும்": {
     "gloss": "Enough",
@@ -2297,9 +2298,9 @@
     "seen_in": [
       1
     ],
-    "last_surfaced": "2026-07-27",
+    "last_surfaced": "2026-08-03",
     "lemma": "கேள்",
-    "exposures": 1
+    "exposures": 2
   },
   "போஸ்ட்போன்": {
     "gloss": "Postpone",
@@ -3177,10 +3178,11 @@
     "seen_in": [
       65
     ],
-    "last_surfaced": "2026-07-27",
+    "last_surfaced": "2026-08-03",
     "deck": "trip",
     "direction": "fire",
-    "reps": 1
+    "reps": 1,
+    "exposures": 1
   },
   "நான் கோயம்புத்தூர்காரன் மாதிரி ஆயிட்டேன்": {
     "type": "chunk",
@@ -3608,10 +3610,11 @@
     "seen_in": [
       72
     ],
-    "last_surfaced": "2026-07-30",
+    "last_surfaced": "2026-08-03",
     "deck": "trip",
     "direction": "fire",
-    "reps": 1
+    "reps": 1,
+    "exposures": 1
   },
   "இன்னும் கொஞ்சம் போடுங்க": {
     "type": "chunk",
@@ -3765,10 +3768,11 @@
     "seen_in": [
       72
     ],
-    "last_surfaced": "2026-07-30",
+    "last_surfaced": "2026-08-03",
     "deck": "trip",
     "direction": "fire",
-    "reps": 1
+    "reps": 1,
+    "exposures": 1
   },
   "தெரியுமா?": {
     "type": "chunk",
@@ -4736,8 +4740,8 @@
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-07-28",
-    "exposures": 2,
+    "last_surfaced": "2026-08-03",
+    "exposures": 3,
     "reps": 1
   },
   "அதுக்கு": {
