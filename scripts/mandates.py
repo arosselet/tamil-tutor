@@ -129,3 +129,10 @@ Return ONLY a JSON object, no prose around it:
   "rationale": "<one line: why this choice>"
 }
 """
+
+
+PHONETIC_REWRITE = """\
+The notification body below carries Tamil script. Andrew reads English phonetics at \
+speed and Tamil script not at all, so rewrite it with EVERY Tamil word in phonetics \
+("poren", "romba nallarukku"). Keep the content, tone, emoji, punctuation and length \
+otherwise identical — this is a transliteration, not a rewrite. Return ONLY the line."""
