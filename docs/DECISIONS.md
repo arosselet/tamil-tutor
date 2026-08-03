@@ -1768,3 +1768,33 @@ Details live in git history; this is the index of the *conclusions*.
 - **Reference docs anchor to function names, never line numbers** (2026-08-01). flags.md's
   numbers drifted by hundreds twice under a "stable as of this commit" policy; names
   survive edits and grep finds the spot. The resync ritual is retired, not repeated.
+- **A dose that fails twice indicts the diagnosis before the channel** (2026-08-02).
+  `1pl-past-om` (6×) and `past-tense` (5×) were tagged as a failing person-tail; Andrew
+  had the -ஓம் tail all along and was hanging it on the wrong verb body (போறேன் / போகணும் /
+  போனேன் are three bodies, and nobody had shown him the body is a *choice*). Episode 07-31,
+  memo 08-01 and drill 08-01 all soaked whole past *words*, so audio_channels' escalate-the-
+  format law ran three times against the wrong target. One teach — pick the body, then the
+  tail — closed both slips and `it-tail-uchu` within the hour. Refines, does not reverse,
+  "change the format, never loop harder": re-read what the slip tag actually names first.
+  Cold retest owed 2–3 days out; one fire an hour after the teach is not proof.
+- **The knock reply thread carries actions, not just words** (2026-08-02). The exchange
+  record kept only `reply`/`reply_line` and the window was one knock's last four turns, so
+  Anna rendered and delivered an audio greeting, called it "still pending" a turn later, and
+  resolved "he's an anglophone" to Andrew himself. `spoke`/`audio_url`/`scheduled` now land
+  on the exchange, and `recent_exchanges()` spans knocks by time (24h, 8 turns). Safe to
+  widen because cold-fire evidence stays with `revealed_recently()`/`shown_in_knock()` —
+  s49 asserts no grading field can reach the thread. THREAD_MANDATE is JUDGE_MANDATE's
+  fourth split; knock_reply.py's code budget took a 775→785 raise with a standing note to
+  refuse the next one and move the mandates to `mandates.py` instead.
+- **"Audience before artifact" rejected — continuity is the fix** (2026-08-02, Andrew). A
+  rule forcing Anna to name an artefact's audience before composing was cut: "less dense
+  Tamil" is an ordinary correction Andrew makes on the next turn, and it only failed
+  because the thread had nowhere to keep it. Encoding one conversational correction as a
+  named mechanism buys a rule and leaves the cause standing. Rejected in the same pass:
+  re-injecting `meta_note` as standing direction (his words already ride in `andrew_said`)
+  and the unkept-promise guard (redundant once the record is honest).
+- **Gift audio renders outside the mission pipeline** (2026-08-02). The Mum-and-Doodah
+  greeting went through `render_demo.py` + `rebuild_rss.py`, never `run_studio.py`: a piece
+  for third parties must not burn a mission number, stamp `seen_in`, or move Andrew's
+  recognition axis. `special_` scripts are the standing lane for feed-worthy artefacts that
+  are not doses.

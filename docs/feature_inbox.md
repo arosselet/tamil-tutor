@@ -565,6 +565,22 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
   would make the log honest. Wait for a second occurrence post-retry.
 - **Real-media library (songs, kids' TV)** — the Jabberwocky principle: melody stores sound-sequences below comprehension (Andrew still carries sung gibberish from decades ago). Curate Oracle-vetted YouTube links (her childhood film songs, Tamil Dora) as rows of data; Anna sends one as a no-ask dose, lore-style — a skill, not a DJ persona. Feeds the starving catch axis (0/8) and buys shared cultural ground before the trip. Guardrails: stop-chasing-listens applies in full (zero-debt, no follow-up); curation happens at the laptop, studio-style, never in-session. Machinery (a knock "song dose" type) waits until the library exists and a few doses prove the format by hand.
 
+- **Tamil script is banned from TEXT bodies — needs a lint, not prose** (2026-08-02).
+  Andrew said it twice in one day, in-session and by phone reply: *"I can't read the Tamil
+  I need this phonetic in text."* The constitution's modality split (script is for TTS,
+  phonetic for chat) is only ever stated permissively — `knock_reply.py`'s judge mandate
+  says phonetic "is fine here", so nothing forbids script, and knock bodies do ship it
+  (`💬 போனோம், நல்லா இருந்துச்சு`, 08-01). Second data point ⇒ mechanism: reject Tamil
+  codepoints in a text-modality body and in `reply_line`, while `memo_script` and
+  `voice_reply` keep script. Deterministic and cheap; the prose rule has now failed twice.
+- **Commissioning from the phone — `schedule episode`** (2026-08-02). Anna's reply lane can
+  speak (`voice_reply`), queue one push (`schedule`), and write state — but has no way to
+  order an *episode*, so "make me an episode about X" becomes a voice memo pretending to be
+  one. It should not run the studio inline (minutes long, lint-gated), but setting a soak
+  order is just a state write the lane already does: a `commission` object on the reply JSON
+  passing through to `--soak-payload/--soak-seed/--soak-focus/--soak-channel`, drained by
+  `run_studio` on the next tick. Andrew named this one himself.
+
 ## Shipped
 
 - ~~THE REPAIR EARNS THE DOSE — audio commissioned off his errors~~ — SHIPPED 2026-07-28
