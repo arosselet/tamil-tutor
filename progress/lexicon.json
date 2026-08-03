@@ -3543,14 +3543,14 @@
       "enna sonneenga"
     ],
     "recognition": "struggled",
-    "production": "hinted",
+    "production": "cold",
     "seen_in": [
       58
     ],
-    "last_surfaced": "2026-08-01",
+    "last_surfaced": "2026-08-03",
     "deck": "trip",
     "direction": "fire",
-    "reps": 1
+    "reps": 2
   },
   "தமிழ்ல எப்படி சொல்றது?": {
     "type": "chunk",
@@ -3726,9 +3726,10 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": null,
+    "last_surfaced": "2026-08-03",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 1
   },
   "சாஃப்ட்வேர் இன்ஜினியரா இருக்கேன்": {
     "type": "chunk",
@@ -3771,7 +3772,7 @@
     "last_surfaced": "2026-08-03",
     "deck": "trip",
     "direction": "fire",
-    "reps": 1,
+    "reps": 2,
     "exposures": 1
   },
   "தெரியுமா?": {
