@@ -43,6 +43,17 @@ if hasattr(sys.stdout, "reconfigure"):
 # Andrew's local clock — canonical here; outreach scripts import it for the rails.
 LOCAL_TZ = ZoneInfo("America/New_York")
 
+
+def local_today() -> date:
+    """Today on ANDREW's clock, never the host's. The slip ledger dates slips,
+    commissions and closes against each other, so a stamp taken from a UTC
+    runner between 8pm and midnight lands a day ahead of one taken on his
+    laptop — and `escalate` (a slip dated after its dose) then fires on a dose
+    that had not failed. append_slips already documented this seam for its
+    `when` argument; its own default, and the callers below, were still on
+    local_today()."""
+    return datetime.now(LOCAL_TZ).date()
+
 BASE = Path(__file__).parent.parent
 LEXICON_PATH = BASE / "progress" / "lexicon.json"
 LEARNER_PATH = BASE / "progress" / "learner.json"
@@ -127,7 +138,7 @@ def mark_exposed(lexicon: dict, keys: list[str], phon_index: dict | None = None,
     Mutates in place; callers own the save. Returns the keys actually stamped."""
     if phon_index is None:
         phon_index = build_phonetic_index(lexicon)
-    today = today or date.today().isoformat()
+    today = today or local_today().isoformat()
     marked = []
     for k in keys:
         key = resolve(k, lexicon, phon_index)
@@ -176,7 +187,7 @@ def mark_soak_delivered(channel: str) -> bool:
     if not learner or not (learner.get("soak_order") or {}):
         return False
     learner["soak_order"]["delivered"] = {
-        "channel": channel, "at": date.today().isoformat()}
+        "channel": channel, "at": local_today().isoformat()}
     save_json(LEARNER_PATH, learner)
     print(f"   Soak order marked delivered by the {channel} lane")
     return True
@@ -367,7 +378,7 @@ def compute_status() -> str:
     lexicon = load_json(LEXICON_PATH) or {}
     deck = compute_deck(lexicon)
     if deck["total"]:
-        days = (TRIP_DATE - date.today()).days
+        days = (TRIP_DATE - local_today()).days
         never = (f" · {deck['untouched']} never worked" if deck["untouched"] else "")
         return (f"Trip Deck {deck['surv_cleared']}/{deck['surv_total']} survival cold · "
                 f"{days} days to touchdown · "
@@ -383,7 +394,7 @@ def cold_fires_recent(days: int = 7) -> int:
     Replies count per word via reply_fired_cold (the judge grades each word on its
     own, post revealed-cap); entries from before per-word verdicts (2026-07-03)
     fall back to the flat verdict-gated count."""
-    cutoff = (date.today() - timedelta(days=days - 1)).isoformat()
+    cutoff = (local_today() - timedelta(days=days - 1)).isoformat()
     n = 0
     for s in load_json(SESSION_LOG_PATH) or []:
         if s.get("date", "") >= cutoff:
@@ -411,7 +422,7 @@ def fires_today() -> int:
     """Words fired (cold or hinted) TODAY, across chat sessions and phone replies —
     the fast per-day reward counter appended to the scoreboard. Computed live from
     the logs, never stored (a stored counter is a meter that can lie)."""
-    today = date.today().isoformat()
+    today = local_today().isoformat()
     n = 0
     for s in load_json(SESSION_LOG_PATH) or []:
         if s.get("date") == today:
@@ -468,7 +479,7 @@ def cmd_update(args):
         sys.exit(1)
 
     phon_index = build_phonetic_index(lexicon)
-    today = date.today().isoformat()
+    today = local_today().isoformat()
     applied = {"cold": [], "hinted": [], "demoted": []}  # for the session log
 
     # ── THE COMMISSION GATE (2026-08-01, Andrew: "block the close") ──────
@@ -811,7 +822,7 @@ def cmd_add_pattern(args):
     if args.key in lexicon:
         print(f"  ! '{args.key}' already exists — not overwriting. Move its axes with `update`.")
         return
-    today = date.today().isoformat()
+    today = local_today().isoformat()
     lexicon[args.key] = {
         "type": "pattern",
         "gloss": args.gloss,
@@ -855,7 +866,7 @@ def cmd_add_word(args):
         "recognition": args.recognition,
         "production": "none",
         "seen_in": [],
-        "last_surfaced": date.today().isoformat(),
+        "last_surfaced": local_today().isoformat(),
     }
     save_json(LEXICON_PATH, lexicon)
     print(f"  + '{args.key}' — {args.gloss} (recognition {args.recognition}, phonetic {list(args.phonetic)})")
@@ -888,7 +899,7 @@ def cmd_seed_deck(args):
     if lexicon is None:
         print("Error: lexicon.json missing. See BOOTSTRAP.md.")
         sys.exit(1)
-    today = date.today().isoformat()
+    today = local_today().isoformat()
     # `pairs_with` is the ONE relation the schema carries: a catch item names the
     # chunk Andrew must say back to it (hear X → say Y). It lives on the catch
     # side because that is the direction of the drill, and it must resolve inside
@@ -1079,7 +1090,7 @@ def cmd_status(_args):
     # teaches the player to ignore all the meters).
     slog = load_json(SESSION_LOG_PATH) or []
     last = slog[-1].get("date") if slog else None
-    gap = (date.today() - date.fromisoformat(last)).days if last else None
+    gap = (local_today() - date.fromisoformat(last)).days if last else None
     if last:
         gap_str = "today" if not gap else f"{gap} day{'s' if gap != 1 else ''} ago"
         print(f"Last logged session: {last} ({gap_str})")
@@ -1099,7 +1110,7 @@ def cmd_status(_args):
     if soak.get("payload") or soak.get("scene_seed"):
         items = canon_payload(soak.get("payload", []))
         soak_from = soak.get("from")
-        soak_age = (date.today() - date.fromisoformat(soak_from)).days if soak_from else None
+        soak_age = (local_today() - date.fromisoformat(soak_from)).days if soak_from else None
         stale = " ⚠ stale — chat hasn't fed the Director lately" if soak_age and soak_age > 7 else ""
         # The auto-drain answer, computed — not left to the agent's eye: has the
         # newest episode carried this payload yet? Resolved the same way the
@@ -1231,7 +1242,7 @@ def credit_latest_episode_listen() -> str | None:
     lexicon = load_json(LEXICON_PATH) or {}
     learner = load_json(LEARNER_PATH) or {}
     phon_index = build_phonetic_index(lexicon)
-    today = date.today().isoformat()
+    today = local_today().isoformat()
     ep["listens"] = ep.get("listens", 0) + 1
     surfaced = 0
     for w in ep.get("words", []):
@@ -1345,7 +1356,7 @@ def append_slips(entries: list[dict], lane: str, modality: str = "",
     `when` overrides the stamped date. Spans and recurrence are computed from it,
     so it must be the date the mistake was MADE, not the date it was recorded: a
     reply typed at 9pm local is judged after midnight UTC on the runner, and
-    `date.today()` there files it under tomorrow — the same local-vs-UTC seam
+    `local_today()` there files it under tomorrow — the same local-vs-UTC seam
     apply_verdict already handles with `today_local` for capped fires."""
     if not entries:
         return []
@@ -1507,7 +1518,7 @@ def slip_patterns(log: list | None = None, today=None) -> list[dict]:
     ONE format."""
     log = load_json(SLIP_LOG_PATH) if log is None else log
     log = log or []
-    today = today or date.today()
+    today = today or local_today()
     closes = slip_closes()
     commissions = slip_commissions()
     by_tag: dict[str, dict] = {}
@@ -1746,7 +1757,7 @@ def cmd_feedback(args):
     REPRODUCED patterns, never one-offs — capture is cheap, change is not."""
     log = load_json(FEEDBACK_LOG_PATH) or []
     if args.note:
-        log.append({"date": date.today().isoformat(), "note": args.note})
+        log.append({"date": local_today().isoformat(), "note": args.note})
         save_json(FEEDBACK_LOG_PATH, log)
         print(f"  Logged feedback ({len(log)} total): {args.note}")
         return

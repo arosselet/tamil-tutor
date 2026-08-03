@@ -39,7 +39,7 @@ import json
 import os
 import re
 import sys
-from datetime import date, datetime, timedelta, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from openai import OpenAI
@@ -53,7 +53,8 @@ from morning_knock import (OPENROUTER_BASE, MODEL, KNOCK_LOG_PATH, KNOCKS_DIR,
                            jsdelivr_url, refresh_feed)
 from sync_state import (LEXICON_PATH, LEARNER_PATH, FEEDBACK_LOG_PATH, SLIP_LOG_PATH,
                         TRIP_DATE, load_json, save_json, build_phonetic_index, resolve,
-                        compute_deck, fires_today, append_slips, slip_patterns)
+                        compute_deck, fires_today, append_slips, slip_patterns,
+                        local_today)
 
 PRODUCTION_RANK = {"none": 0, "hinted": 1, "cold": 2}
 VERDICTS = {"cold", "hinted", "miss", "chat"}
@@ -432,7 +433,7 @@ def apply_catch_verdict(verdict: dict, knock: dict, lexicon: dict) -> list[str]:
     rec = lexicon[key]
     cur = rec.get("recognition", "struggled")
     nxt = RECOGNITION_NEXT.get(cur)
-    rec["last_surfaced"] = date.today().isoformat()
+    rec["last_surfaced"] = local_today().isoformat()
     if nxt is None:
         return [f"{key} already {cur} — kept (caught)"]
     rec["recognition"] = nxt
@@ -444,7 +445,7 @@ def catch_meter(lexicon: dict) -> str:
     deck = deck_status(lexicon)
     if not deck or not deck.get("catch_total"):
         return ""
-    days = (TRIP_DATE - date.today()).days
+    days = (TRIP_DATE - local_today()).days
     return f"Catch {deck['caught']}/{deck['catch_total']} · {days}d"
 
 
@@ -483,7 +484,7 @@ def handle_catch_reply(knock: dict, reply_text: str, klog: list,
     commit_paths = [LEXICON_PATH, KNOCK_LOG_PATH, render_chat()]
     if verdict["meta_note"]:
         flog = load_json(FEEDBACK_LOG_PATH) or []
-        flog.append({"date": date.today().isoformat(), "note": f"[phone] {verdict['meta_note']}"})
+        flog.append({"date": local_today().isoformat(), "note": f"[phone] {verdict['meta_note']}"})
         save_json(FEEDBACK_LOG_PATH, flog)
         commit_paths.append(FEEDBACK_LOG_PATH)
         print(f"   meta → ledger: {verdict['meta_note']}")
@@ -521,7 +522,7 @@ def scoreboard(lexicon: dict) -> str:
     deck = compute_deck(lexicon)
     if not deck["total"]:
         return ""
-    days = (TRIP_DATE - date.today()).days
+    days = (TRIP_DATE - local_today()).days
     n = fires_today()
     fires = f" · {n} fired today" if n else ""
     return f"Deck {deck['cleared']}/{deck['total']} · {days}d{fires}"
@@ -864,8 +865,8 @@ def apply_verdict(verdict: dict, knock: dict, lexicon: dict, klog: list,
     the pace meters read these —, capped keys, graduated keys)."""
     from sync_state import LOCAL_TZ
     phon_index = build_phonetic_index(lexicon)
-    today = date.today().isoformat()
-    today_local = datetime.now(timezone.utc).astimezone(LOCAL_TZ).date()
+    today = local_today().isoformat()
+    today_local = local_today()
     pin, pin_revealed = current_pin(knock)
     revealed_key = resolve(pin, lexicon, phon_index) if pin_revealed else None
     revealed_recent = revealed_recent or []
@@ -1161,7 +1162,7 @@ def main():
     # Meta-direction lands in the feedback ledger — the diagnosis pass reads it.
     if verdict["meta_note"]:
         flog = load_json(FEEDBACK_LOG_PATH) or []
-        flog.append({"date": date.today().isoformat(), "note": f"[phone] {verdict['meta_note']}"})
+        flog.append({"date": local_today().isoformat(), "note": f"[phone] {verdict['meta_note']}"})
         save_json(FEEDBACK_LOG_PATH, flog)
         commit_paths.append(FEEDBACK_LOG_PATH)
         print(f"   meta → ledger: {verdict['meta_note']}")
