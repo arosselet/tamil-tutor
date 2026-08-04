@@ -48,6 +48,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > got it — moving to 4/4. · still open · 3/4 — Your maama just explained which road to take to the temple. You got it; signal agreement and close it. What do you say?
 
+**19:58 · Anna**  ·  text / field mission reminder
+> mission's live — 'konjam X kudunga' at the table tonight, unprompted. debrief tomorrow. 🎯
+
 
 ## Monday 2026-08-03
 
