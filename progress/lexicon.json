@@ -1805,8 +1805,9 @@
       72,
       80
     ],
-    "last_surfaced": "2026-08-02",
-    "exposures": 2
+    "last_surfaced": "2026-08-04",
+    "exposures": 2,
+    "reps": 1
   },
   "தாகம்": {
     "gloss": "Thirsty",
@@ -3342,10 +3343,10 @@
       66,
       68
     ],
-    "last_surfaced": "2026-07-24",
+    "last_surfaced": "2026-08-04",
     "deck": "trip",
     "direction": "fire",
-    "reps": 2
+    "reps": 3
   },
   "frame:needtogo-place": {
     "type": "pattern",
@@ -3661,16 +3662,16 @@
     "gloss": "{I-form}+ஓம் → we — வந்தோம், போனோம், இருப்போம், சாப்பிட்டோம்: the trip is a 'we' trip",
     "phonetic": [],
     "recognition": "struggled",
-    "production": "cold",
+    "production": "hinted",
     "seen_in": [
       59,
       68
     ],
-    "last_surfaced": "2026-08-02",
+    "last_surfaced": "2026-08-04",
     "deck": "trip",
     "direction": "fire",
     "exposures": 1,
-    "reps": 1
+    "reps": 2
   },
   "frame:day-recap": {
     "type": "pattern",
@@ -3778,14 +3779,14 @@
       "romba nallarukku"
     ],
     "recognition": "comfortable",
-    "production": "hinted",
+    "production": "cold",
     "seen_in": [
       72
     ],
-    "last_surfaced": "2026-08-03",
+    "last_surfaced": "2026-08-04",
     "deck": "trip",
     "direction": "fire",
-    "reps": 2,
+    "reps": 3,
     "exposures": 1
   },
   "தெரியுமா?": {
@@ -3904,10 +3905,10 @@
     "recognition": "struggled",
     "production": "hinted",
     "seen_in": [],
-    "last_surfaced": "2026-08-01",
+    "last_surfaced": "2026-08-04",
     "deck": "trip",
     "direction": "fire",
-    "reps": 4,
+    "reps": 5,
     "exposures": 1
   },
   "frame:happened-aachu": {
