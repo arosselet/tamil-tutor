@@ -51,6 +51,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > no worries — here's volley 3 again: maama piles more rice on your plate. one word to wave it off — 'enough!'
 
+**20:32 · Andrew** — **HINTED**
+> Podhum
+
+**Anna ↩**
+> adhu dhaan! maama puts the ladle down. 🔥 · last one — maama asks if you want more sambar. still full. what do you say?
+
 
 ## Sunday 2026-08-02
 
