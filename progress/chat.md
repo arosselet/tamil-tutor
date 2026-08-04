@@ -39,6 +39,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! 🔥 next — maama piles more rice on your plate. one word to wave it off: 'enough!' · maama's going for the ladle again. wave it off — 'enough!'
 
+**20:28 · Andrew** — **HINTED**
+> Podhum
+
+**Anna ↩**
+> adhu dhaan! maama's hand freezes mid-ladle. 🔥 · now he asks if you want more sambar. one word — you're good, you're full. what do you say?
+
 
 ## Sunday 2026-08-02
 

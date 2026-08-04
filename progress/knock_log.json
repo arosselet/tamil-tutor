@@ -3262,15 +3262,20 @@
     "expected_target": "ரொம்ப நல்லாருக்கு",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Romba nallairukku",
-    "reply_verdict": "cold",
+    "reply": "Podhum",
+    "reply_verdict": "hinted",
     "reply_fired": [
-      "ரொம்ப நல்லாருக்கு"
+      "ரொம்ப நல்லாருக்கு",
+      "போதும்"
     ],
-    "reply_fired_cold": [],
-    "reply_fired_capped": [],
-    "reply_line": "adhu dhaan! 🔥 next — maama piles more rice on your plate. one word to wave it off: 'enough!' · maama's going for the ladle again. wave it off — 'enough!'",
-    "reply_at": "2026-08-04T00:27:07Z",
+    "reply_fired_cold": [
+      "போதும்"
+    ],
+    "reply_fired_capped": [
+      "போதும்"
+    ],
+    "reply_line": "adhu dhaan! maama's hand freezes mid-ladle. 🔥 · now he asks if you want more sambar. one word — you're good, you're full. what do you say?",
+    "reply_at": "2026-08-04T00:28:45Z",
     "exchanges": [
       {
         "at": "2026-08-04T00:25:55Z",
@@ -3299,10 +3304,29 @@
         "slips": [],
         "spoke": "",
         "scheduled": ""
+      },
+      {
+        "at": "2026-08-04T00:28:45Z",
+        "reply": "Podhum",
+        "verdict": "hinted",
+        "fired": [
+          "போதும்"
+        ],
+        "fired_cold": [
+          "போதும்"
+        ],
+        "fired_capped": [
+          "போதும்"
+        ],
+        "graduated": [],
+        "reply_line": "adhu dhaan! maama's hand freezes mid-ladle. 🔥 · now he asks if you want more sambar. one word — you're good, you're full. what do you say?",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
       }
     ],
-    "chained": 1,
-    "pinned_target": "போதும்",
+    "chained": 2,
+    "pinned_target": "போச்சு",
     "pinned_revealed": false
   }
 ]
