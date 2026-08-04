@@ -18,6 +18,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > aama aama — clean. paati keeps going. 🔥 · still open · 1/4 — Paati is mid-story about the neighbour's wedding; you want her to keep going without cutting in. What do you say?
 
+**14:34 · Andrew** — **MISS**
+> Appadiyaa
+
+**Anna ↩**
+> close instinct — 'appadiyaa' is your surprised reaction; to keep her rolling without cutting in, it's 'aama aama'. let her finish. · 2/4 — Someone asks how to get to the main road from the house — it's straight ahead, no turns. Give them directions.
+
 
 ## Monday 2026-08-03
 
