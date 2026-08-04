@@ -257,5 +257,17 @@
     "want": "",
     "note": "tested and missed — still not landed",
     "word": ""
+  },
+  {
+    "at": "2026-08-04T00:26:30Z",
+    "date": "2026-08-03",
+    "lane": "knock",
+    "modality": "volley",
+    "tag": "existence-for-softener",
+    "said": "Irukala?",
+    "want": "முடிஞ்சா",
+    "note": "'iruka?' asks if the seat exists — 'mudinja' asks for it without demanding",
+    "word": "முடிஞ்சா",
+    "dose_channel": "episode"
   }
 ]

@@ -12,6 +12,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **14:45 · Anna**  ·  volley / table volley sprint
 > ⚡ volley 1/4 — You want the window seat but it's not guaranteed — tell the host 'if possible' before he assigns you
 
+**20:26 · Andrew** — **MISS**
+> Irukala?
+
+**Anna ↩**
+> close instinct — 'iruka?' asks if it exists; we want the softener before asking: 'mudinja, window seat kudupeenga?' — that whole move. · 2/4 — Auto driver missed the turn — one word, direct him right
+
 **20:02 · Anna**  ·  text / trailer payoff: melt line
 > ரொம்ப நல்லாருக்கு — 'it's really good,' said while you're still eating, not after. That one line is the whole melt. Session already paid it off? Fire it back cold. 🍽️
 
