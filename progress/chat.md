@@ -27,6 +27,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > got it — phonetics from here on. so: 'romba nallaarukkku' — that's the melt line. fire it back when you're ready.
 
+**20:27 · Andrew** — **COLD**
+> Romba nallairukku
+
+**Anna ↩**
+> adhu dhaan! 🔥 next — maama piles more rice on your plate. one word to wave it off: 'enough!' · maama's going for the ladle again. wave it off — 'enough!'
+
 
 ## Sunday 2026-08-02
 
