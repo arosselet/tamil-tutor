@@ -24,6 +24,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > close instinct — 'appadiyaa' is your surprised reaction; to keep her rolling without cutting in, it's 'aama aama'. let her finish. · 2/4 — Someone asks how to get to the main road from the house — it's straight ahead, no turns. Give them directions.
 
+**14:36 · Andrew** — **HINTED**
+> Nera ponga and that “ama ama” miss is frustrating you just asked the same question twice
+
+**Anna ↩**
+> nera ponga — adhu dhaan. 🔥 (and yeah, 'ama ama' — my bad, that one was already in the bag. noted.) · 3/4 — Your maama just explained which road to take to the temple. You got it; signal agreement and close it. What do you say?
+
 
 ## Monday 2026-08-03
 
