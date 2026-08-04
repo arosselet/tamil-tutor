@@ -3198,7 +3198,35 @@
         "ask": "Rickshaw stopped, meter's off — what do you ask before you get out?"
       }
     ],
-    "volley_next": 1
+    "volley_next": 2,
+    "response": "reply",
+    "reply": "Irukala?",
+    "reply_verdict": "miss",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line": "close instinct — 'iruka?' asks if it exists; we want the softener before asking: 'mudinja, window seat kudupeenga?' — that whole move. · 2/4 — Auto driver missed the turn — one word, direct him right",
+    "reply_at": "2026-08-04T00:26:30Z",
+    "exchanges": [
+      {
+        "at": "2026-08-04T00:26:30Z",
+        "reply": "Irukala?",
+        "verdict": "miss",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "close instinct — 'iruka?' asks if it exists; we want the softener before asking: 'mudinja, window seat kudupeenga?' — that whole move. · 2/4 — Auto driver missed the turn — one word, direct him right",
+        "slips": [
+          "existence-for-softener"
+        ],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ],
+    "chained": 1,
+    "pinned_target": "வலது பக்கம் திரும்புங்க",
+    "pinned_revealed": false
   },
   {
     "date": "2026-08-04",
