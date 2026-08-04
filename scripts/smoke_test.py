@@ -1116,7 +1116,15 @@ CODE_BUDGETS = {
     "scripts/show_status.py": 125,
     "scripts/studio_watchdog.py": 125,
     "scripts/suggest_targets.py": 575,
-    "scripts/sync_state.py": 1250,
+    # 1250 -> 1254 (2026-08-04): the tap lane's stage/commit/pull/push moved IN
+    # from the "Log tap" step of anna.yml, where it was a hand-rolled
+    # `git pull --rebase` with no union resolution and no derived re-render —
+    # the one writing lane with no net under it. Nothing in THIS file was
+    # retired, so this is a real raise, not a re-census: 5 lines of unbudgeted
+    # YAML became 7 of budgeted Python. That is the ceiling law noticing
+    # machinery migrate into a file that counts it from a file that doesn't, and
+    # the alternative was leaving the gap open to keep a number flat.
+    "scripts/sync_state.py": 1254,
 }
 
 # EXEMPT, deliberately: /extend Gate 7 requires a new case here the day a bug is
@@ -3978,6 +3986,114 @@ def s45_concurrent_appends_merge(mk, sb: Path):
           "feedback_log has no key; a conflict in either is a real disagreement")
 
 
+def s51_derived_files_are_rerendered_not_merged(mk, sb: Path):
+    """A conflict in a DERIVED file must never sink the rebase (2026-08-04).
+
+    The live failure: run 30865736387. Two replies 31s apart, judged fine, and
+    the second lost its whole exchange to `RuntimeError: rebase onto origin/main
+    needs a human`. Two files conflicted — knock_log.json, which union-resolves,
+    and chat.md, which did not, so `any(f not in UNIONABLE)` refused BOTH. But
+    chat.md holds no state at all: render_chat builds it from knock_log.json.
+    There was nothing to reconcile and nothing to lose; the file that blocked the
+    landing could have been regenerated from the file that landed cleanly.
+
+    TEETH IN THE DIRECTION THAT FAILS SILENTLY: the dangerous outcome is not the
+    crash, it is a "resolution" that git-adds a chat.md still carrying <<<<<<<
+    markers, or one rendered from the pre-merge log — both look green and both
+    corrupt the record Andrew reads. So this asserts the CONTENT pushed to main
+    matches a fresh render of the MERGED log, not that the rebase exited 0.
+    """
+    print("\n51. Derived files re-render through a conflict (chat.md)")
+    import subprocess as sp
+    # The REAL modules, not the shared/stubbed ones — same reason as case 45.
+    spec = importlib.util.spec_from_file_location("mk_live2", mk.__file__)
+    live = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(live)
+    rc_spec = importlib.util.spec_from_file_location(
+        "rc_live", str(Path(mk.__file__).parent / "render_chat.py"))
+    rc = importlib.util.module_from_spec(rc_spec)
+    rc_spec.loader.exec_module(rc)
+    check("the case holds the REAL renderer, not a stub",
+          callable(getattr(rc, "render_chat", None))
+          and "progress/chat.md" in live.DERIVED)
+
+    root = sb / "gitlab_derived"
+    root.mkdir(exist_ok=True)
+    origin, runner, other = root / "origin.git", root / "runner", root / "other"
+
+    def git(cwd, *a):
+        return sp.run(["git", *a], cwd=cwd, capture_output=True, text=True)
+
+    def knock(ts, body):
+        return {"timestamp": ts, "date": ts[:10], "acted": True, "body": body,
+                "modality": "text", "move": "melt"}
+
+    def write(clone, entries):
+        (clone / "progress" / "knock_log.json").write_text(
+            json.dumps(entries, ensure_ascii=False, indent=2), encoding="utf-8")
+        rc.KNOCK_LOG_PATH = clone / "progress" / "knock_log.json"
+        rc.CHAT_PATH = clone / "progress" / "chat.md"
+        rc.render_chat()
+
+    sp.run(["git", "init", "-q", "--bare", "-b", "main", str(origin)], check=True)
+    sp.run(["git", "clone", "-q", str(origin), str(runner)], check=True)
+    git(runner, "config", "user.email", "a@b.c"); git(runner, "config", "user.name", "t")
+    (runner / "progress").mkdir()
+    base = [knock("2026-08-04T00:02:48+00:00", "the melt line, one more time")]
+    write(runner, base)
+    git(runner, "add", "-A"); git(runner, "commit", "-qm", "base")
+    git(runner, "push", "-q", "origin", "HEAD:main")
+    sp.run(["git", "clone", "-q", str(origin), str(other)], check=True)
+    git(other, "config", "user.email", "a@b.c"); git(other, "config", "user.name", "t")
+
+    # THE OTHER LANE lands first — a reply to the OTHER open thread.
+    theirs = knock("2026-08-04T00:29:41+00:00", "theirs: the volley reply")
+    write(other, base + [theirs])
+    git(other, "add", "-A"); git(other, "commit", "-qm", "other writer")
+    git(other, "push", "-q", "origin", "HEAD:main")
+
+    # THE RUNNER, on the stale checkout, appends its own and lands it.
+    mine = knock("2026-08-04T00:29:12+00:00", "mine: the scenario reply")
+    write(runner, base + [mine])
+    live.BASE = runner
+    live.DERIVED = {"progress/chat.md": rc.render_chat}
+    rc.KNOCK_LOG_PATH = runner / "progress" / "knock_log.json"
+    rc.CHAT_PATH = runner / "progress" / "chat.md"
+    try:
+        live.commit_and_push([runner / "progress" / "knock_log.json",
+                              runner / "progress" / "chat.md"], "Knock reply: chat")
+        crashed = ""
+    except Exception as e:
+        crashed = f"{type(e).__name__}: {e}"
+
+    check("the reply survives a chat.md + knock_log.json conflict", not crashed, crashed)
+    pushed = json.loads(git(origin, "show", "main:progress/knock_log.json").stdout or "[]")
+    stamps = [e.get("timestamp") for e in pushed]
+    check("OUR exchange reached main", mine["timestamp"] in stamps, str(stamps))
+    check("...and the OTHER lane's was not dropped", theirs["timestamp"] in stamps, str(stamps))
+
+    chat = git(origin, "show", "main:progress/chat.md").stdout
+    check("chat.md carries NO conflict markers",
+          "<<<<<<<" not in chat and ">>>>>>>" not in chat and "=======" not in chat)
+    # The claim that matters: it is a render of the MERGED log, not of either side.
+    rc.KNOCK_LOG_PATH = runner / "progress" / "knock_log.json"
+    rc.CHAT_PATH = runner / "progress" / "chat_expected.md"
+    (runner / "progress" / "knock_log.json").write_text(
+        json.dumps(pushed, ensure_ascii=False, indent=2), encoding="utf-8")
+    rc.render_chat()
+    check("chat.md on main == a fresh render of the merged log",
+          chat == (runner / "progress" / "chat_expected.md").read_text(encoding="utf-8"))
+    check("both bodies are actually in it",
+          "mine: the scenario reply" in chat and "theirs: the volley reply" in chat)
+    check("nothing is left mid-rebase", not (runner / ".git" / "rebase-merge").exists()
+          and not (runner / ".git" / "rebase-apply").exists())
+
+    # A renderer pointed anywhere but BASE must REFUSE, not git-add the markers.
+    rc.CHAT_PATH = runner / "progress" / "elsewhere.md"
+    check("a renderer that writes outside BASE is refused, not trusted",
+          not live._rerender_derived("progress/chat.md"))
+
+
 def s49_thread_continuity(mk, kr, sb: Path):
     """The reply thread must carry what Anna DID, across knocks (2026-08-02).
 
@@ -4244,6 +4360,7 @@ def main():
         s48_drill_answer_key_lint(sb)
         s49_thread_continuity(mk, kr, sb)
         s50_read_surfaces_are_phonetic(mk, kr, sb)
+        s51_derived_files_are_rerendered_not_merged(mk, sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)

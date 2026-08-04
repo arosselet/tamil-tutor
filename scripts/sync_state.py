@@ -1300,6 +1300,20 @@ def cmd_knock_response(args):
     save_json(KNOCK_LOG_PATH, log)
     print(f"  Knock {last['date']} marked '{response}'")
 
+    if getattr(args, "commit", False):
+        # Lazy: morning_knock -> render_chat -> sync_state, so importing at module
+        # level would be circular.
+        from morning_knock import commit_and_push
+        from render_chat import render_chat
+        # Replaces the hand-rolled stage/commit/pull/push that lived in the "Log
+        # tap" step of anna.yml (2026-08-04). That copy did a bare
+        # `git pull --rebase` with NO union resolution and no derived re-render —
+        # the same race the reply lane had a net for, in the one lane that had
+        # none. It also never re-rendered chat.md, so a tap's "👍 acked" sat
+        # unrendered until some later knock happened to rebuild the file.
+        paths = [KNOCK_LOG_PATH, EPISODES_PATH, LEARNER_PATH, LEXICON_PATH, render_chat()]
+        commit_and_push([p for p in paths if p.exists()], f"Knock response: {response}")
+
 
 _TAG_RE = re.compile(r"[^a-z0-9]+")
 
@@ -1930,6 +1944,8 @@ def main():
     kr.add_argument("response", help="The tap value: 'ack' (got it) or 'listened' (heard the episode → soak credit)")
     kr.add_argument("--knock-id", default="", dest="knock_id",
                     help="The knock's log timestamp (from the notification's action_data); empty → most recent")
+    kr.add_argument("--commit", action="store_true",
+                    help="Land the tap via commit_and_push (union merge + derived re-render)")
 
     fb = sub.add_parser("feedback", help="Append a feedback note (capture), or list recent (diagnosis)")
     fb.add_argument("note", nargs="?", default=None, help="The feedback to log; omit to list recent")
