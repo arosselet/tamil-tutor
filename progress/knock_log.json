@@ -3421,6 +3421,29 @@
         "ask": "The family asks what you and your wife did yesterday — you both ate at that small shop. Fire the we-past."
       }
     ],
-    "volley_next": 1
+    "volley_next": 1,
+    "response": "reply",
+    "reply": "Ama ama",
+    "reply_verdict": "chat",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line": "aama aama — clean. paati keeps going. 🔥 · still open · 1/4 — Paati is mid-story about the neighbour's wedding; you want her to keep going without cutting in. What do you say?",
+    "reply_at": "2026-08-04T18:32:56Z",
+    "exchanges": [
+      {
+        "at": "2026-08-04T18:32:56Z",
+        "reply": "Ama ama",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "aama aama — clean. paati keeps going. 🔥 · still open · 1/4 — Paati is mid-story about the neighbour's wedding; you want her to keep going without cutting in. What do you say?",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ]
   }
 ]
