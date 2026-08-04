@@ -678,6 +678,15 @@ async def render_memo(memo_script: str, out_path: Path, voice: str = ANNA_VOICE)
 UNIONABLE = {"progress/push_queue.json": ("id", "due"),
              "progress/knock_log.json": ("timestamp", "timestamp")}
 
+# Files with NO state of their own — each is a pure render of a source of truth
+# above. Merging one is meaningless: there is nothing in it to disagree about,
+# only two renders of two different logs. Reconciling them was also actively
+# harmful — a chat.md conflict is what aborted run 30865736387 on 2026-08-04
+# while knock_log.json beside it union-resolved cleanly, losing a judged
+# exchange to a file that could have been regenerated in a millisecond.
+# Rebuild from the merged source instead of merging the output.
+DERIVED = {"progress/chat.md": render_chat}
+
 
 def _union_conflict(rel: str) -> bool:
     """Resolve ONE conflicted append-only array by keeping every row from both
@@ -711,23 +720,50 @@ def _union_conflict(rel: str) -> bool:
     return True
 
 
+def _rerender_derived(rel: str) -> bool:
+    """Resolve a DERIVED conflict by rebuilding the file from its source of truth,
+    discarding both sides of the conflict. Ordering is load-bearing: this must run
+    AFTER the union pass, which is what leaves the merged source in the working
+    tree for the renderer to read.
+
+    The renderer carries its OWN idea of the repo root (render_chat computes it
+    from __file__), so it is only this function's source of truth by coincidence
+    of both being the checkout. Assert the coincidence rather than trust it: a
+    renderer writing somewhere else would otherwise leave the conflict markers
+    in place and `git add` them, resolving the rebase by committing garbage —
+    silent, and exactly the direction this file's teeth are supposed to face."""
+    written = Path(DERIVED[rel]()).resolve()
+    if written != (BASE / rel).resolve():
+        print(f"   ⚠ {rel} renderer wrote {written}, not {BASE / rel} — refusing")
+        return False
+    subprocess.run(["git", "add", rel], cwd=BASE, check=True)
+    print(f"   ↳ re-rendered {rel} from its source (not merged)")
+    return True
+
+
 def _rebase_onto_main() -> bool:
-    """Land our commit on origin/main, union-resolving append conflicts. False if
-    a conflict is real, with the rebase aborted so the tree is left clean."""
-    for _ in range(5):
-        if subprocess.run(["git", "pull", "--rebase", "--autostash", "origin", "main"],
-                          cwd=BASE).returncode == 0:
-            return True
-        stopped = subprocess.run(["git", "diff", "--name-only", "--diff-filter=U"],
-                                 cwd=BASE, capture_output=True, text=True).stdout.split()
-        if not stopped or any(f not in UNIONABLE for f in stopped):
-            print(f"   ⚠ unresolvable rebase conflict: {stopped or 'none reported'}")
-            break
-        if not all(_union_conflict(f) for f in stopped):
-            break
+    """Land our commit on origin/main, union-resolving append conflicts and
+    re-rendering derived ones. False if a conflict is real, with the rebase
+    aborted so the tree is left clean.
+
+    RETIRED, 2026-08-04: the `for _ in range(5)` this used to open with. Every
+    path inside it returned or broke, so the body could not run twice — it read
+    as a five-try retry and was a one-shot. We replay exactly one commit (CI
+    checks out clean and commits once), so one pass is also all that is correct."""
+    if subprocess.run(["git", "pull", "--rebase", "--autostash", "origin", "main"],
+                      cwd=BASE).returncode == 0:
+        return True
+    stopped = subprocess.run(["git", "diff", "--name-only", "--diff-filter=U"],
+                             cwd=BASE, capture_output=True, text=True).stdout.split()
+    unresolvable = [f for f in stopped if f not in UNIONABLE and f not in DERIVED]
+    # Sources of truth first, then the files rendered FROM that merged result.
+    if (stopped and not unresolvable
+            and all(_union_conflict(f) for f in stopped if f in UNIONABLE)
+            and all(_rerender_derived(f) for f in stopped if f in DERIVED)):
         subprocess.run(["git", "rebase", "--continue"], cwd=BASE,
                        env={**os.environ, "GIT_EDITOR": "true"}, check=True)
         return True
+    print(f"   ⚠ unresolvable rebase conflict: {unresolvable or stopped or 'none reported'}")
     subprocess.run(["git", "rebase", "--abort"], cwd=BASE)
     return False
 

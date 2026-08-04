@@ -1798,3 +1798,13 @@ Details live in git history; this is the index of the *conclusions*.
   for third parties must not burn a mission number, stamp `seen_in`, or move Andrew's
   recognition axis. `special_` scripts are the standing lane for feed-worthy artefacts that
   are not doses.
+- **CI checks out the branch tip, and derived files are re-rendered, never merged**
+  (2026-08-04). Run 30865736387 lost a judged reply to "rebase needs a human". The
+  concurrency gate was *working* — the job waited for the run ahead of it — but
+  `actions/checkout` fetches `github.sha`, pinned when the dispatch is **received**, so
+  serialising only widened the gap between pinning and checkout and *guaranteed* a stale
+  tree. The two fixes were fighting. `ref: main` closes it; the rebase drops back to being
+  the net for the laptop. Second cause: `chat.md` renders from `knock_log.json` and holds
+  no state, yet a conflict in it refused the whole rebase — derived files now rebuild from
+  the merged source. The tap lane's hand-rolled push moved into `sync_state.py`, so every
+  lane lands through `commit_and_push`.
