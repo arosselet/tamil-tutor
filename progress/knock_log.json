@@ -3211,6 +3211,29 @@
     "rationale": "scheduled at 2026-08-03T13:35 for 2026-08-03T23:30",
     "body": "ரொம்ப நல்லாருக்கு — 'it's really good,' said while you're still eating, not after. That one line is the whole melt. Session already paid it off? Fire it back cold. 🍽️",
     "expected_target": "ரொம்ப நல்லாருக்கு",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "I need phonetics not Tamil text in chat please.",
+    "reply_verdict": "chat",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line": "got it — phonetics from here on. so: 'romba nallaarukkku' — that's the melt line. fire it back when you're ready.",
+    "reply_at": "2026-08-04T00:25:55Z",
+    "exchanges": [
+      {
+        "at": "2026-08-04T00:25:55Z",
+        "reply": "I need phonetics not Tamil text in chat please.",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "got it — phonetics from here on. so: 'romba nallaarukkku' — that's the melt line. fire it back when you're ready.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ]
   }
 ]

@@ -15,6 +15,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **20:02 · Anna**  ·  text / trailer payoff: melt line
 > ரொம்ப நல்லாருக்கு — 'it's really good,' said while you're still eating, not after. That one line is the whole melt. Session already paid it off? Fire it back cold. 🍽️
 
+**20:25 · Andrew** — **CHAT**
+> I need phonetics not Tamil text in chat please.
+
+**Anna ↩**
+> got it — phonetics from here on. so: 'romba nallaarukkku' — that's the melt line. fire it back when you're ready.
+
 
 ## Sunday 2026-08-02
 
