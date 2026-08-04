@@ -1324,6 +1324,55 @@ def s21_volley_represent(kr, sb: Path):
     check("pin does not move on chat", entry["volley_next"] == 2 and entry["pinned_target"] == "t2")
     check("chat does not count as a chain step", entry.get("chained", 0) == 0)
 
+    # KF-13 (2026-08-04): the hold-cap. "chat" is the only verdict that keeps an item
+    # open, so a mislabelled answer used to re-present it for ever — the 08-04 volley
+    # burned six exchanges on two items and never reached item 4. One re-present is a
+    # fair recovery; a second is a deadlock, so the pin advances on the second
+    # consecutive chat no matter what the judge returned.
+    #
+    # TEETH: the way this silently does nothing is `held` never becoming true (wrong
+    # field, or this exchange appended before the read) — which looks EXACTLY like the
+    # old behaviour, green and broken. So drive the real entry point, then re-read the
+    # log and assert the pin MOVED and the surface names the next item.
+    k = volley_knock(nxt=2)
+    k["exchanges"] = [{"reply": "wait, which one?", "verdict": "chat",
+                       "reply_line": "ha, all good · still open · 2/3 — ask two"}]
+    write_json(klog_path, [k])
+    body = reply("sorry — still lost", dict(chat))
+    entry = read_json(klog_path)[-1]
+    check("second consecutive chat advances the pin (hold-cap)",
+          entry["volley_next"] == 3 and entry["pinned_target"] == "t3",
+          f"next={entry['volley_next']} pin={entry['pinned_target']}")
+    check("capped advance puts the NEXT ask on the surface",
+          "3/3 — ask three" in body and "still open" not in body, body)
+    check("capped advance credits nothing — it is still a chat",
+          entry["reply_verdict"] == "chat" and not entry.get("reply_fired"))
+
+    # ...and `held` must be genuinely computed: a chat after a JUDGED exchange is this
+    # item's first re-present, so it still holds. Without this the cap could be an
+    # always-true constant and every check above would still pass.
+    k = volley_knock(nxt=2)
+    k["exchanges"] = [{"reply": "t1", "verdict": "cold", "reply_line": "adhu dhaan · 2/3 — ask two"}]
+    write_json(klog_path, [k])
+    body = reply("hang on", dict(chat))
+    entry = read_json(klog_path)[-1]
+    check("first chat after a judged reply still re-presents",
+          "still open · 2/3 — ask two" in body and entry["volley_next"] == 2, body)
+
+    # The cap is PER ITEM. A capped advance is itself logged "chat", so keying the cap on
+    # the verdict would make the next chat advance again and the newly-pinned item would
+    # never be re-presented once — the volley would walk itself shut on a run of chatter.
+    # Keying on Python's own "still open · " marker is what makes this hold.
+    k = volley_knock(nxt=2)
+    k["exchanges"] = [{"reply": "thanks da", "verdict": "chat",
+                       "reply_line": "got it · 2/3 — ask two"}]
+    write_json(klog_path, [k])
+    body = reply("one sec", dict(chat))
+    entry = read_json(klog_path)[-1]
+    check("chat after a capped advance re-presents, never double-advances",
+          "still open · 2/3 — ask two" in body and entry["volley_next"] == 2,
+          f"next={entry['volley_next']} body={body}")
+
     # judged reply on the LAST item closes the chain
     write_json(klog_path, [volley_knock(nxt=3)])
     miss = dict(chat); miss["verdict"] = "miss"; miss["reply_line"] = "adhu 'ask three' dhaan"
