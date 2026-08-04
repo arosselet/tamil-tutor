@@ -281,5 +281,53 @@
     "note": "'ponga' is go — the auto needs thirumbu (turn), not just forward motion",
     "word": "",
     "dose_channel": "episode"
+  },
+  {
+    "at": "2026-08-04T18:07:38Z",
+    "date": "2026-08-04",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "1pl-past-om",
+    "said": "market-ku ponum",
+    "want": "market-ku ponom",
+    "note": "reaches for the obligation tail -num when the scene is a we-past",
+    "word": "",
+    "dose_channel": "episode"
+  },
+  {
+    "at": "2026-08-04T18:07:38Z",
+    "date": "2026-08-04",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "it-tail-uchu",
+    "said": "sinna shop-la saptuchu",
+    "want": "sinna shop-la saapittom",
+    "note": "bolts the it-tail onto a we-subject; -uchu only ever says 'it'",
+    "word": "",
+    "dose_channel": "episode"
+  },
+  {
+    "at": "2026-08-04T18:07:38Z",
+    "date": "2026-08-04",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "ku-for-la",
+    "said": "shop-ku saptuchu",
+    "want": "shop-la saapittom",
+    "note": "carries -ku over from a going-line where the static -la is wanted",
+    "word": "",
+    "dose_channel": "episode"
+  },
+  {
+    "at": "2026-08-04T18:07:38Z",
+    "date": "2026-08-04",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "sinna-for-konjam",
+    "said": "sinna kaaram",
+    "want": "konjam kaaram",
+    "note": "reaches for size-small where degree-small is wanted",
+    "word": "",
+    "dose_channel": "episode"
   }
 ]
