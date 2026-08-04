@@ -3262,20 +3262,23 @@
     "expected_target": "ரொம்ப நல்லாருக்கு",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Accidentally dismissed can you resend volley 3",
-    "reply_verdict": "chat",
+    "reply": "Podhum",
+    "reply_verdict": "hinted",
     "reply_fired": [
       "ரொம்ப நல்லாருக்கு",
+      "போதும்",
       "போதும்"
     ],
     "reply_fired_cold": [
+      "போதும்",
       "போதும்"
     ],
     "reply_fired_capped": [
+      "போதும்",
       "போதும்"
     ],
-    "reply_line": "no worries — here's volley 3 again: maama piles more rice on your plate. one word to wave it off — 'enough!'",
-    "reply_at": "2026-08-04T00:29:38Z",
+    "reply_line": "adhu dhaan! maama puts the ladle down. 🔥 · last one — maama asks if you want more sambar. still full. what do you say?",
+    "reply_at": "2026-08-04T00:32:43Z",
     "exchanges": [
       {
         "at": "2026-08-04T00:25:55Z",
@@ -3333,6 +3336,25 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "no worries — here's volley 3 again: maama piles more rice on your plate. one word to wave it off — 'enough!'",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-04T00:32:43Z",
+        "reply": "Podhum",
+        "verdict": "hinted",
+        "fired": [
+          "போதும்"
+        ],
+        "fired_cold": [
+          "போதும்"
+        ],
+        "fired_capped": [
+          "போதும்"
+        ],
+        "graduated": [],
+        "reply_line": "adhu dhaan! maama puts the ladle down. 🔥 · last one — maama asks if you want more sambar. still full. what do you say?",
         "slips": [],
         "spoke": "",
         "scheduled": ""
