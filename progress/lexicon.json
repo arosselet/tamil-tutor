@@ -3941,9 +3941,10 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": null,
+    "last_surfaced": "2026-08-04",
     "deck": "trip",
-    "direction": "catch"
+    "direction": "catch",
+    "exposures": 1
   },
   "frame:myself-thukka": {
     "type": "pattern",
