@@ -233,6 +233,40 @@ non-responsive learner into the state that steers selection — for as long as i
 **Where:** `docs/home_assistant_knock_buttons.md` §1 and §10 (rotation log — record every mint);
 §9 is the outbound-vs-inbound table that localises which leg died.
 
+### KF-13: `chat` froze a volley — a verdict overloaded with control flow (2026-08-04, fixed)
+**Symptom:** Andrew: "off-by-1 error in our volley knocks." The 08-04 backchannel volley
+re-asked 1/4 and 3/4 across six exchanges, never reached 4/4, and his *correct* answer to
+item 1 was burned as a miss on the retry.
+**Root cause:** `chat` is the only verdict that holds the volley pin
+(`knock_reply.py` — `if verdict["verdict"] != "chat"` advances, else re-present). The
+mandate defined `chat` by the **shape** of the reply ("English chat, a question,
+logistics") — and `Ama ama` *is* item 1's target, ஆமா ஆமா. A backchannel target makes a
+correct answer formally identical to chatter, so the judge routed it to `chat` while its
+own recast said "aama aama — clean 🔥". A second author compounded it: "A target he keeps
+substituting away from is signal for chat, not a miss to punish." **The judge was never
+told `chat` freezes the item** — it was picking a label, Python read it as a behaviour.
+**The control experiment is in the log:** row 3 (`Nera ponga` + a complaint, mixed) graded
+`hinted` and advanced; row 5 (`You just asked me this same question. Seri seri`, identical
+shape) went `chat`. The variable is the *target*, not the phrasing — the judge can extract
+an answer from a complaint, but not when the target itself looks like chat.
+**Not a KF-11 regression:** Python's pin and surface were correct throughout, and
+`smoke_test.py` s21 ("chat mid-volley re-presents the open ask") was **green** — it asserts
+exactly this behaviour, because KF-11 asked for it. This is the *quiet* class: nothing
+failed, every instrument read green, the dose was about the wrong thing.
+**Fix (two halves, deliberately):** `chat` is now defined by **relation** to
+`expected_target`, not reply shape, with the mid-volley cost stated in the mandate; the
+substitution sentence was **deleted** (it contradicted its own paragraph, which already
+credits the substitute as a fire). Behind the wording, a **hold-cap**: a second consecutive
+chat on the same item advances the pin regardless of the verdict — keyed on Python's own
+`"still open · "` marker, not the verdict, so the cap is per item and a capped advance
+can't cascade. A prompt fix alone can't be the only guard on a deadlock.
+**Verify:** `python scripts/smoke_test.py` → section 21 (hold-cap, per-item, no
+double-advance). The relational wording has **no offline proof** — it is a prompt, and only
+live volley traffic can confirm it.
+**The meta-lesson:** KF-11 said the LLM must never own chain *surface*. This is one turn
+further — a verdict the LLM chooses must not silently *be* control flow. If a label stops
+the world, say so in the mandate and cap the blast radius in Python.
+
 ### KF-8: Lore format takeover — incentive drift, not taste (2026-07-11, fixed)
 **Symptom:** Andrew: today's lore push "basically a duplicate" of last week's; the format
 "took over." Log confirmed worse: four lore memos in four consecutive days (07-07→10),
