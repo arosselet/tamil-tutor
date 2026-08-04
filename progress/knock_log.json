@@ -3421,15 +3421,19 @@
         "ask": "The family asks what you and your wife did yesterday — you both ate at that small shop. Fire the we-past."
       }
     ],
-    "volley_next": 2,
+    "volley_next": 3,
     "response": "reply",
-    "reply": "Appadiyaa",
-    "reply_verdict": "miss",
-    "reply_fired": [],
-    "reply_fired_cold": [],
+    "reply": "Nera ponga and that “ama ama” miss is frustrating you just asked the same question twice",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "நேரா போங்க"
+    ],
+    "reply_fired_cold": [
+      "நேரா போங்க"
+    ],
     "reply_fired_capped": [],
-    "reply_line": "close instinct — 'appadiyaa' is your surprised reaction; to keep her rolling without cutting in, it's 'aama aama'. let her finish. · 2/4 — Someone asks how to get to the main road from the house — it's straight ahead, no turns. Give them directions.",
-    "reply_at": "2026-08-04T18:34:39Z",
+    "reply_line": "nera ponga — adhu dhaan. 🔥 (and yeah, 'ama ama' — my bad, that one was already in the bag. noted.) · 3/4 — Your maama just explained which road to take to the temple. You got it; signal agreement and close it. What do you say?",
+    "reply_at": "2026-08-04T18:36:26Z",
     "exchanges": [
       {
         "at": "2026-08-04T18:32:56Z",
@@ -3456,10 +3460,27 @@
         "slips": [],
         "spoke": "",
         "scheduled": ""
+      },
+      {
+        "at": "2026-08-04T18:36:26Z",
+        "reply": "Nera ponga and that “ama ama” miss is frustrating you just asked the same question twice",
+        "verdict": "hinted",
+        "fired": [
+          "நேரா போங்க"
+        ],
+        "fired_cold": [
+          "நேரா போங்க"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "nera ponga — adhu dhaan. 🔥 (and yeah, 'ama ama' — my bad, that one was already in the bag. noted.) · 3/4 — Your maama just explained which road to take to the temple. You got it; signal agreement and close it. What do you say?",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
       }
     ],
-    "chained": 1,
-    "pinned_target": "நேரா போங்க",
+    "chained": 2,
+    "pinned_target": "சரி சரி",
     "pinned_revealed": false
   }
 ]
