@@ -266,5 +266,9 @@
   {
     "date": "2026-08-04",
     "note": "[phone] Andrew flagged that item 3/4 was re-asked multiple times in this volley; knock generation or volley state is looping on this item — fix the volley advancement logic."
+  },
+  {
+    "date": "2026-08-04",
+    "note": "[phone] volley 3/4 has been re-asked three times now despite Andrew firing 'seri seri' and flagging the repeat — system is stuck on this item; must advance to 4/4 immediately"
   }
 ]
