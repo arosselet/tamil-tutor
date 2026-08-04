@@ -3376,5 +3376,20 @@
     "chained": 2,
     "pinned_target": "போச்சு",
     "pinned_revealed": false
+  },
+  {
+    "date": "2026-08-04",
+    "timestamp": "2026-08-04T14:22:22.903075+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "eavesdrop: spice clitics soak",
+    "rationale": "Demand-streak=2 forces a no-ask dose; lore is spent; eavesdrop cadence is due; frame:spice-dhaan is the deck's explicit ear-only item — tape plants நேத்து தான், நானே, என்னமோ naturally in aunty's mouth, Andrew catches the drift with zero production pressure, and it marks the frame seen.",
+    "next_check": "2026-08-04T17:52:22.903075+00:00",
+    "body": "📻 Maami's on the phone — catch the drift. What's she actually saying about the food? (just tap to listen)",
+    "expected_target": "",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-04T14-22.mp3",
+    "memo_script": "அம்மா கிட்ட phone-ல பேசுறாங்க — Andrew-கு தெரியாம.\n\nஆமா, அவன் சாப்பிட்டான் — நல்லாவே சாப்பிட்டான். ஆனா அவன் romba nalla irukku சொன்னான், அதுக்கு நான் தான் சந்தோஷப்பட்டேன். நேத்து தான் சொன்னான், first time-ல.\n\nஏன்னா அவன் Canada-ல இருக்கான்ல — அங்க இந்த மாதிரி சாப்பாடே இல்லன்னு சொல்றான். அவனே சொன்னான் — 'ரொம்ப நல்லாருக்கு'ன்னு. நானே கேட்டேன், நம்பவே இல்லை!\n\nகொஞ்சம் கூட தயக்கம் இல்லாம சொன்னான். என்னமோ — ஒரு வெளிநாட்டுக்காரன் இப்படி சொல்வான்னு யாரு நினைப்பாங்க?",
+    "mp3": "published_audio/knocks/knock_2026-08-04T14-22.mp3"
   }
 ]

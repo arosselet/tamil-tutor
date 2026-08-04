@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Tuesday 2026-08-04
+
+**10:22 · Anna** 🎧  ·  eavesdrop / eavesdrop: spice clitics soak
+> 📻 Maami's on the phone — catch the drift. What's she actually saying about the food? (just tap to listen)
+
+
 ## Monday 2026-08-03
 
 **09:35 · Anna**  ·  text / trailer: melt line
