@@ -269,5 +269,17 @@
     "note": "'iruka?' asks if the seat exists — 'mudinja' asks for it without demanding",
     "word": "முடிஞ்சா",
     "dose_channel": "episode"
+  },
+  {
+    "at": "2026-08-04T00:28:03Z",
+    "date": "2026-08-03",
+    "lane": "knock",
+    "modality": "volley",
+    "tag": "wrong-verb-direction",
+    "said": "ponga",
+    "want": "thirumbunga",
+    "note": "'ponga' is go — the auto needs thirumbu (turn), not just forward motion",
+    "word": "",
+    "dose_channel": "episode"
   }
 ]
