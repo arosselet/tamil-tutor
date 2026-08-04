@@ -3198,15 +3198,18 @@
         "ask": "Rickshaw stopped, meter's off — what do you ask before you get out?"
       }
     ],
-    "volley_next": 2,
+    "volley_next": 3,
     "response": "reply",
-    "reply": "Irukala?",
-    "reply_verdict": "miss",
-    "reply_fired": [],
+    "reply": "Valadu pakkam ponga",
+    "reply_verdict": "cold",
+    "reply_fired": [
+      "வலது பக்கம்",
+      "வலது பக்கம் திரும்புங்க"
+    ],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "close instinct — 'iruka?' asks if it exists; we want the softener before asking: 'mudinja, window seat kudupeenga?' — that whole move. · 2/4 — Auto driver missed the turn — one word, direct him right",
-    "reply_at": "2026-08-04T00:26:30Z",
+    "reply_line": "direction's right — but 'ponga' is 'go'; to turn, it's 'thirumbunga'. valadu pakkam thirumbunga. · 3/4 — You caught maybe 60% of what the uncle just said — ask him to say it once more",
+    "reply_at": "2026-08-04T00:28:03Z",
     "exchanges": [
       {
         "at": "2026-08-04T00:26:30Z",
@@ -3222,10 +3225,28 @@
         ],
         "spoke": "",
         "scheduled": ""
+      },
+      {
+        "at": "2026-08-04T00:28:03Z",
+        "reply": "Valadu pakkam ponga",
+        "verdict": "cold",
+        "fired": [
+          "வலது பக்கம்",
+          "வலது பக்கம் திரும்புங்க"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "direction's right — but 'ponga' is 'go'; to turn, it's 'thirumbunga'. valadu pakkam thirumbunga. · 3/4 — You caught maybe 60% of what the uncle just said — ask him to say it once more",
+        "slips": [
+          "wrong-verb-direction"
+        ],
+        "spoke": "",
+        "scheduled": ""
       }
     ],
-    "chained": 1,
-    "pinned_target": "வலது பக்கம் திரும்புங்க",
+    "chained": 2,
+    "pinned_target": "இன்னொரு தடவ சொல்லுங்க",
     "pinned_revealed": false
   },
   {

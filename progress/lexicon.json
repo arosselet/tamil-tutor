@@ -2996,12 +2996,13 @@
       "valadu pakkam thirumbunga"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [],
-    "last_surfaced": "2026-08-01",
+    "last_surfaced": "2026-08-03",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 1
+    "exposures": 1,
+    "reps": 1
   },
   "சில்லறை இருக்கா?": {
     "type": "chunk",

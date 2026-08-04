@@ -18,6 +18,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > close instinct — 'iruka?' asks if it exists; we want the softener before asking: 'mudinja, window seat kudupeenga?' — that whole move. · 2/4 — Auto driver missed the turn — one word, direct him right
 
+**20:28 · Andrew** — **COLD**
+> Valadu pakkam ponga
+
+**Anna ↩**
+> direction's right — but 'ponga' is 'go'; to turn, it's 'thirumbunga'. valadu pakkam thirumbunga. · 3/4 — You caught maybe 60% of what the uncle just said — ask him to say it once more
+
 **20:02 · Anna**  ·  text / trailer payoff: melt line
 > ரொம்ப நல்லாருக்கு — 'it's really good,' said while you're still eating, not after. That one line is the whole melt. Session already paid it off? Fire it back cold. 🍽️
 
