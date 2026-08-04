@@ -3241,13 +3241,15 @@
     "expected_target": "ரொம்ப நல்லாருக்கு",
     "target_revealed": false,
     "response": "reply",
-    "reply": "I need phonetics not Tamil text in chat please.",
-    "reply_verdict": "chat",
-    "reply_fired": [],
+    "reply": "Romba nallairukku",
+    "reply_verdict": "cold",
+    "reply_fired": [
+      "ரொம்ப நல்லாருக்கு"
+    ],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "got it — phonetics from here on. so: 'romba nallaarukkku' — that's the melt line. fire it back when you're ready.",
-    "reply_at": "2026-08-04T00:25:55Z",
+    "reply_line": "adhu dhaan! 🔥 next — maama piles more rice on your plate. one word to wave it off: 'enough!' · maama's going for the ladle again. wave it off — 'enough!'",
+    "reply_at": "2026-08-04T00:27:07Z",
     "exchanges": [
       {
         "at": "2026-08-04T00:25:55Z",
@@ -3261,7 +3263,25 @@
         "slips": [],
         "spoke": "",
         "scheduled": ""
+      },
+      {
+        "at": "2026-08-04T00:27:07Z",
+        "reply": "Romba nallairukku",
+        "verdict": "cold",
+        "fired": [
+          "ரொம்ப நல்லாருக்கு"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! 🔥 next — maama piles more rice on your plate. one word to wave it off: 'enough!' · maama's going for the ladle again. wave it off — 'enough!'",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
       }
-    ]
+    ],
+    "chained": 1,
+    "pinned_target": "போதும்",
+    "pinned_revealed": false
   }
 ]
