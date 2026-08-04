@@ -262,5 +262,9 @@
   {
     "date": "2026-08-04",
     "note": "[phone] Andrew flagged that 'ama ama' was asked twice across volleys — he'd already fired it cold, so the repeat was a knock error, not a gap."
+  },
+  {
+    "date": "2026-08-04",
+    "note": "[phone] Andrew flagged that item 3/4 was re-asked multiple times in this volley; knock generation or volley state is looping on this item — fix the volley advancement logic."
   }
 ]
