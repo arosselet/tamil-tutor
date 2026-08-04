@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "id": "q1785867982",
+    "due": "2026-08-05T00:00:00+00:00",
+    "body": "field mission debrief — konjam {thing} kudunga at dinner. did it land? what came back?",
+    "expected_target": "",
+    "target_revealed": false,
+    "audio_url": null,
+    "memo_script": "",
+    "move": "field mission debrief collect",
+    "force": false,
+    "queued_at": "2026-08-04T18:26:22.530516+00:00"
+  }
+]

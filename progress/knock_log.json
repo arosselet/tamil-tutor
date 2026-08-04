@@ -3391,5 +3391,36 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-04T14-22.mp3",
     "memo_script": "அம்மா கிட்ட phone-ல பேசுறாங்க — Andrew-கு தெரியாம.\n\nஆமா, அவன் சாப்பிட்டான் — நல்லாவே சாப்பிட்டான். ஆனா அவன் romba nalla irukku சொன்னான், அதுக்கு நான் தான் சந்தோஷப்பட்டேன். நேத்து தான் சொன்னான், first time-ல.\n\nஏன்னா அவன் Canada-ல இருக்கான்ல — அங்க இந்த மாதிரி சாப்பாடே இல்லன்னு சொல்றான். அவனே சொன்னான் — 'ரொம்ப நல்லாருக்கு'ன்னு. நானே கேட்டேன், நம்பவே இல்லை!\n\nகொஞ்சம் கூட தயக்கம் இல்லாம சொன்னான். என்னமோ — ஒரு வெளிநாட்டுக்காரன் இப்படி சொல்வான்னு யாரு நினைப்பாங்க?",
     "mp3": "published_audio/knocks/knock_2026-08-04T14-22.mp3"
+  },
+  {
+    "date": "2026-08-04",
+    "timestamp": "2026-08-04T18:25:15.433451+00:00",
+    "acted": true,
+    "modality": "volley",
+    "move": "backchannel volley sprint",
+    "rationale": "Afternoon slot, demand-streak 0, last reach was no-ask eavesdrop — volley is the right volume move; backchannel items are cold-pending and table-critical with 8 days out; scheduled the field mission debrief collect for 20:00 after dinner has plausibly happened.",
+    "next_check": "2026-08-04T23:25:15.433451+00:00",
+    "body": "⚡ volley 1/4 — Paati is mid-story about the neighbour's wedding; you want her to keep going without cutting in. What do you say?",
+    "expected_target": "ஆமா ஆமா",
+    "target_revealed": false,
+    "volley": [
+      {
+        "target": "ஆமா ஆமா",
+        "ask": "Paati is mid-story about the neighbour's wedding; you want her to keep going without cutting in. What do you say?"
+      },
+      {
+        "target": "நேரா போங்க",
+        "ask": "Someone asks how to get to the main road from the house — it's straight ahead, no turns. Give them directions."
+      },
+      {
+        "target": "சரி சரி",
+        "ask": "Your maama just explained which road to take to the temple. You got it; signal agreement and close it. What do you say?"
+      },
+      {
+        "target": "frame:we-om",
+        "ask": "The family asks what you and your wife did yesterday — you both ate at that small shop. Fire the we-past."
+      }
+    ],
+    "volley_next": 1
   }
 ]

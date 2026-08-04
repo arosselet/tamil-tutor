@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **10:22 · Anna** 🎧  ·  eavesdrop / eavesdrop: spice clitics soak
 > 📻 Maami's on the phone — catch the drift. What's she actually saying about the food? (just tap to listen)
 
+**14:25 · Anna**  ·  volley / backchannel volley sprint
+> ⚡ volley 1/4 — Paati is mid-story about the neighbour's wedding; you want her to keep going without cutting in. What do you say?
+
 
 ## Monday 2026-08-03
 
