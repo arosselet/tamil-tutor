@@ -1,0 +1,35 @@
+{
+  "mission": 81,
+  "register": "grief/nostalgia",
+  "dramatic_ingredient": "subtext",
+  "episode_form": "narrated_drama",
+  "shape": "vignette",
+  "location_class": "home_social",
+  "energy": "medium",
+  "intercept_tamil_density": 0.3,
+  "breakdown_tamil_density": 0.15,
+  "fence_size": 45,
+  "unfenced_words": 0,
+  "new_words_landed": {
+    "ரொம்ப சந்தோஷம்": 5,
+    "பெரிய": 2,
+    "ஒற்றுமை": 2,
+    "அவங்க": 2,
+    "கண்கள்": 1,
+    "சொன்னீங்க": 1
+  },
+  "callbacks_used": {
+    "வாங்க": 3,
+    "சொல்லுங்க": 2,
+    "உக்காருங்க": 1,
+    "பாருங்க": 2,
+    "தெரியுமா": 2,
+    "அத்தை": 6
+  },
+  "host_roles": {
+    "Host A": "sister_in_law_1",
+    "Host B": "sister_in_law_2",
+    "Narrator": "narrator"
+  },
+  "notes": "Dialect pass: Ensured payload 'ரொம்ப சந்தோஷம்' remained verbatim. Confirmed -nga suffixes apply only to imperatives/second-person (வாங்க, சொல்லுங்க) and third-person respectful (வராங்க). No first-person violations found. Integrity check: all Tamil in script, gender tags present."
+}
