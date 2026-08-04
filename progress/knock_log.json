@@ -3262,8 +3262,8 @@
     "expected_target": "ரொம்ப நல்லாருக்கு",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Podhum",
-    "reply_verdict": "hinted",
+    "reply": "Accidentally dismissed can you resend volley 3",
+    "reply_verdict": "chat",
     "reply_fired": [
       "ரொம்ப நல்லாருக்கு",
       "போதும்"
@@ -3274,8 +3274,8 @@
     "reply_fired_capped": [
       "போதும்"
     ],
-    "reply_line": "adhu dhaan! maama's hand freezes mid-ladle. 🔥 · now he asks if you want more sambar. one word — you're good, you're full. what do you say?",
-    "reply_at": "2026-08-04T00:28:45Z",
+    "reply_line": "no worries — here's volley 3 again: maama piles more rice on your plate. one word to wave it off — 'enough!'",
+    "reply_at": "2026-08-04T00:29:38Z",
     "exchanges": [
       {
         "at": "2026-08-04T00:25:55Z",
@@ -3320,6 +3320,19 @@
         ],
         "graduated": [],
         "reply_line": "adhu dhaan! maama's hand freezes mid-ladle. 🔥 · now he asks if you want more sambar. one word — you're good, you're full. what do you say?",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-04T00:29:38Z",
+        "reply": "Accidentally dismissed can you resend volley 3",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "no worries — here's volley 3 again: maama piles more rice on your plate. one word to wave it off — 'enough!'",
         "slips": [],
         "spoke": "",
         "scheduled": ""
