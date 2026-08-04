@@ -408,9 +408,11 @@
       11,
       16,
       18,
-      72
+      72,
+      81
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-04",
+    "exposures": 1
   },
   "அது": {
     "gloss": "It / That",
@@ -839,10 +841,11 @@
       18,
       28,
       37,
-      75
+      75,
+      81
     ],
-    "last_surfaced": "2026-07-26",
-    "exposures": 2
+    "last_surfaced": "2026-08-04",
+    "exposures": 3
   },
   "நீங்க": {
     "gloss": "You (respectful - Elders/Strangers)",
@@ -879,9 +882,11 @@
       11,
       21,
       35,
-      38
+      38,
+      81
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-04",
+    "exposures": 1
   },
   "நிறுத்துங்க": {
     "gloss": "Stop (respectful)",
@@ -1639,9 +1644,11 @@
       33,
       38,
       61,
-      67
+      67,
+      81
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-04",
+    "exposures": 1
   },
   "சின்ன": {
     "gloss": "Small / Little",
@@ -1749,9 +1756,11 @@
       21,
       70,
       71,
-      72
+      72,
+      81
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-04",
+    "exposures": 1
   },
   "எடுங்க": {
     "gloss": "Take (respectful)",
@@ -3726,11 +3735,14 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
-    "last_surfaced": "2026-08-03",
+    "seen_in": [
+      81
+    ],
+    "last_surfaced": "2026-08-04",
     "deck": "trip",
     "direction": "fire",
-    "reps": 1
+    "reps": 1,
+    "exposures": 1
   },
   "சாஃப்ட்வேர் இன்ஜினியரா இருக்கேன்": {
     "type": "chunk",
@@ -4939,5 +4951,38 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": "2026-08-03"
+  },
+  "ஒற்றுமை": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      81
+    ],
+    "last_surfaced": "2026-08-04",
+    "exposures": 1
+  },
+  "கண்கள்": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      81
+    ],
+    "last_surfaced": "2026-08-04",
+    "exposures": 1
+  },
+  "சொன்னீங்க": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      81
+    ],
+    "last_surfaced": "2026-08-04",
+    "exposures": 1
   }
 }
