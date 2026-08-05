@@ -3545,6 +3545,29 @@
     "rationale": "scheduled at 2026-08-04T18:26 for 2026-08-05T00:00",
     "body": "field mission debrief — konjam {thing} kudunga at dinner. did it land? what came back?",
     "expected_target": "",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Konjam thanni kudunga",
+    "reply_verdict": "chat",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line": "ha — konjam thanni kudunga is a solid line, but this was the field mission debrief collect. did you actually drop it at dinner? what came back from her?",
+    "reply_at": "2026-08-05T13:52:48Z",
+    "exchanges": [
+      {
+        "at": "2026-08-05T13:52:48Z",
+        "reply": "Konjam thanni kudunga",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "ha — konjam thanni kudunga is a solid line, but this was the field mission debrief collect. did you actually drop it at dinner? what came back from her?",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ]
   }
 ]
