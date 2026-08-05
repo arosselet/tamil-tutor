@@ -52,7 +52,8 @@ from morning_knock import (OPENROUTER_BASE, MODEL, KNOCK_LOG_PATH, KNOCKS_DIR,
                            commit_and_push, maybe_enqueue_schedule, render_memo,
                            jsdelivr_url, refresh_feed, to_phonetic)
 from state_io import FEEDBACK_LOG_PATH, LEARNER_PATH, LEXICON_PATH, SLIP_LOG_PATH, build_phonetic_index, load_json, local_today, resolve, save_json
-from sync_state import TRIP_DATE, append_slips, compute_deck, fires_today, slip_patterns
+from slips import append_slips, slip_patterns
+from sync_state import TRIP_DATE, compute_deck, fires_today
 
 PRODUCTION_RANK = {"none": 0, "hinted": 1, "cold": 2}
 VERDICTS = {"cold", "hinted", "miss", "chat"}

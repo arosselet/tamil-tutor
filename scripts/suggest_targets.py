@@ -34,7 +34,8 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 from generate_callbacks import due_callbacks, load_json, days_since, NEVER_SURFACED
-from sync_state import is_unseen, soak_pending, slip_patterns, format_slip_block
+from slips import format_slip_block, slip_patterns
+from sync_state import is_unseen, soak_pending
 
 # Windows consoles default to cp1252, which can't print Tamil (2026-07-15).
 if hasattr(sys.stdout, "reconfigure"):
