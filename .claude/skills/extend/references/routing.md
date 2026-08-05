@@ -14,7 +14,7 @@ report — do not create a substitute.
 | Session law (invariants, shapes, campaign contract, close mechanics) | `protocol/daily_session.md` | Word-budgeted — see `/extend` Gate 4 |
 | Pedagogical law and canonical rules (Fresh Execution, recast rules) | `protocol/constitution.md` | Dialect *examples* are Tamil; edit inline for other languages |
 | All state writes to `progress/*.json` | `scripts/sync_state.py` | Never hand-edit Python-owned JSON directly |
-| Lexicon key script enforcement (`TAMIL_RE`) | `scripts/sync_state.py` line 56 | Port surface — see `/extend` Gate 6 |
+| Lexicon key script enforcement (`TAMIL_RE`) | `scripts/state_io.py` line 54 | Port surface — see `/extend` Gate 6 |
 | Outreach rails (waking hours, daily cap, min gap) | `scripts/morning_knock.py` lines 60–63 | `WAKING_START_HOUR`, `WAKING_END_HOUR`, `MAX_REACHES_PER_DAY`, `MIN_GAP_HOURS` |
 | Outreach decision prompt (Anna's fire/silence policy prose) | `scripts/morning_knock.py` | Policy is Anna's; Python holds only the rails |
 | Anna's pinned TTS voice for knocks and drills | `scripts/morning_knock.py` line 50 | `ANNA_VOICE`; imported by `render_drill.py` — one change covers both |

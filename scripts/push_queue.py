@@ -282,7 +282,8 @@ def cmd_drain(args):
     save_queue(kept)
     # A scheduled dose is a knock push: a revealed target is a declared exposure
     # (2026-07-26 ledger law), stamped at the same seam that fired it.
-    from sync_state import LEXICON_PATH, record_exposure
+    from state_io import LEXICON_PATH
+    from sync_state import record_exposure
     exposed = record_exposure([e["expected_target"] for e in fired
                                if e.get("expected_target") and e.get("target_revealed", True)])
     if not args.no_commit:

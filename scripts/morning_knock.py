@@ -62,7 +62,7 @@ SESSION_LOG_PATH = BASE / "progress" / "session_log.json"
 # ── The rails (hard, Python-enforced — Anna cannot cross these) ───────────────
 # Andrew's local timezone (canonical in sync_state; DST-correct EDT/EST) so the
 # waking window is honest year-round. The cron ticks a UTC superset; this filters.
-from sync_state import LOCAL_TZ
+from state_io import LOCAL_TZ
 WAKING_START_HOUR = 8      # inclusive, local
 WAKING_END_HOUR = 21       # exclusive, local (last reach can land at 20:59)
 MAX_REACHES_PER_DAY = 5    # a "reach" = a knock that actually fired (silence doesn't count)
@@ -311,7 +311,7 @@ def remaining_room(klog: list, now: datetime) -> str:
     eavesdrop_str = ""
     try:
         from suggest_targets import deck_status
-        from sync_state import LEXICON_PATH as _LP
+        from state_io import LEXICON_PATH as _LP
         _lex = load_json(_LP) or {}
         _deck = deck_status(_lex)
         _catch_pending = (_deck.get("catch_pending") or []) if _deck else []
@@ -347,7 +347,8 @@ def deck_due_list(max_fire: int = 6, max_catch: int = 2) -> str:
     flagged UNSEEN — the mandate forbids cold-quizzing those (teach first,
     show dose)."""
     from suggest_targets import deck_status  # lazy: keeps module import light
-    from sync_state import LEXICON_PATH, is_unseen
+    from state_io import LEXICON_PATH
+    from sync_state import is_unseen
     lex = load_json(LEXICON_PATH) or {}
     deck = deck_status(lex)
     if not deck or not deck["pending"]:
@@ -381,7 +382,8 @@ def volley_targets(n: int = VOLLEY_SIZE) -> list[dict]:
     coverage-first, recently-asked demoted (2026-07-25); UNSEEN and ear-only
     items excluded (teach-first / never-fire laws)."""
     from suggest_targets import deck_status  # lazy: keeps module import light
-    from sync_state import LEXICON_PATH, is_unseen
+    from state_io import LEXICON_PATH
+    from sync_state import is_unseen
     lex = load_json(LEXICON_PATH) or {}
     deck = deck_status(lex)
     if not deck or not deck["pending"]:
@@ -935,7 +937,8 @@ def main():
         return
 
     path = log_decision(now, decision, acted=True, audio_url=audio_url, mp3=mp3)
-    from sync_state import LEXICON_PATH as _LP, record_exposure
+    from state_io import LEXICON_PATH as _LP
+    from sync_state import record_exposure
     extra_paths: list[Path] = []
     if record_exposure(knock_exposures(decision)):
         extra_paths.append(_LP)

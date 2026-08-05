@@ -7,7 +7,7 @@ from datetime import datetime
 import email.utils
 from xml.sax.saxutils import escape as xml_escape
 
-from sync_state import LOCAL_TZ  # Andrew's clock, canonical there
+from state_io import LOCAL_TZ  # Andrew's clock, canonical there
 
 # Configuration
 BASE_URL = "https://raw.githubusercontent.com/arosselet/tamil-tutor/main"

@@ -51,10 +51,8 @@ from morning_knock import (OPENROUTER_BASE, MODEL, KNOCK_LOG_PATH, KNOCKS_DIR,
                            ANNA_VOICE, parse_llm_json, load_env, push_to_phone,
                            commit_and_push, maybe_enqueue_schedule, render_memo,
                            jsdelivr_url, refresh_feed, to_phonetic)
-from sync_state import (LEXICON_PATH, LEARNER_PATH, FEEDBACK_LOG_PATH, SLIP_LOG_PATH,
-                        TRIP_DATE, load_json, save_json, build_phonetic_index, resolve,
-                        compute_deck, fires_today, append_slips, slip_patterns,
-                        local_today)
+from state_io import FEEDBACK_LOG_PATH, LEARNER_PATH, LEXICON_PATH, SLIP_LOG_PATH, build_phonetic_index, load_json, local_today, resolve, save_json
+from sync_state import TRIP_DATE, append_slips, compute_deck, fires_today, slip_patterns
 
 PRODUCTION_RANK = {"none": 0, "hinted": 1, "cold": 2}
 VERDICTS = {"cold", "hinted", "miss", "chat"}
@@ -836,7 +834,7 @@ def capped_fire_days(key: str, klog: list) -> set:
     """Local dates on which `key` fired CAPPED (cold-quality, reveal-blocked) in
     judged knock traffic — the graduation evidence, computed from the log the
     same way revealed_recently() computes reveals (never from model memory)."""
-    from sync_state import LOCAL_TZ
+    from state_io import LOCAL_TZ
     days = set()
     for k in klog:
         for x in k.get("exchanges", []):
@@ -865,7 +863,7 @@ def apply_verdict(verdict: dict, knock: dict, lexicon: dict, klog: list,
 
     Returns (summary lines, cold-credited keys — true colds plus graduations,
     the pace meters read these —, capped keys, graduated keys)."""
-    from sync_state import LOCAL_TZ
+    from state_io import LOCAL_TZ
     phon_index = build_phonetic_index(lexicon)
     today = local_today().isoformat()
     today_local = local_today()
@@ -1086,7 +1084,7 @@ def main():
     # every write to progress/ (LLM is the writer, Python is the brain).
     if verdict.get("slips"):
         learner_now = load_json(LEARNER_PATH) or {}
-        from sync_state import LOCAL_TZ
+        from state_io import LOCAL_TZ
         written = append_slips(
             verdict["slips"], lane="knock", modality=knock.get("modality", ""),
             dose_channel=(learner_now.get("soak_order") or {}).get("channel", ""),

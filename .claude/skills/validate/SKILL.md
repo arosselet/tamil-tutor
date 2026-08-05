@@ -52,7 +52,7 @@ Check these manually or with quick one-liners. Each invariant has an enforcing c
 
 | Invariant | Enforcing code | Quick check |
 |---|---|---|
-| Every word key in `lexicon.json` is Tamil script matching `[஀-௿]+`, OR is a `frame:*` pattern key | `sync_state.py` line 56 (`TAMIL_RE`); `add-word` rejects non-Tamil at line 408 | `python -c "import json,re; d=json.load(open('progress/lexicon.json')); bad=[k for k in d if not re.search(r'[஀-௿]',k) and not k.startswith('frame:')]; print(bad or 'ok')"` |
+| Every word key in `lexicon.json` is Tamil script matching `[஀-௿]+`, OR is a `frame:*` pattern key | `state_io.py` line 54 (`TAMIL_RE`); `add-word` rejects non-Tamil at line 408 | `python -c "import json,re; d=json.load(open('progress/lexicon.json')); bad=[k for k in d if not re.search(r'[஀-௿]',k) and not k.startswith('frame:')]; print(bad or 'ok')"` |
 | Every lexicon entry's `recognition` is one of `struggled`, `comfortable`, `solid` | `sync_state.py` RECOGNITION_LEVELS line 53 | Scan for any value outside the set |
 | Every lexicon entry's `production` is one of `none`, `hinted`, `cold` | `knock_reply.py` PRODUCTION_RANK line 42 | Scan for any value outside the set |
 | `knock_log.json` entries carry `date` and `timestamp` | `smoke_test.py` s7_integrity | `python scripts/smoke_test.py` (already covered in Layer 1) |

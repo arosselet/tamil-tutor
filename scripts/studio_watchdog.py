@@ -37,8 +37,8 @@ sys.path.insert(0, str(Path(__file__).parent))
 from run_studio import (AUDIO_DIR, BASE, EXIT_NOT_CONFIGURED, episode_paths,
                         git_dirty, lint, next_mission, preflight,
                         renderer_preflight)
-from sync_state import (EPISODES_PATH, LEARNER_PATH, canon_payload, load_json,
-                        soak_pending)  # noqa: F401 — re-exported; the tick reads it here
+from state_io import EPISODES_PATH, LEARNER_PATH, load_json
+from sync_state import canon_payload, soak_pending
 
 LOCK_PATH = BASE / ".studio.lock"
 

@@ -1114,6 +1114,11 @@ CODE_BUDGETS = {
     "scripts/render_soak.py": 275,
     "scripts/run_studio.py": 425,
     "scripts/show_status.py": 125,
+    # The state layer's shared vocabulary, split out of sync_state 2026-08-04:
+    # paths, load/save, and token->canonical-key resolution. Ten scripts were
+    # importing these FROM the state brain. Deliberately tiny and dependency-free
+    # — if this file starts growing, something that mutates state has leaked in.
+    "scripts/state_io.py": 60,
     "scripts/studio_watchdog.py": 125,
     "scripts/suggest_targets.py": 575,
     "scripts/sync_state.py": 1250,
