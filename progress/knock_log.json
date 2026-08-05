@@ -3547,13 +3547,13 @@
     "expected_target": "",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Konjam thanni kudunga",
+    "reply": "She brought me some water",
     "reply_verdict": "chat",
     "reply_fired": [],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "ha — konjam thanni kudunga is a solid line, but this was the field mission debrief collect. did you actually drop it at dinner? what came back from her?",
-    "reply_at": "2026-08-05T13:52:48Z",
+    "reply_line": "wait — she brought YOU water? da, that means it landed. she heard 'konjam thanni kudunga' and just... did it. that's the mission working.",
+    "reply_at": "2026-08-05T13:54:07Z",
     "exchanges": [
       {
         "at": "2026-08-05T13:52:48Z",
@@ -3564,6 +3564,19 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "ha — konjam thanni kudunga is a solid line, but this was the field mission debrief collect. did you actually drop it at dinner? what came back from her?",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-05T13:54:07Z",
+        "reply": "She brought me some water",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "wait — she brought YOU water? da, that means it landed. she heard 'konjam thanni kudunga' and just... did it. that's the mission working.",
         "slips": [],
         "spoke": "",
         "scheduled": ""
