@@ -1882,3 +1882,14 @@ Details live in git history; this is the index of the *conclusions*.
   "unused" binding would have released the lock. Now a module global with the reason in a
   comment. `studio_watchdog` held the mirror case — `# noqa: F401 — re-exported` for names
   nothing imports, and the directive itself had been silently lost in a rewrite.
+- **The payload IS the scale — `scale` deleted** (2026-08-05, Andrew: *"it should be
+  deleted and ideally it then functions as an n-item payload"*). The 2026-07-18
+  narrated_drama decision named a `scale: "long"` commissioning key that was never built:
+  no writer (`cmd_update` takes payload/seed/focus/channel/form), no reader, and its only
+  appearance in the suite was a fixture proving unknown keys survive — which read as
+  evidence it was real. Redundant twice over anyway: the form already states ~12–18 min,
+  and "buy items with minutes" already ties length to item count. So item count is the
+  only dial, and a 2-item payload commissions a 2-item episode whatever the label says —
+  which is what M81 was. Replaces the form+scale pair with form alone. Same diff:
+  `narrated_drama` joins the Breakdown-omitted list; it was absent from that rule, so one
+  got appended by default, and the Narrator has already glossed inside the scene.

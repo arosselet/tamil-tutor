@@ -46,12 +46,20 @@ The Master Lesson Plan carries the core pedagogical targets. Delivery modalities
 `classic` (Intercept + full Breakdown) | `vignette` (Intercept only, no Breakdown — trust the scene) | `story` (one host carries a short told tale; light or no Breakdown) | `phone_call` (naturalistic call; light Breakdown) | `lore` (Maya & Raj lead end-to-end; the payload word is the protagonist — history, kinship, myth, culture; 1–2 words told deep)
 
 **`narrated_drama` — commissioned, never spec-rotated.** Anna commissions it through the
-soak order (`"form": "narrated_drama"`, `"scale": "long"`) when the week is ready for a
-batch soak; the spec's form is overridden for that episode only. It is the **batch-soak
-channel**: ~15–25 payload items instead of ~5, allocated in tiers — Teach-First (unseen,
-glossed in context) / Cold-Fire Engines (one novel instance each) / Ear-Only catch
-(natural speed, unglossed) / New Cluster / Callbacks & floor-gaps. Buy items with
-minutes, not density. Structure and narrator craft: `architect.md` → Episode Form.
+soak order (`"form": "narrated_drama"`) when the week is ready for a batch soak; the
+spec's form is overridden for that episode only. It is the **batch-soak channel**:
+~15–25 payload items instead of ~5, allocated in tiers — Teach-First (unseen, glossed in
+context) / Cold-Fire Engines (one novel instance each) / Ear-Only catch (natural speed,
+unglossed) / New Cluster / Callbacks & floor-gaps. Buy items with minutes, not density.
+Structure and narrator craft: `architect.md` → Episode Form.
+
+**The payload IS the scale — there is no second dial** (2026-08-05, Andrew). A `scale:
+"long"` key was named in the 2026-07-18 decision and never built: no writer sets it
+(`cmd_update` takes payload/seed/focus/channel/form and nothing else) and no reader reads
+it. It was redundant twice over — the form already states its own duration (~12–18 min,
+`architect.md`) and "buy items with minutes" already ties length to item count. So the
+item count is the only dial: hand this form 2 items and you have commissioned a 2-item
+episode, whatever the label says. A batch soak means a batch-sized payload.
 
 ---
 

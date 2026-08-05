@@ -2838,10 +2838,13 @@ def s36_soak_order_carries_shape(sb: Path):
 
         # And an unknown key survives, so the NEXT shape needs no writer change.
         learner = read_json(learner_path)
-        learner["soak_order"]["scale"] = "long"
+        # Deliberately a key that does NOT exist in canon. This fixture used to
+        # be `scale: "long"`, which read as evidence that `scale` was real —
+        # it never was (no writer, no reader; deleted 2026-08-05).
+        learner["soak_order"]["not_a_real_key"] = "sentinel"
         write_json(learner_path, learner)
         check("an unnamed key survives a rewrite — the door is open",
-              update(soak_payload=["போறேன்"]).get("scale") == "long")
+              update(soak_payload=["போறேன்"]).get("not_a_real_key") == "sentinel")
 
         # A soak-channel order can never be cleared by the newest-EPISODE compare
         # (soak registers no episode), which is the 2026-07-23 M72/M73/M74
