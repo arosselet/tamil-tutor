@@ -1,6 +1,6 @@
 {
   "learner": "Andrew",
-  "last_debrief": "STORY SO FAR: Tue 08-04 — THE DAY VENUM-FOR-KUDUNGA CLOSED. Opened on the unanswered eavesdrop knock (maami on the phone, spice clitics): he caught namma Lakshmi and kalyanam, and decoded -aam as '(apparently)' unprompted — the hearsay tag is a working DECODER now, not vocabulary. Missed summa solraanga (the disown move — she serves the gossip hot then denies she knows anything) and alaichal (the mood; she was wrecked, the gossip was her sitting down for ninety seconds). Both given as colour, zero demand. THE PAST TENSE IS NOT CLOSED. The unannounced retest MISSED on both halves — asked what the two of them did yesterday he produced 'market-ku ponum' (the obligation tail where the we-past belongs) and 'romba nalla irukku' (the present where the past belongs). 1pl-past-om is now 8x over 10d; the 08-02 'closed' call was wrong. AND THE SETUP WAS PARTLY MINE: I taught the melt line as a welded PRESENT chunk on 08-03 and asked for its past twin on 08-04 — twins one day apart, the same error as ulla/veliya and the -alaam groove, stretched across sessions instead of within one. Taught the seam as BODY not tail (irukku/irundhuchu, ponen/ponom); he then over-applied both gifts in one breath — 'sinna shop-ku saptuchu' — carrying -ku off my going-line and bolting the it-tail onto a we-subject. New slips: ku-for-la, sinna-for-konjam. vandhom came back but I had printed the answer one message up: logged hinted, and frame:we-om demoted off cold accordingly. TWO WINS, BOTH DELIGHT, BOTH UNAIDED: (1) KUDUNGA — crowded table, salt at the far end, venum left fully available and DELIBERATELY unfenced (the 08-03 puriyala mistake not repeated), and he reached for kudunga himself. 22 days in the ledger, closed. (2) ROMBA NALLA IRUKKU fired COLD in the right slot — she was anxious about the spice, he answered the anxiety with praise — ten minutes after firing that same line into the wrong tense. Yesterday hinted; today his. HIS EAR IS AHEAD OF HIS MOUTH: I built a deliberately-too-fast line at him (paathukkonga, podittEn, pudikkalenna all unknown) and he still returned 'is it spicy? too much yesterday? tell me.' CONSEQUENCE — puriyala-for-reopen got NO SLOT: he understood the line, so the reopening move was never needed. Untested still, carry it, and next time make the line genuinely unrecoverable. M81 shipped clean (romba santhosham, first contact at the door); run_studio.py worked today, no 429. CARRIED TO 08-05: the past tense is now the whole job and it is COMMISSIONED to the episode lane — do not re-teach it in chat before the dose lands in his ear. Delight is finally moving (melt line + kudunga) with 8 days to touchdown. Field mission assigned: konjam {thing} kudunga at dinner tonight — ask for something to be passed rather than announcing he wants it.",
+  "last_debrief": "STORY SO FAR: Wed 08-05 — DAY 1 OF THE ARC (the doorstep), run in the evening after a long @build session, not at lunch. THE FIELD MISSION LANDED: he said 'konjam thanni kudunga' at dinner and she passed him the water — kudunga tested live, unprompted, in her kitchen, no audience. 22 days in the ledger; closed twice over now. THE MELT LINE FIRED COLD AGAIN, CLEANER: plate down, her anxious watching, spice made hot on purpose — 'romba nallairuka' came back instantly with no setup at all. Second consecutive day cold and this time unscaffolded; it is his. THE ENGE DISPUTE, ANSWERED IN CHAT: he contested the volley miss ('I thought she was asking where so I should get a point for enge'). Told he was half right — enge IS where, but paati had already asked it and wanted the answer, car-la irukku; -ku is toward, -la is at. His EAR was never the problem: he handed the question back instead of the answer, a smaller mistake than the log makes it look. ku-for-la stays OPEN and escalated. That reply was lost to a cloud failure (the judge blew its token ceiling mid-volley, KF-14) and the volley is STILL FROZEN AT 2/4 — the dispute reached me in chat instead, which is how he said he would rather handle it from now on: one ask per message. TAUGHT, NO DEMAND (Day 1 doorstep): vandhutten, romba naalaachu, eppadi irukkeenga, nethu thaan vandhom — the last handed over deliberately WHOLE as a chunk, not opened up, because the -om tail is commissioned to the episode lane and that dose landed the same night. M82 SHIPPED: 'the first evening at the house' — narrated drama, 21 first contacts, gate to gossip, no Breakdown. First batch-soak episode this system has produced. CARRIED TO 08-06: the arc's Day 2 (the interrogation) was FRONT-RUN by M82 — kanadavula irukkom, ooru, kaaram paravaayilla all went past his ear tonight. So tomorrow FIRES what the episode seeded instead of seeding again; the channel law arriving a day early, not a plan broken. Do NOT re-order the -om/-la repair: both are in flight by ear and the escalate note says change the format, never loop harder. Still open and never slotted: puriyala-for-reopen — the line for it must be genuinely UNRECOVERABLE, not merely fast (his catch is ahead of his mouth).",
   "soak_order": {
     "payload": [
       "வந்துட்டேன்",
@@ -101,6 +101,10 @@
   },
   "recent_missions": [
     {
+      "mission": 82,
+      "title": "Mission tier2_mission82"
+    },
+    {
       "mission": 81,
       "title": "Mission tier2_mission81"
     },
@@ -111,11 +115,7 @@
     {
       "mission": 78,
       "title": "Mission tier2_mission78"
-    },
-    {
-      "mission": 77,
-      "title": "Mission tier2_mission77"
     }
   ],
-  "status": "Trip Deck 26/34 survival cold · 7 days to touchdown · need 1.1 cold/day, trailing 7-day pace 2.4/day · full deck 28/71 · 30 never worked"
+  "status": "Trip Deck 26/34 survival cold · 7 days to touchdown · need 1.1 cold/day, trailing 7-day pace 2.4/day · full deck 28/71 · 15 never worked"
 }
