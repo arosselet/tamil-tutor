@@ -1,0 +1,52 @@
+{
+  "mission": 82,
+  "register": "delight",
+  "dramatic_ingredient": "genre",
+  "episode_form": "narrated_drama",
+  "shape": "vignette",
+  "location_class": "home_social",
+  "energy": "medium",
+  "intercept_tamil_density": 0.45,
+  "breakdown_tamil_density": 0.0,
+  "fence_size": 65,
+  "unfenced_words": 0,
+  "new_words_landed": {
+    "ரொம்ப சந்தோஷம்": 1,
+    "பெரிய": 2,
+    "அவங்க": 2,
+    "தெரியுமா": 1,
+    "அப்புறம் பார்க்கலாம்": 2,
+    "வந்துட்டேன்": 0,
+    "எப்படி இருக்கீங்க?": 0,
+    "ரொம்ப நாளாச்சு": 0,
+    "நேத்து தான் வந்தோம்": 0,
+    "ஊரு": 0,
+    "உட்கார்ந்து பேசுங்க": 0,
+    "இன்னும் கொஞ்சம் சாப்பிடுங்க": 0,
+    "நானே எடுத்துக்கறேன்": 0,
+    "கொஞ்சம் தண்ணி குடுங்க": 0,
+    "இதெல்லாம் எனக்கு புடிக்கும்": 0,
+    "கொஞ்சம் கொஞ்சம் புரியுது": 0,
+    "நான் கோயம்புத்தூர்காரன் மாதிரி ஆயிட்டேன்": 0,
+    "தெரியுமா?": 0,
+    "அவங்க என்ன சொன்னாங்க?": 0,
+    "சும்மா சொல்றாங்க": 0,
+    "எனக்கு ஒன்னும் தெரியாது": 0,
+    "நல்லா இருங்க": 0
+  },
+  "callbacks_used": {
+    "வாங்க": 3,
+    "சாப்பிடுங்க": 1,
+    "பாருங்க": 1,
+    "விசேஷம்": 2,
+    "அத்தை": 10,
+    "மாமா": 7
+  },
+  "host_roles": {
+    "Atthai": "welcoming_aunt",
+    "Maama": "quiet_complicit_uncle",
+    "Protagonist": "returning_nephew",
+    "Narrator": "narrator"
+  },
+  "notes": "Dialect pass: Applied Coimbatore colloquialisms (வர்றேன், நிறைஞ்சிடுச்சு). Verified payload 'ரொம்ப சந்தோஷம்' and 'அப்புறம் பார்க்கலாம்' are verbatim. Confirmed -nga respect markers are restricted to 2nd person/imperatives (வாங்க, பேசுங்க, இருக்கீங்க) while 1st person (வர்றேன், வந்தோம், இருக்கோம்) remains correctly un-suffixed. Integrity check: no phonetics, all Tamil in script, gender tags present."
+}
