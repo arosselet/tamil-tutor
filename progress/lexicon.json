@@ -3497,10 +3497,10 @@
       56,
       57
     ],
-    "last_surfaced": "2026-07-10",
+    "last_surfaced": "2026-08-05",
     "deck": "trip",
     "direction": "fire",
-    "reps": 5
+    "reps": 6
   },
   "நேத்து தான் வந்தோம்": {
     "type": "chunk",
@@ -3963,12 +3963,12 @@
       "veettula"
     ],
     "recognition": "struggled",
-    "production": "hinted",
+    "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-08-04",
+    "last_surfaced": "2026-08-05",
     "deck": "trip",
     "direction": "fire",
-    "reps": 5,
+    "reps": 6,
     "exposures": 1
   },
   "frame:happened-aachu": {
@@ -4077,14 +4077,15 @@
       "oor"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       82
     ],
     "last_surfaced": "2026-08-05",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 1
+    "exposures": 1,
+    "reps": 1
   },
   "கடைசில பாக்கலாம்": {
     "type": "chunk",
