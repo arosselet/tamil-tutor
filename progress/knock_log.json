@@ -3532,7 +3532,9 @@
     "next_check": "2026-08-05T11:58:17.000058+00:00",
     "body": "mission's live — 'konjam X kudunga' at the table tonight, unprompted. debrief tomorrow. 🎯",
     "expected_target": "",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "ack",
+    "response_at": "2026-08-05T15:22:31Z"
   },
   {
     "date": "2026-08-05",
