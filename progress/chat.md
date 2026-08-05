@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Wednesday 2026-08-05
+
+**09:51 · Anna**  ·  text / field mission debrief collect
+> field mission debrief — konjam {thing} kudunga at dinner. did it land? what came back?
+
+
 ## Tuesday 2026-08-04
 
 **10:22 · Anna** 🎧  ·  eavesdrop / eavesdrop: spice clitics soak
