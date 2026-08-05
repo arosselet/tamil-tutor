@@ -736,3 +736,12 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
   be enough on its own. If Anna under-loads a commissioned drama a **second** time, that
   is the reproduced pattern and it earns the mechanism — the shape would be a coherence
   law like KF-3's (pick the form, then the payload must match it), not a quota.
+- **`--mark-seen` and `--produced-cold` disagree about what a word is** (2026-08-05, hit
+  at close). `--produced-cold` resolves through the phonetic index; `--mark-seen` does a
+  plain `if key in lexicon` dict lookup, so it accepts ONLY the canonical Tamil key. At
+  the 08-05 close `vandhutten` — the exact phonetic stored on வந்துட்டேன் — was rejected
+  by one flag and would have been accepted by the other, in the same command. Both refuse
+  loudly, which is why it cost a retry rather than a wrong write; but Anna writes the
+  close in phonetic by the surface-split law, so the flag that rejects phonetics is the
+  one he will reach for wrong every time. Cheap fix: route `--mark-seen` through the same
+  resolver, or have its error name the canonical key it wanted.

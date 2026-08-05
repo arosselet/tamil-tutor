@@ -3119,7 +3119,8 @@
     "last_surfaced": "2026-08-05",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 1
+    "exposures": 1,
+    "reps": 1
   },
   "ரொம்ப நாளாச்சு": {
     "type": "chunk",
@@ -3135,7 +3136,8 @@
     "last_surfaced": "2026-08-05",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 1
+    "exposures": 1,
+    "reps": 1
   },
   "வந்துட்டேன்": {
     "type": "chunk",
@@ -3152,7 +3154,8 @@
     "last_surfaced": "2026-08-05",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 1
+    "exposures": 1,
+    "reps": 1
   },
   "கிளம்பலாமா?": {
     "type": "chunk",
@@ -3513,7 +3516,8 @@
     "last_surfaced": "2026-08-05",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 1
+    "exposures": 1,
+    "reps": 1
   },
   "சாஃப்ட்வேர் வேலை பண்றேன்": {
     "type": "chunk",
@@ -3837,10 +3841,10 @@
     "seen_in": [
       72
     ],
-    "last_surfaced": "2026-08-04",
+    "last_surfaced": "2026-08-05",
     "deck": "trip",
     "direction": "fire",
-    "reps": 3,
+    "reps": 4,
     "exposures": 1
   },
   "தெரியுமா?": {
