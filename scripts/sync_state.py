@@ -374,14 +374,22 @@ def compute_deck(lexicon: dict, deck: str = "trip") -> dict:
 def compute_status() -> str:
     """The status line IS the scoreboard (post the 2026-06-30 listens pivot):
     the deck countdown during a sprint, the floor otherwise. Never a chore line —
-    episodes are self-contained doses; nothing is ever 'under-listened'."""
+    episodes are self-contained doses; nothing is ever 'under-listened'.
+
+    TWO ERAS, not a deadline (2026-08-04, Andrew: "think of it as pre-trip and
+    during-trip eras"). `TRIP_DATE` was modelled as a terminus, so from the day
+    he LANDS the line read "-3 days to touchdown · need 8.0 cold/day" and stayed
+    there — degenerate on the first day of the era the deck exists for, and the
+    line Anna narrates from. In country the countdown is meaningless and the
+    burn rate is a lie: the table sets the pace, not a per-day quota."""
     lexicon = load_json(LEXICON_PATH) or {}
     deck = compute_deck(lexicon)
     if deck["total"]:
         days = (TRIP_DATE - local_today()).days
         never = (f" · {deck['untouched']} never worked" if deck["untouched"] else "")
+        when = f"{days} days to touchdown" if days > 0 else f"in country, day {1 - days}"
         return (f"Trip Deck {deck['surv_cleared']}/{deck['surv_total']} survival cold · "
-                f"{days} days to touchdown · "
+                f"{when} · "
                 f"{burn_rate(deck['surv_total'] - deck['surv_cleared'], days)} · "
                 f"full deck {deck['cleared']}/{deck['total']}{never}")
     floor = compute_floor(lexicon)
@@ -412,10 +420,16 @@ def cold_fires_recent(days: int = 7) -> int:
 def burn_rate(pending: int, days_left: int, window: int = 7) -> str:
     """The honest pace line: cold/day needed to clear the given pending count by
     the deadline vs. the trailing cold/day actually happening (survival tier since
-    2026-07-18). Python states the math; Anna narrates what it means."""
-    need = pending / max(days_left, 1)
+    2026-07-18). Python states the math; Anna narrates what it means.
+
+    Past the deadline there IS no required pace — the `max(days_left, 1)` clamp
+    silently froze the ask at its final day's value and reported it forever
+    (2026-08-04). Guarding here rather than at each caller: `show_status` reads
+    this directly too, so a caller-side fix would have healed one surface."""
     pace = cold_fires_recent(window) / window
-    return f"need {need:.1f} cold/day, trailing {window}-day pace {pace:.1f}/day"
+    if days_left <= 0:
+        return f"trailing {window}-day pace {pace:.1f}/day"
+    return f"need {pending / days_left:.1f} cold/day, trailing {window}-day pace {pace:.1f}/day"
 
 
 def fires_today() -> int:
