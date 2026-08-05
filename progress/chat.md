@@ -9,6 +9,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:51 · Anna**  ·  text / field mission debrief collect
 > field mission debrief — konjam {thing} kudunga at dinner. did it land? what came back?
 
+**09:52 · Andrew** — **CHAT**
+> Konjam thanni kudunga
+
+**Anna ↩**
+> ha — konjam thanni kudunga is a solid line, but this was the field mission debrief collect. did you actually drop it at dinner? what came back from her?
+
 
 ## Tuesday 2026-08-04
 
