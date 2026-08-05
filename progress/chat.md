@@ -27,6 +27,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > yeah da — 'konjam thanni kudunga' is exactly what you said, and she just passed the water. that IS the mission. zero hesitation from her side means it landed clean.
 
+**13:28 · Anna**  ·  volley / deck volley sprint
+> ⚡ volley 1/4 — paati asks where you left your bag. It's in the car. Just the locative: 'car-___ irukku.' Fill the blank.
+
 
 ## Tuesday 2026-08-04
 
