@@ -293,6 +293,23 @@ def deck_registers(deck: str = "trip") -> dict:
             for i in json.loads(path.read_text(encoding="utf-8"))}
 
 
+def deck_rank(word: str, regs: dict) -> int:
+    """THE tier prefix — the 07-13 touchdown bar — defined once, so every
+    deck-aware ordering reads one definition instead of a hand-copy.
+
+    A non-member ranks AFTER every member (3). That is the whole point: a
+    sprint-scoped block must not be crowded out by ordinary vocabulary.
+
+    Extracted 2026-08-04 for the same reason `coverage_key` was on 07-26 — the
+    term was hand-copied into two sorts and `retest_targets` (2026-08-01) was
+    written without it at all. Consequence, found 8 days from touchdown: the
+    deck's three hinted FAQ answers — the questions every relative asks on day
+    one, 25-31 days silent — sat below that block's five-item cut behind
+    ordinary words that happened to be staler. A single-axis sort in a
+    deadline sprint is the recurring bug; the prefix belongs to the law."""
+    return DECK_TIERS.get(regs.get(word, ""), 1) if word in regs else 3
+
+
 def recent_ask_counts(klog: list, lexicon: dict, days: int = 3, now=None) -> dict:
     """word → how many fired knocks in the last `days` asked for it (the original
     `expected_target`) or printed it (body/memo/recast, whole chains).
@@ -383,7 +400,7 @@ def deck_status(lexicon: dict, deck: str = "trip", today=None,
     # drift apart (that drift is what happened on 07-25 → 07-26). The deck
     # keeps no focus/background split: it is a finite deadline set, so every
     # member has to clear, and the tiers already say what leads.
-    pending.sort(key=lambda c: (DECK_TIERS.get(regs.get(c["word"], ""), 1),
+    pending.sort(key=lambda c: (deck_rank(c["word"], regs),
                                 c["asks"], coverage_key(c)))
     catch_pending = [{
         "word": w, "gloss": r.get("gloss", ""),
@@ -461,8 +478,7 @@ def deck_coverage(lexicon: dict, deck: str = "trip", today=None) -> dict | None:
                 "register": reg or "?", "direction": "catch" if is_catch else "fire",
                 "soaked_only": bool(r.get("seen_in")),
             })
-    untouched.sort(key=lambda c: (DECK_TIERS.get(
-        regs.get(c["word"], ""), 1), c["word"]))
+    untouched.sort(key=lambda c: (deck_rank(c["word"], regs), c["word"]))
     return {"tiers": tiers, "registers": registers, "untouched": untouched,
             "fire": fire, "catch": catch}
 
@@ -621,19 +637,35 @@ def retest_targets(lexicon: dict, today=None, max_n: int = 5) -> list[dict]:
     axis alone. A retest is a SESSION move — a scene that makes the item fire
     unaided — never a commission (the parked cold-decay item stays parked, and
     rechecks must not crowd the soak order out of new ground, the same call as
-    slip retirement)."""
+    slip retirement).
+
+    Two corrections (2026-08-04), both found because the block was doing its job
+    for the wrong five items:
+
+    NEVER-SURFACED items are excluded, not featured. A hinted grade with no
+    `last_surfaced` and no reps is a bootstrap artifact, not an item going dark
+    — there is no prior test for a *re*-test to repeat. It also loses nothing by
+    leaving: `coverage_key` leads with fewest-reps, so a never-worked item
+    already sorts to the head of the main ticket. The old code ranked it FIRST
+    here on sentinel staleness and printed "worth asking why", which spent the
+    top slot of a five-item list on வை — a word carrying a grade nobody set.
+
+    The sort carries `deck_rank`, so a sprint's own items lead. Without it the
+    block ordered on staleness alone and ordinary vocabulary outranked the
+    deck."""
     today = today or date.today()
+    regs = deck_registers()
     out = []
     for w, r in lexicon.items():
         if r.get("production") != "hinted" or r.get("direction") == "catch":
             continue
         ds = days_since(r.get("last_surfaced"), today)
-        stale = NEVER_SURFACED if ds is None else ds
-        if stale < RETEST_DAYS:
+        if ds is None or ds < RETEST_DAYS:
             continue
-        out.append({"word": w, "gloss": r.get("gloss", ""), "staleness": stale,
+        out.append({"word": w, "gloss": r.get("gloss", ""), "staleness": ds,
                     "reps": r.get("reps", 0), "deck": r.get("deck", "")})
-    out.sort(key=lambda c: (-c["staleness"], stable_jitter(c["word"])))
+    out.sort(key=lambda c: (deck_rank(c["word"], regs), -c["staleness"],
+                            stable_jitter(c["word"])))
     return out[:max_n]
 
 
@@ -815,8 +847,7 @@ def main():
         print("\n★ HINTED, GOING DARK  (repped, then silent — retest cold in a scene)")
         print("-" * 60)
         for t in retests:
-            age = ("hinted but NEVER surfaced — a stamp with no work behind it, worth asking why"
-                   if t["staleness"] >= NEVER_SURFACED else f"{t['staleness']}d silent")
+            age = f"{t['staleness']}d silent"
             deck_tag = " · DECK" if t["deck"] else ""
             print(f"  - {t['word']} — {t['gloss'] or '[no gloss]'}"
                   f"  [{t['reps']} rep{'s' if t['reps'] != 1 else ''} · {age}{deck_tag}]")
