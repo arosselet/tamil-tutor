@@ -88,7 +88,8 @@ it matches — or the frame:... key for a frame. Empty list when nothing credita
 - "cold" / "hinted" — something fired; set it to the best word's grade (a capped word \
 counts as hinted here; Python re-derives this from "fired" regardless).
 - "miss" — he tried, but it's off enough that nothing would land at the table. Empty fired.
-- "chat" — not a rep at all (English chat, a question, logistics). Empty fired. No state moves.
+- "chat" — he did not engage the ask AT ALL (English chat, a question, logistics). Empty fired. No state moves. Decide this by RELATION to expected_target, never by the reply's SHAPE: \
+a short backchannel that IS the target ("ama ama", "seri seri") is a rep, not chatter, and an answer buried in a complaint is still an answer — grade it. MID-VOLLEY "chat" FREEZES the item and re-presents it, so a wrong "chat" spends his rep and asks the same question twice.
 
 HARD RULE: if the knock revealed the target Tamil (target_revealed=true), that word \
 scores at most "hinted". Same for anything your own recast handed him in the \
@@ -121,8 +122,7 @@ CREDIT WHAT HE SAID, NOT WHAT YOU WANTED (2026-07-27): fire the lexicon key HIS 
 words produced, never the target he routed around. A socially coherent substitute is a \
 real rep — "puriyala" for "enna sonneenga?", "oru nimisham" for "konjam nillunga", "ama, \
 saapitten" while maama piles food: credit புரியல / ஒரு நிமிஷம் on their own merits, leave \
-the untested target where it is, skip the lesson. A target he keeps substituting away \
-from is signal for chat, not a miss to punish. Every fired entry carries "said" — the \
+the untested target where it is, skip the lesson. Every fired entry carries "said" — the \
 exact span of his reply that produced it, copied verbatim from andrew_reply. Python drops \
 any fire whose "said" is not literally in his reply, so a word he never typed can never \
 score. If you re-ask, pin the MEANING in English ("wave it off — 'enough!'") without \
@@ -1011,9 +1011,24 @@ def main():
     # judge's own follow_up is ignored — finite by construction, no CHAIN_CAP.
     follow, volley_pin = "", None
     vq = knock.get("volley")
-    represent = None  # KF-11: deterministic re-present of the still-open ask
+    # `represent` — KF-11: deterministic re-present of the still-open ask.
+    # `held` — KF-13 (2026-08-04): "chat" is the ONLY verdict that holds the pin, so a
+    # single mislabelled answer re-presents the same item for ever. The 08-04 backchannel
+    # volley died that way: "ama ama" WAS item 1's target, came back "chat", and Andrew
+    # burned six exchanges seeing 1/4 and 3/4 again while item 4 was never reached. The
+    # mandate now defines "chat" relationally, but a wording fix cannot be the only guard
+    # on a deadlock — so cap the hold at one re-present, whatever the judge decides.
+    # Read off `exchanges` rather than a counter field (KF-6's rule: Python computes from
+    # the log, never from model memory). The marker is Python's OWN "still open · " prefix
+    # (written at the reply_line join below), not the verdict — a capped advance is itself
+    # still a "chat", so keying on the verdict would make every later chat advance again
+    # and the freshly-pinned item would never get its own re-present. This exchange is not
+    # appended until further below, so [-1] is genuinely the prior turn.
+    represent, held = None, "still open · " in ((knock.get("exchanges") or [{}])[-1].get("reply_line") or "")
     if vq:
-        if verdict["verdict"] != "chat":
+        # A capped advance keeps the "chat" verdict: nothing is credited and no state
+        # moves — it only refuses to ask the same question a third time.
+        if verdict["verdict"] != "chat" or held:
             nxt = knock.get("volley_next", 1)
             if nxt < len(vq):
                 volley_pin = vq[nxt]

@@ -110,6 +110,30 @@ jobs:
       GOOGLE_APPLICATION_CREDENTIALS: /tmp/anna-gcp.json
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Resolve the BRANCH at checkout time. Without this, checkout fetches
+          # `github.sha` BY NAME — literally
+          # `git fetch --depth=1 origin +<sha>:refs/remotes/origin/main` — and
+          # that sha is frozen when the dispatch is RECEIVED, not when the job
+          # runs. A run that waits its turn therefore starts from the tree as it
+          # was before the run ahead of it pushed. Deliberately, every time.
+          #
+          # That is what failed run 30865736387 on 2026-08-04. Two replies 31s
+          # apart: the concurrency gate below did its job (job B was created at
+          # 00:29:43, the exact second job A completed — no parallel writer), and
+          # B then checked out 187185f anyway, because that was main at 00:29:32
+          # when B's dispatch landed, nine seconds before A pushed 44c4c7c. The
+          # rebase in commit_and_push was left reconciling a conflict that
+          # existed only because we chose to read a stale commit.
+          #
+          # NB the gate makes the pin WORSE. Serialising does not move the sha;
+          # it lengthens the gap between pinning and checking out, so queueing
+          # GUARANTEES the staleness the rebase then has to clean up. The two
+          # fixes were pulling against each other. Fresh checkout + one CI writer
+          # at a time is what actually closes it, and it demotes the rebase back
+          # to what it should be: the net for the laptop, the only rival writer
+          # left.
+          ref: main
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -170,16 +194,23 @@ jobs:
         run: python scripts/knock_reply.py "$REPLY_TEXT"
 
       - name: Log tap
+        # --commit routes this lane through commit_and_push, the same landing
+        # path the reply judge uses (2026-08-04). It used to stage/commit/pull/push
+        # inline, and that hand-rolled copy had a bare `git pull --rebase` with NO
+        # union resolution and no derived re-render — so the one lane that could
+        # not survive a concurrent writer was the one with no net under it. Three
+        # copies of a rule and one gap, and the gap is the lane that fires; same
+        # shape as quiet hours moving into push_to_phone (2026-07-26).
+        #
+        # A no-op tap (duplicate, or one that adds nothing) commits nothing and
+        # exits 0 — the `git diff --cached --quiet ||` guard moved into Python
+        # with the rest of it.
         if: github.event_name == 'repository_dispatch' && github.event.client_payload.response != 'reply'
         run: |
           python scripts/sync_state.py knock-response \
             "${{ github.event.client_payload.response }}" \
-            --knock-id "${{ github.event.client_payload.knock_id }}"
-          # 'listened' surfaces words + bumps listens, so stage the soak files too.
-          git add progress/knock_log.json progress/episodes.json progress/learner.json progress/lexicon.json
-          git diff --cached --quiet || git commit -m "Knock response: ${{ github.event.client_payload.response }}"
-          git pull --rebase --autostash origin main
-          git push origin HEAD:main
+            --knock-id "${{ github.event.client_payload.knock_id }}" \
+            --commit
 
       - name: Anna knocks
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'

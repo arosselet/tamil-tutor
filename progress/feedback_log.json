@@ -254,5 +254,21 @@
   {
     "date": "2026-08-02",
     "note": "I tried asking for a greeting via Anna on my phone and I'm concerned the prompt / actions are narrower than I think because of the way it replied"
+  },
+  {
+    "date": "2026-08-03",
+    "note": "[phone] Andrew wants English phonetics in chat notifications and replies, not Tamil script — apply permanently to all text-channel output."
+  },
+  {
+    "date": "2026-08-04",
+    "note": "[phone] Andrew flagged that 'ama ama' was asked twice across volleys — he'd already fired it cold, so the repeat was a knock error, not a gap."
+  },
+  {
+    "date": "2026-08-04",
+    "note": "[phone] Andrew flagged that item 3/4 was re-asked multiple times in this volley; knock generation or volley state is looping on this item — fix the volley advancement logic."
+  },
+  {
+    "date": "2026-08-04",
+    "note": "[phone] volley 3/4 has been re-asked three times now despite Andrew firing 'seri seri' and flagging the repeat — system is stuck on this item; must advance to 4/4 immediately"
   }
 ]

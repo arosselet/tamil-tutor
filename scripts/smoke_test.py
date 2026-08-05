@@ -1003,7 +1003,15 @@ def s17_campaign_digest(mk, sb: Path):
 # same diff as the growth, and the commit names the lines it retired (/extend Gate 4).
 PROSE_BUDGETS = {
     "protocol/persona.md": 2000,
-    "protocol/constitution.md": 1750,
+    # 1750 -> 1790 (2026-08-04): FIRST raise of this ceiling, and the growth is a
+    # class of content no protocol file owned — a standing fact about the learner's
+    # life, not a rule. M81 opened at the iron gate with sisters-in-law "recognised
+    # from the old photos"; nothing said Andrew is ten years into this family, so
+    # every generator filled the blank with the newcomer story. Retired in the same
+    # diff (17 words back): the 08-03 leak clause compressed to its evidence, and
+    # the zinger line's "surprise … that delight locals and in-laws". A second raise
+    # is the split signal — the Core Philosophy's learner facts would leave first.
+    "protocol/constitution.md": 1790,
     "protocol/daily_session.md": 1250,
     # Split out of daily_session.md (2026-07-23) rather than raise its budget:
     # channel routing is its own concern and Anna loads it only when choosing.
@@ -1131,7 +1139,21 @@ CODE_BUDGETS = {
     "scripts/session_brief.py": 250,
     "scripts/studio_watchdog.py": 125,
     "scripts/suggest_targets.py": 575,
-    "scripts/sync_state.py": 1250,
+    # 1250 -> 1254 (2026-08-04): the tap lane's stage/commit/pull/push moved IN
+    # from the "Log tap" step of anna.yml, where it was a hand-rolled
+    # `git pull --rebase` with no union resolution and no derived re-render —
+    # the one writing lane with no net under it. Nothing in THIS file was
+    # retired, so this is a real raise, not a re-census: 5 lines of unbudgeted
+    # YAML became 7 of budgeted Python. That is the ceiling law noticing
+    # machinery migrate into a file that counts it from a file that doesn't, and
+    # the alternative was leaving the gap open to keep a number flat.
+    # 1254 -> 800 (2026-08-04): re-censused DOWN after the three-way split, the
+    # same move morning_knock made on 08-01. The raise above still stands on its
+    # own terms — the tap lane's 7 lines are still here, in cmd_knock_response —
+    # but ~480 lines left for state_io, slips and session_brief, so a 1254
+    # ceiling would have stopped measuring anything. The new number is the
+    # post-split file plus normal headroom, not a target to grow into.
+    "scripts/sync_state.py": 800,
 }
 
 # EXEMPT, deliberately: /extend Gate 7 requires a new case here the day a bug is
@@ -1369,6 +1391,55 @@ def s21_volley_represent(kr, sb: Path):
     check("chat mid-volley re-presents the open ask", "still open · 2/3 — ask two" in body, body)
     check("pin does not move on chat", entry["volley_next"] == 2 and entry["pinned_target"] == "t2")
     check("chat does not count as a chain step", entry.get("chained", 0) == 0)
+
+    # KF-13 (2026-08-04): the hold-cap. "chat" is the only verdict that keeps an item
+    # open, so a mislabelled answer used to re-present it for ever — the 08-04 volley
+    # burned six exchanges on two items and never reached item 4. One re-present is a
+    # fair recovery; a second is a deadlock, so the pin advances on the second
+    # consecutive chat no matter what the judge returned.
+    #
+    # TEETH: the way this silently does nothing is `held` never becoming true (wrong
+    # field, or this exchange appended before the read) — which looks EXACTLY like the
+    # old behaviour, green and broken. So drive the real entry point, then re-read the
+    # log and assert the pin MOVED and the surface names the next item.
+    k = volley_knock(nxt=2)
+    k["exchanges"] = [{"reply": "wait, which one?", "verdict": "chat",
+                       "reply_line": "ha, all good · still open · 2/3 — ask two"}]
+    write_json(klog_path, [k])
+    body = reply("sorry — still lost", dict(chat))
+    entry = read_json(klog_path)[-1]
+    check("second consecutive chat advances the pin (hold-cap)",
+          entry["volley_next"] == 3 and entry["pinned_target"] == "t3",
+          f"next={entry['volley_next']} pin={entry['pinned_target']}")
+    check("capped advance puts the NEXT ask on the surface",
+          "3/3 — ask three" in body and "still open" not in body, body)
+    check("capped advance credits nothing — it is still a chat",
+          entry["reply_verdict"] == "chat" and not entry.get("reply_fired"))
+
+    # ...and `held` must be genuinely computed: a chat after a JUDGED exchange is this
+    # item's first re-present, so it still holds. Without this the cap could be an
+    # always-true constant and every check above would still pass.
+    k = volley_knock(nxt=2)
+    k["exchanges"] = [{"reply": "t1", "verdict": "cold", "reply_line": "adhu dhaan · 2/3 — ask two"}]
+    write_json(klog_path, [k])
+    body = reply("hang on", dict(chat))
+    entry = read_json(klog_path)[-1]
+    check("first chat after a judged reply still re-presents",
+          "still open · 2/3 — ask two" in body and entry["volley_next"] == 2, body)
+
+    # The cap is PER ITEM. A capped advance is itself logged "chat", so keying the cap on
+    # the verdict would make the next chat advance again and the newly-pinned item would
+    # never be re-presented once — the volley would walk itself shut on a run of chatter.
+    # Keying on Python's own "still open · " marker is what makes this hold.
+    k = volley_knock(nxt=2)
+    k["exchanges"] = [{"reply": "thanks da", "verdict": "chat",
+                       "reply_line": "got it · 2/3 — ask two"}]
+    write_json(klog_path, [k])
+    body = reply("one sec", dict(chat))
+    entry = read_json(klog_path)[-1]
+    check("chat after a capped advance re-presents, never double-advances",
+          "still open · 2/3 — ask two" in body and entry["volley_next"] == 2,
+          f"next={entry['volley_next']} body={body}")
 
     # judged reply on the LAST item closes the chain
     write_json(klog_path, [volley_knock(nxt=3)])
@@ -3576,7 +3647,7 @@ def s42_session_log_one_row_per_day(sb: Path):
             slog_path.write_bytes(saved[2])
 
 
-def s51_prune_duplicate_lexicon_rows(sb: Path):
+def s53_prune_duplicate_lexicon_rows(sb: Path):
     """Duplicate lexicon rows, and the rule that must NEVER fire (2026-08-04).
 
     Three near-identical key pairs turned up in an audit. Only two were
@@ -3592,7 +3663,7 @@ def s51_prune_duplicate_lexicon_rows(sb: Path):
     opposite one. So every check below is about what must SURVIVE, and the
     homograph pair is the case that matters: it shares a stem, differs only by
     punctuation, and must come through untouched."""
-    print("\n51. Duplicate lexicon rows are pruned on phonetic + domination (2026-08-04)")
+    print("\n53. Duplicate lexicon rows are pruned on phonetic + domination (2026-08-04)")
     import contextlib, io, argparse as _ap
     ss = importlib.import_module("sync_state")
     lex_path = sb / "progress" / "lexicon.json"
@@ -3648,7 +3719,7 @@ def s51_prune_duplicate_lexicon_rows(sb: Path):
         lex_path.write_bytes(saved)
 
 
-def s52_two_eras_not_a_deadline(sb: Path):
+def s54_two_eras_not_a_deadline(sb: Path):
     """The trip is a handover, not a terminus (2026-08-04, Andrew: "think of it
     as pre-trip and during-trip eras").
 
@@ -3663,7 +3734,7 @@ def s52_two_eras_not_a_deadline(sb: Path):
     narrates from. So the checks below assert the ABSENCE of the burn ask in
     country, not merely the presence of new wording: a cosmetic relabel that
     left the quota in would pass a presence-only test and still be the bug."""
-    print("\n52. The trip is two eras, not a deadline (2026-08-04)")
+    print("\n54. The trip is two eras, not a deadline (2026-08-04)")
     ss = importlib.import_module("sync_state")
     lex_path = sb / "progress" / "lexicon.json"
     saved, real_today = lex_path.read_bytes(), ss.local_today
@@ -3706,7 +3777,7 @@ def s52_two_eras_not_a_deadline(sb: Path):
         lex_path.write_bytes(saved)
 
 
-def s53_demotion_survives_the_close(sb: Path):
+def s55_demotion_survives_the_close(sb: Path):
     """A word that fails under pressure is demoted — and the path had no test.
 
     Caught 2026-08-04 while splitting sync_state: the state_io extraction dropped
@@ -3724,7 +3795,7 @@ def s53_demotion_survives_the_close(sb: Path):
 
     Round-trips through the real writer and re-reads the file, because the bug
     was in module-level state, not in the function's logic."""
-    print("\n53. A demotion survives the close (2026-08-04)")
+    print("\n55. A demotion survives the close (2026-08-04)")
     import contextlib, io, argparse as _ap
     ss = importlib.import_module("sync_state")
     lex_path = sb / "progress" / "lexicon.json"
@@ -4218,6 +4289,161 @@ def s45_concurrent_appends_merge(mk, sb: Path):
           "feedback_log has no key; a conflict in either is a real disagreement")
 
 
+def s52_andrew_is_family_already(sb: Path):
+    """The standing fact reaches every role that can invent a first meeting
+    (2026-08-04, Andrew).
+
+    M81 opened at the iron gate with sisters-in-law he "recognised from the old
+    photos." He has met them a dozen times over ten years. No protocol file
+    said so, so each generator filled the blank with the newcomer-integrating
+    story — and it read as a stranger's arrival to the one person it is about.
+
+    The silent no-op: if this prose is dropped in a later edit, nothing breaks,
+    nothing warns, and the episodes quietly go back to writing him as a guest.
+    So the fact is asserted where each role actually reads. The three surfaces
+    are not redundant — they are three separate readers: Anna and every Python
+    dose inline `persona.md` and never see the constitution; the Architect reads
+    the constitution; the Director read NEITHER, which is why the brief invented
+    "the expected chaotic joy of a first meeting."
+    """
+    print("\n52. Andrew is ten years into this family, not arriving (2026-08-04)")
+    # Flattened: the prose is hard-wrapped, so a phrase can straddle a newline.
+    canon = " ".join((sb / "protocol" / "constitution.md")
+                     .read_text(encoding="utf-8").split())
+    check("the constitution owns the standing fact",
+          "Family Already, Language Not Yet" in canon and "ten years" in canon)
+    check("...and forbids the first-meeting framing outright",
+          "not a first meeting" in canon and "stranger arriving" in canon)
+
+    # persona.md is the ONLY protocol file morning_knock / knock_reply /
+    # render_drill / render_soak inline, so a pointer here would reach nothing.
+    persona = (sb / "protocol" / "persona.md").read_text(encoding="utf-8")
+    check("persona.md states it in full, not as a cross-reference",
+          "not new to this family" in persona and "auditioning for entry" in persona,
+          "the doses inline persona.md alone — a pointer to the constitution is a "
+          "dangling reference at knock time")
+    check("...and the Heist no longer says he is earning his PLACE",
+          "earning his place at the table" not in persona,
+          "the place is his; the respect for the language is what's earned")
+
+    # The Director writes Scenario Context — the field the first-meeting framing
+    # was actually invented in — and its Reads-from list is its whole context.
+    director = (sb / "protocol" / "studio" / "director.md").read_text(encoding="utf-8")
+    head = director.split("**Goal:**")[0]
+    check("the Director's Reads-from now includes the constitution",
+          "constitution.md" in head,
+          "Scenario Context invents the framing; without this line the Director "
+          "reads only profile.md + learner.json and cannot know")
+
+
+def s51_derived_files_are_rerendered_not_merged(mk, sb: Path):
+    """A conflict in a DERIVED file must never sink the rebase (2026-08-04).
+
+    The live failure: run 30865736387. Two replies 31s apart, judged fine, and
+    the second lost its whole exchange to `RuntimeError: rebase onto origin/main
+    needs a human`. Two files conflicted — knock_log.json, which union-resolves,
+    and chat.md, which did not, so `any(f not in UNIONABLE)` refused BOTH. But
+    chat.md holds no state at all: render_chat builds it from knock_log.json.
+    There was nothing to reconcile and nothing to lose; the file that blocked the
+    landing could have been regenerated from the file that landed cleanly.
+
+    TEETH IN THE DIRECTION THAT FAILS SILENTLY: the dangerous outcome is not the
+    crash, it is a "resolution" that git-adds a chat.md still carrying <<<<<<<
+    markers, or one rendered from the pre-merge log — both look green and both
+    corrupt the record Andrew reads. So this asserts the CONTENT pushed to main
+    matches a fresh render of the MERGED log, not that the rebase exited 0.
+    """
+    print("\n51. Derived files re-render through a conflict (chat.md)")
+    import subprocess as sp
+    # The REAL modules, not the shared/stubbed ones — same reason as case 45.
+    spec = importlib.util.spec_from_file_location("mk_live2", mk.__file__)
+    live = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(live)
+    rc_spec = importlib.util.spec_from_file_location(
+        "rc_live", str(Path(mk.__file__).parent / "render_chat.py"))
+    rc = importlib.util.module_from_spec(rc_spec)
+    rc_spec.loader.exec_module(rc)
+    check("the case holds the REAL renderer, not a stub",
+          callable(getattr(rc, "render_chat", None))
+          and "progress/chat.md" in live.DERIVED)
+
+    root = sb / "gitlab_derived"
+    root.mkdir(exist_ok=True)
+    origin, runner, other = root / "origin.git", root / "runner", root / "other"
+
+    def git(cwd, *a):
+        return sp.run(["git", *a], cwd=cwd, capture_output=True, text=True)
+
+    def knock(ts, body):
+        return {"timestamp": ts, "date": ts[:10], "acted": True, "body": body,
+                "modality": "text", "move": "melt"}
+
+    def write(clone, entries):
+        (clone / "progress" / "knock_log.json").write_text(
+            json.dumps(entries, ensure_ascii=False, indent=2), encoding="utf-8")
+        rc.KNOCK_LOG_PATH = clone / "progress" / "knock_log.json"
+        rc.CHAT_PATH = clone / "progress" / "chat.md"
+        rc.render_chat()
+
+    sp.run(["git", "init", "-q", "--bare", "-b", "main", str(origin)], check=True)
+    sp.run(["git", "clone", "-q", str(origin), str(runner)], check=True)
+    git(runner, "config", "user.email", "a@b.c"); git(runner, "config", "user.name", "t")
+    (runner / "progress").mkdir()
+    base = [knock("2026-08-04T00:02:48+00:00", "the melt line, one more time")]
+    write(runner, base)
+    git(runner, "add", "-A"); git(runner, "commit", "-qm", "base")
+    git(runner, "push", "-q", "origin", "HEAD:main")
+    sp.run(["git", "clone", "-q", str(origin), str(other)], check=True)
+    git(other, "config", "user.email", "a@b.c"); git(other, "config", "user.name", "t")
+
+    # THE OTHER LANE lands first — a reply to the OTHER open thread.
+    theirs = knock("2026-08-04T00:29:41+00:00", "theirs: the volley reply")
+    write(other, base + [theirs])
+    git(other, "add", "-A"); git(other, "commit", "-qm", "other writer")
+    git(other, "push", "-q", "origin", "HEAD:main")
+
+    # THE RUNNER, on the stale checkout, appends its own and lands it.
+    mine = knock("2026-08-04T00:29:12+00:00", "mine: the scenario reply")
+    write(runner, base + [mine])
+    live.BASE = runner
+    live.DERIVED = {"progress/chat.md": rc.render_chat}
+    rc.KNOCK_LOG_PATH = runner / "progress" / "knock_log.json"
+    rc.CHAT_PATH = runner / "progress" / "chat.md"
+    try:
+        live.commit_and_push([runner / "progress" / "knock_log.json",
+                              runner / "progress" / "chat.md"], "Knock reply: chat")
+        crashed = ""
+    except Exception as e:
+        crashed = f"{type(e).__name__}: {e}"
+
+    check("the reply survives a chat.md + knock_log.json conflict", not crashed, crashed)
+    pushed = json.loads(git(origin, "show", "main:progress/knock_log.json").stdout or "[]")
+    stamps = [e.get("timestamp") for e in pushed]
+    check("OUR exchange reached main", mine["timestamp"] in stamps, str(stamps))
+    check("...and the OTHER lane's was not dropped", theirs["timestamp"] in stamps, str(stamps))
+
+    chat = git(origin, "show", "main:progress/chat.md").stdout
+    check("chat.md carries NO conflict markers",
+          "<<<<<<<" not in chat and ">>>>>>>" not in chat and "=======" not in chat)
+    # The claim that matters: it is a render of the MERGED log, not of either side.
+    rc.KNOCK_LOG_PATH = runner / "progress" / "knock_log.json"
+    rc.CHAT_PATH = runner / "progress" / "chat_expected.md"
+    (runner / "progress" / "knock_log.json").write_text(
+        json.dumps(pushed, ensure_ascii=False, indent=2), encoding="utf-8")
+    rc.render_chat()
+    check("chat.md on main == a fresh render of the merged log",
+          chat == (runner / "progress" / "chat_expected.md").read_text(encoding="utf-8"))
+    check("both bodies are actually in it",
+          "mine: the scenario reply" in chat and "theirs: the volley reply" in chat)
+    check("nothing is left mid-rebase", not (runner / ".git" / "rebase-merge").exists()
+          and not (runner / ".git" / "rebase-apply").exists())
+
+    # A renderer pointed anywhere but BASE must REFUSE, not git-add the markers.
+    rc.CHAT_PATH = runner / "progress" / "elsewhere.md"
+    check("a renderer that writes outside BASE is refused, not trusted",
+          not live._rerender_derived("progress/chat.md"))
+
+
 def s49_thread_continuity(mk, kr, sb: Path):
     """The reply thread must carry what Anna DID, across knocks (2026-08-02).
 
@@ -4481,12 +4707,14 @@ def main():
         s45_concurrent_appends_merge(mk, sb)
         s46_the_commission_gate_blocks_the_close(sb)
         s47_hinted_retest_block(sb)
-        s51_prune_duplicate_lexicon_rows(sb)
-        s52_two_eras_not_a_deadline(sb)
-        s53_demotion_survives_the_close(sb)
+        s53_prune_duplicate_lexicon_rows(sb)
+        s54_two_eras_not_a_deadline(sb)
+        s55_demotion_survives_the_close(sb)
         s48_drill_answer_key_lint(sb)
         s49_thread_continuity(mk, kr, sb)
         s50_read_surfaces_are_phonetic(mk, kr, sb)
+        s51_derived_files_are_rerendered_not_merged(mk, sb)
+        s52_andrew_is_family_already(sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)

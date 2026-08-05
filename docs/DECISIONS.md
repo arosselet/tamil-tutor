@@ -1798,6 +1798,26 @@ Details live in git history; this is the index of the *conclusions*.
   for third parties must not burn a mission number, stamp `seen_in`, or move Andrew's
   recognition axis. `special_` scripts are the standing lane for feed-worthy artefacts that
   are not doses.
+- **CI checks out the branch tip, and derived files are re-rendered, never merged**
+  (2026-08-04). Run 30865736387 lost a judged reply to "rebase needs a human". The
+  concurrency gate was *working* — the job waited for the run ahead of it — but
+  `actions/checkout` fetches `github.sha`, pinned when the dispatch is **received**, so
+  serialising only widened the gap between pinning and checkout and *guaranteed* a stale
+  tree. The two fixes were fighting. `ref: main` closes it; the rebase drops back to being
+  the net for the laptop. Second cause: `chat.md` renders from `knock_log.json` and holds
+  no state, yet a conflict in it refused the whole rebase — derived files now rebuild from
+  the merged source. The tap lane's hand-rolled push moved into `sync_state.py`, so every
+  lane lands through `commit_and_push`.
+- **Andrew is family already; only the Tamil is new** (2026-08-04, Andrew). M81 opened at
+  the iron gate with sisters-in-law he "recognised from the old photos" — the Director's
+  Scenario Context had invented a first meeting. He is ten years with his wife, nearly ten
+  married, a dozen visits in; the welcome was warm from the start, and he began at year
+  nine not for want of will but because the language looked impossible to attempt until
+  agents made it tractable. No file owned this, so every generator filled the blank with
+  the newcomer-integrating story. Now canon in `constitution.md` ("Family Already, Language
+  Not Yet"), embodied in `persona.md` ("Ten Years In" — the Python doses inline persona
+  only), and pointed at from `director.md`'s Reads-from, which read neither. Never write him
+  auditioning for entry.
 - **The tier prefix belongs to the shared ordering law, not to each caller** (2026-08-04).
   `retest_targets` (08-01) sorted on staleness alone with no deck term and a five-item cut,
   so the three hinted FAQ answers — the day-one aunt questions, 25–31 days silent — sat
