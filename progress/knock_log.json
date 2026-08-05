@@ -3168,5 +3168,370 @@
     "body": "ரொம்ப நல்லாருக்கு — the melt line. Said *while* eating, under everyone's eyes. That's tonight's session. 🍽️",
     "expected_target": "",
     "target_revealed": false
+  },
+  {
+    "date": "2026-08-03",
+    "timestamp": "2026-08-03T18:45:47.760340+00:00",
+    "acted": true,
+    "modality": "volley",
+    "move": "table volley sprint",
+    "rationale": "Session happened today, demand-streak is 0, lore is spent, no open loop — afternoon is the right volley slot per the lunch anchor rule, and the sprint needs volume on the nav deck; four situations, index-matched, each pinned to exclude sibling frames.",
+    "next_check": "2026-08-03T22:45:47.760340+00:00",
+    "body": "⚡ volley 1/4 — You want the window seat but it's not guaranteed — tell the host 'if possible' before he assigns you",
+    "expected_target": "முடிஞ்சா",
+    "target_revealed": false,
+    "volley": [
+      {
+        "target": "முடிஞ்சா",
+        "ask": "You want the window seat but it's not guaranteed — tell the host 'if possible' before he assigns you"
+      },
+      {
+        "target": "வலது பக்கம் திரும்புங்க",
+        "ask": "Auto driver missed the turn — one word, direct him right"
+      },
+      {
+        "target": "இன்னொரு தடவ சொல்லுங்க",
+        "ask": "You caught maybe 60% of what the uncle just said — ask him to say it once more"
+      },
+      {
+        "target": "எவ்ளோ ஆகும்?",
+        "ask": "Rickshaw stopped, meter's off — what do you ask before you get out?"
+      }
+    ],
+    "volley_next": 3,
+    "response": "reply",
+    "reply": "Valadu pakkam ponga",
+    "reply_verdict": "cold",
+    "reply_fired": [
+      "வலது பக்கம்",
+      "வலது பக்கம் திரும்புங்க"
+    ],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line": "direction's right — but 'ponga' is 'go'; to turn, it's 'thirumbunga'. valadu pakkam thirumbunga. · 3/4 — You caught maybe 60% of what the uncle just said — ask him to say it once more",
+    "reply_at": "2026-08-04T00:28:03Z",
+    "exchanges": [
+      {
+        "at": "2026-08-04T00:26:30Z",
+        "reply": "Irukala?",
+        "verdict": "miss",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "close instinct — 'iruka?' asks if it exists; we want the softener before asking: 'mudinja, window seat kudupeenga?' — that whole move. · 2/4 — Auto driver missed the turn — one word, direct him right",
+        "slips": [
+          "existence-for-softener"
+        ],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-04T00:28:03Z",
+        "reply": "Valadu pakkam ponga",
+        "verdict": "cold",
+        "fired": [
+          "வலது பக்கம்",
+          "வலது பக்கம் திரும்புங்க"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "direction's right — but 'ponga' is 'go'; to turn, it's 'thirumbunga'. valadu pakkam thirumbunga. · 3/4 — You caught maybe 60% of what the uncle just said — ask him to say it once more",
+        "slips": [
+          "wrong-verb-direction"
+        ],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ],
+    "chained": 2,
+    "pinned_target": "இன்னொரு தடவ சொல்லுங்க",
+    "pinned_revealed": false
+  },
+  {
+    "date": "2026-08-04",
+    "timestamp": "2026-08-04T00:02:48.917749+00:00",
+    "acted": true,
+    "scheduled": true,
+    "queue_id": "q1785764146",
+    "modality": "text",
+    "move": "trailer payoff: melt line",
+    "rationale": "scheduled at 2026-08-03T13:35 for 2026-08-03T23:30",
+    "body": "ரொம்ப நல்லாருக்கு — 'it's really good,' said while you're still eating, not after. That one line is the whole melt. Session already paid it off? Fire it back cold. 🍽️",
+    "expected_target": "ரொம்ப நல்லாருக்கு",
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Vaira full",
+    "reply_verdict": "chat",
+    "reply_fired": [
+      "ரொம்ப நல்லாருக்கு",
+      "போதும்",
+      "போதும்"
+    ],
+    "reply_fired_cold": [
+      "போதும்",
+      "போதும்"
+    ],
+    "reply_fired_capped": [
+      "போதும்",
+      "போதும்"
+    ],
+    "reply_line": "ha — 'vaira full' is pure Coimbatore energy, I respect it. but the melt line is 'romba nallairukku' — you already fired that one cold last round. pogattum?",
+    "reply_at": "2026-08-04T00:33:31Z",
+    "exchanges": [
+      {
+        "at": "2026-08-04T00:25:55Z",
+        "reply": "I need phonetics not Tamil text in chat please.",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "got it — phonetics from here on. so: 'romba nallaarukkku' — that's the melt line. fire it back when you're ready.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-04T00:27:07Z",
+        "reply": "Romba nallairukku",
+        "verdict": "cold",
+        "fired": [
+          "ரொம்ப நல்லாருக்கு"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! 🔥 next — maama piles more rice on your plate. one word to wave it off: 'enough!' · maama's going for the ladle again. wave it off — 'enough!'",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-04T00:28:45Z",
+        "reply": "Podhum",
+        "verdict": "hinted",
+        "fired": [
+          "போதும்"
+        ],
+        "fired_cold": [
+          "போதும்"
+        ],
+        "fired_capped": [
+          "போதும்"
+        ],
+        "graduated": [],
+        "reply_line": "adhu dhaan! maama's hand freezes mid-ladle. 🔥 · now he asks if you want more sambar. one word — you're good, you're full. what do you say?",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-04T00:29:38Z",
+        "reply": "Accidentally dismissed can you resend volley 3",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "no worries — here's volley 3 again: maama piles more rice on your plate. one word to wave it off — 'enough!'",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-04T00:32:43Z",
+        "reply": "Podhum",
+        "verdict": "hinted",
+        "fired": [
+          "போதும்"
+        ],
+        "fired_cold": [
+          "போதும்"
+        ],
+        "fired_capped": [
+          "போதும்"
+        ],
+        "graduated": [],
+        "reply_line": "adhu dhaan! maama puts the ladle down. 🔥 · last one — maama asks if you want more sambar. still full. what do you say?",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-04T00:33:31Z",
+        "reply": "Vaira full",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "ha — 'vaira full' is pure Coimbatore energy, I respect it. but the melt line is 'romba nallairukku' — you already fired that one cold last round. pogattum?",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ],
+    "chained": 2,
+    "pinned_target": "போச்சு",
+    "pinned_revealed": false
+  },
+  {
+    "date": "2026-08-04",
+    "timestamp": "2026-08-04T14:22:22.903075+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "eavesdrop: spice clitics soak",
+    "rationale": "Demand-streak=2 forces a no-ask dose; lore is spent; eavesdrop cadence is due; frame:spice-dhaan is the deck's explicit ear-only item — tape plants நேத்து தான், நானே, என்னமோ naturally in aunty's mouth, Andrew catches the drift with zero production pressure, and it marks the frame seen.",
+    "next_check": "2026-08-04T17:52:22.903075+00:00",
+    "body": "📻 Maami's on the phone — catch the drift. What's she actually saying about the food? (just tap to listen)",
+    "expected_target": "",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-04T14-22.mp3",
+    "memo_script": "அம்மா கிட்ட phone-ல பேசுறாங்க — Andrew-கு தெரியாம.\n\nஆமா, அவன் சாப்பிட்டான் — நல்லாவே சாப்பிட்டான். ஆனா அவன் romba nalla irukku சொன்னான், அதுக்கு நான் தான் சந்தோஷப்பட்டேன். நேத்து தான் சொன்னான், first time-ல.\n\nஏன்னா அவன் Canada-ல இருக்கான்ல — அங்க இந்த மாதிரி சாப்பாடே இல்லன்னு சொல்றான். அவனே சொன்னான் — 'ரொம்ப நல்லாருக்கு'ன்னு. நானே கேட்டேன், நம்பவே இல்லை!\n\nகொஞ்சம் கூட தயக்கம் இல்லாம சொன்னான். என்னமோ — ஒரு வெளிநாட்டுக்காரன் இப்படி சொல்வான்னு யாரு நினைப்பாங்க?",
+    "mp3": "published_audio/knocks/knock_2026-08-04T14-22.mp3"
+  },
+  {
+    "date": "2026-08-04",
+    "timestamp": "2026-08-04T18:25:15.433451+00:00",
+    "acted": true,
+    "modality": "volley",
+    "move": "backchannel volley sprint",
+    "rationale": "Afternoon slot, demand-streak 0, last reach was no-ask eavesdrop — volley is the right volume move; backchannel items are cold-pending and table-critical with 8 days out; scheduled the field mission debrief collect for 20:00 after dinner has plausibly happened.",
+    "next_check": "2026-08-04T23:25:15.433451+00:00",
+    "body": "⚡ volley 1/4 — Paati is mid-story about the neighbour's wedding; you want her to keep going without cutting in. What do you say?",
+    "expected_target": "ஆமா ஆமா",
+    "target_revealed": false,
+    "volley": [
+      {
+        "target": "ஆமா ஆமா",
+        "ask": "Paati is mid-story about the neighbour's wedding; you want her to keep going without cutting in. What do you say?"
+      },
+      {
+        "target": "நேரா போங்க",
+        "ask": "Someone asks how to get to the main road from the house — it's straight ahead, no turns. Give them directions."
+      },
+      {
+        "target": "சரி சரி",
+        "ask": "Your maama just explained which road to take to the temple. You got it; signal agreement and close it. What do you say?"
+      },
+      {
+        "target": "frame:we-om",
+        "ask": "The family asks what you and your wife did yesterday — you both ate at that small shop. Fire the we-past."
+      }
+    ],
+    "volley_next": 3,
+    "response": "reply",
+    "reply": "Thanks da",
+    "reply_verdict": "chat",
+    "reply_fired": [
+      "நேரா போங்க"
+    ],
+    "reply_fired_cold": [
+      "நேரா போங்க"
+    ],
+    "reply_fired_capped": [],
+    "reply_line": "got it — moving to 4/4. · still open · 3/4 — Your maama just explained which road to take to the temple. You got it; signal agreement and close it. What do you say?",
+    "reply_at": "2026-08-04T18:40:14Z",
+    "exchanges": [
+      {
+        "at": "2026-08-04T18:32:56Z",
+        "reply": "Ama ama",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "aama aama — clean. paati keeps going. 🔥 · still open · 1/4 — Paati is mid-story about the neighbour's wedding; you want her to keep going without cutting in. What do you say?",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-04T18:34:39Z",
+        "reply": "Appadiyaa",
+        "verdict": "miss",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "close instinct — 'appadiyaa' is your surprised reaction; to keep her rolling without cutting in, it's 'aama aama'. let her finish. · 2/4 — Someone asks how to get to the main road from the house — it's straight ahead, no turns. Give them directions.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-04T18:36:26Z",
+        "reply": "Nera ponga and that “ama ama” miss is frustrating you just asked the same question twice",
+        "verdict": "hinted",
+        "fired": [
+          "நேரா போங்க"
+        ],
+        "fired_cold": [
+          "நேரா போங்க"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "nera ponga — adhu dhaan. 🔥 (and yeah, 'ama ama' — my bad, that one was already in the bag. noted.) · 3/4 — Your maama just explained which road to take to the temple. You got it; signal agreement and close it. What do you say?",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-04T18:37:51Z",
+        "reply": "Thanks da",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "ha — 'thanks da' noted. seri seri — that's the one. maama's satisfied. last rep: · still open · 3/4 — Your maama just explained which road to take to the temple. You got it; signal agreement and close it. What do you say?",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-04T18:39:05Z",
+        "reply": "You just asked me this same question. Seri seri",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "seri seri — adhu dhaan. and fair point, I re-asked this one too many times. moving on. · still open · 3/4 — Your maama just explained which road to take to the temple. You got it; signal agreement and close it. What do you say?",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-04T18:40:14Z",
+        "reply": "Thanks da",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "got it — moving to 4/4. · still open · 3/4 — Your maama just explained which road to take to the temple. You got it; signal agreement and close it. What do you say?",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ],
+    "chained": 2,
+    "pinned_target": "சரி சரி",
+    "pinned_revealed": false
+  },
+  {
+    "date": "2026-08-04",
+    "timestamp": "2026-08-04T23:58:17.000058+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "field mission reminder",
+    "rationale": "Field mission is active right now — a no-ask nudge keeps it alive without demanding a debrief; day was full and strong, close it clean.",
+    "next_check": "2026-08-05T11:58:17.000058+00:00",
+    "body": "mission's live — 'konjam X kudunga' at the table tonight, unprompted. debrief tomorrow. 🎯",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]

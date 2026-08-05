@@ -53,15 +53,22 @@
 |---|---|---|
 | **Aug 5** | The doorstep | வந்துட்டேன் · ரொம்ப சந்தோஷம் · எப்படி இருக்கீங்க? · ரொம்ப நாளாச்சு · நேத்து தான் வந்தோம் |
 | **Aug 6** | The interrogation | the faq six — ஒரு மாசம் இருப்போம், சாஃப்ட்வேர் இன்ஜினியரா இருக்கேன், ரொம்ப பிடிச்சிருக்கு are **hinted and 25–31 days silent: these fire, they do not seed** · then கனடாவுல இருக்கோம் · ஊரு · காரம் பரவாயில்ல |
-| **Aug 7** | Her table — receiving | ரொம்ப நல்லா இருக்கு (hinted → cold) · உங்க கை ருசி சூப்பர் · கொஞ்சம் தண்ணி குடுங்க · இன்னும் கொஞ்சம் போடுங்க |
+| **Aug 7** | Her table — receiving | உங்க கை ருசி சூப்பர் · கொஞ்சம் தண்ணி குடுங்க · இன்னும் கொஞ்சம் போடுங்க |
 | **Aug 8** | Her table — declining | வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு · நானே எடுத்துக்கறேன் · கை கழுவிட்டு வரேன் · நீங்க சாப்பிட்டீங்களா? — drilled as a **pair** with her line இன்னும் கொஞ்சம் சாப்பிடுங்க: hear it coming, answer it |
 | **Aug 9** | The room | உட்கார்ந்து பேசுங்க · ஃப்ரீயா விடுங்க · கடைசில பாக்கலாம் · பிறந்தநாள் வாழ்த்துக்கள் |
-| **Aug 10** | Leaving, and the street | கிளம்பலாமா? · அப்புறம் பார்க்கலாம் · நல்லா இருங்க + the survival remainders: முடிஞ்சா, ஆமா ஆமா, சரி சரி, நேரா போங்க, வலது பக்கம் திரும்புங்க, எவ்ளோ ஆகும்?, frame:in-la |
+| **Aug 10** | Leaving, and the street | கிளம்பலாமா? · அப்புறம் பார்க்கலாம் · நல்லா இருங்க + the survival remainders: முடிஞ்சா, ஆமா ஆமா, எவ்ளோ ஆகும்?, and the five hinted (சரி சரி, இன்னொரு தடவ சொல்லுங்க, வலது பக்கம் திரும்புங்க, frame:in-la, frame:we-om) — retests, not teaches |
 | **Aug 11** | The ear, and dessert | the gossip catch set + frame:spice-dhaan + the four gossip questions + the six zingers — **first contact only, no demand** |
 
 **One dated thing inside the stay:** amma's birthday lands ~Aug 24, mid-visit. பிறந்தநாள் வாழ்த்துக்கள் has a real deadline and it is not the 12th.
 
-**Where it stands 08-04:** survival 26/34 and coasting — it will finish. Engines 18/21. Delight is 1 cold of 27, but that number hides its own shape: **4 hinted (one hesitation from cold), 3 in play, 19 never introduced.** The four hinted were structurally unreachable until today — `retest_targets` had no tier prefix and its five slots went to ordinary vocabulary while the day-one aunt questions sat below the cut. Fixed 08-04; they now lead the block.
+**Where it stands 08-04:** **வேணும்-for-குடுங்க is CLOSED** — 22 days in the ledger, tested unfenced (venum left fully available) and he reached for குடுங்க himself. ரொம்ப நல்லா இருக்கு fired **cold** in the right slot. Delight moved **1 → 2 of 27**; survival 26/34 (வலது பக்கம் திரும்புங்க landed after this was written), engines 17/21 (frame:we-om demoted off cold — honest, it needed the hint). The **past tense is NOT closed** — the 08-02 call was wrong: the unannounced retest missed on both halves and `1pl-past-om` is now **8× over 10d**. It is commissioned to the episode lane (போனோம் / இருந்துச்சு, the nightly recap) — **do not re-teach it in chat before that dose lands.**
+
+**Method note (08-04, the twins rule, extended):** *never introduce twins in one breath* now reads **never across consecutive days either**. The melt line was taught 08-03 as a welded PRESENT chunk; on 08-04 I asked for its past twin and got the present back. That miss was my scheduling, not his memory. A chunk drilled as fixed cannot be asked to inflect the next day — put a dose between them.
+
+**Tomorrow's shape (08-05): Day 1 of the arc — The doorstep.** Written before the arc existed, as a general Teach Day; the arc now owns the order, and Day 1 is வந்துட்டேன் · ரொம்ப சந்தோஷம் · எப்படி இருக்கீங்க? · ரொம்ப நாளாச்சு · நேத்து தான் வந்தோம். Same instinct — generous, low-density, all-UNSEEN delight — with a sequence behind it. ஊரு, நானே எடுத்துக்கறேன் and பிறந்தநாள் வாழ்த்துக்கள் keep their days (2, 4, 5); the birthday has a real date (~Aug 24) and must not slip past Day 5. Generous, story-rich, no cold demand on today's teach; firing stays light and aims at *yesterday's* — the melt line and குடுங்க, both now his. Still owed: **புரியல-for-reopen got no slot on 08-04** — he understood the too-fast line instead of needing to reopen it; next attempt the line must be genuinely unrecoverable. Low-power twin: **M81** (ரொம்ப சந்தோஷம், the greeting at the door), ear only.
+
+**Ear note (08-04):** his catch is now ahead of his mouth. He decoded ‑ஆம் as "apparently" unprompted, and pulled the drift off a line built deliberately over his head (பாத்துக்கோங்க / போட்டேன் / பிடிக்கலென்னா all unknown). Consequence for test design: a comprehension-repair test can no longer be built from "fast" — it has to be built from *genuinely absent* content.
+
 
 **When the era turns (Aug 12): the session inverts.** The field mission stops being the session's *output* — "one deployable line for tonight" — and becomes its *input*. Anna opens on what actually happened at the table, and that is real data, not a rehearsal; the commission then targets what genuinely missed. The status line drops the countdown and the burn rate at the boundary, because in country the table sets the pace and a per-day quota is a lie. **Do not narrate a deficit in country.**
 

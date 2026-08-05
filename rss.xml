@@ -185,6 +185,16 @@
     </item>
 
     <item>
+      <title>Knock — 2026-08-04 14:22 · eavesdrop: spice clitics soak</title>
+      <itunes:author>Andrew &amp; Claude</itunes:author>
+      <itunes:summary>Knock — 2026-08-04 14:22 · eavesdrop: spice clitics soak</itunes:summary>
+      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/knocks/knock_2026-08-04T14-22.mp3" length="132480" type="audio/mpeg"/>
+      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/knocks/knock_2026-08-04T14-22.mp3</guid>
+      <pubDate>Tue, 04 Aug 2026 10:22:53 -0400</pubDate>
+      <itunes:duration>00:00:33</itunes:duration>
+    </item>
+
+    <item>
       <title>Reply — 2026-08-02 20:21 · lore: feeding as greeting</title>
       <itunes:author>Andrew &amp; Claude</itunes:author>
       <itunes:summary>Reply — 2026-08-02 20:21 · lore: feeding as greeting</itunes:summary>
@@ -502,6 +512,18 @@
       <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/knocks/knock_2026-06-30.mp3</guid>
       <pubDate>Tue, 30 Jun 2026 14:02:02 -0400</pubDate>
       <itunes:duration>00:00:51</itunes:duration>
+    </item>
+
+    <item>
+      <title>Tier2 Mission81</title>
+      <itunes:author>Andrew &amp; Claude</itunes:author>
+      <itunes:summary>Tier2 Mission81</itunes:summary>
+      <link>https://github.com/arosselet/tamil-tutor/blob/main/content/captions/tier2_mission81.md</link>
+      <description><![CDATA[📖 <a href="https://github.com/arosselet/tamil-tutor/blob/main/content/captions/tier2_mission81.md">Captions — follow along (Tamil · phonetic · English)</a>]]></description>
+      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission81.mp3" length="867792" type="audio/mpeg"/>
+      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/tier2_mission81.mp3</guid>
+      <pubDate>Tue, 04 Aug 2026 13:51:33 -0400</pubDate>
+      <itunes:duration>00:03:21</itunes:duration>
     </item>
 
     <item>

@@ -408,9 +408,11 @@
       11,
       16,
       18,
-      72
+      72,
+      81
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-04",
+    "exposures": 1
   },
   "அது": {
     "gloss": "It / That",
@@ -775,8 +777,8 @@
       71,
       72
     ],
-    "last_surfaced": "2026-07-31",
-    "reps": 5,
+    "last_surfaced": "2026-08-03",
+    "reps": 7,
     "exposures": 1
   },
   "தெரியும்": {
@@ -839,10 +841,11 @@
       18,
       28,
       37,
-      75
+      75,
+      81
     ],
-    "last_surfaced": "2026-07-26",
-    "exposures": 2
+    "last_surfaced": "2026-08-04",
+    "exposures": 3
   },
   "நீங்க": {
     "gloss": "You (respectful - Elders/Strangers)",
@@ -879,9 +882,11 @@
       11,
       21,
       35,
-      38
+      38,
+      81
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-04",
+    "exposures": 1
   },
   "நிறுத்துங்க": {
     "gloss": "Stop (respectful)",
@@ -1639,9 +1644,11 @@
       33,
       38,
       61,
-      67
+      67,
+      81
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-04",
+    "exposures": 1
   },
   "சின்ன": {
     "gloss": "Small / Little",
@@ -1749,9 +1756,11 @@
       21,
       70,
       71,
-      72
+      72,
+      81
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-04",
+    "exposures": 1
   },
   "எடுங்க": {
     "gloss": "Take (respectful)",
@@ -1796,8 +1805,9 @@
       72,
       80
     ],
-    "last_surfaced": "2026-08-02",
-    "exposures": 2
+    "last_surfaced": "2026-08-04",
+    "exposures": 2,
+    "reps": 1
   },
   "தாகம்": {
     "gloss": "Thirsty",
@@ -2981,12 +2991,12 @@
       "nera ponga"
     ],
     "recognition": "comfortable",
-    "production": "none",
+    "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-08-01",
+    "last_surfaced": "2026-08-04",
     "deck": "trip",
     "direction": "fire",
-    "reps": 1,
+    "reps": 2,
     "exposures": 2
   },
   "வலது பக்கம் திரும்புங்க": {
@@ -2996,12 +3006,13 @@
       "valadu pakkam thirumbunga"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [],
-    "last_surfaced": "2026-08-01",
+    "last_surfaced": "2026-08-03",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 1
+    "exposures": 1,
+    "reps": 1
   },
   "சில்லறை இருக்கா?": {
     "type": "chunk",
@@ -3332,10 +3343,10 @@
       66,
       68
     ],
-    "last_surfaced": "2026-07-24",
+    "last_surfaced": "2026-08-04",
     "deck": "trip",
     "direction": "fire",
-    "reps": 2
+    "reps": 3
   },
   "frame:needtogo-place": {
     "type": "pattern",
@@ -3651,16 +3662,16 @@
     "gloss": "{I-form}+ஓம் → we — வந்தோம், போனோம், இருப்போம், சாப்பிட்டோம்: the trip is a 'we' trip",
     "phonetic": [],
     "recognition": "struggled",
-    "production": "cold",
+    "production": "hinted",
     "seen_in": [
       59,
       68
     ],
-    "last_surfaced": "2026-08-02",
+    "last_surfaced": "2026-08-04",
     "deck": "trip",
     "direction": "fire",
     "exposures": 1,
-    "reps": 1
+    "reps": 2
   },
   "frame:day-recap": {
     "type": "pattern",
@@ -3725,11 +3736,14 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
-    "last_surfaced": "2026-08-03",
+    "seen_in": [
+      81
+    ],
+    "last_surfaced": "2026-08-04",
     "deck": "trip",
     "direction": "fire",
-    "reps": 1
+    "reps": 1,
+    "exposures": 1
   },
   "சாஃப்ட்வேர் இன்ஜினியரா இருக்கேன்": {
     "type": "chunk",
@@ -3765,14 +3779,14 @@
       "romba nallarukku"
     ],
     "recognition": "comfortable",
-    "production": "hinted",
+    "production": "cold",
     "seen_in": [
       72
     ],
-    "last_surfaced": "2026-08-03",
+    "last_surfaced": "2026-08-04",
     "deck": "trip",
     "direction": "fire",
-    "reps": 2,
+    "reps": 3,
     "exposures": 1
   },
   "தெரியுமா?": {
@@ -3891,10 +3905,10 @@
     "recognition": "struggled",
     "production": "hinted",
     "seen_in": [],
-    "last_surfaced": "2026-08-01",
+    "last_surfaced": "2026-08-04",
     "deck": "trip",
     "direction": "fire",
-    "reps": 4,
+    "reps": 5,
     "exposures": 1
   },
   "frame:happened-aachu": {
@@ -3940,9 +3954,10 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": null,
+    "last_surfaced": "2026-08-04",
     "deck": "trip",
-    "direction": "catch"
+    "direction": "catch",
+    "exposures": 1
   },
   "frame:myself-thukka": {
     "type": "pattern",
@@ -4924,5 +4939,38 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": "2026-08-03"
+  },
+  "ஒற்றுமை": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      81
+    ],
+    "last_surfaced": "2026-08-04",
+    "exposures": 1
+  },
+  "கண்கள்": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      81
+    ],
+    "last_surfaced": "2026-08-04",
+    "exposures": 1
+  },
+  "சொன்னீங்க": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      81
+    ],
+    "last_surfaced": "2026-08-04",
+    "exposures": 1
   }
 }

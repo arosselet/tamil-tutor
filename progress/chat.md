@@ -4,10 +4,112 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Tuesday 2026-08-04
+
+**10:22 · Anna** 🎧  ·  eavesdrop / eavesdrop: spice clitics soak
+> 📻 Maami's on the phone — catch the drift. What's she actually saying about the food? (just tap to listen)
+
+**14:25 · Anna**  ·  volley / backchannel volley sprint
+> ⚡ volley 1/4 — Paati is mid-story about the neighbour's wedding; you want her to keep going without cutting in. What do you say?
+
+**14:32 · Andrew** — **CHAT**
+> Ama ama
+
+**Anna ↩**
+> aama aama — clean. paati keeps going. 🔥 · still open · 1/4 — Paati is mid-story about the neighbour's wedding; you want her to keep going without cutting in. What do you say?
+
+**14:34 · Andrew** — **MISS**
+> Appadiyaa
+
+**Anna ↩**
+> close instinct — 'appadiyaa' is your surprised reaction; to keep her rolling without cutting in, it's 'aama aama'. let her finish. · 2/4 — Someone asks how to get to the main road from the house — it's straight ahead, no turns. Give them directions.
+
+**14:36 · Andrew** — **HINTED**
+> Nera ponga and that “ama ama” miss is frustrating you just asked the same question twice
+
+**Anna ↩**
+> nera ponga — adhu dhaan. 🔥 (and yeah, 'ama ama' — my bad, that one was already in the bag. noted.) · 3/4 — Your maama just explained which road to take to the temple. You got it; signal agreement and close it. What do you say?
+
+**14:37 · Andrew** — **CHAT**
+> Thanks da
+
+**Anna ↩**
+> ha — 'thanks da' noted. seri seri — that's the one. maama's satisfied. last rep: · still open · 3/4 — Your maama just explained which road to take to the temple. You got it; signal agreement and close it. What do you say?
+
+**14:39 · Andrew** — **CHAT**
+> You just asked me this same question. Seri seri
+
+**Anna ↩**
+> seri seri — adhu dhaan. and fair point, I re-asked this one too many times. moving on. · still open · 3/4 — Your maama just explained which road to take to the temple. You got it; signal agreement and close it. What do you say?
+
+**14:40 · Andrew** — **CHAT**
+> Thanks da
+
+**Anna ↩**
+> got it — moving to 4/4. · still open · 3/4 — Your maama just explained which road to take to the temple. You got it; signal agreement and close it. What do you say?
+
+**19:58 · Anna**  ·  text / field mission reminder
+> mission's live — 'konjam X kudunga' at the table tonight, unprompted. debrief tomorrow. 🎯
+
+
 ## Monday 2026-08-03
 
 **09:35 · Anna**  ·  text / trailer: melt line
 > ரொம்ப நல்லாருக்கு — the melt line. Said *while* eating, under everyone's eyes. That's tonight's session. 🍽️
+
+**14:45 · Anna**  ·  volley / table volley sprint
+> ⚡ volley 1/4 — You want the window seat but it's not guaranteed — tell the host 'if possible' before he assigns you
+
+**20:26 · Andrew** — **MISS**
+> Irukala?
+
+**Anna ↩**
+> close instinct — 'iruka?' asks if it exists; we want the softener before asking: 'mudinja, window seat kudupeenga?' — that whole move. · 2/4 — Auto driver missed the turn — one word, direct him right
+
+**20:28 · Andrew** — **COLD**
+> Valadu pakkam ponga
+
+**Anna ↩**
+> direction's right — but 'ponga' is 'go'; to turn, it's 'thirumbunga'. valadu pakkam thirumbunga. · 3/4 — You caught maybe 60% of what the uncle just said — ask him to say it once more
+
+**20:02 · Anna**  ·  text / trailer payoff: melt line
+> ரொம்ப நல்லாருக்கு — 'it's really good,' said while you're still eating, not after. That one line is the whole melt. Session already paid it off? Fire it back cold. 🍽️
+
+**20:25 · Andrew** — **CHAT**
+> I need phonetics not Tamil text in chat please.
+
+**Anna ↩**
+> got it — phonetics from here on. so: 'romba nallaarukkku' — that's the melt line. fire it back when you're ready.
+
+**20:27 · Andrew** — **COLD**
+> Romba nallairukku
+
+**Anna ↩**
+> adhu dhaan! 🔥 next — maama piles more rice on your plate. one word to wave it off: 'enough!' · maama's going for the ladle again. wave it off — 'enough!'
+
+**20:28 · Andrew** — **HINTED**
+> Podhum
+
+**Anna ↩**
+> adhu dhaan! maama's hand freezes mid-ladle. 🔥 · now he asks if you want more sambar. one word — you're good, you're full. what do you say?
+
+**20:29 · Andrew** — **CHAT**
+> Accidentally dismissed can you resend volley 3
+
+**Anna ↩**
+> no worries — here's volley 3 again: maama piles more rice on your plate. one word to wave it off — 'enough!'
+
+**20:32 · Andrew** — **HINTED**
+> Podhum
+
+**Anna ↩**
+> adhu dhaan! maama puts the ladle down. 🔥 · last one — maama asks if you want more sambar. still full. what do you say?
+
+**20:33 · Andrew** — **CHAT**
+> Vaira full
+
+**Anna ↩**
+> ha — 'vaira full' is pure Coimbatore energy, I respect it. but the melt line is 'romba nallairukku' — you already fired that one cold last round. pogattum?
 
 
 ## Sunday 2026-08-02
