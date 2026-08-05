@@ -1769,75 +1769,79 @@ def cmd_feedback(args):
         print(f"  {e['date']}  {e['note']}")
 
 
-def cmd_migrate_session_log(args):
-    """One-time repair of rows minted before the same-day merge landed (2026-07-31).
+def cmd_prune_duplicates(args):
+    """Drop lexicon rows that duplicate another row and carry nothing of their own.
 
-    Until today the momentum log appended on every `update`, so a close split
-    across several calls — repairing a key, setting the soak order separately,
-    rewriting a debrief — wrote one row per CALL. 38 rows for 19 real
-    session-days: the log read exactly double.
+    Replaces `migrate-session-log` (2026-07-31), which was spent: it reports
+    "nothing to do" against the repaired log, and the same-day merge in
+    `cmd_update` is the forward fix that stops the rows recurring. A one-time
+    migration whose one time has passed is crud, and this file was at 1247/1250.
 
-    Merging is lossless in the way that matters. Word lists union (and on this
-    history no word appears in two rows of one day, so no count moves). The
-    debrief is rewritten whole and cumulatively by Anna, so the last non-empty
-    one supersedes rather than concatenating — that is the same rule the live
-    path now follows. Meters are a snapshot: the last row that carries them wins.
+    THE DUPLICATE SIGNAL IS THE PHONETIC, NEVER THE KEY (2026-08-04). Trailing
+    punctuation is load-bearing here: `எங்க` is "our" and `எங்க?` is "where?" —
+    two lemmas that differ by one character, so any rule that normalises keys
+    merges them and destroys a real distinction. Two rows are duplicates only
+    when they share a phonetic AND one is strictly poorer on every axis.
 
-    Previews by default; --apply writes. Deliberately NOT run by anything
-    automatic — it edits the record of what Andrew actually did, which is his
-    call to make once, not a repair that should quietly re-run."""
-    log = load_json(SESSION_LOG_PATH) or []
-    if not log:
-        print("session_log.json is empty — nothing to migrate.")
-        return
+    `frame:` keys are exempt: a frame legitimately shares a phonetic with the
+    chunk that exemplifies it (`vandhutten` is both `வந்துட்டேன்` and
+    `frame:done-ittu`), which is the one collision that must never be pruned.
 
-    merged, by_date = [], {}
-    for row in log:
-        d = row.get("date")
-        if d not in by_date:
-            # deepcopy, not dict(): a shallow copy shares the LIST objects with
-            # the source row, so extending the merged row silently extended the
-            # original too — and the before/after conservation check below then
-            # compared the mutated history against itself and reported phantom
-            # duplicates. Caught on this migration's first dry run.
-            import copy
-            by_date[d] = copy.deepcopy(row)
-            merged.append(by_date[d])
+    Strict domination is what makes this safe to automate. A row that is better
+    on any axis — or that holds a deck tag, a type, or reps the other lacks — is
+    never dropped, so the command can only ever remove a row whose deletion
+    loses nothing. Anything else is reported for a human and left alone."""
+    lexicon = load_json(LEXICON_PATH) or {}
+    rank = {"recognition": RECOGNITION_LEVELS,
+            "production": ["none", "hinted", "cold"]}
+
+    def poorer(a: str, b: str) -> bool:
+        """Is row `a` strictly dominated by row `b` — nothing to lose by dropping it?"""
+        ra, rb = lexicon[a], lexicon[b]
+        for axis, levels in rank.items():
+            if levels.index(ra.get(axis) or levels[0]) > levels.index(rb.get(axis) or levels[0]):
+                return False
+        if ra.get("reps", 0) > rb.get("reps", 0) or ra.get("last_surfaced"):
+            return False
+        # A tag the survivor lacks is content: deck membership, type, seen_in.
+        return not any(ra.get(f) and not rb.get(f) for f in ("deck", "type", "seen_in"))
+
+    index: dict[str, list[str]] = {}
+    for word, rec in lexicon.items():
+        if word.startswith("frame:"):
             continue
-        into = by_date[d]
-        for field in ("cold", "hinted", "demoted", "listened"):
-            have = into.setdefault(field, [])
-            have.extend(v for v in row.get(field, []) if v not in have)
-        for meter in ("floor_pct", "engines_pct"):
-            if row.get(meter) is not None:
-                into[meter] = row[meter]
-        if row.get("note"):
-            into["note"] = row["note"]
+        for phon in rec.get("phonetic") or []:
+            index.setdefault(phon.strip().lower(), []).append(word)
 
-    dupes = len(log) - len(merged)
-    print(f"session_log.json: {len(log)} rows over {len(merged)} session-days "
-          f"({dupes} forged by multi-call closes)")
-    if not dupes:
-        print("  nothing to do.")
+    doomed, flagged = [], []
+    for phon, words in sorted(index.items()):
+        if len(words) < 2:
+            continue
+        losers = [w for w in words if any(w != k and poorer(w, k) for k in words)]
+        # Never drop every side of a collision: identical twins dominate each
+        # other, so keep the first and drop the rest.
+        for word in losers[1:] if len(losers) == len(words) else losers:
+            doomed.append((word, phon, next(k for k in words if k != word)))
+        if not losers:
+            flagged.append((phon, words))
+
+    for phon, words in flagged:
+        print(f"  ⚠ '{phon}' is shared by {words} — neither is strictly poorer. "
+              f"Not a duplicate, or a real merge someone has to make by hand.")
+    if not doomed:
+        print(f"lexicon.json: {len(lexicon)} rows, no strictly-dominated duplicates.")
         return
-
-    # Prove the merge conserves the numbers anything downstream reads.
-    for field in ("cold", "hinted", "demoted"):
-        before = sum(len(r.get(field, [])) for r in log)
-        after = sum(len(r.get(field, [])) for r in merged)
-        flag = "" if before == after else f"  ⚠ {before - after} duplicate(s) collapsed"
-        print(f"  {field:<8} {before} → {after}{flag}")
-    lost = sum(1 for r in log if r.get("note")) - sum(1 for r in merged if r.get("note"))
-    print(f"  {'debriefs':<8} {sum(1 for r in log if r.get('note'))} → "
-          f"{sum(1 for r in merged if r.get('note'))}"
-          f"{'' if not lost else f'  ({lost} superseded — the last of each day is kept)'}")
-
+    print(f"lexicon.json: {len(lexicon)} rows, {len(doomed)} dominated duplicate(s):")
+    for word, phon, keeper in doomed:
+        print(f"  - drop {word!r} (shares '{phon}' with {keeper!r}, and carries nothing it lacks)")
     if not args.apply:
         print("\n  DRY RUN — nothing written. Re-run with --apply to commit the change.")
-        print("  (git holds the current file; `git checkout -- progress/session_log.json` reverts.)")
+        print("  (git holds the current file; `git checkout -- progress/lexicon.json` reverts.)")
         return
-    save_json(SESSION_LOG_PATH, merged)
-    print(f"\n  ✅ written — {len(merged)} rows, one per session-day.")
+    for word, _, _ in doomed:
+        del lexicon[word]
+    save_json(LEXICON_PATH, lexicon)
+    print(f"\n  ✅ written — {len(lexicon)} rows.")
 
 
 def main():
@@ -1942,10 +1946,10 @@ def main():
                          "(a later miss revives it, history intact); 'missed' logs the failure and keeps it live. "
                          "This asserts an observation — that he fired it right unaided — not a verdict.")
 
-    ml = sub.add_parser("migrate-session-log",
-                        help="One-time repair: collapse same-day momentum rows minted by "
-                             "multi-call closes (2026-07-31). Previews unless --apply.")
-    ml.add_argument("--apply", action="store_true",
+    pd = sub.add_parser("prune-duplicates",
+                        help="Drop lexicon rows that share a phonetic with another row and "
+                             "carry nothing it lacks (2026-08-04). Previews unless --apply.")
+    pd.add_argument("--apply", action="store_true",
                     help="Actually write. Without it this only reports what would change.")
 
     args = parser.parse_args()
@@ -1965,8 +1969,8 @@ def main():
         cmd_slips(args)
     elif args.command == "knock-response":
         cmd_knock_response(args)
-    elif args.command == "migrate-session-log":
-        cmd_migrate_session_log(args)
+    elif args.command == "prune-duplicates":
+        cmd_prune_duplicates(args)
     else:
         parser.print_help()
 

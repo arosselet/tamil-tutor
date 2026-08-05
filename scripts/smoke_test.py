@@ -3512,61 +3512,83 @@ def s42_session_log_one_row_per_day(sb: Path):
         check("an older day is never merged into today", len(log) == 2, f"got {len(log)}")
         check("...and keeps its own note", log[0]["note"] == "ancient")
 
-        # --- the one-time repair of rows minted before the merge landed --------
-        # Its first dry run reported 20 phantom collapsed fires: `dict(row)` is a
-        # SHALLOW copy, so the merged row shared list objects with its source and
-        # extending one extended the other — the conservation check was comparing
-        # the mutated history against itself. A migration that quietly corrupts
-        # the record it is repairing is the worst failure mode this tool has.
-        forged = [
-            {"date": "2021-05-05", "cold": ["a", "b"], "hinted": ["h"], "demoted": [],
-             "listened": [], "note": "first pass", "floor_pct": 1.0, "engines_pct": 2.0},
-            {"date": "2021-05-05", "cold": ["c"], "hinted": [], "demoted": ["d"],
-             "listened": [], "note": "", "floor_pct": 1.5, "engines_pct": 2.5},
-            {"date": "2021-05-05", "cold": [], "hinted": [], "demoted": [],
-             "listened": [], "note": "rewritten whole", "floor_pct": 1.7, "engines_pct": 2.7},
-            {"date": "2021-05-06", "cold": ["e"], "hinted": [], "demoted": [],
-             "listened": [], "note": "next day", "floor_pct": 2.0, "engines_pct": 3.0},
-        ]
-        write_json(slog_path, forged)
-        before = json.loads(json.dumps(forged))     # an untouchable reference copy
-
-        out = io.StringIO()
-        with contextlib.redirect_stdout(out):
-            ss.cmd_migrate_session_log(_ap.Namespace(apply=False))
-        check("a dry run writes nothing at all",
-              read_json(slog_path) == before, "the preview mutated the file")
-        check("...and says so", "DRY RUN" in out.getvalue())
-        # a+b+c on 05-05 and e on 05-06 = 4 fires, and the merge must move none
-        # of them. A "→" showing a DROP here is the shallow-copy bug returning.
-        check("...and reports fires as conserved, not collapsed",
-              "cold     4 → 4" in out.getvalue(), f"got {out.getvalue()!r}")
-
-        with contextlib.redirect_stdout(io.StringIO()):
-            ss.cmd_migrate_session_log(_ap.Namespace(apply=True))
-        after = read_json(slog_path)
-        check("--apply collapses the forged rows", len(after) == 2, f"got {len(after)}")
-        check("...conserving every fire across the merge",
-              sorted(after[0]["cold"]) == ["a", "b", "c"], f"got {after[0]['cold']}")
-        check("...and every hint and demotion",
-              after[0]["hinted"] == ["h"] and after[0]["demoted"] == ["d"], f"got {after[0]}")
-        check("...keeping the LAST debrief of the day, not the first",
-              after[0]["note"] == "rewritten whole", f"got {after[0]['note']!r}")
-        check("...and the latest meter snapshot",
-              after[0]["floor_pct"] == 1.7, f"got {after[0]['floor_pct']}")
-        check("...while a separate day is left entirely alone",
-              after[1] == forged[3], f"got {after[1]}")
-
-        with contextlib.redirect_stdout(out := io.StringIO()):
-            ss.cmd_migrate_session_log(_ap.Namespace(apply=True))
-        check("re-running on clean data is a no-op",
-              read_json(slog_path) == after and "nothing to do" in out.getvalue(),
-              f"got {out.getvalue()!r}")
     finally:
         lex_path.write_bytes(saved[0])
         learner_path.write_bytes(saved[1])
         if saved[2] is not None:
             slog_path.write_bytes(saved[2])
+
+
+def s51_prune_duplicate_lexicon_rows(sb: Path):
+    """Duplicate lexicon rows, and the rule that must NEVER fire (2026-08-04).
+
+    Three near-identical key pairs turned up in an audit. Only two were
+    duplicates: `எங்க` is "our (exclusive)" and `எங்க?` is "Where?" — two
+    lemmas separated by one character of punctuation. The obvious architecture
+    (normalise keys, strip terminal punctuation) would have merged them and
+    destroyed a real distinction, so the duplicate signal is the PHONETIC plus
+    strict domination, never the key.
+
+    Gate 7.2 — this tool's silent failure is not doing nothing, it is deleting
+    a row nobody can get back. The no-op reads as "no duplicates found", which
+    is also what a correct run on clean data prints; the dangerous state is the
+    opposite one. So every check below is about what must SURVIVE, and the
+    homograph pair is the case that matters: it shares a stem, differs only by
+    punctuation, and must come through untouched."""
+    print("\n51. Duplicate lexicon rows are pruned on phonetic + domination (2026-08-04)")
+    import contextlib, io, argparse as _ap
+    ss = importlib.import_module("sync_state")
+    lex_path = sb / "progress" / "lexicon.json"
+    saved = lex_path.read_bytes()
+    try:
+        row = lambda **kw: {"gloss": "x", "phonetic": [], "recognition": "struggled",
+                            "production": "none", "seen_in": [], "last_surfaced": None, **kw}
+        lex = {
+            # the real duplicate: same phonetic, and the stray carries nothing
+            "அப்படியா?!": row(phonetic=["appadiya"], recognition="comfortable",
+                              production="cold", type="chunk", deck="trip"),
+            "அப்படியா": row(phonetic=["appadiya"]),
+            # THE HOMOGRAPH — one character apart, different words, different
+            # phonetics. A key-normalising rule merges these; this one must not.
+            "எங்க": row(phonetic=["enga"], recognition="solid", production="cold"),
+            "எங்க?": row(phonetic=["enga?"], recognition="solid"),
+            # a frame legitimately shares its exemplar chunk's phonetic
+            "வந்துட்டேன்": row(phonetic=["vandhutten"], recognition="solid", production="cold"),
+            "frame:done-ittu": row(phonetic=["vandhutten"], type="pattern"),
+            # shares a phonetic, but is RICHER — a duplicate that must not be
+            # dropped just because something else got there first
+            "ருசி": row(phonetic=["rusi"]),
+            "கை ருசி": row(phonetic=["rusi"], recognition="solid", production="cold", reps=4),
+        }
+        write_json(lex_path, lex)
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            ss.cmd_prune_duplicates(_ap.Namespace(apply=False))
+        check("a dry run writes nothing", read_json(lex_path) == lex, "the preview mutated the file")
+        check("...and says so", "DRY RUN" in out.getvalue())
+
+        with contextlib.redirect_stdout(io.StringIO()):
+            ss.cmd_prune_duplicates(_ap.Namespace(apply=True))
+        after = read_json(lex_path)
+        check("the dominated duplicate is dropped", "அப்படியா" not in after)
+        check("...and the row that carried the state survives", "அப்படியா?!" in after)
+        # The regression that matters most. Both must be here.
+        check("a punctuation-only HOMOGRAPH pair survives whole — 'our' and "
+              "'where?' are not duplicates",
+              "எங்க" in after and "எங்க?" in after, f"got {sorted(after)}")
+        check("a frame sharing its exemplar's phonetic is never pruned",
+              "வந்துட்டேன்" in after and "frame:done-ittu" in after, f"got {sorted(after)}")
+        check("the richer of two rows is never the one dropped",
+              "கை ருசி" in after and "ருசி" not in after, f"got {sorted(after)}")
+        check("nothing else was touched", len(after) == len(lex) - 2, f"got {sorted(after)}")
+
+        with contextlib.redirect_stdout(out := io.StringIO()):
+            ss.cmd_prune_duplicates(_ap.Namespace(apply=True))
+        check("re-running on clean data is a no-op",
+              read_json(lex_path) == after and "no strictly-dominated" in out.getvalue(),
+              f"got {out.getvalue()!r}")
+    finally:
+        lex_path.write_bytes(saved)
 
 
 def s46_the_commission_gate_blocks_the_close(sb: Path):
@@ -3689,12 +3711,26 @@ def s47_hinted_retest_block(sb: Path):
 
     Gate 7.2 — the silent no-op is an empty block reading as "nothing stale",
     so the case asserts presence, ordering, the fresh and ear-only exclusions,
-    and that the real ticket entry point prints the block at all."""
+    and that the real ticket entry point prints the block at all.
+
+    EXTENDED 2026-08-04, after the block spent four weeks working for the wrong
+    five items. The 08-01 case asserted ordering at `max_n=100` — where nothing
+    can fall off — so it never tested the CUT, which is the only place this
+    block can fail silently. It still returned five rows and still read as
+    success while the deck's three hinted FAQ answers sat below the line behind
+    ordinary vocabulary that happened to be staler, and while the top slot went
+    to a bootstrap artifact (hinted, zero reps, never surfaced).
+
+    Both new assertions have teeth in that dimension: the deck's items must
+    survive a cut that is too small to hold everything, and must do so while
+    being FRESHER than the non-deck rows they outrank — a staleness-only sort
+    passes every other check in this case and fails these two."""
     print("\n47. Hinted items going dark get a retest block (2026-08-01)")
     import contextlib, io
     st = importlib.import_module("suggest_targets")
     lex_path = sb / "progress" / "lexicon.json"
-    saved = lex_path.read_bytes()
+    deck_path = sb / "curriculum" / "trip_deck.json"
+    saved = (lex_path.read_bytes(), deck_path.read_bytes())
     try:
         lex = read_json(lex_path)
         mk_day = lambda d: (date_cls.today() - timedelta(days=d)).isoformat()
@@ -3707,7 +3743,23 @@ def s47_hinted_retest_block(sb: Path):
         lex["ரீடெஸ்ட்4"] = {"gloss": "stale but ear-only", "production": "hinted",
                            "recognition": "solid", "last_surfaced": mk_day(30),
                            "direction": "catch", "reps": 0}
+        # Deck members, deliberately FRESHER than the non-deck rows above: only a
+        # tier prefix can float them: staleness alone sinks both.
+        lex["ரீடெஸ்ட்5"] = {"gloss": "deck, faq", "production": "hinted",
+                           "recognition": "solid", "last_surfaced": mk_day(16),
+                           "reps": 5, "deck": "trip"}
+        lex["ரீடெஸ்ட்6"] = {"gloss": "deck, social", "production": "hinted",
+                           "recognition": "solid", "last_surfaced": mk_day(15),
+                           "reps": 3, "deck": "trip"}
+        # The bootstrap artifact: a hinted grade with no work behind it. There is
+        # no prior test for a RE-test to repeat, and it is already at the head of
+        # the main ticket (coverage_key leads with fewest-reps), so it must not
+        # spend a slot here.
+        lex["ரீடெஸ்ட்7"] = {"gloss": "hinted, never surfaced", "production": "hinted",
+                           "recognition": "struggled", "last_surfaced": None, "reps": 0}
         write_json(lex_path, lex)
+        write_json(deck_path, [{"tamil": "ரீடெஸ்ட்5", "register": "faq", "gloss": "x"},
+                               {"tamil": "ரீடெஸ்ட்6", "register": "social", "gloss": "x"}])
         rows = st.retest_targets(lex, date_cls.today(), max_n=100)
         words = [r["word"] for r in rows]
         check("a hinted item silent past RETEST_DAYS surfaces", "ரீடெஸ்ட்1" in words)
@@ -3716,6 +3768,16 @@ def s47_hinted_retest_block(sb: Path):
         check("a recently-worked hinted item does not", "ரீடெஸ்ட்3" not in words)
         check("ear-only items are excluded — a retest is a production move",
               "ரீடெஸ்ட்4" not in words)
+        check("a hinted grade with no work behind it is excluded — nothing to re-test",
+              "ரீடெஸ்ட்7" not in words, f"got {words}")
+        # THE 2026-08-04 defect. A staleness-only sort passes every check above
+        # and fails both of these: the deck rows are the two FRESHEST candidates.
+        check("the sprint's own items lead, even when non-deck rows are staler",
+              words[:2] == ["ரீடெஸ்ட்5", "ரீடெஸ்ட்6"], f"got {words}")
+        cut = [r["word"] for r in st.retest_targets(lex, date_cls.today(), max_n=2)]
+        check("...and they survive a cut too small to hold everything — the "
+              "block's only real failure mode is the line, not the order",
+              cut == ["ரீடெஸ்ட்5", "ரீடெஸ்ட்6"], f"got {cut}")
 
         out, real_argv = io.StringIO(), sys.argv
         try:
@@ -3727,7 +3789,8 @@ def s47_hinted_retest_block(sb: Path):
         check("the ticket prints the block — the pieces are only worth having "
               "if the entry point calls them", "HINTED, GOING DARK" in out.getvalue())
     finally:
-        lex_path.write_bytes(saved)
+        lex_path.write_bytes(saved[0])
+        deck_path.write_bytes(saved[1])
 
 
 def s48_drill_answer_key_lint(sb: Path):
@@ -4241,6 +4304,7 @@ def main():
         s45_concurrent_appends_merge(mk, sb)
         s46_the_commission_gate_blocks_the_close(sb)
         s47_hinted_retest_block(sb)
+        s51_prune_duplicate_lexicon_rows(sb)
         s48_drill_answer_key_lint(sb)
         s49_thread_continuity(mk, kr, sb)
         s50_read_surfaces_are_phonetic(mk, kr, sb)
