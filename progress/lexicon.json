@@ -538,9 +538,11 @@
       61,
       64,
       65,
-      67
+      67,
+      82
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-05",
+    "exposures": 1
   },
   "ரெண்டு": {
     "gloss": "Two",
@@ -842,10 +844,11 @@
       28,
       37,
       75,
-      81
+      81,
+      82
     ],
-    "last_surfaced": "2026-08-04",
-    "exposures": 3
+    "last_surfaced": "2026-08-05",
+    "exposures": 4
   },
   "நீங்க": {
     "gloss": "You (respectful - Elders/Strangers)",
@@ -883,10 +886,11 @@
       21,
       35,
       38,
-      81
+      81,
+      82
     ],
-    "last_surfaced": "2026-08-04",
-    "exposures": 1
+    "last_surfaced": "2026-08-05",
+    "exposures": 2
   },
   "நிறுத்துங்க": {
     "gloss": "Stop (respectful)",
@@ -1547,9 +1551,11 @@
       64,
       70,
       71,
-      72
+      72,
+      82
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-05",
+    "exposures": 1
   },
   "உள்ள": {
     "gloss": "Inside",
@@ -1645,10 +1651,11 @@
       38,
       61,
       67,
-      81
+      81,
+      82
     ],
-    "last_surfaced": "2026-08-04",
-    "exposures": 1
+    "last_surfaced": "2026-08-05",
+    "exposures": 2
   },
   "சின்ன": {
     "gloss": "Small / Little",
@@ -2725,12 +2732,14 @@
       68,
       69,
       72,
-      74
+      74,
+      82
     ],
-    "last_surfaced": null,
+    "last_surfaced": "2026-08-05",
     "deck": "trip",
     "direction": "catch",
-    "pairs_with": "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு"
+    "pairs_with": "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு",
+    "exposures": 1
   },
   "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு": {
     "type": "chunk",
@@ -2767,10 +2776,13 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
-    "last_surfaced": null,
+    "seen_in": [
+      82
+    ],
+    "last_surfaced": "2026-08-05",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "exposures": 1
   },
   "கொஞ்சம் தண்ணி குடுங்க": {
     "type": "chunk",
@@ -2780,10 +2792,13 @@
     ],
     "recognition": "comfortable",
     "production": "none",
-    "seen_in": [],
-    "last_surfaced": null,
+    "seen_in": [
+      82
+    ],
+    "last_surfaced": "2026-08-05",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "exposures": 1
   },
   "கை கழுவிட்டு வரேன்": {
     "type": "chunk",
@@ -2806,10 +2821,13 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
-    "last_surfaced": null,
+    "seen_in": [
+      82
+    ],
+    "last_surfaced": "2026-08-05",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "exposures": 1
   },
   "நீங்க சாப்பிட்டீங்களா?": {
     "type": "chunk",
@@ -2833,10 +2851,13 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
-    "last_surfaced": null,
+    "seen_in": [
+      82
+    ],
+    "last_surfaced": "2026-08-05",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "exposures": 1
   },
   "யாருக்கு தெரியும்?": {
     "type": "chunk",
@@ -2883,10 +2904,13 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
-    "last_surfaced": null,
+    "seen_in": [
+      82
+    ],
+    "last_surfaced": "2026-08-05",
     "deck": "trip",
-    "direction": "catch"
+    "direction": "catch",
+    "exposures": 1
   },
   "எனக்கு ஒன்னும் தெரியாது": {
     "type": "chunk",
@@ -2896,10 +2920,13 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
-    "last_surfaced": null,
+    "seen_in": [
+      82
+    ],
+    "last_surfaced": "2026-08-05",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "exposures": 1
   },
   "என்னமோ பிரச்சனை": {
     "type": "chunk",
@@ -3086,10 +3113,13 @@
     ],
     "recognition": "comfortable",
     "production": "none",
-    "seen_in": [],
-    "last_surfaced": null,
+    "seen_in": [
+      82
+    ],
+    "last_surfaced": "2026-08-05",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "exposures": 1
   },
   "ரொம்ப நாளாச்சு": {
     "type": "chunk",
@@ -3099,10 +3129,13 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
-    "last_surfaced": null,
+    "seen_in": [
+      82
+    ],
+    "last_surfaced": "2026-08-05",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "exposures": 1
   },
   "வந்துட்டேன்": {
     "type": "chunk",
@@ -3113,11 +3146,13 @@
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [
-      70
+      70,
+      82
     ],
-    "last_surfaced": null,
+    "last_surfaced": "2026-08-05",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "exposures": 1
   },
   "கிளம்பலாமா?": {
     "type": "chunk",
@@ -3173,10 +3208,13 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
-    "last_surfaced": null,
+    "seen_in": [
+      82
+    ],
+    "last_surfaced": "2026-08-05",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "exposures": 1
   },
   "ஒரு நிமிஷம்": {
     "type": "chunk",
@@ -3203,10 +3241,13 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
-    "last_surfaced": null,
+    "seen_in": [
+      82
+    ],
+    "last_surfaced": "2026-08-05",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "exposures": 1
   },
   "இதெல்லாம் எனக்கு புடிக்கும்": {
     "type": "chunk",
@@ -3216,10 +3257,13 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
-    "last_surfaced": null,
+    "seen_in": [
+      82
+    ],
+    "last_surfaced": "2026-08-05",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "exposures": 1
   },
   "அடுத்த தடவ நானே சமைக்கறேன்": {
     "type": "chunk",
@@ -3242,10 +3286,13 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
-    "last_surfaced": null,
+    "seen_in": [
+      82
+    ],
+    "last_surfaced": "2026-08-05",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "exposures": 1
   },
   "frame:want-noun": {
     "type": "pattern",
@@ -3460,10 +3507,13 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
-    "last_surfaced": null,
+    "seen_in": [
+      82
+    ],
+    "last_surfaced": "2026-08-05",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "exposures": 1
   },
   "சாஃப்ட்வேர் வேலை பண்றேன்": {
     "type": "chunk",
@@ -3723,10 +3773,13 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
-    "last_surfaced": null,
+    "seen_in": [
+      82
+    ],
+    "last_surfaced": "2026-08-05",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "exposures": 1
   },
   "ரொம்ப சந்தோஷம்": {
     "type": "chunk",
@@ -3737,13 +3790,14 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
-      81
+      81,
+      82
     ],
-    "last_surfaced": "2026-08-04",
+    "last_surfaced": "2026-08-05",
     "deck": "trip",
     "direction": "fire",
     "reps": 1,
-    "exposures": 1
+    "exposures": 2
   },
   "சாஃப்ட்வேர் இன்ஜினியரா இருக்கேன்": {
     "type": "chunk",
@@ -3797,11 +3851,13 @@
     ],
     "recognition": "comfortable",
     "production": "none",
-    "seen_in": [],
-    "last_surfaced": "2026-08-01",
+    "seen_in": [
+      82
+    ],
+    "last_surfaced": "2026-08-05",
     "deck": "trip",
     "direction": "catch",
-    "exposures": 1
+    "exposures": 2
   },
   "frame:youknow-la": {
     "type": "pattern",
@@ -4018,10 +4074,13 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
-    "last_surfaced": null,
+    "seen_in": [
+      82
+    ],
+    "last_surfaced": "2026-08-05",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "exposures": 1
   },
   "கடைசில பாக்கலாம்": {
     "type": "chunk",
@@ -4971,6 +5030,17 @@
       81
     ],
     "last_surfaced": "2026-08-04",
+    "exposures": 1
+  },
+  "தெரியுமா": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      82
+    ],
+    "last_surfaced": "2026-08-05",
     "exposures": 1
   }
 }
