@@ -3591,6 +3591,64 @@ def s51_prune_duplicate_lexicon_rows(sb: Path):
         lex_path.write_bytes(saved)
 
 
+def s52_two_eras_not_a_deadline(sb: Path):
+    """The trip is a handover, not a terminus (2026-08-04, Andrew: "think of it
+    as pre-trip and during-trip eras").
+
+    TRIP_DATE was modelled as a deadline, so `compute_status` counted down past
+    zero and `burn_rate`'s `max(days_left, 1)` clamp froze the required pace at
+    its final day's value and reported it forever. On 2026-09-01 the scoreboard
+    read "-20 days to touchdown · need 8.0 cold/day" — during the month in
+    country, which is the era the whole deck exists to serve.
+
+    Gate 7.2 — this failure never looked like nothing happening. It printed a
+    confident, well-formed, wrong line every day, and it is the line Anna
+    narrates from. So the checks below assert the ABSENCE of the burn ask in
+    country, not merely the presence of new wording: a cosmetic relabel that
+    left the quota in would pass a presence-only test and still be the bug."""
+    print("\n52. The trip is two eras, not a deadline (2026-08-04)")
+    ss = importlib.import_module("sync_state")
+    lex_path = sb / "progress" / "lexicon.json"
+    saved, real_today = lex_path.read_bytes(), ss.local_today
+    try:
+        # A deck with survival items still open, so the countdown branch is live.
+        write_json(lex_path, {f"smoke:era{i}": {
+            "gloss": "x", "phonetic": [], "type": "chunk", "recognition": "comfortable",
+            "production": "cold" if i < 2 else "none", "seen_in": [],
+            "last_surfaced": None, "deck": "trip"} for i in range(10)})
+
+        def at(d):
+            ss.local_today = lambda: d
+            return ss.compute_status()
+
+        before = at(ss.TRIP_DATE - timedelta(days=2))
+        check("pre-trip still counts down", "2 days to touchdown" in before, f"got {before}")
+        check("...and still names the pace it needs", "need " in before, f"got {before}")
+
+        landing = at(ss.TRIP_DATE)
+        check("the day he lands reads as day 1 in country, not zero",
+              "in country, day 1" in landing, f"got {landing}")
+        check("...and the countdown wording is gone", "touchdown" not in landing, f"got {landing}")
+        # THE defect: a quota he cannot act on, stated with confidence. A
+        # cosmetic relabel that left the ask in would pass a presence-only test.
+        check("...and the required-pace ask is GONE, not merely reworded",
+              "need " not in landing, f"got {landing}")
+        check("...while the trailing pace survives — that one is still true",
+              "trailing" in landing, f"got {landing}")
+
+        deep = at(ss.TRIP_DATE + timedelta(days=20))
+        check("three weeks in, the day count still advances",
+              "in country, day 21" in deep, f"got {deep}")
+        check("...and no negative day ever reaches the scoreboard",
+              "day -" not in deep and "-20" not in deep, f"got {deep}")
+        check("burn_rate itself refuses a quota past the deadline",
+              "need" not in ss.burn_rate(8, 0) and "need" not in ss.burn_rate(8, -5),
+              f"got {ss.burn_rate(8, 0)!r} / {ss.burn_rate(8, -5)!r}")
+    finally:
+        ss.local_today = real_today
+        lex_path.write_bytes(saved)
+
+
 def s46_the_commission_gate_blocks_the_close(sb: Path):
     """A live slip pattern with no dose refuses the close (2026-08-01, Andrew).
 
@@ -4305,6 +4363,7 @@ def main():
         s46_the_commission_gate_blocks_the_close(sb)
         s47_hinted_retest_block(sb)
         s51_prune_duplicate_lexicon_rows(sb)
+        s52_two_eras_not_a_deadline(sb)
         s48_drill_answer_key_lint(sb)
         s49_thread_continuity(mk, kr, sb)
         s50_read_surfaces_are_phonetic(mk, kr, sb)

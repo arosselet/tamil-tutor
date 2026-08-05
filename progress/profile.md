@@ -37,17 +37,33 @@
 
 ---
 
-## The Campaign — This Week
+## The Campaign — The Last Week Before, and the Month During
 
 > **Contract:** `protocol/daily_session.md` → "The Campaign". Anna writes it at close; Andrew overrides at will. One block, five lines — the ticket owns *which* items.
 
-**🎯 The Table Week** (written 2026-07-29, replaces The Auto Ride Week — that one closed clean: ரொம்ப அதிகம் and சில்லறை இருக்கா? both fired cold at the gate on 07-29, and the ride is whole curb to change). Through-line: **survival gets him through the street; delight gets him a seat at the table** — and with 14 days to touchdown the delight tier has never been touched (mil-table 0/10 worked, social 1/11) while survival sits 20/34. The trip has two halves and only one has been running. This week is the mother-in-law and the sisters-in-law: the melt line ரொம்ப நல்லாருக்கு, the faq interrogation he *will* be put through (one month, software, Canada), and the greetings that open a room. Two method notes carry in and outrank the vocabulary: **a minimal pair explains a collision, a chunk fires it**, and **never introduce twins in one breath** — the -alaam groove beat போறேன் under load on 07-29, second day running, exactly as ulla/veliya collided on 07-28. The trailer pitches **ரொம்ப நல்லாருக்கு** and the first real mask-work at her table.
+**🎯 The Visit, Rehearsed In Order** (written 2026-08-04 with Andrew, replaces The Table Week — that one did its job: it named delight as the whole remaining campaign, and the melt line ரொம்ப நல்லா இருக்கு went from never-touched to hinted). **The trip is a handover, not a deadline.** He has his laptop, his phone and a month at that house, so touchdown does not end the work on delight — it is the best rep engine this project will ever have. Every line below is *situationally cued* at her table three times a day. That flips what this week is for.
 
-**Where it stands 08-03:** the past tense is **open** (1pl-past-om, past-tense, it-tail-uchu all closed 08-02 off the **past-body selection** re-diagnosis — a verb has three bodies, the body is a *choice*, and only the tail was ever being taught). Survival 26/34, engines 18/21. Delight is still **1 cold of 27** with nine days left — survival can coast now; delight is the entire remaining campaign.
+**The through-line: coverage, not clearance.** An item he has never seen cannot be triggered by a situation; one he has seen once can. So the last week before the plane buys **first contact on all 33 untouched items**, and the month after buys the firing. Nothing is cut from the deck and nothing is deferred — the zingers and the gossip register are last precisely because they are the only things that *cannot* be rehearsed cold, and they land in the room or not at all.
 
-**Tomorrow's shape:** Table Rehearsal — mask-work at her table at speed, aimed squarely at **delight**. Owed, in order: (1) the **past tense cold retest, unannounced** — due now, one unaided fire an hour after a teach is not proof; (2) **வேணும்-for-குடுங்க**, 21+ days untested despite M80 shipping — a crowded table, the thing he wants out of reach; (3) **புரியல-for-reopen is not closed** — on 08-03 he fired என்ன சொன்னீங்க? clean, but only after I named புரியல as the wrong door; retest with the substitute left available. The commissioned episode (ரொம்ப சந்தோஷம், first contact at the door) lands the delight line by ear before it's demanded. Low-power twin if he's fried: the தெரியல tape, ear only.
+**Channel law for the week (Calibration Notes are the hard dial): audio seeds, chat fires, knocks ambush.** Thirty-three first contacts cannot come through the lunch session — chat takes ≤1–2 new word types and is *production, not soak*. The episode carries first contact at 4–5 new types; the next day's chat fires what the episode seeded; the knock ambushes at a time he did not choose. Where an item is already **hinted** it does not seed — it **fires**.
 
-**Channel note (08-03):** run_studio.py exits 0 on a Gemini 429 — the Architect pass dies, no episode ships, and only the `⚠ NOT YET PRODUCED` line catches it. Reading exit code alone would have lied. The soak lane (`render_soak.py`) is independent of agy and carried the dose instead.
+**The seven days, each one a scene from the visit in the order he will live it:**
+
+| | Scene | The set |
+|---|---|---|
+| **Aug 5** | The doorstep | வந்துட்டேன் · ரொம்ப சந்தோஷம் · எப்படி இருக்கீங்க? · ரொம்ப நாளாச்சு · நேத்து தான் வந்தோம் |
+| **Aug 6** | The interrogation | the faq six — ஒரு மாசம் இருப்போம், சாஃப்ட்வேர் இன்ஜினியரா இருக்கேன், ரொம்ப பிடிச்சிருக்கு are **hinted and 25–31 days silent: these fire, they do not seed** · then கனடாவுல இருக்கோம் · ஊரு · காரம் பரவாயில்ல |
+| **Aug 7** | Her table — receiving | ரொம்ப நல்லா இருக்கு (hinted → cold) · உங்க கை ருசி சூப்பர் · கொஞ்சம் தண்ணி குடுங்க · இன்னும் கொஞ்சம் போடுங்க |
+| **Aug 8** | Her table — declining | வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு · நானே எடுத்துக்கறேன் · கை கழுவிட்டு வரேன் · நீங்க சாப்பிட்டீங்களா? — drilled as a **pair** with her line இன்னும் கொஞ்சம் சாப்பிடுங்க: hear it coming, answer it |
+| **Aug 9** | The room | உட்கார்ந்து பேசுங்க · ஃப்ரீயா விடுங்க · கடைசில பாக்கலாம் · பிறந்தநாள் வாழ்த்துக்கள் |
+| **Aug 10** | Leaving, and the street | கிளம்பலாமா? · அப்புறம் பார்க்கலாம் · நல்லா இருங்க + the survival remainders: முடிஞ்சா, ஆமா ஆமா, சரி சரி, நேரா போங்க, வலது பக்கம் திரும்புங்க, எவ்ளோ ஆகும்?, frame:in-la |
+| **Aug 11** | The ear, and dessert | the gossip catch set + frame:spice-dhaan + the four gossip questions + the six zingers — **first contact only, no demand** |
+
+**One dated thing inside the stay:** amma's birthday lands ~Aug 24, mid-visit. பிறந்தநாள் வாழ்த்துக்கள் has a real deadline and it is not the 12th.
+
+**Where it stands 08-04:** survival 26/34 and coasting — it will finish. Engines 18/21. Delight is 1 cold of 27, but that number hides its own shape: **4 hinted (one hesitation from cold), 3 in play, 19 never introduced.** The four hinted were structurally unreachable until today — `retest_targets` had no tier prefix and its five slots went to ordinary vocabulary while the day-one aunt questions sat below the cut. Fixed 08-04; they now lead the block.
+
+**When the era turns (Aug 12): the session inverts.** The field mission stops being the session's *output* — "one deployable line for tonight" — and becomes its *input*. Anna opens on what actually happened at the table, and that is real data, not a rehearsal; the commission then targets what genuinely missed. The status line drops the countdown and the burn rate at the boundary, because in country the table sets the pace and a per-day quota is a lie. **Do not narrate a deficit in country.**
 
 **Standing catch order (renewable):** one word overheard off the sisters.
 
