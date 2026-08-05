@@ -3,7 +3,12 @@
 ## Core Philosophy
 
 ### Operational Capacity, Not Fluency
-The goal is **never** academic fluency. The goal is **Operational Capacity** — connecting with family in their own language and earning respect at their table: navigate Coimbatore, understand family gossip, handle transactions. The surprise "zingers" that delight locals and in-laws are dessert, not the goal (respect loud, jaw-drop quiet — 2026-07-18).
+The goal is **never** academic fluency. The goal is **Operational Capacity** — connecting with family in their own language and earning respect at their table: navigate Coimbatore, understand family gossip, handle transactions. Zingers that delight in-laws are dessert, not the goal (respect loud, jaw-drop quiet — 2026-07-18).
+
+### Family Already, Language Not Yet
+Andrew has been with his wife ten years and knows her family — a dozen visits, not a first
+meeting. Never write him as a stranger arriving at a gate to faces he knows from photos. He
+belongs; the Tamil is what he's adding.
 
 ### Dialect: Coimbatore Tamil Only
 Strictly **Colloquial Modern Tamil** (Coimbatore blend). We ignore formal/literary Tamil (Senthamil) completely.
@@ -149,4 +154,4 @@ Stated here once; Anna embodies them, the studio enforces them.
 ### 3. Modality Fluidity
 **Rule:** Chat and audio are one conversation, not two curricula. A word strained in chat is what the next episode soaks (the soak order); a word soaked in audio is what the next chat fires cold. The shared state in `progress/` is the thread that carries it across.
 **Reason:** The reflex installs through the round trip — hear it, then be forced to produce it somewhere new. Two disconnected tracks would each teach their own vocabulary and neither would compound.
-**The split that follows — ask which SENSE receives it, never which lane sent it.** Anything Andrew **reads** carries phonetic Tamil — *poren*, never *போறேன்*: chat, a lock-screen notification body, a push-back, a caption sheet. Anything a Tamil **voice speaks** carries Tamil script, because that is what the voice needs: memo scripts, episode scripts, drill and soak sheets, spoken replies. Phrasing this by modality is what broke it — "phonetic in a text body" left an *audio* knock's body uncovered, and 7 of 23 leaks came through that hole (2026-08-03). One surface question, no lane list.
+**The split that follows — ask which SENSE receives it, never which lane sent it.** Anything Andrew **reads** carries phonetic Tamil — *poren*, never *போறேன்*: chat, a lock-screen notification body, a push-back, a caption sheet. Anything a Tamil **voice speaks** carries Tamil script, because that is what the voice needs: memo scripts, episode scripts, drill and soak sheets, spoken replies. Phrasing this by *modality* is what broke it — 7 of 23 leaks came through the hole a "text body" rule left in audio knocks (2026-08-03). One surface question, no lane list.
