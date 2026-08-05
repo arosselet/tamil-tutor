@@ -926,11 +926,12 @@ def s16_stale_clone_gates(sb: Path):
     # could never match an episode's words. The pure halves of the fixes:
     sys.path.insert(0, str(sb / "scripts"))
     ss = importlib.import_module("sync_state")
+    sbf = importlib.import_module("session_brief")
 
-    check("behind origin → STALE banner", "STALE" in (ss.sync_banner((14, 0)) or ""))
-    check("ahead only → unpushed warning", "not on origin" in (ss.sync_banner((0, 1)) or ""))
-    check("in sync → no banner", ss.sync_banner((0, 0)) is None)
-    check("sync unknown → soft warning", "SYNC UNKNOWN" in (ss.sync_banner(None) or ""))
+    check("behind origin → STALE banner", "STALE" in (sbf.sync_banner((14, 0)) or ""))
+    check("ahead only → unpushed warning", "not on origin" in (sbf.sync_banner((0, 1)) or ""))
+    check("in sync → no banner", sbf.sync_banner((0, 0)) is None)
+    check("sync unknown → soft warning", "SYNC UNKNOWN" in (sbf.sync_banner(None) or ""))
 
     check("comma-joined payload splits",
           ss.canon_payload(["frame:idum,பாத்துக்கறேன்"]) == ["frame:idum", "பாத்துக்கறேன்"])
@@ -944,13 +945,13 @@ def s16_stale_clone_gates(sb: Path):
     trailer = {"date": "2026-07-15", "move": "session bell trailer", "body": "ஆச்சு today"}
     volley = {"date": "2026-07-15", "move": "afternoon volley", "body": "…"}
     check("newest-knock trailer with no session after → unpaid",
-          ss.unpaid_trailer([volley, trailer], "2026-07-13") is trailer)
+          sbf.unpaid_trailer([volley, trailer], "2026-07-13") is trailer)
     check("session on/after trailer date → paid",
-          ss.unpaid_trailer([trailer], "2026-07-15") is None)
+          sbf.unpaid_trailer([trailer], "2026-07-15") is None)
     check("newest knock not a trailer → nothing owed",
-          ss.unpaid_trailer([trailer, volley], "2026-07-13") is None)
+          sbf.unpaid_trailer([trailer, volley], "2026-07-13") is None)
     check("knocks_since filters to the gap",
-          [k["date"] for k in ss.knocks_since([{"date": "2026-07-10"}, {"date": "2026-07-14"}],
+          [k["date"] for k in sbf.knocks_since([{"date": "2026-07-10"}, {"date": "2026-07-14"}],
                                               "2026-07-13")] == ["2026-07-14"])
 
 
@@ -1124,6 +1125,10 @@ CODE_BUDGETS = {
     # and is reached from three call sites. Imports state_io only — never
     # sync_state, which imports FROM here.
     "scripts/slips.py": 300,
+    # The agent-facing session load, split out of sync_state 2026-08-04. A READ
+    # surface: it renders state and never mutates it, which is why it no longer
+    # lives inside the writer. Sits ABOVE sync_state in the import graph.
+    "scripts/session_brief.py": 250,
     "scripts/studio_watchdog.py": 125,
     "scripts/suggest_targets.py": 575,
     "scripts/sync_state.py": 1250,
@@ -1653,7 +1658,8 @@ def s27_schedule_and_soak_guards(sb: Path):
     # Fixing only one leaves the loop armed from the other, which is exactly
     # what nearly happened: sync_state's status kept saying NOT YET PRODUCED
     # after the watchdog was already satisfied. One resolver, both callers.
-    status_src = (REAL_BASE / "scripts" / "sync_state.py").read_text(encoding="utf-8")
+    # `status` moved to session_brief.py 2026-08-04; the law it asserts did not.
+    status_src = (REAL_BASE / "scripts" / "session_brief.py").read_text(encoding="utf-8")
     check("the status drain-check uses the shared resolver",
           "split_payload(soak.get" in status_src)
     check("the watchdog drain-check uses the shared resolver",
@@ -2629,6 +2635,7 @@ def s36_soak_order_carries_shape(sb: Path):
     import contextlib
     import io
     ss = importlib.import_module("sync_state")
+    sbf = importlib.import_module("session_brief")
 
     def _capture(fn):
         out = io.StringIO()
@@ -2694,12 +2701,12 @@ def s36_soak_order_carries_shape(sb: Path):
         # (soak registers no episode), which is the 2026-07-23 M72/M73/M74
         # re-dispatch loop with a new trigger. Delivery clears it instead.
         write_json(sb / "progress" / "episodes.json", {})
-        status = _capture(ss.cmd_status)
+        status = _capture(sbf.cmd_status)
         check("an undelivered soak order routes to the soak lane, not the studio",
               "render_soak.py" in status and "run_studio.py" not in status, status[:400])
         check("the rendering lane's own stamp clears it — no second dispatch",
               ss.mark_soak_delivered("soak")
-              and "produced ✓" in _capture(ss.cmd_status))
+              and "produced ✓" in _capture(sbf.cmd_status))
 
         # The shape that hung a real order through a SUCCESSFUL render: a
         # Tamil-script payload word that is legitimately pre-lexicon. It passes
@@ -2712,18 +2719,18 @@ def s36_soak_order_carries_shape(sb: Path):
         check("a pre-lexicon Tamil payload word is resolvable, not junk",
               res == ["நிறைஞ்சிடுச்சு"] and not unres, f"{res} / {unres}")
         check("...and a delivered order still clears with one in the payload",
-              "produced ✓" in _capture(ss.cmd_status))
+              "produced ✓" in _capture(sbf.cmd_status))
 
         # A stamp from ANOTHER lane must not clear this one.
         ss.mark_soak_delivered("drill")
         check("a stamp from a different lane does not clear a soak order",
-              "NOT YET PRODUCED" in _capture(ss.cmd_status))
+              "NOT YET PRODUCED" in _capture(sbf.cmd_status))
         ss.mark_soak_delivered("soak")
 
         # A NEW order supersedes an old delivery — `from` moves, the stamp doesn't.
         update(soak_payload=["போறேன்"])
         check("a freshly-set order is pending again despite the old stamp",
-              "NOT YET PRODUCED" in _capture(ss.cmd_status))
+              "NOT YET PRODUCED" in _capture(sbf.cmd_status))
         ss.mark_soak_delivered("soak")
 
         # The reader half: the brief only reaches the sheet on the soak channel.
@@ -3067,7 +3074,7 @@ def s41_slip_ledger(kr, sb: Path):
     check("...and says a recast does not close it",
           "closed by firing right" in block)
 
-    src = (REAL_BASE / "scripts" / "sync_state.py").read_text(encoding="utf-8")
+    src = (REAL_BASE / "scripts" / "session_brief.py").read_text(encoding="utf-8")
     check("the session digest shows what Anna CORRECTED on the phone",
           "corrected: " in src)
     check("the knock reply commits the ledger — an unpushed slip dies with the runner",
