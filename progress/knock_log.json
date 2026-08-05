@@ -3656,5 +3656,20 @@
     "chained": 1,
     "pinned_target": "முடிஞ்சா",
     "pinned_revealed": false
+  },
+  {
+    "date": "2026-08-05",
+    "timestamp": "2026-08-05T22:52:07.722004+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "ear-only viṭṭuḍu soak",
+    "rationale": "Demand-streak is 1 so a no-ask dose is the right move; the ear-only viṭṭுடு item has never been soaked and a cousin-argument tape is the perfect native habitat for it — catch-the-drift, zero production pressure, breaks the ask run cleanly.",
+    "next_check": "2026-08-06T12:52:07.722004+00:00",
+    "body": "📻 cousins mid-argument — catch the drift. what's the verdict?",
+    "expected_target": "விட்டுடு",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-05T22-52.mp3",
+    "memo_script": "அக்கா சொன்னா, அது தப்பு இல்ல, அவங்க ஒண்ணும் வேணும்னு பண்ணல — ஆனா கோபமா பேசினாங்க, அந்த ஒரே ஒரு நிமிஷம் கஷ்டமா இருந்துச்சு.\n\nவித்யா சொல்றா, இல்ல இல்ல — நீ ஓவரா யோசிக்கிற. அந்த மாதிரி ஆளு, கொஞ்சம் kadupu-ஆ பேசுவாங்க, ஆனா heart-ல நல்லவங்க. விட்டுடு, விட்டுடு — ஆத்திரப்படாத.\n\nஒரு minute silent-ஆ போச்சு.\n\nஆமா, சரிதான்னு அக்கா சொன்னா. நீ சொல்றது புரியுது. Fine, விட்டுட்டேன்.",
+    "mp3": "published_audio/knocks/knock_2026-08-05T22-52.mp3"
   }
 ]
