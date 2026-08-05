@@ -2,3 +2,6 @@ edge-tts
 google-cloud-texttospeech
 openai
 tzdata
+# Static gate (smoke s18): the behavioural suite only proves what it executes,
+# and Python resolves globals at call time. Budget is zero findings.
+pyflakes

@@ -752,7 +752,7 @@ def main():
             gloss = r.get("gloss", "")
             unseen_flag = " · ⚠ UNSEEN — teach first (show it), NEVER cold-quiz" if is_unseen(r) else ""
             print(f"\n🎯 NEXT ENGINE: {next_engine_key} — {gloss}  [production: {prod}{unseen_flag}]")
-            print(f"   One cold novel instance of this pattern = engine online.")
+            print("   One cold novel instance of this pattern = engine online.")
 
     # Trip Deck — the finite, deadline-driven sprint set. When it exists it is the
     # HEADLINE: force its not-yet-cold members first (Anna narrates the countdown).
@@ -915,8 +915,8 @@ def main():
         print(f"  - {t['word']} — {t['gloss'] or '[no gloss]'}  [{tag} · {rep}]{cool}")
         if t["word"] in slipped:
             print(slip_note(slipped[t["word"]]))
-    print(f"  Graduation is production going COLD. After that a word is never "
-          f"drilled again — it is just used.")
+    print("  Graduation is production going COLD. After that a word is never "
+          "drilled again — it is just used.")
 
     if background:
         print(f"\n1a. BACKGROUND  ({len(background)} not yet started — EXPOSE, don't drill)")
@@ -971,7 +971,7 @@ def main():
         print("  (empty — no recognized words yet; Architect must scaffold heavily with English)")
     else:
         print(f"  {len(fence)} known words. The Architect should build dialogue from this pool.")
-        print(f"  Words outside this list must be answerable from context within seconds.")
+        print("  Words outside this list must be answerable from context within seconds.")
         print()
         for entry in fence:
             phon = entry["phonetic"][0] if entry["phonetic"] else ""

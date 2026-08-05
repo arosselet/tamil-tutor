@@ -608,7 +608,7 @@ async def main():
             sys.exit(EXIT_NOT_CONFIGURED)
 
     speaker_assignments = assign_voices(dialogue, voice_map, args.provider, args.voice_type)
-    print(f"🎭 Cast Assignments:")
+    print("🎭 Cast Assignments:")
     for s, v in speaker_assignments.items():
         print(f"   - {s}: {v}")
 

@@ -864,7 +864,6 @@ def apply_verdict(verdict: dict, knock: dict, lexicon: dict, klog: list,
 
     Returns (summary lines, cold-credited keys — true colds plus graduations,
     the pace meters read these —, capped keys, graduated keys)."""
-    from state_io import LOCAL_TZ
     phon_index = build_phonetic_index(lexicon)
     today = local_today().isoformat()
     today_local = local_today()
