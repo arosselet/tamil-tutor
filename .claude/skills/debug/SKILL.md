@@ -267,6 +267,33 @@ live volley traffic can confirm it.
 further — a verdict the LLM chooses must not silently *be* control flow. If a label stops
 the world, say so in the mandate and cap the blast radius in Python.
 
+### KF-14: A blown token ceiling wearing KF-7's face (2026-08-05, fixed)
+**Symptom:** knock-response run fails with `Expecting value: line 1 column 1 (char 0)` and
+`--- unparseable LLM response (no braces) ---`. A judged reply is lost; the volley freezes
+mid-pin. Reads exactly like KF-7/KF-10.
+**Root cause:** NOT a parser gap — there was no JSON to find. The judge spent ~750 of its
+800 tokens deliberating in prose (which `slip_tags_in_use` tag to reuse, three "Actually…"
+reversals) and was cut off **mid-word** before its first brace. `parse_llm_json` reported
+truthfully; the message was just ambiguous between two failures that want **opposite**
+fixes — a parser gap wants another fallback, a blown ceiling wants a bigger budget.
+**The tell that separates them, at a glance:** KF-7/KF-10 throw **two** chained errors
+(`char 0`, then `char 1`); this throws **one**, says `no braces`, and the dump ends
+mid-sentence. If the dump's last line is a fragment, stop looking at the parser.
+**Fix:** `parse_llm_response(resp)` checks `finish_reason == "length"` FIRST and raises a
+self-naming ValueError carrying the partial text (the recovery payload). It lives in
+`morning_knock.py` beside `parse_llm_json` because only the *response* carries
+`finish_reason` — the text cannot know. ValueError so `decide()`'s retry re-rolls it (a
+second draft may be terser) while `judge()` surfaces at once. `judge()` 800 → 1600, which
+is what `decide()` already used for comparable output; `judge_catch` stays at 400.
+**Andrew's read, and it is the durable one:** *"I shouldn't handicap Anna to prevent this
+kind of outlier that I can just learn to avoid."* The trigger was one reply carrying two
+things at once (a scored answer **and** a meta-dispute about the previous grade). The
+input fix — one ask per message — beats any ceiling.
+**Verify:** `python scripts/smoke_test.py` → section 1. The teeth are on *telling them
+apart*: the case asserts truncation does NOT raise `JSONDecodeError`, that the error names
+itself, and that the partial text survives — plus two no-false-positive cases.
+**Commit:** `c2a921e`
+
 ### KF-8: Lore format takeover — incentive drift, not taste (2026-07-11, fixed)
 **Symptom:** Andrew: today's lore push "basically a duplicate" of last week's; the format
 "took over." Log confirmed worse: four lore memos in four consecutive days (07-07→10),

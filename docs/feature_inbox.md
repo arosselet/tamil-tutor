@@ -710,3 +710,29 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
   softer version of the same blindness. Cheap version: report worked/tested as a pair on
   the ticket, the way the ear-only line already hints at ("4 heard in an episode but never
   asked"). No schema change — `reps` already exists.
+- **Episodes run at a fifth of their own spec, and the evidence is partly fabricated**
+  (2026-08-05, found while chasing "it could have gone longer"). `architect.md` targets
+  **5–8 min** for a classic and **12–18** for a narrated_drama. Measured recent episodes:
+  0.73, 0.73, 0.90, 1.18, 1.18, 1.65, 2.43, 2.43, 3.47 — only M72 (10.04) ever hit spec.
+  That is across forms, so the payload-is-the-scale fix (2026-08-05) does not touch it.
+  **The measurement itself is unsound:** `render_audio.get_duration` is
+  `except: return 3.0` — a bare fallback that writes a plausible number when ffprobe is
+  missing, and `anna.yml` shows `Install ffprobe → skipped`. M78 and M81 both carry an
+  identical "3.0" that is a placeholder, not a duration. So the length shortfall is real
+  on the measured rows, but nobody can say how long M81 actually was. Fix the fallback
+  first (record null/unknown, never a number) — a meter that fabricates is worse than an
+  absent one, and it is currently the only length evidence we have.
+- **A lexicon key containing a comma can never be commissioned into a soak payload**
+  (2026-08-05, hit while commissioning the arrival-day drama). `canon_payload` splits on
+  commas unconditionally, at write AND at read, so `வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு` and
+  `காரம் பரவாயில்ல, பழகிப்போச்சு` — both real trip-deck items, both never worked — cannot
+  be passed. Their phonetics carry the comma too, and no fragment resolves. Only 2 deck
+  keys are affected today, and the eat-more refusal survived via `pairs_with`; the spice
+  line had to be named in the scene seed as prose instead. Cheap fix: don't split an item
+  that already resolves to a lexicon key, or take a separator that cannot occur in a key.
+- **Does a `form` that implies a payload size deserve a Python check?** (2026-08-05,
+  deliberately deferred at n=1.) `form: narrated_drama` with a 2-item payload produced M81
+  and nothing noticed. The deletion of `scale` makes item count the only dial, which may
+  be enough on its own. If Anna under-loads a commissioned drama a **second** time, that
+  is the reproduced pattern and it earns the mechanism — the shape would be a coherence
+  law like KF-3's (pick the form, then the payload must match it), not a quota.
