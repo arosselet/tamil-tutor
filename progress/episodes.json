@@ -2252,5 +2252,28 @@
     ],
     "duration_min": 3.0,
     "produced": "2026-08-05"
+  },
+  "83": {
+    "title": "Mission tier2_mission83",
+    "listens": 0,
+    "words": [
+      "அலைச்சல்",
+      "சும்மா சொல்றாங்க",
+      "விட்டுடு",
+      "ஜாஸ்தி",
+      "frame:youknow-la",
+      "frame:spice-dhaan",
+      "என்னமோ பிரச்சனை",
+      "தெரியுமா?",
+      "frame:quote-nu",
+      "frame:hearsay-aam",
+      "அத்தை",
+      "என்ன சொன்னாங்க தெரியுமா?",
+      "நேத்து",
+      "கல்யாணம்",
+      "ஆமா"
+    ],
+    "duration_min": 3.0,
+    "produced": "2026-08-05"
   }
 }

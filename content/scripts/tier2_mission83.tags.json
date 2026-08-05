@@ -1,0 +1,37 @@
+{
+  "mission": 83,
+  "register": "reconciliation",
+  "dramatic_ingredient": "turn",
+  "episode_form": "vignette",
+  "shape": "gossip",
+  "location_class": "home_social",
+  "energy": "low",
+  "intercept_tamil_density": 0.4,
+  "breakdown_tamil_density": 0.0,
+  "fence_size": 75,
+  "unfenced_words": 0,
+  "new_words_landed": {
+    "அலைச்சல்": 2,
+    "சும்மா சொல்றாங்க": 1,
+    "விட்டுடு": 2,
+    "ஜாஸ்தி": 2,
+    "frame:youknow-la": 0,
+    "frame:spice-dhaan": 0,
+    "என்னமோ பிரச்சனை": 0,
+    "தெரியுமா?": 0,
+    "frame:quote-nu": 0,
+    "frame:hearsay-aam": 0
+  },
+  "callbacks_used": {
+    "அத்தை": 1,
+    "என்ன சொன்னாங்க தெரியுமா?": 1,
+    "நேத்து": 1,
+    "கல்யாணம்": 1,
+    "ஆமா": 4
+  },
+  "host_roles": {
+    "A": "gossiping_relative",
+    "B": "skeptical_listener"
+  },
+  "notes": "Producer pass: Removed fourth-wall break (direct address to Andrew). Applied Coimbatore Sandhi (கல்யாணம்னு, ஜாஸ்தினு). Verified payload 'சும்மா சொல்றாங்க' and 'விட்டுடு' are verbatim. First-person 'பேசினேன்' remains un-suffixed per rule. All phonetics stripped from spoken lines."
+}

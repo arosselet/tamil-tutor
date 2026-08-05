@@ -43,9 +43,11 @@
       50,
       51,
       61,
-      65
+      65,
+      83
     ],
-    "last_surfaced": "2026-06-24"
+    "last_surfaced": "2026-08-05",
+    "exposures": 1
   },
   "பிடிக்காது": {
     "gloss": "I don't like",
@@ -592,9 +594,11 @@
       18,
       20,
       24,
-      28
+      28,
+      83
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-05",
+    "exposures": 1
   },
   "அக்கா": {
     "gloss": "Elder sister",
@@ -887,10 +891,11 @@
       35,
       38,
       81,
-      82
+      82,
+      83
     ],
     "last_surfaced": "2026-08-05",
-    "exposures": 2
+    "exposures": 3
   },
   "நிறுத்துங்க": {
     "gloss": "Stop (respectful)",
@@ -1256,11 +1261,12 @@
       65,
       69,
       71,
-      76
+      76,
+      83
     ],
-    "last_surfaced": "2026-07-26",
+    "last_surfaced": "2026-08-05",
     "reps": 3,
-    "exposures": 1
+    "exposures": 2
   },
   "அவ": {
     "gloss": "She (informal)",
@@ -2905,12 +2911,13 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
-      82
+      82,
+      83
     ],
     "last_surfaced": "2026-08-05",
     "deck": "trip",
     "direction": "catch",
-    "exposures": 1
+    "exposures": 2
   },
   "எனக்கு ஒன்னும் தெரியாது": {
     "type": "chunk",
@@ -2938,12 +2945,14 @@
     "production": "none",
     "seen_in": [
       68,
-      69
+      69,
+      83
     ],
-    "last_surfaced": "2026-07-26",
+    "last_surfaced": "2026-08-05",
     "deck": "trip",
     "direction": "catch",
-    "reps": 1
+    "reps": 1,
+    "exposures": 1
   },
   "விட்டுடு": {
     "type": "chunk",
@@ -2953,11 +2962,13 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
+    "seen_in": [
+      83
+    ],
     "last_surfaced": "2026-08-05",
     "deck": "trip",
     "direction": "catch",
-    "exposures": 2
+    "exposures": 3
   },
   "எவ்வளவு ஆகும்?": {
     "type": "chunk",
@@ -3749,12 +3760,14 @@
     "recognition": "solid",
     "production": "none",
     "seen_in": [
-      68
+      68,
+      83
     ],
-    "last_surfaced": "2026-07-29",
+    "last_surfaced": "2026-08-05",
     "deck": "trip",
     "direction": "catch",
-    "reps": 2
+    "reps": 2,
+    "exposures": 1
   },
   "frame:hearsay-aam": {
     "type": "pattern",
@@ -3763,11 +3776,13 @@
     "recognition": "solid",
     "production": "none",
     "seen_in": [
-      68
+      68,
+      83
     ],
-    "last_surfaced": "2026-07-25",
+    "last_surfaced": "2026-08-05",
     "deck": "trip",
-    "direction": "catch"
+    "direction": "catch",
+    "exposures": 1
   },
   "அப்புறம் பார்க்கலாம்": {
     "type": "chunk",
@@ -3856,12 +3871,13 @@
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [
-      82
+      82,
+      83
     ],
     "last_surfaced": "2026-08-05",
     "deck": "trip",
     "direction": "catch",
-    "exposures": 2
+    "exposures": 3
   },
   "frame:youknow-la": {
     "type": "pattern",
@@ -3873,12 +3889,13 @@
     "production": "none",
     "seen_in": [
       68,
-      77
+      77,
+      83
     ],
-    "last_surfaced": "2026-07-28",
+    "last_surfaced": "2026-08-05",
     "deck": "trip",
     "direction": "catch",
-    "exposures": 2,
+    "exposures": 3,
     "reps": 1
   },
   "எவ்ளோ ஆகும்?": {
@@ -4013,11 +4030,13 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
-    "last_surfaced": "2026-08-04",
+    "seen_in": [
+      83
+    ],
+    "last_surfaced": "2026-08-05",
     "deck": "trip",
     "direction": "catch",
-    "exposures": 1
+    "exposures": 2
   },
   "frame:myself-thukka": {
     "type": "pattern",
@@ -4134,13 +4153,14 @@
       60,
       61,
       76,
-      78
+      78,
+      83
     ],
-    "last_surfaced": "2026-07-31",
+    "last_surfaced": "2026-08-05",
     "deck": "trip",
     "direction": "catch",
     "reps": 1,
-    "exposures": 2
+    "exposures": 3
   },
   "ஜாஸ்தி": {
     "type": "chunk",
@@ -4152,13 +4172,14 @@
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
-      80
+      80,
+      83
     ],
-    "last_surfaced": "2026-08-02",
+    "last_surfaced": "2026-08-05",
     "deck": "trip",
     "direction": "catch",
     "reps": 2,
-    "exposures": 1
+    "exposures": 2
   },
   "ஒரே கல்லுல ரெண்டு மாங்கா": {
     "type": "chunk",

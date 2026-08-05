@@ -1,0 +1,240 @@
+# Tier 2, Mission 83 — The Verandah Whispers
+
+## Core Targets
+- **Linguistic Pattern:** The Hearsay Stack (-nu சொன்னாங்க + -ஆம்)
+- **Register:** reconciliation
+- **Dramatic Ingredient:** turn
+- **Scenario Shape:** gossip
+- **Location class:** home_social
+- **Energy:** low
+- **Episode Form:** vignette
+
+## Scenario Context
+The dinner plates are cleared. The heavy humidity of Coimbatore evening settles over the back verandah. Two cousins and an Atthai (Aunt) are leaning in close, dissecting a long-standing family rift involving a property or a wedding—something with "too much hassle." Andrew sits in the shadows with his coffee, a silent witness. The tone is hushed and conspiratorial until a sudden realization or a phone call shifts the tension from judgment to a quiet, weary reconciliation.
+
+## Word Payload
+
+**NEW (10 words):**
+- **நம்ம {Person} இருக்கான்ல…** (*namma {Person} irukkan-la...*) — You know our {Person}, right... (The Gossip Opener)
+- **{Word}-தான்** (*-dhaan*) — Exactly / Just / Only (The Sass Clitic)
+- **சும்மா சொல்றாங்க** (*summa solraanga*) — They're just talking / making it up
+- **விட்டுடு** (*vittudu*) — Let it go / drop it
+- **என்னமோ பிரச்சனை** (*ennamo prachanai*) — Some problem or other
+- **தெரியுமா?** (*theriyuma?*) — You know...?
+- **அலைச்சல்** (*alaichal*) — The hassle / the running-around
+- **ஜாஸ்தி** (*jasthi*) — Too much / extra
+- **-னு சொன்னாங்க** (*-nu sonnaanga*) — They said that... (The Quotative)
+- **-ஆம்** (*-aam*) — Apparently / I hear... (The Hearsay Tag)
+
+**CALLBACKS (5 words):**
+- **அத்தை** (*atthai*) — Aunt (paternal) [overdue]
+- **கல்யாணம்** (*kalyaanam*) — Wedding / Marriage [recently-mastered]
+- **ஜாஸ்தி** (*jasthi*) — Too much [floor-gap]
+- **அப்புறம்** (*appuram*) — Later / After that [recently-mastered]
+- **சரி சரி** (*sari sari*) — Right, right [backchannel — agreement]
+
+## Vocabulary Fence (the sea — build from these)
+- frame:adverb-aa (medhuvaa)
+- frame:cant-முடியல
+- frame:day-recap
+- frame:done-ittu (vandhutten)
+- frame:giveme-noun
+- frame:happened-aachu (aachu)
+- frame:hearsay-aam
+- frame:howmuch-noun
+- frame:idum
+- frame:if-ndhaa
+- frame:in-la
+- frame:isthere-noun
+- frame:mayi-laama (laama)
+- frame:nearby-noun
+- frame:needtogo-place
+- frame:negative-la
+- frame:obligation-ணும்
+- frame:polite-nga (nga)
+- frame:present-future-toggle
+- frame:quote-nu
+- frame:want-noun
+- frame:where-noun
+- அக்கா (akka) — Elder sister
+- அங்க (anga) — There
+- அஞ்சு (anju) — Five
+- அண்ணா (anna) — Elder brother
+- அதனால (adhanaal) — Therefore
+- அதான் (adaan) — That's why / Exactly / See, I told you
+- அது (adhu) — It / That
+- அதுக்கு (adhuku) — For that / to that
+- அதுக்கு அப்புறம் — After that
+- அத்தை (atthai) — Aunt (paternal)
+- அனுப்பு (anuppu) — Send
+- அப்படியா?! (appadiya) — Oh really?!
+- அப்படீங்களா? — Is that so?
+- அப்புறம் (appuram) — Later / After that
+- அலைச்சல் (alaichal) — The hassle / the running-around
+- அழகான — Beautiful
+- அவ (ava) — She (informal)
+- அவங்க (avanga) — They / He-She (respectful)
+- அவசரம் இருக்கு (avasaram irukku) — I'm in a hurry
+- அவன் (avan) — He (informal)
+- அவரு — He/She (respectful)
+- ஆனா (aana) — But
+- ஆமா (aam) — Yes
+- ஆமா ஆமா (aama aama) — Yeah, yeah
+- இங்க (inga) — Here
+- இங்க நிறுத்துங்க (inga niruthunga) — Stop here
+- இடது — Left
+- இன்னைக்கு (innaiku) — Today
+- இப்போ (ippo) — Now
+- இருக்கு (iruku) — It is / It exists
+- இருந்துச்சு (irundhuchu) — It was / it turned out
+- இல்ல (illa) — No
+- இல்லையாவா? — Isn't it? / Right?
+- ஈஸி (easy) — Easy
+- உக்காருங்க — Sit (respectful)
+- உனக்கு (unakku) — To you / For you
+- உப்பு (uppu) — Salt / Salty
+- உயரம் — Tall / Height
+- உள்ள (ulla) — Inside
+- ஊரு (ooru) — Hometown / the village
+- எங்க (enga) — Our (exclusive)
+- எங்க? (enga?) — Where?
+- எடுங்க — Take (respectful)
+- எனக்கு (enakku) — To me / For me
+- என்ன சமைக்கிற? (enna samaikkira) — What are you cooking?
+- என்ன சொன்னீங்க? (enna sonneenga) — What did you say?
+- என்ன? (enna) — What?
+- என்னமோ பிரச்சனை (ennamo prachanai) — Some problem or other
+- எப்படி இருக்கீங்க? (eppadi irukkinga) — How are you?
+- எழுந்திரு (ezhunthiru) — Get up / Wake up
+- எழுந்தேன் — I woke up
+- ஏன்னா — Because
+- ஒன்னு (onnu) — One
+- ஒன்னு மட்டும் — Only one
+- ஒரு நிமிஷம் (oru nimisham) — One moment / just a minute
+- கன்ஃபர்ம் (kanfarm) — Confirm
+- கம்மி (kammi) — Less
+- கல்யாணம் — Wedding / Marriage
+- கவலை — Worry
+- கஷ்டம் (kashtam) — Difficult / Hardship
+- காரம் (kaaram) — Spicy
+- கிடைச்சுது (kidaichudu) — Received / Got it
+- கிட்ட (kitta) — Near / With (person)
+- கிளம்பு (kilambu) — Leave / Depart
+- கீழ (keele) — Below / Under
+- குடிச்சேன் — I drank
+- குடுங்க — Give (respectful)
+- குட்டை (kutti) — Short (height)
+- குளி (kuli) — Bathe / Shower
+- குளிர் (kulir) — Cold
+- கூப்பிடு (kuppidu) — Call
+- கேட்குறேன் (ketkureen) — I'm hearing/asking (present)
+- கேட்டாங்க — They asked
+- கேட்டேன் (keten) — I asked
+- கேட்பேன் (ketpaen) — I will hear/ask (future)
+- கேன்சல் — Cancel
+- கொஞ்சம் (konjam) — A little
+- கொஞ்சம் தண்ணி குடுங்க (konjam thanni kudunga) — Please give a little water
+- கொஞ்சம் நில்லுங்க (konjam nillunga) — Wait a moment
+- கொஞ்சம் மெதுவா சொல்லுங்க (konjam medhuva sollunga) — Say it a bit slowly
+- கொடுத்தேன் (kodutten) — I gave
+- கோவம் (kovam) — Angry / Anger
+- சட்டை (sattai) — Shirt
+- சந்தோஷம் (sandosham) — Happy / Joy
+- சமையலறை (samayalarai) — Kitchen
+- சரி (sari) — Okay
+- சரி சரி (seri seri) — Right, right
+- சரியான (sariyana) — Correct / Right / Exact
+- சாப்டீங்களா? — Did you eat?
+- சாப்பாடு ரெடி (saappaadu ready) — Food is ready
+- சாப்பிடுங்க — Please eat (respectful)
+- சாப்பிட்டேன் — I ate
+- சின்ன (sinna) — Small / Little
+- சில்லறை இருக்கா? (sillarai irukka) — Do you have change?
+- சீக்கிரம் (seekkiram) — Quickly
+- சுவையா இருக்கு (suvaiya irukku) — It's tasty
+- சூடு (soodu) — Hot
+- சூப்பர் — Super
+- செம்மை (semmai) — Excellent / Perfect
+- சொன்னாங்க — They said
+- சொன்னேன் — I said
+- சொல்றேன் — I'm telling (present)
+- சொல்லுங்க — Tell/Say (respectful)
+- சொல்லுவேன் — I will tell (future)
+- ஜாஸ்தி (jasthi) — Too much / extra
+- டயர்ட் — Tired
+- தங்கச்சி (thangachi) — Younger sister
+- தப்பு — Wrong / Mistake
+- தமிழ்ல எப்படி சொல்றது? (tamizh-la eppadi solradhu) — How do you say it in Tamil?
+- தம்பி (thambi) — Younger brother
+- தாகம் (thaagam) — Thirsty
+- தூக்கு (thooku) — Lift / Carry
+- தூங்கினேன் — I slept
+- தெரியாது (theriyaadhu) — I don't know
+- தெரியுமா? (theriyuma) — You know…?
+- தெரியும் (theriyum) — I know
+- நம்ம (namma) — Our (inclusive)
+- நல்லா (nalla) — Well / Nicely
+- நல்லா இருக்கு — It's good
+- நாங்க (naanga) — We (exclusive)
+- நாளைக்கு (naalaikku) — Tomorrow
+- நினைச்சேன் — I thought
+- நிமிஷம் — Minute (time)
+- நிறுத்துங்க — Stop (respectful)
+- நிறைய (niraya) — A lot
+- நீ (nee) — You (informal)
+- நீங்க (neenga) — You (respectful)
+- நீங்க சாப்பிட்டீங்களா? (ninga saaptingala) — Did you eat?
+- நூறு (nooru) — Hundred
+- நேத்து (netru) — Yesterday
+- நேரம் ஆச்சு — It's time / Time's up
+- நேரம் இருக்கா? — Do you have time?
+- நேரா — Straight
+- நேரா போங்க (nera ponga) — Go straight
+- பசி (pasi) — Hungry
+- பண்ணல (pannala) — Didn't do / haven't done
+- பத்து (pathu) — Ten
+- பயம் (payam) — Scared / Fear
+- பரவாயில்லை — It's okay / No problem
+- பழைய — Old (things)
+- பார்த்தேன் — I saw / I watched
+- பிடிக்காது (pidikkaadhu) — I don't like
+- பிடிக்கும் (pidikkum) — I like / It pleases
+- பிரச்சனை (prachanai) — Problem / trouble / issue
+- புது (pudhu) — New
+- புரிஞ்சுது (purinjudhu) — Got it / I understood
+- புரியல (puriyala) — I don't understand
+- பெட்டி — Box / Suitcase
+- பெரிய (periya) — Big
+- போகணும் (poganum) — Must go
+- போடு (podu) — Put on / Wear
+- போதும் (podhum) — Enough
+- போனேன் — I went
+- போயிட்டு வரேன் — I'll go and come back (goodbye)
+- போறேன் (poren) — I go / I'm going
+- மாமா (maama) — Uncle (maternal)
+- முடியாது (mudiyaadhu) — Cannot / Impossible
+- முதல்ல — First
+- முன்னாடியே — Already / Beforehand
+- முறை மாமன் — Cross-cousin
+- மூணு (moonu) — Three
+- மேல (meela) — On top / Above
+- யாரு? (yaaru) — Who?
+- ரெண்டு (rendu) — Two
+- ரொம்ப அதிகம் (romba adhigam) — That's too much
+- ரொம்ப நல்லா இருக்கு (romba nallarukku) — It's really good
+- வணக்கம் (vanakkam) — Hello
+- வந்துடுச்சு (vandhuduchu) — It's come / it's arrived
+- வந்துட்டேன் (vandhudduen) — I've arrived / I came
+- வந்தேன் (vanden) — I came
+- வயிறு ஃபுல் — Stomach full
+- வரேன் (vareen) — I come / I'm coming
+- வலது — Right
+- வாருங்களா? — Will you come?
+- விட — Than (comparison marker)
+- வெளிய (veliya) — Outside
+- வேணும் (venum) — I want / I need
+- வேண்டாம் (vendam) — I don't want
+- வேற என்ன? — What else?
+
+## Notes
+Andrew is still reaching for the obligation tail `-num` when he needs the 1pl-past `-om`. This gossip scene, built on "we went/we said" vs "they said," is designed to force that distinction without a lecture. The "turn" should move from sharp gossip to a softer, reconciled tone to meet the Register requirement.
