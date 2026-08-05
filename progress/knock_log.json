@@ -3597,5 +3597,36 @@
         "scheduled": ""
       }
     ]
+  },
+  {
+    "date": "2026-08-05",
+    "timestamp": "2026-08-05T17:28:51.769023+00:00",
+    "acted": true,
+    "modality": "volley",
+    "move": "deck volley sprint",
+    "rationale": "Lunch anchor + demand-streak 0 = clean volley window; kudunga just proved live reps transfer, now close deck; frame:in-la is binding item 1 and genuinely unfired today.",
+    "next_check": "2026-08-05T21:28:51.769023+00:00",
+    "body": "⚡ volley 1/4 — paati asks where you left your bag. It's in the car. Just the locative: 'car-___ irukku.' Fill the blank.",
+    "expected_target": "frame:in-la",
+    "target_revealed": false,
+    "volley": [
+      {
+        "target": "frame:in-la",
+        "ask": "paati asks where you left your bag. It's in the car. Just the locative: 'car-___ irukku.' Fill the blank."
+      },
+      {
+        "target": "முடிஞ்சா",
+        "ask": "maama asks if you can pick up bread on the way. You'll try but can't promise. One word."
+      },
+      {
+        "target": "ஆமா ஆமா",
+        "ask": "paati's mid-story about the neighbour's dog — you need to hold your seat and keep her going. What do you say?"
+      },
+      {
+        "target": "இன்னொரு தடவ சொல்லுங்க",
+        "ask": "maami just rattled something off fast and you caught maybe half. What do you say to her?"
+      }
+    ],
+    "volley_next": 1
   }
 ]
