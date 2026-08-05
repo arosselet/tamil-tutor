@@ -848,7 +848,6 @@ def cmd_seed_deck(args):
     if lexicon is None:
         print("Error: lexicon.json missing. See BOOTSTRAP.md.")
         sys.exit(1)
-    today = local_today().isoformat()
     # `pairs_with` is the ONE relation the schema carries: a catch item names the
     # chunk Andrew must say back to it (hear X → say Y). It lives on the catch
     # side because that is the direction of the drill, and it must resolve inside

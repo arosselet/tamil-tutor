@@ -55,15 +55,27 @@ precedent lives in `/debug` → KF-8).
 Every addition must earn its place. Before writing any code, state out loud:
 *"This replaces / simplifies ___."* (`docs/DECISIONS.md` → "Every addition must earn its place.")
 
-**The size budgets.** Both surfaces are ratcheted, asserted by the same smoke case
+**The size budgets.** Every surface below is ratcheted, asserted by the same smoke case
 (`scripts/smoke_test.py` → `s18_size_budgets`):
 
 | Surface | Table | Unit | Since |
 |---|---|---|---|
 | Protocol prose — `persona.md`, `constitution.md`, `daily_session.md`, `audio_channels.md`, `commissioning.md`, the LLM mandates | `PROSE_BUDGETS` | words | 2026-07-16 |
 | Every `scripts/*.py` | `CODE_BUDGETS` | code lines (blanks, comments and docstrings are **free**) | 2026-07-31 |
+| Every `scripts/*.py` | pyflakes | findings, **budget 0** | 2026-08-04 |
 
-One law for both: growth past budget is a red run; raising a budget is allowed only in the
+**The static budget is zero and does not move.** pyflakes reports undefined names,
+unused imports and dead locals — each is a defect or dead code, so there is nothing to
+tune. It exists because the rest of the suite proves *behaviour*, and behaviour is only
+proven where a test executes: Python resolves globals at call time, so a name that no
+longer exists is invisible until something runs that line. It caught a dropped `DEMOTE`
+table that 53 green cases missed (2026-08-04). This is the `actionlint` argument one
+language over — "a file that parses is not a workflow that runs", and a file that
+imports is not a file that runs. When a binding must stay that *looks* unused, make its
+purpose legible in code (see `run_studio._DISPATCH_LOCK`); never park it behind a
+suppression directive, which is how a load-bearing line comes to read as dead.
+
+One law for all three: growth past budget is a red run; raising a budget is allowed only in the
 same diff as the growth, and the commit must name what it retired. A file that keeps
 hitting its ceiling is carrying crud or doing too many jobs — a split-or-retire signal,
 never a bump-the-number reflex.

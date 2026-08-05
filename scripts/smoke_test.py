@@ -1169,7 +1169,7 @@ def code_lines(src: str) -> int:
 
 
 def s18_size_budgets(mk, kr, sb: Path):
-    print("\n18. Size budgets — protocol prose (words) + Python (code lines)")
+    print("\n18. Size budgets — prose (words) + Python (code lines) + static clean (0)")
     strings = {"OUTREACH_MANDATE": mk.OUTREACH_MANDATE,
                "JUDGE_MANDATE": kr.JUDGE_MANDATE,
                "REACH_MANDATE": kr.REACH_MANDATE,
@@ -1191,6 +1191,45 @@ def s18_size_budgets(mk, kr, sb: Path):
               f"over by {lines - budget} — retire code, or raise the budget in this "
               f"same diff and name what it retired (comments and docstrings are "
               f"free; this counts mechanism only)")
+
+    # STATIC CLEAN — the ratchet's fourth unit, budget zero (2026-08-04).
+    #
+    # The suite above proves BEHAVIOUR, and it can only prove what it executes.
+    # Python resolves module globals at call time, so a name that no longer
+    # exists is invisible until some test happens to run that exact line. On
+    # 2026-08-04 the state_io extraction dropped the DEMOTE table; sync_state
+    # still imported, every CLI path still ran, and 53 cases reported ALL GREEN
+    # on a `--stuck-word` close that would have raised NameError — because
+    # nothing demoted a word. pyflakes found it without running anything.
+    #
+    # This is the actionlint argument one language over. That linter was added
+    # after a workflow that was valid YAML but rejected by GitHub sat unrunnable
+    # through four pushes while this very suite went green beside it: "a file
+    # that parses is not a workflow that runs" (smoke.yml). A file that imports
+    # is not a file that runs either.
+    #
+    # Zero, not a number to tune. pyflakes has no severity levels and no
+    # suppression pragma by design — it reports only what is nearly always a
+    # bug, so the honest budget is none. A finding is either a defect or dead
+    # code, and both get FIXED rather than allowed. When something must stay
+    # that looks unused, make its purpose legible in code (run_studio's dispatch
+    # lock became a module global with a comment) rather than parked behind a
+    # directive this repo does not read.
+    try:
+        from pyflakes.api import checkPath
+        from pyflakes.reporter import Reporter
+    except ImportError:
+        check("pyflakes is installed (declared in requirements.txt)", False,
+              "pip install -r requirements.txt — the static gate cannot be "
+              "skipped quietly; an absent linter reported as a pass is the "
+              "silent no-op this rule exists to prevent")
+    else:
+        report = io.StringIO()
+        found = sum(checkPath(py, Reporter(report, report))
+                    for py in sorted((REAL_BASE / "scripts").glob("*.py")))
+        check(f"pyflakes: {found}/0 findings across scripts/*.py", found == 0,
+              f"undefined names, unused imports and dead locals are all defects "
+              f"or dead code — fix them, never budget for them:\n{report.getvalue()}")
 
     # The decision log's forward entry cap — same law, third unit. Only entries
     # dated on/after 2026-08-02 are bound; a long conclusion goes in the commit

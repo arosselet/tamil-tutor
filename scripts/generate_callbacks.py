@@ -88,7 +88,7 @@ def main():
     today = date.today()
     callbacks = due_callbacks(lexicon, today, args.max)
 
-    print(f"CALLBACKS (soft target, weave into the next episode):")
+    print("CALLBACKS (soft target, weave into the next episode):")
     print("-" * 52)
     if not callbacks:
         print("  (nothing due — the recognized set is fresh)")

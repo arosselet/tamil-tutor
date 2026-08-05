@@ -75,7 +75,7 @@ def main():
 
     # --- The viability floor (compute_floor: patterns excluded, same as sync_state) ---
     floor = compute_floor(lexicon)
-    print(f"\n🎯 VIABILITY FLOOR — recognized words that fire cold")
+    print("\n🎯 VIABILITY FLOOR — recognized words that fire cold")
     print("-" * 55)
     print(f"    [{bar(floor['pct'])}] {floor['cleared']}/{floor['total']} ({floor['pct']:.0f}%)")
     print(f"    Floor gap: {floor['total'] - floor['cleared']} recognized words not yet cold.")
@@ -83,7 +83,7 @@ def main():
     # --- Engines: generative patterns firing cold ---
     engines = compute_engines(lexicon)
     if engines["total"]:
-        print(f"\n⚙️  ENGINES — patterns that fire a novel instance cold")
+        print("\n⚙️  ENGINES — patterns that fire a novel instance cold")
         print("-" * 55)
         print(f"    [{bar(engines['pct'])}] {engines['online']}/{engines['total']} online ({engines['pct']:.0f}%)")
 
@@ -113,7 +113,7 @@ def main():
     # --- Episodes (self-contained doses — no listen bookkeeping) ---
     if episodes:
         recent = sorted(episodes.items(), key=lambda x: int(x[0]), reverse=True)[:5]
-        print(f"\n🎧 RECENT EPISODES (the immersion tank)")
+        print("\n🎧 RECENT EPISODES (the immersion tank)")
         print("-" * 55)
         for m, ep in recent:
             dur = ep.get("duration_min")

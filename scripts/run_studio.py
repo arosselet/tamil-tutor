@@ -506,6 +506,9 @@ def preflight(prefer: str = "auto") -> str | None:
     return writer_preflight(prefer) or renderer_preflight()
 
 
+_DISPATCH_LOCK = None  # held for the process lifetime; see main()
+
+
 def acquire_dispatch_lock():
     """One dispatch at a time — studio_watchdog.py shares this lock, so a
     session-open dispatch and a watchdog tick can never stack. Held for the
@@ -537,7 +540,13 @@ def main():
     from morning_knock import load_env
     load_env(BASE / ".env")
 
-    lock = acquire_dispatch_lock()  # noqa: F841 — held until exit
+    # Module global, not a local: the flock releases when its file object is
+    # collected, so the reference has to outlive main()'s frame. As a local it
+    # read as dead code — it was carrying a `# noqa: F841` for a linter this
+    # repo does not run, which is how an unused-looking binding that is load
+    # bearing survives review (2026-08-04).
+    global _DISPATCH_LOCK
+    _DISPATCH_LOCK = acquire_dispatch_lock()
 
     # Preflight — fail fast and legibly. The caller should read one line, not a
     # WinError traceback (2026-07-15). A MISSING CREDENTIAL is not a failure:
