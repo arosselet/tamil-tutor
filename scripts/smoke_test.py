@@ -132,6 +132,35 @@ def s1_parse_llm_json(mk):
     except (json.JSONDecodeError, ValueError):
         check("garbage raises", True)
 
+    # 2026-08-05: the judge burned all 800 tokens reasoning in prose and was cut
+    # off mid-word before its first brace. parse_llm_json correctly said "no
+    # braces" and raised JSONDecodeError — indistinguishable from KF-7/KF-10,
+    # where the JSON existed and the PARSER missed it. The two want opposite
+    # fixes (bigger budget vs. another fallback), so the teeth here are on
+    # TELLING THEM APART, not on raising: a truncation that merely raises the
+    # old error is the silent no-op this guard exists to prevent.
+    pr = mk.parse_llm_response
+    fake = lambda text, reason: type("R", (), {"choices": [type("C", (), {
+        "finish_reason": reason,
+        "message": type("M", (), {"content": text})()})()]})()
+    truncated = "Looking at this: the target is முடிஞ்சா, so the tag might be"
+    try:
+        pr(fake(truncated, "length"))
+        check("truncation raises", False, "did not raise")
+    except json.JSONDecodeError:
+        check("truncation is NOT reported as a parse error", False,
+              "raised JSONDecodeError — the old, ambiguous signal")
+    except ValueError as exc:
+        check("truncation is NOT reported as a parse error", True)
+        check("truncation names itself", "TRUNCATED" in str(exc), str(exc)[:60])
+        # The raw text is the recovery payload — losing it costs a re-run.
+        check("truncation dump carries the partial text", truncated in str(exc))
+    # No false positives: a complete response still parses, fence and all.
+    check("finish_reason=stop parses normally",
+          pr(fake('```json\n{"verdict": "cold"}\n```', "stop")) == {"verdict": "cold"})
+    check("absent finish_reason parses normally",
+          pr(fake('{"verdict": "miss"}', None)) == {"verdict": "miss"})
+
 
 def s2_rails_gate(mk, klog_path: Path):
     print("\n2. Rails gate")
@@ -1108,7 +1137,14 @@ CODE_BUDGETS = {
     # mandates.py — the file sat at 699/700, one mechanical fix from a red build.
     # The split is the ceiling law working, not an allowance: prompt canon and
     # dispatch machinery are two concerns, and only one of them is code.
-    "scripts/morning_knock.py": 625,
+    # 625 → 632 (2026-08-05, Andrew): `parse_llm_response`, the finish_reason
+    # guard. What it replaces is an IDIOM, not lines — the bare
+    # `parse_llm_json(resp.choices[0].message.content)` repeated at all three
+    # call sites, each of which reported a blown token ceiling as a parse error.
+    # Stated plainly because the ratchet asks: this is +7 with nothing deleted,
+    # the diagnosis layer growing, not mechanism. If this file trips again on
+    # mechanism, that is the split-or-retire signal — not this.
+    "scripts/morning_knock.py": 632,
     # The mandate as a module: almost entirely prompt string (word-budgeted as
     # OUTREACH_MANDATE in PROSE_BUDGETS above), so its code budget exists only
     # to satisfy the every-file-is-budgeted guard and to catch machinery

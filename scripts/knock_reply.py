@@ -48,9 +48,9 @@ BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from render_chat import render_chat
 from morning_knock import (OPENROUTER_BASE, MODEL, KNOCK_LOG_PATH, KNOCKS_DIR,
-                           ANNA_VOICE, parse_llm_json, load_env, push_to_phone,
+                           ANNA_VOICE, load_env, push_to_phone,
                            commit_and_push, maybe_enqueue_schedule, render_memo,
-                           jsdelivr_url, refresh_feed, to_phonetic)
+                           jsdelivr_url, refresh_feed, to_phonetic, parse_llm_response)
 from state_io import FEEDBACK_LOG_PATH, LEARNER_PATH, LEXICON_PATH, SLIP_LOG_PATH, build_phonetic_index, load_json, local_today, resolve, save_json
 from slips import append_slips, slip_patterns
 from sync_state import TRIP_DATE, compute_deck, fires_today
@@ -413,7 +413,7 @@ def judge_catch(knock: dict, reply_text: str, klog: list | None = None) -> dict:
             {"role": "user", "content": json.dumps(context, ensure_ascii=False, indent=2)},
         ],
     )
-    d = parse_llm_json(resp.choices[0].message.content)
+    d = parse_llm_response(resp)
     if d.get("verdict") not in CATCH_VERDICTS:
         d["verdict"] = "chat"
     d["reply_line"] = (d.get("reply_line") or "").strip()
@@ -656,13 +656,21 @@ def judge(knock: dict, reply_text: str, target_record: dict | None,
     client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
     resp = client.chat.completions.create(
         model=MODEL,
-        max_tokens=800,
+        # 800 → 1600 (2026-08-05, Andrew). At 800 this call spent ~750 tokens
+        # deliberating in prose and was cut off mid-word before its first brace
+        # — the whole budget went to reasoning, none to the artifact. 1600 is
+        # not a new magic number: it is what `decide()` already uses for
+        # comparable structured output, and this call arguably does more (an
+        # 11-key schema plus a slip-ledger tag match). Cost is unchanged on a
+        # normal run — a ceiling is not a spend, and the median verdict lands
+        # nowhere near it.
+        max_tokens=1600,
         messages=[
             {"role": "system", "content": persona + "\n\n---\n\n" + mandate},
             {"role": "user", "content": json.dumps(context, ensure_ascii=False, indent=2)},
         ],
     )
-    return normalize_verdict(parse_llm_json(resp.choices[0].message.content), reply_text)
+    return normalize_verdict(parse_llm_response(resp), reply_text)
 
 
 _FLATTEN_RE = re.compile(r"[^\w]+", re.UNICODE)

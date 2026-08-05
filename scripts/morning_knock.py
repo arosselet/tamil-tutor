@@ -533,6 +533,31 @@ def parse_llm_json(text: str) -> dict:
             raise
 
 
+def parse_llm_response(resp) -> dict:
+    """`parse_llm_json` for a raw API response — plus the one check the text
+    alone CANNOT make.
+
+    2026-08-05: the judge spent all 800 of its tokens deliberating in prose
+    (which slip tag to reuse) and was cut off mid-word, before it had emitted a
+    single brace. `parse_llm_json` did its job — "no braces", JSONDecodeError at
+    char 0 — but that is byte-identical to the KF-7/KF-10 signature, where the
+    JSON existed and the PARSER missed it. Those two failures want opposite
+    fixes: a parser gap wants another fallback, a truncation wants a bigger
+    budget, and adding a fallback for a truncation is pure motion. Only
+    `finish_reason` can tell them apart, and it lives on the response, not the
+    text — so the check has to sit here.
+
+    Raised as ValueError so `decide()`'s retry loop re-rolls it (a second draft
+    may simply be terser); `judge()` has no retry, so it surfaces at once."""
+    c = resp.choices[0]
+    if getattr(c, "finish_reason", None) == "length":
+        raise ValueError(f"LLM response TRUNCATED at the max_tokens ceiling "
+                         f"({len(c.message.content or '')} chars emitted, no JSON reached) "
+                         f"— raise the budget at the CALL SITE; this is not a parser "
+                         f"gap.\n--- truncated response ---\n{c.message.content}\n---")
+    return parse_llm_json(c.message.content)
+
+
 # Person nouns that can carry a tape's referent (2026-07-25). Substring matching, so
 # the pulli-less stems are deliberate — "மருமக" catches மருமகள்/மருமகன், "மச்சான"
 # catches மச்சான். A definite description counts: "அந்த வீட்டு பொண்ணு" is a referent.
@@ -627,7 +652,7 @@ def decide(digest: str, volley_menu: list | None = None) -> dict:
     for attempt in range(1, 4):
         resp = client.chat.completions.create(model=MODEL, max_tokens=1600, messages=messages)
         try:
-            d = parse_llm_json(resp.choices[0].message.content)
+            d = parse_llm_response(resp)
             if attempt > 1:
                 print(f"   [ok] parsed on attempt {attempt}")
             break
