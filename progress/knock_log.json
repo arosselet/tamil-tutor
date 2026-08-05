@@ -3627,6 +3627,34 @@
         "ask": "maami just rattled something off fast and you caught maybe half. What do you say to her?"
       }
     ],
-    "volley_next": 1
+    "volley_next": 2,
+    "response": "reply",
+    "reply": "Enge",
+    "reply_verdict": "miss",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line": "enge is where — paati wants to know it's in the car. 'car-la irukku' — -la is your in/at. · 2/4 — maama asks if you can pick up bread on the way. You'll try but can't promise. One word.",
+    "reply_at": "2026-08-05T17:45:54Z",
+    "exchanges": [
+      {
+        "at": "2026-08-05T17:45:54Z",
+        "reply": "Enge",
+        "verdict": "miss",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "enge is where — paati wants to know it's in the car. 'car-la irukku' — -la is your in/at. · 2/4 — maama asks if you can pick up bread on the way. You'll try but can't promise. One word.",
+        "slips": [
+          "ku-for-la"
+        ],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ],
+    "chained": 1,
+    "pinned_target": "முடிஞ்சா",
+    "pinned_revealed": false
   }
 ]

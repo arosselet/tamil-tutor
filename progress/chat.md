@@ -30,6 +30,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **13:28 · Anna**  ·  volley / deck volley sprint
 > ⚡ volley 1/4 — paati asks where you left your bag. It's in the car. Just the locative: 'car-___ irukku.' Fill the blank.
 
+**13:45 · Andrew** — **MISS**
+> Enge
+
+**Anna ↩**
+> enge is where — paati wants to know it's in the car. 'car-la irukku' — -la is your in/at. · 2/4 — maama asks if you can pick up bread on the way. You'll try but can't promise. One word.
+
 
 ## Tuesday 2026-08-04
 

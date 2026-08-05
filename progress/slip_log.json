@@ -329,5 +329,17 @@
     "note": "reaches for size-small where degree-small is wanted",
     "word": "",
     "dose_channel": "episode"
+  },
+  {
+    "at": "2026-08-05T17:45:54Z",
+    "date": "2026-08-05",
+    "lane": "knock",
+    "modality": "volley",
+    "tag": "ku-for-la",
+    "said": "Enge",
+    "want": "car-la",
+    "note": "enge asks where — -la pins it there",
+    "word": "",
+    "dose_channel": "episode"
   }
 ]
