@@ -3533,5 +3533,18 @@
     "body": "mission's live — 'konjam X kudunga' at the table tonight, unprompted. debrief tomorrow. 🎯",
     "expected_target": "",
     "target_revealed": false
+  },
+  {
+    "date": "2026-08-05",
+    "timestamp": "2026-08-05T13:51:40.130143+00:00",
+    "acted": true,
+    "scheduled": true,
+    "queue_id": "q1785867982",
+    "modality": "text",
+    "move": "field mission debrief collect",
+    "rationale": "scheduled at 2026-08-04T18:26 for 2026-08-05T00:00",
+    "body": "field mission debrief — konjam {thing} kudunga at dinner. did it land? what came back?",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]
