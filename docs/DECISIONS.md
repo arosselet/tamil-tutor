@@ -1808,3 +1808,13 @@ Details live in git history; this is the index of the *conclusions*.
   no state, yet a conflict in it refused the whole rebase — derived files now rebuild from
   the merged source. The tap lane's hand-rolled push moved into `sync_state.py`, so every
   lane lands through `commit_and_push`.
+- **Andrew is family already; only the Tamil is new** (2026-08-04, Andrew). M81 opened at
+  the iron gate with sisters-in-law he "recognised from the old photos" — the Director's
+  Scenario Context had invented a first meeting. He is ten years with his wife, nearly ten
+  married, a dozen visits in; the welcome was warm from the start, and he began at year
+  nine not for want of will but because the language looked impossible to attempt until
+  agents made it tractable. No file owned this, so every generator filled the blank with
+  the newcomer-integrating story. Now canon in `constitution.md` ("Family Already, Language
+  Not Yet"), embodied in `persona.md` ("Ten Years In" — the Python doses inline persona
+  only), and pointed at from `director.md`'s Reads-from, which read neither. Never write him
+  auditioning for entry.
