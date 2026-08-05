@@ -3547,13 +3547,13 @@
     "expected_target": "",
     "target_revealed": false,
     "response": "reply",
-    "reply": "She brought me some water",
+    "reply": "“A mission” is in context. I think I said “little water pass me” and what else would she do?",
     "reply_verdict": "chat",
     "reply_fired": [],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "wait — she brought YOU water? da, that means it landed. she heard 'konjam thanni kudunga' and just... did it. that's the mission working.",
-    "reply_at": "2026-08-05T13:54:07Z",
+    "reply_line": "yeah da — 'konjam thanni kudunga' is exactly what you said, and she just passed the water. that IS the mission. zero hesitation from her side means it landed clean.",
+    "reply_at": "2026-08-05T13:55:31Z",
     "exchanges": [
       {
         "at": "2026-08-05T13:52:48Z",
@@ -3577,6 +3577,19 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "wait — she brought YOU water? da, that means it landed. she heard 'konjam thanni kudunga' and just... did it. that's the mission working.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-05T13:55:31Z",
+        "reply": "“A mission” is in context. I think I said “little water pass me” and what else would she do?",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "yeah da — 'konjam thanni kudunga' is exactly what you said, and she just passed the water. that IS the mission. zero hesitation from her side means it landed clean.",
         "slips": [],
         "spoke": "",
         "scheduled": ""
