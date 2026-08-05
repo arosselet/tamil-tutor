@@ -1119,6 +1119,11 @@ CODE_BUDGETS = {
     # importing these FROM the state brain. Deliberately tiny and dependency-free
     # — if this file starts growing, something that mutates state has leaked in.
     "scripts/state_io.py": 60,
+    # The slip ledger, split out of sync_state 2026-08-04. Always a subsystem
+    # in a file about something else: it owns progress/slip_log.json outright
+    # and is reached from three call sites. Imports state_io only — never
+    # sync_state, which imports FROM here.
+    "scripts/slips.py": 300,
     "scripts/studio_watchdog.py": 125,
     "scripts/suggest_targets.py": 575,
     "scripts/sync_state.py": 1250,
@@ -2952,7 +2957,7 @@ def s41_slip_ledger(kr, sb: Path):
        re-asked it the same way.
     """
     print("\n41. The slip ledger — errors accumulate and steer the next lesson (2026-07-30)")
-    ss = importlib.import_module("sync_state")
+    sl = importlib.import_module("slips")
     st = importlib.import_module("suggest_targets")
     slip_path = sb / "progress" / "slip_log.json"
     if slip_path.exists():
@@ -2983,10 +2988,10 @@ def s41_slip_ledger(kr, sb: Path):
                                "")["slips"] == [])
 
     # --- 1. capture: append-only, cross-lane, dated by when it happened --------
-    ss.append_slips([{"tag": "Past tense", "said": "irukku", "want": "irundhuchu",
+    sl.append_slips([{"tag": "Past tense", "said": "irukku", "want": "irundhuchu",
                       "note": "present for a past scene"}],
                     lane="knock", when="2026-07-25")
-    ss.append_slips([{"tag": "past-tense", "said": "irukku", "want": "irundhuchu",
+    sl.append_slips([{"tag": "past-tense", "said": "irukku", "want": "irundhuchu",
                       "note": "present for a past scene"}],
                     lane="chat", when="2026-07-30")
     rows = read_json(slip_path)
@@ -2995,7 +3000,7 @@ def s41_slip_ledger(kr, sb: Path):
           {r["tag"] for r in rows} == {"past-tense"})
     check("...and each row keeps the lane it came from",
           {r["lane"] for r in rows} == {"knock", "chat"})
-    pats = {p["tag"]: p for p in ss.slip_patterns(today=date_cls(2026, 7, 30))}
+    pats = {p["tag"]: p for p in sl.slip_patterns(today=date_cls(2026, 7, 30))}
     p = pats["past-tense"]
     check("a mistake made twice is a pattern, not a one-off", p["pattern"] and p["count"] == 2)
     check("...spanning the real days it happened on, not the day it was written",
@@ -3007,9 +3012,9 @@ def s41_slip_ledger(kr, sb: Path):
 
     # A dose was commissioned and he slipped anyway — that is the escalation the
     # audio_channels law describes, and it could not fire before this counter.
-    ss.append_slips([{"tag": "past-tense", "said": "irukku", "want": "irundhuchu"}],
+    sl.append_slips([{"tag": "past-tense", "said": "irukku", "want": "irundhuchu"}],
                     lane="knock", dose_channel="soak", when="2026-07-30")
-    p = {x["tag"]: x for x in ss.slip_patterns(today=date_cls(2026, 7, 30))}["past-tense"]
+    p = {x["tag"]: x for x in sl.slip_patterns(today=date_cls(2026, 7, 30))}["past-tense"]
     check("a slip that survived a dose escalates the FORMAT",
           p["escalate"] and p["channels"] == ["soak"])
 
@@ -3018,12 +3023,12 @@ def s41_slip_ledger(kr, sb: Path):
     # be retired and then come back." Retiring on the clock alone cannot tell
     # "he learned it" from "nothing ever asked him", so a retired slip that was
     # never confirmed landed comes back as a CHECK rather than vanishing.
-    p = {x["tag"]: x for x in ss.slip_patterns(today=date_cls(2026, 9, 30))}["past-tense"]
+    p = {x["tag"]: x for x in sl.slip_patterns(today=date_cls(2026, 9, 30))}["past-tense"]
     check("a long-quiet slip stops being live evidence", not p["live"])
     check("...but its history is still on the record", p["count"] == 3)
     check("...and it does NOT vanish — it returns as an unverified check",
           p["unverified"] and not p["closed"])
-    block = "\n".join(ss.format_slip_block([p]))
+    block = "\n".join(sl.format_slip_block([p]))
     check("...which the reader surface asks for by name",
           "UNVERIFIED" in block and "past-tense" in block)
     check("...and an unverified slip is a check, not a commission",
@@ -3032,31 +3037,31 @@ def s41_slip_ledger(kr, sb: Path):
     # Closing is an OBSERVATION and it is DATED. The bare-tag list this replaced
     # silenced a pattern permanently — muting the most informative event the
     # ledger can record: one you believed had landed, coming back.
-    out = ss.record_slip_test(["past-tense:landed"], today="2026-09-30")
+    out = sl.record_slip_test(["past-tense:landed"], today="2026-09-30")
     check("a landed test closes the slip as of that date",
           out and out[0][1] == "landed")
-    p = {x["tag"]: x for x in ss.slip_patterns(today=date_cls(2026, 10, 1))}["past-tense"]
+    p = {x["tag"]: x for x in sl.slip_patterns(today=date_cls(2026, 10, 1))}["past-tense"]
     check("...and a closed slip stops surfacing entirely",
-          p["closed"] and not p["unverified"] and ss.format_slip_block([p]) == [])
+          p["closed"] and not p["unverified"] and sl.format_slip_block([p]) == [])
     check("...but the close is dated, not permanent", p["closed_on"] == "2026-09-30")
 
-    ss.append_slips([{"tag": "past-tense", "said": "irukku", "want": "irundhuchu"}],
+    sl.append_slips([{"tag": "past-tense", "said": "irukku", "want": "irundhuchu"}],
                     lane="knock", when="2026-11-02")
-    p = {x["tag"]: x for x in ss.slip_patterns(today=date_cls(2026, 11, 2))}["past-tense"]
+    p = {x["tag"]: x for x in sl.slip_patterns(today=date_cls(2026, 11, 2))}["past-tense"]
     check("A CLOSED SLIP THAT COMES BACK IS LIVE AGAIN — the close is voided",
           p["live"] and not p["closed"] and p["reopened"])
     check("...with its whole history intact, not restarted at one", p["count"] == 4)
 
     # A failed test is itself a recurrence — one ledger, not a parallel record.
-    ss.record_slip_test(["past-tense:missed"], today="2026-11-03")
-    p = {x["tag"]: x for x in ss.slip_patterns(today=date_cls(2026, 11, 3))}["past-tense"]
+    sl.record_slip_test(["past-tense:missed"], today="2026-11-03")
+    p = {x["tag"]: x for x in sl.slip_patterns(today=date_cls(2026, 11, 3))}["past-tense"]
     check("a failed test lands on the ledger as a recurrence",
           p["count"] == 5 and p["live"])
     check("a malformed test report is rejected, not guessed at",
-          ss.record_slip_test(["nonsense"])[0][1] == "bad")
+          sl.record_slip_test(["nonsense"])[0][1] == "bad")
 
     # --- 3. resurface: status, and the ticket that picks the next lesson -------
-    block = "\n".join(ss.format_slip_block(ss.slip_patterns(today=date_cls(2026, 7, 30))))
+    block = "\n".join(sl.format_slip_block(sl.slip_patterns(today=date_cls(2026, 7, 30))))
     check("the digest names the pattern, not just that a reply happened",
           "past-tense" in block and "irundhuchu" in block)
     check("...and says a recast does not close it",
@@ -3074,9 +3079,9 @@ def s41_slip_ledger(kr, sb: Path):
     # An explicit key, not one scraped from the sandbox lexicon: the linkage under
     # test is slip → row, and it must hold whether or not the want resolves.
     key = "frame:day-recap"
-    ss.append_slips([{"tag": "ending", "said": "ponnam", "want": "ponnom", "word": key,
+    sl.append_slips([{"tag": "ending", "said": "ponnam", "want": "ponnom", "word": key,
                       "note": "the ending"}], lane="knock", when="2026-07-30")
-    hung = st.slips_by_word(ss.slip_patterns(today=date_cls(2026, 7, 30)))
+    hung = st.slips_by_word(sl.slip_patterns(today=date_cls(2026, 7, 30)))
     check("a slip attaches to the lexicon row it is about", key in hung)
     check("...and annotates it with what he actually said",
           "SLIPPED" in st.slip_note(hung[key]))
@@ -3337,6 +3342,7 @@ def s44_a_commission_can_discharge_the_flag(sb: Path):
     import argparse as _ap
     import contextlib, io
     ss = importlib.import_module("sync_state")
+    sl = importlib.import_module("slips")
     learner_path = sb / "progress" / "learner.json"
     slip_path = sb / "progress" / "slip_log.json"
     saved = (learner_path.read_bytes(),
@@ -3353,7 +3359,7 @@ def s44_a_commission_can_discharge_the_flag(sb: Path):
             ss.cmd_update(_ap.Namespace(**{**defaults, **kw}))
 
     def pat(tag):
-        return {p["tag"]: p for p in ss.slip_patterns()}.get(tag)
+        return {p["tag"]: p for p in sl.slip_patterns()}.get(tag)
 
     try:
         slip_path.write_text("[]", encoding="utf-8")
@@ -3364,16 +3370,16 @@ def s44_a_commission_can_discharge_the_flag(sb: Path):
 
         # A pattern: same mistake twice, nothing ever built for it.
         with contextlib.redirect_stdout(io.StringIO()):
-            ss.append_slips([{"tag": "smoke-tag", "said": "x", "want": "y"}],
+            sl.append_slips([{"tag": "smoke-tag", "said": "x", "want": "y"}],
                             lane="chat", when="2026-01-01")
-            ss.append_slips([{"tag": "smoke-tag", "said": "x", "want": "y"}],
+            sl.append_slips([{"tag": "smoke-tag", "said": "x", "want": "y"}],
                             lane="chat", when=ss.local_today().isoformat())
         p = pat("smoke-tag")
         check("a twice-made mistake with no dose reads NEVER COMMISSIONED",
               p and p["uncommissioned"], f"got {p and p.get('uncommissioned')}")
         check("...and the surface names the flag that would clear it",
               any("--slip-commissioned smoke-tag" in ln
-                  for ln in ss.format_slip_block([p])), "the instruction is missing")
+                  for ln in sl.format_slip_block([p])), "the instruction is missing")
 
         # Commissioning WITHOUT an order standing must refuse, not book a lie.
         # (The 08-01 gate would refuse this whole close — a declared tag with no
@@ -3394,8 +3400,8 @@ def s44_a_commission_can_discharge_the_flag(sb: Path):
               p["commissions"] and p["commissions"][-1]["channel"] == "episode",
               f"got {p['commissions']}")
         check("...and the surface reports the dose instead of the warning",
-              any("dose commissioned" in ln for ln in ss.format_slip_block([p]))
-              and not any("NEVER COMMISSIONED" in ln for ln in ss.format_slip_block([p])))
+              any("dose commissioned" in ln for ln in sl.format_slip_block([p]))
+              and not any("NEVER COMMISSIONED" in ln for ln in sl.format_slip_block([p])))
         check("...but it does NOT accuse the new dose of having failed",
               not p["escalate"], "escalated on evidence that predates the dose")
 
@@ -3406,7 +3412,7 @@ def s44_a_commission_can_discharge_the_flag(sb: Path):
 
         # Only a slip DATED AFTER the dose escalates.
         with contextlib.redirect_stdout(io.StringIO()):
-            ss.append_slips([{"tag": "smoke-tag", "said": "x", "want": "y"}],
+            sl.append_slips([{"tag": "smoke-tag", "said": "x", "want": "y"}],
                             lane="chat", when="2099-01-01")
         check("a slip made AFTER the dose escalates the format",
               pat("smoke-tag")["escalate"], "escalation never fired")
@@ -3415,15 +3421,15 @@ def s44_a_commission_can_discharge_the_flag(sb: Path):
         update(soak_payload=["ஸ்மோக்பேலோடு"], soak_channel="soak",
                slip_commissioned=["no-such-tag-at-all"])
         check("an unknown tag cannot be booked as commissioned",
-              "no-such-tag-at-all" not in ss.slip_commissions(), "a typo booked a debt")
+              "no-such-tag-at-all" not in sl.slip_commissions(), "a typo booked a debt")
 
         # --- the whitelist bug, on the mechanism it actually broke -------------
         with contextlib.redirect_stdout(io.StringIO()):
-            ss.record_slip_test(["smoke-tag:landed"])
-        check("a close is recorded", ss.slip_closes().get("smoke-tag"))
+            sl.record_slip_test(["smoke-tag:landed"])
+        check("a close is recorded", sl.slip_closes().get("smoke-tag"))
         update(debrief="the close that used to erase it")
         check("...and SURVIVES the update that follows it",
-              ss.slip_closes().get("smoke-tag"), "write_thin_learner deleted the close")
+              sl.slip_closes().get("smoke-tag"), "write_thin_learner deleted the close")
     finally:
         learner_path.write_bytes(saved[0])
         if saved[1] is not None:
@@ -3654,6 +3660,67 @@ def s52_two_eras_not_a_deadline(sb: Path):
         lex_path.write_bytes(saved)
 
 
+def s53_demotion_survives_the_close(sb: Path):
+    """A word that fails under pressure is demoted — and the path had no test.
+
+    Caught 2026-08-04 while splitting sync_state: the state_io extraction dropped
+    the DEMOTE table by an off-by-one, leaving `demote_recognition` referencing an
+    undefined name. `python -m pyflakes` found it; the full smoke suite did not,
+    and reported ALL GREEN on a commit where any close carrying `--stuck-word`
+    against a known word would raise NameError and take the whole update down.
+
+    That is the Gate 7.2 failure in its loudest form rather than its quietest: not
+    a silent no-op, but a hard crash on a path nothing exercised. Demotion is not
+    an edge case — it is the mechanism that keeps the viability floor honest
+    ("expect Anna to demote over-counted 'solid' words as they fail under cold
+    recall; that is the meter getting honest, not regression", profile.md). A
+    floor that can only go up is the thing this whole system refuses to be.
+
+    Round-trips through the real writer and re-reads the file, because the bug
+    was in module-level state, not in the function's logic."""
+    print("\n53. A demotion survives the close (2026-08-04)")
+    import contextlib, io, argparse as _ap
+    ss = importlib.import_module("sync_state")
+    lex_path = sb / "progress" / "lexicon.json"
+    learner_path = sb / "progress" / "learner.json"
+    slog_path = sb / "progress" / "session_log.json"
+    saved = (lex_path.read_bytes(), learner_path.read_bytes(), slog_path.read_bytes())
+    defaults = dict(listened=[], teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
+                    soak_channel=None, soak_form=None, mastered_word=[], comfortable_word=[],
+                    stuck_word=[], produced_cold=[], produced_hinted=[], mark_seen=[],
+                    next_engine=None, debrief=None, slip=[], slip_tested=[],
+                    slip_commissioned=[], no_commission="smoke sandbox")
+    try:
+        write_json(lex_path, {
+            "ஸ்மோக்சாலிட்": {"gloss": "was solid", "phonetic": ["solidword"], "type": "chunk",
+                              "recognition": "solid", "production": "cold", "seen_in": [],
+                              "last_surfaced": None},
+            "ஸ்மோக்ஷேக்கி": {"gloss": "already shaky", "phonetic": ["shakyword"], "type": "chunk",
+                              "recognition": "struggled", "production": "none", "seen_in": [],
+                              "last_surfaced": None}})
+        with contextlib.redirect_stdout(io.StringIO()):
+            ss.cmd_update(_ap.Namespace(**{**defaults,
+                                           "stuck_word": ["ஸ்மோக்சாலிட்", "ஸ்மோக்ஷேக்கி"]}))
+        lex = read_json(lex_path)
+        check("a solid word demotes one step, not straight to the floor",
+              lex["ஸ்மோக்சாலிட்"]["recognition"] == "comfortable",
+              f"got {lex['ஸ்மோக்சாலிட்']['recognition']}")
+        check("...and an already-shaky word stays put rather than falling off",
+              lex["ஸ்மோக்ஷேக்கி"]["recognition"] == "struggled",
+              f"got {lex['ஸ்மோக்ஷேக்கி']['recognition']}")
+        check("...and the demotion is recorded in the day's row",
+              sorted(read_json(slog_path)[-1]["demoted"]) == ["ஸ்மோக்சாலிட்", "ஸ்மோக்ஷேக்கி"],
+              f"got {read_json(slog_path)[-1]}")
+        # Production is a separate axis and must not move on a recognition demotion.
+        check("...while production is left alone — the two axes are independent",
+              lex["ஸ்மோக்சாலிட்"]["production"] == "cold",
+              f"got {lex['ஸ்மோக்சாலிட்']['production']}")
+    finally:
+        lex_path.write_bytes(saved[0])
+        learner_path.write_bytes(saved[1])
+        slog_path.write_bytes(saved[2])
+
+
 def s46_the_commission_gate_blocks_the_close(sb: Path):
     """A live slip pattern with no dose refuses the close (2026-08-01, Andrew).
 
@@ -3673,6 +3740,7 @@ def s46_the_commission_gate_blocks_the_close(sb: Path):
     import argparse as _ap
     import contextlib, io
     ss = importlib.import_module("sync_state")
+    sl = importlib.import_module("slips")
     lex_path = sb / "progress" / "lexicon.json"
     learner_path = sb / "progress" / "learner.json"
     slip_path = sb / "progress" / "slip_log.json"
@@ -3708,9 +3776,9 @@ def s46_the_commission_gate_blocks_the_close(sb: Path):
                             "production": "none", "phonetic": [], "seen_in": []}
         write_json(lex_path, lex)
         with contextlib.redirect_stdout(io.StringIO()):
-            ss.append_slips([{"tag": "gate-tag", "said": "a", "want": "b"}],
+            sl.append_slips([{"tag": "gate-tag", "said": "a", "want": "b"}],
                             lane="chat", when="2026-01-01")
-            ss.append_slips([{"tag": "gate-tag", "said": "a", "want": "b"}],
+            sl.append_slips([{"tag": "gate-tag", "said": "a", "want": "b"}],
                             lane="chat", when=ss.local_today().isoformat())
 
         before = (lex_path.read_bytes(), learner_path.read_bytes(),
@@ -3734,12 +3802,12 @@ def s46_the_commission_gate_blocks_the_close(sb: Path):
                          slip_commissioned=["gate-tag"])
         check("a close that commissions the debt passes the gate", code == 0)
         check("...and the debt is booked",
-              "gate-tag" in ss.slip_commissions(), "the gate passed but nothing was booked")
+              "gate-tag" in sl.slip_commissions(), "the gate passed but nothing was booked")
 
         # The sim path: a slip whose SECOND occurrence arrives in this very
         # close is already a pattern to the gate.
         with contextlib.redirect_stdout(io.StringIO()):
-            ss.append_slips([{"tag": "gate-tag3", "said": "a", "want": "b"}],
+            sl.append_slips([{"tag": "gate-tag3", "said": "a", "want": "b"}],
                             lane="chat", when="2026-01-03")
         n_rows = len(read_json(slip_path))
         code, out = update(slip=["gate-tag3|x|y|"])
@@ -3750,9 +3818,9 @@ def s46_the_commission_gate_blocks_the_close(sb: Path):
 
         # Door 3: a landed test in the same close discharges its own tag.
         with contextlib.redirect_stdout(io.StringIO()):
-            ss.append_slips([{"tag": "gate-tag4", "said": "a", "want": "b"}],
+            sl.append_slips([{"tag": "gate-tag4", "said": "a", "want": "b"}],
                             lane="chat", when="2026-01-04")
-            ss.append_slips([{"tag": "gate-tag4", "said": "a", "want": "b"}],
+            sl.append_slips([{"tag": "gate-tag4", "said": "a", "want": "b"}],
                             lane="chat", when=ss.local_today().isoformat())
         code, _ = update(slip_tested=["gate-tag4:landed"])
         check("a landed test in the same close discharges its own tag", code == 0)
@@ -4369,6 +4437,7 @@ def main():
         s47_hinted_retest_block(sb)
         s51_prune_duplicate_lexicon_rows(sb)
         s52_two_eras_not_a_deadline(sb)
+        s53_demotion_survives_the_close(sb)
         s48_drill_answer_key_lint(sb)
         s49_thread_continuity(mk, kr, sb)
         s50_read_surfaces_are_phonetic(mk, kr, sb)
