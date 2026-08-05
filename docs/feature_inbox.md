@@ -701,3 +701,12 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
   above is really "don't append a row when this call carries no fires," which is the
   common case for `--debrief`-only and `--soak-*`-only calls. Adherence read off this
   log now overcounts 07-28 by 2.
+- **The deck coverage meter counts delivery, not engagement** (2026-08-04, found while
+  auditing why delight sat at 1/27). `deck_coverage`'s "worked" is anything that sets
+  `last_surfaced`, which a soak tape does — so survival reads worked 33/34 while two of
+  those (வலது பக்கம் திரும்புங்க, ஆமா ஆமா) only ever appeared on a tape and were never
+  asked. Nine deck items across all tiers have `last_surfaced` with zero reps. The meter
+  was built on 07-25 precisely to stop a headline hiding a distribution, and it has a
+  softer version of the same blindness. Cheap version: report worked/tested as a pair on
+  the ticket, the way the ear-only line already hints at ("4 heard in an episode but never
+  asked"). No schema change — `reps` already exists.

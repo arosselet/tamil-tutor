@@ -1798,3 +1798,67 @@ Details live in git history; this is the index of the *conclusions*.
   for third parties must not burn a mission number, stamp `seen_in`, or move Andrew's
   recognition axis. `special_` scripts are the standing lane for feed-worthy artefacts that
   are not doses.
+- **The tier prefix belongs to the shared ordering law, not to each caller** (2026-08-04).
+  `retest_targets` (08-01) sorted on staleness alone with no deck term and a five-item cut,
+  so the three hinted FAQ answers — the day-one aunt questions, 25–31 days silent — sat
+  below the line behind ordinary vocabulary, and the top slot went to a bootstrap artefact.
+  `deck_rank()` owns the prefix now and the hand-copies in `pending`/`untouched` are
+  retired. Fifth recurrence of one failure; extends "one selector, one ordering law"
+  (07-25) instead of stacking a sixth patch. The touchdown bar is untouched — survival
+  still outranks delight in the sort.
+- **A capped list's failure mode is the cut, not the order** (2026-08-04). Smoke s47
+  asserted the retest block's ordering at `max_n=100`, where nothing can fall off, so it
+  never tested the one place the block can fail — and the block returned five confident
+  wrong rows for four weeks while green. A case for a truncated list must make the wanted
+  rows *less* attractive on the sort's secondary axis and still require them to survive a
+  cut too small to hold everything.
+- **A never-surfaced item is excluded from a retest, never featured in one** (2026-08-04).
+  There is no prior test for a *re*-test to repeat, and `coverage_key` leads with
+  fewest-reps, so such an item already sits at the head of the main ticket. The old code
+  ranked it first on sentinel staleness and printed "worth asking why", spending a scarce
+  slot on a grade nobody set.
+- **The duplicate signal is the phonetic plus strict domination, never the key**
+  (2026-08-04). Rejects key normalisation — the obvious fix, and a destructive one:
+  `எங்க` is "our (exclusive)" and `எங்க?` is "Where?", two lemmas one character apart,
+  because punctuation is load-bearing identity in this lexicon. `prune-duplicates` drops
+  only rows that share a phonetic and are poorer on every axis, `frame:` keys exempt (a
+  frame legitimately shares its exemplar chunk's phonetic). `ஃப்ரீ-யா`/`ஃப்ரீ-யா?` has no
+  phonetic on one side and no automatic signal reaches it — left standing rather than
+  contorting the rule to catch it.
+- **The trip is two eras, not a deadline** (2026-08-04, Andrew: "think of it as pre-trip
+  and during-trip eras"). `TRIP_DATE` was modelled as a terminus, so from the day he lands
+  the scoreboard read "-20 days to touchdown · need 8.0 cold/day" forever —
+  `burn_rate`'s `max(days_left, 1)` clamp froze the ask at its final day's value. The
+  countdown hands over to "in country, day N" and the burn ask is dropped at the boundary,
+  guarded inside `burn_rate` because `show_status` reads it directly too. In country the
+  table sets the pace: never narrate a deficit there.
+- **The last week buys coverage, not clearance — and scope is not cut** (2026-08-04,
+  Andrew: "this final week should be not less aggressive"). Rejects triaging delight to a
+  winnable subset. He has laptop, phone and a month at that house, so touchdown is a
+  handover and every delight line is situationally cued three times a day. An item never
+  seen cannot be triggered by a situation; one seen once can. All 33 untouched items get
+  first contact before the plane; the month buys the firing. Does not reopen the touchdown
+  bar — the selector still leads with survival.
+- **Audio seeds, chat fires, knocks ambush** (2026-08-04). Thirty-three first contacts
+  cannot enter through the lunch session: Calibration caps chat at ≤1–2 new word types and
+  says outright that chat is production, not soak, while audio takes 4–5. First contact is
+  an episode's job; the next day's chat fires what it seeded. Where an item is already
+  `hinted` it fires rather than seeds.
+- **sync_state split three ways, and the import direction is one-way** (2026-08-04,
+  Andrew: "1250 is a smell not a hard limit"). Mapping the file for a split surfaced a
+  mis-shape older than the size problem: ten scripts imported `load_json` and
+  `LEXICON_PATH` *from the state brain*. `state_io` (paths, IO, resolve) imports nothing
+  from `scripts/`; `slips` imports it; `sync_state` imports both; `session_brief` sits
+  above all three, reached by a deferred import at `main`'s dispatch. 1250 → 766 lines.
+- **Static clean is the ratchet's fourth surface, budget zero** (2026-08-04, Andrew). The
+  suite proves only what it executes, and Python resolves globals at call time, so a
+  dropped `DEMOTE` table passed 53 green cases while any `--stuck-word` close would have
+  raised NameError. pyflakes found it without running anything — the `actionlint` argument
+  one language over. Zero is not tunable: pyflakes has no severity levels by design, so
+  every finding is a defect or dead code. An absent linter fails rather than skips.
+- **A suppression directive standing in for legible code is how a load-bearing line comes
+  to read as dead** (2026-08-04). `run_studio`'s dispatch lock was a local carrying
+  `# noqa: F841 — held until exit`; it holds the flock's file object, so deleting the
+  "unused" binding would have released the lock. Now a module global with the reason in a
+  comment. `studio_watchdog` held the mirror case — `# noqa: F401 — re-exported` for names
+  nothing imports, and the directive itself had been silently lost in a rewrite.
