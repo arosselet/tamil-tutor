@@ -23,6 +23,24 @@ A persistent, stateful language coach powered by LLMs. Built for Coimbatore Tami
 
 Not a chatbot you quiz, and not a flashcard app with an AI skin. **Anna** (Tamil for "elder brother") is a persistent, stateful coach with one charge: *install a reflex in your brain*. He already knows where you are, decides what's next, produces the material, and reaches you first. He drives; he doesn't wait to be summoned. One continuous relationship across every surface (chat, podcast feed, lock screen), all sharing one brain: Python-managed state plus a teacher's-notebook profile.
 
+## If You're Not Here for Tamil
+
+Most of this isn't about Tamil, and the parts that travel are the parts most likely to be
+useful. The build separates into six components, which fail differently and are useful on
+their own:
+
+- **The motivation engine** — getting a person back tomorrow when nothing makes them ([write-up](https://claude.ai/code/artifact/d88586aa-41c6-4230-94e6-e8dd1ef0cfb1))
+- **The learner model** — what the system believes about you, and how it picks what's next ([write-up](https://claude.ai/code/artifact/b4179ce2-7fe5-4ef1-8b2d-6c5d4541e913))
+- **The loop and the rails** — reaching you where you are, and getting your answer back scored
+- **The studio** — producing content that ships with no human editor in the loop ([write-up](https://claude.ai/code/artifact/c92f821d-80ca-4280-9d60-286330c17f03))
+- **The language pack** — correcting a model that is fluent in the wrong register
+- **The governance kit** — keeping a weekly-changing system compounding instead of churning ([write-up](https://claude.ai/code/artifact/93af235b-46c4-4522-becf-8d02d246d839))
+
+Only the language pack is domain-locked: it needs a native speaker and gets rewritten from
+scratch. The other five port. Each component is written up on its own, independent of this
+repo — start at [**n-of-1**](https://claude.ai/code/artifact/0bc27683-1068-4b41-9532-2290a0f4cb48),
+the index and the how-to.
+
 ## The Pedagogy
 
 The theory the whole machine serves:
