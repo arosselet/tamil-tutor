@@ -29,17 +29,15 @@ Most of this isn't about Tamil, and the parts that travel are the parts most lik
 useful. The build separates into six components, which fail differently and are useful on
 their own:
 
-- **The motivation engine** — getting a person back tomorrow when nothing makes them ([write-up](https://claude.ai/code/artifact/d88586aa-41c6-4230-94e6-e8dd1ef0cfb1))
-- **The learner model** — what the system believes about you, and how it picks what's next ([write-up](https://claude.ai/code/artifact/b4179ce2-7fe5-4ef1-8b2d-6c5d4541e913))
+- **The motivation engine** — getting a person back tomorrow when nothing makes them
+- **The learner model** — what the system believes about you, and how it picks what's next
 - **The loop and the rails** — reaching you where you are, and getting your answer back scored
-- **The studio** — producing content that ships with no human editor in the loop ([write-up](https://claude.ai/code/artifact/c92f821d-80ca-4280-9d60-286330c17f03))
+- **The studio** — producing content that ships with no human editor in the loop
 - **The language pack** — correcting a model that is fluent in the wrong register
-- **The governance kit** — keeping a weekly-changing system compounding instead of churning ([write-up](https://claude.ai/code/artifact/93af235b-46c4-4522-becf-8d02d246d839))
+- **The governance kit** — keeping a weekly-changing system compounding instead of churning
 
 Only the language pack is domain-locked: it needs a native speaker and gets rewritten from
-scratch. The other five port. Each component is written up on its own, independent of this
-repo — start at [**n-of-1**](https://claude.ai/code/artifact/0bc27683-1068-4b41-9532-2290a0f4cb48),
-the index and the how-to.
+scratch. The other five port. Each has a standalone write-up, not yet published.
 
 ## The Pedagogy
 
