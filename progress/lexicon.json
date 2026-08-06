@@ -3727,16 +3727,16 @@
     "gloss": "{I-form}+ஓம் → we — வந்தோம், போனோம், இருப்போம், சாப்பிட்டோம்: the trip is a 'we' trip",
     "phonetic": [],
     "recognition": "struggled",
-    "production": "hinted",
+    "production": "cold",
     "seen_in": [
       59,
       68
     ],
-    "last_surfaced": "2026-08-04",
+    "last_surfaced": "2026-08-06",
     "deck": "trip",
     "direction": "fire",
     "exposures": 1,
-    "reps": 2
+    "reps": 3
   },
   "frame:day-recap": {
     "type": "pattern",
@@ -3779,10 +3779,11 @@
       68,
       83
     ],
-    "last_surfaced": "2026-08-05",
+    "last_surfaced": "2026-08-06",
     "deck": "trip",
     "direction": "catch",
-    "exposures": 1
+    "exposures": 1,
+    "reps": 1
   },
   "அப்புறம் பார்க்கலாம்": {
     "type": "chunk",
@@ -4156,10 +4157,10 @@
       78,
       83
     ],
-    "last_surfaced": "2026-08-05",
+    "last_surfaced": "2026-08-06",
     "deck": "trip",
     "direction": "catch",
-    "reps": 1,
+    "reps": 2,
     "exposures": 3
   },
   "ஜாஸ்தி": {
@@ -4924,24 +4925,25 @@
       "ponnoom"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       78
     ],
-    "last_surfaced": "2026-07-31",
-    "exposures": 1
+    "last_surfaced": "2026-08-06",
+    "exposures": 1,
+    "reps": 1
   },
   "சாப்பிட்டோம்": {
     "gloss": "",
     "phonetic": [],
     "recognition": "struggled",
-    "production": "hinted",
+    "production": "cold",
     "seen_in": [
       78
     ],
-    "last_surfaced": "2026-08-02",
+    "last_surfaced": "2026-08-06",
     "exposures": 1,
-    "reps": 1
+    "reps": 2
   },
   "வந்தோம்": {
     "gloss": "",
@@ -5073,9 +5075,10 @@
     "gloss": "No harm in it — the Tamil shrug: fine / no problem / never mind / not bad. Backhanded as praise (paravaayilla-ye!). From paravaai (harm, from paravu = to spread): it will not spread",
     "phonetic": [],
     "recognition": "struggled",
-    "production": "none",
+    "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-08-05"
+    "last_surfaced": "2026-08-06",
+    "reps": 1
   },
   "பழகிப்போச்சு": {
     "gloss": "It has become habit — done, settled (pazhagu = get used to AND get close to a person; + the Kongu completive -poachu)",

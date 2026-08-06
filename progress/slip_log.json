@@ -341,5 +341,17 @@
     "note": "enge asks where — -la pins it there",
     "word": "",
     "dose_channel": "episode"
+  },
+  {
+    "at": "2026-08-06T22:03:29Z",
+    "date": "2026-08-06",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "catch-closing",
+    "said": "stopped at 'too many problems'",
+    "want": "summa solraanga = the defence, vittudu = drop it",
+    "note": "takes the middle of an exchange clean, misses where it lands",
+    "word": "",
+    "dose_channel": "episode"
   }
 ]
