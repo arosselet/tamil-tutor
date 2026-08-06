@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Thursday 2026-08-06
+
+**09:48 · Anna**  ·  text / trailer: -om ambush test
+> da — M82 shipped the we-past fix. today's session is the test: one cold ambush, no scaffold. worth 2 min at lunch. 🎯
+
+
 ## Wednesday 2026-08-05
 
 **09:51 · Anna**  ·  text / field mission debrief collect
