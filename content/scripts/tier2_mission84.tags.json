@@ -1,0 +1,29 @@
+{
+  "mission": 84,
+  "register": "dread",
+  "dramatic_ingredient": "character",
+  "episode_form": "phone_call",
+  "shape": "phone_call",
+  "location_class": "home_social",
+  "energy": "high",
+  "intercept_tamil_density": 0.35,
+  "breakdown_tamil_density": 0.15,
+  "fence_size": 45,
+  "unfenced_words": 1,
+  "new_words_landed": {
+    "சும்மா சொல்றாங்க": 2,
+    "என்னமோ பிரச்சனை": 2,
+    "விட்டுடு": 3
+  },
+  "callbacks_used": {
+    "ஆமா": 4,
+    "வைக்கிறேன்": 1,
+    "சரி சரி": 2,
+    "பிரச்சனை": 1
+  },
+  "host_roles": {
+    "A": "panicked_neighbor",
+    "B": "anxious_confidant"
+  },
+  "notes": "Producer pass: Ensured payload items 'சும்மா சொல்றாங்க', 'விட்டுடு', and 'என்னமோ பிரச்சனை' are verbatim. Collapsed 'கேள்விப்பட்டேன்' and applied Coimbatore 'வைக்கிறேன்'. Removed Architect's third-person 'she' in breakdown to match gender-tagged Host B (M). Verified first-person statements lack the polite -nga suffix."
+}

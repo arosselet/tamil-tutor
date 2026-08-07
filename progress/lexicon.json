@@ -1262,11 +1262,12 @@
       69,
       71,
       76,
-      83
+      83,
+      84
     ],
-    "last_surfaced": "2026-08-05",
+    "last_surfaced": "2026-08-07",
     "reps": 3,
-    "exposures": 2
+    "exposures": 3
   },
   "அவ": {
     "gloss": "She (informal)",
@@ -2913,12 +2914,13 @@
     "production": "none",
     "seen_in": [
       82,
-      83
+      83,
+      84
     ],
-    "last_surfaced": "2026-08-05",
+    "last_surfaced": "2026-08-07",
     "deck": "trip",
     "direction": "catch",
-    "exposures": 2
+    "exposures": 3
   },
   "எனக்கு ஒன்னும் தெரியாது": {
     "type": "chunk",
@@ -2947,13 +2949,14 @@
     "seen_in": [
       68,
       69,
-      83
+      83,
+      84
     ],
-    "last_surfaced": "2026-08-05",
+    "last_surfaced": "2026-08-07",
     "deck": "trip",
     "direction": "catch",
     "reps": 1,
-    "exposures": 1
+    "exposures": 2
   },
   "விட்டுடு": {
     "type": "chunk",
@@ -2964,12 +2967,13 @@
     "recognition": "struggled",
     "production": "hinted",
     "seen_in": [
-      83
+      83,
+      84
     ],
     "last_surfaced": "2026-08-07",
     "deck": "trip",
     "direction": "catch",
-    "exposures": 3,
+    "exposures": 4,
     "reps": 1
   },
   "எவ்வளவு ஆகும்?": {
@@ -3686,13 +3690,14 @@
     "recognition": "comfortable",
     "production": "hinted",
     "seen_in": [
-      72
+      72,
+      84
     ],
     "last_surfaced": "2026-08-07",
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 1
+    "exposures": 2
   },
   "இன்னும் கொஞ்சம் போடுங்க": {
     "type": "chunk",
@@ -4807,10 +4812,11 @@
     "production": "none",
     "seen_in": [
       75,
-      76
+      76,
+      84
     ],
-    "last_surfaced": "2026-07-26",
-    "exposures": 3
+    "last_surfaced": "2026-08-07",
+    "exposures": 4
   },
   "frame:negative-la": {
     "type": "pattern",
