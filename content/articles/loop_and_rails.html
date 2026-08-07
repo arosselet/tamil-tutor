@@ -435,7 +435,7 @@
     <p>One exchange is two trips. A dose goes out to a phone. An answer comes back and changes what the system believes. Between the two sits someone who did not ask to be interrupted and is under no obligation to answer.</p>
 
     <figure class="figwrap">
-      <svg class="dg" viewBox="0 0 820 300" role="img" aria-label="One exchange, clockwise. A gate decides whether a reach is allowed right now. If it is, a decision step chooses what to send or to send nothing. The dose travels to the person carrying an identifier. Their reply carries the same identifier back to a judge, which works out what the answer proved. A cap-and-store step applies the ceiling on that verdict and writes it, and what it writes feeds the next gate.">
+      <svg class="dg" viewBox="0 0 820 300" role="img" aria-label="One exchange, clockwise. A gate decides whether a reach is allowed right now. If it is, a decision step chooses what to send or to send nothing. The dose travels to the person carrying an identifier. Their reply carries the same identifier back to a judge, which works out what the answer proved. A record step lowers that verdict if the outgoing message had given the answer away, then writes it down, and what it writes feeds the next gate.">
         <defs>
           <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
             <path class="head" d="M 0 0 L 10 5 L 0 10 z"></path>
@@ -458,8 +458,8 @@
         <text class="t-sub" x="285" y="276" text-anchor="middle">what did that answer prove?</text>
 
         <rect class="box-code" x="24" y="204" width="150" height="52"></rect>
-        <text class="t-in" x="99" y="236" text-anchor="middle">CAP &amp; STORE</text>
-        <text class="t-sub" x="99" y="276" text-anchor="middle">ceiling first, then write it</text>
+        <text class="t-in" x="99" y="236" text-anchor="middle">RECORD</text>
+        <text class="t-sub" x="99" y="276" text-anchor="middle">never more credit than was earned</text>
 
         <line class="edge" x1="174" y1="70" x2="204" y2="70" marker-end="url(#a)"></line>
 
@@ -479,7 +479,7 @@
         <rect class="box-model" x="704" y="256" width="13" height="13"></rect>
         <text class="t-note" x="725" y="267">owned by the model</text>
       </svg>
-      <figcaption>One exchange, clockwise from the top left. The two boxes owned by code cannot be argued with; the two owned by the model are judgement calls made fresh each time. <strong>Gate</strong> is a plain function that asks whether a message is permitted at this hour at all, and ends the run if not. <strong>Cap &amp; store</strong> re-checks the judge's verdict against what the outgoing message had already given away, and only then writes anything down. The same id rides both legs, which is the only reason an answer can be matched to the question that provoked it rather than to whichever question went out most recently.</figcaption>
+      <figcaption>One exchange, clockwise from the top left. The two boxes owned by code cannot be argued with; the two owned by the model are judgement calls made fresh each time. <strong>Gate</strong> is a plain function that asks whether a message is permitted at this hour at all, and ends the run if not. <strong>Record</strong> is where a verdict becomes a stored fact, and where code lowers it if it has to: if the message going out had already shown the answer, repeating it back cannot count as knowing it, whatever the judge thought. The same id rides both legs, which is the only reason an answer can be matched to the question that provoked it rather than to whichever question went out most recently.</figcaption>
     </figure>
   </section>
 
