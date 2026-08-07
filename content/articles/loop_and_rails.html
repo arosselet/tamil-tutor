@@ -1,0 +1,692 @@
+<title>It Texts You First</title>
+
+<style>
+  :root {
+    --ground:  #EFEFED;
+    --surface: #F8F8F7;
+    --sunk:    #E7E6E9;
+    --ink:     #17181A;
+    --body:    #35373B;
+    --muted:   #6E7176;
+    --faint:   #9A9DA1;
+    --rule:    #D3D4D2;
+    --hair:    #E2E3E1;
+    --accent:  #6B3F7A;
+    --accent-soft: #EDE4F0;
+
+    /* the six pillar marks, shared with the parent architecture note */
+    --p1: #9B2F2A;
+    --p2: #34558A;
+    --p3: #6B3F7A;
+    --p4: #8A6A15;
+    --p5: #5E6B22;
+    --p6: #1B6B5E;
+
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    --sans: "Avenir Next", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+
+    --fs-micro: 0.6875rem;
+    --fs-xs:   0.8rem;
+    --fs-sm:   0.9125rem;
+    --fs-base: 1.0625rem;
+    --fs-lg:   1.1875rem;
+    --fs-xl:   1.4375rem;
+    --fs-2xl:  1.75rem;
+
+    --measure: 38rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:  #101112;
+      --surface: #191A1C;
+      --sunk:    #201D24;
+      --ink:     #EDEEEF;
+      --body:    #C3C6CA;
+      --muted:   #8B8F95;
+      --faint:   #63676C;
+      --rule:    #2B2D30;
+      --hair:    #202224;
+      --accent:  #B08AC0;
+      --accent-soft: #2A2130;
+      --p1: #D9584F;
+      --p2: #7E9CD8;
+      --p3: #B08AC0;
+      --p4: #C8A64B;
+      --p5: #9DAF5C;
+      --p6: #55B9A5;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground:  #101112;
+    --surface: #191A1C;
+    --sunk:    #201D24;
+    --ink:     #EDEEEF;
+    --body:    #C3C6CA;
+    --muted:   #8B8F95;
+    --faint:   #63676C;
+    --rule:    #2B2D30;
+    --hair:    #202224;
+    --accent:  #B08AC0;
+    --accent-soft: #2A2130;
+    --p1: #D9584F;
+    --p2: #7E9CD8;
+    --p3: #B08AC0;
+    --p4: #C8A64B;
+    --p5: #9DAF5C;
+    --p6: #55B9A5;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--body);
+    font-family: var(--sans);
+    font-size: var(--fs-base);
+    line-height: 1.68;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0 1.5rem 5rem;
+  }
+
+  .page { max-width: 52rem; margin: 0 auto; }
+
+  p { margin: 0; max-width: var(--measure); }
+  strong { font-weight: 600; color: var(--ink); }
+  em { font-style: italic; }
+  code { font-family: var(--mono); font-size: 0.85em; color: var(--ink); }
+  .ta { font-size: 1.05em; }
+
+  a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--accent); }
+  a:hover { color: var(--accent); }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .kicker {
+    font-family: var(--mono);
+    font-size: var(--fs-micro);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0;
+  }
+
+  /* ---------- masthead ---------- */
+
+  .masthead { padding: 4.5rem 0 2.25rem; border-bottom: 1px solid var(--ink); }
+
+  .masthead .bar { width: 4rem; height: 4px; background: var(--accent); margin-bottom: 2rem; }
+
+  .masthead h1 {
+    font-family: var(--mono);
+    font-size: clamp(2.3rem, 8vw, 4.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.05em;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 1.4rem;
+    max-width: 13ch;
+  }
+
+  .masthead .deck {
+    font-size: var(--fs-xl);
+    line-height: 1.45;
+    color: var(--ink);
+    max-width: 34ch;
+    font-weight: 400;
+    text-wrap: balance;
+  }
+
+  .stamp {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.2rem;
+    margin-top: 2rem;
+    font-family: var(--mono);
+    font-size: var(--fs-micro);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  /* ---------- sections ---------- */
+
+  section {
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--hair);
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    align-items: flex-start;
+  }
+
+  section:last-of-type { border-bottom: none; }
+
+  h2 {
+    font-family: var(--mono);
+    font-size: var(--fs-2xl);
+    line-height: 1.18;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
+    max-width: 24ch;
+    text-wrap: balance;
+  }
+
+  .lead { font-size: var(--fs-lg); line-height: 1.5; color: var(--ink); max-width: 34ch; }
+
+  .full { align-self: stretch; width: 100%; max-width: none; }
+
+  /* ---------- the circuit ---------- */
+
+  figure { margin: 0.5rem 0 0; padding: 0; align-self: stretch; }
+  .figwrap { overflow-x: auto; }
+  figure svg { display: block; width: 100%; min-width: 34rem; max-width: 52rem; height: auto; }
+
+  .dg .edge { stroke: var(--body); stroke-width: 1.4; fill: none; }
+  .dg .head { fill: var(--body); }
+  .dg .box-code { fill: var(--accent); stroke: none; }
+  .dg .box-model { fill: none; stroke: var(--accent); stroke-width: 1.6; }
+  .dg .box-person { fill: none; stroke: var(--body); stroke-width: 1.6; stroke-dasharray: 5 4; }
+  .dg .t-in { font-family: var(--mono); font-size: 12px; font-weight: 700; fill: var(--surface); }
+  .dg .t-on { font-family: var(--mono); font-size: 12px; font-weight: 700; fill: var(--ink); }
+  .dg .t-edge { font-family: var(--mono); font-size: 11px; fill: var(--muted); letter-spacing: 0.04em; }
+  .dg .t-note { font-size: 11.5px; fill: var(--muted); }
+
+  figcaption {
+    font-size: var(--fs-xs);
+    line-height: 1.6;
+    color: var(--muted);
+    margin-top: 0.9rem;
+    max-width: 42rem;
+  }
+
+  /* ---------- the constants ---------- */
+
+  .constants { align-self: stretch; overflow-x: auto; margin-top: 0.4rem; }
+
+  table.rails { border-collapse: collapse; width: 100%; min-width: 33rem; }
+
+  table.rails th, table.rails td {
+    text-align: left;
+    vertical-align: baseline;
+    padding: 0.8rem 1.2rem 0.8rem 0;
+    border-bottom: 1px solid var(--hair);
+    font-size: var(--fs-sm);
+    line-height: 1.5;
+  }
+
+  table.rails thead th {
+    border-bottom: 1px solid var(--ink);
+    font-family: var(--mono);
+    font-size: var(--fs-micro);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 700;
+    padding-bottom: 0.6rem;
+  }
+
+  table.rails tbody th {
+    font-weight: 400;
+    color: var(--ink);
+    width: 30%;
+  }
+
+  table.rails td.val {
+    font-family: var(--mono);
+    font-size: var(--fs-xs);
+    color: var(--accent);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    width: 22%;
+  }
+
+  table.rails td.why { color: var(--muted); font-size: var(--fs-xs); }
+
+  /* ---------- ownership split ---------- */
+  /* The mark encodes the owner: filled = code, hollow = the model. */
+
+  .split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; align-self: stretch; margin-top: 0.4rem; }
+
+  .col { display: flex; flex-direction: column; gap: 0.85rem; }
+
+  .col h3 {
+    font-family: var(--mono);
+    font-size: var(--fs-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    font-weight: 700;
+    margin: 0 0 0.2rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .mk { flex: none; width: 0.65rem; height: 0.65rem; }
+  .mk-code { background: var(--accent); }
+  .mk-model { border: 1.5px solid var(--accent); }
+
+  .col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.7rem; }
+  .col li { font-size: var(--fs-sm); line-height: 1.55; color: var(--body); }
+
+  /* ---------- log specimen ---------- */
+
+  .log {
+    align-self: stretch;
+    background: var(--sunk);
+    border-left: 3px solid var(--accent);
+    padding: 1.1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .log .lbl {
+    font-family: var(--mono);
+    font-size: var(--fs-micro);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .log pre {
+    margin: 0;
+    font-family: var(--mono);
+    font-size: var(--fs-xs);
+    line-height: 1.65;
+    color: var(--ink);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .log p { font-size: var(--fs-sm); max-width: none; color: var(--body); }
+
+  /* ---------- the dose types ---------- */
+
+  ul.doses { list-style: none; margin: 0; padding: 0; align-self: stretch; display: flex; flex-direction: column; }
+
+  ul.doses li {
+    display: grid;
+    grid-template-columns: 8rem minmax(0, 1fr);
+    gap: 0.2rem 1.5rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--hair);
+    align-items: baseline;
+  }
+
+  ul.doses li:first-child { border-top: 1px solid var(--ink); }
+
+  ul.doses b {
+    font-family: var(--mono);
+    font-size: var(--fs-micro);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  ul.doses span { font-size: var(--fs-sm); line-height: 1.55; color: var(--body); }
+
+  /* ---------- demand → what it forces ---------- */
+
+  ul.calls { list-style: none; margin: 0; padding: 0; align-self: stretch; display: flex; flex-direction: column; gap: 1.5rem; }
+
+  ul.calls li {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 0.4rem 1.75rem;
+    align-items: baseline;
+    padding-left: 1.1rem;
+    border-left: 3px solid var(--accent);
+  }
+
+  ul.calls .demand { font-size: var(--fs-base); line-height: 1.45; color: var(--ink); font-weight: 600; }
+  ul.calls .forces { font-size: var(--fs-sm); line-height: 1.6; color: var(--body); }
+
+  /* ---------- transfer list ---------- */
+
+  ul.transfer { list-style: none; margin: 0; padding: 0; align-self: stretch; display: flex; flex-direction: column; }
+
+  ul.transfer li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+    gap: 0.3rem 1.75rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--hair);
+    align-items: baseline;
+  }
+
+  ul.transfer li:first-child { border-top: 1px solid var(--ink); }
+
+  ul.transfer .here { font-size: var(--fs-sm); line-height: 1.55; color: var(--ink); }
+  ul.transfer .there { font-size: var(--fs-xs); line-height: 1.6; color: var(--muted); }
+
+  /* ---------- pull ---------- */
+
+  .pull {
+    font-size: var(--fs-lg);
+    line-height: 1.45;
+    color: var(--ink);
+    max-width: 32ch;
+    padding-left: 1.1rem;
+    border-left: 3px solid var(--accent);
+  }
+
+  /* ---------- series ---------- */
+
+  .series { margin-top: 3rem; padding-top: 1.75rem; border-top: 1px solid var(--ink); display: flex; flex-direction: column; gap: 1.25rem; }
+
+  .series ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.7rem; }
+
+  .series li { display: flex; gap: 0.8rem; align-items: baseline; font-size: var(--fs-sm); line-height: 1.5; }
+
+  .series .dot { flex: none; width: 1.25rem; height: 3px; background: var(--mark); transform: translateY(-0.28em); }
+
+  .series .part { font-family: var(--mono); font-size: var(--fs-micro); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); flex: none; width: 9.5rem; }
+
+  .series .this { color: var(--muted); }
+
+  .colophon { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--hair); }
+  .colophon p { font-family: var(--mono); font-size: var(--fs-xs); line-height: 1.8; color: var(--muted); max-width: 44rem; }
+
+  @media (max-width: 44rem) {
+    .masthead { padding-top: 3rem; }
+    .split { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+    ul.transfer li { grid-template-columns: minmax(0, 1fr); gap: 0.35rem; }
+    ul.doses li { grid-template-columns: minmax(0, 1fr); gap: 0.3rem; }
+    ul.calls li { grid-template-columns: minmax(0, 1fr); gap: 0.45rem; }
+    .series li { flex-wrap: wrap; }
+    .series .part { width: auto; }
+  }
+</style>
+
+<div class="page">
+
+  <header class="masthead">
+    <div class="bar"></div>
+    <h1>It Texts You First</h1>
+    <p class="deck">The half of a personal agent that a demo never has: reaching someone who isn't looking, and getting their answer home to the right question.</p>
+    <div class="stamp">
+      <span>Architecture note</span>
+      <span>Loop and rails</span>
+      <span>Sixth of six</span>
+      <span>7 August 2026</span>
+    </div>
+  </header>
+
+  <section>
+    <p class="lead">At 8:45 this morning my phone buzzed.</p>
+    <p>A Tamil coach I built had decided on its own that this was a reasonable moment, and had written a small scene: an aunt on the phone, waving off some gossip, turning to me for the answer. I typed four words back from the lock screen. Ninety seconds later the phone buzzed again with a grade — two words credited, one of them spelled wrong.</p>
+    <p>Everything in that paragraph except the aunt is this part of the system.</p>
+    <p>It is the largest surface in the build and the one that most visibly behaves like an agent, because it is the only part that acts when nobody is watching. It is also the part that does not exist in any demo, for a simple reason: in a demo the person is already looking at the screen.</p>
+  </section>
+
+  <section>
+    <p class="kicker">The shape</p>
+    <h2>A circuit with a person in the middle of it</h2>
+    <p>One exchange is two trips. A dose goes out to a phone. An answer comes back and changes what the system believes. Between the two sits someone who did not ask to be interrupted and is under no obligation to answer.</p>
+
+    <figure class="figwrap">
+      <svg class="dg" viewBox="0 0 820 250" role="img" aria-label="A loop: a code-owned gate feeds a model-owned decision, which sends a dose carrying an id to the person; the person's reply carries the same id back to a judge, whose verdict is capped by code before it reaches the stored state.">
+        <defs>
+          <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path class="head" d="M 0 0 L 10 5 L 0 10 z"></path>
+          </marker>
+        </defs>
+
+        <rect class="box-code" x="24" y="30" width="130" height="52"></rect>
+        <text class="t-in" x="89" y="61" text-anchor="middle">GATE</text>
+
+        <rect class="box-model" x="196" y="30" width="130" height="52"></rect>
+        <text class="t-on" x="261" y="61" text-anchor="middle">DECIDE</text>
+
+        <rect class="box-person" x="600" y="99" width="180" height="56"></rect>
+        <text class="t-on" x="690" y="132" text-anchor="middle">THE PERSON</text>
+
+        <rect class="box-model" x="196" y="172" width="130" height="52"></rect>
+        <text class="t-on" x="261" y="203" text-anchor="middle">JUDGE</text>
+
+        <rect class="box-code" x="24" y="172" width="130" height="52"></rect>
+        <text class="t-in" x="89" y="197" text-anchor="middle">CAP,</text>
+        <text class="t-in" x="89" y="212" text-anchor="middle">THEN STATE</text>
+
+        <line class="edge" x1="154" y1="56" x2="190" y2="56" marker-end="url(#a)"></line>
+        <path class="edge" d="M 326 56 L 690 56 L 690 93" marker-end="url(#a)"></path>
+        <text class="t-edge" x="500" y="46" text-anchor="middle">DOSE · knock_id</text>
+
+        <path class="edge" d="M 690 155 L 690 198 L 332 198" marker-end="url(#a)"></path>
+        <text class="t-edge" x="500" y="188" text-anchor="middle">REPLY · knock_id</text>
+
+        <line class="edge" x1="196" y1="198" x2="160" y2="198" marker-end="url(#a)"></line>
+
+        <path class="edge" d="M 89 172 L 89 88" marker-end="url(#a)"></path>
+        <text class="t-note" x="100" y="134">what it now believes</text>
+      </svg>
+      <figcaption>Filled boxes are owned by code and cannot be argued with. Outlined boxes are owned by the model. The same id rides both legs, which is the only reason an answer can be matched to the question that provoked it rather than to whichever question went out most recently.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <p class="kicker">The payload</p>
+    <h2>Seven kinds of dose, and a decision to send nothing</h2>
+    <p>What travels down the wire is not a notification. It is a dose — a unit of teaching that has to work on a lock screen, in two seconds, and be worth something even if it is never tapped.</p>
+
+    <ul class="doses">
+      <li><b>Text</b><span>One line, answered in the reply box. The lowest-friction thing available, and usually the best way to reopen after a gap.</span></li>
+      <li><b>Audio</b><span>A self-contained spoken memo of a minute or so, in a voice that never changes.</span></li>
+      <li><b>Challenge</b><span>A dare with stakes. This is where a field mission lives: one line to deploy at home tonight, unprompted, with my wife as the unwitting audience and never the examiner, debriefed at the next contact.</span></li>
+      <li><b>Volley</b><span>Four deck items in a row, one per exchange, walked forward as each answer lands. This is where the volume is.</span></li>
+      <li><b>Eavesdrop</b><span>One side of a phone call in a fixed aunt's voice, with a single item woven into ordinary chatter. The question afterwards is what drifted past, not what was said.</span></li>
+      <li><b>Fielding</b><span>A question fired <em>at</em> me in the family voice, whose natural answer is something I am due to produce. Nothing else in the system trains heard-question into spoken-answer.</span></li>
+      <li><b>Grace</b><span>A warm note when I have lapsed. Asks for nothing.</span></li>
+      <li><b>Silence</b><span>Send nothing this tick. Free, and often correct.</span></li>
+    </ul>
+
+    <p>Each of these asks something different of the transport, which is why the rails look the way they do rather than like a scheduler with a retry.</p>
+  </section>
+
+  <section>
+    <p class="kicker">The split</p>
+    <h2>The model has discretion; the code has limits</h2>
+    <p>The model decides whether to reach out at all, what to send, which form it takes, and when to reconsider. Code holds the hours, the cap, the spacing, and a ceiling on the model's own sense of pacing.</p>
+
+    <div class="split">
+      <div class="col">
+        <h3><span class="mk mk-code"></span>Code decides</h3>
+        <ul>
+          <li>Whether a reach is possible at this hour at all.</li>
+          <li>How many can land in a day, and how far apart.</li>
+          <li>How far out the model is allowed to postpone itself.</li>
+          <li>What a reply is permitted to prove about the person.</li>
+          <li>Which stored fields move, and in what order they are written.</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3><span class="mk mk-model"></span>The model decides</h3>
+        <ul>
+          <li>Whether this is a moment worth spending.</li>
+          <li>What the dose is about, and what form it takes — a line of text, a recorded memo, a scene to answer, a run of four.</li>
+          <li>When to check back in.</li>
+          <li>What a given answer was worth, inside the ceiling code sets.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="constants">
+      <table class="rails">
+        <thead>
+          <tr><th scope="col">The rail</th><th scope="col">Value</th><th scope="col">What it is for</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Waking window</th><td class="val">08:00–21:00</td><td class="why">Local, DST-correct. The last dose of the day can land at 20:59.</td></tr>
+          <tr><th scope="row">Daily cap</th><td class="val">5</td><td class="why">Counts reaches that actually went out. A decision to stay quiet costs nothing against it.</td></tr>
+          <tr><th scope="row">Minimum gap</th><td class="val">3 h</td><td class="why">Spacing between reaches, whichever part of the system produced them.</td></tr>
+          <tr><th scope="row">Self-pacing clamp</th><td class="val">0.5–24 h</td><td class="why">The model names its own next check-in. This is how far it is allowed to go.</td></tr>
+          <tr><th scope="row">Body budget</th><td class="val">160</td><td class="why">Characters. Past roughly this, iOS truncates the lock screen and the dose dies unread.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>These numbers live in a Python file, above the line where the model is called. That placement is the whole point. <strong>A limit written into a prompt is a request.</strong> It will be honoured most of the time, which is worse than never, because the failures arrive scattered and look like bad luck.</p>
+  </section>
+
+  <section>
+    <p class="kicker">Before anything expensive</p>
+    <h2>Most ticks cost nothing</h2>
+    <p>A scheduler wakes the system roughly hourly. The first thing that runs is a plain function with no model behind it, asking whether a reach could happen right now at all: the hour, the day's count, the gap since the last one, and the check-in time the model set for itself.</p>
+    <p>When any of those says no, the run ends there and writes one line.</p>
+
+    <div class="log">
+      <span class="lbl">A real skip, this afternoon</span>
+      <pre>[rails] skip — Anna's next_check not due (set for 2026-08-07T22:44:26+00:00)</pre>
+    </div>
+
+    <p>Eighteen scheduled runs fired today. Three of them woke the model. The rest looked at a clock and stopped.</p>
+    <p>This is a cost design and a determinism design at once. The expensive, non-reproducible component is only paid for when a decision is genuinely available, and the question "was this system allowed to contact me right now" is answerable from a file rather than from a transcript.</p>
+  </section>
+
+  <section>
+    <p class="kicker">The output nobody builds first</p>
+    <h2>Saying nothing is a decision, and it gets written down</h2>
+    <p>Every wake produces a row in the log, including the wakes that send nothing. A silent row carries a name for the move, the reasoning behind it, and the time to reconsider.</p>
+
+    <div class="log">
+      <span class="lbl">Today, 14:44 — <code>acted: false</code>, move: "silence — Friday afternoon"</span>
+      <p>Two no-taps already today, demand-streak at 1 so next fire must be no-ask, open loop from this morning's field mission collect still sitting unpaid, and the commissioned soak episode isn't produced yet so a trailer would be hollow — Friday afternoon silence is correct; check again at ~18:44 for an evening window.</p>
+    </div>
+
+    <p>Two of those clauses are quotas from elsewhere in the system. "Demand-streak at 1" counts how many doses in a row have asked for something, and after two the next one is required to ask for nothing. "Open loop still unpaid" is the rule that only one promise may be outstanding at a time. Neither is a transport concern, and both decide whether anything gets sent.</p>
+    <p>A system that cannot record a decision to hold back has no way to tell restraint from breakage — its own logs look identical in both cases. Given that ambiguity it will always resolve toward firing, because firing is the only thing that leaves a trace.</p>
+    <p>Making silence a first-class output is what turns "it didn't message me today" from a support question into a row you can read.</p>
+  </section>
+
+  <section>
+    <p class="kicker">The return trip</p>
+    <h2>An answer has to find its own question</h2>
+    <p>Every outgoing message carries its own log-entry timestamp as an identifier. The notification takes it to the phone; a reply carries it back; the judge opens that exact row.</p>
+    <p>The alternative is to assume the answer belongs to the most recent question, which holds right up until two things are outstanding at once. On 3 July two queued messages came due in the same tick and both went out. A correct answer to the first was graded against the second and marked wrong, and the stored belief about me moved backwards on a rep I had actually earned.</p>
+    <p>The identifier is stamped per message, not per batch — two doses that fire in the same second must not share one. Where a phone platform will not round-trip a field, the id rides a second one that will. This is unglamorous work and it is most of what the return path is.</p>
+    <p class="pull">Outbound is a POST. The return trip is where identity, timing and trust actually live.</p>
+  </section>
+
+  <section>
+    <p class="kicker">The ceiling on belief</p>
+    <h2>Whatever sends the message cannot grade the answer</h2>
+    <p>A reply is read by a model, which credits the words it thinks were genuinely produced. Then code re-checks every one of them against a single rule: any Tamil the outgoing message itself displayed can score at most <em>hinted</em>. Unaided production is the only thing that scores <em>cold</em>.</p>
+    <p>That rule is applied after the model returns rather than requested of it beforehand, because the component with an interest in the outcome is the one being checked.</p>
+    <p>It needs one release valve. A word the system drills every day is permanently visible, so it could never escape <em>hinted</em> through the very channel teaching it. A clean unaided fire that the reveal window blocks is recorded as <em>capped</em>, and enough capped fires on distinct days graduate it. The valve is also code — the model may claim <em>capped</em>, and Python verifies the claim against what was actually shown in the last 48 hours.</p>
+  </section>
+
+  <section>
+    <p class="kicker">Delivery</p>
+    <h2>Things wait; they do not disappear</h2>
+    <p>Alongside the agentic loop there is a plain queue for messages with a time on them — a debrief at nine, a rep tomorrow morning. Entries are fully composed when they are added. No model runs at fire time.</p>
+    <p>When a queued message comes due and cannot go, it stays queued and fires on the first tick that will have it. Due at 2am, it waits for eight. Over the daily cap, it waits for tomorrow. Already had a sibling go out this tick, it waits an hour, because two doses landing in the same minute reads as spam regardless of how correct each one was.</p>
+    <p>The queue is written back to disk only after delivery succeeds, so a failed send leaves the entry exactly where it was and the next wake tries again. A transient DNS failure on a build runner should cost a minute, not a dose.</p>
+  </section>
+
+  <section>
+    <p class="kicker">The exemption</p>
+    <h2>What you asked for is not an interruption</h2>
+    <p>A message the person's own tap requested is exempt from quiet hours and from the daily cap. Their reply at 11pm gets its response at 11pm.</p>
+    <p>This sounds like a loophole and is closer to the opposite: it is what keeps the rails honest about their own purpose. They exist to stop <em>unrequested</em> contact. Applied to requested contact they stop being protection and start being an obstacle, and the person starts routing around the system.</p>
+    <p>One function enforces the window, at the single point every outbound path passes through. It used to be checked in each path separately — four copies, two of which did not exist, which is how a practice drill reached the phone at 23:42.</p>
+  </section>
+
+  <section>
+    <p class="kicker">Who wrote these rules</p>
+    <h2>Every rail has an author somewhere else in the system</h2>
+    <p>Read on its own, the list above is good hygiene — spacing, caps, ids, an audit trail. Any careful engineer would arrive at most of it.</p>
+    <p>That is not where it came from. Each one is a teaching decision that turned out to need something from the wire.</p>
+
+    <ul class="calls">
+      <li>
+        <span class="demand">An item nobody has ever been shown must not be quizzed cold.</span>
+        <span class="forces">So a dose has to be able to teach and ask for nothing: no expected answer, the new item declared, and code stamping it as seen in the word store — which is what opens it to the channels that will later drill it. The transport carries a state that is not a question.</span>
+      </li>
+      <li>
+        <span class="demand">The strongest ask hides its own answer.</span>
+        <span class="forces">A dose that prints the Tamil can only ever prove recognition. So every dose declares whether it revealed its target, and that flag is what the credit ceiling reads. Recognition and production are separate axes that fade at different rates, and the wire has to keep them separable.</span>
+      </li>
+      <li>
+        <span class="demand">Choose what you are grading before you write the question.</span>
+        <span class="forces">The natural answer to the body must be the thing being scored. So the target is picked first and travels as its own field, and a message whose body drifted from its target is voided by the judge rather than graded — being marked wrong for a question you were never asked is the worst thing this loop can do.</span>
+      </li>
+      <li>
+        <span class="demand">Clearing the deck is the whole sprint, and one message cannot carry it.</span>
+        <span class="forces">So a volley is four items chosen by code, not by the model — coverage has to stay honest — while the model writes only the situations. Code then walks the chain across hours and replies, holding the position. Chain state never belongs to the model, and neither does the text of the currently open question.</span>
+      </li>
+      <li>
+        <span class="demand">One of the two axes only moves by ear.</span>
+        <span class="forces">Catching Tamil in the wild is a different skill from producing it, and it cannot be trained by asking questions. So there is a dose that is a tape rather than a message, and a separate judging lane permitted to move recognition and nothing else.</span>
+      </li>
+      <li>
+        <span class="demand">The best evidence comes from outside the software.</span>
+        <span class="forces">A line that survives a real dinner is worth more than any number of taps. So there is a durable queue with a time on it: write the debrief now, fire it at nine, no model involved at fire time.</span>
+      </li>
+      <li>
+        <span class="demand">After two asks in a row, stop asking.</span>
+        <span class="forces">So doses that demand something are a counted category, the no-ask forms exist specifically to break a run of them, and sending nothing is a legal, recorded outcome rather than an absence.</span>
+      </li>
+      <li>
+        <span class="demand">"Busy" is a real answer.</span>
+        <span class="forces">So replies come back verbatim into what the model reads before its next decision, not as a tap counter, and it is forbidden from reopening the question on the following tick. Standing permission to interrupt someone is worth only as much as the refusal that can end it.</span>
+      </li>
+    </ul>
+
+    <p>None of those started as a transport requirement. Had I designed this layer from the channel outward — asking what a push notification can do — I would have built a scheduler with a retry, and none of the rest of it.</p>
+  </section>
+
+  <section>
+    <p class="kicker">What travels</p>
+    <h2>None of this is about language</h2>
+    <p>Take the Tamil out and the shape that remains is: software that starts conversations with one person, and has to be trusted with their attention indefinitely. Every mechanism above answers a question that shape raises on its own.</p>
+
+    <ul class="transfer">
+      <li><span class="here">Hard limits in code, discretion in the model</span><span class="there">Any agent with latitude over when to act. The split survives a change of model, and the limits stay auditable when the model is replaced.</span></li>
+      <li><span class="here">A cheap deterministic gate before the expensive call</span><span class="there">Any polled agent. It is the cost model and the reproducibility story in one function.</span></li>
+      <li><span class="here">Silence recorded as an output</span><span class="there">Anything that may choose not to act. Without it, inaction and failure are the same log entry.</span></li>
+      <li><span class="here">A correlation id on both legs</span><span class="there">Anything asynchronous where more than one request can be open. The bug it prevents is silent and looks like a quality problem.</span></li>
+      <li><span class="here">Credit capped outside the grader</span><span class="there">Anything that forms a belief about a person from their behaviour. The part that shapes the evidence must not be the part that scores it.</span></li>
+      <li><span class="here">Defer rather than drop</span><span class="there">Anything with a delivery window. Every deferral is a message the person still gets, at an hour they will tolerate.</span></li>
+      <li><span class="here">An exemption for what was requested</span><span class="there">Anything that rate-limits a human's own initiative. Rate limits aimed at the system's behaviour should not fire on theirs.</span></li>
+    </ul>
+
+    <p>What does not travel is the numbers. Eight to nine, five a day, three hours apart — those are one person's tolerance, found by overshooting it, and someone else's would be different. The channel is incidental too; it happens to be Home Assistant and an iPhone, and nothing above depends on that.</p>
+    <p>What travels is the seam: <strong>the decision is a judgement call and the boundaries are not</strong>. Once that line is drawn you can swap the model underneath without renegotiating what it is allowed to do to somebody's evening.</p>
+    <p>And the method travels, which matters more than the list. This layer is not designed from the channel — it is designed from what everything else needs done to a person. Write down the demands your own domain makes: what must be shown before it can be tested, what evidence counts, what may not be asked twice, what has to happen away from the screen. The mechanisms fall out of that, and they will be close to these because the demands rhyme. Start from the push notification instead and you will get a scheduler, then spend a year discovering the rest of this one incident at a time.</p>
+  </section>
+
+  <section>
+    <p class="kicker">Still open</p>
+    <h2>A reply cannot shorten a silence</h2>
+    <p>This afternoon the system read two unanswered doses, concluded I was not around, and went quiet with its next check four hours out. Ninety-five minutes later I answered the morning's message and scored a hit.</p>
+    <p>The gate stayed shut for another two and a half hours. The check-in time is written in exactly one place — the function that logs a wake — and the reply path never touches it. So a live signal arrived, was judged, was credited, and could not reopen the door it had just knocked on.</p>
+    <p>It backed off on a belief that had already expired, and had no way to learn otherwise until its own timer ran out. That is not fixed yet. It is the next thing.</p>
+  </section>
+
+  <div class="series">
+    <p class="kicker">The series</p>
+    <ol>
+      <li style="--mark: var(--p2)"><span class="dot"></span><span class="part">Learner model</span><a href="https://claude.ai/code/artifact/b4179ce2-7fe5-4ef1-8b2d-6c5d4541e913">You Knew This on Tuesday</a></li>
+      <li style="--mark: var(--p3)"><span class="dot"></span><span class="part">Loop and rails</span><span class="this">It Texts You First — this one</span></li>
+      <li style="--mark: var(--p1)"><span class="dot"></span><span class="part">Motivation engine</span><a href="https://claude.ai/code/artifact/d88586aa-41c6-4230-94e6-e8dd1ef0cfb1">Nothing Gets Worse If You Skip Today</a></li>
+      <li style="--mark: var(--p4)"><span class="dot"></span><span class="part">Studio</span><a href="https://claude.ai/code/artifact/c92f821d-80ca-4280-9d60-286330c17f03">The Writer Gets No Filesystem</a></li>
+      <li style="--mark: var(--p5)"><span class="dot"></span><span class="part">Domain pack</span><a href="https://claude.ai/code/artifact/ee916761-0f43-44ad-90f2-03a38a696f6e">Nobody Actually Talks Like That</a></li>
+      <li style="--mark: var(--p6)"><span class="dot"></span><span class="part">Governance kit</span><a href="https://claude.ai/code/artifact/93af235b-46c4-4522-becf-8d02d246d839">You Already Decided This</a></li>
+    </ol>
+    <p>They sit under one architecture note — <a href="https://claude.ai/code/artifact/0bc27683-1068-4b41-9532-2290a0f4cb48">The Institution of One</a> — which is where the six came from and why they are held apart. Each stands on its own.</p>
+  </div>
+
+  <footer class="colophon">
+    <p>Drawn from one repository: a single-learner Tamil coach, a year old, about half of it written by the system itself. Every mechanism named here shipped, and every failure named here happened. The dates are real and so are the numbers.</p>
+  </footer>
+
+</div>
