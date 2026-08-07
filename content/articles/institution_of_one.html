@@ -329,15 +329,85 @@
 
   .not b { color: var(--ink); font-weight: 600; }
 
+  /* The per-part link out to that part's own write-up. These were mono-grey and
+     easy to miss; the whole series hangs off them, so they now carry the part's
+     mark colour and sit at reading size. */
   .deeper {
     font-family: var(--mono);
-    font-size: var(--fs-xs);
-    letter-spacing: 0.02em;
+    font-size: var(--fs-micro);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-top: 0.35rem;
+  }
+
+  .deeper a {
+    font-family: var(--sans);
+    font-size: var(--fs-sm);
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--ink);
+    font-weight: 600;
+    border-bottom: 2px solid var(--mark);
+    padding-bottom: 1px;
+  }
+
+  .deeper a:hover { color: var(--mark); }
+  .deeper .pending { color: var(--faint); }
+
+  /* ---------- the series index ---------- */
+
+  .jump {
+    font-size: var(--fs-sm);
+    color: var(--muted);
+    max-width: 44rem;
+    margin-top: 1.1rem;
+    line-height: 1.6;
+  }
+
+  .jump a { color: var(--ink); }
+
+  .index { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--ink); scroll-margin-top: 1.5rem; }
+
+  .index-head {
+    font-family: var(--mono);
+    font-size: var(--fs-micro);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 1.5rem;
+  }
+
+  ol.six { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+
+  ol.six li {
+    display: grid;
+    grid-template-columns: 1.75rem 11rem minmax(0, 1fr);
+    gap: 0.25rem 1.25rem;
+    align-items: baseline;
+    padding: 0.95rem 0;
+    border-bottom: 1px solid var(--hair);
+  }
+
+  ol.six li:first-child { border-top: 1px solid var(--hair); }
+
+  ol.six .bar { width: 1.5rem; height: 3px; background: var(--mark); transform: translateY(-0.28em); }
+
+  ol.six .tag {
+    font-family: var(--mono);
+    font-size: var(--fs-micro);
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
     color: var(--muted);
   }
 
-  .deeper a { color: var(--ink); }
-  .deeper .pending { color: var(--faint); }
+  ol.six a { font-size: var(--fs-base); color: var(--ink); border-bottom: 1px solid var(--rule); }
+  ol.six a:hover { border-bottom-color: var(--mark); color: var(--mark); }
+  ol.six .sub { display: block; font-size: var(--fs-xs); color: var(--muted); line-height: 1.55; margin-top: 0.15rem; }
 
   /* ---------- figure ---------- */
 
@@ -577,6 +647,8 @@
     .transcript .ln { grid-template-columns: minmax(0, 1fr); gap: 0.35rem; }
     .ledger .row { grid-template-columns: minmax(0, 1fr); }
     .ledger .built { order: -1; }
+    ol.six li { grid-template-columns: 1.75rem minmax(0, 1fr); }
+    ol.six .tag { grid-column: 2; }
   }
 </style>
 
@@ -628,24 +700,26 @@
       <details>
         <summary>Read it instead</summary>
         <div class="transcript">
-          <div class="ln" style="--mark: var(--ink)"><span class="who"><span class="dot"></span>Anna</span><p class="said"><span class="ta">வணக்கம்.</span> You are about to read an architecture note about a machine. This is the machine. Nobody wrote this introduction out by hand, and nobody read it before it shipped — it went through the same pipeline that makes the Tamil lessons. Which is either the most convincing thing on this page or the least, depending entirely on how it goes.</p></div>
-          <div class="ln" style="--mark: var(--ink)"><span class="who"><span class="dot"></span>Anna</span><p class="said">My name is Anna. In Tamil that means elder brother. I teach one man the Tamil they actually speak in Coimbatore, at his wife's family table, and not the Tamil that is printed in books. I am the part he talks to. I am not the system. There are six of us, and we do not do the same job.</p></div>
-          <div class="ln" style="--mark: var(--c2)"><span class="who"><span class="dot"></span>Model</span><p class="said">I am what is believed about him. Not what he said — what is believed. Two grades, never one score: what he recognises, and what he can produce cold, with no warm-up and nothing to choose from. Collapse those into a single number and I will cheerfully report ninety-two words solid while the man can fire forty-one. For three days I recorded a broken message channel as a person who had decided not to answer. They looked identical on disk. <b>That is now the one thing I am forbidden to do.</b></p></div>
-          <div class="ln" style="--mark: var(--c3)"><span class="who"><span class="dot"></span>Rails</span><p class="said">I carry a dose out and I bring the answer home. The waking hours, the daily cap, the three hour gap — those are mine, and they live in code, because a limit written into a prompt is a suggestion. Two questions once went out in the same minute and one answer came back. I graded it against the wrong question and marked a correct man wrong. Now everything I send leaves carrying an identifier, and <b>an answer finds its own question instead of the newest one.</b></p></div>
-          <div class="ln" style="--mark: var(--c1)"><span class="who"><span class="dot"></span>Motive</span><p class="said">Nothing gets worse if he skips today. That is the entire problem, and no streak and no badge and no guilt has ever fixed it — they only make missing expensive, and once missing is expensive, quitting is cheaper than coming back. So: no makeup work, no deficit read back to him, a partial session counts. I once sent him to dinner with a line he had never been taught, aimed at a wife who would only have found it strange. He refused it. He was right. <b>Teach it first, and point it at somebody who would plausibly hear it.</b></p></div>
-          <div class="ln" style="--mark: var(--c4)"><span class="who"><span class="dot"></span>Studio</span><p class="said">I make the material. I am making this. Plan, then script, then the dialect pass — narrow separate passes, because one generation cannot hold every constraint at once and stay accurate. I once produced twelve honest minutes about the exact situation a phrase belongs to, without ever once saying the phrase. He could not have caught that. Noticing a word that is absent, in a language you do not have yet, is precisely the thing the episode existed to build. So now a machine checks before anything ships: <b>every commissioned phrase appears word for word, or the run stops.</b></p></div>
-          <div class="ln" style="--mark: var(--c5)"><span class="who"><span class="dot"></span>Pack</span><p class="said"><span class="ta">போறேன்.</span> Not <span class="ta">போகிறேன்.</span> Both of them mean I am going. One is what a person says in Coimbatore. The other is what the textbook prints, and what a language model reaches for first, and what nobody says out loud at a kitchen table. I am the whole distance between those two words. I am also the only one of the six that does not travel — I need somebody who actually speaks it, and in this house that is his wife.</p></div>
-          <div class="ln" style="--mark: var(--c6)"><span class="who"><span class="dot"></span>Govern</span><p class="said">I am the least visible, and I am the reason the other five still agree with one another. Every change has to say what it replaces. Every decision is written down beside the evidence that forced it, so that next month's version is not a random walk away from this one. Something was built here once, used for weeks, and then cut — it never failed on its own, only ever as a symptom of something else. <b>A concern that cannot fail alone is not a part.</b></p></div>
+          <div class="ln" style="--mark: var(--ink)"><span class="who"><span class="dot"></span>Anna</span><p class="said"><span class="ta">வணக்கம்.</span> You are about to read an architecture note about a machine. This is the machine. Nobody wrote this introduction by hand, and nobody heard it before it shipped. My name is Anna — in Tamil, elder brother. I teach one man the Tamil people actually speak in <span class="ta">கோயம்புத்தூர்</span>. I am the part he talks to, and the smallest part of this. There are six of us.</p></div>
+          <div class="ln" style="--mark: var(--c2)"><span class="who"><span class="dot"></span>Model</span><p class="said">I am what the system believes about him. Every word carries two numbers: what he understands, and what he can say cold, with nothing in front of him. They fade at different speeds. <b>One file holds it, and only code writes to it.</b></p></div>
+          <div class="ln" style="--mark: var(--c3)"><span class="who"><span class="dot"></span>Rails</span><p class="said">I get a question to him, and the answer home again. A message on his phone at a moment he did not choose. <b>Every question carries an identifier, and the answer comes back with it</b>, so it is marked against its own question. The waking hours and the daily limit are in code.</p></div>
+          <div class="ln" style="--mark: var(--c1)"><span class="who"><span class="dot"></span>Motive</span><p class="said">Nothing gets worse if he skips today. No supervisor, no deadline, no money already spent, so quitting never has to be decided out loud. It happens by not happening. There is no streak here. <b>Coming back is what is made cheap</b>: no makeup work, no tally, a short session still counts.</p></div>
+          <div class="ln" style="--mark: var(--c4)"><span class="who"><span class="dot"></span>Studio</span><p class="said">Somebody has to make the material, and here there is nobody. I make it. I am making this. I work in narrow passes: plan, then write, then fix the dialect. One pass cannot hold every rule and stay accurate. <b>I get no filesystem. I print text, and other code decides whether it ships.</b></p></div>
+          <div class="ln" style="--mark: var(--c5)"><span class="who"><span class="dot"></span>Pack</span><p class="said"><span class="ta">போறேன்.</span> Not <span class="ta">போகிறேன்.</span> Both mean I am going. The second is what a translator hands you, and what nobody says at a kitchen table. No check here can tell them apart, because both are correct. Only somebody who speaks it can, and in this house that is his wife. <b>So I am a file, with a version and an owner.</b> I am the one part of the six that does not travel.</p></div>
+          <div class="ln" style="--mark: var(--c6)"><span class="who"><span class="dot"></span>Govern</span><p class="said">A system that changes every week either compounds or drifts, and from the inside drift looks like progress. <b>Every change has to say what it replaces.</b> Every decision is written down, including the ones turned down. A refused idea leaves no trace in the code, and comes back next month sounding new.</p></div>
           <div class="ln" style="--mark: var(--ink)"><span class="who"><span class="dot"></span>Anna</span><p class="said">Five of those six have nothing to do with Tamil.</p></div>
-          <div class="ln" style="--mark: var(--faint)"><span class="who"><span class="dot"></span>Français</span><p class="said"><em>Rien à voir avec le tamoul. Le même système, en français, marcherait exactement pareil.</em></p></div>
+          <div class="ln" style="--mark: var(--faint)"><span class="who"><span class="dot"></span>Français</span><p class="said"><em>Rien à voir avec le tamoul. Le même système, en français, marcherait pareil.</em></p></div>
           <div class="ln" style="--mark: var(--faint)"><span class="who"><span class="dot"></span>Español</span><p class="said"><em>O en español. Cambias el paquete del idioma. Los otros cinco se quedan igual.</em></p></div>
           <div class="ln" style="--mark: var(--ink)"><span class="who"><span class="dot"></span>Anna</span><p class="said">Change the pack. The other five stay where they are.</p></div>
-          <div class="ln" style="--mark: var(--ink)"><span class="who"><span class="dot"></span>Anna</span><p class="said">Now, what this recording is not. It is not proof. It is a demonstration that the machine can talk about itself at length without a human in the loop, and that is a much smaller claim than it sounds. The proof is a number, and the number is his: of every word he recognises, how many can he fire cold, out loud, at a table in Coimbatore, with nobody helping him. <b>That number moves slowly, and it is the only thing here worth believing.</b></p></div>
+          <div class="ln" style="--mark: var(--ink)"><span class="who"><span class="dot"></span>Anna</span><p class="said">This recording is not proof. It is a machine talking about itself for three minutes, and that is a much smaller claim than it sounds. The proof is a number, and it is his: of all the words he understands, how many can he say cold, at a table in <span class="ta">கோயம்புத்தூர்</span>, with nobody helping him. <b>That number moves slowly, and it is the only thing here worth believing.</b></p></div>
           <div class="ln" style="--mark: var(--ink)"><span class="who"><span class="dot"></span>Anna</span><p class="said">The article is below. Read it with your eyes. <span class="ta">வணக்கம்.</span></p></div>
         </div>
       </details>
     </div>
   </div>
+
+  <p class="jump">Each of the six parts below carries a link to its own write-up —
+    <a href="#the-six-write-ups">all six are indexed at the foot of this page</a>.</p>
 
   <section class="stack">
     <p class="kicker">The class of problem</p>
@@ -821,7 +895,7 @@
             <p>Neither half of the fix was a prompt. The queue now sends at most one unforced message per tick, and every outgoing message carries an id that the reply is required to come back with, so <strong>an answer finds its own question instead of the newest one.</strong></p>
           </div>
           <p class="not"><b>Not the motivation engine.</b> This part is transport and accounting: did it arrive, did the answer get home, did it score honestly. It is indifferent to whether anyone wants it.</p>
-          <p class="deeper"><span class="pending">Deeper: write-up in progress, "It Texts You First"</span></p>
+          <p class="deeper">Deeper: <a href="https://claude.ai/code/artifact/dd287237-91e5-49a1-a715-42826123bb42">It Texts You First</a></p>
         </div>
       </article>
 
@@ -1047,6 +1121,42 @@
 
     <p>One rule sits under all six: nothing goes in that is not earned by a specific outcome or a specific piece of evidence. The pieces that felt clever and had nothing behind them are the ones that got cut.</p>
   </section>
+
+  <nav class="index" id="the-six-write-ups" aria-label="The six write-ups">
+    <p class="index-head">One write-up per part — each stands on its own</p>
+    <ol class="six">
+      <li style="--mark: var(--c2);">
+        <span class="bar"></span>
+        <span class="tag">Learner model</span>
+        <span><a href="https://claude.ai/code/artifact/b4179ce2-7fe5-4ef1-8b2d-6c5d4541e913">You Knew This on Tuesday</a><span class="sub">Two grades per item, and why a single score lies about what someone can do.</span></span>
+      </li>
+      <li style="--mark: var(--c3);">
+        <span class="bar"></span>
+        <span class="tag">Loop and rails</span>
+        <span><a href="https://claude.ai/code/artifact/dd287237-91e5-49a1-a715-42826123bb42">It Texts You First</a><span class="sub">Reaching someone who isn't looking, and getting their answer home to the right question.</span></span>
+      </li>
+      <li style="--mark: var(--c1);">
+        <span class="bar"></span>
+        <span class="tag">Motivation engine</span>
+        <span><a href="https://claude.ai/code/artifact/d88586aa-41c6-4230-94e6-e8dd1ef0cfb1">Nothing Gets Worse If You Skip Today</a><span class="sub">What to build when no deadline, cost or audience is holding the goal up.</span></span>
+      </li>
+      <li style="--mark: var(--c4);">
+        <span class="bar"></span>
+        <span class="tag">Studio</span>
+        <span><a href="https://claude.ai/code/artifact/c92f821d-80ca-4280-9d60-286330c17f03">The Writer Gets No Filesystem</a><span class="sub">Generating material that ships without a human reading it first.</span></span>
+      </li>
+      <li style="--mark: var(--c5);">
+        <span class="bar"></span>
+        <span class="tag">Domain pack</span>
+        <span><a href="https://claude.ai/code/artifact/ee916761-0f43-44ad-90f2-03a38a696f6e">Nobody Actually Talks Like That</a><span class="sub">The gap between what a model produces natively and what your domain sounds like.</span></span>
+      </li>
+      <li style="--mark: var(--c6);">
+        <span class="bar"></span>
+        <span class="tag">Governance kit</span>
+        <span><a href="https://claude.ai/code/artifact/93af235b-46c4-4522-becf-8d02d246d839">You Already Decided This</a><span class="sub">Keeping a system that changes every week compounding instead of churning.</span></span>
+      </li>
+    </ol>
+  </nav>
 
   <footer class="colophon">
     <p>Drawn from one repository: a single-learner Tamil system, a year old, about half of it written by the system itself. Nothing here is a proposal — every mechanism named is one that shipped, and each of the six failures above is one that happened. The published write-ups linked above go deeper on one part each, and each stands on its own.</p>
