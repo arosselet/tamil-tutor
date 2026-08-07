@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Friday 2026-08-07
+
+**08:45 · Anna** 🎧  ·  fielding / fielding: sari-sari close
+> atthai's on the phone — she just heard the neighbour gossip. catches your eye and says: sari sari, vittudu — answer her.
+
+
 ## Thursday 2026-08-06
 
 **09:48 · Anna**  ·  text / trailer: -om ambush test
