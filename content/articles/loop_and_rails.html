@@ -194,6 +194,7 @@
   .dg .t-on { font-family: var(--mono); font-size: 12px; font-weight: 700; fill: var(--ink); }
   .dg .t-edge { font-family: var(--mono); font-size: 11px; fill: var(--muted); letter-spacing: 0.04em; }
   .dg .t-note { font-size: 11.5px; fill: var(--muted); }
+  .dg .t-sub { font-size: 12px; fill: var(--body); font-style: italic; }
 
   figcaption {
     font-size: var(--fs-xs);
@@ -434,42 +435,51 @@
     <p>One exchange is two trips. A dose goes out to a phone. An answer comes back and changes what the system believes. Between the two sits someone who did not ask to be interrupted and is under no obligation to answer.</p>
 
     <figure class="figwrap">
-      <svg class="dg" viewBox="0 0 820 250" role="img" aria-label="A loop: a code-owned gate feeds a model-owned decision, which sends a dose carrying an id to the person; the person's reply carries the same id back to a judge, whose verdict is capped by code before it reaches the stored state.">
+      <svg class="dg" viewBox="0 0 820 300" role="img" aria-label="One exchange, clockwise. A gate decides whether a reach is allowed right now. If it is, a decision step chooses what to send or to send nothing. The dose travels to the person carrying an identifier. Their reply carries the same identifier back to a judge, which works out what the answer proved. A cap-and-store step applies the ceiling on that verdict and writes it, and what it writes feeds the next gate.">
         <defs>
           <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
             <path class="head" d="M 0 0 L 10 5 L 0 10 z"></path>
           </marker>
         </defs>
 
-        <rect class="box-code" x="24" y="30" width="130" height="52"></rect>
-        <text class="t-in" x="89" y="61" text-anchor="middle">GATE</text>
+        <text class="t-sub" x="99" y="34" text-anchor="middle">is a reach allowed right now?</text>
+        <rect class="box-code" x="24" y="44" width="150" height="52"></rect>
+        <text class="t-in" x="99" y="76" text-anchor="middle">GATE</text>
 
-        <rect class="box-model" x="196" y="30" width="130" height="52"></rect>
-        <text class="t-on" x="261" y="61" text-anchor="middle">DECIDE</text>
+        <text class="t-sub" x="285" y="34" text-anchor="middle">what to send — or nothing</text>
+        <rect class="box-model" x="210" y="44" width="150" height="52"></rect>
+        <text class="t-on" x="285" y="76" text-anchor="middle">DECIDE</text>
 
-        <rect class="box-person" x="600" y="99" width="180" height="56"></rect>
-        <text class="t-on" x="690" y="132" text-anchor="middle">THE PERSON</text>
+        <rect class="box-person" x="620" y="124" width="170" height="56"></rect>
+        <text class="t-on" x="705" y="158" text-anchor="middle">THE PERSON</text>
 
-        <rect class="box-model" x="196" y="172" width="130" height="52"></rect>
-        <text class="t-on" x="261" y="203" text-anchor="middle">JUDGE</text>
+        <rect class="box-model" x="210" y="204" width="150" height="52"></rect>
+        <text class="t-on" x="285" y="236" text-anchor="middle">JUDGE</text>
+        <text class="t-sub" x="285" y="276" text-anchor="middle">what did that answer prove?</text>
 
-        <rect class="box-code" x="24" y="172" width="130" height="52"></rect>
-        <text class="t-in" x="89" y="197" text-anchor="middle">CAP,</text>
-        <text class="t-in" x="89" y="212" text-anchor="middle">THEN STATE</text>
+        <rect class="box-code" x="24" y="204" width="150" height="52"></rect>
+        <text class="t-in" x="99" y="236" text-anchor="middle">CAP &amp; STORE</text>
+        <text class="t-sub" x="99" y="276" text-anchor="middle">ceiling first, then write it</text>
 
-        <line class="edge" x1="154" y1="56" x2="190" y2="56" marker-end="url(#a)"></line>
-        <path class="edge" d="M 326 56 L 690 56 L 690 93" marker-end="url(#a)"></path>
-        <text class="t-edge" x="500" y="46" text-anchor="middle">DOSE · knock_id</text>
+        <line class="edge" x1="174" y1="70" x2="204" y2="70" marker-end="url(#a)"></line>
 
-        <path class="edge" d="M 690 155 L 690 198 L 332 198" marker-end="url(#a)"></path>
-        <text class="t-edge" x="500" y="188" text-anchor="middle">REPLY · knock_id</text>
+        <path class="edge" d="M 360 70 L 705 70 L 705 118" marker-end="url(#a)"></path>
+        <text class="t-edge" x="520" y="60" text-anchor="middle">DOSE · carries an id</text>
 
-        <line class="edge" x1="196" y1="198" x2="160" y2="198" marker-end="url(#a)"></line>
+        <path class="edge" d="M 705 180 L 705 230 L 366 230" marker-end="url(#a)"></path>
+        <text class="t-edge" x="520" y="220" text-anchor="middle">REPLY · carries the same id</text>
 
-        <path class="edge" d="M 89 172 L 89 88" marker-end="url(#a)"></path>
-        <text class="t-note" x="100" y="134">what it now believes</text>
+        <line class="edge" x1="210" y1="230" x2="180" y2="230" marker-end="url(#a)"></line>
+
+        <path class="edge" d="M 99 204 L 99 102" marker-end="url(#a)"></path>
+        <text class="t-note" x="112" y="158">what it now knows</text>
+
+        <rect class="box-code" x="596" y="256" width="13" height="13"></rect>
+        <text class="t-note" x="617" y="267">owned by code</text>
+        <rect class="box-model" x="704" y="256" width="13" height="13"></rect>
+        <text class="t-note" x="725" y="267">owned by the model</text>
       </svg>
-      <figcaption>Filled boxes are owned by code and cannot be argued with. Outlined boxes are owned by the model. The same id rides both legs, which is the only reason an answer can be matched to the question that provoked it rather than to whichever question went out most recently.</figcaption>
+      <figcaption>One exchange, clockwise from the top left. The two boxes owned by code cannot be argued with; the two owned by the model are judgement calls made fresh each time. <strong>Gate</strong> is a plain function that asks whether a message is permitted at this hour at all, and ends the run if not. <strong>Cap &amp; store</strong> re-checks the judge's verdict against what the outgoing message had already given away, and only then writes anything down. The same id rides both legs, which is the only reason an answer can be matched to the question that provoked it rather than to whichever question went out most recently.</figcaption>
     </figure>
   </section>
 
