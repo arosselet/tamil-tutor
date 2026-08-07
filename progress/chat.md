@@ -21,6 +21,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > close — 'kashtam', not 'kashtom'. and yes, exactly right: hardship, difficulty, trouble. you caught it cold off the street 🔥 — what else did you hear?
 
+**20:34 · Andrew** — **CHAT**
+> Just 1 word in passing in a busy public place. It immediately clicked this guy was speaking Tamil . I didn’t stick around for context
+
+**Anna ↩**
+> ok — so one word, one catch, zero context. that's still a real field rep da. you heard it and it clicked — that IS the reflex working.
+
 
 ## Wednesday 2026-08-05
 
