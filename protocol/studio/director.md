@@ -94,11 +94,13 @@ The Scenario is not a plot; it is a sandbox where any modality (a 5-minute podca
 
 ---
 
-## Step 5: Include the Vocabulary Fence
+## Step 5: The Vocabulary Fence — do **not** copy it
 
-`suggest_targets.py` outputs a **VOCABULARY FENCE** — every word the learner recognizes (comfortable/solid) or produces cold. This is "the sea." Copy it into the brief verbatim. The Architect's job is to build dialogue from this pool; the payload words are the fish; everything else in the scene should be water the learner already swims in.
+`suggest_targets.py` outputs a **VOCABULARY FENCE** — every word the learner recognizes (comfortable/solid) or produces cold. This is "the sea": the Architect builds dialogue from this pool, the payload words are the fish, everything else in the scene is water the learner already swims in.
 
-If the fence is empty (cold-start), note that in the brief — the Architect must scaffold heavily with English until the floor has words in it.
+**You do not transcribe it.** Python slices the computed fence out of the ticket and hands it straight to the Architect and the Producer (`run_studio.py` → `ticket_fence`). Re-typing a 200-line list is a lossy step, and it lost: M84's brief carried **20 of 205** fence words, which put the scene under the Architect's "fence < 50 → lean harder on English scaffolding" branch and produced a self-glossing Intercept — every payload word translated inline, then translated again by the Breakdown. Six of the previous seven briefs truncated it the same way (2026-08-07, Andrew).
+
+Leave it out of the brief entirely — the Output template below has no fence section. The empty-fence (cold-start) case needs no note from you either; the ticket prints its own, and the Architect reads it there.
 
 ---
 
@@ -129,15 +131,6 @@ If the fence is empty (cold-start), note that in the brief — the Architect mus
 
 **CALLBACKS (X words):**
 - **[Tamil]** (*transliteration*) — definition [struggled | overdue | recently-mastered]
-- ...
-
-## Vocabulary Fence (the sea — build from these)
-[Copy the full fence from suggest_targets.py output. Every Tamil word
-the learner recognizes. The Architect builds the scene's connective
-tissue from this pool. Words outside it are the +1 — they must be
-answerable from context within seconds.]
-
-- **[Tamil]** (*transliteration*) — gloss
 - ...
 
 ## Notes (optional)

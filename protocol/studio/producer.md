@@ -77,7 +77,7 @@ After the dialect and integrity passes, write a sidecar metadata file alongside 
 
 **Estimating density:** Eyeball it. Count Tamil-script chunks vs English chunks per line, average across the section. Round to nearest 0.05. This is a *descriptive* stat for the tags sidecar, not a target — the Architect builds from the vocabulary fence and the density is whatever results.
 
-**Vocabulary audit (new):** Scan the Intercept for Tamil words that are neither in the brief's Vocabulary Fence nor in the Payload (NEW + CALLBACKS). These are "unfenced" words. A few (2-3) are acceptable if the context answers them immediately. More than that is a **send-back issue** — the Architect needs to rewrite using fence words or add English scaffolding.
+**Vocabulary audit (new):** Scan the Intercept for Tamil words that are neither in the **Vocabulary Fence** — handed to you verbatim in your prompt, computed, not the brief's (2026-08-07) — nor in the Payload (NEW + CALLBACKS). `fence_size` is that list's stated count, copied; it is the one tag you must never eyeball. These are "unfenced" words. A few (2-3) are acceptable if the context answers them immediately. More than that is a **send-back issue** — the Architect needs to rewrite using fence words or add English scaffolding.
 
 **Keys must be canonical.** Every key in `new_words_landed` / `callbacks_used` is a lexicon key **verbatim**: the exact Tamil script from the brief, or the bare `frame:...` key. No annotations, glosses, or parentheticals — `"frame:want-noun (வேணும்)"` is how an episode's soak credit gets silently lost (`render_audio.py` stamps `seen_in` and registers the episode from these keys).
 

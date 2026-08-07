@@ -91,7 +91,9 @@ A learner who knows every word can still lose the story if lines are too long an
 
 ## The Vocabulary Fence (the coverage rule)
 
-The brief includes a **Vocabulary Fence** — the full list of Tamil words the learner currently recognizes. This is "the sea." The payload words (NEW + CALLBACKS) are the fish. **Everything else in the scene — the connective tissue, the reactions, the scene-building — should draw from the fence.**
+You are handed a **Vocabulary Fence** — the full list of Tamil words the learner currently recognizes. This is "the sea." The payload words (NEW + CALLBACKS) are the fish. **Everything else in the scene — the connective tissue, the reactions, the scene-building — should draw from the fence.**
+
+**The fence arrives as computed context, never as a re-typed list** (2026-08-07). Python slices it from the ticket and puts it in your prompt verbatim (`run_studio.py` → `ticket_fence`); in the subagent path it is section 4 of the `suggest_targets.py` ticket. It is deliberately *not* in the brief — the Director used to copy it by hand and dropped 90% of it, which is what tipped M84 into the small-fence branch below. **Take the fence's stated word count as given.** If you ever find yourself estimating the fence size from how long the list looks, or working without one at all, stop — that is the failure this routing exists to prevent.
 
 This replaces the old density number. You don't target "75% Tamil" — you target **comprehension as heard**. The exact coverage dial is a hard parameter in `progress/profile.md` → Calibration Notes (currently ~95%+ known-word coverage live); read it there, don't carry a number in this file. The density is a *consequence* of the fence size, not a parameter you choose. (One exception exists: a brief that explicitly marks an eavesdrop/"gossip-tape" segment runs native-speed with deliberately partial coverage — see the carve-out in the Calibration Notes.)
 
@@ -111,9 +113,18 @@ Write Tamil in plausible spoken register — close to how Coimbatore actually so
 
 ## The Two-Voice Breakdown
 
-**When the Episode Form calls for it** (always in `classic`; lighter in `story` / `phone_call`; omitted in `vignette` and in `narrated_drama`), the mission closes with a **Breakdown** — a dialogue between Analyst Maya (F) and Analyst Raj (M). See `protocol/studio/hosts.md` for their full character definitions.
+Some missions close with a **Breakdown** — a dialogue between Analyst Maya (F) and Analyst Raj (M). See `protocol/studio/hosts.md` for their full character definitions.
 
-**`narrated_drama` takes no Breakdown** (2026-08-05, Andrew, on the M81 episode: *"it didn't need a breakdown… the scenario, when narrated in english, doesn't need an english explanation afterward"*). This form was simply absent from the list above, so a Breakdown got appended by default — and it is the one form that cannot want one, because the Narrator has already carried the English scaffolding *inside* the scene, beat by beat. Explaining it again afterwards is the same gloss twice. The length it would have bought comes from payload items instead.
+### An episode glosses once
+
+**The Breakdown exists for exactly one reason: to make an un-glossed immersion intelligible.** So whether it belongs is decided by **the Intercept you actually wrote**, not by the form label:
+
+- **The Intercept ran immersive** — dense Tamil, English only as loanwords, nothing translated as it was said → there is a real comprehension gap, and **the Breakdown is the key that closes it.** Write it.
+- **The Intercept carried its own English** — a Narrator glossing beat by beat, or characters code-switching to translate the payload as they say it → **no Breakdown.** The gap is already closed; explaining it again is the same gloss twice. Buy the length back in payload items instead.
+
+The forms follow from this rather than defining it: `classic` full, `story` / `phone_call` light, `vignette` none by construction, `narrated_drama` none because the Narrator glosses inside the scene. **When the label and the Intercept disagree, the Intercept wins** — a `phone_call` written self-glossing takes no Breakdown, whatever the label promised.
+
+> *Keyed to the condition on 2026-08-07 (Andrew, on M84). The rule was written on 2026-08-05 for the M81 episode — "the scenario, when narrated in english, doesn't need an english explanation afterward" — but it named the form `narrated_drama` instead of the condition. M84 was commissioned `phone_call`, written self-glossing (all four payload words translated inline), and given a Breakdown that glossed the same four again, in order. A list of form labels can only ever be as complete as the last failure.*
 
 - **English banter that unlocks the Intercept.** Maya and Raj talk about what they just heard, **in English** — the Intercept was the immersion; this is the key that makes it land. They play back snippets, react, joke about the characters' decisions. Tamil appears as the quoted snippet, never as the medium. *(Corrected 2026-08-05, Andrew: the old line read "a second Tamil exposure… mostly in Tamil," which described the wrong half of the pair — it made the Breakdown a second immersion when its whole job is to make the first one legible. M81's Breakdown ran 90% English and was read as rot against that stale line; it was doing its job, in an episode that did not need it.)*
 - **Colour, not coverage. This is the rule that keeps the Breakdown from rotting into a glossary.** Do NOT inventory the payload — no "and then they said X, which means Y, and then Z which means…", and never a closing "so the full map: …" word-list. Real NotebookLM hosts don't enumerate; they get *surprised by one thing* and chase it. Pick the one or two genuinely interesting beats — a double meaning, a sound, a cultural tell ("nobody says takeaway, it's *parsal*"), a why-did-she-say-it-that-way — and obsess over those. **It is fine, and better, to ignore most of the NEW words.** Anna's chat session is where words get explicitly worked; the Breakdown's job is colour and a second soak, not teaching.

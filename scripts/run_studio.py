@@ -62,6 +62,11 @@ OPENROUTER_BASE = "https://openrouter.ai/api/v1"
 
 TAMIL_RE = re.compile(r"[஀-௿]")
 SPEAKER_RE = re.compile(r"^\s*(?:\*\s*)?\*\*[^:]+:")
+
+# The Vocabulary Fence section of the ticket, sliced verbatim and handed to the
+# Architect and Producer. See ticket_fence() for why it is Python's job.
+FENCE_HEAD = "4. VOCABULARY FENCE"
+FENCE_END = "\nFloor gap:"
 REQUIRED_TAGS = {"mission", "register", "dramatic_ingredient", "episode_form",
                  "new_words_landed"}
 
@@ -97,6 +102,16 @@ PRINT the full episode script and nothing else — speaker lines as
 `**Name:** text`, with [SFX] / [Pause] craft per the role file.
 """
 
+# The fence rides its own slot, straight from the ticket. It is NOT part of
+# {plan} — the Master Lesson Plan no longer carries it (director.md Step 5).
+ARCHITECT += """
+THE VOCABULARY FENCE — computed, verbatim, the whole sea. Build the scene's
+connective tissue from it; the payload words are the fish. Its stated SIZE is
+the coverage signal architect.md branches on — read that count, never infer one.
+
+{fence}
+"""
+
 PRODUCER = PREAMBLE + """
 THIS PASS: the PRODUCER. Read protocol/studio/producer.md and
 protocol/studio/dialect.md and follow them exactly: dialect transformation,
@@ -116,6 +131,16 @@ PRINT exactly two fenced blocks and nothing else:
 1. a ```markdown fence with the final production script
 2. a ```json fence with the .tags.json sidecar — "mission": {n}, schema per
    the existing content/scripts/*.tags.json files
+"""
+
+# Same slot for the Producer: producer.md's unfenced-word audit and the
+# `fence_size` it writes into the sidecar are only honest against the real
+# fence. Before this it had neither in its prompt and was tagging by feel.
+PRODUCER += """
+THE VOCABULARY FENCE — computed, verbatim. Your vocabulary audit and the
+`fence_size` you tag are measured against THIS list, never an impression of it.
+
+{fence}
 """
 
 CAPTIONS = PREAMBLE + """
@@ -256,6 +281,35 @@ def fenced_block(text: str, lang: str) -> str | None:
     return m[-1].strip() if m else None
 
 
+def ticket_fence(ticket: str) -> str | None:
+    """Slice the computed Vocabulary Fence out of the ticket, verbatim.
+
+    The fence reaches the writer as COMPUTED CONTEXT, never as an agentic read
+    — the same doctrine that moved the commission out of prose on 2026-07-28
+    ("code-assembled context beats an agentic read when the invariant is
+    known"). Until 2026-08-07 only the DIRECTOR pass saw the ticket, and the
+    Architect got whatever the Director had re-typed into the brief. That is a
+    lossy step on a 200-line list, and it lost: M84's brief carried 20 of 205
+    fence words, which put the scene under architect.md's "fence < 50 → lean
+    harder on English scaffolding" branch and produced a self-glossing
+    Intercept — every payload word translated inline, then translated AGAIN by
+    the Breakdown. Six of the last seven briefs truncated it the same way.
+
+    Returns None only when the SECTION IS MISSING, which is a hard failure
+    upstream. The two states must not be confused: an *empty* fence is a
+    legitimate cold-start (the section still prints its own "no recognized
+    words yet" notice, and that notice is what the writer should read), while
+    an absent section means this parser has lost the ticket — and a silently
+    fence-less episode is indistinguishable from a good one until Andrew
+    listens to it.
+    """
+    start = ticket.find(FENCE_HEAD)
+    if start < 0:
+        return None
+    end = ticket.find(FENCE_END, start)
+    return ticket[start:end if end > 0 else None].strip()
+
+
 def write_episode(n: int, write_pass=agy_print) -> bool:
     """Run the three passes; persist the three artifacts. Python is the only
     thing that touches disk. `write_pass` is the executor (agy or OpenRouter) —
@@ -263,13 +317,21 @@ def write_episode(n: int, write_pass=agy_print) -> bool:
     ticket = subprocess.run([sys.executable, str(BASE / "scripts" / "suggest_targets.py")],
                             capture_output=True, encoding="utf-8", errors="replace",
                             cwd=BASE, check=True).stdout
+    fence = ticket_fence(ticket)
+    if fence is None:
+        # Loud on purpose: fence-less, the writer takes the small-fence
+        # English-scaffolding branch and ships a plausible episode with the
+        # wrong language mix (M84). Never degrade quietly here.
+        print(f"   ✗ ticket has no '{FENCE_HEAD}' section — refusing to write "
+              "blind. Fix suggest_targets.py, or FENCE_HEAD here if it was renamed.")
+        return False
     plan = write_pass("Director", DIRECTOR.format(ticket=ticket))
     if not plan:
         return False
-    draft = write_pass("Architect", ARCHITECT.format(plan=plan))
+    draft = write_pass("Architect", ARCHITECT.format(plan=plan, fence=fence))
     if not draft:
         return False
-    final = write_pass("Producer", PRODUCER.format(draft=draft, n=n))
+    final = write_pass("Producer", PRODUCER.format(draft=draft, n=n, fence=fence))
     if not final:
         return False
 

@@ -43,6 +43,7 @@ import sys
 import tempfile
 import time
 import tokenize
+import types
 from datetime import date as date_cls, datetime, timedelta, timezone
 from pathlib import Path
 
@@ -1860,7 +1861,7 @@ def s28_cloud_writer(sb: Path):
     # inline_canon: the fix that made the cloud writer produce on-canon. The
     # thin slice caught it inventing a tags schema it had no filesystem to read;
     # the prompt's OWN 'protocol/...md' references are the manifest Python inlines.
-    producer_prompt = rs.PRODUCER.format(draft="DRAFT", n=99)
+    producer_prompt = rs.PRODUCER.format(draft="DRAFT", n=99, fence="FENCE")
     inlined = rs.inline_canon(producer_prompt)
     check("inline_canon pulls producer.md content into the prompt",
           "===== protocol/studio/producer.md =====" in inlined
@@ -4375,6 +4376,106 @@ def s52_andrew_is_family_already(sb: Path):
           "reads only profile.md + learner.json and cannot know")
 
 
+def s56_fence_reaches_the_writer(sb: Path):
+    """The Vocabulary Fence reaches the Architect as computed context, and a
+    missing one is loud (2026-08-07, Andrew, on M84).
+
+    Only the DIRECTOR pass ever saw the ticket. The Architect got
+    `ARCHITECT.format(plan=plan)` — so the fence reached the writer only as
+    whatever the Director had re-typed into the brief, and it arrived shredded:
+    20 of 205 words on M84, 0 on M79/M80, 2 on M81. That count is a BRANCH, not
+    a decoration — under architect.md's "fence < 50 → lean harder on English
+    scaffolding" the writer then correctly produced an English-carried scene,
+    M84 came out self-glossing, and the Breakdown glossed the same four payload
+    words a second time.
+
+    THE SILENT NO-OP: a truncated fence looks exactly like a good one. The brief
+    has a fence section, the sidecar has a `fence_size`, every pass returns, the
+    MP3 plays. Nothing in the system compares that number to what Python
+    computed — the failure is only audible, days later, to Andrew. So this case
+    asserts the EFFECT (the words are in the prompt the writer actually
+    received) round-tripped through the real `write_episode`, never that a
+    function ran. And it asserts the fence did not arrive via the plan: the
+    Director stub below returns a brief with NO fence in it, exactly like the
+    post-fix Director, so any fence words in the Architect prompt can only have
+    come from Python.
+    """
+    print("\n56. The fence reaches the writer as computed context (2026-08-07)")
+    rs = importlib.import_module("run_studio")
+
+    words = ["ஆமா", "இருக்கு", "வேண்டாம்", "பிடிக்காது", "சொன்னாங்க", "ரொம்ப"]
+    fence_lines = "\n".join(f"  - {w} — gloss {i}" for i, w in enumerate(words))
+    ticket = ("0. SCENE SPEC\n  Register: dread\n\n"
+              f"4. VOCABULARY FENCE  (the sea)\n{'-' * 60}\n"
+              f"  {len(words)} known words. Build dialogue from this pool.\n\n"
+              f"{fence_lines}\n\nFloor gap: 12 recognized words not yet firing cold.\n"
+              f"Vocabulary fence: {len(words)} words (the sea).\n")
+
+    block = rs.ticket_fence(ticket)
+    check("the fence block is sliced out of the ticket", block is not None)
+    check("...carrying every word, verbatim",
+          all(w in block for w in words),
+          f"missing from the slice: {[w for w in words if w not in (block or '')]}")
+    check("...and its stated count, which is the branch the Architect reads",
+          f"{len(words)} known words" in block)
+    check("...stopping before the ticket's trailing summary",
+          "Floor gap:" not in block, f"over-ran into: {block[-80:]!r}")
+
+    # A ticket whose fence section is GONE is not an empty fence — it is a lost
+    # parser, and it must never pass silently.
+    check("a ticket with no fence section slices to None",
+          rs.ticket_fence("0. SCENE SPEC\n  Register: dread\n") is None)
+
+    # ── The round trip: drive the real write_episode, capture real prompts ──
+    seen: dict[str, str] = {}
+    # The post-fix brief: a Master Lesson Plan with NO fence section in it.
+    plan = "# Tier 2, Mission 99\n## Core Targets\n- Register: dread\n"
+
+    def stub_pass(name: str, prompt: str) -> str:
+        seen[name] = prompt
+        if name == "Producer":
+            return ('```markdown\n**Host A (F):** ஆமா.\n```\n'
+                    '```json\n{"mission": 99}\n```')
+        if name == "Director":
+            return plan
+        return "**Host A (F):** ஆமா."
+
+    real_run = rs.subprocess.run
+    rs.subprocess.run = lambda *a, **k: types.SimpleNamespace(stdout=ticket, returncode=0)
+    try:
+        check("write_episode completes with a fence present",
+              rs.write_episode(99, write_pass=stub_pass) is True)
+        check("the ARCHITECT prompt carries the fence words",
+              all(w in seen.get("Architect", "") for w in words),
+              "the Architect is writing blind — this is the M84 bug")
+        check("...and its count, so the coverage branch is a read, not a guess",
+              f"{len(words)} known words" in seen.get("Architect", ""))
+        # The plan the Director HANDED BACK holds no fence — so the fence in
+        # the Architect's prompt can only have come from Python. (Checking the
+        # Director's *prompt* would prove nothing: it contains the ticket.)
+        check("...and they did NOT ride in on the Master Lesson Plan",
+              not any(w in plan for w in words) and plan in seen.get("Architect", ""),
+              "the plan is passed through intact and carries no fence of its own")
+        check("the PRODUCER prompt carries it too — its audit measures against it",
+              all(w in seen.get("Producer", "") for w in words),
+              "unfenced_words and fence_size were being tagged by feel")
+
+        # ── An absence must be loud ──
+        seen.clear()
+        rs.subprocess.run = lambda *a, **k: types.SimpleNamespace(
+            stdout="0. SCENE SPEC\n  Register: dread\n", returncode=0)
+        check("a fence-less ticket REFUSES the episode",
+              rs.write_episode(98, write_pass=stub_pass) is False,
+              "a fence-less episode is indistinguishable from a good one until "
+              "Andrew listens to it — it must never ship quietly")
+        check("...before any writer pass burns a token",
+              seen == {}, f"passes ran anyway: {sorted(seen)}")
+        check("...and without leaving a half-written episode on disk",
+              not (sb / "content" / "lessons" / "tier2_mission98_brief.md").exists())
+    finally:
+        rs.subprocess.run = real_run
+
+
 def s51_derived_files_are_rerendered_not_merged(mk, sb: Path):
     """A conflict in a DERIVED file must never sink the rebase (2026-08-04).
 
@@ -4754,6 +4855,7 @@ def main():
         s50_read_surfaces_are_phonetic(mk, kr, sb)
         s51_derived_files_are_rerendered_not_merged(mk, sb)
         s52_andrew_is_family_already(sb)
+        s56_fence_reaches_the_writer(sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)

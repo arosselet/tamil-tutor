@@ -1893,3 +1893,24 @@ Details live in git history; this is the index of the *conclusions*.
   which is what M81 was. Replaces the form+scale pair with form alone. Same diff:
   `narrated_drama` joins the Breakdown-omitted list; it was absent from that rule, so one
   got appended by default, and the Narrator has already glossed inside the scene.
+- **The fence reaches the writer as computed context, never a re-typed list** (2026-08-07,
+  Andrew, on M84). Only the DIRECTOR saw the ticket — the Architect got
+  `ARCHITECT.format(plan=plan)` — so the fence arrived only as whatever the Director had
+  re-typed into the brief, shredded: **20 of 205 words on M84**, 0 on M79/M80, 2 on M81.
+  That count is a branch: under `architect.md`'s "fence < 50 → lean
+  harder on English scaffolding" the writer then correctly wrote an English-carried scene,
+  and M84 came out self-glossing. **Replaces** the hand-copy (`director.md` Step 5 and the
+  brief template's fence section, both deleted) with `ticket_fence()`, threaded to the
+  Architect *and* Producer — which never had it either, so `unfenced_words` and
+  `fence_size` were tagged by feel. Same finding as the 2026-07-28 commission:
+  code-assembled context beats an agentic read. A missing section now refuses the
+  episode; an empty one stays legitimate. Smoke `s56`.
+- **An episode glosses once** (2026-08-07, Andrew, on M84: *"if it's densely Tamil and only
+  Tamil, then I need a bit of a breakdown… but if it's a narrated script which switches
+  back and forth, I don't need the English breakdown"*). The Breakdown's only job is making
+  an un-glossed immersion intelligible, so **the Intercept decides whether it belongs, not
+  the form label** — scene carried its own English → none; immersive Tamil → write it.
+  **Replaces** the 2026-08-05 `narrated_drama` carve-out, which fixed this one label at a
+  time: M84 was commissioned `phone_call`, whose label promised a light Breakdown, and Maya
+  & Raj re-glossed all four payload words in order — also breaking "colour, not coverage".
+  A list of labels is only ever as complete as the last failure.
