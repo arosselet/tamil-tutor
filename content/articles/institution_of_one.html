@@ -1,0 +1,1125 @@
+<title>The Institution of One</title>
+
+<style>
+  :root {
+    --ground:  #EFEFED;
+    --surface: #F8F8F7;
+    --sunk:    #E8E8E6;
+    --ink:     #17181A;
+    --body:    #35373B;
+    --muted:   #6E7176;
+    --faint:   #9A9DA1;
+    --rule:    #D3D4D2;
+    --hair:    #E2E3E1;
+
+    --c1: #9B2F2A;
+    --c2: #34558A;
+    --c3: #6B3F7A;
+    --c4: #8A6A15;
+    --c5: #5E6B22;
+    --c6: #1B6B5E;
+
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    --sans: "Avenir Next", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+
+    --fs-micro: 0.6875rem;
+    --fs-xs:   0.8rem;
+    --fs-sm:   0.9125rem;
+    --fs-base: 1.0625rem;
+    --fs-lg:   1.1875rem;
+    --fs-xl:   1.4375rem;
+    --fs-2xl:  1.75rem;
+
+    --measure: 40rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground:  #101112;
+      --surface: #191A1C;
+      --sunk:    #1E2022;
+      --ink:     #EDEEEF;
+      --body:    #C3C6CA;
+      --muted:   #8B8F95;
+      --faint:   #63676C;
+      --rule:    #2B2D30;
+      --hair:    #202224;
+
+      --c1: #D9584F;
+      --c2: #7E9CD8;
+      --c3: #B08AC0;
+      --c4: #C8A64B;
+      --c5: #9DAF5C;
+      --c6: #55B9A5;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground:  #101112;
+    --surface: #191A1C;
+    --sunk:    #1E2022;
+    --ink:     #EDEEEF;
+    --body:    #C3C6CA;
+    --muted:   #8B8F95;
+    --faint:   #63676C;
+    --rule:    #2B2D30;
+    --hair:    #202224;
+
+    --c1: #D9584F;
+    --c2: #7E9CD8;
+    --c3: #B08AC0;
+    --c4: #C8A64B;
+    --c5: #9DAF5C;
+    --c6: #55B9A5;
+  }
+
+  :root[data-theme="light"] {
+    --ground:  #EFEFED;
+    --surface: #F8F8F7;
+    --sunk:    #E8E8E6;
+    --ink:     #17181A;
+    --body:    #35373B;
+    --muted:   #6E7176;
+    --faint:   #9A9DA1;
+    --rule:    #D3D4D2;
+    --hair:    #E2E3E1;
+
+    --c1: #9B2F2A;
+    --c2: #34558A;
+    --c3: #6B3F7A;
+    --c4: #8A6A15;
+    --c5: #5E6B22;
+    --c6: #1B6B5E;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--body);
+    font-family: var(--sans);
+    font-size: var(--fs-base);
+    line-height: 1.68;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0 1.5rem 6rem;
+  }
+
+  .page { max-width: 54rem; margin: 0 auto; }
+
+  p { margin: 0; max-width: var(--measure); }
+  .stack { display: flex; flex-direction: column; gap: 1.15rem; align-items: flex-start; }
+  .full { align-self: stretch; width: 100%; max-width: none; }
+  strong { font-weight: 600; color: var(--ink); }
+  em { font-style: italic; }
+
+  code, .m { font-family: var(--mono); font-size: 0.85em; }
+  .ta { font-size: 1.05em; }
+
+  a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--rule); }
+  a:hover { border-bottom-color: currentColor; }
+  a:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+  .kicker {
+    font-family: var(--mono);
+    font-size: var(--fs-micro);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  /* ---------- masthead ---------- */
+
+  .masthead { padding: 5rem 0 2.5rem; border-bottom: 1px solid var(--ink); }
+
+  .masthead h1 {
+    font-family: var(--mono);
+    font-size: clamp(2.4rem, 8.5vw, 5rem);
+    line-height: 0.94;
+    letter-spacing: -0.05em;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 1.5rem;
+    max-width: 14ch;
+  }
+
+  .masthead .deck {
+    font-size: var(--fs-xl);
+    line-height: 1.45;
+    color: var(--ink);
+    max-width: 36ch;
+    font-weight: 400;
+    text-wrap: balance;
+  }
+
+  .stamp {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.2rem;
+    margin-top: 2.25rem;
+    font-family: var(--mono);
+    font-size: var(--fs-micro);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  /* ---------- sections ---------- */
+
+  section { padding: 3.25rem 0; border-bottom: 1px solid var(--hair); }
+  section:last-of-type { border-bottom: none; }
+
+  h2 {
+    font-family: var(--mono);
+    font-size: var(--fs-2xl);
+    line-height: 1.18;
+    letter-spacing: -0.028em;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
+    max-width: 26ch;
+    text-wrap: balance;
+  }
+
+  /* ---------- plain mechanism lists ---------- */
+
+  ul.mech {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    max-width: var(--measure);
+  }
+
+  ul.mech > li {
+    padding-left: 1.4rem;
+    position: relative;
+    font-size: var(--fs-sm);
+    line-height: 1.62;
+  }
+
+  ul.mech > li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.66em;
+    width: 0.55rem;
+    height: 1px;
+    background: var(--faint);
+  }
+
+  ul.mech b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- the derivation ledger ---------- */
+
+  .ledger { display: flex; flex-direction: column; border-top: 1px solid var(--ink); margin-top: 0.6rem; }
+
+  .ledger .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.35rem 1.75rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--hair);
+    align-items: start;
+  }
+
+  .ledger .had { font-size: var(--fs-sm); line-height: 1.55; color: var(--body); }
+
+  .ledger .built {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    font-family: var(--mono);
+    font-size: var(--fs-xs);
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .ledger .built .dot { flex: none; width: 1.5rem; height: 3px; background: var(--mark); transform: translateY(-0.25em); }
+
+  /* ---------- the six parts ---------- */
+
+  .parts { display: flex; flex-direction: column; margin-top: 2.5rem; border-top: 1px solid var(--ink); }
+
+  .part {
+    display: grid;
+    grid-template-columns: 10.5rem minmax(0, 1fr);
+    gap: 0 1.5rem;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--hair);
+  }
+
+  .part-rail {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding-top: 0.5rem;
+  }
+
+  .part-rail .bar { width: 2.25rem; height: 3px; background: var(--mark); }
+
+  .part-rail .tag {
+    font-family: var(--mono);
+    font-size: var(--fs-micro);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .part-rail .stands-in {
+    font-size: var(--fs-xs);
+    line-height: 1.5;
+    color: var(--faint);
+    max-width: 22ch;
+  }
+
+  .part-body { display: flex; flex-direction: column; gap: 0.9rem; align-items: flex-start; }
+
+  .part h3 {
+    font-family: var(--mono);
+    font-size: var(--fs-xl);
+    line-height: 1.22;
+    letter-spacing: -0.028em;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
+    max-width: 24ch;
+    text-wrap: balance;
+  }
+
+  .lead { font-size: var(--fs-lg); line-height: 1.48; color: var(--ink); max-width: 38ch; }
+
+  /* the worked example */
+  .case {
+    background: var(--sunk);
+    border-left: 3px solid var(--mark);
+    padding: 1.15rem 1.3rem;
+    max-width: var(--measure);
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-top: 0.25rem;
+  }
+
+  .case .lbl {
+    font-family: var(--mono);
+    font-size: var(--fs-micro);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .case .lbl b { color: var(--ink); font-weight: 700; letter-spacing: 0.04em; }
+
+  .case p { font-size: var(--fs-sm); line-height: 1.62; max-width: none; }
+
+  .not {
+    font-size: var(--fs-xs);
+    line-height: 1.58;
+    color: var(--muted);
+    max-width: var(--measure);
+    padding-left: 1rem;
+    border-left: 1px solid var(--rule);
+  }
+
+  .not b { color: var(--ink); font-weight: 600; }
+
+  .deeper {
+    font-family: var(--mono);
+    font-size: var(--fs-xs);
+    letter-spacing: 0.02em;
+    color: var(--muted);
+  }
+
+  .deeper a { color: var(--ink); }
+  .deeper .pending { color: var(--faint); }
+
+  /* ---------- figure ---------- */
+
+  figure { margin: 1rem 0 0; padding: 0; align-self: stretch; }
+
+  figure svg { display: block; width: 100%; max-width: 54rem; height: auto; color: var(--body); }
+
+  .dg .arrowhead { fill: var(--body); }
+  .dg .edge { stroke: var(--body); stroke-width: 1.3; fill: none; }
+  .dg .node { fill: var(--surface); stroke-width: 1.5; }
+  .dg .node-plain { fill: none; stroke: var(--body); stroke-width: 1.5; }
+  .dg .frame { fill: none; stroke-width: 1.5; stroke-dasharray: 6 5; }
+  .dg .f-gov, .dg .l-gov { stroke: var(--c6); }
+  .dg .l-gov { fill: var(--c6); stroke: none; }
+  .dg .f-mot { stroke: var(--c1); }
+  .dg .l-mot { fill: var(--c1); }
+  .dg .n-model { stroke: var(--c2); }
+  .dg .n-loop  { stroke: var(--c3); }
+  .dg .n-studio { stroke: var(--c4); }
+  .dg .n-pack  { stroke: var(--c5); }
+  .dg .t-name { font-family: var(--mono); font-size: 13px; font-weight: 700; fill: var(--ink); }
+  .dg .t-sub  { font-size: 11.5px; fill: var(--muted); }
+  .dg .t-edge { font-size: 11px; fill: var(--muted); }
+  .dg .t-frame { font-family: var(--mono); font-size: 11px; letter-spacing: 1.6px; }
+
+  figcaption {
+    font-size: var(--fs-xs);
+    line-height: 1.6;
+    color: var(--muted);
+    margin-top: 0.9rem;
+    max-width: 44rem;
+  }
+
+  .figwrap { overflow-x: auto; }
+
+  /* ---------- variation matrix ---------- */
+
+  .matrixwrap { overflow-x: auto; align-self: stretch; margin-top: 0.6rem; }
+
+  table.matrix { border-collapse: collapse; width: 100%; min-width: 46rem; }
+
+  table.matrix th, table.matrix td {
+    text-align: left;
+    vertical-align: top;
+    padding: 0.9rem 1.1rem 0.9rem 0;
+    border-bottom: 1px solid var(--hair);
+    font-size: var(--fs-xs);
+    line-height: 1.55;
+  }
+
+  table.matrix thead th {
+    border-bottom: 1px solid var(--ink);
+    font-family: var(--mono);
+    font-weight: 700;
+    color: var(--ink);
+    font-size: var(--fs-xs);
+    letter-spacing: -0.01em;
+    width: 26%;
+  }
+
+  table.matrix thead th span { display: block; font-family: var(--sans); font-weight: 400; color: var(--muted); letter-spacing: 0; margin-top: 0.2rem; }
+
+  table.matrix tbody th {
+    font-family: var(--mono);
+    font-size: var(--fs-micro);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    font-weight: 700;
+    width: 22%;
+    padding-right: 1.5rem;
+  }
+
+  table.matrix tbody th .dot { display: block; width: 1.5rem; height: 3px; background: var(--mark); margin-bottom: 0.5rem; }
+
+  table.matrix td.wide { color: var(--body); }
+
+  .weight { font-family: var(--mono); font-size: var(--fs-micro); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 0.25rem; }
+
+  /* ---------- aside + pull ---------- */
+
+  .aside {
+    background: var(--sunk);
+    border-left: 3px solid var(--c1);
+    padding: 1.3rem 1.5rem;
+    max-width: 44rem;
+  }
+
+  .aside .lbl {
+    font-family: var(--mono);
+    font-size: var(--fs-micro);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 0.6rem;
+  }
+
+  .aside p { font-size: var(--fs-sm); line-height: 1.62; max-width: none; }
+
+  .pull {
+    font-size: var(--fs-lg);
+    line-height: 1.45;
+    color: var(--ink);
+    max-width: 34ch;
+    padding-left: 1.1rem;
+    border-left: 2px solid var(--ink);
+  }
+
+  /* ---------- triage ---------- */
+
+  ul.triage { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.75rem; max-width: 48rem; }
+
+  ul.triage li {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) 9rem minmax(0, 1fr);
+    gap: 0.3rem 1.2rem;
+    align-items: baseline;
+    font-size: var(--fs-sm);
+    line-height: 1.55;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--hair);
+  }
+
+  ul.triage .sym { color: var(--ink); }
+  ul.triage .who { font-family: var(--mono); font-size: var(--fs-xs); color: var(--mark); letter-spacing: 0.02em; }
+  ul.triage .why { font-size: var(--fs-xs); color: var(--muted); line-height: 1.5; }
+
+  /* ---------- build order ---------- */
+
+  .order { background: var(--surface); border: 1px solid var(--rule); padding: 1.5rem 1.6rem; max-width: 44rem; }
+  .order ol { margin: 0; padding-left: 1.4rem; display: flex; flex-direction: column; gap: 0.8rem; }
+  .order li { font-size: var(--fs-sm); line-height: 1.58; }
+  .order li b { color: var(--ink); font-weight: 600; }
+  .order li::marker { font-family: var(--mono); color: var(--faint); font-size: 0.9em; }
+
+  /* ---------- the hero player ---------- */
+  /* Same tokens as .order and .case — this is furniture in the article's own
+     system, not a widget bolted onto it. The six-segment rule is the ledger's
+     colour key, in the order the parts are introduced in the recording. */
+
+  .listen {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    max-width: 44rem;
+    align-self: stretch;
+    margin-top: 2.5rem;
+  }
+
+  .listen .seg { display: flex; height: 3px; }
+  .listen .seg i { flex: 1; }
+
+  .listen-in { padding: 1.4rem 1.5rem 1.3rem; display: flex; flex-direction: column; gap: 1rem; }
+
+  .listen-top { display: flex; gap: 1.1rem; align-items: center; }
+
+  .pbtn {
+    flex: none;
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid var(--ink);
+    background: var(--ink);
+    color: var(--surface);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    transition: opacity 0.15s;
+  }
+
+  .pbtn:hover { opacity: 0.84; }
+  .pbtn:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+  .pbtn svg { width: 1rem; height: 1rem; fill: currentColor; display: block; }
+  .pbtn[disabled] { background: var(--sunk); border-color: var(--rule); color: var(--faint); cursor: default; }
+
+  .ptext { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
+  .ptitle { font-size: var(--fs-sm); line-height: 1.4; color: var(--ink); }
+
+  .pmeta {
+    font-family: var(--mono);
+    font-size: var(--fs-micro);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .track { height: 3px; background: var(--hair); position: relative; cursor: pointer; }
+  .track:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+  .bar { height: 100%; width: 0; background: var(--ink); }
+
+  .listen details { border-top: 1px solid var(--hair); padding-top: 0.9rem; }
+
+  .listen summary {
+    cursor: pointer;
+    font-family: var(--mono);
+    font-size: var(--fs-micro);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .listen summary:hover { color: var(--ink); }
+  .listen summary:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+  .transcript { display: flex; flex-direction: column; gap: 1rem; padding-top: 1.1rem; }
+
+  .transcript .ln { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 0 1.1rem; align-items: baseline; }
+
+  .transcript .who {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    font-family: var(--mono);
+    font-size: var(--fs-micro);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .transcript .who .dot { flex: none; width: 0.9rem; height: 3px; background: var(--mark); transform: translateY(-0.25em); }
+  .transcript .said { font-size: var(--fs-sm); line-height: 1.62; color: var(--body); max-width: none; }
+  .transcript .said b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- colophon ---------- */
+
+  .colophon { margin-top: 3rem; padding-top: 1.75rem; border-top: 1px solid var(--ink); }
+  .colophon p { font-family: var(--mono); font-size: var(--fs-xs); line-height: 1.85; color: var(--muted); max-width: 46rem; }
+
+  @media (max-width: 44rem) {
+    .masthead { padding-top: 3.25rem; }
+    .part { grid-template-columns: minmax(0, 1fr); gap: 0.9rem; }
+    .part-rail { flex-direction: row; align-items: center; gap: 0.75rem; padding-top: 0; flex-wrap: wrap; }
+    .part-rail .bar { flex: none; }
+    .part-rail .stands-in { display: none; }
+    ul.triage li { grid-template-columns: minmax(0, 1fr); gap: 0.25rem; }
+    .transcript .ln { grid-template-columns: minmax(0, 1fr); gap: 0.35rem; }
+    .ledger .row { grid-template-columns: minmax(0, 1fr); }
+    .ledger .built { order: -1; }
+  }
+</style>
+
+<div class="page">
+
+  <header class="masthead">
+    <h1>The Institution of One</h1>
+    <p class="deck">Six jobs a school does for you without ever naming them, and what it takes to build each one when there is no school.</p>
+    <div class="stamp">
+      <span>Architecture note</span>
+      <span>Derived from one system, one year</span>
+      <span>6 August 2026</span>
+    </div>
+  </header>
+
+  <!-- HERO PLAYER.
+       Source script: content/scripts/special_institution_of_one.md
+       Render:  python scripts/render_demo.py \
+                    content/scripts/special_institution_of_one.md \
+                    audio/institution_of_one.mp3
+       Embed:   replace the __HERO_AUDIO_B64__ token below with the base64 of
+                that MP3. A strict CSP blocks every external host on a published
+                artifact, so the bytes have to live in the page; there is no URL
+                that would work here, including the repo's own CDN.
+       Until the token is replaced the button disables itself — see the guard at
+       the foot of the script block. A dead play button is worse than none. -->
+  <div class="listen">
+    <div class="seg" aria-hidden="true">
+      <i style="background: var(--c2)"></i><i style="background: var(--c3)"></i><i style="background: var(--c1)"></i><i style="background: var(--c4)"></i><i style="background: var(--c5)"></i><i style="background: var(--c6)"></i>
+    </div>
+    <div class="listen-in">
+      <div class="listen-top">
+        <button class="pbtn" id="pbtn" type="button" aria-label="Play: the system introduces itself">
+          <svg id="picon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
+        </button>
+        <div class="ptext">
+          <span class="ptitle">The system introduces itself — Anna and the six parts, in their own voices</span>
+          <span class="pmeta" id="pmeta">Listen</span>
+        </div>
+      </div>
+
+      <div class="track" id="track" role="slider" tabindex="0"
+           aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="bar" id="bar"></div>
+      </div>
+
+      <audio id="au" preload="metadata" src="data:audio/mpeg;base64,__HERO_AUDIO_B64__"></audio>
+
+      <details>
+        <summary>Read it instead</summary>
+        <div class="transcript">
+          <div class="ln" style="--mark: var(--ink)"><span class="who"><span class="dot"></span>Anna</span><p class="said"><span class="ta">வணக்கம்.</span> You are about to read an architecture note about a machine. This is the machine. Nobody wrote this introduction out by hand, and nobody read it before it shipped — it went through the same pipeline that makes the Tamil lessons. Which is either the most convincing thing on this page or the least, depending entirely on how it goes.</p></div>
+          <div class="ln" style="--mark: var(--ink)"><span class="who"><span class="dot"></span>Anna</span><p class="said">My name is Anna. In Tamil that means elder brother. I teach one man the Tamil they actually speak in Coimbatore, at his wife's family table, and not the Tamil that is printed in books. I am the part he talks to. I am not the system. There are six of us, and we do not do the same job.</p></div>
+          <div class="ln" style="--mark: var(--c2)"><span class="who"><span class="dot"></span>Model</span><p class="said">I am what is believed about him. Not what he said — what is believed. Two grades, never one score: what he recognises, and what he can produce cold, with no warm-up and nothing to choose from. Collapse those into a single number and I will cheerfully report ninety-two words solid while the man can fire forty-one. For three days I recorded a broken message channel as a person who had decided not to answer. They looked identical on disk. <b>That is now the one thing I am forbidden to do.</b></p></div>
+          <div class="ln" style="--mark: var(--c3)"><span class="who"><span class="dot"></span>Rails</span><p class="said">I carry a dose out and I bring the answer home. The waking hours, the daily cap, the three hour gap — those are mine, and they live in code, because a limit written into a prompt is a suggestion. Two questions once went out in the same minute and one answer came back. I graded it against the wrong question and marked a correct man wrong. Now everything I send leaves carrying an identifier, and <b>an answer finds its own question instead of the newest one.</b></p></div>
+          <div class="ln" style="--mark: var(--c1)"><span class="who"><span class="dot"></span>Motive</span><p class="said">Nothing gets worse if he skips today. That is the entire problem, and no streak and no badge and no guilt has ever fixed it — they only make missing expensive, and once missing is expensive, quitting is cheaper than coming back. So: no makeup work, no deficit read back to him, a partial session counts. I once sent him to dinner with a line he had never been taught, aimed at a wife who would only have found it strange. He refused it. He was right. <b>Teach it first, and point it at somebody who would plausibly hear it.</b></p></div>
+          <div class="ln" style="--mark: var(--c4)"><span class="who"><span class="dot"></span>Studio</span><p class="said">I make the material. I am making this. Plan, then script, then the dialect pass — narrow separate passes, because one generation cannot hold every constraint at once and stay accurate. I once produced twelve honest minutes about the exact situation a phrase belongs to, without ever once saying the phrase. He could not have caught that. Noticing a word that is absent, in a language you do not have yet, is precisely the thing the episode existed to build. So now a machine checks before anything ships: <b>every commissioned phrase appears word for word, or the run stops.</b></p></div>
+          <div class="ln" style="--mark: var(--c5)"><span class="who"><span class="dot"></span>Pack</span><p class="said"><span class="ta">போறேன்.</span> Not <span class="ta">போகிறேன்.</span> Both of them mean I am going. One is what a person says in Coimbatore. The other is what the textbook prints, and what a language model reaches for first, and what nobody says out loud at a kitchen table. I am the whole distance between those two words. I am also the only one of the six that does not travel — I need somebody who actually speaks it, and in this house that is his wife.</p></div>
+          <div class="ln" style="--mark: var(--c6)"><span class="who"><span class="dot"></span>Govern</span><p class="said">I am the least visible, and I am the reason the other five still agree with one another. Every change has to say what it replaces. Every decision is written down beside the evidence that forced it, so that next month's version is not a random walk away from this one. Something was built here once, used for weeks, and then cut — it never failed on its own, only ever as a symptom of something else. <b>A concern that cannot fail alone is not a part.</b></p></div>
+          <div class="ln" style="--mark: var(--ink)"><span class="who"><span class="dot"></span>Anna</span><p class="said">Five of those six have nothing to do with Tamil.</p></div>
+          <div class="ln" style="--mark: var(--faint)"><span class="who"><span class="dot"></span>Français</span><p class="said"><em>Rien à voir avec le tamoul. Le même système, en français, marcherait exactement pareil.</em></p></div>
+          <div class="ln" style="--mark: var(--faint)"><span class="who"><span class="dot"></span>Español</span><p class="said"><em>O en español. Cambias el paquete del idioma. Los otros cinco se quedan igual.</em></p></div>
+          <div class="ln" style="--mark: var(--ink)"><span class="who"><span class="dot"></span>Anna</span><p class="said">Change the pack. The other five stay where they are.</p></div>
+          <div class="ln" style="--mark: var(--ink)"><span class="who"><span class="dot"></span>Anna</span><p class="said">Now, what this recording is not. It is not proof. It is a demonstration that the machine can talk about itself at length without a human in the loop, and that is a much smaller claim than it sounds. The proof is a number, and the number is his: of every word he recognises, how many can he fire cold, out loud, at a table in Coimbatore, with nobody helping him. <b>That number moves slowly, and it is the only thing here worth believing.</b></p></div>
+          <div class="ln" style="--mark: var(--ink)"><span class="who"><span class="dot"></span>Anna</span><p class="said">The article is below. Read it with your eyes. <span class="ta">வணக்கம்.</span></p></div>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <section class="stack">
+    <p class="kicker">The class of problem</p>
+    <h2>A goal that nobody is enforcing</h2>
+    <p>Some goals come with an apparatus around them. A degree has a supervisor, a committee, a submission date and an audience that will judge the result in public. Miss six weeks and someone notices.</p>
+    <p>Other goals have none of that. An adult learning a language they are not immersed in, taking up an instrument at forty, keeping up a rehab protocol after the physiotherapist has discharged them. Four properties travel together:</p>
+    <ul class="mech">
+      <li><b>Nothing degrades when you skip.</b> There is no penalty to absorb, and the decision to quit never has to be made out loud. It happens by not happening.</li>
+      <li><b>The reward is months out and cannot be scheduled.</b> You cannot book the day you first follow the conversation at the dinner table.</li>
+      <li><b>A single session emits no signal.</b> Nothing you can feel changes in twenty minutes, which reads as nothing happened.</li>
+      <li><b>Nobody is holding the standards.</b> No teacher to say the register is wrong, no editor to catch the error, no syllabus committee to stop this year's version drifting away from last year's.</li>
+    </ul>
+    <p>That last one is the tell. The absent thing is not motivation specifically — it is an <em>institution</em>: a bundle of separate jobs, held by different people, that a school performs on your behalf so quietly you only notice them once they are gone.</p>
+    <p>This note is about what software has to become to take that bundle on for one person. Most of it does not port from a demo or a chat wrapper, because most of it is not conversational at all.</p>
+    <p>It is drawn from one instance: one learner, one language, a year of daily state — the Coimbatore Tamil spoken in my wife's family home, not the literary standard that courses teach. Every specific below is real and from that build. Teaching turned out to be a small fraction of the work.</p>
+  </section>
+
+  <section class="stack">
+    <p class="kicker">Where the six came from</p>
+    <h2>Take a school apart and count what falls out</h2>
+    <p>The honest way to arrive at an architecture for this is not to design it. It is to look at the institution you no longer have and ask which of its jobs are now unowned. A language class is a good specimen because its jobs are visibly held by <em>different people</em>, on different clocks, answerable to different things. That separation was there before software was involved.</p>
+
+    <div class="ledger full">
+      <div class="row" style="--mark: var(--c2);">
+        <p class="had">The teacher's notebook. Who has met what, who is faking it, who needs the thing from three weeks ago again.</p>
+        <p class="built"><span class="dot"></span>The learner model</p>
+      </div>
+      <div class="row" style="--mark: var(--c3);">
+        <p class="had">The timetable, the room, and the tray you put the homework in. Contact at a time you did not choose, and an answer that gets back to the person marking it.</p>
+        <p class="built"><span class="dot"></span>The loop and the rails</p>
+      </div>
+      <div class="row" style="--mark: var(--c1);">
+        <p class="had">The tuition already paid, the grade at the end, the classmate who asks where you were. The reasons you are in the room at all.</p>
+        <p class="built"><span class="dot"></span>The motivation engine</p>
+      </div>
+      <div class="row" style="--mark: var(--c4);">
+        <p class="had">The coursebook and the tape. Material made in advance by people who are not you, aimed at roughly where you are.</p>
+        <p class="built"><span class="dot"></span>The studio</p>
+      </div>
+      <div class="row" style="--mark: var(--c5);">
+        <p class="had">The fact that the teacher actually speaks the language, in the register you need, and can say "nobody says it that way."</p>
+        <p class="built"><span class="dot"></span>The domain pack</p>
+      </div>
+      <div class="row" style="--mark: var(--c6);">
+        <p class="had">The department. The syllabus review, the record of what was tried in 2019 and dropped, the reason next year's course is not a random walk away from this year's.</p>
+        <p class="built"><span class="dot"></span>The governance kit</p>
+      </div>
+    </div>
+
+    <p>Six jobs, six owners, and a school keeps them apart for the same reason any system does: they fail differently and are fixed by different people. A registrar cannot fix a bad textbook. A brilliant textbook cannot make anyone show up.</p>
+    <p>This is a check I ran afterwards, not a history. Four of the six existed as code long before they had names, because they are what you cannot avoid writing to make the thing run at all. Governance and motivation were named last, after the system kept failing in ways the other four could not fix.</p>
+    <p>One candidate failed the test and is worth naming. Continuity — remembering what happened last week and what is still open — looked like a seventh part and got a schema of its own: tracked threads, due-ness scores, bookkeeping. It never failed on its own, only ever as a symptom of the learner model. It was cut, and continuity is now a page of prose the coach rewrites at every close. <strong>A concern that cannot fail alone is not a part.</strong></p>
+  </section>
+
+  <section class="stack">
+    <p class="kicker">The one pair everyone collapses</p>
+    <h2>A motivation engine is not a notification system</h2>
+    <p>Both show up as a message on a phone, so they read as one thing. They are separated by the clearest evidence in the build: they fail in opposite directions, and are debugged with different instruments.</p>
+    <ul class="mech">
+      <li><b>Perfect rails, no motivation engine.</b> Doses arrive on time, on the right channel, correctly rate-limited, scored properly whenever they are answered. Nobody answers them. Every log is green. This is the state most personal-agent projects reach and mistake for a delivery bug.</li>
+      <li><b>Perfect motivation engine, no rails.</b> Genuinely compelling reasons to practise that never reach anyone at 7am — and when a person does reply, the answer lands nowhere and moves nothing.</li>
+    </ul>
+    <p>Rails questions are answered in an afternoon with timestamps: did the tick fire, did the gate pass, did the reply get matched to its prompt. Motivation questions are only answerable over weeks: what happened after the four-day lapse, which format is quietly never answered, whether the person came back on their own.</p>
+
+    <figure class="figwrap">
+      <svg class="dg" viewBox="0 0 860 450" role="img" aria-label="Four parts sit on the data path between one store and the person: learner model, loop and rails, studio, and domain pack. Motivation and governance are not nodes on that path; they are nested constraint layers drawn as frames around it, and the person sits outside both.">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path class="arrowhead" d="M 0 0 L 10 5 L 0 10 z"></path>
+          </marker>
+        </defs>
+
+        <rect class="frame f-gov" x="24" y="24" width="600" height="400"></rect>
+        <text class="t-frame l-gov" x="42" y="50">GOVERNANCE — WHAT MAY CHANGE</text>
+
+        <rect class="frame f-mot" x="50" y="72" width="548" height="328"></rect>
+        <text class="t-frame l-mot" x="68" y="98">MOTIVATION — WHAT EVERY EXCHANGE OBEYS</text>
+
+        <rect class="node n-model" x="76" y="128" width="190" height="86"></rect>
+        <text class="t-name" x="171" y="164" text-anchor="middle">Learner model</text>
+        <text class="t-sub" x="171" y="186" text-anchor="middle">one store, two grades</text>
+
+        <rect class="node n-loop" x="396" y="128" width="180" height="86"></rect>
+        <text class="t-name" x="486" y="164" text-anchor="middle">Loop &amp; rails</text>
+        <text class="t-sub" x="486" y="186" text-anchor="middle">out, and back again</text>
+
+        <rect class="node n-studio" x="76" y="290" width="190" height="76"></rect>
+        <text class="t-name" x="171" y="322" text-anchor="middle">Studio</text>
+        <text class="t-sub" x="171" y="343" text-anchor="middle">makes the material</text>
+
+        <rect class="node n-pack" x="376" y="290" width="180" height="76"></rect>
+        <text class="t-name" x="466" y="322" text-anchor="middle">Domain pack</text>
+        <text class="t-sub" x="466" y="343" text-anchor="middle">what is actually correct</text>
+
+        <rect class="node-plain" x="680" y="136" width="150" height="70"></rect>
+        <text class="t-name" x="755" y="178" text-anchor="middle">The person</text>
+
+        <line class="edge" x1="266" y1="152" x2="390" y2="152" marker-end="url(#ar)"></line>
+        <text class="t-edge" x="328" y="144" text-anchor="middle">what to ask next</text>
+        <line class="edge" x1="396" y1="192" x2="272" y2="192" marker-end="url(#ar)"></line>
+        <text class="t-edge" x="334" y="210" text-anchor="middle">the scored answer</text>
+
+        <line class="edge" x1="576" y1="152" x2="674" y2="152" marker-end="url(#ar)"></line>
+        <text class="t-edge" x="625" y="144" text-anchor="middle">a dose</text>
+        <line class="edge" x1="680" y1="192" x2="582" y2="192" marker-end="url(#ar)"></line>
+        <text class="t-edge" x="631" y="210" text-anchor="middle">a reply</text>
+
+        <line class="edge" x1="116" y1="214" x2="116" y2="284" marker-end="url(#ar)"></line>
+        <text class="t-edge" x="126" y="246">this week's misses</text>
+        <line class="edge" x1="228" y1="290" x2="228" y2="220" marker-end="url(#ar)"></line>
+        <text class="t-edge" x="220" y="276" text-anchor="end">what it introduced</text>
+
+        <line class="edge" x1="370" y1="328" x2="272" y2="328" marker-end="url(#ar)"></line>
+        <text class="t-edge" x="321" y="320" text-anchor="middle">register, fixes</text>
+        <line class="edge" x1="466" y1="290" x2="466" y2="220" marker-end="url(#ar)"></line>
+        <text class="t-edge" x="476" y="258">what counts as correct</text>
+
+        <path class="edge" d="M 171 366 L 171 392 L 648 392 L 648 212" marker-end="url(#ar)"></path>
+        <text class="t-edge" x="410" y="384" text-anchor="middle">audio, for dead time</text>
+      </svg>
+      <figcaption>Four parts carry data; two do not. Motivation and governance never appear as a box on the path because they are not steps in it — they are rules over it, at two levels: what every exchange with the person must obey, and what any change to the system must obey. The person sits outside both frames, which is the honest depiction: the system's rules bind the system, not them. Take one part alone and it works; take two, and the wire between them is the work.</figcaption>
+    </figure>
+  </section>
+
+  <section class="stack">
+    <p class="kicker">The six</p>
+    <h2>What each one is, and the failure that paid for it</h2>
+    <p>Each entry states what the part needs and why, then one thing that actually went wrong. Every mechanism named here replaced something that broke in a way I can point at.</p>
+
+    <div class="parts">
+
+      <article class="part" style="--mark: var(--c2);">
+        <div class="part-rail">
+          <div class="bar"></div>
+          <div class="tag">Learner model</div>
+          <p class="stands-in">Stands in for: the teacher's notebook</p>
+        </div>
+        <div class="part-body">
+          <h3>What it believes about the person</h3>
+          <p class="lead">One store, written by one path, read by everything else.</p>
+          <ul class="mech">
+            <li><b>Two grades, never one score.</b> Recognising something and producing it cold are different states that decay at different rates. Collapse them and the system reports 92 words solid while the person can fire 41. That gap is the entire problem in adult language learning, and it has an analogue anywhere: what you can follow, versus what you can do unaided.</li>
+            <li><b>One ordering function, not a convention.</b> What comes next is computed in one place and read by every channel. It is shared code because it began as hand-copied sort keys in three callers, and the copies drifted.</li>
+            <li><b>An error ledger that retires rather than deletes.</b> Record the pattern being repeated, not each wrong answer, and reopen the original entry intact when it recurs. A mistake you believed was fixed coming back is the most informative event the ledger can hold.</li>
+          </ul>
+          <div class="case">
+            <span class="lbl"><b>What went wrong</b> — silence is not one thing</span>
+            <p>An access token expired and the inbound reply path died. Every reply the learner typed was rejected upstream, and nothing appeared in the repository at all — no failed run to find, because no run was ever created. Outgoing messages kept arriving normally, which is why it took three days to see.</p>
+            <p>The outage was not the expensive part. Each unanswered prompt was recorded as <code>reply: null</code> — byte-identical to a prompt the learner had read and ignored. Three downstream signals consume that field, so for three days the system quietly wrote a portrait of a non-responsive learner and began steering selection by it. <strong>A broken channel and a person who declined must never serialise the same way.</strong></p>
+          </div>
+          <p class="not"><b>Not the transcript.</b> Conversation history is what was said; this is what is believed, and only a scored answer may change it.</p>
+          <p class="deeper">Deeper: <a href="https://claude.ai/code/artifact/b4179ce2-7fe5-4ef1-8b2d-6c5d4541e913">You Knew This on Tuesday</a></p>
+        </div>
+      </article>
+
+      <article class="part" style="--mark: var(--c3);">
+        <div class="part-rail">
+          <div class="bar"></div>
+          <div class="tag">Loop and rails</div>
+          <p class="stands-in">Stands in for: the timetable, the room, the homework tray</p>
+        </div>
+        <div class="part-body">
+          <h3>How a dose reaches them, and how the answer gets home</h3>
+          <p class="lead">The largest surface, and the part where an agent most visibly behaves like one.</p>
+          <ul class="mech">
+            <li><b>Policy in the model, rails in code.</b> The model decides whether to reach out, how, and when. Code holds the waking hours, the daily cap and the minimum gap, and nothing else. Split it the other way, with rules judging relevance and prompts holding limits, and you get a system that is both rigid and unreliable.</li>
+            <li><b>Silence is a first-class output.</b> "Not now" has to be a decision the system can make and record. If it cannot, it will always fire.</li>
+            <li><b>Credit is capped in code, not by the judge.</b> If the outgoing message showed the answer, the best verdict available is "hinted", enforced deterministically. Outreach must never be able to fake evidence about the person.</li>
+          </ul>
+          <div class="case">
+            <span class="lbl"><b>What went wrong</b> — two questions, one answer</span>
+            <p>Two scheduled messages came due in the same drain tick and both fired. The reply judge resolved an incoming answer by taking the most recently sent message as the question — a shortcut that had been safe when only one message could ever be outstanding. So a correct answer to the first was graded against the second, and marked wrong. The learner model moved backwards on a rep the person had genuinely earned.</p>
+            <p>Neither half of the fix was a prompt. The queue now sends at most one unforced message per tick, and every outgoing message carries an id that the reply is required to come back with, so <strong>an answer finds its own question instead of the newest one.</strong></p>
+          </div>
+          <p class="not"><b>Not the motivation engine.</b> This part is transport and accounting: did it arrive, did the answer get home, did it score honestly. It is indifferent to whether anyone wants it.</p>
+          <p class="deeper"><span class="pending">Deeper: write-up in progress, "It Texts You First"</span></p>
+        </div>
+      </article>
+
+      <article class="part" style="--mark: var(--c1);">
+        <div class="part-rail">
+          <div class="bar"></div>
+          <div class="tag">Motivation engine</div>
+          <p class="stands-in">Stands in for: the tuition, the grade, the cohort</p>
+        </div>
+        <div class="part-body">
+          <h3>Where the pull comes from</h3>
+          <p class="lead">Devices that make a payoff months out feel present-tense.</p>
+          <ul class="mech">
+            <li><b>No manufactured consequence.</b> Streaks and guilt invent a cost for missing, which makes missing expensive, which makes quitting cheaper than returning. The design goal is the opposite: make returning cheap. No makeup work, no deficit recited back, a partial session counts.</li>
+            <li><b>Assignments that leave the software.</b> One line to deploy in real life tonight, unprompted, collected at the next contact. A line that survives live use is the strongest evidence of real capability available, and it makes a distant goal briefly concrete.</li>
+            <li><b>An honest boundary.</b> Software substitutes for deciding to start, choosing what to work on, remembering where you were, and making progress visible. It does not substitute for consequence or desire. A system that pretends otherwise becomes a nag and gets muted.</li>
+          </ul>
+          <div class="case">
+            <span class="lbl"><b>What went wrong</b> — the assignment that got refused</span>
+            <p>I sent him out with a line to deploy at dinner: a remark about handling chilli well. He refused it, on two grounds, both correct. <em>No audience</em> — it is a line for a table of relatives meeting you, and I had aimed it at a wife who has watched him eat for ten years and would only find it odd. <em>No teach</em> — the phrase had never been shown to him, so a mission was smuggling in a cold quiz on unseen material.</p>
+            <p>Two rules now hold: a line must be taught before it can be assigned, and its audience has to be someone who would plausibly hear it. The replacement rode something guaranteed to happen instead — say <em class="ta">paravaayilla</em>, bare, the next time she apologises for anything at all. It fired that evening, one day after the word was first taught. <strong>The device was never the problem; the aiming was.</strong></p>
+          </div>
+          <p class="not"><b>Not notifications, gamification, or persona.</b> It is not a tone of voice. It is a set of constraints every other part obeys, which is why it appears as a frame in the diagram and not a box.</p>
+          <p class="deeper">Deeper: <a href="https://claude.ai/code/artifact/d88586aa-41c6-4230-94e6-e8dd1ef0cfb1">Nothing Gets Worse If You Skip Today</a></p>
+        </div>
+      </article>
+
+      <article class="part" style="--mark: var(--c4);">
+        <div class="part-rail">
+          <div class="bar"></div>
+          <div class="tag">Studio</div>
+          <p class="stands-in">Stands in for: the coursebook and the tape</p>
+        </div>
+        <div class="part-body">
+          <h3>How the material gets made</h3>
+          <p class="lead">Generating content that ships without a human reading it first.</p>
+          <ul class="mech">
+            <li><b>Narrow passes, not one prompt.</b> Plan, then script, then dialect and integrity. A single generation cannot hold all the constraints and stay accurate. Collapsing the passes here corrupted the output twice, in two different ways, and both versions read fluently.</li>
+            <li><b>The writer gets no filesystem.</b> Generation runs sandboxed and print-only: no file writes, no version control, no publishing. A deterministic layer receives the text, saves it, checks it, and decides whether it ships.</li>
+            <li><b>Variety is a gate, not taste.</b> Register, form and dramatic ingredient are chosen deterministically before generation begins and forbidden from repeating a recent value. A generator asked repeatedly for something fresh converges, and taste is the thing that converged.</li>
+          </ul>
+          <div class="case">
+            <span class="lbl"><b>What went wrong</b> — the episode that never said it</span>
+            <p>Each episode is commissioned against an explicit payload: the specific phrases this week's errors require rehearsed. One came back beautifully made — right register, right scene, on topic, and it discussed the situation the target phrase belongs to without ever once saying the phrase. Twelve minutes of audio built to teach something it never uttered.</p>
+            <p>The learner cannot catch that. Noticing an absent phrase in a language you do not yet have is precisely the capability the episode exists to build. So the check is mechanical and sits before publication: <strong>every commissioned phrase must appear verbatim in the script or the run stops.</strong> That is the pattern for all of them — each check in the pipeline exists because something specific got through once, and none of them is a sentence added to a prompt.</p>
+          </div>
+          <p class="not"><b>Not the domain pack.</b> This part governs how material is made and what stops it shipping. It has no opinion about what is correct — it asks the pack.</p>
+          <p class="deeper">Deeper: <a href="https://claude.ai/code/artifact/c92f821d-80ca-4280-9d60-286330c17f03">The Writer Gets No Filesystem</a></p>
+        </div>
+      </article>
+
+      <article class="part" style="--mark: var(--c5);">
+        <div class="part-rail">
+          <div class="bar"></div>
+          <div class="tag">Domain pack</div>
+          <p class="stands-in">Stands in for: a teacher who actually speaks it</p>
+        </div>
+        <div class="part-body">
+          <h3>What the model does not know about your domain</h3>
+          <p class="lead">A vetted delta between what a model produces natively and what the domain actually sounds like.</p>
+          <ul class="mech">
+            <li><b>It is curated content with an owner, not a prompt instruction.</b> Versioned like code, reviewed by someone who knows, and applied where it is guaranteed rather than requested — the pronunciation fixes live at the audio renderer, past the point a model could override them.</li>
+            <li><b>The informant policy is part of the pack.</b> Who the native speaker is, how they are consulted, and what they must never be turned into. Here that is sixty-second checks on specific phrasings, never grammar lessons, because turning a family member into an examiner costs more than it buys.</li>
+            <li><b>This is the part that does not port.</b> Everything else survives a change of subject. This gets rewritten, and you cannot generate your way out of it.</li>
+          </ul>
+          <div class="case">
+            <span class="lbl"><b>What went wrong</b> — three ways a translator is confidently useless</span>
+            <p><b>Morphology.</b> Ask any translator for "I'm going" and you get <span class="ta">போகிறேன்</span>, <em>pogiren</em>. It is correct, and nobody in Coimbatore says it. The spoken form is <span class="ta">போறேன்</span>, <em>poren</em>. This is not slang shaved off a proper word — it is the entire register, and a learner drilled on the first one sounds like a newsreader at a kitchen table.</p>
+            <p><b>Vocabulary that is right and wrong at once.</b> "We went to the market" comes back with <span class="ta">சந்தை</span> for market. Impeccable, and it marks you instantly as someone who learned from a book. In a real sentence the English word stays and the Tamil grammar wraps it: <em>market-ku ponom</em>. English carries the logistics, Tamil carries the meaning-bearing verb. No translator will do that to itself, because to a translator it looks like a defect.</p>
+            <p><b>Pragmatics, which is not language at all.</b> Ask for "hello" and you get <span class="ta">வணக்கம்</span>, <em>vanakkam</em>. The right word and the wrong move: nobody greets family with it. You walk into the house and the greeting is <em>saaptingala?</em> — did you eat. The food question <em>is</em> the hello. A learner armed with the dictionary answer is fluent and instantly foreign.</p>
+            <p><strong>All three are invisible to every check in the system</strong>, because each one is correct. They are only visible to a person who speaks it, which is why the informant is not a nice-to-have and why this part cannot be automated.</p>
+          </div>
+          <p class="not"><b>Not prompt engineering.</b> A prompt is a request the model may or may not honour. A pack is content with a version and an owner, applied at a point the model does not control.</p>
+          <p class="deeper">Deeper: <a href="https://claude.ai/code/artifact/ee916761-0f43-44ad-90f2-03a38a696f6e">Nobody Actually Talks Like That</a></p>
+        </div>
+      </article>
+
+      <article class="part" style="--mark: var(--c6);">
+        <div class="part-rail">
+          <div class="bar"></div>
+          <div class="tag">Governance kit</div>
+          <p class="stands-in">Stands in for: the department and the syllabus review</p>
+        </div>
+        <div class="part-body">
+          <h3>How the system is allowed to change</h3>
+          <p class="lead">What keeps a weekly-changing system compounding instead of churning.</p>
+          <ul class="mech">
+            <li><b>A decision log that records refusals.</b> What was decided against, and why. A rejected approach leaves no trace in the code, and a fresh model context cannot tell "we tried this and it failed" from "nobody has tried this". It will re-propose the idea, persuasively. So will you, six months on.</li>
+            <li><b>Budgets with teeth.</b> Prose, code and static-analysis findings all carry ceilings checked in CI. A raise has to ride in the same commit as the growth and name what it retired. A file that keeps hitting its ceiling is doing two jobs.</li>
+            <li><b>Deliberate latency between an idea and a change.</b> When implementation is nearly free, the scarce resource is evidence. Ideas wait until a pattern reproduces; one-offs never become mechanisms.</li>
+          </ul>
+          <div class="case">
+            <span class="lbl"><b>What went wrong</b> — a mechanism proposed before anyone read the file</span>
+            <p>One message format took over the outreach channel: four in four consecutive days, all the same kind, all the same shape. My first proposal was a quota — cap that format at N per week — and I offered it before opening a single file.</p>
+            <p>Reading the plumbing found two causes, neither of them volume. One line in the prompt expressed a preference that funnelled every message of that type into the same narrow vein. And the outreach memory rewarded the format for converting, which fed it straight back to itself. <strong>The better half of the real fix was a deletion.</strong> The quota would have capped the symptom, left both causes running, and looked like it worked.</p>
+          </div>
+          <p class="not"><b>Not tests or code review.</b> Those check whether a change works. This checks whether it should exist, and whether the system is still the same system after a year of them.</p>
+          <p class="deeper">Deeper: <a href="https://claude.ai/code/artifact/93af235b-46c4-4522-becf-8d02d246d839">You Already Decided This</a></p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="stack">
+    <p class="kicker">The proof they are separate</p>
+    <h2>Change the goal, and watch which parts collapse</h2>
+    <p>If motivation were really a flavour of the outreach loop, you could not take one of them to nearly zero and leave the other elaborate. You can. Point the same architecture at a research assistant for a doctoral student and the motivation part almost vanishes — not because the work is easier, but because the apparatus is still there: an advisor, a funding clock, a public judgement on a date. Every one of the other five still has real work to do.</p>
+
+    <div class="matrixwrap">
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th scope="col">The part</th>
+            <th scope="col">Language coach<span>No institution at all</span></th>
+            <th scope="col">Research assistant<span>A department already exists</span></th>
+            <th scope="col">Rehab after discharge<span>The clinician has gone</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="--mark: var(--c2);">
+            <th scope="row"><span class="dot"></span>Learner model</th>
+            <td><span class="weight">Heavy</span>Two grades per item: recognise, and produce cold. Thousands of items.</td>
+            <td><span class="weight">Heavy, different shape</span>What you have read versus what you could defend. Open questions, unresolved contradictions.</td>
+            <td><span class="weight">Light</span>A dozen movements, each either correct unsupervised or not yet.</td>
+          </tr>
+          <tr style="--mark: var(--c3);">
+            <th scope="row"><span class="dot"></span>Loop and rails</th>
+            <td><span class="weight">Heavy</span>Five surfaces, waking-hours gates, a return path that scores a typed reply.</td>
+            <td><span class="weight">Light</span>You come to it. Rails matter mostly for what it may do unattended.</td>
+            <td><span class="weight">Heavy, time-locked</span>Twice a day at fixed times, hands busy, answers by voice or not at all.</td>
+          </tr>
+          <tr style="--mark: var(--c1);">
+            <th scope="row"><span class="dot"></span>Motivation engine</th>
+            <td><span class="weight">Load-bearing</span>Nothing external supplies any of it. Most of the design budget goes here.</td>
+            <td><span class="weight">Near zero</span>A committee, a funding clock and a public defence already do this better than software could.</td>
+            <td><span class="weight">Load-bearing, then not</span>Everything until pain returns or fails to; after that the body supplies its own signal.</td>
+          </tr>
+          <tr style="--mark: var(--c4);">
+            <th scope="row"><span class="dot"></span>Studio</th>
+            <td><span class="weight">Central</span>Audio it writes, checks and renders itself, aimed at this week's errors.</td>
+            <td><span class="weight">Small</span>Mostly retrieval and synthesis of material that already exists.</td>
+            <td><span class="weight">Almost none</span>The exercises were given by a clinician and must not be improvised on.</td>
+          </tr>
+          <tr style="--mark: var(--c5);">
+            <th scope="row"><span class="dot"></span>Domain pack</th>
+            <td><span class="weight">Essential</span>Coimbatore register, code-switching, renderer-level pronunciation fixes, a named informant.</td>
+            <td><span class="weight">Essential</span>Field conventions, what this advisor counts as a real result, which preprints are respectable.</td>
+            <td><span class="weight">Essential, and safety-critical</span>The protocol and its contraindications. Wrong here is not embarrassment, it is injury.</td>
+          </tr>
+          <tr style="--mark: var(--c6);">
+            <th scope="row"><span class="dot"></span>Governance kit</th>
+            <td class="wide" colspan="3"><span class="weight">Identical in all three</span>The decision log, the budgets, the latency between an idea and a change. It is a property of a system that changes weekly with a single author, not of the subject it teaches — the clearest sign it is its own concern.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Read down any column and the shape is the same six jobs. Read across any row and the weights are completely different. That combination — same seams, independent weights — is what distinguishes a real separation of concerns from a tidy diagram drawn over a mess after the fact.</p>
+
+    <div class="aside">
+      <span class="lbl">A correction worth making in public</span>
+      <p>For a while I described the motivation work as an accommodation for my own attention, and that framing was wrong in a way that mattered: it made the most portable part of the build look like a personal quirk. The table says it better. The amount of motivation engineering a system needs is set by <strong>the structure of the goal, not the wiring of the person</strong>. A goal with a date and an audience needs almost none — for anyone. The doctoral student is not more disciplined than the language learner; they are more surrounded.</p>
+    </div>
+
+    <p class="pull">Software cannot supply consequence or desire. It can supply everything an institution was doing around them — and that turns out to be most of what an institution was doing.</p>
+  </section>
+
+  <section class="stack">
+    <p class="kicker">In practice</p>
+    <h2>Which part is broken</h2>
+    <p>The reason to hold the six apart is not tidiness. It is that when something feels wrong, the symptom tells you which one to open — and the wrong instinct, every time, is to reach for the persona.</p>
+
+    <ul class="triage">
+      <li style="--mark: var(--c2);">
+        <span class="sym">"It asked me something I nailed on Tuesday."</span>
+        <span class="who">Learner model</span>
+        <span class="why">A write that did not land, or two grades collapsed into one. Not forgetfulness.</span>
+      </li>
+      <li style="--mark: var(--c3);">
+        <span class="sym">"Nothing came all day, then two things at once."</span>
+        <span class="who">Loop and rails</span>
+        <span class="why">The gate, the cap or the tick. Answerable from timestamps in an afternoon.</span>
+      </li>
+      <li style="--mark: var(--c1);">
+        <span class="sym">"It all arrives fine. I just stopped opening it."</span>
+        <span class="who">Motivation engine</span>
+        <span class="why">The only symptom no log will show. Look at weeks, and at what happened after the last lapse.</span>
+      </li>
+      <li style="--mark: var(--c4);">
+        <span class="sym">"Great episode. It never actually said the phrase it promised."</span>
+        <span class="who">Studio</span>
+        <span class="why">A missing check, not a weak prompt. Every corruption becomes a gate that stops the run.</span>
+      </li>
+      <li style="--mark: var(--c5);">
+        <span class="sym">"It is all correct, and nobody speaks like that."</span>
+        <span class="who">Domain pack</span>
+        <span class="why">The model's native register leaking through. Needs the informant, not more instruction.</span>
+      </li>
+      <li style="--mark: var(--c6);">
+        <span class="sym">"We keep re-deciding the same thing."</span>
+        <span class="who">Governance kit</span>
+        <span class="why">The refusal was never recorded, so the idea comes back persuasive and unlabelled.</span>
+      </li>
+    </ul>
+  </section>
+
+  <section class="stack">
+    <p class="kicker">The order</p>
+    <h2>If you are building one</h2>
+    <p>The parts are separable, but not equally urgent, and some are far more expensive to retrofit than others.</p>
+
+    <div class="order">
+      <ol>
+        <li><b>Write down what the system will believe about the person, before any prompt.</b> Two axes at minimum. This is the schema everything else reads, and the expensive thing to change later.</li>
+        <li><b>Make the write path deterministic.</b> State changes go through code, never through a model editing a file. The model chooses; code records.</li>
+        <li><b>Build one channel end to end, including the return path.</b> A dose that goes out and an answer that comes back scored is the whole loop in miniature. Adding channels afterwards is cheap; retrofitting a return path is not.</li>
+        <li><b>Put governance in before there is anything to govern.</b> The decision log and the budgets cost nothing on day one and are nearly impossible to backfill.</li>
+        <li><b>Decide how much motivation engineering the goal actually requires.</b> Ask what would happen if the person stopped for a month, and who would notice. If the answer is nobody, this decides whether the system is still running in six months.</li>
+        <li><b>Generate content last, and get a real informant before you do.</b> It is the most impressive part and the least load-bearing. It needs the model to aim it, the checks to make it trustworthy, and the pack to make it correct.</li>
+      </ol>
+    </div>
+
+    <p>One rule sits under all six: nothing goes in that is not earned by a specific outcome or a specific piece of evidence. The pieces that felt clever and had nothing behind them are the ones that got cut.</p>
+  </section>
+
+  <footer class="colophon">
+    <p>Drawn from one repository: a single-learner Tamil system, a year old, about half of it written by the system itself. Nothing here is a proposal — every mechanism named is one that shipped, and each of the six failures above is one that happened. The published write-ups linked above go deeper on one part each, and each stands on its own.</p>
+  </footer>
+
+</div>
+
+<script>
+  (function () {
+    var au = document.getElementById('au');
+    var btn = document.getElementById('pbtn');
+    var icon = document.getElementById('picon');
+    var meta = document.getElementById('pmeta');
+    var track = document.getElementById('track');
+    var bar = document.getElementById('bar');
+    if (!au || !btn) return;
+
+    var PLAY = 'M8 5v14l11-7z';
+    var PAUSE = 'M6 5h4v14H6zM14 5h4v14h-4z';
+
+    // Split so a naive find-and-replace of the embed token cannot rewrite the
+    // guard that detects it.
+    var TOKEN = '__HERO' + '_AUDIO_B64__';
+    if ((au.getAttribute('src') || '').indexOf(TOKEN) !== -1) {
+      btn.disabled = true;
+      btn.setAttribute('aria-label', 'Audio not yet embedded');
+      meta.textContent = 'Audio pending';
+      return;
+    }
+
+    function clock(t) {
+      if (!isFinite(t)) return '--:--';
+      var m = Math.floor(t / 60), s = Math.floor(t % 60);
+      return m + ':' + (s < 10 ? '0' : '') + s;
+    }
+
+    function paint() {
+      var d = au.duration;
+      var pct = (isFinite(d) && d > 0) ? (au.currentTime / d) * 100 : 0;
+      bar.style.width = pct + '%';
+      track.setAttribute('aria-valuenow', Math.round(pct));
+      meta.textContent = clock(au.currentTime) + ' / ' + clock(d);
+    }
+
+    au.addEventListener('loadedmetadata', paint);
+    au.addEventListener('timeupdate', paint);
+    au.addEventListener('play', function () { icon.setAttribute('d', PAUSE); btn.setAttribute('aria-label', 'Pause'); });
+    au.addEventListener('pause', function () { icon.setAttribute('d', PLAY); btn.setAttribute('aria-label', 'Play: the system introduces itself'); });
+    au.addEventListener('ended', function () { au.currentTime = 0; paint(); });
+
+    btn.addEventListener('click', function () {
+      if (au.paused) { au.play().catch(function () {}); } else { au.pause(); }
+    });
+
+    function seekTo(clientX) {
+      var r = track.getBoundingClientRect();
+      if (!r.width || !isFinite(au.duration)) return;
+      var f = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+      au.currentTime = f * au.duration;
+      paint();
+    }
+
+    track.addEventListener('click', function (e) { seekTo(e.clientX); });
+
+    track.addEventListener('keydown', function (e) {
+      if (!isFinite(au.duration)) return;
+      var step = e.key === 'ArrowRight' ? 5 : (e.key === 'ArrowLeft' ? -5 : 0);
+      if (!step) return;
+      e.preventDefault();
+      au.currentTime = Math.min(au.duration, Math.max(0, au.currentTime + step));
+      paint();
+    });
+
+    paint();
+  })();
+</script>
