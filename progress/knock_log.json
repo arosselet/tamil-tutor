@@ -3765,5 +3765,14 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-07T12-45.mp3",
     "memo_script": "சரி சரி, விட்டுடு.",
     "mp3": "published_audio/knocks/knock_2026-08-07T12-45.mp3"
+  },
+  {
+    "date": "2026-08-07",
+    "timestamp": "2026-08-07T18:44:26.057167+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "silence — Friday afternoon",
+    "rationale": "Two no-taps already today, demand-streak at 1 so next fire must be no-ask, open loop from this morning's field mission collect still sitting unpaid (no second loop), and the commissioned soak episode isn't produced yet so a trailer would be hollow — Friday afternoon silence is correct; check again at ~18:44 for an evening window.",
+    "next_check": "2026-08-07T22:44:26.057167+00:00"
   }
 ]
