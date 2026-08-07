@@ -67,10 +67,25 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
   it is one high-frequency suffix and two lemmas.
   **DO NOT respell blind, and do not treat this as settled.** Non-standard orthography
   (`சொல்ரேன்`) may make Chirp3 worse, not better, and no one here can hear the output. The
-  cheap honest path is an A/B: render one paragraph both ways at the `clean_for_tts` seam
+  cheap honest path is an A/B: render one paragraph all three ways at the `clean_for_tts` seam
   behind a flag, and let the Oracle judge — a dialect-realisation call is hers by the same
   law that gave her `சாத்து`. Second lever worth pricing in the same experiment: a different
   voice may already do this, in which case the fix is a constant, not a transform.
+  **THIRD ARM, added 2026-08-07** (from a Gemini critique of the Pillar V article — a model,
+  not the Oracle. It carries zero dialect authority and is logged here as an *engineering*
+  argument only). Instead of substituting the letter, insert the vowel the mouth already
+  inserts: `சொல்லுறேன்` / `பண்ணுறேன்` rather than `சொல்ரேன்` / `பண்ரேன்`. The claim worth
+  testing is not which is more Kongu — that is the Oracle's call and nobody on this side gets
+  a vote — it is that `சொல்லுறேன்` is an attested spoken form people do write down, so Chirp3
+  has plausibly read it, whereas `சொல்ரேன்` is orthography nothing was ever trained on. That
+  is precisely the objection two lines up, and this arm may not carry it. Cost: one more
+  render at the same seam, same sitting.
+  **Rejected from that same critique, recorded so it is not re-proposed:** the Kongu vowel
+  shifts (`முடிஞ்சது`→`மொடிஞ்சுது`, `உட்காரு`→`ஒக்காரு`, `இடம்`→`எடம்`) reopen *Competent over
+  local* (DECISIONS 06-30) without stating what they replace; a blanket `-ச்சு`→`-து` rule
+  would overwrite the Oracle's own `பழகிப்போச்சு`; and `வர்றீங்க` was offered as a first-person
+  form, which it is not. The `-ங்க` softener it proposed is already `dialect.md`'s Kongu Layer
+  and the `ஃப்ரீயா விடுங்க` ruling.
 
 - **THE STACCATO IS OURS, NOT THE MODEL'S — why the Tamil reads "composed"** (2026-07-31,
   second half of the native-ear verdict: "sentence structures are mostly good, although they
