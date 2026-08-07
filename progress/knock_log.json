@@ -3824,5 +3824,20 @@
     "move": "silence — Friday afternoon",
     "rationale": "Two no-taps already today, demand-streak at 1 so next fire must be no-ask, open loop from this morning's field mission collect still sitting unpaid (no second loop), and the commissioned soak episode isn't produced yet so a trailer would be hollow — Friday afternoon silence is correct; check again at ~18:44 for an evening window.",
     "next_check": "2026-08-07T22:44:26.057167+00:00"
+  },
+  {
+    "date": "2026-08-07",
+    "timestamp": "2026-08-07T23:27:44.944087+00:00",
+    "acted": true,
+    "modality": "audio",
+    "move": "audio soak: three closes",
+    "rationale": "ESCALATE flag + sari-sari slipped hinted again today — the directive is change the lane, not loop harder; a warm no-ask audio memo soaking all three closing stances is exactly the format shift needed, and Friday evening is the right mood for it.",
+    "next_check": "2026-08-08T13:27:44.944087+00:00",
+    "body": "🎧 Friday night memo — not a quiz. how a Tamil conversation actually *ends*. three ways, three feelings.",
+    "expected_target": "",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-07T23-27.mp3",
+    "memo_script": "da, one thing I want you to carry into this trip — not a word to fire, just a shape to recognize.\n\nYou already know how to start a conversation in Tamil. Say hello, ask how they are, say you ate, say where you went. That part you've got.\n\nBut the end of a Tamil conversation — that's its own thing. And it's almost never dramatic. It's a landing. And there are basically three landings you'll hear at our table.\n\nFirst one: சும்மா சொல்றாங்க. Someone tells a story — a rumour, a piece of gossip, something about a neighbour. And the person listening says: சும்மா சொல்றாங்க. It means: they're just talking. Don't take it seriously. That's the kill-shot landing — the whole story gets waved off in four syllables. And when you hear it, you know: this topic is DONE. Nobody revisits it.\n\nSecond one: விட்டுடு. Drop it. You hear this when something is getting too heavy, or too complicated, or just — not worth the energy anymore. விட்டுடு. Let it go. The conversation doesn't end with a fight; it ends with someone just... opening their hand. And everything falls out of it.\n\nThird one — and you almost had this one today — சரி சரி. Right, right. This is the softer landing. Someone's been explaining something, maybe complaining a little, and the listener says: சரி சரி. I hear you. I accept it. We're done discussing. It's not dismissal — it's more like... settling. Like a door closing gently instead of being shut.\n\nThree landings. சும்மா சொல்றாங்க kills the story. விட்டுடு drops the weight. சரி சரி closes it quietly.\n\nYou're going to hear all three. Probably in the first two days. Now you'll know where you are when you do.",
+    "mp3": "published_audio/knocks/knock_2026-08-07T23-27.mp3"
   }
 ]

@@ -21,6 +21,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > seri seri landed clean — vittadu is 'vittudu', the -u at the end. almost there.
 
+**19:27 · Anna** 🎧  ·  audio / audio soak: three closes
+> 🎧 Friday night memo — not a quiz. how a Tamil conversation actually *ends*. three ways, three feelings.
+
 
 ## Thursday 2026-08-06
 
