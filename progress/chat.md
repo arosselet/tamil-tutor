@@ -27,6 +27,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > ok — so one word, one catch, zero context. that's still a real field rep da. you heard it and it clicked — that IS the reflex working.
 
+**20:37 · Anna**  ·  challenge / field mission collect + tonight's assign
+> mission debrief time 🎯 — did the -om tail land tonight? sollu. and tomorrow's: she piles food, you wave it off — 'vendaamma, vayiru nirainjiduchu'
+
 
 ## Wednesday 2026-08-05
 
