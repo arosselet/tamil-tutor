@@ -3764,7 +3764,32 @@
     "target_revealed": false,
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-07T12-45.mp3",
     "memo_script": "சரி சரி, விட்டுடு.",
-    "mp3": "published_audio/knocks/knock_2026-08-07T12-45.mp3"
+    "mp3": "published_audio/knocks/knock_2026-08-07T12-45.mp3",
+    "response": "reply",
+    "reply": "Ok ok let it go",
+    "reply_verdict": "miss",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line": "close in spirit — but she said it in Tamil, so you answer in Tamil. atthai waves it off: 'seri seri, vittudu.' try it back.",
+    "reply_at": "2026-08-07T20:19:16Z",
+    "exchanges": [
+      {
+        "at": "2026-08-07T20:19:16Z",
+        "reply": "Ok ok let it go",
+        "verdict": "miss",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "close in spirit — but she said it in Tamil, so you answer in Tamil. atthai waves it off: 'seri seri, vittudu.' try it back.",
+        "slips": [
+          "catch-closing"
+        ],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ]
   },
   {
     "date": "2026-08-07",
