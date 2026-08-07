@@ -9,6 +9,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **08:45 · Anna** 🎧  ·  fielding / fielding: sari-sari close
 > atthai's on the phone — she just heard the neighbour gossip. catches your eye and says: sari sari, vittudu — answer her.
 
+**16:19 · Andrew** — **MISS**
+> Ok ok let it go
+
+**Anna ↩**
+> close in spirit — but she said it in Tamil, so you answer in Tamil. atthai waves it off: 'seri seri, vittudu.' try it back.
+
 
 ## Thursday 2026-08-06
 
