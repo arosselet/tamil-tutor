@@ -25,9 +25,23 @@
      part, held for the whole piece. ANNA keeps his pinned voice
      (morning_knock.py ANNA_VOICE) because he is the same character the learner
      meets every morning; a different voice here would make him a narrator, which
-     he is not. All six parts are ta-IN voices speaking English: the accent is the
-     house sound, and it means a Tamil word can drop into any line without a
-     switch. Tamil in Tamil script ONLY. No parentheses in spoken lines.
+     he is not. THE OTHER FIVE PARTS SPEAK NO TAMIL AT ALL — 464 words of English
+     between them — so they are en-US voices. This replaces the original casting
+     (2026-08-07: "all six are ta-IN, the accent is the house sound, and a Tamil
+     word can drop into any line without a switch"), which stated a preference as
+     if it were a constraint: a ta-IN model reading English has nothing it can be
+     right about, and uniform accent made the cast harder to tell apart.
+     ONE VOICE PER SPEAKER, HELD FOR THE WHOLE PIECE. Never switch model
+     mid-sentence to pronounce a word (Andrew, 2026-08-07, rejecting exactly that).
+     A speaker's locale already does both jobs at once: it accents their English
+     AND makes their own language authentic. That is the whole device, and it is
+     why ANNA and PACK stay ta-IN — they are the two who utter Tamil, and their
+     English should sound the way it sounds in that house.
+     FRENCH is deliberately MODEL's character (Charon) in fr-CA: the same part
+     speaking another language is the portability claim made audible. Flair, and
+     it stays at this dose; do not spread it across the cast.
+     CASTING FITS THE NARRATIVE; THE NARRATIVE IS NEVER WRITTEN AROUND THE CASTING.
+     Tamil in Tamil script ONLY. No parentheses in spoken lines.
 
      THE HONEST CLOSE is not decoration and must not be cut for time. Andrew's own
      framing, 2026-08-07: a system introducing itself is a demonstration, not a
@@ -35,10 +49,10 @@
      over months. A piece that oversells itself would be refuted by the very
      article it sits on top of.
 
-     Voice Map: {"ANNA": "ta-IN-Chirp3-HD-Orus", "MODEL": "ta-IN-Chirp3-HD-Charon",
-     "RAILS": "ta-IN-Chirp3-HD-Leda", "MOTIVE": "ta-IN-Chirp3-HD-Sulafat",
-     "STUDIO": "ta-IN-Chirp3-HD-Iapetus", "PACK": "ta-IN-Chirp3-HD-Achernar",
-     "GOVERN": "ta-IN-Chirp3-HD-Rasalgethi", "FRENCH": "fr-CA-Chirp3-HD-Charon",
+     Voice Map: {"ANNA": "ta-IN-Chirp3-HD-Orus", "MODEL": "en-US-Chirp3-HD-Charon",
+     "RAILS": "en-US-Chirp3-HD-Leda", "MOTIVE": "en-US-Chirp3-HD-Sulafat",
+     "STUDIO": "en-US-Chirp3-HD-Iapetus", "PACK": "ta-IN-Chirp3-HD-Achernar",
+     "GOVERN": "en-US-Chirp3-HD-Rasalgethi", "FRENCH": "fr-CA-Chirp3-HD-Charon",
      "SPANISH": "es-US-Chirp3-HD-Aoede"} -->
 
 **ANNA:** வணக்கம். You are about to read an architecture note about a machine. This is the machine. Nobody wrote this introduction out by hand, and nobody read it before it shipped — it went through the same pipeline that makes the Tamil lessons. Which is either the most convincing thing on this page or the least, depending entirely on how it goes.
