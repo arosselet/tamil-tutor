@@ -2962,14 +2962,15 @@
       "vittudu"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [
       83
     ],
-    "last_surfaced": "2026-08-05",
+    "last_surfaced": "2026-08-07",
     "deck": "trip",
     "direction": "catch",
-    "exposures": 3
+    "exposures": 3,
+    "reps": 1
   },
   "எவ்வளவு ஆகும்?": {
     "type": "chunk",
@@ -3687,10 +3688,10 @@
     "seen_in": [
       72
     ],
-    "last_surfaced": "2026-08-03",
+    "last_surfaced": "2026-08-07",
     "deck": "trip",
     "direction": "fire",
-    "reps": 1,
+    "reps": 2,
     "exposures": 1
   },
   "இன்னும் கொஞ்சம் போடுங்க": {

@@ -3766,13 +3766,18 @@
     "memo_script": "சரி சரி, விட்டுடு.",
     "mp3": "published_audio/knocks/knock_2026-08-07T12-45.mp3",
     "response": "reply",
-    "reply": "Ok ok let it go",
-    "reply_verdict": "miss",
-    "reply_fired": [],
+    "reply": "Seri seri vittadu",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "சரி சரி",
+      "விட்டுடு"
+    ],
     "reply_fired_cold": [],
-    "reply_fired_capped": [],
-    "reply_line": "close in spirit — but she said it in Tamil, so you answer in Tamil. atthai waves it off: 'seri seri, vittudu.' try it back.",
-    "reply_at": "2026-08-07T20:19:16Z",
+    "reply_fired_capped": [
+      "சரி சரி"
+    ],
+    "reply_line": "seri seri landed clean — vittadu is 'vittudu', the -u at the end. almost there.",
+    "reply_at": "2026-08-07T20:20:29Z",
     "exchanges": [
       {
         "at": "2026-08-07T20:19:16Z",
@@ -3785,6 +3790,26 @@
         "reply_line": "close in spirit — but she said it in Tamil, so you answer in Tamil. atthai waves it off: 'seri seri, vittudu.' try it back.",
         "slips": [
           "catch-closing"
+        ],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-07T20:20:29Z",
+        "reply": "Seri seri vittadu",
+        "verdict": "hinted",
+        "fired": [
+          "சரி சரி",
+          "விட்டுடு"
+        ],
+        "fired_cold": [],
+        "fired_capped": [
+          "சரி சரி"
+        ],
+        "graduated": [],
+        "reply_line": "seri seri landed clean — vittadu is 'vittudu', the -u at the end. almost there.",
+        "slips": [
+          "final-vowel-drop"
         ],
         "spoke": "",
         "scheduled": ""
