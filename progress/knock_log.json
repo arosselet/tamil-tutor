@@ -3738,5 +3738,17 @@
         "scheduled": ""
       }
     ]
+  },
+  {
+    "date": "2026-08-07",
+    "timestamp": "2026-08-07T00:37:41.301184+00:00",
+    "acted": true,
+    "modality": "challenge",
+    "move": "field mission collect + tonight's assign",
+    "rationale": "Collect tonight's field mission (first -om organic deploy at home) before the window closes at 21:00 — that debrief is the highest-value touch right now; piggyback tomorrow's mission (the full refusal line to maami's food-push) so he goes to bed with a task, not just a grade.",
+    "next_check": "2026-08-07T11:37:41.301184+00:00",
+    "body": "mission debrief time 🎯 — did the -om tail land tonight? sollu. and tomorrow's: she piles food, you wave it off — 'vendaamma, vayiru nirainjiduchu'",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]
