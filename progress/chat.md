@@ -15,6 +15,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > wait — Tamil in Waterloo? what did you catch?
 
+**20:18 · Andrew** — **HINTED**
+> Kashtom and I think it means problem
+
+**Anna ↩**
+> close — 'kashtam', not 'kashtom'. and yes, exactly right: hardship, difficulty, trouble. you caught it cold off the street 🔥 — what else did you hear?
+
 
 ## Wednesday 2026-08-05
 

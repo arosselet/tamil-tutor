@@ -3684,13 +3684,15 @@
     "expected_target": "",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Overheard in public in Waterloo Canada. Kashtom",
-    "reply_verdict": "chat",
-    "reply_fired": [],
+    "reply": "Kashtom and I think it means problem",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "கஷ்டம்"
+    ],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "wait — Tamil in Waterloo? what did you catch?",
-    "reply_at": "2026-08-07T00:16:22Z",
+    "reply_line": "close — 'kashtam', not 'kashtom'. and yes, exactly right: hardship, difficulty, trouble. you caught it cold off the street 🔥 — what else did you hear?",
+    "reply_at": "2026-08-07T00:18:03Z",
     "exchanges": [
       {
         "at": "2026-08-07T00:16:22Z",
@@ -3702,6 +3704,23 @@
         "graduated": [],
         "reply_line": "wait — Tamil in Waterloo? what did you catch?",
         "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-07T00:18:03Z",
+        "reply": "Kashtom and I think it means problem",
+        "verdict": "hinted",
+        "fired": [
+          "கஷ்டம்"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "close — 'kashtam', not 'kashtom'. and yes, exactly right: hardship, difficulty, trouble. you caught it cold off the street 🔥 — what else did you hear?",
+        "slips": [
+          "vowel-shift-a-to-o"
+        ],
         "spoke": "",
         "scheduled": ""
       }
