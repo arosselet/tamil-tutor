@@ -377,5 +377,17 @@
     "note": "fielded the meaning but stayed in English — the Tamil close is the rep",
     "word": "சரி சரி",
     "dose_channel": "episode"
+  },
+  {
+    "at": "2026-08-07T20:20:29Z",
+    "date": "2026-08-07",
+    "lane": "knock",
+    "modality": "fielding",
+    "tag": "final-vowel-drop",
+    "said": "vittadu",
+    "want": "vittudu",
+    "note": "the final vowel is -u, not -a",
+    "word": "விட்டுடு",
+    "dose_channel": "episode"
   }
 ]
