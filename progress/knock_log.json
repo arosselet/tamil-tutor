@@ -3750,5 +3750,20 @@
     "body": "mission debrief time 🎯 — did the -om tail land tonight? sollu. and tomorrow's: she piles food, you wave it off — 'vendaamma, vayiru nirainjiduchu'",
     "expected_target": "",
     "target_revealed": false
+  },
+  {
+    "date": "2026-08-07",
+    "timestamp": "2026-08-07T12:45:40.164348+00:00",
+    "acted": true,
+    "modality": "fielding",
+    "move": "fielding: sari-sari close",
+    "rationale": "Field mission collect has no tap yet — not worth re-pinging on that; instead, a fielding dose bridges the soak-order episode (சரி சரி / விட்டுடு closing stances) with a hinted→cold deck item that's been asked once in 3d — new scene (atthai mid-phone, turns to Andrew), target technically revealed in body so scores hinted, but the real payoff is priming him to hear those closes in the commissioned eavesdrop episode when it lands; lunch-anchor timing suits a quick fielding tap before his session bell.",
+    "next_check": "2026-08-07T17:45:40.164348+00:00",
+    "body": "atthai's on the phone — she just heard the neighbour gossip. catches your eye and says: sari sari, vittudu — answer her.",
+    "expected_target": "சரி சரி",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-07T12-45.mp3",
+    "memo_script": "சரி சரி, விட்டுடு.",
+    "mp3": "published_audio/knocks/knock_2026-08-07T12-45.mp3"
   }
 ]
