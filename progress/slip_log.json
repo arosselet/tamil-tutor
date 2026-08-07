@@ -353,5 +353,17 @@
     "note": "takes the middle of an exchange clean, misses where it lands",
     "word": "",
     "dose_channel": "episode"
+  },
+  {
+    "at": "2026-08-07T00:18:03Z",
+    "date": "2026-08-06",
+    "lane": "knock",
+    "modality": "text",
+    "tag": "vowel-shift-a-to-o",
+    "said": "kashtom",
+    "want": "kashtam",
+    "note": "the final vowel is -am, not -om — கஷ்டம்",
+    "word": "கஷ்டம்",
+    "dose_channel": "episode"
   }
 ]
