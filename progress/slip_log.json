@@ -389,5 +389,17 @@
     "note": "the final vowel is -u, not -a",
     "word": "விட்டுடு",
     "dose_channel": "episode"
+  },
+  {
+    "at": "2026-08-08T23:43:38Z",
+    "date": "2026-08-08",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "person-marker",
+    "said": "naan maama sollanum",
+    "want": "maama-kitta pesanum / maama-va kuppidanum",
+    "note": "leaves the human unmarked — no -kitta/-va on the person the verb is aimed at, and defaults the verb to sollu",
+    "word": "",
+    "dose_channel": "episode"
   }
 ]
