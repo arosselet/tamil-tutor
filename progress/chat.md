@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:40 · Anna**  ·  text / trailer: mission debrief + sprint
 > da — mission debrief is waiting, AND 4 days left on the clock. lunch session today? I'll open with the -om report and we push the next cold one.
 
+**17:23 · Anna** 🎧  ·  eavesdrop / eavesdrop: gossip close
+> 🎧 overhear atthai on the phone — what's she doing with this gossip?
+
 
 ## Friday 2026-08-07
 
