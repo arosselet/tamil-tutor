@@ -1,0 +1,237 @@
+# Tier 1, Mission 85 — The Human Errand
+
+## Core Targets
+- **Linguistic Pattern:** The Human Markers (-kitta for 'with/to' and -va for object focus)
+- **Register:** embarrassment
+- **Dramatic Ingredient:** stakes (the flight is tomorrow; the errand is failing)
+- **Scenario Shape:** callback_heavy
+- **Location class:** home_social
+- **Energy:** medium-loud
+- **Episode Form:** story
+
+## Scenario Context
+It is the morning before a big flight. Three specific people need to be reached to coordinate the departure: the Maama with the car keys, the Akka holding the tickets, and the Neighbor (thambi) with the spare key. Every time the phone is dialed, the wrong person answers, or the wrong name is invoked. The embarrassment of repeatedly mixing up the social hierarchy and the linguistic markers while under time pressure creates the tension.
+
+## Word Payload
+
+**NEW (3 words):**
+- **கிட்ட** (*kitta*) — near / with / to (a person)
+- **கூப்பிடு** (*kuppidu*) — call / invite
+- **அனுப்பு** (*anuppu*) — send
+
+**CALLBACKS (5 words):**
+- **பெட்டி** (*petti*) — suitcase / box [overdue]
+- **கிளம்பு** (*kilambu*) — leave / depart [overdue]
+- **முன்னாடியே** (*munnaadiye*) — already / beforehand [recently-mastered]
+- **மாமா** (*maama*) — Uncle (maternal) [overdue]
+- **அக்கா** (*akka*) — Elder sister [overdue]
+
+## Vocabulary Fence (the sea — build from these)
+- frame:adverb-aa (medhuvaa)
+- frame:cant-முடியல
+- frame:day-recap
+- frame:done-ittu
+- frame:giveme-noun
+- frame:happened-aachu
+- frame:hearsay-aam
+- frame:howmuch-noun
+- frame:idum
+- frame:if-ndhaa
+- frame:in-la
+- frame:isthere-noun
+- frame:mayi-laama
+- frame:nearby-noun
+- frame:needtogo-place
+- frame:negative-la
+- frame:obligation-ணும்
+- frame:polite-nga
+- frame:present-future-toggle
+- frame:quote-nu
+- frame:want-noun
+- frame:we-om
+- frame:where-noun
+- அக்கா (akka)
+- அங்க (anga)
+- அஞ்சு (anju)
+- அண்ணா (anna)
+- அதனால (adhanaal)
+- அதான் (adaan)
+- அது (adhu)
+- அதுக்கு (adhuku)
+- அதுக்கு அப்புறம்
+- அத்தை (atthai)
+- அனுப்பு (anuppu)
+- அப்படியா?! (appadiya)
+- அப்படீங்களா?
+- அப்புறம் (appuram)
+- அலைச்சல் (alaichal)
+- அழகான
+- அவ (ava)
+- அவங்க (avanga)
+- அவசரம் இருக்கு (avasaram irukku)
+- அவன் (avan)
+- அவரு
+- ஆனா (aana)
+- ஆமா (aam)
+- ஆமா ஆமா (aama aama)
+- இங்க (inga)
+- இங்க நிறுத்துங்க (inga niruthunga)
+- இடது
+- இன்னைக்கு (innaiku)
+- இப்போ (ippo)
+- இருக்கு (iruku)
+- இருந்துச்சு (irundhuchu)
+- இல்ல (illa)
+- இல்லையாவா?
+- ஈஸி (easy)
+- உக்காருங்க
+- உனக்கு (unakku)
+- உப்பு (uppu)
+- உயரம்
+- உள்ள (ulla)
+- ஊரு (ooru)
+- எங்க (enga)
+- எங்க? (enga?)
+- எடுங்க
+- எனக்கு (enakku)
+- என்ன சமைக்கிற? (enna samaikkira)
+- என்ன சொன்னீங்க? (enna sonneenga)
+- என்ன? (enna)
+- என்னமோ பிரச்சனை (ennamo prachanai)
+- எப்படி இருக்கீங்க? (eppadi irukkinga)
+- எழுந்திரு (ezhunthiru)
+- எழுந்தேன்
+- ஏன்னா
+- ஒன்னு (onnu)
+- ஒன்னு மட்டும்
+- ஒரு நிமிஷம் (oru nimisham)
+- கன்ஃபர்ம் (kanfarm)
+- கம்மி (kammi)
+- கல்யாணம்
+- கவலை
+- கஷ்டம் (kashtam)
+- காரம் (kaaram)
+- கிடைச்சுது (kidaichudu)
+- கிட்ட (kitta)
+- கிளம்பு (kilambu)
+- கீழ (keele)
+- குடிச்சேன்
+- குடுங்க
+- குட்டை (kutti)
+- குளி
+- குளிர்
+- கூப்பிடு (kuppidu)
+- கேட்குறேன் (ketkureen)
+- கேட்டாங்க
+- கேட்டேன் (keten)
+- கேட்பேன் (ketpaen)
+- கேன்சல்
+- கொஞ்சம் (konjam)
+- கொஞ்சம் தண்ணி குடுங்க
+- கொஞ்சம் நில்லுங்க
+- கொஞ்சம் மெதுவா சொல்லுங்க
+- கொடுத்தேன் (kodutten)
+- கோவம் (kovam)
+- சட்டை (sattai)
+- சந்தோஷம் (sandosham)
+- சமையலறை (samayalarai)
+- சரி (sari)
+- சரி சரி (seri seri)
+- சரியான (sariyana)
+- சாப்டீங்களா?
+- சாப்பாடு ரெடி (saappaadu ready)
+- சாப்பிடுங்க
+- சாப்பிட்டேன்
+- சாப்பிட்டோம்
+- சின்ன (sinna)
+- சில்லறை இருக்கா? (sillarai irukka)
+- சீக்கிரம் (seekkiram)
+- சுவையா இருக்கு (suvaiya irukku)
+- சூடு (soodu)
+- சூப்பர்
+- செம்மை (semmai)
+- சொன்னாங்க
+- சொன்னேன்
+- சொல்றேன்
+- சொல்லுங்க
+- சொல்லுவேன்
+- ஜாஸ்தி (jasthi)
+- டயர்ட்
+- தங்கச்சி (thangachi)
+- தப்பு
+- தமிழ்ல எப்படி சொல்றது?
+- தம்பி (thambi)
+- தாகம் (thaagam)
+- தூக்கு (thooku)
+- தூங்கினேன்
+- தெரியாது (theriyaadhu)
+- தெரியுமா? (theriyuma)
+- தெரியும் (theriyum)
+- நம்ம (namma)
+- நல்லா (nalla)
+- நல்லா இருக்கு
+- நாங்க (naanga)
+- நாளைக்கு (naalaikku)
+- நினைச்சேன்
+- நிமிஷம்
+- நிறுத்துங்க
+- நிறைய (niraya)
+- நீ (nee)
+- நீங்க (neenga)
+- நீங்க சாப்பிட்டீங்களா? (ninga saaptingala)
+- நூறு (nooru)
+- நேத்து (netru)
+- நேரம் ஆச்சு
+- நேரம் இருக்கா?
+- நேரா
+- நேரா போங்க (nera ponga)
+- பசி (pasi)
+- பண்ணல (pannala)
+- பத்து (pathu)
+- பயம் (payam)
+- பரவாயில்ல
+- பரவாயில்லை
+- பழைய
+- பார்த்தேன்
+- பிடிக்காது (pidikkaadhu)
+- பிடிக்கும் (pidikkum)
+- பிரச்சனை (prachanai)
+- புது
+- புரிஞ்சுது (purinjudhu)
+- புரியல (puriyala)
+- பெட்டி
+- பெரிய (periya)
+- போகணும் (poganum)
+- போடு (podu)
+- போதும் (podhum)
+- போனேன்
+- போனோம் (ponom)
+- போயிட்டு வரேன்
+- போறேன் (poren)
+- மாமா (maama)
+- முடியாது (mudiyaadhu)
+- முதல்ல
+- முன்னாடியே
+- முறை மாமன்
+- மூணு (moonu)
+- மேல (meela)
+- யாரு? (yaaru)
+- ரெண்டு (rendu)
+- ரொம்ப அதிகம் (romba adhigam)
+- ரொம்ப நல்லா இருக்கு (romba nallarukku)
+- வணக்கம் (vanakkam)
+- வந்துடுச்சு (vandhuduchu)
+- வந்துட்டேன் (vandhutten)
+- வந்தேன் (vanden)
+- வயிறு ஃபுல்
+- வரேன் (vareen)
+- வலது
+- வாருங்களா?
+- விட
+- வெளிய (veliya)
+- வேணும் (venum)
+- வேண்டாம் (vendam)
+- வேற என்ன?
+
+## Notes
+The learner is struggling with human markers, defaulting to the base noun. The script must emphasize the contrast between the person as a target (*-kitta*) and the person as an object (*-va*). Do not let the speakers use unmarked human nouns for these verbs. The "embarrassment" register is fueled by the awkwardness of calling the wrong person while being in a rush to "kilambu" (depart).

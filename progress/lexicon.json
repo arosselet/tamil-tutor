@@ -542,10 +542,11 @@
       64,
       65,
       67,
-      82
+      82,
+      85
     ],
-    "last_surfaced": "2026-08-05",
-    "exposures": 1
+    "last_surfaced": "2026-08-08",
+    "exposures": 2
   },
   "ரெண்டு": {
     "gloss": "Two",
@@ -619,9 +620,11 @@
       19,
       20,
       27,
-      38
+      38,
+      85
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-08",
+    "exposures": 1
   },
   "வயிறு ஃபுல்": {
     "gloss": "Stomach full",
@@ -1264,11 +1267,12 @@
       71,
       76,
       83,
-      84
+      84,
+      85
     ],
-    "last_surfaced": "2026-08-07",
+    "last_surfaced": "2026-08-08",
     "reps": 3,
-    "exposures": 3
+    "exposures": 4
   },
   "அவ": {
     "gloss": "She (informal)",
@@ -1515,10 +1519,11 @@
       38,
       60,
       75,
-      76
+      76,
+      85
     ],
-    "last_surfaced": "2026-07-26",
-    "exposures": 3,
+    "last_surfaced": "2026-08-08",
+    "exposures": 4,
     "reps": 1
   },
   "சொல்றேன்": {
@@ -1928,9 +1933,11 @@
     "seen_in": [
       16,
       17,
-      18
+      18,
+      85
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-08",
+    "exposures": 1
   },
   "சந்தோஷம்": {
     "gloss": "Happy / Joy",
@@ -2006,10 +2013,11 @@
       28,
       29,
       61,
-      80
+      80,
+      85
     ],
-    "last_surfaced": "2026-08-02",
-    "exposures": 1
+    "last_surfaced": "2026-08-08",
+    "exposures": 2
   },
   "முடியாது": {
     "gloss": "Cannot / Impossible",
@@ -2426,9 +2434,11 @@
     "production": "none",
     "seen_in": [
       31,
-      43
+      43,
+      85
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-08",
+    "exposures": 1
   },
   "அனுப்பு": {
     "gloss": "Send",
@@ -2439,9 +2449,11 @@
     "production": "none",
     "seen_in": [
       43,
-      67
+      67,
+      85
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-08",
+    "exposures": 1
   },
   "கிடைச்சுது": {
     "gloss": "Received / Got it",
@@ -2601,9 +2613,11 @@
     "seen_in": [
       34,
       40,
-      46
+      46,
+      85
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-08",
+    "exposures": 1
   },
   "frame:present-future-toggle": {
     "type": "pattern",
@@ -3695,13 +3709,14 @@
     "production": "hinted",
     "seen_in": [
       72,
-      84
+      84,
+      85
     ],
-    "last_surfaced": "2026-08-07",
+    "last_surfaced": "2026-08-08",
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 2
+    "exposures": 3
   },
   "இன்னும் கொஞ்சம் போடுங்க": {
     "type": "chunk",

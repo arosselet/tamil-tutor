@@ -1,0 +1,32 @@
+{
+  "mission": 85,
+  "register": "embarrassment",
+  "dramatic_ingredient": "stakes",
+  "episode_form": "story",
+  "shape": "gossip",
+  "location_class": "home_social",
+  "energy": "high",
+  "intercept_tamil_density": 0.45,
+  "breakdown_tamil_density": 0.25,
+  "fence_size": 52,
+  "unfenced_words": 2,
+  "new_words_landed": {
+    "கிளம்பு": 5,
+    "பெட்டி": 3,
+    "கூப்பிடு": 6,
+    "அனுப்பு": 4,
+    "கிட்ட": 8,
+    "முன்னாடியே": 2
+  },
+  "callbacks_used": {
+    "மாமா": 9,
+    "அக்கா": 6,
+    "சரி சரி": 1,
+    "ஆமா": 2
+  },
+  "host_roles": {
+    "A": "anxious_packer",
+    "B": "panicked_caller"
+  },
+  "notes": "Producer pass: Verified all payload items (கிளம்பு, பெட்டி, கூப்பிடு, அனுப்பு, கிட்ட, முன்னாடியே) appear verbatim. Applied Coimbatore dialect shifts (என்னாச்சு, பண்றேன், காலைல). Enforced first-person rule: 'கிளம்புறோம்' and 'கூப்பிடுறேன்' remain without -nga suffix. Embedded Tamil in narration/analyst sections uses Tamil script only."
+}
