@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Saturday 2026-08-08
+
+**09:40 · Anna**  ·  text / trailer: mission debrief + sprint
+> da — mission debrief is waiting, AND 4 days left on the clock. lunch session today? I'll open with the -om report and we push the next cold one.
+
+
 ## Friday 2026-08-07
 
 **08:45 · Anna** 🎧  ·  fielding / fielding: sari-sari close
