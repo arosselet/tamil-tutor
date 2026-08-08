@@ -389,7 +389,7 @@
       "vendam"
     ],
     "recognition": "solid",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       10,
       21,
@@ -398,7 +398,8 @@
       65,
       72
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-08",
+    "reps": 1
   },
   "சொல்லுங்க": {
     "gloss": "Tell/Say (respectful)",
@@ -783,8 +784,8 @@
       71,
       72
     ],
-    "last_surfaced": "2026-08-03",
-    "reps": 7,
+    "last_surfaced": "2026-08-08",
+    "reps": 8,
     "exposures": 1
   },
   "தெரியும்": {
@@ -2618,9 +2619,10 @@
     "gloss": "{verb}+ணும் → must {verb} — பண்ணணும், போகணும், சொல்லணும்",
     "phonetic": [],
     "recognition": "solid",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [],
-    "last_surfaced": "2026-06-20"
+    "last_surfaced": "2026-08-08",
+    "reps": 1
   },
   "frame:cant-முடியல": {
     "type": "pattern",
@@ -2756,11 +2758,12 @@
       "vendaamma, vayiru nerainjiduchu"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [],
-    "last_surfaced": null,
+    "last_surfaced": "2026-08-08",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 1
   },
   "உங்க கை ருசி சூப்பர்": {
     "type": "chunk",
@@ -2817,9 +2820,10 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": null,
+    "last_surfaced": "2026-08-08",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 1
   },
   "உட்கார்ந்து பேசுங்க": {
     "type": "chunk",
@@ -2844,12 +2848,12 @@
       "ninga saaptingala"
     ],
     "recognition": "comfortable",
-    "production": "none",
+    "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-07-31",
+    "last_surfaced": "2026-08-08",
     "deck": "trip",
     "direction": "fire",
-    "reps": 1
+    "reps": 2
   },
   "அவங்க என்ன சொன்னாங்க?": {
     "type": "chunk",
