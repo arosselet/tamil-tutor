@@ -3839,5 +3839,17 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-07T23-27.mp3",
     "memo_script": "da, one thing I want you to carry into this trip — not a word to fire, just a shape to recognize.\n\nYou already know how to start a conversation in Tamil. Say hello, ask how they are, say you ate, say where you went. That part you've got.\n\nBut the end of a Tamil conversation — that's its own thing. And it's almost never dramatic. It's a landing. And there are basically three landings you'll hear at our table.\n\nFirst one: சும்மா சொல்றாங்க. Someone tells a story — a rumour, a piece of gossip, something about a neighbour. And the person listening says: சும்மா சொல்றாங்க. It means: they're just talking. Don't take it seriously. That's the kill-shot landing — the whole story gets waved off in four syllables. And when you hear it, you know: this topic is DONE. Nobody revisits it.\n\nSecond one: விட்டுடு. Drop it. You hear this when something is getting too heavy, or too complicated, or just — not worth the energy anymore. விட்டுடு. Let it go. The conversation doesn't end with a fight; it ends with someone just... opening their hand. And everything falls out of it.\n\nThird one — and you almost had this one today — சரி சரி. Right, right. This is the softer landing. Someone's been explaining something, maybe complaining a little, and the listener says: சரி சரி. I hear you. I accept it. We're done discussing. It's not dismissal — it's more like... settling. Like a door closing gently instead of being shut.\n\nThree landings. சும்மா சொல்றாங்க kills the story. விட்டுடு drops the weight. சரி சரி closes it quietly.\n\nYou're going to hear all three. Probably in the first two days. Now you'll know where you are when you do.",
     "mp3": "published_audio/knocks/knock_2026-08-07T23-27.mp3"
+  },
+  {
+    "date": "2026-08-08",
+    "timestamp": "2026-08-08T13:40:24.755674+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "trailer: mission debrief + sprint",
+    "rationale": "Saturday late morning → lunch anchor rule: trailer beats demand dose; field mission debrief is a concrete hook, 4-day countdown adds real stakes, no open loops to block it.",
+    "next_check": "2026-08-08T16:40:24.755674+00:00",
+    "body": "da — mission debrief is waiting, AND 4 days left on the clock. lunch session today? I'll open with the -om report and we push the next cold one.",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]
