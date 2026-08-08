@@ -3851,5 +3851,14 @@
     "body": "da — mission debrief is waiting, AND 4 days left on the clock. lunch session today? I'll open with the -om report and we push the next cold one.",
     "expected_target": "",
     "target_revealed": false
+  },
+  {
+    "date": "2026-08-08",
+    "timestamp": "2026-08-08T17:23:09.414290+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "silence — trailer still live",
+    "rationale": "Ignore-streak of 2 with a no-tap trailer still warm from 3.7h ago — firing again before evening is pestering; if no session by ~17:00, pay off the trailer as a show dose and slot the volley.",
+    "next_check": "2026-08-08T20:53:09.414290+00:00"
   }
 ]
