@@ -3860,5 +3860,20 @@
     "move": "silence — trailer still live",
     "rationale": "Ignore-streak of 2 with a no-tap trailer still warm from 3.7h ago — firing again before evening is pestering; if no session by ~17:00, pay off the trailer as a show dose and slot the volley.",
     "next_check": "2026-08-08T20:53:09.414290+00:00"
+  },
+  {
+    "date": "2026-08-08",
+    "timestamp": "2026-08-08T21:23:12.002830+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "eavesdrop: gossip close",
+    "rationale": "Eavesdrop cadence is due (3d since last), catch-closing is the active slip, and two ignored reaches mean a no-ask soak beats another demand — this tape drills the exact closes from the slip pattern (summa solraanga / seri seri / vittudu) in a natural phone-call frame, zero production pressure.",
+    "next_check": "2026-08-09T00:23:12.002830+00:00",
+    "body": "🎧 overhear atthai on the phone — what's she doing with this gossip?",
+    "expected_target": "சும்மா சொல்றாங்க",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-08T21-23.mp3",
+    "memo_script": "சாரதா அக்காவோட பேசுறேன் — கேளு.\n\nஆமா, நேத்து சொன்னாங்க எனக்கு. அந்த வீட்டுல என்னமோ பிரச்சனை-ன்னு. அவங்க பையன் வெளியூர்ல இருக்காரு, அவங்க அம்மா ஒருத்தியா இருக்காங்களாம்.\n\nஆமா ஆமா, நானும் கேட்டேன். சும்மா சொல்றாங்க — யாருக்கு தெரியும் உண்மை என்னன்னு?\n\nசரி சரி, விட்டுடு — அந்த விஷயம் நமக்கு எதுக்கு? போகட்டும்.",
+    "mp3": "published_audio/knocks/knock_2026-08-08T21-23.mp3"
   }
 ]
