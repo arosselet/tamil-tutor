@@ -3874,7 +3874,21 @@
     "target_revealed": false,
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-08T21-23.mp3",
     "memo_script": "சாரதா அக்காவோட பேசுறேன் — கேளு.\n\nஆமா, நேத்து சொன்னாங்க எனக்கு. அந்த வீட்டுல என்னமோ பிரச்சனை-ன்னு. அவங்க பையன் வெளியூர்ல இருக்காரு, அவங்க அம்மா ஒருத்தியா இருக்காங்களாம்.\n\nஆமா ஆமா, நானும் கேட்டேன். சும்மா சொல்றாங்க — யாருக்கு தெரியும் உண்மை என்னன்னு?\n\nசரி சரி, விட்டுடு — அந்த விஷயம் நமக்கு எதுக்கு? போகட்டும்.",
-    "mp3": "published_audio/knocks/knock_2026-08-08T21-23.mp3"
+    "mp3": "published_audio/knocks/knock_2026-08-08T21-23.mp3",
+    "response": "reply",
+    "reply": "Drop it and go",
+    "reply_verdict": "caught",
+    "reply_line": "adhu dhaan — heard the whole arc: there's some trouble at that house, son's away, amma's alone, and atthai's already half-stepping back from it — 'summa solraanga, namaakku ethukku?' Drop it and move on. You caught it clean 🎧",
+    "reply_at": "2026-08-09T22:48:18Z",
+    "exchanges": [
+      {
+        "at": "2026-08-09T22:48:18Z",
+        "reply": "Drop it and go",
+        "verdict": "caught",
+        "fired": [],
+        "reply_line": "adhu dhaan — heard the whole arc: there's some trouble at that house, son's away, amma's alone, and atthai's already half-stepping back from it — 'summa solraanga, namaakku ethukku?' Drop it and move on. You caught it clean 🎧"
+      }
+    ]
   },
   {
     "date": "2026-08-09",
