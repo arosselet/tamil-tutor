@@ -9,6 +9,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **08:35 · Anna** 🎧  ·  fielding / fielding: innoru thada
 > enna da, oru vela kekkaama poitta? 🎧 — answer her
 
+**18:45 · Andrew** — **MISS**
+> I don’t understand
+
+**Anna ↩**
+> that IS the Tamil — she said she couldn't hear you, and she wants you to say it again: 'innoru thadava sollunga'
+
 **14:30 · Anna** 🎧  ·  audio / mission payoff memo
 > 🎧 kai kazhuvittu varen — did it land last night?
 
