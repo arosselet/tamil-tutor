@@ -32,10 +32,10 @@ from pathlib import Path
 
 from slips import (append_slips, canon_tag, cmd_slips, parse_slip_args,
                    record_slip_commission, record_slip_test, slip_patterns)
-from state_io import (BASE, EPISODES_PATH, FEEDBACK_LOG_PATH, KNOCK_LOG_PATH,
-                      LEARNER_PATH, LEXICON_PATH, SESSION_LOG_PATH,
-                      SLIP_LOG_PATH, build_phonetic_index, is_tamil,
-                      load_json, local_today, resolve, save_json)
+from state_io import (BASE, DEFAULT_TZ, EPISODES_PATH, FEEDBACK_LOG_PATH,
+                      KNOCK_LOG_PATH, LEARNER_PATH, LEXICON_PATH,
+                      SESSION_LOG_PATH, SLIP_LOG_PATH, build_phonetic_index,
+                      is_tamil, load_json, local_today, resolve, save_json)
 
 # Windows consoles default to cp1252, which can't print Tamil — the status digest
 # crashed mid-print on a fresh laptop (2026-07-15) and a dead digest invites the
@@ -393,6 +393,12 @@ def compute_recent_missions(episodes: dict, n: int = 4) -> list[dict]:
 def write_thin_learner(learner: dict, episodes: dict):
     thin = {
         "learner": learner.get("learner", "Andrew"),
+        # The zone every clock-facing rule reads (state_io.LOCAL_TZ). It is in
+        # this whitelist for the reason the block below spells out: omitted here,
+        # the first sync after he lands in India would silently restore the home
+        # clock, and quiet hours would start firing at 3am Chennai with nothing
+        # on screen to say why. Travel is exactly when nobody is auditing state.
+        "timezone": learner.get("timezone", DEFAULT_TZ),
         "last_debrief": learner.get("last_debrief", ""),
         "soak_order": learner.get("soak_order", {}),
         "next_engine": learner.get("next_engine", ""),
