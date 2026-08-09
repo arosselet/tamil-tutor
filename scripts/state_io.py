@@ -17,27 +17,13 @@ import re
 import sys
 from datetime import date, datetime
 from pathlib import Path
-from zoneinfo import ZoneInfo
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 # Windows consoles default to cp1252, which can't print Tamil — the status digest
 # crashed mid-print on a fresh laptop (2026-07-15) and a dead digest invites the
 # agent to improvise state. Harmless everywhere else.
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
-
-# Andrew's local clock — canonical here; outreach scripts import it for the rails.
-LOCAL_TZ = ZoneInfo("America/New_York")
-
-
-def local_today() -> date:
-    """Today on ANDREW's clock, never the host's. The slip ledger dates slips,
-    commissions and closes against each other, so a stamp taken from a UTC
-    runner between 8pm and midnight lands a day ahead of one taken on his
-    laptop — and `escalate` (a slip dated after its dose) then fires on a dose
-    that had not failed. append_slips already documented this seam for its
-    `when` argument; its own default, and the callers below, were still on
-    local_today()."""
-    return datetime.now(LOCAL_TZ).date()
 
 BASE = Path(__file__).parent.parent
 LEXICON_PATH = BASE / "progress" / "lexicon.json"
@@ -47,11 +33,6 @@ SESSION_LOG_PATH = BASE / "progress" / "session_log.json"
 FEEDBACK_LOG_PATH = BASE / "progress" / "feedback_log.json"
 KNOCK_LOG_PATH = BASE / "progress" / "knock_log.json"
 SLIP_LOG_PATH = BASE / "progress" / "slip_log.json"
-
-# Script-detection: Tamil script is the canonical lexicon key, so a phonetic-only
-# token can never mint a record. PORT SURFACE — a fork to another language
-# replaces this regex (moved here from sync_state.py 2026-08-04).
-TAMIL_RE = re.compile(r"[஀-௿]")
 
 
 def load_json(path: Path):
@@ -64,6 +45,62 @@ def load_json(path: Path):
 def save_json(path: Path, data):
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
+
+
+# --- Andrew's clock ----------------------------------------------------------
+
+# Where he lives when he is home; the fallback when learner.json is silent (a
+# fresh clone, or a fork that never set the field).
+DEFAULT_TZ = "America/New_York"
+
+
+def _resolve_local_tz() -> ZoneInfo:
+    """Andrew's zone, read from `learner.json.timezone` — ONE dial (2026-08-09).
+
+    Every clock-facing rule in the system already funnelled through the LOCAL_TZ
+    constant below, so the zone was a one-line edit; what it was NOT was a
+    *declared* one. It sat in source, in the state layer, next to nothing that
+    would remind a traveller it existed. Moving it into learner.json makes the
+    zone a fact about the learner rather than a fact about the code: he changes
+    one field when he lands, everything downstream (quiet hours, the rails,
+    local_today, feed pubDates) follows, and no script is touched.
+
+    A bad zone name FALLS BACK rather than raising. This module is imported by
+    every unattended lane — the knock cron, the push queue, the studio — and a
+    typo that hard-crashes all of them is a worse failure than one that runs on
+    the home zone and complains: the fallback keeps the machine reaching him.
+    The complaint goes to stderr, and `session_brief` prints the live zone on
+    every load, which is the check that actually gets read.
+    """
+    name = (load_json(LEARNER_PATH) or {}).get("timezone") or DEFAULT_TZ
+    try:
+        return ZoneInfo(name)
+    except (ZoneInfoNotFoundError, ValueError):
+        print(f"⚠ learner.json names an unknown timezone {name!r} — falling back "
+              f"to {DEFAULT_TZ}. Quiet hours and dates will be on the home clock.",
+              file=sys.stderr)
+        return ZoneInfo(DEFAULT_TZ)
+
+
+# Andrew's local clock — canonical here; outreach scripts import it for the rails.
+LOCAL_TZ = _resolve_local_tz()
+
+
+def local_today() -> date:
+    """Today on ANDREW's clock, never the host's. The slip ledger dates slips,
+    commissions and closes against each other, so a stamp taken from a UTC
+    runner between 8pm and midnight lands a day ahead of one taken on his
+    laptop — and `escalate` (a slip dated after its dose) then fires on a dose
+    that had not failed. append_slips already documented this seam for its
+    `when` argument; its own default, and the callers below, were still on
+    local_today()."""
+    return datetime.now(LOCAL_TZ).date()
+
+
+# Script-detection: Tamil script is the canonical lexicon key, so a phonetic-only
+# token can never mint a record. PORT SURFACE — a fork to another language
+# replaces this regex (moved here from sync_state.py 2026-08-04).
+TAMIL_RE = re.compile(r"[஀-௿]")
 
 
 # --- Lexicon helpers ---------------------------------------------------------

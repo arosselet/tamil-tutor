@@ -842,6 +842,17 @@ Details live in git history; this is the index of the *conclusions*.
   `saved_dates` short-circuits first, so a rebuild changes zero published pubDates (verified —
   the only lines a local rebuild touches are durations, see below). Smoke asserts the stamp
   under a forced-UTC host.
+- **Andrew's timezone is a field in `learner.json`, not a constant in source** (2026-08-09).
+  `LOCAL_TZ` was already the one definition every clock-facing rule read, but it sat in the
+  state layer as `ZoneInfo("America/New_York")` — making the switch on landing day a code
+  edit from an airport. It now reads `learner.json.timezone` via `_resolve_local_tz()`;
+  `DEFAULT_TZ` covers a silent profile. The read was four lines; the work was three silent
+  New-York assumptions elsewhere: `write_thin_learner`'s delete-on-omit whitelist (omitted
+  there, the first update after landing restores the home clock — the trap that ate
+  `slip_closes`), smoke's quiet-hours case built from a frozen UTC instant, and a pubDate
+  guard hardcoding `-0400`. A bad zone falls back with a stderr complaint rather than
+  crashing every unattended lane; that fallback being a valid zone is why `session_brief`
+  now names the live one. **Not built:** travel days still read as fades — scoped out.
 - **`anna.yml` must not run on push; the gap it leaves is closed by linting, not by running**
   (2026-07-25, Andrew asked whether it could be closed). A push-triggered Anna would drain the
   queue, judge replies and notify Andrew's phone on every commit — a side effect, not a test.

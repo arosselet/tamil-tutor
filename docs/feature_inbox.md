@@ -760,3 +760,15 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
   close in phonetic by the surface-split law, so the flag that rejects phonetics is the
   one he will reach for wrong every time. Cheap fix: route `--mark-seen` through the same
   resolver, or have its error name the canonical key it wanted.
+- **A travel day with no session reads as a fade** (2026-08-09, raised two days before
+  departure and deliberately scoped out in the same breath — "I don't wanna implement a
+  feature there"). Flying to India costs a day or two where the lesson probably won't
+  happen. Silence is data in this system: the gap feeds decay, the deck's staleness term,
+  and `recent_ask_counts`, so a travel day is currently indistinguishable from a day he
+  ducked — the same absence-is-a-signal shape as the dead-reply entry above, but with a
+  known, bounded, *scheduled* cause. **Deliberately not built**, and the argument against
+  is real: the fade is honest, decay does not care why the rep was missed, and a "travel
+  exemption" is a pedagogy change dressed as plumbing. What would earn it is evidence
+  after the fact — if the post-trip state shows the deck or the cohort visibly mis-steered
+  by the travel gap rather than merely dented, that is the reproduced pattern. Look at it
+  post-trip with the session log in hand, not before.

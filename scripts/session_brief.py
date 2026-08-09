@@ -138,7 +138,11 @@ def cmd_status(_args):
 
     # Anna is time-aware at inference: every load path reads this line, so "ping
     # me in an hour" / "tonight at 9" can become a real scheduled push (push_queue.py).
-    print(f"Now: {datetime.now(LOCAL_TZ):%a %Y-%m-%d %H:%M %Z}")
+    # The zone is NAMED, not just abbreviated (2026-08-09): it is now a field in
+    # learner.json, and a dial you can change is a dial you can forget to change.
+    # "EDT" on the third morning in Coimbatore is the tell that the switch never
+    # happened — but only if the line says which zone it thinks it is in.
+    print(f"Now: {datetime.now(LOCAL_TZ):%a %Y-%m-%d %H:%M %Z} ({LOCAL_TZ.key})")
     print(f"Learner: {learner.get('learner')}")
     # No streak theatre — the honest signal is recency (a scoreboard that lies
     # teaches the player to ignore all the meters).

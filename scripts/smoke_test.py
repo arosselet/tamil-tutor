@@ -2229,8 +2229,11 @@ def s31_feed_carries_every_pushed_dose(sb: Path):
             os.environ["TZ"] = "UTC"
             time.tzset()
         pub = email.utils.format_datetime(datetime.fromtimestamp(stamp, rr.LOCAL_TZ))
-        check("a pubDate is stamped in Andrew's zone on a UTC host", pub.endswith("-0400"),
-              f"got {pub}")
+        # Expected offset comes from LOCAL_TZ at that instant. Hardcoding "-0400"
+        # made this a test of New York rather than of "Andrew's zone" (2026-08-09).
+        want_off = datetime.fromtimestamp(stamp, rr.LOCAL_TZ).strftime("%z")
+        check("a pubDate is stamped in Andrew's zone on a UTC host", pub.endswith(want_off),
+              f"got {pub}, wanted offset {want_off}")
         check("the pubDate names the local wall clock", "19:56:25" in pub, f"got {pub}")
     finally:
         if can_simulate_host_tz:
@@ -2725,8 +2728,14 @@ def s35_quiet_hours_chokepoint(sb: Path):
         sent.append(getattr(req, "full_url", req))
         return FakeResp()
 
-    night = datetime(2026, 7, 26, 3, 42, tzinfo=timezone.utc)   # 23:42 EDT
-    noon = datetime(2026, 7, 26, 16, 0, tzinfo=timezone.utc)    # 12:00 EDT
+    # Built from LOCAL_TZ, not from frozen UTC instants. They used to be literals
+    # (`3:42Z  # 23:42 EDT`), which quietly encoded America/New_York into the
+    # quiet-hours case: the moment learner.json named another zone that same
+    # instant became mid-morning and the check inverted (2026-08-09). A guard for
+    # a rule stated in local hours has to be built in local hours.
+    noon_l = datetime.now(mk.LOCAL_TZ).replace(hour=12, minute=0, second=0, microsecond=0)
+    night = noon_l.replace(hour=23, minute=42).astimezone(timezone.utc)
+    noon = noon_l.astimezone(timezone.utc)
     real_env = os.environ.get("ANNA_PUSH_WEBHOOK_URL")
     try:
         mk.urllib.request.urlopen = fake_urlopen
@@ -4080,6 +4089,78 @@ def s47_hinted_retest_block(sb: Path):
         deck_path.write_bytes(saved[1])
 
 
+def s56_timezone_is_one_dial(sb: Path):
+    """The zone is a field in learner.json, and it SURVIVES the next update
+    (2026-08-09).
+
+    `LOCAL_TZ` was already the single definition every clock-facing rule read —
+    quiet hours, the rails gate, `local_today`, feed pubDates — but it lived in
+    source as `ZoneInfo("America/New_York")`. Fine while he is home; a code edit
+    on the road, from an airport, on the day the rails matter most. Andrew asked
+    for the dial to move into his profile: one field, changed when he lands.
+
+    The trap this section exists for is NOT the read — that is four lines — it is
+    `write_thin_learner`, a whitelist that DELETES any learner key not named in
+    it. That exact shape already ate `slip_closes` silently for a week (see s44).
+    A wiped zone is worse than a wiped close, because the fallback is a perfectly
+    valid zone: everything keeps running, on the wrong clock, and the only
+    symptom is a push at 3am in Chennai. So the assertion that earns its keep is
+    the round-trip through an update, not the parse."""
+    print("\n56. The timezone is one dial in learner.json (2026-08-09)")
+    import argparse as _ap
+    import contextlib, io
+    ss = importlib.import_module("sync_state")
+    si = importlib.import_module("state_io")
+    learner_path = sb / "progress" / "learner.json"
+    saved = learner_path.read_bytes()
+
+    defaults = dict(listened=[], teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
+                    soak_channel=None, soak_form=None, mastered_word=[], comfortable_word=[],
+                    stuck_word=[], produced_cold=[], produced_hinted=[], mark_seen=[],
+                    next_engine=None, debrief=None, slip=[], slip_tested=[],
+                    slip_commissioned=[],
+                    # This section is not testing the commission gate, and by the
+                    # time it runs the sandbox carries live uncommissioned slips
+                    # from earlier sections — which refuse the close (exit 2).
+                    no_commission="smoke: zone round-trip, not a real close")
+
+    try:
+        # The trip zone, set the way Andrew will set it: edit the one field.
+        learner = read_json(learner_path)
+        learner["timezone"] = "Asia/Kolkata"
+        write_json(learner_path, learner)
+
+        check("the profile carries the zone", si._resolve_local_tz().key == "Asia/Kolkata",
+              f"got {si._resolve_local_tz()}")
+
+        with contextlib.redirect_stdout(io.StringIO()):
+            ss.cmd_update(_ap.Namespace(**{**defaults, "debrief": "landed"}))
+        check("...and it SURVIVES the update that follows (write_thin_learner whitelist)",
+              read_json(learner_path).get("timezone") == "Asia/Kolkata",
+              f"got {read_json(learner_path).get('timezone')!r} — the whitelist ate the zone")
+
+        # Silence is the home zone: a fork, or a clone that never set the field.
+        learner = read_json(learner_path)
+        del learner["timezone"]
+        write_json(learner_path, learner)
+        check("a profile with no zone falls back to home",
+              si._resolve_local_tz().key == si.DEFAULT_TZ, f"got {si._resolve_local_tz()}")
+
+        # A typo must not take the unattended lanes down with it — the knock cron,
+        # the queue and the studio all import this module at start-up.
+        learner["timezone"] = "Nowhere/Atlantis"
+        write_json(learner_path, learner)
+        err = io.StringIO()
+        with contextlib.redirect_stderr(err):
+            tz = si._resolve_local_tz()
+        check("a bad zone falls back instead of crashing every lane",
+              tz.key == si.DEFAULT_TZ, f"got {tz}")
+        check("...and says so on stderr", "Nowhere/Atlantis" in err.getvalue(),
+              f"silent fallback: {err.getvalue()!r}")
+    finally:
+        learner_path.write_bytes(saved)
+
+
 def s48_drill_answer_key_lint(sb: Path):
     """The drill lane had no answer-key validation (2026-08-01): the 08-01 tape
     shipped இடது பக்கம்ல where the oblique பக்கத்துல is right — a wrong case
@@ -4749,6 +4830,7 @@ def main():
         s53_prune_duplicate_lexicon_rows(sb)
         s54_two_eras_not_a_deadline(sb)
         s55_demotion_survives_the_close(sb)
+        s56_timezone_is_one_dial(sb)
         s48_drill_answer_key_lint(sb)
         s49_thread_continuity(mk, kr, sb)
         s50_read_surfaces_are_phonetic(mk, kr, sb)

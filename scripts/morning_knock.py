@@ -60,8 +60,10 @@ KNOCK_LOG_PATH = BASE / "progress" / "knock_log.json"
 SESSION_LOG_PATH = BASE / "progress" / "session_log.json"
 
 # ── The rails (hard, Python-enforced — Anna cannot cross these) ───────────────
-# Andrew's local timezone (canonical in sync_state; DST-correct EDT/EST) so the
-# waking window is honest year-round. The cron ticks a UTC superset; this filters.
+# Andrew's local timezone — canonical in `state_io`, which reads it from
+# `learner.json.timezone` (2026-08-09), so the waking window follows him abroad on
+# a one-field edit and stays DST-correct at home. The cron ticks a UTC superset;
+# this filters.
 from state_io import LEXICON_PATH, LOCAL_TZ
 WAKING_START_HOUR = 8      # inclusive, local
 WAKING_END_HOUR = 21       # exclusive, local (last reach can land at 20:59)

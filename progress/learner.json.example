@@ -1,5 +1,6 @@
 {
   "learner": "Your Name",
+  "timezone": "America/New_York",
   "last_debrief": "System initialized.",
   "soak_order": {},
   "recent_missions": [],
