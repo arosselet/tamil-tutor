@@ -3890,5 +3890,20 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-09T12-35.mp3",
     "memo_script": "ஐயோ, Andrew — நீங்க சொன்னது சரியா கேக்கல. இன்னொரு தடவ சொல்லுங்க.",
     "mp3": "published_audio/knocks/knock_2026-08-09T12-35.mp3"
+  },
+  {
+    "date": "2026-08-09",
+    "timestamp": "2026-08-09T18:30:15.465978+00:00",
+    "acted": true,
+    "modality": "audio",
+    "move": "mission payoff memo",
+    "rationale": "Demand-streak is 2 — next fire must be no-ask; audio is the right modality (Andrew asked for more); this pays off tonight's field mission without demanding anything back, keeps the loop warm after 4 unanswered reaches by staying low-friction, and the memo gives one clean rep of the mission line in a voice he can hear.",
+    "next_check": "2026-08-09T22:30:15.465978+00:00",
+    "body": "🎧 kai kazhuvittu varen — did it land last night?",
+    "expected_target": "",
+    "target_revealed": true,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-09T18-30.mp3",
+    "memo_script": "da — quick one.\n\nLast night, every night — you get up from that table, and the line is already in your mouth: *kai kazhuvittu varen*. கை கழுவிட்டு வரேன். That's it. That's the whole mission.\n\nI'm not asking you anything. Just wanted you to hear it one more time — the way it sits in the mouth, the way it lands. கை கழுவிட்டு வரேன். Natural. Easy. Yours.\n\nThree more days. We'll talk soon.",
+    "mp3": "published_audio/knocks/knock_2026-08-09T18-30.mp3"
   }
 ]
