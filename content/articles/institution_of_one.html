@@ -544,93 +544,16 @@
   .order li b { color: var(--ink); font-weight: 600; }
   .order li::marker { font-family: var(--mono); color: var(--faint); font-size: 0.9em; }
 
-  /* ---------- the hero player ---------- */
-  /* Same tokens as .order and .case — this is furniture in the article's own
-     system, not a widget bolted onto it. The six-segment rule is the ledger's
-     colour key, in the order the parts are introduced in the recording. */
+  /* ---------- the take-it block ---------- */
+  /* Same tokens as .order — the closing invitation is furniture in the
+     article's own system, not a call-to-action bolted onto it. */
 
-  .listen {
-    background: var(--surface);
-    border: 1px solid var(--rule);
-    max-width: 44rem;
-    align-self: stretch;
-    margin-top: 2.5rem;
-  }
-
-  .listen .seg { display: flex; height: 3px; }
-  .listen .seg i { flex: 1; }
-
-  .listen-in { padding: 1.4rem 1.5rem 1.3rem; display: flex; flex-direction: column; gap: 1rem; }
-
-  .listen-top { display: flex; gap: 1.1rem; align-items: center; }
-
-  .pbtn {
-    flex: none;
-    width: 3rem;
-    height: 3rem;
-    border: 1px solid var(--ink);
-    background: var(--ink);
-    color: var(--surface);
-    cursor: pointer;
-    display: grid;
-    place-items: center;
-    padding: 0;
-    transition: opacity 0.15s;
-  }
-
-  .pbtn:hover { opacity: 0.84; }
-  .pbtn:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
-  .pbtn svg { width: 1rem; height: 1rem; fill: currentColor; display: block; }
-  .pbtn[disabled] { background: var(--sunk); border-color: var(--rule); color: var(--faint); cursor: default; }
-
-  .ptext { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
-  .ptitle { font-size: var(--fs-sm); line-height: 1.4; color: var(--ink); }
-
-  .pmeta {
-    font-family: var(--mono);
-    font-size: var(--fs-micro);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .track { height: 3px; background: var(--hair); position: relative; cursor: pointer; }
-  .track:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
-  .bar { height: 100%; width: 0; background: var(--ink); }
-
-  .listen details { border-top: 1px solid var(--hair); padding-top: 0.9rem; }
-
-  .listen summary {
-    cursor: pointer;
-    font-family: var(--mono);
-    font-size: var(--fs-micro);
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .listen summary:hover { color: var(--ink); }
-  .listen summary:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
-
-  .transcript { display: flex; flex-direction: column; gap: 1rem; padding-top: 1.1rem; }
-
-  .transcript .ln { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 0 1.1rem; align-items: baseline; }
-
-  .transcript .who {
-    display: flex;
-    align-items: baseline;
-    gap: 0.5rem;
-    font-family: var(--mono);
-    font-size: var(--fs-micro);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .transcript .who .dot { flex: none; width: 0.9rem; height: 3px; background: var(--mark); transform: translateY(-0.25em); }
-  .transcript .said { font-size: var(--fs-sm); line-height: 1.62; color: var(--body); max-width: none; }
-  .transcript .said b { color: var(--ink); font-weight: 600; }
+  .take { background: var(--surface); border: 1px solid var(--rule); padding: 1.5rem 1.6rem; max-width: 44rem; }
+  .take dl { margin: 0; display: flex; flex-direction: column; gap: 1.1rem; }
+  .take dt { font-size: var(--fs-base); color: var(--ink); }
+  .take dt a { font-weight: 600; }
+  .take dd { margin: 0.25rem 0 0; font-size: var(--fs-sm); line-height: 1.58; color: var(--body); }
+  .take > p { margin-top: 1.2rem; font-size: var(--fs-sm); line-height: 1.58; }
 
   /* ---------- colophon ---------- */
 
@@ -644,7 +567,6 @@
     .part-rail .bar { flex: none; }
     .part-rail .stands-in { display: none; }
     ul.triage li { grid-template-columns: minmax(0, 1fr); gap: 0.25rem; }
-    .transcript .ln { grid-template-columns: minmax(0, 1fr); gap: 0.35rem; }
     .ledger .row { grid-template-columns: minmax(0, 1fr); }
     .ledger .built { order: -1; }
     ol.six li { grid-template-columns: 1.75rem minmax(0, 1fr); }
@@ -656,75 +578,29 @@
 
   <header class="masthead">
     <h1>The Institution of One</h1>
-    <p class="deck">Six jobs a school does for you without ever naming them, and what it takes to build each one when there is no school.</p>
+    <p class="deck">I wanted a language model to teach me my wife's dialect. A year later, what runs is the six jobs a school does — all six, around one person, for five dollars a month.</p>
     <div class="stamp">
       <span>Architecture note</span>
-      <span>Derived from one system, one learner</span>
-      <span>6 August 2026</span>
+      <span>Derived from one system, one year</span>
+      <span>8 August 2026</span>
     </div>
   </header>
 
-  <!-- HERO PLAYER.
-       Source script: content/scripts/special_institution_of_one.md
-       Render:  python scripts/render_demo.py \
-                    content/scripts/special_institution_of_one.md \
-                    audio/institution_of_one.mp3
-       Embed:   replace the __HERO_AUDIO_B64__ token below with the base64 of
-                that MP3. A strict CSP blocks every external host on a published
-                artifact, so the bytes have to live in the page; there is no URL
-                that would work here, including the repo's own CDN.
-       Until the token is replaced the button disables itself — see the guard at
-       the foot of the script block. A dead play button is worse than none. -->
-  <div class="listen">
-    <div class="seg" aria-hidden="true">
-      <i style="background: var(--c2)"></i><i style="background: var(--c3)"></i><i style="background: var(--c1)"></i><i style="background: var(--c4)"></i><i style="background: var(--c5)"></i><i style="background: var(--c6)"></i>
-    </div>
-    <div class="listen-in">
-      <div class="listen-top">
-        <button class="pbtn" id="pbtn" type="button" aria-label="Play: the system introduces itself">
-          <svg id="picon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
-        </button>
-        <div class="ptext">
-          <span class="ptitle">The system introduces itself — Anna and the six parts, in their own voices</span>
-          <span class="pmeta" id="pmeta">Listen</span>
-        </div>
-      </div>
-
-      <div class="track" id="track" role="slider" tabindex="0"
-           aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-        <div class="bar" id="bar"></div>
-      </div>
-
-      <audio id="au" preload="metadata" src="data:audio/mpeg;base64,__HERO_AUDIO_B64__"></audio>
-
-      <details>
-        <summary>Read it instead</summary>
-        <div class="transcript">
-          <div class="ln" style="--mark: var(--ink)"><span class="who"><span class="dot"></span>Anna</span><p class="said"><span class="ta">வணக்கம்.</span> You are about to read an architecture note about a machine. This is the machine. Nobody wrote this introduction by hand, and nobody heard it before it shipped. My name is Anna — in Tamil, elder brother. I teach one man the Tamil people actually speak in <span class="ta">கோயம்புத்தூர்</span>. I am the part he talks to, and the smallest part of this. There are six of us.</p></div>
-          <div class="ln" style="--mark: var(--c2)"><span class="who"><span class="dot"></span>Model</span><p class="said">I am what the system believes about him. Every word carries two numbers: what he understands, and what he can say cold, with nothing in front of him. They fade at different speeds. <b>One file holds it, and only code writes to it.</b></p></div>
-          <div class="ln" style="--mark: var(--c3)"><span class="who"><span class="dot"></span>Rails</span><p class="said">I get a question to him, and the answer home again. A message on his phone at a moment he did not choose. <b>Every question carries an identifier, and the answer comes back with it</b>, so it is marked against its own question. The waking hours and the daily limit are in code.</p></div>
-          <div class="ln" style="--mark: var(--c1)"><span class="who"><span class="dot"></span>Motive</span><p class="said">Nothing gets worse if he skips today. No supervisor, no deadline, no money already spent, so quitting never has to be decided out loud. It happens by not happening. There is no streak here. <b>Coming back is what is made cheap</b>: no makeup work, no tally, a short session still counts.</p></div>
-          <div class="ln" style="--mark: var(--c4)"><span class="who"><span class="dot"></span>Studio</span><p class="said">Somebody has to make the material, and here there is nobody. I make it. I am making this. I work in narrow passes: plan, then write, then fix the dialect. One pass cannot hold every rule and stay accurate. <b>I get no filesystem. I print text, and other code decides whether it ships.</b></p></div>
-          <div class="ln" style="--mark: var(--c5)"><span class="who"><span class="dot"></span>Pack</span><p class="said"><span class="ta">போறேன்.</span> Not <span class="ta">போகிறேன்.</span> Both mean I am going. The second is what a translator hands you, and what nobody says at a kitchen table. No check here can tell them apart, because both are correct. Only somebody who speaks it can, and in this house that is his wife. <b>So I am a file, with a version and an owner.</b> I am the one part of the six that does not travel.</p></div>
-          <div class="ln" style="--mark: var(--c6)"><span class="who"><span class="dot"></span>Govern</span><p class="said">A system that changes every week either compounds or drifts, and from the inside drift looks like progress. <b>Every change has to say what it replaces.</b> Every decision is written down, including the ones turned down. A refused idea leaves no trace in the code, and comes back next month sounding new.</p></div>
-          <div class="ln" style="--mark: var(--ink)"><span class="who"><span class="dot"></span>Anna</span><p class="said">Five of those six have nothing to do with Tamil.</p></div>
-          <div class="ln" style="--mark: var(--faint)"><span class="who"><span class="dot"></span>Français</span><p class="said"><em>Rien à voir avec le tamoul. Le même système, en français, marcherait pareil.</em></p></div>
-          <div class="ln" style="--mark: var(--faint)"><span class="who"><span class="dot"></span>Español</span><p class="said"><em>O en español. Cambias el paquete del idioma. Los otros cinco se quedan igual.</em></p></div>
-          <div class="ln" style="--mark: var(--ink)"><span class="who"><span class="dot"></span>Anna</span><p class="said">Change the pack. The other five stay where they are.</p></div>
-          <div class="ln" style="--mark: var(--ink)"><span class="who"><span class="dot"></span>Anna</span><p class="said">This recording is not proof. It is a machine talking about itself for three minutes, and that is a much smaller claim than it sounds. The proof is a number, and it is his: of all the words he understands, how many can he say cold, at a table in <span class="ta">கோயம்புத்தூர்</span>, with nobody helping him. <b>That number moves slowly, and it is the only thing here worth believing.</b></p></div>
-          <div class="ln" style="--mark: var(--ink)"><span class="who"><span class="dot"></span>Anna</span><p class="said">The article is below. Read it with your eyes. <span class="ta">வணக்கம்.</span></p></div>
-        </div>
-      </details>
-    </div>
-  </div>
-
-  <p class="jump">Each of the six parts below carries a link to its own write-up —
-    <a href="#the-six-write-ups">all six are indexed at the foot of this page</a>.</p>
+  <section class="stack">
+    <p class="kicker">The thing itself</p>
+    <h2>A tutor for one person, in a dialect no course teaches</h2>
+    <p>Every morning something on my phone asks me a question in Tamil. It chose that question out of what I got wrong last week, and it is waiting for an answer it will grade. In the car it hands me a podcast episode it wrote, cast and rendered overnight, built around the four phrases I keep failing. Once or twice a week it sends me out with a single line to use on my wife at dinner, and asks me the next day whether I did.</p>
+    <p>There is no company behind this. It is a repository I own, about half of it written by the coding agent I built it with, and it has run every day for a year. The bill is about five dollars a month.</p>
+    <p>I did not set out to build any of that. I set out to get a language model to write me Tamil lessons I would actually sit through — specifically the Coimbatore Tamil my wife's family speaks at home, which no course teaches and which every translator on earth will quietly convert into something else. Everything above is what accumulated while I kept fixing the reasons I stopped.</p>
+    <p>And what accumulated has a shape I recognise. Teaching turned out to be a small fraction of the work. The rest of it — knowing where I am, deciding what comes next, making the material, holding the standard, getting it in front of me on a day I would rather not, and keeping the whole thing from drifting year over year — is what a school does. Six jobs, held by six different people, and only one of them is the teacher.</p>
+    <p>That is why this note is about a university and not about Tamil. <strong>Take the school away and the jobs do not go away — they go unowned.</strong> What I did not expect is that one person can now pick up all six of them. Not a department, not a funded project, not a team — one person, in evenings, for pocket money. That is the find here, and it is why I bothered writing any of this down.</p>
+    <p>What follows is the six jobs, what each one takes to build when there is nobody to hand it to, and the specific thing that broke to teach me it was a separate job at all.</p>
+  </section>
 
   <section class="stack">
     <p class="kicker">The class of problem</p>
     <h2>A goal that nobody is enforcing</h2>
-    <p>Some goals come with an apparatus around them. A degree has a supervisor, a committee, a submission date and an audience that will judge the result in public. Miss six weeks and someone notices.</p>
+    <p>Learning my wife's dialect is one instance of something more general, and the general version is what makes the six jobs worth naming. Some goals come with an apparatus around them. A degree has a supervisor, a committee, a submission date and an audience that will judge the result in public. Miss six weeks and someone notices.</p>
     <p>Other goals have none of that. An adult learning a language they are not immersed in, taking up an instrument at forty, keeping up a rehab protocol after the physiotherapist has discharged them. Four properties travel together:</p>
     <ul class="mech">
       <li><b>Nothing degrades when you skip.</b> There is no penalty to absorb, and the decision to quit never has to be made out loud. It happens by not happening.</li>
@@ -733,11 +609,7 @@
       <li><b>Nobody is holding the standards.</b> No teacher to say the register is wrong, no editor to catch the error, no syllabus committee to stop this year's version drifting away from last year's.</li>
     </ul>
     <p>That last one is the tell. The absent thing is not motivation specifically — it is an <em>institution</em>: a bundle of separate jobs, held by different people, that a school performs on your behalf so quietly you only notice them once they are gone.</p>
-    <p>This note is about what software has to become to take that bundle on for one person. Most of it does not port from a demo or a chat wrapper, because most of it is not conversational at all.</p>
-    <p>It is drawn from one instance: one learner, one language, one repository — the Coimbatore Tamil spoken in my wife's family home, not the written standard that courses teach. Every specific below is real and from that build.</p>
-    <p>It is worth being plain that none of it arrived in this order, or in this shape. The practice is about a year old. For the first half of that it was not a system at all: a long prompt I pasted into a chat assistant, on my phone or on my laptop, whenever I wanted a lesson. No state, no schedule, no audio, nothing running while I was not looking. The repository is six months old. The part that reaches out on its own is from the end of June. Nothing here has been running unattended for a year — what has been going on for a year is the failing, and that is where all six parts came from.</p>
-    <p>The order it actually arrived in is close to the reverse of the order this note presents them in. Audio came first, and for a motivational reason before a pedagogical one: the lessons had become a chore and I kept losing the thread, so I turned them into a podcast that could ride along with the washing-up. That was the motivation engine before it had a name or a file. Measurement came last. For months the system knew what I had listened to and nothing about what I could say, and the debriefs I bolted on to close that gap — what did you catch, what did you recognise — never worked, because a person grading their own comprehension is the least reliable instrument in the building. What I can produce cold, with no warm-up and nothing in front of me, only became the primary number recently. It is the number the whole thing is steered by now, and it is much smaller than the one it replaced.</p>
-    <p>Teaching turned out to be a small fraction of the work.</p>
+    <p>The rest of this note is what software has to become to take that bundle on for one person. Almost none of it is conversational, which is the part that surprised me most. The coach you actually talk to is the smallest component in the build.</p>
   </section>
 
   <section class="stack">
@@ -774,7 +646,6 @@
 
     <p>Six jobs, six owners, and a school keeps them apart for the same reason any system does: they fail differently and are fixed by different people. A registrar cannot fix a bad textbook. A brilliant textbook cannot make anyone show up.</p>
     <p>This is a check I ran afterwards, not a history. Four of the six existed as code long before they had names, because they are what you cannot avoid writing to make the thing run at all. Governance and motivation were named last, after the system kept failing in ways the other four could not fix.</p>
-    <p>The fifth row is the one I could not have written at the start, and how it got its content is the strongest argument in this note for having a named informant. The goal was always to speak my wife's Tamil. I did not know what that sentence committed me to. I did not know that spoken and written Tamil are far enough apart to be separate things to learn, or that the written form is not one thing either. My first dialect instruction said Chennai — not because I wanted Chennai Tamil, but as a bet about what would be best represented in a model's training data, and to be sure I was at least being taught an Indian variety rather than a Sri Lankan one. Coimbatore came later, and it came from a person rather than from a design. When I finally got over myself and showed the thing to my wife, the dialect was the first correction she made: Kongu and Chennai do not sound alike, and the one she would want to hear from me is hers. The target is the real one now. It was arrived at, not specified — and it could not have been specified from the inside, because the gap this part encodes is invisible to anyone who cannot already hear it.</p>
     <p>One candidate failed the test and is worth naming. Continuity — remembering what happened last week and what is still open — looked like a seventh part and got a schema of its own: tracked threads, due-ness scores, bookkeeping. It never failed on its own, only ever as a symptom of the learner model. It was cut, and continuity is now a page of prose the coach rewrites at every close. <strong>A concern that cannot fail alone is not a part.</strong></p>
   </section>
 
@@ -852,6 +723,8 @@
     <p class="kicker">The six</p>
     <h2>What each one is, and the failure that paid for it</h2>
     <p>Each entry states what the part needs and why, then one thing that actually went wrong. Every mechanism named here replaced something that broke in a way I can point at.</p>
+    <p class="jump">Each part below carries a link to its own write-up —
+      <a href="#the-six-write-ups">all six are indexed at the foot of this page</a>.</p>
 
     <div class="parts">
 
@@ -963,7 +836,7 @@
           <ul class="mech">
             <li><b>It is curated content with an owner, not a prompt instruction.</b> Versioned like code, reviewed by someone who knows, and applied where it is guaranteed rather than requested — the pronunciation fixes live at the audio renderer, past the point a model could override them.</li>
             <li><b>The informant policy is part of the pack.</b> Who the native speaker is, how they are consulted, and what they must never be turned into. Here that is sixty-second checks on specific phrasings, never grammar lessons, because turning a family member into an examiner costs more than it buys.</li>
-            <li><b>This is the one part you rebuild.</b> Point the architecture at another language, or at another subject entirely, and five of the six come with you as they are — the store, the loop, the motivation constraints, the generation pipeline, the governance kit. The pack does not. It is written again from scratch for the new domain, by somebody who knows that domain, and there is no generating your way around it.</li>
+            <li><b>This is the part that does not port.</b> Everything else survives a change of subject. This gets rewritten, and you cannot generate your way out of it.</li>
           </ul>
           <div class="case">
             <span class="lbl"><b>What went wrong</b> — three ways a translator is confidently useless</span>
@@ -996,7 +869,7 @@
             <p>One message format took over the outreach channel: four in four consecutive days, all the same kind, all the same shape. My first proposal was a quota — cap that format at N per week — and I offered it before opening a single file.</p>
             <p>Reading the plumbing found two causes, neither of them volume. One line in the prompt expressed a preference that funnelled every message of that type into the same narrow vein. And the outreach memory rewarded the format for converting, which fed it straight back to itself. <strong>The better half of the real fix was a deletion.</strong> The quota would have capped the symptom, left both causes running, and looked like it worked.</p>
           </div>
-          <p class="not"><b>Not tests or code review.</b> Those check whether a change works. This checks whether it should exist, and whether the system is still the same system after six months of them.</p>
+          <p class="not"><b>Not tests or code review.</b> Those check whether a change works. This checks whether it should exist, and whether the system is still the same system after a year of them.</p>
           <p class="deeper">Deeper: <a href="https://claude.ai/code/artifact/93af235b-46c4-4522-becf-8d02d246d839">You Already Decided This</a></p>
         </div>
       </article>
@@ -1058,7 +931,7 @@
       </table>
     </div>
 
-    <p>Only the first column is built. The other two are the same six jobs costed out, not systems I have run, and they are in the table because the exercise of costing them is what showed the seams were real. Read down any column and the shape is the same six jobs. Read across any row and the weights are completely different. That combination — same seams, independent weights — is what distinguishes a real separation of concerns from a tidy diagram drawn over a mess after the fact.</p>
+    <p>Read down any column and the shape is the same six jobs. Read across any row and the weights are completely different. That combination — same seams, independent weights — is what distinguishes a real separation of concerns from a tidy diagram drawn over a mess after the fact.</p>
 
     <div class="aside">
       <span class="lbl">A correction worth making in public</span>
@@ -1126,6 +999,46 @@
     <p>One rule sits under all six: nothing goes in that is not earned by a specific outcome or a specific piece of evidence. The pieces that felt clever and had nothing behind them are the ones that got cut.</p>
   </section>
 
+  <section class="stack">
+    <p class="kicker">What it costs</p>
+    <h2>Five dollars a month, and one job that is not for sale</h2>
+    <p>The metered bill is about five dollars a month. That is Claude Sonnet, called through OpenRouter: the decisions about what to ask and when, the drafting of every episode, the grading of every reply. It is the whole running cost of everything described above.</p>
+    <p>Three things that number leaves out, because the exclusions are where an honest accounting usually goes wrong.</p>
+    <ul class="mech">
+      <li><b>The coding-agent subscription.</b> I pay for one anyway, for work, and I build and change the system with it. It is a real cost and it is not a marginal cost of running this — if I deleted the repository tomorrow I would still be paying it. Someone starting from nothing should count it.</li>
+      <li><b>Speech synthesis, which is free by somebody else's decision.</b> All the audio is rendered with Google's generative Chirp 3 HD voices. My card is on file and has never been charged, because the free threshold sits somewhere above what a daily podcast for one listener consumes. That is a vendor's pricing choice, not a property of the architecture, and it could change with an email.</li>
+      <li><b>My time, which is the largest input by a wide margin.</b> A year of evenings. Nothing here recovers that, and no accounting should pretend otherwise.</li>
+    </ul>
+    <p>Now set five dollars against the thing it replaced. In the institution that used to hold these six jobs, each one is a different salaried person on a different clock: a tutor who keeps a notebook on you, a registrar who owns the timetable, a cohort and a fee that make you turn up, a publisher who produced the coursebook and the tape, a native speaker who can hear when something is off, and a department that decides what next year's course looks like. Four of those are now software I own. The comparison is not close, and it is not the interesting part.</p>
+    <p>The interesting part is the other two, because for this goal they were never available at any price.</p>
+    <ul class="mech">
+      <li><b>The material did not become cheaper. It became possible.</b> Nobody publishes a coursebook for the Tamil spoken in one district's kitchens, and nobody ever will. A textbook has to amortise across thousands of learners, and there is no market here — there is me. The economics that make coursebooks exist are the same economics that guaranteed this one would not. What the studio does is not undercut a publisher; it makes material in a place where the publisher was never going to show up.</li>
+      <li><b>The last job is a person, and she lives in my house.</b> No amount of money hires someone to tell me that a sentence is grammatically perfect and that nobody alive says it that way. That judgement exists in native speakers of one specific register and it does not exist anywhere else — not in a model, not in a dictionary, not in any check I can write. It is why the domain pack is the one part of the six that does not port, and why the informant policy is a design decision rather than a courtesy.</li>
+    </ul>
+    <p>So the honest summary of the bargain: <strong>four of an institution's six jobs got cheap enough for one person to own, a fifth became possible for the first time, and the sixth is still a human being who has to want to help you.</strong> That last one is not a gap waiting for a better model to close. It is the shape of the problem.</p>
+    <p>Which leaves the thing I actually find remarkable, and it is not the five dollars. It is that the capability landed with <em>me</em> — an individual, working alone, on a goal with no budget, no audience and no way to make it pay, that no organisation was ever going to staff. Whatever else is true about this technology, that is a real amount of power to hand to one person for their own private purpose, and it is worth noticing while it is still surprising.</p>
+  </section>
+
+  <section class="stack">
+    <p class="kicker">The claim</p>
+    <h2>What I am actually claiming, which is small</h2>
+    <p>None of the six mechanisms here is new. Two grades per item is spaced repetition, which is decades old. Deterministic writes, sandboxed generation that cannot touch the filesystem, a decision log that records refusals, budgets enforced in CI, narrow single-purpose passes instead of one heroic prompt — this is ordinary engineering practice. Any working developer will read the six sections above and find nothing they have not seen before. I did not invent a technique, and I would rather say that plainly than let it be inferred later by someone less generous.</p>
+    <p>What is new is the assembly and who it belongs to. Not one of these parts, but all six at once, in one repository, aimed at one person's goal, maintained by that person, for five dollars a month. That configuration did not exist a few years ago at any price. It fell out of a year of trying to get palatable Tamil lessons out of a language model, which is the least visionary origin story available and also the true one.</p>
+    <p>And the evidence for any of it is not this document. A system explaining its own architecture is a demonstration, not a proof, and a good-looking architecture note is exactly the kind of artifact that can be produced by something that does not work. The only evidence that exists is a number, and it is mine: of all the Tamil words I understand, how many come out of my mouth cold, at a table in <span class="ta">கோயம்புத்தூர்</span>, with nobody helping me. That number moves slowly. It is the only thing on this page worth believing.</p>
+
+    <div class="take">
+      <dl>
+        <dt><a href="https://github.com/arosselet/tamil-tutor">tamil-tutor</a> — the live one</dt>
+        <dd>One learner, one language, a year of daily state. Every mechanism in this note is in there, and so is every failure: the decision log records what was tried, what was refused, and why.</dd>
+        <dt><a href="https://github.com/arosselet/language-tutor">Sollu</a> — the same six parts, with the Tamil taken out</dt>
+        <dd><span class="ta">சொல்லு</span>, "say it". The template. Clone it, open a coding agent, and tell it to set up your tutor — your language, your dialect, your starting level. You will supply the domain pack, because nobody can supply it for you.</dd>
+      </dl>
+      <p>Both are public and MIT licensed. Fork them, gut them, take the two parts you want and throw away the rest.</p>
+    </div>
+
+    <p>It does not have to be a language. Five of the six parts have no opinion about what is being learned — swap the pack, and the learner model, the rails, the motivation engine, the studio and the governance kit do not notice.</p>
+  </section>
+
   <nav class="index" id="the-six-write-ups" aria-label="The six write-ups">
     <p class="index-head">One write-up per part — each stands on its own</p>
     <ol class="six">
@@ -1163,77 +1076,7 @@
   </nav>
 
   <footer class="colophon">
-    <p>Drawn from one repository: a single-learner Tamil system, six months in version control and about a year in practice, with a large share of its recent commits written by the system itself. Nothing here is a proposal — every mechanism named is one that shipped, and each of the six failures above is one that happened. The published write-ups linked above go deeper on one part each, and each stands on its own.</p>
+    <p>Drawn from one repository: a single-learner Tamil system, a year old, about half of it written by the system itself. Nothing here is a proposal — every mechanism named is one that shipped, and each of the six failures above is one that happened. The write-ups linked above go deeper on one part each, and each stands on its own.</p>
   </footer>
 
 </div>
-
-<script>
-  (function () {
-    var au = document.getElementById('au');
-    var btn = document.getElementById('pbtn');
-    var icon = document.getElementById('picon');
-    var meta = document.getElementById('pmeta');
-    var track = document.getElementById('track');
-    var bar = document.getElementById('bar');
-    if (!au || !btn) return;
-
-    var PLAY = 'M8 5v14l11-7z';
-    var PAUSE = 'M6 5h4v14H6zM14 5h4v14h-4z';
-
-    // Split so a naive find-and-replace of the embed token cannot rewrite the
-    // guard that detects it.
-    var TOKEN = '__HERO' + '_AUDIO_B64__';
-    if ((au.getAttribute('src') || '').indexOf(TOKEN) !== -1) {
-      btn.disabled = true;
-      btn.setAttribute('aria-label', 'Audio not yet embedded');
-      meta.textContent = 'Audio pending';
-      return;
-    }
-
-    function clock(t) {
-      if (!isFinite(t)) return '--:--';
-      var m = Math.floor(t / 60), s = Math.floor(t % 60);
-      return m + ':' + (s < 10 ? '0' : '') + s;
-    }
-
-    function paint() {
-      var d = au.duration;
-      var pct = (isFinite(d) && d > 0) ? (au.currentTime / d) * 100 : 0;
-      bar.style.width = pct + '%';
-      track.setAttribute('aria-valuenow', Math.round(pct));
-      meta.textContent = clock(au.currentTime) + ' / ' + clock(d);
-    }
-
-    au.addEventListener('loadedmetadata', paint);
-    au.addEventListener('timeupdate', paint);
-    au.addEventListener('play', function () { icon.setAttribute('d', PAUSE); btn.setAttribute('aria-label', 'Pause'); });
-    au.addEventListener('pause', function () { icon.setAttribute('d', PLAY); btn.setAttribute('aria-label', 'Play: the system introduces itself'); });
-    au.addEventListener('ended', function () { au.currentTime = 0; paint(); });
-
-    btn.addEventListener('click', function () {
-      if (au.paused) { au.play().catch(function () {}); } else { au.pause(); }
-    });
-
-    function seekTo(clientX) {
-      var r = track.getBoundingClientRect();
-      if (!r.width || !isFinite(au.duration)) return;
-      var f = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
-      au.currentTime = f * au.duration;
-      paint();
-    }
-
-    track.addEventListener('click', function (e) { seekTo(e.clientX); });
-
-    track.addEventListener('keydown', function (e) {
-      if (!isFinite(au.duration)) return;
-      var step = e.key === 'ArrowRight' ? 5 : (e.key === 'ArrowLeft' ? -5 : 0);
-      if (!step) return;
-      e.preventDefault();
-      au.currentTime = Math.min(au.duration, Math.max(0, au.currentTime + step));
-      paint();
-    });
-
-    paint();
-  })();
-</script>
