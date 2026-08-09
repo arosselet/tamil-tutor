@@ -30,6 +30,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > resent — same memo, your phone now.
 
+**19:25 · Anna**  ·  volley / volley: sprint burn
+> ⚡ volley 1/4 — you want to ask if the taxi can stop at the hotel first — it's a long shot but worth asking. one word: 'if possible'
+
 
 ## Saturday 2026-08-08
 
