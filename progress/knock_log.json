@@ -3891,13 +3891,15 @@
     "memo_script": "ஐயோ, Andrew — நீங்க சொன்னது சரியா கேக்கல. இன்னொரு தடவ சொல்லுங்க.",
     "mp3": "published_audio/knocks/knock_2026-08-09T12-35.mp3",
     "response": "reply",
-    "reply": "I don’t understand",
-    "reply_verdict": "miss",
-    "reply_fired": [],
+    "reply": "Innoru thadava sollunga",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "இன்னொரு தடவ சொல்லுங்க"
+    ],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "that IS the Tamil — she said she couldn't hear you, and she wants you to say it again: 'innoru thadava sollunga'",
-    "reply_at": "2026-08-09T22:45:43Z",
+    "reply_line": "adhu dhaan! 🔥 — and yeah, that's capped: I handed it to you last exchange. but the mouth knows it now.",
+    "reply_at": "2026-08-09T22:46:53Z",
     "exchanges": [
       {
         "at": "2026-08-09T22:45:43Z",
@@ -3908,6 +3910,21 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "that IS the Tamil — she said she couldn't hear you, and she wants you to say it again: 'innoru thadava sollunga'",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-09T22:46:53Z",
+        "reply": "Innoru thadava sollunga",
+        "verdict": "hinted",
+        "fired": [
+          "இன்னொரு தடவ சொல்லுங்க"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! 🔥 — and yeah, that's capped: I handed it to you last exchange. but the mouth knows it now.",
         "slips": [],
         "spoke": "",
         "scheduled": ""

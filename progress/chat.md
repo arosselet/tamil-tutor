@@ -15,6 +15,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > that IS the Tamil — she said she couldn't hear you, and she wants you to say it again: 'innoru thadava sollunga'
 
+**18:46 · Andrew** — **HINTED**
+> Innoru thadava sollunga
+
+**Anna ↩**
+> adhu dhaan! 🔥 — and yeah, that's capped: I handed it to you last exchange. but the mouth knows it now.
+
 **14:30 · Anna** 🎧  ·  audio / mission payoff memo
 > 🎧 kai kazhuvittu varen — did it land last night?
 
