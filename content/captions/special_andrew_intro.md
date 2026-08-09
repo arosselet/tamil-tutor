@@ -24,7 +24,7 @@ Pass 3+: put it away. Blind is the win — and blind is the point, because you'l
 > **ANNA:** Tamizh kathukkarathu ivarukku malai maadhiri irundhuchu. Oru naalaikku anju kallu thookkuna podhum.<br>
 > Learning Tamil felt like a mountain to him. Lift five stones a day and that's enough.
 
-> **ANNA:** Kashtam andha anju kallu illa. Innaiku endha anju-nu theriyanum. Adhu dhaan kashtam.<br>
+> **ANNA:** Kashtam andha anju kallu illa. Innaiku endha anju-nu theriyanumé, adhaan kashtam.<br>
 > The difficulty isn't the five stones. You have to know *which* five today. That's the hard part.
 
 *[Pause]*
@@ -32,8 +32,8 @@ Pass 3+: put it away. Blind is the win — and blind is the point, because you'l
 > **ANNA:** Mudhalla, ivaru Gemini-nnu oru program-kitta summa pesittu irundhaaru. Neenga edhaavadhu ketta, adhu sollum. Avlo dhaan.<br>
 > At first, he was just chatting with a program called Gemini. You ask it something, it tells you. That's all it was.
 
-> **ANNA:** Oru naal ivaru ninaichaaru. Idhu enakku tamizh sollikkodukkumaa?<br>
-> One day he had a thought. Could this teach me Tamil?
+> **ANNA:** Oru naal ivaru, idhu enakku tamizh sollikkodukkumaa-nnu ninaichaaru.<br>
+> One day he wondered: could this teach me Tamil?
 
 *[Pause]*
 
@@ -84,7 +84,7 @@ Pass 3+: put it away. Blind is the win — and blind is the point, because you'l
 
 *[Pause]*
 
-> **ANNA:** Yaaru appadi pesuradhu? Inga fridge-nnaa fridge dhaan. Bus-nnaa bus dhaan.<br>
+> **ANNA:** Yaaru appadi pesuradhu? Inga fridge-nnaa fridge dhaan, bus-nnaa bus dhaan.<br>
 > Who talks like that? Here a fridge is a fridge. A bus is a bus.
 
 *[Pause]*
@@ -94,13 +94,13 @@ Pass 3+: put it away. Blind is the win — and blind is the point, because you'l
 
 *[Pause]*
 
-> **ANNA:** Konja naalla romba boring-aa pochu. Adhe vaarthai. Adhe kadhai.<br>
+> **ANNA:** Konja naalla romba boring-aa pochu. Adhe vaarthai, adhe kadhai.<br>
 > After a while it got very boring. The same words. The same story.
 
-> **ANNA:** Oru maasam ivaru niruthittaaru. Onnumé pannala.<br>
+> **ANNA:** Adhanaala oru maasam ivaru niruthittaaru, onnumé pannala.<br>
 > For one month he stopped. Did nothing at all.
 
-> **ANNA:** Adhu oru thadava mattum illa. Niraiya thadava ippadi ninnu pochu.<br>
+> **ANNA:** Adhu oru thadava mattum illa, niraiya thadava ippadi ninnu pochu.<br>
 > And that wasn't just the once. It stalled like that many times.
 
 *[Pause]*
@@ -113,7 +113,7 @@ Pass 3+: put it away. Blind is the win — and blind is the point, because you'l
 
 *[Pause]*
 
-> **ANNA:** Appuram enakku oru memory ezhudhunaaru. Adhula AI onnum illa. Saadhaarana code.<br>
+> **ANNA:** Appuram enakku oru memory ezhudhunaaru. Adhula AI onnum illa, saadhaarana code dhaan.<br>
 > Then he wrote me a memory. There's no AI in it. Ordinary code.
 
 > **ANNA:** Adhula ellaa vaarthaiyum irukku. Edhu ivarukku nalla theriyum, edhu marandhu pochu, sevvaaykkizhamai edha thappa sonnaaru.<br>
@@ -137,7 +137,7 @@ Pass 3+: put it away. Blind is the win — and blind is the point, because you'l
 
 *[Pause]*
 
-> **ANNA:** Ivarukku tamizh romba pudhusu. Aana namma tamizh-la sila vishayam irukku. English-la adhellaam kidaiyaadhu.<br>
+> **ANNA:** Ivarukku tamizh romba pudhusu. Aana namma tamizh-la sila vishayam irukku, English-la adhellaam kidaiyaadhu.<br>
 > Tamil is very new to him. But our Tamil has some things English simply doesn't have.
 
 > **ANNA:** English-la "we"-nnu ore vaarthai. Avlo dhaan.<br>
@@ -191,10 +191,10 @@ Pass 3+: put it away. Blind is the win — and blind is the point, because you'l
 
 *[Pause]*
 
-> **ANNA:** Ippa onnu solren. Ivarukku tamizh nalla pesa varaadhu. Konjam puriyum. Konjam puriyaadhu.<br>
+> **ANNA:** Ippa onnu solren. Ivarukku tamizh nalla pesa varaadhu. Konjam puriyum, konjam puriyaadhu.<br>
 > Now let me say one thing. He can't speak Tamil well. Some he'll catch. Some he won't.
 
-> **ANNA:** Aana ivaru try pannuvaaru. Neenga konjam medhuvaa pesunga. Avlo podhum.<br>
+> **ANNA:** Aana ivaru try pannuvaaru. Neenga konjam medhuvaa pesunga, avlo podhum.<br>
 > But he'll try. Just speak a little slowly. That's enough.
 
 *[Pause]*
