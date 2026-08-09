@@ -39,6 +39,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **17:23 · Anna** 🎧  ·  eavesdrop / eavesdrop: gossip close
 > 🎧 overhear atthai on the phone — what's she doing with this gossip?
 
+**18:48 · Andrew** — **CAUGHT**
+> Drop it and go
+
+**Anna ↩**
+> adhu dhaan — heard the whole arc: there's some trouble at that house, son's away, amma's alone, and atthai's already half-stepping back from it — 'summa solraanga, namaakku ethukku?' Drop it and move on. You caught it clean 🎧
+
 
 ## Friday 2026-08-07
 
