@@ -578,10 +578,10 @@
 
   <header class="masthead">
     <h1>The Institution of One</h1>
-    <p class="deck">I wanted a language model to teach me my wife's dialect. A year later, what runs is the six jobs a school does — all six, around one person, for five dollars a month.</p>
+    <p class="deck">I wanted a language model to teach me Tamil. What I ended up with is the six jobs a school does — all six, around one person, for five dollars a month.</p>
     <div class="stamp">
       <span>Architecture note</span>
-      <span>Derived from one system, one year</span>
+      <span>Derived from one system, one learner</span>
       <span>8 August 2026</span>
     </div>
   </header>
@@ -590,8 +590,10 @@
     <p class="kicker">The thing itself</p>
     <h2>A tutor for one person, in a dialect no course teaches</h2>
     <p>Every morning something on my phone asks me a question in Tamil. It chose that question out of what I got wrong last week, and it is waiting for an answer it will grade. In the car it hands me a podcast episode it wrote, cast and rendered overnight, built around the four phrases I keep failing. Once or twice a week it sends me out with a single line to use on my wife at dinner, and asks me the next day whether I did.</p>
-    <p>There is no company behind this. It is a repository I own, about half of it written by the coding agent I built it with, and it has run every day for a year. The bill is about five dollars a month.</p>
-    <p>I did not set out to build any of that. I set out to get a language model to write me Tamil lessons I would actually sit through — specifically the Coimbatore Tamil my wife's family speaks at home, which no course teaches and which every translator on earth will quietly convert into something else. Everything above is what accumulated while I kept fixing the reasons I stopped.</p>
+    <p>There is no company behind this. It is a repository I own, about half of it written by the coding agent I built it with, and the bill is about five dollars a month.</p>
+    <p>It has not been doing that for a year. The practice is about a year old; this shape of it is months old. For the first half there was no system — a long prompt I pasted into a chat assistant when I wanted a lesson, no state, no schedule, no audio, nothing running while I was not looking. The repository is six months old. The part that reaches out on its own is from the end of June. What has been going on for a year is the failing, and that is where all six parts came from.</p>
+    <p>The dialect took longer to name than the goal did. What the system teaches now is the Coimbatore Tamil my wife's family speaks at home — which no course teaches, and which every translator on earth will quietly convert into something else. That is the real target, and I did not arrive with it. At the start I did not know that spoken and written Tamil are far enough apart to be separate things to learn, or that the written form is not one thing either. My first dialect instruction said Chennai — not because I wanted Chennai Tamil, but as a bet about what a model would have seen most of, and to be sure I was at least being taught an Indian variety rather than a Sri Lankan one. Coimbatore came from a person rather than from a design. When I finally got over myself and showed the thing to my wife, the dialect was the first correction she made: Kongu and Chennai do not sound alike, and the one she would want to hear from me is hers. It could not have been specified from the inside. The gap it encodes is invisible to anyone who cannot already hear it, which is the entire argument for the fifth part below.</p>
+    <p>I did not set out to build any of the rest either. I set out to get a language model to write me Tamil lessons I would actually sit through, and everything above is what accumulated while I kept fixing the reasons I stopped. The order it accumulated in is close to the reverse of the order this note presents. Audio came first, and for a motivational reason before a pedagogical one: the lessons had become a chore and I kept losing the thread, so I turned them into a podcast that could ride along with the washing-up. That was the motivation engine before it had a name or a file. Measurement came last. For months the system knew what I had listened to and nothing about what I could say; what I can produce cold, with no warm-up and nothing in front of me, only became the primary number recently. It is much smaller than the one it replaced, and it is the one the whole thing is steered by now.</p>
     <p>And what accumulated has a shape I recognise. Teaching turned out to be a small fraction of the work. The rest of it — knowing where I am, deciding what comes next, making the material, holding the standard, getting it in front of me on a day I would rather not, and keeping the whole thing from drifting year over year — is what a school does. Six jobs, held by six different people, and only one of them is the teacher.</p>
     <p>That is why this note is about a university and not about Tamil. <strong>Take the school away and the jobs do not go away — they go unowned.</strong> What I did not expect is that one person can now pick up all six of them. Not a department, not a funded project, not a team — one person, in evenings, for pocket money. That is the find here, and it is why I bothered writing any of this down.</p>
     <p>What follows is the six jobs, what each one takes to build when there is nobody to hand it to, and the specific thing that broke to teach me it was a separate job at all.</p>
@@ -645,7 +647,7 @@
     </div>
 
     <p>Six jobs, six owners, and a school keeps them apart for the same reason any system does: they fail differently and are fixed by different people. A registrar cannot fix a bad textbook. A brilliant textbook cannot make anyone show up.</p>
-    <p>This is a check I ran afterwards, not a history. Four of the six existed as code long before they had names, because they are what you cannot avoid writing to make the thing run at all. Governance and motivation were named last, after the system kept failing in ways the other four could not fix.</p>
+    <p>This is a check I ran afterwards, not a history. Four of the six existed as code long before they had names, because they are what you cannot avoid writing to make the thing run at all. Governance and motivation were named last, after the system kept failing in ways the other four could not fix. The fifth row is the one I could not have written at the start at all — its content came from the informant, months in, and that story is above.</p>
     <p>One candidate failed the test and is worth naming. Continuity — remembering what happened last week and what is still open — looked like a seventh part and got a schema of its own: tracked threads, due-ness scores, bookkeeping. It never failed on its own, only ever as a symptom of the learner model. It was cut, and continuity is now a page of prose the coach rewrites at every close. <strong>A concern that cannot fail alone is not a part.</strong></p>
   </section>
 
@@ -836,7 +838,7 @@
           <ul class="mech">
             <li><b>It is curated content with an owner, not a prompt instruction.</b> Versioned like code, reviewed by someone who knows, and applied where it is guaranteed rather than requested — the pronunciation fixes live at the audio renderer, past the point a model could override them.</li>
             <li><b>The informant policy is part of the pack.</b> Who the native speaker is, how they are consulted, and what they must never be turned into. Here that is sixty-second checks on specific phrasings, never grammar lessons, because turning a family member into an examiner costs more than it buys.</li>
-            <li><b>This is the part that does not port.</b> Everything else survives a change of subject. This gets rewritten, and you cannot generate your way out of it.</li>
+            <li><b>This is the one part you rebuild.</b> Point the architecture at another language, or at another subject entirely, and five of the six come with you as they are — the store, the loop, the motivation constraints, the generation pipeline, the governance kit. The pack does not. It is written again from scratch for the new domain, by somebody who knows that domain, and there is no generating your way around it.</li>
           </ul>
           <div class="case">
             <span class="lbl"><b>What went wrong</b> — three ways a translator is confidently useless</span>
@@ -869,7 +871,7 @@
             <p>One message format took over the outreach channel: four in four consecutive days, all the same kind, all the same shape. My first proposal was a quota — cap that format at N per week — and I offered it before opening a single file.</p>
             <p>Reading the plumbing found two causes, neither of them volume. One line in the prompt expressed a preference that funnelled every message of that type into the same narrow vein. And the outreach memory rewarded the format for converting, which fed it straight back to itself. <strong>The better half of the real fix was a deletion.</strong> The quota would have capped the symptom, left both causes running, and looked like it worked.</p>
           </div>
-          <p class="not"><b>Not tests or code review.</b> Those check whether a change works. This checks whether it should exist, and whether the system is still the same system after a year of them.</p>
+          <p class="not"><b>Not tests or code review.</b> Those check whether a change works. This checks whether it should exist, and whether the system is still the same system after six months of them.</p>
           <p class="deeper">Deeper: <a href="https://claude.ai/code/artifact/93af235b-46c4-4522-becf-8d02d246d839">You Already Decided This</a></p>
         </div>
       </article>
@@ -931,7 +933,7 @@
       </table>
     </div>
 
-    <p>Read down any column and the shape is the same six jobs. Read across any row and the weights are completely different. That combination — same seams, independent weights — is what distinguishes a real separation of concerns from a tidy diagram drawn over a mess after the fact.</p>
+    <p>Only the first column is built. The other two are the same six jobs costed out, not systems I have run, and they are in the table because costing them is what showed the seams were real. Read down any column and the shape is the same six jobs. Read across any row and the weights are completely different. That combination — same seams, independent weights — is what distinguishes a real separation of concerns from a tidy diagram drawn over a mess after the fact.</p>
 
     <div class="aside">
       <span class="lbl">A correction worth making in public</span>
@@ -1013,7 +1015,7 @@
     <p>The interesting part is the other two, because for this goal they were never available at any price.</p>
     <ul class="mech">
       <li><b>The material did not become cheaper. It became possible.</b> Nobody publishes a coursebook for the Tamil spoken in one district's kitchens, and nobody ever will. A textbook has to amortise across thousands of learners, and there is no market here — there is me. The economics that make coursebooks exist are the same economics that guaranteed this one would not. What the studio does is not undercut a publisher; it makes material in a place where the publisher was never going to show up.</li>
-      <li><b>The last job is a person, and she lives in my house.</b> No amount of money hires someone to tell me that a sentence is grammatically perfect and that nobody alive says it that way. That judgement exists in native speakers of one specific register and it does not exist anywhere else — not in a model, not in a dictionary, not in any check I can write. It is why the domain pack is the one part of the six that does not port, and why the informant policy is a design decision rather than a courtesy.</li>
+      <li><b>The last job is a person, and she lives in my house.</b> No amount of money hires someone to tell me that a sentence is grammatically perfect and that nobody alive says it that way. That judgement exists in native speakers of one specific register and it does not exist anywhere else — not in a model, not in a dictionary, not in any check I can write. It is why the domain pack is the one part of the six you have to build again for every new domain, and why the informant policy is a design decision rather than a courtesy.</li>
     </ul>
     <p>So the honest summary of the bargain: <strong>four of an institution's six jobs got cheap enough for one person to own, a fifth became possible for the first time, and the sixth is still a human being who has to want to help you.</strong> That last one is not a gap waiting for a better model to close. It is the shape of the problem.</p>
     <p>Which leaves the thing I actually find remarkable, and it is not the five dollars. It is that the capability landed with <em>me</em> — an individual, working alone, on a goal with no budget, no audience and no way to make it pay, that no organisation was ever going to staff. Whatever else is true about this technology, that is a real amount of power to hand to one person for their own private purpose, and it is worth noticing while it is still surprising.</p>
@@ -1029,7 +1031,7 @@
     <div class="take">
       <dl>
         <dt><a href="https://github.com/arosselet/tamil-tutor">tamil-tutor</a> — the live one</dt>
-        <dd>One learner, one language, a year of daily state. Every mechanism in this note is in there, and so is every failure: the decision log records what was tried, what was refused, and why.</dd>
+        <dd>One learner, one language, six months of commits. Every mechanism in this note is in there, and so is every failure: the decision log records what was tried, what was refused, and why.</dd>
         <dt><a href="https://github.com/arosselet/language-tutor">Sollu</a> — the same six parts, with the Tamil taken out</dt>
         <dd><span class="ta">சொல்லு</span>, "say it". The template. Clone it, open a coding agent, and tell it to set up your tutor — your language, your dialect, your starting level. You will supply the domain pack, because nobody can supply it for you.</dd>
       </dl>
@@ -1076,7 +1078,7 @@
   </nav>
 
   <footer class="colophon">
-    <p>Drawn from one repository: a single-learner Tamil system, a year old, about half of it written by the system itself. Nothing here is a proposal — every mechanism named is one that shipped, and each of the six failures above is one that happened. The write-ups linked above go deeper on one part each, and each stands on its own.</p>
+    <p>Drawn from one repository: a single-learner Tamil system, six months in version control and about a year in practice, with a large share of its recent commits written by the system itself. Nothing here is a proposal — every mechanism named is one that shipped, and each of the six failures above is one that happened. The write-ups linked above go deeper on one part each, and each stands on its own.</p>
   </footer>
 
 </div>
