@@ -3927,6 +3927,29 @@
     "target_revealed": true,
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-09T18-30.mp3",
     "memo_script": "da — quick one.\n\nLast night, every night — you get up from that table, and the line is already in your mouth: *kai kazhuvittu varen*. கை கழுவிட்டு வரேன். That's it. That's the whole mission.\n\nI'm not asking you anything. Just wanted you to hear it one more time — the way it sits in the mouth, the way it lands. கை கழுவிட்டு வரேன். Natural. Easy. Yours.\n\nThree more days. We'll talk soon.",
-    "mp3": "published_audio/knocks/knock_2026-08-09T18-30.mp3"
+    "mp3": "published_audio/knocks/knock_2026-08-09T18-30.mp3",
+    "response": "reply",
+    "reply": "I dismissed a notification from Anna today, can you send it again",
+    "reply_verdict": "chat",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line": "resent — same memo, your phone now.",
+    "reply_at": "2026-08-09T22:46:22Z",
+    "exchanges": [
+      {
+        "at": "2026-08-09T22:46:22Z",
+        "reply": "I dismissed a notification from Anna today, can you send it again",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "resent — same memo, your phone now.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ]
   }
 ]
