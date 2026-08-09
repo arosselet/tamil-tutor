@@ -3982,5 +3982,36 @@
         "scheduled": ""
       }
     ]
+  },
+  {
+    "date": "2026-08-09",
+    "timestamp": "2026-08-09T23:25:02.755994+00:00",
+    "acted": true,
+    "modality": "volley",
+    "move": "volley: sprint burn",
+    "rationale": "Demand-streak is 0, two rails slots left, 3 days to touchdown, and he just came back into chat with the mission payoff reply — momentum is live. Evening is the right slot for the volley; the sprint's burn-rate needs it and the deck items are all trip-critical. Body keeps him in chat and out of notification-reply mode where volley friction is highest.",
+    "next_check": "2026-08-10T13:25:02.755994+00:00",
+    "body": "⚡ volley 1/4 — you want to ask if the taxi can stop at the hotel first — it's a long shot but worth asking. one word: 'if possible'",
+    "expected_target": "முடிஞ்சா",
+    "target_revealed": false,
+    "volley": [
+      {
+        "target": "முடிஞ்சா",
+        "ask": "you want to ask if the taxi can stop at the hotel first — it's a long shot but worth asking. one word: 'if possible'"
+      },
+      {
+        "target": "எவ்ளோ ஆகும்?",
+        "ask": "auto-rickshaw drops you outside. you need to know what he's charging before you hand anything over. what do you ask?"
+      },
+      {
+        "target": "வலது பக்கம் திரும்புங்க",
+        "ask": "you're navigating from the back seat — the junction is coming up and the driver needs to go right. what do you say?"
+      },
+      {
+        "target": "ஆமா ஆமா",
+        "ask": "maami is mid-story about the neighbour. you need to signal 'I'm listening, keep going' without interrupting. two words."
+      }
+    ],
+    "volley_next": 1
   }
 ]
