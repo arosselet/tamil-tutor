@@ -284,65 +284,10 @@ def plan_movements(pool: list[dict], spine: str, count: int) -> list[dict]:
 
 # ── The sheets: one small call per movement ─────────────────────────────────
 
-BASE_MANDATE = """\
-You are Anna, writing ONE MOVEMENT of a long-haul listening tape. Andrew is on a \
-twenty-hour flight with headphones in. He will NOT speak, will NOT look at a screen, \
-and will NOT be tested. He presses play once and listens, twice or three times through.
+# The movement mandates live in mandates.py (2026-08-10) — prompt canon, not lane
+# machinery. Re-exported here so every existing reader keeps its import path.
+from mandates import BASE_MANDATE, SHAPE_CLAUSES  # noqa: E402
 
-BINDING ON EVERY MOVEMENT:
-- NEVER ask him anything. No questions to the listener, no homework, no "try it \
-yourself", no instructions. There are no gaps in this tape for him to fill.
-- Tamil is natural spoken Coimbatore colloquial, in TAMIL SCRIPT ONLY (a Tamil voice \
-speaks it). Polite -nga register by default. English is plain and low-key.
-- Use the items given. You may inflect them freely into the forms the movement needs, \
-but do NOT introduce vocabulary outside them — he is listening on autopilot and an \
-unknown word is where the thread drops.
-- "en" is a short label, under 6 English words, not a sentence.
-- Low energy throughout. No exclamation, no hype, no "let's go".
-- NO META-NARRATION (constitution rule 6): never mention where he is, what he is doing, his \
-energy, the flight, the hour, or the tape itself. No "if you're walking", no "rest your eyes", \
-no "we're halfway". The context above tells YOU how to pitch it; it is never said out loud.
-
-Return ONLY a JSON object, no prose around it:
-{"frame": "<one short English line naming what this movement is>",
- "beats": [{"ta": "<Tamil script>", "en": "<short gloss>", "who": "a"}, ...]}
-"""
-
-# Only the shape clause changes — the contract above is 90% of every mandate, and
-# five near-identical prompts is the drift surface prompts always rot along.
-SHAPE_CLAUSES = {
-    "machine": """\
-THIS MOVEMENT IS A MACHINE. The FIRST item is the machine — one ending or frame. Run it \
-across 6-9 beats, each a different everyday slot-fill, so the ENDING is the only constant \
-and the contrast is audible. EVERY OTHER ITEM must appear as the filling of at least one \
-of those slots: they were selected for this tape and a dropped one is never heard. "who" \
-is always "anna". Every beat needs its "en".""",
-    "inventory": """\
-THIS MOVEMENT IS AN INVENTORY. Take EVERY root below in turn — its HOSTS are phrases that \
-may contain it. For each: the root alone, then its genuine hosts said whole, so he hears \
-the part he already owns inside things he already says. 6-9 beats across all the roots. \
-CRITICAL: the hosts were proposed by crude substring match. DROP any host where the shared \
-letters are a coincidence rather than the same word — a wrong one teaches a false part, and \
-dropping every host of a root is a fine answer. "who" is always "anna".""",
-    "scene": """\
-THIS MOVEMENT IS A SCENE — 8-12 beats of two people talking, at natural speed, no \
-teaching voice inside it. Use "a" and "b" for the two speakers. Every beat is Tamil only \
-and "en" stays EMPTY: the items below were all taught earlier on this same tape, and the \
-"frame" line is the one piece of English — one sentence setting the situation before it \
-starts. Something small must actually happen.""",
-    "eavesdrop": """\
-THIS MOVEMENT IS AN EAVESDROP — ONE side of a phone call, 8-12 beats, "who" always "a". \
-He hears her half and infers the rest; the pauses where the other person talks are real \
-silence. "en" stays EMPTY. This is ear-training, so it runs at full natural speed and \
-ends on a clear resolution — where an exchange LANDS is his known weak spot.""",
-    "lore": """\
-THIS MOVEMENT IS LORE — 5-8 beats of Anna talking in English about why one of these \
-words is the way it is: what it literally contains, where it comes from, what a Coimbatore \
-speaker hears in it that a textbook misses. Put the English in "en" and leave "ta" empty, \
-EXCEPT where you quote the word itself — then "ta" carries the quote and it is spoken \
-after the line. "who" is always "anna". This is the movement that is allowed to be \
-interesting rather than useful; it is his favourite part and it is why the tape is bearable.""",
-}
 
 
 def write_movement(mv: dict, spine: str) -> dict:
@@ -411,6 +356,55 @@ class Tape:
         return (audio_duration(str(path)) or 0) / 60
 
 
+SCRIPTS_DIR = BASE / "content" / "scripts"
+# Who each beat is voiced by, for the written page. The tape knows this as a voice
+# id; a reader needs the ROLE, and "a"/"b" on the page is not a story.
+WHO = {"a": "FIRST", "b": "SECOND"}
+
+
+def write_script(mp3: Path, spine: str, measured: float, sheets: list[tuple],
+                 spoken: list[str]) -> Path:
+    """The written story, saved beside the audio (2026-08-10, Andrew: "I want the
+    scripts stored in github").
+
+    THE SHEETS USED TO BE THROWN AWAY. `write_movement` handed each one to the
+    renderer and dropped it, so a finished tape existed only as an mp3 and the
+    source text sent to the TTS was unrecoverable — not in a log, not on disk.
+    Three tapes shipped that way before anyone looked for the words. Every other
+    lane keeps its script; this one publishes prose nobody can read, quote, correct,
+    or diff against the next render.
+
+    WRITTEN FROM THE SHEETS THAT ACTUALLY PLAYED, not from the plan: the tape stops
+    on the measured clock, so the tail of a plan may never have been rendered, and a
+    script naming movements that never aired is the same lie in reverse. The closing
+    lap is written out too — it is a third of the audio."""
+    lines = [f"# Long-haul — {spine} · {datetime.now():%Y-%m-%d}", "",
+             "<!-- GENERATED by scripts/render_longhaul.py — this is the source text",
+             "     sent to the TTS, not a transcript. It is the story as written.",
+             f"     AUDIO: published_audio/{mp3.name}",
+             f"     MEASURED {measured:.1f} min over {len(sheets)} movements. -->", ""]
+    for n, (mv, sheet) in enumerate(sheets, 1):
+        lines += [f"## {n}. {mv['shape']} — {sheet.get('frame') or '(no frame line)'}", ""]
+        if sheet.get("frame"):
+            lines += [f"**ANNA:** {sheet['frame']}", ""]
+        for beat in sheet["beats"]:
+            ta, en = (beat.get("ta") or "").strip(), (beat.get("en") or "").strip()
+            who = WHO.get(beat.get("who"), "ANNA") if mv["shape"] == "scene" else \
+                ("AUNTY" if mv["shape"] == "eavesdrop" else "ANNA")
+            if ta:
+                lines.append(f"**{who}:** {ta}")
+            if en:
+                lines.append(f"> {en}" if ta else f"**{who}:** {en}")
+            lines.append("")
+    if spoken:
+        lines += ["## closing lap — same sounds, one more lap", ""]
+        lines += [f"**ANNA:** {l}" for l in dict.fromkeys(spoken)] + [""]
+    SCRIPTS_DIR.mkdir(parents=True, exist_ok=True)
+    path = SCRIPTS_DIR / f"{mp3.stem}.md"
+    path.write_text("\n".join(lines), encoding="utf-8")
+    return path
+
+
 async def render_movement(tape: Tape, mv: dict, sheet: dict, n: int):
     """The soak law on the teaching shapes — Tamil FIRST (the sound before the
     meaning), the gloss once, then Tamil again to settle. Scenes and eavesdrops
@@ -444,14 +438,17 @@ async def render_movement(tape: Tape, mv: dict, sheet: dict, n: int):
 
 
 async def render(plan: list[dict], spine: str, out: Path, minutes: float,
-                 writer=write_movement) -> tuple[float, int, list[str]]:
+                 writer=write_movement) -> tuple[float, int, list[str], list[tuple]]:
     """Sheets are written JUST IN TIME, one movement ahead of the tape head, and
     the tape stops when the measured clock reaches the target. Nothing is written
-    that does not play — and the target is a real forty-five minutes, not an
-    estimate that came out at twenty-eight."""
+    that does not play.
+
+    The played sheets come back out (2026-08-10) so the written story can be saved
+    beside the audio. They used to be dropped where they were used, which is why
+    three tapes shipped with no readable source text anywhere."""
     tmp = tempfile.mkdtemp(prefix="longhaul_")
     tape = Tape(tmp)
-    played = 0
+    sheets: list[tuple] = []
     try:
         for n, mv in enumerate(plan):
             elapsed = tape.minutes(out)
@@ -461,7 +458,7 @@ async def render(plan: list[dict], spine: str, out: Path, minutes: float,
                   f"({elapsed:.1f}/{minutes:.0f} min)")
             sheet = writer(mv, spine)
             await render_movement(tape, mv, sheet, n)
-            played += 1
+            sheets.append((mv, sheet))
         # The closing lap: the tape's own spine, Tamil only, no glosses, one pass.
         # It is the pay-off of a third listen AND the bridge back to the top when
         # the file loops. A bare Tamil run brushes against "No Standalone Lists"
@@ -479,7 +476,7 @@ async def render(plan: list[dict], spine: str, out: Path, minutes: float,
         await tape.add("That's the lot.", ANNA_VOICE, 0.5)
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
-    return tape.minutes(out), played, tape.spoken
+    return tape.minutes(out), len(sheets), tape.spoken, sheets
 
 
 # ── CLI ─────────────────────────────────────────────────────────────────────
@@ -562,8 +559,13 @@ def main():
     mp3 = LONGHAUL_DIR / f"longhaul_{args.spine}_{stamp}.mp3"
     mp3.parent.mkdir(parents=True, exist_ok=True)
     print(f"\n2. render… (target {args.minutes:.0f} min)")
-    measured, played, spoken = asyncio.run(render(plan, args.spine, mp3, args.minutes))
+    measured, played, spoken, sheets = asyncio.run(
+        render(plan, args.spine, mp3, args.minutes))
     print(f"   rendered -> {mp3} ({measured:.1f} min, {played} movements)")
+    # Written BEFORE the publish gate, so `--no-publish` still leaves the story on
+    # disk: a local render is exactly when you want to read what it said.
+    script = write_script(mp3, args.spine, measured, sheets, spoken)
+    print(f"   script   -> {script}")
     # NOT a warning for stopping under `--minutes` — that is the honest length of
     # this spine's material and is the intended outcome. What is worth flagging is
     # the CALIBRATION drifting: the tape missing what its own movement count
@@ -588,7 +590,8 @@ def main():
     stamped = mark_soak_delivered("longhaul") if (focus or payload) else False
     subprocess.run([sys.executable, str(BASE / "scripts" / "rebuild_rss.py")],
                    cwd=BASE, check=True)
-    commit_and_push([mp3, BASE / "rss.xml"] + ([LEXICON_PATH] if exposed else [])
+    commit_and_push([mp3, script, BASE / "rss.xml"]
+                    + ([LEXICON_PATH] if exposed else [])
                     + ([BASE / "progress" / "learner.json"] if stamped else []),
                     f"Long-haul tape: {args.spine} ({measured:.0f} min)")
     print("4. notify…")
