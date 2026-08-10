@@ -41,6 +41,8 @@
 
 > **Contract:** `protocol/daily_session.md` → "The Campaign". Anna writes it at close; Andrew overrides at will. One block, five lines — the ticket owns *which* items.
 
+**⚠ TRANSIT — READ THIS FIRST: the silence is a plane, not a fade (2026-08-10, Andrew).** From **Aug 11 ~12:00 EDT until he speaks again**, Andrew is in the air and the phone is unreachable — and **Apple queues exactly ONE message**, so every push into that window overwrites the last: four of five never arrive and a dose spent there is destroyed. **Go quiet** — silence, `next_check` at its 24h ceiling, every tick, until he replies or a session lands. A gated tick logs nothing and a logged silence is `acted=false` (not a fire), so neither can reach the ignore-streak. **Do not read the gap as disengagement, do not change the move or modality over it, and do not let the cold-start verdict trigger a re-engagement move the moment he lands.** The cron stays running on purpose; a standing order, not a rail — *"Anna is elder brother."*
+
 **🎯 The Visit, Rehearsed In Order** (written 2026-08-04 with Andrew, replaces The Table Week — that one did its job: it named delight as the whole remaining campaign, and the melt line ரொம்ப நல்லா இருக்கு went from never-touched to hinted). **The trip is a handover, not a deadline.** He has his laptop, his phone and a month at that house, so touchdown does not end the work on delight — it is the best rep engine this project will ever have. Every line below is *situationally cued* at her table three times a day. That flips what this week is for.
 
 **The through-line: coverage, not clearance.** An item he has never seen cannot be triggered by a situation; one he has seen once can. So the last week before the plane buys **first contact on all 33 untouched items**, and the month after buys the firing. Nothing is cut from the deck and nothing is deferred — the zingers and the gossip register are last precisely because they are the only things that *cannot* be rehearsed cold, and they land in the room or not at all.
@@ -100,7 +102,7 @@
 **Ear note (08-04):** his catch is now ahead of his mouth. He decoded ‑ஆம் as "apparently" unprompted, and pulled the drift off a line built deliberately over his head (பாத்துக்கோங்க / போட்டேன் / பிடிக்கலென்னா all unknown). Consequence for test design: a comprehension-repair test can no longer be built from "fast" — it has to be built from *genuinely absent* content.
 
 
-**When the era turns (Aug 12): the session inverts.** The field mission stops being the session's *output* — "one deployable line for tonight" — and becomes its *input*. Anna opens on what actually happened at the table, and that is real data, not a rehearsal; the commission then targets what genuinely missed. The status line drops the countdown and the burn rate at the boundary, because in country the table sets the pace and a per-day quota is a lie. **Do not narrate a deficit in country.**
+**When the era turns (at touchdown): the session inverts.** The field mission stops being the session's *output* — "one deployable line for tonight" — and becomes its *input*. Anna opens on what actually happened at the table, and that is real data, not a rehearsal; the commission then targets what genuinely missed. The status line drops the countdown and the burn rate at the boundary, because in country the table sets the pace and a per-day quota is a lie. **Do not narrate a deficit in country.**
 
 **Standing catch order (renewable):** one word overheard off the sisters.
 

@@ -419,10 +419,16 @@ def campaign_block() -> str:
         text = (BASE / "progress" / "profile.md").read_text(encoding="utf-8")
     except OSError:
         return ""
-    marker = "## The Campaign — This Week"
-    if marker not in text:
+    # Match the HEADING, never its title. The title is Anna's prose and she
+    # renames it with every campaign — "The Last Week Before, and the Month
+    # During" (2026-08-04) missed the exact string this used to require, and
+    # six days of knocks steered with no campaign at all, silently. The
+    # contract fixes the prefix; everything after it belongs to her.
+    marker = "## The Campaign"
+    heading = next((l for l in text.splitlines() if l.startswith(marker)), None)
+    if heading is None:
         return ""
-    body = text.split(marker, 1)[1].split("\n## ", 1)[0]
+    body = text.split(heading, 1)[1].split("\n## ", 1)[0]
     # Drop the standing contract blockquote; the mandate already carries the rules.
     body = "\n".join(l for l in body.splitlines() if not l.lstrip().startswith(">")).strip()
     if not body or "no campaign live" in body:

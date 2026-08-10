@@ -1955,3 +1955,23 @@ Details live in git history; this is the index of the *conclusions*.
   play again. Applies to every derived artifact the pipeline emits, not just audio. The
   question to ask is *"is this one still being used?"* — M74 was (live deck material, two
   days out), the other twelve were not. Do not re-ask this per bug.
+- **Transit silence rides the standing-order surfaces, never a rail** (2026-08-10, Andrew).
+  Apple queues exactly ONE push for an unreachable phone, so a 20-hour flight turns every
+  dose after the first into an overwrite — and the unanswered fires feed `outcome_memory`'s
+  ignore-streak, which at 3 tells Anna her approach "isn't converting", days after landing.
+  **Rejected: pausing the cron** — it fails unsafe, needing a jet-lagged human to reverse it,
+  and a forgotten pause kills the channel for the whole month in country. **Rejected: a
+  transit field** — Gate 2's schema trap, permanent machinery bought for one flight. **Taken:**
+  the window goes in the debrief *and* the campaign block, both of which `build_digest` already
+  feeds every tick; Anna then chooses silence and a 24h `next_check`. A gated tick logs nothing
+  and a logged silence is `acted=false`, so neither can reach the streak. *"Anna is elder
+  brother"* — judgement, not a cage.
+- **The campaign block matches the heading, never its title** (2026-08-10). `campaign_block()`
+  required the exact string `## The Campaign — This Week`; the 08-04 rewrite renamed it *The
+  Last Week Before, and the Month During*, and the digest carried **no campaign for six days**,
+  silently — while `s17`'s heading-count assertion stayed green, because the heading existed
+  and only its TITLE had moved. **Replaces** the exact-string match with a prefix match: the
+  title is Anna's prose and she renames it every campaign. The 07-26 one-heading invariant is
+  untouched. `s17` grew the assertion that was missing — run the extractor against the REAL
+  `profile.md` and require a non-empty block. Fixtures prove the extractor; only the real file
+  proves the digest. Same lesson as `s22`'s corpus guard, the same morning.
