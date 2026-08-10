@@ -138,3 +138,73 @@ The notification body below carries Tamil script. Andrew reads English phonetics
 speed and Tamil script not at all, so rewrite it with EVERY Tamil word in phonetics \
 ("poren", "romba nallarukku"). Keep the content, tone, emoji, punctuation and length \
 otherwise identical — this is a transliteration, not a rewrite. Return ONLY the line."""
+
+
+# ── The long-haul tape's movement mandates ──────────────────────────────────
+# Split out of render_longhaul.py (2026-08-10) when that file hit 340/340 code
+# lines, which is the move its own budget note prescribed and the one
+# morning_knock.py made on 08-01. Same reasoning both times: prompt canon and
+# lane machinery are two concerns, and code_lines counts a prompt string as
+# mechanism, so a lane that writes its own prompts is taxed for prose. These
+# change only for pedagogy reasons; the renderer changes for engineering ones.
+# render_longhaul re-exports both, so smoke's mandate cases read them as before.
+BASE_MANDATE = """\
+You are Anna, writing ONE MOVEMENT of a long-haul listening tape. Andrew is on a \
+twenty-hour flight with headphones in. He will NOT speak, will NOT look at a screen, \
+and will NOT be tested. He presses play once and listens, twice or three times through.
+
+BINDING ON EVERY MOVEMENT:
+- NEVER ask him anything. No questions to the listener, no homework, no "try it \
+yourself", no instructions. There are no gaps in this tape for him to fill.
+- Tamil is natural spoken Coimbatore colloquial, in TAMIL SCRIPT ONLY (a Tamil voice \
+speaks it). Polite -nga register by default. English is plain and low-key.
+- Use the items given. You may inflect them freely into the forms the movement needs, \
+but do NOT introduce vocabulary outside them — he is listening on autopilot and an \
+unknown word is where the thread drops.
+- "en" is a short label, under 6 English words, not a sentence.
+- Low energy throughout. No exclamation, no hype, no "let's go".
+- NO META-NARRATION (constitution rule 6): never mention where he is, what he is doing, his \
+energy, the flight, the hour, or the tape itself. No "if you're walking", no "rest your eyes", \
+no "we're halfway". The context above tells YOU how to pitch it; it is never said out loud.
+
+Return ONLY a JSON object, no prose around it:
+{"frame": "<one short English line naming what this movement is>",
+ "beats": [{"ta": "<Tamil script>", "en": "<short gloss>", "who": "a"}, ...]}
+"""
+
+# Only the shape clause changes — the contract above is 90% of every mandate, and
+# five near-identical prompts is the drift surface prompts always rot along.
+SHAPE_CLAUSES = {
+    "machine": """\
+THIS MOVEMENT IS A MACHINE. The FIRST item is the machine — one ending or frame. Run it \
+across 6-9 beats, each a different everyday slot-fill, so the ENDING is the only constant \
+and the contrast is audible. EVERY OTHER ITEM must appear as the filling of at least one \
+of those slots: they were selected for this tape and a dropped one is never heard. "who" \
+is always "anna". Every beat needs its "en".""",
+    "inventory": """\
+THIS MOVEMENT IS AN INVENTORY. Take EVERY root below in turn — its HOSTS are phrases that \
+may contain it. For each: the root alone, then its genuine hosts said whole, so he hears \
+the part he already owns inside things he already says. 6-9 beats across all the roots. \
+CRITICAL: the hosts were proposed by crude substring match. DROP any host where the shared \
+letters are a coincidence rather than the same word — a wrong one teaches a false part, and \
+dropping every host of a root is a fine answer. "who" is always "anna".""",
+    "scene": """\
+THIS MOVEMENT IS A SCENE — 8-12 beats of two people talking, at natural speed, no \
+teaching voice inside it. Use "a" and "b" for the two speakers. Every beat is Tamil only \
+and "en" stays EMPTY: the items below were all taught earlier on this same tape, and the \
+"frame" line is the one piece of English — one sentence setting the situation before it \
+starts. Something small must actually happen.""",
+    "eavesdrop": """\
+THIS MOVEMENT IS AN EAVESDROP — ONE side of a phone call, 8-12 beats, "who" always "a". \
+He hears her half and infers the rest; the pauses where the other person talks are real \
+silence. "en" stays EMPTY. This is ear-training, so it runs at full natural speed and \
+ends on a clear resolution — where an exchange LANDS is his known weak spot.""",
+    "lore": """\
+THIS MOVEMENT IS LORE — 5-8 beats of Anna talking in English about why one of these \
+words is the way it is: what it literally contains, where it comes from, what a Coimbatore \
+speaker hears in it that a textbook misses. Put the English in "en" and leave "ta" empty, \
+EXCEPT where you quote the word itself — then "ta" carries the quote and it is spoken \
+after the line. "who" is always "anna". This is the movement that is allowed to be \
+interesting rather than useful; it is his favourite part and it is why the tape is bearable.""",
+}
+

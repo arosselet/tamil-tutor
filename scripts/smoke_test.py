@@ -1152,7 +1152,15 @@ CODE_BUDGETS = {
     # OUTREACH_MANDATE in PROSE_BUDGETS above), so its code budget exists only
     # to satisfy the every-file-is-budgeted guard and to catch machinery
     # sneaking into a prose module.
-    "scripts/mandates.py": 150,
+    # 150 → 200 (2026-08-10) for the long-haul BASE_MANDATE and its five
+    # SHAPE_CLAUSES, moved out of render_longhaul.py when THAT file hit 340/340 —
+    # the split its own budget note prescribed, and the one morning_knock made on
+    # 08-01. This is the ceiling law working as designed: the growth landed in the
+    # prose module instead of the lane. Raising it here is cheap precisely because
+    # this budget is a machinery TRAP, not a size limit — every line it now counts
+    # is prompt string, and prompt strings are word-budgeted in PROSE_BUDGETS above.
+    # What must still trip it is a def, a loop, or an import sneaking in.
+    "scripts/mandates.py": 200,
     "scripts/push_queue.py": 250,
     "scripts/rebuild_rss.py": 350,
     "scripts/render_audio.py": 500,
@@ -4472,9 +4480,9 @@ def s57_longhaul_tape(sb: Path):
         rl.get_raw_mp3_frames = lambda f: rl.SILENCE_FRAME * 60   # ~1.4s of "speech"
         plan = rl.plan_movements(rl.build_pool("machines", []), "machines", 40)
         out = sb / "clock.mp3"
-        short_min, short_played, _ = asyncio.run(
+        short_min, short_played, _, short_sheets = asyncio.run(
             rl.render(plan, "machines", out, 1.0, writer=lambda mv, s: sheet))
-        long_min, long_played, spoken = asyncio.run(
+        long_min, long_played, spoken, sheets = asyncio.run(
             rl.render(plan, "machines", out, 4.0, writer=lambda mv, s: sheet))
         check("the tape reaches the minutes it was asked for",
               short_min >= 1.0 and long_min >= 4.0, f"got {short_min:.2f} / {long_min:.2f}")
@@ -4486,6 +4494,39 @@ def s57_longhaul_tape(sb: Path):
               "audio_duration" in inspect.getsource(rl.Tape.minutes))
         check("only lines that actually played are claimed as delivered",
               spoken and all(isinstance(s, str) for s in spoken))
+
+        # ── THE WRITTEN STORY. Three tapes shipped as audio only (2026-08-10): the
+        # sheets were handed to the renderer and dropped, so the source text sent to
+        # the TTS existed nowhere — not on disk, not in a log. Unrecoverable.
+        check("the sheets that played come back out of the render",
+              len(sheets) == long_played, f"{len(sheets)} sheets for {long_played} played")
+        check("...and a tape cut short by the clock returns only what it aired",
+              len(short_sheets) == short_played < len(sheets))
+        real_scripts = rl.SCRIPTS_DIR
+        rl.SCRIPTS_DIR = sb / "content" / "scripts"
+        try:
+            written = rl.write_script(sb / "longhaul_machines_2026-08-11_0930.mp3",
+                                      "machines", long_min, sheets, spoken)
+            body = written.read_text(encoding="utf-8")
+        finally:
+            rl.SCRIPTS_DIR = real_scripts
+        check("the script is saved beside the audio, named for it",
+              written.name == "longhaul_machines_2026-08-11_0930.md", written.name)
+        check("...and carries the Tamil actually sent to the TTS",
+              all(b["ta"] in body for b in sheet["beats"]), body[:160])
+        check("...the measured length and the audio it belongs to",
+              f"{long_min:.1f} min" in body and ".mp3" in body)
+        check("...one section per movement that played",
+              body.count("\n## ") == long_played + (1 if spoken else 0),
+              f"{body.count(chr(10) + '## ')} sections for {long_played} movements")
+        check("...and the closing lap, which is a third of the audio",
+              "closing lap" in body and all(l in body for l in spoken))
+        # The script rides the SAME commit as the mp3, or the pair drifts apart.
+        pub = inspect.getsource(rl.main)
+        check("the script is committed with the tape, not left behind",
+              "commit_and_push([mp3, script" in pub)
+        check("...and written before the publish gate, so --no-publish keeps it",
+              pub.index("write_script(") < pub.index("if args.no_publish"))
     finally:
         rl.generate_segment_google, rl.get_raw_mp3_frames = real
 
