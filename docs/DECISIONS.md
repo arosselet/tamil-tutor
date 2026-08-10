@@ -1904,3 +1904,23 @@ Details live in git history; this is the index of the *conclusions*.
   which is what M81 was. Replaces the form+scale pair with form alone. Same diff:
   `narrated_drama` joins the Breakdown-omitted list; it was absent from that rule, so one
   got appended by default, and the Narrator has already glossed inside the scene.
+- **The long-haul tape — a fourth audio lane, for a capacity the other three cannot serve**
+  (2026-08-10, Andrew, two days before the plane). Twenty hours against ~50 doses at a
+  median **2.7 min** is fifty press-plays and fifty format switches; he predicted he would
+  not do it. The other three lanes are all sized for a 10-15 min workday slot where
+  ADHERENCE binds; the flight inverts every term — unlimited time, no mouth, no screen,
+  near-zero executive function. `render_longhaul.py`:
+  Python owns the clock and the rotation, the model writes one small sheet per MOVEMENT,
+  and the tape renders until a MEASURED target. The movement, not the line, is the unit of
+  language mix; recall movements may only use what earlier movements taught. **Replaces**
+  `render_soak.py --passes N` as the answer to "give me something longer". Does **not**
+  reopen the 07-28 dose ruling, which is about the session.
+- **A duration fallback must be visible, not plausible** (2026-08-10). `render_audio`'s
+  `get_duration` was `except: return 3.0`, so on an ffprobe-less host every episode
+  registered as exactly 3.0 min — M78-M85 all carry it, against real lengths of 1.7-3.5.
+  It was invisible precisely because 3.0 is plausible for a short episode, and he judges an
+  episode partly by the number his player shows him. Now measured through
+  `rebuild_rss.audio_duration` (ffprobe, then the frame scan), reporting 0.0 with a warning
+  when it genuinely cannot. Extends "feed durations are measured, never estimated"
+  (2026-07-23) to the registry the feed reads from. Existing 3.0 stamps stand until each
+  episode is next rendered.
