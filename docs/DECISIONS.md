@@ -1955,17 +1955,17 @@ Details live in git history; this is the index of the *conclusions*.
   play again. Applies to every derived artifact the pipeline emits, not just audio. The
   question to ask is *"is this one still being used?"* — M74 was (live deck material, two
   days out), the other twelve were not. Do not re-ask this per bug.
-- **Transit silence rides the standing-order surfaces, never a rail** (2026-08-10, Andrew).
-  Apple queues exactly ONE push for an unreachable phone, so a 20-hour flight turns every
-  dose after the first into an overwrite — and the unanswered fires feed `outcome_memory`'s
+- **The transit bit — one date in `learner.json`, enforced by the rails** (2026-08-10, Andrew).
+  Apple queues exactly ONE push for an unreachable phone, so a 20-hour flight turns every dose
+  after the first into an overwrite — and the unanswered fires feed `outcome_memory`'s
   ignore-streak, which at 3 tells Anna her approach "isn't converting", days after landing.
-  **Rejected: pausing the cron** — it fails unsafe, needing a jet-lagged human to reverse it,
-  and a forgotten pause kills the channel for the whole month in country. **Rejected: a
-  transit field** — Gate 2's schema trap, permanent machinery bought for one flight. **Taken:**
-  the window goes in the debrief *and* the campaign block, both of which `build_digest` already
-  feeds every tick; Anna then chooses silence and a 24h `next_check`. A gated tick logs nothing
-  and a logged silence is `acted=false`, so neither can reach the streak. *"Anna is elder
-  brother"* — judgement, not a cage.
+  **Supersedes the standing-order version taken and reverted the same afternoon**: debrief prose
+  is read by *every* tick, so a note about tomorrow's flight steers today's knocks — Andrew's
+  objection, and correct. **Rejected: pausing the cron** (fails unsafe). **Taken:**
+  `--quiet-until YYYY-MM-DD`, read
+  first in `rails_gate`, which returns before the LLM and writes nothing — so the held stretch
+  leaves no rows to be misread as fading. Deliberately deletable: three lines in the gate, one
+  whitelist key, one CLI flag. Status prints ⏸ when held; clearing accepts `""`/`off`/`none`.
 - **The campaign block matches the heading, never its title** (2026-08-10). `campaign_block()`
   required the exact string `## The Campaign — This Week`; the 08-04 rewrite renamed it *The
   Last Week Before, and the Month During*, and the digest carried **no campaign for six days**,
@@ -1975,3 +1975,13 @@ Details live in git history; this is the index of the *conclusions*.
   untouched. `s17` grew the assertion that was missing — run the extractor against the REAL
   `profile.md` and require a non-empty block. Fixtures prove the extractor; only the real file
   proves the digest. Same lesson as `s22`'s corpus guard, the same morning.
+- **Every subprocess decode is pinned to UTF-8** (2026-08-10). `subprocess.run(text=True)` with
+  no `encoding=` decodes with the *locale* codec — UTF-8 on the Linux runners, cp1252 on the
+  Windows laptop. Every one of the seven sites reads git output or our own scripts' stdout,
+  which is always UTF-8 and routinely Tamil, so the same code was correct in CI and broken on
+  the machine that renders. It cost a full day of misreadings: `morning_knock.build_digest`
+  could not run locally at all, and `s51`'s chat.md equality failed with mojibake that read
+  first as a content bug, then as a CRLF artifact. **Replaces** the locale guess with
+  `encoding="utf-8"` at all seven. `render_chat` also pins `newline="\n"`, since chat.md is a
+  tracked derived file both CI and the laptop regenerate and byte equality is its contract.
+  A green CI is not proof the code is portable — it is proof of one locale.

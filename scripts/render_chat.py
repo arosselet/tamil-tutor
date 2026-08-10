@@ -75,7 +75,11 @@ def render_chat() -> Path:
             if not exchanges and e.get("response") == "ack":
                 lines += ["**Andrew** · 👍 acked", ""]
 
-    CHAT_PATH.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+    # newline="\n" or Windows writes CRLF here and the same log renders to two
+    # different files depending on which machine rendered it — chat.md is a
+    # tracked DERIVED file that both CI and the laptop regenerate, so byte
+    # equality across platforms is the whole contract (s51).
+    CHAT_PATH.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8", newline="\n")
     return CHAT_PATH
 
 

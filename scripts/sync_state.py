@@ -399,6 +399,12 @@ def write_thin_learner(learner: dict, episodes: dict):
         # clock, and quiet hours would start firing at 3am Chennai with nothing
         # on screen to say why. Travel is exactly when nobody is auditing state.
         "timezone": learner.get("timezone", DEFAULT_TZ),
+        # The transit bit (2026-08-10, Andrew). An ISO date through which the
+        # rails refuse to wake Anna at all, or "" for off. Whitelisted here for
+        # the same reason `slip_closes` had to be: a key missing from this dict
+        # is DELETED on the next update, so a flag set before a flight would be
+        # wiped by the first session close and nothing would say it had gone.
+        "quiet_until": learner.get("quiet_until", ""),
         "last_debrief": learner.get("last_debrief", ""),
         "soak_order": learner.get("soak_order", {}),
         "next_engine": learner.get("next_engine", ""),
@@ -595,6 +601,29 @@ def cmd_update(args):
     if args.next_engine:
         learner["next_engine"] = args.next_engine
         print(f"  Next engine set: {args.next_engine}")
+
+    # The transit bit. A DATE and not a boolean on purpose: the failure mode of a
+    # bare bit is forgetting to unset it, which kills the knock channel silently
+    # for as long as nobody notices — worst exactly when travelling. A date lapses
+    # on its own; clearing it early is `--quiet-until ""`.
+    # getattr, not args.quiet_until: eight cases in the suite hand-build their own
+    # argparse.Namespace from a copied defaults dict, so a new optional flag read
+    # directly breaks all eight. This also keeps the block self-contained — delete
+    # it and the feature is gone, which is what it was commissioned to be.
+    if getattr(args, "quiet_until", None) is not None:
+        # The CLEAR path has to be the robust one — it is the command he runs
+        # jet-lagged, wanting to carry on, and a shell that eats a bare "" would
+        # otherwise leave the channel dead with the fix looking like it worked.
+        if args.quiet_until.strip().strip('"\'').lower() in ("", "off", "none", "clear"):
+            args.quiet_until = ""
+        if args.quiet_until:
+            date.fromisoformat(args.quiet_until)   # raises on a typo, before it is stored
+            learner["quiet_until"] = args.quiet_until
+            print(f"  QUIET UNTIL {args.quiet_until} — knocks held; the rails skip "
+                  f"before the LLM, so nothing logs and no silence reads as a fade.")
+        else:
+            learner["quiet_until"] = ""
+            print("  Quiet window cleared — knocks resume on the next tick.")
 
     # Mark-seen — update last_surfaced without touching recognition/production.
     # Closes the lore-memo gap: a frame a knock introduced is no longer UNSEEN.
@@ -1167,6 +1196,10 @@ def main():
                     help="Running 'story so far' — rewrite cumulatively (carry what matters, prune what resolved); Anna's persistent narrative memory, not a one-line log")
     up.add_argument("--next-engine", type=str, default=None,
                     help="Frame key to set as the engine to unlock next (e.g. 'frame:polite-nga')")
+    up.add_argument("--quiet-until", type=str, default=None, metavar="YYYY-MM-DD|''",
+                    help="TRANSIT BIT: hold every knock through this local date "
+                         "(the rails skip before the LLM, so nothing is logged and "
+                         "no silence reads as a fade). Pass '' to clear it and resume.")
     up.add_argument("--mark-seen", type=str, action="append", default=[],
                     help="Frame/word key(s) to mark as seen today (sets last_surfaced; closes lore-memo gap)")
     up.add_argument("--slip", type=str, action="append", default=[],
