@@ -4013,5 +4013,20 @@
       }
     ],
     "volley_next": 1
+  },
+  {
+    "date": "2026-08-10",
+    "timestamp": "2026-08-10T14:16:47.452186+00:00",
+    "acted": true,
+    "modality": "audio",
+    "move": "lore: the -laam machine",
+    "rationale": "Demand-streak at 1 so a no-ask dose is the right call; lore cooldown is 8 days and this is a different vein (grammar machine vs feeding-as-greeting); the -laam frame is commissioned, UNSEEN, and directly serves the trip in 2 days — an audio memo delivers it as lived lore without asking anything back, and Andrew has explicitly asked for more audio; volley scheduled for afternoon to respect the lunch-anchor and let this memo land first.",
+    "next_check": "2026-08-10T18:16:47.452186+00:00",
+    "body": "🎧 kilambalaama? — the one tail that runs the whole family. 60 sec before you pack.",
+    "expected_target": "",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-10T14-16.mp3",
+    "memo_script": "da — before you zip that bag, one thing.\n\nYou already fire naalaikku. You fire paakkalaam. You fire poalaam. And last night you pulled konjam jaasti cold off the catch pile into a live auto ride. So here's what I want you to hear before the plane.\n\nThere is one tail in this family that runs EVERYTHING. -laam. That's it. Stick it on a verb and you get 'let's', 'shall we', 'maybe we could' — the whole soft-proposal universe that Coimbatore runs on.\n\nkilambalaama — shall we head out?\npoalaam — let's go.\nukkaralaama — shall we sit?\npesalaama — shall we talk?\nappuram paakkalaam — let's see later.\nkadaisila paakkalaam — we'll figure it out at the end.\n\nSame tail every time. You already OWN two of those. The machine was already in your mouth — you just didn't know it was a machine.\n\nOne thing to hear clearly before the family deploys it on you all week: paakkalaam and pakkam are NOT the same word. paakkalaam — you can hear paar inside it, the verb to see, stretched into a suggestion. pakkam — short, flat, no paar — it just means 'side' or 'near'. 'temple pakkam' is beside the temple. 'paakkalaam' is let's see. Two different words that sound close in a fast conversation. Now you've heard both.\n\nThe episode is waiting — same lore, full scene, five family members proposing the same departure for fifteen minutes and nobody picking up a bag. Listen on the flight. But the machine is already yours.\n\nkilambalaama?",
+    "mp3": "published_audio/knocks/knock_2026-08-10T14-16.mp3"
   }
 ]
