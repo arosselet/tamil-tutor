@@ -103,10 +103,21 @@ def clean_title(raw_title: str, filename: str) -> str:
     # Long-haul tapes carry their spine as well as their date: three of them ride
     # the feed at once for the flight, and "which one is the machines tape" has to
     # be answerable from the lock screen, one-handed, without reading show notes.
+    #
+    # NO MINUTE FIGURE (2026-08-10). This said "press once, 45 min" for every tape
+    # regardless of length, and the first one shipped titled 45 min against a
+    # MEASURED 00:23:45 — a title is not exempt from "durations are measured, never
+    # estimated" (2026-07-23) just because it is prose. The figure is dropped rather
+    # than corrected: `<itunes:duration>` already carries the measured length and is
+    # what his player displays, so a second copy in the title is a maintenance
+    # burden that can only ever drift. Andrew's own ruling on the same problem in
+    # the Institution-of-One close — drop the figure and the line stays true across
+    # any future cut. What the title must promise is the CONTRACT, not the length:
+    # press once and nothing is asked of you.
     longhaul = re.match(r"longhaul_([a-z]+)_(\d{4}-\d{2}-\d{2})", filename)
     if longhaul:
         return (f"Long-haul — {longhaul.group(1)} · {longhaul.group(2)} "
-                f"· press once, 45 min")
+                f"· press once, nothing asked")
 
     # Detect episode type from filename
     ep_type = None

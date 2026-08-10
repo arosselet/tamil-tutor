@@ -4447,6 +4447,11 @@ def s57_longhaul_tape(sb: Path):
     check("the title says which spine, for a one-handed lock-screen choice",
           "inventory" in title and "2026-08-11" in title, f"got {title!r}")
     check("the title carries no raw filename", ".mp3" not in title and "_" not in title)
+    # The title shipped "press once, 45 min" on a MEASURED 00:23:45 tape (2026-08-10).
+    # A title is prose, but a duration inside it is still a duration, and the only
+    # length a listener may be shown is the one that was measured off the file.
+    check("the title states no length — itunes:duration is the measured authority",
+          not re.search(r"\d+\s*(min|minute|hour|hr)", title, re.I), f"got {title!r}")
 
     audio = sb / "published_audio"
     audio.mkdir(exist_ok=True)
