@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **10:16 · Anna** 🎧  ·  audio / lore: the -laam machine
 > 🎧 kilambalaama? — the one tail that runs the whole family. 60 sec before you pack.
 
+**15:50 · Anna**  ·  text / volley: sprint burn resume
+> ⚡ volley 1/4 — you want to ask if the taxi can stop at the hotel first — mudinja, one word to soften it: 'if possible.' What do you tell him?
+
 
 ## Sunday 2026-08-09
 
