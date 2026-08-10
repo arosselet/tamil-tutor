@@ -2832,12 +2832,12 @@
       "kai kazhuvittu varen"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-08-08",
+    "last_surfaced": "2026-08-09",
     "deck": "trip",
     "direction": "fire",
-    "reps": 1
+    "reps": 2
   },
   "உட்கார்ந்து பேசுங்க": {
     "type": "chunk",
@@ -3706,16 +3706,16 @@
       "seri seri"
     ],
     "recognition": "comfortable",
-    "production": "hinted",
+    "production": "cold",
     "seen_in": [
       72,
       84,
       85
     ],
-    "last_surfaced": "2026-08-08",
+    "last_surfaced": "2026-08-09",
     "deck": "trip",
     "direction": "fire",
-    "reps": 2,
+    "reps": 3,
     "exposures": 3
   },
   "இன்னும் கொஞ்சம் போடுங்க": {
@@ -4202,10 +4202,10 @@
       80,
       83
     ],
-    "last_surfaced": "2026-08-05",
+    "last_surfaced": "2026-08-09",
     "deck": "trip",
     "direction": "catch",
-    "reps": 2,
+    "reps": 3,
     "exposures": 2
   },
   "ஒரே கல்லுல ரெண்டு மாங்கா": {
@@ -4232,9 +4232,10 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": null,
+    "last_surfaced": "2026-08-09",
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "reps": 1
   },
   "அப்பா": {
     "gloss": "dad / father (also an exclamation: oh man!)",
