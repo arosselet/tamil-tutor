@@ -1935,3 +1935,15 @@ Details live in git history; this is the index of the *conclusions*.
   asks once and fatal where it asks fifteen times. Truncation still fails loudly rather
   than re-rolling (the 08-05 guard). The rule: **a second parser is how a fixed bug
   comes back.**
+- **A cue is a beat inside a line, never a replacement for it** (2026-08-10). `parse_script`
+  ran `PAUSE_RE.search` before the speaker check, so any spoken line carrying an inline
+  `[Pause: 1 sec]` became silence and **its dialogue was discarded** — 56 lines across 13
+  episodes, eighteen in M74, whose analysts teach almost entirely in inline-paused lines.
+  Invisible by construction: the render succeeds and is merely shorter. **The missed half
+  of the 07-18 SFX audit** — same file, same failure mode. **Replaces**
+  the pause-before-speaker ordering with one path: speech is recognised first and split
+  around its cues, rendering speech-pause-speech in written order. The regex stopped
+  being three dialects (`[Pause: 1 sec]`, fractional, bare `[pause]`), and `[^\]]*` replaces
+  a greedy `.*\]` that swallowed the text between two pauses. M74 re-rendered to `_v2`;
+  the other twelve stand. `s22` grew a **corpus guard** — fixtures prove the parser, only
+  the corpus proves the tank.

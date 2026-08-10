@@ -1556,6 +1556,15 @@ def s19_watchdog_detection(sb: Path):
 
 
 def s22_sfx_pause(sb: Path):
+    """Cues become air; they never eat the speech around them.
+
+    THE SILENT NO-OP, and it ran for three weeks: when the parser drops a
+    spoken line the render still succeeds — it is simply shorter. No crash, no
+    warning, no lint, and a duration nobody has a reference for. M74 shipped
+    with 18 of its 52 lines missing and taught the -க்கு போகணும் frame to an
+    empty room. So every assertion below counts what reached a VOICE, not that
+    the parse ran, and the last one holds the whole corpus to it (2026-08-10 —
+    the half of the 07-18 audit that was missed)."""
     print("\n22. [SFX] cues render as air, never dropped (M68 drama, 2026-07-18)")
     ra = importlib.import_module("render_audio")
     script = sb / "content" / "scripts" / "smoke_sfx.md"
@@ -1573,6 +1582,48 @@ def s22_sfx_pause(sb: Path):
           not any("phone rings" in d.get("text", "") for d in dialogue))
     check("adjacent SFX + pause coalesce",
           dialogue[-1] == {"speaker": "PAUSE", "seconds": 3.5}, f"got {dialogue[-1]}")
+
+    # A pause written INSIDE a spoken line is a beat in that line. The old
+    # ordering asked "does this line CONTAIN a pause?" before "is this speech?",
+    # so it answered yes and threw the dialogue away.
+    inline = sb / "content" / "scripts" / "smoke_inline_pause.md"
+    inline.write_text(
+        "# Tier 2, Mission 98 — Smoke\n\n"
+        "**RAJ (M):** He told our aunt, [Pause: 1 sec] \"station-kku poganum.\"\n\n"
+        "**MAYA (F):** [Pause: 1 sec] Using that frame. [Pause: 0.5 sec] Need to go.\n\n"
+        "**RAJ (M):** [pause] And she just fed him.\n\n"
+        "[Pause: 2 sec]\n", encoding="utf-8")
+    dlg, _ = ra.parse_script(str(inline))
+    said = " ".join(d.get("text", "") for d in dlg)
+    for fragment in ["He told our aunt,", "station-kku poganum.", "Using that frame.",
+                     "Need to go.", "And she just fed him."]:
+        check(f"inline pause keeps the speech: {fragment!r}", fragment in said, said)
+    check("...and keeps it in written order, split around the beat",
+          [d.get("text") for d in dlg[:3]] ==
+          ["He told our aunt,", None, '"station-kku poganum."'], str(dlg[:3]))
+    check("a fractional cue is honoured, not silently skipped",
+          any(d.get("seconds") == 0.5 for d in dlg), str(dlg))
+    check("a bare [pause] is one beat of air, never a spoken word",
+          any(d.get("seconds") == 1.0 for d in dlg) and "pause" not in said.lower(), said)
+
+    # THE CORPUS GUARD. The fixtures above prove the parser; this proves the
+    # actual tank. Every line a writer meant to be heard must reach a voice —
+    # a future script inventing a fourth pause dialect fails here, loudly.
+    lost = []
+    for path in sorted((REAL_BASE / "content" / "scripts").glob("*.md")):
+        heard = " ".join(d.get("text", "")
+                         for d in ra.parse_script(str(path))[0])
+        for raw in path.read_text(encoding="utf-8").splitlines():
+            m = ra.SPEAKER_RE.match(raw.strip())
+            if not m:
+                continue
+            # re.split with one capture group interleaves text and the capture;
+            # the even slots are the spoken pieces.
+            for piece in ra.PAUSE_RE.split(m.group(2))[::2]:
+                if piece and piece.strip() and piece.strip() not in heard:
+                    lost.append(f"{path.name}: {piece.strip()[:40]}")
+    check("no episode in the tank loses speech to a cue",
+          not lost, f"{len(lost)} lost: {lost[:3]}")
 
 
 def s23_ticket_end_to_end(sb: Path):

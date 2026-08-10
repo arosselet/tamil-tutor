@@ -194,10 +194,42 @@ EDGE_VOICE_OPTS = {
 SPEAKER_RE = re.compile(
     r"^\s*(?:\*\s*)?\*\*\s*([^:]+)\s*:\s*(?:\*\*\s*)?(.*)", re.IGNORECASE
 )
-PAUSE_RE = re.compile(r"\[Pause:\s*(\d+)\s*sec.*\]", re.IGNORECASE)
+# Every pause dialect the scripts actually use: "[Pause: 1 sec]", the fractional
+# "[Pause: 0.5 sec]", and the bare "[pause]" (defaults to a 1-second beat).
+# `[^\]]*` and not `.*` on purpose — a greedy tail swallows the text BETWEEN two
+# pauses on the same line, which is most of how M74 was written.
+PAUSE_RE = re.compile(
+    r"\[pause(?::\s*(\d+(?:\.\d+)?)\s*sec[^\]]*)?\]", re.IGNORECASE
+)
 SFX_RE = re.compile(r"^\[SFX\b", re.IGNORECASE)
 EMBED_RE = re.compile(r"\[Intercept (audio )?plays\]", re.IGNORECASE)
 VOICE_MAP_RE = re.compile(r"Voice Map\s*:\s*(\{.*?\})", re.DOTALL | re.IGNORECASE)
+
+def pause_seconds(match: re.Match) -> float:
+    """Seconds for a matched pause cue; a bare '[pause]' is one beat."""
+    return float(match.group(1)) if match.group(1) else 1.0
+
+
+def split_on_pauses(speaker: str, text: str) -> list[dict]:
+    """Split one spoken line into speech / pause / speech in written order.
+
+    A pause written INSIDE a line is a beat WITHIN that line, never a
+    replacement for it. Returns a single speech item when the line holds no
+    pause, so this is the one path every speaker line takes.
+    """
+    items: list[dict] = []
+    cursor = 0
+    for match in PAUSE_RE.finditer(text):
+        head = text[cursor:match.start()].strip()
+        if head:
+            items.append({"speaker": speaker, "text": head})
+        items.append({"speaker": "PAUSE", "seconds": pause_seconds(match)})
+        cursor = match.end()
+    tail = text[cursor:].strip()
+    if tail:
+        items.append({"speaker": speaker, "text": tail})
+    return items
+
 
 def parse_script(file_path: str) -> tuple[list[dict], dict]:
     """Parse a markdown script for dialogue lines, pauses, and voice mapping."""
@@ -226,12 +258,6 @@ def parse_script(file_path: str) -> tuple[list[dict], dict]:
             dialogue.append({"speaker": "PAUSE", "seconds": 1.5})
             continue
 
-        pause_match = PAUSE_RE.search(line)
-        if pause_match:
-            seconds = int(pause_match.group(1))
-            dialogue.append({"speaker": "PAUSE", "seconds": seconds})
-            continue
-
         if EMBED_RE.search(line):
             dialogue.append({"speaker": "EMBED_INTERCEPT"})
             continue
@@ -240,13 +266,21 @@ def parse_script(file_path: str) -> tuple[list[dict], dict]:
             dialogue.append({"speaker": "PAUSE", "seconds": 1})
             continue
 
+        # The speaker question is asked BEFORE the pause question, and this
+        # ordering is the whole bug: the old code ran PAUSE_RE.search() first,
+        # so any spoken line merely CONTAINING a pause became silence and its
+        # dialogue was discarded — 56 lines across 13 episodes, 18 of them in
+        # M74, with nothing in the render output to show for it.
         match = SPEAKER_RE.match(line)
         if match:
             speaker = match.group(1).strip().upper()
-            text = match.group(2).strip()
+            dialogue.extend(split_on_pauses(speaker, match.group(2).strip()))
+            continue
 
-            if text:
-                dialogue.append({"speaker": speaker, "text": text})
+        # Not speech, but it carries a pause cue: the line IS the pause.
+        pause_match = PAUSE_RE.search(line)
+        if pause_match:
+            dialogue.append({"speaker": "PAUSE", "seconds": pause_seconds(pause_match)})
 
     # Coalesce consecutive pauses
     final_dialogue = []
