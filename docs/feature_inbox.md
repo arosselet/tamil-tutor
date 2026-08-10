@@ -772,3 +772,33 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
   after the fact — if the post-trip state shows the deck or the cohort visibly mis-steered
   by the travel gap rather than merely dented, that is the reproduced pattern. Look at it
   post-trip with the session log in hand, not before.
+- **THE SLIP LEDGER RENDERS THE DEFICIT AND HIDES THE ARC** (2026-08-10, Andrew's felt
+  signal, `/recalibrate`). His words: *"it's not a debrief, and it's not about being the
+  most pessimistic, honest version… it's about the honest ways in which I'm missing and
+  then addressing those problems specifically."* Three of the four things he asked for are
+  already law and were named back to him — invisible assessment (constitution §2, no
+  self-report survives), recognition and production as two axes that never substitute for
+  each other (the floor metric *is* the gap between them), and never-demote grading so a
+  wrong blurt costs him nothing (`apply_verdict`, upgrades only). **The fourth is a real
+  hole.** `format_slip_block` has two sections, LIVE and RETIRED-BUT-UNVERIFIED — a
+  deficit and a question. It has no section for a pattern that was *closed*, and the
+  ledger today holds seven of them: `1pl-past-om` 8× over 10 days then landed 08-06,
+  `past-tense` 6× over 8 days then landed 08-02, `venum-for-kudunga`, `it-tail-uchu`,
+  `ku-for-la`, `catch-closing`, `stranger-nga`. That list is precisely the thing he says
+  the old podcast debrief gave him and the machine does not — *repeatedly wrong, corrected,
+  corrected, then muscle memory* — and it is invisible on all three reader surfaces, so
+  the only growth Anna can narrate on this axis is whatever he happened to retype into
+  `last_debrief` at the previous close. **Same failure mode the ledger was built to end**
+  (DECISIONS 07-30: *"an error survived exactly as long as Anna retyped it"*), one level up:
+  capture is durable, steering is durable, the arc is prose again.
+  **Shape when it comes off the shelf:** a third section in the one renderer — CLOSED, tag +
+  count + span + the date it landed, capped like the others. No schema change (`closed`,
+  `closed_on` and `count` are already computed by `slip_patterns`), no new file, no new
+  meter. **The trap to avoid** is turning it into a score: this is narratable history for
+  Anna to reach for when a win deserves the callback, not a "slips closed" counter to
+  recite — a global number in a warm voice is the guilt machinery of 07-17 with the sign
+  flipped. **Also owed, one line, no code:** DECISIONS 07-28 (*"a miss is data Andrew
+  wants; grade honestly"*) frames the cap as meter integrity — a generous grade is a
+  corrupted meter. His refinement today is that the cap exists to keep the *diagnosis*
+  clean, not to hold a high bar; the honest grade is what makes the slip specific enough to
+  dose. Same rule, different reason, and the reason is what the prose gets wrong.
