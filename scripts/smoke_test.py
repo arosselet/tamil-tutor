@@ -1028,6 +1028,20 @@ def s17_campaign_digest(mk, sb: Path):
           "a second '## The Campaign …' section orphans the live one — "
           "overwrite the finished week, don't archive it in the file")
 
+    # 2026-08-10, THE EFFECT AND NOT THE SHAPE. The count above stayed green for
+    # the whole six days this block was empty: the heading was there, its TITLE
+    # had changed, and an exact-string match returned "" with nothing anywhere to
+    # say so. Every fixture above proves the extractor against prose the test
+    # wrote itself — only the real file proves the digest.
+    saved, mk.BASE = mk.BASE, REAL_BASE
+    try:
+        real_block = mk.campaign_block()
+    finally:
+        mk.BASE = saved
+    check("the REAL profile.md yields a campaign, not silence",
+          real_block.startswith("CAMPAIGN") and len(real_block) > 200,
+          f"{len(real_block)} chars — cloud Anna would steer with no campaign")
+
 
 # Word budgets for the protocol's prose surfaces (2026-07-16): every incident since
 # April landed as a paragraph, and prose only accumulates — "earn its place" didn't
