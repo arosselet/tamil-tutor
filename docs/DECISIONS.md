@@ -1924,3 +1924,14 @@ Details live in git history; this is the index of the *conclusions*.
   when it genuinely cannot. Extends "feed durations are measured, never estimated"
   (2026-07-23) to the registry the feed reads from. Existing 3.0 stamps stand until each
   episode is next rendered.
+- **One JSON parser, and a serial lane retries** (2026-08-10). The first 45-minute tape
+  died at movement 5 of 15 — `Expecting value: char 0` — holding a good object under two
+  lines of the model's own reasoning. `ask_json` had a private parse that only looked at
+  character 0; `parse_llm_json` had already fixed that family (07-04, 07-07, 07-13's
+  *prose before a fence*) and this lane never called it, so it re-earned the bug. The
+  mandate invites the prose: the `inventory` clause orders a judgement per host, so the
+  writer shows its work — **measured 3 of 6 calls**. **Replaces** that parse with
+  `parse_llm_response`, plus a 3-try loop: a coin-flip parse is survivable where a lane
+  asks once and fatal where it asks fifteen times. Truncation still fails loudly rather
+  than re-rolling (the 08-05 guard). The rule: **a second parser is how a fixed bug
+  comes back.**
