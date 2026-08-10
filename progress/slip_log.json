@@ -401,5 +401,17 @@
     "note": "leaves the human unmarked — no -kitta/-va on the person the verb is aimed at, and defaults the verb to sollu",
     "word": "",
     "dose_channel": "episode"
+  },
+  {
+    "at": "2026-08-10T15:37:33Z",
+    "date": "2026-08-10",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "chunk-not-machine",
+    "said": "kilambalaama (for 'shall we eat?')",
+    "want": "saapidalaamaa",
+    "note": "carries a memorised whole phrase into a slot that needs the verb swapped -- has the chunk, not the machine",
+    "word": "",
+    "dose_channel": "episode"
   }
 ]
