@@ -18,19 +18,26 @@ WHAT THIS REPLACES: `render_soak.py --passes N` as the system's answer to "give
 me something longer". That dial makes the same ten minutes play four times,
 which is `audio_channels.md`'s own "never loop harder" failure wearing a length
 costume. This lane is that file's rule -- *a tired ear asking for longer wants
-more repetition, not more scene* -- taken to its conclusion: forty-five minutes
-of structured recurrence, not a stretched episode.
+more repetition, not more scene* -- taken to its conclusion: a long stretch of
+structured recurrence, not a stretched episode.
 
 THE RHYTHM IS PYTHON'S, AND THE CLOCK IS MEASURED, NOT GUESSED. No model is
 asked for a forty-five minute script; if one could write it, what it would
 produce is a LIST, and the repetition schedule is the entire pedagogical
 payload. Instead: one small sheet per MOVEMENT, written just-in-time, rendered,
-and measured -- the tape stops when the real minute target is hit, so
-`--minutes 45` is an honest dial rather than an estimate.
+and measured.
 
-WHAT KEEPS FORTY-FIVE MINUTES OFF THE NERVES is one decision: the MOVEMENT, not
-the line, is the unit of language mix (Andrew, same conversation: "I want it to
-be not forty minutes of, like, Tamil English Tamil English"). Movements run 3-5
+A TAPE IS AS LONG AS ITS MATERIAL, and `--minutes` is a CEILING (Andrew,
+2026-08-10, asked to choose and choosing the honest length over padding to a
+round number). Each spine draws only on items its lead shape can actually teach
+from — a root with no hosts is nothing to inventory — so the spines come out at
+different lengths and that is the honest answer, not a shortfall: on the
+2026-08-10 lexicon, `inventory` ~25 min, `machines` ~20, `room` capped at 45.
+Growing a tape means growing its material, not lowering the bar for an item.
+
+WHAT KEEPS A LONG TAPE OFF THE NERVES is one decision: the MOVEMENT, not the
+line, is the unit of language mix (Andrew, same conversation: "I want it to be
+not forty minutes of, like, Tamil English Tamil English"). Movements run ~1-2
 minutes with distinct centres of gravity, on a cadence that never places two of
 a kind side by side -- and `scene` and `eavesdrop` movements draw ONLY on items
 the preceding movements already taught, so comprehension is structural rather
@@ -92,7 +99,15 @@ RECALL_SHAPES = {"scene", "eavesdrop"}
 ITEMS = {"machine": 4, "inventory": 3, "scene": 6, "eavesdrop": 5, "lore": 2}
 # Planning estimate ONLY — the render measures the real clock and stops there.
 # Used to size the item pool so coverage lands inside the minutes he asked for.
-MOVEMENT_MIN = 3.5
+# MEASURED 2026-08-10 off the first real tape: 15 movements ran 17.1 min before the
+# closing lap, i.e. 1.14 each. The 3.5 here was a guess and was 3x high, so a
+# 45-minute ask planned 15 movements and the tape stopped at 23.8 with the plan
+# exhausted. Re-measure when the RHYTHM table or the beat counts change; this is a
+# property of those, not of the tape.
+MOVEMENT_MIN = 1.15
+# The closing lap replays every unique Tamil line the tape spoke, so it grows with
+# the material rather than sitting at a fixed cost. ~5.5 min on the 22-item tape.
+CLOSING_LAP_MIN = 5.5
 # Rhythm per shape: (air after a Tamil line, air after its gloss, air after the beat).
 # Teaching shapes breathe; scenes run at something closer to speed.
 RHYTHM = {
@@ -169,12 +184,18 @@ def _rank(spine: str, hosts: dict):
     return key
 
 
-def build_pool(spine: str, size: int, payload: list[str]) -> list[dict]:
+def build_pool(spine: str, payload: list[str]) -> list[dict]:
     """The whole lexicon is in scope, not a seven-day window. `render_soak`'s
     `week_payload` asks "what did he touch this week" — the right question for a
     ten-minute loop and the wrong one for a tape that has to carry the deck AND
-    beyond it for forty-five minutes ("everything in our deck and beyond
-    somewhere in that", 2026-08-10)."""
+    beyond it ("everything in our deck and beyond somewhere in that", 2026-08-10).
+
+    IN SCOPE IS NOT THE SAME AS USABLE, and this takes only what the spine's shape
+    can actually teach from (`SPINE_QUALIFIES`). It used to take a requested SIZE
+    instead, computed backwards from `--minutes`, which meant a longer ask silently
+    bought worse items: at 45 minutes the inventory spine wanted 69 roots and the
+    lexicon holds 27 with hosts, so 42 movements would have inventoried words with
+    nothing inside them. The length now falls out of the material."""
     lexicon = load_json(LEXICON_PATH) or {}
     reg, hosts = deck_registers(), inventory_hosts(lexicon)
     rows = [{"word": k,
@@ -189,16 +210,20 @@ def build_pool(spine: str, size: int, payload: list[str]) -> list[dict]:
     rows.sort(key=_rank(spine, hosts))
     # The commissioned words lead whatever the ordering turned up — a payload the
     # lane ignores can never satisfy the order that dispatched it, and re-dispatches
-    # forever (the 2026-07-23 M72/M73/M74 loop).
+    # forever (the 2026-07-23 M72/M73/M74 loop). A commissioned word is aired even if
+    # it does not qualify: the order outranks the shape's preference.
     want = canon_payload(payload)
+    fits = SPINE_QUALIFIES[spine]
     head = [r for r in rows if r["word"] in want]
-    return (head + [r for r in rows if r["word"] not in want])[:max(size, len(head))]
+    return head + [r for r in rows if r["word"] not in want and fits(r)]
 
 
 # ── The plan ────────────────────────────────────────────────────────────────
 
 def movement_count(minutes: float) -> int:
-    return max(4, round(minutes / MOVEMENT_MIN))
+    """The CEILING `--minutes` implies — how many movements could fit, not how
+    many there are. The material decides the second number (`movements_for`)."""
+    return max(4, round((minutes - CLOSING_LAP_MIN) / MOVEMENT_MIN))
 
 
 def pool_size(spine: str, count: int) -> int:
@@ -209,6 +234,26 @@ def pool_size(spine: str, count: int) -> int:
     cad = CADENCES[spine]
     return sum(ITEMS[cad[i % len(cad)]] for i in range(max(1, count - 1))
                if cad[i % len(cad)] not in RECALL_SHAPES)
+
+
+def movements_for(spine: str, items: int) -> int:
+    """The movements it takes to air `items` once — `pool_size` run backwards.
+    A TAPE IS AS LONG AS ITS MATERIAL (Andrew, 2026-08-10, choosing this over
+    padding to a round number). `--minutes` caps this; it never inflates it.
+    The +1 airs the last slot, which `pool_size` deliberately sizes short of."""
+    return next((c for c in range(4, 200) if pool_size(spine, c) >= items), 200) + 1
+
+
+# What each spine's LEAD SHAPE actually needs of an item, which is what bounds an
+# honest tape. Sorting alone does not bound it: `_rank` puts the qualifying items
+# first but the pool then takes whatever fills the requested size, so asking for a
+# longer tape used to reach past the material into items the shape cannot use — a
+# root with no hosts is nothing to inventory, a chunk is no machine to run. These
+# predicates are the same conditions `_rank` sorts on, read as a floor.
+SPINE_QUALIFIES = {"inventory": lambda r: bool(r["hosts"]),
+                   "machines": lambda r: (r["type"] == "pattern"
+                                          or r["word"].startswith("frame:")),
+                   "room": lambda r: bool(r["register"])}
 
 
 def plan_movements(pool: list[dict], spine: str, count: int) -> list[dict]:
@@ -449,8 +494,19 @@ def longhaul_brief() -> tuple[str | None, list[str]]:
     return (order.get("focus") or "").strip() or None, [w for w in order.get("payload") or [] if w]
 
 
+def expected_min(count: int) -> float:
+    """What `count` movements should measure, from the calibrated per-movement
+    figure. A PREDICTION, printed so the measured number has something to be
+    checked against — the render still stops on the real clock."""
+    return count * MOVEMENT_MIN + CLOSING_LAP_MIN
+
+
 def describe(plan: list[dict], pool: list[dict], minutes: float):
-    print(f"\nPLAN — {len(plan)} movements, renders until {minutes:.0f} measured minutes")
+    est = expected_min(len(plan))
+    capped = est > minutes
+    print(f"\nPLAN — {len(plan)} movements, ~{est:.0f} min expected"
+          + (f", CAPPED at the {minutes:.0f} min ceiling" if capped
+             else f" (under the {minutes:.0f} min ceiling — this spine's material)"))
     for n, mv in enumerate(plan, 1):
         words = ", ".join(i["word"] for i in mv["items"]) or "(nothing taught yet)"
         print(f"  {n:>2}. {mv['shape']:<9} {words[:88]}")
@@ -465,7 +521,7 @@ def main():
     ap.add_argument("--spine", choices=sorted(CADENCES), default="inventory",
                     help="the tape's centre of gravity (default: inventory)")
     ap.add_argument("--minutes", type=float, default=45,
-                    help="measured target length; the render stops here (default 45)")
+                    help="CEILING on measured length; a spine with less material stops sooner (default 45)")
     ap.add_argument("--plan-only", action="store_true",
                     help="print the movement plan and stop — no network at all")
     ap.add_argument("--dry-run", action="store_true",
@@ -476,11 +532,15 @@ def main():
 
     load_env(BASE / ".env")
     focus, payload = longhaul_brief()
-    count = movement_count(args.minutes)
-    pool = build_pool(args.spine, pool_size(args.spine, count), payload)
+    pool = build_pool(args.spine, payload)
     if not pool:
-        sys.exit("Lexicon is empty — nothing to build a tape from.")
-    plan = plan_movements(pool, args.spine, count + 2)   # +2 of slack for the clock
+        sys.exit(f"No material for the '{args.spine}' spine — nothing to build a tape from.")
+    # THE MATERIAL SETS THE LENGTH AND `--minutes` ONLY CAPS IT (Andrew, 2026-08-10,
+    # asked to choose and chose the honest length over padding to a round number).
+    # +2 of slack so the measured clock, not an exhausted plan, is what ends a tape
+    # that is genuinely long enough.
+    count = min(movements_for(args.spine, len(pool)), movement_count(args.minutes) + 2)
+    plan = plan_movements(pool, args.spine, count)
     print(f"1. plan… (spine: {args.spine}"
           f"{f' · {len(payload)} commissioned' if payload else ''}"
           f"{' · FOCUS: ' + focus if focus else ''})")
@@ -504,9 +564,15 @@ def main():
     print(f"\n2. render… (target {args.minutes:.0f} min)")
     measured, played, spoken = asyncio.run(render(plan, args.spine, mp3, args.minutes))
     print(f"   rendered -> {mp3} ({measured:.1f} min, {played} movements)")
-    if measured < args.minutes * 0.9:
-        print(f"   ⚠ came up short at {measured:.1f}/{args.minutes:.0f} min — the plan ran "
-              f"out of movements. Raise --minutes' slack or lower MOVEMENT_MIN.")
+    # NOT a warning for stopping under `--minutes` — that is the honest length of
+    # this spine's material and is the intended outcome. What is worth flagging is
+    # the CALIBRATION drifting: the tape missing what its own movement count
+    # predicted means MOVEMENT_MIN no longer describes the rhythm table.
+    predicted = expected_min(played)
+    if played and abs(measured - predicted) > max(3.0, predicted * 0.25):
+        print(f"   ⚠ {measured:.1f} min against {predicted:.1f} predicted for {played} "
+              f"movements — MOVEMENT_MIN ({MOVEMENT_MIN}) has drifted from the rhythm "
+              f"table. Re-measure it; the tape itself is fine.")
 
     if args.no_publish:
         return

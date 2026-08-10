@@ -4304,12 +4304,25 @@ def s57_longhaul_tape(sb: Path):
     lex["நாள்"] = {"gloss": "day", "production": "cold", "type": "chunk"}
     lex["நாளைக்கு"] = {"gloss": "tomorrow", "production": "cold", "type": "chunk"}
     lex["ரொம்ப நாளாச்சு"] = {"gloss": "long time", "production": "none", "type": "chunk"}
+    # PATTERNS, because the machines spine now draws only on what it can run as a
+    # machine (2026-08-10). This fixture was all chunks, so that spine's pool came
+    # out EMPTY and its movements rendered as bare frame lines — the filter working
+    # correctly against a fixture that predated it.
+    lex.update({f"frame:இயந்திரம்-{i}": {"gloss": f"machine {i}", "production": "none",
+                                         "type": "pattern"} for i in range(16)})
     write_json(sb / "progress" / "lexicon.json", lex)
 
     for spine in rl.CADENCES:
-        count = rl.movement_count(45)
-        pool = rl.build_pool(spine, rl.pool_size(spine, count), [])
+        pool = rl.build_pool(spine, [])
+        count = rl.movements_for(spine, len(pool))
         plan = rl.plan_movements(pool, spine, count)
+
+        # THE POOL IS THE SPINE'S OWN MATERIAL, never padded out to hit a length.
+        # Reaching past it is how a 45-minute ask bought 42 rootless "inventory"
+        # movements (2026-08-10) — items the shape has nothing to do with.
+        unusable = [i["word"] for i in pool if not rl.SPINE_QUALIFIES[spine](i)]
+        check(f"[{spine}] every pooled item is one this spine can teach from",
+              not unusable, f"cannot be used by {spine}: {unusable[:6]}")
 
         # COVERAGE — the whole point of a long tape. A 45-minute loop over six
         # items is the silent no-op, and it reads as success from the console.
@@ -4349,14 +4362,54 @@ def s57_longhaul_tape(sb: Path):
         check(f"[{spine}] a longer tape revisits items rather than starving",
               len(airings) > len(set(airings)))
 
+    # ── `--minutes` IS A CEILING, NOT A TARGET (Andrew, 2026-08-10). The first tape
+    # planned 15 movements for a 45-minute ask, ran out at 23.8, and warned that it
+    # had "come up short" — the plan, not the tape, was wrong. A spine now runs to
+    # the length of its material and stops there without apology.
+    for spine in rl.CADENCES:
+        pool = rl.build_pool(spine, [])
+        natural = rl.movements_for(spine, len(pool))
+        check(f"[{spine}] every pooled item still fits inside the natural plan",
+              rl.pool_size(spine, natural) >= len(pool),
+              f"{rl.pool_size(spine, natural)} slots for {len(pool)} items")
+        # A bigger ceiling must never invent movements the material cannot fill —
+        # the whole point of the 08-10 change. Fixture-independent: whatever this
+        # spine's material is, an enormous ceiling returns exactly that much tape.
+        check(f"[{spine}] raising the ceiling does not stretch the tape",
+              min(natural, rl.movement_count(9999) + 2) == natural, f"natural={natural}")
+
+    # ...and the ceiling must still BIND when the material outruns it, or --minutes
+    # means nothing. Asserted on the arithmetic rather than on a spine, because the
+    # sandbox lexicon is deliberately small and its natural plans sit under the
+    # floor `movement_count` imposes — a fixture fact, not a behaviour.
+    for minutes in (8, 20, 45):
+        cap = rl.movement_count(minutes) + 2
+        check(f"a {minutes}-minute ceiling caps a spine with more material than that",
+              min(9999, cap) == cap, f"cap={cap}")
+    check("a longer ceiling always allows a longer tape",
+          rl.movement_count(8) < rl.movement_count(45) < rl.movement_count(90))
+    check("the ceiling is measured in the same minutes the render measures",
+          rl.expected_min(rl.movement_count(45)) <= 45 + rl.MOVEMENT_MIN,
+          f"{rl.expected_min(rl.movement_count(45)):.1f} min planned for a 45 min ceiling")
+
+    check("the length prediction is anchored to the measured per-movement figure",
+          abs(rl.expected_min(15) - (15 * rl.MOVEMENT_MIN + rl.CLOSING_LAP_MIN)) < 1e-9)
+    # 3.5 was a guess and was 3x the truth. Guard the calibration itself: a figure
+    # this far off is what silently truncated a 45-minute ask to 23.8.
+    check("MOVEMENT_MIN is in the range a real movement measured",
+          0.8 <= rl.MOVEMENT_MIN <= 2.0, f"got {rl.MOVEMENT_MIN}")
+
     # ── The commissioned payload LEADS, whatever the ordering turned up. A lane
     # that ignores its payload can never satisfy the order that dispatched it, and
     # re-dispatches forever (M72/M73/M74 in one evening, 2026-07-23).
-    pool = rl.build_pool("machines", 12, ["ரொம்ப நாளாச்சு"])
+    pool = rl.build_pool("machines", ["ரொம்ப நாளாச்சு"])
     check("a commissioned payload word leads the pool",
           pool and pool[0]["word"] == "ரொம்ப நாளாச்சு", f"got {pool[0]['word'] if pool else None}")
+    # ...INCLUDING one the spine would otherwise refuse. "ரொம்ப நாளாச்சு" is a chunk,
+    # not a pattern, so the machines filter drops it — but an order outranks the
+    # shape's preference, or the lane silently declines the work it was sent.
     check("the payload is never dropped for being outside the ordering",
-          "ரொம்ப நாளாச்சு" in {i["word"] for i in rl.build_pool("machines", 1, ["ரொம்ப நாளாச்சு"])})
+          "ரொம்ப நாளாச்சு" in {i["word"] for i in pool})
 
     # ── The order is only ours when it is addressed to us; and once consumed it
     # must be declared spent, or the session-open drain dispatches a second dose.
@@ -4417,7 +4470,7 @@ def s57_longhaul_tape(sb: Path):
     try:
         rl.generate_segment_google = fake_tts
         rl.get_raw_mp3_frames = lambda f: rl.SILENCE_FRAME * 60   # ~1.4s of "speech"
-        plan = rl.plan_movements(rl.build_pool("machines", 30, []), "machines", 40)
+        plan = rl.plan_movements(rl.build_pool("machines", []), "machines", 40)
         out = sb / "clock.mp3"
         short_min, short_played, _ = asyncio.run(
             rl.render(plan, "machines", out, 1.0, writer=lambda mv, s: sheet))
