@@ -2435,7 +2435,7 @@
     "direction": "fire",
     "type": "chunk",
     "reps": 4,
-    "exposures": 1
+    "exposures": 2
   },
   "கூப்பிடு": {
     "gloss": "Call",
@@ -2778,7 +2778,7 @@
     "deck": "trip",
     "direction": "catch",
     "pairs_with": "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு",
-    "exposures": 2
+    "exposures": 3
   },
   "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு": {
     "type": "chunk",
@@ -2793,7 +2793,7 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 1,
-    "exposures": 1
+    "exposures": 2
   },
   "உங்க கை ருசி சூப்பர்": {
     "type": "chunk",
@@ -2808,7 +2808,7 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 1,
-    "exposures": 1
+    "exposures": 2
   },
   "நானே எடுத்துக்கறேன்": {
     "type": "chunk",
@@ -2824,7 +2824,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 2
+    "exposures": 3
   },
   "கொஞ்சம் தண்ணி குடுங்க": {
     "type": "chunk",
@@ -2840,7 +2840,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 2
+    "exposures": 3
   },
   "கை கழுவிட்டு வரேன்": {
     "type": "chunk",
@@ -2855,7 +2855,7 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 1
+    "exposures": 2
   },
   "உட்கார்ந்து பேசுங்க": {
     "type": "chunk",
@@ -2871,7 +2871,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 2
+    "exposures": 3
   },
   "நீங்க சாப்பிட்டீங்களா?": {
     "type": "chunk",
@@ -2886,7 +2886,7 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 1
+    "exposures": 2
   },
   "அவங்க என்ன சொன்னாங்க?": {
     "type": "chunk",
@@ -2902,7 +2902,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 2
+    "exposures": 3
   },
   "யாருக்கு தெரியும்?": {
     "type": "chunk",
@@ -2916,7 +2916,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 1
+    "exposures": 2
   },
   "கேள்விப்பட்டியா?": {
     "type": "chunk",
@@ -2941,7 +2941,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 1
+    "exposures": 2
   },
   "சும்மா சொல்றாங்க": {
     "type": "chunk",
@@ -2959,7 +2959,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "catch",
-    "exposures": 5
+    "exposures": 6
   },
   "எனக்கு ஒன்னும் தெரியாது": {
     "type": "chunk",
@@ -2975,7 +2975,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 2
+    "exposures": 3
   },
   "என்னமோ பிரச்சனை": {
     "type": "chunk",
@@ -2995,7 +2995,7 @@
     "deck": "trip",
     "direction": "catch",
     "reps": 1,
-    "exposures": 3
+    "exposures": 4
   },
   "விட்டுடு": {
     "type": "chunk",
@@ -3049,7 +3049,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 2,
+    "exposures": 3,
     "reps": 2
   },
   "இங்க நிறுத்துங்க": {
@@ -3065,7 +3065,7 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 2
+    "exposures": 3
   },
   "நேரா போங்க": {
     "type": "chunk",
@@ -3080,7 +3080,7 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 3
+    "exposures": 4
   },
   "வலது பக்கம் திரும்புங்க": {
     "type": "chunk",
@@ -3094,7 +3094,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 2,
+    "exposures": 3,
     "reps": 1
   },
   "சில்லறை இருக்கா?": {
@@ -3110,7 +3110,7 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 3,
-    "exposures": 2
+    "exposures": 3
   },
   "கார்டு வேலை செய்யுமா?": {
     "type": "chunk",
@@ -3143,7 +3143,7 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 1,
-    "exposures": 1
+    "exposures": 2
   },
   "கொஞ்சம் நில்லுங்க": {
     "type": "chunk",
@@ -3161,7 +3161,7 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 1,
-    "exposures": 1
+    "exposures": 2
   },
   "எப்படி இருக்கீங்க?": {
     "type": "chunk",
@@ -3177,7 +3177,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 2,
+    "exposures": 3,
     "reps": 1
   },
   "ரொம்ப நாளாச்சு": {
@@ -3194,7 +3194,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 2,
+    "exposures": 3,
     "reps": 1
   },
   "வந்துட்டேன்": {
@@ -3212,7 +3212,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 2,
+    "exposures": 3,
     "reps": 1
   },
   "கிளம்பலாமா?": {
@@ -3227,7 +3227,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 1
+    "exposures": 2
   },
   "பிறகு பார்க்கலாம்": {
     "type": "chunk",
@@ -3276,7 +3276,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 2
+    "exposures": 3
   },
   "ஒரு நிமிஷம்": {
     "type": "chunk",
@@ -3293,7 +3293,7 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 1,
-    "exposures": 2
+    "exposures": 3
   },
   "நான் கோயம்புத்தூர்காரன் மாதிரி ஆயிட்டேன்": {
     "type": "chunk",
@@ -3568,7 +3568,7 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 6,
-    "exposures": 1
+    "exposures": 2
   },
   "நேத்து தான் வந்தோம்": {
     "type": "chunk",
@@ -3584,7 +3584,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 2,
+    "exposures": 3,
     "reps": 1
   },
   "சாஃப்ட்வேர் வேலை பண்றேன்": {
@@ -3610,7 +3610,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 1
+    "exposures": 2
   },
   "ரொம்ப பிடிச்சிருக்கு": {
     "type": "chunk",
@@ -3625,7 +3625,7 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 3,
-    "exposures": 1
+    "exposures": 2
   },
   "காரம் பரவாயில்ல, பழக்கமாயிடுச்சு": {
     "type": "chunk",
@@ -3653,7 +3653,7 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 1
+    "exposures": 2
   },
   "இன்னொரு தடவ சொல்லுங்க": {
     "type": "chunk",
@@ -3670,7 +3670,7 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 3
+    "exposures": 4
   },
   "என்ன சொன்னீங்க?": {
     "type": "chunk",
@@ -3687,7 +3687,7 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 1
+    "exposures": 2
   },
   "தமிழ்ல எப்படி சொல்றது?": {
     "type": "chunk",
@@ -3700,10 +3700,11 @@
     "seen_in": [
       58
     ],
-    "last_surfaced": "2026-08-01",
+    "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "reps": 1
+    "reps": 1,
+    "exposures": 1
   },
   "ஆமா ஆமா": {
     "type": "chunk",
@@ -3717,7 +3718,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 2
+    "exposures": 3
   },
   "அப்படியா?!": {
     "type": "chunk",
@@ -3735,7 +3736,7 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 1,
-    "exposures": 1
+    "exposures": 2
   },
   "சரி சரி": {
     "type": "chunk",
@@ -3754,7 +3755,7 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 3,
-    "exposures": 4
+    "exposures": 5
   },
   "இன்னும் கொஞ்சம் போடுங்க": {
     "type": "chunk",
@@ -3768,7 +3769,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 1
+    "exposures": 2
   },
   "frame:polite-nga": {
     "type": "pattern",
@@ -3865,7 +3866,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 2
+    "exposures": 3
   },
   "ரொம்ப சந்தோஷம்": {
     "type": "chunk",
@@ -3883,7 +3884,7 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 1,
-    "exposures": 3
+    "exposures": 4
   },
   "சாஃப்ட்வேர் இன்ஜினியரா இருக்கேன்": {
     "type": "chunk",
@@ -3898,7 +3899,7 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 1
+    "exposures": 2
   },
   "காரம் பரவாயில்ல, பழகிப்போச்சு": {
     "type": "chunk",
@@ -3912,7 +3913,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 1
+    "exposures": 2
   },
   "ரொம்ப நல்லா இருக்கு": {
     "type": "chunk",
@@ -3929,7 +3930,7 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 4,
-    "exposures": 2
+    "exposures": 3
   },
   "தெரியுமா?": {
     "type": "chunk",
@@ -3946,7 +3947,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "catch",
-    "exposures": 4
+    "exposures": 5
   },
   "frame:youknow-la": {
     "type": "pattern",
@@ -3964,7 +3965,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "catch",
-    "exposures": 4,
+    "exposures": 5,
     "reps": 1
   },
   "எவ்ளோ ஆகும்?": {
@@ -3980,7 +3981,7 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 1,
-    "exposures": 3
+    "exposures": 4
   },
   "ஃப்ரீயா விடுங்க": {
     "type": "chunk",
@@ -3994,7 +3995,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 1
+    "exposures": 2
   },
   "வாய் திறந்தா காக்கா கொத்திட்டு போயிடும்": {
     "type": "chunk",
@@ -4178,7 +4179,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 2,
+    "exposures": 3,
     "reps": 1
   },
   "கடைசில பாக்கலாம்": {
@@ -4197,7 +4198,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 1
+    "exposures": 2
   },
   "முடிஞ்சா": {
     "type": "chunk",
@@ -4215,7 +4216,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 1
+    "exposures": 2
   },
   "அலைச்சல்": {
     "type": "chunk",
@@ -4286,7 +4287,7 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 1,
-    "exposures": 1
+    "exposures": 2
   },
   "அப்பா": {
     "gloss": "dad / father (also an exclamation: oh man!)",
