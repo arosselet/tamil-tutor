@@ -38,7 +38,7 @@ def git_sync_counts() -> tuple[int, int] | None:
                        cwd=BASE, timeout=20, capture_output=True, check=True)
         out = subprocess.run(
             ["git", "rev-list", "--left-right", "--count", "HEAD...origin/main"],
-            cwd=BASE, timeout=10, capture_output=True, text=True, check=True).stdout
+            cwd=BASE, timeout=10, capture_output=True, text=True, encoding="utf-8", check=True).stdout
         ahead, behind = (int(x) for x in out.split())
         return behind, ahead
     except (subprocess.SubprocessError, FileNotFoundError, ValueError, OSError):
@@ -144,6 +144,15 @@ def cmd_status(_args):
     # happened — but only if the line says which zone it thinks it is in.
     print(f"Now: {datetime.now(LOCAL_TZ):%a %Y-%m-%d %H:%M %Z} ({LOCAL_TZ.key})")
     print(f"Learner: {learner.get('learner')}")
+    # A held channel must SAY it is held. Set silently, this bit looks exactly
+    # like Anna choosing not to knock, and a forgotten one would read as her
+    # going quiet for days with nothing anywhere to explain it.
+    quiet_until = learner.get("quiet_until") or ""
+    if quiet_until:
+        lapsed = local_today() > date.fromisoformat(quiet_until)
+        print(f"⏸ KNOCKS HELD through {quiet_until}"
+              + (" — LAPSED, knocks resume; clear it with `--quiet-until \"\"`"
+                 if lapsed else " (in transit — silence here is not a fade)"))
     # No streak theatre — the honest signal is recency (a scoreboard that lies
     # teaches the player to ignore all the meters).
     slog = load_json(SESSION_LOG_PATH) or []

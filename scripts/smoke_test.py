@@ -1161,7 +1161,14 @@ CODE_BUDGETS = {
     # Stated plainly because the ratchet asks: this is +7 with nothing deleted,
     # the diagnosis layer growing, not mechanism. If this file trips again on
     # mechanism, that is the split-or-retire signal — not this.
-    "scripts/morning_knock.py": 632,
+    # 632 → 635 (2026-08-10, Andrew): the transit rail — a `quiet_until` date in
+    # learner.json that holds every knock, read first in rails_gate so a held
+    # tick returns before the LLM and writes nothing. Stated plainly because the
+    # ratchet asks: this is +3 with NOTHING deleted. It buys a rail that did not
+    # exist, and deleting those three lines removes the feature whole — which is
+    # the point, it was commissioned to be easily removable. The 08-01 split note
+    # still stands as the answer to the next raise.
+    "scripts/morning_knock.py": 635,
     # The mandate as a module: almost entirely prompt string (word-budgeted as
     # OUTREACH_MANDATE in PROSE_BUDGETS above), so its code budget exists only
     # to satisfy the every-file-is-budgeted guard and to catch machinery
@@ -1638,6 +1645,45 @@ def s22_sfx_pause(sb: Path):
                     lost.append(f"{path.name}: {piece.strip()[:40]}")
     check("no episode in the tank loses speech to a cue",
           not lost, f"{len(lost)} lost: {lost[:3]}")
+
+
+def s59_transit_bit(mk, sb: Path):
+    """The transit bit: a date Andrew sets, the rails enforce (2026-08-10).
+
+    Deliberately three checks, not ten (Andrew called the longer version
+    overkill and he is right — he will not forget to clear it; he lands wanting
+    to carry on). Each one here maps to a failure that is SILENT and costs him
+    the exact thing the bit exists to buy:
+
+      set → eaten   `quiet_until` lives in learner.json, whose writer is a
+                    whitelist that DELETES unlisted keys — how every
+                    --slip-tested close was erased for a day (s41). He sets it,
+                    a session close wipes it, and he gets knocked all flight.
+                    So this round-trips the real writer and re-reads the file.
+      set → ignored the rail never fires and the flight fills with overwrites.
+      cleared → stuck  he lands, clears it, and the channel stays dead."""
+    print("\n59. The transit bit — Andrew sets a date, the rails hold (2026-08-10)")
+    sync = importlib.import_module("sync_state")
+
+    def set_bit(value):
+        sys.argv = ["sync_state.py", "update", "--quiet-until", value]
+        try:
+            sync.main()
+        except SystemExit:
+            pass
+        return json.loads((sb / "progress" / "learner.json").read_text(encoding="utf-8"))
+
+    noon = datetime(2026, 8, 11, 12, 0, tzinfo=timezone.utc)
+
+    check("the bit survives the learner whitelist's round trip",
+          set_bit("2026-08-12").get("quiet_until") == "2026-08-12",
+          "a key missing from write_thin_learner is deleted, not left stale")
+    ok, why = mk.rails_gate(False, now=noon)
+    check("a tick inside the window is held, and says transit not fade",
+          not ok and "transit" in why, why)
+    set_bit("")
+    check("clearing it re-opens the gate on the next tick",
+          "transit" not in mk.rails_gate(False, now=noon)[1])
 
 
 def s23_ticket_end_to_end(sb: Path):
@@ -4805,7 +4851,7 @@ def s45_concurrent_appends_merge(mk, sb: Path):
     origin, runner, other = root / "origin.git", root / "runner", root / "other"
 
     def git(cwd, *a, **kw):
-        return sp.run(["git", *a], cwd=cwd, capture_output=True, text=True, **kw)
+        return sp.run(["git", *a], cwd=cwd, capture_output=True, text=True, encoding="utf-8", **kw)
 
     sp.run(["git", "init", "-q", "--bare", "-b", "main", str(origin)], check=True)
     sp.run(["git", "clone", "-q", str(origin), str(runner)], check=True)
@@ -4938,7 +4984,7 @@ def s51_derived_files_are_rerendered_not_merged(mk, sb: Path):
     origin, runner, other = root / "origin.git", root / "runner", root / "other"
 
     def git(cwd, *a):
-        return sp.run(["git", *a], cwd=cwd, capture_output=True, text=True)
+        return sp.run(["git", *a], cwd=cwd, capture_output=True, text=True, encoding="utf-8")
 
     def knock(ts, body):
         return {"timestamp": ts, "date": ts[:10], "acted": True, "body": body,
@@ -4997,8 +5043,20 @@ def s51_derived_files_are_rerendered_not_merged(mk, sb: Path):
     (runner / "progress" / "knock_log.json").write_text(
         json.dumps(pushed, ensure_ascii=False, indent=2), encoding="utf-8")
     rc.render_chat()
-    check("chat.md on main == a fresh render of the merged log",
-          chat == (runner / "progress" / "chat_expected.md").read_text(encoding="utf-8"))
+    # An equality check with no detail tells you nothing on the day it breaks —
+    # this one read as a content bug for hours and was a newline translation
+    # (Windows write_text emits CRLF; git show hands back LF). Say which.
+    expected = (runner / "progress" / "chat_expected.md").read_text(encoding="utf-8")
+    why = ""
+    if chat != expected:
+        if chat.replace("\r\n", "\n") == expected.replace("\r\n", "\n"):
+            why = "line endings differ, not content"
+        else:
+            i = next((n for n, (a, b) in enumerate(zip(chat, expected)) if a != b),
+                     min(len(chat), len(expected)))
+            why = (f"content differs at char {i}: on main {chat[i:i+40]!r} · "
+                   f"fresh render {expected[i:i+40]!r}")
+    check("chat.md on main == a fresh render of the merged log", chat == expected, why)
     check("both bodies are actually in it",
           "mine: the scenario reply" in chat and "theirs: the volley reply" in chat)
     check("nothing is left mid-rebase", not (runner / ".git" / "rebase-merge").exists()
@@ -5370,6 +5428,7 @@ def main():
         s2_rails_gate(mk, sb / "progress" / "knock_log.json")
         s15_push_retry(mk)   # needs the real push_to_phone — s3+ stub it out
         s35_quiet_hours_chokepoint(sb)   # ditto: asserts on the real function
+        s59_transit_bit(mk, sb)          # ditto — s3 below stubs rails_gate out
         s3_knock_paths(mk, sb)
         s4_normalize(kr)
         s5_reply_judge(mk, kr, sb)
