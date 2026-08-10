@@ -3159,7 +3159,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "reps": 1,
+    "reps": 2,
     "exposures": 2
   },
   "கொஞ்சம் நில்லுங்க": {
@@ -3239,14 +3239,15 @@
       "kilambalaama"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [
       86
     ],
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 3
+    "exposures": 3,
+    "reps": 1
   },
   "பிறகு பார்க்கலாம்": {
     "type": "chunk",
@@ -3461,7 +3462,8 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 3
+    "exposures": 3,
+    "reps": 1
   },
   "frame:giveme-noun": {
     "type": "pattern",
@@ -3501,7 +3503,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "reps": 2,
+    "reps": 3,
     "exposures": 1
   },
   "frame:nearby-noun": {
@@ -3811,7 +3813,8 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 2
+    "exposures": 2,
+    "reps": 1
   },
   "frame:we-om": {
     "type": "pattern",
@@ -4067,7 +4070,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "reps": 1,
+    "reps": 2,
     "exposures": 1
   },
   "frame:in-la": {
