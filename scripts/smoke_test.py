@@ -4525,6 +4525,28 @@ def s57_longhaul_tape(sb: Path):
         pub = inspect.getsource(rl.main)
         check("the script is committed with the tape, not left behind",
               "commit_and_push([mp3, script" in pub)
+
+        # ── THE DELIVERY SEAM, at the level each item actually exists at. The
+        # machines tape taught 26 frames and stamped 0 (2026-08-10): a frame is a
+        # label for a pattern realised across beats, so it is in the audio exactly
+        # never, and substring-matching the spoken lines could only ever return
+        # nothing. The ledger booked a 28-minute tape as having delivered zero.
+        frame_mv = {"shape": "machine", "items": [{"word": "frame:quote-nu"},
+                                                  {"word": "வந்துட்டேன்"}]}
+        pool_x = [{"word": "frame:quote-nu"}, {"word": "வந்துட்டேன்"},
+                  {"word": "frame:never-aired"}, {"word": "சொல்லல"}]
+        got = rl.audible(pool_x, ["வந்துட்டேன் இப்போ"],
+                         [(frame_mv, {"beats": [{"ta": "நான் வந்துட்டேனு சொன்னாங்க"}]})])
+        check("a frame is claimed when its movement played and made beats",
+              "frame:quote-nu" in got, str(got))
+        check("...a chunk still has to be literally spoken", "வந்துட்டேன்" in got)
+        check("...a frame from a movement that never played is NOT claimed",
+              "frame:never-aired" not in got, str(got))
+        check("...and an unspoken chunk is not claimed either", "சொல்லல" not in got)
+        check("a movement that produced no beats claims nothing",
+              rl.audible([{"word": "frame:quote-nu"}], [], [(frame_mv, {"beats": []})]) == [])
+        check("the publish path claims through audible(), not a bare substring",
+              "audible(pool, spoken, sheets)" in pub and "in blob]" not in pub)
         check("...and written before the publish gate, so --no-publish keeps it",
               pub.index("write_script(") < pub.index("if args.no_publish"))
     finally:

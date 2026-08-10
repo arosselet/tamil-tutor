@@ -481,6 +481,28 @@ async def render(plan: list[dict], spine: str, out: Path, minutes: float,
 
 # ── CLI ─────────────────────────────────────────────────────────────────────
 
+def audible(pool: list[dict], spoken: list[str], sheets: list[tuple]) -> list[str]:
+    """What this tape actually delivered (2026-07-26 ledger law: only what was
+    AUDIBLE is claimed). The tape stops on the clock, so the tail of a plan may
+    never have played, and stamping the whole pool would book words never spoken.
+
+    A FRAME IS NEVER ITS OWN NAME. Substring-matching `spoken` is right for a
+    chunk — வந்துட்டேன் is said, so it is in the audio — and structurally impossible
+    for `frame:quote-nu`, which is a label for a PATTERN realised across a
+    movement's beats and appears in the audio exactly never. The machines tape
+    taught 26 frames and stamped 0 (2026-08-10), so the ledger recorded a
+    28-minute tape as having delivered nothing and the drain would re-dispatch
+    every one of them.
+
+    So a frame is claimed when the movement holding it PLAYED and produced beats —
+    which is the same evidence, read at the level the item actually exists at. Not
+    the plan: `sheets` carries only movements that rendered."""
+    blob = " ".join(spoken)
+    ran = {i["word"] for mv, sheet in sheets if sheet.get("beats") for i in mv["items"]}
+    return [i["word"] for i in pool
+            if (i["word"] in ran if i["word"].startswith("frame:") else i["word"] in blob)]
+
+
 def longhaul_brief() -> tuple[str | None, list[str]]:
     """The standing soak order, when it is addressed to THIS lane -> (focus, payload).
     Same contract every lane keeps: read the order, stamp it delivered, or the
@@ -580,11 +602,7 @@ def main():
         return
 
     print("3. publish…")
-    # Delivery seam (2026-07-26 ledger law): only what was AUDIBLE is claimed. The
-    # tape stops on the clock, so the tail of the plan may never have played —
-    # stamping the whole pool would book delivery for words that were never spoken.
-    blob = " ".join(spoken)
-    delivered = [i["word"] for i in pool if i["word"] in blob]
+    delivered = audible(pool, spoken, sheets)
     print(f"   {len(delivered)}/{len(pool)} pool items audible on the tape")
     exposed = record_exposure(delivered)
     stamped = mark_soak_delivered("longhaul") if (focus or payload) else False
