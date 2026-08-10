@@ -2795,7 +2795,7 @@
     "deck": "trip",
     "direction": "catch",
     "pairs_with": "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு",
-    "exposures": 3
+    "exposures": 4
   },
   "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு": {
     "type": "chunk",
@@ -3160,7 +3160,7 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 2
+    "exposures": 3
   },
   "கொஞ்சம் நில்லுங்க": {
     "type": "chunk",
@@ -3504,7 +3504,7 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 3,
-    "exposures": 1
+    "exposures": 2
   },
   "frame:nearby-noun": {
     "type": "pattern",
@@ -4701,7 +4701,8 @@
       71,
       74
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-10",
+    "exposures": 1
   },
   "கொஞ்சம் சாப்பிடுங்க": {
     "gloss": "",
@@ -4743,7 +4744,8 @@
       70,
       74
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-10",
+    "exposures": 1
   },
   "பெரிய தப்பு": {
     "gloss": "",
@@ -4883,7 +4885,8 @@
     "seen_in": [
       74
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-10",
+    "exposures": 1
   },
   "இட்லி சூப்பர்-ஆ இருக்கு": {
     "gloss": "",
@@ -4893,7 +4896,8 @@
     "seen_in": [
       74
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-10",
+    "exposures": 1
   },
   "ஆட்டோக்கு போகணும்": {
     "gloss": "",
@@ -4903,7 +4907,8 @@
     "seen_in": [
       74
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-10",
+    "exposures": 1
   },
   "-னு சொன்னாங்க": {
     "gloss": "",
@@ -4913,7 +4918,8 @@
     "seen_in": [
       74
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-10",
+    "exposures": 1
   },
   "பிரச்சனை": {
     "gloss": "Problem / trouble / issue (from Sanskrit prashna, 'a question')",
