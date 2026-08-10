@@ -4097,5 +4097,20 @@
         "scheduled": ""
       }
     ]
+  },
+  {
+    "date": "2026-08-10",
+    "timestamp": "2026-08-10T23:28:55.118489+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "eavesdrop: -thukka soak",
+    "rationale": "Demand-streak at 1 — next fire must be no-ask; eavesdrop on frame:myself-thukka (ear-only, never producible) delivers the soak dose, marks it introduced, and breaks the demand streak with zero pressure the night before the trip.",
+    "next_check": "2026-08-11T13:28:55.118489+00:00",
+    "body": "📞 overhear: Meena akka on the phone — what's she sorting out for herself? 45 sec.",
+    "expected_target": "frame:myself-thukka",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-10T23-28.mp3",
+    "memo_script": "மீனா அக்கா போன்ல பேசுறாங்க.\n\nஆமா ஆமா, நான் பாத்துக்கிறேன் — நீ கவலைப்படாத. அம்மா கிட்ட சொல்லாத, நான் சொல்லிக்கிறேன். வீட்டுக்கு போறதுக்கு முன்னாடி எடுத்துக்கறேன், don't worry. இல்ல இல்ல, நீ வர வேண்டாம் — நான் பாத்துக்கோறேன்.",
+    "mp3": "published_audio/knocks/knock_2026-08-10T23-28.mp3"
   }
 ]
