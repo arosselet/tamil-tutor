@@ -100,6 +100,14 @@ def clean_title(raw_title: str, filename: str) -> str:
     if soak:
         return f"Soak — {soak.group(1)} · nothing to do but listen"
 
+    # Long-haul tapes carry their spine as well as their date: three of them ride
+    # the feed at once for the flight, and "which one is the machines tape" has to
+    # be answerable from the lock screen, one-handed, without reading show notes.
+    longhaul = re.match(r"longhaul_([a-z]+)_(\d{4}-\d{2}-\d{2})", filename)
+    if longhaul:
+        return (f"Long-haul — {longhaul.group(1)} · {longhaul.group(2)} "
+                f"· press once, 45 min")
+
     # Detect episode type from filename
     ep_type = None
     if re.search(r"_intercept", filename, re.IGNORECASE):
@@ -350,7 +358,8 @@ def generate_rss():
     # episodes (skip legacy level4_*, demos, tests, and standalone intercepts)
     episodes = [f for f in audio_files
                 if (f.startswith('tier') or f.startswith('drill_')
-                    or f.startswith('soak_') or f.startswith('special_'))
+                    or f.startswith('soak_') or f.startswith('longhaul_')
+                    or f.startswith('special_'))
                 and not f.endswith('_intercept.mp3')]
 
     # Knock memos are feed-worthy too (2026-07-05): the push notification is
@@ -381,8 +390,12 @@ def generate_rss():
         match = re.search(r"tier(\d+)_mission(\d+)", filename)
         if match:
             return (int(match.group(1)), int(match.group(2)))
-        # drills and soak loops are both dated tracks — one band, chronological
-        match = re.search(r"(?:drill|soak)_(\d{4})-(\d{2})-(\d{2})(?:_(\d{4}))?", filename)
+        # drills, soak loops and long-haul tapes are all dated tracks — one band,
+        # chronological. A prefix missing from this regex still SORTS, at (0, 0),
+        # i.e. silently below every episode: the feed carries it and he never
+        # scrolls that far. Add the prefix here and to the filter above together.
+        match = re.search(r"(?:drill|soak|longhaul_[a-z]+)_(\d{4})-(\d{2})-(\d{2})(?:_(\d{4}))?",
+                          filename)
         if match:
             return (9, int("".join(g or "0" for g in match.groups())))
         # every pushed dose — knock, scheduled, spoken reply — is one dated band,

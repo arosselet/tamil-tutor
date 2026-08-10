@@ -32,8 +32,10 @@ A fixed bug becomes a case here the day it's fixed:
 """
 import argparse
 import ast
+import asyncio
 import email.utils
 import importlib
+import inspect
 import io
 import json
 import os
@@ -1156,6 +1158,14 @@ CODE_BUDGETS = {
     "scripts/render_chat.py": 100,
     "scripts/render_demo.py": 100,
     "scripts/render_drill.py": 225,
+    # New file 2026-08-10 at 318 lines — the fourth audio lane. ~45 of those are
+    # BASE_MANDATE + the five SHAPE_CLAUSES, which code_lines counts as mechanism
+    # (prompt strings always do). Budgeted at 340 rather than 400: the headroom is
+    # for diagnosis, not for a sixth shape. If this trips, the move is the one
+    # morning_knock made on 08-01 and knock_reply was told to make — the mandates
+    # go to mandates.py, prompt canon and dispatch machinery being two concerns —
+    # NOT a bumped number.
+    "scripts/render_longhaul.py": 340,
     "scripts/render_soak.py": 275,
     "scripts/run_studio.py": 425,
     "scripts/show_status.py": 125,
@@ -4227,6 +4237,238 @@ def s48_drill_answer_key_lint(sb: Path):
         rd.ask_json = real_ask
 
 
+def s57_longhaul_tape(sb: Path):
+    """The fourth audio lane (2026-08-10) — a 40-60 minute press-once tape for the
+    flight, where the other three channels' 10-15 minute dose is the wrong shape:
+    ~50 press-plays at a median 2.7 min is fifty context switches on a 20-hour leg.
+
+    Gate 7.2, answered out loud. EVERY failure mode of this lane ends with an mp3
+    on the feed and a console that says `done`:
+
+      · forty-five minutes of six items looping   → coverage never happened
+      · a scene using a word the tape never taught → he loses the thread and stops
+      · two identical shapes side by side          → the grating this exists to escape
+      · a longhaul_*.mp3 the RSS filter drops      → it never reaches the phone he
+        is holding at 35,000 feet, with no way to fetch it
+      · a payload the lane ignores                 → the 07-23 re-dispatch loop
+
+    So nothing here asserts that a step RAN. It asserts coverage, the
+    taught-before-used ordering, the cadence invariant *including the wrap*, a real
+    feed round-trip, and a clock that actually stops the tape."""
+    print("\n57. The long-haul tape — coverage, cadence, the clock, and the feed (2026-08-10)")
+    rl = importlib.import_module("render_longhaul")
+
+    # ── The cadence law. Two of a kind side by side is the complaint itself, and
+    # the WRAP matters as much as the middle: he plays these two or three times
+    # through, so the last shape butts against the first on every repeat.
+    for spine, cad in rl.CADENCES.items():
+        pairs = [(cad[i], cad[(i + 1) % len(cad)]) for i in range(len(cad))]
+        clash = [f"{a}->{b}" for a, b in pairs if a == b]
+        check(f"cadence '{spine}' never repeats a shape, wrap included", not clash,
+              f"adjacent duplicates: {clash}")
+        check(f"cadence '{spine}' uses at least three shapes", len(set(cad)) >= 3)
+        check(f"cadence '{spine}' has a non-recall shape to teach from",
+              any(s not in rl.RECALL_SHAPES for s in cad))
+        # Slot 1 cannot be a recall shape: there is nothing yet to recall. The
+        # `room` cadence shipped this way and its first plan opened on an empty
+        # scene — visible in one --plan-only run, invisible to every assertion
+        # the suite had, because an empty movement renders and publishes fine.
+        check(f"cadence '{spine}' opens on a shape that teaches",
+              cad[0] not in rl.RECALL_SHAPES, f"opens on '{cad[0]}' with nothing taught")
+    check("every shape in every cadence has a rhythm and an item count",
+          all(s in rl.RHYTHM and s in rl.ITEMS
+              for cad in rl.CADENCES.values() for s in cad))
+
+    # ── A pool with a known shape, so coverage is checkable rather than plausible.
+    lex = {f"சொல்{i}": {"gloss": f"word {i}", "production": "none",
+                        "recognition": "struggled", "deck": "trip", "type": "chunk"}
+           for i in range(40)}
+    lex["நாள்"] = {"gloss": "day", "production": "cold", "type": "chunk"}
+    lex["நாளைக்கு"] = {"gloss": "tomorrow", "production": "cold", "type": "chunk"}
+    lex["ரொம்ப நாளாச்சு"] = {"gloss": "long time", "production": "none", "type": "chunk"}
+    write_json(sb / "progress" / "lexicon.json", lex)
+
+    for spine in rl.CADENCES:
+        count = rl.movement_count(45)
+        pool = rl.build_pool(spine, rl.pool_size(spine, count), [])
+        plan = rl.plan_movements(pool, spine, count)
+
+        # COVERAGE — the whole point of a long tape. A 45-minute loop over six
+        # items is the silent no-op, and it reads as success from the console.
+        heard = {i["word"] for mv in plan for i in mv["items"]}
+        missing = [i["word"] for i in pool if i["word"] not in heard]
+        check(f"[{spine}] every pooled item is aired at least once ({len(pool)} items)",
+              not missing, f"never aired: {missing[:6]}")
+
+        # ...and sized SHORT of the plan on purpose: the render stops on the
+        # measured clock, so a tape whose speech ran long drops its last movement.
+        # That movement must be a repeat, never a word's only airing.
+        short = rl.plan_movements(pool, spine, count - 1)
+        heard_short = {i["word"] for mv in short for i in mv["items"]}
+        check(f"[{spine}] coverage survives losing the last movement to the clock",
+              not [i for i in pool if i["word"] not in heard_short])
+
+        # TAUGHT BEFORE USED — the mechanism behind "I can mostly understand".
+        # A scene that reaches for an untaught word is where the thread drops.
+        taught, violations = set(), []
+        for mv in plan:
+            if mv["shape"] in rl.RECALL_SHAPES:
+                violations += [i["word"] for i in mv["items"] if i["word"] not in taught]
+            else:
+                taught |= {i["word"] for i in mv["items"]}
+        check(f"[{spine}] no recall movement reaches for an untaught word",
+              not violations, f"used before taught: {violations[:6]}")
+        # ...and no movement is EMPTY. An empty movement renders as a single Anna
+        # line and publishes without complaint — success, with a hole in it.
+        check(f"[{spine}] no movement is empty",
+              all(mv["items"] for mv in plan),
+              f"empty at {[n for n, mv in enumerate(plan, 1) if not mv['items']]}")
+
+        # RECURRENCE — a soak, not a list. Wrapping the cursor is what makes the
+        # tape a loop; a plan that never revisits anything is a glossary read aloud.
+        longer = rl.plan_movements(pool, spine, count * 2)
+        airings = [i["word"] for mv in longer for i in mv["items"]]
+        check(f"[{spine}] a longer tape revisits items rather than starving",
+              len(airings) > len(set(airings)))
+
+    # ── The commissioned payload LEADS, whatever the ordering turned up. A lane
+    # that ignores its payload can never satisfy the order that dispatched it, and
+    # re-dispatches forever (M72/M73/M74 in one evening, 2026-07-23).
+    pool = rl.build_pool("machines", 12, ["ரொம்ப நாளாச்சு"])
+    check("a commissioned payload word leads the pool",
+          pool and pool[0]["word"] == "ரொம்ப நாளாச்சு", f"got {pool[0]['word'] if pool else None}")
+    check("the payload is never dropped for being outside the ordering",
+          "ரொம்ப நாளாச்சு" in {i["word"] for i in rl.build_pool("machines", 1, ["ரொம்ப நாளாச்சு"])})
+
+    # ── The order is only ours when it is addressed to us; and once consumed it
+    # must be declared spent, or the session-open drain dispatches a second dose.
+    learner = sb / "progress" / "learner.json"
+    base = read_json(learner)
+    write_json(learner, {**base, "soak_order": {"channel": "soak", "payload": ["x"]}})
+    check("an order addressed to another lane is not claimed", rl.longhaul_brief() == (None, []))
+    write_json(learner, {**base, "soak_order": {"channel": "longhaul", "payload": ["x"],
+                                                "focus": "the -aachu tail"}})
+    focus, payload = rl.longhaul_brief()
+    check("an order addressed to this lane is read", focus == "the -aachu tail" and payload == ["x"])
+    sync = importlib.import_module("sync_state")
+    check("this lane can declare its order spent", sync.mark_soak_delivered("longhaul") is True)
+    check("...and the declaration round-trips to disk",
+          (read_json(learner).get("soak_order") or {}).get("delivered", {}).get("channel") == "longhaul")
+
+    # ── Inventory candidates are PROPOSED by substring and must be marked as
+    # unsafe: the same technique logged நீ at 17 reps because it sits inside
+    # நீங்க (probe_hit, 2026-07-26). The sheet-writer is the one that disposes.
+    # The match is on the PULLI-STRIPPED stem. A citation form ends in ் (நாள்);
+    # inside a longer word that consonant takes another vowel sign instead
+    # (நாளைக்கு, ரொம்ப நாளாச்சு), so plain substring matching finds NEITHER of the
+    # two phrases the 08-09 session was actually about. Measured: 1 host of 3.
+    hosts = rl.inventory_hosts(lex)
+    found = set(hosts.get("நாள்") or [])
+    check("the inventory root reaches its hosts across the vowel change",
+          {"நாளைக்கு", "ரொம்ப நாளாச்சு"} <= found,
+          f"got {found} — a bare substring test misses exactly the finding's examples")
+    check("the mandate tells the writer to drop coincidental hosts",
+          "coincidence" in rl.SHAPE_CLAUSES["inventory"].lower())
+    check("no mandate ever asks the listener for anything",
+          "never ask him" in rl.BASE_MANDATE.lower())
+    # Constitution rule 6 — no meta-narration. This lane is the one most likely to
+    # break it: the mandate TELLS the writer he is on a plane, which is exactly the
+    # kind of context that leaks into a spoken line ("rest your eyes", "we're
+    # halfway"). An earlier draft of the outro said "sleep if you can".
+    check("the mandate forbids narrating where he is or what he is doing",
+          "meta-narration" in rl.BASE_MANDATE.lower(),
+          "the model is told he is on a flight; without the ban that lands in the audio")
+    fixed = inspect.getsource(rl.render)
+    spoken_asides = re.findall(r'tape\.add\("([^"]+)"', fixed)
+    banned = re.compile(r"\b(sleep|walk|tired|rest|eyes|flight|plane|seat|halfway)\b", re.I)
+    check("...and the lane's own hard-coded lines obey it too",
+          not [s for s in spoken_asides if banned.search(s)],
+          f"meta-narrating asides: {[s for s in spoken_asides if banned.search(s)]}")
+
+    # ── THE CLOCK GOVERNS. `--minutes` is the dial he sets; if the render ignores
+    # it he gets a 20-minute file he has to re-press mid-flight. Stub the TTS with
+    # real silence frames so the frame scan measures an honest stream, no network.
+    real = (rl.generate_segment_google, rl.get_raw_mp3_frames)
+    sheet = {"frame": "the -aachu tail", "beats": [
+        {"ta": f"வாக்கியம் {n}", "en": f"line {n}", "who": "a"} for n in range(5)]}
+
+    async def fake_tts(text, voice, index, tmp):
+        p = os.path.join(tmp, f"{index}.mp3")
+        open(p, "wb").close()
+        return p
+    try:
+        rl.generate_segment_google = fake_tts
+        rl.get_raw_mp3_frames = lambda f: rl.SILENCE_FRAME * 60   # ~1.4s of "speech"
+        plan = rl.plan_movements(rl.build_pool("machines", 30, []), "machines", 40)
+        out = sb / "clock.mp3"
+        short_min, short_played, _ = asyncio.run(
+            rl.render(plan, "machines", out, 1.0, writer=lambda mv, s: sheet))
+        long_min, long_played, spoken = asyncio.run(
+            rl.render(plan, "machines", out, 4.0, writer=lambda mv, s: sheet))
+        check("the tape reaches the minutes it was asked for",
+              short_min >= 1.0 and long_min >= 4.0, f"got {short_min:.2f} / {long_min:.2f}")
+        check("...and STOPS there rather than rendering the whole plan",
+              short_played < len(plan), f"played {short_played}/{len(plan)}")
+        check("a longer target renders strictly more of the plan",
+              long_played > short_played, f"{long_played} vs {short_played}")
+        check("the clock is measured from the file, not estimated from bytes",
+              "audio_duration" in inspect.getsource(rl.Tape.minutes))
+        check("only lines that actually played are claimed as delivered",
+              spoken and all(isinstance(s, str) for s in spoken))
+    finally:
+        rl.generate_segment_google, rl.get_raw_mp3_frames = real
+
+    # ── THE FEED ROUND-TRIP. Three separate places drop an unknown prefix: the
+    # filter, the sort key, and the title. Each fails silently and differently —
+    # missing, buried at (0,0) below every episode, or titled as a raw filename.
+    rr = importlib.import_module("rebuild_rss")
+    name = "longhaul_inventory_2026-08-11_0930.mp3"
+    title = rr.clean_title(name.replace(".mp3", ""), name)
+    check("a long-haul tape gets a real title", title.startswith("Long-haul — inventory"),
+          f"got {title!r}")
+    check("the title says which spine, for a one-handed lock-screen choice",
+          "inventory" in title and "2026-08-11" in title, f"got {title!r}")
+    check("the title carries no raw filename", ".mp3" not in title and "_" not in title)
+
+    audio = sb / "published_audio"
+    audio.mkdir(exist_ok=True)
+    (audio / name).write_bytes(rl.SILENCE_FRAME * 400)   # real frames, real duration
+    cwd = os.getcwd()
+    try:
+        os.chdir(sb)
+        rr.generate_rss()
+        feed = (sb / "rss.xml").read_text(encoding="utf-8")
+    finally:
+        os.chdir(cwd)
+    check("the tape actually lands in the feed he downloads before boarding",
+          name in feed, "rendered, committed, and invisible — the worst failure "
+                        "this lane has, because he cannot fetch it from the air")
+    check("...under its real title, not its filename", "Long-haul — inventory" in feed)
+    sort_src = inspect.getsource(rr.generate_rss)
+    check("the sort key knows the longhaul prefix", "longhaul" in sort_src,
+          "an unmatched prefix still SORTS — at (0,0), silently below every episode")
+
+    # ── Duration honesty (same diff): `except: return 3.0` stamped every episode
+    # on an ffprobe-less host as exactly 3.0 min. M78-M85 all carry it; their real
+    # lengths are 1.7-3.5. He judges an episode partly by the number his player
+    # shows him (2026-07-23), and a 45-minute tape registered as 3.0 is worse.
+    # Read the AST, not the text: the first cut of this case grepped for the old
+    # line and failed against the DOCSTRING that quotes it. A source-text assertion
+    # tests the prose; this one tests the code.
+    ra = ast.parse((REAL_BASE / "scripts" / "render_audio.py").read_text(encoding="utf-8"))
+    fn = next((n for n in ast.walk(ra)
+               if isinstance(n, ast.FunctionDef) and n.name == "get_duration"), None)
+    check("render_audio still measures episode duration", fn is not None)
+    returns = [ast.unparse(r.value) for r in ast.walk(fn) if isinstance(r, ast.Return) and r.value]
+    check("no episode is stamped with a plausible fiction",
+          "3.0" not in returns,
+          f"returns {returns} — a fabricated 3.0 is invisible precisely BECAUSE it is "
+          f"plausible; M78-M85 all carry it against real lengths of 1.7-3.5")
+    check("...and it measures with the authority rebuild_rss already uses",
+          any("audio_duration" in r for r in returns), f"returns {returns}")
+    check("an unmeasurable file reports a visible zero, never a guess", "0.0" in returns)
+
+
 def s43_sidecar_callback_never_drops_silently(sb: Path):
     """An unregisterable sidecar word is reported, never swallowed (2026-07-31).
 
@@ -4832,6 +5074,7 @@ def main():
         s55_demotion_survives_the_close(sb)
         s56_timezone_is_one_dial(sb)
         s48_drill_answer_key_lint(sb)
+        s57_longhaul_tape(sb)
         s49_thread_continuity(mk, kr, sb)
         s50_read_surfaces_are_phonetic(mk, kr, sb)
         s51_derived_files_are_rerendered_not_merged(mk, sb)

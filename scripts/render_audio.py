@@ -431,10 +431,26 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
         with open(path, "w", encoding="utf-8") as f: json.dump(data, f, ensure_ascii=False, indent=2)
 
     def get_duration(p: Path) -> float:
+        """Measured, or LOUD — never a plausible fiction (2026-08-10).
+
+        This was `except: return 3.0`, and on a host without ffprobe every
+        episode registered as exactly 3.0 minutes. M78-M85 are all stamped 3.0 in
+        episodes.json; their real lengths are 1.7-3.5, and the fallback was
+        invisible because the number it invents is the number a short episode
+        plausibly has. Andrew judges an episode partly by the length his player
+        shows him (the reason durations became measured at all, 2026-07-23), so a
+        silently-invented one corrupts exactly the meter that ruling protected.
+
+        `audio_duration` is the authority rebuild_rss already uses: ffprobe when
+        it exists, a pure-python frame scan when it does not. The scan is
+        imperfect on a bad header; it is not fiction. 0.0 with a warning is the
+        honest floor — a zero is visible, and 3.0 was not."""
+        from rebuild_rss import audio_duration
         try:
-            res = subprocess.run(["ffprobe", "-v", "quiet", "-show_entries", "format=duration", "-of", "json", str(p)], capture_output=True, text=True)
-            return float(json.loads(res.stdout)["format"]["duration"]) / 60
-        except: return 3.0
+            return (audio_duration(str(p)) or 0) / 60
+        except Exception as e:
+            print(f"   ⚠ could not measure {p.name} ({e}) — registering 0.0, not a guess")
+            return 0.0
 
     # Extract title and words from script
     with open(script_path, "r", encoding="utf-8") as f:

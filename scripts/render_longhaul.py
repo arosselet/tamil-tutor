@@ -1,0 +1,536 @@
+#!/usr/bin/env python3
+"""
+The long-haul tape — one press of play, forty-five minutes, nothing asked.
+
+The FOURTH audio channel, and the one the trip exposed. The other three are all
+sized for the same capacity regime: a 10-15 minute slot interleaved into a
+workday, where the binding constraint is ADHERENCE — will he finish it (the
+2026-07-28 dose ruling, which this does not reopen: it is about that regime).
+A twenty-hour flight inverts every term. Time is unlimited, executive function
+is near zero, the mouth is unavailable (a stranger in the next seat), and the
+screen is a cost. Measured against that, the back catalogue is ~50 press-plays
+at a median 2.7 minutes each — fifty context switches, which is the plan he
+correctly predicted he would not carry out (2026-08-10, Andrew: "frequently
+pressing play and interacting with my phone... is not the kind of energy level
+I imagine having on the journey").
+
+WHAT THIS REPLACES: `render_soak.py --passes N` as the system's answer to "give
+me something longer". That dial makes the same ten minutes play four times,
+which is `audio_channels.md`'s own "never loop harder" failure wearing a length
+costume. This lane is that file's rule -- *a tired ear asking for longer wants
+more repetition, not more scene* -- taken to its conclusion: forty-five minutes
+of structured recurrence, not a stretched episode.
+
+THE RHYTHM IS PYTHON'S, AND THE CLOCK IS MEASURED, NOT GUESSED. No model is
+asked for a forty-five minute script; if one could write it, what it would
+produce is a LIST, and the repetition schedule is the entire pedagogical
+payload. Instead: one small sheet per MOVEMENT, written just-in-time, rendered,
+and measured -- the tape stops when the real minute target is hit, so
+`--minutes 45` is an honest dial rather than an estimate.
+
+WHAT KEEPS FORTY-FIVE MINUTES OFF THE NERVES is one decision: the MOVEMENT, not
+the line, is the unit of language mix (Andrew, same conversation: "I want it to
+be not forty minutes of, like, Tamil English Tamil English"). Movements run 3-5
+minutes with distinct centres of gravity, on a cadence that never places two of
+a kind side by side -- and `scene` and `eavesdrop` movements draw ONLY on items
+the preceding movements already taught, so comprehension is structural rather
+than hoped for.
+
+  python scripts/render_longhaul.py --plan-only   # the movement plan; no network at all
+  python scripts/render_longhaul.py --dry-run     # plan + the first sheets; no TTS, no publish
+  python scripts/render_longhaul.py               # render -> RSS + commit + push + notify
+  python scripts/render_longhaul.py --no-publish  # render locally, nothing leaves the machine
+
+Secrets: OPENROUTER_API_KEY (the sheets), GCP ADC (TTS), ANNA_PUSH_WEBHOOK_URL (the push).
+"""
+import argparse
+import asyncio
+import json
+import os
+import shutil
+import sys
+import subprocess
+import tempfile
+from datetime import datetime
+from pathlib import Path
+
+BASE = Path(__file__).parent.parent
+sys.path.insert(0, str(BASE / "scripts"))
+from morning_knock import (ANNA_VOICE, EAVESDROP_VOICE, load_env, push_to_phone,
+                           commit_and_push, jsdelivr_url)
+from render_audio import (generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME,
+                          clean_for_tts, google_credentials_ready, EXIT_NOT_CONFIGURED,
+                          _CHIRP_POOL_MALE, _CHIRP_POOL_FEMALE)
+# Reused rather than re-implemented: one single-shot call -> parsed JSON, fence
+# handling and the blown-ceiling guard included. Four lanes now share it.
+from render_drill import ask_json
+from state_io import LEXICON_PATH, load_json
+from sync_state import canon_payload, mark_soak_delivered, record_exposure
+
+LONGHAUL_DIR = BASE / "published_audio"   # feed root — rebuild_rss picks up longhaul_*.mp3
+SILENCE_PER_SEC = 41.666                  # frames per second (matches render_audio)
+
+# ── The rotation law ────────────────────────────────────────────────────────
+# Variety on a fixed cycle, not variety by taste. Each spine names its own lead
+# shape; `scene` and `eavesdrop` are the RECALL shapes and consume no new items.
+# INVARIANT (asserted in smoke s57): no cadence places two identical shapes
+# adjacently, INCLUDING across the wrap — a repeat listen must not butt two of a
+# kind together at the seam either, and he intends to play these two or three
+# times through.
+# A cadence must also OPEN on a teaching shape: a recall movement in slot 1 has
+# nothing to recall, and the `room` spine shipped its first plan opening on an
+# empty scene (caught by reading a --plan-only run, not by the suite — s57 now
+# asserts it).
+CADENCES = {
+    "machines":  ("machine", "scene", "machine", "lore", "machine", "eavesdrop"),
+    "inventory": ("inventory", "scene", "inventory", "lore", "inventory", "eavesdrop"),
+    "room":      ("machine", "scene", "inventory", "eavesdrop", "scene", "lore"),
+}
+RECALL_SHAPES = {"scene", "eavesdrop"}
+# How many pool items each shape is handed. Recall shapes re-use what the
+# preceding movements taught, so their count is a look-back depth, not an appetite.
+ITEMS = {"machine": 4, "inventory": 3, "scene": 6, "eavesdrop": 5, "lore": 2}
+# Planning estimate ONLY — the render measures the real clock and stops there.
+# Used to size the item pool so coverage lands inside the minutes he asked for.
+MOVEMENT_MIN = 3.5
+# Rhythm per shape: (air after a Tamil line, air after its gloss, air after the beat).
+# Teaching shapes breathe; scenes run at something closer to speed.
+RHYTHM = {
+    "machine":   (0.9, 0.7, 1.4),
+    "inventory": (1.0, 0.8, 1.6),
+    "scene":     (0.6, 0.0, 0.9),
+    "eavesdrop": (0.7, 0.0, 1.1),
+    "lore":      (0.8, 0.0, 1.0),
+}
+# The visit in the order he will live it — the `room` spine's ordering, and the
+# same order as the campaign table in progress/profile.md.
+REGISTER_ORDER = ["social", "faq", "mil-table", "antifreeze", "public", "gossip", "zinger"]
+
+
+# ── Item selection: the deck and beyond ─────────────────────────────────────
+
+def deck_registers() -> dict:
+    """register per deck item. It lives in the curriculum, not the lexicon —
+    `seed-deck` carries the tag but not the register, so the `room` spine reads
+    the source file rather than inventing an order."""
+    deck = load_json(BASE / "curriculum" / "trip_deck.json") or []
+    return {row["tamil"]: row.get("register", "") for row in deck if row.get("tamil")}
+
+
+def inventory_hosts(lexicon: dict) -> dict:
+    """root -> the phrases that appear to contain it. THE 2026-08-09 FINDING as a
+    selector: his gap is not vocabulary and not reps, it is INVENTORY — he holds
+    parts and does not know they are parts (வாழ்த்துக்கள் owned for two years and
+    read as one phrase; நாள் sitting unnoticed inside நாளைக்கு).
+
+    THE MATCH IS ON THE PULLI-STRIPPED STEM, not the bare key, and that is the
+    whole difference between a working detector and a decorative one. A citation
+    form ends in the pulli (நாள்); inside a longer word the same consonant takes a
+    different vowel sign instead (நாளைக்கு, ரொம்ப நாளாச்சு), so a plain substring
+    test matches NEITHER. Measured on the finding's own three examples, naive
+    matching finds 1 of 3 hosts for நாள் — it misses the exact two phrases the
+    session was about. Stripping the trailing ் finds all three.
+
+    Substring matching is PROPOSAL ONLY and over-fires in the other direction: the
+    same technique logged நீ at 17 reps because it is inside நீங்க (`probe_hit`,
+    2026-07-26); டீ inside சாப்டீங்களா? is the same accident, and stemming widens
+    the net rather than narrowing it. So Python offers candidates and the
+    sheet-writer is told to DROP the coincidences — mechanism proposes, meaning
+    disposes. A false candidate costs one dropped beat; a missed one costs the
+    lesson."""
+    singles = [k for k in lexicon
+               if " " not in k and not k.startswith("frame:") and len(k) >= 3]
+    out = {}
+    for root in singles:
+        stem = root.rstrip("்")          # ் — the vowel-less marker
+        hosts = [k for k in lexicon
+                 if k != root and stem in k and not k.startswith("frame:")]
+        if len(hosts) >= 2:
+            out[root] = hosts[:5]
+    return out
+
+
+def _rank(spine: str, hosts: dict):
+    """Ordering per spine. Lower sorts first. Every spine puts the items he
+    cannot yet fire ahead of the ones already cold — a cold word is not drilled
+    again, it is just used (FOCUS_SIZE law, suggest_targets.py)."""
+    unfired = {"none": 0, "hinted": 1, "cold": 2}
+
+    def key(r):
+        prod = unfired.get(r["production"], 3)
+        if spine == "machines":
+            return (0 if r["type"] == "pattern" else 1, 0 if r["deck"] else 1, prod)
+        if spine == "inventory":
+            return (0 if r["word"] in hosts else 1, -len(hosts.get(r["word"], [])), prod)
+        reg = r["register"]
+        return (0 if reg else 1,
+                REGISTER_ORDER.index(reg) if reg in REGISTER_ORDER else len(REGISTER_ORDER),
+                prod)
+    return key
+
+
+def build_pool(spine: str, size: int, payload: list[str]) -> list[dict]:
+    """The whole lexicon is in scope, not a seven-day window. `render_soak`'s
+    `week_payload` asks "what did he touch this week" — the right question for a
+    ten-minute loop and the wrong one for a tape that has to carry the deck AND
+    beyond it for forty-five minutes ("everything in our deck and beyond
+    somewhere in that", 2026-08-10)."""
+    lexicon = load_json(LEXICON_PATH) or {}
+    reg, hosts = deck_registers(), inventory_hosts(lexicon)
+    rows = [{"word": k,
+             "gloss": rec.get("gloss", ""),
+             "production": rec.get("production", "none"),
+             "direction": rec.get("direction", ""),
+             "type": rec.get("type", ""),
+             "deck": bool(rec.get("deck")),
+             "register": reg.get(k, ""),
+             "hosts": hosts.get(k, [])}
+            for k, rec in lexicon.items()]
+    rows.sort(key=_rank(spine, hosts))
+    # The commissioned words lead whatever the ordering turned up — a payload the
+    # lane ignores can never satisfy the order that dispatched it, and re-dispatches
+    # forever (the 2026-07-23 M72/M73/M74 loop).
+    want = canon_payload(payload)
+    head = [r for r in rows if r["word"] in want]
+    return (head + [r for r in rows if r["word"] not in want])[:max(size, len(head))]
+
+
+# ── The plan ────────────────────────────────────────────────────────────────
+
+def movement_count(minutes: float) -> int:
+    return max(4, round(minutes / MOVEMENT_MIN))
+
+
+def pool_size(spine: str, count: int) -> int:
+    """Items needed to cover `count` movements — deliberately sized for one
+    movement FEWER than planned. The render stops on the measured clock, so a
+    tape whose speech ran long drops its last movement; sizing short means that
+    movement was a repeat, never a word's only airing."""
+    cad = CADENCES[spine]
+    return sum(ITEMS[cad[i % len(cad)]] for i in range(max(1, count - 1))
+               if cad[i % len(cad)] not in RECALL_SHAPES)
+
+
+def plan_movements(pool: list[dict], spine: str, count: int) -> list[dict]:
+    """Round-robin the pool through the cadence: coverage first, recurrence
+    second. The cursor wraps, so movements past the pool's length revisit early
+    items instead of starving — that is the soak, and it is why this reads as a
+    loop rather than a list.
+
+    INVARIANT (smoke s57): a recall movement only ever names items that an
+    earlier movement already taught. That is the mechanism behind "I can mostly
+    understand" — a scene cannot reach for a word the tape has not yet given him."""
+    cad = CADENCES[spine]
+    plan: list[dict] = []
+    taught: list[dict] = []
+    cursor = 0
+    for i in range(count):
+        shape = cad[i % len(cad)]
+        n = ITEMS[shape]
+        if shape in RECALL_SHAPES:
+            items = taught[-n:] if taught else []
+        else:
+            items = [pool[(cursor + j) % len(pool)] for j in range(min(n, len(pool)))]
+            cursor += n
+            taught.extend(items)
+        plan.append({"shape": shape, "items": items})
+    return plan
+
+
+# ── The sheets: one small call per movement ─────────────────────────────────
+
+BASE_MANDATE = """\
+You are Anna, writing ONE MOVEMENT of a long-haul listening tape. Andrew is on a \
+twenty-hour flight with headphones in. He will NOT speak, will NOT look at a screen, \
+and will NOT be tested. He presses play once and listens, twice or three times through.
+
+BINDING ON EVERY MOVEMENT:
+- NEVER ask him anything. No questions to the listener, no homework, no "try it \
+yourself", no instructions. There are no gaps in this tape for him to fill.
+- Tamil is natural spoken Coimbatore colloquial, in TAMIL SCRIPT ONLY (a Tamil voice \
+speaks it). Polite -nga register by default. English is plain and low-key.
+- Use the items given. You may inflect them freely into the forms the movement needs, \
+but do NOT introduce vocabulary outside them — he is listening on autopilot and an \
+unknown word is where the thread drops.
+- "en" is a short label, under 6 English words, not a sentence.
+- Low energy throughout. No exclamation, no hype, no "let's go".
+- NO META-NARRATION (constitution rule 6): never mention where he is, what he is doing, his \
+energy, the flight, the hour, or the tape itself. No "if you're walking", no "rest your eyes", \
+no "we're halfway". The context above tells YOU how to pitch it; it is never said out loud.
+
+Return ONLY a JSON object, no prose around it:
+{"frame": "<one short English line naming what this movement is>",
+ "beats": [{"ta": "<Tamil script>", "en": "<short gloss>", "who": "a"}, ...]}
+"""
+
+# Only the shape clause changes — the contract above is 90% of every mandate, and
+# five near-identical prompts is the drift surface prompts always rot along.
+SHAPE_CLAUSES = {
+    "machine": """\
+THIS MOVEMENT IS A MACHINE. The FIRST item is the machine — one ending or frame. Run it \
+across 6-9 beats, each a different everyday slot-fill, so the ENDING is the only constant \
+and the contrast is audible. EVERY OTHER ITEM must appear as the filling of at least one \
+of those slots: they were selected for this tape and a dropped one is never heard. "who" \
+is always "anna". Every beat needs its "en".""",
+    "inventory": """\
+THIS MOVEMENT IS AN INVENTORY. Take EVERY root below in turn — its HOSTS are phrases that \
+may contain it. For each: the root alone, then its genuine hosts said whole, so he hears \
+the part he already owns inside things he already says. 6-9 beats across all the roots. \
+CRITICAL: the hosts were proposed by crude substring match. DROP any host where the shared \
+letters are a coincidence rather than the same word — a wrong one teaches a false part, and \
+dropping every host of a root is a fine answer. "who" is always "anna".""",
+    "scene": """\
+THIS MOVEMENT IS A SCENE — 8-12 beats of two people talking, at natural speed, no \
+teaching voice inside it. Use "a" and "b" for the two speakers. Every beat is Tamil only \
+and "en" stays EMPTY: the items below were all taught earlier on this same tape, and the \
+"frame" line is the one piece of English — one sentence setting the situation before it \
+starts. Something small must actually happen.""",
+    "eavesdrop": """\
+THIS MOVEMENT IS AN EAVESDROP — ONE side of a phone call, 8-12 beats, "who" always "a". \
+He hears her half and infers the rest; the pauses where the other person talks are real \
+silence. "en" stays EMPTY. This is ear-training, so it runs at full natural speed and \
+ends on a clear resolution — where an exchange LANDS is his known weak spot.""",
+    "lore": """\
+THIS MOVEMENT IS LORE — 5-8 beats of Anna talking in English about why one of these \
+words is the way it is: what it literally contains, where it comes from, what a Coimbatore \
+speaker hears in it that a textbook misses. Put the English in "en" and leave "ta" empty, \
+EXCEPT where you quote the word itself — then "ta" carries the quote and it is spoken \
+after the line. "who" is always "anna". This is the movement that is allowed to be \
+interesting rather than useful; it is his favourite part and it is why the tape is bearable.""",
+}
+
+
+def write_movement(mv: dict, spine: str) -> dict:
+    """One movement, one small call. The whole tape is never in a model's context —
+    twelve 600-token calls succeed where one 15,000-token script does not."""
+    persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
+    menu = "\n".join(
+        f"- {i['word']} — {i['gloss'] or '[no gloss]'}"
+        + (f"  HOSTS: {', '.join(i['hosts'])}" if i["hosts"] else "")
+        for i in mv["items"])
+    mandate = f"{BASE_MANDATE}\n{SHAPE_CLAUSES[mv['shape']]}"
+    sheet = ask_json(f"{persona}\n\n---\n\n{mandate}",
+                     f"THE TAPE'S SPINE: {spine}\n\nITEMS FOR THIS MOVEMENT:\n{menu}")
+    sheet["beats"] = [b for b in sheet.get("beats", [])
+                      if (b.get("ta") or "").strip() or (b.get("en") or "").strip()]
+    return sheet
+
+
+# ── The render: Python owns every second ────────────────────────────────────
+
+def silence(seconds: float) -> bytes:
+    return SILENCE_FRAME * int(seconds * SILENCE_PER_SEC)
+
+
+def movement_voices(n: int) -> tuple[str, str]:
+    """Two fresh character voices per movement, alternating which gender leads.
+    Anna and the eavesdrop aunty stay pinned (an ear tracks a speaker); everyone
+    else rotates, because thirty voices are free and sameness is the complaint."""
+    male = _CHIRP_POOL_MALE[n % len(_CHIRP_POOL_MALE)]
+    female = _CHIRP_POOL_FEMALE[n % len(_CHIRP_POOL_FEMALE)]
+    return (female, male) if n % 2 else (male, female)
+
+
+class Tape:
+    """The accumulating tape, and the only thing that knows what time it is."""
+
+    def __init__(self, tmp: str):
+        self.audio = bytearray()
+        self.tmp = tmp
+        self.cache: dict[tuple[str, str], bytes] = {}
+        self.idx = 0
+        self.spoken: list[str] = []      # every Tamil line that actually played
+
+    async def say(self, text: str, voice: str) -> bytes:
+        """Cached per (line, voice) — a long-haul tape repeats lines by design, and
+        re-synthesising an identical segment is money and latency for one result."""
+        key = (text, voice)
+        if key not in self.cache:
+            self.idx += 1
+            f = await generate_segment_google(clean_for_tts(text), voice, self.idx, self.tmp)
+            self.cache[key] = get_raw_mp3_frames(f)
+            os.remove(f)
+        return self.cache[key]
+
+    async def add(self, text: str, voice: str, gap: float, tamil: bool = False):
+        self.audio.extend(await self.say(text, voice))
+        if tamil:
+            self.spoken.append(text)
+        self.audio.extend(silence(gap))
+
+    def minutes(self, path: Path) -> float:
+        """MEASURED, never estimated from byte count: speech frames are far larger
+        than SILENCE_FRAME, so a byte-ratio guess reads ~30% short (2026-07-23)."""
+        path.write_bytes(self.audio)
+        from rebuild_rss import audio_duration
+        return (audio_duration(str(path)) or 0) / 60
+
+
+async def render_movement(tape: Tape, mv: dict, sheet: dict, n: int):
+    """The soak law on the teaching shapes — Tamil FIRST (the sound before the
+    meaning), the gloss once, then Tamil again to settle. Scenes and eavesdrops
+    get none of that: they run once, at speed, because their whole job is that he
+    follows something he was handed five minutes ago."""
+    after_ta, after_en, after_beat = RHYTHM[mv["shape"]]
+    voice_a, voice_b = movement_voices(n)
+    if sheet.get("frame"):
+        await tape.add(sheet["frame"], ANNA_VOICE, 1.2)
+    for beat in sheet["beats"]:
+        ta, en = (beat.get("ta") or "").strip(), (beat.get("en") or "").strip()
+        if mv["shape"] == "lore":
+            if en:
+                await tape.add(en, ANNA_VOICE, after_ta if ta else after_beat)
+            if ta:
+                await tape.add(ta, ANNA_VOICE, after_beat, tamil=True)
+            continue
+        if mv["shape"] == "eavesdrop":
+            await tape.add(ta, EAVESDROP_VOICE, after_beat, tamil=True)
+            continue
+        if mv["shape"] == "scene":
+            await tape.add(ta, voice_b if beat.get("who") == "b" else voice_a,
+                           after_beat, tamil=True)
+            continue
+        # machine / inventory — the soak rhythm
+        await tape.add(ta, ANNA_VOICE, after_ta, tamil=True)
+        if en:
+            await tape.add(en, ANNA_VOICE, after_en)
+        await tape.add(ta, ANNA_VOICE, after_ta)
+        await tape.add(ta, ANNA_VOICE, after_beat)
+
+
+async def render(plan: list[dict], spine: str, out: Path, minutes: float,
+                 writer=write_movement) -> tuple[float, int, list[str]]:
+    """Sheets are written JUST IN TIME, one movement ahead of the tape head, and
+    the tape stops when the measured clock reaches the target. Nothing is written
+    that does not play — and the target is a real forty-five minutes, not an
+    estimate that came out at twenty-eight."""
+    tmp = tempfile.mkdtemp(prefix="longhaul_")
+    tape = Tape(tmp)
+    played = 0
+    try:
+        for n, mv in enumerate(plan):
+            elapsed = tape.minutes(out)
+            if elapsed >= minutes:
+                break
+            print(f"   [{n+1}/{len(plan)}] {mv['shape']:<9} "
+                  f"({elapsed:.1f}/{minutes:.0f} min)")
+            sheet = writer(mv, spine)
+            await render_movement(tape, mv, sheet, n)
+            played += 1
+        # The closing lap: the tape's own spine, Tamil only, no glosses, one pass.
+        # It is the pay-off of a third listen AND the bridge back to the top when
+        # the file loops. A bare Tamil run brushes against "No Standalone Lists"
+        # (constitution rule 4) and is allowed for the same reason the soak loop's
+        # cluster echo is: these lines were all placed in context earlier on this
+        # same tape, so it is a recap, not a list taught from cold.
+        #
+        # Both spoken lines stay clear of rule 6 — nothing about where he is, what
+        # he is doing, or how tired he might be. An earlier draft signed off with
+        # "sleep if you can", which is precisely the ban.
+        if tape.spoken:
+            await tape.add("Same sounds, one more lap.", ANNA_VOICE, 1.5)
+            for line in dict.fromkeys(tape.spoken):
+                await tape.add(line, ANNA_VOICE, 1.0)
+        await tape.add("That's the lot.", ANNA_VOICE, 0.5)
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+    return tape.minutes(out), played, tape.spoken
+
+
+# ── CLI ─────────────────────────────────────────────────────────────────────
+
+def longhaul_brief() -> tuple[str | None, list[str]]:
+    """The standing soak order, when it is addressed to THIS lane -> (focus, payload).
+    Same contract every lane keeps: read the order, stamp it delivered, or the
+    session-open drain dispatches a second dose for work already done."""
+    order = (load_json(BASE / "progress" / "learner.json") or {}).get("soak_order") or {}
+    if (order.get("channel") or "episode") != "longhaul":
+        return None, []
+    return (order.get("focus") or "").strip() or None, [w for w in order.get("payload") or [] if w]
+
+
+def describe(plan: list[dict], pool: list[dict], minutes: float):
+    print(f"\nPLAN — {len(plan)} movements, renders until {minutes:.0f} measured minutes")
+    for n, mv in enumerate(plan, 1):
+        words = ", ".join(i["word"] for i in mv["items"]) or "(nothing taught yet)"
+        print(f"  {n:>2}. {mv['shape']:<9} {words[:88]}")
+    print(f"\nPOOL — {len(pool)} items"
+          f" · {sum(1 for i in pool if i['deck'])} deck"
+          f" · {sum(1 for i in pool if i['production'] == 'none')} never fired"
+          f" · {sum(1 for i in pool if i['hosts'])} with inventory hosts")
+
+
+def main():
+    ap = argparse.ArgumentParser(description="A 40-60 minute press-once listening tape")
+    ap.add_argument("--spine", choices=sorted(CADENCES), default="inventory",
+                    help="the tape's centre of gravity (default: inventory)")
+    ap.add_argument("--minutes", type=float, default=45,
+                    help="measured target length; the render stops here (default 45)")
+    ap.add_argument("--plan-only", action="store_true",
+                    help="print the movement plan and stop — no network at all")
+    ap.add_argument("--dry-run", action="store_true",
+                    help="plan + write the first sheet; no TTS, no publish")
+    ap.add_argument("--no-publish", action="store_true",
+                    help="render only; skip RSS/commit/push/notify")
+    args = ap.parse_args()
+
+    load_env(BASE / ".env")
+    focus, payload = longhaul_brief()
+    count = movement_count(args.minutes)
+    pool = build_pool(args.spine, pool_size(args.spine, count), payload)
+    if not pool:
+        sys.exit("Lexicon is empty — nothing to build a tape from.")
+    plan = plan_movements(pool, args.spine, count + 2)   # +2 of slack for the clock
+    print(f"1. plan… (spine: {args.spine}"
+          f"{f' · {len(payload)} commissioned' if payload else ''}"
+          f"{' · FOCUS: ' + focus if focus else ''})")
+    describe(plan, pool, args.minutes)
+
+    if args.plan_only:
+        return
+    if args.dry_run:
+        print("\n2. first sheet…")
+        print(json.dumps(write_movement(plan[0], args.spine), ensure_ascii=False, indent=2))
+        return
+
+    reason = google_credentials_ready()
+    if reason:
+        print(f"⏭️  Skipping render — {reason}. This host cannot produce audio.")
+        sys.exit(EXIT_NOT_CONFIGURED)
+
+    stamp = datetime.now().strftime("%Y-%m-%d_%H%M")
+    mp3 = LONGHAUL_DIR / f"longhaul_{args.spine}_{stamp}.mp3"
+    mp3.parent.mkdir(parents=True, exist_ok=True)
+    print(f"\n2. render… (target {args.minutes:.0f} min)")
+    measured, played, spoken = asyncio.run(render(plan, args.spine, mp3, args.minutes))
+    print(f"   rendered -> {mp3} ({measured:.1f} min, {played} movements)")
+    if measured < args.minutes * 0.9:
+        print(f"   ⚠ came up short at {measured:.1f}/{args.minutes:.0f} min — the plan ran "
+              f"out of movements. Raise --minutes' slack or lower MOVEMENT_MIN.")
+
+    if args.no_publish:
+        return
+
+    print("3. publish…")
+    # Delivery seam (2026-07-26 ledger law): only what was AUDIBLE is claimed. The
+    # tape stops on the clock, so the tail of the plan may never have played —
+    # stamping the whole pool would book delivery for words that were never spoken.
+    blob = " ".join(spoken)
+    delivered = [i["word"] for i in pool if i["word"] in blob]
+    print(f"   {len(delivered)}/{len(pool)} pool items audible on the tape")
+    exposed = record_exposure(delivered)
+    stamped = mark_soak_delivered("longhaul") if (focus or payload) else False
+    subprocess.run([sys.executable, str(BASE / "scripts" / "rebuild_rss.py")],
+                   cwd=BASE, check=True)
+    commit_and_push([mp3, BASE / "rss.xml"] + ([LEXICON_PATH] if exposed else [])
+                    + ([BASE / "progress" / "learner.json"] if stamped else []),
+                    f"Long-haul tape: {args.spine} ({measured:.0f} min)")
+    print("4. notify…")
+    pushed = push_to_phone(
+        f"long-haul tape's up — {measured:.0f} min, {args.spine}. press once 🎧",
+        jsdelivr_url(mp3))
+    print(f"done — tape on the feed{' and the lock screen' if pushed else ''}.")
+
+
+if __name__ == "__main__":
+    main()
