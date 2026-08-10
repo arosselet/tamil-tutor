@@ -4051,13 +4051,17 @@
     "expected_target": "முடிஞ்சா",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Naan hotel ku ponom, Konjam stop",
-    "reply_verdict": "miss",
-    "reply_fired": [],
+    "reply": "Mudinja, hotel la niruthunga",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "முடிஞ்சா"
+    ],
     "reply_fired_cold": [],
-    "reply_fired_capped": [],
-    "reply_line": "close on the instinct — but the softener here isn't 'konjam', it's the conditional: 'mudinja, hotel-la nirthuga.' one word, and he'll feel the please in it.",
-    "reply_at": "2026-08-10T19:59:29Z",
+    "reply_fired_capped": [
+      "முடிஞ்சா"
+    ],
+    "reply_line": "capped — mudinja is on the revealed list, but it's in your mouth now. 'niruthunga' is exactly right too — that's the whole ask: mudinja, hotel-la niruthunga.",
+    "reply_at": "2026-08-10T20:01:03Z",
     "exchanges": [
       {
         "at": "2026-08-10T19:59:29Z",
@@ -4072,6 +4076,23 @@
           "konjam-for-softener",
           "english-word-order"
         ],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-10T20:01:03Z",
+        "reply": "Mudinja, hotel la niruthunga",
+        "verdict": "hinted",
+        "fired": [
+          "முடிஞ்சா"
+        ],
+        "fired_cold": [],
+        "fired_capped": [
+          "முடிஞ்சா"
+        ],
+        "graduated": [],
+        "reply_line": "capped — mudinja is on the revealed list, but it's in your mouth now. 'niruthunga' is exactly right too — that's the whole ask: mudinja, hotel-la niruthunga.",
+        "slips": [],
         "spoke": "",
         "scheduled": ""
       }
