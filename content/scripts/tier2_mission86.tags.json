@@ -1,0 +1,49 @@
+{
+  "mission": 86,
+  "register": "mischief",
+  "dramatic_ingredient": "subtext",
+  "episode_form": "lore",
+  "shape": "pattern_riff",
+  "location_class": "home_social",
+  "energy": "medium",
+  "intercept_tamil_density": 0.65,
+  "breakdown_tamil_density": 0.25,
+  "fence_size": 207,
+  "unfenced_words": 0,
+  "new_words_landed": {
+    "கிளம்பலாமா?": 2,
+    "அப்புறம் பார்க்கலாம்": 2,
+    "கடைசில பாக்கலாம்": 4,
+    "பக்கம்": 8,
+    "frame:mayi-laama": 14
+  },
+  "callbacks_used": {
+    "உட்காரலாமா?": 2,
+    "பேசலாமா": 2,
+    "அப்புறம் பாக்கலாம்": 1,
+    "பக்கத்துல": 4,
+    "பார்த்தேன்": 1,
+    "முடிஞ்சா": 1,
+    "நேரா": 2,
+    "பத்து": 1,
+    "ரெண்டு": 1,
+    "ஒன்னு": 1,
+    "வயிறு ஃபுல்": 1,
+    "ஆமா ஆமா": 1,
+    "சீக்கிரம்": 1,
+    "அலைச்சல்": 1,
+    "பெட்டி": 1,
+    "கிளம்பு": 2,
+    "ஜாஸ்தி": 2,
+    "நிறுத்துங்க": 1,
+    "frame:quote-nu": 2,
+    "frame:nearby-noun": 4,
+    "frame:in-la": 4,
+    "frame:polite-nga": 2
+  },
+  "host_roles": {
+    "A": "the_one_who_wants_to_stay",
+    "B": "the_one_who_wants_to_go"
+  },
+  "notes": "Commissioned lore (soak order 2026-08-09): the -லாம் tail as a MACHINE, not three phrases. The tail is spoken bare (லாம்) and then bolted onto six verbs — கிளம்ப / சாப்பிட / போ / உட்கார / பேச / பார்க்க — before any payload chunk is named, so the pattern is the payload. Three senses carved in order: suggestion → +ஆ question → permission (நான் வெளிய போலாமா?). The paakkalaam/pakkam minimal pair is delivered by PARTS, not repetition: பார்த்தேன் (already cold-adjacent for him) exposes the பார் at the front of பார்க்கலாம், the fast-mouth collapse to பாக்கலாம் is named explicitly (ர் eaten, long ஆ stays), and பக்கம் is counted out as two flat beats with no ஆ and no பார். The auto example reproduces his own live error verbatim in the third person: 'temple பக்கத்துல நிறுத்துங்க' (a stop) vs 'temple பாக்கலாம்' (an outing). பக்கத்துல taught as the form he actually needed. Zero unfenced Tamil — every non-payload noun the scene needed is carried in English (traffic, bags, door, temple, bus stop, coffee), which is what a Coimbatore hall sounds like anyway. PRODUCTION NOTE FOR THE NEXT PRODUCER: render_audio.py's parser turns ANY line containing [Pause: N sec] into a pause and discards that line's speech, so every pause here is on its own line — M74 lost real dialogue to inline pauses and the loss is invisible in the script."
+}

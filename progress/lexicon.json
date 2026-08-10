@@ -164,9 +164,11 @@
       62,
       63,
       64,
-      66
+      66,
+      86
     ],
-    "last_surfaced": "2026-07-19"
+    "last_surfaced": "2026-08-10",
+    "exposures": 1
   },
   "அழகான": {
     "gloss": "Beautiful",
@@ -231,9 +233,11 @@
     "production": "none",
     "seen_in": [
       10,
-      18
+      18,
+      86
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-10",
+    "exposures": 1
   },
   "நாளைக்கு": {
     "gloss": "Tomorrow",
@@ -453,11 +457,12 @@
       10,
       26,
       32,
-      33
+      33,
+      86
     ],
     "last_surfaced": "2026-08-10",
     "reps": 2,
-    "exposures": 3
+    "exposures": 4
   },
   "பத்து": {
     "gloss": "Ten",
@@ -473,9 +478,11 @@
       12,
       15,
       16,
-      30
+      30,
+      86
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-10",
+    "exposures": 1
   },
   "இல்ல": {
     "gloss": "No",
@@ -560,9 +567,11 @@
     "production": "none",
     "seen_in": [
       10,
-      33
+      33,
+      86
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-10",
+    "exposures": 1
   },
   "அதனால": {
     "gloss": "Therefore",
@@ -635,9 +644,11 @@
     "recognition": "solid",
     "production": "none",
     "seen_in": [
-      71
+      71,
+      86
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-10",
+    "exposures": 1
   },
   "காரம்": {
     "gloss": "Spicy",
@@ -914,9 +925,11 @@
     "seen_in": [
       6,
       10,
-      72
+      72,
+      86
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-10",
+    "exposures": 1
   },
   "வாருங்களா?": {
     "gloss": "Will you come?",
@@ -1497,9 +1510,11 @@
       19,
       21,
       22,
-      26
+      26,
+      86
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-10",
+    "exposures": 1
   },
   "கிட்ட": {
     "gloss": "Near / With (person)",
@@ -2023,10 +2038,11 @@
       29,
       61,
       80,
-      85
+      85,
+      86
     ],
-    "last_surfaced": "2026-08-08",
-    "exposures": 2
+    "last_surfaced": "2026-08-10",
+    "exposures": 3
   },
   "முடியாது": {
     "gloss": "Cannot / Impossible",
@@ -2626,10 +2642,11 @@
       34,
       40,
       46,
-      85
+      85,
+      86
     ],
-    "last_surfaced": "2026-08-08",
-    "exposures": 1
+    "last_surfaced": "2026-08-10",
+    "exposures": 2
   },
   "frame:present-future-toggle": {
     "type": "pattern",
@@ -3223,11 +3240,13 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
+    "seen_in": [
+      86
+    ],
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 2
+    "exposures": 3
   },
   "பிறகு பார்க்கலாம்": {
     "type": "chunk",
@@ -3436,12 +3455,13 @@
     "seen_in": [
       67,
       68,
-      72
+      72,
+      86
     ],
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 2
+    "exposures": 3
   },
   "frame:giveme-noun": {
     "type": "pattern",
@@ -3491,13 +3511,14 @@
     "recognition": "struggled",
     "production": "cold",
     "seen_in": [
-      68
+      68,
+      86
     ],
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
     "reps": 1,
-    "exposures": 1
+    "exposures": 2
   },
   "என்ன சமைக்கிற?": {
     "gloss": "What are you cooking? (informal)",
@@ -3714,11 +3735,13 @@
     ],
     "recognition": "comfortable",
     "production": "none",
-    "seen_in": [],
+    "seen_in": [
+      86
+    ],
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 3
+    "exposures": 4
   },
   "அப்படியா?!": {
     "type": "chunk",
@@ -3782,12 +3805,13 @@
     "seen_in": [
       65,
       67,
-      68
+      68,
+      86
     ],
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 1
+    "exposures": 2
   },
   "frame:we-om": {
     "type": "pattern",
@@ -3828,13 +3852,14 @@
     "production": "none",
     "seen_in": [
       68,
-      83
+      83,
+      86
     ],
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "catch",
     "reps": 2,
-    "exposures": 2
+    "exposures": 3
   },
   "frame:hearsay-aam": {
     "type": "pattern",
@@ -3861,12 +3886,13 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
-      82
+      82,
+      86
     ],
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 3
+    "exposures": 4
   },
   "ரொம்ப சந்தோஷம்": {
     "type": "chunk",
@@ -4054,12 +4080,14 @@
     ],
     "recognition": "struggled",
     "production": "cold",
-    "seen_in": [],
+    "seen_in": [
+      86
+    ],
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
     "reps": 6,
-    "exposures": 2
+    "exposures": 3
   },
   "frame:happened-aachu": {
     "type": "pattern",
@@ -4193,12 +4221,13 @@
     "production": "none",
     "seen_in": [
       59,
-      60
+      60,
+      86
     ],
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 2
+    "exposures": 3
   },
   "முடிஞ்சா": {
     "type": "chunk",
@@ -4211,12 +4240,13 @@
     "production": "none",
     "seen_in": [
       59,
-      60
+      60,
+      86
     ],
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 2
+    "exposures": 3
   },
   "அலைச்சல்": {
     "type": "chunk",
@@ -4232,13 +4262,14 @@
       61,
       76,
       78,
-      83
+      83,
+      86
     ],
-    "last_surfaced": "2026-08-06",
+    "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "catch",
     "reps": 2,
-    "exposures": 3
+    "exposures": 4
   },
   "ஜாஸ்தி": {
     "type": "chunk",
@@ -4251,13 +4282,14 @@
     "production": "cold",
     "seen_in": [
       80,
-      83
+      83,
+      86
     ],
-    "last_surfaced": "2026-08-09",
+    "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "catch",
     "reps": 3,
-    "exposures": 2
+    "exposures": 3
   },
   "ஒரே கல்லுல ரெண்டு மாங்கா": {
     "type": "chunk",
@@ -4540,9 +4572,11 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
-      66
+      66,
+      86
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-10",
+    "exposures": 1
   },
   "தப்பாச்சு": {
     "gloss": "a mistake happened / (I) messed up (தப்பு ஆச்சு fused)",
@@ -4600,9 +4634,11 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
-      65
+      65,
+      86
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-10",
+    "exposures": 1
   },
   "உட்காரலாமா?": {
     "gloss": "shall we sit? / may I sit? (permission ask)",
@@ -4612,9 +4648,11 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
-      67
+      67,
+      86
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-10",
+    "exposures": 1
   },
   "கேக்கலாமா?": {
     "gloss": "shall we ask? / may I ask?",
@@ -4981,9 +5019,11 @@
     "phonetic": [],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
-    "last_surfaced": "2026-07-28",
-    "exposures": 1
+    "seen_in": [
+      86
+    ],
+    "last_surfaced": "2026-08-10",
+    "exposures": 2
   },
   "ஆச்சு": {
     "gloss": "it happened / it's done (neuter past + -இடு finality)",
@@ -5173,5 +5213,16 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": "2026-08-05"
+  },
+  "பக்கம்": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      86
+    ],
+    "last_surfaced": "2026-08-10",
+    "exposures": 1
   }
 }
