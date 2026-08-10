@@ -18,6 +18,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > close on the instinct — but the softener here isn't 'konjam', it's the conditional: 'mudinja, hotel-la nirthuga.' one word, and he'll feel the please in it.
 
+**16:01 · Andrew** — **HINTED**
+> Mudinja, hotel la niruthunga
+
+**Anna ↩**
+> capped — mudinja is on the revealed list, but it's in your mouth now. 'niruthunga' is exactly right too — that's the whole ask: mudinja, hotel-la niruthunga.
+
 
 ## Sunday 2026-08-09
 
