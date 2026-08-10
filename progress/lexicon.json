@@ -3441,7 +3441,7 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 1
+    "exposures": 2
   },
   "frame:giveme-noun": {
     "type": "pattern",

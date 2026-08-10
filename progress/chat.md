@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Monday 2026-08-10
+
+**10:16 · Anna** 🎧  ·  audio / lore: the -laam machine
+> 🎧 kilambalaama? — the one tail that runs the whole family. 60 sec before you pack.
+
+
 ## Sunday 2026-08-09
 
 **08:35 · Anna** 🎧  ·  fielding / fielding: innoru thada
