@@ -413,5 +413,29 @@
     "note": "carries a memorised whole phrase into a slot that needs the verb swapped -- has the chunk, not the machine",
     "word": "",
     "dose_channel": "episode"
+  },
+  {
+    "at": "2026-08-10T19:59:29Z",
+    "date": "2026-08-10",
+    "lane": "knock",
+    "modality": "text",
+    "tag": "konjam-for-softener",
+    "said": "Konjam stop",
+    "want": "mudinja",
+    "note": "konjam softens by degree; mudinja softens by conditionality — 'if possible' is the ask",
+    "word": "முடிஞ்சா",
+    "dose_channel": "episode"
+  },
+  {
+    "at": "2026-08-10T19:59:29Z",
+    "date": "2026-08-10",
+    "lane": "knock",
+    "modality": "text",
+    "tag": "english-word-order",
+    "said": "Naan hotel ku ponom",
+    "want": "hotel-la mudinja nirthuga",
+    "note": "built the English sentence and translated it; Tamil drops the 'I' and leads with destination",
+    "word": "",
+    "dose_channel": "episode"
   }
 ]
