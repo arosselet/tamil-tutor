@@ -1947,3 +1947,11 @@ Details live in git history; this is the index of the *conclusions*.
   a greedy `.*\]` that swallowed the text between two pauses. M74 re-rendered to `_v2`;
   the other twelve stand. `s22` grew a **corpus guard** — fixtures prove the parser, only
   the corpus proves the tank.
+- **Fail forwards: a renderer fix does not oblige a backfill** (2026-08-10, Andrew, on the
+  inline-pause bug). Fix the machine, add the guard, re-render only what is still
+  load-bearing — the rest of the tank stands as shipped. A published episode is a spent
+  dose, not a record to keep true: its words have already moved through the lexicon, and
+  re-rendering a month of audio costs quota and feed churn to improve doses nobody will
+  play again. Applies to every derived artifact the pipeline emits, not just audio. The
+  question to ask is *"is this one still being used?"* — M74 was (live deck material, two
+  days out), the other twelve were not. Do not re-ask this per bug.
