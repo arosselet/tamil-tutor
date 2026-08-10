@@ -24,6 +24,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > capped — mudinja is on the revealed list, but it's in your mouth now. 'niruthunga' is exactly right too — that's the whole ask: mudinja, hotel-la niruthunga.
 
+**19:28 · Anna** 🎧  ·  eavesdrop / eavesdrop: -thukka soak
+> 📞 overhear: Meena akka on the phone — what's she sorting out for herself? 45 sec.
+
 
 ## Sunday 2026-08-09
 
