@@ -45,6 +45,7 @@ import sys
 import tempfile
 import time
 import tokenize
+import types
 from datetime import date as date_cls, datetime, timedelta, timezone
 from pathlib import Path
 
@@ -1157,7 +1158,16 @@ CODE_BUDGETS = {
     "scripts/render_audio.py": 500,
     "scripts/render_chat.py": 100,
     "scripts/render_demo.py": 100,
-    "scripts/render_drill.py": 225,
+    # 225 → 235 (2026-08-10). RETIRED IN THIS DIFF: `ask_json`'s private parse —
+    # the char-0 `json.loads` and the `startswith("```")` fence-strip — replaced by
+    # the `parse_llm_response` every other lane already used. That is a deletion;
+    # the growth is the retry loop around it, which is mechanism and is the point:
+    # a coin-flip parse is survivable in a lane that asks ONCE and fatal in one that
+    # asks fifteen times, and the long-haul tape died at movement 5 of 15 proving it.
+    # NOTE for the next raise: this file now holds a drill lane AND the LLM-call
+    # helper three lanes import. That is the two-jobs smell, and the split is
+    # already named — ask_json belongs beside parse_llm_json, not here.
+    "scripts/render_drill.py": 235,
     # New file 2026-08-10 at 318 lines — the fourth audio lane. ~45 of those are
     # BASE_MANDATE + the five SHAPE_CLAUSES, which code_lines counts as mechanism
     # (prompt strings always do). Budgeted at 340 rather than 400: the headroom is
@@ -1213,6 +1223,14 @@ CODE_BUDGET_EXEMPT = {"scripts/smoke_test.py"}
 
 def code_lines(src: str) -> int:
     """Executable lines: everything that is not blank, a comment, or a docstring."""
+    return len(code_line_numbers(src))
+
+
+def code_line_numbers(src: str) -> set[int]:
+    """Which lines are mechanism. Split out of `code_lines` (2026-08-10) so a
+    source-text assertion can search MECHANISM without matching the prose that
+    explains it — a docstring quoting the code it retired otherwise fails the very
+    check that proves the code is gone."""
     doc: set[int] = set()
     for node in ast.walk(ast.parse(src)):
         if isinstance(node, (ast.Module, ast.FunctionDef, ast.AsyncFunctionDef,
@@ -1225,15 +1243,15 @@ def code_lines(src: str) -> int:
     comment = {tok.start[0] for tok in
                tokenize.generate_tokens(io.StringIO(src).readline)
                if tok.type == tokenize.COMMENT}
-    n = 0
+    out: set[int] = set()
     for i, line in enumerate(src.splitlines(), 1):
         stripped = line.strip()
         if not stripped or i in doc:
             continue
         if i in comment and stripped.startswith("#"):
             continue
-        n += 1
-    return n
+        out.add(i)
+    return out
 
 
 def s18_size_budgets(mk, kr, sb: Path):
@@ -5018,6 +5036,145 @@ def s50_read_surfaces_are_phonetic(mk, kr, sb: Path):
               str(calls))
 
 
+def s58_a_sheet_survives_a_model_thinking_out_loud(sb: Path):
+    """The reply parser, for every shape a real reply comes in (2026-08-10).
+
+    THE FAILURE THIS BLOCK EXISTS TO PREVENT, because it already happened: the
+    first 45-minute long-haul render died at movement 5 of 15 with
+    `Expecting value: line 1 column 1 (char 0)`. Nothing was wrong with the
+    model's answer — it had simply written "Looking at the hosts carefully
+    before building:" above a perfectly good object, and the parse only ever
+    looked at character 0. Four movements of TTS were already paid for and the
+    tape was lost whole.
+
+    IT IS THE MANDATE THAT INVITES IT. The `inventory` clause orders the writer
+    to DROP coincidental hosts — a judgement per host — so it shows its work.
+    Measured: 3 of 6 identical calls came back prose-prefixed. That is a coin
+    flip per call, and a long-haul tape makes ~15 calls in a row.
+
+    The negatives matter as much: a reply with NO object must still raise, or a
+    lane silently ships a sheet-shaped blank instead of stopping.
+
+    THE STRUCTURAL POINT, and the reason this block is not just three more parser
+    cases: `parse_llm_json` had ALREADY fixed this family (07-04 empty text, 07-07
+    single quotes, 07-13 prose-before-a-fence). `ask_json` simply never called it
+    and re-earned the bug from scratch. So the last assertions here are that the
+    lanes share ONE parser — a second one is how a fixed bug comes back."""
+    print("\n58. A sheet survives a model that thinks out loud first (2026-08-10)")
+    rd = importlib.import_module("render_drill")
+    mk = importlib.import_module("morning_knock")
+    sheet = '{"frame": "roots", "beats": [{"ta": "x", "en": "y", "who": "anna"}]}'
+
+    for name, text in [
+            ("a bare object", sheet),
+            ("a ```json fence", f"```json\n{sheet}\n```"),
+            ("an unlabelled fence", f"```\n{sheet}\n```"),
+            ("REASONING PROSE, then a bare object — the render-killer",
+             f"Looking at the hosts carefully before building:\n\n- real\n\n{sheet}"),
+            ("reasoning prose, then a fence",
+             f"Checking each host:\n\n```json\n{sheet}\n```"),
+            ("prose that mentions a brace before the real object",
+             f"I considered {{a, b}} and then wrote:\n\n```json\n{sheet}\n```"),
+            ("an object with prose trailing after it",
+             f"{sheet}\n\nI dropped one coincidental host.")]:
+        try:
+            got = mk.parse_llm_json(text)
+        except Exception as e:                                  # noqa: BLE001
+            got = {"frame": f"<raised {type(e).__name__}: {e}>"}
+        check(f"the sheet is recovered from {name}", got.get("frame") == "roots",
+              str(got.get("frame")))
+
+    check("a multi-beat sheet keeps every beat, not just the first",
+          len(mk.parse_llm_json(
+              'prose\n{"frame": "f", "beats": [{"ta": "1"}, {"ta": "2"}, {"ta": "3"}]}'
+          )["beats"]) == 3)
+
+    # A reply carrying no object must STOP the lane, never yield a blank sheet.
+    for name, text in [("an empty completion", ""), ("only whitespace", "   \n "),
+                       ("a refusal with no object", "I cannot do that.")]:
+        raised = False
+        try:
+            mk.parse_llm_json(text)
+        except (ValueError, json.JSONDecodeError):
+            raised = True
+        check(f"{name} raises rather than returning a blank sheet", raised)
+
+    # ONE parser, not two. The drill lane owning a private brace-slice is exactly
+    # how 07-13 came back on 08-10; the long-haul lane borrows this one in turn.
+    drill_src = (REAL_BASE / "scripts" / "render_drill.py").read_text(encoding="utf-8")
+    check("ask_json parses through the shared parser, not a private one",
+          "parse_llm_response(resp)" in drill_src, "ask_json re-implemented the parse")
+    # MECHANISM ONLY — the docstring above quotes the retired parse verbatim, and a
+    # raw-text search matches its own explanation. Same trap s57 hit reading source.
+    drill_code = "\n".join(l for i, l in enumerate(drill_src.splitlines(), 1)
+                           if i in code_line_numbers(drill_src))
+    check("...and no private brace-slice survives in the drill lane",
+          'find("{")' not in drill_code and 'startswith("```")' not in drill_code,
+          "a second parser is how 07-13 came back on 08-10")
+    check("the long-haul lane borrows ask_json rather than rolling its own",
+          "from render_drill import ask_json" in
+          (REAL_BASE / "scripts" / "render_longhaul.py").read_text(encoding="utf-8"))
+
+    # The retry is what makes a 15-call lane survivable; the LAST failure must
+    # still surface, or a tape ends silently short instead of stopping loudly.
+    src = inspect.getsource(rd.ask_json)
+    check("ask_json retries rather than dying on one bad draw",
+          "for attempt in range" in src and "tries" in src, src[:200])
+    check("...and re-raises the final failure instead of swallowing it",
+          "raise" in src, src[:200])
+
+    calls = 0
+
+    def _client(bodies, finish="stop"):
+        """A stand-in OpenAI client yielding `bodies` in turn (last one repeats)."""
+        def create(**kw):
+            nonlocal calls
+            calls += 1
+            return types.SimpleNamespace(choices=[types.SimpleNamespace(
+                finish_reason=finish,
+                message=types.SimpleNamespace(
+                    content=bodies[min(calls - 1, len(bodies) - 1)]))])
+        return lambda **kw: types.SimpleNamespace(
+            chat=types.SimpleNamespace(
+                completions=types.SimpleNamespace(create=create)))
+
+    real_client, real_key = rd.OpenAI, os.environ.get("OPENROUTER_API_KEY")
+    os.environ["OPENROUTER_API_KEY"] = "test"
+    try:
+        rd.OpenAI = _client(["Thinking about it...", "Still thinking...", sheet])
+        got = rd.ask_json("sys", "usr")
+        check("a lane recovers from two bad draws in a row",
+              got.get("frame") == "roots" and calls == 3, f"{got} after {calls} calls")
+
+        calls = 0
+        rd.OpenAI = _client(["no object here"])
+        stopped = False
+        try:
+            rd.ask_json("sys", "usr")
+        except (ValueError, json.JSONDecodeError):
+            stopped = True
+        check("...but a lane that never gets a sheet stops loudly", stopped)
+        check("...after re-rolling, not on the first bad draw", calls == 3, f"{calls} calls")
+
+        # A blown ceiling is NOT a bad draw. Re-rolling it burns three renders'
+        # worth of tokens to hit the same wall — the 08-05 guard's whole point.
+        calls = 0
+        rd.OpenAI = _client(["deliberating at length", sheet], finish="length")
+        truncated = False
+        try:
+            rd.ask_json("sys", "usr")
+        except ValueError as e:
+            truncated = "TRUNCATED" in str(e)
+        check("a truncation fails loudly instead of being re-rolled blind",
+              truncated and calls == 1, f"truncated={truncated} after {calls} calls")
+    finally:
+        rd.OpenAI = real_client
+        if real_key is None:
+            os.environ.pop("OPENROUTER_API_KEY", None)
+        else:
+            os.environ["OPENROUTER_API_KEY"] = real_key
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -5075,6 +5232,7 @@ def main():
         s56_timezone_is_one_dial(sb)
         s48_drill_answer_key_lint(sb)
         s57_longhaul_tape(sb)
+        s58_a_sheet_survives_a_model_thinking_out_loud(sb)
         s49_thread_continuity(mk, kr, sb)
         s50_read_surfaces_are_phonetic(mk, kr, sb)
         s51_derived_files_are_rerendered_not_merged(mk, sb)

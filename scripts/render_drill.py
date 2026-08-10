@@ -34,7 +34,8 @@ from openai import OpenAI
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from morning_knock import (OPENROUTER_BASE, MODEL, ANNA_VOICE, load_env,
-                           push_to_phone, commit_and_push, jsdelivr_url)
+                           push_to_phone, commit_and_push, jsdelivr_url,
+                           parse_llm_response)
 from render_audio import generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME, clean_for_tts
 from suggest_targets import deck_status
 from state_io import LEXICON_PATH, load_json
@@ -155,18 +156,42 @@ def with_lead(pending: list[dict], lead: list[dict]) -> list[dict]:
     return lead + [t for t in pending if t["word"] not in have]
 
 
-def ask_json(system: str, user: str, max_tokens: int = 2400) -> dict:
-    """One single-shot LLM call → parsed JSON (fenced or bare). Shared by the
-    sheet writer and the answer-key lint so the fence handling lives once."""
+def ask_json(system: str, user: str, max_tokens: int = 2400, tries: int = 3) -> dict:
+    """One LLM call → parsed JSON. Shared by the sheet writer, the answer-key lint
+    and the long-haul movement writer, so the parsing lives once.
+
+    THIS NOW PARSES THROUGH `parse_llm_response`, AND REPLACES a private parse that
+    only ever looked at character 0 — bare text straight to `json.loads`, a fence
+    found only by `text.startswith("```")`. That is the KF-7/KF-10/07-13 family,
+    already diagnosed and already fixed ONCE in `parse_llm_json`: fence-anywhere,
+    brace-slice, literal_eval. This lane never called it, so it re-earned the same
+    bug from scratch — the cost of a second parser, not of a hard problem.
+
+    IT SURFACED HERE because the long-haul `inventory` clause orders the writer to
+    DROP hosts that are coincidences — a judgement per host — so it shows its work
+    above the object. MEASURED on the movement that killed the first 45-minute
+    render: 3 of 6 identical calls came back prose-prefixed. The first render died
+    at movement 5 of 15, after paying for four movements of TTS.
+
+    RETRIED, because that arithmetic is the real lesson. A coin-flip parse is
+    survivable where a lane asks once and lethal where it asks fifteen times in a
+    row; `parse_llm_response` handles the SHAPE of a good reply, and the loop
+    handles the absence of one (an empty completion, a refusal). A truncation is
+    NOT re-rolled blind — `parse_llm_response` raises it as its own ValueError
+    naming the ceiling, and re-rolling that is the "pure motion" the 08-05 guard
+    exists to prevent, so it is left to fail loudly at the call site."""
     client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
-    resp = client.chat.completions.create(
-        model=MODEL, max_tokens=max_tokens,
-        messages=[{"role": "system", "content": system},
-                  {"role": "user", "content": user}])
-    text = resp.choices[0].message.content.strip()
-    if text.startswith("```"):
-        text = text.split("```")[1].lstrip("json").strip()
-    return json.loads(text, strict=False)
+    for attempt in range(1, tries + 1):
+        resp = client.chat.completions.create(
+            model=MODEL, max_tokens=max_tokens,
+            messages=[{"role": "system", "content": system},
+                      {"role": "user", "content": user}])
+        try:
+            return parse_llm_response(resp)
+        except json.JSONDecodeError as e:
+            if attempt == tries:
+                raise
+            print(f"   ⚠ no JSON in the reply ({e}) — retry {attempt + 1}/{tries}")
 
 
 def write_sheet(pending: list[dict], n_lead: int = 0, focus: str | None = None) -> dict:
