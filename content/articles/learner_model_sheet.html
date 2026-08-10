@@ -1,0 +1,251 @@
+<title>Learner Model — The Wiring</title>
+<style>
+  /* Palette, type and card grid inherited from content/cheatsheet.html so the two
+     sheets read as one set. Two things are new, because the audience is:
+       · a mono role — this sheet's payload is field names and constants
+       · the glyph column means ENFORCEMENT, not the learner's progress          */
+  :root {
+    --paper: #FBFAF6;
+    --card: #FFFFFF;
+    --ink: #23211C;
+    --ink-soft: #5C594F;
+    --line: #DFE3DA;
+    --leaf: #2F6B4F;       /* enforced in code */
+    --leaf-soft: #E7F0EA;
+    --brass: #97741F;      /* protocol only — can drift */
+    --brass-soft: #F5EEDC;
+    --rose: #8C4A3C;       /* held by a test / an incident */
+    --rose-soft: #F6E8E4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #141714; --card: #1B1F1B; --ink: #E9E7DE; --ink-soft: #A5A296;
+      --line: #2E332D; --leaf: #85C2A1; --leaf-soft: #223328;
+      --brass: #D9B36A; --brass-soft: #2E2919; --rose: #D49483; --rose-soft: #33231F;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #141714; --card: #1B1F1B; --ink: #E9E7DE; --ink-soft: #A5A296;
+    --line: #2E332D; --leaf: #85C2A1; --leaf-soft: #223328;
+    --brass: #D9B36A; --brass-soft: #2E2919; --rose: #D49483; --rose-soft: #33231F;
+  }
+
+  body { background: var(--paper); color: var(--ink);
+    font-family: system-ui, "Segoe UI", "Noto Sans", sans-serif;
+    font-size: 14px; line-height: 1.45; margin: 0; padding: 2rem 1rem; }
+  .sheet { max-width: 64rem; margin: 0 auto; }
+  code, .k, .v { font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Cascadia Mono", monospace;
+    font-size: .88em; font-variant-numeric: tabular-nums; }
+
+  header { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem 1.25rem;
+    border-bottom: 3px solid var(--leaf); padding-bottom: .6rem; margin-bottom: 1.2rem; }
+  h1 { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    font-size: 1.7rem; margin: 0; letter-spacing: -.01em; }
+  h1 .q { color: var(--leaf); }
+  .sub { color: var(--ink-soft); font-size: .85rem; }
+  .legend { margin-left: auto; font-size: .78rem; color: var(--ink-soft);
+    display: flex; gap: .9rem; flex-wrap: wrap; }
+
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; align-items: start; }
+  @media (max-width: 52rem) { .cols { grid-template-columns: 1fr; } }
+  .span { grid-column: 1 / -1; }
+
+  section { background: var(--card); border: 1px solid var(--line); border-radius: 6px;
+    padding: .8rem .9rem; break-inside: avoid; }
+  h2 { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    font-size: 1.02rem; margin: 0 0 .15rem; color: var(--leaf); }
+  h2 .why { font-family: system-ui, sans-serif; font-weight: 400; font-size: .78rem;
+    color: var(--ink-soft); font-style: italic; }
+
+  .m { display: grid; grid-template-columns: 1.1rem 12rem 1fr; gap: .35rem;
+    padding: .32rem 0; border-top: 1px dashed var(--line); align-items: baseline; }
+  .m:first-of-type { border-top: none; }
+  .m.wide { grid-template-columns: 1.1rem 9rem 8.5rem 1fr; }
+  .dot { font-size: .74rem; line-height: 1.6; }
+  .dot.code { color: var(--leaf); } .dot.test { color: var(--rose); } .dot.proto { color: var(--brass); }
+  .pat { font-weight: 650; }
+  .pat.k { font-weight: 600; }
+  .v { color: var(--leaf); }
+  .gl { color: var(--ink-soft); }
+  .gl b { color: var(--ink); font-weight: 600; }
+  .gl .ex { display: block; font-size: .85rem; }
+
+  .note { background: var(--leaf-soft); border-radius: 4px; padding: .5rem .65rem;
+    font-size: .85rem; margin-top: .55rem; }
+  .note b { color: var(--leaf); }
+  .note.gold { background: var(--brass-soft); } .note.gold b { color: var(--brass); }
+  .note.scar { background: var(--rose-soft); } .note.scar b { color: var(--rose); }
+
+  .bars { display: grid; gap: .3rem; margin: .1rem 0 .2rem; }
+  .bar { display: grid; grid-template-columns: 6.5rem 1fr 3.2rem; gap: .5rem; align-items: center;
+    font-size: .83rem; }
+  .bar .track { height: .5rem; background: var(--line); border-radius: 2px; overflow: hidden; }
+  .bar .fill { height: 100%; background: var(--leaf); }
+  .bar .fill.mid { background: var(--rose); } .bar .fill.low { background: var(--brass); }
+  .bar .n { text-align: right; color: var(--ink-soft);
+    font-family: ui-monospace, Menlo, monospace; font-variant-numeric: tabular-nums; }
+
+  ol.build { margin: .2rem 0 0; padding-left: 1.2rem; }
+  ol.build li { padding: .18rem 0; }
+
+  footer { margin-top: 1.1rem; padding-top: .5rem; border-top: 1px solid var(--line);
+    font-size: .78rem; color: var(--ink-soft); display: flex; justify-content: space-between;
+    flex-wrap: wrap; gap: .5rem; }
+  a { color: var(--leaf); }
+  a:focus-visible { outline: 2px solid var(--leaf); outline-offset: 2px; }
+
+  @media print {
+    body { padding: 0; font-size: 11px; background: #fff; color: #1a1915; }
+    section { break-inside: avoid; }
+  }
+</style>
+
+<div class="sheet">
+
+<header>
+  <h1>Learner Model <span class="q">— the wiring</span></h1>
+  <div class="sub">what the system believes about one person · build-sheet, not argument</div>
+  <div class="legend">
+    <span><span class="dot code">■</span> in code</span>
+    <span><span class="dot test">◧</span> held by a test</span>
+    <span><span class="dot proto">□</span> protocol only — drifts</span>
+  </div>
+</header>
+
+<div class="cols">
+
+<section class="span">
+  <h2>Two stores, two owners <span class="why">· the split everything else depends on</span></h2>
+  <div class="m wide"><span class="dot code">■</span><span class="pat">Counters</span><span class="v">lexicon.json</span>
+    <span class="gl">336 records, one per word/chunk/frame. <b>Only a scored answer may move a counter.</b> Deterministic, machine-owned, no prose.</span></div>
+  <div class="m wide"><span class="dot proto">□</span><span class="pat">Notebook</span><span class="v">learner.json · profile.md</span>
+    <span class="gl">What the coach has <b>concluded</b>: how this person wants to be taught, what they called too much, which assignment they called contrived. Prose. <b>Nothing in it could have been produced by a grade.</b></span></div>
+  <div class="m wide"><span class="dot code">■</span><span class="pat">One writer</span><span class="v">sync_state.py</span>
+    <span class="gl">Every other module reads. Ten scripts import the IO layer; exactly one mutates state. Hand-editing the JSON is banned because the canonicaliser lives in the writer.</span></div>
+  <div class="note"><b>The law:</b> a preference is not a result. A system with only counters will keep being correct <em>at</em> someone in a way they do not come back to. Build both stores on day one — the notebook is not a nice-to-have, it is the half that keeps the person.</div>
+</section>
+
+<section class="span">
+  <h2>The record <span class="why">· the whole schema — copy this and you have the pillar's spine</span></h2>
+  <div class="m wide"><span class="dot code">■</span><span class="pat k">«key»</span><span class="v">தமிழ் script</span>
+    <span class="gl"><b>Canonical form is the key.</b> A phonetic-only token can never mint a record — one regex decides. Fork to another language, replace the regex.</span></div>
+  <div class="m wide"><span class="dot code">■</span><span class="pat k">phonetic</span><span class="v">[str]</span>
+    <span class="gl">Every spelling the learner might type. Feeds a reverse index so <code>vandhutten</code> resolves to the script key. <b>Never make a learner fight a keyboard.</b></span></div>
+  <div class="m wide"><span class="dot code">■</span><span class="pat k">recognition</span><span class="v">solid | comfortable | struggled</span>
+    <span class="gl">Can they follow it when it arrives.</span></div>
+  <div class="m wide"><span class="dot code">■</span><span class="pat k">production</span><span class="v">cold | hinted | none</span>
+    <span class="gl">Can they produce it unaided. <b>cold</b> = instant, no prompt. <b>hinted</b> = needed a nudge. Separate axis, separate decay.</span></div>
+  <div class="m wide"><span class="dot code">■</span><span class="pat k">direction</span><span class="v">fire | catch</span>
+    <span class="gl">Whether this item is <em>ever</em> to be forced to production. <b>catch</b> items are ear-only — the win is recognition and demanding output is a bug. 12 of 83 here.</span></div>
+  <div class="m wide"><span class="dot code">■</span><span class="pat k">type</span><span class="v">chunk | pattern</span>
+    <span class="gl">A fixed phrase deployed whole, or a slot template that generates. Patterns are graded on a <em>novel</em> fill, never a memorised line.</span></div>
+  <div class="m wide"><span class="dot code">■</span><span class="pat k">last_surfaced</span><span class="v">date</span>
+    <span class="gl">Drives every staleness calculation. <code>null</code> sorts as infinitely overdue, so a never-touched item outranks a merely old one.</span></div>
+  <div class="m wide"><span class="dot code">■</span><span class="pat k">seen_in</span><span class="v">[episode-id]</span>
+    <span class="gl">Where it has been heard. Distinguishes <em>exposed</em> from <em>tested</em> — the gap that makes teach-first enforceable.</span></div>
+  <div class="m wide"><span class="dot code">■</span><span class="pat k">reps</span><span class="v">int</span>
+    <span class="gl">Times deliberately worked. Feeds the stuck-flag, not a score.</span></div>
+  <div class="m wide"><span class="dot proto">□</span><span class="pat k">pairs_with</span><span class="v">«key»</span>
+    <span class="gl">His line and her answering line, drilled as a unit — recognition alone isn't the win for a call-and-response.</span></div>
+  <div class="note gold"><b>Cheap and load-bearing:</b> <code>direction</code> and <code>type</code> are one word each and they change what the whole system is allowed to demand. Most tutors have neither, then force output on things that were only ever meant to be understood.</div>
+</section>
+
+<section>
+  <h2>Two grades, never one <span class="why">· the failure this prevents</span></h2>
+  <div class="bars">
+    <div class="bar"><span>recognised</span><span class="track"><span class="fill" style="width:54%"></span></span><span class="n">183</span></div>
+    <div class="bar"><span>fires cold</span><span class="track"><span class="fill low" style="width:24%"></span></span><span class="n">79</span></div>
+  </div>
+  <div class="m"><span class="dot code">■</span><span class="pat">recognition</span><span class="gl">95 solid · 88 comfortable · 153 struggled</span></div>
+  <div class="m"><span class="dot code">■</span><span class="pat">production</span><span class="gl">79 cold · 14 hinted · 243 none</span></div>
+  <div class="note scar"><b>Collapse them and you get a lie.</b> One score would report ~92 words solid while the person can actually fire 41. They decay at different rates and they are different skills — what you can follow versus what you can do unaided. <b>The gap is not an error bar; it is the entire work.</b></div>
+</section>
+
+<section>
+  <h2>What may move a counter <span class="why">· and how far</span></h2>
+  <div class="m"><span class="dot code">■</span><span class="pat">a scored answer</span><span class="gl">The only input. Not a transcript, not attendance, not a tap.</span></div>
+  <div class="m"><span class="dot code">■</span><span class="pat">demotion = one step</span>
+    <span class="gl"><code>solid → comfortable → struggled</code>, and struggled is the floor. <b>Never straight to the bottom on one miss</b> — a bad day is not amnesia.</span></div>
+  <div class="m"><span class="dot code">■</span><span class="pat">cold is one-way</span><span class="gl">Production going cold is graduation: the item leaves the drill rotation for good and is simply used.</span></div>
+  <div class="m"><span class="dot proto">□</span><span class="pat">scaffolded ≠ fired</span>
+    <span class="gl">If the prompt contained the answer, or named the move, it logs as <em>seen</em>. The grader has to be honest against its own prompt — this is the rule most often broken, and it is broken by the coach, not the learner.</span></div>
+  <div class="note"><b>Build note:</b> route <em>every</em> learner-facing write through the same resolver. We have one flag that does a plain dict lookup instead, so the same word is accepted by one command and rejected by the next. It costs a retry every time and it has never been worth the saved line.</div>
+</section>
+
+<section class="span">
+  <h2>The ordering function <span class="why">· one place, read by every channel — chat, audio, notifications</span></h2>
+  <div class="m wide"><span class="dot code">■</span><span class="pat k">RECOGNIZED</span><span class="v">{comfortable, solid}</span>
+    <span class="gl">Only already-recognised items are production targets. <b>You cannot force output on something never understood</b> — that is the teach path, a different door.</span></div>
+  <div class="m wide"><span class="dot code">■</span><span class="pat k">PROD_ORDER</span><span class="v">hinted 0 &lt; none 1</span>
+    <span class="gl">Ripest first: hinted is one hint away from cold.</span></div>
+  <div class="m wide"><span class="dot code">■</span><span class="pat k">RECOG_ORDER</span><span class="v">solid 0 &lt; comfortable 1</span>
+    <span class="gl">Among equals, the better-recognised word is the riper target.</span></div>
+  <div class="m wide"><span class="dot code">■</span><span class="pat k">FOCUS_SIZE</span><span class="v">12</span>
+    <span class="gl">Dense rotation size. The rest ride a slow background — stored membership, not an emergent sort, so it is immune to counting bugs.</span></div>
+  <div class="m wide"><span class="dot code">■</span><span class="pat k">STUCK_REPS</span><span class="v">10</span>
+    <span class="gl">Past this, <b>flag the approach, never evict the word.</b> Measured: median 2 reps to cold, p90 5. At 10 it is the method failing, not the learner. A silently parked word is the starvation you are trying to fix.</span></div>
+  <div class="m wide"><span class="dot code">■</span><span class="pat k">RETEST_DAYS</span><span class="v">14</span>
+    <span class="gl">Hinted items silent this long resurface for a cold retest. Without it <b>hinted is a no-way door</b> — cold graduates, none gets drilled, and the middle state quietly rots.</span></div>
+  <div class="m wide"><span class="dot code">■</span><span class="pat k">INTERVAL_DAYS</span><span class="v">cold 21 · hinted 10 · none 5</span>
+    <span class="gl">Resurfacing clock, keyed on the production axis — the weaker the production, the tighter the loop.</span></div>
+  <div class="note"><b>The law:</b> one function, one file, every channel. The moment two surfaces each decide what is due, they disagree, and the disagreement shows up as the system contradicting itself in front of the person.</div>
+</section>
+
+<section>
+  <h2>The error ledger <span class="why">· retires, never deletes</span></h2>
+  <div class="m"><span class="dot code">■</span><span class="pat k">row</span>
+    <span class="gl"><code>tag · said · want · note · date · lane · dose_channel</code> — <b>record the pattern, not the wrong answer.</b> The tag is the unit; the same tag reused is the signal.</span></div>
+  <div class="m"><span class="dot code">■</span><span class="pat k">PATTERN_COUNT = 2</span><span class="gl">One is noise, two is signal. Same bar the system uses for its own bugs.</span></div>
+  <div class="m"><span class="dot code">■</span><span class="pat k">RETIRE_DAYS = 21</span><span class="gl">Deliberately equal to the cold resurfacing interval, so a pattern and a word age on <b>one</b> clock rather than two constants drifting apart.</span></div>
+  <div class="m"><span class="dot code">■</span><span class="pat">closed by firing</span>
+    <span class="gl"><b>A correction never closes a slip.</b> It closes only when the right form fires unaided, later, in a situation that did not hand it over. Retire ≠ delete: recurrence reopens the original entry intact.</span></div>
+  <div class="m"><span class="dot code">■</span><span class="pat">escalate flag</span><span class="gl">Material was built for this and they missed it again → <b>change the format, never loop harder.</b></span></div>
+  <div class="m"><span class="dot code">■</span><span class="pat">commission gate</span>
+    <span class="gl">A live pattern with no material ever built for it <b>refuses the session close</b> (hard exit). Override is allowed but must state a reason, on the record.</span></div>
+  <div class="note gold"><b>Why this is the highest-value store:</b> a mistake you believed was fixed coming back is the most informative event the ledger holds. Delete on close and you destroy exactly that signal.</div>
+</section>
+
+<section>
+  <h2>Scar: the whitelist that ate the closes <span class="why">· delete-on-omit</span></h2>
+  <div class="note scar">The notebook is rewritten from a fixed key list on every update. <code>slip_closes</code> was <b>not on the list</b> — so recording a close wrote it, and the very same command's rewrite deleted it. <b>No slip had actually closed for a week</b>, and nothing surfaced the loss, because a wiped close is byte-identical to never having tested.</div>
+  <div class="m"><span class="dot test">◧</span><span class="pat">the fix</span><span class="gl">A test asserts the round-trip: write the value, run the update that follows it, assert it survived. Not the parse — <b>the round-trip</b> is the assertion that earns its keep.</span></div>
+  <div class="m"><span class="dot proto">□</span><span class="pat">the rule</span><span class="gl">If you rebuild a record from a whitelist, every new field must be added to it. Prefer a merge that preserves unknown keys — the whitelist bought us nothing that a schema check wouldn't.</span></div>
+</section>
+
+<section>
+  <h2>Scar: silence is not one thing <span class="why">· the three-day false portrait</span></h2>
+  <div class="note scar">An expired token killed the inbound reply path while outgoing messages kept arriving. Every unanswered prompt serialised as <code>reply: null</code> — <b>byte-identical to a prompt the person read and ignored.</b> Silence is not neutral downstream: it feeds decay, demotion and selection. So the system spent three days building, and acting on, a portrait of a non-responsive learner who had in fact replied.</div>
+  <div class="m"><span class="dot proto">□</span><span class="pat">the rule</span><span class="gl"><b>A broken channel and a person who declined must never serialise the same way.</b> Give the model a distinct "no inbound event of any kind" state, and a liveness check that can tell them apart.</span></div>
+</section>
+
+<section class="span">
+  <h2>Not this <span class="why">· boundaries that stop the pillar swallowing its neighbours</span></h2>
+  <div class="m wide"><span class="dot proto">□</span><span class="pat">Not the transcript</span><span class="v">≠ history</span>
+    <span class="gl">History is what was said; this is what is <b>believed</b>. Neither store is a record of the conversation, and the conversation is not a substitute for either.</span></div>
+  <div class="m wide"><span class="dot proto">□</span><span class="pat">Not the motivation engine</span><span class="v">≠ pull</span>
+    <span class="gl">This pillar holds no streak, no debt, no makeup work. It reports honestly and says nothing about whether the person should feel bad — that constraint belongs to a different frame.</span></div>
+  <div class="m wide"><span class="dot proto">□</span><span class="pat">Not the curriculum</span><span class="v">≠ what to teach</span>
+    <span class="gl">It orders what is <em>ready</em>. What is worth learning at all is a domain question and lives with the domain pack.</span></div>
+</section>
+
+<section class="span">
+  <h2>If you are building one <span class="why">· in this order — each step is usable before the next exists</span></h2>
+  <ol class="build">
+    <li><b>One record, two axes.</b> Key, aliases, recognition, production. Resist a single score; you cannot recover the two later from data collected as one.</li>
+    <li><b>A resolver.</b> Alias → canonical, in one function, used by <em>every</em> write. Do this before you have many records and it stays honest.</li>
+    <li><b>Staleness.</b> <code>last_surfaced</code> plus an interval per production level. This alone gives you a working "what's due".</li>
+    <li><b>One ordering function.</b> Before a second channel exists. Adding it after two channels already guess is a migration, not a feature.</li>
+    <li><b>The error ledger.</b> Tags, not wrong answers; a close that only an unaided success can write. Cheap now, impossible to backfill.</li>
+    <li><b>The notebook.</b> A prose store the coach writes and the counters cannot. Last to build, first to matter when the person decides whether to come back.</li>
+  </ol>
+  <div class="note"><b>Sequencing note:</b> steps 1–2 are irreversible-if-skipped; 3–5 are additive; 6 can start as a single text field. Nothing here needs a database.</div>
+</section>
+
+</div>
+
+<footer>
+  <span>Learner Model — the wiring · specifics only. The argument is in <em>You Knew This on Tuesday</em>; the six pillars are in <em>The Institution of One</em>.</span>
+  <span>Companion sheet to <em>Tamil Machines — The Landscape</em></span>
+</footer>
+
+</div>
