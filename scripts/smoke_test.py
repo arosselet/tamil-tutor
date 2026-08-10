@@ -1217,6 +1217,14 @@ CODE_BUDGETS = {
     # in a file about something else: it owns progress/slip_log.json outright
     # and is reached from three call sites. Imports state_io only — never
     # sync_state, which imports FROM here.
+    # NOT raised for the LANDED section (2026-08-10): it fit, 283 → 298. But 2
+    # lines of headroom is a trap for whoever comes next, so state the answer in
+    # advance — REFUSE the next raise and split instead. This file is already two
+    # jobs: the ledger (append, aggregate, close, retire) and the RENDERER, which
+    # is now three sections and ~55 of these lines and is the half that keeps
+    # growing, because every reader surface wants one more thing said. The
+    # renderer is what leaves; `slips.py` keeps the state. Same move knock_reply
+    # was told to make on 08-01 and morning_knock actually made.
     "scripts/slips.py": 300,
     # The agent-facing session load, split out of sync_state 2026-08-04. A READ
     # surface: it renders state and never mutates it, which is why it no longer
@@ -3353,9 +3361,32 @@ def s41_slip_ledger(kr, sb: Path):
     check("a landed test closes the slip as of that date",
           out and out[0][1] == "landed")
     p = {x["tag"]: x for x in sl.slip_patterns(today=date_cls(2026, 10, 1))}["past-tense"]
-    check("...and a closed slip stops surfacing entirely",
-          p["closed"] and not p["unverified"] and sl.format_slip_block([p]) == [])
+    check("a closed slip stops DEMANDING anything",
+          p["closed"] and not p["unverified"])
     check("...but the close is dated, not permanent", p["closed_on"] == "2026-09-30")
+
+    # REPLACES the assertion this case carried until 2026-08-10 — "a closed slip
+    # stops surfacing entirely", `format_slip_block([p]) == []`. That was the
+    # behaviour Andrew's felt signal overturned: the renderer showed a deficit and
+    # a question and threw the arc away, so the only place a landed pattern could
+    # be narrated from was `last_debrief`, overwritten every close.
+    #
+    # THE SILENT NO-OP THIS GUARDS: if `slip_closes` ever stops resolving — a tag
+    # that no longer canonicalises the same way, a whitelist dropping the field on
+    # the way through `write_thin_learner` (the s41 bug, exactly) — `landed` comes
+    # back empty and the section is simply ABSENT. Absent is byte-identical to
+    # "nothing has landed yet", which is a true and unremarkable state for weeks
+    # at a time. So this asserts the round trip, not the function: the close was
+    # written by the real `record_slip_test` above, and the tag must come back out
+    # of the RENDERER.
+    block = "\n".join(sl.format_slip_block(
+        sl.slip_patterns(today=date_cls(2026, 10, 1))))
+    check("...and a landed pattern is narratable history, not a deleted row",
+          "LANDED" in block and "past-tense" in block and "landed 2026-09-30" in block)
+    check("...carrying the note, because a callback needs the mistake in words",
+          "present for a past scene" in block)
+    check("...and it asks for nothing — a closed slip is not a target",
+          "not a target" in block and "NEVER COMMISSIONED" not in block)
 
     sl.append_slips([{"tag": "past-tense", "said": "irukku", "want": "irundhuchu"}],
                     lane="knock", when="2026-11-02")
@@ -3363,6 +3394,16 @@ def s41_slip_ledger(kr, sb: Path):
     check("A CLOSED SLIP THAT COMES BACK IS LIVE AGAIN — the close is voided",
           p["live"] and not p["closed"] and p["reopened"])
     check("...with its whole history intact, not restarted at one", p["count"] == 4)
+    # The arc runs both ways. A regression must EVICT the row from LANDED — a
+    # trophy case that keeps showing a win the ledger has already disproved is
+    # worse than no trophy case — and it must say so where the reader is looking,
+    # which until now only the UNVERIFIED section did.
+    block = "\n".join(sl.format_slip_block(
+        sl.slip_patterns(today=date_cls(2026, 11, 2))))
+    check("...so it leaves LANDED rather than standing as a win it has disproved",
+          "LANDED" not in block)
+    check("...and the live row says it came back, not that it is a first offence",
+          "CAME BACK after a close" in block)
 
     # A failed test is itself a recurrence — one ledger, not a parallel record.
     sl.record_slip_test(["past-tense:missed"], today="2026-11-03")

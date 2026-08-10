@@ -1395,6 +1395,12 @@ Details live in git history; this is the index of the *conclusions*.
   HINTED tier retains — *"I just worry how much is going in and out"* — and he is right that
   the system has no answer, since cold is a one-way door with no re-test (inbox: "Cold decay
   / re-test dates", deferred past the trip) and hinted has no follow-up path at all.
+  *(Amended 2026-08-10 — two of the three open claims above have since closed, and the
+  stated REASON is refined by "The honest grade protects the diagnosis, not the meter"
+  at the foot of this file. The "unhonoured" second clause was honoured by "The repair
+  earns the dose" (07-28), the slip ledger (07-30) and the commission gate (08-01);
+  hinted got its follow-up path in "Hinted gets a follow-up path — the retest block"
+  (08-01). Cold decay / re-test remains genuinely open and still sits in the inbox.)*
 
 - **The repair earns the dose — audio is commissioned off his errors, backward before
   forward** (2026-07-28, Andrew's spoken felt signal, diagnosed via `/recalibrate` and
@@ -1985,3 +1991,13 @@ Details live in git history; this is the index of the *conclusions*.
   `encoding="utf-8"` at all seven. `render_chat` also pins `newline="\n"`, since chat.md is a
   tracked derived file both CI and the laptop regenerate and byte equality is its contract.
   A green CI is not proof the code is portable — it is proof of one locale.
+- **The honest grade protects the diagnosis, not the meter** (2026-08-10, Andrew — refines
+  "A miss is data Andrew wants", 07-28). That entry defends the cap as meter integrity: a
+  generous grade is a corrupted meter. His words today put the reason one step back — *"it's
+  not about being the most pessimistic, honest version… it's about the honest ways in which
+  I'm missing."* He is not the judge of whether he has learned something, and recognition is
+  not production. The cap exists so the slip is specific enough to dose, and being
+  unconfidently wrong is the cheapest way to earn one. **Nothing mechanical changes** —
+  honest grading, never-demote, and the two axes already encode this. What changes is the
+  stated reason, plus the hole it exposed: `format_slip_block` rendered a deficit and a
+  question and threw the arc away. Fixed same day, the LANDED section.

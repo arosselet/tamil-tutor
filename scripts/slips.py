@@ -371,13 +371,28 @@ def format_slip_block(patterns: list[dict], limit: int = 6) -> list[str]:
     four copies of a rule means one of them is the gap, and the gap is the lane
     that fires.
 
-    Two sections, because they carry two different instructions. LIVE is
+    Three sections, because they carry three different instructions. LIVE is
     evidence and earns a dose. UNVERIFIED is a question — it has gone quiet
     without anyone ever seeing him get it right, and the only honest thing to do
-    with it is test it."""
+    with it is test it. LANDED is history, and it asks for nothing at all.
+
+    Why LANDED exists (2026-08-10, Andrew's felt signal): the first two sections
+    are a deficit and a question, so every surface that read this block rendered
+    only the open half of the arc. His words — *"it's about the honest ways in
+    which I'm missing and then addressing those problems specifically"*, and the
+    part the ledger was throwing away, *"gradually it becomes a muscle memory"*.
+    The closes were computed and shown to nobody: `1pl-past-om` ran 8× over ten
+    days and landed 08-06, `past-tense` 6× over eight and landed 08-02, and the
+    only place either could be narrated from was `last_debrief` — a string
+    overwritten every close. That is exactly the failure the ledger was built to
+    end (DECISIONS 07-30: *"an error survived exactly as long as Anna retyped
+    it"*), one level up: capture is durable, steering is durable, the arc was
+    prose again."""
     live = [p for p in patterns if p["live"] and p["pattern"]]
     unverified = [p for p in patterns if p["unverified"]]
-    if not live and not unverified:
+    landed = sorted([p for p in patterns if p["closed"]],
+                    key=lambda p: p["closed_on"], reverse=True)
+    if not live and not unverified and not landed:
         return []
     lines = []
     if not live:
@@ -390,7 +405,14 @@ def format_slip_block(patterns: list[dict], limit: int = 6) -> list[str]:
         when = (f"{p['count']}× over {p['span_days']}d" if p["span_days"]
                 else f"{p['count']}×")
         quiet = f", last {p['days_quiet']}d ago" if p["days_quiet"] else ", today"
-        lines.append(f"  ⚠ {p['tag']} — {when}{quiet}")
+        # A pattern that was closed and came back is the most informative event
+        # the ledger records (the `closed_on` comment above), and until now only
+        # the UNVERIFIED section said so — a reopened slip re-enters as LIVE and
+        # read as a first offence. It is also what keeps LANDED honest: the arc
+        # runs both ways, and a trophy case that cannot show a regression is a
+        # score, which is the one thing this block must not become.
+        lines.append(f"  ⚠ {p['tag']} — {when}{quiet}"
+                     + ("  · CAME BACK after a close" if p["reopened"] else ""))
         for d, said, want in p["examples"][-2:]:
             lines.append(f"      {d}: said “{said}” → wanted “{want}”")
         if p["notes"]:
@@ -436,6 +458,29 @@ def format_slip_block(patterns: list[dict], limit: int = 6) -> list[str]:
                 lines.append(f"      pattern: {p['notes'][-1]}")
         if len(unverified) > limit:
             lines.append(f"  … {len(unverified) - limit} more unverified behind these")
+    if landed:
+        # Deliberately NOT a count, and deliberately no "… N more behind these"
+        # tail like LIVE has: a total is a score, and a score recited in a warm
+        # voice is the guilt machinery of 2026-07-17 with the sign flipped (the
+        # same reason the coverage deficit is an engineering number Anna never
+        # narrates). What earns its place here is the ROW — one nameable arc,
+        # with the dates that make it true — because a callback needs a specific
+        # mistake and a specific day, not a tally.
+        lines += ["",
+                  "LANDED — patterns he used to repeat and now fires right, newest close first.",
+                  "  History to REACH FOR, never a list to read out: name ONE when a win has",
+                  "  earned the callback ('that ending froze you for ten days'). Asks for",
+                  "  nothing — no dose, no test. A closed slip is not a target."]
+        for p in landed[:limit]:
+            span = f" over {p['span_days']}d" if p["span_days"] else ""
+            lines.append(f"  ✓ {p['tag']} — {p['count']}×{span}, "
+                         f"landed {p['closed_on']}")
+            # The note, not just the tag: a callback needs the mistake in words
+            # he would recognise ("that ending froze you for ten days"), and a
+            # slug cannot carry that. This is the one line that makes the row
+            # reachable rather than merely true.
+            if p["notes"]:
+                lines.append(f"      pattern: {p['notes'][-1]}")
     return lines
 
 
