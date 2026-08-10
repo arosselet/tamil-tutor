@@ -4049,6 +4049,32 @@
     "rationale": "scheduled at 2026-08-10T14:17 for 2026-08-10T19:30",
     "body": "⚡ volley 1/4 — you want to ask if the taxi can stop at the hotel first — mudinja, one word to soften it: 'if possible.' What do you tell him?",
     "expected_target": "முடிஞ்சா",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Naan hotel ku ponom, Konjam stop",
+    "reply_verdict": "miss",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line": "close on the instinct — but the softener here isn't 'konjam', it's the conditional: 'mudinja, hotel-la nirthuga.' one word, and he'll feel the please in it.",
+    "reply_at": "2026-08-10T19:59:29Z",
+    "exchanges": [
+      {
+        "at": "2026-08-10T19:59:29Z",
+        "reply": "Naan hotel ku ponom, Konjam stop",
+        "verdict": "miss",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "close on the instinct — but the softener here isn't 'konjam', it's the conditional: 'mudinja, hotel-la nirthuga.' one word, and he'll feel the please in it.",
+        "slips": [
+          "konjam-for-softener",
+          "english-word-order"
+        ],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ]
   }
 ]

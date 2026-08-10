@@ -12,6 +12,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **15:50 · Anna**  ·  text / volley: sprint burn resume
 > ⚡ volley 1/4 — you want to ask if the taxi can stop at the hotel first — mudinja, one word to soften it: 'if possible.' What do you tell him?
 
+**15:59 · Andrew** — **MISS**
+> Naan hotel ku ponom, Konjam stop
+
+**Anna ↩**
+> close on the instinct — but the softener here isn't 'konjam', it's the conditional: 'mudinja, hotel-la nirthuga.' one word, and he'll feel the please in it.
+
 
 ## Sunday 2026-08-09
 
