@@ -74,7 +74,7 @@
       69
     ],
     "last_surfaced": "2026-08-09",
-    "exposures": 1
+    "exposures": 2
   },
   "அங்க": {
     "gloss": "There",
@@ -222,7 +222,7 @@
       76
     ],
     "last_surfaced": "2026-08-09",
-    "exposures": 4
+    "exposures": 5
   },
   "நேரா": {
     "gloss": "Straight",
@@ -348,7 +348,7 @@
       77
     ],
     "last_surfaced": "2026-08-09",
-    "exposures": 2
+    "exposures": 3
   },
   "உனக்கு": {
     "gloss": "To you / For you",
@@ -416,7 +416,7 @@
       81
     ],
     "last_surfaced": "2026-08-09",
-    "exposures": 2
+    "exposures": 3
   },
   "அது": {
     "gloss": "It / That",
@@ -440,7 +440,7 @@
       37
     ],
     "last_surfaced": "2026-08-09",
-    "exposures": 1
+    "exposures": 2
   },
   "ஒன்னு": {
     "gloss": "One",
@@ -457,7 +457,7 @@
     ],
     "last_surfaced": "2026-08-09",
     "reps": 2,
-    "exposures": 1
+    "exposures": 2
   },
   "பத்து": {
     "gloss": "Ten",
@@ -517,7 +517,7 @@
     ],
     "last_surfaced": "2026-08-09",
     "reps": 1,
-    "exposures": 2
+    "exposures": 3
   },
   "மாமா": {
     "gloss": "Uncle (maternal)",
@@ -652,7 +652,7 @@
       80
     ],
     "last_surfaced": "2026-08-09",
-    "exposures": 2
+    "exposures": 3
   },
   "நம்ம": {
     "gloss": "Our (inclusive)",
@@ -754,7 +754,7 @@
       28
     ],
     "last_surfaced": "2026-08-09",
-    "exposures": 1
+    "exposures": 2
   },
   "கொஞ்சம்": {
     "gloss": "A little",
@@ -775,7 +775,7 @@
     ],
     "last_surfaced": "2026-08-09",
     "reps": 1,
-    "exposures": 2
+    "exposures": 3
   },
   "போதும்": {
     "gloss": "Enough",
@@ -813,7 +813,7 @@
       37
     ],
     "last_surfaced": "2026-08-09",
-    "exposures": 1
+    "exposures": 2
   },
   "தங்கச்சி": {
     "gloss": "Younger sister",
@@ -861,7 +861,7 @@
       82
     ],
     "last_surfaced": "2026-08-09",
-    "exposures": 5
+    "exposures": 6
   },
   "நீங்க": {
     "gloss": "You (respectful - Elders/Strangers)",
@@ -972,7 +972,7 @@
       69
     ],
     "last_surfaced": "2026-08-09",
-    "exposures": 1
+    "exposures": 2
   },
   "வேணும்": {
     "gloss": "I want / I need",
@@ -1015,7 +1015,7 @@
       73
     ],
     "last_surfaced": "2026-08-09",
-    "exposures": 1
+    "exposures": 2
   },
   "மூணு": {
     "gloss": "Three",
@@ -1382,7 +1382,7 @@
       35
     ],
     "last_surfaced": "2026-08-09",
-    "exposures": 1
+    "exposures": 2
   },
   "நூறு": {
     "gloss": "Hundred",
@@ -1475,9 +1475,9 @@
       72,
       73
     ],
-    "last_surfaced": "2026-07-27",
+    "last_surfaced": "2026-08-09",
     "reps": 2,
-    "exposures": 1
+    "exposures": 2
   },
   "பார்த்தேன்": {
     "gloss": "I saw / I watched",
@@ -1530,8 +1530,8 @@
       76,
       85
     ],
-    "last_surfaced": "2026-08-08",
-    "exposures": 4,
+    "last_surfaced": "2026-08-09",
+    "exposures": 5,
     "reps": 1
   },
   "சொல்றேன்": {
@@ -1576,7 +1576,7 @@
       82
     ],
     "last_surfaced": "2026-08-09",
-    "exposures": 2
+    "exposures": 3
   },
   "உள்ள": {
     "gloss": "Inside",
@@ -1621,9 +1621,9 @@
       21,
       33
     ],
-    "last_surfaced": "2026-07-28",
+    "last_surfaced": "2026-08-09",
     "reps": 1,
-    "exposures": 1
+    "exposures": 2
   },
   "போனேன்": {
     "gloss": "I went",
@@ -1711,7 +1711,7 @@
       78
     ],
     "last_surfaced": "2026-08-09",
-    "exposures": 2
+    "exposures": 3
   },
   "அவரு": {
     "gloss": "He/She (respectful)",
@@ -1964,7 +1964,8 @@
       35,
       61
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-09",
+    "exposures": 1
   },
   "பயம்": {
     "gloss": "Scared / Fear",
@@ -2177,7 +2178,7 @@
       30
     ],
     "last_surfaced": "2026-08-09",
-    "exposures": 1
+    "exposures": 2
   },
   "புது": {
     "gloss": "New",
@@ -2251,7 +2252,7 @@
       38
     ],
     "last_surfaced": "2026-08-09",
-    "exposures": 1
+    "exposures": 2
   },
   "கேட்பேன்": {
     "gloss": "I will hear/ask (future)",
@@ -2448,7 +2449,7 @@
       85
     ],
     "last_surfaced": "2026-08-09",
-    "exposures": 2
+    "exposures": 3
   },
   "அனுப்பு": {
     "gloss": "Send",
@@ -4881,7 +4882,7 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": "2026-08-09",
-    "exposures": 1
+    "exposures": 2
   },
   "பண்ணல": {
     "gloss": "Didn't do / haven't done — panna + illa contracted (frame:negative-la)",
@@ -4946,7 +4947,8 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-07-28"
+    "last_surfaced": "2026-08-09",
+    "exposures": 1
   },
   "இருக்கேன்": {
     "gloss": "I am / I'm here (-ஏன் = I)",
@@ -5118,7 +5120,7 @@
     "seen_in": [],
     "last_surfaced": "2026-08-09",
     "reps": 1,
-    "exposures": 1
+    "exposures": 2
   },
   "பழகிப்போச்சு": {
     "gloss": "It has become habit — done, settled (pazhagu = get used to AND get close to a person; + the Kongu completive -poachu)",
