@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Tuesday 2026-08-11
+
+**10:15 · Anna** 🎧  ·  audio / show dose: negative-la machine
+> 🎧 puriyala, mudiyala, theriyala — one tail, three chunks you already own. 60 sec before today's session.
+
+
 ## Monday 2026-08-10
 
 **10:16 · Anna** 🎧  ·  audio / lore: the -laam machine
