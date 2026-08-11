@@ -1985,3 +1985,15 @@ Details live in git history; this is the index of the *conclusions*.
   `encoding="utf-8"` at all seven. `render_chat` also pins `newline="\n"`, since chat.md is a
   tracked derived file both CI and the laptop regenerate and byte equality is its contract.
   A green CI is not proof the code is portable — it is proof of one locale.
+- **The pack boundary is not at "language"; the fork waits for Era 3** (2026-08-11,
+  Andrew: *"what else could we ask of it than language learning?"*). Audit:
+  `docs/THE_PACK_BOUNDARY.md`. **Narrows the Institution-of-One tape's "five of six have
+  nothing to do with Tamil"** — true for another *language*, too generous for another
+  *domain*. RAILS, GOVERN and the studio's three-pass shape travel anywhere; **MODEL is a
+  theory of learning, not a belief store**, porting only to skills with a
+  recognition–production gap. A reminders app fails that outright. **Taken: no fork before
+  the return.** July's inflection (0.23 → 0.79 sessions/day) is **confounded** — deadline,
+  Trip Deck and knock channel all landed the week of 07-13. Era 3 (machinery complete,
+  deadline absent) is the only condition separating them, and it runs once. **When it
+  forks: RAILS + GOVERN first, never inside Anna** — a tutor who is also an assistant
+  is a worse tutor.

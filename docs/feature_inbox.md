@@ -4,6 +4,23 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **THE ERA-TURN BLINDS THE SYSTEM TO THE ONLY QUESTION ERA 3 ASKS** (2026-08-11, from
+  `docs/THE_PACK_BOUNDARY.md`). The touchdown rule is right and stays: the status line
+  drops the countdown and the burn rate in country, because a per-day quota is a lie when
+  the table sets the pace. But the meters it drops are the *only* ones tracking whether he
+  is showing up at all, and the question that decides this project's next six months —
+  *does anything hold the line once the deadline is spent?* — is exactly a
+  showing-up question. So at the moment it becomes interesting, nothing reports it.
+  **The evidence is already in the files and nothing reads it:** `session_log.json` gives
+  cadence (0.23/day before 07-13, 0.79/day after) and longest-gap; `knock_log.json` gives
+  fires, replies and the ignore-streak. **Not a new meter — a re-aim of `show_status.py`'s
+  headline for the post-sprint era:** sessions in the trailing 14 days, longest gap, and
+  the same pair for the equivalent stretch before the deadline landed, side by side. Do
+  NOT surface it to Anna as a number to narrate at him — a cadence deficit narrated is a
+  streak by another name, and the no-streak law is load-bearing. This is an instrument for
+  Andrew and `@build`, read deliberately, off-session. **Do it before the return flight,
+  not after** — the comparison needs Era 2 recorded while it happens, and it runs once.
+
 - **Post-trip: reseed the focus cohort** (2026-08-01, month-end audit). The stored ≤12
   cohort was seeded pre-sprint and is correctly dormant during it, but the membership is
   stale: 7/12 never worked, none are trip-deck items, zero graduations. When the sprint

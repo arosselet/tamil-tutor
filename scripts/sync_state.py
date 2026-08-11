@@ -29,6 +29,7 @@ import argparse
 import sys
 from datetime import date, timedelta
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 from slips import (append_slips, canon_tag, cmd_slips, parse_slip_args,
                    record_slip_commission, record_slip_test, slip_patterns)
@@ -625,6 +626,21 @@ def cmd_update(args):
             learner["quiet_until"] = ""
             print("  Quiet window cleared — knocks resume on the next tick.")
 
+    # The zone (2026-08-11). `write_thin_learner` has whitelisted `timezone` since
+    # the transit bit landed, and `state_io._resolve_local_tz` says outright that
+    # he "changes one field when he lands" — but nothing could change it. The one
+    # clock-facing dial in the system was reachable only by hand-editing
+    # learner.json, which is the file the repo's own law says never to hand-edit.
+    # Validated before storage for the reason the date is: a bad zone does NOT
+    # crash (state_io falls back to the home clock on purpose, so a typo cannot
+    # take every unattended lane down), which means the ONLY place a typo can be
+    # caught is the moment he types it — jet-lagged, in an airport.
+    if getattr(args, "timezone", None):
+        ZoneInfo(args.timezone)   # raises on a typo, before it is stored
+        learner["timezone"] = args.timezone
+        print(f"  TIMEZONE {args.timezone} — quiet hours, local_today and the "
+              f"feed's dates all follow it from the next command on.")
+
     # Mark-seen — update last_surfaced without touching recognition/production.
     # Closes the lore-memo gap: a frame a knock introduced is no longer UNSEEN.
     for key in args.mark_seen:
@@ -1200,6 +1216,10 @@ def main():
                     help="TRANSIT BIT: hold every knock through this local date "
                          "(the rails skip before the LLM, so nothing is logged and "
                          "no silence reads as a fade). Pass '' to clear it and resume.")
+    up.add_argument("--timezone", type=str, default=None, metavar="IANA_ZONE",
+                    help="Move Andrew's clock (e.g. 'Asia/Kolkata' on landing, "
+                         "'America/New_York' coming home). One dial: quiet hours, "
+                         "local_today and feed dates all read it. Rejects a bad zone.")
     up.add_argument("--mark-seen", type=str, action="append", default=[],
                     help="Frame/word key(s) to mark as seen today (sets last_surfaced; closes lore-memo gap)")
     up.add_argument("--slip", type=str, action="append", default=[],

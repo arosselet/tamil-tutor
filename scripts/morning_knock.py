@@ -64,7 +64,10 @@ SESSION_LOG_PATH = BASE / "progress" / "session_log.json"
 # `learner.json.timezone` (2026-08-09), so the waking window follows him abroad on
 # a one-field edit and stays DST-correct at home. The cron ticks a UTC superset;
 # this filters.
-from state_io import LEARNER_PATH, LEXICON_PATH, LOCAL_TZ
+# LEARNER_PATH dropped 2026-08-11: with the transit rule owned by state_io, this
+# lane no longer reads learner.json directly at all. That is the one-owner law
+# paying out — the import list is the evidence.
+from state_io import LEXICON_PATH, LOCAL_TZ, in_transit
 WAKING_START_HOUR = 8      # inclusive, local
 WAKING_END_HOUR = 21       # exclusive, local (last reach can land at 20:59)
 MAX_REACHES_PER_DAY = 5    # a "reach" = a knock that actually fired (silence doesn't count)
@@ -170,14 +173,13 @@ def rails_gate(force: bool, now: datetime | None = None) -> tuple[bool, str]:
 
     # The transit bit (2026-08-10, Andrew). Set for a flight, cleared on landing.
     # It sits FIRST because it is the only rail that means "he cannot receive
-    # this at all": Apple queues exactly one push for an unreachable phone, so a
-    # dose fired into a flight overwrites the last one and is destroyed. Skipping
-    # here — before the LLM, before anything is logged — is the whole point: no
-    # row is written, so the unanswered stretch can never reach the ignore-streak
-    # and be read as fading. Deleting these four lines removes the feature.
-    quiet_until = (load_json(LEARNER_PATH) or {}).get("quiet_until") or ""
-    if quiet_until and now_local.date() <= date.fromisoformat(quiet_until):
-        return False, f"quiet_until {quiet_until} — in transit, not fading"
+    # this at all". The rule itself moved to `state_io.in_transit` on 2026-08-11
+    # — the push queue's drain is a second door onto the same phone and was not
+    # reading it, so a queued dose could still be fired into a flight and
+    # destroyed. One owner, both doors; see that docstring for why holding here
+    # (before the LLM, before anything is logged) is the whole point.
+    if held := in_transit(now):
+        return False, held
 
     if not (WAKING_START_HOUR <= now_local.hour < WAKING_END_HOUR):
         return False, f"quiet hours ({now_local:%H:%M} {now_local.tzname()})"

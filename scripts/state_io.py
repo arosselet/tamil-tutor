@@ -97,6 +97,31 @@ def local_today() -> date:
     return datetime.now(LOCAL_TZ).date()
 
 
+def in_transit(now: datetime | None = None) -> str:
+    """The transit bit (2026-08-10, Andrew): a local date through which Andrew
+    cannot receive anything AT ALL — set for a flight, cleared on landing.
+    Returns the rails' reason string while it holds, "" once it lapses.
+
+    It lives here, beside `local_today` and the timezone, for the reason those
+    do: it is a fact about the LEARNER, not about knock policy. TWO lanes reach
+    his phone — the rails gate and the push queue's drain — and until 2026-08-11
+    only the rails read it, so a queued push still fired into the flight. That
+    hole was invisible because the queue was empty every time the bit was set.
+    A rule that must hold at two doors belongs under both of them.
+
+    Why holding matters at all: Apple keeps exactly ONE notification for an
+    unreachable phone, so a dose fired into a flight overwrites the last one and
+    both are destroyed. Held here — before the LLM, before anything is logged —
+    no row is written, so the unanswered stretch can never reach the
+    ignore-streak and be read as fading.
+    """
+    quiet_until = (load_json(LEARNER_PATH) or {}).get("quiet_until") or ""
+    now = (now or datetime.now(LOCAL_TZ)).astimezone(LOCAL_TZ)
+    if quiet_until and now.date() <= date.fromisoformat(quiet_until):
+        return f"quiet_until {quiet_until} — in transit, not fading"
+    return ""
+
+
 # Script-detection: Tamil script is the canonical lexicon key, so a phonetic-only
 # token can never mint a record. PORT SURFACE — a fork to another language
 # replaces this regex (moved here from sync_state.py 2026-08-04).

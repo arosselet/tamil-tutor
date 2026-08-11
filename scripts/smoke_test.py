@@ -1647,7 +1647,7 @@ def s22_sfx_pause(sb: Path):
           not lost, f"{len(lost)} lost: {lost[:3]}")
 
 
-def s59_transit_bit(mk, sb: Path):
+def s59_transit_bit(mk, pq, sb: Path):
     """The transit bit: a date Andrew sets, the rails enforce (2026-08-10).
 
     Deliberately three checks, not ten (Andrew called the longer version
@@ -1661,8 +1661,17 @@ def s59_transit_bit(mk, sb: Path):
                     a session close wipes it, and he gets knocked all flight.
                     So this round-trips the real writer and re-reads the file.
       set → ignored the rail never fires and the flight fills with overwrites.
-      cleared → stuck  he lands, clears it, and the channel stays dead."""
-    print("\n59. The transit bit — Andrew sets a date, the rails hold (2026-08-10)")
+      cleared → stuck  he lands, clears it, and the channel stays dead.
+
+    Fourth check added 2026-08-11 — the SECOND DOOR. The bit was written into
+    `rails_gate` only, and the push queue's drain (every 30 min in CI, same
+    phone) never read it: anything queued across a flight would fire into an
+    unreachable handset and be destroyed. The hole survived a week because the
+    queue happened to be empty the one time the bit was set, which is exactly
+    the shape of bug a smoke case exists to catch. The rule now has one owner in
+    `state_io.in_transit` and both doors read it."""
+    print("\n59. The transit bit — Andrew sets a date, both doors hold (2026-08-10)")
+    import contextlib
     sync = importlib.import_module("sync_state")
 
     def set_bit(value):
@@ -1681,9 +1690,62 @@ def s59_transit_bit(mk, sb: Path):
     ok, why = mk.rails_gate(False, now=noon)
     check("a tick inside the window is held, and says transit not fade",
           not ok and "transit" in why, why)
+
+    # The second door. cmd_drain reads the real clock (it is a CI tick, not a
+    # simulation), so the bit is set against real local today and the entry is
+    # due an hour ago — the state a flight actually produces. `force: True` on
+    # purpose: transit is a reachability fact, and unlike quiet hours and the
+    # daily cap there is no dose worth destroying to send.
+    qpath = sb / "progress" / "push_queue.json"
+    pushes = Recorder()
+    real_push, pq.push_to_phone = pq.push_to_phone, pushes
+    try:
+        set_bit((datetime.now(mk.LOCAL_TZ).date() + timedelta(days=1)).isoformat())
+        write_json(qpath, [{"id": "qAIR", "body": "dose into the flight",
+                            "due": (datetime.now(timezone.utc) - timedelta(hours=1)).isoformat(),
+                            "expected_target": "", "target_revealed": True,
+                            "audio_url": None, "move": "smoke", "force": True,
+                            "queued_at": datetime.now(timezone.utc).isoformat()}])
+        with contextlib.redirect_stdout(io.StringIO()):
+            pq.cmd_drain(argparse.Namespace(dry_run=False, no_commit=True))
+        check("a due push does NOT drain into the flight, not even a forced one",
+              len(pushes) == 0, f"pushes={list(pushes)}")
+        check("it is deferred, not dropped — it lands when he clears the bit",
+              [e["id"] for e in read_json(qpath)] == ["qAIR"])
+    finally:
+        pq.push_to_phone = real_push
+        write_json(qpath, [])
+
     set_bit("")
     check("clearing it re-opens the gate on the next tick",
           "transit" not in mk.rails_gate(False, now=noon)[1])
+
+    # The other travel dial (2026-08-11). `timezone` was whitelisted in the
+    # learner writer and read by every clock-facing rule, but had no flag — the
+    # only way to move it was hand-editing the one file the repo says never to
+    # hand-edit. A bad zone deliberately does NOT crash downstream (state_io
+    # falls back so a typo cannot kill the unattended lanes), so the setter is
+    # the single place it can be refused, and that refusal is what this proves.
+    def set_zone(value):
+        sys.argv = ["sync_state.py", "update", "--timezone", value]
+        try:
+            sync.main()
+        except SystemExit:
+            pass
+        return json.loads((sb / "progress" / "learner.json").read_text(encoding="utf-8"))
+
+    check("the zone survives the learner whitelist's round trip",
+          set_zone("Asia/Kolkata").get("timezone") == "Asia/Kolkata",
+          "he lands, moves his clock, and the next sync restores the home zone")
+    try:
+        set_zone("Asia/Kolkota")   # the plausible typo, not a nonsense string
+        rejected = False
+    except Exception:
+        rejected = True
+    check("a mistyped zone is refused, not stored and silently fallen back",
+          rejected and json.loads((sb / "progress" / "learner.json")
+                                  .read_text(encoding="utf-8"))["timezone"] == "Asia/Kolkata")
+    set_zone("America/New_York")
 
 
 def s23_ticket_end_to_end(sb: Path):
@@ -2922,6 +2984,16 @@ def s35_quiet_hours_chokepoint(sb: Path):
     check("in_waking_window has one home",
           "def in_waking_window" not in (src_dir / "push_queue.py").read_text(encoding="utf-8"),
           "the queue's copy survived")
+
+    # Same law, the reachability rail (2026-08-11). The transit bit was written
+    # into rails_gate as an inline read of learner.json; the queue then needed
+    # the identical rule, and a second inline read is how two doors drift apart.
+    # It has one home in state_io — neither lane may re-derive it from the file.
+    for name in ("morning_knock.py", "push_queue.py"):
+        src = (src_dir / name).read_text(encoding="utf-8")
+        check(f"{name} reads the transit bit through state_io, not learner.json",
+              'get("quiet_until")' not in src and "in_transit(" in src,
+              f"{name} re-rolls the quiet_until compare")
 
 
 def s36_soak_order_carries_shape(sb: Path):
@@ -5428,7 +5500,7 @@ def main():
         s2_rails_gate(mk, sb / "progress" / "knock_log.json")
         s15_push_retry(mk)   # needs the real push_to_phone — s3+ stub it out
         s35_quiet_hours_chokepoint(sb)   # ditto: asserts on the real function
-        s59_transit_bit(mk, sb)          # ditto — s3 below stubs rails_gate out
+        s59_transit_bit(mk, pq, sb)      # ditto — s3 below stubs rails_gate out
         s3_knock_paths(mk, sb)
         s4_normalize(kr)
         s5_reply_judge(mk, kr, sb)

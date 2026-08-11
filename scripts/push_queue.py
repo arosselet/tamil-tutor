@@ -48,6 +48,7 @@ from pathlib import Path
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from render_chat import render_chat
+from state_io import in_transit
 from morning_knock import (KNOCK_LOG_PATH, KNOCKS_DIR, ANNA_VOICE, LOCAL_TZ,
                            in_waking_window,
                            MAX_REACHES_PER_DAY, load_json, load_env,
@@ -194,6 +195,16 @@ def cmd_drain(args):
         print("Queue empty — nothing to drain.")
         return
     now = datetime.now(timezone.utc)
+    # The transit bit's SECOND DOOR (2026-08-11). The rails gate held every knock
+    # for a flight; this drain did not read the bit at all, so anything queued
+    # across the flight would fire into an unreachable phone and be destroyed —
+    # the exact loss the bit exists to prevent, through the other door. Note this
+    # defers the WHOLE drain and `--force` does not punch through: quiet hours and
+    # the daily cap are pacing rules (he is reachable, just not now), and transit
+    # is a reachability fact — there is no dose worth destroying to send.
+    if held := in_transit(now):
+        print(f"  {held} — {len(queue)} queued, nothing drained.")
+        return
     klog = load_json(KNOCK_LOG_PATH) or []
     # count today's reaches the same way the rails do
     n_today = reaches_today(klog, now.astimezone(LOCAL_TZ).date())
