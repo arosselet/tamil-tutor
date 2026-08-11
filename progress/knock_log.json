@@ -4112,5 +4112,20 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-10T23-28.mp3",
     "memo_script": "மீனா அக்கா போன்ல பேசுறாங்க.\n\nஆமா ஆமா, நான் பாத்துக்கிறேன் — நீ கவலைப்படாத. அம்மா கிட்ட சொல்லாத, நான் சொல்லிக்கிறேன். வீட்டுக்கு போறதுக்கு முன்னாடி எடுத்துக்கறேன், don't worry. இல்ல இல்ல, நீ வர வேண்டாம் — நான் பாத்துக்கோறேன்.",
     "mp3": "published_audio/knocks/knock_2026-08-10T23-28.mp3"
+  },
+  {
+    "date": "2026-08-11",
+    "timestamp": "2026-08-11T14:15:44.693826+00:00",
+    "acted": true,
+    "modality": "audio",
+    "move": "show dose: negative-la machine",
+    "rationale": "Demand-streak 2 forces a no-ask dose; lore is spent; it's the lunch-anchor window; the commissioned -la machine episode isn't produced yet so a show dose introduces the frame now and primes today's session to fire into it — one day before touchdown, this is the right chapter.",
+    "next_check": "2026-08-11T17:15:44.693826+00:00",
+    "body": "🎧 puriyala, mudiyala, theriyala — one tail, three chunks you already own. 60 sec before today's session.",
+    "expected_target": "",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-11T14-15.mp3",
+    "memo_script": "Andrew, oru vishayam solla poreen — oru nimisham.\n\nNee already rendu words unn velaiya paakkariyaa: puriyala. Mudiyala. Nee adhuku therinjirukka — 'I don't get it,' 'can't do it.' Adhula oru vishayam paaru.\n\npuri — yala. mudi — yala. teri — yala.\n\nAdhu onnu thaan — the -la. It's not a word. It's a tail. Stick it on the verb and the whole thing flips — the thing didn't happen, didn't work, didn't land.\n\nkekkala. pannala. varala. Same tail, every time.\n\nUnn kitta oru shortcut irukku inniki: whenever something goes wrong at that house — the bag won't zip, the auto took a wrong turn, you couldn't catch what someone said — the tail is already yours. Verb plus -la and you're done.\n\nAdhu thaan today's session. Oru tail, unakku therinja verbs, full machine. Let's go.",
+    "mp3": "published_audio/knocks/knock_2026-08-11T14-15.mp3"
   }
 ]
