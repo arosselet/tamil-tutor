@@ -4181,5 +4181,14 @@
       }
     ],
     "volley_next": 1
+  },
+  {
+    "date": "2026-08-11",
+    "timestamp": "2026-08-11T22:34:47.292644+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "eavesdrop: spice-dhaan soak",
+    "rationale": "Demand-streak at 1 and volley 2/4 unanswered — a no-ask eavesdrop soak fits; frame:spice-dhaan is ear-only and overdue, one boarding-eve tape plants it before the plane; introduces it so it's no longer UNSEEN.",
+    "next_check": "2026-08-12T12:34:47.292644+00:00"
   }
 ]
