@@ -9,6 +9,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **10:15 · Anna** 🎧  ·  audio / show dose: negative-la machine
 > 🎧 puriyala, mudiyala, theriyala — one tail, three chunks you already own. 60 sec before today's session.
 
+**13:06 · Andrew** — **CHAT**
+> Heard but note some of this is audio rendered as phonetics not via Tamil script.
+
+**Anna ↩**
+> fair catch — the audio renders in phonetics on your end, not Tamil script. that's fine: the -la tail works the same way you heard it. pannala, varala, kekkala — same machine every time. ready when you are.
+
 
 ## Monday 2026-08-10
 
