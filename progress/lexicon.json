@@ -3106,13 +3106,13 @@
       "valadu pakkam thirumbunga"
     ],
     "recognition": "struggled",
-    "production": "hinted",
+    "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-08-11",
     "deck": "trip",
     "direction": "fire",
     "exposures": 3,
-    "reps": 1
+    "reps": 2
   },
   "சில்லறை இருக்கா?": {
     "type": "chunk",
@@ -3226,11 +3226,11 @@
       70,
       82
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-08-11",
     "deck": "trip",
     "direction": "fire",
     "exposures": 3,
-    "reps": 1
+    "reps": 2
   },
   "கிளம்பலாமா?": {
     "type": "chunk",
@@ -3685,14 +3685,14 @@
       "innoru thadava sollunga"
     ],
     "recognition": "struggled",
-    "production": "hinted",
+    "production": "cold",
     "seen_in": [
       58
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-08-11",
     "deck": "trip",
     "direction": "fire",
-    "reps": 2,
+    "reps": 3,
     "exposures": 4
   },
   "என்ன சொன்னீங்க?": {
@@ -4004,12 +4004,12 @@
       "evlo aagum"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-08-11",
     "deck": "trip",
     "direction": "fire",
-    "reps": 1,
+    "reps": 2,
     "exposures": 4
   },
   "ஃப்ரீயா விடுங்க": {
@@ -5234,5 +5234,13 @@
     ],
     "last_surfaced": "2026-08-10",
     "exposures": 1
+  },
+  "திரும்பு": {
+    "gloss": "turn / turn around / come back — the verb inside வலது பக்கம் திரும்புங்க; he fired the chunk cold without owning this part and asked for it himself",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-08-11"
   }
 }
