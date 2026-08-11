@@ -4,6 +4,27 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **THE ONE PROSE SURFACE WITH NO CEILING IS THE ONE THAT ACCUMULATES** (2026-08-11).
+  Measured, not felt: `last_debrief` is **670 words** and stable, because its rule is
+  *rewrite cumulatively, prune what resolved* — a compression pass that actually runs every
+  close. The campaign block is specified in `daily_session.md` as **"Five lines, no more,
+  and only ever one block (a finished week is overwritten; git holds the record)"** and is
+  currently **2,886 words over 69 lines**, carrying seven stacked dated appendices
+  (08-04 … 08-10). `profile.md` as a whole is **5,819 words and is the only prose surface
+  in the repo outside `PROSE_BUDGETS`** — every `protocol/*.md` is ratcheted; the file that
+  grows by habit is not. The two rules produce exactly the two outcomes you would predict.
+  **This is drift, not a bug:** each appendix was worth writing on the day, and the block is
+  still read by sessions, the studio and the digest, so the cost is paid on every read.
+  **The shape when it comes off the shelf:** a `PROSE_BUDGETS` row for `profile.md`, which
+  is one config row, not a schema change. **DELIBERATELY NOT ARMED 08-11** — a budget added
+  now goes red instantly on a file only a live session can rewrite, and Andrew was an hour
+  from a flight. Arm it in the same diff as the first rewrite that fits it, per the rule
+  that a raise rides its own growth. **The general lesson is the reusable one** (see
+  `docs/THE_PACK_BOUNDARY.md`, and the 07-31 slip-ledger entry in DECISIONS): a compression
+  pass only holds if something *counts* the thing being compressed. Prose that is rewritten
+  stays small; prose that is appended grows until a reader pays for it, and nothing in the
+  system notices, because narrative has no natural unit to ratchet.
+
 - **THE ERA-TURN BLINDS THE SYSTEM TO THE ONLY QUESTION ERA 3 ASKS** (2026-08-11, from
   `docs/THE_PACK_BOUNDARY.md`). The touchdown rule is right and stays: the status line
   drops the countdown and the burn rate in country, because a per-day quota is a lie when
