@@ -4150,5 +4150,36 @@
         "scheduled": ""
       }
     ]
+  },
+  {
+    "date": "2026-08-11",
+    "timestamp": "2026-08-11T17:53:45.613893+00:00",
+    "acted": true,
+    "modality": "volley",
+    "move": "volley: sprint burn 2/4",
+    "rationale": "Volley frozen at 2/4, afternoon is the right slot, demand-streak is 0, genuinely new scenes for each flagged item, and this is the sprint's volume engine with 1 day left.",
+    "next_check": "2026-08-11T21:53:45.613893+00:00",
+    "body": "⚡ volley 1/4 — auto driver just missed your turn — tell him to turn right",
+    "expected_target": "வலது பக்கம் திரும்புங்க",
+    "target_revealed": false,
+    "volley": [
+      {
+        "target": "வலது பக்கம் திரும்புங்க",
+        "ask": "auto driver just missed your turn — tell him to turn right"
+      },
+      {
+        "target": "எவ்ளோ ஆகும்?",
+        "ask": "fabric shop aunty named a price — you need to know the total before you commit"
+      },
+      {
+        "target": "இன்னொரு தடவ சொல்லுங்க",
+        "ask": "the maama said something fast and you caught maybe half — ask him to say it once more"
+      },
+      {
+        "target": "முடிஞ்சா",
+        "ask": "you want to ask if she can sit with you for a minute, if she's free"
+      }
+    ],
+    "volley_next": 1
   }
 ]
