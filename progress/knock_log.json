@@ -4201,6 +4201,33 @@
     "next_check": "2026-08-12T17:53:13.869482+00:00",
     "body": "☕ day 1 — did -laamaa land at dinner? saapidalaamaa, paalaamaa — report in.",
     "expected_target": "",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Just landed first meal with parents is tomorrow. Let’s eat sappidalaama",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "சாப்பிடலாமா"
+    ],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line": "ok ok — first meal tomorrow, noted. and 'saapidalaamaa' landed clean 👌 — hinted because I put it in the knock, but the mouth found it fast. debrief for real after dinner tomorrow: did it get used, how did it land?",
+    "reply_at": "2026-08-12T17:29:19Z",
+    "exchanges": [
+      {
+        "at": "2026-08-12T17:29:19Z",
+        "reply": "Just landed first meal with parents is tomorrow. Let’s eat sappidalaama",
+        "verdict": "hinted",
+        "fired": [
+          "சாப்பிடலாமா"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "ok ok — first meal tomorrow, noted. and 'saapidalaamaa' landed clean 👌 — hinted because I put it in the knock, but the mouth found it fast. debrief for real after dinner tomorrow: did it get used, how did it land?",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ]
   }
 ]
