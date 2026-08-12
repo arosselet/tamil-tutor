@@ -3447,7 +3447,7 @@
   },
   "frame:mayi-laama": {
     "type": "pattern",
-    "gloss": "நான் {verb}-லாமா? → may I {verb}? (permission, e.g. 'ukkaralaama?')",
+    "gloss": "{verb}-லாமா? → 'shall we {verb}?' (proposal, e.g. 'saapidalaamaa', 'kilambalaamaa') OR 'may I {verb}?' (permission, e.g. 'ukkaralaama?'). -லாம் proposes, -ஆ makes it a question. Credit any -laamaa production HERE, at the frame — not as a new chunk.",
     "phonetic": [
       "laama"
     ],
