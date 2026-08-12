@@ -4190,5 +4190,17 @@
     "move": "eavesdrop: spice-dhaan soak",
     "rationale": "Demand-streak at 1 and volley 2/4 unanswered — a no-ask eavesdrop soak fits; frame:spice-dhaan is ear-only and overdue, one boarding-eve tape plants it before the plane; introduces it so it's no longer UNSEEN.",
     "next_check": "2026-08-12T12:34:47.292644+00:00"
+  },
+  {
+    "date": "2026-08-12",
+    "timestamp": "2026-08-12T12:53:13.869482+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "field mission debrief collect",
+    "rationale": "He's landed; the field mission debrief is the one open loop Anna promised to collect at next contact — warm re-opener that grounds the session in what just happened at the real table, no production pressure, lunch session can pay off whatever he reports.",
+    "next_check": "2026-08-12T17:53:13.869482+00:00",
+    "body": "☕ day 1 — did -laamaa land at dinner? saapidalaamaa, paalaamaa — report in.",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]
