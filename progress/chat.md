@@ -9,6 +9,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **08:53 · Anna**  ·  text / field mission debrief collect
 > ☕ day 1 — did -laamaa land at dinner? saapidalaamaa, paalaamaa — report in.
 
+**13:29 · Andrew** — **HINTED**
+> Just landed first meal with parents is tomorrow. Let’s eat sappidalaama
+
+**Anna ↩**
+> ok ok — first meal tomorrow, noted. and 'saapidalaamaa' landed clean 👌 — hinted because I put it in the knock, but the mouth found it fast. debrief for real after dinner tomorrow: did it get used, how did it land?
+
 
 ## Tuesday 2026-08-11
 
