@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Wednesday 2026-08-12
+
+**08:53 · Anna**  ·  text / field mission debrief collect
+> ☕ day 1 — did -laamaa land at dinner? saapidalaamaa, paalaamaa — report in.
+
+
 ## Tuesday 2026-08-11
 
 **10:15 · Anna** 🎧  ·  audio / show dose: negative-la machine
