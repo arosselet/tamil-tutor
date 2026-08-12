@@ -1985,3 +1985,11 @@ Details live in git history; this is the index of the *conclusions*.
   `encoding="utf-8"` at all seven. `render_chat` also pins `newline="\n"`, since chat.md is a
   tracked derived file both CI and the laptop regenerate and byte equality is its contract.
   A green CI is not proof the code is portable — it is proof of one locale.
+- **The two travel dials have different owners: the zone is standing, `quiet_until` is Andrew's
+  toggle** (2026-08-13, Andrew, on landing in India). **Adds the ownership rule the 08-09 and
+  08-10 entries left implicit** — each built a dial, neither said who turns it, so the first real
+  trip had an agent offering to arm the pause on his behalf. `learner.json.timezone` is *where he
+  is*: standing until he says otherwise, never inferred from a debrief, a calendar, or a flight
+  time in prose. `quiet_until` is *when the teacher is paused*: his toggle, for vacation and
+  transit, armed and cleared on his word alone. Neither is an agent's call — offering once is
+  help, arming is overreach.
