@@ -4229,5 +4229,36 @@
         "scheduled": ""
       }
     ]
+  },
+  {
+    "date": "2026-08-12",
+    "timestamp": "2026-08-12T17:53:33.696970+00:00",
+    "acted": true,
+    "modality": "volley",
+    "move": "volley: sprint burn 3/4",
+    "rationale": "Day 1 in field, he replied today, demand-streak 0, afternoon slot — volley closes the frozen 2/4 sprint; aunty-missed-it scene is genuinely new for innoru thada sollunга and maps cleanly to his live reality right now.",
+    "next_check": "2026-08-12T22:53:33.696970+00:00",
+    "body": "⚡ volley 1/4 — aunty just spoke fast and you caught maybe half — ask her to say it again",
+    "expected_target": "இன்னொரு தடவ சொல்லுங்க",
+    "target_revealed": false,
+    "volley": [
+      {
+        "target": "இன்னொரு தடவ சொல்லுங்க",
+        "ask": "aunty just spoke fast and you caught maybe half — ask her to say it again"
+      },
+      {
+        "target": "ஆமா ஆமா",
+        "ask": "she's mid-story about the neighbour's wedding, going strong — you're with her, keep her going"
+      },
+      {
+        "target": "வலது பக்கம் திரும்புங்க",
+        "ask": "auto is at a junction, her street is the next right — tell him to turn right"
+      },
+      {
+        "target": "எவ்ளோ ஆகும்?",
+        "ask": "temple flower stall, no price written — ask how much"
+      }
+    ],
+    "volley_next": 1
   }
 ]
