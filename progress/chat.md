@@ -15,6 +15,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > ok ok — first meal tomorrow, noted. and 'saapidalaamaa' landed clean 👌 — hinted because I put it in the knock, but the mouth found it fast. debrief for real after dinner tomorrow: did it get used, how did it land?
 
+**13:53 · Anna**  ·  volley / volley: sprint burn 3/4
+> ⚡ volley 1/4 — aunty just spoke fast and you caught maybe half — ask her to say it again
+
 
 ## Tuesday 2026-08-11
 
