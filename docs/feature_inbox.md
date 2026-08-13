@@ -4,6 +4,72 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **HARVEST REAL EAVESDROP AUDIO WHILE THE SUPPLY AND THE RULING AUTHORITY ARE IN THE SAME
+  ROOM** (2026-08-13, Andrew's day-1 field report from Coimbatore, proposed by @build and
+  approved for write-up only — **no build authorised**). The standing verdict *"wire real
+  audio or do not run them"* (07-28am) has sat unacted through two `/recalibrate` passes and
+  is item 5 of the 6-in-5-days third-strike count that produced the commissioning law. This
+  entry exists so it stops being rediscovered every three weeks.
+
+  **The evidence is no longer only internal.** Catch is **3/12 solid** — the weakest meter in
+  the system, and the campaign block's own words are *"the one lane going backwards."* On
+  day 1 in country Andrew independently produced the matching field reading: *"instead of
+  recognizing nothing in a sentence, I'll pick up a word or two, but I still don't know what
+  the sentence means"*, plus *"the way people slur things is more intense than I was
+  expecting"* and the deck-level version — *"the version we're teaching is still not as
+  rounded off as our target"* (`valadhu pakkam thirumbunga` is a citation form; the street
+  form is faster and more reduced). That is the third strike on the over-articulation axis
+  opened 07-31 by the native-ear verdict, and it now lands on the DECK, not only on TTS.
+
+  **WHY THIS HAS NEVER BEEN A MODALITY SWAP — the finding that should stop the next attempt
+  from underestimating it.** The eavesdrop lane is closed-loop *because Anna authors the
+  tape*: `memo_script` (`mandates.py` §eavesdrop) is simultaneously (1) the render input for
+  `EAVESDROP_VOICE` (`morning_knock.py:56`), (2) the answer key the deliberately separate
+  comprehension judge scores the drift reply against (`knock_reply.py:401-492`), and (3) the
+  basis for the `expected_target` exposure declared at the knock seam (DECISIONS 07-26).
+  Real audio breaks all three at once. **The unit of harvest is therefore not a clip — it is
+  clip + native-ruled transcript + one drift question**, and a bare recording is worthless
+  to this lane. That is the actual reason six weeks of "just wire real audio" produced
+  nothing.
+
+  **WHY NOW, AND ONLY NOW.** The blocker was never the recording; it was the transcript
+  authority. For one month the supply of real Kongu speech and the people who can rule on
+  what it says are in the same house, and Andrew has idle hours. Outside this window he has
+  the clips and no ruling authority at hand. **The window is the asset — the build is not.**
+
+  **CONTROL FLOW INVERTS, and the lane must be told so.** Today Anna commissions a tape *for*
+  a pending catch item. Harvested speech will not contain the item on request, so selection
+  runs backwards: harvest, rule the transcript, then see which catch item the clip happens to
+  carry. Any build must treat harvested audio as a *pool to match against*, never a lane that
+  can be ordered from — and the authored tape stays, unreplaced, as the on-demand half. **This
+  adds a second source to one lane; it replaces nothing.**
+
+  **HAZARDS — all four are blocking, and the first is not an engineering matter.**
+  1. **Consent, from a family, not a corpus.** Non-negotiable and asked in advance. Andrew is
+     already planning to show the project to his father-in-law, which makes the ask a natural
+     part of that conversation rather than a strange one — but the reveal is not the consent.
+  2. **THIS REPO IS PUBLIC AND `published_audio/` IS THE FEED.** `.gitignore` says it in
+     Andrew's own words: *"repo is public, never commit."* Recorded family conversation must
+     never reach the repo, the RSS feed, or a commit — not once, not "temporarily". Any build
+     needs a private local path plus a `.gitignore` entry written BEFORE the first clip
+     exists, and the harvested lane must be structurally incapable of reaching
+     `rebuild_rss.py`. Treat a leak here as the highest-severity failure in the proposal.
+  3. **The refusal law applies unchanged.** DECISIONS 07-25/08-01: a tape whose opening does
+     not name its subject is refused, never degraded to text. Real conversation frequently
+     names nobody, so **expect a low yield** — most clips will be unusable, and that is the
+     law working, not a reason to relax it for harvested audio.
+  4. **No autonomy, same as the deferred cloud-episode item.** Nothing here touches the knock
+     tick, `MAX_UNATTENDED_PER_DAY`, or the mission-number/lock hazards parked above.
+
+  **RECOMMENDED FIRST STEP — costs no code and no schema.** With consent, collect a handful
+  of clips; have a native speaker rule the transcripts; store them privately; then run ONE
+  dose BY HAND and check the only two things that matter — is the drift question answerable
+  from the audio, and does the existing judge return a sane verdict against a transcript it
+  did not author. Same discipline as the deferred `workflow_dispatch` episode step: hear
+  whether it holds up before anything is wired. **If the manual dose works, it has earned a
+  build; if it does not, this entry records why and the next pass starts from the answer
+  instead of the itch.**
+
 - **Post-trip: reseed the focus cohort** (2026-08-01, month-end audit). The stored ≤12
   cohort was seeded pre-sprint and is correctly dormant during it, but the membership is
   stale: 7/12 never worked, none are trip-deck items, zero graduations. When the sprint
