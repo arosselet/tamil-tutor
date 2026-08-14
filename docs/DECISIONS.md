@@ -1993,3 +1993,13 @@ Details live in git history; this is the index of the *conclusions*.
   time in prose. `quiet_until` is *when the teacher is paused*: his toggle, for vacation and
   transit, armed and cleared on his word alone. Neither is an agent's call — offering once is
   help, arming is overreach.
+- **A lexicon record is born reachable — the phonetic is taken at the mint, never "later"**
+  (2026-08-14, Andrew). `resolve()` is exact-match on a record's `phonetic` list, and three mint
+  sites wrote `[]` under a "backfill later" note. Later never came: 96 of 313 word records had
+  none, 88 `production: none`, and 5 of the 12 items on that day's focus set were unloggable —
+  the ticket named targets the logger then refused. A deletion, not a detector: two paths
+  already demanded Tamil script and discarded the phonetic Anna held, while `add-word
+  --phonetic` took it properly. **Replaces** those three comments with a `|phonetic` tail on
+  mint specs, refused on a new word, ignored on a known one. Andrew's ruling: refuse at the
+  interactive mint AND ratchet the debt (`s59`, ceiling 96), since `render_audio` mints
+  unattended. No backfill; the ceiling may only fall.
