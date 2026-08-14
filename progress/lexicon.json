@@ -794,7 +794,7 @@
       "podhum"
     ],
     "recognition": "solid",
-    "production": "cold",
+    "production": "hinted",
     "seen_in": [
       6,
       10,
@@ -802,8 +802,8 @@
       71,
       72
     ],
-    "last_surfaced": "2026-08-08",
-    "reps": 8,
+    "last_surfaced": "2026-08-14",
+    "reps": 9,
     "exposures": 1
   },
   "தெரியும்": {
@@ -1793,7 +1793,7 @@
     "gloss": "Sit (respectful)",
     "phonetic": [],
     "recognition": "comfortable",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [
       10,
       21,
@@ -1802,8 +1802,9 @@
       72,
       81
     ],
-    "last_surfaced": "2026-08-04",
-    "exposures": 1
+    "last_surfaced": "2026-08-14",
+    "exposures": 1,
+    "reps": 1
   },
   "எடுங்க": {
     "gloss": "Take (respectful)",
@@ -2835,14 +2836,15 @@
       "naane eduthukkaren"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       82
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-08-14",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 3
+    "exposures": 3,
+    "reps": 1
   },
   "கொஞ்சம் தண்ணி குடுங்க": {
     "type": "chunk",
@@ -3461,11 +3463,11 @@
       72,
       86
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-08-14",
     "deck": "trip",
     "direction": "fire",
     "exposures": 3,
-    "reps": 1
+    "reps": 2
   },
   "frame:giveme-noun": {
     "type": "pattern",
@@ -3481,10 +3483,10 @@
       66,
       68
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-08-14",
     "deck": "trip",
     "direction": "fire",
-    "reps": 3,
+    "reps": 4,
     "exposures": 1
   },
   "frame:needtogo-place": {
@@ -4141,14 +4143,15 @@
       "onnum"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       83
     ],
     "last_surfaced": "2026-08-14",
     "deck": "trip",
     "direction": "catch",
-    "exposures": 5
+    "exposures": 5,
+    "reps": 1
   },
   "frame:myself-thukka": {
     "type": "pattern",
