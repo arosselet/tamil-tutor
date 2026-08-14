@@ -437,5 +437,29 @@
     "note": "built the English sentence and translated it; Tamil drops the 'I' and leads with destination",
     "word": "",
     "dose_channel": "episode"
+  },
+  {
+    "at": "2026-08-14T07:18:37Z",
+    "date": "2026-08-14",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "chunk-not-machine",
+    "said": "innum konjam podunga",
+    "want": "podhum podhum",
+    "note": "re-fires the line most recently in his ear instead of the move the room wants",
+    "word": "",
+    "dose_channel": "episode"
+  },
+  {
+    "at": "2026-08-14T07:18:37Z",
+    "date": "2026-08-14",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "person-marker",
+    "said": "naan ukkarunga",
+    "want": "neenga ukkarunga",
+    "note": "marks himself when the -nga ending already points at her",
+    "word": "",
+    "dose_channel": "episode"
   }
 ]
