@@ -489,18 +489,42 @@ def cmd_update(args):
         lexicon[key]["last_surfaced"] = today
         lexicon[key]["reps"] = lexicon[key].get("reps", 0) + 1
 
-    def set_recognition(word, level):
+    def split_phonetic(spec):
+        """Peel the sounds-like form off a mint spec: 'WORD|phonetic'.
+
+        A record born WITHOUT one is unreachable from the surface Anna actually
+        writes in. The constitution's split makes phonetics his input; `resolve()`
+        is exact-match against this list; and every mint site used to write `[]`
+        under a "backfill later" note. Later never came. By 2026-08-14, 96 of 313
+        word records carried no phonetic — 88 of them `production: none`, i.e.
+        very nearly the floor-gap pool itself — and FIVE OF THE TWELVE items on
+        that day's own focus set could not be logged phonetically. The ticket was
+        naming targets the logger would then refuse; the session lost a real
+        hinted rep to it (`ukkarunga`, then `ukkaarunga`, both bounced).
+
+        The fix is a deletion, not a detector: the phonetic is in Anna's mouth at
+        first contact and nowhere else afterwards, and these paths were throwing
+        it away while a sibling command (`add-word --phonetic`) took it properly.
+        Take it here. Andrew's call, 2026-08-14: refuse at the mint AND ratchet
+        the debt in smoke (s59) — the render lane cannot be blocked, so the
+        ratchet is what covers it. Existing records are grandfathered; no backfill.
+        """
+        head, _, phon = spec.partition("|")
+        return head.strip(), phon.strip()
+
+    def set_recognition(spec, level):
         """Set recognition; create a record if the word is new (script only)."""
+        word, phon = split_phonetic(spec)
         key = resolve(word, lexicon, phon_index)
         if key is None:
-            if not is_tamil(word):
-                print(f"  ! '{word}' is new but phonetic — add it in Tamil script so it can be canonical. Skipped.")
+            if not is_tamil(word) or not phon:
+                print(f"  ! '{word}' can't be created — a new record needs Tamil script AND its sounds-like form: '{word}|phonetic'. Skipped.")
                 return
             lexicon[word] = {
-                "gloss": "", "phonetic": [], "recognition": level,
+                "gloss": "", "phonetic": [phon], "recognition": level,
                 "production": "none", "seen_in": [], "last_surfaced": today,
             }
-            print(f"  + New word '{word}' → recognition {level} (gloss empty — fill in later)")
+            print(f"  + New word '{word}' → recognition {level} (phonetic '{phon}'; gloss empty — fill in later)")
             return
         lexicon[key]["recognition"] = level
         touch(key)
@@ -541,6 +565,7 @@ def cmd_update(args):
         is what a first contact buys. Production stays unset until he fires it,
         so this can never inflate the floor. Accepts `WORD` or `WORD=gloss`.
         """
+        spec, phon = split_phonetic(spec)
         word, _, gloss = spec.partition("=")
         word, gloss = word.strip(), gloss.strip()
         if not is_tamil(word):
@@ -555,8 +580,11 @@ def cmd_update(args):
             print(f"  Taught (already known): {key} — refreshed, recognition left "
                   f"at {lexicon[key].get('recognition', 'struggled')}")
             return
+        if not phon:
+            print(f"  ! '{word}' is new — teach it with its sounds-like form, '{word}=gloss|phonetic', or it can never be logged from chat. Skipped.")
+            return
         lexicon[word] = {
-            "gloss": gloss, "phonetic": [], "recognition": "struggled",
+            "gloss": gloss, "phonetic": [phon], "recognition": "struggled",
             "production": "none", "seen_in": [], "last_surfaced": today,
         }
         print(f"  + Taught '{word}' → recognition struggled"
@@ -1177,15 +1205,15 @@ def main():
                          f"gate roll one. {'/'.join(COMMISSIONED_FORMS)} can ONLY arrive "
                          f"this way; the rest are normally spec-rotated and this pins them.")
     up.add_argument("--teach", type=str, action="append", default=[],
-                    metavar="WORD[=GLOSS]",
+                    metavar="WORD[=GLOSS]|PHONETIC",
                     help="Word(s) TAUGHT this session — creates the lexicon record at "
-                         "`struggled` recognition, seen today, production unset. The "
-                         "entry path the Teach Beat and lore tangent never had; Tamil "
-                         "script only, so the key stays canonical.")
+                         "`struggled` recognition, seen today, production unset. Tamil "
+                         "script keeps the key canonical; the |PHONETIC tail is REQUIRED "
+                         "on a new word or it can never be logged from chat again.")
     up.add_argument("--mastered-word", type=str, action="append", default=[],
-                    help="Word(s) now solid in recognition")
+                    help="Word(s) now solid — 'WORD|phonetic' if it is new to the lexicon")
     up.add_argument("--comfortable-word", type=str, action="append", default=[],
-                    help="Word(s) now comfortable in recognition")
+                    help="Word(s) now comfortable — 'WORD|phonetic' if new to the lexicon")
     up.add_argument("--stuck-word", type=str, action="append", default=[],
                     help="Word(s) that failed cold recall — demotes recognition one level")
     up.add_argument("--produced-cold", type=str, action="append", default=[],

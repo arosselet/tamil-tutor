@@ -3222,8 +3222,10 @@ def s38_teach_enters_the_lexicon(sb: Path):
         return read_json(lex_path), out.getvalue()
 
     try:
+        # The |phonetic tail became mandatory on a NEW word 2026-08-14 (s59) —
+        # a record minted without one can never be logged from chat again.
         word = "பக்கத்துல"
-        lex, _ = update(teach=[f"{word}=beside/next to"])
+        lex, _ = update(teach=[f"{word}=beside/next to|pakkathula"])
         rec = lex.get(word)
         check("a taught word is created", rec is not None, "still absent")
         check("...at struggled recognition, not solid",
@@ -3234,7 +3236,7 @@ def s38_teach_enters_the_lexicon(sb: Path):
         check("...and seen today", rec and rec["last_surfaced"] == ss.local_today().isoformat())
 
         # Teaching runs before the axes, so teach-then-fire in ONE close resolves.
-        lex, _ = update(teach=["ஆச்சு=it happened / it's done"], produced_cold=["ஆச்சு"])
+        lex, _ = update(teach=["ஆச்சு=it happened / it's done|aachu"], produced_cold=["ஆச்சு"])
         check("a word taught and fired in the same close is credited",
               lex["ஆச்சு"]["production"] == "cold", f"got {lex.get('ஆச்சு')}")
 
@@ -5419,6 +5421,107 @@ def s58_a_sheet_survives_a_model_thinking_out_loud(sb: Path):
             os.environ["OPENROUTER_API_KEY"] = real_key
 
 
+DEBT_CEILING_NO_PHONETIC = 96
+
+
+def s59_a_new_record_is_born_reachable(sb: Path):
+    """A minted record must carry its sounds-like form (2026-08-14, Andrew).
+
+    Found live at a session close: `--produced-hinted ukkarunga` bounced, so did
+    `ukkaarunga`, and the rep only landed by falling back to Tamil script through
+    a UTF-8 shell. `resolve()` is exact-match against each record's `phonetic`
+    list, and three mint sites wrote `[]` under a "backfill later" note — 96 of
+    313 word records had none by that day, 88 of them `production: none`, and 5
+    of the 12 items on that session's own focus set were unloggable phonetically.
+    The ticket was naming targets the logger would refuse.
+
+    Gate 7.2 — a guard that never fires looks exactly like a clean close, and a
+    guard that fires but stores nothing useful looks exactly like a fixed bug. So
+    this asserts the EFFECT in the dimension that actually failed: not "the mint
+    was refused" alone, but that a word taught WITH its phonetic can afterwards be
+    logged BY that phonetic, round-tripped through the real command and re-read
+    from disk. That round trip is the whole purpose; everything else is ceremony.
+
+    The ratchet is the second half of Andrew's call: `render_audio` mints records
+    unattended and cannot be blocked without killing renders, so the debt is
+    capped instead. Existing records are grandfathered — no backfill, by his
+    decision. The number may only ever fall; lower it when a tranche is vetted."""
+    print("\n59. A new record is born reachable (2026-08-14)")
+    import argparse as _ap
+    import contextlib
+    ss = importlib.import_module("sync_state")
+    lex_path = sb / "progress" / "lexicon.json"
+    slip_path = sb / "progress" / "slip_log.json"
+    saved = (lex_path.read_bytes(),
+             slip_path.read_bytes() if slip_path.exists() else None)
+
+    defaults = dict(listened=[], teach=[], soak_payload=[], soak_seed=None,
+                    soak_focus=None, soak_channel=None, soak_form=None,
+                    mastered_word=[], comfortable_word=[], stuck_word=[],
+                    produced_cold=[], produced_hinted=[], mark_seen=[],
+                    next_engine=None, debrief=None, slip=[], slip_tested=[],
+                    slip_commissioned=[], no_commission=None, quiet_until=None)
+
+    def update(**kw):
+        out, code = io.StringIO(), 0
+        try:
+            with contextlib.redirect_stdout(out):
+                ss.cmd_update(_ap.Namespace(**{**defaults, **kw}))
+        except SystemExit as e:
+            code = e.code
+        return code, out.getvalue()
+
+    try:
+        # An empty ledger so the commission gate can't refuse these closes for
+        # reasons of its own (s46 owns that behaviour).
+        slip_path.write_text("[]", encoding="utf-8")
+
+        # 1. The refusal — teaching without a phonetic must NOT mint a record.
+        word = "ஸ்மோக்வார்த்தை"
+        _, out = update(teach=[f"{word}=smoke word"])
+        check("teach without a phonetic is refused, naming the word",
+              word in out and "Skipped" in out, out.strip()[-160:])
+        check("...and nothing was written for it",
+              word not in read_json(lex_path),
+              "a record was minted anyway — the guard is decorative")
+
+        # 2. The same refusal on the recognition mint path.
+        _, out = update(comfortable_word=[word])
+        check("--comfortable-word without a phonetic is refused too",
+              word not in read_json(lex_path), "recognition path still mints holes")
+
+        # 3. The legal door — taught WITH its sounds-like form.
+        _, _ = update(teach=[f"{word}=smoke word|smokevaarthai"])
+        rec = read_json(lex_path).get(word)
+        check("teach with a phonetic mints the record",
+              rec is not None, "the legal form was refused as well")
+        check("...and the phonetic is stored on it",
+              bool(rec) and rec.get("phonetic") == ["smokevaarthai"],
+              f"phonetic={rec.get('phonetic') if rec else None}")
+
+        # 4. THE POINT — round-trip: the word is now loggable BY its phonetic,
+        #    which is the exact operation that failed live.
+        _, out = update(produced_cold=["smokevaarthai"])
+        check("the phonetic now resolves for a later production log",
+              read_json(lex_path)[word].get("production") == "cold",
+              f"still unreachable from phonetics: {out.strip()[-160:]}")
+
+        # 5. The ratchet — real tree, not the sandbox: the debt binds the
+        #    lexicon as committed. Frames are exempt (addressed by `frame:` key).
+        real_lex = read_json(REAL_BASE / "progress" / "lexicon.json") or {}
+        debt = sum(1 for k, v in real_lex.items()
+                   if not k.startswith("frame:") and not v.get("phonetic"))
+        check(f"records with no phonetic: {debt}/{DEBT_CEILING_NO_PHONETIC}",
+              debt <= DEBT_CEILING_NO_PHONETIC,
+              f"{debt - DEBT_CEILING_NO_PHONETIC} new unreachable record(s) — give "
+              f"them a phonetic, or lower the ceiling in this same diff if you "
+              f"vetted a tranche. It may never be raised.")
+    finally:
+        lex_path.write_bytes(saved[0])
+        if saved[1] is not None:
+            slip_path.write_bytes(saved[1])
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -5482,6 +5585,7 @@ def main():
         s50_read_surfaces_are_phonetic(mk, kr, sb)
         s51_derived_files_are_rerendered_not_merged(mk, sb)
         s52_andrew_is_family_already(sb)
+        s59_a_new_record_is_born_reachable(sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)
