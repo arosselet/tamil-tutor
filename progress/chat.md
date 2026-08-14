@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:30 · Anna** 🎧  ·  eavesdrop / eavesdrop: spice-dhaan soak
 > 📞 overhear: Savitha akka on the phone — what's she complaining about? 60 sec tape.
 
+**14:31 · Anna**  ·  text / trailer: po vs podu collision
+> ponga vs podunga — one -du apart, both live at that table. Today's ep drills the gap you found yourself. 🎧 M88 is queued.
+
 
 ## Wednesday 2026-08-12
 
