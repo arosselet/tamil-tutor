@@ -1,0 +1,33 @@
+{
+  "mission": 88,
+  "register": "tenderness",
+  "dramatic_ingredient": "genre",
+  "episode_form": "classic",
+  "shape": "gossip",
+  "location_class": "home_social",
+  "energy": "medium",
+  "intercept_tamil_density": 0.25,
+  "breakdown_tamil_density": 0.15,
+  "fence_size": 42,
+  "unfenced_words": 0,
+  "new_words_landed": {
+    "தெரியல": 2,
+    "புரியல": 2,
+    "வரல": 2,
+    "முடியல": 2,
+    "என்ன சொன்னீங்க?": 1,
+    "ஃப்ரீயா விடுங்க": 2
+  },
+  "callbacks_used": {
+    "அலைச்சல்": 1,
+    "ஆமா ஆமா": 1,
+    "உட்காருங்க": 1,
+    "பழகிப்போச்சு": 1,
+    "சும்மா சொல்றாங்க": 2
+  },
+  "host_roles": {
+    "A": "comforting_friend",
+    "B": "exhausted_traveler"
+  },
+  "notes": "Focused on the '-la' negative suffix payload. Integrity check: ensured all Tamil is in script and payload matches verbatim. Dialect check: confirmed 'நேரம் ஆச்சு' and 'பழகிப்போச்சு' use spoken elision, and the polite '-nga' is correctly restricted to imperatives (உட்காருங்க, விடுங்க) and plural-respect (சொன்னீங்க, சொல்றாங்க)."
+}

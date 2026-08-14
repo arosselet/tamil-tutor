@@ -2444,14 +2444,15 @@
       31,
       42,
       65,
-      68
+      68,
+      88
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-08-14",
     "deck": "trip",
     "direction": "fire",
     "type": "chunk",
     "reps": 4,
-    "exposures": 2
+    "exposures": 3
   },
   "கூப்பிடு": {
     "gloss": "Call",
@@ -2971,12 +2972,13 @@
     "seen_in": [
       82,
       83,
-      84
+      84,
+      88
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-08-14",
     "deck": "trip",
     "direction": "catch",
-    "exposures": 6
+    "exposures": 7
   },
   "எனக்கு ஒன்னும் தெரியாது": {
     "type": "chunk",
@@ -3704,13 +3706,14 @@
     "recognition": "struggled",
     "production": "cold",
     "seen_in": [
-      58
+      58,
+      88
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-08-14",
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 2
+    "exposures": 3
   },
   "தமிழ்ல எப்படி சொல்றது?": {
     "type": "chunk",
@@ -3738,12 +3741,13 @@
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [
-      86
+      86,
+      88
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-08-14",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 4
+    "exposures": 5
   },
   "அப்படியா?!": {
     "type": "chunk",
@@ -4020,11 +4024,13 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
-    "last_surfaced": "2026-08-10",
+    "seen_in": [
+      88
+    ],
+    "last_surfaced": "2026-08-14",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 2
+    "exposures": 3
   },
   "வாய் திறந்தா காக்கா கொத்திட்டு போயிடும்": {
     "type": "chunk",
@@ -4267,13 +4273,14 @@
       76,
       78,
       83,
-      86
+      86,
+      88
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-08-14",
     "deck": "trip",
     "direction": "catch",
     "reps": 2,
-    "exposures": 4
+    "exposures": 5
   },
   "ஜாஸ்தி": {
     "type": "chunk",
@@ -4477,11 +4484,12 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
-      63
+      63,
+      88
     ],
-    "last_surfaced": "2026-07-31",
+    "last_surfaced": "2026-08-14",
     "reps": 2,
-    "exposures": 1
+    "exposures": 2
   },
   "டீ": {
     "gloss": "tea",
@@ -5221,8 +5229,11 @@
     "phonetic": [],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [],
-    "last_surfaced": "2026-08-05"
+    "seen_in": [
+      88
+    ],
+    "last_surfaced": "2026-08-14",
+    "exposures": 1
   },
   "பக்கம்": {
     "gloss": "",
@@ -5233,6 +5244,28 @@
       86
     ],
     "last_surfaced": "2026-08-10",
+    "exposures": 1
+  },
+  "வரல": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      88
+    ],
+    "last_surfaced": "2026-08-14",
+    "exposures": 1
+  },
+  "முடியல": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      88
+    ],
+    "last_surfaced": "2026-08-14",
     "exposures": 1
   }
 }
