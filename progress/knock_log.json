@@ -4260,5 +4260,20 @@
       }
     ],
     "volley_next": 1
+  },
+  {
+    "date": "2026-08-14",
+    "timestamp": "2026-08-14T04:00:53.366770+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "eavesdrop: spice-dhaan soak",
+    "rationale": "Eavesdrop cadence due (3 days), spice-dhaan never seeded, cold-start risk so low-friction no-ask dose is right; Savitha akka gossip tape weaves தான்/ஏ/உம்/என்னமோ naturally — ear-only, no production pressure, good re-opener for someone who's been in family immersion for 3 days.",
+    "next_check": "2026-08-14T09:00:53.366770+00:00",
+    "body": "📞 overhear: Savitha akka on the phone — what's she complaining about? 60 sec tape.",
+    "expected_target": "frame:spice-dhaan",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-14T04-00.mp3",
+    "memo_script": "அம்மா சொன்னது தான் சரி. நான் முதல்லயே சொன்னேன் — அவங்க வரமாட்டாங்கன்னு. ஆனா கேட்கலே.\n\nஒரு நாளு முன்னாடியே போன் பண்ணிருக்காங்க. ஒரு நாளு தான்! அதுவும் ratri-la. நான் தூக்கத்துலயே எடுத்தேன்.\n\nசரி, வந்தாங்கன்னு வைச்சுக்கோ — எவ்ளோ நேரம் இருந்தாங்க? ஒரு மணி நேரம் உம் இல்ல. அது என்ன visit-ஆ?\n\nஆமா, அம்மாவுக்கு கஷ்டமா தான் இருக்கும். அவங்களே போய் எல்லாத்தையும் பண்ணிட்டாங்க — யாரும் help பண்ணலே. நானே போயிருக்கணும்னு feel ஆச்சு.\n\nஆனா என்னமோ. அடுத்த தடவ பார்க்கலாம்.",
+    "mp3": "published_audio/knocks/knock_2026-08-14T04-00.mp3"
   }
 ]
