@@ -4139,10 +4139,10 @@
     "seen_in": [
       83
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-08-14",
     "deck": "trip",
     "direction": "catch",
-    "exposures": 3
+    "exposures": 5
   },
   "frame:myself-thukka": {
     "type": "pattern",
