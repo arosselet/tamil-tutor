@@ -4,6 +4,52 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **THE TICKET NAMES TARGETS THE LOGGER WON'T ACCEPT — 31% of the lexicon is unreachable
+  from the surface Anna writes in** (2026-08-14, found live at close: `--produced-hinted
+  ukkarunga` and then `ukkaarunga` both bounced with "no record resolves", and the rep only
+  landed after falling back to Tamil script through a UTF-8 shell). **The resolver is fine;
+  the data is holed.** `state_io.resolve()` is exact-match against `build_phonetic_index`,
+  which is built purely from each record's hand-maintained `phonetic` list — so a record with
+  `"phonetic": []` can only ever be addressed in script. **96 of 313 word/chunk records carry
+  an empty phonetic list** (frames are exempt — they're addressed by their `frame:` key, which
+  is why `frame:mayi-laama` logged fine in the same call). Of those 96, **88 are
+  `production: none`** — i.e. the unreachable set is very nearly *the floor-gap pool itself*,
+  the exact words the whole sprint exists to convert.
+  **The part that makes it a loop-closing bug, not a nitpick:** the constitution's surface
+  split *requires* Anna to think and write in phonetics, and `suggest_targets.py` hands him a
+  focus set drawn from the same lexicon. On 08-14 **5 of the 12 items in the live focus set
+  were unloggable phonetically** — சொல்றேன், அதுக்கு அப்புறம், கேட்டாங்க, எழுந்தேன், சொல்லுங்க
+  (all `[]`), against நாங்க/பெரிய/அத்தை/காரம்/வெளிய/ஆனா/அவங்க which resolve. So the system
+  tells Anna to drill a word and then refuses the observation when he drills it. It *is* loud
+  (it prints and skips, it does not corrupt), but the cost lands at close, mid-flow, where the
+  cheap move is to shrug and lose the rep — and a lost cold-fire is the one number this
+  project is built to move. Note சொல்லுங்க is already named two entries below for an
+  unrelated cohort-eviction check; it has been sitting in this hole since at least 08-01.
+  **Deliberately NOT done tonight:** backfilling the 96. That is 96 Coimbatore transliteration
+  calls — dialect judgement that is Anna's and the Oracle's, not an engineer's, and a wrong
+  entry poisons the canonical index silently and permanently (worse than the current loud
+  skip). **Shape when it comes off the shelf, cheapest first:** (1) a `validate` invariant that
+  counts phonetically-unreachable non-frame records and fails/warns when the *focus set* is
+  among them — turns an invisible hole into a health check; (2) backfill in tranches Andrew
+  actually vets, focus set first, via the existing `add-word --phonetic` path — data, not
+  schema; (3) only if it still bites, a fuzzy fallback in `resolve()` — and note this is the
+  gate-heaviest option and the one most likely to mis-bind two near-homophone records, so it
+  should be argued for, not assumed.
+
+- **THE AUTO-DRAIN'S FALLBACK RULE IS ONE PIPE AWAY FROM BEING DEAD** (2026-08-14, self-
+  inflicted, worth a line anyway). The `anna` skill says dispatch `run_studio.py` in the
+  background and "fall back to the `studio` subagent only if it exits non-zero". `run_studio.py`
+  is correct — a lint failure prints, leaves artifacts, and `sys.exit(1)` (line 575). But the
+  obvious way to keep a background job's output readable is `python scripts/run_studio.py 2>&1
+  | tail -40`, and a shell pipeline returns the *last* command's status, so `tail` reports 0
+  and the documented fallback can never fire. That happened at session open today: M87 failed
+  the fourth-wall lint, the harness reported success, and the drain only recovered because the
+  failure was legible in the captured text. **Nothing in the repo is wrong; the instruction is
+  just fragile against a habit every agent has.** Cheapest fix is a wording change where the
+  dispatch is specified (run it unpiped, or read the exit code explicitly — not `| tail`);
+  `set -o pipefail` also works but only in the Bash lane. Filed rather than fixed because it
+  touches the skill's dispatch contract, which is behaviour, not data.
+
 - **Post-trip: reseed the focus cohort** (2026-08-01, month-end audit). The stored ≤12
   cohort was seeded pre-sprint and is correctly dormant during it, but the membership is
   stale: 7/12 never worked, none are trip-deck items, zero graduations. When the sprint
