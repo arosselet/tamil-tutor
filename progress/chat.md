@@ -12,6 +12,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **12:54 · Anna** 🎧  ·  fielding / fielding: eat-more refusal
 > 🍽 amma just pushed the pot: 'innum konjam saapdunga!' — answer her.
 
+**20:43 · Anna**  ·  text / debrief collect: naane
+> dinner done — did 'naane eduthukkaren' land tonight? one line debrief.
+
 
 ## Friday 2026-08-14
 
