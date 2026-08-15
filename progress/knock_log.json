@@ -4324,5 +4324,18 @@
     "move": "silence + debrief scheduled",
     "rationale": "Ignore-streak is 2 with dinner imminent — adding a third reach now just builds noise; schedule the debrief collect for after the meal when he has something real to report, and stay silent until then.",
     "next_check": "2026-08-16T01:25:19.357869+00:00"
+  },
+  {
+    "date": "2026-08-15",
+    "timestamp": "2026-08-15T15:13:42.511569+00:00",
+    "acted": true,
+    "scheduled": true,
+    "queue_id": "q1786800341",
+    "modality": "text",
+    "move": "debrief collect: naane",
+    "rationale": "scheduled at 2026-08-15T13:25 for 2026-08-15T15:00",
+    "body": "dinner done — did 'naane eduthukkaren' land tonight? one line debrief.",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]

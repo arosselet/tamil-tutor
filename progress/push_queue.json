@@ -1,14 +1,1 @@
-[
-  {
-    "id": "q1786800341",
-    "due": "2026-08-15T15:00:00+00:00",
-    "body": "dinner done — did 'naane eduthukkaren' land tonight? one line debrief.",
-    "expected_target": "",
-    "target_revealed": false,
-    "audio_url": null,
-    "memo_script": "",
-    "move": "debrief collect: naane",
-    "force": false,
-    "queued_at": "2026-08-15T13:25:41.241846+00:00"
-  }
-]
+[]
