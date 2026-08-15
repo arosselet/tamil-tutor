@@ -1,0 +1,31 @@
+{
+  "mission": 89,
+  "register": "defiance",
+  "dramatic_ingredient": "turn",
+  "episode_form": "narrated_drama",
+  "shape": "errand",
+  "location_class": "public_transit",
+  "energy": "medium",
+  "intercept_tamil_density": 0.45,
+  "breakdown_tamil_density": 0.0,
+  "fence_size": 25,
+  "unfenced_words": 1,
+  "new_words_landed": {
+    "புரியல": 1,
+    "வரல": 1,
+    "கொஞ்சம் மெதுவா சொல்லுங்க": 1,
+    "என்ன சொன்னீங்க?": 1,
+    "இன்னொரு தடவ சொல்லுங்க": 0,
+    "frame:youknow-la": 0
+  },
+  "callbacks_used": {
+    "ஆமா ஆமா": 2,
+    "அப்படியா?!": 3,
+    "சரி சரி": 1
+  },
+  "host_roles": {
+    "Clerk": "distracted_government_worker",
+    "Protagonist": "anxious_applicant"
+  },
+  "notes": "Narrated drama format focusing on repair strategies. Dialect pass applied fusion to 'சொல்றேன்' and ensured Coimbatore rhythm. Payload items 'புரியல', 'வரல', and the repair phrases are kept verbatim per the soak order requirements."
+}

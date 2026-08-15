@@ -2446,14 +2446,15 @@
       42,
       65,
       68,
-      88
+      88,
+      89
     ],
-    "last_surfaced": "2026-08-14",
+    "last_surfaced": "2026-08-15",
     "deck": "trip",
     "direction": "fire",
     "type": "chunk",
     "reps": 4,
-    "exposures": 3
+    "exposures": 4
   },
   "கூப்பிடு": {
     "gloss": "Call",
@@ -3674,13 +3675,14 @@
     "recognition": "struggled",
     "production": "cold",
     "seen_in": [
-      58
+      58,
+      89
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-08-15",
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 2
+    "exposures": 3
   },
   "இன்னொரு தடவ சொல்லுங்க": {
     "type": "chunk",
@@ -3691,13 +3693,14 @@
     "recognition": "struggled",
     "production": "hinted",
     "seen_in": [
-      58
+      58,
+      89
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-08-15",
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 4
+    "exposures": 5
   },
   "என்ன சொன்னீங்க?": {
     "type": "chunk",
@@ -3709,13 +3712,14 @@
     "production": "cold",
     "seen_in": [
       58,
-      88
+      88,
+      89
     ],
-    "last_surfaced": "2026-08-14",
+    "last_surfaced": "2026-08-15",
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 3
+    "exposures": 4
   },
   "தமிழ்ல எப்படி சொல்றது?": {
     "type": "chunk",
@@ -3744,12 +3748,13 @@
     "production": "none",
     "seen_in": [
       86,
-      88
+      88,
+      89
     ],
-    "last_surfaced": "2026-08-14",
+    "last_surfaced": "2026-08-15",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 5
+    "exposures": 6
   },
   "அப்படியா?!": {
     "type": "chunk",
@@ -3761,13 +3766,14 @@
     "production": "cold",
     "seen_in": [
       58,
-      68
+      68,
+      89
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-08-15",
     "deck": "trip",
     "direction": "fire",
     "reps": 1,
-    "exposures": 2
+    "exposures": 3
   },
   "சரி சரி": {
     "type": "chunk",
@@ -3780,13 +3786,14 @@
     "seen_in": [
       72,
       84,
-      85
+      85,
+      89
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-08-15",
     "deck": "trip",
     "direction": "fire",
     "reps": 3,
-    "exposures": 5
+    "exposures": 6
   },
   "இன்னும் கொஞ்சம் போடுங்க": {
     "type": "chunk",
@@ -3995,12 +4002,13 @@
     "seen_in": [
       68,
       77,
-      83
+      83,
+      89
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-08-15",
     "deck": "trip",
     "direction": "catch",
-    "exposures": 5,
+    "exposures": 6,
     "reps": 1
   },
   "எவ்ளோ ஆகும்?": {
@@ -5255,10 +5263,11 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
-      88
+      88,
+      89
     ],
-    "last_surfaced": "2026-08-14",
-    "exposures": 1
+    "last_surfaced": "2026-08-15",
+    "exposures": 2
   },
   "முடியல": {
     "gloss": "",
