@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Saturday 2026-08-15
+
+**09:02 · Anna**  ·  text / trailer payoff: po/podu show dose
+> ponga = go (clear off). podunga = put it (serve it). One -du, total opposite at a table. The wedding-morning ep drills them back to back — ponga, podunga, potten, po — so the -du gets AUDIBLE. naane eduthukkaren in the background, since the house guarantees the slot tonight.
+
+
 ## Friday 2026-08-14
 
 **09:30 · Anna** 🎧  ·  eavesdrop / eavesdrop: spice-dhaan soak
