@@ -4315,5 +4315,14 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-15T07-24.mp3",
     "memo_script": "இன்னும் கொஞ்சம் சாப்பிடுங்க, கொஞ்சம் சாப்பிடுங்க — நிறைய இருக்கு!",
     "mp3": "published_audio/knocks/knock_2026-08-15T07-24.mp3"
+  },
+  {
+    "date": "2026-08-15",
+    "timestamp": "2026-08-15T13:25:19.357869+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "silence + debrief scheduled",
+    "rationale": "Ignore-streak is 2 with dinner imminent — adding a third reach now just builds noise; schedule the debrief collect for after the meal when he has something real to report, and stay silent until then.",
+    "next_check": "2026-08-16T01:25:19.357869+00:00"
   }
 ]
