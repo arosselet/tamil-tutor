@@ -4337,5 +4337,17 @@
     "body": "dinner done — did 'naane eduthukkaren' land tonight? one line debrief.",
     "expected_target": "",
     "target_revealed": false
+  },
+  {
+    "date": "2026-08-16",
+    "timestamp": "2026-08-16T03:42:12.548985+00:00",
+    "acted": true,
+    "modality": "challenge",
+    "move": "mission: repair over bluff",
+    "rationale": "Story explicitly calls for re-collecting the 08-14 mission and handing the repair-line mission today; demand-streak is 0, peg is fresh (yesterday's live bluff slip), and a challenge that doubles as debrief collect is the cleanest single move on a relaxed Sunday morning — no volley needed when the room is already the exam.",
+    "next_check": "2026-08-16T13:42:12.548985+00:00",
+    "body": "did naane eduthukkaren land last night? 🎯 tonight: say 'innoru thadava sollunga' before appadiyaa — once, to a real face. debrief tomorrow.",
+    "expected_target": "இன்னொரு தடவ சொல்லுங்க",
+    "target_revealed": false
   }
 ]

@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Sunday 2026-08-16
+
+**09:12 · Anna**  ·  challenge / mission: repair over bluff
+> did naane eduthukkaren land last night? 🎯 tonight: say 'innoru thadava sollunga' before appadiyaa — once, to a real face. debrief tomorrow.
+
+
 ## Saturday 2026-08-15
 
 **09:02 · Anna**  ·  text / trailer payoff: po/podu show dose
