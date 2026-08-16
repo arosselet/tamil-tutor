@@ -9,6 +9,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:12 · Anna**  ·  challenge / mission: repair over bluff
 > did naane eduthukkaren land last night? 🎯 tonight: say 'innoru thadava sollunga' before appadiyaa — once, to a real face. debrief tomorrow.
 
+**19:26 · Andrew** — **CHAT**
+> Forgive my unresponsiveness.  The jet lag is hitting hard and again I slept most of today. Lots of listening.
+
+**Anna ↩**
+> jet lag is real — rest up, no guilt. 'lots of listening' counts. mission's still open whenever you surface. 🛬
+
 
 ## Saturday 2026-08-15
 

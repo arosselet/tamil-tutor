@@ -4348,6 +4348,29 @@
     "next_check": "2026-08-16T13:42:12.548985+00:00",
     "body": "did naane eduthukkaren land last night? 🎯 tonight: say 'innoru thadava sollunga' before appadiyaa — once, to a real face. debrief tomorrow.",
     "expected_target": "இன்னொரு தடவ சொல்லுங்க",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Forgive my unresponsiveness.  The jet lag is hitting hard and again I slept most of today. Lots of listening.",
+    "reply_verdict": "chat",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line": "jet lag is real — rest up, no guilt. 'lots of listening' counts. mission's still open whenever you surface. 🛬",
+    "reply_at": "2026-08-16T13:56:17Z",
+    "exchanges": [
+      {
+        "at": "2026-08-16T13:56:17Z",
+        "reply": "Forgive my unresponsiveness.  The jet lag is hitting hard and again I slept most of today. Lots of listening.",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "jet lag is real — rest up, no guilt. 'lots of listening' counts. mission's still open whenever you surface. 🛬",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ]
   }
 ]
