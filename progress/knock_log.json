@@ -4430,5 +4430,14 @@
     "chained": 1,
     "pinned_target": "போதும்",
     "pinned_revealed": false
+  },
+  {
+    "date": "2026-08-17",
+    "timestamp": "2026-08-17T10:25:21.012256+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "catch: myself-thukka declining",
+    "rationale": "Eavesdrop cadence hit today (3d since last, 9 catch items pending); frame:myself-thukka is ear-only and directly maps the campaign's declining set (paathukkaren/eduthukkaren) — soak it at the exact moment the house is drilling those same verbs on him hourly; frame:youknow-la rides in background (struggled, reading correctly for first time 08-15); no production demand on a jet-lagged in-country day.",
+    "next_check": "2026-08-17T15:25:21.012256+00:00"
   }
 ]
