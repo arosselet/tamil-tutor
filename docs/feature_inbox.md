@@ -786,3 +786,19 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
   after the fact — if the post-trip state shows the deck or the cohort visibly mis-steered
   by the travel gap rather than merely dented, that is the reproduced pattern. Look at it
   post-trip with the session log in hand, not before.
+- **The promoted axis has no history** (2026-08-17, found while re-judging the ear wave against
+  the written position). `sync_state.py:810-811` stamps `floor_pct` and `engines_pct` onto every
+  session row — both production meters, one of them now demoted. Nothing stamps the ear. So
+  `Machines heard` leads the scoreboard with **no longitudinal record at all**, and in a month
+  there is no way to answer "did it move?" — the one question the constitution's *Ground
+  Covered, Not Ground Remaining* law actually needs answered. This is not recoverable after the
+  fact: `lexicon.json` carries only today's recognition level, so every day that passes without
+  the field is a day of the headline axis permanently unrecorded. Cheap fix: one line,
+  `entry["ears_pct"]`, beside the two already there; `smoke_test.py:3829` asserts the row's
+  shape and would extend in the same diff. **Held at Gate 2** — schema change to Python-owned
+  JSON — not built. The larger question underneath: the session row is the only distance-covered
+  record this system keeps, and nothing reads it back to Andrew. `show_status.py:129` prints
+  floor% per session into a dashboard he doesn't open, while the numbers that would answer "no
+  further than we were" are real and good (engines 26%→90.5%, floor 15.3%→26.2%, 75 cold fires,
+  4 demotions across 30 sessions). The law says name ground covered; nothing yet does it from
+  the record rather than from Anna's memory of the last session.

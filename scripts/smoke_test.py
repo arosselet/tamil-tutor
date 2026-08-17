@@ -5522,6 +5522,317 @@ def s59_a_new_record_is_born_reachable(sb: Path):
             slip_path.write_bytes(saved[1])
 
 
+def s60_the_ear_meter(kr, sb: Path):
+    """Machines heard — the recognition axis gets a meter (2026-08-16, Andrew).
+
+    The pivot: "we stop counting what comes out of your mouth and start counting
+    what you can hear." The evidence that earned it is in his own lexicon — of 26
+    frames he PRODUCES 20 cold and RECOGNISES only 3 as solid, so ten machines he
+    can fire unaided still go past him unheard in a fast sentence. That is why two
+    content words in native-speed gossip felt like nothing: the tails carry the
+    skeleton, and the skeleton was inaudible. Meanwhile the status line reported
+    "Engines online: 19/21 (90%)" — a PRODUCTION number, read for a year as though
+    it were mastery.
+
+    Nothing new scores this. `apply_catch_verdict` already walks the ladder one
+    rung per catch (struggled → comfortable → solid, upgrades only, s6 proves it)
+    and `resolve()` already returns `frame:` keys unchanged — 20 eavesdrop knocks
+    have targeted frames. The whole defect was that the number was never PRINTED.
+
+    Gate 7.2 — what does this look like when it silently does nothing? It prints
+    a plausible fraction that never moves, which is indistinguishable from Andrew
+    not improving, and it is the headline, so nobody would question it. Two ways
+    to be silently wrong, and a check for each:
+
+      1. The DENOMINATOR quietly shrinks. Reusing the Engines filter would drop
+         `direction: catch` patterns and report 3/21 — still plausible, wrong set,
+         and it would hide precisely the ear-only machines this meter exists for.
+      2. The NUMERATOR cannot move. If a catch could not reach a `frame:` key the
+         count would freeze at its birth value forever.
+
+    So this asserts the effect in the dimension that can actually fail: the ear-only
+    pattern is inside the denominator, `comfortable` does NOT count as heard, and a
+    real catch driven through `knock_reply.main()` moves the number the render
+    prints — round-tripped through the writer and re-read off the status surface,
+    never off the function that computes it."""
+    print("\n60. Machines heard — the ear meter (2026-08-16)")
+    import contextlib
+    sbf = importlib.import_module("session_brief")
+    lex_path = sb / "progress" / "lexicon.json"
+    klog_path = sb / "progress" / "knock_log.json"
+    saved = (lex_path.read_bytes(), klog_path.read_bytes())
+
+    def status() -> str:
+        sbf.git_sync_counts = lambda: (0, 0)
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            sbf.cmd_status(None)
+        return out.getvalue()
+
+    def meter(text: str) -> str:
+        for line in text.splitlines():
+            if line.startswith("Machines heard:"):
+                return line
+        return ""
+
+    ear = "frame:ear-only"
+    write_json(lex_path, {
+        # fires cold, still deaf — in BOTH denominators
+        "frame:fire-only": {"gloss": "-om", "phonetic": ["om"], "type": "pattern",
+                            "recognition": "struggled", "production": "cold", "seen_in": []},
+        # ear-only: Engines excludes it by design, this meter must not
+        ear: {"gloss": "-aam hearsay", "phonetic": ["aam"], "type": "pattern",
+              "direction": "catch", "recognition": "comfortable", "production": "none",
+              "seen_in": [], "last_surfaced": "2026-07-01"},
+        # the one already heard
+        "frame:heard": {"gloss": "-nu quotative", "phonetic": ["nu"], "type": "pattern",
+                        "recognition": "solid", "production": "none", "seen_in": []},
+        # a WORD at solid — must not touch a pattern meter
+        "வணக்கம்": {"gloss": "hello", "phonetic": ["vanakkam"], "type": "chunk",
+                    "recognition": "solid", "production": "cold", "seen_in": []},
+    })
+
+    line = meter(status())
+    check("the ear meter is printed at all", line != "", "no 'Machines heard:' line in status")
+    check("ear-only patterns are INSIDE the denominator (3, not 2)",
+          "1/3" in line, line)
+    check("comfortable is not heard — only solid counts", line.startswith("Machines heard: 1/"), line)
+    check("it is labelled the primary steer", "PRIMARY STEER" in line, line)
+    check("the deck no longer claims the headline",
+          "sprint headline" not in status())
+
+    # The one-line scoreboard is the surface Anna narrates from and the digest
+    # carries to the phone — a meter that moved only in the long status block
+    # would leave every OTHER channel still reciting production at him.
+    # Both branches must carry it — the deck one for the trip, the floor one for
+    # the era after it, which is the horizon the deck's expiry leaves open.
+    ss = importlib.import_module("sync_state")
+    check("the scoreboard line LEADS with the ear (floor era)",
+          ss.compute_status().startswith("Machines heard 1/3 · viability floor"),
+          ss.compute_status())
+    lex = read_json(lex_path)
+    lex["வணக்கம்"]["deck"] = "trip"
+    write_json(lex_path, lex)
+    check("...and still leads with it during a live deck sprint",
+          ss.compute_status().startswith("Machines heard 1/3 · Trip Deck"),
+          ss.compute_status())
+
+    # --- the round trip: a real catch on a FRAME must move the printed number ---
+    kr.push_to_phone, kr.commit_and_push = Recorder(), Recorder()
+    kr.judge_catch = lambda k, r, *a, **kw: {"verdict": "caught", "reply_line": "adhu dhaan 🎧",
+                                             "meta_note": "", "rationale": "smoke"}
+    now = datetime.now(timezone.utc)
+    log = read_json(klog_path)
+    log.append({"date": now.date().isoformat(), "timestamp": now.isoformat(),
+                "acted": True, "modality": "eavesdrop", "move": "gossip tape",
+                "body": "who's the news about?", "memo_script": "அவங்க பொண்ணு-ஆம்!",
+                "expected_target": ear, "target_revealed": False})
+    write_json(klog_path, log)
+    sys.argv = ["knock_reply.py", "someone said her daughter — I heard it, not saw it"]
+    kr.main()
+
+    check("a catch on a frame reaches solid",
+          read_json(lex_path)[ear]["recognition"] == "solid")
+    check("and the METER the session reads has moved 1/3 → 2/3",
+          "2/3" in meter(status()), meter(status()))
+
+    write_json(lex_path, json.loads(saved[0].decode("utf-8")))
+    write_json(klog_path, json.loads(saved[1].decode("utf-8")))
+
+
+def s61_no_number_is_recited_at_him(kr, sb: Path):
+    """Meters steer Python; they are never read aloud (2026-08-17, Andrew).
+
+    Achievement-goal framing is the mechanism here, not taste. Andrew is
+    mastery-driven by his own account — every surge he has had came from an
+    insight or a new capability, never from hitting a number — and a performance
+    scoreboard attached to a learner like that predicts withdrawal exactly when
+    progress is slow. That is the 08-16 signal in one sentence ("a handful of
+    marbles against a swimming pool"), and the instrumentation was manufacturing
+    part of it. The 07-17 law already said a global deficit recited in a warm
+    voice is guilt machinery; it guarded ONE line while `catch_meter` was pushing
+    "Catch 3/12 · 12d" to his lock screen after every eavesdrop reply — a fraction
+    and a countdown, on the surface he cannot look away from.
+
+    Gate 7.2 — the silent no-op: a meter tail is one ` · ` join, so a re-add would
+    look like an ordinary formatting change and nothing would fail. The assertion
+    is therefore on the SHAPE of what reaches the phone, not on the absence of one
+    function: no `n/m` may appear in a pushed body, whatever composes it."""
+    print("\n61. No number is recited at him (2026-08-17)")
+    lex_path = sb / "progress" / "lexicon.json"
+    klog_path = sb / "progress" / "knock_log.json"
+    saved = (lex_path.read_bytes(), klog_path.read_bytes())
+
+    check("catch_meter is gone, not merely unused", not hasattr(kr, "catch_meter"))
+    persona = (REAL_BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
+    check("persona.md forbids reciting a number",
+          "recites a number at him" in persona and "countdown" in persona)
+    brief = (REAL_BASE / "scripts" / "session_brief.py").read_text(encoding="utf-8")
+    check("the meter block is labelled steering data, not narration",
+          "ENGINEERING NUMBERS" in brief)
+
+    # The real push path, driven end to end: a catch reply must reach the phone
+    # carrying the reply line and nothing else.
+    w = "frame:smoke-ear"
+    write_json(lex_path, {w: {"gloss": "-aam", "phonetic": ["aam"], "type": "pattern",
+                              "deck": "trip", "direction": "catch", "recognition": "struggled",
+                              "production": "none", "seen_in": [], "last_surfaced": "2026-07-01"}})
+    pushed = Recorder()
+    kr.push_to_phone, kr.commit_and_push = pushed, Recorder()
+    kr.judge_catch = lambda k, r, *a, **kw: {"verdict": "caught", "reply_line": "adhu dhaan 🎧",
+                                             "meta_note": "", "rationale": "smoke"}
+    now = datetime.now(timezone.utc)
+    log = read_json(klog_path)
+    log.append({"date": now.date().isoformat(), "timestamp": now.isoformat(),
+                "acted": True, "modality": "eavesdrop", "move": "gossip tape",
+                "body": "who's the news about?", "memo_script": "அவங்க பொண்ணு-ஆம்!",
+                "expected_target": w, "target_revealed": False})
+    write_json(klog_path, log)
+    sys.argv = ["knock_reply.py", "someone said her daughter"]
+    kr.main()
+
+    body = str(pushed[-1][0]) if pushed else ""  # Recorder is a list of arg tuples
+    check("the pushed body is the reply line alone", body == "adhu dhaan 🎧", repr(body))
+    check("no fraction reached the phone", re.search(r"\d+\s*/\s*\d+", body) is None, repr(body))
+
+    write_json(lex_path, json.loads(saved[0].decode("utf-8")))
+    write_json(klog_path, json.loads(saved[1].decode("utf-8")))
+
+
+def s62_the_return_clock_is_keyed_to_the_ear(sb: Path):
+    """Decayed items come back, and due-ness reads the recognition axis (2026-08-17).
+
+    The spacing effect is the shape memory has, not a technique, and the system
+    had a real spaced-repetition selector all along — `generate_callbacks.py`,
+    intervals on `last_surfaced`. Two exclusions gutted it for the ear: patterns
+    were skipped ("tracked engines, not soak words") and struggled rows were
+    skipped ("repeated audio exposure doesn't fix cold-production gaps"). Both
+    were right for a production headline. Both removed precisely the inventory a
+    recognition headline lives on — the 26 machines, and the 144 struggled rows
+    that are the cheapest material in the ledger to recover.
+
+    Gate 7.2 — the silent no-op is severe here and reads as good news: a clock
+    that selects nothing prints "(nothing due — the recognized set is fresh)",
+    which looks like a healthy ledger rather than a dead selector. So the checks
+    assert that specific rows COME BACK, and that due-ness moves when the
+    recognition axis moves and not when production does."""
+    print("\n62. The return clock is keyed to the ear (2026-08-17)")
+    gc = importlib.import_module("generate_callbacks")
+    today = date_cls(2026, 8, 17)
+    row = lambda **kw: {"gloss": "g", "phonetic": ["p"], "seen_in": [], **kw}
+    lex = {
+        # struggled pattern, 6 days stale — the exact row both old rules dropped
+        "frame:struggled": row(type="pattern", recognition="struggled",
+                               production="cold", last_surfaced="2026-08-11"),
+        # solid, same staleness — retained, not yet due at 21 days
+        "solid-fresh": row(recognition="solid", production="cold",
+                           last_surfaced="2026-08-11"),
+        # comfortable at 12 days — past its 10-day interval
+        "comfortable-due": row(recognition="comfortable", production="none",
+                               last_surfaced="2026-08-05"),
+    }
+    due = {c["word"]: c for c in gc.due_callbacks(lex, today, 10)}
+
+    check("a struggled PATTERN is due — both old exclusions lifted",
+          "frame:struggled" in due, str(sorted(due)))
+    check("a solid row at 6 days is NOT due (21-day interval)",
+          "solid-fresh" not in due, str(sorted(due)))
+    check("a comfortable row at 12 days IS due (10-day interval)",
+          "comfortable-due" in due, str(sorted(due)))
+    # Overdue-ness leads the sort; RECOGNITION_RANK only breaks ties. Equal
+    # overdue (both 1 day past their own interval) is where it shows.
+    tie = {"a-solid": row(recognition="solid", production="cold", last_surfaced="2026-07-26"),
+           "b-struggled": row(recognition="struggled", production="cold", last_surfaced="2026-08-11")}
+    order = [c["word"] for c in gc.due_callbacks(tie, today, 10)]
+    check("on equal overdue the weaker trace comes back first",
+          order[0] == "b-struggled", str(order))
+
+    # Due-ness must follow the EAR. Flipping production alone changes nothing;
+    # flipping recognition to solid must retire the row from today's list.
+    lex["frame:struggled"]["production"] = "none"
+    check("production no longer drives due-ness",
+          "frame:struggled" in {c["word"] for c in gc.due_callbacks(lex, today, 10)})
+    lex["frame:struggled"]["recognition"] = "solid"
+    check("...and recognition does",
+          "frame:struggled" not in {c["word"] for c in gc.due_callbacks(lex, today, 10)})
+
+    # The failure the green suite missed: with the sentinel in play, EVERY slot
+    # on the live ticket read "(last: never surfaced)" — the clock had never
+    # returned a single decayed row, and it looked like a working selector
+    # because it was producing output. A return clock returns what was met.
+    lex["never-worked"] = row(recognition="struggled", production="none")
+    picked = [c["word"] for c in gc.due_callbacks(lex, today, 10)]
+    check("a never-surfaced row is not 'due' — it is new ground, not decay",
+          "never-worked" not in picked, str(picked))
+    check("...and the decayed rows still come back",
+          "comfortable-due" in picked, str(picked))
+
+
+def s63_the_machines_reach_the_ticket():
+    """Patterns are reachable, not merely eligible (2026-08-17).
+
+    Letting patterns into the pool (s62) made them ELIGIBLE. It did not make them
+    REACHABLE: on the live ledger 100 rows came back due, the first pattern sat at
+    rank 59, and the five-slot ticket therefore returned words only. The 26
+    machines — the set the comprehension threshold rides on, since the tails carry
+    the sentence skeleton — had a return path in principle and none in fact. Words
+    outnumber patterns ~12:1 and decay on the same clock, so the majority pool
+    takes every seat on staleness alone, forever.
+
+    Gate 7.2 — what does this look like when it silently does nothing? A ticket of
+    five genuinely-overdue words, which is indistinguishable from a healthy
+    selection: nothing errors, every row is real and really due, and the absence of
+    a machine is invisible unless something asserts it. That is exactly how the
+    original defect survived a green suite — s62 proved eligibility against a
+    three-row lexicon, a shape in which the bug cannot appear.
+
+    So this reproduces the LIVE shape — many ancient words against a few
+    less-ancient patterns — and asserts the machines are on the ticket anyway,
+    that the reservation is a floor and never a ceiling, and that it can never
+    grow to starve the words."""
+    print("\n63. The machines reach the ticket (2026-08-17)")
+    gc = importlib.import_module("generate_callbacks")
+    today = date_cls(2026, 8, 17)
+    row = lambda **kw: {"gloss": "g", "phonetic": ["p"], "seen_in": [], **kw}
+    # The live distribution: words far more overdue than any pattern.
+    lex = {f"word{i}": row(recognition="struggled", production="cold",
+                           last_surfaced="2026-06-24") for i in range(40)}
+    lex.update({f"frame:m{i}": row(type="pattern", recognition="struggled",
+                                   production="cold", last_surfaced="2026-08-05")
+                for i in range(3)})
+
+    picked = gc.due_callbacks(lex, today, 5)
+    pats = [c for c in picked if c["pattern"]]
+    check("the ticket is still full", len(picked) == 5, str(len(picked)))
+    check("machines are on it despite losing on staleness",
+          len(pats) == gc.PATTERN_SLOTS, f"{len(pats)} of {[c['word'] for c in picked]}")
+    check("...and the words keep the majority of the seats",
+          len(picked) - len(pats) == 3, str(len(picked) - len(pats)))
+
+    # A FLOOR, NOT A CEILING: when patterns are the most decayed rows in the
+    # ledger, the reservation must not cap them back down to two.
+    flip = {f"word{i}": row(recognition="struggled", production="cold",
+                            last_surfaced="2026-08-05") for i in range(40)}
+    flip.update({f"frame:m{i}": row(type="pattern", recognition="struggled",
+                                    production="cold", last_surfaced="2026-06-24")
+                 for i in range(4)})
+    won = [c for c in gc.due_callbacks(flip, today, 5) if c["pattern"]]
+    check("machines that win on merit are not capped at the reservation",
+          len(won) == 4, f"{len(won)} patterns won seats")
+
+    # The reservation may never take the whole ticket.
+    one = gc.due_callbacks(lex, today, 1)
+    check("a single-slot ticket is not handed to the reservation",
+          not one[0]["pattern"], one[0]["word"])
+    check("half is the hard cap on a two-slot ticket",
+          sum(1 for c in gc.due_callbacks(lex, today, 2) if c["pattern"]) == 1)
+
+    # And the pool is unchanged — no pattern arrives that was never met.
+    lex["frame:unmet"] = row(type="pattern", recognition="struggled", production="none")
+    check("the reservation cannot smuggle in a never-surfaced row",
+          "frame:unmet" not in {c["word"] for c in gc.due_callbacks(lex, today, 5)})
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -5586,6 +5897,10 @@ def main():
         s51_derived_files_are_rerendered_not_merged(mk, sb)
         s52_andrew_is_family_already(sb)
         s59_a_new_record_is_born_reachable(sb)
+        s60_the_ear_meter(kr, sb)
+        s61_no_number_is_recited_at_him(kr, sb)
+        s62_the_return_clock_is_keyed_to_the_ear(sb)
+        s63_the_machines_reach_the_ticket()
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)

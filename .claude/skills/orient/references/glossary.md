@@ -31,7 +31,7 @@ Defined: `protocol/daily_session.md` — The Loop and Close & Log sections
 
 ## deck
 
-A tagged sprint subset of `progress/lexicon.json`. During the Trip Sprint, ~65 chunks and frames are tagged `deck:"trip"`; `suggest_targets.py` surfaces them first and the session ticker reports **Trip Deck: X/N fire cold** as the headline meter. Each deck item carries a `direction` field: **fire** or **catch** (see those entries).
+A tagged sprint subset of `progress/lexicon.json`. During the Trip Sprint, ~65 chunks and frames are tagged `deck:"trip"`; `suggest_targets.py` surfaces them first and the session ticker reports **Trip Deck: X/N fire cold**. It led the status line until 2026-08-16, when **Machines heard** took the headline (see *machines heard*); the deck is still reported, it just no longer leads. Each deck item carries a `direction` field: **fire** or **catch** (see those entries).
 
 Defined: `docs/DECISIONS.md` — "Trip Sprint"; `progress/profile.md` — "Phase 1.5 — The Trip Sprint"
 
@@ -109,6 +109,14 @@ Defined: `protocol/constitution.md` — "Stories Are Curriculum (the lore rule)"
 
 ---
 
+## machines heard
+
+The headline meter since 2026-08-16: of the ~26 patterns (frames/machines) in the lexicon, how many are `solid` on **recognition** — can he *hear* the machine at speed, not merely fire it. `session_brief.py` prints it as `Machines heard: X/N`; `sync_state.compute_status` leads the one-line scoreboard with it. It replaced production meters (Trip Deck, Engines, viability floor) as the lead because those measure the engine and this measures the destination — the evidence being that Andrew produced 20 of 26 machines cold while hearing 3, which is exactly why two words landing in a fast sentence felt like nothing. Ear-only (`direction: catch`) patterns are inside its denominator; **engines** excludes them, so this is the one meter that sees the whole set. Like every meter it steers Python and is never recited to him.
+
+Defined: `docs/DECISIONS.md` — "The headline is the ear, not the mouth"; `protocol/constitution.md` — "The Learner" mission
+
+---
+
 ## masks
 
 Anna impersonating a family member (mother-in-law, banter-speed cousin, gossiping auntie) for one beat in-register, then stepping out to recast as himself. Masks force the register the deck needs — deference for the mother-in-law (`-nga` forms), speed for the cousin, gossip idiom for the auntie. One beat, then dropped; the one continuous relationship stays Anna.
@@ -169,7 +177,7 @@ Defined: `docs/DECISIONS.md` — "Trip Sprint (2026-06-30)"; `progress/profile.m
 
 ## viability floor
 
-The threshold of words and frames firing cold that stops the freeze response — enough operational capacity to navigate Coimbatore without going blank. `scripts/sync_state.py status` reports it as `Viability floor: X/Y recognized words fire cold (Z%)` (`sync_state.py:559`). Production counts (cold fires) move the floor; recognition without production does not. The floor is the headline metric for Phase 1.
+The threshold of words and frames firing cold that stops the freeze response — enough operational capacity to navigate Coimbatore without going blank. `scripts/sync_state.py status` reports it as `Viability floor: X/Y recognized words fire cold (Z%)` (`sync_state.py:559`). Production counts (cold fires) move the floor; recognition without production does not. It led Phase 1 and no longer leads anything (2026-08-16): production is the *engine*, not the destination, so the floor measures how hard the engine is running — **machines heard** measures whether he has arrived. Both still print; only one is the headline.
 
 Defined: `docs/DECISIONS.md` — "Absorption-first, then production-as-accelerant"; `protocol/persona.md` — "The Charge"; `progress/profile.md` — "Current Position"
 
