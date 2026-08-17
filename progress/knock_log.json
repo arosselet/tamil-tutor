@@ -4395,6 +4395,40 @@
     "next_check": "2026-08-17T09:34:31.779379+00:00",
     "body": "full-speed Tamil all day is the work. session today: 'innoru thadava sollunga' — say it once more. carve it from appadiyaa before dinner 🎯",
     "expected_target": "",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Innoru thadava sollunga",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "இன்னொரு தடவ சொல்லுங்க"
+    ],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [
+      "இன்னொரு தடவ சொல்லுங்க"
+    ],
+    "reply_line": "adhu dhaan! 🔥 jet lag and all — line still fired clean. · ok, dinner's almost ready and maama keeps piling your plate. one line to wave it off — 'enough, I'm good.' what do you say?",
+    "reply_at": "2026-08-17T07:02:25Z",
+    "exchanges": [
+      {
+        "at": "2026-08-17T07:02:25Z",
+        "reply": "Innoru thadava sollunga",
+        "verdict": "hinted",
+        "fired": [
+          "இன்னொரு தடவ சொல்லுங்க"
+        ],
+        "fired_cold": [],
+        "fired_capped": [
+          "இன்னொரு தடவ சொல்லுங்க"
+        ],
+        "graduated": [],
+        "reply_line": "adhu dhaan! 🔥 jet lag and all — line still fired clean. · ok, dinner's almost ready and maama keeps piling your plate. one line to wave it off — 'enough, I'm good.' what do you say?",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ],
+    "chained": 1,
+    "pinned_target": "போதும்",
+    "pinned_revealed": false
   }
 ]
