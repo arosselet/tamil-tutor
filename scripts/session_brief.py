@@ -248,14 +248,38 @@ def cmd_status(_args):
     if lexicon:
         by_level = {lvl: 0 for lvl in RECOGNITION_LEVELS}
         cold = hinted = 0
+        ears_heard = ears_total = 0
         for r in lexicon.values():
             if is_pattern(r):
-                continue  # patterns are metered separately (Engines)
+                # Patterns are metered separately — and on BOTH axes, which is
+                # the 2026-08-16 correction. Engines reports the MOUTH (does the
+                # machine fire cold); Machines heard reports the EAR (is it solid
+                # on recognition). Before this line the ear axis was tracked on
+                # every pattern record and surfaced on no meter at all: patterns
+                # are skipped here, and compute_engines reads `production` only.
+                # So the status line said "Engines online: 19/21 (90%)" while 12
+                # of 26 machines Andrew produces cold were still `struggled` to
+                # hear — the number he actually cares about, invisible for a year.
+                # Ear-only patterns (direction=catch) are counted HERE and only
+                # here; Engines excludes them by design, so this is the one meter
+                # that sees the whole set.
+                ears_total += 1
+                if r.get("recognition") == "solid":
+                    ears_heard += 1
+                continue
             by_level[r.get("recognition", "struggled")] = by_level.get(r.get("recognition", "struggled"), 0) + 1
             if r.get("production") == "cold":
                 cold += 1
             elif r.get("production") == "hinted":
                 hinted += 1
+        # The whole block is steering data, not narration material. The coverage
+        # line has carried this warning alone since 07-17; it belongs on all of
+        # them (2026-08-17) — Andrew is mastery-driven, and a performance
+        # scoreboard read aloud to a learner like that predicts withdrawal when
+        # the number is slow, which is what the 08-16 signal was.
+        print("↓ ENGINEERING NUMBERS — they steer what Python picks. Never recite a "
+              "fraction, percentage, countdown or streak at him (persona.md); the "
+              "close names what got clearer.")
         print(f"Recognition — solid: {by_level['solid']}, comfortable: {by_level['comfortable']}, struggled: {by_level['struggled']}")
         print(f"Production — cold: {cold}, hinted: {hinted}")
         floor = compute_floor(lexicon)
@@ -263,10 +287,13 @@ def cmd_status(_args):
         engines = compute_engines(lexicon)
         if engines["total"]:
             print(f"Engines online: {engines['online']}/{engines['total']} patterns fire cold ({engines['pct']:.0f}%)")
+        if ears_total:
+            print(f"Machines heard: {ears_heard}/{ears_total} patterns solid on recognition "
+                  f"({ears_heard / ears_total * 100:.0f}%) — PRIMARY STEER (2026-08-16)")
         deck = compute_deck(lexicon)
         if deck["total"]:
             catch = f" · catch {deck['caught']}/{deck['catch_total']} solid" if deck["catch_total"] else ""
-            print(f"Trip Deck: {deck['cleared']}/{deck['total']} deck phrases fire cold ({deck['pct']:.0f}%){catch} — the sprint headline")
+            print(f"Trip Deck: {deck['cleared']}/{deck['total']} deck phrases fire cold ({deck['pct']:.0f}%){catch}")
             if deck["untouched"] or deck["catch_untouched"]:
                 ear = f" + {deck['catch_untouched']} ear-only" if deck["catch_untouched"] else ""
                 print(f"  ⚠ Coverage: {deck['untouched']} fire item(s){ear} never worked "

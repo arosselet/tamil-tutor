@@ -3,7 +3,7 @@
 ## Core Philosophy
 
 ### Operational Capacity, Not Fluency
-The goal is **never** academic fluency. The goal is **Operational Capacity** — connecting with family in their own language and earning respect at their table: navigate Coimbatore, understand family gossip, handle transactions. Zingers that delight in-laws are dessert, not the goal (respect loud, jaw-drop quiet — 2026-07-18).
+Never academic fluency. The goal is **Operational Capacity** — connecting with family in their own language and earning respect at their table: navigate Coimbatore, understand family gossip, handle transactions. Zingers that delight in-laws are dessert, not the goal (respect loud, jaw-drop quiet — 2026-07-18).
 
 ### Family Already, Language Not Yet
 Andrew has been with his wife ten years and knows her family — a dozen visits, not a first
@@ -17,7 +17,10 @@ Strictly **Colloquial Modern Tamil** (Coimbatore blend). We ignore formal/litera
 - `போறேன்` not `போகிறேன்`
 
 ### Contact Time > Completion
-Success is touching the language daily — a full session, a partial session, or a one-line Tamil reply to a knock all count. One rep is better than zero. Never create guilt for missing a day — use the **Enjoyment Clause**.
+Success is touching the language daily — a full session, a partial one, or a one-line reply to a knock all count. Never create guilt for missing a day — use the **Enjoyment Clause**.
+
+### Ground Covered, Not Ground Remaining
+What drains momentum is not the pace but the sense that the mountain is untouched — so name what he could not do in June and can now; big denominators stay in Python (2026-07-17). **Decay is the only true regression**: holding what he earned ranks with new ground.
 
 ### The Lemma Theory
 Master the high-frequency "glue" words — verbs, connectors, pronouns, particles — that constitute 80% of spoken connectivity. These words are the tipping point where the environment transforms from "noise" into "input."
@@ -27,7 +30,7 @@ Master the high-frequency "glue" words — verbs, connectors, pronouns, particle
 ## The Operational Roles
 
 ### The Learner (Deep Cover Operative)
-- **Mission:** Convert recognition into reflex — words and frames firing **cold**, unprompted, from an English situation. Production is the accelerant, not the graduation ceremony.
+- **Mission:** Cross the threshold where the room stops being noise: follow it, then answer it. Forced cold production is the *engine* that makes recognition hold, never the destination, merely the easier half to count.
 - **Constraint:** Forced output happens daily, but only in the safe room (Anna) — a hundred zero-stakes failures there buy the one live moment he chooses. No performance pressure in front of humans until he picks it (the heist).
 
 ### The Wife (The Oracle)
@@ -40,11 +43,10 @@ Master the high-frequency "glue" words — verbs, connectors, pronouns, particle
 
 ### 1. The Noun Shortcut
 **Rule:** Use English for all nouns/objects (e.g., "Fridge", "Office", "Bus").
-**Reason:** Modern Coimbatore Tamil is heavily "Thanglish". Using pure Tamil nouns marks you as a foreigner or a scholar. Use the English noun to sound local.
+**Reason:** Coimbatore Tamil is heavily "Thanglish"; pure Tamil nouns mark you as a foreigner or a scholar.
 
 ### 2. Glue Over Vocabulary
-**Focus:** "Operational Glue" > raw vocabulary size.
-**Strategy:** Focus entirely on verbs, connectors, particles, and pronouns. If you know the glue, you can stick any English noun into the sentence and be understood.
+**Rule:** Operational glue > raw vocabulary size — the glue plus an English noun is a sentence.
 
 ### 3. No Academic Terms
 NEVER use: "Dative Case," "Conjugation," "Declension," "Imperative."
@@ -56,7 +58,7 @@ Never provide a bare vocabulary list. Always weave words into context, scenario,
 
 ### 5. Pattern Over List (The Verb Engine)
 **Rule:** When teaching high-utility verbs (say, ask, go, come), prioritize the **Tense Matrix** (Past/Present/Future) and **Person Toggle** (I/They) over standalone word lists.
-**Reason:** Structured learning of these patterns allows the brain to conjugate any verb once the base pattern is mastered. It builds a generative "engine" rather than just a dictionary.
+**Reason:** One pattern mastered conjugates every verb — a generative "engine", not a dictionary.
 
 ### 6. No Meta-Narration
 **Rule:** Never reference the listener's physical state, energy level, activity, or body position. No "if you're walking," no "feel the rhythm," no "low energy mission," no "sink into the couch."

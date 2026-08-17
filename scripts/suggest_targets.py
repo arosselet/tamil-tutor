@@ -946,11 +946,12 @@ def main():
     if not callbacks:
         print("  (nothing due — the recognized set is fresh)")
     for cb in callbacks:
-        if cb.get("direction") == "catch":
-            gap_tag = "ear"  # soak-by-design, not production debt
-        else:
-            gap_tag = "floor-gap" if cb["production"] != "cold" else "retention"
-        print(f"  - {cb['word']} — {cb['gloss'] or '[no gloss]'}  [{gap_tag}]")
+        # Tag by the axis that SELECTED the row (2026-08-17), matching
+        # generate_callbacks' own render. Reading `production` here labelled a
+        # struggled frame pulled back for decay as "[retention]" — the Director
+        # reads this block, so the tag was actively misdirecting the payload.
+        tag = cb["recognition"] + (" · ear" if cb.get("direction") == "catch" else "")
+        print(f"  - {cb['word']} — {cb['gloss'] or '[no gloss]'}  [{tag}]")
 
     # 3. New candidates by cluster — Anna picks the cluster
     print("\n3. NEW CANDIDATES BY CLUSTER  (priority-1, not yet met — pick a thin cluster)")

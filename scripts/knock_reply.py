@@ -441,13 +441,14 @@ def apply_catch_verdict(verdict: dict, knock: dict, lexicon: dict) -> list[str]:
     return [f"{key} recognition → {nxt.upper()} (caught)"]
 
 
-def catch_meter(lexicon: dict) -> str:
-    from suggest_targets import deck_status  # lazy: keeps module import light
-    deck = deck_status(lexicon)
-    if not deck or not deck.get("catch_total"):
-        return ""
-    days = (TRIP_DATE - local_today()).days
-    return f"Catch {deck['caught']}/{deck['catch_total']} · {days}d"
+# catch_meter() lived here until 2026-08-17. It appended "Catch 3/12 · 12d" to the
+# line pushed to Andrew's phone after every eavesdrop reply — a fraction AND a
+# countdown, recited at him, on the one surface he cannot look away from. The
+# 07-17 law already forbade a global deficit narrated in a warm voice; this was
+# the same object with a friendlier font. Deleted, not softened: the meters are
+# engineering numbers that steer what Python picks, and Andrew is mastery-driven
+# — a scoreboard attached to a learner like that manufactures withdrawal when the
+# number moves slowly, which is exactly what it did (2026-08-16 → 08-17).
 
 
 def handle_catch_reply(knock: dict, reply_text: str, klog: list,
@@ -461,7 +462,7 @@ def handle_catch_reply(knock: dict, reply_text: str, klog: list,
     print(f"   → {verdict['verdict']} | {verdict.get('rationale', '')}")
 
     if dry_run:
-        print(f"[dry-run] would apply, then push: {verdict['reply_line']} · {catch_meter(lexicon)}")
+        print(f"[dry-run] would apply, then push: {verdict['reply_line']}")
         return
 
     print("2. state…")
@@ -492,7 +493,7 @@ def handle_catch_reply(knock: dict, reply_text: str, klog: list,
     commit_and_push(commit_paths, f"Knock reply: {verdict['verdict']} (eavesdrop)")
 
     print("4. push back…")
-    body = " · ".join(p for p in (verdict["reply_line"], catch_meter(lexicon)) if p)
+    body = verdict["reply_line"]  # the line only — no meter tail (see catch_meter's grave)
     # requested: he replied to a knock — answering him is not an interruption,
     # so the quiet-hours chokepoint must not swallow it (2026-07-26).
     push_to_phone(body, None, knock_id=knock.get("timestamp", ""), requested=True)

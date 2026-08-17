@@ -318,17 +318,27 @@ def compute_status() -> str:
     line Anna narrates from. In country the countdown is meaningless and the
     burn rate is a lie: the table sets the pace, not a per-day quota."""
     lexicon = load_json(LEXICON_PATH) or {}
+    # THE HEADLINE MOVED TO THE EAR (2026-08-16, Andrew: "we stop counting what
+    # comes out of your mouth and start counting what you can hear"). Every meter
+    # that has ever led this line measured PRODUCTION — deck cold, floor cold,
+    # engines cold — and the lexicon says he produces 20 of 26 machines cold while
+    # hearing 3. The tails carry a Tamil sentence's skeleton, so ten machines he
+    # can build himself still go past him at speed. That gap is what "two words in
+    # a fast sentence does almost nothing" actually was. The deck keeps its place
+    # behind it: the trip is live, it just no longer leads.
+    pats = [r for r in lexicon.values() if is_pattern(r)]
+    ears = f"Machines heard {sum(1 for r in pats if r.get('recognition') == 'solid')}/{len(pats)}"
     deck = compute_deck(lexicon)
     if deck["total"]:
         days = (TRIP_DATE - local_today()).days
         never = (f" · {deck['untouched']} never worked" if deck["untouched"] else "")
         when = f"{days} days to touchdown" if days > 0 else f"in country, day {1 - days}"
-        return (f"Trip Deck {deck['surv_cleared']}/{deck['surv_total']} survival cold · "
+        return (f"{ears} · Trip Deck {deck['surv_cleared']}/{deck['surv_total']} survival cold · "
                 f"{when} · "
                 f"{burn_rate(deck['surv_total'] - deck['surv_cleared'], days)} · "
                 f"full deck {deck['cleared']}/{deck['total']}{never}")
     floor = compute_floor(lexicon)
-    return f"Viability floor {floor['cleared']}/{floor['total']} fire cold ({floor['pct']:.0f}%)"
+    return f"{ears} · viability floor {floor['cleared']}/{floor['total']} fire cold ({floor['pct']:.0f}%)"
 
 
 def cold_fires_recent(days: int = 7) -> int:

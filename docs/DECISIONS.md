@@ -2003,3 +2003,45 @@ Details live in git history; this is the index of the *conclusions*.
   mint specs, refused on a new word, ignored on a known one. Andrew's ruling: refuse at the
   interactive mint AND ratchet the debt (`s59`, ceiling 96), since `render_audio` mints
   unattended. No backfill; the ceiling may only fall.
+- **The headline is the ear, not the mouth** (2026-08-16, Andrew, in country: "we stop counting
+  what comes out of your mouth and start counting what you can hear"). His lexicon: of 26 frames
+  he PRODUCES 20 cold and RECOGNISES 3 as solid — ten machines he can fire unaided still pass him
+  unheard at speed, which is the felt complaint ("2 words in a fast sentence does
+  almost nothing"). "Engines online: 19/21" led the line for a year and is a *production*
+  number; the recognition axis was tracked on every pattern record and surfaced on no meter
+  (`session_brief` skips patterns, `compute_engines` reads `production` only). `Machines heard`
+  **replaces** the Trip Deck as the scoreboard's lead — the 07-27 horizon gap's
+  successor, early — and demotes Engines. **Nothing was built to score it**:
+  `apply_catch_verdict` already walks the ladder, `resolve()` already returns `frame:` keys.
+  Denominator includes `direction: catch`. Smoke: `s60`.
+- **Meters steer Python; Anna never recites a number** (2026-08-17, Andrew). Achievement-goal
+  framing, not taste. The mechanism first written here — withdrawal "when progress is slow" —
+  was wrong, and Andrew corrected it: *"'moving slowly' isn't a reason to quit. Feeling that
+  the mountain is too big or we're no further than we were is the factor."* The trigger is
+  perceived distance *covered*, not pace, and a large denominator reports only the remainder.
+  The 07-17 law guarded one line while `catch_meter` pushed "Catch 3/12 · 12d" to his lock
+  screen after every eavesdrop reply. **Deleted**, not softened; `persona.md`'s "never shames
+  the pace" bullet absorbs the rule (no fraction, percentage, countdown or streak), the brief
+  labels the block ENGINEERING NUMBERS, and the positive half is canon in `constitution.md` →
+  Ground Covered, Not Ground Remaining. The numbers stay, for selection. Smoke `s61`.
+- **The return clock is keyed to the ear, and returns only what was met** (2026-08-17, Andrew).
+  `generate_callbacks.py` was already a real spaced-repetition selector; two exclusions gutted
+  it — patterns skipped ("tracked engines, not soak words") and struggled rows skipped ("audio
+  doesn't fix cold-production gaps"). Both were right under a production headline and both
+  removed exactly what a recognition headline lives on: the 26 machines, and the 144 struggled
+  rows that are the cheapest inventory to recover. `INTERVAL_DAYS` re-keyed to recognition,
+  same 21/10/5 shape. **Third fix, found only by running it on real data:** never-surfaced rows
+  entered at the sentinel and outranked every overdue row, so all eight live slots read "never
+  surfaced" — the clock had never returned anything while looking like it worked. Excluded, per
+  `retest_targets` 2026-08-04. Smoke `s62`.
+- **The threshold is comprehension; production is the engine** (2026-08-17, Andrew: *"what's
+  measured, what's selected, what's taught should be cohesive and clear, not a bunch of knobs
+  to twiddle"*). The three entries above are consequences of one sentence nobody had written
+  down — which is how a felt signal became three dials. Now canon in `constitution.md`: the
+  Learner crosses *the threshold where the room stops being noise*, and **Ground Covered, Not
+  Ground Remaining** supplies the positive half the 07-17 meter law lacked. **Does not reopen
+  "Absorption-first, then production-as-accelerant"** (04-09/06-07) — forced output is still
+  the engine, still daily. What ended is reading its odometer as the map: production won every
+  meter because it was *countable*, never because it was the goal. `PATTERN_SLOTS` (smoke
+  `s63`) fixes the hollow third consequence — patterns were eligible but sat at rank 59 of 100
+  due rows. `director.md`, `profile.md` and the `/orient` glossary re-pointed.

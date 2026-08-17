@@ -80,7 +80,7 @@ Every payload has two active parts:
 
 **NEW (4–5 words or phrases):** Fresh items the learner hasn't met — from the ticket's *new candidates*. Pick a **thin cluster** (the ticket shows per-cluster coverage) and take the highest-frequency, most household-relevant items in it. Phrases and chunks count as items — prefer them when they're more useful than the sum of their parts (track a phrase as its own item only when it's salient as a unit, not merely compositional).
 
-**CALLBACKS (3–5 words):** The ticket's *due callbacks* section (the same `generate_callbacks` query, folded into `suggest_targets.py`) — recognized words going stale, biased toward the floor gap; struggled words are excluded (they belong in Anna's interactive drills, not another soak). Treat them as a **soft target: aim to land 2–3; the script leads and the quota follows.** Don't bend the scene to force every one — a callback that won't fit naturally waits (the staleness interval prevents over-rotation).
+**CALLBACKS (3–5 items):** The ticket's *due callbacks* section (the same `generate_callbacks` query, folded into `suggest_targets.py`) — anything he has *met* and is losing, biased toward the weakest trace, with up to two slots held for machines (frames). Struggled rows are the point here, not an exclusion (2026-08-17): repeated exposure is precisely what moves recognition, and decay is the only true regression the constitution recognises. Treat them as a **soft target: aim to land 2–3; the script leads and the quota follows.** Don't bend the scene to force every one — a callback that won't fit naturally waits (the staleness interval prevents over-rotation).
 
 ---
 
