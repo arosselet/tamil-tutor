@@ -2117,6 +2117,26 @@ def s28_cloud_writer(sb: Path):
           "progress/lexicon.json" in rs.CANON_SKIP
           and "===== progress/lexicon.json =====" not in director_inlined)
 
+    # PAYLOAD FIDELITY — verbatim for chunks, stem-tolerant for words (2026-08-18).
+    # The check had NO coverage at all, which is how a flat substring test survived
+    # while rejecting correct scripts: a verb claimed as தூக்கு appears as
+    # தூக்கறேன், and every verb in the pool had the same problem waiting. The
+    # tolerance must not reach the two mutations that earned the rule.
+    lex = {"தூக்கு": {}, "வேணும்": {}, "வை": {},
+           "ஒரு நிமிஷம்": {"type": "chunk"}}
+    pp = rs.payload_present
+    check("a verb claimed as a stem counts when the script inflects it",
+          pp("தூக்கு", "நான் தூக்கறேன் அத", lex))
+    check("...and still fails when the verb is simply absent",
+          not pp("தூக்கு", "நான் பையை எடுத்தேன்", lex))
+    check("a CHUNK gets zero tolerance — the mutation that earned the rule",
+          not pp("ஒரு நிமிஷம்", "ஒரு நிமிஷங்க இருங்க", lex)
+          and pp("ஒரு நிமிஷம்", "ஒரு நிமிஷம் இருங்க", lex))
+    check("the literary form the dialect pass exists to remove is still caught",
+          not pp("வேணும்", "அது வேண்டும் என்று சொன்னார்", lex))
+    check("a stem too short to be evidence falls back to verbatim",
+          pp("வை", "அத அங்க வைக்கறேன்", lex))
+
 
 def s29_one_runner_every_capability(mk, pq, kr, sb: Path):
     print("\n29. One workflow, every capability; the drain renders voice (2026-07-24)")
