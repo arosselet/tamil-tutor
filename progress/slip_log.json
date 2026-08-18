@@ -473,5 +473,17 @@
     "note": "covers the gap with a backchannel that hides the miss instead of asking for the repeat",
     "word": "",
     "dose_channel": "episode"
+  },
+  {
+    "at": "2026-08-18T08:21:42Z",
+    "date": "2026-08-18",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "bluff-not-repair",
+    "said": "asked me 'what's that?' in English when Athai came at him at speed",
+    "want": "innoru thadava sollunga / enna sonneenga",
+    "note": "the repair INSTINCT fires — it just has no Tamil mouth on it yet, so it comes out in English and aimed at the coach",
+    "word": "",
+    "dose_channel": "drill"
   }
 ]

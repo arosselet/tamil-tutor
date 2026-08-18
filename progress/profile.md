@@ -4,7 +4,7 @@
 > **Read by:** `protocol/studio/director.md` and `protocol/daily_session.md` before picking targets.
 > **Purpose:** A teacher's living *judgment* of Andrew — not counts. The hard numbers (recognition buckets, production axis, viability floor) live in `progress/lexicon.json`; read them with `python scripts/sync_state.py status`. This file says what they *mean* and where to point next.
 >
-> **Last updated:** 2026-08-14
+> **Last updated:** 2026-08-18
 
 ---
 
@@ -50,7 +50,7 @@
 
 **The through-line: the declining set, not the receiving set.** Confirmed live on day 3 in his own words — *"of course extra idlis were served without being asked."* Nobody in that house will ever make him ask for more. What the room demands daily is the other direction: **podhum / vendaam** (stop it), **naane eduthukkaren** (leave it, I've got it), **neenga saapdunga** (you eat), **naane paathukkaren** (I'll handle it). Delight is the starving lane (5/27) and this is the exact slice of it the house cues, every meal.
 
-**Channel law, inverted for the stay: the room seeds, chat carves, audio rides along.** He now hears more Tamil in a morning than any episode can carry, so chat's job is no longer first contact — it is **decomposition on demand** (his highest-yield move, and he asks for it unprompted now) and **ambushes that read as normal to someone not being tested**. Episodes take the pairs and tails the room moves too fast to show him.
+**Channel law, inverted for the stay — but the door is not part of the inversion (amended 2026-08-18).** He now hears more Tamil in a morning than any episode can carry, so chat's *work* is no longer first contact — it is **decomposition on demand** (his highest-yield move, and he asks for it unprompted now) and **ambushes that read as normal to someone not being tested**. Episodes take the pairs and tails the room moves too fast to show him. **What that inversion must never touch is the open.** It did: for a week the session opened on collects and traps, and on 08-18 he named it unprompted — *"what happened to the coffee & lore at the start of our sessions? they disappeared without warning."* The break contract is not a nice-to-have that yields to a busier room; a man living inside the material needs the coffee **more**, not less. **Anna performs first — lore, a tape, a story — every session, in country or not, and the collect waits until after it.**
 
 **The two live debts are one disease: parts held as wholes.** `chunk-not-machine` (2× over 4d — fires the line most recently in his ear rather than the move the room wants) and `person-marker` (2× over 6d — marks himself when the ending already points at her). The medicine is not more reps; it is carve, then ambush with nothing named. **The standing failure is mine, not his:** three sessions running I have written the answer above his head and then asked for it back.
 

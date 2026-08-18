@@ -3,7 +3,7 @@
     "gloss": "First",
     "phonetic": [],
     "recognition": "solid",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       1,
       5,
@@ -30,7 +30,8 @@
       50,
       51
     ],
-    "last_surfaced": "2026-06-24"
+    "last_surfaced": "2026-08-18",
+    "reps": 1
   },
   "கல்யாணம்": {
     "gloss": "Wedding / Marriage",
@@ -794,7 +795,7 @@
       "podhum"
     ],
     "recognition": "solid",
-    "production": "hinted",
+    "production": "cold",
     "seen_in": [
       6,
       10,
@@ -802,8 +803,8 @@
       71,
       72
     ],
-    "last_surfaced": "2026-08-14",
-    "reps": 9,
+    "last_surfaced": "2026-08-18",
+    "reps": 10,
     "exposures": 1
   },
   "தெரியும்": {
@@ -1011,7 +1012,7 @@
       "vareen"
     ],
     "recognition": "solid",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       1,
       5,
@@ -1027,8 +1028,9 @@
       36,
       73
     ],
-    "last_surfaced": "2026-08-10",
-    "exposures": 3
+    "last_surfaced": "2026-08-18",
+    "exposures": 3,
+    "reps": 1
   },
   "மூணு": {
     "gloss": "Three",
@@ -1545,9 +1547,9 @@
       76,
       85
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-08-18",
     "exposures": 6,
-    "reps": 1
+    "reps": 2
   },
   "சொல்றேன்": {
     "gloss": "I'm telling (present)",
@@ -2667,10 +2669,10 @@
     "gloss": "{verb}+ணும் → must {verb} — பண்ணணும், போகணும், சொல்லணும்",
     "phonetic": [],
     "recognition": "solid",
-    "production": "hinted",
+    "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-08-10",
-    "reps": 1,
+    "last_surfaced": "2026-08-18",
+    "reps": 2,
     "exposures": 1
   },
   "frame:cant-முடியல": {
@@ -4172,10 +4174,10 @@
     "seen_in": [
       86
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-08-18",
     "deck": "trip",
     "direction": "fire",
-    "reps": 6,
+    "reps": 7,
     "exposures": 3,
     "register": "frame"
   },
@@ -5362,5 +5364,25 @@
     ],
     "last_surfaced": "2026-08-14",
     "exposures": 1
+  },
+  "மாட்ட": {
+    "gloss": "Will not / never will (the refusal ending — nee sollave maatta)",
+    "phonetic": [
+      "maatta"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-08-18"
+  },
+  "சனிக்கிழமை": {
+    "gloss": "Saturday",
+    "phonetic": [
+      "sanikizhamai"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-08-18"
   }
 }
