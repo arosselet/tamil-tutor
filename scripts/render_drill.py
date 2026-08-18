@@ -35,7 +35,7 @@ BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from morning_knock import (OPENROUTER_BASE, MODEL, ANNA_VOICE, load_env,
                            push_to_phone, commit_and_push, jsdelivr_url,
-                           parse_llm_response)
+                           parse_llm_response, JSON_MODE)
 from render_audio import generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME, clean_for_tts
 from suggest_targets import drill_menu
 from state_io import LEXICON_PATH, load_json
@@ -187,7 +187,7 @@ def ask_json(system: str, user: str, max_tokens: int = 2400, tries: int = 3) -> 
     client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
     for attempt in range(1, tries + 1):
         resp = client.chat.completions.create(
-            model=MODEL, max_tokens=max_tokens,
+            model=MODEL, max_tokens=max_tokens, response_format=JSON_MODE,
             messages=[{"role": "system", "content": system},
                       {"role": "user", "content": user}])
         try:

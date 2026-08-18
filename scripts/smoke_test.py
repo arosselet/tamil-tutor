@@ -6239,6 +6239,110 @@ def s65_the_ordering_outlives_the_deck(sb: Path):
         learner_path.write_bytes(saved[1])
 
 
+def s66_json_mode_is_actually_sent(mk, kr, sb: Path):
+    """Structured output, and the reason it needs a case at all (2026-08-18).
+
+    Every JSON lane used to PROMPT for JSON and hope. The mandates always said
+    "return ONLY a JSON object" and models wrapped it anyway, so `parse_llm_json`
+    grew a five-strategy fallback chain out of four dated incidents, and the
+    long-haul lane measured 3 of 6 identical calls coming back prose-prefixed —
+    which killed a 45-minute render at movement 5 of 15. `response_format`
+    moves that from survivable-at-the-parser to impossible-at-the-API.
+
+    Gate 7.2 — ADDING A PARAMETER IS ITSELF A SILENT NO-OP. If `response_format`
+    is dropped, misspelled, or quietly removed in a refactor, every lane keeps
+    working exactly as before: the model usually returns clean JSON anyway, the
+    fallback chain catches the rest, and nothing fails. The regression would only
+    show up as a render dying mid-tape weeks later. So the assertions are on what
+    the REQUEST carries, not on what comes back.
+
+    THE OTHER HALF is the text lanes. `rephrase_phonetic` asks for a
+    transliteration, not an object, and the studio's writers return prose — a
+    blanket sweep that forced JSON mode onto those would break them just as
+    silently, in the other direction."""
+    print("\n66. JSON mode is actually sent — and only where it belongs (2026-08-18)")
+    import importlib.util
+
+    # A PRISTINE copy of the module, not the shared one: `s3` replaces
+    # `mk.decide` with a canned lambda and that stub is still standing this far
+    # down the run, so the shared object would answer without ever reaching a
+    # request. Loading the sandbox file again gives the real function bodies
+    # without disturbing any stub the rest of the suite relies on.
+    spec = importlib.util.spec_from_file_location("mk_pristine", mk.__file__)
+    fresh = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(fresh)
+
+    # ── A client that records the request instead of making one. ─────────────
+    calls = []
+
+    def fake_client(*a, **kw):
+        def create(**kwargs):
+            calls.append(kwargs)
+            body = '{"act": false, "modality": "silence", "move": "smoke", ' \
+                   '"rationale": "smoke", "next_check_hours": 3, ' \
+                   '"notification_body": "", "expected_target": "", ' \
+                   '"target_revealed": false, "schedule": null}'
+            msg = types.SimpleNamespace(content=body)
+            choice = types.SimpleNamespace(message=msg, finish_reason="stop")
+            return types.SimpleNamespace(choices=[choice])
+        return types.SimpleNamespace(
+            chat=types.SimpleNamespace(completions=types.SimpleNamespace(create=create)))
+
+    real_env = os.environ.get("OPENROUTER_API_KEY")
+    try:
+        fresh.OpenAI = fake_client
+        os.environ["OPENROUTER_API_KEY"] = "smoke"
+        fresh.decide("smoke digest", [])
+        check("the composer's request carries JSON mode",
+              calls and calls[-1].get("response_format") == fresh.JSON_MODE,
+              f"got {calls[-1].get('response_format') if calls else 'no call'}")
+        check("...and it is the json_object form the lanes agreed on",
+              fresh.JSON_MODE == {"type": "json_object"}, f"got {fresh.JSON_MODE}")
+
+        # The text lane must stay text. Forcing an object out of a call that asks
+        # for a transliteration is the same defect pointing the other way.
+        calls.clear()
+        fresh.rephrase_phonetic("ரொம்ப நல்லாருக்கு")
+        check("the phonetic rewrite does NOT ask for JSON — it returns a line",
+              calls and "response_format" not in calls[-1], f"got {calls[-1] if calls else None}")
+    finally:
+        if real_env is None:
+            os.environ.pop("OPENROUTER_API_KEY", None)
+        else:
+            os.environ["OPENROUTER_API_KEY"] = real_env
+
+    # ── Coverage across lanes, read off the SOURCE, so a lane added later
+    # without JSON mode is caught even though no test exercises it. Mechanism
+    # lines only (`code_line_numbers`), so a docstring quoting a call cannot
+    # satisfy or break this.
+    lanes = {
+        "scripts/morning_knock.py": 1,   # decide() — rephrase_phonetic is text
+        "scripts/knock_reply.py": 2,     # the production judge and the catch judge
+        "scripts/render_drill.py": 1,    # the sheet writer
+        "scripts/render_soak.py": 1,     # the soak sheet
+    }
+    for rel, want in lanes.items():
+        src = (REAL_BASE / rel).read_text(encoding="utf-8")
+        mech = code_line_numbers(src)
+        lines = src.splitlines()
+        creates = [i for i, ln in enumerate(lines, 1)
+                   if "chat.completions.create" in ln and i in mech]
+        # the call's kwargs run to the closing paren; scan the next few lines
+        with_mode = 0
+        for i in creates:
+            window = "".join(lines[i - 1:i + 6])
+            if "response_format" in window:
+                with_mode += 1
+        check(f"{rel}: {with_mode}/{len(creates)} JSON call(s) send response_format",
+              with_mode == want, f"expected {want} of {len(creates)} create() calls")
+
+    # The studio writers return PROSE on a different model — sweeping JSON mode
+    # across every create() in the tree would have broken them.
+    studio = (REAL_BASE / "scripts" / "run_studio.py").read_text(encoding="utf-8")
+    check("the studio's prose writer is left alone",
+          "response_format" not in studio, "run_studio started asking for JSON")
+
+
 
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
@@ -6310,6 +6414,7 @@ def main():
         s63_the_machines_reach_the_ticket()
         s64_the_ask_cooldown_covers_the_session_lane(sb)
         s65_the_ordering_outlives_the_deck(sb)
+        s66_json_mode_is_actually_sent(mk, kr, sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)

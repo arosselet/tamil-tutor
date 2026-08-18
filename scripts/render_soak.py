@@ -43,7 +43,8 @@ from openai import OpenAI
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from morning_knock import (OPENROUTER_BASE, MODEL, ANNA_VOICE, load_env,
-                           push_to_phone, commit_and_push, jsdelivr_url)
+                           push_to_phone, commit_and_push, jsdelivr_url,
+                           parse_llm_response, JSON_MODE)
 from render_audio import (generate_segment_google, get_raw_mp3_frames,
                           SILENCE_FRAME, clean_for_tts, google_credentials_ready,
                           EXIT_NOT_CONFIGURED)
@@ -171,16 +172,20 @@ def write_sheet(items: list[dict], focus: str | None = None) -> dict:
     client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
     resp = client.chat.completions.create(
         model=MODEL,
+        response_format=JSON_MODE,
         max_tokens=2400,
         messages=[
             {"role": "system", "content": persona + "\n\n---\n\n" + mandate},
             {"role": "user", "content": f"THIS WEEK'S ITEMS:\n{menu}"},
         ],
     )
-    text = resp.choices[0].message.content.strip()
-    if text.startswith("```"):
-        text = text.split("```")[1].lstrip("json").strip()
-    sheet = json.loads(text, strict=False)
+    # THE THIRD COPY OF THE SAME PARSER, retired 2026-08-18. This was the char-0
+    # `json.loads` behind a `startswith("```")` fence-strip — byte-for-byte the
+    # private parse `render_drill` was fixed for on 08-10, whose own note called it
+    # "the cost of a second parser, not of a hard problem". This lane was the third
+    # and nobody had looked. It also never had the 08-05 truncation guard, so at
+    # max_tokens=2400 a cut-off sheet reported as a parse error.
+    sheet = parse_llm_response(resp)
     clean = []
     for c in sheet.get("clusters", []):
         kept = [i for i in c.get("items", [])
