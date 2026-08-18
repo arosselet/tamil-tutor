@@ -5,21 +5,30 @@ eyeballing a 2000-line lexicon. Anna chooses the story and meaning; this script
 computes the candidate set. The bright line: Python computes the menu, Anna
 makes the choice.
 
-Four parts:
-  1. FOCUS SET + BACKGROUND — words recognized (comfortable/solid) but not yet
-     firing cold, split into TWO BUDGETS. The focus set is ≤FOCUS_SIZE words in
-     dense rotation, drilled until they fire cold and then never drilled again.
-     The background is everything not yet started: exposure only — soak them into
-     scenes so the tail can't rot, never force them to fire. One ranked list
-     cannot do both jobs, and trying made it do neither.
-  2. DUE CALLBACKS — soft soak targets, reusing generate_callbacks.py (no
-     duplicated logic).
+FIVE SELECTORS (2026-08-18, the deck retirement — it was nine, and three of them
+claimed primacy in their own words, so whichever one Anna weighted that day
+decided the session):
+  1. THE POOL — everything not yet firing cold, ordered survival > delight >
+     dessert (`tier_rank`, read off each row's `register`) and split into TWO
+     BUDGETS. The focus set is ≤FOCUS_SIZE in dense rotation, drilled until they
+     fire cold and then never drilled again; the background is exposure only —
+     soak them into scenes so the tail can't rot, never force them to fire. One
+     ranked list cannot do both jobs, and trying made it do neither. The ear
+     (1a), the background (1b), coverage (1c) and the engines (1e) are views of
+     this same population, not rival pools.
+  2. DUE CALLBACKS — decay, reusing generate_callbacks.py (no duplicated logic).
+     A different job from the pool: not "what is due" but "what is fading".
   3. NEW CANDIDATES BY CLUSTER — priority-1 word_pool entries not yet in the
      lexicon, grouped by cluster with a coverage stat so Anna can see which
      clusters are thin. Python shows coverage; Anna picks the cluster.
   4. VOCABULARY FENCE — all recognized words (comfortable/solid) plus cold
      productions. This is "the sea" the Architect builds from. Every word of
-     dialogue that isn't payload should come from this list.
+     dialogue that isn't payload should come from this list. Not a selector.
+
+The SLIP LEDGER rides above them: every list here answers "which item is due";
+only that one answers "how is he failing". They are not rivals — `machines heard`
+steers WHAT, the ledger steers HOW — and nothing on this ticket outranks
+anything else any more.
 
 Usage:
     python scripts/suggest_targets.py [--floor-max 8] [--clusters 5] [--per-cluster 5]
@@ -199,8 +208,8 @@ def stored_focus_cohort() -> list[str]:
 def floor_gap_targets(lexicon: dict, today, max_n: int,
                       asked: dict | None = None, reps: dict | None = None,
                       cohort: list[str] | None = None) -> tuple[list[dict], list[dict]]:
-    """The general floor — everything outside the deck. TWO BUDGETS, not one
-    ranked list (2026-07-26):
+    """THE ordered pool — every row not yet firing cold, tier-first. TWO BUDGETS,
+    not one ranked list (2026-07-26):
 
       FOCUS      ≤ FOCUS_SIZE words in dense rotation, drilled until they fire
                  cold. Membership is STORED STATE (learner.json), not an
@@ -218,11 +227,30 @@ def floor_gap_targets(lexicon: dict, today, max_n: int,
     both hold. Simulated over 60 days: 66 graduate, 132 of 134 touched, no word
     drilled more than 5×.
 
+    THE MERGE (2026-08-18, the deck retirement). This was "the general floor —
+    everything OUTSIDE the deck", one of three ticket sections claiming primacy
+    in its own words, on a 361-line ticket where whichever one Anna weighted that
+    day decided the session. Three pools became this one:
+
+      TRIP DECK        the tier ordering, now `tier_rank` on every row. The
+                       recognition gate went with it: the deck's pending rows
+                       were 31/35 `struggled`, which this pool used to exclude
+                       outright, so keeping that gate would have made the whole
+                       migrated set unreachable — the ordering surviving with
+                       nothing left to order. Teach-first still holds through the
+                       `unseen` flag, which every consumer already reads.
+      HINTED, GOING DARK  a retest RULE (`RETEST_DAYS`), not a rival pool — see
+                       the reservation below.
+
+    What the deck proved and this keeps: a finite, visible, ordered set beats an
+    undifferentiated 339-row ledger. `FOCUS_SIZE` is that finite set now; what
+    expired is the deadline and the separate container.
+
     `cohort` is the stored membership; None loads it from learner.json. A held
-    word that graduated (or left the floor population — demotion, deck re-tag)
-    vacates its seat here; open seats are filled from the front of the
-    background order. Persisting the result is the WRITE seams' job
-    (`reconcile_focus` via sync_state / knock_reply), never this reader's."""
+    word that graduated (or left the pool population) vacates its seat here; open
+    seats are filled from the front of the background order. Persisting the
+    result is the WRITE seams' job (`reconcile_focus` via sync_state /
+    knock_reply), never this reader's."""
     if asked is None:
         asked = recent_ask_counts(load_json(KNOCK_LOG_PATH) or [], lexicon)
     if reps is None:
@@ -232,24 +260,27 @@ def floor_gap_targets(lexicon: dict, today, max_n: int,
     gap = []
     for w, r in lexicon.items():
         if r.get("type") == "pattern":
-            continue  # patterns are forced via the Engines block, not the word floor
+            continue  # patterns are forced via the Engines block, not the word pool
         if r.get("direction") == "catch":
-            continue  # ear-only deck items — never forced to fire
-        if r.get("recognition") not in RECOGNIZED or r.get("production") == "cold":
-            continue
+            continue  # ear-only — never forced to fire; `ear_targets` owns them
+        if r.get("production") == "cold":
+            continue  # graduated: never drilled again, just used
         ds = days_since(r.get("last_surfaced"), today)
         staleness = NEVER_SURFACED if ds is None else ds
         gap.append({
             "word": w, "gloss": r.get("gloss", ""),
             "recognition": r.get("recognition"), "production": r.get("production", "none"),
+            "register": r.get("register", ""), "tier_rank": tier_rank(r),
+            "tier": TIER_NAMES[tier_rank(r)],
             "staleness": staleness, "soaked": len(r.get("seen_in", [])),
-            "exposures": r.get("exposures", 0),
+            "exposures": r.get("exposures", 0), "unseen": is_unseen(r),
+            "retest": is_going_dark(r, ds),
             "asks": asked.get(w, 0), "reps": reps.get(w, 0),
         })
     by_word = {c["word"]: c for c in gap}
     if cohort:
         # Stored membership: held seats stand regardless of what any counter
-        # says. Graduates (and words that left the floor population) drop out
+        # says. Graduates (and words that left the pool population) drop out
         # of `by_word` and so vacate their seats here.
         focus = [by_word[w] for w in cohort if w in by_word][:FOCUS_SIZE]
     else:
@@ -259,22 +290,54 @@ def floor_gap_targets(lexicon: dict, today, max_n: int,
         focus = sorted((c for c in gap if c["reps"]),
                        key=lambda c: (-c["reps"], stable_jitter(c["word"])))[:FOCUS_SIZE]
     held = {c["word"] for c in focus}
-    background = sorted((c for c in gap if c["word"] not in held), key=coverage_key)
+    background = sorted((c for c in gap if c["word"] not in held), key=pool_key)
     seats_open = FOCUS_SIZE - len(focus)
     if seats_open > 0:
-        focus += background[:seats_open]
-        background = background[seats_open:]
+        focus += take_seats(background, seats_open)
+        taken = {c["word"] for c in focus}
+        background = [c for c in background if c["word"] not in taken]
     for c in focus:
         c["band"] = "focus"
     for c in background:
         c["band"] = "background"
-    # Within the focus set, least-repped first — spread the reps across the
-    # cohort rather than finishing one word at a time. The cooldown still
-    # applies INSIDE the set: a word asked inside the cooldown drops behind its
+    # Within the focus set, tier first, then least-asked. The cooldown applies
+    # INSIDE the set: a word asked inside the cooldown drops behind its
     # cohort-mates for a couple of days. That is the job `asks` was built for
     # and the only job it does now.
-    focus.sort(key=lambda c: (c["asks"], coverage_key(c)))
+    focus.sort(key=lambda c: (c["tier_rank"], c["asks"], coverage_key(c)))
     return (focus[:max_n], background)
+
+
+def take_seats(background: list[dict], seats: int) -> list[dict]:
+    """Fill the focus set's open seats, holding up to RETEST_SLOTS for items
+    going dark.
+
+    A FLOOR, NEVER A CEILING — the idiom `generate_callbacks` already uses for
+    PATTERN_SLOTS. When dark items win seats on the ordering itself the natural
+    order stands untouched; the reservation only tops up the case where they won
+    none. Capping instead would demote them in the very situation the seat exists
+    to protect.
+
+    This is what "HINTED, GOING DARK" became (2026-08-18). It was its own ticket
+    section because `coverage_key` leads with fewest-LIFETIME-reps, so a
+    repped-but-stale hinted row sorts behind every never-worked row in its tier
+    FOREVER — the three FAQ answers sat hinted 22-28 days silent at 11 days to
+    touchdown. Folding it in must not cost that reachability, which is the whole
+    reason it is a reservation and not a flag: a flag on a row nothing selects
+    changes nothing, and that is the silent no-op Gate 7.2 names."""
+    natural = background[:seats]
+    reserved = min(RETEST_SLOTS, seats // 2)
+    if sum(1 for c in natural if c["retest"]) >= reserved:
+        return natural
+    dark = [c for c in background if c["retest"]][:reserved]
+    rest = [c for c in background if not c["retest"]][:seats - len(dark)]
+    return sorted(dark + rest, key=pool_key)
+
+
+def pool_key(c: dict) -> tuple:
+    """The pool's own order: the touchdown bar, then the shared law. Callers may
+    prefix (the focus set adds the ask cooldown) but may not reorder or drop."""
+    return (c["tier_rank"], coverage_key(c))
 
 
 def reconcile_focus(lexicon: dict, cohort: list[str], today=None) -> list[str]:
@@ -287,43 +350,51 @@ def reconcile_focus(lexicon: dict, cohort: list[str], today=None) -> list[str]:
     return sorted(c["word"] for c in focus)
 
 
-# Touchdown bar (2026-07-13, Andrew — supersedes "deck tiering rejected" 2026-07-09,
-# re-decided at trailing pace 0.4/day with 30 days left): survival (fast speech aimed
-# at him — repair it, transact, don't freeze) outranks delight (the visible-trying
-# wins at the family table); gossip/zinger are soak & dessert. Ordering only —
-# nothing leaves the deck; the ambition is still to clear it whole.
-DECK_TIERS = {"antifreeze": 0, "public": 0, "frame": 0,
-              "faq": 1, "mil-table": 1, "social": 1,
-              "gossip": 2, "zinger": 2}
+# The touchdown bar (2026-07-13, Andrew — supersedes "deck tiering rejected"
+# 2026-07-09): survival (fast speech aimed at him — repair it, transact, don't
+# freeze) outranks delight (the visible-trying wins at the family table);
+# gossip/zinger are soak & dessert.
+#
+# KEPT PAST THE TRIP IT WAS CUT FOR (2026-08-18, the deck retirement). The deck
+# was a CONTAINER — 83 rows, bounded, deadline-driven — and its reason expired at
+# touchdown. This is an ORDERING, and it is durable knowledge about which
+# failures cost most at a table. Retiring the one had to not delete the other, so
+# `register` moved onto the lexicon row (through `sync_state seed-deck`, the
+# writer path) and the curriculum-file join died with the container.
+REGISTER_TIERS = {"antifreeze": 0, "public": 0, "frame": 0,
+                  "faq": 1, "mil-table": 1, "social": 1,
+                  "gossip": 2, "zinger": 2}
 TIER_NAMES = {0: "survival", 1: "delight", 2: "dessert"}
+# Seats held for items going dark, inside the focus set. See `floor_gap_targets`
+# — a FLOOR, never a ceiling, the same shape as generate_callbacks' PATTERN_SLOTS.
+RETEST_SLOTS = 2
 
 
-def deck_registers(deck: str = "trip") -> dict:
-    """word → curriculum register, joined at menu time from the deck's curriculum
-    file — ordering is a menu concern, not state, so the lexicon schema stays
-    frozen. Missing file or register degrades to flat ordering."""
-    path = BASE / "curriculum" / f"{deck}_deck.json"
-    if not path.exists():
-        return {}
-    return {i.get("tamil", ""): i.get("register", "")
-            for i in json.loads(path.read_text(encoding="utf-8"))}
-
-
-def deck_rank(word: str, regs: dict) -> int:
-    """THE tier prefix — the 07-13 touchdown bar — defined once, so every
-    deck-aware ordering reads one definition instead of a hand-copy.
-
-    A non-member ranks AFTER every member (3). That is the whole point: a
-    sprint-scoped block must not be crowded out by ordinary vocabulary.
+def tier_rank(rec: dict) -> int:
+    """THE tier prefix, defined once so every ordering reads one definition
+    instead of a hand-copy.
 
     Extracted 2026-08-04 for the same reason `coverage_key` was on 07-26 — the
     term was hand-copied into two sorts and `retest_targets` (2026-08-01) was
     written without it at all. Consequence, found 8 days from touchdown: the
-    deck's three hinted FAQ answers — the questions every relative asks on day
-    one, 25-31 days silent — sat below that block's five-item cut behind
-    ordinary words that happened to be staler. A single-axis sort in a
-    deadline sprint is the recurring bug; the prefix belongs to the law."""
-    return DECK_TIERS.get(regs.get(word, ""), 1) if word in regs else 3
+    three hinted FAQ answers — the questions every relative asks on day one,
+    25-31 days silent — sat below a five-item cut behind ordinary words that
+    happened to be staler. A single-axis sort is the recurring bug; the prefix
+    belongs to the law.
+
+    REPOINTED AT THE LEXICON 2026-08-18. It used to take a `word` and a `regs`
+    map joined from `curriculum/trip_deck.json`, and ranked every non-member LAST
+    (3) — correct while a bounded sprint had to not be crowded out by ordinary
+    vocabulary, and meaningless the moment the container retired. Reading the row
+    is also what makes the retirement safe: the join was keyed on `deck`
+    membership, so deleting the tag would have dropped the ordering SILENTLY
+    (Gate 7.2 — the selector keeps returning rows, they are simply no longer
+    ordered, and every instrument reads green).
+
+    An unregistered row degrades to delight (1). 256 of 339 rows carry no
+    register and unordered-but-not-broken is the intended graceful degradation;
+    classifying all 339 is a curriculum project, not this one."""
+    return REGISTER_TIERS.get(rec.get("register", ""), 1)
 
 
 def recent_ask_counts(klog: list, lexicon: dict, days: int = ASK_COOLDOWN_DAYS, now=None) -> dict:
@@ -371,27 +442,43 @@ def recent_ask_counts(klog: list, lexicon: dict, days: int = ASK_COOLDOWN_DAYS, 
     return counts
 
 
-def deck_status(lexicon: dict, deck: str = "trip", today=None,
-                asked: dict | None = None, reps: dict | None = None) -> dict | None:
-    """A finite, deadline-driven deck (the India-trip survival set), tagged
-    `deck: "<name>"`. During a sprint this is the HEADLINE priority — Anna forces
-    its not-yet-cold members first. Members split by `direction`: "fire" (default —
-    force to cold production) vs "catch" (ear-only — the win is solid recognition
-    via eavesdrop/soak; NEVER force these to fire). Returns fire progress + pending
-    fire items (chunks said whole, frames want a novel slot-fill) + pending catch
-    items, or None if no deck exists."""
-    members = [(w, r) for w, r in lexicon.items() if r.get("deck") == deck]
-    if not members:
-        return None
+def is_going_dark(rec: dict, staleness: int | None) -> bool:
+    """A hinted item that has gone silent — the follow-up path hinted never had
+    (2026-08-01; DECISIONS 07-28 called it "open and unanswered": cold is a
+    one-way door and hinted was a no-way door).
+
+    NEVER-SURFACED rows are excluded, not featured (2026-08-04). A hinted grade
+    with no `last_surfaced` is a bootstrap artifact, not an item going dark —
+    there is no prior test for a *re*-test to repeat. It also loses nothing by
+    leaving: `coverage_key` leads with fewest-reps, so a never-worked row already
+    sorts to the head of the pool. The old code ranked it FIRST on sentinel
+    staleness and printed "worth asking why", spending the top slot on a word
+    carrying a grade nobody set.
+
+    Ear-only rows are excluded too — a retest is a PRODUCTION move."""
+    return (rec.get("production") == "hinted"
+            and rec.get("direction") != "catch"
+            and staleness is not None and staleness < NEVER_SURFACED
+            and staleness >= RETEST_DAYS)
+
+
+def ear_targets(lexicon: dict, today=None, reps: dict | None = None) -> dict:
+    """The OTHER direction: rows tagged `direction: "catch"` — ear-only, where
+    the win is solid recognition via eavesdrop/soak and forcing them to fire is
+    the mistake. Cleared on `recognition`, never on production.
+
+    Not a rival pool to `floor_gap_targets` — a different axis. It carries no
+    tier prefix, because the touchdown bar is a production idea and catch items
+    clear on the ear. The ear starved hardest of all (1 of 12 items ever touched,
+    and that one took all 5 reps), so the shared `coverage_key` governs here too.
+
+    Was the catch half of `deck_status` (retired 2026-08-18). Its population is
+    unchanged by the retirement — `direction` was always the discriminator, never
+    the `deck` tag."""
     today = today or date.today()
-    regs = deck_registers(deck)
-    if asked is None:
-        asked = recent_ask_counts(load_json(KNOCK_LOG_PATH) or [], lexicon)
     if reps is None:
         reps = rep_counts(lexicon)
-    fire = [(w, r) for w, r in members if r.get("direction", "fire") != "catch"]
-    catch = [(w, r) for w, r in members if r.get("direction") == "catch"]
-    cold = [w for w, r in fire if r.get("production") == "cold"]
+    catch = [(w, r) for w, r in lexicon.items() if r.get("direction") == "catch"]
 
     def stale(r: dict) -> int:
         ds = days_since(r.get("last_surfaced"), today)
@@ -400,29 +487,8 @@ def deck_status(lexicon: dict, deck: str = "trip", today=None,
     pending = [{
         "word": w, "gloss": r.get("gloss", ""),
         "kind": "frame" if r.get("type") == "pattern" else r.get("type", "chunk"),
-        "recognition": r.get("recognition"), "production": r.get("production", "none"),
-        "tier": TIER_NAMES.get(DECK_TIERS.get(regs.get(w, ""), 1)),
-        "unseen": is_unseen(r), "staleness": stale(r),
-        "last_surfaced": r.get("last_surfaced"), "asks": asked.get(w, 0),
-        "reps": reps.get(w, 0), "soaked": len(r.get("seen_in", [])),
-        "exposures": r.get("exposures", 0),
-    } for w, r in fire if r.get("production") != "cold"]
-    # tier → ask-cooldown → coverage_key. Tier is the 07-13 touchdown bar and
-    # stays primary; the ask cooldown rides next, exactly as inside the
-    # floor's focus set — an unanswered ask is SPEND, and without this term a
-    # hidden-target ask would sit at the front and re-fire forever (KF-6; the
-    # old rep miner hid this by counting the ask as a rep). The rest is
-    # `coverage_key`, the SHARED law, so the deck and the general floor cannot
-    # drift apart (that drift is what happened on 07-25 → 07-26). The deck
-    # keeps no focus/background split: it is a finite deadline set, so every
-    # member has to clear, and the tiers already say what leads.
-    pending.sort(key=lambda c: (deck_rank(c["word"], regs),
-                                c["asks"], coverage_key(c)))
-    catch_pending = [{
-        "word": w, "gloss": r.get("gloss", ""),
-        "kind": "frame" if r.get("type") == "pattern" else r.get("type", "chunk"),
         "recognition": r.get("recognition"), "staleness": stale(r),
-        "last_surfaced": r.get("last_surfaced"), "asks": asked.get(w, 0),
+        "last_surfaced": r.get("last_surfaced"),
         # The pair, resolved for the drill: hear this, say that. A catch item
         # with a partner is drillable as a UNIT — recognizing it is only half
         # the win if the answer doesn't arrive (2026-07-26).
@@ -432,71 +498,72 @@ def deck_status(lexicon: dict, deck: str = "trip", today=None,
         "exposures": r.get("exposures", 0),
         "production": r.get("production", "none"),
     } for w, r in catch if r.get("recognition") != "solid"]
-    # Same shared law on the ear — no tier prefix, because catch items clear on
-    # recognition and the touchdown bar is a production idea. The ear starved
-    # hardest of all (1 of 12 items ever touched, and that one took all 5 reps).
-    catch_pending.sort(key=coverage_key)
-    return {"total": len(fire), "cold": len(cold), "pending": pending,
-            "catch_total": len(catch),
+    pending.sort(key=coverage_key)
+    return {"total": len(catch), "pending": pending,
             "caught": sum(1 for _, r in catch if r.get("recognition") == "solid"),
-            "catch_pending": catch_pending}
+            "untouched": sum(1 for _, r in catch if not r.get("last_surfaced"))}
 
 
-def deck_coverage(lexicon: dict, deck: str = "trip", today=None) -> dict | None:
-    """COVERAGE, not progress — the meter the deck never had. `compute_deck`
-    answers "how many fire cold?"; this answers "how many have ever been WORKED
-    at all?" (a session rep, a judged reply, or a show dose — anything that sets
-    `last_surfaced`). An ask with no reply does not count, which is exactly why
-    `recent_ask_counts` is the third term of the sort key and not this meter.
+def register_coverage(lexicon: dict, today=None) -> dict | None:
+    """COVERAGE, not progress — the meter a cold/total headline can't see. That
+    one answers "how many fire cold?"; this answers "how many have ever been
+    WORKED at all?" (a session rep, a judged reply, or a show dose — anything
+    that sets `last_surfaced`). An ask with no reply does not count, which is
+    exactly why `recent_ask_counts` is a sort term and not this meter.
 
     The pair matters because a value-ordered queue starves its tail silently: on
     2026-07-25 the headline read 15/34 survival at 3.4 cold/day against a needed
     1.1 — a won sprint — while 50 of 70 fire items had never been worked at all,
     and the two survival registers that decide freezing at the table
-    (antifreeze, public) sat at 3/18. cold/total is honest about what it counts
-    and structurally blind to distribution. Reported per tier and per register so
-    the blindness has nowhere to hide.
+    (antifreeze, public) sat at 3/18.
+
+    GENERALISED off the deck 2026-08-18: it buckets by `register`, which is now a
+    property of the row, so it is no longer scoped to one container and any
+    future curated set is metered the day it is seeded. Rows with no register
+    are reported as one `unregistered` bucket rather than folded into delight —
+    256 of 339 would swamp the tier they degrade into and hide the very
+    distribution this block exists to show.
 
     `soaked_only` = never worked, but heard in an episode: a different state from
     never encountered, and the cheaper one to fix."""
-    members = [(w, r) for w, r in lexicon.items() if r.get("deck") == deck]
-    if not members:
-        return None
     today = today or date.today()
-    regs = deck_registers(deck)
 
     def bucket() -> dict:
         return {"total": 0, "touched": 0, "untouched": 0, "cleared": 0}
 
-    # Tier/register buckets are the FIRE side only — the same split every other
-    # caller keeps ("cleared/total/pct stay the FIRE side so every caller's
-    # headline is honest", compute_deck). The ear gets its own bucket; folding it
-    # into the tiers would inflate survival with catch frames.
+    # Tier/register buckets are the FIRE side only. The ear gets its own bucket;
+    # folding it into the tiers would inflate survival with catch frames.
     tiers: dict[str, dict] = {}
     registers: dict[str, dict] = {}
     untouched: list[dict] = []
-    fire, catch = bucket(), bucket()
-    for w, r in members:
+    fire, catch, unregistered = bucket(), bucket(), bucket()
+    for w, r in lexicon.items():
         is_catch = r.get("direction") == "catch"
-        reg = regs.get(w, "")
-        tier = TIER_NAMES.get(DECK_TIERS.get(reg, 1), "delight")
+        reg = r.get("register", "")
         worked = bool(r.get("last_surfaced"))
         done = (r.get("recognition") == "solid") if is_catch else (r.get("production") == "cold")
-        buckets = [catch] if is_catch else [fire, tiers.setdefault(tier, bucket()),
-                                            registers.setdefault(reg or "?", bucket())]
+        if is_catch:
+            buckets = [catch]
+        elif reg:
+            buckets = [fire, tiers.setdefault(TIER_NAMES[tier_rank(r)], bucket()),
+                       registers.setdefault(reg, bucket())]
+        else:
+            buckets = [unregistered]
         for b in buckets:
             b["total"] += 1
             b["touched" if worked else "untouched"] += 1
             b["cleared"] += done
-        if not worked and not done:
+        if reg and not worked and not done:
             untouched.append({
-                "word": w, "gloss": r.get("gloss", ""), "tier": tier,
-                "register": reg or "?", "direction": "catch" if is_catch else "fire",
+                "word": w, "gloss": r.get("gloss", ""), "tier": TIER_NAMES[tier_rank(r)],
+                "register": reg, "direction": "catch" if is_catch else "fire",
                 "soaked_only": bool(r.get("seen_in")),
             })
-    untouched.sort(key=lambda c: (deck_rank(c["word"], regs), c["word"]))
+    if not (fire["total"] or catch["total"]):
+        return None
+    untouched.sort(key=lambda c: (tier_rank(c), c["word"]))
     return {"tiers": tiers, "registers": registers, "untouched": untouched,
-            "fire": fire, "catch": catch}
+            "fire": fire, "catch": catch, "unregistered": unregistered}
 
 
 def engines_to_fire(lexicon: dict) -> list[dict]:
@@ -514,6 +581,48 @@ def engines_to_fire(lexicon: dict) -> list[dict]:
                     "production": r.get("production", "none"), "unseen": is_unseen(r)})
     out.sort(key=lambda c: (c["production"] != "hinted", c["key"]))  # hinted (riper) first
     return out
+
+
+def drill_menu(lexicon: dict, today=None, asked: dict | None = None,
+               reps: dict | None = None, max_n: int = FOCUS_SIZE) -> list[dict]:
+    """The pool's head as one flat production menu — what the knock lane, the
+    volley and the drill tape all pick from.
+
+    It is a VIEW, not a pool: the focus set plus the engines, which are the same
+    population seen through two gates (`floor_gap_targets` skips patterns because
+    a pattern is forced by producing a NOVEL instance, not by reciting a line —
+    that is the Engines block's whole job). Composed once here because all three
+    lanes need exactly this composition, and hand-copying a composition into
+    three files is the failure this module keeps recording (`coverage_key`
+    07-26, `tier_rank` 08-04).
+
+    Engines carry no register, so they land at delight and sort among the rest by
+    the shared law. UNSEEN items ride WITH their flag rather than being dropped —
+    the teach-first law is the caller's to apply, and the two callers apply it
+    differently on purpose (the menu SHOWS them marked; a volley EXCLUDES them,
+    because a volley is a cold demand and a menu is not)."""
+    focus, _bg = floor_gap_targets(lexicon, today or date.today(), max_n,
+                                   asked=asked, reps=reps)
+    menu = [{"word": t["word"], "gloss": t["gloss"], "kind": "chunk",
+             "production": t["production"], "recognition": t["recognition"],
+             "tier": t["tier"], "tier_rank": t["tier_rank"], "unseen": t["unseen"],
+             "retest": t["retest"], "asks": t["asks"], "reps": t["reps"],
+             "staleness": t["staleness"], "exposures": t["exposures"]}
+            for t in focus]
+    if reps is None:
+        reps = rep_counts(lexicon)
+    for e in engines_to_fire(lexicon):
+        r = lexicon.get(e["key"], {})
+        ds = days_since(r.get("last_surfaced"), today or date.today())
+        menu.append({"word": e["key"], "gloss": e["gloss"], "kind": "frame",
+                     "production": e["production"], "recognition": r.get("recognition"),
+                     "tier": TIER_NAMES[tier_rank(r)], "tier_rank": tier_rank(r),
+                     "unseen": e["unseen"], "retest": is_going_dark(r, ds),
+                     "asks": (asked or {}).get(e["key"], 0), "reps": reps.get(e["key"], 0),
+                     "staleness": NEVER_SURFACED if ds is None else ds,
+                     "exposures": r.get("exposures", 0)})
+    menu.sort(key=lambda c: (c["tier_rank"], c["asks"], coverage_key(c)))
+    return menu[:max_n]
 
 
 def vocabulary_fence(lexicon: dict) -> list[dict]:
@@ -642,49 +751,6 @@ def commissioned_form(learner: dict | None = None) -> str | None:
     return form or None
 
 
-def retest_targets(lexicon: dict, today=None, max_n: int = 5) -> list[dict]:
-    """Hinted items going dark — the follow-up path hinted never had (2026-08-01).
-
-    `coverage_key` leads with fewest-lifetime-reps, so a repped-but-stale hinted
-    item sorts BEHIND every never-worked item in its tier forever: the three FAQ
-    answers (ஒரு மாசம் இருப்போம் at 5 reps…) sat hinted 22–28 days silent while
-    the ticket kept offering fresh ground — at 11 days to touchdown, the day-1
-    aunt questions. This block cuts across the coverage sort on the staleness
-    axis alone. A retest is a SESSION move — a scene that makes the item fire
-    unaided — never a commission (the parked cold-decay item stays parked, and
-    rechecks must not crowd the soak order out of new ground, the same call as
-    slip retirement).
-
-    Two corrections (2026-08-04), both found because the block was doing its job
-    for the wrong five items:
-
-    NEVER-SURFACED items are excluded, not featured. A hinted grade with no
-    `last_surfaced` and no reps is a bootstrap artifact, not an item going dark
-    — there is no prior test for a *re*-test to repeat. It also loses nothing by
-    leaving: `coverage_key` leads with fewest-reps, so a never-worked item
-    already sorts to the head of the main ticket. The old code ranked it FIRST
-    here on sentinel staleness and printed "worth asking why", which spent the
-    top slot of a five-item list on வை — a word carrying a grade nobody set.
-
-    The sort carries `deck_rank`, so a sprint's own items lead. Without it the
-    block ordered on staleness alone and ordinary vocabulary outranked the
-    deck."""
-    today = today or date.today()
-    regs = deck_registers()
-    out = []
-    for w, r in lexicon.items():
-        if r.get("production") != "hinted" or r.get("direction") == "catch":
-            continue
-        ds = days_since(r.get("last_surfaced"), today)
-        if ds is None or ds < RETEST_DAYS:
-            continue
-        out.append({"word": w, "gloss": r.get("gloss", ""), "staleness": ds,
-                    "reps": r.get("reps", 0), "deck": r.get("deck", "")})
-    out.sort(key=lambda c: (deck_rank(c["word"], regs), -c["staleness"],
-                            stable_jitter(c["word"])))
-    return out[:max_n]
-
-
 def slips_by_word(patterns: list[dict]) -> dict[str, list[dict]]:
     """Lexicon key → the live slip patterns that attach to it, worst first.
 
@@ -769,105 +835,36 @@ def main():
             print(f"\n🎯 NEXT ENGINE: {next_engine_key} — {gloss}  [production: {prod}{unseen_flag}]")
             print("   One cold novel instance of this pattern = engine online.")
 
-    # Trip Deck — the finite, deadline-driven sprint set. When it exists it is the
-    # HEADLINE: force its not-yet-cold members first (Anna narrates the countdown).
-    # One knock-log read, one ask count, both selectors — they share the ordering
-    # law, so they must share the term that implements it.
+    # One knock-log read and one ask count for the whole ticket — the pool and
+    # the ledger block below both hang off them.
     asked = recent_ask_counts(load_json(KNOCK_LOG_PATH) or [], lexicon)
     reps = rep_counts(lexicon)
-    # One ledger read for the whole ticket: the deck list, the floor gap, and the
-    # ledger block below all hang off it.
     slips = slip_patterns()
     slipped = slips_by_word(slips)
-    deck = deck_status(lexicon, today=today, asked=asked, reps=reps)
-    if deck:
-        print("\n★ TRIP DECK  (the sprint headline — force these before the general floor)")
-        print("-" * 60)
-        print(f"  {deck['cold']}/{deck['total']} deck phrases fire cold. "
-              f"Not-yet-cold ({len(deck['pending'])}) — pick from these first:")
-        for t in deck["pending"][:12]:
-            tag = "hinted→cold" if t["production"] == "hinted" else f"{t['recognition']}, cold-pending"
-            if t.get("unseen"):
-                tag += " · ⚠ UNSEEN — teach first (show it, gloss it), NEVER cold-quiz"
-            if t["staleness"] >= NEVER_SURFACED:
-                tag += " · never worked"
-            tier = f" · {t['tier']}" if t.get("tier") else ""
-            print(f"  - [{t['kind']}{tier}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{tag}]")
-            if t["word"] in slipped:
-                print(slip_note(slipped[t["word"]]))
-        hidden = len(deck["pending"]) - 12
-        if hidden > 0:
-            print(f"  … {hidden} more below the cut (least-recently-worked first — the tail rotates up)")
-        if deck["catch_total"]:
-            print(f"\n  EAR-ONLY ({deck['caught']}/{deck['catch_total']} solid) — eavesdrop/soak targets; "
-                  f"win = recognition, never force these to fire:")
-            for t in deck["catch_pending"][:8]:
-                never = " · never worked" if t["staleness"] >= NEVER_SURFACED else ""
-                print(f"  - [{t['kind']}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{t['recognition']}{never}]")
-                if t.get("pairs_with"):
-                    print(f"      ↳ he answers: {t['pairs_with']} — {t['response_gloss'] or '[no gloss]'}"
-                          f"  (drill the PAIR: hear it, answer it — recognition alone isn't the win here)")
 
-    cov = deck_coverage(lexicon, today=today)
-    if cov:
-        print("\n★ DECK COVERAGE  (how many have been WORKED — the meter cold/total can't see)")
-        print("  ENGINEERING NUMBERS — they steer selection; they are never narrated to Andrew.")
-        print("-" * 60)
-        for tier in ("survival", "delight", "dessert"):
-            b = cov["tiers"].get(tier)
-            if not b:
-                continue
-            regs_in = sorted((r, x) for r, x in cov["registers"].items()
-                             if TIER_NAMES.get(DECK_TIERS.get(r, 1), "delight") == tier)
-            detail = ", ".join(f"{r} {x['touched']}/{x['total']}" for r, x in regs_in)
-            flag = "  ⚠" if b["untouched"] else ""
-            print(f"  {tier:9} worked {b['touched']:2}/{b['total']:2} · cold {b['cleared']:2}{flag}"
-                  + (f"   ({detail})" if detail else ""))
-        c = cov["catch"]
-        if c["total"]:
-            print(f"  {'ear-only':9} worked {c['touched']:2}/{c['total']:2} · solid {c['cleared']:2}"
-                  + ("  ⚠" if c["untouched"] else ""))
-        if cov["untouched"]:
-            u_fire = [u for u in cov["untouched"] if u["direction"] == "fire"]
-            u_catch = [u for u in cov["untouched"] if u["direction"] == "catch"]
-            soaked = sum(1 for u in cov["untouched"] if u["soaked_only"])
-            ear = f" + {len(u_catch)} ear-only" if u_catch else ""
-            print(f"\n  ⚠ NEVER WORKED: {len(u_fire)} fire item(s){ear} "
-                  f"({soaked} heard in an episode but never asked).")
-            starving = [f"{r} ({x['untouched']})" for r, x in sorted(
-                cov["registers"].items(), key=lambda kv: -kv[1]["untouched"])
-                if x["untouched"]]
-            if starving:
-                print("     Starving registers: " + ", ".join(starving))
-            print("     They now sort to the head of their tier — fire from the top and this drains.")
-
-    # 0. THE SLIP LEDGER — what he actually keeps getting wrong, ahead of the
+    # THE SLIP LEDGER — what he actually keeps getting wrong, ahead of the
     # commission because it is the evidence a commission is drawn FROM. Every
     # list below this answers "which item is due"; only this one answers "how is
     # he failing", and until 2026-07-30 nothing on the ticket answered that at
-    # all. A floor-gap row says ரொம்ப நல்லா இருக்கு is not yet cold, so the ticket
+    # all. NOT A RIVAL AND NOT A HEADLINE (2026-08-18): it called itself "the
+    # primary signal for what to teach" while `machines heard` called itself the
+    # PRIMARY STEER and the deck called itself the sprint headline. Three claims
+    # to the same throne on one ticket meant the day's session was decided by
+    # whichever section Anna weighted that morning. The division is real and it
+    # is stated instead: machines heard steers WHAT, this steers HOW.
+    #
+    # A pool row says ரொம்ப நல்லா இருக்கு is not yet cold, so the ticket
     # re-offers it and the scene re-asks it the same way; the ledger says he has
     # reached for the present tense three times running, which is a different
     # lesson entirely.
     slip_block = format_slip_block(slips)
     if slip_block:
-        print("\n★ SLIP LEDGER  (repeated mistakes — the primary signal for what to teach)")
+        print("\n★ SLIP LEDGER  (repeated mistakes — this steers HOW to teach, not WHAT)")
         print("-" * 60)
         for line in slip_block:
             print(line)
         print("\n  A slip is not closed by being corrected — it closes when the right form")
         print("  fires unaided, later, in a scene that did not hand it over. Build for that.")
-
-    retests = retest_targets(lexicon, today)
-    if retests:
-        print("\n★ HINTED, GOING DARK  (repped, then silent — retest cold in a scene)")
-        print("-" * 60)
-        for t in retests:
-            age = f"{t['staleness']}d silent"
-            deck_tag = " · DECK" if t["deck"] else ""
-            print(f"  - {t['word']} — {t['gloss'] or '[no gloss]'}"
-                  f"  [{t['reps']} rep{'s' if t['reps'] != 1 else ''} · {age}{deck_tag}]")
-        print("  A hit fires it cold for real; a miss is honest data — log the slip.")
 
     # 0. THE COMMISSION — the repair that earned this dose, ahead of everything
     # the ticket computes. Before 2026-07-28 the order reached the Director only
@@ -905,7 +902,10 @@ def main():
         recent_str = ", ".join(f"M{m} {reg}/{form}" for m, reg, form in spec["recent"])
         print(f"  (diverging from last {DIVERGENCE_WINDOW}: {recent_str})")
 
-    # 1. Floor-gap — two budgets. FOCUS is drilled; BACKGROUND is only exposed.
+    # 1. The pool — two budgets. FOCUS is drilled; BACKGROUND is only exposed.
+    # Tier-ordered (survival > delight > dessert), the one thing the retired deck
+    # leaves behind. No section on this ticket claims primacy any more: `machines
+    # heard` steers WHAT, the slip ledger steers HOW, and those are not rivals.
     print(f"\n1. FOCUS SET  (≤{FOCUS_SIZE} in dense rotation — DRILL these until they fire cold)")
     print("-" * 60)
     if commission:
@@ -915,8 +915,8 @@ def main():
                                         asked=asked, reps=reps,
                                         cohort=learner.get("focus_cohort"))
     if not gap:
-        print("  (floor is clear — nothing recognized is stuck below cold)")
-    # Which live slips attach to which floor-gap word. STUCK_REPS still stands on
+        print("  (the pool is clear — nothing is stuck below cold)")
+    # Which live slips attach to which pool word. STUCK_REPS still stands on
     # its own evidence (median 2 reps to cold, p90 5) but it fires at 10 and only
     # ever says "this isn't working"; a slip fires at 2 and says WHAT isn't
     # working, which is the part a fresh scene needs in order to be different.
@@ -927,14 +927,33 @@ def main():
         if t["reps"] >= STUCK_REPS:
             cool = (f"  · ⚠ STUCK — {t['reps']} reps and still not cold (most words take 2). "
                     f"Drilling it again won't work; change the angle.")
-        print(f"  - {t['word']} — {t['gloss'] or '[no gloss]'}  [{tag} · {rep}]{cool}")
+        if t["unseen"]:
+            cool += "  · ⚠ UNSEEN — teach first (show it, gloss it), NEVER cold-quiz"
+        print(f"  - [{t['tier']}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{tag} · {rep}]{cool}")
+        if t["retest"]:
+            # What "HINTED, GOING DARK" became: a rule inside the pool, not a
+            # rival list. A hit fires it cold for real; a miss is honest data.
+            print(f"      ↳ GOING DARK — {t['staleness']}d silent since it was hinted. "
+                  f"Retest it cold in a scene that does not hand it over.")
         if t["word"] in slipped:
             print(slip_note(slipped[t["word"]]))
     print("  Graduation is production going COLD. After that a word is never "
           "drilled again — it is just used.")
 
+    ear = ear_targets(lexicon, today=today, reps=reps)
+    if ear["total"]:
+        print(f"\n1a. EAR-ONLY  ({ear['caught']}/{ear['total']} solid — eavesdrop/soak targets; "
+              f"win = recognition, never force these to fire)")
+        print("-" * 60)
+        for t in ear["pending"][:8]:
+            never = " · never worked" if t["staleness"] >= NEVER_SURFACED else ""
+            print(f"  - [{t['kind']}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{t['recognition']}{never}]")
+            if t.get("pairs_with"):
+                print(f"      ↳ he answers: {t['pairs_with']} — {t['response_gloss'] or '[no gloss]'}"
+                      f"  (drill the PAIR: hear it, answer it — recognition alone isn't the win here)")
+
     if background:
-        print(f"\n1a. BACKGROUND  ({len(background)} not yet started — EXPOSE, don't drill)")
+        print(f"\n1b. BACKGROUND  ({len(background)} not yet started — EXPOSE, don't drill)")
         print("-" * 60)
         print("  Soak/episode candidates: work them into scenes so they stay warm and")
         print("  the tail can't rot. Never force these to fire — they are not the focus.")
@@ -943,10 +962,47 @@ def main():
         if len(background) > 8:
             print(f"  … {len(background) - 8} more waiting behind them")
 
-    # 1b. Engines — generative patterns to force a novel instance of
+    cov = register_coverage(lexicon, today=today)
+    if cov and cov["fire"]["total"]:
+        print("\n1c. COVERAGE  (how many have been WORKED — the meter cold/total can't see)")
+        print("  ENGINEERING NUMBERS — they steer selection; they are never narrated to Andrew.")
+        print("-" * 60)
+        for tier in ("survival", "delight", "dessert"):
+            b = cov["tiers"].get(tier)
+            if not b:
+                continue
+            regs_in = sorted((r, x) for r, x in cov["registers"].items()
+                             if TIER_NAMES[tier_rank({"register": r})] == tier)
+            detail = ", ".join(f"{r} {x['touched']}/{x['total']}" for r, x in regs_in)
+            flag = "  ⚠" if b["untouched"] else ""
+            print(f"  {tier:12} worked {b['touched']:3}/{b['total']:3} · cold {b['cleared']:3}{flag}"
+                  + (f"   ({detail})" if detail else ""))
+        c = cov["catch"]
+        if c["total"]:
+            print(f"  {'ear-only':12} worked {c['touched']:3}/{c['total']:3} · solid {c['cleared']:3}"
+                  + ("  ⚠" if c["untouched"] else ""))
+        u = cov["unregistered"]
+        if u["total"]:
+            print(f"  {'unranked':12} worked {u['touched']:3}/{u['total']:3} · cold {u['cleared']:3}"
+                  f"   (no register — they sort as delight; ranking them is a curriculum job)")
+        if cov["untouched"]:
+            u_fire = [x for x in cov["untouched"] if x["direction"] == "fire"]
+            u_catch = [x for x in cov["untouched"] if x["direction"] == "catch"]
+            soaked = sum(1 for x in cov["untouched"] if x["soaked_only"])
+            ear_str = f" + {len(u_catch)} ear-only" if u_catch else ""
+            print(f"\n  ⚠ NEVER WORKED, among the ranked: {len(u_fire)} fire item(s){ear_str} "
+                  f"({soaked} heard in an episode but never asked).")
+            starving = [f"{r} ({x['untouched']})" for r, x in sorted(
+                cov["registers"].items(), key=lambda kv: -kv[1]["untouched"])
+                if x["untouched"]]
+            if starving:
+                print("     Starving registers: " + ", ".join(starving))
+            print("     They sort to the head of their tier — fire from the top and this drains.")
+
+    # 1d. Engines — generative patterns to force a novel instance of
     engines = engines_to_fire(lexicon)
     if engines:
-        print("\n1b. ENGINES TO FIRE  (patterns — force a NOVEL instance, not a memorized line)")
+        print("\n1d. ENGINES TO FIRE  (patterns — force a NOVEL instance, not a memorized line)")
         print("-" * 60)
         for e in engines:
             tag = "hinted→cold" if e["production"] == "hinted" else "cold-pending"

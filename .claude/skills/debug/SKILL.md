@@ -117,8 +117,9 @@ the same surface ask fired 5× in 4 days under different move names; correct una
 productions stuck at hinted (a real cold denied for a reveal that never happened);
 chat.md showed only the last reply of a chain — real cold fires vanished under a test reply.
 **Root cause (three-part):** chained follow-ups overwrote `expected_target` and the reply
-fields (only fired lists accumulated); `deck_due_list` ranked ripest-first with no recency
-signal while outcome memory showed move names only, so the variety law had no evidence of
+fields (only fired lists accumulated); the knock menu (`deck_due_list`, since renamed
+`due_menu_block`) ranked ripest-first with no recency signal while outcome memory showed
+move names only, so the variety law had no evidence of
 same-ask repeats; the judge's reveal-cap trusted model memory of what had been shown.
 **Fix:** chain moves `pinned_target`/`pinned_revealed`; every exchange appends to
 `exchanges` (chat renders the full chain); menu demotes+marks items asked/shown in 3 days

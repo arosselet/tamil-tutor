@@ -33,7 +33,7 @@ protocol/
 
 Anna writes it at Close & Log; the studio consumes it. It is the *only* thing that crosses between the two halves (`progress/learner.json` → `soak_order`):
 
-- `payload` — the words chat just strained — or, when a campaign is live, a **seed order**: 2–4 unseen deck items the episode teaches first (captions carry the load; the render's `seen_in` stamp is what opens them to the drilling channels)
+- `payload` — the words chat just strained — or, when a campaign is live, a **seed order**: 2–4 unseen items the episode teaches first (captions carry the load; the render's `seen_in` stamp is what opens them to the drilling channels)
 - `scene_seed` — one line of the running story
 
 Anna hands **meaning**; the studio derives the rest (register / form / ingredient, callbacks, density) and owns the **craft**.
@@ -49,13 +49,13 @@ A second, softer interface exists since 2026-07-17, cut back to its through-line
 
 Anna can commission the studio end-to-end mid-session; `/studio` also runs standalone (e.g. on Gemini for the long mixed-language script writing).
 
-**Default episode dispatch (2026-07-09 — the writer-only split):** `python scripts/run_studio.py` — three sandboxed **print-only** agy/Gemini calls (Director → Architect → Producer; Gemini never writes a file, never sees git); Python persists the three artifacts, lints them deterministically (sidecar schema, Woven-Thanglish density tripwire, fourth wall, deck-payload **verbatim** fidelity), and `render_audio.py` owns render/registration/commit. Non-zero exit ⇒ fall back to the Claude studio subagent.
+**Default episode dispatch (2026-07-09 — the writer-only split):** `python scripts/run_studio.py` — three sandboxed **print-only** agy/Gemini calls (Director → Architect → Producer; Gemini never writes a file, never sees git); Python persists the three artifacts, lints them deterministically (sidecar schema, Woven-Thanglish density tripwire, fourth wall, payload **verbatim** fidelity), and `render_audio.py` owns render/registration/commit. Non-zero exit ⇒ fall back to the Claude studio subagent.
 
 ## State (`progress/` — Python-owned, never hand-edit)
 
 | File | Owner | Holds |
 |---|---|---|
-| `lexicon.json` | `sync_state.py` | Word brain: recognition + production axes, patterns/engines, deck tags + fire/catch direction, viability floor |
+| `lexicon.json` | `sync_state.py` | Word brain: recognition + production axes, patterns/engines, `register` (the survival/delight/dessert ordering) + fire/catch direction, viability floor |
 | `learner.json` | `sync_state.py` | Continuity: running story (`last_debrief`), `soak_order`, status (no streak — recency from the session log is the honest signal) |
 | `episodes.json` | `sync_state.py` / `render_audio.py` | Episode registry |
 | `session_log.json` | `sync_state.py` | Append-only momentum log |
@@ -66,7 +66,7 @@ Anna can commission the studio end-to-end mid-session; `/studio` also runs stand
 
 ## Python brain (`scripts/`)
 
-`sync_state.py` (owns all state writes; `seed-deck` loads curated decks from `curriculum/`; `prune-duplicates` drops rows dominated by a phonetic twin) · `state_io.py` (the layer below: paths, load/save, `local_today`, `resolve` — imports nothing from `scripts/`) · `slips.py` (the slip ledger: capture, patterns, retirement, closes) · `session_brief.py` (the agent-facing `status` load — a read surface above the brain) · `suggest_targets.py` (the ticket + scene-spec divergence gate) · `generate_callbacks.py` (spaced repetition) · `render_audio.py` (TTS + register episode + RSS) · `render_drill.py` (spoken production volley from the deck's due list — cue → silence → answer; read-only on the brain) · `show_status.py` (human dashboard) · `morning_knock.py` (agentic outreach: rails gate + Anna's fire/silence policy; digest carries the deck-due menu + binding volley targets; audio memos — incl. eavesdrop tapes in a pinned aunty voice — land on `rss.xml` too) · `knock_reply.py` (judges phone replies, moves the production axis; capped lane + cross-day graduation; walks volley queues deterministically; eavesdrop replies take a separate drift-judge lane that moves the catch/recognition axis only) · `push_queue.py` (durable "ping me at X") · `rebuild_rss.py`.
+`sync_state.py` (owns all state writes; `seed-deck` loads a curated set from `curriculum/`, registers and all; `prune-duplicates` drops rows dominated by a phonetic twin) · `state_io.py` (the layer below: paths, load/save, `local_today`, `resolve` — imports nothing from `scripts/`) · `slips.py` (the slip ledger: capture, patterns, retirement, closes) · `session_brief.py` (the agent-facing `status` load — a read surface above the brain) · `suggest_targets.py` (the ticket: ONE tier-ordered pool + the scene-spec divergence gate) · `generate_callbacks.py` (spaced repetition) · `render_audio.py` (TTS + register episode + RSS) · `render_drill.py` (spoken production volley from the pool's due menu — cue → silence → answer; read-only on the brain) · `show_status.py` (human dashboard) · `morning_knock.py` (agentic outreach: rails gate + Anna's fire/silence policy; digest carries the due menu + binding volley targets; audio memos — incl. eavesdrop tapes in a pinned aunty voice — land on `rss.xml` too) · `knock_reply.py` (judges phone replies, moves the production axis; capped lane + cross-day graduation; walks volley queues deterministically; eavesdrop replies take a separate drift-judge lane that moves the catch/recognition axis only) · `push_queue.py` (durable "ping me at X") · `rebuild_rss.py`.
 
 The LLM is the writer; Python is the brain. Never hand-edit Python-owned JSON.
 

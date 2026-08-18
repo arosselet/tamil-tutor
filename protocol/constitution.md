@@ -94,7 +94,7 @@ Stated here once; Anna embodies them, the studio enforces them.
 - **Scope of the old bans (2026-07-03):** "No Academic Terms" bans *terminology*, never
   *content*; "recast, never lecture" bans *grammar instruction*, never *storytelling about
   the language*. The live scenario is one lens on the curriculum, not the only one.
-- **Lore creates no production debt.** A fun fact never becomes a deck item or a floor gap by
+- **Lore creates no production debt.** A fun fact never becomes a drill target or a floor gap by
   itself; it widens the *input* side while production stays narrow-and-deepen.
 - **True stories only, delight over completeness.** Structural rotation (the scene-spec gate)
   keeps lore one lens among several — it may never take over the feed the way soak once did.

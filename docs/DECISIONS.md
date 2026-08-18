@@ -2068,3 +2068,25 @@ Details live in git history; this is the index of the *conclusions*.
   are computed from, lives in `curriculum/trip_deck.json` and on **0 of 339 lexicon rows** —
   removing the deck naively deletes the ordering silently. Migrate first. `deck` tags and
   `seed-deck` are kept as provenance.
+
+- **`register` is a lexicon row field** (2026-08-18, Andrew, commissioned in `docs/deck_retirement.md`
+  — a deliberate Gate 2 schema change during the structure freeze). It is the ordering the retired
+  deck left behind: antifreeze/public/frame → survival, faq/mil-table/social → delight,
+  gossip/zinger → dessert. It **replaces** the menu-time join of `curriculum/trip_deck.json` keyed on
+  `deck` membership (`deck_registers` + `deck_rank`, both deleted). A join keyed on a tag we were
+  deleting fails *silently* — the selector keeps returning rows, merely unordered — so the migration
+  had to lead. `sync_state seed-deck` is the only writer; 83 of 339 rows carry one and the rest
+  degrade to delight, unordered but not unreachable. Classifying the other 256 is a curriculum
+  project, not this one. Smoke `s65`.
+
+- **One pool, no primacy** (2026-08-18, executing the deck retirement). `floor_gap_targets` **replaces**
+  `deck_status` + itself + `retest_targets`: nine ticket selectors became five, and "force these
+  before the general floor" is gone. Going-dark is a rule plus a `RETEST_SLOTS`
+  reservation — a floor, never a ceiling. The knock menu, the volley and the drill
+  tape read one view (`drill_menu`), so no lane re-sorts. `TRIP_DATE`, `burn_rate` and `compute_deck`
+  are deleted: a countdown has an entry and no exit, and a required pace without a deadline is a
+  guess. `compute_ear` is what survives — the one axis nothing else counts. A stored focus cohort can
+  now go stale against the ORDERING, which `reconcile_focus` cannot fix (it only fills seats as
+  they open), so `sync_state reseed-focus` re-derives it — a command, never automatic, because
+  rebuilding membership is the churn stored membership exists to prevent. Smoke `s54`, `s32`,
+  `s47`, `s65`.

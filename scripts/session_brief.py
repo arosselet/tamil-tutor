@@ -23,7 +23,7 @@ from slips import format_slip_block, slip_patterns
 from state_io import (BASE, EPISODES_PATH, KNOCK_LOG_PATH, LEARNER_PATH,
                       LEXICON_PATH, LOCAL_TZ, SESSION_LOG_PATH, load_json,
                       local_today)
-from sync_state import (RECOGNITION_LEVELS, canon_payload, compute_deck,
+from sync_state import (RECOGNITION_LEVELS, canon_payload, compute_ear,
                         compute_engines, compute_floor, compute_status,
                         fires_today, is_pattern, is_unseen, split_payload)
 
@@ -254,7 +254,7 @@ def cmd_status(_args):
             print(knock_line(k))
     # THE COOLDOWN, ON THE SURFACE ANNA ACTUALLY READS (2026-08-18).
     #
-    # The knock lane has been guarded since KF-6: `deck_due_list` warns the
+    # The knock lane has been guarded since KF-6: `due_menu_block` warns the
     # decider "asked/shown N× in last {ASK_COOLDOWN_DAYS}d". This brief — the
     # surface Anna reads when he writes the soak order, the campaign mission and
     # the slip medicine — never carried that signal at all, because it does not
@@ -264,8 +264,8 @@ def cmd_status(_args):
     #
     # ADVISORY BY CONSTRUCTION, and that is the honest limit: the soak order and
     # the campaign line are Anna's prose, so Python has no choke point to block
-    # them the way `deck_status` demotes a deck row. This tells him; it cannot
-    # stop him. The hard guard is still the deck lane's (KF-13's rule — say it in
+    # them the way the selector demotes a recently-asked row. This tells him; it
+    # cannot stop him. The hard guard is still the knock lane's (KF-13's rule — say it in
     # the mandate, cap the blast radius in Python — is only half-satisfiable here).
     from suggest_targets import ASK_COOLDOWN_DAYS, recent_ask_counts
     asked = recent_ask_counts(klog, lexicon or {})
@@ -337,14 +337,14 @@ def cmd_status(_args):
         if ears_total:
             print(f"Machines heard: {ears_heard}/{ears_total} patterns solid on recognition "
                   f"({ears_heard / ears_total * 100:.0f}%) — PRIMARY STEER (2026-08-16)")
-        deck = compute_deck(lexicon)
-        if deck["total"]:
-            catch = f" · catch {deck['caught']}/{deck['catch_total']} solid" if deck["catch_total"] else ""
-            print(f"Trip Deck: {deck['cleared']}/{deck['total']} deck phrases fire cold ({deck['pct']:.0f}%){catch}")
-            if deck["untouched"] or deck["catch_untouched"]:
-                ear = f" + {deck['catch_untouched']} ear-only" if deck["catch_untouched"] else ""
-                print(f"  ⚠ Coverage: {deck['untouched']} fire item(s){ear} never worked "
-                      f"({deck['surv_untouched']} of them survival tier) — see the ticket for the register breakdown.")
+        ear = compute_ear(lexicon)
+        if ear["total"]:
+            print(f"Ear-only: {ear['caught']}/{ear['total']} solid on recognition "
+                  f"— the win is comprehension; never forced to fire.")
+            if ear["untouched"]:
+                print(f"  ⚠ Coverage: {ear['untouched']} ear item(s) never worked — "
+                      f"catch advances ONLY through eavesdrop. See the ticket for the "
+                      f"register breakdown.")
                 print("    ENGINEERING NUMBER — steers what Python picks; never narrated to Andrew "
                       "(a global deficit recited in a warm voice is guilt machinery, 2026-07-17).")
         print(f"Fired today: {fires_today()}")

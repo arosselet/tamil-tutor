@@ -44,12 +44,6 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
 
-# How a slip stops being live evidence. After this many days with no recurrence a
-# tag RETIRES — it is not "fixed", it is just no longer evidence. Retiring is not
-# The sprint deadline (profile.md Phase 1.5): Andrew lands in India the week of
-# 2026-08-12. The deck countdown is computed against this; clear it after the trip.
-TRIP_DATE = date(2026, 8, 12)
-
 # Recognition ladder. A word the learner *recognizes* is comfortable or solid;
 # struggled means shaky; unseen means no record. The floor counts cold production
 # among words that are at least comfortable.
@@ -259,84 +253,50 @@ def compute_engines(lexicon: dict) -> dict:
     return {"online": len(online), "total": total, "pct": pct}
 
 
-def compute_deck(lexicon: dict, deck: str = "trip") -> dict:
-    """A named deck is a finite, deadline-driven set (e.g. the India-trip survival
-    phrases) tagged `deck: "<name>"`. Its meter is the headline during a sprint:
-    of the deck's members, how many fire cold? Members are counted regardless of
-    type — a chunk fires cold when said whole, a frame when a novel slot-fill lands.
-    Anna narrates the countdown to the deadline (Python counts; Anna narrates).
+def compute_ear(lexicon: dict) -> dict:
+    """The ear meter: of the rows tagged `direction: "catch"` — ear-only, where
+    the win is comprehension and forcing production is the mistake — how many
+    have reached solid recognition?
 
-    Members carry a `direction`: "fire" (default — cleared when production goes
-    cold) or "catch" (ear-only — the win is comprehension, cleared when recognition
-    reaches solid; never forced to fire). cleared/total/pct stay the FIRE side so
-    every caller's headline is honest; caught/catch_total meter the ear."""
-    members = {w: r for w, r in lexicon.items() if r.get("deck") == deck}
-    fire = [w for w, r in members.items() if r.get("direction", "fire") != "catch"]
-    catch = [w for w, r in members.items() if r.get("direction") == "catch"]
-    cleared = [w for w in fire if members[w].get("production") == "cold"]
-    caught = [w for w in catch if members[w].get("recognition") == "solid"]
-    total = len(fire)
-    pct = (len(cleared) / total * 100) if total else 0.0
-    # Survival-tier headline (2026-07-18, Andrew — refines the 07-13 touchdown bar:
-    # the narrated meter counts the tier that decides freezing at the table, not the
-    # whole inventory; a 2.5/day full-deck ask read as failure at a winnable 1.1/day
-    # survival pace). Tier stays a menu concern owned by suggest_targets — joined
-    # lazily so the lexicon schema stays frozen; no curriculum file → survival
-    # degrades to the whole fire side.
-    try:
-        from suggest_targets import DECK_TIERS, deck_registers
-        regs = deck_registers(deck)
-        surv = [w for w in fire if DECK_TIERS.get(regs.get(w, ""), 1) == 0] if regs else fire
-    except Exception:
-        surv = fire
-    # Coverage rides alongside the headline (2026-07-25): cold/total is honest
-    # about what it counts and blind to distribution — it read as a won sprint
-    # while 50 of 70 fire items had never been worked. `untouched` is the count
-    # of members with no `last_surfaced` at all; the per-tier/per-register
-    # breakdown lives on the ticket (suggest_targets → deck_coverage).
-    untouched = sum(1 for w in fire if not members[w].get("last_surfaced"))
-    surv_untouched = sum(1 for w in surv if not members[w].get("last_surfaced"))
-    return {"cleared": len(cleared), "total": total, "pct": pct,
-            "caught": len(caught), "catch_total": len(catch),
-            "surv_cleared": sum(1 for w in surv if members[w].get("production") == "cold"),
-            "surv_total": len(surv),
-            "untouched": untouched, "surv_untouched": surv_untouched,
-            "catch_untouched": sum(1 for w in catch if not members[w].get("last_surfaced"))}
+    All that survives of `compute_deck` (retired 2026-08-18). That function
+    metered a CONTAINER: the 83 rows tagged `deck: "trip"`, cleared/total/pct on
+    the fire side, plus a survival-tier headline joined from the curriculum file.
+    The container's reason expired at touchdown; the fire side it metered is the
+    viability floor, which `compute_floor` already owns and always did. The ear
+    is the one axis nothing else counts, and `direction` was always its
+    discriminator — never the deck tag — so its population is unchanged."""
+    catch = [r for r in lexicon.values() if r.get("direction") == "catch"]
+    solid = [r for r in catch if r.get("recognition") == "solid"]
+    return {"caught": len(solid), "total": len(catch),
+            "untouched": sum(1 for r in catch if not r.get("last_surfaced"))}
 
 
 # --- Episode helpers (progress/episodes.json — a flat {id: episode} map) ------
 
 def compute_status() -> str:
-    """The status line IS the scoreboard (post the 2026-06-30 listens pivot):
-    the deck countdown during a sprint, the floor otherwise. Never a chore line —
-    episodes are self-contained doses; nothing is ever 'under-listened'.
+    """The status line IS the scoreboard (post the 2026-06-30 listens pivot).
+    Never a chore line — episodes are self-contained doses; nothing is ever
+    'under-listened'.
 
-    TWO ERAS, not a deadline (2026-08-04, Andrew: "think of it as pre-trip and
-    during-trip eras"). `TRIP_DATE` was modelled as a terminus, so from the day
-    he LANDS the line read "-3 days to touchdown · need 8.0 cold/day" and stayed
-    there — degenerate on the first day of the era the deck exists for, and the
-    line Anna narrates from. In country the countdown is meaningless and the
-    burn rate is a lie: the table sets the pace, not a per-day quota."""
+    THE HEADLINE IS THE EAR (2026-08-16, Andrew: "we stop counting what comes out
+    of your mouth and start counting what you can hear"). Every meter that ever
+    led this line measured PRODUCTION — deck cold, floor cold, engines cold — and
+    the lexicon says he produces 20 of 26 machines cold while hearing 3. The tails
+    carry a Tamil sentence's skeleton, so ten machines he can build himself still
+    go past him at speed. That gap is what "two words in a fast sentence does
+    almost nothing" actually was.
+
+    ONE ERA, NOT TWO (2026-08-18, the deck retirement). This line carried a
+    countdown against `TRIP_DATE` and a required burn rate. The countdown had an
+    entry and no exit — `s54` encoded pre-trip and during-trip and there was no
+    third era, so after he flew home it would have read "in country, day 32", then
+    33, forever — and a winnable countdown is exactly the motivational device the
+    08-17 no-numbers rule banned. Deleted rather than given a third era: the
+    deadline is what expired, and a required pace with no deadline is not a
+    number, it is a guess."""
     lexicon = load_json(LEXICON_PATH) or {}
-    # THE HEADLINE MOVED TO THE EAR (2026-08-16, Andrew: "we stop counting what
-    # comes out of your mouth and start counting what you can hear"). Every meter
-    # that has ever led this line measured PRODUCTION — deck cold, floor cold,
-    # engines cold — and the lexicon says he produces 20 of 26 machines cold while
-    # hearing 3. The tails carry a Tamil sentence's skeleton, so ten machines he
-    # can build himself still go past him at speed. That gap is what "two words in
-    # a fast sentence does almost nothing" actually was. The deck keeps its place
-    # behind it: the trip is live, it just no longer leads.
     pats = [r for r in lexicon.values() if is_pattern(r)]
     ears = f"Machines heard {sum(1 for r in pats if r.get('recognition') == 'solid')}/{len(pats)}"
-    deck = compute_deck(lexicon)
-    if deck["total"]:
-        days = (TRIP_DATE - local_today()).days
-        never = (f" · {deck['untouched']} never worked" if deck["untouched"] else "")
-        when = f"{days} days to touchdown" if days > 0 else f"in country, day {1 - days}"
-        return (f"{ears} · Trip Deck {deck['surv_cleared']}/{deck['surv_total']} survival cold · "
-                f"{when} · "
-                f"{burn_rate(deck['surv_total'] - deck['surv_cleared'], days)} · "
-                f"full deck {deck['cleared']}/{deck['total']}{never}")
     floor = compute_floor(lexicon)
     return f"{ears} · viability floor {floor['cleared']}/{floor['total']} fire cold ({floor['pct']:.0f}%)"
 
@@ -362,19 +322,17 @@ def cold_fires_recent(days: int = 7) -> int:
     return n
 
 
-def burn_rate(pending: int, days_left: int, window: int = 7) -> str:
-    """The honest pace line: cold/day needed to clear the given pending count by
-    the deadline vs. the trailing cold/day actually happening (survival tier since
-    2026-07-18). Python states the math; Anna narrates what it means.
+def trailing_pace(window: int = 7) -> str:
+    """The honest pace line: cold/day actually happening. Python states the math;
+    Anna narrates what it means.
 
-    Past the deadline there IS no required pace — the `max(days_left, 1)` clamp
-    silently froze the ask at its final day's value and reported it forever
-    (2026-08-04). Guarding here rather than at each caller: `show_status` reads
-    this directly too, so a caller-side fix would have healed one surface."""
-    pace = cold_fires_recent(window) / window
-    if days_left <= 0:
-        return f"trailing {window}-day pace {pace:.1f}/day"
-    return f"need {pending / days_left:.1f} cold/day, trailing {window}-day pace {pace:.1f}/day"
+    Was `burn_rate(pending, days_left)` — cold/day NEEDED to clear a pending
+    count by a deadline, beside the trailing rate. Past the deadline there is no
+    required pace, and the `max(days_left, 1)` clamp silently froze the ask at
+    its final day's value and reported it forever (2026-08-04, guarded there).
+    Retired whole 2026-08-18 with the deadline it was computed against: a
+    required pace needs a terminus, and with none it WAS only this line already."""
+    return f"trailing {window}-day pace {cold_fires_recent(window) / window:.1f}/day"
 
 
 def fires_today() -> int:
@@ -820,14 +778,9 @@ def cmd_update(args):
     print(f"\nViability floor: {floor['cleared']}/{floor['total']} fire cold ({floor['pct']:.0f}%)")
     if engines["total"]:
         print(f"Engines online: {engines['online']}/{engines['total']} ({engines['pct']:.0f}%)")
-    deck = compute_deck(lexicon)
-    if deck["total"]:
-        catch = f" · catch {deck['caught']}/{deck['catch_total']} solid" if deck["catch_total"] else ""
-        print(f"Trip Deck: {deck['surv_cleared']}/{deck['surv_total']} survival cold · "
-              f"full deck {deck['cleared']}/{deck['total']}{catch}")
-        if deck["untouched"]:
-            print(f"  ⚠ Coverage: {deck['untouched']} fire item(s) never worked "
-                  f"({deck['surv_untouched']} survival)")
+    ear = compute_ear(lexicon)
+    if ear["total"]:
+        print(f"Ear-only: {ear['caught']}/{ear['total']} solid on recognition")
     print(f"Fired today: {fires_today()}")
     print("State updated.")
 
@@ -894,6 +847,55 @@ def cmd_add_word(args):
     print(f"  + '{args.key}' — {args.gloss} (recognition {args.recognition}, phonetic {list(args.phonetic)})")
 
 
+def cmd_reseed_focus(args):
+    """Re-derive the stored focus cohort from the pool's CURRENT order.
+
+    The cohort is stored membership on purpose: a word enters when a seat opens
+    and leaves only on graduation, so it is a fact readable in a file and immune
+    to counting bugs (Andrew, 2026-07-26). Held seats stand regardless of what
+    any counter says — that rule exists to stop churn on a word mid-fight, and it
+    is right.
+
+    But a counter is not the only thing that can change. When the ORDERING
+    changes, a cohort seeded under the old one holds seats the new one would
+    never have given it, and no amount of waiting fixes that — `reconcile_focus`
+    only fills seats as they open. That is exactly what the deck retirement did
+    (2026-08-18): the tier bar moved onto the rows, and all twelve seats were
+    held by unregistered delight-tier words seeded before it existed, so four
+    survival items could not enter a pool that now ranks them first.
+
+    Deliberately a COMMAND and not automatic. Rebuilding membership is the churn
+    the stored cohort exists to prevent, so it happens when someone decides it
+    should, never as a side effect of a status read. `--dry-run` prints the diff
+    and writes nothing."""
+    lexicon = load_json(LEXICON_PATH)
+    if lexicon is None:
+        print("Error: lexicon.json missing. See BOOTSTRAP.md.")
+        sys.exit(1)
+    from suggest_targets import FOCUS_SIZE, floor_gap_targets
+    learner = load_json(LEARNER_PATH) or {}
+    old = learner.get("focus_cohort", [])
+    # A cohort of one unmatchable key: no seat is held, so every seat is filled
+    # from the pool's own head — which is what "re-derive from the current
+    # order" means. An EMPTY cohort would take the day-zero seed branch instead
+    # (most-repped first), which is a different question with a different answer.
+    focus, _bg = floor_gap_targets(lexicon, local_today(), FOCUS_SIZE,
+                                   cohort=["\x00 no seat is held"])
+    new = sorted(c["word"] for c in focus)
+    left, entered = sorted(set(old) - set(new)), sorted(set(new) - set(old))
+    print(f"  Focus cohort: {len(old)} -> {len(new)} seats")
+    for w in left:
+        print(f"    - out: {w}")
+    for w in entered:
+        print(f"    + in:  {w}  [{lexicon.get(w, {}).get('register') or 'unranked'}]")
+    if args.dry_run:
+        print("  (dry run — nothing written)")
+        return
+    learner["focus_cohort"] = new
+    save_json(LEARNER_PATH, learner)
+    print("  learner.json updated.")
+
+
 def cmd_seed_deck(args):
     """Idempotently load a curated deck file (e.g. curriculum/trip_deck.json) into
     the lexicon, tagging each entry `deck: <name>`. The deck file is CONTENT (Anna
@@ -901,15 +903,23 @@ def cmd_seed_deck(args):
     the same LLM-writes / Python-owns-state split as word_pool.json.
 
     Each deck entry: {"tamil", "gloss", "phonetic": [...], "type": "chunk"|"frame",
-    "recognition"?, "direction"?: "fire"|"catch", "pairs_with"?}. A "frame" is stored as a lexicon
-    `pattern` (an Engine); a "chunk" is word-like (counts in the viability floor).
+    "register"?, "recognition"?, "direction"?: "fire"|"catch", "pairs_with"?}. A "frame" is
+    stored as a lexicon `pattern` (an Engine); a "chunk" is word-like (counts in the
+    viability floor).
     "catch" marks ear-only items (cleared by recognition, never forced to fire);
     "pairs_with" names the chunk that answers it — hear X → say Y, validated to
     resolve inside the same file so a pair can never be silently split.
+    "register" is the ORDERING (`suggest_targets.REGISTER_TIERS` → survival >
+    delight > dessert). It lands on the lexicon row and stays there: the deck is a
+    container with an expiry, the ordering is durable knowledge about which
+    failures cost most at a table, and un-tagging a row must not un-rank it
+    (2026-08-18, the deck retirement). This is the writer path for that field —
+    `progress/*.json` is never hand-edited.
     Re-runnable and the file is the source of truth: existing entries get the deck
-    tag + direction + any missing gloss/phonetic without clobbering their learning
-    state; new entries are created; lexicon entries tagged with this deck but no
-    longer in the file are un-tagged (their learning state stays)."""
+    tag + direction + register + any missing gloss/phonetic without clobbering their
+    learning state; new entries are created; lexicon entries tagged with this deck
+    but no longer in the file are un-tagged (their learning state — and their
+    register — stays)."""
     path = Path(args.file)
     if not path.is_absolute():
         path = BASE / path
@@ -953,6 +963,8 @@ def cmd_seed_deck(args):
             rec = lexicon[tamil]
             rec["deck"] = args.deck
             rec["direction"] = e.get("direction", "fire")
+            if e.get("register"):
+                rec["register"] = e["register"]
             rec.setdefault("type", lex_type)
             if pair:
                 rec["pairs_with"] = pair
@@ -975,6 +987,7 @@ def cmd_seed_deck(args):
                 "last_surfaced": None,
                 "deck": args.deck,
                 "direction": e.get("direction", "fire"),
+                **({"register": e["register"]} if e.get("register") else {}),
                 **({"pairs_with": pair} if pair else {}),
             }
             created += 1
@@ -987,12 +1000,13 @@ def cmd_seed_deck(args):
             rec.pop("pairs_with", None)
             pruned.append(w)
     save_json(LEXICON_PATH, lexicon)
-    deck = compute_deck(lexicon, args.deck)
-    print(f"  Seeded deck '{args.deck}': +{created} new, {updated} re-tagged, {len(pruned)} un-tagged.")
+    ear = compute_ear(lexicon)
+    print(f"  Seeded '{args.deck}': +{created} new, {updated} re-tagged, {len(pruned)} un-tagged.")
     for w in pruned:
-        print(f"    - un-tagged (stays in lexicon): {w}")
-    print(f"  Trip Deck now: {deck['cleared']}/{deck['total']} fire cold ({deck['pct']:.0f}%)"
-          + (f" · catch {deck['caught']}/{deck['catch_total']} solid" if deck["catch_total"] else ""))
+        print(f"    - un-tagged (stays in lexicon, register and all): {w}")
+    floor = compute_floor(lexicon)
+    print(f"  Floor now: {floor['cleared']}/{floor['total']} fire cold ({floor['pct']:.0f}%)"
+          + (f" · ear-only {ear['caught']}/{ear['total']} solid" if ear["total"] else ""))
 
 
 
@@ -1274,6 +1288,9 @@ def main():
     aw.add_argument("--recognition", default="comfortable", choices=RECOGNITION_LEVELS,
                     help="Starting recognition level (default: comfortable)")
 
+    rf = sub.add_parser("reseed-focus",
+                        help="Re-derive the stored focus cohort from the pool's current order")
+    rf.add_argument("--dry-run", action="store_true", help="Print the diff; write nothing")
     sd = sub.add_parser("seed-deck", help="Load a curated deck file (chunks/frames) into the lexicon, tagged with a deck name")
     sd.add_argument("file", help="Path to the deck JSON (e.g. curriculum/trip_deck.json), absolute or repo-relative")
     sd.add_argument("--deck", default="trip", help="Deck name to tag entries with (default: trip)")
@@ -1315,6 +1332,8 @@ def main():
         cmd_add_pattern(args)
     elif args.command == "add-word":
         cmd_add_word(args)
+    elif args.command == "reseed-focus":
+        cmd_reseed_focus(args)
     elif args.command == "seed-deck":
         cmd_seed_deck(args)
     elif args.command == "feedback":

@@ -72,9 +72,9 @@ MIN_GAP_HOURS = 3          # minimum spacing between reaches
 NEXT_CHECK_CLAMP = (0.5, 24.0)   # Anna's self-set next_check is clamped to this many hours
 
 MODALITIES = {"text", "audio", "challenge", "volley", "eavesdrop", "fielding", "grace", "silence"}
-VOLLEY_SIZE = 4   # deck items per volley knock — one per exchange, chained by Python
+VOLLEY_SIZE = 4   # menu items per volley knock — one per exchange, chained by Python
                   # (3→4 2026-07-09: pace trailed 1.5 vs 1.8 needed; Andrew chose a bigger
-                  # volley over deck tiering — next lever if it still trails is a 2nd volley)
+                  # volley over tiering — next lever if it still trails is a 2nd volley)
 
 # Lock-screen render budget. The mandate asks for ≤140; past ~160 iOS cuts the
 # body and the dose dies unseen (2026-07-05 feedback). Warn-only — a trimmed
@@ -323,10 +323,9 @@ def remaining_room(klog: list, now: datetime) -> str:
     # warning when the cadence has lapsed so Anna doesn't keep skipping it.
     eavesdrop_str = ""
     try:
-        from suggest_targets import deck_status
+        from suggest_targets import ear_targets
         _lex = load_json(LEXICON_PATH) or {}
-        _deck = deck_status(_lex)
-        _catch_pending = (_deck.get("catch_pending") or []) if _deck else []
+        _catch_pending = ear_targets(_lex)["pending"]
         if _catch_pending:
             le = last_eavesdrop(klog)
             if le is None:
@@ -350,30 +349,35 @@ def remaining_room(klog: list, now: datetime) -> str:
             f"{streak_str}{lore_str}{eavesdrop_str}")
 
 
-def deck_due_list(max_fire: int = 6, max_catch: int = 2) -> str:
-    """The sprint deck's due items in the selector's own order — coverage-first,
-    recently-asked demoted, both owned by `deck_status` since 2026-07-25 (this
-    module used to re-sort by its own ask counts, which let an asked-once
-    SURVIVAL item fall below an unasked dessert one). `sync_state status` carries
-    only the deck METER; this is the menu. Items never soaked anywhere are
-    flagged UNSEEN — the mandate forbids cold-quizzing those (teach first,
-    show dose)."""
-    from suggest_targets import ASK_COOLDOWN_DAYS, deck_status  # lazy: keeps module import light
-    from sync_state import is_unseen
+def due_menu_block(max_fire: int = 6, max_catch: int = 2) -> str:
+    """The pool's due items in the selector's own order — tier-first,
+    coverage-first, recently-asked demoted. `sync_state status` carries the
+    meters; this is the MENU. Items never soaked anywhere are flagged UNSEEN —
+    the mandate forbids cold-quizzing those (teach first, show dose).
+
+    Was `deck_due_list`, reading `deck_status` (2026-07-25 → 2026-08-18). Same
+    order, same ownership rule — this module does not re-sort, because when it
+    did an asked-once SURVIVAL item could fall below an unasked dessert one. What
+    changed is the population: the 83-row container retired and the ordering it
+    carried (`register` → tier) moved onto the rows, so the menu is now drawn
+    from the whole pool instead of from a set with an expiry date."""
+    from suggest_targets import ASK_COOLDOWN_DAYS, drill_menu, ear_targets
     lex = load_json(LEXICON_PATH) or {}
-    deck = deck_status(lex)
-    if not deck or not deck["pending"]:
+    menu = drill_menu(lex, max_n=max_fire)
+    if not menu:
         return ""
-    lines = ["DECK DUE (the sprint menu — expected_target should usually come from here):"]
-    for t in deck["pending"][:max_fire]:
+    lines = ["DUE MENU (expected_target should usually come from here):"]
+    for t in menu:
         state = "hinted→cold" if t["production"] == "hinted" else f"{t['recognition']}, cold-pending"
-        if is_unseen(lex.get(t["word"], {})):
+        if t["unseen"]:
             state += " · ⚠ UNSEEN — teach first (show dose), don't quiz"
+        if t["retest"]:
+            state += f" · GOING DARK, {t['staleness']}d silent since it was hinted"
         if t["asks"]:
             state += (f" · ⚠ asked/shown {t['asks']}× in last {ASK_COOLDOWN_DAYS}d — needs a genuinely "
                       f"new scene, or pick another item")
-        lines.append(f"    [{t['kind']}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{state}]")
-    for t in deck["catch_pending"][:max_catch]:
+        lines.append(f"    [{t['kind']} · {t['tier']}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{state}]")
+    for t in ear_targets(lex)["pending"][:max_catch]:
         if t.get("pairs_with"):
             # A paired catch item is the one ear-only case he DOES answer: the
             # line is aimed at him and silence is the failure (2026-07-26).
@@ -387,20 +391,16 @@ def deck_due_list(max_fire: int = 6, max_catch: int = 2) -> str:
 
 
 def volley_targets(n: int = VOLLEY_SIZE) -> list[dict]:
-    """The BINDING item list for a volley knock — Python picks so deck coverage
-    stays honest (Anna's taste concentrated reps on the same few headliners while
-    50+ items got zero touches, 2026-07-08). The order is `deck_status`'s own —
-    coverage-first, recently-asked demoted (2026-07-25); UNSEEN and ear-only
-    items excluded (teach-first / never-fire laws)."""
-    from suggest_targets import deck_status  # lazy: keeps module import light
-    from sync_state import is_unseen
+    """The BINDING item list for a volley knock — Python picks so coverage stays
+    honest (Anna's taste concentrated reps on the same few headliners while 50+
+    items got zero touches, 2026-07-08). The order is `drill_menu`'s own —
+    tier-first, coverage-first, recently-asked demoted (2026-07-25); UNSEEN and
+    ear-only items excluded (teach-first / never-fire laws)."""
+    from suggest_targets import drill_menu  # lazy: keeps module import light
     lex = load_json(LEXICON_PATH) or {}
-    deck = deck_status(lex)
-    if not deck or not deck["pending"]:
-        return []
     out = []
-    for t in deck["pending"]:
-        if is_unseen(lex.get(t["word"], {})):
+    for t in drill_menu(lex):
+        if t["unseen"]:
             continue  # UNSEEN — teach first (show dose), never cold-quiz
         out.append({"target": t["word"], "gloss": t.get("gloss", "")})
         if len(out) == n:
@@ -449,14 +449,14 @@ def campaign_block() -> str:
 
 def build_digest() -> str:
     """Everything Anna needs to make a policy call: learning state + the live
-    campaign + the deck's due menu + outcome memory + how much room the rails
+    campaign + the due menu + outcome memory + how much room the rails
     leave him right now."""
     out = subprocess.run([sys.executable, str(BASE / "scripts" / "sync_state.py"), "status"],
                          capture_output=True, text=True, encoding="utf-8")
     status = out.stdout.strip()
     klog = load_json(KNOCK_LOG_PATH) or []
     now = datetime.now(timezone.utc)
-    parts = [status, campaign_block(), deck_due_list(), volley_block(),
+    parts = [status, campaign_block(), due_menu_block(), volley_block(),
              outcome_memory(klog, now), remaining_room(klog, now)]
     return "\n\n".join(p for p in parts if p)
 

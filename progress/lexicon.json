@@ -2454,7 +2454,8 @@
     "direction": "fire",
     "type": "chunk",
     "reps": 4,
-    "exposures": 4
+    "exposures": 4,
+    "register": "antifreeze"
   },
   "கூப்பிடு": {
     "gloss": "Call",
@@ -2798,7 +2799,8 @@
     "deck": "trip",
     "direction": "catch",
     "pairs_with": "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு",
-    "exposures": 4
+    "exposures": 4,
+    "register": "mil-table"
   },
   "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு": {
     "type": "chunk",
@@ -2813,7 +2815,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 1,
-    "exposures": 2
+    "exposures": 2,
+    "register": "mil-table"
   },
   "உங்க கை ருசி சூப்பர்": {
     "type": "chunk",
@@ -2828,7 +2831,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 1,
-    "exposures": 2
+    "exposures": 2,
+    "register": "mil-table"
   },
   "நானே எடுத்துக்கறேன்": {
     "type": "chunk",
@@ -2845,7 +2849,8 @@
     "deck": "trip",
     "direction": "fire",
     "exposures": 3,
-    "reps": 1
+    "reps": 1,
+    "register": "mil-table"
   },
   "கொஞ்சம் தண்ணி குடுங்க": {
     "type": "chunk",
@@ -2861,7 +2866,8 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 3
+    "exposures": 3,
+    "register": "mil-table"
   },
   "கை கழுவிட்டு வரேன்": {
     "type": "chunk",
@@ -2876,7 +2882,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 2
+    "exposures": 2,
+    "register": "mil-table"
   },
   "உட்கார்ந்து பேசுங்க": {
     "type": "chunk",
@@ -2892,7 +2899,8 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 3
+    "exposures": 3,
+    "register": "mil-table"
   },
   "நீங்க சாப்பிட்டீங்களா?": {
     "type": "chunk",
@@ -2907,7 +2915,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 2
+    "exposures": 2,
+    "register": "mil-table"
   },
   "அவங்க என்ன சொன்னாங்க?": {
     "type": "chunk",
@@ -2923,7 +2932,8 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 3
+    "exposures": 3,
+    "register": "gossip"
   },
   "யாருக்கு தெரியும்?": {
     "type": "chunk",
@@ -2937,7 +2947,8 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 2
+    "exposures": 2,
+    "register": "gossip"
   },
   "கேள்விப்பட்டியா?": {
     "type": "chunk",
@@ -2962,7 +2973,8 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 2
+    "exposures": 2,
+    "register": "gossip"
   },
   "சும்மா சொல்றாங்க": {
     "type": "chunk",
@@ -2981,7 +2993,8 @@
     "last_surfaced": "2026-08-14",
     "deck": "trip",
     "direction": "catch",
-    "exposures": 7
+    "exposures": 7,
+    "register": "gossip"
   },
   "எனக்கு ஒன்னும் தெரியாது": {
     "type": "chunk",
@@ -2997,7 +3010,8 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 3
+    "exposures": 3,
+    "register": "gossip"
   },
   "என்னமோ பிரச்சனை": {
     "type": "chunk",
@@ -3017,7 +3031,8 @@
     "deck": "trip",
     "direction": "catch",
     "reps": 1,
-    "exposures": 4
+    "exposures": 4,
+    "register": "gossip"
   },
   "விட்டுடு": {
     "type": "chunk",
@@ -3035,7 +3050,8 @@
     "deck": "trip",
     "direction": "catch",
     "exposures": 4,
-    "reps": 1
+    "reps": 1,
+    "register": "gossip"
   },
   "எவ்வளவு ஆகும்?": {
     "type": "chunk",
@@ -3072,7 +3088,8 @@
     "deck": "trip",
     "direction": "fire",
     "exposures": 3,
-    "reps": 2
+    "reps": 2,
+    "register": "public"
   },
   "இங்க நிறுத்துங்க": {
     "type": "chunk",
@@ -3087,7 +3104,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 3
+    "exposures": 3,
+    "register": "public"
   },
   "நேரா போங்க": {
     "type": "chunk",
@@ -3102,7 +3120,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 4
+    "exposures": 4,
+    "register": "public"
   },
   "வலது பக்கம் திரும்புங்க": {
     "type": "chunk",
@@ -3117,7 +3136,8 @@
     "deck": "trip",
     "direction": "fire",
     "exposures": 3,
-    "reps": 1
+    "reps": 1,
+    "register": "public"
   },
   "சில்லறை இருக்கா?": {
     "type": "chunk",
@@ -3132,7 +3152,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 3,
-    "exposures": 3
+    "exposures": 3,
+    "register": "public"
   },
   "கார்டு வேலை செய்யுமா?": {
     "type": "chunk",
@@ -3165,7 +3186,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 3
+    "exposures": 3,
+    "register": "public"
   },
   "கொஞ்சம் நில்லுங்க": {
     "type": "chunk",
@@ -3183,7 +3205,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 1,
-    "exposures": 2
+    "exposures": 2,
+    "register": "public"
   },
   "எப்படி இருக்கீங்க?": {
     "type": "chunk",
@@ -3200,7 +3223,8 @@
     "deck": "trip",
     "direction": "fire",
     "exposures": 3,
-    "reps": 1
+    "reps": 1,
+    "register": "social"
   },
   "ரொம்ப நாளாச்சு": {
     "type": "chunk",
@@ -3217,7 +3241,8 @@
     "deck": "trip",
     "direction": "fire",
     "exposures": 3,
-    "reps": 1
+    "reps": 1,
+    "register": "social"
   },
   "வந்துட்டேன்": {
     "type": "chunk",
@@ -3235,7 +3260,8 @@
     "deck": "trip",
     "direction": "fire",
     "exposures": 3,
-    "reps": 1
+    "reps": 1,
+    "register": "social"
   },
   "கிளம்பலாமா?": {
     "type": "chunk",
@@ -3252,7 +3278,8 @@
     "deck": "trip",
     "direction": "fire",
     "exposures": 3,
-    "reps": 1
+    "reps": 1,
+    "register": "social"
   },
   "பிறகு பார்க்கலாம்": {
     "type": "chunk",
@@ -3301,7 +3328,8 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 3
+    "exposures": 3,
+    "register": "social"
   },
   "ஒரு நிமிஷம்": {
     "type": "chunk",
@@ -3318,7 +3346,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 1,
-    "exposures": 3
+    "exposures": 3,
+    "register": "social"
   },
   "நான் கோயம்புத்தூர்காரன் மாதிரி ஆயிட்டேன்": {
     "type": "chunk",
@@ -3334,7 +3363,8 @@
     "last_surfaced": "2026-08-05",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 1
+    "exposures": 1,
+    "register": "zinger"
   },
   "இதெல்லாம் எனக்கு புடிக்கும்": {
     "type": "chunk",
@@ -3350,7 +3380,8 @@
     "last_surfaced": "2026-08-05",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 1
+    "exposures": 1,
+    "register": "zinger"
   },
   "அடுத்த தடவ நானே சமைக்கறேன்": {
     "type": "chunk",
@@ -3363,7 +3394,8 @@
     "seen_in": [],
     "last_surfaced": null,
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "register": "zinger"
   },
   "கொஞ்சம் கொஞ்சம் புரியுது": {
     "type": "chunk",
@@ -3379,7 +3411,8 @@
     "last_surfaced": "2026-08-05",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 1
+    "exposures": 1,
+    "register": "zinger"
   },
   "frame:want-noun": {
     "type": "pattern",
@@ -3397,7 +3430,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 1
+    "exposures": 1,
+    "register": "frame"
   },
   "frame:where-noun": {
     "type": "pattern",
@@ -3414,7 +3448,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 1,
-    "exposures": 1
+    "exposures": 1,
+    "register": "frame"
   },
   "frame:isthere-noun": {
     "type": "pattern",
@@ -3431,7 +3466,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 1
+    "exposures": 1,
+    "register": "frame"
   },
   "frame:howmuch-noun": {
     "type": "pattern",
@@ -3448,11 +3484,12 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 1,
-    "exposures": 1
+    "exposures": 1,
+    "register": "frame"
   },
   "frame:mayi-laama": {
     "type": "pattern",
-    "gloss": "{verb}-லாமா? → 'shall we {verb}?' (proposal, e.g. 'saapidalaamaa', 'kilambalaamaa') OR 'may I {verb}?' (permission, e.g. 'ukkaralaama?'). -லாம் proposes, -ஆ makes it a question. Credit any -laamaa production HERE, at the frame — not as a new chunk.",
+    "gloss": "நான் {verb}-லாமா? → may I {verb}? (permission, e.g. 'ukkaralaama?')",
     "phonetic": [
       "laama"
     ],
@@ -3468,7 +3505,8 @@
     "deck": "trip",
     "direction": "fire",
     "exposures": 3,
-    "reps": 2
+    "reps": 2,
+    "register": "frame"
   },
   "frame:giveme-noun": {
     "type": "pattern",
@@ -3488,7 +3526,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 4,
-    "exposures": 1
+    "exposures": 1,
+    "register": "frame"
   },
   "frame:needtogo-place": {
     "type": "pattern",
@@ -3509,7 +3548,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 3,
-    "exposures": 2
+    "exposures": 2,
+    "register": "frame"
   },
   "frame:nearby-noun": {
     "type": "pattern",
@@ -3525,7 +3565,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 1,
-    "exposures": 2
+    "exposures": 2,
+    "register": "frame"
   },
   "என்ன சமைக்கிற?": {
     "gloss": "What are you cooking? (informal)",
@@ -3596,7 +3637,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 6,
-    "exposures": 2
+    "exposures": 2,
+    "register": "faq"
   },
   "நேத்து தான் வந்தோம்": {
     "type": "chunk",
@@ -3613,7 +3655,8 @@
     "deck": "trip",
     "direction": "fire",
     "exposures": 3,
-    "reps": 1
+    "reps": 1,
+    "register": "faq"
   },
   "சாஃப்ட்வேர் வேலை பண்றேன்": {
     "type": "chunk",
@@ -3638,7 +3681,8 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 2
+    "exposures": 2,
+    "register": "faq"
   },
   "ரொம்ப பிடிச்சிருக்கு": {
     "type": "chunk",
@@ -3653,7 +3697,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 3,
-    "exposures": 2
+    "exposures": 2,
+    "register": "faq"
   },
   "காரம் பரவாயில்ல, பழக்கமாயிடுச்சு": {
     "type": "chunk",
@@ -3682,7 +3727,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 3
+    "exposures": 3,
+    "register": "antifreeze"
   },
   "இன்னொரு தடவ சொல்லுங்க": {
     "type": "chunk",
@@ -3700,7 +3746,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 4,
-    "exposures": 5
+    "exposures": 5,
+    "register": "antifreeze"
   },
   "என்ன சொன்னீங்க?": {
     "type": "chunk",
@@ -3719,7 +3766,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 4
+    "exposures": 4,
+    "register": "antifreeze"
   },
   "தமிழ்ல எப்படி சொல்றது?": {
     "type": "chunk",
@@ -3736,7 +3784,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 1,
-    "exposures": 1
+    "exposures": 1,
+    "register": "antifreeze"
   },
   "ஆமா ஆமா": {
     "type": "chunk",
@@ -3754,7 +3803,8 @@
     "last_surfaced": "2026-08-15",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 6
+    "exposures": 6,
+    "register": "antifreeze"
   },
   "அப்படியா?!": {
     "type": "chunk",
@@ -3773,7 +3823,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 1,
-    "exposures": 3
+    "exposures": 3,
+    "register": "antifreeze"
   },
   "சரி சரி": {
     "type": "chunk",
@@ -3793,7 +3844,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 3,
-    "exposures": 6
+    "exposures": 6,
+    "register": "antifreeze"
   },
   "இன்னும் கொஞ்சம் போடுங்க": {
     "type": "chunk",
@@ -3807,7 +3859,8 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 2
+    "exposures": 2,
+    "register": "mil-table"
   },
   "frame:polite-nga": {
     "type": "pattern",
@@ -3827,7 +3880,8 @@
     "deck": "trip",
     "direction": "fire",
     "exposures": 2,
-    "reps": 1
+    "reps": 1,
+    "register": "frame"
   },
   "frame:we-om": {
     "type": "pattern",
@@ -3843,7 +3897,8 @@
     "deck": "trip",
     "direction": "fire",
     "exposures": 2,
-    "reps": 3
+    "reps": 3,
+    "register": "frame"
   },
   "frame:day-recap": {
     "type": "pattern",
@@ -3858,7 +3913,8 @@
     "deck": "trip",
     "direction": "fire",
     "exposures": 3,
-    "reps": 1
+    "reps": 1,
+    "register": "frame"
   },
   "frame:quote-nu": {
     "type": "pattern",
@@ -3875,7 +3931,8 @@
     "deck": "trip",
     "direction": "catch",
     "reps": 2,
-    "exposures": 3
+    "exposures": 3,
+    "register": "frame"
   },
   "frame:hearsay-aam": {
     "type": "pattern",
@@ -3891,7 +3948,8 @@
     "deck": "trip",
     "direction": "catch",
     "exposures": 2,
-    "reps": 1
+    "reps": 1,
+    "register": "frame"
   },
   "அப்புறம் பார்க்கலாம்": {
     "type": "chunk",
@@ -3908,7 +3966,8 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 4
+    "exposures": 4,
+    "register": "social"
   },
   "ரொம்ப சந்தோஷம்": {
     "type": "chunk",
@@ -3926,7 +3985,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 1,
-    "exposures": 4
+    "exposures": 4,
+    "register": "social"
   },
   "சாஃப்ட்வேர் இன்ஜினியரா இருக்கேன்": {
     "type": "chunk",
@@ -3941,7 +4001,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 2
+    "exposures": 2,
+    "register": "faq"
   },
   "காரம் பரவாயில்ல, பழகிப்போச்சு": {
     "type": "chunk",
@@ -3955,7 +4016,8 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 2
+    "exposures": 2,
+    "register": "faq"
   },
   "ரொம்ப நல்லா இருக்கு": {
     "type": "chunk",
@@ -3972,7 +4034,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 4,
-    "exposures": 3
+    "exposures": 3,
+    "register": "mil-table"
   },
   "தெரியுமா?": {
     "type": "chunk",
@@ -3989,7 +4052,8 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "catch",
-    "exposures": 5
+    "exposures": 5,
+    "register": "gossip"
   },
   "frame:youknow-la": {
     "type": "pattern",
@@ -4009,7 +4073,8 @@
     "deck": "trip",
     "direction": "catch",
     "exposures": 6,
-    "reps": 1
+    "reps": 1,
+    "register": "gossip"
   },
   "எவ்ளோ ஆகும்?": {
     "type": "chunk",
@@ -4024,7 +4089,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 1,
-    "exposures": 4
+    "exposures": 4,
+    "register": "public"
   },
   "ஃப்ரீயா விடுங்க": {
     "type": "chunk",
@@ -4040,7 +4106,8 @@
     "last_surfaced": "2026-08-14",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 3
+    "exposures": 3,
+    "register": "social"
   },
   "வாய் திறந்தா காக்கா கொத்திட்டு போயிடும்": {
     "type": "chunk",
@@ -4053,7 +4120,8 @@
     "seen_in": [],
     "last_surfaced": null,
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "register": "zinger"
   },
   "frame:done-ittu": {
     "type": "pattern",
@@ -4070,7 +4138,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 1,
-    "exposures": 1
+    "exposures": 1,
+    "register": "frame"
   },
   "frame:adverb-aa": {
     "type": "pattern",
@@ -4087,7 +4156,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 1
+    "exposures": 1,
+    "register": "frame"
   },
   "frame:in-la": {
     "type": "pattern",
@@ -4106,7 +4176,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 6,
-    "exposures": 3
+    "exposures": 3,
+    "register": "frame"
   },
   "frame:happened-aachu": {
     "type": "pattern",
@@ -4122,7 +4193,8 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 1
+    "exposures": 1,
+    "register": "frame"
   },
   "frame:if-ndhaa": {
     "type": "pattern",
@@ -4140,7 +4212,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 1,
-    "exposures": 1
+    "exposures": 1,
+    "register": "frame"
   },
   "frame:spice-dhaan": {
     "type": "pattern",
@@ -4159,7 +4232,8 @@
     "deck": "trip",
     "direction": "catch",
     "exposures": 5,
-    "reps": 1
+    "reps": 1,
+    "register": "frame"
   },
   "frame:myself-thukka": {
     "type": "pattern",
@@ -4174,7 +4248,8 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "catch",
-    "exposures": 3
+    "exposures": 3,
+    "register": "frame"
   },
   "அட்டா": {
     "gloss": "oh! / alas! (mild disappointment, amused surprise)",
@@ -4228,7 +4303,8 @@
     "deck": "trip",
     "direction": "fire",
     "exposures": 3,
-    "reps": 1
+    "reps": 1,
+    "register": "social"
   },
   "கடைசில பாக்கலாம்": {
     "type": "chunk",
@@ -4247,7 +4323,8 @@
     "last_surfaced": "2026-08-10",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 3
+    "exposures": 3,
+    "register": "social"
   },
   "முடிஞ்சா": {
     "type": "chunk",
@@ -4267,7 +4344,8 @@
     "deck": "trip",
     "direction": "fire",
     "exposures": 3,
-    "reps": 1
+    "reps": 1,
+    "register": "antifreeze"
   },
   "அலைச்சல்": {
     "type": "chunk",
@@ -4291,7 +4369,8 @@
     "deck": "trip",
     "direction": "catch",
     "reps": 2,
-    "exposures": 5
+    "exposures": 5,
+    "register": "gossip"
   },
   "ஜாஸ்தி": {
     "type": "chunk",
@@ -4311,7 +4390,8 @@
     "deck": "trip",
     "direction": "catch",
     "reps": 3,
-    "exposures": 3
+    "exposures": 3,
+    "register": "gossip"
   },
   "ஒரே கல்லுல ரெண்டு மாங்கா": {
     "type": "chunk",
@@ -4325,7 +4405,8 @@
     "seen_in": [],
     "last_surfaced": null,
     "deck": "trip",
-    "direction": "fire"
+    "direction": "fire",
+    "register": "zinger"
   },
   "பிறந்தநாள் வாழ்த்துக்கள்": {
     "type": "chunk",
@@ -4341,7 +4422,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 1,
-    "exposures": 2
+    "exposures": 2,
+    "register": "mil-table"
   },
   "அப்பா": {
     "gloss": "dad / father (also an exclamation: oh man!)",
@@ -5019,7 +5101,8 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 1
+    "exposures": 1,
+    "register": "antifreeze"
   },
   "சரியாயிடும்": {
     "gloss": "",

@@ -8,7 +8,7 @@
 
 1. **`git pull --ff-only` — mandatory.** This clone is one of many writers; `sync_state.py status` prints a ⛔ STALE banner when behind — never speak past it.
 2. Become Anna (`persona.md`); recall the canonical rules (`constitution.md`).
-3. `python scripts/sync_state.py status` → floor, deck, soak-order verdict. `progress/profile.md` → the live campaign block first, then gaps and calibration. `python scripts/suggest_targets.py` → the ticket.
+3. `python scripts/sync_state.py status` → ear, floor, soak-order verdict. `progress/profile.md` → the live campaign block first, then gaps and calibration. `python scripts/suggest_targets.py` → the ticket.
 4. **Auto-drain:** if the status digest says the soak order is NOT YET PRODUCED, dispatch the studio in the background now (`python scripts/run_studio.py`; the `studio` subagent only if that fails) — one in-voice line, then straight into the session. Never block on it; never wait to be asked.
 
 ## Targeting
