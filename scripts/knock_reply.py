@@ -47,7 +47,7 @@ from openai import OpenAI
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from render_chat import render_chat
-from morning_knock import (OPENROUTER_BASE, MODEL, budget, KNOCK_LOG_PATH, KNOCKS_DIR,
+from morning_knock import (OPENROUTER_BASE, OPENROUTER_MODEL, budget, KNOCK_LOG_PATH, KNOCKS_DIR,
                            ANNA_VOICE, load_env, push_to_phone,
                            commit_and_push, maybe_enqueue_schedule, render_memo,
                            jsdelivr_url, refresh_feed, to_phonetic, parse_llm_response,
@@ -406,7 +406,7 @@ def judge_catch(knock: dict, reply_text: str, klog: list | None = None) -> dict:
     context = catch_context(knock, reply_text, klog)
     client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
     resp = client.chat.completions.create(
-        model=MODEL,
+        model=OPENROUTER_MODEL,
         response_format=JSON_MODE,
         max_tokens=budget(400),
         messages=[
@@ -661,7 +661,7 @@ def judge(knock: dict, reply_text: str, target_record: dict | None,
                + (FORCE_SCHEDULE_ADDENDUM if force_schedule else ""))
     client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
     resp = client.chat.completions.create(
-        model=MODEL,
+        model=OPENROUTER_MODEL,
         response_format=JSON_MODE,
         # 1600 is what the ARTIFACT needs — an 11-key schema plus a slip-ledger
         # tag match — and nothing else. The thinking room is added by `budget()`.

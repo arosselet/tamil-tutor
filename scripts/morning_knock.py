@@ -51,7 +51,14 @@ from render_audio import generate_segment_google, get_raw_mp3_frames, SILENCE_FR
 from render_chat import render_chat
 
 OPENROUTER_BASE = "https://openrouter.ai/api/v1"   # OpenAI-compatible; one key, many models
-MODEL = "anthropic/claude-sonnet-5"   # Andrew's default; fallback e.g. "google/gemini-2.5-flash"
+MODEL = "claude-sonnet-5"   # ONE statement of the model. Everything below derives.
+OPENROUTER_MODEL = f"anthropic/{MODEL}"   # the same model, in OpenRouter's slug shape
+# TWO EXECUTORS, ONE MODEL (2026-08-18, Andrew). The laptop runs `claude -p` on his
+# subscription; a GitHub runner has no agent and no subscription, so it runs the
+# API. That is a HOST difference and must never become a model difference: the
+# slug shape differs, the generation may not. Stated once here so a swap cannot
+# half-land — which is exactly what happened when three lanes shared MODEL and a
+# fourth (the studio) quietly ran a different model on its own constant.
 # 4.6 -> 5 (2026-08-18, Andrew). A newer generation at a LOWER price on OpenRouter
 # ($2/$10 per M tok vs $3/$15), same 1M context, same structured-output support.
 # Cost was never the reason — this lane runs ~4 calls/day and costs a few dollars a
@@ -148,7 +155,7 @@ def rephrase_phonetic(body: str) -> str:
     spelt the thing, does the work and the lexicon only catches what it misses."""
     client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
     resp = client.chat.completions.create(
-        model=MODEL, max_tokens=budget(300),
+        model=OPENROUTER_MODEL, max_tokens=budget(300),
         messages=[{"role": "system", "content": PHONETIC_REWRITE},
                   {"role": "user", "content": body}])
     return (resp.choices[0].message.content or "").strip()
@@ -754,7 +761,7 @@ def decide(digest: str, volley_menu: list | None = None) -> dict:
     ]
     last_err: Exception | None = None
     for attempt in range(1, 4):
-        resp = client.chat.completions.create(model=MODEL, max_tokens=budget(1600),
+        resp = client.chat.completions.create(model=OPENROUTER_MODEL, max_tokens=budget(1600),
                                               messages=messages, response_format=JSON_MODE)
         try:
             d = parse_llm_response(resp)
