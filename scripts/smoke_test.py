@@ -2089,6 +2089,27 @@ def s28_cloud_writer(sb: Path):
     check("inline_canon flags a missing referenced file",
           "referenced but missing" in rs.inline_canon("Read protocol/studio/nope.md now"))
 
+    # THE TWO BLIND SPOTS, both found 2026-08-18 and both untested until now —
+    # which is why they survived. The old pattern read one level deep and matched
+    # `protocol/*.md` only, so the constitution (cited BY the role files, never by
+    # a prompt) and the calibration dials (cited by the Director, under progress/)
+    # reached no pass. Every episode the API writer produced was off-canon.
+    director_inlined = rs.inline_canon(rs.DIRECTOR.format(ticket="TICKET"))
+    check("inline_canon follows a role file's OWN citation (the constitution)",
+          "===== protocol/constitution.md =====" in director_inlined)
+    check("...and carries the calibration dials the Director calls LAW",
+          "===== progress/profile.md =====" in director_inlined)
+    check("...and the soak order it is told to read",
+          "===== progress/learner.json =====" in director_inlined)
+    check("the Producer gets the canon governing the Tamil it rewrites",
+          "===== protocol/constitution.md =====" in rs.inline_canon(producer_prompt)
+          and "===== protocol/studio/dialect.md =====" in rs.inline_canon(producer_prompt))
+    # the skip is deliberate AND loud: 114 KB the ticket already distills. A quiet
+    # omission is the bug above; an announced one is a decision.
+    check("the lexicon is skipped, not silently dropped",
+          "progress/lexicon.json" in rs.CANON_SKIP
+          and "===== progress/lexicon.json =====" not in director_inlined)
+
 
 def s29_one_runner_every_capability(mk, pq, kr, sb: Path):
     print("\n29. One workflow, every capability; the drain renders voice (2026-07-24)")

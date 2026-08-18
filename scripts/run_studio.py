@@ -98,8 +98,9 @@ PRINT the full episode script and nothing else — speaker lines as
 """
 
 PRODUCER = PREAMBLE + """
-THIS PASS: the PRODUCER. Read protocol/studio/producer.md and
-protocol/studio/dialect.md and follow them exactly: dialect transformation,
+THIS PASS: the PRODUCER. Read protocol/studio/producer.md,
+protocol/studio/dialect.md and protocol/constitution.md and follow them
+exactly: dialect transformation,
 integrity checks (send-backs become fixes you make yourself here), and the
 sidecar. Two hard rules the dialect pass must not violate:
 - PAYLOAD IS VERBATIM: every deck/payload item the sidecar claims must appear
@@ -173,7 +174,19 @@ def agy_print(label: str, prompt: str) -> str | None:
     return out
 
 
-CANON_REF_RE = re.compile(r"protocol/[\w/]+\.md")
+CANON_REF_RE = re.compile(r"(?:protocol|progress)/[\w/-]+\.(?:md|json)")
+# WIDENED from `protocol/[\w/]+\.md` (2026-08-18). The old pattern could only see
+# protocol markdown, so the Director's own instruction — "Read progress/profile.md
+# — its Calibration Notes are LAW — and the soak-order in progress/learner.json" —
+# inlined NEITHER, silently. The pass that sets density and new-word counts was
+# told its dials were law and never handed them.
+CANON_SKIP = {
+    # 114 KB of raw rows that `suggest_targets.py` already distills into the
+    # ticket every pass receives. Inlining it would quadruple every prompt to
+    # re-send what the ticket has already chosen from. Skipped LOUDLY below.
+    "progress/lexicon.json",
+}
+CANON_DEPTH = 2   # the prompt names a file; that file names its canon. No further.
 
 
 def newest_tags_sample() -> str | None:
@@ -191,15 +204,42 @@ def inline_canon(prompt: str) -> str:
     how morning_knock inlines persona.md. The prompt's OWN file references are
     the manifest: whatever a pass names, Python inlines, so the two never drift
     (2026-07-24 — the thin slice caught the cloud writer inventing a schema it
-    had no way to see)."""
-    seen, blocks = [], []
-    for ref in CANON_REF_RE.findall(prompt):
-        if ref in seen:
-            continue
-        seen.append(ref)
-        p = BASE / ref
-        blocks.append(f"===== {ref} =====\n{p.read_text(encoding='utf-8').strip()}"
-                      if p.exists() else f"===== {ref} (referenced but missing) =====")
+    had no way to see).
+
+    IT NOW FOLLOWS REFERENCES TRANSITIVELY (2026-08-18), because the manifest was
+    only ever read one level deep. `director.md` and `architect.md` both say to
+    read `protocol/constitution.md` — Woven Thanglish, the Noun Shortcut, No
+    Academic Terms, Phonetic Acceptance, Fresh Execution — and the constitution
+    was inlined NOWHERE. A filesystem-having writer (agy) followed those
+    references itself, so the gap was invisible for as long as agy was the local
+    writer; when it stopped being installed, `openrouter_pass` became the only
+    writer running anywhere and every episode since was written without the canon
+    it is judged against. Depth-limited and deduped: the role files cite each
+    other, so an unbounded walk would cycle.
+
+    REPLACES a silent gap with a loud one: anything referenced and NOT carried is
+    now printed, so the next blind spot announces itself instead of waiting for
+    someone to diff a prompt against a protocol file."""
+    seen, blocks, queue, skipped = [], [], list(CANON_REF_RE.findall(prompt)), []
+    for _ in range(CANON_DEPTH):
+        nxt = []
+        for ref in queue:
+            if ref in seen:
+                continue
+            seen.append(ref)
+            if ref in CANON_SKIP:
+                skipped.append(ref)
+                continue
+            p = BASE / ref
+            if not p.exists():
+                blocks.append(f"===== {ref} (referenced but missing) =====")
+                continue
+            text = p.read_text(encoding="utf-8").strip()
+            blocks.append(f"===== {ref} =====\n{text}")
+            nxt.extend(CANON_REF_RE.findall(text))
+        queue = nxt
+    if skipped:
+        print(f"   [canon] referenced but NOT carried: {', '.join(skipped)}")
     if ".tags.json" in prompt:
         sample = newest_tags_sample()
         if sample:
