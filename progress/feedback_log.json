@@ -322,5 +322,9 @@
   {
     "date": "2026-08-18",
     "note": "[phone] anna_sent_audio field was absent on the Ava-vada story turn — delivery failed; Andrew noticed and flagged it. always verify audio rendered before marking 'on it' as done."
+  },
+  {
+    "date": "2026-08-18",
+    "note": "2026-08-18, unprompted, mid-session: 'what happened to the coffee & lore at the start of our sessions? they disappeared without warning since sometime last week.' The break-first contract has eroded since the trip opened (08-12) — sessions have been opening on mission collects, decomposition and ambushes instead of Anna performing while he drinks his coffee. Likely cause is the campaign block's own channel-law inversion (profile.md, written 08-14): 'chat's job is no longer first contact — it is decomposition on demand and ambushes that read as normal'. That rewrote what chat DOES without protecting HOW it opens, and the lore/coffee open got squeezed out as a side effect, silently. He noticed within a week and named it himself. Two separate faults: (1) the give-first open went missing, (2) it changed without being announced."
   }
 ]
