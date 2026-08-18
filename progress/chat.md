@@ -12,6 +12,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **15:51 · Anna**  ·  challenge / field mission: take spoon
 > at dinner tonight, don't just stop her — TAKE the spoon: 'naane eduthukkaren.' fire it unprompted. debrief tomorrow 🥄
 
+**04:51 · Andrew** — **CHAT**
+> Inge poringe what does it mean?
+
+**Anna ↩**
+> inge poringe = "go here" (poringe is you-go, polite) — not quite "come here," that'd be inga vaanga. anyway — spoon mission still on for tonight, naane eduthukkaren!
+
 
 ## Monday 2026-08-17
 
