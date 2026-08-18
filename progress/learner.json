@@ -37,7 +37,8 @@
     "venum-for-kudunga": "2026-08-04",
     "ku-for-la": "2026-08-05",
     "catch-closing": "2026-08-09",
-    "stranger-nga": "2026-08-10"
+    "stranger-nga": "2026-08-10",
+    "bluff-not-repair": "2026-08-18"
   },
   "slip_commissions": {
     "1pl-past-om": [
@@ -119,6 +120,10 @@
   },
   "recent_missions": [
     {
+      "mission": 89,
+      "title": "Mission tier2_mission89"
+    },
+    {
       "mission": 88,
       "title": "Mission tier2_mission88"
     },
@@ -129,11 +134,7 @@
     {
       "mission": 85,
       "title": "Mission tier2_mission85"
-    },
-    {
-      "mission": 84,
-      "title": "Mission tier2_mission84"
     }
   ],
-  "status": "Trip Deck 29/34 survival cold · in country, day 4 · trailing 7-day pace 1.7/day · full deck 35/71 · 3 never worked"
+  "status": "Machines heard 3/26 · Trip Deck 30/34 survival cold · in country, day 7 · trailing 7-day pace 0.6/day · full deck 36/71 · 3 never worked"
 }

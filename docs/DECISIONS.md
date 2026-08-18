@@ -2045,3 +2045,14 @@ Details live in git history; this is the index of the *conclusions*.
   meter because it was *countable*, never because it was the goal. `PATTERN_SLOTS` (smoke
   `s63`) fixes the hollow third consequence — patterns were eligible but sat at rank 59 of 100
   due rows. `director.md`, `profile.md` and the `/orient` glossary re-pointed.
+
+- **The ask cooldown is 7 days, and the session lane can see it** (2026-08-18, Andrew: *"the
+  pushes have been trying to repeatedly teach me innoru thadava sollunga"*). That line reached six
+  surfaces in eight days under four move names. Two holes. **The window was shorter than his reply
+  latency:** 3 days, against re-asks at 3- and 4-day gaps and a 4-of-14 reply rate. **The session
+  lane was blind:** `session_brief` — where Anna writes the soak order, campaign mission and slip
+  medicine — never imported the selector, so three of the six came from there.
+  `ASK_COOLDOWN_DAYS = 7` now owns every mention of the window; the brief prints ALREADY ASKED and
+  flags unanswered rows, since a reply-less ask never sets `last_surfaced` and so makes an item
+  *more* eligible. KF-6 through the door KF-6 left open. Advisory on Anna's prose lanes — no Python
+  choke point exists there. Smoke `s64`.

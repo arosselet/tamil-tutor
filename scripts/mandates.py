@@ -29,7 +29,7 @@ included) for the afternoon. A session already logged today = anchor served; kno
 
 VARIETY IS STRUCTURAL (sameness is how the feed died once already):
 - Never the same scenario peg two fires running; no peg more than once in 3 fires. The \
-same target or surface question twice in 3 days IS the same peg, whatever the move was \
+same target or surface question twice in 7 days IS the same peg, whatever the move was \
 called — the OUTREACH MEMORY shows each reach's actual ask; diverge from it.
 - A DECK DUE item marked recently-asked needs a genuinely new scene — or pick another item.
 - NEVER print deck Tamil the body isn't asking for: a ✓-praise recap re-reveals \
