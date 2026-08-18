@@ -55,9 +55,12 @@ Check these manually or with quick one-liners. Each invariant has an enforcing c
 | Every word key in `lexicon.json` is Tamil script matching `[஀-௿]+`, OR is a `frame:*` pattern key | `state_io.py` line 54 (`TAMIL_RE`); `add-word` rejects non-Tamil at line 408 | `python -c "import json,re; d=json.load(open('progress/lexicon.json')); bad=[k for k in d if not re.search(r'[஀-௿]',k) and not k.startswith('frame:')]; print(bad or 'ok')"` |
 | Every lexicon entry's `recognition` is one of `struggled`, `comfortable`, `solid` | `sync_state.py` RECOGNITION_LEVELS line 53 | Scan for any value outside the set |
 | Every lexicon entry's `production` is one of `none`, `hinted`, `cold` | `knock_reply.py` PRODUCTION_RANK line 42 | Scan for any value outside the set |
+| Every `register` in `lexicon.json` is a key of `REGISTER_TIERS` (`antifreeze`, `public`, `frame`, `faq`, `mil-table`, `social`, `gossip`, `zinger`) | `suggest_targets.py` `REGISTER_TIERS` / `tier_rank` | `python -c "import json,sys; sys.path.insert(0,'scripts'); import suggest_targets as st; d=json.load(open('progress/lexicon.json',encoding='utf-8')); bad={r['register'] for r in d.values() if r.get('register')}-set(st.REGISTER_TIERS); print(bad or 'ok')"` |
 | `knock_log.json` entries carry `date` and `timestamp` | `smoke_test.py` s7_integrity | `python scripts/smoke_test.py` (already covered in Layer 1) |
 | `learner.json` has fields `learner`, `last_debrief`, `soak_order`, `recent_missions`, `status` | `sync_state.py` write_thin_learner (lines 221-228) | `python -c "import json; d=json.load(open('progress/learner.json')); print([f for f in ['learner','last_debrief','soak_order','recent_missions','status'] if f not in d] or 'ok')"` |
 | `progress/*.json.example` templates stay in sync with the schema each file expects | `smoke_test.py` make_sandbox lines 51-54 (copies `.example` → live file for testing) | Visually compare example keys against what `sync_state.py update` / `write_thin_learner` expects |
+
+**Why the `register` row matters more than it looks (2026-08-18).** A typo there does not raise and does not print — `tier_rank` falls through to delight, so a survival item quietly stops being forced first and every meter stays green. It is the same silent-degradation shape the deck retirement was built to avoid, one layer down, and the only writer that can introduce it is `sync_state seed-deck` reading a hand-edited curriculum file.
 
 ### Layer 4 — Feed / registry coherence
 

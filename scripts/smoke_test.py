@@ -903,6 +903,65 @@ def s13_eavesdrop(mk, kr, sb: Path):
           len(kr.catch_context(legacy, "hint?").get("prior_exchanges", [])) == 1)
 
 
+    # ── The cadence prompt, which lives behind a bare `except: pass` ──────────
+    #
+    # `remaining_room` warns Anna when catch items are pending and no eavesdrop
+    # has fired inside EAVESDROP_CADENCE_DAYS — "this is the highest-value move
+    # right now". Catch advances through THIS DOSE AND NO OTHER, so the warning
+    # is the only thing standing between a starved ear and a quiet rotation.
+    #
+    # It is wrapped in `try/except Exception: pass` on purpose (a cadence check
+    # must never kill a reach), which makes it a Gate 7.2 shape: if its data
+    # source raises, the warning vanishes and the digest still renders perfectly.
+    # Nothing covered it until 2026-08-18, when the deck retirement repointed it
+    # from `deck_status(...)["catch_pending"]` to `ear_targets(...)["pending"]` —
+    # a swap that would have failed exactly this silently.
+    real_last = mk.last_eavesdrop
+    try:
+        lex_path = sb / "progress" / "lexicon.json"
+        saved_lex = lex_path.read_bytes()
+        now_local = datetime.now(timezone.utc).astimezone()
+        write_json(lex_path, {
+            "smoke:cad-ear": {"gloss": "pending catch", "type": "chunk",
+                              "direction": "catch", "recognition": "struggled",
+                              "production": "none", "seen_in": [], "last_surfaced": None},
+        })
+        mk.last_eavesdrop = lambda klog: None
+        room = mk.remaining_room([], now_local)
+        check("a pending catch item with NO eavesdrop ever fired is called out",
+              "Eavesdrop:" in room and "NEVER fired" in room, room)
+        check("...and the count comes from the ear selector, not a stale reader",
+              "1 catch item(s)" in room, room)
+
+        # A recent eavesdrop silences it; a lapsed one brings it back. The clock
+        # is the constant, never a literal.
+        def fired(days_ago):
+            ts = (now_local - timedelta(days=days_ago)).isoformat()
+            return lambda klog: {"timestamp": ts}
+
+        mk.last_eavesdrop = fired(0)
+        check("a fresh eavesdrop silences the prompt",
+              "Eavesdrop:" not in mk.remaining_room([], now_local),
+              mk.remaining_room([], now_local))
+        mk.last_eavesdrop = fired(mk.EAVESDROP_CADENCE_DAYS + 1)
+        lapsed = mk.remaining_room([], now_local)
+        check("a lapsed cadence brings it back", "Eavesdrop:" in lapsed, lapsed)
+
+        # THE SILENT-NO-OP GUARD ITSELF. The `except` must swallow a crash — that
+        # is its job — but the case has to prove the block is doing work at all,
+        # or a broken data source reads exactly like a healthy quiet day.
+        write_json(lex_path, {"smoke:cad-fire": {
+            "gloss": "no catch anywhere", "type": "chunk", "direction": "fire",
+            "recognition": "solid", "production": "none", "seen_in": [1],
+            "last_surfaced": None}})
+        mk.last_eavesdrop = lambda klog: None
+        check("no catch pending, no prompt — quiet is earned, not accidental",
+              "Eavesdrop:" not in mk.remaining_room([], now_local))
+    finally:
+        mk.last_eavesdrop = real_last
+        lex_path.write_bytes(saved_lex)
+
+
 def s15_push_retry(mk):
     print("\n15. Push delivery retry (regression #4)")
     # 2026-07-14: a transient runner-DNS blip killed the notify step after the

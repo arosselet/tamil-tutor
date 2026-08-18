@@ -18,12 +18,17 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
   `set -o pipefail` also works but only in the Bash lane. Filed rather than fixed because it
   touches the skill's dispatch contract, which is behaviour, not data.
 
-- **Post-trip: reseed the focus cohort** (2026-08-01, month-end audit). The stored ≤12
-  cohort was seeded pre-sprint and is correctly dormant during it, but the membership is
-  stale: 7/12 never worked, none are trip-deck items, zero graduations. When the sprint
-  ends, reseed from whatever the post-trip denominator becomes (rides "The post-trip
-  horizon gap", DECISIONS 07-27) and verify the reconcile sweep evicted சொல்லுங்க — it
-  went cold in-session 08-01 while still holding a seat.
+- ~~**Post-trip: reseed the focus cohort**~~ — **DONE 2026-08-18**, with the deck
+  retirement. The 08-01 audit found the pre-sprint cohort stale (7/12 never worked, no deck
+  items, zero graduations); the retirement made it worse before better, because the tier bar
+  moved onto the rows and all twelve seats were still held by unregistered words, so no
+  survival item could enter a pool that now ranks them first. `sync_state reseed-focus`
+  re-derives membership from the pool's current order and was run once: 4/12 seats now carry
+  a register, and சொல்லுங்க is out. **One correction to the 08-01 note:** it was evicted by
+  the re-derivation, not by the graduation sweep — its production reads `none` today, not
+  `cold`, so it was demoted at some point and the sweep was never going to catch it. Nothing
+  is owed here; the standing mechanism is the command, for the next time an ordering changes
+  under a stored cohort.
 
 - **THE REPLY PATH CAN DIE AND THE SYSTEM READS IT AS "HE DIDN'T ANSWER"** (2026-07-31,
   found live — Andrew replied twice, to the 17:22 volley and the 22:04 resend, and neither
@@ -806,7 +811,7 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
   cooldown fix in the same breath). The 08-18 change widens the window and puts ALREADY ASKED in
   front of Anna, but it stays **advisory** on the three lanes that are prose: the soak order, the
   campaign mission and the slip medicine are Anna's sentences, and Python has no choke point on
-  them the way `deck_status` demotes a deck row. KF-13's law — say it in the mandate AND cap the
+  them the way the selector demotes a recently-asked row. KF-13's law — say it in the mandate AND cap the
   blast radius in Python — is only half-satisfiable today. The complete answer is an explicit
   per-item state (`asked_at` / `answered_at`, or a derived `pending` view) that `sync_state`
   checks when `--soak-payload` or a campaign line names an item with an unanswered ask
@@ -814,3 +819,18 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
   incident that would justify it has now happened exactly once. If a second item reaches three-plus
   surfaces while ALREADY ASKED is on screen, that is the reproduced pattern and it earns the
   mechanism; until then the cheaper guard may well be enough.
+
+- **THE DRILL LANE HAS NO TEACH-FIRST FILTER** (2026-08-18, found while exercising the lanes
+  after the deck retirement — **pre-existing, not caused by it**; `git show HEAD~1` confirms
+  the old `deck_due_payload` had no filter either). The teach-first law says an UNSEEN item
+  (`is_unseen`: never soaked, never surfaced) may be TAUGHT but never cold-quizzed. The knock
+  menu marks them and `volley_targets` **excludes** them outright. `render_drill.due_payload`
+  does neither: today's real top-8 carried `அதுக்கு அப்புறம்`, UNSEEN, into a tape whose whole
+  structure is *English cue → silence → he must say it*. **Why it may not be a defect:** the
+  drill hands him the answer twice immediately after the silence, so it is teach-and-test, not
+  a bare quiz — measurably different from a volley, where a miss is just a miss. That is a
+  pedagogy call, not a plumbing one, so it is filed rather than fixed. **If it should change**,
+  the fix is one line in `due_payload` (skip `t["unseen"]`, the flag already rides on every
+  `drill_menu` row) plus a case in `s48`; the argument against is that a guaranteed-miss
+  followed by the answer twice may be exactly how an unseen item *should* enter the mouth.
+  Worth one question to Andrew before either.
