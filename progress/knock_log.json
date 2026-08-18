@@ -4504,5 +4504,20 @@
       }
     ],
     "reply_audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/reply_2026-08-18T03-20-57.mp3"
+  },
+  {
+    "date": "2026-08-18",
+    "timestamp": "2026-08-18T03:38:49.359316+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "catch: whose daughter",
+    "rationale": "Eavesdrop rail is overdue (4d, cadence 3d); today's tape replays Saturday's exact miss — collapsing the landmark-person — with Rekha's daughter as the subject, frame:youknow-la in the opener, frame:myself-thukka drifting through naturally; no production ask so the massive already-asked list is irrelevant; session already done today so this is afternoon soak.",
+    "next_check": "2026-08-18T08:38:49.359316+00:00",
+    "body": "Meena's catching up on wedding news. Whose daughter is it? 🎤 (catch the drift)",
+    "expected_target": "avanga ponnu",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-18T03-38.mp3",
+    "memo_script": "மீனா: ஹலோ சித்ரா, என்னம்மா — கல்யாணம் confirm-ஆச்சா?\n\nசித்ரா: ஆமா ஆமா! நம்ம Rekha-வோட பொண்ணு இருக்காங்களே — அவங்க பொண்ணுக்குத்தான். ரொம்ப நல்ல பையன் கிடைச்சிருக்கான், நான் பாத்துக்கிறேன் சொல்லி நல்லா கஷ்டப்பட்டேன்!\n\nமீனா: அட, Rekha-வே சொல்லல்லியே? எனக்கு தெரியவே தெரியல.\n\nசித்ரா: நம்ம ஊர்ல இருக்காங்களே — அவங்களுக்கு தெரியும், உனக்கு தெரியல-னு சொன்னேன். போன வாரமே fix ஆச்சாம். Rekha panic-ஆகிட்டிருக்காங்க, function எல்லாம் நான்-ஏ பாத்துக்கிறேன்-னு சொன்னேன்.\n\nமீனா: அவங்க lucky-யா இருக்காங்க, உன்னால.\n\nசித்ரா: ஏன் இல்ல! சரி, நீ வர்றியா?",
+    "mp3": "published_audio/knocks/knock_2026-08-18T03-38.mp3"
   }
 ]

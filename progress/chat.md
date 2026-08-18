@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Tuesday 2026-08-18
+
+**09:08 · Anna** 🎧  ·  eavesdrop / catch: whose daughter
+> Meena's catching up on wedding news. Whose daughter is it? 🎤 (catch the drift)
+
+
 ## Monday 2026-08-17
 
 **10:04 · Anna**  ·  text / trailer: repair-line session
