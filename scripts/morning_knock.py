@@ -51,7 +51,32 @@ from render_audio import generate_segment_google, get_raw_mp3_frames, SILENCE_FR
 from render_chat import render_chat
 
 OPENROUTER_BASE = "https://openrouter.ai/api/v1"   # OpenAI-compatible; one key, many models
-MODEL = "anthropic/claude-sonnet-4.6"   # Andrew's default; fallback e.g. "google/gemini-2.5-flash"
+MODEL = "anthropic/claude-sonnet-5"   # Andrew's default; fallback e.g. "google/gemini-2.5-flash"
+# 4.6 -> 5 (2026-08-18, Andrew). A newer generation at a LOWER price on OpenRouter
+# ($2/$10 per M tok vs $3/$15), same 1M context, same structured-output support.
+# Cost was never the reason — this lane runs ~4 calls/day and costs a few dollars a
+# month either way — so the switch stands on the generation, not the invoice.
+# WATCH THE JUDGE, NOT THE COMPOSER: `MODEL` also grades Andrew's replies
+# (knock_reply), and grading writes the production axis. A generation change
+# re-calibrates that silently; 63 graded replies sit in the knock log as the
+# corpus for an A/B if the record ever starts looking off. Andrew is the judge of
+# whether it drifts (his call, 2026-08-18).
+
+# STRUCTURED OUTPUT, one definition (2026-08-18). Every JSON lane sends this; the
+# text lanes (`rephrase_phonetic` here, the studio's prose writers) must NOT.
+#
+# It replaces PROMPTING for JSON and hoping. The mandates always said "return ONLY
+# a JSON object" and models kept wrapping it anyway — `parse_llm_json` carries a
+# five-strategy fallback chain built from four dated incidents (a leading fence, a
+# fence with prose in front of it, single-quoted Python dicts, a brace-slice fooled
+# by a literal `{noun}` in the prose), and the long-haul lane MEASURED 3 of 6
+# identical calls coming back prose-prefixed — which killed a 45-minute render at
+# movement 5 of 15, after paying for four movements of TTS.
+#
+# json_object makes that whole class impossible at the API instead of survivable at
+# the parser. It requires the word "JSON" in the prompt, which every mandate here
+# already satisfies (verified across all five lanes before this landed).
+JSON_MODE = {"type": "json_object"}
 ANNA_VOICE = "ta-IN-Chirp3-HD-Orus"     # pinned: Anna always sounds like the same someone
 EAVESDROP_VOICE = "ta-IN-Chirp3-HD-Kore"  # pinned: the overheard aunty is one consistent voice too — ear-training tracks a speaker, and the trip's real voices are the aunties, not Anna
 REPO = "arosselet/tamil-tutor"          # for the jsDelivr URL
@@ -536,7 +561,23 @@ def parse_llm_json(text: str) -> dict:
     Strategy: strip a leading fence → json.loads → fenced block ANYWHERE
     (last one wins — it's the artifact) → {..} slice + json.loads →
     ast.literal_eval (handles single quotes + Python True/False/None).
-    Print the raw text before any re-raise so the Action log shows WHAT came back."""
+    Print the raw text before any re-raise so the Action log shows WHAT came back.
+
+    A BACKSTOP SINCE 2026-08-18, NOT THE PRIMARY PATH. Every lane that reaches
+    here now sends `JSON_MODE`, so in principle none of these fallbacks can fire:
+    the API guarantees the shape the mandates were only asking for politely.
+    Kept anyway, deliberately, and the reason is `judge()` — it has NO retry loop
+    (see `parse_llm_response`), so a single wrapped reply is a reply Andrew sent
+    and got nothing back for, which is the one failure here he actually feels.
+    `decide()` re-rolls three times and a dead tick is invisible; a dead judge is
+    not. OpenRouter also routes across providers, and `response_format` support is
+    a per-model claim in its catalogue rather than a promise we control.
+
+    RETIRE IT ON EVIDENCE, not on principle: once the Action logs show a stretch
+    with no "unparseable LLM response" line and no fallback hit, this collapses to
+    a bare `json.loads` and takes ~15 lines of this file's budget with it. Until
+    then it costs nothing that matters — the ratchet counts it, but it is already
+    written, already tested, and the failure it catches is the user-visible one."""
     import ast as _ast
     import re as _re
     text = (text or "").strip()
@@ -686,7 +727,8 @@ def decide(digest: str, volley_menu: list | None = None) -> dict:
     ]
     last_err: Exception | None = None
     for attempt in range(1, 4):
-        resp = client.chat.completions.create(model=MODEL, max_tokens=1600, messages=messages)
+        resp = client.chat.completions.create(model=MODEL, max_tokens=1600,
+                                              messages=messages, response_format=JSON_MODE)
         try:
             d = parse_llm_response(resp)
             if attempt > 1:

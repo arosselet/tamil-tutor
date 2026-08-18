@@ -50,7 +50,8 @@ from render_chat import render_chat
 from morning_knock import (OPENROUTER_BASE, MODEL, KNOCK_LOG_PATH, KNOCKS_DIR,
                            ANNA_VOICE, load_env, push_to_phone,
                            commit_and_push, maybe_enqueue_schedule, render_memo,
-                           jsdelivr_url, refresh_feed, to_phonetic, parse_llm_response)
+                           jsdelivr_url, refresh_feed, to_phonetic, parse_llm_response,
+                           JSON_MODE)
 from state_io import FEEDBACK_LOG_PATH, LEARNER_PATH, LEXICON_PATH, SLIP_LOG_PATH, build_phonetic_index, load_json, local_today, resolve, save_json
 from slips import append_slips, slip_patterns
 from sync_state import fires_today
@@ -406,6 +407,7 @@ def judge_catch(knock: dict, reply_text: str, klog: list | None = None) -> dict:
     client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
     resp = client.chat.completions.create(
         model=MODEL,
+        response_format=JSON_MODE,
         max_tokens=400,
         messages=[
             {"role": "system", "content": persona + "\n\n---\n\n" + CATCH_JUDGE_MANDATE
@@ -660,6 +662,7 @@ def judge(knock: dict, reply_text: str, target_record: dict | None,
     client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
     resp = client.chat.completions.create(
         model=MODEL,
+        response_format=JSON_MODE,
         # 800 → 1600 (2026-08-05, Andrew). At 800 this call spent ~750 tokens
         # deliberating in prose and was cut off mid-word before its first brace
         # — the whole budget went to reasoning, none to the artifact. 1600 is

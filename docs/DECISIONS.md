@@ -2090,3 +2090,24 @@ Details live in git history; this is the index of the *conclusions*.
   they open), so `sync_state reseed-focus` re-derives it — a command, never automatic, because
   rebuilding membership is the churn stored membership exists to prevent. Smoke `s54`, `s32`,
   `s47`, `s65`.
+
+- **Structured output on every JSON lane** (2026-08-18, Andrew). All five lanes that ask for an
+  object now send `response_format={"type": "json_object"}` — `JSON_MODE`, defined once in
+  `morning_knock`. It **replaces** prompting-for-JSON-and-hoping: the mandates always said
+  "return ONLY a JSON object" and models wrapped it anyway, which is why `parse_llm_json` grew a
+  five-strategy fallback chain across four incidents and why the long-haul lane measured 3 of 6
+  identical calls coming back prose-prefixed, killing a render at movement 5 of 15. Retired in
+  the same diff: `render_soak`'s private parse — the THIRD copy of the char-0 `json.loads` +
+  fence-strip, after `render_drill`'s on 08-10 — which also never had the 08-05 truncation guard.
+  The text lanes (`rephrase_phonetic`, the studio's prose writers) must NOT send it; smoke `s66`
+  asserts both directions, because adding a parameter that gets dropped is itself a silent no-op.
+
+- **Anna runs on `anthropic/claude-sonnet-5`** (2026-08-18, Andrew: *"maybe it'll be more reliable
+  or efficient"*). Replaces `claude-sonnet-4.6`. A newer generation at a **lower** price on
+  OpenRouter ($2/$10 per M tok vs $3/$15), same 1M context, same structured-output support — so
+  the switch stands on the generation, not the invoice: this lane runs ~4 calls/day (the rails
+  gate returns before `decide()`, so gated ticks cost nothing) and totals a few dollars a month
+  either way. **The risk is the judge, not the composer.** `MODEL` also grades replies, and
+  grading writes the production axis, so a generation change re-calibrates the learning record
+  silently; nothing in smoke catches it, since the tests stub the LLM. The 63 graded replies in
+  `knock_log.json` are the A/B corpus if it ever looks off. Andrew owns that call.
