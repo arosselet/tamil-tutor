@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """
-The drill track — a hands-free SPOKEN production volley from the deck's due list.
+The drill track — a hands-free SPOKEN production volley from the pool's due list.
 
 Everything else in the system is typed chat or listen-only immersion; the trip is
 spoken. This closes that gap Pimsleur-style: Anna speaks an English cue, silence
 while Andrew SAYS THE TAMIL OUT LOUD, then the answer lands (twice). Built straight
-from the due fire-side deck items, so a walk or the dishes becomes deck reps.
+from the due fire-side items, so a walk or the dishes becomes real reps.
 
 Same one-shot family as the knock: the LLM writes the sheet (cues + answers),
-Python owns the menu (deck due list), the render, and the publish. Listening
+Python owns the menu (the due list), the render, and the publish. Listening
 isn't producing — NO reps are logged; publishing stamps a declared EXPOSURE on
 the drilled items (the 2026-07-26 ledger law: exposure = it went out the door).
 The cold fires happen later, in chat or on a knock reply, where a judge hears them.
@@ -37,7 +37,7 @@ from morning_knock import (OPENROUTER_BASE, MODEL, ANNA_VOICE, load_env,
                            push_to_phone, commit_and_push, jsdelivr_url,
                            parse_llm_response)
 from render_audio import generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME, clean_for_tts
-from suggest_targets import deck_status
+from suggest_targets import drill_menu
 from state_io import LEXICON_PATH, load_json
 from sync_state import canon_payload, mark_soak_delivered, record_exposure
 
@@ -51,7 +51,7 @@ cue, then silence while HE SAYS THE TAMIL OUT LOUD, then you give the answer (it
 plays twice). Your job is only the sheet: the cues and the answers.
 
 RULES:
-- Items come from the DECK DUE list below, in the order given. A chunk's answer is \
+- Items come from the DUE list below, in the order given. A chunk's answer is \
 the chunk itself, said whole. A frame becomes TWO consecutive items, each a \
 different NOVEL slot-fill using everyday trip nouns/verbs (tea, auto, temple, \
 bathroom, eat, sit, come...).
@@ -59,7 +59,7 @@ bathroom, eat, sit, come...).
 "tell her: we went to the temple, it was great"). NEVER put any Tamil in the cue — \
 the silence is where he produces it unaided. Cues stay under ~12 words.
 - The answer is natural standard Coimbatore colloquial in TAMIL SCRIPT ONLY (a \
-Tamil voice speaks it). Polite -nga register by default; nee only where the deck \
+Tamil voice speaks it). Polite -nga register by default; nee only where the \
 item itself is nee-form.
 - "intro": one short Anna line in his own voice setting the contract — out loud, \
 before the answer comes, no mumbling. "outro": one short warm line, no homework.
@@ -75,13 +75,13 @@ Return ONLY a JSON object, no prose around it:
 """
 
 # Appended when the standing order routed a REPAIR to this lane. The commissioned
-# item leads and gets three angles; the deck fills the rest of the tape. LEAD, not
+# item leads and gets three angles; the pool fills the rest of the tape. LEAD, not
 # replace (2026-07-28, Andrew's call): a whole drill built from one item is the
 # slow repetitive loop this lane was commissioned to escape.
 COMMISSION_BRIEF = """
 
-THE COMMISSION — the FIRST {n} item(s) of the DECK DUE list are a REPAIR, not routine \
-deck reps. Give each of them THREE items instead of one: three different cues, three \
+THE COMMISSION — the FIRST {n} item(s) of the DUE list are a REPAIR, not routine \
+mouth reps. Give each of them THREE items instead of one: three different cues, three \
 different everyday situations, the same target every time. Vary the situation, never the \
 target — using it in context is the whole point of drilling it again. Everything after \
 them is the ordinary drill and keeps its normal shape (one item per chunk, two per \
@@ -89,22 +89,26 @@ frame).{focus}
 """
 
 
-def deck_due_payload(max_entries: int) -> list[dict]:
+def due_payload(max_entries: int) -> list[dict]:
     """The selector's order, but interleaved frame/chunk — a drill is mouth-reps,
     and a slot-fill and a said-whole phrase are different work, so a run of six
     frames is a worse drill than an alternating six.
 
     That is now the ONLY reason. Until 2026-07-25 this also worked around a
-    starving sort: `deck_status` broke ties alphabetically and ASCII 'frame:'
-    keys sorted ahead of every Tamil-script chunk, so a straight head-slice was
-    all frames. The selector is coverage-first now (a plain top-6 measures 2
-    frames / 4 chunks), so this is a pedagogy choice and no longer a guard —
-    delete it the day that stops being true."""
-    deck = deck_status(load_json(LEXICON_PATH) or {})
-    if not deck or not deck["pending"]:
+    starving sort: the selector broke ties alphabetically and ASCII 'frame:' keys
+    sorted ahead of every Tamil-script chunk, so a straight head-slice was all
+    frames. The selector is coverage-first now (a plain top-6 measures 2 frames /
+    4 chunks), so this is a pedagogy choice and no longer a guard — delete it the
+    day that stops being true.
+
+    Reads `drill_menu` since 2026-08-18 (was `deck_status`): the same order over
+    the whole pool rather than over the 83-row container that retired with the
+    trip."""
+    menu = drill_menu(load_json(LEXICON_PATH) or {}, max_n=max(max_entries * 2, 12))
+    if not menu:
         return []
-    frames = [t for t in deck["pending"] if t["kind"] == "frame"]
-    chunks = [t for t in deck["pending"] if t["kind"] != "frame"]
+    frames = [t for t in menu if t["kind"] == "frame"]
+    chunks = [t for t in menu if t["kind"] != "frame"]
     out = []
     while len(out) < max_entries and (frames or chunks):
         if frames:
@@ -119,12 +123,12 @@ def drill_brief() -> tuple[str | None, list[dict]]:
 
     Until 2026-07-28 `--soak-channel drill` was a dead value: `sync_state` accepted
     and stored it, this module never read it, and no lane stamped it delivered. So
-    a repair routed here silently became an ordinary deck drill, the order stayed
+    a repair routed here silently became an ordinary drill, the order stayed
     pending, and the next session-open auto-drain dispatched an EPISODE for it —
     the one lane Andrew had explicitly not chosen.
 
     EAR-ONLY items are REFUSED, never demanded. `direction: catch` means the win is
-    recognition, and a drill's silence is a production demand — the deck law is that
+    recognition, and a drill's silence is a production demand — the standing law is that
     these are never forced to fire. A catch commission routed here is a mis-route,
     so it is reported and left standing for the soak or episode lane rather than
     quietly turned into a demand the learner cannot meet."""
@@ -148,8 +152,8 @@ def drill_brief() -> tuple[str | None, list[dict]]:
 
 
 def with_lead(pending: list[dict], lead: list[dict]) -> list[dict]:
-    """The commissioned repair leads the tape; the due deck fills out the rest.
-    A lead item already on the deck list is not drilled twice."""
+    """The commissioned repair leads the tape; the due menu fills out the rest.
+    A lead item already on the menu is not drilled twice."""
     if not lead:
         return pending
     have = {t["word"] for t in lead}
@@ -202,7 +206,7 @@ def write_sheet(pending: list[dict], n_lead: int = 0, focus: str | None = None) 
     if n_lead:
         mandate += COMMISSION_BRIEF.format(
             n=n_lead, focus=f"\nWhat the repair is about: {focus}" if focus else "")
-    sheet = ask_json(persona + "\n\n---\n\n" + mandate, f"DECK DUE:\n{menu}")
+    sheet = ask_json(persona + "\n\n---\n\n" + mandate, f"DUE:\n{menu}")
     sheet["items"] = [i for i in sheet.get("items", [])
                       if i.get("cue", "").strip() and i.get("answer_ta", "").strip()]
     return sheet
@@ -288,9 +292,9 @@ async def render(sheet: dict, out_path: Path, gap: float):
 
 
 def main():
-    ap = argparse.ArgumentParser(description="Spoken production drill from the deck's due list")
+    ap = argparse.ArgumentParser(description="Spoken production drill from the pool's due list")
     ap.add_argument("--entries", type=int, default=8,
-                    help="deck entries to drill (frames expand to 2 items; default 8)")
+                    help="menu entries to drill (frames expand to 2 items; default 8)")
     ap.add_argument("--gap", type=float, default=3.5,
                     help="seconds of silence for Andrew's out-loud attempt (default 3.5)")
     ap.add_argument("--dry-run", action="store_true", help="write + print the sheet; no TTS or publish")
@@ -300,14 +304,14 @@ def main():
     load_env(BASE / ".env")
 
     # The commission is read FIRST: a repair routed here must still get its tape
-    # on a day the deck happens to have nothing due.
+    # on a day the pool happens to have nothing due.
     focus, lead = drill_brief()
-    pending = with_lead(deck_due_payload(args.entries), lead)
+    pending = with_lead(due_payload(args.entries), lead)
     if not pending:
-        print("No due fire-side deck items — nothing to drill.")
+        print("No due fire-side items — nothing to drill.")
         return
 
-    print(f"1. sheet… ({len(pending)} deck entries"
+    print(f"1. sheet… ({len(pending)} menu entries"
           f"{f' · {len(lead)} COMMISSIONED, leading' if lead else ''}"
           f"{' · FOCUS: ' + focus if focus else ''})")
     sheet = write_sheet(pending, len(lead), focus)

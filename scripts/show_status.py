@@ -12,11 +12,10 @@ Usage:
 
 import json
 import sys
-from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from sync_state import compute_floor, compute_engines, compute_deck, burn_rate, TRIP_DATE
+from sync_state import compute_floor, compute_engines, compute_ear, trailing_pace
 
 RECOGNIZED = {"comfortable", "solid"}
 
@@ -53,25 +52,19 @@ def main():
     if last:
         print(f"\n📅 Last logged session: {last}")
 
-    # --- The deck: the headline during a sprint (same math as sync_state) ---
-    deck = compute_deck(lexicon)
-    if deck["total"]:
-        days = (TRIP_DATE - date.today()).days
-        surv_pct = deck["surv_cleared"] / deck["surv_total"] * 100 if deck["surv_total"] else 0.0
-        print(f"\n★ TRIP DECK — the sprint headline · {days} days to touchdown")
+    # --- The ear: the axis nothing else counts (same math as sync_state) ---
+    # The TRIP DECK block stood here until 2026-08-18 — a survival bar, a full-deck
+    # bar, days-to-touchdown and a burn rate. The container retired; its fire side
+    # was always the viability floor printed above, and the countdown had no exit.
+    ear = compute_ear(lexicon)
+    if ear["total"]:
+        pct = ear["caught"] / ear["total"] * 100
+        print("\n★ EAR-ONLY — the win is comprehension, never production")
         print("-" * 55)
-        print(f"    [{bar(surv_pct)}] {deck['surv_cleared']}/{deck['surv_total']} survival cold ({surv_pct:.0f}%)")
-        print(f"    Full deck: {deck['cleared']}/{deck['total']} fire cold")
-        print(f"    Burn rate: {burn_rate(deck['surv_total'] - deck['surv_cleared'], days)}")
-        if deck["catch_total"]:
-            print(f"    Ear-only (catch): {deck['caught']}/{deck['catch_total']} solid")
-        # Coverage beside progress (2026-07-25): cold/total cannot see the tail —
-        # it read as a won sprint while most of the deck had never been worked.
-        if deck["untouched"] or deck["catch_untouched"]:
-            worked = deck["total"] - deck["untouched"]
-            ear = f" · +{deck['catch_untouched']} ear-only" if deck["catch_untouched"] else ""
-            print(f"    ⚠ Coverage: {worked}/{deck['total']} ever worked — "
-                  f"{deck['untouched']} never touched ({deck['surv_untouched']} survival){ear}")
+        print(f"    [{bar(pct)}] {ear['caught']}/{ear['total']} solid on recognition ({pct:.0f}%)")
+        if ear["untouched"]:
+            print(f"    ⚠ Coverage: {ear['untouched']} never worked — "
+                  f"catch advances ONLY through eavesdrop.")
 
     # --- The viability floor (compute_floor: patterns excluded, same as sync_state) ---
     floor = compute_floor(lexicon)
@@ -79,6 +72,11 @@ def main():
     print("-" * 55)
     print(f"    [{bar(floor['pct'])}] {floor['cleared']}/{floor['total']} ({floor['pct']:.0f}%)")
     print(f"    Floor gap: {floor['total'] - floor['cleared']} recognized words not yet cold.")
+    # The pace belongs HERE, not up with the ear: `cold_fires_recent` counts
+    # PRODUCTION fires, so printing it under an ear-only heading would label a
+    # production number as a comprehension one. It sat inside the retired deck
+    # block, which was also production, so this is where it lands.
+    print(f"    Pace: {trailing_pace()}")
 
     # --- Engines: generative patterns firing cold ---
     engines = compute_engines(lexicon)

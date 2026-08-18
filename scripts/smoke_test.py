@@ -474,19 +474,19 @@ def s8_variety_and_decay(mk, kr, sb: Path):
           h is not None and 0.9 < h < 1.1, str(h))
     check("missing timestamps → None", kr.hours_since_exchange({}, now) is None)
 
-    # never-soaked deck items are flagged UNSEEN on the menu (teach before quiz)
+    # never-soaked items are flagged UNSEEN on the menu (teach before quiz)
     lex_path = sb / "progress" / "lexicon.json"
     write_json(lex_path, {
         "வணக்கம்": {"gloss": "hello", "phonetic": ["vanakkam"], "recognition": "struggled",
                      "production": "none", "seen_in": [], "last_surfaced": None,
-                     "deck": "trip", "direction": "fire"},
+                     "register": "antifreeze", "direction": "fire"},
     })
-    menu = mk.deck_due_list()
-    check("never-soaked deck item flagged UNSEEN", "UNSEEN" in menu, menu)
+    menu = mk.due_menu_block()
+    check("never-soaked item flagged UNSEEN", "UNSEEN" in menu, menu)
     lex = read_json(lex_path)
     lex["வணக்கம்"]["last_surfaced"] = "2026-07-01"
     write_json(lex_path, lex)
-    check("soaked item loses the UNSEEN flag", "UNSEEN" not in mk.deck_due_list())
+    check("soaked item loses the UNSEEN flag", "UNSEEN" not in mk.due_menu_block())
 
 
 def s14_reply_correlation(kr):
@@ -2433,19 +2433,26 @@ def s31_feed_carries_every_pushed_dose(sb: Path):
           "rebuild_rss still recomputes a published duration")
 
 
-def s32_deck_rotation_and_coverage(mk, sb: Path):
-    """Deck starvation (2026-07-25 audit). The deck's selector ordered by tier →
-    ripeness → alphabetical, with no staleness term — so the head of each tier
-    was frozen and the tail never surfaced: 16 frames took 51 of the deck's 74
-    lifetime reps while 45 of 70 fire items had never been asked once, and
-    `cold/total` reported a winning sprint throughout because it counts progress
-    and cannot see distribution. Ripeness-first was rich-get-richer (an item only
-    becomes `hinted` by being worked, which promoted it again).
+def s32_pool_rotation_and_coverage(mk, sb: Path):
+    """Starvation (2026-07-25 audit). The selector ordered by tier -> ripeness ->
+    alphabetical, with no staleness term — so the head of each tier was frozen
+    and the tail never surfaced: 16 frames took 51 of 74 lifetime reps while 45
+    of 70 fire items had never been asked once, and `cold/total` reported a
+    winning sprint throughout because it counts progress and cannot see
+    distribution. Ripeness-first was rich-get-richer (an item only becomes
+    `hinted` by being worked, which promoted it again).
 
     Two mechanisms, both proven here: least-recently-worked sorts first WITHIN a
-    tier (the tier prefix itself is the 07-13 touchdown bar and must survive),
-    and `deck_coverage` counts worked/total so the tail is legible."""
-    print("\n32. Deck rotation + coverage: the tail is not starved (2026-07-25)")
+    tier (the tier prefix itself is the touchdown bar and must survive), and
+    `register_coverage` counts worked/total so the tail is legible.
+
+    REWRITTEN 2026-08-18 for the deck retirement. Every assertion below survives
+    it — what changed is that `register` rides on the row instead of being joined
+    from `curriculum/trip_deck.json` on `deck` membership, and one pool replaces
+    the deck/floor pair. The fixture therefore carries NO `deck` tag: that is the
+    point of the retirement, and a tier assertion that still needed one would be
+    testing the container, not the ordering it left behind."""
+    print("\n32. Pool rotation + coverage: the tail is not starved (2026-07-25)")
     st = importlib.import_module("suggest_targets")
     ss = importlib.import_module("sync_state")
     today = date_cls.today()
@@ -2454,13 +2461,13 @@ def s32_deck_rotation_and_coverage(mk, sb: Path):
         return (today - timedelta(days=n)).isoformat()
 
     def item(reg, **kw):
-        base = {"deck": "trip", "gloss": "x", "phonetic": [], "type": "chunk",
+        base = {"register": reg, "gloss": "x", "phonetic": [], "type": "chunk",
                 "recognition": "struggled", "production": "none",
-                "seen_in": [1], "last_surfaced": None, "_reg": reg}
+                "seen_in": [1], "last_surfaced": None}
         base.update(kw)
         return base
 
-    fixture = {
+    lex = {
         # survival tier (antifreeze/frame/public), one row per starvation state
         "smoke:surv-hot": item("frame", type="pattern", production="hinted",
                                recognition="solid", last_surfaced=ago(2)),
@@ -2476,9 +2483,8 @@ def s32_deck_rotation_and_coverage(mk, sb: Path):
         "smoke:ear-fresh": item("gossip", direction="catch",
                                 recognition="comfortable", last_surfaced=ago(1)),
     }
-    lex = {k: {kk: vv for kk, vv in v.items() if kk != "_reg"} for k, v in fixture.items()}
-    # The OTHER population (2026-07-26): non-deck words, governed by
-    # floor_gap_targets. Both never-surfaced and identical on every other term,
+    # The UNREGISTERED population (2026-07-26): rows with no register, which
+    # degrade to delight. Both never-surfaced and identical on every other term,
     # so the ask count is the only thing that can separate them — and `-a` sorts
     # first alphabetically, which is what the old key fell through to.
     lex.update({
@@ -2489,13 +2495,12 @@ def s32_deck_rotation_and_coverage(mk, sb: Path):
                           "recognition": "comfortable", "production": "none",
                           "seen_in": [1], "last_surfaced": None},
     })
-    deck_file = sb / "curriculum" / "trip_deck.json"
     lex_path = sb / "progress" / "lexicon.json"
     klog_path = sb / "progress" / "knock_log.json"
-    saved = (deck_file.read_bytes(), lex_path.read_bytes(), klog_path.read_bytes())
+    saved = (lex_path.read_bytes(), klog_path.read_bytes())
     # Yesterday's volley asked surv-tail as its SECOND item — `expected_target`
     # names only item 1, so items 2..n were invisible to the ask count while the
-    # volley is the deck's main volume channel.
+    # volley is the main volume channel.
     recent_ts = (datetime.now(timezone.utc) - timedelta(hours=8)).isoformat()
     # Derived from the constant, never a literal: this was `days=5`, which sat
     # outside the 3-day cooldown and INSIDE the 7-day one (2026-08-18), so
@@ -2509,8 +2514,6 @@ def s32_deck_rotation_and_coverage(mk, sb: Path):
             {"acted": True, "timestamp": old_ts, "modality": "knock",
              "expected_target": "smoke:floor-a", "body": "the floor ask"}]
     try:
-        write_json(deck_file, [{"tamil": k, "register": v["_reg"], "gloss": "x"}
-                               for k, v in fixture.items()])
         write_json(lex_path, lex)
         write_json(klog_path, klog)
 
@@ -2520,26 +2523,26 @@ def s32_deck_rotation_and_coverage(mk, sb: Path):
         check("the volley's opening item still counts",
               asked.get("smoke:surv-mid") == 1, f"got {asked}")
 
-        # Ask-count breaks the tie the 50-item never-worked cohort sits in:
-        # surv-tail and surv-unseen are both NEVER_SURFACED, and tail was asked.
-        deck = st.deck_status(lex, today=today)
-        order = [t["word"] for t in deck["pending"]]
+        # Ask-count breaks the tie the never-worked cohort sits in: surv-tail and
+        # surv-unseen are both NEVER_SURFACED, and tail was asked.
+        focus, _bg = st.floor_gap_targets(lex, today, 20, asked=asked, cohort=[])
+        order = [t["word"] for t in focus]
         check("within the never-worked cohort, least-asked leads (not alphabetical)",
               order.index("smoke:surv-unseen") < order.index("smoke:surv-tail"), f"got {order}")
         check("ask-count stays subordinate to tier: an asked survival item still "
               "outranks an unasked dessert one",
               order.index("smoke:surv-tail") < order.index("smoke:dessert-new"), f"got {order}")
         check("the ask count rides on the item for the menu's warning",
-              [t["asks"] for t in deck["pending"] if t["word"] == "smoke:surv-tail"] == [1],
-              f"got {deck['pending']}")
+              [t["asks"] for t in focus if t["word"] == "smoke:surv-tail"] == [1],
+              f"got {focus}")
         check("the knock menu names the recent ask",
-              "asked/shown 1×" in mk.deck_due_list(), f"got {mk.deck_due_list()}")
+              "asked/shown 1×" in mk.due_menu_block(), f"got {mk.due_menu_block()}")
         # One owner: the knock channel no longer re-sorts, so its picks must be
         # the selector's own order.
         vt = [t["target"] for t in mk.volley_targets(n=4)]
-        pend = [t["word"] for t in deck["pending"]]
+        menu = [t["word"] for t in st.drill_menu(lex, today=today, asked=asked)]
         check("the volley reads the selector's order, it does not re-sort",
-              [w for w in pend if w in vt] == vt, f"volley={vt} pending={pend}")
+              [w for w in menu if w in vt] == vt, f"volley={vt} menu={menu}")
         check("recent_ask_counts has one home",
               not hasattr(mk, "recent_ask_counts"), "the knock-side copy survived")
 
@@ -2577,23 +2580,32 @@ def s32_deck_rotation_and_coverage(mk, sb: Path):
         check("the selector's default path reads the same declared counter",
               [t["word"] for t in st.floor_gap_targets(lex, today, 20, cohort=[])[0]] == order,
               "the default path disagrees with the injected one")
-        # One law, one definition: the deck prefixes tier and then defers.
-        check("both selectors share the ordering law",
-              st.coverage_key({"word": "x", "reps": 0}) < st.coverage_key({"word": "x", "reps": 1}),
-              "coverage_key does not lead with reps")
+        # One law, one definition: the pool prefixes tier and then defers.
+        check("the pool prefixes tier and then defers to the shared law",
+              st.coverage_key({"word": "x", "reps": 0}) < st.coverage_key({"word": "x", "reps": 1})
+              and st.pool_key({"word": "x", "reps": 0, "tier_rank": 0})
+              < st.pool_key({"word": "x", "reps": 0, "tier_rank": 1}),
+              "coverage_key does not lead with reps, or pool_key does not lead with tier")
 
         # Re-run the ordering laws with an empty log, so the coverage assertions
         # below read the same fixture the rest of the case was written against.
         write_json(klog_path, [])
-        deck = st.deck_status(lex, today=today, asked={})
-        order = [t["word"] for t in deck["pending"]]
+        focus, _bg = st.floor_gap_targets(lex, today, 20, asked={}, cohort=[])
+        order = [t["word"] for t in focus]
 
         # The regression: under the old key the ripe, recently-worked headliner
         # led its tier forever. Least-recently-worked now leads.
         check("a never-worked item outranks the ripe recently-worked headliner",
               order[0] == "smoke:surv-tail", f"got {order}")
-        check("the worked headliner falls to the back of its tier",
-              order.index("smoke:surv-hot") > order.index("smoke:surv-mid"), f"got {order}")
+        # Asserted on `drill_menu`, not the pool: surv-hot is a PATTERN, and the
+        # pool has never held those (they are forced by producing a novel
+        # instance, which is the Engines block's job). The menu is where the two
+        # views meet, so it is where the two rows are comparable at all — and
+        # dropping the assertion because the row moved would retire the
+        # regression it exists for.
+        hot = [t["word"] for t in st.drill_menu(lex, today=today, asked={})]
+        check("the worked headliner falls behind the starved row of its tier",
+              hot.index("smoke:surv-mid") < hot.index("smoke:surv-hot"), f"got {hot}")
         check("staleness beats ripeness, not tier: survival still precedes delight",
               order.index("smoke:surv-unseen") < order.index("smoke:delight-new"), f"got {order}")
         check("the touchdown bar survives: delight still precedes dessert",
@@ -2601,9 +2613,12 @@ def s32_deck_rotation_and_coverage(mk, sb: Path):
         check("a cold item leaves the pending queue", "smoke:surv-done" not in order)
 
         # The ear starved worst of all (1 of 12 ever touched) — same law applies.
-        catch_order = [t["word"] for t in deck["catch_pending"]]
+        ear = st.ear_targets(lex, today=today)
+        catch_order = [t["word"] for t in ear["pending"]]
         check("the ear rotates too: the never-worked catch item leads",
               catch_order[0] == "smoke:ear-stale", f"got {catch_order}")
+        check("the ear is never in the fire pool — a different axis, not a rival",
+              not any(w.startswith("smoke:ear") for w in order), f"got {order}")
 
         # Rotation must not smuggle an UNSEEN item into a cold quiz (teach-first).
         vt = [t["target"] for t in mk.volley_targets(n=4)]
@@ -2612,7 +2627,7 @@ def s32_deck_rotation_and_coverage(mk, sb: Path):
         check("a never-worked but soaked item IS volley-eligible",
               "smoke:surv-tail" in vt, f"got {vt}")
 
-        cov = st.deck_coverage(lex, today=today)
+        cov = st.register_coverage(lex, today=today)
         surv, delight, dessert = (cov["tiers"][t] for t in ("survival", "delight", "dessert"))
         check("survival coverage counts worked, not cold",
               (surv["touched"], surv["total"], surv["cleared"]) == (3, 5, 1),
@@ -2628,8 +2643,14 @@ def s32_deck_rotation_and_coverage(mk, sb: Path):
         check("delight/dessert starvation is reported, not hidden",
               (delight["untouched"], dessert["untouched"]) == (1, 1),
               f"got {delight} {dessert}")
+        # GENERALISED off the deck: unregistered rows get their own bucket rather
+        # than swelling the tier they degrade into, where 256 of 339 would hide
+        # exactly the distribution this block exists to show.
+        check("unregistered rows are counted apart, not folded into delight",
+              cov["unregistered"]["total"] == 2 and delight["total"] == 1,
+              f"got unregistered={cov['unregistered']} delight={delight}")
         never = {u["word"] for u in cov["untouched"]}
-        check("every never-worked item is named",
+        check("every never-worked ranked item is named",
               never == {"smoke:surv-tail", "smoke:surv-unseen",
                         "smoke:delight-new", "smoke:dessert-new", "smoke:ear-stale"},
               f"got {sorted(never)}")
@@ -2650,17 +2671,21 @@ def s32_deck_rotation_and_coverage(mk, sb: Path):
             sys.argv = argv
         check("the ticket marks coverage as an engineering number",
               "never narrated" in out.getvalue(), "coverage block carries no narration guard")
+        # THE RETIREMENT ITSELF: no section may claim to outrank the others any
+        # more. That primacy claim, times three, is what made a 361-line ticket
+        # depend on which section Anna weighted that day.
+        check("no pool claims primacy on the ticket",
+              "force these before the general floor" not in out.getvalue()
+              and "TRIP DECK" not in out.getvalue(), "a primacy headline survived")
 
-        # The headline meter carries the same count, so a green sprint can never
-        # again hide a starved deck.
-        cd = ss.compute_deck(lex)
-        check("the status meter carries the coverage count",
-              (cd["untouched"], cd["surv_untouched"], cd["catch_untouched"]) == (4, 2, 1),
-              f"got {cd}")
+        # The ear meter carries its own coverage count, so a green headline can
+        # never again hide a starved ear.
+        ce = ss.compute_ear(lex)
+        check("the status meter carries the ear's coverage count",
+              (ce["caught"], ce["total"], ce["untouched"]) == (0, 2, 1), f"got {ce}")
     finally:
-        deck_file.write_bytes(saved[0])
-        lex_path.write_bytes(saved[1])
-        klog_path.write_bytes(saved[2])
+        lex_path.write_bytes(saved[0])
+        klog_path.write_bytes(saved[1])
 
 
 def s33_catch_response_pairs(mk, sb: Path):
@@ -2668,9 +2693,14 @@ def s33_catch_response_pairs(mk, sb: Path):
     way to say it (2026-07-26 audit). The pairing lived as English prose in
     `note`/`gloss` — "the maami's line at the table" — so nothing could drill a
     pair as a pair, and nothing noticed when `seed-deck` dropped the response
-    while its prompt kept its deck slot. `pairs_with` is the one relation the
-    schema carries; it must resolve inside the deck file, ride onto the lexicon,
-    and reach both surfaces that show catch items."""
+    while its prompt kept its slot. `pairs_with` is the one relation the schema
+    carries; it must resolve inside the seed file, ride onto the lexicon, and
+    reach both surfaces that show catch items.
+
+    `seed-deck` outlived the trip deck (2026-08-18): curated-set seeding is
+    useful for any future set, and only the *trip* framing retired. So this case
+    keeps exercising it — and now also guards the field the retirement added,
+    `register`, whose writer path this command is."""
     print("\n33. Catch/response pairs: hear X → say Y is representable (2026-07-26)")
     import contextlib
     import io
@@ -2707,9 +2737,10 @@ def s33_catch_response_pairs(mk, sb: Path):
     paired = [
         {"tamil": prompt, "gloss": "eat more", "type": "chunk", "direction": "catch",
          "recognition": "struggled", "phonetic": ["innum konjam saapidunga"],
-         "pairs_with": answer},
+         "register": "mil-table", "pairs_with": answer},
         {"tamil": answer, "gloss": "no thanks, I'm full", "type": "chunk",
-         "recognition": "struggled", "phonetic": ["vendaamma"]},
+         "recognition": "struggled", "phonetic": ["vendaamma"],
+         "register": "antifreeze"},
     ]
     try:
         write_json(lex_path, {})
@@ -2718,19 +2749,31 @@ def s33_catch_response_pairs(mk, sb: Path):
               lex[prompt].get("pairs_with") == answer, f"got {lex.get(prompt)}")
         check("the answer is a FIRE item — the catch half alone is not the win",
               lex[answer].get("direction") == "fire", f"got {lex.get(answer)}")
+        # THE MIGRATION'S WRITER PATH (2026-08-18). The tier ordering outlived the
+        # deck only because `register` reaches the ROW; if it stopped at the
+        # curriculum file the ordering would be joined off a container that no
+        # longer exists, which is the silent no-op the retirement was written to
+        # avoid. `progress/*.json` is never hand-edited, so this command is the
+        # only way that field can legitimately land.
+        check("seed-deck lands the register on the lexicon row, not just the tag",
+              lex[answer].get("register") == "antifreeze"
+              and lex[prompt].get("register") == "mil-table", f"got {lex.get(answer)}")
+        check("...and the ordering reads it back as the survival tier",
+              st.tier_rank(lex[answer]) == 0 and st.tier_rank(lex[prompt]) == 1,
+              f"got {st.tier_rank(lex[answer])}/{st.tier_rank(lex[prompt])}")
 
-        deck = st.deck_status(lex, today=date_cls.today(), asked={})
-        cp = [t for t in deck["catch_pending"] if t["word"] == prompt]
-        check("deck_status resolves the pair for the drill",
+        ear = st.ear_targets(lex, today=date_cls.today())
+        cp = [t for t in ear["pending"] if t["word"] == prompt]
+        check("ear_targets resolves the pair for the drill",
               cp and cp[0]["pairs_with"] == answer and cp[0]["response_gloss"] == "no thanks, I'm full",
               f"got {cp}")
         check("the ticket names the answer under the line he'll hear",
               "he answers:" in ticket_text(), "the ear-only block hid the pair")
         check("the knock menu marks a paired item so Anna plays HER line",
-              "[pair]" in mk.deck_due_list() and "never quiz the catch half alone" in mk.deck_due_list(),
-              f"got {mk.deck_due_list()}")
+              "[pair]" in mk.due_menu_block() and "never quiz the catch half alone" in mk.due_menu_block(),
+              f"got {mk.due_menu_block()}")
 
-        # THE regression: the response was dropped from the deck file while its
+        # THE regression: the response was dropped from the seed file while its
         # prompt stayed. Silent before, then a loud drop — a HARD seed-time
         # error now (2026-07-26): the seed is refused whole BEFORE any write,
         # so a split pair can never half-land. Fix the file, re-run.
@@ -2741,7 +2784,7 @@ def s33_catch_response_pairs(mk, sb: Path):
         except SystemExit as e:
             check("a split pair refuses the whole seed, loudly", e.code == 1,
                   f"exit code {e.code}")
-        check("a refused seed writes NOTHING — no half-landed deck",
+        check("a refused seed writes NOTHING — no half-landed set",
               lex_path.read_bytes() == before, "lexicon changed on a refused seed")
     finally:
         deck_file.write_bytes(saved[0])
@@ -3920,61 +3963,82 @@ def s53_prune_duplicate_lexicon_rows(sb: Path):
         lex_path.write_bytes(saved)
 
 
-def s54_two_eras_not_a_deadline(sb: Path):
-    """The trip is a handover, not a terminus (2026-08-04, Andrew: "think of it
-    as pre-trip and during-trip eras").
+def s54_no_deadline_reaches_any_surface(sb: Path):
+    """The trip was modelled as a terminus, and a terminus has to be maintained
+    forever. `TRIP_DATE` had an entry and no exit: `compute_status` counted down
+    past zero, and `burn_rate`'s `max(days_left, 1)` clamp froze the required
+    pace at its final day's value and reported it forever — on 2026-09-01 the
+    scoreboard read "-20 days to touchdown · need 8.0 cold/day", during the month
+    in country, which is the era the whole deck existed to serve.
 
-    TRIP_DATE was modelled as a deadline, so `compute_status` counted down past
-    zero and `burn_rate`'s `max(days_left, 1)` clamp froze the required pace at
-    its final day's value and reported it forever. On 2026-09-01 the scoreboard
-    read "-20 days to touchdown · need 8.0 cold/day" — during the month in
-    country, which is the era the whole deck exists to serve.
+    2026-08-04 answered that with a SECOND era (pre-trip, during-trip). There was
+    never a third, so after he flew home the line would have read "in country,
+    day 32", then 33, forever — the same defect one era further along.
+
+    2026-08-18 answered it by deletion. The deadline is what expired; a required
+    pace with no deadline is not a number, it is a guess; and a winnable countdown
+    is the motivational device the 08-17 no-numbers rule banned outright.
 
     Gate 7.2 — this failure never looked like nothing happening. It printed a
-    confident, well-formed, wrong line every day, and it is the line Anna
-    narrates from. So the checks below assert the ABSENCE of the burn ask in
-    country, not merely the presence of new wording: a cosmetic relabel that
-    left the quota in would pass a presence-only test and still be the bug."""
-    print("\n54. The trip is two eras, not a deadline (2026-08-04)")
+    confident, well-formed, wrong line every day, and it was the line Anna
+    narrates from. So the checks are on the SHAPE of what every surface emits, not
+    on the absence of one constant: a countdown re-added under another name, or a
+    quota composed inline from some other date, must fail here."""
+    print("\n54. No deadline reaches any surface (2026-08-18)")
     ss = importlib.import_module("sync_state")
+    kr = importlib.import_module("knock_reply")
+    sbf = importlib.import_module("session_brief")
     lex_path = sb / "progress" / "lexicon.json"
-    saved, real_today = lex_path.read_bytes(), ss.local_today
+    saved = lex_path.read_bytes()
     try:
-        # A deck with survival items still open, so the countdown branch is live.
+        # The population the countdown used to hang off: a live set with items
+        # still open, which is what put `compute_status` on the deck branch.
         write_json(lex_path, {f"smoke:era{i}": {
             "gloss": "x", "phonetic": [], "type": "chunk", "recognition": "comfortable",
             "production": "cold" if i < 2 else "none", "seen_in": [],
-            "last_surfaced": None, "deck": "trip"} for i in range(10)})
+            "last_surfaced": None, "register": "antifreeze"} for i in range(10)})
+        lex = read_json(lex_path)
 
-        def at(d):
-            ss.local_today = lambda: d
-            return ss.compute_status()
+        check("the deadline constant is gone, not merely unused",
+              not hasattr(ss, "TRIP_DATE"), "TRIP_DATE survived")
+        check("...and so is the meter that was computed against it",
+              not hasattr(ss, "compute_deck") and not hasattr(ss, "burn_rate"),
+              "compute_deck or burn_rate survived")
 
-        before = at(ss.TRIP_DATE - timedelta(days=2))
-        check("pre-trip still counts down", "2 days to touchdown" in before, f"got {before}")
-        check("...and still names the pace it needs", "need " in before, f"got {before}")
+        line = ss.compute_status()
+        check("the scoreboard still leads with the ear", line.startswith("Machines heard"), line)
+        check("no countdown reaches it", "touchdown" not in line and "in country" not in line, line)
+        check("no required pace reaches it — a quota needs a terminus",
+              "need " not in line, line)
+        check("no day count of any spelling reaches it",
+              not re.search(r"\bday -?\d|\b-?\d+\s*d(ays)?\b", line), line)
 
-        landing = at(ss.TRIP_DATE)
-        check("the day he lands reads as day 1 in country, not zero",
-              "in country, day 1" in landing, f"got {landing}")
-        check("...and the countdown wording is gone", "touchdown" not in landing, f"got {landing}")
-        # THE defect: a quota he cannot act on, stated with confidence. A
-        # cosmetic relabel that left the ask in would pass a presence-only test.
-        check("...and the required-pace ask is GONE, not merely reworded",
-              "need " not in landing, f"got {landing}")
-        check("...while the trailing pace survives — that one is still true",
-              "trailing" in landing, f"got {landing}")
+        # The trailing pace is the half that was always true — it measures what
+        # happened, not what is owed — so it must survive, and say only that.
+        pace = ss.trailing_pace()
+        check("the trailing pace survives", "trailing" in pace and "pace" in pace, pace)
+        check("...and states no requirement", "need" not in pace, pace)
 
-        deep = at(ss.TRIP_DATE + timedelta(days=20))
-        check("three weeks in, the day count still advances",
-              "in country, day 21" in deep, f"got {deep}")
-        check("...and no negative day ever reaches the scoreboard",
-              "day -" not in deep and "-20" not in deep, f"got {deep}")
-        check("burn_rate itself refuses a quota past the deadline",
-              "need" not in ss.burn_rate(8, 0) and "need" not in ss.burn_rate(8, -5),
-              f"got {ss.burn_rate(8, 0)!r} / {ss.burn_rate(8, -5)!r}")
+        # The phone. `catch_meter` was deleted on 08-17 for pushing a fraction and
+        # a countdown to the lock screen; the production path kept composing the
+        # same thing from `compute_deck` until this retirement.
+        score = kr.scoreboard(lex)
+        check("the push-back carries no fraction",
+              re.search(r"\d+\s*/\s*\d+", score) is None, repr(score))
+        check("...and no countdown", "d" != score[-1:] and "touchdown" not in score, repr(score))
+
+        # Every surface, not just the one-liner — a countdown that survived in the
+        # dashboard or the session load would still be read aloud.
+        import contextlib, io
+        sbf.git_sync_counts = lambda: (0, 0)
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            sbf.cmd_status(None)
+        text = out.getvalue()
+        check("the session load names no deadline",
+              "touchdown" not in text and "in country" not in text
+              and "Trip Deck" not in text, "a deadline survived in session_brief")
     finally:
-        ss.local_today = real_today
         lex_path.write_bytes(saved)
 
 
@@ -4151,82 +4215,127 @@ def s46_the_commission_gate_blocks_the_close(sb: Path):
             slog_path.write_bytes(saved[3])
 
 
-def s47_hinted_retest_block(sb: Path):
+def s47_hinted_retest_rule(sb: Path):
     """Hinted had no follow-up path ("open and unanswered", DECISIONS 07-28;
     built 2026-08-01). `coverage_key` leads with fewest-reps, so a
     repped-but-stale hinted item sorts behind every never-worked item in its
     tier FOREVER — the three FAQ answers sat hinted 22–28 days silent at 11
-    days to touchdown. The retest block cuts across the sort on staleness.
+    days to touchdown.
 
     Gate 7.2 — the silent no-op is an empty block reading as "nothing stale",
     so the case asserts presence, ordering, the fresh and ear-only exclusions,
-    and that the real ticket entry point prints the block at all.
+    and that the real ticket entry point surfaces it at all.
 
     EXTENDED 2026-08-04, after the block spent four weeks working for the wrong
     five items. The 08-01 case asserted ordering at `max_n=100` — where nothing
-    can fall off — so it never tested the CUT, which is the only place this
-    block can fail silently. It still returned five rows and still read as
-    success while the deck's three hinted FAQ answers sat below the line behind
-    ordinary vocabulary that happened to be staler, and while the top slot went
-    to a bootstrap artifact (hinted, zero reps, never surfaced).
+    can fall off — so it never tested the CUT, which is the only place this can
+    fail silently. It still returned five rows and still read as success while
+    the deck's three hinted FAQ answers sat below the line behind ordinary
+    vocabulary that happened to be staler, and while the top slot went to a
+    bootstrap artifact (hinted, zero reps, never surfaced).
 
-    Both new assertions have teeth in that dimension: the deck's items must
-    survive a cut that is too small to hold everything, and must do so while
-    being FRESHER than the non-deck rows they outrank — a staleness-only sort
-    passes every other check in this case and fails these two."""
-    print("\n47. Hinted items going dark get a retest block (2026-08-01)")
+    FOLDED IN 2026-08-18. "HINTED, GOING DARK" was its own ticket section — a
+    rival pool on a ticket that had nine of them — when it is a RULE
+    (`RETEST_DAYS`), not a population. It is now `is_going_dark` plus a
+    reservation inside the pool's focus set. The fold-in had to cost nothing:
+    every assertion below is the 08-01/08-04 assertion re-aimed at the pool, and
+    the cut it survives is now FOCUS_SIZE seats rather than a five-item list. A
+    flag on a row nothing selects would have been the same silent no-op in a new
+    costume, which is why the reservation exists and why the cut is tested."""
+    print("\n47. Hinted items going dark are retested, inside the pool (2026-08-01)")
     import contextlib, io
     st = importlib.import_module("suggest_targets")
     lex_path = sb / "progress" / "lexicon.json"
-    deck_path = sb / "curriculum" / "trip_deck.json"
-    saved = (lex_path.read_bytes(), deck_path.read_bytes())
+    saved = lex_path.read_bytes()
+    today = date_cls.today()
     try:
-        lex = read_json(lex_path)
-        mk_day = lambda d: (date_cls.today() - timedelta(days=d)).isoformat()
+        lex = {}
+        mk_day = lambda d: (today - timedelta(days=d)).isoformat()
+        dark = lambda d: mk_day(st.RETEST_DAYS + d)
         lex["ரீடெஸ்ட்1"] = {"gloss": "stale hinted", "production": "hinted",
-                           "recognition": "solid", "last_surfaced": mk_day(20), "reps": 5}
+                           "recognition": "solid", "last_surfaced": dark(6), "reps": 5}
         lex["ரீடெஸ்ட்2"] = {"gloss": "staler hinted", "production": "hinted",
-                           "recognition": "solid", "last_surfaced": mk_day(30), "reps": 2}
+                           "recognition": "solid", "last_surfaced": dark(16), "reps": 2}
         lex["ரீடெஸ்ட்3"] = {"gloss": "fresh hinted", "production": "hinted",
                            "recognition": "solid", "last_surfaced": mk_day(3), "reps": 1}
         lex["ரீடெஸ்ட்4"] = {"gloss": "stale but ear-only", "production": "hinted",
-                           "recognition": "solid", "last_surfaced": mk_day(30),
+                           "recognition": "solid", "last_surfaced": dark(16),
                            "direction": "catch", "reps": 0}
-        # Deck members, deliberately FRESHER than the non-deck rows above: only a
-        # tier prefix can float them: staleness alone sinks both.
-        lex["ரீடெஸ்ட்5"] = {"gloss": "deck, faq", "production": "hinted",
-                           "recognition": "solid", "last_surfaced": mk_day(16),
-                           "reps": 5, "deck": "trip"}
-        lex["ரீடெஸ்ட்6"] = {"gloss": "deck, social", "production": "hinted",
-                           "recognition": "solid", "last_surfaced": mk_day(15),
-                           "reps": 3, "deck": "trip"}
+        # RANKED rows, deliberately FRESHER than the unranked ones above: only a
+        # tier prefix can float them — staleness alone sinks both.
+        lex["ரீடெஸ்ட்5"] = {"gloss": "survival, antifreeze", "production": "hinted",
+                           "recognition": "solid", "last_surfaced": dark(2),
+                           "reps": 5, "register": "antifreeze"}
+        lex["ரீடெஸ்ட்6"] = {"gloss": "survival, public", "production": "hinted",
+                           "recognition": "solid", "last_surfaced": dark(1),
+                           "reps": 3, "register": "public"}
         # The bootstrap artifact: a hinted grade with no work behind it. There is
         # no prior test for a RE-test to repeat, and it is already at the head of
-        # the main ticket (coverage_key leads with fewest-reps), so it must not
-        # spend a slot here.
+        # the pool (coverage_key leads with fewest-reps), so it must not spend a
+        # reserved seat here.
         lex["ரீடெஸ்ட்7"] = {"gloss": "hinted, never surfaced", "production": "hinted",
                            "recognition": "struggled", "last_surfaced": None, "reps": 0}
-        write_json(lex_path, lex)
-        write_json(deck_path, [{"tamil": "ரீடெஸ்ட்5", "register": "faq", "gloss": "x"},
-                               {"tamil": "ரீடெஸ்ட்6", "register": "social", "gloss": "x"}])
-        rows = st.retest_targets(lex, date_cls.today(), max_n=100)
-        words = [r["word"] for r in rows]
-        check("a hinted item silent past RETEST_DAYS surfaces", "ரீடெஸ்ட்1" in words)
-        check("...most-stale first",
-              "ரீடெஸ்ட்2" in words and words.index("ரீடெஸ்ட்2") < words.index("ரீடெஸ்ட்1"))
-        check("a recently-worked hinted item does not", "ரீடெஸ்ட்3" not in words)
+
+        # --- the RULE, on its own ---
+        def gd(w):
+            r = lex[w]
+            return st.is_going_dark(r, st.days_since(r["last_surfaced"], today))
+
+        check("a hinted item silent past RETEST_DAYS is going dark", gd("ரீடெஸ்ட்1"))
+        check("a recently-worked hinted item is not", not gd("ரீடெஸ்ட்3"))
         check("ear-only items are excluded — a retest is a production move",
-              "ரீடெஸ்ட்4" not in words)
+              not gd("ரீடெஸ்ட்4"))
         check("a hinted grade with no work behind it is excluded — nothing to re-test",
-              "ரீடெஸ்ட்7" not in words, f"got {words}")
-        # THE 2026-08-04 defect. A staleness-only sort passes every check above
-        # and fails both of these: the deck rows are the two FRESHEST candidates.
-        check("the sprint's own items lead, even when non-deck rows are staler",
-              words[:2] == ["ரீடெஸ்ட்5", "ரீடெஸ்ட்6"], f"got {words}")
-        cut = [r["word"] for r in st.retest_targets(lex, date_cls.today(), max_n=2)]
-        check("...and they survive a cut too small to hold everything — the "
-              "block's only real failure mode is the line, not the order",
-              cut == ["ரீடெஸ்ட்5", "ரீடெஸ்ட்6"], f"got {cut}")
+              not gd("ரீடெஸ்ட்7"))
+        check("the boundary is the constant, not a literal",
+              not st.is_going_dark({"production": "hinted"}, st.RETEST_DAYS - 1)
+              and st.is_going_dark({"production": "hinted"}, st.RETEST_DAYS))
+
+        # --- the RULE, reaching the pool ---
+        write_json(lex_path, lex)
+        focus, _bg = st.floor_gap_targets(lex, today, st.FOCUS_SIZE, asked={}, cohort=[])
+        words = [t["word"] for t in focus if t["retest"]]
+        check("the dark rows reach the pool and are flagged there",
+              set(words) == {"ரீடெஸ்ட்1", "ரீடெஸ்ட்2", "ரீடெஸ்ட்5", "ரீடெஸ்ட்6"},
+              f"got {words}")
+        check("...most-stale first within a tier",
+              words.index("ரீடெஸ்ட்2") < words.index("ரீடெஸ்ட்1"), f"got {words}")
+        check("the never-surfaced bootstrap row is never flagged for retest",
+              not any(t["retest"] for t in focus if t["word"] == "ரீடெஸ்ட்7"),
+              f"got {focus}")
+
+        # THE 2026-08-04 defect, re-aimed. A staleness-only sort passes every
+        # check above and fails both of these: the ranked rows are the two
+        # FRESHEST candidates and must still lead on the tier prefix alone.
+        check("the ranked items lead, even when unranked rows are staler",
+              words[:2] == ["ரீடெஸ்ட்6", "ரீடெஸ்ட்5"], f"got {words}")
+        # THE RESERVATION, on the only fixture that can test it. The two ranked
+        # rows above win seats on the tier prefix alone, so they prove ordering,
+        # not reachability. Drop them and the survivors are UNRANKED, repped and
+        # stale — precisely the shape `coverage_key` buries behind every
+        # never-worked row forever, and precisely the incident: the FAQ answers
+        # sat 22-28 days silent while the ticket kept offering fresh ground.
+        crowd = {w: r for w, r in lex.items() if w not in ("ரீடெஸ்ட்5", "ரீடெஸ்ட்6")}
+        crowd.update({f"smoke:crowd{i}": {"gloss": "never worked", "production": "none",
+                                          "recognition": "comfortable",
+                                          "last_surfaced": None, "reps": 0}
+                      for i in range(40)})
+        # A held cohort, so this runs the LIVE path (a stored membership) rather
+        # than the day-zero seed derivation, which fills from reps and would let
+        # a repped row in through a door the reservation is not being asked about.
+        held = ["smoke:crowd0"]
+        focus, _bg = st.floor_gap_targets(crowd, today, st.FOCUS_SIZE, asked={}, cohort=held)
+        cut = [t["word"] for t in focus if t["retest"]]
+        check("a dark row survives a wall of never-worked rows — reachability is "
+              "the whole reason this was ever a block",
+              "ரீடெஸ்ட்2" in cut, f"got {cut} of {[t['word'] for t in focus]}")
+        check("...staler first among them", cut[:1] == ["ரீடெஸ்ட்2"], f"got {cut}")
+        # A FLOOR, NEVER A CEILING: no dark row wins a seat on the ordering in
+        # this fixture (reps 2 and 5 against forty at zero), so anything above
+        # the reservation would be the retest rule flooding the set — which is
+        # how it earned its own section, and its own primacy, the first time.
+        check("...and the reservation tops up without taking over",
+              0 < len(cut) <= st.RETEST_SLOTS, f"{len(cut)} of {len(focus)} seats: {cut}")
 
         out, real_argv = io.StringIO(), sys.argv
         try:
@@ -4235,11 +4344,13 @@ def s47_hinted_retest_block(sb: Path):
                 st.main()
         finally:
             sys.argv = real_argv
-        check("the ticket prints the block — the pieces are only worth having "
-              "if the entry point calls them", "HINTED, GOING DARK" in out.getvalue())
+        text = out.getvalue()
+        check("the ticket marks the going-dark rows — the rule is only worth "
+              "having if the entry point says so", "GOING DARK" in text, text[-800:])
+        check("...and it is no longer a rival section with its own headline",
+              "★ HINTED, GOING DARK" not in text, "the block survived the fold-in")
     finally:
-        lex_path.write_bytes(saved[0])
-        deck_path.write_bytes(saved[1])
+        lex_path.write_bytes(saved)
 
 
 def s56_timezone_is_one_dial(sb: Path):
@@ -4358,14 +4469,14 @@ def s48_drill_answer_key_lint(sb: Path):
 
         # main() must ACT on the verdict — stub the writer to return the bad
         # sheet and assert the run stops before anything renders.
-        real = (rd.write_sheet, rd.drill_brief, rd.deck_due_payload, sys.argv)
+        real = (rd.write_sheet, rd.drill_brief, rd.due_payload, sys.argv)
         rd.ask_json = lambda *a, **k: {"verdicts": [
             {"n": 1, "verdict": "FAIL", "reason": "wrong case"},
             {"n": 2, "verdict": "PASS", "reason": ""}]}
         try:
             rd.write_sheet = lambda *a, **k: sheet
             rd.drill_brief = lambda: (None, [])
-            rd.deck_due_payload = lambda n: [{"word": "X", "gloss": "", "kind": "chunk"}]
+            rd.due_payload = lambda n: [{"word": "X", "gloss": "", "kind": "chunk"}]
             sys.argv = ["render_drill.py", "--dry-run"]
             stopped = False
             with contextlib.redirect_stdout(io.StringIO()):
@@ -4375,7 +4486,7 @@ def s48_drill_answer_key_lint(sb: Path):
                     stopped = bool(e.code)
             check("main() stops on a lint fail — nothing renders", stopped)
         finally:
-            rd.write_sheet, rd.drill_brief, rd.deck_due_payload, sys.argv = real
+            rd.write_sheet, rd.drill_brief, rd.due_payload, sys.argv = real
     finally:
         rd.ask_json = real_ask
 
@@ -4424,11 +4535,16 @@ def s57_longhaul_tape(sb: Path):
 
     # ── A pool with a known shape, so coverage is checkable rather than plausible.
     lex = {f"சொல்{i}": {"gloss": f"word {i}", "production": "none",
-                        "recognition": "struggled", "deck": "trip", "type": "chunk"}
+                        "recognition": "struggled", "type": "chunk"}
            for i in range(40)}
     lex["நாள்"] = {"gloss": "day", "production": "cold", "type": "chunk"}
     lex["நாளைக்கு"] = {"gloss": "tomorrow", "production": "cold", "type": "chunk"}
-    lex["ரொம்ப நாளாச்சு"] = {"gloss": "long time", "production": "none", "type": "chunk"}
+    # The `room` spine sorts and QUALIFIES on `register`. It used to be joined
+    # from curriculum/trip_deck.json at build time; since 2026-08-18 it rides on
+    # the row, so the fixture carries it here — the one row that qualified for
+    # room before is the one row that carries a register now.
+    lex["ரொம்ப நாளாச்சு"] = {"gloss": "long time", "production": "none",
+                              "type": "chunk", "register": "social"}
     # PATTERNS, because the machines spine now draws only on what it can run as a
     # machine (2026-08-10). This fixture was all chunks, so that spine's pool came
     # out EMPTY and its movements rendered as bare frame lines — the filter working
@@ -5608,17 +5724,22 @@ def s60_the_ear_meter(kr, sb: Path):
     # The one-line scoreboard is the surface Anna narrates from and the digest
     # carries to the phone — a meter that moved only in the long status block
     # would leave every OTHER channel still reciting production at him.
-    # Both branches must carry it — the deck one for the trip, the floor one for
-    # the era after it, which is the horizon the deck's expiry leaves open.
+    #
+    # There used to be TWO branches here, and this case asserted the ear led both
+    # — the deck one for the trip, the floor one for the era after it. The deck
+    # branch retired on 2026-08-18 and the horizon it left open is now the only
+    # era there is, so the assertion is that ONE line leads with the ear no
+    # matter what the lexicon carries. A second branch reappearing behind some
+    # other tag is the regression; `s54` guards the deadline half of it.
     ss = importlib.import_module("sync_state")
-    check("the scoreboard line LEADS with the ear (floor era)",
+    check("the scoreboard line LEADS with the ear",
           ss.compute_status().startswith("Machines heard 1/3 · viability floor"),
           ss.compute_status())
     lex = read_json(lex_path)
-    lex["வணக்கம்"]["deck"] = "trip"
+    lex["வணக்கம்"]["register"] = "antifreeze"
     write_json(lex_path, lex)
-    check("...and still leads with it during a live deck sprint",
-          ss.compute_status().startswith("Machines heard 1/3 · Trip Deck"),
+    check("...and a ranked row does not buy itself a rival headline",
+          ss.compute_status().startswith("Machines heard 1/3 · viability floor"),
           ss.compute_status())
 
     # --- the round trip: a real catch on a FRAME must move the printed number ---
@@ -5926,6 +6047,140 @@ def s64_the_ask_cooldown_covers_the_session_lane(sb: Path):
     write_json(klog_path, json.loads(saved[1].decode("utf-8")))
 
 
+def s65_the_ordering_outlives_the_deck(sb: Path):
+    """The deck retirement's load-bearing case (2026-08-18). The container
+    expired at touchdown; the ORDERING — survival > delight > dessert — is
+    durable knowledge about which failures cost most at a table, and retiring
+    the one must not delete the other.
+
+    THE TRAP, and why this case was written before a line was removed: tiers
+    were computed by joining `curriculum/trip_deck.json` at menu time, keyed on
+    `deck == "trip"` membership. 0 of 339 lexicon rows carried a `register`.
+    Delete the deck without migrating and the ordering vanishes SILENTLY — the
+    selector keeps returning rows, they are simply no longer tier-ordered.
+    Nothing raises, no list is empty, every instrument reads green. That is the
+    exact silent-no-op class Gate 7.2 exists for, so the assertions below are on
+    rows that carry a `register` and NO `deck` tag at all: the shape every row
+    has after retirement, and the shape that had no test before it."""
+    print("\n65. The ordering outlives the deck (2026-08-18)")
+    st = importlib.import_module("suggest_targets")
+    today = date_cls.today()
+    ago = lambda n: (today - timedelta(days=n)).isoformat()
+
+    def row(**kw):
+        base = {"gloss": "x", "phonetic": [], "type": "chunk",
+                "recognition": "comfortable", "production": "none",
+                "seen_in": [1], "last_surfaced": ago(10), "reps": 1}
+        base.update(kw)
+        return base
+
+    # No `deck` key anywhere in this fixture. Equal staleness, equal reps: the
+    # register is the ONLY thing that can separate these.
+    lex = {
+        "smoke:ord-dessert": row(register="zinger"),
+        "smoke:ord-survival": row(register="antifreeze"),
+        "smoke:ord-delight": row(register="social"),
+        "smoke:ord-plain": row(),                      # no register at all
+    }
+    focus, _bg = st.floor_gap_targets(lex, today, 12, asked={}, cohort=["smoke:ord-plain"])
+    order = [t["word"] for t in focus]
+    check("a survival-register row leads, with no deck tag in sight",
+          order[0] == "smoke:ord-survival", f"got {order}")
+    check("...and dessert still sorts last — the whole bar survives",
+          order[-1] == "smoke:ord-dessert", f"got {order}")
+    check("an unregistered row degrades to delight, not to unreachable",
+          "smoke:ord-plain" in order
+          and order.index("smoke:ord-delight") < order.index("smoke:ord-dessert"),
+          f"got {order}")
+
+    # THE MIGRATION ITSELF: the tier must be read off the row, never joined from
+    # a curriculum file. A rank that still needed the deck file would score every
+    # row here at the non-member fallback and the ordering would be flat.
+    check("the tier is read off the lexicon row, not joined from a deck file",
+          st.tier_rank(lex["smoke:ord-survival"]) == 0
+          and st.tier_rank(lex["smoke:ord-dessert"]) == 2
+          and st.tier_rank(lex["smoke:ord-plain"]) == 1,
+          "tier_rank does not read `register`")
+    check("the curriculum join is gone — no reader is left to drift",
+          not hasattr(st, "deck_registers") and not hasattr(st, "deck_rank"),
+          "a deck-keyed reader survived the retirement")
+
+    # THE INVARIANT, stated as the work order stated it: retiring the container
+    # must not delete the ordering. A survival row with no deck tag outranks an
+    # ordinary row of EQUAL staleness — equal, so nothing but the bar can do it.
+    plain, surv = lex["smoke:ord-plain"], lex["smoke:ord-survival"]
+    check("survival outranks an ordinary row of equal staleness",
+          st.pool_key({"word": "a", "reps": 1, "tier_rank": st.tier_rank(surv)})
+          < st.pool_key({"word": "a", "reps": 1, "tier_rank": st.tier_rank(plain)}),
+          "the bar does not survive in pool_key")
+
+    # ONE POOL, not three. The deck, the focus set and the going-dark block were
+    # separate sections, and the first two claimed primacy in their own words.
+    check("the rival selectors are gone, not merely unused",
+          not any(hasattr(st, n) for n in ("deck_status", "deck_coverage", "retest_targets")),
+          "a retired pool survived")
+    check("the knock lane and the session lane read the SAME pool",
+          st.drill_menu.__module__ == st.floor_gap_targets.__module__,
+          "the menu drifted out of the selector")
+
+    # THE STALE-COHORT HOLE, and why `reseed-focus` exists. Stored membership is
+    # the point ("held seats stand regardless of what any counter says") and it
+    # is right — but a counter is not the only thing that can change. When the
+    # ORDERING changes, a cohort seeded under the old one holds seats the new one
+    # would never grant, and `reconcile_focus` cannot fix it: it only fills seats
+    # as they OPEN. On 2026-08-18 all twelve were held by unregistered rows
+    # seeded before the tier bar existed, so no survival row could enter a pool
+    # that ranks them first. Migrating `register` was necessary and not
+    # sufficient — this is the other half, and without it the whole retirement is
+    # inert in exactly the way Gate 7.2 describes: green, ordered, and unable to
+    # act on its own order.
+    import contextlib, io
+    ss = importlib.import_module("sync_state")
+    lex_path, learner_path = sb / "progress" / "lexicon.json", sb / "progress" / "learner.json"
+    saved = (lex_path.read_bytes(), learner_path.read_bytes())
+    try:
+        stale = dict(lex)
+        stale.update({f"smoke:ord-held{i}": row() for i in range(st.FOCUS_SIZE)})
+        write_json(lex_path, stale)
+        learner = read_json(learner_path)
+        learner["focus_cohort"] = [f"smoke:ord-held{i}" for i in range(st.FOCUS_SIZE)]
+        write_json(learner_path, learner)
+
+        focus, _bg = st.floor_gap_targets(stale, today, st.FOCUS_SIZE,
+                                          asked={}, cohort=learner["focus_cohort"])
+        check("a stale cohort locks the ordering out — the hole, reproduced",
+              "smoke:ord-survival" not in [t["word"] for t in focus],
+              "the fixture does not reproduce the stale-cohort hole")
+
+        class A:
+            dry_run = True
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            ss.cmd_reseed_focus(A())
+        check("a dry run writes nothing",
+              read_json(learner_path)["focus_cohort"] == learner["focus_cohort"],
+              "reseed-focus wrote on a dry run")
+        check("...and says what it would do",
+              "smoke:ord-survival" in out.getvalue() and "dry run" in out.getvalue(),
+              out.getvalue())
+
+        A.dry_run = False
+        with contextlib.redirect_stdout(io.StringIO()):
+            ss.cmd_reseed_focus(A())
+        seated = read_json(learner_path)["focus_cohort"]
+        check("the reseed lets the ordering take its seats",
+              "smoke:ord-survival" in seated, f"got {seated}")
+        with contextlib.redirect_stdout(io.StringIO()):
+            ss.cmd_reseed_focus(A())
+        check("...and it is idempotent — re-running is not churn",
+              read_json(learner_path)["focus_cohort"] == seated,
+              "a second reseed moved the cohort")
+    finally:
+        lex_path.write_bytes(saved[0])
+        learner_path.write_bytes(saved[1])
+
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -5963,7 +6218,7 @@ def main():
         s29_one_runner_every_capability(mk, pq, kr, sb)
         s30_anna_speaks_back(mk, kr, sb)
         s31_feed_carries_every_pushed_dose(sb)
-        s32_deck_rotation_and_coverage(mk, sb)
+        s32_pool_rotation_and_coverage(mk, sb)
         s33_catch_response_pairs(mk, sb)
         s34_focus_and_background(sb)
         s36_soak_order_carries_shape(sb)
@@ -5977,9 +6232,9 @@ def main():
         s44_a_commission_can_discharge_the_flag(sb)
         s45_concurrent_appends_merge(mk, sb)
         s46_the_commission_gate_blocks_the_close(sb)
-        s47_hinted_retest_block(sb)
+        s47_hinted_retest_rule(sb)
         s53_prune_duplicate_lexicon_rows(sb)
-        s54_two_eras_not_a_deadline(sb)
+        s54_no_deadline_reaches_any_surface(sb)
         s55_demotion_survives_the_close(sb)
         s56_timezone_is_one_dial(sb)
         s48_drill_answer_key_lint(sb)
@@ -5995,6 +6250,7 @@ def main():
         s62_the_return_clock_is_keyed_to_the_ear(sb)
         s63_the_machines_reach_the_ticket()
         s64_the_ask_cooldown_covers_the_session_lane(sb)
+        s65_the_ordering_outlives_the_deck(sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)

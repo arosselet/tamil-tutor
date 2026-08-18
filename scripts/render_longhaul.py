@@ -122,14 +122,7 @@ RHYTHM = {
 REGISTER_ORDER = ["social", "faq", "mil-table", "antifreeze", "public", "gossip", "zinger"]
 
 
-# ── Item selection: the deck and beyond ─────────────────────────────────────
-
-def deck_registers() -> dict:
-    """register per deck item. It lives in the curriculum, not the lexicon —
-    `seed-deck` carries the tag but not the register, so the `room` spine reads
-    the source file rather than inventing an order."""
-    deck = load_json(BASE / "curriculum" / "trip_deck.json") or []
-    return {row["tamil"]: row.get("register", "") for row in deck if row.get("tamil")}
+# ── Item selection: the ranked set and beyond ───────────────────────────────
 
 
 def inventory_hosts(lexicon: dict) -> dict:
@@ -174,7 +167,7 @@ def _rank(spine: str, hosts: dict):
     def key(r):
         prod = unfired.get(r["production"], 3)
         if spine == "machines":
-            return (0 if r["type"] == "pattern" else 1, 0 if r["deck"] else 1, prod)
+            return (0 if r["type"] == "pattern" else 1, 0 if r["register"] else 1, prod)
         if spine == "inventory":
             return (0 if r["word"] in hosts else 1, -len(hosts.get(r["word"], [])), prod)
         reg = r["register"]
@@ -187,8 +180,9 @@ def _rank(spine: str, hosts: dict):
 def build_pool(spine: str, payload: list[str]) -> list[dict]:
     """The whole lexicon is in scope, not a seven-day window. `render_soak`'s
     `week_payload` asks "what did he touch this week" — the right question for a
-    ten-minute loop and the wrong one for a tape that has to carry the deck AND
-    beyond it ("everything in our deck and beyond somewhere in that", 2026-08-10).
+    ten-minute loop and the wrong one for a tape that has to carry the ranked set
+    AND beyond it ("everything in our deck and beyond somewhere in that",
+    2026-08-10 — said of the deck, and the ranked registers are what it left).
 
     IN SCOPE IS NOT THE SAME AS USABLE, and this takes only what the spine's shape
     can actually teach from (`SPINE_QUALIFIES`). It used to take a requested SIZE
@@ -197,14 +191,13 @@ def build_pool(spine: str, payload: list[str]) -> list[dict]:
     lexicon holds 27 with hosts, so 42 movements would have inventoried words with
     nothing inside them. The length now falls out of the material."""
     lexicon = load_json(LEXICON_PATH) or {}
-    reg, hosts = deck_registers(), inventory_hosts(lexicon)
+    hosts = inventory_hosts(lexicon)
     rows = [{"word": k,
              "gloss": rec.get("gloss", ""),
              "production": rec.get("production", "none"),
              "direction": rec.get("direction", ""),
              "type": rec.get("type", ""),
-             "deck": bool(rec.get("deck")),
-             "register": reg.get(k, ""),
+             "register": rec.get("register", ""),
              "hosts": hosts.get(k, [])}
             for k, rec in lexicon.items()]
     rows.sort(key=_rank(spine, hosts))
@@ -530,7 +523,7 @@ def describe(plan: list[dict], pool: list[dict], minutes: float):
         words = ", ".join(i["word"] for i in mv["items"]) or "(nothing taught yet)"
         print(f"  {n:>2}. {mv['shape']:<9} {words[:88]}")
     print(f"\nPOOL — {len(pool)} items"
-          f" · {sum(1 for i in pool if i['deck'])} deck"
+          f" · {sum(1 for i in pool if i['register'])} ranked"
           f" · {sum(1 for i in pool if i['production'] == 'none')} never fired"
           f" · {sum(1 for i in pool if i['hosts'])} with inventory hosts")
 

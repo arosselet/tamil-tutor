@@ -53,7 +53,7 @@ from morning_knock import (OPENROUTER_BASE, MODEL, KNOCK_LOG_PATH, KNOCKS_DIR,
                            jsdelivr_url, refresh_feed, to_phonetic, parse_llm_response)
 from state_io import FEEDBACK_LOG_PATH, LEARNER_PATH, LEXICON_PATH, SLIP_LOG_PATH, build_phonetic_index, load_json, local_today, resolve, save_json
 from slips import append_slips, slip_patterns
-from sync_state import TRIP_DATE, compute_deck, fires_today
+from sync_state import fires_today
 
 PRODUCTION_RANK = {"none": 0, "hinted": 1, "cold": 2}
 VERDICTS = {"cold", "hinted", "miss", "chat"}
@@ -519,15 +519,18 @@ def find_knock(klog: list, knock_id: str) -> dict | None:
 
 
 def scoreboard(lexicon: dict) -> str:
-    """The one score, appended to every push-back: deck cleared + days to touchdown
-    + the fast per-day reward (fires today, live from the logs)."""
-    deck = compute_deck(lexicon)
-    if not deck["total"]:
-        return ""
-    days = (TRIP_DATE - local_today()).days
+    """The fast per-day reward appended to a push-back: fires today, live from
+    the logs. A COUNT OF WHAT HE DID, never a fraction of what is left.
+
+    It read "Deck 36/71 · -6d" until 2026-08-18 — a deficit fraction and a
+    countdown, on the one surface he cannot look away from. That is the object
+    `catch_meter` was deleted for on 08-17 (see the note above `handle_catch_reply`),
+    still live on the production path because that path composed it from
+    `compute_deck` instead. Both are gone now: the deck retired, and what stays is
+    the half that is not a scoreboard — a mastery-driven learner can be told he
+    fired four things today without being told how far he is from an end."""
     n = fires_today()
-    fires = f" · {n} fired today" if n else ""
-    return f"Deck {deck['cleared']}/{deck['total']} · {days}d{fires}"
+    return f"{n} fired today" if n else ""
 
 
 def hours_since_exchange(knock: dict, now: datetime) -> float | None:

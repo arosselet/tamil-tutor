@@ -1,6 +1,14 @@
 # Work Order — Retire the Trip Deck
 
-> **Status: DECIDED, NOT EXECUTED.** Andrew, 2026-08-18: *"my vote is to retire the deck now…
+> **Status: EXECUTED 2026-08-18.** Shipped whole: `register` migrated onto 83 lexicon rows via
+> `seed-deck`, `tier_rank` repointed at the row, nine ticket selectors collapsed to five, the
+> deadline machinery (`TRIP_DATE`, `burn_rate`, `compute_deck`) deleted, prose reverted.
+> Recorded in `DECISIONS.md`; guarded by smoke `s65` (plus `s32`, `s47`, `s54`). One addition
+> the plan did not foresee: `sync_state reseed-focus` — the stored focus cohort predated the
+> tier bar and held every seat, which would have left the whole retirement inert. Kept below
+> as the record of the reasoning. **Do not re-run.**
+>
+> *Original status: DECIDED, NOT EXECUTED.* Andrew, 2026-08-18: *"my vote is to retire the deck now…
 > Un-muddying the waters isn't a future nice to have. I think deletion, cleanup should ease a lot
 > of the other symptoms I am feeling. Instead of a dozen patchwork fixes in the coming weeks."*
 > Scoped in the same conversation; execution deliberately deferred to a fresh context.

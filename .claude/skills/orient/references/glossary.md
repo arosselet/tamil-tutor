@@ -29,11 +29,11 @@ Defined: `protocol/daily_session.md` — The Loop and Close & Log sections
 
 ---
 
-## deck
+## deck (RETIRED 2026-08-18)
 
-A tagged sprint subset of `progress/lexicon.json`. During the Trip Sprint, ~65 chunks and frames are tagged `deck:"trip"`; `suggest_targets.py` surfaces them first and the session ticker reports **Trip Deck: X/N fire cold**. It led the status line until 2026-08-16, when **Machines heard** took the headline (see *machines heard*); the deck is still reported, it just no longer leads. Each deck item carries a `direction` field: **fire** or **catch** (see those entries).
+A tagged subset of `progress/lexicon.json` — 83 chunks and frames tagged `deck:"trip"` — that `suggest_targets.py` surfaced ahead of everything else, metered as **Trip Deck: X/N fire cold**. A *container*: bounded, deadline-driven, and its reason expired at touchdown (2026-08-12). Retired whole; what it carried moved out first (see *register*, *tier*). The 83 rows keep the tag as **provenance** — the record of where they came from — and nothing reads it. `sync_state seed-deck` survives as the writer path for any curated set.
 
-Defined: `docs/DECISIONS.md` — "Trip Sprint"; `progress/profile.md` — "Phase 1.5 — The Trip Sprint"
+Defined: `docs/DECISIONS.md` — "Retire the trip deck"; `progress/profile.md` — "Phase 1.5 — The Trip Sprint (RETIRED)"
 
 ---
 
@@ -63,7 +63,7 @@ Defined: `protocol/persona.md` — "The Heist"
 
 ## fire / catch (axes)
 
-Every deck item carries a `direction` field. **Fire** items target cold production — the learner must generate them under pressure. **Catch** items are ear-only — the win is solid recognition via eavesdrop drills and soak; these are never forced to fire. The meter reads both sides: `X/N fire cold · Y/M catch solid`.
+A lexicon row may carry a `direction` field. **Fire** (the default) targets cold production — the learner must generate it under pressure. **Catch** is ear-only — the win is solid recognition via eavesdrop drills and soak; these are never forced to fire. The two are selected by different functions (`floor_gap_targets` vs `ear_targets`), because they are different axes, not rival pools. `direction` was always the discriminator, never the retired `deck` tag, so the split outlived the deck: `compute_ear` meters the catch side as `Y/M solid`.
 
 Defined: `progress/profile.md` — "Fire vs. catch (2026-07-01 redesign)"; `docs/PROTOCOL_MAP.md` — `lexicon.json` row
 
@@ -71,7 +71,9 @@ Defined: `progress/profile.md` — "Fire vs. catch (2026-07-01 redesign)"; `docs
 
 ## floor-gap
 
-A word the learner recognizes (comfortable or solid) but cannot yet produce cold. Floor-gap targets are **what to force in a session** — they do not need re-teaching, they need cold dispatch in fresh English situations. The gap between recognition and production is the work.
+A word the learner recognizes (comfortable or solid) but cannot yet produce cold — they do not need re-teaching, they need cold dispatch in fresh English situations. The gap between recognition and production is the work, and `compute_floor` meters it as the viability floor.
+
+It is no longer the whole selectable population: since 2026-08-18 the **pool** admits any row not yet firing cold, `struggled` ones included, because the retired deck's rows were 31/35 struggled and a recognition gate would have made the ordering it left behind unreachable. Teach-first still guards those (`is_unseen`).
 
 Defined: `protocol/daily_session.md` — Targeting section ("Floor-gap targets")
 
@@ -103,7 +105,7 @@ Defined: `docs/PROTOCOL_MAP.md` — Python brain and knock_log.json rows; `docs/
 
 ## lore
 
-Language stories deployed as first-class input: etymology, cross-language kinship (what English took from Tamil — *catamaran*, *curry*, *mango*), myth, and cultural logic behind a word or register. Lore is not decoration — a word with a story has more retrieval hooks than a word with a scene. Lore never creates production debt (no deck item, no floor gap) and never takes over the feed rotation.
+Language stories deployed as first-class input: etymology, cross-language kinship (what English took from Tamil — *catamaran*, *curry*, *mango*), myth, and cultural logic behind a word or register. Lore is not decoration — a word with a story has more retrieval hooks than a word with a scene. Lore never creates production debt (no drill target, no floor gap) and never takes over the feed rotation.
 
 Defined: `protocol/constitution.md` — "Stories Are Curriculum (the lore rule)"; `docs/DECISIONS.md` — "Stories are curriculum — the lore pivot (2026-07-03)"
 
@@ -111,7 +113,7 @@ Defined: `protocol/constitution.md` — "Stories Are Curriculum (the lore rule)"
 
 ## machines heard
 
-The headline meter since 2026-08-16: of the ~26 patterns (frames/machines) in the lexicon, how many are `solid` on **recognition** — can he *hear* the machine at speed, not merely fire it. `session_brief.py` prints it as `Machines heard: X/N`; `sync_state.compute_status` leads the one-line scoreboard with it. It replaced production meters (Trip Deck, Engines, viability floor) as the lead because those measure the engine and this measures the destination — the evidence being that Andrew produced 20 of 26 machines cold while hearing 3, which is exactly why two words landing in a fast sentence felt like nothing. Ear-only (`direction: catch`) patterns are inside its denominator; **engines** excludes them, so this is the one meter that sees the whole set. Like every meter it steers Python and is never recited to him.
+The headline meter since 2026-08-16: of the ~26 patterns (frames/machines) in the lexicon, how many are `solid` on **recognition** — can he *hear* the machine at speed, not merely fire it. `session_brief.py` prints it as `Machines heard: X/N`; `sync_state.compute_status` leads the one-line scoreboard with it. It replaced production meters (the retired Trip Deck, Engines, viability floor) as the lead because those measure the engine and this measures the destination — the evidence being that Andrew produced 20 of 26 machines cold while hearing 3, which is exactly why two words landing in a fast sentence felt like nothing. Ear-only (`direction: catch`) patterns are inside its denominator; **engines** excludes them, so this is the one meter that sees the whole set. Like every meter it steers Python and is never recited to him.
 
 Defined: `docs/DECISIONS.md` — "The headline is the ear, not the mouth"; `protocol/constitution.md` — "The Learner" mission
 
@@ -119,7 +121,7 @@ Defined: `docs/DECISIONS.md` — "The headline is the ear, not the mouth"; `prot
 
 ## masks
 
-Anna impersonating a family member (mother-in-law, banter-speed cousin, gossiping auntie) for one beat in-register, then stepping out to recast as himself. Masks force the register the deck needs — deference for the mother-in-law (`-nga` forms), speed for the cousin, gossip idiom for the auntie. One beat, then dropped; the one continuous relationship stays Anna.
+Anna impersonating a family member (mother-in-law, banter-speed cousin, gossiping auntie) for one beat in-register, then stepping out to recast as himself. Masks force the register the table needs — deference for the mother-in-law (`-nga` forms), speed for the cousin, gossip idiom for the auntie. One beat, then dropped; the one continuous relationship stays Anna.
 
 Defined: `protocol/persona.md` — "The Masks (Anna Plays the Table)"
 
@@ -127,9 +129,19 @@ Defined: `protocol/persona.md` — "The Masks (Anna Plays the Table)"
 
 ## the Oracle
 
-Andrew's wife — a native Coimbatore Tamil speaker used as a 60-second vibe-check resource, not a teacher or examiner. Her form always beats the system's draft. She does not know the heist is happening and must never be turned into a progress check. During the Trip Sprint, the Oracle vets the trip deck.
+Andrew's wife — a native Coimbatore Tamil speaker used as a 60-second vibe-check resource, not a teacher or examiner. Her form always beats the system's draft. She does not know the heist is happening and must never be turned into a progress check. The Oracle vets any curated set before `seed-deck` lands it.
 
-Defined: `protocol/constitution.md` — "The Wife (The Oracle)"; `progress/profile.md` — Trip Sprint sourcing note
+Defined: `protocol/constitution.md` — "The Wife (The Oracle)"; `progress/profile.md` — curated-set sourcing note
+
+---
+
+## pool
+
+The single ordered selector (`suggest_targets.floor_gap_targets`): every row not yet firing cold, tier-first, split into **focus** (≤`FOCUS_SIZE`, stored membership in `learner.json`, drilled) and **background** (exposure only, never forced). `drill_menu` is the flat view of its head plus the engines, and it is what the knock menu, the volley and the drill tape all pick from — one owner, so no lane re-sorts.
+
+It replaced three rival sections on 2026-08-18: the deck, the focus set, and "hinted, going dark". Two of them claimed primacy in their own words on a 361-line ticket, so the day's session was decided by whichever one Anna weighted that morning. The going-dark block became a *rule* (`is_going_dark`) plus a reservation of `RETEST_SLOTS` seats — a floor, never a ceiling.
+
+Defined: `scripts/suggest_targets.py` — `floor_gap_targets`, `drill_menu`
 
 ---
 
@@ -138,6 +150,16 @@ Defined: `protocol/constitution.md` — "The Wife (The Oracle)"; `progress/profi
 Anna's correction method: when the learner is off, say it the natural way and move on — no grammar tables, no case names, no lecture. The way an older brother mutters the fix across the table. Phonetic is fine ("poren" is போறேன் — `knock_reply.py` judge mandate). Recast is the only permitted form of correction; "recast, never lecture" is a canonical rule.
 
 Defined: `protocol/constitution.md` — "Canonical Rules"; `protocol/daily_session.md` — The Loop step 4
+
+---
+
+## register / tier
+
+The **ordering** the retired deck left behind. Each lexicon row may carry a `register` — `antifreeze`, `public`, `frame` (→ **survival**); `faq`, `mil-table`, `social` (→ **delight**); `gossip`, `zinger` (→ **dessert**). `suggest_targets.tier_rank` reads it off the row and every selector prefixes it, so survival — fast speech aimed at him, which he must repair or transact rather than freeze at — is forced before delight, and delight before dessert.
+
+It is durable knowledge about which failures cost most at a table, which is why it survived the container it arrived in. Before 2026-08-18 it was joined at menu time from `curriculum/trip_deck.json`, keyed on deck membership; migrating it onto the row is what made retiring the deck safe, because a join keyed on a deleted tag fails *silently* — the selector keeps returning rows, merely unordered. 83 of 339 rows carry one; the rest degrade to delight (unordered, not unreachable). `sync_state seed-deck` is the only writer.
+
+Defined: `scripts/suggest_targets.py` — `REGISTER_TIERS`, `tier_rank`; `docs/DECISIONS.md` — "Retire the trip deck"
 
 ---
 
@@ -161,17 +183,17 @@ Defined: `docs/PROTOCOL_MAP.md` — "The interface: the soak-order"; `protocol/d
 
 ## ticket
 
-The output of `python scripts/suggest_targets.py` — the structured session brief Anna picks from. Five sections: (1) floor-gap targets to force cold, (1b) engines to fire (with a novel slot), (2) due callbacks to weave in, (3) new candidates grouped by cluster coverage, (4) the vocabulary fence. Anna picks from the ticket; he does not re-derive targets by eye.
+The output of `python scripts/suggest_targets.py` — the structured session brief Anna picks from. The slip ledger rides on top (how he is failing); then (1) the **pool**, tier-ordered, with the ear (1a), the background (1b), coverage (1c) and the engines (1d) as views of the same population, (2) due callbacks to weave in, (3) new candidates grouped by cluster coverage, (4) the vocabulary fence. Anna picks from the ticket; he does not re-derive targets by eye. It was nine selectors until 2026-08-18, three of which claimed primacy in their own words; none does now.
 
 Defined: `protocol/daily_session.md` — "Targeting — Narrow and Deepen"
 
 ---
 
-## Trip Sprint
+## Trip Sprint (CLOSED 2026-08-18)
 
-The finite skill sprint before Andrew's India trip (week of 2026-08-12). Pauses the abstract viability-floor climb and substitutes a finite Trip Deck of survival chunks and frames — social-public register, deference forms, antifreeze repair moves. Oracle-vetted via 60-second vibe-checks. Daily win = one phone rep; full session = 2–3×/week. Resumes the floor climb after the trip.
+The finite skill sprint before Andrew's India trip (week of 2026-08-12). Paused the abstract viability-floor climb and substituted a finite deck of survival chunks and frames — social-public register, deference forms, antifreeze repair moves, Oracle-vetted. **It worked**: survival went 15/34 (07-25) → 30/34 (08-18), the best conversion this project has produced, and the lesson kept is that a finite, visible, ordered set beats an undifferentiated 339-row ledger. Closed at touchdown by its own instruction; the floor climb resumed, under the **machines heard** headline.
 
-Defined: `docs/DECISIONS.md` — "Trip Sprint (2026-06-30)"; `progress/profile.md` — "Phase 1.5 — The Trip Sprint"
+Defined: `docs/DECISIONS.md` — "Retire the trip deck"; `progress/profile.md` — "Phase 1.5 — The Trip Sprint (RETIRED)"
 
 ---
 
