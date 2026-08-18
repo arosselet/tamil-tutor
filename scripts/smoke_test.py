@@ -1227,7 +1227,16 @@ CODE_BUDGETS = {
     # exist, and deleting those three lines removes the feature whole — which is
     # the point, it was commissioned to be easily removable. The 08-01 split note
     # still stands as the answer to the next raise.
-    "scripts/morning_knock.py": 635,
+    # 635 → 636 (2026-08-18, Andrew): `budget()` and its REASONING_HEADROOM. Stated
+    # plainly because the ratchet asks: this is +1 with nothing deleted here, and
+    # nothing deleted elsewhere either — seven `max_tokens` literals became seven
+    # `budget(N)` calls. What it replaces is an IDIOM, like the 08-05 raise above:
+    # each call site guessing a ceiling that had to cover BOTH its artifact and the
+    # model's thinking. Reasoning cost is a property of MODEL, so it lives beside
+    # MODEL; the alternative is what actually happened — the reply judge patched in
+    # isolation on 08-05 and the same bug taking the knock lane and the drill sheet
+    # down together on 08-18. One line, and a model swap can no longer half-land.
+    "scripts/morning_knock.py": 636,
     # The mandate as a module: almost entirely prompt string (word-budgeted as
     # OUTREACH_MANDATE in PROSE_BUDGETS above), so its code budget exists only
     # to satisfy the every-file-is-budgeted guard and to catch machinery

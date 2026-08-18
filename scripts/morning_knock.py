@@ -62,6 +62,33 @@ MODEL = "anthropic/claude-sonnet-5"   # Andrew's default; fallback e.g. "google/
 # corpus for an A/B if the record ever starts looking off. Andrew is the judge of
 # whether it drifts (his call, 2026-08-18).
 
+# THINKING IS PART OF THE BUDGET, and only the MODEL knows what it costs
+# (2026-08-18, hours after the swap above). Sonnet 5 reasons before it answers and
+# OpenRouter counts those tokens against `max_tokens`. MEASURED the same day:
+# 1624–2974 reasoning tokens on a studio-sized prompt, and enough on `decide()` —
+# the largest prompt in the system against a 1600 ceiling — to leave zero
+# characters of artifact. That took cloud Anna's knock lane down completely (run
+# 32121449441, three retries, all truncated) and killed the drill sheet locally.
+#
+# THIS IS THE SECOND TIME, WHICH IS THE WHOLE POINT. On 2026-08-05 the reply judge
+# hit exactly this and was fixed by raising exactly that one literal to 1600 — see
+# the comment still sitting at that call site. A per-lane patch for a per-MODEL
+# property leaves every other lane silently mis-calibrated until it happens to run;
+# the drill lane then went 17 days before anyone found out.
+#
+# So a call site declares what its ANSWER needs — which is what it actually knows —
+# and the thinking room is added HERE, once. Swap the model, change one number.
+# A ceiling is not a spend: unused headroom is billed at nothing, so headroom is
+# free insurance and a truncation is a dead lane.
+# REPLACES: seven hand-tuned `max_tokens` literals across five modules.
+REASONING_HEADROOM = 4000
+
+
+def budget(answer_tokens: int) -> int:
+    """The ceiling for one call: what the artifact needs, plus this model's room to
+    think. Call sites pass the former; never a raw `max_tokens` on a `MODEL` call."""
+    return answer_tokens + REASONING_HEADROOM
+
 # STRUCTURED OUTPUT, one definition (2026-08-18). Every JSON lane sends this; the
 # text lanes (`rephrase_phonetic` here, the studio's prose writers) must NOT.
 #
@@ -121,7 +148,7 @@ def rephrase_phonetic(body: str) -> str:
     spelt the thing, does the work and the lexicon only catches what it misses."""
     client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
     resp = client.chat.completions.create(
-        model=MODEL, max_tokens=300,
+        model=MODEL, max_tokens=budget(300),
         messages=[{"role": "system", "content": PHONETIC_REWRITE},
                   {"role": "user", "content": body}])
     return (resp.choices[0].message.content or "").strip()
@@ -727,7 +754,7 @@ def decide(digest: str, volley_menu: list | None = None) -> dict:
     ]
     last_err: Exception | None = None
     for attempt in range(1, 4):
-        resp = client.chat.completions.create(model=MODEL, max_tokens=1600,
+        resp = client.chat.completions.create(model=MODEL, max_tokens=budget(1600),
                                               messages=messages, response_format=JSON_MODE)
         try:
             d = parse_llm_response(resp)

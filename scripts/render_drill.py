@@ -33,7 +33,7 @@ from openai import OpenAI
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
-from morning_knock import (OPENROUTER_BASE, MODEL, ANNA_VOICE, load_env,
+from morning_knock import (OPENROUTER_BASE, MODEL, budget, ANNA_VOICE, load_env,
                            push_to_phone, commit_and_push, jsdelivr_url,
                            parse_llm_response, JSON_MODE)
 from render_audio import generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME, clean_for_tts
@@ -160,9 +160,13 @@ def with_lead(pending: list[dict], lead: list[dict]) -> list[dict]:
     return lead + [t for t in pending if t["word"] not in have]
 
 
-def ask_json(system: str, user: str, max_tokens: int = 2400, tries: int = 3) -> dict:
+def ask_json(system: str, user: str, answer_tokens: int = 2400, tries: int = 3) -> dict:
     """One LLM call → parsed JSON. Shared by the sheet writer, the answer-key lint
     and the long-haul movement writer, so the parsing lives once.
+
+    `answer_tokens` is what the ARTIFACT needs; `budget()` adds this model's
+    thinking room on top (2026-08-18 — Sonnet 5's reasoning is billed inside
+    `max_tokens`, and at a flat 2400 it ate the sheet before the first brace).
 
     THIS NOW PARSES THROUGH `parse_llm_response`, AND REPLACES a private parse that
     only ever looked at character 0 — bare text straight to `json.loads`, a fence
@@ -187,7 +191,7 @@ def ask_json(system: str, user: str, max_tokens: int = 2400, tries: int = 3) -> 
     client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
     for attempt in range(1, tries + 1):
         resp = client.chat.completions.create(
-            model=MODEL, max_tokens=max_tokens, response_format=JSON_MODE,
+            model=MODEL, max_tokens=budget(answer_tokens), response_format=JSON_MODE,
             messages=[{"role": "system", "content": system},
                       {"role": "user", "content": user}])
         try:
@@ -240,7 +244,7 @@ def lint_sheet(sheet: dict) -> list[str]:
         return []
     listing = "\n".join(f"{n}. cue: {i['cue']}\n   answer: {i['answer_ta']}"
                         for n, i in enumerate(items, 1))
-    verdicts = ask_json(LINT_MANDATE, listing, max_tokens=1200).get("verdicts", [])
+    verdicts = ask_json(LINT_MANDATE, listing, answer_tokens=1200).get("verdicts", [])
     if len(verdicts) != len(items):
         raise ValueError(f"lint returned {len(verdicts)} verdicts for {len(items)} items")
     fails = []

@@ -47,7 +47,7 @@ from openai import OpenAI
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from render_chat import render_chat
-from morning_knock import (OPENROUTER_BASE, MODEL, KNOCK_LOG_PATH, KNOCKS_DIR,
+from morning_knock import (OPENROUTER_BASE, MODEL, budget, KNOCK_LOG_PATH, KNOCKS_DIR,
                            ANNA_VOICE, load_env, push_to_phone,
                            commit_and_push, maybe_enqueue_schedule, render_memo,
                            jsdelivr_url, refresh_feed, to_phonetic, parse_llm_response,
@@ -408,7 +408,7 @@ def judge_catch(knock: dict, reply_text: str, klog: list | None = None) -> dict:
     resp = client.chat.completions.create(
         model=MODEL,
         response_format=JSON_MODE,
-        max_tokens=400,
+        max_tokens=budget(400),
         messages=[
             {"role": "system", "content": persona + "\n\n---\n\n" + CATCH_JUDGE_MANDATE
                                           + "\n" + THREAD_MANDATE},
@@ -663,15 +663,16 @@ def judge(knock: dict, reply_text: str, target_record: dict | None,
     resp = client.chat.completions.create(
         model=MODEL,
         response_format=JSON_MODE,
-        # 800 → 1600 (2026-08-05, Andrew). At 800 this call spent ~750 tokens
-        # deliberating in prose and was cut off mid-word before its first brace
-        # — the whole budget went to reasoning, none to the artifact. 1600 is
-        # not a new magic number: it is what `decide()` already uses for
-        # comparable structured output, and this call arguably does more (an
-        # 11-key schema plus a slip-ledger tag match). Cost is unchanged on a
-        # normal run — a ceiling is not a spend, and the median verdict lands
-        # nowhere near it.
-        max_tokens=1600,
+        # 1600 is what the ARTIFACT needs — an 11-key schema plus a slip-ledger
+        # tag match — and nothing else. The thinking room is added by `budget()`.
+        #
+        # This number was 800 until 2026-08-05, when the call spent ~750 tokens
+        # deliberating in prose and was cut off mid-word before its first brace.
+        # The fix then was to raise this one literal, which was right for this lane
+        # and left every other one wrong: on 2026-08-18 the same failure took the
+        # knock lane and the drill sheet down together. Reasoning cost belongs to
+        # the model, so it now lives with the model (`morning_knock.budget`).
+        max_tokens=budget(1600),
         messages=[
             {"role": "system", "content": persona + "\n\n---\n\n" + mandate},
             {"role": "user", "content": json.dumps(context, ensure_ascii=False, indent=2)},
