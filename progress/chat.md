@@ -30,6 +30,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > on it — composing now.
 
+**08:50 · Andrew** — **CHAT**
+> You say on it but then there’s no audio attached
+
+**Anna ↩**
+> my bad — here it is now 👇
+
 
 ## Sunday 2026-08-16
 
