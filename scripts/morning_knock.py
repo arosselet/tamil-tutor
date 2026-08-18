@@ -395,7 +395,24 @@ def volley_targets(n: int = VOLLEY_SIZE) -> list[dict]:
     honest (Anna's taste concentrated reps on the same few headliners while 50+
     items got zero touches, 2026-07-08). The order is `drill_menu`'s own —
     tier-first, coverage-first, recently-asked demoted (2026-07-25); UNSEEN and
-    ear-only items excluded (teach-first / never-fire laws)."""
+    ear-only items excluded (teach-first / never-fire laws).
+
+    IT SEARCHES A BOUNDED SLICE, and that bound is deliberate (2026-08-18). It
+    used to walk every pending deck row — 35 of them — looking for VOLLEY_SIZE
+    non-UNSEEN items; it now sees `drill_menu`'s FOCUS_SIZE head. Drawing deeper
+    would be the obvious "fix" and is the wrong one: the focus set IS the
+    dense-rotation budget, so a volley reaching past it would drill words the
+    budget says are not in rotation.
+
+    So this returns SHORT when the head is unseen-heavy, and `volley_block`
+    emits nothing below two — which is correct, not a failure: a focus set that
+    is mostly UNSEEN wants a teach/show dose, not a cold blitz. Measured against
+    live state the head is nowhere near that (28 unseen rows, diluted among 125
+    tied at never-surfaced, so ~1-5 of any 12), and a freshly seeded set returns
+    zero under the old code too — every row is unseen and nothing is quizzable
+    yet. If a volley ever goes missing on a day that looks drillable, this bound
+    is the first place to look, and the answer is a teach dose, not a bigger
+    slice."""
     from suggest_targets import drill_menu  # lazy: keeps module import light
     lex = load_json(LEXICON_PATH) or {}
     out = []
