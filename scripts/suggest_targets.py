@@ -100,6 +100,21 @@ STUCK_REPS = 10
 # had no follow-up path at all ("open and unanswered", DECISIONS 07-28): cold is
 # a one-way door and hinted was a no-way door.
 RETEST_DAYS = 14
+# How long a fired ask suppresses re-asking the same item. 3 → 7 (2026-08-18).
+#
+# THE WINDOW MUST EXCEED ANDREW'S REPLY LATENCY, or it expires before he ever
+# answers and the guard protects nothing. The incident: `இன்னொரு தடவ சொல்லுங்க`
+# was asked 08-09 (fielding), 08-12 (volley 3/4) and 08-16 (challenge) — gaps of
+# exactly 3 and 4 days, so every re-ask landed just outside a 3-day window. Over
+# that stretch he answered 4 of 14 knocks (jet lag, first week in country), so
+# his real latency was 4–7 days against a 3-day guard.
+#
+# This is the second half of KF-6's law. That fix stopped the same ask firing
+# under different move names by counting asks; it assumed an ask would be
+# answered within the window. An UNANSWERED ask never sets `last_surfaced`, so
+# the item stays maximally stale and silence makes it MORE eligible, not less —
+# the guard is the only thing standing against that, and it was too short.
+ASK_COOLDOWN_DAYS = 7
 
 
 TOKEN_RE = re.compile(r"\w+", re.UNICODE)
@@ -166,7 +181,7 @@ def rep_counts(lexicon: dict) -> dict:
     STUCK flag on a never-drilled word, focus seats allocated by mention
     frequency). Probe matching survives only in `recent_ask_counts`.
 
-    Not to be confused with `recent_ask_counts`, which is a 3-day COOLDOWN — a
+    Not to be confused with `recent_ask_counts`, which is an ASK_COOLDOWN_DAYS COOLDOWN — a
     different question with a different answer. Using the cooldown as the
     coverage term was the other 2026-07-26 defect: on day 4 a word's count
     resets and it rejoins the front of the queue, so ~24 words cycled forever
@@ -255,7 +270,7 @@ def floor_gap_targets(lexicon: dict, today, max_n: int,
         c["band"] = "background"
     # Within the focus set, least-repped first — spread the reps across the
     # cohort rather than finishing one word at a time. The cooldown still
-    # applies INSIDE the set: a word asked in the last 3 days drops behind its
+    # applies INSIDE the set: a word asked inside the cooldown drops behind its
     # cohort-mates for a couple of days. That is the job `asks` was built for
     # and the only job it does now.
     focus.sort(key=lambda c: (c["asks"], coverage_key(c)))
@@ -311,7 +326,7 @@ def deck_rank(word: str, regs: dict) -> int:
     return DECK_TIERS.get(regs.get(word, ""), 1) if word in regs else 3
 
 
-def recent_ask_counts(klog: list, lexicon: dict, days: int = 3, now=None) -> dict:
+def recent_ask_counts(klog: list, lexicon: dict, days: int = ASK_COOLDOWN_DAYS, now=None) -> dict:
     """word → how many fired knocks in the last `days` asked for it (the original
     `expected_target`) or printed it (body/memo/recast, whole chains).
 
@@ -393,7 +408,7 @@ def deck_status(lexicon: dict, deck: str = "trip", today=None,
         "exposures": r.get("exposures", 0),
     } for w, r in fire if r.get("production") != "cold"]
     # tier → ask-cooldown → coverage_key. Tier is the 07-13 touchdown bar and
-    # stays primary; the 3-day cooldown rides next, exactly as inside the
+    # stays primary; the ask cooldown rides next, exactly as inside the
     # floor's focus set — an unanswered ask is SPEND, and without this term a
     # hidden-target ask would sit at the front and re-fire forever (KF-6; the
     # old rep miner hid this by counting the ask as a rep). The rest is
@@ -908,7 +923,7 @@ def main():
     for t in gap:
         tag = "hinted→cold" if t["production"] == "hinted" else f"{t['recognition']}, cold-pending"
         rep = f"{t['reps']} rep{'s' if t['reps'] != 1 else ''}" if t["reps"] else "never drilled"
-        cool = "  · asked in last 3d — vary the scene or take the next one" if t["asks"] else ""
+        cool = f"  · asked in last {ASK_COOLDOWN_DAYS}d — vary the scene or take the next one" if t["asks"] else ""
         if t["reps"] >= STUCK_REPS:
             cool = (f"  · ⚠ STUCK — {t['reps']} reps and still not cold (most words take 2). "
                     f"Drilling it again won't work; change the angle.")

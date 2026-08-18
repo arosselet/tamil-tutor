@@ -76,6 +76,29 @@ def knocks_since(klog: list, last_session: str | None, cap: int = 6) -> list[dic
     return entries[-cap:]
 
 
+def _answered_targets(klog: list, days: int) -> set:
+    """Targets that actually got a reply inside the window.
+
+    The distinction the cooldown itself does not draw, and the one that matters
+    most here: an ask that was ANSWERED tells you the item was worked, while an
+    ask that drew silence tells you nothing — and silence is the case that
+    quietly makes an item MORE eligible, since a reply-less ask never sets
+    `last_surfaced` (`suggest_targets.recent_ask_counts`). Anna re-commissioning
+    on the strength of an unanswered ask is the exact loop being closed."""
+    cutoff = datetime.now(LOCAL_TZ).timestamp() - days * 86400
+    out = set()
+    for k in klog:
+        if not k.get("acted", True) or not (k.get("reply") or k.get("exchanges")):
+            continue
+        try:
+            ts = datetime.fromisoformat((k.get("timestamp") or "").replace("Z", "+00:00"))
+        except ValueError:
+            continue
+        if ts.timestamp() >= cutoff and k.get("expected_target"):
+            out.add(k["expected_target"])
+    return out
+
+
 def knock_line(k: dict) -> str:
     """One digest line per knock: what went out, what came back."""
     body = (k.get("body") or "").replace("\n", " ")
@@ -229,6 +252,30 @@ def cmd_status(_args):
         print(f"\nKnocks since last logged session ({len(since)} shown — replies here are already judged; don't re-collect):")
         for k in since:
             print(knock_line(k))
+    # THE COOLDOWN, ON THE SURFACE ANNA ACTUALLY READS (2026-08-18).
+    #
+    # The knock lane has been guarded since KF-6: `deck_due_list` warns the
+    # decider "asked/shown N× in last {ASK_COOLDOWN_DAYS}d". This brief — the
+    # surface Anna reads when he writes the soak order, the campaign mission and
+    # the slip medicine — never carried that signal at all, because it does not
+    # import the selector. Three lanes choosing blind is how `இன்னொரு தடவ
+    # சொல்லுங்க` reached six surfaces in eight days under four different move
+    # names, which is KF-6's symptom coming back through the door KF-6 left open.
+    #
+    # ADVISORY BY CONSTRUCTION, and that is the honest limit: the soak order and
+    # the campaign line are Anna's prose, so Python has no choke point to block
+    # them the way `deck_status` demotes a deck row. This tells him; it cannot
+    # stop him. The hard guard is still the deck lane's (KF-13's rule — say it in
+    # the mandate, cap the blast radius in Python — is only half-satisfiable here).
+    from suggest_targets import ASK_COOLDOWN_DAYS, recent_ask_counts
+    asked = recent_ask_counts(klog, lexicon or {})
+    if asked:
+        answered = _answered_targets(klog, ASK_COOLDOWN_DAYS)
+        print(f"\nALREADY ASKED (last {ASK_COOLDOWN_DAYS}d — do NOT re-commission these; "
+              f"a repeat needs a genuinely new angle, or take another item):")
+        for w, n in sorted(asked.items(), key=lambda kv: -kv[1]):
+            tail = "" if w in answered else " · UNANSWERED — silence is not a reason to re-ask"
+            print(f"  - {w} — asked/shown {n}×{tail}")
     trailer = unpaid_trailer(klog, last)
     if trailer:
         body = (trailer.get("body") or "").replace("\n", " ")

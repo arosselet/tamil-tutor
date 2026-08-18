@@ -358,7 +358,7 @@ def deck_due_list(max_fire: int = 6, max_catch: int = 2) -> str:
     only the deck METER; this is the menu. Items never soaked anywhere are
     flagged UNSEEN — the mandate forbids cold-quizzing those (teach first,
     show dose)."""
-    from suggest_targets import deck_status  # lazy: keeps module import light
+    from suggest_targets import ASK_COOLDOWN_DAYS, deck_status  # lazy: keeps module import light
     from sync_state import is_unseen
     lex = load_json(LEXICON_PATH) or {}
     deck = deck_status(lex)
@@ -370,7 +370,7 @@ def deck_due_list(max_fire: int = 6, max_catch: int = 2) -> str:
         if is_unseen(lex.get(t["word"], {})):
             state += " · ⚠ UNSEEN — teach first (show dose), don't quiz"
         if t["asks"]:
-            state += (f" · ⚠ asked/shown {t['asks']}× in last 3d — needs a genuinely "
+            state += (f" · ⚠ asked/shown {t['asks']}× in last {ASK_COOLDOWN_DAYS}d — needs a genuinely "
                       f"new scene, or pick another item")
         lines.append(f"    [{t['kind']}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{state}]")
     for t in deck["catch_pending"][:max_catch]:

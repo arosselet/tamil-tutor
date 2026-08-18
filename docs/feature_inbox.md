@@ -802,3 +802,15 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
   further than we were" are real and good (engines 26%→90.5%, floor 15.3%→26.2%, 75 cold fires,
   4 demotions across 30 sessions). The law says name ground covered; nothing yet does it from
   the record rather than from Anna's memory of the last session.
+- **A per-item pending-ask state, consulted by every writer** (2026-08-18, scoped out of the
+  cooldown fix in the same breath). The 08-18 change widens the window and puts ALREADY ASKED in
+  front of Anna, but it stays **advisory** on the three lanes that are prose: the soak order, the
+  campaign mission and the slip medicine are Anna's sentences, and Python has no choke point on
+  them the way `deck_status` demotes a deck row. KF-13's law — say it in the mandate AND cap the
+  blast radius in Python — is only half-satisfiable today. The complete answer is an explicit
+  per-item state (`asked_at` / `answered_at`, or a derived `pending` view) that `sync_state`
+  checks when `--soak-payload` or a campaign line names an item with an unanswered ask
+  outstanding, and refuses or warns loudly. **Held at Gate 2** — that is a schema change, and the
+  incident that would justify it has now happened exactly once. If a second item reaches three-plus
+  surfaces while ALREADY ASKED is on screen, that is the reproduced pattern and it earns the
+  mechanism; until then the cheaper guard may well be enough.

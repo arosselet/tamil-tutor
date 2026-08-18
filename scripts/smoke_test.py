@@ -2482,7 +2482,7 @@ def s32_deck_rotation_and_coverage(mk, sb: Path):
     # so the ask count is the only thing that can separate them — and `-a` sorts
     # first alphabetically, which is what the old key fell through to.
     lex.update({
-        "smoke:floor-a": {"gloss": "asked 2 days ago", "phonetic": [], "type": "chunk",
+        "smoke:floor-a": {"gloss": "asked outside the cooldown", "phonetic": [], "type": "chunk",
                           "recognition": "comfortable", "production": "none",
                           "seen_in": [1], "last_surfaced": None},
         "smoke:floor-b": {"gloss": "never asked", "phonetic": [], "type": "chunk",
@@ -2497,7 +2497,11 @@ def s32_deck_rotation_and_coverage(mk, sb: Path):
     # names only item 1, so items 2..n were invisible to the ask count while the
     # volley is the deck's main volume channel.
     recent_ts = (datetime.now(timezone.utc) - timedelta(hours=8)).isoformat()
-    old_ts = (datetime.now(timezone.utc) - timedelta(days=5)).isoformat()
+    # Derived from the constant, never a literal: this was `days=5`, which sat
+    # outside the 3-day cooldown and INSIDE the 7-day one (2026-08-18), so
+    # widening the window silently flipped an assertion about lifetime reps.
+    old_ts = (datetime.now(timezone.utc)
+              - timedelta(days=st.ASK_COOLDOWN_DAYS + 2)).isoformat()
     klog = [{"acted": True, "timestamp": recent_ts, "modality": "volley",
              "expected_target": "smoke:surv-mid", "body": "volley 1/2",
              "volley": [{"target": "smoke:surv-mid", "ask": "a"},
@@ -2559,7 +2563,7 @@ def s32_deck_rotation_and_coverage(mk, sb: Path):
         check("the mention still feeds the reveal-cooldown — its one legitimate home",
               st.recent_ask_counts(klog + [mention], lex).get("smoke:floor-b") == 1,
               "the cooldown lost its probe matching")
-        check("coverage counts LIFETIME reps, not the 3-day cooldown",
+        check("coverage counts LIFETIME reps, not the ask cooldown",
               reps.get("smoke:floor-a") == 1 and not asked.get("smoke:floor-a"),
               f"got {reps} / asked {asked}")
         focus, _bg = st.floor_gap_targets(lex, today, 20, asked=asked, reps=reps,
@@ -5833,6 +5837,95 @@ def s63_the_machines_reach_the_ticket():
           "frame:unmet" not in {c["word"] for c in gc.due_callbacks(lex, today, 5)})
 
 
+def s64_the_ask_cooldown_covers_the_session_lane(sb: Path):
+    """One item, six surfaces, four move names (2026-08-18, Andrew).
+
+    `இன்னொரு தடவ சொல்லுங்க` was pushed on 08-09 (fielding), 08-12 (volley 3/4),
+    08-15 (slip medicine + soak order + campaign mission) and 08-16 (challenge)
+    until Andrew asked why he was being taught the same line for a week. Two
+    independent holes, both closed here:
+
+      1. THE WINDOW WAS SHORTER THAN HIS REPLY LATENCY. Gaps of exactly 3 and 4
+         days against a 3-day cooldown, so every re-ask landed just outside it.
+         He answered 4 of 14 knocks that week — a guard that expires in 3 days
+         cannot hold an item that takes 4-7 to get answered.
+      2. THE SESSION LANE COULD NOT SEE THE COOLDOWN AT ALL. `deck_due_list`
+         warns the knock decider, but the soak order, the campaign mission and
+         the slip medicine are written by Anna off `session_brief`, which never
+         imported the selector. Three of the six surfaces came from there.
+
+    This is KF-6 returning through the door KF-6 left open: its fix counted asks
+    for the deck menu and assumed one menu.
+
+    Gate 7.2 — the silent no-op: a cooldown that suppresses nothing renders as a
+    perfectly healthy ticket. Every row is real, every row is genuinely due, and
+    the only evidence of failure is a repeat a week later that no instrument
+    reports. So the assertions are on the EFFECT at both surfaces — the count
+    itself, and the text the session surface actually prints, re-read off
+    `cmd_status` rather than off the function that computes it."""
+    print("\n64. The ask cooldown covers the session lane (2026-08-18)")
+    import contextlib
+    st = importlib.import_module("suggest_targets")
+    sbf = importlib.import_module("session_brief")
+    lex_path, klog_path = sb / "progress" / "lexicon.json", sb / "progress" / "knock_log.json"
+    saved = (lex_path.read_bytes(), klog_path.read_bytes())
+    now = datetime.now(timezone.utc)
+    ago = lambda d: (now - timedelta(days=d)).isoformat()
+    w, other = "இன்னொரு தடவ சொல்லுங்க", "smoke:answered"
+
+    check("the window exceeds the observed reply latency (4-7d)",
+          st.ASK_COOLDOWN_DAYS >= 7, f"got {st.ASK_COOLDOWN_DAYS}")
+
+    write_json(lex_path, {
+        w: {"gloss": "say it once more", "phonetic": ["innoru thadava sollunga"],
+            "type": "chunk", "recognition": "struggled", "production": "hinted",
+            "deck": "trip", "direction": "fire", "seen_in": []},
+        other: {"gloss": "x", "phonetic": ["x"], "type": "chunk", "recognition": "struggled",
+                "production": "hinted", "seen_in": []},
+    })
+    # The real sequence: gaps of 3 then 4 days, none answered.
+    klog = [{"acted": True, "timestamp": ago(6), "modality": "fielding",
+             "move": "fielding: innoru thada", "expected_target": w, "body": "answer her"},
+            {"acted": True, "timestamp": ago(3), "modality": "volley",
+             "move": "volley: sprint burn 3/4", "expected_target": w, "body": "ask her again"},
+            # answered, and inside the window — must NOT be marked unanswered
+            {"acted": True, "timestamp": ago(2), "modality": "text", "move": "collect",
+             "expected_target": other, "body": "x", "reply": "sari", "reply_verdict": "cold"},
+            # long past the window — must age out entirely
+            {"acted": True, "timestamp": ago(30), "modality": "text", "move": "old",
+             "expected_target": "smoke:ancient", "body": "x"}]
+    write_json(klog_path, klog)
+
+    lex_now = read_json(lex_path)
+    # THE DELTA IS THE PROOF, not an absolute count: under the retired 3-day
+    # guard this exact sequence was invisible, which is why it fired three times.
+    old = st.recent_ask_counts(klog, lex_now, days=3)
+    asked = st.recent_ask_counts(klog, lex_now)
+    check("the retired 3-day guard saw NOTHING here — this is the bug, reproduced",
+          not old.get(w), f"got {old}")
+    check("the widened window catches both re-asks",
+          asked.get(w) == 2, f"got {asked}")
+    check("an ask well outside the window still ages out",
+          "smoke:ancient" not in asked, f"got {asked}")
+
+    sbf.git_sync_counts = lambda: (0, 0)
+    out = io.StringIO()
+    with contextlib.redirect_stdout(out):
+        sbf.cmd_status(None)
+    text = out.getvalue()
+
+    check("the session surface prints the cooldown at all", "ALREADY ASKED" in text)
+    check("...and names the over-asked item", w in text.split("ALREADY ASKED")[1][:400])
+    check("an unanswered ask is called out — silence must not read as a reason to re-ask",
+          "UNANSWERED" in text.split("ALREADY ASKED")[1][:400])
+    body = [ln for ln in text.splitlines() if ln.strip().startswith(f"- {other}")]
+    check("an ANSWERED ask is listed without the unanswered warning",
+          body and "UNANSWERED" not in body[0], f"got {body}")
+
+    write_json(lex_path, json.loads(saved[0].decode("utf-8")))
+    write_json(klog_path, json.loads(saved[1].decode("utf-8")))
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
@@ -5901,6 +5994,7 @@ def main():
         s61_no_number_is_recited_at_him(kr, sb)
         s62_the_return_clock_is_keyed_to_the_ear(sb)
         s63_the_machines_reach_the_ticket()
+        s64_the_ask_cooldown_covers_the_session_lane(sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)
