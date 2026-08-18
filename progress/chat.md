@@ -18,6 +18,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **19:50 · Anna**  ·  text / trailer payoff: repair line
 > innoru thadava sollunga — 'say it once more.' appadiyaa keeps the speaker going; this one changes what you hear next. deploy it tonight 🎯
 
+**08:44 · Andrew** — **CHAT**
+> Send an audio greeting in Tamil for Vadivu. She’s a native speaker.
+
+**Anna ↩**
+> on it — recording now for Vadivu.
+
 
 ## Sunday 2026-08-16
 
