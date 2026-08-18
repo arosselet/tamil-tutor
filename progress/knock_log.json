@@ -4519,5 +4519,17 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-18T03-38.mp3",
     "memo_script": "மீனா: ஹலோ சித்ரா, என்னம்மா — கல்யாணம் confirm-ஆச்சா?\n\nசித்ரா: ஆமா ஆமா! நம்ம Rekha-வோட பொண்ணு இருக்காங்களே — அவங்க பொண்ணுக்குத்தான். ரொம்ப நல்ல பையன் கிடைச்சிருக்கான், நான் பாத்துக்கிறேன் சொல்லி நல்லா கஷ்டப்பட்டேன்!\n\nமீனா: அட, Rekha-வே சொல்லல்லியே? எனக்கு தெரியவே தெரியல.\n\nசித்ரா: நம்ம ஊர்ல இருக்காங்களே — அவங்களுக்கு தெரியும், உனக்கு தெரியல-னு சொன்னேன். போன வாரமே fix ஆச்சாம். Rekha panic-ஆகிட்டிருக்காங்க, function எல்லாம் நான்-ஏ பாத்துக்கிறேன்-னு சொன்னேன்.\n\nமீனா: அவங்க lucky-யா இருக்காங்க, உன்னால.\n\nசித்ரா: ஏன் இல்ல! சரி, நீ வர்றியா?",
     "mp3": "published_audio/knocks/knock_2026-08-18T03-38.mp3"
+  },
+  {
+    "date": "2026-08-18",
+    "timestamp": "2026-08-18T10:21:06.723638+00:00",
+    "acted": true,
+    "modality": "challenge",
+    "move": "field mission: take spoon",
+    "rationale": "story names tonight's mission explicitly (take the spoon, not just stop the ladle) — a genuinely new action-angle on a line asked-but-unanswered before, deployed ahead of dinner as a covert drop with debrief scheduled for tomorrow morning.",
+    "next_check": "2026-08-18T15:21:06.723638+00:00",
+    "body": "at dinner tonight, don't just stop her — TAKE the spoon: 'naane eduthukkaren.' fire it unprompted. debrief tomorrow 🥄",
+    "expected_target": "நானே எடுத்துக்கறேன்",
+    "target_revealed": true
   }
 ]

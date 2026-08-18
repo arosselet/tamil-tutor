@@ -2850,10 +2850,10 @@
     "seen_in": [
       82
     ],
-    "last_surfaced": "2026-08-14",
+    "last_surfaced": "2026-08-18",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 3,
+    "exposures": 4,
     "reps": 1,
     "register": "mil-table"
   },
