@@ -318,5 +318,9 @@
   {
     "date": "2026-08-18",
     "note": "[phone] Andrew asked for a short Tamil audio story about Ava eating vada — commissioned, not a rep attempt."
+  },
+  {
+    "date": "2026-08-18",
+    "note": "[phone] anna_sent_audio field was absent on the Ava-vada story turn — delivery failed; Andrew noticed and flagged it. always verify audio rendered before marking 'on it' as done."
   }
 ]
