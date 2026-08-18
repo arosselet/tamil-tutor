@@ -1,16 +1,22 @@
 #!/usr/bin/env python3
 """
-Studio dispatch — the agy (Gemini) writer + the local Python renderer.
+Studio dispatch — the writer passes + the local Python renderer.
 
-The writer-only split (Andrew, 2026-07-09), tightened same day: agy runs each
-studio pass as a SANDBOXED, PRINT-ONLY call — Director → Architect → Producer,
-one agy invocation per pass, exactly the pipeline the protocol prescribes
+The writer-only split (Andrew, 2026-07-09), tightened same day: the writer runs
+each studio pass as a READ-ONLY, PRINT-ONLY call — Director → Architect →
+Producer, one invocation per pass, exactly the pipeline the protocol prescribes
 (collapsing the three passes into one shot produced flat, off-canon scripts;
-the isolated-pass probe was good). Gemini never writes a file, never runs a
+the isolated-pass probe was good). The writer never writes a file, never runs a
 command, never sees git: Python captures each pass's stdout, writes the three
 artifacts, LINTS them deterministically, and hands the script to
 render_audio.py — which owns TTS, registration, lexicon seeding, the feed,
 and the commit exactly as in any other production run.
+
+TWO EXECUTORS, ONE MODEL (2026-08-18): `claude -p` where an agent exists (the
+laptop — no cash cost, reads canon off disk), the OpenRouter API where one does
+not (GitHub Actions — `inline_canon` carries the canon instead). Both run
+morning_knock.MODEL. This REPLACES agy/Gemini, retired the same day for running
+on neither host.
 
 Exit 0 = episode rendered and published. Any other exit = the caller falls
 back to the Claude studio subagent (.claude/agents/studio.md) — the
@@ -20,7 +26,7 @@ inspection (git clean removes them).
   python scripts/run_studio.py            # full: three passes, lint, render, publish
   python scripts/run_studio.py --dry-run  # passes + lint only; no render
 
-Needs: agy on PATH (authenticated), GCP ADC for the render step.
+Needs: claude on PATH (or OPENROUTER_API_KEY), GCP ADC for the render step.
 """
 import argparse
 import json
@@ -48,16 +54,29 @@ LESSONS_DIR = BASE / "content" / "lessons"
 CAPTIONS_DIR = BASE / "content" / "captions"
 AUDIO_DIR = BASE / "published_audio"
 
-AGY_MODEL = "Gemini 3.1 Pro (High)"   # pinned: the local agy long-context writer
-PASS_TIMEOUT_S = 900                  # 15 min per pass — each is one print turn
+PASS_TIMEOUT_S = 900   # 15 min per pass — each is one print turn
 
-# The cloud writer: no agy binary and no Claude Code subagent live in a GitHub
-# runner, so a cloud/agy-less host writes each pass through the OpenRouter API —
-# the same path memos already use. Gemini to match agy's model family (Andrew's
-# "good at languages + long context" rationale); Flash tier for cost, since the
-# cloud pays per token where local agy spends Andrew's standing Gemini quota
-# (2026-07-24 decision). ~$0.03/episode at this tier.
-CLOUD_WRITER_MODEL = "google/gemini-3-flash-preview"
+# THE WRITER IS `claude -p`, AND THE MODEL IS THE ONE EVERY LANE USES
+# (2026-08-18, Andrew — replaces agy/Gemini 3.1 Pro locally and
+# google/gemini-3-flash-preview in the cloud).
+#
+# WHY agy WENT: it was introduced as a cost saving that spent Andrew's standing
+# Gemini quota. On 2026-08-18 it was not installed on the laptop and not
+# authenticated, and a GitHub runner never had the binary — so it ran NOWHERE, and
+# `openrouter_pass`, written for a cloud that has never invoked it, had silently
+# become the only writer executing anywhere. A branch with no live user is not a
+# fallback, it is a second thing to keep correct; the canon-carrying bug fixed
+# earlier today lived in exactly that gap.
+#
+# WHY `claude -p`: the laptop has an agent with a filesystem and a subscription
+# already paid for, so a local pass costs no cash and reads its canon off disk the
+# way agy did. A runner has neither, so it keeps the API. One model across both
+# (morning_knock.MODEL) — a host difference, never a model difference.
+#
+# READ-ONLY BY CONSTRUCTION: the PREAMBLE tells each pass it is print-only;
+# `--allowedTools` now enforces it. A pass can read the canon and nothing else —
+# no writes, no commands, no git. Python remains the only thing that touches disk.
+WRITER_TOOLS = ["Read", "Glob", "Grep"]
 OPENROUTER_BASE = "https://openrouter.ai/api/v1"
 
 TAMIL_RE = re.compile(r"[஀-௿]")
@@ -153,13 +172,17 @@ def episode_paths(n: int) -> dict[str, Path]:
             "captions": CAPTIONS_DIR / f"tier2_mission{n}.md"}
 
 
-def agy_print(label: str, prompt: str) -> str | None:
-    """One sandboxed, print-only pass. Returns stdout, or None on failure."""
-    print(f"   [{label}] agy ({AGY_MODEL})…")
+def claude_print(label: str, prompt: str) -> str | None:
+    """One read-only, print-only pass on the local agent. Returns stdout, or None
+    on failure. Runs in BASE so the pass can read the canon off disk — no
+    `inline_canon` needed here, which is the whole reason a filesystem-having
+    writer is worth preferring."""
+    from morning_knock import MODEL
+    print(f"   [{label}] claude ({MODEL})…")
     try:
         r = subprocess.run(
-            ["agy", "--model", AGY_MODEL, "--sandbox", "--dangerously-skip-permissions",
-             "--print-timeout", "14m", "--print", prompt],
+            ["claude", "-p", "--model", MODEL,
+             "--allowedTools", *WRITER_TOOLS, "--", prompt],
             cwd=BASE, timeout=PASS_TIMEOUT_S, capture_output=True,
             encoding="utf-8", errors="replace")
     except (subprocess.TimeoutExpired, FileNotFoundError) as e:
@@ -254,18 +277,20 @@ def inline_canon(prompt: str) -> str:
 
 
 def openrouter_pass(label: str, prompt: str) -> str | None:
-    """One writer pass through the OpenRouter API — the cloud/agy-less executor.
-    Same contract as agy_print: prompt in, printed artifact out, or None on
-    failure. The prompts are identical to agy's; inline_canon supplies the files
-    agy would have read, so the pipeline is the same and only the executor
-    differs."""
+    """One writer pass through the OpenRouter API — the executor for a host with
+    no agent, which means GitHub Actions. Same contract as `claude_print`: prompt
+    in, printed artifact out, or None on failure. The prompts are identical;
+    `inline_canon` supplies the files a filesystem-having writer would have read,
+    so only the executor differs — never the pipeline, and since 2026-08-18 never
+    the model either."""
     from openai import OpenAI
-    print(f"   [{label}] openrouter ({CLOUD_WRITER_MODEL})…")
+    from morning_knock import OPENROUTER_MODEL, budget
+    print(f"   [{label}] openrouter ({OPENROUTER_MODEL})…")
     try:
         client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
         resp = client.chat.completions.create(
-            model=CLOUD_WRITER_MODEL,
-            max_tokens=8000,
+            model=OPENROUTER_MODEL,
+            max_tokens=budget(8000),
             messages=[{"role": "user", "content": inline_canon(prompt)}],
             timeout=PASS_TIMEOUT_S,
         )
@@ -281,14 +306,15 @@ def openrouter_pass(label: str, prompt: str) -> str | None:
 
 
 def resolve_writer(prefer: str = "auto"):
-    """Pick the pass executor. 'auto' prefers local agy (Andrew's Gemini quota,
-    ~free) and falls back to OpenRouter where agy is absent — which is every
-    cloud runner. 'agy'/'openrouter' force one, for the A/B."""
-    if prefer == "agy":
-        return agy_print
+    """Pick the pass executor. 'auto' prefers the local agent — no cash cost, and
+    it reads the canon off disk instead of relying on `inline_canon` being right —
+    and falls back to OpenRouter where no agent binary exists, which is every cloud
+    runner. 'claude'/'openrouter' force one, for the A/B."""
+    if prefer == "claude":
+        return claude_print
     if prefer == "openrouter":
         return openrouter_pass
-    return agy_print if shutil.which("agy") else openrouter_pass
+    return claude_print if shutil.which("claude") else openrouter_pass
 
 
 def fenced_block(text: str, lang: str) -> str | None:
@@ -296,9 +322,9 @@ def fenced_block(text: str, lang: str) -> str | None:
     return m[-1].strip() if m else None
 
 
-def write_episode(n: int, write_pass=agy_print) -> bool:
+def write_episode(n: int, write_pass=claude_print) -> bool:
     """Run the three passes; persist the three artifacts. Python is the only
-    thing that touches disk. `write_pass` is the executor (agy or OpenRouter) —
+    thing that touches disk. `write_pass` is the executor (claude or OpenRouter) —
     same prompts, same contract, either environment."""
     ticket = subprocess.run([sys.executable, str(BASE / "scripts" / "suggest_targets.py")],
                             capture_output=True, encoding="utf-8", errors="replace",
@@ -514,7 +540,7 @@ def claim_spec(n: int) -> None:
 def renderer_preflight() -> str | None:
     """None when this host can RENDER (TTS credentials + deps), else the reason.
     Separate from the writer check because rendering an already-written script
-    needs no agy — the watchdog's re-render path must not be blocked by it."""
+    needs no writer — the watchdog's re-render path must not be blocked by it."""
     sys.path.insert(0, str(BASE / "scripts"))
     try:
         from render_audio import google_credentials_ready
@@ -524,16 +550,16 @@ def renderer_preflight() -> str | None:
 
 
 def writer_preflight(prefer: str = "auto") -> str | None:
-    """None when a writer is available for `prefer`, else the reason. agy needs
+    """None when a writer is available for `prefer`, else the reason. claude needs
     the binary; openrouter needs the API key; auto is happy with either."""
-    have_agy = bool(shutil.which("agy"))
+    have_claude = bool(shutil.which("claude"))
     have_or = bool(os.environ.get("OPENROUTER_API_KEY"))
-    if prefer == "agy" and not have_agy:
-        return "agy is not on PATH (the local Gemini writer)"
+    if prefer == "claude" and not have_claude:
+        return "claude is not on PATH (the local agent writer)"
     if prefer == "openrouter" and not have_or:
         return "OPENROUTER_API_KEY is not set (the cloud writer)"
-    if prefer == "auto" and not (have_agy or have_or):
-        return "no writer available — need agy on PATH or OPENROUTER_API_KEY"
+    if prefer == "auto" and not (have_claude or have_or):
+        return "no writer available — need claude on PATH or OPENROUTER_API_KEY"
     return None
 
 
@@ -567,15 +593,15 @@ def acquire_dispatch_lock():
 
 
 def main():
-    ap = argparse.ArgumentParser(description="Studio dispatch — agy (local) or OpenRouter (cloud) writer + Python renderer")
+    ap = argparse.ArgumentParser(description="Studio dispatch — claude (local) or OpenRouter (cloud) writer + Python renderer")
     ap.add_argument("--dry-run", action="store_true",
                     help="passes + lint only; no render, no state, no commit")
-    ap.add_argument("--writer", choices=["auto", "agy", "openrouter"], default="auto",
-                    help="pass executor: auto (agy if present, else OpenRouter), or force one (A/B)")
+    ap.add_argument("--writer", choices=["auto", "claude", "openrouter"], default="auto",
+                    help="pass executor: auto (claude if present, else OpenRouter), or force one (A/B)")
     args = ap.parse_args()
 
     # Load .env for the OpenRouter writer key (local); in the cloud the workflow
-    # sets it directly, so a missing .env is fine. agy authenticates separately.
+    # sets it directly, so a missing .env is fine. claude authenticates separately.
     sys.path.insert(0, str(BASE / "scripts"))
     from morning_knock import load_env
     load_env(BASE / ".env")

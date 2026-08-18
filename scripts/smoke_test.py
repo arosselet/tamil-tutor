@@ -1236,7 +1236,13 @@ CODE_BUDGETS = {
     # MODEL; the alternative is what actually happened — the reply judge patched in
     # isolation on 08-05 and the same bug taking the knock lane and the drill sheet
     # down together on 08-18. One line, and a model swap can no longer half-land.
-    "scripts/morning_knock.py": 636,
+    # 636 → 637 (2026-08-18, Andrew): OPENROUTER_MODEL, derived from MODEL. +1 with
+    # nothing deleted, and it buys the invariant Andrew asked for by name — the
+    # model is STATED once and the two executors (claude -p local, API in Actions)
+    # can only differ in slug shape, never in generation. The line it replaces was
+    # a hardcoded vendor-prefixed slug that made "one model everywhere"
+    # unenforceable; the studio had quietly been running a different one.
+    "scripts/morning_knock.py": 637,
     # The mandate as a module: almost entirely prompt string (word-budgeted as
     # OUTREACH_MANDATE in PROSE_BUDGETS above), so its code budget exists only
     # to satisfy the every-file-is-budgeted guard and to catch machinery
@@ -1862,15 +1868,15 @@ def s25_studio_concurrency_and_secrets(sb: Path):
         google.auth.default = lambda *a, **k: (object(), "fake-project")
         check("ADC present → no reason", ra.google_credentials_ready() is None)
 
-        # Re-rendering an existing script needs TTS only. Gating it on agy would
-        # strand a scripted-but-unrendered episode on a host that can render.
-        # (ADC still mocked-present here, so this isolates the agy axis.)
+        # Re-rendering an existing script needs TTS only. Gating it on the WRITER
+        # would strand a scripted-but-unrendered episode on a host that can render.
+        # (ADC still mocked-present here, so this isolates the writer axis.)
         rs = importlib.import_module("run_studio")
         real_which = rs.shutil.which
-        rs.shutil.which = lambda cmd: None if cmd == "agy" else real_which(cmd)
+        rs.shutil.which = lambda cmd: None if cmd in ("claude", "agy") else real_which(cmd)
         try:
-            check("no agy → render path still allowed", rs.renderer_preflight() is None)
-            check("no agy → fresh-episode path blocked", rs.preflight() is not None)
+            check("no writer → render path still allowed", rs.renderer_preflight() is None)
+            check("no writer → fresh-episode path blocked", rs.preflight() is not None)
         finally:
             rs.shutil.which = real_which
     finally:
@@ -2047,24 +2053,25 @@ def s28_cloud_writer(sb: Path):
     print("\n28. Studio writer is executor-agnostic; cloud carries its canon (2026-07-24)")
     rs = importlib.import_module("run_studio")
 
-    # The resolver: agy local (Andrew's Gemini quota), OpenRouter in the cloud
-    # where no agy/subagent binary exists.
-    check("force agy → agy_print", rs.resolve_writer("agy").__name__ == "agy_print")
+    # The resolver: `claude -p` locally (Andrew's subscription, and a filesystem
+    # so the canon is READ rather than inlined), OpenRouter where no agent binary
+    # exists — which is every cloud runner. agy retired 2026-08-18.
+    check("force claude → claude_print", rs.resolve_writer("claude").__name__ == "claude_print")
     check("force openrouter → openrouter_pass",
           rs.resolve_writer("openrouter").__name__ == "openrouter_pass")
 
     real_which = rs.shutil.which
-    rs.shutil.which = lambda c: None if c == "agy" else real_which(c)
+    rs.shutil.which = lambda c: None if c == "claude" else real_which(c)
     try:
-        check("auto with no agy → openrouter", rs.resolve_writer("auto").__name__ == "openrouter_pass")
+        check("auto with no claude → openrouter", rs.resolve_writer("auto").__name__ == "openrouter_pass")
         prev = os.environ.pop("OPENROUTER_API_KEY", None)
         try:
-            check("no agy + no key → auto preflight fails",
+            check("no claude + no key → auto preflight fails",
                   rs.writer_preflight("auto") is not None)
             os.environ["OPENROUTER_API_KEY"] = "x"
-            check("no agy + key → auto preflight ok", rs.writer_preflight("auto") is None)
-            check("forced agy without agy → preflight fails",
-                  rs.writer_preflight("agy") is not None)
+            check("no claude + key → auto preflight ok", rs.writer_preflight("auto") is None)
+            check("forced claude without claude → preflight fails",
+                  rs.writer_preflight("claude") is not None)
         finally:
             os.environ.pop("OPENROUTER_API_KEY", None)
             if prev is not None:

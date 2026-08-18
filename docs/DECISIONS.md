@@ -2111,3 +2111,23 @@ Details live in git history; this is the index of the *conclusions*.
   grading writes the production axis, so a generation change re-calibrates the learning record
   silently; nothing in smoke catches it, since the tests stub the LLM. The 63 graded replies in
   `knock_log.json` are the A/B corpus if it ever looks off. Andrew owns that call.
+
+- **One model, two executors** (2026-08-18, Andrew). `MODEL` is stated ONCE as a bare slug
+  (`claude-sonnet-5`), with `OPENROUTER_MODEL` derived beside it; the studio writer is `claude -p`
+  locally, the OpenRouter API in Actions. **Replaces** `agy` (Gemini 3.1 Pro) and the studio's
+  separate `CLOUD_WRITER_MODEL` (gemini-3-flash). agy was retired for running **nowhere** — absent
+  from the laptop, never in a runner — which left `openrouter_pass`, written for a cloud that has
+  never invoked it, as the only writer executing anywhere; the canon-carrying bug fixed the same
+  day lived in that gap. The local pass runs `--allowedTools Read Glob Grep`, enforcing the
+  print-only contract that agy needed `--dangerously-skip-permissions` to fake. The host may
+  differ; the model may not.
+
+- **The routing rule: cloud sends, the laptop produces** (2026-08-18, Andrew). Actions produces
+  text knocks and short memos only; every rendered format — episode, drill, soak, longhaul — is
+  produced on the laptop, where `claude -p` spends a subscription instead of cash (measured: an
+  episode is ~83k input tokens, ~$0.35 through the API, $0 through the subscription).
+  **Lane-level, not length-level** — thresholds need tuning and drift; lanes are already the
+  routing unit. Cloud Anna does not commission, so `soak_order` stays single-writer and there is
+  no clobber to guard. The capability is capped by **policy, not deletion**: `openrouter_pass` and
+  `inline_canon` stay, tested, with no default caller and comments saying so. A branch is safe to
+  keep when nobody can mistake it for live.

@@ -42,7 +42,7 @@ from openai import OpenAI
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
-from morning_knock import (OPENROUTER_BASE, MODEL, budget, ANNA_VOICE, load_env,
+from morning_knock import (OPENROUTER_BASE, OPENROUTER_MODEL, budget, ANNA_VOICE, load_env,
                            push_to_phone, commit_and_push, jsdelivr_url,
                            parse_llm_response, JSON_MODE)
 from render_audio import (generate_segment_google, get_raw_mp3_frames,
@@ -171,7 +171,7 @@ def write_sheet(items: list[dict], focus: str | None = None) -> dict:
     mandate = SOAK_MANDATE + (FOCUS_BRIEF.format(focus=focus) if focus else "")
     client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
     resp = client.chat.completions.create(
-        model=MODEL,
+        model=OPENROUTER_MODEL,
         response_format=JSON_MODE,
         max_tokens=budget(2400),
         messages=[

@@ -33,6 +33,8 @@ what actually broke — never the bare fact that two words sound alike:
   wants more repetition, not more scene. The long-haul tape obeys that — structured
   recurrence, measured to a clock — and is the only lane allowed to be long. Never answer
   a length ask by stretching another.
+- **Host (2026-08-18):** Actions sends knocks and memos; every format here renders on the
+  laptop, on the subscription.
 - If he named neither a situation nor an energy, ask one clause: *"sitting down, or
   ears-only?"*
 
