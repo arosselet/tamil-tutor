@@ -2056,3 +2056,15 @@ Details live in git history; this is the index of the *conclusions*.
   flags unanswered rows, since a reply-less ask never sets `last_surfaced` and so makes an item
   *more* eligible. KF-6 through the door KF-6 left open. Advisory on Anna's prose lanes — no Python
   choke point exists there. Smoke `s64`.
+
+- **Retire the Trip Deck** (2026-08-18, Andrew: *"deletion, cleanup should ease a lot of the other
+  symptoms, instead of a dozen patchwork fixes"*). Decided here; executed against
+  `docs/deck_retirement.md`. The deck is a **container** whose reason expired at touchdown; the
+  tiers are an **ordering** that is durable. Retire the first, keep the second. Evidence: the
+  ticket runs 361 lines over 9 pools with **three** sections claiming primacy (deck, slip ledger,
+  machines heard), and every insight since July added a pool without retiring one — the
+  accumulation mode `JOURNEY.md` names, in selection surfaces rather than prose. The deck is also a
+  production meter, so it optimises the axis demoted 08-16. **The trap:** `register`, which tiers
+  are computed from, lives in `curriculum/trip_deck.json` and on **0 of 339 lexicon rows** —
+  removing the deck naively deletes the ordering silently. Migrate first. `deck` tags and
+  `seed-deck` are kept as provenance.
