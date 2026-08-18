@@ -317,6 +317,39 @@ def resolve_writer(prefer: str = "auto"):
     return claude_print if shutil.which("claude") else openrouter_pass
 
 
+# Tamil vowel signs + the pulli — exactly what inflection replaces on a stem.
+TAMIL_TAIL_RE = re.compile(r"[ா-்]$")
+
+
+def payload_present(word: str, script: str, lexicon: dict) -> bool:
+    """Is a claimed payload item really in the script?
+
+    VERBATIM FOR CHUNKS, STEM-TOLERANT FOR WORDS (2026-08-18). The rule was a flat
+    substring test, which a VERB STEM can essentially never satisfy in natural
+    speech: on 2026-08-18 a script said தூக்கறேன் — the word used correctly and
+    conjugated — while the sidecar honestly claimed தூக்கு, and the episode was
+    rejected. Every verb in the pool had the same problem waiting.
+
+    The lexicon already draws the distinction the rule needs. A `chunk` is a fixed
+    phrase the learner drills WHOLE, and both incidents that earned this check were
+    chunk mutations (ஒரு மாசம் இருப்போம் inverted, then bent to இருப்போங்க) — so
+    chunks keep zero tolerance. A plain word is a lexical item the sentence around
+    it inflects, so it is matched on its stem: the item minus one trailing vowel
+    sign or pulli.
+
+    The tolerance stays narrow on purpose. தூக்கு → தூக்க admits தூக்கறேன் and
+    தூக்குங்க and nothing that is not that verb; வேணும் → வேணும still refuses
+    வேண்டும், which is the literary form the dialect pass exists to remove. A stem
+    under 3 characters is no evidence at all (வை → வ), so those fall back to
+    verbatim — harmless, because inflection APPENDS to a short stem anyway."""
+    if word in script:
+        return True
+    if " " in word or (lexicon.get(word) or {}).get("type") == "chunk":
+        return False
+    stem = TAMIL_TAIL_RE.sub("", word)
+    return len(stem) >= 3 and stem in script
+
+
 def fenced_block(text: str, lang: str) -> str | None:
     m = re.findall(rf"```{lang}\s*\n(.*?)```", text, re.DOTALL)
     return m[-1].strip() if m else None
@@ -436,7 +469,8 @@ def lint(n: int, baseline: set[str] | None = None) -> list[str]:
         lexicon = json.loads((BASE / "progress" / "lexicon.json").read_text(encoding="utf-8"))
         claimed = set(tags.get("new_words_landed", {})) | set(tags.get("callbacks_used", {}))
         mutated = [w for w in claimed
-                   if w in lexicon and not w.startswith("frame:") and w not in script]
+                   if w in lexicon and not w.startswith("frame:")
+                   and not payload_present(w, script, lexicon)]
         if mutated:
             problems.append(f"payload infidelity — claimed but not verbatim in script: {mutated}")
 
