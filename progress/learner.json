@@ -13,7 +13,11 @@
     "from": "2026-08-18",
     "focus": "FORMAT ESCALATION, not a re-order. The 08-15 episode carved bluff-vs-repair beautifully and he still could not fire it: today a full-speed Athai line drew 'what's that?' in English, and he told me the line has gone cold in his mouth for want of an opening. audio_channels.md: he HAS it, he is just slower than the English — that is the drill diagnosis, silence as the demand. Permute the three repair lines across speeds and speakers; each one fired at him fast, then a real gap he must fill out loud. No scene, no teaching voice, no gloss — he does not need to understand it better, he needs it to arrive before the English does. Vary WHICH repair fits: innoru thadava sollunga (say that one thing again), konjam medhuva sollunga (slow down going forward), enna sonneenga? (reopen it). Never let two consecutive prompts want the same line.",
     "channel": "drill",
-    "form": "narrated_drama"
+    "form": "narrated_drama",
+    "delivered": {
+      "channel": "drill",
+      "at": "2026-08-18"
+    }
   },
   "next_engine": "frame:polite-nga",
   "focus_cohort": [

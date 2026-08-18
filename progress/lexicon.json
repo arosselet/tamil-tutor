@@ -1110,7 +1110,8 @@
     "recognition": "solid",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-18",
+    "exposures": 1
   },
   "அண்ணா": {
     "gloss": "Elder brother",
@@ -1324,7 +1325,8 @@
       11,
       12
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-18",
+    "exposures": 1
   },
   "வேற என்ன?": {
     "gloss": "What else?",
@@ -1564,7 +1566,8 @@
       26,
       28
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-18",
+    "exposures": 1
   },
   "சொல்லுவேன்": {
     "gloss": "I will tell (future)",
@@ -2682,8 +2685,8 @@
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-08-10",
-    "exposures": 1
+    "last_surfaced": "2026-08-18",
+    "exposures": 2
   },
   "அதனால தான்": {
     "gloss": "that is exactly why / that is the reason",
@@ -3134,10 +3137,10 @@
     "recognition": "struggled",
     "production": "hinted",
     "seen_in": [],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-08-18",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 3,
+    "exposures": 4,
     "reps": 1,
     "register": "public"
   },
@@ -3725,11 +3728,11 @@
       58,
       89
     ],
-    "last_surfaced": "2026-08-15",
+    "last_surfaced": "2026-08-18",
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 3,
+    "exposures": 4,
     "register": "antifreeze"
   },
   "இன்னொரு தடவ சொல்லுங்க": {
@@ -3748,7 +3751,7 @@
     "deck": "trip",
     "direction": "fire",
     "reps": 4,
-    "exposures": 5,
+    "exposures": 6,
     "register": "antifreeze"
   },
   "என்ன சொன்னீங்க?": {
@@ -3764,11 +3767,11 @@
       88,
       89
     ],
-    "last_surfaced": "2026-08-15",
+    "last_surfaced": "2026-08-18",
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 4,
+    "exposures": 5,
     "register": "antifreeze"
   },
   "தமிழ்ல எப்படி சொல்றது?": {
@@ -3802,10 +3805,10 @@
       88,
       89
     ],
-    "last_surfaced": "2026-08-15",
+    "last_surfaced": "2026-08-18",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 6,
+    "exposures": 7,
     "register": "antifreeze"
   },
   "அப்படியா?!": {
@@ -4087,11 +4090,11 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-08-18",
     "deck": "trip",
     "direction": "fire",
     "reps": 1,
-    "exposures": 4,
+    "exposures": 5,
     "register": "public"
   },
   "ஃப்ரீயா விடுங்க": {
@@ -4342,10 +4345,10 @@
       60,
       86
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-08-18",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 3,
+    "exposures": 4,
     "reps": 1,
     "register": "antifreeze"
   },
