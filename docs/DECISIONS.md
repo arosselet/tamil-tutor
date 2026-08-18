@@ -321,7 +321,9 @@ Details live in git history; this is the index of the *conclusions*.
   the agent-remembered knock_log read, trailer rule, and drain-check comparison.
   Same audit: UNSEEN teach-first flags now come from one `is_unseen()` definition
   shared by ticket, knock menu, and volley picker.
-- **Payload fidelity bends the sidecar, never the script** (2026-07-13). The verbatim
+- **Payload fidelity bends the sidecar, never the script** (2026-07-13; **AMENDED
+  2026-08-18 — see "Payload fidelity: verbatim for chunks" below; a plain word now
+  matches on its stem, so the repair below is owed only for chunks**). The verbatim
   lint is lemma-literal and false-flags correct inflections (M61 claimed தூக்கு; the
   script's தூக்க முடியல is right Tamil). Repair = drop the sidecar's over-claim; forcing
   a lemma verbatim into a natural line corrupts the rep to satisfy bookkeeping.
@@ -2131,3 +2133,36 @@ Details live in git history; this is the index of the *conclusions*.
   no clobber to guard. The capability is capped by **policy, not deletion**: `openrouter_pass` and
   `inline_canon` stay, tested, with no default caller and comments saying so. A branch is safe to
   keep when nobody can mistake it for live.
+
+- **Thinking is part of the budget** (2026-08-18). Sonnet 5 reasons before it answers and
+  OpenRouter bills that inside `max_tokens`. Six hours after the model swap, `decide()` — the
+  largest prompt in the system against a 1600 ceiling — returned zero characters three times
+  and took cloud Anna's knock lane down (run 32121449441); the drill sheet died the same way
+  locally at 1624-2974 reasoning tokens. **Replaces** eight hand-tuned `max_tokens` literals
+  across five modules: a call site declares what its ARTIFACT needs and `budget()` adds
+  `REASONING_HEADROOM` once, beside `MODEL`, because reasoning cost belongs to the model and
+  not to the lane. Second occurrence — `knock_reply` was patched in isolation on 08-05, which
+  left every other lane mis-calibrated until it happened to run, the drill lane for 17 days. A
+  ceiling is not a spend, so headroom is free insurance and a truncation is a dead lane. Smoke
+  `s66`.
+
+- **Payload fidelity: verbatim for chunks, stem-tolerant for words** (2026-08-18). **Replaces**
+  the flat substring test, and amends "Payload fidelity bends the sidecar, never the script"
+  (2026-07-13) — the manual sidecar repair is no longer owed for a plain word. A verb stem can
+  essentially never appear uninflected in natural speech: a script said தூக்கறேன், the sidecar
+  honestly claimed தூக்கு, and the episode was rejected. The lexicon already draws the
+  distinction — a `chunk` is drilled WHOLE and keeps zero tolerance (both incidents that earned
+  this rule were chunk mutations), while a plain word matches on its stem, the item minus one
+  trailing vowel sign or pulli. Deliberately narrow: தூக்கு→தூக்க admits தூக்கறேன், வேணும் still
+  refuses the literary வேண்டும், and a stem under three characters falls back to verbatim. The
+  check had no coverage at all before. Smoke `s28`.
+
+- **The ALREADY ASKED block is bounded** (2026-08-18, Andrew, hours after the block shipped).
+  The first cut printed every row in the window — 50 on live state, 27 of them single mentions —
+  because the surface was added and the window widened 3d→7d in one commit, unmeasured. **Replaces** the unbounded print with `ASK_BLOCK_CAP = 8` and
+  `ASK_REPEAT_FLOOR = 2`, sized to its siblings (`knocks_since` at 6, the knock menu at 6 fire +
+  2 catch). Ties break unanswered-first, because a cap has to cut somewhere and count alone
+  leaves 15 rows level. One mention is not a repeat — it is the case the cooldown permits. Only the
+  READING is trimmed: `recent_ask_counts` still sees every row, so the selector's demotion is
+  untouched. A guard nobody reads guards nothing, which is the silent no-op one layer up — the
+  mechanism fires and the human doesn't. Smoke `s64`.

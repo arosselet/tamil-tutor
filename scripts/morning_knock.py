@@ -87,7 +87,7 @@ OPENROUTER_MODEL = f"anthropic/{MODEL}"   # the same model, in OpenRouter's slug
 # and the thinking room is added HERE, once. Swap the model, change one number.
 # A ceiling is not a spend: unused headroom is billed at nothing, so headroom is
 # free insurance and a truncation is a dead lane.
-# REPLACES: seven hand-tuned `max_tokens` literals across five modules.
+# REPLACES: eight hand-tuned `max_tokens` literals across five modules.
 REASONING_HEADROOM = 4000
 
 

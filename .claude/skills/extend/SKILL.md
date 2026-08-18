@@ -119,7 +119,7 @@ the jsDelivr CDN URL for knock audio; a fork must update this.
 **Cloud rendering:** the cloud DOES render — knock memos and scheduled voice doses, in
 `anna.yml`, the single workflow that carries every secret. The old "cloud never renders /
 do not add TTS to other workflows" rule was dropped 2026-07-24 (it was misnamed: the
-blocker was always the *writer*, `agy`, never the renderer). Episode TTS is still local
+blocker was always the *writer* — `agy` until 2026-08-18, `claude -p` since — never the renderer). Episode TTS is still local
 today, but that is a build not yet done, not a law. (`docs/DECISIONS.md` → "Cloud produces
 episodes" and "One runner, every capability.")
 

@@ -55,8 +55,8 @@ The Lesson Plan also specifies an **Episode Form** — the *structure* you deliv
   An optional ~30-second Intercept vignette may open as the *specimen* they dissect; otherwise no
   Intercept at all. Mostly-English carried is **correct** here (Woven Thanglish: English tells the
   story, Tamil carries the payload); the coverage rule governs the Tamil lines. **One or two
-  payload words told deep — never a survey**; during a deck sprint the protagonist comes from the
-  deck. True stories only; delight over completeness (constitution → Stories Are Curriculum).
+  payload words told deep — never a survey.** True stories only; delight over completeness
+  (constitution → Stories Are Curriculum).
 
 - **`narrated_drama`** — **commissioned only** (arrives via the soak order, never the
   Scene Spec). A multi-scene story with real stakes, ~12–18 min. A single **Narrator**

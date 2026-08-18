@@ -19,7 +19,7 @@ Read `progress/learner.json` → `soak_order`:
 If `soak_order` is empty, build from `python scripts/suggest_targets.py` alone (no chat hand-off this round). But **prefer the soak-order when set** — that is what makes the episode the other half of the loop: it soaks exactly what chat just strained.
 
 **A soak-order may also point *forward* — the seed order (2026-07-17).** Anna may hand a
-payload of 2–4 **unseen** deck items instead of chat's last strain — the ⚠ UNSEEN items
+payload of 2–4 **unseen** items instead of chat's last strain — the ⚠ UNSEEN items
 off the `suggest_targets.py` ticket, which owns *which*; when a campaign is live
 (`progress/profile.md` → "The Campaign — This Week") he picks the ones that fit its
 through-line, so the episode reads as that week's next page (2026-07-26). This

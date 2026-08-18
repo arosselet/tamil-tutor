@@ -379,13 +379,14 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
   Both hazards below (mission-number claim race, cross-machine lock) remain unfixed and
   remain blocking for anything unattended. See "THE REPAIR EARNS THE DOSE" at the top.
 
-- **`inline_canon()` follows references one level deep only (found 2026-07-27).**
-  `CANON_REF_RE.findall(prompt)` scans the PROMPT for `protocol/**.md` and inlines those
-  files; it does not follow references *inside* them. Safe today only because the studio
-  prompts were written to name every file explicitly. Add a "see `hosts.md`" line inside
-  `producer.md` and the agy path reads it off disk while the one-shot cloud path silently
-  does not — surfacing as a subtly off episode, not an error. Latent, not sighted. Wants a
-  lint (or a recursive scan) if episodes ever move to the cloud in earnest.
+- ~~**`inline_canon()` follows references one level deep only**~~ — **DONE 2026-08-18.**
+  Filed 07-27 as latent-not-sighted; it went live the day `agy` stopped being installed and
+  `openrouter_pass` became the only writer running anywhere. Both halves were real: the walk
+  never recursed, so `protocol/constitution.md` — cited by `director.md` and `architect.md`,
+  never by a prompt — reached no pass; and the pattern matched `protocol/*.md` only, so the
+  Director's own "Calibration Notes are LAW" pointed at a `progress/` file it could not carry.
+  Now transitive at `CANON_DEPTH = 2`, deduped, `progress/lexicon.json` skipped LOUDLY, and
+  anything referenced-but-not-carried prints. ~22k → ~83k input tokens per episode.
 
 - **Upsert `word_pool.json` into the lexicon, then retire the file (2026-07-26, Andrew's
   call — supersedes the assistant's "just delete it").** Verified safe: `compute_floor`
@@ -566,10 +567,10 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
   per-item stage: heard → understood → spoken-scaffolded → spoken-cold → survived-live,
   everything else derived. From the 2026-07-09 greenfield review; a consolidation, so it
   must *delete* more state than it adds or it doesn't happen.
-- **Payload lint could match inflected stems** — the verbatim check false-flags correct
-  inflections (M61: தூக்கு vs தூக்க); a stem-tolerant match would stop the recurring
-  manual sidecar repair. See the 2026-07-13 "bends the sidecar" decision for the
-  interim rule.
+- ~~**Payload lint could match inflected stems**~~ — **DONE 2026-08-18**, after the same
+  failure rejected a correct episode a second time (script தூக்கறேன், sidecar தூக்கு). The rule
+  is now the distinction the lexicon already drew: chunks verbatim, plain words on their stem.
+  The 2026-07-13 "bends the sidecar" repair still stands for chunks and is annotated there.
 - **Concurrent drains could double-fire one queue entry** (introduced 2026-07-24 by the
   workflow consolidation — an honest residual, not a sighting). The drain used to be
   serialized by `push-queue.yml`'s own `concurrency: push-queue`. Now it runs at the start

@@ -74,7 +74,7 @@ This is what makes an episode feel alive — it tracks his real week, not an abs
 
 For everything beyond the soak order, **run `python scripts/suggest_targets.py` — the same session ticket Anna reads.** It computes the candidate set so you don't re-derive it by eye: floor-gap words, due callbacks, and priority-1 NEW candidates grouped by cluster coverage (already deduped against `progress/lexicon.json`). **Prefer priority 1 until the floor is solid;** a priority-2 word that fits the scene naturally is fine, but don't scatter into expansion while the foundation has gaps.
 
-**If the ticket shows a ★ deck block (a sprint is on), the deck is the payload bias:** deck items outrank generic new-word picking, and the deck's **EAR-ONLY (catch)** items are prime soak material — they clear by being *heard* into solid recognition, which is exactly what an episode does best. Weave them in over fresh cluster grabs.
+**The pool is tier-ordered, and that order is the payload bias:** survival outranks delight outranks dessert, so a survival item outranks generic new-word picking. The ticket's **EAR-ONLY (catch)** items are prime soak material — they clear by being *heard* into solid recognition, which is exactly what an episode does best. Weave them in over fresh cluster grabs.
 
 Every payload has two active parts:
 

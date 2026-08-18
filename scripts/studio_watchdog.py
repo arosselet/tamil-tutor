@@ -21,8 +21,8 @@ dispatch, and a session dispatch never races a tick.
 
 Install (one-off; cron only fires while the laptop is awake, which is the spec —
 a missed sleeping tick is caught by the next awake one). SSH_AUTH_SOCK points at
-the gnome-keyring agent so the render's git push authenticates; PATH carries agy
-and the anaconda python:
+the gnome-keyring agent so the render's git push authenticates; PATH carries the
+`claude` CLI (the writer since 2026-08-18) and the anaconda python:
 
   (crontab -l 2>/dev/null; \
    echo '17 * * * * cd $HOME/projects/Tamil && SSH_AUTH_SOCK=/run/user/1000/keyring/ssh PATH=$HOME/.local/bin:$HOME/anaconda3/bin:/usr/bin:/bin python3 scripts/studio_watchdog.py >> studio_watchdog.log 2>&1') | crontab -
@@ -125,7 +125,7 @@ def main():
             for p in problems:
                 print(f"   ✗ {p}")
             return
-        # Re-rendering an existing script needs TTS credentials only — never agy.
+        # Re-rendering an existing script needs TTS credentials only — never a writer.
         reason = renderer_preflight()
         if reason:
             stamp(f"mission {n} unrendered but this host cannot render — {reason}; skipping (no retry)")

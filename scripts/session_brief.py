@@ -76,6 +76,17 @@ def knocks_since(klog: list, last_session: str | None, cap: int = 6) -> list[dic
     return entries[-cap:]
 
 
+# How the ALREADY ASKED block is bounded (2026-08-18, Andrew's call). The first
+# cut printed the whole window — 50 rows, 27 of them single mentions — which is
+# the accumulation shape the ticket's own budgets exist to stop, in a block added
+# to prevent repetition. Sized to its siblings: `knocks_since` shows 6, the knock
+# menu 6 fire + 2 catch.
+ASK_BLOCK_CAP = 8
+# Below this an item was asked ONCE inside the window, which is not a repeat —
+# it is the case the cooldown is meant to allow.
+ASK_REPEAT_FLOOR = 2
+
+
 def _answered_targets(klog: list, days: int) -> set:
     """Targets that actually got a reply inside the window.
 
@@ -267,15 +278,42 @@ def cmd_status(_args):
     # them the way the selector demotes a recently-asked row. This tells him; it
     # cannot stop him. The hard guard is still the knock lane's (KF-13's rule — say it in
     # the mandate, cap the blast radius in Python — is only half-satisfiable here).
+    #
+    # BOUNDED, BECAUSE THE FIRST CUT WAS NOT (2026-08-18, same day, found by
+    # reading the block instead of the diff). It printed every row inside the
+    # window: 50 of them on live state, 27 at a single mention — and widening
+    # 3d → 7d in the same commit is what doubled it, so nobody saw the result.
+    # A 50-line "do NOT re-commission these" list is not a guard, it is a wall
+    # that buries the 6× and 5× rows which caused the incident. Every sibling
+    # block here is capped for the same reason (`knocks_since` at 6, the knock
+    # menu at 6 fire + 2 catch); this one simply had not been.
+    #
+    # ONE MENTION IS NOT A REPEAT. The floor is what the block is FOR: the
+    # cooldown exists to catch an item reaching a second and third surface, and
+    # an item asked once inside the window is the case it is meant to permit.
+    # The count still comes from the unfiltered `recent_ask_counts` — the
+    # selector's demotion is untouched and sees every row; this is the reading
+    # surface, and only the reading is trimmed.
     from suggest_targets import ASK_COOLDOWN_DAYS, recent_ask_counts
     asked = recent_ask_counts(klog, lexicon or {})
-    if asked:
-        answered = _answered_targets(klog, ASK_COOLDOWN_DAYS)
+    answered = _answered_targets(klog, ASK_COOLDOWN_DAYS)
+    # Ties break UNANSWERED-first, then by key. Count alone leaves a long tie at
+    # 2× — 15 of them on live state — and a cap has to cut somewhere: falling
+    # through to the key alone would sort every `frame:` row ahead of every Tamil
+    # one on codepoint order, which is arbitrary dressed as deterministic. An
+    # unanswered repeat is the case this block exists for, so it goes on top; the
+    # key is only the final tiebreak, and it is there so the order is stable.
+    repeats = sorted(((w, n) for w, n in asked.items() if n >= ASK_REPEAT_FLOOR),
+                     key=lambda kv: (-kv[1], kv[0] in answered, kv[0]))
+    if repeats:
         print(f"\nALREADY ASKED (last {ASK_COOLDOWN_DAYS}d — do NOT re-commission these; "
               f"a repeat needs a genuinely new angle, or take another item):")
-        for w, n in sorted(asked.items(), key=lambda kv: -kv[1]):
+        for w, n in repeats[:ASK_BLOCK_CAP]:
             tail = "" if w in answered else " · UNANSWERED — silence is not a reason to re-ask"
             print(f"  - {w} — asked/shown {n}×{tail}")
+        rest = len(repeats) - ASK_BLOCK_CAP
+        if rest > 0:
+            print(f"  (…{rest} more at {repeats[ASK_BLOCK_CAP][1]}× or fewer — not shown)")
     trailer = unpaid_trailer(klog, last)
     if trailer:
         body = (trailer.get("body") or "").replace("\n", " ")
