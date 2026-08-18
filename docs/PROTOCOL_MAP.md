@@ -4,6 +4,10 @@ The architecture of the learning system — **for working *on* the machine**, no
 
 Companion: **`docs/DECISIONS.md`** — settled decisions and engineering discipline. Read it before proposing any structural change; don't re-litigate what it closes.
 
+Open planning: **`docs/comprehension_plan.md`** — the one-year comprehension goal, its measured
+baseline, and the questions still unanswered. Nothing in it is settled; read it before
+proposing curriculum or pacing changes.
+
 This map describes the **Tamil instantiation**. For what generalizes beyond it — the four-layer boundary (pedagogy / machinery / language pack / learner pack), the Python port surface, and day-zero behavior — see `BOOTSTRAP.md` → "What Generalizes".
 
 ## The two halves
