@@ -190,7 +190,8 @@ def rep_counts(lexicon: dict) -> dict:
     STUCK flag on a never-drilled word, focus seats allocated by mention
     frequency). Probe matching survives only in `recent_ask_counts`.
 
-    Not to be confused with `recent_ask_counts`, which is an ASK_COOLDOWN_DAYS COOLDOWN — a
+    Not to be confused with `recent_ask_counts`, which is an `ASK_COOLDOWN_DAYS`
+    COOLDOWN — a
     different question with a different answer. Using the cooldown as the
     coverage term was the other 2026-07-26 defect: on day 4 a word's count
     resets and it rejoins the front of the queue, so ~24 words cycled forever

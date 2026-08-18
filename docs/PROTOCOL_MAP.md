@@ -49,7 +49,7 @@ A second, softer interface exists since 2026-07-17, cut back to its through-line
 
 Anna can commission the studio end-to-end mid-session; `/studio` also runs standalone (e.g. on Gemini for the long mixed-language script writing).
 
-**Default episode dispatch (2026-07-09 — the writer-only split):** `python scripts/run_studio.py` — three sandboxed **print-only** agy/Gemini calls (Director → Architect → Producer; Gemini never writes a file, never sees git); Python persists the three artifacts, lints them deterministically (sidecar schema, Woven-Thanglish density tripwire, fourth wall, payload **verbatim** fidelity), and `render_audio.py` owns render/registration/commit. Non-zero exit ⇒ fall back to the Claude studio subagent.
+**Default episode dispatch (2026-07-09 — the writer-only split; executor swapped 2026-08-18):** `python scripts/run_studio.py` — three **print-only** writer calls (Director → Architect → Producer) on `morning_knock.MODEL`: `claude -p --allowedTools Read Glob Grep` on the laptop, the OpenRouter API in Actions, and the writer never writes a file or sees git either way. Python persists the three artifacts, lints them deterministically (sidecar schema, Woven-Thanglish density tripwire, fourth wall, payload fidelity — **verbatim for chunks, stem-tolerant for words**), and `render_audio.py` owns render/registration/commit. Non-zero exit ⇒ fall back to the Claude studio subagent.
 
 ## State (`progress/` — Python-owned, never hand-edit)
 

@@ -118,14 +118,13 @@ PRINT the full episode script and nothing else — speaker lines as
 
 PRODUCER = PREAMBLE + """
 THIS PASS: the PRODUCER. Read protocol/studio/producer.md,
-protocol/studio/dialect.md and protocol/constitution.md and follow them
-exactly: dialect transformation,
-integrity checks (send-backs become fixes you make yourself here), and the
-sidecar. Two hard rules the dialect pass must not violate:
-- PAYLOAD IS VERBATIM: every deck/payload item the sidecar claims must appear
-  in the script EXACTLY as seeded — the learner drills these precise forms;
-  a mutated anchor line poisons the rep (Python rejects the script on any
-  mismatch).
+protocol/studio/dialect.md and protocol/constitution.md and follow them exactly:
+dialect transformation, integrity checks (send-backs become fixes you make
+yourself here), and the sidecar. Two hard rules the dialect pass must not violate:
+- PAYLOAD FIDELITY: a CHUNK the sidecar claims must appear EXACTLY as seeded
+  — the learner drills these precise forms and a mutated anchor poisons the
+  rep. A single WORD may carry the sentence's own inflection, but its stem
+  must survive (Python rejects the script on either failure).
 - The polite -ங்க attaches to imperatives and second person only — NEVER to
   first-person statements (இருக்கேன், இருப்போம் stay unchanged).
 Here is the Architect's draft:
@@ -222,12 +221,12 @@ def newest_tags_sample() -> str | None:
 def inline_canon(prompt: str) -> str:
     """Carry the protocol INTO the prompt for the filesystem-less cloud writer.
 
-    agy reads 'protocol/studio/producer.md' off disk; a single-shot API call
-    can't, so every file a pass says to 'Read' must ride in the prompt — exactly
-    how morning_knock inlines persona.md. The prompt's OWN file references are
-    the manifest: whatever a pass names, Python inlines, so the two never drift
-    (2026-07-24 — the thin slice caught the cloud writer inventing a schema it
-    had no way to see).
+    A writer with a filesystem reads 'protocol/studio/producer.md' off disk; a
+    single-shot API call can't, so every file a pass says to 'Read' must ride in
+    the prompt — exactly how morning_knock inlines persona.md. The prompt's OWN
+    file references are the manifest: whatever a pass names, Python inlines, so
+    the two never drift (2026-07-24 — the thin slice caught the cloud writer
+    inventing a schema it had no way to see).
 
     IT NOW FOLLOWS REFERENCES TRANSITIVELY (2026-08-18), because the manifest was
     only ever read one level deep. `director.md` and `architect.md` both say to
@@ -472,13 +471,13 @@ def lint(n: int, baseline: set[str] | None = None) -> list[str]:
                    if w in lexicon and not w.startswith("frame:")
                    and not payload_present(w, script, lexicon)]
         if mutated:
-            problems.append(f"payload infidelity — claimed but not verbatim in script: {mutated}")
+            problems.append(f"payload infidelity — claimed but not in the script: {mutated}")
 
     # Nothing beyond the three artifacts may have appeared — measured against
     # the PRE-RUN tree (a clean-tree assumption false-flagged the operator's
     # own uncommitted work on the first run). Print-only passes make this a
-    # tripwire for agy misbehaviour, not an expected failure. Scoped to
-    # content/ (2026-07-13): agy can only plausibly misbehave in the studio's
+    # tripwire for writer misbehaviour, not an expected failure. Scoped to
+    # content/ (2026-07-13): a writer can only plausibly misbehave in the studio's
     # own domain; progress/ churn is other agents legitimately writing state
     # mid-run (the session-open dispatch guarantees that overlap) and aborted
     # a good episode once.
@@ -502,12 +501,20 @@ def claim_payload(n: int) -> None:
     render never stamps the payload seen_in (the Teach Beat's unlock) and the
     produced-verdict can't clear — a frame key is unrecoverable from surface
     forms downstream. Frames inject unconditionally (verbatim-exempt slot
-    templates); a non-frame key injects only when the script carries it
-    verbatim — an absent one is reported, never invented."""
+    templates); a non-frame key injects only when the script carries it — an
+    absent one is reported, never invented.
+
+    IT SHARES `payload_present` WITH THE LINT (2026-08-18, the day's lint pass).
+    Both sides ask the same question about the same script and must not answer it
+    differently: this path kept the flat substring test for the few hours after
+    the lint learned the stem, so an inflected-but-correct word passed the gate
+    and was then refused the claim — reported as missing, and the render never
+    stamped its `seen_in`."""
     paths = episode_paths(n)
     try:
         soak = (json.loads((BASE / "progress" / "learner.json").read_text(encoding="utf-8"))
                 .get("soak_order") or {})
+        lex = json.loads((BASE / "progress" / "lexicon.json").read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         return
     payload = [w for w in soak.get("payload", []) if w]
@@ -522,11 +529,11 @@ def claim_payload(n: int) -> None:
     for key in payload:
         if key in claimed:
             continue
-        if key.startswith("frame:") or key in script:
+        if key.startswith("frame:") or payload_present(key, script, lex):
             tags.setdefault("new_words_landed", {})[key] = 0
             added.append(key)
         else:
-            print(f"   ⚠ soak payload '{key}' neither claimed by the sidecar nor verbatim in the script")
+            print(f"   ⚠ soak payload '{key}' neither claimed by the sidecar nor in the script")
     if added:
         paths["tags"].write_text(json.dumps(tags, ensure_ascii=False, indent=2) + "\n",
                                  encoding="utf-8")

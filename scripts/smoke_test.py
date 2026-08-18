@@ -1873,7 +1873,7 @@ def s25_studio_concurrency_and_secrets(sb: Path):
         # (ADC still mocked-present here, so this isolates the writer axis.)
         rs = importlib.import_module("run_studio")
         real_which = rs.shutil.which
-        rs.shutil.which = lambda cmd: None if cmd in ("claude", "agy") else real_which(cmd)
+        rs.shutil.which = lambda cmd: None if cmd == "claude" else real_which(cmd)
         try:
             check("no writer → render path still allowed", rs.renderer_preflight() is None)
             check("no writer → fresh-episode path blocked", rs.preflight() is not None)
@@ -2136,6 +2136,19 @@ def s28_cloud_writer(sb: Path):
           not pp("வேணும்", "அது வேண்டும் என்று சொன்னார்", lex))
     check("a stem too short to be evidence falls back to verbatim",
           pp("வை", "அத அங்க வைக்கறேன்", lex))
+    # BOTH SIDES ASK THE SAME QUESTION (2026-08-18, the day's lint pass). `lint`
+    # rejects a script the sidecar over-claims; `claim_payload` injects a soak
+    # item the sidecar under-claims. They read the same script, so a rule that
+    # lands on one and not the other is worse than landing on neither: the
+    # inflected word passes the gate and is then refused the claim, and the
+    # render never stamps its `seen_in` — the Teach Beat's unlock, lost silently.
+    rs_src = (REAL_BASE / "scripts" / "run_studio.py").read_text(encoding="utf-8")
+    mech = code_line_numbers(rs_src)
+    callers = {i for i, ln in enumerate(rs_src.splitlines(), 1)
+               if i in mech and "payload_present(" in ln and "def " not in ln}
+    check("both payload paths route through payload_present, not a flat `in script`",
+          len(callers) == 2, f"found {len(callers)} call site(s) — lint and "
+          f"claim_payload must share the rule")
 
 
 def s29_one_runner_every_capability(mk, pq, kr, sb: Path):
@@ -6086,7 +6099,7 @@ def s64_the_ask_cooldown_covers_the_session_lane(sb: Path):
          days against a 3-day cooldown, so every re-ask landed just outside it.
          He answered 4 of 14 knocks that week — a guard that expires in 3 days
          cannot hold an item that takes 4-7 to get answered.
-      2. THE SESSION LANE COULD NOT SEE THE COOLDOWN AT ALL. `deck_due_list`
+      2. THE SESSION LANE COULD NOT SEE THE COOLDOWN AT ALL. The knock menu
          warns the knock decider, but the soak order, the campaign mission and
          the slip medicine are written by Anna off `session_brief`, which never
          imported the selector. Three of the six surfaces came from there.
@@ -6119,18 +6132,53 @@ def s64_the_ask_cooldown_covers_the_session_lane(sb: Path):
             "deck": "trip", "direction": "fire", "seen_in": []},
         other: {"gloss": "x", "phonetic": ["x"], "type": "chunk", "recognition": "struggled",
                 "production": "hinted", "seen_in": []},
+        # `recent_ask_counts` walks the LEXICON and probes the log, so a filler
+        # target with no row is invisible to it. Distinct phonetics, and bodies
+        # below that share no token with them — otherwise a probe matches another
+        # row's body and the counts stop meaning what the assertions say.
+        "smoke:once": {"gloss": "asked once", "phonetic": ["onlyoncehere"],
+                       "type": "chunk", "recognition": "struggled",
+                       "production": "hinted", "seen_in": []},
+        **{f"smoke:filler{i}": {"gloss": "f", "phonetic": [f"fillerword{i}"],
+                               "type": "chunk", "recognition": "struggled",
+                               "production": "hinted", "seen_in": []}
+           for i in range(9)},
     })
     # The real sequence: gaps of 3 then 4 days, none answered.
     klog = [{"acted": True, "timestamp": ago(6), "modality": "fielding",
              "move": "fielding: innoru thada", "expected_target": w, "body": "answer her"},
             {"acted": True, "timestamp": ago(3), "modality": "volley",
              "move": "volley: sprint burn 3/4", "expected_target": w, "body": "ask her again"},
-            # answered, and inside the window — must NOT be marked unanswered
+            # answered, and inside the window — must NOT be marked unanswered.
+            # TWICE, because one mention is below `ASK_REPEAT_FLOOR` and the block
+            # is a repeat-detector: a single ask is the case it exists to permit.
+            {"acted": True, "timestamp": ago(4), "modality": "text", "move": "collect",
+             "expected_target": other, "body": "x", "reply": "aama", "reply_verdict": "cold"},
+            {"acted": True, "timestamp": ago(3), "modality": "text", "move": "collect",
+             "expected_target": other, "body": "x", "reply": "seri", "reply_verdict": "cold"},
             {"acted": True, "timestamp": ago(2), "modality": "text", "move": "collect",
              "expected_target": other, "body": "x", "reply": "sari", "reply_verdict": "cold"},
+            # The third surface, and the one that named the session lane: the
+            # 08-15 soak order PRINTED the item as prose rather than targeting
+            # it, which `recent_ask_counts` catches through the body probe. Kept
+            # outside 3 days like the other two — the retired guard has to see
+            # NOTHING here, which is the reproduction this case is built on.
+            {"acted": True, "timestamp": ago(5), "modality": "text", "move": "soak order",
+             "expected_target": "", "body": f"today we soak {w}"},
+            {"acted": True, "timestamp": ago(2), "modality": "text", "move": "one-off",
+             "expected_target": "smoke:once", "body": "situation only"},
             # long past the window — must age out entirely
             {"acted": True, "timestamp": ago(30), "modality": "text", "move": "old",
              "expected_target": "smoke:ancient", "body": "x"}]
+    # Enough repeats to make the CAP bind. Without these the fixture has two
+    # qualifying rows and a cap of 99 would pass the assertion below — a guard
+    # that cannot fail is the thing this whole case exists to argue against.
+    ASK_FILLER = 9
+    for i in range(ASK_FILLER):
+        for d in (5, 3):
+            klog.append({"acted": True, "timestamp": ago(d), "modality": "text",
+                         "move": f"filler {i}", "expected_target": f"smoke:filler{i}",
+                         "body": "situation only"})
     write_json(klog_path, klog)
 
     lex_now = read_json(lex_path)
@@ -6140,8 +6188,10 @@ def s64_the_ask_cooldown_covers_the_session_lane(sb: Path):
     asked = st.recent_ask_counts(klog, lex_now)
     check("the retired 3-day guard saw NOTHING here — this is the bug, reproduced",
           not old.get(w), f"got {old}")
-    check("the widened window catches both re-asks",
-          asked.get(w) == 2, f"got {asked}")
+    check("the widened window catches both re-asks and the prose mention",
+          asked.get(w) == 3, f"got {asked}")
+    check("an ANSWERED repeat outranks unanswered ties only on count, not on being read",
+          asked.get(other) == 3, f"got {asked}")
     check("an ask well outside the window still ages out",
           "smoke:ancient" not in asked, f"got {asked}")
 
@@ -6158,6 +6208,32 @@ def s64_the_ask_cooldown_covers_the_session_lane(sb: Path):
     body = [ln for ln in text.splitlines() if ln.strip().startswith(f"- {other}")]
     check("an ANSWERED ask is listed without the unanswered warning",
           body and "UNANSWERED" not in body[0], f"got {body}")
+
+    # THE BLOCK IS BOUNDED (2026-08-18, Andrew, hours after the block shipped).
+    # The first cut printed every row in the window — 50 on live state, 27 of
+    # them single mentions — so the 6× and 5× rows that caused the incident sat
+    # at the top of a wall. A guard nobody reads guards nothing, which is the
+    # same silent-no-op family one layer up: the mechanism fires, the human
+    # doesn't. Both terms are asserted because both can rot quietly — a cap that
+    # stops capping just gets long again, and a floor that creeps to 3 hides a
+    # genuine second surface.
+    lines = [ln for ln in text.split("ALREADY ASKED")[1].splitlines()
+             if ln.strip().startswith("- ")]
+    check("the block is capped, not the whole window",
+          len(lines) == sbf.ASK_BLOCK_CAP,
+          f"printed {len(lines)} of {2 + ASK_FILLER} qualifying rows, "
+          f"cap is {sbf.ASK_BLOCK_CAP}")
+    check("...and the remainder is counted, never silently dropped",
+          f"{2 + ASK_FILLER - sbf.ASK_BLOCK_CAP} more" in text, "no overflow line")
+    check("a single mention is not a repeat and stays out of the block",
+          sbf.ASK_REPEAT_FLOOR >= 2 and "smoke:once" not in text)
+    # THE SAME ROW, THE OTHER SIDE. The demotion the SELECTOR does is a different
+    # question from what the brief prints, and trimming the reading must not trim
+    # it: a 1× row still rides the cooldown inside `floor_gap_targets`. Asserted
+    # on the row the block just hid, so the two cannot drift apart quietly.
+    check("...while the selector still counts it — only the reading is trimmed",
+          st.recent_ask_counts(klog, lex_now).get("smoke:once") == 1,
+          f"got {st.recent_ask_counts(klog, lex_now).get('smoke:once')}")
 
     write_json(lex_path, json.loads(saved[0].decode("utf-8")))
     write_json(klog_path, json.loads(saved[1].decode("utf-8")))
@@ -6316,8 +6392,14 @@ def s66_json_mode_is_actually_sent(mk, kr, sb: Path):
     THE OTHER HALF is the text lanes. `rephrase_phonetic` asks for a
     transliteration, not an object, and the studio's writers return prose — a
     blanket sweep that forced JSON mode onto those would break them just as
-    silently, in the other direction."""
-    print("\n66. JSON mode is actually sent — and only where it belongs (2026-08-18)")
+    silently, in the other direction.
+
+    THE CEILING RIDES ALONG (added 2026-08-18, the day's lint pass). `budget()`
+    landed hours after `JSON_MODE` with the same silent-no-op shape and no guard
+    at all — so the tail of this case asserts the other thing every MODEL request
+    must carry. Same scan, same reason: a lane added later is caught without a
+    test exercising it."""
+    print("\n66. JSON mode is sent where it belongs — and every ceiling is budget() (2026-08-18)")
     import importlib.util
 
     # A PRISTINE copy of the module, not the shared one: `s3` replaces
@@ -6398,6 +6480,35 @@ def s66_json_mode_is_actually_sent(mk, kr, sb: Path):
     studio = (REAL_BASE / "scripts" / "run_studio.py").read_text(encoding="utf-8")
     check("the studio's prose writer is left alone",
           "response_format" not in studio, "run_studio started asking for JSON")
+
+    # ── THE CEILING LAW, THE SAME SCAN (2026-08-18, added in the lint pass that
+    # closed the day). `budget()` and `JSON_MODE` landed hours apart with the
+    # SAME failure shape, and only one of them got a guard. A raw `max_tokens`
+    # on a MODEL call is a silent no-op in the most expensive way: the lane keeps
+    # working until the model's reasoning happens to outgrow the literal, and
+    # then it returns zero characters. That is exactly how the reply judge was
+    # patched alone on 08-05 while the drill lane stayed wrong for 17 days.
+    #
+    # Read off the SOURCE for the same reason as above — a lane added later, or
+    # a `budget()` quietly unwrapped in a refactor, is caught with no test
+    # exercising it. Mechanism lines only, so the docstrings that QUOTE the
+    # retired literals cannot satisfy or break this.
+    ceiling_lanes = ["scripts/morning_knock.py", "scripts/knock_reply.py",
+                     "scripts/render_drill.py", "scripts/render_soak.py",
+                     "scripts/run_studio.py"]
+    raw = []
+    for rel in ceiling_lanes:
+        lines = (REAL_BASE / rel).read_text(encoding="utf-8").splitlines()
+        mech = code_line_numbers("\n".join(lines))
+        for i, ln in enumerate(lines, 1):
+            if i in mech and "max_tokens=" in ln and "max_tokens=budget(" not in ln:
+                raw.append(f"{rel}:{i}")
+    check(f"every MODEL call takes its ceiling from budget() ({len(ceiling_lanes)} lanes)",
+          not raw,
+          f"raw max_tokens at {', '.join(raw)} — a call site declares what its "
+          f"ARTIFACT needs; REASONING_HEADROOM is the model's, added once")
+    check("...and the headroom is big enough for the reasoning that was measured",
+          mk.REASONING_HEADROOM >= 3000, f"got {mk.REASONING_HEADROOM}")
 
 
 

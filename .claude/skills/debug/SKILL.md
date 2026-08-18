@@ -122,7 +122,7 @@ fields (only fired lists accumulated); the knock menu (`deck_due_list`, since re
 move names only, so the variety law had no evidence of
 same-ask repeats; the judge's reveal-cap trusted model memory of what had been shown.
 **Fix:** chain moves `pinned_target`/`pinned_revealed`; every exchange appends to
-`exchanges` (chat renders the full chain); menu demotes+marks items asked/shown in 3 days
+`exchanges` (chat renders the full chain); menu demotes+marks items asked/shown inside the ask cooldown (3 days then; `ASK_COOLDOWN_DAYS` = 7 since 2026-08-18)
 and outcome memory carries the ask; `revealed_recently()` computes reveals from the log —
 the judge may cap against that list only.
 **Verify:** `python scripts/smoke_test.py` → section 10 (regression #3).
