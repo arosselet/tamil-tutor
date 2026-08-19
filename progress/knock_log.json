@@ -4621,8 +4621,8 @@
     ],
     "volley_next": 2,
     "response": "reply",
-    "reply": "Naan mudinja",
-    "reply_verdict": "cold",
+    "reply": "What does inge paringa mean?",
+    "reply_verdict": "chat",
     "reply_fired": [
       "முடிஞ்சா"
     ],
@@ -4630,8 +4630,8 @@
       "முடிஞ்சா"
     ],
     "reply_fired_capped": [],
-    "reply_line": "adhu dhaan — mudinja fired! pair it with the verb next time: 'varen, mudinja'. · 2/4 — Auto's nearing the signal — tell the driver to turn right.",
-    "reply_at": "2026-08-19T12:54:13Z",
+    "reply_line": "paringa = look (polite) — so 'inge paringa' = 'look here'. anyway, 2/4 — driver needs to turn right, thirumbunga? · still open · 2/4 — Auto's nearing the signal — tell the driver to turn right.",
+    "reply_at": "2026-08-19T20:56:27Z",
     "exchanges": [
       {
         "at": "2026-08-19T12:54:13Z",
@@ -4649,6 +4649,19 @@
         "slips": [
           "bare-softener"
         ],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-19T20:56:27Z",
+        "reply": "What does inge paringa mean?",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "paringa = look (polite) — so 'inge paringa' = 'look here'. anyway, 2/4 — driver needs to turn right, thirumbunga? · still open · 2/4 — Auto's nearing the signal — tell the driver to turn right.",
+        "slips": [],
         "spoke": "",
         "scheduled": ""
       }
