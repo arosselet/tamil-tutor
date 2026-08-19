@@ -54,7 +54,11 @@
 
 **The two live debts are one disease: parts held as wholes.** `chunk-not-machine` (2× over 4d — fires the line most recently in his ear rather than the move the room wants) and `person-marker` (2× over 6d — marks himself when the ending already points at her). The medicine is not more reps; it is carve, then ambush with nothing named. **The standing failure is mine, not his:** three sessions running I have written the answer above his head and then asked for it back.
 
-**Dated, inside the stay:** amma's birthday ~Aug 24 — *pirandha naal vazhthukkal* is SEEN only and has never fired; her room is the only test that counts. **And no countdown, no burn rate, no deficit narrated — in country the table sets the pace.**
+**Missions die at the trigger, not at the line (added 2026-08-19).** Two running have gone unfired for want of an opening — the 08-15 repair line and the spoon. Both times the Tamil was ready and the *moment* never showed, and both times that was my design, not his nerve. A mission is only as good as how many times a day the room hands him the slot. Fix the trigger before blaming the reflex: *naane eduthukkaren* was welded to a ladle at dinner; unwelded, it fires on any object moving toward him — plate, jug, bag, chair — six times a day.
+
+**He tests the rules he is given, and he is right to (2026-08-19).** Handed a tidy three-instance carve on word order, he came straight back at the seam and it did not hold: the three slips were not one crime, and today's was marked-but-grammatical rather than wrong. Give him the flexible truth — verb last, question word hugs the verb, when and where up front — and never a false absolute dressed up as a pattern. He will find it, and a rule that breaks under him costs more than the one it replaced.
+
+**Dated, inside the stay:** amma's birthday ~Aug 24 — *pirandha naal vazhthukkal* is SEEN only and has never fired; her room is the only test that counts, and it is four days out. It cannot be improvised on the day — build it before it arrives. **And no countdown, no burn rate, no deficit narrated — in country the table sets the pace.**
 
 **Standing catch order (renewable):** one word overheard off the sisters.
 
