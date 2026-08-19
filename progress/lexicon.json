@@ -5444,7 +5444,9 @@
   },
   "கேட்கல": {
     "gloss": "didn't hear it / couldn't hear — the -la negative",
-    "phonetic": [],
+    "phonetic": [
+      "kekala"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -5452,11 +5454,13 @@
     ],
     "last_surfaced": "2026-08-19",
     "exposures": 1,
-    "reps": 1
+    "reps": 2
   },
   "பாத்துக்க": {
     "gloss": "I've got it / I'm handling it — the self-benefactive -thukka tail",
-    "phonetic": [],
+    "phonetic": [
+      "paathukka"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -5464,11 +5468,13 @@
     ],
     "last_surfaced": "2026-08-19",
     "exposures": 1,
-    "reps": 1
+    "reps": 2
   },
   "அவசியம்": {
     "gloss": "necessary / a must",
-    "phonetic": [],
+    "phonetic": [
+      "avasiyam"
+    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -5476,6 +5482,6 @@
     ],
     "last_surfaced": "2026-08-19",
     "exposures": 1,
-    "reps": 1
+    "reps": 2
   }
 }
