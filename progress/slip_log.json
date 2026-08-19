@@ -509,5 +509,17 @@
     "note": "reaches for a SIZE adjective where Tamil wants a QUANTITY word; second instance, 15d apart, and he named the gap himself",
     "word": "",
     "dose_channel": "drill"
+  },
+  {
+    "at": "2026-08-19T12:54:13Z",
+    "date": "2026-08-19",
+    "lane": "knock",
+    "modality": "volley",
+    "tag": "bare-softener",
+    "said": "Naan mudinja",
+    "want": "varen, mudinja",
+    "note": "the softener attaches to the answer verb, not to 'naan' alone",
+    "word": "",
+    "dose_channel": "soak"
   }
 ]
