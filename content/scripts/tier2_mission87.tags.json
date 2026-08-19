@@ -1,0 +1,34 @@
+{
+  "mission": 87,
+  "register": "suspicion",
+  "dramatic_ingredient": "subtext",
+  "episode_form": "narrated_drama",
+  "shape": "vignette",
+  "location_class": "urban_street",
+  "energy": "medium",
+  "intercept_tamil_density": 0.35,
+  "breakdown_tamil_density": 0.15,
+  "fence_size": 42,
+  "unfenced_words": 0,
+  "new_words_landed": {
+    "தெரியல": 5,
+    "புரியல": 2,
+    "கேட்கல": 1,
+    "வரல": 2,
+    "பண்ணல": 2,
+    "முடியல": 1,
+    "என்ன சொன்னீங்க?": 2
+  },
+  "callbacks_used": {
+    "தம்பி": 2,
+    "இல்ல": 2,
+    "ஆனா": 1,
+    "அலைச்சல்": 1,
+    "பாக்கறீங்க": 1
+  },
+  "host_roles": {
+    "A": "suspicious_narrator",
+    "B": "vague_informant"
+  },
+  "notes": "Focused on the -la negative suffix (the 'Nothing Works' machine). Dialect pass ensured the Architect's phonetics were converted to pure Tamil script. Enforced the rule that [Pause] markers occupy their own lines to prevent TTS drop-out. Payload items 'தெரியல', 'புரியல', 'கேட்கல', 'வரல', 'பண்ணல', 'முடியல', and 'என்ன சொன்னீங்க?' were preserved verbatim."
+}
