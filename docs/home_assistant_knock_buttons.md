@@ -134,9 +134,14 @@ actions:
           title: "{{ trigger.json.title | default('Anna', true) }}"
           message: "{{ trigger.json.text_content }}"
           data:
-            # unique per knock (2026-07-11): notifications STACK until dismissed;
-            # knock_id rides back with taps/replies so the judge grades the right knock
-            tag: "anna-{{ trigger.json.knock_id | default('knock', true) }}"
+            # unique per MESSAGE (2026-08-19): notifications STACK until dismissed.
+            # The repo mints this now — see morning_knock.push_to_phone. It used to be
+            # built here from knock_id alone, which made two replies to the SAME knock
+            # share a tag, and iOS replaced the first with the second (2026-08-18).
+            # The default is the pre-2026-08-19 shape, so an un-updated repo still works.
+            # knock_id stays in action_data ONLY — that is judging correlation, a
+            # different job with a different key: stable per knock, not unique per push.
+            tag: "{{ trigger.json.tag | default('anna-' ~ (trigger.json.knock_id | default('knock', true)), true) }}"
             action_data:
               knock_id: "{{ trigger.json.knock_id | default('', true) }}"
             url: "{{ trigger.json.audio_url }}"
@@ -158,7 +163,8 @@ actions:
           title: "{{ trigger.json.title | default('Anna', true) }}"
           message: "{{ trigger.json.text_content }}"
           data:
-            tag: "anna-{{ trigger.json.knock_id | default('knock', true) }}"
+            # per-message tag — same law as the audio branch above (2026-08-19)
+            tag: "{{ trigger.json.tag | default('anna-' ~ (trigger.json.knock_id | default('knock', true)), true) }}"
             action_data:
               knock_id: "{{ trigger.json.knock_id | default('', true) }}"
             actions:
@@ -381,6 +387,15 @@ which round-trips one in `action_data`. Without it, `knock_reply.py` falls back 
 fired**, whatever it was. That's the right default for "I want to say something to
 Anna now", and it's also why the Shortcut can answer a volley whose notification you
 already swiped away — the knock is still the last one in the log.
+
+That fallback is correct, and until 2026-08-19 it had a sharp edge: two Shortcut replies
+in a row both resolve to the *same* last-fired knock, and the notification tag used to be
+built from `knock_id` alone — so Anna's second answer replaced his first on the lock
+screen. It happened on 2026-08-18 (43 seconds apart; the answer to "inge poringe" was
+delivered HTTP 200 and never seen). The tag is now minted per message by the repo and
+`knock_id` correlates only, so back-to-back replies stack. **If you are diagnosing a
+missing answer, check `progress/chat.md` first** — a reply that was judged and logged but
+never seen is this class of bug, not a lost dispatch.
 
 Consequence worth knowing: if a newer knock has fired since the one you meant to
 answer, the Shortcut will grade you against the *newer* one. Use the notification's

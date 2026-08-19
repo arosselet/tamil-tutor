@@ -2166,3 +2166,25 @@ Details live in git history; this is the index of the *conclusions*.
   READING is trimmed: `recent_ask_counts` still sees every row, so the selector's demotion is
   untouched. A guard nobody reads guards nothing, which is the silent no-op one layer up — the
   mechanism fires and the human doesn't. Smoke `s64`.
+
+- **A shared lane must fail fast — `timeout-minutes` on the job and on apt** (2026-08-19,
+  Andrew). **Replaces** GitHub's 6h default as the only bound on `anna.yml`, and widens what
+  `continue-on-error` promises: it covered a step that FAILS, and this step's failure mode is
+  that it never returns. The apt mirror hung twice, silently under `-qq` — 57 min on 08-17
+  (run 32070415338, recovered, unnoticed) and unbounded on 08-18 (run 32165026119, killed at
+  the ceiling). The cost is the LANE, not the runner minutes: `concurrency: group: anna` is
+  one serialised FIFO queue, so one wedged job held two replies and five scheduled ticks for
+  six hours, and the Actions tab reported their WAIT as duration. Job 20 min against a
+  measured worst honest run of 8m37s; apt 3 min against a ~20s install, expiring into the
+  documented frame-scan fallback. Smoke `s29`.
+
+- **The notification tag is identity, not correlation — unique per MESSAGE** (2026-08-19,
+  Andrew). **Replaces** the per-knock tag of "Notifications stack; replies correlate by
+  knock_id" (2026-07-11); that entry's correlation half stands. One field did two jobs
+  wanting opposite keys: correlation STABLE per knock so the judge grades the right entry,
+  identity UNIQUE per message or iOS replaces a notification with its successor. They
+  collided once two replies landed on one knock — both via the Shortcut, which carries no
+  knock_id, so both fell back to `last_fired_knock` and minted the same tag. 43 seconds
+  apart, a test message ate the answer to "inge poringe" — judged, committed `e1fa4ea`,
+  HTTP 200, never seen. Textbook silent no-op: green run, correct `chat.md`, observable only
+  on the wire. Minted in `push_to_phone` now, which came out a line shorter. Smoke `s67`.
