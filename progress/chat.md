@@ -18,6 +18,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan — mudinja fired! pair it with the verb next time: 'varen, mudinja'. · 2/4 — Auto's nearing the signal — tell the driver to turn right.
 
+**02:26 · Andrew** — **CHAT**
+> What does inge paringa mean?
+
+**Anna ↩**
+> paringa = look (polite) — so 'inge paringa' = 'look here'. anyway, 2/4 — driver needs to turn right, thirumbunga? · still open · 2/4 — Auto's nearing the signal — tell the driver to turn right.
+
 
 ## Tuesday 2026-08-18
 
