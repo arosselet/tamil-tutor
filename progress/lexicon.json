@@ -258,7 +258,8 @@
       34,
       65
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-19",
+    "reps": 1
   },
   "ஆனா": {
     "gloss": "But",
@@ -657,14 +658,15 @@
       "kaaram"
     ],
     "recognition": "solid",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       10,
       24,
       80
     ],
-    "last_surfaced": "2026-08-10",
-    "exposures": 4
+    "last_surfaced": "2026-08-19",
+    "exposures": 4,
+    "reps": 1
   },
   "நம்ம": {
     "gloss": "Our (inclusive)",
@@ -1665,7 +1667,7 @@
       "pidikkum"
     ],
     "recognition": "solid",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       22,
       23,
@@ -1674,7 +1676,8 @@
       27,
       32
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-19",
+    "reps": 1
   },
   "பெரிய": {
     "gloss": "Big",
@@ -2245,10 +2248,12 @@
   "அப்புறம்": {
     "gloss": "Later / After that",
     "phonetic": [
-      "appuram"
+      "appuram",
+      "apora",
+      "appram"
     ],
     "recognition": "comfortable",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [
       1,
       5,
@@ -2273,8 +2278,9 @@
       36,
       38
     ],
-    "last_surfaced": "2026-08-10",
-    "exposures": 3
+    "last_surfaced": "2026-08-19",
+    "exposures": 3,
+    "reps": 1
   },
   "கேட்பேன்": {
     "gloss": "I will hear/ask (future)",
@@ -2711,7 +2717,8 @@
       51,
       52
     ],
-    "last_surfaced": "2026-06-24"
+    "last_surfaced": "2026-08-19",
+    "reps": 1
   },
   "அப்படியே": {
     "gloss": "just like that / as it is",
@@ -3253,7 +3260,9 @@
     "type": "chunk",
     "gloss": "I've arrived / I came",
     "phonetic": [
-      "vandhutten"
+      "vandhutten",
+      "wandete",
+      "vandutte"
     ],
     "recognition": "comfortable",
     "production": "none",
@@ -4345,11 +4354,11 @@
       60,
       86
     ],
-    "last_surfaced": "2026-08-18",
+    "last_surfaced": "2026-08-19",
     "deck": "trip",
     "direction": "fire",
     "exposures": 4,
-    "reps": 1,
+    "reps": 2,
     "register": "antifreeze"
   },
   "அலைச்சல்": {
@@ -5387,5 +5396,37 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": "2026-08-18"
+  },
+  "போறீங்க": {
+    "gloss": "You're going / are you going? (polite -றீங்க 'you' ending; the counterpart to போறேன் 'I'm going'). NOT an imperative — 'go!' is போங்க.",
+    "phonetic": [
+      "poringa",
+      "poringe",
+      "poreenga"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-08-19"
+  },
+  "சமையல்": {
+    "gloss": "cooking / the food being cooked (noun) — his own lookup; the noun that dodged the verb",
+    "phonetic": [
+      "samayal"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-08-19"
+  },
+  "இப்ப": {
+    "gloss": "now (the mouth form — nobody says the -thu of இப்போது)",
+    "phonetic": [
+      "ippo"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-08-19"
   }
 }

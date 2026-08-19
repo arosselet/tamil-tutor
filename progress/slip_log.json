@@ -485,5 +485,29 @@
     "note": "the repair INSTINCT fires — it just has no Tamil mouth on it yet, so it comes out in English and aimed at the coach",
     "word": "",
     "dose_channel": "drill"
+  },
+  {
+    "at": "2026-08-19T07:08:42Z",
+    "date": "2026-08-19",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "english-word-order",
+    "said": "enna nalaiku samayal",
+    "want": "naalaiku enna samayal",
+    "note": "third instance, first time carved: Tamil sets the stage (when/where) first and asks last; English leads with the question word",
+    "word": "",
+    "dose_channel": "drill"
+  },
+  {
+    "at": "2026-08-19T07:08:42Z",
+    "date": "2026-08-19",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "sinna-for-konjam",
+    "said": "kutti kaaram",
+    "want": "konjam kaaram",
+    "note": "reaches for a SIZE adjective where Tamil wants a QUANTITY word; second instance, 15d apart, and he named the gap himself",
+    "word": "",
+    "dose_channel": "drill"
   }
 ]
