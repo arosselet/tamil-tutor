@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:10 · Anna**  ·  text / debrief collect: spoon mission
 > did the spoon move last night — unprompted? how'd 'naane eduthukkaren' land at the table? debrief 🥄
 
+**16:27 · Anna**  ·  volley / volley: survival due-menu
+> ⚡ volley 1/4 — She's unsure if you'll make it tonight — before answering, add 'if I can'.
+
 
 ## Tuesday 2026-08-18
 
