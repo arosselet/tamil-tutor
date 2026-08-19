@@ -1,0 +1,25 @@
+{
+  "mission": 90,
+  "register": "pride",
+  "dramatic_ingredient": "character",
+  "episode_form": "vignette",
+  "shape": "pattern_riff",
+  "location_class": "extended_family",
+  "energy": "medium-loud",
+  "intercept_tamil_density": 0.45,
+  "breakdown_tamil_density": 0.0,
+  "fence_size": 35,
+  "unfenced_words": 0,
+  "new_words_landed": {
+    "பாத்துக்க": 6,
+    "அவசியம்": 3
+  },
+  "callbacks_used": {
+    "தூக்கு": 1
+  },
+  "host_roles": {
+    "A": "amused_narrator",
+    "B": "overeager_uncle"
+  },
+  "notes": "No Architect brief was on disk for mission 90 (only the draft was handed to this pass); payload keys were inferred from what actually repeats in the script — 'பாத்துக்க' (I've got it / I'm handling it) as the character catchphrase, 'அவசியம்' (necessary) as its foil. Dialect pass: collapsed literary -கிறேன் to spoken -கறேன் on the four present-tense 'பாத்துக்க' lines, dropped the -ஐ case marker on the English noun 'fan', normalized இல்லை→இல்ல, and fixed வரேன்→வர்றேன். Left the two past-tense 'பாத்துக்கிட்டேன்' occurrences untouched — already correct spoken register. Episode form corrected to vignette: the draft has no Breakdown segment, so it can't be tagged classic. No send-back: hosts stay distinct (A carries all English commentary, B carries all Tamil/acting), pacing has a pause every 2-4 lines, no -ங்க on first-person verbs."
+}
