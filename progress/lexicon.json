@@ -2332,9 +2332,11 @@
     "recognition": "struggled",
     "production": "cold",
     "seen_in": [
-      15
+      15,
+      90
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-19",
+    "exposures": 1
   },
   "வை": {
     "gloss": "Keep / Put / Place",
@@ -5447,6 +5449,28 @@
     "production": "none",
     "seen_in": [
       87
+    ],
+    "last_surfaced": "2026-08-19",
+    "exposures": 1
+  },
+  "பாத்துக்க": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      90
+    ],
+    "last_surfaced": "2026-08-19",
+    "exposures": 1
+  },
+  "அவசியம்": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      90
     ],
     "last_surfaced": "2026-08-19",
     "exposures": 1
