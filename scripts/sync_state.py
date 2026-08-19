@@ -545,8 +545,23 @@ def cmd_update(args):
             touch(key)
             if gloss and not lexicon[key].get("gloss"):
                 lexicon[key]["gloss"] = gloss
+            # The phonetic backfills on the same terms as the gloss (2026-08-19).
+            # Only the gloss did, which made --teach the one command able to name
+            # an existing row and yet decline to — so every row minted by
+            # render_audio from an episode's tags sidecar (no gloss, no phonetic)
+            # was permanently unreachable from chat with no sanctioned repair.
+            # Found by publishing M87/M90: three fresh rows, three unfillable
+            # holes, s61's ratchet red. `not ...` never overwrites a vetted
+            # phonetic; it only fills an empty list. Like the new-word branch
+            # below it leaves phon_index alone — the index is rebuilt per run,
+            # and no lane resolves a phonetic it minted in the same invocation.
+            if phon and not lexicon[key].get("phonetic"):
+                lexicon[key]["phonetic"] = [phon]
+            # Printed, not assumed: a state write nobody can see is the silent
+            # no-op this repo keeps paying for. STILL EMPTY names the hole.
             print(f"  Taught (already known): {key} — refreshed, recognition left "
-                  f"at {lexicon[key].get('recognition', 'struggled')}")
+                  f"at {lexicon[key].get('recognition', 'struggled')}, "
+                  f"phonetic {lexicon[key].get('phonetic') or 'STILL EMPTY'}")
             return
         if not phon:
             print(f"  ! '{word}' is new — teach it with its sounds-like form, '{word}=gloss|phonetic', or it can never be logged from chat. Skipped.")
