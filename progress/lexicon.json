@@ -294,10 +294,11 @@
       64,
       69,
       71,
-      75
+      75,
+      87
     ],
-    "last_surfaced": "2026-07-26",
-    "exposures": 2
+    "last_surfaced": "2026-08-19",
+    "exposures": 3
   },
   "அவன்": {
     "gloss": "He (informal)",
@@ -522,11 +523,12 @@
       38,
       60,
       61,
-      76
+      76,
+      87
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-08-19",
     "reps": 1,
-    "exposures": 4
+    "exposures": 5
   },
   "மாமா": {
     "gloss": "Uncle (maternal)",
@@ -1185,10 +1187,11 @@
       30,
       32,
       33,
-      76
+      76,
+      87
     ],
-    "last_surfaced": "2026-07-28",
-    "exposures": 2,
+    "last_surfaced": "2026-08-19",
+    "exposures": 3,
     "reps": 1
   },
   "செம்மை": {
@@ -2457,15 +2460,16 @@
       42,
       65,
       68,
+      87,
       88,
       89
     ],
-    "last_surfaced": "2026-08-15",
+    "last_surfaced": "2026-08-19",
     "deck": "trip",
     "direction": "fire",
     "type": "chunk",
     "reps": 4,
-    "exposures": 4,
+    "exposures": 5,
     "register": "antifreeze"
   },
   "கூப்பிடு": {
@@ -3773,14 +3777,15 @@
     "production": "cold",
     "seen_in": [
       58,
+      87,
       88,
       89
     ],
-    "last_surfaced": "2026-08-18",
+    "last_surfaced": "2026-08-19",
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 5,
+    "exposures": 6,
     "register": "antifreeze"
   },
   "தமிழ்ல எப்படி சொல்றது?": {
@@ -4377,13 +4382,14 @@
       78,
       83,
       86,
+      87,
       88
     ],
-    "last_surfaced": "2026-08-14",
+    "last_surfaced": "2026-08-19",
     "deck": "trip",
     "direction": "catch",
     "reps": 2,
-    "exposures": 5,
+    "exposures": 6,
     "register": "gossip"
   },
   "ஜாஸ்தி": {
@@ -4592,11 +4598,12 @@
     "production": "none",
     "seen_in": [
       63,
+      87,
       88
     ],
-    "last_surfaced": "2026-08-14",
+    "last_surfaced": "2026-08-19",
     "reps": 2,
-    "exposures": 2
+    "exposures": 3
   },
   "டீ": {
     "gloss": "tea",
@@ -5098,9 +5105,11 @@
     ],
     "recognition": "comfortable",
     "production": "cold",
-    "seen_in": [],
-    "last_surfaced": "2026-07-31",
-    "exposures": 1
+    "seen_in": [
+      87
+    ],
+    "last_surfaced": "2026-08-19",
+    "exposures": 2
   },
   "யாரு?": {
     "type": "chunk",
@@ -5360,11 +5369,12 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
+      87,
       88,
       89
     ],
-    "last_surfaced": "2026-08-15",
-    "exposures": 2
+    "last_surfaced": "2026-08-19",
+    "exposures": 3
   },
   "முடியல": {
     "gloss": "",
@@ -5372,10 +5382,11 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
+      87,
       88
     ],
-    "last_surfaced": "2026-08-14",
-    "exposures": 1
+    "last_surfaced": "2026-08-19",
+    "exposures": 2
   },
   "மாட்ட": {
     "gloss": "Will not / never will (the refusal ending — nee sollave maatta)",
@@ -5428,5 +5439,16 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": "2026-08-19"
+  },
+  "கேட்கல": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      87
+    ],
+    "last_surfaced": "2026-08-19",
+    "exposures": 1
   }
 }
