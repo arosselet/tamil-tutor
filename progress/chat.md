@@ -24,6 +24,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > paringa = look (polite) — so 'inge paringa' = 'look here'. anyway, 2/4 — driver needs to turn right, thirumbunga? · still open · 2/4 — Auto's nearing the signal — tell the driver to turn right.
 
+**02:29 · Andrew** — **MISS**
+> Valadu pakkam ponga
+
+**Anna ↩**
+> valadu pakkam's right, but ponga's just 'go' — for turn it's thirumbunga: valadu pakkam thirumbunga · 3/4 — At the vegetable stall, basket full — ask the vendor what it'll cost.
+
 
 ## Tuesday 2026-08-18
 
