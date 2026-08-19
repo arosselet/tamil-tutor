@@ -521,5 +521,17 @@
     "note": "the softener attaches to the answer verb, not to 'naan' alone",
     "word": "",
     "dose_channel": "soak"
+  },
+  {
+    "at": "2026-08-19T20:59:16Z",
+    "date": "2026-08-20",
+    "lane": "knock",
+    "modality": "volley",
+    "tag": "wrong-verb-direction",
+    "said": "ponga",
+    "want": "thirumbunga",
+    "note": "ponga is go, not turn — the direction needs thirumbu",
+    "word": "",
+    "dose_channel": "soak"
   }
 ]
