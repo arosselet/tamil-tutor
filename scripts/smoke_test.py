@@ -490,10 +490,14 @@ def s8_variety_and_decay(mk, kr, sb: Path):
 
 
 def s14_reply_correlation(kr):
-    """2026-07-11 (KF-9): notifications stack (unique HA tag per knock); taps and
-    replies carry the knock's log timestamp back as knock_id. find_knock targets
-    the exact entry; a missing/stale/empty id returns None so callers fall back
-    to last-fired (pre-migration notifications stay judgeable)."""
+    """2026-07-11 (KF-9): notifications stack; taps and replies carry the knock's
+    log timestamp back as knock_id. find_knock targets the exact entry; a
+    missing/stale/empty id returns None so callers fall back to last-fired
+    (pre-migration notifications stay judgeable).
+
+    This case owns CORRELATION only. The tag was also unique-per-knock until
+    2026-08-19 — s67 owns notification IDENTITY now, and explains why the two
+    could not keep sharing a key."""
     print("\n14. Reply correlation (stacked notifications)")
     klog = [
         {"acted": True, "timestamp": "2026-07-11T08:00:00+00:00", "move": "volley"},
@@ -1007,6 +1011,63 @@ def s15_push_retry(mk):
         check("gave up after 3 attempts", calls["n"] == 3, f"{calls['n']} calls")
     finally:
         mk.urllib.request.urlopen, mk.time.sleep = real_urlopen, real_sleep
+        os.environ.pop("ANNA_PUSH_WEBHOOK_URL", None)
+
+
+def s67_two_replies_to_one_knock_both_survive(mk):
+    """2026-08-18: Andrew asked what 'inge poringe' means, then sent a test message.
+    He got the test answer and never saw the Tamil one. Nothing failed — the reply
+    was judged, committed (e1fa4ea), and delivered HTTP 200. Both replies arrived
+    via the Shortcut, which sends no knock_id, so both fell back to
+    last_fired_knock, both resolved knock 2026-08-18T10:21, and both carried
+    tag "anna-2026-08-18T10:21". iOS replaces a notification whose tag is already
+    on the lock screen, so the second ate the first 43 seconds later.
+
+    THE SILENT NO-OP: this is invisible from inside. The run is green, the push
+    returns 200, chat.md holds both exchanges, the knock log is correct. The ONLY
+    place the collision is observable is the tag on the wire — so that is what
+    this asserts, off the real Request, not off the function's return value."""
+    print("\n67. Two replies to one knock both reach the lock screen (2026-08-18)")
+    import os
+
+    class FakeResp:
+        status = 200
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+
+    sent = []
+    real_urlopen = mk.urllib.request.urlopen
+    os.environ["ANNA_PUSH_WEBHOOK_URL"] = "https://smoke.invalid/hook"
+    try:
+        def capture(req, *a, **kw):
+            sent.append(json.loads(req.data.decode()))
+            return FakeResp()
+        mk.urllib.request.urlopen = capture
+        # The exact 08-18 shape: two DIFFERENT messages, ONE resolved knock.
+        # requested=True so the quiet-hours chokepoint can't short-circuit the
+        # case when the suite runs late (same reason as s15).
+        knock = "2026-08-18T10:21:00+00:00"
+        mk.push_to_phone("inge poringe = go here…", None, knock_id=knock, requested=True)
+        mk.push_to_phone("loud and clear da 👂", None, knock_id=knock, requested=True)
+        check("both pushes left the building", len(sent) == 2, f"{len(sent)} sent")
+        first, second = sent
+        # THE ASSERTION THAT WOULD HAVE CAUGHT IT. Identity must differ...
+        check("two messages on one knock get DIFFERENT notification tags",
+              first["tag"] != second["tag"], f"both tagged {first['tag']!r}")
+        # ...while correlation must NOT, or the judge grades the wrong entry.
+        check("both still correlate to the same knock for judging",
+              first["knock_id"] == second["knock_id"] == knock)
+        check("the tag still names its knock (legible in HA's log)",
+              first["tag"].startswith(f"anna-{knock}"), first["tag"])
+        # An id-less push (Shortcut reply before last-fired resolves, ad-hoc dose)
+        # must not collapse every such notification onto one shared tag.
+        sent.clear()
+        mk.push_to_phone("a", None, requested=True)
+        mk.push_to_phone("b", None, requested=True)
+        check("id-less pushes don't all share the 'anna-knock' tag",
+              sent[0]["tag"] != sent[1]["tag"], f"both tagged {sent[0]['tag']!r}")
+    finally:
+        mk.urllib.request.urlopen = real_urlopen
         os.environ.pop("ANNA_PUSH_WEBHOOK_URL", None)
 
 
@@ -2198,6 +2259,18 @@ def s29_one_runner_every_capability(mk, pq, kr, sb: Path):
     check("the lock-screen lane skips the install",
           "if: github.event_name != 'repository_dispatch'" in ffstep)
     check("a failed install cannot cost a knock", "continue-on-error: true" in ffstep)
+    # ...and a HUNG install cannot either (2026-08-19). `continue-on-error` only
+    # ever covered a step that FAILS; this step's failure mode is that it never
+    # returns — 57 minutes on 08-17 (recovered, unnoticed), unbounded on 08-18
+    # (killed at GitHub's 6h ceiling). Both silent: apt prints nothing under -qq.
+    check("a HUNG install cannot cost a knock either",
+          re.search(r"^\s*timeout-minutes:\s*\d+\s*$", ffstep, re.M) is not None)
+    # The lane is ONE serialised FIFO queue (asserted below), so an unbounded job
+    # does not stall itself — it stalls everything behind it. On 08-18 one wedged
+    # run held two replies and five scheduled ticks for six hours.
+    job_block = anna.split("steps:", 1)[0]
+    check("the job itself is bounded, so a hang cannot hold the shared lane",
+          re.search(r"^\s*timeout-minutes:\s*\d+\s*$", job_block, re.M) is not None)
     # ONE expression still (the 07-24 collapse of three holds). The interval is
     # back to hourly (2026-07-30): */30 ran for two days and was measured against
     # hourly slice-for-slice — 108.9 vs 108.7 median minutes between runs — so the
@@ -6520,6 +6593,7 @@ def main():
         s1_parse_llm_json(mk)
         s2_rails_gate(mk, sb / "progress" / "knock_log.json")
         s15_push_retry(mk)   # needs the real push_to_phone — s3+ stub it out
+        s67_two_replies_to_one_knock_both_survive(mk)   # ditto: asserts on the real payload
         s35_quiet_hours_chokepoint(sb)   # ditto: asserts on the real function
         s59_transit_bit(mk, sb)          # ditto — s3 below stubs rails_gate out
         s3_knock_paths(mk, sb)

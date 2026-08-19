@@ -947,8 +947,9 @@ def push_to_phone(body: str, audio_url: str | None, knock_id: str = "",
     """Push a notification. audio_url is optional — a text/challenge/grace dose has none.
     knock_id = the knock's log-entry timestamp; it rides the notification's action_data
     and comes back with taps/replies so the judge grades the knock Andrew actually
-    answered. Notifications stack (unique HA tag per knock, 2026-07-11) — last-fired
-    correlation is only the fallback for id-less events.
+    answered. Notifications stack (unique tag per MESSAGE, 2026-08-19; per knock from
+    2026-07-11 until two replies to one knock collided) — last-fired correlation is
+    only the fallback for id-less events.
 
     QUIET HOURS ARE ENFORCED HERE, at the one chokepoint every lane shares
     (2026-07-26). They used to be enforced per-lane: `rails_gate` for knocks, a
@@ -975,9 +976,26 @@ def push_to_phone(body: str, audio_url: str | None, knock_id: str = "",
         except OSError as e:
             print(f"   ⚠ CDN pre-warm failed ({e}) — pushing anyway")
     webhook = os.environ["ANNA_PUSH_WEBHOOK_URL"]
-    payload = {"title": "Anna", "text_content": body}
-    if knock_id:
-        payload["knock_id"] = knock_id
+    # `tag` is the notification's IDENTITY and nothing else; iOS replaces a
+    # notification that arrives bearing a tag already on the lock screen. It used
+    # to be derived HA-side from knock_id alone ("anna-{{ knock_id }}", unique per
+    # KNOCK, 2026-07-11) — which made one field do two jobs, identity and judging
+    # correlation, and they do not want the same key. Correlation must be STABLE
+    # per knock so the judge grades the right entry; identity must be UNIQUE per
+    # message or a notification eats its predecessor.
+    #
+    # On 2026-08-18 they collided for real. Two Shortcut replies (which by design
+    # send no knock_id — see docs/home_assistant_knock_buttons.md §8.3) both fell
+    # back to last_fired_knock, both resolved knock 2026-08-18T10:21, both pushed
+    # tag "anna-2026-08-18T10:21" 43 seconds apart, and the second silently
+    # replaced the first. The answer to "inge poringe what does it mean?" was
+    # generated, judged, committed and delivered HTTP 200 — and Andrew never saw
+    # it. Every instrument read green; the only trace was in chat.md.
+    #
+    # So the tag is minted HERE, per push, and knock_id keeps correlation alone in
+    # action_data. The knock prefix stays for legibility in HA's log.
+    payload = {"title": "Anna", "text_content": body, "knock_id": knock_id,
+               "tag": f"anna-{knock_id or 'knock'}-{time.time_ns()}"}
     if audio_url:
         payload["audio_url"] = audio_url
     req = urllib.request.Request(webhook, data=json.dumps(payload).encode(),

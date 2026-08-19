@@ -94,6 +94,20 @@ concurrency:
 jobs:
   anna:
     runs-on: ubuntu-latest
+    # THE LANE MUST FAIL FAST, because the lane is shared (2026-08-19, Andrew).
+    # `concurrency: group: anna` below is ONE serialised FIFO queue, so a job that
+    # hangs does not stall itself — it stalls every knock, reply and drain behind
+    # it. Without this key the bound is GitHub's platform default of 6h, and on
+    # 2026-08-18 that is exactly what it cost: run 32165026119 wedged in the apt
+    # step at 17:20 and was killed at the 6h ceiling, holding the lane while two
+    # replies and five scheduled ticks piled up behind it. They all completed
+    # within five minutes of the kill — the Actions tab reads "4h56m", but that
+    # is WAIT, not work.
+    #
+    # 20 is ~2x the worst honest run. Real work is 30s-2min; the longest genuine
+    # run measured across 100 is 8m37s (a render + feed rebuild). A run that
+    # passes 20 minutes is hung, not busy.
+    timeout-minutes: 20
     # Job-level env is the whole point of the consolidation: one place, every
     # capability, inherited by every step below. Adding a lane can no longer
     # mean forgetting to wire it.
@@ -158,6 +172,21 @@ jobs:
         #
         # Durations are frozen at first publication, so this only has to be right
         # ONCE per file — which is why a failure here must not cost Andrew a knock.
+        #
+        # THIS IS THE STEP THAT HANGS, and `continue-on-error` never covered it
+        # (2026-08-19). That key promises a FAILURE cannot cost a knock; a process
+        # that never exits never becomes a failure, so the promise simply did not
+        # apply. Measured twice, against the Azure apt mirror: 57 minutes on
+        # 2026-08-17 (run 32070415338, recovered on its own, nobody noticed) and
+        # unbounded on 2026-08-18 (run 32165026119, killed at the 6h ceiling).
+        # Same step, same silence — no apt output at all under -qq.
+        #
+        # 3 minutes against a ~20s normal install. On expiry the step fails, and
+        # `continue-on-error` — now actually reachable — hands the run onward to
+        # rebuild_rss's pure-python frame scan. That is the documented tradeoff
+        # (a duration off by up to 40% on files born in this one run) and it is
+        # the cheaper half by far: the alternative just cost a whole day's lane.
+        timeout-minutes: 3
         if: github.event_name != 'repository_dispatch'
         continue-on-error: true
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
