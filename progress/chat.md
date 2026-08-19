@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Wednesday 2026-08-19
+
+**09:10 · Anna**  ·  text / debrief collect: spoon mission
+> did the spoon move last night — unprompted? how'd 'naane eduthukkaren' land at the table? debrief 🥄
+
+
 ## Tuesday 2026-08-18
 
 **09:08 · Anna** 🎧  ·  eavesdrop / catch: whose daughter

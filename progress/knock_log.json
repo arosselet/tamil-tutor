@@ -4576,5 +4576,18 @@
     "move": "hold — let dinner mission breathe",
     "rationale": "6 min left in the waking window, demand-streak forces no-ask anyway, and tonight's live thread is the spoon field-mission at dinner — firing anything now competes with the actual mission; check back at morning to collect that debrief plus the eavesdrop catch.",
     "next_check": "2026-08-19T02:24:34.323898+00:00"
+  },
+  {
+    "date": "2026-08-19",
+    "timestamp": "2026-08-19T03:40:48.898949+00:00",
+    "acted": true,
+    "scheduled": true,
+    "queue_id": "q1787048525",
+    "modality": "text",
+    "move": "debrief collect: spoon mission",
+    "rationale": "scheduled at 2026-08-18T10:22 for 2026-08-19T03:00",
+    "body": "did the spoon move last night — unprompted? how'd 'naane eduthukkaren' land at the table? debrief 🥄",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]

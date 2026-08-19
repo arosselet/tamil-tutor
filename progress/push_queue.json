@@ -1,14 +1,1 @@
-[
-  {
-    "id": "q1787048525",
-    "due": "2026-08-19T03:00:00+00:00",
-    "body": "did the spoon move last night — unprompted? how'd 'naane eduthukkaren' land at the table? debrief 🥄",
-    "expected_target": "",
-    "target_revealed": false,
-    "audio_url": null,
-    "memo_script": "",
-    "move": "debrief collect: spoon mission",
-    "force": false,
-    "queued_at": "2026-08-18T10:22:05.784175+00:00"
-  }
-]
+[]
