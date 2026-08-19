@@ -4589,5 +4589,36 @@
     "body": "did the spoon move last night — unprompted? how'd 'naane eduthukkaren' land at the table? debrief 🥄",
     "expected_target": "",
     "target_revealed": false
+  },
+  {
+    "date": "2026-08-19",
+    "timestamp": "2026-08-19T10:57:16.650596+00:00",
+    "acted": true,
+    "modality": "volley",
+    "move": "volley: survival due-menu",
+    "rationale": "Session already happened today (lunch anchor served), demand-streak is 0, and four due survival/delight items need cold reps with fresh scenes since silence isn't closing the open debrief — afternoon is the right slot for the volley, and it's untried in recent memory so it diversifies the rotation.",
+    "next_check": "2026-08-19T14:57:16.650596+00:00",
+    "body": "⚡ volley 1/4 — She's unsure if you'll make it tonight — before answering, add 'if I can'.",
+    "expected_target": "முடிஞ்சா",
+    "target_revealed": false,
+    "volley": [
+      {
+        "target": "முடிஞ்சா",
+        "ask": "She's unsure if you'll make it tonight — before answering, add 'if I can'."
+      },
+      {
+        "target": "வலது பக்கம் திரும்புங்க",
+        "ask": "Auto's nearing the signal — tell the driver to turn right."
+      },
+      {
+        "target": "எவ்ளோ ஆகும்?",
+        "ask": "At the vegetable stall, basket full — ask the vendor what it'll cost."
+      },
+      {
+        "target": "ஆமா ஆமா",
+        "ask": "Uncle mid-story pauses, checking you're still with him — keep him going."
+      }
+    ],
+    "volley_next": 1
   }
 ]
