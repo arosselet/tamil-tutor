@@ -12,6 +12,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **16:27 · Anna**  ·  volley / volley: survival due-menu
 > ⚡ volley 1/4 — She's unsure if you'll make it tonight — before answering, add 'if I can'.
 
+**18:24 · Andrew** — **COLD**
+> Naan mudinja
+
+**Anna ↩**
+> adhu dhaan — mudinja fired! pair it with the verb next time: 'varen, mudinja'. · 2/4 — Auto's nearing the signal — tell the driver to turn right.
+
 
 ## Tuesday 2026-08-18
 
