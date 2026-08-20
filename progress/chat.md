@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Thursday 2026-08-20
+
+**09:10 · Anna**  ·  text / trailer: birthday wish
+> amma's birthday's 4 days out — can't wing it live. today's session: pirandha naal vazhthukkal, locked before the day comes 🎂
+
+
 ## Wednesday 2026-08-19
 
 **09:10 · Anna**  ·  text / debrief collect: spoon mission
