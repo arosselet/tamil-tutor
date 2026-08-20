@@ -9,21 +9,23 @@ the only secret you add is the PAT (§1).
 > the finished automation live in the gitignored **`anna_knock_automation.yaml`**
 > (the mirror of your real HA config — copy from there). This doc uses placeholders.
 
-> **⚠ ONE-TIME (open since 2026-07-01): rotate the webhook_id.** The current one
-> was committed before the sanitize pass and is recoverable from public git
-> history. In HA, give "Notify Andrew" a fresh webhook_id, then update the
-> `ANNA_PUSH_WEBHOOK_URL` GitHub secret and the gitignored mirror. Delete this
-> note once rotated.
+> **Webhook_id rotation — DONE 2026-07-01, confirmed 2026-08-20.** The original
+> was committed before the sanitize pass and was recoverable from public git
+> history. It was rotated the same day (the `ANNA_PUSH_WEBHOOK_URL` secret
+> timestamp, 07-01 18:17 EDT, is that rotation) — but the ⚠ TODO asking for it
+> was never deleted, so it read as open for 50 days and the 08-20 audit
+> re-raised it as a live exposure. Confirmed closed by grepping all history for
+> the id now in the automation: zero hits, so the live id was never committed.
+> **A resolved TODO that stays on the page is a false alarm with a long tail** —
+> delete the note in the same edit as the fix.
 >
-> **Rewriting history does not substitute for rotating** (checked 2026-08-20).
-> `--amend` only reaches the tip commit; this one is ~770 commits and four
-> commits deep. Even a full `filter-repo` + force-push does not close it: the
-> repo is public, GitHub keeps unreachable blobs addressable by SHA, the fork
-> network holds its own copy, and 50 days of exposure means anyone who cloned
-> already has it. Rotation is cheap and total. Scrubbing is expensive and
-> partial. (The feed would survive a rewrite — `rss.xml` uses
-> `raw.githubusercontent.com/.../main/...`, not pinned SHAs — but that is the
-> only good news, and it is not a reason to do it.)
+> **If an id is ever exposed again: rotate, don't rewrite.** `--amend` only
+> reaches the tip commit. Even a full `filter-repo` + force-push does not close
+> it on a public repo — GitHub keeps unreachable blobs addressable by SHA and the
+> fork network holds its own copy, so anyone who cloned already has it. Rotation
+> is cheap and total; scrubbing is expensive and partial. Rotate with a second
+> webhook trigger added alongside the first (both `local_only: false`), so the
+> swap costs no downtime; the old trigger comes out last.
 
 ## What it does
 
@@ -490,7 +492,7 @@ also a two-place edit now: HA's `secrets.yaml` *and* the Shortcut's `Authorizati
 | Minted | Token | Used by | Expiry chosen | Notes |
 |---|---|---|---|---|
 | ~2026-06-30 | `ha-anna-knock` | HA | unrecorded | The original. Last successful dispatch 2026-07-31T00:08:30Z (20:08 EDT 07-30); every reply after that was lost silently. Consistent with GitHub's default 30-day expiry on a 06-30 mint. See `/debug` KF-12. |
-| 2026-07-31 | `ha-anna-knock` | HA **+ Shortcut** (since 08-01) | **FILL THIS IN** | Rotated the night the first one died. Verified on the HA leg: `rest_command.anna_knock_response` → 204 → Anna run → commit `5f34702 Knock response: ack`. Reused for the rebuilt Shortcut on 08-01 after its *Get Contents of URL* action was deleted, taking its only copy of the previous token with it (§8.4); verified on that leg by a `Vanakkam this is a test` round-trip → `08ade23 Knock reply: chat (no fire)`. **Write the expiry date in this cell** — an empty cell here is the whole failure mode, and this token is now a single point of failure for all inbound traffic. |
+| 2026-07-31 | `ha-anna-knock` | HA **+ Shortcut** (since 08-01) | **FILL THIS IN** | Rotated the night the first one died. Verified on the HA leg: `rest_command.anna_knock_response` → 204 → Anna run → commit `5f34702 Knock response: ack`. Reused for the rebuilt Shortcut on 08-01 after its *Get Contents of URL* action was deleted, taking its only copy of the previous token with it (§8.4); verified on that leg by a `Vanakkam this is a test` round-trip → `08ade23 Knock reply: chat (no fire)`. Its expiry was never recorded and never will be — **retired 2026-08-20** in favour of the row below, rather than waiting to find out the hard way whether it was inside KF-12's 30-day window. |
 
 | 2026-08-20 | `ha-anna-knock` | HA **+ Shortcut** | **RECORD IT HERE** | Minted deliberately after the 08-20 audit found the row above still reading "FILL THIS IN" 20 days on, with the 07-31 token already inside the window that killed its predecessor. Two legs to update: HA's `secrets.yaml` and the Shortcut's `Authorization` header (§8.4). Verify BOTH — a one-leg rotation is a silent half-blackout. |
 
