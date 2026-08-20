@@ -12,6 +12,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **14:56 · Anna**  ·  volley / volley: survival due-menu
 > ⚡ volley 1/4 — Auto's about to miss the turn — call out which way, fast!
 
+**19:10 · Anna** 🎧  ·  audio / trailer payoff: birthday wish
+> 🎂 birthday's close — voice note: 'pirandha naal vazhthukkal' (many happy returns). just listen, no ask.
+
 
 ## Wednesday 2026-08-19
 
