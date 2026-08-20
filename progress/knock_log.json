@@ -4705,5 +4705,36 @@
     "body": "amma's birthday's 4 days out — can't wing it live. today's session: pirandha naal vazhthukkal, locked before the day comes 🎂",
     "expected_target": "",
     "target_revealed": false
+  },
+  {
+    "date": "2026-08-20",
+    "timestamp": "2026-08-20T09:26:42.995376+00:00",
+    "acted": true,
+    "modality": "volley",
+    "move": "volley: survival due-menu",
+    "rationale": "Post-lunch slot fits a collection ask; demand-streak is 0 after this morning's no-ask trailer, and these four targets are fresh (different from yesterday's volley set) so no peg repeats; birthday trailer stays open, not yet evening for payoff.",
+    "next_check": "2026-08-20T13:26:42.995376+00:00",
+    "body": "⚡ volley 1/4 — Auto's about to miss the turn — call out which way, fast!",
+    "expected_target": "வலது பக்கம் திரும்புங்க",
+    "target_revealed": false,
+    "volley": [
+      {
+        "target": "வலது பக்கம் திரும்புங்க",
+        "ask": "Auto's about to miss the turn — call out which way, fast!"
+      },
+      {
+        "target": "எவ்ளோ ஆகும்?",
+        "ask": "Eyeing a shirt at the stall — ask the vendor what it'll cost."
+      },
+      {
+        "target": "ஆமா ஆமா",
+        "ask": "Maama's mid-story on the phone — keep him going, don't interrupt."
+      },
+      {
+        "target": "குடிச்சேன்",
+        "ask": "Athai asks if you finished your tea — tell her: done, drank it."
+      }
+    ],
+    "volley_next": 1
   }
 ]

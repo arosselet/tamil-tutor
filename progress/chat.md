@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:10 · Anna**  ·  text / trailer: birthday wish
 > amma's birthday's 4 days out — can't wing it live. today's session: pirandha naal vazhthukkal, locked before the day comes 🎂
 
+**14:56 · Anna**  ·  volley / volley: survival due-menu
+> ⚡ volley 1/4 — Auto's about to miss the turn — call out which way, fast!
+
 
 ## Wednesday 2026-08-19
 
