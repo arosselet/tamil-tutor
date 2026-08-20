@@ -42,12 +42,14 @@ A second, softer interface exists since 2026-07-17, cut back to its through-line
 
 ## Invocation shells (thin, per-agent — all substance lives in `protocol/`)
 
-| Entry | Claude | Gemini |
+| Entry | File | Note |
 |---|---|---|
-| **Anna** (conversation) | `.claude/skills/anna/SKILL.md` | `.gemini/commands/anna.toml` |
-| **Studio** (production) | `.claude/agents/studio.md` (subagent) | `.gemini/commands/studio.toml` |
+| **Anna** (conversation) | `.claude/skills/anna/SKILL.md` | Plain markdown — any agent reads it directly; `/anna` in Claude Code |
+| **Studio** (production) | `.claude/agents/studio.md` | The subagent fallback; `run_studio.py` is the default dispatch |
 
-Anna can commission the studio end-to-end mid-session; `/studio` also runs standalone (e.g. on Gemini for the long mixed-language script writing).
+The Gemini shells were retired 2026-08-20 (`agy` ran on no host; the files had drifted 5–8 weeks). Root `AGENTS.md` is a real file, not a symlink — see its header for why.
+
+Anna can commission the studio end-to-end mid-session; the subagent also runs standalone.
 
 **Default episode dispatch (2026-07-09 — the writer-only split; executor swapped 2026-08-18):** `python scripts/run_studio.py` — three **print-only** writer calls (Director → Architect → Producer) on `morning_knock.MODEL`: `claude -p --allowedTools Read Glob Grep` on the laptop, the OpenRouter API in Actions, and the writer never writes a file or sees git either way. Python persists the three artifacts, lints them deterministically (sidecar schema, Woven-Thanglish density tripwire, fourth wall, payload fidelity — **verbatim for chunks, stem-tolerant for words**), and `render_audio.py` owns render/registration/commit. Non-zero exit ⇒ fall back to the Claude studio subagent.
 
@@ -61,12 +63,12 @@ Anna can commission the studio end-to-end mid-session; `/studio` also runs stand
 | `session_log.json` | `sync_state.py` | Append-only momentum log |
 | `feedback_log.json` | `sync_state.py feedback` | The ledger the diagnosis pass reads |
 | `knock_log.json` | `morning_knock.py` / `knock_reply.py` | Anna's outreach memory: every wake (fire or silence), replies, verdicts |
-| `push_queue.json` | `push_queue.py` | Scheduled pushes, fully composed at add-time; drained every 30 min by CI |
+| `push_queue.json` | `push_queue.py` | Scheduled pushes, fully composed at add-time; drained at the start of every CI wake-up (hourly — the `*/30` cron was reverted 2026-07-30 on measured data) |
 | `profile.md` | Anna (LLM) | Teacher's notebook — assessment, gaps, calibration dials, sprint priorities |
 
 ## Python brain (`scripts/`)
 
-`sync_state.py` (owns all state writes; `seed-deck` loads a curated set from `curriculum/`, registers and all; `prune-duplicates` drops rows dominated by a phonetic twin) · `state_io.py` (the layer below: paths, load/save, `local_today`, `resolve` — imports nothing from `scripts/`) · `slips.py` (the slip ledger: capture, patterns, retirement, closes) · `session_brief.py` (the agent-facing `status` load — a read surface above the brain) · `suggest_targets.py` (the ticket: ONE tier-ordered pool + the scene-spec divergence gate) · `generate_callbacks.py` (spaced repetition) · `render_audio.py` (TTS + register episode + RSS) · `render_drill.py` (spoken production volley from the pool's due menu — cue → silence → answer; read-only on the brain) · `show_status.py` (human dashboard) · `morning_knock.py` (agentic outreach: rails gate + Anna's fire/silence policy; digest carries the due menu + binding volley targets; audio memos — incl. eavesdrop tapes in a pinned aunty voice — land on `rss.xml` too) · `knock_reply.py` (judges phone replies, moves the production axis; capped lane + cross-day graduation; walks volley queues deterministically; eavesdrop replies take a separate drift-judge lane that moves the catch/recognition axis only) · `push_queue.py` (durable "ping me at X") · `rebuild_rss.py`.
+`sync_state.py` (owns all state writes; `seed-deck` loads a curated set from `curriculum/`, registers and all; `prune-duplicates` drops rows dominated by a phonetic twin) · `state_io.py` (the layer below: paths, load/save, `local_today`, `resolve` — imports nothing from `scripts/`) · `slips.py` (the slip ledger: capture, patterns, retirement, closes) · `session_brief.py` (the agent-facing `status` load — a read surface above the brain) · `suggest_targets.py` (the ticket: the tier-ordered focus pool + the scene-spec divergence gate, plus the studio-only blocks — fence, coverage, background, candidates) · `generate_callbacks.py` (spaced repetition) · `render_audio.py` (TTS + register episode + RSS) · `render_drill.py` (spoken production volley from the pool's due menu — cue → silence → answer; read-only on the brain) · `show_status.py` (human dashboard) · `morning_knock.py` (agentic outreach: rails gate + Anna's fire/silence policy; digest carries the due menu + binding volley targets; audio memos — incl. eavesdrop tapes in a pinned aunty voice — land on `rss.xml` too) · `knock_reply.py` (judges phone replies, moves the production axis; capped lane + cross-day graduation; walks volley queues deterministically; eavesdrop replies take a separate drift-judge lane that moves the catch/recognition axis only) · `push_queue.py` (durable "ping me at X") · `rebuild_rss.py`.
 
 The LLM is the writer; Python is the brain. Never hand-edit Python-owned JSON.
 

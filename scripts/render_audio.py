@@ -714,12 +714,18 @@ async def main():
 
     # Lifecycle hooks — state + publish. Held under .studio.lock so two studio
     # processes can never interleave episodes.json / rss.xml / the commit.
+    # Deferred: morning_knock imports FROM this module (generate_segment_google,
+    # SILENCE_FRAME), so a module-level import here is a cycle. Same shape as
+    # sync_state's deferred session_brief import — ordinary dispatch, not a dodge.
+    from morning_knock import commit_and_push
+
     lock = acquire_state_lock()
     try:
         # Register the mission in episodes.json + stamp seen_in into the lexicon
         register_mission_in_state(Path(args.input_file), Path(args.output_file))
 
-        subprocess.run([sys.executable, str(BASE / "scripts" / "rebuild_rss.py")], check=True)
+        subprocess.run([sys.executable, str(BASE / "scripts" / "rebuild_rss.py")],
+                       cwd=BASE, check=True)
 
         # Stage THIS mission's files by name. Staging whole content/ directories
         # swept a concurrently-written draft episode into this commit, which was
@@ -736,18 +742,28 @@ async def main():
             Path(args.input_file),
             Path(args.input_file).with_suffix(".tags.json"),
         ]
-        paths = [str(p) for p in candidates if (BASE / p).exists()]
-        subprocess.run(["git", "add", "--", *paths], check=True)
+        paths = [BASE / p for p in candidates if (BASE / p).exists()]
 
-        staged = subprocess.run(["git", "diff", "--cached", "--quiet"])
-        if staged.returncode != 0:  # non-zero = something is staged
-            subprocess.run(["git", "commit", "-m", f"Add lesson: {os.path.basename(args.output_file)} and update state"], check=True)
-            subprocess.run(["git", "push"], check=True)
-        else:
+        # Publish through the SAME net every other writer uses (2026-08-20).
+        # This lane used to run a raw add/commit/push with no pull and no
+        # rebase — weaker than the hand-rolled `git pull --rebase` that was
+        # removed from anna.yml's tap step on 2026-08-04 for exactly this
+        # reason. Actions commits to main hourly, so a laptop render races a
+        # cloud knock by construction; commit_and_push carries
+        # _rebase_onto_main (union-merge for append-only arrays, re-render for
+        # derived files, loud abort otherwise).
+        # Keep the old "nothing staged" branch: commit_and_push commits
+        # unconditionally, and a re-render that changed no bytes must not turn
+        # into a crash where it used to be a no-op line.
+        subprocess.run(["git", "add", "--", *[str(p.relative_to(BASE)) for p in paths]],
+                       cwd=BASE, check=True)
+        if subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=BASE).returncode == 0:
             print("   nothing staged — no commit")
+        else:
+            commit_and_push(
+                paths,
+                f"Add lesson: {os.path.basename(args.output_file)} and update state")
 
-    except Exception as e:
-        print(f"⚠️ Lifecycle hooks failed: {e}")
     finally:
         if lock is not None:
             lock.close()

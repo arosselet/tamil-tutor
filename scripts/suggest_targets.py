@@ -39,11 +39,12 @@ import hashlib
 import json
 import re
 import sys
-from datetime import date, datetime, timedelta, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from generate_callbacks import due_callbacks, load_json, days_since, NEVER_SURFACED
 from slips import format_slip_block, slip_patterns
+from state_io import local_today
 from sync_state import is_unseen, soak_pending
 
 # Windows consoles default to cp1252, which can't print Tamil (2026-07-15).
@@ -346,7 +347,7 @@ def reconcile_focus(lexicon: dict, cohort: list[str], today=None) -> list[str]:
     seat-open (2026-07-26). Pure — returns the new membership, sorted for diff
     stability; the callers that persist it are the two seams where graduation
     can happen (sync_state.cmd_update and knock_reply's judge flow)."""
-    focus, _bg = floor_gap_targets(lexicon, today or date.today(), FOCUS_SIZE,
+    focus, _bg = floor_gap_targets(lexicon, today or local_today(), FOCUS_SIZE,
                                    asked={}, cohort=cohort)
     return sorted(c["word"] for c in focus)
 
@@ -476,7 +477,7 @@ def ear_targets(lexicon: dict, today=None, reps: dict | None = None) -> dict:
     Was the catch half of `deck_status` (retired 2026-08-18). Its population is
     unchanged by the retirement — `direction` was always the discriminator, never
     the `deck` tag."""
-    today = today or date.today()
+    today = today or local_today()
     if reps is None:
         reps = rep_counts(lexicon)
     catch = [(w, r) for w, r in lexicon.items() if r.get("direction") == "catch"]
@@ -527,7 +528,7 @@ def register_coverage(lexicon: dict, today=None) -> dict | None:
 
     `soaked_only` = never worked, but heard in an episode: a different state from
     never encountered, and the cheaper one to fix."""
-    today = today or date.today()
+    today = today or local_today()
 
     def bucket() -> dict:
         return {"total": 0, "touched": 0, "untouched": 0, "cleared": 0}
@@ -602,7 +603,7 @@ def drill_menu(lexicon: dict, today=None, asked: dict | None = None,
     the teach-first law is the caller's to apply, and the two callers apply it
     differently on purpose (the menu SHOWS them marked; a volley EXCLUDES them,
     because a volley is a cold demand and a menu is not)."""
-    focus, _bg = floor_gap_targets(lexicon, today or date.today(), max_n,
+    focus, _bg = floor_gap_targets(lexicon, today or local_today(), max_n,
                                    asked=asked, reps=reps)
     menu = [{"word": t["word"], "gloss": t["gloss"], "kind": "chunk",
              "production": t["production"], "recognition": t["recognition"],
@@ -614,7 +615,7 @@ def drill_menu(lexicon: dict, today=None, asked: dict | None = None,
         reps = rep_counts(lexicon)
     for e in engines_to_fire(lexicon):
         r = lexicon.get(e["key"], {})
-        ds = days_since(r.get("last_surfaced"), today or date.today())
+        ds = days_since(r.get("last_surfaced"), today or local_today())
         menu.append({"word": e["key"], "gloss": e["gloss"], "kind": "frame",
                      "production": e["production"], "recognition": r.get("recognition"),
                      "tier": TIER_NAMES[tier_rank(r)], "tier_rank": tier_rank(r),
@@ -818,7 +819,7 @@ def main():
     if lexicon is None or not word_pool:
         print("Error: lexicon.json or word_pool.json not found. See BOOTSTRAP.md.")
         return
-    today = date.today()
+    today = local_today()
 
     print("=" * 60)
     print("SESSION TICKET — Python computes the menu; Anna picks the story.")

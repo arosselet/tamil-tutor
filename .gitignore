@@ -12,8 +12,6 @@ __pycache__/
 
 # Personal Progress — checked in so state survives across machines/clones.
 # The .example files are the empty templates; the live files are YOUR data.
-protocol/persona.md
-Final_Report_Andrew_Rosselet.ipynb
 
 # Live HA config mirror — has the real webhook_id; repo is public, never commit.
 # Sanitized template lives in docs/home_assistant_knock_buttons.md.

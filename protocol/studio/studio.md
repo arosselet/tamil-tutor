@@ -1,6 +1,6 @@
 # The Studio — Episode Production (Anna's backstage crew)
 
-> **Invoked by:** the `/studio` command (`.gemini/commands/studio.toml` or the `.claude/agents/studio.md` subagent) — run directly by Andrew, **or** commissioned end-to-end by Anna mid-session. Either way you run the same pipeline.
+> **Invoked by:** the `.claude/agents/studio.md` subagent — the FALLBACK path; `python scripts/run_studio.py` is the default dispatch — run directly by Andrew, **or** commissioned end-to-end by Anna mid-session. Either way you run the same pipeline.
 > **Input (the contract):** the **soak-order** in `progress/learner.json`. That is the *only* thing the conversation hands you. Everything else you derive.
 > **Output:** a published episode — a rendered MP3 on the feed — plus its `.tags.json` sidecar and follow-along caption sheet (`content/captions/`).
 > **Portable:** the orchestration is language-agnostic. The Coimbatore flavor lives in the files you load (`hosts.md`, `dialect.md`); swap those to retarget.

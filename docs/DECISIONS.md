@@ -108,13 +108,8 @@ Details live in git history; this is the index of the *conclusions*.
 - **CI git identity is `github-actions[bot]`** (2026-07-01) — never a noreply alias that
   credits a real GitHub user. (History was rewritten for this; pre-2026-07-02 commit SHAs
   cited in old notes are stale.)
-- **Cross-agent access is symlinks; `CLAUDE.md` / `.claude/skills/` stay canon**
-  (2026-07-06). Root `AGENTS.md → CLAUDE.md` and `.agents/skills → .claude/skills` give
-  Antigravity and any AGENTS.md-reading tool the router and skill library with zero
-  duplication. Replaces the hand-copied `.agents/AGENTS.md` (a drift trap that rode in on
-  a lesson commit). Same pattern globally: `~/.agents/AGENT.md` is cross-agent canon —
-  imported by `~/.claude/CLAUDE.md`, symlinked from `~/.gemini/AGENTS.md` (verified:
-  `agy` 1.0.16 reads global config from `~/.gemini/`, not `~/.agents/`).
+- ~~**Cross-agent access is symlinks**~~ (2026-07-06) — **SUPERSEDED 2026-08-20, see
+  "Cross-agent access is prose" below.** The symlinks did not survive a Windows checkout.
 - **The judge caps a cold only against computed evidence** (2026-07-06). "LLM writes,
   Python is the brain" applied to reveals: `revealed_recently()` lists what knock traffic
   actually showed in 48h; the judge may deny a cold as "recently handed" only from that
@@ -2188,3 +2183,58 @@ Details live in git history; this is the index of the *conclusions*.
   apart, a test message ate the answer to "inge poringe" — judged, committed `e1fa4ea`,
   HTTP 200, never seen. Textbook silent no-op: green run, correct `chat.md`, observable only
   on the wire. Minted in `push_to_phone` now, which came out a line shorter. Smoke `s67`.
+
+- **Cross-agent access is prose, not symlinks** (2026-08-20). **Replaces** "Cross-agent
+  access is symlinks" (2026-07-06). `git config core.symlinks=false` on Windows checks
+  `AGENTS.md` and `.agents/skills` out as plain text files holding a path string, so an
+  AGENTS.md-reading agent got a 9-byte file containing `CLAUDE.md` and Antigravity found
+  zero skills — on the only machine that reads them, with `git status` clean and CI
+  (Linux) never affected. `AGENTS.md` is now a real file and the canonical router;
+  `CLAUDE.md` is a pointer plus Claude-only invocation syntax, so there is still one
+  source. The `.claude/skills/*/SKILL.md` files are host-neutral markdown — any agent
+  reads them directly, which is the whole portability contract and needs no mirror.
+  `.gemini/` retired the same day: `agy` was installed on no host and the shells had
+  drifted 5–8 weeks. Portability that is broken is worse than portability never claimed.
+
+- **Commissioning nothing is a first-class outcome** (2026-08-20, Andrew). **Replaces**
+  the close-refusing half of "the repair earns the dose" (2026-08-01). A dose is earned by
+  a genuinely recurring failure pattern or something real to teach — never by a counter
+  reaching two, and never collected by Python. The close NAMES a live pattern carrying no
+  dose and completes; `--slip-commissioned` books one, `--no-commission` puts the
+  reasoning on the record. Found because the gate had never once fired: `slip_patterns`
+  fed each slip's `dose_channel` — which records that *some* order was standing, for some
+  other payload — into `channels`, so `uncommissioned` could not be true and `escalate`'s
+  one-channel test could not match. 0 of 22 live patterns could trip either. Repairing the
+  detection made the refusal real for the first time, and it was ruled out immediately.
+  The 24-day venum-for-kudunga gap was a VISIBILITY failure; visibility is the fix. Smoke
+  `s46`, `s68`.
+
+- **The episode's public name is the script's first line** (2026-08-20).
+  `rebuild_rss.get_title_from_md` reads exactly one line and falls back to the filename;
+  `architect.md` never asked for an H1, so the title was produced by accident and 30 of the
+  first 90 episodes shipped to the public feed titled `Tier2 Mission90`. Now stated in the
+  Architect prompt and the role file, and linted on the exact line the reader reads. Fixed
+  forward per "a renderer fix does not oblige a backfill" (2026-08-10) — the 30 existing
+  titles are a separate content call. Smoke `s68`.
+
+- **Every publishing lane uses the shared rebase net** (2026-08-20). `render_audio` ran a
+  raw `git add`/`commit`/`push` — no pull, no rebase — inside a bare `except` that printed
+  a warning and exited 0, so `run_studio` reported "rendered and published" for an episode
+  that never landed. Actions commits to main hourly, so a laptop render races a cloud knock
+  by construction. Now routes through `commit_and_push` (`_rebase_onto_main`) like drill,
+  soak, longhaul and every knock lane, and a failed publish is loud. The "nothing staged"
+  branch is kept so an unchanged re-render stays a no-op rather than becoming a crash.
+  Smoke `s68`.
+
+- **Staleness is scored on Andrew's clock everywhere** (2026-08-20). `suggest_targets` and
+  `generate_callbacks` still used `date.today()` while `last_surfaced` is stamped with
+  `local_today()` — the seam `state_io` exists to close, with these two callers missed in
+  the original sweep. On a UTC runner every staleness, retest and callback interval was off
+  by one for a US-evening or India-morning session. One owner, no host clocks. Smoke `s68`.
+
+- **`target_revealed` defaults conservative, in one place** (2026-08-20). Three defaults in
+  one file — CLI `store_true` gave False, `enqueue()` and the drain fallback gave True — so
+  a CLI-queued dose silently meant "not revealed" and its reply could score COLD off a body
+  that had handed the Tamil over, moving the production axis on an inflated fire. Now
+  `BooleanOptionalAction` defaulting True across all three; `--no-target-revealed` is the
+  explicit withhold. Smoke `s68`.

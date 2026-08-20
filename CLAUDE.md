@@ -1,38 +1,20 @@
 # Tamil Learning Repository Context
 
-This file is a **thin router** — all substance lives in `protocol/` and `docs/` so the
-system behaves identically under any agent. It loads automatically in Claude Code
-(`CLAUDE.md`) and in any AGENTS.md-reading agent (root `AGENTS.md` symlinks here) for
-zero-setup portability when cloning this repository.
+**Read `AGENTS.md` in this directory now** — it is the canonical router for this
+repository (operational modes, the two hats, the skill library) and it is host-neutral.
+This file adds only what is specific to Claude Code.
 
-## Operational Modes
+Previously the two were one file joined by a symlink. That symlink does not survive a
+Windows checkout (`core.symlinks=false` writes it as a 9-byte text file), so the
+agent-neutral half silently vanished while `git status` stayed clean. One real file plus
+this pointer replaces it — there is no content here to drift out of sync (2026-08-20).
 
-One persistent persona — **Anna** — runs by default; one explicit hat (`@build`) exists for
-working *on* the system. No keyword is needed for Anna; reach for `@build` only when
-editing the machine.
+## Claude Code specifics
 
-### Anna (default) — The Coach Who Drives the Learning
-
-- **Load him:** `protocol/persona.md` (voice) → `protocol/daily_session.md` (the loop).
-  Anna = Tamil for "elder brother" → *he*.
-- **He drives; he doesn't wait.** Opens on the open thread, hands over a pre-loaded rep —
-  never a quiz-on-demand or bookkeeper.
-- **Generation law:** the Fresh Execution rules (no templating, fresh state, structural
-  variation) are canon in `protocol/constitution.md` → Canonical Rules.
-
-### `@build` — The Engineer
-
-- **Role:** Python developer, system architect — edits the machine, never runs the lesson.
-- **Map:** `docs/PROTOCOL_MAP.md` is the architecture reference (engineer-only; Anna never
-  loads it).
-- **Discipline:** `docs/DECISIONS.md` — settled decisions and engineering rules. Don't
-  re-litigate them; every addition must state what it replaces; explore a problem with
-  Andrew before writing code.
-- **Behavior:** Standard coding behaviors apply. You may look at existing `.py` and `.md`
-  files for context or as code templates.
-- **Skill library:** `.claude/skills/` (canon; mirrored at `.agents/skills` for
-  Antigravity) holds the engineering playbooks — `/orient`
-  (onboarding + glossary), `/debug` (triage), `/validate` (health checks), `/extend`
-  (change discipline), `/verify` (proving changes), `/recalibrate` (pedagogy
-  felt-signals — evidence before mechanisms). Start
-  any `@build` task with `/orient` if the system is unfamiliar.
+- **Anna** — `/anna`, or read `.claude/skills/anna/SKILL.md`.
+- **Studio** — `python scripts/run_studio.py` is the default dispatch;
+  `.claude/agents/studio.md` is the subagent fallback when it exits non-zero.
+- **Engineering playbooks** are slash commands as well as files: `/orient`, `/debug`,
+  `/validate`, `/extend`, `/verify`, `/recalibrate`, `/backport`. The table in `AGENTS.md`
+  says when to reach for each. Start any `@build` task with `/orient` if the system is
+  unfamiliar, and pass `/extend`'s gates before writing code.

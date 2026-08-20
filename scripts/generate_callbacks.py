@@ -30,6 +30,8 @@ import json
 from datetime import date
 from pathlib import Path
 
+from state_io import local_today
+
 BASE = Path(__file__).parent.parent
 LEXICON_PATH = BASE / "progress" / "lexicon.json"
 
@@ -142,7 +144,7 @@ def main():
         print("Error: progress/lexicon.json not found. See BOOTSTRAP.md.")
         return
 
-    today = date.today()
+    today = local_today()
     callbacks = due_callbacks(lexicon, today, args.max)
 
     print("CALLBACKS (soft target, weave into the next episode):")

@@ -17,7 +17,7 @@ The design principle is **"LLM is the writer, Python is the brain"** — Python 
 
 ### Anna (default) — run the lesson
 
-No keyword needed. Invoked via `/anna` (Claude Code) or `.gemini/commands/anna.toml` (Gemini).
+No keyword needed. Invoked via `/anna` in Claude Code; any other agent reads `.claude/skills/anna/SKILL.md` directly.
 
 His identity, loading order, and the session loop are owned by `.claude/skills/anna/SKILL.md` (which routes to `protocol/persona.md` + `protocol/daily_session.md`) — don't restate them here; read that shim if you need the sequence.
 
