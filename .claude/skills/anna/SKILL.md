@@ -5,7 +5,7 @@ description: Start the daily Tamil tutoring session with Anna — the persistent
 
 # Anna — Daily Tamil Session
 
-This skill is a thin shim. All substance lives in the repo so it runs identically under any agent (Claude Code, Gemini/Antigravity). Do this:
+This skill is a thin shim. All substance lives in the repo, and these steps carry no host-specific syntax, so any agent can read this file and follow it. Do this:
 
 0. **Intent gate — before loading anything.** If Andrew's opening message is
    engineering-shaped (system design, reviews, fixes, "look at the code/port/

@@ -112,8 +112,10 @@ known-word coverage rule, never a target. Here is the Master Lesson Plan:
 
 {plan}
 
-PRINT the full episode script and nothing else — speaker lines as
-`**Name:** text`, with [SFX] / [Pause] craft per the role file.
+PRINT the full episode script and nothing else. The VERY FIRST LINE must be
+the title as an H1 — `# Tier 2, Mission {n} — <Title>` — because the feed reads
+the episode's public name off that one line and nothing else. Then speaker
+lines as `**Name:** text`, with [SFX] / [Pause] craft per the role file.
 """
 
 PRODUCER = PREAMBLE + """
@@ -364,7 +366,7 @@ def write_episode(n: int, write_pass=claude_print) -> bool:
     plan = write_pass("Director", DIRECTOR.format(ticket=ticket))
     if not plan:
         return False
-    draft = write_pass("Architect", ARCHITECT.format(plan=plan))
+    draft = write_pass("Architect", ARCHITECT.format(plan=plan, n=n))
     if not draft:
         return False
     final = write_pass("Producer", PRODUCER.format(draft=draft, n=n))
@@ -440,6 +442,16 @@ def lint(n: int, baseline: set[str] | None = None) -> list[str]:
     script = paths["script"].read_text(encoding="utf-8")
     if len(script) < 1000:
         problems.append(f"script suspiciously short ({len(script)} chars)")
+    # THE PUBLIC NAME OF THE EPISODE (2026-08-20). rebuild_rss.get_title_from_md
+    # reads ONE line — `f.readline()` — and falls back to the filename, so an
+    # H1 on line 3 is as absent as no H1 at all. The Architect was never told to
+    # emit one, produced it by accident, and 30 of 76 episodes shipped to the
+    # public feed titled `Tier2 Mission90`. Assert the exact thing the reader
+    # does, on the exact line it reads.
+    if not script.splitlines()[0].strip().startswith("# "):
+        problems.append(
+            "script's FIRST line is not an H1 title — the feed would fall back "
+            f"to the filename (got: {script.splitlines()[0][:60]!r})")
     if not TAMIL_RE.search(script):
         problems.append("script contains no Tamil script (payload must be Tamil-script)")
     if not any(SPEAKER_RE.match(ln) for ln in script.splitlines()):

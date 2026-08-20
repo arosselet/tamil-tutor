@@ -285,7 +285,16 @@ def slip_patterns(log: list | None = None, today=None) -> list[dict]:
             agg["last"] = row["date"]
         if row.get("date") and row["date"] < (agg["first"] or row["date"]):
             agg["first"] = row["date"]
-        for key, field in (("lanes", "lane"), ("channels", "dose_channel"), ("words", "word")):
+        # `channels` means "formats DECLARED against this tag", and it is filled
+        # below from the commission book alone. dose_channel is NOT that: it is
+        # whichever order happened to be standing when the slip was made, for
+        # some other payload entirely — the noise this file's own header
+        # describes. Feeding it in here silently disarmed both gates from
+        # 2026-07-31 until 2026-08-20: every slip inherited a channel, so
+        # `uncommissioned` could never be true and `escalate`'s one-channel test
+        # could never match. It is kept as `dosed_rows` provenance, never as
+        # gate input.
+        for key, field in (("lanes", "lane"), ("words", "word")):
             v = row.get(field)
             if v and v not in agg[key]:
                 agg[key].append(v)
@@ -339,18 +348,18 @@ def slip_patterns(log: list | None = None, today=None) -> list[dict]:
                 agg["channels"].append(c["channel"])
         agg["uncommissioned"] = agg["pattern"] and agg["live"] and not agg["channels"]
         # ESCALATE means a dose was built and he slipped ANYWAY — so it needs a
-        # slip dated after a dose existed, not merely a dose and a live tag. A
-        # legacy dose_channel row qualifies by construction (the order stood when
-        # that slip was made); a declared commission has to be beaten by a later
-        # slip. Without this, commissioning a debt today would instantly accuse
-        # the new dose of having failed, on evidence that predates it.
+        # slip dated after a dose existed, not merely a dose and a live tag.
+        # Only a DECLARED commission counts as "a dose was built": a legacy
+        # dose_channel stamp says an unrelated order was standing, which is no
+        # evidence that this tag was ever treated. Without the date test,
+        # commissioning a debt today would instantly accuse the new dose of
+        # having failed, on evidence that predates it.
         dosed_since = min(
-            [c["at"] for c in agg["commissions"] if c.get("at")]
-            + [d for d, _, _ in agg.get("dosed_rows", [])] or [""]) or ""
+            [c["at"] for c in agg["commissions"] if c.get("at")] or [""]) or ""
         agg["slipped_after_dose"] = bool(dosed_since) and (agg["last"] or "") > dosed_since
         agg["escalate"] = (agg["pattern"] and agg["live"]
                            and len(agg["channels"]) == 1
-                           and (agg["slipped_after_dose"] or bool(agg.get("dosed_rows"))))
+                           and agg["slipped_after_dose"])
         out.append(agg)
     # Live first, then the unverified rechecks, then everything settled.
     out.sort(key=lambda a: (a["live"] and a["pattern"], a["unverified"],
@@ -478,6 +487,11 @@ def cmd_slips(args):
             print(f"        ✓ dose commissioned {c.get('at','')} via the "
                   f"{c.get('channel','?')} lane"
                   + (f" — {', '.join(c['payload'])}" if c.get("payload") else ""))
+        # Provenance only — an order stood on these days, for some other
+        # payload. Never evidence that THIS tag was dosed (see slip_patterns).
+        if p.get("dosed_rows"):
+            print(f"        · slipped while an order stood: "
+                  f"{', '.join(f'{d} ({ch})' for d, ch, _ in p['dosed_rows'][-3:])}")
         if p["uncommissioned"]:
             print("        ⚠ NEVER COMMISSIONED — owed a dose, not another recast.")
         elif p["escalate"]:

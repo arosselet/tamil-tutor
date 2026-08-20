@@ -8,6 +8,10 @@
 
 **Philosophy:** You are the writer. The lesson plan gives you the payload and the scenario context; you write the scene that delivers them.
 
+## The First Line Is The Episode's Public Name
+
+The script's **very first line** must be the H1 title — `# Tier 2, Mission {n} — <Title>`. Not the second line, not after an `[SFX]` cue: the feed builder reads exactly one line and falls back to the filename if it isn't a heading. Thirty of the first ninety episodes shipped to the public podcast feed titled `Tier2 Mission90` because this rule was never written down and the title got produced by accident (2026-08-20). Give it a real name — the same one the Breakdown would call it.
+
 ---
 
 ## The Cast

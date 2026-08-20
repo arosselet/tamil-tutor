@@ -1341,7 +1341,20 @@ CODE_BUDGETS = {
     # NOT a bumped number.
     "scripts/render_longhaul.py": 340,
     "scripts/render_soak.py": 275,
-    "scripts/run_studio.py": 425,
+    # 425 → 429 (2026-08-20): the first-line H1 lint. It retires the accidental
+    # episode title — the Architect was never told to emit one, so 30 of the
+    # first 90 episodes shipped to the PUBLIC feed named `Tier2 Mission90`
+    # (rebuild_rss.get_title_from_md reads one line and falls back to the
+    # filename). Four lines to stop a defect that was public and compounding.
+    #
+    # HONEST NOTE, per this table's own rule — a file at its ceiling is a
+    # split-or-retire signal, not a bump: this file WAS at exactly 425/425, and
+    # it is carrying real crud. `openrouter_pass` + `inline_canon` +
+    # `resolve_writer` + the `--writer` flag are ~111 lines maintained for
+    # "GitHub Actions", which never invokes run_studio.py at all (anna.yml has
+    # no studio step). Retiring that branch is the actual answer and it is
+    # Andrew's call, not a bump this diff gets to make for him.
+    "scripts/run_studio.py": 429,
     "scripts/show_status.py": 125,
     # The state layer's shared vocabulary, split out of sync_state 2026-08-04:
     # paths, load/save, and token->canonical-key resolution. Ten scripts were
@@ -3575,8 +3588,19 @@ def s41_slip_ledger(kr, sb: Path):
 
     # A dose was commissioned and he slipped anyway — that is the escalation the
     # audio_channels law describes, and it could not fire before this counter.
+    #
+    # FIXTURE CORRECTED 2026-08-20. This used to express "a dose was
+    # commissioned" as `dose_channel="soak"` on the slip row. That is a
+    # different fact — dose_channel records that SOME order was standing when
+    # the slip happened, for some other payload — and feeding it into
+    # `channels` is the bug that disarmed both gates for three weeks. The
+    # assertion below was always right; the way it staged the world was not.
+    # "A dose was commissioned for THIS tag" has exactly one spelling:
+    sl.record_slip_commission(["past-tense"],
+                              {"channel": "soak", "payload": ["irundhuchu"]},
+                              today="2026-07-29")
     sl.append_slips([{"tag": "past-tense", "said": "irukku", "want": "irundhuchu"}],
-                    lane="knock", dose_channel="soak", when="2026-07-30")
+                    lane="knock", when="2026-07-30")
     p = {x["tag"]: x for x in sl.slip_patterns(today=date_cls(2026, 7, 30))}["past-tense"]
     check("a slip that survived a dose escalates the FORMAT",
           p["escalate"] and p["channels"] == ["soak"])
@@ -4305,22 +4329,31 @@ def s55_demotion_survives_the_close(sb: Path):
         slog_path.write_bytes(saved[2])
 
 
-def s46_the_commission_gate_blocks_the_close(sb: Path):
-    """A live slip pattern with no dose refuses the close (2026-08-01, Andrew).
+def s46_the_commission_notice_names_the_debt(sb: Path):
+    """A live slip pattern with no dose is NAMED at the close (2026-08-01;
+    demoted from a refusal 2026-08-20, Andrew).
 
-    NEVER COMMISSIONED was advisory and got walked past for mechanical reasons —
-    venum-for-kudunga sat 24 days between first slip and first dose while the
-    ticket warned daily, and the 07-31 feedback entry named the escalation
-    itself ("the flag needs teeth"). The gate is the wants_scheduled_push law
-    applied to the close: Python catches the contradiction and forces the
-    re-ask. It runs BEFORE any write, so a refused close is safely re-runnable.
+    The original complaint is real and still the reason this case exists:
+    NEVER COMMISSIONED got walked past for mechanical reasons — venum-for-kudunga
+    sat 24 days between first slip and first dose while the ticket warned daily
+    ("the flag needs teeth", feedback 07-31).
 
-    Gate 7.2 — a gate that never fires looks exactly like a compliant close, so
-    the case asserts the REFUSAL (exit code AND, the effect, that nothing was
-    written: no cold, no debrief, no slip row), then that each legal door
-    opens: the override with a reason, a commission covering the debt in the
-    same close, and a landed test discharging its own tag."""
-    print("\n46. The commission gate blocks the close (2026-08-01)")
+    The 08-01 answer was a hard refusal. It never fired once: `uncommissioned`
+    was disarmed the same week by the dose_channel conflation in slips.py, so
+    for three weeks this case was green against a gate that could not trip. When
+    the detection was repaired on 08-20 the refusal became real for the first
+    time, and Andrew ruled it out immediately — commissioning nothing is a
+    first-class outcome; a dose is earned by a genuinely recurring pattern or
+    something real to teach, never by a counter reaching two.
+
+    Gate 7.2 — the silent no-op here is a notice that never prints, which looks
+    exactly like a clean close. So the case asserts the EFFECT in both
+    directions: the debt is named in the output, AND the close still applies in
+    full (rep, cold, debrief, slip row) — a notice that eats the session would
+    be the worse bug. Then each door: the override echoing its reason, a
+    commission covering the debt in the same close, and a landed test
+    discharging its own tag."""
+    print("\n46. The commission notice names the debt (2026-08-01; advisory 2026-08-20)")
     import argparse as _ap
     import contextlib, io
     ss = importlib.import_module("sync_state")
@@ -4365,14 +4398,20 @@ def s46_the_commission_gate_blocks_the_close(sb: Path):
             sl.append_slips([{"tag": "gate-tag", "said": "a", "want": "b"}],
                             lane="chat", when=ss.local_today().isoformat())
 
-        before = (lex_path.read_bytes(), learner_path.read_bytes(),
-                  slip_path.read_bytes())
+        # ADVISORY, NOT A GATE (Andrew, 2026-08-20). These two cases used to
+        # assert `code == 2` and a byte-identical tree — the close refused, and
+        # nothing was written. That contract is retired: commissioning nothing
+        # is a first-class outcome, so an uncommissioned debt is NAMED and the
+        # close completes. The property worth keeping is that the notice cannot
+        # eat the close — a debt must never cost Andrew his debrief.
         code, out = update(produced_cold=["கேட்வேர்ட்"], debrief="a close over a debt")
-        check("the close is refused, loudly, naming the tag",
-              code == 2 and "gate-tag" in out, f"exit {code}")
-        check("...and a refused close writes NOTHING — no rep, no cold, no debrief",
-              (lex_path.read_bytes(), learner_path.read_bytes(),
-               slip_path.read_bytes()) == before, "a partial close leaked")
+        check("an uncommissioned debt is named out loud",
+              "gate-tag" in out, out[:200])
+        check("...and the close still completes — the notice never eats the session",
+              code == 0, f"exit {code}")
+        check("...and the whole close applied: the rep, the cold, the debrief",
+              read_json(lex_path)["கேட்வேர்ட்"]["production"] == "cold"
+              and read_json(learner_path).get("last_debrief") == "a close over a debt")
 
         # Door 1: the override, reason on the record.
         code, out = update(produced_cold=["கேட்வேர்ட்"], no_commission="trip-eve triage")
@@ -4395,10 +4434,11 @@ def s46_the_commission_gate_blocks_the_close(sb: Path):
                             lane="chat", when="2026-01-03")
         n_rows = len(read_json(slip_path))
         code, out = update(slip=["gate-tag3|x|y|"])
-        check("a second occurrence landing IN the close trips the gate",
-              code == 2 and "gate-tag3" in out, f"exit {code}")
-        check("...and the refused slip row was NOT appended",
-              len(read_json(slip_path)) == n_rows, "the gate wrote before refusing")
+        check("a second occurrence landing IN the close is named the same day",
+              code == 0 and "gate-tag3" in out, f"exit {code}: {out[:200]}")
+        check("...and the slip row it names was still written",
+              len(read_json(slip_path)) == n_rows + 1,
+              "the notice swallowed the row it was warning about")
 
         # Door 3: a landed test in the same close discharges its own tag.
         with contextlib.redirect_stdout(io.StringIO()):
@@ -6312,6 +6352,161 @@ def s64_the_ask_cooldown_covers_the_session_lane(sb: Path):
     write_json(klog_path, json.loads(saved[1].decode("utf-8")))
 
 
+def s68_the_convergence_audit_fixes(sb: Path):
+    """The 2026-08-20 audit's live defects, each asserted where it can actually
+    fail. Every one of these was a state INDISTINGUISHABLE FROM SUCCESS — the
+    reason a holistic pass found them and seven weeks of green runs did not.
+
+    1. THE COMMISSION DETECTION. `dose_channel` records that SOME soak order was
+       standing when a slip was made, for some other payload. slip_patterns fed
+       it into `channels`, so every slip inherited one, `uncommissioned` could
+       never be true and `escalate`'s one-channel test could never match. Both
+       gates were dead from 2026-07-31; on live state 0 of 22 patterns could
+       trip either. Silent no-op: a debt ledger that always reads "nothing
+       owed" looks exactly like a system with no debts.
+
+    2. THE CLOCK. suggest_targets and generate_callbacks scored staleness on
+       date.today() — the HOST's clock — while last_surfaced is stamped with
+       local_today(). state_io names this seam and these two callers were
+       missed. Silent no-op: an off-by-one due date is invisible; the menu is
+       still full, the items are just the wrong ones on a UTC runner.
+
+    3. TARGET_REVEALED. Three defaults in one file: the CLI store_true gave
+       False, enqueue() and the drain fallback gave True. A CLI-queued dose
+       silently meant "not revealed", so its reply could score COLD off a body
+       that had handed the Tamil over. Silent no-op: an inflated cold fire is
+       indistinguishable from a real one, and it moves the production axis.
+
+    4. THE PUBLISH NET. render_audio ran a raw add/commit/push with no rebase,
+       wrapped in a bare `except` that printed a warning and exited 0 — so
+       run_studio then printed "rendered and published" for an episode that
+       never landed. Asserted structurally: the lane must route through
+       commit_and_push (which carries _rebase_onto_main) and must NOT swallow.
+
+    5. THE EPISODE TITLE. The Architect was never told to emit an H1, so
+       rebuild_rss.get_title_from_md — which reads exactly one line — fell back
+       to the filename for 30 of 90 episodes on the PUBLIC feed. Asserted
+       against the real reader, on the real line it reads.
+
+    6. THE AGENT CONTRACT. AGENTS.md was a symlink; a Windows checkout writes
+       that as a 9-byte text file containing "CLAUDE.md", so an AGENTS.md-reading
+       agent got no instructions and git status stayed clean."""
+    print("\n68. The convergence-audit fixes (2026-08-20)")
+    import contextlib
+    import subprocess as _sp
+    sl = importlib.import_module("slips")
+    st = importlib.import_module("suggest_targets")
+    gc_ = importlib.import_module("generate_callbacks")
+    pq = importlib.import_module("push_queue")
+    sio = importlib.import_module("state_io")
+
+    # --- 1. the commission detection, on the exact shape that disarmed it ----
+    slip_path = sb / "progress" / "slip_log.json"
+    learner_path = sb / "progress" / "learner.json"
+    keep = (slip_path.read_bytes(), learner_path.read_bytes())
+    try:
+        slip_path.write_text("[]", encoding="utf-8")
+        learner = read_json(learner_path)
+        for k in ("slip_closes", "slip_commissions"):
+            learner.pop(k, None)
+        write_json(learner_path, learner)
+        with contextlib.redirect_stdout(io.StringIO()):
+            # TWO slips, BOTH carrying a dose_channel — the shape every real
+            # slip has, because sync_state stamps the standing order on all of
+            # them. Before the fix this pattern read as fully commissioned.
+            sl.append_slips([{"tag": "audit-tag", "said": "a", "want": "b"}],
+                            lane="chat", dose_channel="episode", when="2026-08-01")
+            sl.append_slips([{"tag": "audit-tag", "said": "a", "want": "b"}],
+                            lane="chat", dose_channel="drill",
+                            when=sio.local_today().isoformat())
+        p = {x["tag"]: x for x in sl.slip_patterns()}["audit-tag"]
+        check("a live pattern with dose_channel stamps is still a real pattern",
+              p["pattern"] and p["live"], p)
+        # THE ASSERTION THAT WOULD HAVE CAUGHT IT.
+        check("...and an unrelated standing order does NOT count as its dose",
+              p["channels"] == [], f"inherited {p['channels']}")
+        check("...so the debt is visible — this read False for three weeks",
+              p["uncommissioned"], "the detection is disarmed again")
+        check("...and it is not told to change a format nothing ever tried",
+              not p["escalate"], "escalated off a phantom dose")
+        # Declaring one is the ONLY thing that fills channels.
+        with contextlib.redirect_stdout(io.StringIO()):
+            sl.record_slip_commission(["audit-tag"], {"channel": "soak"},
+                                      today="2026-08-02")
+        p = {x["tag"]: x for x in sl.slip_patterns()}["audit-tag"]
+        check("a DECLARED commission is what discharges the debt",
+              p["channels"] == ["soak"] and not p["uncommissioned"], p["channels"])
+    finally:
+        slip_path.write_bytes(keep[0])
+        learner_path.write_bytes(keep[1])
+
+    # --- 2. the clock: both selectors must read ANDREW's day -----------------
+    for mod, name in ((st, "suggest_targets"), (gc_, "generate_callbacks")):
+        src = (sb / "scripts" / f"{name}.py").read_text(encoding="utf-8")
+        check(f"{name} scores staleness on the learner's clock, not the host's",
+              "date.today()" not in src, "date.today() is back — UTC runners drift a day")
+        check(f"...and {name} takes it from the one owner",
+              "local_today" in src and hasattr(mod, "local_today"), name)
+
+    # --- 3. one field, one default -------------------------------------------
+    # Drive the real CLI, because the default that was wrong was the PARSER's —
+    # reading the function signature alone is what let the three disagree.
+    pq_src = (sb / "scripts" / "push_queue.py").read_text(encoding="utf-8")
+    cli_default = _sp.run([sys.executable, str(sb / "scripts" / "push_queue.py"),
+                           "add", "--help"], capture_output=True,
+                          encoding="utf-8", errors="replace").stdout
+    check("the CLI exposes both directions instead of a one-way store_true",
+          "--no-target-revealed" in cli_default, cli_default[-300:])
+    enqueue_default = inspect.signature(pq.enqueue).parameters["target_revealed"].default
+    check("enqueue() defaults to the conservative end — never over-credit a cold fire",
+          enqueue_default is True, enqueue_default)
+    check("...and the drain falls back the same way, so all three agree",
+          '"target_revealed", True' in pq_src,
+          "the drain fallback drifted from the other two")
+
+    # --- 4. the publish net --------------------------------------------------
+    ra_src = (sb / "scripts" / "render_audio.py").read_text(encoding="utf-8")
+    tail = ra_src[ra_src.index("Lifecycle hooks"):]
+    check("the episode lane publishes through the shared rebase net",
+          "commit_and_push(" in tail, "raw git push is back — no rebase under it")
+    check("...and a failed publish is LOUD, not a printed warning over exit 0",
+          "Lifecycle hooks failed" not in tail, "the bare except is back")
+
+    # --- 5. the episode's public name ----------------------------------------
+    rr = importlib.import_module("rebuild_rss")
+    tmp = sb / "content" / "scripts" / "smoke_title_probe.md"
+    try:
+        tmp.write_text("[SFX: chairs scraping]\n\n# Tier 2, Mission 91 — The Real Name\n",
+                       encoding="utf-8")
+        check("an H1 below the first line is as absent as no H1 — the reader sees one line",
+              rr.get_title_from_md(str(tmp)) == "smoke_title_probe.md",
+              rr.get_title_from_md(str(tmp)))
+        tmp.write_text("# Tier 2, Mission 91 — The Real Name\n\n[SFX: chairs]\n",
+                       encoding="utf-8")
+        check("...and a first-line H1 becomes the feed's title",
+              rr.get_title_from_md(str(tmp)) == "Tier 2, Mission 91 — The Real Name",
+              rr.get_title_from_md(str(tmp)))
+    finally:
+        tmp.unlink(missing_ok=True)
+    rs_src = (sb / "scripts" / "run_studio.py").read_text(encoding="utf-8")
+    check("the lint refuses a script whose FIRST line is not an H1",
+          'splitlines()[0].strip().startswith("# ")' in rs_src, "the title lint is gone")
+    check("...and the Architect is actually told to write one",
+          "VERY FIRST LINE" in rs_src
+          and "first line" in (sb / "protocol" / "studio" / "architect.md")
+          .read_text(encoding="utf-8").lower(),
+          "the prompt or the role file lost the rule")
+
+    # --- 6. the agent contract is a real file --------------------------------
+    agents = sb / "AGENTS.md"
+    check("AGENTS.md carries real instructions, not a symlink's path text",
+          agents.stat().st_size > 500, f"{agents.stat().st_size} bytes")
+    mode = _sp.run(["git", "ls-files", "-s", "AGENTS.md"], cwd=REAL_BASE,
+                   capture_output=True, encoding="utf-8").stdout.split()
+    check("...and git stores it as a regular file, so a Windows clone gets it",
+          mode and mode[0] == "100644", mode[0] if mode else "untracked")
+
+
 def s65_the_ordering_outlives_the_deck(sb: Path):
     """The deck retirement's load-bearing case (2026-08-18). The container
     expired at touchdown; the ORDERING — survival > delight > dessert — is
@@ -6636,7 +6831,7 @@ def main():
         s43_sidecar_callback_never_drops_silently(sb)
         s44_a_commission_can_discharge_the_flag(sb)
         s45_concurrent_appends_merge(mk, sb)
-        s46_the_commission_gate_blocks_the_close(sb)
+        s46_the_commission_notice_names_the_debt(sb)
         s47_hinted_retest_rule(sb)
         s53_prune_duplicate_lexicon_rows(sb)
         s54_no_deadline_reaches_any_surface(sb)
@@ -6657,6 +6852,7 @@ def main():
         s64_the_ask_cooldown_covers_the_session_lane(sb)
         s65_the_ordering_outlives_the_deck(sb)
         s66_json_mode_is_actually_sent(mk, kr, sb)
+        s68_the_convergence_audit_fixes(sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)

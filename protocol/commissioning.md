@@ -1,8 +1,7 @@
 # Commissioning a dose — what it carries
 
 The soak order decides *what* a dose carries; this file owns that question alone.
-Which channel carries it is `protocol/audio_channels.md` — the split its own budget
-ceiling demanded (refused third raise, 2026-07-28; taken 2026-08-01).
+Which channel carries it is `protocol/audio_channels.md`.
 
 ## The repair earns the dose
 
@@ -18,9 +17,11 @@ Only when none are live does the order point forward as a **seed order** of unse
   under a standing "wire real audio" verdict while catch went backwards.
 - The seed order is not demoted — it still teaches the campaign's next page
   (`protocol/studio/studio.md`); it just no longer outranks a live slip.
-- The close-time gate enforces this in code: a live slip pattern with no dose ever built
-  refuses the close (`--slip-commissioned` pays it, `--no-commission '<why>'` overrides
-  on the record).
+- **Commissioning nothing is a first-class outcome** (2026-08-20). A dose is earned when
+  a pattern is genuinely recurring or there is something real to teach — never because a
+  counter reached two. The close *names* a live pattern carrying no dose and moves on;
+  it does not refuse. `--slip-commissioned <tag>` books one, `--no-commission '<why>'`
+  puts the reasoning on the record. The debt is Anna's to judge, not Python's to collect.
 
 **The failure this prevents** (2026-07-28, Andrew): *"I shouldn't have to beg for a soak or
 an episode."* No commissioning law existed, so forward pull won by default.

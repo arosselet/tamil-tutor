@@ -411,15 +411,20 @@ def cmd_update(args):
     today = local_today().isoformat()
     applied = {"cold": [], "hinted": [], "demoted": []}  # for the session log
 
-    # ── THE COMMISSION GATE (2026-08-01, Andrew: "block the close") ──────
-    # NEVER COMMISSIONED was advisory and got walked past for mechanical
-    # reasons — venum-for-kudunga sat 24 days between first slip and first
-    # dose while the ticket warned daily ("the flag needs teeth", feedback
-    # 07-31, second occurrence of the commissioning complaint). Same law as
-    # wants_scheduled_push: when prose fails, Python catches the
-    # contradiction and forces the re-ask. Runs BEFORE any write so a
-    # refused close is safely re-runnable — touch() counts reps, so a
-    # partially-applied close must never happen.
+    # ── THE COMMISSION NOTICE (2026-08-01 as a gate; advisory since 2026-08-20)
+    # The original complaint stands and is worth keeping: NEVER COMMISSIONED was
+    # advisory and got walked past for mechanical reasons — venum-for-kudunga sat
+    # 24 days between first slip and first dose while the ticket warned daily
+    # ("the flag needs teeth", feedback 07-31, second occurrence).
+    #
+    # The answer to that was a hard refusal, and it was never tested, because
+    # `uncommissioned` could not be true (the dose_channel bug, slips.py). When
+    # the detection was fixed on 2026-08-20 the refusal became real for the first
+    # time and Andrew ruled it out the same day: commissioning nothing is a
+    # first-class outcome, so Python surfaces the debt and never demands payment.
+    # The 24-day gap was a VISIBILITY failure, and visibility is what this block
+    # now buys. Still runs BEFORE any write so the close stays re-runnable —
+    # touch() counts reps, and a partially-applied close must never happen.
     slip_rows = parse_slip_args(getattr(args, "slip", None) or [])
     declared = {canon_tag(t) for t in getattr(args, "slip_commissioned", None) or []}
     landed_now = {canon_tag(r.rpartition(":")[0])
@@ -434,19 +439,28 @@ def cmd_update(args):
     owed = [p for p in slip_patterns(log=(load_json(SLIP_LOG_PATH) or []) + sim)
             if p["uncommissioned"] and p["tag"] not in landed_now
             and not (p["tag"] in declared and order_stands)]
+    # ADVISORY, NEVER A REFUSAL (Andrew, 2026-08-20). This block used to
+    # sys.exit(2) on an uncommissioned live pattern. It never once fired —
+    # `uncommissioned` was disarmed from 2026-07-31 by the dose_channel bug
+    # (see slips.py) — and when the detection was repaired the question became
+    # live for the first time: should Python REQUIRE a dose?
+    #
+    # No. **Commissioning nothing is a first-class outcome.** A dose is earned
+    # when a failure pattern is genuinely recurring or Anna has something real
+    # to teach — not because a counter reached two. A gate that refuses the
+    # close converts a judgement into a toll, and the close is the one command
+    # that must never become something to dread: it is where the debrief, the
+    # ledger and the campaign all land. Surfacing the debt is the whole job;
+    # deciding it is Anna's.
     reason = getattr(args, "no_commission", None)
-    if owed and not reason:
-        print("⛔ CLOSE REFUSED — live slip pattern(s) with no dose ever built:")
-        for p in owed:
-            print(f"   ⚠ {p['tag']} — {p['count']}× over {p['span_days']}d")
-        print("   Commission in THIS close:   --soak-payload … --soak-channel "
-              "soak|episode|drill --slip-commissioned <tag>")
-        print("   …or close over it, reason on the record:   --no-commission '<why>'")
-        print("   Nothing was written. Re-run the FULL close with one of the above.")
-        sys.exit(2)
     if owed:
-        print(f"  ⚠ closing over uncommissioned slip(s) "
-              f"({', '.join(p['tag'] for p in owed)}) — reason: {reason}")
+        print("  ⚠ live slip pattern(s) with no dose ever commissioned: "
+              + ", ".join(f"{p['tag']} ({p['count']}× over {p['span_days']}d)"
+                          for p in owed))
+        print("     Commission one here if it has earned a dose:  --soak-payload … "
+              "--soak-channel soak|episode|drill --slip-commissioned <tag>")
+        if reason:
+            print(f"     Closing without one, on the record: {reason}")
 
     def touch(key):
         """Worked in a session: refresh the date AND count the rep.

@@ -313,8 +313,16 @@ def main():
     add.add_argument("--in", type=float, dest="in", help="fire in N minutes")
     add.add_argument("--body", required=True, help="the notification line (the whole dose)")
     add.add_argument("--expected-target", default="", help="lexicon word/chunk/frame a good reply fires")
-    add.add_argument("--target-revealed", action="store_true",
-                     help="the body shows that Tamil (reply caps at hinted)")
+    # One default, three readers (2026-08-20). `store_true` defaulted the CLI to
+    # False while enqueue() and the drain fallback both defaulted True, so a
+    # CLI-queued dose silently meant "not revealed" and its reply could score
+    # COLD off a body that had handed the Tamil over. True is the conservative
+    # end — it caps the credit at hinted — so an unstated flag can never
+    # over-credit. Pass --no-target-revealed when the body genuinely withholds it.
+    add.add_argument("--target-revealed", action=argparse.BooleanOptionalAction,
+                     default=True,
+                     help="the body shows that Tamil (reply caps at hinted). "
+                          "Default true; --no-target-revealed lets a reply score cold.")
     add.add_argument("--audio-url", default="", help="optional already-rendered mp3 URL")
     add.add_argument("--memo-script", default="",
                      help="spoken words for a VOICE dose — the drain renders it at fire time")
