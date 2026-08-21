@@ -9,6 +9,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:14 · Anna** 🎧  ·  fielding / fielding: eat-more refusal
 > 🍽️ athai (voice): 'innum konjam saapidunga' — answer her now, don't translate.
 
+**13:25 · Andrew** — **HINTED**
+> Ama sappitom
+
+**Anna ↩**
+> nice dodge, saying you already ate works — but you're speaking for yourself: sappitten, not sappitom. · she pushes another spoonful at you anyway — tell her no more, your stomach's full.
+
 
 ## Thursday 2026-08-20
 

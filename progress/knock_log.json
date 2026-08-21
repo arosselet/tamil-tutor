@@ -4765,6 +4765,38 @@
     "target_revealed": false,
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-21T03-44.mp3",
     "memo_script": "இன்னும் கொஞ்சம் சாப்பிடுங்க! இன்னைக்கு ரொம்ப குறைவா சாப்பிட்டீங்க போல இருக்கு. இன்னும் கொஞ்சம் போடுறேன், சாப்பிடுங்க.",
-    "mp3": "published_audio/knocks/knock_2026-08-21T03-44.mp3"
+    "mp3": "published_audio/knocks/knock_2026-08-21T03-44.mp3",
+    "response": "reply",
+    "reply": "Ama sappitom",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "சாப்பிட்டோம்"
+    ],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line": "nice dodge, saying you already ate works — but you're speaking for yourself: sappitten, not sappitom. · she pushes another spoonful at you anyway — tell her no more, your stomach's full.",
+    "reply_at": "2026-08-21T07:55:51Z",
+    "exchanges": [
+      {
+        "at": "2026-08-21T07:55:51Z",
+        "reply": "Ama sappitom",
+        "verdict": "hinted",
+        "fired": [
+          "சாப்பிட்டோம்"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "nice dodge, saying you already ate works — but you're speaking for yourself: sappitten, not sappitom. · she pushes another spoonful at you anyway — tell her no more, your stomach's full.",
+        "slips": [
+          "1pl-om"
+        ],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ],
+    "chained": 1,
+    "pinned_target": "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு",
+    "pinned_revealed": false
   }
 ]
