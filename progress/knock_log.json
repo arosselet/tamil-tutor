@@ -4820,5 +4820,14 @@
     "chained": 1,
     "pinned_target": "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு",
     "pinned_revealed": false
+  },
+  {
+    "date": "2026-08-21",
+    "timestamp": "2026-08-21T10:22:36.982440+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "eavesdrop: phone call catch",
+    "rationale": "Eavesdrop cadence overdue (9 pending, 3d since last) and every volley peg on the due menu is already flagged overused this week — a fresh phone-call scene lets the myself-thukka catch item get another soak rep without repeating a scored ask, and names Chithi up front so the referent is never in doubt.",
+    "next_check": "2026-08-21T15:22:36.982440+00:00"
   }
 ]
