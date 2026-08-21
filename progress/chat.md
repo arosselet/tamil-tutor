@@ -21,6 +21,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > got it - 'sappitom' is still past tense ('we ate'); 'saapidalaam' is 'let's eat'. and podhum podhum, vayiru full - solid dodge! full line's 'vayiru nirainjiduchu'.
 
+**20:55 · Anna** 🎧  ·  eavesdrop / eavesdrop: birthday call catch
+> 🎧 chithi's on the phone about amma's birthday plans — catch what she keeps saying she'll handle herself
+
 
 ## Thursday 2026-08-20
 
