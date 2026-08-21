@@ -4767,15 +4767,19 @@
     "memo_script": "இன்னும் கொஞ்சம் சாப்பிடுங்க! இன்னைக்கு ரொம்ப குறைவா சாப்பிட்டீங்க போல இருக்கு. இன்னும் கொஞ்சம் போடுறேன், சாப்பிடுங்க.",
     "mp3": "published_audio/knocks/knock_2026-08-21T03-44.mp3",
     "response": "reply",
-    "reply": "Ama sappitom",
-    "reply_verdict": "hinted",
+    "reply": "I meant “yes let’s eat” in my previous reply. Podhum podhum, vaira full",
+    "reply_verdict": "cold",
     "reply_fired": [
-      "சாப்பிட்டோம்"
+      "சாப்பிட்டோம்",
+      "போதும்",
+      "வயிறு"
     ],
-    "reply_fired_cold": [],
+    "reply_fired_cold": [
+      "போதும்"
+    ],
     "reply_fired_capped": [],
-    "reply_line": "nice dodge, saying you already ate works — but you're speaking for yourself: sappitten, not sappitom. · she pushes another spoonful at you anyway — tell her no more, your stomach's full.",
-    "reply_at": "2026-08-21T07:55:51Z",
+    "reply_line": "got it - 'sappitom' is still past tense ('we ate'); 'saapidalaam' is 'let's eat'. and podhum podhum, vayiru full - solid dodge! full line's 'vayiru nirainjiduchu'.",
+    "reply_at": "2026-08-21T07:58:28Z",
     "exchanges": [
       {
         "at": "2026-08-21T07:55:51Z",
@@ -4791,6 +4795,24 @@
         "slips": [
           "1pl-om"
         ],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-21T07:58:28Z",
+        "reply": "I meant “yes let’s eat” in my previous reply. Podhum podhum, vaira full",
+        "verdict": "cold",
+        "fired": [
+          "போதும்",
+          "வயிறு"
+        ],
+        "fired_cold": [
+          "போதும்"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "got it - 'sappitom' is still past tense ('we ate'); 'saapidalaam' is 'let's eat'. and podhum podhum, vayiru full - solid dodge! full line's 'vayiru nirainjiduchu'.",
+        "slips": [],
         "spoke": "",
         "scheduled": ""
       }

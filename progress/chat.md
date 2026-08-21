@@ -15,6 +15,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > nice dodge, saying you already ate works — but you're speaking for yourself: sappitten, not sappitom. · she pushes another spoonful at you anyway — tell her no more, your stomach's full.
 
+**13:28 · Andrew** — **COLD**
+> I meant “yes let’s eat” in my previous reply. Podhum podhum, vaira full
+
+**Anna ↩**
+> got it - 'sappitom' is still past tense ('we ate'); 'saapidalaam' is 'let's eat'. and podhum podhum, vayiru full - solid dodge! full line's 'vayiru nirainjiduchu'.
+
 
 ## Thursday 2026-08-20
 
