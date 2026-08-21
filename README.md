@@ -1,5 +1,10 @@
 # Coimbatore Mappillai — From Recognition to Reflex
 
+[![Smoke Test](https://github.com/arosselet/tamil-tutor/actions/workflows/smoke.yml/badge.svg)](https://github.com/arosselet/tamil-tutor/actions/workflows/smoke.yml)
+[![Anna](https://github.com/arosselet/tamil-tutor/actions/workflows/anna.yml/badge.svg)](https://github.com/arosselet/tamil-tutor/actions/workflows/anna.yml)
+[![Last commit](https://img.shields.io/github/last-commit/arosselet/tamil-tutor)](https://github.com/arosselet/tamil-tutor/commits/main)
+[![License: MIT](https://img.shields.io/github/license/arosselet/tamil-tutor)](LICENSE)
+
 <video src="https://github.com/user-attachments/assets/9ee437bb-593b-498a-ba2c-4d340471c5fd" controls width="240" height="240"></video>
 
 A persistent, stateful language coach powered by LLMs. Built for Coimbatore Tamil; the pedagogy and the architecture are portable to any language. The system tracks one number: of everything you've heard and recognized, how much can you actually fire cold.
