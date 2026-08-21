@@ -360,7 +360,10 @@ def write_episode(n: int, write_pass=claude_print) -> bool:
     """Run the three passes; persist the three artifacts. Python is the only
     thing that touches disk. `write_pass` is the executor (claude or OpenRouter) —
     same prompts, same contract, either environment."""
-    ticket = subprocess.run([sys.executable, str(BASE / "scripts" / "suggest_targets.py")],
+    # --fence: the Director copies the Vocabulary Fence into the brief verbatim
+    # (director.md), and the Architect builds every scene out of it. Anna's bare
+    # invocation drops it — it was 65% of his session load and none of his job.
+    ticket = subprocess.run([sys.executable, str(BASE / "scripts" / "suggest_targets.py"), "--fence"],
                             capture_output=True, encoding="utf-8", errors="replace",
                             cwd=BASE, check=True).stdout
     plan = write_pass("Director", DIRECTOR.format(ticket=ticket))
