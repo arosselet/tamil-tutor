@@ -533,5 +533,17 @@
     "note": "ponga is go, not turn — the direction needs thirumbu",
     "word": "",
     "dose_channel": "soak"
+  },
+  {
+    "at": "2026-08-21T07:55:51Z",
+    "date": "2026-08-21",
+    "lane": "knock",
+    "modality": "fielding",
+    "tag": "1pl-om",
+    "said": "sappitom",
+    "want": "sappitten",
+    "note": "answering for yourself needs -ten, not the we-form -om",
+    "word": "",
+    "dose_channel": "soak"
   }
 ]
