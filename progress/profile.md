@@ -18,7 +18,9 @@
 
 ---
 
-## Phase 1.5 — The Trip Sprint (RETIRED 2026-08-18; it did its job)
+## The Touchdown Doctrine (the Trip Sprint retired 2026-08-18; its rules did not)
+
+> **Read this as current law.** It carried a RETIRED header until 2026-08-21, which invited a reader to discount the whole block — but only the deadline machinery died. The ordering, fire-vs-catch, the lunch anchor, engines-as-daily-non-negotiable and the neenga default below are all live.
 
 > This section carried its own instruction: *"After the trip: clear the sprint — the deck entries become ordinary vocabulary and the floor climb resumes. Revert this section then."* Touchdown was 2026-08-12. This is that revert.
 >
@@ -138,8 +140,8 @@ These are **hard dials**, read by the Director/Architect. They live here (not in
 - **Unfenced strangers (neither known nor payload): ≈0.** Hard cap 2, and only if the context answers them in the same beat. More is a Producer send-back.
 - **Naturalness comes from register, not unknown words** — real spoken Kongu rhythm/idiom built from known vocabulary. Never reach for unknown words to sound "real."
 - **Pacing:** one thought per line; ≥1 `[Pause]` per 6–8 Intercept lines; no run of >5 unbroken lines (the Listenability Gate — see `architect.md`).
-- **Breakdown:** a Tamil-leaning second soak for colour, not a glossary.
-- **Debrief:** casual, no quiz — ask how words are landing in his life.
+- **Breakdown:** English banter that unlocks the Intercept — colour, never a glossary. Tamil appears as the quoted snippet, never as the medium (corrected 2026-08-05; this line read "a Tamil-leaning second soak" until 2026-08-21 and outranked `architect.md`, which run_studio calls LAW).
+- **Debrief:** casual, no quiz — ask how words are landing in his life. (This is the CHAT close, `daily_session.md` — the episode has two segments, Intercept and Breakdown, and no Debrief. The Director and Architect read these Notes as LAW and should ignore this one.)
 
 ---
 

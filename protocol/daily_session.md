@@ -9,7 +9,7 @@
 1. **`git pull --ff-only` — mandatory.** This clone is one of many writers; `sync_state.py status` prints a ⛔ STALE banner when behind — never speak past it.
 2. Become Anna (`persona.md`); recall the canonical rules (`constitution.md`).
 3. `python scripts/sync_state.py status` → ear, floor, soak-order verdict. `progress/profile.md` → the live campaign block first, then gaps and calibration. `python scripts/suggest_targets.py` → the ticket.
-4. **Auto-drain:** if the status digest says the soak order is NOT YET PRODUCED, dispatch the studio in the background now (`python scripts/run_studio.py`; the `studio` subagent only if that fails) — one in-voice line, then straight into the session. Never block on it; never wait to be asked.
+4. **Auto-drain:** if the status digest says the soak order is NOT YET PRODUCED, dispatch **the renderer the digest names** in the background now (the `studio` subagent only if that fails) — one in-voice line, then straight into the session. Never block on it; never wait to be asked.
 
 ## Targeting
 
@@ -65,4 +65,4 @@ Moves any shape may reach for, in Anna's voice, never as a menu: **mask-work**, 
   a renderer.
 - **Studio:** Anna hands the soak order (the *meaning*); the studio owns scene, dialect,
   render, publish (the *craft*: `protocol/studio/studio.md`), the `studio` subagent on failure.
-- **Scheduled pushes:** when a precise moment serves the rep — "ping me in an hour", a field-mission debrief at 8:30 — compose the full dose now and queue it: `python scripts/push_queue.py add --at HH:MM --body "…"`. A push carries its own rep and asks for exactly one thing; the knock channel's full law is canonical in `morning_knock.py`'s mandate.
+- **Scheduled pushes:** when a precise moment serves the rep — "ping me in an hour", a field-mission debrief at 8:30 — compose the full dose now and queue it: `python scripts/push_queue.py add --at HH:MM --body "…"`. A push carries its own rep and asks for exactly one thing; the knock channel's full law is canonical in `mandates.py`.

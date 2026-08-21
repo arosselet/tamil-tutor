@@ -5,7 +5,7 @@ eyeballing a 2000-line lexicon. Anna chooses the story and meaning; this script
 computes the candidate set. The bright line: Python computes the menu, Anna
 makes the choice.
 
-FIVE SELECTORS (2026-08-18, the deck retirement — it was nine, and three of them
+THREE SELECTORS (2026-08-18, the deck retirement — it was nine, and three of them
 claimed primacy in their own words, so whichever one Anna weighted that day
 decided the session):
   1. THE POOL — everything not yet firing cold, ordered survival > delight >
@@ -14,24 +14,29 @@ decided the session):
      fire cold and then never drilled again; the background is exposure only —
      soak them into scenes so the tail can't rot, never force them to fire. One
      ranked list cannot do both jobs, and trying made it do neither. The ear
-     (1a), the background (1b), coverage (1c) and the engines (1e) are views of
-     this same population, not rival pools.
+     (1a), coverage (1c) and the engines (1d) are views of this same population,
+     not rival pools.
   2. DUE CALLBACKS — decay, reusing generate_callbacks.py (no duplicated logic).
      A different job from the pool: not "what is due" but "what is fading".
   3. NEW CANDIDATES BY CLUSTER — priority-1 word_pool entries not yet in the
      lexicon, grouped by cluster with a coverage stat so Anna can see which
      clusters are thin. Python shows coverage; Anna picks the cluster.
-  4. VOCABULARY FENCE — all recognized words (comfortable/solid) plus cold
-     productions. This is "the sea" the Architect builds from. Every word of
-     dialogue that isn't payload should come from this list. Not a selector.
 
-The SLIP LEDGER rides above them: every list here answers "which item is due";
-only that one answers "how is he failing". They are not rivals — `machines heard`
-steers WHAT, the ledger steers HOW — and nothing on this ticket outranks
-anything else any more.
+TWO READERS, AND THEY DO NOT GET THE SAME PAGE (2026-08-21). Anna reads the bare
+command; the Director reads `--fence`. Measured against Anna's real load, the
+ticket was 8,346 tokens and he could act on roughly 1,200 of them:
+  - THE VOCABULARY FENCE (65% of the whole ticket) is the Architect's "sea"
+    (architect.md) and no protocol file asks Anna to read it. Behind --fence.
+  - THE SLIP LEDGER was printed here AND by `status`, both of which Anna loads
+    every session — the same 21 lines twice. `status` keeps it (the knock lane
+    reads that digest too); this file no longer repeats it. The per-row
+    "SLIPPED once (…)" annotations stay: those are per-item, not the ledger.
+  - BACKGROUND is not printed at all (Andrew, 2026-08-21): "EXPOSE, don't drill"
+    is an instruction to the render lanes, which stamp exposure themselves.
 
 Usage:
-    python scripts/suggest_targets.py [--floor-max 8] [--clusters 5] [--per-cluster 5]
+    python scripts/suggest_targets.py                 # Anna's menu
+    python scripts/suggest_targets.py --fence         # + the Architect's sea
 """
 
 import argparse
@@ -43,7 +48,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from generate_callbacks import due_callbacks, load_json, days_since, NEVER_SURFACED
-from slips import format_slip_block, slip_patterns
+from slips import slip_patterns
 from state_io import local_today
 from sync_state import is_unseen, soak_pending
 
@@ -809,6 +814,14 @@ def main():
     parser.add_argument("--callbacks-max", type=int, default=5, help="Max due callbacks (default 5)")
     parser.add_argument("--clusters", type=int, default=5, help="Max thin clusters to surface (default 5)")
     parser.add_argument("--per-cluster", type=int, default=5, help="Max new candidates per cluster (default 5)")
+    # THE FENCE IS THE ARCHITECT'S, NOT ANNA'S (2026-08-21). It is the full list
+    # of recognized words — "the sea" (architect.md:98) — and at 219 lines it was
+    # 65% of the ticket's tokens and the single largest thing Anna loaded all
+    # session. He cannot act on it: no protocol file asks him to read it, and the
+    # coverage rule it feeds is a studio rule. run_studio passes --fence for the
+    # Director; the bare command is Anna's and no longer carries it.
+    parser.add_argument("--fence", action="store_true",
+                        help="include the Vocabulary Fence (the Director needs it; Anna does not)")
     args = parser.parse_args()
 
     lexicon = load_json(LEXICON_PATH)
@@ -859,14 +872,15 @@ def main():
     # re-offers it and the scene re-asks it the same way; the ledger says he has
     # reached for the present tense three times running, which is a different
     # lesson entirely.
-    slip_block = format_slip_block(slips)
-    if slip_block:
-        print("\n★ SLIP LEDGER  (repeated mistakes — this steers HOW to teach, not WHAT)")
-        print("-" * 60)
-        for line in slip_block:
-            print(line)
-        print("\n  A slip is not closed by being corrected — it closes when the right form")
-        print("  fires unaided, later, in a scene that did not hand it over. Build for that.")
+    # THE LEDGER IS PRINTED BY `status`, AND NOT AGAIN HERE (2026-08-21).
+    # format_slip_block had two live callers and Anna loads BOTH of them every
+    # session — session_brief (the status digest) and this ticket — so the whole
+    # block arrived verbatim twice, 21 identical lines. The studio, the ticket's
+    # other reader, has never referenced it: zero hits for "slip" across
+    # protocol/studio/. So the duplicate is pure cost to the one reader who
+    # already had it, and a block the other reader never wanted. `slips` is still
+    # computed above — the pool annotates individual rows with "SLIPPED once (…)"
+    # from it, which is per-item and not a duplicate of the ledger.
 
     # 0. THE COMMISSION — the repair that earned this dose, ahead of everything
     # the ticket computes. Before 2026-07-28 the order reached the Director only
@@ -954,15 +968,12 @@ def main():
                 print(f"      ↳ he answers: {t['pairs_with']} — {t['response_gloss'] or '[no gloss]'}"
                       f"  (drill the PAIR: hear it, answer it — recognition alone isn't the win here)")
 
-    if background:
-        print(f"\n1b. BACKGROUND  ({len(background)} not yet started — EXPOSE, don't drill)")
-        print("-" * 60)
-        print("  Soak/episode candidates: work them into scenes so they stay warm and")
-        print("  the tail can't rot. Never force these to fire — they are not the focus.")
-        for t in background[:8]:
-            print(f"  - {t['word']} — {t['gloss'] or '[no gloss]'}")
-        if len(background) > 8:
-            print(f"  … {len(background) - 8} more waiting behind them")
+    # BACKGROUND IS NOT PRINTED (Andrew, 2026-08-21). It listed 8 of ~236 rows
+    # not yet started under "EXPOSE, don't drill" — a block with no action verb
+    # for the one reader who gets it. The exposure it asks for is stamped by the
+    # render lanes, not by Anna, so nothing was ever waiting on him to read it.
+    # `background` is still computed: floor_gap_targets returns the split and the
+    # FOCUS budget is defined against it, so the number still does work upstream.
 
     cov = register_coverage(lexicon, today=today)
     if cov and cov["fire"]["total"]:
@@ -1037,7 +1048,9 @@ def main():
         for cand in c["candidates"][:per_cluster]:
             print(f"      - {cand['tamil']} — {cand['gloss']}")
 
-    # 4. Vocabulary fence — the sea the Architect swims in
+    # 4. Vocabulary fence — the sea the Architect swims in. Studio-only (--fence).
+    if not args.fence:
+        return
     print("\n4. VOCABULARY FENCE  (the sea — Architect builds from these; everything else is +1)")
     print("-" * 60)
     fence = vocabulary_fence(lexicon)

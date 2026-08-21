@@ -6352,6 +6352,65 @@ def s64_the_ask_cooldown_covers_the_session_lane(sb: Path):
     write_json(klog_path, json.loads(saved[1].decode("utf-8")))
 
 
+def s69_two_readers_two_tickets(sb: Path):
+    """The ticket is split by audience (2026-08-21). Anna's load was measured at
+    25.8k tokens before he spoke, and the ticket was 8.3k of it — of which the
+    Vocabulary Fence alone was 65%, a studio input no protocol file asks Anna to
+    read, and the SLIP LEDGER was a verbatim second copy of what `status`
+    already gave him that same session.
+
+    THE SILENT NO-OP, and it runs in the expensive direction: if the fence stops
+    reaching the DIRECTOR, nothing raises. The studio still writes an episode,
+    still lints, still renders, still publishes — it just quietly stops building
+    dialogue from words Andrew knows, and comprehension-as-heard drifts down
+    over a run of episodes with every instrument green. So this asserts the
+    fence is PRESENT for the studio path, not merely absent from Anna's.
+
+    The mirror failure is the ledger going missing from BOTH surfaces at once,
+    which would silently end slip-steered teaching. `status` is the one that
+    keeps it — the knock lane reads that digest too."""
+    print("\n69. Two readers, two tickets (2026-08-21)")
+    import subprocess as _sp
+
+    def ticket(*args):
+        return _sp.run([sys.executable, str(sb / "scripts" / "suggest_targets.py"), *args],
+                       cwd=sb, capture_output=True, encoding="utf-8",
+                       errors="replace").stdout
+
+    anna, director = ticket(), ticket("--fence")
+    check("Anna's ticket drops the Architect's fence", "VOCABULARY FENCE" not in anna)
+    # The assertion that matters — the expensive direction.
+    check("...and the Director still gets it, or scripts drift off-fence silently",
+          "VOCABULARY FENCE" in director, director[-300:])
+    check("...so the studio's copy is the strictly larger one",
+          len(director) > len(anna), f"anna={len(anna)} director={len(director)}")
+    # NOT a size ratio. The first draft asserted anna < director/2, which is true
+    # of the live lexicon (2,160 vs 7,614 tokens) and false in a sandbox seeded
+    # from the near-empty .example fixtures — a property of the DATA masquerading
+    # as a property of the code. What is fixture-independent: the Director's
+    # surplus is exactly the fence block and nothing else.
+    head = director.index("4. VOCABULARY FENCE")
+    check("the Director's extra content IS the fence — the split adds nothing else",
+          director[:head].rstrip() == anna.rstrip(),
+          "the two tickets diverge somewhere other than the fence")
+
+    # The blocks Andrew kept, and the one he cut (2026-08-21).
+    for keep in ("FOCUS SET", "COVERAGE", "NEW CANDIDATES", "ENGINES TO FIRE"):
+        check(f"Anna keeps {keep}", keep in anna, anna[:200])
+    check("BACKGROUND is not printed to either reader",
+          "1b. BACKGROUND" not in anna and "1b. BACKGROUND" not in director)
+
+    # The ledger: exactly one of Anna's two session inputs carries it.
+    status = _sp.run([sys.executable, str(sb / "scripts" / "sync_state.py"), "status"],
+                     cwd=sb, capture_output=True, encoding="utf-8",
+                     errors="replace").stdout
+    in_status, in_ticket = "REPEATED SLIPS" in status, "REPEATED SLIPS" in anna
+    check("the slip ledger survives — it is still on a surface Anna loads",
+          in_status, "the ledger vanished from BOTH inputs")
+    check("...and it is not also repeated by the ticket",
+          not in_ticket, "the duplicate is back")
+
+
 def s68_the_convergence_audit_fixes(sb: Path):
     """The 2026-08-20 audit's live defects, each asserted where it can actually
     fail. Every one of these was a state INDISTINGUISHABLE FROM SUCCESS — the
@@ -6853,6 +6912,7 @@ def main():
         s65_the_ordering_outlives_the_deck(sb)
         s66_json_mode_is_actually_sent(mk, kr, sb)
         s68_the_convergence_audit_fixes(sb)
+        s69_two_readers_two_tickets(sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)
