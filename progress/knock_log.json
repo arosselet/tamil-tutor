@@ -4751,5 +4751,20 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-20T13-40.mp3",
     "memo_script": "Four days out now — amma's birthday, and this is the one line that can't be improvised live at her table.\n\nபிறந்த நாள் வாழ்த்துக்கள். Pirandha naal vazhthukkal. பிறந்த நாள் — the day you were born. வாழ்த்துக்கள் — wishes, plural, so it lands as 'many happy returns', not just 'happy birthday'.\n\nSay it whole, walking up to her: அம்மா, பிறந்த நாள் வாழ்த்துக்கள். That's the whole shape — no verb to conjugate, no order to worry about, just the phrase.\n\nNo rep needed tonight. Just let it sit in your ear till the day comes — I'll bring it back before then.",
     "mp3": "published_audio/knocks/knock_2026-08-20T13-40.mp3"
+  },
+  {
+    "date": "2026-08-21",
+    "timestamp": "2026-08-21T03:44:50.021347+00:00",
+    "acted": true,
+    "modality": "fielding",
+    "move": "fielding: eat-more refusal",
+    "rationale": "3 unanswered reaches in a row (text, volley, audio all ignored) means the approach isn't converting — switching to a modality never tried this week: fielding, using the athai-refusal pair straight off the due menu, no ask-recap, no repeated peg (birthday already used twice), low-pressure stimulus he can answer in one breath.",
+    "next_check": "2026-08-21T09:44:50.021347+00:00",
+    "body": "🍽️ athai (voice): 'innum konjam saapidunga' — answer her now, don't translate.",
+    "expected_target": "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-21T03-44.mp3",
+    "memo_script": "இன்னும் கொஞ்சம் சாப்பிடுங்க! இன்னைக்கு ரொம்ப குறைவா சாப்பிட்டீங்க போல இருக்கு. இன்னும் கொஞ்சம் போடுறேன், சாப்பிடுங்க.",
+    "mp3": "published_audio/knocks/knock_2026-08-21T03-44.mp3"
   }
 ]

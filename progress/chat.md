@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Friday 2026-08-21
+
+**09:14 · Anna** 🎧  ·  fielding / fielding: eat-more refusal
+> 🍽️ athai (voice): 'innum konjam saapidunga' — answer her now, don't translate.
+
+
 ## Thursday 2026-08-20
 
 **09:10 · Anna**  ·  text / trailer: birthday wish
