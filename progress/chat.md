@@ -12,6 +12,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **16:44 · Anna**  ·  text / revive: what's cooking
 > smell of something cooking hits the hallway — ask her in tamizh, informal. reply right here 🍲
 
+**16:53 · Andrew** — **MISS**
+> Enna samikala?
+
+**Anna ↩**
+> close da — 'samikkala' means 'didn't cook'. you want 'enna samaikkira?'
+
 
 ## Friday 2026-08-21
 

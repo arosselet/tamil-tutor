@@ -545,5 +545,17 @@
     "note": "answering for yourself needs -ten, not the we-form -om",
     "word": "",
     "dose_channel": "soak"
+  },
+  {
+    "at": "2026-08-22T11:23:36Z",
+    "date": "2026-08-22",
+    "lane": "knock",
+    "modality": "text",
+    "tag": "neg-for-continuous",
+    "said": "samikala",
+    "want": "samaikkira",
+    "note": "-kira marks 'is cooking'; -la reads as 'didn't cook' — flips the question's meaning",
+    "word": "",
+    "dose_channel": "soak"
   }
 ]
