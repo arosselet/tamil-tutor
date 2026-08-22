@@ -4856,5 +4856,17 @@
     "body": "the eduthukka mission died twice for no opening — today's session finds one. 'naane eduthukkaren' (I'll handle it) 🍽️",
     "expected_target": "",
     "target_revealed": false
+  },
+  {
+    "date": "2026-08-22",
+    "timestamp": "2026-08-22T11:14:50.399798+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "revive: what's cooking",
+    "rationale": "Cold-start risk + 2-ignore streak calls for the lowest-friction re-opener; picked a GOING DARK item (52d silent) for a fresh cold-fire scene rather than touching the still-unpaid eduthukka trailer, keeping that single open loop intact until session or evening payoff.",
+    "next_check": "2026-08-22T15:14:50.399798+00:00",
+    "body": "smell of something cooking hits the hallway — ask her in tamizh, informal. reply right here 🍲",
+    "expected_target": "என்ன சமைக்கிற?",
+    "target_revealed": false
   }
 ]
