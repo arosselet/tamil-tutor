@@ -4867,6 +4867,31 @@
     "next_check": "2026-08-22T15:14:50.399798+00:00",
     "body": "smell of something cooking hits the hallway — ask her in tamizh, informal. reply right here 🍲",
     "expected_target": "என்ன சமைக்கிற?",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Enna samikala?",
+    "reply_verdict": "miss",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line": "close da — 'samikkala' means 'didn't cook'. you want 'enna samaikkira?'",
+    "reply_at": "2026-08-22T11:23:36Z",
+    "exchanges": [
+      {
+        "at": "2026-08-22T11:23:36Z",
+        "reply": "Enna samikala?",
+        "verdict": "miss",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "close da — 'samikkala' means 'didn't cook'. you want 'enna samaikkira?'",
+        "slips": [
+          "neg-for-continuous"
+        ],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ]
   }
 ]
