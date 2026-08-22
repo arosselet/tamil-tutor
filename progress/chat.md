@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Saturday 2026-08-22
+
+**10:50 · Anna**  ·  text / trailer: eduthukka mission
+> the eduthukka mission died twice for no opening — today's session finds one. 'naane eduthukkaren' (I'll handle it) 🍽️
+
+
 ## Friday 2026-08-21
 
 **09:14 · Anna** 🎧  ·  fielding / fielding: eat-more refusal
