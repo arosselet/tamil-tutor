@@ -51,44 +51,49 @@ from render_audio import generate_segment_google, get_raw_mp3_frames, SILENCE_FR
 from render_chat import render_chat
 
 OPENROUTER_BASE = "https://openrouter.ai/api/v1"   # OpenAI-compatible; one key, many models
-MODEL = "claude-sonnet-5"   # cloud Anna. Everything below derives.
-OPENROUTER_MODEL = f"anthropic/{MODEL}"   # the same model, in OpenRouter's slug shape
-AGENT_MODEL = "claude-sonnet-5"   # what `claude -p` runs on the laptop
+MODEL = "google/gemini-3.7-flash"   # cloud Anna. A full slug — nothing derives it.
+OPENROUTER_MODEL = MODEL            # kept as a name because five lanes import it
+AGENT_MODEL = "claude-sonnet-5"     # what `claude -p` runs on the laptop
 
-# TWO EXECUTORS, AND NOW EVERY LANE USES THE RIGHT ONE (2026-08-23, Andrew:
-# "All of these lanes, when run on my laptop should be `claude -p` using
-# subscription tokens"). The 08-18 rule below was right and was applied to ONE
-# lane. `render_soak`, `render_drill` and `render_longhaul` each opened an
-# OpenRouter client unconditionally — and none of them has ever had a cloud
-# caller, since `anna.yml` invokes exactly four scripts. Every soak, drill and
-# long-haul ever produced was billed to the API from a laptop holding a paid
-# subscription. `scripts/writer.py` now decides, by asking which BINARY exists.
+# ONE MODEL PER EXECUTOR (2026-08-23, Andrew). REPLACES "one model, two
+# executors" (2026-08-18) and its `f"anthropic/{MODEL}"` derivation. That rule
+# said the host may differ but the model may not, and it was right for a world
+# with one vendor in it. `claude -p` is Claude-only by construction, so the
+# moment the API side leaves Anthropic the two CANNOT be the same string. What
+# the 08-18 rule actually defends is kept: the model is STATED, once per
+# executor, never derived and never re-guessed at a call site.
 #
-# `AGENT_MODEL` IS SEPARATE FROM `MODEL` even though they are equal today,
-# because they answer to different things: `MODEL` is a slug OpenRouter resolves,
-# `AGENT_MODEL` is one the `claude` CLI accepts, and that is a SMALLER set.
-# MEASURED 2026-08-23: `claude -p --model claude-sonnet-4.6` prints "It may not
-# exist or you may not have access" AND RETURNS 0 — so a wrong value here does
-# not crash, it silently routes every laptop lane back to the paid API. Smoke
-# `s70` asserts the two shapes; `writer._agent_json` treats empty stdout as
-# failure for the same reason. Verified working: `claude-sonnet-5`.
+# `MODEL`/`OPENROUTER_MODEL` is now CLOUD ANNA ONLY — decide, both judges, the
+# phonetic rewrite. Every other lane runs on the laptop and takes `AGENT_MODEL`
+# through `writer.ask_json`, which costs no cash. The seam is the BINARY making
+# the call, so it cannot rot the way a hand-kept per-lane list would.
 #
-# TWO EXECUTORS, ONE MODEL (2026-08-18, Andrew). The laptop runs `claude -p` on
-# his subscription; a GitHub runner has no agent and no subscription, so it runs
-# the API. That is a HOST difference and must never become a model difference:
-# the slug shape differs, the generation may not. Stated once here so a swap
-# cannot half-land — which is exactly what happened when three lanes shared
-# MODEL and a fourth (the studio) quietly ran a different model on its own
-# constant.
-# 4.6 -> 5 (2026-08-18, Andrew). A newer generation at a LOWER price on
-# OpenRouter ($2/$10 per M tok vs $3/$15), same 1M context, same
-# structured-output support. NOTE (2026-08-23): that $2/$10 is an INTRODUCTORY
-# rate expiring 2026-08-31, not the standing price — see DECISIONS.
-# WATCH THE JUDGE, NOT THE COMPOSER: `MODEL` also grades Andrew's replies
-# (knock_reply), and grading writes the production axis. A generation change
-# re-calibrates that silently; the graded replies in the knock log are the
-# corpus for an A/B if the record ever starts looking off. Andrew is the judge
-# of whether it drifts (his call, 2026-08-18).
+# `AGENT_MODEL` MUST BE A SLUG THE CLI ACCEPTS, and that is a smaller set than
+# OpenRouter's. MEASURED 2026-08-23: `claude -p --model claude-sonnet-4.6` prints
+# "It may not exist or you may not have access" AND RETURNS 0 — so a wrong value
+# here does not crash, it silently routes the lane to the paid API. Smoke `s67`
+# asserts the shape; `writer._agent_json` treats empty stdout as failure for the
+# same reason. Verified working: `claude-sonnet-5`.
+#
+# WHY GEMINI ON THE CLOUD SIDE (Andrew, 2026-08-23): "Gemini seems suited to the
+# task" — Indic coverage on the lanes that read, compose and grade Tamil. A
+# TRIAL, revisit ~08-27. Not a cost decision, though the invoice moves: ~$0.0094
+# per decide-shaped call against ~$0.050 on sonnet-5. Verified before the swap —
+# the slug advertises `response_format` AND `structured_outputs` on OpenRouter,
+# so JSON_MODE holds, and its 65,536-token completion ceiling clears the largest
+# `budget()` call twenty-fold.
+#
+# WATCH THE JUDGE, NOT THE COMPOSER. `MODEL` grades Andrew's replies
+# (knock_reply), and grading writes the production axis, so a VENDOR change
+# recalibrates the learning record silently — the 08-18 risk one step further
+# out. Nothing in smoke catches it; the tests stub the LLM. The graded replies in
+# `knock_log.json` are the A/B corpus. Andrew judges the drift; reverting is this
+# one constant.
+#
+# ON THE PRICE IT LEFT (measured 2026-08-23, and why this got looked at at all):
+# sonnet-5's $2/$10 was Anthropic's INTRODUCTORY rate, expiring 2026-08-31 — the
+# 08-18 note recorded it as the standing price. From 09-01 sonnet-5 is $3/$15,
+# identical to the 4.6 it replaced, while emitting ~4x the output tokens.
 
 # THINKING IS PART OF THE BUDGET, and only the MODEL knows what it costs
 # (2026-08-18, hours after the swap above). Sonnet 5 reasons before it answers and

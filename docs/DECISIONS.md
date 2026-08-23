@@ -2120,6 +2120,32 @@ Details live in git history; this is the index of the *conclusions*.
   refuses an envelope by name. Nested item shapes are declared too: unconstrained, an array of
   `{ta, en}` returns an array of strings. Smoke `s70`.
 
+- **Anna's cloud lanes run on `google/gemini-3.7-flash` — TRIAL, revisit ~2026-08-27**
+  (2026-08-23, Andrew: *"Gemini seems suited to the task"*). Replaces `claude-sonnet-5` on
+  `decide()`, both judges and the phonetic rewrite — after the split above, all that still costs
+  cash. Not a cost decision (~$0.0094 vs ~$0.050 per decide-shaped call). Verified: the slug
+  advertises `response_format` and `structured_outputs`, its 65,536-token ceiling clears the
+  largest `budget()` call, and a forced live call returned schema-clean JSON. **On trial is the
+  Tamil, not the plumbing** — `MODEL` grades replies and grading writes the production axis, and
+  smoke stubs the LLM. First signal, one live sample: JSON perfect, Tamil not — `நாங்` for "I",
+  `-ுங்க` on `போனேன்`, and an intro naming the grammar rule the mandate forbids. Watch it;
+  `knock_log.json` is the A/B corpus.
+
+- **Two constants, because one executor is Claude-only** (2026-08-23). **Replaces** "one model,
+  two executors" (2026-08-18) and its `f"anthropic/{MODEL}"` derivation, which assumed both
+  executors can run one model. `claude -p` cannot run a Gemini slug. What that rule defends is
+  kept: the model is STATED, once per executor, never derived. `MODEL` is cloud Anna;
+  `AGENT_MODEL` is `claude -p`, and must be a slug the CLI accepts — MEASURED, `--model
+  claude-sonnet-4.6` prints "may not exist" **and returns 0**, silently routing every laptop lane
+  to the paid API. `claude-sonnet-5` verified. Smoke `s70` asserts the two shapes so they cannot
+  be swapped.
+
+- **Sonnet 5's $2/$10 was an introductory price** (2026-08-23, correcting the 08-18 note below).
+  It expires 2026-08-31; from 09-01 sonnet-5 is $3/$15 — identical to the 4.6 it replaced, while
+  emitting ~4x the output tokens, because reasoning bills as output and this system measured
+  1,624–2,974 reasoning tokens per call. The 08-18 swap was argued partly on price; that half was
+  never true beyond August. Recorded so the next model decision starts from the real number.
+
 - **Anna runs on `anthropic/claude-sonnet-5`** (2026-08-18, Andrew: *"maybe it'll be more reliable
   or efficient"*). Replaces `claude-sonnet-4.6`. A newer generation at a **lower** price on
   OpenRouter ($2/$10 per M tok vs $3/$15), same 1M context, same structured-output support — so
