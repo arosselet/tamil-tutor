@@ -4869,13 +4869,13 @@
     "expected_target": "என்ன சமைக்கிற?",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Enna samikala?",
-    "reply_verdict": "miss",
+    "reply": "The last few days have been travel time and time with cousins, not a fade.",
+    "reply_verdict": "chat",
     "reply_fired": [],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "close da — 'samikkala' means 'didn't cook'. you want 'enna samaikkira?'",
-    "reply_at": "2026-08-22T11:23:36Z",
+    "reply_line": "no worries da, life happens — but c'mon, smell's still in the hallway. enna samaikkira?",
+    "reply_at": "2026-08-23T00:02:18Z",
     "exchanges": [
       {
         "at": "2026-08-22T11:23:36Z",
@@ -4889,6 +4889,19 @@
         "slips": [
           "neg-for-continuous"
         ],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-23T00:02:18Z",
+        "reply": "The last few days have been travel time and time with cousins, not a fade.",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "no worries da, life happens — but c'mon, smell's still in the hallway. enna samaikkira?",
+        "slips": [],
         "spoke": "",
         "scheduled": ""
       }
