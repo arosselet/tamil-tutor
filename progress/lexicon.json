@@ -1106,11 +1106,12 @@
     "gloss": "Left",
     "phonetic": [],
     "recognition": "struggled",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       10
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-23",
+    "reps": 1
   },
   "அதுக்கு அப்புறம்": {
     "gloss": "After that",
@@ -5367,12 +5368,13 @@
     "gloss": "",
     "phonetic": [],
     "recognition": "struggled",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       86
     ],
-    "last_surfaced": "2026-08-10",
-    "exposures": 1
+    "last_surfaced": "2026-08-23",
+    "exposures": 1,
+    "reps": 1
   },
   "வரல": {
     "gloss": "",
