@@ -1156,79 +1156,61 @@ def cmd_feedback(args):
         print(f"  {e['date']}  {e['note']}")
 
 
-def cmd_prune_duplicates(args):
-    """Drop lexicon rows that duplicate another row and carry nothing of their own.
+def cmd_unverify(args):
+    """Drop to `struggled` every row rated recognized that nothing ever tested.
 
-    Replaces `migrate-session-log` (2026-07-31), which was spent: it reports
-    "nothing to do" against the repaired log, and the same-day merge in
-    `cmd_update` is the forward fix that stops the rows recurring. A one-time
-    migration whose one time has passed is crud, and this file was at 1247/1250.
+    Replaces `prune-duplicates` (2026-08-04), which is spent: it reports "no
+    strictly-dominated duplicates" against the current lexicon, and `resolve()`
+    plus the phonetic index are the forward fix that stops those rows recurring.
+    A one-time correction whose one time has passed is crud, and this file was
+    at 795/800 — the same trade, in the same words, that prune-duplicates itself
+    made against `migrate-session-log` on 2026-07-31.
 
-    THE DUPLICATE SIGNAL IS THE PHONETIC, NEVER THE KEY (2026-08-04). Trailing
-    punctuation is load-bearing here: `எங்க` is "our" and `எங்க?` is "where?" —
-    two lemmas that differ by one character, so any rule that normalises keys
-    merges them and destroys a real distinction. Two rows are duplicates only
-    when they share a phonetic AND one is strictly poorer on every axis.
+    THE BUG THIS REPAIRS (2026-08-23, Andrew: "hearing != knowing"). The
+    lexicon's first populated commit already carried 153 rows at solid:93 /
+    comfortable:54 / struggled:6 — a day-one SELF-ESTIMATE of what he had
+    soaked, written into the same field that evidence writes into. Nothing
+    downstream could tell an estimate from a fact, so `suggest_targets` offered
+    a June guess as a known word and Anna built cold demands on words he had
+    never met — four of them in one session before he named it. His ruling on
+    the fix: do not add a warning label, "that builds a feature to patch a data
+    integrity bug". Repair the data; the existing machinery then does the rest,
+    because a `struggled` row leaves the recognized set, drops out of the
+    viability floor's denominator, and re-enters play through the Teach Beat.
 
-    `frame:` keys are exempt: a frame legitimately shares a phonetic with the
-    chunk that exemplifies it (`vandhutten` is both `வந்துட்டேன்` and
-    `frame:done-ittu`), which is the one collision that must never be pruned.
+    `reps` IS THE EVIDENCE, AND IT ALREADY EXISTS. It counts declared events
+    only — worked in a session (`touch`) or fired in a judged reply
+    (`knock_reply.apply_verdict`). So `reps == 0` with production `none` on a
+    recognized row means no channel ever checked it. No new field is needed and
+    none is added; the structure freeze holds.
 
-    Strict domination is what makes this safe to automate. A row that is better
-    on any axis — or that holds a deck tag, a type, or reps the other lacks — is
-    never dropped, so the command can only ever remove a row whose deletion
-    loses nothing. Anything else is reported for a human and left alone."""
+    WHAT IT DELIBERATELY DOES NOT TOUCH: `reps` and `last_surfaced`. Demoting
+    through `--stuck-word` would have reached `touch()` and bumped both, which
+    destroys the very signal that identifies these rows and stamps a working
+    date that callback due-ness reads as fresh. The evidence gap has to survive
+    its own repair, so the rows stay findable and can be re-earned honestly. The
+    re-earning path needs nothing new either: a caught eavesdrop already
+    promotes recognition (`knock_reply`), as does Anna's own observation.
+    """
     lexicon = load_json(LEXICON_PATH) or {}
-    rank = {"recognition": RECOGNITION_LEVELS,
-            "production": ["none", "hinted", "cold"]}
-
-    def poorer(a: str, b: str) -> bool:
-        """Is row `a` strictly dominated by row `b` — nothing to lose by dropping it?"""
-        ra, rb = lexicon[a], lexicon[b]
-        for axis, levels in rank.items():
-            if levels.index(ra.get(axis) or levels[0]) > levels.index(rb.get(axis) or levels[0]):
-                return False
-        if ra.get("reps", 0) > rb.get("reps", 0) or ra.get("last_surfaced"):
-            return False
-        # A tag the survivor lacks is content: deck membership, type, seen_in.
-        return not any(ra.get(f) and not rb.get(f) for f in ("deck", "type", "seen_in"))
-
-    index: dict[str, list[str]] = {}
-    for word, rec in lexicon.items():
-        if word.startswith("frame:"):
-            continue
-        for phon in rec.get("phonetic") or []:
-            index.setdefault(phon.strip().lower(), []).append(word)
-
-    doomed, flagged = [], []
-    for phon, words in sorted(index.items()):
-        if len(words) < 2:
-            continue
-        losers = [w for w in words if any(w != k and poorer(w, k) for k in words)]
-        # Never drop every side of a collision: identical twins dominate each
-        # other, so keep the first and drop the rest.
-        for word in losers[1:] if len(losers) == len(words) else losers:
-            doomed.append((word, phon, next(k for k in words if k != word)))
-        if not losers:
-            flagged.append((phon, words))
-
-    for phon, words in flagged:
-        print(f"  ⚠ '{phon}' is shared by {words} — neither is strictly poorer. "
-              f"Not a duplicate, or a real merge someone has to make by hand.")
-    if not doomed:
-        print(f"lexicon.json: {len(lexicon)} rows, no strictly-dominated duplicates.")
+    stale = [w for w, r in lexicon.items()
+             if r.get("recognition") in RECOGNIZED and not r.get("reps")
+             and (r.get("production") or "none") == "none"]
+    if not stale:
+        print(f"lexicon.json: {len(lexicon)} rows, every recognized one has been worked.")
         return
-    print(f"lexicon.json: {len(lexicon)} rows, {len(doomed)} dominated duplicate(s):")
-    for word, phon, keeper in doomed:
-        print(f"  - drop {word!r} (shares '{phon}' with {keeper!r}, and carries nothing it lacks)")
+    print(f"lexicon.json: {len(lexicon)} rows, {len(stale)} rated without evidence:")
+    for word in stale:
+        rec = lexicon[word]
+        print(f"  - {word} ({rec.get('gloss') or 'no gloss'}) — {rec['recognition']} → struggled")
     if not args.apply:
         print("\n  DRY RUN — nothing written. Re-run with --apply to commit the change.")
         print("  (git holds the current file; `git checkout -- progress/lexicon.json` reverts.)")
         return
-    for word, _, _ in doomed:
-        del lexicon[word]
+    for word in stale:
+        lexicon[word]["recognition"] = "struggled"
     save_json(LEXICON_PATH, lexicon)
-    print(f"\n  ✅ written — {len(lexicon)} rows.")
+    print(f"\n  ✅ written — {len(stale)} rows now struggled; reps and last_surfaced untouched.")
 
 
 def main():
@@ -1342,10 +1324,10 @@ def main():
                          "(a later miss revives it, history intact); 'missed' logs the failure and keeps it live. "
                          "This asserts an observation — that he fired it right unaided — not a verdict.")
 
-    pd = sub.add_parser("prune-duplicates",
-                        help="Drop lexicon rows that share a phonetic with another row and "
-                             "carry nothing it lacks (2026-08-04). Previews unless --apply.")
-    pd.add_argument("--apply", action="store_true",
+    uv = sub.add_parser("unverify",
+                        help="Drop to struggled every recognized row nothing ever tested — "
+                             "reps 0, production none (2026-08-23). Previews unless --apply.")
+    uv.add_argument("--apply", action="store_true",
                     help="Actually write. Without it this only reports what would change.")
 
     args = parser.parse_args()
@@ -1371,8 +1353,8 @@ def main():
         cmd_slips(args)
     elif args.command == "knock-response":
         cmd_knock_response(args)
-    elif args.command == "prune-duplicates":
-        cmd_prune_duplicates(args)
+    elif args.command == "unverify":
+        cmd_unverify(args)
     else:
         parser.print_help()
 

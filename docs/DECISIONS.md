@@ -2285,3 +2285,15 @@ Details live in git history; this is the index of the *conclusions*.
   that had handed the Tamil over, moving the production axis on an inflated fire. Now
   `BooleanOptionalAction` defaulting True across all three; `--no-target-revealed` is the
   explicit withhold. Smoke `s68`.
+
+- **Hearing is not knowing — a rating nobody earned is not evidence** (2026-08-23, Andrew).
+  The lexicon's first populated commit already held 153 rows at solid:93 / comfortable:54 — a
+  day-one self-estimate written into the field evidence writes into. The ticket then served a
+  June guess as a known word, and Anna demanded four words he had never met in one session.
+  **Rejected: a ticket warning label** — *"that builds a feature to patch a data integrity
+  bug."* **Rejected: a provenance field** — `reps` already counts declared events only, so
+  `reps == 0` with production `none` IS the signal, and no schema moved. The repair is
+  `sync_state unverify`: drop those rows to `struggled`, leave `reps` and `last_surfaced`
+  alone — `--stuck-word` would have reached `touch()` and destroyed the signal that finds
+  them. Retires `prune-duplicates`, as that retired `migrate-session-log`. Re-earning needs no
+  new machinery: a caught eavesdrop already promotes recognition. Smoke `s53`.

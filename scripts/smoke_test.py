@@ -4130,23 +4130,32 @@ def s42_session_log_one_row_per_day(sb: Path):
             slog_path.write_bytes(saved[2])
 
 
-def s53_prune_duplicate_lexicon_rows(sb: Path):
-    """Duplicate lexicon rows, and the rule that must NEVER fire (2026-08-04).
+def s53_unverify_rows_nothing_ever_tested(sb: Path):
+    """A recognition rating nobody ever earned (2026-08-23, Andrew).
 
-    Three near-identical key pairs turned up in an audit. Only two were
-    duplicates: `எங்க` is "our (exclusive)" and `எங்க?` is "Where?" — two
-    lemmas separated by one character of punctuation. The obvious architecture
-    (normalise keys, strip terminal punctuation) would have merged them and
-    destroyed a real distinction, so the duplicate signal is the PHONETIC plus
-    strict domination, never the key.
+    Replaces the prune-duplicates case with its own command. The lexicon's first
+    populated commit already held 153 rows at solid:93 / comfortable:54 — a
+    day-one self-estimate written into the field evidence writes into. Nothing
+    downstream could tell the two apart, so the ticket offered a June guess as a
+    known word and Anna demanded four words he had never met in one session.
+    Andrew's ruling: repair the data, do not build a label around it.
 
-    Gate 7.2 — this tool's silent failure is not doing nothing, it is deleting
-    a row nobody can get back. The no-op reads as "no duplicates found", which
-    is also what a correct run on clean data prints; the dangerous state is the
-    opposite one. So every check below is about what must SURVIVE, and the
-    homograph pair is the case that matters: it shares a stem, differs only by
-    punctuation, and must come through untouched."""
-    print("\n53. Duplicate lexicon rows are pruned on phonetic + domination (2026-08-04)")
+    Gate 7.2 — the honest answer is nasty, because this tool has TWO silent
+    failures pointing opposite ways. (a) A wrong predicate selects nothing and
+    prints "every recognized one has been worked" — which is also exactly what a
+    correct run prints once the migration has landed, forever after. So the case
+    must prove it FINDS rows in a fixture that has them; a green "no-op" proves
+    nothing. (b) An over-broad predicate silently wipes recognition off rows that
+    were earned, and no meter would show it as anything but a lower floor. So
+    every row below that carries evidence — a rep, a cold fire, or both — is
+    asserted to survive untouched.
+
+    And the third teeth: `reps` and `last_surfaced` must come through the write
+    unchanged. Demoting via `--stuck-word` would have reached `touch()` and
+    bumped both, destroying the signal that identifies these rows and faking a
+    working date for callback due-ness. That is a round-trip assertion — re-read
+    the file, never trust the dict the command was handed."""
+    print("\n53. Recognition nobody ever tested is dropped to struggled (2026-08-23)")
     import contextlib, io, argparse as _ap
     ss = importlib.import_module("sync_state")
     lex_path = sb / "progress" / "lexicon.json"
@@ -4155,48 +4164,54 @@ def s53_prune_duplicate_lexicon_rows(sb: Path):
         row = lambda **kw: {"gloss": "x", "phonetic": [], "recognition": "struggled",
                             "production": "none", "seen_in": [], "last_surfaced": None, **kw}
         lex = {
-            # the real duplicate: same phonetic, and the stray carries nothing
-            "அப்படியா?!": row(phonetic=["appadiya"], recognition="comfortable",
-                              production="cold", type="chunk", deck="trip"),
-            "அப்படியா": row(phonetic=["appadiya"]),
-            # THE HOMOGRAPH — one character apart, different words, different
-            # phonetics. A key-normalising rule merges these; this one must not.
-            "எங்க": row(phonetic=["enga"], recognition="solid", production="cold"),
-            "எங்க?": row(phonetic=["enga?"], recognition="solid"),
-            # a frame legitimately shares its exemplar chunk's phonetic
-            "வந்துட்டேன்": row(phonetic=["vandhutten"], recognition="solid", production="cold"),
-            "frame:done-ittu": row(phonetic=["vandhutten"], type="pattern"),
-            # shares a phonetic, but is RICHER — a duplicate that must not be
-            # dropped just because something else got there first
-            "ருசி": row(phonetic=["rusi"]),
-            "கை ருசி": row(phonetic=["rusi"], recognition="solid", production="cold", reps=4),
+            # THE POPULATION: rated recognized, never worked by any channel.
+            "அது": row(recognition="solid"),
+            "இது": row(recognition="comfortable", seen_in=[3, 7], last_surfaced=None),
+            # EVIDENCE, three ways — each of these must survive at its rating.
+            "வா": row(recognition="solid", reps=4, last_surfaced="2026-08-01"),
+            "போ": row(recognition="comfortable", production="cold"),
+            "வை": row(recognition="solid", reps=1, production="hinted",
+                      last_surfaced="2026-08-19"),
+            # already at the floor — nothing to do, and it must not churn
+            "சரி": row(recognition="struggled"),
         }
         write_json(lex_path, lex)
         out = io.StringIO()
         with contextlib.redirect_stdout(out):
-            ss.cmd_prune_duplicates(_ap.Namespace(apply=False))
+            ss.cmd_unverify(_ap.Namespace(apply=False))
         check("a dry run writes nothing", read_json(lex_path) == lex, "the preview mutated the file")
         check("...and says so", "DRY RUN" in out.getvalue())
+        # (a) The no-op that reads as success: prove it SEES them.
+        check("the preview names every untested row", "2 rated without evidence" in out.getvalue(),
+              f"got {out.getvalue()!r}")
 
         with contextlib.redirect_stdout(io.StringIO()):
-            ss.cmd_prune_duplicates(_ap.Namespace(apply=True))
+            ss.cmd_unverify(_ap.Namespace(apply=True))
         after = read_json(lex_path)
-        check("the dominated duplicate is dropped", "அப்படியா" not in after)
-        check("...and the row that carried the state survives", "அப்படியா?!" in after)
-        # The regression that matters most. Both must be here.
-        check("a punctuation-only HOMOGRAPH pair survives whole — 'our' and "
-              "'where?' are not duplicates",
-              "எங்க" in after and "எங்க?" in after, f"got {sorted(after)}")
-        check("a frame sharing its exemplar's phonetic is never pruned",
-              "வந்துட்டேன்" in after and "frame:done-ittu" in after, f"got {sorted(after)}")
-        check("the richer of two rows is never the one dropped",
-              "கை ருசி" in after and "ருசி" not in after, f"got {sorted(after)}")
-        check("nothing else was touched", len(after) == len(lex) - 2, f"got {sorted(after)}")
+        check("an unearned 'solid' drops to struggled",
+              after["அது"]["recognition"] == "struggled", f"got {after['அது']}")
+        check("an unearned 'comfortable' drops too",
+              after["இது"]["recognition"] == "struggled", f"got {after['இது']}")
+        # (b) The opposite failure — silently wiping ratings that were earned.
+        check("a row with reps survives at its rating",
+              after["வா"]["recognition"] == "solid", f"got {after['வா']}")
+        check("a row that has FIRED survives even with no reps",
+              after["போ"]["recognition"] == "comfortable", f"got {after['போ']}")
+        check("a hinted row with a rep survives",
+              after["வை"]["recognition"] == "solid", f"got {after['வை']}")
+        # The signal has to survive its own repair, or the rows stop being findable.
+        check("reps is never bumped by the repair",
+              all(after[w].get("reps", 0) == lex[w].get("reps", 0) for w in lex),
+              f"reps moved: {[(w, after[w].get('reps')) for w in lex]}")
+        check("last_surfaced is never stamped by the repair",
+              all(after[w].get("last_surfaced") == lex[w].get("last_surfaced") for w in lex),
+              f"dates moved: {[(w, after[w].get('last_surfaced')) for w in lex]}")
+        check("nothing is added or dropped", sorted(after) == sorted(lex), f"got {sorted(after)}")
 
         with contextlib.redirect_stdout(out := io.StringIO()):
-            ss.cmd_prune_duplicates(_ap.Namespace(apply=True))
-        check("re-running on clean data is a no-op",
-              read_json(lex_path) == after and "no strictly-dominated" in out.getvalue(),
+            ss.cmd_unverify(_ap.Namespace(apply=True))
+        check("re-running on repaired data is a no-op",
+              read_json(lex_path) == after and "every recognized one has been worked" in out.getvalue(),
               f"got {out.getvalue()!r}")
     finally:
         lex_path.write_bytes(saved)
@@ -7069,7 +7084,7 @@ def main():
         s45_concurrent_appends_merge(mk, sb)
         s46_the_commission_notice_names_the_debt(sb)
         s47_hinted_retest_rule(sb)
-        s53_prune_duplicate_lexicon_rows(sb)
+        s53_unverify_rows_nothing_ever_tested(sb)
         s54_no_deadline_reaches_any_surface(sb)
         s55_demotion_survives_the_close(sb)
         s56_timezone_is_one_dial(sb)
