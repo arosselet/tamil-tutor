@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Sunday 2026-08-23
+
+**09:14 · Anna** 🎧  ·  audio / trailer payoff: eduthukka mission
+> 🥣 spoon mission, paid off — where 'naane eduthukkaren' actually lands now. voice memo, no reply needed.
+
+
 ## Saturday 2026-08-22
 
 **10:50 · Anna**  ·  text / trailer: eduthukka mission

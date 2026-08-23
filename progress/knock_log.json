@@ -4985,5 +4985,20 @@
         "scheduled": ""
       }
     ]
+  },
+  {
+    "date": "2026-08-23",
+    "timestamp": "2026-08-23T03:44:25.304783+00:00",
+    "acted": true,
+    "modality": "audio",
+    "move": "trailer payoff: eduthukka mission",
+    "rationale": "yesterday's eduthukka trailer sat unpaid with no session in 4 days — the loop can't starve overnight into a second day, so I close it myself with a no-ask show dose (resets demand-streak, respects the 3+ day teach-bandwidth limit) and check back near lunch to consider a fresh trailer for today's session.",
+    "next_check": "2026-08-23T06:44:25.304783+00:00",
+    "body": "🥣 spoon mission, paid off — where 'naane eduthukkaren' actually lands now. voice memo, no reply needed.",
+    "expected_target": "",
+    "target_revealed": true,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-23T03-44.mp3",
+    "memo_script": "andi, so the eduthukka mission — died twice already for want of an opening, right? here's the fix, wide open now, no more waiting around.\n\nforget a spoon or a ladle at dinner. anything moving toward you counts — a plate she's handing over, a bag someone's about to carry, a chair getting pulled out for you. the second something's headed your way, before it lands, you say it: naane eduthukkaren.\n\nremember the shape underneath — eduthu plus kol, hold onto yourself, and that lone 'e' on naane is the only teeth in the whole sentence. no ladle needed, no dinner needed. just something moving toward you, and you catching it before anyone else lifts a finger.\n\nnothing to send back for this one — just have it loaded. next thing that moves your way, that's your line.",
+    "mp3": "published_audio/knocks/knock_2026-08-23T03-44.mp3"
   }
 ]
