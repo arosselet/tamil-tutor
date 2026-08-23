@@ -557,5 +557,29 @@
     "note": "-kira marks 'is cooking'; -la reads as 'didn't cook' — flips the question's meaning",
     "word": "",
     "dose_channel": "soak"
+  },
+  {
+    "at": "2026-08-23T11:58:05Z",
+    "date": "2026-08-23",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "chunk-not-machine",
+    "said": "alaichal",
+    "want": "adhanaale / ennaa",
+    "note": "reached for a connector with the right instinct and fired the noun most recently in his ear instead — reopens 5d after it was closed",
+    "word": "",
+    "dose_channel": "drill"
+  },
+  {
+    "at": "2026-08-23T11:58:05Z",
+    "date": "2026-08-23",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "1pl-past-om",
+    "said": "ponen",
+    "want": "ponom",
+    "note": "rendered a we-trip with the I-ending; 08-21 was the same axis in the opposite direction (sappitom for sappitten), so -om/-en is unstable BOTH ways",
+    "word": "போனோம்",
+    "dose_channel": "drill"
   }
 ]

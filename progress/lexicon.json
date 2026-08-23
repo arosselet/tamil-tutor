@@ -1322,7 +1322,7 @@
   "ஏன்னா": {
     "gloss": "Because",
     "phonetic": [],
-    "recognition": "solid",
+    "recognition": "comfortable",
     "production": "none",
     "seen_in": [
       1,
@@ -1334,8 +1334,9 @@
       11,
       12
     ],
-    "last_surfaced": "2026-08-18",
-    "exposures": 1
+    "last_surfaced": "2026-08-23",
+    "exposures": 1,
+    "reps": 1
   },
   "வேற என்ன?": {
     "gloss": "What else?",
@@ -5490,5 +5491,45 @@
     "last_surfaced": "2026-08-19",
     "exposures": 1,
     "reps": 2
+  },
+  "வண்டி": {
+    "gloss": "vehicle, any vehicle (kept the bullock-cart word)",
+    "phonetic": [
+      "vandi"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-08-23"
+  },
+  "சந்தேகம்": {
+    "gloss": "doubt / suspicion — and 'enakku oru sandhegam' = I have a question",
+    "phonetic": [
+      "sandhegam"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-08-23"
+  },
+  "பாத்தேன்": {
+    "gloss": "I saw (plain past of paaru — same root as paathukkaren)",
+    "phonetic": [
+      "paathen"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-08-23"
+  },
+  "காலைல": {
+    "gloss": "in the morning",
+    "phonetic": [
+      "kaalaila"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-08-23"
   }
 }
