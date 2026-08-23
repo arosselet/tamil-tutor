@@ -5000,5 +5000,17 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-23T03-44.mp3",
     "memo_script": "andi, so the eduthukka mission — died twice already for want of an opening, right? here's the fix, wide open now, no more waiting around.\n\nforget a spoon or a ladle at dinner. anything moving toward you counts — a plate she's handing over, a bag someone's about to carry, a chair getting pulled out for you. the second something's headed your way, before it lands, you say it: naane eduthukkaren.\n\nremember the shape underneath — eduthu plus kol, hold onto yourself, and that lone 'e' on naane is the only teeth in the whole sentence. no ladle needed, no dinner needed. just something moving toward you, and you catching it before anyone else lifts a finger.\n\nnothing to send back for this one — just have it loaded. next thing that moves your way, that's your line.",
     "mp3": "published_audio/knocks/knock_2026-08-23T03-44.mp3"
+  },
+  {
+    "date": "2026-08-23",
+    "timestamp": "2026-08-23T07:28:01.532994+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "revive: hallway vanakkam",
+    "rationale": "4 days no session + 1 unanswered reach = cold-start risk; lowest-friction reply-in-tamizh on a solid-but-never-fired word (vanakkam) is the re-opener, not another quiz-heavy demand — diverges from the last three pegs (spoon, cooking, eat-more) and keeps demand-streak at a gentle 1.",
+    "next_check": "2026-08-23T12:28:01.532994+00:00",
+    "body": "🙏 lunch break, hallway — chithappa spots you first time all day. say hi in tamizh, reply right here da.",
+    "expected_target": "வணக்கம்",
+    "target_revealed": false
   }
 ]
