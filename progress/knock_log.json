@@ -4869,16 +4869,16 @@
     "expected_target": "என்ன சமைக்கிற?",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Enna samaikkira",
-    "reply_verdict": "hinted",
+    "reply": "Periya is to cinna as Romba is to ? I keep forgetting this word",
+    "reply_verdict": "chat",
     "reply_fired": [
       "என்ன?",
       "என்ன சமைக்கிற?"
     ],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "adhu dhaan da! though ngh, I did spoon-feed you that one three times — next round it better fire cold 😏",
-    "reply_at": "2026-08-23T00:20:17Z",
+    "reply_line": "konjam da — romba's 'a lot', konjam's 'a little'. now, smell's still there... enna samaikkira?",
+    "reply_at": "2026-08-23T00:42:16Z",
     "exchanges": [
       {
         "at": "2026-08-22T11:23:36Z",
@@ -4947,6 +4947,19 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "adhu dhaan da! though ngh, I did spoon-feed you that one three times — next round it better fire cold 😏",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-23T00:42:16Z",
+        "reply": "Periya is to cinna as Romba is to ? I keep forgetting this word",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "konjam da — romba's 'a lot', konjam's 'a little'. now, smell's still there... enna samaikkira?",
         "slips": [],
         "spoke": "",
         "scheduled": ""

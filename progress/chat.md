@@ -42,6 +42,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan da! though ngh, I did spoon-feed you that one three times — next round it better fire cold 😏
 
+**06:12 · Andrew** — **CHAT**
+> Periya is to cinna as Romba is to ? I keep forgetting this word
+
+**Anna ↩**
+> konjam da — romba's 'a lot', konjam's 'a little'. now, smell's still there... enna samaikkira?
+
 
 ## Friday 2026-08-21
 
