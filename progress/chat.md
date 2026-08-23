@@ -18,6 +18,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan da! clean vanakkam, no help needed 🙏
 
+**18:57 · Anna**  ·  text / auto directions
+> 🛺 auto driver kitta sollu (tell him) — he's missing the lane, tell him: turn right! reply in tamizh.
+
 
 ## Saturday 2026-08-22
 
