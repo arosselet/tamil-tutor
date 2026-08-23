@@ -48,6 +48,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > konjam da — romba's 'a lot', konjam's 'a little'. now, smell's still there... enna samaikkira?
 
+**06:14 · Andrew** — **HINTED**
+> Emma samaikkira. Konjam yes that’s the one!
+
+**Anna ↩**
+> haha yeah 'enna samaikkira' is the one da — autocorrect ate the 'e' into 'Emma' again 😄 but I basically handed you this one five times this thread, so it's not cold yet — next time it fires without me printing it first, THAT'S the real one.
+
 
 ## Friday 2026-08-21
 

@@ -4869,16 +4869,19 @@
     "expected_target": "என்ன சமைக்கிற?",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Periya is to cinna as Romba is to ? I keep forgetting this word",
-    "reply_verdict": "chat",
+    "reply": "Emma samaikkira. Konjam yes that’s the one!",
+    "reply_verdict": "hinted",
     "reply_fired": [
       "என்ன?",
+      "என்ன சமைக்கிற?",
       "என்ன சமைக்கிற?"
     ],
     "reply_fired_cold": [],
-    "reply_fired_capped": [],
-    "reply_line": "konjam da — romba's 'a lot', konjam's 'a little'. now, smell's still there... enna samaikkira?",
-    "reply_at": "2026-08-23T00:42:16Z",
+    "reply_fired_capped": [
+      "என்ன சமைக்கிற?"
+    ],
+    "reply_line": "haha yeah 'enna samaikkira' is the one da — autocorrect ate the 'e' into 'Emma' again 😄 but I basically handed you this one five times this thread, so it's not cold yet — next time it fires without me printing it first, THAT'S the real one.",
+    "reply_at": "2026-08-23T00:44:32Z",
     "exchanges": [
       {
         "at": "2026-08-22T11:23:36Z",
@@ -4960,6 +4963,23 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "konjam da — romba's 'a lot', konjam's 'a little'. now, smell's still there... enna samaikkira?",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-23T00:44:32Z",
+        "reply": "Emma samaikkira. Konjam yes that’s the one!",
+        "verdict": "hinted",
+        "fired": [
+          "என்ன சமைக்கிற?"
+        ],
+        "fired_cold": [],
+        "fired_capped": [
+          "என்ன சமைக்கிற?"
+        ],
+        "graduated": [],
+        "reply_line": "haha yeah 'enna samaikkira' is the one da — autocorrect ate the 'e' into 'Emma' again 😄 but I basically handed you this one five times this thread, so it's not cold yet — next time it fires without me printing it first, THAT'S the real one.",
         "slips": [],
         "spoke": "",
         "scheduled": ""
