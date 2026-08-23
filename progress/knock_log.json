@@ -5056,14 +5056,15 @@
     "expected_target": "வலது பக்கம் திரும்புங்க",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Nirathunga",
+    "reply": "Evlo?",
     "reply_verdict": "cold",
     "reply_fired": [
       "வலது பக்கம்",
       "இடது",
       "பக்கம்",
       "திரும்புங்க",
-      "இங்க நிறுத்துங்க"
+      "இங்க நிறுத்துங்க",
+      "எவ்வளவு"
     ],
     "reply_fired_cold": [
       "இடது",
@@ -5071,8 +5072,8 @@
       "இங்க நிறுத்துங்க"
     ],
     "reply_fired_capped": [],
-    "reply_line": "adhu dhaan! niruthunga 🔥 · now ask him: 'how much?'",
-    "reply_at": "2026-08-23T13:57:53Z",
+    "reply_line": "adhu dhaan! evlo da 🔥",
+    "reply_at": "2026-08-23T13:58:58Z",
     "exchanges": [
       {
         "at": "2026-08-23T13:28:56Z",
@@ -5124,6 +5125,21 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "adhu dhaan! niruthunga 🔥 · now ask him: 'how much?'",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-23T13:58:58Z",
+        "reply": "Evlo?",
+        "verdict": "cold",
+        "fired": [
+          "எவ்வளவு"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! evlo da 🔥",
         "slips": [],
         "spoke": "",
         "scheduled": ""
