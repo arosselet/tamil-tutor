@@ -5054,6 +5054,38 @@
     "next_check": "2026-08-24T03:27:22.577059+00:00",
     "body": "🛺 auto driver kitta sollu (tell him) — he's missing the lane, tell him: turn right! reply in tamizh.",
     "expected_target": "வலது பக்கம் திரும்புங்க",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Valadu pakkam ponga",
+    "reply_verdict": "cold",
+    "reply_fired": [
+      "வலது பக்கம்"
+    ],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line": "close! valadu pakkam thirumbunga — ponga is go, turn is thirumbunga. · now tell him: turn left!",
+    "reply_at": "2026-08-23T13:28:56Z",
+    "exchanges": [
+      {
+        "at": "2026-08-23T13:28:56Z",
+        "reply": "Valadu pakkam ponga",
+        "verdict": "cold",
+        "fired": [
+          "வலது பக்கம்"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "close! valadu pakkam thirumbunga — ponga is go, turn is thirumbunga. · now tell him: turn left!",
+        "slips": [
+          "wrong-verb-direction"
+        ],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ],
+    "chained": 1,
+    "pinned_target": "இடது பக்கம் திரும்புங்க",
+    "pinned_revealed": false
   }
 ]

@@ -581,5 +581,17 @@
     "note": "rendered a we-trip with the I-ending; 08-21 was the same axis in the opposite direction (sappitom for sappitten), so -om/-en is unstable BOTH ways",
     "word": "போனோம்",
     "dose_channel": "drill"
+  },
+  {
+    "at": "2026-08-23T13:28:56Z",
+    "date": "2026-08-23",
+    "lane": "knock",
+    "modality": "text",
+    "tag": "wrong-verb-direction",
+    "said": "ponga",
+    "want": "thirumbunga",
+    "note": "ponga is go; turn is thirumbunga",
+    "word": "",
+    "dose_channel": "soak"
   }
 ]

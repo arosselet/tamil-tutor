@@ -21,6 +21,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **18:57 · Anna**  ·  text / auto directions
 > 🛺 auto driver kitta sollu (tell him) — he's missing the lane, tell him: turn right! reply in tamizh.
 
+**18:58 · Andrew** — **COLD**
+> Valadu pakkam ponga
+
+**Anna ↩**
+> close! valadu pakkam thirumbunga — ponga is go, turn is thirumbunga. · now tell him: turn left!
+
 
 ## Saturday 2026-08-22
 
