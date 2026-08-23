@@ -725,9 +725,10 @@
       "enna"
     ],
     "recognition": "solid",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-23",
+    "reps": 1
   },
   "போயிட்டு வரேன்": {
     "gloss": "I'll go and come back (goodbye)",
