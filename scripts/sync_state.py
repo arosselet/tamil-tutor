@@ -358,41 +358,56 @@ def compute_recent_missions(episodes: dict, n: int = 4) -> list[dict]:
             for m, ep in sorted(episodes.items(), key=lambda x: int(x[0]), reverse=True)[:n]]
 
 
+# Keys this schema retired. Merge-write carries an unknown key through by
+# design, so a retired one has to be NAMED to be swept -- the old rebuild-from-
+# whitelist dropped them for free, and that free sweep is the one thing
+# merge-write gives up. `streak` was a stored counter that lies the moment a day
+# is skipped; `slips_closed` is the bare-tag list `slip_closes` replaced.
+RETIRED_LEARNER_KEYS = ("streak", "slips_closed")
+
+# The two books this function does NOT own: `record_slip_test` and
+# `record_slip_commission` persist them straight to LEARNER_PATH, so by the time
+# we are called the on-disk copy is fresher than any `learner` dict a caller
+# read before those writers ran. Disk wins unconditionally -- which is what
+# retires the re-read loop that used to sit in `cmd_update` patching the lost
+# update this very function created (slip_closes, silently gone for a day,
+# 2026-07-30 -> 07-31).
+FOREIGN_BOOKS = ("slip_closes", "slip_commissions")
+
+
 def write_thin_learner(learner: dict, episodes: dict):
-    thin = {
-        "learner": learner.get("learner", "Andrew"),
-        # The zone every clock-facing rule reads (state_io.LOCAL_TZ). It is in
-        # this whitelist for the reason the block below spells out: omitted here,
-        # the first sync after he lands in India would silently restore the home
-        # clock, and quiet hours would start firing at 3am Chennai with nothing
-        # on screen to say why. Travel is exactly when nobody is auditing state.
-        "timezone": learner.get("timezone", DEFAULT_TZ),
-        # The transit bit (2026-08-10, Andrew). An ISO date through which the
-        # rails refuse to wake Anna at all, or "" for off. Whitelisted here for
-        # the same reason `slip_closes` had to be: a key missing from this dict
-        # is DELETED on the next update, so a flag set before a flight would be
-        # wiped by the first session close and nothing would say it had gone.
-        "quiet_until": learner.get("quiet_until", ""),
-        "last_debrief": learner.get("last_debrief", ""),
-        "soak_order": learner.get("soak_order", {}),
-        "next_engine": learner.get("next_engine", ""),
-        # The ≤FOCUS_SIZE drill cohort — stored state, not an emergent sort
-        # (2026-07-26): membership is a fact in a file, immune to counting bugs.
-        "focus_cohort": learner.get("focus_cohort", []),
-        # The slip ledger's two learner-side books. THIS IS A WHITELIST — a key
-        # missing here is DELETED on the next update, not merely left stale.
-        # `slip_closes` was absent from it, so `--slip-tested tag:landed` wrote a
-        # close and the very same close's write_thin_learner erased it: no slip
-        # had ever actually been closed since the mechanism shipped 2026-07-30,
-        # and nothing surfaced the loss because a wiped close is indistinguishable
-        # from never having tested. Found 2026-07-31 while wiring
-        # slip_commissions, which landed in the identical trap on its first run.
-        # Any future learner-side book must be added here too.
-        "slip_closes": learner.get("slip_closes", {}),
-        "slip_commissions": learner.get("slip_commissions", {}),
-        "recent_missions": compute_recent_missions(episodes),
-        "status": compute_status(),
-    }
+    """MERGE-WRITE (2026-08-23, Decision D). Read the file, overlay the keys the
+    caller owns, recompute the two derived ones, leave everything else alone.
+
+    It used to REBUILD learner.json from a hand-maintained key list, so a key
+    absent from that list was DELETED, not left stale -- and the failure was
+    invisible, because a wiped value is indistinguishable from one never set. It
+    ate state three times: `slip_closes` (lost for a day), `slip_commissions` on
+    its first run, and `timezone` / `quiet_until` survived only because someone
+    remembered to add them. The guard was prose -- "any future learner-side book
+    must be added here too" -- a comment standing in for a mechanism.
+
+    Merge-write inverts the default: an unknown key survives. No schema change;
+    the file this writes today is byte-identical to the file it wrote before."""
+    thin = load_json(LEARNER_PATH) or {}
+    thin.update({k: v for k, v in learner.items() if k not in FOREIGN_BOOKS})
+    for key in RETIRED_LEARNER_KEYS:
+        thin.pop(key, None)
+    # Shape floor, for a fresh or hand-truncated file. `timezone` feeds every
+    # clock-facing rule (state_io.LOCAL_TZ), and `quiet_until` is the transit bit
+    # the rails read (2026-08-10, Andrew) -- both must exist on a first write.
+    for key, default in (("learner", "Andrew"), ("timezone", DEFAULT_TZ),
+                         ("quiet_until", ""), ("last_debrief", ""),
+                         ("next_engine", "")):
+        thin.setdefault(key, default)
+    for key in ("soak_order",) + FOREIGN_BOOKS:
+        thin.setdefault(key, {})
+    thin.setdefault("focus_cohort", [])
+    # The two derived views -- recomputed on every write, never stored input.
+    # (The <=FOCUS_SIZE drill cohort above is the opposite: stored membership,
+    # not an emergent sort, so a counting bug cannot move a seat -- 2026-07-26.)
+    thin["recent_missions"] = compute_recent_missions(episodes)
+    thin["status"] = compute_status()
     save_json(LEARNER_PATH, thin)
     print(f"  Updated learner.json ({LEARNER_PATH.relative_to(BASE)})")
 
@@ -737,16 +752,6 @@ def cmd_update(args):
                                            learner.get("soak_order") or {}):
         mark = "✓" if msg.startswith("commissioned") else "!"
         print(f"  {mark} slip {tag}: {msg}")
-
-    # Both writers above persist straight to LEARNER_PATH, but this function is
-    # holding a `learner` read BEFORE they ran and write_thin_learner rebuilds
-    # the file from it — so without this re-read the close or commission is
-    # erased by the very call that made it. That is exactly how slip_closes was
-    # lost silently for a day (2026-07-30 → 07-31).
-    fresh = load_json(LEARNER_PATH) or {}
-    for book in ("slip_closes", "slip_commissions"):
-        if fresh.get(book):
-            learner[book] = fresh[book]
 
     # No streak bookkeeping — recency comes from the session log, and a stored
     # streak is a meter that lies the moment a day is skipped (Enjoyment Clause).
