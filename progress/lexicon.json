@@ -30,8 +30,9 @@
       50,
       51
     ],
-    "last_surfaced": "2026-08-18",
-    "reps": 1
+    "last_surfaced": "2026-08-23",
+    "reps": 1,
+    "exposures": 1
   },
   "கல்யாணம்": {
     "gloss": "Wedding / Marriage",
@@ -258,8 +259,9 @@
       34,
       65
     ],
-    "last_surfaced": "2026-08-19",
-    "reps": 1
+    "last_surfaced": "2026-08-23",
+    "reps": 1,
+    "exposures": 1
   },
   "ஆனா": {
     "gloss": "But",
@@ -526,9 +528,9 @@
       76,
       87
     ],
-    "last_surfaced": "2026-08-19",
+    "last_surfaced": "2026-08-23",
     "reps": 1,
-    "exposures": 5
+    "exposures": 6
   },
   "மாமா": {
     "gloss": "Uncle (maternal)",
@@ -1034,8 +1036,8 @@
       36,
       73
     ],
-    "last_surfaced": "2026-08-18",
-    "exposures": 3,
+    "last_surfaced": "2026-08-23",
+    "exposures": 4,
     "reps": 1
   },
   "மூணு": {
@@ -1192,8 +1194,8 @@
       76,
       87
     ],
-    "last_surfaced": "2026-08-19",
-    "exposures": 3,
+    "last_surfaced": "2026-08-23",
+    "exposures": 4,
     "reps": 1
   },
   "செம்மை": {
@@ -1556,8 +1558,8 @@
       76,
       85
     ],
-    "last_surfaced": "2026-08-18",
-    "exposures": 6,
+    "last_surfaced": "2026-08-23",
+    "exposures": 7,
     "reps": 2
   },
   "சொல்றேன்": {
@@ -2283,8 +2285,8 @@
       36,
       38
     ],
-    "last_surfaced": "2026-08-19",
-    "exposures": 3,
+    "last_surfaced": "2026-08-23",
+    "exposures": 4,
     "reps": 1
   },
   "கேட்பேன்": {
@@ -2865,10 +2867,10 @@
     "seen_in": [
       82
     ],
-    "last_surfaced": "2026-08-18",
+    "last_surfaced": "2026-08-23",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 4,
+    "exposures": 5,
     "reps": 1,
     "register": "mil-table"
   },
@@ -3152,10 +3154,10 @@
     "recognition": "struggled",
     "production": "hinted",
     "seen_in": [],
-    "last_surfaced": "2026-08-18",
+    "last_surfaced": "2026-08-23",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 4,
+    "exposures": 5,
     "reps": 1,
     "register": "public"
   },
@@ -3603,7 +3605,8 @@
       53
     ],
     "last_surfaced": "2026-08-23",
-    "reps": 2
+    "reps": 2,
+    "exposures": 1
   },
   "சுவையா இருக்கு": {
     "gloss": "It's tasty",
@@ -3746,11 +3749,11 @@
       58,
       89
     ],
-    "last_surfaced": "2026-08-18",
+    "last_surfaced": "2026-08-23",
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 4,
+    "exposures": 5,
     "register": "antifreeze"
   },
   "இன்னொரு தடவ சொல்லுங்க": {
@@ -3765,11 +3768,11 @@
       58,
       89
     ],
-    "last_surfaced": "2026-08-18",
+    "last_surfaced": "2026-08-23",
     "deck": "trip",
     "direction": "fire",
     "reps": 4,
-    "exposures": 6,
+    "exposures": 7,
     "register": "antifreeze"
   },
   "என்ன சொன்னீங்க?": {
@@ -5443,7 +5446,8 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-08-19"
+    "last_surfaced": "2026-08-23",
+    "exposures": 1
   },
   "கேட்கல": {
     "gloss": "didn't hear it / couldn't hear — the -la negative",

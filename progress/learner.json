@@ -13,7 +13,11 @@
     "from": "2026-08-19",
     "focus": "FORMAT CHANGE for english-word-order (3x over 23d, escalated). It has had an episode and slipped again; it has never had a SOAK. IMPORTANT FRAMING, corrected live 08-19: this is NEUTRAL vs MARKED, not right vs wrong. Tamil scrambles freely before the verb; what is fixed is verb-last, and what is merely DEFAULT is when/where up front with the question word hugging the verb. So do not teach, do not explain, do not name the rule and never imply the other order is an error — just pour the unmarked shape into his ear until front-loading the question word feels wrong to him on its own. Permute the stage-first slot: naalaiku enna samaikkireenga? / ippo enna panreenga? / apparam sollunga / hotel-la nirthunga / tamizh-la eppadi solradhu? / veetla yaaru irukkanga? Time words, place words, -la and -ku phrases, all in first position, many voices, many speeds. Never two consecutive lines with the same opener, and not one line with the question word fronted — not even as a contrast. Passive: he listens, nothing is demanded.",
     "channel": "soak",
-    "form": "narrated_drama"
+    "form": "narrated_drama",
+    "delivered": {
+      "channel": "soak",
+      "at": "2026-08-23"
+    }
   },
   "next_engine": "frame:polite-nga",
   "focus_cohort": [
