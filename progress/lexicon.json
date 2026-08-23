@@ -1321,8 +1321,10 @@
   },
   "ஏன்னா": {
     "gloss": "Because",
-    "phonetic": [],
-    "recognition": "comfortable",
+    "phonetic": [
+      "ennaa"
+    ],
+    "recognition": "struggled",
     "production": "none",
     "seen_in": [
       1,
@@ -1336,7 +1338,7 @@
     ],
     "last_surfaced": "2026-08-23",
     "exposures": 1,
-    "reps": 1
+    "reps": 4
   },
   "வேற என்ன?": {
     "gloss": "What else?",
