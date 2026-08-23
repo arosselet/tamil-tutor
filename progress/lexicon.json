@@ -745,7 +745,7 @@
       "vanakkam"
     ],
     "recognition": "solid",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       10,
       11,
@@ -755,7 +755,8 @@
       33,
       65
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-23",
+    "reps": 1
   },
   "சூப்பர்": {
     "gloss": "Super",
