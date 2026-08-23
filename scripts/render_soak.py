@@ -38,13 +38,20 @@ import tempfile
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
-from openai import OpenAI
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
-from morning_knock import (OPENROUTER_BASE, OPENROUTER_MODEL, budget, ANNA_VOICE, load_env,
-                           push_to_phone, commit_and_push, jsdelivr_url,
-                           parse_llm_response, JSON_MODE)
+from morning_knock import (ANNA_VOICE, load_env, push_to_phone, commit_and_push,
+                           jsdelivr_url)
+# THE FOURTH COPY, retired 2026-08-23 — and the first one that was about MONEY
+# rather than parsing. This lane built its own OpenRouter client and called it on
+# every host, including the laptop, where `claude -p` would have done the same
+# work against a subscription already paid for. `writer.ask_json` decides.
+from writer import STR, arr, ask_json, executor_name, obj
+
+# What the soak sheet IS, for the executor that can be told (see writer.obj).
+SOAK_SCHEMA = obj(intro=STR, outro=STR,
+                  clusters=arr(thread=STR, items=arr(ta=STR, en=STR)))
 from render_audio import (generate_segment_google, get_raw_mp3_frames,
                           SILENCE_FRAME, clean_for_tts, google_credentials_ready,
                           EXIT_NOT_CONFIGURED)
@@ -169,23 +176,15 @@ def write_sheet(items: list[dict], focus: str | None = None) -> dict:
         f"- {r['word']} — {r['gloss'] or '[no gloss]'} [{r['production']}]"
         for r in items)
     mandate = SOAK_MANDATE + (FOCUS_BRIEF.format(focus=focus) if focus else "")
-    client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
-    resp = client.chat.completions.create(
-        model=OPENROUTER_MODEL,
-        response_format=JSON_MODE,
-        max_tokens=budget(2400),
-        messages=[
-            {"role": "system", "content": persona + "\n\n---\n\n" + mandate},
-            {"role": "user", "content": f"THIS WEEK'S ITEMS:\n{menu}"},
-        ],
-    )
+    print(f"   [soak sheet] {executor_name()}")
     # THE THIRD COPY OF THE SAME PARSER, retired 2026-08-18. This was the char-0
     # `json.loads` behind a `startswith("```")` fence-strip — byte-for-byte the
     # private parse `render_drill` was fixed for on 08-10, whose own note called it
     # "the cost of a second parser, not of a hard problem". This lane was the third
     # and nobody had looked. It also never had the 08-05 truncation guard, so at
     # max_tokens=2400 a cut-off sheet reported as a parse error.
-    sheet = parse_llm_response(resp)
+    sheet = ask_json(persona + "\n\n---\n\n" + mandate,
+                     f"THIS WEEK'S ITEMS:\n{menu}", SOAK_SCHEMA)
     clean = []
     for c in sheet.get("clusters", []):
         kept = [i for i in c.get("items", [])

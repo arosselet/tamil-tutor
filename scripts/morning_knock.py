@@ -51,23 +51,44 @@ from render_audio import generate_segment_google, get_raw_mp3_frames, SILENCE_FR
 from render_chat import render_chat
 
 OPENROUTER_BASE = "https://openrouter.ai/api/v1"   # OpenAI-compatible; one key, many models
-MODEL = "claude-sonnet-5"   # ONE statement of the model. Everything below derives.
+MODEL = "claude-sonnet-5"   # cloud Anna. Everything below derives.
 OPENROUTER_MODEL = f"anthropic/{MODEL}"   # the same model, in OpenRouter's slug shape
-# TWO EXECUTORS, ONE MODEL (2026-08-18, Andrew). The laptop runs `claude -p` on his
-# subscription; a GitHub runner has no agent and no subscription, so it runs the
-# API. That is a HOST difference and must never become a model difference: the
-# slug shape differs, the generation may not. Stated once here so a swap cannot
-# half-land — which is exactly what happened when three lanes shared MODEL and a
-# fourth (the studio) quietly ran a different model on its own constant.
-# 4.6 -> 5 (2026-08-18, Andrew). A newer generation at a LOWER price on OpenRouter
-# ($2/$10 per M tok vs $3/$15), same 1M context, same structured-output support.
-# Cost was never the reason — this lane runs ~4 calls/day and costs a few dollars a
-# month either way — so the switch stands on the generation, not the invoice.
+AGENT_MODEL = "claude-sonnet-5"   # what `claude -p` runs on the laptop
+
+# TWO EXECUTORS, AND NOW EVERY LANE USES THE RIGHT ONE (2026-08-23, Andrew:
+# "All of these lanes, when run on my laptop should be `claude -p` using
+# subscription tokens"). The 08-18 rule below was right and was applied to ONE
+# lane. `render_soak`, `render_drill` and `render_longhaul` each opened an
+# OpenRouter client unconditionally — and none of them has ever had a cloud
+# caller, since `anna.yml` invokes exactly four scripts. Every soak, drill and
+# long-haul ever produced was billed to the API from a laptop holding a paid
+# subscription. `scripts/writer.py` now decides, by asking which BINARY exists.
+#
+# `AGENT_MODEL` IS SEPARATE FROM `MODEL` even though they are equal today,
+# because they answer to different things: `MODEL` is a slug OpenRouter resolves,
+# `AGENT_MODEL` is one the `claude` CLI accepts, and that is a SMALLER set.
+# MEASURED 2026-08-23: `claude -p --model claude-sonnet-4.6` prints "It may not
+# exist or you may not have access" AND RETURNS 0 — so a wrong value here does
+# not crash, it silently routes every laptop lane back to the paid API. Smoke
+# `s70` asserts the two shapes; `writer._agent_json` treats empty stdout as
+# failure for the same reason. Verified working: `claude-sonnet-5`.
+#
+# TWO EXECUTORS, ONE MODEL (2026-08-18, Andrew). The laptop runs `claude -p` on
+# his subscription; a GitHub runner has no agent and no subscription, so it runs
+# the API. That is a HOST difference and must never become a model difference:
+# the slug shape differs, the generation may not. Stated once here so a swap
+# cannot half-land — which is exactly what happened when three lanes shared
+# MODEL and a fourth (the studio) quietly ran a different model on its own
+# constant.
+# 4.6 -> 5 (2026-08-18, Andrew). A newer generation at a LOWER price on
+# OpenRouter ($2/$10 per M tok vs $3/$15), same 1M context, same
+# structured-output support. NOTE (2026-08-23): that $2/$10 is an INTRODUCTORY
+# rate expiring 2026-08-31, not the standing price — see DECISIONS.
 # WATCH THE JUDGE, NOT THE COMPOSER: `MODEL` also grades Andrew's replies
 # (knock_reply), and grading writes the production axis. A generation change
-# re-calibrates that silently; 63 graded replies sit in the knock log as the
-# corpus for an A/B if the record ever starts looking off. Andrew is the judge of
-# whether it drifts (his call, 2026-08-18).
+# re-calibrates that silently; the graded replies in the knock log are the
+# corpus for an A/B if the record ever starts looking off. Andrew is the judge
+# of whether it drifts (his call, 2026-08-18).
 
 # THINKING IS PART OF THE BUDGET, and only the MODEL knows what it costs
 # (2026-08-18, hours after the swap above). Sonnet 5 reasons before it answers and

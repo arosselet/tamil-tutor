@@ -69,8 +69,13 @@ from render_audio import (generate_segment_google, get_raw_mp3_frames, SILENCE_F
                           clean_for_tts, google_credentials_ready, EXIT_NOT_CONFIGURED,
                           _CHIRP_POOL_MALE, _CHIRP_POOL_FEMALE)
 # Reused rather than re-implemented: one single-shot call -> parsed JSON, fence
-# handling and the blown-ceiling guard included. Four lanes now share it.
-from render_drill import ask_json
+# handling, the blown-ceiling guard and — since 2026-08-23 — the executor choice.
+# Moved out of render_drill so the lane that owns drills does not also own how
+# every other lane talks to a model.
+from writer import STR, arr, ask_json, obj
+
+# What one movement IS, for the executor that can be told (see writer.obj).
+MOVEMENT_SCHEMA = obj(frame=STR, beats=arr(ta=STR, en=STR))
 from state_io import LEXICON_PATH, load_json
 from sync_state import canon_payload, mark_soak_delivered, record_exposure
 
@@ -293,7 +298,8 @@ def write_movement(mv: dict, spine: str) -> dict:
         for i in mv["items"])
     mandate = f"{BASE_MANDATE}\n{SHAPE_CLAUSES[mv['shape']]}"
     sheet = ask_json(f"{persona}\n\n---\n\n{mandate}",
-                     f"THE TAPE'S SPINE: {spine}\n\nITEMS FOR THIS MOVEMENT:\n{menu}")
+                     f"THE TAPE'S SPINE: {spine}\n\nITEMS FOR THIS MOVEMENT:\n{menu}",
+                     MOVEMENT_SCHEMA)
     sheet["beats"] = [b for b in sheet.get("beats", [])
                       if (b.get("ta") or "").strip() or (b.get("en") or "").strip()]
     return sheet

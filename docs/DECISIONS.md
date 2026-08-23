@@ -2099,6 +2099,27 @@ Details live in git history; this is the index of the *conclusions*.
   The text lanes (`rephrase_phonetic`, the studio's prose writers) must NOT send it; smoke `s66`
   asserts both directions, because adding a parameter that gets dropped is itself a silent no-op.
 
+- **The executor is the host's, for every lane** (2026-08-23, Andrew). **Replaces** the
+  half-applied 08-18 split. `render_soak`, `render_drill` and `render_longhaul` opened an
+  OpenRouter client unconditionally, and none has ever had a cloud caller — so every soak,
+  drill and long-haul was billed to the API from a laptop holding a paid subscription.
+  Measured per run: ~$0.06, ~$0.09, ~$0.84. All three now $0 locally. New `scripts/writer.py`
+  owns the choice and makes it by asking which BINARY exists, never by a flag a lane must
+  remember; `render_drill.ask_json` moved there and `render_soak`'s private client (the fourth
+  copy of that idiom, the first that cost money rather than correctness) is gone. The cloud
+  branch stays live — the routing rule is policy, not a missing capability — so it is tested by
+  forcing, never deleted. Smoke `s70`.
+
+- **A `--json-schema` must describe a SHAPE** (2026-08-23). `claude -p` carries the agent-side
+  equivalent of `JSON_MODE`, which is what made the split safe — but handed `{"type": "object"}`
+  it answers in an envelope: `{"output": "<the sheet as a JSON STRING>", "clusters": []}`.
+  MEASURED on the first live soak. That parses, carries the key the lane reads, filters to zero
+  clusters and renders an empty tape — every instrument green, the artifact a shell. So `schema`
+  is a **required positional** argument of `ask_json` (a default reintroduces the exact failure
+  it exists to prevent), each lane declares its own shape beside itself, and `_agent_json`
+  refuses an envelope by name. Nested item shapes are declared too: unconstrained, an array of
+  `{ta, en}` returns an array of strings. Smoke `s70`.
+
 - **Anna runs on `anthropic/claude-sonnet-5`** (2026-08-18, Andrew: *"maybe it'll be more reliable
   or efficient"*). Replaces `claude-sonnet-4.6`. A newer generation at a **lower** price on
   OpenRouter ($2/$10 per M tok vs $3/$15), same 1M context, same structured-output support — so

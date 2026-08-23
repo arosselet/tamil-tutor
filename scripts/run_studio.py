@@ -178,7 +178,7 @@ def claude_print(label: str, prompt: str) -> str | None:
     on failure. Runs in BASE so the pass can read the canon off disk — no
     `inline_canon` needed here, which is the whole reason a filesystem-having
     writer is worth preferring."""
-    from morning_knock import MODEL
+    from morning_knock import AGENT_MODEL as MODEL
     print(f"   [{label}] claude ({MODEL})…")
     try:
         r = subprocess.run(

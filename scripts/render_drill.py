@@ -29,13 +29,21 @@ import tempfile
 from datetime import datetime
 from pathlib import Path
 
-from openai import OpenAI
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
-from morning_knock import (OPENROUTER_BASE, OPENROUTER_MODEL, budget, ANNA_VOICE, load_env,
-                           push_to_phone, commit_and_push, jsdelivr_url,
-                           parse_llm_response, JSON_MODE)
+from morning_knock import (ANNA_VOICE, load_env, push_to_phone, commit_and_push,
+                           jsdelivr_url)
+# THE EXECUTOR CHOICE LEFT THIS FILE (2026-08-23). `ask_json` used to live here
+# and open an OpenRouter client unconditionally — on a laptop that has an agent
+# and a paid subscription. `writer.ask_json` is the same contract plus the host
+# test; `render_longhaul` now imports it from there too, so the "four lanes share
+# it" note this file used to carry is still true, one level up.
+from writer import INT, STR, arr, ask_json, executor_name, obj
+
+# The two shapes this lane asks for (see writer.obj).
+DRILL_SCHEMA = obj(intro=STR, outro=STR, items=arr(cue=STR, answer_ta=STR))
+LINT_SCHEMA = obj(verdicts=arr(n=INT, verdict=STR))
 from render_audio import generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME, clean_for_tts
 from suggest_targets import drill_menu
 from state_io import LEXICON_PATH, load_json
@@ -160,48 +168,6 @@ def with_lead(pending: list[dict], lead: list[dict]) -> list[dict]:
     return lead + [t for t in pending if t["word"] not in have]
 
 
-def ask_json(system: str, user: str, answer_tokens: int = 2400, tries: int = 3) -> dict:
-    """One LLM call → parsed JSON. Shared by the sheet writer, the answer-key lint
-    and the long-haul movement writer, so the parsing lives once.
-
-    `answer_tokens` is what the ARTIFACT needs; `budget()` adds this model's
-    thinking room on top (2026-08-18 — Sonnet 5's reasoning is billed inside
-    `max_tokens`, and at a flat 2400 it ate the sheet before the first brace).
-
-    THIS NOW PARSES THROUGH `parse_llm_response`, AND REPLACES a private parse that
-    only ever looked at character 0 — bare text straight to `json.loads`, a fence
-    found only by `text.startswith("```")`. That is the KF-7/KF-10/07-13 family,
-    already diagnosed and already fixed ONCE in `parse_llm_json`: fence-anywhere,
-    brace-slice, literal_eval. This lane never called it, so it re-earned the same
-    bug from scratch — the cost of a second parser, not of a hard problem.
-
-    IT SURFACED HERE because the long-haul `inventory` clause orders the writer to
-    DROP hosts that are coincidences — a judgement per host — so it shows its work
-    above the object. MEASURED on the movement that killed the first 45-minute
-    render: 3 of 6 identical calls came back prose-prefixed. The first render died
-    at movement 5 of 15, after paying for four movements of TTS.
-
-    RETRIED, because that arithmetic is the real lesson. A coin-flip parse is
-    survivable where a lane asks once and lethal where it asks fifteen times in a
-    row; `parse_llm_response` handles the SHAPE of a good reply, and the loop
-    handles the absence of one (an empty completion, a refusal). A truncation is
-    NOT re-rolled blind — `parse_llm_response` raises it as its own ValueError
-    naming the ceiling, and re-rolling that is the "pure motion" the 08-05 guard
-    exists to prevent, so it is left to fail loudly at the call site."""
-    client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
-    for attempt in range(1, tries + 1):
-        resp = client.chat.completions.create(
-            model=OPENROUTER_MODEL, max_tokens=budget(answer_tokens), response_format=JSON_MODE,
-            messages=[{"role": "system", "content": system},
-                      {"role": "user", "content": user}])
-        try:
-            return parse_llm_response(resp)
-        except json.JSONDecodeError as e:
-            if attempt == tries:
-                raise
-            print(f"   ⚠ no JSON in the reply ({e}) — retry {attempt + 1}/{tries}")
-
-
 def write_sheet(pending: list[dict], n_lead: int = 0, focus: str | None = None) -> dict:
     persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
     menu = "\n".join(f"- [{t['kind']}] {t['word']} — {t['gloss'] or '[no gloss]'}"
@@ -210,7 +176,9 @@ def write_sheet(pending: list[dict], n_lead: int = 0, focus: str | None = None) 
     if n_lead:
         mandate += COMMISSION_BRIEF.format(
             n=n_lead, focus=f"\nWhat the repair is about: {focus}" if focus else "")
-    sheet = ask_json(persona + "\n\n---\n\n" + mandate, f"DUE:\n{menu}")
+    print(f"   [drill sheet] {executor_name()}")
+    sheet = ask_json(persona + "\n\n---\n\n" + mandate, f"DUE:\n{menu}",
+                     DRILL_SCHEMA)
     sheet["items"] = [i for i in sheet.get("items", [])
                       if i.get("cue", "").strip() and i.get("answer_ta", "").strip()]
     return sheet
@@ -244,7 +212,8 @@ def lint_sheet(sheet: dict) -> list[str]:
         return []
     listing = "\n".join(f"{n}. cue: {i['cue']}\n   answer: {i['answer_ta']}"
                         for n, i in enumerate(items, 1))
-    verdicts = ask_json(LINT_MANDATE, listing, answer_tokens=1200).get("verdicts", [])
+    verdicts = ask_json(LINT_MANDATE, listing, LINT_SCHEMA,
+                        answer_tokens=1200).get("verdicts", [])
     if len(verdicts) != len(items):
         raise ValueError(f"lint returned {len(verdicts)} verdicts for {len(items)} items")
     fails = []

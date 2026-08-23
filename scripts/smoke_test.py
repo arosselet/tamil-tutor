@@ -1331,7 +1331,11 @@ CODE_BUDGETS = {
     # NOTE for the next raise: this file now holds a drill lane AND the LLM-call
     # helper three lanes import. That is the two-jobs smell, and the split is
     # already named — ask_json belongs beside parse_llm_json, not here.
-    "scripts/render_drill.py": 235,
+    # 235 -> 220 (2026-08-23, Andrew): re-censused DOWN, the 08-01 move again.
+    # `ask_json` left for writer.py, taking the executor choice with it — this
+    # file owns drills, not how every lane talks to a model. The ratchet working,
+    # not an allowance.
+    "scripts/render_drill.py": 220,
     # New file 2026-08-10 at 318 lines — the fourth audio lane. ~45 of those are
     # BASE_MANDATE + the five SHAPE_CLAUSES, which code_lines counts as mechanism
     # (prompt strings always do). Budgeted at 340 rather than 400: the headroom is
@@ -1340,7 +1344,10 @@ CODE_BUDGETS = {
     # go to mandates.py, prompt canon and dispatch machinery being two concerns —
     # NOT a bumped number.
     "scripts/render_longhaul.py": 340,
-    "scripts/render_soak.py": 275,
+    # 275 -> 265 (2026-08-23, Andrew): re-censused DOWN. Its private OpenRouter
+    # client — the FOURTH copy, and the first that cost money rather than
+    # correctness — became one `writer.ask_json` call.
+    "scripts/render_soak.py": 265,
     # 425 → 429 (2026-08-20): the first-line H1 lint. It retires the accidental
     # episode title — the Architect was never told to emit one, so 30 of the
     # first 90 episodes shipped to the PUBLIC feed named `Tier2 Mission90`
@@ -1354,6 +1361,12 @@ CODE_BUDGETS = {
     # "GitHub Actions", which never invokes run_studio.py at all (anna.yml has
     # no studio step). Retiring that branch is the actual answer and it is
     # Andrew's call, not a bump this diff gets to make for him.
+    # NEW FILE, budgeted in the same diff that creates it (2026-08-23, Andrew).
+    # What it retires: three lanes that opened an OpenRouter client
+    # unconditionally on a host with a paid subscription, plus render_drill's
+    # `ask_json`. One place decides who makes a JSON call, and it decides by
+    # asking which BINARY exists — never by a flag a lane has to remember.
+    "scripts/writer.py": 75,
     "scripts/run_studio.py": 429,
     "scripts/show_status.py": 125,
     # The state layer's shared vocabulary, split out of sync_state 2026-08-04:
@@ -5669,8 +5682,11 @@ def s58_a_sheet_survives_a_model_thinking_out_loud(sb: Path):
     and re-earned the bug from scratch. So the last assertions here are that the
     lanes share ONE parser — a second one is how a fixed bug comes back."""
     print("\n58. A sheet survives a model that thinks out loud first (2026-08-10)")
-    rd = importlib.import_module("render_drill")
+    w = importlib.import_module("writer")
     mk = importlib.import_module("morning_knock")
+    # Any real shape will do here — this case is about the PARSER, and the API
+    # path ignores the schema (JSON_MODE already forbids prose there).
+    _SCHEMA = w.obj(frame=w.STR)
     sheet = '{"frame": "roots", "beats": [{"ta": "x", "en": "y", "who": "anna"}]}'
 
     for name, text in [
@@ -5709,7 +5725,10 @@ def s58_a_sheet_survives_a_model_thinking_out_loud(sb: Path):
 
     # ONE parser, not two. The drill lane owning a private brace-slice is exactly
     # how 07-13 came back on 08-10; the long-haul lane borrows this one in turn.
-    drill_src = (REAL_BASE / "scripts" / "render_drill.py").read_text(encoding="utf-8")
+    # ask_json MOVED to writer.py on 2026-08-23 with the executor split; the
+    # assertions follow it rather than being deleted — the parser gap this case
+    # exists for is a property of the function, not of the file it sat in.
+    drill_src = (REAL_BASE / "scripts" / "writer.py").read_text(encoding="utf-8")
     check("ask_json parses through the shared parser, not a private one",
           "parse_llm_response(resp)" in drill_src, "ask_json re-implemented the parse")
     # MECHANISM ONLY — the docstring above quotes the retired parse verbatim, and a
@@ -5719,13 +5738,17 @@ def s58_a_sheet_survives_a_model_thinking_out_loud(sb: Path):
     check("...and no private brace-slice survives in the drill lane",
           'find("{")' not in drill_code and 'startswith("```")' not in drill_code,
           "a second parser is how 07-13 came back on 08-10")
+    # Matched loosely on purpose: the import line also carries the schema helpers
+    # since 2026-08-23, and an exact-string check would fail on a tidy-up that
+    # changed nothing about where ask_json comes from.
+    _lh = (REAL_BASE / "scripts" / "render_longhaul.py").read_text(encoding="utf-8")
     check("the long-haul lane borrows ask_json rather than rolling its own",
-          "from render_drill import ask_json" in
-          (REAL_BASE / "scripts" / "render_longhaul.py").read_text(encoding="utf-8"))
+          any(ln.startswith("from writer import") and "ask_json" in ln
+              for ln in _lh.splitlines()), "ask_json comes from somewhere else")
 
     # The retry is what makes a 15-call lane survivable; the LAST failure must
     # still surface, or a tape ends silently short instead of stopping loudly.
-    src = inspect.getsource(rd.ask_json)
+    src = inspect.getsource(w.ask_json)
     check("ask_json retries rather than dying on one bad draw",
           "for attempt in range" in src and "tries" in src, src[:200])
     check("...and re-raises the final failure instead of swallowing it",
@@ -5746,19 +5769,19 @@ def s58_a_sheet_survives_a_model_thinking_out_loud(sb: Path):
             chat=types.SimpleNamespace(
                 completions=types.SimpleNamespace(create=create)))
 
-    real_client, real_key = rd.OpenAI, os.environ.get("OPENROUTER_API_KEY")
+    real_client, real_key = w.OpenAI, os.environ.get("OPENROUTER_API_KEY")
     os.environ["OPENROUTER_API_KEY"] = "test"
     try:
-        rd.OpenAI = _client(["Thinking about it...", "Still thinking...", sheet])
-        got = rd.ask_json("sys", "usr")
+        w.OpenAI = _client(["Thinking about it...", "Still thinking...", sheet])
+        got = w.ask_json("sys", "usr", _SCHEMA, prefer="api")
         check("a lane recovers from two bad draws in a row",
               got.get("frame") == "roots" and calls == 3, f"{got} after {calls} calls")
 
         calls = 0
-        rd.OpenAI = _client(["no object here"])
+        w.OpenAI = _client(["no object here"])
         stopped = False
         try:
-            rd.ask_json("sys", "usr")
+            w.ask_json("sys", "usr", _SCHEMA, prefer="api")
         except (ValueError, json.JSONDecodeError):
             stopped = True
         check("...but a lane that never gets a sheet stops loudly", stopped)
@@ -5767,16 +5790,16 @@ def s58_a_sheet_survives_a_model_thinking_out_loud(sb: Path):
         # A blown ceiling is NOT a bad draw. Re-rolling it burns three renders'
         # worth of tokens to hit the same wall — the 08-05 guard's whole point.
         calls = 0
-        rd.OpenAI = _client(["deliberating at length", sheet], finish="length")
+        w.OpenAI = _client(["deliberating at length", sheet], finish="length")
         truncated = False
         try:
-            rd.ask_json("sys", "usr")
+            w.ask_json("sys", "usr", _SCHEMA, prefer="api")
         except ValueError as e:
             truncated = "TRUNCATED" in str(e)
         check("a truncation fails loudly instead of being re-rolled blind",
               truncated and calls == 1, f"truncated={truncated} after {calls} calls")
     finally:
-        rd.OpenAI = real_client
+        w.OpenAI = real_client
         if real_key is None:
             os.environ.pop("OPENROUTER_API_KEY", None)
         else:
@@ -6784,8 +6807,12 @@ def s66_json_mode_is_actually_sent(mk, kr, sb: Path):
     lanes = {
         "scripts/morning_knock.py": 1,   # decide() — rephrase_phonetic is text
         "scripts/knock_reply.py": 2,     # the production judge and the catch judge
-        "scripts/render_drill.py": 1,    # the sheet writer
-        "scripts/render_soak.py": 1,     # the soak sheet
+        # ONE call now serves the soak sheet, the drill sheet, the drill lint
+        # and every long-haul movement (2026-08-23). Those four lanes used to
+        # carry their own `create()`; they call `writer.ask_json` instead, so
+        # this is where JSON mode has to be — and a lane that goes back to
+        # rolling its own client is caught by s70, not here.
+        "scripts/writer.py": 1,
     }
     for rel, want in lanes.items():
         src = (REAL_BASE / rel).read_text(encoding="utf-8")
@@ -6837,6 +6864,156 @@ def s66_json_mode_is_actually_sent(mk, kr, sb: Path):
     check("...and the headroom is big enough for the reasoning that was measured",
           mk.REASONING_HEADROOM >= 3000, f"got {mk.REASONING_HEADROOM}")
 
+
+
+def s70_the_executor_is_chosen_by_the_host(sb: Path):
+    """WHO PAYS, and the silent no-op that hid it for weeks (2026-08-23, Andrew).
+
+    `render_soak`, `render_drill` and `render_longhaul` each opened an OpenRouter
+    client unconditionally. None of them has ever had a cloud caller — `anna.yml`
+    invokes exactly four scripts — so every soak, drill and long-haul ran on the
+    laptop and billed the API anyway, next to a subscription already paid for.
+    Nothing failed. The artifact arrived every time. The only symptom was an
+    invoice, which is not an instrument anything in this repo reads.
+
+    Gate 7.2 — WHAT DOES THIS LOOK LIKE WHEN IT SILENTLY DOES NOTHING? It looks
+    like success, twice over. (a) A lane that never asks which host it is on
+    still produces a perfect sheet. (b) A lane that DOES ask, on a machine where
+    the agent is present but broken — expired auth, a bad model string, a rate
+    limit — falls back to the API and still produces a perfect sheet. Case (b) is
+    the one this change introduces, so most of the teeth below are there: a
+    degrade that costs money has to SAY it costs money, or the subscription path
+    can be dead for a month and read green the whole time.
+
+    THE CLOUD PATH IS DORMANT, NOT DEAD (Andrew, 2026-08-23) — the 08-18 routing
+    rule is policy, not a missing capability. So these assertions prove the API
+    branch still RUNS and is reachable; they never prove it is unused."""
+    print("\n70. The executor is the host's, and a degrade to the paid API is loud (2026-08-23)")
+    import contextlib
+    import importlib
+    import io
+    import json as _json
+
+    writer = importlib.import_module("writer")
+    mk = importlib.import_module("morning_knock")
+    orig_which, orig_agent, orig_api = writer.shutil.which, writer._agent_json, writer._api_json
+    ran = {}
+    SHAPE = writer.obj(frame=writer.STR)
+
+    def fake_agent(system, user, schema):
+        ran["agent"] = True
+        return {"ok": "agent"}
+
+    def fake_api(system, user, answer_tokens):
+        ran["api"] = True
+        return {"ok": "api"}
+
+    try:
+        writer._agent_json, writer._api_json = fake_agent, fake_api
+
+        # ── The host test decides, and it decides BOTH ways. Asserting only the
+        # laptop branch would pass just as well on a module hardwired to it.
+        writer.shutil.which = lambda n: r"C:\fake\claude.exe" if n == "claude" else None
+        ran.clear()
+        writer.ask_json("system", "user", SHAPE)
+        check("an agent on PATH -> the subscription executor runs",
+              ran == {"agent": True}, f"ran {ran}")
+
+        writer.shutil.which = lambda n: None
+        ran.clear()
+        writer.ask_json("system", "user", SHAPE)
+        check("no agent (every cloud runner) -> the API executor runs",
+              ran == {"api": True}, f"ran {ran}")
+
+        # ── THE TEETH. A present-but-broken agent must still deliver the
+        # artifact AND announce what it just cost. Assert the effect (the money
+        # warning reached stdout), not the execution (that a fallback happened).
+        writer.shutil.which = lambda n: r"C:\fake\claude.exe"
+        writer._agent_json = lambda system, user, schema: (_ for _ in ()).throw(
+            RuntimeError("claude -p exit 1: credentials expired"))
+        ran.clear()
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            out = writer.ask_json("system", "user", SHAPE)
+        said = buf.getvalue()
+        check("a broken agent still returns the artifact",
+              out == {"ok": "api"} and ran == {"api": True}, f"got {out}, ran {ran}")
+        check("...and the degrade says, out loud, that this run costs money",
+              "PAID" in said and "money" in said.lower(), f"said: {said[:200]!r}")
+        check("...and names the underlying failure, not just the fallback",
+              "credentials expired" in said, f"said: {said[:200]!r}")
+    finally:
+        writer.shutil.which, writer._agent_json, writer._api_json = orig_which, orig_agent, orig_api
+
+    # ── THE ENVELOPE, and why `schema` is a required positional argument.
+    # MEASURED 2026-08-23 on the first live soak through this module: handed a
+    # schema with no `properties`, `claude -p` answered
+    # {"output": "<the whole real sheet as a JSON string>", "clusters": []}.
+    # That parses. It carries the key the lane reads. render_soak filtered zero
+    # clusters from it, printed "0 threads, 0 items", and would have rendered an
+    # empty tape — the artifact-shaped nothing this suite exists to catch.
+    class _Proc:
+        returncode, stderr = 0, ""
+        stdout = _json.dumps({"output": _json.dumps({"beats": [{"ta": "x"}]}),
+                              "beats": []})
+    orig_run = writer.subprocess.run
+    try:
+        writer.subprocess.run = lambda *a, **k: _Proc()
+        raised = ""
+        try:
+            writer._agent_json("system", "user", SHAPE)
+        except RuntimeError as e:
+            raised = str(e)
+        check("an {'output': '<json string>'} envelope is REFUSED, not returned",
+              "ENVELOPE" in raised, f"got {raised[:160]!r}")
+        check("...and the refusal names the schema as the cause",
+              "schema" in raised.lower(), f"got {raised[:160]!r}")
+
+        # The guard must not fire on real work: an `output` key holding an
+        # OBJECT is a legitimate artifact, not an envelope.
+        _Proc.stdout = _json.dumps({"output": {"real": True},
+                                    "beats": [{"ta": "x"}]})
+        ok = writer._agent_json("system", "user", SHAPE)
+        check("...but a real artifact with an object-valued key passes through",
+              ok.get("beats") == [{"ta": "x"}], f"got {ok}")
+    finally:
+        writer.subprocess.run = orig_run
+
+    # ── Every lane declares a SHAPE, not a bare object — the schema is the only
+    # thing standing between the agent path and an envelope.
+    for name, const in (("render_soak.py", "SOAK_SCHEMA"),
+                        ("render_drill.py", "DRILL_SCHEMA"),
+                        ("render_longhaul.py", "MOVEMENT_SCHEMA")):
+        shape = getattr(importlib.import_module(name[:-3]), const, None)
+        check(f"{const} declares properties, not a bare object",
+              bool((shape or {}).get("properties")), f"got {shape}")
+
+    # ── The two constants cannot be swapped. `claude -p --model` takes a BARE
+    # slug; handed a vendor-qualified one it prints "may not exist" and RETURNS
+    # 0 (measured 2026-08-23 with claude-sonnet-4.6), so the wrong value here
+    # does not crash — it silently routes every laptop lane to the paid API.
+    check("OPENROUTER_MODEL is a vendor-qualified slug (the API's shape)",
+          "/" in mk.OPENROUTER_MODEL, f"OPENROUTER_MODEL={mk.OPENROUTER_MODEL}")
+    check("AGENT_MODEL is a bare slug (the claude CLI's shape)",
+          "/" not in mk.AGENT_MODEL, f"AGENT_MODEL={mk.AGENT_MODEL}")
+
+    # ── No lane may re-earn its own client. This is the regression that started
+    # it: four independent call sites, three of which never chose a host at all.
+    # The cloud lanes and the studio's prose writer are the legitimate builders.
+    # smoke_test.py builds stub clients by the dozen — that is its job, and it is
+    # already CODE_BUDGET_EXEMPT for the same reason.
+    may_build = {"writer.py", "morning_knock.py", "knock_reply.py", "run_studio.py",
+                 "smoke_test.py"}
+    offenders = sorted(f.name for f in (sb / "scripts").glob("*.py")
+                       if f.name not in may_build
+                       and "OpenAI(" in f.read_text(encoding="utf-8"))
+    check("no lane builds its own OpenRouter client",
+          not offenders, f"{', '.join(offenders)} — call writer.ask_json instead")
+
+    for name in ("render_soak.py", "render_drill.py", "render_longhaul.py"):
+        src = (sb / "scripts" / name).read_text(encoding="utf-8")
+        check(f"{name} takes its executor from writer",
+              "from writer import" in src, "imports ask_json from somewhere else")
 
 
 def main():
@@ -6913,6 +7090,7 @@ def main():
         s66_json_mode_is_actually_sent(mk, kr, sb)
         s68_the_convergence_audit_fixes(sb)
         s69_two_readers_two_tickets(sb)
+        s70_the_executor_is_chosen_by_the_host(sb)
 
     print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)
