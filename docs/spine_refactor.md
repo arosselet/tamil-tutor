@@ -1,24 +1,60 @@
 # The Spine Refactor — implementation plan
 
-> **STATUS 2026-08-24: Phase 1 COMPLETE and merged (Steps 0-7). Most of Q2 is done
-> too; Q1 has had its first move only.** What the plan got wrong is recorded in the
-> commits; four things are worth carrying forward before reading further.
+> **STATUS 2026-08-24 (end of day): Phase 1 COMPLETE and merged (Steps 0-7). Q1 is
+> most of the way there. Q2's real defect is fixed and its file split is optional.**
+> Everything below this block is the plan *as written on 08-23* and is superseded by
+> this status wherever the two disagree — it is kept as the record of what was planned
+> and why, not as instructions. Five corrections are worth carrying forward.
 >
 > 1. **Step 2 was not test-neutral.** The suite reaches six moved names as module
 >    ATTRIBUTES, which `from X import name` does not cover. 26 addresses moved.
+>    The freeze held where it mattered — no case's assertions changed — but "exactly
+>    two edits" was wrong about the file: address moves happened in Steps 2, 4, 5
+>    and 6, and two source-text greps in `s3`/`s9` were re-pointed at the property
+>    they were always testing.
 > 2. **H1 arrives in Step 5, not Q1.** Moving the commit and push inside
 >    `publish()` breaks 60 stubs at once, so `publish()` owns the feed and the
 >    commit ORDERING, and both calls stay at the lane's seam.
 > 3. **Q2's premise was measurably wrong** — 68 of 70 cases already ran alone. The
->    fix was stub teardown (`run()`), not the file split. All 71 pass alone now,
->    `smoke_test.py s41` runs one, and `s32`/`s8`/`s43` have the teeth §4b asked
->    for. **Still open in Q2: the per-layer file split, now optional.**
-> 4. **Q1 is NOT unblocked by that.** Its mandate consolidation landed (all 13
->    prompt constants in `mandates.py`; `knock_reply` 785 -> 570). The rest —
->    lanes as declarations — still needs a shared runner, and a runner resolves
->    `push_to_phone` in ITS namespace, not the lane's, so §4b's option (a) does
->    not survive it. Settle the import style first; the three questions under
->    "Open before starting" are still unanswered.
+>    fix was stub teardown (`run()`), not the file split. Every case passes alone
+>    now, `smoke_test.py s41` runs one, and `s32`/`s8`/`s43` have the teeth §4b
+>    asked for. **Still open in Q2: the per-layer file split, now optional.**
+> 4. **Q1's open question 1 has an answer, and it is neither (a) nor (b): the seam
+>    is an ARGUMENT.** `lanes.deliver_rendered` takes `commit` and `notify` as
+>    keyword-only parameters with no defaults, so a lane resolves its own binding
+>    at call time and its stub still intercepts. Both import styles coexist and
+>    lanes migrate one at a time, which is what decoupled Q1 from Q2 for real.
+>    Landed under Q1: all 13 prompt constants in `mandates.py` (`knock_reply`
+>    785 -> 570); the write -> render -> publish tail, shared by `render_soak`,
+>    `render_drill` and `render_longhaul`; "a derived file follows its source"
+>    inside `publish()`, retiring four hand-written copies; and `push_queue`'s
+>    "no writer" invariant read off its SOURCE by `s70` instead of merely asserted
+>    in this document.
+> 5. **§4b's family table puts `run_studio` in the write -> render -> publish
+>    family; it is not on that family's tail and should not be.** It shells out to
+>    `render_audio.py`, which owns the state write and the commit, so there is no
+>    `deliver_rendered` call to make. §4b said as much in prose ("a pipeline of
+>    passes, not one call") and the table disagreed with it.
+>
+> **Still open, in the order the ceiling law would take them:**
+>
+> - **`run_studio.py` is at 430/430 — zero headroom, and Q1's "done means" says it
+>   should be off that ceiling.** It is not, and it cannot be bought with the shared
+>   tail (see correction 5) — Step 4's consolidation returned exactly the one line it
+>   spent. Its own budget note says the next move is a SPLIT, and that the raise is
+>   Andrew's call, not a diff's. Nothing here should raise it quietly.
+> - **`publish.py` is at 148/150** — two lines of headroom on a file two days old.
+>   The next invariant that lands there needs a re-census in the same diff.
+> - **The decide/judge family has no runner.** `morning_knock` and `knock_reply` are
+>   the daily drivers and still carry their own tails.
+> - **Lanes eight and nine** (media ingestion, the daily catch channel) — Q1's open
+>   question 3 is still open. Writing ONE against the new shape is the honest test.
+> - **Q2's per-layer file split**, optional since the isolation fix.
+>
+> **Closed since the 08-23 plan, beyond Phase 1:** the port surface really is one line
+> now (`state_io.TAMIL_RE` / `TAMIL_RUN`; §3 promised 4 copies -> 1 and the spine
+> refactor left three behind), guarded by `s70`; `s70`'s client allowlist no longer
+> names lanes that stopped building clients in Step 4.
 
 > **As written 2026-08-23 — superseded by the status above, kept as the record of what
 > was planned and why.** Written from the read-only architecture pass of the same day,

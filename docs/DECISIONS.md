@@ -2299,16 +2299,18 @@ Details live in git history; this is the index of the *conclusions*.
   new machinery: a caught eavesdrop already promotes recognition. Smoke `s53`.
 
 - **Imports point one way, down the stack** (2026-08-23, the spine refactor). Stated twice
-  before for single module pairs (`state_io` docstring 08-04; "outreach may depend on
-  selection, never the reverse" 07-25), now true of the graph: a lower layer never imports a
-  higher one, and **a channel never owns an invariant more than one channel obeys**. L0
+  before for single module pairs (`state_io` docstring 08-04; 07-25's "outreach may
+  depend on selection, never the reverse"), now true of the graph: a lower layer never
+  imports a higher one, and **a channel never owns an invariant more than one channel
+  obeys**. L0
   `state_io` -> L1 selection -> L2 policy -> L3 `writer` (model config, parsers, executor)
   -> L4 `publish` (feed, commit, push) -> L5 the lanes. **Retires as a class the 23 prior
   entries** — 10% of this ledger, accelerating — that are one bug: *a law that should have
   been one component's property was written into every lane, and one lane missed it.*
-  Budgets re-censused DOWN in the same diffs: `morning_knock` 637 -> 450, `sync_state` -45;
-  paying for `writer` 175, `publish` 150, `state_io` 110. Smoke held still, 70 cases.
-  Detail, Q1/Q2: `docs/spine_refactor.md`.
+  Budgets re-censused DOWN in-diff: `morning_knock` 637 -> 450, `sync_state` -45;
+  paying for `writer` 175, `publish` 150, `state_io` 110. Smoke: 70 cases, no assertion
+  changed, 26 ADDRESSES moved. Detail: `docs/spine_refactor.md`.
+
 - **A case is isolated by scoping its stubs, not by splitting the file**
   (2026-08-24). **Replaces** §4b Q2's premise that "a case cannot be run in
   isolation", and the per-layer file split as the fix. MEASURED first: 68 of 70
@@ -2320,3 +2322,26 @@ Details live in git history; this is the index of the *conclusions*.
   sandbox. All 71 pass alone, the four cases hoisted out of numeric order are back,
   and a case states its own preconditions. Guarded by `s72`, mutation-tested
   because with teardown dead the suite is still green. The split is optional now.
+
+- **A lane declares what is different; its FAMILY shares the tail** (2026-08-24, Q1).
+  The seven lanes are three families, measured — write → render → publish, decide/judge →
+  maybe render, and pure delivery (`push_queue`: zero model calls at fire time) — so never
+  one `run_lane()`. `lanes.deliver_rendered` holds the first family's tail (exposure →
+  soak stamp → commit → notify), written out three times before. **`commit` and `notify`
+  are keyword-only arguments with no defaults**, which answers §4b's import-style question
+  with neither of its options: a name resolved inside `lanes` would not see a lane's stub,
+  so both styles coexist and lanes migrate one at a time. Also landed: 13 mandates in
+  `mandates.py` (`knock_reply` 785 → 570); `chat.md` re-rendered inside `publish()`, a
+  derived file following its source; `push_queue`'s "no writer" read off SOURCE by `s70`.
+  Open: no decide/judge runner, and `run_studio` is not on this tail.
+
+- **The port surface is one line, or it is not a port surface** (2026-08-24). `state_io`
+  carried *"a fork to another language replaces this regex"* from 2026-08-04 while three
+  copies of the range outlived the spine refactor: `run_studio`'s duplicate, an inline
+  `re.findall` beside it, and `writer.TAMIL_RUN`. A fork would have changed the labelled
+  one and gone on matching Tamil in three places. Both forms live in L0 now — `TAMIL_RE`
+  (any script present) and `TAMIL_RUN` (where the spans are). Guarded by `s70`, which
+  reads the needle off `state_io.TAMIL_RE.pattern` so the case cannot become the fifth
+  copy; mutation-tested. The same pass tightened that case's client allowlist, which
+  still named `morning_knock` and `knock_reply` after Step 4 stopped them building
+  clients — **an allowlist that outlives what it allowed is not a guard.**
