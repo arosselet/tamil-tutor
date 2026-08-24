@@ -178,7 +178,7 @@ def claude_print(label: str, prompt: str) -> str | None:
     on failure. Runs in BASE so the pass can read the canon off disk — no
     `inline_canon` needed here, which is the whole reason a filesystem-having
     writer is worth preferring."""
-    from morning_knock import AGENT_MODEL as MODEL
+    from writer import AGENT_MODEL as MODEL
     print(f"   [{label}] claude ({MODEL})…")
     try:
         r = subprocess.run(
@@ -285,7 +285,7 @@ def openrouter_pass(label: str, prompt: str) -> str | None:
     so only the executor differs — never the pipeline, and since 2026-08-18 never
     the model either."""
     from openai import OpenAI
-    from morning_knock import OPENROUTER_MODEL, budget
+    from writer import OPENROUTER_MODEL, budget
     print(f"   [{label}] openrouter ({OPENROUTER_MODEL})…")
     try:
         client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
@@ -659,7 +659,7 @@ def main():
     # Load .env for the OpenRouter writer key (local); in the cloud the workflow
     # sets it directly, so a missing .env is fine. claude authenticates separately.
     sys.path.insert(0, str(BASE / "scripts"))
-    from morning_knock import load_env
+    from publish import load_env
     load_env(BASE / ".env")
 
     # Module global, not a local: the flock releases when its file object is
@@ -725,7 +725,7 @@ def main():
     # are the knock rails' window — an overnight render waits for morning.
     try:
         sys.path.insert(0, str(BASE / "scripts"))
-        from morning_knock import push_to_phone, jsdelivr_url
+        from publish import push_to_phone, jsdelivr_url
         title = episode_paths(n)["script"].stem
         # Quiet hours are the chokepoint's job now — this lane's hand-rolled hour
         # compare was one of three copies, and two other lanes had none (2026-07-26).

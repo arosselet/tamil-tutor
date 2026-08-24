@@ -37,6 +37,8 @@ BASE = Path(__file__).parent.parent
 # retrying an absent secret hourly just fills the log (2026-07-23, work laptop).
 EXIT_NOT_CONFIGURED = 3
 
+from publish import commit_and_push
+
 import edge_tts
 import edge_tts.communicate as _edge_comm
 
@@ -157,6 +159,11 @@ def acquire_state_lock():
 
 # Voice pools — Indian Tamil
 # Expanded Chirp pool with 30+ voices
+# PINNED SINGLE VOICES. They live with the TTS stack, not with the knock:
+# five lanes reference them and only one of those is a knock (2026-08-23).
+ANNA_VOICE = "ta-IN-Chirp3-HD-Orus"     # pinned: Anna always sounds like the same someone
+EAVESDROP_VOICE = "ta-IN-Chirp3-HD-Kore"  # pinned: the overheard aunty is one consistent voice too — ear-training tracks a speaker, and the trip's real voices are the aunties, not Anna
+
 _CHIRP_POOL_MALE = [
     "ta-IN-Chirp3-HD-Achird", "ta-IN-Chirp3-HD-Algenib", "ta-IN-Chirp3-HD-Algieba",
     "ta-IN-Chirp3-HD-Alnilam", "ta-IN-Chirp3-HD-Charon", "ta-IN-Chirp3-HD-Enceladus",
@@ -640,7 +647,7 @@ async def main():
     # which get their secrets from the workflow, and an import-time side effect
     # would reach them too. load_env uses setdefault, so a real env always wins.
     sys.path.insert(0, str(Path(__file__).resolve().parent))
-    from morning_knock import load_env
+    from publish import load_env
     load_env(Path(__file__).resolve().parent.parent / ".env")
 
     print(f"📖 Parsing {args.input_file}...")
@@ -714,10 +721,10 @@ async def main():
 
     # Lifecycle hooks — state + publish. Held under .studio.lock so two studio
     # processes can never interleave episodes.json / rss.xml / the commit.
-    # Deferred: morning_knock imports FROM this module (generate_segment_google,
-    # SILENCE_FRAME), so a module-level import here is a cycle. Same shape as
-    # sync_state's deferred session_brief import — ordinary dispatch, not a dodge.
-    from morning_knock import commit_and_push
+    # `commit_and_push` is imported at module level (2026-08-23). It used to be
+    # deferred to this line because it lived in `morning_knock`, which imports
+    # FROM this module — a genuine cycle. `publish.py` imports nothing here, so
+    # the dodge is retired rather than inherited.
 
     lock = acquire_state_lock()
     try:

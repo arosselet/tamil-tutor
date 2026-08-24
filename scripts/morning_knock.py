@@ -36,8 +36,6 @@ import os
 import re
 import subprocess
 import sys
-import time
-import urllib.request
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
@@ -47,100 +45,15 @@ from mandates import OUTREACH_MANDATE, PHONETIC_REWRITE
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
-from render_audio import generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME, clean_memo_for_tts
+from render_audio import (generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME,
+                          clean_memo_for_tts, ANNA_VOICE, EAVESDROP_VOICE)
 from render_chat import render_chat
+from publish import (BODY_BUDGET, KNOCKS_DIR, WAKING_END_HOUR, WAKING_START_HOUR,
+                     commit_and_push, jsdelivr_url, load_env, over_budget,
+                     push_to_phone, refresh_feed)
+from writer import (JSON_MODE, OPENROUTER_BASE, OPENROUTER_MODEL, budget,
+                    parse_llm_response)
 
-OPENROUTER_BASE = "https://openrouter.ai/api/v1"   # OpenAI-compatible; one key, many models
-MODEL = "google/gemini-3.7-flash"   # cloud Anna. A full slug — nothing derives it.
-OPENROUTER_MODEL = MODEL            # kept as a name because five lanes import it
-AGENT_MODEL = "claude-sonnet-5"     # what `claude -p` runs on the laptop
-
-# ONE MODEL PER EXECUTOR (2026-08-23, Andrew). REPLACES "one model, two
-# executors" (2026-08-18) and its `f"anthropic/{MODEL}"` derivation. That rule
-# said the host may differ but the model may not, and it was right for a world
-# with one vendor in it. `claude -p` is Claude-only by construction, so the
-# moment the API side leaves Anthropic the two CANNOT be the same string. What
-# the 08-18 rule actually defends is kept: the model is STATED, once per
-# executor, never derived and never re-guessed at a call site.
-#
-# `MODEL`/`OPENROUTER_MODEL` is now CLOUD ANNA ONLY — decide, both judges, the
-# phonetic rewrite. Every other lane runs on the laptop and takes `AGENT_MODEL`
-# through `writer.ask_json`, which costs no cash. The seam is the BINARY making
-# the call, so it cannot rot the way a hand-kept per-lane list would.
-#
-# `AGENT_MODEL` MUST BE A SLUG THE CLI ACCEPTS, and that is a smaller set than
-# OpenRouter's. MEASURED 2026-08-23: `claude -p --model claude-sonnet-4.6` prints
-# "It may not exist or you may not have access" AND RETURNS 0 — so a wrong value
-# here does not crash, it silently routes the lane to the paid API. Smoke `s67`
-# asserts the shape; `writer._agent_json` treats empty stdout as failure for the
-# same reason. Verified working: `claude-sonnet-5`.
-#
-# WHY GEMINI ON THE CLOUD SIDE (Andrew, 2026-08-23): "Gemini seems suited to the
-# task" — Indic coverage on the lanes that read, compose and grade Tamil. A
-# TRIAL, revisit ~08-27. Not a cost decision, though the invoice moves: ~$0.0094
-# per decide-shaped call against ~$0.050 on sonnet-5. Verified before the swap —
-# the slug advertises `response_format` AND `structured_outputs` on OpenRouter,
-# so JSON_MODE holds, and its 65,536-token completion ceiling clears the largest
-# `budget()` call twenty-fold.
-#
-# WATCH THE JUDGE, NOT THE COMPOSER. `MODEL` grades Andrew's replies
-# (knock_reply), and grading writes the production axis, so a VENDOR change
-# recalibrates the learning record silently — the 08-18 risk one step further
-# out. Nothing in smoke catches it; the tests stub the LLM. The graded replies in
-# `knock_log.json` are the A/B corpus. Andrew judges the drift; reverting is this
-# one constant.
-#
-# ON THE PRICE IT LEFT (measured 2026-08-23, and why this got looked at at all):
-# sonnet-5's $2/$10 was Anthropic's INTRODUCTORY rate, expiring 2026-08-31 — the
-# 08-18 note recorded it as the standing price. From 09-01 sonnet-5 is $3/$15,
-# identical to the 4.6 it replaced, while emitting ~4x the output tokens.
-
-# THINKING IS PART OF THE BUDGET, and only the MODEL knows what it costs
-# (2026-08-18, hours after the swap above). Sonnet 5 reasons before it answers and
-# OpenRouter counts those tokens against `max_tokens`. MEASURED the same day:
-# 1624–2974 reasoning tokens on a studio-sized prompt, and enough on `decide()` —
-# the largest prompt in the system against a 1600 ceiling — to leave zero
-# characters of artifact. That took cloud Anna's knock lane down completely (run
-# 32121449441, three retries, all truncated) and killed the drill sheet locally.
-#
-# THIS IS THE SECOND TIME, WHICH IS THE WHOLE POINT. On 2026-08-05 the reply judge
-# hit exactly this and was fixed by raising exactly that one literal to 1600 — see
-# the comment still sitting at that call site. A per-lane patch for a per-MODEL
-# property leaves every other lane silently mis-calibrated until it happens to run;
-# the drill lane then went 17 days before anyone found out.
-#
-# So a call site declares what its ANSWER needs — which is what it actually knows —
-# and the thinking room is added HERE, once. Swap the model, change one number.
-# A ceiling is not a spend: unused headroom is billed at nothing, so headroom is
-# free insurance and a truncation is a dead lane.
-# REPLACES: eight hand-tuned `max_tokens` literals across five modules.
-REASONING_HEADROOM = 4000
-
-
-def budget(answer_tokens: int) -> int:
-    """The ceiling for one call: what the artifact needs, plus this model's room to
-    think. Call sites pass the former; never a raw `max_tokens` on a `MODEL` call."""
-    return answer_tokens + REASONING_HEADROOM
-
-# STRUCTURED OUTPUT, one definition (2026-08-18). Every JSON lane sends this; the
-# text lanes (`rephrase_phonetic` here, the studio's prose writers) must NOT.
-#
-# It replaces PROMPTING for JSON and hoping. The mandates always said "return ONLY
-# a JSON object" and models kept wrapping it anyway — `parse_llm_json` carries a
-# five-strategy fallback chain built from four dated incidents (a leading fence, a
-# fence with prose in front of it, single-quoted Python dicts, a brace-slice fooled
-# by a literal `{noun}` in the prose), and the long-haul lane MEASURED 3 of 6
-# identical calls coming back prose-prefixed — which killed a 45-minute render at
-# movement 5 of 15, after paying for four movements of TTS.
-#
-# json_object makes that whole class impossible at the API instead of survivable at
-# the parser. It requires the word "JSON" in the prompt, which every mandate here
-# already satisfies (verified across all five lanes before this landed).
-JSON_MODE = {"type": "json_object"}
-ANNA_VOICE = "ta-IN-Chirp3-HD-Orus"     # pinned: Anna always sounds like the same someone
-EAVESDROP_VOICE = "ta-IN-Chirp3-HD-Kore"  # pinned: the overheard aunty is one consistent voice too — ear-training tracks a speaker, and the trip's real voices are the aunties, not Anna
-REPO = "arosselet/tamil-tutor"          # for the jsDelivr URL
-KNOCKS_DIR = BASE / "published_audio" / "knocks"   # tracked, jsDelivr-served dir
 KNOCK_LOG_PATH = BASE / "progress" / "knock_log.json"
 SESSION_LOG_PATH = BASE / "progress" / "session_log.json"
 
@@ -150,8 +63,6 @@ SESSION_LOG_PATH = BASE / "progress" / "session_log.json"
 # a one-field edit and stays DST-correct at home. The cron ticks a UTC superset;
 # this filters.
 from state_io import LEARNER_PATH, LEXICON_PATH, LOCAL_TZ
-WAKING_START_HOUR = 8      # inclusive, local
-WAKING_END_HOUR = 21       # exclusive, local (last reach can land at 20:59)
 MAX_REACHES_PER_DAY = 5    # a "reach" = a knock that actually fired (silence doesn't count)
 MIN_GAP_HOURS = 3          # minimum spacing between reaches
 NEXT_CHECK_CLAMP = (0.5, 24.0)   # Anna's self-set next_check is clamped to this many hours
@@ -161,14 +72,6 @@ VOLLEY_SIZE = 4   # menu items per volley knock — one per exchange, chained by
                   # (3→4 2026-07-09: pace trailed 1.5 vs 1.8 needed; Andrew chose a bigger
                   # volley over tiering — next lever if it still trails is a 2nd volley)
 
-# Lock-screen render budget. The mandate asks for ≤140; past ~160 iOS cuts the
-# body and the dose dies unseen (2026-07-05 feedback). Warn-only — a trimmed
-# dose is worse than a logged warning; the fix belongs in the composer.
-BODY_BUDGET = 160
-
-
-def over_budget(text: str, budget: int = BODY_BUDGET) -> bool:
-    return len(text or "") > budget
 
 
 TAMIL_RUN = re.compile(r"[஀-௿]+")
@@ -610,89 +513,6 @@ def maybe_enqueue_schedule(decision: dict) -> Path | None:
     return QUEUE_PATH
 
 
-def parse_llm_json(text: str) -> dict:
-    """The mandates say 'return ONLY a JSON object', but models occasionally
-    wrap it in a code fence, prose, or a Python-style dict (2026-07-04: empty
-    text killed a knock; 2026-07-07: single-quoted keys bypassed the {..} slice
-    fallback — 'Expecting property name enclosed in double quotes: char 1';
-    2026-07-13: prose BEFORE a ```json fence, with a literal `{noun}` frame
-    gloss in the prose — the startswith fence-strip never fired and the {..}
-    slice bit on `{noun}`).
-    Strategy: strip a leading fence → json.loads → fenced block ANYWHERE
-    (last one wins — it's the artifact) → {..} slice + json.loads →
-    ast.literal_eval (handles single quotes + Python True/False/None).
-    Print the raw text before any re-raise so the Action log shows WHAT came back.
-
-    A BACKSTOP SINCE 2026-08-18, NOT THE PRIMARY PATH. Every lane that reaches
-    here now sends `JSON_MODE`, so in principle none of these fallbacks can fire:
-    the API guarantees the shape the mandates were only asking for politely.
-    Kept anyway, deliberately, and the reason is `judge()` — it has NO retry loop
-    (see `parse_llm_response`), so a single wrapped reply is a reply Andrew sent
-    and got nothing back for, which is the one failure here he actually feels.
-    `decide()` re-rolls three times and a dead tick is invisible; a dead judge is
-    not. OpenRouter also routes across providers, and `response_format` support is
-    a per-model claim in its catalogue rather than a promise we control.
-
-    RETIRE IT ON EVIDENCE, not on principle: once the Action logs show a stretch
-    with no "unparseable LLM response" line and no fallback hit, this collapses to
-    a bare `json.loads` and takes ~15 lines of this file's budget with it. Until
-    then it costs nothing that matters — the ratchet counts it, but it is already
-    written, already tested, and the failure it catches is the user-visible one."""
-    import ast as _ast
-    import re as _re
-    text = (text or "").strip()
-    if text.startswith("```"):
-        text = text.split("```")[1].lstrip("json").strip()
-    try:
-        return json.loads(text, strict=False)
-    except json.JSONDecodeError:
-        for block in reversed(_re.findall(r"```(?:json)?\s*\n(.*?)```", text, _re.DOTALL)):
-            try:
-                return json.loads(block.strip(), strict=False)
-            except json.JSONDecodeError:
-                continue
-        start, end = text.find("{"), text.rfind("}")
-        if start == -1 or end <= start:
-            print(f"--- unparseable LLM response (no braces) ---\n{text}\n---")
-            raise
-        slice_ = text[start : end + 1]
-        try:
-            return json.loads(slice_, strict=False)
-        except json.JSONDecodeError:
-            # Python-style dict: single-quoted keys, True/False/None literals
-            try:
-                result = _ast.literal_eval(slice_)
-                if isinstance(result, dict):
-                    return result
-            except (ValueError, SyntaxError):
-                pass
-            print(f"--- unparseable LLM response (all fallbacks failed) ---\n{text}\n---")
-            raise
-
-
-def parse_llm_response(resp) -> dict:
-    """`parse_llm_json` for a raw API response — plus the one check the text
-    alone CANNOT make.
-
-    2026-08-05: the judge spent all 800 of its tokens deliberating in prose
-    (which slip tag to reuse) and was cut off mid-word, before it had emitted a
-    single brace. `parse_llm_json` did its job — "no braces", JSONDecodeError at
-    char 0 — but that is byte-identical to the KF-7/KF-10 signature, where the
-    JSON existed and the PARSER missed it. Those two failures want opposite
-    fixes: a parser gap wants another fallback, a truncation wants a bigger
-    budget, and adding a fallback for a truncation is pure motion. Only
-    `finish_reason` can tell them apart, and it lives on the response, not the
-    text — so the check has to sit here.
-
-    Raised as ValueError so `decide()`'s retry loop re-rolls it (a second draft
-    may simply be terser); `judge()` has no retry, so it surfaces at once."""
-    c = resp.choices[0]
-    if getattr(c, "finish_reason", None) == "length":
-        raise ValueError(f"LLM response TRUNCATED at the max_tokens ceiling "
-                         f"({len(c.message.content or '')} chars emitted, no JSON reached) "
-                         f"— raise the budget at the CALL SITE; this is not a parser "
-                         f"gap.\n--- truncated response ---\n{c.message.content}\n---")
-    return parse_llm_json(c.message.content)
 
 
 # Person nouns that can carry a tape's referent (2026-07-25). Substring matching, so
@@ -804,17 +624,6 @@ def decide(digest: str, volley_menu: list | None = None) -> dict:
 
 # ── Delivery plumbing (proven — preserved) ────────────────────────────────────
 
-def load_env(path: Path):
-    """Minimal .env -> os.environ (don't overwrite anything already set, e.g. CI secrets)."""
-    if not path.exists():
-        return
-    for line in path.read_text(encoding="utf-8").splitlines():
-        line = line.strip()
-        if not line or line.startswith("#") or "=" not in line:
-            continue
-        k, v = line.split("=", 1)
-        os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
-
 
 async def render_memo(memo_script: str, out_path: Path, voice: str = ANNA_VOICE):
     import tempfile
@@ -830,227 +639,6 @@ async def render_memo(memo_script: str, out_path: Path, voice: str = ANNA_VOICE)
     out_path.write_bytes(audio)
     print(f"   rendered -> {out_path} ({len(audio)/1024:.0f} KB)")
 
-
-# Append-only state arrays whose rows carry a genuinely unique key. Two writers
-# appending between one checkout and its push collide TEXTUALLY on rows that do
-# not disagree — git sees adjacent edits to one JSON array, not two independent
-# appends. rel -> (identity key, sort key). Nothing else is auto-resolvable:
-# session_log merges same-day rows by rule (2026-07-31) and feedback_log has no
-# key at all, so a conflict in either is a real disagreement and must stay loud.
-UNIONABLE = {"progress/push_queue.json": ("id", "due"),
-             "progress/knock_log.json": ("timestamp", "timestamp")}
-
-# Files with NO state of their own — each is a pure render of a source of truth
-# above. Merging one is meaningless: there is nothing in it to disagree about,
-# only two renders of two different logs. Reconciling them was also actively
-# harmful — a chat.md conflict is what aborted run 30865736387 on 2026-08-04
-# while knock_log.json beside it union-resolved cleanly, losing a judged
-# exchange to a file that could have been regenerated in a millisecond.
-# Rebuild from the merged source instead of merging the output.
-DERIVED = {"progress/chat.md": render_chat}
-
-
-def _union_conflict(rel: str) -> bool:
-    """Resolve ONE conflicted append-only array by keeping every row from both
-    sides. Returns False if anything is off-pattern, which keeps the abort loud.
-
-    NOTE THE REBASE INVERSION: replaying our commit onto origin/main, stage :2 is
-    UPSTREAM (what they pushed) and :3 is OURS. Getting this backwards silently
-    drops the other writer's row, which is the failure this exists to prevent."""
-    key, order = UNIONABLE[rel]
-
-    def side(stage: int):
-        r = subprocess.run(["git", "show", f":{stage}:{rel}"], cwd=BASE,
-                           capture_output=True, text=True, encoding="utf-8")
-        return json.loads(r.stdout) if r.returncode == 0 and r.stdout.strip() else None
-
-    theirs, ours = side(2), side(3)
-    if not isinstance(theirs, list) or not isinstance(ours, list):
-        return False
-    merged, seen = [], set()
-    for row in theirs + ours:
-        if not isinstance(row, dict) or row.get(key) is None:
-            return False       # a keyless row cannot be deduped; refuse rather than guess
-        if row[key] in seen:
-            continue
-        seen.add(row[key])
-        merged.append(row)
-    merged.sort(key=lambda r: str(r.get(order, "")))
-    (BASE / rel).write_text(json.dumps(merged, ensure_ascii=False, indent=2), encoding="utf-8")
-    subprocess.run(["git", "add", rel], cwd=BASE, check=True)
-    print(f"   ↳ merged {rel}: {len(theirs)} theirs + {len(ours)} ours -> {len(merged)}")
-    return True
-
-
-def _rerender_derived(rel: str) -> bool:
-    """Resolve a DERIVED conflict by rebuilding the file from its source of truth,
-    discarding both sides of the conflict. Ordering is load-bearing: this must run
-    AFTER the union pass, which is what leaves the merged source in the working
-    tree for the renderer to read.
-
-    The renderer carries its OWN idea of the repo root (render_chat computes it
-    from __file__), so it is only this function's source of truth by coincidence
-    of both being the checkout. Assert the coincidence rather than trust it: a
-    renderer writing somewhere else would otherwise leave the conflict markers
-    in place and `git add` them, resolving the rebase by committing garbage —
-    silent, and exactly the direction this file's teeth are supposed to face."""
-    written = Path(DERIVED[rel]()).resolve()
-    if written != (BASE / rel).resolve():
-        print(f"   ⚠ {rel} renderer wrote {written}, not {BASE / rel} — refusing")
-        return False
-    subprocess.run(["git", "add", rel], cwd=BASE, check=True)
-    print(f"   ↳ re-rendered {rel} from its source (not merged)")
-    return True
-
-
-def _rebase_onto_main() -> bool:
-    """Land our commit on origin/main, union-resolving append conflicts and
-    re-rendering derived ones. False if a conflict is real, with the rebase
-    aborted so the tree is left clean.
-
-    RETIRED, 2026-08-04: the `for _ in range(5)` this used to open with. Every
-    path inside it returned or broke, so the body could not run twice — it read
-    as a five-try retry and was a one-shot. We replay exactly one commit (CI
-    checks out clean and commits once), so one pass is also all that is correct."""
-    if subprocess.run(["git", "pull", "--rebase", "--autostash", "origin", "main"],
-                      cwd=BASE).returncode == 0:
-        return True
-    stopped = subprocess.run(["git", "diff", "--name-only", "--diff-filter=U"],
-                             cwd=BASE, capture_output=True, text=True, encoding="utf-8").stdout.split()
-    unresolvable = [f for f in stopped if f not in UNIONABLE and f not in DERIVED]
-    # Sources of truth first, then the files rendered FROM that merged result.
-    if (stopped and not unresolvable
-            and all(_union_conflict(f) for f in stopped if f in UNIONABLE)
-            and all(_rerender_derived(f) for f in stopped if f in DERIVED)):
-        subprocess.run(["git", "rebase", "--continue"], cwd=BASE,
-                       env={**os.environ, "GIT_EDITOR": "true"}, check=True)
-        return True
-    print(f"   ⚠ unresolvable rebase conflict: {unresolvable or stopped or 'none reported'}")
-    subprocess.run(["git", "rebase", "--abort"], cwd=BASE)
-    return False
-
-
-def commit_and_push(paths: list[Path], msg: str):
-    rels = [str(p.relative_to(BASE)) for p in paths]
-    subprocess.run(["git", "add", *rels], cwd=BASE, check=True)
-    subprocess.run(["git", "commit", "-m", msg], cwd=BASE, check=True)
-    # main has three writers (knock CI, ack CI, the laptop) and this checkout goes
-    # minutes stale during the LLM/TTS steps — land our commit on top of theirs.
-    # A conflict here used to raise and lose the whole tick's work, decision
-    # included (2026-07-31): two lanes appending to push_queue.json in one window
-    # is routine, not a disagreement, so it is merged rather than surrendered.
-    if not _rebase_onto_main():
-        raise RuntimeError("rebase onto origin/main needs a human — tree left clean")
-    subprocess.run(["git", "push", "origin", "HEAD:main"], cwd=BASE, check=True)
-
-
-def refresh_feed() -> Path | None:
-    """All audio lands on the podcast feed (2026-07-05): rebuild rss.xml so a
-    dismissed audio memo stays findable. Feed polish must never kill the knock."""
-    try:
-        subprocess.run([sys.executable, str(BASE / "scripts" / "rebuild_rss.py")],
-                       cwd=BASE, check=True)
-        return BASE / "rss.xml"
-    except Exception as e:
-        print(f"   ⚠ rss rebuild failed ({e}) — continuing without feed update")
-        return None
-
-
-def jsdelivr_url(mp3: Path) -> str:
-    rel = mp3.relative_to(BASE).as_posix()
-    return f"https://cdn.jsdelivr.net/gh/{REPO}@main/{rel}"  # unique daily filename => always fresh
-
-
-def in_waking_window(now: datetime | None = None) -> bool:
-    """Is it inside Andrew's waking hours, local time? The ONE definition — the
-    rails gate, the queue's deferral, and `push_to_phone` all read this."""
-    now = now or datetime.now(timezone.utc)
-    return WAKING_START_HOUR <= now.astimezone(LOCAL_TZ).hour < WAKING_END_HOUR
-
-
-def push_to_phone(body: str, audio_url: str | None, knock_id: str = "",
-                  requested: bool = False) -> bool:
-    """Push a notification. audio_url is optional — a text/challenge/grace dose has none.
-    knock_id = the knock's log-entry timestamp; it rides the notification's action_data
-    and comes back with taps/replies so the judge grades the knock Andrew actually
-    answered. Notifications stack (unique tag per MESSAGE, 2026-08-19; per knock from
-    2026-07-11 until two replies to one knock collided) — last-fired correlation is
-    only the fallback for id-less events.
-
-    QUIET HOURS ARE ENFORCED HERE, at the one chokepoint every lane shares
-    (2026-07-26). They used to be enforced per-lane: `rails_gate` for knocks, a
-    hand-rolled hour compare in `run_studio`, `in_waking_window` in the queue —
-    and NOTHING in `render_drill` or `render_soak`, which is how a drill reached
-    the phone at 23:42. Three copies and two gaps is the same shape as the
-    ordering-law drift found the same day; the fix is one owner, not a fourth copy.
-
-    `requested=True` is the deliberate exemption: a reply Andrew's own tap asked
-    for is not an interruption, and the rails exist to stop UNrequested reaches.
-    Returns True if it pushed, False if quiet hours held it back."""
-    if not requested and not in_waking_window():
-        local = datetime.now(LOCAL_TZ)
-        print(f"   phone: quiet hours ({local:%H:%M} {local.tzname()}) — not pushed. "
-              f"The artifact is on the feed for the morning.")
-        return False
-    if audio_url:
-        # Pre-warm the CDN: iOS fetches the attachment the instant the notification
-        # lands, and a never-before-requested jsDelivr path can take seconds on its
-        # first pull from GitHub — long enough for iOS to drop the inline player.
-        try:
-            with urllib.request.urlopen(audio_url, timeout=60) as r:
-                r.read()
-        except OSError as e:
-            print(f"   ⚠ CDN pre-warm failed ({e}) — pushing anyway")
-    webhook = os.environ["ANNA_PUSH_WEBHOOK_URL"]
-    # `tag` is the notification's IDENTITY and nothing else; iOS replaces a
-    # notification that arrives bearing a tag already on the lock screen. It used
-    # to be derived HA-side from knock_id alone ("anna-{{ knock_id }}", unique per
-    # KNOCK, 2026-07-11) — which made one field do two jobs, identity and judging
-    # correlation, and they do not want the same key. Correlation must be STABLE
-    # per knock so the judge grades the right entry; identity must be UNIQUE per
-    # message or a notification eats its predecessor.
-    #
-    # On 2026-08-18 they collided for real. Two Shortcut replies (which by design
-    # send no knock_id — see docs/home_assistant_knock_buttons.md §8.3) both fell
-    # back to last_fired_knock, both resolved knock 2026-08-18T10:21, both pushed
-    # tag "anna-2026-08-18T10:21" 43 seconds apart, and the second silently
-    # replaced the first. The answer to "inge poringe what does it mean?" was
-    # generated, judged, committed and delivered HTTP 200 — and Andrew never saw
-    # it. Every instrument read green; the only trace was in chat.md.
-    #
-    # So the tag is minted HERE, per push, and knock_id keeps correlation alone in
-    # action_data. The knock prefix stays for legibility in HA's log.
-    payload = {"title": "Anna", "text_content": body, "knock_id": knock_id,
-               "tag": f"anna-{knock_id or 'knock'}-{time.time_ns()}"}
-    if audio_url:
-        payload["audio_url"] = audio_url
-    req = urllib.request.Request(webhook, data=json.dumps(payload).encode(),
-                                 headers={"Content-Type": "application/json"}, method="POST")
-    # Delivery is the one network hop we don't control end-to-end: a transient
-    # DNS blip on the runner (2026-07-14, first occurrence) killed an otherwise
-    # perfect run at the last step. Retry absorbs blips; the final failure still
-    # raises so a genuinely unreachable webhook stays a red run, not a silent drop.
-    for attempt in range(3):
-        try:
-            with urllib.request.urlopen(req) as r:
-                print(f"   HA push -> HTTP {r.status}")
-            return True
-        except OSError as e:  # URLError, gaierror, timeouts
-            if "CERTIFICATE_VERIFY_FAILED" in str(e):
-                # The work network's FortiGate substitutes its own CA on this hop
-                # (2026-07-28, Andrew: accepted, "not worth engineering around").
-                # Retry cannot heal it and it must not fail the run — on 07-28 a
-                # fully successful local render exited non-zero here, read as
-                # total failure, and got re-run into a duplicate soak tape. The
-                # dose is on the feed; only the lock-screen ping is lost.
-                print("   phone: work-network TLS inspection strips this hop "
-                      "(known, accepted 2026-07-28) — not pushed; the dose is on the feed.")
-                return False
-            if attempt == 2:
-                raise
-            wait = 5 * (attempt + 1)
-            print(f"   ⚠ push attempt {attempt + 1} failed ({e}) — retrying in {wait}s")
-            time.sleep(wait)
 
 
 # ── Orchestration ─────────────────────────────────────────────────────────────

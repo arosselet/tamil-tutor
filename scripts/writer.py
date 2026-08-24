@@ -58,8 +58,177 @@ from openai import OpenAI
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
-from morning_knock import (AGENT_MODEL, JSON_MODE, OPENROUTER_BASE, OPENROUTER_MODEL,
-                           budget, parse_llm_json, parse_llm_response)
+OPENROUTER_BASE = "https://openrouter.ai/api/v1"   # OpenAI-compatible; one key, many models
+MODEL = "google/gemini-3.7-flash"   # cloud Anna. A full slug — nothing derives it.
+OPENROUTER_MODEL = MODEL            # kept as a name because five lanes import it
+AGENT_MODEL = "claude-sonnet-5"     # what `claude -p` runs on the laptop
+
+# ONE MODEL PER EXECUTOR (2026-08-23, Andrew). REPLACES "one model, two
+# executors" (2026-08-18) and its `f"anthropic/{MODEL}"` derivation. That rule
+# said the host may differ but the model may not, and it was right for a world
+# with one vendor in it. `claude -p` is Claude-only by construction, so the
+# moment the API side leaves Anthropic the two CANNOT be the same string. What
+# the 08-18 rule actually defends is kept: the model is STATED, once per
+# executor, never derived and never re-guessed at a call site.
+#
+# `MODEL`/`OPENROUTER_MODEL` is now CLOUD ANNA ONLY — decide, both judges, the
+# phonetic rewrite. Every other lane runs on the laptop and takes `AGENT_MODEL`
+# through `writer.ask_json`, which costs no cash. The seam is the BINARY making
+# the call, so it cannot rot the way a hand-kept per-lane list would.
+#
+# `AGENT_MODEL` MUST BE A SLUG THE CLI ACCEPTS, and that is a smaller set than
+# OpenRouter's. MEASURED 2026-08-23: `claude -p --model claude-sonnet-4.6` prints
+# "It may not exist or you may not have access" AND RETURNS 0 — so a wrong value
+# here does not crash, it silently routes the lane to the paid API. Smoke `s67`
+# asserts the shape; `writer._agent_json` treats empty stdout as failure for the
+# same reason. Verified working: `claude-sonnet-5`.
+#
+# WHY GEMINI ON THE CLOUD SIDE (Andrew, 2026-08-23): "Gemini seems suited to the
+# task" — Indic coverage on the lanes that read, compose and grade Tamil. A
+# TRIAL, revisit ~08-27. Not a cost decision, though the invoice moves: ~$0.0094
+# per decide-shaped call against ~$0.050 on sonnet-5. Verified before the swap —
+# the slug advertises `response_format` AND `structured_outputs` on OpenRouter,
+# so JSON_MODE holds, and its 65,536-token completion ceiling clears the largest
+# `budget()` call twenty-fold.
+#
+# WATCH THE JUDGE, NOT THE COMPOSER. `MODEL` grades Andrew's replies
+# (knock_reply), and grading writes the production axis, so a VENDOR change
+# recalibrates the learning record silently — the 08-18 risk one step further
+# out. Nothing in smoke catches it; the tests stub the LLM. The graded replies in
+# `knock_log.json` are the A/B corpus. Andrew judges the drift; reverting is this
+# one constant.
+#
+# ON THE PRICE IT LEFT (measured 2026-08-23, and why this got looked at at all):
+# sonnet-5's $2/$10 was Anthropic's INTRODUCTORY rate, expiring 2026-08-31 — the
+# 08-18 note recorded it as the standing price. From 09-01 sonnet-5 is $3/$15,
+# identical to the 4.6 it replaced, while emitting ~4x the output tokens.
+
+# THINKING IS PART OF THE BUDGET, and only the MODEL knows what it costs
+# (2026-08-18, hours after the swap above). Sonnet 5 reasons before it answers and
+# OpenRouter counts those tokens against `max_tokens`. MEASURED the same day:
+# 1624–2974 reasoning tokens on a studio-sized prompt, and enough on `decide()` —
+# the largest prompt in the system against a 1600 ceiling — to leave zero
+# characters of artifact. That took cloud Anna's knock lane down completely (run
+# 32121449441, three retries, all truncated) and killed the drill sheet locally.
+#
+# THIS IS THE SECOND TIME, WHICH IS THE WHOLE POINT. On 2026-08-05 the reply judge
+# hit exactly this and was fixed by raising exactly that one literal to 1600 — see
+# the comment still sitting at that call site. A per-lane patch for a per-MODEL
+# property leaves every other lane silently mis-calibrated until it happens to run;
+# the drill lane then went 17 days before anyone found out.
+#
+# So a call site declares what its ANSWER needs — which is what it actually knows —
+# and the thinking room is added HERE, once. Swap the model, change one number.
+# A ceiling is not a spend: unused headroom is billed at nothing, so headroom is
+# free insurance and a truncation is a dead lane.
+# REPLACES: eight hand-tuned `max_tokens` literals across five modules.
+REASONING_HEADROOM = 4000
+
+
+def budget(answer_tokens: int) -> int:
+    """The ceiling for one call: what the artifact needs, plus this model's room to
+    think. Call sites pass the former; never a raw `max_tokens` on a `MODEL` call."""
+    return answer_tokens + REASONING_HEADROOM
+
+# STRUCTURED OUTPUT, one definition (2026-08-18). Every JSON lane sends this; the
+# text lanes (`rephrase_phonetic` here, the studio's prose writers) must NOT.
+#
+# It replaces PROMPTING for JSON and hoping. The mandates always said "return ONLY
+# a JSON object" and models kept wrapping it anyway — `parse_llm_json` carries a
+# five-strategy fallback chain built from four dated incidents (a leading fence, a
+# fence with prose in front of it, single-quoted Python dicts, a brace-slice fooled
+# by a literal `{noun}` in the prose), and the long-haul lane MEASURED 3 of 6
+# identical calls coming back prose-prefixed — which killed a 45-minute render at
+# movement 5 of 15, after paying for four movements of TTS.
+#
+# json_object makes that whole class impossible at the API instead of survivable at
+# the parser. It requires the word "JSON" in the prompt, which every mandate here
+# already satisfies (verified across all five lanes before this landed).
+JSON_MODE = {"type": "json_object"}
+
+def parse_llm_json(text: str) -> dict:
+    """The mandates say 'return ONLY a JSON object', but models occasionally
+    wrap it in a code fence, prose, or a Python-style dict (2026-07-04: empty
+    text killed a knock; 2026-07-07: single-quoted keys bypassed the {..} slice
+    fallback — 'Expecting property name enclosed in double quotes: char 1';
+    2026-07-13: prose BEFORE a ```json fence, with a literal `{noun}` frame
+    gloss in the prose — the startswith fence-strip never fired and the {..}
+    slice bit on `{noun}`).
+    Strategy: strip a leading fence → json.loads → fenced block ANYWHERE
+    (last one wins — it's the artifact) → {..} slice + json.loads →
+    ast.literal_eval (handles single quotes + Python True/False/None).
+    Print the raw text before any re-raise so the Action log shows WHAT came back.
+
+    A BACKSTOP SINCE 2026-08-18, NOT THE PRIMARY PATH. Every lane that reaches
+    here now sends `JSON_MODE`, so in principle none of these fallbacks can fire:
+    the API guarantees the shape the mandates were only asking for politely.
+    Kept anyway, deliberately, and the reason is `judge()` — it has NO retry loop
+    (see `parse_llm_response`), so a single wrapped reply is a reply Andrew sent
+    and got nothing back for, which is the one failure here he actually feels.
+    `decide()` re-rolls three times and a dead tick is invisible; a dead judge is
+    not. OpenRouter also routes across providers, and `response_format` support is
+    a per-model claim in its catalogue rather than a promise we control.
+
+    RETIRE IT ON EVIDENCE, not on principle: once the Action logs show a stretch
+    with no "unparseable LLM response" line and no fallback hit, this collapses to
+    a bare `json.loads` and takes ~15 lines of this file's budget with it. Until
+    then it costs nothing that matters — the ratchet counts it, but it is already
+    written, already tested, and the failure it catches is the user-visible one."""
+    import ast as _ast
+    import re as _re
+    text = (text or "").strip()
+    if text.startswith("```"):
+        text = text.split("```")[1].lstrip("json").strip()
+    try:
+        return json.loads(text, strict=False)
+    except json.JSONDecodeError:
+        for block in reversed(_re.findall(r"```(?:json)?\s*\n(.*?)```", text, _re.DOTALL)):
+            try:
+                return json.loads(block.strip(), strict=False)
+            except json.JSONDecodeError:
+                continue
+        start, end = text.find("{"), text.rfind("}")
+        if start == -1 or end <= start:
+            print(f"--- unparseable LLM response (no braces) ---\n{text}\n---")
+            raise
+        slice_ = text[start : end + 1]
+        try:
+            return json.loads(slice_, strict=False)
+        except json.JSONDecodeError:
+            # Python-style dict: single-quoted keys, True/False/None literals
+            try:
+                result = _ast.literal_eval(slice_)
+                if isinstance(result, dict):
+                    return result
+            except (ValueError, SyntaxError):
+                pass
+            print(f"--- unparseable LLM response (all fallbacks failed) ---\n{text}\n---")
+            raise
+
+
+def parse_llm_response(resp) -> dict:
+    """`parse_llm_json` for a raw API response — plus the one check the text
+    alone CANNOT make.
+
+    2026-08-05: the judge spent all 800 of its tokens deliberating in prose
+    (which slip tag to reuse) and was cut off mid-word, before it had emitted a
+    single brace. `parse_llm_json` did its job — "no braces", JSONDecodeError at
+    char 0 — but that is byte-identical to the KF-7/KF-10 signature, where the
+    JSON existed and the PARSER missed it. Those two failures want opposite
+    fixes: a parser gap wants another fallback, a truncation wants a bigger
+    budget, and adding a fallback for a truncation is pure motion. Only
+    `finish_reason` can tell them apart, and it lives on the response, not the
+    text — so the check has to sit here.
+
+    Raised as ValueError so `decide()`'s retry loop re-rolls it (a second draft
+    may simply be terser); `judge()` has no retry, so it surfaces at once."""
+    c = resp.choices[0]
+    if getattr(c, "finish_reason", None) == "length":
+        raise ValueError(f"LLM response TRUNCATED at the max_tokens ceiling "
+                         f"({len(c.message.content or '')} chars emitted, no JSON reached) "
+                         f"— raise the budget at the CALL SITE; this is not a parser "
+                         f"gap.\n--- truncated response ---\n{c.message.content}\n---")
+    return parse_llm_json(c.message.content)
 
 # A SCHEMA MUST DESCRIBE A SHAPE. `{"type": "object"}` is not enough and fails in
 # the worst available way — MEASURED 2026-08-23 on the first live soak through

@@ -41,8 +41,8 @@ from pathlib import Path
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
-from morning_knock import (ANNA_VOICE, load_env, push_to_phone, commit_and_push,
-                           jsdelivr_url)
+from publish import commit_and_push, jsdelivr_url, load_env, push_to_phone
+from render_audio import ANNA_VOICE
 # THE FOURTH COPY, retired 2026-08-23 — and the first one that was about MONEY
 # rather than parsing. This lane built its own OpenRouter client and called it on
 # every host, including the laptop, where `claude -p` would have done the same

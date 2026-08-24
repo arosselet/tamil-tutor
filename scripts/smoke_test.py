@@ -91,6 +91,15 @@ def load_modules(sb: Path):
     mk = importlib.import_module("morning_knock")
     kr = importlib.import_module("knock_reply")
     pq = importlib.import_module("push_queue")
+    # L3 and L4, bound as module globals rather than threaded through 70 case
+    # signatures. Cases reach them by ADDRESS for the same two reasons they ever
+    # reached `mk` that way: to read a constant, and to patch a name a moved
+    # function resolves through its OWN globals (`pb.in_waking_window` is the
+    # load-bearing one -- patching it anywhere else stops intercepting, and a
+    # stub that stops intercepting means a test hits the real phone).
+    global pb, wr
+    pb = importlib.import_module("publish")
+    wr = importlib.import_module("writer")
     check("modules imported from sandbox", mk.__file__.startswith(str(sb)),
           f"morning_knock loaded from {mk.__file__}")
     return mk, kr, pq
@@ -108,7 +117,7 @@ def write_json(path: Path, obj):
 
 def s1_parse_llm_json(mk):
     print("\n1. LLM response parsing (regression #2)")
-    p = mk.parse_llm_json
+    p = wr.parse_llm_json
     check("clean object", p('{"a": 1}') == {"a": 1})
     check("code fence", p('```json\n{"a": 1}\n```') == {"a": 1})
     check("prose-wrapped", p('My decision:\n{"a": {"b": 2}}\nHope that helps!')
@@ -374,9 +383,11 @@ def s6_queue_drain(mk, pq, sb: Path):
     klog_path, q_path = prog / "knock_log.json", prog / "push_queue.json"
     pushes, commits = Recorder(), Recorder()
     pq.push_to_phone, pq.commit_and_push = pushes, commits
-    # The waking window lives in morning_knock now — one owner, read by the
-    # rails, this queue, and push_to_phone's backstop. Patch where it lives.
-    saved = (mk.WAKING_START_HOUR, mk.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY)
+    # The waking window lives in publish.py now — one owner, read by the rails,
+    # this queue, and push_to_phone's backstop. Patch where it lives: `mk` holds
+    # an import-time COPY, so patching there reaches morning_knock's rails and
+    # nothing else. `in_waking_window` reads publish's binding.
+    saved = (pb.WAKING_START_HOUR, pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY)
     now = datetime.now(timezone.utc)
 
     def q_entry(qid: str, due_hours: float, force: bool = False) -> dict:
@@ -387,7 +398,7 @@ def s6_queue_drain(mk, pq, sb: Path):
 
     args = argparse.Namespace(dry_run=False, no_commit=False)
     try:
-        mk.WAKING_START_HOUR, mk.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = 0, 24, 99
+        pb.WAKING_START_HOUR, pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = 0, 24, 99
         write_json(klog_path, [])
         write_json(q_path, [q_entry("qOLD", -2), q_entry("qNEW", -1), q_entry("qFUT", +6)])
         pq.cmd_drain(args)
@@ -403,7 +414,7 @@ def s6_queue_drain(mk, pq, sb: Path):
               len(pushes) == 2 and pushes[1][0] == "dose qNEW")
 
         # quiet hours defer non-forced; --force punches through
-        mk.WAKING_START_HOUR, mk.WAKING_END_HOUR = 0, 0
+        pb.WAKING_START_HOUR, pb.WAKING_END_HOUR = 0, 0
         write_json(q_path, [q_entry("qQUIET", -1), q_entry("qFORCE", -1, force=True)])
         pq.cmd_drain(args)
         check("quiet hours defers non-forced, fires forced",
@@ -411,14 +422,14 @@ def s6_queue_drain(mk, pq, sb: Path):
               and [e["id"] for e in read_json(q_path)] == ["qQUIET"])
 
         # daily cap defers non-forced; forced ignores it
-        mk.WAKING_START_HOUR, mk.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = 0, 24, 0
+        pb.WAKING_START_HOUR, pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = 0, 24, 0
         write_json(q_path, [q_entry("qCAP", -1), q_entry("qFORCE2", -1, force=True)])
         pq.cmd_drain(args)
         check("cap defers non-forced, fires forced",
               len(pushes) == 4 and pushes[3][0] == "dose qFORCE2"
               and [e["id"] for e in read_json(q_path)] == ["qCAP"])
     finally:
-        mk.WAKING_START_HOUR, mk.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = saved
+        pb.WAKING_START_HOUR, pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = saved
 
 
 def s8_variety_and_decay(mk, kr, sb: Path):
@@ -980,17 +991,17 @@ def s15_push_retry(mk):
 
     calls = {"n": 0}
     sleeps = []
-    real_urlopen, real_sleep = mk.urllib.request.urlopen, mk.time.sleep
+    real_urlopen, real_sleep = pb.urllib.request.urlopen, pb.time.sleep
     os.environ["ANNA_PUSH_WEBHOOK_URL"] = "https://smoke.invalid/hook"
     try:
-        mk.time.sleep = sleeps.append
+        pb.time.sleep = sleeps.append
 
         def flaky(req, *a, **kw):
             calls["n"] += 1
             if calls["n"] < 3:
                 raise urllib.error.URLError(OSError("Temporary failure in name resolution"))
             return FakeResp()
-        mk.urllib.request.urlopen = flaky
+        pb.urllib.request.urlopen = flaky
         # requested=True: this case is about DELIVERY retry, not the rails —
         # without it the quiet-hours chokepoint short-circuits the whole test
         # whenever the suite runs after 21:00 local (2026-07-26).
@@ -1002,7 +1013,7 @@ def s15_push_retry(mk):
         def dead(req, *a, **kw):
             calls["n"] += 1
             raise urllib.error.URLError(OSError("no route"))
-        mk.urllib.request.urlopen = dead
+        pb.urllib.request.urlopen = dead
         try:
             mk.push_to_phone("smoke", None, knock_id="smoke", requested=True)
             check("unreachable webhook still raises", False, "did not raise")
@@ -1010,7 +1021,7 @@ def s15_push_retry(mk):
             check("unreachable webhook still raises", True)
         check("gave up after 3 attempts", calls["n"] == 3, f"{calls['n']} calls")
     finally:
-        mk.urllib.request.urlopen, mk.time.sleep = real_urlopen, real_sleep
+        pb.urllib.request.urlopen, pb.time.sleep = real_urlopen, real_sleep
         os.environ.pop("ANNA_PUSH_WEBHOOK_URL", None)
 
 
@@ -1036,13 +1047,13 @@ def s67_two_replies_to_one_knock_both_survive(mk):
         def __exit__(self, *a): return False
 
     sent = []
-    real_urlopen = mk.urllib.request.urlopen
+    real_urlopen = pb.urllib.request.urlopen
     os.environ["ANNA_PUSH_WEBHOOK_URL"] = "https://smoke.invalid/hook"
     try:
         def capture(req, *a, **kw):
             sent.append(json.loads(req.data.decode()))
             return FakeResp()
-        mk.urllib.request.urlopen = capture
+        pb.urllib.request.urlopen = capture
         # The exact 08-18 shape: two DIFFERENT messages, ONE resolved knock.
         # requested=True so the quiet-hours chokepoint can't short-circuit the
         # case when the suite runs late (same reason as s15).
@@ -1067,7 +1078,7 @@ def s67_two_replies_to_one_knock_both_survive(mk):
         check("id-less pushes don't all share the 'anna-knock' tag",
               sent[0]["tag"] != sent[1]["tag"], f"both tagged {sent[0]['tag']!r}")
     finally:
-        mk.urllib.request.urlopen = real_urlopen
+        pb.urllib.request.urlopen = real_urlopen
         os.environ.pop("ANNA_PUSH_WEBHOOK_URL", None)
 
 
@@ -1303,7 +1314,16 @@ CODE_BUDGETS = {
     # can only differ in slug shape, never in generation. The line it replaces was
     # a hardcoded vendor-prefixed slug that made "one model everywhere"
     # unenforceable; the studio had quietly been running a different one.
-    "scripts/morning_knock.py": 637,
+    # 637 → 475 (2026-08-23, the spine refactor). RE-CENSUSED DOWN, not raised —
+    # this file sat at exactly 637/637, zero headroom, and 36% of it was not a
+    # knock. The delivery tail (load_env, the rebase net, commit_and_push,
+    # refresh_feed, jsdelivr_url, the waking window, push_to_phone) went to the
+    # new publish.py; the model constants, budget() and both parsers went to
+    # writer.py; the two pinned voices went to render_audio.py, which owns TTS.
+    # Nine of the twenty-one other modules imported this file and almost none of
+    # them wanted the knock. Same move it made on 2026-08-01 for OUTREACH_MANDATE,
+    # and the same law: a mandate at its ceiling gets split, not raised.
+    "scripts/morning_knock.py": 475,
     # The mandate as a module: almost entirely prompt string (word-budgeted as
     # OUTREACH_MANDATE in PROSE_BUDGETS above), so its code budget exists only
     # to satisfy the every-file-is-budgeted guard and to catch machinery
@@ -1317,6 +1337,13 @@ CODE_BUDGETS = {
     # is prompt string, and prompt strings are word-budgeted in PROSE_BUDGETS above.
     # What must still trip it is a def, a loop, or an import sneaking in.
     "scripts/mandates.py": 200,
+    # NEW FILE, budgeted in the same diff that creates it (2026-08-23, the spine
+    # refactor). What it retires: `morning_knock.py` owning the delivery tail for
+    # seven lanes, 26 hand-built commit-path lists, and two import cycles that
+    # forced `render_audio` and `sync_state` to defer their imports to function
+    # scope. L4 has one owner now; a lane hands over what it produced and does not
+    # own the ordering, the quiet-hours check, or the commit list.
+    "scripts/publish.py": 150,
     "scripts/push_queue.py": 250,
     "scripts/rebuild_rss.py": 350,
     "scripts/render_audio.py": 500,
@@ -1366,7 +1393,14 @@ CODE_BUDGETS = {
     # unconditionally on a host with a paid subscription, plus render_drill's
     # `ask_json`. One place decides who makes a JSON call, and it decides by
     # asking which BINARY exists — never by a flag a lane has to remember.
-    "scripts/writer.py": 75,
+    # 75 → 150 (2026-08-23, the spine refactor). RETIRED IN THIS DIFF: this
+    # module's upward import of `morning_knock` — a leaf lane — for the model
+    # constants, `budget()` and both JSON parsers. L3 cannot borrow its own
+    # vocabulary from L5; that import was the clearest single instance of the
+    # law this refactor installs. The block did not grow, it moved: every line
+    # counted here left morning_knock.py in the same commit, which is re-censused
+    # DOWN by 165 for it. Growth paid for by a reduction, not an allowance.
+    "scripts/writer.py": 150,
     "scripts/run_studio.py": 429,
     "scripts/show_status.py": 125,
     # The state layer's shared vocabulary, split out of sync_state 2026-08-04:
@@ -2419,7 +2453,7 @@ def s29_one_runner_every_capability(mk, pq, kr, sb: Path):
     # retry property: a failed push leaves the entry queued.
     prog = sb / "progress"
     klog_path, q_path = prog / "knock_log.json", prog / "push_queue.json"
-    events, saved = [], (mk.WAKING_START_HOUR, mk.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY)
+    events, saved = [], (pb.WAKING_START_HOUR, pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY)
     real_push, real_commit, real_feed = pq.push_to_phone, pq.commit_and_push, pq.refresh_feed
     pq.push_to_phone = lambda body, url=None, knock_id="", requested=False: (
         events.append(("push", url)))
@@ -2442,7 +2476,7 @@ def s29_one_runner_every_capability(mk, pq, kr, sb: Path):
     pq.refresh_feed = fake_feed
     pq.render_memo = fake_render
     try:
-        mk.WAKING_START_HOUR, mk.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = 0, 24, 99
+        pb.WAKING_START_HOUR, pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = 0, 24, 99
         write_json(klog_path, [])
         write_json(q_path, [{**queued[0], "id": "qVOICE", "force": True,
                              "due": (datetime.now(timezone.utc) - timedelta(minutes=5)).isoformat()}])
@@ -2466,7 +2500,7 @@ def s29_one_runner_every_capability(mk, pq, kr, sb: Path):
               "வணக்கம்" in logged.get("memo_script", ""))
         check("the queue is emptied once fired", read_json(q_path) == [])
     finally:
-        mk.WAKING_START_HOUR, mk.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = saved
+        pb.WAKING_START_HOUR, pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = saved
         pq.push_to_phone, pq.commit_and_push, pq.refresh_feed = real_push, real_commit, real_feed
         pq.render_memo = real_render
 
@@ -3137,7 +3171,7 @@ def s35_quiet_hours_chokepoint(sb: Path):
     mk = importlib.import_module("morning_knock")
     src_dir = Path(__file__).parent
 
-    real_urlopen = mk.urllib.request.urlopen
+    real_urlopen = pb.urllib.request.urlopen
     sent = []
 
     class FakeResp:
@@ -3160,14 +3194,14 @@ def s35_quiet_hours_chokepoint(sb: Path):
     noon = noon_l.astimezone(timezone.utc)
     real_env = os.environ.get("ANNA_PUSH_WEBHOOK_URL")
     try:
-        mk.urllib.request.urlopen = fake_urlopen
+        pb.urllib.request.urlopen = fake_urlopen
         os.environ["ANNA_PUSH_WEBHOOK_URL"] = "http://smoke.invalid/push"
         check("the waking window has ONE definition",
-              mk.in_waking_window(noon) and not mk.in_waking_window(night),
+              pb.in_waking_window(noon) and not pb.in_waking_window(night),
               "in_waking_window disagrees with the rails")
 
-        real_now = mk.in_waking_window
-        mk.in_waking_window = lambda now=None: False
+        real_now = pb.in_waking_window
+        pb.in_waking_window = lambda now=None: False
         try:
             out = io.StringIO()
             with contextlib.redirect_stdout(out):
@@ -3181,9 +3215,9 @@ def s35_quiet_hours_chokepoint(sb: Path):
             check("a REQUESTED push still lands — answering his tap is not an interruption",
                   pushed is True and len(sent) == 1, f"sent={sent}")
         finally:
-            mk.in_waking_window = real_now
+            pb.in_waking_window = real_now
     finally:
-        mk.urllib.request.urlopen = real_urlopen
+        pb.urllib.request.urlopen = real_urlopen
         if real_env is None:
             os.environ.pop("ANNA_PUSH_WEBHOOK_URL", None)
         else:
@@ -5227,12 +5261,14 @@ def s45_concurrent_appends_merge(mk, sb: Path):
     """
     print("\n45. Concurrent appends to one state array (both writers survive)")
     import subprocess as sp
-    # A FRESH module object, not the shared `mk`: earlier cases replace
-    # mk.commit_and_push with a Recorder stub, and the first draft of this case
+    # A FRESH module object, not the shared one: earlier cases replace
+    # commit_and_push with a Recorder stub, and the first draft of this case
     # spent a run testing that stub. It "passed" the survives-a-conflict check
     # because a no-op never raises. Gate 7.2 in miniature — the execution
     # assertion was green on a dead function; only the effect assertion caught it.
-    spec = importlib.util.spec_from_file_location("mk_live", mk.__file__)
+    # The writer and its rebase net live in publish.py since 2026-08-23.
+    spec = importlib.util.spec_from_file_location(
+        "pb_live", str(Path(mk.__file__).parent / "publish.py"))
     live = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(live)
     check("the case holds the REAL writer, not a stub",
@@ -5360,7 +5396,8 @@ def s51_derived_files_are_rerendered_not_merged(mk, sb: Path):
     print("\n51. Derived files re-render through a conflict (chat.md)")
     import subprocess as sp
     # The REAL modules, not the shared/stubbed ones — same reason as case 45.
-    spec = importlib.util.spec_from_file_location("mk_live2", mk.__file__)
+    spec = importlib.util.spec_from_file_location(
+        "pb_live2", str(Path(mk.__file__).parent / "publish.py"))
     live = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(live)
     rc_spec = importlib.util.spec_from_file_location(
@@ -5698,7 +5735,6 @@ def s58_a_sheet_survives_a_model_thinking_out_loud(sb: Path):
     lanes share ONE parser — a second one is how a fixed bug comes back."""
     print("\n58. A sheet survives a model that thinks out loud first (2026-08-10)")
     w = importlib.import_module("writer")
-    mk = importlib.import_module("morning_knock")
     # Any real shape will do here — this case is about the PARSER, and the API
     # path ignores the schema (JSON_MODE already forbids prose there).
     _SCHEMA = w.obj(frame=w.STR)
@@ -5717,14 +5753,14 @@ def s58_a_sheet_survives_a_model_thinking_out_loud(sb: Path):
             ("an object with prose trailing after it",
              f"{sheet}\n\nI dropped one coincidental host.")]:
         try:
-            got = mk.parse_llm_json(text)
+            got = wr.parse_llm_json(text)
         except Exception as e:                                  # noqa: BLE001
             got = {"frame": f"<raised {type(e).__name__}: {e}>"}
         check(f"the sheet is recovered from {name}", got.get("frame") == "roots",
               str(got.get("frame")))
 
     check("a multi-beat sheet keeps every beat, not just the first",
-          len(mk.parse_llm_json(
+          len(wr.parse_llm_json(
               'prose\n{"frame": "f", "beats": [{"ta": "1"}, {"ta": "2"}, {"ta": "3"}]}'
           )["beats"]) == 3)
 
@@ -5733,7 +5769,7 @@ def s58_a_sheet_survives_a_model_thinking_out_loud(sb: Path):
                        ("a refusal with no object", "I cannot do that.")]:
         raised = False
         try:
-            mk.parse_llm_json(text)
+            wr.parse_llm_json(text)
         except (ValueError, json.JSONDecodeError):
             raised = True
         check(f"{name} raises rather than returning a blank sheet", raised)
@@ -5750,8 +5786,15 @@ def s58_a_sheet_survives_a_model_thinking_out_loud(sb: Path):
     # raw-text search matches its own explanation. Same trap s57 hit reading source.
     drill_code = "\n".join(l for i, l in enumerate(drill_src.splitlines(), 1)
                            if i in code_line_numbers(drill_src))
-    check("...and no private brace-slice survives in the drill lane",
-          'find("{")' not in drill_code and 'startswith("```")' not in drill_code,
+    # SCARCITY, NOT ABSENCE (2026-08-23, the spine refactor). This used to assert
+    # the brace-slice appeared NOWHERE in writer.py, which was right while this
+    # module only CALLED the parser. `parse_llm_json` moved here from
+    # morning_knock — L3 owns composing and parsing — so "nowhere" now reads as
+    # "the parser must not exist". The property 07-13 and 08-10 actually violated
+    # was never absence: it was a SECOND implementation growing beside the shared
+    # one. Exactly one is the invariant, and it is the one with teeth.
+    check("...and no private brace-slice survives beside the shared parser",
+          drill_code.count('find("{")') == 1 and drill_code.count('startswith("```")') == 1,
           "a second parser is how 07-13 came back on 08-10")
     # Matched loosely on purpose: the import line also carries the schema helpers
     # since 2026-08-23, and an exact-string check would fail on a tidy-up that
@@ -6877,7 +6920,7 @@ def s66_json_mode_is_actually_sent(mk, kr, sb: Path):
           f"raw max_tokens at {', '.join(raw)} — a call site declares what its "
           f"ARTIFACT needs; REASONING_HEADROOM is the model's, added once")
     check("...and the headroom is big enough for the reasoning that was measured",
-          mk.REASONING_HEADROOM >= 3000, f"got {mk.REASONING_HEADROOM}")
+          wr.REASONING_HEADROOM >= 3000, f"got {wr.REASONING_HEADROOM}")
 
 
 
@@ -7010,7 +7053,7 @@ def s70_the_executor_is_chosen_by_the_host(sb: Path):
     check("OPENROUTER_MODEL is a vendor-qualified slug (the API's shape)",
           "/" in mk.OPENROUTER_MODEL, f"OPENROUTER_MODEL={mk.OPENROUTER_MODEL}")
     check("AGENT_MODEL is a bare slug (the claude CLI's shape)",
-          "/" not in mk.AGENT_MODEL, f"AGENT_MODEL={mk.AGENT_MODEL}")
+          "/" not in wr.AGENT_MODEL, f"AGENT_MODEL={wr.AGENT_MODEL}")
 
     # ── No lane may re-earn its own client. This is the regression that started
     # it: four independent call sites, three of which never chose a host at all.

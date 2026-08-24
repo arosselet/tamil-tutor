@@ -32,6 +32,7 @@ from pathlib import Path
 
 from slips import (append_slips, canon_tag, cmd_slips, parse_slip_args,
                    record_slip_commission, record_slip_test, slip_patterns)
+from publish import commit_and_push
 from state_io import (BASE, DEFAULT_TZ, EPISODES_PATH, FEEDBACK_LOG_PATH,
                       KNOCK_LOG_PATH, LEARNER_PATH, LEXICON_PATH,
                       SESSION_LOG_PATH, SLIP_LOG_PATH, build_phonetic_index,
@@ -1129,9 +1130,6 @@ def cmd_knock_response(args):
     print(f"  Knock {last['date']} marked '{response}'")
 
     if getattr(args, "commit", False):
-        # Lazy: morning_knock -> render_chat -> sync_state, so importing at module
-        # level would be circular.
-        from morning_knock import commit_and_push
         from render_chat import render_chat
         # Replaces the hand-rolled stage/commit/pull/push that lived in the "Log
         # tap" step of anna.yml (2026-08-04). That copy did a bare

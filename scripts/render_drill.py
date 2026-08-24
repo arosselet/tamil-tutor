@@ -32,8 +32,8 @@ from pathlib import Path
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
-from morning_knock import (ANNA_VOICE, load_env, push_to_phone, commit_and_push,
-                           jsdelivr_url)
+from publish import commit_and_push, jsdelivr_url, load_env, push_to_phone
+from render_audio import ANNA_VOICE
 # THE EXECUTOR CHOICE LEFT THIS FILE (2026-08-23). `ask_json` used to live here
 # and open an OpenRouter client unconditionally — on a laptop that has an agent
 # and a paid subscription. `writer.ask_json` is the same contract plus the host
