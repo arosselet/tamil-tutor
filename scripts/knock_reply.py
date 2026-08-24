@@ -45,7 +45,6 @@ from pathlib import Path
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
-from render_chat import render_chat
 from morning_knock import KNOCK_LOG_PATH, maybe_enqueue_schedule, render_memo
 from publish import (KNOCKS_DIR, commit_and_push, jsdelivr_url, load_env,
                      publish, push_to_phone)
@@ -244,20 +243,14 @@ def handle_catch_reply(knock: dict, reply_text: str, klog: list,
     save_json(LEXICON_PATH, lexicon)
     save_json(KNOCK_LOG_PATH, klog)
 
-    meta = bool(verdict["meta_note"])
-    if meta:
-        flog = load_json(FEEDBACK_LOG_PATH) or []
-        flog.append({"date": local_today().isoformat(), "note": f"[phone] {verdict['meta_note']}"})
-        save_json(FEEDBACK_LOG_PATH, flog)
-        print(f"   meta → ledger: {verdict['meta_note']}")
+    meta = record_meta_note(verdict)
 
     print("3. commit + push…")
     # the line only — no meter tail (see catch_meter's grave). `requested`: he
     # replied to a knock, so answering him is not an interruption and the
     # quiet-hours chokepoint must not swallow it (2026-07-26).
     commit_and_push(*publish(
-        [LEXICON_PATH, KNOCK_LOG_PATH, render_chat(),
-         FEEDBACK_LOG_PATH if meta else None],
+        [LEXICON_PATH, KNOCK_LOG_PATH, FEEDBACK_LOG_PATH if meta else None],
         f"Knock reply: {verdict['verdict']} (eavesdrop)"))
     print("4. push back…")
     push_to_phone(verdict["reply_line"], None,
@@ -456,6 +449,24 @@ def said_in_reply(said: str, reply_text: str) -> bool:
     flat_said = flatten_for_match(said)
     return bool(flat_said) and bool(flat_reply) and flat_said in flat_reply
 
+
+def record_meta_note(verdict: dict) -> bool:
+    """Meta-direction from a reply lands in the feedback ledger, which is what the
+    diagnosis pass reads. Returns whether anything was written, so the caller can
+    put the ledger in its commit.
+
+    ONE writer (2026-08-24). This block was byte-identical in both judge lanes of
+    this file — the production reply and the eavesdrop drift reply — which is the
+    same duplication one file down that the spine refactor spent the day pulling
+    out of seven. A note is a note whichever lane heard it."""
+    note = (verdict.get("meta_note") or "").strip()
+    if not note:
+        return False
+    flog = load_json(FEEDBACK_LOG_PATH) or []
+    flog.append({"date": local_today().isoformat(), "note": f"[phone] {note}"})
+    save_json(FEEDBACK_LOG_PATH, flog)
+    print(f"   meta → ledger: {note}")
+    return True
 
 def normalize_verdict(d: dict, reply_text: str = "") -> dict:
     """Guard the judge's JSON into the shape Python relies on. Per-word verdicts
@@ -928,12 +939,7 @@ def main():
             knock["exchanges"][-1].update(spoke="", audio_failed=True)
 
     # Meta-direction lands in the feedback ledger — the diagnosis pass reads it.
-    meta = bool(verdict["meta_note"])
-    if meta:
-        flog = load_json(FEEDBACK_LOG_PATH) or []
-        flog.append({"date": local_today().isoformat(), "note": f"[phone] {verdict['meta_note']}"})
-        save_json(FEEDBACK_LOG_PATH, flog)
-        print(f"   meta → ledger: {verdict['meta_note']}")
+    meta = record_meta_note(verdict)
 
     print("3. commit + push…")
     score = scoreboard(lexicon)
@@ -945,7 +951,7 @@ def main():
     # happens. `knock_id` is the chain's own: a reply to this push-back
     # correlates to the same knock entry.
     commit_and_push(*publish(
-        [LEXICON_PATH, KNOCK_LOG_PATH, render_chat(),
+        [LEXICON_PATH, KNOCK_LOG_PATH,
          LEARNER_PATH if cohort_changed else None,
          SLIP_LOG_PATH if verdict.get("slips") else None,
          FEEDBACK_LOG_PATH if meta else None,

@@ -7534,6 +7534,65 @@ def s73_one_tail_for_the_render_family(sb: Path):
           f"commits={len(commits)} pushes={len(pushes)}")
 
 
+def s74_a_derived_file_follows_its_source(sb: Path):
+    """chat.md is a pure render of knock_log.json (2026-08-24).
+
+    `render_chat` reads the log and nothing else, so a commit that carries the log
+    without a fresh render publishes a page that is already stale — and it stays
+    stale until some later lane happens to rebuild it. That is precisely what the
+    old "Log tap" step did: a tap's "👍 acked" sat unrendered for hours
+    (2026-08-04).
+
+    Five lanes obeyed the rule by hand, each calling render_chat() while building
+    its own commit list: morning_knock's fire AND its silence tick, both
+    knock_reply judges, the queue drain, and sync_state's knock-response. Five
+    copies of one rule is the shape this refactor exists to retire, and it is a
+    rule with no natural home in any of them.
+
+    THE SILENT NO-OP: a stale chat.md raises nothing. The commit succeeds, the
+    push succeeds, every instrument reads green, and the only symptom is that the
+    page Andrew opens on his phone is missing the exchange he just had. So the
+    teeth are on the CONTENT, not on the path list — appending the path without
+    rebuilding the file would satisfy a membership check and still ship the stale
+    page.
+    """
+    print("\n74. A derived file follows its source (2026-08-24)")
+    klog_path = sb / "progress" / "knock_log.json"
+    chat_path = sb / "progress" / "chat.md"
+    pb.refresh_feed = lambda: None          # the feed has its own cases (s31)
+
+    marker = "ஸ்மோக்டெரைவ்டு"
+    write_json(klog_path, [{"acted": True, "date": "2026-08-24",
+                            "timestamp": "2026-08-24T09:00:00+00:00",
+                            "body": marker, "modality": "text", "move": "smoke"}])
+    chat_path.write_text("STALE — written before that log entry existed\n",
+                         encoding="utf-8")
+
+    paths, _ = pb.publish([klog_path], "smoke", feed=False)
+    names = [Path(q).name for q in paths]
+    check("a commit carrying the knock log also carries chat.md",
+          "chat.md" in names, f"got {names}")
+    check("...and the page was RE-RENDERED, not merely listed",
+          marker in chat_path.read_text(encoding="utf-8"),
+          "chat.md rode the commit while still holding the stale text")
+
+    # It must not fire on a commit that has nothing to do with the log — the feed
+    # rebuild is already conditional and this must be too, or every soak render
+    # rewrites a page it did not touch.
+    lex_only, _ = pb.publish([sb / "progress" / "lexicon.json"], "smoke", feed=False)
+    check("a commit without the log does NOT drag chat.md in",
+          "chat.md" not in [Path(q).name for q in lex_only],
+          f"got {[Path(q).name for q in lex_only]}")
+
+    # And a lane that still passes it explicitly must not get it twice — a
+    # duplicate path is a `git add` of the same file, harmless but a sign the
+    # rule has two owners again.
+    twice, _ = pb.publish([klog_path, chat_path], "smoke", feed=False)
+    check("...and a lane passing it explicitly does not get it twice",
+          [Path(q).name for q in twice].count("chat.md") == 1,
+          f"got {[Path(q).name for q in twice]}")
+
+
 # ── The one boundary that is not credential-gated ───────────────────────────
 # Every other outside-world call in this system needs a secret the test
 # environment does not have, so an un-stubbed one dies with a KeyError and the
@@ -7708,6 +7767,7 @@ def main():
         run(s70_the_executor_is_chosen_by_the_host, sb)
         run(s72_a_stub_never_outlives_its_case, mk, kr)
         run(s73_one_tail_for_the_render_family, sb)
+        run(s74_a_derived_file_follows_its_source, sb)
 
     if ONLY and not RAN:
         sys.exit(f"no case matched {ONLY} — name a case (s41) or a prefix (s41_slip)")

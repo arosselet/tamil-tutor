@@ -44,7 +44,6 @@ BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from render_audio import (generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME,
                           clean_memo_for_tts, ANNA_VOICE, EAVESDROP_VOICE)
-from render_chat import render_chat
 from publish import (BODY_BUDGET, KNOCKS_DIR, WAKING_END_HOUR, WAKING_START_HOUR,
                      commit_and_push, jsdelivr_url, load_env, over_budget,
                      publish, push_to_phone)
@@ -668,11 +667,14 @@ def main():
         if args.dry_run:
             print("[dry-run] would log the silence + next_check; stopping.")
             return
-        paths = [log_decision(now, decision, acted=False), render_chat()]
-        qp = maybe_enqueue_schedule(decision)
-        if qp:
-            paths.append(qp)
-        commit_and_push(paths, f"Anna: silence ({decision.get('rationale','')[:50]})")
+        # The silence tick writes a log entry and reaches nobody, so: no audio,
+        # no feed rebuild, no push. chat.md still follows the log — `publish`
+        # owns that now, and a silence is exactly the tick most likely to be
+        # forgotten by a hand-built list.
+        commit_and_push(*publish(
+            [log_decision(now, decision, acted=False),
+             maybe_enqueue_schedule(decision)],
+            f"Anna: silence ({decision.get('rationale','')[:50]})"))
         print("done — silence logged, next_check set.")
         return
 
@@ -707,7 +709,7 @@ def main():
     exposed = record_exposure(knock_exposures(decision))
     print("4. commit + push…")
     commit_and_push(*publish(
-        [path, render_chat(), LEXICON_PATH if exposed else None,
+        [path, LEXICON_PATH if exposed else None,
          maybe_enqueue_schedule(decision)],
         f"Anna reach ({decision['modality']}/{decision.get('move')})", mp3=mp3))
     print("5. notify…")

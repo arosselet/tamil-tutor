@@ -32,7 +32,7 @@ from pathlib import Path
 
 from slips import (append_slips, canon_tag, cmd_slips, parse_slip_args,
                    record_slip_commission, record_slip_test, slip_patterns)
-from publish import commit_and_push
+from publish import commit_and_push, publish
 from suggest_targets import reconcile_focus
 from state_io import (BASE, DEFAULT_TZ, EPISODES_PATH, FEEDBACK_LOG_PATH,
                       canon_payload,
@@ -1035,15 +1035,18 @@ def cmd_knock_response(args):
     print(f"  Knock {last['date']} marked '{response}'")
 
     if getattr(args, "commit", False):
-        from render_chat import render_chat
         # Replaces the hand-rolled stage/commit/pull/push that lived in the "Log
         # tap" step of anna.yml (2026-08-04). That copy did a bare
         # `git pull --rebase` with NO union resolution and no derived re-render —
         # the same race the reply lane had a net for, in the one lane that had
         # none. It also never re-rendered chat.md, so a tap's "👍 acked" sat
         # unrendered until some later knock happened to rebuild the file.
-        paths = [KNOCK_LOG_PATH, EPISODES_PATH, LEARNER_PATH, LEXICON_PATH, render_chat()]
-        commit_and_push([p for p in paths if p.exists()], f"Knock response: {response}")
+        # Routed through `publish` so the derived-file rule has ONE owner: this
+        # lane used to call render_chat() itself, which is the copy the comment
+        # above is about. No audio here, so no feed rebuild.
+        paths = [KNOCK_LOG_PATH, EPISODES_PATH, LEARNER_PATH, LEXICON_PATH]
+        commit_and_push(*publish([p for p in paths if p.exists()],
+                                 f"Knock response: {response}", feed=False))
 
 
 def cmd_feedback(args):

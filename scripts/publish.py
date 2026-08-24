@@ -33,7 +33,7 @@ from pathlib import Path
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from render_chat import render_chat
-from state_io import LOCAL_TZ
+from state_io import KNOCK_LOG_PATH, LOCAL_TZ
 
 
 REPO = "arosselet/tamil-tutor"          # for the jsDelivr URL
@@ -354,4 +354,20 @@ def publish(state_paths: list, message: str, *, mp3=None,
         rss = refresh_feed()
         if rss:
             paths.append(rss)
+    # A DERIVED FILE FOLLOWS ITS SOURCE (2026-08-24). `chat.md` holds no state of
+    # its own — `render_chat` builds it from `knock_log.json` and reads nothing
+    # else — so a commit carrying the log without a fresh render publishes a page
+    # that is already stale, and it stays stale until some later lane happens to
+    # rebuild it. That is exactly what the "Log tap" step did before 2026-08-04:
+    # a tap's "👍 acked" sat unrendered for hours.
+    #
+    # Four lanes obeyed this by hand — morning_knock, both knock_reply lanes, the
+    # queue drain, and sync_state's knock-response — each calling render_chat()
+    # while building its own list. Four copies of one rule is the shape this
+    # refactor exists to retire, and `DERIVED` above already names the same
+    # relationship for the rebase net. One owner now, and a lane that writes the
+    # log cannot forget the page.
+    if any(Path(q).name == KNOCK_LOG_PATH.name for q in paths) \
+            and not any(Path(q).name == "chat.md" for q in paths):
+        paths.append(render_chat())
     return paths, message

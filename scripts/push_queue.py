@@ -47,7 +47,6 @@ from pathlib import Path
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
-from render_chat import render_chat
 from morning_knock import (KNOCK_LOG_PATH, LOCAL_TZ, MAX_REACHES_PER_DAY,
                            load_json, render_memo,
                            fires_today as reaches_today)
@@ -294,8 +293,7 @@ def cmd_drain(args):
         # publish.publish; this lane was the one that got it wrong, because its
         # legitimate two-commit split swept the rebuild along with the mp3.
         commit_and_push(*publish(
-            [QUEUE_PATH, KNOCK_LOG_PATH, render_chat(),
-             LEXICON_PATH if exposed else None],
+            [QUEUE_PATH, KNOCK_LOG_PATH, LEXICON_PATH if exposed else None],
             f"Scheduled push fired ({', '.join(e['id'] for e in fired)})", feed=True))
     print(f"done — fired {len(fired)}, {len(kept)} still queued.")
 
