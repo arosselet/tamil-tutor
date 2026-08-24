@@ -5148,5 +5148,17 @@
     "chained": 3,
     "pinned_target": "எவ்வளவு",
     "pinned_revealed": false
+  },
+  {
+    "date": "2026-08-24",
+    "timestamp": "2026-08-24T03:48:30.543297+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "trailer: -om verb switch",
+    "rationale": "Morning anchor trailer teeing up the -om/-en contrast for his lunch session; resets the demand streak.",
+    "next_check": "2026-08-24T07:18:30.543297+00:00",
+    "body": "One letter flips 'naan ponen' (I went) into the whole family. That one-letter switch today at lunch. 🍛",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]

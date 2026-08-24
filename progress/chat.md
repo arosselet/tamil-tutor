@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Monday 2026-08-24
+
+**09:18 · Anna**  ·  text / trailer: -om verb switch
+> One letter flips 'naan ponen' (I went) into the whole family. That one-letter switch today at lunch. 🍛
+
+
 ## Sunday 2026-08-23
 
 **09:14 · Anna** 🎧  ·  audio / trailer payoff: eduthukka mission
