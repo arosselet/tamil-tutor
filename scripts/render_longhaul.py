@@ -56,14 +56,13 @@ import json
 import os
 import shutil
 import sys
-import subprocess
 import tempfile
 from datetime import datetime
 from pathlib import Path
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
-from publish import commit_and_push, jsdelivr_url, load_env, push_to_phone
+from publish import commit_and_push, jsdelivr_url, load_env, publish, push_to_phone
 from render_audio import (ANNA_VOICE, EAVESDROP_VOICE,
                           generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME,
                           clean_for_tts, google_credentials_ready, EXIT_NOT_CONFIGURED,
@@ -605,12 +604,14 @@ def main():
     print(f"   {len(delivered)}/{len(pool)} pool items audible on the tape")
     exposed = record_exposure(delivered)
     stamped = mark_soak_delivered("longhaul") if (focus or payload) else False
-    subprocess.run([sys.executable, str(BASE / "scripts" / "rebuild_rss.py")],
-                   cwd=BASE, check=True)
-    commit_and_push([mp3, script, BASE / "rss.xml"]
-                    + ([LEXICON_PATH] if exposed else [])
-                    + ([BASE / "progress" / "learner.json"] if stamped else []),
-                    f"Long-haul tape: {args.spine} ({measured:.0f} min)")
+    # The tail has ONE owner (2026-08-23). This was the second of two lanes that
+    # shelled out to rebuild_rss.py with check=True — the only feed rebuild in the
+    # system where a hiccup killed a render whose mp3 was already made, and on a
+    # lane whose tape costs fifteen sequential model calls to produce.
+    commit_and_push(*publish(
+        [script, LEXICON_PATH if exposed else None,
+         (BASE / "progress" / "learner.json") if stamped else None],
+        f"Long-haul tape: {args.spine} ({measured:.0f} min)", mp3=mp3))
     print("4. notify…")
     pushed = push_to_phone(
         f"long-haul tape's up — {measured:.0f} min, {args.spine}. press once 🎧",

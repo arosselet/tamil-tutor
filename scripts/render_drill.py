@@ -23,7 +23,6 @@ import argparse
 import asyncio
 import json
 import os
-import subprocess
 import sys
 import tempfile
 from datetime import datetime
@@ -32,7 +31,7 @@ from pathlib import Path
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
-from publish import commit_and_push, jsdelivr_url, load_env, push_to_phone
+from publish import commit_and_push, jsdelivr_url, load_env, publish, push_to_phone
 from render_audio import ANNA_VOICE
 # THE EXECUTOR CHOICE LEFT THIS FILE (2026-08-23). `ask_json` used to live here
 # and open an OpenRouter client unconditionally — on a laptop that has an agent
@@ -323,14 +322,15 @@ def main():
     # The order this run consumed is spent — declare it, or the session-open drain
     # sees an unfilled order and dispatches an EPISODE for a repair already drilled.
     stamped = mark_soak_delivered("drill") if (focus or lead) else False
-    subprocess.run([sys.executable, str(BASE / "scripts" / "rebuild_rss.py")], cwd=BASE, check=True)
-    commit_and_push([mp3, BASE / "rss.xml"] + ([LEXICON_PATH] if exposed else [])
-                    + ([BASE / "progress" / "learner.json"] if stamped else []),
-                    f"Drill track: {sheet.get('title', mp3.stem)}")
-    # This lane had NO quiet-hours check at all and pushed a drill at 23:42
-    # (2026-07-26). The guard lives in push_to_phone now, so every lane —
-    # including ones not written yet — inherits it.
+    # The tail has ONE owner (2026-08-23) — feed, then commit, then push, written
+    # down once. This lane had NO quiet-hours check at all and pushed a drill at
+    # 23:42 (2026-07-26); the guard lives in push_to_phone, so every lane —
+    # including ones not written yet — inherits it along with the ordering.
     print("4. notify…")
+    commit_and_push(*publish(
+        [LEXICON_PATH if exposed else None,
+         (BASE / "progress" / "learner.json") if stamped else None],
+        f"Drill track: {sheet.get('title', mp3.stem)}", mp3=mp3))
     pushed = push_to_phone(f"drill's up — {len(sheet['items'])} out loud, gaps are yours 🎧",
                            jsdelivr_url(mp3))
     print(f"done — drill on the feed{' and the lock screen' if pushed else ''}.")

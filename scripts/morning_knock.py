@@ -47,7 +47,7 @@ from render_audio import (generate_segment_google, get_raw_mp3_frames, SILENCE_F
 from render_chat import render_chat
 from publish import (BODY_BUDGET, KNOCKS_DIR, WAKING_END_HOUR, WAKING_START_HOUR,
                      commit_and_push, jsdelivr_url, load_env, over_budget,
-                     push_to_phone, refresh_feed)
+                     publish, push_to_phone)
 from writer import BOOL, INT, STR, ask_json, executor_name, obj, to_phonetic
 
 KNOCK_LOG_PATH = BASE / "progress" / "knock_log.json"
@@ -699,22 +699,17 @@ def main():
         print(f"[dry-run] would push ({decision['modality']}) + log; stopping.", mp3 or "")
         return
 
+    # LOG and EXPOSURE are this lane's — only it knows what it wrote and what went
+    # out the door. Everything after them is the shared tail, and the lane stops
+    # spelling it out: `publish` owns feed -> commit -> push (2026-08-23).
     path = log_decision(now, decision, acted=True, audio_url=audio_url, mp3=mp3)
     from sync_state import record_exposure
-    extra_paths: list[Path] = []
-    if record_exposure(knock_exposures(decision)):
-        extra_paths.append(LEXICON_PATH)
-    commit_paths = [path, render_chat()] if mp3 is None else [mp3, path, render_chat()]
-    commit_paths.extend(extra_paths)
-    if mp3 is not None:
-        rss = refresh_feed()
-        if rss:
-            commit_paths.append(rss)
-    qp = maybe_enqueue_schedule(decision)
-    if qp:
-        commit_paths.append(qp)
+    exposed = record_exposure(knock_exposures(decision))
     print("4. commit + push…")
-    commit_and_push(commit_paths, f"Anna reach ({decision['modality']}/{decision.get('move')})")
+    commit_and_push(*publish(
+        [path, render_chat(), LEXICON_PATH if exposed else None,
+         maybe_enqueue_schedule(decision)],
+        f"Anna reach ({decision['modality']}/{decision.get('move')})", mp3=mp3))
     print("5. notify…")
     push_to_phone(body, audio_url, knock_id=now.isoformat())
     print("\ndone — reached out & logged.")

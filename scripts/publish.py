@@ -291,3 +291,67 @@ def push_to_phone(body: str, audio_url: str | None, knock_id: str = "",
             wait = 5 * (attempt + 1)
             print(f"   ⚠ push attempt {attempt + 1} failed ({e}) — retrying in {wait}s")
             time.sleep(wait)
+
+
+# ── THE TAIL: one owner for the ordering ────────────────────────────────────
+
+def publish(state_paths: list, message: str, *, mp3=None,
+            feed: bool | None = None) -> tuple[list, str]:
+    """Assemble the commit for a finished dose: rebuild the feed if this run made
+    audio, drop the falsy entries a lane's conditionals leave behind, and return
+    `(paths, message)` in the ONE order that is correct.
+
+    The lane logs and records exposure first — only it knows what it wrote and
+    what went out the door — then hands the result here and passes the answer
+    straight to `commit_and_push`, then pushes. Two lines, no ordering decisions.
+
+    WHAT THIS REPLACES: twenty-six hand-built `commit_paths` lists, each one an
+    opportunity to get the order wrong and each one having to remember the same
+    invariants. The ledger has already had to defend two of them:
+
+      FEED AFTER THE LOG, never before. `rebuild_rss` titles each pushed dose
+      from `knock_log.json`, so rebuilding while the entry does not yet exist
+      publishes a label-less title — and Apple Podcasts treats a published title
+      as part of an item's identity. The 2026-07-24 8pm dose forked into TWO
+      episodes on one stable guid. The knock and reply lanes ordered it right;
+      the drain did not, because its legitimate two-commit split swept the
+      rebuild along with the mp3.
+
+      THE MP3 GOES ON MAIN BEFORE THE NOTIFICATION. `push_to_phone` pre-warms the
+      jsDelivr URL and jsDelivr can only serve a path already on `main`, so the
+      audio is inserted at the FRONT of the commit rather than appended, and the
+      lane's push comes after the commit this returns.
+
+    It also retires the two lanes that shelled out to `rebuild_rss.py` directly
+    with `check=True` — a third way of rebuilding the feed, and the only one
+    where a feed hiccup killed a render whose mp3 had already been made.
+    `refresh_feed` warns and continues: feed polish must never cost a dose.
+
+    WHY THE COMMIT AND THE PUSH STAY AT THE LANE (hazard H1, and it is a choice,
+    not an oversight): both are reached as `from publish import commit_and_push`,
+    so the names are bound on the LANE's module object, which is where the smoke
+    suite's sixty stubs intercept. Pull either call inside this function and all
+    sixty silently stop intercepting — a test would hit real git and Andrew's
+    real phone — and sixty per-lane stubs would collapse onto one shared address
+    in a suite whose stubs have no teardown. That instrument is what makes this
+    refactor provably behaviour-preserving; it does not get disarmed to make a
+    signature tidier. Reshaping it is Q2's job, and the seam moves after, never
+    before.
+
+    `feed` defaults to "this run produced audio", which is what `mp3` means.
+    push_queue passes `feed=True` with `mp3=None` on purpose: its mp3s went out
+    in an earlier commit to preserve the drain's retry property (a push that
+    fails leaves the entry queued), but the rebuild still belongs here, after the
+    knock-log write. That split is a property of a BATCH lane and stays with it;
+    the ordering it used to carry alongside does not.
+    """
+    if feed is None:
+        feed = mp3 is not None
+    paths = [q for q in state_paths if q]
+    if mp3 is not None:
+        paths.insert(0, mp3)
+    if feed:
+        rss = refresh_feed()
+        if rss:
+            paths.append(rss)
+    return paths, message

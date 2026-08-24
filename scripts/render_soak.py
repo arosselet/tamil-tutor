@@ -32,7 +32,6 @@ import asyncio
 import json
 import os
 import shutil
-import subprocess
 import sys
 import tempfile
 from datetime import date, datetime, timedelta
@@ -41,7 +40,7 @@ from pathlib import Path
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
-from publish import commit_and_push, jsdelivr_url, load_env, push_to_phone
+from publish import commit_and_push, jsdelivr_url, load_env, publish, push_to_phone
 from render_audio import ANNA_VOICE
 # THE FOURTH COPY, retired 2026-08-23 — and the first one that was about MONEY
 # rather than parsing. This lane built its own OpenRouter client and called it on
@@ -330,13 +329,16 @@ def main():
     # The order this run consumed is now spent — declare it, so the session-open
     # drain doesn't dispatch a second identical loop (see mark_soak_delivered).
     stamped = mark_soak_delivered("soak") if (focus or payload) else False
-    subprocess.run([sys.executable, str(BASE / "scripts" / "rebuild_rss.py")], cwd=BASE, check=True)
-    commit_and_push([mp3, BASE / "rss.xml"] + ([LEXICON_PATH] if exposed else [])
-                    + ([BASE / "progress" / "learner.json"] if stamped else []),
-                    f"Soak loop: {sheet.get('title', mp3.stem)}")
-    # Quiet hours are enforced inside push_to_phone now — this lane's own copy of
-    # the hour compare was one of four, and render_drill had none (2026-07-26).
+    # The tail has ONE owner (2026-08-23). This lane used to shell out to
+    # rebuild_rss.py with check=True — a third way of rebuilding the feed, and the
+    # only one where a feed hiccup killed a render whose mp3 was already made.
+    # Quiet hours are enforced inside push_to_phone; this lane's own copy of the
+    # hour compare was one of four, and render_drill had none (2026-07-26).
     print("4. notify…")
+    commit_and_push(*publish(
+        [LEXICON_PATH if exposed else None,
+         (BASE / "progress" / "learner.json") if stamped else None],
+        f"Soak loop: {sheet.get('title', mp3.stem)}", mp3=mp3))
     pushed = push_to_phone(f"soak loop's up — {n} sounds, nothing to do but listen 🎧",
                            jsdelivr_url(mp3))
     print(f"done — soak loop on the feed{' and the lock screen' if pushed else ''}.")

@@ -2469,7 +2469,7 @@ def s29_one_runner_every_capability(mk, pq, kr, sb: Path):
     prog = sb / "progress"
     klog_path, q_path = prog / "knock_log.json", prog / "push_queue.json"
     events, saved = [], (pb.WAKING_START_HOUR, pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY)
-    real_push, real_commit, real_feed = pq.push_to_phone, pq.commit_and_push, pq.refresh_feed
+    real_push, real_commit, real_feed = pq.push_to_phone, pq.commit_and_push, pb.refresh_feed
     pq.push_to_phone = lambda body, url=None, knock_id="", requested=False: (
         events.append(("push", url)))
     pq.commit_and_push = lambda paths, msg: events.append(
@@ -2488,7 +2488,7 @@ def s29_one_runner_every_capability(mk, pq, kr, sb: Path):
         events.append(("feed", any(e.get("queue_id") == "qVOICE" for e in entries)))
         return rss_stub
 
-    pq.refresh_feed = fake_feed
+    pb.refresh_feed = fake_feed
     pq.render_memo = fake_render
     try:
         pb.WAKING_START_HOUR, pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = 0, 24, 99
@@ -2516,7 +2516,7 @@ def s29_one_runner_every_capability(mk, pq, kr, sb: Path):
         check("the queue is emptied once fired", read_json(q_path) == [])
     finally:
         pb.WAKING_START_HOUR, pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = saved
-        pq.push_to_phone, pq.commit_and_push, pq.refresh_feed = real_push, real_commit, real_feed
+        pq.push_to_phone, pq.commit_and_push, pb.refresh_feed = real_push, real_commit, real_feed
         pq.render_memo = real_render
 
 
@@ -3719,8 +3719,13 @@ def s41_slip_ledger(kr, sb: Path):
     src = (REAL_BASE / "scripts" / "session_brief.py").read_text(encoding="utf-8")
     check("the session digest shows what Anna CORRECTED on the phone",
           "corrected: " in src)
+    # The string this used to grep for — `commit_paths.append(SLIP_LOG_PATH)` —
+    # was one of the twenty-six hand-built commit lists that publish.publish
+    # retired (2026-08-23). The PROPERTY is untouched and is what is asserted:
+    # the reply lane names the slip ledger among the paths it hands to the
+    # commit, conditioned on the verdict actually carrying slips.
     check("the knock reply commits the ledger — an unpushed slip dies with the runner",
-          "commit_paths.append(SLIP_LOG_PATH)" in
+          'SLIP_LOG_PATH if verdict.get("slips")' in
           (REAL_BASE / "scripts" / "knock_reply.py").read_text(encoding="utf-8"))
 
     # The ticket hangs the slip off the item it belongs to, so a selected word
@@ -5074,9 +5079,14 @@ def s57_longhaul_tape(sb: Path):
         check("...and the closing lap, which is a third of the audio",
               "closing lap" in body and all(l in body for l in spoken))
         # The script rides the SAME commit as the mp3, or the pair drifts apart.
+        # The literal this used to grep for was `commit_and_push([mp3, script` —
+        # one of the twenty-six hand-built commit lists that publish.publish
+        # retired (2026-08-23). The property is untouched: the script is among the
+        # paths handed over and the mp3 rides the same call, so they land in ONE
+        # commit, with the mp3 at the front where the CDN pre-warm needs it.
         pub = inspect.getsource(rl.main)
         check("the script is committed with the tape, not left behind",
-              "commit_and_push([mp3, script" in pub)
+              "[script," in pub and "mp3=mp3))" in pub)
 
         # ── THE DELIVERY SEAM, at the level each item actually exists at. The
         # machines tape taught 26 frames and stamped 0 (2026-08-10): a frame is a
@@ -5571,7 +5581,7 @@ def s49_thread_continuity(mk, kr, sb: Path):
 
         # --- the write: a voice reply must leave a trace on its own exchange ---
         kr.push_to_phone, kr.commit_and_push = Recorder(), Recorder()
-        kr.refresh_feed = lambda: None
+        pb.refresh_feed = lambda: None
         real_render = kr.render_memo
 
         async def fake_render(script, out_path, voice):
@@ -5700,7 +5710,7 @@ def s50_read_surfaces_are_phonetic(mk, kr, sb: Path):
         out_path.parent.mkdir(parents=True, exist_ok=True)
         out_path.write_bytes(b"ID3fake")
     real_render, mk.render_memo = mk.render_memo, fake_render
-    mk.refresh_feed = lambda: None
+    pb.refresh_feed = lambda: None
     try:
         sys.argv = ["morning_knock.py"]
         mk.main()

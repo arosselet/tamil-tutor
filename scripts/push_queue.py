@@ -52,7 +52,7 @@ from morning_knock import (KNOCK_LOG_PATH, LOCAL_TZ, MAX_REACHES_PER_DAY,
                            load_json, render_memo,
                            fires_today as reaches_today)
 from publish import (KNOCKS_DIR, commit_and_push, in_waking_window, jsdelivr_url,
-                     load_env, push_to_phone, refresh_feed)
+                     load_env, publish, push_to_phone)
 from render_audio import ANNA_VOICE
 
 QUEUE_PATH = BASE / "progress" / "push_queue.json"
@@ -287,20 +287,16 @@ def cmd_drain(args):
     exposed = record_exposure([e["expected_target"] for e in fired
                                if e.get("expected_target") and e.get("target_revealed", True)])
     if not args.no_commit:
-        # Feed AFTER the log, never before. rebuild_rss titles each pushed dose
-        # from knock_log.json, so rebuilding up in the mp3 commit — where the
-        # entry does not exist yet — publishes a label-less title, and the next
-        # lane to rebuild silently retitles an item Andrew's client already has.
-        # Apple Podcasts treats a published item's title as part of its identity:
-        # the 2026-07-24 8pm dose forked into TWO episodes on a stable guid, one
-        # "Scheduled — 2026-07-24 23:56", one "… · welcome james".
-        # morning_knock and knock_reply already order it log→feed→commit; the
-        # drain was the only lane that didn't, because its legitimate two-commit
-        # split (CDN pre-warm, above) swept the rebuild along with the mp3.
-        rss = refresh_feed()
-        commit_and_push([QUEUE_PATH, KNOCK_LOG_PATH, render_chat()]
-                        + ([LEXICON_PATH] if exposed else []) + ([rss] if rss else []),
-                        f"Scheduled push fired ({', '.join(e['id'] for e in fired)})")
+        # `feed=True` with no mp3, and that pairing is the whole point: the mp3s
+        # went out in their own commit above (the CDN pre-warm split, which is
+        # what preserves this lane's retry property), but the REBUILD belongs
+        # here, after the knock-log write. The rule and its incident now live in
+        # publish.publish; this lane was the one that got it wrong, because its
+        # legitimate two-commit split swept the rebuild along with the mp3.
+        commit_and_push(*publish(
+            [QUEUE_PATH, KNOCK_LOG_PATH, render_chat(),
+             LEXICON_PATH if exposed else None],
+            f"Scheduled push fired ({', '.join(e['id'] for e in fired)})", feed=True))
     print(f"done — fired {len(fired)}, {len(kept)} still queued.")
 
 

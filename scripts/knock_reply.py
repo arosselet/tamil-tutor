@@ -48,7 +48,7 @@ sys.path.insert(0, str(BASE / "scripts"))
 from render_chat import render_chat
 from morning_knock import KNOCK_LOG_PATH, maybe_enqueue_schedule, render_memo
 from publish import (KNOCKS_DIR, commit_and_push, jsdelivr_url, load_env,
-                     push_to_phone, refresh_feed)
+                     publish, push_to_phone)
 from render_audio import ANNA_VOICE
 from writer import BOOL, STR, arr, ask_json, executor_name, obj, to_phonetic
 
@@ -485,21 +485,24 @@ def handle_catch_reply(knock: dict, reply_text: str, klog: list,
     save_json(LEXICON_PATH, lexicon)
     save_json(KNOCK_LOG_PATH, klog)
 
-    print("3. commit + push…")
-    commit_paths = [LEXICON_PATH, KNOCK_LOG_PATH, render_chat()]
-    if verdict["meta_note"]:
+    meta = bool(verdict["meta_note"])
+    if meta:
         flog = load_json(FEEDBACK_LOG_PATH) or []
         flog.append({"date": local_today().isoformat(), "note": f"[phone] {verdict['meta_note']}"})
         save_json(FEEDBACK_LOG_PATH, flog)
-        commit_paths.append(FEEDBACK_LOG_PATH)
         print(f"   meta → ledger: {verdict['meta_note']}")
-    commit_and_push(commit_paths, f"Knock reply: {verdict['verdict']} (eavesdrop)")
 
+    print("3. commit + push…")
+    # the line only — no meter tail (see catch_meter's grave). `requested`: he
+    # replied to a knock, so answering him is not an interruption and the
+    # quiet-hours chokepoint must not swallow it (2026-07-26).
+    commit_and_push(*publish(
+        [LEXICON_PATH, KNOCK_LOG_PATH, render_chat(),
+         FEEDBACK_LOG_PATH if meta else None],
+        f"Knock reply: {verdict['verdict']} (eavesdrop)"))
     print("4. push back…")
-    body = verdict["reply_line"]  # the line only — no meter tail (see catch_meter's grave)
-    # requested: he replied to a knock — answering him is not an interruption,
-    # so the quiet-hours chokepoint must not swallow it (2026-07-26).
-    push_to_phone(body, None, knock_id=knock.get("timestamp", ""), requested=True)
+    push_to_phone(verdict["reply_line"], None,
+                  knock_id=knock.get("timestamp", ""), requested=True)
     print("done — drift judged, catch axis scored, answered.")
 
 
@@ -1175,38 +1178,32 @@ def main():
         else:
             knock["exchanges"][-1].update(spoke="", audio_failed=True)
 
-    print("3. commit + push…")
-    commit_paths = [LEXICON_PATH, KNOCK_LOG_PATH, render_chat()]
-    if cohort_changed:
-        commit_paths.append(LEARNER_PATH)
-    # The ledger is written on the runner; unpushed it dies with the container,
-    # and the accumulation this whole mechanism exists for never happens.
-    if verdict.get("slips"):
-        commit_paths.append(SLIP_LOG_PATH)
-    if voice_url:
-        commit_paths.insert(0, vmp3)
-        rss = refresh_feed()   # all audio lands on the feed (2026-07-05)
-        if rss:
-            commit_paths.append(rss)
     # Meta-direction lands in the feedback ledger — the diagnosis pass reads it.
-    if verdict["meta_note"]:
+    meta = bool(verdict["meta_note"])
+    if meta:
         flog = load_json(FEEDBACK_LOG_PATH) or []
         flog.append({"date": local_today().isoformat(), "note": f"[phone] {verdict['meta_note']}"})
         save_json(FEEDBACK_LOG_PATH, flog)
-        commit_paths.append(FEEDBACK_LOG_PATH)
         print(f"   meta → ledger: {verdict['meta_note']}")
-    qp = maybe_enqueue_schedule(verdict)
-    if qp:
-        commit_paths.append(qp)
-    commit_and_push(commit_paths,
-                    f"Knock reply: {verdict['verdict']} ({', '.join(fired_words) or 'no fire'})")
 
-    print("4. push back…")
+    print("3. commit + push…")
     score = scoreboard(lexicon)
     body = " · ".join(p for p in (knock["reply_line"], score) if p)
     if len(body) > 240:
         print(f"   ⚠ push-back is {len(body)} chars — the lock screen will cut the tail (chained ask at risk)")
-    # the chain's own id: a reply to this push-back correlates to the same knock entry
+    # The slip ledger is written on the runner; unpushed it dies with the
+    # container and the accumulation this whole mechanism exists for never
+    # happens. `knock_id` is the chain's own: a reply to this push-back
+    # correlates to the same knock entry.
+    commit_and_push(*publish(
+        [LEXICON_PATH, KNOCK_LOG_PATH, render_chat(),
+         LEARNER_PATH if cohort_changed else None,
+         SLIP_LOG_PATH if verdict.get("slips") else None,
+         FEEDBACK_LOG_PATH if meta else None,
+         maybe_enqueue_schedule(verdict)],
+        f"Knock reply: {verdict['verdict']} ({', '.join(fired_words) or 'no fire'})",
+        mp3=vmp3 if voice_url else None))
+    print("4. push back…")
     push_to_phone(body, voice_url, knock_id=knock.get("timestamp", ""), requested=True)
     print(f"done — reply judged, scored, answered{' (aloud 🎧)' if voice_url else ''}.")
 
