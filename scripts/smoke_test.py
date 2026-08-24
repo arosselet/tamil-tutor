@@ -7333,11 +7333,18 @@ def s70_the_executor_is_chosen_by_the_host(sb: Path):
 
     # ── No lane may re-earn its own client. This is the regression that started
     # it: four independent call sites, three of which never chose a host at all.
-    # The cloud lanes and the studio's prose writer are the legitimate builders.
     # smoke_test.py builds stub clients by the dozen — that is its job, and it is
     # already CODE_BUDGET_EXEMPT for the same reason.
-    may_build = {"writer.py", "morning_knock.py", "knock_reply.py", "run_studio.py",
-                 "smoke_test.py"}
+    #
+    # TIGHTENED 2026-08-24. This list was written before Step 4 and still named
+    # `morning_knock` and `knock_reply`, which stopped building clients IN that
+    # step — so the two daily-driver lanes were free to regrow the exact defect
+    # this case exists to catch, and it would have read green. An allowlist that
+    # outlives what it allowed is not a guard. `run_studio` stays and is the only
+    # one: its cloud pass wants PROSE, and `writer` offers `ask_json`/`ask_text`
+    # over a chat-completions shape it does not use — but its HOST choice is
+    # `writer.have_agent()` now, which is the part that was duplicated.
+    may_build = {"writer.py", "run_studio.py", "smoke_test.py"}
     offenders = sorted(f.name for f in (sb / "scripts").glob("*.py")
                        if f.name not in may_build
                        and "OpenAI(" in f.read_text(encoding="utf-8"))
@@ -7348,6 +7355,30 @@ def s70_the_executor_is_chosen_by_the_host(sb: Path):
         src = (sb / "scripts" / name).read_text(encoding="utf-8")
         check(f"{name} takes its executor from writer",
               "from writer import" in src, "imports ask_json from somewhere else")
+
+    # ── THE PORT SURFACE IS ONE LINE, OR IT IS NOT A PORT SURFACE (2026-08-24).
+    # `state_io` carries the comment "a fork to another language replaces this
+    # regex" and, until today, three other files carried the same character range
+    # anyway: an exact duplicate in `run_studio`, an inline `re.findall` twelve
+    # lines below it, and `writer.TAMIL_RUN`. A forked repo would have changed the
+    # labelled one, passed every test, and kept matching Tamil in three places.
+    #
+    # The needle is READ OFF `state_io` rather than written here, so this case
+    # cannot itself become the fifth copy, and mechanism-only so the paragraph
+    # above may quote what it forbids.
+    needle = si.TAMIL_RE.pattern
+    copies = []
+    for f in sorted((sb / "scripts").glob("*.py")):
+        if f.name == "state_io.py":
+            continue
+        fsrc = f.read_text(encoding="utf-8")
+        mech = code_line_numbers(fsrc)   # once per FILE — it re-parses the source
+        if any(needle in ln for i, ln in enumerate(fsrc.splitlines(), 1)
+               if i in mech):
+            copies.append(f.name)
+    check("the Tamil script range is declared ONCE, in the file labelled PORT SURFACE",
+          not copies, f"a second copy lives in {', '.join(copies)} — import "
+                      f"TAMIL_RE / TAMIL_RUN from state_io instead")
 
     # ── THE THIRD FAMILY'S WHOLE DECLARATION (2026-08-24) ────────────────────
     # `push_queue` is pure delivery: ZERO model calls at fire time, by design.

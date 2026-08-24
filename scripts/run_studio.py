@@ -43,6 +43,9 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
 BASE = Path(__file__).parent.parent
+sys.path.insert(0, str(BASE / "scripts"))
+# L0 owns the PORT SURFACE — this lane only reads it (2026-08-24).
+from state_io import TAMIL_RE, TAMIL_RUN
 
 # Cross-process contract, mirrored in render_audio.py and read by
 # studio_watchdog.py: "this host lacks the secrets" — skip, never retry.
@@ -78,7 +81,6 @@ PASS_TIMEOUT_S = 900   # 15 min per pass — each is one print turn
 WRITER_TOOLS = ["Read", "Glob", "Grep"]
 OPENROUTER_BASE = "https://openrouter.ai/api/v1"
 
-TAMIL_RE = re.compile(r"[஀-௿]")
 SPEAKER_RE = re.compile(r"^\s*(?:\*\s*)?\*\*[^:]+:")
 REQUIRED_TAGS = {"mission", "register", "dramatic_ingredient", "episode_form",
                  "new_words_landed"}
@@ -418,7 +420,7 @@ def intercept_english_share(script: str) -> float:
     can't be holding 95% live comprehension)."""
     spoken = "\n".join(ln for ln in script.splitlines() if SPEAKER_RE.match(ln))
     latin = len(re.findall(r"[A-Za-z]+", spoken))
-    tamil = len(re.findall(r"[஀-௿]+", spoken))
+    tamil = len(TAMIL_RUN.findall(spoken))
     return latin / (latin + tamil) if latin + tamil else 0.0
 
 
@@ -730,7 +732,6 @@ def main():
     # for audio to take to the park and never learned it was ready). Quiet hours
     # are the knock rails' window — an overnight render waits for morning.
     try:
-        sys.path.insert(0, str(BASE / "scripts"))
         from publish import push_to_phone, jsdelivr_url
         title = episode_paths(n)["script"].stem
         # Quiet hours are the chokepoint's job now — this lane's hand-rolled hour

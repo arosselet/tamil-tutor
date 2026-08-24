@@ -45,7 +45,6 @@ agent being unavailable. Stdin has no such ceiling.
 """
 import json
 import os
-import re
 import shutil
 import subprocess
 import sys
@@ -58,6 +57,7 @@ from pathlib import Path
 from openai import OpenAI
 
 from mandates import PHONETIC_REWRITE
+from state_io import TAMIL_RUN
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
@@ -242,7 +242,11 @@ def parse_llm_response(resp) -> dict:
 # It moved here from morning_knock on 2026-08-23 because it is not a knock: it is
 # reachable from BOTH morning_knock.main and knock_reply's push-backs, and it runs
 # on every knock body and every reply line that carries script.
-TAMIL_RUN = re.compile(r"[஀-௿]+")
+#
+# `TAMIL_RUN` is imported, not declared: the range itself is L0's PORT SURFACE and
+# this module only USES it (2026-08-24). Dropping the copy took `import re` with
+# it — the parser's own regex is function-local on purpose, so it can be deleted
+# in one piece the day the fallback retires.
 
 
 def rephrase_phonetic(body: str) -> str:

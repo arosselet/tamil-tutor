@@ -99,8 +99,19 @@ def local_today() -> date:
 
 # Script-detection: Tamil script is the canonical lexicon key, so a phonetic-only
 # token can never mint a record. PORT SURFACE — a fork to another language
-# replaces this regex (moved here from sync_state.py 2026-08-04).
+# replaces these two lines and nothing else (moved here from sync_state.py
+# 2026-08-04; the last three copies folded in on 2026-08-24).
+#
+# TWO FORMS, ONE RANGE, and the split is the useful part: `TAMIL_RE` answers "is
+# there any script here at all" — a lexicon key, a lint gate — and `TAMIL_RUN`
+# answers "where are the script spans", which is what the phonetic rewriter's
+# before/after check and the English-share meter need, because both count WORDS
+# and a per-character class counts characters. The spine refactor moved the
+# delivery tail and the model client but left these behind: an exact duplicate in
+# `run_studio`, an inline `re.findall` twelve lines from it, and a third in
+# `writer`. A port surface that has to be remembered in four files is not one.
 TAMIL_RE = re.compile(r"[஀-௿]")
+TAMIL_RUN = re.compile(r"[஀-௿]+")
 
 
 # --- Lexicon helpers ---------------------------------------------------------
