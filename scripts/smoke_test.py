@@ -151,7 +151,7 @@ def s1_parse_llm_json(mk):
     # fixes (bigger budget vs. another fallback), so the teeth here are on
     # TELLING THEM APART, not on raising: a truncation that merely raises the
     # old error is the silent no-op this guard exists to prevent.
-    pr = mk.parse_llm_response
+    pr = wr.parse_llm_response
     fake = lambda text, reason: type("R", (), {"choices": [type("C", (), {
         "finish_reason": reason,
         "message": type("M", (), {"content": text})()})()]})()
@@ -1387,12 +1387,27 @@ CODE_BUDGETS = {
     # `resolve_writer` + the `--writer` flag are ~111 lines maintained for
     # "GitHub Actions", which never invokes run_studio.py at all (anna.yml has
     # no studio step). Retiring that branch is the actual answer and it is
-    # Andrew's call, not a bump this diff gets to make for him.
+    # Andrew's call, not a bump this diff gets to make for him — and this raise
+    # does not make it: 429 → 430 (2026-08-23, Step 4 of the spine refactor) is
+    # +1 for a CONSOLIDATION, not for mechanism. RETIRED IN THIS DIFF: this
+    # file's own `shutil.which("claude")` host test — a second implementation of
+    # `writer.have_agent()` — in both `resolve_writer` and `writer_preflight`,
+    # and the `import shutil` that served only them. Two deferred imports of one
+    # shared test cost one line more than two copies of the test; that is the
+    # whole delta. The split note above still stands, unpaid.
     # NEW FILE, budgeted in the same diff that creates it (2026-08-23, Andrew).
     # What it retires: three lanes that opened an OpenRouter client
     # unconditionally on a host with a paid subscription, plus render_drill's
     # `ask_json`. One place decides who makes a JSON call, and it decides by
     # asking which BINARY exists — never by a flag a lane has to remember.
+    # 150 → 175 (2026-08-23, Step 4 of the spine refactor). RETIRED IN THIS DIFF:
+    # the LAST raw `OpenAI(...)` client outside this module. `ask_text` is what
+    # `rephrase_phonetic` needed and never had — a host choice for a TEXT lane,
+    # which the JSON-only framing of the 08-23 rule left out. That lane is
+    # reachable from both the knock and the reply push-back and ran on every body
+    # carrying script, billing cash on a laptop with a subscription already paid
+    # for. Three lanes stopped building clients for these lines; the count moved
+    # here because the mechanism did.
     # 75 → 150 (2026-08-23, the spine refactor). RETIRED IN THIS DIFF: this
     # module's upward import of `morning_knock` — a leaf lane — for the model
     # constants, `budget()` and both JSON parsers. L3 cannot borrow its own
@@ -1400,8 +1415,8 @@ CODE_BUDGETS = {
     # law this refactor installs. The block did not grow, it moved: every line
     # counted here left morning_knock.py in the same commit, which is re-censused
     # DOWN by 165 for it. Growth paid for by a reduction, not an allowance.
-    "scripts/writer.py": 150,
-    "scripts/run_studio.py": 429,
+    "scripts/writer.py": 175,
+    "scripts/run_studio.py": 430,
     "scripts/show_status.py": 125,
     # The state layer's shared vocabulary, split out of sync_state 2026-08-04:
     # paths, load/save, and token->canonical-key resolution. Ten scripts were
@@ -1993,13 +2008,13 @@ def s25_studio_concurrency_and_secrets(sb: Path):
         # would strand a scripted-but-unrendered episode on a host that can render.
         # (ADC still mocked-present here, so this isolates the writer axis.)
         rs = importlib.import_module("run_studio")
-        real_which = rs.shutil.which
-        rs.shutil.which = lambda cmd: None if cmd == "claude" else real_which(cmd)
+        real_which = wr.shutil.which
+        wr.shutil.which = lambda cmd: None if cmd == "claude" else real_which(cmd)
         try:
             check("no writer → render path still allowed", rs.renderer_preflight() is None)
             check("no writer → fresh-episode path blocked", rs.preflight() is not None)
         finally:
-            rs.shutil.which = real_which
+            wr.shutil.which = real_which
     finally:
         google.auth.default = real_default
 
@@ -2181,8 +2196,8 @@ def s28_cloud_writer(sb: Path):
     check("force openrouter → openrouter_pass",
           rs.resolve_writer("openrouter").__name__ == "openrouter_pass")
 
-    real_which = rs.shutil.which
-    rs.shutil.which = lambda c: None if c == "claude" else real_which(c)
+    real_which = wr.shutil.which
+    wr.shutil.which = lambda c: None if c == "claude" else real_which(c)
     try:
         check("auto with no claude → openrouter", rs.resolve_writer("auto").__name__ == "openrouter_pass")
         prev = os.environ.pop("OPENROUTER_API_KEY", None)
@@ -2198,7 +2213,7 @@ def s28_cloud_writer(sb: Path):
             if prev is not None:
                 os.environ["OPENROUTER_API_KEY"] = prev
     finally:
-        rs.shutil.which = real_which
+        wr.shutil.which = real_which
 
     # inline_canon: the fix that made the cloud writer produce on-canon. The
     # thin slice caught it inventing a tags schema it had no filesystem to read;
@@ -6818,9 +6833,11 @@ def s66_json_mode_is_actually_sent(mk, kr, sb: Path):
     spec = importlib.util.spec_from_file_location("mk_pristine", mk.__file__)
     fresh = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(fresh)
-    # Same trick, same reason, for L3: `rephrase_phonetic` moved to writer.py
-    # (2026-08-23) and reads ITS module's `OpenAI`, so the fake client has to be
-    # installed there or the text lane is never observed at all.
+    # A pristine L3 too, for the TEXT half and for exactly the same reason: s57
+    # stubs `wr.rephrase_phonetic` to a lambda and nothing tears it down, so the
+    # shared object would answer without ever building a request. `fresh.decide`
+    # is NOT covered by this — its `from writer import ask_json` resolves the
+    # shared module out of sys.modules, so the JSON half is observed on `wr`.
     w_spec = importlib.util.spec_from_file_location(
         "wr_pristine", str(Path(mk.__file__).parent / "writer.py"))
     fresh_w = importlib.util.module_from_spec(w_spec)
@@ -6842,25 +6859,39 @@ def s66_json_mode_is_actually_sent(mk, kr, sb: Path):
         return types.SimpleNamespace(
             chat=types.SimpleNamespace(completions=types.SimpleNamespace(create=create)))
 
+    # THE OBSERVATION POINT MOVED WITH THE EXECUTOR (2026-08-23, Step 4 of the
+    # spine refactor). Every JSON lane now asks through `writer.ask_json`, so the
+    # client lives in writer and the fake has to be installed there — patching
+    # morning_knock's namespace would watch a call site that no longer exists and
+    # report green on nothing. Restored in the finally, exactly as s70 does.
+    #
+    # THE API BRANCH IS FORCED, and that is not a workaround: this case asserts
+    # what the API REQUEST carries, and on a host with `claude` on PATH the agent
+    # branch never builds a request at all. `have_agent()` is False on every cloud
+    # runner, which is where this lane actually runs.
     real_env = os.environ.get("OPENROUTER_API_KEY")
+    orig_openai, orig_which = wr.OpenAI, wr.shutil.which
     try:
-        fresh.OpenAI = fake_client
-        fresh_w.OpenAI = fake_client
+        wr.OpenAI = fresh_w.OpenAI = fake_client
+        wr.shutil.which = lambda n: None   # `shutil` is shared; this reaches both
         os.environ["OPENROUTER_API_KEY"] = "smoke"
         fresh.decide("smoke digest", [])
         check("the composer's request carries JSON mode",
-              calls and calls[-1].get("response_format") == fresh.JSON_MODE,
+              calls and calls[-1].get("response_format") == wr.JSON_MODE,
               f"got {calls[-1].get('response_format') if calls else 'no call'}")
         check("...and it is the json_object form the lanes agreed on",
-              fresh.JSON_MODE == {"type": "json_object"}, f"got {fresh.JSON_MODE}")
+              wr.JSON_MODE == {"type": "json_object"}, f"got {wr.JSON_MODE}")
 
         # The text lane must stay text. Forcing an object out of a call that asks
-        # for a transliteration is the same defect pointing the other way.
+        # for a transliteration is the same defect pointing the other way — and
+        # since Step 4 it has its own executor (`ask_text`), whose whole job is to
+        # carry the host rule WITHOUT carrying JSON_MODE.
         calls.clear()
         fresh_w.rephrase_phonetic("ரொம்ப நல்லாருக்கு")
         check("the phonetic rewrite does NOT ask for JSON — it returns a line",
               calls and "response_format" not in calls[-1], f"got {calls[-1] if calls else None}")
     finally:
+        wr.OpenAI, wr.shutil.which = orig_openai, orig_which
         if real_env is None:
             os.environ.pop("OPENROUTER_API_KEY", None)
         else:
@@ -6871,8 +6902,15 @@ def s66_json_mode_is_actually_sent(mk, kr, sb: Path):
     # lines only (`code_line_numbers`), so a docstring quoting a call cannot
     # satisfy or break this.
     lanes = {
-        "scripts/morning_knock.py": 1,   # decide() — rephrase_phonetic is text
-        "scripts/knock_reply.py": 2,     # the production judge and the catch judge
+        # ZERO, and that is the assertion (2026-08-23, Step 4). These two lanes
+        # held three of the five raw clients in the repo — decide(), the
+        # production judge and the catch judge — each correct in Actions and each
+        # billing cash on a local run. They ask through `writer.ask_json` now, so
+        # "how many of this lane's create() calls send JSON mode" has become "this
+        # lane does not make one", which is the stronger claim and the one the
+        # executor rule is actually about.
+        "scripts/morning_knock.py": 0,
+        "scripts/knock_reply.py": 0,
         # ONE call now serves the soak sheet, the drill sheet, the drill lint
         # and every long-haul movement (2026-08-23). Those four lanes used to
         # carry their own `create()`; they call `writer.ask_json` instead, so
@@ -6961,7 +6999,6 @@ def s70_the_executor_is_chosen_by_the_host(sb: Path):
     import json as _json
 
     writer = importlib.import_module("writer")
-    mk = importlib.import_module("morning_knock")
     orig_which, orig_agent, orig_api = writer.shutil.which, writer._agent_json, writer._api_json
     ran = {}
     SHAPE = writer.obj(frame=writer.STR)
@@ -7059,7 +7096,7 @@ def s70_the_executor_is_chosen_by_the_host(sb: Path):
     # 0 (measured 2026-08-23 with claude-sonnet-4.6), so the wrong value here
     # does not crash — it silently routes every laptop lane to the paid API.
     check("OPENROUTER_MODEL is a vendor-qualified slug (the API's shape)",
-          "/" in mk.OPENROUTER_MODEL, f"OPENROUTER_MODEL={mk.OPENROUTER_MODEL}")
+          "/" in wr.OPENROUTER_MODEL, f"OPENROUTER_MODEL={wr.OPENROUTER_MODEL}")
     check("AGENT_MODEL is a bare slug (the claude CLI's shape)",
           "/" not in wr.AGENT_MODEL, f"AGENT_MODEL={wr.AGENT_MODEL}")
 

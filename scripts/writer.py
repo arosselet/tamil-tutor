@@ -250,12 +250,7 @@ def rephrase_phonetic(body: str) -> str:
     only resolves 8 of the 23 bodies this has historically hit — colloquial
     contractions (நல்லாருக்கு) are not keys — so the model, which knows how it
     spelt the thing, does the work and the lexicon only catches what it misses."""
-    client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
-    resp = client.chat.completions.create(
-        model=OPENROUTER_MODEL, max_tokens=budget(300),
-        messages=[{"role": "system", "content": PHONETIC_REWRITE},
-                  {"role": "user", "content": body}])
-    return (resp.choices[0].message.content or "").strip()
+    return ask_text(PHONETIC_REWRITE, body, answer_tokens=300)
 
 
 def to_phonetic(text: str, label: str = "body") -> str:
@@ -278,6 +273,19 @@ def to_phonetic(text: str, label: str = "body") -> str:
     print(f"   ✎ {label} carries Tamil script — asking for phonetics…")
     out = rephrase_phonetic(text) or text
     if TAMIL_RUN.search(out):
+        # ONE re-ask before the warning (2026-08-23, when the host rule took this
+        # lane over). MEASURED that day on the agent executor: 1 of 3 identical
+        # calls came back with the script KEPT and the phonetics appended in
+        # brackets — "ரொம்ப நல்லாருக்கு (romba nallarukku)" — which is a different
+        # failure from the API path's and puts Tamil script on the lock screen,
+        # the one surface this whole function exists to keep clear.
+        #
+        # The condition was already computed here and thrown away. A re-roll costs
+        # nothing on the subscription and the SHIPPED line is what Andrew actually
+        # reads. If the second draw leaks too it still warns and ships — that
+        # trade is unchanged and deliberate.
+        out = rephrase_phonetic(text) or out
+    if TAMIL_RUN.search(out):
         print(f"   ⚠ script survived the rewrite: {' '.join(TAMIL_RUN.findall(out))}")
     return out
 
@@ -295,6 +303,7 @@ def to_phonetic(text: str, label: str = "body") -> str:
 # craft, the schema only has to stop the envelope.
 STR = {"type": "string"}
 INT = {"type": "integer"}
+BOOL = {"type": "boolean"}
 
 
 def obj(**props) -> dict:
@@ -420,6 +429,69 @@ def ask_json(system: str, user: str, schema: dict, answer_tokens: int = 2400,
             print(f"   ⚠ no JSON in the reply ({str(e)[:120]}) — "
                   f"retry {attempt + 1}/{tries}")
     raise RuntimeError("ask_json: retries exhausted without a result or an error")
+
+
+def _agent_text(system: str, user: str) -> str:
+    """One print-only pass on the local agent, no schema — the TEXT sibling of
+    `_agent_json`. Raises on any failure so `ask_text` can decide; this function
+    never silently returns the API's work.
+
+    No `--json-schema`, deliberately: a schema is what makes the CLI emit a bare
+    object, and an object is the one thing a transliteration must not be."""
+    r = subprocess.run(
+        ["claude", "-p", "--model", AGENT_MODEL],
+        input=f"{system}\n\n---\n\n{user}", cwd=BASE, timeout=AGENT_TIMEOUT_S,
+        capture_output=True, encoding="utf-8", errors="replace")
+    out = (r.stdout or "").strip()
+    # Same reason as `_agent_json`: the CLI exits 0 on a bad model string, so an
+    # empty stdout is treated as failure rather than as an empty answer.
+    if r.returncode != 0 or not out:
+        raise RuntimeError(f"claude -p exit {r.returncode}: {(r.stderr or out)[-300:]}")
+    return out
+
+
+def _api_text(system: str, user: str, answer_tokens: int) -> str:
+    """One pass through OpenRouter for a PROSE answer. `JSON_MODE` is absent on
+    purpose and must stay absent: forcing an object out of a call that asks for a
+    transliteration breaks it exactly as silently as omitting it breaks a JSON
+    lane, one direction over (s69)."""
+    client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
+    resp = client.chat.completions.create(
+        model=OPENROUTER_MODEL, max_tokens=budget(answer_tokens),
+        messages=[{"role": "system", "content": system},
+                  {"role": "user", "content": user}])
+    return (resp.choices[0].message.content or "").strip()
+
+
+def ask_text(system: str, user: str, answer_tokens: int = 300,
+             prefer: str = "auto") -> str:
+    """One LLM call -> a LINE, on whichever executor this host has.
+
+    The text sibling of `ask_json`, and separate from it for one reason: there is
+    no parse to re-roll, so there is no retry loop here. `ask_json` retries
+    because a coin-flip parse is lethal to a lane that asks fifteen times; a
+    transliteration either comes back or raises, and a re-roll would just buy the
+    same answer twice.
+
+    WHAT THIS REPLACES: the last raw `OpenAI(...)` client outside this module.
+    `rephrase_phonetic` is a TEXT lane, so the JSON-only framing of the 2026-08-23
+    executor rule left it out — and it is the leak that cost the most, because it
+    is reachable from BOTH the knock and the reply push-back and runs on every
+    body and every reply line that carries script. On the laptop it billed cash,
+    every time, against a subscription already paid for.
+    """
+    use_agent = have_agent() if prefer == "auto" else (prefer == "agent")
+    if use_agent:
+        try:
+            return _agent_text(system, user)
+        except (subprocess.SubprocessError, RuntimeError, OSError) as e:
+            # LOUD, for the reason `ask_json` is loud: a broken-but-present agent
+            # degrades to the PAID API with the artifact still arriving, so every
+            # instrument reads green while the subscription path is dead.
+            print(f"   ⚠ LOCAL AGENT FAILED — falling back to the PAID API. "
+                  f"This run costs money and the subscription path is broken; "
+                  f"fix it, do not ignore it.\n     {type(e).__name__}: {e}")
+    return _api_text(system, user, answer_tokens)
 
 
 def executor_name() -> str:

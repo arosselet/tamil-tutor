@@ -38,8 +38,6 @@ import sys
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
-from openai import OpenAI
-
 from mandates import OUTREACH_MANDATE
 
 BASE = Path(__file__).parent.parent
@@ -50,8 +48,7 @@ from render_chat import render_chat
 from publish import (BODY_BUDGET, KNOCKS_DIR, WAKING_END_HOUR, WAKING_START_HOUR,
                      commit_and_push, jsdelivr_url, load_env, over_budget,
                      push_to_phone, refresh_feed)
-from writer import (JSON_MODE, OPENROUTER_BASE, OPENROUTER_MODEL, budget,
-                    parse_llm_response, to_phonetic)
+from writer import BOOL, INT, STR, ask_json, executor_name, obj, to_phonetic
 
 KNOCK_LOG_PATH = BASE / "progress" / "knock_log.json"
 SESSION_LOG_PATH = BASE / "progress" / "session_log.json"
@@ -557,27 +554,32 @@ def normalize_decision(d: dict, volley_menu: list | None = None) -> dict:
     return d
 
 
+# The knock's own top-level shape, declared beside the lane that reads it — the
+# 2026-08-23 rule, and not a candidate for centralising: a generic
+# `{"type": "object"}` is what made `claude -p` answer in an envelope and a lane
+# render an empty dose with every instrument green. Keys mirror OUTREACH_MANDATE.
+# `volley_asks` and `schedule` are absent on purpose — the mandate declares both
+# as conditional ("ONLY for modality volley" / "| null") and everything named in
+# `obj()` is REQUIRED. Undeclared keys still pass through untouched.
+DECIDE_SCHEMA = obj(act=BOOL, modality=STR, move=STR, notification_body=STR,
+                    memo_script=STR, expected_target=STR, target_revealed=BOOL,
+                    next_check_hours=INT, rationale=STR)
+
+
 def decide(digest: str, volley_menu: list | None = None) -> dict:
+    """Ask cloud Anna what to do this tick. The executor is the HOST's choice, not
+    this lane's (`writer.ask_json`, 2026-08-23) — which is what stops a local
+    `--force` from billing cash against a subscription already paid for. In
+    Actions `have_agent()` is False, so the API branch runs exactly as before.
+
+    RETIRED HERE: this function's own three-attempt parse-retry loop. `ask_json`
+    carries the identical contract — re-roll a bad draw, never re-roll a
+    truncation (`parse_llm_response` names the ceiling, and that is not a parser
+    gap) — so a second copy was one more per-lane invariant free to drift."""
     persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
-    client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
-    messages = [
-        {"role": "system", "content": persona + "\n\n---\n\n" + OUTREACH_MANDATE},
-        {"role": "user", "content": f"TODAY'S DIGEST:\n\n{digest}"},
-    ]
-    last_err: Exception | None = None
-    for attempt in range(1, 4):
-        resp = client.chat.completions.create(model=OPENROUTER_MODEL, max_tokens=budget(1600),
-                                              messages=messages, response_format=JSON_MODE)
-        try:
-            d = parse_llm_response(resp)
-            if attempt > 1:
-                print(f"   [ok] parsed on attempt {attempt}")
-            break
-        except (json.JSONDecodeError, ValueError) as exc:
-            print(f"   ⚠ parse failed (attempt {attempt}/3): {exc}")
-            last_err = exc
-    else:
-        raise last_err  # all 3 attempts returned unparseable JSON
+    print(f"   [decide] {executor_name()}")
+    d = ask_json(persona + "\n\n---\n\n" + OUTREACH_MANDATE,
+                 f"TODAY'S DIGEST:\n\n{digest}", DECIDE_SCHEMA, answer_tokens=1600)
     return normalize_decision(d, volley_menu)
 
 

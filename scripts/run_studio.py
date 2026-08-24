@@ -32,7 +32,6 @@ import argparse
 import json
 import os
 import re
-import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -178,11 +177,11 @@ def claude_print(label: str, prompt: str) -> str | None:
     on failure. Runs in BASE so the pass can read the canon off disk — no
     `inline_canon` needed here, which is the whole reason a filesystem-having
     writer is worth preferring."""
-    from writer import AGENT_MODEL as MODEL
-    print(f"   [{label}] claude ({MODEL})…")
+    from writer import AGENT_MODEL
+    print(f"   [{label}] claude ({AGENT_MODEL})…")
     try:
         r = subprocess.run(
-            ["claude", "-p", "--model", MODEL,
+            ["claude", "-p", "--model", AGENT_MODEL,
              "--allowedTools", *WRITER_TOOLS, "--", prompt],
             cwd=BASE, timeout=PASS_TIMEOUT_S, capture_output=True,
             encoding="utf-8", errors="replace")
@@ -315,7 +314,13 @@ def resolve_writer(prefer: str = "auto"):
         return claude_print
     if prefer == "openrouter":
         return openrouter_pass
-    return claude_print if shutil.which("claude") else openrouter_pass
+    from writer import have_agent
+    # ONE host test for the whole repo (2026-08-23). This asked
+    # `shutil.which("claude")` itself — not a defect, but a SECOND
+    # implementation of `writer.have_agent()`, and two copies of a host rule is
+    # how a host rule drifts. The studio keeps its own two passes; only the
+    # CHOOSING is shared, which is the thing that was ever duplicated.
+    return claude_print if have_agent() else openrouter_pass
 
 
 # Tamil vowel signs + the pulli — exactly what inflection replaces on a stem.
@@ -608,7 +613,8 @@ def renderer_preflight() -> str | None:
 def writer_preflight(prefer: str = "auto") -> str | None:
     """None when a writer is available for `prefer`, else the reason. claude needs
     the binary; openrouter needs the API key; auto is happy with either."""
-    have_claude = bool(shutil.which("claude"))
+    from writer import have_agent
+    have_claude = have_agent()
     have_or = bool(os.environ.get("OPENROUTER_API_KEY"))
     if prefer == "claude" and not have_claude:
         return "claude is not on PATH (the local agent writer)"

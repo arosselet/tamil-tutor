@@ -42,7 +42,6 @@ import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from openai import OpenAI
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
@@ -51,8 +50,17 @@ from morning_knock import KNOCK_LOG_PATH, maybe_enqueue_schedule, render_memo
 from publish import (KNOCKS_DIR, commit_and_push, jsdelivr_url, load_env,
                      push_to_phone, refresh_feed)
 from render_audio import ANNA_VOICE
-from writer import (JSON_MODE, OPENROUTER_BASE, OPENROUTER_MODEL, budget,
-                    parse_llm_response, to_phonetic)
+from writer import BOOL, STR, arr, ask_json, executor_name, obj, to_phonetic
+
+# Each judge declares its OWN top-level shape, beside itself (2026-08-23) —
+# never a shared or generic one, which is how `claude -p` came back with an
+# envelope and a lane rendered a shell with every instrument green. Keys mirror
+# the mandates below. `schedule` is absent because the mandate declares it
+# nullable and `obj()` requires whatever it names; undeclared keys still pass.
+JUDGE_SCHEMA = obj(verdict=STR, fired=arr(word=STR, said=STR, verdict=STR),
+                   reply_line=STR, follow_up_ask=STR, follow_up_target=STR,
+                   follow_up_target_revealed=BOOL, meta_note=STR, rationale=STR)
+CATCH_SCHEMA = obj(verdict=STR, reply_line=STR, meta_note=STR, rationale=STR)
 from state_io import FEEDBACK_LOG_PATH, LEARNER_PATH, LEXICON_PATH, SLIP_LOG_PATH, build_phonetic_index, load_json, local_today, resolve, save_json
 from slips import append_slips, slip_patterns
 from sync_state import fires_today
@@ -405,18 +413,10 @@ def judge_catch(knock: dict, reply_text: str, klog: list | None = None) -> dict:
     per-word grades) never leak into a drift grade."""
     persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
     context = catch_context(knock, reply_text, klog)
-    client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
-    resp = client.chat.completions.create(
-        model=OPENROUTER_MODEL,
-        response_format=JSON_MODE,
-        max_tokens=budget(400),
-        messages=[
-            {"role": "system", "content": persona + "\n\n---\n\n" + CATCH_JUDGE_MANDATE
-                                          + "\n" + THREAD_MANDATE},
-            {"role": "user", "content": json.dumps(context, ensure_ascii=False, indent=2)},
-        ],
-    )
-    d = parse_llm_response(resp)
+    print(f"   [catch judge] {executor_name()}")
+    d = ask_json(persona + "\n\n---\n\n" + CATCH_JUDGE_MANDATE + "\n" + THREAD_MANDATE,
+                 json.dumps(context, ensure_ascii=False, indent=2),
+                 CATCH_SCHEMA, answer_tokens=400)
     if d.get("verdict") not in CATCH_VERDICTS:
         d["verdict"] = "chat"
     d["reply_line"] = (d.get("reply_line") or "").strip()
@@ -660,26 +660,19 @@ def judge(knock: dict, reply_text: str, target_record: dict | None,
     mandate = (JUDGE_MANDATE + "\n" + SLIP_MANDATE + "\n" + REACH_MANDATE
                + "\n" + THREAD_MANDATE
                + (FORCE_SCHEDULE_ADDENDUM if force_schedule else ""))
-    client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
-    resp = client.chat.completions.create(
-        model=OPENROUTER_MODEL,
-        response_format=JSON_MODE,
-        # 1600 is what the ARTIFACT needs — an 11-key schema plus a slip-ledger
-        # tag match — and nothing else. The thinking room is added by `budget()`.
-        #
-        # This number was 800 until 2026-08-05, when the call spent ~750 tokens
-        # deliberating in prose and was cut off mid-word before its first brace.
-        # The fix then was to raise this one literal, which was right for this lane
-        # and left every other one wrong: on 2026-08-18 the same failure took the
-        # knock lane and the drill sheet down together. Reasoning cost belongs to
-        # the model, so it now lives with the model (`morning_knock.budget`).
-        max_tokens=budget(1600),
-        messages=[
-            {"role": "system", "content": persona + "\n\n---\n\n" + mandate},
-            {"role": "user", "content": json.dumps(context, ensure_ascii=False, indent=2)},
-        ],
-    )
-    return normalize_verdict(parse_llm_response(resp), reply_text)
+    # 1600 is what the ARTIFACT needs — an 11-key schema plus a slip-ledger tag
+    # match — and nothing else. The thinking room is added by `budget()`, inside
+    # `ask_json`. This number was 800 until 2026-08-05, when the call spent ~750
+    # tokens deliberating in prose and was cut off mid-word before its first
+    # brace. The fix then was to raise this one literal, which was right for this
+    # lane and left every other one wrong: on 2026-08-18 the same failure took
+    # the knock lane and the drill sheet down together. Reasoning cost belongs to
+    # the model, so it lives with the model (`writer.budget`).
+    print(f"   [judge] {executor_name()}")
+    d = ask_json(persona + "\n\n---\n\n" + mandate,
+                 json.dumps(context, ensure_ascii=False, indent=2),
+                 JUDGE_SCHEMA, answer_tokens=1600)
+    return normalize_verdict(d, reply_text)
 
 
 _FLATTEN_RE = re.compile(r"[^\w]+", re.UNICODE)
