@@ -1391,6 +1391,16 @@ CODE_BUDGETS = {
     # 1500, REACH 300, SLIP 250, THREAD 250, CATCH_JUDGE 300, OUTREACH 2000. The
     # ceiling that actually binds this prose did not move an inch.
     "scripts/mandates.py": 470,
+    # NEW FILE, budgeted in the diff that creates it (2026-08-24, Q1's first
+    # family). What it retires: the exposure -> stamp -> commit -> notify tail
+    # written out three times, in render_soak, render_drill and render_longhaul —
+    # and about to be written a fourth and fifth time by the media-ingestion and
+    # daily-catch lanes. Deliberately TINY, and it stays tiny: the seven lanes are
+    # three families, not one shape, so this holds a thin runner per family and
+    # never a single run_lane(). If it starts growing, something lane-specific has
+    # leaked in — most likely push_queue, which makes zero LLM calls at fire time
+    # by design and must never be given a writer stage.
+    "scripts/lanes.py": 60,
     # NEW FILE, budgeted in the same diff that creates it (2026-08-23, the spine
     # refactor). What it retires: `morning_knock.py` owning the delivery tail for
     # seven lanes, 26 hand-built commit-path lists, and two import cycles that
@@ -1418,7 +1428,8 @@ CODE_BUDGETS = {
     # not an allowance.
     # 220 → 195 (2026-08-24): re-censused DOWN — DRILL_MANDATE and LINT_MANDATE
     # left for mandates.py. This lane had THREE lines of headroom.
-    "scripts/render_drill.py": 195,
+    # 195 → 185 (2026-08-24): re-censused DOWN — DRILL/LINT mandates left on 08-24 and the delivery tail left with it.
+    "scripts/render_drill.py": 185,
     # New file 2026-08-10 at 318 lines — the fourth audio lane. ~45 of those are
     # BASE_MANDATE + the five SHAPE_CLAUSES, which code_lines counts as mechanism
     # (prompt strings always do). Budgeted at 340 rather than 400: the headroom is
@@ -1426,13 +1437,15 @@ CODE_BUDGETS = {
     # morning_knock made on 08-01 and knock_reply was told to make — the mandates
     # go to mandates.py, prompt canon and dispatch machinery being two concerns —
     # NOT a bumped number.
-    "scripts/render_longhaul.py": 340,
+    # 340 → 325 (2026-08-24): re-censused DOWN — the delivery tail left for lanes.py on 08-24.
+    "scripts/render_longhaul.py": 325,
     # 275 -> 265 (2026-08-23, Andrew): re-censused DOWN. Its private OpenRouter
     # client — the FOURTH copy, and the first that cost money rather than
     # correctness — became one `writer.ask_json` call.
     # 265 → 210 (2026-08-24): re-censused DOWN — SOAK_MANDATE left for
     # mandates.py with the drill lane's two and the judge's six.
-    "scripts/render_soak.py": 210,
+    # 210 → 195 (2026-08-24): re-censused DOWN — SOAK_MANDATE left on 08-24 and the delivery tail left with it.
+    "scripts/render_soak.py": 195,
     # 425 → 429 (2026-08-20): the first-line H1 lint. It retires the accidental
     # episode title — the Architect was never told to emit one, so 30 of the
     # first 90 episodes shipped to the PUBLIC feed named `Tier2 Mission90`
@@ -5176,14 +5189,19 @@ def s57_longhaul_tape(sb: Path):
         check("...and the closing lap, which is a third of the audio",
               "closing lap" in body and all(l in body for l in spoken))
         # The script rides the SAME commit as the mp3, or the pair drifts apart.
-        # The literal this used to grep for was `commit_and_push([mp3, script` —
-        # one of the twenty-six hand-built commit lists that publish.publish
-        # retired (2026-08-23). The property is untouched: the script is among the
-        # paths handed over and the mp3 rides the same call, so they land in ONE
-        # commit, with the mp3 at the front where the CDN pre-warm needs it.
+        # RE-SPELLED TWICE IN ONE DAY (08-23 publish.publish, 08-24 the family
+        # runner) chasing the call site's exact text, which is the signature of an
+        # assertion pinned to spelling rather than to a property. So it now reads
+        # the deliver_rendered CALL as a unit and asks only what actually matters:
+        # the script and the mp3 are handed to the SAME delivery call, and
+        # therefore land in one commit with the mp3 at the front where the CDN
+        # pre-warm needs it. Renaming a variable or reordering an argument no
+        # longer breaks it; separating the two still does.
         pub = inspect.getsource(rl.main)
+        call = pub[pub.index("deliver_rendered("):]
+        call = call.split("\n\n")[0]
         check("the script is committed with the tape, not left behind",
-              "[script," in pub and "mp3=mp3))" in pub)
+              "script" in call and "mp3=mp3" in call, call[:200])
 
         # ── THE DELIVERY SEAM, at the level each item actually exists at. The
         # machines tape taught 26 frames and stamped 0 (2026-08-10): a frame is a
@@ -7394,6 +7412,128 @@ def s72_a_stub_never_outlives_its_case(mk, kr):
           callable(real_push) and not isinstance(real_push, Recorder))
 
 
+def s73_one_tail_for_the_render_family(sb: Path):
+    """The write -> render -> publish family's shared tail (2026-08-24, Q1).
+
+    UNTESTED UNTIL NOW, by anything. Both existing drives of a render lane's
+    `main()` pass `--dry-run`, which returns before the tail, and the only other
+    coverage was a source-grep of one call site. So the sequence that records
+    exposure, stamps a soak order, builds the commit and reaches the phone — for
+    three lanes, soon five — had never been executed by a test.
+
+    THE SILENT NO-OP, answered: if this function did nothing at all, every lane
+    would still print "done", still exit 0, and still look exactly like a
+    successful dose. Nothing downstream raises. So the assertions are on the
+    EFFECT — what reached the commit and what reached the phone — never on the
+    fact that it ran.
+
+    The last block is the one that protects the design rather than the behaviour.
+    `commit` and `notify` are passed IN so that a lane's own binding is what gets
+    called, which is what keeps the suite's 59 module-attribute stubs
+    intercepting once a shared runner does the work (hazard H1). If this function
+    ever reaches for `publish.push_to_phone` directly instead of the argument, all
+    of them silently stop intercepting and a test hits real git and a real phone.
+    That regression would be invisible in every other assertion here, so it gets
+    its own: the module-level names are booby-trapped, and must never fire.
+    """
+    print("\n73. One tail for the write→render→publish family (2026-08-24)")
+    import contextlib
+    lanes = importlib.import_module("lanes")
+
+    mp3 = sb / "published_audio" / "smoke_family.mp3"
+    mp3.parent.mkdir(parents=True, exist_ok=True)
+    mp3.write_bytes(b"ID3fake")
+    script = sb / "content" / "scripts" / "smoke_family.md"
+    script.parent.mkdir(parents=True, exist_ok=True)
+    script.write_text("the tape's story", encoding="utf-8")
+
+    pb.refresh_feed = lambda: None          # the feed has its own cases (s31)
+    commits, pushes = [], []
+
+    def drive(*, delivered=("ஸ்மோக்"), claimed=False, extra=(), exposed=True,
+              stamped=True, notified=True):
+        lanes.record_exposure = lambda words: exposed and bool(words)
+        lanes.mark_soak_delivered = lambda lane: stamped
+        commits.clear(); pushes.clear()
+        with contextlib.redirect_stdout(io.StringIO()) as out:
+            got = lanes.deliver_rendered(
+                mp3=mp3, lane="soak", delivered=list(delivered), claimed=claimed,
+                message="Soak loop: smoke", copy="soak loop's up 🎧",
+                noun="soak loop", extra_paths=list(extra),
+                commit=lambda paths, msg: commits.append((list(paths), msg)),
+                notify=lambda copy, url: (pushes.append((copy, url)), notified)[1])
+        return got, out.getvalue()
+
+    # ── THE DESIGN, before anything else, so its diagnosis arrives BEFORE the
+    # crash it exists to prevent. `commit` and `notify` are ARGUMENTS: a lane
+    # passes its own binding, which is what keeps this suite's 59
+    # module-attribute stubs intercepting once a shared runner does the work
+    # (hazard H1). The failure mode is silent by nature — the tail would just
+    # start calling the real thing — so it is asserted structurally, twice:
+    # nothing boundary-shaped is bound into this module at all, and a booby trap
+    # on the owner's names never fires. Measured: with the import form restored,
+    # the first check goes red naming the binding; without it the case dies in a
+    # git subprocess, which is safe but unreadable.
+    def boom(*a, **kw):
+        raise AssertionError(
+            "deliver_rendered reached for a module-level boundary instead of the "
+            "`commit`/`notify` it was handed. Every lane-level stub here stops "
+            "intercepting the moment it does that, and a test then writes real "
+            "git history and pushes to a real phone.")
+    pb.commit_and_push, pb.push_to_phone = boom, boom
+    for seam in ("commit_and_push", "push_to_phone"):
+        bound = getattr(lanes, seam, None)
+        check(f"the tail binds no {seam} of its own — the seam is the argument",
+              bound is None, f"lanes.{seam} = {bound!r}")
+
+    # ── the mp3 leads the commit, or the CDN has nothing to serve ────────────
+    drive(claimed=True, extra=[script])
+    paths, msg = commits[0]
+    check("the mp3 is FIRST in the commit — push_to_phone pre-warms the CDN and "
+          "jsDelivr can only serve what is already on main",
+          paths[0] == mp3, f"got {[Path(p).name for p in paths]}")
+    check("...and the lane's own extra paths ride the SAME commit",
+          script in paths, f"got {[Path(p).name for p in paths]}")
+    check("...under the lane's message", msg == "Soak loop: smoke", msg)
+
+    # ── the two conditional state paths, both directions ────────────────────
+    check("a recorded exposure puts the lexicon in the commit",
+          si.LEXICON_PATH in commits[0][0])
+    check("a stamped order puts learner.json in the commit",
+          si.LEARNER_PATH in commits[0][0])
+    drive(claimed=True, exposed=False, stamped=False)
+    check("nothing exposed -> the lexicon is NOT committed",
+          si.LEXICON_PATH not in commits[0][0], f"got {commits[0][0]}")
+    check("nothing stamped -> learner.json is NOT committed",
+          si.LEARNER_PATH not in commits[0][0], f"got {commits[0][0]}")
+
+    # ── the stamp claims a debt is PAID; it must follow the lane's own test ──
+    stamped_for = []
+    lanes.mark_soak_delivered = lambda lane: stamped_for.append(lane) or True
+    drive(claimed=False)
+    check("claimed=False never stamps — a wrong stamp buries an owed dose",
+          not stamped_for, f"stamped {stamped_for}")
+
+    # ── what reaches the phone ──────────────────────────────────────────────
+    got, said = drive()
+    copy, url = pushes[0]
+    check("the notification carries the lane's copy", copy == "soak loop's up 🎧", copy)
+    check("...and the jsDelivr URL for THIS mp3",
+          url.startswith("https://cdn.jsdelivr.net/gh/") and mp3.name in url, url)
+    check("...and the return says it landed", got is True)
+    check("...and the closing line names the lane's noun",
+          "done — soak loop on the feed and the lock screen" in said, said.strip())
+    got, said = drive(notified=False)
+    check("quiet hours propagate — the tail reports NOT on the lock screen",
+          got is False and "and the lock screen" not in said, said.strip())
+
+    # Every drive above ran with `pb.commit_and_push` / `pb.push_to_phone`
+    # booby-trapped. Reaching either would have raised out of this case.
+    check("...and no drive ever touched the owner's names directly",
+          len(commits) == 1 and len(pushes) == 1,
+          f"commits={len(commits)} pushes={len(pushes)}")
+
+
 # ── The one boundary that is not credential-gated ───────────────────────────
 # Every other outside-world call in this system needs a secret the test
 # environment does not have, so an un-stubbed one dies with a KeyError and the
@@ -7567,6 +7707,7 @@ def main():
         run(s69_two_readers_two_tickets, sb)
         run(s70_the_executor_is_chosen_by_the_host, sb)
         run(s72_a_stub_never_outlives_its_case, mk, kr)
+        run(s73_one_tail_for_the_render_family, sb)
 
     if ONLY and not RAN:
         sys.exit(f"no case matched {ONLY} — name a case (s41) or a prefix (s41_slip)")

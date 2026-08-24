@@ -62,7 +62,8 @@ from pathlib import Path
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
-from publish import commit_and_push, jsdelivr_url, load_env, publish, push_to_phone
+from lanes import deliver_rendered
+from publish import commit_and_push, load_env, push_to_phone
 from render_audio import (ANNA_VOICE, EAVESDROP_VOICE,
                           generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME,
                           clean_for_tts, google_credentials_ready, EXIT_NOT_CONFIGURED,
@@ -77,7 +78,6 @@ from writer import STR, arr, ask_json, obj
 MOVEMENT_SCHEMA = obj(frame=STR, beats=arr(ta=STR, en=STR))
 from state_io import LEXICON_PATH, load_json
 from state_io import canon_payload
-from sync_state import mark_soak_delivered, record_exposure
 
 LONGHAUL_DIR = BASE / "published_audio"   # feed root — rebuild_rss picks up longhaul_*.mp3
 SILENCE_PER_SEC = 41.666                  # frames per second (matches render_audio)
@@ -603,21 +603,17 @@ def main():
     print("3. publish…")
     delivered = audible(pool, spoken, sheets)
     print(f"   {len(delivered)}/{len(pool)} pool items audible on the tape")
-    exposed = record_exposure(delivered)
-    stamped = mark_soak_delivered("longhaul") if (focus or payload) else False
-    # The tail has ONE owner (2026-08-23). This was the second of two lanes that
-    # shelled out to rebuild_rss.py with check=True — the only feed rebuild in the
-    # system where a hiccup killed a render whose mp3 was already made, and on a
-    # lane whose tape costs fifteen sequential model calls to produce.
-    commit_and_push(*publish(
-        [script, LEXICON_PATH if exposed else None,
-         (BASE / "progress" / "learner.json") if stamped else None],
-        f"Long-haul tape: {args.spine} ({measured:.0f} min)", mp3=mp3))
-    print("4. notify…")
-    pushed = push_to_phone(
-        f"long-haul tape's up — {measured:.0f} min, {args.spine}. press once 🎧",
-        jsdelivr_url(mp3))
-    print(f"done — tape on the feed{' and the lock screen' if pushed else ''}.")
+    # The tail belongs to the family (2026-08-24). This lane's own contribution is
+    # `audible()` above — a frame is a label for a pattern realised across beats,
+    # so it is in the audio exactly never and substring-matching would book a
+    # 28-minute tape as having delivered zero (2026-08-10) — plus the script,
+    # which must ride the SAME commit as the mp3 or the pair drifts apart.
+    deliver_rendered(
+        mp3=mp3, lane="longhaul", delivered=delivered,
+        claimed=bool(focus or payload), extra_paths=[script],
+        message=f"Long-haul tape: {args.spine} ({measured:.0f} min)",
+        copy=f"long-haul tape's up — {measured:.0f} min, {args.spine}. press once 🎧",
+        noun="tape", commit=commit_and_push, notify=push_to_phone)
 
 
 if __name__ == "__main__":

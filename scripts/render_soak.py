@@ -40,7 +40,8 @@ from pathlib import Path
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
-from publish import commit_and_push, jsdelivr_url, load_env, publish, push_to_phone
+from lanes import deliver_rendered
+from publish import commit_and_push, load_env, push_to_phone
 from render_audio import ANNA_VOICE
 # THE FOURTH COPY, retired 2026-08-23 — and the first one that was about MONEY
 # rather than parsing. This lane built its own OpenRouter client and called it on
@@ -56,7 +57,6 @@ from render_audio import (generate_segment_google, get_raw_mp3_frames,
                           EXIT_NOT_CONFIGURED)
 from mandates import SOAK_MANDATE
 from state_io import LEXICON_PATH, load_json
-from sync_state import mark_soak_delivered, record_exposure
 
 SOAK_DIR = BASE / "published_audio"     # feed root — rebuild_rss picks up soak_*.mp3
 SILENCE_PER_SEC = 41.666                # frames per second (matches render_audio)
@@ -288,23 +288,16 @@ def main():
         print(f"   focused run — {len(delivered)}/{len(items)} menu items audible in the sheet")
     else:
         delivered = [r["word"] for r in items]
-    exposed = record_exposure(delivered)
-    # The order this run consumed is now spent — declare it, so the session-open
-    # drain doesn't dispatch a second identical loop (see mark_soak_delivered).
-    stamped = mark_soak_delivered("soak") if (focus or payload) else False
-    # The tail has ONE owner (2026-08-23). This lane used to shell out to
-    # rebuild_rss.py with check=True — a third way of rebuilding the feed, and the
-    # only one where a feed hiccup killed a render whose mp3 was already made.
-    # Quiet hours are enforced inside push_to_phone; this lane's own copy of the
-    # hour compare was one of four, and render_drill had none (2026-07-26).
-    print("4. notify…")
-    commit_and_push(*publish(
-        [LEXICON_PATH if exposed else None,
-         (BASE / "progress" / "learner.json") if stamped else None],
-        f"Soak loop: {sheet.get('title', mp3.stem)}", mp3=mp3))
-    pushed = push_to_phone(f"soak loop's up — {n} sounds, nothing to do but listen 🎧",
-                           jsdelivr_url(mp3))
-    print(f"done — soak loop on the feed{' and the lock screen' if pushed else ''}.")
+    # The tail belongs to the family, not to this lane (2026-08-24). What stays
+    # here is what makes this the SOAK lane: which items played, and whether the
+    # run consumed a standing order. `commit` and `notify` are handed over by
+    # name — this module's own bindings, so the seam is legible and a test still
+    # intercepts it here.
+    deliver_rendered(
+        mp3=mp3, lane="soak", delivered=delivered, claimed=bool(focus or payload),
+        message=f"Soak loop: {sheet.get('title', mp3.stem)}",
+        copy=f"soak loop's up — {n} sounds, nothing to do but listen 🎧",
+        noun="soak loop", commit=commit_and_push, notify=push_to_phone)
 
 
 if __name__ == "__main__":

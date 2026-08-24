@@ -31,7 +31,8 @@ from pathlib import Path
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
-from publish import commit_and_push, jsdelivr_url, load_env, publish, push_to_phone
+from lanes import deliver_rendered
+from publish import commit_and_push, load_env, push_to_phone
 from render_audio import ANNA_VOICE
 # THE EXECUTOR CHOICE LEFT THIS FILE (2026-08-23). `ask_json` used to live here
 # and open an OpenRouter client unconditionally — on a laptop that has an agent
@@ -48,7 +49,6 @@ from suggest_targets import drill_menu
 from mandates import DRILL_MANDATE, LINT_MANDATE
 from state_io import LEXICON_PATH, load_json
 from state_io import canon_payload
-from sync_state import mark_soak_delivered, record_exposure
 
 DRILLS_DIR = BASE / "published_audio"   # feed root — rebuild_rss picks up drill_*.mp3
 SILENCE_PER_SEC = 41.666                # frames per second (matches render_audio)
@@ -278,22 +278,15 @@ def main():
     print("3. publish…")
     # Delivery seam (2026-07-26 ledger law): the due items Python put on the
     # sheet went out the door — declared exposure, stamped at publish.
-    exposed = record_exposure([t["word"] for t in pending])
-    # The order this run consumed is spent — declare it, or the session-open drain
-    # sees an unfilled order and dispatches an EPISODE for a repair already drilled.
-    stamped = mark_soak_delivered("drill") if (focus or lead) else False
-    # The tail has ONE owner (2026-08-23) — feed, then commit, then push, written
-    # down once. This lane had NO quiet-hours check at all and pushed a drill at
-    # 23:42 (2026-07-26); the guard lives in push_to_phone, so every lane —
-    # including ones not written yet — inherits it along with the ordering.
-    print("4. notify…")
-    commit_and_push(*publish(
-        [LEXICON_PATH if exposed else None,
-         (BASE / "progress" / "learner.json") if stamped else None],
-        f"Drill track: {sheet.get('title', mp3.stem)}", mp3=mp3))
-    pushed = push_to_phone(f"drill's up — {len(sheet['items'])} out loud, gaps are yours 🎧",
-                           jsdelivr_url(mp3))
-    print(f"done — drill on the feed{' and the lock screen' if pushed else ''}.")
+    # The tail belongs to the family (2026-08-24). Everything the DRILL lane knows
+    # that the others do not stays here: the due menu it put on the sheet is what
+    # went out the door, so that is its `delivered`.
+    deliver_rendered(
+        mp3=mp3, lane="drill", delivered=[t["word"] for t in pending],
+        claimed=bool(focus or lead),
+        message=f"Drill track: {sheet.get('title', mp3.stem)}",
+        copy=f"drill's up — {len(sheet['items'])} out loud, gaps are yours 🎧",
+        noun="drill", commit=commit_and_push, notify=push_to_phone)
 
 
 if __name__ == "__main__":
