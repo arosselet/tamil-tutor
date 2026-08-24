@@ -7349,6 +7349,29 @@ def s70_the_executor_is_chosen_by_the_host(sb: Path):
         check(f"{name} takes its executor from writer",
               "from writer import" in src, "imports ask_json from somewhere else")
 
+    # ── THE THIRD FAMILY'S WHOLE DECLARATION (2026-08-24) ────────────────────
+    # `push_queue` is pure delivery: ZERO model calls at fire time, by design.
+    # What it fires was composed at ADD time and is only RENDERED at fire time
+    # (2026-07-24) — that is the property that keeps the lock screen fast, and
+    # docs/spine_refactor.md §4b states it as a hard constraint on Q1: "push_queue
+    # must never be given a writer stage."
+    #
+    # It was stated and never enforced. The client check above only catches
+    # `OpenAI(`, so this lane could have grown `from writer import ask_json` and
+    # called it while Andrew waited at the lock screen, and nothing here would
+    # have noticed. Read off the SOURCE, mechanism lines only, so the docstring
+    # that explains the rule cannot satisfy or break it.
+    pq_src = (sb / "scripts" / "push_queue.py").read_text(encoding="utf-8")
+    pq_code = "\n".join(l for i, l in enumerate(pq_src.splitlines(), 1)
+                        if i in code_line_numbers(pq_src))
+    called = sorted(w for w in ("ask_json", "ask_text", "OpenAI(", "have_agent")
+                    if w in pq_code)
+    check("the delivery lane makes NO model call — composed at add time, "
+          "rendered at fire time",
+          not called, f"push_queue.py reaches for {', '.join(called)} — a writer "
+                      f"stage here puts a model call between Andrew's tap and his "
+                      f"lock screen, and the dose was already written")
+
 
 def s72_a_stub_never_outlives_its_case(mk, kr):
     """A stub that outlives its case is how a test comes to exercise something it
