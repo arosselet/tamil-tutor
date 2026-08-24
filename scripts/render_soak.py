@@ -54,49 +54,12 @@ SOAK_SCHEMA = obj(intro=STR, outro=STR,
 from render_audio import (generate_segment_google, get_raw_mp3_frames,
                           SILENCE_FRAME, clean_for_tts, google_credentials_ready,
                           EXIT_NOT_CONFIGURED)
+from mandates import SOAK_MANDATE
 from state_io import LEXICON_PATH, load_json
 from sync_state import mark_soak_delivered, record_exposure
 
 SOAK_DIR = BASE / "published_audio"     # feed root — rebuild_rss picks up soak_*.mp3
 SILENCE_PER_SEC = 41.666                # frames per second (matches render_audio)
-
-SOAK_MANDATE = """\
-You are Anna, writing a SOAK SHEET — a passive listening loop. Andrew is tired, \
-walking or driving, and will NOT be producing anything. He is not being tested and not \
-being taught. He is letting sounds he already half-knows wash over him until they settle.
-
-Your whole job is to group this week's items into THREADS and gloss them. You do not \
-control pacing, repetition, or order within the audio — Python owns all of that.
-
-RULES:
-- Build 3-5 CLUSTERS from the WEEK'S ITEMS below. Every cluster is one thread: a shared \
-ending, a shared frame, or a shared situation ("the -ணும் tail — what you must do", \
-"leaving the house", "the -ங்க command machine"). Items that rhyme structurally belong \
-together — the point is that the endings iterate against each other.
-- 3-5 items per cluster. Use the items given; do not invent vocabulary he has not met. \
-You may add a natural inflection of a given item if it makes the thread audible.
-- "thread": ONE short English line naming what binds the cluster. Spoken aloud, plain, \
-no grammar terminology ("the -ணும் tail — the things you have to do"). Under ~10 words.
-- "ta": natural Coimbatore colloquial in TAMIL SCRIPT ONLY. "en": the meaning in under \
-6 English words, no article-heavy prose — it is a label, not a sentence.
-- NO scene, NO dialogue, NO story, NO questions, NO instructions to him, NO homework, \
-NO grammar lecture. If you find yourself writing a situation with characters, stop: \
-that is the episode channel, not this one.
-- "intro": one short, low-key line in Anna's voice — name what the loop covers and that \
-there is nothing to do but listen. "outro": one short warm line. Neither asks anything.
-
-Return ONLY a JSON object, no prose around it:
-{
-  "title": "<3-5 word label for the feed>",
-  "intro": "<one spoken line>",
-  "clusters": [
-    {"thread": "<one short English line>",
-     "items": [{"ta": "<Tamil script>", "en": "<short gloss>"}, ...]}
-  ],
-  "outro": "<one spoken line>"
-}
-"""
-
 
 def week_payload(days: int, max_items: int) -> list[dict]:
     """What Andrew has actually been working this week — the 'sounds of this

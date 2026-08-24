@@ -45,42 +45,13 @@ DRILL_SCHEMA = obj(intro=STR, outro=STR, items=arr(cue=STR, answer_ta=STR))
 LINT_SCHEMA = obj(verdicts=arr(n=INT, verdict=STR))
 from render_audio import generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME, clean_for_tts
 from suggest_targets import drill_menu
+from mandates import DRILL_MANDATE, LINT_MANDATE
 from state_io import LEXICON_PATH, load_json
 from state_io import canon_payload
 from sync_state import mark_soak_delivered, record_exposure
 
 DRILLS_DIR = BASE / "published_audio"   # feed root — rebuild_rss picks up drill_*.mp3
 SILENCE_PER_SEC = 41.666                # frames per second (matches render_audio)
-
-DRILL_MANDATE = """\
-You are Anna, writing a DRILL SHEET — a hands-free spoken production drill Andrew \
-runs while driving or doing dishes. The rhythm per item: you speak a short English \
-cue, then silence while HE SAYS THE TAMIL OUT LOUD, then you give the answer (it \
-plays twice). Your job is only the sheet: the cues and the answers.
-
-RULES:
-- Items come from the DUE list below, in the order given. A chunk's answer is \
-the chunk itself, said whole. A frame becomes TWO consecutive items, each a \
-different NOVEL slot-fill using everyday trip nouns/verbs (tea, auto, temple, \
-bathroom, eat, sit, come...).
-- The cue is a compact English situation or meaning ("ask your maama for a coffee", \
-"tell her: we went to the temple, it was great"). NEVER put any Tamil in the cue — \
-the silence is where he produces it unaided. Cues stay under ~12 words.
-- The answer is natural standard Coimbatore colloquial in TAMIL SCRIPT ONLY (a \
-Tamil voice speaks it). Polite -nga register by default; nee only where the \
-item itself is nee-form.
-- "intro": one short Anna line in his own voice setting the contract — out loud, \
-before the answer comes, no mumbling. "outro": one short warm line, no homework.
-- No grammar talk, no numbering, no meta-narration.
-
-Return ONLY a JSON object, no prose around it:
-{
-  "title": "<3-5 word label for the feed>",
-  "intro": "<one spoken line>",
-  "items": [{"cue": "<English>", "answer_ta": "<Tamil script>"}, ...],
-  "outro": "<one spoken line>"
-}
-"""
 
 # Appended when the standing order routed a REPAIR to this lane. The commissioned
 # item leads and gets three angles; the pool fills the rest of the tape. LEAD, not
@@ -182,18 +153,6 @@ def write_sheet(pending: list[dict], n_lead: int = 0, focus: str | None = None) 
     sheet["items"] = [i for i in sheet.get("items", [])
                       if i.get("cue", "").strip() and i.get("answer_ta", "").strip()]
     return sheet
-
-
-LINT_MANDATE = """\
-You are a strict checker of spoken Coimbatore colloquial Tamil. Each numbered item \
-pairs an English cue with the Tamil answer a learner will repeat aloud ten times. \
-FAIL any answer a native speaker would flag as wrong: a wrong case suffix (locative \
--ல where dative -க்கு is needed; பக்கம்ல for the oblique பக்கத்துல), a wrong tense or \
-person ending, or an unnatural form for the cue's meaning. Colloquial contractions, \
-register variation and Thanglish loanwords are FINE — this is spoken language, not \
-textbook Tamil. When genuinely unsure, PASS.
-Return ONLY JSON: {"verdicts": [{"n": 1, "verdict": "PASS|FAIL", "reason": "<one clause>"}]} \
-— exactly one verdict per item."""
 
 
 def lint_sheet(sheet: dict) -> list[str]:

@@ -1281,7 +1281,12 @@ CODE_BUDGETS = {
     # code_lines counts as mechanism. mandates.py already exists as the home for
     # prompt canon — morning_knock.py made exactly this move on 2026-08-01 and
     # was re-censused DOWN afterwards. This file should follow, not grow again.
-    "scripts/knock_reply.py": 785,
+    # 785 → 570 (2026-08-24): IT FOLLOWED. RE-CENSUSED DOWN, not raised — the six
+    # mandates left for mandates.py exactly as the note above prescribed, 237 lines
+    # and 31% of the file. It sat at 758/785 with 27 lines of headroom; it now sits
+    # at 556 with real room to take a feature. The note above is discharged, and
+    # the next raise on THIS number is about mechanism, with no prose left to blame.
+    "scripts/knock_reply.py": 570,
     # 700 -> 625 (2026-08-01): re-censused DOWN after OUTREACH_MANDATE moved to
     # mandates.py — the file sat at 699/700, one mechanical fix from a red build.
     # The split is the ceiling law working, not an allowance: prompt canon and
@@ -1337,7 +1342,18 @@ CODE_BUDGETS = {
     # this budget is a machinery TRAP, not a size limit — every line it now counts
     # is prompt string, and prompt strings are word-budgeted in PROSE_BUDGETS above.
     # What must still trip it is a def, a loop, or an import sneaking in.
-    "scripts/mandates.py": 200,
+    # 200 → 470 (2026-08-24). The other NINE prompt constants arrived: the reply
+    # judge's six from knock_reply.py, the drill lane's two, the soak lane's one.
+    # Ten of the repo's thirteen lived in a lane; all thirteen live here now.
+    # This is the third time this move has been made — morning_knock 08-01,
+    # render_longhaul 08-10, and knock_reply's own budget note had been asking for
+    # it in writing since 08-02 ("REFUSE the next raise and split instead").
+    # Cheap for the same reason the 08-10 raise was: this budget is a machinery
+    # TRAP, not a size limit. Every line it counts is prompt string, and prompt
+    # strings are word-budgeted individually in PROSE_BUDGETS above — JUDGE_MANDATE
+    # 1500, REACH 300, SLIP 250, THREAD 250, CATCH_JUDGE 300, OUTREACH 2000. The
+    # ceiling that actually binds this prose did not move an inch.
+    "scripts/mandates.py": 470,
     # NEW FILE, budgeted in the same diff that creates it (2026-08-23, the spine
     # refactor). What it retires: `morning_knock.py` owning the delivery tail for
     # seven lanes, 26 hand-built commit-path lists, and two import cycles that
@@ -1363,7 +1379,9 @@ CODE_BUDGETS = {
     # `ask_json` left for writer.py, taking the executor choice with it — this
     # file owns drills, not how every lane talks to a model. The ratchet working,
     # not an allowance.
-    "scripts/render_drill.py": 220,
+    # 220 → 195 (2026-08-24): re-censused DOWN — DRILL_MANDATE and LINT_MANDATE
+    # left for mandates.py. This lane had THREE lines of headroom.
+    "scripts/render_drill.py": 195,
     # New file 2026-08-10 at 318 lines — the fourth audio lane. ~45 of those are
     # BASE_MANDATE + the five SHAPE_CLAUSES, which code_lines counts as mechanism
     # (prompt strings always do). Budgeted at 340 rather than 400: the headroom is
@@ -1375,7 +1393,9 @@ CODE_BUDGETS = {
     # 275 -> 265 (2026-08-23, Andrew): re-censused DOWN. Its private OpenRouter
     # client — the FOURTH copy, and the first that cost money rather than
     # correctness — became one `writer.ask_json` call.
-    "scripts/render_soak.py": 265,
+    # 265 → 210 (2026-08-24): re-censused DOWN — SOAK_MANDATE left for
+    # mandates.py with the drill lane's two and the judge's six.
+    "scripts/render_soak.py": 210,
     # 425 → 429 (2026-08-20): the first-line H1 lint. It retires the accidental
     # episode title — the Architect was never told to emit one, so 30 of the
     # first 90 episodes shipped to the PUBLIC feed named `Tier2 Mission90`
