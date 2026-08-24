@@ -12,6 +12,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **13:22 · Anna** 🎧  ·  eavesdrop / eavesdrop: theriyuma drift
 > 👂 Athai on the phone: Priya pathi theriyuma? (do you know?). Listen to the tape — what gossip is she passing?
 
+**18:04 · Anna**  ·  challenge / field mission: podhum drop
+> 🍛 Dinner mission: when extra food comes your way tonight, wave it off — 'podhum' (enough). No exam, just drop it. Debrief tomorrow.
+
 
 ## Sunday 2026-08-23
 

@@ -5175,5 +5175,17 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-24T07-52.mp3",
     "memo_script": "ஹலோ, வசந்தா? நான் தான் அத்தை பேசுறேன்.\n\nஇன்னைக்கு காலையில ப்ரியா பத்தி உனக்கு தெரியுமா? அவங்க ஊருக்கு போய்ட்டாங்களாம்! குமார் தான் சொன்னான், நேத்து நைட்டே கிளம்பி போய்ட்டாங்களாம். என்ன விஷயம்னு தெரியல, ஆனா ரொம்ப அவசரமா போனாங்களாம்.",
     "mp3": "published_audio/knocks/knock_2026-08-24T07-52.mp3"
+  },
+  {
+    "date": "2026-08-24",
+    "timestamp": "2026-08-24T12:34:17.402221+00:00",
+    "acted": true,
+    "modality": "challenge",
+    "move": "field mission: podhum drop",
+    "rationale": "18:00 dinner approach after two quiet daytime pings — pivot to a zero-friction field mission for tonight with debrief tomorrow.",
+    "next_check": "2026-08-25T02:34:17.402221+00:00",
+    "body": "🍛 Dinner mission: when extra food comes your way tonight, wave it off — 'podhum' (enough). No exam, just drop it. Debrief tomorrow.",
+    "expected_target": "போதும்",
+    "target_revealed": true
   }
 ]
