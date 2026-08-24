@@ -97,9 +97,10 @@ def load_modules(sb: Path):
     # function resolves through its OWN globals (`pb.in_waking_window` is the
     # load-bearing one -- patching it anywhere else stops intercepting, and a
     # stub that stops intercepting means a test hits the real phone).
-    global pb, wr
+    global pb, wr, si
     pb = importlib.import_module("publish")
     wr = importlib.import_module("writer")
+    si = importlib.import_module("state_io")   # L0
     check("modules imported from sandbox", mk.__file__.startswith(str(sb)),
           f"morning_knock loaded from {mk.__file__}")
     return mk, kr, pq
@@ -1101,9 +1102,9 @@ def s16_stale_clone_gates(sb: Path):
     check("clean payload passes through",
           ss.canon_payload(["a", "b"]) == ["a", "b"])
 
-    check("no record → unseen", ss.is_unseen({}))
-    check("surfaced → not unseen", not ss.is_unseen({"last_surfaced": "2026-07-01"}))
-    check("in an episode → not unseen", not ss.is_unseen({"seen_in": ["M60"]}))
+    check("no record → unseen", si.is_unseen({}))
+    check("surfaced → not unseen", not si.is_unseen({"last_surfaced": "2026-07-01"}))
+    check("in an episode → not unseen", not si.is_unseen({"seen_in": ["M60"]}))
 
     trailer = {"date": "2026-07-15", "move": "session bell trailer", "body": "ஆச்சு today"}
     volley = {"date": "2026-07-15", "move": "afternoon volley", "body": "…"}
@@ -1422,7 +1423,15 @@ CODE_BUDGETS = {
     # paths, load/save, and token->canonical-key resolution. Ten scripts were
     # importing these FROM the state brain. Deliberately tiny and dependency-free
     # — if this file starts growing, something that mutates state has leaked in.
-    "scripts/state_io.py": 60,
+    # 60 → 110 (2026-08-23, the spine refactor's last step). RETIRED IN THIS DIFF:
+    # the sync_state <-> suggest_targets import cycle, and the deferred import
+    # that patched it ("lazy: suggest_targets imports us"). `soak_pending`,
+    # `is_unseen` and the payload resolvers `soak_pending` depends on came DOWN
+    # here; `reconcile_focus`, which WRITES, stayed up in sync_state. The test
+    # above still holds and is the reason the split is legible: nothing that
+    # mutates state moved: these four read and decide, and they land beside
+    # `resolve`/`is_tamil`, which is the same job one rung narrower.
+    "scripts/state_io.py": 110,
     # The slip ledger, split out of sync_state 2026-08-04. Always a subsystem
     # in a file about something else: it owns progress/slip_log.json outright
     # and is reached from three call sites. Imports state_io only — never
@@ -2140,14 +2149,13 @@ def s27_schedule_and_soak_guards(sb: Path):
 
     # #12: an unresolvable soak payload made the produced-check permanently
     # False, and the hourly cron shipped M72/M73/M74 in one evening.
-    ss = importlib.import_module("sync_state")
     lex = {"அவசரம் இருக்கு": {"phonetic": ["avasaram irukku"], "gloss": "hurry"},
            "frame:needtogo-place": {"phonetic": [], "gloss": "must go to X"}}
-    resolved, unresolved = ss.split_payload(["avasaram", "frame:needtogo-place"], lex)
+    resolved, unresolved = si.split_payload(["avasaram", "frame:needtogo-place"], lex)
     check("bare headword resolves to its chunk key",
           "அவசரம் இருக்கு" in resolved, f"got {resolved}")
     check("no false unresolved", unresolved == [], f"got {unresolved}")
-    junk_r, junk_u = ss.split_payload(["definitely-not-a-word"], lex)
+    junk_r, junk_u = si.split_payload(["definitely-not-a-word"], lex)
     check("genuine junk is reported, not silently kept", junk_u and not junk_r)
 
     sw = importlib.import_module("studio_watchdog")
@@ -3344,7 +3352,7 @@ def s36_soak_order_carries_shape(sb: Path):
         learner = read_json(learner_path)
         learner["soak_order"]["payload"] = ["நிறைஞ்சிடுச்சு"]   # not in this lexicon
         write_json(learner_path, learner)
-        res, unres = ss.split_payload(["நிறைஞ்சிடுச்சு"], read_json(lex_path))
+        res, unres = si.split_payload(["நிறைஞ்சிடுச்சு"], read_json(lex_path))
         check("a pre-lexicon Tamil payload word is resolvable, not junk",
               res == ["நிறைஞ்சிடுச்சு"] and not unres, f"{res} / {unres}")
         check("...and a delivered order still clears with one in the payload",

@@ -23,9 +23,9 @@ from slips import format_slip_block, slip_patterns
 from state_io import (BASE, EPISODES_PATH, KNOCK_LOG_PATH, LEARNER_PATH,
                       LEXICON_PATH, LOCAL_TZ, SESSION_LOG_PATH, load_json,
                       local_today)
-from sync_state import (RECOGNITION_LEVELS, canon_payload, compute_ear,
-                        compute_engines, compute_floor, compute_status,
-                        fires_today, is_pattern, is_unseen, split_payload)
+from state_io import canon_payload, is_unseen, split_payload
+from sync_state import (RECOGNITION_LEVELS, compute_ear, compute_engines,
+                        compute_floor, compute_status, fires_today, is_pattern)
 
 
 def git_sync_counts() -> tuple[int, int] | None:

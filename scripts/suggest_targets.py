@@ -49,8 +49,7 @@ from pathlib import Path
 
 from generate_callbacks import due_callbacks, load_json, days_since, NEVER_SURFACED
 from slips import slip_patterns
-from state_io import local_today
-from sync_state import is_unseen, soak_pending
+from state_io import is_unseen, soak_pending, local_today
 
 # Windows consoles default to cp1252, which can't print Tamil (2026-07-15).
 if hasattr(sys.stdout, "reconfigure"):

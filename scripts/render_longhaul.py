@@ -76,7 +76,8 @@ from writer import STR, arr, ask_json, obj
 # What one movement IS, for the executor that can be told (see writer.obj).
 MOVEMENT_SCHEMA = obj(frame=STR, beats=arr(ta=STR, en=STR))
 from state_io import LEXICON_PATH, load_json
-from sync_state import canon_payload, mark_soak_delivered, record_exposure
+from state_io import canon_payload
+from sync_state import mark_soak_delivered, record_exposure
 
 LONGHAUL_DIR = BASE / "published_audio"   # feed root — rebuild_rss picks up longhaul_*.mp3
 SILENCE_PER_SEC = 41.666                  # frames per second (matches render_audio)
