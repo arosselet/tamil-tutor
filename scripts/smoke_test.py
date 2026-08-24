@@ -1324,7 +1324,7 @@ CODE_BUDGETS = {
     # Nine of the twenty-one other modules imported this file and almost none of
     # them wanted the knock. Same move it made on 2026-08-01 for OUTREACH_MANDATE,
     # and the same law: a mandate at its ceiling gets split, not raised.
-    "scripts/morning_knock.py": 475,
+    "scripts/morning_knock.py": 450,
     # The mandate as a module: almost entirely prompt string (word-budgeted as
     # OUTREACH_MANDATE in PROSE_BUDGETS above), so its code budget exists only
     # to satisfy the every-file-is-budgeted guard and to catch machinery
@@ -5900,7 +5900,7 @@ def s58_a_sheet_survives_a_model_thinking_out_loud(sb: Path):
 DEBT_CEILING_NO_PHONETIC = 96
 
 
-def s59_a_new_record_is_born_reachable(sb: Path):
+def s71_a_new_record_is_born_reachable(sb: Path):
     """A minted record must carry its sounds-like form (2026-08-14, Andrew).
 
     Found live at a session close: `--produced-hinted ukkarunga` bounced, so did
@@ -5922,7 +5922,7 @@ def s59_a_new_record_is_born_reachable(sb: Path):
     unattended and cannot be blocked without killing renders, so the debt is
     capped instead. Existing records are grandfathered — no backfill, by his
     decision. The number may only ever fall; lower it when a tranche is vetted."""
-    print("\n59. A new record is born reachable (2026-08-14)")
+    print("\n71. A new record is born reachable (2026-08-14)")
     import argparse as _ap
     import contextlib
     ss = importlib.import_module("sync_state")
@@ -7201,7 +7201,7 @@ def main():
         s50_read_surfaces_are_phonetic(mk, kr, sb)
         s51_derived_files_are_rerendered_not_merged(mk, sb)
         s52_andrew_is_family_already(sb)
-        s59_a_new_record_is_born_reachable(sb)
+        s71_a_new_record_is_born_reachable(sb)
         s60_the_ear_meter(kr, sb)
         s61_no_number_is_recited_at_him(kr, sb)
         s62_the_return_clock_is_keyed_to_the_ear(sb)

@@ -2297,3 +2297,15 @@ Details live in git history; this is the index of the *conclusions*.
   alone — `--stuck-word` would have reached `touch()` and destroyed the signal that finds
   them. Retires `prune-duplicates`, as that retired `migrate-session-log`. Re-earning needs no
   new machinery: a caught eavesdrop already promotes recognition. Smoke `s53`.
+
+- **Imports point one way, down the stack** (2026-08-23, the spine refactor). Stated twice
+  before for single module pairs (`state_io` docstring 08-04; "outreach may depend on
+  selection, never the reverse" 07-25), now true of the graph: a lower layer never imports a
+  higher one, and **a channel never owns an invariant more than one channel obeys**. L0
+  `state_io` -> L1 selection -> L2 policy -> L3 `writer` (model config, parsers, executor)
+  -> L4 `publish` (feed, commit, push) -> L5 the lanes. **Retires as a class the 23 prior
+  entries** — 10% of this ledger, accelerating — that are one bug: *a law that should have
+  been one component's property was written into every lane, and one lane missed it.*
+  Budgets re-censused DOWN in the same diffs: `morning_knock` 637 -> 450, `sync_state` -45;
+  paying for `writer` 175, `publish` 150, `state_io` 110. Smoke held still, 70 cases.
+  Detail, Q1/Q2: `docs/spine_refactor.md`.

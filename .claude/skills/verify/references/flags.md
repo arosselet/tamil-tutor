@@ -45,7 +45,7 @@ grep the named function when you need the exact spot.
 
 > `progress/` holds real, irreplaceable learner state. Never run a mutating command against live `progress/` unless you mean it. The smoke test's sandbox pattern is the safe harness — extend it, don't bypass it.
 >
-> Commands marked "LLM … fires" need `OPENROUTER_API_KEY` — locally it's read from the repo's gitignored `.env` (`morning_knock.py` `load_env()`); in CI it's an Actions secret. A dry-run without the key fails at the LLM call, not silently.
+> Commands marked "LLM … fires" need `OPENROUTER_API_KEY` — locally it's read from the repo's gitignored `.env` (`publish.py` `load_env()`); in CI it's an Actions secret. A dry-run without the key fails at the LLM call, not silently.
 
 ---
 

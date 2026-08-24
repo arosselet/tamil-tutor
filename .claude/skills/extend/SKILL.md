@@ -110,10 +110,10 @@ the commit body if you touch one. (`BOOTSTRAP.md` → "What Generalizes" → Lay
 | Item | Location |
 |---|---|
 | LLM prompts with Tamil-specific prose rules (script vs. phonetic, Woven Thanglish) | `scripts/morning_knock.py` (decide prompt), `scripts/knock_reply.py` (judge prompt + `SLIP_MANDATE`), `scripts/render_drill.py` (drill-script prompt) |
-| `TAMIL_RE` — script-detection regex that enforces Tamil script as canonical lexicon keys | `scripts/state_io.py` line 54 |
-| Pinned TTS voice IDs — `ANNA_VOICE` for knocks/drills; voice pools for episodes | `scripts/morning_knock.py` line 50; `scripts/render_audio.py` |
+| `TAMIL_RE` — script-detection regex that enforces Tamil script as canonical lexicon keys | `scripts/state_io.py` → `TAMIL_RE` |
+| Pinned TTS voice IDs — `ANNA_VOICE` for knocks/drills; voice pools for episodes | `scripts/render_audio.py` → `ANNA_VOICE` / `EAVESDROP_VOICE` (moved there 2026-08-23 — they live with the TTS stack, not with one of the five lanes that read them) |
 
-Also check: `REPO = "arosselet/tamil-tutor"` (`scripts/morning_knock.py` line 51) —
+Also check: `REPO = "arosselet/tamil-tutor"` (`scripts/publish.py` → `REPO`) —
 the jsDelivr CDN URL for knock audio; a fork must update this.
 
 **Cloud rendering:** the cloud DOES render — knock memos and scheduled voice doses, in

@@ -43,7 +43,7 @@ Start with `/orient` → `references/glossary.md`.
 | Status looks wrong (floor/deck numbers) | `lexicon.json` state, compute logic | `python scripts/sync_state.py status` (safe) |
 | CI red — smoke workflow | Regression in knock/reply/queue plumbing | `gh run list --workflow=smoke.yml --limit 5` then `gh run view <id> --log` |
 | CI red — knock/queue workflow | Missing secret, commit conflict, JSON parse fail | `gh run view <id> --log` |
-| Audio knock missing from the podcast feed | Feed refresh failed in that knock run (all audio → feed since 2026-07-05; `morning_knock.py refresh_feed()` is failure-tolerant by design) | `gh run view <id> --log` → look for `⚠ rss rebuild failed`; recover the URL from `knock_log.json` → `audio_url`, or rerun `python scripts/rebuild_rss.py` locally |
+| Audio knock missing from the podcast feed | Feed refresh failed in that knock run (all audio → feed since 2026-07-05; `publish.py refresh_feed()` is failure-tolerant by design) | `gh run view <id> --log` → look for `⚠ rss rebuild failed`; recover the URL from `knock_log.json` → `audio_url`, or rerun `python scripts/rebuild_rss.py` locally |
 | Anna keeps making the same mistake | May be a protocol bug, not plumbing | read `progress/feedback_log.json`; if pattern appears 2+ times → `/extend` |
 | **I replied and NOTHING happened — no run, no error, no trace** | Inbound leg dead: expired PAT, or the ANNA_REPLY automation (KF-12) | Actions list → filter `repository_dispatch`. **Zero since a datestamp = the return path, not your reply.** Knocks still arriving PROVES HA is alive — outbound crosses the same HA — so suspect the one thing unique to inbound: the token |
 | Anna over-uses a format / doses feel same-shaped | Incentive drift in the decide prompt (a preference line, a reward framing) — not persona | `grep -o '"move": "[^"]*"' progress/knock_log.json \| tail -15` → then read the prompt's incentive lines in `morning_knock.py` |
@@ -71,7 +71,7 @@ judged against the second (last-logged) knock, not the one he was actually answe
 **Symptom:** Knock workflow shows `Expecting value: line 1 column 1 (char 0)`; no knock fired.
 **Root cause:** The decision model occasionally wraps its JSON in prose (or returns empty);
 the old parser only handled ` ``` ` code fences, so bare prose raised immediately.
-**Fix:** `parse_llm_json()` (in `morning_knock.py`) now: strips fences → tries `json.loads`
+**Fix:** `parse_llm_json()` (in `writer.py`) now: strips fences → tries `json.loads`
 → falls back to the outermost `{...}` slice → prints raw text before re-raising so the
 log shows what came back, not just that it failed.
 **Verify:** `python scripts/smoke_test.py` → section 1 (regression #2).
@@ -282,7 +282,7 @@ fixes — a parser gap wants another fallback, a blown ceiling wants a bigger bu
 mid-sentence. If the dump's last line is a fragment, stop looking at the parser.
 **Fix:** `parse_llm_response(resp)` checks `finish_reason == "length"` FIRST and raises a
 self-naming ValueError carrying the partial text (the recovery payload). It lives in
-`morning_knock.py` beside `parse_llm_json` because only the *response* carries
+`writer.py` beside `parse_llm_json` because only the *response* carries
 `finish_reason` — the text cannot know. ValueError so `decide()`'s retry re-rolls it (a
 second draft may be terser) while `judge()` surfaces at once. `judge()` 800 → 1600, which
 is what `decide()` already used for comparable output; `judge_catch` stays at 400.
