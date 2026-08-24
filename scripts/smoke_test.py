@@ -51,6 +51,10 @@ from pathlib import Path
 
 REAL_BASE = Path(__file__).resolve().parent.parent
 FAILURES: list[str] = []
+# Case filter: `python scripts/smoke_test.py s41 s58` runs those two alone.
+# CI passes nothing and gets the whole suite (smoke.yml's contract).
+ONLY: list[str] = [a for a in sys.argv[1:] if not a.startswith("-")]
+RAN: list[str] = []
 
 
 def check(name: str, cond: bool, detail: str = ""):
@@ -5740,7 +5744,13 @@ def s50_read_surfaces_are_phonetic(mk, kr, sb: Path):
     real_render, mk.render_memo = mk.render_memo, fake_render
     pb.refresh_feed = lambda: None
     try:
-        sys.argv = ["morning_knock.py"]
+        # `--force` states this case's precondition instead of inheriting it.
+        # Until 2026-08-24 this line read `["morning_knock.py"]` and the run only
+        # reached `decide` because `s3`, forty cases earlier, had stubbed
+        # `rails_gate` out and never put it back. The dependency was invisible and
+        # positional: reorder the suite and this case silently stops testing the
+        # transform at all. What it is actually about is the BODY, not the gate.
+        sys.argv = ["morning_knock.py", "--force"]
         mk.main()
     finally:
         mk.render_memo = real_render
@@ -6506,6 +6516,31 @@ def s69_two_readers_two_tickets(sb: Path):
     print("\n69. Two readers, two tickets (2026-08-21)")
     import subprocess as _sp
 
+    # THIS CASE DECLARES ITS OWN DATA (2026-08-24). Three of its assertions —
+    # COVERAGE, ENGINES TO FIRE, and the slip ledger on `status` — are about
+    # blocks that only PRINT when there is something to print, and the day-zero
+    # fixtures are empty. Until now it read whatever the forty cases ahead of it
+    # happened to leave in the sandbox, which made it the last case in the suite
+    # that could not be reproduced alone. What it seeds is the minimum each block
+    # needs and nothing else: a registered fire word (coverage), a pattern not
+    # yet cold (an engine), and a tag slipped twice (a REPEATED slip — once is
+    # not a pattern, and the ledger says so).
+    lex_path, slip_path = sb / "progress" / "lexicon.json", sb / "progress" / "slip_log.json"
+    lex = read_json(lex_path)
+    lex.setdefault("ஸ்மோக்வார்த்தை", {
+        "gloss": "smoke word", "phonetic": ["smoke vaarthai"], "register": "survival",
+        "recognition": "comfortable", "production": "hinted", "reps": 2})
+    lex.setdefault("frame:smoke-engine", {
+        "gloss": "the smoke frame", "phonetic": [], "type": "pattern",
+        "recognition": "comfortable", "production": "hinted", "reps": 1})
+    write_json(lex_path, lex)
+    slips_now = read_json(slip_path)
+    for n in (1, 2):   # twice — a slip is REPEATED or it is not on this list
+        slips_now.append({"date": date_cls.today().isoformat(), "tag": "smoke-repeat",
+                          "said": f"wrong-{n}", "want": "right", "lane": "chat",
+                          "note": "seeded by s69 so the ledger has something to report"})
+    write_json(slip_path, slips_now)
+
     def ticket(*args):
         return _sp.run([sys.executable, str(sb / "scripts" / "suggest_targets.py"), *args],
                        cwd=sb, capture_output=True, encoding="utf-8",
@@ -7157,83 +7192,208 @@ def s70_the_executor_is_chosen_by_the_host(sb: Path):
               "from writer import" in src, "imports ask_json from somewhere else")
 
 
+def s72_a_stub_never_outlives_its_case(mk, kr):
+    """A stub that outlives its case is how a test comes to exercise something it
+    never meant to (2026-08-24).
+
+    THE SILENT NO-OP, answered out loud: if `restore()` did nothing whatever,
+    this suite would still print ALL GREEN. Measured the day it was built — 68 of
+    the 70 cases pass alone against a fresh sandbox with no inherited stubs at
+    all — so teardown cannot be verified by the suite passing. It has to be
+    asserted in the dimension it actually fails: a name still bound to a stub
+    after the case that installed it has returned.
+
+    The bug it closes was live, not hypothetical. `s50` reached `decide()` only
+    because `s3`, forty cases earlier, stubbed `rails_gate` out and never put it
+    back; reorder the list and the case silently stopped testing its own subject
+    while staying green. Four more cases carried "needs the real X — s3+ stubs it
+    out" comments and had been hoisted above `s3` by hand to dodge the same
+    thing. Those four are back in numeric order because this holds.
+    """
+    print("\n72. A stub never outlives its case (2026-08-24)")
+    real_push, real_judge = mk.push_to_phone, kr.judge
+    sentinel = Recorder()
+
+    def _s72_probe():
+        mk.push_to_phone = sentinel
+        kr.judge = sentinel
+        mk.a_name_no_module_has = sentinel
+
+    def _s72_probe_that_raises():
+        mk.push_to_phone = sentinel
+        raise RuntimeError("a case may fail; the next one still gets clean modules")
+
+    # `run` filters on ONLY, and the probes must run even when the suite was
+    # narrowed to this one case. Clear it around them, and keep them out of the
+    # RAN report — they are apparatus, not cases.
+    saved, ONLY[:] = list(ONLY), []
+    try:
+        run(_s72_probe)
+        check("a replaced name is put back", mk.push_to_phone is real_push,
+              f"got {mk.push_to_phone!r}")
+        check("...on every module the case touched", kr.judge is real_judge,
+              f"got {kr.judge!r}")
+        check("...and a name the case INVENTED is removed, not left behind",
+              not hasattr(mk, "a_name_no_module_has"))
+
+        raised = False
+        try:
+            run(_s72_probe_that_raises)
+        except RuntimeError:
+            raised = True
+        check("a raising case still surfaces its error", raised)
+        check("...and the modules are clean anyway — teardown is in a finally",
+              mk.push_to_phone is real_push, f"got {mk.push_to_phone!r}")
+    finally:
+        ONLY[:] = saved
+        RAN[:] = [r for r in RAN if not r.startswith("_s72_probe")]
+
+    # The property the four un-hoisted cases now rely on: nothing in the list
+    # before them can have replaced what they assert against.
+    check("the real push_to_phone is a function, not a Recorder",
+          callable(real_push) and not isinstance(real_push, Recorder))
+
+
+# ── Running ONE case ────────────────────────────────────────────────────────
+# Every case goes through `run`, and the reason is stub teardown. The suite
+# stubs by module attribute — `mk.push_to_phone = Recorder()`, `kr.judge = ...`
+# — 59 times, and until 2026-08-24 not one of them was ever put back. Case N
+# inherited every stub case N-1 installed, so what a case actually exercised
+# depended on its position in a hand-maintained list. Four cases were hoisted
+# above `s3` purely to reach the REAL function before something stubbed it, each
+# carrying a comment saying so.
+#
+# MEASURED before this was built (2026-08-24): 68 of the 70 cases already pass
+# alone against a fresh sandbox with no inherited stubs at all. The inheritance
+# was not load-bearing — it was a latent hazard, which is worse, because the
+# failure mode is a stub that quietly stops intercepting and a test that reaches
+# real git or a real phone. `restore` closes it for good.
+#
+# What is NOT reset is the sandbox tree. State on disk is shared on purpose:
+# `s50` and `s69` read a knock log and a lexicon that earlier cases populated,
+# which is a legitimate end-to-end dependency and the only one that survived
+# measurement. Per-case sandboxes are a separate question from per-case stubs.
+_PRISTINE: dict = {}
+
+
+def snapshot(*mods):
+    """Record each module's namespace so `run` can put it back after a case."""
+    _PRISTINE.clear()
+    _PRISTINE.update({m.__name__: (m, dict(m.__dict__)) for m in mods})
+
+
+def restore():
+    """Undo every module-attribute stub the last case installed."""
+    for _, (mod, pristine) in _PRISTINE.items():
+        for k in [k for k in mod.__dict__ if k not in pristine]:
+            delattr(mod, k)
+        for k, v in pristine.items():
+            if mod.__dict__.get(k) is not v:
+                setattr(mod, k, v)
+
+
+def run(fn, *args):
+    """Run one case, then hand the next one clean modules.
+
+    `ONLY` (argv) narrows a run to one case or a prefix — the point of the whole
+    exercise: a failure reproduces on its own, without its forty predecessors.
+    """
+    # A bare token is the case NUMBER and must match exactly — `s6` selects s6 and
+    # not s69, which a plain startswith quietly did. A token carrying an
+    # underscore is a name prefix (`s41_slip`), where startswith is the point.
+    if ONLY and not any(fn.__name__.startswith(o) if "_" in o
+                        else fn.__name__.split("_")[0] == o for o in ONLY):
+        return
+    RAN.append(fn.__name__)
+    try:
+        fn(*args)
+    finally:
+        restore()
+
+
 def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
         print(f"sandbox: {sb}")
         mk, kr, pq = load_modules(sb)
-        s1_parse_llm_json(mk)
-        s2_rails_gate(mk, sb / "progress" / "knock_log.json")
-        s15_push_retry(mk)   # needs the real push_to_phone — s3+ stub it out
-        s67_two_replies_to_one_knock_both_survive(mk)   # ditto: asserts on the real payload
-        s35_quiet_hours_chokepoint(sb)   # ditto: asserts on the real function
-        s59_transit_bit(mk, sb)          # ditto — s3 below stubs rails_gate out
-        s3_knock_paths(mk, sb)
-        s4_normalize(kr)
-        s5_reply_judge(mk, kr, sb)
-        s6_queue_drain(mk, pq, sb)
-        s7_integrity(sb)
-        s8_variety_and_decay(mk, kr, sb)
-        s9_audio_knock_feed(mk, sb)
-        s10_chain_history(mk, kr, sb)
-        s11_capped_graduation(kr, sb)
-        s12_volley(mk, kr, sb)
-        s13_eavesdrop(mk, kr, sb)
-        s14_reply_correlation(kr)
-        s16_stale_clone_gates(sb)
-        s17_campaign_digest(mk, sb)
-        s18_size_budgets(mk, kr, sb)
-        s19_watchdog_detection(sb)
-        s20_fielding(mk, kr, sb)
-        s21_volley_represent(kr, sb)
-        s22_sfx_pause(sb)
-        s23_ticket_end_to_end(sb)
-        s25_studio_concurrency_and_secrets(sb)
-        s26_capacity_routing(sb)
-        s27_schedule_and_soak_guards(sb)
-        s28_cloud_writer(sb)
-        s29_one_runner_every_capability(mk, pq, kr, sb)
-        s30_anna_speaks_back(mk, kr, sb)
-        s31_feed_carries_every_pushed_dose(sb)
-        s32_pool_rotation_and_coverage(mk, sb)
-        s33_catch_response_pairs(mk, sb)
-        s34_focus_and_background(sb)
-        s36_soak_order_carries_shape(sb)
-        s37_repair_earns_the_dose(sb)
-        s38_teach_enters_the_lexicon(sb)
-        s39_ticket_carries_the_commission(sb)
-        s40_drill_consumes_its_commission(sb)
-        s41_slip_ledger(kr, sb)
-        s42_session_log_one_row_per_day(sb)
-        s43_sidecar_callback_never_drops_silently(sb)
-        s44_a_commission_can_discharge_the_flag(sb)
-        s45_concurrent_appends_merge(mk, sb)
-        s46_the_commission_notice_names_the_debt(sb)
-        s47_hinted_retest_rule(sb)
-        s53_unverify_rows_nothing_ever_tested(sb)
-        s54_no_deadline_reaches_any_surface(sb)
-        s55_demotion_survives_the_close(sb)
-        s56_timezone_is_one_dial(sb)
-        s48_drill_answer_key_lint(sb)
-        s57_longhaul_tape(sb)
-        s58_a_sheet_survives_a_model_thinking_out_loud(sb)
-        s49_thread_continuity(mk, kr, sb)
-        s50_read_surfaces_are_phonetic(mk, kr, sb)
-        s51_derived_files_are_rerendered_not_merged(mk, sb)
-        s52_andrew_is_family_already(sb)
-        s71_a_new_record_is_born_reachable(sb)
-        s60_the_ear_meter(kr, sb)
-        s61_no_number_is_recited_at_him(kr, sb)
-        s62_the_return_clock_is_keyed_to_the_ear(sb)
-        s63_the_machines_reach_the_ticket()
-        s64_the_ask_cooldown_covers_the_session_lane(sb)
-        s65_the_ordering_outlives_the_deck(sb)
-        s66_json_mode_is_actually_sent(mk, kr, sb)
-        s68_the_convergence_audit_fixes(sb)
-        s69_two_readers_two_tickets(sb)
-        s70_the_executor_is_chosen_by_the_host(sb)
+        snapshot(mk, kr, pq, pb, wr, si)
+        run(s1_parse_llm_json, mk)
+        run(s2_rails_gate, mk, sb / "progress" / "knock_log.json")
+        run(s15_push_retry, mk)
+        run(s67_two_replies_to_one_knock_both_survive, mk)
+        run(s35_quiet_hours_chokepoint, sb)
+        run(s59_transit_bit, mk, sb)
+        run(s3_knock_paths, mk, sb)
+        run(s4_normalize, kr)
+        run(s5_reply_judge, mk, kr, sb)
+        run(s6_queue_drain, mk, pq, sb)
+        run(s7_integrity, sb)
+        run(s8_variety_and_decay, mk, kr, sb)
+        run(s9_audio_knock_feed, mk, sb)
+        run(s10_chain_history, mk, kr, sb)
+        run(s11_capped_graduation, kr, sb)
+        run(s12_volley, mk, kr, sb)
+        run(s13_eavesdrop, mk, kr, sb)
+        run(s14_reply_correlation, kr)
+        run(s16_stale_clone_gates, sb)
+        run(s17_campaign_digest, mk, sb)
+        run(s18_size_budgets, mk, kr, sb)
+        run(s19_watchdog_detection, sb)
+        run(s20_fielding, mk, kr, sb)
+        run(s21_volley_represent, kr, sb)
+        run(s22_sfx_pause, sb)
+        run(s23_ticket_end_to_end, sb)
+        run(s25_studio_concurrency_and_secrets, sb)
+        run(s26_capacity_routing, sb)
+        run(s27_schedule_and_soak_guards, sb)
+        run(s28_cloud_writer, sb)
+        run(s29_one_runner_every_capability, mk, pq, kr, sb)
+        run(s30_anna_speaks_back, mk, kr, sb)
+        run(s31_feed_carries_every_pushed_dose, sb)
+        run(s32_pool_rotation_and_coverage, mk, sb)
+        run(s33_catch_response_pairs, mk, sb)
+        run(s34_focus_and_background, sb)
+        run(s36_soak_order_carries_shape, sb)
+        run(s37_repair_earns_the_dose, sb)
+        run(s38_teach_enters_the_lexicon, sb)
+        run(s39_ticket_carries_the_commission, sb)
+        run(s40_drill_consumes_its_commission, sb)
+        run(s41_slip_ledger, kr, sb)
+        run(s42_session_log_one_row_per_day, sb)
+        run(s43_sidecar_callback_never_drops_silently, sb)
+        run(s44_a_commission_can_discharge_the_flag, sb)
+        run(s45_concurrent_appends_merge, mk, sb)
+        run(s46_the_commission_notice_names_the_debt, sb)
+        run(s47_hinted_retest_rule, sb)
+        run(s53_unverify_rows_nothing_ever_tested, sb)
+        run(s54_no_deadline_reaches_any_surface, sb)
+        run(s55_demotion_survives_the_close, sb)
+        run(s56_timezone_is_one_dial, sb)
+        run(s48_drill_answer_key_lint, sb)
+        run(s57_longhaul_tape, sb)
+        run(s58_a_sheet_survives_a_model_thinking_out_loud, sb)
+        run(s49_thread_continuity, mk, kr, sb)
+        run(s50_read_surfaces_are_phonetic, mk, kr, sb)
+        run(s51_derived_files_are_rerendered_not_merged, mk, sb)
+        run(s52_andrew_is_family_already, sb)
+        run(s71_a_new_record_is_born_reachable, sb)
+        run(s60_the_ear_meter, kr, sb)
+        run(s61_no_number_is_recited_at_him, kr, sb)
+        run(s62_the_return_clock_is_keyed_to_the_ear, sb)
+        run(s63_the_machines_reach_the_ticket)
+        run(s64_the_ask_cooldown_covers_the_session_lane, sb)
+        run(s65_the_ordering_outlives_the_deck, sb)
+        run(s66_json_mode_is_actually_sent, mk, kr, sb)
+        run(s68_the_convergence_audit_fixes, sb)
+        run(s69_two_readers_two_tickets, sb)
+        run(s70_the_executor_is_chosen_by_the_host, sb)
+        run(s72_a_stub_never_outlives_its_case, mk, kr)
 
-    print(f"\n{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
+    if ONLY and not RAN:
+        sys.exit(f"no case matched {ONLY} — name a case (s41) or a prefix (s41_slip)")
+    scope = f"{len(RAN)} case(s): {', '.join(RAN)}" if ONLY else f"{len(RAN)} cases"
+    print(f"\n{scope}")
+    print(f"{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
     sys.exit(1 if FAILURES else 0)
 
 

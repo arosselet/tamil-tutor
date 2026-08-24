@@ -23,7 +23,8 @@ Run these layers in order. Stop at the first failure and route to `/debug`.
 ### Layer 1 — Smoke test (local)
 
 ```
-python scripts/smoke_test.py
+python scripts/smoke_test.py          # the whole suite (what CI runs)
+python scripts/smoke_test.py s41     # one case, its own sandbox — for triage
 ```
 
 **Safe.** Sandboxed: copies the repo to a tempdir, stubs LLM / TTS render / push / git. No writes outside the sandbox. Runs in seconds.

@@ -55,8 +55,10 @@ def sN_your_description(mk, kr, pq, sb: Path):
     print("\nN. What this regression guards against")
     prog = sb / "progress"
 
-    # Always replace the stubbed boundaries on the relevant module (LLM, push,
-    # commit — plus render_memo if the scenario takes the audio path):
+    # Replace the stubbed boundaries on the relevant module (LLM, push, commit —
+    # plus render_memo if the scenario takes the audio path). Since 2026-08-24
+    # `run()` puts every one of these back after the case returns, so a stub can
+    # no longer leak forward and a case can no longer depend on one leaking in:
     pushes, commits = Recorder(), Recorder()
     mk.push_to_phone, mk.commit_and_push = pushes, commits
 
@@ -84,6 +86,15 @@ sN_your_description(mk, kr, pq, sb)
 Three invariants the sandbox enforces — do not break them:
 - Modules are imported from the sandbox copy (asserted by `mk.__file__.startswith(str(sb))`).
 - Replace `push_to_phone` and `commit_and_push` with fresh `Recorder()` per scenario before calling `main()`.
+- **Run the one case you are working on**: `python scripts/smoke_test.py s41` (case
+  number, exact) or `python scripts/smoke_test.py s41_slip` (name prefix). Each
+  invocation builds its own sandbox, and all 71 cases pass alone — so a failure
+  reproduces in one run instead of behind forty predecessors. No argument runs the
+  whole suite, which is what CI does.
+- **State a case's preconditions in the case.** Stubs are torn down between cases
+  now, so anything your scenario needs — an open rails gate, a seeded lexicon row,
+  a slip on the ledger — it must install itself. `s50` (`--force`) and `s69` (its
+  own seed block) are the worked examples.
 - `progress/` in the sandbox is seeded from `*.example` files — the real `progress/` is never touched.
 
 ---
