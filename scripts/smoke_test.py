@@ -41,6 +41,7 @@ import json
 import os
 import re
 import shutil
+import subprocess
 import sys
 import tempfile
 import time
@@ -7259,6 +7260,41 @@ def s70_the_executor_is_chosen_by_the_host(sb: Path):
     finally:
         writer.subprocess.run = orig_run
 
+    # ── THE ONE BOUNDARY THAT IS NOT CREDENTIAL-GATED (2026-08-24) ──────────
+    # Every other outside-world call here needs a secret the test environment
+    # does not have, so a missed stub dies with a KeyError and the case goes red.
+    # `claude -p` needs none — the CLI carries its own auth — so a missed stub
+    # would really spawn the agent and could return a plausible answer that turns
+    # the case GREEN for the wrong reason. The harness refuses that spawn; this
+    # asserts the refusal fires, because a guard that never fires is
+    # indistinguishable from no guard.
+    raised = ""
+    try:
+        writer._agent_json("system", "user", SHAPE)   # the REAL subprocess.run
+    except AssertionError as e:
+        raised = str(e)
+    check("an un-stubbed agent spawn is REFUSED, never run",
+          "SPAWN THE REAL AGENT" in raised, f"got {raised[:150]!r}")
+    check("...and the refusal names what to stub instead",
+          "writer.ask_json" in raised, f"got {raised[:250]!r}")
+
+    # And it must survive `ask_json`'s degrade-to-API fallback. That handler
+    # catches SubprocessError/RuntimeError/OSError and quietly switches to the
+    # paid path — exactly the shape that would turn this refusal back into a
+    # silent no-op, one layer up.
+    orig_which2 = writer.shutil.which
+    try:
+        writer.shutil.which = lambda n: r"C:\fake\claude.exe"
+        swallowed = True
+        try:
+            writer.ask_json("system", "user", SHAPE)
+        except AssertionError:
+            swallowed = False
+        check("...and ask_json's fallback does not swallow it into a paid run",
+              not swallowed, "the refusal was caught and the lane degraded silently")
+    finally:
+        writer.shutil.which = orig_which2
+
     # ── Every lane declares a SHAPE, not a bare object — the schema is the only
     # thing standing between the agent path and an envelope.
     for name, const in (("render_soak.py", "SOAK_SCHEMA"),
@@ -7357,6 +7393,45 @@ def s72_a_stub_never_outlives_its_case(mk, kr):
     check("the real push_to_phone is a function, not a Recorder",
           callable(real_push) and not isinstance(real_push, Recorder))
 
+
+# ── The one boundary that is not credential-gated ───────────────────────────
+# Every other outside-world call in this system needs a secret the test
+# environment does not have, so an un-stubbed one dies with a KeyError and the
+# case goes red. `claude -p` needs no secret: the CLI carries its own auth, and
+# on Andrew's laptop the binary is on PATH. So a missed stub there does not
+# crash — it really spawns the agent, waits, and may come back with a plausible
+# answer that turns the case GREEN for the wrong reason. Slow, nondeterministic,
+# and invisible.
+#
+# It got worse on 2026-08-23: before the executor pass, `decide` and both judges
+# opened raw OpenRouter clients gated on OPENROUTER_API_KEY, so a missed stub was
+# LOUD. Routing them through `writer.ask_json` — which prefers the agent — turned
+# three loud boundaries into silent ones on the laptop. That is a real cost of
+# that change and this is the guard that pays it back.
+#
+# The refusal lives HERE, in the harness, not in writer.py: production code
+# should not carry test scaffolding, and there is no honest reason for the lane
+# to know it is being tested. Only `claude` is refused — the sandbox's real git
+# calls are load-bearing for s45/s51 and must still run.
+_REAL_RUN = subprocess.run
+
+
+def _no_agent_spawn(cmd, *a, **kw):
+    argv0 = str(cmd[0]) if isinstance(cmd, (list, tuple)) and cmd else str(cmd)
+    if Path(argv0).stem == "claude":
+        raise AssertionError(
+            "a test tried to SPAWN THE REAL AGENT (`claude -p`). Nothing in this "
+            "suite may: it is slow, it is nondeterministic, and unlike every other "
+            "boundary here it needs no credential, so it would have succeeded and "
+            "turned this case green for the wrong reason.\n"
+            "     Stub the lane's entry point (kr.judge / mk.decide), or "
+            "writer.ask_json / writer.ask_text, or writer._agent_json for the "
+            "executor cases.\n"
+            f"     argv was: {cmd}")
+    return _REAL_RUN(cmd, *a, **kw)
+
+
+subprocess.run = _no_agent_spawn
 
 # ── Running ONE case ────────────────────────────────────────────────────────
 # Every case goes through `run`, and the reason is stub teardown. The suite
