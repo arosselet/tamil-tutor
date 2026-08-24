@@ -1,12 +1,33 @@
 # The Spine Refactor — implementation plan
 
-> **Status: PLANNED, scope SETTLED, not started.** Written 2026-08-23 from the read-only
-> architecture pass of the same day. Nothing in the repo has been changed for it. The
-> four scope decisions were answered the same day and are recorded in §8.
+> **STATUS 2026-08-24: Phase 1 COMPLETE and merged (Steps 0-7). Most of Q2 is done
+> too; Q1 has had its first move only.** What the plan got wrong is recorded in the
+> commits; four things are worth carrying forward before reading further.
 >
-> **Phase 1 (§4) is the build session: Steps 0–7, numbered in the order they run.**
-> **Phase 2 (§4b) is queued and explicitly NOT this session:** Q1 (lanes as
-> declarations) and Q2 (smoke consolidation) — both real and wanted, neither started.
+> 1. **Step 2 was not test-neutral.** The suite reaches six moved names as module
+>    ATTRIBUTES, which `from X import name` does not cover. 26 addresses moved.
+> 2. **H1 arrives in Step 5, not Q1.** Moving the commit and push inside
+>    `publish()` breaks 60 stubs at once, so `publish()` owns the feed and the
+>    commit ORDERING, and both calls stay at the lane's seam.
+> 3. **Q2's premise was measurably wrong** — 68 of 70 cases already ran alone. The
+>    fix was stub teardown (`run()`), not the file split. All 71 pass alone now,
+>    `smoke_test.py s41` runs one, and `s32`/`s8`/`s43` have the teeth §4b asked
+>    for. **Still open in Q2: the per-layer file split, now optional.**
+> 4. **Q1 is NOT unblocked by that.** Its mandate consolidation landed (all 13
+>    prompt constants in `mandates.py`; `knock_reply` 785 -> 570). The rest —
+>    lanes as declarations — still needs a shared runner, and a runner resolves
+>    `push_to_phone` in ITS namespace, not the lane's, so §4b's option (a) does
+>    not survive it. Settle the import style first; the three questions under
+>    "Open before starting" are still unanswered.
+
+> **As written 2026-08-23 — superseded by the status above, kept as the record of what
+> was planned and why.** Written from the read-only architecture pass of the same day,
+> when nothing in the repo had been changed for it. The four scope decisions were
+> answered the same day and are recorded in §8.
+>
+> **Phase 1 (§4) was the build session: Steps 0–7, numbered in the order they run.**
+> **Phase 2 (§4b) was queued for later:** Q1 (lanes as declarations) and Q2 (smoke
+> consolidation) — both real and wanted, neither started at the time of writing.
 >
 > **What this is:** a sequence of *moves* — functions that already exist, relocated so
 > something else can stop keeping its own copy. **What it is not:** a redesign, a config

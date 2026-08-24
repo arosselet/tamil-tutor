@@ -2309,3 +2309,14 @@ Details live in git history; this is the index of the *conclusions*.
   Budgets re-censused DOWN in the same diffs: `morning_knock` 637 -> 450, `sync_state` -45;
   paying for `writer` 175, `publish` 150, `state_io` 110. Smoke held still, 70 cases.
   Detail, Q1/Q2: `docs/spine_refactor.md`.
+- **A case is isolated by scoping its stubs, not by splitting the file**
+  (2026-08-24). **Replaces** §4b Q2's premise that "a case cannot be run in
+  isolation", and the per-layer file split as the fix. MEASURED first: 68 of 70
+  cases already passed alone against a fresh sandbox. The stub inheritance — 59
+  assignments, none ever put back — was not load-bearing, it was LATENT, which is
+  worse: the failure mode is a stub that stops intercepting and a test that reaches
+  real git or a real phone. Every case now runs through `run()`, which restores
+  each module's namespace after it; `smoke_test.py s41` runs one case in its own
+  sandbox. All 71 pass alone, the four cases hoisted out of numeric order are back,
+  and a case states its own preconditions. Guarded by `s72`, mutation-tested
+  because with teardown dead the suite is still green. The split is optional now.
