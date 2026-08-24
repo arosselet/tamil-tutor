@@ -5160,5 +5160,20 @@
     "body": "One letter flips 'naan ponen' (I went) into the whole family. That one-letter switch today at lunch. 🍛",
     "expected_target": "",
     "target_revealed": false
+  },
+  {
+    "date": "2026-08-24",
+    "timestamp": "2026-08-24T07:52:29.369703+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "eavesdrop: theriyuma drift",
+    "rationale": "9 catch items pending and eavesdrop due on 3d cadence; testing the gossip hook 'theriyuma?' with named referent Priya.",
+    "next_check": "2026-08-24T11:22:29.369703+00:00",
+    "body": "👂 Athai on the phone: Priya pathi theriyuma? (do you know?). Listen to the tape — what gossip is she passing?",
+    "expected_target": "தெரியுமா?",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-24T07-52.mp3",
+    "memo_script": "ஹலோ, வசந்தா? நான் தான் அத்தை பேசுறேன்.\n\nஇன்னைக்கு காலையில ப்ரியா பத்தி உனக்கு தெரியுமா? அவங்க ஊருக்கு போய்ட்டாங்களாம்! குமார் தான் சொன்னான், நேத்து நைட்டே கிளம்பி போய்ட்டாங்களாம். என்ன விஷயம்னு தெரியல, ஆனா ரொம்ப அவசரமா போனாங்களாம்.",
+    "mp3": "published_audio/knocks/knock_2026-08-24T07-52.mp3"
   }
 ]

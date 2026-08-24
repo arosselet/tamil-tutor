@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:18 · Anna**  ·  text / trailer: -om verb switch
 > One letter flips 'naan ponen' (I went) into the whole family. That one-letter switch today at lunch. 🍛
 
+**13:22 · Anna** 🎧  ·  eavesdrop / eavesdrop: theriyuma drift
+> 👂 Athai on the phone: Priya pathi theriyuma? (do you know?). Listen to the tape — what gossip is she passing?
+
 
 ## Sunday 2026-08-23
 
