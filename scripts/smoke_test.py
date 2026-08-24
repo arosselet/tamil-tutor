@@ -44,6 +44,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import textwrap
 import time
 import tokenize
 import types
@@ -1572,6 +1573,46 @@ def code_line_numbers(src: str) -> set[int]:
     return out
 
 
+def raw_source(path: Path) -> str:
+    """Source read as TEXT, prose and all — the one legitimate way past
+    `mechanism()`, and named so the exemption is a decision rather than an
+    oversight. Correct only when the file is about to be consumed as a PROGRAM
+    (`ast.parse`) rather than grepped: a parser needs the comments' line numbers
+    to report positions the reader can find. Grepping this is the bug `mechanism`
+    exists to prevent — if you are looking for a substring, you want that."""
+    return path.read_text(encoding="utf-8")
+
+
+def mechanism(src: str, after: str | None = None) -> str:
+    """The source with its PROSE removed — comments and docstrings gone, code kept.
+
+    WHY EVERY SOURCE-TEXT ASSERTION GOES THROUGH THIS (2026-08-24). A check that
+    greps raw source is satisfied by the paragraph EXPLAINING the code exactly as
+    readily as by the code. Not theoretical: `s57`'s "ask_json re-raises the final
+    failure instead of swallowing it" was measured passing with the re-raise
+    deleted, because the word "raise" appears in `ask_json`'s docstring. The
+    assertion was a decoration; a different case caught the mutation, and this one
+    would have gone on reading green forever.
+
+    The rule was already known and already written down — `code_line_numbers` was
+    split out of `code_lines` on 2026-08-10 with a docstring saying exactly this —
+    and it had reached 3 of the 23 places that read Python source. That is the
+    shape this repo keeps finding: a law stated once and applied where whoever
+    wrote it happened to be standing.
+
+    `after` slices from the first line carrying that marker, for a check that
+    anchors on a section heading; the slice is taken on mechanism lines, so the
+    heading itself is gone by the time the needle is looked for.
+    """
+    src = textwrap.dedent(src)
+    keep = code_line_numbers(src)
+    lines = src.splitlines()
+    start = 1
+    if after is not None:
+        start = next(i for i, ln in enumerate(lines, 1) if after in ln)
+    return "\n".join(ln for i, ln in enumerate(lines, 1) if i in keep and i >= start)
+
+
 def s18_size_budgets(mk, kr, sb: Path):
     print("\n18. Size budgets — prose (words) + Python (code lines) + static clean (0)")
     strings = {"OUTREACH_MANDATE": mk.OUTREACH_MANDATE,
@@ -1683,6 +1724,55 @@ def s18_size_budgets(mk, kr, sb: Path):
           "; ".join(stale) + " — name the function or constant instead; a line "
           "number is wrong the next time anything above it moves, and it rots "
           "without saying so (2026-08-01)")
+
+    # ── A SOURCE ASSERTION READS MECHANISM, NEVER RAW (2026-08-24). Checked on
+    # this file itself, because this file is the only one that reads other files'
+    # source in order to assert on it.
+    #
+    # The failure is silent in the worst direction: a grep for `X in src` is
+    # satisfied by the COMMENT explaining X as readily as by X, so a check can go
+    # on reading green after the thing it guards is deleted. Measured, not feared
+    # — `s57` asserted "ask_json re-raises the final failure" and passed with the
+    # re-raise removed, because "raise" is in the docstring; and the watchdog's
+    # "uses the shared resolver" matched a comment naming a function that lane has
+    # never called. The rule was already written down twice: `code_line_numbers`
+    # was split out for it on 2026-08-10, and `s57` rolled a local copy the same
+    # day. It had reached 3 of 23 sites. Now there is one door, and this is the
+    # lock on it.
+    #
+    # `ast.parse` and the line counters are legitimate raw readers: they consume
+    # the whole file as a program, not as text to grep.
+    sm_src = raw_source(REAL_BASE / "scripts" / "smoke_test.py")
+    sm_tree = ast.parse(sm_src)
+    wrapped, raw = [], []
+    for node in ast.walk(sm_tree):
+        if not (isinstance(node, ast.Call) and isinstance(node.func, ast.Name)
+                and node.func.id in ("mechanism", "code_lines", "code_line_numbers",
+                                 "raw_source")):
+            continue
+        for a in node.args:
+            wrapped.append((a.lineno, a.end_lineno))
+    for node in ast.walk(sm_tree):
+        if not (isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute)
+                and node.func.attr in ("read_text", "getsource")):
+            continue
+        seg = ast.get_source_segment(sm_src, node) or ""
+        if node.func.attr == "read_text" and ".py" not in seg:
+            continue          # prose files are read raw on purpose
+        if any(a <= node.lineno and node.end_lineno <= b for a, b in wrapped):
+            continue
+        raw.append(node.lineno)
+    # `ast.parse(...)` consumers, resolved the same way as the wrappers above.
+    for node in ast.walk(sm_tree):
+        if (isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute)
+                and node.func.attr == "parse" and isinstance(node.func.value, ast.Name)
+                and node.func.value.id == "ast"):
+            for a in node.args:
+                raw = [ln for ln in raw if not (a.lineno <= ln <= a.end_lineno)]
+    check(f"every Python-source assertion reads MECHANISM, not raw text "
+          f"({len(wrapped)} wrapped)", not raw,
+          f"raw reads at smoke_test.py lines {raw} — wrap in mechanism(); a grep "
+          f"over raw source is satisfied by the comment explaining the code")
 
     # A new file is the obvious way past a ceiling, so an unbudgeted one is a
     # red run rather than a silent exemption.
@@ -2062,7 +2152,7 @@ def s25_studio_concurrency_and_secrets(sb: Path):
         check("scratch dirs are real and writable",
               Path(a).is_dir() and Path(b).is_dir())
         # the bug shape itself: a scratch dir assigned from a string literal
-        src = Path(ra.__file__).read_text(encoding="utf-8")
+        src = mechanism(Path(ra.__file__).read_text(encoding="utf-8"))
         check("scratch dir is never a hardcoded path",
               'temp_dir = "' not in src and "temp_dir = '" not in src)
     finally:
@@ -2265,11 +2355,24 @@ def s27_schedule_and_soak_guards(sb: Path):
     # what nearly happened: sync_state's status kept saying NOT YET PRODUCED
     # after the watchdog was already satisfied. One resolver, both callers.
     # `status` moved to session_brief.py 2026-08-04; the law it asserts did not.
-    status_src = (REAL_BASE / "scripts" / "session_brief.py").read_text(encoding="utf-8")
+    status_src = mechanism((REAL_BASE / "scripts" / "session_brief.py")
+                           .read_text(encoding="utf-8"))
     check("the status drain-check uses the shared resolver",
           "split_payload(soak.get" in status_src)
+    # THIS ONE WAS A DECORATION (found 2026-08-24, when the raw-source read here
+    # became a `mechanism` read and it went red). `split_payload` appears in
+    # studio_watchdog.py exactly once, in a COMMENT explaining what the root
+    # cause had been — the watchdog has never called it. It asks `soak_pending()`
+    # instead, which is the shared resolver one rung further down, so the LAW
+    # held the whole time and the assertion proving it was reading prose. Assert
+    # what the watchdog actually does, and that it does not grow its own copy.
+    wd_src = mechanism((REAL_BASE / "scripts" / "studio_watchdog.py")
+                       .read_text(encoding="utf-8"))
     check("the watchdog drain-check uses the shared resolver",
-          "split_payload" in (REAL_BASE / "scripts" / "studio_watchdog.py").read_text(encoding="utf-8"))
+          "from state_io import soak_pending" in wd_src and "soak_pending()" in wd_src,
+          "the watchdog re-derives 'is a soak still owed' instead of asking L0")
+    check("...and never re-derives the payload itself",
+          "split_payload" not in wd_src, "a second copy of the resolver is back")
 
     # The rate rail, independent of any single root cause. Raised 1 -> 3 on
     # 2026-07-28 (Andrew) once repair-first commissioning made one-a-day the
@@ -2381,7 +2484,7 @@ def s28_cloud_writer(sb: Path):
     # lands on one and not the other is worse than landing on neither: the
     # inflected word passes the gate and is then refused the claim, and the
     # render never stamps its `seen_in` — the Teach Beat's unlock, lost silently.
-    rs_src = (REAL_BASE / "scripts" / "run_studio.py").read_text(encoding="utf-8")
+    rs_src = raw_source(REAL_BASE / "scripts" / "run_studio.py")
     mech = code_line_numbers(rs_src)
     callers = {i for i, ln in enumerate(rs_src.splitlines(), 1)
                if i in mech and "payload_present(" in ln and "def " not in ln}
@@ -2629,7 +2732,7 @@ def s30_anna_speaks_back(mk, kr, sb: Path):
     # The loop was three-quarters closed: audio out on the knock, text in from
     # the phone, cloud judgment, text back. push_to_phone(body, None, ...) was
     # hard-coded in BOTH reply paths, so Anna could never speak back.
-    src = (REAL_BASE / "scripts" / "knock_reply.py").read_text(encoding="utf-8")
+    src = mechanism((REAL_BASE / "scripts" / "knock_reply.py").read_text(encoding="utf-8"))
     check("the production reply no longer hard-codes a silent push",
           "push_to_phone(body, voice_url" in src)
     check("voice_reply is in the judge's return schema", '"voice_reply"' in kr.JUDGE_MANDATE)
@@ -2732,7 +2835,7 @@ def s31_feed_carries_every_pushed_dose(sb: Path):
     # Feed order must be a function of the library, not the host's listdir():
     # the two special_ files tie at (10, 0), and a rebuild on another machine
     # silently swapped them.
-    src = (REAL_BASE / "scripts" / "rebuild_rss.py").read_text(encoding="utf-8")
+    src = mechanism((REAL_BASE / "scripts" / "rebuild_rss.py").read_text(encoding="utf-8"))
     check("feed sort is deterministic (filename breaks ties)",
           "key=lambda f: (sort_key(f), f)" in src)
 
@@ -3375,11 +3478,12 @@ def s35_quiet_hours_chokepoint(sb: Path):
 
     # No lane may re-implement the rule; every push must go through the chokepoint.
     for name in ("run_studio.py", "push_queue.py", "render_drill.py", "render_soak.py"):
-        src = (src_dir / name).read_text(encoding="utf-8")
+        src = mechanism((src_dir / name).read_text(encoding="utf-8"))
         check(f"{name} does not hand-roll the waking-hour compare",
               "WAKING_START_HOUR <=" not in src, f"{name} carries its own copy")
     check("in_waking_window has one home",
-          "def in_waking_window" not in (src_dir / "push_queue.py").read_text(encoding="utf-8"),
+          "def in_waking_window" not in mechanism((src_dir / "push_queue.py")
+                                                  .read_text(encoding="utf-8")),
           "the queue's copy survived")
 
 
@@ -3851,7 +3955,7 @@ def s41_slip_ledger(kr, sb: Path):
     check("...and says a recast does not close it",
           "closed by firing right" in block)
 
-    src = (REAL_BASE / "scripts" / "session_brief.py").read_text(encoding="utf-8")
+    src = mechanism((REAL_BASE / "scripts" / "session_brief.py").read_text(encoding="utf-8"))
     check("the session digest shows what Anna CORRECTED on the phone",
           "corrected: " in src)
     # The string this used to grep for — `commit_paths.append(SLIP_LOG_PATH)` —
@@ -3861,7 +3965,7 @@ def s41_slip_ledger(kr, sb: Path):
     # commit, conditioned on the verdict actually carrying slips.
     check("the knock reply commits the ledger — an unpushed slip dies with the runner",
           'SLIP_LOG_PATH if verdict.get("slips")' in
-          (REAL_BASE / "scripts" / "knock_reply.py").read_text(encoding="utf-8"))
+          mechanism((REAL_BASE / "scripts" / "knock_reply.py").read_text(encoding="utf-8")))
 
     # The ticket hangs the slip off the item it belongs to, so a selected word
     # arrives with HOW it keeps failing, not just that it is due.
@@ -5149,7 +5253,7 @@ def s57_longhaul_tape(sb: Path):
     check("the mandate forbids narrating where he is or what he is doing",
           "meta-narration" in rl.BASE_MANDATE.lower(),
           "the model is told he is on a flight; without the ban that lands in the audio")
-    fixed = inspect.getsource(rl.render)
+    fixed = mechanism(inspect.getsource(rl.render))
     spoken_asides = re.findall(r'tape\.add\("([^"]+)"', fixed)
     banned = re.compile(r"\b(sleep|walk|tired|rest|eyes|flight|plane|seat|halfway)\b", re.I)
     check("...and the lane's own hard-coded lines obey it too",
@@ -5183,7 +5287,7 @@ def s57_longhaul_tape(sb: Path):
         check("a longer target renders strictly more of the plan",
               long_played > short_played, f"{long_played} vs {short_played}")
         check("the clock is measured from the file, not estimated from bytes",
-              "audio_duration" in inspect.getsource(rl.Tape.minutes))
+              "audio_duration" in mechanism(inspect.getsource(rl.Tape.minutes)))
         check("only lines that actually played are claimed as delivered",
               spoken and all(isinstance(s, str) for s in spoken))
 
@@ -5222,7 +5326,7 @@ def s57_longhaul_tape(sb: Path):
         # therefore land in one commit with the mp3 at the front where the CDN
         # pre-warm needs it. Renaming a variable or reordering an argument no
         # longer breaks it; separating the two still does.
-        pub = inspect.getsource(rl.main)
+        pub = mechanism(inspect.getsource(rl.main))
         call = pub[pub.index("deliver_rendered("):]
         call = call.split("\n\n")[0]
         check("the script is committed with the tape, not left behind",
@@ -5285,7 +5389,7 @@ def s57_longhaul_tape(sb: Path):
           name in feed, "rendered, committed, and invisible — the worst failure "
                         "this lane has, because he cannot fetch it from the air")
     check("...under its real title, not its filename", "Long-haul — inventory" in feed)
-    sort_src = inspect.getsource(rr.generate_rss)
+    sort_src = mechanism(inspect.getsource(rr.generate_rss))
     check("the sort key knows the longhaul prefix", "longhaul" in sort_src,
           "an unmatched prefix still SORTS — at (0,0), silently below every episode")
 
@@ -5444,7 +5548,7 @@ def s43_sidecar_callback_never_drops_silently(sb: Path):
     finally:
         lex_path.write_bytes(saved_lex)
 
-    src = inspect.getsource(ra.main)
+    src = mechanism(inspect.getsource(ra.main))
     check("the standalone renderer loads .env, like run_studio does before it",
           "load_env" in src, "a hand-run render still cannot find GCP_SA_KEY")
 
@@ -5803,7 +5907,8 @@ def s49_thread_continuity(mk, kr, sb: Path):
               "THE SCENE DECAYS; THE RECORD NEVER DOES" in kr.THREAD_MANDATE)
         # Both judges must be handed it: the catch lane hit this same bug on
         # 2026-07-25 and a rule only one judge reads is half a rule.
-        src = (REAL_BASE / "scripts" / "knock_reply.py").read_text(encoding="utf-8")
+        src = mechanism((REAL_BASE / "scripts" / "knock_reply.py")
+                        .read_text(encoding="utf-8"))
         check("both judges are handed the thread mandate",
               src.count('+ "\\n" + THREAD_MANDATE') == 2,
               f"{src.count(chr(43) + chr(32) + 'THREAD_MANDATE')} assembly sites")
@@ -5914,7 +6019,8 @@ def s50_read_surfaces_are_phonetic(mk, kr, sb: Path):
     # No call site may ever feed the spoken surfaces through the transform.
     for f in ("morning_knock.py", "knock_reply.py"):
         calls = re.findall(r"to_phonetic\((.{0,80})",
-                           (REAL_BASE / "scripts" / f).read_text(encoding="utf-8"), re.S)
+                           mechanism((REAL_BASE / "scripts" / f)
+                                     .read_text(encoding="utf-8")), re.S)
         check(f"{f}: only read surfaces are transformed",
               calls and all("memo_script" not in c and "voice_reply" not in c for c in calls),
               str(calls))
@@ -5990,13 +6096,13 @@ def s58_a_sheet_survives_a_model_thinking_out_loud(sb: Path):
     # ask_json MOVED to writer.py on 2026-08-23 with the executor split; the
     # assertions follow it rather than being deleted — the parser gap this case
     # exists for is a property of the function, not of the file it sat in.
-    drill_src = (REAL_BASE / "scripts" / "writer.py").read_text(encoding="utf-8")
+    # MECHANISM ONLY, via the shared helper. This case rolled its own filter here
+    # on 2026-08-10 after the docstring below quoted the retired parse verbatim and
+    # satisfied the very check meant to prove it was gone. That fix stayed local for
+    # two weeks while twenty other source reads went on grepping prose (2026-08-24).
+    drill_code = mechanism((REAL_BASE / "scripts" / "writer.py").read_text(encoding="utf-8"))
     check("ask_json parses through the shared parser, not a private one",
-          "parse_llm_response(resp)" in drill_src, "ask_json re-implemented the parse")
-    # MECHANISM ONLY — the docstring above quotes the retired parse verbatim, and a
-    # raw-text search matches its own explanation. Same trap s57 hit reading source.
-    drill_code = "\n".join(l for i, l in enumerate(drill_src.splitlines(), 1)
-                           if i in code_line_numbers(drill_src))
+          "parse_llm_response(resp)" in drill_code, "ask_json re-implemented the parse")
     # SCARCITY, NOT ABSENCE (2026-08-23, the spine refactor). This used to assert
     # the brace-slice appeared NOWHERE in writer.py, which was right while this
     # module only CALLED the parser. `parse_llm_json` moved here from
@@ -6010,18 +6116,27 @@ def s58_a_sheet_survives_a_model_thinking_out_loud(sb: Path):
     # Matched loosely on purpose: the import line also carries the schema helpers
     # since 2026-08-23, and an exact-string check would fail on a tidy-up that
     # changed nothing about where ask_json comes from.
-    _lh = (REAL_BASE / "scripts" / "render_longhaul.py").read_text(encoding="utf-8")
+    _lh = mechanism((REAL_BASE / "scripts" / "render_longhaul.py").read_text(encoding="utf-8"))
     check("the long-haul lane borrows ask_json rather than rolling its own",
           any(ln.startswith("from writer import") and "ask_json" in ln
               for ln in _lh.splitlines()), "ask_json comes from somewhere else")
 
     # The retry is what makes a 15-call lane survivable; the LAST failure must
     # still surface, or a tape ends silently short instead of stopping loudly.
-    src = inspect.getsource(w.ask_json)
-    check("ask_json retries rather than dying on one bad draw",
-          "for attempt in range" in src and "tries" in src, src[:200])
-    check("...and re-raises the final failure instead of swallowing it",
-          "raise" in src, src[:200])
+    #
+    # TWO SOURCE GREPS RETIRED HERE (2026-08-24), and what makes them dead sits
+    # forty lines below: "a lane that never gets a sheet stops loudly" drives a
+    # client that always fails and asserts `ask_json` RAISES, and "...after
+    # re-rolling, not on the first bad draw" pins calls == 3. That is the retry and
+    # the re-raise, observed rather than described.
+    #
+    # What they did instead was ask whether the words "for attempt in range",
+    # "tries" and "raise" appeared in the function's text. "raise" was MEASURED
+    # passing with the re-raise deleted — it is in the docstring — and it stayed
+    # green even read as mechanism, because a bare `raise` in an unrelated except
+    # handler satisfies it too. A test that names the shape of the code is weaker
+    # than one that runs it AND is broken by every rewrite that changes nothing.
+    # Where both exist, the grep is decoration; keep the one with teeth.
 
     calls = 0
 
@@ -6326,7 +6441,8 @@ def s61_no_number_is_recited_at_him(kr, sb: Path):
     persona = (REAL_BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
     check("persona.md forbids reciting a number",
           "recites a number at him" in persona and "countdown" in persona)
-    brief = (REAL_BASE / "scripts" / "session_brief.py").read_text(encoding="utf-8")
+    brief = mechanism((REAL_BASE / "scripts" / "session_brief.py")
+                      .read_text(encoding="utf-8"))
     check("the meter block is labelled steering data, not narration",
           "ENGINEERING NUMBERS" in brief)
 
@@ -6818,7 +6934,7 @@ def s68_the_convergence_audit_fixes(sb: Path):
 
     # --- 2. the clock: both selectors must read ANDREW's day -----------------
     for mod, name in ((st, "suggest_targets"), (gc_, "generate_callbacks")):
-        src = (sb / "scripts" / f"{name}.py").read_text(encoding="utf-8")
+        src = mechanism((sb / "scripts" / f"{name}.py").read_text(encoding="utf-8"))
         check(f"{name} scores staleness on the learner's clock, not the host's",
               "date.today()" not in src, "date.today() is back — UTC runners drift a day")
         check(f"...and {name} takes it from the one owner",
@@ -6827,7 +6943,7 @@ def s68_the_convergence_audit_fixes(sb: Path):
     # --- 3. one field, one default -------------------------------------------
     # Drive the real CLI, because the default that was wrong was the PARSER's —
     # reading the function signature alone is what let the three disagree.
-    pq_src = (sb / "scripts" / "push_queue.py").read_text(encoding="utf-8")
+    pq_src = mechanism((sb / "scripts" / "push_queue.py").read_text(encoding="utf-8"))
     cli_default = _sp.run([sys.executable, str(sb / "scripts" / "push_queue.py"),
                            "add", "--help"], capture_output=True,
                           encoding="utf-8", errors="replace").stdout
@@ -6841,8 +6957,8 @@ def s68_the_convergence_audit_fixes(sb: Path):
           "the drain fallback drifted from the other two")
 
     # --- 4. the publish net --------------------------------------------------
-    ra_src = (sb / "scripts" / "render_audio.py").read_text(encoding="utf-8")
-    tail = ra_src[ra_src.index("Lifecycle hooks"):]
+    tail = mechanism((sb / "scripts" / "render_audio.py").read_text(encoding="utf-8"),
+                     after="Lifecycle hooks")
     check("the episode lane publishes through the shared rebase net",
           "commit_and_push(" in tail, "raw git push is back — no rebase under it")
     check("...and a failed publish is LOUD, not a printed warning over exit 0",
@@ -6864,7 +6980,7 @@ def s68_the_convergence_audit_fixes(sb: Path):
               rr.get_title_from_md(str(tmp)))
     finally:
         tmp.unlink(missing_ok=True)
-    rs_src = (sb / "scripts" / "run_studio.py").read_text(encoding="utf-8")
+    rs_src = mechanism((sb / "scripts" / "run_studio.py").read_text(encoding="utf-8"))
     check("the lint refuses a script whose FIRST line is not an H1",
           'splitlines()[0].strip().startswith("# ")' in rs_src, "the title lint is gone")
     check("...and the Architect is actually told to write one",
@@ -7156,7 +7272,8 @@ def s66_json_mode_is_actually_sent(mk, kr, sb: Path):
 
     # The studio writers return PROSE on a different model — sweeping JSON mode
     # across every create() in the tree would have broken them.
-    studio = (REAL_BASE / "scripts" / "run_studio.py").read_text(encoding="utf-8")
+    studio = mechanism((REAL_BASE / "scripts" / "run_studio.py")
+                       .read_text(encoding="utf-8"))
     check("the studio's prose writer is left alone",
           "response_format" not in studio, "run_studio started asking for JSON")
 
@@ -7377,7 +7494,7 @@ def s70_the_executor_is_chosen_by_the_host(sb: Path):
           not offenders, f"{', '.join(offenders)} — call writer.ask_json instead")
 
     for name in ("render_soak.py", "render_drill.py", "render_longhaul.py"):
-        src = (sb / "scripts" / name).read_text(encoding="utf-8")
+        src = mechanism((sb / "scripts" / name).read_text(encoding="utf-8"))
         check(f"{name} takes its executor from writer",
               "from writer import" in src, "imports ask_json from somewhere else")
 
@@ -7417,9 +7534,7 @@ def s70_the_executor_is_chosen_by_the_host(sb: Path):
     # called it while Andrew waited at the lock screen, and nothing here would
     # have noticed. Read off the SOURCE, mechanism lines only, so the docstring
     # that explains the rule cannot satisfy or break it.
-    pq_src = (sb / "scripts" / "push_queue.py").read_text(encoding="utf-8")
-    pq_code = "\n".join(l for i, l in enumerate(pq_src.splitlines(), 1)
-                        if i in code_line_numbers(pq_src))
+    pq_code = mechanism((sb / "scripts" / "push_queue.py").read_text(encoding="utf-8"))
     called = sorted(w for w in ("ask_json", "ask_text", "OpenAI(", "have_agent")
                     if w in pq_code)
     check("the delivery lane makes NO model call — composed at add time, "
