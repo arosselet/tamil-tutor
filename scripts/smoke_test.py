@@ -5654,7 +5654,7 @@ def s50_read_surfaces_are_phonetic(mk, kr, sb: Path):
 
     # The transform itself: composer-driven, so contractions survive.
     seen = []
-    mk.rephrase_phonetic = lambda b: (seen.append(b), "romba nallarukku — the melt line")[1]
+    wr.rephrase_phonetic = lambda b: (seen.append(b), "romba nallarukku — the melt line")[1]
     out = mk.to_phonetic("ரொம்ப நல்லாருக்கு — the melt line")
     check("script goes to the composer, which keeps his contraction",
           out == "romba nallarukku — the melt line" and "nalla irukku" not in out, out)
@@ -5665,7 +5665,7 @@ def s50_read_surfaces_are_phonetic(mk, kr, sb: Path):
     check("a body with no Tamil never calls the model at all",
           mk.to_phonetic(clean) == clean and not seen)
 
-    mk.rephrase_phonetic = lambda b: b          # composer ignores the ask
+    wr.rephrase_phonetic = lambda b: b          # composer ignores the ask
     check("a surviving leak warns and SHIPS — a lost dose costs him more",
           mk.to_phonetic("try கிடைக்கும் today") == "try கிடைக்கும் today")
 
@@ -5673,7 +5673,7 @@ def s50_read_surfaces_are_phonetic(mk, kr, sb: Path):
     klog_path = sb / "progress" / "knock_log.json"
     pushes = Recorder()
     mk.push_to_phone, mk.commit_and_push = pushes, Recorder()
-    mk.rephrase_phonetic = lambda b: "today's line — romba nallarukku"
+    wr.rephrase_phonetic = lambda b: "today's line — romba nallarukku"
     d = {"act": True, "modality": "audio", "move": "smoke script", "rationale": "smoke",
          "notification_body": "today's line — ரொம்ப நல்லாருக்கு",
          "memo_script": "ரொம்ப நல்லாருக்கு", "expected_target": "",
@@ -6818,6 +6818,13 @@ def s66_json_mode_is_actually_sent(mk, kr, sb: Path):
     spec = importlib.util.spec_from_file_location("mk_pristine", mk.__file__)
     fresh = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(fresh)
+    # Same trick, same reason, for L3: `rephrase_phonetic` moved to writer.py
+    # (2026-08-23) and reads ITS module's `OpenAI`, so the fake client has to be
+    # installed there or the text lane is never observed at all.
+    w_spec = importlib.util.spec_from_file_location(
+        "wr_pristine", str(Path(mk.__file__).parent / "writer.py"))
+    fresh_w = importlib.util.module_from_spec(w_spec)
+    w_spec.loader.exec_module(fresh_w)
 
     # ── A client that records the request instead of making one. ─────────────
     calls = []
@@ -6838,6 +6845,7 @@ def s66_json_mode_is_actually_sent(mk, kr, sb: Path):
     real_env = os.environ.get("OPENROUTER_API_KEY")
     try:
         fresh.OpenAI = fake_client
+        fresh_w.OpenAI = fake_client
         os.environ["OPENROUTER_API_KEY"] = "smoke"
         fresh.decide("smoke digest", [])
         check("the composer's request carries JSON mode",
@@ -6849,7 +6857,7 @@ def s66_json_mode_is_actually_sent(mk, kr, sb: Path):
         # The text lane must stay text. Forcing an object out of a call that asks
         # for a transliteration is the same defect pointing the other way.
         calls.clear()
-        fresh.rephrase_phonetic("ரொம்ப நல்லாருக்கு")
+        fresh_w.rephrase_phonetic("ரொம்ப நல்லாருக்கு")
         check("the phonetic rewrite does NOT ask for JSON — it returns a line",
               calls and "response_format" not in calls[-1], f"got {calls[-1] if calls else None}")
     finally:

@@ -33,7 +33,6 @@ import argparse
 import asyncio
 import json
 import os
-import re
 import subprocess
 import sys
 from datetime import date, datetime, timedelta, timezone
@@ -41,7 +40,7 @@ from pathlib import Path
 
 from openai import OpenAI
 
-from mandates import OUTREACH_MANDATE, PHONETIC_REWRITE
+from mandates import OUTREACH_MANDATE
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
@@ -52,7 +51,7 @@ from publish import (BODY_BUDGET, KNOCKS_DIR, WAKING_END_HOUR, WAKING_START_HOUR
                      commit_and_push, jsdelivr_url, load_env, over_budget,
                      push_to_phone, refresh_feed)
 from writer import (JSON_MODE, OPENROUTER_BASE, OPENROUTER_MODEL, budget,
-                    parse_llm_response)
+                    parse_llm_response, to_phonetic)
 
 KNOCK_LOG_PATH = BASE / "progress" / "knock_log.json"
 SESSION_LOG_PATH = BASE / "progress" / "session_log.json"
@@ -72,46 +71,6 @@ VOLLEY_SIZE = 4   # menu items per volley knock — one per exchange, chained by
                   # (3→4 2026-07-09: pace trailed 1.5 vs 1.8 needed; Andrew chose a bigger
                   # volley over tiering — next lever if it still trails is a 2nd volley)
 
-
-
-TAMIL_RUN = re.compile(r"[஀-௿]+")
-
-
-def rephrase_phonetic(body: str) -> str:
-    """Ask the composer to transliterate its own body. The lexicon backstop below
-    only resolves 8 of the 23 bodies this has historically hit — colloquial
-    contractions (நல்லாருக்கு) are not keys — so the model, which knows how it
-    spelt the thing, does the work and the lexicon only catches what it misses."""
-    client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
-    resp = client.chat.completions.create(
-        model=OPENROUTER_MODEL, max_tokens=budget(300),
-        messages=[{"role": "system", "content": PHONETIC_REWRITE},
-                  {"role": "user", "content": body}])
-    return (resp.choices[0].message.content or "").strip()
-
-
-def to_phonetic(text: str, label: str = "body") -> str:
-    """Transliterate a surface Andrew READS, if the composer left script on it.
-
-    The composer does the work, not a lookup table: it knows how it spelt the
-    thing, so ரொம்ப நல்லாருக்கு comes back "romba nallarukku" with the colloquial
-    contraction intact. A lexicon substitution was tried first (2026-08-03) and
-    retired the same morning — it resolved 8 of 23 real bodies, and on the ones
-    it did hit it swapped Andrew's contraction for the dictionary key's
-    phonetic, flattening exactly the Kongu register the constitution exists to
-    protect. Andrew: "brittle, and it violates my colloquial contractions."
-
-    Leftovers WARN and ship. He reads enough script to take contextual clues, so
-    a leaked word costs him far less than a dose he never gets — the opposite of
-    the eavesdrop case, where the whole dose was the broken part.
-    """
-    if not TAMIL_RUN.search(text):
-        return text
-    print(f"   ✎ {label} carries Tamil script — asking for phonetics…")
-    out = rephrase_phonetic(text) or text
-    if TAMIL_RUN.search(out):
-        print(f"   ⚠ script survived the rewrite: {' '.join(TAMIL_RUN.findall(out))}")
-    return out
 
 
 # ── State helpers ─────────────────────────────────────────────────────────────

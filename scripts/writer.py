@@ -45,6 +45,7 @@ agent being unavailable. Stdin has no such ceiling.
 """
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -55,6 +56,8 @@ from pathlib import Path
 # end to end; a function-local import would leave that case with nothing to
 # grab. The seam moved here with `ask_json` (2026-08-23) and must stay reachable.
 from openai import OpenAI
+
+from mandates import PHONETIC_REWRITE
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
@@ -229,6 +232,55 @@ def parse_llm_response(resp) -> dict:
                          f"— raise the budget at the CALL SITE; this is not a parser "
                          f"gap.\n--- truncated response ---\n{c.message.content}\n---")
     return parse_llm_json(c.message.content)
+
+# ── The phonetic rewrite — the one TEXT lane on this module ──────────────────
+# It sits with the JSON lanes because the thing they share is the CLIENT, not the
+# response shape: same model, same base URL, same budget(). What it must never
+# share is JSON_MODE — forcing an object out of a call that asks for a
+# transliteration breaks it as silently as omitting it breaks the others (s69).
+#
+# It moved here from morning_knock on 2026-08-23 because it is not a knock: it is
+# reachable from BOTH morning_knock.main and knock_reply's push-backs, and it runs
+# on every knock body and every reply line that carries script.
+TAMIL_RUN = re.compile(r"[஀-௿]+")
+
+
+def rephrase_phonetic(body: str) -> str:
+    """Ask the composer to transliterate its own body. The lexicon backstop below
+    only resolves 8 of the 23 bodies this has historically hit — colloquial
+    contractions (நல்லாருக்கு) are not keys — so the model, which knows how it
+    spelt the thing, does the work and the lexicon only catches what it misses."""
+    client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
+    resp = client.chat.completions.create(
+        model=OPENROUTER_MODEL, max_tokens=budget(300),
+        messages=[{"role": "system", "content": PHONETIC_REWRITE},
+                  {"role": "user", "content": body}])
+    return (resp.choices[0].message.content or "").strip()
+
+
+def to_phonetic(text: str, label: str = "body") -> str:
+    """Transliterate a surface Andrew READS, if the composer left script on it.
+
+    The composer does the work, not a lookup table: it knows how it spelt the
+    thing, so ரொம்ப நல்லாருக்கு comes back "romba nallarukku" with the colloquial
+    contraction intact. A lexicon substitution was tried first (2026-08-03) and
+    retired the same morning — it resolved 8 of 23 real bodies, and on the ones
+    it did hit it swapped Andrew's contraction for the dictionary key's
+    phonetic, flattening exactly the Kongu register the constitution exists to
+    protect. Andrew: "brittle, and it violates my colloquial contractions."
+
+    Leftovers WARN and ship. He reads enough script to take contextual clues, so
+    a leaked word costs him far less than a dose he never gets — the opposite of
+    the eavesdrop case, where the whole dose was the broken part.
+    """
+    if not TAMIL_RUN.search(text):
+        return text
+    print(f"   ✎ {label} carries Tamil script — asking for phonetics…")
+    out = rephrase_phonetic(text) or text
+    if TAMIL_RUN.search(out):
+        print(f"   ⚠ script survived the rewrite: {' '.join(TAMIL_RUN.findall(out))}")
+    return out
+
 
 # A SCHEMA MUST DESCRIBE A SHAPE. `{"type": "object"}` is not enough and fails in
 # the worst available way — MEASURED 2026-08-23 on the first live soak through
