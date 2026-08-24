@@ -15,6 +15,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **18:04 · Anna**  ·  challenge / field mission: podhum drop
 > 🍛 Dinner mission: when extra food comes your way tonight, wave it off — 'podhum' (enough). No exam, just drop it. Debrief tomorrow.
 
+**21:51 · Andrew** — **CHAT**
+> You can mark podhum cold. No teaching or debrief needed. It’s probably the first Tamil word I ever learned
+
+**Anna ↩**
+> Fair enough da, debrief dropped — podhum is officially off the drill list.
+
 
 ## Sunday 2026-08-23
 
