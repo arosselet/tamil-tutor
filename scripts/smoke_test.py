@@ -1659,6 +1659,31 @@ def s18_size_budgets(mk, kr, sb: Path):
           "; ".join(over) + " — the log is an index of conclusions; the "
           "narrative belongs in the commit message (2026-08-01)")
 
+    # ── NAME, NEVER LINE NUMBER (2026-08-01, and §9 of the spine plan repeats
+    # it). A pointer like "`state_io.py` line 54" is wrong the moment anything
+    # above it moves, and it fails SILENTLY: the reader lands on an unrelated
+    # line and believes it. The spine refactor moved three of these out from
+    # under their pointers in one day — `ANNA_VOICE` to `render_audio`, the
+    # waking window and `REPO` to `publish` — and every routing table still sent
+    # a reader to `morning_knock.py`, which no longer had them.
+    #
+    # Narrow on purpose: a line number ONLY counts as a pointer when a `.py`
+    # file is named just before it, so `/debug`'s real JSON errors ("Expecting
+    # value: line 1 column 1") are untouched. Prose is exempt from a lot here;
+    # an address that rots without saying so is not prose.
+    stale = []
+    for root in (REAL_BASE / ".claude" / "skills", REAL_BASE / "docs"):
+        for f in sorted(root.rglob("*.md")):
+            for i, ln in enumerate(f.read_text(encoding="utf-8").splitlines(), 1):
+                m = re.search(r"\.py`?[^|\n]{0,60}?\blines?\s+\d+", ln, re.I)
+                if m:
+                    stale.append(f"{f.relative_to(REAL_BASE)}:{i} ({m.group(0)[-40:]})")
+    check(f"docs and skills address code by NAME, not line number "
+          f"({len(stale)} stale pointers)", not stale,
+          "; ".join(stale) + " — name the function or constant instead; a line "
+          "number is wrong the next time anything above it moves, and it rots "
+          "without saying so (2026-08-01)")
+
     # A new file is the obvious way past a ceiling, so an unbudgeted one is a
     # red run rather than a silent exemption.
     on_disk = {f"scripts/{p.name}" for p in (REAL_BASE / "scripts").glob("*.py")}
