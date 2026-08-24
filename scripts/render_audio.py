@@ -523,6 +523,7 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
     cleaned_words = []
     new_word_keys = set()
     tags_path = script_path.with_suffix(".tags.json")
+    sidecar_broken = False
     if tags_path.exists():
         try:
             tags = json.loads(tags_path.read_text(encoding="utf-8"))
@@ -542,9 +543,28 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
                         cleaned_words.append(key)
                         if bucket == "new_words_landed":
                             new_word_keys.add(key)
-        except (json.JSONDecodeError, OSError):
-            pass
-    if not cleaned_words:
+        except (json.JSONDecodeError, OSError) as e:
+            # LOUD, AND IT REFUSES THE FALLBACK (2026-08-24). This was `pass`.
+            # A sidecar that EXISTS but cannot be parsed is a BROKEN file, not a
+            # missing one — and the scrape below would then build a plausible
+            # word list from the wrong source entirely: bold tokens in the
+            # markdown, which is not where the vocab is written. episodes.json
+            # and every row's `seen_in` would record words the episode never
+            # taught, the render would succeed, and every instrument would read
+            # green. That is the artifact-shaped nothing this codebase keeps
+            # finding: a state indistinguishable from success.
+            #
+            # So it says so, and it does NOT fall through. An empty word list
+            # under-claims; the scrape INVENTS, and the ledger's own law is that
+            # it under-claims rather than invents (the claim_payload rule,
+            # 2026-07-17). A warning nobody can act on is noise; this one names
+            # the file, the error, and what to do.
+            sidecar_broken = True
+            print(f"   ! {tags_path.name} EXISTS BUT COULD NOT BE READ "
+                  f"({type(e).__name__}: {e})")
+            print("     Not scraping the script instead — that would credit words "
+                  "this episode never taught. Fix the sidecar and re-run.")
+    if not cleaned_words and not sidecar_broken:
         for w in re.findall(r"\*\*([^\*]+)\*\*", content):
             tamil = re.split(r"[\(\s]", w)[0]
             if tamil and any('஀' <= c <= '௿' for c in tamil) and tamil not in cleaned_words:

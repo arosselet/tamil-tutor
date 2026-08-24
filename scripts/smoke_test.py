@@ -476,6 +476,38 @@ def s8_variety_and_decay(mk, kr, sb: Path):
     check("no lore fires → no lore line in the rails",
           "lore" not in mk.remaining_room([], now).lower())
 
+    # ── THE SEQUENCE PROPERTY — what the incident actually was ──────────────
+    # The two assertions above are POINTWISE: lore one day old says SPENT, lore
+    # LORE_COOLDOWN_DAYS+2 old says vein. The 2026-07-11 bug was neither. It was
+    # FOUR frame-etymology memos on FOUR CONSECUTIVE DAYS — a run, and a rails
+    # line that only covered "yesterday" would pass both checks above and still
+    # let days 2, 3 and 4 through. So walk the whole window instead of sampling
+    # two points in it, and walk one day past the far edge.
+    for d in range(mk.LORE_COOLDOWN_DAYS):
+        one = [{"acted": True, "move": "lore memo: -aachu frame",
+                "timestamp": (now - timedelta(days=d)).isoformat()}]
+        if "SPENT" not in mk.remaining_room(one, now):
+            check(f"lore is SPENT on every day of the cooldown (day {d} leaked)", False,
+                  mk.remaining_room(one, now))
+            break
+    else:
+        check(f"lore reads SPENT on ALL {mk.LORE_COOLDOWN_DAYS} days of the window, "
+              f"not just yesterday", True)
+    edge = [{"acted": True, "move": "lore memo: -aachu frame",
+             "timestamp": (now - timedelta(days=mk.LORE_COOLDOWN_DAYS)).isoformat()}]
+    check("...and the window ENDS on schedule — the format is not locked out forever",
+          "different vein" in mk.remaining_room(edge, now), mk.remaining_room(edge, now))
+
+    # The incident's own shape: a run of them. The rails must read the LATEST
+    # fire, so four consecutive days still says SPENT rather than aging out on
+    # the oldest entry in the log.
+    run_of_four = [{"acted": True, "move": "lore memo: -aachu frame",
+                    "timestamp": (now - timedelta(days=d)).isoformat()}
+                   for d in (9, 8, 7, 1)]
+    check("a RUN of lore memos is judged on the most recent, not the oldest",
+          "SPENT" in mk.remaining_room(run_of_four, now),
+          mk.remaining_room(run_of_four, now))
+
     # lock-screen body budget
     check("over_budget flags a long body",
           mk.over_budget("x" * 200) and not mk.over_budget("x" * 100))
@@ -2841,6 +2873,38 @@ def s32_pool_rotation_and_coverage(mk, sb: Path):
         check("ask-count stays subordinate to tier: an asked survival item still "
               "outranks an unasked dessert one",
               order.index("smoke:surv-tail") < order.index("smoke:dessert-new"), f"got {order}")
+        # ── THE DISTRIBUTION PROPERTY — what the incident actually was ──────
+        # Every assertion above is POINTWISE: one call, one pair compared. KF-12
+        # was not a pair in the wrong order. It was 45 of 70 fire items never
+        # asked once, across weeks, while cold/total reported a winning sprint —
+        # and a selector can satisfy every ordering rule above and still starve
+        # its tail, because starvation is a property of the SEQUENCE, not of any
+        # single call. `s34` already tests its own ordering this way (its
+        # `range(40)` loop); this is that shape, applied to the bug it was
+        # written for. Feeding `asked` back in is what closes the loop: being
+        # asked must move an item to the back of its own queue, or the head
+        # freezes and the tail is never reached.
+        #
+        # WITHIN A TIER, deliberately. Tier order is the touchdown bar and must
+        # survive — a dessert item legitimately waits while survival work is
+        # outstanding, so a cross-tier fairness assertion would be testing the
+        # opposite of the design. The starvation was always inside a tier: the
+        # head frozen by ripeness-first (an item became `hinted` by being worked,
+        # which promoted it again), the tail never surfacing.
+        tier = ["smoke:surv-mid", "smoke:surv-tail", "smoke:surv-unseen"]
+        turns = {}
+        for _ in range(40):
+            f, _b = st.floor_gap_targets(lex, today, 20, asked=dict(turns), cohort=[])
+            for t in f[:2]:
+                turns[t["word"]] = turns.get(t["word"], 0) + 1
+        starved = [w for w in tier if not turns.get(w)]
+        check("over 40 selections every item in the tier is reached — no starved tail",
+              not starved, f"never asked once: {starved} (turns={turns})")
+        hi, lo = max(turns.get(w, 0) for w in tier), min(turns.get(w, 0) for w in tier)
+        check("...and the tier's turns are SHARED, not taken by its head",
+              lo and hi <= lo * 1.5,
+              f"head took {hi}, tail took {lo} — rich-get-richer is back ({turns})")
+
         check("the ask count rides on the item for the menu's warning",
               [t["asks"] for t in focus if t["word"] == "smoke:surv-tail"] == [1],
               f"got {focus}")
@@ -5282,6 +5346,46 @@ def s43_sidecar_callback_never_drops_silently(sb: Path):
               ghost in lex, "still absent")
         check("...and nothing is reported unresolved",
               "resolve to no lexicon word" not in out.getvalue())
+
+        # ── A BROKEN SIDECAR IS NOT A MISSING ONE (2026-08-24) ──────────────
+        # The block above proves an UNRESOLVABLE key is reported. This proves the
+        # worse case one level up: a sidecar that exists and cannot be PARSED.
+        # It used to be `except (json.JSONDecodeError, OSError): pass`, and the
+        # code then fell through to scraping `**bold**` tokens out of the
+        # markdown — which is not where an episode's vocab is written. The result
+        # was a PLAUSIBLE word list from the wrong source: episodes.json and every
+        # row's `seen_in` crediting words the episode never taught, the render
+        # succeeding, and every instrument green.
+        #
+        # THE SILENT NO-OP, stated: a swallowed parse error and a sidecar with no
+        # callbacks look identical from outside. So this asserts the two things
+        # that tell them apart — the failure is NAMED, and the wrong-source
+        # fallback does NOT run. Under-claiming is the ledger's own law
+        # (claim_payload, 2026-07-17); inventing is the defect.
+        bold = "ஸ்மோக்பொல்ட்"
+        script.write_text(f"# Tier 2, Mission 97 — Smoke\n\n**{bold}** is bold.\n",
+                          encoding="utf-8")
+        (script.with_suffix(".tags.json")).write_text("{ this is not json",
+                                                      encoding="utf-8")
+        eps_path = sb / "progress" / "episodes.json"
+        write_json(eps_path, {})
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            ra.register_mission_in_state(script, sb / "published_audio" / "tier2_mission97.mp3")
+        text = out.getvalue()
+        check("an UNREADABLE sidecar is reported, not swallowed",
+              "COULD NOT BE READ" in text, f"got {text[:300]!r}")
+        check("...naming the file and the parse error",
+              "tier2_mission97.tags.json" in text and "JSONDecodeError" in text,
+              f"got {text[:300]!r}")
+        check("...and saying what to do about it",
+              "Fix the sidecar" in text, f"got {text[:300]!r}")
+        words = (read_json(eps_path).get("97") or {}).get("words", [])
+        check("...and the bold-scrape fallback does NOT run — a plausible word "
+              "list from the wrong source is worse than none",
+              bold not in words, f"the scrape credited {words}")
+        check("...so the episode under-claims rather than invents", words == [],
+              f"got {words}")
 
         # Found by this very case on its first run: the state paths were
         # CWD-relative, so importing the sandbox module without chdir'ing wrote
