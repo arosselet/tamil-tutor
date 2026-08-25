@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:12 · Anna**  ·  text / lore: table rhythm
 > 🗣️ At a Tamil table, silence sounds like disconnection. 'aamaa aamaa' (yeah yeah) isn't agreeing — it's holding your chair.
 
+**18:04 · Anna**  ·  challenge / field mission: alaichal
+> 🚪 Tonight's mission: walk in the door, drop the bag, sigh it out — 'romba alaichal' (exhausting runaround). Debrief tomorrow.
+
 
 ## Monday 2026-08-24
 

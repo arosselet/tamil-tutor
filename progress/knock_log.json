@@ -5231,5 +5231,17 @@
     "move": "eavesdrop: summaa solraanga",
     "rationale": "Session already done today; soaking ear-only 'summaa solraanga' via an overheard gossip drift-check.",
     "next_check": "2026-08-25T12:08:49.250928+00:00"
+  },
+  {
+    "date": "2026-08-25",
+    "timestamp": "2026-08-25T12:34:01.655516+00:00",
+    "acted": true,
+    "modality": "challenge",
+    "move": "field mission: alaichal",
+    "rationale": "Assigning the door-triggered field mission set up in today's session before evening arrival; collection on tomorrow's first tick.",
+    "next_check": "2026-08-26T02:34:01.655516+00:00",
+    "body": "🚪 Tonight's mission: walk in the door, drop the bag, sigh it out — 'romba alaichal' (exhausting runaround). Debrief tomorrow.",
+    "expected_target": "ரொம்ப அலைச்சல்",
+    "target_revealed": true
   }
 ]
