@@ -2336,7 +2336,10 @@ def s35_quiet_hours_chokepoint(sb: Path):
     import contextlib
     import io
     mk = importlib.import_module("morning_knock")
-    src_dir = Path(__file__).parent
+    # The scripts directory, named absolutely rather than relative to THIS file:
+    # this case is about to move into smoke/, where `__file__.parent` would
+    # quietly become the test package and every source read below would miss.
+    src_dir = REAL_BASE / "scripts"
 
     real_urlopen = fx.pb.urllib.request.urlopen
     sent = []
