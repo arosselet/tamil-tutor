@@ -56,7 +56,7 @@ Every addition must earn its place. Before writing any code, state out loud:
 *"This replaces / simplifies ___."* (`docs/DECISIONS.md` → "Every addition must earn its place.")
 
 **The size budgets.** Every surface below is ratcheted, asserted by the same smoke case
-(`scripts/smoke_test.py` → `s18_size_budgets`):
+(`scripts/smoke/ratchets.py` → `s18_size_budgets`):
 
 | Surface | Table | Unit | Since |
 |---|---|---|---|
@@ -84,8 +84,9 @@ Two things specific to code. **Comments cost nothing** — the diagnosis layer i
 this codebase and it is why the silent-failure bugs were findable; the budget bounds
 mechanism, so explain freely and cut logic. **A new `scripts/*.py` with no entry in
 `CODE_BUDGETS` is itself a red run** — adding a file is the obvious way past a ceiling, so
-budget it in the same diff that creates it. `smoke_test.py` is exempt on purpose (Gate 7
-demands a case per fixed bug; test volume is the one growth this system wants unbounded).
+budget it in the same diff that creates it. The suite — `smoke_test.py` and everything
+under `scripts/smoke/` — is exempt on purpose (Gate 7 demands a case per fixed bug; test
+volume is the one growth this system wants unbounded).
 
 If you cannot name what it replaces, that is the signal to stop.
 
@@ -129,7 +130,8 @@ episodes" and "One runner, every capability.")
 
 Run these after every non-trivial change to the machinery:
 
-1. **New smoke case for every fixed plumbing bug.** (`scripts/smoke_test.py` docstring:
+1. **New smoke case for every fixed plumbing bug**, in the layer file that owns the lane
+   (`scripts/smoke/`). (`scripts/smoke_test.py` docstring:
    "A fixed bug becomes a case here the day it's fixed.") Add a scenario function
    (`sN_...`) following the existing pattern; do not write ad-hoc scripts.
 

@@ -43,7 +43,7 @@ Read these before any structural work. Stop at the first doc that closes your qu
 | 4 | `protocol/constitution.md` | The canonical rules the learning system enforces — mandatory before editing any `protocol/` file |
 | 5 | `docs/feature_inbox.md` | Where build-itches park during the structure freeze — check before acting on an idea |
 
-For the Python brain: read the script you intend to change, plus `scripts/smoke_test.py` before touching anything that writes state.
+For the Python brain: read the script you intend to change, plus the `scripts/smoke/` layer file that covers it before touching anything that writes state — `smoke_test.py` itself is now only the dispatcher.
 
 ---
 

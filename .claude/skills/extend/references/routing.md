@@ -33,4 +33,4 @@ report — do not create a substitute.
 | Spaced-repetition callback generation | `scripts/generate_callbacks.py` | |
 | Scheduled push composition and queue drain | `scripts/push_queue.py` | `drain --dry-run` previews without firing; `memo_script` makes an entry a voice dose rendered at fire time |
 | CI workflow — triggers, secrets, step order | `.github/workflows/anna.yml` | ONE workflow for every trigger; job-level `env` so no lane can miss a secret |
-| Smoke-test regression cases | `scripts/smoke_test.py` | Add a case the day a bug is fixed — never ad-hoc scripts |
+| Smoke-test regression cases | `scripts/smoke/` — the layer file that owns the lane (`knock.py`, `state.py`, `publish.py`, `compose.py`, `render.py`, `queue.py`, `ratchets.py`) | Add a case the day a bug is fixed — never ad-hoc scripts. `scripts/smoke_test.py` gains one `run(...)` line; the harness is `smoke/_fixtures.py` |

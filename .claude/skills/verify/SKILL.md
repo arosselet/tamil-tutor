@@ -44,9 +44,9 @@ python scripts/show_status.py         # read-only dashboard
 
 ## 3. Adding a smoke case
 
-Every fixed bug gets a case the day it's fixed. Pattern (from the existing s1–s8 in `smoke_test.py`):
+Every fixed bug gets a case the day it's fixed. It goes in the layer file that owns the lane — `scripts/smoke/knock.py`, `state.py`, `publish.py`, `compose.py`, `render.py`, `queue.py`, or `ratchets.py` — and `scripts/smoke_test.py` gains one `run(...)` line for it.
 
-All helpers used below (`canned_decision`, `Recorder`, `write_json`, `read_json`, `check`, `make_sandbox`) are defined at the top of `scripts/smoke_test.py` itself — no imports needed.
+The helpers used below live in `scripts/smoke/_fixtures.py`. Import the ones that are never rebound directly — `from ._fixtures import check, write_json, read_json, Recorder` — and reach `pb`, `wr` and `si` ONLY through the module, as `fx.pb`, because `load_modules` rebinds those three at run time and a `from` import would freeze a copy of `None`. `canned_decision` and `canned_verdict` live in `smoke/knock.py` beside the cases that use them.
 
 **Step 1 — Write the function** (add after the last `sN_*` function):
 

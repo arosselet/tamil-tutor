@@ -2345,3 +2345,16 @@ Details live in git history; this is the index of the *conclusions*.
   copy; mutation-tested. The same pass tightened that case's client allowlist, which
   still named `morning_knock` and `knock_reply` after Step 4 stopped them building
   clients — **an allowlist that outlives what it allowed is not a guard.**
+
+- **The smoke suite is split by layer; the ORDER is not** (2026-08-25, §10). 73 cases
+  re-homed from one 7,975-line file into `scripts/smoke/{state,compose,publish,knock,
+  render,queue,ratchets}.py` over a shared harness, `_fixtures.py`. **Replaces** locating
+  a case by scrolling. Not size — measured, the file was dense, not padded — but
+  *locality*: every layer's changes landed in one file and collided. Proved pure by
+  pinning the 1,009 assertion NAMES, sorted: green is not sufficient when the suite is
+  both instrument and subject. Two of §10's own instructions were wrong and were
+  overruled with evidence: per-file sandboxes (they re-import modules, which breaks stub
+  teardown) and per-module `run_all()` (it reorders cases, and the sandbox tree is shared
+  and never reset — s74 seeds `knock_log.json`, s3 asserts on a clean one). `smoke_test.py`
+  keeps its name, its CLI and its 73-line ordered list. Open: s74 does not put back what
+  it writes.

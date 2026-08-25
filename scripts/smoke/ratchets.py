@@ -345,8 +345,14 @@ CODE_BUDGETS = {
 # mechanisms in direct conflict and the budget would win — a fixed bug would
 # arrive with a reason not to pin it. Test volume is the one growth this system
 # wants unbounded. The completeness guard below is what keeps this from becoming
-# a hiding place: every OTHER scripts/*.py must carry a budget.
+# a hiding place: every OTHER script under scripts/ must carry a budget.
+#
+# Widened from the one file to the package when the suite was split by layer
+# (2026-08-25, §10.4). The exemption is for TEST volume, so it has to name
+# wherever the tests now live — and the completeness guard below has to see into
+# that directory, or a new production file could hide inside smoke/ unbudgeted.
 CODE_BUDGET_EXEMPT = {"scripts/smoke_test.py"}
+SUITE = "scripts/smoke/"
 
 
 def s18_size_budgets(mk, kr, sb: Path):
@@ -406,9 +412,12 @@ def s18_size_budgets(mk, kr, sb: Path):
               "silent no-op this rule exists to prevent")
     else:
         report = io.StringIO()
+        # rglob, not glob: a non-recursive sweep stopped covering the suite
+        # the moment it became a package, and proved it — an unused import
+        # rode into smoke/queue.py past a green run (2026-08-25).
         found = sum(checkPath(py, Reporter(report, report))
-                    for py in sorted((REAL_BASE / "scripts").glob("*.py")))
-        check(f"pyflakes: {found}/0 findings across scripts/*.py", found == 0,
+                    for py in sorted((REAL_BASE / "scripts").rglob("*.py")))
+        check(f"pyflakes: {found}/0 findings across scripts/", found == 0,
               f"undefined names, unused imports and dead locals are all defects "
               f"or dead code — fix them, never budget for them:\n{report.getvalue()}")
 
@@ -524,9 +533,12 @@ def s18_size_budgets(mk, kr, sb: Path):
 
     # A new file is the obvious way past a ceiling, so an unbudgeted one is a
     # red run rather than a silent exemption.
-    on_disk = {f"scripts/{p.name}" for p in (REAL_BASE / "scripts").glob("*.py")}
-    unbudgeted = sorted(on_disk - set(CODE_BUDGETS) - CODE_BUDGET_EXEMPT)
-    check(f"every scripts/*.py carries a code budget ({len(on_disk)} files)",
+    on_disk = {p.relative_to(REAL_BASE).as_posix()
+               for p in (REAL_BASE / "scripts").rglob("*.py")}
+    unbudgeted = sorted(p for p in on_disk - set(CODE_BUDGETS) - CODE_BUDGET_EXEMPT
+                        if not p.startswith(SUITE))
+    check(f"every script under scripts/ carries a code budget "
+          f"({len(on_disk)} files)",
           not unbudgeted,
           f"unbudgeted: {', '.join(unbudgeted)} — add each to CODE_BUDGETS in "
           f"the same diff that adds the file")

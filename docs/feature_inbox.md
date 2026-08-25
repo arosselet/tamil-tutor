@@ -800,7 +800,7 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
   Covered, Not Ground Remaining* law actually needs answered. This is not recoverable after the
   fact: `lexicon.json` carries only today's recognition level, so every day that passes without
   the field is a day of the headline axis permanently unrecorded. Cheap fix: one line,
-  `entry["ears_pct"]`, beside the two already there; `smoke_test.py:3829` asserts the row's
+  `entry["ears_pct"]`, beside the two already there; `smoke/state.py`'s `s42_session_log_one_row_per_day` asserts the row's
   shape and would extend in the same diff. **Held at Gate 2** — schema change to Python-owned
   JSON — not built. The larger question underneath: the session row is the only distance-covered
   record this system keeps, and nothing reads it back to Andrew. `show_status.py:129` prints

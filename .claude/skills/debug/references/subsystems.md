@@ -214,5 +214,5 @@ gh run view <run-id> --log
 Common causes:
 - **Missing secret:** `OPENROUTER_API_KEY`, `ANNA_PUSH_WEBHOOK_URL`, or `GCP_SA_KEY` not set → step fails with auth error or 401.
 - **Git rebase conflict:** knock, queue, and laptop all push to `main`. Workflow uses `git pull --rebase --autostash origin main` before push; a conflict here leaves the runner in a bad state. Look for `CONFLICT` in the log.
-- **Smoke test FAIL:** a regression in knock/reply/queue plumbing. The log names the failing case. Run `python scripts/smoke_test.py` locally to reproduce.
+- **Smoke test FAIL:** a regression in knock/reply/queue plumbing. The log names the failing case. Run `python scripts/smoke_test.py` locally to reproduce, or `python scripts/smoke_test.py s41` for the one case.
 - **Fresh-clone red crons:** if secrets are not yet configured, knock and queue workflows fail loud on every tick. This is intentional (BOOTSTRAP.md). Disable Actions or add secrets before the first push.
