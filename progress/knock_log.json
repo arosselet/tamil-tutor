@@ -5222,5 +5222,14 @@
     "body": "🗣️ At a Tamil table, silence sounds like disconnection. 'aamaa aamaa' (yeah yeah) isn't agreeing — it's holding your chair.",
     "expected_target": "",
     "target_revealed": false
+  },
+  {
+    "date": "2026-08-25",
+    "timestamp": "2026-08-25T07:38:49.250928+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "eavesdrop: summaa solraanga",
+    "rationale": "Session already done today; soaking ear-only 'summaa solraanga' via an overheard gossip drift-check.",
+    "next_check": "2026-08-25T12:08:49.250928+00:00"
   }
 ]
