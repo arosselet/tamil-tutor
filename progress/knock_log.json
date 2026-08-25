@@ -5210,5 +5210,17 @@
         "scheduled": ""
       }
     ]
+  },
+  {
+    "date": "2026-08-25",
+    "timestamp": "2026-08-25T03:42:05.956074+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "lore: table rhythm",
+    "rationale": "Demand streak is at 2, so this morning knock is a zero-ask cultural lore beat on table backchanneling before the lunch session.",
+    "next_check": "2026-08-25T07:12:05.956074+00:00",
+    "body": "🗣️ At a Tamil table, silence sounds like disconnection. 'aamaa aamaa' (yeah yeah) isn't agreeing — it's holding your chair.",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]

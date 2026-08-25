@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Tuesday 2026-08-25
+
+**09:12 · Anna**  ·  text / lore: table rhythm
+> 🗣️ At a Tamil table, silence sounds like disconnection. 'aamaa aamaa' (yeah yeah) isn't agreeing — it's holding your chair.
+
+
 ## Monday 2026-08-24
 
 **09:18 · Anna**  ·  text / trailer: -om verb switch
