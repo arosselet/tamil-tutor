@@ -5,9 +5,11 @@ lines, pyflakes findings (budget zero), DECISIONS entry length, the
 name-never-line-number rule for docs and skills, and the guard that keeps a
 source assertion reading MECHANISM rather than the prose explaining it.
 
-`s72` is the odd one and belongs here for the same reason: it polices the
-harness itself, proving that `run`'s teardown actually puts a stubbed name back.
-A suite whose teardown silently did nothing would still print ALL GREEN.
+`s72` and `s75` are the odd ones and belong here for the same reason: they
+police the machine's own shape rather than a lane's behaviour. `s72` proves
+`run`'s teardown actually puts a stubbed name back; `s75` proves the import
+graph still points one way, down the stack. A suite whose teardown silently did
+nothing, or a stack that quietly grew an upward edge, would still print ALL GREEN.
 """
 import ast
 import io
@@ -651,3 +653,208 @@ def s52_andrew_is_family_already(sb: Path):
           "constitution.md" in head,
           "Scenario Context invents the framing; without this line the Director "
           "reads only profile.md + learner.json and cannot know")
+
+
+# ── THE STACK, DECLARED (2026-08-25) ─────────────────────────────────────────
+# The spine refactor installed one law — "imports point one way, down the stack"
+# (DECISIONS 2026-08-23) — and nothing in this suite checked it. Every OTHER law
+# it installed is guarded per incident: `s35` reads four named files for a
+# hand-rolled waking-hour compare, `s70` reads the Tamil range off `state_io` so
+# a fifth copy cannot hide in the case itself. Those close doors a specific bug
+# walked through. The law itself had no lock, so a NEW upward edge or a NEW cycle
+# landed green — which is exactly how the previous shape accumulated. The
+# 23-entry drift class the refactor retired was never one bug repeated; it was
+# one missing test repeated.
+#
+# Fractional rungs where a real dependency forces an order INSIDE a layer:
+# `publish` imports `render_chat`, so the derived renderer sits below it; the
+# render lanes import `lanes.deliver_rendered`, so the shared tail sits below
+# them. `render_audio` is a PRODUCER for L4 — it makes the artifact `publish`
+# delivers — so it sits above it and its import is not a violation.
+LAYERS = {
+    "state_io":           0,      # L0 substrate — imports nothing in scripts/
+
+    "render_chat":        1,      # L1 pure renderers over one source of truth
+    "rebuild_rss":        1,
+    "generate_callbacks": 1,
+    "slips":              1,
+    "suggest_targets":    1.5,    # selection — reads L1, read by the lanes
+    "sync_state":         2,      # beside L1 — the one writer
+
+    "mandates":           3,      # L3 compose — prompt canon, imports nothing
+    "writer":             3,      # L3 compose — executor, model, budget, parsers
+
+    "publish":            4,      # L4 delivery — the ordering, the net, the push
+    "render_audio":       4.5,    # a producer FOR L4 — TTS, register, commit
+
+    "lanes":              5,      # L5 what a family shares
+    "morning_knock":      5.5,    # L5 the lanes themselves
+    "knock_reply":        5.5,
+    "push_queue":         5.5,
+    "render_soak":        5.5,
+    "render_drill":       5.5,
+    "render_longhaul":    5.5,
+    "run_studio":         5.5,
+    "render_demo":        5.5,
+
+    "session_brief":      6,      # read surfaces, above everything
+    "show_status":        6,
+    "studio_watchdog":    6,
+}
+
+# An edge that points the wrong way and is allowed to. Each carries WHY, so the
+# next one is an argument someone has to write down rather than a merge nobody
+# noticed — the same mechanism PROSE_BUDGETS and CODE_BUDGETS already run on.
+# This list shrinking is the measure of the next pass; it must never grow
+# quietly.
+UP_EXCEPTIONS = {
+    ("sync_state", "publish"):
+        "sync_state hosts the knock-response tap lane, which needs the delivery "
+        "tail like any other lane. Retires when the tap becomes a lane of its own.",
+    ("sync_state", "session_brief"):
+        "the `status` subcommand is a CLI facade over the read surface; deferred, "
+        "because a read surface must not be imported at module level.",
+}
+
+CYCLE_EXCEPTIONS = {
+    frozenset({"morning_knock", "push_queue"}):
+        "the queue drains knock memos and the knock enqueues schedules; broken by "
+        "a deferred import in maybe_enqueue_schedule. Dies with the L0 residue "
+        "push_queue still takes through morning_knock (KNOCK_LOG_PATH, LOCAL_TZ, "
+        "load_json).",
+    frozenset({"sync_state", "session_brief"}):
+        "the `status` CLI facade above; broken by a deferred import in main().",
+}
+
+
+def _import_edges(scripts: Path) -> dict:
+    """{(importer, imported): "module" | "deferred"} for intra-repo imports.
+
+    `smoke_test.py` and the `smoke/` package are excluded: the suite imports
+    every layer by design and is exempt from the budgets for the same reason.
+    A module-level edge outranks a deferred one — a name imported both ways is
+    loaded at import time, so the deferral buys nothing.
+    """
+    mods = {p.stem for p in scripts.glob("*.py")} - {"smoke_test"}
+    edges: dict = {}
+    for path in sorted(scripts.glob("*.py")):
+        if path.stem == "smoke_test":
+            continue
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+        deferred_nodes = set()
+        for fn in [n for n in ast.walk(tree)
+                   if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef))]:
+            for n in ast.walk(fn):
+                deferred_nodes.add(id(n))
+        for n in ast.walk(tree):
+            if not isinstance(n, (ast.Import, ast.ImportFrom)):
+                continue
+            if isinstance(n, ast.ImportFrom) and n.level:
+                continue
+            name = (n.module if isinstance(n, ast.ImportFrom)
+                    else n.names[0].name) or ""
+            target = name.split(".")[0]
+            if target in mods and target != path.stem:
+                kind = "deferred" if id(n) in deferred_nodes else "module"
+                if edges.get((path.stem, target)) != "module":
+                    edges[(path.stem, target)] = kind
+    return edges, mods
+
+
+def _breaks(edges: dict, layers: dict) -> tuple[list, set]:
+    """(edges that point strictly UP, cycles) — pure, so the positive control at
+    the foot of `s75` can drive it with a synthetic graph. A guard nothing can
+    make fail is not a guard; this is what lets the case prove it can."""
+    up = sorted((a, b) for (a, b) in edges
+                if a in layers and b in layers and layers[a] < layers[b])
+    cycles = {frozenset({a, b}) for (a, b) in edges if (b, a) in edges}
+    return up, cycles
+
+
+def s75_the_stack_is_one_way():
+    """The law gets a lock, and the exception list gets one too (2026-08-25).
+
+    THE SILENT NO-OP, answered out loud: a graph walk that finds NOTHING passes
+    every assertion below vacuously and prints four green lines. That is not
+    hypothetical here — `s35` shipped naming the scripts directory through
+    `__file__` and had to be corrected to an absolute path DURING this same
+    refactor, and a walk pointed at the wrong tree fails exactly that way. So the
+    first assertions are teeth on the WALK, not on the law: a known module-level
+    edge and a known deferred edge must both come back, which fails if the walk
+    breaks, if the directory moves, or if the module/deferred split stops working.
+
+    The second silent no-op is the exception list. An exception whose edge is
+    deleted, or whose edge gets REPAIRED so it no longer points up, is a licence
+    to break the law that nothing revokes — the shape of "an allowlist that
+    outlives what it allowed is not a guard" (2026-08-24), which was written
+    after `s70`'s client allowlist went on naming two modules that had stopped
+    building clients. So the list can only shrink: handing the licence back is
+    part of landing the fix.
+    """
+    print("\n75. The stack is one way, and every exception is declared (2026-08-25)")
+    edges, mods = _import_edges(REAL_BASE / "scripts")
+
+    # ── teeth on the walk itself, before any conclusion is drawn from it ──
+    check(f"the walk reached the real tree ({len(mods)} modules, {len(edges)} edges)",
+          len(mods) >= 20 and edges.get(("lanes", "publish")) == "module",
+          "a floor, not a target: an empty or mis-pointed walk makes every "
+          "assertion below pass while checking nothing")
+    check("...and it still tells a call-time import from a load-time one",
+          edges.get(("morning_knock", "push_queue")) == "deferred",
+          "the deferred/module split is what makes a declared cycle legible; "
+          "if this collapses, the cycle assertions stop meaning anything")
+
+    # ── 1. no hiding place ──
+    unlayered = sorted(mods - set(LAYERS))
+    check(f"every module under scripts/ carries a layer ({len(LAYERS)} declared)",
+          not unlayered,
+          f"unlayered: {', '.join(unlayered)} — add each to LAYERS, which is the "
+          f"conversation this guard exists to force")
+
+    # ── 2. the law, and 3. its corollary ──
+    up, cycles = _breaks(edges, LAYERS)
+    undeclared_up = [p for p in up if p not in UP_EXCEPTIONS]
+    check(f"no module imports a strictly higher layer ({len(up)} declared upward)",
+          not undeclared_up,
+          "upward: " + "; ".join(f"{a}(L{LAYERS[a]}) -> {b}(L{LAYERS[b]})"
+                                 for a, b in undeclared_up)
+          + " — move the code down, or declare it in UP_EXCEPTIONS with a reason")
+    undeclared_cy = sorted(cycles - set(CYCLE_EXCEPTIONS), key=sorted)
+    check(f"no undeclared import cycle ({len(cycles)} declared)",
+          not undeclared_cy,
+          "cycles: " + "; ".join(" <-> ".join(sorted(c)) for c in undeclared_cy)
+          + " — a function-local import hides a cycle from Python, never from this")
+
+    # ── 4. the guard's own guard: a licence handed back when the fix lands ──
+    gone = sorted(p for p in UP_EXCEPTIONS if p not in edges)
+    check("every declared upward exception still describes a real edge",
+          not gone,
+          "the edge is gone at " + "; ".join(f"{a} -> {b}" for a, b in gone)
+          + " — delete the exception with it (2026-08-24)")
+    repaired = sorted(p for p in UP_EXCEPTIONS if p in edges and p not in set(up))
+    check("...and still describes an edge that actually points UP",
+          not repaired,
+          "no longer upward: " + "; ".join(f"{a} -> {b}" for a, b in repaired)
+          + " — the layering was fixed; the licence to break it should have gone too")
+    stale_cy = sorted((c for c in CYCLE_EXCEPTIONS if c not in cycles), key=sorted)
+    check("every declared cycle exception still describes a real cycle",
+          not stale_cy,
+          "the cycle is broken at " + "; ".join(" <-> ".join(sorted(c)) for c in stale_cy)
+          + " — delete the exception; that is the win being recorded")
+
+    # ── the positive control — a guard nothing can fail is not a guard ──
+    # Driven with a synthetic graph rather than by mutating the tree, so the
+    # proof lives in the suite permanently instead of in one session's notes.
+    toy_layers = {"low": 0, "mid": 1, "high": 2}
+    toy_edges = {("high", "low"): "module",     # legal, downward
+                 ("low", "high"): "module",     # illegal: upward AND a cycle
+                 ("mid", "high"): "deferred"}   # illegal: upward
+    toy_up, toy_cycles = _breaks(toy_edges, toy_layers)
+    check("the checker reports an upward edge when one exists",
+          toy_up == [("low", "high"), ("mid", "high")], toy_up)
+    check("...and reports a cycle when one exists",
+          toy_cycles == {frozenset({"low", "high"})}, toy_cycles)
+    check("...and reports neither on a graph that only points down",
+          _breaks({("high", "low"): "module", ("mid", "low"): "deferred"},
+                  toy_layers) == ([], set()),
+          "a checker that never fires would read green on every tree")

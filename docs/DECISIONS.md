@@ -2358,3 +2358,13 @@ Details live in git history; this is the index of the *conclusions*.
   and never reset — s74 seeds `knock_log.json`, s3 asserts on a clean one). `smoke_test.py`
   keeps its name, its CLI and its 73-line ordered list. Open: s74 does not put back what
   it writes.
+- **The law gets a lock, and the exception list can only shrink** (2026-08-25). The spine
+  refactor installed *"imports point one way, down the stack"* (08-23) and nothing checked
+  it. Every other law it landed is guarded per incident — `s35` for the waking-hour
+  compare, `s70` for the script range — so a NEW upward edge or cycle read green.
+  **Replaces** four prose statements of the law and the hand AST extraction that was the
+  only way to see the graph. `s75` declares 23 layers, 2
+  upward edges and 2 cycles, each exception carrying its reason. An exception whose edge is
+  deleted — or *repaired*, so it no longer points up — is itself a failure, so landing a fix
+  means handing the licence back (*"an allowlist that outlives what it allowed is not a
+  guard"*, 08-24). Teeth on the walk, since an empty one passes vacuously.

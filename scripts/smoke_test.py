@@ -136,6 +136,7 @@ def main():
         run(ratchets.s72_a_stub_never_outlives_its_case, mk, kr)
         run(publish.s73_one_tail_for_the_render_family, sb)
         run(publish.s74_a_derived_file_follows_its_source, sb)
+        run(ratchets.s75_the_stack_is_one_way)
 
     if fx.ONLY and not fx.RAN:
         sys.exit(f"no case matched {fx.ONLY} — name a case (s41) or a prefix (s41_slip)")
