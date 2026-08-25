@@ -12,7 +12,11 @@
     "from": "2026-08-23",
     "focus": "THE -OM / -EN CONTRAST, POURED IN BOTH DIRECTIONS. This is the loudest pattern in the ledger: 9x over 29d, ESCALATE, and it came back after being closed. He gets it wrong BOTH ways — 08-21 sappitom where he meant sappitten (I), 08-23 ponen where the scene was a we-trip. Wrong in both directions means the two endings are not yet separate SOUNDS to him, so this is a soak: contrast first, then the chunk. Episode was tried twice (07-31, 08-04) and did not hold — do not send this to the studio again. Build it as minimal PAIRS on the same verb, one breath apart, nothing else changing: ponen / ponom, saapten / saaptom, vandhen / vandhom, paathen / paathom. Then the same pair inside an ordinary house sentence where only the ending carries who did it — 'naan kaalaila beach-ku ponen' against 'naan kaalaila beach-ku ponom' is WRONG, so anchor each with its subject: naan ... -en, naama/naanga ... -om. HARD CONSTRAINT from his testimony 2026-08-23: every lexical item must already be in lexicon.json. Not one novel word — the ending is the only thing being tested, and twice today a drill failed because the answer was hidden behind vocabulary he does not own. Never name a rule, never say 'first person plural'. Just the pairs, many voices, many speeds. Passive: nothing is demanded of him.",
     "channel": "soak",
-    "form": "narrated_drama"
+    "form": "narrated_drama",
+    "delivered": {
+      "channel": "soak",
+      "at": "2026-08-25"
+    }
   },
   "next_engine": "frame:polite-nga",
   "focus_cohort": [
