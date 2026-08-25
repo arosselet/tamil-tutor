@@ -16,7 +16,7 @@ from pathlib import Path
 
 from . import _fixtures as fx
 from ._fixtures import (
-    check, code_line_numbers, mechanism, REAL_BASE, run,
+    check, code_line_numbers, mechanism, REAL_BASE,
 )
 
 
@@ -652,10 +652,3 @@ def s70_the_executor_is_chosen_by_the_host(sb: Path):
           not called, f"push_queue.py reaches for {', '.join(called)} — a writer "
                       f"stage here puts a model call between Andrew's tap and his "
                       f"lock screen, and the dose was already written")
-
-
-def run_all(mk, kr, pq, sb):
-    run(s1_parse_llm_json, mk)
-    run(s58_a_sheet_survives_a_model_thinking_out_loud, sb)
-    run(s66_json_mode_is_actually_sent, mk, kr, sb)
-    run(s70_the_executor_is_chosen_by_the_host, sb)

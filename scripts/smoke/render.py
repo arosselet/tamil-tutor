@@ -21,7 +21,7 @@ from pathlib import Path
 from . import _fixtures as fx
 from ._fixtures import (
     check, code_line_numbers, mechanism, raw_source, read_json, REAL_BASE,
-    run, write_json,
+    write_json,
 )
 
 
@@ -741,12 +741,3 @@ def s57_longhaul_tape(sb: Path):
     check("...and it measures with the authority rebuild_rss already uses",
           any("audio_duration" in r for r in returns), f"returns {returns}")
     check("an unmeasurable file reports a visible zero, never a guess", "0.0" in returns)
-
-
-def run_all(mk, kr, pq, sb):
-    run(s19_watchdog_detection, sb)
-    run(s26_capacity_routing, sb)
-    run(s28_cloud_writer, sb)
-    run(s40_drill_consumes_its_commission, sb)
-    run(s48_drill_answer_key_lint, sb)
-    run(s57_longhaul_tape, sb)

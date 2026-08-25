@@ -13,7 +13,7 @@ from pathlib import Path
 
 from . import _fixtures as fx
 from ._fixtures import (
-    check, read_json, REAL_BASE, Recorder, run, write_json,
+    check, read_json, REAL_BASE, Recorder, write_json,
 )
 
 
@@ -333,8 +333,3 @@ def s45_concurrent_appends_merge(mk, sb: Path):
           set(live.UNIONABLE) == {"progress/push_queue.json", "progress/knock_log.json"},
           f"{sorted(live.UNIONABLE)} — session_log merges same-day rows by rule and "
           "feedback_log has no key; a conflict in either is a real disagreement")
-
-
-def run_all(mk, kr, pq, sb):
-    run(s29_one_runner_every_capability, mk, pq, kr, sb)
-    run(s45_concurrent_appends_merge, mk, sb)

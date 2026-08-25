@@ -639,9 +639,3 @@ def s52_andrew_is_family_already(sb: Path):
           "constitution.md" in head,
           "Scenario Context invents the framing; without this line the Director "
           "reads only profile.md + learner.json and cannot know")
-
-
-def run_all(mk, kr, pq, sb):
-    run(s18_size_budgets, mk, kr, sb)
-    run(s72_a_stub_never_outlives_its_case, mk, kr)
-    run(s52_andrew_is_family_already, sb)
