@@ -41,90 +41,32 @@ import json
 import os
 import re
 import shutil
-import subprocess
 import sys
 import tempfile
-import textwrap
 import time
-import tokenize
 import types
 from datetime import date as date_cls, datetime, timedelta, timezone
 from pathlib import Path
 
-REAL_BASE = Path(__file__).resolve().parent.parent
-FAILURES: list[str] = []
-# Case filter: `python scripts/smoke_test.py s41 s58` runs those two alone.
-# CI passes nothing and gets the whole suite (smoke.yml's contract).
-ONLY: list[str] = [a for a in sys.argv[1:] if not a.startswith("-")]
-RAN: list[str] = []
-
-
-def check(name: str, cond: bool, detail: str = ""):
-    print(f"  [{'ok' if cond else 'FAIL'}] {name}" + ("" if cond else f" — {detail}"))
-    if not cond:
-        FAILURES.append(name)
-
-
-class Recorder(list):
-    """Stub for push_to_phone / commit_and_push — records instead of acting."""
-    def __call__(self, *args, **kwargs):
-        self.append(args)
-
-
-# ── Sandbox ───────────────────────────────────────────────────────────────────
-
-def make_sandbox(tmp: Path) -> Path:
-    """Copy the repo (minus git/audio/secrets) and reset progress/ to day-zero
-    fixtures — the .example files finally earn their keep as test fixtures."""
-    sb = tmp / "repo"
-    shutil.copytree(REAL_BASE, sb, ignore=shutil.ignore_patterns(
-        ".git", ".env", "__pycache__", "audio", "published_audio",
-        "*.mp3", "*.mp4", "*.ipynb", "*.jpg"))
-    prog = sb / "progress"
-    for ex in prog.glob("*.example"):
-        shutil.copy(ex, prog / ex.name[: -len(".example")])
-    (prog / "knock_log.json").write_text("[]", encoding="utf-8")
-    (prog / "push_queue.json").write_text("[]", encoding="utf-8")
-    return sb
-
-
-def load_modules(sb: Path):
-    """Import the SANDBOX copies of the scripts — their BASE resolves to the
-    sandbox, so every path constant lands there without patching."""
-    real_scripts = str(REAL_BASE / "scripts")
-    sys.path = [p for p in sys.path if p != real_scripts]
-    sys.path.insert(0, str(sb / "scripts"))
-    mk = importlib.import_module("morning_knock")
-    kr = importlib.import_module("knock_reply")
-    pq = importlib.import_module("push_queue")
-    # L3 and L4, bound as module globals rather than threaded through 70 case
-    # signatures. Cases reach them by ADDRESS for the same two reasons they ever
-    # reached `mk` that way: to read a constant, and to patch a name a moved
-    # function resolves through its OWN globals (`pb.in_waking_window` is the
-    # load-bearing one -- patching it anywhere else stops intercepting, and a
-    # stub that stops intercepting means a test hits the real phone).
-    global pb, wr, si
-    pb = importlib.import_module("publish")
-    wr = importlib.import_module("writer")
-    si = importlib.import_module("state_io")   # L0
-    check("modules imported from sandbox", mk.__file__.startswith(str(sb)),
-          f"morning_knock loaded from {mk.__file__}")
-    return mk, kr, pq
-
-
-def read_json(path: Path):
-    return json.loads(path.read_text(encoding="utf-8"))
-
-
-def write_json(path: Path, obj):
-    path.write_text(json.dumps(obj, ensure_ascii=False, indent=2), encoding="utf-8")
+# The harness lives in scripts/smoke/_fixtures.py (spine plan §10). Names that
+# are never rebound come across directly — and MUST, for `mechanism` and the
+# line counters: s18's guard matches them as bare calls, so reaching them
+# through the module would make that guard silently stop counting these cases.
+# The three that ARE rebound at run time — pb, wr, si — are reached through
+# `fx` and nowhere else. See the module docstring for why.
+from smoke import _fixtures as fx
+from smoke._fixtures import (
+    ONLY, RAN, REAL_BASE, Recorder, check, code_line_numbers, code_lines,
+    load_modules, make_sandbox, mechanism, raw_source, read_json, run,
+    snapshot, write_json,
+)
 
 
 # ── Scenarios ─────────────────────────────────────────────────────────────────
 
 def s1_parse_llm_json(mk):
     print("\n1. LLM response parsing (regression #2)")
-    p = wr.parse_llm_json
+    p = fx.wr.parse_llm_json
     check("clean object", p('{"a": 1}') == {"a": 1})
     check("code fence", p('```json\n{"a": 1}\n```') == {"a": 1})
     check("prose-wrapped", p('My decision:\n{"a": {"b": 2}}\nHope that helps!')
@@ -158,7 +100,7 @@ def s1_parse_llm_json(mk):
     # fixes (bigger budget vs. another fallback), so the teeth here are on
     # TELLING THEM APART, not on raising: a truncation that merely raises the
     # old error is the silent no-op this guard exists to prevent.
-    pr = wr.parse_llm_response
+    pr = fx.wr.parse_llm_response
     fake = lambda text, reason: type("R", (), {"choices": [type("C", (), {
         "finish_reason": reason,
         "message": type("M", (), {"content": text})()})()]})()
@@ -394,7 +336,7 @@ def s6_queue_drain(mk, pq, sb: Path):
     # this queue, and push_to_phone's backstop. Patch where it lives: `mk` holds
     # an import-time COPY, so patching there reaches morning_knock's rails and
     # nothing else. `in_waking_window` reads publish's binding.
-    saved = (pb.WAKING_START_HOUR, pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY)
+    saved = (fx.pb.WAKING_START_HOUR, fx.pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY)
     now = datetime.now(timezone.utc)
 
     def q_entry(qid: str, due_hours: float, force: bool = False) -> dict:
@@ -405,7 +347,7 @@ def s6_queue_drain(mk, pq, sb: Path):
 
     args = argparse.Namespace(dry_run=False, no_commit=False)
     try:
-        pb.WAKING_START_HOUR, pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = 0, 24, 99
+        fx.pb.WAKING_START_HOUR, fx.pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = 0, 24, 99
         write_json(klog_path, [])
         write_json(q_path, [q_entry("qOLD", -2), q_entry("qNEW", -1), q_entry("qFUT", +6)])
         pq.cmd_drain(args)
@@ -421,7 +363,7 @@ def s6_queue_drain(mk, pq, sb: Path):
               len(pushes) == 2 and pushes[1][0] == "dose qNEW")
 
         # quiet hours defer non-forced; --force punches through
-        pb.WAKING_START_HOUR, pb.WAKING_END_HOUR = 0, 0
+        fx.pb.WAKING_START_HOUR, fx.pb.WAKING_END_HOUR = 0, 0
         write_json(q_path, [q_entry("qQUIET", -1), q_entry("qFORCE", -1, force=True)])
         pq.cmd_drain(args)
         check("quiet hours defers non-forced, fires forced",
@@ -429,14 +371,14 @@ def s6_queue_drain(mk, pq, sb: Path):
               and [e["id"] for e in read_json(q_path)] == ["qQUIET"])
 
         # daily cap defers non-forced; forced ignores it
-        pb.WAKING_START_HOUR, pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = 0, 24, 0
+        fx.pb.WAKING_START_HOUR, fx.pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = 0, 24, 0
         write_json(q_path, [q_entry("qCAP", -1), q_entry("qFORCE2", -1, force=True)])
         pq.cmd_drain(args)
         check("cap defers non-forced, fires forced",
               len(pushes) == 4 and pushes[3][0] == "dose qFORCE2"
               and [e["id"] for e in read_json(q_path)] == ["qCAP"])
     finally:
-        pb.WAKING_START_HOUR, pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = saved
+        fx.pb.WAKING_START_HOUR, fx.pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = saved
 
 
 def s8_variety_and_decay(mk, kr, sb: Path):
@@ -1030,17 +972,17 @@ def s15_push_retry(mk):
 
     calls = {"n": 0}
     sleeps = []
-    real_urlopen, real_sleep = pb.urllib.request.urlopen, pb.time.sleep
+    real_urlopen, real_sleep = fx.pb.urllib.request.urlopen, fx.pb.time.sleep
     os.environ["ANNA_PUSH_WEBHOOK_URL"] = "https://smoke.invalid/hook"
     try:
-        pb.time.sleep = sleeps.append
+        fx.pb.time.sleep = sleeps.append
 
         def flaky(req, *a, **kw):
             calls["n"] += 1
             if calls["n"] < 3:
                 raise urllib.error.URLError(OSError("Temporary failure in name resolution"))
             return FakeResp()
-        pb.urllib.request.urlopen = flaky
+        fx.pb.urllib.request.urlopen = flaky
         # requested=True: this case is about DELIVERY retry, not the rails —
         # without it the quiet-hours chokepoint short-circuits the whole test
         # whenever the suite runs after 21:00 local (2026-07-26).
@@ -1052,7 +994,7 @@ def s15_push_retry(mk):
         def dead(req, *a, **kw):
             calls["n"] += 1
             raise urllib.error.URLError(OSError("no route"))
-        pb.urllib.request.urlopen = dead
+        fx.pb.urllib.request.urlopen = dead
         try:
             mk.push_to_phone("smoke", None, knock_id="smoke", requested=True)
             check("unreachable webhook still raises", False, "did not raise")
@@ -1060,7 +1002,7 @@ def s15_push_retry(mk):
             check("unreachable webhook still raises", True)
         check("gave up after 3 attempts", calls["n"] == 3, f"{calls['n']} calls")
     finally:
-        pb.urllib.request.urlopen, pb.time.sleep = real_urlopen, real_sleep
+        fx.pb.urllib.request.urlopen, fx.pb.time.sleep = real_urlopen, real_sleep
         os.environ.pop("ANNA_PUSH_WEBHOOK_URL", None)
 
 
@@ -1086,13 +1028,13 @@ def s67_two_replies_to_one_knock_both_survive(mk):
         def __exit__(self, *a): return False
 
     sent = []
-    real_urlopen = pb.urllib.request.urlopen
+    real_urlopen = fx.pb.urllib.request.urlopen
     os.environ["ANNA_PUSH_WEBHOOK_URL"] = "https://smoke.invalid/hook"
     try:
         def capture(req, *a, **kw):
             sent.append(json.loads(req.data.decode()))
             return FakeResp()
-        pb.urllib.request.urlopen = capture
+        fx.pb.urllib.request.urlopen = capture
         # The exact 08-18 shape: two DIFFERENT messages, ONE resolved knock.
         # requested=True so the quiet-hours chokepoint can't short-circuit the
         # case when the suite runs late (same reason as s15).
@@ -1117,7 +1059,7 @@ def s67_two_replies_to_one_knock_both_survive(mk):
         check("id-less pushes don't all share the 'anna-knock' tag",
               sent[0]["tag"] != sent[1]["tag"], f"both tagged {sent[0]['tag']!r}")
     finally:
-        pb.urllib.request.urlopen = real_urlopen
+        fx.pb.urllib.request.urlopen = real_urlopen
         os.environ.pop("ANNA_PUSH_WEBHOOK_URL", None)
 
 
@@ -1140,9 +1082,9 @@ def s16_stale_clone_gates(sb: Path):
     check("clean payload passes through",
           ss.canon_payload(["a", "b"]) == ["a", "b"])
 
-    check("no record → unseen", si.is_unseen({}))
-    check("surfaced → not unseen", not si.is_unseen({"last_surfaced": "2026-07-01"}))
-    check("in an episode → not unseen", not si.is_unseen({"seen_in": ["M60"]}))
+    check("no record → unseen", fx.si.is_unseen({}))
+    check("surfaced → not unseen", not fx.si.is_unseen({"last_surfaced": "2026-07-01"}))
+    check("in an episode → not unseen", not fx.si.is_unseen({"seen_in": ["M60"]}))
 
     trailer = {"date": "2026-07-15", "move": "session bell trailer", "body": "ஆச்சு today"}
     volley = {"date": "2026-07-15", "move": "afternoon volley", "body": "…"}
@@ -1540,77 +1482,6 @@ CODE_BUDGETS = {
 CODE_BUDGET_EXEMPT = {"scripts/smoke_test.py"}
 
 
-def code_lines(src: str) -> int:
-    """Executable lines: everything that is not blank, a comment, or a docstring."""
-    return len(code_line_numbers(src))
-
-
-def code_line_numbers(src: str) -> set[int]:
-    """Which lines are mechanism. Split out of `code_lines` (2026-08-10) so a
-    source-text assertion can search MECHANISM without matching the prose that
-    explains it — a docstring quoting the code it retired otherwise fails the very
-    check that proves the code is gone."""
-    doc: set[int] = set()
-    for node in ast.walk(ast.parse(src)):
-        if isinstance(node, (ast.Module, ast.FunctionDef, ast.AsyncFunctionDef,
-                             ast.ClassDef)):
-            body = getattr(node, "body", None)
-            if (body and isinstance(body[0], ast.Expr)
-                    and isinstance(body[0].value, ast.Constant)
-                    and isinstance(body[0].value.value, str)):
-                doc.update(range(body[0].lineno, body[0].end_lineno + 1))
-    comment = {tok.start[0] for tok in
-               tokenize.generate_tokens(io.StringIO(src).readline)
-               if tok.type == tokenize.COMMENT}
-    out: set[int] = set()
-    for i, line in enumerate(src.splitlines(), 1):
-        stripped = line.strip()
-        if not stripped or i in doc:
-            continue
-        if i in comment and stripped.startswith("#"):
-            continue
-        out.add(i)
-    return out
-
-
-def raw_source(path: Path) -> str:
-    """Source read as TEXT, prose and all — the one legitimate way past
-    `mechanism()`, and named so the exemption is a decision rather than an
-    oversight. Correct only when the file is about to be consumed as a PROGRAM
-    (`ast.parse`) rather than grepped: a parser needs the comments' line numbers
-    to report positions the reader can find. Grepping this is the bug `mechanism`
-    exists to prevent — if you are looking for a substring, you want that."""
-    return path.read_text(encoding="utf-8")
-
-
-def mechanism(src: str, after: str | None = None) -> str:
-    """The source with its PROSE removed — comments and docstrings gone, code kept.
-
-    WHY EVERY SOURCE-TEXT ASSERTION GOES THROUGH THIS (2026-08-24). A check that
-    greps raw source is satisfied by the paragraph EXPLAINING the code exactly as
-    readily as by the code. Not theoretical: `s57`'s "ask_json re-raises the final
-    failure instead of swallowing it" was measured passing with the re-raise
-    deleted, because the word "raise" appears in `ask_json`'s docstring. The
-    assertion was a decoration; a different case caught the mutation, and this one
-    would have gone on reading green forever.
-
-    The rule was already known and already written down — `code_line_numbers` was
-    split out of `code_lines` on 2026-08-10 with a docstring saying exactly this —
-    and it had reached 3 of the 23 places that read Python source. That is the
-    shape this repo keeps finding: a law stated once and applied where whoever
-    wrote it happened to be standing.
-
-    `after` slices from the first line carrying that marker, for a check that
-    anchors on a section heading; the slice is taken on mechanism lines, so the
-    heading itself is gone by the time the needle is looked for.
-    """
-    src = textwrap.dedent(src)
-    keep = code_line_numbers(src)
-    lines = src.splitlines()
-    start = 1
-    if after is not None:
-        start = next(i for i, ln in enumerate(lines, 1) if after in ln)
-    return "\n".join(ln for i, ln in enumerate(lines, 1) if i in keep and i >= start)
 
 
 def s18_size_budgets(mk, kr, sb: Path):
@@ -1742,36 +1613,48 @@ def s18_size_budgets(mk, kr, sb: Path):
     #
     # `ast.parse` and the line counters are legitimate raw readers: they consume
     # the whole file as a program, not as text to grep.
-    sm_src = raw_source(REAL_BASE / "scripts" / "smoke_test.py")
-    sm_tree = ast.parse(sm_src)
+    # WIDENED to the whole suite when smoke/ was created (2026-08-25, §10.4).
+    # The counters this guard polices moved to smoke/_fixtures.py, and the cases
+    # that call them are moving to smoke/*.py behind them. A scan still naming
+    # only smoke_test.py would keep passing while covering less and less of what
+    # it exists to police — the guard's own silent no-op.
+    suite = [REAL_BASE / "scripts" / "smoke_test.py",
+             *sorted((REAL_BASE / "scripts" / "smoke").glob("*.py"))]
     wrapped, raw = [], []
-    for node in ast.walk(sm_tree):
-        if not (isinstance(node, ast.Call) and isinstance(node.func, ast.Name)
-                and node.func.id in ("mechanism", "code_lines", "code_line_numbers",
-                                 "raw_source")):
-            continue
-        for a in node.args:
-            wrapped.append((a.lineno, a.end_lineno))
-    for node in ast.walk(sm_tree):
-        if not (isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute)
-                and node.func.attr in ("read_text", "getsource")):
-            continue
-        seg = ast.get_source_segment(sm_src, node) or ""
-        if node.func.attr == "read_text" and ".py" not in seg:
-            continue          # prose files are read raw on purpose
-        if any(a <= node.lineno and node.end_lineno <= b for a, b in wrapped):
-            continue
-        raw.append(node.lineno)
-    # `ast.parse(...)` consumers, resolved the same way as the wrappers above.
-    for node in ast.walk(sm_tree):
-        if (isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute)
-                and node.func.attr == "parse" and isinstance(node.func.value, ast.Name)
-                and node.func.value.id == "ast"):
+    for sm_path in suite:
+        sm_src = raw_source(sm_path)
+        sm_tree = ast.parse(sm_src)
+        here, here_raw = [], []
+        for node in ast.walk(sm_tree):
+            if not (isinstance(node, ast.Call) and isinstance(node.func, ast.Name)
+                    and node.func.id in ("mechanism", "code_lines", "code_line_numbers",
+                                     "raw_source")):
+                continue
             for a in node.args:
-                raw = [ln for ln in raw if not (a.lineno <= ln <= a.end_lineno)]
+                here.append((a.lineno, a.end_lineno))
+        for node in ast.walk(sm_tree):
+            if not (isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute)
+                    and node.func.attr in ("read_text", "getsource")):
+                continue
+            seg = ast.get_source_segment(sm_src, node) or ""
+            if node.func.attr == "read_text" and ".py" not in seg:
+                continue          # prose files are read raw on purpose
+            if any(a <= node.lineno and node.end_lineno <= b for a, b in here):
+                continue
+            here_raw.append(node.lineno)
+        # `ast.parse(...)` consumers, resolved the same way as the wrappers above.
+        for node in ast.walk(sm_tree):
+            if (isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute)
+                    and node.func.attr == "parse" and isinstance(node.func.value, ast.Name)
+                    and node.func.value.id == "ast"):
+                for a in node.args:
+                    here_raw = [ln for ln in here_raw
+                                if not (a.lineno <= ln <= a.end_lineno)]
+        wrapped += here
+        raw += [f"{sm_path.name}:{ln}" for ln in here_raw]
     check(f"every Python-source assertion reads MECHANISM, not raw text "
           f"({len(wrapped)} wrapped)", not raw,
-          f"raw reads at smoke_test.py lines {raw} — wrap in mechanism(); a grep "
+          f"raw reads at {', '.join(raw)} — wrap in mechanism(); a grep "
           f"over raw source is satisfied by the comment explaining the code")
 
     # A new file is the obvious way past a ceiling, so an unbudgeted one is a
@@ -2202,13 +2085,13 @@ def s25_studio_concurrency_and_secrets(sb: Path):
         # would strand a scripted-but-unrendered episode on a host that can render.
         # (ADC still mocked-present here, so this isolates the writer axis.)
         rs = importlib.import_module("run_studio")
-        real_which = wr.shutil.which
-        wr.shutil.which = lambda cmd: None if cmd == "claude" else real_which(cmd)
+        real_which = fx.wr.shutil.which
+        fx.wr.shutil.which = lambda cmd: None if cmd == "claude" else real_which(cmd)
         try:
             check("no writer → render path still allowed", rs.renderer_preflight() is None)
             check("no writer → fresh-episode path blocked", rs.preflight() is not None)
         finally:
-            wr.shutil.which = real_which
+            fx.wr.shutil.which = real_which
     finally:
         google.auth.default = real_default
 
@@ -2336,11 +2219,11 @@ def s27_schedule_and_soak_guards(sb: Path):
     # False, and the hourly cron shipped M72/M73/M74 in one evening.
     lex = {"அவசரம் இருக்கு": {"phonetic": ["avasaram irukku"], "gloss": "hurry"},
            "frame:needtogo-place": {"phonetic": [], "gloss": "must go to X"}}
-    resolved, unresolved = si.split_payload(["avasaram", "frame:needtogo-place"], lex)
+    resolved, unresolved = fx.si.split_payload(["avasaram", "frame:needtogo-place"], lex)
     check("bare headword resolves to its chunk key",
           "அவசரம் இருக்கு" in resolved, f"got {resolved}")
     check("no false unresolved", unresolved == [], f"got {unresolved}")
-    junk_r, junk_u = si.split_payload(["definitely-not-a-word"], lex)
+    junk_r, junk_u = fx.si.split_payload(["definitely-not-a-word"], lex)
     check("genuine junk is reported, not silently kept", junk_u and not junk_r)
 
     sw = importlib.import_module("studio_watchdog")
@@ -2402,8 +2285,8 @@ def s28_cloud_writer(sb: Path):
     check("force openrouter → openrouter_pass",
           rs.resolve_writer("openrouter").__name__ == "openrouter_pass")
 
-    real_which = wr.shutil.which
-    wr.shutil.which = lambda c: None if c == "claude" else real_which(c)
+    real_which = fx.wr.shutil.which
+    fx.wr.shutil.which = lambda c: None if c == "claude" else real_which(c)
     try:
         check("auto with no claude → openrouter", rs.resolve_writer("auto").__name__ == "openrouter_pass")
         prev = os.environ.pop("OPENROUTER_API_KEY", None)
@@ -2419,7 +2302,7 @@ def s28_cloud_writer(sb: Path):
             if prev is not None:
                 os.environ["OPENROUTER_API_KEY"] = prev
     finally:
-        wr.shutil.which = real_which
+        fx.wr.shutil.which = real_which
 
     # inline_canon: the fix that made the cloud writer produce on-canon. The
     # thin slice caught it inventing a tags schema it had no filesystem to read;
@@ -2674,8 +2557,8 @@ def s29_one_runner_every_capability(mk, pq, kr, sb: Path):
     # retry property: a failed push leaves the entry queued.
     prog = sb / "progress"
     klog_path, q_path = prog / "knock_log.json", prog / "push_queue.json"
-    events, saved = [], (pb.WAKING_START_HOUR, pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY)
-    real_push, real_commit, real_feed = pq.push_to_phone, pq.commit_and_push, pb.refresh_feed
+    events, saved = [], (fx.pb.WAKING_START_HOUR, fx.pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY)
+    real_push, real_commit, real_feed = pq.push_to_phone, pq.commit_and_push, fx.pb.refresh_feed
     pq.push_to_phone = lambda body, url=None, knock_id="", requested=False: (
         events.append(("push", url)))
     pq.commit_and_push = lambda paths, msg: events.append(
@@ -2694,10 +2577,10 @@ def s29_one_runner_every_capability(mk, pq, kr, sb: Path):
         events.append(("feed", any(e.get("queue_id") == "qVOICE" for e in entries)))
         return rss_stub
 
-    pb.refresh_feed = fake_feed
+    fx.pb.refresh_feed = fake_feed
     pq.render_memo = fake_render
     try:
-        pb.WAKING_START_HOUR, pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = 0, 24, 99
+        fx.pb.WAKING_START_HOUR, fx.pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = 0, 24, 99
         write_json(klog_path, [])
         write_json(q_path, [{**queued[0], "id": "qVOICE", "force": True,
                              "due": (datetime.now(timezone.utc) - timedelta(minutes=5)).isoformat()}])
@@ -2721,8 +2604,8 @@ def s29_one_runner_every_capability(mk, pq, kr, sb: Path):
               "வணக்கம்" in logged.get("memo_script", ""))
         check("the queue is emptied once fired", read_json(q_path) == [])
     finally:
-        pb.WAKING_START_HOUR, pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = saved
-        pq.push_to_phone, pq.commit_and_push, pb.refresh_feed = real_push, real_commit, real_feed
+        fx.pb.WAKING_START_HOUR, fx.pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = saved
+        pq.push_to_phone, pq.commit_and_push, fx.pb.refresh_feed = real_push, real_commit, real_feed
         pq.render_memo = real_render
 
 
@@ -3424,7 +3307,7 @@ def s35_quiet_hours_chokepoint(sb: Path):
     mk = importlib.import_module("morning_knock")
     src_dir = Path(__file__).parent
 
-    real_urlopen = pb.urllib.request.urlopen
+    real_urlopen = fx.pb.urllib.request.urlopen
     sent = []
 
     class FakeResp:
@@ -3447,14 +3330,14 @@ def s35_quiet_hours_chokepoint(sb: Path):
     noon = noon_l.astimezone(timezone.utc)
     real_env = os.environ.get("ANNA_PUSH_WEBHOOK_URL")
     try:
-        pb.urllib.request.urlopen = fake_urlopen
+        fx.pb.urllib.request.urlopen = fake_urlopen
         os.environ["ANNA_PUSH_WEBHOOK_URL"] = "http://smoke.invalid/push"
         check("the waking window has ONE definition",
-              pb.in_waking_window(noon) and not pb.in_waking_window(night),
+              fx.pb.in_waking_window(noon) and not fx.pb.in_waking_window(night),
               "in_waking_window disagrees with the rails")
 
-        real_now = pb.in_waking_window
-        pb.in_waking_window = lambda now=None: False
+        real_now = fx.pb.in_waking_window
+        fx.pb.in_waking_window = lambda now=None: False
         try:
             out = io.StringIO()
             with contextlib.redirect_stdout(out):
@@ -3468,9 +3351,9 @@ def s35_quiet_hours_chokepoint(sb: Path):
             check("a REQUESTED push still lands — answering his tap is not an interruption",
                   pushed is True and len(sent) == 1, f"sent={sent}")
         finally:
-            pb.in_waking_window = real_now
+            fx.pb.in_waking_window = real_now
     finally:
-        pb.urllib.request.urlopen = real_urlopen
+        fx.pb.urllib.request.urlopen = real_urlopen
         if real_env is None:
             os.environ.pop("ANNA_PUSH_WEBHOOK_URL", None)
         else:
@@ -3583,7 +3466,7 @@ def s36_soak_order_carries_shape(sb: Path):
         learner = read_json(learner_path)
         learner["soak_order"]["payload"] = ["நிறைஞ்சிடுச்சு"]   # not in this lexicon
         write_json(learner_path, learner)
-        res, unres = si.split_payload(["நிறைஞ்சிடுச்சு"], read_json(lex_path))
+        res, unres = fx.si.split_payload(["நிறைஞ்சிடுச்சு"], read_json(lex_path))
         check("a pre-lexicon Tamil payload word is resolvable, not junk",
               res == ["நிறைஞ்சிடுச்சு"] and not unres, f"{res} / {unres}")
         check("...and a delivered order still clears with one in the payload",
@@ -5865,7 +5748,7 @@ def s49_thread_continuity(mk, kr, sb: Path):
 
         # --- the write: a voice reply must leave a trace on its own exchange ---
         kr.push_to_phone, kr.commit_and_push = Recorder(), Recorder()
-        pb.refresh_feed = lambda: None
+        fx.pb.refresh_feed = lambda: None
         real_render = kr.render_memo
 
         async def fake_render(script, out_path, voice):
@@ -5964,7 +5847,7 @@ def s50_read_surfaces_are_phonetic(mk, kr, sb: Path):
 
     # The transform itself: composer-driven, so contractions survive.
     seen = []
-    wr.rephrase_phonetic = lambda b: (seen.append(b), "romba nallarukku — the melt line")[1]
+    fx.wr.rephrase_phonetic = lambda b: (seen.append(b), "romba nallarukku — the melt line")[1]
     out = mk.to_phonetic("ரொம்ப நல்லாருக்கு — the melt line")
     check("script goes to the composer, which keeps his contraction",
           out == "romba nallarukku — the melt line" and "nalla irukku" not in out, out)
@@ -5975,7 +5858,7 @@ def s50_read_surfaces_are_phonetic(mk, kr, sb: Path):
     check("a body with no Tamil never calls the model at all",
           mk.to_phonetic(clean) == clean and not seen)
 
-    wr.rephrase_phonetic = lambda b: b          # composer ignores the ask
+    fx.wr.rephrase_phonetic = lambda b: b          # composer ignores the ask
     check("a surviving leak warns and SHIPS — a lost dose costs him more",
           mk.to_phonetic("try கிடைக்கும் today") == "try கிடைக்கும் today")
 
@@ -5983,7 +5866,7 @@ def s50_read_surfaces_are_phonetic(mk, kr, sb: Path):
     klog_path = sb / "progress" / "knock_log.json"
     pushes = Recorder()
     mk.push_to_phone, mk.commit_and_push = pushes, Recorder()
-    wr.rephrase_phonetic = lambda b: "today's line — romba nallarukku"
+    fx.wr.rephrase_phonetic = lambda b: "today's line — romba nallarukku"
     d = {"act": True, "modality": "audio", "move": "smoke script", "rationale": "smoke",
          "notification_body": "today's line — ரொம்ப நல்லாருக்கு",
          "memo_script": "ரொம்ப நல்லாருக்கு", "expected_target": "",
@@ -5995,7 +5878,7 @@ def s50_read_surfaces_are_phonetic(mk, kr, sb: Path):
         out_path.parent.mkdir(parents=True, exist_ok=True)
         out_path.write_bytes(b"ID3fake")
     real_render, mk.render_memo = mk.render_memo, fake_render
-    pb.refresh_feed = lambda: None
+    fx.pb.refresh_feed = lambda: None
     try:
         # `--force` states this case's precondition instead of inheriting it.
         # Until 2026-08-24 this line read `["morning_knock.py"]` and the run only
@@ -6070,14 +5953,14 @@ def s58_a_sheet_survives_a_model_thinking_out_loud(sb: Path):
             ("an object with prose trailing after it",
              f"{sheet}\n\nI dropped one coincidental host.")]:
         try:
-            got = wr.parse_llm_json(text)
+            got = fx.wr.parse_llm_json(text)
         except Exception as e:                                  # noqa: BLE001
             got = {"frame": f"<raised {type(e).__name__}: {e}>"}
         check(f"the sheet is recovered from {name}", got.get("frame") == "roots",
               str(got.get("frame")))
 
     check("a multi-beat sheet keeps every beat, not just the first",
-          len(wr.parse_llm_json(
+          len(fx.wr.parse_llm_json(
               'prose\n{"frame": "f", "beats": [{"ta": "1"}, {"ta": "2"}, {"ta": "3"}]}'
           )["beats"]) == 3)
 
@@ -6086,7 +5969,7 @@ def s58_a_sheet_survives_a_model_thinking_out_loud(sb: Path):
                        ("a refusal with no object", "I cannot do that.")]:
         raised = False
         try:
-            wr.parse_llm_json(text)
+            fx.wr.parse_llm_json(text)
         except (ValueError, json.JSONDecodeError):
             raised = True
         check(f"{name} raises rather than returning a blank sheet", raised)
@@ -7207,17 +7090,17 @@ def s66_json_mode_is_actually_sent(mk, kr, sb: Path):
     # branch never builds a request at all. `have_agent()` is False on every cloud
     # runner, which is where this lane actually runs.
     real_env = os.environ.get("OPENROUTER_API_KEY")
-    orig_openai, orig_which = wr.OpenAI, wr.shutil.which
+    orig_openai, orig_which = fx.wr.OpenAI, fx.wr.shutil.which
     try:
-        wr.OpenAI = fresh_w.OpenAI = fake_client
-        wr.shutil.which = lambda n: None   # `shutil` is shared; this reaches both
+        fx.wr.OpenAI = fresh_w.OpenAI = fake_client
+        fx.wr.shutil.which = lambda n: None   # `shutil` is shared; this reaches both
         os.environ["OPENROUTER_API_KEY"] = "smoke"
         fresh.decide("smoke digest", [])
         check("the composer's request carries JSON mode",
-              calls and calls[-1].get("response_format") == wr.JSON_MODE,
+              calls and calls[-1].get("response_format") == fx.wr.JSON_MODE,
               f"got {calls[-1].get('response_format') if calls else 'no call'}")
         check("...and it is the json_object form the lanes agreed on",
-              wr.JSON_MODE == {"type": "json_object"}, f"got {wr.JSON_MODE}")
+              fx.wr.JSON_MODE == {"type": "json_object"}, f"got {fx.wr.JSON_MODE}")
 
         # The text lane must stay text. Forcing an object out of a call that asks
         # for a transliteration is the same defect pointing the other way — and
@@ -7228,7 +7111,7 @@ def s66_json_mode_is_actually_sent(mk, kr, sb: Path):
         check("the phonetic rewrite does NOT ask for JSON — it returns a line",
               calls and "response_format" not in calls[-1], f"got {calls[-1] if calls else None}")
     finally:
-        wr.OpenAI, wr.shutil.which = orig_openai, orig_which
+        fx.wr.OpenAI, fx.wr.shutil.which = orig_openai, orig_which
         if real_env is None:
             os.environ.pop("OPENROUTER_API_KEY", None)
         else:
@@ -7304,7 +7187,7 @@ def s66_json_mode_is_actually_sent(mk, kr, sb: Path):
           f"raw max_tokens at {', '.join(raw)} — a call site declares what its "
           f"ARTIFACT needs; REASONING_HEADROOM is the model's, added once")
     check("...and the headroom is big enough for the reasoning that was measured",
-          wr.REASONING_HEADROOM >= 3000, f"got {wr.REASONING_HEADROOM}")
+          fx.wr.REASONING_HEADROOM >= 3000, f"got {fx.wr.REASONING_HEADROOM}")
 
 
 
@@ -7469,9 +7352,9 @@ def s70_the_executor_is_chosen_by_the_host(sb: Path):
     # 0 (measured 2026-08-23 with claude-sonnet-4.6), so the wrong value here
     # does not crash — it silently routes every laptop lane to the paid API.
     check("OPENROUTER_MODEL is a vendor-qualified slug (the API's shape)",
-          "/" in wr.OPENROUTER_MODEL, f"OPENROUTER_MODEL={wr.OPENROUTER_MODEL}")
+          "/" in fx.wr.OPENROUTER_MODEL, f"OPENROUTER_MODEL={fx.wr.OPENROUTER_MODEL}")
     check("AGENT_MODEL is a bare slug (the claude CLI's shape)",
-          "/" not in wr.AGENT_MODEL, f"AGENT_MODEL={wr.AGENT_MODEL}")
+          "/" not in fx.wr.AGENT_MODEL, f"AGENT_MODEL={fx.wr.AGENT_MODEL}")
 
     # ── No lane may re-earn its own client. This is the regression that started
     # it: four independent call sites, three of which never chose a host at all.
@@ -7508,7 +7391,7 @@ def s70_the_executor_is_chosen_by_the_host(sb: Path):
     # The needle is READ OFF `state_io` rather than written here, so this case
     # cannot itself become the fifth copy, and mechanism-only so the paragraph
     # above may quote what it forbids.
-    needle = si.TAMIL_RE.pattern
+    needle = fx.si.TAMIL_RE.pattern
     copies = []
     for f in sorted((sb / "scripts").glob("*.py")):
         if f.name == "state_io.py":
@@ -7641,7 +7524,7 @@ def s73_one_tail_for_the_render_family(sb: Path):
     script.parent.mkdir(parents=True, exist_ok=True)
     script.write_text("the tape's story", encoding="utf-8")
 
-    pb.refresh_feed = lambda: None          # the feed has its own cases (s31)
+    fx.pb.refresh_feed = lambda: None          # the feed has its own cases (s31)
     commits, pushes = [], []
 
     def drive(*, delivered=("ஸ்மோக்"), claimed=False, extra=(), exposed=True,
@@ -7674,7 +7557,7 @@ def s73_one_tail_for_the_render_family(sb: Path):
             "`commit`/`notify` it was handed. Every lane-level stub here stops "
             "intercepting the moment it does that, and a test then writes real "
             "git history and pushes to a real phone.")
-    pb.commit_and_push, pb.push_to_phone = boom, boom
+    fx.pb.commit_and_push, fx.pb.push_to_phone = boom, boom
     for seam in ("commit_and_push", "push_to_phone"):
         bound = getattr(lanes, seam, None)
         check(f"the tail binds no {seam} of its own — the seam is the argument",
@@ -7692,14 +7575,14 @@ def s73_one_tail_for_the_render_family(sb: Path):
 
     # ── the two conditional state paths, both directions ────────────────────
     check("a recorded exposure puts the lexicon in the commit",
-          si.LEXICON_PATH in commits[0][0])
+          fx.si.LEXICON_PATH in commits[0][0])
     check("a stamped order puts learner.json in the commit",
-          si.LEARNER_PATH in commits[0][0])
+          fx.si.LEARNER_PATH in commits[0][0])
     drive(claimed=True, exposed=False, stamped=False)
     check("nothing exposed -> the lexicon is NOT committed",
-          si.LEXICON_PATH not in commits[0][0], f"got {commits[0][0]}")
+          fx.si.LEXICON_PATH not in commits[0][0], f"got {commits[0][0]}")
     check("nothing stamped -> learner.json is NOT committed",
-          si.LEARNER_PATH not in commits[0][0], f"got {commits[0][0]}")
+          fx.si.LEARNER_PATH not in commits[0][0], f"got {commits[0][0]}")
 
     # ── the stamp claims a debt is PAID; it must follow the lane's own test ──
     stamped_for = []
@@ -7753,7 +7636,7 @@ def s74_a_derived_file_follows_its_source(sb: Path):
     print("\n74. A derived file follows its source (2026-08-24)")
     klog_path = sb / "progress" / "knock_log.json"
     chat_path = sb / "progress" / "chat.md"
-    pb.refresh_feed = lambda: None          # the feed has its own cases (s31)
+    fx.pb.refresh_feed = lambda: None          # the feed has its own cases (s31)
 
     marker = "ஸ்மோக்டெரைவ்டு"
     write_json(klog_path, [{"acted": True, "date": "2026-08-24",
@@ -7762,7 +7645,7 @@ def s74_a_derived_file_follows_its_source(sb: Path):
     chat_path.write_text("STALE — written before that log entry existed\n",
                          encoding="utf-8")
 
-    paths, _ = pb.publish([klog_path], "smoke", feed=False)
+    paths, _ = fx.pb.publish([klog_path], "smoke", feed=False)
     names = [Path(q).name for q in paths]
     check("a commit carrying the knock log also carries chat.md",
           "chat.md" in names, f"got {names}")
@@ -7773,7 +7656,7 @@ def s74_a_derived_file_follows_its_source(sb: Path):
     # It must not fire on a commit that has nothing to do with the log — the feed
     # rebuild is already conditional and this must be too, or every soak render
     # rewrites a page it did not touch.
-    lex_only, _ = pb.publish([sb / "progress" / "lexicon.json"], "smoke", feed=False)
+    lex_only, _ = fx.pb.publish([sb / "progress" / "lexicon.json"], "smoke", feed=False)
     check("a commit without the log does NOT drag chat.md in",
           "chat.md" not in [Path(q).name for q in lex_only],
           f"got {[Path(q).name for q in lex_only]}")
@@ -7781,114 +7664,22 @@ def s74_a_derived_file_follows_its_source(sb: Path):
     # And a lane that still passes it explicitly must not get it twice — a
     # duplicate path is a `git add` of the same file, harmless but a sign the
     # rule has two owners again.
-    twice, _ = pb.publish([klog_path, chat_path], "smoke", feed=False)
+    twice, _ = fx.pb.publish([klog_path, chat_path], "smoke", feed=False)
     check("...and a lane passing it explicitly does not get it twice",
           [Path(q).name for q in twice].count("chat.md") == 1,
           f"got {[Path(q).name for q in twice]}")
 
 
-# ── The one boundary that is not credential-gated ───────────────────────────
-# Every other outside-world call in this system needs a secret the test
-# environment does not have, so an un-stubbed one dies with a KeyError and the
-# case goes red. `claude -p` needs no secret: the CLI carries its own auth, and
-# on Andrew's laptop the binary is on PATH. So a missed stub there does not
-# crash — it really spawns the agent, waits, and may come back with a plausible
-# answer that turns the case GREEN for the wrong reason. Slow, nondeterministic,
-# and invisible.
-#
-# It got worse on 2026-08-23: before the executor pass, `decide` and both judges
-# opened raw OpenRouter clients gated on OPENROUTER_API_KEY, so a missed stub was
-# LOUD. Routing them through `writer.ask_json` — which prefers the agent — turned
-# three loud boundaries into silent ones on the laptop. That is a real cost of
-# that change and this is the guard that pays it back.
-#
-# The refusal lives HERE, in the harness, not in writer.py: production code
-# should not carry test scaffolding, and there is no honest reason for the lane
-# to know it is being tested. Only `claude` is refused — the sandbox's real git
-# calls are load-bearing for s45/s51 and must still run.
-_REAL_RUN = subprocess.run
-
-
-def _no_agent_spawn(cmd, *a, **kw):
-    argv0 = str(cmd[0]) if isinstance(cmd, (list, tuple)) and cmd else str(cmd)
-    if Path(argv0).stem == "claude":
-        raise AssertionError(
-            "a test tried to SPAWN THE REAL AGENT (`claude -p`). Nothing in this "
-            "suite may: it is slow, it is nondeterministic, and unlike every other "
-            "boundary here it needs no credential, so it would have succeeded and "
-            "turned this case green for the wrong reason.\n"
-            "     Stub the lane's entry point (kr.judge / mk.decide), or "
-            "writer.ask_json / writer.ask_text, or writer._agent_json for the "
-            "executor cases.\n"
-            f"     argv was: {cmd}")
-    return _REAL_RUN(cmd, *a, **kw)
-
-
-subprocess.run = _no_agent_spawn
-
-# ── Running ONE case ────────────────────────────────────────────────────────
-# Every case goes through `run`, and the reason is stub teardown. The suite
-# stubs by module attribute — `mk.push_to_phone = Recorder()`, `kr.judge = ...`
-# — 59 times, and until 2026-08-24 not one of them was ever put back. Case N
-# inherited every stub case N-1 installed, so what a case actually exercised
-# depended on its position in a hand-maintained list. Four cases were hoisted
-# above `s3` purely to reach the REAL function before something stubbed it, each
-# carrying a comment saying so.
-#
-# MEASURED before this was built (2026-08-24): 68 of the 70 cases already pass
-# alone against a fresh sandbox with no inherited stubs at all. The inheritance
-# was not load-bearing — it was a latent hazard, which is worse, because the
-# failure mode is a stub that quietly stops intercepting and a test that reaches
-# real git or a real phone. `restore` closes it for good.
-#
-# What is NOT reset is the sandbox tree. State on disk is shared on purpose:
-# `s50` and `s69` read a knock log and a lexicon that earlier cases populated,
-# which is a legitimate end-to-end dependency and the only one that survived
-# measurement. Per-case sandboxes are a separate question from per-case stubs.
-_PRISTINE: dict = {}
-
-
-def snapshot(*mods):
-    """Record each module's namespace so `run` can put it back after a case."""
-    _PRISTINE.clear()
-    _PRISTINE.update({m.__name__: (m, dict(m.__dict__)) for m in mods})
-
-
-def restore():
-    """Undo every module-attribute stub the last case installed."""
-    for _, (mod, pristine) in _PRISTINE.items():
-        for k in [k for k in mod.__dict__ if k not in pristine]:
-            delattr(mod, k)
-        for k, v in pristine.items():
-            if mod.__dict__.get(k) is not v:
-                setattr(mod, k, v)
-
-
-def run(fn, *args):
-    """Run one case, then hand the next one clean modules.
-
-    `ONLY` (argv) narrows a run to one case or a prefix — the point of the whole
-    exercise: a failure reproduces on its own, without its forty predecessors.
-    """
-    # A bare token is the case NUMBER and must match exactly — `s6` selects s6 and
-    # not s69, which a plain startswith quietly did. A token carrying an
-    # underscore is a name prefix (`s41_slip`), where startswith is the point.
-    if ONLY and not any(fn.__name__.startswith(o) if "_" in o
-                        else fn.__name__.split("_")[0] == o for o in ONLY):
-        return
-    RAN.append(fn.__name__)
-    try:
-        fn(*args)
-    finally:
-        restore()
-
-
 def main():
+    """Dispatch. One sandbox and one set of module objects for the whole run:
+    the cases are being re-homed, not re-scoped, and a per-file sandbox would
+    hand each file its own re-imported `mk` — the one thing §10.7 says not to
+    do, since every stub and its teardown are keyed to a module object."""
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
         print(f"sandbox: {sb}")
         mk, kr, pq = load_modules(sb)
-        snapshot(mk, kr, pq, pb, wr, si)
+        snapshot(mk, kr, pq, fx.pb, fx.wr, fx.si)
         run(s1_parse_llm_json, mk)
         run(s2_rails_gate, mk, sb / "progress" / "knock_log.json")
         run(s15_push_retry, mk)
@@ -7963,12 +7754,13 @@ def main():
         run(s73_one_tail_for_the_render_family, sb)
         run(s74_a_derived_file_follows_its_source, sb)
 
-    if ONLY and not RAN:
-        sys.exit(f"no case matched {ONLY} — name a case (s41) or a prefix (s41_slip)")
-    scope = f"{len(RAN)} case(s): {', '.join(RAN)}" if ONLY else f"{len(RAN)} cases"
+    if fx.ONLY and not fx.RAN:
+        sys.exit(f"no case matched {fx.ONLY} — name a case (s41) or a prefix (s41_slip)")
+    scope = (f"{len(fx.RAN)} case(s): {', '.join(fx.RAN)}" if fx.ONLY
+             else f"{len(fx.RAN)} cases")
     print(f"\n{scope}")
-    print(f"{'ALL GREEN' if not FAILURES else 'FAILURES: ' + ', '.join(FAILURES)}")
-    sys.exit(1 if FAILURES else 0)
+    print(f"{'ALL GREEN' if not fx.FAILURES else 'FAILURES: ' + ', '.join(fx.FAILURES)}")
+    sys.exit(1 if fx.FAILURES else 0)
 
 
 if __name__ == "__main__":
