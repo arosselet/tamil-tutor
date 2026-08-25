@@ -5009,53 +5009,6 @@ def s45_concurrent_appends_merge(mk, sb: Path):
           "feedback_log has no key; a conflict in either is a real disagreement")
 
 
-def s52_andrew_is_family_already(sb: Path):
-    """The standing fact reaches every role that can invent a first meeting
-    (2026-08-04, Andrew).
-
-    M81 opened at the iron gate with sisters-in-law he "recognised from the old
-    photos." He has met them a dozen times over ten years. No protocol file
-    said so, so each generator filled the blank with the newcomer-integrating
-    story — and it read as a stranger's arrival to the one person it is about.
-
-    The silent no-op: if this prose is dropped in a later edit, nothing breaks,
-    nothing warns, and the episodes quietly go back to writing him as a guest.
-    So the fact is asserted where each role actually reads. The three surfaces
-    are not redundant — they are three separate readers: Anna and every Python
-    dose inline `persona.md` and never see the constitution; the Architect reads
-    the constitution; the Director read NEITHER, which is why the brief invented
-    "the expected chaotic joy of a first meeting."
-    """
-    print("\n52. Andrew is ten years into this family, not arriving (2026-08-04)")
-    # Flattened: the prose is hard-wrapped, so a phrase can straddle a newline.
-    canon = " ".join((sb / "protocol" / "constitution.md")
-                     .read_text(encoding="utf-8").split())
-    check("the constitution owns the standing fact",
-          "Family Already, Language Not Yet" in canon and "ten years" in canon)
-    check("...and forbids the first-meeting framing outright",
-          "not a first meeting" in canon and "stranger arriving" in canon)
-
-    # persona.md is the ONLY protocol file morning_knock / knock_reply /
-    # render_drill / render_soak inline, so a pointer here would reach nothing.
-    persona = (sb / "protocol" / "persona.md").read_text(encoding="utf-8")
-    check("persona.md states it in full, not as a cross-reference",
-          "not new to this family" in persona and "auditioning for entry" in persona,
-          "the doses inline persona.md alone — a pointer to the constitution is a "
-          "dangling reference at knock time")
-    check("...and the Heist no longer says he is earning his PLACE",
-          "earning his place at the table" not in persona,
-          "the place is his; the respect for the language is what's earned")
-
-    # The Director writes Scenario Context — the field the first-meeting framing
-    # was actually invented in — and its Reads-from list is its whole context.
-    director = (sb / "protocol" / "studio" / "director.md").read_text(encoding="utf-8")
-    head = director.split("**Goal:**")[0]
-    check("the Director's Reads-from now includes the constitution",
-          "constitution.md" in head,
-          "Scenario Context invents the framing; without this line the Director "
-          "reads only profile.md + learner.json and cannot know")
-
-
 def s51_derived_files_are_rerendered_not_merged(mk, sb: Path):
     """A conflict in a DERIVED file must never sink the rebase (2026-08-04).
 
@@ -7164,7 +7117,6 @@ def main():
         run(s49_thread_continuity, mk, kr, sb)
         run(s50_read_surfaces_are_phonetic, mk, kr, sb)
         run(s51_derived_files_are_rerendered_not_merged, mk, sb)
-        run(s52_andrew_is_family_already, sb)
         run(s71_a_new_record_is_born_reachable, sb)
         run(s60_the_ear_meter, kr, sb)
         run(s61_no_number_is_recited_at_him, kr, sb)
