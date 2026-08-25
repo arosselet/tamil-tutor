@@ -593,5 +593,29 @@
     "note": "ponga is go; turn is thirumbunga",
     "word": "",
     "dose_channel": "soak"
+  },
+  {
+    "at": "2026-08-25T04:59:05Z",
+    "date": "2026-08-25",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "chunk-not-machine",
+    "said": "appadi illa",
+    "want": "saapda mudiyala",
+    "note": "dropped the freshest phrase in his ear into an open slot that wanted a different move — twice in one session",
+    "word": "",
+    "dose_channel": "drill"
+  },
+  {
+    "at": "2026-08-25T04:59:05Z",
+    "date": "2026-08-25",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "ku-vs-la",
+    "said": "beach-la ponom",
+    "want": "beach-ku ponom",
+    "note": "marked the destination as a location — -ku is toward, -la is at",
+    "word": "",
+    "dose_channel": "drill"
   }
 ]

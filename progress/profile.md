@@ -4,7 +4,7 @@
 > **Read by:** `protocol/studio/director.md` and `protocol/daily_session.md` before picking targets.
 > **Purpose:** A teacher's living *judgment* of Andrew — not counts. The hard numbers (recognition buckets, production axis, viability floor) live in `progress/lexicon.json`; read them with `python scripts/sync_state.py status`. This file says what they *mean* and where to point next.
 >
-> **Last updated:** 2026-08-18
+> **Last updated:** 2026-08-25
 
 ---
 
@@ -54,7 +54,11 @@
 
 **Channel law, inverted for the stay — but the door is not part of the inversion (amended 2026-08-18).** He now hears more Tamil in a morning than any episode can carry, so chat's *work* is no longer first contact — it is **decomposition on demand** (his highest-yield move, and he asks for it unprompted now) and **ambushes that read as normal to someone not being tested**. Episodes take the pairs and tails the room moves too fast to show him. **What that inversion must never touch is the open.** It did: for a week the session opened on collects and traps, and on 08-18 he named it unprompted — *"what happened to the coffee & lore at the start of our sessions? they disappeared without warning."* The break contract is not a nice-to-have that yields to a busier room; a man living inside the material needs the coffee **more**, not less. **Anna performs first — lore, a tape, a story — every session, in country or not, and the collect waits until after it.**
 
-**The two live debts are one disease: parts held as wholes.** `chunk-not-machine` (2× over 4d — fires the line most recently in his ear rather than the move the room wants) and `person-marker` (2× over 6d — marks himself when the ending already points at her). The medicine is not more reps; it is carve, then ambush with nothing named. **The standing failure is mine, not his:** three sessions running I have written the answer above his head and then asked for it back.
+**The disease has a name now, and a medicine that works: parts held as wholes (updated 2026-08-25).** `chunk-not-machine` is 4× over 15d and it fired TWICE inside one session on 08-25 — he drops whatever phrase is freshest in his ear into whichever slot is open, regardless of what the slot wants. It is not a vocabulary hole and it is not carelessness; it is a retrieval reflex reaching for *recent* instead of *right*. Two things help. **(1) The seat framing:** *"your words weren't wrong, they were in the wrong seat"* — head and tail, not right and wrong. It cost him nothing and he re-ordered instantly. **(2) Naming the reflex once, warmly** — he took it well and immediately started watching for it. The medicine is still carve-then-ambush, never more reps.
+
+**Soak → chat in one cycle is the fastest conversion this system has (2026-08-25).** The -en/-om pairs rendered at 10:11; by that afternoon *ponom* fired unaided in a we-scene. That is the 9×/29d slip, unstable in both directions three days earlier, landing clean on the day its dose shipped. Minimal pairs on the same verb, nothing else moving, every item from his own pockets — that recipe is proven, use it again. **Commission the dose the morning of the session, not the week after.**
+
+**A mission is only as good as its trigger — third time this has been the failure (2026-08-25).** He came back from *romba alaichal* not with a debrief but with *"what's the trigger for me to say it?"*, because I had welded it to someone ASKING about the beach. Unwelded: **the trigger is the door.** He walks in from anywhere, bag down, chair, and announces it half-sighing — no question required, fires daily because he goes out daily. Before assigning any mission, count how many times a day the room hands him the slot. If the answer needs someone else to speak first, redesign it.
 
 **Missions die at the trigger, not at the line (added 2026-08-19).** Two running have gone unfired for want of an opening — the 08-15 repair line and the spoon. Both times the Tamil was ready and the *moment* never showed, and both times that was my design, not his nerve. A mission is only as good as how many times a day the room hands him the slot. Fix the trigger before blaming the reflex: *naane eduthukkaren* was welded to a ladle at dinner; unwelded, it fires on any object moving toward him — plate, jug, bag, chair — six times a day.
 

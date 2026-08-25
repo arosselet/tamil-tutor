@@ -2703,10 +2703,11 @@
     "gloss": "{verb} முடியல → can't {verb} — தூக்க முடியல, போக முடியல",
     "phonetic": [],
     "recognition": "struggled",
-    "production": "none",
+    "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-08-18",
-    "exposures": 2
+    "last_surfaced": "2026-08-25",
+    "exposures": 2,
+    "reps": 1
   },
   "அதனால தான்": {
     "gloss": "that is exactly why / that is the reason",
@@ -2731,8 +2732,8 @@
       51,
       52
     ],
-    "last_surfaced": "2026-08-19",
-    "reps": 1
+    "last_surfaced": "2026-08-25",
+    "reps": 2
   },
   "அப்படியே": {
     "gloss": "just like that / as it is",
@@ -3924,11 +3925,11 @@
       59,
       68
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-08-25",
     "deck": "trip",
     "direction": "fire",
     "exposures": 2,
-    "reps": 3,
+    "reps": 4,
     "register": "frame"
   },
   "frame:day-recap": {
@@ -5203,7 +5204,7 @@
     ],
     "last_surfaced": "2026-08-25",
     "exposures": 2,
-    "reps": 1
+    "reps": 2
   },
   "சாப்பிட்டோம்": {
     "gloss": "",
@@ -5535,5 +5536,15 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": "2026-08-23"
+  },
+  "நாம": {
+    "gloss": "we (INCLUSIVE — you are in it)",
+    "phonetic": [
+      "naama"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-08-25"
   }
 }
