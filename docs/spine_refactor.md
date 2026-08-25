@@ -1,60 +1,66 @@
 # The Spine Refactor — implementation plan
 
-> **STATUS 2026-08-24 (end of day): Phase 1 COMPLETE and merged (Steps 0-7). Q1 is
-> most of the way there. Q2's real defect is fixed and its file split is optional.**
-> Everything below this block is the plan *as written on 08-23* and is superseded by
-> this status wherever the two disagree — it is kept as the record of what was planned
-> and why, not as instructions. Five corrections are worth carrying forward.
+> **STATUS 2026-08-25: Phase 1 complete. Q1 has landed its shared tail for one
+> family of lanes and its prompt-canon move. Q2's real defect is fixed; its file
+> split is specified in §10 and is the next session's work.**
+>
+> Everything between here and §10 is the plan *as written on 08-23*, superseded by
+> this block wherever the two disagree. It is the record of what was planned and
+> why — not instructions.
+>
+> **What this refactor was for.** Not cheaper lanes. The shape of the system was
+> the residue of eight months of bottom-up iteration, and the job was to make it
+> intentional: to replace an emergent arrangement with a designed one, and to turn
+> whole classes of error — a rule written into every lane, one lane missing the
+> memo — into things the structure will not let you express. That a new lane is now
+> a small declaration sharing the plumbing is a consequence worth having, not the
+> point, and no new lane has to be written to justify the work.
+>
+> **Corrections the plan got wrong, kept because they cost real time:**
 >
 > 1. **Step 2 was not test-neutral.** The suite reaches six moved names as module
->    ATTRIBUTES, which `from X import name` does not cover. 26 addresses moved.
->    The freeze held where it mattered — no case's assertions changed — but "exactly
->    two edits" was wrong about the file: address moves happened in Steps 2, 4, 5
->    and 6, and two source-text greps in `s3`/`s9` were re-pointed at the property
->    they were always testing.
+>    ATTRIBUTES, which `from X import name` does not cover; 26 addresses moved.
+>    "Exactly two smoke edits" was wrong about the file — address moves happened in
+>    Steps 2, 4, 5 and 6. The freeze held where it mattered: no case's assertions
+>    changed.
 > 2. **H1 arrives in Step 5, not Q1.** Moving the commit and push inside
 >    `publish()` breaks 60 stubs at once, so `publish()` owns the feed and the
 >    commit ORDERING, and both calls stay at the lane's seam.
 > 3. **Q2's premise was measurably wrong** — 68 of 70 cases already ran alone. The
->    fix was stub teardown (`run()`), not the file split. Every case passes alone
->    now, `smoke_test.py s41` runs one, and `s32`/`s8`/`s43` have the teeth §4b
->    asked for. **Still open in Q2: the per-layer file split, now optional.**
+>    fix was stub teardown (`run()`), not the file split.
 > 4. **Q1's open question 1 has an answer, and it is neither (a) nor (b): the seam
 >    is an ARGUMENT.** `lanes.deliver_rendered` takes `commit` and `notify` as
 >    keyword-only parameters with no defaults, so a lane resolves its own binding
 >    at call time and its stub still intercepts. Both import styles coexist and
->    lanes migrate one at a time, which is what decoupled Q1 from Q2 for real.
->    Landed under Q1: all 13 prompt constants in `mandates.py` (`knock_reply`
->    785 -> 570); the write -> render -> publish tail, shared by `render_soak`,
->    `render_drill` and `render_longhaul`; "a derived file follows its source"
->    inside `publish()`, retiring four hand-written copies; and `push_queue`'s
->    "no writer" invariant read off its SOURCE by `s70` instead of merely asserted
->    in this document.
+>    lanes migrate one at a time.
 > 5. **§4b's family table puts `run_studio` in the write -> render -> publish
 >    family; it is not on that family's tail and should not be.** It shells out to
 >    `render_audio.py`, which owns the state write and the commit, so there is no
->    `deliver_rendered` call to make. §4b said as much in prose ("a pipeline of
->    passes, not one call") and the table disagreed with it.
+>    `deliver_rendered` call to make.
+> 6. **§3 promised the script regex folded 4 copies into 1 and delivered 3 of 4.**
+>    Closed 2026-08-25; `state_io` now declares `TAMIL_RE` and `TAMIL_RUN` and `s70`
+>    refuses a fourth.
 >
-> **Still open, in the order the ceiling law would take them:**
+> **What is still open, and why each is open:**
 >
-> - **`run_studio.py` is at 430/430 — zero headroom, and Q1's "done means" says it
->   should be off that ceiling.** It is not, and it cannot be bought with the shared
->   tail (see correction 5) — Step 4's consolidation returned exactly the one line it
->   spent. Its own budget note says the next move is a SPLIT, and that the raise is
->   Andrew's call, not a diff's. Nothing here should raise it quietly.
-> - **`publish.py` is at 148/150** — two lines of headroom on a file two days old.
->   The next invariant that lands there needs a re-census in the same diff.
-> - **The decide/judge family has no runner.** `morning_knock` and `knock_reply` are
->   the daily drivers and still carry their own tails.
-> - **Lanes eight and nine** (media ingestion, the daily catch channel) — Q1's open
->   question 3 is still open. Writing ONE against the new shape is the honest test.
-> - **Q2's per-layer file split**, optional since the isolation fix.
+> - **The decide/judge family has no shared tail.** `morning_knock` and
+>   `knock_reply` spell out the closing sequence at four sites between them.
+>   MEASURED 2026-08-25: those four sites are 22 lines total, and most of each is
+>   the path list, which is genuinely per-lane. Step 5 already took the ordering,
+>   the feed and the mp3-first rule into `publish()`, so what a `deliver_judged`
+>   would centralise is two invariants, not five: the `knock_id` correlation, and
+>   `requested=True` — the rule that answering a reply is not an interruption and
+>   must not be swallowed by quiet hours (2026-07-26), currently written twice.
+>   Small work, small prize. Worth doing when one of those files is next open.
+> - **Q2's per-layer split**, now specified as §10.
+> - **Lanes eight and nine** (media ingestion, the daily catch channel). Wanted on
+>   their own merits. They are NOT owed as validation of Q1.
 >
-> **Closed since the 08-23 plan, beyond Phase 1:** the port surface really is one line
-> now (`state_io.TAMIL_RE` / `TAMIL_RUN`; §3 promised 4 copies -> 1 and the spine
-> refactor left three behind), guarded by `s70`; `s70`'s client allowlist no longer
-> names lanes that stopped building clients in Step 4.
+> **Deliberately not on this list:** files sitting near their code budgets. The
+> budgets are soft and somewhat arbitrary, and their job is to force a conversation
+> at the moment someone extends the file. A file at its ceiling with nobody
+> extending it is the mechanism working, not a debt. (`run_studio` is at 430/430
+> and stays there until someone needs the next line.)
 
 > **As written 2026-08-23 — superseded by the status above, kept as the record of what
 > was planned and why.** Written from the read-only architecture pass of the same day,
@@ -635,6 +641,176 @@ perfectly still, which is what earns the right to move either of them later.
   at the next `template-v*-source` tag, never as a patch (2026-07-06).
 
 ---
+
+---
+
+## 10. Q2 — the per-layer split, as instructions
+
+Written 2026-08-25 for a fresh session. §4b above is the original sketch; where it
+and this disagree, this wins — §4b proposed a `test_policy.py`, and there are no
+policy cases to put in it (policy constants live with the lanes that read them,
+which `PROTOCOL_MAP` already says).
+
+**Read first:** §0 of this document (you are wearing `@build`), then `/extend`.
+
+### 10.1 What this is and is not
+
+It is a **re-home**: 73 cases move file-to-file unchanged. It is **not** a rewrite,
+a renumber, or a chance to improve an assertion. The 73 encode 73 real incidents;
+the prose above each one is the record of what broke. A case whose *assertions*
+change is a different case and needs its own justification, in its own commit.
+
+**Why it is worth doing, stated honestly.** Not size. Measured 2026-08-25: 1,009
+assertions from 890 call sites over 4,820 mechanism lines — 5.4 lines per call site;
+30% of the file is the incident record; 3% is boilerplate; and of 119 commits
+touching it in 60 days only 4 touched it alone. It is dense, not padded, and it churns because the system
+changes. The reason to split is **locality**: every change to any layer lands in
+the same file, so unrelated work collides there and attention goes to locating
+rather than reading. That is the whole prize. It is real and it is modest.
+
+### 10.2 The layout, and where each case goes
+
+```
+scripts/smoke_test.py      STAYS — the entry point, reduced to dispatch
+scripts/smoke/_fixtures.py the harness (see 10.3)
+scripts/smoke/state.py     L0 + L1 — ledger, selection, ordering, coverage
+scripts/smoke/compose.py   L3      — parsers, budgets, schemas, executor choice
+scripts/smoke/publish.py   L4      — ordering, feed, rebase net, quiet hours, retry
+scripts/smoke/knock.py     L5      — the decide/judge lanes
+scripts/smoke/render.py    L5      — the write -> render -> publish lanes, + studio
+scripts/smoke/queue.py     L5      — the delivery lane
+scripts/smoke/ratchets.py  the budget/lint/prose ratchets and the harness self-test
+```
+
+Assignment below is **measured** — each case scored by which layer's modules it
+actually touches — and is a starting point, not gospel. A case whose home is
+arguable goes where its INCIDENT lives, not where its imports point.
+
+| file | cases |
+|---|---|
+| `state.py` | s16 s56 · s32 s33 s34 s36 s37 s38 s39 s41 s42 s44 s46 s47 s53 s54 s55 s62 s64 s65 s69 s71 |
+| `compose.py` | s1 s58 s66 s70 |
+| `publish.py` | s6 s15 s22 s23 s25 s31 s35 s43 s68 s73 s74 |
+| `knock.py` | s2 s3 s4 s5 s8 s9 s10 s11 s12 s13 s14 s17 s20 s21 s27 s30 s49 s50 s51 s59 s60 s61 s67 |
+| `render.py` | s19 s26 s28 s40 s48 s57 |
+| `queue.py` | s29 s45 |
+| `ratchets.py` | s18 s72 |
+
+Three the profiler could not place — **s7** (state shape), **s52**, **s63** — read
+them and place them by hand. That is 73; `s24` is already absent and stays absent.
+
+### 10.3 `_fixtures.py` — what the harness owns
+
+`make_sandbox`, `load_modules`, `snapshot`, `restore`, `run`, `check`, `Recorder`,
+`write_json`, `read_json`, `code_lines`, `code_line_numbers`, `mechanism`,
+`raw_source`, and the run-state (`ONLY`, `RAN`, `FAILURES`) plus the loaded-module
+globals (`pb`, `wr`, `si`).
+
+**THE ONE THING THAT WILL BREAK THIS, AND IT IS H1 ONE LEVEL UP.** `load_modules`
+assigns `pb`, `wr` and `si` with `global`. A test module that does
+`from ._fixtures import pb` binds a COPY at import time, before `load_modules` has
+run — it gets `None`, and worse, a stub installed on the fixtures module is not the
+object the test sees. Import the module and go through it:
+
+```python
+from . import _fixtures as fx
+...
+fx.pb.refresh_feed = fake        # patches what the lane resolves
+```
+
+The same reasoning that kept `from X import name` at the lane seams applies here in
+reverse, and for the same reason: a stub that stops intercepting means a test
+reaches the real network and a real phone.
+
+`FAILURES` has the same hazard — it must be one list, appended through the module
+attribute, or `smoke_test.py` reports ALL GREEN over another file's failures.
+
+### 10.4 Hard constraints
+
+- **`scripts/smoke_test.py` keeps its name and its behaviour.** `smoke.yml`,
+  `/validate`, `/verify` and ten entries in `/debug` invoke it. It becomes a
+  dispatcher: build one sandbox per file, call each module's `run_all(sb)`, print
+  the tally, exit non-zero on any failure. `smoke_test.py sNN` must still select
+  one case, and `RAN`/`ONLY` semantics are unchanged.
+- **Case ids and their printed headers move unchanged.** `/debug` cites cases as
+  "section 6", and the printed section number IS the case id — verified
+  2026-08-25, all 73 headers match their function name. Renumbering silently
+  breaks ten cross-references.
+- **Case count must not drop.** Retiring one means naming what made it dead.
+- **`s18` scans the suite's own source twice** — the mechanism guard (every
+  Python-source assertion is wrapped) and `CODE_BUDGET_EXEMPT`. Both currently name
+  `scripts/smoke_test.py` and must be widened to the whole `smoke/` package, in the
+  same commit that creates it, or the guard silently stops covering the tests.
+- **CI stays hermetic** — no ambient credentials; `google.auth.default` mocked.
+- **One sandbox per FILE, not per case.** Every case passes against a fresh sandbox
+  (measured), so per-file is safe; per-case would take the suite from 16 seconds to
+  minutes and nobody would run it.
+
+### 10.5 The verification that makes this safe
+
+Green is not sufficient here: the suite is both the instrument AND the subject, so
+"it still passes" cannot distinguish a correct move from a case that stopped
+running. Pin the assertions themselves.
+
+Before touching anything:
+
+```
+python scripts/smoke_test.py > /tmp/before.txt
+grep -oP '\[(ok|FAIL)\] \K.*' /tmp/before.txt | sort > /tmp/before-names.txt
+wc -l /tmp/before-names.txt      # expect 1009 as of 2026-08-25
+```
+
+After **every** file that moves:
+
+```
+python scripts/smoke_test.py > /tmp/after.txt
+grep -oP '\[(ok|FAIL)\] \K.*' /tmp/after.txt | sort > /tmp/after-names.txt
+diff /tmp/before-names.txt /tmp/after-names.txt    # MUST be empty
+```
+
+An empty diff means the same 1,009 assertions, by name, still ran. Six names are
+not unique (a loop asserts the same sentence twice); `sort` without `-u` keeps the
+multiplicity, which is what makes the diff exact — do not add `-u`. A case that
+silently stopped being called shows up here and nowhere else. Plus the usual
+ladder: `pyflakes` 0, and `python scripts/smoke_test.py s41` still runs one case.
+
+### 10.6 Order
+
+One file per commit, green and diff-clean at every point.
+
+```
+0  preflight: pull, baseline transcript + assertion-name list, pyflakes 0, branch
+1  smoke/_fixtures.py + smoke_test.py as dispatcher, with ALL cases still in
+   smoke_test.py importing from it. No case moves. This is the risky step; do it
+   alone and prove the assertion-name diff is empty.
+2  ratchets.py   — smallest, and it is the file that polices the others
+3  compose.py    — 4 cases
+4  queue.py      — 2 cases
+5  render.py     — 6 cases
+6  publish.py    — 11 cases
+7  state.py      — 22 cases
+8  knock.py      — 23 cases; smoke_test.py is now dispatch only
+9  close-out: widen s18's two self-scans, update /debug + /validate + /verify if any
+   name a path, one DECISIONS entry
+```
+
+Step 1 is where this goes wrong if it goes wrong. Everything after it is mechanical.
+
+### 10.7 Traps
+
+- **The globals.** See 10.3. This is the one that will cost a day.
+- **`run()`'s teardown** restores module namespaces from `snapshot()`. Snapshot once,
+  after `load_modules`, and make sure every file's cases see the same module objects
+  — not re-imported copies.
+- **Cases take modules as arguments** (`s5_reply_judge(mk, kr, sb)`). Keep the
+  signatures; the dispatcher passes them. Do not "tidy" them into globals.
+- **Four cases are hoisted out of numeric order in `main()`** and no longer need to
+  be, since teardown landed. Order within a file is free; do not treat the existing
+  order as meaningful.
+- **Do not fix a weak assertion while re-homing it.** Note it, finish the move, and
+  fix it in a separate commit — otherwise a behaviour change hides inside a diff
+  that is supposed to be a pure move, and the assertion-name diff stops being a
+  proof.
 
 *Written 2026-08-23 from the same-day architecture pass. Nothing here is settled until
 §8 is answered; nothing here has been built.*
