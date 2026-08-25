@@ -20,9 +20,9 @@ import subprocess
 from datetime import date, datetime
 
 from slips import format_slip_block, slip_patterns
-from state_io import (BASE, EPISODES_PATH, KNOCK_LOG_PATH, LEARNER_PATH,
-                      LEXICON_PATH, LOCAL_TZ, SESSION_LOG_PATH, load_json,
-                      local_today)
+from state_io import (BASE, EPISODES_PATH, FEEDBACK_LOG_PATH, KNOCK_LOG_PATH,
+                      LEARNER_PATH, LEXICON_PATH, LOCAL_TZ, SESSION_LOG_PATH,
+                      load_json, local_today)
 from state_io import canon_payload, is_unseen, split_payload
 from sync_state import (RECOGNITION_LEVELS, compute_ear, compute_engines,
                         compute_floor, compute_status, fires_today, is_pattern)
@@ -140,6 +140,44 @@ def knock_line(k: dict) -> str:
     else:
         back = "→ (no response yet)"
     return f"  {k.get('date', '?')} [{k.get('modality', '?')}] {k.get('move', '?')} — \"{body}\" {back}"
+
+
+HEARD_TAG = "[heard]"
+
+
+def heard_in_the_wild(cap: int = 5) -> list[str]:
+    """What Andrew heard OUT THERE and could not place — the highest-yield input
+    this system gets, and until 2026-08-25 nothing read it back.
+
+    THE CHANNEL ALREADY EXISTED; THE CONSUMPTION DID NOT. He has been producing
+    these unprompted for months and they land in `feedback_log.json`, where the
+    diagnosis pass reads them in `@build` — weeks later, if at all. On 2026-08-19
+    he reported hearing "apora wandete" and not recognising it; BOTH words were
+    already in the lexicon, one at `comfortable` after 22 sessions. That single
+    line diagnosed the segmentation gap and proved the stored phonetics did not
+    match real speech. No generated episode has produced evidence that good.
+
+    So this is a READER, not a new store — no schema, no file, no meter. The
+    convention is a `[heard]` prefix on an ordinary feedback note:
+
+        python scripts/sync_state.py feedback "[heard] apora wandete"
+
+    Anna's job is to DECODE it, never to grade it: what was it, why did it bounce,
+    and were the words already his? A line whose words he owns is an ear problem
+    and belongs to the eavesdrop dose; a line with a genuinely new word is a Teach
+    Beat. Cleared by being worked in a session — Anna logs `[heard-worked] …` and
+    it stops surfacing."""
+    log = load_json(FEEDBACK_LOG_PATH) or []
+    worked = {e.get("note", "")[len("[heard-worked]"):].strip().lower()
+              for e in log if e.get("note", "").startswith("[heard-worked]")}
+    body = [f"   {e.get('date', '?')} · {e['note'][len(HEARD_TAG):].strip()}"
+            for e in log if e.get("note", "").startswith(HEARD_TAG)
+            and e["note"][len(HEARD_TAG):].strip().lower() not in worked]
+    # Returns the printable BLOCK, header included — the shape `format_slip_block`
+    # already set, so the caller stays two lines and one owner holds the wording.
+    return ["", "👂 HEARD IN THE WILD, NOT YET WORKED — open the session on one of "
+            "these; decode it, never grade it. Close with "
+            "`feedback \"[heard-worked] <line>\"`."] + body[-cap:] if body else []
 
 
 def unpaid_trailer(klog: list, last_session: str | None) -> dict | None:
@@ -323,6 +361,9 @@ def cmd_status(_args):
     # needs another rep; a repeated slip says HOW the rep keeps failing, which is
     # the difference between re-asking the same thing the same way and teaching
     # the thing that is actually broken.
+    for line in heard_in_the_wild():
+        print(line)
+
     slip_block = format_slip_block(slip_patterns())
     if slip_block:
         print()

@@ -40,6 +40,48 @@ Details live in git history; this is the index of the *conclusions*.
 
 ## Settled design decisions
 
+- **Input first; production is the probe, not the outcome** (2026-08-25, Andrew). His words:
+  *"my goal has really been input first. First I need to understand, then I can work on
+  responding… Production is a goal yes, but it came to be of such importance in our system
+  because that's easy to measure."* So: the ear leads the session, ~3 cold fires replace the
+  8–12 Gauntlet, and Ear Day is the volume shape. **Production is not demoted — it is
+  re-labelled.** A typed fire probes a *pattern* that generalizes and does not prove a reflex
+  at a table; the fires exist to feed the slip ledger, which is the session's primary output.
+  Replaces `daily_session.md` invariant 2 ("Honest cold volume") and the Gauntlet's "volume
+  day" framing.
+
+- **The ear's pool is not the catch tag** (2026-08-25). `direction: "catch"` answers a
+  production question — never force this to fire — and was also the ear queue's membership
+  test, so a row had to be *forbidden* from production to be *eligible* for ear work.
+  Measured that day: 21 of 26 machines fire cold, 3 are solid on the ear, 5 carried the tag.
+  The axis status prints as PRIMARY STEER could reach the ticket with 5 of its 26 rows. Same
+  failure `generate_callbacks` fixed on 08-17, one lane over. `ear_targets` now pools catch
+  rows *and* machines with reserved seats; `ear_only` rides each row so the catch law stays
+  a property of the row. Ticket block renamed EAR-ONLY → THE EAR.
+
+- **Native media is ungated — Phase 2 runs alongside Phase 1** (2026-08-25, Andrew:
+  *"reaching a point where I can start more enjoying Tamil movies would be a huge unlock"*).
+  It was gated behind the viability floor clearing, which made comprehension wait on the
+  production odometer — backwards once the threshold became the ear (08-16). The system
+  generates ~1.3 min of Tamil a day; volume cannot come from a boutique. **Films are the
+  destination, not the on-ramp:** vlogs and cooking channels re-watched, then serials, then
+  films. It replaces nothing and is owed nothing — a week without it is not a lapse.
+
+- **A number never leaves Anna's mouth** (2026-08-25, Andrew: *"the number isn't what makes
+  me feel progress… the words and sentences I can now understand really demonstrate the
+  progress"*). Retires the small-denominator narration ("this week's 12: 7 down") and step
+  7's "campaign's meter". Anna names what he can do now and could not before. Meters stay in
+  `sync_state status` for *targeting*; they are engineering numbers, and the ticket's ear
+  block dropped its ratio for the same reason — a menu that carries a score gets read as
+  progress.
+
+- **The wild line is read back into the session** (2026-08-25). What Andrew hears out there
+  and cannot place is the highest-yield input the system gets — "apora wandete" (08-19) had
+  both words already in the lexicon, one at `comfortable` after 22 sessions, and diagnosed
+  the segmentation gap *and* the stale phonetics. The channel existed (`feedback`); nothing
+  read it back until now. Convention, not schema: `feedback "[heard] …"` surfaces on the next
+  brief; `feedback "[heard-worked] …"` closes it. Anna DECODES it, never grades it.
+
 - **Absorption-first, then production-as-accelerant** (2026-04-09 / 2026-06-07). Pure
   comprehensible input plateaued; forced cold output toward the **viability floor** is the
   engine. Narrow and deepen; widen only after the floor.

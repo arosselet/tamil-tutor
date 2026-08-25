@@ -4,6 +4,58 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **THE BENCHMARK TAPE — felt progress without a meter** (2026-08-25, proposed, NOT built —
+  it is a new artefact plus a frozen number, so Gate 2 parks it). Andrew's own account of how
+  he reads progress: *"the number isn't what makes me feel progress… 'where I am now compared
+  to where I was a few months ago' is the progress, not the # of machines or vocabulary that
+  are now cold."* A meter cannot deliver that and three redefinitions in three months have
+  made the series unreadable anyway. **The shape:** ninety seconds of real Coimbatore speech at
+  full speed, filed once, re-listened every few months. Not scored, not a test, no ledger
+  writes. The progress is the difference between the two experiences, felt directly. Costs one
+  file and never changes. **The design constraint if it is ever built:** honesty and continuity
+  trade off — every fix to a meter's honesty destroys its trend line, which is exactly what
+  happened to the viability floor (30.1% → 84.5% between two sessions, from the `unverify`
+  sweep shrinking the denominator, not from learning). The escape is TWO numbers with different
+  rules: one frozen forever and crude, for morale; one improvable, for targeting. One number
+  cannot do both jobs, and this system has been asking one to.
+
+- **CAPTURE THE ROOM — spike first, and it may not survive the spike** (2026-08-25, proposed
+  and explicitly NOT adopted). The idea: record real family speech, transcribe it, and let it
+  supply items instead of `curriculum/word_pool.json` (333 hand-curated rows that cannot scale
+  to the 1,500–2,500 families `comprehension_plan.md` scopes). **Andrew's objection is the
+  finding and it is not resolved:** *"I don't know what to do with recordings of what I hear…
+  I can imagine telling you things I heard or things I recognised but the conversion ratio will
+  be really low. It's easier just to heads down do my daily lesson."* He is right that a
+  capture mechanism without a consumption loop is dead weight, and the spike has not been run —
+  nobody knows whether a multimodal model segments Coimbatore family speech at all.
+  **What shipped instead** is the cheap half: the `[heard]` line (DECISIONS 08-25), ten seconds,
+  no pipeline, and it works from a phone in Canada as well as a kitchen in Coimbatore. Treat
+  recording as an UPGRADE to that loop if the spike succeeds, never a prerequisite. Cost note
+  if it is ever run: local Whisper large-v3 is free and keeps family audio off a cloud; Google
+  STT is more accurate at roughly USD 0.006–0.02/min — 10 min/day is USD 2–6/mo against a
+  standing budget of USD 5–10.
+
+- **THE KNOCK LANE MEASURES THE AXIS THAT IS NO LONGER THE GOAL** (2026-08-25, raised, NOT
+  actioned — a deletion this size is Andrew's call and he has not made it). Measured: 143 acted
+  knocks, 86 replies, and of those **7 judged cold and 20 hinted — 38 came back as `chat`**.
+  The verdict machinery, the caps, the chaining and the demand streaks are among the most
+  complex code in the repo (`knock_reply.py` 553 lines, `JUDGE_MANDATE` ~1500 words) and two
+  months of it produced 7 cold credits on the axis that 08-25 re-labelled a probe. **The reach
+  is not in question** — presence works, and the reply rate ran 67–76% weekly before the
+  travel. The question is whether outreach should keep trying to be a *measurement* instrument
+  at all. If it should not, the saving is not a feature but a permanent reduction in how often
+  this system asks to be engineered — which is the stated goal (Andrew, 2026-08-25: *"I want my
+  rate of engineering to slow down in this system… find some kind of convergence on the shape
+  and reliability I want"*).
+
+- **`docs/DECISIONS.md` IS 30,000 WORDS AND EVERY CHANGE READS IT** (2026-08-25). Gate 1 of
+  `/extend` says read it before touching anything; it is now longer than most of the code it
+  governs, and `feature_inbox.md` adds another 10,000. The corpus was worth writing — it is why
+  a 2026-04 decision can still be checked — but maintaining it is a standing tax on the
+  engineering rate. **Proposal, not a decision:** split into a live rulebook of ~2,000 words
+  (the rules that actually gate a change) and `HISTORY.md` (everything settled, archived, never
+  read by a gate). Nothing is deleted; one of the two stops being on the critical path.
+
 - **THE AUTO-DRAIN'S FALLBACK RULE IS ONE PIPE AWAY FROM BEING DEAD** (2026-08-14, self-
   inflicted, worth a line anyway). The `anna` skill says dispatch `run_studio.py` in the
   background and "fall back to the `studio` subagent only if it exits non-zero". `run_studio.py`

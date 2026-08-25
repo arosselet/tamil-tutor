@@ -2546,3 +2546,205 @@ def s65_the_ordering_outlives_the_deck(sb: Path):
     finally:
         lex_path.write_bytes(saved[0])
         learner_path.write_bytes(saved[1])
+
+
+def s76_the_ear_queue_is_not_the_catch_tag(sb: Path):
+    """The ear's pool stopped being gated on `direction: "catch"` (2026-08-25).
+
+    The tag answers a PRODUCTION question — never force this to fire — and it was
+    also the ear queue's membership test, so a row had to be FORBIDDEN from
+    production to be ELIGIBLE for ear work. On the live ledger that day: 21 of 26
+    machines fire cold, 3 are solid on the ear, and 5 carried the tag. The axis
+    `sync_state status` prints as PRIMARY STEER could reach the ticket with 5 of
+    its 26 rows.
+
+    Gate 7.2 — what does this look like when it silently does nothing? A tidy
+    eight-row ear block of real, really-stale catch chunks. Nothing errors, every
+    row is genuine, and the machines' absence is invisible unless asserted. That
+    is the s63 shape one lane over, so this copies s63: reproduce the LIVE
+    distribution (catch rows that beat machines on the ordering outright) and
+    assert reachability anyway.
+
+    The second half guards the regression the widening CREATES. `due_menu_block`
+    had one line for an ear row — "never ask him to fire it" — which is true of a
+    catch row and false of a machine Andrew fires cold every session. Widening a
+    pool silently widens every law written against it."""
+    print("\n76. The ear queue is not the catch tag (2026-08-25)")
+    st = importlib.import_module("suggest_targets")
+    mk = importlib.import_module("morning_knock")
+    today = date_cls(2026, 8, 25)
+    row = lambda **kw: {"gloss": "g", "phonetic": ["p"], "seen_in": [], **kw}
+
+    # THE LIVE SHAPE: catch chunks never worked and ancient; machines worked and
+    # recent. `coverage_key` leads with fewest-lifetime-reps, so every catch row
+    # outranks every machine before the reservation exists.
+    lex = {f"catch{i}": row(direction="catch", recognition="struggled",
+                            production="none", last_surfaced="2026-06-01")
+           for i in range(20)}
+    lex.update({f"frame:m{i}": row(type="pattern", direction="fire",
+                                   recognition="struggled", production="cold",
+                                   last_surfaced="2026-08-24")
+                for i in range(6)})
+    reps = {f"frame:m{i}": 5 for i in range(6)}
+
+    ear = st.ear_targets(lex, today=today, reps=reps)
+    shown = ear["pending"][:8]
+    frames = [t for t in shown if t["kind"] == "frame"]
+    check("the machines are on the block despite losing the ordering outright",
+          len(frames) == st.EAR_PATTERN_SLOTS,
+          f"{len(frames)} of {[t['word'] for t in shown]}")
+    check("...and the catch rows keep the rest of the seats",
+          len(shown) - len(frames) == 8 - st.EAR_PATTERN_SLOTS, str(len(shown)))
+    check("a machine is NOT marked ear-only — the tag is a row property",
+          all(not t["ear_only"] for t in frames), str(frames[:1]))
+    check("...and a catch row still is",
+          all(t["ear_only"] for t in shown if t["kind"] != "frame"))
+
+    # A FLOOR, NEVER A CEILING — when machines win on merit, do not cap them back.
+    flip = {f"catch{i}": row(direction="catch", recognition="struggled",
+                             production="none", last_surfaced="2026-08-24")
+            for i in range(20)}
+    flip.update({f"frame:m{i}": row(type="pattern", direction="fire",
+                                    recognition="struggled", production="cold",
+                                    last_surfaced="2026-06-01")
+                 for i in range(6)})
+    won = [t for t in st.ear_targets(flip, today=today)["pending"][:8]
+           if t["kind"] == "frame"]
+    check("machines that win on merit are not capped at the reservation",
+          len(won) == 6, f"{len(won)} machines won seats")
+
+    # THE MET-ONLY RULE, TRIED AND REVERTED THE SAME DAY. Excluding never-surfaced
+    # rows (the callbacks' rule) emptied the pool `remaining_room` reads to decide
+    # the eavesdrop cadence is overdue — a warning going silent behind a bare
+    # `except: pass`. A catch row's first contact IS the eavesdrop dose.
+    unmet = {"catch:new": row(direction="catch", recognition="struggled",
+                              production="none", last_surfaced=None)}
+    check("a never-surfaced catch row stays in the queue — eavesdrop is its first contact",
+          [t["word"] for t in st.ear_targets(unmet, today=today)["pending"]] == ["catch:new"])
+    check("...and it is still what the cadence warning counts",
+          "1 catch item(s) pending" in _room_for(mk, sb, unmet),
+          _room_for(mk, sb, unmet))
+
+    # THE LAW THE WIDENING WOULD HAVE OVERWRITTEN. The block needs one drillable
+    # fire word or `due_menu_block` returns empty and both checks below pass on a
+    # string that was never rendered — a green case proving nothing, which is the
+    # very shape this file exists to refuse.
+    menu_lex = dict(lex)
+    menu_lex["smoke:fire"] = row(recognition="comfortable", production="none",
+                                 register="survival", last_surfaced="2026-08-01")
+    menu = _menu_for(mk, sb, menu_lex)
+    behind = [ln for ln in menu.splitlines() if "[ear-behind]" in ln]
+    check("the machine reaches the knock menu as its own kind of ear row",
+          len(behind) == 1, menu)
+    check("...and it did NOT take both slots — the catch pair keeps one",
+          len([ln for ln in menu.splitlines() if "[ear-only]" in ln or "[pair]" in ln]) == 1,
+          menu)
+    check("...and that line never tells Anna not to fire it",
+          behind and "never ask him to fire it" not in behind[0], str(behind))
+    check("...it says the ear is behind, and a fire there earns no ear credit",
+          behind and "EAR is what is behind" in behind[0]
+          and "no ear credit" in behind[0], str(behind))
+
+
+def _sandbox_lexicon(mod, sb: Path, lex: dict, fn):
+    """Run `fn()` with the sandbox lexicon replaced, then put it back."""
+    lex_path = sb / "progress" / "lexicon.json"
+    saved = lex_path.read_bytes()
+    real = mod.LEXICON_PATH
+    try:
+        mod.LEXICON_PATH = lex_path
+        write_json(lex_path, lex)
+        return fn()
+    finally:
+        mod.LEXICON_PATH = real
+        lex_path.write_bytes(saved)
+
+
+def _menu_for(mk, sb: Path, lex: dict) -> str:
+    return _sandbox_lexicon(mk, sb, lex, lambda: mk.due_menu_block())
+
+
+def _room_for(mk, sb: Path, lex: dict) -> str:
+    real_last = mk.last_eavesdrop
+    try:
+        mk.last_eavesdrop = lambda klog: None
+        return _sandbox_lexicon(
+            mk, sb, lex,
+            lambda: mk.remaining_room([], datetime.now(timezone.utc).astimezone()))
+    finally:
+        mk.last_eavesdrop = real_last
+
+
+def s77_the_wild_line_reaches_the_session(sb: Path):
+    """What Andrew heard out there reaches the session brief (2026-08-25).
+
+    The channel existed for months and the consumption did not: `[heard]` lines
+    land in `feedback_log.json`, which only the `@build` diagnosis pass reads.
+    The 2026-08-19 entry — "apora wandete", both words already in the lexicon, one
+    at `comfortable` after 22 sessions — diagnosed the segmentation gap and the
+    stale phonetics, and did it weeks after the moment had passed.
+
+    Gate 7.2 — what does this look like when it silently does nothing? A brief that
+    renders perfectly with no wild-line block, which is byte-identical to a week in
+    which he heard nothing worth reporting. Absence of a prompt is indistinguishable
+    from absence of input, and the reader is one prefix typo away from that state
+    forever. So this drives the REAL writer, re-reads the REAL brief, and asserts
+    the line is on it — the round-trip s41 was written for after a green case tested
+    a function whose write path deleted the field.
+
+    It also asserts the CLOSE, because an open loop nothing can discharge is noise
+    by construction and gets walked past for mechanical reasons."""
+    print("\n77. The wild line reaches the session (2026-08-25)")
+    import contextlib
+    ss = importlib.import_module("sync_state")
+    sb_mod = importlib.import_module("session_brief")
+
+    def feedback(note: str):
+        class A:
+            pass
+        A.note = note
+        with contextlib.redirect_stdout(io.StringIO()):
+            ss.cmd_feedback(A())
+
+    def brief() -> str:
+        out = io.StringIO()
+        real = sb_mod.git_sync_counts
+        try:
+            sb_mod.git_sync_counts = lambda: (0, 0)
+            with contextlib.redirect_stdout(out):
+                sb_mod.cmd_status(argparse.Namespace())
+        finally:
+            sb_mod.git_sync_counts = real
+        return out.getvalue()
+
+    fb_path = sb / "progress" / "feedback_log.json"
+    saved = fb_path.read_bytes()
+    try:
+        write_json(fb_path, [])
+        check("no wild lines, no block — quiet is earned, not accidental",
+              "HEARD IN THE WILD" not in brief())
+
+        feedback("[heard] apora wandete")
+        page = brief()
+        check("a wild line reaches the brief through the real writer",
+              "HEARD IN THE WILD" in page and "apora wandete" in page, page[-600:])
+        check("...and the brief says DECODE, never grade — it is not a test of him",
+              "decode it, never grade it" in page, page[-600:])
+
+        feedback("[heard] enna sonninga")
+        check("a second one queues rather than replacing the first",
+              brief().count("·") >= 2)
+
+        feedback("[heard-worked] apora wandete")
+        page = brief()
+        check("working it closes it", "apora wandete" not in page, page[-600:])
+        check("...and closing one does not close the others",
+              "enna sonninga" in page, page[-600:])
+
+        # An ordinary feedback note must not be dragged in — the log is shared, and
+        # a reader that matched everything would bury the signal it exists to raise.
+        feedback("the podcast felt long today")
+        check("a plain feedback note is not a wild line",
+              "podcast felt long" not in brief())
+    finally:
+        fb_path.write_bytes(saved)

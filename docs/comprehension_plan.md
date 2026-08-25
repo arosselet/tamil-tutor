@@ -1,9 +1,19 @@
 # The One-Year Comprehension Goal — open planning
 
-> **Status: OPEN. Nothing here is settled.** No entry in `docs/DECISIONS.md` follows from this
-> document yet, and no code or protocol file has been changed for it. Andrew asked the question
-> on 2026-08-17 and asked to record the analysis so planning can resume. Resume at
-> **Open Questions** — that is the live edge.
+> **Status: PARTLY EXECUTED as of 2026-08-25.** It sat open for seven days while the commit log
+> filled with a spine refactor and a smoke-test split — good work, and not this work. On
+> 2026-08-25 Andrew read it back and said *"adjust our system towards meeting our goals"*, and
+> four of the six proposed changes landed that day (§6 below, marked ✅), with five entries in
+> `docs/DECISIONS.md` following from it. **The goal in §5 is still NOT adopted** — question 1 is
+> the live edge and nothing downstream of it is settled. Resume at **Open Questions**.
+>
+> **Read this document for its shape, not only its conclusions.** It measures the OUTCOME rather
+> than the machine, which nothing else in the repo does; it reports per-row transitions because
+> net counts hide churn; it marks its own load-bearing assumption (the 1,500–2,500 figure) as
+> unverified; it splits the goal into a finite cheap layer and an unbounded expensive one; and
+> it says *no* out loud — "Tier C in 12 months: not reachable. Stated plainly so it is not
+> discovered next August." That last property is why it is worth keeping open rather than
+> closing to feel finished.
 
 ## The question, in Andrew's words
 
@@ -123,21 +133,39 @@ tape plus directed-speed ambush). Tier C proper: 2-3 years.
 
 ---
 
-## 6. Proposed changes (none implemented)
+## 6. Proposed changes (✅ = landed 2026-08-25)
 
 1. **Invert the daily budget** — from ~15 min production-forcing to **45-60 min comprehension
    input** (~300 hrs/year). Production stays daily but stops owning the clock.
+   **✅ PARTLY, 2026-08-25.** The session inverted: the ear leads, ~3 fires are the probe, Ear
+   Day is the volume shape (DECISIONS → "Input first; production is the probe"). The *minutes*
+   half did not — it became a dial in `profile.md` → Calibration Notes with a proposed 15
+   min/day, and **Andrew sets the number**. 45–60 is still unpriced against the Enjoyment
+   Clause; see open question 6, which this does not answer.
 2. **Ungate Phase 2 now.** `progress/profile.md` gates native media behind clearing the
    viability floor. Under the 08-17 position that gate is backwards — it makes comprehension
    wait on the production odometer.
+   **✅ DONE 2026-08-25.** The gate is off and `profile.md` carries "The Native-Media Lane"
+   with an explicit on-ramp — vlogs re-watched, then serials, then films — because films are
+   the destination and the hardest listening environment there is, not the entry point.
 3. **Change the item source.** 333 hand-curated rows in `curriculum/word_pool.json` cannot scale
    to thousands. Media supplies items; the system's job becomes selection and testing, not
    authoring.
 4. **Give the ear a real test channel.** Eavesdrop tapes are the right instrument and have fired
    11 times. Should be near-daily. Cheapest item on this list.
+   **✅ UNBLOCKED 2026-08-25**, and the diagnosis here was incomplete. The eavesdrop lane was
+   not merely under-used: its pool was 9 rows, because `ear_targets` gated membership on the
+   `direction: "catch"` tag. `morning_knock.remaining_room` reads that pool to decide the
+   cadence is overdue, so the "highest-value move right now" warning was being computed against
+   a nearly-empty queue. The pool is now 29 with the machines in it. Cadence still needs
+   watching — an unblocked lane is not a used one.
 5. **Machines first, and it is not close.** 3/26 to 26/26 is 23 upgrades; at one per week, six
    months. Disproportionately unlocks parsing on every sentence. Year-one priority #1, ahead of
    vocabulary volume.
+   **✅ REACHABLE 2026-08-25.** They now hold reserved seats at the head of ticket block
+   **1a. THE EAR** and reach the knock menu as `[ear-behind]`. The asymmetry this exposes is
+   the sharpest single number in the project: **21 of 26 machines fire cold and 3 are heard** —
+   his mouth is a full lap ahead of his ear on the exact inventory comprehension rides on.
 6. **The wife question.** The highest-bandwidth Tamil in his life is in the house, and the
    constitution deliberately keeps her out (Resource not teacher; 60-second vibe checks; never
    an examiner — the heist). Those rules exist for real reasons. But no generated system
@@ -149,10 +177,19 @@ tape plus directed-speed ambush). Tier C proper: 2-3 years.
 
 ## 7. Open questions — resume here
 
-1. **Adopt the Tier B goal, or re-scope?** Nothing proceeds until this is answered.
+1. **Adopt the Tier B goal, or re-scope?** STILL OPEN and still the live edge — the 08-25 work
+   changed the machine's direction, not the destination. Andrew has since named an intermediate
+   marker in his own words that is worth scoping against: *"reaching a point where I can start
+   more enjoying Tamil movies would be a huge unlock."* That is nearer than Tier C and further
+   than Tier B, and it is testable by simply trying it.
 2. **Re-test the 76 untested "solid" rows.** No projection here is trustworthy until the
    baseline is real. What is the cheapest way to re-test at volume — batch eavesdrop tapes?
-3. **The wife question** (item 6). Genuinely Andrew's decision.
+3. **The wife question** (item 6). Genuinely Andrew's decision, RAISED AND NOT ANSWERED
+   2026-08-25 — and the broad framing was withdrawn as too vague to act on. The narrow version,
+   which asks nobody to become a teacher: when he does not catch something, use the antifreeze
+   line he already owns (*enna sonninga?*) instead of letting it pass, and let the Oracle decode
+   the two or three `[heard]` lines a week that neither he nor Anna can crack — the existing
+   vibe-check mechanism pointed at heard lines instead of drafted ones.
 4. **Find Tamil-specific frequency/coverage data** to replace the extrapolated 1,500-2,500.
 5. **Ship `ears_pct`** (already logged in `docs/feature_inbox.md`) — none of the checkpoints are
    verifiable without a longitudinal record of the headline axis.

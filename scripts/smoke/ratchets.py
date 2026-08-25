@@ -36,7 +36,25 @@ PROSE_BUDGETS = {
     # the zinger line's "surprise … that delight locals and in-laws". A second raise
     # is the split signal — the Core Philosophy's learner facts would leave first.
     "protocol/constitution.md": 1790,
-    "protocol/daily_session.md": 1250,
+    # 1250 -> 1320 (2026-08-25, Andrew). THE GROWTH IS A LAW THE FILE DID NOT HAVE:
+    # invariant 2 said "Honest cold volume" and named the Gauntlet the volume day,
+    # which made the session PRODUCTION-shaped. Andrew's correction that day: "my
+    # goal has really been input first… Production is a goal yes, but it came to be
+    # of such importance in our system because that's easy to measure." The ear now
+    # leads the session, ~3 fires are the probe that feeds the slip ledger, Ear Day
+    # is the volume shape, and a heard-in-the-wild line opens the session.
+    #
+    # RETIRED IN THE SAME DIFF, and the retirement was done FIRST — this number
+    # moved only for the 55 words the trimming could not honestly find: the
+    # small-denominator narration ("this week's 12: 7 down" — Andrew, same day: "the
+    # number isn't what makes me feel progress"), step 7's "campaign's meter", the
+    # campaign block's retelling of what profile.md already holds, and four
+    # parenthetical glosses that restated the rule they hung off.
+    #
+    # NOTE FOR THE NEXT RAISE: refuse it and split. The shapes list is ~140 words of
+    # a distinct concern — WHICH SHAPE TODAY — and audio_channels.md was cut out of
+    # this same file on 07-23 for exactly that reason. A ceiling is a split signal.
+    "protocol/daily_session.md": 1320,
     # Split out of daily_session.md (2026-07-23) rather than raise its budget:
     # channel routing is its own concern and Anna loads it only when choosing.
     # 400 -> 550 (2026-07-28): the file's JOB doubled by deliberate split, not by

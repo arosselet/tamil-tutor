@@ -14,7 +14,7 @@
 
 **Three consequences for target selection.** (1) Comprehension leads — the machines carry the sentence skeleton, so an unheard frame outranks an unfired one. (2) Production stays daily, narrow-and-deepen: it is how recognition is made to hold, not a rival curriculum. (3) **Holding ground ranks with taking it** — decay is the only true regression, so a decayed row he has *met* outranks a novel one he hasn't.
 
-**Phase model:** Phase 1 (the base) — *narrow and deepen*: force cold production of what he already recognizes; resist widening vocabulary. **Phase 1.5 (the Trip Sprint) closed 2026-08-18** — it interrupted the floor climb until touchdown and is retired below, with the ordering it left behind. Phase 2 (post-floor) — native media (films) becomes the vocabulary engine, because the floor finally makes acquisition-from-context work.
+**Phase model (the gate came off 2026-08-25):** Phase 1 (the base) — *narrow and deepen*: force cold production of what he already recognizes; resist widening vocabulary. **Phase 1.5 (the Trip Sprint) closed 2026-08-18** — it interrupted the floor climb until touchdown and is retired below, with the ordering it left behind. **Phase 2 — native media — is OPEN NOW, not post-floor.** It was gated behind the viability floor clearing, which made comprehension wait on the production odometer: exactly backwards once the threshold became the ear (2026-08-16). Andrew's own words, 2026-08-25: *"reaching a point where I can start more enjoying Tamil movies would be a huge unlock."* Films are the destination, never the on-ramp — see "The Native-Media Lane" below.
 
 ---
 
@@ -40,7 +40,7 @@
 
 **What went, and why:** the deadline (`TRIP_DATE`), the countdown, the burn rate, the `X/N fire cold` sprint meter, and the deck's own ticket section. A countdown has an entry and no exit — modelled as a terminus it counted past zero, and modelled as two eras it would have read "in country, day 32" forever. A winnable countdown is also the motivational device the 2026-08-17 no-numbers rule banned. The 83 rows keep their `deck: "trip"` tag as provenance; nothing reads it.
 
-**Phase model now:** Phase 1 (the base) — *narrow and deepen*: force cold production of what he already recognizes; resist widening. Phase 2 (post-floor) — native media becomes the vocabulary engine, because the floor finally makes acquisition-from-context work. The headline is **machines heard** (2026-08-16): comprehension is the threshold, production is the engine.
+**Phase model now:** Phase 1 (the base) — *narrow and deepen*: force cold production of what he already recognizes; resist widening. **Phase 2 — native media — runs alongside, ungated 2026-08-25** (it is not a reward for finishing Phase 1; the two feed each other). The headline is **machines heard** (2026-08-16): comprehension is the threshold, production is the engine.
 
 ---
 
@@ -108,16 +108,63 @@ The production-reflex gaps that matter most right now:
 
 > **The pool is tier-ordered** (survival > delight > dessert, from each row's `register`) — the curated social-public chunks and frames still lead the "priority-1 floor only" guidance below, on the ordering rather than on a container with an expiry date. The *deepen, don't widen* discipline holds throughout: force what is in rotation cold, don't sprawl past it.
 
-Phase 1 is *deepen, don't widen.* For the next stretch of sessions and episodes:
+Phase 1 is *deepen, don't widen.* **The order below changed on 2026-08-25** — it used to
+open on "Force production… this is the floor moving", which read as the goal. Andrew's
+correction, in his words: *"my goal has really been input first. First I need to understand,
+and then I can work on responding, and responding at speed… Production is a goal yes, but it
+came to be of such importance in our system because that's easy to measure."* Production is
+not demoted — it is **re-labelled as the instrument it always was**.
 
-1. **Force production.** Keep converting recognized words to cold via cold dispatch — the chat session is the engine. This is the floor moving.
-2. **Re-strain the same pool in fresh situations.** Deepening is not repetition: re-hearing a word is boring, being made to produce it somewhere new is not. One running story that carries the current payload across chat and audio (the soak handoff) is how a word earns a second, third, fourth life without feeling drilled.
-3. **Reinforce the struggled items** (வை, தூக்கு, the present/future aspect contrast) in fresh contexts until they fire cold.
-4. **Vary the scene *form*, not the curriculum.** Fight sameness by rotating shape / energy / location / episode form (the Director's `*.tags.json` machinery tracks this). Keep new vocabulary inside **priority-1** (the operational floor) and always embedded in a situation — never an expansion-cluster grab-bag. (New-word *counts* differ by modality — see Calibration.)
+1. **Feed and test the ear first.** The machines carry the sentence skeleton: 21 of 26 fire
+   cold and 3 are heard, so his mouth is a full lap ahead of his ear on the exact inventory
+   comprehension rides on. Ticket block **1a. THE EAR** is where that lives, and since
+   2026-08-25 it reaches the machines (it was gated on the catch tag and could only offer 5
+   of 26). Eavesdrop is the dose that moves it, and it is the cheapest thing in the system.
+2. **Take the volume from native media**, not from authored minutes — see The Native-Media
+   Lane above. What the studio makes is the *targeted* dose; what he watches is the *volume*.
+3. **Production is the probe, ~3 fires a session, and the mistakes are the payload.** Andrew,
+   2026-08-25: *"the mistakes I make, how I mess things up is huge signal here, not just
+   'Andrew doesn't know this word yet' but 'Andrew keeps missing the future tense'."* That is
+   the slip ledger's whole job, and it needs a handful of honest attempts, never a gauntlet.
+   A typed fire probes a *pattern* that generalizes; it does not prove a reflex at a table,
+   and the meter should never be read as if it did.
+4. **Re-strain the same pool in fresh situations.** Deepening is not repetition: re-hearing a word is boring, being made to produce it somewhere new is not. One running story that carries the current payload across chat and audio (the soak handoff) is how a word earns a second, third, fourth life without feeling drilled.
+5. **Reinforce the struggled items** (வை, தூக்கு, the present/future aspect contrast) in fresh contexts until they fire cold.
+6. **Vary the scene *form*, not the curriculum.** Fight sameness by rotating shape / energy / location / episode form (the Director's `*.tags.json` machinery tracks this). Keep new vocabulary inside **priority-1** (the operational floor) and always embedded in a situation — never an expansion-cluster grab-bag. (New-word *counts* differ by modality — see Calibration.)
 
 **Avoid:** reaching into **priority-2 expansion** clusters or new registers (news, journalistic) while the priority-1 floor still has gaps; and the over-trodden setting reflexes — another straight kitchen scene, another morning sprint.
 
-**On the horizon (Phase 2, not now):** native Tamil media (YouTube, films) as the volume engine — but that on-ramp only works *after* the floor clears, so it's a reward to steer toward, not a current task.
+## The Native-Media Lane — open since 2026-08-25
+
+> **Why it stopped being "on the horizon."** The system generates ~1.3 min of Tamil a day
+> (`docs/comprehension_plan.md`, measured 2026-08-17). Comprehension is a volume problem and
+> a boutique cannot solve it. Native media is the only source that scales, and it costs no
+> authoring. What was blocking it was a gate — Phase 2 waits for the floor — written when
+> production was the headline.
+
+**Films are the destination, not the on-ramp.** They are the hardest listening environment
+there is: native speed, slang, music over dialogue, and a wide open vocabulary. Sending him
+there first buys a bad evening and a confirmation that he is behind. The ramp, in order:
+
+1. **One channel, watched repeatedly** — cooking channels and vlogs. One speaker, face
+   visible, the situation carrying half the meaning, and the same twenty phrases every
+   episode. This is *narrow listening*: repetition of one voice and one topic is what makes
+   an unknown word inferable instead of merely unknown.
+2. **The same clip again, not a new one.** The instinct is to move on when it gets easy.
+   Getting easy IS the win, and re-watching is where a recognized word becomes a heard one.
+3. **Serials before films** — slower, more domestic, far more repetition, and the register is
+   the family table rather than the action set-piece.
+4. **Films last**, and the first ones with Tamil audio he already knows the plot of.
+
+**What Anna does with it.** Not a comprehension quiz — Andrew is not to be tested on his
+evening. He brings back what he *caught* and what bounced off; the bounced-off line is worth
+more than the caught one, and it enters as a `heard` line (below). New words from media enter
+the lexicon the same way any unseen item does — through the Teach Beat, at `struggled` —
+never as a bulk import.
+
+**The rule that keeps it from becoming homework:** it replaces nothing and is owed nothing.
+A week with no media is not a lapse, and the Enjoyment Clause covers it exactly as it covers
+a missed session.
 
 ---
 
@@ -139,6 +186,19 @@ Learner-specific preferences for how Anna runs the live session. These live here
 
 These are **hard dials**, read by the Director/Architect. They live here (not in any agent's memory) so every agent and device applies the same calibration — change the number, not a prompt.
 
+- **Input volume — the dial that was never set (added 2026-08-25; ANDREW SETS THE NUMBER).**
+  Measured 2026-08-17: the system generates **~1.3 min of Tamil a day** (74 episodes, ~4 hours,
+  six months). Comprehension is a volume problem, and no calibration below can fix a supply of
+  1.3 minutes. Episodes are not the problem and were never the problem — Andrew, 2026-08-25:
+  *"I wasn't finding the time day to day sitting at my computer, so episodes let me stay in
+  contact with the sound of the language while I am out for a walk or doing dishes."* That is
+  the correct instrument for the actual bottleneck, running at a boutique rate.
+  **Proposed starting dial: 15 min/day of ear contact**, counting episodes, soaks, drills and
+  native media together — Anna reads it as a floor for *what to commission*, never as a debt to
+  narrate, and never as something Andrew owes. Two levers before spending money on it: native
+  media costs nothing to author, and `edge-tts` (already in `requirements.txt`, free) can carry
+  bulk soak while the Chirp3-HD voices stay for episodes worth sitting with. Price a minute of
+  each before raising the number — the standing budget is USD 5–10/month (≈CAD 7–14).
 - **Live coverage target: ~95%+ known words in the Intercept *as heard*** — the listening-comprehension floor (Nation's lexical-coverage research). Comprehension must hold live.
 - **Gossip-tape carve-out (the ONE exception to 95%).** "Catch the drift" is a skill drilled on input Andrew *doesn't* fully understand: a clearly-marked eavesdrop segment (in-session eavesdrop drill, or a short tagged episode segment) may run native-speed with well below 95% coverage. The win condition is different — who/what/mood, not full comprehension — and it exists to train the `catch` items (quote-னு, hearsay-ஆம், the maami's predictable lines). Everything else keeps the 95% rule.
 - **Density is an OUTPUT, never a target.** It falls out of (fence size × the 95% coverage target). With a small fence, episodes lean heavily on English scaffolding — correct, not watering down. Do not dial a Tamil ratio.

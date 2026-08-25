@@ -320,16 +320,36 @@ def due_menu_block(max_fire: int = 6, max_catch: int = 2) -> str:
             state += (f" · ⚠ asked/shown {t['asks']}× in last {ASK_COOLDOWN_DAYS}d — needs a genuinely "
                       f"new scene, or pick another item")
         lines.append(f"    [{t['kind']} · {t['tier']}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{state}]")
-    for t in ear_targets(lex)["pending"][:max_catch]:
+    # ONE OF EACH, WHERE BOTH EXIST (2026-08-25). The ear queue widened past the
+    # catch tag the same day and the machines hold reserved seats at its head, so a
+    # straight slice handed BOTH knock slots to machines — and the paired catch
+    # drills (the maami's "eat more", answered) stopped reaching the knock lane
+    # entirely. That is the starvation the reservation was built to end, running
+    # the other way. The queue owns the ORDER; two slots is this caller's budget,
+    # and how it spends them is its own call.
+    _ear = ear_targets(lex)["pending"]
+    _machines = [t for t in _ear if not t.get("ear_only")]
+    _catch = [t for t in _ear if t.get("ear_only")]
+    _picked = [q[0] for q in (_machines, _catch) if q][:max_catch]
+    _picked += [t for t in _ear if t not in _picked][:max_catch - len(_picked)]
+    for t in _picked:
         if t.get("pairs_with"):
             # A paired catch item is the one ear-only case he DOES answer: the
             # line is aimed at him and silence is the failure (2026-07-26).
             lines.append(f"    [pair] {t['word']} — {t['gloss'] or '[no gloss]'}  "
                          f"→ he answers: {t['pairs_with']} — {t['response_gloss'] or '[no gloss]'}  "
                          f"(play HER line, let him answer — never quiz the catch half alone)")
-        else:
+        elif t.get("ear_only"):
             lines.append(f"    [ear-only] {t['word']} — {t['gloss'] or '[no gloss]'}  "
                          f"(soak/eavesdrop dose only — never ask him to fire it)")
+        else:
+            # A MACHINE, NOT A CATCH ROW (2026-08-25). The ear queue widened past the
+            # catch tag, and this line used to be the only thing it could say — which
+            # would have told Anna never to fire a frame Andrew fires cold every
+            # session. The catch law is a property of the ROW, never of the block.
+            lines.append(f"    [ear-behind] {t['word']} — {t['gloss'] or '[no gloss]'}  "
+                         f"(he FIRES this; the EAR is what is behind — eavesdrop/soak it, "
+                         f"and a fire here earns no ear credit)")
     return "\n".join(lines)
 
 

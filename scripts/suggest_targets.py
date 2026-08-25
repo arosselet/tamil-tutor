@@ -468,33 +468,75 @@ def is_going_dark(rec: dict, staleness: int | None) -> bool:
             and staleness >= RETEST_DAYS)
 
 
+# THE EAR'S POOL IS NOT THE CATCH TAG (2026-08-25). `direction: "catch"` answers a
+# PRODUCTION question — never force this to fire — and it was doing double duty as
+# the ear pool's membership test. That made a row have to be FORBIDDEN from
+# production to be ELIGIBLE for ear work, and the two are independent.
+#
+# What it cost, measured on the live ledger the day this changed: 21 of the 26
+# machines fire cold (the engines meter reads 21/21, saturated) and 3 are solid on
+# the ear — he can SAY them and cannot HEAR them. Only 5 carried the catch tag, so
+# the axis `sync_state status` prints as PRIMARY STEER (2026-08-16) could reach the
+# ticket with 5 of its 26 rows. Exactly the failure `generate_callbacks` fixed for
+# the callback lane on 08-17 — "eligible in principle and reachable in fact are two
+# different things" — one lane over, never made here.
+#
+# A FLOOR, NEVER A CEILING, the same idiom as PATTERN_SLOTS and `take_seats`: the
+# reservation only tops up the case where machines won no seat on the ordering
+# itself. Capping would demote them in the one situation the seat exists to protect.
+EAR_PATTERN_SLOTS = 4
+
+
 def ear_targets(lexicon: dict, today=None, reps: dict | None = None) -> dict:
-    """The OTHER direction: rows tagged `direction: "catch"` — ear-only, where
-    the win is solid recognition via eavesdrop/soak and forcing them to fire is
-    the mistake. Cleared on `recognition`, never on production.
+    """Comprehension targets: rows he has MET and cannot yet hear.
 
-    Not a rival pool to `floor_gap_targets` — a different axis. It carries no
-    tier prefix, because the touchdown bar is a production idea and catch items
-    clear on the ear. The ear starved hardest of all (1 of 12 items ever touched,
-    and that one took all 5 reps), so the shared `coverage_key` governs here too.
+    Two populations, one queue, and they need OPPOSITE instructions:
 
-    Was the catch half of `deck_status` (retired 2026-08-18). Its population is
-    unchanged by the retirement — `direction` was always the discriminator, never
-    the `deck` tag."""
+      - `direction: "catch"` — ear-ONLY. Forcing them to fire is the mistake and
+        they clear on recognition alone. That law is untouched.
+      - the machines (`type: "pattern"`). He produces them and does not hear them,
+        so ear work here is a soak/eavesdrop dose that simply does not ban a fire.
+
+    `ear_only` carries the difference to every caller. One line for both is how the
+    catch law gets lost — `due_menu_block` prints "never ask him to fire it", which
+    is true of a catch row and false of a machine he fires cold every session.
+
+    NOT a rival to the callback lane, and the division is deliberate: word-level ear
+    return is `generate_callbacks`' job (every row, every level, recognition-keyed
+    intervals). This queue is the machines and the catch pairs — the inventory that
+    carries the sentence skeleton, and the one a menu can actually be made of.
+
+    NEVER-SURFACED ROWS STAY IN, and this queue is the exception to the callbacks'
+    met-only rule (tried and reverted 2026-08-25, caught by the s-cadence case before
+    it shipped). A callback is a RETURN clock, so it returns what was met. This is a
+    COVERAGE queue — `coverage_key` leads with fewest-lifetime-reps precisely so the
+    never-worked row sorts to the head — and for a catch row, never-worked is not a
+    row awaiting first contact elsewhere: the eavesdrop dose IS its first contact,
+    and it advances through that dose and no other. Excluding them emptied the pool
+    that `morning_knock.remaining_room` reads to decide the eavesdrop cadence is
+    overdue, which is a warning going silent, behind a bare `except: pass`.
+
+    Was the catch half of `deck_status` (retired 2026-08-18); the catch tag alone
+    until 2026-08-25 — see EAR_PATTERN_SLOTS for what that cost."""
     today = today or local_today()
     if reps is None:
         reps = rep_counts(lexicon)
-    catch = [(w, r) for w, r in lexicon.items() if r.get("direction") == "catch"]
 
     def stale(r: dict) -> int:
         ds = days_since(r.get("last_surfaced"), today)
         return NEVER_SURFACED if ds is None else ds
+
+    pool = [(w, r) for w, r in lexicon.items()
+            if r.get("direction") == "catch" or r.get("type") == "pattern"]
 
     pending = [{
         "word": w, "gloss": r.get("gloss", ""),
         "kind": "frame" if r.get("type") == "pattern" else r.get("type", "chunk"),
         "recognition": r.get("recognition"), "staleness": stale(r),
         "last_surfaced": r.get("last_surfaced"),
+        # Ear-only is the CATCH TAG, never "is it in this queue" — a machine sits
+        # here precisely because his ear is behind his mouth on it.
+        "ear_only": r.get("direction") == "catch",
         # The pair, resolved for the drill: hear this, say that. A catch item
         # with a partner is drillable as a UNIT — recognizing it is only half
         # the win if the answer doesn't arrive (2026-07-26).
@@ -503,11 +545,22 @@ def ear_targets(lexicon: dict, today=None, reps: dict | None = None) -> dict:
         "reps": reps.get(w, 0), "soaked": len(r.get("seen_in", [])),
         "exposures": r.get("exposures", 0),
         "production": r.get("production", "none"),
-    } for w, r in catch if r.get("recognition") != "solid"]
+    } for w, r in pool if r.get("recognition") != "solid"]
     pending.sort(key=coverage_key)
-    return {"total": len(catch), "pending": pending,
-            "caught": sum(1 for _, r in catch if r.get("recognition") == "solid"),
-            "untouched": sum(1 for _, r in catch if not r.get("last_surfaced"))}
+
+    # The machines' reserved seats — a top-up, only when the natural order starved
+    # them. Words outnumber machines in this queue and decay on the same clock, so
+    # the majority wins every seat forever unless the minority is held one.
+    held = [c for c in pending[:EAR_PATTERN_SLOTS] if c["kind"] == "frame"]
+    if len(held) < EAR_PATTERN_SLOTS:
+        seated = {c["word"] for c in
+                  [c for c in pending if c["kind"] == "frame"][:EAR_PATTERN_SLOTS]}
+        pending = ([c for c in pending if c["word"] in seated]
+                   + [c for c in pending if c["word"] not in seated])
+
+    return {"total": len(pool), "pending": pending,
+            "caught": sum(1 for _, r in pool if r.get("recognition") == "solid"),
+            "untouched": sum(1 for _, r in pool if not r.get("last_surfaced"))}
 
 
 def register_coverage(lexicon: dict, today=None) -> dict | None:
@@ -957,12 +1010,20 @@ def main():
 
     ear = ear_targets(lexicon, today=today, reps=reps)
     if ear["total"]:
-        print(f"\n1a. EAR-ONLY  ({ear['caught']}/{ear['total']} solid — eavesdrop/soak targets; "
-              f"win = recognition, never force these to fire)")
+        # NO RATIO IN THIS HEADER (2026-08-25). It read "3/12 solid" while the
+        # meters — where a number belongs — print Machines heard 3/26 two surfaces
+        # away. A menu that carries its own score invites reading it as progress;
+        # the ticket's job in this block is WHICH, never HOW MANY.
+        print("\n1a. THE EAR  (comprehension — the primary steer; win = recognition, "
+              "never a fire)")
         print("-" * 60)
         for t in ear["pending"][:8]:
             never = " · never worked" if t["staleness"] >= NEVER_SURFACED else ""
-            print(f"  - [{t['kind']}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{t['recognition']}{never}]")
+            # A machine sits here because his EAR is behind his MOUTH on it — 21 of
+            # 26 fire cold, 3 are heard. Say which, or the block reads as one
+            # do-not-fire list and the catch law quietly widens to cover them.
+            axis = "" if t["ear_only"] else "  · he FIRES this — the ear is what is behind"
+            print(f"  - [{t['kind']}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{t['recognition']}{never}]{axis}")
             if t.get("pairs_with"):
                 print(f"      ↳ he answers: {t['pairs_with']} — {t['response_gloss'] or '[no gloss]'}"
                       f"  (drill the PAIR: hear it, answer it — recognition alone isn't the win here)")

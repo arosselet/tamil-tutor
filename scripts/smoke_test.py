@@ -129,6 +129,8 @@ def main():
         run(state.s63_the_machines_reach_the_ticket)
         run(state.s64_the_ask_cooldown_covers_the_session_lane, sb)
         run(state.s65_the_ordering_outlives_the_deck, sb)
+        run(state.s76_the_ear_queue_is_not_the_catch_tag, sb)
+        run(state.s77_the_wild_line_reaches_the_session, sb)
         run(compose.s66_json_mode_is_actually_sent, mk, kr, sb)
         run(publish.s68_the_convergence_audit_fixes, sb)
         run(state.s69_two_readers_two_tickets, sb)

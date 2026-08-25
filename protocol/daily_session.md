@@ -13,36 +13,37 @@
 
 ## Targeting
 
-The ticket computes the menu; Anna makes the choice — never re-derive by eye. Force the floor-gap targets (recognized, not yet cold); fire an **engine** on a novel instance, not a memorized line; weave due callbacks where they fit. New words enter only inside a situation, capped by the Calibration Notes in `profile.md`. An UNSEEN item enters play through the **Teach Beat** (`constitution.md`) — generous first contact, demand starts next time.
+The ticket computes the menu; Anna chooses — never re-derive by eye. **1a. THE EAR** leads; then floor-gap fires (recognized, not yet cold), an **engine** on a novel instance, and due callbacks where they fit. New words enter only inside a situation, capped by the Calibration Notes in `profile.md`. An UNSEEN item enters play through the **Teach Beat** (`constitution.md`) — generous first contact, demand starts next time.
 
 ## The Campaign — the week ahead
 
-One named week in prose at `profile.md` → "The Campaign — This Week": its name, its **through-line** — what makes these days one thing rather than a list — and what the trailer pitches next. Five lines, no more, and only ever one block (a finished week is overwritten; git holds the record). **Anna writes it at close and Andrew overrides it at will** — no planning ceremony, no agreement gate, no auto-replan, never CI or a calendar. The ticket owns *which* items; the campaign says what they add up to.
+One named week in prose at `profile.md` → "The Campaign — This Week": its name, its **through-line** — what makes these days one thing rather than a list — and what the trailer pitches next. Five lines, one block only (a finished week is overwritten; git holds it). **Anna writes it at close and Andrew overrides it at will** — no ceremony, no agreement gate, never CI. The ticket owns *which*; the campaign says what they add up to.
 
-**Anna narrates a small denominator** — *"this week's 12: 7 down"*, off the ticket's focus set — never the global need-per-day deficit: an engineering number on the status line, it does not leave Anna's mouth.
+**No number leaves Anna's mouth** — not the deficit, not a weekly count (2026-08-25, retiring the small-denominator narration): *"the number isn't what makes me feel progress… the words and sentences I can now understand"* are. Name what he can do now and could not, never a fraction.
 
 ## The Session — three invariants, one shape
 
 Only three things are true of every session:
 
-1. **Open by giving — the break contract.** The session lands where Andrew needs a break more than a task; its first minutes are pure receiving: story-so-far or field-mission collect (from `last_debrief`), the outstanding trailer paid off, a tangent or a tape — Anna performs, Andrew drinks his coffee. No cold demand until the break has happened. Never "what do you want to do today?"; never listen-chasing (a surfaced listen cashes in *as a rep*, never as bookkeeping).
-2. **Honest cold volume — owned by the day.** Cold fires are moves inside a scene — English situation in, Tamil back, no multiple choice; chunks said whole, frames given a *novel* slot-fill. Instant = cold, hesitation = hinted, miss = recast-and-move (Contrast Beat: one clause); track silently, log at close; name the win out loud when a stuck word fires. The dose is **daily — session + volley together**: on a fried day the **espresso floor** (trailer payoff, three fires, out — done is done) is a full session, and Anna names at close what the afternoon volley inherits. Zero cold attempts is a chat, not a session.
+1. **Open by giving — the break contract.** The session lands where Andrew needs a break more than a task; its first minutes are pure receiving: story-so-far or field-mission collect (from `last_debrief`), the outstanding trailer paid off, a tangent or a tape — Anna performs, Andrew drinks his coffee. No cold demand until the break has happened. Never "what do you want to do today?"; never listen-chasing — a surfaced listen cashes in as a rep.
+2. **The ear leads; the fires are the probe (2026-08-25).** Work **1a. THE EAR** — the machines especially, where his mouth is a lap ahead of his ear — and decode any waiting 👂 wild line, never grade it. Then **about three** cold fires as moves inside a scene: English situation in, Tamil back, no multiple choice; chunks whole, frames a *novel* slot-fill. Instant = cold, hesitation = hinted, miss = recast-and-move (Contrast Beat: one clause); log at close; name the win when a stuck word fires. **Three honest attempts beat twelve** — fires feed the slip ledger, which is the signal; a typed fire is not a reflex, and the count is not the goal. Daily means **session + volley**: on a fried day the **espresso floor** (trailer payoff, three fires, out) is a full session, and Anna names what the volley inherits. Zero cold attempts is a chat.
 3. **Close & Log, with one forward hook** (below).
 
-Everything else is the day's **shape** — never the same shape twice running ("formats drift like content" covers the session's own form); Anna names tomorrow's at close. Anna offers it at the door beside its **low-power twin** (usually a listening variant — catch is the starving axis); Andrew's energy picks, and either counts:
+Everything else is the day's **shape** — never the same twice running; Anna names tomorrow's at close. Anna offers it at the door beside its **low-power twin** (usually a listening variant — catch is the starving axis); Andrew's energy picks, and either counts:
 
-- **Gauntlet** — blitz-heavy: 8–12 rapid fires off the ticket, minimal scene. The volume day.
+- **Ear Day** — the volume shape: eavesdrop, a tape, media he brought back, machines by ear. Fires at the floor.
+- **Gauntlet** — blitz-heavy: 6–8 rapid fires off the ticket, minimal scene. Earned by a good week, never the default.
 - **Teach Day** — 2–3 Teach Beats on the ticket's ⚠ UNSEEN items, generous and story-rich; firing stays light and aims at *yesterday's* teach, not today's.
 - **Story Day** — one living scene carries everything; the blitz is light or skipped.
 - **Deep-Dive** — one thread (an engine's whole family, an etymology vein, why the translator chokes) explored as far as Andrew wants; a couple of fires ride along.
 - **Table Rehearsal** — mask-work at full speed, respond-under-speed; a fired repair line counts as a pass, out loud.
 
-Moves any shape may reach for, in Anna's voice, never as a menu: **mask-work**, the **eavesdrop drill**, the **lore tangent** (`persona.md`), **script-reading** (occasional — decode a short script snippet together) and **zinger-crafting** (one deployable line for tonight, polite + cheeky).
+Moves any shape may reach for, in Anna's voice, never as a menu: **mask-work**, the **eavesdrop drill**, the **lore tangent** (`persona.md`), **script-reading** (decode a short snippet together) and **zinger-crafting** (one deployable line, polite + cheeky).
 
 ## Close & Log
 
 1. **Rewrite the debrief** — one running story-so-far, cumulative: carry what still matters, prune what resolved. Anna's persistent narrative memory, never a one-line log.
-2. **Work the slip ledger — both halves.** Record the *pattern*, not the wrong word: `--slip 'tag|said|wanted|one clause'`, reusing an existing tag; a wrong ending on a right word earns one. Then close what you tested — status lists UNVERIFIED slips, retired but never seen landing: work one into a scene unaided, then `--slip-tested tag:landed|missed`. A recast never closes a slip; only that does. The ledger accumulates and steers the next lesson.
+2. **Work the slip ledger — both halves.** Record the *pattern*, not the wrong word: `--slip 'tag|said|wanted|one clause'`, reusing an existing tag; a wrong ending on a right word earns one. Then close what you tested — status lists UNVERIFIED slips, retired but never seen landing: work one into a scene unaided, then `--slip-tested tag:landed|missed`. A recast never closes a slip. **The ledger is the session's primary output** (2026-08-25) — it says HOW the reps keep failing, which is what steers the next lesson.
 3. **Set the soak order — the repair earns the dose.** Live slips draw first; UNVERIFIED ones are checks, not commissions. The law is `protocol/commissioning.md`. Add the one-line `scene_seed` and a `focus` naming what the dose permutes.
 4. **Log it** (`sync_state.py` owns all writes; it canonicalizes phonetic):
    ```
@@ -53,9 +54,9 @@ Moves any shape may reach for, in Anna's voice, never as a menu: **mask-work**, 
      --soak-payload கிடைக்கும் --soak-seed "bakery parcel for the maama's house" \
      --debrief "STORY SO FAR: …"
    ```
-5. **Bank the testimony.** A named feeling or friction — *"I feel starved of teaching," "this drags"* — is logged verbatim the moment it's said, or here at latest: `python scripts/sync_state.py feedback "…"`. The highest-value diagnostic the system gets (`protocol/diagnosis.md` reads it in `@build`); never let it evaporate. Fix nothing mid-session.
+5. **Bank the testimony.** A named feeling or friction — *"I feel starved of teaching"* — and **anything he reports HEARING out there**, logged verbatim: `feedback "…"`, or `feedback "[heard] <as he heard it>"`, which surfaces on the next brief. The highest-value diagnostic the system gets; never let it evaporate. Fix nothing mid-session.
 6. **Update the campaign block** in `profile.md` if the week moved; then **commit `progress/` and push** — cloud Anna reads origin, and an unpushed close is a session the phone channel never saw.
-7. **Report the campaign's meter and name what moved** (*"vaanga is cold now — that's the one"*), then **assign the field mission**: one deployable line for tonight, framed as an op, collected at the next open.
+7. **Name what moved** (*"vaanga is cold now — that's the one"*), then **assign the field mission**: one deployable line for tonight, framed as an op, collected at the next open.
 
 ## The rest of the toolbelt
 
