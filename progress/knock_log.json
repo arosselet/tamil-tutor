@@ -5300,8 +5300,8 @@
     ],
     "volley_next": 4,
     "response": "reply",
-    "reply": "Shree? I haven’t been taught this so I’m guessing",
-    "reply_verdict": "miss",
+    "reply": "Oh right. 👍",
+    "reply_verdict": "chat",
     "reply_fired": [
       "சரி சரி",
       "எவ்ளோ",
@@ -5312,8 +5312,8 @@
       "வலது பக்கம் திரும்புங்க"
     ],
     "reply_fired_capped": [],
-    "reply_line": "Fair guess — it's simply 'ava'.",
-    "reply_at": "2026-08-26T11:28:33Z",
+    "reply_line": "Nice work on the blitz today da.",
+    "reply_at": "2026-08-26T11:30:04Z",
     "exchanges": [
       {
         "at": "2026-08-26T11:23:46Z",
@@ -5373,6 +5373,19 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "Fair guess — it's simply 'ava'.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-26T11:30:04Z",
+        "reply": "Oh right. 👍",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "Nice work on the blitz today da.",
         "slips": [],
         "spoke": "",
         "scheduled": ""
