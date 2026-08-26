@@ -26,6 +26,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > close — 'evlo aagum?' adds the 'will it come to'. · 3/4 — Driver is about to miss the cut — direct him to turn right.
 
+**16:56 · Andrew** — **COLD**
+> Valadu pakkam thirumbunga
+
+**Anna ↩**
+> adhu dhaan! Spot on. · 4/4 — Talking about your sister-in-law casually — just drop the word for 'she'.
+
 
 ## Tuesday 2026-08-25
 

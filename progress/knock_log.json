@@ -5298,20 +5298,22 @@
         "ask": "Talking about your sister-in-law casually — just drop the word for 'she'."
       }
     ],
-    "volley_next": 3,
+    "volley_next": 4,
     "response": "reply",
-    "reply": "Evlo?",
+    "reply": "Valadu pakkam thirumbunga",
     "reply_verdict": "cold",
     "reply_fired": [
       "சரி சரி",
-      "எவ்ளோ"
+      "எவ்ளோ",
+      "வலது பக்கம் திரும்புங்க"
     ],
     "reply_fired_cold": [
-      "சரி சரி"
+      "சரி சரி",
+      "வலது பக்கம் திரும்புங்க"
     ],
     "reply_fired_capped": [],
-    "reply_line": "close — 'evlo aagum?' adds the 'will it come to'. · 3/4 — Driver is about to miss the cut — direct him to turn right.",
-    "reply_at": "2026-08-26T11:25:24Z",
+    "reply_line": "adhu dhaan! Spot on. · 4/4 — Talking about your sister-in-law casually — just drop the word for 'she'.",
+    "reply_at": "2026-08-26T11:26:41Z",
     "exchanges": [
       {
         "at": "2026-08-26T11:23:46Z",
@@ -5344,10 +5346,27 @@
         "slips": [],
         "spoke": "",
         "scheduled": ""
+      },
+      {
+        "at": "2026-08-26T11:26:41Z",
+        "reply": "Valadu pakkam thirumbunga",
+        "verdict": "cold",
+        "fired": [
+          "வலது பக்கம் திரும்புங்க"
+        ],
+        "fired_cold": [
+          "வலது பக்கம் திரும்புங்க"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! Spot on. · 4/4 — Talking about your sister-in-law casually — just drop the word for 'she'.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
       }
     ],
-    "chained": 2,
-    "pinned_target": "வலது பக்கம் திரும்புங்க",
+    "chained": 3,
+    "pinned_target": "அவ",
     "pinned_revealed": false
   }
 ]
