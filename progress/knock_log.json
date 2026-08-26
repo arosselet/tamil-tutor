@@ -5298,6 +5298,40 @@
         "ask": "Talking about your sister-in-law casually — just drop the word for 'she'."
       }
     ],
-    "volley_next": 1
+    "volley_next": 2,
+    "response": "reply",
+    "reply": "Seri seri",
+    "reply_verdict": "cold",
+    "reply_fired": [
+      "சரி சரி"
+    ],
+    "reply_fired_cold": [
+      "சரி சரி"
+    ],
+    "reply_fired_capped": [],
+    "reply_line": "adhu dhaan! seri seri works just as well. · 2/4 — Before stepping into the auto — ask what the total fare will be.",
+    "reply_at": "2026-08-26T11:23:46Z",
+    "exchanges": [
+      {
+        "at": "2026-08-26T11:23:46Z",
+        "reply": "Seri seri",
+        "verdict": "cold",
+        "fired": [
+          "சரி சரி"
+        ],
+        "fired_cold": [
+          "சரி சரி"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! seri seri works just as well. · 2/4 — Before stepping into the auto — ask what the total fare will be.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ],
+    "chained": 1,
+    "pinned_target": "எவ்ளோ ஆகும்?",
+    "pinned_revealed": false
   }
 ]

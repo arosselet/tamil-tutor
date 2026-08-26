@@ -14,6 +14,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **16:52 · Anna**  ·  volley / afternoon blitz
 > ⚡ volley 1/4 — Cousin is rambling about train delays — keep him going with a quick 'yeah, yeah'.
 
+**16:53 · Andrew** — **COLD**
+> Seri seri
+
+**Anna ↩**
+> adhu dhaan! seri seri works just as well. · 2/4 — Before stepping into the auto — ask what the total fare will be.
+
 
 ## Tuesday 2026-08-25
 
