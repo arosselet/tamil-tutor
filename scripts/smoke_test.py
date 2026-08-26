@@ -122,6 +122,7 @@ def main():
         run(knock.s50_read_surfaces_are_phonetic, mk, kr, sb)
         run(knock.s51_derived_files_are_rerendered_not_merged, mk, sb)
         run(ratchets.s52_andrew_is_family_already, sb)
+        run(ratchets.s78_the_open_gives_before_it_takes, sb)
         run(state.s71_a_new_record_is_born_reachable, sb)
         run(knock.s60_the_ear_meter, kr, sb)
         run(knock.s61_no_number_is_recited_at_him, kr, sb)

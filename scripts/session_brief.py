@@ -175,8 +175,14 @@ def heard_in_the_wild(cap: int = 5) -> list[str]:
             and e["note"][len(HEARD_TAG):].strip().lower() not in worked]
     # Returns the printable BLOCK, header included — the shape `format_slip_block`
     # already set, so the caller stays two lines and one owner holds the wording.
-    return ["", "👂 HEARD IN THE WILD, NOT YET WORKED — open the session on one of "
-            "these; decode it, never grade it. Close with "
+    #
+    # This block does NOT claim the open (2026-08-26). It used to say "open the
+    # session on one of these" while `unpaid_trailer` printed "its promised teach
+    # OPENS the session" four lines above — two Python voices asserting the same
+    # slot, with nothing ordering them, and neither one is the law. The open is
+    # daily_session.md invariant 1; a wild line is ear work (invariant 2).
+    return ["", "👂 HEARD IN THE WILD, NOT YET WORKED — work one of these into "
+            "the session; decode it, never grade it. Close with "
             "`feedback \"[heard-worked] <line>\"`."] + body[-cap:] if body else []
 
 

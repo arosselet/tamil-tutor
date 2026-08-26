@@ -17,7 +17,7 @@ import re
 from pathlib import Path
 
 from ._fixtures import (
-    check, code_lines, ONLY, RAN, raw_source, REAL_BASE, Recorder, run,
+    check, code_lines, mechanism, ONLY, RAN, raw_source, REAL_BASE, Recorder, run,
 )
 
 
@@ -671,6 +671,78 @@ def s52_andrew_is_family_already(sb: Path):
           "constitution.md" in head,
           "Scenario Context invents the framing; without this line the Director "
           "reads only profile.md + learner.json and cannot know")
+
+
+def s78_the_open_gives_before_it_takes(sb: Path):
+    """The break contract survives a busy month (2026-08-18, Andrew).
+
+    For a week after touchdown the session opened on collects and traps, and he
+    named it himself: "what happened to the coffee & lore at the start of our
+    sessions? they disappeared without warning."
+
+    NOTHING WAS CONTRADICTED — that is the whole point of this case. Invariant 1
+    listed "field-mission collect" among its own PURE RECEIVING moves, and a
+    collect asks him to report. So when the campaign block inverted the channel
+    law for the stay ("chat's job is no longer first contact — it is
+    decomposition on demand and ambushes"), Anna obeyed both files exactly and
+    picked the one gift on the list that was really a demand. A precedence rule
+    would have found no conflict to resolve; a payload budget would have found
+    no growth. The law had a taker mislabelled as a giver.
+
+    THE SILENT NO-OP that earns the case. The 08-18 repair went into the
+    campaign block in `profile.md` and nowhere else — a file whose own header
+    says it is "rewritten (not appended) every ~5 sessions", and whose campaign
+    block is overwritten whenever the week turns. Measured: 5,968 words on 08-10
+    down to 3,383 on 08-14. The fix was scheduled for deletion by design, the
+    hole in invariant 1 stayed open, and the day the block was next rewritten
+    the coffee would have gone again with every instrument green. So the rule is
+    asserted where it is LAW, not where it was noticed.
+    """
+    print("\n78. The open gives before it takes — the break contract (2026-08-18)")
+    # Flattened: the prose is hard-wrapped, so a phrase can straddle a newline.
+    law = " ".join((sb / "protocol" / "daily_session.md")
+                   .read_text(encoding="utf-8").split())
+
+    head = "1. **Open by giving — the break contract.**"
+    check("daily_session.md still declares invariant 1", head in law,
+          "the break contract is the one invariant Andrew has personally "
+          "reported losing; it may not leave the law silently")
+    inv = law.split(head, 1)[1].split("2. **", 1)[0] if head in law else ""
+
+    # The bug lived inside the invariant's OWN enumeration of receiving moves,
+    # so that list is what gets read — not the file, where the word "collect"
+    # appears legitimately (Close & Log assigns the next field mission).
+    bounded = "pure receiving:" in inv and "— Anna performs" in inv
+    check("...and its receiving list is still bounded by its two markers", bounded,
+          "the enumeration moved or was reworded — this case cannot see the "
+          "list any more and fails closed rather than reporting green on a "
+          "surface it stopped reading")
+    gifts = (inv.split("pure receiving:", 1)[1].split("— Anna performs", 1)[0]
+             if bounded else "")
+    check("no collect hides in the list of gifts", bounded and "collect" not in gifts,
+          "a field-mission collect asks him to report — it is a demand wearing "
+          "a gift's clothes, and listing it here is exactly how the open was "
+          "lost for a week in August")
+    check("...and the law itself defers it until after the performance",
+          "waits until Anna has performed" in inv,
+          "the deferral lived only in profile.md's campaign block, which is "
+          "overwritten every few sessions — if it is not here it is not law")
+
+    # ONE VOICE AT THE DOOR. The brief is Python, so it outranks prose in
+    # practice: Anna reads it every open. It printed "open the session on one of
+    # these" for the heard-in-the-wild block four lines below the unpaid
+    # trailer's "its promised teach OPENS the session" — two claims on one slot,
+    # neither of them the law, nothing ordering them.
+    brief = mechanism((REAL_BASE / "scripts" / "session_brief.py")
+                      .read_text(encoding="utf-8"))
+    check("the heard-in-the-wild block does not claim the open",
+          "open the session on" not in brief,
+          "a wild line is ear work (invariant 2); the brief may route it into "
+          "the session, never to the door")
+    check("...while the unpaid trailer still does, alone",
+          "OPENS the session" in brief,
+          "invariant 1 names the trailer payoff as an opening beat — this is "
+          "the one Python voice entitled to the slot")
 
 
 # ── THE STACK, DECLARED (2026-08-25) ─────────────────────────────────────────
