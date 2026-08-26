@@ -617,5 +617,17 @@
     "note": "marked the destination as a location — -ku is toward, -la is at",
     "word": "",
     "dose_channel": "drill"
+  },
+  {
+    "at": "2026-08-26T10:28:54Z",
+    "date": "2026-08-26",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "copula-for-identity",
+    "said": "mappilai irukken",
+    "want": "naan mappilai",
+    "note": "bolted irukken onto an identity noun — Tamil drops the verb for WHO you are, keeps it for where/how you are",
+    "word": "",
+    "dose_channel": "soak"
   }
 ]

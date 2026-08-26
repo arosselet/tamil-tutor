@@ -4,7 +4,7 @@
 > **Read by:** `protocol/studio/director.md` and `protocol/daily_session.md` before picking targets.
 > **Purpose:** A teacher's living *judgment* of Andrew — not counts. The hard numbers (recognition buckets, production axis, viability floor) live in `progress/lexicon.json`; read them with `python scripts/sync_state.py status`. This file says what they *mean* and where to point next.
 >
-> **Last updated:** 2026-08-25
+> **Last updated:** 2026-08-26
 
 ---
 
@@ -58,9 +58,9 @@
 
 **Soak → chat in one cycle is the fastest conversion this system has (2026-08-25).** The -en/-om pairs rendered at 10:11; by that afternoon *ponom* fired unaided in a we-scene. That is the 9×/29d slip, unstable in both directions three days earlier, landing clean on the day its dose shipped. Minimal pairs on the same verb, nothing else moving, every item from his own pockets — that recipe is proven, use it again. **Commission the dose the morning of the session, not the week after.**
 
-**A mission is only as good as its trigger — third time this has been the failure (2026-08-25).** He came back from *romba alaichal* not with a debrief but with *"what's the trigger for me to say it?"*, because I had welded it to someone ASKING about the beach. Unwelded: **the trigger is the door.** He walks in from anywhere, bag down, chair, and announces it half-sighing — no question required, fires daily because he goes out daily. Before assigning any mission, count how many times a day the room hands him the slot. If the answer needs someone else to speak first, redesign it.
 
-**Missions die at the trigger, not at the line (added 2026-08-19).** Two running have gone unfired for want of an opening — the 08-15 repair line and the spoon. Both times the Tamil was ready and the *moment* never showed, and both times that was my design, not his nerve. A mission is only as good as how many times a day the room hands him the slot. Fix the trigger before blaming the reflex: *naane eduthukkaren* was welded to a ladle at dinner; unwelded, it fires on any object moving toward him — plate, jug, bag, chair — six times a day.
+
+**Missions die at the SPEECH ACT, not the trigger (2026-08-26 — this replaces the two trigger paragraphs of 08-19 and 08-25; both were a half-truth and both were mine).** Four missions have now gone unfired, and *romba alaichal* died **twice** — the second time after I had already unwelded its trigger to the door and congratulated myself for it. The trigger was never the variable. Look instead at what fires: on 08-26 he landed four in a row and **every single one was an answer** — the driver about to miss the turn, the driver's *"neenga tourist-aa?"*, maami's *"innikki enna panninga?"*, two aunties gossiping across him. He is strong in the **response slot** and dying in the **initiation slot** — and every mission I have ever assigned was self-initiated speech into a room that was not asking, which is the hardest speech act in the language, handed out as homework. **A mission must be an ANSWER to something the room says on its own schedule.** Count the openings the room *speaks* at him, never the openings he could theoretically take.
 
 **He tests the rules he is given, and he is right to (2026-08-19).** Handed a tidy three-instance carve on word order, he came straight back at the seam and it did not hold: the three slips were not one crime, and today's was marked-but-grammatical rather than wrong. Give him the flexible truth — verb last, question word hugs the verb, when and where up front — and never a false absolute dressed up as a pattern. He will find it, and a rule that breaks under him costs more than the one it replaced.
 

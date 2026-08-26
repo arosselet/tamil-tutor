@@ -2729,13 +2729,13 @@
       "appadi illa"
     ],
     "recognition": "struggled",
-    "production": "hinted",
+    "production": "cold",
     "seen_in": [
       51,
       52
     ],
     "last_surfaced": "2026-08-26",
-    "reps": 2,
+    "reps": 3,
     "exposures": 1
   },
   "அப்படியே": {
@@ -3166,7 +3166,7 @@
     "deck": "trip",
     "direction": "fire",
     "exposures": 6,
-    "reps": 1,
+    "reps": 2,
     "register": "public"
   },
   "சில்லறை இருக்கா?": {
@@ -5205,9 +5205,9 @@
     "seen_in": [
       78
     ],
-    "last_surfaced": "2026-08-25",
+    "last_surfaced": "2026-08-26",
     "exposures": 2,
-    "reps": 2
+    "reps": 3
   },
   "சாப்பிட்டோம்": {
     "gloss": "",
@@ -5266,9 +5266,9 @@
     "seen_in": [
       78
     ],
-    "last_surfaced": "2026-08-02",
+    "last_surfaced": "2026-08-26",
     "exposures": 1,
-    "reps": 1
+    "reps": 2
   },
   "சமைச்சோம்": {
     "gloss": "",

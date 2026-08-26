@@ -386,5 +386,13 @@
   {
     "date": "2026-08-24",
     "note": "[phone] Andrew claims podhum is baseline day-one muscle memory; skip teaching/debriefs on it."
+  },
+  {
+    "date": "2026-08-26",
+    "note": "2026-08-26, on the alaichal mission: 'romba alaichal I didn't find an opening.' Fourth mission dead at the trigger, and the SECOND death for this one after I had already unwelded it to the door on 08-25. The diagnosis is no longer trigger design: every fire he landed today was an ANSWER to something said to him (driver's near-miss, driver's question, maami's question, aunties' gossip). He is strong in the response slot and dying in the initiation slot. Missions must be answers to things the room says on its own schedule, not lines he opens with."
+  },
+  {
+    "date": "2026-08-26",
+    "note": "[@build] render_drill.py 2026-08-26 printed: exposure 'திரும்புங்க' not in lexicon — skipped. The bare verb has no row; only 'வலது பக்கம் திரும்புங்க' does. So the drill lane taught the word it was commissioned for and could not stamp it, and the same gap silently ate my --produced-hinted 'valadhu pakkam thirumbunga' until I re-logged it in script. Two faces of one defect: a payload word can be commissioned without a lexicon row existing to receive it."
   }
 ]
