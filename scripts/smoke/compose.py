@@ -636,8 +636,9 @@ def s70_the_executor_is_chosen_by_the_host(sb: Path):
     # `push_queue` is pure delivery: ZERO model calls at fire time, by design.
     # What it fires was composed at ADD time and is only RENDERED at fire time
     # (2026-07-24) — that is the property that keeps the lock screen fast, and
-    # docs/spine_refactor.md §4b states it as a hard constraint on Q1: "push_queue
-    # must never be given a writer stage."
+    # the retired spine-refactor plan stated it as a hard constraint on Q1: "push_queue
+    # must never be given a writer stage" (docs/spine_refactor.md §4b, deleted 2026-08-26
+    # once executed; recover it from git if the reasoning is needed).
     #
     # It was stated and never enforced. The client check above only catches
     # `OpenAI(`, so this lane could have grown `from writer import ask_json` and

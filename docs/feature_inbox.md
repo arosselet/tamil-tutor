@@ -4,6 +4,214 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **THREE STATE ROWS EXIST ONLY ON DELETED BRANCHES — a backfill decision, not a bug**
+  (2026-08-26, found by the consolidation pass; **needs Andrew's call before anything is
+  written**). Eleven local `claude/*` branches were checked against `main` file by file.
+  Nine carried nothing `main` did not already have, in better form, and were deleted. **Two
+  carried real observations that never landed**, and they are held undeleted until this is
+  decided:
+  - `claude/first-flight-i57pzu` (`c47569f`, 2026-08-11) — a **`session_log.json` row for
+    2026-08-11** that is absent from `main`: three cold fires (எவ்ளோ ஆகும், வலது பக்கம்
+    திரும்புங்க, இன்னொரு தடவ சொல்லுங்க), `floor_pct` 26.8, `engines_pct` 90.5, and the
+    on-the-plane send-off debrief. The log jumps 08-10 → 08-14. It also carries lexicon
+    movements for those three rows.
+  - `claude/language-learning-reflection-vyzp91` (`e2e6bfb`, `eb10626`, 2026-08-13) — **two
+    `feedback_log.json` rows for 2026-08-13**, day 1 in country. The first is the
+    first-contact field report; the second explicitly *"REVISES SIGNAL 3 OF THE ENTRY ABOVE
+    AND RESETS WHAT THE TRIP IS FOR"*. `main` has an 08-11 feedback row and then nothing
+    until 08-14, so the reframe that reset the trip's purpose is not in the ledger the
+    recalibration passes read.
+  **WHY THIS IS NOT JUST "MERGE THE BRANCHES".** Both branches also carry `lexicon.json` and
+  `learner.json` as they stood on 08-11/08-13, and `main` has moved through the deck
+  retirement (08-18) since. Merging either would clobber live state. The salvage is
+  row-level, not commit-level.
+  **AND THERE IS NO WRITER FOR IT.** `sync_state.py update` stamps `local_today()`; nothing
+  accepts a back-date, and hand-editing Python-owned JSON is out of bounds by standing rule.
+  So the three real options are: **(a)** leave the gap and note it — the honest reading is
+  that 08-11 and 08-13 have no rows, and a reader can find them at the SHAs above;
+  **(b)** add a `--as-of DATE` to `update` and `feedback`, which is a CLI change on a
+  Python-owned surface and wants Gate 2; **(c)** one-off backfill under Andrew's explicit
+  waiver, appending the three rows verbatim and re-sorting by date.
+  **The recommendation is (a) plus this entry**, unless the 08-13 reframe is load-bearing for
+  the next `/recalibrate` — in which case (c) for that one row only, because a signal that
+  *"resets what the trip is for"* missing from the feedback ledger is the kind of absence
+  that silently steers the next pass. **What it would replace:** nothing, which is the
+  argument for (a).
+
+<!-- SALVAGED 2026-08-26. The two entries below were written on local branches that
+were never merged and are now deleted; they were recovered from the commits named in
+each. Both had already been re-derived on main in thinner form — that re-derivation is
+what the consolidation pass found, and it is the reason the branches are gone now
+rather than still waiting. Recovery SHAs are recorded so the originals stay reachable.
+
+BRANCH RETIREMENT LEDGER, 2026-08-26. Origin carries only `main`; all eleven of these were
+local-only. Each was compared against `main` file by file before deletion — nine carried
+nothing `main` did not already have in equal or better form. Tip SHAs, deleted:
+  0597ca0  claude/audio-augment-main-article-f2cfsq   (patch-equivalent in main)
+  c6b4c65  claude/episode-format-language-h2neyl      (superseded by the spine refactor)
+  6aed2ad  claude/india-trip-motivation-xidzr9        (inbox entry salvaged below)
+  6877b13  claude/institution-one-sharpening-mr58fr   (main's article is newer, 08-09)
+  27b2059  claude/learning-feedback-mistakes-7grsmo   (re-landed; main is ahead)
+  e0d7036  claude/learning-wife-language-zhq0pd       (patch-equivalent in main)
+  14f193f  claude/tamil-dialect-clarifications-fzd60t (main's article is newer, 08-09)
+  cfbd6d2  claude/tutor-architecture-patterns-x05txa  (patch-equivalent in main)
+  f04ff3b  smoke-per-layer                            (fully merged, 0 ahead)
+HELD, NOT DELETED — they carry state `main` never received; see the state-rows entry above:
+  c47569f  claude/first-flight-i57pzu
+  ee30c4d  claude/language-learning-reflection-vyzp91
+-->
+
+- **⏳ THE WINDOW IS STILL OPEN — READ THIS BEFORE THE OTHER EAVESDROP ENTRIES**
+  (salvaged 2026-08-26 from commit `ee30c4d`, written 2026-08-13 on
+  `claude/language-learning-reflection-vyzp91`, never merged). **This entry contains the
+  sentence "This entry exists so it stops being rediscovered every three weeks", and it was
+  then rediscovered on 2026-08-25 as "CAPTURE THE ROOM" below, thinner, because it was
+  stranded on a branch nobody read.** That is the whole cost of the branch problem in one
+  artefact.
+  **THE PART THAT IS TIME-CRITICAL.** Its "WHY NOW, AND ONLY NOW" argument turns on Andrew
+  being in the same house as both the supply of real Kongu speech and the people who can
+  rule on what it says. Checked 2026-08-26: `learner.json.timezone` is `Asia/Kolkata`, the
+  live campaign block is *The Month In Country* with a standing catch order for "one word
+  overheard off the sisters", and touchdown was 08-12. **He is still in it, with roughly two
+  weeks left.** Thirteen days of that window were spent with this analysis unreachable.
+  The recommended first step below costs no code and no schema — it is consent, a handful of
+  clips, a native-ruled transcript, and ONE dose by hand. **That is the decision in front of
+  Andrew, and it expires on the return flight.**
+  Original entry, verbatim:
+
+- **HARVEST REAL EAVESDROP AUDIO WHILE THE SUPPLY AND THE RULING AUTHORITY ARE IN THE SAME
+  ROOM** (2026-08-13, Andrew's day-1 field report from Coimbatore, proposed by @build and
+  approved for write-up only — **no build authorised**). The standing verdict *"wire real
+  audio or do not run them"* (07-28am) has sat unacted through two `/recalibrate` passes and
+  is item 5 of the 6-in-5-days third-strike count that produced the commissioning law. This
+  entry exists so it stops being rediscovered every three weeks.
+
+  **The evidence is no longer only internal.** Catch is **3/12 solid** — the weakest meter in
+  the system, and the campaign block's own words are *"the one lane going backwards."* On
+  day 1 in country Andrew independently produced the matching field reading: *"instead of
+  recognizing nothing in a sentence, I'll pick up a word or two, but I still don't know what
+  the sentence means"*, plus *"the way people slur things is more intense than I was
+  expecting"* and the deck-level version — *"the version we're teaching is still not as
+  rounded off as our target"* (`valadhu pakkam thirumbunga` is a citation form; the street
+  form is faster and more reduced). That is the third strike on the over-articulation axis
+  opened 07-31 by the native-ear verdict, and it now lands on the DECK, not only on TTS.
+
+  **WHY THIS HAS NEVER BEEN A MODALITY SWAP — the finding that should stop the next attempt
+  from underestimating it.** The eavesdrop lane is closed-loop *because Anna authors the
+  tape*: `memo_script` (`mandates.py` §eavesdrop) is simultaneously (1) the render input for
+  `EAVESDROP_VOICE` (`morning_knock.py:56`), (2) the answer key the deliberately separate
+  comprehension judge scores the drift reply against (`knock_reply.py:401-492`), and (3) the
+  basis for the `expected_target` exposure declared at the knock seam (DECISIONS 07-26).
+  Real audio breaks all three at once. **The unit of harvest is therefore not a clip — it is
+  clip + native-ruled transcript + one drift question**, and a bare recording is worthless
+  to this lane. That is the actual reason six weeks of "just wire real audio" produced
+  nothing.
+
+  **WHY NOW, AND ONLY NOW.** The blocker was never the recording; it was the transcript
+  authority. For one month the supply of real Kongu speech and the people who can rule on
+  what it says are in the same house, and Andrew has idle hours. Outside this window he has
+  the clips and no ruling authority at hand. **The window is the asset — the build is not.**
+
+  **CONTROL FLOW INVERTS, and the lane must be told so.** Today Anna commissions a tape *for*
+  a pending catch item. Harvested speech will not contain the item on request, so selection
+  runs backwards: harvest, rule the transcript, then see which catch item the clip happens to
+  carry. Any build must treat harvested audio as a *pool to match against*, never a lane that
+  can be ordered from — and the authored tape stays, unreplaced, as the on-demand half. **This
+  adds a second source to one lane; it replaces nothing.**
+
+  **HAZARDS — all four are blocking, and the first is not an engineering matter.**
+  1. **Consent, from a family, not a corpus.** Non-negotiable and asked in advance. Andrew is
+     already planning to show the project to his father-in-law, which makes the ask a natural
+     part of that conversation rather than a strange one — but the reveal is not the consent.
+  2. **THIS REPO IS PUBLIC AND `published_audio/` IS THE FEED.** `.gitignore` says it in
+     Andrew's own words: *"repo is public, never commit."* Recorded family conversation must
+     never reach the repo, the RSS feed, or a commit — not once, not "temporarily". Any build
+     needs a private local path plus a `.gitignore` entry written BEFORE the first clip
+     exists, and the harvested lane must be structurally incapable of reaching
+     `rebuild_rss.py`. Treat a leak here as the highest-severity failure in the proposal.
+  3. **The refusal law applies unchanged.** DECISIONS 07-25/08-01: a tape whose opening does
+     not name its subject is refused, never degraded to text. Real conversation frequently
+     names nobody, so **expect a low yield** — most clips will be unusable, and that is the
+     law working, not a reason to relax it for harvested audio.
+  4. **No autonomy, same as the deferred cloud-episode item.** Nothing here touches the knock
+     tick, `MAX_UNATTENDED_PER_DAY`, or the mission-number/lock hazards parked above.
+
+  **RECOMMENDED FIRST STEP — costs no code and no schema.** With consent, collect a handful
+  of clips; have a native speaker rule the transcripts; store them privately; then run ONE
+  dose BY HAND and check the only two things that matter — is the drift question answerable
+  from the audio, and does the existing judge return a sane verdict against a transcript it
+  did not author. Same discipline as the deferred `workflow_dispatch` episode step: hear
+  whether it holds up before anything is wired. **If the manual dose works, it has earned a
+  build; if it does not, this entry records why and the next pass starts from the answer
+  instead of the itch.**
+
+- **THE ORIGINAL OF THE BUDGET ARGUMENT, AND IT NAMED THE RIGHT FILE** (salvaged
+  2026-08-26 from commit `6aed2ad`, written 2026-08-11 on
+  `claude/india-trip-motivation-xidzr9`, never merged). Main re-derived this on 2026-08-26 as
+  "`docs/` IS THE SURFACE WITH NO CEILING", fifteen days later, arguing from PADF instead of
+  from our own measurements — **and landing on the colder of the two surfaces.** This
+  original went straight at `progress/profile.md`, which is the one in the session-open
+  payload. Independently re-measured 2026-08-26: `profile.md` is 5,278 words against a
+  ~9,215-word open (persona 1,970 + daily_session 1,308 + Anna SKILL 659 + profile 5,278), so
+  it is **57% of everything Anna reads at open** and the only file in that payload with no
+  ceiling. It grew ~172 words/day through August while every budgeted prose file sat pressed
+  against its number (persona 1970/2000, constitution 1789/1790, daily_session 1308/1320,
+  audio_channels 474/475, commissioning 287/300).
+  **Its "DELIBERATELY NOT ARMED" caveat still holds and is the reason this is not a one-line
+  fix:** a `PROSE_BUDGETS` row for `profile.md` goes red the moment it is added, on a file
+  only a live session can rewrite. Arm it in the same diff as the first close that rewrites
+  the campaign block to fit — per the standing rule that a raise rides its own growth.
+  **One dangling reference:** it cites `docs/THE_PACK_BOUNDARY.md`, which was created on the
+  same unmerged branch and has never existed on main. Read that citation as unreachable.
+  Original entry, verbatim:
+
+- **THE ONE PROSE SURFACE WITH NO CEILING IS THE ONE THAT ACCUMULATES** (2026-08-11).
+  Measured, not felt: `last_debrief` is **670 words** and stable, because its rule is
+  *rewrite cumulatively, prune what resolved* — a compression pass that actually runs every
+  close. The campaign block is specified in `daily_session.md` as **"Five lines, no more,
+  and only ever one block (a finished week is overwritten; git holds the record)"** and is
+  currently **2,886 words over 69 lines**, carrying seven stacked dated appendices
+  (08-04 … 08-10). `profile.md` as a whole is **5,819 words and is the only prose surface
+  in the repo outside `PROSE_BUDGETS`** — every `protocol/*.md` is ratcheted; the file that
+  grows by habit is not. The two rules produce exactly the two outcomes you would predict.
+  **This is drift, not a bug:** each appendix was worth writing on the day, and the block is
+  still read by sessions, the studio and the digest, so the cost is paid on every read.
+  **The shape when it comes off the shelf:** a `PROSE_BUDGETS` row for `profile.md`, which
+  is one config row, not a schema change. **DELIBERATELY NOT ARMED 08-11** — a budget added
+  now goes red instantly on a file only a live session can rewrite, and Andrew was an hour
+  from a flight. Arm it in the same diff as the first rewrite that fits it, per the rule
+  that a raise rides its own growth. **The general lesson is the reusable one** (see
+  `docs/THE_PACK_BOUNDARY.md`, and the 07-31 slip-ledger entry in DECISIONS): a compression
+  pass only holds if something *counts* the thing being compressed. Prose that is rewritten
+  stays small; prose that is appended grows until a reader pays for it, and nothing in the
+  system notices, because narrative has no natural unit to ratchet.
+
+- **THE TICKET NAMES TARGETS THE LOGGER WON'T ACCEPT — 84 floor-gap words are still
+  unreachable from the surface Anna writes in** (filed 2026-08-14, **deleted from this file
+  the same day by the commit that fixed only half of it**, reinstated 2026-08-26 with fresh
+  numbers). `state_io.resolve()` is exact-match against `build_phonetic_index`, which is
+  built purely from each record's hand-maintained `phonetic` list, so a record with
+  `"phonetic": []` can only ever be addressed in Tamil script — while the constitution's
+  surface split requires Anna to think and write in phonetics.
+  **What actually shipped on 08-14** (`2c4c3a9`, "a new lexicon record is born with its
+  phonetic, or not at all") was a **forward guard only**: new records cannot be created
+  without a phonetic. It did nothing about the records already holed, and it removed this
+  entry — 32 lines — in the same diff.
+  **Measured again 2026-08-26:** 95 of 352 non-frame records still carry an empty phonetic
+  list, and **84 of those are `production: none`** — very nearly the floor-gap pool itself,
+  the exact words the conversion work exists to move. Sample: கல்யாணம், அழகான, சொன்னாங்க,
+  நேரா, சொல்லுங்க. Anna still cannot log any of them with `--produced-cold` or
+  `--mark-seen` without falling back to script through a UTF-8 shell.
+  **The remaining work is a backfill, not a mechanism** — one pass that writes a phonetic
+  onto 95 existing rows, which is rows of data and therefore free under the structure
+  freeze. It needs Andrew or the Oracle to rule the transliterations; that is the only
+  reason it is filed rather than done.
+  **THE FILING LESSON, which is why this entry is worth its space twice:** it was retired on
+  the mechanism instead of on the effect, and deleted instead of struck through and moved to
+  `## Shipped`, so the file lost all memory of the 84 words. A shipped entry gets a strike
+  and a move; it never gets a delete.
+
+
 - **`PROSE_BUDGETS` HAS NO COMPLETENESS GUARD — `CODE_BUDGETS` DOES** (2026-08-26, proposed,
   NOT built — six lines inside `s18_size_budgets`, no new file, so Gate 2 does not park it).
   The bottom of `s18` already asserts *"every script under `scripts/` carries a code budget"*,
@@ -35,12 +243,20 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
   has noticed. Either prose gets the same exemption, or the table says out loud why
   prompt-prose is different.
 
-- **`docs/` IS THE SURFACE WITH NO CEILING** (2026-08-26, proposed, NOT built — a new
+- **`docs/` IS THE SURFACE WITH NO CEILING** — **RE-DERIVATION of the salvaged 2026-08-11
+  entry at the top of this file, which named `progress/profile.md` instead and was right to
+  (2026-08-26).** Both can stand; the payload one goes first because it is hot and this one
+  is cold by its own admission. (2026-08-26, proposed, NOT built — a new
   archive tree plus a budget table, so Gate 2 parks it). Found reading PADF, Kavish's
   governance kit, against this repo. `PROSE_BUDGETS` covers `protocol/*.md` and the six
   mandates; `CODE_BUDGETS` covers every `scripts/*.py`. `docs/` has neither — only the
-  150-word *forward* per-entry cap on DECISIONS. Measured 2026-08-26: `docs/` totals 60,894
-  words — `DECISIONS.md` 30,948, this file 12,031, `spine_refactor.md` 7,107. **This is the
+  150-word *forward* per-entry cap on DECISIONS. Measured 2026-08-26 (pre-consolidation):
+  `docs/` totalled 60,894 words — `DECISIONS.md` 30,948, this file 12,031,
+  `spine_refactor.md` 7,107. **Re-measured after the same-day consolidation pass: 56,098**,
+  with `spine_refactor.md` and `deck_retirement.md` retired (both executed whole) and this
+  file up to 15,712 by the salvage. So the pass bought ~8,500 words back and this file spent
+  ~3,000 of them — which is the honest shape of it: retiring finished work orders is cheap
+  and repeatable, and it did not touch the two files that actually grow. **This is the
   CODE_BUDGETS argument one directory over**, in its own words: the word budget held prose flat through July while Python went
   2566 → 6032 lines, because "April's 'fight drift by adding' failure mode simply moved to
   the surface that had no ceiling." It moved again, and this file is one of the two places
@@ -125,7 +341,12 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
   rules: one frozen forever and crude, for morale; one improvable, for targeting. One number
   cannot do both jobs, and this system has been asking one to.
 
-- **CAPTURE THE ROOM — spike first, and it may not survive the spike** (2026-08-25, proposed
+- **CAPTURE THE ROOM — spike first, and it may not survive the spike** — **RE-DERIVATION;
+  read the salvaged 2026-08-13 entry at the top of this file first (2026-08-26).** That one
+  is strictly richer: it names why six weeks of "just wire real audio" produced nothing
+  (`memo_script` is render input, judge answer key and `expected_target` declaration at
+  once), it carries the four blocking hazards including the public-repo one, and it inverts
+  the control flow. Kept below for the spike framing it adds. (2026-08-25, proposed
   and explicitly NOT adopted). The idea: record real family speech, transcribe it, and let it
   supply items instead of `curriculum/word_pool.json` (333 hand-curated rows that cannot scale
   to the 1,500–2,500 families `comprehension_plan.md` scopes). **Andrew's objection is the
@@ -401,7 +622,13 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
   in the feedback ledger, second occurrence, past the diagnosis bar.
 
 - **AT THE COMPUTER: finish the Andrew-intro naturalness pass — it is blocked on the Oracle,
-  not on work (2026-07-30).** Branch `claude/tamil-intro-naturalness-cr4wy2` carries a
+  not on work (2026-07-30).** **⚠ THE BRANCH IS GONE (checked 2026-08-26).**
+  `claude/tamil-intro-naturalness-cr4wy2` exists neither locally nor on origin — origin
+  carries only `main`. The applied fixes reached `content/scripts/special_andrew_intro.md`
+  (it is at v8 on main), so what was lost is the six-section review prose, not the edits.
+  **Anything below that describes the branch describes a place you cannot go**; treat the
+  summary in this entry as the surviving record. It
+  carried a
   six-section Coimbatore-ear review of `special_andrew_intro.md`, judged against attested
   spoken usage rather than grammar-book correctness. The confident zero-cost fixes are
   applied and committed; **the script has NOT been re-rendered and the existing
@@ -648,7 +875,16 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
   wants it incorporated, not deleted, by upserting its 322 entries into the lexicon with
   their `cluster` tag so there is one store and one schema. Not done; see below.
 
-- **`--debrief` alone counts as a session (found 2026-07-25).** `sync_state.py update`
+- ~~**`--debrief` alone counts as a session (found 2026-07-25).**~~ — **CLOSED 2026-08-26 on
+  verification, not on a new fix. Superseded by the same-day-merge fix that shipped
+  2026-07-31** (recorded under "A word taught in-session cannot enter the lexicon", second
+  half). `sync_state.py`'s session-log write no longer appends: it finds today's row and
+  unions into it, percentages take the latest call, and an absent debrief never blanks the
+  one already written. A `--debrief`-only call therefore cannot create a row of its own.
+  **It was left open for four weeks because the fix was written up inside a different
+  entry** — the filing failure, not the code, is what this closure is evidence of. Original
+  report follows.
+  `sync_state.py update`
   appends a session-log row when *any* of cold/hinted/demoted/listened/debrief is present
   (line 451), so correcting a debrief for bookkeeping reasons writes a zero-fire "session"
   — it moved *last logged session* to today and put a zero-fire day into the trailing-pace
@@ -774,56 +1010,10 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
   passing through to `--soak-payload/--soak-seed/--soak-focus/--soak-channel`, drained by
   `run_studio` on the next tick. Andrew named this one himself.
 
-## Shipped
 
-- ~~THE REPAIR EARNS THE DOSE — audio commissioned off his errors~~ — SHIPPED 2026-07-28
-  (same session as the `/recalibrate` pass that found it; Andrew: *"I agree with your
-  diagnosis and want to fix this now"*). The commissioning law now lives in
-  `protocol/audio_channels.md` → "What it carries", split there rather than bumping
-  `daily_session.md`'s budget; Close & Log step 2 fires it and points at it. Repairs
-  outrank the forward seed order, a survived collision earns its own order, and
-  `MAX_UNATTENDED_PER_DAY` went 1 → 3 (Andrew: *"guardrails to a problem that was
-  temporary"*). Smoke case s37 is the regression net. The queue-of-one fix stayed
-  deliberately unbundled — see the item under Ideas. DECISIONS 2026-07-28 entries.
-
-- ~~The declared-events ledger build~~ — SHIPPED 2026-07-26 (dedicated @build session,
-  same day as the design): judge-seam rep increments + `rep_counts` reads declared
-  counters only; delivery-seam exposure stamps (`sync_state.mark_exposed`) at episode
-  registration, soak, drill, knock push and the queue drain; `-soaked` flipped to a
-  least-exposed term in `coverage_key`; focus cohort stored in `learner.json`
-  (reconciled at the two graduation seams); reps backfilled from judged replies
-  (Andrew's yes — 49 reps / 26 words); s32/s33/s34 rewired to the real seams;
-  `pairs_with` split now refuses the whole seed. See DECISIONS 2026-07-26 entries.
-
-- ~~`suggest_targets.py` has zero smoke coverage~~ — SHIPPED 2026-07-19 (wrap-up
-  session): smoke case s23 plants the proven crash class (a `special_*` string-mission
-  sidecar) and runs the full ticket end-to-end on day-zero state.
-- ~~Registration canonical-at-write~~ — SHIPPED 2026-07-17 same evening (Andrew's
-  token-discretion grant): `claim_payload()` in `run_studio.py`; corrected diagnosis
-  and full record in DECISIONS ("The sidecar must claim the soak payload"). Dupes
-  merged; M65/M67 stamps repaired.
-- ~~Fixed-time anchor push~~ — MOOT, closed by the 2026-07-17 review on the deferral's own
-  test: Anna fires volleys reliably unforced (07-14 15:13, 07-15 15:46, 07-17 13:07 EDT —
-  the afternoon slot the 07-13 lunch-anchor decision assigned). No Python-forced anchor;
-  "outreach policy is Anna's" stands untouched.
-- ~~`frame:idum` has no lexicon record~~ — RESOLVED by 2026-07-17 review: a full record
-  exists (new engine record, not folded into done-ittu — gloss even names the boundary:
-  "bolts onto a clean single verb, not a compound"). The 07-13 cold fire (`book
-  pannidum`) that was skipped for want of a record was applied during the review.
-
-- ~~Explicit contrast beat~~ — DONE 2026-07-08 (same-day canon amendment, Andrew approved):
-  a recast may carry ONE clause of why, by example, never terminology — one clause is a
-  beat, two is a lecture. Canonical in `constitution.md` → The Contrast Beat; echoed in
-  persona/daily_session/judge mandate.
-- ~~Per-word verdicts in the reply judge~~ — DONE 2026-07-03 (same day it was found —
-  Andrew approved building it): the judge grades each fired word on its own
-  (`fired: [{word, verdict}]`), Python derives the reply's overall verdict as the best
-  word, the revealed-cap stays deterministic per word, and the burn rate reads the new
-  `reply_fired_cold` (legacy entries fall back to the old flat count). Evidence that
-  motivated it: 2026-07-02 19:18, three deck items fired in one reply, all flattened to
-  the single "hinted".
-- ~~Day-zero ticket guard~~ — DONE 2026-07-03: `suggest_targets.py` (and `generate_callbacks.py`) now treat an *empty* lexicon as valid day-zero state; only a missing file errors. A fresh learner gets a real first-session ticket.
-- ~~Knock digest could carry the ticket's deck top~~ — DONE 2026-07-02: `build_digest()` appends the deck-due menu (fire + ear-only), and the mandate points `expected_target` at it.
+<!-- The block below was filed under `## Shipped` between 2026-07-27 and
+2026-08-18 and is OPEN. Restored to Ideas 2026-08-26; the heading had stopped
+meaning anything and two Gate-2 holds were sitting on the wrong side of it. -->
 
 - **Fielding has no cadence gate, and it is a sole-owner channel** (2026-07-27, noticed
   while mapping the architecture). Catch and heard-question→produced-answer are each
@@ -849,7 +1039,14 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
   denominator that replaces `15/34 survival cold` on the status line is the one decision
   that cannot be deferred past touchdown — and it depends on what the trip exposes, so it
   is deliberately left open rather than guessed now.
-- **A pure state correction inflates the session count** (2026-07-27). `sync_state.py update`
+- ~~**A pure state correction inflates the session count** (2026-07-27).~~ — **CLOSED
+  2026-08-26 on verification. Third filing of one bug**, with the 07-25 `--debrief` entry
+  above and the second half of the `--teach` entry; the 2026-07-31 same-day-merge fix closed
+  all three and only one of them was ever marked. The proposed `--correction` flag was never
+  built and is no longer needed: a correction call merges into the existing row rather than
+  appending a second one. **What this cost:** one bug held three seats in the inbox for four
+  weeks, and the count of open items was wrong by that much every time the file was read.
+  Original report follows. `sync_state.py update`
   appends a `session_log.json` row unconditionally, so crediting the two 07-27 volley fires
   from the court-of-appeal path wrote a second 07-27 session with an empty note. Recency from
   the session log is the honest momentum signal (no streak, by design) — a correction is not a
@@ -903,8 +1100,17 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
   softer version of the same blindness. Cheap version: report worked/tested as a pair on
   the ticket, the way the ear-only line already hints at ("4 heard in an episode but never
   asked"). No schema change — `reps` already exists.
-- **Episodes run at a fifth of their own spec, and the evidence is partly fabricated**
-  (2026-08-05, found while chasing "it could have gone longer"). `architect.md` targets
+- **Episodes run at a fifth of their own spec** — ~~**and the evidence is partly
+  fabricated**~~ (2026-08-05). **HALF SHIPPED 2026-08-10, noted here 2026-08-26.** The
+  measurement half is fixed: `render_audio.get_duration` now opens *"Measured, or LOUD —
+  never a plausible fiction (2026-08-10)"* and refuses to invent a number when ffprobe is
+  missing. **The length shortfall itself is still open, and it is now testable** — every
+  episode registered since 08-10 carries a real duration or an honest absence, so the
+  question "do episodes hit their spec" can finally be answered from `episodes.json` instead
+  of argued from nine rows polluted by 3.0-minute placeholders. **Do that measurement before
+  proposing any mechanism**; the original entry's numbers are not evidence any more.
+  M78–M85 remain stamped 3.0 and should be read as unknown, not short. Original report
+  follows. `architect.md` targets
   **5–8 min** for a classic and **12–18** for a narrated_drama. Measured recent episodes:
   0.73, 0.73, 0.90, 1.18, 1.18, 1.65, 2.43, 2.43, 3.47 — only M72 (10.04) ever hit spec.
   That is across forms, so the payload-is-the-scale fix (2026-08-05) does not touch it.
@@ -993,3 +1199,56 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
   `drill_menu` row) plus a case in `s48`; the argument against is that a guaranteed-miss
   followed by the answer twice may be exactly how an unseen item *should* enter the mouth.
   Worth one question to Andrew before either.
+
+
+## Shipped
+
+
+- ~~THE REPAIR EARNS THE DOSE — audio commissioned off his errors~~ — SHIPPED 2026-07-28
+  (same session as the `/recalibrate` pass that found it; Andrew: *"I agree with your
+  diagnosis and want to fix this now"*). The commissioning law now lives in
+  `protocol/audio_channels.md` → "What it carries", split there rather than bumping
+  `daily_session.md`'s budget; Close & Log step 2 fires it and points at it. Repairs
+  outrank the forward seed order, a survived collision earns its own order, and
+  `MAX_UNATTENDED_PER_DAY` went 1 → 3 (Andrew: *"guardrails to a problem that was
+  temporary"*). Smoke case s37 is the regression net. The queue-of-one fix stayed
+  deliberately unbundled — see the item under Ideas. DECISIONS 2026-07-28 entries.
+
+- ~~The declared-events ledger build~~ — SHIPPED 2026-07-26 (dedicated @build session,
+  same day as the design): judge-seam rep increments + `rep_counts` reads declared
+  counters only; delivery-seam exposure stamps (`sync_state.mark_exposed`) at episode
+  registration, soak, drill, knock push and the queue drain; `-soaked` flipped to a
+  least-exposed term in `coverage_key`; focus cohort stored in `learner.json`
+  (reconciled at the two graduation seams); reps backfilled from judged replies
+  (Andrew's yes — 49 reps / 26 words); s32/s33/s34 rewired to the real seams;
+  `pairs_with` split now refuses the whole seed. See DECISIONS 2026-07-26 entries.
+
+- ~~`suggest_targets.py` has zero smoke coverage~~ — SHIPPED 2026-07-19 (wrap-up
+  session): smoke case s23 plants the proven crash class (a `special_*` string-mission
+  sidecar) and runs the full ticket end-to-end on day-zero state.
+- ~~Registration canonical-at-write~~ — SHIPPED 2026-07-17 same evening (Andrew's
+  token-discretion grant): `claim_payload()` in `run_studio.py`; corrected diagnosis
+  and full record in DECISIONS ("The sidecar must claim the soak payload"). Dupes
+  merged; M65/M67 stamps repaired.
+- ~~Fixed-time anchor push~~ — MOOT, closed by the 2026-07-17 review on the deferral's own
+  test: Anna fires volleys reliably unforced (07-14 15:13, 07-15 15:46, 07-17 13:07 EDT —
+  the afternoon slot the 07-13 lunch-anchor decision assigned). No Python-forced anchor;
+  "outreach policy is Anna's" stands untouched.
+- ~~`frame:idum` has no lexicon record~~ — RESOLVED by 2026-07-17 review: a full record
+  exists (new engine record, not folded into done-ittu — gloss even names the boundary:
+  "bolts onto a clean single verb, not a compound"). The 07-13 cold fire (`book
+  pannidum`) that was skipped for want of a record was applied during the review.
+
+- ~~Explicit contrast beat~~ — DONE 2026-07-08 (same-day canon amendment, Andrew approved):
+  a recast may carry ONE clause of why, by example, never terminology — one clause is a
+  beat, two is a lecture. Canonical in `constitution.md` → The Contrast Beat; echoed in
+  persona/daily_session/judge mandate.
+- ~~Per-word verdicts in the reply judge~~ — DONE 2026-07-03 (same day it was found —
+  Andrew approved building it): the judge grades each fired word on its own
+  (`fired: [{word, verdict}]`), Python derives the reply's overall verdict as the best
+  word, the revealed-cap stays deterministic per word, and the burn rate reads the new
+  `reply_fired_cold` (legacy entries fall back to the old flat count). Evidence that
+  motivated it: 2026-07-02 19:18, three deck items fired in one reply, all flattened to
+  the single "hinted".
+- ~~Day-zero ticket guard~~ — DONE 2026-07-03: `suggest_targets.py` (and `generate_callbacks.py`) now treat an *empty* lexicon as valid day-zero state; only a missing file errors. A fresh learner gets a real first-session ticket.
+- ~~Knock digest could carry the ticket's deck top~~ — DONE 2026-07-02: `build_digest()` appends the deck-due menu (fire + ear-only), and the mandate points `expected_target` at it.

@@ -197,7 +197,8 @@ tape plus directed-speed ambush). Tier C proper: 2-3 years.
    against "contact time > completion" and a documented history of fades. Unresolved.
 7. ~~**What happens to the Trip Deck**~~ — **ANSWERED AND EXECUTED 2026-08-18**: retired now
    rather than at the end of the stay (Andrew: lean and coherent is the success criterion, not
-   day-to-day teaching). Scoped in `docs/deck_retirement.md`, decided in `DECISIONS.md`, shipped
+   day-to-day teaching). Scoped in the deck-retirement work order (retired 2026-08-26, executed
+   whole), decided in `DECISIONS.md`, shipped
    the same day. The tier ordering was migrated onto the lexicon rows as `register` and kept; the
    container, the deadline (`TRIP_DATE`), the burn rate and the sprint meter are gone. Nine ticket
    selectors became five, and no section claims primacy any more.

@@ -10,8 +10,9 @@ said so: `render_audio` had to defer `from morning_knock import commit_and_push`
 to function scope to dodge a cycle, and `sync_state` — the sole state writer,
 which sits BELOW every lane — reached UP to a lane to get its commit.
 
-The law being installed (docs/spine_refactor.md §2, and stated twice in this repo
-already for single pairs of modules): imports point one way, down the stack, and
+The law being installed (DECISIONS "Imports point one way, down the stack", 2026-08-23;
+the spine-refactor plan it came from was retired 2026-08-26 once fully executed — git
+holds it): imports point one way, down the stack, and
 a channel never owns an invariant that more than one channel obeys. This file is
 that invariant for delivery. A lane hands over what it produced; it does not own
 the ordering, the quiet-hours check, or the commit list.

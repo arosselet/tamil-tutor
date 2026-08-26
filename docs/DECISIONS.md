@@ -2098,7 +2098,7 @@ Details live in git history; this is the index of the *conclusions*.
 
 - **Retire the Trip Deck** (2026-08-18, Andrew: *"deletion, cleanup should ease a lot of the other
   symptoms, instead of a dozen patchwork fixes"*). Decided here; executed against
-  `docs/deck_retirement.md`. The deck is a **container** whose reason expired at touchdown; the
+  `docs/deck_retirement.md` (retired 2026-08-26; in git). The deck is a **container** whose reason expired at touchdown; the
   tiers are an **ordering** that is durable. Retire the first, keep the second. Evidence: the
   ticket runs 361 lines over 9 pools with **three** sections claiming primacy (deck, slip ledger,
   machines heard), and every insight since July added a pool without retiring one — the
@@ -2108,7 +2108,8 @@ Details live in git history; this is the index of the *conclusions*.
   removing the deck naively deletes the ordering silently. Migrate first. `deck` tags and
   `seed-deck` are kept as provenance.
 
-- **`register` is a lexicon row field** (2026-08-18, Andrew, commissioned in `docs/deck_retirement.md`
+- **`register` is a lexicon row field** (2026-08-18, Andrew, commissioned in the deck-retirement
+  work order, since retired
   — a deliberate Gate 2 schema change during the structure freeze). It is the ordering the retired
   deck left behind: antifreeze/public/frame → survival, faq/mil-table/social → delight,
   gossip/zinger → dessert. It **replaces** the menu-time join of `curriculum/trip_deck.json` keyed on
@@ -2351,7 +2352,7 @@ Details live in git history; this is the index of the *conclusions*.
   been one component's property was written into every lane, and one lane missed it.*
   Budgets re-censused DOWN in-diff: `morning_knock` 637 -> 450, `sync_state` -45;
   paying for `writer` 175, `publish` 150, `state_io` 110. Smoke: 70 cases, no assertion
-  changed, 26 ADDRESSES moved. Detail: `docs/spine_refactor.md`.
+  changed, 26 ADDRESSES moved. Detail: `docs/spine_refactor.md` (retired 2026-08-26).
 
 - **A case is isolated by scoping its stubs, not by splitting the file**
   (2026-08-24). **Replaces** §4b Q2's premise that "a case cannot be run in
