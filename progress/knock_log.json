@@ -5242,7 +5242,9 @@
     "next_check": "2026-08-26T02:34:01.655516+00:00",
     "body": "🚪 Tonight's mission: walk in the door, drop the bag, sigh it out — 'romba alaichal' (exhausting runaround). Debrief tomorrow.",
     "expected_target": "ரொம்ப அலைச்சல்",
-    "target_revealed": true
+    "target_revealed": true,
+    "response": "ack",
+    "response_at": "2026-08-26T07:22:29Z"
   },
   {
     "date": "2026-08-26",
