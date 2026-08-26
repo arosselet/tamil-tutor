@@ -5268,5 +5268,36 @@
     "move": "awaiting lunch session",
     "rationale": "Trailer for auto turns is active for today's lunch break session; standing down to let him open terminal.",
     "next_check": "2026-08-26T11:10:16.035072+00:00"
+  },
+  {
+    "date": "2026-08-26",
+    "timestamp": "2026-08-26T11:22:21.734325+00:00",
+    "acted": true,
+    "modality": "volley",
+    "move": "afternoon blitz",
+    "rationale": "Afternoon slot post-session is the prime window for high-volume rapid production; running the binding 4-item volley.",
+    "next_check": "2026-08-26T14:52:21.734325+00:00",
+    "body": "⚡ volley 1/4 — Cousin is rambling about train delays — keep him going with a quick 'yeah, yeah'.",
+    "expected_target": "ஆமா ஆமா",
+    "target_revealed": false,
+    "volley": [
+      {
+        "target": "ஆமா ஆமா",
+        "ask": "Cousin is rambling about train delays — keep him going with a quick 'yeah, yeah'."
+      },
+      {
+        "target": "எவ்ளோ ஆகும்?",
+        "ask": "Before stepping into the auto — ask what the total fare will be."
+      },
+      {
+        "target": "வலது பக்கம் திரும்புங்க",
+        "ask": "Driver is about to miss the cut — direct him to turn right."
+      },
+      {
+        "target": "அவ",
+        "ask": "Talking about your sister-in-law casually — just drop the word for 'she'."
+      }
+    ],
+    "volley_next": 1
   }
 ]
