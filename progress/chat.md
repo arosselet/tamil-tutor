@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Wednesday 2026-08-26
+
+**09:17 · Anna**  ·  text / trailer: auto turns
+> 🛺 Auto driver missing your cut: 'thirumbunga' (turn) vs 'ponga' (go). In today's session, we nail the junctions.
+
+
 ## Tuesday 2026-08-25
 
 **09:12 · Anna**  ·  text / lore: table rhythm

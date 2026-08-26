@@ -5243,5 +5243,17 @@
     "body": "🚪 Tonight's mission: walk in the door, drop the bag, sigh it out — 'romba alaichal' (exhausting runaround). Debrief tomorrow.",
     "expected_target": "ரொம்ப அலைச்சல்",
     "target_revealed": true
+  },
+  {
+    "date": "2026-08-26",
+    "timestamp": "2026-08-26T03:47:58.733110+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "trailer: auto turns",
+    "rationale": "Late morning session anchor: teeing up the pending auto-navigation verb drill (thirumbunga vs ponga) ahead of his lunch break.",
+    "next_check": "2026-08-26T07:17:58.733110+00:00",
+    "body": "🛺 Auto driver missing your cut: 'thirumbunga' (turn) vs 'ponga' (go). In today's session, we nail the junctions.",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]
