@@ -82,7 +82,7 @@ python scripts/push_queue.py drain
 
 **Playbook — push arrived twice (KF-1 pattern):**
 1. Check `knock_log.json` for two entries with `scheduled: true` and the same `due` timestamp or close timestamps.
-2. Confirm drain version is post `1f5b304`: it caps at `non_forced_fired = True` after the first non-forced fire per tick. If the bug recurs, add a smoke case.
+2. Confirm drain version is post `0b3443b`: it caps at `non_forced_fired = True` after the first non-forced fire per tick. If the bug recurs, add a smoke case.
 3. If two forced entries fired: that is expected — `force: true` bypasses the cap by design.
 
 **Playbook — check queue state:**

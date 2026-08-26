@@ -3,7 +3,7 @@
 > **Status:** the plan is executed and its settled parts live in `docs/DECISIONS.md`
 > (three 2026-07-18 entries: the narrated-drama form, script-only narration, the
 > re-render/SFX policy). Branch merged. Polyglot v4 is done — the "reps" ear-check fix
-> and its re-render rode one commit (`cbc921a`). What remains is Andrew's; **delete
+> and its re-render rode one commit (`a277350`). What remains is Andrew's; **delete
 > this file when both boxes are checked.**
 
 - [ ] **Listen-check M68 v2** (`tier2_mission68_v2.mp3`) — SFX cues now render as a

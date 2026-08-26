@@ -160,7 +160,7 @@ Details live in git history; this is the index of the *conclusions*.
   and the deck menu demotes recently-asked items so ripest-first can't farm the same
   headliner into a permanent hinted. Root causes in `/debug` → KF-6.
 - **language-tutor syncs by milestone re-extraction, never per-fix backports**
-  (2026-07-06). The template is an agent *elaboration* of Tamil@`1691c34` (tagged
+  (2026-07-06). The template is an agent *elaboration* of Tamil@`0c684ef` (tagged
   `template-v1-source`), not a file copy — fixes can't port as patches, and per-fix
   backporting into a mid-QA moving target is recurring manual work. Let it drift; re-run
   the extraction wholesale once Anna 1.0 QA settles (or before actively sharing the
@@ -596,7 +596,7 @@ Details live in git history; this is the index of the *conclusions*.
   SFX library stays unbuilt.
 - **Second milestone re-sync — `template-v3-source`** (2026-07-16; recorded 2026-07-19,
   backfilled — the sync pre-dated `/backport`'s distill contract). language-tutor now
-  elaborates Tamil@`2b752fb`: the knock-loop engine advance since v2 re-applied
+  elaborates Tamil@`3e6c12e`: the knock-loop engine advance since v2 re-applied
   semantically — knock_id reply correlation (KF-9), fenced-JSON parse fallback (KF-10),
   lore/eavesdrop cooldown guards, teach-first `introduces` + shared `is_unseen()`,
   pull-before-read status banner, delivery retry, deck-tier ordering. The seam law held
@@ -707,7 +707,7 @@ Details live in git history; this is the index of the *conclusions*.
   *dispatches* — the renderer is the thing that mutates state.
 - **The watchdog's premise stands; its 07-18 reliability claim does not** (2026-07-23,
   Andrew: it "snuck in"). Provenance: parked in the inbox's unendorsed `## Ideas` tier on
-  07-17, shipped the next day inside four-feature audit-night commit `4003b6b`. Five days,
+  07-17, shipped the next day inside four-feature audit-night commit `4fe6017`. Five days,
   four actions: two clean, one needing a same-day patch (`_vN` resurrection put a stale
   GUID back in the feed), one outright failure that destroyed a draft. Local-not-CI is
   right and the session-open drain stays primary. The cron is **paused** pending Andrew's
@@ -853,7 +853,7 @@ Details live in git history; this is the index of the *conclusions*.
   files (TTS segments concatenated with `SILENCE_FRAME` copies, where one bad header
   desyncs the walk) misreads by **up to 40%, in both directions**: 68 files, median error
   4.8%, only 35 within 5%. Proven in the feed's own history: the 07-23 ffprobe fix landed
-  correct numbers from the laptop at 23:27, and the very next cloud rebuild (`f5de185`,
+  correct numbers from the laptop at 23:27, and the very next cloud rebuild (`91c5d0f`,
   07-24 22:56 — an agent commit) reverted the library wholesale. M72 announced 13:12 for a
   10:02 episode for two days. Andrew's framing is the one that generalises: **the estimator
   was never the bug — recomputing a published value was.** So `existing_pub_dates()` becomes
@@ -1328,7 +1328,7 @@ Details live in git history; this is the index of the *conclusions*.
   carries a message-exact `-ignore`. Verified against 1.7.7 and 1.7.12 that the
   suppression is narrow — the `runner`-in-job-env outage the lint step exists for is
   still caught. Delete the flag when actionlint learns the key.
-  **Supersedes the per-`knock_id` group** introduced silently in `f94d924`
+  **Supersedes the per-`knock_id` group** introduced silently in `38e7275`
   (2026-07-24), which never had a DECISIONS entry — its whole justification lived in
   a code comment, which is how an unexamined preference got to read as a law.
 - **The tick returns to `*/30`; "hourly" was never hourly** (2026-07-28, Andrew).
@@ -1450,20 +1450,20 @@ Details live in git history; this is the index of the *conclusions*.
   **CORRECTED same day, after reading the history: this was a REGRESSION, not an
   oversight — and the word-budget pass is what caused it.** Andrew's surprise
   (*"I thought commissioning was part of the point"*) was justified; he wrote the rule
-  himself on **2026-06-16** (`c340e0d`, titled "close the chat↔audio loop"): *"**Set the
+  himself on **2026-06-16** (`4666c58`, titled "close the chat↔audio loop"): *"**Set the
   Soak Order:** IF THE SESSION REVEALED A SPECIFIC STRUGGLE (a `hinted` word, a floor-gap
   word, a missed recast), Anna names it as the structured soak order… the audio pipeline
   soaks exactly what chat just strained, not a separate curriculum."* Same rule, same
-  population. **2026-07-16** (`b62454b`, the subtraction pass) compressed it to *"payload
+  population. **2026-07-16** (`92e95a4`, the subtraction pass) compressed it to *"payload
   (what chat strained)"* — the **conditional** and the **qualifying list** collapsed into a
   parenthetical gloss, turning an instruction about what to put in the field into a
-  description of the field. **2026-07-17** (`497d9f2`) added the seed order beside a rule
+  description of the field. **2026-07-17** (`9b97cc3`) added the seed order beside a rule
   disarmed the day before, so the two read co-equal; **07-26**'s campaign rewrite then gave
   forward a name, a through-line and a `profile.md` block while backward still had a
   parenthetical. Forward never won a fair fight.
   **The general hazard, and the reason this is worth writing down: prose compression is
   lossy in one direction — it keeps nouns and drops conditionals.** *"If X, do Y"* becomes
-  *"Y (X)"*, which reads fine and instructs nothing. `b62454b` rewrote all of
+  *"Y (X)"*, which reads fine and instructs nothing. `92e95a4` rewrote all of
   `daily_session.md`; **other conditionals may have gone the same way and nobody has
   looked.** Note also that `studio.md` never lost it — its contract still reads *"what Anna
   just strained in chat… the other half of the loop"* — so the CONSUMER kept faith while the
@@ -1726,7 +1726,7 @@ Details live in git history; this is the index of the *conclusions*.
   distilled from Andrew's engineering-vs-learning audit). He asked whether the deep bugs of
   the past fortnight were placeholders, under-described features, or true regressions.
   Answer: **all three are present** — commissioning was a real regression (worked from
-  `c340e0d` 06-16, killed by the `b62454b` 07-16 compression pass), deck starvation was
+  `4666c58` 06-16, killed by the `92e95a4` 07-16 compression pass), deck starvation was
   *never built* (the sort had no staleness term; prose said rotation, code said
   alphabetical), the sidecar callback branch was a **placeholder whose partiality was never
   recorded**, and the `session_log` append was simply wrong from the start. But that cut
@@ -1735,7 +1735,7 @@ Details live in git history; this is the index of the *conclusions*.
   they measured that a step RAN, never that its PURPOSE was served. Soak order *set* vs.
   *contains the day's repair*; item *surfaced* vs. *coverage across the deck*; callback *in
   the script* vs. *lexicon record exists*; close *written* vs. *close survives the write*.
-  **The evidence that settles it:** `9c2da01` (07-30) shipped `slip_closes` with a DECISIONS
+  **The evidence that settles it:** `70ee737` (07-30) shipped `slip_closes` with a DECISIONS
   entry AND a smoke case, and the feature was dead on arrival for a full day — `s41` tested
   the judge-side slip logic, never called `cmd_update`, never re-read `learner.json`. Green
   suite, dead feature, correct process. The root cause wearing best practice as camouflage.
@@ -2269,7 +2269,7 @@ Details live in git history; this is the index of the *conclusions*.
   identity UNIQUE per message or iOS replaces a notification with its successor. They
   collided once two replies landed on one knock — both via the Shortcut, which carries no
   knock_id, so both fell back to `last_fired_knock` and minted the same tag. 43 seconds
-  apart, a test message ate the answer to "inge poringe" — judged, committed `e1fa4ea`,
+  apart, a test message ate the answer to "inge poringe" — judged, committed `cd2f5e8`,
   HTTP 200, never seen. Textbook silent no-op: green run, correct `chat.md`, observable only
   on the wire. Minted in `push_to_phone` now, which came out a line shorter. Smoke `s67`.
 

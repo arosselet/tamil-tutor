@@ -65,7 +65,7 @@ judged against the second (last-logged) knock, not the one he was actually answe
 `knock_reply.py last_fired_knock()` always targets the last `acted=true` entry.
 **Fix:** Drain caps at one non-forced fire per tick; the rest defers to the next tick.
 **Verify:** `python scripts/smoke_test.py` → section 6 (regression #1).
-**Commit:** `1f5b304`
+**Commit:** `0b3443b`
 
 ### KF-2: Prose-wrapped LLM JSON killed a knock tick (2026-07-04, fixed)
 **Symptom:** Knock workflow shows `Expecting value: line 1 column 1 (char 0)`; no knock fired.
@@ -75,7 +75,7 @@ the old parser only handled ` ``` ` code fences, so bare prose raised immediatel
 → falls back to the outermost `{...}` slice → prints raw text before re-raising so the
 log shows what came back, not just that it failed.
 **Verify:** `python scripts/smoke_test.py` → section 1 (regression #2).
-**Commit:** `dc1e1fd`
+**Commit:** `c5e3b4b`
 
 ### KF-3: Misaligned expected_target — coherence mismatch (2026-07-03–05, fixed)
 **Symptom:** Valid Tamil replies repeatedly scored as "miss"; judge felt rigid for days.
@@ -86,7 +86,7 @@ ask for that target. Judge voids a mis-targeted knock and grades against the bod
 answers instead. Teach-before-quiz flag (UNSEEN) on never-soaked deck items.
 **Verify:** read last `knock_log.json` entries — `body` and `expected_target` must be
 aligned (the body's natural answer should be `expected_target`).
-**Commit:** `3c4a534`
+**Commit:** `4504d86`
 
 ### KF-4: HA audio branch silently disabled (2026-07-01, fixed)
 **Symptom:** Audio knocks deliver text only — no inline player, no attachment error.
@@ -109,7 +109,7 @@ the newest `.mp3` in `published_audio/`.
 **Root cause:** Model returned a Python-style dict (`{'act': True, ...}` single-quoted keys). The `{..}` slice found the braces but `json.loads` rejects single quotes. The tell: second error at `char 1` (char after `{` is `'`, not `"`).
 **Fix:** `ast.literal_eval` added as third fallback (handles single quotes + Python `True`/`False`/`None`). Logging added before all re-raise paths so the raw text always prints.
 **Verify:** `python scripts/smoke_test.py` → section 1 (single-quoted keys, python-dict in prose).
-**Commit:** `1f5c38f`
+**Commit:** `1ea16bb`
 
 ### KF-6: Chain pin destroyed the ask · menu blind to recency · hallucinated reveals (2026-07-06, fixed)
 **Symptom:** Log's `expected_target` absurd vs the body (looked like KF-3 returning);
@@ -126,7 +126,7 @@ same-ask repeats; the judge's reveal-cap trusted model memory of what had been s
 and outcome memory carries the ask; `revealed_recently()` computes reveals from the log —
 the judge may cap against that list only.
 **Verify:** `python scripts/smoke_test.py` → section 10 (regression #3).
-**Commit:** `a13d3b9`
+**Commit:** `b2ecd44`
 
 ### KF-9: Notifications clobbered each other — deliberate tag, obsolete reason (2026-07-11, fixed)
 **Symptom:** Each push replaces the previous on the phone; a volley landed, then vanished
@@ -293,7 +293,7 @@ input fix — one ask per message — beats any ceiling.
 **Verify:** `python scripts/smoke_test.py` → section 1. The teeth are on *telling them
 apart*: the case asserts truncation does NOT raise `JSONDecodeError`, that the error names
 itself, and that the partial text survives — plus two no-false-positive cases.
-**Commit:** `c2a921e`
+**Commit:** `149767c`
 
 ### KF-8: Lore format takeover — incentive drift, not taste (2026-07-11, fixed)
 **Symptom:** Andrew: today's lore push "basically a duplicate" of last week's; the format
