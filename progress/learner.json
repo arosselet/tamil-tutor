@@ -12,7 +12,11 @@
     "from": "2026-08-25",
     "focus": "GO vs TURN — the verb-direction collision, 3x over 20d and never once given a dose. He fires 'ponga' (carry on / go) when the room needs 'thirumbunga' (turn). Mouth-reps, not soak: this is a line he must SAY to a driver at speed, from the back seat, with the junction arriving. Build it as the same trip repeated — valadu pakkam thirumbunga / idadu pakkam thirumbunga / neraa ponga / inga niruthunga — so ponga and thirumbunga sit in the SAME sentence family and the choice is forced by the situation, not the vocabulary. HARD CONSTRAINT (his testimony 2026-08-23): every lexical item already in lexicon.json. He owns valadu, idadu, pakkam, inga niruthunga, ponga. Nothing novel but the contrast. Never name a rule.",
     "channel": "drill",
-    "form": "narrated_drama"
+    "form": "narrated_drama",
+    "delivered": {
+      "channel": "drill",
+      "at": "2026-08-26"
+    }
   },
   "next_engine": "frame:polite-nga",
   "focus_cohort": [
