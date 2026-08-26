@@ -4,6 +4,112 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **`PROSE_BUDGETS` HAS NO COMPLETENESS GUARD — `CODE_BUDGETS` DOES** (2026-08-26, proposed,
+  NOT built — six lines inside `s18_size_budgets`, no new file, so Gate 2 does not park it).
+  The bottom of `s18` already asserts *"every script under `scripts/` carries a code budget"*,
+  with its own reason attached: *"a new file is the obvious way past a ceiling, so an
+  unbudgeted one is a red run rather than a silent exemption."* **That law was never applied
+  to prose.** `PROSE_BUDGETS` is a hand-written table over five `protocol/*.md` files plus
+  six mandate strings, and **seven `protocol/*.md` files on disk carry no number at all**:
+  `studio/architect.md` 1,926, `studio/director.md` 1,596, `studio/producer.md` 893,
+  `studio/studio.md` 744, `studio/hosts.md` 461, `studio/dialect.md` 402, `diagnosis.md` 353
+  — **6,375 words**, of which 6,022 are studio prompt that `run_studio.py` names on **every
+  render**. They were split out of budgeted files and grew without ever touching a ceiling.
+  **Why this outranks the two entries below:** those bound cold surfaces (`docs/`, read by
+  no runtime path) or sum surfaces already bound (the payload). This one reaches prompts
+  that ship. **What it would replace:** nothing — honest Gate 4: it is a ratchet, and it
+  subsumes the useful half of the payload entry rather than standing beside it.
+  **THE REAL COST, named up front.** `architect.md` is where *"variation is structural"* and
+  the scene-spec gate live, and `constitution.md` → Fresh Execution bans reading past scripts
+  as models — so those prompts are the whole anti-templating defence. Squeezing them is how
+  the feed goes samey, which `/debug` already treats as a plumbing symptom. Set each number
+  at census + generous headroom, and write the split-signal note into the table the way
+  `daily_session.md`'s entry does: for `architect.md` the next raise splits the scene-spec
+  gate out, it never squeezes it.
+  **DECIDE THE COMMENT QUESTION IN THE SAME DIFF.** `CODE_BUDGETS` exempts comments and
+  docstrings on the record — *"a budget that taxed explanation would buy smaller files by
+  deleting the thing that makes them debuggable"* — which is `Stories Are Curriculum` one
+  layer down. `PROSE_BUDGETS` counts every word including the why, and the 08-25
+  `daily_session` raise shows where that pressure lands (it retired *"four parenthetical
+  glosses"*). Those cuts were fair, but the two ratchets disagree on principle and nothing
+  has noticed. Either prose gets the same exemption, or the table says out loud why
+  prompt-prose is different.
+
+- **`docs/` IS THE SURFACE WITH NO CEILING** (2026-08-26, proposed, NOT built — a new
+  archive tree plus a budget table, so Gate 2 parks it). Found reading PADF, Kavish's
+  governance kit, against this repo. `PROSE_BUDGETS` covers `protocol/*.md` and the six
+  mandates; `CODE_BUDGETS` covers every `scripts/*.py`. `docs/` has neither — only the
+  150-word *forward* per-entry cap on DECISIONS. Measured 2026-08-26: `docs/` totals 60,894
+  words — `DECISIONS.md` 30,948, this file 12,031, `spine_refactor.md` 7,107. **This is the
+  CODE_BUDGETS argument one directory over**, in its own words: the word budget held prose flat through July while Python went
+  2566 → 6032 lines, because "April's 'fight drift by adding' failure mode simply moved to
+  the surface that had no ceiling." It moved again, and this file is one of the two places
+  it landed. **What PADF has that we don't:** the cap binds the *live* file, and complete
+  inactive blocks move to `<NAME>-<YYYY>.md` behind an archive index rather than
+  accumulating in place. That is the piece the 08-01 forward cap deliberately left out
+  ("the archive is untouched: git owns the narratives already written") — which was right
+  for the entries already written and does nothing about the file's total. **What it would
+  replace:** the per-entry cap becomes one case of a general rule instead of a special one.
+  **THE PRIORITY CORRECTION (2026-08-26, on assessment against the constitution):** this is
+  a COLD surface. Traced the tree — nothing under `scripts/`, `protocol/` or the Anna skill
+  reads `docs/` at runtime; three matches exist and all three are citations inside comments.
+  `orient/SKILL.md` already says it: *"Anna does not load `PROTOCOL_MAP.md`, `DECISIONS.md`,
+  or `BOOTSTRAP.md`. Those are the engineer's map."* So the 60,894 words cost `@build` its
+  reading time and cost Andrew nothing — real housekeeping, no pedagogical stake, and it
+  ranks BELOW the prose-completeness guard below, which binds prompts that ship.
+
+- **THE BUDGET THAT MATTERS IS THE SUM AT THE LOAD POINT** (2026-08-26, proposed, NOT
+  built — one more assertion in `s18`, no new file, so this is the cheapest of the four).
+  From PADF's memory protocol, which bounds not just each file but the *session-start
+  payload* — the total of everything read at session open — and reports `STARTUP PAYLOAD
+  OVER BUDGET` as a loud failure rather than truncating. Five files each under budget can
+  still double the payload between them, and nothing would say so. **What it would
+  replace:** nothing — it is a ratchet, and a new ratchet is the one addition this system
+  takes on purpose. But it is honest to say it adds rather than retires, and Gate 4 wants
+  that said out loud.
+
+  **THE CENSUS WAS WRONG AND IT BREAKS THE PROPOSAL (corrected 2026-08-26).** This entry
+  filed the open at `persona` + `constitution` + `daily_session` = 5,110 words. Measured on
+  disk, the open is **~9,300**: persona 1,970 + daily_session 1,304 + SKILL 659 +
+  **`progress/profile.md` 5,320** — which the skill's step 3 and the protocol's Load step 3
+  both read, and which is larger than the three protocol files combined. It was missed
+  because it is the one file in the payload with **no budget**, so a sum over the *named,
+  budgeted* set would bound the 3,063 words already individually bound and leave the 5,320
+  outside it. The payload could double through `profile.md` with this check green — the
+  silent no-op, in the mechanism proposed to prevent it.
+  **And `profile.md` must not be the fix.** Charted in git: it ramps ~200 words/day and is
+  cut hard by its own "rewritten, not appended, every ~5 sessions" rule — 5,968 words on
+  08-10 → 3,383 on 08-14, a 43% cut with no ratchet involved. A word cap would fire
+  mid-ramp and force a rewrite at an arbitrary moment; worse, the file is where "Ground
+  Covered, Not Ground Remaining" lives, and that section is *supposed* to accumulate
+  between compactions. The health signal is the TROUGH (3,302 → 3,383, flat), never the
+  peak. **Superseded by** the prose-completeness guard below, which reaches the actual
+  unbudgeted surfaces instead of summing the bounded ones.
+
+- **MAP FRESHNESS COULD BE COMPUTED INSTEAD OF REMEMBERED** (2026-08-26, proposed, NOT
+  built — the biggest of the four; a frontmatter schema on doc files, so Gate 2 parks it
+  firmly). `docs/PROTOCOL_MAP.md` and `extend/references/routing.md` are hand-maintained
+  and rot silently — which is exactly why the name-never-line-number lint exists ("an
+  address that rots without saying so is not prose"). PADF's `core/codebase-map.md` is the
+  general form of that lint: each doc note carries `paths:` globs and an `as-of:` commit,
+  and staleness is *computed* from a four-layer union — commits since baseline, index vs
+  HEAD, worktree vs index, untracked — with `--no-renames` load-bearing because each layer
+  reports a rename as delete + add. Every failure mode returns STALE, never "probably
+  fine". **Why it is our idiom exactly:** keeping the layers separate is what makes a
+  staged edit reversed in the worktree stay visible even though the final bytes match the
+  baseline — the silent no-op test, applied to documentation. **The honest objection:** we
+  have three map-ish files, not thirty, and a schema on them may cost more than the rot.
+  Worth a conversation before it is worth a build.
+
+- **A GUARANTEE-VOCABULARY LINT FOR OUR OWN PROSE** (2026-08-26, proposed, NOT built —
+  and the weakest of the four on Gate 4 grounds: **I cannot name what it retires**, which
+  is the signal to stop). PADF's `doctor.py` → `check_guarantees` scans its public docs for
+  unqualified claim language ("guarantee", "idempotent", "safe to re-run", "equivalent")
+  with a real qualifier-proximity analysis rather than a naive grep, and its PR template
+  requires that check green. It is the same family as our two existing prose lints — a
+  check on an assertion that rots — and it would fit `s18` as a fourth prose unit. Filed
+  for completeness; on this system's own rules it does not yet earn its place.
+
 - **THE BENCHMARK TAPE — felt progress without a meter** (2026-08-25, proposed, NOT built —
   it is a new artefact plus a frozen number, so Gate 2 parks it). Andrew's own account of how
   he reads progress: *"the number isn't what makes me feel progress… 'where I am now compared
