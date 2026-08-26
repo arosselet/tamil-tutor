@@ -5298,19 +5298,20 @@
         "ask": "Talking about your sister-in-law casually — just drop the word for 'she'."
       }
     ],
-    "volley_next": 2,
+    "volley_next": 3,
     "response": "reply",
-    "reply": "Seri seri",
+    "reply": "Evlo?",
     "reply_verdict": "cold",
     "reply_fired": [
-      "சரி சரி"
+      "சரி சரி",
+      "எவ்ளோ"
     ],
     "reply_fired_cold": [
       "சரி சரி"
     ],
     "reply_fired_capped": [],
-    "reply_line": "adhu dhaan! seri seri works just as well. · 2/4 — Before stepping into the auto — ask what the total fare will be.",
-    "reply_at": "2026-08-26T11:23:46Z",
+    "reply_line": "close — 'evlo aagum?' adds the 'will it come to'. · 3/4 — Driver is about to miss the cut — direct him to turn right.",
+    "reply_at": "2026-08-26T11:25:24Z",
     "exchanges": [
       {
         "at": "2026-08-26T11:23:46Z",
@@ -5328,10 +5329,25 @@
         "slips": [],
         "spoke": "",
         "scheduled": ""
+      },
+      {
+        "at": "2026-08-26T11:25:24Z",
+        "reply": "Evlo?",
+        "verdict": "cold",
+        "fired": [
+          "எவ்ளோ"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "close — 'evlo aagum?' adds the 'will it come to'. · 3/4 — Driver is about to miss the cut — direct him to turn right.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
       }
     ],
-    "chained": 1,
-    "pinned_target": "எவ்ளோ ஆகும்?",
+    "chained": 2,
+    "pinned_target": "வலது பக்கம் திரும்புங்க",
     "pinned_revealed": false
   }
 ]

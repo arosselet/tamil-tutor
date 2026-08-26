@@ -20,6 +20,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! seri seri works just as well. · 2/4 — Before stepping into the auto — ask what the total fare will be.
 
+**16:55 · Andrew** — **COLD**
+> Evlo?
+
+**Anna ↩**
+> close — 'evlo aagum?' adds the 'will it come to'. · 3/4 — Driver is about to miss the cut — direct him to turn right.
+
 
 ## Tuesday 2026-08-25
 
