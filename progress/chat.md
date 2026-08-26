@@ -32,6 +32,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! Spot on. · 4/4 — Talking about your sister-in-law casually — just drop the word for 'she'.
 
+**16:58 · Andrew** — **MISS**
+> Shree? I haven’t been taught this so I’m guessing
+
+**Anna ↩**
+> Fair guess — it's simply 'ava'.
+
 
 ## Tuesday 2026-08-25
 

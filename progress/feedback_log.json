@@ -394,5 +394,9 @@
   {
     "date": "2026-08-26",
     "note": "[@build] render_drill.py 2026-08-26 printed: exposure 'திரும்புங்க' not in lexicon — skipped. The bare verb has no row; only 'வலது பக்கம் திரும்புங்க' does. So the drill lane taught the word it was commissioned for and could not stamp it, and the same gap silently ate my --produced-hinted 'valadhu pakkam thirumbunga' until I re-logged it in script. Two faces of one defect: a payload word can be commissioned without a lexicon row existing to receive it."
+  },
+  {
+    "date": "2026-08-26",
+    "note": "[phone] Noted: 'ava' (she) hasn't been formally introduced yet."
   }
 ]
