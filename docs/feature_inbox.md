@@ -4,6 +4,70 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **DO NOT MAKE `resolve()` FUZZY — measured 2026-08-26, and the answer is no.** Filed as a
+  negative result so the next pass does not spend the same afternoon on it. Chasing the 84
+  unreachable floor-gap words (entry below), the obvious fix is to stop exact-matching the
+  phonetic index and normalise both sides instead. **It collides on exactly the pairs the
+  curriculum exists to teach.**
+  Normalising the distinctions the stored data does not hold consistently (aa/a, ee/i, oo/u,
+  dh/th, ch/sh/s, zh/l, and any doubled letter to a single) over all 272 stored spellings
+  produces **10 collisions**, including:
+  `அண்ணா` / `ஆனா` → *ana* · `அம்மா` / `ஆமா` → *ama* · `நம்ம` / `நாம` → *nama* ·
+  `பத்து` / `பாட்டு` → *patu* · `என்ன?` / `ஏன்னா` → *ena* · `இப்ப` / `இப்போ` → *ipo*.
+  Vowel length and gemination are phonemic in Tamil; collapsing them turns *mother* into
+  *yes* and *ten* into *song*. A fuzzy resolver would return a key rather than refuse, so the
+  failure would be **silent and would write the wrong record** — strictly worse than today's
+  loud refusal. **The current exact-match is correct and should stay.**
+  **WHAT THE SAME MEASUREMENT DID FIND, and it is the useful half.** A rule-based romaniser
+  derived from the 231 records that already carry a phonetic reproduces a stored spelling for
+  only **55% of single-word records exactly, 77% allowing ~40 plausible variants** — and the
+  ceiling is not the rules, it is that **the stored spellings disagree with each other**.
+  `பத்து` is stored *pathu* while `அத்தை` is stored *atthai*; the same த்த, romanised two
+  ways. **13 of the 45 records that carry more than one spelling carry them only to paper over
+  this** (*enakku*/*enaku*, *keten*/*ketten*, *soodu*/*sudu*). So the hand-maintained variant
+  list is already a workaround for exact-match, quietly, and nothing counts it.
+  **THEREFORE the cheap fix already filed under "`--mark-seen` and `--produced-cold` disagree
+  about what a word is" is worth more than it looked, and it is the one to build:** on a MISS,
+  don't just refuse — name the near-matches. That single change serves three entries at once
+  (this one, the `--mark-seen` split, and the 84 unreachable words, which a near-match search
+  can reach through their gloss even with no phonetic stored). **What it replaces:** the
+  reflex to loosen the resolver, now closed with evidence; and, if the suggestions are good
+  enough, some of the 45 hand-maintained variant lists.
+  **The 84-word backfill still needs a human ruling** — 55% exact is not good enough to write
+  unattended, and this is the lexicon that picks tomorrow's targets. The romaniser is worth
+  keeping only as a *suggestion* source for that ruling session, never as a writer.
+
+- **THREE READERS, THREE DIFFERENT IDEAS OF WHAT AN EPISODE TITLE IS** (2026-08-26, found
+  while measuring episode length; **the worst case is already guarded, the seam is not**).
+  The same script is read for its public name by three places that do not agree:
+  - `run_studio.lint` (the gate, added 2026-08-20) requires only that **line 1 starts with
+    `# `**.
+  - `rebuild_rss.get_title_from_md` reads **line 1 only** (`f.readline()`) and takes whatever
+    follows the hashes — any H1 satisfies it.
+  - `render_audio` registers `episodes.json` off `^# Tier 2, Mission \d+ — (.*)$` with
+    `re.M` — **a stricter pattern** (comma after "Tier 2", em-dash separator) searched over
+    the whole file, falling back to `f"Mission {script_path.stem}"`.
+  **The reachable gap:** a script whose line 1 is `# The Family That Never Decides` passes the
+  lint, gives the feed a correct title, and still registers in `episodes.json` as
+  `Mission tier2_missionNN`. `sync_state` surfaces that stored title to Anna, so **Anna would
+  name the episode differently from the name in Andrew's player.** The Architect prompt does
+  ask for the strict form, so this needs a writer that half-complies — not yet observed, which
+  is why this is filed and not fixed.
+  **Already happened, in the other direction, and it is on the public feed now.** M87–M90
+  (08-14 → 08-19, before the lint landed) open with `[SFX: …]`, so all three readers fell back:
+  they are titled `Tier2 Mission87`…`Tier2 Mission90` in the feed and
+  `Mission tier2_mission87`… in `episodes.json`. The lint prevents new ones; **nothing
+  repairs these four, and repairing them is blocked by our own law** — Apple treats a retitle
+  of a published item as a new episode (DECISIONS 07-25; the "Published feed titles could
+  still be mutated by any writer" entry below). So the honest options are: leave four ugly
+  titles on the feed permanently, or accept four duplicate episodes in Andrew's player. **This
+  is the concrete cost the `existing_titles()` freeze was proposed to prevent, arriving from
+  the side nobody was watching — not a writer mutating a good title, but four bad titles that
+  can never be corrected.**
+  **What it would replace:** one regex. The cheap version is to make the three readers share
+  a single title function in `state_io`, which retires two ad-hoc patterns rather than adding
+  a fourth. That is a real simplification, and it is the only part of this worth building.
+
 - **THREE STATE ROWS EXIST ONLY ON DELETED BRANCHES — a backfill decision, not a bug**
   (2026-08-26, found by the consolidation pass; **needs Andrew's call before anything is
   written**). Eleven local `claude/*` branches were checked against `main` file by file.
@@ -1107,8 +1171,30 @@ meaning anything and two Gate-2 holds were sitting on the wrong side of it. -->
   missing. **The length shortfall itself is still open, and it is now testable** — every
   episode registered since 08-10 carries a real duration or an honest absence, so the
   question "do episodes hit their spec" can finally be answered from `episodes.json` instead
-  of argued from nine rows polluted by 3.0-minute placeholders. **Do that measurement before
-  proposing any mechanism**; the original entry's numbers are not evidence any more.
+  of argued from nine rows polluted by 3.0-minute placeholders.
+  **THE MEASUREMENT IS DONE (2026-08-26). The shortfall is real and much smaller than this
+  entry claimed.** Every episode dated by first appearance in `episodes.json`; the ten rows
+  stamped exactly 3.0 excluded as unknown rather than short. Post-fix (08-10 onward, n=5):
+  median **3.04 min**, mean 3.93, range 2.57–7.24, and **1 of 5 reaches the 5-minute classic
+  floor**. Across all 66 honest rows: median 3.5-ish, 15 of 66 reach it. So episodes run at
+  roughly **two-thirds of the classic floor, not "a fifth of spec"** — the original figure was
+  an artefact of the placeholder rows it was measured on.
+  **AND THE CAUSE IS NOT PAYLOAD SIZE.** Correlation between payload word count and duration
+  is **r = 0.23** over 66 honest rows — effectively nothing. The two longest episodes ever
+  (M68 at 10.20 min, M72 at 10.04) carry 15 and 16 payload words; M6 and M23 carry 53–54 and
+  run 8.62 and 7.19. **This is evidence against "The payload IS the scale" (DECISIONS
+  2026-08-05), which made item count the only dial.** Not a refutation — n is small, forms are
+  mixed, and the decision also bought the deletion of `scale`, which was worth having. But the
+  dial does not appear to move the thing it was kept for, and that is worth Andrew's ruling
+  rather than a silent drift.
+  **WHAT DOES PREDICT LENGTH, on this data: whether the writer honoured its output contract.**
+  Episodes whose script opens with a proper H1 run median 4.08 min (15/45 reach the floor);
+  those that fall back to `Mission tier2_missionNN` run median 2.45 (**0/21**). The four
+  post-fix short ones — M87, M88, M89, M90 — all open with `[SFX: …]` instead of the title.
+  M86, the one that opens with its H1, is the one that hits 7.24. **A missed H1 is a free,
+  already-recorded proxy for a thin generation**, which makes the 2026-08-20 lint worth more
+  than the title guard it was filed as. See the title-reader entry below for the seam that is
+  still open.
   M78–M85 remain stamped 3.0 and should be read as unknown, not short. Original report
   follows. `architect.md` targets
   **5–8 min** for a classic and **12–18** for a narrated_drama. Measured recent episodes:
