@@ -26,6 +26,7 @@ than silently poisoning state — production presupposes a recognition record.
 """
 
 import argparse
+import re
 import sys
 from datetime import date, timedelta
 from pathlib import Path
@@ -1064,6 +1065,51 @@ def cmd_knock_response(args):
                                  f"Knock response: {response}", feed=False))
 
 
+# Leading integer off a picker line. The iOS rating shortcut sends whole rows —
+# "90 — Mission tier2_mission90" and "4 ★★★★" — because Shortcuts is a bad place
+# to parse and a worse place to test one. Parsing lives here, where a smoke case
+# can hold it (2026-08-27).
+def _leading_int(raw: str) -> int | None:
+    m = re.match(r"\s*(\d+)", raw or "")
+    return int(m.group(1)) if m else None
+
+
+def cmd_rate_episode(args):
+    """Record a soak rating from the phone into the feedback ledger.
+
+    RIDES THE EXISTING BOOK. A rating is one more dated note in
+    feedback_log.json — the ledger the Diagnosis pass already reads — not a new
+    file and not a schema change. It replaces the `listens` counter retired
+    earlier today, whose problem was that it recorded ATTENDANCE and could not
+    be wrong out loud.
+
+    Every bad input is LOUD. An unparseable line, an unknown mission or a star
+    count off the 1-5 scale exits non-zero rather than filing a zero: this lane
+    is unattended, and a rating silently recorded as 0/5 would steer the
+    diagnosis pass while looking exactly like a rating that never arrived."""
+    mission = _leading_int(args.mission)
+    stars = _leading_int(args.stars)
+    if mission is None:
+        print(f"  ! No mission number in {args.mission!r} — expected a line like '90 — Mission ...'.")
+        sys.exit(1)
+    if stars is None or not 1 <= stars <= 5:
+        print(f"  ! Stars must be 1-5; got {args.stars!r}.")
+        sys.exit(1)
+    episodes = load_json(EPISODES_PATH) or {}
+    ep = episodes.get(str(mission))
+    if ep is None:
+        print(f"  ! No episode M{mission} in episodes.json — nothing to rate.")
+        sys.exit(1)
+    note = (f"[soak rating] M{mission} '{ep.get('title', mission)}' — {stars}/5 "
+            f"on wanting to keep listening.")
+    log = load_json(FEEDBACK_LOG_PATH) or []
+    log.append({"date": local_today().isoformat(), "note": note})
+    save_json(FEEDBACK_LOG_PATH, log)
+    print(f"  Logged feedback ({len(log)} total): {note}")
+    if getattr(args, "commit", False):
+        commit_and_push(*publish([FEEDBACK_LOG_PATH], f"Soak rating: M{mission} {stars}/5", feed=False))
+
+
 def cmd_feedback(args):
     """Capture (append a dated note) or read (list recent) the feedback ledger.
     Feeds the Diagnosis pass (protocol/diagnosis.md): Anna proposes fixes from
@@ -1243,6 +1289,11 @@ def main():
     fb.add_argument("note", nargs="?", default=None, help="The feedback to log; omit to list recent")
     fb.add_argument("-n", type=int, default=20, help="How many recent entries to show when listing")
 
+    re_ = sub.add_parser("rate-episode", help="Record a soak rating from the phone (whole picker lines; the number is read off the front)")
+    re_.add_argument("--mission", required=True, help="Picker line, e.g. '90 — Mission tier2_mission90'")
+    re_.add_argument("--stars", required=True, help="Picker line, e.g. '4 ★★★★'")
+    re_.add_argument("--commit", action="store_true", help="Commit and push the ledger (CI lane)")
+
     sl = sub.add_parser("slips", help="Read the slip ledger (what Andrew keeps getting wrong), or report a test")
     sl.add_argument("-n", type=int, default=15, help="How many patterns to show")
     sl.add_argument("--tested", action="append", default=[], metavar="TAG:landed|missed",
@@ -1275,6 +1326,8 @@ def main():
         cmd_seed_deck(args)
     elif args.command == "feedback":
         cmd_feedback(args)
+    elif args.command == "rate-episode":
+        cmd_rate_episode(args)
     elif args.command == "slips":
         cmd_slips(args)
     elif args.command == "knock-response":

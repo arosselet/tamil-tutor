@@ -43,7 +43,7 @@ on:
     # path, which already fire off-clock. Do not re-open this without new data.
     - cron: "0 * * * *"
   repository_dispatch:
-    types: [knock-response]
+    types: [knock-response, episode-rating]
   workflow_dispatch:
     inputs:
       force:
@@ -216,7 +216,12 @@ jobs:
         run: python scripts/push_queue.py drain
 
       - name: Judge Tamil reply
-        if: github.event_name == 'repository_dispatch' && github.event.client_payload.response == 'reply'
+        # github.event.action is the dispatch's event_type. Both knock guards name it
+        # explicitly (2026-08-27): they used to test only client_payload.response, and a
+        # rating carries no `response`, so `!= 'reply'` caught it and would have marked a
+        # knock landed off an event that was never a knock — letting the nudge gate back
+        # off for outreach Andrew never got. Found while adding episode-rating.
+        if: github.event.action == 'knock-response' && github.event.client_payload.response == 'reply'
         env:
           REPLY_TEXT: ${{ github.event.client_payload.text }}
           REPLY_KNOCK_ID: ${{ github.event.client_payload.knock_id }}
@@ -234,12 +239,24 @@ jobs:
         # A no-op tap (duplicate, or one that adds nothing) commits nothing and
         # exits 0 — the `git diff --cached --quiet ||` guard moved into Python
         # with the rest of it.
-        if: github.event_name == 'repository_dispatch' && github.event.client_payload.response != 'reply'
+        if: github.event.action == 'knock-response' && github.event.client_payload.response != 'reply'
         run: |
           python scripts/sync_state.py knock-response \
             "${{ github.event.client_payload.response }}" \
             --knock-id "${{ github.event.client_payload.knock_id }}" \
             --commit
+
+      - name: Log soak rating
+        # The phone sends whole picker lines; the integer comes off the front in
+        # Python, where a smoke case can hold it. Writes one dated note into the
+        # feedback ledger the Diagnosis pass already reads — this lane never
+        # touches knock state, which is exactly why it is not the tap lane.
+        if: github.event.action == 'episode-rating'
+        env:
+          RATING_MISSION: ${{ github.event.client_payload.mission }}
+          RATING_STARS: ${{ github.event.client_payload.stars }}
+        run: |
+          python scripts/sync_state.py rate-episode             --mission "$RATING_MISSION"             --stars "$RATING_STARS"             --commit
 
       - name: Anna knocks
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'

@@ -2423,3 +2423,13 @@ Details live in git history; this is the index of the *conclusions*.
   depends on. `credit_latest_episode_listen` → `surface_latest_episode_words`. Proved by the
   silent-no-op test, not by green: probe words re-dated 3/3 through the real writer,
   `episodes.json` byte-identical across the call. Replacement: `feature_inbox.md`.
+- **The soak rating lane — replacing a count nobody wrote** (2026-08-27, Andrew). Takes the
+  slot `listens` vacated today. A Shortcut sends `episode-rating` with two whole picker rows;
+  `rate-episode` reads each leading integer and appends ONE dated note to `feedback_log.json`
+  — the book the Diagnosis pass already reads. No new file, no schema change. **Its own
+  dispatch type on purpose:** `cmd_knock_response` marks a knock *landed*, which lets the
+  nudge gate back off, and a rating has no knock behind it. **Found while wiring it:** both
+  knock guards tested only `client_payload.response`, which a rating does not carry — so
+  `!= 'reply'` was TRUE for one and would have marked a knock landed off an event that was
+  never a knock. Both now name `github.event.action`. Parsing sits in Python because the phone
+  cannot be tested; every refusal exits non-zero and files nothing (`s79`).

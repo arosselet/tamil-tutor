@@ -2748,3 +2748,74 @@ def s77_the_wild_line_reaches_the_session(sb: Path):
               "podcast felt long" not in brief())
     finally:
         fb_path.write_bytes(saved)
+
+
+def s79_a_rating_lands_or_says_why(sb: Path):
+    """The soak rating reaches the ledger, and a bad one refuses (2026-08-27).
+
+    This lane replaces the `listens` counter retired the same day. That counter's
+    defect was not that it was wrong — it was that it could not BE wrong out loud:
+    self-report went blind on 2026-06-30 and kept publishing a number for two
+    months, which was then read as audience data.
+
+    So the case that matters here is the refusal. The rating arrives unattended
+    from a phone, through a workflow nobody watches, and the parse is the fragile
+    part precisely because it was moved off the phone to be testable. A rating
+    silently filed as 0/5 would steer the Diagnosis pass while looking exactly
+    like a rating that never arrived — the retired counter's failure wearing a
+    new hat.
+
+    Drives the REAL writer and re-reads the REAL ledger, per s41: a green parse
+    proves nothing if the write path drops it."""
+    print("\n79. A rating lands, or says why (2026-08-27)")
+    import contextlib
+    ss = importlib.import_module("sync_state")
+
+    def rate(mission: str, stars: str):
+        """Returns (exit_code, stdout). Non-zero is the loud refusal."""
+        out = io.StringIO()
+        args = argparse.Namespace(mission=mission, stars=stars, commit=False)
+        try:
+            with contextlib.redirect_stdout(out):
+                ss.cmd_rate_episode(args)
+            return 0, out.getvalue()
+        except SystemExit as e:
+            return e.code or 1, out.getvalue()
+
+    def ledger():
+        return read_json(sb / "progress" / "feedback_log.json") or []
+
+    fb_path = sb / "progress" / "feedback_log.json"
+    eps_path = sb / "progress" / "episodes.json"
+    saved_fb, saved_eps = fb_path.read_bytes(), eps_path.read_bytes()
+    try:
+        write_json(fb_path, [])
+        write_json(eps_path, {"90": {"title": "Mission tier2_mission90",
+                                     "words": [], "duration_min": 3.0}})
+
+        # The phone sends whole picker rows — never a bare number.
+        code, out = rate("90 — Mission tier2_mission90", "4 ★★★★")
+        check("a whole picker row parses to its leading integer", code == 0, out)
+        log = ledger()
+        check("...and the note is IN the ledger, re-read from disk", len(log) == 1, str(log))
+        note = log[0]["note"] if log else ""
+        check("...carrying the mission, the title and the score",
+              "M90" in note and "tier2_mission90" in note and "4/5" in note, note)
+        check("...tagged so the Diagnosis pass can find the lane",
+              note.startswith("[soak rating]"), note)
+
+        # ── The refusals. Each must exit non-zero AND write nothing. ──
+        for label, mission, stars in (
+                ("an unparseable mission row", "Mission tier2_mission90", "4 ★★★★"),
+                ("a mission with no episode",  "404 — ghost",             "4 ★★★★"),
+                ("a zero-star payload",        "90 — Mission",            "0"),
+                ("a six-star payload",         "90 — Mission",            "6 ★★★★★★"),
+                ("an empty star row",          "90 — Mission",            ""),
+        ):
+            before = len(ledger())
+            code, out = rate(mission, stars)
+            check(f"{label} REFUSES loudly", code != 0, out or "(silent)")
+            check("...and files nothing", len(ledger()) == before, str(ledger()))
+    finally:
+        fb_path.write_bytes(saved_fb)
+        eps_path.write_bytes(saved_eps)
