@@ -258,11 +258,18 @@ def fires_today() -> int:
     return n
 
 
-def compute_recent_missions(episodes: dict, n: int = 4) -> list[dict]:
+def compute_recent_missions(episodes: dict, n: int = 4) -> list[str]:
     # Title and number only — each episode is a self-contained dose (the
     # 2026-06-30 pivot); surfacing a counter to Anna invites listen-chasing.
     # There is no counter to surface any more: retired 2026-08-27.
-    return [{"mission": int(m), "title": ep.get("title", f"Mission {m}")}
+    #
+    # FLAT STRINGS, not dicts (2026-08-27). The iOS rating shortcut reads this
+    # key straight into a picker, and Shortcuts cannot render a list of
+    # dictionaries as pickable rows — it took three rebuilds on the phone to
+    # find that out. The mission number leads so the receiving end can take the
+    # integer off the front; nothing reads this key for logic, so the shape is
+    # free to serve its one consumer. Anna reads it as prose either way.
+    return [f"{int(m)} — {ep.get('title', f'Mission {m}')}"
             for m, ep in sorted(episodes.items(), key=lambda x: int(x[0]), reverse=True)[:n]]
 
 

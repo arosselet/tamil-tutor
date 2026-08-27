@@ -167,22 +167,10 @@
     ]
   },
   "recent_missions": [
-    {
-      "mission": 90,
-      "title": "Mission tier2_mission90"
-    },
-    {
-      "mission": 89,
-      "title": "Mission tier2_mission89"
-    },
-    {
-      "mission": 88,
-      "title": "Mission tier2_mission88"
-    },
-    {
-      "mission": 87,
-      "title": "Mission tier2_mission87"
-    }
+    "90 — Mission tier2_mission90",
+    "89 — Mission tier2_mission89",
+    "88 — Mission tier2_mission88",
+    "87 — Mission tier2_mission87"
   ],
   "status": "Machines heard 3/26 · viability floor 49/58 fire cold (84%)"
 }
