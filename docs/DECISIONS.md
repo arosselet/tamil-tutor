@@ -2411,3 +2411,15 @@ Details live in git history; this is the index of the *conclusions*.
   deleted — or *repaired*, so it no longer points up — is itself a failure, so landing a fix
   means handing the licence back (*"an allowlist that outlives what it allowed is not a
   guard"*, 08-24). Teeth on the walk, since an empty one passes vacuously.
+
+- **`listens` retired — a counter nobody wrote read as measurement** (2026-08-27, Andrew:
+  *"it keeps reporting dishonest numbers and confusing our sessions"*). Its only writers were
+  two self-report paths plus a `render_audio.py` seed of `0`. **Stop chasing listens**
+  (2026-06-30) retired the ritual that fed them, so the counter went blind that day and kept
+  publishing — 84 self-reported listens, 47 rows at zero — and in 2026-08 was read as audience
+  data, producing a "62% never heard" finding it could not support. **Deletes** the counter, both
+  bumps, the seed, and `cmd_update`'s `save_json(EPISODES_PATH)` — which, once the bump left,
+  rewrote the file byte-identical every close. Surfacing is untouched and is the job: `--listened` writes `last_surfaced` into the LEXICON, which the background rotation
+  depends on. `credit_latest_episode_listen` → `surface_latest_episode_words`. Proved by the
+  silent-no-op test, not by green: probe words re-dated 3/3 through the real writer,
+  `episodes.json` byte-identical across the call. Replacement: `feature_inbox.md`.

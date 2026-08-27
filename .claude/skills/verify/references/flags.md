@@ -20,7 +20,7 @@ grep the named function when you need the exact spot.
 | `generate_callbacks.py` | (no args) | **SAFE** | Nothing |
 | `push_queue.py` | `list` | **SAFE** | Nothing |
 | `studio_watchdog.py` | (no args, nothing pending) | **SAFE** | Nothing — pure reads until a pending state is found |
-| `sync_state.py` | `update [flags]` | **MUTATING** | `lexicon.json`, `learner.json`, `episodes.json` (if `--listened`), `session_log.json` |
+| `sync_state.py` | `update [flags]` | **MUTATING** | `lexicon.json`, `learner.json`, `session_log.json` (never `episodes.json` — `--listened` surfaces into the lexicon) |
 | `sync_state.py` | `add-word <key> --gloss …` | **MUTATING** | `lexicon.json` |
 | `sync_state.py` | `add-pattern <key> --gloss …` | **MUTATING** | `lexicon.json` |
 | `sync_state.py` | `seed-deck <file> [--deck <name>]` | **MUTATING** | `lexicon.json` |

@@ -145,7 +145,8 @@ reads matching scripts from `content/scripts/`, and writes `rss.xml`.
 
 **Evidence files:**
 - `published_audio/` — the actual audio files served to the feed.
-- `progress/episodes.json` — episode registry (title, words, duration_min, listens).
+- `progress/episodes.json` — episode registry (title, words, duration_min, produced).
+  No listen counter: retired 2026-08-27 (self-report, blind since the 06-30 pivot).
 - `rss.xml` — the feed. Only one feed; playlist was retired 2026-07-03 (KF-5).
 
 **Playbook — feed shows stale / wrong episode:**

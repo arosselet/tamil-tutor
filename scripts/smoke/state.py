@@ -1141,7 +1141,7 @@ def s39_ticket_carries_the_commission(sb: Path):
         try:
             eps = read_json(eps_path)
             newest = str(max((int(k) for k in eps), default=0) + 1)
-            eps[newest] = {"title": f"Mission {newest}", "listens": 0,
+            eps[newest] = {"title": f"Mission {newest}",
                            "words": ["frame:youknow-la"], "duration_min": 1.6,
                            "produced": "2026-07-28"}
             write_json(eps_path, eps)

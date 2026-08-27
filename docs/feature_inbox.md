@@ -1338,3 +1338,12 @@ meaning anything and two Gate-2 holds were sitting on the wrong side of it. -->
   the single "hinted".
 - ~~Day-zero ticket guard~~ — DONE 2026-07-03: `suggest_targets.py` (and `generate_callbacks.py`) now treat an *empty* lexicon as valid day-zero state; only a missing file errors. A fresh learner gets a real first-session ticket.
 - ~~Knock digest could carry the ticket's deck top~~ — DONE 2026-07-02: `build_digest()` appends the deck-due menu (fire + ear-only), and the mandate points `expected_target` at it.
+- **Meter the audio lane by outcome, not attendance** — proposed 2026-08-27, replacing the
+  retired `listens` counter (`DECISIONS.md`). The lane's job is recognition, so measure
+  recognition: for words whose ONLY exposure was a single episode, what state did they reach?
+  Computable today from `seen_in` + lexicon state — no new field, no phone, no third party.
+  First cut, 2026-08-27: 117 solo-exposure words, 95 still `struggled/none`, 19 reached any
+  production, 6 reached comfortable-or-solid. **That number is a FLOOR, not an average** —
+  solo-exposure words are by construction the least-reinforced items in the system — and it
+  means nothing until it runs against a chat-exposed control cohort at comparable exposure
+  counts. Build the control first; a bare 16% invites the same misreading `listens` just cost us.

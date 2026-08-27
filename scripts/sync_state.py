@@ -9,7 +9,7 @@ last-surfaced date. This script owns all writes to it. The LLM (Anna) calls
 
   progress/lexicon.json     → word-state (this file's domain)
   progress/learner.json     → continuity: running story (debrief), soak order, status (thin, LLM-facing)
-  progress/episodes.json    → episodes / listens (audio artifacts)
+  progress/episodes.json    → episodes (audio artifacts; no listen counter — 2026-08-27)
   progress/session_log.json → momentum log, one entry per session-DAY (repeat
       update calls in one close merge into that day's entry, never mint a row)
 
@@ -259,8 +259,9 @@ def fires_today() -> int:
 
 
 def compute_recent_missions(episodes: dict, n: int = 4) -> list[dict]:
-    # No listens count here — each episode is a self-contained dose (the
+    # Title and number only — each episode is a self-contained dose (the
     # 2026-06-30 pivot); surfacing a counter to Anna invites listen-chasing.
+    # There is no counter to surface any more: retired 2026-08-27.
     return [{"mission": int(m), "title": ep.get("title", f"Mission {m}")}
             for m, ep in sorted(episodes.items(), key=lambda x: int(x[0]), reverse=True)[:n]]
 
@@ -530,19 +531,22 @@ def cmd_update(args):
 
     # Listened episodes — hearing an episode surfaces its words (audio side of the
     # recency bridge): bump last_surfaced on each of its words that is in the lexicon.
+    # Surfacing is the WHOLE job. The `listens` counter this used to bump was retired
+    # 2026-08-27 — self-report was the only writer, it went blind the day the
+    # 2026-06-30 stop-chasing-listens pivot landed, and a stale count read as
+    # measurement in three separate sessions. Nothing here writes episodes.json now.
     for mission in args.listened:
         ep = episodes.get(str(mission))
         if not ep:
-            print(f"  ! No episode M{mission} to log a listen for. Skipped.")
+            print(f"  ! No episode M{mission} to surface. Skipped.")
             continue
-        ep["listens"] = ep.get("listens", 0) + 1
         surfaced = 0
         for w in ep.get("words", []):
             key = resolve(w, lexicon, phon_index)
             if key:
                 lexicon[key]["last_surfaced"] = today
                 surfaced += 1
-        print(f"  Listened M{mission} (now {ep['listens']}x) — surfaced {surfaced} lexicon words")
+        print(f"  Heard M{mission} — surfaced {surfaced} lexicon words")
 
     # Next engine focus — the frame to unlock next, surfaced in the ticket and digest.
     if args.next_engine:
@@ -675,8 +679,10 @@ def cmd_update(args):
               f" ({len(learner['focus_cohort'])} seats held)")
 
     save_json(LEXICON_PATH, lexicon)
-    if episodes:
-        save_json(EPISODES_PATH, episodes)
+    # No episodes write: `--listened` surfaces into the LEXICON, and with the
+    # `listens` counter retired (2026-08-27) nothing in this command mutates
+    # episodes.json. The save that used to sit here rewrote the file
+    # byte-identical on every close — a no-op that looked exactly like a write.
     write_thin_learner(learner, episodes)
 
     floor = compute_floor(lexicon)
@@ -954,20 +960,24 @@ def cmd_seed_deck(args):
 # Knock tap responses (from Home Assistant's actionable notification). Both are
 # SOAK-tier signals — they record that the knock landed and let the nudge gate
 # back off; neither touches the production/viability floor (that only flips when
-# Anna witnesses an unaided cold fire in chat). 'listened' additionally credits
-# the soak: it bumps the latest published episode's listens + surfaces its words.
+# Anna witnesses an unaided cold fire in chat). 'listened' additionally surfaces
+# the latest published episode's words into the lexicon's recency bridge.
 #   ack      — "got it / played the memo"      → knock marked landed, no learning write
-#   listened — "I listened to the episode"     → knock marked landed + episode soak credit
+#   listened — "I listened to the episode"     → knock marked landed + episode words surfaced
 KNOCK_RESPONSES = {"ack", "listened"}
 # A later tap may only *upgrade* an earlier one (strictly more signal); same-or-less is a no-op.
 KNOCK_UPGRADES = {None: KNOCK_RESPONSES, "ack": {"listened"}}
 
 
-def credit_latest_episode_listen() -> str | None:
-    """Soak credit for a 'listened' tap. 'Latest published' = the highest mission
-    key in episodes.json (the newest one in the feed). Mirrors `update --listened`,
-    but a tap can't name a mission so it always credits the newest episode.
-    Returns a one-line summary, or None if there's nothing to credit."""
+def surface_latest_episode_words() -> str | None:
+    """Recency-bridge write for a 'listened' tap. 'Latest published' = the highest
+    mission key in episodes.json (the newest one in the feed). Mirrors
+    `update --listened`, but a tap can't name a mission so it always takes the
+    newest episode. Returns a one-line summary, or None if there's nothing to do.
+
+    Writes the LEXICON only. It used to bump an episodes.json `listens` counter
+    too; that counter was retired 2026-08-27 (self-report, blind since the
+    2026-06-30 pivot, and read as measurement long after it stopped being one)."""
     episodes = load_json(EPISODES_PATH) or {}
     if not episodes:
         return None
@@ -977,17 +987,15 @@ def credit_latest_episode_listen() -> str | None:
     learner = load_json(LEARNER_PATH) or {}
     phon_index = build_phonetic_index(lexicon)
     today = local_today().isoformat()
-    ep["listens"] = ep.get("listens", 0) + 1
     surfaced = 0
     for w in ep.get("words", []):
         key = resolve(w, lexicon, phon_index)
         if key:
             lexicon[key]["last_surfaced"] = today
             surfaced += 1
-    save_json(EPISODES_PATH, episodes)
     save_json(LEXICON_PATH, lexicon)
     write_thin_learner(learner, episodes)  # refresh recent_missions + status line
-    return f"M{mission} '{ep.get('title', mission)}' now {ep['listens']}x — surfaced {surfaced} words"
+    return f"M{mission} '{ep.get('title', mission)}' — surfaced {surfaced} words"
 
 
 def cmd_knock_response(args):
@@ -1024,7 +1032,7 @@ def cmd_knock_response(args):
 
     # 'listened' is the only response that credits a soak (the episode, not the knock).
     if response == "listened":
-        summary = credit_latest_episode_listen()
+        summary = surface_latest_episode_words()
         if summary:
             last["episode_credit"] = summary
             print(f"  Listened → {summary}")
@@ -1131,7 +1139,7 @@ def main():
 
     up = sub.add_parser("update", help="Update state after a session")
     up.add_argument("--listened", type=int, action="append", default=[],
-                    help="Mission number(s) the learner listened to (bumps listens + surfaces words)")
+                    help="Mission number(s) the learner heard (surfaces their words into the lexicon)")
     up.add_argument("--soak-payload", type=str, action="append", default=[],
                     help="Word(s) to soak in the next audio episode (the Director's payload)")
     up.add_argument("--soak-seed", type=str, default=None,

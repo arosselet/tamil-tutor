@@ -579,7 +579,7 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
 
     if mission_num not in episodes:
         episodes[mission_num] = {
-            "title": title, "listens": 0, "words": cleaned_words, "duration_min": duration,
+            "title": title, "words": cleaned_words, "duration_min": duration,
             # produced-on date: the unattended-production cap counts these, so a
             # stuck trigger can never flood the feed again (2026-07-23).
             "produced": date.today().isoformat(),
