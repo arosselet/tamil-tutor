@@ -33,6 +33,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > Got it da — holding off until the Swapna audio is generated and attached directly.
 
+**15:13 · Andrew** — **CHAT**
+> You’re a transient job in a GitHub runner so you have no state after sending a message.
+
+**Anna ↩**
+> Haha fair point on the mechanics da, but the logs remember — still here with you.
+
 
 ## Wednesday 2026-08-26
 
