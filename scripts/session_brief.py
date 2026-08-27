@@ -23,7 +23,7 @@ from slips import format_slip_block, slip_patterns
 from state_io import (BASE, EPISODES_PATH, FEEDBACK_LOG_PATH, KNOCK_LOG_PATH,
                       LEARNER_PATH, LEXICON_PATH, LOCAL_TZ, SESSION_LOG_PATH,
                       load_json, local_today)
-from state_io import canon_payload, is_unseen, split_payload
+from state_io import canon_payload, is_unseen, soak_pending, split_payload
 from sync_state import (RECOGNITION_LEVELS, compute_ear, compute_engines,
                         compute_floor, compute_status, fires_today, is_pattern)
 
@@ -204,7 +204,6 @@ def unpaid_trailer(klog: list, last_session: str | None) -> dict | None:
 def cmd_status(_args):
     lexicon = load_json(LEXICON_PATH)
     learner = load_json(LEARNER_PATH)
-    episodes = load_json(EPISODES_PATH) or {}
     if not learner:
         print("No learner.json found.")
         return
@@ -264,25 +263,18 @@ def cmd_status(_args):
         # cron. On 2026-07-23 only the cron's copy was fixed and this one kept
         # saying NOT YET PRODUCED, which would have re-armed the loop at the
         # next session. One rule, one resolver.
-        resolved, unresolved = split_payload(soak.get("payload", []), lexicon)
-        newest_words = (episodes[max(episodes, key=int)].get("words", [])
-                        if episodes else [])
+        _, unresolved = split_payload(soak.get("payload", []), lexicon)
         channel = soak.get("channel") or "episode"
         lane = {"soak": "python scripts/render_soak.py",
                 "drill": "python scripts/render_drill.py"}.get(
                     channel, "python scripts/run_studio.py")
-        if channel == "episode":
-            produced = bool(resolved) and all(w in newest_words for w in resolved)
-        else:
-            # The soak and drill lanes register no episode, so the newest-episode
-            # compare can NEVER clear them — that is the 2026-07-23 re-dispatch
-            # loop (M72/M73/M74 in one evening) with a new trigger. The lane that
-            # rendered the order stamps it delivered (mark_soak_delivered); an
-            # earlier version of this check read last_surfaced instead and hung
-            # forever on a pre-lexicon payload word, which is the same loop.
-            deliv = soak.get("delivered") or {}
-            produced = (deliv.get("channel") == channel
-                        and (deliv.get("at") or "") >= (soak_from or ""))
+        # ONE RESOLVER (2026-08-27). The channel branch used to live here, in a
+        # copy `state_io.soak_pending()` never learned — so the two doors onto the
+        # same dispatch disagreed on any soak or drill order, and the one that was
+        # wrong is the one the watchdog calls. Folded down into L0; this reads it.
+        # `resolved` is non-empty by the time `produced` is consulted: an
+        # unresolvable payload takes the branch below before this is read.
+        produced = not soak_pending()
         if unresolved:
             drain = (f" · ⚠ payload unverifiable ({', '.join(unresolved)}) — fix the soak "
                      f"order; NOT dispatching on an item that can never match")
@@ -434,6 +426,7 @@ def cmd_status(_args):
                       "(a global deficit recited in a warm voice is guilt machinery, 2026-07-17).")
         print(f"Fired today: {fires_today()}")
 
+    episodes = load_json(EPISODES_PATH) or {}
     if episodes:
         recent = sorted(episodes.items(), key=lambda x: int(x[0]), reverse=True)[:6]
         print("\nRecent episodes (immersion tank — no listen bookkeeping; each is a self-contained dose):")

@@ -2909,3 +2909,89 @@ def s79_a_rating_lands_or_says_why(sb: Path):
               "LEADING DIGIT" in rate(title, "★★★")[1], rate(title, "★★★")[1])
     finally:
         fb_path.write_bytes(saved_fb)
+
+
+def s80_one_produced_resolver(sb: Path):
+    """A soak order clears on its own lane's terms, at every door (2026-08-27).
+
+    TWO LANES CLEAR TWO WAYS, by design: the episode lane registers its words in
+    episodes.json and never stamps, while the soak and drill lanes register no
+    episode and stamp `delivered` instead. `session_brief` learned that branch;
+    `state_io.soak_pending()` did not, and its docstring went on claiming parity
+    with what status prints. Measured on the live 08-26 konjam order the day this
+    was found: the brief said produced ✓, the resolver said pending.
+
+    Why that mattered: `soak_pending()` is what `studio_watchdog` step 2 calls,
+    and a True there dispatches a FULL studio run. A delivered soak order would
+    have re-dispatched on every tick — the 2026-07-23 loop that put M72/M73/M74
+    out in one evening, wearing a new trigger. Latent only because the cron was
+    stale, which is not a guarantee and not a design.
+
+    Gate 7.2 — what does the silent no-op look like? Exactly what it looked like
+    for weeks: two functions returning different booleans about the same order,
+    each correct-looking alone, with nothing anywhere comparing them. So this
+    case asserts the AGREEMENT, not either answer."""
+    print("\n80. One produced-resolver, every door (2026-08-27)")
+    import contextlib
+    sio = importlib.import_module("state_io")
+    sb_mod = importlib.import_module("session_brief")
+    lp = sb / "progress" / "learner.json"
+    eps = sb / "progress" / "episodes.json"
+    saved, saved_eps = lp.read_bytes(), eps.read_bytes()
+
+    def set_order(**kw):
+        write_json(lp, {**read_json(lp), "soak_order": kw})
+
+    def pending() -> bool:
+        """soak_pending() with its unresolvable-payload warning muted. The
+        redirect wraps ONLY this call: an earlier draft wrapped the `check`s too,
+        so four of them ran with their output swallowed and reported nothing."""
+        with contextlib.redirect_stdout(io.StringIO()):
+            return sio.soak_pending()
+
+    def brief_produced() -> bool:
+        out = io.StringIO()
+        real = sb_mod.git_sync_counts
+        try:
+            sb_mod.git_sync_counts = lambda: (0, 0)
+            with contextlib.redirect_stdout(out):
+                sb_mod.cmd_status(argparse.Namespace())
+        finally:
+            sb_mod.git_sync_counts = real
+        return "produced ✓" in out.getvalue()
+
+    ORDER = {"payload": ["வேணும்"], "scene_seed": "s", "from": "2026-08-26"}
+    try:
+        # ── the soak lane: its own stamp clears it, and nothing else does ──
+        set_order(**ORDER, channel="soak")
+        check("an unstamped soak order is still owed", pending())
+        check("...and both doors agree it is owed", not brief_produced())
+
+        set_order(**ORDER, channel="soak",
+                  delivered={"channel": "soak", "at": "2026-08-27"})
+        check("the soak lane's own stamp clears it — no episode to compare against",
+              not pending())
+        check("...and both doors agree it is clear — THE BUG THIS CASE HOLDS",
+              brief_produced())
+
+        set_order(**ORDER, channel="soak",
+                  delivered={"channel": "soak", "at": "2026-08-01"})
+        check("a stamp predating the order does NOT clear it — last week's "
+              "delivery is not this week's", pending())
+
+        set_order(**ORDER, channel="soak",
+                  delivered={"channel": "drill", "at": "2026-08-27"})
+        check("...nor does a stamp from the other lane", pending())
+
+        # ── the episode lane clears by REGISTRATION, never by a stamp ──
+        set_order(**ORDER, channel="episode",
+                  delivered={"channel": "episode", "at": "2026-08-27"})
+        write_json(eps, {"71": {"words": []}})
+        check("an episode order is NOT cleared by a stamp — it registers or it is owed",
+              pending())
+        write_json(eps, {"71": {"words": ["வேணும்"]}})
+        check("...and registering the payload does clear it", not pending())
+        check("...and the brief agrees there too", brief_produced())
+    finally:
+        lp.write_bytes(saved)
+        eps.write_bytes(saved_eps)

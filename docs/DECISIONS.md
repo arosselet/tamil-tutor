@@ -2444,3 +2444,14 @@ Details live in git history; this is the index of the *conclusions*.
   → `recent_audio`** (retired key, swept by merge-write), and the note carries the FORMAT so
   soaks can be compared against drills. Lives in `rebuild_rss`, which owns the feed. Missions
   are dormant, not retired.
+- **One produced-resolver, every door** (2026-08-27). Two lanes clear a soak order two ways by
+  design: the episode lane registers its words and never stamps; soak and drill register no
+  episode and stamp `delivered`. `session_brief` grew that branch; `soak_pending()` never did,
+  and went on claiming parity with what `status` prints. Measured on the live konjam order:
+  brief said produced ✓, resolver said pending. **Its caller is `studio_watchdog` step 2, which
+  dispatches a FULL studio run on True** — the 2026-07-23 M72/M73/M74 loop with a new trigger,
+  latent only because the cron was stale, which is luck rather than design. The branch folds
+  DOWN into `soak_pending()`; `session_brief` reads it and its copy is deleted.
+  **`s80` asserts the AGREEMENT of both doors, not either
+  answer**: two functions each looking right alone, nothing comparing them, is what this looked
+  like for weeks. Retiring the watchdog is filed, not done.

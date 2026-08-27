@@ -218,22 +218,40 @@ def split_payload(items: list[str], lexicon: dict) -> tuple[list[str], list[str]
 
 
 def soak_pending() -> bool:
-    """True when the standing soak order hasn't been carried by the newest
-    episode — the same answer `status` prints as NOT YET PRODUCED.
+    """True when the standing soak order hasn't been carried yet — the answer
+    `status` prints as NOT YET PRODUCED, for EVERY channel.
+
+    CHANNEL-AWARE SINCE 2026-08-27, and the docstring above used to be a lie.
+    Two lanes clear an order two ways, by design: the episode lane registers its
+    words in `episodes.json` and never stamps, while the soak and drill lanes
+    register no episode and so stamp `delivered` instead. This function knew only
+    the first, and its claim of parity with `status` stopped being true the day
+    `session_brief` grew the branch and this copy did not. Measured on the live
+    08-26 konjam order: the brief said produced ✓, this said pending — and its
+    caller was `studio_watchdog`, whose step 2 dispatches a FULL studio run on
+    a True. That is the 2026-07-23 re-dispatch loop (M72/M73/M74 in one evening)
+    with a new trigger, latent only because the cron was stale.
 
     Only VERIFIABLE items count. A payload token that resolves to no lexicon
     key can never appear in an episode's word list, so counting it as pending
     is an infinite dispatch loop, not a to-do (2026-07-23: 'avasaram' against
     the key 'அவசரம் இருக்கு' produced three unwanted episodes in one evening).
 
-    Lives here rather than in `studio_watchdog` (2026-07-28) because the session
-    ticket needs the same answer and cannot import the studio — `run_studio`
-    pulls the whole render stack. One definition, three readers; the watchdog
-    re-exports it."""
+    Lives here rather than in a lane because the session ticket, the brief and
+    selection all need the same answer. ONE resolver — a second copy is how this
+    diverged the first time."""
     soak = (load_json(LEARNER_PATH) or {}).get("soak_order") or {}
     raw = [w for w in soak.get("payload", []) if w]
     if not raw:
         return False
+    channel = soak.get("channel") or "episode"
+    if channel != "episode":
+        # Nothing to compare against: these lanes register no episode. The lane
+        # that rendered the order stamps it, and the stamp must be no older than
+        # the order or a previous week's delivery clears this week's ask.
+        deliv = soak.get("delivered") or {}
+        return not (deliv.get("channel") == channel
+                    and (deliv.get("at") or "") >= (soak.get("from") or ""))
     resolved, unresolved = split_payload(raw, load_json(LEXICON_PATH) or {})
     if unresolved:
         print(f"  ⚠ soak payload unresolvable, ignored for the produced-check: "

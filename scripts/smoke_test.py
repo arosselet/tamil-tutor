@@ -140,6 +140,7 @@ def main():
         run(publish.s73_one_tail_for_the_render_family, sb)
         run(publish.s74_a_derived_file_follows_its_source, sb)
         run(state.s79_a_rating_lands_or_says_why, sb)
+        run(state.s80_one_produced_resolver, sb)
         run(ratchets.s75_the_stack_is_one_way)
 
     if fx.ONLY and not fx.RAN:

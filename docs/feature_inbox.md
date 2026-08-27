@@ -1347,3 +1347,29 @@ meaning anything and two Gate-2 holds were sitting on the wrong side of it. -->
   solo-exposure words are by construction the least-reinforced items in the system — and it
   means nothing until it runs against a chat-exposed control cohort at comparable exposure
   counts. Build the control first; a bare 16% invites the same misreading `listens` just cost us.
+- **RETIRE `studio_watchdog.py` — the cron is stale** (2026-08-27, Andrew: *"the crontab is
+  stale, should be retired"*). It installs as a crontab on the Linux box (`$HOME/projects/Tamil`,
+  gnome-keyring `SSH_AUTH_SOCK`, `17 * * * *`) and is not live on any machine we can see. Its job
+  — notice work the studio left undone and run the existing dispatch — is covered by the
+  session-open auto-drain, which `session_brief` prints and which fires where Andrew actually is.
+  **Not urgent any more:** its correctness hazard was `soak_pending()` being registry-only, and
+  that is fixed and guarded by `s80` (2026-08-27), so a revived cron would now behave. This is
+  cleanup, not a repair.
+  **The surface, measured — roughly a dozen sites, several load-bearing:**
+  `scripts/studio_watchdog.py` itself; comments in `render_audio.py`, `run_studio.py`,
+  `state_io.py`; `smoke/render.py` **`s19_watchdog_detection`** (whole case — its
+  `scripted_unrendered()` half dies with it, its `soak_pending()` half is worth re-homing, and
+  `s80` already covers the resolver); `smoke/publish.py` **`s25`**'s three `sw.outcome()`
+  assertions (watchdog retry semantics — they die with it); `smoke/knock.py` imports it and
+  asserts it calls the shared resolver rather than growing its own copy; `smoke/ratchets.py`
+  `CODE_BUDGETS` (125) and `LAYERS` (6); `docs/PROTOCOL_MAP.md`, `docs/DECISIONS.md`,
+  `docs/feature_inbox.md`; `.claude/skills/{anna,backport}/SKILL.md` and
+  `verify/references/flags.md`.
+  **What dies with it and needs a decision, not a delete:** `MAX_UNATTENDED_PER_DAY = 3` and
+  `produced_today()` — the rail bounding unattended production. Two inbox entries below name
+  `MAX_UNATTENDED_PER_DAY` as the guardrail for a *proposed* knock-tick episode move; retiring
+  the watchdog strands that rail, and the proposal would have to bring its own. Decide where the
+  cap lives before deleting the file, or the next unattended lane is built with no ceiling —
+  which is the 2026-07-23 three-episodes-in-one-evening shape, and the reason the cap exists.
+  **Also to delete:** `.studio.lock`'s watchdog half of the contract (`run_studio` holds the
+  other and keeps it).
