@@ -34,6 +34,7 @@ from pathlib import Path
 from slips import (append_slips, canon_tag, cmd_slips, parse_slip_args,
                    record_slip_commission, record_slip_test, slip_patterns)
 from publish import commit_and_push, publish
+from rebuild_rss import feed_items
 from suggest_targets import reconcile_focus
 from state_io import (BASE, DEFAULT_TZ, EPISODES_PATH, FEEDBACK_LOG_PATH,
                       canon_payload,
@@ -259,19 +260,21 @@ def fires_today() -> int:
     return n
 
 
-def compute_recent_missions(episodes: dict, n: int = 4) -> list[str]:
-    # Title and number only — each episode is a self-contained dose (the
-    # 2026-06-30 pivot); surfacing a counter to Anna invites listen-chasing.
-    # There is no counter to surface any more: retired 2026-08-27.
-    #
-    # FLAT STRINGS, not dicts (2026-08-27). The iOS rating shortcut reads this
-    # key straight into a picker, and Shortcuts cannot render a list of
-    # dictionaries as pickable rows — it took three rebuilds on the phone to
-    # find that out. The mission number leads so the receiving end can take the
-    # integer off the front; nothing reads this key for logic, so the shape is
-    # free to serve its one consumer. Anna reads it as prose either way.
-    return [f"{int(m)} — {ep.get('title', f'Mission {m}')}"
-            for m, ep in sorted(episodes.items(), key=lambda x: int(x[0]), reverse=True)[:n]]
+def compute_recent_audio(n: int = 6) -> list[str]:
+    """The last n things that landed in the podcast feed, newest first.
+
+    SOURCED FROM THE FEED, not episodes.json. Its predecessor read the episode
+    registry, which is the *lesson* pipeline's book: only numbered Missions ever
+    get a row there, so 16 of 28 published files — every soak, every drill, every
+    long-haul — were unofferable, and the picker could not name the soak Andrew
+    had listened to an hour earlier (2026-08-27, his catch). No counter and no
+    number: each episode is a self-contained dose (the 2026-06-30 pivot).
+
+    Flat strings, because the iOS rating picker reads this key straight into a
+    list and Shortcuts cannot render dictionaries as pickable rows. Titles are
+    the feed's own, so a row reads exactly as it does in his podcast app — which
+    is also how the rating resolves back to an item."""
+    return [d["title"] for d in feed_items()[:n]]
 
 
 # Keys this schema retired. Merge-write carries an unknown key through by
@@ -279,7 +282,10 @@ def compute_recent_missions(episodes: dict, n: int = 4) -> list[str]:
 # whitelist dropped them for free, and that free sweep is the one thing
 # merge-write gives up. `streak` was a stored counter that lies the moment a day
 # is skipped; `slips_closed` is the bare-tag list `slip_closes` replaced.
-RETIRED_LEARNER_KEYS = ("streak", "slips_closed")
+# `recent_missions` joined them 2026-08-27: it named a population (numbered
+# Missions) that was never the one the picker needed, and `recent_audio` reads
+# the feed instead. Named here or merge-write carries the stale list forever.
+RETIRED_LEARNER_KEYS = ("streak", "slips_closed", "recent_missions")
 
 # The two books this function does NOT own: `record_slip_test` and
 # `record_slip_commission` persist them straight to LEARNER_PATH, so by the time
@@ -291,7 +297,7 @@ RETIRED_LEARNER_KEYS = ("streak", "slips_closed")
 FOREIGN_BOOKS = ("slip_closes", "slip_commissions")
 
 
-def write_thin_learner(learner: dict, episodes: dict):
+def write_thin_learner(learner: dict):
     """MERGE-WRITE (2026-08-23, Decision D). Read the file, overlay the keys the
     caller owns, recompute the two derived ones, leave everything else alone.
 
@@ -322,7 +328,7 @@ def write_thin_learner(learner: dict, episodes: dict):
     # The two derived views -- recomputed on every write, never stored input.
     # (The <=FOCUS_SIZE drill cohort above is the opposite: stored membership,
     # not an emergent sort, so a counting bug cannot move a seat -- 2026-07-26.)
-    thin["recent_missions"] = compute_recent_missions(episodes)
+    thin["recent_audio"] = compute_recent_audio()
     thin["status"] = compute_status()
     save_json(LEARNER_PATH, thin)
     print(f"  Updated learner.json ({LEARNER_PATH.relative_to(BASE)})")
@@ -691,7 +697,7 @@ def cmd_update(args):
     # `listens` counter retired (2026-08-27) nothing in this command mutates
     # episodes.json. The save that used to sit here rewrote the file
     # byte-identical on every close — a no-op that looked exactly like a write.
-    write_thin_learner(learner, episodes)
+    write_thin_learner(learner)
 
     floor = compute_floor(lexicon)
     engines = compute_engines(lexicon)
@@ -1002,7 +1008,7 @@ def surface_latest_episode_words() -> str | None:
             lexicon[key]["last_surfaced"] = today
             surfaced += 1
     save_json(LEXICON_PATH, lexicon)
-    write_thin_learner(learner, episodes)  # refresh recent_missions + status line
+    write_thin_learner(learner)  # refresh recent_audio + status line
     return f"M{mission} '{ep.get('title', mission)}' — surfaced {surfaced} words"
 
 
@@ -1088,7 +1094,7 @@ def _leading_int(raw: str) -> int | None:
 
 
 def cmd_rate_episode(args):
-    """Record a soak rating from the phone into the feedback ledger.
+    """Record an audio rating from the phone into the feedback ledger.
 
     RIDES THE EXISTING BOOK. A rating is one more dated note in
     feedback_log.json — the ledger the Diagnosis pass already reads — not a new
@@ -1100,28 +1106,30 @@ def cmd_rate_episode(args):
     count off the 1-5 scale exits non-zero rather than filing a zero: this lane
     is unattended, and a rating silently recorded as 0/5 would steer the
     diagnosis pass while looking exactly like a rating that never arrived."""
-    mission = _leading_int(args.mission)
     stars = _leading_int(args.stars)
-    if mission is None:
-        print(f"  ! No mission number in {args.mission!r} — expected a line like '90 — Mission ...'.")
-        sys.exit(1)
     if stars is None or not 1 <= stars <= 5:
         print(f"  ! Stars must be 1-5, as a LEADING DIGIT; got {args.stars!r}. "
               f"Star glyphs alone are not counted — the picker row wants '3 ★★★'.")
         sys.exit(1)
-    episodes = load_json(EPISODES_PATH) or {}
-    ep = episodes.get(str(mission))
-    if ep is None:
-        print(f"  ! No episode M{mission} in episodes.json — nothing to rate.")
+    # Resolve against the FEED, by the exact title the picker offered — which is
+    # the title his podcast app shows, so the row he taps and the item he heard
+    # are the same string by construction. An unmatched title refuses rather than
+    # guessing: a rating filed against the wrong episode is worse than none.
+    wanted = (args.episode or "").strip()
+    item = next((d for d in feed_items() if d["title"] == wanted), None)
+    if item is None:
+        print(f"  ! {wanted!r} is not in the feed — nothing to rate. "
+              f"Pick a row from learner.json's recent_audio.")
         sys.exit(1)
-    note = (f"[soak rating] M{mission} '{ep.get('title', mission)}' — {stars}/5 "
+    note = (f"[audio rating] [{item['format']}] {item['title']} — {stars}/5 "
             f"on wanting to keep listening.")
     log = load_json(FEEDBACK_LOG_PATH) or []
     log.append({"date": local_today().isoformat(), "note": note})
     save_json(FEEDBACK_LOG_PATH, log)
     print(f"  Logged feedback ({len(log)} total): {note}")
     if getattr(args, "commit", False):
-        commit_and_push(*publish([FEEDBACK_LOG_PATH], f"Soak rating: M{mission} {stars}/5", feed=False))
+        commit_and_push(*publish([FEEDBACK_LOG_PATH],
+                                 f"Audio rating: {item['id']} {stars}/5", feed=False))
 
 
 def cmd_feedback(args):
@@ -1303,8 +1311,8 @@ def main():
     fb.add_argument("note", nargs="?", default=None, help="The feedback to log; omit to list recent")
     fb.add_argument("-n", type=int, default=20, help="How many recent entries to show when listing")
 
-    re_ = sub.add_parser("rate-episode", help="Record a soak rating from the phone (whole picker lines; the number is read off the front)")
-    re_.add_argument("--mission", required=True, help="Picker line, e.g. '90 — Mission tier2_mission90'")
+    re_ = sub.add_parser("rate-episode", help="Record an audio rating from the phone (feed title + a star row)")
+    re_.add_argument("--episode", required=True, help="Feed title, exactly as the picker offered it")
     re_.add_argument("--stars", required=True, help="Picker line, e.g. '4 ★★★★'")
     re_.add_argument("--commit", action="store_true", help="Commit and push the ledger (CI lane)")
 

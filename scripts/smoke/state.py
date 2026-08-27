@@ -2751,90 +2751,141 @@ def s77_the_wild_line_reaches_the_session(sb: Path):
 
 
 def s79_a_rating_lands_or_says_why(sb: Path):
-    """The soak rating reaches the ledger, and a bad one refuses (2026-08-27).
+    """The audio rating reaches the ledger, and a bad one refuses (2026-08-27).
 
     This lane replaces the `listens` counter retired the same day. That counter's
     defect was not that it was wrong — it was that it could not BE wrong out loud:
     self-report went blind on 2026-06-30 and kept publishing a number for two
     months, which was then read as audience data.
 
-    So the case that matters here is the refusal. The rating arrives unattended
-    from a phone, through a workflow nobody watches, and the parse is the fragile
-    part precisely because it was moved off the phone to be testable. A rating
-    silently filed as 0/5 would steer the Diagnosis pass while looking exactly
-    like a rating that never arrived — the retired counter's failure wearing a
-    new hat.
+    THE PICKER READS THE FEED, and that is the second bug this case holds. It first
+    read `episodes.json`, which is the *lesson* pipeline's registry: only numbered
+    Missions get a row, so 16 of 28 published files were unofferable and the picker
+    could not name the soak Andrew had listened to an hour before (his catch, same
+    day). A population chosen because it was convenient, not because it answered
+    the question — the same mistake as `listens`, twice in one afternoon.
 
-    Drives the REAL writer and re-reads the REAL ledger, per s41: a green parse
-    proves nothing if the write path drops it."""
+    So Part A drives the REAL parser over the REAL feed, and Part B drives the REAL
+    writer and re-reads the REAL ledger, per s41: a green parse proves nothing if
+    the write path drops it."""
     print("\n79. A rating lands, or says why (2026-08-27)")
     import contextlib
     ss = importlib.import_module("sync_state")
+    rr = importlib.import_module("rebuild_rss")
+    RSSP = Path(rr.RSS_FILE)
 
-    def rate(mission: str, stars: str):
+    # ── Part A: the feed reader, over a feed this case builds ──
+    # Hermetic on purpose. An earlier draft asserted against whatever rss.xml the
+    # sandbox happened to carry and "a soak is reachable" passed or failed on the
+    # fixture's contents rather than on the parser — a green that means nothing.
+    FIXTURE = """<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel>
+  <item><title>Special — pinned</title>
+    <enclosure url="https://x/published_audio/special_hello.mp3"/>
+    <pubDate>Sat, 02 Aug 2026 16:38:43 -0400</pubDate></item>
+  <item><title>Soak - 2026-08-27</title>
+    <enclosure url="https://x/published_audio/soak_2026-08-27_1515.mp3"/>
+    <pubDate>Thu, 27 Aug 2026 15:15:00 +0530</pubDate></item>
+  <item><title>Drill - 2026-08-26</title>
+    <enclosure url="https://x/published_audio/drill_2026-08-26_1541.mp3"/>
+    <pubDate>Wed, 26 Aug 2026 15:41:00 +0530</pubDate></item>
+  <item><title>Tier2 Mission90</title>
+    <enclosure url="https://x/published_audio/tier2_mission90.mp3"/>
+    <pubDate>Wed, 19 Aug 2026 09:00:00 +0530</pubDate></item>
+  <item><title>Knock dose</title>
+    <enclosure url="https://x/published_audio/knocks/knock_2026-08-27T02-46.mp3"/>
+    <pubDate>Thu, 27 Aug 2026 02:46:00 +0530</pubDate></item>
+</channel></rss>"""
+    saved_rss = RSSP.read_bytes() if RSSP.exists() else None
+    try:
+        RSSP.write_text(FIXTURE, encoding="utf-8")
+        items = rr.feed_items()
+        ids = [d["id"] for d in items]
+        check("knock micro-doses are NOT offerable — a one-line dose is not rateable",
+              not any("knock" in i for i in ids), str(ids))
+        # Newest-first by pubDate, NOT the feed's own sort_key — that one pins
+        # specials at the top forever, which is Andrew's complaint in a new hat.
+        check("newest-first, so the one he just heard is the first row",
+              ids[0] == "soak_2026-08-27_1515", str(ids))
+        check("...and the pinned special does NOT ride the top of the picker",
+              ids.index("special_hello") > 1, str(ids))
+        check("a soak and a drill are both reachable — the registry offered neither",
+              {"soak", "drill"} <= {d["format"] for d in items},
+              str({d["format"] for d in items}))
+        check("...and a mission is still reachable — nothing was retired",
+              "mission" in {d["format"] for d in items})
+        check("titles are the feed's own, because that is what the picker shows",
+              items[0]["title"] == "Soak - 2026-08-27", str(items[0]))
+        RSSP.write_text("<rss><broken", encoding="utf-8")
+        with contextlib.redirect_stdout(io.StringIO()):
+            check("an unparseable feed yields nothing rather than raising",
+                  rr.feed_items() == [])
+    finally:
+        if saved_rss is not None:
+            RSSP.write_bytes(saved_rss)
+
+    # ── Part B: the command, over a feed this case controls ──
+    FEED = [{"id": "soak_2026-08-27_1515", "format": "soak",
+             "title": "Soak — 2026-08-27 · nothing to do but listen"},
+            {"id": "tier2_mission90", "format": "mission", "title": "Tier2 Mission90"}]
+
+    def rate(episode: str, stars: str):
         """Returns (exit_code, stdout). Non-zero is the loud refusal."""
         out = io.StringIO()
-        args = argparse.Namespace(mission=mission, stars=stars, commit=False)
+        args = argparse.Namespace(episode=episode, stars=stars, commit=False)
+        real = ss.feed_items
         try:
+            ss.feed_items = lambda: list(FEED)
             with contextlib.redirect_stdout(out):
                 ss.cmd_rate_episode(args)
             return 0, out.getvalue()
         except SystemExit as e:
             return e.code or 1, out.getvalue()
+        finally:
+            ss.feed_items = real
 
     def ledger():
         return read_json(sb / "progress" / "feedback_log.json") or []
 
     fb_path = sb / "progress" / "feedback_log.json"
-    eps_path = sb / "progress" / "episodes.json"
-    saved_fb, saved_eps = fb_path.read_bytes(), eps_path.read_bytes()
+    saved_fb = fb_path.read_bytes()
     try:
         write_json(fb_path, [])
-        write_json(eps_path, {"90": {"title": "Mission tier2_mission90",
-                                     "words": [], "duration_min": 3.0}})
-
-        # The phone sends whole picker rows — never a bare number.
-        code, out = rate("90 — Mission tier2_mission90", "4 ★★★★")
-        check("a whole picker row parses to its leading integer", code == 0, out)
+        code, out = rate("Soak — 2026-08-27 · nothing to do but listen", "4 ★★★★")
+        check("a soak is rateable — the whole point of reading the feed", code == 0, out)
         log = ledger()
         check("...and the note is IN the ledger, re-read from disk", len(log) == 1, str(log))
         note = log[0]["note"] if log else ""
-        check("...carrying the mission, the title and the score",
-              "M90" in note and "tier2_mission90" in note and "4/5" in note, note)
+        check("...carrying the title and the score",
+              "2026-08-27" in note and "4/5" in note, note)
+        check("...and the FORMAT, so soaks can be compared against drills",
+              "[soak]" in note, note)
         check("...tagged so the Diagnosis pass can find the lane",
-              note.startswith("[soak rating]"), note)
+              note.startswith("[audio rating]"), note)
 
-        # THE DIGIT IS THE CONTRACT, and this block is why. The first live rating
-        # arrived as '⭐️⭐️⭐️' and refused (run 33057942609), so the parser briefly
-        # learned to count ★☆⭐ instead. That fallback was a worse bug than the
-        # refusal it replaced: ☆ counted, so '★★★☆☆' — three filled of five, the
-        # ordinary way to DRAW a 3 — scored 5 and filed silently. Reverted same day.
-        # These rows are the ones a glyph-counter gets confidently wrong, so they
-        # are asserted as REFUSALS rather than left to a future good intention.
-        for label, row in (
-                ("three filled stars and two empty", "★★★☆☆"),
-                ("emoji stars with no digit", "⭐️⭐️⭐️"),
-                ("bare star glyphs", "★★★★★"),
+        # THE DIGIT IS THE CONTRACT. The first live rating arrived as '⭐️⭐️⭐️' and
+        # refused (run 33057942609), so the parser briefly learned to count ★☆⭐.
+        # That fallback was a worse bug than the refusal it replaced: ☆ counted, so
+        # '★★★☆☆' — three filled of five, the ordinary way to DRAW a 3 — scored 5
+        # and filed silently. Reverted the same day at Andrew's call. These rows are
+        # the ones a glyph-counter gets confidently wrong, so they are asserted as
+        # REFUSALS rather than left to a future good intention.
+        title = "Soak — 2026-08-27 · nothing to do but listen"
+        for label, ep, row in (
+                ("three filled stars and two empty", title, "★★★☆☆"),
+                ("emoji stars with no digit", title, "⭐️⭐️⭐️"),
+                ("bare star glyphs", title, "★★★★★"),
+                ("a zero-star payload", title, "0"),
+                ("a six-star payload", title, "6 ★★★★★★"),
+                ("an empty star row", title, ""),
+                ("a title not in the feed", "Soak — 1999-01-01 · ghost", "4 ★★★★"),
+                ("an empty title", "", "4 ★★★★"),
         ):
             before = len(ledger())
-            code, out = rate("90 — Mission tier2_mission90", row)
-            check(f"{label} REFUSES — glyphs are not a score", code != 0, out or "(silent)")
-            check("...and files nothing", len(ledger()) == before, str(ledger()))
-        check("...and the refusal names the fix, not just the fault",
-              "LEADING DIGIT" in rate("90 — M", "★★★")[1], rate("90 — M", "★★★")[1])
-
-        # ── The refusals. Each must exit non-zero AND write nothing. ──
-        for label, mission, stars in (
-                ("an unparseable mission row", "Mission tier2_mission90", "4 ★★★★"),
-                ("a mission with no episode",  "404 — ghost",             "4 ★★★★"),
-                ("a zero-star payload",        "90 — Mission",            "0"),
-                ("a six-star payload",         "90 — Mission",            "6 ★★★★★★"),
-                ("an empty star row",          "90 — Mission",            ""),
-        ):
-            before = len(ledger())
-            code, out = rate(mission, stars)
+            code, out = rate(ep, row)
             check(f"{label} REFUSES loudly", code != 0, out or "(silent)")
             check("...and files nothing", len(ledger()) == before, str(ledger()))
+        check("...and a bad star row names the fix, not just the fault",
+              "LEADING DIGIT" in rate(title, "★★★")[1], rate(title, "★★★")[1])
     finally:
         fb_path.write_bytes(saved_fb)
-        eps_path.write_bytes(saved_eps)

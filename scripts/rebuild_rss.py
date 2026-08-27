@@ -208,6 +208,66 @@ def get_title_from_md(md_path):
     return os.path.basename(md_path)
 
 
+def audio_format(stem: str) -> str:
+    """Which production lane made this feed item. The rating ledger carries it so
+    the Diagnosis pass can compare formats — "do drills land better than soaks" is
+    the question the audio lane exists to answer, and a rating that only says 5/5
+    cannot answer it."""
+    for prefix, name in (("soak_", "soak"), ("drill_", "drill"),
+                         ("longhaul_", "long-haul"), ("special_", "special")):
+        if stem.startswith(prefix):
+            return name
+    return "mission" if stem.startswith("tier") else "episode"
+
+
+def feed_items():
+    """Everything in the feed, newest first — `[{id, title, format}]`.
+
+    THE FEED IS THE SOURCE for "what audio reached Andrew", not episodes.json and
+    not a directory glob. The registry is the *lesson* pipeline's book: only
+    numbered Missions get a row, so 16 of 28 published files had none, and a
+    picker built on it could not name the soak he had listened to an hour earlier
+    (2026-08-27, his catch). Reading rss.xml means the picker and his podcast app
+    agree by construction — and if the feed is stale, both are stale together,
+    which is correct rather than a bug.
+
+    Sorted by pubDate, deliberately NOT by this module's own `sort_key`: that one
+    pins specials at the top forever, which is the same complaint in a new hat.
+    Knock micro-doses are excluded (Andrew, 2026-08-27) — a one-line dose is not
+    something you sit down and rate.
+
+    Lives here rather than in `state_io` because this module owns the feed, and
+    because L0 was 25 lines over its budget the moment it tried to."""
+    import xml.etree.ElementTree as ET
+    if not os.path.exists(RSS_FILE):
+        return []
+    try:
+        root = ET.parse(RSS_FILE).getroot()
+    except ET.ParseError:
+        print("  ⚠ rss.xml did not parse — no feed items to offer")
+        return []
+    out = []
+    for item in root.findall("./channel/item"):
+        enc = item.find("enclosure")
+        url = (enc.get("url") if enc is not None else "") or ""
+        if "/knocks/" in url:
+            continue
+        stem = url.rsplit("/", 1)[-1].removesuffix(".mp3")
+        title = (item.findtext("title") or "").strip()
+        if not stem or not title:
+            continue
+        try:
+            when = email.utils.parsedate_to_datetime(item.findtext("pubDate") or "")
+        except (TypeError, ValueError):
+            continue
+        out.append({"id": stem, "title": title, "format": audio_format(stem),
+                    "at": when})
+    out.sort(key=lambda d: d["at"], reverse=True)
+    for d in out:
+        d.pop("at")
+    return out
+
+
 def existing_items():
     """Return {guid_url: {"pubDate": …, "duration": …}} from the current rss.xml, so a
     rebuild republishes what was published rather than re-deriving it.

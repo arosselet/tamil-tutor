@@ -2433,3 +2433,14 @@ Details live in git history; this is the index of the *conclusions*.
   `!= 'reply'` was TRUE for one and would have marked a knock landed off an event that was
   never a knock. Both now name `github.event.action`. Parsing sits in Python because the phone
   cannot be tested; every refusal exits non-zero and files nothing (`s79`).
+- **The rating picker reads the FEED, not the episode registry** (2026-08-27, Andrew: *"why do
+  I see tier2 mission 90 at the top and not this afternoon's soak?"*). `episodes.json` is the
+  *lesson* pipeline's book — only numbered Missions get a row — so **16 of 28 published files
+  were unrateable**, every soak and drill among them, and the picker offered the one format he had
+  stopped listening to. Same mistake as `listens` hours earlier: the convenient
+  population, not the right one. `feed_items()` reads `rss.xml`, so picker and podcast app agree
+  by construction; sorted by pubDate, NOT the feed's own `sort_key`, which pins specials at the
+  top forever. Knock micro-doses excluded — a one-line dose is not rateable. **`recent_missions`
+  → `recent_audio`** (retired key, swept by merge-write), and the note carries the FORMAT so
+  soaks can be compared against drills. Lives in `rebuild_rss`, which owns the feed. Missions
+  are dormant, not retired.

@@ -246,17 +246,17 @@ jobs:
             --knock-id "${{ github.event.client_payload.knock_id }}" \
             --commit
 
-      - name: Log soak rating
+      - name: Log audio rating
         # The phone sends whole picker lines; the integer comes off the front in
         # Python, where a smoke case can hold it. Writes one dated note into the
         # feedback ledger the Diagnosis pass already reads — this lane never
         # touches knock state, which is exactly why it is not the tap lane.
         if: github.event.action == 'episode-rating'
         env:
-          RATING_MISSION: ${{ github.event.client_payload.mission }}
+          RATING_EPISODE: ${{ github.event.client_payload.episode }}
           RATING_STARS: ${{ github.event.client_payload.stars }}
         run: |
-          python scripts/sync_state.py rate-episode             --mission "$RATING_MISSION"             --stars "$RATING_STARS"             --commit
+          python scripts/sync_state.py rate-episode --episode "$RATING_EPISODE" --stars "$RATING_STARS" --commit
 
       - name: Anna knocks
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
