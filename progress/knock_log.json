@@ -5411,10 +5411,10 @@
     "memo_script": "ஹலோ, ஆமா... நம்ம சாந்தி சித்தி இருக்காங்கள்ல?\n\nஅவங்க இன்னைக்கு காலைல சென்னைக்கு கிளம்பினாங்க. ஆனா ஸ்டேஷன் போன அப்புறம் தான் தெரிஞ்சது, ட்ரெயின் ரொம்ப லேட் ஆயிடுச்சு. அங்கேயே ரெண்டு மணி நேரம் ஆச்சு.\n\nகடைசியில இப்போ தான் ட்ரெயின் வந்துச்சு, ஏறி போயிட்டாங்க.",
     "mp3": "published_audio/knocks/knock_2026-08-27T02-46.mp3",
     "response": "reply",
-    "reply": "Send an audio greeting in Tamil to my sister in law Swapna",
+    "reply": "Ok so I didn’t see anything attached to that reply?",
     "reply_verdict": "chat",
-    "reply_line": "On it da — let's put together a warm audio greeting for Swapna.",
-    "reply_at": "2026-08-27T09:38:38Z",
+    "reply_line": "Ah my bad da, let me get that audio greeting recorded and sent over properly.",
+    "reply_at": "2026-08-27T09:40:45Z",
     "exchanges": [
       {
         "at": "2026-08-27T03:24:56Z",
@@ -5429,6 +5429,13 @@
         "verdict": "chat",
         "fired": [],
         "reply_line": "On it da — let's put together a warm audio greeting for Swapna."
+      },
+      {
+        "at": "2026-08-27T09:40:45Z",
+        "reply": "Ok so I didn’t see anything attached to that reply?",
+        "verdict": "chat",
+        "fired": [],
+        "reply_line": "Ah my bad da, let me get that audio greeting recorded and sent over properly."
       }
     ]
   }
