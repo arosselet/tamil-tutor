@@ -648,13 +648,14 @@
     "gloss": "Stomach full",
     "phonetic": [],
     "recognition": "struggled",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       71,
       86
     ],
-    "last_surfaced": "2026-08-10",
-    "exposures": 1
+    "last_surfaced": "2026-08-27",
+    "exposures": 1,
+    "reps": 1
   },
   "காரம்": {
     "gloss": "Spicy",
@@ -794,7 +795,7 @@
       33
     ],
     "last_surfaced": "2026-08-27",
-    "reps": 1,
+    "reps": 2,
     "exposures": 5
   },
   "போதும்": {
@@ -811,8 +812,8 @@
       71,
       72
     ],
-    "last_surfaced": "2026-08-24",
-    "reps": 11,
+    "last_surfaced": "2026-08-27",
+    "reps": 12,
     "exposures": 2
   },
   "தெரியும்": {
@@ -3753,7 +3754,7 @@
       "konjam medhuva sollunga"
     ],
     "recognition": "struggled",
-    "production": "cold",
+    "production": "hinted",
     "seen_in": [
       58,
       89
@@ -3761,7 +3762,7 @@
     "last_surfaced": "2026-08-27",
     "deck": "trip",
     "direction": "fire",
-    "reps": 2,
+    "reps": 3,
     "exposures": 6,
     "register": "antifreeze"
   },
@@ -3945,11 +3946,11 @@
     "seen_in": [
       68
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-08-27",
     "deck": "trip",
     "direction": "fire",
     "exposures": 3,
-    "reps": 1,
+    "reps": 2,
     "register": "frame"
   },
   "frame:quote-nu": {
@@ -5206,9 +5207,9 @@
     "seen_in": [
       78
     ],
-    "last_surfaced": "2026-08-26",
+    "last_surfaced": "2026-08-27",
     "exposures": 2,
-    "reps": 3
+    "reps": 4
   },
   "சாப்பிட்டோம்": {
     "gloss": "",
@@ -5267,9 +5268,9 @@
     "seen_in": [
       78
     ],
-    "last_surfaced": "2026-08-26",
+    "last_surfaced": "2026-08-27",
     "exposures": 1,
-    "reps": 2
+    "reps": 3
   },
   "சமைச்சோம்": {
     "gloss": "",
