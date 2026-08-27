@@ -1379,33 +1379,41 @@ def s42_session_log_one_row_per_day(sb: Path):
             slog_path.write_bytes(saved[2])
 
 
-def s53_unverify_rows_nothing_ever_tested(sb: Path):
-    """A recognition rating nobody ever earned (2026-08-23, Andrew).
+def s53_evidence_gates_the_ear(sb: Path):
+    """A recognition rating nobody earned must not reach the ear meter (2026-08-27).
 
-    Replaces the prune-duplicates case with its own command. The lexicon's first
-    populated commit already held 153 rows at solid:93 / comfortable:54 — a
-    day-one self-estimate written into the field evidence writes into. Nothing
-    downstream could tell the two apart, so the ticket offered a June guess as a
-    known word and Anna demanded four words he had never met in one session.
-    Andrew's ruling: repair the data, do not build a label around it.
+    REPLACES s53_unverify_rows_nothing_ever_tested and the command it guarded.
+    The 2026-08-23 repair asserted that `reps == 0` with production `none` IS the
+    provenance signal, so no schema needed to move. Replaying all 220 commits that
+    ever touched the lexicon on 08-27 showed that premise false in both directions:
+    69 rows claim recognized without ever earning an upgrade and the predicate
+    reaches NONE of them (67 carry production), while the single genuinely caught
+    row in the ledger's history — சும்மா சொல்றாங்க, 08-09 — read as unevidenced and
+    was demoted by the sweep itself, because `apply_catch_verdict` stamped nothing.
+    `heard_on` replaces the proxy: an assertion is now a level with no date.
 
-    Gate 7.2 — the honest answer is nasty, because this tool has TWO silent
-    failures pointing opposite ways. (a) A wrong predicate selects nothing and
-    prints "every recognized one has been worked" — which is also exactly what a
-    correct run prints once the migration has landed, forever after. So the case
-    must prove it FINDS rows in a fixture that has them; a green "no-op" proves
-    nothing. (b) An over-broad predicate silently wipes recognition off rows that
-    were earned, and no meter would show it as anything but a lower floor. So
-    every row below that carries evidence — a rep, a cold fire, or both — is
-    asserted to survive untouched.
+    Gate 7.2 — this predicate has TWO silent failures pointing opposite ways, and
+    a green run of either is plausible:
 
-    And the third teeth: `reps` and `last_surfaced` must come through the write
-    unchanged. Demoting via `--stuck-word` would have reached `touch()` and
-    bumped both, destroying the signal that identifies these rows and faking a
-    working date for callback due-ness. That is a round-trip assertion — re-read
-    the file, never trust the dict the command was handed."""
-    print("\n53. Recognition nobody ever tested is dropped to struggled (2026-08-23)")
-    import contextlib, io, argparse as _ap
+      (a) `is_heard` always False. The meter reads 0 forever, which is
+          indistinguishable from "his ear has not moved" — and since the ear IS
+          the primary steer, a frozen zero would be read as a learner problem for
+          months. So a row WITH evidence must be asserted to count.
+      (b) `is_heard` always True. The meter silently reverts to counting seed
+          assertions and looks exactly like the pre-fix behaviour that was
+          believed correct for two months. So a row WITHOUT evidence must be
+          asserted NOT to count, at the same `solid` rating.
+
+    And the third teeth, the one a later tidy-up will reach for: the viability
+    floor deliberately does NOT take this rule. Gating the floor's denominator on
+    evidence collapses it from 49/58 to about 3/5 — a number that measures
+    nothing. The asymmetry is the design; this case fails if someone makes the two
+    meters consistent.
+
+    Round-tripped through the real writer, per the s41 lesson: the stamp is driven
+    with `cmd_update`, then re-read off the file rather than off the dict."""
+    print("\n53. Evidence, not assertion, gates the ear (2026-08-27)")
+    import contextlib, io as _io, argparse as _ap
     ss = importlib.import_module("sync_state")
     lex_path = sb / "progress" / "lexicon.json"
     saved = lex_path.read_bytes()
@@ -1413,55 +1421,68 @@ def s53_unverify_rows_nothing_ever_tested(sb: Path):
         row = lambda **kw: {"gloss": "x", "phonetic": [], "recognition": "struggled",
                             "production": "none", "seen_in": [], "last_surfaced": None, **kw}
         lex = {
-            # THE POPULATION: rated recognized, never worked by any channel.
-            "அது": row(recognition="solid"),
-            "இது": row(recognition="comfortable", seen_in=[3, 7], last_surfaced=None),
-            # EVIDENCE, three ways — each of these must survive at its rating.
-            "வா": row(recognition="solid", reps=4, last_surfaced="2026-08-01"),
-            "போ": row(recognition="comfortable", production="cold"),
-            "வை": row(recognition="solid", reps=1, production="hinted",
-                      last_surfaced="2026-08-19"),
-            # already at the floor — nothing to do, and it must not churn
-            "சரி": row(recognition="struggled"),
+            # (b) SOLID BY ASSERTION — born there, never assessed. Must not count.
+            "frame:asserted": row(type="pattern", recognition="solid", production="cold"),
+            # (a) SOLID WITH EVIDENCE — a real observation. Must count.
+            "frame:earned": row(type="pattern", recognition="solid", production="none",
+                                heard_on="2026-07-26", direction="catch"),
+            # below solid, with evidence: tested and still not heard — must not count,
+            # and must be distinguishable from never-tested, which is the whole point.
+            "frame:tested-missed": row(type="pattern", recognition="comfortable",
+                                       heard_on="2026-08-01"),
+            # a WORD carrying the floor: recognized-by-assertion and firing cold.
+            "வணக்கம்": row(recognition="solid", production="cold", phonetic=["vanakkam"]),
         }
         write_json(lex_path, lex)
-        out = io.StringIO()
-        with contextlib.redirect_stdout(out):
-            ss.cmd_unverify(_ap.Namespace(apply=False))
-        check("a dry run writes nothing", read_json(lex_path) == lex, "the preview mutated the file")
-        check("...and says so", "DRY RUN" in out.getvalue())
-        # (a) The no-op that reads as success: prove it SEES them.
-        check("the preview names every untested row", "2 rated without evidence" in out.getvalue(),
-              f"got {out.getvalue()!r}")
 
-        with contextlib.redirect_stdout(io.StringIO()):
-            ss.cmd_unverify(_ap.Namespace(apply=True))
+        mach = ss.compute_machines(read_json(lex_path))
+        check("a machine solid WITH evidence is heard",
+              mach["heard"] == 1, f"got {mach}")
+        check("...and a machine solid by ASSERTION is not",
+              mach["total"] == 3 and mach["heard"] == 1,
+              f"asserted row leaked into the meter: {mach}")
+        check("a tested-and-missed row is not heard either",
+              ss.is_heard(lex["frame:tested-missed"]) is False)
+        check("but it is distinguishable from never-tested",
+              bool(lex["frame:tested-missed"].get("heard_on"))
+              and not lex["frame:asserted"].get("heard_on"),
+              "the two unheard states collapsed back into one")
+
+        # THE ASYMMETRY. The floor counts the CLAIM on purpose — do not unify.
+        floor = ss.compute_floor(read_json(lex_path))
+        check("the viability floor still counts an asserted row",
+              floor["total"] == 1 and floor["cleared"] == 1,
+              f"the floor took the ear's rule and collapsed: {floor}")
+
+        # --- the round trip: the real writer must stamp the date --------------
+        defaults = dict(listened=[], teach=[], soak_payload=[], soak_seed=None,
+                        soak_focus=None, soak_channel=None, soak_form=None,
+                        mastered_word=["frame:asserted"], comfortable_word=[],
+                        stuck_word=[], produced_cold=[], produced_hinted=[],
+                        mark_seen=[], next_engine=None, debrief=None,
+                        no_commission="smoke sandbox")
+        with contextlib.redirect_stdout(_io.StringIO()):
+            ss.cmd_update(_ap.Namespace(**defaults))
         after = read_json(lex_path)
-        check("an unearned 'solid' drops to struggled",
-              after["அது"]["recognition"] == "struggled", f"got {after['அது']}")
-        check("an unearned 'comfortable' drops too",
-              after["இது"]["recognition"] == "struggled", f"got {after['இது']}")
-        # (b) The opposite failure — silently wiping ratings that were earned.
-        check("a row with reps survives at its rating",
-              after["வா"]["recognition"] == "solid", f"got {after['வா']}")
-        check("a row that has FIRED survives even with no reps",
-              after["போ"]["recognition"] == "comfortable", f"got {after['போ']}")
-        check("a hinted row with a rep survives",
-              after["வை"]["recognition"] == "solid", f"got {after['வை']}")
-        # The signal has to survive its own repair, or the rows stop being findable.
-        check("reps is never bumped by the repair",
-              all(after[w].get("reps", 0) == lex[w].get("reps", 0) for w in lex),
-              f"reps moved: {[(w, after[w].get('reps')) for w in lex]}")
-        check("last_surfaced is never stamped by the repair",
-              all(after[w].get("last_surfaced") == lex[w].get("last_surfaced") for w in lex),
-              f"dates moved: {[(w, after[w].get('last_surfaced')) for w in lex]}")
-        check("nothing is added or dropped", sorted(after) == sorted(lex), f"got {sorted(after)}")
+        check("an observation logged at close stamps heard_on",
+              bool(after["frame:asserted"].get("heard_on")),
+              f"the writer moved the level and recorded no evidence: {after['frame:asserted']}")
+        check("...and the meter moves on the strength of it",
+              ss.compute_machines(after)["heard"] == 2,
+              f"got {ss.compute_machines(after)}")
 
-        with contextlib.redirect_stdout(out := io.StringIO()):
-            ss.cmd_unverify(_ap.Namespace(apply=True))
-        check("re-running on repaired data is a no-op",
-              read_json(lex_path) == after and "every recognized one has been worked" in out.getvalue(),
+        # --- the one-shot: an absence must be LOUD ---------------------------
+        lex2 = read_json(lex_path)
+        lex2.pop("frame:earned")
+        write_json(lex_path, lex2)
+        out = _io.StringIO()
+        with contextlib.redirect_stdout(out):
+            rc = ss.cmd_backfill_evidence(_ap.Namespace(apply=False))
+        check("a backfill row that no longer resolves is reported",
+              "frame:earned" not in out.getvalue() or "not in the lexicon" in out.getvalue(),
               f"got {out.getvalue()!r}")
+        check("...and it exits non-zero so CI can see it",
+              rc == 1, f"got rc={rc}")
     finally:
         lex_path.write_bytes(saved)
 

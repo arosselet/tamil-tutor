@@ -4,7 +4,9 @@ State management for the Tamil learning system.
 
 Word-state lives in ONE place: progress/lexicon.json — a word-keyed map where each
 record carries both axes (recognition + production), its phonetics, provenance, and
-last-surfaced date. This script owns all writes to it. The LLM (Anna) calls
+last-surfaced date. `heard_on` is the recognition axis's EVIDENCE (2026-08-27): a level
+with no date is an assertion nobody ever tested, which is what the ear meter must not
+count. This script owns all writes to it. The LLM (Anna) calls
 `update` at the end of a session to record what it observed.
 
   progress/lexicon.json     → word-state (this file's domain)
@@ -163,6 +165,44 @@ def compute_engines(lexicon: dict) -> dict:
     return {"online": len(online), "total": total, "pct": pct}
 
 
+def is_heard(rec: dict) -> bool:
+    """Solid on the ear AND something actually observed it — the evidence rule.
+
+    `recognition` is a CLAIM. Until 2026-08-27 nothing recorded what backed one,
+    so a level asserted in a seed commit and a level won on a caught eavesdrop
+    were the same value in the same field. Measured that day across all 220
+    commits that ever touched the ledger: 74 rows claimed recognized, and 69 of
+    them had never earned a single upgrade in the ledger's life — born at that
+    level and never assessed since. `heard_on` is the missing half: present only
+    where a recognition observation actually happened (Anna's live judgment, or
+    the eavesdrop judge), so an assertion is now DERIVED — a level with no date —
+    rather than stored as a flag that would drift.
+
+    DELIBERATELY NOT APPLIED TO `compute_floor` (2026-08-27). The floor asks "of
+    the words we think he knows, how many can he say" — a soft claim is fine in
+    that denominator, and gating it on evidence would collapse it from 49/58 to
+    about 3/5 overnight, which measures nothing. The ear meter reads evidence;
+    the floor keeps reading the claim. That asymmetry is the design, not an
+    oversight — do not "fix" it into consistency.
+    """
+    return rec.get("recognition") == "solid" and bool(rec.get("heard_on"))
+
+
+def compute_machines(lexicon: dict) -> dict:
+    """The machines meter — of the tracked patterns, how many he actually HEARS.
+
+    THE ONE OWNER OF THIS RULE (2026-08-27). `session_brief` counted it inline
+    with its own `recognition == "solid"` loop while `compute_status` counted it
+    here; two copies of an invariant is how one of them silently stops matching
+    the other, which the spine law (2026-08-23) already bans one lane over.
+    """
+    pats = [r for r in lexicon.values() if is_pattern(r)]
+    heard = [r for r in pats if is_heard(r)]
+    total = len(pats)
+    return {"heard": len(heard), "total": total,
+            "pct": (len(heard) / total * 100) if total else 0.0}
+
+
 def compute_ear(lexicon: dict) -> dict:
     """The ear meter: of the rows tagged `direction: "catch"` — ear-only, where
     the win is comprehension and forcing production is the mistake — how many
@@ -176,7 +216,7 @@ def compute_ear(lexicon: dict) -> dict:
     is the one axis nothing else counts, and `direction` was always its
     discriminator — never the deck tag — so its population is unchanged."""
     catch = [r for r in lexicon.values() if r.get("direction") == "catch"]
-    solid = [r for r in catch if r.get("recognition") == "solid"]
+    solid = [r for r in catch if is_heard(r)]
     return {"caught": len(solid), "total": len(catch),
             "untouched": sum(1 for r in catch if not r.get("last_surfaced"))}
 
@@ -205,8 +245,8 @@ def compute_status() -> str:
     deadline is what expired, and a required pace with no deadline is not a
     number, it is a guess."""
     lexicon = load_json(LEXICON_PATH) or {}
-    pats = [r for r in lexicon.values() if is_pattern(r)]
-    ears = f"Machines heard {sum(1 for r in pats if r.get('recognition') == 'solid')}/{len(pats)}"
+    mach = compute_machines(lexicon)
+    ears = f"Machines heard {mach['heard']}/{mach['total']}"
     floor = compute_floor(lexicon)
     return f"{ears} · viability floor {floor['cleared']}/{floor['total']} fire cold ({floor['pct']:.0f}%)"
 
@@ -450,11 +490,15 @@ def cmd_update(args):
                 "gloss": "", "phonetic": [phon], "recognition": level,
                 "production": "none", "seen_in": [], "last_surfaced": today,
             }
+            # No `heard_on`: minting is Anna DECLARING a level, not observing one.
+            # The field is absent until something tests the ear, which is what
+            # makes "assertion" a derived property rather than a stored flag.
             print(f"  + New word '{word}' → recognition {level} (phonetic '{phon}'; gloss empty — fill in later)")
             return
         lexicon[key]["recognition"] = level
+        lexicon[key]["heard_on"] = today
         touch(key)
-        print(f"  Recognition '{key}' → {level}")
+        print(f"  Recognition '{key}' → {level} (heard_on {today})")
 
     def demote_recognition(word):
         key = resolve(word, lexicon, phon_index)
@@ -464,9 +508,15 @@ def cmd_update(args):
         cur = lexicon[key].get("recognition", "struggled")
         new = DEMOTE.get(cur, "struggled")
         lexicon[key]["recognition"] = new
+        # A MISS IS EVIDENCE TOO, and it is the evidence this ledger was starved
+        # of. `heard_on` answers "was this ever assessed", never "did he pass" —
+        # so a demotion stamps it exactly like a promotion. Without this a tested
+        # failure would be indistinguishable from a row nobody ever tried, which
+        # is the whole defect being repaired here.
+        lexicon[key]["heard_on"] = today
         touch(key)
         applied["demoted"].append(key)
-        print(f"  Recognition '{key}' demoted {cur} → {new}")
+        print(f"  Recognition '{key}' demoted {cur} → {new} (heard_on {today})")
 
     def set_production(word, level):
         key = resolve(word, lexicon, phon_index)
@@ -1157,61 +1207,76 @@ def cmd_feedback(args):
         print(f"  {e['date']}  {e['note']}")
 
 
-def cmd_unverify(args):
-    """Drop to `struggled` every row rated recognized that nothing ever tested.
+def cmd_backfill_evidence(args):
+    """Stamp `heard_on` on the rows that DID earn their recognition, from git.
 
-    Replaces `prune-duplicates` (2026-08-04), which is spent: it reports "no
-    strictly-dominated duplicates" against the current lexicon, and `resolve()`
-    plus the phonetic index are the forward fix that stops those rows recurring.
-    A one-time correction whose one time has passed is crud, and this file was
-    at 795/800 — the same trade, in the same words, that prune-duplicates itself
-    made against `migrate-session-log` on 2026-07-31.
+    Replaces `unverify` (2026-08-23), which is spent AND was doing harm. It is
+    the same rotating one-shot slot `unverify` took from `prune-duplicates` and
+    that took from `migrate-session-log` — one repair in, one out.
 
-    THE BUG THIS REPAIRS (2026-08-23, Andrew: "hearing != knowing"). The
-    lexicon's first populated commit already carried 153 rows at solid:93 /
-    comfortable:54 / struggled:6 — a day-one SELF-ESTIMATE of what he had
-    soaked, written into the same field that evidence writes into. Nothing
-    downstream could tell an estimate from a fact, so `suggest_targets` offered
-    a June guess as a known word and Anna built cold demands on words he had
-    never met — four of them in one session before he named it. His ruling on
-    the fix: do not add a warning label, "that builds a feature to patch a data
-    integrity bug". Repair the data; the existing machinery then does the rest,
-    because a `struggled` row leaves the recognized set, drops out of the
-    viability floor's denominator, and re-enters play through the Teach Beat.
+    WHY UNVERIFY IS RETIRED RATHER THAN FIXED. Its premise was that `reps == 0`
+    with production `none` IS the provenance signal, so no schema needed to move.
+    Measured on 2026-08-27 by replaying all 220 commits that ever touched the
+    lexicon, that premise is false in both directions at once:
 
-    `reps` IS THE EVIDENCE, AND IT ALREADY EXISTS. It counts declared events
-    only — worked in a session (`touch`) or fired in a judged reply
-    (`knock_reply.apply_verdict`). So `reps == 0` with production `none` on a
-    recognized row means no channel ever checked it. No new field is needed and
-    none is added; the structure freeze holds.
+      - It reaches NONE of the rows it exists for. 69 rows claim recognized
+        without ever having earned an upgrade; 67 of them carry production, so
+        the `production == none` clause skips every one. The 08-23 sweep already
+        took everything the proxy could see — what is left is invisible to it by
+        construction, including 11 machines.
+      - It ate the one row that DID earn it. `apply_catch_verdict` moves
+        recognition but never stamped `reps`, so the sole caught eavesdrop in the
+        ledger's history — சும்மா சொல்றாங்க, caught 2026-08-09 — read as
+        unevidenced and was demoted by the 08-23 sweep itself. The repair
+        destroyed its own re-earning path on the day it was written.
 
-    WHAT IT DELIBERATELY DOES NOT TOUCH: `reps` and `last_surfaced`. Demoting
-    through `--stuck-word` would have reached `touch()` and bumped both, which
-    destroys the very signal that identifies these rows and stamps a working
-    date that callback due-ness reads as fresh. The evidence gap has to survive
-    its own repair, so the rows stay findable and can be re-earned honestly. The
-    re-earning path needs nothing new either: a caught eavesdrop already
-    promotes recognition (`knock_reply`), as does Anna's own observation.
+    `heard_on` replaces the proxy outright, so the demote-on-no-evidence move has
+    nothing left to do: an unbacked claim now simply fails `is_heard` and stops
+    inflating the meter, WITHOUT deleting a level the ledger cannot re-derive.
+    Not demoting is the point — unverify's real cost was that it wrote loss into
+    the file, and a wrong demotion is unrecoverable while a missing date is not.
+
+    The six rows below are every recognition UPGRADE in the ledger's life, with
+    the date of the last one, read out of git rather than guessed. All six are
+    `direction: catch` — the eavesdrop lane is the only instrument that has ever
+    moved this axis, which is itself the finding.
     """
+    earned = {
+        "frame:hearsay-aam": "2026-07-25",
+        "frame:quote-nu": "2026-07-26",
+        "என்னமோ பிரச்சனை": "2026-07-26",
+        "அலைச்சல்": "2026-07-26",
+        "ஜாஸ்தி": "2026-07-27",
+        "சும்மா சொல்றாங்க": "2026-08-09",
+    }
     lexicon = load_json(LEXICON_PATH) or {}
-    stale = [w for w, r in lexicon.items()
-             if r.get("recognition") in RECOGNIZED and not r.get("reps")
-             and (r.get("production") or "none") == "none"]
-    if not stale:
-        print(f"lexicon.json: {len(lexicon)} rows, every recognized one has been worked.")
-        return
-    print(f"lexicon.json: {len(lexicon)} rows, {len(stale)} rated without evidence:")
-    for word in stale:
-        rec = lexicon[word]
-        print(f"  - {word} ({rec.get('gloss') or 'no gloss'}) — {rec['recognition']} → struggled")
+    todo, missing = [], []
+    for key, when in earned.items():
+        rec = lexicon.get(key)
+        if rec is None:
+            missing.append(key)
+        elif rec.get("heard_on"):
+            continue
+        else:
+            todo.append((key, when, rec.get("recognition")))
+    # AN ABSENCE MUST BE LOUD: a key that no longer resolves is a silent no-op
+    # otherwise, and this command's whole job is restoring evidence.
+    for key in missing:
+        print(f"  ! {key} is not in the lexicon — evidence NOT restored. Investigate.")
+    if not todo:
+        print(f"lexicon.json: {len(lexicon)} rows, every earned row already carries heard_on.")
+        return 1 if missing else 0
+    print(f"lexicon.json: {len(lexicon)} rows, {len(todo)} earned rows missing heard_on:")
+    for key, when, level in todo:
+        print(f"  - {key} ({level}) → heard_on {when}")
     if not args.apply:
         print("\n  DRY RUN — nothing written. Re-run with --apply to commit the change.")
-        print("  (git holds the current file; `git checkout -- progress/lexicon.json` reverts.)")
-        return
-    for word in stale:
-        lexicon[word]["recognition"] = "struggled"
+        return 1 if missing else 0
+    for key, when, _ in todo:
+        lexicon[key]["heard_on"] = when
     save_json(LEXICON_PATH, lexicon)
-    print(f"\n  ✅ written — {len(stale)} rows now struggled; reps and last_surfaced untouched.")
+    print(f"\n  ✅ written — {len(todo)} rows carry their real evidence date.")
+    return 1 if missing else 0
 
 
 def main():
@@ -1330,10 +1395,10 @@ def main():
                          "(a later miss revives it, history intact); 'missed' logs the failure and keeps it live. "
                          "This asserts an observation — that he fired it right unaided — not a verdict.")
 
-    uv = sub.add_parser("unverify",
-                        help="Drop to struggled every recognized row nothing ever tested — "
-                             "reps 0, production none (2026-08-23). Previews unless --apply.")
-    uv.add_argument("--apply", action="store_true",
+    bf = sub.add_parser("backfill-evidence",
+                        help="Stamp heard_on on the rows that genuinely earned their "
+                             "recognition, from git (2026-08-27). Previews unless --apply.")
+    bf.add_argument("--apply", action="store_true",
                     help="Actually write. Without it this only reports what would change.")
 
     args = parser.parse_args()
@@ -1361,11 +1426,14 @@ def main():
         cmd_slips(args)
     elif args.command == "knock-response":
         cmd_knock_response(args)
-    elif args.command == "unverify":
-        cmd_unverify(args)
+    elif args.command == "backfill-evidence":
+        return cmd_backfill_evidence(args)
     else:
         parser.print_help()
 
 
 if __name__ == "__main__":
-    main()
+    # A subcommand that reports an unresolvable row returns non-zero; every other
+    # branch returns None. Without this the loud absence is loud on stdout and
+    # invisible to CI, which is the same class of silent no-op being repaired.
+    sys.exit(main() or 0)

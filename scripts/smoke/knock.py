@@ -1652,9 +1652,11 @@ def s60_the_ear_meter(kr, sb: Path):
         ear: {"gloss": "-aam hearsay", "phonetic": ["aam"], "type": "pattern",
               "direction": "catch", "recognition": "comfortable", "production": "none",
               "seen_in": [], "last_surfaced": "2026-07-01"},
-        # the one already heard
+        # the one already heard — and since 2026-08-27 "heard" needs the evidence
+        # date, not just the level. Without heard_on this row is an assertion.
         "frame:heard": {"gloss": "-nu quotative", "phonetic": ["nu"], "type": "pattern",
-                        "recognition": "solid", "production": "none", "seen_in": []},
+                        "recognition": "solid", "production": "none", "seen_in": [],
+                        "heard_on": "2026-07-26"},
         # a WORD at solid — must not touch a pattern meter
         "வணக்கம்": {"gloss": "hello", "phonetic": ["vanakkam"], "type": "chunk",
                     "recognition": "solid", "production": "cold", "seen_in": []},
@@ -1665,6 +1667,19 @@ def s60_the_ear_meter(kr, sb: Path):
     check("ear-only patterns are INSIDE the denominator (3, not 2)",
           "1/3" in line, line)
     check("comfortable is not heard — only solid counts", line.startswith("Machines heard: 1/"), line)
+    # A solid row with no evidence date must not buy a place in the numerator
+    # (2026-08-27). Added here rather than in a new case because THIS is the meter
+    # that would silently re-inflate: before the evidence rule it read 2/3 on this
+    # very fixture, and 2/3 is a perfectly plausible number to walk past.
+    lex_assert = read_json(lex_path)
+    lex_assert["frame:asserted-solid"] = {"gloss": "seeded", "phonetic": ["x"],
+                                          "type": "pattern", "recognition": "solid",
+                                          "production": "cold", "seen_in": []}
+    write_json(lex_path, lex_assert)
+    check("a machine solid by ASSERTION widens the denominator, never the count",
+          meter(status()).startswith("Machines heard: 1/4"), meter(status()))
+    del lex_assert["frame:asserted-solid"]
+    write_json(lex_path, lex_assert)
     check("it is labelled the primary steer", "PRIMARY STEER" in line, line)
     check("the deck no longer claims the headline",
           "sprint headline" not in status())
@@ -1711,6 +1726,73 @@ def s60_the_ear_meter(kr, sb: Path):
 
     write_json(lex_path, json.loads(saved[0].decode("utf-8")))
     write_json(klog_path, json.loads(saved[1].decode("utf-8")))
+
+
+def s81_the_ear_judge_stamps_its_own_evidence(kr, sb: Path):
+    """The one instrument that tests the ear must record that it did (2026-08-27).
+
+    THE BUG, traced through git on 08-27. `apply_catch_verdict` moved recognition
+    and stamped nothing else — no `reps`, and (before `heard_on` existed) no
+    evidence of any kind. The mouth judge has bumped `reps` at its own seam since
+    2026-07-26; the ear judge simply never did. `unverify` then read that silence
+    as "never tested" and demoted the single genuine catch in the ledger's history
+    (சும்மா சொல்றாங்க: caught 2026-08-09, demoted by the 08-23 sweep). The repair
+    ate its own re-earning path, and every meter stayed green while it happened.
+
+    Worse, the function returned BEFORE resolving the target whenever the verdict
+    was not "caught", so a MISS — the most informative ear result there is — wrote
+    nothing at all and left the row indistinguishable from one never put in front
+    of him.
+
+    Gate 7.2 — what does this look like when it silently does nothing? Exactly
+    like success: the recognition ladder still moves on a catch (s6 and s60 both
+    stay green), the reply still renders, the log still writes. The only surface
+    that ever showed it was a demotion five weeks later. So this asserts the
+    SIDE-EFFECT rather than the level, on both verdicts, re-read off the file:
+
+      - a CAUGHT verdict stamps heard_on and reps, on top of moving the level;
+      - a MISSED verdict stamps heard_on and reps and moves NOTHING, so that
+        "tested and failed" stops reading as "never tested"."""
+    print("\n81. The ear judge records that it tested (2026-08-27)")
+    lex_path = sb / "progress" / "lexicon.json"
+    saved = lex_path.read_bytes()
+    try:
+        target = "frame:catch-me"
+        base = {"gloss": "-aam", "phonetic": ["aam"], "type": "pattern",
+                "direction": "catch", "recognition": "struggled",
+                "production": "none", "seen_in": []}
+        knock = {"expected_target": target}
+
+        # --- a MISS is still an ear test ----------------------------------
+        write_json(lex_path, {target: dict(base)})
+        lex = read_json(lex_path)
+        kr.apply_catch_verdict({"verdict": "missed"}, knock, lex)
+        check("a missed catch stamps the evidence date",
+              bool(lex[target].get("heard_on")),
+              f"a tested miss recorded nothing: {lex[target]}")
+        check("...and counts the rep",
+              lex[target].get("reps") == 1, f"got {lex[target]}")
+        check("...and moves the level NOT AT ALL",
+              lex[target]["recognition"] == "struggled", f"got {lex[target]}")
+
+        # --- a CATCH moves the level AND records why -----------------------
+        lex = {target: dict(base)}
+        kr.apply_catch_verdict({"verdict": "caught"}, knock, lex)
+        check("a caught eavesdrop moves the level", lex[target]["recognition"] == "comfortable")
+        check("...and stamps the evidence that survives a later sweep",
+              bool(lex[target].get("heard_on")) and lex[target].get("reps") == 1,
+              f"the 08-09 → 08-23 loss is back: {lex[target]}")
+
+        # --- an unresolvable target is still loud, and touches nothing ------
+        lex = {target: dict(base)}
+        out = kr.apply_catch_verdict({"verdict": "caught"},
+                                     {"expected_target": "frame:not-a-row"}, lex)
+        check("an eavesdrop target that resolves to nothing is reported",
+              any("resolves to no lexicon record" in line for line in out), f"got {out}")
+        check("...and no unrelated row is stamped",
+              not lex[target].get("heard_on"), f"got {lex[target]}")
+    finally:
+        lex_path.write_bytes(saved)
 
 
 def s61_no_number_is_recited_at_him(kr, sb: Path):

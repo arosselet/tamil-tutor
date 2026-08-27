@@ -2329,6 +2329,18 @@ Details live in git history; this is the index of the *conclusions*.
   `BooleanOptionalAction` defaulting True across all three; `--no-target-revealed` is the
   explicit withhold. Smoke `s68`.
 
+- **`heard_on` — the evidence date, and the ear meter reads it** (2026-08-27, Andrew).
+  **REOPENS the entry below on measurement.** It rejected a provenance field because
+  `reps == 0` with production `none` "IS the signal". Across 220 lexicon commits: 69 rows
+  claim recognized having never earned an upgrade, but 67 carry production, so the predicate
+  reaches **0 of 69** — and `apply_catch_verdict` never stamped `reps`, so the sole caught
+  eavesdrop (சும்மா சொல்றாங்க, 08-09) was demoted by the 08-23 sweep itself. **Separation:**
+  `recognition` is the level, `heard_on` is how we know, so an assertion is *derived*.
+  **Retires `unverify`**; the one-shot slot holds `backfill-evidence` (six rows, real dates,
+  from git). It wrote loss — an unbacked claim should fail a meter, never lose a level.
+  **Asymmetry is deliberate:** the floor still reads the claim. The ear judge now stamps
+  every verdict. Machines heard: 2/26. Smoke `s53`, `s60`, `s81`.
+
 - **Hearing is not knowing — a rating nobody earned is not evidence** (2026-08-23, Andrew).
   The lexicon's first populated commit already held 153 rows at solid:93 / comfortable:54 — a
   day-one self-estimate written into the field evidence writes into. The ticket then served a

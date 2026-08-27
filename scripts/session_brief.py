@@ -25,6 +25,7 @@ from state_io import (BASE, EPISODES_PATH, FEEDBACK_LOG_PATH, KNOCK_LOG_PATH,
                       load_json, local_today)
 from state_io import canon_payload, is_unseen, soak_pending, split_payload
 from sync_state import (RECOGNITION_LEVELS, compute_ear, compute_engines,
+                        compute_machines,
                         compute_floor, compute_status, fires_today, is_pattern)
 
 
@@ -372,7 +373,6 @@ def cmd_status(_args):
     if lexicon:
         by_level = {lvl: 0 for lvl in RECOGNITION_LEVELS}
         cold = hinted = 0
-        ears_heard = ears_total = 0
         for r in lexicon.values():
             if is_pattern(r):
                 # Patterns are metered separately — and on BOTH axes, which is
@@ -387,9 +387,6 @@ def cmd_status(_args):
                 # Ear-only patterns (direction=catch) are counted HERE and only
                 # here; Engines excludes them by design, so this is the one meter
                 # that sees the whole set.
-                ears_total += 1
-                if r.get("recognition") == "solid":
-                    ears_heard += 1
                 continue
             by_level[r.get("recognition", "struggled")] = by_level.get(r.get("recognition", "struggled"), 0) + 1
             if r.get("production") == "cold":
@@ -411,9 +408,10 @@ def cmd_status(_args):
         engines = compute_engines(lexicon)
         if engines["total"]:
             print(f"Engines online: {engines['online']}/{engines['total']} patterns fire cold ({engines['pct']:.0f}%)")
-        if ears_total:
-            print(f"Machines heard: {ears_heard}/{ears_total} patterns solid on recognition "
-                  f"({ears_heard / ears_total * 100:.0f}%) — PRIMARY STEER (2026-08-16)")
+        mach = compute_machines(lexicon)
+        if mach["total"]:
+            print(f"Machines heard: {mach['heard']}/{mach['total']} patterns solid on "
+                  f"recognition WITH evidence ({mach['pct']:.0f}%) — PRIMARY STEER (2026-08-16)")
         ear = compute_ear(lexicon)
         if ear["total"]:
             print(f"Ear-only: {ear['caught']}/{ear['total']} solid on recognition "

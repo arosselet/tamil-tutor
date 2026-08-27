@@ -3025,7 +3025,8 @@
     "deck": "trip",
     "direction": "catch",
     "exposures": 7,
-    "register": "gossip"
+    "register": "gossip",
+    "heard_on": "2026-08-09"
   },
   "எனக்கு ஒன்னும் தெரியாது": {
     "type": "chunk",
@@ -3063,7 +3064,8 @@
     "direction": "catch",
     "reps": 1,
     "exposures": 4,
-    "register": "gossip"
+    "register": "gossip",
+    "heard_on": "2026-07-26"
   },
   "விட்டுடு": {
     "type": "chunk",
@@ -3969,7 +3971,8 @@
     "direction": "catch",
     "reps": 2,
     "exposures": 3,
-    "register": "frame"
+    "register": "frame",
+    "heard_on": "2026-07-26"
   },
   "frame:hearsay-aam": {
     "type": "pattern",
@@ -3986,7 +3989,8 @@
     "direction": "catch",
     "exposures": 2,
     "reps": 1,
-    "register": "frame"
+    "register": "frame",
+    "heard_on": "2026-07-25"
   },
   "அப்புறம் பார்க்கலாம்": {
     "type": "chunk",
@@ -4408,7 +4412,8 @@
     "direction": "catch",
     "reps": 2,
     "exposures": 6,
-    "register": "gossip"
+    "register": "gossip",
+    "heard_on": "2026-07-26"
   },
   "ஜாஸ்தி": {
     "type": "chunk",
@@ -4429,7 +4434,8 @@
     "direction": "catch",
     "reps": 3,
     "exposures": 3,
-    "register": "gossip"
+    "register": "gossip",
+    "heard_on": "2026-07-27"
   },
   "ஒரே கல்லுல ரெண்டு மாங்கா": {
     "type": "chunk",

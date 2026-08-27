@@ -187,15 +187,26 @@ def apply_catch_verdict(verdict: dict, knock: dict, lexicon: dict) -> list[str]:
     full catch (struggled → comfortable → solid), upgrades only, mirroring the
     production judge's never-demote rule. 'solid' on a catch item is the deck's
     win condition; production is never touched from here."""
-    if verdict["verdict"] != "caught":
-        return [f"no axis move ({verdict['verdict']})"]
     key = resolve(knock.get("expected_target", ""), lexicon, build_phonetic_index(lexicon))
     if key is None:
         return [f"! eavesdrop target {knock.get('expected_target')!r} resolves to no lexicon record — not scored"]
     rec = lexicon[key]
+    today = local_today().isoformat()
+    # EVERY JUDGED CATCH IS EAR EVIDENCE, caught or missed (2026-08-27). This
+    # block used to return before resolving whenever the verdict was not "caught",
+    # so the one instrument that tests recognition recorded nothing on a miss —
+    # and on a catch it moved the level while stamping no evidence at all. The
+    # mouth judge has bumped `reps` at its own seam since 2026-07-26; the ear
+    # judge simply never did, and `unverify` then read that silence as "never
+    # tested" and demoted the single genuine catch this ledger had (சும்மா
+    # சொல்றாங்க: caught 08-09, demoted 08-23). Stamp first, move the level second.
+    rec["last_surfaced"] = today
+    rec["heard_on"] = today
+    rec["reps"] = rec.get("reps", 0) + 1
+    if verdict["verdict"] != "caught":
+        return [f"{key} tested by ear — no axis move ({verdict['verdict']}), heard_on {today}"]
     cur = rec.get("recognition", "struggled")
     nxt = RECOGNITION_NEXT.get(cur)
-    rec["last_surfaced"] = local_today().isoformat()
     if nxt is None:
         return [f"{key} already {cur} — kept (caught)"]
     rec["recognition"] = nxt
