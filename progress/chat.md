@@ -27,6 +27,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > Ah my bad da, let me get that audio greeting recorded and sent over properly.
 
+**15:12 · Andrew** — **CHAT**
+> Don’t reply to this message until the audio is ready and attached to the message
+
+**Anna ↩**
+> Got it da — holding off until the Swapna audio is generated and attached directly.
+
 
 ## Wednesday 2026-08-26
 
