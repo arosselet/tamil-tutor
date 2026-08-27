@@ -9,6 +9,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **08:16 · Anna** 🎧  ·  eavesdrop / eavesdrop: train delay aachu
 > 🎧 Overheard maami on the phone about Shanthi chitthi. What happened with her morning train? What did you catch?
 
+**08:54 · Andrew** — **HALF-CAUGHT**
+> Train is very late, pickup from the station?
+
+**Anna ↩**
+> You caught the big delay! Not a pickup though — she waited two hours at the station and finally boarded (`aeri poittaanga`).
+
 
 ## Wednesday 2026-08-26
 
