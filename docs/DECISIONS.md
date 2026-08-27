@@ -2466,3 +2466,11 @@ Details live in git history; this is the index of the *conclusions*.
   itself: **no scheduled workflow and no script may fire `run_studio` / `render_soak` /
   `render_drill`**, comments excluded via `mechanism`. Teeth-checked — adding one reddens it and
   names the fix. Two inbox proposals that inherited the old cap now carry that warning.
+- **Ratings are not idempotent, deliberately** (2026-08-27, Andrew: *"Anna isn't going to mind
+  either if I rate something twice. The ledger should just record my feedback in three taps."*).
+  Two taps file two rows, and M90 sits in `feedback_log.json` twice at 3/5 because of it. That is
+  visible enough to attract a fix, so: **don't build one.** `cmd_knock_response` guards duplicate
+  taps because a knock tap moves the nudge gate; a rating moves nothing — it is one dated note
+  the Diagnosis pass reads for patterns, and a pattern is what repetition looks like. Dedupe
+  would cost a tap or a prompt to protect a ledger that is not harmed. Reopen only if the noise
+  ever drowns a real signal in the diagnosis pass, never on tidiness.
