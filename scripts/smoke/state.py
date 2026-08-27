@@ -2804,22 +2804,24 @@ def s79_a_rating_lands_or_says_why(sb: Path):
         check("...tagged so the Diagnosis pass can find the lane",
               note.startswith("[soak rating]"), note)
 
-        # THE FIRST REAL RATING FAILED HERE (run 33057942609): the phone sent
-        # '⭐️⭐️⭐️' — no leading digit, because that is what a person builds when
-        # told to make five star rows. The label list is the one surface in this
-        # lane with no test around it, so the parser widened rather than the human.
-        # U+2B50 carries a trailing U+FE0F, so len() would score this 3 as a 6.
-        for label, row, want in (
-                ("emoji stars with variation selectors", "⭐️⭐️⭐️", 3),
-                ("bare emoji stars", "⭐⭐", 2),
-                ("the ★ form the walkthrough specified", "★★★★★", 5),
-                ("a leading digit still wins over the glyphs", "4 ★★", 4),
+        # THE DIGIT IS THE CONTRACT, and this block is why. The first live rating
+        # arrived as '⭐️⭐️⭐️' and refused (run 33057942609), so the parser briefly
+        # learned to count ★☆⭐ instead. That fallback was a worse bug than the
+        # refusal it replaced: ☆ counted, so '★★★☆☆' — three filled of five, the
+        # ordinary way to DRAW a 3 — scored 5 and filed silently. Reverted same day.
+        # These rows are the ones a glyph-counter gets confidently wrong, so they
+        # are asserted as REFUSALS rather than left to a future good intention.
+        for label, row in (
+                ("three filled stars and two empty", "★★★☆☆"),
+                ("emoji stars with no digit", "⭐️⭐️⭐️"),
+                ("bare star glyphs", "★★★★★"),
         ):
-            write_json(fb_path, [])
+            before = len(ledger())
             code, out = rate("90 — Mission tier2_mission90", row)
-            got = (ledger()[0]["note"] if ledger() else "")
-            check(f"{label} scores {want}/5",
-                  code == 0 and f"{want}/5" in got, out or got)
+            check(f"{label} REFUSES — glyphs are not a score", code != 0, out or "(silent)")
+            check("...and files nothing", len(ledger()) == before, str(ledger()))
+        check("...and the refusal names the fix, not just the fault",
+              "LEADING DIGIT" in rate("90 — M", "★★★")[1], rate("90 — M", "★★★")[1])
 
         # ── The refusals. Each must exit non-zero AND write nothing. ──
         for label, mission, stars in (

@@ -1074,24 +1074,17 @@ def _leading_int(raw: str) -> int | None:
     return int(m.group(1)) if m else None
 
 
-# ★ ☆ ⭐ — every star a picker row is plausibly built from. U+2B50 usually arrives
-# trailed by U+FE0F (the emoji variation selector), so COUNT THE GLYPHS; len() is
-# double on that form and would score a 3 as a 6.
-_STARS = "★☆⭐"
-
-
-def _rating_value(raw: str) -> int | None:
-    """A star row's score, from a leading digit OR by counting stars.
-
-    The label list lives on the phone, which is the one surface here with no test
-    around it — the first real rating arrived as '⭐️⭐️⭐️' because that is what a
-    person builds when told to make five star rows (run 33057942609). Widening the
-    parser is the honest fix; the alternative was a seventh trip into Shortcuts to
-    make a human match a format only this function cares about."""
-    n = _leading_int(raw)
-    if n is not None:
-        return n
-    return sum((raw or "").count(g) for g in _STARS) or None
+# COUNTING STARS WAS TRIED AND REVERTED, same day (2026-08-27, Andrew: "I think you
+# were too generous in widening the parser"). The first live rating arrived as
+# '⭐️⭐️⭐️' and refused (run 33057942609), so the parser learned to count ★☆⭐ as a
+# fallback. That was a worse bug than the one it fixed: ☆ counted, so '★★★☆☆' —
+# three filled of five, the ordinary way to DRAW a 3 — scored 5. Not a refusal, a
+# confidently wrong number filed into the ledger that steers the Diagnosis pass.
+#
+# A guessed glyph set is unbounded (🌟 ✨ scored 0 and refused, so coverage felt
+# real while being partial), and the row labels are Andrew's to write. One input
+# contract: put the digit in front. Anything else refuses, loudly, which is the
+# whole reason this parse sits in Python instead of on the phone.
 
 
 def cmd_rate_episode(args):
@@ -1108,12 +1101,13 @@ def cmd_rate_episode(args):
     is unattended, and a rating silently recorded as 0/5 would steer the
     diagnosis pass while looking exactly like a rating that never arrived."""
     mission = _leading_int(args.mission)
-    stars = _rating_value(args.stars)
+    stars = _leading_int(args.stars)
     if mission is None:
         print(f"  ! No mission number in {args.mission!r} — expected a line like '90 — Mission ...'.")
         sys.exit(1)
     if stars is None or not 1 <= stars <= 5:
-        print(f"  ! Stars must be 1-5; got {args.stars!r}.")
+        print(f"  ! Stars must be 1-5, as a LEADING DIGIT; got {args.stars!r}. "
+              f"Star glyphs alone are not counted — the picker row wants '3 ★★★'.")
         sys.exit(1)
     episodes = load_json(EPISODES_PATH) or {}
     ep = episodes.get(str(mission))
