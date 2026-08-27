@@ -1074,6 +1074,26 @@ def _leading_int(raw: str) -> int | None:
     return int(m.group(1)) if m else None
 
 
+# ★ ☆ ⭐ — every star a picker row is plausibly built from. U+2B50 usually arrives
+# trailed by U+FE0F (the emoji variation selector), so COUNT THE GLYPHS; len() is
+# double on that form and would score a 3 as a 6.
+_STARS = "★☆⭐"
+
+
+def _rating_value(raw: str) -> int | None:
+    """A star row's score, from a leading digit OR by counting stars.
+
+    The label list lives on the phone, which is the one surface here with no test
+    around it — the first real rating arrived as '⭐️⭐️⭐️' because that is what a
+    person builds when told to make five star rows (run 33057942609). Widening the
+    parser is the honest fix; the alternative was a seventh trip into Shortcuts to
+    make a human match a format only this function cares about."""
+    n = _leading_int(raw)
+    if n is not None:
+        return n
+    return sum((raw or "").count(g) for g in _STARS) or None
+
+
 def cmd_rate_episode(args):
     """Record a soak rating from the phone into the feedback ledger.
 
@@ -1088,7 +1108,7 @@ def cmd_rate_episode(args):
     is unattended, and a rating silently recorded as 0/5 would steer the
     diagnosis pass while looking exactly like a rating that never arrived."""
     mission = _leading_int(args.mission)
-    stars = _leading_int(args.stars)
+    stars = _rating_value(args.stars)
     if mission is None:
         print(f"  ! No mission number in {args.mission!r} — expected a line like '90 — Mission ...'.")
         sys.exit(1)

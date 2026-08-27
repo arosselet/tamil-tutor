@@ -2804,6 +2804,23 @@ def s79_a_rating_lands_or_says_why(sb: Path):
         check("...tagged so the Diagnosis pass can find the lane",
               note.startswith("[soak rating]"), note)
 
+        # THE FIRST REAL RATING FAILED HERE (run 33057942609): the phone sent
+        # '⭐️⭐️⭐️' — no leading digit, because that is what a person builds when
+        # told to make five star rows. The label list is the one surface in this
+        # lane with no test around it, so the parser widened rather than the human.
+        # U+2B50 carries a trailing U+FE0F, so len() would score this 3 as a 6.
+        for label, row, want in (
+                ("emoji stars with variation selectors", "⭐️⭐️⭐️", 3),
+                ("bare emoji stars", "⭐⭐", 2),
+                ("the ★ form the walkthrough specified", "★★★★★", 5),
+                ("a leading digit still wins over the glyphs", "4 ★★", 4),
+        ):
+            write_json(fb_path, [])
+            code, out = rate("90 — Mission tier2_mission90", row)
+            got = (ledger()[0]["note"] if ledger() else "")
+            check(f"{label} scores {want}/5",
+                  code == 0 and f"{want}/5" in got, out or got)
+
         # ── The refusals. Each must exit non-zero AND write nothing. ──
         for label, mission, stars in (
                 ("an unparseable mission row", "Mission tier2_mission90", "4 ★★★★"),
