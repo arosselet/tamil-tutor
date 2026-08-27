@@ -2831,11 +2831,16 @@ def s79_a_rating_lands_or_says_why(sb: Path):
     # ever read it. Asserted as a LIST, not merely present: a dict here is the
     # regression, and it would look exactly like success from the repo side.
     ss.write_thin_learner(read_json(sb / "progress" / "learner.json") or {})
-    published = read_json(Path(ss.RECENT_AUDIO_PATH))
-    check("the picker list is published as a bare array, not a dict",
-          isinstance(published, list), str(type(published)))
-    check("...and every row is a plain string a picker can draw",
-          published and all(isinstance(r, str) for r in published), str(published[:2]))
+    raw = Path(ss.RECENT_AUDIO_PATH).read_text(encoding="utf-8")
+    published = [r for r in raw.split(chr(10)) if r]
+    # NOT JSON, and this assertion is the measurement: raw.githubusercontent.com
+    # serves every raw file as text/plain with nosniff, so Shortcuts never parses
+    # one. A .json arrived on the phone as a single opaque blob and the picker
+    # drew one unpickable row. Split Text by New Lines needs no parse.
+    check("the picker list carries no JSON punctuation to parse",
+          not any(c in raw for c in '[]{}"'), repr(raw[:60]))
+    check("...and is one pickable row per line",
+          len(published) > 1 and all(published), repr(raw[:60]))
     check("...and the key is GONE from learner.json, not left beside it",
           "recent_audio" not in (read_json(sb / "progress" / "learner.json") or {}))
 

@@ -33,12 +33,14 @@ SESSION_LOG_PATH = BASE / "progress" / "session_log.json"
 FEEDBACK_LOG_PATH = BASE / "progress" / "feedback_log.json"
 KNOCK_LOG_PATH = BASE / "progress" / "knock_log.json"
 SLIP_LOG_PATH = BASE / "progress" / "slip_log.json"
-# The rating picker's list, published as a BARE ARRAY (2026-08-27). It lived as a
-# key inside learner.json and cost seven rounds of debugging on the phone: iOS
-# Shortcuts needs a Get Dictionary Value to reach a key, and that action is the
-# one surface here with no test around it. Nothing but the phone ever read it, so
-# a dict was never the right shape. Derived, rewritten on every learner write.
-RECENT_AUDIO_PATH = BASE / "progress" / "recent_audio.json"
+# The rating picker's list, published as PLAIN TEXT, one row per line (2026-08-27).
+# Not JSON, and the reason is measured: raw.githubusercontent.com serves every raw
+# file as "text/plain; charset=utf-8" with "nosniff", so iOS Shortcuts never parses
+# it as JSON whatever the extension — a .json here arrives as one opaque blob and
+# Choose from List draws a single unpickable row. Text plus Split Text by New Lines
+# is deterministic and needs no parse at all. Nothing but the phone reads this.
+# Derived, rewritten on every learner write.
+RECENT_AUDIO_PATH = BASE / "progress" / "recent_audio.txt"
 
 
 def load_json(path: Path):

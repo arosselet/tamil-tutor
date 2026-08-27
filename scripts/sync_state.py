@@ -331,9 +331,12 @@ def write_thin_learner(learner: dict):
     # not an emergent sort, so a counting bug cannot move a seat -- 2026-07-26.)
     thin["status"] = compute_status()
     # Published as its own bare array, NOT as a key here: the iOS picker reads it
-    # directly and a key would force a Get Dictionary Value, the action that cost
-    # seven debugging rounds on a surface no test reaches (2026-08-27).
-    save_json(RECENT_AUDIO_PATH, compute_recent_audio())
+    # directly. PLAIN TEXT, not JSON: raw.githubusercontent.com serves every raw
+    # file as text/plain with nosniff, so Shortcuts never parses one — a .json
+    # arrived as a single opaque blob and the picker drew one unpickable row.
+    # Split Text by New Lines needs no parse at all (2026-08-27).
+    RECENT_AUDIO_PATH.write_text("\n".join(compute_recent_audio()) + "\n",
+                                 encoding="utf-8", newline="\n")
     save_json(LEARNER_PATH, thin)
     print(f"  Updated learner.json ({LEARNER_PATH.relative_to(BASE)})")
 
@@ -1123,7 +1126,7 @@ def cmd_rate_episode(args):
     item = next((d for d in feed_items() if d["title"] == wanted), None)
     if item is None:
         print(f"  ! {wanted!r} is not in the feed — nothing to rate. "
-              f"Pick a row from progress/recent_audio.json.")
+              f"Pick a row from progress/recent_audio.txt.")
         sys.exit(1)
     note = (f"[audio rating] [{item['format']}] {item['title']} — {stars}/5 "
             f"on wanting to keep listening.")
