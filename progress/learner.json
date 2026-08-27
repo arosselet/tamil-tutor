@@ -11,7 +11,11 @@
     "from": "2026-08-26",
     "focus": "QUANTITY vs SIZE — konjam is the only word for 'a little', and sinna/kutti (small) can never do that job. Permute konjam across his own table items: konjam kaaram, konjam thanni, konjam saapdaren, konjam podunga — then let sinna sit where it BELONGS (a small vessel, a small room) so the two stop competing for the same slot. Every lexical item from lexicon.json; the only novel thing is the contrast. Never name a rule.",
     "channel": "soak",
-    "form": "narrated_drama"
+    "form": "narrated_drama",
+    "delivered": {
+      "channel": "soak",
+      "at": "2026-08-27"
+    }
   },
   "next_engine": "frame:polite-nga",
   "focus_cohort": [

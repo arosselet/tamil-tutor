@@ -793,9 +793,9 @@
       32,
       33
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-08-27",
     "reps": 1,
-    "exposures": 4
+    "exposures": 5
   },
   "போதும்": {
     "gloss": "Enough",
@@ -3757,11 +3757,11 @@
       58,
       89
     ],
-    "last_surfaced": "2026-08-23",
+    "last_surfaced": "2026-08-27",
     "deck": "trip",
     "direction": "fire",
     "reps": 2,
-    "exposures": 5,
+    "exposures": 6,
     "register": "antifreeze"
   },
   "இன்னொரு தடவ சொல்லுங்க": {
@@ -3776,11 +3776,11 @@
       58,
       89
     ],
-    "last_surfaced": "2026-08-23",
+    "last_surfaced": "2026-08-27",
     "deck": "trip",
     "direction": "fire",
     "reps": 4,
-    "exposures": 7,
+    "exposures": 8,
     "register": "antifreeze"
   },
   "என்ன சொன்னீங்க?": {
