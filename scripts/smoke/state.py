@@ -2921,7 +2921,7 @@ def s80_one_produced_resolver(sb: Path):
     with what status prints. Measured on the live 08-26 konjam order the day this
     was found: the brief said produced ✓, the resolver said pending.
 
-    Why that mattered: `soak_pending()` is what `studio_watchdog` step 2 calls,
+    Why that mattered: `soak_pending()` was what the since-retired watchdog called,
     and a True there dispatches a FULL studio run. A delivered soak order would
     have re-dispatched on every tick — the 2026-07-23 loop that put M72/M73/M74
     out in one evening, wearing a new trigger. Latent only because the cron was

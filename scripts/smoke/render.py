@@ -2,7 +2,7 @@
 
 Everything downstream of a decision to make audio: the renderer's handling of
 [SFX] and of a sidecar it cannot read, the drill's answer key, capacity routing,
-the cloud writer, the watchdog, and the long-haul tape.
+the cloud writer, and the long-haul tape.
 
 The family's failure mode is a plausible artefact from the wrong source — a word
 list scraped out of a script because the sidecar was unreadable, a draft deleted
@@ -23,35 +23,6 @@ from ._fixtures import (
     check, code_line_numbers, mechanism, raw_source, read_json, REAL_BASE,
     write_json,
 )
-
-
-def s19_watchdog_detection(sb: Path):
-    print("\n19. Studio watchdog detection (self-healing production, 2026-07-18)")
-    # The watchdog answers two questions before touching any dispatch; both
-    # must be pure reads. Dispatch itself is the existing scripts, not tested here.
-    sw = importlib.import_module("studio_watchdog")
-
-    n = sw.next_mission() - 1
-    check("newest script with no MP3 → unrendered", sw.scripted_unrendered() == n,
-          f"got {sw.scripted_unrendered()}, want {n}")
-    sw.AUDIO_DIR.mkdir(parents=True, exist_ok=True)
-    (sw.AUDIO_DIR / f"tier2_mission{n}.mp3").write_bytes(b"x")
-    check("MP3 present → nothing unrendered", sw.scripted_unrendered() is None)
-    (sw.AUDIO_DIR / f"tier2_mission{n}.mp3").unlink()
-    (sw.AUDIO_DIR / f"tier2_mission{n}_v2.mp3").write_bytes(b"x")
-    check("_vN re-render counts as rendered", sw.scripted_unrendered() is None)
-    (sw.AUDIO_DIR / f"tier2_mission{n}.mp3").write_bytes(b"x")
-
-    learner = read_json(sb / "progress" / "learner.json")
-    learner["soak_order"] = {"payload": ["வேணும்"], "scene_seed": "s", "from": "2026-07-18"}
-    write_json(sb / "progress" / "learner.json", learner)
-    write_json(sb / "progress" / "episodes.json", {})
-    check("payload + no episode carrying it → soak pending", sw.soak_pending())
-    write_json(sb / "progress" / "episodes.json", {"71": {"words": ["வேணும்"]}})
-    check("newest episode carries payload → produced", not sw.soak_pending())
-    learner["soak_order"] = {}
-    write_json(sb / "progress" / "learner.json", learner)
-    check("no soak order → nothing pending", not sw.soak_pending())
 
 
 def s26_capacity_routing(sb: Path):

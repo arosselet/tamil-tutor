@@ -799,7 +799,7 @@ HELD, NOT DELETED — they carry state `main` never received; see the state-rows
 
   **The shape that converges with the parked 07-24 plan:** the soak order already IS the
   queue-of-one — payload / scene_seed / focus / channel / form / from / delivered, with
-  `soak_pending()` as the predicate and `MAX_UNATTENDED_PER_DAY` as the rail. It needs a
+  `soak_pending()` as the predicate and `MAX_UNATTENDED_PER_DAY` as the rail. It needs a **⚠ THE RAIL IS GONE (2026-08-27):** `MAX_UNATTENDED_PER_DAY` and `produced_today()` retired with `studio_watchdog.py`. This proposal must bring its OWN rate rail — `s27`'s no-unattended-dispatcher check goes red the moment a scheduled lane can fire production, which is the forcing function, not a suggestion.
   `due` field and the HOURLY TICK (never the drain) acting on it, dispatching by `channel`
   through the door built 2026-07-27. One field, one workflow step.
 
@@ -969,7 +969,7 @@ HELD, NOT DELETED — they carry state `main` never received; see the state-rows
     there fails silently, so build fail-safe + dry-run-tested before it goes live):*
     1. **New `episode` move in the knock tick.** Anna (he) may CHOOSE to produce (he
        decides *when* — Andrew's call, not a fixed cadence), but Python's guardrails
-       dispose: only if `soak_pending()`, `produced_today() < MAX_UNATTENDED_PER_DAY`, and
+       dispose: only if `soak_pending()`, `produced_today() < MAX_UNATTENDED_PER_DAY`, and **⚠ THE RAIL IS GONE (2026-08-27):** `MAX_UNATTENDED_PER_DAY` and `produced_today()` retired with `studio_watchdog.py`. This proposal must bring its OWN rate rail — `s27`'s no-unattended-dispatcher check goes red the moment a scheduled lane can fire production, which is the forcing function, not a suggestion.
        waking hours. A gated-out choice logs as grace/silence, never overspends. On go, it
        dispatches `run_studio.py` (which owns write→render→publish→commit→push, incl. the
        "go listen" phone push); then the tick logs the reach so the rails see it. Ordering:
@@ -1347,7 +1347,7 @@ meaning anything and two Gate-2 holds were sitting on the wrong side of it. -->
   solo-exposure words are by construction the least-reinforced items in the system — and it
   means nothing until it runs against a chat-exposed control cohort at comparable exposure
   counts. Build the control first; a bare 16% invites the same misreading `listens` just cost us.
-- **RETIRE `studio_watchdog.py` — the cron is stale** (2026-08-27, Andrew: *"the crontab is
+- ~~**RETIRE `studio_watchdog.py` — the cron is stale**~~ — **DONE 2026-08-27** (Andrew: *"the crontab is
   stale, should be retired"*). It installs as a crontab on the Linux box (`$HOME/projects/Tamil`,
   gnome-keyring `SSH_AUTH_SOCK`, `17 * * * *`) and is not live on any machine we can see. Its job
   — notice work the studio left undone and run the existing dispatch — is covered by the
@@ -1371,5 +1371,7 @@ meaning anything and two Gate-2 holds were sitting on the wrong side of it. -->
   the watchdog strands that rail, and the proposal would have to bring its own. Decide where the
   cap lives before deleting the file, or the next unattended lane is built with no ceiling —
   which is the 2026-07-23 three-episodes-in-one-evening shape, and the reason the cap exists.
-  **Also to delete:** `.studio.lock`'s watchdog half of the contract (`run_studio` holds the
-  other and keeps it).
+  **DONE:** file deleted; `s19` and `s25`'s three retry assertions died with it; `s27`'s cap
+  assertions became the no-unattended-dispatcher invariant; budget, layer, PROTOCOL_MAP and
+  three skill files repointed. The cap was NOT re-homed — nothing fires production
+  unattended any more, so there is nothing to bound; both proposals above now say so.

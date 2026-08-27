@@ -340,7 +340,6 @@ CODE_BUDGETS = {
     # surface: it renders state and never mutates it, which is why it no longer
     # lives inside the writer. Sits ABOVE sync_state in the import graph.
     "scripts/session_brief.py": 250,
-    "scripts/studio_watchdog.py": 125,
     "scripts/suggest_targets.py": 575,
     # 1250 -> 1254 (2026-08-04): the tap lane's stage/commit/pull/push moved IN
     # from the "Log tap" step of anna.yml, where it was a hand-rolled
@@ -789,7 +788,6 @@ LAYERS = {
 
     "session_brief":      6,      # read surfaces, above everything
     "show_status":        6,
-    "studio_watchdog":    6,
 }
 
 # An edge that points the wrong way and is allowed to. Each carries WHY, so the

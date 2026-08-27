@@ -1143,12 +1143,12 @@ def s27_schedule_and_soak_guards(sb: Path):
     junk_r, junk_u = fx.si.split_payload(["definitely-not-a-word"], lex)
     check("genuine junk is reported, not silently kept", junk_u and not junk_r)
 
-    sw = importlib.import_module("studio_watchdog")
+    sio = importlib.import_module("state_io")
     write_json(sb / "progress" / "learner.json",
                {**read_json(sb / "progress" / "learner.json"),
                 "soak_order": {"payload": ["definitely-not-a-word"], "from": "2026-07-23"}})
     check("an unverifiable payload is NOT 'still pending' (no dispatch loop)",
-          not sw.soak_pending())
+          not sio.soak_pending())
 
     # Two doors drive the SAME dispatch — the cron and the session-open drain.
     # Fixing only one leaves the loop armed from the other, which is exactly
@@ -1159,36 +1159,37 @@ def s27_schedule_and_soak_guards(sb: Path):
                            .read_text(encoding="utf-8"))
     check("the status drain-check uses the shared resolver",
           "split_payload(soak.get" in status_src)
-    # THIS ONE WAS A DECORATION (found 2026-08-24, when the raw-source read here
-    # became a `mechanism` read and it went red). `split_payload` appears in
-    # studio_watchdog.py exactly once, in a COMMENT explaining what the root
-    # cause had been — the watchdog has never called it. It asks `soak_pending()`
-    # instead, which is the shared resolver one rung further down, so the LAW
-    # held the whole time and the assertion proving it was reading prose. Assert
-    # what the watchdog actually does, and that it does not grow its own copy.
-    wd_src = mechanism((REAL_BASE / "scripts" / "studio_watchdog.py")
-                       .read_text(encoding="utf-8"))
-    check("the watchdog drain-check uses the shared resolver",
-          "from state_io import soak_pending" in wd_src and "soak_pending()" in wd_src,
-          "the watchdog re-derives 'is a soak still owed' instead of asking L0")
-    check("...and never re-derives the payload itself",
-          "split_payload" not in wd_src, "a second copy of the resolver is back")
 
-    # The rate rail, independent of any single root cause. Raised 1 -> 3 on
-    # 2026-07-28 (Andrew) once repair-first commissioning made one-a-day the
-    # binding constraint; the invariant was never the NUMBER, it is that the
-    # number is FINITE — an unattended dispatcher with no ceiling is the
-    # M72/M73/M74 evening waiting on the next stuck predicate.
-    check("unattended production is capped", sw.MAX_UNATTENDED_PER_DAY >= 1)
-    check("...and the cap is finite — never removed outright",
-          isinstance(sw.MAX_UNATTENDED_PER_DAY, int)
-          and sw.MAX_UNATTENDED_PER_DAY < 10,
-          f"got {sw.MAX_UNATTENDED_PER_DAY!r} — raise it if it binds, never unbound")
-    today = datetime.now().date().isoformat()
-    write_json(sb / "progress" / "episodes.json",
-               {"70": {"words": [], "produced": today},
-                "71": {"words": [], "produced": "2020-01-01"}})
-    check("produced_today counts only today's", sw.produced_today() == 1)
+    # THE CAP BECAME AN INVARIANT (2026-08-27). `MAX_UNATTENDED_PER_DAY` bounded
+    # exactly one thing — the watchdog cron — and it retired with it. Andrew:
+    # "neither Anna nor I will commission too many episodes in a day," which is
+    # true and was never what the cap guarded: it guarded the MACHINE re-reading
+    # a stuck predicate, which is precisely the M72/M73/M74 evening (2026-07-23)
+    # and precisely the soak_pending bug fixed the same day this was written.
+    #
+    # So the rail is no longer a number, it is the absence of a dispatcher: with
+    # nothing firing production unattended, there is nothing to cap. This case
+    # holds that shape. Add an unattended lane and it goes red, which is the
+    # forcing function — two inbox proposals want a knock-tick episode move, and
+    # each must bring its own rail rather than inherit one that no longer exists.
+    DISPATCHERS = ("run_studio.py", "render_soak.py", "render_drill.py")
+    wf = " ".join(p.read_text(encoding="utf-8")
+                  for p in sorted((REAL_BASE / ".github" / "workflows").glob("*.yml")))
+    fired = [d for d in DISPATCHERS if d in wf]
+    check("no scheduled workflow dispatches production — the rail is that "
+          "nothing fires it unattended", not fired,
+          f"{fired} now runs on a schedule: bring a rate rail with it")
+    # Comments are free; a real subprocess call is not. `mechanism` strips the
+    # prose so a docstring naming the dispatcher cannot pass for a call to it.
+    callers = []
+    for py in sorted((REAL_BASE / "scripts").glob("*.py")):
+        if py.name in ("run_studio.py", "render_soak.py", "render_drill.py"):
+            continue
+        src = mechanism(py.read_text(encoding="utf-8"))
+        if any(f'"{d}"' in src or f"'{d}'" in src or f"/ {d!r}" in src for d in DISPATCHERS):
+            callers.append(py.name)
+    check("...and no script shells out to one either", not callers,
+          f"{callers} can dispatch production without Andrew present")
 
 
 def s30_anna_speaks_back(mk, kr, sb: Path):

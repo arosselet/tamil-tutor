@@ -228,7 +228,7 @@ def soak_pending() -> bool:
     the first, and its claim of parity with `status` stopped being true the day
     `session_brief` grew the branch and this copy did not. Measured on the live
     08-26 konjam order: the brief said produced ✓, this said pending — and its
-    caller was `studio_watchdog`, whose step 2 dispatches a FULL studio run on
+    caller was the since-retired `studio_watchdog`, whose step 2 dispatched a full studio run on
     a True. That is the 2026-07-23 re-dispatch loop (M72/M73/M74 in one evening)
     with a new trigger, latent only because the cron was stale.
 

@@ -48,7 +48,7 @@ sys.path.insert(0, str(BASE / "scripts"))
 from state_io import TAMIL_RE, TAMIL_RUN
 
 # Cross-process contract, mirrored in render_audio.py and read by
-# studio_watchdog.py: "this host lacks the secrets" — skip, never retry.
+# A caller reads it as "this host lacks the secrets" — skip, never retry.
 EXIT_NOT_CONFIGURED = 3
 
 SCRIPTS_DIR = BASE / "content" / "scripts"
@@ -640,7 +640,7 @@ _DISPATCH_LOCK = None  # held for the process lifetime; see main()
 
 
 def acquire_dispatch_lock():
-    """One dispatch at a time — studio_watchdog.py shares this lock, so a
+    """One dispatch at a time — render_audio.py shares this lock, so a
     session-open dispatch and a watchdog tick can never stack. Held for the
     process lifetime; no-op where fcntl is missing (Windows)."""
     try:

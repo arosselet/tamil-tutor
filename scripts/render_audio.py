@@ -33,7 +33,7 @@ import ssl as _ssl
 BASE = Path(__file__).parent.parent
 
 # This host is not a studio host — a missing credential, not a failure. Callers
-# (run_studio.py, studio_watchdog.py) read this code as "skip, don't retry":
+# (run_studio.py) reads this code as "skip, don't retry":
 # retrying an absent secret hourly just fills the log (2026-07-23, work laptop).
 EXIT_NOT_CONFIGURED = 3
 
@@ -134,7 +134,7 @@ def new_scratch_dir() -> str:
 def acquire_state_lock():
     """Serialize the state tail (episodes.json → rss.xml → commit/push) against
     any other studio process. Shares `.studio.lock` with run_studio.py and
-    studio_watchdog.py; when a parent already holds it we inherit rather than
+    run_studio.py; when a parent already holds it we inherit rather than
     deadlock against our own spawner (STUDIO_LOCK_HELD). The render itself is
     NOT covered — per-run temp dirs make concurrent renders safe, and holding a
     lock across ten minutes of TTS would serialize the slow part for nothing."""

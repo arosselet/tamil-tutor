@@ -2455,3 +2455,14 @@ Details live in git history; this is the index of the *conclusions*.
   **`s80` asserts the AGREEMENT of both doors, not either
   answer**: two functions each looking right alone, nothing comparing them, is what this looked
   like for weeks. Retiring the watchdog is filed, not done.
+- **`studio_watchdog.py` retired, and its cap became an invariant** (2026-08-27, Andrew: *"the
+  crontab is stale, should be retired"*). The cron itself was retired 2026-07-24; the file lingered
+  as "a manual command" nobody ran. Both its jobs are covered: a half-rendered script is a
+  `run_studio` re-run, a pending soak order is the session-open drain. **Deleted with it:** `s19` whole, `s25`'s three
+  retry-semantics assertions, the `CODE_BUDGETS` and `LAYERS` entries, and pointers in
+  `render_audio`, `run_studio`, `PROTOCOL_MAP` and three skill files. **`MAX_UNATTENDED_PER_DAY`
+  was NOT re-homed.** It bounded the cron alone and never guarded human commissioning; with no
+  unattended dispatcher left there is nothing to bound. `s27`'s cap assertions became the rail
+  itself: **no scheduled workflow and no script may fire `run_studio` / `render_soak` /
+  `render_drill`**, comments excluded via `mechanism`. Teeth-checked — adding one reddens it and
+  names the fix. Two inbox proposals that inherited the old cap now carry that warning.

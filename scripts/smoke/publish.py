@@ -251,7 +251,6 @@ def s23_ticket_end_to_end(sb: Path):
 def s25_studio_concurrency_and_secrets(sb: Path):
     print("\n25. Studio concurrency + credential-less hosts (2026-07-23)")
     ra = importlib.import_module("render_audio")
-    sw = importlib.import_module("studio_watchdog")
 
     # --- the race that cost a draft episode -------------------------------
     # Renders used a fixed "temp_audio_segments"; whichever finished first
@@ -378,11 +377,6 @@ def s25_studio_concurrency_and_secrets(sb: Path):
             if v is not None:
                 os.environ[k] = v
 
-    check("watchdog: exit 3 → skip, no retry",
-          "no retry" in sw.outcome(sw.EXIT_NOT_CONFIGURED, "dispatch"))
-    check("watchdog: exit 0 → done", sw.outcome(0, "dispatch").endswith("done"))
-    check("watchdog: other non-zero → retry next tick",
-          "retry next tick" in sw.outcome(1, "dispatch"))
 
 
 def s31_feed_carries_every_pushed_dose(sb: Path):

@@ -28,7 +28,7 @@ rejected approach, not a smaller version of this one.
 | **Mechanism** | `scripts/*.py` logic, workflows, smoke cases, the @build/recalibrate skills | Ports as code — generalize names, zero Tamil literals |
 | **Anna's choice** | Tunables (volley size, cooldown days, voice picks) | Ports as a dial in `config/tutor.json`, never hard-coded |
 | **Language law** | Tamil prose rules in LLM prompts, `TAMIL_RE`, dialect/persona/hosts prose | Ports as a documented **slot** (`protocol/language.md`, `.template` files) — port the seam, never the Tamil value |
-| **Personal / local** | `progress/`, `content/`, `published_audio/`, `run_studio.py` + its writer wiring, `studio_watchdog.py` cron | **Never ports** |
+| **Personal / local** | `progress/`, `content/`, `published_audio/`, `run_studio.py` + its writer wiring | **Never ports** |
 
 `/extend` Gate 6 lists the three port-surface items invisible to a
 swap-the-md-files pass — check each one against the delta.

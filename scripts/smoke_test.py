@@ -84,7 +84,6 @@ def main():
         run(state.s16_stale_clone_gates, sb)
         run(knock.s17_campaign_digest, mk, sb)
         run(ratchets.s18_size_budgets, mk, kr, sb)
-        run(render.s19_watchdog_detection, sb)
         run(knock.s20_fielding, mk, kr, sb)
         run(knock.s21_volley_represent, kr, sb)
         run(publish.s22_sfx_pause, sb)
