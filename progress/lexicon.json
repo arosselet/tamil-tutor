@@ -4225,10 +4225,10 @@
     "recognition": "struggled",
     "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-08-27",
     "deck": "trip",
     "direction": "fire",
-    "exposures": 1,
+    "exposures": 2,
     "register": "frame"
   },
   "frame:if-ndhaa": {

@@ -5395,5 +5395,20 @@
     "pinned_target": "அவ",
     "pinned_revealed": false,
     "volley_done": true
+  },
+  {
+    "date": "2026-08-27",
+    "timestamp": "2026-08-27T02:46:14.622823+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "eavesdrop: train delay aachu",
+    "rationale": "Eavesdrop cadence due (3d gap); testing drift comprehension on the -aachu / -uchu past-event tail in an overheard phone call.",
+    "next_check": "2026-08-27T06:46:14.622823+00:00",
+    "body": "🎧 Overheard maami on the phone about Shanthi chitthi. What happened with her morning train? What did you catch?",
+    "expected_target": "frame:happened-aachu",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-27T02-46.mp3",
+    "memo_script": "ஹலோ, ஆமா... நம்ம சாந்தி சித்தி இருக்காங்கள்ல?\n\nஅவங்க இன்னைக்கு காலைல சென்னைக்கு கிளம்பினாங்க. ஆனா ஸ்டேஷன் போன அப்புறம் தான் தெரிஞ்சது, ட்ரெயின் ரொம்ப லேட் ஆயிடுச்சு. அங்கேயே ரெண்டு மணி நேரம் ஆச்சு.\n\nகடைசியில இப்போ தான் ட்ரெயின் வந்துச்சு, ஏறி போயிட்டாங்க.",
+    "mp3": "published_audio/knocks/knock_2026-08-27T02-46.mp3"
   }
 ]

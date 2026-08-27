@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Thursday 2026-08-27
+
+**08:16 · Anna** 🎧  ·  eavesdrop / eavesdrop: train delay aachu
+> 🎧 Overheard maami on the phone about Shanthi chitthi. What happened with her morning train? What did you catch?
+
+
 ## Wednesday 2026-08-26
 
 **09:17 · Anna**  ·  text / trailer: auto turns
