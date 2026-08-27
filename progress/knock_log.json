@@ -5425,10 +5425,10 @@
       },
       {
         "at": "2026-08-27T09:38:38Z",
-        "reply": "Send an audio greeting in Tamil to my sister in law Swapna",
+        "reply": "Send an audio greeting in Tamil to my sister in law",
         "verdict": "chat",
         "fired": [],
-        "reply_line": "On it da — let's put together a warm audio greeting for Swapna."
+        "reply_line": "On it da — let's put together a warm audio greeting for."
       },
       {
         "at": "2026-08-27T09:40:45Z",
@@ -5442,7 +5442,7 @@
         "reply": "Don’t reply to this message until the audio is ready and attached to the message",
         "verdict": "chat",
         "fired": [],
-        "reply_line": "Got it da — holding off until the Swapna audio is generated and attached directly."
+        "reply_line": "Got it da — holding off until the audio is generated and attached directly."
       },
       {
         "at": "2026-08-27T09:43:56Z",

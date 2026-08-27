@@ -16,10 +16,10 @@ Newest day first. **Derived file — edits here are overwritten.**
 > You caught the big delay! Not a pickup though — she waited two hours at the station and finally boarded (`aeri poittaanga`).
 
 **15:08 · Andrew** — **CHAT**
-> Send an audio greeting in Tamil to my sister in law Swapna
+> Send an audio greeting in Tamil to my sister in law
 
 **Anna ↩**
-> On it da — let's put together a warm audio greeting for Swapna.
+> On it da — let's put together a warm audio greeting for.
 
 **15:10 · Andrew** — **CHAT**
 > Ok so I didn’t see anything attached to that reply?
@@ -31,7 +31,7 @@ Newest day first. **Derived file — edits here are overwritten.**
 > Don’t reply to this message until the audio is ready and attached to the message
 
 **Anna ↩**
-> Got it da — holding off until the Swapna audio is generated and attached directly.
+> Got it da — holding off until the audio is generated and attached directly.
 
 **15:13 · Andrew** — **CHAT**
 > You’re a transient job in a GitHub runner so you have no state after sending a message.
