@@ -39,6 +39,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > Haha fair point on the mechanics da, but the logs remember — still here with you.
 
+**18:57 · Anna**  ·  text / show dose: bargaining
+> 🛍️ Street shopping rule: never argue the price, just drop 'konjam koraiyunga' (reduce it a little). Quiet, polite, works.
+
 
 ## Wednesday 2026-08-26
 

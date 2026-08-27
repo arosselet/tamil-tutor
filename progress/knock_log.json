@@ -5452,5 +5452,17 @@
         "reply_line": "Haha fair point on the mechanics da, but the logs remember — still here with you."
       }
     ]
+  },
+  {
+    "date": "2026-08-27",
+    "timestamp": "2026-08-27T13:27:36.851977+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "show dose: bargaining",
+    "rationale": "Demand streak at 2 calls for a no-ask dose; introducing unseen 'konjam koraiyunga' before dinner while reinforcing the konjam quantity pattern.",
+    "next_check": "2026-08-28T03:27:36.851977+00:00",
+    "body": "🛍️ Street shopping rule: never argue the price, just drop 'konjam koraiyunga' (reduce it a little). Quiet, polite, works.",
+    "expected_target": "",
+    "target_revealed": true
   }
 ]
