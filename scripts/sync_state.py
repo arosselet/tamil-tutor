@@ -39,7 +39,8 @@ from suggest_targets import reconcile_focus
 from state_io import (BASE, DEFAULT_TZ, EPISODES_PATH, FEEDBACK_LOG_PATH,
                       canon_payload,
                       KNOCK_LOG_PATH, LEARNER_PATH, LEXICON_PATH,
-                      SESSION_LOG_PATH, SLIP_LOG_PATH, build_phonetic_index,
+                      RECENT_AUDIO_PATH, SESSION_LOG_PATH, SLIP_LOG_PATH,
+                      build_phonetic_index,
                       is_tamil, load_json, local_today, resolve, save_json)
 
 # Windows consoles default to cp1252, which can't print Tamil — the status digest
@@ -285,7 +286,7 @@ def compute_recent_audio(n: int = 6) -> list[str]:
 # `recent_missions` joined them 2026-08-27: it named a population (numbered
 # Missions) that was never the one the picker needed, and `recent_audio` reads
 # the feed instead. Named here or merge-write carries the stale list forever.
-RETIRED_LEARNER_KEYS = ("streak", "slips_closed", "recent_missions")
+RETIRED_LEARNER_KEYS = ("streak", "slips_closed", "recent_missions", "recent_audio")
 
 # The two books this function does NOT own: `record_slip_test` and
 # `record_slip_commission` persist them straight to LEARNER_PATH, so by the time
@@ -328,8 +329,11 @@ def write_thin_learner(learner: dict):
     # The two derived views -- recomputed on every write, never stored input.
     # (The <=FOCUS_SIZE drill cohort above is the opposite: stored membership,
     # not an emergent sort, so a counting bug cannot move a seat -- 2026-07-26.)
-    thin["recent_audio"] = compute_recent_audio()
     thin["status"] = compute_status()
+    # Published as its own bare array, NOT as a key here: the iOS picker reads it
+    # directly and a key would force a Get Dictionary Value, the action that cost
+    # seven debugging rounds on a surface no test reaches (2026-08-27).
+    save_json(RECENT_AUDIO_PATH, compute_recent_audio())
     save_json(LEARNER_PATH, thin)
     print(f"  Updated learner.json ({LEARNER_PATH.relative_to(BASE)})")
 
@@ -1119,7 +1123,7 @@ def cmd_rate_episode(args):
     item = next((d for d in feed_items() if d["title"] == wanted), None)
     if item is None:
         print(f"  ! {wanted!r} is not in the feed — nothing to rate. "
-              f"Pick a row from learner.json's recent_audio.")
+              f"Pick a row from progress/recent_audio.json.")
         sys.exit(1)
     note = (f"[audio rating] [{item['format']}] {item['title']} — {stars}/5 "
             f"on wanting to keep listening.")

@@ -2824,6 +2824,21 @@ def s79_a_rating_lands_or_says_why(sb: Path):
         if saved_rss is not None:
             RSSP.write_bytes(saved_rss)
 
+    # ── Part A2: the published picker list is a BARE ARRAY ──
+    # It was a key inside learner.json and cost seven rounds of debugging on the
+    # phone, because reaching a key needs a Get Dictionary Value and that action
+    # is the one surface in this lane no test can reach. Nothing but the phone
+    # ever read it. Asserted as a LIST, not merely present: a dict here is the
+    # regression, and it would look exactly like success from the repo side.
+    ss.write_thin_learner(read_json(sb / "progress" / "learner.json") or {})
+    published = read_json(Path(ss.RECENT_AUDIO_PATH))
+    check("the picker list is published as a bare array, not a dict",
+          isinstance(published, list), str(type(published)))
+    check("...and every row is a plain string a picker can draw",
+          published and all(isinstance(r, str) for r in published), str(published[:2]))
+    check("...and the key is GONE from learner.json, not left beside it",
+          "recent_audio" not in (read_json(sb / "progress" / "learner.json") or {}))
+
     # ── Part B: the command, over a feed this case controls ──
     FEED = [{"id": "soak_2026-08-27_1515", "format": "soak",
              "title": "Soak — 2026-08-27 · nothing to do but listen"},
