@@ -124,8 +124,20 @@ def handle_message(text: str, knock: dict | None, klog: list, dry_run: bool):
         "Message: answered" + (" (aloud)" if voice_url else ""),
         mp3=vmp3 if voice_url else None))
     print("3. push back…")
-    push_to_phone(verdict["reply_line"], voice_url,
-                  knock_id=(knock or {}).get("timestamp", ""), requested=True)
+    # NO knock_id (2026-08-28). A message is not an answer to a knock, and this
+    # field is JUDGING CORRELATION: it rides action_data and comes back with the
+    # tap, so a message pushed under the anchor's id would send a Reply ✍️ on
+    # THIS notification into grading against a knock Andrew was never shown.
+    # Empty routes it back to this lane instead, which is what continuing a
+    # conversation should do.
+    #
+    # Found while chasing a message that looked undelivered; it turned out to be
+    # four minutes of push latency, not a loss. The stale id was real anyway, so
+    # the fix stands on correlation alone. (A pre-2026-08-19 HA automation would
+    # ALSO derive the notification tag from this id and could collide with an
+    # earlier push for the same knock — plausible, never observed, and not the
+    # reason this changed.)
+    push_to_phone(verdict["reply_line"], voice_url, knock_id="", requested=True)
     print(f"done — message answered{' (aloud 🎧)' if voice_url else ''}.")
 
 

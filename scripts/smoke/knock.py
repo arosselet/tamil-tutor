@@ -1603,7 +1603,14 @@ def s83_reply_or_message_is_decided_by_the_tag(mk, kr, sb: Path):
                     "voice_reply": "வணக்கம்" if force_voice else ""}
 
         km.judge_message = stub
-        kr.push_to_phone, kr.commit_and_push = Recorder(), Recorder()
+
+        class KwRecorder(list):
+            """Recorder that keeps kwargs too — knock_id is passed by keyword."""
+            def __call__(self, *a, **kw):
+                self.append((a, kw))
+
+        pushes = KwRecorder()
+        kr.push_to_phone, kr.commit_and_push = pushes, Recorder()
         km.push_to_phone, km.commit_and_push = kr.push_to_phone, kr.commit_and_push
         log = read_json(klog_path); log.append(dict(knock)); write_json(klog_path, log)
         os.environ["REPLY_INTENT"] = "message"
@@ -1616,7 +1623,15 @@ def s83_reply_or_message_is_decided_by_the_tag(mk, kr, sb: Path):
         ex = entry.get("exchanges", [{}])[-1]
         check("the exchange is tagged intent=message", ex.get("intent") == "message", str(ex))
         check("...and credits no fire", ex.get("fired") == [] and ex.get("verdict") == "chat")
-        check("he still gets an answer", bool(kr.push_to_phone[-1][0]))
+        check("he still gets an answer", bool(pushes[-1][0][0]))
+        # A message must not ride another knock's id: it is the judging
+        # correlation AND (on a pre-08-19 automation) the notification tag, so a
+        # stale one mints a tag already on his lock screen and iOS REPLACES the
+        # earlier notification. Recorder keeps positional args only and knock_id
+        # arrives as a keyword, so this needs a recorder that keeps kwargs — the
+        # first version of this check could not fail.
+        check("...on a notification carrying no knock_id",
+              pushes[-1][1].get("knock_id") == "", str(pushes[-1][1]))
     finally:
         km.judge_message = real_judge_message
         os.environ["REPLY_INTENT"] = real_intent
