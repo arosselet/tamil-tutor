@@ -2124,3 +2124,89 @@ def s61_no_number_is_recited_at_him(kr, sb: Path):
 
     write_json(lex_path, json.loads(saved[0].decode("utf-8")))
     write_json(klog_path, json.loads(saved[1].decode("utf-8")))
+
+
+def s84_a_turn_is_filed_under_the_day_it_happened(mk, sb: Path):
+    """A reply that crosses local midnight belongs to ITS day, not its knock's
+    (2026-08-28).
+
+    The live symptom: Andrew asked whether the system was still working, having
+    had nothing from Anna all day — and chat.md agreed with him. The two
+    messages he HAD sent that morning rendered under yesterday's heading, sorted
+    behind an 18:57 line they came ten hours after. `render_chat` keyed `by_day`
+    off the parent entry's timestamp while every exchange printed its own
+    %H:%M, so the heading and the clock disagreed for any answer given after
+    midnight. Five day-headings were missing from the file outright — days whose
+    only traffic was a next-morning reply. The zone conversion was never wrong;
+    the day-key was reading off the wrong object.
+
+    TEETH IN THE DIRECTION THAT FAILS SILENTLY: regressing to entry-keying
+    renders a chat.md that is still valid markdown, still carries every message,
+    still round-trips byte-for-byte, and still passes s51. Nothing crashes and
+    nothing is lost — the ONLY observable is which heading a turn sits under. So
+    this asserts PLACEMENT, not that a render ran: the crossing reply must appear
+    under its own day AND be absent from the knock's. It also asserts the
+    back-pointer is CONDITIONAL, because one that rides every turn is noise that
+    gets walked past, which is how the orphan it exists to explain goes unread.
+    """
+    print("\n84. A turn is filed under the day it happened, not its knock's")
+    rc_spec = importlib.util.spec_from_file_location(
+        "rc_days", str(Path(mk.__file__).parent / "render_chat.py"))
+    rc = importlib.util.module_from_spec(rc_spec)
+    rc_spec.loader.exec_module(rc)
+
+    # Built as LOCAL wall times in Andrew's own zone, whatever learner.json says
+    # it is. Hard-coding a UTC offset would make this case pass or fail on that
+    # dial rather than on the grouping it exists to test.
+    kt = datetime(2026, 8, 27, 18, 57, tzinfo=rc.LOCAL_TZ)       # the knock
+    same_day = datetime(2026, 8, 27, 19, 28, tzinfo=rc.LOCAL_TZ)  # answered that evening
+    next_day = datetime(2026, 8, 28, 9, 57, tzinfo=rc.LOCAL_TZ)   # answered next morning
+
+    def utc(dt):
+        return dt.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
+
+    entry = {"timestamp": utc(kt), "date": kt.date().isoformat(), "acted": True,
+             "modality": "text", "move": "show dose: bargaining",
+             "body": "konjam koraiyunga — that is the whole trick",
+             "exchanges": [
+                 {"at": utc(same_day), "reply": "SAME-DAY-REPLY",
+                  "verdict": "cold", "reply_line": "adhu dhaan"},
+                 {"at": utc(next_day), "reply": "NEXT-MORNING-REPLY",
+                  "verdict": "chat", "reply_line": "hello world-ah?"}]}
+
+    log_path, chat_path = sb / "kl_days.json", sb / "chat_days.md"
+    log_path.write_text(json.dumps([entry], ensure_ascii=False, indent=2), encoding="utf-8")
+    rc.KNOCK_LOG_PATH, rc.CHAT_PATH = log_path, chat_path
+    rc.render_chat()
+
+    # Split the rendered file into {heading: body} so PLACEMENT is assertable —
+    # a substring search over the whole file would pass on the very bug this
+    # case exists to catch, since both replies are present either way.
+    days, current = {}, None
+    for ln in chat_path.read_text(encoding="utf-8").splitlines():
+        if ln.startswith("## "):
+            current = ln[3:].strip()
+            days[current] = []
+        elif current is not None:
+            days[current].append(ln)
+    days = {k: "\n".join(v) for k, v in days.items()}
+
+    k_head, n_head = f"{kt:%A %Y-%m-%d}", f"{next_day:%A %Y-%m-%d}"
+    check("the next morning gets a heading of its own", n_head in days, str(list(days)))
+    check("the crossing reply sits under ITS day",
+          "NEXT-MORNING-REPLY" in days.get(n_head, ""), days.get(n_head, "<no such day>"))
+    check("...and is GONE from the knock's day",
+          "NEXT-MORNING-REPLY" not in days.get(k_head, ""), days.get(k_head, "<no such day>"))
+    check("the same-day reply stays with its knock",
+          "SAME-DAY-REPLY" in days.get(k_head, ""), days.get(k_head, "<no such day>"))
+
+    crossing = [ln for ln in days.get(n_head, "").splitlines() if "Andrew" in ln]
+    on_day = [ln for ln in days.get(k_head, "").splitlines() if "Andrew" in ln]
+    check("the orphaned reply names the knock it answers",
+          bool(crossing) and "show dose: bargaining" in crossing[0], str(crossing))
+    check("the same-day reply carries NO back-pointer",
+          bool(on_day) and "↩" not in on_day[0], str(on_day))
+
+    body = days.get(k_head, "")
+    check("within a day, turns stay in clock order",
+          body.index("koraiyunga") < body.index("SAME-DAY-REPLY"))

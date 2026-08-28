@@ -6,6 +6,18 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 ## Friday 2026-08-28
 
+**09:57 · Andrew** — **CHAT**  ·  ↩ 08-27 18:57 · show dose: bargaining
+> Hello world!
+
+**Anna ↩**
+> Haha hello world-ah? System check passed da, I'm right here. Enna vishayam?
+
+**10:04 · Andrew** — **CHAT**  ·  ↩ 08-27 18:57 · show dose: bargaining
+> Send me an audio haiku about clean code
+
+**Anna ↩**
+> Clean code haiku render aagi vandhachu da — listen to this.
+
 **13:53 · Anna**  ·  text / rapid fire: kudichen
 > ☕ Maami asks 'tea kudicheengala?' (did you drink tea?). Fire back that you drank it:
 
@@ -54,25 +66,15 @@ Newest day first. **Derived file — edits here are overwritten.**
 **18:57 · Anna**  ·  text / show dose: bargaining
 > 🛍️ Street shopping rule: never argue the price, just drop 'konjam koraiyunga' (reduce it a little). Quiet, polite, works.
 
-**09:57 · Andrew** — **CHAT**
-> Hello world!
-
-**Anna ↩**
-> Haha hello world-ah? System check passed da, I'm right here. Enna vishayam?
-
-**10:04 · Andrew** — **CHAT**
-> Send me an audio haiku about clean code
-
-**Anna ↩**
-> Clean code haiku render aagi vandhachu da — listen to this.
-
 
 ## Wednesday 2026-08-26
 
 **09:17 · Anna**  ·  text / trailer: auto turns
 > 🛺 Auto driver missing your cut: 'thirumbunga' (turn) vs 'ponga' (go). In today's session, we nail the junctions.
 
-**Andrew** · 👍 acked
+**12:52 · Andrew** · 👍 acked
+
+**12:52 · Andrew** · 👍 acked  ·  ↩ 08-25 18:04 · field mission: alaichal
 
 **16:52 · Anna**  ·  volley / afternoon blitz
 > ⚡ volley 1/4 — Cousin is rambling about train delays — keep him going with a quick 'yeah, yeah'.
@@ -116,8 +118,6 @@ Newest day first. **Derived file — edits here are overwritten.**
 **18:04 · Anna**  ·  challenge / field mission: alaichal
 > 🚪 Tonight's mission: walk in the door, drop the bag, sigh it out — 'romba alaichal' (exhausting runaround). Debrief tomorrow.
 
-**Andrew** · 👍 acked
-
 
 ## Monday 2026-08-24
 
@@ -138,6 +138,42 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 
 ## Sunday 2026-08-23
+
+**05:32 · Andrew** — **CHAT**  ·  ↩ 08-22 16:44 · revive: what's cooking
+> The last few days have been travel time and time with cousins, not a fade.
+
+**Anna ↩**
+> no worries da, life happens — but c'mon, smell's still in the hallway. enna samaikkira?
+
+**05:47 · Andrew** — **MISS**  ·  ↩ 08-22 16:44 · revive: what's cooking
+> Idly chutney and idly podi
+
+**Anna ↩**
+> haha that's the ANSWER da, not the ask — I want you to ask HER. try again: enna samaikkira?
+
+**05:48 · Andrew** — **HINTED**  ·  ↩ 08-22 16:44 · revive: what's cooking
+> Enna Samara
+
+**Anna ↩**
+> enna landed da, but 'Samara' isn't samaikkira — autocorrect probably ate it. one more try: enna samaikkira?
+
+**05:50 · Andrew** — **HINTED**  ·  ↩ 08-22 16:44 · revive: what's cooking
+> Enna samaikkira
+
+**Anna ↩**
+> adhu dhaan da! though ngh, I did spoon-feed you that one three times — next round it better fire cold 😏
+
+**06:12 · Andrew** — **CHAT**  ·  ↩ 08-22 16:44 · revive: what's cooking
+> Periya is to cinna as Romba is to ? I keep forgetting this word
+
+**Anna ↩**
+> konjam da — romba's 'a lot', konjam's 'a little'. now, smell's still there... enna samaikkira?
+
+**06:14 · Andrew** — **HINTED**  ·  ↩ 08-22 16:44 · revive: what's cooking
+> Emma samaikkira. Konjam yes that’s the one!
+
+**Anna ↩**
+> haha yeah 'enna samaikkira' is the one da — autocorrect ate the 'e' into 'Emma' again 😄 but I basically handed you this one five times this thread, so it's not cold yet — next time it fires without me printing it first, THAT'S the real one.
 
 **09:14 · Anna** 🎧  ·  audio / trailer payoff: eduthukka mission
 > 🥣 spoon mission, paid off — where 'naane eduthukkaren' actually lands now. voice memo, no reply needed.
@@ -193,42 +229,6 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > close da — 'samikkala' means 'didn't cook'. you want 'enna samaikkira?'
 
-**05:32 · Andrew** — **CHAT**
-> The last few days have been travel time and time with cousins, not a fade.
-
-**Anna ↩**
-> no worries da, life happens — but c'mon, smell's still in the hallway. enna samaikkira?
-
-**05:47 · Andrew** — **MISS**
-> Idly chutney and idly podi
-
-**Anna ↩**
-> haha that's the ANSWER da, not the ask — I want you to ask HER. try again: enna samaikkira?
-
-**05:48 · Andrew** — **HINTED**
-> Enna Samara
-
-**Anna ↩**
-> enna landed da, but 'Samara' isn't samaikkira — autocorrect probably ate it. one more try: enna samaikkira?
-
-**05:50 · Andrew** — **HINTED**
-> Enna samaikkira
-
-**Anna ↩**
-> adhu dhaan da! though ngh, I did spoon-feed you that one three times — next round it better fire cold 😏
-
-**06:12 · Andrew** — **CHAT**
-> Periya is to cinna as Romba is to ? I keep forgetting this word
-
-**Anna ↩**
-> konjam da — romba's 'a lot', konjam's 'a little'. now, smell's still there... enna samaikkira?
-
-**06:14 · Andrew** — **HINTED**
-> Emma samaikkira. Konjam yes that’s the one!
-
-**Anna ↩**
-> haha yeah 'enna samaikkira' is the one da — autocorrect ate the 'e' into 'Emma' again 😄 but I basically handed you this one five times this thread, so it's not cold yet — next time it fires without me printing it first, THAT'S the real one.
-
 
 ## Friday 2026-08-21
 
@@ -253,6 +253,18 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 ## Thursday 2026-08-20
 
+**02:26 · Andrew** — **CHAT**  ·  ↩ 08-19 16:27 · volley: survival due-menu
+> What does inge paringa mean?
+
+**Anna ↩**
+> paringa = look (polite) — so 'inge paringa' = 'look here'. anyway, 2/4 — driver needs to turn right, thirumbunga? · still open · 2/4 — Auto's nearing the signal — tell the driver to turn right.
+
+**02:29 · Andrew** — **MISS**  ·  ↩ 08-19 16:27 · volley: survival due-menu
+> Valadu pakkam ponga
+
+**Anna ↩**
+> valadu pakkam's right, but ponga's just 'go' — for turn it's thirumbunga: valadu pakkam thirumbunga · 3/4 — At the vegetable stall, basket full — ask the vendor what it'll cost.
+
 **09:10 · Anna**  ·  text / trailer: birthday wish
 > amma's birthday's 4 days out — can't wing it live. today's session: pirandha naal vazhthukkal, locked before the day comes 🎂
 
@@ -264,6 +276,18 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 
 ## Wednesday 2026-08-19
+
+**04:51 · Andrew** — **CHAT**  ·  ↩ 08-18 15:51 · field mission: take spoon
+> Inge poringe what does it mean?
+
+**Anna ↩**
+> inge poringe = "go here" (poringe is you-go, polite) — not quite "come here," that'd be inga vaanga. anyway — spoon mission still on for tonight, naane eduthukkaren!
+
+**04:51 · Andrew** — **CHAT**  ·  ↩ 08-18 15:51 · field mission: take spoon
+> This is a test. Do you read me?
+
+**Anna ↩**
+> loud and clear da 👂 — spoon's still waiting for tonight, don't forget: naane eduthukkaren
 
 **09:10 · Anna**  ·  text / debrief collect: spoon mission
 > did the spoon move last night — unprompted? how'd 'naane eduthukkaren' land at the table? debrief 🥄
@@ -277,38 +301,32 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan — mudinja fired! pair it with the verb next time: 'varen, mudinja'. · 2/4 — Auto's nearing the signal — tell the driver to turn right.
 
-**02:26 · Andrew** — **CHAT**
-> What does inge paringa mean?
-
-**Anna ↩**
-> paringa = look (polite) — so 'inge paringa' = 'look here'. anyway, 2/4 — driver needs to turn right, thirumbunga? · still open · 2/4 — Auto's nearing the signal — tell the driver to turn right.
-
-**02:29 · Andrew** — **MISS**
-> Valadu pakkam ponga
-
-**Anna ↩**
-> valadu pakkam's right, but ponga's just 'go' — for turn it's thirumbunga: valadu pakkam thirumbunga · 3/4 — At the vegetable stall, basket full — ask the vendor what it'll cost.
-
 
 ## Tuesday 2026-08-18
+
+**08:44 · Andrew** — **CHAT**  ·  ↩ 08-17 19:50 · trailer payoff: repair line
+> Send an audio greeting in Tamil for Vadivu. She’s a native speaker.
+
+**Anna ↩**
+> on it — recording now for Vadivu.
+
+**08:49 · Andrew** — **CHAT**  ·  ↩ 08-17 19:50 · trailer payoff: repair line
+> Tell me a short audio story in Tamil about Ava eating Vada
+
+**Anna ↩**
+> on it — composing now.
+
+**08:50 · Andrew** — **CHAT**  ·  ↩ 08-17 19:50 · trailer payoff: repair line
+> You say on it but then there’s no audio attached
+
+**Anna ↩**
+> my bad — here it is now 👇
 
 **09:08 · Anna** 🎧  ·  eavesdrop / catch: whose daughter
 > Meena's catching up on wedding news. Whose daughter is it? 🎤 (catch the drift)
 
 **15:51 · Anna**  ·  challenge / field mission: take spoon
 > at dinner tonight, don't just stop her — TAKE the spoon: 'naane eduthukkaren.' fire it unprompted. debrief tomorrow 🥄
-
-**04:51 · Andrew** — **CHAT**
-> Inge poringe what does it mean?
-
-**Anna ↩**
-> inge poringe = "go here" (poringe is you-go, polite) — not quite "come here," that'd be inga vaanga. anyway — spoon mission still on for tonight, naane eduthukkaren!
-
-**04:51 · Andrew** — **CHAT**
-> This is a test. Do you read me?
-
-**Anna ↩**
-> loud and clear da 👂 — spoon's still waiting for tonight, don't forget: naane eduthukkaren
 
 
 ## Monday 2026-08-17
@@ -324,24 +342,6 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 **19:50 · Anna**  ·  text / trailer payoff: repair line
 > innoru thadava sollunga — 'say it once more.' appadiyaa keeps the speaker going; this one changes what you hear next. deploy it tonight 🎯
-
-**08:44 · Andrew** — **CHAT**
-> Send an audio greeting in Tamil for Vadivu. She’s a native speaker.
-
-**Anna ↩**
-> on it — recording now for Vadivu.
-
-**08:49 · Andrew** — **CHAT**
-> Tell me a short audio story in Tamil about Ava eating Vada
-
-**Anna ↩**
-> on it — composing now.
-
-**08:50 · Andrew** — **CHAT**
-> You say on it but then there’s no audio attached
-
-**Anna ↩**
-> my bad — here it is now 👇
 
 
 ## Sunday 2026-08-16
@@ -433,11 +433,29 @@ Newest day first. **Derived file — edits here are overwritten.**
 **00:00 · Anna** 🎧  ·  audio / mission payoff memo
 > 🎧 kai kazhuvittu varen — did it land last night?
 
+**04:15 · Andrew** — **MISS**  ·  ↩ 08-09 18:05 · fielding: innoru thada
+> I don’t understand
+
+**Anna ↩**
+> that IS the Tamil — she said she couldn't hear you, and she wants you to say it again: 'innoru thadava sollunga'
+
 **04:16 · Andrew** — **CHAT**
 > I dismissed a notification from Anna today, can you send it again
 
 **Anna ↩**
 > resent — same memo, your phone now.
+
+**04:16 · Andrew** — **HINTED**  ·  ↩ 08-09 18:05 · fielding: innoru thada
+> Innoru thadava sollunga
+
+**Anna ↩**
+> adhu dhaan! 🔥 — and yeah, that's capped: I handed it to you last exchange. but the mouth knows it now.
+
+**04:18 · Andrew** — **CAUGHT**  ·  ↩ 08-09 02:53 · eavesdrop: gossip close
+> Drop it and go
+
+**Anna ↩**
+> adhu dhaan — heard the whole arc: there's some trouble at that house, son's away, amma's alone, and atthai's already half-stepping back from it — 'summa solraanga, namaakku ethukku?' Drop it and move on. You caught it clean 🎧
 
 **04:55 · Anna**  ·  volley / volley: sprint burn
 > ⚡ volley 1/4 — you want to ask if the taxi can stop at the hotel first — it's a long shot but worth asking. one word: 'if possible'
@@ -451,29 +469,23 @@ Newest day first. **Derived file — edits here are overwritten.**
 **02:53 · Anna** 🎧  ·  eavesdrop / eavesdrop: gossip close
 > 🎧 overhear atthai on the phone — what's she doing with this gossip?
 
-**04:18 · Andrew** — **CAUGHT**
-> Drop it and go
-
-**Anna ↩**
-> adhu dhaan — heard the whole arc: there's some trouble at that house, son's away, amma's alone, and atthai's already half-stepping back from it — 'summa solraanga, namaakku ethukku?' Drop it and move on. You caught it clean 🎧
-
 **18:05 · Anna** 🎧  ·  fielding / fielding: innoru thada
 > enna da, oru vela kekkaama poitta? 🎧 — answer her
 
-**04:15 · Andrew** — **MISS**
-> I don’t understand
-
-**Anna ↩**
-> that IS the Tamil — she said she couldn't hear you, and she wants you to say it again: 'innoru thadava sollunga'
-
-**04:16 · Andrew** — **HINTED**
-> Innoru thadava sollunga
-
-**Anna ↩**
-> adhu dhaan! 🔥 — and yeah, that's capped: I handed it to you last exchange. but the mouth knows it now.
-
 
 ## Saturday 2026-08-08
+
+**01:49 · Andrew** — **MISS**  ·  ↩ 08-07 18:15 · fielding: sari-sari close
+> Ok ok let it go
+
+**Anna ↩**
+> close in spirit — but she said it in Tamil, so you answer in Tamil. atthai waves it off: 'seri seri, vittudu.' try it back.
+
+**01:50 · Andrew** — **HINTED**  ·  ↩ 08-07 18:15 · fielding: sari-sari close
+> Seri seri vittadu
+
+**Anna ↩**
+> seri seri landed clean — vittadu is 'vittudu', the -u at the end. almost there.
 
 **04:57 · Anna** 🎧  ·  audio / audio soak: three closes
 > 🎧 Friday night memo — not a quiz. how a Tamil conversation actually *ends*. three ways, three feelings.
@@ -484,23 +496,29 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 ## Friday 2026-08-07
 
+**05:46 · Andrew** — **CHAT**  ·  ↩ 08-06 19:18 · trailer: -om ambush test
+> Overheard in public in Waterloo Canada. Kashtom
+
+**Anna ↩**
+> wait — Tamil in Waterloo? what did you catch?
+
+**05:48 · Andrew** — **HINTED**  ·  ↩ 08-06 19:18 · trailer: -om ambush test
+> Kashtom and I think it means problem
+
+**Anna ↩**
+> close — 'kashtam', not 'kashtom'. and yes, exactly right: hardship, difficulty, trouble. you caught it cold off the street 🔥 — what else did you hear?
+
+**06:04 · Andrew** — **CHAT**  ·  ↩ 08-06 19:18 · trailer: -om ambush test
+> Just 1 word in passing in a busy public place. It immediately clicked this guy was speaking Tamil . I didn’t stick around for context
+
+**Anna ↩**
+> ok — so one word, one catch, zero context. that's still a real field rep da. you heard it and it clicked — that IS the reflex working.
+
 **06:07 · Anna**  ·  challenge / field mission collect + tonight's assign
 > mission debrief time 🎯 — did the -om tail land tonight? sollu. and tomorrow's: she piles food, you wave it off — 'vendaamma, vayiru nirainjiduchu'
 
 **18:15 · Anna** 🎧  ·  fielding / fielding: sari-sari close
 > atthai's on the phone — she just heard the neighbour gossip. catches your eye and says: sari sari, vittudu — answer her.
-
-**01:49 · Andrew** — **MISS**
-> Ok ok let it go
-
-**Anna ↩**
-> close in spirit — but she said it in Tamil, so you answer in Tamil. atthai waves it off: 'seri seri, vittudu.' try it back.
-
-**01:50 · Andrew** — **HINTED**
-> Seri seri vittadu
-
-**Anna ↩**
-> seri seri landed clean — vittadu is 'vittudu', the -u at the end. almost there.
 
 
 ## Thursday 2026-08-06
@@ -511,31 +529,47 @@ Newest day first. **Derived file — edits here are overwritten.**
 **19:18 · Anna**  ·  text / trailer: -om ambush test
 > da — M82 shipped the we-past fix. today's session is the test: one cold ambush, no scaffold. worth 2 min at lunch. 🎯
 
-**05:46 · Andrew** — **CHAT**
-> Overheard in public in Waterloo Canada. Kashtom
-
-**Anna ↩**
-> wait — Tamil in Waterloo? what did you catch?
-
-**05:48 · Andrew** — **HINTED**
-> Kashtom and I think it means problem
-
-**Anna ↩**
-> close — 'kashtam', not 'kashtom'. and yes, exactly right: hardship, difficulty, trouble. you caught it cold off the street 🔥 — what else did you hear?
-
-**06:04 · Andrew** — **CHAT**
-> Just 1 word in passing in a busy public place. It immediately clicked this guy was speaking Tamil . I didn’t stick around for context
-
-**Anna ↩**
-> ok — so one word, one catch, zero context. that's still a real field rep da. you heard it and it clicked — that IS the reflex working.
-
 
 ## Wednesday 2026-08-05
 
+**00:02 · Andrew** — **CHAT**  ·  ↩ 08-04 23:55 · backchannel volley sprint
+> Ama ama
+
+**Anna ↩**
+> aama aama — clean. paati keeps going. 🔥 · still open · 1/4 — Paati is mid-story about the neighbour's wedding; you want her to keep going without cutting in. What do you say?
+
+**00:04 · Andrew** — **MISS**  ·  ↩ 08-04 23:55 · backchannel volley sprint
+> Appadiyaa
+
+**Anna ↩**
+> close instinct — 'appadiyaa' is your surprised reaction; to keep her rolling without cutting in, it's 'aama aama'. let her finish. · 2/4 — Someone asks how to get to the main road from the house — it's straight ahead, no turns. Give them directions.
+
+**00:06 · Andrew** — **HINTED**  ·  ↩ 08-04 23:55 · backchannel volley sprint
+> Nera ponga and that “ama ama” miss is frustrating you just asked the same question twice
+
+**Anna ↩**
+> nera ponga — adhu dhaan. 🔥 (and yeah, 'ama ama' — my bad, that one was already in the bag. noted.) · 3/4 — Your maama just explained which road to take to the temple. You got it; signal agreement and close it. What do you say?
+
+**00:07 · Andrew** — **CHAT**  ·  ↩ 08-04 23:55 · backchannel volley sprint
+> Thanks da
+
+**Anna ↩**
+> ha — 'thanks da' noted. seri seri — that's the one. maama's satisfied. last rep: · still open · 3/4 — Your maama just explained which road to take to the temple. You got it; signal agreement and close it. What do you say?
+
+**00:09 · Andrew** — **CHAT**  ·  ↩ 08-04 23:55 · backchannel volley sprint
+> You just asked me this same question. Seri seri
+
+**Anna ↩**
+> seri seri — adhu dhaan. and fair point, I re-asked this one too many times. moving on. · still open · 3/4 — Your maama just explained which road to take to the temple. You got it; signal agreement and close it. What do you say?
+
+**00:10 · Andrew** — **CHAT**  ·  ↩ 08-04 23:55 · backchannel volley sprint
+> Thanks da
+
+**Anna ↩**
+> got it — moving to 4/4. · still open · 3/4 — Your maama just explained which road to take to the temple. You got it; signal agreement and close it. What do you say?
+
 **05:28 · Anna**  ·  text / field mission reminder
 > mission's live — 'konjam X kudunga' at the table tonight, unprompted. debrief tomorrow. 🎯
-
-**Andrew** · 👍 acked
 
 **19:21 · Anna**  ·  text / field mission debrief collect
 > field mission debrief — konjam {thing} kudunga at dinner. did it land? what came back?
@@ -558,6 +592,8 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > yeah da — 'konjam thanni kudunga' is exactly what you said, and she just passed the water. that IS the mission. zero hesitation from her side means it landed clean.
 
+**20:52 · Andrew** · 👍 acked
+
 **22:58 · Anna**  ·  volley / deck volley sprint
 > ⚡ volley 1/4 — paati asks where you left your bag. It's in the car. Just the locative: 'car-___ irukku.' Fill the blank.
 
@@ -573,18 +609,6 @@ Newest day first. **Derived file — edits here are overwritten.**
 **00:15 · Anna**  ·  volley / table volley sprint
 > ⚡ volley 1/4 — You want the window seat but it's not guaranteed — tell the host 'if possible' before he assigns you
 
-**05:56 · Andrew** — **MISS**
-> Irukala?
-
-**Anna ↩**
-> close instinct — 'iruka?' asks if it exists; we want the softener before asking: 'mudinja, window seat kudupeenga?' — that whole move. · 2/4 — Auto driver missed the turn — one word, direct him right
-
-**05:58 · Andrew** — **COLD**
-> Valadu pakkam ponga
-
-**Anna ↩**
-> direction's right — but 'ponga' is 'go'; to turn, it's 'thirumbunga'. valadu pakkam thirumbunga. · 3/4 — You caught maybe 60% of what the uncle just said — ask him to say it once more
-
 **05:32 · Anna**  ·  text / trailer payoff: melt line
 > ரொம்ப நல்லாருக்கு — 'it's really good,' said while you're still eating, not after. That one line is the whole melt. Session already paid it off? Fire it back cold. 🍽️
 
@@ -594,11 +618,23 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > got it — phonetics from here on. so: 'romba nallaarukkku' — that's the melt line. fire it back when you're ready.
 
+**05:56 · Andrew** — **MISS**
+> Irukala?
+
+**Anna ↩**
+> close instinct — 'iruka?' asks if it exists; we want the softener before asking: 'mudinja, window seat kudupeenga?' — that whole move. · 2/4 — Auto driver missed the turn — one word, direct him right
+
 **05:57 · Andrew** — **COLD**
 > Romba nallairukku
 
 **Anna ↩**
 > adhu dhaan! 🔥 next — maama piles more rice on your plate. one word to wave it off: 'enough!' · maama's going for the ladle again. wave it off — 'enough!'
+
+**05:58 · Andrew** — **COLD**
+> Valadu pakkam ponga
+
+**Anna ↩**
+> direction's right — but 'ponga' is 'go'; to turn, it's 'thirumbunga'. valadu pakkam thirumbunga. · 3/4 — You caught maybe 60% of what the uncle just said — ask him to say it once more
 
 **05:58 · Andrew** — **HINTED**
 > Podhum
@@ -629,42 +665,6 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 **23:55 · Anna**  ·  volley / backchannel volley sprint
 > ⚡ volley 1/4 — Paati is mid-story about the neighbour's wedding; you want her to keep going without cutting in. What do you say?
-
-**00:02 · Andrew** — **CHAT**
-> Ama ama
-
-**Anna ↩**
-> aama aama — clean. paati keeps going. 🔥 · still open · 1/4 — Paati is mid-story about the neighbour's wedding; you want her to keep going without cutting in. What do you say?
-
-**00:04 · Andrew** — **MISS**
-> Appadiyaa
-
-**Anna ↩**
-> close instinct — 'appadiyaa' is your surprised reaction; to keep her rolling without cutting in, it's 'aama aama'. let her finish. · 2/4 — Someone asks how to get to the main road from the house — it's straight ahead, no turns. Give them directions.
-
-**00:06 · Andrew** — **HINTED**
-> Nera ponga and that “ama ama” miss is frustrating you just asked the same question twice
-
-**Anna ↩**
-> nera ponga — adhu dhaan. 🔥 (and yeah, 'ama ama' — my bad, that one was already in the bag. noted.) · 3/4 — Your maama just explained which road to take to the temple. You got it; signal agreement and close it. What do you say?
-
-**00:07 · Andrew** — **CHAT**
-> Thanks da
-
-**Anna ↩**
-> ha — 'thanks da' noted. seri seri — that's the one. maama's satisfied. last rep: · still open · 3/4 — Your maama just explained which road to take to the temple. You got it; signal agreement and close it. What do you say?
-
-**00:09 · Andrew** — **CHAT**
-> You just asked me this same question. Seri seri
-
-**Anna ↩**
-> seri seri — adhu dhaan. and fair point, I re-asked this one too many times. moving on. · still open · 3/4 — Your maama just explained which road to take to the temple. You got it; signal agreement and close it. What do you say?
-
-**00:10 · Andrew** — **CHAT**
-> Thanks da
-
-**Anna ↩**
-> got it — moving to 4/4. · still open · 3/4 — Your maama just explained which road to take to the temple. You got it; signal agreement and close it. What do you say?
 
 
 ## Monday 2026-08-03
@@ -702,6 +702,8 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 ## Sunday 2026-08-02
 
+**00:55 · Andrew** · 👍 acked  ·  ↩ 08-01 18:52 · trailer payoff: day-recap
+
 **04:17 · Anna**  ·  text / trailer: story day tomorrow
 > 🍽️ Tomorrow: dinner scene — the -ஓம் tail under load, on a real table. Did the drill reach your mouth? Session pays it off.
 
@@ -714,7 +716,7 @@ Newest day first. **Derived file — edits here are overwritten.**
 **03:34 · Anna**  ·  text / volley 1/4 resend
 > ⚡ volley 1/4 (resend) — Maami says something fast across the kitchen — you caught nothing. Ask her: what did you say?
 
-**Andrew** · 👍 acked
+**04:05 · Andrew** · 👍 acked
 
 **05:26 · Anna**  ·  text / volley 1/4 resend (2nd)
 > ⚡ volley 1/4 — Maami says something fast across the kitchen — you caught nothing. Ask her: what did you say?
@@ -727,8 +729,6 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 **18:52 · Anna** 🎧  ·  audio / trailer payoff: day-recap
 > 💬 போனோம், நல்லா இருந்துச்சு — the two-part answer to 'what did you all do?' Memo inside 🎙️
-
-**Andrew** · 👍 acked
 
 **23:26 · Anna** 🎧  ·  eavesdrop / aunties tape: youknow-la collect
 > 📻 Overheard: Chitra akka on the phone — what's the gossip? (drift question inside)
@@ -772,12 +772,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **03:03 · Anna**  ·  text / trailer: romba nallairuku
 > tomorrow's session has one job — ரொம்ப நல்லாருக்கு (romba nallairuku). two words. maami melts. tomorrow.
 
-**Andrew** · 👍 acked
+**17:29 · Andrew** · 👍 acked
 
 **18:38 · Anna**  ·  text / trailer payoff bell
 > "romba nallairuku" — two words, her face changes. today's session pays it off. 🍽️
 
-**Andrew** · 👍 acked
+**19:55 · Andrew** · 👍 acked
 
 
 ## Wednesday 2026-07-29
@@ -785,7 +785,7 @@ Newest day first. **Derived file — edits here are overwritten.**
 **03:31 · Anna**  ·  text / trailer: yaaru session
 > Tomorrow's session has one job — 'yaaru?' (who?) fires cold. One word, three sessions untouched. The crowded lunch scene waits. 🍽️
 
-**Andrew** · 👍 acked
+**03:55 · Andrew** · 👍 acked
 
 **20:41 · Anna** 🎧  ·  eavesdrop / sisters tape: vittidu
 > 🎧 overheard — Kavitha akka's side of a call. catch the drift: what did she want her sister to do?
@@ -973,6 +973,25 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > on it — recording now.
 
+**09:48 · Andrew** — **HINTED**  ·  ↩ 07-24 18:57 · volley: needtogo + puriyala
+> Station ku poganum
+
+**Anna ↩**
+> அதுதான்! — 'station-ku poganum', clean. போகணும் was on the recent list so hinted, but the frame fired right. · 2/2 — the uncle is talking too fast — one line to slow him down
+
+**09:51 · Andrew** — **COLD**  ·  ↩ 07-24 18:57 · volley: needtogo + puriyala
+> Medhuva solla
+
+**Anna ↩**
+> adhu dhaan! — add 'puriyala' first: 'puriyala, medhuva sollu' 🔥
+
+**09:52 · Andrew** — **CHAT**  ·  ↩ 07-24 18:57 · volley: needtogo + puriyala
+> Remind me what puryila
+> Means
+
+**Anna ↩**
+> 'puriyala' — I don't understand.
+
 **18:32 · Anna** 🎧  ·  eavesdrop / eavesdrop: hearsay-aam gossip
 > 🎧 overheard — two sisters on the phone. what's the drift? (English answer ok)
 
@@ -1000,32 +1019,15 @@ Newest day first. **Derived file — edits here are overwritten.**
 **00:38 · Anna**  ·  text / trailer: campaign close
 > da — Ask-Machine Week closes tonight. one scene left: the door exit, avasaram + poganum, both in your mouth. that's tonight's session. 🚪
 
-**Andrew** · 👍 acked
-
 **04:22 · Anna**  ·  text / trailer payoff: exit scene
 > da — poganum + avasaram, the door scene: 'avasaram irukku, station-kku poganum' — that's the whole exit. two lines, one door. 🚪
 
+**04:23 · Andrew** · 👍 acked
+
+**04:23 · Andrew** · 👍 acked  ·  ↩ 07-23 21:02 · collect + cold dispatch: poganum
+
 **18:57 · Anna**  ·  volley / volley: needtogo + puriyala
 > ⚡ volley 1/2 — you're at the table, someone's holding you up — 'I need to go to the station'
-
-**09:48 · Andrew** — **HINTED**
-> Station ku poganum
-
-**Anna ↩**
-> அதுதான்! — 'station-ku poganum', clean. போகணும் was on the recent list so hinted, but the frame fired right. · 2/2 — the uncle is talking too fast — one line to slow him down
-
-**09:51 · Andrew** — **COLD**
-> Medhuva solla
-
-**Anna ↩**
-> adhu dhaan! — add 'puriyala' first: 'puriyala, medhuva sollu' 🔥
-
-**09:52 · Andrew** — **CHAT**
-> Remind me what puryila
-> Means
-
-**Anna ↩**
-> 'puriyala' — I don't understand.
 
 
 ## Thursday 2026-07-23
@@ -1068,8 +1070,6 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 **21:02 · Anna**  ·  text / collect + cold dispatch: poganum
 > da — last night: did 'naan poganum' make it to the table? 🚉 one line back. (and: station-kku poganum — no warm-up, just fire it)
-
-**Andrew** · 👍 acked
 
 
 ## Wednesday 2026-07-22
@@ -1116,6 +1116,42 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 ## Tuesday 2026-07-21
 
+**01:59 · Andrew** — **CHAT**  ·  ↩ 07-20 23:27 · fielding: mayi-laama trailer payoff
+> Ama? She’s asking will I please but I don’t know what she wants
+
+**Anna ↩**
+> ha — close read. "ukkaruveengala" = "will you sit?" she's waving at the chair, asking you to take a seat. now answer her — one word, something like "sure, I'll sit."
+
+**02:01 · Andrew** — **COLD**  ·  ↩ 07-20 23:27 · fielding: mayi-laama trailer payoff
+> Aam. Naan utkaarukiraen
+
+**Anna ↩**
+> adhu dhaan! verb fired cold 🔥 — we'd drop the full present ending and say 'ukkaren' or 'ukkarlaam', but the table heard you. · now she pushes a cup of tea toward you — wave it off, 'enough, I'm fine'. (one line)
+
+**02:04 · Andrew** — **COLD**  ·  ↩ 07-20 23:27 · fielding: mayi-laama trailer payoff
+> Podhum
+
+**Anna ↩**
+> adhu dhaan 🔥 — podhum, natural as anything. table heard that clean. · now she says 'saapitta?' — did you eat? she's eyeing the plate. (one word: yes or no, your call)
+
+**02:05 · Andrew** — **COLD**  ·  ↩ 07-20 23:27 · fielding: mayi-laama trailer payoff
+> Ama sappiten
+
+**Anna ↩**
+> adhu dhaan 🔥 — sappiten, cold fire. · she slides the plate closer — 'konjam konjam.' wave it off: 'I'm full, no more.'
+
+**06:07 · Andrew** — **CHAT**  ·  ↩ 07-20 23:27 · fielding: mayi-laama trailer payoff
+> Nalla is an example of suffix-as so what does the nal root mean?
+
+**Anna ↩**
+> nalla = 'good/well' — nal is the root, nalla is the spoken form. the -a ending softens it into an adverb or intensifier. but that's a tangent — you were on a roll back there. 🔥
+
+**06:08 · Andrew** — **CHAT**  ·  ↩ 07-20 23:27 · fielding: mayi-laama trailer payoff
+> So nal and nalla mean the same but then give me an example of the normal and adverb forms?
+
+**Anna ↩**
+> nal = the root 'good' — bare, bookish. nalla = the everyday spoken form, works as adjective AND adverb ('nalla saapidu' = eat well / 'nalla pasam' = good bond). the -a just makes it flow. that's the whole pattern.
+
 **19:08 · Anna**  ·  text / trailer: nga-laamaa collision
 > da — you can ask AND command now. but under speed, which tail fires? mother-in-law's waiting. today's session is the drill. 🎯
 
@@ -1125,7 +1161,7 @@ Newest day first. **Derived file — edits here are overwritten.**
 **00:30 · Anna** 🎧  ·  audio / lore memo: adverb-aa machine
 > 🎙️ da — one suffix turns anything into an adverb. நல்லா, மெதுவா, தண்ணியா — same machine. 90 sec.
 
-**Andrew** · 👍 acked
+**01:54 · Andrew** · 👍 acked
 
 **19:27 · Anna**  ·  text / trailer: mayi-laama
 > da — 'naan ukkaralaama?' before you sit. one frame, elders notice. today's session pays it off 🎯
@@ -1133,49 +1169,13 @@ Newest day first. **Derived file — edits here are overwritten.**
 **23:27 · Anna** 🎧  ·  fielding / fielding: mayi-laama trailer payoff
 > 🎙️ "ukkaruveengala?" — she's waving at the chair. answer her. (fielding — reply in chat)
 
-**01:59 · Andrew** — **CHAT**
-> Ama? She’s asking will I please but I don’t know what she wants
-
-**Anna ↩**
-> ha — close read. "ukkaruveengala" = "will you sit?" she's waving at the chair, asking you to take a seat. now answer her — one word, something like "sure, I'll sit."
-
-**02:01 · Andrew** — **COLD**
-> Aam. Naan utkaarukiraen
-
-**Anna ↩**
-> adhu dhaan! verb fired cold 🔥 — we'd drop the full present ending and say 'ukkaren' or 'ukkarlaam', but the table heard you. · now she pushes a cup of tea toward you — wave it off, 'enough, I'm fine'. (one line)
-
-**02:04 · Andrew** — **COLD**
-> Podhum
-
-**Anna ↩**
-> adhu dhaan 🔥 — podhum, natural as anything. table heard that clean. · now she says 'saapitta?' — did you eat? she's eyeing the plate. (one word: yes or no, your call)
-
-**02:05 · Andrew** — **COLD**
-> Ama sappiten
-
-**Anna ↩**
-> adhu dhaan 🔥 — sappiten, cold fire. · she slides the plate closer — 'konjam konjam.' wave it off: 'I'm full, no more.'
-
-**06:07 · Andrew** — **CHAT**
-> Nalla is an example of suffix-as so what does the nal root mean?
-
-**Anna ↩**
-> nalla = 'good/well' — nal is the root, nalla is the spoken form. the -a ending softens it into an adverb or intensifier. but that's a tangent — you were on a roll back there. 🔥
-
-**06:08 · Andrew** — **CHAT**
-> So nal and nalla mean the same but then give me an example of the normal and adverb forms?
-
-**Anna ↩**
-> nal = the root 'good' — bare, bookish. nalla = the everyday spoken form, works as adjective AND adverb ('nalla saapidu' = eat well / 'nalla pasam' = good bond). the -a just makes it flow. that's the whole pattern.
-
 
 ## Sunday 2026-07-19
 
 **04:14 · Anna**  ·  challenge / field mission: kudunga
 > da — tonight's mission: 'oru tea kudunga' at the table, unprompted. one ask. debrief tomorrow. 🫖
 
-**Andrew** · 👍 acked
+**05:25 · Andrew** · 👍 acked
 
 **18:38 · Anna** 🎧  ·  eavesdrop / eavesdrop: hearsay-aam gossip tape
 > 📻 overheard at the neighbour's gate — what's the aunty saying is happening next door?
@@ -1189,7 +1189,45 @@ Newest day first. **Derived file — edits here are overwritten.**
 **18:35 · Anna**  ·  text / trailer payoff: polite-nga
 > da — paid. verb+ங்க = 'please do it.' kudunga, sollunga, vaanga — one machine, every elder hears respect. that's today's engine. 🔧
 
-**Andrew** · 👍 acked
+**21:35 · Andrew** · 👍 acked
+
+**21:36 · Andrew** — **COLD**  ·  ↩ 07-17 22:37 · afternoon volley sprint
+> Kalavita varen
+
+**Anna ↩**
+> adhu dhaan! 🔥 kazhuvittu varen is the classic — yours lands the same way. · 2/3 — Your maama wants more tea — ask the auntie to give him some.
+
+**21:36 · Andrew** · 👍 acked  ·  ↩ 07-17 18:49 · trailer: polite-nga engine
+
+**21:37 · Andrew** — **MISS**  ·  ↩ 07-17 22:37 · afternoon volley sprint
+> I don’t know
+
+**Anna ↩**
+> no worries — she'd say 'kazhuvittu varen' (washing done, coming back). Next volley item 3/3 coming. · 3/3 — You didn't catch what she said — one word, no fuss.
+
+**21:39 · Andrew** — **CHAT**  ·  ↩ 07-17 22:37 · afternoon volley sprint
+> Oops that was the response i got to the first volley! You then asked me to say give tea
+
+**Anna ↩**
+> got it — volley got tangled. fresh start: your maama wants more tea, ask the auntie to give him some.
+
+**21:40 · Andrew** — **CHAT**  ·  ↩ 07-17 22:37 · afternoon volley sprint
+> I don’t know
+
+**Anna ↩**
+> all good — 'puriyala' is the one word for that (I don't understand). volley's done, we'll pick it up next round.
+
+**21:41 · Andrew** — **CHAT**  ·  ↩ 07-17 22:37 · afternoon volley sprint
+> What about 3/3? You’re cutting me off because I missed 2?
+
+**Anna ↩**
+> ha — no, you're good. the volley's actually done; that last 'I don't know' counted as the miss on 3/3. we're through it.
+
+**21:43 · Andrew** — **CHAT**  ·  ↩ 07-17 22:37 · afternoon volley sprint
+> But we had to go back because you caught the wrong one so we got re graded against 1, saw 2 again, then never saw 3
+
+**Anna ↩**
+> yeah, the volley got tangled — logged. fresh one later, clean slate.
 
 **22:23 · Anna** 🎧  ·  fielding / fielding: enna venum
 > 🍵 "enna venum?" — answer her. (what do you want?)
@@ -1221,46 +1259,8 @@ Newest day first. **Derived file — edits here are overwritten.**
 **18:49 · Anna**  ·  text / trailer: polite-nga engine
 > da — one pattern and every elder in the room hears you differently. tonight's session. 💪
 
-**Andrew** · 👍 acked
-
 **22:37 · Anna**  ·  volley / afternoon volley sprint
 > ⚡ volley 1/3 — She finishes washing up and says she'll be right back. How does she say it?
-
-**21:36 · Andrew** — **COLD**
-> Kalavita varen
-
-**Anna ↩**
-> adhu dhaan! 🔥 kazhuvittu varen is the classic — yours lands the same way. · 2/3 — Your maama wants more tea — ask the auntie to give him some.
-
-**21:37 · Andrew** — **MISS**
-> I don’t know
-
-**Anna ↩**
-> no worries — she'd say 'kazhuvittu varen' (washing done, coming back). Next volley item 3/3 coming. · 3/3 — You didn't catch what she said — one word, no fuss.
-
-**21:39 · Andrew** — **CHAT**
-> Oops that was the response i got to the first volley! You then asked me to say give tea
-
-**Anna ↩**
-> got it — volley got tangled. fresh start: your maama wants more tea, ask the auntie to give him some.
-
-**21:40 · Andrew** — **CHAT**
-> I don’t know
-
-**Anna ↩**
-> all good — 'puriyala' is the one word for that (I don't understand). volley's done, we'll pick it up next round.
-
-**21:41 · Andrew** — **CHAT**
-> What about 3/3? You’re cutting me off because I missed 2?
-
-**Anna ↩**
-> ha — no, you're good. the volley's actually done; that last 'I don't know' counted as the miss on 3/3. we're through it.
-
-**21:43 · Andrew** — **CHAT**
-> But we had to go back because you caught the wrong one so we got re graded against 1, saw 2 again, then never saw 3
-
-**Anna ↩**
-> yeah, the volley got tangled — logged. fresh one later, clean slate.
 
 
 ## Thursday 2026-07-16
@@ -1286,6 +1286,15 @@ Newest day first. **Derived file — edits here are overwritten.**
 **00:43 · Anna**  ·  volley / afternoon deck volley
 > ⚡ volley 1/4 — Cousin asks 'beach Sunday-ah?' — you want to say 'if there's time…' Reply with the Tamil 'if' frame.
 
+**00:56 · Anna**  ·  text / field mission debrief collect
+> enna da — booking moment ever come? 'ok-na, book pannu' — did it fire? debrief me.
+
+**02:49 · Andrew** — **COLD**
+> Ok na book pannu
+
+**Anna ↩**
+> adhu dhaan! 🔥 fired it live — that's the whole mission right there. · now she's dithering on a restaurant. push her: 'just decide!' — one line, Tamil.
+
 **02:49 · Andrew** — **MISS**
 > Not sure
 
@@ -1297,21 +1306,6 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 **Anna ↩**
 > fair — that's on me for calling it 'English creeping in' when you hadn't seen it. irundhnaa = 'if there is/was' — from 'iru' (to be/exist) + -ndhnaa (the if-suffix). same suffix as 'thorandhnaa' (if it opens). the frame is: [noun]-ndhnaa → 'if [noun].'
-
-**03:10 · Andrew** — **CHAT**
-> Make sure this is taught later
-
-**Anna ↩**
-> noted — planting frame:if-ndhaa in tomorrow's deck so it gets a proper cold run.
-
-**00:56 · Anna**  ·  text / field mission debrief collect
-> enna da — booking moment ever come? 'ok-na, book pannu' — did it fire? debrief me.
-
-**02:49 · Andrew** — **COLD**
-> Ok na book pannu
-
-**Anna ↩**
-> adhu dhaan! 🔥 fired it live — that's the whole mission right there. · now she's dithering on a restaurant. push her: 'just decide!' — one line, Tamil.
 
 **02:59 · Andrew** — **MISS**
 > Decision la poven?
@@ -1325,6 +1319,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > mudivu = decision / the act of deciding. 'mudivu pannu' — make the decision. (you nearly had it last round.)
 
+**03:10 · Andrew** — **CHAT**
+> Make sure this is taught later
+
+**Anna ↩**
+> noted — planting frame:if-ndhaa in tomorrow's deck so it gets a proper cold run.
+
 **04:24 · Anna**  ·  text / mudivu answer + backchannel cold ask
 > mudivu = decision 🎯 'mudivu pannu' = make a call. she drops surprising news — job, a trip. you're caught off guard. one word back — go.
 
@@ -1333,6 +1333,24 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 
 ## Tuesday 2026-07-14
+
+**00:17 · Andrew** — **COLD**  ·  ↩ 07-13 23:22 · afternoon deck blitz
+> Tea venum
+
+**Anna ↩**
+> adhu dhaan! tea வேணும் — natural as breathing. 🔥 · 4/4 — Maama fires three sentences too fast. One word to stop him.
+
+**00:18 · Andrew** — **MISS**  ·  ↩ 07-13 23:22 · afternoon deck blitz
+> Medhuva solla
+
+**Anna ↩**
+> real Tamil, but that's 'speak slowly' — the one word to freeze him cold is 'puriyala.' adhu try pannunga.
+
+**00:19 · Andrew** — **HINTED**  ·  ↩ 07-13 23:22 · afternoon deck blitz
+> Puriyala
+
+**Anna ↩**
+> adhu dhaan — puriyala lands every time. 🔥
 
 **04:23 · Anna**  ·  text / trailer: -idum machine
 > one engine left to name — the line that got you 'poirum' at the airport. tonight. next session pays it off 🔥
@@ -1358,10 +1376,16 @@ Newest day first. **Derived file — edits here are overwritten.**
 **18:55 · Anna**  ·  text / trailer: paathukkaren + session bell
 > da — paathukkaren is half-yours. today's lunch session, we fire it cold + close the kudunga gap. 30 mins, then it's locked 🔒
 
-**Andrew** · 👍 acked
+**19:23 · Andrew** · 👍 acked
 
 
 ## Monday 2026-07-13
+
+**08:34 · Andrew** — **CHAT**  ·  ↩ 07-12 20:22 · grace + low-friction re-open
+> Why so few messages today?
+
+**Anna ↩**
+> haha — 10 days gap, da. today was a soft re-open, not a flood. you're back, that's the move.
 
 **23:22 · Anna**  ·  volley / afternoon deck blitz
 > ⚡ volley 1/4 — Hotel desk guy's on his phone, ignoring you. You need a pen. What do you say?
@@ -1378,24 +1402,6 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! 🔥 · 3/4 — Tea stall. They're looking at you. No menu. You want tea.
 
-**00:17 · Andrew** — **COLD**
-> Tea venum
-
-**Anna ↩**
-> adhu dhaan! tea வேணும் — natural as breathing. 🔥 · 4/4 — Maama fires three sentences too fast. One word to stop him.
-
-**00:18 · Andrew** — **MISS**
-> Medhuva solla
-
-**Anna ↩**
-> real Tamil, but that's 'speak slowly' — the one word to freeze him cold is 'puriyala.' adhu try pannunga.
-
-**00:19 · Andrew** — **HINTED**
-> Puriyala
-
-**Anna ↩**
-> adhu dhaan — puriyala lands every time. 🔥
-
 
 ## Sunday 2026-07-12
 
@@ -1411,14 +1417,10 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > exactly — 'romba pidichirukku' is your mouth saying exactly that. it's on the revealed list already so I can't count a cold fire, but the meaning's locked ✓
 
-**08:34 · Andrew** — **CHAT**
-> Why so few messages today?
-
-**Anna ↩**
-> haha — 10 days gap, da. today was a soft re-open, not a flood. you're back, that's the move.
-
 
 ## Saturday 2026-07-11
+
+**05:41 · Andrew** · 👍 acked  ·  ↩ 07-10 23:14 · lore memo: -aachu frame
 
 **20:19 · Anna**  ·  volley / tea stall deck blitz
 > ⚡ volley 1/4 — uncle leans over: 'enna velai paakreenga?' — you're a software engineer. what do you say?
@@ -1458,8 +1460,6 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 **23:14 · Anna** 🎧  ·  audio / lore memo: -aachu frame
 > 🎙️ the word that means 'it happened, move on' — ஆச்சு. one ending, a hundred situations. 60 sec.
-
-**Andrew** · 👍 acked
 
 
 ## Thursday 2026-07-09
@@ -1545,10 +1545,16 @@ Newest day first. **Derived file — edits here are overwritten.**
 **19:23 · Anna** 🎧  ·  audio / lore memo: -la locative
 > 🎙️ One suffix does the work of in/at/on/over-the-phone — and you already said it at dinner.
 
-**Andrew** · 👍 acked
+**19:33 · Andrew** · 👍 acked
 
 
 ## Tuesday 2026-07-07
+
+**00:50 · Andrew** — **CHAT**  ·  ↩ 07-06 22:09 · arrival gauntlet cold fire
+> Hello this is a test
+
+**Anna ↩**
+> ha, noted — system's alive. come back when aunty's actually at the door 😄
 
 **02:55 · Anna**  ·  text / deck due: engineer cold-fire
 > Aunty leans in: 'enna velai pannreenga?' 🧑‍💻 Don't think — what do you say back? (reply in tamizh)
@@ -1574,6 +1580,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 ## Monday 2026-07-06
 
+**03:46 · Andrew** — **CHAT**  ·  ↩ 07-05 22:35 · gauntlet next line cold dare
+> I want another audio episode soaking the words I’ve been practicing this week. I think you’ll have to schedule this for my next session on my laptop
+
+**Anna ↩**
+> Got it — audio episode soaking this week's words, queued for your next laptop session.
+
 **04:28 · Anna** 🎧  ·  audio / arrival gauntlet soak memo
 > 🎧 you asked for a soak — here's the gauntlet, full speed. three lines, one landing.
 
@@ -1585,12 +1597,6 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 **22:09 · Anna**  ·  text / arrival gauntlet cold fire
 > aunty's at the door. 'evlo naal irupeenga?' — no hints, no warm-up. reply in tamizh. 🎯
-
-**00:50 · Andrew** — **CHAT**
-> Hello this is a test
-
-**Anna ↩**
-> ha, noted — system's alive. come back when aunty's actually at the door 😄
 
 
 ## Sunday 2026-07-05
@@ -1609,12 +1615,6 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 **22:35 · Anna**  ·  challenge / gauntlet next line cold dare
 > auntie asks: 'software-la enna panra?' — reply in tamizh 👇
-
-**03:46 · Andrew** — **CHAT**
-> I want another audio episode soaking the words I’ve been practicing this week. I think you’ll have to schedule this for my next session on my laptop
-
-**Anna ↩**
-> Got it — audio episode soaking this week's words, queued for your next laptop session.
 
 
 ## Saturday 2026-07-04
@@ -1727,17 +1727,17 @@ Newest day first. **Derived file — edits here are overwritten.**
 **05:58 · Anna** 🎧
 > சமையலறை · "the kitchen" — new scene's ready when you are 🍳
 
-**Andrew** · 👍 acked
+**08:56 · Andrew** · 👍 acked
 
 **09:16 · Anna** 🎧
 > நல்லா பண்ணோம் · "we did good today" 🌙 — catch: புரியுது
 
-**Andrew** · 👍 acked
+**09:18 · Andrew** · 👍 acked
 
 **18:28 · Anna**  ·  text / kitchen cold-open
 > kitchen-la yaaro samaikkira — *என்ன சமைக்கிற?* (what are you cooking?) — reply in tamizh. that's the whole ask 🍳
 
-**Andrew** · 👍 acked
+**19:38 · Andrew** · 👍 acked
 
 
 ## Tuesday 2026-06-30

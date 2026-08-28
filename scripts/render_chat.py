@@ -47,33 +47,56 @@ def render_chat() -> Path:
     log = json.loads(KNOCK_LOG_PATH.read_text(encoding="utf-8")) if KNOCK_LOG_PATH.exists() else []
     spoken = [e for e in log if e.get("acted", True) and e.get("body")]
 
-    by_day: dict = {}
+    # Every TURN is filed under the local day it HAPPENED, not under the day its
+    # knock fired (2026-08-28). The old grouping keyed `by_day` off the parent
+    # entry's timestamp while each reply printed its own %H:%M, so the two
+    # disagreed the moment an answer crossed midnight: an 18:57 knock answered at
+    # 09:57 next morning rendered that reply under YESTERDAY's heading, and out of
+    # order — sorted behind the 18:57 line it actually followed. The zone
+    # conversion was never the bug (04:27Z really is 09:57 here); the day-key was
+    # reading off the wrong object. An ack is a turn too, and `response_at`
+    # already recorded when it landed, so it now buckets and stamps like the rest.
+    turns: list = []                       # (local datetime, rendered block)
     for e in spoken:
-        by_day.setdefault(_local(e["timestamp"]).date(), []).append(e)
+        t = _local(e["timestamp"])
+        tag = " / ".join(p for p in (e.get("modality"), e.get("move")) if p)
+        audio = " 🎧" if e.get("audio_url") else ""
+        turns.append((t, [f"**{t:%H:%M} · Anna**{audio}  ·  {tag}".rstrip(" ·"),
+                          _quote(e["body"]), ""]))
+        # Carried ONLY by a turn that left its knock's day. On-day turns still sit
+        # directly under the knock, where a back-pointer would be pure noise.
+        back = f"  ·  ↩ {t:%m-%d %H:%M} · {e.get('move') or 'knock'}"
+
+        exchanges = e.get("exchanges")
+        if not exchanges and e.get("reply"):  # pre-2026-07-06 entries: last exchange only
+            exchanges = [{"at": e.get("reply_at"), "reply": e["reply"],
+                          "verdict": e.get("reply_verdict"),
+                          "reply_line": e.get("reply_line")}]
+        for x in exchanges or []:
+            a = _local(x["at"]) if x.get("at") else t
+            when = f"{a:%H:%M} · " if x.get("at") else ""
+            verdict = (x.get("verdict") or "").upper()
+            block = [f"**{when}Andrew** — **{verdict}**"
+                     f"{back if a.date() != t.date() else ''}",
+                     _quote(x.get("reply", "")), ""]
+            if x.get("reply_line"):
+                block += ["**Anna ↩**", _quote(x["reply_line"]), ""]
+            turns.append((a, block))
+        if not exchanges and e.get("response") == "ack":
+            a = _local(e["response_at"]) if e.get("response_at") else t
+            when = f"{a:%H:%M} · " if e.get("response_at") else ""
+            turns.append((a, [f"**{when}Andrew** · 👍 acked"
+                              f"{back if a.date() != t.date() else ''}", ""]))
+
+    by_day: dict = {}
+    for when_dt, block in turns:
+        by_day.setdefault(when_dt.date(), []).append((when_dt, block))
 
     lines = [HEADER]
     for day in sorted(by_day, reverse=True):
         lines.append(f"\n## {day:%A %Y-%m-%d}\n")
-        for e in sorted(by_day[day], key=lambda x: x["timestamp"]):
-            t = _local(e["timestamp"])
-            tag = " / ".join(p for p in (e.get("modality"), e.get("move")) if p)
-            audio = " 🎧" if e.get("audio_url") else ""
-            lines += [f"**{t:%H:%M} · Anna**{audio}  ·  {tag}".rstrip(" ·"),
-                      _quote(e["body"]), ""]
-            exchanges = e.get("exchanges")
-            if not exchanges and e.get("reply"):  # pre-2026-07-06 entries: last exchange only
-                exchanges = [{"at": e.get("reply_at"), "reply": e["reply"],
-                              "verdict": e.get("reply_verdict"),
-                              "reply_line": e.get("reply_line")}]
-            for x in exchanges or []:
-                when = f"{_local(x['at']):%H:%M} · " if x.get("at") else ""
-                verdict = (x.get("verdict") or "").upper()
-                lines += [f"**{when}Andrew** — **{verdict}**",
-                          _quote(x.get("reply", "")), ""]
-                if x.get("reply_line"):
-                    lines += ["**Anna ↩**", _quote(x["reply_line"]), ""]
-            if not exchanges and e.get("response") == "ack":
-                lines += ["**Andrew** · 👍 acked", ""]
+        for _, block in sorted(by_day[day], key=lambda wb: wb[0]):
+            lines += block
 
     # newline="\n" or Windows writes CRLF here and the same log renders to two
     # different files depending on which machine rendered it — chat.md is a
