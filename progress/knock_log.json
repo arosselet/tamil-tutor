@@ -5620,5 +5620,17 @@
     "move": "min gap cooldown",
     "rationale": "Tea rapid-fire knock went out 0.1h ago; respecting the 3h min gap before checking back in the late afternoon.",
     "next_check": "2026-08-28T11:26:26.623068+00:00"
+  },
+  {
+    "date": "2026-08-28",
+    "timestamp": "2026-08-28T12:45:14.573358+00:00",
+    "acted": true,
+    "modality": "challenge",
+    "move": "challenge: slow down",
+    "rationale": "Testing yesterday's dropped -nga slip on konjam medhuva sollunga with a clear polite-elder context before dinner.",
+    "next_check": "2026-08-28T16:15:14.573358+00:00",
+    "body": "Uncle speed-ah pesuraaru (speaking fast). Ask him politely to say it a bit slower:",
+    "expected_target": "கொஞ்சம் மெதுவா சொல்லுங்க",
+    "target_revealed": false
   }
 ]

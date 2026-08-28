@@ -57,6 +57,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! 'venaam' dhaan. 🔥
 
+**18:15 · Anna**  ·  challenge / challenge: slow down
+> Uncle speed-ah pesuraaru (speaking fast). Ask him politely to say it a bit slower:
+
 
 ## Thursday 2026-08-27
 
