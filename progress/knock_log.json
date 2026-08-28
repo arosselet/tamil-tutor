@@ -5463,6 +5463,16 @@
     "next_check": "2026-08-28T03:27:36.851977+00:00",
     "body": "🛍️ Street shopping rule: never argue the price, just drop 'konjam koraiyunga' (reduce it a little). Quiet, polite, works.",
     "expected_target": "",
-    "target_revealed": true
+    "target_revealed": true,
+    "exchanges": [
+      {
+        "at": "2026-08-28T04:27:14Z",
+        "reply": "Hello world!",
+        "intent": "message",
+        "verdict": "chat",
+        "fired": [],
+        "reply_line": "Haha hello world-ah? System check passed da, I'm right here. Enna vishayam?"
+      }
+    ]
   }
 ]
