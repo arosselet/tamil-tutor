@@ -66,6 +66,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan, spot on! 🔥 · Now he slows down and you catch it — tell him 'I understood':
 
+**18:29 · Andrew** — **MISS**
+> Puriyadhu ?
+
+**Anna ↩**
+> close da — 'purinjudhu' for understood; 'puriyadhu' is won't understand.
+
 
 ## Thursday 2026-08-27
 

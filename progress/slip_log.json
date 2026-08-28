@@ -653,5 +653,17 @@
     "note": "-en ending for 'I did it'",
     "word": "",
     "dose_channel": "soak"
+  },
+  {
+    "at": "2026-08-28T12:59:19Z",
+    "date": "2026-08-28",
+    "lane": "knock",
+    "modality": "challenge",
+    "tag": "neg-for-past",
+    "said": "puriyadhu",
+    "want": "purinjudhu",
+    "note": "purinjudhu is 'understood' — puriyadhu means 'won't understand'",
+    "word": "புரிஞ்சுது",
+    "dose_channel": "soak"
   }
 ]

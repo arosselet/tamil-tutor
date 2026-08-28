@@ -5633,8 +5633,8 @@
     "expected_target": "கொஞ்சம் மெதுவா சொல்லுங்க",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Konjam Medhuva sollunga",
-    "reply_verdict": "cold",
+    "reply": "Puriyadhu ?",
+    "reply_verdict": "miss",
     "reply_fired": [
       "கொஞ்சம் மெதுவா சொல்லுங்க"
     ],
@@ -5642,8 +5642,8 @@
       "கொஞ்சம் மெதுவா சொல்லுங்க"
     ],
     "reply_fired_capped": [],
-    "reply_line": "adhu dhaan, spot on! 🔥 · Now he slows down and you catch it — tell him 'I understood':",
-    "reply_at": "2026-08-28T12:47:06Z",
+    "reply_line": "close da — 'purinjudhu' for understood; 'puriyadhu' is won't understand.",
+    "reply_at": "2026-08-28T12:59:19Z",
     "exchanges": [
       {
         "at": "2026-08-28T12:47:06Z",
@@ -5659,6 +5659,21 @@
         "graduated": [],
         "reply_line": "adhu dhaan, spot on! 🔥 · Now he slows down and you catch it — tell him 'I understood':",
         "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-28T12:59:19Z",
+        "reply": "Puriyadhu ?",
+        "verdict": "miss",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "close da — 'purinjudhu' for understood; 'puriyadhu' is won't understand.",
+        "slips": [
+          "neg-for-past"
+        ],
         "spoke": "",
         "scheduled": ""
       }
