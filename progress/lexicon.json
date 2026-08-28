@@ -1440,11 +1440,12 @@
     "gloss": "I drank",
     "phonetic": [],
     "recognition": "struggled",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       10
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-08-28",
+    "reps": 1
   },
   "கேட்டாங்க": {
     "gloss": "They asked",

@@ -27,6 +27,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > close da — we'd say 'kudichen'. -en because it's you.
 
+**14:38 · Andrew** — **HINTED**
+> Kudichen
+
+**Anna ↩**
+> adhu dhaan! 🔥 · Maami asks if you want more — tell her 'enough':
+
 
 ## Thursday 2026-08-27
 

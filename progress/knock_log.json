@@ -5499,13 +5499,17 @@
     "expected_target": "குடிச்சேன்",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Naan tea kuttitchu",
-    "reply_verdict": "miss",
-    "reply_fired": [],
-    "reply_fired_cold": [],
+    "reply": "Kudichen",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "குடிச்சேன்"
+    ],
+    "reply_fired_cold": [
+      "குடிச்சேன்"
+    ],
     "reply_fired_capped": [],
-    "reply_line": "close da — we'd say 'kudichen'. -en because it's you.",
-    "reply_at": "2026-08-28T08:31:17Z",
+    "reply_line": "adhu dhaan! 🔥 · Maami asks if you want more — tell her 'enough':",
+    "reply_at": "2026-08-28T09:08:00Z",
     "exchanges": [
       {
         "at": "2026-08-28T08:31:17Z",
@@ -5521,8 +5525,28 @@
         ],
         "spoke": "",
         "scheduled": ""
+      },
+      {
+        "at": "2026-08-28T09:08:00Z",
+        "reply": "Kudichen",
+        "verdict": "hinted",
+        "fired": [
+          "குடிச்சேன்"
+        ],
+        "fired_cold": [
+          "குடிச்சேன்"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! 🔥 · Maami asks if you want more — tell her 'enough':",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
       }
-    ]
+    ],
+    "chained": 1,
+    "pinned_target": "போதும்",
+    "pinned_revealed": false
   },
   {
     "date": "2026-08-28",
