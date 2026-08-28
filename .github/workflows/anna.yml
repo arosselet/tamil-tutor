@@ -225,6 +225,10 @@ jobs:
         env:
           REPLY_TEXT: ${{ github.event.client_payload.text }}
           REPLY_KNOCK_ID: ${{ github.event.client_payload.knock_id }}
+          # "message" | "reply" — which Shortcut button he pressed. Absent means
+          # a client that predates the 2026-08-28 split, and knock_reply treats
+          # absent as "message" and says so in the log.
+          REPLY_INTENT: ${{ github.event.client_payload.intent }}
         run: python scripts/knock_reply.py "$REPLY_TEXT"
 
       - name: Log tap

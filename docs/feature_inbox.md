@@ -1375,3 +1375,13 @@ meaning anything and two Gate-2 holds were sitting on the wrong side of it. -->
   assertions became the no-unattended-dispatcher invariant; budget, layer, PROTOCOL_MAP and
   three skill files repointed. The cap was NOT re-homed — nothing fires production
   unattended any more, so there is nothing to bound; both proposals above now say so.
+
+- **`schedule` is dropped on the agent path** (2026-08-28). `obj()` makes every key it
+  names REQUIRED and has no nullable, so `JUDGE_SCHEMA` omits `schedule` on purpose — but
+  `claude -p --json-schema` drops undeclared keys, so a clock-bound request judged locally
+  can never queue a push. `voice_reply` had the same defect and was fixed by declaring it
+  (it is legitimately always-present, empty string when unused); `schedule` cannot be,
+  because "no schedule" must stay distinguishable from "an empty schedule". Wants either a
+  nullable form in `obj()` (`{"anyOf": [{...}, {"type": "null"}]}`) or a sentinel shape
+  with an `at_local: ""` meaning none. Evidence: the last scheduled knock is 2026-08-19,
+  and it came through the cloud/API path where undeclared keys survive.

@@ -9,9 +9,11 @@ read as Anna being dumb rather than as plumbing: a fire credited for a word he
 never typed, a catch re-asked after it already landed, an open ask lost to a
 meta reply. The cases here check credit against his actual reply text.
 """
+import contextlib
 import importlib
 import io
 import json
+import os
 import re
 import sys
 from datetime import datetime, timedelta, timezone
@@ -1194,6 +1196,7 @@ def s27_schedule_and_soak_guards(sb: Path):
 
 def s30_anna_speaks_back(mk, kr, sb: Path):
     print("\n30. Anna can answer ALOUD from the lock screen (2026-07-24)")
+    rc = sys.modules[kr.speak.__module__]
 
     # The loop was three-quarters closed: audio out on the knock, text in from
     # the phone, cloud judgment, text back. push_to_phone(body, None, ...) was
@@ -1222,37 +1225,37 @@ def s30_anna_speaks_back(mk, kr, sb: Path):
 
     # The render: fills a URL, uses Anna's pinned voice, and a TTS failure must
     # still let the TEXT recast go out — silence is the one unacceptable outcome.
-    calls, real_render = [], kr.render_memo
+    calls, real_render = [], rc.render_memo
 
     async def fake_render(script, out_path, voice):
         calls.append((script, voice))
         out_path.parent.mkdir(parents=True, exist_ok=True)
         out_path.write_bytes(b"ID3fake")
 
-    kr.render_memo = fake_render
+    rc.render_memo = fake_render
     try:
-        mp3, url = kr.render_voice_reply("வணக்கம் James")
+        mp3, url = rc.render_voice_reply("வணக்கம் James")
         check("voice reply renders an mp3", mp3 is not None and mp3.exists())
         check("it speaks what the judge wrote", calls and calls[0][0] == "வணக்கம் James")
         check("Anna answers in his own pinned voice", calls[0][1] == mk.ANNA_VOICE)
         check("the mp3 is served from the CDN, not a local path",
               (url or "").startswith("https://cdn.jsdelivr.net/gh/") and url.endswith(".mp3"))
     finally:
-        kr.render_memo = real_render
+        rc.render_memo = real_render
 
-    kr.render_memo = lambda *a, **k: (_ for _ in ()).throw(RuntimeError("503 backend unavailable"))
+    rc.render_memo = lambda *a, **k: (_ for _ in ()).throw(RuntimeError("503 backend unavailable"))
     try:
-        mp3, url = kr.render_voice_reply("வணக்கம்")
+        mp3, url = rc.render_voice_reply("வணக்கம்")
         check("a TTS failure yields no mp3 and no url", mp3 is None and url is None)
     finally:
-        kr.render_memo = real_render
+        rc.render_memo = real_render
     # ...and the push still goes out, because voice_url is simply None by then.
     # The guard moved into speak() on 2026-08-27, so assert the PROPERTY rather
     # than its old spelling: nothing spoken (or a dead render) yields no url, and
     # the text push is called with it either way.
     check("the text recast is never gated on the render succeeding",
           "push_to_phone(body, voice_url" in src
-          and kr.speak({"verdict": "chat"}, {}, []) == (None, None))
+          and rc.speak({"verdict": "chat"}, {}, []) == (None, None))
 
 
 def s51_derived_files_are_rerendered_not_merged(mk, sb: Path):
@@ -1403,16 +1406,17 @@ def s82_the_catch_lane_has_a_mouth(mk, kr, sb: Path):
         note lands in the feedback ledger, re-read off the file, so a silent
         push can never again look like a delivered one."""
     print("\n82. The eavesdrop lane can answer ALOUD (2026-08-27)")
+    rc = sys.modules[kr.speak.__module__]
 
     # ── the detector's truth table ───────────────────────────────────────────
     check("a direct audio request is detected",
-          kr.wants_spoken_reply("Send an audio greeting in Tamil to my sister in law"))
+          rc.wants_spoken_reply("Send an audio greeting in Tamil to my sister in law"))
     check("an imperative 'say' is a request for sound",
-          kr.wants_spoken_reply("say vanakkam for me"))
+          rc.wants_spoken_reply("say vanakkam for me"))
     check("a question about MEANING is not a request for sound",
-          not kr.wants_spoken_reply("tell me what she said"))
+          not rc.wants_spoken_reply("tell me what she said"))
     check("a clock request is not mistaken for one",
-          not kr.wants_spoken_reply("ping me at 9am"))
+          not rc.wants_spoken_reply("ping me at 9am"))
 
     # ── both judges carry the same mandate, from one string ──────────────────
     src = mechanism((REAL_BASE / "scripts" / "knock_reply.py").read_text(encoding="utf-8"))
@@ -1423,13 +1427,43 @@ def s82_the_catch_lane_has_a_mouth(mk, kr, sb: Path):
     check("the catch schema now has the field", "voice_reply" in str(kr.CATCH_SCHEMA))
     check("the production judge composes it", "THREAD_MANDATE + \"\\n\" + VOICE_MANDATE" in src)
     check("the catch judge composes it too",
-          "CATCH_JUDGE_MANDATE" in src and src.count("VOICE_MANDATE") >= 3)
+          "CATCH_JUDGE_MANDATE" in src and src.count("VOICE_MANDATE") >= 2)
+
+    # ── the defect under the defect (2026-08-28) ────────────────────────────
+    # `claude -p --json-schema` DROPS undeclared keys; the API's json_object does
+    # not. So a key a mandate asks for, and a schema forgets, exists on one
+    # executor and vanishes on the other — which is how voice_reply died on
+    # 2026-08-18 with every instrument green. The invariant, mechanically: if a
+    # mandate names a key, the schema carried with it must declare it.
+    import mandates as md
+    voiced = {"JUDGE_SCHEMA": kr.JUDGE_SCHEMA, "CATCH_SCHEMA": kr.CATCH_SCHEMA,
+              "MESSAGE_SCHEMA": sys.modules[kr.handle_message.__module__].MESSAGE_SCHEMA}
+    for name, schema in voiced.items():
+        check(f"{name} declares voice_reply, so the agent cannot eat it",
+              "voice_reply" in schema.get("properties", {}))
+
+    # An edge that is allowed to stay broken, named, with why — the UP_EXCEPTIONS
+    # idiom. It can only shrink: handing the licence back is part of the fix.
+    KNOWN_GAPS = {("JUDGE_SCHEMA", "schedule"):
+                  "nullable and obj() has no nullable form — docs/feature_inbox.md"}
+    pairs = [("JUDGE_SCHEMA", kr.JUDGE_SCHEMA,
+              md.JUDGE_MANDATE + md.REACH_MANDATE + md.VOICE_MANDATE + md.SLIP_MANDATE),
+             ("CATCH_SCHEMA", kr.CATCH_SCHEMA, md.CATCH_JUDGE_MANDATE + md.VOICE_MANDATE)]
+    for name, schema, mandate in pairs:
+        asked = set(re.findall(r'^\s*"([a-z_]+)":', mandate, re.M))
+        missing = sorted(k for k in asked - set(schema.get("properties", {}))
+                         if (name, k) not in KNOWN_GAPS)
+        check(f"{name} declares every key its mandates ask for", not missing,
+              f"the agent executor will silently drop: {missing}")
+    for (name, key), why in KNOWN_GAPS.items():
+        check(f"...and the {name}/{key} gap is still real, not a stale licence",
+              key not in voiced[name].get("properties", {}), f"fixed? then drop it: {why}")
 
     # ── the round trip, through the real entry point ─────────────────────────
     lex_path, klog_path = kr.LEXICON_PATH, kr.KNOCK_LOG_PATH
     fb_path = kr.FEEDBACK_LOG_PATH
     saved = (lex_path.read_bytes(), klog_path.read_bytes(), fb_path.read_bytes())
-    real_render, real_publish = kr.render_memo, kr.publish
+    real_render, real_publish = rc.render_memo, kr.publish
     target = "frame:hearsay-aam"
     try:
         lex = read_json(lex_path)
@@ -1442,7 +1476,7 @@ def s82_the_catch_lane_has_a_mouth(mk, kr, sb: Path):
             out_path.parent.mkdir(parents=True, exist_ok=True)
             out_path.write_bytes(b"ID3fake")
 
-        kr.render_memo = fake_render
+        rc.render_memo = fake_render
         published = []
         kr.publish = lambda *a, **k: (published.append(k.get("mp3")), real_publish(*a, **k))[1]
 
@@ -1496,8 +1530,97 @@ def s82_the_catch_lane_has_a_mouth(mk, kr, sb: Path):
         check("...quoting his own words, so a false positive is legible",
               "vanakkam" in note)
     finally:
-        kr.render_memo, kr.publish = real_render, real_publish
+        rc.render_memo, kr.publish = real_render, real_publish
         for path, blob in zip((lex_path, klog_path, fb_path), saved):
+            path.write_bytes(blob)
+
+
+def s83_reply_or_message_is_decided_by_the_tag(mk, kr, sb: Path):
+    """A request is not a reply, and the phone already said which (2026-08-28).
+
+    THE BUG. Every inbound line resolved to `find_knock(...) or
+    last_fired_knock(...)`, so anything Andrew typed cold was graded as a reply
+    to whatever knock happened to be open. On 08-27 that was an eavesdrop from
+    02:46, and four audio requests in a row were graded `chat` and answered in
+    text. The verdict was right every time; the LANE was wrong every time.
+
+    The signal was already in the environment. §8.3: the notification's Reply ✍️
+    round-trips a knock_id, the Shortcut sends none. `or last_fired_knock()`
+    collapsed "he answered this knock" and "he said something to me" into one
+    thing, silently — no warning fires when the id is merely absent.
+
+    Gate 7.2 — what does a silent no-op look like here? Identical to a working
+    system: a friendly line goes to his lock screen, the log gains an exchange,
+    the run is green. Routing has no output of its own. So this asserts the LANE
+    TAKEN and its side-effects, never that an answer happened:
+
+      - the truth table, including that an untagged arrival SAYS SO in the log;
+      - a message must not mark a knock answered — `response`/`reply_verdict`
+        untouched, or the nudge gate goes quiet on outreach he never got;
+      - the exchange carries intent="message" so no rep-counting read can
+        mistake it for one;
+      - and the escalation net still pulls a real rep back into grading."""
+    print("\n83. Reply or message is decided by the tag (2026-08-28)")
+    km = sys.modules[kr.handle_message.__module__]
+    lex_path, klog_path = kr.LEXICON_PATH, kr.KNOCK_LOG_PATH
+    saved = (lex_path.read_bytes(), klog_path.read_bytes())
+    real_judge_message, real_intent = km.judge_message, os.environ.get("REPLY_INTENT", "")
+    target = "frame:tag-probe"
+    try:
+        lex = read_json(lex_path)
+        lex[target] = {"gloss": "probe", "phonetic": ["seri seri"],
+                       "recognition": "struggled", "production": "none", "seen_in": [],
+                       "last_surfaced": "2026-08-01", "direction": "fire", "type": "frame"}
+        write_json(lex_path, lex)
+        knock = {"timestamp": "2026-08-28T01:00:00Z", "acted": True,
+                 "modality": "text", "move": "probe", "body": "b",
+                 "expected_target": target, "target_revealed": False}
+
+        # ── the truth table, straight off the function ──
+        cases = [
+            ("a knock_id is always a reply",      ("2026-08-28T01:00:00Z", "", "anything"), False),
+            ("intent=reply is a reply",           ("", "reply", "send me an audio greeting"), False),
+            ("intent=message is a message",       ("", "message", "send me an audio greeting"), True),
+            ("untagged defaults to message",      ("", "", "send me an audio greeting"), True),
+            ("...but a real rep is pulled back",  ("", "", "seri seri da"), False),
+            ("...and intent=reply beats the net", ("", "reply", "seri seri da"), False),
+        ]
+        for name, (kid, intent, text), want in cases:
+            got = kr.is_message(kid, intent, text, knock, read_json(lex_path))
+            check(name, got is want, f"got {got}, wanted {want}")
+
+        # An untagged arrival must be visible in the log — a silent changeover
+        # that quietly stopped grading his reps is the original bug in new clothes.
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            kr.is_message("", "", "send me an audio greeting", knock, read_json(lex_path))
+        check("an untagged arrival announces itself", "no intent tag" in buf.getvalue(),
+              buf.getvalue().strip())
+
+        # ── the round trip: a message must not look like an answer ──
+        def stub(text, k, klog, force_voice=False, force_schedule=False):
+            return {"reply_line": "here you go da", "meta_note": "", "rationale": "smoke",
+                    "voice_reply": "வணக்கம்" if force_voice else ""}
+
+        km.judge_message = stub
+        kr.push_to_phone, kr.commit_and_push = Recorder(), Recorder()
+        km.push_to_phone, km.commit_and_push = kr.push_to_phone, kr.commit_and_push
+        log = read_json(klog_path); log.append(dict(knock)); write_json(klog_path, log)
+        os.environ["REPLY_INTENT"] = "message"
+        sys.argv = ["knock_reply.py", "just saying hello da"]
+        kr.main()
+
+        entry = read_json(klog_path)[-1]
+        check("a message never marks the knock answered",
+              "response" not in entry and "reply_verdict" not in entry, str(entry.keys()))
+        ex = entry.get("exchanges", [{}])[-1]
+        check("the exchange is tagged intent=message", ex.get("intent") == "message", str(ex))
+        check("...and credits no fire", ex.get("fired") == [] and ex.get("verdict") == "chat")
+        check("he still gets an answer", bool(kr.push_to_phone[-1][0]))
+    finally:
+        km.judge_message = real_judge_message
+        os.environ["REPLY_INTENT"] = real_intent
+        for path, blob in zip((lex_path, klog_path), saved):
             path.write_bytes(blob)
 
 
@@ -1561,13 +1684,15 @@ def s49_thread_continuity(mk, kr, sb: Path):
         # --- the write: a voice reply must leave a trace on its own exchange ---
         kr.push_to_phone, kr.commit_and_push = Recorder(), Recorder()
         fx.pb.refresh_feed = lambda: None
-        real_render = kr.render_memo
+        # render_memo moved to reply_common with speak() (2026-08-28)
+        rc = sys.modules[kr.speak.__module__]
+        real_render = rc.render_memo
 
         async def fake_render(script, out_path, voice):
             out_path.parent.mkdir(parents=True, exist_ok=True)
             out_path.write_bytes(b"ID3fake")
 
-        kr.render_memo = fake_render
+        rc.render_memo = fake_render
         try:
             v = canned_verdict([], reply_line="On it — check audio shortly.")
             v["voice_reply"] = "வணக்கம் Doodah"
@@ -1575,7 +1700,7 @@ def s49_thread_continuity(mk, kr, sb: Path):
             sys.argv = ["knock_reply.py", "an audio greeting for Doodah please"]
             kr.main()
         finally:
-            kr.render_memo = real_render
+            rc.render_memo = real_render
 
         entry = read_json(klog_path)[-1]
         ex = entry["exchanges"][-1]

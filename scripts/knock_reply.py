@@ -34,7 +34,6 @@ Secrets: OPENROUTER_API_KEY (the judge), ANNA_PUSH_WEBHOOK_URL (the push-back),
 GCP TTS auth (only when Anna answers aloud).
 """
 import argparse
-import asyncio
 import json
 import os
 import re
@@ -45,20 +44,44 @@ from pathlib import Path
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
-from morning_knock import KNOCK_LOG_PATH, maybe_enqueue_schedule, render_memo
-from publish import (KNOCKS_DIR, commit_and_push, jsdelivr_url, load_env,
-                     publish, push_to_phone)
-from render_audio import ANNA_VOICE
+from knock_message import handle_message
+from morning_knock import KNOCK_LOG_PATH, maybe_enqueue_schedule
+from publish import commit_and_push, load_env, publish, push_to_phone
+# The lane-neutral half of answering him — detectors, the voice backstop, the
+# render, and the one ledger writer. Split out 2026-08-28 so the MESSAGE lane
+# could have them without importing the grading lane (reply_common.py).
+from reply_common import (_ts, ensure_voice, recent_exchanges,
+                          record_meta_note, speak, wants_scheduled_push)
 from writer import BOOL, STR, arr, ask_json, executor_name, obj, to_phonetic
 
 # Each judge declares its OWN top-level shape, beside itself (2026-08-23) —
 # never a shared or generic one, which is how `claude -p` came back with an
 # envelope and a lane rendered a shell with every instrument green. Keys mirror
-# the mandates below. `schedule` is absent because the mandate declares it
-# nullable and `obj()` requires whatever it names; undeclared keys still pass.
+# the mandates below.
+#
+# "undeclared keys still pass" — WRONG, and it cost a day (2026-08-28). It is
+# true of the API path (`json_object` constrains bytes, not shape) and FALSE of
+# the agent path: `claude -p --json-schema` constrains the output to the declared
+# shape and DROPS anything else. `claude -p` became the writer on 2026-08-18, and
+# `voice_reply` — declared by VOICE_MANDATE, absent from this tuple — has been
+# stripped from every local judgement since. Anna stopped being able to speak on
+# that date and nothing reported it: the model wrote the field, the schema ate
+# it, and the reply_line went out alone looking exactly like a decision not to.
+# Measured on 2026-08-28: declaring it made the same prompt speak on the first
+# pass, with no forced re-ask.
+#
+# So: if a mandate names a key, the schema MUST name it too. `schedule` is the
+# one still missing — it is nullable and obj() has no nullable — and it is
+# therefore still being dropped on the agent path (docs/feature_inbox.md).
 JUDGE_SCHEMA = obj(verdict=STR, fired=arr(word=STR, said=STR, verdict=STR),
                    reply_line=STR, follow_up_ask=STR, follow_up_target=STR,
-                   follow_up_target_revealed=BOOL, meta_note=STR, rationale=STR)
+                   follow_up_target_revealed=BOOL, meta_note=STR, rationale=STR,
+                   voice_reply=STR,
+                   # SLIP_MANDATE has asked for this since it was split out, and
+                   # the schema never named it — so the agent path has been eating
+                   # every knock-lane slip since 2026-08-18. An empty list is a
+                   # real answer here (unlike `schedule`), so it declares cleanly.
+                   slips=arr(tag=STR, said=STR, want=STR, note=STR))
 CATCH_SCHEMA = obj(verdict=STR, reply_line=STR, meta_note=STR, rationale=STR,
                    voice_reply=STR)
 from state_io import FEEDBACK_LOG_PATH, LEARNER_PATH, LEXICON_PATH, SLIP_LOG_PATH, build_phonetic_index, load_json, local_today, resolve, save_json
@@ -76,74 +99,10 @@ CHAIN_CAP = 3  # max chained follow-up asks per knock — momentum, not a treadm
 CATCH_VERDICTS = {"caught", "half-caught", "missed", "chat"}
 RECOGNITION_NEXT = {"struggled": "comfortable", "comfortable": "solid"}
 
-RECENT_WINDOW_HOURS = 24.0
-RECENT_WINDOW_TURNS = 8
 
 
-def _ts(raw: str | None) -> datetime | None:
-    """A log timestamp as an aware datetime, or None if it is unparseable.
-    Three functions parsed this inline (revealed_recently, capped_fire_days,
-    and this file's window); one copy, so a naive stamp can never sneak past
-    only two of them."""
-    try:
-        dt = datetime.fromisoformat((raw or "").replace("Z", "+00:00"))
-    except ValueError:
-        return None
-    return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
 
 
-def recent_exchanges(klog: list, knock: dict,
-                     hours: float = RECENT_WINDOW_HOURS,
-                     limit: int = RECENT_WINDOW_TURNS) -> list[dict]:
-    """The conversation Anna is actually in — across knocks, not just this one.
-
-    Before 2026-08-02 this was `knock["exchanges"][-4:]`: one knock, four turns,
-    and a reply to a NEW knock started from nothing. It also carried only two
-    fields — what Andrew typed and what Anna wrote — so nothing on the record
-    said what Anna *did*. He composed and sent a whole audio greeting on one
-    turn, and told Andrew it was "still pending" on the next, because the record
-    only ever showed the promise. Same gap ate a referent: "he's an anglophone"
-    resolved to Andrew, because the turn that introduced the third party had
-    been reduced to a line of text.
-
-    Safe to widen: cold-fire accounting does NOT read this window.
-    `revealed_recently()` owns the evidence of what Tamil was shown (Python-owned,
-    48h, whole log) and `shown_in_knock()` stays scoped to its own knock. This is
-    continuity only — it can never mint or deny a cold.
-
-    The current knock's own tail is always carried, however old, so this can
-    never show less than the per-knock view it replaces.
-    """
-    cutoff = datetime.now(timezone.utc) - timedelta(hours=hours)
-    keep = {id(x) for x in (knock.get("exchanges") or [])[-4:]}   # never regress
-    sources = list(klog) + ([] if any(k is knock for k in klog) else [knock])
-    rows, seen = [], set()
-    for k in sources:
-        for x in k.get("exchanges", []):
-            at = _ts(x.get("at"))
-            if at is None or id(x) in seen or (at < cutoff and id(x) not in keep):
-                continue
-            seen.add(id(x))
-            rows.append((at, k, x))
-    rows.sort(key=lambda r: r[0])
-    out = []
-    for _, k, x in rows[-limit:]:
-        row = {"andrew_said": x.get("reply", ""),
-               "anna_said": x.get("reply_line", "")}
-        if k is not knock:
-            row["earlier_thread"] = k.get("move", "") or k.get("modality", "")
-        # What Anna DID. Absent means he did not do it — a promise with no
-        # matching field here was never kept.
-        row.update({out_key: x[src_key] for src_key, out_key in
-                    (("spoke", "anna_sent_audio"), ("scheduled", "anna_queued_push"))
-                    if x.get(src_key)})
-        out.append(row)
-
-    if not out and knock.get("reply"):
-        # Legacy knock: replies predating the `exchanges` list live at top level.
-        out = [{"andrew_said": knock["reply"],
-                "anna_said": knock.get("reply_line", "")}]
-    return out
 
 
 def catch_context(knock: dict, reply_text: str, klog: list | None = None) -> dict:
@@ -287,6 +246,50 @@ def last_fired_knock(klog: list) -> dict | None:
     return fired[-1] if fired else None
 
 
+def answers_the_open_ask(text: str, knock: dict, lexicon: dict) -> bool:
+    """Does this line contain the thing the open knock actually asked for?
+
+    The escalation net under the intent tag: a tagless line that answers the open
+    ask is a REP whichever button he pressed, so it goes to a judge rather than
+    to the message lane. Substring match against the lexicon's OWN phonetic forms
+    — Python-owned, no model, no inference. It is deliberately narrow: it can
+    only ever pull something back INTO grading, never push a request out of it."""
+    target, _ = current_pin(knock)
+    key = resolve(target, lexicon, build_phonetic_index(lexicon)) if target else None
+    if not key:
+        return False
+    forms = [key] + list((lexicon.get(key) or {}).get("phonetic") or [])
+    low = text.lower()
+    return any(f and f.lower() in low for f in forms)
+
+
+def is_message(knock_id: str, intent: str, text: str,
+               knock: dict | None, lexicon: dict) -> bool:
+    """Reply to be judged, or message to be acted on? Deterministic, from the tag.
+
+    The phone supplies the one bit no machine can infer, at the moment Andrew
+    already knows it (docs/home_assistant_knock_buttons.md §8.5):
+
+      knock_id present   → a reply to THAT knock          (notification Reply)
+      intent == "reply"  → a reply to the last fired knock (Shortcut → Reply)
+      otherwise          → a MESSAGE
+
+    An untagged arrival is a message, not a reply. That default is deliberate and
+    it is the safe one: grading a request costs a refusal and a corrupted ledger
+    row, while treating a rep as a message costs one uncredited cold fire, which
+    the net above mostly recovers anyway. It is also LOUD — a silent changeover
+    that quietly stopped grading his reps would be the original bug wearing new
+    clothes (2026-08-28)."""
+    if knock_id or intent == "reply":
+        return False
+    if not intent:
+        print("   ⚠ no intent tag — assuming message (Shortcut changeover 2026-08-28)")
+    if knock and answers_the_open_ask(text, knock, lexicon):
+        print("   ↩ it answers the open ask — grading it as a reply")
+        return False
+    return True
+
+
 def find_knock(klog: list, knock_id: str) -> dict | None:
     """The knock a reply belongs to, by its log timestamp (= the notification's
     action_data.knock_id, round-tripped through HA). Notifications stack since
@@ -346,93 +349,14 @@ def volley_open_ask(knock: dict) -> str | None:
     return f"{cur}/{len(vq)} — {vq[cur - 1]['ask']}"
 
 
-# A clock in Andrew's own words. Deliberately generous: a false positive costs
 # one re-ask, a false negative costs him a push he asked for and never got.
-TIME_REQUEST_RE = re.compile(
-    r"\b("
-    r"\d{1,2}\s*(?::\d{2})?\s*(?:am|pm)"          # 9am, 9:15 pm
-    r"|(?:at|by|around)\s+\d{1,2}(?::\d{2})?\b"   # at 9, by 9:15
-    r"|in\s+(?:an?\s+)?(?:half\s+an?\s+)?(?:hour|minute|min)s?"
-    r"|tomorrow|tonight|this\s+(?:morning|afternoon|evening)"
-    r"|later\s+today|before\s+bed|first\s+thing"
-    r")\b", re.I)
-
-ASK_RE = re.compile(
-    r"\b(send|ping|knock|remind|message|text|call|wake|greet\w*|give|do"
-    r"|schedul\w*|queue|push|play|say|speak|sing|record|tell|wish)\b", re.I)
 
 
-AUDIO_RE = re.compile(
-    r"\b(audio|voice|voice[- ]?note|aloud|out\s+loud|say|speak|spoken|sing|sung"
-    r"|pronounc\w*|record\w*|greeting|memo|hear|listen|sound)\b", re.I)
 
 
-def wants_spoken_reply(text: str) -> bool:
-    """True when Andrew's reply reads as 'let me HEAR this'.
-
-    The voice counterpart of wants_scheduled_push below, and it exists for the
-    identical reason: VOICE_MANDATE rations speaking hard — "Empty string is the
-    normal answer" — which is right for a recast and wrong for a man who typed
-    "Send an audio greeting in Tamil" and then asked twice more when nothing
-    arrived (2026-08-27). Prose cannot fix prose; the rule needs a mechanism.
-
-    Wide on the same terms as the clock detector: a false positive costs one
-    re-ask, a false negative costs Andrew the thing he asked for. Widen on sight
-    — "say vanakkam for me" is the demo he actually wants and it needs `say`
-    here, not only in ASK_RE where the AND would never fire.
-
-    `said` and `tell` stay OUT. Both must be readable as a question about
-    MEANING — "tell me what she said" wants a gloss, not a rendering — and a
-    false positive there is worse than a wasted call: the backstop would write
-    MISSED VOICE into the feedback ledger for a request he never made. The
-    ledger note quotes his words verbatim so a reader can always see which it
-    was."""
-    return bool(AUDIO_RE.search(text) and ASK_RE.search(text))
 
 
-def ensure_voice(verdict: dict, reply_text: str, rejudge) -> dict:
-    """The audio-request backstop: one forced re-ask, then a LOUD miss.
 
-    Modelled line-for-line on the clock-request backstop in main(), because the
-    failure is the same shape. `rejudge` is a zero-arg callable that re-runs the
-    caller's own judge with force_voice=True, so both lanes share this body
-    without this function knowing which judge it is talking to.
-
-    The silent-no-op answer (Gate 7): a lane that declines to speak looks EXACTLY
-    like a normal text reply — that is precisely how four requests in a row were
-    swallowed with every instrument green. So the third outcome is not silence:
-    it writes MISSED VOICE into the feedback ledger, where the diagnosis pass
-    reads it."""
-    if not wants_spoken_reply(reply_text) or verdict.get("voice_reply"):
-        return verdict
-    print("   🎧 direct audio request with no voice_reply — re-asking once, forced…")
-    forced = rejudge()
-    if forced.get("voice_reply"):
-        print("   → speaking")
-        return forced
-    print("   ⚠ still silent — logging the miss to the ledger")
-    verdict["meta_note"] = (verdict.get("meta_note") or "").strip() or (
-        f"MISSED VOICE: Andrew asked to HEAR something ({reply_text[:80]!r}) and "
-        f"the push went out text-only — the judge declined twice. Check the voice lane.")
-    return verdict
-
-
-def wants_scheduled_push(text: str) -> bool:
-    """True when Andrew's reply reads as 'do something for me at <time>'.
-
-    The mandate says a clock-bound request MUST produce a schedule; this is the
-    mechanism that makes the rule real. A prose rule with no enforcement is how
-    the 2026-07-23 9am greeting got acknowledged and then silently dropped —
-    the judge is steered toward meta_note (a ledger note for later) when what
-    Andrew wanted was a queue entry.
-
-    The verb list is deliberately WIDE (2026-07-24). "Schedule a push and say
-    hello" — the most literal possible phrasing of the request — matched the
-    clock and missed the verb, so the backstop built the day before to catch
-    exactly this never fired and the 8pm greeting was dropped a second time.
-    A false positive costs one re-ask; a false negative costs Andrew a push he
-    asked for and never got. Widen on sight."""
-    return bool(TIME_REQUEST_RE.search(text) and ASK_RE.search(text))
 
 
 def judge(knock: dict, reply_text: str, target_record: dict | None,
@@ -531,23 +455,6 @@ def said_in_reply(said: str, reply_text: str) -> bool:
     return bool(flat_said) and bool(flat_reply) and flat_said in flat_reply
 
 
-def record_meta_note(verdict: dict) -> bool:
-    """Meta-direction from a reply lands in the feedback ledger, which is what the
-    diagnosis pass reads. Returns whether anything was written, so the caller can
-    put the ledger in its commit.
-
-    ONE writer (2026-08-24). This block was byte-identical in both judge lanes of
-    this file — the production reply and the eavesdrop drift reply — which is the
-    same duplication one file down that the spine refactor spent the day pulling
-    out of seven. A note is a note whichever lane heard it."""
-    note = (verdict.get("meta_note") or "").strip()
-    if not note:
-        return False
-    flog = load_json(FEEDBACK_LOG_PATH) or []
-    flog.append({"date": local_today().isoformat(), "note": f"[phone] {note}"})
-    save_json(FEEDBACK_LOG_PATH, flog)
-    print(f"   meta → ledger: {note}")
-    return True
 
 def normalize_verdict(d: dict, reply_text: str = "") -> dict:
     """Guard the judge's JSON into the shape Python relies on. Per-word verdicts
@@ -764,53 +671,8 @@ def apply_verdict(verdict: dict, knock: dict, lexicon: dict, klog: list,
     return summary, cold_credited, capped_keys, graduated
 
 
-def speak(verdict: dict, knock: dict, klog: list) -> tuple[str | None, Path | None]:
-    """Render Anna's spoken answer and attach it to the knock. Returns (url, mp3).
-
-    Extracted from the production flow on 2026-08-27 so the catch lane could
-    reuse it instead of growing a second copy. It had no copy at all: it ended
-    `push_to_phone(reply_line, None, ...)` — audio_url hard-coded, the exact bug
-    render_voice_reply's own docstring says was fixed in the production lane on
-    2026-07-24 and never ported. One body, two callers, nothing left to forget.
-
-    The knock-log write lands on the EXCHANGE as well as the top level: the
-    top-level field is the LATEST view, overwritten by the next voice reply, so
-    only the per-exchange copy survives as thread history. On a render failure
-    `spoke` is cleared — better a silent record than one claiming audio he never
-    got, which is what taught `recent_exchanges` to report what Anna DID."""
-    if not verdict.get("voice_reply"):
-        return None, None
-    print("2b. render voice reply…")
-    mp3, url = render_voice_reply(verdict["voice_reply"])
-    if url:
-        knock["reply_audio_url"] = url
-        knock["exchanges"][-1].update(audio_url=url)
-        save_json(KNOCK_LOG_PATH, klog)
-    else:
-        knock["exchanges"][-1].update(spoke="", audio_failed=True)
-    return url, mp3
 
 
-def render_voice_reply(spoken: str) -> tuple[Path | None, str | None]:
-    """Render Anna's spoken answer for THIS push-back. Returns (mp3, url).
-
-    The other half of the loop (2026-07-24): the knock lane could always speak
-    TO Andrew, but the reply lane pushed `audio_url=None` hard-coded, so Anna
-    could never speak BACK — a lock-screen ask for "how does that sound?" could
-    only ever be answered in writing. The renderer was never the blocker; the
-    reply workflow simply had no TTS secret until the workflows were merged.
-
-    Deliberately best-effort: a TTS failure must still deliver the text recast.
-    Costs ~60-90s while Andrew waits at the lock screen, which is why the
-    mandate rations it to answers where the sound IS the answer."""
-    stamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H-%M-%S")
-    mp3 = KNOCKS_DIR / f"reply_{stamp}.mp3"
-    try:
-        asyncio.run(render_memo(spoken, mp3, ANNA_VOICE))
-    except Exception as exc:                       # noqa: BLE001 — text must still land
-        print(f"   ⚠ voice reply failed to render ({exc}) — pushing the text alone")
-        return None, None
-    return mp3, jsdelivr_url(mp3)
 
 
 def main():
@@ -836,6 +698,11 @@ def main():
         print(f"   ⚠ knock_id {knock_id!r} not in the log — falling back to last fired")
 
     lexicon = load_json(LEXICON_PATH) or {}
+
+    if is_message(knock_id, os.environ.get("REPLY_INTENT", "").strip().lower(),
+                  reply_text, knock, lexicon):
+        handle_message(reply_text, knock, klog, args.dry_run)
+        return
 
     if knock.get("modality") == "eavesdrop":
         # Comprehension dose — the reply grades the CATCH axis, on its own

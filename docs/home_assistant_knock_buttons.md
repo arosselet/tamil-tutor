@@ -354,6 +354,7 @@ that signal is gone. Either is fine; §10 records which is live.
   |---|---|---|
   | `response` | **Text** | `reply` |
   | `text` | **Text** | the **Provided Input** variable — inserted as a blue variable chip, not typed |
+  | `intent` | **Text** | the **intent** variable chip from the menu — see §8.5 |
 
   To insert the chip: tap the value box, then pick **Provided Input** from the
   variable bar above the keyboard (or *Select Variable* → *Provided Input*, the
@@ -436,6 +437,60 @@ Shortcut when you just want the channel open.
   once it works.
 
 ---
+
+
+### 8.5 "Message" or "Reply" — the intent tag (2026-08-28)
+
+The Shortcut serves two different jobs and only you know which one you are doing:
+**answering a knock** (including one whose notification you already swiped away), and
+**saying something to Anna** ("send an audio greeting", "ping me at 8", "how do you say
+this"). They need opposite handling — the first gets graded, the second gets *done* — and
+no machine can tell them apart from the text. So the Shortcut asks.
+
+**What broke without it.** Every untagged reply fell back to `last_fired_knock()` and was
+graded against whatever knock happened to be open. On 2026-08-27 that was an eavesdrop
+from 02:46, so four audio requests in a row were graded `chat` and answered in text. The
+verdict was right every time; the lane was wrong every time.
+
+**The change — two actions.**
+
+**Step A — the menu.** Open **Tell Anna** → drag a **Choose from Menu** action to the
+*top*, above *Ask for Input*. Set the prompt to `Anna:` and give it two items:
+**`Message`** and **`Reply`**. Inside each branch put one **Set Variable** action:
+
+| Branch | Action | Variable | Value |
+|---|---|---|---|
+| `Message` | Set Variable | `intent` | `message` |
+| `Reply` | Set Variable | `intent` | `reply` |
+
+The branches hold *only* the Set Variable action — everything after **End Menu** runs
+either way, so *Ask for Input* and *Get Contents of URL* stay where they are.
+
+**Step B — send it.** In *Get Contents of URL* → `client_payload`, add one field:
+`intent` (**Text**), value = the **intent** variable chip. Insert it from the variable
+bar the same way as *Provided Input*; if it reads as the literal word "intent" in plain
+black text it is a string, not the variable.
+
+**What each one does now:**
+
+| You tapped | Payload | Lane |
+|---|---|---|
+| notification **Reply ✍️** | carries `knock_id` | judged against *that* knock |
+| Shortcut → **Reply** | `intent: "reply"` | judged against the last fired knock (the old behaviour) |
+| Shortcut → **Message** | `intent: "message"` | `knock_message.py` — answered and acted on, nothing graded |
+
+`knock_id` still wins if present, so the notification button is unaffected.
+
+**If the tag is missing** — an old Shortcut, or a curl by hand — the reply is treated as a
+**message**, and the run log says `⚠ no intent tag — assuming message`. That default is
+deliberate: grading a request costs a wrong answer and a junk ledger row, while treating a
+rep as a message costs one uncredited fire. There is a net under it — a tagless line that
+contains the open knock's expected target is pulled back into grading automatically, so
+firing `seri seri` from the wrong button still scores.
+
+**Diagnosing it:** the run log names the lane on its first line — `1. judging reply
+against knock …` or `1. MESSAGE — not a rep, nothing graded`. If a request got graded,
+the tag did not arrive.
 
 ## 9. Which leg breaks when — reading a "it disappeared" symptom
 

@@ -313,7 +313,23 @@ BOOL = {"type": "boolean"}
 def obj(**props) -> dict:
     """A top-level object schema. Everything declared is required: these keys are
     what the lane will actually read, and a missing one is a broken dose, not a
-    tolerable omission. Undeclared keys are still allowed through."""
+    tolerable omission.
+
+    UNDECLARED KEYS ARE NOT SAFE, whatever this docstring said until 2026-08-28.
+    It is executor-dependent, which is the worst possible shape for a rule:
+
+      - API path (`response_format: json_object`) — constrains the BYTES to
+        parseable JSON and nothing more, so an undeclared key survives.
+      - Agent path (`claude -p --json-schema`) — constrains the SHAPE, and
+        silently drops any key this function did not name.
+
+    `claude -p` became the writer on 2026-08-18 and `voice_reply` was declared
+    only in prose, so every local judgement lost it from that day — the model
+    wrote the field, the schema ate it, and the answer went out in text looking
+    exactly like a choice. Two executors disagreeing about a key is invisible
+    until the one that drops it is the one you are running.
+
+    The rule this leaves: if a mandate names a key, name it here too."""
     return {"type": "object", "properties": props, "required": list(props)}
 
 

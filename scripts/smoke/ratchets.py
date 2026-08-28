@@ -14,6 +14,7 @@ nothing, or a stack that quietly grew an upward edge, would still print ALL GREE
 import ast
 import io
 import re
+import sys
 from pathlib import Path
 
 from ._fixtures import (
@@ -110,6 +111,7 @@ PROSE_BUDGETS = {
     # are JUDGE_MANDATE's old standalone "CONTINUITY DECAYS" paragraph, folded in.
     "THREAD_MANDATE": 250,
     "CATCH_JUDGE_MANDATE": 300,
+    "MESSAGE_MANDATE": 230,
 }
 
 
@@ -166,7 +168,16 @@ CODE_BUDGETS = {
     # now the largest in the tree and has taken three raises: the next one
     # should be a split, not a number (the judges and the lanes are already
     # two jobs living in one file).
-    "scripts/knock_reply.py": 610,
+    # 610 -> 560 (2026-08-28): re-censused DOWN. The lane-neutral half —
+    # detectors, speak(), ensure_voice, record_meta_note, the thread window —
+    # left for reply_common.py so the MESSAGE lane could have it without
+    # importing the grading lane. This file is grading and routing now.
+    "scripts/knock_reply.py": 560,
+    # New surfaces, budgeted in the diff that creates them. reply_common is the
+    # split the 08-27 raise said was coming; knock_message is the lane that
+    # forced it.
+    "scripts/reply_common.py": 120,
+    "scripts/knock_message.py": 130,
     # 700 -> 625 (2026-08-01): re-censused DOWN after OUTREACH_MANDATE moved to
     # mandates.py — the file sat at 699/700, one mechanical fix from a red build.
     # The split is the ceiling law working, not an allowance: prompt canon and
@@ -233,7 +244,12 @@ CODE_BUDGETS = {
     # strings are word-budgeted individually in PROSE_BUDGETS above — JUDGE_MANDATE
     # 1500, REACH 300, SLIP 250, THREAD 250, CATCH_JUDGE 300, OUTREACH 2000. The
     # ceiling that actually binds this prose did not move an inch.
-    "scripts/mandates.py": 470,
+    # 470 -> 500 (2026-08-28): MESSAGE_MANDATE landed — the first mandate in
+    # this file that only ACTS instead of grading. Growth here is the design:
+    # this file exists so a lane's prose lives beside every other lane's, and
+    # the alternative was a fourth copy of the speak/schedule rules inside
+    # knock_message.py. Prose stays ratcheted per-mandate in PROSE_BUDGETS.
+    "scripts/mandates.py": 500,
     # NEW FILE, budgeted in the diff that creates it (2026-08-24, Q1's first
     # family). What it retires: the exposure -> stamp -> commit -> notify tail
     # written out three times, in render_soak, render_drill and render_longhaul —
@@ -396,7 +412,11 @@ def s18_size_budgets(mk, kr, sb: Path):
                "SLIP_MANDATE": kr.SLIP_MANDATE,
                "THREAD_MANDATE": kr.THREAD_MANDATE,
                "CATCH_JUDGE_MANDATE": kr.CATCH_JUDGE_MANDATE,
-               "VOICE_MANDATE": kr.VOICE_MANDATE}
+               "VOICE_MANDATE": kr.VOICE_MANDATE,
+               # reached through the lane that owns it, the same way the
+               # knock cases reach reply_common — no re-export just for a test
+               "MESSAGE_MANDATE":
+                   sys.modules[kr.handle_message.__module__].MESSAGE_MANDATE}
     for rel, budget in PROSE_BUDGETS.items():
         words = (len(strings[rel].split()) if rel in strings
                  else len((sb / rel).read_text(encoding="utf-8").split()))
@@ -793,7 +813,9 @@ LAYERS = {
 
     "lanes":              5,      # L5 what a family shares
     "morning_knock":      5.5,    # L5 the lanes themselves
-    "knock_reply":        5.5,
+    "reply_common":       5.6,    # what both inbound lanes share
+    "knock_message":      5.7,    # the message lane, above what it reuses
+    "knock_reply":        5.8,    # grading + the routing that picks the lane
     "push_queue":         5.5,
     "render_soak":        5.5,
     "render_drill":       5.5,

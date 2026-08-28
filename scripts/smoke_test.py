@@ -31,6 +31,7 @@ A fixed bug becomes a case here the day it's fixed:
       and cold/total reported a winning sprint throughout (2026-07-25)
 """
 import sys
+import os
 import tempfile
 from pathlib import Path
 
@@ -61,6 +62,12 @@ def main():
     with tempfile.TemporaryDirectory(prefix="tamil-smoke-") as tmp:
         sb = make_sandbox(Path(tmp))
         print(f"sandbox: {sb}")
+        # Every case below that drives kr.main() is simulating a REPLY to a
+        # knock, so it says so (2026-08-28). Untagged now means MESSAGE — the
+        # routing split's deliberate default — and without this the whole suite
+        # would silently re-route into the message lane and stop testing the
+        # judges. s83 owns the untagged case and sets this itself.
+        os.environ["REPLY_INTENT"] = "reply"
         mk, kr, pq = load_modules(sb)
         snapshot(mk, kr, pq, fx.pb, fx.wr, fx.si)
         run(compose.s1_parse_llm_json, mk)
@@ -126,6 +133,7 @@ def main():
         run(knock.s60_the_ear_meter, kr, sb)
         run(knock.s81_the_ear_judge_stamps_its_own_evidence, kr, sb)
         run(knock.s82_the_catch_lane_has_a_mouth, mk, kr, sb)
+        run(knock.s83_reply_or_message_is_decided_by_the_tag, mk, kr, sb)
         run(knock.s61_no_number_is_recited_at_him, kr, sb)
         run(state.s62_the_return_clock_is_keyed_to_the_ear, sb)
         run(state.s63_the_machines_reach_the_ticket)
