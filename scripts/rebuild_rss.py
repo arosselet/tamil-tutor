@@ -7,11 +7,14 @@ from datetime import datetime
 import email.utils
 from xml.sax.saxutils import escape as xml_escape
 
+from language import RAW_BASE_URL, SITE_URL
 from state_io import LOCAL_TZ  # Andrew's clock, canonical there
 
 # Configuration
-BASE_URL = "https://raw.githubusercontent.com/arosselet/tamil-tutor/main"
-SITE_URL = "https://github.com/arosselet/tamil-tutor"
+# Derived from language.REPO, with SITE_URL (2026-08-28). One repo identity had
+# three spellings — this file wrote two of them out in full — and a fork updated
+# whichever it happened to find.
+BASE_URL = RAW_BASE_URL
 AUDIO_DIR = "published_audio"
 SCRIPTS_DIR = "content/scripts"
 # Below this, a .mp3 is a stub, a truncated write, or an lfs pointer — not audio.

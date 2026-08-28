@@ -1,1998 +1,1998 @@
 [
   {
-    "tamil": "அதனால தான்",
+    "word": "அதனால தான்",
     "gloss": "That's why / That's the reason",
     "cluster": "connectors",
     "priority": 1
   },
   {
-    "tamil": "அதுக்கு மேல",
+    "word": "அதுக்கு மேல",
     "gloss": "More than that / Above that",
     "cluster": "connectors",
     "priority": 1
   },
   {
-    "tamil": "அப்படி இல்ல",
+    "word": "அப்படி இல்ல",
     "gloss": "It's not like that / Not so",
     "cluster": "connectors",
     "priority": 1
   },
   {
-    "tamil": "அப்படினா என்ன அர்த்தம்?",
+    "word": "அப்படினா என்ன அர்த்தம்?",
     "gloss": "Then what does that mean?",
     "cluster": "connectors",
     "priority": 1
   },
   {
-    "tamil": "அப்படியே",
+    "word": "அப்படியே",
     "gloss": "Just like that / As is / Right away",
     "cluster": "connectors",
     "priority": 1
   },
   {
-    "tamil": "அப்படியே இருங்க",
+    "word": "அப்படியே இருங்க",
     "gloss": "Stay right there / Hold on (on phone)",
     "cluster": "connectors",
     "priority": 1
   },
   {
-    "tamil": "அப்படியே பண்ணுங்க",
+    "word": "அப்படியே பண்ணுங்க",
     "gloss": "Do it just like that / Do it right away",
     "cluster": "connectors",
     "priority": 1
   },
   {
-    "tamil": "அப்படியே போயிட்டு வாங்க",
+    "word": "அப்படியே போயிட்டு வாங்க",
     "gloss": "Just go and come back (casual, quick trip)",
     "cluster": "connectors",
     "priority": 1
   },
   {
-    "tamil": "அவசரம்",
+    "word": "அவசரம்",
     "gloss": "Urgent / Hurry",
     "cluster": "connectors",
     "priority": 1
   },
   {
-    "tamil": "இதுக்குள்ள",
+    "word": "இதுக்குள்ள",
     "gloss": "Within this / By now",
     "cluster": "connectors",
     "priority": 1
   },
   {
-    "tamil": "இன்னும் கொஞ்ச நேரம் கழிச்சு",
+    "word": "இன்னும் கொஞ்ச நேரம் கழிச்சு",
     "gloss": "A little while later",
     "cluster": "connectors",
     "priority": 1
   },
   {
-    "tamil": "இன்னும் கொஞ்சம்",
+    "word": "இன்னும் கொஞ்சம்",
     "gloss": "A little more",
     "cluster": "connectors",
     "priority": 1
   },
   {
-    "tamil": "இல்லன்னா என்ன ஆகும்?",
+    "word": "இல்லன்னா என்ன ஆகும்?",
     "gloss": "Otherwise, what will happen?",
     "cluster": "connectors",
     "priority": 1
   },
   {
-    "tamil": "நேரம்",
+    "word": "நேரம்",
     "gloss": "Time",
     "cluster": "connectors",
     "priority": 1
   },
   {
-    "tamil": "மதியம்",
+    "word": "மதியம்",
     "gloss": "Noon / Afternoon",
     "cluster": "connectors",
     "priority": 1
   },
   {
-    "tamil": "ஓய்வு",
+    "word": "ஓய்வு",
     "gloss": "Rest",
     "cluster": "daily_routine",
     "priority": 1
   },
   {
-    "tamil": "ஓய்வு எடு",
+    "word": "ஓய்வு எடு",
     "gloss": "Take rest",
     "cluster": "daily_routine",
     "priority": 1
   },
   {
-    "tamil": "கண்ணு முழி",
+    "word": "கண்ணு முழி",
     "gloss": "Open your eyes / Wake up (informal, often used for kids)",
     "cluster": "daily_routine",
     "priority": 1
   },
   {
-    "tamil": "காலையில",
+    "word": "காலையில",
     "gloss": "In the morning",
     "cluster": "daily_routine",
     "priority": 1
   },
   {
-    "tamil": "சாயங்காலம்",
+    "word": "சாயங்காலம்",
     "gloss": "In the evening",
     "cluster": "daily_routine",
     "priority": 1
   },
   {
-    "tamil": "சீக்கிரம் வா",
+    "word": "சீக்கிரம் வா",
     "gloss": "Come quickly / Come soon",
     "cluster": "daily_routine",
     "priority": 1
   },
   {
-    "tamil": "தலை சீவு",
+    "word": "தலை சீவு",
     "gloss": "Comb hair",
     "cluster": "daily_routine",
     "priority": 1
   },
   {
-    "tamil": "துணி காயப்போடு",
+    "word": "துணி காயப்போடு",
     "gloss": "Hang the clothes to dry",
     "cluster": "daily_routine",
     "priority": 1
   },
   {
-    "tamil": "துணி துவை",
+    "word": "துணி துவை",
     "gloss": "Wash the clothes",
     "cluster": "daily_routine",
     "priority": 1
   },
   {
-    "tamil": "தூங்கி எழுந்திரு",
+    "word": "தூங்கி எழுந்திரு",
     "gloss": "Wake up from sleep",
     "cluster": "daily_routine",
     "priority": 1
   },
   {
-    "tamil": "தூங்கிட்டேன்",
+    "word": "தூங்கிட்டேன்",
     "gloss": "I fell asleep",
     "cluster": "daily_routine",
     "priority": 1
   },
   {
-    "tamil": "தூங்கு",
+    "word": "தூங்கு",
     "gloss": "Sleep",
     "cluster": "daily_routine",
     "priority": 1
   },
   {
-    "tamil": "ராத்திரி",
+    "word": "ராத்திரி",
     "gloss": "At night",
     "cluster": "daily_routine",
     "priority": 1
   },
   {
-    "tamil": "ரெடி ஆகு",
+    "word": "ரெடி ஆகு",
     "gloss": "Get ready",
     "cluster": "daily_routine",
     "priority": 1
   },
   {
-    "tamil": "வெளிய போயிட்டு வரேன்",
+    "word": "வெளிய போயிட்டு வரேன்",
     "gloss": "I'll go out and come back",
     "cluster": "daily_routine",
     "priority": 1
   },
   {
-    "tamil": "வேலை",
+    "word": "வேலை",
     "gloss": "Work",
     "cluster": "daily_routine",
     "priority": 1
   },
   {
-    "tamil": "வேலை செய்",
+    "word": "வேலை செய்",
     "gloss": "Do work",
     "cluster": "daily_routine",
     "priority": 1
   },
   {
-    "tamil": "வேலைக்கு கிளம்பு",
+    "word": "வேலைக்கு கிளம்பு",
     "gloss": "Leave for work",
     "cluster": "daily_routine",
     "priority": 1
   },
   {
-    "tamil": "அப்படியே",
+    "word": "அப்படியே",
     "gloss": "Just like that / As is",
     "cluster": "descriptions",
     "priority": 2
   },
   {
-    "tamil": "அழகு",
+    "word": "அழகு",
     "gloss": "Beauty",
     "cluster": "descriptions",
     "priority": 2
   },
   {
-    "tamil": "இனிப்பு",
+    "word": "இனிப்பு",
     "gloss": "Sweet",
     "cluster": "descriptions",
     "priority": 2
   },
   {
-    "tamil": "இப்படியே",
+    "word": "இப்படியே",
     "gloss": "Just like this / As is",
     "cluster": "descriptions",
     "priority": 2
   },
   {
-    "tamil": "எப்படி இருக்கு?",
+    "word": "எப்படி இருக்கு?",
     "gloss": "How is it?",
     "cluster": "descriptions",
     "priority": 2
   },
   {
-    "tamil": "கசப்பு",
+    "word": "கசப்பு",
     "gloss": "Bitter",
     "cluster": "descriptions",
     "priority": 2
   },
   {
-    "tamil": "கெட்டது",
+    "word": "கெட்டது",
     "gloss": "Bad",
     "cluster": "descriptions",
     "priority": 2
   },
   {
-    "tamil": "கெட்டியா",
+    "word": "கெட்டியா",
     "gloss": "Thick / Firmly",
     "cluster": "descriptions",
     "priority": 2
   },
   {
-    "tamil": "தண்ணியா",
+    "word": "தண்ணியா",
     "gloss": "Watery / Thin",
     "cluster": "descriptions",
     "priority": 2
   },
   {
-    "tamil": "துவர்ப்பு",
+    "word": "துவர்ப்பு",
     "gloss": "Astringent",
     "cluster": "descriptions",
     "priority": 2
   },
   {
-    "tamil": "நல்லது",
+    "word": "நல்லது",
     "gloss": "Good",
     "cluster": "descriptions",
     "priority": 2
   },
   {
-    "tamil": "நல்லா இருக்கா?",
+    "word": "நல்லா இருக்கா?",
     "gloss": "Is it good?",
     "cluster": "descriptions",
     "priority": 2
   },
   {
-    "tamil": "பழசு",
+    "word": "பழசு",
     "gloss": "Old (object)",
     "cluster": "descriptions",
     "priority": 2
   },
   {
-    "tamil": "புதுசு",
+    "word": "புதுசு",
     "gloss": "New",
     "cluster": "descriptions",
     "priority": 2
   },
   {
-    "tamil": "புளிப்பு",
+    "word": "புளிப்பு",
     "gloss": "Sour",
     "cluster": "descriptions",
     "priority": 2
   },
   {
-    "tamil": "போதாது",
+    "word": "போதாது",
     "gloss": "Not enough",
     "cluster": "descriptions",
     "priority": 2
   },
   {
-    "tamil": "அழாதீங்க",
+    "word": "அழாதீங்க",
     "gloss": "Don't cry (respectful)",
     "cluster": "emotions",
     "priority": 2
   },
   {
-    "tamil": "ஆச்சரியமா இருக்கு",
+    "word": "ஆச்சரியமா இருக்கு",
     "gloss": "It's surprising / I'm surprised",
     "cluster": "emotions",
     "priority": 2
   },
   {
-    "tamil": "எனக்கு கோவமா இருக்கு",
+    "word": "எனக்கு கோவமா இருக்கு",
     "gloss": "I am angry (lit: to me, it is angry)",
     "cluster": "emotions",
     "priority": 2
   },
   {
-    "tamil": "எனக்கு பிடிக்கல",
+    "word": "எனக்கு பிடிக்கல",
     "gloss": "I don't like it (lit: to me, it is not pleasing)",
     "cluster": "emotions",
     "priority": 2
   },
   {
-    "tamil": "எனக்கு பிடிச்சிருக்கு",
+    "word": "எனக்கு பிடிச்சிருக்கு",
     "gloss": "I like it (lit: to me, it is pleasing)",
     "cluster": "emotions",
     "priority": 2
   },
   {
-    "tamil": "எனக்கு வெட்கமா இருக்கு",
+    "word": "எனக்கு வெட்கமா இருக்கு",
     "gloss": "I am shy / I am embarrassed (lit: to me, it is shy)",
     "cluster": "emotions",
     "priority": 2
   },
   {
-    "tamil": "என்ன ஆச்சு?",
+    "word": "என்ன ஆச்சு?",
     "gloss": "What happened? (often used to ask why someone is upset/sad)",
     "cluster": "emotions",
     "priority": 2
   },
   {
-    "tamil": "கோபம்",
+    "word": "கோபம்",
     "gloss": "Anger",
     "cluster": "emotions",
     "priority": 2
   },
   {
-    "tamil": "சந்தோஷமா இருங்க",
+    "word": "சந்தோஷமா இருங்க",
     "gloss": "Be happy (respectful)",
     "cluster": "emotions",
     "priority": 2
   },
   {
-    "tamil": "சலிப்பா இருக்கு",
+    "word": "சலிப்பா இருக்கு",
     "gloss": "I'm bored / It's boring",
     "cluster": "emotions",
     "priority": 2
   },
   {
-    "tamil": "சிரிங்க",
+    "word": "சிரிங்க",
     "gloss": "Smile / Laugh (respectful)",
     "cluster": "emotions",
     "priority": 2
   },
   {
-    "tamil": "சும்மா",
+    "word": "சும்மா",
     "gloss": "Just kidding / Just for fun / For no reason",
     "cluster": "emotions",
     "priority": 2
   },
   {
-    "tamil": "துக்கம்",
+    "word": "துக்கம்",
     "gloss": "Sadness",
     "cluster": "emotions",
     "priority": 2
   },
   {
-    "tamil": "பரவால்ல",
+    "word": "பரவால்ல",
     "gloss": "It's okay / Never mind / No problem",
     "cluster": "emotions",
     "priority": 2
   },
   {
-    "tamil": "அண்ணி",
+    "word": "அண்ணி",
     "gloss": "Sister-in-law (elder brother's wife)",
     "cluster": "family",
     "priority": 1
   },
   {
-    "tamil": "அத்தை வீட்டுக்கு போறோம்",
+    "word": "அத்தை வீட்டுக்கு போறோம்",
     "gloss": "We are going to aunt's house (paternal aunt)",
     "cluster": "family",
     "priority": 1
   },
   {
-    "tamil": "அப்பா",
+    "word": "அப்பா",
     "gloss": "Father",
     "cluster": "family",
     "priority": 1
   },
   {
-    "tamil": "அம்மா",
+    "word": "அம்மா",
     "gloss": "Mother",
     "cluster": "family",
     "priority": 1
   },
   {
-    "tamil": "உங்க வீட்ல எல்லாரும் நல்லா இருக்காங்களா?",
+    "word": "உங்க வீட்ல எல்லாரும் நல்லா இருக்காங்களா?",
     "gloss": "Is everyone well at your home? (Common greeting)",
     "cluster": "family",
     "priority": 1
   },
   {
-    "tamil": "என் புருஷன்",
+    "word": "என் புருஷன்",
     "gloss": "My husband (informal, common among women)",
     "cluster": "family",
     "priority": 1
   },
   {
-    "tamil": "என் பொண்டாட்டி",
+    "word": "என் பொண்டாட்டி",
     "gloss": "My wife (informal, common among men)",
     "cluster": "family",
     "priority": 1
   },
   {
-    "tamil": "தாத்தா",
+    "word": "தாத்தா",
     "gloss": "Grandfather",
     "cluster": "family",
     "priority": 1
   },
   {
-    "tamil": "பாட்டி",
+    "word": "பாட்டி",
     "gloss": "Grandmother",
     "cluster": "family",
     "priority": 1
   },
   {
-    "tamil": "மச்சினிச்சி",
+    "word": "மச்சினிச்சி",
     "gloss": "Sister-in-law (wife's younger sister)",
     "cluster": "family",
     "priority": 1
   },
   {
-    "tamil": "மாமனார்",
+    "word": "மாமனார்",
     "gloss": "Father-in-law",
     "cluster": "family",
     "priority": 1
   },
   {
-    "tamil": "மாமியார்",
+    "word": "மாமியார்",
     "gloss": "Mother-in-law",
     "cluster": "family",
     "priority": 1
   },
   {
-    "tamil": "அமைதியா இரு",
+    "word": "அமைதியா இரு",
     "gloss": "Be quiet",
     "cluster": "home_environment",
     "priority": 2
   },
   {
-    "tamil": "அருகில்",
+    "word": "அருகில்",
     "gloss": "Near",
     "cluster": "home_environment",
     "priority": 2
   },
   {
-    "tamil": "இரும்பு",
+    "word": "இரும்பு",
     "gloss": "Iron",
     "cluster": "home_environment",
     "priority": 2
   },
   {
-    "tamil": "உள்ளே",
+    "word": "உள்ளே",
     "gloss": "Inside",
     "cluster": "home_environment",
     "priority": 2
   },
   {
-    "tamil": "கண்ணாடி",
+    "word": "கண்ணாடி",
     "gloss": "Glass (material/object)",
     "cluster": "home_environment",
     "priority": 2
   },
   {
-    "tamil": "கண்ணாடி டம்ளர்",
+    "word": "கண்ணாடி டம்ளர்",
     "gloss": "Glass tumbler",
     "cluster": "home_environment",
     "priority": 2
   },
   {
-    "tamil": "கதவை திற",
+    "word": "கதவை திற",
     "gloss": "Open the door",
     "cluster": "home_environment",
     "priority": 2
   },
   {
-    "tamil": "கதவை மூடு",
+    "word": "கதவை மூடு",
     "gloss": "Close the door",
     "cluster": "home_environment",
     "priority": 2
   },
   {
-    "tamil": "கீழே",
+    "word": "கீழே",
     "gloss": "Downstairs / Below",
     "cluster": "home_environment",
     "priority": 2
   },
   {
-    "tamil": "குளியலறை",
+    "word": "குளியலறை",
     "gloss": "Bathroom",
     "cluster": "home_environment",
     "priority": 2
   },
   {
-    "tamil": "சத்தம்",
+    "word": "சத்தம்",
     "gloss": "Noise",
     "cluster": "home_environment",
     "priority": 2
   },
   {
-    "tamil": "சத்தம் போடாதே",
+    "word": "சத்தம் போடாதே",
     "gloss": "Don't make noise",
     "cluster": "home_environment",
     "priority": 2
   },
   {
-    "tamil": "ஜன்னலை மூடு",
+    "word": "ஜன்னலை மூடு",
     "gloss": "Close the window",
     "cluster": "home_environment",
     "priority": 2
   },
   {
-    "tamil": "டிவி",
+    "word": "டிவி",
     "gloss": "TV",
     "cluster": "home_environment",
     "priority": 2
   },
   {
-    "tamil": "தூரம்",
+    "word": "தூரம்",
     "gloss": "Far",
     "cluster": "home_environment",
     "priority": 2
   },
   {
-    "tamil": "படுக்கையறை",
+    "word": "படுக்கையறை",
     "gloss": "Bedroom",
     "cluster": "home_environment",
     "priority": 2
   },
   {
-    "tamil": "பிளாஸ்டிக்",
+    "word": "பிளாஸ்டிக்",
     "gloss": "Plastic",
     "cluster": "home_environment",
     "priority": 2
   },
   {
-    "tamil": "புத்தகம்",
+    "word": "புத்தகம்",
     "gloss": "Book",
     "cluster": "home_environment",
     "priority": 2
   },
   {
-    "tamil": "பேப்பர்",
+    "word": "பேப்பர்",
     "gloss": "Newspaper / Paper",
     "cluster": "home_environment",
     "priority": 2
   },
   {
-    "tamil": "மரம்",
+    "word": "மரம்",
     "gloss": "Wood",
     "cluster": "home_environment",
     "priority": 2
   },
   {
-    "tamil": "மாடி",
+    "word": "மாடி",
     "gloss": "Upstairs / Floor",
     "cluster": "home_environment",
     "priority": 2
   },
   {
-    "tamil": "மேலே",
+    "word": "மேலே",
     "gloss": "Up / Above",
     "cluster": "home_environment",
     "priority": 2
   },
   {
-    "tamil": "ரிமோட்",
+    "word": "ரிமோட்",
     "gloss": "Remote",
     "cluster": "home_environment",
     "priority": 2
   },
   {
-    "tamil": "லைட்டை ஆஃப் பண்ணு",
+    "word": "லைட்டை ஆஃப் பண்ணு",
     "gloss": "Turn off the light",
     "cluster": "home_environment",
     "priority": 2
   },
   {
-    "tamil": "லைட்டை போடு",
+    "word": "லைட்டை போடு",
     "gloss": "Turn on the light",
     "cluster": "home_environment",
     "priority": 2
   },
   {
-    "tamil": "விசிறியை போடு",
+    "word": "விசிறியை போடு",
     "gloss": "Turn on the fan",
     "cluster": "home_environment",
     "priority": 2
   },
   {
-    "tamil": "வெளியே",
+    "word": "வெளியே",
     "gloss": "Outside",
     "cluster": "home_environment",
     "priority": 2
   },
   {
-    "tamil": "ஹால்",
+    "word": "ஹால்",
     "gloss": "Hall / Living room",
     "cluster": "home_environment",
     "priority": 2
   },
   {
-    "tamil": "அடுப்பு",
+    "word": "அடுப்பு",
     "gloss": "Stove / Cooker",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "அடுப்பை அணை",
+    "word": "அடுப்பை அணை",
     "gloss": "Turn off the stove",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "அடுப்பை பத்தவை",
+    "word": "அடுப்பை பத்தவை",
     "gloss": "Light the stove",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "இட்லி",
+    "word": "இட்லி",
     "gloss": "Idli (steamed rice cake)",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "இனிப்பா இருக்கு",
+    "word": "இனிப்பா இருக்கு",
     "gloss": "It's sweet",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "இனிப்பு",
+    "word": "இனிப்பு",
     "gloss": "Sweetness",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "உப்பு பத்தல",
+    "word": "உப்பு பத்தல",
     "gloss": "Not enough salt",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "எண்ணெய்",
+    "word": "எண்ணெய்",
     "gloss": "Oil",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "என்ன சமைக்கிற?",
+    "word": "என்ன சமைக்கிற?",
     "gloss": "What are you cooking?",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "கசப்பா இருக்கு",
+    "word": "கசப்பா இருக்கு",
     "gloss": "It's bitter",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "கசப்பு",
+    "word": "கசப்பு",
     "gloss": "Bitterness",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "கதவை சாத்து",
+    "word": "கதவை சாத்து",
     "gloss": "Close the door (another common verb)",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "கரண்டி",
+    "word": "கரண்டி",
     "gloss": "Spoon / Ladle",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "கறி",
+    "word": "கறி",
     "gloss": "Meat / Curry",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "காய்",
+    "word": "காய்",
     "gloss": "Vegetable",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "காய்கறி",
+    "word": "காய்கறி",
     "gloss": "Vegetables",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "காய்கறி நறுக்கு",
+    "word": "காய்கறி நறுக்கு",
     "gloss": "Chop the vegetables",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "காய்கறி வெட்டு",
+    "word": "காய்கறி வெட்டு",
     "gloss": "Cut the vegetables",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "காரமா இருக்கு",
+    "word": "காரமா இருக்கு",
     "gloss": "It's spicy",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "காலையில",
+    "word": "காலையில",
     "gloss": "In the morning",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "சட்டி",
+    "word": "சட்டி",
     "gloss": "Pot / Pan",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "சட்னி",
+    "word": "சட்னி",
     "gloss": "Chutney",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "சமையலறை",
+    "word": "சமையலறை",
     "gloss": "Kitchen",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "சமையல்",
+    "word": "சமையல்",
     "gloss": "Cooking / Cuisine",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "சமையல் பண்ணு",
+    "word": "சமையல் பண்ணு",
     "gloss": "Do the cooking",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "சர்க்கரை",
+    "word": "சர்க்கரை",
     "gloss": "Sugar",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "சாதம்",
+    "word": "சாதம்",
     "gloss": "Cooked rice",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "சாப்பாடு",
+    "word": "சாப்பாடு",
     "gloss": "Cooked rice / Meal",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "சாப்பாடு ரெடி",
+    "word": "சாப்பாடு ரெடி",
     "gloss": "Food is ready / Rice is ready",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "சாப்பிடு",
+    "word": "சாப்பிடு",
     "gloss": "Eat (command)",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "சாப்பிட்டு முடிச்சீங்களா?",
+    "word": "சாப்பிட்டு முடிச்சீங்களா?",
     "gloss": "Have you finished eating?",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "சாம்பார்",
+    "word": "சாம்பார்",
     "gloss": "Sambar (lentil stew)",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "சுவையா இருக்கு",
+    "word": "சுவையா இருக்கு",
     "gloss": "It's tasty",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "தண்ணி ஊத்து",
+    "word": "தண்ணி ஊத்து",
     "gloss": "Pour water",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "தயிர்",
+    "word": "தயிர்",
     "gloss": "Curd / Yogurt",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "தோசை",
+    "word": "தோசை",
     "gloss": "Dosa (savory pancake)",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "பசிக்குது",
+    "word": "பசிக்குது",
     "gloss": "I'm hungry",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "பஜ்ஜி",
+    "word": "பஜ்ஜி",
     "gloss": "Bajji (fritter)",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "பழம்",
+    "word": "பழம்",
     "gloss": "Fruit",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "பாத்திரம்",
+    "word": "பாத்திரம்",
     "gloss": "Utensil / Dish",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "பாத்திரம் கழுவு",
+    "word": "பாத்திரம் கழுவு",
     "gloss": "Wash the dishes",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "பிரியாணி",
+    "word": "பிரியாணி",
     "gloss": "Biryani (rice dish)",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "புளிப்பா இருக்கு",
+    "word": "புளிப்பா இருக்கு",
     "gloss": "It's sour",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "புளிப்பு",
+    "word": "புளிப்பு",
     "gloss": "Sourness",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "பொங்கல்",
+    "word": "பொங்கல்",
     "gloss": "Pongal (rice dish)",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "மீன்",
+    "word": "மீன்",
     "gloss": "Fish",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "முட்டை",
+    "word": "முட்டை",
     "gloss": "Egg",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "மோர்",
+    "word": "மோர்",
     "gloss": "Buttermilk",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "ரசம்",
+    "word": "ரசம்",
     "gloss": "Rasam (tamarind soup)",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "வடை",
+    "word": "வடை",
     "gloss": "Vada (savory fritter)",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "வீட்டை கூட்டு",
+    "word": "வீட்டை கூட்டு",
     "gloss": "Sweep the house",
     "cluster": "home_kitchen",
     "priority": 2
   },
   {
-    "tamil": "அவசியம்",
+    "word": "அவசியம்",
     "gloss": "Necessary / Important (noun)",
     "cluster": "obligation_ability",
     "priority": 1
   },
   {
-    "tamil": "அவசியம் இல்லை",
+    "word": "அவசியம் இல்லை",
     "gloss": "Not necessary",
     "cluster": "obligation_ability",
     "priority": 1
   },
   {
-    "tamil": "இன்னைக்கு வர முடியாது",
+    "word": "இன்னைக்கு வர முடியாது",
     "gloss": "Cannot come today",
     "cluster": "obligation_ability",
     "priority": 1
   },
   {
-    "tamil": "செய்ய முடியும்",
+    "word": "செய்ய முடியும்",
     "gloss": "Can do",
     "cluster": "obligation_ability",
     "priority": 1
   },
   {
-    "tamil": "நான் பாத்துக்கிறேன்",
+    "word": "நான் பாத்துக்கிறேன்",
     "gloss": "I'll manage / I'll take care of it",
     "cluster": "obligation_ability",
     "priority": 1
   },
   {
-    "tamil": "நீங்க பாத்துக்கோங்க",
+    "word": "நீங்க பாத்துக்கோங்க",
     "gloss": "You manage / You take care of it (respectful)",
     "cluster": "obligation_ability",
     "priority": 1
   },
   {
-    "tamil": "பண்ண வேண்டி இருக்கும்",
+    "word": "பண்ண வேண்டி இருக்கும்",
     "gloss": "Might have to do / Will have to do",
     "cluster": "obligation_ability",
     "priority": 1
   },
   {
-    "tamil": "பண்ணி ஆகணும்",
+    "word": "பண்ணி ஆகணும்",
     "gloss": "Must do (stronger emphasis)",
     "cluster": "obligation_ability",
     "priority": 1
   },
   {
-    "tamil": "போக வேண்டி இருக்கும்",
+    "word": "போக வேண்டி இருக்கும்",
     "gloss": "Might have to go / Will have to go",
     "cluster": "obligation_ability",
     "priority": 1
   },
   {
-    "tamil": "போய் ஆகணும்",
+    "word": "போய் ஆகணும்",
     "gloss": "Must go (stronger emphasis)",
     "cluster": "obligation_ability",
     "priority": 1
   },
   {
-    "tamil": "வர முடியாது",
+    "word": "வர முடியாது",
     "gloss": "Cannot come",
     "cluster": "obligation_ability",
     "priority": 1
   },
   {
-    "tamil": "அப்புறமா பேசலாமா?",
+    "word": "அப்புறமா பேசலாமா?",
     "gloss": "Shall we talk later?",
     "cluster": "phone_scheduling",
     "priority": 1
   },
   {
-    "tamil": "எனக்கு போன் பண்ணு",
+    "word": "எனக்கு போன் பண்ணு",
     "gloss": "Call me",
     "cluster": "phone_scheduling",
     "priority": 1
   },
   {
-    "tamil": "எப்ப ஃப்ரீ-யா இருப்ப?",
+    "word": "எப்ப ஃப்ரீ-யா இருப்ப?",
     "gloss": "When will you be free?",
     "cluster": "phone_scheduling",
     "priority": 1
   },
   {
-    "tamil": "டைம் சொல்லு",
+    "word": "டைம் சொல்லு",
     "gloss": "Tell me the time",
     "cluster": "phone_scheduling",
     "priority": 1
   },
   {
-    "tamil": "நான் அப்புறமா கூப்பிடுறேன்",
+    "word": "நான் அப்புறமா கூப்பிடுறேன்",
     "gloss": "I'll call later",
     "cluster": "phone_scheduling",
     "priority": 1
   },
   {
-    "tamil": "நான் கன்ஃபர்ம் பண்றேன்",
+    "word": "நான் கன்ஃபர்ம் பண்றேன்",
     "gloss": "I'll confirm",
     "cluster": "phone_scheduling",
     "priority": 1
   },
   {
-    "tamil": "நான் கூப்பிடுறேன்",
+    "word": "நான் கூப்பிடுறேன்",
     "gloss": "I'll call (you)",
     "cluster": "phone_scheduling",
     "priority": 1
   },
   {
-    "tamil": "பிளான் கேன்சல் பண்ணலாமா?",
+    "word": "பிளான் கேன்சல் பண்ணலாமா?",
     "gloss": "Shall we cancel the plan?",
     "cluster": "phone_scheduling",
     "priority": 1
   },
   {
-    "tamil": "போன்ல பேசு",
+    "word": "போன்ல பேசு",
     "gloss": "Talk on the phone",
     "cluster": "phone_scheduling",
     "priority": 1
   },
   {
-    "tamil": "மெசேஜ் வந்துச்சா?",
+    "word": "மெசேஜ் வந்துச்சா?",
     "gloss": "Did you get the message?",
     "cluster": "phone_scheduling",
     "priority": 1
   },
   {
-    "tamil": "அது உன்னோடது",
+    "word": "அது உன்னோடது",
     "gloss": "That is yours (informal)",
     "cluster": "pronouns",
     "priority": 1
   },
   {
-    "tamil": "அவ வீடு",
+    "word": "அவ வீடு",
     "gloss": "Her house",
     "cluster": "pronouns",
     "priority": 1
   },
   {
-    "tamil": "அவங்க வீடு",
+    "word": "அவங்க வீடு",
     "gloss": "Their house / His/Her house (respectful)",
     "cluster": "pronouns",
     "priority": 1
   },
   {
-    "tamil": "அவன் வீடு",
+    "word": "அவன் வீடு",
     "gloss": "His house",
     "cluster": "pronouns",
     "priority": 1
   },
   {
-    "tamil": "இது அவரோடது",
+    "word": "இது அவரோடது",
     "gloss": "This is his/hers (respectful)",
     "cluster": "pronouns",
     "priority": 1
   },
   {
-    "tamil": "இது என்னோடது",
+    "word": "இது என்னோடது",
     "gloss": "This is mine",
     "cluster": "pronouns",
     "priority": 1
   },
   {
-    "tamil": "உங்க",
+    "word": "உங்க",
     "gloss": "Your (respectful)",
     "cluster": "pronouns",
     "priority": 1
   },
   {
-    "tamil": "உன்",
+    "word": "உன்",
     "gloss": "Your (informal)",
     "cluster": "pronouns",
     "priority": 1
   },
   {
-    "tamil": "எங்க வீடு",
+    "word": "எங்க வீடு",
     "gloss": "Our house (exclusive)",
     "cluster": "pronouns",
     "priority": 1
   },
   {
-    "tamil": "என்",
+    "word": "என்",
     "gloss": "My",
     "cluster": "pronouns",
     "priority": 1
   },
   {
-    "tamil": "நம்ம வீடு",
+    "word": "நம்ம வீடு",
     "gloss": "Our house (inclusive)",
     "cluster": "pronouns",
     "priority": 1
   },
   {
-    "tamil": "யாருது?",
+    "word": "யாருது?",
     "gloss": "Whose is it?",
     "cluster": "pronouns",
     "priority": 1
   },
   {
-    "tamil": "அப்புறம் பாக்கலாம்.",
+    "word": "அப்புறம் பாக்கலாம்.",
     "gloss": "Let's see later. / We'll see later.",
     "cluster": "proposals",
     "priority": 1
   },
   {
-    "tamil": "இப்பவே போலாமா?",
+    "word": "இப்பவே போலாமா?",
     "gloss": "Shall we go now?",
     "cluster": "proposals",
     "priority": 1
   },
   {
-    "tamil": "உட்காரலாமா?",
+    "word": "உட்காரலாமா?",
     "gloss": "Shall we sit?",
     "cluster": "proposals",
     "priority": 1
   },
   {
-    "tamil": "கேக்கலாமா?",
+    "word": "கேக்கலாமா?",
     "gloss": "Shall we ask?",
     "cluster": "proposals",
     "priority": 1
   },
   {
-    "tamil": "செய்யலாமா?",
+    "word": "செய்யலாமா?",
     "gloss": "Shall we do (it)?",
     "cluster": "proposals",
     "priority": 1
   },
   {
-    "tamil": "பேசலாமா?",
+    "word": "பேசலாமா?",
     "gloss": "Shall we talk?",
     "cluster": "proposals",
     "priority": 1
   },
   {
-    "tamil": "போகலாம்.",
+    "word": "போகலாம்.",
     "gloss": "Let's go. (More definitive than 'போலாம்')",
     "cluster": "proposals",
     "priority": 1
   },
   {
-    "tamil": "வரீங்களா?",
+    "word": "வரீங்களா?",
     "gloss": "Are you coming? / Do you want to come?",
     "cluster": "proposals",
     "priority": 1
   },
   {
-    "tamil": "வாங்க!",
+    "word": "வாங்க!",
     "gloss": "Come! / Please come!",
     "cluster": "proposals",
     "priority": 1
   },
   {
-    "tamil": "அது என்ன?",
+    "word": "அது என்ன?",
     "gloss": "What is that?",
     "cluster": "questions",
     "priority": 1
   },
   {
-    "tamil": "இது என்ன?",
+    "word": "இது என்ன?",
     "gloss": "What is this?",
     "cluster": "questions",
     "priority": 1
   },
   {
-    "tamil": "எங்க போறீங்க?",
+    "word": "எங்க போறீங்க?",
     "gloss": "Where are you going?",
     "cluster": "questions",
     "priority": 1
   },
   {
-    "tamil": "எதுக்கு?",
+    "word": "எதுக்கு?",
     "gloss": "For what? / Why?",
     "cluster": "questions",
     "priority": 1
   },
   {
-    "tamil": "என்ன ஆச்சு?",
+    "word": "என்ன ஆச்சு?",
     "gloss": "What happened?",
     "cluster": "questions",
     "priority": 1
   },
   {
-    "tamil": "என்ன பண்றீங்க?",
+    "word": "என்ன பண்றீங்க?",
     "gloss": "What are you doing?",
     "cluster": "questions",
     "priority": 1
   },
   {
-    "tamil": "என்ன விஷயம்?",
+    "word": "என்ன விஷயம்?",
     "gloss": "What's the matter? / What's the news?",
     "cluster": "questions",
     "priority": 1
   },
   {
-    "tamil": "என்ன வேணும்?",
+    "word": "என்ன வேணும்?",
     "gloss": "What do you want?",
     "cluster": "questions",
     "priority": 1
   },
   {
-    "tamil": "என்ன வேணும்?",
+    "word": "என்ன வேணும்?",
     "gloss": "What do you want?",
     "cluster": "questions",
     "priority": 1
   },
   {
-    "tamil": "எப்படி இருக்கீங்க?",
+    "word": "எப்படி இருக்கீங்க?",
     "gloss": "How are you?",
     "cluster": "questions",
     "priority": 1
   },
   {
-    "tamil": "எப்படி இருக்கு?",
+    "word": "எப்படி இருக்கு?",
     "gloss": "How is it?",
     "cluster": "questions",
     "priority": 1
   },
   {
-    "tamil": "எப்போ வந்தீங்க?",
+    "word": "எப்போ வந்தீங்க?",
     "gloss": "When did you come?",
     "cluster": "questions",
     "priority": 1
   },
   {
-    "tamil": "சரியா?",
+    "word": "சரியா?",
     "gloss": "Is that right? / Okay?",
     "cluster": "questions",
     "priority": 1
   },
   {
-    "tamil": "முடிஞ்சிருச்சா?",
+    "word": "முடிஞ்சிருச்சா?",
     "gloss": "Is it finished?",
     "cluster": "questions",
     "priority": 1
   },
   {
-    "tamil": "யாரு கூட?",
+    "word": "யாரு கூட?",
     "gloss": "With whom?",
     "cluster": "questions",
     "priority": 1
   },
   {
-    "tamil": "வேணுமா?",
+    "word": "வேணுமா?",
     "gloss": "Do you want (it)?",
     "cluster": "questions",
     "priority": 1
   },
   {
-    "tamil": "அடடா",
+    "word": "அடடா",
     "gloss": "Oh no! / Alas! (expression of mild disappointment or sympathy)",
     "cluster": "social_reaction",
     "priority": 1
   },
   {
-    "tamil": "அடப்பாவமே",
+    "word": "அடப்பாவமே",
     "gloss": "Oh my god! / What a pity! (stronger expression of sympathy or shock)",
     "cluster": "social_reaction",
     "priority": 1
   },
   {
-    "tamil": "அடேயப்பா",
+    "word": "அடேயப்பா",
     "gloss": "Wow! / Oh my! (expression of surprise, wonder, or sometimes exasperation)",
     "cluster": "social_reaction",
     "priority": 1
   },
   {
-    "tamil": "அதான் பாக்குறேன்",
+    "word": "அதான் பாக்குறேன்",
     "gloss": "That's what I'm looking at / That's what I'm thinking (agreement/acknowledgment)",
     "cluster": "social_reaction",
     "priority": 1
   },
   {
-    "tamil": "அப்படித்தான்",
+    "word": "அப்படித்தான்",
     "gloss": "That's how it is / Exactly like that",
     "cluster": "social_reaction",
     "priority": 1
   },
   {
-    "tamil": "அப்படியா?",
+    "word": "அப்படியா?",
     "gloss": "Is that so? / Really? (general usage, but good to reinforce)",
     "cluster": "social_reaction",
     "priority": 1
   },
   {
-    "tamil": "அப்படியாக்கும்?",
+    "word": "அப்படியாக்கும்?",
     "gloss": "Is that so? (Kongu specific, often with a hint of surprise/skepticism)",
     "cluster": "social_reaction",
     "priority": 1
   },
   {
-    "tamil": "அப்பறம்?",
+    "word": "அப்பறம்?",
     "gloss": "Then? / What next? (used to prompt for more information or continue a story)",
     "cluster": "social_reaction",
     "priority": 1
   },
   {
-    "tamil": "அவ்ளோதான்",
+    "word": "அவ்ளோதான்",
     "gloss": "That's all / That's it (often used to conclude something or express finality)",
     "cluster": "social_reaction",
     "priority": 1
   },
   {
-    "tamil": "என்னங்கப்பா?",
+    "word": "என்னங்கப்பா?",
     "gloss": "What is it, man? / What's up? (Kongu casual, often used to get attention or inquire)",
     "cluster": "social_reaction",
     "priority": 1
   },
   {
-    "tamil": "என்னமோ போங்க",
+    "word": "என்னமோ போங்க",
     "gloss": "Whatever / Let it be (expression of resignation or mild annoyance)",
     "cluster": "social_reaction",
     "priority": 1
   },
   {
-    "tamil": "சும்மா",
+    "word": "சும்மா",
     "gloss": "Just / For no reason / Joking (e.g., சும்மா சொன்னேன் - I just said it / I was joking)",
     "cluster": "social_reaction",
     "priority": 1
   },
   {
-    "tamil": "நல்லா இல்ல",
+    "word": "நல்லா இல்ல",
     "gloss": "It's not good",
     "cluster": "social_reaction",
     "priority": 1
   },
   {
-    "tamil": "அழு",
+    "word": "அழு",
     "gloss": "Cry",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "இங்க வாங்க",
+    "word": "இங்க வாங்க",
     "gloss": "Come here (respectful)",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "உட்காரு",
+    "word": "உட்காரு",
     "gloss": "Sit",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "எடு",
+    "word": "எடு",
     "gloss": "Take / Pick up",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "எழுது",
+    "word": "எழுது",
     "gloss": "Write",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "கவனிங்க",
+    "word": "கவனிங்க",
     "gloss": "Pay attention / Observe (respectful)",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "குடு",
+    "word": "குடு",
     "gloss": "Give",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "கேளுங்க",
+    "word": "கேளுங்க",
     "gloss": "Listen / Ask (respectful)",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "கேள்",
+    "word": "கேள்",
     "gloss": "Ask / Listen",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "கொண்டு போ",
+    "word": "கொண்டு போ",
     "gloss": "Take (away)",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "கொண்டு வா",
+    "word": "கொண்டு வா",
     "gloss": "Bring",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "சத்தம் போடாதீங்க",
+    "word": "சத்தம் போடாதீங்க",
     "gloss": "Don't make noise / Be quiet (respectful)",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "சத்தம் போடு",
+    "word": "சத்தம் போடு",
     "gloss": "Make noise",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "சிரி",
+    "word": "சிரி",
     "gloss": "Laugh",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "சீக்கிரம் வாங்க",
+    "word": "சீக்கிரம் வாங்க",
     "gloss": "Come quickly (respectful)",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "சொல்லு",
+    "word": "சொல்லு",
     "gloss": "Tell / Say",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "திறங்க",
+    "word": "திறங்க",
     "gloss": "Open (respectful)",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "தூக்குங்க",
+    "word": "தூக்குங்க",
     "gloss": "Lift (respectful)",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "நட",
+    "word": "நட",
     "gloss": "Walk",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "படி",
+    "word": "படி",
     "gloss": "Read / Study",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "பாருங்க",
+    "word": "பாருங்க",
     "gloss": "Look / See (respectful)",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "பார்",
+    "word": "பார்",
     "gloss": "See / Look",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "போ",
+    "word": "போ",
     "gloss": "Go",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "போங்க",
+    "word": "போங்க",
     "gloss": "Go (respectful)",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "மூடுங்க",
+    "word": "மூடுங்க",
     "gloss": "Close (respectful)",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "வா",
+    "word": "வா",
     "gloss": "Come",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "வாங்க",
+    "word": "வாங்க",
     "gloss": "Come (respectful)",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "வைங்க",
+    "word": "வைங்க",
     "gloss": "Put / Keep (respectful)",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "அப்புறமா வரேன்",
+    "word": "அப்புறமா வரேன்",
     "gloss": "I'll come later",
     "cluster": "verb_future",
     "priority": 1
   },
   {
-    "tamil": "அழைப்பேன்",
+    "word": "அழைப்பேன்",
     "gloss": "I will call (someone)",
     "cluster": "verb_future",
     "priority": 1
   },
   {
-    "tamil": "எடுப்பேன்",
+    "word": "எடுப்பேன்",
     "gloss": "I will take",
     "cluster": "verb_future",
     "priority": 1
   },
   {
-    "tamil": "கேப்பேன்",
+    "word": "கேப்பேன்",
     "gloss": "I will ask",
     "cluster": "verb_future",
     "priority": 1
   },
   {
-    "tamil": "கொடுப்பேன்",
+    "word": "கொடுப்பேன்",
     "gloss": "I will give",
     "cluster": "verb_future",
     "priority": 1
   },
   {
-    "tamil": "நான் பாத்துக்கிறேன்",
+    "word": "நான் பாத்துக்கிறேன்",
     "gloss": "I'll take care of it (emphatic)",
     "cluster": "verb_future",
     "priority": 1
   },
   {
-    "tamil": "நாளைக்கு பண்றேன்",
+    "word": "நாளைக்கு பண்றேன்",
     "gloss": "I'll do it tomorrow",
     "cluster": "verb_future",
     "priority": 1
   },
   {
-    "tamil": "பாப்பேன்",
+    "word": "பாப்பேன்",
     "gloss": "I will see / I will watch",
     "cluster": "verb_future",
     "priority": 1
   },
   {
-    "tamil": "போட்டுருவேன்",
+    "word": "போட்டுருவேன்",
     "gloss": "I will put (it)",
     "cluster": "verb_future",
     "priority": 1
   },
   {
-    "tamil": "ஆச்சு",
+    "word": "ஆச்சு",
     "gloss": "It happened / It's done",
     "cluster": "verb_past",
     "priority": 1
   },
   {
-    "tamil": "என்ன ஆச்சு?",
+    "word": "என்ன ஆச்சு?",
     "gloss": "What happened? (more explicit)",
     "cluster": "verb_past",
     "priority": 1
   },
   {
-    "tamil": "என்னாச்சு?",
+    "word": "என்னாச்சு?",
     "gloss": "What happened?",
     "cluster": "verb_past",
     "priority": 1
   },
   {
-    "tamil": "சாப்பிடல",
+    "word": "சாப்பிடல",
     "gloss": "Didn't eat (compressed)",
     "cluster": "verb_past",
     "priority": 1
   },
   {
-    "tamil": "தெரியல",
+    "word": "தெரியல",
     "gloss": "I don't know (compressed, common)",
     "cluster": "verb_past",
     "priority": 1
   },
   {
-    "tamil": "பண்ணல",
+    "word": "பண்ணல",
     "gloss": "Didn't do (compressed)",
     "cluster": "verb_past",
     "priority": 1
   },
   {
-    "tamil": "போகல",
+    "word": "போகல",
     "gloss": "Didn't go (compressed)",
     "cluster": "verb_past",
     "priority": 1
   },
   {
-    "tamil": "போச்சு",
+    "word": "போச்சு",
     "gloss": "It went (non-human/thing)",
     "cluster": "verb_past",
     "priority": 1
   },
   {
-    "tamil": "முடிஞ்சுச்சு",
+    "word": "முடிஞ்சுச்சு",
     "gloss": "It's finished / It's over",
     "cluster": "verb_past",
     "priority": 1
   },
   {
-    "tamil": "வந்துச்சு",
+    "word": "வந்துச்சு",
     "gloss": "It came (non-human/thing)",
     "cluster": "verb_past",
     "priority": 1
   },
   {
-    "tamil": "வரல",
+    "word": "வரல",
     "gloss": "Didn't come (compressed)",
     "cluster": "verb_past",
     "priority": 1
   },
   {
-    "tamil": "என்ன பண்ற?",
+    "word": "என்ன பண்ற?",
     "gloss": "What are you doing? (informal, to a friend/younger person)",
     "cluster": "verb_present",
     "priority": 1
   },
   {
-    "tamil": "என்ன பாக்குற?",
+    "word": "என்ன பாக்குற?",
     "gloss": "What are you looking at? (informal)",
     "cluster": "verb_present",
     "priority": 1
   },
   {
-    "tamil": "எழுதுறேன்",
+    "word": "எழுதுறேன்",
     "gloss": "I am writing",
     "cluster": "verb_present",
     "priority": 1
   },
   {
-    "tamil": "குடிக்கிறேன்",
+    "word": "குடிக்கிறேன்",
     "gloss": "I am drinking",
     "cluster": "verb_present",
     "priority": 1
   },
   {
-    "tamil": "கேக்குறேன்",
+    "word": "கேக்குறேன்",
     "gloss": "I am asking / I am listening",
     "cluster": "verb_present",
     "priority": 1
   },
   {
-    "tamil": "சாப்பிடுறேன்",
+    "word": "சாப்பிடுறேன்",
     "gloss": "I am eating",
     "cluster": "verb_present",
     "priority": 1
   },
   {
-    "tamil": "தூங்குறேன்",
+    "word": "தூங்குறேன்",
     "gloss": "I am sleeping",
     "cluster": "verb_present",
     "priority": 1
   },
   {
-    "tamil": "படிக்குறேன்",
+    "word": "படிக்குறேன்",
     "gloss": "I am reading / I am studying",
     "cluster": "verb_present",
     "priority": 1
   },
   {
-    "tamil": "பண்றேன்",
+    "word": "பண்றேன்",
     "gloss": "I am doing (it)",
     "cluster": "verb_present",
     "priority": 1
   },
   {
-    "tamil": "பாக்குறேன்",
+    "word": "பாக்குறேன்",
     "gloss": "I am seeing / I am looking",
     "cluster": "verb_present",
     "priority": 1
   },
   {
-    "tamil": "யோசிக்கிறேன்",
+    "word": "யோசிக்கிறேன்",
     "gloss": "I am thinking",
     "cluster": "verb_present",
     "priority": 1
   },
   {
-    "tamil": "வேலை பண்றேன்",
+    "word": "வேலை பண்றேன்",
     "gloss": "I am working",
     "cluster": "verb_present",
     "priority": 1
   },
   {
-    "tamil": "ரொம்ப",
+    "word": "ரொம்ப",
     "gloss": "Very / a lot — the universal intensifier (locked in 5 deck chunks)",
     "cluster": "descriptions",
     "priority": 1
   },
   {
-    "tamil": "மெதுவா",
+    "word": "மெதுவா",
     "gloss": "Slowly",
     "cluster": "descriptions",
     "priority": 1
   },
   {
-    "tamil": "அதிகம்",
+    "word": "அதிகம்",
     "gloss": "Much / too much (opposite of கம்மி)",
     "cluster": "descriptions",
     "priority": 1
   },
   {
-    "tamil": "பக்கம்",
+    "word": "பக்கம்",
     "gloss": "Side / direction — வலது பக்கம், இடது பக்கம்",
     "cluster": "descriptions",
     "priority": 1
   },
   {
-    "tamil": "இன்னும்",
+    "word": "இன்னும்",
     "gloss": "More / still / yet",
     "cluster": "connectors",
     "priority": 1
   },
   {
-    "tamil": "மாதிரி",
+    "word": "மாதிரி",
     "gloss": "Like / similar to — X மாதிரி",
     "cluster": "connectors",
     "priority": 1
   },
   {
-    "tamil": "எல்லாம்",
+    "word": "எல்லாம்",
     "gloss": "All / everything — இதெல்லாம்",
     "cluster": "connectors",
     "priority": 1
   },
   {
-    "tamil": "அடுத்த",
+    "word": "அடுத்த",
     "gloss": "Next — அடுத்த தடவ",
     "cluster": "connectors",
     "priority": 1
   },
   {
-    "tamil": "நான்",
+    "word": "நான்",
     "gloss": "I",
     "cluster": "pronouns",
     "priority": 1
   },
   {
-    "tamil": "இந்த",
+    "word": "இந்த",
     "gloss": "This (before a noun) — இந்த சட்டை எவ்ளோ?",
     "cluster": "pronouns",
     "priority": 1
   },
   {
-    "tamil": "அந்த",
+    "word": "அந்த",
     "gloss": "That (before a noun)",
     "cluster": "pronouns",
     "priority": 1
   },
   {
-    "tamil": "ஒரு",
+    "word": "ஒரு",
     "gloss": "A / one (before a noun)",
     "cluster": "pronouns",
     "priority": 2
   },
   {
-    "tamil": "நாம",
+    "word": "நாம",
     "gloss": "We (including you)",
     "cluster": "pronouns",
     "priority": 2
   },
   {
-    "tamil": "ஏன்",
+    "word": "ஏன்",
     "gloss": "Why? (only lived fused inside ஏன்னா 'because')",
     "cluster": "questions",
     "priority": 1
   },
   {
-    "tamil": "எத்தனை",
+    "word": "எத்தனை",
     "gloss": "How many? (count — people, days, kids)",
     "cluster": "questions",
     "priority": 1
   },
   {
-    "tamil": "எப்போ",
+    "word": "எப்போ",
     "gloss": "When?",
     "cluster": "questions",
     "priority": 1
   },
   {
-    "tamil": "யாரு",
+    "word": "யாரு",
     "gloss": "Who?",
     "cluster": "questions",
     "priority": 1
   },
   {
-    "tamil": "எப்படி",
+    "word": "எப்படி",
     "gloss": "How?",
     "cluster": "questions",
     "priority": 1
   },
   {
-    "tamil": "நாள்",
+    "word": "நாள்",
     "gloss": "Day (the unit — எவ்ளோ நாள்?)",
     "cluster": "time_units",
     "priority": 1
   },
   {
-    "tamil": "வாரம்",
+    "word": "வாரம்",
     "gloss": "Week",
     "cluster": "time_units",
     "priority": 1
   },
   {
-    "tamil": "மாசம்",
+    "word": "மாசம்",
     "gloss": "Month",
     "cluster": "time_units",
     "priority": 1
   },
   {
-    "tamil": "வருஷம்",
+    "word": "வருஷம்",
     "gloss": "Year",
     "cluster": "time_units",
     "priority": 1
   },
   {
-    "tamil": "தடவ",
+    "word": "தடவ",
     "gloss": "Time / occasion — இன்னொரு தடவ",
     "cluster": "time_units",
     "priority": 1
   },
   {
-    "tamil": "நாலு",
+    "word": "நாலு",
     "gloss": "Four",
     "cluster": "numbers",
     "priority": 1
   },
   {
-    "tamil": "ஆறு",
+    "word": "ஆறு",
     "gloss": "Six",
     "cluster": "numbers",
     "priority": 1
   },
   {
-    "tamil": "ஏழு",
+    "word": "ஏழு",
     "gloss": "Seven",
     "cluster": "numbers",
     "priority": 1
   },
   {
-    "tamil": "எட்டு",
+    "word": "எட்டு",
     "gloss": "Eight",
     "cluster": "numbers",
     "priority": 1
   },
   {
-    "tamil": "ஒம்பது",
+    "word": "ஒம்பது",
     "gloss": "Nine",
     "cluster": "numbers",
     "priority": 1
   },
   {
-    "tamil": "ஐம்பது",
+    "word": "ஐம்பது",
     "gloss": "Fifty",
     "cluster": "numbers",
     "priority": 1
   },
   {
-    "tamil": "ஆயிரம்",
+    "word": "ஆயிரம்",
     "gloss": "Thousand",
     "cluster": "numbers",
     "priority": 1
   },
   {
-    "tamil": "இருபது",
+    "word": "இருபது",
     "gloss": "Twenty",
     "cluster": "numbers",
     "priority": 2
   },
   {
-    "tamil": "முப்பது",
+    "word": "முப்பது",
     "gloss": "Thirty",
     "cluster": "numbers",
     "priority": 2
   },
   {
-    "tamil": "நாப்பது",
+    "word": "நாப்பது",
     "gloss": "Forty (spoken; written நாற்பது)",
     "cluster": "numbers",
     "priority": 2
   },
   {
-    "tamil": "அறுபது",
+    "word": "அறுபது",
     "gloss": "Sixty",
     "cluster": "numbers",
     "priority": 2
   },
   {
-    "tamil": "எழுபது",
+    "word": "எழுபது",
     "gloss": "Seventy",
     "cluster": "numbers",
     "priority": 2
   },
   {
-    "tamil": "எண்பது",
+    "word": "எண்பது",
     "gloss": "Eighty",
     "cluster": "numbers",
     "priority": 2
   },
   {
-    "tamil": "தொண்ணூறு",
+    "word": "தொண்ணூறு",
     "gloss": "Ninety",
     "cluster": "numbers",
     "priority": 2
   },
   {
-    "tamil": "சில்லறை",
+    "word": "சில்லறை",
     "gloss": "Small change (money)",
     "cluster": "numbers",
     "priority": 1
   },
   {
-    "tamil": "கை",
+    "word": "கை",
     "gloss": "Hand",
     "cluster": "body",
     "priority": 1
   },
   {
-    "tamil": "வாய்",
+    "word": "வாய்",
     "gloss": "Mouth",
     "cluster": "body",
     "priority": 1
   },
   {
-    "tamil": "திரும்பு",
+    "word": "திரும்பு",
     "gloss": "Turn (nee-form) — வலது பக்கம் திரும்புங்க",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "விடு",
+    "word": "விடு",
     "gloss": "Let go / leave it (nee-form)",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "பேசு",
+    "word": "பேசு",
     "gloss": "Speak / talk (nee-form)",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "நில்",
+    "word": "நில்",
     "gloss": "Stand / wait (nee-form) — நில்லுங்க",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "பழகு",
+    "word": "பழகு",
     "gloss": "Get used to — பழகிப்போச்சு",
     "cluster": "verb_command",
     "priority": 1
   },
   {
-    "tamil": "ருசி",
+    "word": "ருசி",
     "gloss": "Taste — கை ருசி",
     "cluster": "home_kitchen",
     "priority": 1
   },
   {
-    "tamil": "உண்மை",
+    "word": "உண்மை",
     "gloss": "Truth — அது உண்மையா?",
     "cluster": "social_reaction",
     "priority": 1
   },
   {
-    "tamil": "பிரச்சனை",
+    "word": "பிரச்சனை",
     "gloss": "Problem — பிரச்சனை இல்ல",
     "cluster": "social_reaction",
     "priority": 1

@@ -2498,3 +2498,20 @@ Details live in git history; this is the index of the *conclusions*.
   the Diagnosis pass reads for patterns, and a pattern is what repetition looks like. Dedupe
   would cost a tap or a prompt to protect a ledger that is not harmed. Reopen only if the noise
   ever drowns a real signal in the diagnosis pass, never on tidiness.
+- **`scripts/language.py` — the port surface is one FILE, not one line** (2026-08-28, Andrew).
+  **Sharpens** 08-24, which guarded the script range by needling `TAMIL_RE.pattern` — proving
+  one value while three sat outside it: `run_studio.TAMIL_TAIL_RE` (a SECOND range, landed
+  08-18, sharing no characters with the needle), the pinned voices (re-exported through
+  `render_audio` to six lanes), and the repo identity, spelled out three times. `s70` now reads
+  its needles OFF the module, so adding a value arms the guard for it. Mutation-tested three
+  ways; two catalogue hits in `render_audio` are declared exemptions that may only shrink.
+  **Deliberately excluded:** `MIN_ENGLISH_SHARE` (a tripwire, not a dial), the rails and waking
+  window (facts about Andrew), the episode voice pools (one reader), and `mandates.py` prose —
+  a port rewrites worked examples, and that is an extraction's irreducible half. `language.py`
+  20 in-diff; `state_io` 110→105 and `render_audio` 500→495 re-censused DOWN.
+- **The curriculum schema key is `word`, never a language name** (2026-08-28). `word_pool.json`
+  and `trip_deck.json` stored `{"tamil": …}` — the ONE place a language name was welded into a
+  **data contract** rather than a constant, which no constants file can contain because it
+  travels in every deck a fork writes. 416 rows, pure-key diff, verified by round-tripping the
+  real deck through the real writer in a sandbox and re-reading `lexicon.json` (62/62 landed).
+  `../language-tutor` chose `word` at extraction time, so the schemas now agree.

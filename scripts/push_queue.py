@@ -52,7 +52,7 @@ from morning_knock import (KNOCK_LOG_PATH, LOCAL_TZ, MAX_REACHES_PER_DAY,
                            fires_today as reaches_today)
 from publish import (KNOCKS_DIR, commit_and_push, in_waking_window, jsdelivr_url,
                      load_env, publish, push_to_phone)
-from render_audio import ANNA_VOICE
+from language import ANNA_VOICE
 
 QUEUE_PATH = BASE / "progress" / "push_queue.json"
 

@@ -412,10 +412,10 @@ def s33_catch_response_pairs(mk, sb: Path):
     prompt = "இன்னும் கொஞ்சம் சாப்பிடுங்க"
     answer = "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு"
     paired = [
-        {"tamil": prompt, "gloss": "eat more", "type": "chunk", "direction": "catch",
+        {"word": prompt, "gloss": "eat more", "type": "chunk", "direction": "catch",
          "recognition": "struggled", "phonetic": ["innum konjam saapidunga"],
          "register": "mil-table", "pairs_with": answer},
-        {"tamil": answer, "gloss": "no thanks, I'm full", "type": "chunk",
+        {"word": answer, "gloss": "no thanks, I'm full", "type": "chunk",
          "recognition": "struggled", "phonetic": ["vendaamma"],
          "register": "antifreeze"},
     ]

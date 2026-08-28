@@ -16,12 +16,12 @@ report — do not create a substitute.
 | All state writes to `progress/*.json` | `scripts/sync_state.py` | Never hand-edit Python-owned JSON directly |
 | Paths, load/save, `local_today`, token→canonical-key `resolve` | `scripts/state_io.py` | Imports nothing from `scripts/`; everything may import it. If this file grows, something that mutates state has leaked in |
 | The agent-facing `status` load (banner, soak order, meters, slip block) | `scripts/session_brief.py` | A READ surface — renders state, never mutates it. Sits ABOVE `sync_state` in the import graph |
-| Lexicon key script enforcement | `scripts/state_io.py` → `TAMIL_RE`, `TAMIL_RUN` | PORT SURFACE — the ONE declaration of the script range, guarded by `s70`; see `/extend` Gate 6 |
+| Lexicon key script enforcement; stem-tolerant payload matching | `scripts/language.py` → `TAMIL_RE`, `TAMIL_RUN`, `TAMIL_TAIL_RE` | THE LANGUAGE PACK — every value a port replaces, guarded per-value by `s70`; see `/extend` Gate 6 |
 | Outreach rails (daily cap, min gap) | `scripts/morning_knock.py` → `MAX_REACHES_PER_DAY`, `MIN_GAP_HOURS` | The knock's own rails |
 | Quiet hours (the waking window) | `scripts/publish.py` → `WAKING_START_HOUR`, `WAKING_END_HOUR` | Moved down 2026-08-23: it is EVERY lane's rule, enforced once at `push_to_phone`, never per-lane |
 | Outreach decision prompt (Anna's fire/silence policy prose) | `scripts/morning_knock.py` | Policy is Anna's; Python holds only the rails |
-| Anna's pinned TTS voice, and the overheard aunty's | `scripts/render_audio.py` → `ANNA_VOICE`, `EAVESDROP_VOICE` | Moved 2026-08-23 to the module that owns TTS; five lanes import them — one change covers all |
-| CDN/repo URL for audio links (jsDelivr) | `scripts/publish.py` → `REPO` | `"arosselet/tamil-tutor"` — update on a fork |
+| Anna's pinned TTS voice, and the overheard aunty's | `scripts/language.py` → `ANNA_VOICE`, `EAVESDROP_VOICE` | Moved 2026-08-28 from `render_audio` to the pack; six lanes import them straight from L-1. The episode POOLS stay in `render_audio` — one reader, one file |
+| Repo identity — CDN (jsDelivr), raw feed URLs, site link | `scripts/language.py` → `REPO` | One fact, three spellings until 2026-08-28. `publish.jsdelivr_url` and `rebuild_rss`'s `BASE_URL`/`SITE_URL` all derive from it |
 | Knock reply judge prompt (phonetic→script matching, verdict rules) | `scripts/knock_reply.py` | Port surface — Tamil-specific rules embedded in prose |
 | Slip contract — how an error is named as a pattern (`SLIP_MANDATE`) | `scripts/knock_reply.py` | Port surface — its worked examples are Tamil morphology |
 | The slip ledger: capture, aggregation, retirement, escalation | `scripts/slips.py` | `SLIP_RETIRE_DAYS` (matches `INTERVAL_DAYS["cold"]`), `SLIP_PATTERN_COUNT`; one renderer (`format_slip_block`) feeds all three surfaces |

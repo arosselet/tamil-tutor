@@ -269,7 +269,11 @@ CODE_BUDGETS = {
     "scripts/publish.py": 150,
     "scripts/push_queue.py": 250,
     "scripts/rebuild_rss.py": 350,
-    "scripts/render_audio.py": 500,
+    # 500 → 495 (2026-08-28): re-censused DOWN. The two PINNED voices left for
+    # `language.py`. Small in lines and exact in concern: this file owns the TTS
+    # STACK and the episode voice POOLS (one reader, one file), and no longer
+    # owns an identity fact that six other modules imported through it.
+    "scripts/render_audio.py": 495,
     "scripts/render_chat.py": 100,
     "scripts/render_demo.py": 100,
     # 225 → 235 (2026-08-10). RETIRED IN THIS DIFF: `ask_json`'s private parse —
@@ -360,7 +364,25 @@ CODE_BUDGETS = {
     # above still holds and is the reason the split is legible: nothing that
     # mutates state moved: these four read and decide, and they land beside
     # `resolve`/`is_tamil`, which is the same job one rung narrower.
-    "scripts/state_io.py": 110,
+    # 110 → 105 (2026-08-28): re-censused DOWN. The script range, the stem tail
+    # and `is_tamil` left for `language.py`. The label PORT SURFACE left with
+    # them, and that is the point — this file carried the label from 2026-08-04
+    # while two more port values (the pinned voices, the repo identity) could
+    # never live beside a paths-and-clock module. A label is not a boundary.
+    "scripts/state_io.py": 105,
+    # NEW FILE, budgeted in the same diff that creates it (2026-08-28, Andrew).
+    # THE LANGUAGE PACK — every value a fork to another language replaces, and
+    # nothing else. WHAT IT RETIRES: the port surface being a prose list in
+    # `BOOTSTRAP.md` cross-checked against four files by hand. Concretely it
+    # ends three drifts — `run_studio`'s TAMIL_TAIL_RE (a SECOND script range,
+    # invisible to the 08-24 guard because that guard needles only the first),
+    # `render_audio` re-exporting the pinned voices to six lanes, and the repo
+    # identity spelled out three times across `publish` and `rebuild_rss`.
+    # 20, not 11: the headroom is for a port ADDING a value, and every value
+    # added here is one subtracted from somewhere it was hiding. If this file
+    # ever needs a function longer than `is_tamil`, that is mechanism leaking
+    # into a pack and the answer is to put it back, not to raise this.
+    "scripts/language.py": 20,
     # The slip ledger, split out of sync_state 2026-08-04. Always a subsystem
     # in a file about something else: it owns progress/slip_log.json outright
     # and is reached from three call sites. Imports state_io only — never
@@ -796,7 +818,13 @@ def s78_the_open_gives_before_it_takes(sb: Path):
 # them. `render_audio` is a PRODUCER for L4 — it makes the artifact `publish`
 # delivers — so it sits above it and its import is not a violation.
 LAYERS = {
-    "state_io":           0,      # L0 substrate — imports nothing in scripts/
+    # Below the substrate: the language pack imports NOTHING, not even state_io,
+    # which imports it (2026-08-28). It is numbered under L0 rather than beside
+    # it so that a future edge pointing the other way — the pack reaching for a
+    # path, a clock, or a lexicon — reads as an upward edge and fails here. A
+    # pack that can read state is a pack that can grow mechanism.
+    "language":          -1,
+    "state_io":           0,      # L0 substrate — imports only the pack
 
     "render_chat":        1,      # L1 pure renderers over one source of truth
     "rebuild_rss":        1,

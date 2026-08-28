@@ -86,10 +86,11 @@ def load_modules(sb: Path):
     # function resolves through its OWN globals (`pb.in_waking_window` is the
     # load-bearing one -- patching it anywhere else stops intercepting, and a
     # stub that stops intercepting means a test hits the real phone).
-    global pb, wr, si
+    global pb, wr, si, lang
     pb = importlib.import_module("publish")
     wr = importlib.import_module("writer")
     si = importlib.import_module("state_io")   # L0
+    lang = importlib.import_module("language") # below L0 — the port surface
     check("modules imported from sandbox", mk.__file__.startswith(str(sb)),
           f"morning_knock loaded from {mk.__file__}")
     return mk, kr, pq

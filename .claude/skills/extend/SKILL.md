@@ -111,11 +111,15 @@ the commit body if you touch one. (`BOOTSTRAP.md` → "What Generalizes" → Lay
 | Item | Location |
 |---|---|
 | LLM prompts with Tamil-specific prose rules (script vs. phonetic, Woven Thanglish) | `scripts/morning_knock.py` (decide prompt), `scripts/knock_reply.py` (judge prompt + `SLIP_MANDATE`), `scripts/render_drill.py` (drill-script prompt) |
-| `TAMIL_RE` — script-detection regex that enforces Tamil script as canonical lexicon keys | `scripts/state_io.py` → `TAMIL_RE` |
-| Pinned TTS voice IDs — `ANNA_VOICE` for knocks/drills; voice pools for episodes | `scripts/render_audio.py` → `ANNA_VOICE` / `EAVESDROP_VOICE` (moved there 2026-08-23 — they live with the TTS stack, not with one of the five lanes that read them) |
+| The script ranges (`TAMIL_RE`, `TAMIL_RUN`, `TAMIL_TAIL_RE`), the pinned voices (`ANNA_VOICE`, `EAVESDROP_VOICE`), the repo identity (`REPO`) | `scripts/language.py` — THE LANGUAGE PACK, one file, guarded per-value by `s70` (2026-08-28) |
+| Episode voice POOLS (Chirp / WaveNet / Edge catalogues) | `scripts/render_audio.py` — one reader, one file; the PINNED choice from them lives in the pack |
 
-Also check: `REPO = "arosselet/tamil-tutor"` (`scripts/publish.py` → `REPO`) —
-the jsDelivr CDN URL for knock audio; a fork must update this.
+A fork edits `scripts/language.py` and the `protocol/` prose, and nothing else in
+`scripts/`. `s70` fails the build if any value in the pack acquires a second home —
+including a value ADDED to the pack later, since the needles are read off the module.
+The one thing the pack cannot contain is the LLM prompt prose in `mandates.py`: a port
+rewrites those worked examples rather than substituting a constant, and that is the
+irreducible half of an extraction.
 
 **Cloud rendering:** the cloud DOES render — knock memos and scheduled voice doses, in
 `anna.yml`, the single workflow that carries every secret. The old "cloud never renders /

@@ -53,7 +53,7 @@ Check these manually or with quick one-liners. Each invariant has an enforcing c
 
 | Invariant | Enforcing code | Quick check |
 |---|---|---|
-| Every word key in `lexicon.json` is Tamil script matching `[஀-௿]+`, OR is a `frame:*` pattern key | `state_io.py` → `TAMIL_RE` (the PORT SURFACE); `sync_state.py` → `cmd_add_word` rejects non-Tamil | `python -c "import json,re; d=json.load(open('progress/lexicon.json')); bad=[k for k in d if not re.search(r'[஀-௿]',k) and not k.startswith('frame:')]; print(bad or 'ok')"` |
+| Every word key in `lexicon.json` is Tamil script matching `[஀-௿]+`, OR is a `frame:*` pattern key | `language.py` → `TAMIL_RE` (the language pack); `sync_state.py` → `cmd_add_word` rejects non-Tamil | `python -c "import json,re; d=json.load(open('progress/lexicon.json')); bad=[k for k in d if not re.search(r'[஀-௿]',k) and not k.startswith('frame:')]; print(bad or 'ok')"` |
 | Every lexicon entry's `recognition` is one of `struggled`, `comfortable`, `solid` | `sync_state.py` → `RECOGNITION_LEVELS` | Scan for any value outside the set |
 | Every lexicon entry's `production` is one of `none`, `hinted`, `cold` | `knock_reply.py` → `PRODUCTION_RANK` | Scan for any value outside the set |
 | Every `register` in `lexicon.json` is a key of `REGISTER_TIERS` (`antifreeze`, `public`, `frame`, `faq`, `mil-table`, `social`, `gossip`, `zinger`) | `suggest_targets.py` `REGISTER_TIERS` / `tier_rank` | `python -c "import json,sys; sys.path.insert(0,'scripts'); import suggest_targets as st; d=json.load(open('progress/lexicon.json',encoding='utf-8')); bad={r['register'] for r in d.values() if r.get('register')}-set(st.REGISTER_TIERS); print(bad or 'ok')"` |

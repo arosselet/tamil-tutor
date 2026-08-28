@@ -13,11 +13,12 @@ nothing in `scripts/`, and everything else may import from it.
 """
 
 import json
-import re
 import sys
 from datetime import date, datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
+
+from language import is_tamil
 
 # Windows consoles default to cp1252, which can't print Tamil — the status digest
 # crashed mid-print on a fresh laptop (2026-07-15) and a dead digest invites the
@@ -105,21 +106,14 @@ def local_today() -> date:
     return datetime.now(LOCAL_TZ).date()
 
 
-# Script-detection: Tamil script is the canonical lexicon key, so a phonetic-only
-# token can never mint a record. PORT SURFACE — a fork to another language
-# replaces these two lines and nothing else (moved here from sync_state.py
-# 2026-08-04; the last three copies folded in on 2026-08-24).
-#
-# TWO FORMS, ONE RANGE, and the split is the useful part: `TAMIL_RE` answers "is
-# there any script here at all" — a lexicon key, a lint gate — and `TAMIL_RUN`
-# answers "where are the script spans", which is what the phonetic rewriter's
-# before/after check and the English-share meter need, because both count WORDS
-# and a per-character class counts characters. The spine refactor moved the
-# delivery tail and the model client but left these behind: an exact duplicate in
-# `run_studio`, an inline `re.findall` twelve lines from it, and a third in
-# `writer`. A port surface that has to be remembered in four files is not one.
-TAMIL_RE = re.compile(r"[஀-௿]")
-TAMIL_RUN = re.compile(r"[஀-௿]+")
+# The script range, the stem tail and `is_tamil` moved to `language.py` on
+# 2026-08-28 — the L0 language pack, which is now the ONE file a port to another
+# language rewrites. They were declared here from 2026-08-04 (with the last three
+# stray copies folded in on 08-24); what this file kept was a label, not a
+# boundary, because two more port-surface values — the pinned voices and the repo
+# identity — could never live beside a paths-and-clock module. Import them from
+# `language`, never re-declare them: `smoke/compose.py` fails the build on a
+# second copy.
 
 
 # --- Lexicon helpers ---------------------------------------------------------
@@ -139,9 +133,6 @@ def resolve(word: str, lexicon: dict, phon_index: dict[str, str]) -> str | None:
         return word
     return phon_index.get(word)
 
-
-def is_tamil(word: str) -> bool:
-    return bool(TAMIL_RE.search(word))
 
 # ── The soak order's payload, and the two read-only predicates over state ────
 # Moved down from `sync_state` on 2026-08-23, the last step of the spine

@@ -44,8 +44,9 @@ if hasattr(sys.stdout, "reconfigure"):
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
-# L0 owns the PORT SURFACE — this lane only reads it (2026-08-24).
-from state_io import TAMIL_RE, TAMIL_RUN
+# L0 owns the PORT SURFACE — this lane only reads it (2026-08-24; the pack
+# became its own module 2026-08-28, and TAMIL_TAIL_RE came with it).
+from language import TAMIL_RE, TAMIL_RUN, TAMIL_TAIL_RE
 
 # Cross-process contract, mirrored in render_audio.py and read by
 # A caller reads it as "this host lacks the secrets" — skip, never retry.
@@ -323,10 +324,6 @@ def resolve_writer(prefer: str = "auto"):
     # how a host rule drifts. The studio keeps its own two passes; only the
     # CHOOSING is shared, which is the thing that was ever duplicated.
     return claude_print if have_agent() else openrouter_pass
-
-
-# Tamil vowel signs + the pulli — exactly what inflection replaces on a stem.
-TAMIL_TAIL_RE = re.compile(r"[ா-்]$")
 
 
 def payload_present(word: str, script: str, lexicon: dict) -> bool:

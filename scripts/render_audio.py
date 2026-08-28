@@ -157,12 +157,15 @@ def acquire_state_lock():
     print("   ⚠️ gave up waiting for .studio.lock — publishing without it")
     return None
 
-# Voice pools — Indian Tamil
-# Expanded Chirp pool with 30+ voices
-# PINNED SINGLE VOICES. They live with the TTS stack, not with the knock:
-# five lanes reference them and only one of those is a knock (2026-08-23).
-ANNA_VOICE = "ta-IN-Chirp3-HD-Orus"     # pinned: Anna always sounds like the same someone
-EAVESDROP_VOICE = "ta-IN-Chirp3-HD-Kore"  # pinned: the overheard aunty is one consistent voice too — ear-training tracks a speaker, and the trip's real voices are the aunties, not Anna
+# THE PINNED SINGLE VOICES are no longer declared here (2026-08-28) — import
+# them from `language`. They arrived in this file on 2026-08-23 on the reasoning
+# that they belong with neither of the six lanes that read them, which was right;
+# the pack is a better answer to the same question, because a pinned voice is a
+# value a PORT replaces and this file is not where a port looks.
+#
+# Voice POOLS — Indian Tamil, 30+ Chirp voices. These stay: they are a
+# CATALOGUE with one reader, and the pinned voices above are a choice from it
+# (which is why `s70` carries a declared exemption for the two overlaps).
 
 _CHIRP_POOL_MALE = [
     "ta-IN-Chirp3-HD-Achird", "ta-IN-Chirp3-HD-Algenib", "ta-IN-Chirp3-HD-Algieba",

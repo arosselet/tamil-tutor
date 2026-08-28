@@ -33,6 +33,7 @@ import sys
 from datetime import date, timedelta
 from pathlib import Path
 
+from language import is_tamil
 from slips import (append_slips, canon_tag, cmd_slips, parse_slip_args,
                    record_slip_commission, record_slip_test, slip_patterns)
 from publish import commit_and_push, publish
@@ -43,7 +44,7 @@ from state_io import (BASE, DEFAULT_TZ, EPISODES_PATH, FEEDBACK_LOG_PATH,
                       KNOCK_LOG_PATH, LEARNER_PATH, LEXICON_PATH,
                       RECENT_AUDIO_PATH, SESSION_LOG_PATH, SLIP_LOG_PATH,
                       build_phonetic_index,
-                      is_tamil, load_json, local_today, resolve, save_json)
+                      load_json, local_today, resolve, save_json)
 
 # Windows consoles default to cp1252, which can't print Tamil — the status digest
 # crashed mid-print on a fresh laptop (2026-07-15) and a dead digest invites the
@@ -919,7 +920,7 @@ def cmd_seed_deck(args):
     drafts it, the Oracle vets it); this command is the MECHANISM that lands it —
     the same LLM-writes / Python-owns-state split as word_pool.json.
 
-    Each deck entry: {"tamil", "gloss", "phonetic": [...], "type": "chunk"|"frame",
+    Each deck entry: {"word", "gloss", "phonetic": [...], "type": "chunk"|"frame",
     "register"?, "recognition"?, "direction"?: "fire"|"catch", "pairs_with"?}. A "frame" is
     stored as a lexicon `pattern` (an Engine); a "chunk" is word-like (counts in the
     viability floor).
@@ -955,29 +956,30 @@ def cmd_seed_deck(args):
     # failure it exists to prevent (2026-07-26: the maami's "eat more" kept its
     # deck slot while its refusal was dropped, and nothing could notice). A split
     # pair refuses the whole seed BEFORE any write: fix the file, re-run.
-    in_file = {e.get("tamil") for e in entries}
-    split = [(e.get("tamil"), e.get("pairs_with")) for e in entries
+    # The schema key is "word" (2026-08-28) — see suggest_targets.cluster_gaps.
+    in_file = {e.get("word") for e in entries}
+    split = [(e.get("word"), e.get("pairs_with")) for e in entries
              if e.get("pairs_with") and e["pairs_with"] not in in_file]
     if split:
-        for tamil, pair in split:
-            print(f"  ✗ '{tamil}' pairs_with '{pair}', which is not in this deck — split pair.")
+        for word, pair in split:
+            print(f"  ✗ '{word}' pairs_with '{pair}', which is not in this deck — split pair.")
         print("  Error: seed refused, nothing written. A pair must resolve inside the file.")
         sys.exit(1)
     created = updated = 0
     for e in entries:
-        tamil = e.get("tamil")
-        if not tamil:
-            print(f"  ! deck entry missing 'tamil' — skipped: {e}")
+        word = e.get("word")
+        if not word:
+            print(f"  ! deck entry missing 'word' — skipped: {e}")
             continue
         pair = e.get("pairs_with")
         lex_type = "pattern" if e.get("type") == "frame" else e.get("type", "chunk")
         # Chunks/words must be canonical Tamil script; frames use the `frame:...`
         # key convention (like add-pattern), so they're exempt from the script check.
-        if lex_type != "pattern" and not is_tamil(tamil):
-            print(f"  ! '{tamil}' isn't Tamil script — chunks must be canonical script. Skipped.")
+        if lex_type != "pattern" and not is_tamil(word):
+            print(f"  ! '{word}' isn't Tamil script — chunks must be canonical script. Skipped.")
             continue
-        if tamil in lexicon:
-            rec = lexicon[tamil]
+        if word in lexicon:
+            rec = lexicon[word]
             rec["deck"] = args.deck
             rec["direction"] = e.get("direction", "fire")
             if e.get("register"):
@@ -994,7 +996,7 @@ def cmd_seed_deck(args):
                     rec["phonetic"].append(phon)
             updated += 1
         else:
-            lexicon[tamil] = {
+            lexicon[word] = {
                 "type": lex_type,
                 "gloss": e.get("gloss", ""),
                 "phonetic": e.get("phonetic", []),

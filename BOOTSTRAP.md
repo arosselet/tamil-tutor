@@ -83,7 +83,7 @@ This repo is a **reference implementation, not a framework** — the goal here i
 **Layer 1 — the machinery (mostly general, with a known port surface).** The Python engine, state schema, and daily-loop choreography carry over unchanged, *except*:
 
 - **LLM prompts embedded in the Python.** `morning_knock.py` (the outreach-decision prompt), `knock_reply.py` (the judge prompt **and `SLIP_MANDATE`**, whose worked examples are Tamil morphology — the `-ōm` ending, the honorific `-nga`), and `render_drill.py` (the drill-script prompt) state Tamil-specific rules in prose — Tamil script vs. phonetic, Woven Thanglish. This is the port surface a swap-the-`.md`-files pass will miss.
-- **Constants.** The script-detection regex (`TAMIL_RE` in `sync_state.py` — canonical lexicon keys must be Tamil script), the pinned TTS voice IDs (`ta-IN-…` in `morning_knock.py` / `render_audio.py`), and the repo URL used for CDN links.
+- **Constants.** All of them now live in ONE file, `scripts/language.py` (2026-08-28): the script-detection regexes (canonical lexicon keys must be Tamil script), the stem-tail range inflection replaces, the pinned TTS voice IDs, and the repo identity every CDN and feed URL derives from. A port rewrites that file; `s70` fails the build if any of its values grows a second home elsewhere. The episode voice *pools* stay in `render_audio.py`, which is their only reader.
 
 **Layer 2 — the language pack (swap these files):**
 
@@ -93,7 +93,7 @@ This repo is a **reference implementation, not a framework** — the goal here i
 | `protocol/studio/hosts.md` | The podcast cast (names + regional identity) | New cast names and regional voice |
 | `protocol/studio/dialect.md` | Spoken-register rules (verb collapse, fusion, slang) | The target dialect's spoken rules |
 | `protocol/constitution.md` | Mostly universal — but the dialect *examples* are Tamil | Edit the inline examples to the new language |
-| `curriculum/word_pool.json` | The glue-word suggestion pool | The new language's high-frequency glue |
+| `curriculum/word_pool.json` | The glue-word suggestion pool (rows are `{"word", "gloss", "cluster", "priority"}` — the key is `word`, not a language name, since 2026-08-28) | The new language's high-frequency glue |
 
 Two constitution rules are language-*culture* dependent, not universal. **Woven Thanglish / the Noun Shortcut** works because code-switched English is native to spoken Coimbatore Tamil; for another language, keep the underlying rule — *target the register natives actually speak, and use the learner's L1 as scaffolding however that register permits* — and re-derive the letter. Likewise the **phonetic/script modality split** collapses for Latin-script languages and mutates for others (e.g. pinyin + tones).
 

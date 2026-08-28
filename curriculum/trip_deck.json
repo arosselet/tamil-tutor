@@ -2,7 +2,7 @@
   {
     "register": "faq",
     "type": "chunk",
-    "tamil": "ஒரு மாசம் இருப்போம்",
+    "word": "ஒரு மாசம் இருப்போம்",
     "gloss": "We're staying one month (the 'evlo naal irupeenga?' answer)",
     "phonetic": [
       "oru maasam iruppom"
@@ -13,7 +13,7 @@
   {
     "register": "faq",
     "type": "chunk",
-    "tamil": "நேத்து தான் வந்தோம்",
+    "word": "நேத்து தான் வந்தோம்",
     "gloss": "We arrived just yesterday (the 'eppo vandheenga?' answer — swap the day word as needed)",
     "phonetic": [
       "nethu dhaan vandhom"
@@ -23,7 +23,7 @@
   {
     "register": "faq",
     "type": "chunk",
-    "tamil": "சாஃப்ட்வேர் இன்ஜினியரா இருக்கேன்",
+    "word": "சாஃப்ட்வேர் இன்ஜினியரா இருக்கேன்",
     "gloss": "I'm a software engineer (the 'enna velai?' answer — Oracle's form)",
     "phonetic": [
       "software engineer-a irukken"
@@ -33,7 +33,7 @@
   {
     "register": "faq",
     "type": "chunk",
-    "tamil": "கனடாவுல இருக்கோம்",
+    "word": "கனடாவுல இருக்கோம்",
     "gloss": "We live in Canada (the 'enga irukkeenga?' answer)",
     "phonetic": [
       "canada-la irukkom"
@@ -43,7 +43,7 @@
   {
     "register": "faq",
     "type": "chunk",
-    "tamil": "ரொம்ப பிடிச்சிருக்கு",
+    "word": "ரொம்ப பிடிச்சிருக்கு",
     "gloss": "I really like it — food/place/people (the default delight answer)",
     "phonetic": [
       "romba pidichirukku"
@@ -53,7 +53,7 @@
   {
     "register": "faq",
     "type": "chunk",
-    "tamil": "காரம் பரவாயில்ல, பழகிப்போச்சு",
+    "word": "காரம் பரவாயில்ல, பழகிப்போச்சு",
     "gloss": "Spice is fine — I'm used to it now (the answer they won't expect from the ginger fella)",
     "phonetic": [
       "kaaram paravaayilla, pazhagippochu"
@@ -64,7 +64,7 @@
   {
     "register": "antifreeze",
     "type": "chunk",
-    "tamil": "கொஞ்சம் மெதுவா சொல்லுங்க",
+    "word": "கொஞ்சம் மெதுவா சொல்லுங்க",
     "gloss": "Say it a bit slowly (the freeze-breaker — always a legal move)",
     "phonetic": [
       "konjam medhuva sollunga"
@@ -74,7 +74,7 @@
   {
     "register": "antifreeze",
     "type": "chunk",
-    "tamil": "இன்னொரு தடவ சொல்லுங்க",
+    "word": "இன்னொரு தடவ சொல்லுங்க",
     "gloss": "Say it once more",
     "phonetic": [
       "innoru thadava sollunga"
@@ -84,7 +84,7 @@
   {
     "register": "antifreeze",
     "type": "chunk",
-    "tamil": "என்ன சொன்னீங்க?",
+    "word": "என்ன சொன்னீங்க?",
     "gloss": "What did you say? (neenga-form)",
     "phonetic": [
       "enna sonneenga"
@@ -94,7 +94,7 @@
   {
     "register": "antifreeze",
     "type": "chunk",
-    "tamil": "தமிழ்ல எப்படி சொல்றது?",
+    "word": "தமிழ்ல எப்படி சொல்றது?",
     "gloss": "How do you say it in Tamil?",
     "phonetic": [
       "tamizh-la eppadi solradhu"
@@ -104,7 +104,7 @@
   {
     "register": "antifreeze",
     "type": "chunk",
-    "tamil": "ஆமா ஆமா",
+    "word": "ஆமா ஆமா",
     "gloss": "Yeah, yeah (backchannel — keeps the speaker going, holds your seat in the conversation)",
     "phonetic": [
       "aama aama"
@@ -114,7 +114,7 @@
   {
     "register": "antifreeze",
     "type": "chunk",
-    "tamil": "அப்படியா?!",
+    "word": "அப்படியா?!",
     "gloss": "Oh really?! (backchannel — surprise/interest)",
     "phonetic": [
       "appadiya"
@@ -124,7 +124,7 @@
   {
     "register": "antifreeze",
     "type": "chunk",
-    "tamil": "சரி சரி",
+    "word": "சரி சரி",
     "gloss": "Right, right (backchannel — agreement)",
     "phonetic": [
       "seri seri"
@@ -134,7 +134,7 @@
   {
     "register": "antifreeze",
     "type": "chunk",
-    "tamil": "புரியல",
+    "word": "புரியல",
     "gloss": "I don't understand",
     "phonetic": [
       "puriyala"
@@ -145,7 +145,7 @@
   {
     "register": "antifreeze",
     "type": "chunk",
-    "tamil": "யாரு?",
+    "word": "யாரு?",
     "gloss": "Who? (the referent repair — when you followed the sentence but lost who it's about)",
     "phonetic": [
       "yaaru"
@@ -157,7 +157,7 @@
   {
     "register": "mil-table",
     "type": "chunk",
-    "tamil": "இன்னும் கொஞ்சம் சாப்பிடுங்க",
+    "word": "இன்னும் கொஞ்சம் சாப்பிடுங்க",
     "gloss": "Eat a little more (HER line — hear it coming)",
     "phonetic": [
       "innum konjam saapidunga"
@@ -170,7 +170,7 @@
   {
     "register": "mil-table",
     "type": "chunk",
-    "tamil": "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு",
+    "word": "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு",
     "gloss": "No thanks, I'm full — the refusal to the maami's 'eat more'",
     "phonetic": [
       "vendaamma, vayiru nerainjiduchu"
@@ -181,7 +181,7 @@
   {
     "register": "mil-table",
     "type": "chunk",
-    "tamil": "ரொம்ப நல்லா இருக்கு",
+    "word": "ரொம்ப நல்லா இருக்கு",
     "gloss": "It's really good — THE melt line (Oracle: praise beats asking; seconds arrive unasked)",
     "phonetic": [
       "romba nallarukku"
@@ -192,7 +192,7 @@
   {
     "register": "mil-table",
     "type": "chunk",
-    "tamil": "இன்னும் கொஞ்சம் போடுங்க",
+    "word": "இன்னும் கொஞ்சம் போடுங்க",
     "gloss": "Serve me a little more (optional — seconds come unasked; praise first, this second)",
     "phonetic": [
       "innum konjam podunga"
@@ -202,7 +202,7 @@
   {
     "register": "mil-table",
     "type": "chunk",
-    "tamil": "உங்க கை ருசி சூப்பர்",
+    "word": "உங்க கை ருசி சூப்பர்",
     "gloss": "Your cooking (hand-taste) is superb",
     "phonetic": [
       "unga kai ruchi super"
@@ -213,7 +213,7 @@
   {
     "register": "mil-table",
     "type": "chunk",
-    "tamil": "நானே எடுத்துக்கறேன்",
+    "word": "நானே எடுத்துக்கறேன்",
     "gloss": "I'll serve myself",
     "phonetic": [
       "naane eduthukkaren"
@@ -223,7 +223,7 @@
   {
     "register": "mil-table",
     "type": "chunk",
-    "tamil": "கொஞ்சம் தண்ணி குடுங்க",
+    "word": "கொஞ்சம் தண்ணி குடுங்க",
     "gloss": "Please give a little water",
     "phonetic": [
       "konjam thanni kudunga"
@@ -233,7 +233,7 @@
   {
     "register": "mil-table",
     "type": "chunk",
-    "tamil": "கை கழுவிட்டு வரேன்",
+    "word": "கை கழுவிட்டு வரேன்",
     "gloss": "I'll wash my hands and come",
     "phonetic": [
       "kai kazhuvittu varen"
@@ -243,7 +243,7 @@
   {
     "register": "mil-table",
     "type": "chunk",
-    "tamil": "உட்கார்ந்து பேசுங்க",
+    "word": "உட்கார்ந்து பேசுங்க",
     "gloss": "Sit and talk",
     "phonetic": [
       "ukkaandhu pesunga"
@@ -253,7 +253,7 @@
   {
     "register": "mil-table",
     "type": "chunk",
-    "tamil": "நீங்க சாப்பிட்டீங்களா?",
+    "word": "நீங்க சாப்பிட்டீங்களா?",
     "gloss": "Did you eat? (respectful — asking her back)",
     "phonetic": [
       "ninga saaptingala"
@@ -263,7 +263,7 @@
   {
     "register": "gossip",
     "type": "chunk",
-    "tamil": "அவங்க என்ன சொன்னாங்க?",
+    "word": "அவங்க என்ன சொன்னாங்க?",
     "gloss": "What did they say? (your eavesdrop question)",
     "phonetic": [
       "avanga enna sonnaanga"
@@ -273,7 +273,7 @@
   {
     "register": "gossip",
     "type": "chunk",
-    "tamil": "யாருக்கு தெரியும்?",
+    "word": "யாருக்கு தெரியும்?",
     "gloss": "Who knows? (the shrug)",
     "phonetic": [
       "yaarukku theriyum"
@@ -283,7 +283,7 @@
   {
     "register": "gossip",
     "type": "chunk",
-    "tamil": "அது உண்மையா?",
+    "word": "அது உண்மையா?",
     "gloss": "Is that true?",
     "phonetic": [
       "adhu unmaiya"
@@ -293,7 +293,7 @@
   {
     "register": "gossip",
     "type": "chunk",
-    "tamil": "எனக்கு ஒன்னும் தெரியாது",
+    "word": "எனக்கு ஒன்னும் தெரியாது",
     "gloss": "I don't know anything (staying out of it — comedy gold fired deadpan)",
     "phonetic": [
       "enakku onnum theriyaadhu"
@@ -303,7 +303,7 @@
   {
     "register": "gossip",
     "type": "chunk",
-    "tamil": "தெரியுமா?",
+    "word": "தெரியுமா?",
     "gloss": "You know…? (a real gossip opener — Oracle-confirmed)",
     "phonetic": [
       "theriyuma"
@@ -314,7 +314,7 @@
   {
     "register": "gossip",
     "type": "frame",
-    "tamil": "frame:youknow-la",
+    "word": "frame:youknow-la",
     "gloss": "நம்ம {person} இருக்கான்ல… → 'you know our {person}, right…' — THE gossip opener; the -ல tag means 'right?' (EAR ONLY, Oracle-confirmed)",
     "phonetic": [
       "namma thambi irukkaan-la"
@@ -325,7 +325,7 @@
   {
     "register": "gossip",
     "type": "chunk",
-    "tamil": "சும்மா சொல்றாங்க",
+    "word": "சும்மா சொல்றாங்க",
     "gloss": "They're just talking / making it up (the dismissal — hear it)",
     "phonetic": [
       "summa solraanga"
@@ -336,7 +336,7 @@
   {
     "register": "gossip",
     "type": "chunk",
-    "tamil": "என்னமோ பிரச்சனை",
+    "word": "என்னமோ பிரச்சனை",
     "gloss": "Some problem or other (the gossip hum — catch the drift)",
     "phonetic": [
       "ennamo prachanai"
@@ -347,7 +347,7 @@
   {
     "register": "gossip",
     "type": "chunk",
-    "tamil": "விட்டுடு",
+    "word": "விட்டுடு",
     "gloss": "Let it go / drop it (nee-form — cousins say it to each other)",
     "phonetic": [
       "vittudu"
@@ -358,7 +358,7 @@
   {
     "register": "public",
     "type": "chunk",
-    "tamil": "எவ்ளோ ஆகும்?",
+    "word": "எவ்ளோ ஆகும்?",
     "gloss": "How much will it be? (Oracle: it's always 'evlo' in the mouth, never 'evvalavu')",
     "phonetic": [
       "evlo aagum"
@@ -368,7 +368,7 @@
   {
     "register": "public",
     "type": "chunk",
-    "tamil": "ரொம்ப அதிகம்",
+    "word": "ரொம்ப அதிகம்",
     "gloss": "That's too much",
     "phonetic": [
       "romba adhigam"
@@ -378,7 +378,7 @@
   {
     "register": "public",
     "type": "chunk",
-    "tamil": "இங்க நிறுத்துங்க",
+    "word": "இங்க நிறுத்துங்க",
     "gloss": "Stop here (to a driver)",
     "phonetic": [
       "inga niruthunga"
@@ -388,7 +388,7 @@
   {
     "register": "public",
     "type": "chunk",
-    "tamil": "நேரா போங்க",
+    "word": "நேரா போங்க",
     "gloss": "Go straight",
     "phonetic": [
       "nera ponga"
@@ -398,7 +398,7 @@
   {
     "register": "public",
     "type": "chunk",
-    "tamil": "வலது பக்கம் திரும்புங்க",
+    "word": "வலது பக்கம் திரும்புங்க",
     "gloss": "Turn right",
     "phonetic": [
       "valadu pakkam thirumbunga"
@@ -408,7 +408,7 @@
   {
     "register": "public",
     "type": "chunk",
-    "tamil": "சில்லறை இருக்கா?",
+    "word": "சில்லறை இருக்கா?",
     "gloss": "Do you have change? (you're the cash man on this trip)",
     "phonetic": [
       "sillarai irukka"
@@ -418,7 +418,7 @@
   {
     "register": "public",
     "type": "chunk",
-    "tamil": "அவசரம் இருக்கு",
+    "word": "அவசரம் இருக்கு",
     "gloss": "I'm in a hurry",
     "phonetic": [
       "avasaram irukku"
@@ -428,7 +428,7 @@
   {
     "register": "public",
     "type": "chunk",
-    "tamil": "கொஞ்சம் நில்லுங்க",
+    "word": "கொஞ்சம் நில்லுங்க",
     "gloss": "Wait a moment (respectful)",
     "phonetic": [
       "konjam nillunga"
@@ -438,7 +438,7 @@
   {
     "register": "frame",
     "type": "frame",
-    "tamil": "frame:want-noun",
+    "word": "frame:want-noun",
     "gloss": "{English noun} வேணும் → I want {noun} (e.g. 'auto வேணும்')",
     "phonetic": [],
     "recognition": "comfortable"
@@ -446,7 +446,7 @@
   {
     "register": "frame",
     "type": "frame",
-    "tamil": "frame:where-noun",
+    "word": "frame:where-noun",
     "gloss": "{noun} எங்க? → where is {noun}? (e.g. 'bus stop எங்க?')",
     "phonetic": [],
     "recognition": "comfortable"
@@ -454,7 +454,7 @@
   {
     "register": "frame",
     "type": "frame",
-    "tamil": "frame:isthere-noun",
+    "word": "frame:isthere-noun",
     "gloss": "{noun} இருக்கா? → is there {noun}? (e.g. 'coffee இருக்கா?')",
     "phonetic": [],
     "recognition": "comfortable"
@@ -462,7 +462,7 @@
   {
     "register": "frame",
     "type": "frame",
-    "tamil": "frame:howmuch-noun",
+    "word": "frame:howmuch-noun",
     "gloss": "{noun} எவ்ளோ? → how much is {noun}? (e.g. 'idhu evlo?' — Oracle: always the contracted 'evlo')",
     "phonetic": [],
     "recognition": "comfortable"
@@ -470,7 +470,7 @@
   {
     "register": "frame",
     "type": "frame",
-    "tamil": "frame:mayi-laama",
+    "word": "frame:mayi-laama",
     "gloss": "நான் {verb}-லாமா? → may I {verb}? (permission, e.g. 'ukkaralaama?')",
     "phonetic": [],
     "recognition": "struggled"
@@ -478,7 +478,7 @@
   {
     "register": "frame",
     "type": "frame",
-    "tamil": "frame:giveme-noun",
+    "word": "frame:giveme-noun",
     "gloss": "{noun} குடுங்க → give me {noun} (e.g. 'oru tea kudunga')",
     "phonetic": [],
     "recognition": "comfortable"
@@ -486,7 +486,7 @@
   {
     "register": "frame",
     "type": "frame",
-    "tamil": "frame:needtogo-place",
+    "word": "frame:needtogo-place",
     "gloss": "{place}-க்கு போகணும் → (I) need to go to {place}",
     "phonetic": [],
     "recognition": "comfortable"
@@ -494,7 +494,7 @@
   {
     "register": "frame",
     "type": "frame",
-    "tamil": "frame:nearby-noun",
+    "word": "frame:nearby-noun",
     "gloss": "பக்கத்துல {noun} இருக்கா? → is there {noun} nearby?",
     "phonetic": [],
     "recognition": "struggled"
@@ -502,7 +502,7 @@
   {
     "register": "frame",
     "type": "frame",
-    "tamil": "frame:polite-nga",
+    "word": "frame:polite-nga",
     "gloss": "{verb}+ங்க → the polite ask — சொல்லுங்க, குடுங்க, உக்காருங்க, வாங்க: one machine, every verb he owns",
     "phonetic": [],
     "recognition": "comfortable",
@@ -511,7 +511,7 @@
   {
     "register": "frame",
     "type": "frame",
-    "tamil": "frame:we-om",
+    "word": "frame:we-om",
     "gloss": "{I-form}+ஓம் → we — வந்தோம், போனோம், இருப்போம், சாப்பிட்டோம்: the trip is a 'we' trip",
     "phonetic": [],
     "recognition": "struggled"
@@ -519,7 +519,7 @@
   {
     "register": "frame",
     "type": "frame",
-    "tamil": "frame:day-recap",
+    "word": "frame:day-recap",
     "gloss": "{place} போனோம், ரொம்ப நல்லா இருந்துச்சு → we went to {place}, it was great (the nightly 'inniki enna panninga?' answer)",
     "phonetic": [],
     "recognition": "struggled"
@@ -527,7 +527,7 @@
   {
     "register": "frame",
     "type": "frame",
-    "tamil": "frame:quote-nu",
+    "word": "frame:quote-nu",
     "gloss": "…-னு சொன்னாங்க → 'she said that…' — the quotative -னு; every reported line in gossip hangs on it (EAR ONLY)",
     "phonetic": [],
     "recognition": "struggled",
@@ -536,7 +536,7 @@
   {
     "register": "frame",
     "type": "frame",
-    "tamil": "frame:hearsay-aam",
+    "word": "frame:hearsay-aam",
     "gloss": "…-ஆம் → 'apparently / they say' — the hearsay tag gossip runs on (varaanga-laam = apparently they're coming) (EAR ONLY)",
     "phonetic": [],
     "recognition": "struggled",
@@ -545,7 +545,7 @@
   {
     "register": "social",
     "type": "chunk",
-    "tamil": "எப்படி இருக்கீங்க?",
+    "word": "எப்படி இருக்கீங்க?",
     "gloss": "How are you? (respectful)",
     "phonetic": [
       "eppadi irukkinga"
@@ -555,7 +555,7 @@
   {
     "register": "social",
     "type": "chunk",
-    "tamil": "ரொம்ப நாளாச்சு",
+    "word": "ரொம்ப நாளாச்சு",
     "gloss": "It's been a long time",
     "phonetic": [
       "romba naalaachu"
@@ -565,7 +565,7 @@
   {
     "register": "social",
     "type": "chunk",
-    "tamil": "வந்துட்டேன்",
+    "word": "வந்துட்டேன்",
     "gloss": "I've arrived / I came",
     "phonetic": [
       "vandhutten"
@@ -575,7 +575,7 @@
   {
     "register": "social",
     "type": "chunk",
-    "tamil": "கிளம்பலாமா?",
+    "word": "கிளம்பலாமா?",
     "gloss": "Shall we get going?",
     "phonetic": [
       "kilambalaama"
@@ -585,7 +585,7 @@
   {
     "register": "social",
     "type": "chunk",
-    "tamil": "அப்புறம் பார்க்கலாம்",
+    "word": "அப்புறம் பார்க்கலாம்",
     "gloss": "See you later (colloquial — nobody says 'piragu' at the door)",
     "phonetic": [
       "appuram paakkalaam"
@@ -595,7 +595,7 @@
   {
     "register": "social",
     "type": "chunk",
-    "tamil": "ரொம்ப சந்தோஷம்",
+    "word": "ரொம்ப சந்தோஷம்",
     "gloss": "So happy (to meet you / about this) — with the smile, it's complete",
     "phonetic": [
       "romba sandhosham"
@@ -605,7 +605,7 @@
   {
     "register": "social",
     "type": "chunk",
-    "tamil": "ஃப்ரீயா விடுங்க",
+    "word": "ஃப்ரீயா விடுங்க",
     "gloss": "Don't worry / let it go (Oracle's form — 'freeya vidu' only to very close cousins/friends)",
     "phonetic": [
       "freeya vidunga"
@@ -615,7 +615,7 @@
   {
     "register": "social",
     "type": "chunk",
-    "tamil": "நல்லா இருங்க",
+    "word": "நல்லா இருங்க",
     "gloss": "Take care / be well",
     "phonetic": [
       "nalla irunga"
@@ -625,7 +625,7 @@
   {
     "register": "social",
     "type": "chunk",
-    "tamil": "ஒரு நிமிஷம்",
+    "word": "ஒரு நிமிஷம்",
     "gloss": "One moment / just a minute",
     "phonetic": [
       "oru nimisham"
@@ -635,7 +635,7 @@
   {
     "register": "zinger",
     "type": "chunk",
-    "tamil": "நான் கோயம்புத்தூர்காரன் மாதிரி ஆயிட்டேன்",
+    "word": "நான் கோயம்புத்தூர்காரன் மாதிரி ஆயிட்டேன்",
     "gloss": "I've become like a Coimbatore local",
     "phonetic": [
       "naan coimbatore-kaaran maadhiri aayitten"
@@ -646,7 +646,7 @@
   {
     "register": "zinger",
     "type": "chunk",
-    "tamil": "இதெல்லாம் எனக்கு புடிக்கும்",
+    "word": "இதெல்லாம் எனக்கு புடிக்கும்",
     "gloss": "I like all this (the food/the place/the people)",
     "phonetic": [
       "idhellaam enakku pudikkum"
@@ -656,7 +656,7 @@
   {
     "register": "zinger",
     "type": "chunk",
-    "tamil": "அடுத்த தடவ நானே சமைக்கறேன்",
+    "word": "அடுத்த தடவ நானே சமைக்கறேன்",
     "gloss": "Next time I'll cook myself",
     "phonetic": [
       "aduthha thadava naane samaikkaren"
@@ -666,7 +666,7 @@
   {
     "register": "zinger",
     "type": "chunk",
-    "tamil": "கொஞ்சம் கொஞ்சம் புரியுது",
+    "word": "கொஞ்சம் கொஞ்சம் புரியுது",
     "gloss": "I understand a little by little",
     "phonetic": [
       "konjam konjam puriyudhu"
@@ -677,7 +677,7 @@
   {
     "register": "zinger",
     "type": "chunk",
-    "tamil": "வாய் திறந்தா காக்கா கொத்திட்டு போயிடும்",
+    "word": "வாய் திறந்தா காக்கா கொத்திட்டு போயிடும்",
     "gloss": "If I open my mouth a crow will peck it away — I'm THAT stuffed (the wife's own sassy idiom)",
     "phonetic": [
       "vai therantha kaakka kothittu poidum"
@@ -688,7 +688,7 @@
   {
     "register": "frame",
     "type": "frame",
-    "tamil": "frame:done-ittu",
+    "word": "frame:done-ittu",
     "gloss": "{verb}+இட்டு/‑ட்டு → done-and-dusted / off-I-go — வந்துட்டேன், கழுவிட்டு வரேன், விட்டுடு, ஆயிட்டேன்: the completive already inside 7 deck items",
     "phonetic": [
       "vandhutten",
@@ -702,7 +702,7 @@
   {
     "register": "frame",
     "type": "frame",
-    "tamil": "frame:adverb-aa",
+    "word": "frame:adverb-aa",
     "gloss": "{X}+ஆ → 'X-ly / as X' — நல்லா, மெதுவா, தண்ணியா, இன்ஜினியரா இருக்கேன்: one machine turns anything into an adverb",
     "phonetic": [
       "medhuvaa",
@@ -716,7 +716,7 @@
   {
     "register": "frame",
     "type": "frame",
-    "tamil": "frame:in-la",
+    "word": "frame:in-la",
     "gloss": "{noun}+ல → in/at/on — கனடாவுல, தமிழ்ல, வீட்ல, போன்ல: the everywhere locative",
     "phonetic": [
       "canada-la",
@@ -730,7 +730,7 @@
   {
     "register": "frame",
     "type": "frame",
-    "tamil": "frame:happened-aachu",
+    "word": "frame:happened-aachu",
     "gloss": "{V}+ச்சு / ஆச்சு → 'it happened / it's become' — ஆச்சு, போச்சு, முடிஞ்சுச்சு, நேரம் ஆச்சு: the it-verb the pool is already full of",
     "phonetic": [
       "aachu",
@@ -744,7 +744,7 @@
   {
     "register": "frame",
     "type": "frame",
-    "tamil": "frame:if-ndhaa",
+    "word": "frame:if-ndhaa",
     "gloss": "{verb}+ந்தா / இல்லன்னா → 'if…' — வாய் திறந்தா…, இல்லன்னா என்ன ஆகும்?: the conditional",
     "phonetic": [
       "thorandhaa",
@@ -757,7 +757,7 @@
   {
     "register": "frame",
     "type": "frame",
-    "tamil": "frame:spice-dhaan",
+    "word": "frame:spice-dhaan",
     "gloss": "the sass clitics: ‑தான் 'just/exactly', ‑ஏ '-self/very', ‑உம் 'even/any', ‑ஓ 'some-or-other' — நேத்து தான், நானே, ஒன்னும், என்னமோ (EAR ONLY)",
     "phonetic": [
       "nethu dhaan",
@@ -771,7 +771,7 @@
   {
     "register": "frame",
     "type": "frame",
-    "tamil": "frame:myself-thukka",
+    "word": "frame:myself-thukka",
     "gloss": "{verb}+த்துக்க → do-for-myself — எடுத்துக்கறேன், பாத்துக்கிறேன், பாத்துக்கோங்க (EAR ONLY)",
     "phonetic": [
       "eduthukkaren",
@@ -782,7 +782,7 @@
     "note": "audit 2026-07-06 — pending Oracle vet"
   },
   {
-    "tamil": "ஊரு",
+    "word": "ஊரு",
     "gloss": "Hometown / the village — THE family word for the native place",
     "phonetic": [
       "ooru",
@@ -795,7 +795,7 @@
     "note": "Chat-mined 2026-07-13: 'na ooruku pona plan marumla' (Swapna); 'oor trip is alaichal plus work' (Oracle). Combines with owned frames: 'ooruku polaama?'"
   },
   {
-    "tamil": "கடைசில பாக்கலாம்",
+    "word": "கடைசில பாக்கலாம்",
     "gloss": "We'll see at the end / last minute (the family-planning verdict)",
     "phonetic": [
       "kadaisila paakalam",
@@ -808,7 +808,7 @@
     "note": "Chat-mined 2026-07-13: 'Kadaisila confirm pakkalam, if it suits everyone' (Swapna). Drop it mid plan-chaos."
   },
   {
-    "tamil": "முடிஞ்சா",
+    "word": "முடிஞ்சா",
     "gloss": "If possible / if I can — the one-word softener",
     "phonetic": [
       "mudinja",
@@ -821,7 +821,7 @@
     "note": "Chat-mined 2026-07-13: 'Mudinja naama… polam' (Swapna). The if-engine in chunk form; softens any ask."
   },
   {
-    "tamil": "அலைச்சல்",
+    "word": "அலைச்சல்",
     "gloss": "The hassle / the running-around",
     "phonetic": [
       "alaichal",
@@ -834,7 +834,7 @@
     "note": "Chat-mined 2026-07-13: 'the oor trip is alaichal plus work' (the Oracle's own word). Hear it coming."
   },
   {
-    "tamil": "ஜாஸ்தி",
+    "word": "ஜாஸ்தி",
     "gloss": "Too much / extra (days, price, anything)",
     "phonetic": [
       "jasthi",
@@ -847,7 +847,7 @@
     "note": "Chat-mined 2026-07-13: 'jasthi days irundha' (Shobi). Kongu staple; market-useful ('jasthi' = overpriced)."
   },
   {
-    "tamil": "ஒரே கல்லுல ரெண்டு மாங்கா",
+    "word": "ஒரே கல்லுல ரெண்டு மாங்கா",
     "gloss": "Two mangoes with one stone (two birds, one stone)",
     "phonetic": [
       "ore kallula rendu manga",
@@ -860,7 +860,7 @@
     "note": "Chat-mined 2026-07-13: the Oracle extended it live — 'ore kallula rendu… illa moonu manga'. Extending to moonu at the table is the heist move."
   },
   {
-    "tamil": "பிறந்தநாள் வாழ்த்துக்கள்",
+    "word": "பிறந்தநாள் வாழ்த்துக்கள்",
     "gloss": "Happy birthday (for amma — her birthday lands ~Aug 24, mid-CBE stay)",
     "phonetic": [
       "pirandhanaal vaazhthukkal",

@@ -56,8 +56,8 @@ from pathlib import Path
 # grab. The seam moved here with `ask_json` (2026-08-23) and must stay reachable.
 from openai import OpenAI
 
+from language import TAMIL_RUN
 from mandates import PHONETIC_REWRITE
-from state_io import TAMIL_RUN
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))

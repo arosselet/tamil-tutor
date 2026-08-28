@@ -608,29 +608,122 @@ def s70_the_executor_is_chosen_by_the_host(sb: Path):
         check(f"{name} takes its executor from writer",
               "from writer import" in src, "imports ask_json from somewhere else")
 
-    # ── THE PORT SURFACE IS ONE LINE, OR IT IS NOT A PORT SURFACE (2026-08-24).
-    # `state_io` carries the comment "a fork to another language replaces this
-    # regex" and, until today, three other files carried the same character range
-    # anyway: an exact duplicate in `run_studio`, an inline `re.findall` twelve
-    # lines below it, and `writer.TAMIL_RUN`. A forked repo would have changed the
-    # labelled one, passed every test, and kept matching Tamil in three places.
+    # ── THE PORT SURFACE IS ONE FILE, OR IT IS NOT A PORT SURFACE ───────────
     #
-    # The needle is READ OFF `state_io` rather than written here, so this case
-    # cannot itself become the fifth copy, and mechanism-only so the paragraph
-    # above may quote what it forbids.
-    needle = fx.si.TAMIL_RE.pattern
-    copies = []
-    for f in sorted((sb / "scripts").glob("*.py")):
-        if f.name == "state_io.py":
-            continue
-        fsrc = f.read_text(encoding="utf-8")
-        mech = code_line_numbers(fsrc)   # once per FILE — it re-parses the source
-        if any(needle in ln for i, ln in enumerate(fsrc.splitlines(), 1)
-               if i in mech):
-            copies.append(f.name)
-    check("the Tamil script range is declared ONCE, in the file labelled PORT SURFACE",
-          not copies, f"a second copy lives in {', '.join(copies)} — import "
-                      f"TAMIL_RE / TAMIL_RUN from state_io instead")
+    # 2026-08-24 said "one LINE" and guarded the script range: `state_io`
+    # carried the comment "a fork to another language replaces this regex" while
+    # three other files carried the same character range anyway. That guard
+    # worked and is kept. What it could not see is the shape of its own needle.
+    #
+    # 2026-08-28: `run_studio.TAMIL_TAIL_RE` — Tamil vowel signs plus the pulli,
+    # for stem-tolerant payload matching — is a SECOND script range, sharing no
+    # characters with the first. It landed 2026-08-18, sat through the 08-24
+    # sweep, and passed this case every run, because a guard that needles one
+    # value proves one value. A port that changed the labelled range would have
+    # gone on stemming Tamil. Two more values were in the same position and
+    # nothing was looking at all: the pinned voices (declared in `render_audio`,
+    # re-exported to six lanes) and the repo identity (spelled out three times
+    # across `publish` and `rebuild_rss`).
+    #
+    # So the needle list is no longer written here — it is READ OFF the pack, one
+    # needle per public value. Adding a value to `language.py` arms this case for
+    # it automatically, which is the property the 08-24 version lacked and the
+    # only reason that drift was possible.
+    #
+    # GATE 7.2 — WHAT DOES THIS LOOK LIKE WHEN IT SILENTLY DOES NOTHING? It looks
+    # like every green run this case has ever had. An empty needle list, a pack
+    # that failed to import, a glob that matched nothing: all of them pass every
+    # assertion below while checking zero values. So the first check is teeth on
+    # the NEEDLES, not on the law.
+    def pack_needles(mod):
+        """{NAME: the literal a fork replaces} for every public value in the
+        pack. A compiled regex contributes its pattern; a str contributes
+        itself. Anything else is mechanism and does not belong here."""
+        out = {}
+        for n in dir(mod):
+            if not n.isupper():
+                continue
+            v = getattr(mod, n)
+            if hasattr(v, "pattern"):
+                out[n] = v.pattern
+            elif isinstance(v, str):
+                out[n] = v
+        return out
+
+    def second_homes(needles, files):
+        """[(NAME, filename)] for every needle found in a file's MECHANISM lines
+        — comments and docstrings are free, so the paragraph above may quote what
+        it forbids. `files` is [(name, source)]."""
+        found = []
+        for fname, fsrc in files:
+            mech = code_line_numbers(fsrc)   # once per FILE — it re-parses
+            body = [ln for i, ln in enumerate(fsrc.splitlines(), 1) if i in mech]
+            for name, needle in needles.items():
+                if any(needle in ln for ln in body):
+                    found.append((name, fname))
+        return found
+
+    needles = pack_needles(fx.lang)
+    check(f"the pack yielded needles to check ({len(needles)} values)",
+          len(needles) >= 6 and "TAMIL_TAIL_RE" in needles,
+          f"got {sorted(needles)} — a needle list that comes back empty or short "
+          f"makes every assertion below pass while proving nothing; the count is "
+          f"a floor, not a target")
+
+    # An occurrence that is allowed to exist, each carrying WHY — the same
+    # mechanism UP_EXCEPTIONS runs on, and the same law: it may only shrink.
+    PACK_EXEMPTIONS = {
+        ("ANNA_VOICE", "render_audio.py"):
+            "the episode voice POOLS are a catalogue and the pinned voice is a "
+            "choice FROM it — `_CHIRP_POOL_MALE` legitimately lists Orus among "
+            "sixteen. A catalogue entry is not a second declaration of the pin.",
+        ("EAVESDROP_VOICE", "render_audio.py"):
+            "same: `_CHIRP_POOL_FEMALE` lists Kore among fourteen.",
+    }
+
+    others = [(f.name, f.read_text(encoding="utf-8"))
+              for f in sorted((sb / "scripts").glob("*.py"))
+              if f.name != "language.py"]
+    found = second_homes(needles, others)
+    copies = sorted(f"{n} in {f}" for n, f in found if (n, f) not in PACK_EXEMPTIONS)
+    check("every language value is declared ONCE, in the pack",
+          not copies, f"a second home for {', '.join(copies)} — import it from "
+                      f"`language` instead, or declare an exemption with a reason")
+
+    # The guard's own guard: an exemption whose occurrence is gone is a licence
+    # nothing revokes ("an allowlist that outlives what it allowed is not a
+    # guard", 2026-08-24). Handing it back is part of landing the fix.
+    stale = sorted(k for k in PACK_EXEMPTIONS if k not in set(found))
+    check("every declared pack exemption still describes a real occurrence",
+          not stale, "gone: " + "; ".join(f"{n} in {f}" for n, f in stale)
+                     + " — delete the exemption with it")
+
+    # THE POSITIVE CONTROL — a sweep that can never fire reads green on a tree
+    # that has drifted. Driven on a synthetic file, so the proof lives in the
+    # suite permanently instead of in one session's notes.
+    # The prose exemption is WHOLE-LINE comments and docstrings only — a needle
+    # in a trailing comment still counts, and that asymmetry is deliberate:
+    # `code_line_numbers` filters by LINE, so the conservative direction is the
+    # safe one (a copy cannot hide behind a trailing `#`), while the paragraphs
+    # above this case — which quote every value they forbid — sit on lines of
+    # their own and are free. Asserting all three, because the first version of
+    # this control asserted the trailing case backwards and went red.
+    planted = second_homes(
+        {"PIN": "zz-QQ-Sentinel"},
+        [("copy_lane.py", 'PIN = "zz-QQ-Sentinel"\n'),
+         ("trailing_lane.py", 'X = 1  # zz-QQ-Sentinel\n'),
+         ("prose_lane.py", '"""zz-QQ-Sentinel in a docstring."""\n'
+                           '# zz-QQ-Sentinel in a comment\n'
+                           'X = 1\n')])
+    check("the sweep finds a planted second home",
+          ("PIN", "copy_lane.py") in planted,
+          f"{planted} — a sweep that cannot find a planted copy reads green on "
+          f"a tree that has already drifted")
+    check("...and prose that quotes a value is free, while a trailing # is not",
+          ("PIN", "prose_lane.py") not in planted
+          and ("PIN", "trailing_lane.py") in planted,
+          f"{planted} — if the docstring counted, this case's own paragraphs "
+          f"would fail it; if the trailing comment did not, a copy could hide")
 
     # ── THE THIRD FAMILY'S WHOLE DECLARATION (2026-08-24) ────────────────────
     # `push_queue` is pure delivery: ZERO model calls at fire time, by design.

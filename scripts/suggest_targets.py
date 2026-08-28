@@ -710,15 +710,19 @@ def new_candidates_by_cluster(lexicon: dict, word_pool: list, n_clusters: int, p
             continue
         cluster = entry.get("cluster", "uncategorized")
         c = clusters.setdefault(cluster, {"total": 0, "known": 0, "candidates": [], "seen": set()})
-        tamil = entry["tamil"]
-        if tamil in c["seen"]:
+        # The curriculum schema's key is "word" (2026-08-28). A language NAME in
+        # a data contract is the one leak no constants file can contain, because
+        # it travels in every deck a fork writes; language-tutor had already
+        # chosen "word" for this field, so the two schemas now agree.
+        word = entry["word"]
+        if word in c["seen"]:
             continue  # word_pool has a few duplicate rows
-        c["seen"].add(tamil)
+        c["seen"].add(word)
         c["total"] += 1
-        if tamil in lexicon:
+        if word in lexicon:
             c["known"] += 1
         else:
-            c["candidates"].append({"tamil": tamil, "gloss": entry.get("gloss", "")})
+            c["candidates"].append({"word": word, "gloss": entry.get("gloss", "")})
 
     # Thinnest coverage first — that's where the floor is least served.
     ranked = sorted(
@@ -1106,7 +1110,7 @@ def main():
     for name, c in ranked:
         print(f"  [{name}]  known {c['known']}/{c['total']}")
         for cand in c["candidates"][:per_cluster]:
-            print(f"      - {cand['tamil']} — {cand['gloss']}")
+            print(f"      - {cand['word']} — {cand['gloss']}")
 
     # 4. Vocabulary fence — the sea the Architect swims in. Studio-only (--fence).
     if not args.fence:

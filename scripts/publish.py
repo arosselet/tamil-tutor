@@ -33,11 +33,11 @@ from pathlib import Path
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
+from language import REPO
 from render_chat import render_chat
 from state_io import KNOCK_LOG_PATH, LOCAL_TZ
 
 
-REPO = "arosselet/tamil-tutor"          # for the jsDelivr URL
 KNOCKS_DIR = BASE / "published_audio" / "knocks"   # tracked, jsDelivr-served dir
 
 # ── The waking window ────────────────────────────────────────────────────────

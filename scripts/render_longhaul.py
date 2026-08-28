@@ -64,8 +64,8 @@ BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from lanes import deliver_rendered
 from publish import commit_and_push, load_env, push_to_phone
-from render_audio import (ANNA_VOICE, EAVESDROP_VOICE,
-                          generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME,
+from language import ANNA_VOICE, EAVESDROP_VOICE
+from render_audio import (generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME,
                           clean_for_tts, google_credentials_ready, EXIT_NOT_CONFIGURED,
                           _CHIRP_POOL_MALE, _CHIRP_POOL_FEMALE)
 # Reused rather than re-implemented: one single-shot call -> parsed JSON, fence

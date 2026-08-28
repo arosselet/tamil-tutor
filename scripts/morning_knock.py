@@ -42,8 +42,9 @@ from mandates import OUTREACH_MANDATE
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
+from language import ANNA_VOICE, EAVESDROP_VOICE
 from render_audio import (generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME,
-                          clean_memo_for_tts, ANNA_VOICE, EAVESDROP_VOICE)
+                          clean_memo_for_tts)
 from publish import (BODY_BUDGET, KNOCKS_DIR, WAKING_END_HOUR, WAKING_START_HOUR,
                      commit_and_push, jsdelivr_url, load_env, over_budget,
                      publish, push_to_phone)
