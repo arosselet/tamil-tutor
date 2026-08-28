@@ -5499,8 +5499,8 @@
     "expected_target": "குடிச்சேன்",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Nalla irunduchu",
-    "reply_verdict": "cold",
+    "reply": "No thanks da",
+    "reply_verdict": "miss",
     "reply_fired": [
       "குடிச்சேன்",
       "போதும்",
@@ -5511,8 +5511,8 @@
       "போதும்"
     ],
     "reply_fired_capped": [],
-    "reply_line": "adhu dhaan! 'nalla irundhuchu' since you just finished it — spot on. 🔥 · Now Maami offers snacks for the road — tell her 'no need':",
-    "reply_at": "2026-08-28T09:13:56Z",
+    "reply_line": "tamizh-la 'venaam' da — adhu dhaan next time.",
+    "reply_at": "2026-08-28T09:17:10Z",
     "exchanges": [
       {
         "at": "2026-08-28T08:31:17Z",
@@ -5574,6 +5574,19 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "adhu dhaan! 'nalla irundhuchu' since you just finished it — spot on. 🔥 · Now Maami offers snacks for the road — tell her 'no need':",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-28T09:17:10Z",
+        "reply": "No thanks da",
+        "verdict": "miss",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "tamizh-la 'venaam' da — adhu dhaan next time.",
         "slips": [],
         "spoke": "",
         "scheduled": ""
