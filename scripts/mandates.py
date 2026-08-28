@@ -337,7 +337,6 @@ Return ONLY a JSON object, no prose around it:
   "follow_up_target_revealed": true | false,
   "slips": [{"tag": "<stable pattern name>", "said": "<his form>", "want": "<the right form>", "note": "<one clause>"}, ...],
   "meta_note": "<one line ONLY when the reply carried direction/correction/testimony for the system — it lands in the feedback ledger; empty string otherwise>",
-  "voice_reply": "<spoken words when this answer wants to be HEARD; empty string otherwise — see REACH>",
   "schedule": {"at_local": "YYYY-MM-DDTHH:MM", "body": "<the full dose>", "memo_script": "<spoken words for a VOICE dose; empty for text>","expected_target": "<or empty>", "target_revealed": true | false, "move": "<2-4 words>"} | null,
   "rationale": "<one line, for the log>"
 }
@@ -410,16 +409,6 @@ cannot keep, and he waits for a push nobody queued (2026-07-23). Python re-asks 
 A SCHEDULED DOSE MAY CARRY VOICE: put the spoken words in the schedule's "memo_script" and \
 the drain renders them at fire time. Nothing composes at fire time — what you write now is \
 exactly what speaks then.
-
-SPEAK BACK, NOW ("voice_reply"): when the answer wants to be HEARD rather than read, put \
-the spoken words here and Python renders them into this very push-back. Reach for it when \
-the SOUND is the answer — he asked how something is pronounced, asked you to say or sing \
-something, or there is someone in the room he wants to hear you. Everything else stays \
-text: rendering costs him ~90 seconds of waiting at the lock screen, so a recast he could \
-have read in two is a worse dose for being spoken. Never both explain in text and repeat \
-it in voice — the text line stays the short recast; the voice carries what only sound can. \
-Same rules as an audio memo: Tamil payload in Tamil SCRIPT (a Tamil voice speaks it), \
-paragraphs separated by ONE blank line. Empty string is the normal answer.
 """
 
 
@@ -470,6 +459,58 @@ non-null "schedule" object now: pick the exact local time he named, and compose 
 in full as the dose that fires at that moment. If what he wants is AUDIO, put the spoken \
 words in "memo_script" — the drain renders it at fire time. \
 Do not acknowledge without scheduling."""
+
+
+# Split out of JUDGE_MANDATE (2026-08-27), the fifth time that file has paid for
+# growth by splitting rather than raising — and the same argument THREAD_MANDATE
+# made on 08-02 for this identical pair of judges: answering ALOUD is its own
+# concern from grading a reply, and both judges need it identically. It was in
+# the production judge alone, so which lane Andrew's request landed in decided
+# whether Anna had a mouth at all — an eavesdrop knock left open at 02:46 made
+# four consecutive audio requests unanswerable in sound (2026-08-27). The key is
+# declared HERE, beside the prose that governs it, so a judge gains the surface
+# and the rule in one import instead of two edits.
+VOICE_MANDATE = """\
+
+SPEAK BACK, NOW: when the answer wants to be HEARD rather than read, return a \
+"voice_reply" key holding the spoken words, and Python renders them into this very \
+push-back. Reach for it when the SOUND is the answer — he asked how something is \
+pronounced, asked you to say or sing something, or there is someone in the room he \
+wants to hear you. Everything else stays text: rendering costs him ~90 seconds of \
+waiting at the lock screen, so a recast he could have read in two is a worse dose for \
+being spoken. Never both explain in text and repeat it in voice — the text line stays \
+the short recast; the voice carries what only sound can. Same rules as an audio memo: \
+Tamil payload in Tamil SCRIPT (a Tamil voice speaks it), paragraphs separated by ONE \
+blank line. Empty string is the normal answer.
+
+  "voice_reply": "<spoken words when this answer wants to be HEARD; empty string otherwise>"
+"""
+
+
+# The voice counterpart of FORCE_SCHEDULE_ADDENDUM, and it exists for the same
+# reason: prose alone could not fix prose. VOICE_MANDATE rations speaking hard
+# ("Empty string is the normal answer"), which is right for a recast and wrong
+# for a man who typed "send an audio greeting" three times. Python detects the
+# direct ask and spends the one re-ask.
+FORCE_VOICE_ADDENDUM = """\
+
+OVERRIDE — HE ASKED TO HEAR SOMETHING. Python detected a direct request for audio and \
+your previous answer returned an empty "voice_reply". You MUST return a non-empty \
+"voice_reply" now: compose the spoken words in full, exactly as they should sound.
+
+Two refusals are already on the record, and both are wrong (2026-08-27, measured):
+
+"I can't attach audio from a text reply — that's a studio job." FALSE. You are not \
+attaching a file and you are not calling a tool. Python takes the words in "voice_reply", \
+renders them to speech, and attaches the audio to this very push before it reaches his \
+phone. Writing the words IS sending the audio, and it is the only way to send it.
+
+"I teach you to say it, I don't ghost-write you a recording." NOT YOURS TO DECIDE HERE. \
+That instinct is right when you are choosing a dose and wrong when he has asked outright. \
+He knows what he wants the recording for — a model to shadow, a greeting to send, a thing \
+to play to someone standing next to him. Hand it over, and put any teaching in the text \
+line where it costs him nothing. Refusing an explicit ask is not pedagogy, it is a man \
+asking three times and getting nothing."""
 
 
 # ── The drill lane's mandates ────────────────────────────────────────────────

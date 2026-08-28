@@ -59,13 +59,15 @@ from writer import BOOL, STR, arr, ask_json, executor_name, obj, to_phonetic
 JUDGE_SCHEMA = obj(verdict=STR, fired=arr(word=STR, said=STR, verdict=STR),
                    reply_line=STR, follow_up_ask=STR, follow_up_target=STR,
                    follow_up_target_revealed=BOOL, meta_note=STR, rationale=STR)
-CATCH_SCHEMA = obj(verdict=STR, reply_line=STR, meta_note=STR, rationale=STR)
+CATCH_SCHEMA = obj(verdict=STR, reply_line=STR, meta_note=STR, rationale=STR,
+                   voice_reply=STR)
 from state_io import FEEDBACK_LOG_PATH, LEARNER_PATH, LEXICON_PATH, SLIP_LOG_PATH, build_phonetic_index, load_json, local_today, resolve, save_json
 from slips import append_slips, slip_patterns
 from sync_state import fires_today
 
 from mandates import (CATCH_JUDGE_MANDATE, FORCE_SCHEDULE_ADDENDUM, JUDGE_MANDATE,
-                      REACH_MANDATE, SLIP_MANDATE, THREAD_MANDATE)
+                      FORCE_VOICE_ADDENDUM, REACH_MANDATE, SLIP_MANDATE,
+                      THREAD_MANDATE, VOICE_MANDATE)
 
 PRODUCTION_RANK = {"none": 0, "hinted": 1, "cold": 2}
 VERDICTS = {"cold", "hinted", "miss", "chat"}
@@ -165,20 +167,26 @@ def catch_context(knock: dict, reply_text: str, klog: list | None = None) -> dic
     return context
 
 
-def judge_catch(knock: dict, reply_text: str, klog: list | None = None) -> dict:
+def judge_catch(knock: dict, reply_text: str, klog: list | None = None,
+                force_voice: bool = False) -> dict:
     """The comprehension judge for an eavesdrop dose — a deliberately separate,
     smaller mandate so the production judge's rules (reveal caps, chains,
     per-word grades) never leak into a drift grade."""
     persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
     context = catch_context(knock, reply_text, klog)
     print(f"   [catch judge] {executor_name()}")
-    d = ask_json(persona + "\n\n---\n\n" + CATCH_JUDGE_MANDATE + "\n" + THREAD_MANDATE,
+    # VOICE_MANDATE joins here (2026-08-27). Until it did, WHICH judge ran —
+    # decided by the modality of the newest open knock, never by what Andrew
+    # asked for — decided whether Anna could answer in sound at all.
+    d = ask_json(persona + "\n\n---\n\n" + CATCH_JUDGE_MANDATE + "\n" + THREAD_MANDATE
+                 + "\n" + VOICE_MANDATE + (FORCE_VOICE_ADDENDUM if force_voice else ""),
                  json.dumps(context, ensure_ascii=False, indent=2),
-                 CATCH_SCHEMA, answer_tokens=400)
+                 CATCH_SCHEMA, answer_tokens=700 if force_voice else 550)
     if d.get("verdict") not in CATCH_VERDICTS:
         d["verdict"] = "chat"
     d["reply_line"] = (d.get("reply_line") or "").strip()
     d["meta_note"] = (d.get("meta_note") or "").strip()
+    d["voice_reply"] = (d.get("voice_reply") or "").strip()
     return d
 
 
@@ -232,6 +240,8 @@ def handle_catch_reply(knock: dict, reply_text: str, klog: list,
     print(f"1. judging DRIFT reply against eavesdrop knock {knock.get('timestamp', '?')[:16]}…")
     verdict = judge_catch(knock, reply_text, klog)
     print(f"   → {verdict['verdict']} | {verdict.get('rationale', '')}")
+    verdict = ensure_voice(verdict, reply_text, lambda: judge_catch(
+        knock, reply_text, klog, force_voice=True))
 
     if dry_run:
         print(f"[dry-run] would apply, then push: {verdict['reply_line']}")
@@ -254,6 +264,7 @@ def handle_catch_reply(knock: dict, reply_text: str, klog: list,
     save_json(LEXICON_PATH, lexicon)
     save_json(KNOCK_LOG_PATH, klog)
 
+    voice_url, vmp3 = speak(verdict, knock, klog)
     meta = record_meta_note(verdict)
 
     print("3. commit + push…")
@@ -262,11 +273,13 @@ def handle_catch_reply(knock: dict, reply_text: str, klog: list,
     # quiet-hours chokepoint must not swallow it (2026-07-26).
     commit_and_push(*publish(
         [LEXICON_PATH, KNOCK_LOG_PATH, FEEDBACK_LOG_PATH if meta else None],
-        f"Knock reply: {verdict['verdict']} (eavesdrop)"))
+        f"Knock reply: {verdict['verdict']} (eavesdrop)",
+        mp3=vmp3 if voice_url else None))
     print("4. push back…")
-    push_to_phone(verdict["reply_line"], None,
+    push_to_phone(verdict["reply_line"], voice_url,
                   knock_id=knock.get("timestamp", ""), requested=True)
-    print("done — drift judged, catch axis scored, answered.")
+    print(f"done — drift judged, catch axis scored, "
+          f"answered{' (aloud 🎧)' if voice_url else ''}.")
 
 
 def last_fired_knock(klog: list) -> dict | None:
@@ -349,6 +362,61 @@ ASK_RE = re.compile(
     r"|schedul\w*|queue|push|play|say|speak|sing|record|tell|wish)\b", re.I)
 
 
+AUDIO_RE = re.compile(
+    r"\b(audio|voice|voice[- ]?note|aloud|out\s+loud|say|speak|spoken|sing|sung"
+    r"|pronounc\w*|record\w*|greeting|memo|hear|listen|sound)\b", re.I)
+
+
+def wants_spoken_reply(text: str) -> bool:
+    """True when Andrew's reply reads as 'let me HEAR this'.
+
+    The voice counterpart of wants_scheduled_push below, and it exists for the
+    identical reason: VOICE_MANDATE rations speaking hard — "Empty string is the
+    normal answer" — which is right for a recast and wrong for a man who typed
+    "Send an audio greeting in Tamil" and then asked twice more when nothing
+    arrived (2026-08-27). Prose cannot fix prose; the rule needs a mechanism.
+
+    Wide on the same terms as the clock detector: a false positive costs one
+    re-ask, a false negative costs Andrew the thing he asked for. Widen on sight
+    — "say vanakkam for me" is the demo he actually wants and it needs `say`
+    here, not only in ASK_RE where the AND would never fire.
+
+    `said` and `tell` stay OUT. Both must be readable as a question about
+    MEANING — "tell me what she said" wants a gloss, not a rendering — and a
+    false positive there is worse than a wasted call: the backstop would write
+    MISSED VOICE into the feedback ledger for a request he never made. The
+    ledger note quotes his words verbatim so a reader can always see which it
+    was."""
+    return bool(AUDIO_RE.search(text) and ASK_RE.search(text))
+
+
+def ensure_voice(verdict: dict, reply_text: str, rejudge) -> dict:
+    """The audio-request backstop: one forced re-ask, then a LOUD miss.
+
+    Modelled line-for-line on the clock-request backstop in main(), because the
+    failure is the same shape. `rejudge` is a zero-arg callable that re-runs the
+    caller's own judge with force_voice=True, so both lanes share this body
+    without this function knowing which judge it is talking to.
+
+    The silent-no-op answer (Gate 7): a lane that declines to speak looks EXACTLY
+    like a normal text reply — that is precisely how four requests in a row were
+    swallowed with every instrument green. So the third outcome is not silence:
+    it writes MISSED VOICE into the feedback ledger, where the diagnosis pass
+    reads it."""
+    if not wants_spoken_reply(reply_text) or verdict.get("voice_reply"):
+        return verdict
+    print("   🎧 direct audio request with no voice_reply — re-asking once, forced…")
+    forced = rejudge()
+    if forced.get("voice_reply"):
+        print("   → speaking")
+        return forced
+    print("   ⚠ still silent — logging the miss to the ledger")
+    verdict["meta_note"] = (verdict.get("meta_note") or "").strip() or (
+        f"MISSED VOICE: Andrew asked to HEAR something ({reply_text[:80]!r}) and "
+        f"the push went out text-only — the judge declined twice. Check the voice lane.")
+    return verdict
+
+
 def wants_scheduled_push(text: str) -> bool:
     """True when Andrew's reply reads as 'do something for me at <time>'.
 
@@ -371,6 +439,7 @@ def judge(knock: dict, reply_text: str, target_record: dict | None,
           hours_since: float | None = None,
           revealed_recent: list | None = None,
           force_schedule: bool = False,
+          force_voice: bool = False,
           klog: list | None = None) -> dict:
     persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
     pin, pin_revealed = current_pin(knock)
@@ -414,8 +483,9 @@ def judge(knock: dict, reply_text: str, target_record: dict | None,
     if prior:
         context["prior_exchanges"] = prior
     mandate = (JUDGE_MANDATE + "\n" + SLIP_MANDATE + "\n" + REACH_MANDATE
-               + "\n" + THREAD_MANDATE
-               + (FORCE_SCHEDULE_ADDENDUM if force_schedule else ""))
+               + "\n" + THREAD_MANDATE + "\n" + VOICE_MANDATE
+               + (FORCE_SCHEDULE_ADDENDUM if force_schedule else "")
+               + (FORCE_VOICE_ADDENDUM if force_voice else ""))
     # 1600 is what the ARTIFACT needs — an 11-key schema plus a slip-ledger tag
     # match — and nothing else. The thinking room is added by `budget()`, inside
     # `ask_json`. This number was 800 until 2026-08-05, when the call spent ~750
@@ -694,6 +764,33 @@ def apply_verdict(verdict: dict, knock: dict, lexicon: dict, klog: list,
     return summary, cold_credited, capped_keys, graduated
 
 
+def speak(verdict: dict, knock: dict, klog: list) -> tuple[str | None, Path | None]:
+    """Render Anna's spoken answer and attach it to the knock. Returns (url, mp3).
+
+    Extracted from the production flow on 2026-08-27 so the catch lane could
+    reuse it instead of growing a second copy. It had no copy at all: it ended
+    `push_to_phone(reply_line, None, ...)` — audio_url hard-coded, the exact bug
+    render_voice_reply's own docstring says was fixed in the production lane on
+    2026-07-24 and never ported. One body, two callers, nothing left to forget.
+
+    The knock-log write lands on the EXCHANGE as well as the top level: the
+    top-level field is the LATEST view, overwritten by the next voice reply, so
+    only the per-exchange copy survives as thread history. On a render failure
+    `spoke` is cleared — better a silent record than one claiming audio he never
+    got, which is what taught `recent_exchanges` to report what Anna DID."""
+    if not verdict.get("voice_reply"):
+        return None, None
+    print("2b. render voice reply…")
+    mp3, url = render_voice_reply(verdict["voice_reply"])
+    if url:
+        knock["reply_audio_url"] = url
+        knock["exchanges"][-1].update(audio_url=url)
+        save_json(KNOCK_LOG_PATH, klog)
+    else:
+        knock["exchanges"][-1].update(spoke="", audio_failed=True)
+    return url, mp3
+
+
 def render_voice_reply(spoken: str) -> tuple[Path | None, str | None]:
     """Render Anna's spoken answer for THIS push-back. Returns (mp3, url).
 
@@ -786,6 +883,10 @@ def main():
                 f"MISSED SCHEDULE: Andrew asked for something at a time "
                 f"({reply_text[:80]!r}) and no push was queued — the judge "
                 f"declined twice. Check the schedule lane.")
+
+    verdict = ensure_voice(verdict, reply_text, lambda: judge(
+        knock, reply_text, target_record, hours, revealed,
+        force_voice=True, klog=klog))
 
     # Momentum chain: on a scored reply, the push-back may carry the NEXT micro-ask.
     # The knock's expected target moves to the chained one, so the next reply is
@@ -933,21 +1034,7 @@ def main():
     # mp3 just rides the existing commit.
     # .get, not [], so any caller that hands us an un-normalised verdict (the
     # smoke harness stubs judge() directly) simply gets a silent text reply.
-    voice_url, vmp3 = None, None
-    if verdict.get("voice_reply"):
-        print("2b. render voice reply…")
-        vmp3, voice_url = render_voice_reply(verdict["voice_reply"])
-        # onto the exchange too: the top-level field is the LATEST view, overwritten
-        # by the next voice reply, so only the per-exchange copy survives as thread
-        # history. reply_memo_script retired here — nothing ever read it, and
-        # `spoke` on the exchange is the copy that gets used. On a render failure,
-        # clear `spoke`: better a silent record than one claiming audio he never got.
-        if voice_url:
-            knock["reply_audio_url"] = voice_url
-            knock["exchanges"][-1].update(audio_url=voice_url)
-            save_json(KNOCK_LOG_PATH, klog)
-        else:
-            knock["exchanges"][-1].update(spoke="", audio_failed=True)
+    voice_url, vmp3 = speak(verdict, knock, klog)
 
     # Meta-direction lands in the feedback ledger — the diagnosis pass reads it.
     meta = record_meta_note(verdict)

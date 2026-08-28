@@ -88,7 +88,13 @@ PROSE_BUDGETS = {
     # do beyond the text line" (schedule a push, speak back) is its own concern,
     # and the mandate was at 1498/1500 — a ceiling is a split signal, not a
     # bump-the-number signal.
-    "REACH_MANDATE": 300,
+    # 300 -> 150 (2026-08-27): re-censused DOWN — the SPEAK BACK section left
+    # for VOICE_MANDATE, which both judges compose. 280 words -> 134.
+    "REACH_MANDATE": 150,
+    # New surface, budgeted in the diff that creates it (census 161). It is
+    # not net growth: 146 of its words are REACH_MANDATE's, moved so the
+    # catch judge stops being mute.
+    "VOICE_MANDATE": 175,
     # Split out of JUDGE_MANDATE (2026-07-30) for the third time that file has
     # paid for growth by splitting rather than raising. The slip contract landed
     # it at 1764/1500; recording an error is its own concern from grading one
@@ -152,7 +158,15 @@ CODE_BUDGETS = {
     # and 31% of the file. It sat at 758/785 with 27 lines of headroom; it now sits
     # at 556 with real room to take a feature. The note above is discharged, and
     # the next raise on THIS number is about mechanism, with no prose left to blame.
-    "scripts/knock_reply.py": 570,
+    # 570 -> 610 (2026-08-27): the reply lane gained a voice rail — the
+    # AUDIO_RE detector, ensure_voice's one-forced-re-ask backstop, and a
+    # shared speak() body. It RETIRED the inline render block in the
+    # production flow and the hard-coded `audio_url=None` in the catch flow,
+    # which is why a whole capability cost 36 lines and not 70. This file is
+    # now the largest in the tree and has taken three raises: the next one
+    # should be a split, not a number (the judges and the lanes are already
+    # two jobs living in one file).
+    "scripts/knock_reply.py": 610,
     # 700 -> 625 (2026-08-01): re-censused DOWN after OUTREACH_MANDATE moved to
     # mandates.py — the file sat at 699/700, one mechanical fix from a red build.
     # The split is the ceiling law working, not an allowance: prompt canon and
@@ -381,7 +395,8 @@ def s18_size_budgets(mk, kr, sb: Path):
                "REACH_MANDATE": kr.REACH_MANDATE,
                "SLIP_MANDATE": kr.SLIP_MANDATE,
                "THREAD_MANDATE": kr.THREAD_MANDATE,
-               "CATCH_JUDGE_MANDATE": kr.CATCH_JUDGE_MANDATE}
+               "CATCH_JUDGE_MANDATE": kr.CATCH_JUDGE_MANDATE,
+               "VOICE_MANDATE": kr.VOICE_MANDATE}
     for rel, budget in PROSE_BUDGETS.items():
         words = (len(strings[rel].split()) if rel in strings
                  else len((sb / rel).read_text(encoding="utf-8").split()))

@@ -1201,9 +1201,11 @@ def s30_anna_speaks_back(mk, kr, sb: Path):
     src = mechanism((REAL_BASE / "scripts" / "knock_reply.py").read_text(encoding="utf-8"))
     check("the production reply no longer hard-codes a silent push",
           "push_to_phone(body, voice_url" in src)
-    check("voice_reply is in the judge's return schema", '"voice_reply"' in kr.JUDGE_MANDATE)
-    check("REACH rations it against lock-screen latency",
-          "90 seconds" in kr.REACH_MANDATE and "SPEAK BACK" in kr.REACH_MANDATE)
+    # The prose moved to VOICE_MANDATE on 2026-08-27 so the catch judge could
+    # compose it too (s82); the production lane's behaviour is unchanged.
+    check("voice_reply is declared to the judge", '"voice_reply"' in kr.VOICE_MANDATE)
+    check("the shared mandate rations it against lock-screen latency",
+          "90 seconds" in kr.VOICE_MANDATE and "SPEAK BACK" in kr.VOICE_MANDATE)
     # The judge must see the split halves as one prompt.
     check("the split mandate is concatenated for the model",
           "JUDGE_MANDATE + \"\\n\" + SLIP_MANDATE + \"\\n\" + REACH_MANDATE" in src)
@@ -1245,8 +1247,12 @@ def s30_anna_speaks_back(mk, kr, sb: Path):
     finally:
         kr.render_memo = real_render
     # ...and the push still goes out, because voice_url is simply None by then.
+    # The guard moved into speak() on 2026-08-27, so assert the PROPERTY rather
+    # than its old spelling: nothing spoken (or a dead render) yields no url, and
+    # the text push is called with it either way.
     check("the text recast is never gated on the render succeeding",
-          "if voice_url:" in src and "push_to_phone(body, voice_url" in src)
+          "push_to_phone(body, voice_url" in src
+          and kr.speak({"verdict": "chat"}, {}, []) == (None, None))
 
 
 def s51_derived_files_are_rerendered_not_merged(mk, sb: Path):
@@ -1368,6 +1374,131 @@ def s51_derived_files_are_rerendered_not_merged(mk, sb: Path):
     rc.CHAT_PATH = runner / "progress" / "elsewhere.md"
     check("a renderer that writes outside BASE is refused, not trusted",
           not live._rerender_derived("progress/chat.md"))
+
+
+def s82_the_catch_lane_has_a_mouth(mk, kr, sb: Path):
+    """An audio request must not depend on which knock happens to be open (2026-08-27).
+
+    THE BUG, read out of the Actions log. Andrew typed "Send an audio greeting in
+    Tamil" at 15:08, asked twice more when nothing arrived, and got three text
+    acknowledgements. Every run was green. The cause was not the model and not the
+    renderer: cloud Anna had knocked with an EAVESDROP at 02:46 and that knock was
+    still open, so all four replies routed to `handle_catch_reply` — which ended
+    `push_to_phone(reply_line, None, ...)`, audio_url hard-coded, and asked a judge
+    whose schema had no `voice_reply` field at all. The lane had no mouth. s30 fixed
+    exactly this in the production lane on 2026-07-24 and the port was never made,
+    so WHICH judge ran — decided by the newest open knock, never by what Andrew
+    asked for — decided whether Anna could answer in sound.
+
+    Gate 7.2 — what does this look like when it silently does nothing? Like a
+    perfectly normal text reply. There is no error, no empty file, no missing
+    field: a lane that cannot speak and a lane that chose not to speak produce
+    byte-identical output. That is why it survived four requests and a whole
+    afternoon. So nothing here asserts that prose exists or that a step ran:
+
+      - the RAIL re-asks exactly once and the second answer is the one used;
+      - `push_to_phone` receives a real CDN url from the CATCH lane, and the mp3
+        rides the same commit;
+      - and when the judge declines twice the absence is LOUD — a MISSED VOICE
+        note lands in the feedback ledger, re-read off the file, so a silent
+        push can never again look like a delivered one."""
+    print("\n82. The eavesdrop lane can answer ALOUD (2026-08-27)")
+
+    # ── the detector's truth table ───────────────────────────────────────────
+    check("a direct audio request is detected",
+          kr.wants_spoken_reply("Send an audio greeting in Tamil to my sister in law"))
+    check("an imperative 'say' is a request for sound",
+          kr.wants_spoken_reply("say vanakkam for me"))
+    check("a question about MEANING is not a request for sound",
+          not kr.wants_spoken_reply("tell me what she said"))
+    check("a clock request is not mistaken for one",
+          not kr.wants_spoken_reply("ping me at 9am"))
+
+    # ── both judges carry the same mandate, from one string ──────────────────
+    src = mechanism((REAL_BASE / "scripts" / "knock_reply.py").read_text(encoding="utf-8"))
+    check("the shared mandate rations against lock-screen latency",
+          "90 seconds" in kr.VOICE_MANDATE and "SPEAK BACK" in kr.VOICE_MANDATE)
+    check("it declares its own key, so a judge gains surface and rule together",
+          '"voice_reply"' in kr.VOICE_MANDATE)
+    check("the catch schema now has the field", "voice_reply" in str(kr.CATCH_SCHEMA))
+    check("the production judge composes it", "THREAD_MANDATE + \"\\n\" + VOICE_MANDATE" in src)
+    check("the catch judge composes it too",
+          "CATCH_JUDGE_MANDATE" in src and src.count("VOICE_MANDATE") >= 3)
+
+    # ── the round trip, through the real entry point ─────────────────────────
+    lex_path, klog_path = kr.LEXICON_PATH, kr.KNOCK_LOG_PATH
+    fb_path = kr.FEEDBACK_LOG_PATH
+    saved = (lex_path.read_bytes(), klog_path.read_bytes(), fb_path.read_bytes())
+    real_render, real_publish = kr.render_memo, kr.publish
+    target = "frame:hearsay-aam"
+    try:
+        lex = read_json(lex_path)
+        lex[target] = {"gloss": "hearsay", "phonetic": ["aam"], "recognition": "struggled",
+                       "production": "none", "seen_in": [], "last_surfaced": "2026-08-01",
+                       "direction": "catch", "type": "frame"}
+        write_json(lex_path, lex)
+
+        async def fake_render(script, out_path, voice):
+            out_path.parent.mkdir(parents=True, exist_ok=True)
+            out_path.write_bytes(b"ID3fake")
+
+        kr.render_memo = fake_render
+        published = []
+        kr.publish = lambda *a, **k: (published.append(k.get("mp3")), real_publish(*a, **k))[1]
+
+        def run(reply_text: str, speaks_when_forced: bool):
+            forced_flags = []
+
+            def staged(k, r, klog=None, force_voice=False):
+                forced_flags.append(force_voice)
+                d = {"verdict": "chat", "reply_line": "on it da", "meta_note": "",
+                     "rationale": "smoke", "voice_reply": ""}
+                if force_voice and speaks_when_forced:
+                    d["voice_reply"] = "வணக்கம் அக்கா"
+                return d
+
+            kr.judge_catch = staged
+            kr.push_to_phone, kr.commit_and_push = Recorder(), Recorder()
+            published.clear()
+            now = datetime.now(timezone.utc)
+            log = read_json(klog_path)
+            log.append({"date": now.date().isoformat(), "timestamp": now.isoformat(),
+                        "acted": True, "modality": "eavesdrop", "move": "gossip tape",
+                        "body": "who's the news about?", "memo_script": "அவங்க பொண்ணு-ஆம்!",
+                        "expected_target": target, "target_revealed": False})
+            write_json(klog_path, log)
+            sys.argv = ["knock_reply.py", reply_text]
+            kr.main()
+            return forced_flags
+
+        # (a) he asks for audio on an eavesdrop knock — the lane speaks.
+        flags = run("Send an audio greeting in Tamil to my sister in law", True)
+        check("the rail re-asks exactly once, forced", flags == [False, True], str(flags))
+        pushed = kr.push_to_phone[-1]
+        check("the CATCH lane pushes a real audio url, not None",
+              pushed[1] and str(pushed[1]).endswith(".mp3"), str(pushed[1]))
+        check("the text recast still goes with it", bool(pushed[0]))
+        check("the mp3 rides the same commit",
+              published and published[-1] is not None, str(published))
+        ex = read_json(klog_path)[-1]["exchanges"][-1]
+        check("the exchange records what Anna actually sent",
+              ex.get("audio_url") == pushed[1], str(ex.get("audio_url")))
+
+        # (b) the judge declines twice — the absence must be LOUD.
+        before = len(read_json(fb_path) or [])
+        flags = run("say vanakkam for me", False)
+        check("a declining judge is still asked twice", flags == [False, True], str(flags))
+        check("a silent push carries no url", kr.push_to_phone[-1][1] is None)
+        ledger = read_json(fb_path) or []
+        note = json.dumps(ledger[before:], ensure_ascii=False)
+        check("the miss is written to the ledger, not swallowed",
+              len(ledger) > before and "MISSED VOICE" in note, note[:160])
+        check("...quoting his own words, so a false positive is legible",
+              "vanakkam" in note)
+    finally:
+        kr.render_memo, kr.publish = real_render, real_publish
+        for path, blob in zip((lex_path, klog_path, fb_path), saved):
+            path.write_bytes(blob)
 
 
 def s49_thread_continuity(mk, kr, sb: Path):

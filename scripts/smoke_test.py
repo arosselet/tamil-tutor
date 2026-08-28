@@ -125,6 +125,7 @@ def main():
         run(state.s71_a_new_record_is_born_reachable, sb)
         run(knock.s60_the_ear_meter, kr, sb)
         run(knock.s81_the_ear_judge_stamps_its_own_evidence, kr, sb)
+        run(knock.s82_the_catch_lane_has_a_mouth, mk, kr, sb)
         run(knock.s61_no_number_is_recited_at_him, kr, sb)
         run(state.s62_the_return_clock_is_keyed_to_the_ear, sb)
         run(state.s63_the_machines_reach_the_ticket)
