@@ -5498,5 +5498,14 @@
     "body": "☕ Maami asks 'tea kudicheengala?' (did you drink tea?). Fire back that you drank it:",
     "expected_target": "குடிச்சேன்",
     "target_revealed": false
+  },
+  {
+    "date": "2026-08-28",
+    "timestamp": "2026-08-28T08:26:26.623068+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "min gap cooldown",
+    "rationale": "Tea rapid-fire knock went out 0.1h ago; respecting the 3h min gap before checking back in the late afternoon.",
+    "next_check": "2026-08-28T11:26:26.623068+00:00"
   }
 ]
