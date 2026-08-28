@@ -2341,6 +2341,18 @@ Details live in git history; this is the index of the *conclusions*.
   **Asymmetry is deliberate:** the floor still reads the claim. The ear judge now stamps
   every verdict. Machines heard: 2/26. Smoke `s53`, `s60`, `s81`.
 
+- **Ambiguous is not cold — never take the flattering reading** (2026-08-23, Andrew). Anna
+  read a slip generously, crediting `alaichal` as a word becoming his. Andrew: *"you keep
+  misinterpreting my slips :( … I got it wrong and now you're covering for me in a
+  plausible way."* He had reached for `adhanaale`; the false cold-fire came back out, logged
+  `chunk-not-machine`. **Production-lane twin of "Hearing is not knowing" below** — same
+  day, credit on no evidence, into the ledger picking tomorrow. **Rejected: soften the grade
+  when unsure** — that is the corrupted meter he asked not to be handed (07-28). The law:
+  when Anna cannot tell what he meant, **ask**. Landed in `daily_session.md` invariant 2
+  (2026-08-28), paid in-diff by retiring the no-number clause's second quote-half, which
+  restated its own instruction. **No mechanism; residual named** — it binds Anna's
+  judgement, and the knock lane's showed-the-answer cap never reaches a typed session fire.
+
 - **Hearing is not knowing — a rating nobody earned is not evidence** (2026-08-23, Andrew).
   The lexicon's first populated commit already held 153 rows at solid:93 / comfortable:54 — a
   day-one self-estimate written into the field evidence writes into. The ticket then served a
