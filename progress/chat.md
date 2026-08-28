@@ -9,6 +9,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **13:53 · Anna**  ·  text / rapid fire: kudichen
 > ☕ Maami asks 'tea kudicheengala?' (did you drink tea?). Fire back that you drank it:
 
+**14:01 · Andrew** — **MISS**
+> Naan tea kuttitchu
+
+**Anna ↩**
+> close da — we'd say 'kudichen'. -en because it's you.
+
 
 ## Thursday 2026-08-27
 

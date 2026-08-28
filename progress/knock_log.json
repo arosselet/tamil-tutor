@@ -5497,7 +5497,32 @@
     "next_check": "2026-08-28T12:53:21.895606+00:00",
     "body": "☕ Maami asks 'tea kudicheengala?' (did you drink tea?). Fire back that you drank it:",
     "expected_target": "குடிச்சேன்",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Naan tea kuttitchu",
+    "reply_verdict": "miss",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line": "close da — we'd say 'kudichen'. -en because it's you.",
+    "reply_at": "2026-08-28T08:31:17Z",
+    "exchanges": [
+      {
+        "at": "2026-08-28T08:31:17Z",
+        "reply": "Naan tea kuttitchu",
+        "verdict": "miss",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "close da — we'd say 'kudichen'. -en because it's you.",
+        "slips": [
+          "1sg-en"
+        ],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ]
   },
   {
     "date": "2026-08-28",
