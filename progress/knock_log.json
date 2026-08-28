@@ -5499,17 +5499,19 @@
     "expected_target": "குடிச்சேன்",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Kudichen",
-    "reply_verdict": "hinted",
+    "reply": "Podhum",
+    "reply_verdict": "cold",
     "reply_fired": [
-      "குடிச்சேன்"
+      "குடிச்சேன்",
+      "போதும்"
     ],
     "reply_fired_cold": [
-      "குடிச்சேன்"
+      "குடிச்சேன்",
+      "போதும்"
     ],
     "reply_fired_capped": [],
-    "reply_line": "adhu dhaan! 🔥 · Maami asks if you want more — tell her 'enough':",
-    "reply_at": "2026-08-28T09:08:00Z",
+    "reply_line": "adhu dhaan, clean! 🔥 · She smiles. Tell her 'it is very good':",
+    "reply_at": "2026-08-28T09:12:12Z",
     "exchanges": [
       {
         "at": "2026-08-28T08:31:17Z",
@@ -5542,10 +5544,27 @@
         "slips": [],
         "spoke": "",
         "scheduled": ""
+      },
+      {
+        "at": "2026-08-28T09:12:12Z",
+        "reply": "Podhum",
+        "verdict": "cold",
+        "fired": [
+          "போதும்"
+        ],
+        "fired_cold": [
+          "போதும்"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan, clean! 🔥 · She smiles. Tell her 'it is very good':",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
       }
     ],
-    "chained": 1,
-    "pinned_target": "போதும்",
+    "chained": 2,
+    "pinned_target": "ரொம்ப நல்லா இருக்கு",
     "pinned_revealed": false
   },
   {
