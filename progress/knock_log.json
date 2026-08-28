@@ -5499,20 +5499,21 @@
     "expected_target": "குடிச்சேன்",
     "target_revealed": false,
     "response": "reply",
-    "reply": "No thanks da",
-    "reply_verdict": "miss",
+    "reply": "Vendaam",
+    "reply_verdict": "hinted",
     "reply_fired": [
       "குடிச்சேன்",
       "போதும்",
-      "நல்லா இருந்துச்சு"
+      "நல்லா இருந்துச்சு",
+      "வேணாம்"
     ],
     "reply_fired_cold": [
       "குடிச்சேன்",
       "போதும்"
     ],
     "reply_fired_capped": [],
-    "reply_line": "tamizh-la 'venaam' da — adhu dhaan next time.",
-    "reply_at": "2026-08-28T09:17:10Z",
+    "reply_line": "adhu dhaan! 'venaam' dhaan. 🔥",
+    "reply_at": "2026-08-28T09:19:01Z",
     "exchanges": [
       {
         "at": "2026-08-28T08:31:17Z",
@@ -5587,6 +5588,21 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "tamizh-la 'venaam' da — adhu dhaan next time.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-28T09:19:01Z",
+        "reply": "Vendaam",
+        "verdict": "hinted",
+        "fired": [
+          "வேணாம்"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! 'venaam' dhaan. 🔥",
         "slips": [],
         "spoke": "",
         "scheduled": ""
