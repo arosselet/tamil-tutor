@@ -456,15 +456,24 @@ verdict was right every time; the lane was wrong every time.
 
 **Step A — the menu.** Open **Tell Anna** → drag a **Choose from Menu** action to the
 *top*, above *Ask for Input*. Set the prompt to `Anna:` and give it two items:
-**`Message`** and **`Reply`**. Inside each branch put one **Set Variable** action:
+**`Message`** and **`Reply`**.
 
-| Branch | Action | Variable | Value |
-|---|---|---|---|
-| `Message` | Set Variable | `intent` | `message` |
-| `Reply` | Set Variable | `intent` | `reply` |
+Each branch needs **two** actions. `Set Variable` has no value field of its own — it
+takes whatever the previous action output — so a **Text** action supplies the literal
+(2026-08-28, found building it):
 
-The branches hold *only* the Set Variable action — everything after **End Menu** runs
-either way, so *Ask for Input* and *Get Contents of URL* stay where they are.
+```
+Message branch:            Reply branch:
+  Text            message    Text            reply
+  Set Variable  intent       Set Variable  intent
+```
+
+In each, add the **Text** action, type the word into it, then add **Set Variable**, name
+it `intent`, and leave its input as the Text action's output (it auto-fills). The name
+must be exactly `intent` in both branches — they are the same variable.
+
+The branches hold only those two actions — everything after **End Menu** runs either
+way, so *Ask for Input* and *Get Contents of URL* stay where they are.
 
 **Step B — send it.** In *Get Contents of URL* → `client_payload`, add one field:
 `intent` (**Text**), value = the **intent** variable chip. Insert it from the variable
