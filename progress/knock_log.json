@@ -5486,5 +5486,17 @@
     "reply_audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/reply_2026-08-28T04-34-18.mp3",
     "response": "ack",
     "response_at": "2026-08-28T04:35:13Z"
+  },
+  {
+    "date": "2026-08-28",
+    "timestamp": "2026-08-28T08:23:21.895606+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "rapid fire: kudichen",
+    "rationale": "Afternoon micro-rep on past tense 'kudichen' after yesterday's tea talk; low friction single-word production.",
+    "next_check": "2026-08-28T12:53:21.895606+00:00",
+    "body": "☕ Maami asks 'tea kudicheengala?' (did you drink tea?). Fire back that you drank it:",
+    "expected_target": "குடிச்சேன்",
+    "target_revealed": false
   }
 ]
