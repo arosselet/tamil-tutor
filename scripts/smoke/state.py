@@ -22,7 +22,7 @@ from pathlib import Path
 
 from . import _fixtures as fx
 from ._fixtures import (
-    check, mechanism, read_json, REAL_BASE, write_json,
+    check, lex_row, mechanism, read_json, REAL_BASE, write_json,
 )
 
 
@@ -106,9 +106,7 @@ def s32_pool_rotation_and_coverage(mk, sb: Path):
         return (today - timedelta(days=n)).isoformat()
 
     def item(reg, **kw):
-        base = {"register": reg, "gloss": "x", "phonetic": [], "type": "chunk",
-                "recognition": "struggled", "production": "none",
-                "seen_in": [1], "last_surfaced": None}
+        base = lex_row(register=reg, type="chunk", seen_in=[1])
         base.update(kw)
         return base
 
@@ -133,12 +131,11 @@ def s32_pool_rotation_and_coverage(mk, sb: Path):
     # so the ask count is the only thing that can separate them — and `-a` sorts
     # first alphabetically, which is what the old key fell through to.
     lex.update({
-        "smoke:floor-a": {"gloss": "asked outside the cooldown", "phonetic": [], "type": "chunk",
-                          "recognition": "comfortable", "production": "none",
-                          "seen_in": [1], "last_surfaced": None},
-        "smoke:floor-b": {"gloss": "never asked", "phonetic": [], "type": "chunk",
-                          "recognition": "comfortable", "production": "none",
-                          "seen_in": [1], "last_surfaced": None},
+        "smoke:floor-a": lex_row(gloss="asked outside the cooldown", type="chunk",
+                                 recognition="comfortable",
+                                 seen_in=[1]),
+        "smoke:floor-b": lex_row(gloss="never asked", type="chunk", recognition="comfortable",
+                                 seen_in=[1]),
     })
     lex_path = sb / "progress" / "lexicon.json"
     klog_path = sb / "progress" / "knock_log.json"
@@ -614,10 +611,9 @@ def s36_soak_order_carries_shape(sb: Path):
         return read_json(learner_path).get("soak_order", {})
 
     try:
-        write_json(lex_path, {"போறேன்": {"gloss": "I go", "phonetic": ["poren"],
-                                         "type": "chunk", "recognition": "solid",
-                                         "production": "cold", "seen_in": [],
-                                         "last_surfaced": None}})
+        write_json(lex_path, {"போறேன்": lex_row(gloss="I go", phonetic=["poren"], type="chunk",
+                                                recognition="solid",
+                                                production="cold")})
         learner = read_json(learner_path)
         learner["soak_order"] = {}
         write_json(learner_path, learner)
@@ -1330,8 +1326,7 @@ def s42_session_log_one_row_per_day(sb: Path):
         # Seed two words the sandbox lexicon can actually resolve, so the axes move.
         lex = read_json(lex_path)
         for w in ("ஸ்மோக்ஒன்", "ஸ்மோக்டூ"):
-            lex.setdefault(w, {"gloss": "smoke", "phonetic": [], "recognition": "solid",
-                               "production": "none", "seen_in": []})
+            lex.setdefault(w, lex_row(gloss="smoke", recognition="solid"))
         write_json(lex_path, lex)
 
         log = update(produced_cold=["ஸ்மோக்ஒன்"])
@@ -1418,20 +1413,18 @@ def s53_evidence_gates_the_ear(sb: Path):
     lex_path = sb / "progress" / "lexicon.json"
     saved = lex_path.read_bytes()
     try:
-        row = lambda **kw: {"gloss": "x", "phonetic": [], "recognition": "struggled",
-                            "production": "none", "seen_in": [], "last_surfaced": None, **kw}
         lex = {
             # (b) SOLID BY ASSERTION — born there, never assessed. Must not count.
-            "frame:asserted": row(type="pattern", recognition="solid", production="cold"),
+            "frame:asserted": lex_row(type="pattern", recognition="solid", production="cold"),
             # (a) SOLID WITH EVIDENCE — a real observation. Must count.
-            "frame:earned": row(type="pattern", recognition="solid", production="none",
-                                heard_on="2026-07-26", direction="catch"),
+            "frame:earned": lex_row(type="pattern", recognition="solid", production="none",
+                                    heard_on="2026-07-26", direction="catch"),
             # below solid, with evidence: tested and still not heard — must not count,
             # and must be distinguishable from never-tested, which is the whole point.
-            "frame:tested-missed": row(type="pattern", recognition="comfortable",
-                                       heard_on="2026-08-01"),
+            "frame:tested-missed": lex_row(type="pattern", recognition="comfortable",
+                                           heard_on="2026-08-01"),
             # a WORD carrying the floor: recognized-by-assertion and firing cold.
-            "வணக்கம்": row(recognition="solid", production="cold", phonetic=["vanakkam"]),
+            "வணக்கம்": lex_row(recognition="solid", production="cold", phonetic=["vanakkam"]),
         }
         write_json(lex_path, lex)
 
@@ -1517,10 +1510,9 @@ def s54_no_deadline_reaches_any_surface(sb: Path):
     try:
         # The population the countdown used to hang off: a live set with items
         # still open, which is what put `compute_status` on the deck branch.
-        write_json(lex_path, {f"smoke:era{i}": {
-            "gloss": "x", "phonetic": [], "type": "chunk", "recognition": "comfortable",
-            "production": "cold" if i < 2 else "none", "seen_in": [],
-            "last_surfaced": None, "register": "antifreeze"} for i in range(10)})
+        write_json(lex_path, {f"smoke:era{i}": lex_row(type="chunk", recognition="comfortable",
+                                                       production="cold" if i < 2 else "none",
+                                                       register="antifreeze") for i in range(10)})
         lex = read_json(lex_path)
 
         check("the deadline constant is gone, not merely unused",
@@ -1598,12 +1590,10 @@ def s55_demotion_survives_the_close(sb: Path):
                     slip_commissioned=[], no_commission="smoke sandbox")
     try:
         write_json(lex_path, {
-            "ஸ்மோக்சாலிட்": {"gloss": "was solid", "phonetic": ["solidword"], "type": "chunk",
-                              "recognition": "solid", "production": "cold", "seen_in": [],
-                              "last_surfaced": None},
-            "ஸ்மோக்ஷேக்கி": {"gloss": "already shaky", "phonetic": ["shakyword"], "type": "chunk",
-                              "recognition": "struggled", "production": "none", "seen_in": [],
-                              "last_surfaced": None}})
+            "ஸ்மோக்சாலிட்": lex_row(gloss="was solid", phonetic=["solidword"], type="chunk",
+                                    recognition="solid",
+                                    production="cold"),
+            "ஸ்மோக்ஷேக்கி": lex_row(gloss="already shaky", phonetic=["shakyword"], type="chunk")})
         with contextlib.redirect_stdout(io.StringIO()):
             ss.cmd_update(_ap.Namespace(**{**defaults,
                                            "stuck_word": ["ஸ்மோக்சாலிட்", "ஸ்மோக்ஷேக்கி"]}))
@@ -1687,8 +1677,7 @@ def s46_the_commission_notice_names_the_debt(sb: Path):
             learner.pop(k, None)
         write_json(learner_path, learner)
         lex = read_json(lex_path)
-        lex["கேட்வேர்ட்"] = {"gloss": "gate word", "recognition": "solid",
-                            "production": "none", "phonetic": [], "seen_in": []}
+        lex["கேட்வேர்ட்"] = lex_row(gloss="gate word", recognition="solid")
         write_json(lex_path, lex)
         with contextlib.redirect_stdout(io.StringIO()):
             sl.append_slips([{"tag": "gate-tag", "said": "a", "want": "b"}],
@@ -1792,29 +1781,36 @@ def s47_hinted_retest_rule(sb: Path):
         lex = {}
         mk_day = lambda d: (today - timedelta(days=d)).isoformat()
         dark = lambda d: mk_day(st.RETEST_DAYS + d)
-        lex["ரீடெஸ்ட்1"] = {"gloss": "stale hinted", "production": "hinted",
-                           "recognition": "solid", "last_surfaced": dark(6), "reps": 5}
-        lex["ரீடெஸ்ட்2"] = {"gloss": "staler hinted", "production": "hinted",
-                           "recognition": "solid", "last_surfaced": dark(16), "reps": 2}
-        lex["ரீடெஸ்ட்3"] = {"gloss": "fresh hinted", "production": "hinted",
-                           "recognition": "solid", "last_surfaced": mk_day(3), "reps": 1}
-        lex["ரீடெஸ்ட்4"] = {"gloss": "stale but ear-only", "production": "hinted",
-                           "recognition": "solid", "last_surfaced": dark(16),
-                           "direction": "catch", "reps": 0}
+        lex["ரீடெஸ்ட்1"] = lex_row(gloss="stale hinted", production="hinted", recognition="solid",
+                                   last_surfaced=dark(6),
+                                   reps=5)
+        lex["ரீடெஸ்ட்2"] = lex_row(gloss="staler hinted", production="hinted",
+                                   recognition="solid",
+                                   last_surfaced=dark(16),
+                                   reps=2)
+        lex["ரீடெஸ்ட்3"] = lex_row(gloss="fresh hinted", production="hinted", recognition="solid",
+                                   last_surfaced=mk_day(3),
+                                   reps=1)
+        lex["ரீடெஸ்ட்4"] = lex_row(gloss="stale but ear-only", production="hinted",
+                                   recognition="solid",
+                                   last_surfaced=dark(16),
+                                   direction="catch", reps=0)
         # RANKED rows, deliberately FRESHER than the unranked ones above: only a
         # tier prefix can float them — staleness alone sinks both.
-        lex["ரீடெஸ்ட்5"] = {"gloss": "survival, antifreeze", "production": "hinted",
-                           "recognition": "solid", "last_surfaced": dark(2),
-                           "reps": 5, "register": "antifreeze"}
-        lex["ரீடெஸ்ட்6"] = {"gloss": "survival, public", "production": "hinted",
-                           "recognition": "solid", "last_surfaced": dark(1),
-                           "reps": 3, "register": "public"}
+        lex["ரீடெஸ்ட்5"] = lex_row(gloss="survival, antifreeze", production="hinted",
+                                   recognition="solid",
+                                   last_surfaced=dark(2),
+                                   reps=5,
+                                   register="antifreeze")
+        lex["ரீடெஸ்ட்6"] = lex_row(gloss="survival, public", production="hinted",
+                                   recognition="solid",
+                                   last_surfaced=dark(1),
+                                   reps=3, register="public")
         # The bootstrap artifact: a hinted grade with no work behind it. There is
         # no prior test for a RE-test to repeat, and it is already at the head of
         # the pool (coverage_key leads with fewest-reps), so it must not spend a
         # reserved seat here.
-        lex["ரீடெஸ்ட்7"] = {"gloss": "hinted, never surfaced", "production": "hinted",
-                           "recognition": "struggled", "last_surfaced": None, "reps": 0}
+        lex["ரீடெஸ்ட்7"] = lex_row(gloss="hinted, never surfaced", production="hinted", reps=0)
 
         # --- the RULE, on its own ---
         def gd(w):
@@ -1856,9 +1852,8 @@ def s47_hinted_retest_rule(sb: Path):
         # never-worked row forever, and precisely the incident: the FAQ answers
         # sat 22-28 days silent while the ticket kept offering fresh ground.
         crowd = {w: r for w, r in lex.items() if w not in ("ரீடெஸ்ட்5", "ரீடெஸ்ட்6")}
-        crowd.update({f"smoke:crowd{i}": {"gloss": "never worked", "production": "none",
-                                          "recognition": "comfortable",
-                                          "last_surfaced": None, "reps": 0}
+        crowd.update({f"smoke:crowd{i}": lex_row(gloss="never worked", recognition="comfortable",
+                                                 reps=0)
                       for i in range(40)})
         # A held cohort, so this runs the LIVE path (a stored membership) rather
         # than the day-zero seed derivation, which fills from reps and would let
@@ -2086,17 +2081,16 @@ def s62_the_return_clock_is_keyed_to_the_ear(sb: Path):
     print("\n62. The return clock is keyed to the ear (2026-08-17)")
     gc = importlib.import_module("generate_callbacks")
     today = date_cls(2026, 8, 17)
-    row = lambda **kw: {"gloss": "g", "phonetic": ["p"], "seen_in": [], **kw}
     lex = {
         # struggled pattern, 6 days stale — the exact row both old rules dropped
-        "frame:struggled": row(type="pattern", recognition="struggled",
-                               production="cold", last_surfaced="2026-08-11"),
+        "frame:struggled": lex_row(type="pattern", recognition="struggled",
+                                   production="cold", last_surfaced="2026-08-11"),
         # solid, same staleness — retained, not yet due at 21 days
-        "solid-fresh": row(recognition="solid", production="cold",
-                           last_surfaced="2026-08-11"),
+        "solid-fresh": lex_row(recognition="solid", production="cold",
+                               last_surfaced="2026-08-11"),
         # comfortable at 12 days — past its 10-day interval
-        "comfortable-due": row(recognition="comfortable", production="none",
-                               last_surfaced="2026-08-05"),
+        "comfortable-due": lex_row(recognition="comfortable", production="none",
+                                   last_surfaced="2026-08-05"),
     }
     due = {c["word"]: c for c in gc.due_callbacks(lex, today, 10)}
 
@@ -2108,8 +2102,8 @@ def s62_the_return_clock_is_keyed_to_the_ear(sb: Path):
           "comfortable-due" in due, str(sorted(due)))
     # Overdue-ness leads the sort; RECOGNITION_RANK only breaks ties. Equal
     # overdue (both 1 day past their own interval) is where it shows.
-    tie = {"a-solid": row(recognition="solid", production="cold", last_surfaced="2026-07-26"),
-           "b-struggled": row(recognition="struggled", production="cold", last_surfaced="2026-08-11")}
+    tie = {"a-solid": lex_row(recognition="solid", production="cold", last_surfaced="2026-07-26"),
+           "b-struggled": lex_row(recognition="struggled", production="cold", last_surfaced="2026-08-11")}
     order = [c["word"] for c in gc.due_callbacks(tie, today, 10)]
     check("on equal overdue the weaker trace comes back first",
           order[0] == "b-struggled", str(order))
@@ -2127,7 +2121,7 @@ def s62_the_return_clock_is_keyed_to_the_ear(sb: Path):
     # on the live ticket read "(last: never surfaced)" — the clock had never
     # returned a single decayed row, and it looked like a working selector
     # because it was producing output. A return clock returns what was met.
-    lex["never-worked"] = row(recognition="struggled", production="none")
+    lex["never-worked"] = lex_row(recognition="struggled", production="none")
     picked = [c["word"] for c in gc.due_callbacks(lex, today, 10)]
     check("a never-surfaced row is not 'due' — it is new ground, not decay",
           "never-worked" not in picked, str(picked))
@@ -2160,12 +2154,11 @@ def s63_the_machines_reach_the_ticket():
     print("\n63. The machines reach the ticket (2026-08-17)")
     gc = importlib.import_module("generate_callbacks")
     today = date_cls(2026, 8, 17)
-    row = lambda **kw: {"gloss": "g", "phonetic": ["p"], "seen_in": [], **kw}
     # The live distribution: words far more overdue than any pattern.
-    lex = {f"word{i}": row(recognition="struggled", production="cold",
-                           last_surfaced="2026-06-24") for i in range(40)}
-    lex.update({f"frame:m{i}": row(type="pattern", recognition="struggled",
-                                   production="cold", last_surfaced="2026-08-05")
+    lex = {f"word{i}": lex_row(recognition="struggled", production="cold",
+                               last_surfaced="2026-06-24") for i in range(40)}
+    lex.update({f"frame:m{i}": lex_row(type="pattern", recognition="struggled",
+                                       production="cold", last_surfaced="2026-08-05")
                 for i in range(3)})
 
     picked = gc.due_callbacks(lex, today, 5)
@@ -2178,10 +2171,10 @@ def s63_the_machines_reach_the_ticket():
 
     # A FLOOR, NOT A CEILING: when patterns are the most decayed rows in the
     # ledger, the reservation must not cap them back down to two.
-    flip = {f"word{i}": row(recognition="struggled", production="cold",
-                            last_surfaced="2026-08-05") for i in range(40)}
-    flip.update({f"frame:m{i}": row(type="pattern", recognition="struggled",
-                                    production="cold", last_surfaced="2026-06-24")
+    flip = {f"word{i}": lex_row(recognition="struggled", production="cold",
+                                last_surfaced="2026-08-05") for i in range(40)}
+    flip.update({f"frame:m{i}": lex_row(type="pattern", recognition="struggled",
+                                        production="cold", last_surfaced="2026-06-24")
                  for i in range(4)})
     won = [c for c in gc.due_callbacks(flip, today, 5) if c["pattern"]]
     check("machines that win on merit are not capped at the reservation",
@@ -2195,7 +2188,7 @@ def s63_the_machines_reach_the_ticket():
           sum(1 for c in gc.due_callbacks(lex, today, 2) if c["pattern"]) == 1)
 
     # And the pool is unchanged — no pattern arrives that was never met.
-    lex["frame:unmet"] = row(type="pattern", recognition="struggled", production="none")
+    lex["frame:unmet"] = lex_row(type="pattern", recognition="struggled", production="none")
     check("the reservation cannot smuggle in a never-surfaced row",
           "frame:unmet" not in {c["word"] for c in gc.due_callbacks(lex, today, 5)})
 
@@ -2240,21 +2233,17 @@ def s64_the_ask_cooldown_covers_the_session_lane(sb: Path):
           st.ASK_COOLDOWN_DAYS >= 7, f"got {st.ASK_COOLDOWN_DAYS}")
 
     write_json(lex_path, {
-        w: {"gloss": "say it once more", "phonetic": ["innoru thadava sollunga"],
-            "type": "chunk", "recognition": "struggled", "production": "hinted",
-            "deck": "trip", "direction": "fire", "seen_in": []},
-        other: {"gloss": "x", "phonetic": ["x"], "type": "chunk", "recognition": "struggled",
-                "production": "hinted", "seen_in": []},
+        w: lex_row(gloss="say it once more", phonetic=["innoru thadava sollunga"], type="chunk",
+                   production="hinted", deck="trip", direction="fire"),
+        other: lex_row(phonetic=["x"], type="chunk", production="hinted"),
         # `recent_ask_counts` walks the LEXICON and probes the log, so a filler
         # target with no row is invisible to it. Distinct phonetics, and bodies
         # below that share no token with them — otherwise a probe matches another
         # row's body and the counts stop meaning what the assertions say.
-        "smoke:once": {"gloss": "asked once", "phonetic": ["onlyoncehere"],
-                       "type": "chunk", "recognition": "struggled",
-                       "production": "hinted", "seen_in": []},
-        **{f"smoke:filler{i}": {"gloss": "f", "phonetic": [f"fillerword{i}"],
-                               "type": "chunk", "recognition": "struggled",
-                               "production": "hinted", "seen_in": []}
+        "smoke:once": lex_row(gloss="asked once", phonetic=["onlyoncehere"], type="chunk",
+                              production="hinted"),
+        **{f"smoke:filler{i}": lex_row(gloss="f", phonetic=[f"fillerword{i}"], type="chunk",
+                                       production="hinted")
            for i in range(9)},
     })
     # The real sequence: gaps of 3 then 4 days, none answered.
@@ -2383,12 +2372,15 @@ def s69_two_readers_two_tickets(sb: Path):
     # not a pattern, and the ledger says so).
     lex_path, slip_path = sb / "progress" / "lexicon.json", sb / "progress" / "slip_log.json"
     lex = read_json(lex_path)
-    lex.setdefault("ஸ்மோக்வார்த்தை", {
-        "gloss": "smoke word", "phonetic": ["smoke vaarthai"], "register": "survival",
-        "recognition": "comfortable", "production": "hinted", "reps": 2})
-    lex.setdefault("frame:smoke-engine", {
-        "gloss": "the smoke frame", "phonetic": [], "type": "pattern",
-        "recognition": "comfortable", "production": "hinted", "reps": 1})
+    lex.setdefault("ஸ்மோக்வார்த்தை", lex_row(gloss="smoke word", phonetic=["smoke vaarthai"],
+                                             register="survival",
+                                             recognition="comfortable",
+                                             production="hinted",
+                                             reps=2))
+    lex.setdefault("frame:smoke-engine", lex_row(gloss="the smoke frame", type="pattern",
+                                                 recognition="comfortable",
+                                                 production="hinted",
+                                                 reps=1))
     write_json(lex_path, lex)
     slips_now = read_json(slip_path)
     for n in (1, 2):   # twice — a slip is REPEATED or it is not on this list
@@ -2457,11 +2449,12 @@ def s65_the_ordering_outlives_the_deck(sb: Path):
     ago = lambda n: (today - timedelta(days=n)).isoformat()
 
     def row(**kw):
-        base = {"gloss": "x", "phonetic": [], "type": "chunk",
-                "recognition": "comfortable", "production": "none",
-                "seen_in": [1], "last_surfaced": ago(10), "reps": 1}
-        base.update(kw)
-        return base
+        """s65's baseline row: equal staleness, equal reps, one chunk shape — so
+        `register` is the only thing that can separate two of them. Composes
+        `lex_row` rather than restating it; the five fields below ARE this case's
+        specialisation, and the record's core stays in one place."""
+        return lex_row(type="chunk", recognition="comfortable",
+                       seen_in=[1], last_surfaced=ago(10), reps=1, **kw)
 
     # No `deck` key anywhere in this fixture. Equal staleness, equal reps: the
     # register is the ONLY thing that can separate these.
@@ -2594,17 +2587,16 @@ def s76_the_ear_queue_is_not_the_catch_tag(sb: Path):
     st = importlib.import_module("suggest_targets")
     mk = importlib.import_module("morning_knock")
     today = date_cls(2026, 8, 25)
-    row = lambda **kw: {"gloss": "g", "phonetic": ["p"], "seen_in": [], **kw}
 
     # THE LIVE SHAPE: catch chunks never worked and ancient; machines worked and
     # recent. `coverage_key` leads with fewest-lifetime-reps, so every catch row
     # outranks every machine before the reservation exists.
-    lex = {f"catch{i}": row(direction="catch", recognition="struggled",
-                            production="none", last_surfaced="2026-06-01")
+    lex = {f"catch{i}": lex_row(direction="catch", recognition="struggled",
+                                production="none", last_surfaced="2026-06-01")
            for i in range(20)}
-    lex.update({f"frame:m{i}": row(type="pattern", direction="fire",
-                                   recognition="struggled", production="cold",
-                                   last_surfaced="2026-08-24")
+    lex.update({f"frame:m{i}": lex_row(type="pattern", direction="fire",
+                                       recognition="struggled", production="cold",
+                                       last_surfaced="2026-08-24")
                 for i in range(6)})
     reps = {f"frame:m{i}": 5 for i in range(6)}
 
@@ -2622,12 +2614,12 @@ def s76_the_ear_queue_is_not_the_catch_tag(sb: Path):
           all(t["ear_only"] for t in shown if t["kind"] != "frame"))
 
     # A FLOOR, NEVER A CEILING — when machines win on merit, do not cap them back.
-    flip = {f"catch{i}": row(direction="catch", recognition="struggled",
-                             production="none", last_surfaced="2026-08-24")
+    flip = {f"catch{i}": lex_row(direction="catch", recognition="struggled",
+                                 production="none", last_surfaced="2026-08-24")
             for i in range(20)}
-    flip.update({f"frame:m{i}": row(type="pattern", direction="fire",
-                                    recognition="struggled", production="cold",
-                                    last_surfaced="2026-06-01")
+    flip.update({f"frame:m{i}": lex_row(type="pattern", direction="fire",
+                                        recognition="struggled", production="cold",
+                                        last_surfaced="2026-06-01")
                  for i in range(6)})
     won = [t for t in st.ear_targets(flip, today=today)["pending"][:8]
            if t["kind"] == "frame"]
@@ -2638,8 +2630,8 @@ def s76_the_ear_queue_is_not_the_catch_tag(sb: Path):
     # rows (the callbacks' rule) emptied the pool `remaining_room` reads to decide
     # the eavesdrop cadence is overdue — a warning going silent behind a bare
     # `except: pass`. A catch row's first contact IS the eavesdrop dose.
-    unmet = {"catch:new": row(direction="catch", recognition="struggled",
-                              production="none", last_surfaced=None)}
+    unmet = {"catch:new": lex_row(direction="catch", recognition="struggled",
+                                  production="none", last_surfaced=None)}
     check("a never-surfaced catch row stays in the queue — eavesdrop is its first contact",
           [t["word"] for t in st.ear_targets(unmet, today=today)["pending"]] == ["catch:new"])
     check("...and it is still what the cadence warning counts",
@@ -2651,8 +2643,8 @@ def s76_the_ear_queue_is_not_the_catch_tag(sb: Path):
     # string that was never rendered — a green case proving nothing, which is the
     # very shape this file exists to refuse.
     menu_lex = dict(lex)
-    menu_lex["smoke:fire"] = row(recognition="comfortable", production="none",
-                                 register="survival", last_surfaced="2026-08-01")
+    menu_lex["smoke:fire"] = lex_row(recognition="comfortable", production="none",
+                                     register="survival", last_surfaced="2026-08-01")
     menu = _menu_for(mk, sb, menu_lex)
     behind = [ln for ln in menu.splitlines() if "[ear-behind]" in ln]
     check("the machine reaches the knock menu as its own kind of ear row",

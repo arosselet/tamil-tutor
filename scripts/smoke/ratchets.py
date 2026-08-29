@@ -18,7 +18,8 @@ import sys
 from pathlib import Path
 
 from ._fixtures import (
-    check, code_lines, mechanism, ONLY, RAN, raw_source, REAL_BASE, Recorder, run,
+    check, code_lines, lex_row, mechanism, ONLY, RAN, raw_source, REAL_BASE,
+    Recorder, run,
 )
 
 
@@ -1011,3 +1012,116 @@ def s75_the_stack_is_one_way():
           _breaks({("high", "low"): "module", ("mid", "low"): "deferred"},
                   toy_layers) == ([], set()),
           "a checker that never fires would read green on every tree")
+
+
+def s85_the_fixture_record_tracks_the_minted_one(sb: Path):
+    """The suite's lexicon record cannot drift from the one production mints
+    (2026-08-29).
+
+    `_fixtures.lex_row` replaced 64 hand-written record literals and the five
+    competing `row` lambdas that had grown inside `state.py` alone — three of
+    which defaulted neither `recognition` nor `production`. Deduplication on its
+    own would have been a lateral move: one stale shape instead of sixty-four.
+
+    GATE 7.2 — WHAT DOES THIS LOOK LIKE WHEN IT SILENTLY DOES NOTHING? It looks
+    like ALL GREEN. A fixture is a claim about a shape the production code
+    writes, and nothing in the suite ever checked that claim. Add a seventh core
+    field to the minted record and every case here goes on exercising the old
+    six-field shape: the selection cases still rank, the ledger cases still
+    close, and not one of them is testing the record the system now stores. The
+    same class as the dropped DEMOTE table — the test tested the function, the
+    bug was in the round trip.
+
+    So the guard reads the real mint sites out of `sync_state` by AST and pins
+    the builder's defaults to their INTERSECTION. Intersection, not union, is
+    the load-bearing choice: a field present at every mint site is part of what
+    a record IS, while one present at a single site (`deck`, `direction`,
+    `type`) is that caller's elaboration and must stay optional — defaulting it
+    would hand every fixture a deck membership it never joined."""
+    print("\n85. The fixture's lexicon record tracks the minted one (2026-08-29)")
+
+    def mint_cores(src: str) -> list[set]:
+        """Every `lexicon[<key>] = {...}` literal's field set, by AST.
+
+        Reads `raw_source`, not `mechanism`: this file is consumed as a PROGRAM,
+        and a parser needs the comments' line numbers to be honest."""
+        out = []
+        for node in ast.walk(ast.parse(src)):
+            if not (isinstance(node, ast.Assign) and len(node.targets) == 1):
+                continue
+            target = node.targets[0]
+            if (isinstance(target, ast.Subscript)
+                    and isinstance(target.value, ast.Name)
+                    and target.value.id == "lexicon"
+                    and isinstance(node.value, ast.Dict)):
+                out.append({k.value for k in node.value.keys
+                            if isinstance(k, ast.Constant)})
+        return out
+
+    sites = mint_cores(raw_source(REAL_BASE / "scripts" / "sync_state.py"))
+
+    # AN ABSENCE MUST BE LOUD. A needle list that comes back empty — the walk
+    # broken by a refactor that mints records some other way — would make every
+    # assertion below vacuously true, which is this case's own silent no-op.
+    check(f"the walk reached real mint sites ({len(sites)} found)",
+          len(sites) >= 4,
+          f"got {len(sites)} — if minting moved out of `lexicon[k] = {{...}}` "
+          f"literals, this guard is reading nothing and must be re-pointed")
+    if not sites:
+        # Report and stop. `set.intersection(*[])` raises, and a case that ABORTS
+        # the run takes the other 82 down with it — found by mutation-testing this
+        # very check (2026-08-29). A dead needle must be loud, not fatal.
+        return
+
+    core = set.intersection(*sites)
+    defaults = set(lex_row())
+    check("the builder's defaults ARE the minted core, exactly",
+          defaults == core,
+          f"builder has {sorted(defaults)}; sync_state mints {sorted(core)} at "
+          f"every site — the difference is {sorted(defaults ^ core)}")
+
+    # The optional half stays optional, and the assertion names WHY: these are
+    # single-caller elaborations, not part of what a record is.
+    optional = set().union(*sites) - core
+    check(f"...and the per-caller elaborations stay absent ({sorted(optional)})",
+          not (optional & defaults),
+          f"leaked into the defaults: {sorted(optional & defaults)}")
+
+    # `heard_on` IS THE ONE THAT MATTERS. It is absent from every mint site on
+    # purpose — "minting is Anna DECLARING a level, not observing one" — so
+    # solid-by-assertion stays a DERIVED property. It therefore never reaches
+    # `core`, but assert it by name: a future mint site that added it would slide
+    # it into the intersection, and the sentence above would quietly stop being
+    # true while this case stayed green.
+    check("`heard_on` is not defaulted — assertion stays derived, not stored",
+          "heard_on" not in defaults and "heard_on" not in core,
+          "a fixture handed ear-evidence it never earned retires s53's distinction")
+
+    # ── The builder's own contract.
+    check("a caller's field wins over the default",
+          lex_row(recognition="solid")["recognition"] == "solid")
+    check("...and an optional field is added, not rejected",
+          lex_row(type="pattern")["type"] == "pattern")
+
+    a, b = lex_row(), lex_row()
+    a["seen_in"].append(1)
+    a["phonetic"].append("p")
+    check("two rows never share a mutable default",
+          b["seen_in"] == [] and b["phonetic"] == [],
+          f"got seen_in={b['seen_in']}, phonetic={b['phonetic']} — a module-level "
+          f"literal would let one case's append leak into the next")
+
+    # ── MUTATION TEST: prove the guard can go red. A schema check that cannot
+    # fail is the thing it was written to prevent.
+    grown = mint_cores(
+        'lexicon[a] = {"gloss": "", "phonetic": [], "recognition": r,\n'
+        '              "production": "none", "seen_in": [], "last_surfaced": t,\n'
+        '              "confidence": 0}\n'
+        'lexicon[b] = {"gloss": "", "phonetic": [], "recognition": r,\n'
+        '              "production": "none", "seen_in": [], "last_surfaced": t,\n'
+        '              "confidence": 0, "deck": d}\n')
+    check("a seventh core field would fail this case, not pass it",
+          set.intersection(*grown) - defaults == {"confidence"},
+          f"the extractor did not see the added field: {sorted(set.intersection(*grown))}")
+    check("...while a single-site field still would not",
+          "deck" not in set.intersection(*grown))

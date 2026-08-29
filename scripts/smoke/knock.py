@@ -21,7 +21,7 @@ from pathlib import Path
 
 from . import _fixtures as fx
 from ._fixtures import (
-    check, mechanism, read_json, REAL_BASE, Recorder, write_json,
+    check, lex_row, mechanism, read_json, REAL_BASE, Recorder, write_json,
 )
 
 
@@ -150,12 +150,11 @@ def s5_reply_judge(mk, kr, sb: Path):
     lex_path = prog / "lexicon.json"
     klog_path = prog / "knock_log.json"
     write_json(lex_path, {
-        "போதும்": {"gloss": "Enough", "phonetic": ["podhum"], "recognition": "solid",
-                    "production": "none", "seen_in": [], "last_surfaced": "2026-07-01"},
-        "ரொம்ப பிடிச்சிருக்கு": {"gloss": "I really like it",
-                                   "phonetic": ["romba pidichirukku"],
-                                   "recognition": "solid", "production": "none",
-                                   "seen_in": [], "last_surfaced": "2026-07-01"},
+        "போதும்": lex_row(gloss="Enough", phonetic=["podhum"], recognition="solid",
+                          last_surfaced="2026-07-01"),
+        "ரொம்ப பிடிச்சிருக்கு": lex_row(gloss="I really like it", phonetic=["romba pidichirukku"],
+                                        recognition="solid",
+                                        last_surfaced="2026-07-01"),
     })
     kr.push_to_phone, kr.commit_and_push = Recorder(), Recorder()
     now = datetime.now(timezone.utc)
@@ -316,9 +315,8 @@ def s8_variety_and_decay(mk, kr, sb: Path):
     # never-soaked items are flagged UNSEEN on the menu (teach before quiz)
     lex_path = sb / "progress" / "lexicon.json"
     write_json(lex_path, {
-        "வணக்கம்": {"gloss": "hello", "phonetic": ["vanakkam"], "recognition": "struggled",
-                     "production": "none", "seen_in": [], "last_surfaced": None,
-                     "register": "antifreeze", "direction": "fire"},
+        "வணக்கம்": lex_row(gloss="hello", phonetic=["vanakkam"], register="antifreeze",
+                           direction="fire"),
     })
     menu = mk.due_menu_block()
     check("never-soaked item flagged UNSEEN", "UNSEEN" in menu, menu)
@@ -388,11 +386,11 @@ def s10_chain_history(mk, kr, sb: Path):
     prog = sb / "progress"
     lex_path, klog_path = prog / "lexicon.json", prog / "knock_log.json"
     write_json(lex_path, {
-        "ஒரு மாசம் இருப்போம்": {"gloss": "We're staying one month",
-                                  "phonetic": ["oru maasam iruppom"],
-                                  "recognition": "solid", "production": "none", "seen_in": []},
-        "வேண்டாம்": {"gloss": "Don't want / no thanks", "phonetic": ["vendaam"],
-                      "recognition": "solid", "production": "none", "seen_in": []},
+        "ஒரு மாசம் இருப்போம்": lex_row(gloss="We're staying one month",
+                                       phonetic=["oru maasam iruppom"],
+                                       recognition="solid"),
+        "வேண்டாம்": lex_row(gloss="Don't want / no thanks", phonetic=["vendaam"],
+                            recognition="solid"),
     })
     kr.push_to_phone, kr.commit_and_push = Recorder(), Recorder()
     now = datetime.now(timezone.utc)
@@ -461,9 +459,10 @@ def s11_capped_graduation(kr, sb: Path):
 
     # (a) day 2 of capped fires → graduation to COLD, pace credited
     write_json(lex_path, {
-        "பழகிப்போச்சு": {"gloss": "I'm used to it", "phonetic": ["pazhagippochu"],
-                          "recognition": "solid", "production": "hinted",
-                          "seen_in": [], "last_surfaced": "2026-07-01"},
+        "பழகிப்போச்சு": lex_row(gloss="I'm used to it", phonetic=["pazhagippochu"],
+                                recognition="solid",
+                                production="hinted",
+                                last_surfaced="2026-07-01"),
     })
     day1 = {"date": yday.date().isoformat(), "timestamp": yday.isoformat(),
             "acted": True, "modality": "text", "move": "smoke lore",
@@ -495,9 +494,9 @@ def s11_capped_graduation(kr, sb: Path):
 
     # (b) judge says 'capped' but nothing on record revealed the word → COLD (KF-6)
     write_json(lex_path, {
-        "வேண்டாம்": {"gloss": "don't want / no thanks", "phonetic": ["vendaam"],
-                      "recognition": "solid", "production": "none",
-                      "seen_in": [], "last_surfaced": "2026-07-01"},
+        "வேண்டாம்": lex_row(gloss="don't want / no thanks", phonetic=["vendaam"],
+                            recognition="solid",
+                            last_surfaced="2026-07-01"),
     })
     write_json(klog_path, [{
         "date": now.date().isoformat(), "timestamp": now.isoformat(),
@@ -512,9 +511,8 @@ def s11_capped_graduation(kr, sb: Path):
 
     # (c) judge says 'cold' on Tamil the knock itself printed → capped (day 1: hinted)
     write_json(lex_path, {
-        "போதும்": {"gloss": "enough", "phonetic": ["podhum"],
-                    "recognition": "solid", "production": "none",
-                    "seen_in": [], "last_surfaced": "2026-07-01"},
+        "போதும்": lex_row(gloss="enough", phonetic=["podhum"], recognition="solid",
+                          last_surfaced="2026-07-01"),
     })
     write_json(klog_path, [{
         "date": now.date().isoformat(), "timestamp": now.isoformat(),
@@ -562,8 +560,7 @@ def s12_volley(mk, kr, sb: Path):
 
     # reply flow: cold → advance; MISS → still advance; queue exhausts
     write_json(lex_path, {
-        w: {"gloss": "g", "phonetic": [p], "recognition": "solid",
-            "production": "none", "seen_in": [], "last_surfaced": "2026-07-01"}
+        w: lex_row(gloss="g", phonetic=[p], recognition="solid", last_surfaced="2026-07-01")
         for w, p in [(w1, "podhum"), (w2, "vendaam"), (w3, "pazhagippochu")]})
     kr.push_to_phone, kr.commit_and_push = Recorder(), Recorder()
     now = datetime.now(timezone.utc)
@@ -636,10 +633,11 @@ def s13_eavesdrop(mk, kr, sb: Path):
     check("eavesdrop keeps modality, target unrevealed",
           d["modality"] == "eavesdrop" and d["target_revealed"] is False)
 
-    write_json(lex_path, {w: {
-        "gloss": "you know?", "phonetic": ["theriyuma"], "recognition": "struggled",
-        "production": "none", "seen_in": [], "last_surfaced": "2026-07-01",
-        "deck": "trip", "direction": "catch", "type": "chunk"}})
+    write_json(lex_path, {w: lex_row(gloss="you know?", phonetic=["theriyuma"],
+                                     last_surfaced="2026-07-01",
+                                     deck="trip",
+                                     direction="catch",
+                                     type="chunk")})
     kr.push_to_phone, kr.commit_and_push = Recorder(), Recorder()
     now = datetime.now(timezone.utc)
 
@@ -749,9 +747,7 @@ def s13_eavesdrop(mk, kr, sb: Path):
         saved_lex = lex_path.read_bytes()
         now_local = datetime.now(timezone.utc).astimezone()
         write_json(lex_path, {
-            "smoke:cad-ear": {"gloss": "pending catch", "type": "chunk",
-                              "direction": "catch", "recognition": "struggled",
-                              "production": "none", "seen_in": [], "last_surfaced": None},
+            "smoke:cad-ear": lex_row(gloss="pending catch", type="chunk", direction="catch"),
         })
         mk.last_eavesdrop = lambda klog: None
         room = mk.remaining_room([], now_local)
@@ -777,10 +773,10 @@ def s13_eavesdrop(mk, kr, sb: Path):
         # THE SILENT-NO-OP GUARD ITSELF. The `except` must swallow a crash — that
         # is its job — but the case has to prove the block is doing work at all,
         # or a broken data source reads exactly like a healthy quiet day.
-        write_json(lex_path, {"smoke:cad-fire": {
-            "gloss": "no catch anywhere", "type": "chunk", "direction": "fire",
-            "recognition": "solid", "production": "none", "seen_in": [1],
-            "last_surfaced": None}})
+        write_json(lex_path, {"smoke:cad-fire": lex_row(gloss="no catch anywhere", type="chunk",
+                                                        direction="fire",
+                                                        recognition="solid",
+                                                        seen_in=[1])})
         mk.last_eavesdrop = lambda klog: None
         check("no catch pending, no prompt — quiet is earned, not accidental",
               "Eavesdrop:" not in mk.remaining_room([], now_local))
@@ -939,10 +935,13 @@ def s20_fielding(mk, kr, sb: Path):
     check("fielding speaks in the family voice, not Anna's",
           fake_render.voice == mk.EAVESDROP_VOICE)
 
-    write_json(lex_path, {w: {
-        "gloss": "I ate", "phonetic": ["saapten"], "recognition": "comfortable",
-        "production": "none", "seen_in": ["M1"], "last_surfaced": "2026-07-01",
-        "deck": "trip", "direction": "fire", "type": "chunk"}})
+    write_json(lex_path, {w: lex_row(gloss="I ate", phonetic=["saapten"],
+                                     recognition="comfortable",
+                                     seen_in=["M1"],
+                                     last_surfaced="2026-07-01",
+                                     deck="trip",
+                                     direction="fire",
+                                     type="chunk")})
     kr.push_to_phone, kr.commit_and_push = Recorder(), Recorder()
     catch_calls = Recorder()
     kr.judge_catch = catch_calls
@@ -1467,9 +1466,8 @@ def s82_the_catch_lane_has_a_mouth(mk, kr, sb: Path):
     target = "frame:hearsay-aam"
     try:
         lex = read_json(lex_path)
-        lex[target] = {"gloss": "hearsay", "phonetic": ["aam"], "recognition": "struggled",
-                       "production": "none", "seen_in": [], "last_surfaced": "2026-08-01",
-                       "direction": "catch", "type": "frame"}
+        lex[target] = lex_row(gloss="hearsay", phonetic=["aam"], last_surfaced="2026-08-01",
+                              direction="catch", type="frame")
         write_json(lex_path, lex)
 
         async def fake_render(script, out_path, voice):
@@ -1568,9 +1566,8 @@ def s83_reply_or_message_is_decided_by_the_tag(mk, kr, sb: Path):
     target = "frame:tag-probe"
     try:
         lex = read_json(lex_path)
-        lex[target] = {"gloss": "probe", "phonetic": ["seri seri"],
-                       "recognition": "struggled", "production": "none", "seen_in": [],
-                       "last_surfaced": "2026-08-01", "direction": "fire", "type": "frame"}
+        lex[target] = lex_row(gloss="probe", phonetic=["seri seri"], last_surfaced="2026-08-01",
+                              direction="fire", type="frame")
         write_json(lex_path, lex)
         knock = {"timestamp": "2026-08-28T01:00:00Z", "acted": True,
                  "modality": "text", "move": "probe", "body": "b",
@@ -1917,20 +1914,18 @@ def s60_the_ear_meter(kr, sb: Path):
     ear = "frame:ear-only"
     write_json(lex_path, {
         # fires cold, still deaf — in BOTH denominators
-        "frame:fire-only": {"gloss": "-om", "phonetic": ["om"], "type": "pattern",
-                            "recognition": "struggled", "production": "cold", "seen_in": []},
+        "frame:fire-only": lex_row(gloss="-om", phonetic=["om"], type="pattern", production="cold"),
         # ear-only: Engines excludes it by design, this meter must not
-        ear: {"gloss": "-aam hearsay", "phonetic": ["aam"], "type": "pattern",
-              "direction": "catch", "recognition": "comfortable", "production": "none",
-              "seen_in": [], "last_surfaced": "2026-07-01"},
+        ear: lex_row(gloss="-aam hearsay", phonetic=["aam"], type="pattern", direction="catch",
+                     recognition="comfortable", last_surfaced="2026-07-01"),
         # the one already heard — and since 2026-08-27 "heard" needs the evidence
         # date, not just the level. Without heard_on this row is an assertion.
-        "frame:heard": {"gloss": "-nu quotative", "phonetic": ["nu"], "type": "pattern",
-                        "recognition": "solid", "production": "none", "seen_in": [],
-                        "heard_on": "2026-07-26"},
+        "frame:heard": lex_row(gloss="-nu quotative", phonetic=["nu"], type="pattern",
+                               recognition="solid",
+                               heard_on="2026-07-26"),
         # a WORD at solid — must not touch a pattern meter
-        "வணக்கம்": {"gloss": "hello", "phonetic": ["vanakkam"], "type": "chunk",
-                    "recognition": "solid", "production": "cold", "seen_in": []},
+        "வணக்கம்": lex_row(gloss="hello", phonetic=["vanakkam"], type="chunk",
+                           recognition="solid", production="cold"),
     })
 
     line = meter(status())
@@ -1943,9 +1938,9 @@ def s60_the_ear_meter(kr, sb: Path):
     # that would silently re-inflate: before the evidence rule it read 2/3 on this
     # very fixture, and 2/3 is a perfectly plausible number to walk past.
     lex_assert = read_json(lex_path)
-    lex_assert["frame:asserted-solid"] = {"gloss": "seeded", "phonetic": ["x"],
-                                          "type": "pattern", "recognition": "solid",
-                                          "production": "cold", "seen_in": []}
+    lex_assert["frame:asserted-solid"] = lex_row(gloss="seeded", phonetic=["x"], type="pattern",
+                                                 recognition="solid",
+                                                 production="cold")
     write_json(lex_path, lex_assert)
     check("a machine solid by ASSERTION widens the denominator, never the count",
           meter(status()).startswith("Machines heard: 1/4"), meter(status()))
@@ -2029,9 +2024,7 @@ def s81_the_ear_judge_stamps_its_own_evidence(kr, sb: Path):
     saved = lex_path.read_bytes()
     try:
         target = "frame:catch-me"
-        base = {"gloss": "-aam", "phonetic": ["aam"], "type": "pattern",
-                "direction": "catch", "recognition": "struggled",
-                "production": "none", "seen_in": []}
+        base = lex_row(gloss="-aam", phonetic=["aam"], type="pattern", direction="catch")
         knock = {"expected_target": target}
 
         # --- a MISS is still an ear test ----------------------------------
@@ -2101,9 +2094,9 @@ def s61_no_number_is_recited_at_him(kr, sb: Path):
     # The real push path, driven end to end: a catch reply must reach the phone
     # carrying the reply line and nothing else.
     w = "frame:smoke-ear"
-    write_json(lex_path, {w: {"gloss": "-aam", "phonetic": ["aam"], "type": "pattern",
-                              "deck": "trip", "direction": "catch", "recognition": "struggled",
-                              "production": "none", "seen_in": [], "last_surfaced": "2026-07-01"}})
+    write_json(lex_path, {w: lex_row(gloss="-aam", phonetic=["aam"], type="pattern", deck="trip",
+                                     direction="catch",
+                                     last_surfaced="2026-07-01")})
     pushed = Recorder()
     kr.push_to_phone, kr.commit_and_push = pushed, Recorder()
     kr.judge_catch = lambda k, r, *a, **kw: {"verdict": "caught", "reply_line": "adhu dhaan 🎧",

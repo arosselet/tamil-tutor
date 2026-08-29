@@ -23,7 +23,7 @@ from pathlib import Path
 
 from . import _fixtures as fx
 from ._fixtures import (
-    check, mechanism, read_json, REAL_BASE, Recorder, write_json,
+    check, lex_row, mechanism, read_json, REAL_BASE, Recorder, write_json,
 )
 
 
@@ -646,8 +646,7 @@ def s43_sidecar_callback_never_drops_silently(sb: Path):
     # is BOOTSTRAP's question, not this case's.)
     try:
         lex = read_json(lex_path)
-        lex["ஸ்மோக்ஆங்கர்"] = {"gloss": "anchor", "phonetic": [], "recognition": "solid",
-                               "production": "none", "seen_in": []}
+        lex["ஸ்மோக்ஆங்கர்"] = lex_row(gloss="anchor", recognition="solid")
         write_json(lex_path, lex)
         out = io.StringIO()
         with contextlib.redirect_stdout(out):

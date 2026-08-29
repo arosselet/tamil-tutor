@@ -152,6 +152,7 @@ def main():
         run(state.s79_a_rating_lands_or_says_why, sb)
         run(state.s80_one_produced_resolver, sb)
         run(ratchets.s75_the_stack_is_one_way)
+        run(ratchets.s85_the_fixture_record_tracks_the_minted_one, sb)
 
     if fx.ONLY and not fx.RAN:
         sys.exit(f"no case matched {fx.ONLY} — name a case (s41) or a prefix (s41_slip)")

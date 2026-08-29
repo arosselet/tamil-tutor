@@ -2526,3 +2526,13 @@ Details live in git history; this is the index of the *conclusions*.
   mode is a new modality silently missing — this bug one modality later; an unlogged knock is
   offered as `knock/dose` for that reason, and replies stay out by stem. The label carries the
   modality so an eavesdrop groups against a soak. `rebuild_rss` 343→348 of 350, no raise.
+- **The suite states the lexicon record ONCE, and the statement is guarded** (2026-08-29).
+  `state.py` had five competing `row` lambdas — three defaulting neither `recognition` nor
+  `production` — beside 46 hand-written literals. `_fixtures.lex_row` is the one statement;
+  `s85` pins its defaults to the INTERSECTION of `sync_state`'s five mint sites, read by AST,
+  so a field at every site is part of the record and a single-site field (`deck`, `direction`,
+  `type`) stays that caller's elaboration. **The silent no-op:** a seventh core field would
+  leave 68 fixtures green over a shape nothing writes — dedup alone centralises that staleness
+  rather than ending it, so the guard is what earns the change. **`heard_on` stays
+  undefaulted**: its absence is what makes solid-by-assertion derived, not stored.
+  Mutation-tested six ways; the sixth found a defect in the case itself.

@@ -103,6 +103,44 @@ def read_json(path: Path):
 def write_json(path: Path, obj):
     path.write_text(json.dumps(obj, ensure_ascii=False, indent=2), encoding="utf-8")
 
+
+# ── The lexicon record ───────────────────────────────────────────────────────
+# WHAT THIS REPLACES: 64 hand-written record literals across four case files, and
+# the FIVE competing `row` lambdas that had already grown inside `state.py` alone
+# — three of which omitted `recognition` and `production` entirely and leaned on
+# every call site to remember them. No file stated what a lexicon record IS, so
+# each case restated it, slightly differently.
+#
+# THE SILENT NO-OP THIS CLOSES (Gate 7.2). A fixture is a claim about a shape the
+# production code writes. When `sync_state` mints a seventh core field, 64 literals
+# go on asserting behaviour over a record shape nothing produces any more: every
+# case still passes, and it passes for the wrong reason — the same class as the
+# dropped DEMOTE table, where the test tested the function and the bug was in the
+# round trip. Deduplication alone would not fix that; it would centralise the
+# staleness. So the defaults below are GUARDED against the real mint sites by
+# `s85`, which reads them out of `sync_state` by AST: this builder cannot drift
+# from the thing it stands in for without a red run.
+#
+# `heard_on` IS DELIBERATELY ABSENT and must stay absent. `sync_state` omits it at
+# every mint site on purpose ("minting is Anna DECLARING a level, not observing
+# one"), which is what makes solid-by-assertion a DERIVED property rather than a
+# stored flag. A default here would hand every fixture ear-evidence it never
+# earned and quietly retire the distinction `s53` exists to prove.
+
+def lex_row(**kw) -> dict:
+    """One lexicon record in the shape `sync_state` actually mints.
+
+    Pass only what the case is ABOUT — the defaults are the boring rest:
+
+        lex_row(recognition="solid", production="cold")
+        lex_row(type="pattern", heard_on="2026-07-26", direction="catch")
+
+    Optional fields (`type`, `deck`, `direction`, `register`, `reps`,
+    `pairs_with`, `heard_on`) are absent unless asked for, exactly as in the
+    minted record."""
+    return {"gloss": "x", "phonetic": [], "recognition": "struggled",
+            "production": "none", "seen_in": [], "last_surfaced": None, **kw}
+
 def code_lines(src: str) -> int:
     """Executable lines: everything that is not blank, a comment, or a docstring."""
     return len(code_line_numbers(src))
