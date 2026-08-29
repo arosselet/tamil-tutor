@@ -5727,19 +5727,20 @@
     "expected_target": "தப்பு",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Nera ponga",
-    "reply_verdict": "cold",
+    "reply": "Pinnar",
+    "reply_verdict": "hinted",
     "reply_fired": [
       "இல்ல",
-      "நேரா"
+      "நேரா",
+      "அப்புறம்"
     ],
     "reply_fired_cold": [
       "இல்ல",
       "நேரா"
     ],
     "reply_fired_capped": [],
-    "reply_line": "adhu dhaan! 'nera ponga' lands clean. 🔥 · Mama asks if we should stop for tea. Tell him 'later' —",
-    "reply_at": "2026-08-29T14:57:38Z",
+    "reply_line": "pinnar is textbook Tamil da — at the table we just say 'appuram'. · Tell mama 'let's go tomorrow' — just the word for tomorrow:",
+    "reply_at": "2026-08-29T15:50:10Z",
     "exchanges": [
       {
         "at": "2026-08-29T14:56:00Z",
@@ -5774,10 +5775,27 @@
         "slips": [],
         "spoke": "",
         "scheduled": ""
+      },
+      {
+        "at": "2026-08-29T15:50:10Z",
+        "reply": "Pinnar",
+        "verdict": "hinted",
+        "fired": [
+          "அப்புறம்"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "pinnar is textbook Tamil da — at the table we just say 'appuram'. · Tell mama 'let's go tomorrow' — just the word for tomorrow:",
+        "slips": [
+          "book-tamil"
+        ],
+        "spoke": "",
+        "scheduled": ""
       }
     ],
-    "chained": 2,
-    "pinned_target": "அப்புறம்",
+    "chained": 3,
+    "pinned_target": "நாளைக்கு",
     "pinned_revealed": false
   }
 ]

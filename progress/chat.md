@@ -32,6 +32,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! 'nera ponga' lands clean. 🔥 · Mama asks if we should stop for tea. Tell him 'later' —
 
+**21:20 · Andrew** — **HINTED**
+> Pinnar
+
+**Anna ↩**
+> pinnar is textbook Tamil da — at the table we just say 'appuram'. · Tell mama 'let's go tomorrow' — just the word for tomorrow:
+
 
 ## Friday 2026-08-28
 
