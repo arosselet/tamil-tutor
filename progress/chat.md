@@ -44,6 +44,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! 'naalaikku' is exact. 🔥
 
+**21:22 · Andrew** — **CHAT**
+> What about pogum? For we go future tense?
+
+**Anna ↩**
+> pogum is for things ('bus pogum' — it will go). For 'we will go', it's 'povom' — or casually 'polam'!
+
 
 ## Friday 2026-08-28
 
