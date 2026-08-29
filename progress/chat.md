@@ -15,6 +15,8 @@ Newest day first. **Derived file — edits here are overwritten.**
 **15:01 · Anna**  ·  text / show dose: gossip anchor
 > 👂 Gossip anchor: 'namma mama irukkaar-la...' (our uncle, you know him right?). Pins the person before the tea drops.
 
+**17:25 · Andrew** · 👍 acked
+
 
 ## Friday 2026-08-28
 
