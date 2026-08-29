@@ -5725,6 +5725,40 @@
     "next_check": "2026-08-30T01:52:40.461851+00:00",
     "body": "Mama says 'inga thirumbanum-la?' (turn here right?) but he's mistaken. Call it out in one word — wrong:",
     "expected_target": "தப்பு",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Ila",
+    "reply_verdict": "cold",
+    "reply_fired": [
+      "இல்ல"
+    ],
+    "reply_fired_cold": [
+      "இல்ல"
+    ],
+    "reply_fired_capped": [],
+    "reply_line": "illa works, but for 'wrong' it's thappu. · Tell mama to keep going straight —",
+    "reply_at": "2026-08-29T14:56:00Z",
+    "exchanges": [
+      {
+        "at": "2026-08-29T14:56:00Z",
+        "reply": "Ila",
+        "verdict": "cold",
+        "fired": [
+          "இல்ல"
+        ],
+        "fired_cold": [
+          "இல்ல"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "illa works, but for 'wrong' it's thappu. · Tell mama to keep going straight —",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ],
+    "chained": 1,
+    "pinned_target": "நேரா",
+    "pinned_revealed": false
   }
 ]

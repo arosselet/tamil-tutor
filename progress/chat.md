@@ -20,6 +20,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **20:22 · Anna**  ·  text / micro-dare: wrong
 > Mama says 'inga thirumbanum-la?' (turn here right?) but he's mistaken. Call it out in one word — wrong:
 
+**20:26 · Andrew** — **COLD**
+> Ila
+
+**Anna ↩**
+> illa works, but for 'wrong' it's thappu. · Tell mama to keep going straight —
+
 
 ## Friday 2026-08-28
 
