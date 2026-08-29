@@ -5727,20 +5727,22 @@
     "expected_target": "தப்பு",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Pinnar",
-    "reply_verdict": "hinted",
+    "reply": "Naalaiku pogum",
+    "reply_verdict": "cold",
     "reply_fired": [
       "இல்ல",
       "நேரா",
-      "அப்புறம்"
+      "அப்புறம்",
+      "நாளைக்கு"
     ],
     "reply_fired_cold": [
       "இல்ல",
-      "நேரா"
+      "நேரா",
+      "நாளைக்கு"
     ],
     "reply_fired_capped": [],
-    "reply_line": "pinnar is textbook Tamil da — at the table we just say 'appuram'. · Tell mama 'let's go tomorrow' — just the word for tomorrow:",
-    "reply_at": "2026-08-29T15:50:10Z",
+    "reply_line": "adhu dhaan! 'naalaikku' is exact. 🔥",
+    "reply_at": "2026-08-29T15:51:50Z",
     "exchanges": [
       {
         "at": "2026-08-29T14:56:00Z",
@@ -5790,6 +5792,23 @@
         "slips": [
           "book-tamil"
         ],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-29T15:51:50Z",
+        "reply": "Naalaiku pogum",
+        "verdict": "cold",
+        "fired": [
+          "நாளைக்கு"
+        ],
+        "fired_cold": [
+          "நாளைக்கு"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! 'naalaikku' is exact. 🔥",
+        "slips": [],
         "spoke": "",
         "scheduled": ""
       }

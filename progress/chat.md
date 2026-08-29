@@ -38,6 +38,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > pinnar is textbook Tamil da — at the table we just say 'appuram'. · Tell mama 'let's go tomorrow' — just the word for tomorrow:
 
+**21:21 · Andrew** — **COLD**
+> Naalaiku pogum
+
+**Anna ↩**
+> adhu dhaan! 'naalaikku' is exact. 🔥
+
 
 ## Friday 2026-08-28
 
