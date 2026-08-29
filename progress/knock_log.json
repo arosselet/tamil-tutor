@@ -5727,22 +5727,26 @@
     "expected_target": "தப்பு",
     "target_revealed": false,
     "response": "reply",
-    "reply": "What about pogum? For we go future tense?",
-    "reply_verdict": "chat",
+    "reply": "So Naalaiku polam?",
+    "reply_verdict": "hinted",
     "reply_fired": [
       "இல்ல",
       "நேரா",
       "அப்புறம்",
-      "நாளைக்கு"
+      "நாளைக்கு",
+      "நாளைக்கு",
+      "போலாம்"
     ],
     "reply_fired_cold": [
       "இல்ல",
       "நேரா",
       "நாளைக்கு"
     ],
-    "reply_fired_capped": [],
-    "reply_line": "pogum is for things ('bus pogum' — it will go). For 'we will go', it's 'povom' — or casually 'polam'!",
-    "reply_at": "2026-08-29T15:52:55Z",
+    "reply_fired_capped": [
+      "நாளைக்கு"
+    ],
+    "reply_line": "aama, exact-ah adhu dhaan! 'naalaikku polam' is super natural.",
+    "reply_at": "2026-08-29T15:54:03Z",
     "exchanges": [
       {
         "at": "2026-08-29T14:56:00Z",
@@ -5821,6 +5825,24 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "pogum is for things ('bus pogum' — it will go). For 'we will go', it's 'povom' — or casually 'polam'!",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-08-29T15:54:03Z",
+        "reply": "So Naalaiku polam?",
+        "verdict": "hinted",
+        "fired": [
+          "நாளைக்கு",
+          "போலாம்"
+        ],
+        "fired_cold": [],
+        "fired_capped": [
+          "நாளைக்கு"
+        ],
+        "graduated": [],
+        "reply_line": "aama, exact-ah adhu dhaan! 'naalaikku polam' is super natural.",
         "slips": [],
         "spoke": "",
         "scheduled": ""

@@ -50,6 +50,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > pogum is for things ('bus pogum' — it will go). For 'we will go', it's 'povom' — or casually 'polam'!
 
+**21:24 · Andrew** — **HINTED**
+> So Naalaiku polam?
+
+**Anna ↩**
+> aama, exact-ah adhu dhaan! 'naalaikku polam' is super natural.
+
 
 ## Friday 2026-08-28
 
