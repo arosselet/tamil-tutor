@@ -665,5 +665,29 @@
     "note": "purinjudhu is 'understood' — puriyadhu means 'won't understand'",
     "word": "புரிஞ்சுது",
     "dose_channel": "soak"
+  },
+  {
+    "at": "2026-08-29T01:25:36Z",
+    "date": "2026-08-29",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "tail-inaudible",
+    "said": "heard varala / theriyala / kekkala as positives",
+    "want": "didn't come / don't know / didn't pick up",
+    "note": "the meaning-bearing tail is unstressed and passes through his ear as silence — he read the ONE untailed line perfectly and inverted all four tailed ones",
+    "word": "",
+    "dose_channel": "soak"
+  },
+  {
+    "at": "2026-08-29T01:25:36Z",
+    "date": "2026-08-29",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "chunk-not-machine",
+    "said": "puriyala, then appadi illa",
+    "want": "theriyala",
+    "note": "reaches into a drawer of whole memorised no's and grabs whichever is freshest, instead of building the specific no off the verb the question just used",
+    "word": "தெரியல",
+    "dose_channel": "soak"
   }
 ]

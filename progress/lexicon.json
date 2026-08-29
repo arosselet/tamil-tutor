@@ -833,8 +833,10 @@
       31,
       37
     ],
-    "last_surfaced": "2026-08-10",
-    "exposures": 3
+    "last_surfaced": "2026-08-29",
+    "exposures": 3,
+    "heard_on": "2026-08-29",
+    "reps": 1
   },
   "தங்கச்சி": {
     "gloss": "Younger sister",
@@ -4125,12 +4127,12 @@
       "evlo aagum"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [],
-    "last_surfaced": "2026-08-26",
+    "last_surfaced": "2026-08-29",
     "deck": "trip",
     "direction": "fire",
-    "reps": 1,
+    "reps": 2,
     "exposures": 6,
     "register": "public"
   },
@@ -4430,10 +4432,10 @@
       83,
       86
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-08-29",
     "deck": "trip",
     "direction": "catch",
-    "reps": 3,
+    "reps": 4,
     "exposures": 3,
     "register": "gossip",
     "heard_on": "2026-07-27"
@@ -4620,14 +4622,14 @@
       "theriyala"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [
       63,
       87,
       88
     ],
-    "last_surfaced": "2026-08-19",
-    "reps": 2,
+    "last_surfaced": "2026-08-29",
+    "reps": 3,
     "exposures": 3
   },
   "டீ": {
