@@ -2515,3 +2515,14 @@ Details live in git history; this is the index of the *conclusions*.
   travels in every deck a fork writes. 416 rows, pure-key diff, verified by round-tripping the
   real deck through the real writer in a sandbox and re-reading `lexicon.json` (62/62 landed).
   `../language-tutor` chose `word` at extraction time, so the schemas now agree.
+- **The rating picker keys on the DOSE, not the delivery channel** (2026-08-29, Andrew:
+  *"I listened to the 08-27 eavesdrop … I don't see this episode listed"*). **Reopens**
+  08-27's knock exclusion, on evidence: he sat down with one and rated it. That law ("a
+  one-line dose is not rateable") was right and its KEY was wrong — `feed_items` tested the
+  delivery channel, sweeping a lane holding three different things. Duration cannot arbitrate
+  (eavesdrop 16-40s, fielding 2-16s — they touch at 16) and `memo_script` cannot either, so
+  modality decides: `knock_move_labels` → `knock_meta`, stem-keyed, returning
+  `(move, modality)`. **A denylist** (`UNRATEABLE_FORMATS`), because an allowlist's failure
+  mode is a new modality silently missing — this bug one modality later; an unlogged knock is
+  offered as `knock/dose` for that reason, and replies stay out by stem. The label carries the
+  modality so an eavesdrop groups against a soak. `rebuild_rss` 343→348 of 350, no raise.

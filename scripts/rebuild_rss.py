@@ -164,28 +164,39 @@ KNOCK_AUDIO_RE = re.compile(
 KNOCK_KIND = {"knock": "Knock", "queued": "Scheduled", "reply": "Reply"}
 
 
-def knock_move_labels():
-    """Map an mp3 path relative to AUDIO_DIR ("knocks/knock_….mp3") -> Anna's move
-    label from the knock log, so feed titles say what the memo was, not just when.
+def knock_meta():
+    """Map an mp3 STEM ("knock_2026-08-27T02-46") -> (move, modality) from the
+    knock log: what the memo was, and which kind of dose Anna sent.
 
     Reads `mp3` OR `audio_url`: the knock lane records a repo-relative path, while
     the drain and the reply judge record only the CDN url they pushed. Both end in
-    the same basename, which is all this mapping needs."""
+    the same basename, which is all this mapping needs.
+
+    KEYED ON THE STEM, not the "knocks/….mp3" path it used to carry, because its
+    second reader is now `feed_items`, which has already split that stem out of
+    the enclosure url. One key, two readers, no second basename split.
+
+    The MODALITY is why this returns a pair rather than a label. It is the only
+    record of whether a knock was a scripted dose or a one-line prompt, and the
+    feed itself cannot say: an eavesdrop memo runs 16-40s and a fielding prompt
+    2-16s, so the two OVERLAP and no duration threshold could separate them
+    honestly (measured across the 26 published knocks, 2026-08-29)."""
     try:
         with open("progress/knock_log.json", encoding="utf-8") as f:
             entries = json.load(f)
     except Exception:
         return {}
-    labels = {}
+    meta = {}
     for e in entries:
         ref = e.get("mp3") or e.get("audio_url") or e.get("reply_audio_url") or ""
         if ".mp3" not in ref:
             continue
-        labels[f"knocks/{os.path.basename(ref)}"] = e.get("move") or ""
-    return labels
+        stem = os.path.basename(ref).removesuffix(".mp3")
+        meta[stem] = (e.get("move") or "", e.get("modality") or "")
+    return meta
 
 
-def knock_title(filename: str, moves: dict) -> str:
+def knock_title(filename: str, meta: dict) -> str:
     """"knocks/knock_2026-07-05T22-58.mp3" -> "Knock — 2026-07-05 22:58 · <move>".
     Scheduled doses and spoken replies get their own word, same shape."""
     base = os.path.basename(filename)
@@ -197,7 +208,7 @@ def knock_title(filename: str, moves: dict) -> str:
         when = f"{m.group(2)}-{m.group(3)}-{m.group(4)}"
         if m.group(5):
             when += f" {m.group(5)}:{m.group(6)}"
-    move = moves.get(filename, "")
+    move = meta.get(base.removesuffix(".mp3"), ("", ""))[0]
     return f"{kind} — {when} · {move}" if move else f"{kind} — {when}"
 
 
@@ -223,6 +234,18 @@ def audio_format(stem: str) -> str:
     return "mission" if stem.startswith("tier") else "episode"
 
 
+# Which knock doses the rating picker will NOT offer. A DENYLIST, not an
+# allowlist, on purpose: an allowlist's failure mode is a new modality silently
+# missing from the picker, which is precisely the bug this replaces, one modality
+# later. The 08-27 law said "a one-line dose is not something you sit down and
+# rate" and then keyed itself on the DELIVERY CHANNEL, which swept the whole knock
+# lane with it. `fielding` is the modality that actually is one line -- a single
+# Tamil sentence asking for an answer, 2-16s across the 10 published, against
+# eavesdrop's 16-40s and audio's 25-102s. Spoken REPLIES are excluded by stem
+# instead: a reply is Andrew's own half of an exchange, not a dose Anna sent him.
+UNRATEABLE_FORMATS = {"knock/fielding"}
+
+
 def feed_items():
     """Everything in the feed, newest first — `[{id, title, format}]`.
 
@@ -236,8 +259,12 @@ def feed_items():
 
     Sorted by pubDate, deliberately NOT by this module's own `sort_key`: that one
     pins specials at the top forever, which is the same complaint in a new hat.
-    Knock micro-doses are excluded (Andrew, 2026-08-27) — a one-line dose is not
-    something you sit down and rate.
+    Knock doses are offered as `knock/<modality>` (Andrew, 2026-08-29: he sat down
+    with the 08-27 eavesdrop and wanted to rate it). The 08-27 exclusion was right
+    about one-line doses and wrong about where to key it — see
+    `UNRATEABLE_FORMATS`. The label carries the modality because comparing an
+    eavesdrop against a soak is the pedagogy question this ledger exists to
+    answer, and `[knock]` alone could not.
 
     Lives here rather than in `state_io` because this module owns the feed, and
     because L0 was 25 lines over its budget the moment it tried to."""
@@ -249,13 +276,21 @@ def feed_items():
     except ET.ParseError:
         print("  ⚠ rss.xml did not parse — no feed items to offer")
         return []
+    meta = knock_meta()
     out = []
     for item in root.findall("./channel/item"):
         enc = item.find("enclosure")
         url = (enc.get("url") if enc is not None else "") or ""
-        if "/knocks/" in url:
-            continue
         stem = url.rsplit("/", 1)[-1].removesuffix(".mp3")
+        fmt = audio_format(stem)
+        if "/knocks/" in url:
+            # An unlogged knock resolves to `knock/dose` and IS OFFERED, not
+            # dropped. That direction is deliberate: a stray row in the picker is
+            # visible and one tap to ignore, while a dose that silently never
+            # appears is the failure this whole change exists to end.
+            fmt = "knock/" + (meta.get(stem, ("", ""))[1] or "dose")
+            if stem.startswith("reply_") or fmt in UNRATEABLE_FORMATS:
+                continue
         title = (item.findtext("title") or "").strip()
         if not stem or not title:
             continue
@@ -263,8 +298,7 @@ def feed_items():
             when = email.utils.parsedate_to_datetime(item.findtext("pubDate") or "")
         except (TypeError, ValueError):
             continue
-        out.append({"id": stem, "title": title, "format": audio_format(stem),
-                    "at": when})
+        out.append({"id": stem, "title": title, "format": fmt, "at": when})
     out.sort(key=lambda d: d["at"], reverse=True)
     for d in out:
         d.pop("at")
@@ -456,7 +490,7 @@ def generate_rss():
     if skipped:
         print(f"⚠ skipping {len(skipped)} unplayable file(s): {', '.join(skipped[:5])}")
     episodes = playable
-    knock_moves = knock_move_labels()
+    knock_metadata = knock_meta()
 
     # Sort by mission number descending (newest first); drills sort above by date/time;
     # specials sort at the very top (10, ordinal) so they're visible when published.
@@ -502,7 +536,7 @@ def generate_rss():
 
         raw_title = get_title_from_md(script_path) or filename
         if filename.startswith("knocks/"):
-            title = knock_title(filename, knock_moves)
+            title = knock_title(filename, knock_metadata)
         else:
             title = clean_title(raw_title, filename)
         size = os.path.getsize(audio_path)

@@ -415,14 +415,19 @@ def s31_feed_carries_every_pushed_dose(sb: Path):
     cwd = os.getcwd()
     try:
         os.chdir(sb)
-        labels = rr.knock_move_labels()
+        meta = rr.knock_meta()
     finally:
         os.chdir(cwd)
+    # Keyed on the STEM since 2026-08-29 — `feed_items` became the second reader
+    # and had already split it out of the enclosure url. `knock_title` is still
+    # handed the "knocks/…" path, so both halves of the key change are exercised.
     for path, move in (("knocks/knock_2026-07-05T22-58.mp3", "ambient dose"),
                        ("knocks/queued_q1784931404_2026-07-24T23-50-00.mp3", "welcome james"),
                        ("knocks/reply_2026-07-24T23-55-10.mp3", "said it aloud")):
-        check(f"move label resolves: {move}", labels.get(path) == move, f"got {labels.get(path)!r}")
-        check(f"title carries the move: {move}", move in rr.knock_title(path, labels))
+        stem = path.removeprefix("knocks/").removesuffix(".mp3")
+        got = meta.get(stem, ("", ""))[0]
+        check(f"move label resolves: {move}", got == move, f"got {got!r}")
+        check(f"title carries the move: {move}", move in rr.knock_title(path, meta))
 
     # "Nothing that isn't playable by my podcast player" (Andrew): extension is
     # not proof — a truncated render or an lfs pointer is a .mp3 that is not audio.

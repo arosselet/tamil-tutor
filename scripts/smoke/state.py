@@ -2786,6 +2786,17 @@ def s79_a_rating_lands_or_says_why(sb: Path):
     day). A population chosen because it was convenient, not because it answered
     the question — the same mistake as `listens`, twice in one afternoon.
 
+    THE THIRD BUG, and the reason this case grew a knock log (2026-08-29, Andrew:
+    *"I listened to the 08-27 eavesdrop … I don't see this episode listed"*). The
+    picker excluded knocks by asking whether the enclosure url said `/knocks/` --
+    the DELIVERY CHANNEL. The law it meant to enforce was about the DOSE ("a
+    one-line dose is not something you sit down and rate"), and the two are not the
+    same set: `fielding` is one Tamil line, but an eavesdrop is a scripted scene
+    with a comprehension question, which is exactly the thing he sat down with.
+    Duration cannot arbitrate -- eavesdrop bottoms out at 16s and fielding tops out
+    at 16s, measured -- so the modality out of the knock log is the discriminator,
+    and this case pins BOTH sides of it.
+
     So Part A drives the REAL parser over the REAL feed, and Part B drives the REAL
     writer and re-reads the REAL ledger, per s41: a green parse proves nothing if
     the write path drops it."""
@@ -2813,17 +2824,53 @@ def s79_a_rating_lands_or_says_why(sb: Path):
   <item><title>Tier2 Mission90</title>
     <enclosure url="https://x/published_audio/tier2_mission90.mp3"/>
     <pubDate>Wed, 19 Aug 2026 09:00:00 +0530</pubDate></item>
-  <item><title>Knock dose</title>
+  <item><title>Knock - eavesdrop: train delay aachu</title>
     <enclosure url="https://x/published_audio/knocks/knock_2026-08-27T02-46.mp3"/>
     <pubDate>Thu, 27 Aug 2026 02:46:00 +0530</pubDate></item>
+  <item><title>Knock - fielding: innum konjam</title>
+    <enclosure url="https://x/published_audio/knocks/knock_2026-08-21T03-44.mp3"/>
+    <pubDate>Fri, 21 Aug 2026 03:44:00 +0530</pubDate></item>
+  <item><title>Knock - unlogged</title>
+    <enclosure url="https://x/published_audio/knocks/knock_2026-08-19T09-00.mp3"/>
+    <pubDate>Wed, 19 Aug 2026 09:00:00 +0530</pubDate></item>
+  <item><title>Reply - his own half</title>
+    <enclosure url="https://x/published_audio/knocks/reply_2026-08-28T04-34-18.mp3"/>
+    <pubDate>Fri, 28 Aug 2026 04:34:18 +0530</pubDate></item>
 </channel></rss>"""
+    # The join the picker makes. `knock_2026-08-19T09-00` is deliberately ABSENT:
+    # an unlogged dose must still be offerable, or this fix reintroduces its own
+    # bug in a quieter place. The reply's parent modality is `eavesdrop` on
+    # purpose, so the STEM is the only thing keeping it out.
+    KNOCK_LOG = """[
+  {"modality": "eavesdrop", "move": "eavesdrop: train delay aachu",
+   "mp3": "published_audio/knocks/knock_2026-08-27T02-46.mp3"},
+  {"modality": "fielding", "move": "fielding: innum konjam",
+   "mp3": "published_audio/knocks/knock_2026-08-21T03-44.mp3"},
+  {"modality": "eavesdrop", "move": "eavesdrop: train delay aachu",
+   "reply_audio_url": "https://x/published_audio/knocks/reply_2026-08-28T04-34-18.mp3"}
+]"""
+    KLP = Path("progress/knock_log.json")
     saved_rss = RSSP.read_bytes() if RSSP.exists() else None
+    saved_klog = KLP.read_bytes() if KLP.exists() else None
     try:
         RSSP.write_text(FIXTURE, encoding="utf-8")
+        KLP.write_text(KNOCK_LOG, encoding="utf-8")
         items = rr.feed_items()
         ids = [d["id"] for d in items]
-        check("knock micro-doses are NOT offerable — a one-line dose is not rateable",
-              not any("knock" in i for i in ids), str(ids))
+        fmts = {d["id"]: d["format"] for d in items}
+        # The 2026-08-29 reopening, both sides. Asserted as the EFFECT (which
+        # doses reach the picker) rather than "the filter ran": the old rule also
+        # ran, every time, and dropped the one he wanted.
+        check("an eavesdrop dose IS offerable — he sat down with it and rated it",
+              "knock_2026-08-27T02-46" in ids, str(ids))
+        check("...carrying its MODALITY as the format, not a bare `knock`",
+              fmts.get("knock_2026-08-27T02-46") == "knock/eavesdrop", str(fmts))
+        check("a fielding prompt is NOT — one Tamil line is not a sit-down dose",
+              "knock_2026-08-21T03-44" not in ids, str(ids))
+        check("a spoken REPLY is NOT — that is his own half of the exchange",
+              not any(i.startswith("reply_") for i in ids), str(ids))
+        check("an UNLOGGED knock is still offered, as knock/dose",
+              fmts.get("knock_2026-08-19T09-00") == "knock/dose", str(fmts))
         # Newest-first by pubDate, NOT the feed's own sort_key — that one pins
         # specials at the top forever, which is Andrew's complaint in a new hat.
         check("newest-first, so the one he just heard is the first row",
@@ -2837,6 +2884,17 @@ def s79_a_rating_lands_or_says_why(sb: Path):
               "mission" in {d["format"] for d in items})
         check("titles are the feed's own, because that is what the picker shows",
               items[0]["title"] == "Soak - 2026-08-27", str(items[0]))
+        # An unreadable knock log must not take the AUDIO lane down with it: the
+        # modality join is a convenience for one lane, not a precondition for the
+        # feed. Deleted rather than corrupted, because that is what a fresh clone
+        # and the sandbox both look like.
+        KLP.unlink()
+        soaks = [d for d in rr.feed_items() if d["format"] == "soak"]
+        check("no knock log at all, and a soak is STILL offerable",
+              len(soaks) == 1, str(soaks))
+        check("...with every knock degraded to knock/dose, not vanished",
+              {d["format"] for d in rr.feed_items() if d["id"].startswith("knock_")}
+              == {"knock/dose"}, str([d["format"] for d in rr.feed_items()]))
         RSSP.write_text("<rss><broken", encoding="utf-8")
         with contextlib.redirect_stdout(io.StringIO()):
             check("an unparseable feed yields nothing rather than raising",
@@ -2844,6 +2902,8 @@ def s79_a_rating_lands_or_says_why(sb: Path):
     finally:
         if saved_rss is not None:
             RSSP.write_bytes(saved_rss)
+        if saved_klog is not None:
+            KLP.write_bytes(saved_klog)
 
     # ── Part A2: the published picker list is a BARE ARRAY ──
     # It was a key inside learner.json and cost seven rounds of debugging on the
@@ -2868,6 +2928,8 @@ def s79_a_rating_lands_or_says_why(sb: Path):
     # ── Part B: the command, over a feed this case controls ──
     FEED = [{"id": "soak_2026-08-27_1515", "format": "soak",
              "title": "Soak — 2026-08-27 · nothing to do but listen"},
+            {"id": "knock_2026-08-27T02-46", "format": "knock/eavesdrop",
+             "title": "Knock — 2026-08-27 02:46 · eavesdrop: train delay aachu"},
             {"id": "tier2_mission90", "format": "mission", "title": "Tier2 Mission90"}]
 
     def rate(episode: str, stars: str):
@@ -2903,6 +2965,17 @@ def s79_a_rating_lands_or_says_why(sb: Path):
               "[soak]" in note, note)
         check("...tagged so the Diagnosis pass can find the lane",
               note.startswith("[audio rating]"), note)
+
+        # THE ROUND TRIP, per s41. Part A proves the parser offers the eavesdrop;
+        # only this proves the rating SURVIVES the writer and lands in the book
+        # wearing a lane the Diagnosis pass can group on. Reading the parser alone
+        # is how a feature ships dead for a day.
+        code, out = rate("Knock — 2026-08-27 02:46 · eavesdrop: train delay aachu",
+                         "5 ★★★★★")
+        check("an eavesdrop rating reaches the ledger", code == 0, out)
+        knock_note = ledger()[-1]["note"] if len(ledger()) > 1 else ""
+        check("...carrying knock/eavesdrop, so it groups against soak and drill",
+              "[knock/eavesdrop]" in knock_note, knock_note)
 
         # THE DIGIT IS THE CONTRACT. The first live rating arrived as '⭐️⭐️⭐️' and
         # refused (run 33057942609), so the parser briefly learned to count ★☆⭐.
