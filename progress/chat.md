@@ -26,6 +26,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > illa works, but for 'wrong' it's thappu. · Tell mama to keep going straight —
 
+**20:27 · Andrew** — **COLD**
+> Nera ponga
+
+**Anna ↩**
+> adhu dhaan! 'nera ponga' lands clean. 🔥 · Mama asks if we should stop for tea. Tell him 'later' —
+
 
 ## Friday 2026-08-28
 

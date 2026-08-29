@@ -232,14 +232,15 @@
     "gloss": "Straight",
     "phonetic": [],
     "recognition": "struggled",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       10,
       18,
       86
     ],
-    "last_surfaced": "2026-08-10",
-    "exposures": 1
+    "last_surfaced": "2026-08-29",
+    "exposures": 1,
+    "reps": 1
   },
   "நாளைக்கு": {
     "gloss": "Tomorrow",
