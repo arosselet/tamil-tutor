@@ -17,6 +17,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 **17:25 · Andrew** · 👍 acked
 
+**20:22 · Anna**  ·  text / micro-dare: wrong
+> Mama says 'inga thirumbanum-la?' (turn here right?) but he's mistaken. Call it out in one word — wrong:
+
 
 ## Friday 2026-08-28
 

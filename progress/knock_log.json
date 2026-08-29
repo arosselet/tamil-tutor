@@ -5714,5 +5714,17 @@
     "target_revealed": true,
     "response": "ack",
     "response_at": "2026-08-29T11:55:35Z"
+  },
+  {
+    "date": "2026-08-29",
+    "timestamp": "2026-08-29T14:52:40.461851+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "micro-dare: wrong",
+    "rationale": "Quick evening micro-dose testing 'thappu' cold with an unrevealed navigation cue before sleep.",
+    "next_check": "2026-08-30T01:52:40.461851+00:00",
+    "body": "Mama says 'inga thirumbanum-la?' (turn here right?) but he's mistaken. Call it out in one word — wrong:",
+    "expected_target": "தப்பு",
+    "target_revealed": false
   }
 ]
