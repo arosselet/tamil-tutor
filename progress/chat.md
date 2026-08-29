@@ -12,6 +12,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > Done da — sent a quick vanakkam over to Shobana.
 
+**15:01 · Anna**  ·  text / show dose: gossip anchor
+> 👂 Gossip anchor: 'namma mama irukkaar-la...' (our uncle, you know him right?). Pins the person before the tea drops.
+
 
 ## Friday 2026-08-28
 
