@@ -4626,14 +4626,14 @@
       "theriyala"
     ],
     "recognition": "struggled",
-    "production": "hinted",
+    "production": "cold",
     "seen_in": [
       63,
       87,
       88
     ],
     "last_surfaced": "2026-08-30",
-    "reps": 3,
+    "reps": 4,
     "exposures": 5
   },
   "டீ": {
@@ -5096,11 +5096,13 @@
     "type": "pattern",
     "gloss": "{verb-stem}+ல → didn't / doesn't / can't — புரியல, முடியல, தெரியல, கேட்கல, பண்ணல: the everyday spoken negative (verb + illa, contracted). He already owns puriyala + mudiyala as separate chunks; this is the one machine under them.",
     "phonetic": [],
-    "recognition": "comfortable",
+    "recognition": "solid",
     "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-08-11",
-    "exposures": 2
+    "last_surfaced": "2026-08-30",
+    "exposures": 2,
+    "heard_on": "2026-08-30",
+    "reps": 1
   },
   "வந்துடுச்சு": {
     "gloss": "It's come / it's arrived (of a thing) — vandhu + completive -ttu + it-tail -uchu; the 'it' twin of vandhutten",
@@ -5398,15 +5400,17 @@
   "வரல": {
     "gloss": "",
     "phonetic": [],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "none",
     "seen_in": [
       87,
       88,
       89
     ],
-    "last_surfaced": "2026-08-19",
-    "exposures": 3
+    "last_surfaced": "2026-08-30",
+    "exposures": 3,
+    "heard_on": "2026-08-30",
+    "reps": 1
   },
   "முடியல": {
     "gloss": "",
@@ -5564,5 +5568,36 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": "2026-08-25"
+  },
+  "ஒன்னும்": {
+    "gloss": "anything / nothing at all (ஒண்ணு + -உம், \"even one\") — the volume knob on any -ல negative",
+    "phonetic": [
+      "onnum"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-08-30"
+  },
+  "சாப்படல": {
+    "gloss": "he/I did not eat — சாப்பிடு + -ல",
+    "phonetic": [
+      "saapdala"
+    ],
+    "recognition": "struggled",
+    "production": "cold",
+    "seen_in": [],
+    "last_surfaced": "2026-08-30",
+    "reps": 1
+  },
+  "சொல்லல": {
+    "gloss": "did not say — சொல்லு + -ல",
+    "phonetic": [
+      "sollala"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-08-30"
   }
 }

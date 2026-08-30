@@ -701,5 +701,17 @@
     "note": "pinnar is literary/formal — spoken is appuram",
     "word": "அப்புறம்",
     "dose_channel": "soak"
+  },
+  {
+    "at": "2026-08-30T14:31:30Z",
+    "date": "2026-08-30",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "wrong-verb-direction",
+    "said": "sonnen",
+    "want": "kekkuren",
+    "note": "reached for சொல்லு (push words OUT) where கேட்கு (pull words IN) was needed — the same wire that read கேட்கல as 'said' three times by ear tonight",
+    "word": "",
+    "dose_channel": "soak"
   }
 ]
