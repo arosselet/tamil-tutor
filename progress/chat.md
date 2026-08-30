@@ -36,6 +36,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! 'podhum podhum' with the hand wave is pure local reflex. 🔥 · Maama offers you more sweet. Tell him 'don't want' —
 
+**14:21 · Andrew** — **COLD**
+> Vendaam
+
+**Anna ↩**
+> adhu dhaan! 'venaam' shuts the plate down immediately. 🔥 · Now tell her 'I've eaten' so she stops hovering —
+
 
 ## Saturday 2026-08-29
 

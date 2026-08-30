@@ -5909,17 +5909,18 @@
     "expected_target": "",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Podhum podhum",
+    "reply": "Vendaam",
     "reply_verdict": "cold",
     "reply_fired": [
-      "போதும்"
+      "போதும்",
+      "வேணாம்"
     ],
     "reply_fired_cold": [
       "போதும்"
     ],
     "reply_fired_capped": [],
-    "reply_line": "adhu dhaan! 'podhum podhum' with the hand wave is pure local reflex. 🔥 · Maama offers you more sweet. Tell him 'don't want' —",
-    "reply_at": "2026-08-30T08:50:08Z",
+    "reply_line": "adhu dhaan! 'venaam' shuts the plate down immediately. 🔥 · Now tell her 'I've eaten' so she stops hovering —",
+    "reply_at": "2026-08-30T08:51:23Z",
     "exchanges": [
       {
         "at": "2026-08-30T08:50:08Z",
@@ -5937,10 +5938,25 @@
         "slips": [],
         "spoke": "",
         "scheduled": ""
+      },
+      {
+        "at": "2026-08-30T08:51:23Z",
+        "reply": "Vendaam",
+        "verdict": "cold",
+        "fired": [
+          "வேணாம்"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! 'venaam' shuts the plate down immediately. 🔥 · Now tell her 'I've eaten' so she stops hovering —",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
       }
     ],
-    "chained": 1,
-    "pinned_target": "வேணாம்",
+    "chained": 2,
+    "pinned_target": "சாப்பிட்டேன்",
     "pinned_revealed": false
   }
 ]
