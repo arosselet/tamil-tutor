@@ -489,18 +489,6 @@ HELD, NOT DELETED — they carry state `main` never received; see the state-rows
   `set -o pipefail` also works but only in the Bash lane. Filed rather than fixed because it
   touches the skill's dispatch contract, which is behaviour, not data.
 
-- ~~**Post-trip: reseed the focus cohort**~~ — **DONE 2026-08-18**, with the deck
-  retirement. The 08-01 audit found the pre-sprint cohort stale (7/12 never worked, no deck
-  items, zero graduations); the retirement made it worse before better, because the tier bar
-  moved onto the rows and all twelve seats were still held by unregistered words, so no
-  survival item could enter a pool that now ranks them first. `sync_state reseed-focus`
-  re-derives membership from the pool's current order and was run once: 4/12 seats now carry
-  a register, and சொல்லுங்க is out. **One correction to the 08-01 note:** it was evicted by
-  the re-derivation, not by the graduation sweep — its production reads `none` today, not
-  `cold`, so it was demoted at some point and the sweep was never going to catch it. Nothing
-  is owed here; the standing mechanism is the command, for the next time an ordering changes
-  under a stored cohort.
-
 - **THE REPLY PATH CAN DIE AND THE SYSTEM READS IT AS "HE DIDN'T ANSWER"** (2026-07-31,
   found live — Andrew replied twice, to the 17:22 volley and the 22:04 resend, and neither
   produced a `repository_dispatch`). **The dead-token diagnosis is in the session notes; this
@@ -658,61 +646,6 @@ HELD, NOT DELETED — they carry state `main` never received; see the state-rows
   all or only ever prose, and how a ruling reaches the episode writer without re-litigating
   the fence rules. Do not build before the trip.
 
-- **~~NEVER COMMISSIONED can only be cleared by FAILING again~~ — SHIPPED 2026-07-31 as
-  option A (`update --slip-commissioned TAG`), Andrew's choice.** The close now declares
-  which debt the order it just set pays off; the flag discharges, the surface reports the
-  dose instead of the warning, and ESCALATE waits for a slip dated after the dose rather
-  than accusing a brand-new one. **The wiring turned up a worse bug and fixed it:**
-  `write_thin_learner` is a WHITELIST and `slip_closes` was not on it, so
-  `--slip-tested tag:landed` wrote a close that the very same update deleted — **no slip had
-  ever actually closed since that mechanism shipped 2026-07-30**, invisibly, because a wiped
-  close looks exactly like never having tested. Smoke `s44`. ~~**STILL OPEN, deliberately:**
-  whether the flag should also GATE the close.~~ **CLOSED 2026-08-01 — Andrew chose the
-  hard gate** (over auto-commission and advisory-print, both offered): a close over a live
-  uncommissioned pattern is refused before any write; `--slip-commissioned` pays the debt,
-  `--slip-tested tag:landed` discharges it, `--no-commission '<why>'` overrides with the
-  reason echoed on the record. The Enjoyment-Clause worry is answered by the override being
-  one flag with a reason, not a ceremony. Smoke `s46`. Original diagnosis follows.
-
-  **NEVER COMMISSIONED can only be cleared by FAILING again — nothing links a soak order to
-  a slip tag (2026-07-31, sharpened by Andrew's question the same evening; supersedes this
-  entry's first draft, which called it "a detector with no actuator" and understated it).**
-  The trigger: the ledger correctly flagged three uncommissioned slips at the head of the
-  status digest and the ticket, Anna read the warning, ran a good session, and still shipped
-  no dose — so Andrew had to ask a **second time** for the இருந்துச்சு dose he first asked
-  for on 07-25, precisely the failure `audio_channels.md` exists to prevent (*"I shouldn't
-  have to beg for a soak or an episode"*, 07-28).
-
-  **But the deeper defect, found when Andrew asked why the session-open drain hadn't covered
-  this:** `agg["uncommissioned"] = pattern and live and not agg["channels"]`
-  (`sync_state.py:1442`), and `channels` aggregates `dose_channel`, which is stamped onto a
-  slip **only at the instant the slip row is written**, copied from whatever soak order
-  happened to be standing right then (`sync_state.py:652`, `knock_reply.py:998`). Nothing,
-  anywhere, associates a commission with a slip TAG. So the flag does not mean "no dose was
-  built for this" — it means "he has never made this mistake while some unrelated order
-  happened to be standing." **Commissioning the correct dose cannot clear it; only slipping
-  again can.** The flag is cleared by failing and ignored by fixing. Live proof on the day it
-  was found: the போனோம் episode shipped and reads `produced ✓`, and both slips it was built
-  for still print NEVER COMMISSIONED, permanently. A warning that can never be discharged
-  becomes noise that must be learned-past — which is the mechanical reason it got walked
-  past, not agent inattention.
-
-  **Distinct from the session-open drain, which works** (verified 2026-07-31: digest said NOT
-  YET PRODUCED → `render_soak.py` → tape on the feed → `produced ✓`). The drain PRODUCES an
-  order that exists; commissioning WRITES the order. A debt that never became an order is
-  invisible to it. Note also that the drain is now the only live door — `studio_watchdog.py`'s
-  cron was retired 2026-07-24.
-
-  **Not built, deliberately — Andrew's design call.** Cheapest shape, matching an idiom
-  already in the file: `--slip-commissioned TAG` beside the existing
-  `--slip-tested TAG:landed|missed`, so the close declares which debt an order pays — the
-  same "the seam that does the work declares it" law the delivery stamp follows. The
-  alternative, a `for_slip` field on the soak order, is schema and waits on the structure
-  freeze. Only ONCE the flag is dischargeable is it worth asking whether it should also gate
-  the close; a hard gate on the daily ritual is exactly the kind of mechanism the Enjoyment
-  Clause has beaten before. Route through `/recalibrate` — the felt signal is banked verbatim
-  in the feedback ledger, second occurrence, past the diagnosis bar.
-
 - **AT THE COMPUTER: finish the Andrew-intro naturalness pass — it is blocked on the Oracle,
   not on work (2026-07-30).** **⚠ THE BRANCH IS GONE (checked 2026-08-26).**
   `claude/tamil-intro-naturalness-cr4wy2` exists neither locally nor on origin — origin
@@ -856,15 +789,6 @@ HELD, NOT DELETED — they carry state `main` never received; see the state-rows
   Both hazards below (mission-number claim race, cross-machine lock) remain unfixed and
   remain blocking for anything unattended. See "THE REPAIR EARNS THE DOSE" at the top.
 
-- ~~**`inline_canon()` follows references one level deep only**~~ — **DONE 2026-08-18.**
-  Filed 07-27 as latent-not-sighted; it went live the day `agy` stopped being installed and
-  `openrouter_pass` became the only writer running anywhere. Both halves were real: the walk
-  never recursed, so `protocol/constitution.md` — cited by `director.md` and `architect.md`,
-  never by a prompt — reached no pass; and the pattern matched `protocol/*.md` only, so the
-  Director's own "Calibration Notes are LAW" pointed at a `progress/` file it could not carry.
-  Now transitive at `CANON_DEPTH = 2`, deduped, `progress/lexicon.json` skipped LOUDLY, and
-  anything referenced-but-not-carried prints. ~22k → ~83k input tokens per episode.
-
 - **Upsert `word_pool.json` into the lexicon, then retire the file (2026-07-26, Andrew's
   call — supersedes the assistant's "just delete it").** Verified safe: `compute_floor`
   counts only comfortable/solid, and `floor_gap_targets` requires the same, so ~295
@@ -967,25 +891,6 @@ HELD, NOT DELETED — they carry state `main` never received; see the state-rows
   wants it incorporated, not deleted, by upserting its 322 entries into the lexicon with
   their `cluster` tag so there is one store and one schema. Not done; see below.
 
-- ~~**`--debrief` alone counts as a session (found 2026-07-25).**~~ — **CLOSED 2026-08-26 on
-  verification, not on a new fix. Superseded by the same-day-merge fix that shipped
-  2026-07-31** (recorded under "A word taught in-session cannot enter the lexicon", second
-  half). `sync_state.py`'s session-log write no longer appends: it finds today's row and
-  unions into it, percentages take the latest call, and an absent debrief never blanks the
-  one already written. A `--debrief`-only call therefore cannot create a row of its own.
-  **It was left open for four weeks because the fix was written up inside a different
-  entry** — the filing failure, not the code, is what this closure is evidence of. Original
-  report follows.
-  `sync_state.py update`
-  appends a session-log row when *any* of cold/hinted/demoted/listened/debrief is present
-  (line 451), so correcting a debrief for bookkeeping reasons writes a zero-fire "session"
-  — it moved *last logged session* to today and put a zero-fire day into the trailing-pace
-  window, both of which steer knock policy. Found while correcting the 07-25 -aam record.
-  A debrief edit is not a rep. Options: gate the append on cold/hinted/demoted/listened
-  only; or a `--bookkeeping` flag that suppresses it. Schema-adjacent → waits for Andrew.
-  (The stray 2026-07-25 row is still in `session_log.json`; there is no CLI to remove one,
-  and hand-editing Python-owned state is out of bounds.)
-
 - **BUILD (decided 2026-07-24): autonomous cloud episode production, inside the knock
   tick.** The cron question is settled — the local watchdog cron is RETIRED, replaced by
   cloud production. Direction locked with Andrew:
@@ -1053,10 +958,6 @@ Endorsed in principle 2026-07-08 (pedagogy review — direction approved):
   per-item stage: heard → understood → spoken-scaffolded → spoken-cold → survived-live,
   everything else derived. From the 2026-07-09 greenfield review; a consolidation, so it
   must *delete* more state than it adds or it doesn't happen.
-- ~~**Payload lint could match inflected stems**~~ — **DONE 2026-08-18**, after the same
-  failure rejected a correct episode a second time (script தூக்கறேன், sidecar தூக்கு). The rule
-  is now the distinction the lexicon already drew: chunks verbatim, plain words on their stem.
-  The 2026-07-13 "bends the sidecar" repair still stands for chunks and is annotated there.
 - **Concurrent drains could double-fire one queue entry** (introduced 2026-07-24 by the
   workflow consolidation — an honest residual, not a sighting). The drain used to be
   serialized by `push-queue.yml`'s own `concurrency: push-queue`. Now it runs at the start
@@ -1131,19 +1032,6 @@ meaning anything and two Gate-2 holds were sitting on the wrong side of it. -->
   denominator that replaces `15/34 survival cold` on the status line is the one decision
   that cannot be deferred past touchdown — and it depends on what the trip exposes, so it
   is deliberately left open rather than guessed now.
-- ~~**A pure state correction inflates the session count** (2026-07-27).~~ — **CLOSED
-  2026-08-26 on verification. Third filing of one bug**, with the 07-25 `--debrief` entry
-  above and the second half of the `--teach` entry; the 2026-07-31 same-day-merge fix closed
-  all three and only one of them was ever marked. The proposed `--correction` flag was never
-  built and is no longer needed: a correction call merges into the existing row rather than
-  appending a second one. **What this cost:** one bug held three seats in the inbox for four
-  weeks, and the count of open items was wrong by that much every time the file was read.
-  Original report follows. `sync_state.py update`
-  appends a `session_log.json` row unconditionally, so crediting the two 07-27 volley fires
-  from the court-of-appeal path wrote a second 07-27 session with an empty note. Recency from
-  the session log is the honest momentum signal (no streak, by design) — a correction is not a
-  session, and adherence numbers read off that log now carry a small overcount. One data point.
-  Cheap version is a `--correction` flag that skips the row, not a schema change.
 - **Volley chained recasts can double the re-presented ask** (2026-07-27). Exchange 2 of the
   antifreeze volley pushed back `· 3/4 — · 3/4 — you know the thing but…`, and one reply_line
   carried mojibake (`mেdhuva`, a Bengali vowel sign spliced into the Latin). Cosmetic, and the
@@ -1316,6 +1204,47 @@ meaning anything and two Gate-2 holds were sitting on the wrong side of it. -->
 
 
 ## Shipped
+
+- ~~NEVER COMMISSIONED can only be cleared by FAILING again~~ — SHIPPED 2026-07-31
+  (`update --slip-commissioned TAG`, Andrew's choice of three shapes), hard gate added
+  2026-08-01. The flag meant "he has never slipped this while some unrelated order stood",
+  so commissioning the right dose could not clear it and only slipping again could — a
+  warning dischargeable by failing and ignored by fixing, which is the mechanical reason it
+  got walked past. The close now declares which debt its order pays. The wiring turned up a
+  worse one: `write_thin_learner` is a whitelist that omitted `slip_closes`, so no slip had
+  actually closed since 2026-07-30 and a wiped close looked exactly like never testing.
+  Smoke `s44`, `s46`. Full diagnosis in git.
+
+- ~~`inline_canon()` follows references one level deep only~~ — DONE 2026-08-18. Filed
+  07-27 as latent, went live the day `agy` stopped being installed and `openrouter_pass`
+  became the only writer running anywhere. The walk never recursed, so `constitution.md`
+  reached no pass; and the pattern matched `protocol/*.md` only, so the Director's
+  "Calibration Notes are LAW" pointed at a `progress/` file it could not carry. Now
+  transitive at `CANON_DEPTH = 2`, deduped, `lexicon.json` skipped loudly, anything
+  referenced-but-not-carried printed. ~22k → ~83k input tokens per episode.
+
+- ~~A pure state correction inflates the session count~~ and ~~`--debrief` alone counts as
+  a session~~ — BOTH CLOSED 2026-08-26 on verification, by the same-day-merge fix that
+  shipped 2026-07-31. `sync_state.py`'s session-log write unions into today's row instead
+  of appending, so neither a correction nor a debrief-only call can mint a session. **One
+  bug held three inbox seats for four weeks** (these two plus the second half of the
+  `--teach` entry, still under Ideas), and only one was ever marked — the filing failure,
+  not the code, is what these closures are evidence of. Neither proposed flag
+  (`--correction`, `--bookkeeping`) was built or is needed.
+
+- ~~Payload lint could match inflected stems~~ — DONE 2026-08-18, after the same failure
+  rejected a correct episode twice (script தூக்கறேன், sidecar தூக்கு). The rule is now the
+  distinction the lexicon already drew: chunks verbatim, plain words on their stem. The
+  2026-07-13 "bends the sidecar" repair still stands for chunks and is annotated there.
+
+- ~~Post-trip: reseed the focus cohort~~ — DONE 2026-08-18 with the deck retirement. The
+  08-01 audit found the cohort stale (7/12 never worked, zero graduations); the retirement
+  made it worse first, because the tier bar moved onto the rows while all twelve seats were
+  held by unregistered words. `sync_state reseed-focus` re-derives membership from the
+  pool's current order and was run once — 4/12 seats now carry a register. Correction to the
+  08-01 note: சொல்லுங்க was evicted by the re-derivation, not the graduation sweep. Nothing
+  owed; the command is the standing mechanism for the next time an ordering changes under a
+  stored cohort.
 
 
 - ~~THE REPAIR EARNS THE DOSE — audio commissioned off his errors~~ — SHIPPED 2026-07-28
