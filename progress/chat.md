@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Sunday 2026-08-30
+
+**08:24 · Anna** 🎧  ·  eavesdrop / eavesdrop: myself thukka
+> 👂 Maami on the phone: 'mama-va paathen...' (I saw uncle). Did Mama let her serve him breakfast today?
+
+
 ## Saturday 2026-08-29
 
 **14:52 · Andrew** — **CHAT**  ·  ↩ 08-28 18:15 · challenge: slow down
