@@ -5878,6 +5878,14 @@
         "verdict": "half-caught",
         "fired": [],
         "reply_line": "illa da — coffee-kooda he made himself ('naane pottukren'), wouldn't let her touch anything!"
+      },
+      {
+        "at": "2026-08-30T05:58:31Z",
+        "reply": "Pottukren seems a key word from the audio memo, I don’t know what it means",
+        "intent": "message",
+        "verdict": "chat",
+        "fired": [],
+        "reply_line": "'podu' is to put or make (like coffee), and 'pottukren' means 'I'll make/pour it for myself' — 'naane pottukren' is literally 'I'll make it myself'!"
       }
     ]
   }

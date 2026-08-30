@@ -15,6 +15,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > illa da — coffee-kooda he made himself ('naane pottukren'), wouldn't let her touch anything!
 
+**11:28 · Andrew** — **CHAT**
+> Pottukren seems a key word from the audio memo, I don’t know what it means
+
+**Anna ↩**
+> 'podu' is to put or make (like coffee), and 'pottukren' means 'I'll make/pour it for myself' — 'naane pottukren' is literally 'I'll make it myself'!
+
 
 ## Saturday 2026-08-29
 
