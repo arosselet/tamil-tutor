@@ -30,6 +30,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **14:18 · Anna**  ·  text / trailer: table defense
 > 🥄 Maami hovering with more idlis: 'innum konjam?' (more?). One line shuts down the refill politely. Catch you in session.
 
+**14:20 · Andrew** — **COLD**
+> Podhum podhum
+
+**Anna ↩**
+> adhu dhaan! 'podhum podhum' with the hand wave is pure local reflex. 🔥 · Maama offers you more sweet. Tell him 'don't want' —
+
 
 ## Saturday 2026-08-29
 

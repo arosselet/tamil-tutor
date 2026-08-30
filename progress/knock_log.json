@@ -5907,6 +5907,40 @@
     "next_check": "2026-08-30T12:18:57.853491+00:00",
     "body": "🥄 Maami hovering with more idlis: 'innum konjam?' (more?). One line shuts down the refill politely. Catch you in session.",
     "expected_target": "",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Podhum podhum",
+    "reply_verdict": "cold",
+    "reply_fired": [
+      "போதும்"
+    ],
+    "reply_fired_cold": [
+      "போதும்"
+    ],
+    "reply_fired_capped": [],
+    "reply_line": "adhu dhaan! 'podhum podhum' with the hand wave is pure local reflex. 🔥 · Maama offers you more sweet. Tell him 'don't want' —",
+    "reply_at": "2026-08-30T08:50:08Z",
+    "exchanges": [
+      {
+        "at": "2026-08-30T08:50:08Z",
+        "reply": "Podhum podhum",
+        "verdict": "cold",
+        "fired": [
+          "போதும்"
+        ],
+        "fired_cold": [
+          "போதும்"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! 'podhum podhum' with the hand wave is pure local reflex. 🔥 · Maama offers you more sweet. Tell him 'don't want' —",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ],
+    "chained": 1,
+    "pinned_target": "வேணாம்",
+    "pinned_revealed": false
   }
 ]
