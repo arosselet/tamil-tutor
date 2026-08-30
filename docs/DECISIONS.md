@@ -1337,54 +1337,26 @@ Details live in git history; this is the index of the *conclusions*.
   **Supersedes the per-`knock_id` group** introduced silently in `38e7275`
   (2026-07-24), which never had a DECISIONS entry — its whole justification lived in
   a code comment, which is how an unexamined preference got to read as a law.
-- **The tick returns to `*/30`; "hourly" was never hourly** (2026-07-28, Andrew).
-  Reopens the 07-24 collapse to a single `0 * * * *`, which was costed on the
-  assumption that the lost precision was "30 min → 60 min worst case." Measured over
-  the last 20 scheduled runs, the gaps are **62–232 minutes, median ~2h** — all of it
-  predating any change to this file. GitHub deprioritises and silently drops scheduled
-  ticks under load, so an hourly expression bought a roughly two-hourly heartbeat and
-  the number the decision was argued against did not exist. **This is new evidence, not
-  a re-litigation:** the collapse of three expressions into ONE still holds (that was
-  the real point), and the rails still own the schedule — the cron only has to be
-  frequent enough for the rails to have something to filter. `*/30` does not promise 30
-  minutes either; it buys twice the chances, which is the only lever this end owns.
-  **Interaction with the serialised group** (same day, above): ticks now enter that one
-  lane twice as often. A skipped tick is cheap — the rails exit before any LLM call —
-  and `queue: max` absorbs the pile-up, but a reply can wait behind a tick more often
-  than before. That is the tradeoff already accepted when the group was serialised.
-  **Method note worth keeping:** this was found by measuring the actual run history
-  while verifying an unrelated change, not by reasoning about the cron expression. The
-  07-24 entry reasoned correctly from a premise nobody had checked.
-  **AMENDMENT (2026-07-29, first day of data): the predicted benefit did not appear.**
-  Measured over the first 8 scheduled gaps under `*/30`: **median 158.5 min, mean 148**
-  — against **median 106.5, mean 114** over the preceding 46 gaps under `0 * * * *`.
-  Gaps were 88–223 min. So doubling the expression's frequency did not shorten the
-  heartbeat and may have lengthened it; GitHub appears to drop proportionally more of a
-  denser schedule, which makes "it buys twice the chances" — the claim the entry above
-  rests on — **unsupported**. Left in place rather than reverted for now: n=8 against
-  n=46, and the sample is mostly overnight, so this cannot yet separate "worse" from
-  noise. **The honest status is: the change is unproven, not vindicated.** Revisit with a
-  full day of daylight data; reverting to hourly costs nothing if the gap holds, and
-  hourly is cheaper in runner minutes for identical delivery.
-  Noted against ourselves: the entry above criticised the 07-24 decision for reasoning
-  from an unchecked premise, and then asserted its own unchecked premise in the same
-  breath. The measurement discipline has to survive contact with our own proposals.
-  **RESOLVED — reverted to `0 * * * *` (2026-07-30, Andrew), on the day of daylight data
-  the amendment asked for.** 75 scheduled runs, n=24 post-change against n=50 before,
-  compared slice-to-matched-slice rather than against a pooled baseline — median minutes
-  between scheduled runs: all hours **108.7 hourly / 108.9 `*/30`**; daylight **135.6 /
-  149.9**; overnight **69.2 / 88.9**. So `*/30` is identical at best and mildly worse in
-  both matched slices, at twice the runner minutes — and the amendment's alarming
-  158.5-vs-106.5 was an artefact of an n=8 overnight-heavy sample, not a real regression.
-  Both readings of the 07-28 claim are now dead: doubling the expression neither shortened
-  the heartbeat (the claim) nor lengthened it (the amendment's worry). GitHub drops
-  proportionally more of a denser schedule, so the extra ticks evaporate.
-  **The standing conclusion: cadence is not a lever this end owns.** The scheduled
-  heartbeat is ~2-hourly whatever expression we write; the levers that actually fire
-  off-clock are `repository_dispatch` and the reply path, both already wired. Do not
-  re-open the cron expression without new data — the three prior rounds (07-24 collapse,
-  07-28 reopen, 07-29 amendment) all argued from a premise about GitHub's behaviour that
-  only measurement could settle, and this is the measurement.
+- **Cadence is not a lever this end owns — the cron returns to `0 * * * *`** (2026-07-28
+  reopen, 2026-07-29 amendment, RESOLVED 2026-07-30, Andrew). Three rounds argued about
+  whether `*/30` buys a faster heartbeat than hourly. Settled by measurement over 75
+  scheduled runs, n=24 post-change against n=50 before, matched slice to matched slice —
+  median minutes between scheduled runs: all hours **108.7 hourly / 108.9 `*/30`**; daylight
+  **135.6 / 149.9**; overnight **69.2 / 88.9**. `*/30` is identical at best and mildly worse
+  in both matched slices, at twice the runner minutes. GitHub drops proportionally more of a
+  denser schedule, so the extra ticks evaporate.
+  **The standing conclusion:** the scheduled heartbeat is ~2-hourly whatever expression we
+  write; the levers that actually fire off-clock are `repository_dispatch` and the reply
+  path, both already wired. The collapse of three expressions into ONE still holds, and the
+  rails still own the schedule — the cron only has to be frequent enough for the rails to
+  have something to filter. **Do not re-open the cron expression without new data** — all
+  three prior rounds argued from a premise about GitHub's behaviour that only measurement
+  could settle, and this is the measurement.
+  **Method note worth keeping, including against ourselves:** the 07-28 reopen criticised
+  the 07-24 decision for reasoning from an unchecked premise, then asserted its own
+  unchecked premise in the same breath, and the 07-29 amendment's alarming numbers turned
+  out to be an n=8 overnight-heavy artefact. The measurement discipline has to survive
+  contact with our own proposals. Round-by-round numbers are in git.
 - **The local notify hop fails behind work TLS inspection; accepted, not a bug**
   (2026-07-28, Andrew: "it's a work machine on a work network so it's their
   prerogative. Let's let it be."). `push_to_phone` raises
@@ -1442,65 +1414,27 @@ Details live in git history; this is the index of the *conclusions*.
   / re-test dates", deferred past the trip) and hinted has no follow-up path at all.
 
 - **The repair earns the dose — audio is commissioned off his errors, backward before
-  forward** (2026-07-28, Andrew's spoken felt signal, diagnosed via `/recalibrate` and
-  built the same session on his "fix this now"). His words: *"I don't feel like Anna is
-  commissioning enough audio, and specifically audio to close the gap in the mistakes I'm
-  making… I shouldn't have to beg for a soak or an episode… the plumbing isn't lacking.
-  It's the prompt instruction."* **His diagnosis was correct and it was prompt-side.** The
-  system had a channel-ROUTING law (`audio_channels.md`) and a PRODUCTION law
-  (`studio.md`) and **no COMMISSIONING law** — nothing said which gaps earn a dose, or
-  that an error earned one at all. The whole content policy was one clause in Close & Log
-  step 2 (*"payload… **may** be a seed order"*), a menu rather than a priority, so the
-  campaign's forward-teaching pull outranked the backward repair need by default.
-
-  **CORRECTED same day, after reading the history: this was a REGRESSION, not an
-  oversight — and the word-budget pass is what caused it.** Andrew's surprise
-  (*"I thought commissioning was part of the point"*) was justified; he wrote the rule
-  himself on **2026-06-16** (`4666c58`, titled "close the chat↔audio loop"): *"**Set the
-  Soak Order:** IF THE SESSION REVEALED A SPECIFIC STRUGGLE (a `hinted` word, a floor-gap
-  word, a missed recast), Anna names it as the structured soak order… the audio pipeline
-  soaks exactly what chat just strained, not a separate curriculum."* Same rule, same
-  population. **2026-07-16** (`92e95a4`, the subtraction pass) compressed it to *"payload
-  (what chat strained)"* — the **conditional** and the **qualifying list** collapsed into a
-  parenthetical gloss, turning an instruction about what to put in the field into a
-  description of the field. **2026-07-17** (`9b97cc3`) added the seed order beside a rule
-  disarmed the day before, so the two read co-equal; **07-26**'s campaign rewrite then gave
-  forward a name, a through-line and a `profile.md` block while backward still had a
-  parenthetical. Forward never won a fair fight.
+  forward** (2026-07-28, Andrew's spoken felt signal, diagnosed via `/recalibrate` and built
+  the same session on his "fix this now"): *"I shouldn't have to beg for a soak or an
+  episode… the plumbing isn't lacking. It's the prompt instruction."* Correct, and
+  prompt-side: the system had a channel-ROUTING law and a PRODUCTION law and **no
+  COMMISSIONING law**, so the campaign's forward-teaching pull outranked backward repair by
+  default. It was a REGRESSION, not an oversight — he wrote the rule himself on 2026-06-16
+  (`4666c58`) and the 07-16 subtraction pass (`92e95a4`) compressed its conditional into a
+  parenthetical gloss.
   **The general hazard, and the reason this is worth writing down: prose compression is
   lossy in one direction — it keeps nouns and drops conditionals.** *"If X, do Y"* becomes
   *"Y (X)"*, which reads fine and instructs nothing. `92e95a4` rewrote all of
   `daily_session.md`; **other conditionals may have gone the same way and nobody has
-  looked.** Note also that `studio.md` never lost it — its contract still reads *"what Anna
-  just strained in chat… the other half of the loop"* — so the CONSUMER kept faith while the
-  WRITER stopped handing it repairs, which is exactly why nothing looked broken for five
-  days: episodes kept arriving on time and well-made, about the wrong thing. The June rule
-  had no regression net; today's has `s37`, which is the actual difference.
+  looked.**
   **The fix:** the payload is drawn *first* from the day's unclosed repairs — hinted,
   recast, or corrected-and-still-wrong — and points forward as a seed order only when the
   day leaves none. A collision that survived its correction earns its **own** order, not a
-  slot in a mixed one (07-28's own method finding: *contrast explains a collision, a chunk
-  fires it*). The seed order is **not** demoted — it still teaches the campaign's next page;
-  it just no longer outranks a mistake he is still making, which is a refinement of the
-  07-17/07-26 seed-order calls, not a reversal. **Evidence it was structural, not taste:**
-  six instances in five days, *every one of them Andrew commissioning* (07-24 believing
-  Anna could produce audio unaided · 07-25 ×2 asking for இருந்துச்சு and இன்னொரு/தடவ
-  drilling · 07-27 commissioning pakkam-vs-paakkalaam by name · 07-28am the unacted
-  eavesdrop-needs-real-audio verdict · 07-28pm this), well past the `/recalibrate`
-  third-strike bar. The exhibit: the 07-28 debrief concluded *"assembly loses to retrieval
-  under load"* — a diagnosis whose remedy is `render_soak.py`'s literal job — and பக்கத்துல
-  reached the order as one item of three, still open that evening. **Housed in
-  `audio_channels.md`, not `daily_session.md`** — that file always framed itself as two
-  questions (what a dose carries, which channel carries it) and owned only the second;
-  Close & Log keeps a firing pointer and came out leaner. Same split move that file made in
-  07-23 and `JUDGE_MANDATE` made in 07-24: **a ceiling is a split signal.** Its budget went
-  400 → 550 in the same diff, which is the exception the word-budget rule allows (growth and
-  raise together, naming what moved) rather than the bump-the-number reflex — the first
-  attempt put the law in `daily_session.md`, hit 1244/1250, and the mechanism correctly
-  refused it. Smoke case `s37` is the regression net, per the 07-24 lesson that a rule must
-  be planted in code, prompts, skills *and* tests: it lints the law, the Close & Log
-  pointer, and the glossary. **NOT the ask — volume**: he wants *targeted* audio, and this
-  is explicitly not a session-length change (see the same-day dose-size entry).
+  slot in a mixed one. The seed order is **not** demoted; it just no longer outranks a
+  mistake he is still making. Housed in `audio_channels.md`, budget 400 → 550 in the same
+  diff. Smoke case `s37`. **NOT the ask — volume**: he wants *targeted* audio, and this is
+  explicitly not a session-length change. Evidence (six instances in five days, every one
+  Andrew commissioning) and the full regression archaeology are in git.
 - **`MAX_UNATTENDED_PER_DAY` raised 1 → 3; the rail is that it is finite, not that it is
   small** (2026-07-28, Andrew: *"guardrails to a problem that was temporary — remove it or
   raise it"*). Amends "An unattended production trigger must be verifiable, and capped
@@ -1520,41 +1454,30 @@ Details live in git history; this is the index of the *conclusions*.
   any miss"* — false since 07-24, and a retry that does not exist is worse than none because
   it makes a dropped dose look covered.
 - **A commission reaches the episode lane as computed context, never as an agentic read**
-  (2026-07-28 evening, found on the first real exercise of the law above and fixed in the
-  retrospective the next turn). `frame:youknow-la` was commissioned as an episode and the
-  FIRST M77 attempt came back dramatising the computed `FOCUS SET` — a 28-item sidecar with
-  the commissioned payload absent. (The retry landed: the shipped M77 opens
-  நம்ம தம்பி இருக்கான்ல… and carries the frame. It succeeded because the `scene_seed` was
-  hand-sharpened until the frame *was* the whole scene, which is exactly the manual step the
-  law was written to remove.) The ticket had
-  **no commission section at all**: the order reached the Director only through one prose
-  clause in `DIRECTOR` (*"read the soak-order in `progress/learner.json`"*), competing with
-  a code-assembled list headed *"DRILL these until they fire cold"* — and lost. The same run
-  is the control: the commissioned `form: phone_call` landed perfectly because it arrived
-  through `scene_spec()`/`claim_spec()` as computed context. **This is the repo's own
-  doctrine failing in the direction it predicts** — code-assembled context beats an agentic
-  read when the invariant is known — so the payload now arrives the way the form does:
-  `suggest_targets` prints section **0. THE COMMISSION** (payload, focus, scene_seed, the
-  date and the "this outranks every list below" heading) ahead of everything it computes,
-  and the FOCUS SET says out loud that it is outranked. **What it replaces:** the prose
-  clause in `DIRECTOR` is no longer load-bearing, and `episode_commission()` is now the one
-  predicate for "is there a live commission for this lane", with `commissioned_form()`
-  delegating to it. That fixes a second, quieter bug in the same read: `commissioned_form()`
-  asked only *"is the order routed here"*, never *"is it still owed"* — so a FILLED order
-  went on pinning the next episode's form for ever. `frame:youknow-la` shipped in M77 and
-  the gate was still locked to `phone_call` afterwards, an axis of the variety gate held
-  shut by a debt already paid. Owed now reads BOTH seams, which disagree by design: the
-  episode lane clears itself by registering the payload (`soak_pending()`), the soak and
-  drill lanes stamp `delivered` because they have nothing to register. To read both,
-  `soak_pending()` moved from `studio_watchdog` down into `sync_state` — the ticket needs
-  the answer and cannot import the studio without pulling the whole render stack — and the
-  watchdog re-exports it. One definition, three readers. Smoke case `s39`. **Still open, deliberately** — `claim_payload()` (`run_studio.py:418`) injects any
-  `frame:` key into `new_words_landed` unconditionally, because a slot template is
-  verbatim-exempt, so a frame commission can stamp *delivered* with no evidence it was ever
-  audible. Verifying a frame needs a pattern the frame record itself carries, which is
-  schema-adjacent; it stays in the inbox under the structure freeze. **Consequence while it
-  stays open: a `frame:` order can read PAID when it was not**, so a frame commission is the
-  one case where the ledger cannot be trusted without listening.
+  (2026-07-28 evening, found on the first real exercise of the law above). A commissioned
+  frame reached the Director only through one prose clause in `DIRECTOR`, competing with a
+  code-assembled list headed *"DRILL these until they fire cold"* — and lost; the first M77
+  attempt dramatised the computed FOCUS SET with the commissioned payload absent. The same
+  run is the control: the commissioned `form` landed perfectly because it arrived through
+  `scene_spec()`/`claim_spec()` as computed context. **This is the repo's own doctrine
+  failing in the direction it predicts** — code-assembled context beats an agentic read when
+  the invariant is known.
+  The payload now arrives the way the form does: `suggest_targets` prints section **0. THE
+  COMMISSION** ahead of everything it computes, and the FOCUS SET says out loud that it is
+  outranked. **What it replaces:** the prose clause in `DIRECTOR` is no longer load-bearing,
+  and `episode_commission()` is now the one predicate for "is there a live commission for
+  this lane". That fixes a quieter bug in the same read: `commissioned_form()` asked only
+  *"is the order routed here"*, never *"is it still owed"*, so a FILLED order pinned the next
+  episode's form for ever. Owed now reads BOTH seams, which disagree by design: the episode
+  lane clears itself by registering the payload (`soak_pending()`, which moved down into
+  `sync_state` so the ticket can read it without importing the render stack), the soak and
+  drill lanes stamp `delivered`. Smoke case `s39`.
+  **Still open, deliberately** — `claim_payload()` (`run_studio.py`) injects any `frame:` key into
+  `new_words_landed` unconditionally, so a frame commission can stamp *delivered* with no
+  evidence it was ever audible. Schema-adjacent; it stays in the inbox under the structure
+  freeze. **Consequence while it stays open: a `frame:` order can read PAID when it was
+  not**, so a frame commission is the one case where the ledger cannot be trusted without
+  listening.
 - **Scope and format are two questions; a collision only answers the first** (2026-07-28
   evening, Andrew, AMENDING the same-day commissioning law above). The rule shipped that
   afternoon read *"a collision that survived its correction earns its own order — contrast
@@ -1607,71 +1530,37 @@ Details live in git history; this is the index of the *conclusions*.
   point calls them.
 - **Mistakes are a ledger, not prose — errors accumulate, cross lanes, and steer selection**
   (2026-07-30, Andrew's ask: *"make very, very sure that these mistakes are used as direct
-  signal to direct subsequent lessons"*). **Evidence, not a felt signal:** `romba nalla
-  irukku` → `irundhuchu` was pushed back on **07-08, 07-25 and 07-30**, near-verbatim; the
-  1pl `-ōm` ending was corrected on 07-25 twice (`poganum`→`ponoom`, `sappiten`→`saapittoom`)
-  and again on 07-30 (`ponnam`→`ponnom`); `venum`-for-`kudunga` on 07-08 and 07-13. Well past
-  the `/recalibrate` bar, and none of it was visible to any selector. **Three holes, one per
-  direction of the loop:** (1) CAPTURE — the diagnosis existed only as free prose in
-  `knock_log`'s `reply_line`; the synthesis lived in `learner.last_debrief`, a single string
-  **overwritten every close**, so an error survived exactly as long as Anna retyped it, and
-  `daily_session.md` drew repairs from *"the day's"* chat session so a phone correction was
-  never in the draw at all. (2) CREDIT — `apply_verdict` is upgrade-only on the phone, and the
-  07-30 volley scored ரொம்ப நல்லா இருக்கு as a hinted **fire** off a reply whose own recast
-  corrected its tense: a wrong answer moved the production axis and took a rep. (3) RESURFACE
-  — `reply_line` was read back only by the reveal-window and deck-coverage scans, so
-  `sync_state status` showed *"replied (hinted)"* with no hint of what was wrong, and the
-  ticket could only ever say an item was **due**, never **how it keeps failing**. Selection
-  therefore re-offered the item and the scene re-asked it the same way, which is precisely
-  how one recast shipped three times in three weeks looking like normal progress.
+  signal to direct subsequent lessons"*). **Evidence, not a felt signal:** the same three
+  recasts were pushed back across 07-08 → 07-30, near-verbatim, and none of it was visible
+  to any selector. Three holes, one per direction of the loop: CAPTURE (the diagnosis lived
+  only as prose in a `last_debrief` string overwritten every close), CREDIT (`apply_verdict`
+  is upgrade-only, so a wrong answer moved the production axis), RESURFACE (the ticket could
+  say an item was **due**, never **how it keeps failing**).
   **The fix:** `progress/slip_log.json`, append-only, written by the judge that saw the
-  mistake and by `update --slip` at close; `SLIP_MANDATE` (split out of `JUDGE_MANDATE`,
-  which the contract took to 1764/1500) makes the judge name the *pattern*, not the
-  instance; Python drops any fire matching a slip's `want`; and one renderer feeds all three
-  reader surfaces (status, the knock digest, the ticket) with per-row annotations hung off
-  the deck and floor-gap items themselves.
+  mistake and by `update --slip` at close; `SLIP_MANDATE` (split out of `JUDGE_MANDATE`)
+  makes the judge name the *pattern*, not the instance; Python drops any fire matching a
+  slip's `want`; one renderer feeds all three reader surfaces.
   **Explicitly NOT a reversal of "continuity is prose memory, not a schema" (2026-06-17).**
   What was rejected there was `threads.json` *with due-ness scoring* — a schema that would
   make the **choice**. This makes none: it counts and groups, and Anna reads the group and
-  decides. That decision's own second sentence is the argument for this one — *Python computes
-  the menu; Anna makes the choice and the meaning* — and Python was computing no menu for
-  errors at all, leaving the meaning to a string that gets overwritten nightly. `last_debrief`
-  is untouched and still the running story.
-  **What it replaces:** Anna hand-retyping error memory into the debrief each close (lossy,
-  and it never covered the phone); and it supplies the missing counter for a law that shipped
-  two days earlier and had been dead prose since — *"the same mistake twice through one format
-  is that format's answer"* (`audio_channels.md`, 07-28) had nothing counting formats. That
-  law now distinguishes **NEVER COMMISSIONED** (corrected in passing, no dose ever built —
-  the state all three live patterns were actually in) from **ESCALATE** (a dose was built and
-  he slipped anyway); telling him to "change format" when no format was ever tried is advice
-  for a problem he does not have. `STUCK_REPS = 10` stands on its own evidence but fires late
-  and only says *this isn't working*; a slip fires at 2 and says *what*.
-  **Paid for in the same diff, per the word-budget rule:** `audio_channels.md` 659 → 633
-  (retired the enumerated repair population, now the ledger's definition, and compressed the
-  07-28 origin story) against its unchanged 640 ceiling — the split its constant demands is
-  still owed, not taken here. `JUDGE_MANDATE` split rather than raised, for the third time
-  that file has paid that way. Ledger seeded from the 13 corrections recoverable from
-  `knock_log`, each verified against the reply that produced it before writing; substitutions
-  excluded on the 07-27 law. Smoke case `s41`.
-  **Residual, deliberate:** tags are free strings the judge coins, not an enum — an enum would
-  force every new error into a pre-imagined bucket and mislabel exactly the ones worth seeing.
-  The cost is drift (two slugs for one pattern); the guard is that the judge is shown the tags
-  already in use, and drift is visible in `sync_state.py slips` and cheap to merge. Also: a
-  slip's `want` resolves to a lexicon key only when the phonetic data supports it, and several
-  records carry empty `phonetic` lists, so ending-shaped slips often hang off no row — the tag
-  carries the meaning there, and the ticket annotation is best-effort by design.
+  decides. `last_debrief` is untouched and still the running story.
+  **What it replaces:** Anna hand-retyping error memory into the debrief each close, and it
+  supplies the missing counter for the 07-28 format law in `audio_channels.md`, which had
+  nothing counting formats. It distinguishes **NEVER COMMISSIONED** from **ESCALATE**.
+  `STUCK_REPS = 10` stands on its own evidence but fires late and only says *this isn't
+  working*; a slip fires at 2 and says *what*. Smoke case `s41`.
+  **Residual, deliberate:** tags are free strings the judge coins, not an enum — an enum
+  would force every new error into a pre-imagined bucket and mislabel exactly the ones worth
+  seeing. The cost is drift; the guard is that the judge is shown the tags already in use,
+  and drift is visible in `sync_state.py slips` and cheap to merge.
 - **A slip retires, it never disappears — and a close is a dated observation, not a verdict**
   (2026-07-30, Andrew: *"words shouldn't disappear into the aether. They should be retired
-  and then come back... re-eligible after a few weeks"*). The ledger shipped the same day
-  with two ways for a pattern to go silent, and **both lost information**. (1) `--close`
-  wrote a **bare tag** to `learner.slips_closed`, and `live` was `not closed and ...` — so a
-  closed tag could never be live again, at any distance, no matter how many times he missed
-  it. That silenced the single most informative event the ledger can record: *a pattern you
-  believed had landed, coming back*. (2) The 21-day quiet window looked correct and was the
-  same bug on a timer: `days_quiet` counts **days since he last failed**, which has two
-  causes the code could not tell apart — he learned it, or **nothing ever asked him**. All
-  three live slips were flagged NEVER COMMISSIONED, i.e. squarely the second case, so the
-  window was on course to convert *"we never checked"* into *"gone"* without anyone acting.
+  and then come back... re-eligible after a few weeks"*). The ledger shipped with two ways
+  for a pattern to go silent and **both lost information**: a bare closed tag could never be
+  live again at any distance, and the quiet window counted **days since he last failed**,
+  which cannot tell "he learned it" from "nothing ever asked him" — silencing the single
+  most informative event the ledger can record, *a pattern you believed had landed, coming
+  back*.
   **The fix, one mechanism replacing two broken halves:** a quiet tag now RETIRES to
   `unverified` and surfaces as a re-eligible **check** ("never confirmed landed — test it"),
   passive by design — it asks for a scene, it never earns a commission (Andrew's call; the
@@ -1679,23 +1568,13 @@ Details live in git history; this is the index of the *conclusions*.
   Closing moved to `record_slip_test` — `--slip-tested tag:landed|missed` — which stores a
   **date**, so a slip dated after its close voids it and returns `reopened`, history intact.
   `missed` appends a slip row rather than a parallel record: a failed test *is* a recurrence.
-  **Why Anna reports rather than code observing it:** word-anchored slips could close off the
-  lexicon going cold, but the ending-shaped ones (`1pl-past-om`, `past-tense` — two of the
-  three live) hang off no lexicon row, and nothing observes "this scene created a chance to
-  get the ending wrong." Two close paths with different guarantees is worse than one honest
-  one, so both go through the report and the protocol says out loud that it asserts an
-  **observation, not a verdict**. Residual, named: it leans on Anna reporting honestly.
-  **Also fixed in the same pass:** `slip_patterns` took `last` as *last-seen* rather than
-  `max` while `first` already took a proper min — latent, because `append_slips(when=…)`
-  exists precisely to backdate and the 07-30 seed backfilled three weeks in one write; an
-  out-of-order pair read span 0d/quiet 6d instead of 5d/quiet 1d, which can retire a slip
-  that is still live. `SLIP_QUIET_DAYS` → `SLIP_RETIRE_DAYS`, pinned to
-  `generate_callbacks.INTERVAL_DAYS["cold"]` so patterns and cold words age on one clock.
-  The judge is now shown retired tags too — a return is only visible if it reuses the old
-  tag instead of coining a synonym. Paid for in the same diff: `daily_session.md` holds at
-  1250/1250 (retired the duplicated commissioning law, now a pointer to `audio_channels.md`,
-  plus three restating clauses) — the close half was added without a budget raise. Smoke
-  `s41` grew the full lifecycle: retire → unverified → landed → **recurs → live again**.
+  **Why Anna reports rather than code observing it:** ending-shaped slips hang off no lexicon
+  row, and nothing observes "this scene created a chance to get the ending wrong." Two close
+  paths with different guarantees is worse than one honest one, so the protocol says out loud
+  that it asserts an **observation, not a verdict**. Residual, named: it leans on Anna
+  reporting honestly. Also fixed in the same pass: `slip_patterns` took `last` as *last-seen*
+  rather than `max`, which can retire a still-live slip; `SLIP_QUIET_DAYS` →
+  `SLIP_RETIRE_DAYS`, pinned to `generate_callbacks.INTERVAL_DAYS["cold"]`. Smoke `s41`.
 - **Python is budgeted too — the ratchet moves one layer down** (2026-07-31, Andrew's
   call, from the engineering-vs-learning audit). Evidence that opened it: through July the
   word budget held prose FLAT (8866 words 07-01 → 11511 on 07-15 → 10671 on 07-31, a net
