@@ -3101,12 +3101,12 @@
     "expected_target": "",
     "target_revealed": false,
     "response": "reply",
-    "reply": "So I still need that audio greeting for Doodah",
+    "reply": "So I still need that audio greeting",
     "reply_verdict": "chat",
     "reply_fired": [],
     "reply_fired_cold": [],
     "reply_fired_capped": [],
-    "reply_line": "still pending — said 'check audio shortly' before I clocked who Doodah is. is this a real person you want to introduce to Tamil, or a future-you test scenario?",
+    "reply_line": "still pending — said 'check audio shortly' before I clocked who that is. is this a real person you want to introduce to Tamil, or a future-you test scenario?",
     "reply_at": "2026-08-02T20:24:26Z",
     "exchanges": [
       {
@@ -3122,7 +3122,7 @@
       },
       {
         "at": "2026-08-02T20:21:41Z",
-        "reply": "I want an audio greeting for Doodah introducing yourself and a couple basic words in Tamil",
+        "reply": "I want an audio greeting for a family member introducing yourself and a couple basic words in Tamil",
         "verdict": "chat",
         "fired": [],
         "fired_cold": [],
@@ -3144,18 +3144,18 @@
       },
       {
         "at": "2026-08-02T20:24:26Z",
-        "reply": "So I still need that audio greeting for Doodah",
+        "reply": "So I still need that audio greeting",
         "verdict": "chat",
         "fired": [],
         "fired_cold": [],
         "fired_capped": [],
         "graduated": [],
-        "reply_line": "still pending — said 'check audio shortly' before I clocked who Doodah is. is this a real person you want to introduce to Tamil, or a future-you test scenario?",
+        "reply_line": "still pending — said 'check audio shortly' before I clocked who that is. is this a real person you want to introduce to Tamil, or a future-you test scenario?",
         "slips": []
       }
     ],
     "reply_audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/reply_2026-08-02T20-21-41.mp3",
-    "reply_memo_script": "ஹலோ Doodah! நான் Anna — Andrew-ஓட Tamil friend. ஒரு கேள்வி: சாப்பிட்டீங்களா? 🍚 நல்லா இருக்கீங்களா?"
+    "reply_memo_script": "ஹலோ! நான் Anna — Andrew-ஓட Tamil friend. ஒரு கேள்வி: சாப்பிட்டீங்களா? 🍚 நல்லா இருக்கீங்களா?"
   },
   {
     "date": "2026-08-03",

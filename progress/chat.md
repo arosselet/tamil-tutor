@@ -822,7 +822,7 @@ Newest day first. **Derived file — edits here are overwritten.**
 > fair — saapitteenga? That's the one. Every auntie, every door, before 'hello.'
 
 **01:51 · Andrew** — **CHAT**
-> I want an audio greeting for Doodah introducing yourself and a couple basic words in Tamil
+> I want an audio greeting for a family member introducing yourself and a couple basic words in Tamil
 
 **Anna ↩**
 > On it — check audio shortly.
@@ -834,10 +834,10 @@ Newest day first. **Derived file — edits here are overwritten.**
 > da — Andrew is you. I'm Anna, you're Andrew, and you already know two Tamil words: 'saapitteenga?' and 'podhum.' Start there. wannakam is fine for strangers; your people say 'saapitteenga?' before anything else.
 
 **01:54 · Andrew** — **CHAT**
-> So I still need that audio greeting for Doodah
+> So I still need that audio greeting
 
 **Anna ↩**
-> still pending — said 'check audio shortly' before I clocked who Doodah is. is this a real person you want to introduce to Tamil, or a future-you test scenario?
+> still pending — said 'check audio shortly' before I clocked who that is. is this a real person you want to introduce to Tamil, or a future-you test scenario?
 
 **19:05 · Anna**  ·  text / trailer: melt line
 > ரொம்ப நல்லாருக்கு — the melt line. Said *while* eating, under everyone's eyes. That's tonight's session. 🍽️

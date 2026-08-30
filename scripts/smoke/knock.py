@@ -1707,9 +1707,9 @@ def s49_thread_continuity(mk, kr, sb: Path):
         rc.render_memo = fake_render
         try:
             v = canned_verdict([], reply_line="On it — check audio shortly.")
-            v["voice_reply"] = "வணக்கம் Doodah"
+            v["voice_reply"] = "வணக்கம் paatti"
             kr.judge = lambda k, r, t, h=None, rr=None, **kw: v
-            sys.argv = ["knock_reply.py", "an audio greeting for Doodah please"]
+            sys.argv = ["knock_reply.py", "an audio greeting for paatti please"]
             kr.main()
         finally:
             rc.render_memo = real_render
@@ -1717,7 +1717,7 @@ def s49_thread_continuity(mk, kr, sb: Path):
         entry = read_json(klog_path)[-1]
         ex = entry["exchanges"][-1]
         check("the exchange records that Anna SPOKE, and what he said",
-              ex.get("spoke") == "வணக்கம் Doodah", str(ex.get("spoke")))
+              ex.get("spoke") == "வணக்கம் paatti", str(ex.get("spoke")))
         check("...and the URL of what was delivered",
               (ex.get("audio_url") or "").endswith(".mp3"), str(ex.get("audio_url")))
 
@@ -1726,7 +1726,7 @@ def s49_thread_continuity(mk, kr, sb: Path):
         win = kr.recent_exchanges(klog, klog[-1])
         sent = [r for r in win if r.get("anna_sent_audio")]
         check("the next turn sees the audio already went out",
-              len(sent) == 1 and sent[0]["anna_sent_audio"] == "வணக்கம் Doodah", str(win))
+              len(sent) == 1 and sent[0]["anna_sent_audio"] == "வணக்கம் paatti", str(win))
         check("a turn with no artefact carries no claim of one",
               all("anna_sent_audio" not in r for r in win
                   if r["andrew_said"] == "I need this phonetic in text"))

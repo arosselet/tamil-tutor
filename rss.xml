@@ -21,16 +21,6 @@
     <itunes:new-feed-url>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/rss.xml</itunes:new-feed-url>
     
     <item>
-      <title>A Tamil Hello for Mum and Doodah</title>
-      <itunes:author>Andrew &amp; Claude</itunes:author>
-      <itunes:summary>A Tamil Hello for Mum and Doodah</itunes:summary>
-      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/special_mum_doodah_greeting.mp3" length="260448" type="audio/mpeg"/>
-      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/special_mum_doodah_greeting.mp3</guid>
-      <pubDate>Sun, 02 Aug 2026 16:38:43 -0400</pubDate>
-      <itunes:duration>00:01:05</itunes:duration>
-    </item>
-
-    <item>
       <title>Soak — 2026-08-27 · nothing to do but listen</title>
       <itunes:author>Andrew &amp; Claude</itunes:author>
       <itunes:summary>Soak — 2026-08-27 · nothing to do but listen</itunes:summary>

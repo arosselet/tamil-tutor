@@ -1849,8 +1849,8 @@ Details live in git history; this is the index of the *conclusions*.
   named mechanism buys a rule and leaves the cause standing. Rejected in the same pass:
   re-injecting `meta_note` as standing direction (his words already ride in `andrew_said`)
   and the unkept-promise guard (redundant once the record is honest).
-- **Gift audio renders outside the mission pipeline** (2026-08-02). The Mum-and-Doodah
-  greeting went through `render_demo.py` + `rebuild_rss.py`, never `run_studio.py`: a piece
+- **Gift audio renders outside the mission pipeline** (2026-08-02). The 2026-08-02 gift
+  greeting for two family members went through `render_demo.py` + `rebuild_rss.py`, never `run_studio.py`: a piece
   for third parties must not burn a mission number, stamp `seen_in`, or move Andrew's
   recognition axis. `special_` scripts are the standing lane for feed-worthy artefacts that
   are not doses.
