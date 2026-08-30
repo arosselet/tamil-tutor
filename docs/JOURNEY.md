@@ -2,6 +2,14 @@
 
 *A year of building my own Tamil tutor: what I dreamed, what I built, and what it taught me about engineering with LLMs. Andrew Rosselet, July 2026.*
 
+> **Read this as a July artifact, not a current status (noted 2026-08-30).** It was
+> written *before* the month in Coimbatore, which is why it closes on a trip that had
+> not happened yet — touchdown was 08-12 and the table has since answered most of what
+> this essay wonders about. Left standing as written, because a retrospective edited
+> after the outcome is worth less than one that was wrong in public. What it does not
+> contain: the August ledger purge (108 unearned rows dropped, and the headline number
+> went *up*), the machines-heard correction, or the trip itself.
+
 ---
 
 My wife is a native Tamil speaker from Coimbatore. The dream was always specific: to sit at a family gathering and answer back in her family's own Kongu Tamil. Not as a party trick. It's about connection and respect: meeting her people in their language. Everything below serves that.
