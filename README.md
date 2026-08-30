@@ -107,7 +107,7 @@ The engineering theses, as deliberate as the pedagogy (the full ledger of settle
 .github/workflows/   → The outreach ticks: knock decisions, hourly push-queue drain, reply judging
 protocol/            → Anna (persona + daily_session + diagnosis) and studio/ (the isolated production crew: Director, Architect, Producer)
 docs/                → Engineer's references: PROTOCOL_MAP.md (architecture), DECISIONS.md (settled decisions)
-.claude/skills/      → The @build playbooks: orient, debug, extend, verify, validate, recalibrate
+.claude/skills/      → The @build playbooks: orient, debug, extend, verify, validate, recalibrate, backport
 curriculum/
     ├── word_pool.json → Suggestion list of words to learn someday (Anna picks from it)
     └── trip_deck.json → A curated, deadline-driven deck (chunks + frames, fire/catch) seeded via sync_state.py seed-deck
@@ -120,7 +120,7 @@ progress/            → lexicon.json (word brain) + learner.json (continuity) +
 scripts/             → Python tools (state, targets, render, drills, status, RSS, morning_knock, knock_reply, push_queue)
 ```
 
-*Storage: the repo keeps only the **last 8 episodes**; old MP3s are purged as new ones land. The Markdown scripts and briefs remain as the permanent record. We move forward, not archive.*
+*Storage: old MP3s are pruned **by hand, periodically** — nothing in `scripts/` or the workflows enforces a retention count, and this line used to claim a "last 8 episodes" rule that no code has ever implemented (corrected 2026-08-30). The Markdown scripts and briefs remain as the permanent record. We move forward, not archive.*
 
 ## Getting Started
 
@@ -135,7 +135,7 @@ One persistent persona runs by default; one explicit hat is for working *on* the
 | **Anna** (default, no keyword) | The coach who drives the learning | Daily sessions, drills, roleplay, commissioning podcasts, tracking progress |
 | `@build` | Engineer | Editing protocols, writing scripts, refining the curriculum |
 
-Or jump straight into a daily session with the **`/anna`** skill (Claude Code) or **`/anna`** command (Gemini CLI). Run **`/studio`** to produce a podcast episode from the current soak-order, or just ask Anna for one and he commissions it end-to-end.
+Or jump straight into a daily session with the **`/anna`** skill in Claude Code — or, on any other agent, just read `.claude/skills/anna/SKILL.md` and follow it; it is plain markdown with no host-specific syntax, which is the whole portability contract. For a podcast episode from the current soak-order, run **`python scripts/run_studio.py`**, or just ask Anna and he commissions it end-to-end.
 
 ### On Your Laptop (The Factory)
 
