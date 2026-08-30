@@ -5679,11 +5679,11 @@
       },
       {
         "at": "2026-08-29T09:22:45Z",
-        "reply": "Send a quick audio greeting to Shobana",
+        "reply": "Send a quick audio greeting",
         "intent": "message",
         "verdict": "chat",
         "fired": [],
-        "reply_line": "Done da — sent a quick vanakkam over to Shobana.",
+        "reply_line": "Done da — sent a quick vanakkam over.",
         "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/reply_2026-08-29T09-22-45.mp3"
       }
     ],

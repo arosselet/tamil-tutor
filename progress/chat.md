@@ -52,10 +52,10 @@ Newest day first. **Derived file — edits here are overwritten.**
 ## Saturday 2026-08-29
 
 **14:52 · Andrew** — **CHAT**  ·  ↩ 08-28 18:15 · challenge: slow down
-> Send a quick audio greeting to Shobana
+> Send a quick audio greeting
 
 **Anna ↩**
-> Done da — sent a quick vanakkam over to Shobana.
+> Done da — sent a quick vanakkam over.
 
 **15:01 · Anna**  ·  text / show dose: gossip anchor
 > 👂 Gossip anchor: 'namma mama irukkaar-la...' (our uncle, you know him right?). Pins the person before the tea drops.
