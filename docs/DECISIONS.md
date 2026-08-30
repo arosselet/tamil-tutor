@@ -852,31 +852,27 @@ Details live in git history; this is the index of the *conclusions*.
   adds a second mechanism for a bug whose only cause is known and cheaper to remove, and it
   would make a legitimate title correction impossible. Logged as a residual instead.
 - **A published feed item is measured once and frozen — duration joins pubDate**
-  (2026-07-25, Andrew: *"the exact number isn't important anyway and the oscillation needs
-  to stop"*). Duration described bytes that never change, yet was re-derived on every
-  rebuild from whatever tool the host had. The laptop has ffprobe; the CI container does
-  not, so `audio_duration` fell through to its pure-python frame scan — which on these
-  files (TTS segments concatenated with `SILENCE_FRAME` copies, where one bad header
-  desyncs the walk) misreads by **up to 40%, in both directions**: 68 files, median error
-  4.8%, only 35 within 5%. Proven in the feed's own history: the 07-23 ffprobe fix landed
-  correct numbers from the laptop at 23:27, and the very next cloud rebuild (`91c5d0f`,
-  07-24 22:56 — an agent commit) reverted the library wholesale. M72 announced 13:12 for a
-  10:02 episode for two days. Andrew's framing is the one that generalises: **the estimator
-  was never the bug — recomputing a published value was.** So `existing_pub_dates()` becomes
-  `existing_items()` and carries both fields; a rebuild republishes what was published. This
-  is the same immutable-once-published rule that the Apple retitle fork settled, applied to
-  the field that was still moving. Safe because a corrected render takes a new `_vN`
-  filename, hence a new guid and a fresh measurement — in-place edits aren't a thing here.
-  ffmpeg is now installed in `anna.yml` so a NEW item's first measurement is honest (the
-  runner-images manifest confirms ubuntu-24.04 ships none; MediaInfo is the only media tool
-  present), but it is deliberately `continue-on-error`: with the freeze it only has to be
-  right once per file, and it must never cost Andrew a knock. Verified by rebuilding with
-  `ffprobe_duration` stubbed to `None` — the exact CI condition — and diffing: byte-identical.
-  **Not installed on `repository_dispatch`** — that is the lock-screen lane, and ~20s of apt
-  in front of a recast would have re-broken the latency constraint that already keeps
-  rendering out of the reply path. Caught as a self-inflicted regression the same night it
-  shipped. The accepted cost: a voice reply's duration is first measured by the frame scan
-  and frozen there — a few seconds on a ~19s clip, on the one lane nobody browses by length.
+  (2026-07-25, Andrew: *"the exact number isn't important anyway and the oscillation needs to
+  stop"*). Duration described bytes that never change, yet was re-derived on every rebuild
+  from whatever tool the host had. The laptop has ffprobe; the CI container does not, so
+  `audio_duration` fell through to its pure-python frame scan — which on these files misreads
+  by **up to 40%, in both directions** (68 files, median error 4.8%). Proven in the feed's own
+  history: a correct laptop rebuild was reverted wholesale by the very next cloud rebuild
+  (`91c5d0f`, an agent commit).
+  Andrew's framing is the one that generalises: **the estimator was never the bug —
+  recomputing a published value was.** So `existing_pub_dates()` becomes `existing_items()`
+  and carries both fields; a rebuild republishes what was published. Same immutable-once-
+  published rule the Apple retitle fork settled, applied to the field that was still moving.
+  Safe because a corrected render takes a new `_vN` filename, hence a new guid and a fresh
+  measurement — in-place edits aren't a thing here.
+  ffmpeg is now installed in `anna.yml` so a NEW item's first measurement is honest, but it
+  is deliberately `continue-on-error`: with the freeze it only has to be right once per file,
+  and it must never cost Andrew a knock. Verified by rebuilding with `ffprobe_duration`
+  stubbed to `None` — the exact CI condition — and diffing byte-identical. **Not installed on
+  `repository_dispatch`** — that is the lock-screen lane, and ~20s of apt in front of a recast
+  would have re-broken the latency constraint that keeps rendering out of the reply path.
+  Accepted cost: a voice reply's duration is first measured by the frame scan and frozen
+  there, on the one lane nobody browses by length.
 - **The feed is stamped in Andrew's zone, never the host's** (2026-07-25). `rebuild_rss`
   used `formatdate(localtime=True)`, so the offset was a property of the rebuilding machine:
   the laptop wrote `-0400`, the CI container `+0000`, and the feed carried two faces for one
@@ -954,112 +950,96 @@ Details live in git history; this is the index of the *conclusions*.
   rule for reading history too). The 07-16 and 07-19 "misses" are flagged as suspect for the
   same reason: both tapes also named nobody in their opening.
 - **Deck selection is coverage-first within a tier; the meter reports coverage beside
-  progress** (2026-07-25, Andrew's felt signal: "my worry is we are still starving some of
-  these"). `deck_status` ordered by tier → ripeness → **alphabetical**, with no staleness
+  progress** (2026-07-25, Andrew's felt signal: *"my worry is we are still starving some of
+  these"*). `deck_status` ordered by tier → ripeness → **alphabetical**, with no staleness
   term, so the head of every tier was frozen: 16 frames took 51 of the deck's 74 lifetime
-  reps and cleared 14/16, while 50 of 70 fire items had never been worked at all (45 of them
-  never even appearing as an ask in any log) and the two survival registers that decide
-  freezing at the table sat at antifreeze 1/10, public 1/8.
-  Ripeness-first is rich-get-richer — an item becomes `hinted` only by being worked, which
-  promotes it again — and the alphabetical tiebreak sorted ASCII `frame:` keys ahead of
-  every Tamil-script chunk. **Fourth recurrence of one failure:** KF-6 (2026-07-06) added a
-  3-day ask demotion, the binding volley picks (2026-07-08) moved the farming from Anna's
-  taste to the sort key, and `render_drill.deck_due_payload` had already hand-interleaved
-  frames and chunks around it — each a local patch in the channel where it was noticed,
-  because "no item starves" was never expressed as a property of the shared selector. Now
-  `deck_status` sorts least-recently-worked first *within* a tier (the same `-staleness`
+  reps while 50 of 70 fire items had never been worked at all. Ripeness-first is
+  rich-get-richer, and the alphabetical tiebreak sorted ASCII `frame:` keys ahead of every
+  Tamil-script chunk. **Fourth recurrence of one failure** — three prior local patches, each
+  in the channel where it was noticed, because *"no item starves"* was never expressed as a
+  property of the shared selector.
+  Now `deck_status` sorts least-recently-worked first *within* a tier (the same `-staleness`
   law `floor_gap_targets` has always had; `last_surfaced` is the shared definition), ripeness
-  demoted to a tiebreak, catch_pending under the same law — every channel that reads the
+  demoted to a tiebreak, `catch_pending` under the same law — every channel that reads the
   selector is fixed at once. The tier prefix is untouched: **survival still outranks delight,
   and delight/dessert starvation remains the accepted 07-13 touchdown-bar tradeoff**, not a
-  bug. Teach-first is untouched — rotation lifts UNSEEN items onto the *ticket* to be taught,
-  and `volley_targets` still excludes them from cold quizzes. `recent_ask_counts` **stays**:
-  an ask with no reply never sets `last_surfaced`, so it guards a genuinely different gap.
+  bug. Teach-first is untouched. `recent_ask_counts` **stays**: an ask with no reply never
+  sets `last_surfaced`, so it guards a genuinely different gap.
   Second half, the meter: every meter counted `cold/total` and none counted `worked/total`,
-  so the headline read 15/34 survival at 3.4 cold/day against a needed 1.1 — a won sprint —
-  while most of the deck had never been touched. `deck_coverage()` reports worked/total per
-  tier and per register on the ticket, and `compute_deck` carries the count onto the status
-  line, the update summary, and the dashboard. Refines "the survival tier is the narrated
-  headline" (2026-07-18): that entry fixed a demoralizing denominator and the new one hid a
-  distribution — honest meters must show both. Smoke `s32` (registry #12) guards the ordering
-  law and the coverage split; it goes red on the old sort key (verified).
+  so the headline read a won sprint while most of the deck had never been touched.
+  `deck_coverage()` reports worked/total per tier and per register. Refines "the survival
+  tier is the narrated headline" (2026-07-18): that entry fixed a demoralizing denominator
+  and the new one hid a distribution — **honest meters must show both.** Smoke `s32` guards
+  the ordering law and the coverage split; it goes red on the old sort key.
 - **One selector, one ordering law — the predecessors are retired, not stacked**
-  (2026-07-25, Andrew: "if we've tried to fix the bug before and it hasn't worked out, we
-  should identify the right fix and retire the previous [patch]"). Applied to the four
-  prior attempts at deck starvation. **`recent_ask_counts` moves from `morning_knock` into
+  (2026-07-25, Andrew: *"if we've tried to fix the bug before and it hasn't worked out, we
+  should identify the right fix and retire the previous [patch]"*). Applied to the four prior
+  attempts at deck starvation. **`recent_ask_counts` moves from `morning_knock` into
   `suggest_targets`** and becomes the third term of the one sort key —
   `tier → -staleness → asks → ripeness → key`. The knock module's two copies of
-  `sorted(pending, key=asked)` are **deleted**, which also repairs a defect they carried:
-  a stable re-sort by ask count alone made it the OUTERMOST key, so an asked-once
-  *survival* item fell below an unasked *dessert* one. The move is down a layer —
-  outreach may depend on selection, never the reverse; `suggest_targets` must stay
-  importable without the OpenAI/TTS stack, since it is what opens every session. The
-  ticket had no ask-demotion at all before this and now inherits it for free. Ask-count
-  is what breaks the tie staleness cannot: 50 items sit together at `NEVER_SURFACED`,
-  and an ask that got no reply never sets `last_surfaced`, so a missed item would
-  otherwise be re-asked forever (the original KF-6 symptom). Same audit fixed the count
-  itself: **a volley's items 2..n were never counted as asked** — `expected_target` names
-  only item 1 — while the volley is the deck's main volume channel, so the demotion was
-  blind to most of the asking. First measured effect: yesterday's two volley frames left
-  the head of the queue and the volley reached four never-asked antifreeze/public chunks
-  for the first time. **`render_drill.deck_due_payload`'s frame/chunk interleave is kept
-  but re-justified** — its stated reason (ASCII `frame:` keys sorting ahead of Tamil
-  script) is dead; a plain top-6 now measures 2 frames / 4 chunks. It survives only as a
-  pedagogy choice (a drill wants alternating slot-fill and said-whole work) and its
-  docstring now says so, with the deletion condition named. Keeping a workaround whose
-  comment describes a bug that no longer exists is how a file becomes untouchable.
-  **Known and left alone:** `recent_ask_counts` matches phonetics by substring, so
-  1–2 character lexicon keys (`ல`, `ஆ`, `அவ`) collect false hits — inert here, because
-  only deck members are read from the counts and none are that short. Revisit if a short
-  deck item is ever seeded. *(Superseded 2026-07-26 — `rep_counts` reads the whole
-  lexicon, which made it live; see below.)*
+  `sorted(pending, key=asked)` are **deleted**, which also repairs a defect they carried: a
+  stable re-sort by ask count alone made it the OUTERMOST key, so an asked-once *survival*
+  item fell below an unasked *dessert* one. The move is down a layer — outreach may depend on
+  selection, never the reverse; `suggest_targets` must stay importable without the OpenAI/TTS
+  stack, since it is what opens every session.
+  Ask-count is what breaks the tie staleness cannot: 50 items sit together at
+  `NEVER_SURFACED`, and an ask that got no reply never sets `last_surfaced`, so a missed item
+  would otherwise be re-asked forever. Same audit fixed the count itself: **a volley's items
+  2..n were never counted as asked** — `expected_target` names only item 1 — while the volley
+  is the deck's main volume channel, so the demotion was blind to most of the asking.
+  **`render_drill.deck_due_payload`'s frame/chunk interleave is kept but re-justified** — its
+  stated reason (ASCII `frame:` keys sorting ahead of Tamil script) is dead. It survives only
+  as a pedagogy choice and its docstring now says so, with the deletion condition named.
+  Keeping a workaround whose comment describes a bug that no longer exists is how a file
+  becomes untouchable. **Known and left alone:** `recent_ask_counts` matches phonetics by
+  substring, so 1–2 character lexicon keys collect false hits — inert here, because only deck
+  members are read. *(Superseded 2026-07-26 — `rep_counts` reads the whole lexicon, which
+  made it live; see below.)*
 
-- **A cooldown is not a coverage term — the 07-25 fix reached one selector and was the
-  wrong term anyway** (2026-07-26, Andrew: *"I don't think the 'last 3 days' fixes the
-  problem… then there's a big list of 1's"*). Two defects, one entry, because the second
-  is only visible once the first is fixed. **(a)** The 07-25 law landed in `deck_status`
-  alone; `floor_gap_targets` — the other 235 words, the "larger goal" the deck was accused
-  of starving — never got it, and 7 of its top 14 targets had been asked within 3 days.
-  **(b)** Adding the same 3-day term there fixes almost nothing: the window *forgets*, so
-  on day 4 a word's count resets to zero and it rejoins the head of the alphabet. Simulated
-  over 30 days at 8 targets/day it reaches **24 of 134 words**, spending 100 of 240 asks on
-  ten of them; 110 words are unreachable. **Lifetime reps** reach 121 of 134 with nothing
-  asked more than twice. So `recent_ask_counts` is demoted to what it was always for — a
-  cooldown, applied *inside* the focus set — and `rep_counts` is the coverage number.
-  Rejected: pseudorandom selection (Andrew's suggestion) — it gives coupon-collector
-  behaviour, cannot distinguish a starved word from an unlucky one, and a counter is
-  inspectable where a die roll is not; randomness survives only as `stable_jitter`, the
-  final tiebreak, replacing alphabetical. **`coverage_key` is now the single definition**
-  both selectors read (the deck prefixes tier and then defers) — the 07-25 entry's "one
-  ordering law" was true as prose and false as structure, since it was two hand-copied
-  sort keys in two files. That is what let it drift in a day. **Reps need a real counter:**
-  `last_surfaced` is one overwritten date and can say *when* but never *how many*, and the
-  session log records outcomes, not attempts — so `reps` becomes a lexicon field written by
-  `sync_state.touch`, summed with the knock-log count in `rep_counts` and nowhere else.
-  Fixing the substring probe above was a **prerequisite**, not a bonus: counting the whole
-  lexicon made the latent false-hit bug live, and it had `நீ` at 17 reps against a true 7.
+- **A cooldown is not a coverage term — the 07-25 fix reached one selector and was the wrong
+  term anyway** (2026-07-26, Andrew: *"I don't think the 'last 3 days' fixes the problem…
+  then there's a big list of 1's"*). Two defects, one entry, because the second is only
+  visible once the first is fixed. **(a)** The 07-25 law landed in `deck_status` alone;
+  `floor_gap_targets` — the other 235 words — never got it. **(b)** Adding the same 3-day
+  term there fixes almost nothing: the window *forgets*, so on day 4 a word's count resets to
+  zero and it rejoins the head of the alphabet. Simulated over 30 days at 8 targets/day it
+  reaches **24 of 134 words**, spending 100 of 240 asks on ten of them. **Lifetime reps**
+  reach 121 of 134 with nothing asked more than twice.
+  So `recent_ask_counts` is demoted to what it was always for — a cooldown, applied *inside*
+  the focus set — and `rep_counts` is the coverage number. Rejected: pseudorandom selection
+  (Andrew's suggestion) — it gives coupon-collector behaviour, cannot distinguish a starved
+  word from an unlucky one, and a counter is inspectable where a die roll is not; randomness
+  survives only as `stable_jitter`, the final tiebreak, replacing alphabetical.
+  **`coverage_key` is now the single definition** both selectors read — the 07-25 entry's
+  "one ordering law" was **true as prose and false as structure**, since it was two
+  hand-copied sort keys in two files. That is what let it drift in a day.
+  **Reps need a real counter:** `last_surfaced` is one overwritten date and can say *when* but
+  never *how many*, so `reps` becomes a lexicon field written by `sync_state.touch`, summed
+  with the knock-log count in `rep_counts` and nowhere else. Fixing the substring probe above
+  was a **prerequisite**, not a bonus: counting the whole lexicon made the latent false-hit
+  bug live.
 
 - **Two budgets, because coverage and depth genuinely conflict** (2026-07-26, Andrew:
   *"10-15 getting most reps until they fire cold… the remaining on a slow guaranteed
-  background"*, and *"we need to make sure everything goes into the rotation without
-  starving the dense learning of a current week"*). One ranked list can be broad or deep,
-  never both: pure coverage touches 134 words once a month and graduates nothing; dense
-  repetition graduates words and rots the tail. So the floor splits — a **focus set** of
-  `FOCUS_SIZE` (12) words in dense rotation with sticky membership (the cohort advances and
-  graduates together rather than churning), and a **background** that is *exposure only* —
-  soak candidates that keep a word warm and are never forced to fire. **Graduation is
-  production going cold, and it is final**: a cold word is never drilled again, it is just
-  used, never re-tested (Andrew: *"never tested just assumed"*). Simulated over 60 days: 66
-  graduate, 132 of 134 touched, no word drilled more than 5×. The background rotation is
-  guaranteed only because exposure writes `last_surfaced`, which moves a word to the back
-  of its own queue — without that write the same two words are exposed forever, so the
-  smoke case models the write rather than the intent. **Stuck words are flagged, never
-  evicted** (`STUCK_REPS` = 10, twice the p90 of the 33 words that have actually gone cold —
-  median 2, max 15): past that, the *approach* is what needs changing, and Anna is told so.
-  Deliberately not an eviction rule — 33 data points cannot justify giving up on a word,
-  and a silently parked word is exactly the starvation this change exists to end.
-  **Rejected: retiring `word_pool.json`** (proposed by the assistant, overruled by Andrew:
-  *"if it's being ignored, then we should be fixing that"*). Deleting the only planned
+  background"*, and *"we need to make sure everything goes into the rotation without starving
+  the dense learning of a current week"*). One ranked list can be broad or deep, never both:
+  pure coverage touches 134 words once a month and graduates nothing; dense repetition
+  graduates words and rots the tail. So the floor splits — a **focus set** of `FOCUS_SIZE`
+  (12) words in dense rotation with sticky membership (the cohort advances and graduates
+  together rather than churning), and a **background** that is *exposure only* — soak
+  candidates that keep a word warm and are never forced to fire. **Graduation is production
+  going cold, and it is final**: a cold word is never drilled again, it is just used, never
+  re-tested (Andrew: *"never tested just assumed"*). Simulated over 60 days: 66 graduate, 132
+  of 134 touched, no word drilled more than 5×.
+  The background rotation is guaranteed only because exposure writes `last_surfaced`, which
+  moves a word to the back of its own queue — without that write the same two words are
+  exposed forever, so the smoke case models the write rather than the intent.
+  **Stuck words are flagged, never evicted** (`STUCK_REPS` = 10, twice the p90 of the 33
+  words that have actually gone cold): past that, the *approach* is what needs changing, and
+  Anna is told so. Deliberately not an eviction rule — 33 data points cannot justify giving
+  up on a word, and a silently parked word is exactly the starvation this change exists to
+  end. **Rejected: retiring `word_pool.json`** (proposed by the assistant, overruled by
+  Andrew: *"if it's being ignored, then we should be fixing that"*). Deleting the only planned
   vocabulary-intake path because nobody used it treats the symptom; the file is not broken,
   it is queued.
 
@@ -1157,27 +1137,25 @@ Details live in git history; this is the index of the *conclusions*.
   flag is false only because the ask is comprehension, not because the Tamil was hidden.
   A hidden production target remains spend-only. Declared at the knock seam
   (`knock_exposures`), never mined from the memo text.
-- **The campaign keeps its story and loses its paperwork** (2026-07-26, Andrew: "keep the
-  story, drop the paperwork"). The 07-17 campaign was built when nothing named what was
+- **The campaign keeps its story and loses its paperwork** (2026-07-26, Andrew: *"keep the
+  story, drop the paperwork"*). The 07-17 campaign was built when nothing named what was
   coming *and* nothing ranked the curriculum; it took both jobs. The 07-25/07-26 selector
-  work took the second one back — the focus set is a stored ≤12 cohort that graduates on
-  cold, `catch_pending` ranks the ear axis by the same law and resolves each pair, and the
-  deck sort carries tier + ask-cooldown + `coverage_key`. So three of the campaign's four
-  clauses (its ~10–14 item list, its catch targets, its denominator) had become a
-  hand-maintained second selector, and by "one selector, one ordering law — the
-  predecessors are retired, not stacked" (07-25) it was the last un-retired predecessor,
-  sitting outside the law instead of inside it. **Supersedes the item-list, catch-target,
-  and day-grid clauses of "The Campaign — the week ahead" (2026-07-17); supersedes "Every
-  campaign names catch targets" (2026-07-18) — the EAR-ONLY block names them now; retires
-  the co-authoring contract** (kick-off → draft → adjust → agree), which failed on the
-  evidence: two campaigns in ten days, the second never agreed after being put to Andrew
-  twice in one session, and it ran unagreed anyway and worked (catch 1/12 → 3/12).
-  What survives is the one job nothing else can do — the **through-line**, the sentence
-  that makes a week's items one thing rather than a list ("verb + -nga is one machine" is
-  why the Ask-Machine Week won). Five lines, Anna writes it at close, Andrew overrides at
-  will, the ticket owns which items. Cost: `daily_session.md` 1220 → 1180 words, the
-  profile block 130 lines → 8. The narrated-denominator rule (07-17) survives unchanged;
-  only its source moves to the ticket's focus set.
+  work took the second one back, so three of the campaign's four clauses had become a
+  hand-maintained second selector — and by "one selector, one ordering law — the predecessors
+  are retired, not stacked" (07-25) it was the last un-retired predecessor, sitting outside
+  the law instead of inside it.
+  **Supersedes the item-list, catch-target, and day-grid clauses of "The Campaign — the week
+  ahead" (2026-07-17); supersedes "Every campaign names catch targets" (2026-07-18)** — the
+  EAR-ONLY block names them now; **retires the co-authoring contract** (kick-off → draft →
+  adjust → agree), which failed on the evidence: two campaigns in ten days, the second never
+  agreed after being put to Andrew twice in one session, and it ran unagreed anyway and
+  worked (catch 1/12 → 3/12).
+  What survives is the one job nothing else can do — the **through-line**, the sentence that
+  makes a week's items one thing rather than a list (*"verb + -nga is one machine"* is why the
+  Ask-Machine Week won). Five lines, Anna writes it at close, Andrew overrides at will, the
+  ticket owns which items. Cost: `daily_session.md` 1220 → 1180 words, the profile block 130
+  lines → 8. The narrated-denominator rule (07-17) survives unchanged; only its source moves
+  to the ticket's focus set.
 - **One campaign heading, always — a finished week is overwritten, not archived**
   (2026-07-26, found while auditing the above). `campaign_block()` parses `profile.md` by
   an exact heading string, so the 07-24 close — which kept the won Ask-Machine week under
@@ -1303,40 +1281,31 @@ Details live in git history; this is the index of the *conclusions*.
   have REGRESSED the template. The rule: where the template already solved a seam
   more generally, the port adapts to the template and Tamil's literal is the thing
   discarded. Rejects "port verbatim, then generalize" as the working order.
-- **One serialised CI lane, held open by `queue: max`** (2026-07-28, Andrew).
-  `anna.yml` keyed its concurrency group by `knock_id`, so every reply got its own
-  lane and two replies could run in parallel. On 07-28 a reply to a *stale*
-  notification (the 07-27 volley, still on the lock screen) raced the reply to that
-  morning's knock; both appended to the tail of the `feedback_log.json` array,
-  `git pull --rebase` hit a content conflict, and `commit_and_push` died mid-rebase
-  under `check=True`. The cost was not the red run — it was a **judged exchange
-  lost**: verdict, fires and ledger note all computed, then discarded with the
-  commit. Now `group: anna` for every trigger.
-  **What the old keying actually protected was delivery, not latency.** Its comment
-  claimed "a reply must NEVER queue behind a knock render" — a preference written as
-  an invariant. The real property was that GitHub cancels a *pending* run when a
-  newer one joins its group (default queue depth 1), so a naive shared group would
-  have silently eaten the middle of a reply burst — six dispatches inside six
-  minutes that same morning. That failure is quiet and frequent; the conflict was
-  loud and rare, so the naive fix was strictly worse. `queue: max` (GitHub
-  changelog 2026-05-07) holds 100 pending FIFO and buys both properties at once.
-  Andrew accepted the tradeoff — a reply may now wait behind a render — because it
+- **One serialised CI lane, held open by `queue: max`** (2026-07-28, Andrew). `anna.yml`
+  keyed its concurrency group by `knock_id`, so two replies could run in parallel; on 07-28
+  two of them both appended to `feedback_log.json`, `git pull --rebase` hit a content
+  conflict, and `commit_and_push` died mid-rebase under `check=True`. The cost was not the
+  red run — it was a **judged exchange lost**: verdict, fires and ledger note all computed,
+  then discarded with the commit. Now `group: anna` for every trigger.
+  **What the old keying actually protected was delivery, not latency.** Its comment claimed
+  *"a reply must NEVER queue behind a knock render"* — a preference written as an invariant.
+  The real property was that GitHub cancels a *pending* run when a newer one joins its group
+  (default queue depth 1), so a naive shared group would have silently eaten the middle of a
+  reply burst. That failure is quiet and frequent; the conflict was loud and rare, so the
+  naive fix was strictly worse. `queue: max` holds 100 pending FIFO and buys both properties
+  at once. Andrew accepted the tradeoff — a reply may now wait behind a render — because it
   removes the race structurally rather than retrying around it.
-  **Honest scope:** this closes CI-vs-CI only. The laptop is a third writer outside
-  every group and still relies on "pull before read, push after write" (2026-07-15).
-  A conflict-aware `commit_and_push` (re-apply the mutation against fresh state) and
-  JSONL append-safe logs were both explored and **deferred, not rejected** — revisit
-  if a laptop-vs-cloud conflict ever actually bites. Related but distinct: the
-  `lexicon.json` last-writer-wins race (2026-07-13) is in-process, not git-level, and
-  is untouched by this.
-  **Linter lag, not a waiver:** `queue:` postdates actionlint's newest release
-  (v1.7.12, 2026-03-30), which rejects the key as a syntax error, so `smoke.yml`
-  carries a message-exact `-ignore`. Verified against 1.7.7 and 1.7.12 that the
-  suppression is narrow — the `runner`-in-job-env outage the lint step exists for is
-  still caught. Delete the flag when actionlint learns the key.
-  **Supersedes the per-`knock_id` group** introduced silently in `38e7275`
-  (2026-07-24), which never had a DECISIONS entry — its whole justification lived in
-  a code comment, which is how an unexamined preference got to read as a law.
+  **Honest scope:** this closes CI-vs-CI only. The laptop is a third writer outside every
+  group and still relies on "pull before read, push after write" (2026-07-15). A
+  conflict-aware `commit_and_push` and JSONL append-safe logs were both explored and
+  **deferred, not rejected**. The `lexicon.json` last-writer-wins race (2026-07-13) is
+  in-process, not git-level, and is untouched.
+  **Linter lag, not a waiver:** `queue:` postdates actionlint's newest release, so
+  `smoke.yml` carries a message-exact `-ignore`; verified narrow, and the `runner`-in-job-env
+  outage the lint step exists for is still caught. Delete the flag when actionlint learns the
+  key. **Supersedes the per-`knock_id` group** introduced silently in `38e7275` (2026-07-24),
+  whose whole justification lived in a code comment — which is how an unexamined preference
+  got to read as a law.
 - **Cadence is not a lever this end owns — the cron returns to `0 * * * *`** (2026-07-28
   reopen, 2026-07-29 amendment, RESOLVED 2026-07-30, Andrew). Three rounds argued about
   whether `*/30` buys a faster heartbeat than hourly. Settled by measurement over 75
@@ -1358,27 +1327,23 @@ Details live in git history; this is the index of the *conclusions*.
   out to be an n=8 overnight-heavy artefact. The measurement discipline has to survive
   contact with our own proposals. Round-by-round numbers are in git.
 - **The local notify hop fails behind work TLS inspection; accepted, not a bug**
-  (2026-07-28, Andrew: "it's a work machine on a work network so it's their
-  prerogative. Let's let it be."). `push_to_phone` raises
-  `CERTIFICATE_VERIFY_FAILED` from the laptop because `<HA_HOST>:4444`
-  presents `CN=<appliance serial>, O=Fortinet` — a FortiGate appliance's factory
-  self-signed CA substituted mid-handshake, not Home Assistant's own certificate.
-  Verified it is environmental and not a Python config gap: the Windows system
-  store AND certifi's full Mozilla bundle both reject it, and no Fortinet CA
-  exists in `LocalMachine\Root`, `LocalMachine\CA` or `CurrentUser\Root`. **CI is
-  unaffected** — GitHub's runners are not behind that interface, which is why the
-  knock lane has never missed a push. **Rejected: disabling verification** for that
-  call (trusting whatever answers on the port). **Deferred, not rejected:** routing
-  local renders' notifications through `push_queue` so the cloud drain delivers
-  them — architecturally the better answer (it removes the laptop from the delivery
-  path entirely), revisit if local renders ever need to reach the phone.
-  **The real cost is a reporting bug, not the cert.** A local render publishes the
-  tape, commits, pushes and rebuilds the feed — and *then* raises at the notify
-  step, so a fully successful run exits non-zero with a traceback as its last
-  output. On 07-28 that read as total failure, the render was re-run, and a second
-  soak tape published against an order the first run had already consumed. The
-  honest fix is for the notify step to be best-effort like the drain
-  (`continue-on-error` in spirit) and for the run to report what it actually did.
+  (2026-07-28, Andrew: *"it's a work machine on a work network so it's their prerogative.
+  Let's let it be."*). `push_to_phone` raises `CERTIFICATE_VERIFY_FAILED` from the laptop
+  because `<HA_HOST>:4444` presents a FortiGate appliance's factory self-signed CA
+  substituted mid-handshake, not Home Assistant's own certificate. Verified environmental and
+  not a Python config gap: the Windows system store AND certifi's full Mozilla bundle both
+  reject it, and no Fortinet CA exists in any machine or user root store. **CI is
+  unaffected** — GitHub's runners are not behind that interface, which is why the knock lane
+  has never missed a push. **Rejected: disabling verification** for that call (trusting
+  whatever answers on the port). **Deferred, not rejected:** routing local renders'
+  notifications through `push_queue` so the cloud drain delivers them — architecturally the
+  better answer, revisit if local renders ever need to reach the phone.
+  **The real cost is a reporting bug, not the cert.** A local render publishes the tape,
+  commits, pushes and rebuilds the feed — and *then* raises at the notify step, so a fully
+  successful run exits non-zero with a traceback as its last output. On 07-28 that read as
+  total failure, the render was re-run, and a second soak tape published against an order the
+  first run had already consumed. The honest fix is for the notify step to be best-effort
+  like the drain and for the run to report what it actually did.
 
 - **The 10–15 minute dose is the right dose, and adherence is why** (2026-07-28, Andrew's
   spoken testimony — learner-side confirmation of the density-low/lore-high pattern the
@@ -1386,18 +1351,17 @@ Details live in git history; this is the index of the *conclusions*.
   right length… if it only takes me ten, fifteen minutes to go through the whole thing,
   that's a bit better than a longer session."* The mechanism he names is **adherence, not
   comfort**: a short dose means *"I'm more likely to push through and get the dopamine of
-  having finished it than have an open session when I get distracted or have to switch to
-  another task"* — he interleaves sessions into his workday as a break from other work, and
-  a session he can finish is a session he starts tomorrow. He is explicitly torn (a longer
-  session *"feels necessary"*) and lands on short anyway; the felt pull toward length is
-  **not** a mandate to lengthen. Paired signal, same breath: *"the coffee before scenario
-  idea is a success, and I genuinely enjoy that little dose of lore I'm getting each day —
-  lore in this way is high density learning."* **Consequences, both directions:** the
-  break-first contract and the lore tangent are load-bearing for daily adherence and must
-  not be traded for reps; and the espresso floor is a real full session, not a shortfall.
-  **Do not raise the dose or lengthen the session to solve an unrelated complaint** — the
-  07-28 audio-commissioning signal arrived in the very same conversation and is explicitly
-  *not* a volume ask.
+  having finished it than have an open session when I get distracted"* — he interleaves
+  sessions into his workday, and a session he can finish is a session he starts tomorrow. He
+  is explicitly torn (a longer session *"feels necessary"*) and lands on short anyway; the
+  felt pull toward length is **not** a mandate to lengthen. Paired signal, same breath: *"the
+  coffee before scenario idea is a success, and I genuinely enjoy that little dose of lore…
+  lore in this way is high density learning."*
+  **Consequences, both directions:** the break-first contract and the lore tangent are
+  load-bearing for daily adherence and must not be traded for reps; and the espresso floor is
+  a real full session, not a shortfall. **Do not raise the dose or lengthen the session to
+  solve an unrelated complaint** — the 07-28 audio-commissioning signal arrived in the very
+  same conversation and is explicitly *not* a volume ask.
 - **A miss is data Andrew wants; grade honestly** (2026-07-28, his own words, settling the
   softening question for good). *"The cold axis where I produce it unprompted is the most
   honest… I'm trying my best to mumble through the sentences and trust that where I get it
@@ -1440,19 +1404,20 @@ Details live in git history; this is the index of the *conclusions*.
   raise it"*). Amends "An unattended production trigger must be verifiable, and capped
   regardless" (2026-07-23); the **verifiable** half stands untouched. He is right that 1 was
   sized to a fixed bug — `split_payload()` closed the stuck produced-check that shipped
-  M72/M73/M74 in one evening. It also became *binding* under repair-first commissioning:
-  when each unclosed repair can earn its own order, one dose a day is the constraint that
-  starves the fix. **Raised rather than removed** (his instruction allowed either): the cap
-  never guarded that one bug — it bounds whatever the next stuck predicate turns out to be,
-  and the blast radius is unattended, firing renders, feed entries and phone pushes while
-  he is out. Smoke asserts the cap is finite and under 10, so a future "just remove it" has
-  to argue with a test. **Latent today:** the local watchdog cron is retired (07-24), so
-  this constant currently gates only a manual `studio_watchdog.py` run and the unbuilt
-  `episode` move in the knock tick. What actually delivers more targeted audio right now is
-  the commissioning law plus the session-open auto-drain, which is attended and works.
-  Fixed alongside: Anna's skill promised *"`studio_watchdog.py` (hourly local cron) retries
-  any miss"* — false since 07-24, and a retry that does not exist is worse than none because
-  it makes a dropped dose look covered.
+  M72/M73/M74 in one evening. It also became *binding* under repair-first commissioning: when
+  each unclosed repair can earn its own order, one dose a day is the constraint that starves
+  the fix. **Raised rather than removed** (his instruction allowed either): the cap never
+  guarded that one bug — it bounds whatever the next stuck predicate turns out to be, and the
+  blast radius is unattended, firing renders, feed entries and phone pushes while he is out.
+  Smoke asserts the cap is finite and under 10, so a future "just remove it" has to argue
+  with a test.
+  **Latent, then gone: this constant retired with `studio_watchdog.py` on 2026-08-27** — see
+  "`studio_watchdog.py` retired, and its cap became an invariant". It gated only the manual
+  watchdog run and an `episode` move in the knock tick that was never built. What actually
+  delivers targeted audio is the commissioning law plus the session-open auto-drain, which is
+  attended and works. Fixed alongside at the time: Anna's skill promised *"`studio_watchdog.py`
+  (hourly local cron) retries any miss"* — false since 07-24, and a retry that does not exist
+  is worse than none because it makes a dropped dose look covered.
 - **A commission reaches the episode lane as computed context, never as an agentic read**
   (2026-07-28 evening, found on the first real exercise of the law above). A commissioned
   frame reached the Director only through one prose clause in `DIRECTOR`, competing with a
@@ -1482,52 +1447,47 @@ Details live in git history; this is the index of the *conclusions*.
   evening, Andrew, AMENDING the same-day commissioning law above). The rule shipped that
   afternoon read *"a collision that survived its correction earns its own order — contrast
   explains a collision, **a chunk fires it**."* The first half is scope and is right. The
-  second half names a FORMAT — a chunk is what `render_soak.py` makes — so the rule as
-  written told Anna that every mix-up gets the loop. Andrew, hours later: *"when I'm
-  struggling to hear the difference between two words, it shouldn't just be a slow
-  repetitive loop… using them in context can be very effective for sticking in my brain."*
+  second half names a FORMAT, so the rule as written told Anna that every mix-up gets the
+  loop. Andrew, hours later: *"when I'm struggling to hear the difference between two words,
+  it shouldn't just be a slow repetitive loop… using them in context can be very effective."*
   **He is right on the evidence, and it is his own:** the 07-28 deep-dive gave him the full
-  minimal-pair contrast and ninety seconds later, under production load, he still said
-  *"temple-ku pakkalam."* His ear was never the broken part — repetition in a quiet room
-  does not train the seam that failed, and what fixed it inside one exchange was the chunk
-  carrying load. **The fix:** the scope bullet now says out loud that it sets scope and not
-  format, and the channel section gains *"capacity vetoes; the ERROR chooses"* — can't hear
-  them apart → soak; hears them fine but the mouth takes the wrong one → episode; has it and
-  is slow → drill. Plus an escalation rule that did not exist: **the same mistake twice
-  through one format is that format's answer — change format, never loop harder.** Capacity
-  is untouched and still vetoes (07-23 stands): the error picks among what his attention
-  allows, it does not overrule it. **Budget:** 550 → 640 in the same diff, the SECOND raise
-  in one day, flagged as such at the constant. Retired to pay for it: the `chunk fires it`
-  clause, the *"route by the situation"* bullet (its veto half is now the table's opening
-  line), and the 07-23 story compressed — 33 words back. **A third raise is refused in
-  advance**; the next growth splits "what it carries" from "which format carries it".
-  Smoke `s37` extended: it now asserts the format clause is *gone* and cannot grow back.
+  minimal-pair contrast and ninety seconds later, under production load, he still said the
+  wrong form. His ear was never the broken part — repetition in a quiet room does not train
+  the seam that failed, and what fixed it inside one exchange was the chunk carrying load.
+  **The fix:** the scope bullet now says out loud that it sets scope and not format, and the
+  channel section gains *"capacity vetoes; the ERROR chooses"* — can't hear them apart →
+  soak; hears them fine but the mouth takes the wrong one → episode; has it and is slow →
+  drill. Plus an escalation rule that did not exist: **the same mistake twice through one
+  format is that format's answer — change format, never loop harder.** Capacity is untouched
+  and still vetoes (07-23 stands): the error picks among what his attention allows, it does
+  not overrule it. **Budget:** 550 → 640 in the same diff, the SECOND raise in one day,
+  flagged as such at the constant, paid for by retiring the `chunk fires it` clause and the
+  route-by-situation bullet. **A third raise is refused in advance**; the next growth splits
+  "what it carries" from "which format carries it". Smoke `s37` extended: it asserts the
+  format clause is *gone* and cannot grow back.
 - **The drill lane consumes its commission; ear-only is refused, not demanded**
   (2026-07-28 evening, Andrew: *"let's fix drill now then"*). `--soak-channel drill` was a
-  DEAD VALUE — `sync_state` accepted and stored it, `render_drill` never read it, and no
-  lane stamped it delivered. Three silent consequences: the repair became an ordinary deck
-  drill, the order stayed pending, and the session-open auto-drain then dispatched an
-  EPISODE for it, the one lane he had explicitly not chosen. So of the three channels the
-  routing table advertises, only two worked, and the third failed by quietly substituting
-  the most expensive one. Found while answering his question about which formats belong on
-  the commissioning menu — the honest answer was *fewer than the table claims*.
-  **LEAD, not replace** (his call, taken on the recommendation): the commissioned item leads
-  the tape and the writer is told to give it THREE cues in three different situations, same
-  target; the due deck fills out the rest and keeps its normal shape. A tape built entirely
-  from one item is the slow repetitive loop this lane was commissioned to escape — the same
-  reasoning as the format amendment above, applied one layer down. Mirrors `render_soak`'s
-  `soak_brief`/`with_payload` exactly, so the two lanes now read the order the same way.
-  **The ear-only refusal is the load-bearing part.** A drill's silence is a production
-  demand and `direction: catch` items are never forced to fire (deck law). A catch item
-  routed here is a mis-route, so `drill_brief()` reports it and leaves the order standing
-  for the soak or episode lane rather than turning it into a demand he cannot meet — the
-  failure would have been invisible, because a refused word and a drilled word both produce
-  a tape. `frame:youknow-la` is exactly such an item and was live on the order today.
+  DEAD VALUE — `sync_state` accepted and stored it, `render_drill` never read it, and no lane
+  stamped it delivered. Three silent consequences: the repair became an ordinary deck drill,
+  the order stayed pending, and the session-open auto-drain then dispatched an EPISODE for
+  it, the one lane he had explicitly not chosen. Of the three channels the routing table
+  advertises, only two worked, and the third failed by quietly substituting the most
+  expensive one.
+  **LEAD, not replace** (his call): the commissioned item leads the tape and the writer is
+  told to give it THREE cues in three different situations, same target; the due deck fills
+  out the rest and keeps its normal shape. A tape built entirely from one item is the slow
+  repetitive loop this lane was commissioned to escape — the same reasoning as the format
+  amendment above, applied one layer down. Mirrors `render_soak`'s `soak_brief`/`with_payload`
+  exactly, so the two lanes read the order the same way.
+  **The ear-only refusal is the load-bearing part.** A drill's silence is a production demand
+  and `direction: catch` items are never forced to fire (deck law). A catch item routed here
+  is a mis-route, so `drill_brief()` reports it and leaves the order standing for the soak or
+  episode lane rather than turning it into a demand he cannot meet — the failure would have
+  been invisible, because a refused word and a drilled word both produce a tape.
   **Also:** the lane now stamps `mark_soak_delivered("drill")`, closing the pending-forever
-  path, and a commission still gets a tape on a day the deck has nothing due (the old
-  early-return killed the run before the order was ever read). Smoke case `s40`, including
-  a stubbed-LLM run of `main()` itself — the pieces are only worth having if the entry
-  point calls them.
+  path, and a commission still gets a tape on a day the deck has nothing due. Smoke case
+  `s40`, including a stubbed-LLM run of `main()` itself — the pieces are only worth having if
+  the entry point calls them.
 - **Mistakes are a ledger, not prose — errors accumulate, cross lanes, and steer selection**
   (2026-07-30, Andrew's ask: *"make very, very sure that these mistakes are used as direct
   signal to direct subsequent lessons"*). **Evidence, not a felt signal:** the same three
@@ -1575,58 +1535,48 @@ Details live in git history; this is the index of the *conclusions*.
   reporting honestly. Also fixed in the same pass: `slip_patterns` took `last` as *last-seen*
   rather than `max`, which can retire a still-live slip; `SLIP_QUIET_DAYS` →
   `SLIP_RETIRE_DAYS`, pinned to `generate_callbacks.INTERVAL_DAYS["cold"]`. Smoke `s41`.
-- **Python is budgeted too — the ratchet moves one layer down** (2026-07-31, Andrew's
-  call, from the engineering-vs-learning audit). Evidence that opened it: through July the
-  word budget held prose FLAT (8866 words 07-01 → 11511 on 07-15 → 10671 on 07-31, a net
-  deletion in one of those weeks) while production Python went 2566 → 6032 lines at a ~10%
-  deletion rate, +1207/−115 in the final week alone. **April's failure mode did not die; it
-  moved to the surface with no ceiling.** `CODE_BUDGETS` + the completeness guard in `s18`
-  (renamed `s18_size_budgets` — one case, one law, two units, rather than a second parallel
-  mechanism) now bind every `scripts/*.py` on exactly the terms `PROSE_BUDGETS` already
-  carries: growth past budget is a red run, a raise rides the same diff as the growth and
-  names what it retired, and a file that keeps hitting its ceiling is doing two jobs —
-  split-or-retire, never bump-the-number.
+- **Python is budgeted too — the ratchet moves one layer down** (2026-07-31, Andrew's call,
+  from the engineering-vs-learning audit). Evidence that opened it: through July the word
+  budget held prose FLAT (8866 words 07-01 → 11511 on 07-15 → 10671 on 07-31, a net deletion
+  in one of those weeks) while production Python went 2566 → 6032 lines. **April's failure
+  mode did not die; it moved to the surface with no ceiling.** `CODE_BUDGETS` + the
+  completeness guard in `s18_size_budgets` bind every `scripts/*.py` on exactly the terms
+  `PROSE_BUDGETS` already carries: growth past budget is a red run, a raise rides the same
+  diff as the growth and names what it retired, and a file that keeps hitting its ceiling is
+  doing two jobs — split-or-retire, never bump-the-number.
   **The unit is CODE LINES — blanks, comments and docstrings are free.** A third of this
-  codebase (33%) is comment, and that third is the diagnosis layer; the 07-31 silent-failure
-  family was findable only because the "why" sits beside the mechanism. Taxing explanation
-  would buy smaller files by deleting what makes them debuggable. `code_lines()` strips
-  comments via `tokenize` and docstrings via `ast`, so a comment-only diff cannot move the
-  number and a mechanism-only diff cannot hide from it (both proved before commit).
-  **`smoke_test.py` is exempt, deliberately:** `/extend` Gate 7 requires a new case the day
-  a bug is fixed, so budgeting the regression net would put two mechanisms in conflict and
-  the budget would win — a fixed bug would arrive with a reason not to pin it. Test volume
-  is the one growth this system wants unbounded. The completeness guard is what stops the
-  exemption becoming a hiding place: a `scripts/*.py` with no budget is itself a red run,
-  because adding a file is the obvious way past a ceiling.
-  **Budgets set at the 07-31 census, rounded up to the next 25 with a 25-line minimum
-  headroom** — tight enough to bind within weeks at a normal pace, loose enough that one
-  ordinary repair lands without ceremony. Headroom is room to repair, not an allowance to
-  spend. Replaces nothing; it extends the 2026-07-16 prose-budget law to the surface that
-  never had it, and retires the informal expectation that `/extend` Gate 4 alone would hold
-  Python back — the same expectation that demonstrably failed for prose before 07-16.
-  Port surface: none — no prompts, no `TAMIL_RE`, no voice IDs, no `REPO`. Same residual
-  `PROSE_BUDGETS` already carries: the table binds this repo's filenames, so a port inherits
-  the mechanism and must re-census the numbers.
+  codebase is comment, and that third is the diagnosis layer; the 07-31 silent-failure family
+  was findable only because the "why" sits beside the mechanism. Taxing explanation would buy
+  smaller files by deleting what makes them debuggable. `code_lines()` strips comments via
+  `tokenize` and docstrings via `ast`, so a comment-only diff cannot move the number and a
+  mechanism-only diff cannot hide from it.
+  **`smoke_test.py` is exempt, deliberately:** Gate 7 requires a new case the day a bug is
+  fixed, so budgeting the regression net would put two mechanisms in conflict and the budget
+  would win. Test volume is the one growth this system wants unbounded. The completeness
+  guard stops the exemption becoming a hiding place: a `scripts/*.py` with no budget is
+  itself a red run, because adding a file is the obvious way past a ceiling.
+  Budgets set at the 07-31 census, rounded up to the next 25 with 25 lines of headroom —
+  headroom is room to repair, not an allowance to spend. Replaces nothing; it extends the
+  2026-07-16 prose-budget law to the surface that never had it. Port surface: none — no
+  prompts, no `TAMIL_RE`, no voice IDs, no `REPO`. Same
+  residual `PROSE_BUDGETS` carries — the table binds this repo's filenames, so a port
+  inherits the mechanism and must re-census the numbers.
 - **The silent no-op test — meters must measure effect, not execution** (2026-07-31,
   distilled from Andrew's engineering-vs-learning audit). He asked whether the deep bugs of
-  the past fortnight were placeholders, under-described features, or true regressions.
-  Answer: **all three are present** — commissioning was a real regression (worked from
-  `4666c58` 06-16, killed by the `92e95a4` 07-16 compression pass), deck starvation was
-  *never built* (the sort had no staleness term; prose said rotation, code said
-  alphabetical), the sidecar callback branch was a **placeholder whose partiality was never
-  recorded**, and the `session_log` append was simply wrong from the start. But that cut
-  does not explain them. **The unifying property does: every one was a state
-  indistinguishable from success.** The instruments were present and confirmed success —
-  they measured that a step RAN, never that its PURPOSE was served. Soak order *set* vs.
-  *contains the day's repair*; item *surfaced* vs. *coverage across the deck*; callback *in
-  the script* vs. *lexicon record exists*; close *written* vs. *close survives the write*.
+  the past fortnight were placeholders, under-described features, or true regressions. All
+  three were present — but that cut does not explain them. **The unifying property does:
+  every one was a state indistinguishable from success.** The instruments were present and
+  confirmed success — they measured that a step RAN, never that its PURPOSE was served. Soak
+  order *set* vs. *contains the day's repair*; item *surfaced* vs. *coverage across the
+  deck*; callback *in the script* vs. *lexicon record exists*; close *written* vs. *close
+  survives the write*.
   **The evidence that settles it:** `70ee737` (07-30) shipped `slip_closes` with a DECISIONS
   entry AND a smoke case, and the feature was dead on arrival for a full day — `s41` tested
   the judge-side slip logic, never called `cmd_update`, never re-read `learner.json`. Green
   suite, dead feature, correct process. The root cause wearing best practice as camouflage.
-  **Now canon as `/extend` Gate 7.2** (and cross-referenced from `/debug` §5): before the
-  case is written, answer *"what does this look like when it silently does nothing, and can
-  the system tell that apart from success?"* — assert the effect not the execution, round-trip
+  **Now canon as `/extend` Gate 7.2** (and cross-referenced from `/debug` §5): before the case
+  is written, answer *"what does this look like when it silently does nothing, and can the
+  system tell that apart from success?"* — assert the effect not the execution, round-trip
   through the writer and re-read the state file, make the absence loud. If the honest answer
   is "exactly like success", the bug is still in the diff. Replaces nothing; it sharpens Gate
   7.1, which mandated a case per fixed bug and never said what the case must bite.
