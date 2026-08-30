@@ -27,6 +27,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > No stress at all da, we haven't properly dug into the '-kren' pattern yet — just tuck 'podu' (make/put) away for now, the rest will click as we go.
 
+**14:18 · Anna**  ·  text / trailer: table defense
+> 🥄 Maami hovering with more idlis: 'innum konjam?' (more?). One line shuts down the refill politely. Catch you in session.
+
 
 ## Saturday 2026-08-29
 

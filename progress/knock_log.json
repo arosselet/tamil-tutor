@@ -5896,5 +5896,17 @@
         "reply_line": "No stress at all da, we haven't properly dug into the '-kren' pattern yet — just tuck 'podu' (make/put) away for now, the rest will click as we go."
       }
     ]
+  },
+  {
+    "date": "2026-08-30",
+    "timestamp": "2026-08-30T08:48:57.853491+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "trailer: table defense",
+    "rationale": "Demand streak at 2 requires a no-ask dose; lunch trailer pitches the table declining reflex for today's session.",
+    "next_check": "2026-08-30T12:18:57.853491+00:00",
+    "body": "🥄 Maami hovering with more idlis: 'innum konjam?' (more?). One line shuts down the refill politely. Catch you in session.",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]
