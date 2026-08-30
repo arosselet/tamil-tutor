@@ -21,6 +21,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > 'podu' is to put or make (like coffee), and 'pottukren' means 'I'll make/pour it for myself' — 'naane pottukren' is literally 'I'll make it myself'!
 
+**11:29 · Andrew** — **CHAT**
+> Ok I don’t think I was taught this, will try to remember
+
+**Anna ↩**
+> No stress at all da, we haven't properly dug into the '-kren' pattern yet — just tuck 'podu' (make/put) away for now, the rest will click as we go.
+
 
 ## Saturday 2026-08-29
 
