@@ -4,6 +4,34 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **A THIRD-PARTY NAME GUARD ON THE PHONE-RECORD LANE — and the reason the obvious
+  version cannot be built** (2026-08-30, proposed, NOT built; Gate 2 parks it — it is a
+  new smoke case, which is exempt from budgets, but it needs a data surface that does
+  not exist yet). **The evidence is a two-day recurrence, both ends in git.** `09ccc8e`
+  (08-27) cleared a family name from four state files by hand; `a576ea8` (08-30) cleared
+  a *different* one that entered `knock_log.json` on **08-29** through the same lane, plus
+  the four `trip_deck.json` notes `09ccc8e`'s own body had named and skipped. Prose fix,
+  no mechanism, no case — refilled in 48 hours. This is the `/debug` KF pattern and the
+  DECISIONS law ("a fixed bug becomes a test case the day it's fixed") failing on the one
+  lane where the cost is somebody else's privacy, not Andrew's meter.
+  **WHY THE OBVIOUS MECHANISM IS WRONG, and this is the whole entry:** the natural guard
+  is a deny-list of family first names asserted against the tracked state files. In a
+  PUBLIC repo that list **is** the leak — it publishes, in one convenient place, exactly
+  the set it exists to protect, and it is useless against the next name, which is always
+  the one that actually leaks. Hashing the list only moves the problem (a first-name
+  dictionary breaks it in seconds).
+  **THE SHAPE THAT WORKS IS INVERTED — allow, don't deny.** Flag any capitalised
+  non-Tamil token appearing in `knock_log.json` / `chat.md` that is not in an allow-list
+  of known project nouns (Anna, Andrew, Tamil, Coimbatore, the weekday and month names,
+  the mission/lane vocabulary). It stays fully public, it catches names never seen before,
+  and its failure mode is a false positive Andrew clears by adding a word — the right
+  direction for a guard whose miss costs a person's privacy. **What it replaces:** the
+  manual sweep, which has now been run twice and missed something both times.
+  **Open question before any build:** the allow-list is a new data surface and every
+  English proper noun in a scene is a false positive, so measure the noise on the existing
+  169-entry log FIRST. If it cries on every run it will be walked past, and a warning that
+  cannot be discharged is noise by construction (Gate 7).
+
 - **DO NOT MAKE `resolve()` FUZZY — measured 2026-08-26, and the answer is no.** Filed as a
   negative result so the next pass does not spend the same afternoon on it. Chasing the 84
   unreachable floor-gap words (entry below), the obvious fix is to stop exact-matching the
