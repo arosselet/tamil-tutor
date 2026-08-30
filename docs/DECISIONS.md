@@ -208,7 +208,10 @@ Details live in git history; this is the index of the *conclusions*.
   example, never terminology — two clauses is a lecture. Loosens "recast, never lecture"
   the way lore loosened the scenario monoculture; "No Academic Terms" untouched.
 - **agy/Gemini is the default studio writer; the Claude subagent is the fallback**
-  (2026-07-09). `scripts/run_studio.py` runs Director → Architect → Producer as three
+  (2026-07-09; **SUPERSEDED 2026-08-18, see "One model, two executors"** — agy was
+  retired for running nowhere. The writer-only split below is unchanged and is the
+  part that survived; only the executor moved.)
+  `scripts/run_studio.py` runs Director → Architect → Producer as three
   sandboxed **print-only** agy calls — Gemini never writes a file or sees git; Python
   persists, lints, and renders (the writer-only split, tightened). Chosen for Gemini token
   headroom + long-context writing. The evidence trail: collapsing the passes into one shot
@@ -486,7 +489,10 @@ Details live in git history; this is the index of the *conclusions*.
   Andrew-commissioned from the setup audit; **CORRECTED in two later entries:** the local
   cron was paused 07-23 ("The watchdog's premise stands…") and RETIRED 07-24 ("Autonomous
   production lives in the knock tick"), and "cloud-never-renders" was dropped 07-24
-  ("Cloud produces episodes") — `studio_watchdog.py` survives as a manual command only).
+  ("Cloud produces episodes"). **And the last of it went 2026-08-27: `studio_watchdog.py`
+  is RETIRED, not "a manual command" — see "`studio_watchdog.py` retired, and its cap
+  became an invariant". This correction note itself sat one generation stale until
+  2026-08-30, which is the cost of correcting in place rather than pointing forward.)
   Original entry: `scripts/studio_watchdog.py` (hourly local
   cron, awake-check semantics, cloud-never-renders intact) notices a scripted-but-
   unrendered episode (re-lints first; a lint-failing script stops for inspection, never
