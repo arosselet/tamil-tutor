@@ -5865,6 +5865,20 @@
     "target_revealed": false,
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-30T02-54.mp3",
     "memo_script": "ஹலோ, மீனா அண்ணி இருக்காங்களா?\n\nஆமா, நான் தான் பேசுறேன். இன்னைக்கு காலையில நம்ம மாமா வந்தாரு... காபி குடுக்க போனேன், இல்ல இல்ல நானே போட்டுக்கறேன்-னு சொல்லிட்டு போயிட்டாரு!\n\nஅப்புறம் டிபன் கூட நானே எடுத்துக்கறேன்-னு சொல்றாரு. என்னாச்சு-னே தெரியல, எல்லாம் அவரே பாத்துக்குறாராம்!",
-    "mp3": "published_audio/knocks/knock_2026-08-30T02-54.mp3"
+    "mp3": "published_audio/knocks/knock_2026-08-30T02-54.mp3",
+    "response": "reply",
+    "reply": "Only coffee",
+    "reply_verdict": "half-caught",
+    "reply_line": "illa da — coffee-kooda he made himself ('naane pottukren'), wouldn't let her touch anything!",
+    "reply_at": "2026-08-30T05:54:03Z",
+    "exchanges": [
+      {
+        "at": "2026-08-30T05:54:03Z",
+        "reply": "Only coffee",
+        "verdict": "half-caught",
+        "fired": [],
+        "reply_line": "illa da — coffee-kooda he made himself ('naane pottukren'), wouldn't let her touch anything!"
+      }
+    ]
   }
 ]

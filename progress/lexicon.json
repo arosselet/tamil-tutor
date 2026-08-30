@@ -4294,7 +4294,9 @@
     "deck": "trip",
     "direction": "catch",
     "exposures": 5,
-    "register": "frame"
+    "register": "frame",
+    "heard_on": "2026-08-30",
+    "reps": 1
   },
   "அட்டா": {
     "gloss": "oh! / alas! (mild disappointment, amused surprise)",

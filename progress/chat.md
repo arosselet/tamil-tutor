@@ -9,6 +9,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **08:24 · Anna** 🎧  ·  eavesdrop / eavesdrop: myself thukka
 > 👂 Maami on the phone: 'mama-va paathen...' (I saw uncle). Did Mama let her serve him breakfast today?
 
+**11:24 · Andrew** — **HALF-CAUGHT**
+> Only coffee
+
+**Anna ↩**
+> illa da — coffee-kooda he made himself ('naane pottukren'), wouldn't let her touch anything!
+
 
 ## Saturday 2026-08-29
 
