@@ -5,10 +5,12 @@
 > **Read this as a July artifact, not a current status (noted 2026-08-30).** It was
 > written *before* the month in Coimbatore, which is why it closes on a trip that had
 > not happened yet — touchdown was 08-12 and the table has since answered most of what
-> this essay wonders about. Left standing as written, because a retrospective edited
-> after the outcome is worth less than one that was wrong in public. What it does not
-> contain: the August ledger purge (108 unearned rows dropped, and the headline number
-> went *up*), the machines-heard correction, or the trip itself.
+> this essay wonders about. **Its conclusions are left standing as written** — a
+> retrospective edited after the outcome is worth less than one that was wrong in public.
+> Its *receipts* are a different matter and have been corrected against the log where they
+> had rotted (July's count, and the April refactor's attribution); each correction says so
+> in place. What it does not contain: the August ledger purge (108 unearned rows dropped,
+> and the headline number went *up*), the machines-heard correction, or the trip itself.
 
 ---
 
@@ -19,12 +21,15 @@ This is the story of the machine I built to get there, including the parts where
 ```
 Commits per month, 2026:
 
-Feb  ██████████████ 53
-Mar  ██████████████ 53
-Apr  ███████████ 42
-May  ██ 9
-Jun  ██████████████████ 69
-Jul  ████████████████████████████████████████████████████████████████████████ 294
+Feb  ███████ 52
+Mar  ███████ 53
+Apr  █████ 42
+May  █ 9
+Jun  █████████ 68
+Jul  ███████████████████████████████████████████████████████████████████████ 567
+
+(commits on main; the first two days live on `archive/old-master`. July read 294
+when this was written mid-month — the month closed at 567.)
 ```
 
 That histogram is the whole plot. Keep it in view.
@@ -61,7 +66,9 @@ The commits confess it in real time. March 22: *"simplify protocols to resolve n
 
 April 10 also holds a cautionary artifact: eight consecutive commits fighting a podcast app's cache. GUID refreshes, v2 renames, a "total reset of playlist feed." A full day against cache invalidation. Months later the real fix turned out to be `git rm`; the playlist shouldn't have existed.
 
-One April decision was a keeper, and it saved everything after: April 15, *"separate concerns into config files."* I refactored the prompts the way I'd refactor bad code. One role per file, each comprehensible in isolation: Director, Architect, Producer; dialect quarantined from narrative, cast quarantined from persona. From then on, a crisis meant editing one file instead of rewriting a monolith.
+One April decision was a keeper, and it saved everything after: April 15, *"separate concerns into config files."* I refactored the prompts the way I'd refactor bad code — dialect quarantined from narrative, cast quarantined from persona, each file comprehensible in isolation. From then on, a crisis meant editing one file instead of rewriting a monolith.
+
+*(Corrected 2026-08-30 against the log. This paragraph used to credit April with the whole separation, including the one-role-per-file split into Director, Architect and Producer. Those three files are in the repository's very first commit, 2026-02-17 — that split happened the previous November, in the Claude Code era, and the repo opens as its output rather than its origin. April was the **second** separation; June's split of conversation from production into an isolated studio was the third. Three separations at escalating grain, each one the answer to a different crisis — that pattern is the actual lesson, and I had it compressed into a single date.)*
 
 ## Chapter 5: Nine commits (May)
 
@@ -79,7 +86,7 @@ And at the end of June, the piece the wall hack had been groping toward: an agen
 
 ## Chapter 7: The institution (July)
 
-July is 294 commits, and roughly half were authored by the machine itself: knocks fired, replies judged, episodes registered, queues drained. The system runs itself between my sessions.
+July is 567 commits, and roughly half were authored by the machine itself (273 of them): knocks fired, replies judged, episodes registered, queues drained. The system runs itself between my sessions.
 
 But the July change that matters most isn't a feature. The repo became self-governing:
 
@@ -92,7 +99,7 @@ But the July change that matters most isn't a feature. The repo became self-gove
 ## What a year taught me
 
 1. **LLM is the writer; Python is the brain.** Push every invariant into deterministic code and keep the model's surface small. The model narrates state; it never owns it.
-2. **Separation of concerns applies to prompts.** The April refactor did more for reliability than any model upgrade.
+2. **Separation of concerns applies to prompts.** Three separations did more for reliability than any model upgrade — roles out of the monolith (November), dialect and cast out of the roles (April), conversation out of production (June). Every time the thing got sick, the cure was another separation and never another rule.
 3. **The repo is the memory.** Decisions, failures, budgets, and state live in version control, model-agnostic and portable. I've run this system under three different vendors' agents without it changing personality.
 4. **Evidence before mechanism.** Every fix proposed before reading the logs was a symptom cap. The best fixes were usually deletions, and only reading the plumbing finds those.
 5. **Meters can lie, and unwinnable meters corrode.** I've rebuilt my headline metric three times. The honest one is always smaller than the ambitious one.
