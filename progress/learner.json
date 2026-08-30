@@ -13,7 +13,11 @@
     "from": "2026-08-30",
     "focus": "கேட்கு vs சொல்லு — THE PULL/PUSH PAIR, AND THE STEM UNDER THE TAIL. He read கேட்கல as 'said' three times tonight and then produced சொன்னேன் when he needed கேட்குறேன்: for him these two verbs are currently ONE verb. Do NOT permute the -ல tail here — he owns that tail now (வரல, சாப்படல, சொல்லல all landed cold by ear today). Permute the VERB PAIR against each other in matched frames, nothing else moving: நான் கேட்டேன் / நான் சொன்னேன், அவரு கேட்குறாரு / அவரு சொல்றாரு, அவரு கேட்கல / அவரு சொல்லல. Direction is the whole payload — கேட்கு pulls words in, சொல்லு pushes them out. Ride அவரு and நான் so the person never becomes the puzzle. Every lexical item from lexicon.json. Never name a rule.",
     "channel": "soak",
-    "form": "narrated_drama"
+    "form": "narrated_drama",
+    "delivered": {
+      "channel": "soak",
+      "at": "2026-08-30"
+    }
   },
   "next_engine": "frame:polite-nga",
   "focus_cohort": [
