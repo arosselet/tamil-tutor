@@ -7,7 +7,11 @@ the only secret you add is the PAT (§1).
 
 > **Secrets note (repo is PUBLIC):** never commit real values. The webhook_id and
 > the finished automation live in the gitignored **`anna_knock_automation.yaml`**
-> (the mirror of your real HA config — copy from there). This doc uses placeholders.
+> (the mirror of your real HA config — copy from there). This doc uses placeholders:
+> `<YOUR_WEBHOOK_ID>`, `<HA_HOST>`. **The host is a placeholder too** (2026-08-30) —
+> it is not a credential, but it is the public locator of a home network, and it had
+> leaked into this file and into `DECISIONS.md` while the webhook_id beside it was
+> correctly held back. Redact the locator, not only the key.
 
 > **Webhook_id rotation — DONE 2026-07-01, confirmed 2026-08-20.** The original
 > was committed before the sanitize pass and was recoverable from public git
@@ -507,7 +511,7 @@ The two directions do **not** share a network path, and confusing them costs a d
 
 | | Outbound (Anna → phone) | Inbound (phone → Anna) |
 |---|---|---|
-| Path | GitHub runner → `ykf.duckdns.org:4444` (HA webhook) → Apple APNs → phone | phone → `api.github.com:443` → `repository_dispatch` → **Anna** workflow |
+| Path | GitHub runner → `<HA_HOST>:4444` (HA webhook) → Apple APNs → phone | phone → `api.github.com:443` → `repository_dispatch` → **Anna** workflow |
 | Who makes the call | a GitHub Actions runner | the phone itself (notification button *or* the §8 Shortcut) |
 | Port 4444 involved? | **yes** | **no — never** |
 | Your laptop involved? | no | no |

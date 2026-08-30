@@ -1382,8 +1382,8 @@ Details live in git history; this is the index of the *conclusions*.
 - **The local notify hop fails behind work TLS inspection; accepted, not a bug**
   (2026-07-28, Andrew: "it's a work machine on a work network so it's their
   prerogative. Let's let it be."). `push_to_phone` raises
-  `CERTIFICATE_VERIFY_FAILED` from the laptop because `ykf.duckdns.org:4444`
-  presents `CN=FGT80FTK23007353, O=Fortinet` — a FortiGate appliance's factory
+  `CERTIFICATE_VERIFY_FAILED` from the laptop because `<HA_HOST>:4444`
+  presents `CN=<appliance serial>, O=Fortinet` — a FortiGate appliance's factory
   self-signed CA substituted mid-handshake, not Home Assistant's own certificate.
   Verified it is environmental and not a Python config gap: the Windows system
   store AND certifi's full Mozilla bundle both reject it, and no Fortinet CA
