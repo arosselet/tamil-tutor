@@ -5974,5 +5974,17 @@
     "chained": 2,
     "pinned_target": "சாப்பிட்டேன்",
     "pinned_revealed": false
+  },
+  {
+    "date": "2026-08-30",
+    "timestamp": "2026-08-30T14:12:39.327724+00:00",
+    "acted": true,
+    "modality": "challenge",
+    "move": "field mission: theriyala",
+    "rationale": "Assign the dinner field mission promised in yesterday's session to break the ready-made drawer habit with theriyala; collect in the morning.",
+    "next_check": "2026-08-31T02:12:39.327724+00:00",
+    "body": "🎯 Tonight at dinner: someone asks something you don't know. Don't say 'puriyala'. Fire 'theriyala' (don't know). Debrief tomorrow.",
+    "expected_target": "தெரியல",
+    "target_revealed": true
   }
 ]

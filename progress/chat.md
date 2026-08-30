@@ -48,6 +48,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! 'saaptachu' is super natural table defense. 🔥
 
+**19:42 · Anna**  ·  challenge / field mission: theriyala
+> 🎯 Tonight at dinner: someone asks something you don't know. Don't say 'puriyala'. Fire 'theriyala' (don't know). Debrief tomorrow.
+
 
 ## Saturday 2026-08-29
 
