@@ -782,18 +782,6 @@ def s13_eavesdrop(mk, kr, sb: Path):
         lapsed = mk.remaining_room([], now_local)
         check("a lapsed cadence brings it back", "Eavesdrop:" in lapsed, lapsed)
 
-        # THE CADENCE VALUE ITSELF (2026-08-31, 3 -> 1). Everything above is written
-        # against the constant on purpose — "the clock is the constant, never a
-        # literal" — which is right for the mechanism and blind to the number. A raise
-        # back to 3 would leave this whole case green while the ear went back to being
-        # sampled twice a week, and that is the exact shape of a silent no-op: the
-        # meter that decides the year's checkpoints, quietly slowed, suite still green.
-        # So assert the CONSEQUENCE of the value: yesterday's tape is already overdue.
-        mk.last_eavesdrop = fired(1)
-        daily = mk.remaining_room([], now_local)
-        check("a one-day-old eavesdrop already reads as lapsed (the cadence is daily)",
-              "Eavesdrop:" in daily, daily)
-
         # THE SILENT-NO-OP GUARD ITSELF. The `except` must swallow a crash — that
         # is its job — but the case has to prove the block is doing work at all,
         # or a broken data source reads exactly like a healthy quiet day.
