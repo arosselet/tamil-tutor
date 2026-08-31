@@ -40,6 +40,18 @@ Details live in git history; this is the index of the *conclusions*.
 
 ## Settled design decisions
 
+- **The ear meter counts what was TESTED, not only what was heard** (2026-08-31, Andrew:
+  *"how can I say things I don't recognize? recognition should easily beat production."*).
+  `Machines heard 3/26` led the status line from 08-16, unfalsifiable: **22 of the 26 machines
+  carried no `heard_on`**, so the fraction sat frozen on rows nothing had asked — of the four
+  tested, three came back heard. An untested denominator **reports ignorance as failure**.
+  `compute_machines` returns `tested` beside `heard`. Not a new law: 07-25's *"honest meters
+  must show both"* reaching the lane it never did. `s60` had written this failure down in its
+  own Gate 7.2 note; it now drives a tested-and-missed row, because the silent version is
+  `tested` collapsing onto `heard`. `engines_pct` was proposed for retirement and **kept** —
+  21/21 is a finished axis. **Residual:** production carries no evidence standard; 38 rows sit
+  cold with `recognition: struggled`.
+
 - **A tape is not a teacher — delivery never closes the teach gate** (2026-08-31, Andrew).
   *"I can't catch a word I don't know in the first place."* `is_unseen` read
   `last_surfaced` — the DELIVERY stamp the soak sheet, drill sheet, knock push and queue

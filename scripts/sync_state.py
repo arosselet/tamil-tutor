@@ -196,11 +196,38 @@ def compute_machines(lexicon: dict) -> dict:
     with its own `recognition == "solid"` loop while `compute_status` counted it
     here; two copies of an invariant is how one of them silently stops matching
     the other, which the spine law (2026-08-23) already bans one lane over.
+
+    `tested` IS THE DENOMINATOR'S HONESTY (2026-08-31, Andrew: *"this seems
+    totally backward, how can I say things I don't recognize? recognition should
+    easily beat production."*). He was right, and `s60` — the case that shipped
+    this meter — had already written the failure down in its own Gate 7.2 note:
+    "it prints a plausible fraction that never moves, which is indistinguishable
+    from Andrew not improving, and it is the headline, so nobody would question
+    it." It then guarded the two ways it thought of (a shrinking denominator, a
+    frozen numerator) and not the way it actually happened: on 2026-08-31, 22 of
+    the 26 machines carried NO `heard_on` at all. The fraction was frozen because
+    nothing had ever ASKED those rows, not because he failed them — of the four
+    ever tested, three came back heard. A denominator full of untested rows
+    reports IGNORANCE AS FAILURE, and it had read 3/26 as the PRIMARY STEER since
+    2026-08-16 while the ear ran 3-of-4 on the only evidence that existed.
+
+    The same defect, sign flipped, is already settled one lane over: "honest
+    meters must show both" (2026-07-25) added `deck_coverage`'s worked/total
+    beside cold/total because "the headline read a won sprint while most of the
+    deck had never been touched", and `s32` guards it. This is that law reaching
+    the ear lane, which it never did.
+
+    `tested` counts EVIDENCE, not success — `heard_on` is stamped by a promotion
+    and by a demotion alike (a recorded miss is a test), so `tested` is always
+    >= `heard` and the gap between them is the ledger's honest unknown. `pct`
+    stays keyed to `total`: the goal is 26 machines heard, not 4, so the headline
+    can never flatter itself by dividing by whatever it happened to test.
     """
     pats = [r for r in lexicon.values() if is_pattern(r)]
     heard = [r for r in pats if is_heard(r)]
+    tested = [r for r in pats if r.get("heard_on")]
     total = len(pats)
-    return {"heard": len(heard), "total": total,
+    return {"heard": len(heard), "tested": len(tested), "total": total,
             "pct": (len(heard) / total * 100) if total else 0.0}
 
 
@@ -247,7 +274,8 @@ def compute_status() -> str:
     number, it is a guess."""
     lexicon = load_json(LEXICON_PATH) or {}
     mach = compute_machines(lexicon)
-    ears = f"Machines heard {mach['heard']}/{mach['total']}"
+    ears = (f"Machines heard {mach['heard']} · ear-tested "
+            f"{mach['tested']}/{mach['total']}")
     floor = compute_floor(lexicon)
     return f"{ears} · viability floor {floor['cleared']}/{floor['total']} fire cold ({floor['pct']:.0f}%)"
 

@@ -1246,6 +1246,17 @@ meaning anything and two Gate-2 holds were sitting on the wrong side of it. -->
 
 ## Shipped
 
+- ~~The ear meter reports ignorance as failure~~ — SHIPPED 2026-08-31.
+  `compute_machines` returns `tested` beside `heard`; the scoreboard reads `Machines heard 3 ·
+  ear-tested 4/26` and the brief names the 22 blanks out loud. 22 of 26 machines carried no
+  `heard_on`, so the PRIMARY STEER had been frozen since 08-01 on rows nothing ever asked; of
+  the four tested, three were heard. Andrew found it from the armchair — *"how can I say things
+  I don't recognize?"* — which is the shape of a meter nobody could falsify. It is the 07-25
+  "honest meters must show both" law reaching the ear lane, not a new one. `s60` gained a
+  tested-and-missed row; collapsing `tested` onto `heard` turns it red. `engines_pct` was
+  proposed for retirement and KEPT — 21/21 is a finished axis, not a dead meter. DECISIONS
+  carries the conclusion; production's missing evidence standard stays open.
+
 - ~~NEVER COMMISSIONED can only be cleared by FAILING again~~ — SHIPPED 2026-07-31
   (`update --slip-commissioned TAG`, Andrew's choice of three shapes), hard gate added
   2026-08-01. The flag meant "he has never slipped this while some unrelated order stood",

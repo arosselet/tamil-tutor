@@ -1897,6 +1897,22 @@ def s60_the_ear_meter(kr, sb: Path):
          and it would hide precisely the ear-only machines this meter exists for.
       2. The NUMERATOR cannot move. If a catch could not reach a `frame:` key the
          count would freeze at its birth value forever.
+      3. THE DENOMINATOR IS FULL OF ROWS NOTHING EVER ASKED — added 2026-08-31,
+         and it is the one that actually happened. The two guards above both
+         assume every tracked machine gets PRESENTED. On 2026-08-31 twenty-two of
+         twenty-six carried no `heard_on` at all: the fraction was frozen because
+         the instrument never reached them, not because he failed them, and of the
+         four ever tested three came back heard. "3/26" read as failure where the
+         ledger only held a blank, and it had been the PRIMARY STEER for a
+         fortnight. Andrew found it from the armchair — "how can I say things I
+         don't recognize? recognition should easily beat production" — which is
+         the shape of a meter nobody could falsify. So the line now prints
+         heard / ever-tested / tracked, and `tested` counts EVIDENCE rather than
+         success: a recorded MISS stamps `heard_on` too (s81), so a machine put in
+         front of him and flunked is tested-and-not-heard, and only a row no
+         instrument ever reached is a blank. The check below drives exactly that
+         row, because the silent version of THIS change is `tested` collapsing
+         onto `heard` — which reads "2 of 2" forever and looks like success.
 
     So this asserts the effect in the dimension that can actually fail: the ear-only
     pattern is inside the denominator, `comfortable` does NOT count as heard, and a
@@ -1942,9 +1958,12 @@ def s60_the_ear_meter(kr, sb: Path):
 
     line = meter(status())
     check("the ear meter is printed at all", line != "", "no 'Machines heard:' line in status")
-    check("ear-only patterns are INSIDE the denominator (3, not 2)",
-          "1/3" in line, line)
-    check("comfortable is not heard — only solid counts", line.startswith("Machines heard: 1/"), line)
+    check("ear-only patterns are INSIDE the denominator (3 tracked, not 2)",
+          "(3 tracked" in line, line)
+    check("comfortable is not heard — only solid counts",
+          line.startswith("Machines heard: 1 of "), line)
+    check("...and the rows nothing ever asked are named as blanks, not misses",
+          "2 NEVER tested" in line, line)
     # A solid row with no evidence date must not buy a place in the numerator
     # (2026-08-27). Added here rather than in a new case because THIS is the meter
     # that would silently re-inflate: before the evidence rule it read 2/3 on this
@@ -1955,9 +1974,31 @@ def s60_the_ear_meter(kr, sb: Path):
                                                  production="cold")
     write_json(lex_path, lex_assert)
     check("a machine solid by ASSERTION widens the denominator, never the count",
-          meter(status()).startswith("Machines heard: 1/4"), meter(status()))
+          "(4 tracked" in meter(status())
+          and meter(status()).startswith("Machines heard: 1 of "), meter(status()))
+    check("...and an asserted level is not EVIDENCE either — it stays untested",
+          "1 of 1 ever ear-tested" in meter(status()), meter(status()))
     del lex_assert["frame:asserted-solid"]
     write_json(lex_path, lex_assert)
+
+    # TESTED IS NOT HEARD, and this is the check the whole 08-31 change exists
+    # for. A machine put in front of him and FLUNKED carries `heard_on` (s81
+    # stamps it on a miss precisely so a failure is distinguishable from a row
+    # never tried) — so it must count as tested while staying out of the heard
+    # count. If `tested` ever collapses onto `heard` this reads "1 of 1", which
+    # is a plausible number that would be walked past, and the blank count would
+    # silently absorb every recorded miss.
+    lex_miss = read_json(lex_path)
+    lex_miss["frame:tested-miss"] = lex_row(gloss="asked and flunked", phonetic=["y"],
+                                            type="pattern", recognition="struggled",
+                                            heard_on="2026-08-30")
+    write_json(lex_path, lex_miss)
+    check("a machine TESTED AND MISSED counts as tested, never as heard",
+          meter(status()).startswith("Machines heard: 1 of 2 ever ear-tested"), meter(status()))
+    check("...and it leaves the blank count, because it is no longer a blank",
+          "2 NEVER tested" in meter(status()), meter(status()))
+    del lex_miss["frame:tested-miss"]
+    write_json(lex_path, lex_miss)
     check("it is labelled the primary steer", "PRIMARY STEER" in line, line)
     check("the deck no longer claims the headline",
           "sprint headline" not in status())
@@ -1974,13 +2015,13 @@ def s60_the_ear_meter(kr, sb: Path):
     # other tag is the regression; `s54` guards the deadline half of it.
     ss = importlib.import_module("sync_state")
     check("the scoreboard line LEADS with the ear",
-          ss.compute_status().startswith("Machines heard 1/3 · viability floor"),
+          ss.compute_status().startswith("Machines heard 1 · ear-tested 1/3 · viability floor"),
           ss.compute_status())
     lex = read_json(lex_path)
     lex["வணக்கம்"]["register"] = "antifreeze"
     write_json(lex_path, lex)
     check("...and a ranked row does not buy itself a rival headline",
-          ss.compute_status().startswith("Machines heard 1/3 · viability floor"),
+          ss.compute_status().startswith("Machines heard 1 · ear-tested 1/3 · viability floor"),
           ss.compute_status())
 
     # --- the round trip: a real catch on a FRAME must move the printed number ---
@@ -1999,8 +2040,10 @@ def s60_the_ear_meter(kr, sb: Path):
 
     check("a catch on a frame reaches solid",
           read_json(lex_path)[ear]["recognition"] == "solid")
-    check("and the METER the session reads has moved 1/3 → 2/3",
-          "2/3" in meter(status()), meter(status()))
+    check("and the METER the session reads has moved — 1 heard of 1 tested → 2 of 2",
+          meter(status()).startswith("Machines heard: 2 of 2 ever ear-tested"), meter(status()))
+    check("...and the catch spent a blank: 2 never-tested became 1",
+          "1 NEVER tested" in meter(status()), meter(status()))
 
     write_json(lex_path, json.loads(saved[0].decode("utf-8")))
     write_json(klog_path, json.loads(saved[1].decode("utf-8")))

@@ -470,5 +470,9 @@
   {
     "date": "2026-08-31",
     "note": "[mission] 'didn't find an opening' — the 08-30 op needed the room to ask him a question with a NO in it. The answer-slot law held; the TRIGGER FREQUENCY was the miss. Missions must ride an opening the room speaks daily (where are you going / what did you do), not a rare one."
+  },
+  {
+    "date": "2026-08-31",
+    "note": "[recalibrate] Andrew, 2026-08-31, on the ear meter: 'this seems totally backward, how can I say things I don't recognize? recognition should easily beat production.' Measured after: 22 of the 26 machines carry no heard_on — never ear-tested. Of the 4 tested, 3 came back heard. 'Machines heard 3/26' was reporting ignorance as failure."
   }
 ]

@@ -410,8 +410,12 @@ def cmd_status(_args):
             print(f"Engines online: {engines['online']}/{engines['total']} patterns fire cold ({engines['pct']:.0f}%)")
         mach = compute_machines(lexicon)
         if mach["total"]:
-            print(f"Machines heard: {mach['heard']}/{mach['total']} patterns solid on "
-                  f"recognition WITH evidence ({mach['pct']:.0f}%) — PRIMARY STEER (2026-08-16)")
+            # heard / ever-tested / tracked, and the untested count said out loud
+            # (2026-08-31). "3/26" hid 22 rows no instrument had ever presented, so
+            # the headline read as failure where the ledger only had a blank.
+            print(f"Machines heard: {mach['heard']} of {mach['tested']} ever ear-tested "
+                  f"({mach['total']} tracked; {mach['total'] - mach['tested']} NEVER tested "
+                  f"— blanks, not misses) — PRIMARY STEER (2026-08-16)")
         ear = compute_ear(lexicon)
         if ear["total"]:
             print(f"Ear-only: {ear['caught']}/{ear['total']} solid on recognition "
