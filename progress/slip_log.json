@@ -713,5 +713,29 @@
     "note": "reached for சொல்லு (push words OUT) where கேட்கு (pull words IN) was needed — the same wire that read கேட்கல as 'said' three times by ear tonight",
     "word": "",
     "dose_channel": "soak"
+  },
+  {
+    "at": "2026-08-31T03:24:32Z",
+    "date": "2026-08-31",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "person-marker",
+    "said": "innikki solra",
+    "want": "innikki solren",
+    "note": "used the nee-tail on himself; then took the -en just handed him and put it on her (enge poren for enga pora) — whichever person tail he heard last is the one his mouth grabs",
+    "word": "",
+    "dose_channel": "soak"
+  },
+  {
+    "at": "2026-08-31T03:24:32Z",
+    "date": "2026-08-31",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "noun-for-verb",
+    "said": "enna semaya",
+    "want": "enna samaikkira",
+    "note": "reaches for the Tamil noun where the verb is owed, so the verb never has to fire — same exit as 08-19's 'enna nalaiku samayal', where the noun dodge under it went unnamed",
+    "word": "என்ன சமைக்கிற?",
+    "dose_channel": "soak"
   }
 ]

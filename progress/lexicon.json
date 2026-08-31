@@ -1091,8 +1091,8 @@
       33,
       36
     ],
-    "last_surfaced": "2026-07-29",
-    "reps": 1
+    "last_surfaced": "2026-08-31",
+    "reps": 2
   },
   "டயர்ட்": {
     "gloss": "Tired",
@@ -5599,5 +5599,25 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": "2026-08-30"
+  },
+  "போற": {
+    "gloss": "You go / are you going (informal, nee-form)",
+    "phonetic": [
+      "pora"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-08-31"
+  },
+  "சொல்ற": {
+    "gloss": "You say / are you saying (informal, nee-form)",
+    "phonetic": [
+      "solra"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-08-31"
   }
 }
