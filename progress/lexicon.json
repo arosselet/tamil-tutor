@@ -813,8 +813,8 @@
       71,
       72
     ],
-    "last_surfaced": "2026-08-30",
-    "reps": 14,
+    "last_surfaced": "2026-08-31",
+    "reps": 15,
     "exposures": 2
   },
   "தெரியும்": {
@@ -2391,9 +2391,10 @@
     "seen_in": [
       1
     ],
-    "last_surfaced": "2026-08-30",
+    "last_surfaced": "2026-08-31",
     "lemma": "கேள்",
-    "exposures": 3
+    "exposures": 3,
+    "reps": 1
   },
   "போஸ்ட்போன்": {
     "gloss": "Postpone",
@@ -4289,15 +4290,15 @@
       "paathukkiren"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [],
-    "last_surfaced": "2026-08-30",
+    "last_surfaced": "2026-08-31",
     "deck": "trip",
     "direction": "catch",
     "exposures": 5,
     "register": "frame",
     "heard_on": "2026-08-30",
-    "reps": 1
+    "reps": 2
   },
   "அட்டா": {
     "gloss": "oh! / alas! (mild disappointment, amused surprise)",
