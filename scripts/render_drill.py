@@ -37,7 +37,7 @@ from language import ANNA_VOICE
 # THE EXECUTOR CHOICE LEFT THIS FILE (2026-08-23). `ask_json` used to live here
 # and open an OpenRouter client unconditionally — on a laptop that has an agent
 # and a paid subscription. `writer.ask_json` is the same contract plus the host
-# test; `render_longhaul` now imports it from there too, so the "four lanes share
+# test; `render_rotation` now imports it from there too, so the "four lanes share
 # it" note this file used to carry is still true, one level up.
 from writer import INT, STR, arr, ask_json, executor_name, obj
 

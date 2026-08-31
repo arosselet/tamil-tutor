@@ -1,15 +1,39 @@
 #!/usr/bin/env python3
 """
-The long-haul tape — one press of play, forty-five minutes, nothing asked.
+The rotation tape — one press of play, movements on a cadence, nothing asked.
 
-The FOURTH audio channel, and the one the trip exposed. The other three are all
-sized for the same capacity regime: a 10-15 minute slot interleaved into a
-workday, where the binding constraint is ADHERENCE — will he finish it (the
-2026-07-28 dose ruling, which this does not reopen: it is about that regime).
-A twenty-hour flight inverts every term. Time is unlimited, executive function
-is near zero, the mouth is unavailable (a stranger in the next seat), and the
-screen is a cost. Measured against that, the back catalogue is ~50 press-plays
-at a median 2.7 minutes each — fifty context switches, which is the plan he
+WAS `render_longhaul.py` UNTIL 2026-08-31, and the rename is the fix (Andrew:
+"this sounds like 'longhaul' is the wrong name"). Every sibling lane names its
+FUNCTION — soak is passive repetition, drill is mouth-reps, episode is a scene.
+This one named an OCCASION, a twenty-hour flight, and paid for it twice: its
+`audio_channels.md` row read "a flight or a long haul", `--minutes` defaulted to
+45, and in three weeks of ears-only days it was reachable on none of them. It
+ran twice in its life, both on 2026-08-10.
+
+LENGTH WAS NEVER THE IDENTITY. `--minutes` is a ceiling and always was, so a
+flight is `--minutes 45` and an ordinary Tuesday is `--minutes 13` — same
+machine, and the 13-minute plan still carries a `lore` movement (measured
+2026-08-31: 9 movements, lore at position 4). What makes this lane itself is the
+MOVEMENT: Python plans a cadence of mixed shapes and the recurrence schedule is
+the pedagogical payload. That is a different machine from the episode, which is
+three LLM passes writing a scene — not a longer one, which is why the rename is
+`rotation` and not `episode` (a merge was considered and refused the same day:
+"never answer a length ask by stretching another" is the law it would break).
+
+THIS REOPENS the 2026-07-28 dose ruling that the flight framing let it dodge:
+at 13 minutes it stands beside soak in the workday regime, not above it. Andrew
+took that trade knowingly — soak is flat repetition, rotation is shaped, and
+choosing between them is a curriculum question, which is `audio_channels.md`'s
+own "capacity vetoes; the ERROR chooses".
+
+WHY IT MATTERED ENOUGH TO RENAME: `lore` rides here and in the episode's form
+palette, and nowhere else in audio. Both are high-attention lanes, so a month of
+low-capacity days (the trip, from 08-12) routed correctly to soak and drill and
+silently took all audio lore with it — every individual routing decision right,
+the aggregate wrong, and no instrument able to see it.
+
+The flight evidence that built the lane still stands: the back catalogue is ~50
+press-plays at a median 2.7 minutes each — fifty context switches, the plan he
 correctly predicted he would not carry out (2026-08-10, Andrew: "frequently
 pressing play and interacting with my phone... is not the kind of energy level
 I imagine having on the journey").
@@ -43,10 +67,10 @@ a kind side by side -- and `scene` and `eavesdrop` movements draw ONLY on items
 the preceding movements already taught, so comprehension is structural rather
 than hoped for.
 
-  python scripts/render_longhaul.py --plan-only   # the movement plan; no network at all
-  python scripts/render_longhaul.py --dry-run     # plan + the first sheets; no TTS, no publish
-  python scripts/render_longhaul.py               # render -> RSS + commit + push + notify
-  python scripts/render_longhaul.py --no-publish  # render locally, nothing leaves the machine
+  python scripts/render_rotation.py --plan-only   # the movement plan; no network at all
+  python scripts/render_rotation.py --dry-run     # plan + the first sheets; no TTS, no publish
+  python scripts/render_rotation.py               # render -> RSS + commit + push + notify
+  python scripts/render_rotation.py --no-publish  # render locally, nothing leaves the machine
 
 Secrets: OPENROUTER_API_KEY (the sheets), GCP ADC (TTS), ANNA_PUSH_WEBHOOK_URL (the push).
 """
@@ -79,7 +103,8 @@ MOVEMENT_SCHEMA = obj(frame=STR, beats=arr(ta=STR, en=STR))
 from state_io import LEXICON_PATH, load_json
 from state_io import canon_payload
 
-LONGHAUL_DIR = BASE / "published_audio"   # feed root — rebuild_rss picks up longhaul_*.mp3
+ROTATION_DIR = BASE / "published_audio"   # feed root — rebuild_rss reads
+                                          # rotation_*.mp3 and legacy longhaul_*
 SILENCE_PER_SEC = 41.666                  # frames per second (matches render_audio)
 
 # ── The rotation law ────────────────────────────────────────────────────────
@@ -331,7 +356,7 @@ class Tape:
         self.spoken: list[str] = []      # every Tamil line that actually played
 
     async def say(self, text: str, voice: str) -> bytes:
-        """Cached per (line, voice) — a long-haul tape repeats lines by design, and
+        """Cached per (line, voice) — a rotation tape repeats lines by design, and
         re-synthesising an identical segment is money and latency for one result."""
         key = (text, voice)
         if key not in self.cache:
@@ -377,8 +402,8 @@ def write_script(mp3: Path, spine: str, measured: float, sheets: list[tuple],
     on the measured clock, so the tail of a plan may never have been rendered, and a
     script naming movements that never aired is the same lie in reverse. The closing
     lap is written out too — it is a third of the audio."""
-    lines = [f"# Long-haul — {spine} · {datetime.now():%Y-%m-%d}", "",
-             "<!-- GENERATED by scripts/render_longhaul.py — this is the source text",
+    lines = [f"# Rotation — {spine} · {datetime.now():%Y-%m-%d}", "",
+             "<!-- GENERATED by scripts/render_rotation.py — this is the source text",
              "     sent to the TTS, not a transcript. It is the story as written.",
              f"     AUDIO: published_audio/{mp3.name}",
              f"     MEASURED {measured:.1f} min over {len(sheets)} movements. -->", ""]
@@ -445,7 +470,7 @@ async def render(plan: list[dict], spine: str, out: Path, minutes: float,
     The played sheets come back out (2026-08-10) so the written story can be saved
     beside the audio. They used to be dropped where they were used, which is why
     three tapes shipped with no readable source text anywhere."""
-    tmp = tempfile.mkdtemp(prefix="longhaul_")
+    tmp = tempfile.mkdtemp(prefix="rotation_")
     tape = Tape(tmp)
     sheets: list[tuple] = []
     try:
@@ -502,12 +527,12 @@ def audible(pool: list[dict], spoken: list[str], sheets: list[tuple]) -> list[st
             if (i["word"] in ran if i["word"].startswith("frame:") else i["word"] in blob)]
 
 
-def longhaul_brief() -> tuple[str | None, list[str]]:
+def rotation_brief() -> tuple[str | None, list[str]]:
     """The standing soak order, when it is addressed to THIS lane -> (focus, payload).
     Same contract every lane keeps: read the order, stamp it delivered, or the
     session-open drain dispatches a second dose for work already done."""
     order = (load_json(BASE / "progress" / "learner.json") or {}).get("soak_order") or {}
-    if (order.get("channel") or "episode") != "longhaul":
+    if (order.get("channel") or "episode") != "rotation":
         return None, []
     return (order.get("focus") or "").strip() or None, [w for w in order.get("payload") or [] if w]
 
@@ -538,8 +563,12 @@ def main():
     ap = argparse.ArgumentParser(description="A 40-60 minute press-once listening tape")
     ap.add_argument("--spine", choices=sorted(CADENCES), default="inventory",
                     help="the tape's centre of gravity (default: inventory)")
-    ap.add_argument("--minutes", type=float, default=45,
-                    help="CEILING on measured length; a spine with less material stops sooner (default 45)")
+    # 45 -> 15 (2026-08-31). The old default was the occasion in disguise: it
+    # made every unqualified run a flight tape, which is why this lane was never
+    # reachable on an ordinary ears-only day. 15 is the workday dose the
+    # 2026-07-28 adherence ruling blesses; a flight now asks for itself.
+    ap.add_argument("--minutes", type=float, default=15,
+                    help="CEILING on measured length; a spine with less material stops sooner (default 15; a flight is --minutes 45)")
     ap.add_argument("--plan-only", action="store_true",
                     help="print the movement plan and stop — no network at all")
     ap.add_argument("--dry-run", action="store_true",
@@ -549,7 +578,7 @@ def main():
     args = ap.parse_args()
 
     load_env(BASE / ".env")
-    focus, payload = longhaul_brief()
+    focus, payload = rotation_brief()
     pool = build_pool(args.spine, payload)
     if not pool:
         sys.exit(f"No material for the '{args.spine}' spine — nothing to build a tape from.")
@@ -577,7 +606,7 @@ def main():
         sys.exit(EXIT_NOT_CONFIGURED)
 
     stamp = datetime.now().strftime("%Y-%m-%d_%H%M")
-    mp3 = LONGHAUL_DIR / f"longhaul_{args.spine}_{stamp}.mp3"
+    mp3 = ROTATION_DIR / f"rotation_{args.spine}_{stamp}.mp3"
     mp3.parent.mkdir(parents=True, exist_ok=True)
     print(f"\n2. render… (target {args.minutes:.0f} min)")
     measured, played, spoken, sheets = asyncio.run(
@@ -609,10 +638,10 @@ def main():
     # 28-minute tape as having delivered zero (2026-08-10) — plus the script,
     # which must ride the SAME commit as the mp3 or the pair drifts apart.
     deliver_rendered(
-        mp3=mp3, lane="longhaul", delivered=delivered,
+        mp3=mp3, lane="rotation", delivered=delivered,
         claimed=bool(focus or payload), extra_paths=[script],
-        message=f"Long-haul tape: {args.spine} ({measured:.0f} min)",
-        copy=f"long-haul tape's up — {measured:.0f} min, {args.spine}. press once 🎧",
+        message=f"Rotation tape: {args.spine} ({measured:.0f} min)",
+        copy=f"rotation tape's up — {measured:.0f} min, {args.spine}. press once 🎧",
         noun="tape", commit=commit_and_push, notify=push_to_phone)
 
 

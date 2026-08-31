@@ -6,7 +6,7 @@ whole family lives here, and the family is the unit on purpose: the seven lanes
 are not one shape and forcing them into one breaks a real invariant. Measured
 2026-08-23, they are three:
 
-  write -> render -> publish    render_soak, render_drill, render_longhaul,
+  write -> render -> publish    render_soak, render_drill, render_rotation,
                                 run_studio — Python builds a menu, the writer
                                 returns a sheet, Python renders and publishes.
   decide/judge -> maybe render  morning_knock, knock_reply — the model returns a
@@ -61,7 +61,7 @@ def deliver_rendered(*, mp3: Path, lane: str, delivered: list, claimed: bool,
         exposure -> soak-order stamp -> commit -> notify
 
     WHAT THIS REPLACES: that block, written out three times in `render_soak`,
-    `render_drill` and `render_longhaul` — and about to be written a fourth and
+    `render_drill` and `render_rotation` — and about to be written a fourth and
     fifth time by the media-ingestion and daily-catch lanes. Each copy had to
     remember the same four things, and the ledger has already had to defend two
     of them once a lane forgot (the feed rebuild's ordering, and quiet hours).

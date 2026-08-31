@@ -8,7 +8,7 @@ is a HOST difference, decided HERE, once, by asking whether the binary exists �
 never by a lane, never by a flag someone has to remember to pass.
 
 WHAT THIS REPLACES: three lanes that never chose at all. `render_soak`,
-`render_drill` and `render_longhaul` each opened an OpenRouter client
+`render_drill` and `render_rotation` each opened an OpenRouter client
 unconditionally, on every host — and none of them has ever had a cloud caller
 (`anna.yml` invokes exactly four scripts: `push_queue`, `knock_reply`,
 `sync_state`, `morning_knock`). Every soak, drill and long-haul since the lanes
@@ -39,7 +39,7 @@ path accepts, which is a model difference wearing a host difference's clothes.
 
 THE PROMPT GOES DOWN STDIN, not argv. Windows caps a command line near 32,767
 characters and these prompts inline `persona.md` (~11.7 KB) before their own
-mandate and menu — a long-haul movement lands around 14 KB, close enough that a
+mandate and menu — a rotation movement lands around 14 KB, close enough that a
 persona edit could push a lane over it and produce a failure that looks like the
 agent being unavailable. Stdin has no such ceiling.
 """
@@ -140,7 +140,7 @@ def budget(answer_tokens: int) -> int:
 # a JSON object" and models kept wrapping it anyway — `parse_llm_json` carries a
 # five-strategy fallback chain built from four dated incidents (a leading fence, a
 # fence with prose in front of it, single-quoted Python dicts, a brace-slice fooled
-# by a literal `{noun}` in the prose), and the long-haul lane MEASURED 3 of 6
+# by a literal `{noun}` in the prose), and the rotation lane MEASURED 3 of 6
 # identical calls coming back prose-prefixed — which killed a 45-minute render at
 # movement 5 of 15, after paying for four movements of TTS.
 #
@@ -413,7 +413,7 @@ def ask_json(system: str, user: str, schema: dict, answer_tokens: int = 2400,
 
     RETRIED for the reason `render_drill.ask_json` was (2026-08-10): a coin-flip
     parse is survivable where a lane asks once and lethal where it asks fifteen
-    times in a row, and the long-haul lane MEASURED 3 of 6 identical calls coming
+    times in a row, and the rotation lane MEASURED 3 of 6 identical calls coming
     back prose-prefixed. A truncation is NOT re-rolled — `parse_llm_response`
     raises it as its own ValueError naming the ceiling, and re-rolling that is
     the "pure motion" the 08-05 guard exists to prevent.

@@ -6,10 +6,15 @@ which channel carries it.** Ask it before spending a render.
 
 | His situation | Channel | Command |
 |---|---|---|
-| With family, driving with someone, wiped out — can't decipher, can't speak aloud | **soak loop** | `python scripts/render_soak.py` |
+| Wiped out — nothing left to follow | **soak loop** (flat repetition) | `python scripts/render_soak.py` |
+| Ears only, mouth busy, but he can hold a thread | **rotation** (movements: machines, scenes, eavesdrop, **lore**) | `python scripts/render_rotation.py` |
 | Alone in the car, dishes, a solo walk — mouth free | **drill track** | `python scripts/render_drill.py` |
 | Sitting down, ready to be taught | **episode** | `python scripts/run_studio.py` |
-| A flight or a long haul — hours of ear, no mouth, no screen | **long-haul tape** | `python scripts/render_longhaul.py` |
+
+Soak and rotation share a capacity row; **shape** separates them, never length. A
+flight is `--minutes 45`, an ordinary day the default (2026-08-31, renamed from
+`longhaul`: the old name was an occasion, so the lane was reachable on none of them —
+and `lore` rides here and in the episode's forms, nowhere else in audio).
 
 **Capacity vetoes; the ERROR chooses.** Inside what his attention allows, the format follows
 what actually broke — never the bare fact that two words sound alike:
@@ -30,14 +35,12 @@ what actually broke — never the bare fact that two words sound alike:
   when he has attention to spend (2026-07-20: *"picking it apart piece by piece is way more
   dense learning"* — a statement about WHEN it lands).
 - **"Longer" is not a channel; length is a consequence.** A tired ear asking for longer
-  wants more repetition, not more scene. The long-haul tape obeys that — structured
-  recurrence, measured to a clock — and is the only lane allowed to be long. Never answer
-  a length ask by stretching another.
+  wants more repetition, not more scene — that is rotation's `--minutes`, never a
+  stretched episode.
 - **Host (2026-08-18):** Actions sends knocks and memos; every format here renders on the
   laptop, on the subscription.
 - If he named neither a situation nor an energy, ask one clause: *"sitting down, or
   ears-only?"*
 
-**The failure this file exists to prevent** (2026-07-23): wiped out, he asked for "a longer
-drill for the park." Every audio ask routed to the studio, so he got a dense 10-minute
-scene to decipher; the one lever that responded — length — made it worse. He never heard it.
+**The failure this file exists to prevent** (2026-07-23) is told in full in
+`docs/DECISIONS.md` → "Capacity routes the audio channel".

@@ -163,6 +163,16 @@ Defined: `scripts/suggest_targets.py` — `REGISTER_TIERS`, `tier_rank`; `docs/D
 
 ---
 
+## rotation
+
+The fourth audio lane: **movements on a Python-planned cadence**, where the recurrence schedule *is* the pedagogical payload. Each movement (`machine`, `inventory`, `scene`, `eavesdrop`, `lore`) is one small just-in-time sheet, ~1–2 min, on a cycle that never places two of a kind side by side. Not an episode — the episode is three LLM passes writing a *scene*, and stretching one is banned ("never answer a length ask by stretching another"). Not a soak either: soak is flat repetition, rotation is shaped, and they share a capacity row so the choice between them is a curriculum question.
+
+**Was `longhaul` until 2026-08-31**, and the rename was the fix: every sibling lane names its function (soak, drill, episode) while this one named an *occasion* — a twenty-hour flight. That cost it its `audio_channels.md` row ("a flight or a long haul") and a 45-minute default, so it was unreachable on ordinary ears-only days and ran twice in its life. `--minutes` was always a ceiling: a flight is `--minutes 45`, the default is 15. Published tapes keep the `longhaul_` prefix (a feed entry is a promise); new ones write `rotation_`.
+
+Defined: `scripts/render_rotation.py`; `protocol/audio_channels.md`; `docs/DECISIONS.md` — "A lane named for an occasion is unreachable (2026-08-31)"
+
+---
+
 ## scene spec
 
 The three-axis structural selector Python hands the Director for each episode: **register** (emotional tone: dread, tenderness, mischief…), **form** (classic / vignette / story / phone_call / lore), and **dramatic ingredient** (subtext / turn / character / stakes / genre). Computed by `scripts/suggest_targets.py` from the last 3 `*.tags.json` sidecars (`DIVERGENCE_WINDOW = 3`, `suggest_targets.py:48`) to guarantee anti-sameness. It is a gate, not a suggestion — overriding it is how variety drift came back.

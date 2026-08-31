@@ -103,7 +103,7 @@ def clean_title(raw_title: str, filename: str) -> str:
     if soak:
         return f"Soak — {soak.group(1)} · nothing to do but listen"
 
-    # Long-haul tapes carry their spine as well as their date: three of them ride
+    # Rotation tapes carry their spine as well as their date: three of them ride
     # the feed at once for the flight, and "which one is the machines tape" has to
     # be answerable from the lock screen, one-handed, without reading show notes.
     #
@@ -117,9 +117,15 @@ def clean_title(raw_title: str, filename: str) -> str:
     # the Institution-of-One close — drop the figure and the line stays true across
     # any future cut. What the title must promise is the CONTRACT, not the length:
     # press once and nothing is asked of you.
-    longhaul = re.match(r"longhaul_([a-z]+)_(\d{4}-\d{2}-\d{2})", filename)
-    if longhaul:
-        return (f"Long-haul — {longhaul.group(1)} · {longhaul.group(2)} "
+    # BOTH PREFIXES, DELIBERATELY (2026-08-31). The lane renamed longhaul ->
+    # rotation; three tapes were already published under the old prefix and are
+    # live in rss.xml. A feed entry is a promise to a player that has already
+    # downloaded it, so the old prefix stays READABLE forever while only new
+    # tapes are written as rotation_. Renaming the files instead would have
+    # orphaned three entries to save one regex branch.
+    rotation = re.match(r"(?:rotation|longhaul)_([a-z]+)_(\d{4}-\d{2}-\d{2})", filename)
+    if rotation:
+        return (f"Rotation — {rotation.group(1)} · {rotation.group(2)} "
                 f"· press once, nothing asked")
 
     # Detect episode type from filename
@@ -227,8 +233,12 @@ def audio_format(stem: str) -> str:
     the Diagnosis pass can compare formats — "do drills land better than soaks" is
     the question the audio lane exists to answer, and a rating that only says 5/5
     cannot answer it."""
+    # rotation_ and longhaul_ are ONE lane under two prefixes (renamed
+    # 2026-08-31); the ledger must aggregate them or the format comparison
+    # splits one lane's ratings across two names and answers nothing.
     for prefix, name in (("soak_", "soak"), ("drill_", "drill"),
-                         ("longhaul_", "long-haul"), ("special_", "special")):
+                         ("longhaul_", "rotation"), ("rotation_", "rotation"),
+                         ("special_", "special")):
         if stem.startswith(prefix):
             return name
     return "mission" if stem.startswith("tier") else "episode"
@@ -464,10 +474,11 @@ def generate_rss():
 
     # Filter: tier-based episodes + drill tracks + soak loops + special reference
     # episodes (skip legacy level4_*, demos, tests, and standalone intercepts)
+    # One tuple, not six chained startswith calls — `str.startswith` takes a
+    # tuple, and the chain was already the place a new prefix got forgotten.
     episodes = [f for f in audio_files
-                if (f.startswith('tier') or f.startswith('drill_')
-                    or f.startswith('soak_') or f.startswith('longhaul_')
-                    or f.startswith('special_'))
+                if f.startswith(('tier', 'drill_', 'soak_', 'longhaul_',
+                                 'rotation_', 'special_'))
                 and not f.endswith('_intercept.mp3')]
 
     # Knock memos are feed-worthy too (2026-07-05): the push notification is
@@ -498,11 +509,11 @@ def generate_rss():
         match = re.search(r"tier(\d+)_mission(\d+)", filename)
         if match:
             return (int(match.group(1)), int(match.group(2)))
-        # drills, soak loops and long-haul tapes are all dated tracks — one band,
+        # drills, soak loops and rotation tapes are all dated tracks — one band,
         # chronological. A prefix missing from this regex still SORTS, at (0, 0),
         # i.e. silently below every episode: the feed carries it and he never
         # scrolls that far. Add the prefix here and to the filter above together.
-        match = re.search(r"(?:drill|soak|longhaul_[a-z]+)_(\d{4})-(\d{2})-(\d{2})(?:_(\d{4}))?",
+        match = re.search(r"(?:drill|soak|(?:longhaul|rotation)_[a-z]+)_(\d{4})-(\d{2})-(\d{2})(?:_(\d{4}))?",
                           filename)
         if match:
             return (9, int("".join(g or "0" for g in match.groups())))

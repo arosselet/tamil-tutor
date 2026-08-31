@@ -93,7 +93,7 @@ def s58_a_sheet_survives_a_model_thinking_out_loud(sb: Path):
     IT IS THE MANDATE THAT INVITES IT. The `inventory` clause orders the writer
     to DROP coincidental hosts — a judgement per host — so it shows its work.
     Measured: 3 of 6 identical calls came back prose-prefixed. That is a coin
-    flip per call, and a long-haul tape makes ~15 calls in a row.
+    flip per call, and a rotation tape makes ~15 calls in a row.
 
     The negatives matter as much: a reply with NO object must still raise, or a
     lane silently ships a sheet-shaped blank instead of stopping.
@@ -145,7 +145,7 @@ def s58_a_sheet_survives_a_model_thinking_out_loud(sb: Path):
         check(f"{name} raises rather than returning a blank sheet", raised)
 
     # ONE parser, not two. The drill lane owning a private brace-slice is exactly
-    # how 07-13 came back on 08-10; the long-haul lane borrows this one in turn.
+    # how 07-13 came back on 08-10; the rotation lane borrows this one in turn.
     # ask_json MOVED to writer.py on 2026-08-23 with the executor split; the
     # assertions follow it rather than being deleted — the parser gap this case
     # exists for is a property of the function, not of the file it sat in.
@@ -169,8 +169,8 @@ def s58_a_sheet_survives_a_model_thinking_out_loud(sb: Path):
     # Matched loosely on purpose: the import line also carries the schema helpers
     # since 2026-08-23, and an exact-string check would fail on a tidy-up that
     # changed nothing about where ask_json comes from.
-    _lh = mechanism((REAL_BASE / "scripts" / "render_longhaul.py").read_text(encoding="utf-8"))
-    check("the long-haul lane borrows ask_json rather than rolling its own",
+    _lh = mechanism((REAL_BASE / "scripts" / "render_rotation.py").read_text(encoding="utf-8"))
+    check("the rotation lane borrows ask_json rather than rolling its own",
           any(ln.startswith("from writer import") and "ask_json" in ln
               for ln in _lh.splitlines()), "ask_json comes from somewhere else")
 
@@ -249,7 +249,7 @@ def s66_json_mode_is_actually_sent(mk, kr, sb: Path):
     Every JSON lane used to PROMPT for JSON and hope. The mandates always said
     "return ONLY a JSON object" and models wrapped it anyway, so `parse_llm_json`
     grew a five-strategy fallback chain out of four dated incidents, and the
-    long-haul lane measured 3 of 6 identical calls coming back prose-prefixed —
+    rotation lane measured 3 of 6 identical calls coming back prose-prefixed —
     which killed a 45-minute render at movement 5 of 15. `response_format`
     moves that from survivable-at-the-parser to impossible-at-the-API.
 
@@ -360,7 +360,7 @@ def s66_json_mode_is_actually_sent(mk, kr, sb: Path):
         "scripts/morning_knock.py": 0,
         "scripts/knock_reply.py": 0,
         # ONE call now serves the soak sheet, the drill sheet, the drill lint
-        # and every long-haul movement (2026-08-23). Those four lanes used to
+        # and every rotation movement (2026-08-23). Those four lanes used to
         # carry their own `create()`; they call `writer.ask_json` instead, so
         # this is where JSON mode has to be — and a lane that goes back to
         # rolling its own client is caught by s70, not here.
@@ -421,7 +421,7 @@ def s66_json_mode_is_actually_sent(mk, kr, sb: Path):
 def s70_the_executor_is_chosen_by_the_host(sb: Path):
     """WHO PAYS, and the silent no-op that hid it for weeks (2026-08-23, Andrew).
 
-    `render_soak`, `render_drill` and `render_longhaul` each opened an OpenRouter
+    `render_soak`, `render_drill` and `render_rotation` each opened an OpenRouter
     client unconditionally. None of them has ever had a cloud caller — `anna.yml`
     invokes exactly four scripts — so every soak, drill and long-haul ran on the
     laptop and billed the API anyway, next to a subscription already paid for.
@@ -569,7 +569,7 @@ def s70_the_executor_is_chosen_by_the_host(sb: Path):
     # thing standing between the agent path and an envelope.
     for name, const in (("render_soak.py", "SOAK_SCHEMA"),
                         ("render_drill.py", "DRILL_SCHEMA"),
-                        ("render_longhaul.py", "MOVEMENT_SCHEMA")):
+                        ("render_rotation.py", "MOVEMENT_SCHEMA")):
         shape = getattr(importlib.import_module(name[:-3]), const, None)
         check(f"{const} declares properties, not a bare object",
               bool((shape or {}).get("properties")), f"got {shape}")
@@ -603,7 +603,7 @@ def s70_the_executor_is_chosen_by_the_host(sb: Path):
     check("no lane builds its own OpenRouter client",
           not offenders, f"{', '.join(offenders)} — call writer.ask_json instead")
 
-    for name in ("render_soak.py", "render_drill.py", "render_longhaul.py"):
+    for name in ("render_soak.py", "render_drill.py", "render_rotation.py"):
         src = mechanism((sb / "scripts" / name).read_text(encoding="utf-8"))
         check(f"{name} takes its executor from writer",
               "from writer import" in src, "imports ask_json from somewhere else")

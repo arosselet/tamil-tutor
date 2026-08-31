@@ -2,7 +2,7 @@
 
 Everything downstream of a decision to make audio: the renderer's handling of
 [SFX] and of a sidecar it cannot read, the drill's answer key, capacity routing,
-the cloud writer, and the long-haul tape.
+the cloud writer, and the rotation tape.
 
 The family's failure mode is a plausible artefact from the wrong source — a word
 list scraped out of a script because the sidecar was unreadable, a draft deleted
@@ -354,7 +354,7 @@ def s48_drill_answer_key_lint(sb: Path):
         rd.ask_json = real_ask
 
 
-def s57_longhaul_tape(sb: Path):
+def s57_rotation_tape(sb: Path):
     """The fourth audio lane (2026-08-10) — a 40-60 minute press-once tape for the
     flight, where the other three channels' 10-15 minute dose is the wrong shape:
     ~50 press-plays at a median 2.7 min is fifty context switches on a 20-hour leg.
@@ -372,8 +372,8 @@ def s57_longhaul_tape(sb: Path):
     So nothing here asserts that a step RAN. It asserts coverage, the
     taught-before-used ordering, the cadence invariant *including the wrap*, a real
     feed round-trip, and a clock that actually stops the tape."""
-    print("\n57. The long-haul tape — coverage, cadence, the clock, and the feed (2026-08-10)")
-    rl = importlib.import_module("render_longhaul")
+    print("\n57. The rotation tape — coverage, cadence, the clock, and the feed (2026-08-10)")
+    rl = importlib.import_module("render_rotation")
 
     # ── The cadence law. Two of a kind side by side is the complaint itself, and
     # the WRAP matters as much as the middle: he plays these two or three times
@@ -520,15 +520,15 @@ def s57_longhaul_tape(sb: Path):
     learner = sb / "progress" / "learner.json"
     base = read_json(learner)
     write_json(learner, {**base, "soak_order": {"channel": "soak", "payload": ["x"]}})
-    check("an order addressed to another lane is not claimed", rl.longhaul_brief() == (None, []))
-    write_json(learner, {**base, "soak_order": {"channel": "longhaul", "payload": ["x"],
+    check("an order addressed to another lane is not claimed", rl.rotation_brief() == (None, []))
+    write_json(learner, {**base, "soak_order": {"channel": "rotation", "payload": ["x"],
                                                 "focus": "the -aachu tail"}})
-    focus, payload = rl.longhaul_brief()
+    focus, payload = rl.rotation_brief()
     check("an order addressed to this lane is read", focus == "the -aachu tail" and payload == ["x"])
     sync = importlib.import_module("sync_state")
-    check("this lane can declare its order spent", sync.mark_soak_delivered("longhaul") is True)
+    check("this lane can declare its order spent", sync.mark_soak_delivered("rotation") is True)
     check("...and the declaration round-trips to disk",
-          (read_json(learner).get("soak_order") or {}).get("delivered", {}).get("channel") == "longhaul")
+          (read_json(learner).get("soak_order") or {}).get("delivered", {}).get("channel") == "rotation")
 
     # ── Inventory candidates are PROPOSED by substring and must be marked as
     # unsafe: the same technique logged நீ at 17 reps because it sits inside
@@ -664,7 +664,7 @@ def s57_longhaul_tape(sb: Path):
     rr = importlib.import_module("rebuild_rss")
     name = "longhaul_inventory_2026-08-11_0930.mp3"
     title = rr.clean_title(name.replace(".mp3", ""), name)
-    check("a long-haul tape gets a real title", title.startswith("Long-haul — inventory"),
+    check("a legacy-prefix tape still gets a real title", title.startswith("Rotation — inventory"),
           f"got {title!r}")
     check("the title says which spine, for a one-handed lock-screen choice",
           "inventory" in title and "2026-08-11" in title, f"got {title!r}")
@@ -688,10 +688,37 @@ def s57_longhaul_tape(sb: Path):
     check("the tape actually lands in the feed he downloads before boarding",
           name in feed, "rendered, committed, and invisible — the worst failure "
                         "this lane has, because he cannot fetch it from the air")
-    check("...under its real title, not its filename", "Long-haul — inventory" in feed)
+    check("...under its real title, not its filename", "Rotation — inventory" in feed)
     sort_src = mechanism(inspect.getsource(rr.generate_rss))
-    check("the sort key knows the longhaul prefix", "longhaul" in sort_src,
+    check("the sort key knows both prefixes", "longhaul" in sort_src and "rotation" in sort_src,
           "an unmatched prefix still SORTS — at (0,0), silently below every episode")
+
+    # ── THE RENAME'S OWN TRAP (2026-08-31). The lane became `rotation`, and the
+    # three drop-points above are exactly where a new prefix dies quietly. The
+    # legacy assertions above prove the OLD name still resolves — three tapes are
+    # live in the published feed under it and a feed entry is a promise. These
+    # prove the NEW one does too. Both, or the rename ships a lane whose output
+    # renders, commits, and never reaches his phone.
+    new_name = "rotation_machines_2026-08-31_1200.mp3"
+    new_title = rr.clean_title(new_name.replace(".mp3", ""), new_name)
+    check("the new prefix gets a real title too",
+          new_title.startswith("Rotation — machines"), f"got {new_title!r}")
+    (audio / new_name).write_bytes(rl.SILENCE_FRAME * 400)
+    try:
+        os.chdir(sb)
+        rr.generate_rss()
+        feed2 = (sb / "rss.xml").read_text(encoding="utf-8")
+    finally:
+        os.chdir(cwd)
+    check("a rotation_ tape reaches the feed", new_name in feed2,
+          "the filter drops what it does not recognise, and drops it silently")
+    check("...and BOTH prefixes coexist in one feed", name in feed2 and new_name in feed2,
+          "the old tapes must not fall out of the feed to let the new ones in")
+    check("one lane, one format label in the ratings ledger",
+          rr.audio_format(name.replace(".mp3", "")) == rr.audio_format(new_name.replace(".mp3", ""))
+          == "rotation",
+          "two labels for one lane splits its ratings and the format comparison "
+          "answers nothing")
 
     # ── Duration honesty (same diff): `except: return 3.0` stamped every episode
     # on an ffprobe-less host as exactly 3.0 min. M78-M85 all carry it; their real

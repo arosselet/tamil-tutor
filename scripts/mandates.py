@@ -140,18 +140,19 @@ speed and Tamil script not at all, so rewrite it with EVERY Tamil word in phonet
 otherwise identical — this is a transliteration, not a rewrite. Return ONLY the line."""
 
 
-# ── The long-haul tape's movement mandates ──────────────────────────────────
-# Split out of render_longhaul.py (2026-08-10) when that file hit 340/340 code
+# ── The rotation tape's movement mandates ──────────────────────────────────
+# Split out of render_rotation.py (2026-08-10) when that file hit 340/340 code
 # lines, which is the move its own budget note prescribed and the one
 # morning_knock.py made on 08-01. Same reasoning both times: prompt canon and
 # lane machinery are two concerns, and code_lines counts a prompt string as
 # mechanism, so a lane that writes its own prompts is taxed for prose. These
 # change only for pedagogy reasons; the renderer changes for engineering ones.
-# render_longhaul re-exports both, so smoke's mandate cases read them as before.
+# render_rotation re-exports both, so smoke's mandate cases read them as before.
 BASE_MANDATE = """\
-You are Anna, writing ONE MOVEMENT of a long-haul listening tape. Andrew is on a \
-twenty-hour flight with headphones in. He will NOT speak, will NOT look at a screen, \
-and will NOT be tested. He presses play once and listens, twice or three times through.
+You are Anna, writing ONE MOVEMENT of a rotation tape. Andrew has headphones in and \
+his hands and mouth are busy — company, a commute, a kitchen, or a flight. He will NOT \
+speak, will NOT look at a screen, and will NOT be tested. He presses play once and \
+listens, twice or three times through.
 
 BINDING ON EVERY MOVEMENT:
 - NEVER ask him anything. No questions to the listener, no homework, no "try it \
@@ -214,7 +215,7 @@ interesting rather than useful; it is his favourite part and it is why the tape 
 # had been prescribing: "NOTE for the next raise: REFUSE it and split instead.
 # ~150 of this file's lines are prompt strings, which code_lines counts as
 # mechanism." It was 237 lines, 31% of the file, and the file sat at 758/785.
-# Same move morning_knock made on 2026-08-01 and render_longhaul on 08-10, and
+# Same move morning_knock made on 2026-08-01 and render_rotation on 08-10, and
 # the same reasoning all three times: prompt canon and lane machinery are two
 # concerns, and only one of them is code. These change for pedagogy reasons; the
 # judge changes for engineering ones.

@@ -77,7 +77,7 @@ Four listening channels. What your attention is free to do picks between them *b
 - **Episode** (`run_studio.py`) — sitting down, ready to be taught. The most expensive and most demanding dose there is.
 - **Drill track** (`render_drill.py`) — alone in the car, dishes, a solo walk: an English cue, silence while you say the Tamil out loud, then the answer, twice. The silence is the demand, so it needs a free mouth. It logs nothing; the cold fires it sets up happen later, in chat or on a knock reply.
 - **Soak loop** (`render_soak.py`) — with family, driving with someone, wiped out: nothing is asked at all. The sounds repeat and iterate past an ear on autopilot.
-- **Long-haul tape** (`render_longhaul.py`) — a flight: forty-five minutes on one press of play, structured recurrence, no screen. The only lane allowed to be long.
+- **Rotation tape** (`render_rotation.py`) — a flight: forty-five minutes on one press of play, structured recurrence, no screen. The only lane allowed to be long.
 
 Inside what capacity allows, the *error* picks the format: can't hear two words apart → soak; hears them fine but the mouth grabs the wrong one → episode; has it and is just slow → drill. The same mistake twice through one format is that format's answer — change format, never loop harder. ("Longer" is not a channel: a tired ear asking for longer wants more repetition, not more scene.)
 

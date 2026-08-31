@@ -2407,3 +2407,14 @@ Details live in git history; this is the index of the *conclusions*.
   rather than ending it, so the guard is what earns the change. **`heard_on` stays
   undefaulted**: its absence is what makes solid-by-assertion derived, not stored.
   Mutation-tested six ways; the sixth found a defect in the case itself.
+- **A lane named for an occasion is unreachable — `longhaul` → `rotation`** (2026-08-31,
+  Andrew: *"this sounds like 'longhaul' is the wrong name"*). Siblings name their FUNCTION
+  (soak, drill, episode); this named a flight, which bought it a row reading "a flight or a
+  long haul" and `--minutes default=45`. It ran twice. **The coupling nobody designed:**
+  `lore` rides only here and in the episode's forms — both high-attention lanes — so a month
+  of low-capacity days routed correctly to soak and drill and silently took all audio lore
+  with it. Default now 15 (two lore movements). **Merging into `episode` was refused**: three
+  LLM passes writing a scene is a different machine, and it breaks "never answer a length ask
+  by stretching another". Rotation sits BESIDE soak, shape separating them — reopening the
+  07-28 dose ruling the flight framing dodged. Old tapes keep the `longhaul_` prefix.
+  `audio_channels.md` 474/475, no raise.

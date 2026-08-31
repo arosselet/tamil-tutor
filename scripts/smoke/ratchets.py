@@ -245,7 +245,7 @@ CODE_BUDGETS = {
     # to satisfy the every-file-is-budgeted guard and to catch machinery
     # sneaking into a prose module.
     # 150 → 200 (2026-08-10) for the long-haul BASE_MANDATE and its five
-    # SHAPE_CLAUSES, moved out of render_longhaul.py when THAT file hit 340/340 —
+    # SHAPE_CLAUSES, moved out of render_rotation.py when THAT file hit 340/340 —
     # the split its own budget note prescribed, and the one morning_knock made on
     # 08-01. This is the ceiling law working as designed: the growth landed in the
     # prose module instead of the lane. Raising it here is cheap precisely because
@@ -256,7 +256,7 @@ CODE_BUDGETS = {
     # judge's six from knock_reply.py, the drill lane's two, the soak lane's one.
     # Ten of the repo's thirteen lived in a lane; all thirteen live here now.
     # This is the third time this move has been made — morning_knock 08-01,
-    # render_longhaul 08-10, and knock_reply's own budget note had been asking for
+    # render_rotation 08-10, and knock_reply's own budget note had been asking for
     # it in writing since 08-02 ("REFUSE the next raise and split instead").
     # Cheap for the same reason the 08-10 raise was: this budget is a machinery
     # TRAP, not a size limit. Every line it counts is prompt string, and prompt
@@ -271,7 +271,7 @@ CODE_BUDGETS = {
     "scripts/mandates.py": 500,
     # NEW FILE, budgeted in the diff that creates it (2026-08-24, Q1's first
     # family). What it retires: the exposure -> stamp -> commit -> notify tail
-    # written out three times, in render_soak, render_drill and render_longhaul —
+    # written out three times, in render_soak, render_drill and render_rotation —
     # and about to be written a fourth and fifth time by the media-ingestion and
     # daily-catch lanes. Deliberately TINY, and it stays tiny: the seven lanes are
     # three families, not one shape, so this holds a thin runner per family and
@@ -300,7 +300,7 @@ CODE_BUDGETS = {
     # the `parse_llm_response` every other lane already used. That is a deletion;
     # the growth is the retry loop around it, which is mechanism and is the point:
     # a coin-flip parse is survivable in a lane that asks ONCE and fatal in one that
-    # asks fifteen times, and the long-haul tape died at movement 5 of 15 proving it.
+    # asks fifteen times, and the rotation tape died at movement 5 of 15 proving it.
     # NOTE for the next raise: this file now holds a drill lane AND the LLM-call
     # helper three lanes import. That is the two-jobs smell, and the split is
     # already named — ask_json belongs beside parse_llm_json, not here.
@@ -320,7 +320,7 @@ CODE_BUDGETS = {
     # go to mandates.py, prompt canon and dispatch machinery being two concerns —
     # NOT a bumped number.
     # 340 → 325 (2026-08-24): re-censused DOWN — the delivery tail left for lanes.py on 08-24.
-    "scripts/render_longhaul.py": 325,
+    "scripts/render_rotation.py": 325,
     # 275 -> 265 (2026-08-23, Andrew): re-censused DOWN. Its private OpenRouter
     # client — the FOURTH copy, and the first that cost money rather than
     # correctness — became one `writer.ask_json` call.
@@ -866,7 +866,7 @@ LAYERS = {
     "push_queue":         5.5,
     "render_soak":        5.5,
     "render_drill":       5.5,
-    "render_longhaul":    5.5,
+    "render_rotation":    5.5,
     "run_studio":         5.5,
     "render_demo":        5.5,
 
