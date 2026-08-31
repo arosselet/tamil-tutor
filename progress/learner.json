@@ -12,7 +12,11 @@
     "from": "2026-08-31",
     "focus": "THE PERSON TAIL, AND NOTHING ELSE MOVING. He used the nee-tail on himself and then the naan-tail on her inside four minutes: the ending is an echo of whatever he heard last, not a choice. Permute ONLY the person marker on two verbs he already owns, in matched frames, back to back: நான் போறேன் / நீ போற, நான் சொல்றேன் / நீ சொல்ற. Do NOT permute tense, do NOT permute the verb, do NOT bring in a third person — -en is me, -a is you, and the contrast is the whole payload. This is the minimal-pair recipe that converted போனோம் in one cycle. Every other lexical item from lexicon.json. Never name a rule.",
     "channel": "soak",
-    "form": "narrated_drama"
+    "form": "narrated_drama",
+    "delivered": {
+      "channel": "soak",
+      "at": "2026-08-31"
+    }
   },
   "next_engine": "frame:polite-nga",
   "focus_cohort": [
