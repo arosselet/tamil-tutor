@@ -3161,3 +3161,99 @@ def s86_a_tape_is_not_a_teacher(sb: Path):
               "the gate is right but nothing reads it — an absence must be loud")
     finally:
         lex_path.write_bytes(saved)
+
+
+def s87_form_is_a_choice_per_order(sb: Path):
+    """A commissioned form may not outlive the order that asked for it (2026-08-31).
+
+    THE SILENT NO-OP THAT EARNS THE CASE. `cmd_update` carries the previous
+    soak_order forward and drops exactly one field, `delivered` — under a comment
+    that claims "a re-set order is a NEW order… any change to the brief
+    invalidates it". `form` was never dropped, and Anna only passes --soak-form
+    when she is deliberately commissioning, so a form set once became permanent.
+
+    MEASURED before the fix: `narrated_drama` was set 2026-08-05 and rode 26 days
+    and six orders across three lanes. On the episode lane `commissioned_form()`
+    pinned it — `"form": commissioned or pick_divergent(...)` short-circuits the
+    divergence roll — so the one form that exists BECAUSE it must be chosen
+    ("commissioned, never spec-rotated", 2026-07-18) re-chose itself indefinitely,
+    and `lore` and every other rollable form could not come up. On soak and drill
+    it was inert: nothing outside the episode lane reads `form`.
+
+    Nothing was ever red. The write path printed "· form: narrated_drama" on every
+    close, the episode rendered, the sidecar stamped the pinned form. This is the
+    2026-07-31 class exactly — the meter measured that the step RAN.
+
+    BOTH DIRECTIONS, because the lazy fix breaks commissioning. Deleting `form`
+    unconditionally would also clear the symptom while making narrated_drama
+    unorderable — so the case asserts the pin still works when the order asks for
+    it, and only then that it does not survive the next order.
+    """
+    print("\n87. A commissioned form does not outlive its order (2026-08-31)")
+    import contextlib
+    ss = importlib.import_module("sync_state")
+    st = importlib.import_module("suggest_targets")
+
+    learner_path = sb / "progress" / "learner.json"
+    lex_path = sb / "progress" / "lexicon.json"
+    saved = (learner_path.read_bytes(), lex_path.read_bytes())
+
+    defaults = dict(listened=[], teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
+                    soak_channel=None, soak_form=None, mastered_word=[], comfortable_word=[],
+                    stuck_word=[], produced_cold=[], produced_hinted=[],
+                    mark_seen=[], next_engine=None, debrief=None,
+                    no_commission="smoke sandbox")
+
+    def update(**kw):
+        for k, v in defaults.items():
+            kw.setdefault(k, v)
+        with contextlib.redirect_stdout(io.StringIO()):
+            ss.cmd_update(argparse.Namespace(**kw))
+        return read_json(learner_path).get("soak_order", {})   # re-read from disk
+
+    try:
+        write_json(lex_path, {"போறேன்": lex_row(gloss="I go", phonetic=["poren"],
+                                                type="chunk", recognition="solid",
+                                                production="cold")})
+        learner = read_json(learner_path)
+        learner["soak_order"] = {}
+        write_json(learner_path, learner)
+
+        # DIRECTION 1 — an ordered form lands, and really pins the gate.
+        order = update(soak_payload=["போறேன்"], soak_seed="s",
+                       soak_channel="episode", soak_form="narrated_drama")
+        check("an ordered form is written", order.get("form") == "narrated_drama",
+              f"got {order.get('form')!r} — commissioned forms exist because they "
+              f"cannot be rolled; if the order cannot carry one they are unorderable")
+        check("...and the episode lane really honours it",
+              st.commissioned_form(read_json(learner_path)) == "narrated_drama",
+              "the pin is the whole point of a commissioned form")
+
+        # DIRECTION 2 — the NEXT order does not inherit it.
+        order = update(soak_payload=["போறேன்"], soak_seed="a different scene",
+                       soak_channel="episode")
+        check("a new order drops the previous form", "form" not in order,
+              f"got {order.get('form')!r} — this is the bug: 26 days and six "
+              f"orders rode one 08-05 commission")
+        # ASSERT THE EFFECT, NOT THE FIELD. The field is only interesting because
+        # of what it does to the anti-sameness gate.
+        check("...so the scene-spec gate is free to roll again",
+              st.commissioned_form(read_json(learner_path)) is None,
+              "a stale pin short-circuits pick_divergent and no form — lore "
+              "included — can ever come up")
+
+        # And the clear must not be a one-shot: a third order stays clean.
+        order = update(soak_payload=["போறேன்"], soak_focus="the person tail")
+        check("and it stays cleared on the order after that", "form" not in order,
+              f"got {order.get('form')!r}")
+
+        # The sibling field is deliberately NOT cleared — `channel` has a default
+        # at every read site (`or "episode"`), so an inherited lane is legible;
+        # an inherited form silently disables a gate. If this ever flips, the
+        # asymmetry was lost and the reasoning above needs re-reading.
+        check("channel still sticks on purpose", order.get("channel") == "episode",
+              "clearing channel too would silently redirect every un-named order "
+              "to the episode lane — the expensive one")
+    finally:
+        learner_path.write_bytes(saved[0])
+        lex_path.write_bytes(saved[1])

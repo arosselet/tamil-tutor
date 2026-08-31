@@ -712,8 +712,28 @@ def cmd_update(args):
             order["focus"] = args.soak_focus
         if args.soak_channel is not None:
             order["channel"] = args.soak_channel
+        # FORM IS A CHOICE PER ORDER, NEVER A STANDING PREFERENCE (2026-08-31).
+        # `channel` above may stick: every read site defaults it (`or "episode"`),
+        # so an inherited lane is legible. An inherited FORM is not — absent means
+        # "let the scene-spec gate roll", which is the whole anti-sameness
+        # mechanism, and a form that survives its order silently disables it.
+        #
+        # MEASURED: `narrated_drama` was set on 2026-08-05 and rode 26 days and six
+        # orders across three lanes (08-14 classic, then 08-18 episode, 08-18 drill,
+        # 08-25 soak, 08-26 drill, 08-31 soak). On the episode lane
+        # `commissioned_form()` pinned it — `"form": commissioned or pick_divergent(...)`
+        # short-circuits the roll — so the one form that exists BECAUSE it must be
+        # chosen ("commissioned, never spec-rotated", 2026-07-18) re-chose itself
+        # indefinitely. On soak and drill it was inert: nothing outside the episode
+        # lane reads `form`, so the state recorded an intent no lane would honour.
+        # Every instrument read green; the write path even printed "· form: …".
+        #
+        # The asymmetry decides it. Clearing wrongly costs one rolled form — the
+        # correct default. Sticking wrongly costs the gate, silently, forever.
         if args.soak_form is not None:
             order["form"] = args.soak_form
+        else:
+            order.pop("form", None)
         # A re-set order is a NEW order: drop any prior lane's delivery stamp, or
         # a close on the same day a dose already shipped would read as already
         # produced and never render (date compare alone can't see it — `from` and

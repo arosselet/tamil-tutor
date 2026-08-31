@@ -2418,3 +2418,13 @@ Details live in git history; this is the index of the *conclusions*.
   by stretching another". Rotation sits BESIDE soak, shape separating them — reopening the
   07-28 dose ruling the flight framing dodged. Old tapes keep the `longhaul_` prefix.
   `audio_channels.md` 474/475, no raise.
+- **A commissioned form does not outlive its order** (2026-08-31). `cmd_update` carried the
+  soak order forward and dropped only `delivered`, under a comment claiming "any change to
+  the brief invalidates it". `narrated_drama`, set 08-05, rode 26 days and six orders across
+  three lanes: on the episode lane `commissioned_form()` pinned it — `commissioned or
+  pick_divergent(...)` short-circuits the roll — so the one form that exists BECAUSE it must
+  be chosen re-chose itself and `lore` could not come up; on soak and drill it was inert.
+  **The silent no-op:** the write path printed "· form: narrated_drama" every close, green
+  throughout. The fix is a deletion. `channel` stays sticky on purpose — every read site
+  defaults it, so an inherited lane is legible where an inherited form disables a gate. `s87`
+  asserts both directions: dropping `form` always would make commissioned forms unorderable.
