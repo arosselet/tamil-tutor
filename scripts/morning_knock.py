@@ -214,6 +214,20 @@ def demand_streak(klog: list) -> int:
 
 
 LORE_COOLDOWN_DAYS = 7    # a converting format is a bet that paid off, not one to re-place
+# THE FLOOR THE CEILING NEVER HAD (2026-08-31, Andrew: "it's become kind of muddied /
+# missing"). Every tick printed "lore is SPENT"; no tick ever printed "lore is overdue",
+# so the only pressure on this dose pushed one way. Eavesdrop has had both rails since
+# 07-25 — a cooldown AND a cadence — and lore was the asymmetry left behind.
+#
+# 10 IS MEASURED, NOT CHOSEN. Gaps between fired lore doses after the cooldown landed:
+# 8, 6, 8, 8 — then 15, then a 3-fire month. The 6-8 band is the system self-regulating,
+# and it is the band Andrew endorsed lore in ("I genuinely enjoy that little dose of
+# lore… high density learning", 2026-07-28). So the floor sits ABOVE the whole healthy
+# band: at 10 it cannot fire during normal operation, and every warning it does print is
+# real drift. A floor inside the band would be a weekly quota wearing a cadence's
+# clothes — which is the 07-11 mistake ("engagement is evidence, not a mandate"), and a
+# warning that fires constantly is noise by construction and gets walked past.
+LORE_CADENCE_DAYS = 10
 EAVESDROP_CADENCE_DAYS = 3  # catch items need an eavesdrop dose at least this often
 
 
@@ -252,7 +266,10 @@ def remaining_room(klog: list, now: datetime) -> str:
         streak_str += " — the variety rule says the next fire must be a NO-ASK dose or silence."
     lore_str = ""
     lore = last_lore(klog)
-    if lore:
+    if lore is None:
+        lore_str = ("\n  ⚠ Lore: NEVER fired — a word with a story has more retrieval "
+                    "hooks than a word with a scene. Take a no-ask lore dose when one fits.")
+    else:
         ldate = local_date(lore.get("timestamp", ""))
         if ldate:
             age = (now_local.date() - ldate).days
@@ -260,6 +277,10 @@ def remaining_room(klog: list, now: datetime) -> str:
                 until = (ldate + timedelta(days=LORE_COOLDOWN_DAYS)).isoformat()
                 lore_str = (f"\n  Lore-cooldown: “{lore.get('move', 'lore')}” fired {age}d ago — "
                             f"lore is SPENT until {until}; pick another move.")
+            elif age >= LORE_CADENCE_DAYS:
+                lore_str = (f"\n  ⚠ Lore: OVERDUE — last was “{lore.get('move', 'lore')}” "
+                            f"{age}d ago, past the {LORE_CADENCE_DAYS}d cadence. It is a "
+                            f"no-ask dose and takes a DIFFERENT vein than that one.")
             else:
                 lore_str = (f"\n  Last lore: “{lore.get('move', 'lore')}” ({age}d ago) — a new "
                             f"lore dose must take a different vein than that one.")

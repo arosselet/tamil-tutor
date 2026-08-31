@@ -2428,3 +2428,12 @@ Details live in git history; this is the index of the *conclusions*.
   throughout. The fix is a deletion. `channel` stays sticky on purpose — every read site
   defaults it, so an inherited lane is legible where an inherited form disables a gate. `s87`
   asserts both directions: dropping `form` always would make commissioned forms unorderable.
+- **Lore gets a floor to match its ceiling** (2026-08-31, Andrew: lore *"has become kind of
+  muddied / missing"*). `LORE_COOLDOWN_DAYS` (07-11) was this dose's only rail, so every tick
+  could say "SPENT" and none "overdue" — the asymmetry eavesdrop lost on 07-25.
+  `LORE_CADENCE_DAYS = 10` is **measured**: post-cooldown gaps ran 8, 6, 8, 8 — the band
+  Andrew endorsed lore in — then 15, then a 3-fire month. The floor sits above the whole
+  healthy band, so it cannot fire in normal operation; inside it would be a weekly quota
+  wearing a cadence's clothes, which is the 07-11 mistake. **An existing assertion encoded
+  the gap** ("no lore fires → no lore line") and is inverted: a never-fired dose is the
+  loudest case, not the quietest.

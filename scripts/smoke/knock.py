@@ -255,16 +255,54 @@ def s8_variety_and_decay(mk, kr, sb: Path):
     check("digest carries the NO-ASK directive at streak 2", "NO-ASK" in room,
           room.splitlines()[-1])
 
-    # lore format cooldown: SPENT inside the window, vein reminder after, silent when none
+    # lore format cooldown: SPENT inside the window, vein reminder after,
+    # OVERDUE past the cadence — the rail pushes BOTH ways (2026-08-31)
     lored = [{"acted": True, "move": "lore memo: -aachu frame",
               "timestamp": (now - timedelta(days=1)).isoformat()}]
     check("digest marks lore SPENT inside the cooldown",
           "SPENT" in mk.remaining_room(lored, now))
-    lored[0]["timestamp"] = (now - timedelta(days=mk.LORE_COOLDOWN_DAYS + 2)).isoformat()
+    lored[0]["timestamp"] = (now - timedelta(days=mk.LORE_COOLDOWN_DAYS + 1)).isoformat()
     check("expired cooldown becomes the different-vein reminder",
           "different vein" in mk.remaining_room(lored, now))
-    check("no lore fires → no lore line in the rails",
-          "lore" not in mk.remaining_room([], now).lower())
+
+    # ── THE FLOOR THE CEILING NEVER HAD (2026-08-31, Andrew: lore "has become
+    # kind of muddied / missing"). The two checks above are the BRAKE, and until
+    # today it was the only rail this dose had: every tick could say "lore is
+    # SPENT" and no tick could ever say "lore is overdue". Measured, that is
+    # exactly what the log shows — gaps of 8, 6, 8, 8, then 15, then a 3-fire
+    # month. Eavesdrop has carried both rails since 07-25; lore was the
+    # asymmetry left behind.
+    #
+    # THE ASSERTION BELOW WAS INVERTED, AND IT ENCODED THE GAP. It read "no lore
+    # fires → no lore line in the rails" and called that silence correct. A dose
+    # that has NEVER fired is the loudest case there is, not the quietest — an
+    # absence must be loud, or it is walked past for mechanical reasons.
+    lored[0]["timestamp"] = (now - timedelta(days=mk.LORE_CADENCE_DAYS + 1)).isoformat()
+    overdue = mk.remaining_room(lored, now)
+    check("past the cadence the rail says OVERDUE", "OVERDUE" in overdue,
+          overdue.splitlines()[-1])
+    check("...and still binds the different-vein rule", "DIFFERENT vein" in overdue,
+          "an overdue nudge that drops the vein rule re-opens the 07-11 takeover")
+    check("never-fired lore is LOUD, not silent",
+          "NEVER fired" in mk.remaining_room([], now),
+          "the old case asserted silence here — that was the one-sided rail")
+
+    # THE BAND BETWEEN THE RAILS MUST STAY QUIET. A warning that fires during
+    # normal operation is noise by construction. Post-cooldown the measured
+    # healthy gaps were 6-8 days, so nothing in that band may nag.
+    for age in range(mk.LORE_COOLDOWN_DAYS, mk.LORE_CADENCE_DAYS):
+        lored[0]["timestamp"] = (now - timedelta(days=age)).isoformat()
+        rails = mk.remaining_room(lored, now)
+        if "OVERDUE" in rails or "SPENT" in rails:
+            check(f"the healthy band stays quiet (day {age})", False, rails.splitlines()[-1])
+            break
+    else:
+        check(f"the healthy band stays quiet "
+              f"(days {mk.LORE_COOLDOWN_DAYS}-{mk.LORE_CADENCE_DAYS - 1})", True)
+    check("the floor sits above the whole measured healthy band",
+          mk.LORE_CADENCE_DAYS > 8,
+          "gaps of 8, 6, 8, 8 were the self-regulating cadence Andrew endorsed; "
+          "a floor inside that band is a weekly quota wearing a cadence's clothes")
 
     # ── THE SEQUENCE PROPERTY — what the incident actually was ──────────────
     # The two assertions above are POINTWISE: lore one day old says SPENT, lore

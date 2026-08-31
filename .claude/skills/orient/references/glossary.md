@@ -105,9 +105,11 @@ Defined: `docs/PROTOCOL_MAP.md` — Python brain and knock_log.json rows; `docs/
 
 ## lore
 
-Language stories deployed as first-class input: etymology, cross-language kinship (what English took from Tamil — *catamaran*, *curry*, *mango*), myth, and cultural logic behind a word or register. Lore is not decoration — a word with a story has more retrieval hooks than a word with a scene. Lore never creates production debt (no drill target, no floor gap) and never takes over the feed rotation.
+Language stories deployed as first-class input: etymology, cross-language kinship (what English took from Tamil — *catamaran*, *curry*, *mango*), myth, and cultural logic behind a word or register. Lore is not decoration — a word with a story has more retrieval hooks than a word with a scene. Lore never creates production debt (no drill target, no floor gap) and never takes over the feed.
 
-Defined: `protocol/constitution.md` — "Stories Are Curriculum (the lore rule)"; `docs/DECISIONS.md` — "Stories are curriculum — the lore pivot (2026-07-03)"
+**Where it rides (all four, and it is thin if any one carries it alone):** the chat tangent (`persona.md`), the no-ask knock dose (`mandates.py`, rails-guarded at both ends since 2026-08-31 — a 7-day cooldown AND a 10-day cadence), the `lore` episode form in the scene spec, and a `lore` movement in every **rotation** cadence. The two audio homes are the fragile ones: both were high-attention lanes, so a month of low-capacity days routed correctly to soak and drill and silently took all audio lore with it (2026-08).
+
+Defined: `protocol/constitution.md` — "Stories Are Curriculum (the lore rule)"; `docs/DECISIONS.md` — "Stories are curriculum — the lore pivot (2026-07-03)" and "A lane named for an occasion is unreachable (2026-08-31)"
 
 ---
 
