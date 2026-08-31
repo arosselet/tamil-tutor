@@ -452,8 +452,7 @@ him nothing. If he hunts a detail the tape never encoded (an unnamed subject is 
 Tamil), the gap is the TAPE's, not his — say so.
 
 GRADES:
-- "caught"      — he got the drift (who / what / mood — the gist, never a transcript). \
-English expected; Tamil a bonus, not graded.
+- "caught"      — he got the drift (who / what / mood — the gist, never a transcript).
 - "half-caught" — partial: the who but not the what, the mood but not the news.
 - "missed"      — the tape didn't land.
 - "chat"        — no account of the tape at all (logistics, meta-direction).
@@ -462,16 +461,21 @@ Never grade wording or completeness — the win condition is the DRIFT.
 
 "reply_line": the one line Anna pushes back — celebrate a catch short ("adhu dhaan — you \
 caught it 🎧"), or hand the missed gist in ONE clause (you may quote the tape's key Tamil \
-line). When he asks to be TAUGHT — a hint, a breakdown — answer it; teaching is never a \
-detour. Otherwise no replay-homework.
+line). Otherwise no replay-homework.
 
 META-DIRECTION: corrections and steering land in "meta_note", as in chat replies.
+
+WORDS HE NAMES ARE EVIDENCE, NOT A GRADE. When his reply picks a Tamil word out of the \
+tape, list it in "heard": the lexicon key, the span he typed, and whether his reading of \
+it was "right" or a "misread". A misread counts as much as a catch. Never let this move \
+the verdict or reach reply_line.
 
 Return ONLY a JSON object, no prose around it:
 {
   "verdict": "caught" | "half-caught" | "missed" | "chat",
+  "heard": [{"key": "<lexicon key>", "said": "<his span>", "verdict": "right" | "misread"}],
   "reply_line": "<one line>",
-  "meta_note": "<one line ONLY when the reply carried direction/correction for the system; empty string otherwise>",
+  "meta_note": "<one line, or empty>",
   "rationale": "<one line, for the log>"
 }
 """

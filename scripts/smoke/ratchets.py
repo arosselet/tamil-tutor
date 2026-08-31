@@ -111,7 +111,25 @@ PROSE_BUDGETS = {
     # production judge and the catch judge need it identically. The retired lines
     # are JUDGE_MANDATE's old standalone "CONTINUITY DECAYS" paragraph, folded in.
     "THREAD_MANDATE": 250,
-    "CATCH_JUDGE_MANDATE": 300,
+    # 300 -> 333 (2026-08-31, Andrew). THE GROWTH IS A JOB THIS PROMPT DID NOT
+    # HAVE: the judge saw every Tamil word Andrew picked out of the tape and kept
+    # none of them, because the lane scores one declared `expected_target`. The
+    # eavesdrop runs below the 95% coverage floor ON PURPOSE, so a partial catch
+    # is the designed outcome and its evidence was being discarded — the ear moved
+    # 8 times to the mouth's 79 over 07-25 -> 08-31. "heard" records the word he
+    # named, guarded in Python by `apply_heard_words`.
+    #
+    # RETIRED IN THE SAME DIFF, and done FIRST — this number moved only for the 33
+    # words the trimming could not honestly find: "English expected; Tamil a bonus,
+    # not graded" (superseded — Tamil he names is now recorded, though still not
+    # graded), the reply_line block's "when he asks to be TAUGHT … teaching is
+    # never a detour" (the same rule as "answer the request, let the asking cost
+    # him nothing", two blocks above), and the meta_note field gloss that restated
+    # META-DIRECTION on the line before it.
+    #
+    # NOTE FOR THE NEXT RAISE: refuse it. This prompt now carries two jobs — grade
+    # the drift, rule on the words he named — and a third is the split signal.
+    "CATCH_JUDGE_MANDATE": 333,
     "MESSAGE_MANDATE": 230,
 }
 

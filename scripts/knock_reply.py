@@ -83,7 +83,13 @@ JUDGE_SCHEMA = obj(verdict=STR, fired=arr(word=STR, said=STR, verdict=STR),
                    # real answer here (unlike `schedule`), so it declares cleanly.
                    slips=arr(tag=STR, said=STR, want=STR, note=STR))
 CATCH_SCHEMA = obj(verdict=STR, reply_line=STR, meta_note=STR, rationale=STR,
-                   voice_reply=STR)
+                   voice_reply=STR,
+                   # Same shape as JUDGE_SCHEMA's `fired` on purpose: the mouth
+                   # and the ear each name a key, quote the span, and rule on it.
+                   # Declared here because an undeclared key is DROPPED on the
+                   # agent path and survives on the API path (obj's 2026-08-28
+                   # law) — the smoke suite caught this one before it shipped.
+                   heard=arr(key=STR, said=STR, verdict=STR))
 from state_io import FEEDBACK_LOG_PATH, LEARNER_PATH, LEXICON_PATH, SLIP_LOG_PATH, build_phonetic_index, load_json, local_today, resolve, save_json
 from slips import append_slips, slip_patterns
 from sync_state import fires_today
@@ -190,6 +196,75 @@ def apply_catch_verdict(verdict: dict, knock: dict, lexicon: dict) -> list[str]:
 # number moves slowly, which is exactly what it did (2026-08-16 → 08-17).
 
 
+def apply_heard_words(verdict: dict, knock: dict, lexicon: dict,
+                      reply_text: str) -> list[str]:
+    """THE WORDS HE PICKS OUT OF THE TAPE, which this lane used to throw away
+    (2026-08-31, Andrew: "it's frustrating that it can't recognize/record when I
+    am reliably recognizing a word").
+
+    The eavesdrop runs BELOW the 95% coverage floor on purpose — profile.md's
+    gossip-tape carve-out, the one exception in the Calibration Notes — so
+    catching two words out of eight is the DESIGNED outcome, not a failure.
+    Until now those two vanished: `apply_catch_verdict` scores the single
+    declared `expected_target` and every other word he named was discarded,
+    which is a large part of why the ear moved 8 times to the mouth's 79 over
+    07-25 -> 08-31.
+
+    THIS DOES NOT WIDEN THE GRADE. The verdict is still the drift and only the
+    drift — "Never grade wording or completeness" stays law in the mandate.
+    Scoring N declared items off one gist verdict would INVENT evidence, which
+    is the defect the 08-24 purge dropped 108 rows to remove. What is recorded
+    here is narrower and real: a word HE named, that the tape actually spoke.
+
+    THREE GUARDS, none optional. Credit requires that
+      (1) the judge named a key that resolves to a real lexicon row,
+      (2) the span it quotes is ACTUALLY in his reply — `said_in_reply`'s law,
+          "Python owns the honesty check, not the matching",
+      (3) the key's Tamil is ACTUALLY in the tape. A word the tape never spoke
+          cannot be ear evidence however confidently it is named.
+
+    A MISREAD IS WORTH AS MUCH AS A CATCH, and is the half this ledger has never
+    had. Reading கேட்கல as "said" stamps the evidence and withholds the
+    promotion — the only downward pressure recognition gets, in a ledger whose
+    demotions ran 3 in 37 days outside the one purge."""
+    today = local_today().isoformat()
+    tape = json.dumps(knock.get("memo_script", ""), ensure_ascii=False)
+    index = build_phonetic_index(lexicon)
+    declared = resolve((knock.get("expected_target") or ""), lexicon, index)
+    lines = []
+    for item in (verdict.get("heard") or []):
+        if not isinstance(item, dict):
+            continue
+        named = (item.get("key") or "").strip()
+        said = (item.get("said") or "").strip()
+        key = resolve(named, lexicon, index)
+        if key is None:
+            lines.append(f"! heard {named!r} resolves to no lexicon record — not scored")
+            continue
+        if key == declared:
+            continue  # apply_catch_verdict already owns the declared target
+        if not said_in_reply(said, reply_text):
+            lines.append(f"! {key}: judge quoted {said!r}, which is not in his reply — not scored")
+            continue
+        if key not in tape:
+            lines.append(f"! {key}: the tape never said it — not scored")
+            continue
+        rec = lexicon[key]
+        rec["last_surfaced"] = today
+        rec["heard_on"] = today
+        rec["reps"] = rec.get("reps", 0) + 1
+        if (item.get("verdict") or "").strip().casefold() != "right":
+            lines.append(f"{key} named but MISREAD — evidence stamped, no promotion")
+            continue
+        nxt = RECOGNITION_NEXT.get(rec.get("recognition", "struggled"))
+        if nxt is None:
+            lines.append(f"{key} heard in the tape — already solid, kept")
+            continue
+        rec["recognition"] = nxt
+        lines.append(f"{key} heard unprompted → {nxt.upper()}")
+    return lines
+
+
 def handle_catch_reply(knock: dict, reply_text: str, klog: list,
                        lexicon: dict, dry_run: bool):
     """The eavesdrop counterpart of the production flow below: judge the drift,
@@ -208,6 +283,8 @@ def handle_catch_reply(knock: dict, reply_text: str, klog: list,
 
     print("2. state…")
     for line in apply_catch_verdict(verdict, knock, lexicon):
+        print(f"   {line}")
+    for line in apply_heard_words(verdict, knock, lexicon, reply_text):
         print(f"   {line}")
 
     knock["response"] = "reply"

@@ -4,6 +4,47 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **MULTI-TARGET EAVESDROP SCORING — proposed and WITHDRAWN in the same session
+  (2026-08-31), because the obvious version manufactures the exact rows the 08-24 purge
+  had just deleted.** Filed as a negative result so the next pass starts from the answer
+  instead of the itch. **The problem behind it is real and measured:** recognition has one
+  live test instrument, and `knock_reply.apply_catch_verdict` scores a single
+  `expected_target` per tape — **0.32 ear-tests/day against the mouth's ~2-3**, which very
+  nearly explains the 10x gap in upgrades (79 production to 8 recognition, 07-25 → 08-31,
+  measured row-by-row from git).
+  **RESOLVED 2026-08-31, and by neither of the two mechanisms proposed here.** A cadence
+  raise (`EAVESDROP_CADENCE_DAYS` 3 → 1) was built and **reverted the same session** —
+  Andrew: *"I don't like this listening test density idea. Listening tests should be in a
+  rotation."* He is right and it is measurable: 2.83 knocks/day across eight modalities, so
+  a daily tape is ~35% of everything he receives and it eats the text lane. **What shipped
+  instead is his own proposal, and it is better than both:** the tape is deliberately pitched
+  below the 95% coverage floor, so he catches a word or two of eight and the lane was
+  discarding every one that was not the declared target. `apply_heard_words` now records the
+  words HE names, guarded three ways (see below) — **more evidence per tape, same rotation,
+  no extra tapes.** The rest of this entry stands as the reason the obvious version is wrong.
+  **WHY SCORING N ITEMS OFF ONE VERDICT IS WRONG, and this is the whole entry:** the catch
+  judge returns ONE verdict for the tape and grades the DRIFT. `CATCH_JUDGE_MANDATE` says
+  it in its own words — *"Never grade wording or completeness — the win condition is the
+  DRIFT"* — and "the catch judge grades the thread, not the turn" is settled (07-25). A
+  single who/what/mood answer is **not evidence that five specific lexical items were
+  heard.** Promoting five off it writes unearned `solid` rows into the one ledger that
+  picks tomorrow's targets — the same defect the 08-24 purge dropped 108 rows to remove,
+  and the same class as DECISIONS' *"an invented win is worse than a missed correction"*.
+  **THE HONEST VERSION, if it is ever built: the drift question's answer must REQUIRE every
+  item scored.** *"Who is coming, and when?"* genuinely demands the person-word and the
+  time-word; a gist question demands neither. That makes it a **commissioning** constraint
+  rather than a judging one, which fits the standing law that an eavesdrop's exposures are
+  *declared at the knock seam* (`knock_exposures`), never mined from the memo text (07-26).
+  It is also not a new idea: the same 07-26 audit found *"a volley's items 2..n were never
+  counted as asked — `expected_target` names only item 1"*, and fixed it for volleys only.
+  **MEASURE BEFORE BUILDING:** re-read the last 16 tapes and count how many already carried
+  a drift question whose answer required more than one item. If the answer is "almost
+  none", the change is upstream in commissioning and the scoring change is downstream of
+  it. **Price it first:** `expected_target` str → list is a schema change to Python-owned
+  JSON (Gate 2), `CATCH_JUDGE_MANDATE` sits at a 300-word budget, and `knock_reply.py` and
+  `morning_knock.py` both carry code budgets. A real build, not the one-liner the cadence
+  half turned out to be.
+
 - **A THIRD-PARTY NAME GUARD ON THE PHONE-RECORD LANE — and the reason the obvious
   version cannot be built** (2026-08-30, proposed, NOT built; Gate 2 parks it — it is a
   new smoke case, which is exempt from budgets, but it needs a data surface that does

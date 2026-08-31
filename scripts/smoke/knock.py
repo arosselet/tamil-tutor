@@ -2067,6 +2067,77 @@ def s81_the_ear_judge_stamps_its_own_evidence(kr, sb: Path):
               any("resolves to no lexicon record" in line for line in out), f"got {out}")
         check("...and no unrelated row is stamped",
               not lex[target].get("heard_on"), f"got {lex[target]}")
+
+        # ── THE WORDS HE NAMED HIMSELF (2026-08-31) ──────────────────────
+        #
+        # The tape runs below the 95% coverage floor on purpose, so he catches a
+        # word or two out of eight and until now those vanished — only the one
+        # declared `expected_target` was ever scored. `apply_heard_words` keeps
+        # them, behind three guards, because the cheap version of this feature
+        # (promote every item the tape declared, off one gist verdict) invents
+        # evidence and is exactly what the 08-24 purge deleted 108 rows to undo.
+        #
+        # Gate 7.2 — what does this look like when it silently does nothing?
+        # Identical to a quiet tape: the verdict still lands, the reply still
+        # renders, the log still writes, and the ledger simply never hears about
+        # a word he genuinely caught. That is the state it shipped in for months.
+        # So every check below asserts the ROW, re-read after the call.
+        heard_key, off_tape = "வந்தாரு", "சொன்னேன்"
+        tape = {"beats": [{"ta": f"அவரு {heard_key} இன்னைக்கு"}]}
+        ek = {"expected_target": target, "memo_script": tape}
+        reply = "I caught vandhaaru, and something about today"
+
+        def fresh():
+            return {target: dict(base),
+                    heard_key: lex_row(gloss="he came", phonetic=["vandhaaru"], type="word"),
+                    off_tape: lex_row(gloss="I said", phonetic=["sonnen"], type="word")}
+
+        lex = fresh()
+        out = kr.apply_heard_words(
+            {"heard": [{"key": heard_key, "said": "vandhaaru", "verdict": "right"}]},
+            ek, lex, reply)
+        check("a word he named, that the tape really said, moves the ear",
+              lex[heard_key]["recognition"] == "comfortable", f"{out} / {lex[heard_key]}")
+        check("...and stamps the evidence behind it",
+              bool(lex[heard_key].get("heard_on")) and lex[heard_key].get("reps") == 1,
+              f"got {lex[heard_key]}")
+
+        # THE HALF THIS LEDGER NEVER HAD. Reading கேட்கல as "said" is a TESTED
+        # row, not an untested one — stamp it and withhold the promotion.
+        lex = fresh()
+        kr.apply_heard_words(
+            {"heard": [{"key": heard_key, "said": "vandhaaru", "verdict": "misread"}]},
+            ek, lex, reply)
+        check("a MISREAD word is recorded as tested",
+              bool(lex[heard_key].get("heard_on")) and lex[heard_key].get("reps") == 1,
+              f"got {lex[heard_key]}")
+        check("...and is NOT promoted for having been named",
+              lex[heard_key]["recognition"] == "struggled", f"got {lex[heard_key]}")
+
+        # Guard 2: the judge may not credit a span Andrew never typed.
+        lex = fresh()
+        out = kr.apply_heard_words(
+            {"heard": [{"key": heard_key, "said": "potten", "verdict": "right"}]},
+            ek, lex, reply)
+        check("a span that is not in his reply is refused, loudly",
+              any("not in his reply" in line for line in out), f"got {out}")
+        check("...and the row is untouched", not lex[heard_key].get("heard_on"))
+
+        # Guard 3: and not for a word the tape never spoke.
+        lex = fresh()
+        out = kr.apply_heard_words(
+            {"heard": [{"key": off_tape, "said": "sonnen", "verdict": "right"}]},
+            ek, lex, "I heard sonnen in there", )
+        check("a word the tape never said is refused, loudly",
+              any("the tape never said it" in line for line in out), f"got {out}")
+        check("...and that row is untouched", not lex[off_tape].get("heard_on"))
+
+        # And the declared target is not scored twice.
+        lex = fresh()
+        kr.apply_heard_words({"heard": [{"key": target, "said": "aam", "verdict": "right"}]},
+                             ek, lex, "I caught aam")
+        check("the declared target is left to apply_catch_verdict",
+              not lex[target].get("heard_on"), f"got {lex[target]}")
     finally:
         lex_path.write_bytes(saved)
 
