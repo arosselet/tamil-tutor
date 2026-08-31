@@ -1,11 +1,14 @@
 # The One-Year Comprehension Goal — open planning
 
-> **Status: PARTLY EXECUTED as of 2026-08-25.** It sat open for seven days while the commit log
-> filled with a spine refactor and a smoke-test split — good work, and not this work. On
-> 2026-08-25 Andrew read it back and said *"adjust our system towards meeting our goals"*, and
-> four of the six proposed changes landed that day (§6 below, marked ✅), with five entries in
-> `docs/DECISIONS.md` following from it. **The goal in §5 is still NOT adopted** — question 1 is
-> the live edge and nothing downstream of it is settled. Resume at **Open Questions**.
+> **Status: GOAL ADOPTED 2026-08-31.** It sat open for seven days, then thirteen more. §5 is now
+> settled and question 1 is closed. What changed the answer was not new ambition but a
+> measurement: the ear is sampled once every 72 hours on ONE word (§3, corrected 2026-08-31), so
+> the 0.13 upgrades/day this document built its 40x gap on is a property of the instrument, not
+> of Andrew. The destination in §5 is therefore bounded by **register** rather than by tier, and
+> its checkpoints are denominated in a meter being repaired the same week.
+>
+> Four of the six proposed changes landed 2026-08-25 (§6, marked ✅), with five entries in
+> `docs/DECISIONS.md` following from it. Resume at **Open Questions**.
 >
 > **Read this document for its shape, not only its conclusions.** It measures the OUTCOME rather
 > than the machine, which nothing else in the repo does; it reports per-row transitions because
@@ -98,6 +101,16 @@ Tier C in 365 days needs roughly 1,500-2,000 items at verified solid recognition
 the pattern inventory, so **~5 items/day sustained**. Measured rate is **0.13/day**. A **~40x
 gap**; ~20x even if the target is scoped down to 1,000 items.
 
+> **CORRECTED 2026-08-31, and the correction is load-bearing.** That rate is honest as a count
+> and wrong as a rate of *learning*. Recognition has exactly one live test instrument — the
+> eavesdrop tape — and `knock_reply.apply_catch_verdict` scores a single `expected_target` per
+> tape, on a lane that fires every third day: **0.32 ear-tests/day against ~2-3 mouth-tests.**
+> Measured row-by-row from git, 07-25 to 08-31: **79 production upgrades, 8 recognition
+> upgrades** — a 10x gap that instrument cadence alone very nearly explains. The hit rates run
+> the other way (ear ~67%, mouth ~37%): tested, the ear passes more often than the mouth. **The
+> 40x gap prices a broken meter.** Not retracted — the throughput problem in §4 is real and
+> unchanged — but it can no longer be read as a ceiling on capacity.
+
 ---
 
 ## 4. Verdict
@@ -113,23 +126,70 @@ because almost nothing feeds or tests it.
 
 ---
 
-## 5. Proposed goal (not yet adopted)
+## 5. The goal — ADOPTED 2026-08-31
 
-> **By August 2027: when someone speaks to me directly at the table about everyday things, I
-> follow the sentence — not just the topic — and I need a repeat only when it is fast or carries
-> a word I do not know. In multi-party talk, I reliably follow who did what to whom.**
+> **By August 2027: when the family talks at the table about the things they talk about every
+> day — food, plans, who is coming, health, the day just had — I follow the SENTENCES, not just
+> the topic. And I open turns nobody invited me into.**
 
-Tier B plus the useful half of Tier C. Testable with instruments that already exist (eavesdrop
-tape plus directed-speed ambush). Tier C proper: 2-3 years.
+**Bounded by register, not by tier — and that is the whole choice.** Tier B relaxes the
+*environment* and buys accommodated speech, which is the wrong room: people slow down for the
+foreigner, and the table does not. Tier C relaxes nothing and stays 2-3 years. This relaxes the
+**range**: the table, at native speed, unaccommodated, on the topics that recur — not the jokes,
+not the cross-talk, not forty years of shared reference. It is the first slice of Tier C rather
+than a lesser destination, so year-one work and year-three work are the same work.
+
+The pedagogy under it: the coverage threshold (~95% known words for adequate listening) is
+reached **per register, not globally.** That is why films are a separate ladder rather than a
+later rung, and why a bounded band is the only place the threshold is reachable early enough to
+start compounding.
+
+**The second clause is the harder one.** Every mission Andrew has ever fired was an ANSWER to
+something said to him; four died unfired because they required him to open (08-26). The system
+then made "a mission must be an answer" law — correct for mission design, and it means the
+system is now optimised for the slot he is already good at. **Participation at a table is
+initiation**, and it is currently unmeasured.
+
+**Load-bearing assumption, and the check:** that a family table is not open-domain. Ten minutes
+of harvested, native-ruled family speech yields the distinct-root inventory of *his* table —
+which is also the Tamil-specific coverage data question 4 says this document never had. That
+measurement expires with the return flight.
 
 ### Checkpoints
 
-| by | target |
-|---|---|
-| Nov 2026 | machines heard 13/26 · daily eavesdrop channel live · input >=30 min/day |
-| Feb 2027 | machines heard 22/26 · native media is the primary source · 400+ verified-solid roots |
-| May 2027 | full pattern inventory mapped (~60), half solid · 800+ roots |
-| Aug 2027 | Tier B holds under test · 1,200+ roots · Tier C partial |
+Denominated in a meter being repaired the same week. Re-base them at the first Receptive Check
+rather than defending them.
+
+| by | target | confidence |
+|---|---|---|
+| Sep 2026 | table denominator measured from harvested speech · the words he names in a tape are recorded instead of discarded · ear block logged 5 days in 7 | the middle one shipped 2026-08-31 |
+| Dec 2026 | machines heard 10/26 · 120+ verified-solid roots · first Receptive Check logged | good on machines: finite, high-frequency, they convert fast once actually tested |
+| Mar 2027 | machines 16/26 · 250+ roots · one channel followed without subtitles | moderate |
+| Aug 2027 | machines 20/26 · ~400 roots · the recurring band holds under a harvested-clip test · turns opened unprompted at the table | the roots figure is the soft one — re-base it in December |
+
+**Retired from the set:** `Nov 2026 — machines heard 13/26`, which priced a learning rate off a
+broken measuring rate. The row's other two clauses (daily eavesdrop channel, input >=30 min/day)
+survive in the habits below.
+
+### The habits — two, and only two
+
+A five-habit plan fails against a documented fade (May 2026) and the Enjoyment Clause.
+
+1. **One ear block a day, 20-30 min, attached to a routine that already exists** — the walk, the
+   dishes, the commute; never a new desk slot. One family or cooking vlog channel, re-watched.
+   English subtitles on the first pass for plot, **none on the re-watch**, which is where the ear
+   does its work. Same-language subtitles would be better and are not yet readable at speed.
+2. **The daily eavesdrop tape** — after the scoring fix it is both the dose and the meter, it
+   arrives on the phone, and it costs no new time at all.
+
+The chat session stays exactly as it is: the production probe, ~3 fires. **Do not double it.** A
+second chat session doubles the axis already at 21/21 and leaves the one at 3/26 untouched.
+
+**Why the media lane produced nothing in its first six days** (checked 2026-08-31: zero mentions
+across the whole span of `chat.md`, Receptive Growth Log still empty). It closes with *"it
+replaces nothing and is owed nothing"* — it was written as a **permission**, and permissions do
+not produce behaviour. That sentence is the Enjoyment Clause doing its job and it should stay for
+everything else; habit 1 is the single exception that gets to be asked for.
 
 ---
 
@@ -177,13 +237,17 @@ tape plus directed-speed ambush). Tier C proper: 2-3 years.
 
 ## 7. Open questions — resume here
 
-1. **Adopt the Tier B goal, or re-scope?** STILL OPEN and still the live edge — the 08-25 work
-   changed the machine's direction, not the destination. Andrew has since named an intermediate
-   marker in his own words that is worth scoping against: *"reaching a point where I can start
-   more enjoying Tamil movies would be a huge unlock."* That is nearer than Tier C and further
-   than Tier B, and it is testable by simply trying it.
-2. **Re-test the 76 untested "solid" rows.** No projection here is trustworthy until the
-   baseline is real. What is the cheapest way to re-test at volume — batch eavesdrop tapes?
+1. ~~**Adopt the Tier B goal, or re-scope?**~~ **ANSWERED 2026-08-31 — re-scoped, and it is
+   neither B nor C.** Why it sat open thirteen days: the A/B/C ladder is receptive-only, Andrew's
+   goal has a production half (*"and participate"*), and you cannot pick a rung when half the
+   goal is not on the ladder. The dimension relaxed is the **range**; the horizon on unrestricted
+   Tier C stays 2-3 years and is explicitly not what he is committing to. The movie marker is
+   **not** the intermediate target it was proposed as here — films are open-domain and
+   native-speed, and coverage is reached per register, so they are a separate ladder. See §5.
+2. **Re-test the untested "solid" rows.** ~~76~~ — **10 as of 2026-08-31**: the 08-24 purge
+   dropped 108 unearned rows and the headline went *up*. Largely answered by deletion rather than
+   by re-testing. What survives is the general question — how to test recognition at volume — and
+   the multi-target eavesdrop change is the first real answer to it.
 3. **The wife question** (item 6). Genuinely Andrew's decision, RAISED AND NOT ANSWERED
    2026-08-25 — and the broad framing was withdrawn as too vague to act on. The narrow version,
    which asks nobody to become a teacher: when he does not catch something, use the antifreeze
