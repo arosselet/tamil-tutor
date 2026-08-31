@@ -5986,5 +5986,20 @@
     "body": "🎯 Tonight at dinner: someone asks something you don't know. Don't say 'puriyala'. Fire 'theriyala' (don't know). Debrief tomorrow.",
     "expected_target": "தெரியல",
     "target_revealed": true
+  },
+  {
+    "date": "2026-08-31",
+    "timestamp": "2026-08-31T06:31:13.986323+00:00",
+    "acted": true,
+    "modality": "fielding",
+    "move": "fielding: table refusal",
+    "rationale": "Lunchtime fielding rep on the table declining set — test parsing Maami's urge to overfeed and firing the polite refusal.",
+    "next_check": "2026-08-31T11:01:13.986323+00:00",
+    "body": "🍛 Maami at your elbow: \"innum konjam saapdunga!\" — wave her off politely.",
+    "expected_target": "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-31T06-31.mp3",
+    "memo_script": "தம்பி, இன்னும் கொஞ்சம் சாதம் வைக்கவா? இன்னும் கொஞ்சம் சாப்பிடுங்க!",
+    "mp3": "published_audio/knocks/knock_2026-08-31T06-31.mp3"
   }
 ]

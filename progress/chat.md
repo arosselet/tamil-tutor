@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Monday 2026-08-31
+
+**12:01 · Anna** 🎧  ·  fielding / fielding: table refusal
+> 🍛 Maami at your elbow: "innum konjam saapdunga!" — wave her off politely.
+
+
 ## Sunday 2026-08-30
 
 **08:24 · Anna** 🎧  ·  eavesdrop / eavesdrop: myself thukka
