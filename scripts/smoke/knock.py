@@ -320,10 +320,22 @@ def s8_variety_and_decay(mk, kr, sb: Path):
     })
     menu = mk.due_menu_block()
     check("never-soaked item flagged UNSEEN", "UNSEEN" in menu, menu)
+    # A DELIVERY STAMP MUST NOT CLEAR IT (2026-08-31). This asserted the opposite
+    # until Andrew named the symptom: a soak tape saying a word retired that
+    # word's Teach Beat and dropped it straight into the cold-quiz pool. The
+    # knock menu reads the same `is_unseen` the session ticket does, so the gate
+    # has to hold on BOTH doors — see state.s86 for the law and the round trip.
     lex = read_json(lex_path)
     lex["வணக்கம்"]["last_surfaced"] = "2026-07-01"
+    lex["வணக்கம்"]["exposures"] = 4
     write_json(lex_path, lex)
-    check("soaked item loses the UNSEEN flag", "UNSEEN" not in mk.due_menu_block())
+    check("a soak stamp does NOT clear UNSEEN on the knock menu",
+          "UNSEEN" in mk.due_menu_block(),
+          "the knock lane is quizzing a word only a tape ever delivered")
+    lex = read_json(lex_path)
+    lex["வணக்கம்"]["seen_in"] = [60]
+    write_json(lex_path, lex)
+    check("...and an episode teaching it does", "UNSEEN" not in mk.due_menu_block())
 
 
 def s14_reply_correlation(kr):
@@ -769,6 +781,18 @@ def s13_eavesdrop(mk, kr, sb: Path):
         mk.last_eavesdrop = fired(mk.EAVESDROP_CADENCE_DAYS + 1)
         lapsed = mk.remaining_room([], now_local)
         check("a lapsed cadence brings it back", "Eavesdrop:" in lapsed, lapsed)
+
+        # THE CADENCE VALUE ITSELF (2026-08-31, 3 -> 1). Everything above is written
+        # against the constant on purpose — "the clock is the constant, never a
+        # literal" — which is right for the mechanism and blind to the number. A raise
+        # back to 3 would leave this whole case green while the ear went back to being
+        # sampled twice a week, and that is the exact shape of a silent no-op: the
+        # meter that decides the year's checkpoints, quietly slowed, suite still green.
+        # So assert the CONSEQUENCE of the value: yesterday's tape is already overdue.
+        mk.last_eavesdrop = fired(1)
+        daily = mk.remaining_room([], now_local)
+        check("a one-day-old eavesdrop already reads as lapsed (the cadence is daily)",
+              "Eavesdrop:" in daily, daily)
 
         # THE SILENT-NO-OP GUARD ITSELF. The `except` must swallow a crash — that
         # is its job — but the case has to prove the block is doing work at all,

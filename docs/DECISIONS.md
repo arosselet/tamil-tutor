@@ -40,6 +40,30 @@ Details live in git history; this is the index of the *conclusions*.
 
 ## Settled design decisions
 
+- **A tape is not a teacher — delivery never closes the teach gate** (2026-08-31, Andrew).
+  *"I can't catch a word I don't know in the first place."* `is_unseen` read
+  `last_surfaced` — the DELIVERY stamp the soak sheet, drill sheet, knock push and queue
+  drain all write, lanes the constitution gives no teaching authority ("EXPOSE, don't
+  drill"). Only the seed episode teaches on the audio side, and it stamps `seen_in`. So a
+  soak loop retired a word's Teach Beat into the cold-quiz pool: **51 rows** sat there,
+  delivered, never taught. **Second instance of "Hearing is not knowing"
+  (08-23)** — that pass fixed the ear meter and never touched the teach gate. **No schema
+  moved:** a deletion, retiring the predicate's double duty. **Residual, not fixed:**
+  `seen_in` also records `callbacks_used`, so **83 rows** claim a teaching that was only an
+  appearance; splitting taught from appeared is Andrew's call. Smoke `s86`.
+
+- **The shape owns the hour; the ear owns the targeting** (2026-08-31, Andrew). *"A
+  predictable format has appeared… I never really asked for the middle two in this
+  order."* The template WAS the invariant list read top to bottom: 08-25 turned invariant 2
+  from a **quantity** rule into a **sequence**, leaving the day's shape nothing to own, and
+  deleted the parenthetical binding session form to *formats drift like content*.
+  **Amends, does not reverse, "Input first"** — the ear still outranks the ticket in
+  `Targeting`, where WHICH is decided; it no longer owns WHEN. **No budget raise**
+  (1320/1320): retired the Load block's "Become Anna", the header's `Reads state` list,
+  "no agreement gate", "never a fraction". **Residual:** nothing records yesterday's shape,
+  so the variety law binds judgement only — the knock lane has cooldown machinery, the
+  session lane got KF-8's prose half and never its plumbing half. Earn it on evidence.
+
 - **Input first; production is the probe, not the outcome** (2026-08-25, Andrew). His words:
   *"my goal has really been input first. First I need to understand, then I can work on
   responding… Production is a goal yes, but it came to be of such importance in our system

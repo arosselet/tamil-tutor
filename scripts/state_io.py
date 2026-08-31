@@ -255,8 +255,31 @@ def soak_pending() -> bool:
 
 
 def is_unseen(rec: dict) -> bool:
-    """Never soaked anywhere — no episode appearance, never surfaced. The
-    teach-first law hangs on this: an UNSEEN item may be TAUGHT (shown, with its
-    meaning) but never cold-quizzed. One definition; the knock menu, the volley
-    picker, and the session ticket all read it."""
-    return not rec.get("seen_in") and not rec.get("last_surfaced")
+    """Never TAUGHT — no episode has carried it. The teach-first law hangs on
+    this: an UNSEEN item may be TAUGHT (shown, with its meaning) but never
+    cold-quizzed. One definition; the knock menu, the volley picker, and the
+    session ticket all read it.
+
+    IT NO LONGER READS `last_surfaced` (2026-08-31, Andrew: "I can't catch a
+    word I don't know in the first place"). That field is the DELIVERY stamp —
+    `mark_exposed` writes it from the soak sheet, the drill sheet, the knock
+    push and the queue drain — and the constitution grants those lanes no
+    teaching authority at all: "EXPOSE, don't drill" is the instruction they
+    ship under. Only the seed episode teaches on the audio side ("captions
+    doing the heavy lifting"), and that path stamps `seen_in`. So one soak loop
+    repeating a word was silently retiring that word's right to ever get a
+    Teach Beat, and it went straight into the cold-quiz pool instead. 51 rows
+    were sitting in exactly that state when this was found — delivered by a
+    tape, never taught, quizzable.
+
+    THE SILENT NO-OP THIS CLOSES: a never-taught word and a taught one were
+    byte-identical to every reader, so the gate could not fail loudly — it just
+    produced a demand for a word Andrew had never met, which reads as Anna
+    being careless rather than as a predicate reading the wrong field.
+
+    KNOWN RESIDUAL, not fixed here: `seen_in` records every word a sidecar
+    declares, including `callbacks_used` — so an episode still credits itself
+    with teaching words that merely rode past as callbacks. 83 rows carry a
+    `seen_in` they were never a `new_words_landed` payload for. Closing that
+    needs a taught/appeared split the schema does not yet have."""
+    return not rec.get("seen_in")

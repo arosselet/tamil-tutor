@@ -61,9 +61,9 @@ def s16_stale_clone_gates(sb: Path):
     check("clean payload passes through",
           ss.canon_payload(["a", "b"]) == ["a", "b"])
 
-    check("no record → unseen", fx.si.is_unseen({}))
-    check("surfaced → not unseen", not fx.si.is_unseen({"last_surfaced": "2026-07-01"}))
-    check("in an episode → not unseen", not fx.si.is_unseen({"seen_in": ["M60"]}))
+    # The is_unseen trio moved to s86 (2026-08-31), which owns the teach gate and
+    # round-trips it through the real writer. One of the three asserted the bug:
+    # "surfaced → not unseen" was a soak stamp closing the gate.
 
     trailer = {"date": "2026-07-15", "move": "session bell trailer", "body": "ஆச்சு today"}
     volley = {"date": "2026-07-15", "move": "afternoon volley", "body": "…"}
@@ -3081,3 +3081,83 @@ def s80_one_produced_resolver(sb: Path):
     finally:
         lp.write_bytes(saved)
         eps.write_bytes(saved_eps)
+
+
+def s86_a_tape_is_not_a_teacher(sb: Path):
+    """Delivery is not first contact (2026-08-31, Andrew).
+
+    His words: *"I keep encountering words, where I think Anna thinks I have
+    exposure, but this was via an audio lesson, and then suddenly I'm asked a
+    question that hinges on understanding a particular word. I feel I never
+    learned this word and Anna looks in the record and says I gave it to you in
+    several episodes. But I can't catch a word I don't know in the first
+    place."*
+
+    `is_unseen` — the one gate standing between a word and a cold quiz — read
+    `last_surfaced`, which is the DELIVERY stamp `mark_exposed` writes from the
+    soak sheet, the drill sheet, the knock push and the queue drain. None of
+    those lanes teach; "EXPOSE, don't drill" is the instruction they ship
+    under, and the constitution gives the audio side exactly one teaching path
+    (the seed episode, captions doing the heavy lifting), which stamps
+    `seen_in`. So one soak loop repeating a word retired that word's right to
+    ever get a Teach Beat. 51 rows were in that state when this was found.
+
+    Second instance of "hearing is not knowing" (2026-08-23) — that pass fixed
+    the *ear meter* (`heard_on`) and never touched the *teach gate*, which is
+    why the same complaint came back a week later.
+
+    THE SILENT NO-OP, stated: a never-taught word and a taught one were
+    byte-identical to every reader, so nothing could fail loudly — the gate just
+    produced a demand for a word he had never met, which reads as Anna being
+    careless rather than as a predicate reading the wrong field. So this asserts
+    the EFFECT in the dimension that failed, round-tripped through the real
+    writer: after the soak lane stamps a word, re-read from disk, the word is
+    STILL teachable and STILL reaches Anna's real ticket carrying its warning.
+
+    The other half has teeth too: exposure must keep working. Deleting the stamp
+    would also "fix" the symptom, and would silently break the background
+    rotation loop that turns coverage from hoped-for into guaranteed."""
+    print("\n86. A tape is not a teacher — delivery never closes the teach gate (2026-08-31)")
+    import subprocess as _sp
+    ss = importlib.import_module("sync_state")
+    lex_path = sb / "progress" / "lexicon.json"
+    saved = lex_path.read_bytes()
+    try:
+        # The pure predicate, both directions.
+        check("no record → unseen", fx.si.is_unseen({}))
+        check("a delivery stamp alone → STILL unseen",
+              fx.si.is_unseen({"last_surfaced": "2026-07-01", "exposures": 9}))
+        check("an episode taught it → not unseen",
+              not fx.si.is_unseen({"seen_in": ["M60"]}))
+
+        # ROUND TRIP THROUGH THE REAL WRITER. `record_exposure` is the seam the
+        # soak sheet, drill sheet, knock push and queue drain all call.
+        word = "ஸ்மோக்தேநீர்"
+        lex = read_json(lex_path)
+        lex[word] = lex_row(gloss="smoke tea", phonetic=["smoke-thaneer"],
+                            register="survival")
+        write_json(lex_path, lex)
+
+        marked = ss.record_exposure([word])
+        check("the soak lane's stamp still lands", marked == [word])
+
+        row = read_json(lex_path)[word]          # re-read from disk, not memory
+        check("...and it really wrote the delivery stamp",
+              bool(row.get("last_surfaced")) and row.get("exposures") == 1,
+              f"got last_surfaced={row.get('last_surfaced')!r} "
+              f"exposures={row.get('exposures')!r} — exposure must keep working; "
+              f"it is what closes the background rotation loop")
+        check("...and the word is STILL teachable afterwards",
+              fx.si.is_unseen(row),
+              "a tape delivered it and the teach gate closed — this is the bug")
+
+        # And the absence must be LOUD where Anna can act on it: the real ticket
+        # has to carry the warning, or the predicate is right and nothing reads it.
+        ticket = _sp.run([sys.executable, str(sb / "scripts" / "suggest_targets.py")],
+                         cwd=sb, capture_output=True, encoding="utf-8",
+                         errors="replace").stdout
+        check("the ticket still warns UNSEEN — teach first, never cold-quiz",
+              "UNSEEN" in ticket,
+              "the gate is right but nothing reads it — an absence must be loud")
+    finally:
+        lex_path.write_bytes(saved)
