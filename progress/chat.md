@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **12:01 · Anna** 🎧  ·  fielding / fielding: table refusal
 > 🍛 Maami at your elbow: "innum konjam saapdunga!" — wave her off politely.
 
+**20:15 · Anna**  ·  text / show dose: adhukku approm
+> When mama tells a story: 'adhukku approm?' (after that?) keeps him going all night. One line to hold the table.
+
 
 ## Sunday 2026-08-30
 

@@ -6001,5 +6001,17 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-31T06-31.mp3",
     "memo_script": "தம்பி, இன்னும் கொஞ்சம் சாதம் வைக்கவா? இன்னும் கொஞ்சம் சாப்பிடுங்க!",
     "mp3": "published_audio/knocks/knock_2026-08-31T06-31.mp3"
+  },
+  {
+    "date": "2026-08-31",
+    "timestamp": "2026-08-31T14:45:48.076862+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "show dose: adhukku approm",
+    "rationale": "Evening wind-down after two strong sessions; zero-demand show dose introducing an unseen table connector before night.",
+    "next_check": "2026-09-01T02:15:48.076862+00:00",
+    "body": "When mama tells a story: 'adhukku approm?' (after that?) keeps him going all night. One line to hold the table.",
+    "expected_target": "",
+    "target_revealed": true
   }
 ]
