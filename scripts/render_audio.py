@@ -623,10 +623,30 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
                 created += 1
                 continue
             if key:
-                seen = lexicon[key].setdefault("seen_in", [])
-                if mnum not in seen:
-                    seen.append(mnum)
-                    seen.sort()
+                # TAUGHT IS NOT APPEARED (2026-09-01, Andrew). Only
+                # `new_words_landed` stamps seen_in. A callback is a word riding
+                # PAST in a scene, and the constitution grants an appearance no
+                # teaching authority — yet BOTH buckets stamped this field, so
+                # every episode credited itself with teaching each word it
+                # merely reused. That is how தெரியும் reached the cold-quiz
+                # pool: *"you haven't taught me theriyum so I haven't known to
+                # reach for it"* (ledger, 08-29).
+                #
+                # The split needs NO SCHEMA: seen_in is TAUGHT, and the
+                # exposures / last_surfaced that mark_exposed writes below are
+                # APPEARED. Both already existed; one write site conflated them,
+                # which is why the comment above ("seen_in stays pure
+                # provenance") described an intent the code did not keep.
+                #
+                # Second half of "A tape is not a teacher" (08-31) — that pass
+                # fixed is_unseen, the READER, and left this WRITER minting the
+                # very rows it was reading. Callbacks keep their exposure stamp;
+                # they lose only the teaching claim they never earned.
+                if key in new_word_keys:
+                    seen = lexicon[key].setdefault("seen_in", [])
+                    if mnum not in seen:
+                        seen.append(mnum)
+                        seen.sort()
                 mark_exposed(lexicon, [key], phon_index=phon, today=today)
                 tagged += 1
             else:

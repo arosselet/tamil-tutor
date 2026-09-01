@@ -1,0 +1,160 @@
+THE REPS ARE MINE — POST 1 OF 5
+It started deciding when to talk to me
+
+Drafted 2026-09-01. Every count below was re-derived against the repo that
+morning, per the plan's own rule. Plan artifact: "The Reps Are Mine".
+
+
+================================================================================
+POST BODY  (1,922 characters · 351 words)
+================================================================================
+
+This morning my phone told me that one letter flips "kekkuren" (I'm asking) to
+"keppen" (I'll ask), and that elders catch it instantly. I read it off the lock
+screen without unlocking, typed a reply, and got a correction back.
+
+Nobody scheduled that. There is no app to open. A cron tick woke the thing, and
+it decided on its own that this was a moment worth spending.
+
+I spent a year building a Tamil tutor so I could answer my wife's family in their
+own Kongu Tamil. The part I did not expect to matter most is that it reaches me
+first.
+
+The split that makes that safe:
+
+Python owns the rails, and only the rails. WAKING_START_HOUR = 8.
+WAKING_END_HOUR = 21. MAX_REACHES_PER_DAY = 5. MIN_GAP_HOURS = 3. Four constants
+in one file. The model cannot cross them because it is never asked.
+
+The model owns whether, what and how. Eight forms are available to it: a line of
+text, a challenge with something at stake, a sixty-second voice memo in its own
+pinned voice, an eavesdrop on two people talking at native speed, and silence.
+
+Silence is the one I would build first if I started over. 14 of 175 logged
+decisions were to say nothing. A system with no way to write down "not now"
+fires every single time it wakes.
+
+The other guard is about honesty rather than volume. If the notification already
+printed the Tamil, typing it back caps at "hinted" — deterministic code reads the
+outgoing text, and the grader gets no vote. That rule exists because on 27 July I
+replied "Oru nimsham" and was credited for two words that appear nowhere in it.
+
+The ancestor of all this is my favourite thing in the repo. 25 February, 14:52: I
+shipped a public RSS feed. 21:35 the same day: I deleted what it replaced, a
+contraption where phone-Gemini wrote a JSON blob, I shared it to a webhook, it
+parked as a text entity in Home Assistant, and I hoped my laptop would eventually
+pick it up. Right dream, wrong transport, seven hours apart.
+
+
+================================================================================
+FIRST COMMENT
+================================================================================
+
+LinkedIn suppresses reach on posts carrying an outbound link in the body, so the
+link goes here, posted immediately after the post.
+
+Repo, if you want the rails: github.com/arosselet/tamil-tutor — morning_knock.py
+holds the four constants, knock_reply.py holds the credit cap.
+
+Curious whether anyone else has shipped an agent that's allowed to decide not to
+speak, and what you did with the logging.
+
+Optional hashtags, appended to this comment rather than the post:
+#LLM #AgentDesign #LanguageLearning
+
+
+================================================================================
+STRUCTURE NOTES
+================================================================================
+
+Length. 1,922 characters against a 3,000 hard limit; 1,300–2,000 is where posts
+of this kind hold attention without a "see more" that costs the reader anything.
+
+The fold. Mobile truncates around 210 characters. The cut lands inside the first
+paragraph, after "without unlocking" — a complete scene has already played, and
+the thing that makes it strange (nobody scheduled it) is on the other side.
+
+Paragraphs are one to three lines with blank lines between. Long blocks collapse
+into grey on a phone.
+
+The engagement ask is in the comment, not the post. The plan's voice rules forbid
+the aphorism close and anything "tuned at the reader"; LinkedIn's mechanics want
+a question. Keeping the body flat and putting a real question in the comment
+satisfies both. The body stops on the Home Assistant anecdote and does not
+explain itself.
+
+Voice rules obeyed, from the plan: no punchy fragment opener (opens mundane and
+concrete, the interesting part arrives in the third paragraph); no aphorism at
+the end; no balanced dash-clauses in bulk; no headline tuned at the reader; no
+claim without a receipt; no last paragraph.
+
+
+================================================================================
+RECEIPTS  (re-derived 2026-09-01)
+================================================================================
+
+Rails            WAKING_START_HOUR = 8, WAKING_END_HOUR = 21 in publish.py;
+                 MAX_REACHES_PER_DAY = 5, MIN_GAP_HOURS = 3 in morning_knock.py.
+
+Modalities       MODALITIES in morning_knock.py — text, audio, challenge, volley,
+                 eavesdrop, fielding, grace, silence. Eight.
+
+Silence          14 of 175 rows in progress/knock_log.json, spanning
+                 2026-06-30 → 2026-09-01. Full split: text 72, volley 21,
+                 audio 19, challenge 17, eavesdrop 16, silence 14, fielding 11,
+                 grace 2, plus 3 rows predating the modality field.
+
+Credit cap       shown_in_knock() in knock_reply.py — if the knock's own body,
+                 memo script or any recast in the chain contained the Tamil, the
+                 reply caps at "hinted". Its twin said_in_reply() carries the
+                 2026-07-27 incident in its docstring: reply "Oru nimsham" fired
+                 கொஞ்சம் + நில்லுங்க, neither of which is in the reply.
+
+Feb 25           7ff602a "implement public podcast RSS feed via GitHub Pages" at
+                 14:52 -0500. 0a7c5cc "Purge Home Assistant sync" at 21:35 -0500.
+                 Feed first, tunnel second — the plan artifact and JOURNEY.md
+                 both had this backwards until 2026-09-01.
+
+Not used         July authorship. 567 commits by author-date: 237 by
+                 github-actions[bot], 37 by the agent, 293 by me. Cut from the
+                 post as a fourth mechanism in a post that already carries three.
+                 Use the bot count alone if it comes up in the comments — that
+                 one is unarguable.
+
+
+================================================================================
+IMAGE PROMPT
+================================================================================
+
+Square, 1200x1200. No text in the image: image models mangle Tamil script, and
+LinkedIn crops overlays on mobile.
+
+  An editorial photograph, square format, of a smartphone lying face-up on a
+  worn teak table in a South Indian home at late morning. Hard midday sun comes
+  through a window grille off-frame left, throwing a sharp diamond-lattice
+  shadow across the table and half the phone. The screen is lit with a single
+  notification card, legible as a shape but not as words — a pale rectangle, one
+  line of small dark text, no app chrome. Beside the phone: a stainless steel
+  tumbler with condensation, a folded cotton napkin, a few grains of rice.
+  Nothing else. Nobody in frame.
+
+  Palette restricted and warm-neutral: bone and pale sage table light (#E9EBE4),
+  deep olive-black shadow (#15180F), one accent of brick red (#9C3520) in the
+  napkin, one muted pine green (#35564C) in the tumbler's reflection. Matte,
+  slightly desaturated, fine film grain, no glossy highlights.
+
+  Shot on 50mm at f/4, slightly overhead three-quarter angle, shallow but not
+  blurry depth of field. Documentary stillness. Composed with generous negative
+  space in the lower third.
+
+  Absolutely no: glowing circuits, neural network motifs, blue tech lighting,
+  holograms, robots, hands, floating UI elements, lens flare, text overlays,
+  logos, watermarks.
+
+The palette is lifted from the plan artifact, so the five posts will read as one
+series if the same treatment carries across all of them.
+
+ALTERNATE, less literal — same palette and grain, but a flat riso-print diagram:
+a horizontal 24-hour band, the 8–21 window in bone against olive, five brick tick
+marks unevenly spaced across it with visible gaps, one tick drawn as a hollow
+outline instead of solid. No labels. Riskier to land, stronger if it does.

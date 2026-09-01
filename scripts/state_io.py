@@ -277,9 +277,20 @@ def is_unseen(rec: dict) -> bool:
     produced a demand for a word Andrew had never met, which reads as Anna
     being careless rather than as a predicate reading the wrong field.
 
-    KNOWN RESIDUAL, not fixed here: `seen_in` records every word a sidecar
-    declares, including `callbacks_used` — so an episode still credits itself
-    with teaching words that merely rode past as callbacks. 83 rows carry a
-    `seen_in` they were never a `new_words_landed` payload for. Closing that
-    needs a taught/appeared split the schema does not yet have."""
+    THAT RESIDUAL IS NOW CLOSED (2026-09-01, Andrew). `seen_in` used to record
+    every word a sidecar declared, `callbacks_used` included, so an episode
+    credited itself with teaching words that merely rode past. The split needed
+    NO new schema in the end: `seen_in` is TAUGHT and `exposures` /
+    `last_surfaced` are APPEARED — both already existed, and one write site in
+    `render_audio` conflated them. Only `new_words_landed` stamps this field now.
+
+    Two measurements shaped that fix and are worth keeping. The 83-row estimate
+    did not survive replaying all 278 rows against the sidecars: 192 are
+    genuinely taught, 78 are UNDECIDABLE (episodes 6..41 predate sidecars, so no
+    evidence exists either way), and only 8 are provably appeared-only. And the
+    cheap predicate — `exposures == 0` — is FALSE: it selects 95 rows of which
+    69 are genuinely taught, so adjudication has to read the sidecars, not the
+    counter. `sync_state untaught` cleared the 26 rows that survived every
+    guard; the guards spared anything he had produced, because graduation is
+    final (07-26)."""
     return not rec.get("seen_in")

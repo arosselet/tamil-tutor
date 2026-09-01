@@ -1464,18 +1464,10 @@ def s53_evidence_gates_the_ear(sb: Path):
               ss.compute_machines(after)["heard"] == 2,
               f"got {ss.compute_machines(after)}")
 
-        # --- the one-shot: an absence must be LOUD ---------------------------
-        lex2 = read_json(lex_path)
-        lex2.pop("frame:earned")
-        write_json(lex_path, lex2)
-        out = _io.StringIO()
-        with contextlib.redirect_stdout(out):
-            rc = ss.cmd_backfill_evidence(_ap.Namespace(apply=False))
-        check("a backfill row that no longer resolves is reported",
-              "frame:earned" not in out.getvalue() or "not in the lexicon" in out.getvalue(),
-              f"got {out.getvalue()!r}")
-        check("...and it exits non-zero so CI can see it",
-              rc == 1, f"got rc={rc}")
+        # The one-shot that used to be asserted here was `backfill-evidence`,
+        # and it is spent (all six rows carry `heard_on`). The rotating slot now
+        # holds `untaught`, whose loud-absence property is asserted by s88 —
+        # this case keeps the half that is permanent: `heard_on` gates the ear.
     finally:
         lex_path.write_bytes(saved)
 
@@ -3257,3 +3249,122 @@ def s87_form_is_a_choice_per_order(sb: Path):
     finally:
         learner_path.write_bytes(saved[0])
         lex_path.write_bytes(saved[1])
+
+
+def s88_taught_is_not_appeared(sb: Path):
+    """A callback is not a lesson (2026-09-01, Andrew).
+
+    His words: *"I've built an agent that asks me a couple questions, gives me a
+    bit of feedback, and gives me the illusion of progress."* Underneath the
+    feeling was a real defect: `render_audio` stamped `seen_in` for BOTH
+    `new_words_landed` AND `callbacks_used`, so every episode credited itself
+    with teaching each word it merely reused. `seen_in` is the one gate between
+    a word and a cold quiz (`is_unseen`), so words that had only ever ridden
+    past in a scene were quizzable as though taught — which is what produced
+    *"you haven't taught me theriyum so I haven't known to reach for it"*
+    (ledger, 08-29).
+
+    THIRD instance of "hearing is not knowing": 08-23 fixed the ear meter,
+    08-31 fixed `is_unseen` (the READER) and left this WRITER minting the very
+    rows it was reading. The split needed no schema — `seen_in` is TAUGHT,
+    `exposures`/`last_surfaced` are APPEARED, and both already existed.
+
+    THE SILENT NO-OP, both directions, because each is plausible on its own:
+
+      (a) The narrowing silently does nothing. Callbacks keep stamping
+          `seen_in`, and a never-taught word stays byte-identical to a taught
+          one — exactly the state 08-31 failed to close. So a callback-only
+          word must be asserted STILL UNSEEN after a real registration.
+      (b) The narrowing goes too far and drops the EXPOSURE stamp as well.
+          That would also "cure" the symptom, and would silently break the
+          background rotation loop that makes coverage guaranteed rather than
+          hoped-for (07-26). So the callback must be asserted to still receive
+          `exposures`/`last_surfaced` — same teeth as s86's second half.
+
+    The repair half has its own: a one-shot that writes nothing looks exactly
+    like a one-shot that had nothing to do."""
+    print("\n88. Taught is not appeared — a callback never closes the teach gate (2026-09-01)")
+    import argparse as _ap
+    import contextlib
+    import io as _io
+    ra = importlib.import_module("render_audio")
+    ss = importlib.import_module("sync_state")
+    lex_path = sb / "progress" / "lexicon.json"
+    eps_path = sb / "progress" / "episodes.json"
+    saved = (lex_path.read_bytes(), eps_path.read_bytes())
+    try:
+        # ---- (1) THE WRITER, round-tripped through the real renderer --------
+        lex = read_json(lex_path)
+        lex["ஸ்மோக்புது"] = lex_row(gloss="smoke-new", phonetic=["smoke-pudhu"])
+        lex["ஸ்மோக்பழசு"] = lex_row(gloss="smoke-old", phonetic=["smoke-pazhasu"])
+        write_json(lex_path, lex)
+
+        scripts_dir = sb / "content" / "scripts"
+        scripts_dir.mkdir(parents=True, exist_ok=True)
+        script = scripts_dir / "tier2_mission901.md"
+        script.write_text("# Tier 2, Mission 901 — smoke\n\nbody\n", encoding="utf-8")
+        script.with_suffix(".tags.json").write_text(json.dumps({
+            "new_words_landed": {"ஸ்மோக்புது": "taught here"},
+            "callbacks_used": {"ஸ்மோக்பழசு": "merely reused"},
+        }, ensure_ascii=False), encoding="utf-8")
+        mp3 = scripts_dir / "tier2_mission901.mp3"
+        mp3.write_bytes(b"\x00")
+
+        with contextlib.redirect_stdout(_io.StringIO()):
+            ra.register_mission_in_state(script, mp3)
+
+        after = read_json(lex_path)            # re-read from disk, not memory
+        new, cb = after["ஸ்மோக்புது"], after["ஸ்மோக்பழசு"]
+        check("a new_words_landed payload IS taught",
+              901 in new.get("seen_in", []) and not fx.si.is_unseen(new),
+              f"the teach stamp stopped landing at all: {new}")
+        check("...but a callback is NOT taught",
+              not cb.get("seen_in") and fx.si.is_unseen(cb),
+              f"an appearance still credited itself as a lesson: {cb}")
+        check("...while the callback DOES keep its exposure stamp",
+              cb.get("exposures") and cb.get("last_surfaced"),
+              f"the narrowing ate the rotation counter too: {cb}")
+
+        # ---- (2) THE REPAIR, driven for real --------------------------------
+        # Real keys from the derived list: one that passes every guard, one
+        # spared for production, one spared for exposures, one deleted outright.
+        lex = read_json(lex_path)
+        lex["பசி"] = lex_row(gloss="hungry", seen_in=[7, 8, 9], exposures=0)
+        lex["நீ"] = lex_row(gloss="you", seen_in=[10], production="cold", exposures=0)
+        lex["மூணு"] = lex_row(gloss="three", seen_in=[10], exposures=5)
+        lex.pop("செம்மை", None)
+        write_json(lex_path, lex)
+
+        out = _io.StringIO()
+        with contextlib.redirect_stdout(out):
+            rc = ss.cmd_untaught(_ap.Namespace(apply=False))
+        check("a dry run writes NOTHING",
+              read_json(lex_path)["பசி"]["seen_in"] == [7, 8, 9],
+              "the preview mutated state")
+        check("a key that no longer resolves is reported",
+              "செம்மை" in out.getvalue() and "not in the lexicon" in out.getvalue(),
+              f"a vanished row went silent: {out.getvalue()!r}")
+        check("...and it exits non-zero so CI can see it", rc == 1, f"got rc={rc}")
+
+        with contextlib.redirect_stdout(_io.StringIO()):
+            ss.cmd_untaught(_ap.Namespace(apply=True))
+        done = read_json(lex_path)             # re-read from disk
+        check("the unbacked teach flag is CLEARED",
+              fx.si.is_unseen(done["பசி"]),
+              f"the repair reported success and changed nothing: {done['பசி']}")
+        check("a word he has PRODUCED is spared — graduation is final",
+              not fx.si.is_unseen(done["நீ"]),
+              f"a cold word was pushed back into the teach queue: {done['நீ']}")
+        check("a word with real exposure evidence is spared",
+              not fx.si.is_unseen(done["மூணு"]),
+              f"evidence was overwritten: {done['மூணு']}")
+
+        out2 = _io.StringIO()
+        with contextlib.redirect_stdout(out2):
+            ss.cmd_untaught(_ap.Namespace(apply=True))
+        check("...and re-running is idempotent, not a second sweep",
+              "no unbacked teach flags remain" in out2.getvalue(),
+              f"got {out2.getvalue()!r}")
+    finally:
+        lex_path.write_bytes(saved[0])
+        eps_path.write_bytes(saved[1])

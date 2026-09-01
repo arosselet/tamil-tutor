@@ -40,6 +40,19 @@ Details live in git history; this is the index of the *conclusions*.
 
 ## Settled design decisions
 
+- **Taught is not appeared — a callback never closes the teach gate** (2026-09-01, Andrew:
+  *"a bit of feedback, and the illusion of progress"*). `render_audio` stamped `seen_in`
+  for `callbacks_used` too, so every episode credited itself with teaching each word it
+  merely reused — and `seen_in` gates the cold quiz. **Third "hearing is not knowing"**:
+  08-31 fixed `is_unseen`, the READER, leaving this WRITER minting the rows it read. **No
+  schema moved** — `seen_in` is TAUGHT, `exposures` is APPEARED. **Two measurements killed
+  the obvious builds:** the 83-row estimate replayed as 192 taught / 78 UNDECIDABLE
+  (episodes 6–41 predate sidecars) / 8 provable; and `exposures == 0` selects 95 rows of
+  which **69 are genuinely taught**, so adjudication reads sidecars, never counters.
+  **`untaught`** takes the one-shot slot from spent `backfill-evidence`, clearing **26
+  rows**, sparing anything produced (graduation is final, 07-26). **Rejected: an
+  `appeared_in` field.** Smoke `s88`.
+
 - **The ear meter counts what was TESTED, not only what was heard** (2026-08-31, Andrew:
   *"how can I say things I don't recognize? recognition should easily beat production."*).
   `Machines heard 3/26` led the status line from 08-16, unfalsifiable: **22 of the 26 machines

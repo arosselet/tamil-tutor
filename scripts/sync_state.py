@@ -1257,76 +1257,104 @@ def cmd_feedback(args):
         print(f"  {e['date']}  {e['note']}")
 
 
-def cmd_backfill_evidence(args):
-    """Stamp `heard_on` on the rows that DID earn their recognition, from git.
+def cmd_untaught(args):
+    """Clear the teach flag on rows no episode ever actually taught.
 
-    Replaces `unverify` (2026-08-23), which is spent AND was doing harm. It is
-    the same rotating one-shot slot `unverify` took from `prune-duplicates` and
-    that took from `migrate-session-log` — one repair in, one out.
+    Replaces `backfill-evidence` (2026-08-27), which is spent — all six of its
+    rows carry `heard_on`. Same rotating one-shot slot that went
+    `migrate-session-log` → `prune-duplicates` → `unverify` → `backfill-evidence`.
+    One repair in, one out.
 
-    WHY UNVERIFY IS RETIRED RATHER THAN FIXED. Its premise was that `reps == 0`
-    with production `none` IS the provenance signal, so no schema needed to move.
-    Measured on 2026-08-27 by replaying all 220 commits that ever touched the
-    lexicon, that premise is false in both directions at once:
+    THE BUG THIS CLEANS UP AFTER. `render_audio` stamped `seen_in` for BOTH
+    `new_words_landed` and `callbacks_used`, so an episode credited itself with
+    teaching every word it merely reused. `seen_in` is the only gate between a
+    word and a cold quiz (`state_io.is_unseen`). The writer is fixed in this
+    same diff; this command handles the rows already minted.
 
-      - It reaches NONE of the rows it exists for. 69 rows claim recognized
-        without ever having earned an upgrade; 67 of them carry production, so
-        the `production == none` clause skips every one. The 08-23 sweep already
-        took everything the proxy could see — what is left is invisible to it by
-        construction, including 11 machines.
-      - It ate the one row that DID earn it. `apply_catch_verdict` moves
-        recognition but never stamped `reps`, so the sole caught eavesdrop in the
-        ledger's history — சும்மா சொல்றாங்க, caught 2026-08-09 — read as
-        unevidenced and was demoted by the 08-23 sweep itself. The repair
-        destroyed its own re-earning path on the day it was written.
+    WHY THE OBVIOUS PREDICATE IS WRONG, and this is the whole entry. The
+    tempting test is `exposures == 0` — no schema, no file reads. Measured
+    2026-09-01 it selects 95 rows and **69 of them are genuinely taught**: a
+    word can land as a real `new_words_landed` payload and still carry no
+    exposure counter. Shipping that would have wiped the teach record on 69
+    words Anna actually taught — the same class of unrecoverable write that
+    retired `unverify`. The honest adjudicator is the one the renderer itself
+    used: the `.tags.json` sidecars, asked whether the word was ever a
+    `new_words_landed` payload.
 
-    `heard_on` replaces the proxy outright, so the demote-on-no-evidence move has
-    nothing left to do: an unbacked claim now simply fails `is_heard` and stops
-    inflating the meter, WITHOUT deleting a level the ledger cannot re-derive.
-    Not demoting is the point — unverify's real cost was that it wrote loss into
-    the file, and a wrong demotion is unrecoverable while a missing date is not.
+    HOW THE LIST BELOW WAS DERIVED (2026-09-01, all 278 `seen_in` rows replayed
+    against every sidecar on disk): 192 rows resolve as genuinely TAUGHT. 78 are
+    UNDECIDABLE — their episodes are 6..41, which predate sidecars entirely, so
+    no evidence exists either way. 8 are provably APPEARED-ONLY. The rows below
+    are the intersection of (never a `new_words_landed` payload) with three
+    conservative guards: recognition still `struggled`, production still `none`,
+    and `exposures == 0`. Anything he has produced is untouched — graduation is
+    final (07-26) and re-teaching a cold word would contradict it outright.
 
-    The six rows below are every recognition UPGRADE in the ledger's life, with
-    the date of the last one, read out of git rather than guessed. All six are
-    `direction: catch` — the eavesdrop lane is the only instrument that has ever
-    moved this axis, which is itself the finding.
-    """
-    earned = {
-        "frame:hearsay-aam": "2026-07-25",
-        "frame:quote-nu": "2026-07-26",
-        "என்னமோ பிரச்சனை": "2026-07-26",
-        "அலைச்சல்": "2026-07-26",
-        "ஜாஸ்தி": "2026-07-27",
-        "சும்மா சொல்றாங்க": "2026-08-09",
-    }
+    They are almost all high-frequency glue — here, today, you, hungry, three,
+    elder brother — which is the Lemma Theory's own tipping-point vocabulary,
+    and exactly the population behind *"I feel I never learned this word and
+    Anna looks in the record and says I gave it to you in several episodes."*
+
+    WHAT IS LOST, stated plainly: clearing `seen_in` also drops the record that
+    the word APPEARED in those episodes. That is real provenance, and for these
+    26 rows it is the only appearance record they have (their `exposures` is 0).
+    It is accepted because it is re-derivable — git holds the prior value and
+    the episode scripts still name their own words — while the alternative (a
+    second field to hold `appeared_in`) is a schema change to Python-owned JSON
+    for 26 one-shot rows. `seen_in: []` is what a freshly created row carries,
+    so nothing downstream meets a novel shape.
+
+    THE SILENT NO-OP: a repair that writes nothing looks exactly like a repair
+    that had nothing to do — both print and exit clean, and Anna goes on
+    cold-quizzing words he never met. So `s88` drives this entry point for real,
+    re-reads `lexicon.json` from disk, and asserts `is_unseen` FLIPPED; a key
+    that no longer resolves, or that has since earned evidence, is reported
+    rather than skipped in silence."""
+    # Derived 2026-09-01; see the docstring for the replay that produced it.
+    UNTAUGHT = (
+        "அண்ணா", "இங்க", "இன்னைக்கு", "உனக்கு", "உயரம்", "உள்ள",
+        "எடுங்க", "கம்மி", "கேட்பேன்", "செம்மை", "சொன்னேன்", "சொல்லுவேன்",
+        "தங்கச்சி", "தப்பு", "தூங்கினேன்", "தெரியாது", "நினைச்சேன்",
+        "நிமிஷம்", "நிறைய", "நீ", "நீங்க", "நூறு", "பசி", "புது",
+        "மூணு", "மேல",
+    )
     lexicon = load_json(LEXICON_PATH) or {}
-    todo, missing = [], []
-    for key, when in earned.items():
+    todo, missing, earned = [], [], []
+    for key in UNTAUGHT:
         rec = lexicon.get(key)
         if rec is None:
             missing.append(key)
-        elif rec.get("heard_on"):
-            continue
+        elif not rec.get("seen_in"):
+            continue                      # already repaired — idempotent
+        elif rec.get("production") != "none" or rec.get("exposures", 0):
+            earned.append(key)            # gained evidence since the derivation
         else:
-            todo.append((key, when, rec.get("recognition")))
-    # AN ABSENCE MUST BE LOUD: a key that no longer resolves is a silent no-op
-    # otherwise, and this command's whole job is restoring evidence.
+            todo.append(key)
+    # AN ABSENCE MUST BE LOUD, in both directions. A vanished key means the
+    # derivation no longer matches the ledger; a key that has since earned
+    # evidence is deliberately spared, and saying so is what keeps this
+    # command's silence from being mistaken for its success.
     for key in missing:
-        print(f"  ! {key} is not in the lexicon — evidence NOT restored. Investigate.")
+        print(f"  ! {key} is not in the lexicon — teach flag NOT cleared. Investigate.")
+    for key in earned:
+        print(f"  · {key} has earned evidence since 2026-09-01 — left alone, deliberately.")
     if not todo:
-        print(f"lexicon.json: {len(lexicon)} rows, every earned row already carries heard_on.")
+        print(f"lexicon.json: {len(lexicon)} rows, no unbacked teach flags remain.")
         return 1 if missing else 0
-    print(f"lexicon.json: {len(lexicon)} rows, {len(todo)} earned rows missing heard_on:")
-    for key, when, level in todo:
-        print(f"  - {key} ({level}) → heard_on {when}")
+    print(f"lexicon.json: {len(lexicon)} rows, {len(todo)} carry a teach flag no episode earned:")
+    for key in todo:
+        rec = lexicon[key]
+        print(f"  - {key} ({rec.get('gloss', '')}) — appeared in {rec['seen_in']}, never taught")
     if not args.apply:
         print("\n  DRY RUN — nothing written. Re-run with --apply to commit the change.")
         return 1 if missing else 0
-    for key, when, _ in todo:
-        lexicon[key]["heard_on"] = when
+    for key in todo:
+        lexicon[key]["seen_in"] = []
     save_json(LEXICON_PATH, lexicon)
-    print(f"\n  ✅ written — {len(todo)} rows carry their real evidence date.")
+    print(f"\n  ✅ written — {len(todo)} words are owed a Teach Beat again.")
     return 1 if missing else 0
+
+
 
 
 def main():
@@ -1445,10 +1473,10 @@ def main():
                          "(a later miss revives it, history intact); 'missed' logs the failure and keeps it live. "
                          "This asserts an observation — that he fired it right unaided — not a verdict.")
 
-    bf = sub.add_parser("backfill-evidence",
-                        help="Stamp heard_on on the rows that genuinely earned their "
-                             "recognition, from git (2026-08-27). Previews unless --apply.")
-    bf.add_argument("--apply", action="store_true",
+    ut = sub.add_parser("untaught",
+                        help="Clear the teach flag on rows no episode ever taught — "
+                             "callbacks used to stamp it (2026-09-01). Previews unless --apply.")
+    ut.add_argument("--apply", action="store_true",
                     help="Actually write. Without it this only reports what would change.")
 
     args = parser.parse_args()
@@ -1476,8 +1504,8 @@ def main():
         cmd_slips(args)
     elif args.command == "knock-response":
         cmd_knock_response(args)
-    elif args.command == "backfill-evidence":
-        return cmd_backfill_evidence(args)
+    elif args.command == "untaught":
+        return cmd_untaught(args)
     else:
         parser.print_help()
 
