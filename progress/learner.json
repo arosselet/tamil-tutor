@@ -11,7 +11,11 @@
     "scene_seed": "a bus stand at dusk — one is stepping off, the other is climbing on, and they have thirty seconds to swap the news",
     "from": "2026-09-01",
     "focus": "DIRECTION AND NOTHING ELSE. He read the வா stem as போ three separate times by ear in one session (வரலயா, வருவாரு, வராரு all came back as going) — come and go are one jammed wire, exactly like கேட்கு/சொல்லு was before the minimal-pair dose closed it. Permute ONLY the direction, in matched frames, back to back, same person tail throughout: நான் வரேன் / நான் போறேன், அவரு வராரு / அவரு போறாரு, வரல / போல. Do NOT permute person, do NOT permute tense, do NOT bring in a third verb. Keep the -ர- fully audible in every present form — that unstressed -ர- is the sound he cannot hear and it is half the payload. Every other lexical item from lexicon.json. Never name a rule.",
-    "channel": "soak"
+    "channel": "soak",
+    "delivered": {
+      "channel": "soak",
+      "at": "2026-09-01"
+    }
   },
   "next_engine": "frame:polite-nga",
   "focus_cohort": [

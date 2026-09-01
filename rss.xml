@@ -21,6 +21,16 @@
     <itunes:new-feed-url>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/rss.xml</itunes:new-feed-url>
     
     <item>
+      <title>Soak — 2026-09-01 · nothing to do but listen</title>
+      <itunes:author>Andrew &amp; Claude</itunes:author>
+      <itunes:summary>Soak — 2026-09-01 · nothing to do but listen</itunes:summary>
+      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/soak_2026-09-01_1642.mp3" length="1456080" type="audio/mpeg"/>
+      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/soak_2026-09-01_1642.mp3</guid>
+      <pubDate>Tue, 01 Sep 2026 16:43:03 +0530</pubDate>
+      <itunes:duration>00:04:53</itunes:duration>
+    </item>
+
+    <item>
       <title>Soak — 2026-08-31 · nothing to do but listen</title>
       <itunes:author>Andrew &amp; Claude</itunes:author>
       <itunes:summary>Soak — 2026-08-31 · nothing to do but listen</itunes:summary>
@@ -101,9 +111,9 @@
     </item>
 
     <item>
-      <title>Long-haul — room · 2026-08-10 · press once, nothing asked</title>
+      <title>Rotation — room · 2026-08-10 · press once, nothing asked</title>
       <itunes:author>Andrew &amp; Claude</itunes:author>
-      <itunes:summary>Long-haul — room · 2026-08-10 · press once, nothing asked</itunes:summary>
+      <itunes:summary>Rotation — room · 2026-08-10 · press once, nothing asked</itunes:summary>
       <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/longhaul_room_2026-08-10_0905.mp3" length="14008608" type="audio/mpeg"/>
       <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/longhaul_room_2026-08-10_0905.mp3</guid>
       <pubDate>Mon, 10 Aug 2026 09:22:21 -0400</pubDate>
@@ -111,9 +121,9 @@
     </item>
 
     <item>
-      <title>Long-haul — machines · 2026-08-10 · press once, nothing asked</title>
+      <title>Rotation — machines · 2026-08-10 · press once, nothing asked</title>
       <itunes:author>Andrew &amp; Claude</itunes:author>
-      <itunes:summary>Long-haul — machines · 2026-08-10 · press once, nothing asked</itunes:summary>
+      <itunes:summary>Rotation — machines · 2026-08-10 · press once, nothing asked</itunes:summary>
       <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/longhaul_machines_2026-08-10_0859.mp3" length="7707696" type="audio/mpeg"/>
       <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/longhaul_machines_2026-08-10_0859.mp3</guid>
       <pubDate>Mon, 10 Aug 2026 09:05:06 -0400</pubDate>
@@ -121,9 +131,9 @@
     </item>
 
     <item>
-      <title>Long-haul — inventory · 2026-08-10 · press once, nothing asked</title>
+      <title>Rotation — inventory · 2026-08-10 · press once, nothing asked</title>
       <itunes:author>Andrew &amp; Claude</itunes:author>
-      <itunes:summary>Long-haul — inventory · 2026-08-10 · press once, nothing asked</itunes:summary>
+      <itunes:summary>Rotation — inventory · 2026-08-10 · press once, nothing asked</itunes:summary>
       <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/longhaul_inventory_2026-08-10_0853.mp3" length="7433280" type="audio/mpeg"/>
       <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/longhaul_inventory_2026-08-10_0853.mp3</guid>
       <pubDate>Mon, 10 Aug 2026 08:58:58 -0400</pubDate>
