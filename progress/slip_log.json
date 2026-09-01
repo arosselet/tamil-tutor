@@ -749,5 +749,17 @@
     "note": "used the junior third-person pronoun on an elder — rank rides the pronoun, not only the verb tail",
     "word": "",
     "dose_channel": "soak"
+  },
+  {
+    "at": "2026-09-01T11:09:25Z",
+    "date": "2026-09-01",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "come-go-direction",
+    "said": "is mama going / hes going",
+    "want": "hasnt mama come / hell come",
+    "note": "reads the வா stem as போ by ear — come and go are one jammed wire, same disease as the closed wrong-verb-direction on a new pair, and he defaults to போ because போ is the commonest verb he owns",
+    "word": "",
+    "dose_channel": "soak"
   }
 ]

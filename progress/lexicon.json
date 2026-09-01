@@ -104,21 +104,7 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [
-      9,
-      10,
-      15,
-      18,
-      26,
-      29,
-      31,
-      32,
-      33,
-      36,
-      50,
-      51,
-      61
-    ],
+    "seen_in": [],
     "last_surfaced": "2026-06-24"
   },
   "கம்மி": {
@@ -128,14 +114,7 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [
-      8,
-      10,
-      16,
-      18,
-      50,
-      51
-    ],
+    "seen_in": [],
     "last_surfaced": "2026-06-24"
   },
   "சீக்கிரம்": {
@@ -367,15 +346,7 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [
-      10,
-      11,
-      22,
-      23,
-      24,
-      27,
-      28
-    ],
+    "seen_in": [],
     "last_surfaced": null
   },
   "அஞ்சு": {
@@ -846,12 +817,7 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [
-      8,
-      9,
-      10,
-      11
-    ],
+    "seen_in": [],
     "last_surfaced": null
   },
   "தூங்கினேன்": {
@@ -859,9 +825,7 @@
     "phonetic": [],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [
-      10
-    ],
+    "seen_in": [],
     "last_surfaced": null
   },
   "அவங்க": {
@@ -894,18 +858,7 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [
-      10,
-      11,
-      15,
-      16,
-      18,
-      21,
-      26,
-      31,
-      32,
-      38
-    ],
+    "seen_in": [],
     "last_surfaced": null
   },
   "அத்தை": {
@@ -1023,7 +976,7 @@
     "phonetic": [
       "vareen"
     ],
-    "recognition": "solid",
+    "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
       1,
@@ -1040,9 +993,10 @@
       36,
       73
     ],
-    "last_surfaced": "2026-08-30",
+    "last_surfaced": "2026-09-01",
     "exposures": 5,
-    "reps": 1
+    "reps": 2,
+    "heard_on": "2026-09-01"
   },
   "மூணு": {
     "gloss": "Three",
@@ -1051,10 +1005,7 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [
-      10,
-      33
-    ],
+    "seen_in": [],
     "last_surfaced": null
   },
   "நாங்க": {
@@ -1122,11 +1073,13 @@
   "அதுக்கு அப்புறம்": {
     "gloss": "After that",
     "phonetic": [],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-08-31",
-    "exposures": 3
+    "last_surfaced": "2026-09-01",
+    "exposures": 3,
+    "heard_on": "2026-09-01",
+    "reps": 2
   },
   "அண்ணா": {
     "gloss": "Elder brother",
@@ -1135,29 +1088,7 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [
-      8,
-      9,
-      10,
-      11,
-      12,
-      13,
-      14,
-      15,
-      16,
-      17,
-      18,
-      21,
-      22,
-      26,
-      27,
-      29,
-      30,
-      32,
-      34,
-      64,
-      65
-    ],
+    "seen_in": [],
     "last_surfaced": null
   },
   "பசி": {
@@ -1167,15 +1098,7 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [
-      7,
-      8,
-      9,
-      10,
-      22,
-      27,
-      33
-    ],
+    "seen_in": [],
     "last_surfaced": null
   },
   "தம்பி": {
@@ -1212,9 +1135,7 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [
-      38
-    ],
+    "seen_in": [],
     "last_surfaced": null
   },
   "சாப்பிட்டேன்": {
@@ -1240,11 +1161,7 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [
-      10,
-      28,
-      34
-    ],
+    "seen_in": [],
     "last_surfaced": null
   },
   "தெரியாது": {
@@ -1254,12 +1171,7 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [
-      10,
-      11,
-      17,
-      24
-    ],
+    "seen_in": [],
     "last_surfaced": null
   },
   "ஆமா": {
@@ -1428,16 +1340,7 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [
-      6,
-      8,
-      10,
-      11,
-      12,
-      16,
-      18,
-      33
-    ],
+    "seen_in": [],
     "last_surfaced": null
   },
   "குடிச்சேன்": {
@@ -1471,14 +1374,7 @@
     "phonetic": [],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [
-      11,
-      12,
-      13,
-      14,
-      20,
-      24
-    ],
+    "seen_in": [],
     "last_surfaced": null
   },
   "கோவம்": {
@@ -1595,10 +1491,7 @@
     "phonetic": [],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [
-      12,
-      13
-    ],
+    "seen_in": [],
     "last_surfaced": null
   },
   "சாப்பிடுங்க": {
@@ -1626,16 +1519,7 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [
-      6,
-      10,
-      18,
-      19,
-      20,
-      26,
-      27,
-      30
-    ],
+    "seen_in": [],
     "last_surfaced": null
   },
   "எங்க?": {
@@ -1764,7 +1648,8 @@
       1,
       38
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-09-01",
+    "reps": 1
   },
   "குட்டை": {
     "gloss": "Short (height)",
@@ -1838,13 +1723,7 @@
     "phonetic": [],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [
-      6,
-      10,
-      14,
-      18,
-      24
-    ],
+    "seen_in": [],
     "last_surfaced": null
   },
   "ஒன்னு மட்டும்": {
@@ -1900,10 +1779,7 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [
-      10,
-      22
-    ],
+    "seen_in": [],
     "last_surfaced": null
   },
   "நேரம் ஆச்சு": {
@@ -1962,18 +1838,7 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [
-      1,
-      6,
-      10,
-      12,
-      16,
-      19,
-      24,
-      28,
-      29,
-      33
-    ],
+    "seen_in": [],
     "last_surfaced": null
   },
   "முன்னாடியே": {
@@ -2096,17 +1961,7 @@
     "phonetic": [],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [
-      17,
-      18,
-      20,
-      24,
-      25,
-      26,
-      27,
-      29,
-      31
-    ],
+    "seen_in": [],
     "last_surfaced": null
   },
   "அப்படீங்களா?": {
@@ -2122,13 +1977,7 @@
     "phonetic": [],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [
-      11,
-      27,
-      31,
-      37,
-      38
-    ],
+    "seen_in": [],
     "last_surfaced": null
   },
   "கேட்டேன்": {
@@ -2163,27 +2012,7 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [
-      1,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12,
-      13,
-      17,
-      19,
-      21,
-      23,
-      26,
-      31,
-      33,
-      34,
-      38
-    ],
+    "seen_in": [],
     "last_surfaced": null
   },
   "முறை மாமன்": {
@@ -2199,18 +2028,7 @@
     "phonetic": [],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [
-      12,
-      15,
-      24,
-      25,
-      31,
-      32,
-      34,
-      35,
-      36,
-      37
-    ],
+    "seen_in": [],
     "last_surfaced": null
   },
   "விட": {
@@ -2231,15 +2049,7 @@
     ],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [
-      11,
-      27,
-      28,
-      32,
-      33,
-      34,
-      38
-    ],
+    "seen_in": [],
     "last_surfaced": null
   },
   "பழைய": {
@@ -2259,9 +2069,7 @@
     "phonetic": [],
     "recognition": "struggled",
     "production": "none",
-    "seen_in": [
-      30
-    ],
+    "seen_in": [],
     "last_surfaced": null
   },
   "அப்புறம்": {
@@ -2306,15 +2114,13 @@
     "phonetic": [
       "ketpaen"
     ],
-    "recognition": "struggled",
-    "production": "none",
-    "seen_in": [
-      12,
-      13,
-      14
-    ],
-    "last_surfaced": null,
-    "lemma": "கேள்"
+    "recognition": "comfortable",
+    "production": "cold",
+    "seen_in": [],
+    "last_surfaced": "2026-09-01",
+    "lemma": "கேள்",
+    "heard_on": "2026-09-01",
+    "reps": 2
   },
   "கேன்சல்": {
     "gloss": "Cancel",
@@ -5621,5 +5427,15 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": "2026-08-31"
+  },
+  "வச்சுக்கறேன்": {
+    "gloss": "",
+    "phonetic": [
+      "vachukkuren"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-09-01"
   }
 }
