@@ -44,6 +44,11 @@ SLIP_LOG_PATH = BASE / "progress" / "slip_log.json"
 # `rebuild_rss.write_recent_audio`, never the learner writer (2026-09-01).
 RECENT_AUDIO_PATH = BASE / "progress" / "recent_audio.txt"
 
+# The audio lanes' public names, stem -> title (2026-09-01). Soaks and drills
+# leave no script and no caption, so the name the writer gives a dose exists for
+# exactly one moment; this is where it is kept. See scripts/audio_titles.py.
+AUDIO_TITLES_PATH = BASE / "progress" / "audio_titles.json"
+
 
 def load_json(path: Path):
     if not path.exists():

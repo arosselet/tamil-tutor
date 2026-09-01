@@ -929,7 +929,7 @@ def s73_one_tail_for_the_render_family(sb: Path):
     commits, pushes = [], []
 
     def drive(*, delivered=("ஸ்மோக்"), claimed=False, extra=(), exposed=True,
-              stamped=True, notified=True):
+              stamped=True, notified=True, title="smoke name"):
         lanes.record_exposure = lambda words: exposed and bool(words)
         lanes.mark_soak_delivered = lambda lane: stamped
         commits.clear(); pushes.clear()
@@ -937,7 +937,7 @@ def s73_one_tail_for_the_render_family(sb: Path):
             got = lanes.deliver_rendered(
                 mp3=mp3, lane="soak", delivered=list(delivered), claimed=claimed,
                 message="Soak loop: smoke", copy="soak loop's up 🎧",
-                noun="soak loop", extra_paths=list(extra),
+                noun="soak loop", extra_paths=list(extra), title=title,
                 commit=lambda paths, msg: commits.append((list(paths), msg)),
                 notify=lambda copy, url: (pushes.append((copy, url)), notified)[1])
         return got, out.getvalue()
@@ -975,6 +975,29 @@ def s73_one_tail_for_the_render_family(sb: Path):
     check("...under the lane's message", msg == "Soak loop: smoke", msg)
 
     # ── the two conditional state paths, both directions ────────────────────
+    # ── THE DOSE IS NAMED, AND THE NAME IS COMMITTED (2026-09-01) ───────────
+    # A soak leaves no script and no caption, so the sheet's name is the only
+    # record that it was ever about anything; if it does not ride this commit the
+    # feed can only call the dose by its filename, which is how eight soaks
+    # shipped as "nothing to do but listen" and two of them became unrateable.
+    # Asserted as BOTH halves — written, and in the commit — because a write that
+    # never leaves the runner is indistinguishable from success from in here.
+    at = importlib.import_module("audio_titles")
+    check("the dose's name is recorded under its stem",
+          at.load().get("smoke_family") == "smoke name", str(at.load()))
+    check("...and the map rides the SAME commit as the mp3 it names",
+          fx.si.AUDIO_TITLES_PATH in commits[0][0],
+          f"got {[Path(p).name for p in commits[0][0]]}")
+    # An UNNAMED dose must not commit the map — a no-op write would put a file in
+    # every commit forever and make "was this dose named?" unreadable from history.
+    drive(claimed=True, title="")
+    check("a dose with no name commits no title map",
+          fx.si.AUDIO_TITLES_PATH not in commits[0][0],
+          f"got {[Path(p).name for p in commits[0][0]]}")
+    check("...and does not erase the name already recorded for that stem",
+          at.load().get("smoke_family") == "smoke name", str(at.load()))
+    drive(claimed=True, extra=[script])
+
     check("a recorded exposure puts the lexicon in the commit",
           fx.si.LEXICON_PATH in commits[0][0])
     check("a stamped order puts learner.json in the commit",

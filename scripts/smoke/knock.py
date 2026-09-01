@@ -1495,12 +1495,35 @@ def s82_the_catch_lane_has_a_mouth(mk, kr, sb: Path):
     # idiom. It can only shrink: handing the licence back is part of the fix.
     KNOWN_GAPS = {("JUDGE_SCHEMA", "schedule"):
                   "nullable and obj() has no nullable form — docs/feature_inbox.md"}
+    # THE AUDIO LANES JOINED THIS LIST ON 2026-09-01, and that they were missing
+    # from it is the whole story of the second occurrence. This guard was built
+    # for voice_reply on 08-28 and left covering only the lane that had been
+    # bitten; `title` was sitting in SOAK_MANDATE and DRILL_MANDATE the entire
+    # time as `"title": "<3-5 word label for the feed>"`, read by both lanes as
+    # `sheet.get("title", mp3.stem)`, and declared in neither schema — so every
+    # soak and drill since 08-18 published under its own filename. Andrew found
+    # it with two same-day soaks he could not tell apart. A guard that names a
+    # class and then enumerates one lane is an invariant with a blind spot.
+    rs, rd = (importlib.import_module(m) for m in ("render_soak", "render_drill"))
     pairs = [("JUDGE_SCHEMA", kr.JUDGE_SCHEMA,
               md.JUDGE_MANDATE + md.REACH_MANDATE + md.VOICE_MANDATE + md.SLIP_MANDATE),
-             ("CATCH_SCHEMA", kr.CATCH_SCHEMA, md.CATCH_JUDGE_MANDATE + md.VOICE_MANDATE)]
+             ("CATCH_SCHEMA", kr.CATCH_SCHEMA, md.CATCH_JUDGE_MANDATE + md.VOICE_MANDATE),
+             ("SOAK_SCHEMA", rs.SOAK_SCHEMA, md.SOAK_MANDATE),
+             ("DRILL_SCHEMA", rd.DRILL_SCHEMA, md.DRILL_MANDATE)]
+
+    def declared(schema: dict) -> set:
+        """Every property name ANYWHERE in the schema, not just at the top.
+        A mandate's example nests (`clusters[].items[]`), and a nested key is
+        declared as surely as a top-level one — the agent drops what `obj()`
+        never named, at whatever depth it was named."""
+        out = set(schema.get("properties", {}))
+        for sub in schema.get("properties", {}).values():
+            out |= declared(sub.get("items", sub))
+        return out
+
     for name, schema, mandate in pairs:
         asked = set(re.findall(r'^\s*"([a-z_]+)":', mandate, re.M))
-        missing = sorted(k for k in asked - set(schema.get("properties", {}))
+        missing = sorted(k for k in asked - declared(schema)
                          if (name, k) not in KNOWN_GAPS)
         check(f"{name} declares every key its mandates ask for", not missing,
               f"the agent executor will silently drop: {missing}")

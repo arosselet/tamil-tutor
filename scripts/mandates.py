@@ -566,6 +566,9 @@ Tamil voice speaks it). Polite -nga register by default; nee only where the \
 item itself is nee-form.
 - "intro": one short Anna line in his own voice setting the contract — out loud, \
 before the answer comes, no mumbling. "outro": one short warm line, no homework.
+- "title": what THIS drill is about, 3-6 words, naming the CONTENT and never the \
+format — it sits in the feed beside every other drill, and "say it out loud" is true \
+of all of them.
 - No grammar talk, no numbering, no meta-narration.
 
 Return ONLY a JSON object, no prose around it:
@@ -617,6 +620,11 @@ NO grammar lecture. If you find yourself writing a situation with characters, st
 that is the episode channel, not this one.
 - "intro": one short, low-key line in Anna's voice — name what the loop covers and that \
 there is nothing to do but listen. "outro": one short warm line. Neither asks anything.
+- "title": what THIS loop is about, 3-6 words, in the feed beside every other soak. \
+Name the CONTENT, never the format: "nothing to do but listen" is true of all of them \
+and tells him nothing. Say the thing that moves — the tail, the pair, the contrast \
+("வா vs போ · direction only", "the person tail, nothing else moving"). He reads it on a \
+lock screen months later deciding what to replay.
 
 Return ONLY a JSON object, no prose around it:
 {

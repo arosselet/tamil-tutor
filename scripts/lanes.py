@@ -48,14 +48,15 @@ from pathlib import Path
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
+import audio_titles
 from publish import jsdelivr_url, publish
-from state_io import LEARNER_PATH, LEXICON_PATH
+from state_io import AUDIO_TITLES_PATH, LEARNER_PATH, LEXICON_PATH
 from sync_state import mark_soak_delivered, record_exposure
 
 
 def deliver_rendered(*, mp3: Path, lane: str, delivered: list, claimed: bool,
                      message: str, copy: str, noun: str, extra_paths=(),
-                     commit, notify) -> bool:
+                     title, commit, notify) -> bool:
     """The tail every write -> render -> publish lane ran its own copy of:
 
         exposure -> soak-order stamp -> commit -> notify
@@ -78,12 +79,30 @@ def deliver_rendered(*, mp3: Path, lane: str, delivered: list, claimed: bool,
     stamp claims a debt is PAID, and a wrong inference there dispatches a second
     identical dose or suppresses one that was owed.
 
+    `title` is the dose's PUBLIC NAME — what the feed and the rating picker call
+    it. Keyword-only with NO DEFAULT, for the same reason `commit` and `notify`
+    have none: a default here would let a lane forget, and a forgotten name is
+    invisible — the dose publishes under its filename and looks exactly like a
+    dose that was never named. That is the failure this parameter exists to end
+    (2026-09-01: eight soaks shipped as "nothing to do but listen", two of them
+    on one day and unrateable). A lane with nothing better to say passes its
+    spine or its focus; it does not pass nothing.
+
     Returns whether the notification actually left the building — False in quiet
     hours, which `push_to_phone` owns and no lane re-implements.
     """
     exposed = record_exposure(delivered)
     stamped = mark_soak_delivered(lane) if claimed else False
+    # THE NAME RIDES THE DOSE'S OWN COMMIT (2026-09-01). A soak leaves no script
+    # and no caption, so the moment the sheet is written is the only moment its
+    # name exists — record it here, at the one tail all three audio lanes pass
+    # through, or the feed can only ever call it by its filename. Named in the
+    # same commit as the mp3 for the reason `chat.md` is: a derived file follows
+    # its source, and `rebuild_rss` reads this map on the very next rebuild,
+    # which `publish()` runs three lines below.
+    named = audio_titles.record(mp3.stem, title)
     commit(*publish([*extra_paths,
+                     AUDIO_TITLES_PATH if named else None,
                      LEXICON_PATH if exposed else None,
                      LEARNER_PATH if stamped else None],
                     message, mp3=mp3))

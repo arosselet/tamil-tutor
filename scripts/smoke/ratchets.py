@@ -303,6 +303,13 @@ CODE_BUDGETS = {
     # tables are one job, `feed_items`/`knock_meta`/`write_recent_audio` are the
     # readers the picker lane needs, and only the second group has other callers.
     "scripts/rebuild_rss.py": 355,
+    # New surface, budgeted in the diff that creates it (2026-09-01). It is also
+    # the SPLIT the note above demanded rather than a second raise: naming was
+    # about to cost rebuild_rss another 9 lines, and "what a dose is called" is
+    # not the same job as "assemble the feed". `LANE_WORD`, the recorded-name
+    # lookup and the collision rule live with the map they read; rebuild_rss kept
+    # only the two lines that ASK. Set at the census plus normal headroom.
+    "scripts/audio_titles.py": 80,
     # 500 → 495 (2026-08-28): re-censused DOWN. The two PINNED voices left for
     # `language.py`. Small in lines and exact in concern: this file owns the TTS
     # STACK and the episode voice POOLS (one reader, one file), and no longer
@@ -864,6 +871,13 @@ LAYERS = {
     # pack that can read state is a pack that can grow mechanism.
     "language":          -1,
     "state_io":           0,      # L0 substrate — imports only the pack
+
+    # Between the substrate and the renderers (2026-09-01): it imports only L0,
+    # and it is READ by rebuild_rss (L1) and WRITTEN by lanes (L5). Numbered here
+    # rather than beside rebuild_rss so that the day it reaches sideways for a
+    # renderer — or upward for a lane — the edge reads as upward and fails here.
+    # A map of names that can read the feed is a map that can grow opinions.
+    "audio_titles":       0.5,
 
     "render_chat":        1,      # L1 pure renderers over one source of truth
     "rebuild_rss":        1,

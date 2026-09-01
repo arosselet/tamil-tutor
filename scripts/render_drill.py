@@ -42,7 +42,10 @@ from language import ANNA_VOICE
 from writer import INT, STR, arr, ask_json, executor_name, obj
 
 # The two shapes this lane asks for (see writer.obj).
-DRILL_SCHEMA = obj(intro=STR, outro=STR, items=arr(cue=STR, answer_ta=STR))
+# `title` declared, not merely asked for in prose — see the note in
+# render_soak.SOAK_SCHEMA. DRILL_MANDATE has requested it all along.
+DRILL_SCHEMA = obj(title=STR, intro=STR, outro=STR,
+                   items=arr(cue=STR, answer_ta=STR))
 LINT_SCHEMA = obj(verdicts=arr(n=INT, verdict=STR))
 from render_audio import generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME, clean_for_tts
 from suggest_targets import drill_menu
@@ -285,6 +288,7 @@ def main():
         mp3=mp3, lane="drill", delivered=[t["word"] for t in pending],
         claimed=bool(focus or lead),
         message=f"Drill track: {sheet.get('title', mp3.stem)}",
+        title=sheet.get("title", ""),
         copy=f"drill's up — {len(sheet['items'])} out loud, gaps are yours 🎧",
         noun="drill", commit=commit_and_push, notify=push_to_phone)
 

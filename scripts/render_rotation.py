@@ -641,6 +641,10 @@ def main():
         mp3=mp3, lane="rotation", delivered=delivered,
         claimed=bool(focus or payload), extra_paths=[script],
         message=f"Rotation tape: {args.spine} ({measured:.0f} min)",
+        # The spine IS this lane's name and always was — it is why three tapes
+        # riding the feed at once were already tellable apart. Passed through
+        # the same seam so one mechanism names every audio dose.
+        title=args.spine,
         copy=f"rotation tape's up — {measured:.0f} min, {args.spine}. press once 🎧",
         noun="tape", commit=commit_and_push, notify=push_to_phone)
 

@@ -50,7 +50,14 @@ from language import ANNA_VOICE
 from writer import STR, arr, ask_json, executor_name, obj
 
 # What the soak sheet IS, for the executor that can be told (see writer.obj).
-SOAK_SCHEMA = obj(intro=STR, outro=STR,
+# `title` IS DECLARED HERE because the agent path eats what this call does not
+# name (see writer.obj: `claude -p --json-schema` constrains the SHAPE and
+# silently drops undeclared keys — how `voice_reply` was lost on 2026-08-28).
+# SOAK_MANDATE has asked for "title": "<3-5 word label for the feed>" all along
+# and `main` has read `sheet.get('title', mp3.stem)` all along; only the schema
+# in the middle was missing, so every soak since 2026-08-18 published under its
+# own filename. Same defect as voice_reply, one lane over, never swept.
+SOAK_SCHEMA = obj(title=STR, intro=STR, outro=STR,
                   clusters=arr(thread=STR, items=arr(ta=STR, en=STR)))
 from render_audio import (generate_segment_google, get_raw_mp3_frames,
                           SILENCE_FRAME, clean_for_tts, google_credentials_ready,
@@ -296,6 +303,7 @@ def main():
     deliver_rendered(
         mp3=mp3, lane="soak", delivered=delivered, claimed=bool(focus or payload),
         message=f"Soak loop: {sheet.get('title', mp3.stem)}",
+        title=sheet.get("title", ""),
         copy=f"soak loop's up — {n} sounds, nothing to do but listen 🎧",
         noun="soak loop", commit=commit_and_push, notify=push_to_phone)
 

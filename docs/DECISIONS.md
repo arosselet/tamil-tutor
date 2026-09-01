@@ -2460,3 +2460,13 @@ Details live in git history; this is the index of the *conclusions*.
   `rebuild_rss.write_recent_audio`, called by `generate_rss` itself; `publish()` commits the
   pair, because a rewrite that never leaves the runner is byte-identical to success. The 08-24
   law existed and named `chat.md` — applied where noticed, not where it held.
+- **Every audio dose carries its own name, and the schema is why it did not**
+  (2026-09-01, Andrew: *"nothing to do but listen is being carried by every single soak …
+  there are two of them and I can't tell which is which"*). Both mandates have asked for
+  `"title"` all along and both lanes read `sheet.get("title", mp3.stem)` all along; neither
+  SCHEMA declared it, and the agent path drops what `obj()` does not name — **the same
+  defect as `voice_reply` (08-28), whose guard was built and then left covering only the
+  lane that had been bitten.** It now takes all four. Titles said the CONTRACT, identical
+  across a lane by construction, so a lane could only be as distinguishable as its dates.
+  `audio_titles` keys names by stem; `distinct()` stamps only a shared name, which makes
+  the date optional rather than dropped. Fixed forward per 08-20; four backfilled.

@@ -7,6 +7,7 @@ from datetime import datetime
 import email.utils
 from xml.sax.saxutils import escape as xml_escape
 
+import audio_titles
 from language import RAW_BASE_URL, SITE_URL
 # LOCAL_TZ is Andrew's clock, canonical there; RECENT_AUDIO_PATH is the rating
 # picker's list, which this module writes because this module writes its source.
@@ -94,6 +95,13 @@ def clean_title(raw_title: str, filename: str) -> str:
     Input:  "Tier 2 Mission 15: The Overheard Argument", "tier2_mission15_intercept.mp3"
     Output: "Ep 15 — The Overheard Argument · Intercept"
     """
+    # The recorded name wins for every audio lane — see `audio_titles.lane_title`.
+    # The dated contract lines below stay as the FALLBACK: they are still true,
+    # and a dose published before 2026-09-01 (or one whose writer returned no
+    # name) keeps a readable title rather than falling through to a filename.
+    if named := audio_titles.lane_title(filename):
+        return named
+
     # Drill tracks (spoken production volleys) carry their date, not a mission number
     drill = re.match(r"drill_(\d{4}-\d{2}-\d{2})", filename)
     if drill:
@@ -218,6 +226,24 @@ def knock_title(filename: str, meta: dict) -> str:
             when += f" {m.group(5)}:{m.group(6)}"
     move = meta.get(base.removesuffix(".mp3"), ("", ""))[0]
     return f"{kind} — {when} · {move}" if move else f"{kind} — {when}"
+
+
+def md_name(filename: str) -> str:
+    """The BASE markdown name for an mp3 — an intercept or breakdown cut resolves
+    to the script it was cut from, and a `_vN` re-render to the original. Both the
+    title lookup and the caption block key on this, which is why it is one
+    function: they were two copies of this regex until 2026-09-01."""
+    base = re.sub(r"_(intercept|breakdown|v\d+)\.mp3$", ".md", filename, flags=re.IGNORECASE)
+    return base if base.endswith(".md") else filename.replace(".mp3", ".md")
+
+
+def script_for(filename: str) -> str:
+    """The script an mp3 was made from, if one exists. Lifted out of the assembly
+    loop unchanged (2026-09-01) so titles can be resolved as a SET before the feed
+    is built — an item's own script wins, else the base cut's."""
+    specific = os.path.join(SCRIPTS_DIR, filename.replace(".mp3", ".md"))
+    return specific if os.path.exists(specific) else os.path.join(SCRIPTS_DIR, md_name(filename))
+
 
 
 def get_title_from_md(md_path):
@@ -569,23 +595,20 @@ def generate_rss():
     # looked like a real change and wasn't.
     episodes.sort(key=lambda f: (sort_key(f), f), reverse=True)
 
+    # TITLES ARE RESOLVED AS A SET, BEFORE THE FEED IS ASSEMBLED (2026-09-01).
+    # Distinctness is not a property any single item can have — the two 08-30
+    # soaks were each perfectly well-formed on their own, and only the pair was
+    # broken — so it cannot be decided inside the per-item loop that used to own
+    # titling. `distinct` appends a timestamp to a name two doses share, and to
+    # nothing else, which is what makes the date OPTIONAL rather than dropped.
+    titles = {f: (knock_title(f, knock_metadata) if f.startswith("knocks/")
+                  else clean_title(get_title_from_md(script_for(f)) or f, f))
+              for f in episodes}
+    titles = audio_titles.distinct(titles)
+
     for filename in episodes:
         audio_path = os.path.join(AUDIO_DIR, filename)
-        # Try to find matching script — strip _intercept/_breakdown suffix so we find the base script
-        base_name = re.sub(r"_(intercept|breakdown|v\d+)\.mp3$", ".md", filename, flags=re.IGNORECASE)
-        if not base_name.endswith(".md"):
-            base_name = filename.replace('.mp3', '.md')
-        # Also try specific intercept/breakdown script files
-        specific_name = filename.replace('.mp3', '.md')
-        specific_path = os.path.join(SCRIPTS_DIR, specific_name)
-        base_path = os.path.join(SCRIPTS_DIR, base_name)
-        script_path = specific_path if os.path.exists(specific_path) else base_path
-
-        raw_title = get_title_from_md(script_path) or filename
-        if filename.startswith("knocks/"):
-            title = knock_title(filename, knock_metadata)
-        else:
-            title = clean_title(raw_title, filename)
+        title = titles[filename]
         size = os.path.getsize(audio_path)
         audio_url = f"{BASE_URL}/{AUDIO_DIR}/{filename}"
         # Andrew's clock, never the host's. `localtime=True` stamped whatever zone
@@ -610,7 +633,7 @@ def generate_rss():
             title=xml_escape(title),
             author=AUTHOR,
             summary=xml_escape(title),
-            caption_block=caption_block_for(base_name),
+            caption_block=caption_block_for(md_name(filename)),
             audio_url=audio_url,
             size=size,
             pub_date=pub_date,

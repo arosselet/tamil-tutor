@@ -2889,6 +2889,50 @@ def s79_a_rating_lands_or_says_why(sb: Path):
         if saved_klog is not None:
             KLP.write_bytes(saved_klog)
 
+    # ── Part A3: two doses may NOT wear one name ──────────────────────────
+    # Andrew's requirement, in his words: *"the main requirement here is in the
+    # feed and in the rating, they are distinct and ideally recognizable"*
+    # (2026-09-01). Recognisable is the writer's job. DISTINCT is not left to the
+    # writer, because it cannot be: a collision is a property of the SET, and
+    # each of the two 08-30 soaks was perfectly well-formed on its own — which is
+    # exactly why nothing caught it until he tried to rate one.
+    at = importlib.import_module("audio_titles")
+    pair = {"soak_2026-08-30_1934.mp3": "Soak — the pair",
+            "soak_2026-08-30_2004.mp3": "Soak — the pair",
+            "soak_2026-08-27_1515.mp3": "Soak — its own name"}
+    out = at.distinct(pair)
+    check("two doses sharing a name come out DISTINCT",
+          out["soak_2026-08-30_1934.mp3"] != out["soak_2026-08-30_2004.mp3"], str(out))
+    # The date alone would NOT have separated these two — both are 08-30. That is
+    # the case the disambiguator exists for, so it is the one asserted.
+    check("...and the mark goes to the TIME, since the date collides too",
+          out["soak_2026-08-30_1934.mp3"].endswith("19:34"), str(out))
+    check("...while a name nobody else claims is left exactly as written",
+          out["soak_2026-08-27_1515.mp3"] == "Soak — its own name", str(out))
+    # THE DATE IS OPTIONAL, WHICH MEANS EARNED (Andrew: *"the date in the title is
+    # optional"*). Optional is not "dropped" — it appears where a name is not
+    # enough and nowhere else. Asserted as an ABSENCE, which is the half a
+    # stamp-everything implementation would still pass.
+    check("...carrying no date it did not need",
+          "2026-08-27" not in out["soak_2026-08-27_1515.mp3"], str(out))
+    # An undateable collision must stay VISIBLE rather than get a counter nobody
+    # can read back to an episode.
+    nodate = at.distinct({"a.mp3": "same", "b.mp3": "same"})
+    check("a collision with no date in the filename is left alone, not counted",
+          nodate == {"a.mp3": "same", "b.mp3": "same"}, str(nodate))
+    # AND IT IS ACTUALLY WIRED. Read off MECHANISM so the paragraph above cannot
+    # satisfy the check: removing this call re-publishes the 08-30 collision and
+    # every per-item assertion in this file still passes.
+    check("the feed rebuild applies it before assembling items",
+          "audio_titles.distinct(titles)" in mechanism(
+              (REAL_BASE / "scripts" / "rebuild_rss.py").read_text(encoding="utf-8"),
+              after="def generate_rss"))
+    # The recorded name beats the lane's contract line — the actual retitle.
+    check("a recorded name replaces the lane's shared contract line",
+          at.lane_title("soak_2026-08-30_2004.mp3").startswith("Soak — ")
+          and "nothing to do but listen" not in at.lane_title("soak_2026-08-30_2004.mp3"),
+          at.lane_title("soak_2026-08-30_2004.mp3"))
+
     # ── Part A2: the published picker list is a BARE ARRAY ──
     # It was a key inside learner.json and cost seven rounds of debugging on the
     # phone, because reaching a key needs a Get Dictionary Value and that action
