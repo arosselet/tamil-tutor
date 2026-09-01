@@ -39,6 +39,7 @@ Start with `/orient` → `references/glossary.md`.
 | Reply scored wrong ("miss" when Andrew fired it) | Judge saw stale / mis-targeted knock | `knock_log.json` last entry → `target_revealed`, `expected_target`, `reply`, `reply_verdict` |
 | Push arrived twice (or never) | Push queue multi-fire or drain skip | `python scripts/push_queue.py list` + `knock_log.json` → `scheduled` entries |
 | Push arrived at wrong time | Queue entry `due` field / quiet-hours deferral | `knock_log.json` → `rationale` field on `scheduled: true` entry |
+| A dose I just heard is missing from the RATING PICKER, but IS in my podcast app | `recent_audio.txt` stale — the feed moved, its derived copy did not (KF-15) | `diff <(cat progress/recent_audio.txt) <(python -c "import sys;sys.path.insert(0,'scripts');from rebuild_rss import feed_items;[print(d['title']) for d in feed_items()[:6]]")` — any difference is the bug |
 | Feed shows stale / wrong episode | RSS rebuild didn't run, or episodes.json out of sync | `grep '<title>' rss.xml \| head -5` vs newest `.mp3` in `published_audio/` (+ `knocks/`) — first titles should match the newest files |
 | Status looks wrong (floor/deck numbers) | `lexicon.json` state, compute logic | `python scripts/sync_state.py status` (safe) |
 | CI red — smoke workflow | Regression in knock/reply/queue plumbing | `gh run list --workflow=smoke.yml --limit 5` then `gh run view <id> --log` |
@@ -294,6 +295,35 @@ input fix — one ask per message — beats any ceiling.
 apart*: the case asserts truncation does NOT raise `JSONDecodeError`, that the error names
 itself, and that the partial text survives — plus two no-false-positive cases.
 **Commit:** `149767c`
+
+### KF-15: The picker's list ran on a different clock than the feed (2026-09-01, fixed)
+**Symptom:** Andrew listens to a dose minutes after it lands, opens the rating Shortcut, and
+it is not on the list. **Not KF's 08-27 or 08-29** — those were the wrong POPULATION (the
+registry; then the delivery channel), and both were fixed. Here the population is right: the
+episode is in `rss.xml`, `feed_items()` returns it, and his podcast app plays it.
+**The tell that separates it from its two predecessors in one command:** run `feed_items()`
+against `cat progress/recent_audio.txt`. If the feed HAS the row and the file does not, this
+is a clock, not a filter — stop reading the filter.
+**Root cause:** `progress/recent_audio.txt` is derived from `rss.xml`, and the two had
+different writers on different schedules. The feed is rebuilt by `publish()` when a dose is
+published; the picker list was rewritten by `sync_state.write_thin_learner`, which runs when a
+SESSION is recorded. Two clocks over one derivation is not a race that sometimes loses — it is
+wrong by default for every dose published between two state writes, which is most of them. The 09-01
+soak was published at 16:43; the picker list had not been rewritten since the previous
+evening's session commit at 16:40 the day before — 24 hours behind its own feed.
+**Fix:** the derivation moved to the source's owner — `rebuild_rss.write_recent_audio`, called
+at the end of `generate_rss`, so the picker cannot run at a different time from the feed
+because it runs in the same function (a bare `rebuild_rss.py` recovery run refreshes it too).
+`publish()` commits the pair: a rewrite that never leaves the runner is byte-identical to
+success from inside the repo, and the phone fetches `main`.
+**Verify:** `python scripts/smoke_test.py` → section 79. Mutation-tested three ways (drop the
+`generate_rss` call; drop the commit path; restore the old owner) — each turns a different
+check red.
+**The meta-lesson, and it is the quiet class:** the law was already written. "A derived file
+follows its source" landed 2026-08-24 and named `chat.md`; it was applied where someone had
+been bitten, not everywhere it held. When a law is stated for one file, the next question is
+which OTHER files it already governs — nothing here failed, every instrument read green, and
+the file was simply the wrong age.
 
 ### KF-8: Lore format takeover — incentive drift, not taste (2026-07-11, fixed)
 **Symptom:** Andrew: today's lore push "basically a duplicate" of last week's; the format

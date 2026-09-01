@@ -2450,3 +2450,13 @@ Details live in git history; this is the index of the *conclusions*.
   wearing a cadence's clothes, which is the 07-11 mistake. **An existing assertion encoded
   the gap** ("no lore fires → no lore line") and is inverted: a never-fired dose is the
   loudest case, not the quietest.
+- **A derived file follows its source, and that means its CLOCK** (2026-09-01, Andrew: *"I
+  just listened to the September first soak … it's not available on the list. So it's not the
+  same bug we had before"*). Right twice: the population was correct — `rss.xml` had the soak
+  and `feed_items` offered it — and his guess was the cause. `recent_audio.txt` was written by
+  `sync_state.write_thin_learner`, on the SESSION clock; its only source is written on the
+  PUBLISH clock. Two clocks over one derivation is not a race that sometimes loses — it is
+  wrong for every dose published between two state writes. The writer moves to
+  `rebuild_rss.write_recent_audio`, called by `generate_rss` itself; `publish()` commits the
+  pair, because a rewrite that never leaves the runner is byte-identical to success. The 08-24
+  law existed and named `chat.md` — applied where noticed, not where it held.

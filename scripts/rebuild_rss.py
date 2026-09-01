@@ -8,7 +8,9 @@ import email.utils
 from xml.sax.saxutils import escape as xml_escape
 
 from language import RAW_BASE_URL, SITE_URL
-from state_io import LOCAL_TZ  # Andrew's clock, canonical there
+# LOCAL_TZ is Andrew's clock, canonical there; RECENT_AUDIO_PATH is the rating
+# picker's list, which this module writes because this module writes its source.
+from state_io import LOCAL_TZ, RECENT_AUDIO_PATH
 
 # Configuration
 # Derived from language.REPO, with SITE_URL (2026-08-28). One repo identity had
@@ -315,6 +317,40 @@ def feed_items():
     return out
 
 
+# Six rows, the 08-27 number, moved here with the writer rather than re-derived:
+# a picker is a thing you scroll on a lock screen, and the row he wants is at the
+# top by construction.
+def write_recent_audio(n: int = 6):
+    """Publish the rating picker's list — the last n feed titles, newest first.
+
+    A DERIVED FILE FOLLOWS ITS SOURCE (2026-08-24), and this one did not. It was
+    written by `sync_state.write_thin_learner`, which runs on the SESSION clock,
+    while its only source — `rss.xml` — is written here, on the PUBLISH clock.
+    Andrew listened to the 09-01 soak minutes after it landed and it was not on
+    the picker: the feed had it, and the file had not been rewritten since the
+    previous evening's session — 24 hours behind its own source, with nothing
+    broken enough to notice. Two clocks over one derivation is not a
+    race that sometimes loses — it loses by default for every dose published
+    between two state writes, which is most of them.
+
+    So the derivation moves to the source's owner. Called at the end of
+    `generate_rss`, it cannot run at a different time from the feed because it
+    runs in the same function: whoever rebuilds the feed republishes the picker,
+    including the bare `rebuild_rss.py` recovery run `/debug` prescribes.
+
+    Flat strings, because the iOS picker reads this straight into a list and
+    Shortcuts cannot render dictionaries as pickable rows. Titles are the feed's
+    own, so a row reads exactly as it does in his podcast app — which is also how
+    `cmd_rate_episode` resolves the tap back to an item.
+
+    PLAIN TEXT, not JSON: raw.githubusercontent.com serves every raw file as
+    text/plain with nosniff, so Shortcuts never parses one — a .json arrived as a
+    single opaque blob and the picker drew one unpickable row (2026-08-27)."""
+    RECENT_AUDIO_PATH.write_text(
+        "\n".join(d["title"] for d in feed_items()[:n]) + "\n",
+        encoding="utf-8", newline="\n")
+
+
 def existing_items():
     """Return {guid_url: {"pubDate": …, "duration": …}} from the current rss.xml, so a
     rebuild republishes what was published rather than re-deriving it.
@@ -611,6 +647,9 @@ def generate_rss():
     with open(RSS_FILE, 'w', encoding='utf-8') as f:
         f.write(rss_content)
     print(f"✅ Generated {RSS_FILE} with {len(items)} episodes.")
+    # The picker list is derived from the feed we just wrote, so it is written
+    # here — one function, one clock. See `write_recent_audio`.
+    write_recent_audio()
 
 
 if __name__ == "__main__":

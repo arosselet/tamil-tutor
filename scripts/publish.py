@@ -35,7 +35,7 @@ BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from language import REPO
 from render_chat import render_chat
-from state_io import KNOCK_LOG_PATH, LOCAL_TZ
+from state_io import KNOCK_LOG_PATH, LOCAL_TZ, RECENT_AUDIO_PATH
 
 
 KNOCKS_DIR = BASE / "published_audio" / "knocks"   # tracked, jsDelivr-served dir
@@ -354,7 +354,12 @@ def publish(state_paths: list, message: str, *, mp3=None,
     if feed:
         rss = refresh_feed()
         if rss:
-            paths.append(rss)
+            # BOTH, always together. `rebuild_rss` rewrites the rating picker's
+            # list beside the feed it derives from, and a rewrite that never
+            # leaves the runner is indistinguishable from success: the file on
+            # disk is correct, the phone fetches `main`, and the row is missing
+            # exactly as before (2026-09-01). The pair is the deliverable.
+            paths.extend([rss, RECENT_AUDIO_PATH])
     # A DERIVED FILE FOLLOWS ITS SOURCE (2026-08-24). `chat.md` holds no state of
     # its own — `render_chat` builds it from `knock_log.json` and reads nothing
     # else — so a commit carrying the log without a fresh render publishes a page

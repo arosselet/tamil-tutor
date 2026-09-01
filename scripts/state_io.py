@@ -40,7 +40,8 @@ SLIP_LOG_PATH = BASE / "progress" / "slip_log.json"
 # it as JSON whatever the extension — a .json here arrives as one opaque blob and
 # Choose from List draws a single unpickable row. Text plus Split Text by New Lines
 # is deterministic and needs no parse at all. Nothing but the phone reads this.
-# Derived, rewritten on every learner write.
+# Derived from `rss.xml` and rewritten by whoever writes that —
+# `rebuild_rss.write_recent_audio`, never the learner writer (2026-09-01).
 RECENT_AUDIO_PATH = BASE / "progress" / "recent_audio.txt"
 
 

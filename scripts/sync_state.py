@@ -42,7 +42,7 @@ from suggest_targets import reconcile_focus
 from state_io import (BASE, DEFAULT_TZ, EPISODES_PATH, FEEDBACK_LOG_PATH,
                       canon_payload,
                       KNOCK_LOG_PATH, LEARNER_PATH, LEXICON_PATH,
-                      RECENT_AUDIO_PATH, SESSION_LOG_PATH, SLIP_LOG_PATH,
+                      SESSION_LOG_PATH, SLIP_LOG_PATH,
                       build_phonetic_index,
                       load_json, local_today, resolve, save_json)
 
@@ -330,23 +330,6 @@ def fires_today() -> int:
     return n
 
 
-def compute_recent_audio(n: int = 6) -> list[str]:
-    """The last n things that landed in the podcast feed, newest first.
-
-    SOURCED FROM THE FEED, not episodes.json. Its predecessor read the episode
-    registry, which is the *lesson* pipeline's book: only numbered Missions ever
-    get a row there, so 16 of 28 published files — every soak, every drill, every
-    long-haul — were unofferable, and the picker could not name the soak Andrew
-    had listened to an hour earlier (2026-08-27, his catch). No counter and no
-    number: each episode is a self-contained dose (the 2026-06-30 pivot).
-
-    Flat strings, because the iOS rating picker reads this key straight into a
-    list and Shortcuts cannot render dictionaries as pickable rows. Titles are
-    the feed's own, so a row reads exactly as it does in his podcast app — which
-    is also how the rating resolves back to an item."""
-    return [d["title"] for d in feed_items()[:n]]
-
-
 # Keys this schema retired. Merge-write carries an unknown key through by
 # design, so a retired one has to be NAMED to be swept -- the old rebuild-from-
 # whitelist dropped them for free, and that free sweep is the one thing
@@ -399,13 +382,12 @@ def write_thin_learner(learner: dict):
     # (The <=FOCUS_SIZE drill cohort above is the opposite: stored membership,
     # not an emergent sort, so a counting bug cannot move a seat -- 2026-07-26.)
     thin["status"] = compute_status()
-    # Published as its own bare array, NOT as a key here: the iOS picker reads it
-    # directly. PLAIN TEXT, not JSON: raw.githubusercontent.com serves every raw
-    # file as text/plain with nosniff, so Shortcuts never parses one — a .json
-    # arrived as a single opaque blob and the picker drew one unpickable row.
-    # Split Text by New Lines needs no parse at all (2026-08-27).
-    RECENT_AUDIO_PATH.write_text("\n".join(compute_recent_audio()) + "\n",
-                                 encoding="utf-8", newline="\n")
+    # The rating picker's list is NOT written here any more (2026-09-01). It is
+    # derived from `rss.xml` and was being rewritten on the SESSION clock while
+    # its source moved on the PUBLISH clock, so every dose published between two
+    # state writes was missing from the picker — the 09-01 soak, minutes after it
+    # landed. Its writer is `rebuild_rss.write_recent_audio`, called by the same
+    # function that writes the feed. One clock, and it is the source's.
     save_json(LEARNER_PATH, thin)
     print(f"  Updated learner.json ({LEARNER_PATH.relative_to(BASE)})")
 

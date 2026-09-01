@@ -2895,8 +2895,19 @@ def s79_a_rating_lands_or_says_why(sb: Path):
     # is the one surface in this lane no test can reach. Nothing but the phone
     # ever read it. Asserted as a LIST, not merely present: a dict here is the
     # regression, and it would look exactly like success from the repo side.
-    ss.write_thin_learner(read_json(sb / "progress" / "learner.json") or {})
-    raw = Path(ss.RECENT_AUDIO_PATH).read_text(encoding="utf-8")
+    #
+    # THE FOURTH BUG, and it is a CLOCK, not a population (2026-09-01, Andrew:
+    # *"I just listened to the September first soak … it's not available on the
+    # list. So it's not the same bug we had before"*). He was right twice over:
+    # the population was correct — the 09-01 soak was in `rss.xml`, offerable, and
+    # `feed_items` returned it — and his guess at the cause was the cause. The
+    # file was written by `sync_state.write_thin_learner`, which runs when a
+    # SESSION is recorded, while its only source is written when a dose is
+    # PUBLISHED. Two clocks over one derivation does not race; it is simply wrong
+    # for every dose published between two state writes, which is most of them.
+    # The writer now lives with the source, so the same function emits both.
+    rr.write_recent_audio()
+    raw = Path(rr.RECENT_AUDIO_PATH).read_text(encoding="utf-8")
     published = [r for r in raw.split(chr(10)) if r]
     # NOT JSON, and this assertion is the measurement: raw.githubusercontent.com
     # serves every raw file as text/plain with nosniff, so Shortcuts never parses
@@ -2908,6 +2919,72 @@ def s79_a_rating_lands_or_says_why(sb: Path):
           len(published) > 1 and all(published), repr(raw[:60]))
     check("...and the key is GONE from learner.json, not left beside it",
           "recent_audio" not in (read_json(sb / "progress" / "learner.json") or {}))
+    # THE EFFECT, not the execution: the row he wants is the newest thing in the
+    # feed, and it is the FIRST row. Reading "the file was written" is what let
+    # a six-hour-stale file pass for correct.
+    check("the picker's top row IS the feed's newest item",
+          published[0] == rr.feed_items()[0]["title"],
+          f"{published[0]!r} vs {rr.feed_items()[0]['title']!r}")
+
+    # THE CLOCK ITSELF. Publish a newer dose into the feed and rebuild ONLY the
+    # feed — no session, no state write. The 09-01 file would still be showing
+    # yesterday here, and nothing would look broken.
+    NEWER = FIXTURE.replace("<channel>", """<channel>
+  <item><title>Soak - 2026-09-01</title>
+    <enclosure url="https://x/published_audio/soak_2026-09-01_1642.mp3"/>
+    <pubDate>Tue, 01 Sep 2026 16:43:03 +0530</pubDate></item>""")
+    try:
+        RSSP.write_text(NEWER, encoding="utf-8")
+        rr.write_recent_audio()
+        top = Path(rr.RECENT_AUDIO_PATH).read_text(encoding="utf-8").split(chr(10))[0]
+        check("a dose published between two SESSIONS is on the picker anyway",
+              top == "Soak - 2026-09-01", repr(top))
+        # A session must not CLOBBER it on the way past, which is what running
+        # the retired owner would look like from the phone.
+        ss.write_thin_learner(read_json(sb / "progress" / "learner.json") or {})
+        check("...and recording a session does not walk it backwards",
+              Path(rr.RECENT_AUDIO_PATH).read_text(encoding="utf-8").split(chr(10))[0]
+              == "Soak - 2026-09-01", "a session write moved the picker list")
+    finally:
+        if saved_rss is not None:
+            RSSP.write_bytes(saved_rss)
+    # ONE OWNER, and it is a SOURCE property — a second writer that happens to
+    # agree today is still the bug, wearing a longer fuse: whichever runs last
+    # wins, and the stale one wins the moment the feed moves without it. So the
+    # assertion is that sync_state cannot write this file at all, not that its
+    # output currently matches. Read off MECHANISM, so the paragraph naming the
+    # retirement cannot satisfy the check that proves it.
+    ss_src = mechanism((REAL_BASE / "scripts" / "sync_state.py").read_text(encoding="utf-8"))
+    check("the SESSION writer cannot reach the picker file at all any more",
+          "RECENT_AUDIO_PATH" not in ss_src, "sync_state still writes the picker list")
+    check("...with `compute_recent_audio` gone with it, not merely left unused",
+          "compute_recent_audio" not in ss_src)
+    # ONE FUNCTION, ONE CLOCK — the contract the fix rests on. Asserted against
+    # MECHANISM so the paragraph explaining it cannot satisfy the check.
+    check("the feed rebuild itself calls the picker writer",
+          "write_recent_audio()" in mechanism(
+              (REAL_BASE / "scripts" / "rebuild_rss.py").read_text(encoding="utf-8"),
+              after="def generate_rss"))
+
+    # THE SILENT NO-OP, and it is the half that reaches the phone. A rewritten
+    # file that never leaves the runner is byte-identical to success from inside
+    # the repo: correct on disk, stale on `main`, missing row on the picker —
+    # which is exactly the symptom, one layer further out. So the pair must be
+    # in the COMMIT, not merely on disk.
+    real_feed = fx.pb.refresh_feed
+    try:
+        fx.pb.refresh_feed = lambda: Path("rss.xml")
+        paths, _msg = fx.pb.publish([], "Soak loop: test", feed=True)
+        names = {Path(q).name for q in paths}
+        check("a feed rebuild commits rss.xml AND the picker list together",
+              {"rss.xml", "recent_audio.txt"} <= names, str(sorted(names)))
+        fx.pb.refresh_feed = lambda: None
+        paths, _msg = fx.pb.publish([], "Soak loop: test", feed=True)
+        check("...and neither, when the rebuild failed — stale together is honest",
+              not ({"rss.xml", "recent_audio.txt"} & {Path(q).name for q in paths}),
+              str(paths))
+    finally:
+        fx.pb.refresh_feed = real_feed
 
     # ── Part B: the command, over a feed this case controls ──
     FEED = [{"id": "soak_2026-08-27_1515", "format": "soak",

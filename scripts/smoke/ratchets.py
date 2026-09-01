@@ -287,7 +287,22 @@ CODE_BUDGETS = {
     # own the ordering, the quiet-hours check, or the commit list.
     "scripts/publish.py": 150,
     "scripts/push_queue.py": 250,
-    "scripts/rebuild_rss.py": 350,
+    # 350 -> 355 (2026-09-01): A TRANSFER, NOT GROWTH, and the sync_state entry
+    # below is re-censused DOWN by the same 5 in this same diff — the two ceilings
+    # sum to what they summed to yesterday. `compute_recent_audio` and the
+    # `RECENT_AUDIO_PATH.write_text` block moved here from `write_thin_learner`,
+    # which is what the change IS: the rating picker's list is derived from
+    # `rss.xml`, and it was being rewritten on the SESSION clock while its source
+    # moved on the PUBLISH clock. Two clocks over one derivation is not a race —
+    # it is wrong by default for every dose published between two state writes,
+    # and the 09-01 soak was missing from the picker minutes after it landed. A
+    # derived file follows its source (2026-08-24), so the writer follows too.
+    # NOTE FOR THE NEXT RAISE: this file has now sat at 2 lines of headroom twice
+    # (348/350 on 08-29, 353/355 today), and the next number is a SPLIT, not a
+    # bump. It builds the feed AND reads it back — `generate_rss` and the item
+    # tables are one job, `feed_items`/`knock_meta`/`write_recent_audio` are the
+    # readers the picker lane needs, and only the second group has other callers.
+    "scripts/rebuild_rss.py": 355,
     # 500 → 495 (2026-08-28): re-censused DOWN. The two PINNED voices left for
     # `language.py`. Small in lines and exact in concern: this file owns the TTS
     # STACK and the episode voice POOLS (one reader, one file), and no longer
@@ -426,7 +441,12 @@ CODE_BUDGETS = {
     # but ~480 lines left for state_io, slips and session_brief, so a 1254
     # ceiling would have stopped measuring anything. The new number is the
     # post-split file plus normal headroom, not a target to grow into.
-    "scripts/sync_state.py": 800,
+    # 800 -> 795 (2026-09-01): RE-CENSUSED DOWN, not held. The 5 lines are the
+    # ones that arrived in rebuild_rss above — `compute_recent_audio` and the
+    # picker write inside `write_thin_learner` — and holding 800 after they left
+    # would have converted a move into 5 lines of free allowance. Headroom is
+    # unchanged at 13 on purpose: a transfer must not loosen either end.
+    "scripts/sync_state.py": 795,
 }
 
 
