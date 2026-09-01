@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **11:26 · Anna**  ·  text / trailer: present future toggle
 > One letter flips 'kekkuren' (asking now) to 'keppen' (will ask). Elders catch it instantly. Lunch session. 🎯
 
+**16:29 · Anna**  ·  text / trailer payoff: present future toggle
+> kekkuren (asking now) vs keppen (I'll ask). That '-pp-' flips right into the future. Clean and done. 🎯
+
 
 ## Monday 2026-08-31
 

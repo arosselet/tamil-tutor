@@ -6025,5 +6025,17 @@
     "body": "One letter flips 'kekkuren' (asking now) to 'keppen' (will ask). Elders catch it instantly. Lunch session. 🎯",
     "expected_target": "",
     "target_revealed": false
+  },
+  {
+    "date": "2026-09-01",
+    "timestamp": "2026-09-01T10:59:42.947431+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "trailer payoff: present future toggle",
+    "rationale": "Afternoon without a session — paying off the morning trailer on kekkuren vs keppen so the curriculum isn't withheld overnight.",
+    "next_check": "2026-09-02T01:59:42.947431+00:00",
+    "body": "kekkuren (asking now) vs keppen (I'll ask). That '-pp-' flips right into the future. Clean and done. 🎯",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]
