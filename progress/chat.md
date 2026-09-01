@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Tuesday 2026-09-01
+
+**11:26 · Anna**  ·  text / trailer: present future toggle
+> One letter flips 'kekkuren' (asking now) to 'keppen' (will ask). Elders catch it instantly. Lunch session. 🎯
+
+
 ## Monday 2026-08-31
 
 **12:01 · Anna** 🎧  ·  fielding / fielding: table refusal

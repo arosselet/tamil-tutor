@@ -6013,5 +6013,17 @@
     "body": "When mama tells a story: 'adhukku approm?' (after that?) keeps him going all night. One line to hold the table.",
     "expected_target": "",
     "target_revealed": true
+  },
+  {
+    "date": "2026-09-01",
+    "timestamp": "2026-09-01T05:56:31.459074+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "trailer: present future toggle",
+    "rationale": "11:26 IST lunch anchor: tee up the kekkuren vs keppen toggle to recruit today's lunch session.",
+    "next_check": "2026-09-01T10:26:31.459074+00:00",
+    "body": "One letter flips 'kekkuren' (asking now) to 'keppen' (will ask). Elders catch it instantly. Lunch session. 🎯",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]
