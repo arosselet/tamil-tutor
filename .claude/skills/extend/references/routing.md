@@ -7,7 +7,7 @@ report — do not create a substitute.
 | Concern | File | Notes |
 |---|---|---|
 | Anna's persona voice, heist framing, "What Anna Never Does" | `protocol/persona.md` | |
-| Coimbatore spoken-register rules (verb collapse, fusion, slang) | `protocol/dialect.md` | Producer applies; never put dialect rules in `architect.md` |
+| Coimbatore spoken-register rules (verb collapse, fusion, slang) | `protocol/dialect.md` | **Any lane that sends Tamil to a VOICE reads it via `writer.voice_canon()`** — knock memos, eavesdrop tapes, fielding questions, soak/drill/rotation sheets, voice replies. The studio Producer reads it as its own canon. Never put dialect rules in `architect.md`, and never hand a new voice lane `persona.md` alone: that is how this file reached exactly one reader until 2026-09-02 (`s89`) |
 | Podcast cast names and regional voice identity | `protocol/studio/hosts.md` | Script-only rules live here (fourth wall, no ad-libs) |
 | Word selection ticket (floor-gap targets, engines, new candidates) | `scripts/suggest_targets.py` | |
 | Scene-spec divergence gate (register / form / dramatic ingredient) | `scripts/suggest_targets.py` | `scene_spec()`; divergence window = 3 |

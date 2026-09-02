@@ -28,6 +28,17 @@ from ._fixtures import (
 # enforce itself. Growth past a budget is a red run; raising a budget must ride the
 # same diff as the growth, and the commit names the lines it retired (/extend Gate 4).
 PROSE_BUDGETS = {
+    # Set at the 2026-09-02 census (577) rounded up plus headroom, on the day this
+    # file stopped being studio craft. It had NO ceiling for its whole life because
+    # it was filed under `studio/` and the budgets were written for protocol law —
+    # the same misfiling that left it with one reader. It is now read by every lane
+    # that sends Tamil to a voice, and its Word Fusion section is the part we expect
+    # to grow: three Producer runs over one tape gave three different answers, and
+    # the suspected cause is that two examples do not constrain a model. So the
+    # growth is FORESEEN, which is exactly when a ceiling is worth having — a fusion
+    # table that outgrows this wants to be data the seam applies, not more prose for
+    # a model to interpret.
+    "protocol/dialect.md": 625,
     "protocol/persona.md": 2000,
     # 1750 -> 1790 (2026-08-04): FIRST raise of this ceiling, and the growth is a
     # class of content no protocol file owned — a standing fact about the learner's

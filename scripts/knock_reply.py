@@ -290,7 +290,15 @@ def handle_catch_reply(knock: dict, reply_text: str, klog: list,
     knock["response"] = "reply"
     knock["reply"] = reply_text
     knock["reply_verdict"] = verdict["verdict"]
-    knock["reply_line"] = verdict["reply_line"]
+    # SAME READ-SURFACE LAW AS EVERY OTHER PUSH-BACK (2026-09-02). This path — the
+    # eavesdrop/catch reply — pushed the judge's raw line to the lock screen while
+    # the main reply path (below) transformed its own. Andrew cannot read Tamil
+    # script in a notification; he reported it twice on 2026-08-02, and `s59`
+    # guards the knock lane's body for exactly that reason. The gap survived
+    # because no case asserted the CATCH path, and it stopped being theoretical
+    # when `voice_canon` began handing this judge a dialect file written in Tamil
+    # script immediately before asking it for a line Andrew reads.
+    knock["reply_line"] = to_phonetic(verdict["reply_line"], label="catch push-back")
     knock["reply_at"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     knock.setdefault("exchanges", []).append({
         "at": knock["reply_at"], "reply": reply_text,
@@ -312,7 +320,10 @@ def handle_catch_reply(knock: dict, reply_text: str, klog: list,
         f"Knock reply: {verdict['verdict']} (eavesdrop)",
         mp3=vmp3 if voice_url else None))
     print("4. push back…")
-    push_to_phone(verdict["reply_line"], voice_url,
+    # the LOGGED line, not the draft — the log must record what he was actually
+    # sent (`s59`), and pushing `verdict[...]` here would have re-introduced the
+    # raw script one line after it was transformed.
+    push_to_phone(knock["reply_line"], voice_url,
                   knock_id=knock.get("timestamp", ""), requested=True)
     print(f"done — drift judged, catch axis scored, "
           f"answered{' (aloud 🎧)' if voice_url else ''}.")

@@ -1930,6 +1930,25 @@ def s50_read_surfaces_are_phonetic(mk, kr, sb: Path):
               calls and all("memo_script" not in c and "voice_reply" not in c for c in calls),
               str(calls))
 
+    # ...AND THE CONVERSE, which had no case until 2026-09-02: every read surface
+    # IS transformed. `knock_reply` sets `reply_line` on two paths — the main
+    # push-back and the eavesdrop/catch reply — and only the first was wrapped, so
+    # the catch path pushed the judge's raw line to the lock screen. Andrew
+    # reported unreadable Tamil script in notifications twice on 2026-08-02; the
+    # check above could not see this because it only inspects what IS wrapped,
+    # never what is missing. A one-sided guard reads green against its own blind
+    # spot, which is the shape this suite keeps finding.
+    kr_src = mechanism((REAL_BASE / "scripts" / "knock_reply.py").read_text(encoding="utf-8"))
+    assigns = re.findall(r'knock\["reply_line"\]\s*=\s*(.{0,60})', kr_src, re.S)
+    check("knock_reply: EVERY reply_line Andrew reads is transformed",
+          len(assigns) >= 2 and all("to_phonetic" in a for a in assigns),
+          f"{len(assigns)} assignment(s), unguarded: "
+          f"{[a.strip()[:40] for a in assigns if 'to_phonetic' not in a]}")
+    # and the phone gets the logged line, never the draft beside it
+    check("knock_reply: the catch push sends the logged line, not the raw verdict",
+          'push_to_phone(knock["reply_line"]' in kr_src,
+          "pushing verdict[...] re-introduces the script one line after the transform")
+
 
 def s60_the_ear_meter(kr, sb: Path):
     """Machines heard — the recognition axis gets a meter (2026-08-16, Andrew).
