@@ -42,6 +42,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > Close — 'sonnen' is past tense ('I said'); right now is 'solren'.
 
+**20:22 · Anna**  ·  text / trailer: backchannel shades
+> Two 'aamaa's is yes. One slow 'aamaaa...' means 'get to the point.' The full backchannel toolkit in tomorrow's session.
+
 
 ## Tuesday 2026-09-01
 

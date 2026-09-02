@@ -6192,5 +6192,17 @@
     "pinned_target": "சொல்றேன்",
     "pinned_revealed": false,
     "volley_done": true
+  },
+  {
+    "date": "2026-09-02",
+    "timestamp": "2026-09-02T14:52:29.220352+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "trailer: backchannel shades",
+    "rationale": "Demand streak is at 2 and it's 20:22 IST post-dinner; tee up tomorrow's backchannel work with a no-ask trailer and let tonight's mission breathe.",
+    "next_check": "2026-09-03T01:52:29.220352+00:00",
+    "body": "Two 'aamaa's is yes. One slow 'aamaaa...' means 'get to the point.' The full backchannel toolkit in tomorrow's session.",
+    "expected_target": "",
+    "target_revealed": false
   }
 ]
