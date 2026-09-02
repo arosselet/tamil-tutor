@@ -18,6 +18,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **15:50 · Anna**  ·  volley / volley: table reactions
 > ⚡ volley 1/4 — Mama pauses mid-story expecting a nod — hit him with the rapid double 'yeah, yeah' to keep him rolling.
 
+**16:47 · Andrew** — **HINTED**
+> Seri seri or ama ama
+
+**Anna ↩**
+> adhu dhaan — rendume work aagum, 'aama aama' keeps him rolling! · 2/4 — Maama asks why you're sitting down after the walk — tell him you are 'tired'.
+
 
 ## Tuesday 2026-09-01
 

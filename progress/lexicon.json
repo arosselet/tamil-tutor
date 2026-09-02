@@ -3645,17 +3645,18 @@
       "aama aama"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       86,
       88,
       89
     ],
-    "last_surfaced": "2026-08-26",
+    "last_surfaced": "2026-09-02",
     "deck": "trip",
     "direction": "fire",
     "exposures": 8,
-    "register": "antifreeze"
+    "register": "antifreeze",
+    "reps": 1
   },
   "அப்படியா?!": {
     "type": "chunk",

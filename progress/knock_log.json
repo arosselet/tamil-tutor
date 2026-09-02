@@ -6096,6 +6096,40 @@
         "ask": "Athai asks what you're doing on the call — answer right now: 'I am telling' (present tense)."
       }
     ],
-    "volley_next": 1
+    "volley_next": 2,
+    "response": "reply",
+    "reply": "Seri seri or ama ama",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "ஆமா ஆமா"
+    ],
+    "reply_fired_cold": [
+      "ஆமா ஆமா"
+    ],
+    "reply_fired_capped": [],
+    "reply_line": "adhu dhaan — rendume work aagum, 'aama aama' keeps him rolling! · 2/4 — Maama asks why you're sitting down after the walk — tell him you are 'tired'.",
+    "reply_at": "2026-09-02T11:17:38Z",
+    "exchanges": [
+      {
+        "at": "2026-09-02T11:17:38Z",
+        "reply": "Seri seri or ama ama",
+        "verdict": "hinted",
+        "fired": [
+          "ஆமா ஆமா"
+        ],
+        "fired_cold": [
+          "ஆமா ஆமா"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan — rendume work aagum, 'aama aama' keeps him rolling! · 2/4 — Maama asks why you're sitting down after the walk — tell him you are 'tired'.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ],
+    "chained": 1,
+    "pinned_target": "டயர்ட்",
+    "pinned_revealed": false
   }
 ]
