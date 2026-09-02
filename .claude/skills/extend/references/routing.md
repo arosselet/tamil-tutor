@@ -7,7 +7,7 @@ report — do not create a substitute.
 | Concern | File | Notes |
 |---|---|---|
 | Anna's persona voice, heist framing, "What Anna Never Does" | `protocol/persona.md` | |
-| Coimbatore spoken-register rules (verb collapse, fusion, slang) | `protocol/studio/dialect.md` | Producer applies; never put dialect rules in `architect.md` |
+| Coimbatore spoken-register rules (verb collapse, fusion, slang) | `protocol/dialect.md` | Producer applies; never put dialect rules in `architect.md` |
 | Podcast cast names and regional voice identity | `protocol/studio/hosts.md` | Script-only rules live here (fourth wall, no ad-libs) |
 | Word selection ticket (floor-gap targets, engines, new candidates) | `scripts/suggest_targets.py` | |
 | Scene-spec divergence gate (register / form / dramatic ingredient) | `scripts/suggest_targets.py` | `scene_spec()`; divergence window = 3 |

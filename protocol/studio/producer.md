@@ -1,7 +1,7 @@
 # Role: The Producer
 
 > **Reads from:**
-> - `protocol/studio/dialect.md` — dialect rules to apply
+> - `protocol/dialect.md` — dialect rules to apply
 > - `protocol/studio/hosts.md` — voice definitions to check differentiation against
 
 **Goal:** Take the Architect's draft and make the Tamil sound like Coimbatore. Then run integrity checks before TTS.
@@ -12,7 +12,7 @@
 
 ## The Dialect Pass
 
-Read every Tamil line as an editor. Where the Architect drafted in literary register, unfused forms, or hybrid constructions, **rewrite the line** — don't just flag. Apply `protocol/studio/dialect.md` end-to-end:
+Read every Tamil line as an editor. Where the Architect drafted in literary register, unfused forms, or hybrid constructions, **rewrite the line** — don't just flag. Apply `protocol/dialect.md` end-to-end:
 
 - Collapse verb forms to spoken register (e.g., `போகிறேன்` → `போறேன்`, `செய்கிறோம்` → `பண்றோம்`)
 - Apply word fusion (Sandhi) where it would naturally happen in fast speech (`அது என்ன` → `அதென்ன`)

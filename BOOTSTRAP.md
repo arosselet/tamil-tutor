@@ -91,7 +91,7 @@ This repo is a **reference implementation, not a framework** — the goal here i
 |---|---|---|
 | `protocol/persona.md` | The tutor's identity, voice, dialect tics | Your tutor in the new language/region |
 | `protocol/studio/hosts.md` | The podcast cast (names + regional identity) | New cast names and regional voice |
-| `protocol/studio/dialect.md` | Spoken-register rules (verb collapse, fusion, slang) | The target dialect's spoken rules |
+| `protocol/dialect.md` | Spoken-register rules (verb collapse, fusion, slang) | The target dialect's spoken rules |
 | `protocol/constitution.md` | Mostly universal — but the dialect *examples* are Tamil | Edit the inline examples to the new language |
 | `curriculum/word_pool.json` | The glue-word suggestion pool (rows are `{"word", "gloss", "cluster", "priority"}` — the key is `word`, not a language name, since 2026-08-28) | The new language's high-frequency glue |
 

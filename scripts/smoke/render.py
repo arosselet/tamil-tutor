@@ -118,7 +118,7 @@ def s28_cloud_writer(sb: Path):
           "===== progress/learner.json =====" in director_inlined)
     check("the Producer gets the canon governing the Tamil it rewrites",
           "===== protocol/constitution.md =====" in rs.inline_canon(producer_prompt)
-          and "===== protocol/studio/dialect.md =====" in rs.inline_canon(producer_prompt))
+          and "===== protocol/dialect.md =====" in rs.inline_canon(producer_prompt))
     # the skip is deliberate AND loud: 114 KB the ticket already distills. A quiet
     # omission is the bug above; an announced one is a decision.
     check("the lexicon is skipped, not silently dropped",
@@ -774,7 +774,7 @@ def s89_every_voice_lane_carries_the_dialect(sb: Path):
     # inline_canon, so it must NOT be rewired onto this seam by a future tidy-up.
     rs = importlib.import_module("run_studio")
     check("the studio still carries dialect.md its own way",
-          "protocol/studio/dialect.md" in rs.PRODUCER)
+          "protocol/dialect.md" in rs.PRODUCER)
 
     # LOUD ON ABSENCE. A half-canon returns every lane to book Tamil with all
     # instruments green — the exact shape that hid this for a month, so the

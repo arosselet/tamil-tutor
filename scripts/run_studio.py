@@ -122,7 +122,7 @@ lines as `**Name:** text`, with [SFX] / [Pause] craft per the role file.
 
 PRODUCER = PREAMBLE + """
 THIS PASS: the PRODUCER. Read protocol/studio/producer.md,
-protocol/studio/dialect.md and protocol/constitution.md and follow them exactly:
+protocol/dialect.md and protocol/constitution.md and follow them exactly:
 dialect transformation, integrity checks (send-backs become fixes you make
 yourself here), and the sidecar. Two hard rules the dialect pass must not violate:
 - PAYLOAD FIDELITY: a CHUNK the sidecar claims must appear EXACTLY as seeded

@@ -522,7 +522,7 @@ def executor_name() -> str:
 
 
 # ── THE VOICE CANON — one owner for every pass that writes Tamil aloud ───────
-VOICE_CANON_FILES = ("protocol/persona.md", "protocol/studio/dialect.md")
+VOICE_CANON_FILES = ("protocol/persona.md", "protocol/dialect.md")
 
 
 def voice_canon() -> str:

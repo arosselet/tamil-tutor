@@ -7,7 +7,9 @@
 > directly as part of its own canon. The Architect still does not read it — Producer rewrites
 > Architect drafts to this register before TTS.
 >
-> **It reached only the studio until 2026-09-02**, because it was filed as studio craft. Six
+> **It reached only the studio until 2026-09-02**, because it was filed as studio craft —
+> it lived at `protocol/studio/dialect.md`, and a repo-wide language law filed under one
+> role's folder is how it acquired one reader. Moved to `protocol/` the same week. Six
 > lanes carrying nearly all of Andrew's daily ear contact generated Tamil with no
 > spoken-register law at all, and two native speakers reported the result — 2026-07-31 as
 > "uncanny", 2026-09-01 as "book Tamil" that cost a native effort to follow. Neither report
