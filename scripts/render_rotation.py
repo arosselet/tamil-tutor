@@ -96,7 +96,7 @@ from render_audio import (generate_segment_google, get_raw_mp3_frames, SILENCE_F
 # handling, the blown-ceiling guard and — since 2026-08-23 — the executor choice.
 # Moved out of render_drill so the lane that owns drills does not also own how
 # every other lane talks to a model.
-from writer import STR, arr, ask_json, obj
+from writer import STR, arr, ask_json, obj, voice_canon
 
 # What one movement IS, for the executor that can be told (see writer.obj).
 MOVEMENT_SCHEMA = obj(frame=STR, beats=arr(ta=STR, en=STR))
@@ -316,13 +316,13 @@ from mandates import BASE_MANDATE, SHAPE_CLAUSES  # noqa: E402
 def write_movement(mv: dict, spine: str) -> dict:
     """One movement, one small call. The whole tape is never in a model's context —
     twelve 600-token calls succeed where one 15,000-token script does not."""
-    persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
+    canon = voice_canon()
     menu = "\n".join(
         f"- {i['word']} — {i['gloss'] or '[no gloss]'}"
         + (f"  HOSTS: {', '.join(i['hosts'])}" if i["hosts"] else "")
         for i in mv["items"])
     mandate = f"{BASE_MANDATE}\n{SHAPE_CLAUSES[mv['shape']]}"
-    sheet = ask_json(f"{persona}\n\n---\n\n{mandate}",
+    sheet = ask_json(f"{canon}\n\n---\n\n{mandate}",
                      f"THE TAPE'S SPINE: {spine}\n\nITEMS FOR THIS MOVEMENT:\n{menu}",
                      MOVEMENT_SCHEMA)
     sheet["beats"] = [b for b in sheet.get("beats", [])

@@ -519,3 +519,49 @@ def executor_name() -> str:
     that quietly costs money is legible in the log before it starts."""
     return f"claude -p ({AGENT_MODEL}, subscription)" if have_agent() \
         else f"openrouter ({OPENROUTER_MODEL}, PAID)"
+
+
+# ── THE VOICE CANON — one owner for every pass that writes Tamil aloud ───────
+VOICE_CANON_FILES = ("protocol/persona.md", "protocol/studio/dialect.md")
+
+
+def voice_canon() -> str:
+    """Who Anna is, plus the spoken-register law — for any pass that can emit
+    Tamil a VOICE will speak.
+
+    WHAT THIS REPLACES (2026-09-02): five copies of
+    `(BASE / "protocol" / "persona.md").read_text(...)` — `morning_knock`,
+    `render_soak`, `render_drill`, and both `knock_reply` judges — none of which
+    carried `dialect.md`. The spoken-register rules were filed as studio craft
+    and reached exactly ONE reader, `run_studio`'s Producer pass, so every knock
+    memo, eavesdrop tape, fielding question, soak sheet, drill sheet and voice
+    reply was written with no dialect law at all. Those lanes carry nearly all of
+    Andrew's daily ear contact; the studio carries the least.
+
+    HOW IT SURFACED, and why it took two natives to see it. 2026-07-31, his wife:
+    the ல/ள and ர/ற distinctions are over-articulated, "uncanny" — logged as a
+    TTS/medium finding, which is where the trail went cold, because a medium
+    finding has no script owner. 2026-09-01, his nephew, on an 18-second eavesdrop
+    tape: it is book Tamil, and following it cost him enough that he lost the
+    start of it. Same defect, and the second report was functional rather than
+    aesthetic. Neither ear was wrong about the sound; the tape had simply never
+    been through the pass that exists to fix it.
+
+    Costs no extra model call and no second prompt: every one of these lanes
+    already sends `persona.md` in this exact position, and `dialect.md` is ~3.5 KB
+    beside it.
+
+    LOUD ON ABSENCE, deliberately. A missing canon file raises here rather than
+    returning what it could find — a half-canon would put every lane straight
+    back to book Tamil with every instrument green, which is the failure mode
+    that hid this bug for a month.
+    """
+    parts = []
+    for rel in VOICE_CANON_FILES:
+        p = BASE / rel
+        if not p.exists():
+            raise FileNotFoundError(
+                f"voice canon missing: {rel} — every spoken-Tamil lane reads it; "
+                f"refusing to generate Tamil without the register law")
+        parts.append(p.read_text(encoding="utf-8").strip())
+    return "\n\n---\n\n".join(parts)

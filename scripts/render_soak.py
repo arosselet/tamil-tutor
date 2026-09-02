@@ -47,7 +47,7 @@ from language import ANNA_VOICE
 # rather than parsing. This lane built its own OpenRouter client and called it on
 # every host, including the laptop, where `claude -p` would have done the same
 # work against a subscription already paid for. `writer.ask_json` decides.
-from writer import STR, arr, ask_json, executor_name, obj
+from writer import STR, arr, ask_json, executor_name, obj, voice_canon
 
 # What the soak sheet IS, for the executor that can be told (see writer.obj).
 # `title` IS DECLARED HERE because the agent path eats what this call does not
@@ -140,7 +140,7 @@ def with_payload(items: list[dict], payload: list[str]) -> list[dict]:
 
 
 def write_sheet(items: list[dict], focus: str | None = None) -> dict:
-    persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
+    canon = voice_canon()
     menu = "\n".join(
         f"- {r['word']} — {r['gloss'] or '[no gloss]'} [{r['production']}]"
         for r in items)
@@ -152,7 +152,7 @@ def write_sheet(items: list[dict], focus: str | None = None) -> dict:
     # "the cost of a second parser, not of a hard problem". This lane was the third
     # and nobody had looked. It also never had the 08-05 truncation guard, so at
     # max_tokens=2400 a cut-off sheet reported as a parse error.
-    sheet = ask_json(persona + "\n\n---\n\n" + mandate,
+    sheet = ask_json(canon + "\n\n---\n\n" + mandate,
                      f"THIS WEEK'S ITEMS:\n{menu}", SOAK_SCHEMA)
     clean = []
     for c in sheet.get("clusters", []):

@@ -45,7 +45,7 @@ from publish import commit_and_push, load_env, publish, push_to_phone
 from reply_common import (ensure_voice, recent_exchanges, record_meta_note,
                           speak, wants_scheduled_push)
 from state_io import FEEDBACK_LOG_PATH, KNOCK_LOG_PATH, load_json, save_json
-from writer import STR, ask_json, executor_name, obj
+from writer import STR, ask_json, executor_name, obj, voice_canon
 
 # Declared beside the lane that reads it, like every other judge shape. `schedule`
 # and `voice_reply` are absent on purpose: both are nullable/optional and obj()
@@ -57,7 +57,7 @@ MESSAGE_SCHEMA = obj(reply_line=STR, meta_note=STR, rationale=STR, voice_reply=S
 def judge_message(text: str, knock: dict, klog: list,
                   force_voice: bool = False, force_schedule: bool = False) -> dict:
     """Anna reading a message. Same persona, same thread, no grading mandate."""
-    persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
+    canon = voice_canon()
     context = {"andrew_said": text,
                "prior_exchanges": recent_exchanges(klog, knock) if knock else []}
     print(f"   [message] {executor_name()}")
@@ -65,7 +65,7 @@ def judge_message(text: str, knock: dict, klog: list,
                + "\n" + THREAD_MANDATE
                + (FORCE_VOICE_ADDENDUM if force_voice else "")
                + (FORCE_SCHEDULE_ADDENDUM if force_schedule else ""))
-    d = ask_json(persona + "\n\n---\n\n" + mandate,
+    d = ask_json(canon + "\n\n---\n\n" + mandate,
                  json.dumps(context, ensure_ascii=False, indent=2),
                  MESSAGE_SCHEMA, answer_tokens=900 if force_voice else 700)
     d["reply_line"] = (d.get("reply_line") or "").strip()

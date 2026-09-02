@@ -39,7 +39,7 @@ from language import ANNA_VOICE
 # and a paid subscription. `writer.ask_json` is the same contract plus the host
 # test; `render_rotation` now imports it from there too, so the "four lanes share
 # it" note this file used to carry is still true, one level up.
-from writer import INT, STR, arr, ask_json, executor_name, obj
+from writer import INT, STR, arr, ask_json, executor_name, obj, voice_canon
 
 # The two shapes this lane asks for (see writer.obj).
 # `title` declared, not merely asked for in prose — see the note in
@@ -143,7 +143,7 @@ def with_lead(pending: list[dict], lead: list[dict]) -> list[dict]:
 
 
 def write_sheet(pending: list[dict], n_lead: int = 0, focus: str | None = None) -> dict:
-    persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
+    canon = voice_canon()
     menu = "\n".join(f"- [{t['kind']}] {t['word']} — {t['gloss'] or '[no gloss]'}"
                      for t in pending)
     mandate = DRILL_MANDATE
@@ -151,7 +151,7 @@ def write_sheet(pending: list[dict], n_lead: int = 0, focus: str | None = None) 
         mandate += COMMISSION_BRIEF.format(
             n=n_lead, focus=f"\nWhat the repair is about: {focus}" if focus else "")
     print(f"   [drill sheet] {executor_name()}")
-    sheet = ask_json(persona + "\n\n---\n\n" + mandate, f"DUE:\n{menu}",
+    sheet = ask_json(canon + "\n\n---\n\n" + mandate, f"DUE:\n{menu}",
                      DRILL_SCHEMA)
     sheet["items"] = [i for i in sheet.get("items", [])
                       if i.get("cue", "").strip() and i.get("answer_ta", "").strip()]

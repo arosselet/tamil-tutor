@@ -739,3 +739,55 @@ def s57_rotation_tape(sb: Path):
     check("...and it measures with the authority rebuild_rss already uses",
           any("audio_duration" in r for r in returns), f"returns {returns}")
     check("an unmeasurable file reports a visible zero, never a guess", "0.0" in returns)
+
+
+def s89_every_voice_lane_carries_the_dialect(sb: Path):
+    print("\n89. Every spoken-Tamil lane carries the dialect law (2026-09-02)")
+    import writer as w
+
+    # The canon is persona AND the register rules — persona alone is what every
+    # one of these lanes had, and it is why they wrote book Tamil.
+    canon = w.voice_canon()
+    check("voice_canon carries the spoken-register rules",
+          "Word Fusion" in canon and "Verb Form Simplification" in canon)
+    check("...and still carries who Anna is", "The Charge" in canon)
+
+    # THE REGRESSION GUARD, and the bug it pins. `dialect.md` was filed as studio
+    # craft and reached exactly ONE reader — run_studio's Producer. Six lanes
+    # generating Tamil for a VOICE read persona.md alone, so every knock memo,
+    # eavesdrop tape, fielding question, soak/drill/rotation sheet and voice reply
+    # was written with no spoken-register law at all. Those six carry nearly all
+    # of Andrew's daily ear contact; the studio carries the least of it. Two
+    # native speakers reported the result (2026-07-31 "uncanny", 2026-09-01 "book
+    # Tamil") before anyone read the routing. A new voice lane calls voice_canon()
+    # or this fails.
+    VOICE_LANES = ("knock_message", "knock_reply", "morning_knock",
+                   "render_drill", "render_rotation", "render_soak")
+    for lane in VOICE_LANES:
+        src = mechanism(raw_source(REAL_BASE / "scripts" / f"{lane}.py"))
+        check(f"{lane} reaches the dialect law through the one seam",
+              "voice_canon()" in src)
+        check(f"...and {lane} no longer opens persona.md for itself",
+              'persona.md' not in src)
+
+    # The studio keeps its own route — it reads the canon off disk via
+    # inline_canon, so it must NOT be rewired onto this seam by a future tidy-up.
+    rs = importlib.import_module("run_studio")
+    check("the studio still carries dialect.md its own way",
+          "protocol/studio/dialect.md" in rs.PRODUCER)
+
+    # LOUD ON ABSENCE. A half-canon returns every lane to book Tamil with all
+    # instruments green — the exact shape that hid this for a month, so the
+    # absence has to raise rather than degrade.
+    was = w.VOICE_CANON_FILES
+    try:
+        w.VOICE_CANON_FILES = ("protocol/persona.md", "protocol/no-such-law.md")
+        try:
+            w.voice_canon()
+            raised = False
+        except FileNotFoundError:
+            raised = True
+    finally:
+        w.VOICE_CANON_FILES = was
+    check("a missing canon file refuses, instead of quietly writing book Tamil", raised)
+    check("...and the guard is restored", w.voice_canon() == canon)

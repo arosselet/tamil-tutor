@@ -52,7 +52,7 @@ from publish import commit_and_push, load_env, publish, push_to_phone
 # could have them without importing the grading lane (reply_common.py).
 from reply_common import (_ts, ensure_voice, recent_exchanges,
                           record_meta_note, speak, wants_scheduled_push)
-from writer import BOOL, STR, arr, ask_json, executor_name, obj, to_phonetic
+from writer import BOOL, STR, arr, ask_json, executor_name, obj, to_phonetic, voice_canon
 
 # Each judge declares its OWN top-level shape, beside itself (2026-08-23) —
 # never a shared or generic one, which is how `claude -p` came back with an
@@ -137,13 +137,13 @@ def judge_catch(knock: dict, reply_text: str, klog: list | None = None,
     """The comprehension judge for an eavesdrop dose — a deliberately separate,
     smaller mandate so the production judge's rules (reveal caps, chains,
     per-word grades) never leak into a drift grade."""
-    persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
+    canon = voice_canon()
     context = catch_context(knock, reply_text, klog)
     print(f"   [catch judge] {executor_name()}")
     # VOICE_MANDATE joins here (2026-08-27). Until it did, WHICH judge ran —
     # decided by the modality of the newest open knock, never by what Andrew
     # asked for — decided whether Anna could answer in sound at all.
-    d = ask_json(persona + "\n\n---\n\n" + CATCH_JUDGE_MANDATE + "\n" + THREAD_MANDATE
+    d = ask_json(canon + "\n\n---\n\n" + CATCH_JUDGE_MANDATE + "\n" + THREAD_MANDATE
                  + "\n" + VOICE_MANDATE + (FORCE_VOICE_ADDENDUM if force_voice else ""),
                  json.dumps(context, ensure_ascii=False, indent=2),
                  CATCH_SCHEMA, answer_tokens=700 if force_voice else 550)
@@ -442,7 +442,7 @@ def judge(knock: dict, reply_text: str, target_record: dict | None,
           force_schedule: bool = False,
           force_voice: bool = False,
           klog: list | None = None) -> dict:
-    persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
+    canon = voice_canon()
     pin, pin_revealed = current_pin(knock)
     open_ask = volley_open_ask(knock)
     context = {
@@ -496,7 +496,7 @@ def judge(knock: dict, reply_text: str, target_record: dict | None,
     # the knock lane and the drill sheet down together. Reasoning cost belongs to
     # the model, so it lives with the model (`writer.budget`).
     print(f"   [judge] {executor_name()}")
-    d = ask_json(persona + "\n\n---\n\n" + mandate,
+    d = ask_json(canon + "\n\n---\n\n" + mandate,
                  json.dumps(context, ensure_ascii=False, indent=2),
                  JUDGE_SCHEMA, answer_tokens=1600)
     return normalize_verdict(d, reply_text)

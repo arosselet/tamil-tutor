@@ -48,7 +48,7 @@ from render_audio import (generate_segment_google, get_raw_mp3_frames, SILENCE_F
 from publish import (BODY_BUDGET, KNOCKS_DIR, WAKING_END_HOUR, WAKING_START_HOUR,
                      commit_and_push, jsdelivr_url, load_env, over_budget,
                      publish, push_to_phone)
-from writer import BOOL, INT, STR, ask_json, executor_name, obj, to_phonetic
+from writer import BOOL, INT, STR, ask_json, executor_name, obj, to_phonetic, voice_canon
 
 KNOCK_LOG_PATH = BASE / "progress" / "knock_log.json"
 SESSION_LOG_PATH = BASE / "progress" / "session_log.json"
@@ -617,9 +617,9 @@ def decide(digest: str, volley_menu: list | None = None) -> dict:
     carries the identical contract — re-roll a bad draw, never re-roll a
     truncation (`parse_llm_response` names the ceiling, and that is not a parser
     gap) — so a second copy was one more per-lane invariant free to drift."""
-    persona = (BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
+    canon = voice_canon()
     print(f"   [decide] {executor_name()}")
-    d = ask_json(persona + "\n\n---\n\n" + OUTREACH_MANDATE,
+    d = ask_json(canon + "\n\n---\n\n" + OUTREACH_MANDATE,
                  f"TODAY'S DIGEST:\n\n{digest}", DECIDE_SCHEMA, answer_tokens=1600)
     return normalize_decision(d, volley_menu)
 

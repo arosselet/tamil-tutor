@@ -40,6 +40,30 @@ Details live in git history; this is the index of the *conclusions*.
 
 ## Settled design decisions
 
+- **The dialect law reaches every voice, not just the studio** (2026-09-02, Andrew:
+  *"the main finding here is making sure all our audio artifacts leverage our colloquial
+  pipeline"*). `protocol/studio/dialect.md` had **one reader** — `run_studio`'s Producer
+  pass. Six lanes that generate Tamil for a VOICE loaded `persona.md` alone: the knock lane
+  (audio memos, eavesdrop tapes, fielding questions), the soak / drill / rotation sheets,
+  and both reply judges' `voice_reply`. Those six carry nearly all of Andrew's daily ear
+  contact; **the studio carries the least of it**, so the register rules covered the
+  thinnest lane in the system. **Two native ears reported the defect before anyone read the
+  routing** — 2026-07-31 (his wife: the ல/ள and ர/ற over-articulation is "uncanny", filed as
+  a TTS/medium finding, where the trail went cold because a medium finding has no script
+  owner) and 2026-09-01 (his nephew, on an 18s eavesdrop tape: it is *book Tamil*, and
+  following it cost a native enough effort that he lost the start). Same defect, second
+  report functional rather than aesthetic. **The fix is a seam, not four prompt copies:**
+  `writer.voice_canon()` returns persona + dialect and **replaces seven copies** of
+  `(BASE / "protocol" / "persona.md").read_text(...)`, so it removes duplication rather than
+  adding any. **No extra model call and no second pass** — every one of those lanes already
+  sent `persona.md` in that exact position, and `dialect.md` is ~3.5 KB beside it. Loud on
+  absence: a missing canon file raises, because a half-canon returns every lane to book Tamil
+  with all instruments green. **Rejected: folding `dialect.md` into each lane's mandate** —
+  four copies of a rule is how the quiet-hours rule drifted (2026-07-26). Smoke `s89`.
+  **Left open:** the file still lives under `protocol/studio/`, which is the misfiling that
+  caused this; and three runs of the Producer over one tape gave three different answers, so
+  the Word Fusion section may be too thin to apply deterministically.
+
 - **Taught is not appeared — a callback never closes the teach gate** (2026-09-01, Andrew:
   *"a bit of feedback, and the illusion of progress"*). `render_audio` stamped `seen_in`
   for `callbacks_used` too, so every episode credited itself with teaching each word it

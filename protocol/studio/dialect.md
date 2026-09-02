@@ -1,6 +1,19 @@
 # Protocol: Spoken Tamil — Coimbatore Dialect
 
-> **Read by:** `protocol/studio/producer.md` — owner of the dialect transformation. The Architect does not read this file; Producer rewrites Architect drafts to this register before TTS.
+> **Read by:** **every pass that can emit Tamil a voice will speak** — the knock lane
+> (audio memos, eavesdrop tapes, fielding questions), the soak, drill and rotation sheets,
+> both reply judges' voice replies, and `protocol/studio/producer.md`. The first six reach
+> it through `writer.voice_canon()`, which is the single owner; the studio Producer reads it
+> directly as part of its own canon. The Architect still does not read it — Producer rewrites
+> Architect drafts to this register before TTS.
+>
+> **It reached only the studio until 2026-09-02**, because it was filed as studio craft. Six
+> lanes carrying nearly all of Andrew's daily ear contact generated Tamil with no
+> spoken-register law at all, and two native speakers reported the result — 2026-07-31 as
+> "uncanny", 2026-09-01 as "book Tamil" that cost a native effort to follow. Neither report
+> was a TTS problem. **If a new lane sends Tamil to a voice, it calls `voice_canon()`** —
+> `smoke/render.py` fails the build if one of them stops.
+>
 > **Language-specific:** This file is Tamil/Coimbatore-specific. To teach a different language or dialect, replace this file. The roles that reference it do not change.
 
 The test for every Tamil line: *Would a Coimbatore auto driver say this to his friend?* If it sounds like a textbook or a 1950s TV anchor, it needs work.
