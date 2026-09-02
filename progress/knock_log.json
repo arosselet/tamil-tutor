@@ -6051,6 +6051,20 @@
     "target_revealed": false,
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-09-02T05-20.mp3",
     "memo_script": "ஹலோ, சித்தி தான் பேசறேன்... ஆமா, நம்ம குமார் இருக்கான்ல? அவன் கிட்ட காலையில தான் சொன்னேன்.\n\nஅந்த சென்னை ட்ரெயின் டிக்கெட் பத்தி கவலைப்படாதீங்க. இன்னைக்கு ஈவினிங் குள்ள எல்லாம் புக் ஆயிடும். ஆமா, அவனே பாத்துக்குவான்னு சொன்னான்.\n\nஅப்புறம் என்ன... எல்லாம் சரியாயிடும், நீங்க நேரத்துக்கு கிளம்புங்க.",
-    "mp3": "published_audio/knocks/knock_2026-09-02T05-20.mp3"
+    "mp3": "published_audio/knocks/knock_2026-09-02T05-20.mp3",
+    "response": "reply",
+    "reply": "I don’t know the word aayidum but I think it’s asking are the tickets booked?",
+    "reply_verdict": "half-caught",
+    "reply_line": "Close da — not asking, reassuring: *\"don't worry, it'll get booked by evening.\"* (-idum = will get done).",
+    "reply_at": "2026-09-02T05:27:49Z",
+    "exchanges": [
+      {
+        "at": "2026-09-02T05:27:49Z",
+        "reply": "I don’t know the word aayidum but I think it’s asking are the tickets booked?",
+        "verdict": "half-caught",
+        "fired": [],
+        "reply_line": "Close da — not asking, reassuring: *\"don't worry, it'll get booked by evening.\"* (-idum = will get done)."
+      }
+    ]
   }
 ]

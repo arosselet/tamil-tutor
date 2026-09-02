@@ -9,6 +9,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **10:50 · Anna** 🎧  ·  eavesdrop / eavesdrop: idum fate
 > 🎧 Chithi on the phone: 'ticket book aayidum' — what did she say will happen to the tickets?
 
+**10:57 · Andrew** — **HALF-CAUGHT**
+> I don’t know the word aayidum but I think it’s asking are the tickets booked?
+
+**Anna ↩**
+> Close da — not asking, reassuring: *"don't worry, it'll get booked by evening."* (-idum = will get done).
+
 
 ## Tuesday 2026-09-01
 
