@@ -15,6 +15,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > Close da — not asking, reassuring: *"don't worry, it'll get booked by evening."* (-idum = will get done).
 
+**15:50 · Anna**  ·  volley / volley: table reactions
+> ⚡ volley 1/4 — Mama pauses mid-story expecting a nod — hit him with the rapid double 'yeah, yeah' to keep him rolling.
+
 
 ## Tuesday 2026-09-01
 

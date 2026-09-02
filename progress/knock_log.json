@@ -6066,5 +6066,36 @@
         "reply_line": "Close da — not asking, reassuring: *\"don't worry, it'll get booked by evening.\"* (-idum = will get done)."
       }
     ]
+  },
+  {
+    "date": "2026-09-02",
+    "timestamp": "2026-09-02T10:20:57.699341+00:00",
+    "acted": true,
+    "modality": "volley",
+    "move": "volley: table reactions",
+    "rationale": "Afternoon volley to convert due backchannel and present-tense targets into rapid cold production.",
+    "next_check": "2026-09-02T13:50:57.699341+00:00",
+    "body": "⚡ volley 1/4 — Mama pauses mid-story expecting a nod — hit him with the rapid double 'yeah, yeah' to keep him rolling.",
+    "expected_target": "ஆமா ஆமா",
+    "target_revealed": false,
+    "volley": [
+      {
+        "target": "ஆமா ஆமா",
+        "ask": "Mama pauses mid-story expecting a nod — hit him with the rapid double 'yeah, yeah' to keep him rolling."
+      },
+      {
+        "target": "டயர்ட்",
+        "ask": "Maama asks why you're sitting down after the walk — tell him you are 'tired'."
+      },
+      {
+        "target": "இருக்கார்ல",
+        "ask": "Starting gossip about mama — hook them with 'You know mama, right?' (elder honorific opener)."
+      },
+      {
+        "target": "சொல்றேன்",
+        "ask": "Athai asks what you're doing on the call — answer right now: 'I am telling' (present tense)."
+      }
+    ],
+    "volley_next": 1
   }
 ]
