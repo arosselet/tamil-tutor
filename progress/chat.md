@@ -24,6 +24,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan — rendume work aagum, 'aama aama' keeps him rolling! · 2/4 — Maama asks why you're sitting down after the walk — tell him you are 'tired'.
 
+**16:48 · Andrew** — **COLD**
+> Tired achu or sleep venum
+
+**Anna ↩**
+> Adhu dhaan! 'Tired aachu' or 'tired-aa irukku' perfectly lands. · 3/4 — Starting gossip about mama — hook them with 'You know mama, right?' (elder honorific opener).
+
 
 ## Tuesday 2026-09-01
 

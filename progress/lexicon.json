@@ -968,8 +968,8 @@
       33,
       64
     ],
-    "last_surfaced": "2026-07-18",
-    "reps": 2
+    "last_surfaced": "2026-09-02",
+    "reps": 3
   },
   "வரேன்": {
     "gloss": "I come / I'm coming",
@@ -1050,14 +1050,15 @@
     "gloss": "Tired",
     "phonetic": [],
     "recognition": "struggled",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       10,
       24,
       61
     ],
-    "last_surfaced": "2026-08-26",
-    "exposures": 1
+    "last_surfaced": "2026-09-02",
+    "exposures": 1,
+    "reps": 1
   },
   "இடது": {
     "gloss": "Left",
@@ -5008,10 +5009,11 @@
     "gloss": "it happened / it's done (neuter past + -இடு finality)",
     "phonetic": [],
     "recognition": "struggled",
-    "production": "none",
+    "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-08-10",
-    "exposures": 2
+    "last_surfaced": "2026-09-02",
+    "exposures": 2,
+    "reps": 1
   },
   "இருக்கேன்": {
     "gloss": "I am / I'm here (-ஏன் = I)",
