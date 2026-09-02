@@ -6096,15 +6096,16 @@
         "ask": "Athai asks what you're doing on the call — answer right now: 'I am telling' (present tense)."
       }
     ],
-    "volley_next": 3,
+    "volley_next": 4,
     "response": "reply",
-    "reply": "Tired achu or sleep venum",
-    "reply_verdict": "cold",
+    "reply": "Mama a Irukala?",
+    "reply_verdict": "hinted",
     "reply_fired": [
       "ஆமா ஆமா",
       "டயர்ட்",
       "ஆச்சு",
-      "வேணும்"
+      "வேணும்",
+      "இருக்கார்ல"
     ],
     "reply_fired_cold": [
       "ஆமா ஆமா",
@@ -6113,8 +6114,8 @@
       "வேணும்"
     ],
     "reply_fired_capped": [],
-    "reply_line": "Adhu dhaan! 'Tired aachu' or 'tired-aa irukku' perfectly lands. · 3/4 — Starting gossip about mama — hook them with 'You know mama, right?' (elder honorific opener).",
-    "reply_at": "2026-09-02T11:18:59Z",
+    "reply_line": "Close — maama is elder, so 'irukkaarla'. · 4/4 — Athai asks what you're doing on the call — answer right now: 'I am telling' (present tense).",
+    "reply_at": "2026-09-02T11:20:33Z",
     "exchanges": [
       {
         "at": "2026-09-02T11:17:38Z",
@@ -6153,10 +6154,27 @@
         "slips": [],
         "spoke": "",
         "scheduled": ""
+      },
+      {
+        "at": "2026-09-02T11:20:33Z",
+        "reply": "Mama a Irukala?",
+        "verdict": "hinted",
+        "fired": [
+          "இருக்கார்ல"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "Close — maama is elder, so 'irukkaarla'. · 4/4 — Athai asks what you're doing on the call — answer right now: 'I am telling' (present tense).",
+        "slips": [
+          "honorific-verb"
+        ],
+        "spoke": "",
+        "scheduled": ""
       }
     ],
-    "chained": 2,
-    "pinned_target": "இருக்கார்ல",
+    "chained": 3,
+    "pinned_target": "சொல்றேன்",
     "pinned_revealed": false
   }
 ]

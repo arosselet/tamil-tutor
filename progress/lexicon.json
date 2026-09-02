@@ -4351,12 +4351,13 @@
       "irukkaarla"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [
       61
     ],
-    "last_surfaced": "2026-08-29",
-    "exposures": 1
+    "last_surfaced": "2026-09-02",
+    "exposures": 1,
+    "reps": 1
   },
   "ல": {
     "gloss": "the …right? tag tacked on a verb — நம்ம மாமா இருக்கார்ல",

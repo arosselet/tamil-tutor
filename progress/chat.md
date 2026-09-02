@@ -30,6 +30,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > Adhu dhaan! 'Tired aachu' or 'tired-aa irukku' perfectly lands. · 3/4 — Starting gossip about mama — hook them with 'You know mama, right?' (elder honorific opener).
 
+**16:50 · Andrew** — **HINTED**
+> Mama a Irukala?
+
+**Anna ↩**
+> Close — maama is elder, so 'irukkaarla'. · 4/4 — Athai asks what you're doing on the call — answer right now: 'I am telling' (present tense).
+
 
 ## Tuesday 2026-09-01
 
