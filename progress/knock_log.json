@@ -6098,8 +6098,8 @@
     ],
     "volley_next": 4,
     "response": "reply",
-    "reply": "Mama a Irukala?",
-    "reply_verdict": "hinted",
+    "reply": "Naan sonnen",
+    "reply_verdict": "miss",
     "reply_fired": [
       "ஆமா ஆமா",
       "டயர்ட்",
@@ -6114,8 +6114,8 @@
       "வேணும்"
     ],
     "reply_fired_capped": [],
-    "reply_line": "Close — maama is elder, so 'irukkaarla'. · 4/4 — Athai asks what you're doing on the call — answer right now: 'I am telling' (present tense).",
-    "reply_at": "2026-09-02T11:20:33Z",
+    "reply_line": "Close — 'sonnen' is past tense ('I said'); right now is 'solren'.",
+    "reply_at": "2026-09-02T11:46:04Z",
     "exchanges": [
       {
         "at": "2026-09-02T11:17:38Z",
@@ -6171,10 +6171,26 @@
         ],
         "spoke": "",
         "scheduled": ""
+      },
+      {
+        "at": "2026-09-02T11:46:04Z",
+        "reply": "Naan sonnen",
+        "verdict": "miss",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "Close — 'sonnen' is past tense ('I said'); right now is 'solren'.",
+        "slips": [
+          "past-tense"
+        ],
+        "spoke": "",
+        "scheduled": ""
       }
     ],
     "chained": 3,
     "pinned_target": "சொல்றேன்",
-    "pinned_revealed": false
+    "pinned_revealed": false,
+    "volley_done": true
   }
 ]

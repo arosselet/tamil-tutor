@@ -36,6 +36,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > Close — maama is elder, so 'irukkaarla'. · 4/4 — Athai asks what you're doing on the call — answer right now: 'I am telling' (present tense).
 
+**17:16 · Andrew** — **MISS**
+> Naan sonnen
+
+**Anna ↩**
+> Close — 'sonnen' is past tense ('I said'); right now is 'solren'.
+
 
 ## Tuesday 2026-09-01
 
