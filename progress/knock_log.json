@@ -6037,5 +6037,20 @@
     "body": "kekkuren (asking now) vs keppen (I'll ask). That '-pp-' flips right into the future. Clean and done. 🎯",
     "expected_target": "",
     "target_revealed": false
+  },
+  {
+    "date": "2026-09-02",
+    "timestamp": "2026-09-02T05:20:33.991458+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "eavesdrop: idum fate",
+    "rationale": "Catch cadence is due (3d gap, 28 items pending) — testing drift comprehension on frame:idum ahead of the lunch break.",
+    "next_check": "2026-09-02T09:50:33.991458+00:00",
+    "body": "🎧 Chithi on the phone: 'ticket book aayidum' — what did she say will happen to the tickets?",
+    "expected_target": "frame:idum",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-09-02T05-20.mp3",
+    "memo_script": "ஹலோ, சித்தி தான் பேசறேன்... ஆமா, நம்ம குமார் இருக்கான்ல? அவன் கிட்ட காலையில தான் சொன்னேன்.\n\nஅந்த சென்னை ட்ரெயின் டிக்கெட் பத்தி கவலைப்படாதீங்க. இன்னைக்கு ஈவினிங் குள்ள எல்லாம் புக் ஆயிடும். ஆமா, அவனே பாத்துக்குவான்னு சொன்னான்.\n\nஅப்புறம் என்ன... எல்லாம் சரியாயிடும், நீங்க நேரத்துக்கு கிளம்புங்க.",
+    "mp3": "published_audio/knocks/knock_2026-09-02T05-20.mp3"
   }
 ]

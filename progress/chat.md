@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Wednesday 2026-09-02
+
+**10:50 · Anna** 🎧  ·  eavesdrop / eavesdrop: idum fate
+> 🎧 Chithi on the phone: 'ticket book aayidum' — what did she say will happen to the tickets?
+
+
 ## Tuesday 2026-09-01
 
 **11:26 · Anna**  ·  text / trailer: present future toggle
