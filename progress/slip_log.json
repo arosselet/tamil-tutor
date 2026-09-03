@@ -785,5 +785,41 @@
     "note": "sonnen is past ('I told') — present is solren",
     "word": "",
     "dose_channel": "soak"
+  },
+  {
+    "at": "2026-09-03T06:58:41Z",
+    "date": "2026-09-03",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "come-go-direction",
+    "said": "poi paathuttu vandhaaru -> 'mama went to the ooru'",
+    "want": "went and came back",
+    "note": "drops the final verb of a compound; the first verb he knows wins and a round trip reads as one-way",
+    "word": "",
+    "dose_channel": "soak"
+  },
+  {
+    "at": "2026-09-03T06:58:41Z",
+    "date": "2026-09-03",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "about-pathi",
+    "said": "veetta solren",
+    "want": "veedu pathi solren",
+    "note": "marks the topic with accusative -a where 'pathi' (about) is owed",
+    "word": "",
+    "dose_channel": "soak"
+  },
+  {
+    "at": "2026-09-03T06:58:41Z",
+    "date": "2026-09-03",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "grab-the-owned-one",
+    "said": "aprom? (the pull) where 'get to the point' was owed",
+    "want": "aamaaa (stretched)",
+    "note": "hands back the tool he just fired instead of the one the job needs",
+    "word": "",
+    "dose_channel": "soak"
   }
 ]

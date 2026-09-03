@@ -1075,12 +1075,12 @@
     "gloss": "After that",
     "phonetic": [],
     "recognition": "comfortable",
-    "production": "none",
+    "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-09-01",
+    "last_surfaced": "2026-09-03",
     "exposures": 3,
     "heard_on": "2026-09-01",
-    "reps": 2
+    "reps": 3
   },
   "அண்ணா": {
     "gloss": "Elder brother",
@@ -1467,15 +1467,15 @@
       76,
       85
     ],
-    "last_surfaced": "2026-08-23",
+    "last_surfaced": "2026-09-03",
     "exposures": 7,
-    "reps": 2
+    "reps": 3
   },
   "சொல்றேன்": {
     "gloss": "I'm telling (present)",
     "phonetic": [],
     "recognition": "struggled",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       12,
       13,
@@ -1484,8 +1484,9 @@
       26,
       28
     ],
-    "last_surfaced": "2026-08-31",
-    "exposures": 3
+    "last_surfaced": "2026-09-03",
+    "exposures": 3,
+    "reps": 1
   },
   "சொல்லுவேன்": {
     "gloss": "I will tell (future)",
