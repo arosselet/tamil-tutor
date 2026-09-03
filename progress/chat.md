@@ -9,6 +9,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **13:06 · Anna** 🎧  ·  fielding / fielding: table decline
 > 🎧 "Innum konjam saaptingala?" — Athai is at the table with the ladle. Decline politely in Tamil.
 
+**13:25 · Andrew** — **COLD**
+> Naan sappiten
+
+**Anna ↩**
+> Works to deflect her! 🔥 · Athai still reaches with the ladle — tell her 'enough!'.
+
 
 ## Wednesday 2026-09-02
 
