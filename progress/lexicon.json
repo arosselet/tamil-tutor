@@ -887,15 +887,16 @@
     "gloss": "Stop (respectful)",
     "phonetic": [],
     "recognition": "struggled",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       6,
       10,
       72,
       86
     ],
-    "last_surfaced": "2026-08-10",
-    "exposures": 1
+    "last_surfaced": "2026-09-03",
+    "exposures": 1,
+    "reps": 1
   },
   "வாருங்களா?": {
     "gloss": "Will you come?",

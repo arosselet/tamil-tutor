@@ -6325,19 +6325,22 @@
     "expected_target": "",
     "target_revealed": true,
     "response": "reply",
-    "reply": "Polamma",
+    "reply": "Nirathunga",
     "reply_verdict": "cold",
     "reply_fired": [
       "எவ்ளோ ஆகும்?",
       "எவ்ளோ ஆகும்?",
-      "போலாமா"
+      "போலாமா",
+      "நிறுத்துங்க"
     ],
-    "reply_fired_cold": [],
+    "reply_fired_cold": [
+      "நிறுத்துங்க"
+    ],
     "reply_fired_capped": [
       "எவ்ளோ ஆகும்?"
     ],
-    "reply_line": "adhu dhaan! 'polama' gets the wheels turning. 🔥 · He reaches the corner — tell him 'stop here'.",
-    "reply_at": "2026-09-03T14:42:52Z",
+    "reply_line": "adhu dhaan! Auto stops right at the curb. 🔥",
+    "reply_at": "2026-09-03T14:44:08Z",
     "exchanges": [
       {
         "at": "2026-09-03T14:38:45Z",
@@ -6382,6 +6385,23 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "adhu dhaan! 'polama' gets the wheels turning. 🔥 · He reaches the corner — tell him 'stop here'.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-09-03T14:44:08Z",
+        "reply": "Nirathunga",
+        "verdict": "cold",
+        "fired": [
+          "நிறுத்துங்க"
+        ],
+        "fired_cold": [
+          "நிறுத்துங்க"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! Auto stops right at the curb. 🔥",
         "slips": [],
         "spoke": "",
         "scheduled": ""
