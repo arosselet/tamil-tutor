@@ -1,10 +1,10 @@
 THE REPS ARE MINE — POST 1 OF 5
 It started deciding when to talk to me
 
-Fifth draft, 2026-09-03. Every count below was re-derived against the repo on
-09-02, per the plan's own rule; nothing in the body moved on 09-03. Two receipts
-in the first draft had rotted in a day; both are corrected here and named under
-RECEIPTS. Plan artifact: "The Reps Are Mine".
+Sixth draft, 2026-09-03. Every count below was re-derived against the repo on
+09-03. The knock count had rotted again (175 → 177 → 179 across three days), so
+the body no longer leans on a number that moves daily without saying what it
+counts. Plan artifact: "The Reps Are Mine".
 
 
 ================================================================================
@@ -27,20 +27,23 @@ for a session at lunch. I read the whole thing off the lock screen without
 unlocking the phone.
 
 It always writes in the spoken register: போறேன் (poren) for "I'm going", which is
-what her family says, and never the textbook போகிறேன் (pogiren), which is correct
-and which nobody in that house has said in their life.
+what her family says, and never the textbook போகிறேன் (pogiren), which nobody
+in that house has said in their life.
 
 The obvious risk in letting a model choose when to interrupt you is that it
-chooses constantly. So the timing was never its to choose. Python holds the
+chooses constantly. So the outer bounds were never its to set. Python holds the
 waking window at 8:00 to 21:00, a ceiling of five reaches a day, and three hours
 minimum between them — four constants across two files, and the model is never
-asked about any of them. Above the rails it decides everything: whether to speak,
-what to send, and in what form — a line of text, a challenge with something at
-stake, a ninety-second voice memo in its own pinned voice, or nothing.
+asked about any of them. Inside those bounds it paces itself, naming its own next
+check-in for Python to clamp between half an hour and a day. Everything else is
+its call: whether to speak, what to send, and in what form — a line of text, a
+challenge with something at stake, a ninety-second voice memo in its own pinned
+voice, or nothing.
 
-Silence is the one I'd build first if I started over. 14 of 177 logged decisions
-were to stay quiet. A system with no way to write down "not now" fires every
-single time it wakes.
+Silence is the one I'd build first if I started over. The rails throw out most
+wakes before Anna sees them; since 30 June she has been asked 179 times, and said
+nothing in 14 — the rest land at about two and a half messages a day. Without a
+way to log "not now", those 14 fire.
 
 The other guard is about honesty rather than volume. If the notification already
 showed me the Tamil, typing it back can't score as knowing it: deterministic code
@@ -76,6 +79,61 @@ Optional hashtags, appended to this comment rather than the post:
 ================================================================================
 WHAT CHANGED
 ================================================================================
+
+SIXTH DRAFT — the silence number says what it counts, and a taste ceiling retires.
+
+Outside feedback on the fifth draft made two points that landed and two that did
+not. The two that landed are in the body.
+
+The silence stat was measuring the wrong thing, and the objection proved it. A
+reader did the division — 14 of 177 is 8% — and concluded the machine talks 92%
+of the times it wakes, which made "silence is the feature I'd build first" read
+as a boast about a chatty system. The arithmetic is right and the reading is
+wrong, and the sentence earned the misreading by calling 177 "logged decisions"
+while the sentence beside it talked about wakes. They are not the same number and
+the gap between them is two orders of magnitude: 1,560 ticks, 179 consultations.
+The body now names the funnel rather than the ratio, and carries the rate — about
+two and a half messages a day — which is the fact that actually answers "does it
+interrupt constantly." See RECEIPTS → Silence for the measurement.
+
+"Which is correct" is cut from the register line. Both forms are correct;
+போகிறேன் is formal and போறேன் is what the family speaks, and register is not
+correctness. The fourth draft's own note already said this — "pogiren and poren
+are both correct, so no test I can write separates them" — so the body was
+contradicting the reasoning that put it there. "Textbook" was already in the
+sentence doing the work, which made "which is correct" both wrong and redundant;
+it goes by deletion, not substitution.
+
+Not taken: moving the kekkuren resolution up. The feedback read the close as an
+orphaned ending four paragraphs from its setup and proposed resolving the knock
+early, then transitioning into the mechanisms. That trade was made deliberately
+in the fourth and fifth drafts and the reasons still hold: resolving early leaves
+the post ending on the credit cap, which is a guardrail, and ending on a guardrail
+is the exact failure the fourth draft fixed when it cut the Home Assistant
+paragraph. "I never answered the kekkuren knock" names its own referent; a callback
+that says what it is calling back to is not orphaned. The proposed rewrite also
+reintroduced an ordering the receipts refuse — payoff at 16:29, session at 16:42,
+thirteen minutes — and moved the session to "that evening" when it was afternoon.
+
+Not taken: glossing "not cold yet". The sentence before it already defines the
+rule ("if the notification already showed me the Tamil, typing it back can't score
+as knowing it") and Anna's quoted line supplies the rest ("handed you this one
+five times this thread"). A definition after the quote would step on the only
+place in the post where the machine gets the last word.
+
+The timing claim is now precise. "The timing was never its to choose" was false
+as written: next_check_hours is a field Anna returns, mandates.py prompts for it
+under SELF-PACING, and Python only clamps it to (0.5, 24.0). The four constants
+in the next sentence genuinely are never hers, so that half always stood — the
+overreach was the word "timing", which swept in the one lever she does hold. It
+now reads "the outer bounds were never its to set", and the self-pacing is stated
+rather than papered over: she names her own next check-in and Python clamps it
+between half an hour and a day. This costs 112 characters and is worth them —
+the first comment sends readers to morning_knock.py by name, and bounded
+self-pacing is a better claim than a prohibition that the file would contradict.
+Verified while making the change: `quiet_until` is Andrew's transit rail, set in
+learner.json, so next_check is her only timing lever and "one lever, clamped" is
+the whole of it.
 
 FIFTH DRAFT — the close is about initiative again, and the Tamil is in script.
 
@@ -206,20 +264,25 @@ and nothing is the last item — which is what the next paragraph is about.
 STRUCTURE NOTES
 ================================================================================
 
-Length. 2,179 characters — first draft 1,922, then 2,198, 2,036, 1,955. Limit:
-3,000
-is right for the post body, and the first comment gets 1,250 — those two I am
-confident in. The fold is the soft number and I cannot measure it from here: it
+Length. 2,368 characters — first draft 1,922, then 2,198, 2,036, 1,955, 2,179.
+Limit: 3,000 is right for the post body, and the first comment gets 1,250 —
+those two I am confident in. They are the only length numbers here that came
+from outside my own taste. The fold is the soft number and I cannot measure it from here: it
 is widely reported at roughly 140 characters in the mobile app and around 210 on
 desktop, it has moved before, and it varies with app version. So the design rule
 is the conservative one — orientation complete inside 140 characters, not 210.
 
-The band, and why it stopped mattering. The first draft asserted 1,300–2,000 as
-where a post of this kind holds attention; that was taste, not measurement. The
-second draft raised it to 2,200 to fund orientation. This draft comes in under
-the original band anyway, because deleting the geography paragraph returned more
-characters than the clause that replaced it spends. The band stays at 2,200 as
-the ceiling, unused. What retired to fund the second draft's raise — the modality
+The band is retired (sixth draft). It began as 1,300–2,000 asserted in the first
+draft as where a post of this kind holds attention — taste, not measurement, and
+the draft said so. The second draft raised it to 2,200 to fund orientation, which
+is the tell: a ceiling that moves whenever it is inconvenient was never bounding
+anything. It is now removed rather than raised again, because a number carried
+this long starts getting deferred to as though it were measured — this draft cost
+the funnel sentence its exact rate ("about two and a half messages a day" flattened
+to "two or three") before the provenance was re-read. What retires with it: nothing
+else was keyed to 2,200. The real wall is LinkedIn's 3,000, and the fold rule below
+governs the opening regardless of total length. If a future draft wants a limit
+tighter than 3,000, it needs a reason from outside the drafting. What retired to fund the second draft's raise — the modality
 paragraph as a beat of its own — stays retired; it was not earning its place
 either way.
 
@@ -266,6 +329,22 @@ Rails            WAKING_START_HOUR = 8, WAKING_END_HOUR = 21 in publish.py;
                  file." They are in two. The draft's own receipts section had it
                  right and the body had it wrong, which is the rot pattern the
                  plan warns about, one paragraph away from itself.
+
+Self-pacing      NEXT_CHECK_CLAMP = (0.5, 24.0) in morning_knock.py.
+                 `next_check_hours` is a field Anna RETURNS — mandates.py prompts
+                 for it under SELF-PACING ("when to reconsider; sooner while
+                 momentum is hot") and the decision schema carries it. Python
+                 only clamps: max(lo, min(hi, ...)), falling back to 3.0 if the
+                 model sends something unparseable. rails_gate() then refuses to
+                 wake her before that time. So she owns her own cadence inside a
+                 hard floor and ceiling, and the body says so.
+                 CORRECTED (sixth draft): the body said "the timing was never its
+                 to choose," which this field contradicts. The four constants
+                 genuinely are never hers — that half stood — but timing as a
+                 whole was overstated, and the first comment names
+                 morning_knock.py, so a reader could open the file and find it.
+                 The other timing gate, `quiet_until`, is Andrew's transit rail
+                 in learner.json, not Anna's; she has exactly one lever.
 
 The knock       knock_log.json, 2026-09-01T05:56:31Z, modality "text", move
                  "trailer: present future toggle". Body quoted verbatim in the
@@ -328,12 +407,33 @@ Modalities       MODALITIES in morning_knock.py — text, audio, challenge, voll
                  eavesdrop, fielding, grace, silence. Eight. The post names
                  three; the count of eight is not claimed in the body.
 
-Silence          14 of 177 rows in progress/knock_log.json, spanning
-                 2026-06-30 → 2026-09-02. Full split: text 73, volley 21,
+Silence          14 of 179 rows in progress/knock_log.json, spanning
+                 2026-06-30 → 2026-09-02. Full split: text 74, volley 22,
                  audio 19, challenge 17, eavesdrop 17, silence 14, fielding 11,
                  grace 2, plus 3 rows predating the modality field.
-                 CORRECTED: was 14 of 175 on 09-01. Two knocks fired since, both
-                 acted; the silence count itself did not move.
+                 CORRECTED TWICE: 14 of 175 on 09-01, 14 of 177 on 09-02, 14 of
+                 179 on 09-03. The numerator has never moved; the denominator
+                 moves every day. That is why the body now names the funnel
+                 instead of the ratio.
+
+                 THE FUNNEL, measured 09-03 — this is the correction that
+                 matters. A knock_log row is NOT a wake. rails_gate() in
+                 morning_knock.py returns "[rails] skip" and writes nothing when
+                 the window, the daily cap, the min gap, quiet_until or Anna's
+                 next_check says no; a row exists only once the model has been
+                 handed the decision. Over the 65-day span:
+                   hourly cron ticks (0 * * * *) .......... 1,560
+                   ticks inside the 8-21 window .............. 845
+                   consultations that reached the model ...... 179
+                     of those, silence ........................ 14  (7.8%)
+                     of those, sent .......................... 165
+                   messages per calendar day ................ 2.54
+                   days at the 5-reach ceiling ......... 2 of 64
+                 So 7.8% is not "it interrupts 92% of the time it wakes" — the
+                 rails discard ~89% of ticks before Anna sees them, and silence
+                 is the model declining after something stricter already said
+                 yes. MAX_REACHES_PER_DAY's own comment states the rule: a reach
+                 is a knock that fired, silence does not count against the cap.
 
 Credit cap       shown_in_knock() in knock_reply.py — if the knock's own body,
                  memo script or any recast in the chain contained the Tamil
