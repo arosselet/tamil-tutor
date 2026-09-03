@@ -6325,18 +6325,19 @@
     "expected_target": "",
     "target_revealed": true,
     "response": "reply",
-    "reply": "Evlo aagum?",
-    "reply_verdict": "hinted",
+    "reply": "Polamma",
+    "reply_verdict": "cold",
     "reply_fired": [
       "எவ்ளோ ஆகும்?",
-      "எவ்ளோ ஆகும்?"
+      "எவ்ளோ ஆகும்?",
+      "போலாமா"
     ],
     "reply_fired_cold": [],
     "reply_fired_capped": [
       "எவ்ளோ ஆகும்?"
     ],
-    "reply_line": "adhu dhaan! Fast and clean across any counter. 🔥 · Driver agrees — tell him 'let's move!'.",
-    "reply_at": "2026-09-03T14:40:03Z",
+    "reply_line": "adhu dhaan! 'polama' gets the wheels turning. 🔥 · He reaches the corner — tell him 'stop here'.",
+    "reply_at": "2026-09-03T14:42:52Z",
     "exchanges": [
       {
         "at": "2026-09-03T14:38:45Z",
@@ -6369,10 +6370,25 @@
         "slips": [],
         "spoke": "",
         "scheduled": ""
+      },
+      {
+        "at": "2026-09-03T14:42:52Z",
+        "reply": "Polamma",
+        "verdict": "cold",
+        "fired": [
+          "போலாமா"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! 'polama' gets the wheels turning. 🔥 · He reaches the corner — tell him 'stop here'.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
       }
     ],
-    "chained": 2,
-    "pinned_target": "கிளம்பு",
+    "chained": 3,
+    "pinned_target": "நிறுத்துங்க",
     "pinned_revealed": false
   }
 ]

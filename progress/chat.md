@@ -48,6 +48,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! Fast and clean across any counter. 🔥 · Driver agrees — tell him 'let's move!'.
 
+**20:12 · Andrew** — **COLD**
+> Polamma
+
+**Anna ↩**
+> adhu dhaan! 'polama' gets the wheels turning. 🔥 · He reaches the corner — tell him 'stop here'.
+
 
 ## Wednesday 2026-09-02
 
