@@ -62,7 +62,7 @@ from mandates import PHONETIC_REWRITE
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 OPENROUTER_BASE = "https://openrouter.ai/api/v1"   # OpenAI-compatible; one key, many models
-MODEL = "google/gemini-3.7-flash"   # cloud Anna. A full slug — nothing derives it.
+MODEL = "google/gemini-3.8-flash"   # cloud Anna. A full slug — nothing derives it.
 OPENROUTER_MODEL = MODEL            # kept as a name because five lanes import it
 AGENT_MODEL = "claude-sonnet-5"     # what `claude -p` runs on the laptop
 

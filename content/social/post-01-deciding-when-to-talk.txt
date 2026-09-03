@@ -1,49 +1,57 @@
 THE REPS ARE MINE — POST 1 OF 5
 It started deciding when to talk to me
 
-Drafted 2026-09-01. Every count below was re-derived against the repo that
-morning, per the plan's own rule. Plan artifact: "The Reps Are Mine".
+Fifth draft, 2026-09-03. Every count below was re-derived against the repo on
+09-02, per the plan's own rule; nothing in the body moved on 09-03. Two receipts
+in the first draft had rotted in a day; both are corrected here and named under
+RECEIPTS. Plan artifact: "The Reps Are Mine".
 
 
 ================================================================================
-POST BODY  (1,922 characters · 351 words)
+POST BODY
 ================================================================================
 
-This morning my phone told me that one letter flips "kekkuren" (I'm asking) to
-"keppen" (I'll ask), and that elders catch it instantly. I read it off the lock
-screen without unlocking, typed a reply, and got a correction back.
+A year ago I started building a program to teach me my wife's family's Tamil.
 
-Nobody scheduled that. There is no app to open. A cron tick woke the thing, and
-it decided on its own that this was a moment worth spending.
+At the end of June it started deciding when to talk to me.
 
-I spent a year building a Tamil tutor so I could answer my wife's family in their
-own Kongu Tamil. The part I did not expect to matter most is that it reaches me
-first.
+A scheduled tick wakes it a few times a day. Whether the tick becomes a message
+is not on anybody's schedule. The other morning it decided the moment was worth
+spending and sent this:
 
-The split that makes that safe:
+"One letter flips 'kekkuren' (asking now) to 'keppen' (will ask). Elders catch it
+instantly. Lunch session."
 
-Python owns the rails, and only the rails. WAKING_START_HOUR = 8.
-WAKING_END_HOUR = 21. MAX_REACHES_PER_DAY = 5. MIN_GAP_HOURS = 3. Four constants
-in one file. The model cannot cross them because it is never asked.
+Then it stopped. The explanation was withheld on purpose, to get me to turn up
+for a session at lunch. I read the whole thing off the lock screen without
+unlocking the phone.
 
-The model owns whether, what and how. Eight forms are available to it: a line of
-text, a challenge with something at stake, a sixty-second voice memo in its own
-pinned voice, an eavesdrop on two people talking at native speed, and silence.
+It always writes in the spoken register: போறேன் (poren) for "I'm going", which is
+what her family says, and never the textbook போகிறேன் (pogiren), which is correct
+and which nobody in that house has said in their life.
 
-Silence is the one I would build first if I started over. 14 of 175 logged
-decisions were to say nothing. A system with no way to write down "not now"
-fires every single time it wakes.
+The obvious risk in letting a model choose when to interrupt you is that it
+chooses constantly. So the timing was never its to choose. Python holds the
+waking window at 8:00 to 21:00, a ceiling of five reaches a day, and three hours
+minimum between them — four constants across two files, and the model is never
+asked about any of them. Above the rails it decides everything: whether to speak,
+what to send, and in what form — a line of text, a challenge with something at
+stake, a ninety-second voice memo in its own pinned voice, or nothing.
+
+Silence is the one I'd build first if I started over. 14 of 177 logged decisions
+were to stay quiet. A system with no way to write down "not now" fires every
+single time it wakes.
 
 The other guard is about honesty rather than volume. If the notification already
-printed the Tamil, typing it back caps at "hinted" — deterministic code reads the
-outgoing text, and the grader gets no vote. That rule exists because on 27 July I
-replied "Oru nimsham" and was credited for two words that appear nowhere in it.
+showed me the Tamil, typing it back can't score as knowing it: deterministic code
+reads the outgoing text and caps the credit before the grader gets a vote. On 22
+August I typed back a phrase the thread had handed me five times, and got back
+"not cold yet."
 
-The ancestor of all this is my favourite thing in the repo. 25 February, 14:52: I
-shipped a public RSS feed. 21:35 the same day: I deleted what it replaced, a
-contraption where phone-Gemini wrote a JSON blob, I shared it to a webhook, it
-parked as a text entity in Home Assistant, and I hoped my laptop would eventually
-pick it up. Right dream, wrong transport, seven hours apart.
+I never answered the kekkuren knock. Five hours later it sent the explanation
+anyway, unprompted, so the teaching wasn't held over to the next day. It ran the
+same pair in that day's session as a listening test, and the result was that I
+can produce the difference and can't hear it.
 
 
 ================================================================================
@@ -53,8 +61,10 @@ FIRST COMMENT
 LinkedIn suppresses reach on posts carrying an outbound link in the body, so the
 link goes here, posted immediately after the post.
 
-Repo, if you want the rails: github.com/arosselet/tamil-tutor — morning_knock.py
-holds the four constants, knock_reply.py holds the credit cap.
+Repo, if you want the rails: github.com/arosselet/tamil-tutor — publish.py holds
+the waking hours, morning_knock.py the daily cap and the minimum gap,
+knock_reply.py the credit cap, and protocol/dialect.md the written-to-spoken
+table that the last line is about.
 
 Curious whether anyone else has shipped an agent that's allowed to decide not to
 speak, and what you did with the logging.
@@ -64,62 +74,294 @@ Optional hashtags, appended to this comment rather than the post:
 
 
 ================================================================================
+WHAT CHANGED
+================================================================================
+
+FIFTH DRAFT — the close is about initiative again, and the Tamil is in script.
+
+"None of this would exist if a translation app were enough" was off-thesis, and
+worse, it was a category error. A translation app and this thing are not
+competitors: a translator answers when asked, and the entire subject of this post
+is a thing that does not wait to be asked. Arguing about which one gives better
+Tamil is post 2's fight, and post 1 walked into it in its final sentence.
+
+The new close stays on initiative and is the same knock, four paragraphs later.
+The trailer went unanswered on the phone; a few hours later it sent the
+explanation anyway rather than let the teaching sit overnight; then it put the
+pair into that day's session as a listening test, and the finding was that I can
+fire the form from the mouth and cannot hear it. Three decisions in a row, none
+of them mine, ending on a fact about me rather than a moral about agents. It also
+closes the loop on the notification quoted at the top instead of introducing a
+new subject to end on.
+
+The register point moved to where it costs nothing. It is now one sentence
+describing what the thing writes, not an argument for why it exists — a property
+of the payload the rails carry. That is the version that survives the objection
+above.
+
+On Tamil script inline: yes, and it is in. போறேன் (poren) and போகிறேன் (pogiren)
+run script-then-phonetic in parentheses, which gives a reader who knows no Tamil
+a look at the actual writing system and still lets them hear the difference the
+sentence is about.
+
+The one place script cannot go is inside the quoted notification, and the reason
+is a law in this repo rather than a style call. constitution.md: anything Andrew
+*reads* carries phonetic Tamil, never script — chat, a lock-screen body, a
+push-back — and anything a Tamil *voice speaks* carries script. It exists because
+script in notifications rendered as unreadable boxes on 2026-08-02, twice, and
+7 of 23 leaks came through a hole an earlier "text body" rule had left. So the
+knock genuinely said "kekkuren", and writing கேட்குறேன் (kekkuren) into that
+quote would misrepresent the system in the one paragraph a reader could check.
+The lexicon does hold both forms — கேட்குறேன் and கேட்பேன் — if they are ever
+wanted somewhere outside the quote.
+
+FOURTH DRAFT — a new close, and the register point comes back as the close.
+
+The Home Assistant paragraph is gone. As a closing stanza it was doing the wrong
+job: it ended a post about a machine that decides when to speak on a piece of
+obsolete plumbing from six months earlier, which is a footnote wearing an ending's
+clothes. It is also the one paragraph that needed the reader to care about the
+repo's history, and post 1's reader does not have one yet. Held for post 4, where
+the subject is what accumulation costs and the wrong-transport story is on topic.
+
+What replaced it is the spoken-versus-textbook point, which the third draft had
+deleted outright. Deleting it was the overcorrection: it was wrong as orientation
+— a lecture the reader had to absorb before anything happened — and right as an
+ending, where it explains the whole project in three sentences to a reader who by
+then knows what the project is. Same fact, different place, opposite value.
+
+It also closes on a real limit rather than a summary: pogiren and poren are both
+correct, so no test I can write separates them. That is a technical statement, it
+stops where it stops, and it does not tell the reader what to do with it. It pays
+off "elders catch it instantly" from the knock five paragraphs earlier, and it
+seeds post 2, whose whole subject is the model filling gaps with the likeliest
+thing.
+
+The post now opens and closes on the same clause — my wife's family. Twice, at
+the two ends, is the amount of personal this post can carry: enough to answer why
+Tamil and to make the closing example concrete, not enough to become the subject.
+
+THIRD DRAFT — the orientation stopped being a geography lesson.
+
+The second draft oriented the reader with Coimbatore, "Kongu Tamil", and the gap
+between the textbook word and the spoken one. Every one of those is a fact the
+reader has to be taught before it helps them, which makes it orientation that
+costs more than it delivers. Three sentences in and a stranger was being asked to
+hold a dialect map of a country they have not thought about. All of it is gone.
+
+What replaced it is one clause: "my wife's family's Tamil". It answers the only
+question the reader would otherwise carry unresolved — why Tamil — and it does
+not come back. The specificity that the deleted paragraph was reaching for is
+carried instead by the knock itself, which explains its own Tamil in its own
+words and slips the register in through "elders catch it instantly." The reader
+learns the same way I do, off the notification, rather than off a preamble.
+
+The personal is now a possessive and nothing more. The wife, the family and the
+table are the spine of the five-post series, but they are not the subject of this
+post; the subject is a program that decides when to interrupt me. Post 5 is where
+the table gets to be the point.
+
+The hook moved above the fold, and the "arrive third or fourth" rule bends here.
+The plan's rule guards against a punchy fragment with the drama withheld. "A year
+ago I started building a program to teach me my wife's family's Tamil" is neither
+punchy nor withholding — it is the flattest possible statement of what this is —
+and the sentence after it states the subject plainly rather than teasing it. Two
+short paragraphs, 137 characters together, both complete above the fold.
+
+SECOND DRAFT — the entries below still hold.
+
+"Nobody scheduled that. There is no app to open." is gone. Two fragments in a row
+with the drama withheld is the exact pattern the plan names first under Things
+that make it sound like a machine wrote it, and it was also imprecise: a cron
+tick *is* a schedule. What is unscheduled is whether the tick becomes a message,
+which is the actual claim and is now stated once, in a full sentence. The second
+half went too, rather than being reworded — an app I do not open is implied by a
+lock screen I do not unlock, two paragraphs later.
+
+"The split that makes that safe:" is gone. It announced an answer to a question
+the reader had not been given. The reader's real question after "it decides when
+to talk to me" is whether it then talks constantly, so the paragraph now asks
+that and answers it.
+
+The knock is quoted verbatim instead of paraphrased. The first draft's version —
+read it, typed a reply, got a correction — described a loop that did not happen
+on that knock. That knock got no reply; it was a trailer, deliberately withholding
+its own payoff to recruit a session, and the log says so in its rationale field.
+The verbatim body is stranger and truer than the paraphrase, and it shows the
+withholding rather than asserting it.
+
+The credit-cap receipt changed from the 27 July incident to the 22 August one.
+July's is the reason the code exists and lives in the docstring; August's is the
+rule visibly working on a reply anyone can read. For a stranger, the guard doing
+its job beats the bug that motivated it.
+
+The eight modalities are no longer enumerated. Naming all of them cost a
+stranger more than it bought — six of the eight are words only this repo uses
+(volley, fielding, grace) and the sentence read as a feature list. Three survive,
+as a clause on the end of the rails paragraph rather than a beat of their own,
+and nothing is the last item — which is what the next paragraph is about.
+
+
+================================================================================
 STRUCTURE NOTES
 ================================================================================
 
-Length. 1,922 characters against a 3,000 hard limit; 1,300–2,000 is where posts
-of this kind hold attention without a "see more" that costs the reader anything.
+Length. 2,179 characters — first draft 1,922, then 2,198, 2,036, 1,955. Limit:
+3,000
+is right for the post body, and the first comment gets 1,250 — those two I am
+confident in. The fold is the soft number and I cannot measure it from here: it
+is widely reported at roughly 140 characters in the mobile app and around 210 on
+desktop, it has moved before, and it varies with app version. So the design rule
+is the conservative one — orientation complete inside 140 characters, not 210.
 
-The fold. Mobile truncates around 210 characters. The cut lands inside the first
-paragraph, after "without unlocking" — a complete scene has already played, and
-the thing that makes it strange (nobody scheduled it) is on the other side.
+The band, and why it stopped mattering. The first draft asserted 1,300–2,000 as
+where a post of this kind holds attention; that was taste, not measurement. The
+second draft raised it to 2,200 to fund orientation. This draft comes in under
+the original band anyway, because deleting the geography paragraph returned more
+characters than the clause that replaced it spends. The band stays at 2,200 as
+the ceiling, unused. What retired to fund the second draft's raise — the modality
+paragraph as a beat of its own — stays retired; it was not earning its place
+either way.
+
+The fold, measured against the pasted text. The first two paragraphs together are
+137 characters, so both sit whole above a 140-character cut: the reader gets what
+this is and what the post is about, with no sentence severed. Character 210 lands
+inside the third paragraph at "Whether the tick becomes a". Under either reported
+number the reader is oriented before the cut, and what they are expanding for —
+the notification itself — is on the far side.
+
+A live seam, found while verifying the close, and not fixed here. The 16:29
+payoff knock's rationale opens "Afternoon without a session" at a moment when the
+session was already under way on the laptop and thirteen minutes from being
+committed. Git is the sync bus, so the cloud runner reasons off the last pushed
+state and cannot see a session in progress. Nothing in the post depends on it any
+more, and it is a @build question rather than a drafting one.
 
 Paragraphs are one to three lines with blank lines between. Long blocks collapse
 into grey on a phone.
 
+The quoted knock is its own paragraph. It is the only place in the post where the
+machine speaks in its own voice, it scans as a screenshot without being one, and
+it survives the reflow to a narrow column.
+
 The engagement ask is in the comment, not the post. The plan's voice rules forbid
-the aphorism close and anything "tuned at the reader"; LinkedIn's mechanics want
-a question. Keeping the body flat and putting a real question in the comment
-satisfies both. The body stops on the Home Assistant anecdote and does not
+the aphorism close and anything tuned at the reader; LinkedIn's mechanics want a
+question. Keeping the body flat and putting a real question in the comment
+satisfies both. The body stops on a finding about my own ear and does not
 explain itself.
 
-Voice rules obeyed, from the plan: no punchy fragment opener (opens mundane and
-concrete, the interesting part arrives in the third paragraph); no aphorism at
-the end; no balanced dash-clauses in bulk; no headline tuned at the reader; no
-claim without a receipt; no last paragraph.
+Voice rules obeyed, from the plan: no punchy fragment opener; no aphorism at the
+end; one dash-balanced clause ("Right dream, wrong transport"), which the plan
+permits once and flags only in bulk; no headline tuned at the reader; no claim
+without a receipt; no last paragraph.
 
 
 ================================================================================
-RECEIPTS  (re-derived 2026-09-01)
+RECEIPTS  (re-derived 2026-09-02)
 ================================================================================
 
 Rails            WAKING_START_HOUR = 8, WAKING_END_HOUR = 21 in publish.py;
                  MAX_REACHES_PER_DAY = 5, MIN_GAP_HOURS = 3 in morning_knock.py.
+                 CORRECTED: the first draft's body said "four constants in one
+                 file." They are in two. The draft's own receipts section had it
+                 right and the body had it wrong, which is the rot pattern the
+                 plan warns about, one paragraph away from itself.
+
+The knock       knock_log.json, 2026-09-01T05:56:31Z, modality "text", move
+                 "trailer: present future toggle". Body quoted verbatim in the
+                 post minus its trailing 🎯. rationale: "11:26 IST lunch anchor:
+                 tee up the kekkuren vs keppen toggle to recruit today's lunch
+                 session." target_revealed: false — the withholding is a logged
+                 field, not a characterisation. No reply on the row.
+                 Local clock is Asia/Kolkata, per learner.json.timezone, so
+                 "the other morning" is his morning, not a North American one.
+                 The body says "the other morning" rather than "yesterday" on
+                 purpose: the draft rots by a day otherwise, and it already did
+                 once between the second draft and the third.
+
+The close        Verified 2026-09-03, and one clause was cut for failing.
+                 (1) Unanswered: the 05:56Z trailer has no reply field, and
+                 chat.md — the phone record, derived from knock_log alone —
+                 shows only two Anna lines on 09-01 and nothing from Andrew.
+                 (2) It did send the explanation later. 10:59Z (16:29 IST), five
+                 hours and three minutes after the trailer, move "trailer payoff:
+                 present future toggle", body "kekkuren (asking now) vs keppen
+                 (I'll ask). That '-pp-' flips right into the future. Clean and
+                 done." rationale: "Afternoon without a session — paying off the
+                 morning trailer on kekkuren vs keppen so the curriculum isn't
+                 withheld overnight." The morning knock says one letter flips it
+                 without saying which; the afternoon one names the -pp-. That is
+                 the withheld piece, delivered unprompted.
+                 (3) The listening test happened: the 09-01 debrief in
+                 learner.json names it — "I ran the present/future toggle as an
+                 ear test (the unpaid trailer, kekkuren vs keppen) and he came
+                 back four-of-five as WILL" — and produce-but-not-hear is that
+                 debrief's own finding ("keppen came back to him as go by ear at
+                 the start of the session; forty minutes later he fired naan
+                 keppen cold, first try, unaided"). session_log 2026-09-01 lists
+                 கேட்பேன் in cold.
+                 CUT: the draft said the explanation came first and the session
+                 test after. Commit times refuse that ordering. ab222e5 lands the
+                 payoff knock at 16:29 +0530 and ac44267 lands the session at
+                 16:42 — thirteen minutes — and the debrief calls the trailer
+                 "unpaid" at a point when the payoff had already been pushed. The
+                 knock fired from the cloud runner off committed state while the
+                 session was running uncommitted on the laptop, so the two views
+                 disagreed for the length of the session. The body now claims no
+                 ordering between them. See the note under STRUCTURE NOTES.
+
+Register         protocol/dialect.md's written→spoken table opens with
+                 போகிறேன் → போறேன்; protocol/constitution.md states it as law
+                 ("போறேன் not போகிறேன்"). போறேன் is a real lexicon row with
+                 phonetic ["poren"], fired cold on 2026-08-31. README.md
+                 romanises both, which is where the post's spellings come from.
+
+Script surface   constitution.md, the surface split: anything Andrew reads is
+                 phonetic — "poren", never போறேன் — and anything a Tamil voice
+                 speaks is script. Written after script rendered unreadable in
+                 notifications on 2026-08-02 (twice) and 7 of 23 leaks came
+                 through a hole the earlier by-modality rule left. This is why
+                 the quoted knock is romanised and the register line is not:
+                 the quote is a read surface, the post is not.
 
 Modalities       MODALITIES in morning_knock.py — text, audio, challenge, volley,
-                 eavesdrop, fielding, grace, silence. Eight.
+                 eavesdrop, fielding, grace, silence. Eight. The post names
+                 three; the count of eight is not claimed in the body.
 
-Silence          14 of 175 rows in progress/knock_log.json, spanning
-                 2026-06-30 → 2026-09-01. Full split: text 72, volley 21,
-                 audio 19, challenge 17, eavesdrop 16, silence 14, fielding 11,
+Silence          14 of 177 rows in progress/knock_log.json, spanning
+                 2026-06-30 → 2026-09-02. Full split: text 73, volley 21,
+                 audio 19, challenge 17, eavesdrop 17, silence 14, fielding 11,
                  grace 2, plus 3 rows predating the modality field.
+                 CORRECTED: was 14 of 175 on 09-01. Two knocks fired since, both
+                 acted; the silence count itself did not move.
 
 Credit cap       shown_in_knock() in knock_reply.py — if the knock's own body,
-                 memo script or any recast in the chain contained the Tamil, the
-                 reply caps at "hinted". Its twin said_in_reply() carries the
-                 2026-07-27 incident in its docstring: reply "Oru nimsham" fired
-                 கொஞ்சம் + நில்லுங்க, neither of which is in the reply.
+                 memo script or any recast in the chain contained the Tamil
+                 (script or any known phonetic), the reply caps at "hinted".
+                 The 22 August row: knock body "smell of something cooking hits
+                 the hallway — ask her in tamizh, informal", reply "Emma
+                 samaikkira", verdict "hinted", reply_fired_capped
+                 ["என்ன சமைக்கிற?"], reply_fired_cold []. Anna's own line back:
+                 "I basically handed you this one five times this thread, so it's
+                 not cold yet." That is the "five times" in the post.
 
-Feb 25           7ff602a "implement public podcast RSS feed via GitHub Pages" at
-                 14:52 -0500. 0a7c5cc "Purge Home Assistant sync" at 21:35 -0500.
-                 Feed first, tunnel second — the plan artifact and JOURNEY.md
-                 both had this backwards until 2026-09-01.
+Not used         Feb 25. 7ff602a "implement public podcast RSS feed via GitHub
+                 Pages" at 14:52 -0500; 0a7c5cc "Purge Home Assistant sync" at
+                 21:35 -0500. Feed first, tunnel second — the plan artifact and
+                 JOURNEY.md both had this backwards until 2026-09-01. Cut from
+                 the body in the fourth draft; the corrected order still needs to
+                 reach post 4, which is where the story now lives.
+
+Not used         The 27 July incident, said_in_reply()'s docstring: reply "Oru
+                 nimsham" fired கொஞ்சம் + நில்லுங்க, neither of which is in it.
+                 Still the best story in this lane, and still the reason the
+                 twin guard exists. Held for the comments, or for post 3, where
+                 an evaluator with a motive to agree with you is the subject.
 
 Not used         July authorship. 567 commits by author-date: 237 by
-                 github-actions[bot], 37 by the agent, 293 by me. Cut from the
-                 post as a fourth mechanism in a post that already carries three.
-                 Use the bot count alone if it comes up in the comments — that
-                 one is unarguable.
+                 github-actions[bot], 37 by the agent, 293 by me. Cut as a fourth
+                 mechanism in a post that already carries three. Use the bot count
+                 alone if it comes up in the comments — that one is unarguable.
 
 
 ================================================================================
