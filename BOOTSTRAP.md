@@ -83,13 +83,15 @@ This repo is a **reference implementation, not a framework** — the goal here i
 **Layer 1 — the machinery (mostly general, with a known port surface).** The Python engine, state schema, and daily-loop choreography carry over unchanged, *except*:
 
 - **LLM prompts embedded in the Python.** `morning_knock.py` (the outreach-decision prompt), `knock_reply.py` (the judge prompt **and `SLIP_MANDATE`**, whose worked examples are Tamil morphology — the `-ōm` ending, the honorific `-nga`), and `render_drill.py` (the drill-script prompt) state Tamil-specific rules in prose — Tamil script vs. phonetic, Woven Thanglish. This is the port surface a swap-the-`.md`-files pass will miss.
-- **Constants.** All of them now live in ONE file, `scripts/language.py` (2026-08-28): the script-detection regexes (canonical lexicon keys must be Tamil script), the stem-tail range inflection replaces, the pinned TTS voice IDs, and the repo identity every CDN and feed URL derives from. A port rewrites that file; `s70` fails the build if any of its values grows a second home elsewhere. The episode voice *pools* stay in `render_audio.py`, which is their only reader.
+- **Constants.** All of them now live in ONE file, `scripts/language.py` (2026-08-28, extended 2026-09-03): the script-detection regexes (canonical lexicon keys must be Tamil script), the stem-tail range inflection replaces, `strip_pulli`, the pinned TTS voice IDs, `voice_locale` (the TTS language code is DERIVED from the voice, never declared — a declared copy would needle-match the prefix of all 35 catalogued voice IDs), `REFERENT_NOUNS` (the kinship terms a tape may name its subject with), and the repo *and feed* identity every CDN, RSS and site URL derives from. A port rewrites that file.
+  **Two guards, two jobs.** `s70` needles each declared value, so none can acquire a second home. `s91` sweeps every lane for target script on a mechanism line, because uniqueness is not completeness: the needle list is read off the pack, so it can never look for a fact the pack has never heard of. On 2026-09-03 that sweep found `render_audio` classifying script with a character comparison at two sites while importing nothing from the pack at all. The episode voice *pools* stay in `render_audio.py`, which is their only reader.
 
 **Layer 2 — the language pack (swap these files):**
 
 | File | Holds | Swap to |
 |---|---|---|
 | `protocol/persona.md` | The tutor's identity, voice, dialect tics | Your tutor in the new language/region |
+| `protocol/toolbelt.md` | Anna's tools — **language-agnostic**, session-only (split from `persona.md` 2026-09-03) | Keep as-is; a port changes nothing here |
 | `protocol/studio/hosts.md` | The podcast cast (names + regional identity) | New cast names and regional voice |
 | `protocol/dialect.md` | Spoken-register rules (verb collapse, fusion, slang) | The target dialect's spoken rules |
 | `protocol/constitution.md` | Mostly universal — but the dialect *examples* are Tamil | Edit the inline examples to the new language |
