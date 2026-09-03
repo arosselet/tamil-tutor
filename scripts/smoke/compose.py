@@ -108,7 +108,7 @@ def s58_a_sheet_survives_a_model_thinking_out_loud(sb: Path):
     # Any real shape will do here — this case is about the PARSER, and the API
     # path ignores the schema (JSON_MODE already forbids prose there).
     _SCHEMA = w.obj(frame=w.STR)
-    sheet = '{"frame": "roots", "beats": [{"ta": "x", "en": "y", "who": "anna"}]}'
+    sheet = '{"frame": "roots", "beats": [{"say": "x", "en": "y", "who": "anna"}]}'
 
     for name, text in [
             ("a bare object", sheet),
@@ -131,7 +131,7 @@ def s58_a_sheet_survives_a_model_thinking_out_loud(sb: Path):
 
     check("a multi-beat sheet keeps every beat, not just the first",
           len(fx.wr.parse_llm_json(
-              'prose\n{"frame": "f", "beats": [{"ta": "1"}, {"ta": "2"}, {"ta": "3"}]}'
+              'prose\n{"frame": "f", "beats": [{"say": "1"}, {"say": "2"}, {"say": "3"}]}'
           )["beats"]) == 3)
 
     # A reply carrying no object must STOP the lane, never yield a blank sheet.
@@ -505,7 +505,7 @@ def s70_the_executor_is_chosen_by_the_host(sb: Path):
     # empty tape — the artifact-shaped nothing this suite exists to catch.
     class _Proc:
         returncode, stderr = 0, ""
-        stdout = _json.dumps({"output": _json.dumps({"beats": [{"ta": "x"}]}),
+        stdout = _json.dumps({"output": _json.dumps({"beats": [{"say": "x"}]}),
                               "beats": []})
     orig_run = writer.subprocess.run
     try:
@@ -523,10 +523,10 @@ def s70_the_executor_is_chosen_by_the_host(sb: Path):
         # The guard must not fire on real work: an `output` key holding an
         # OBJECT is a legitimate artifact, not an envelope.
         _Proc.stdout = _json.dumps({"output": {"real": True},
-                                    "beats": [{"ta": "x"}]})
+                                    "beats": [{"say": "x"}]})
         ok = writer._agent_json("system", "user", SHAPE)
         check("...but a real artifact with an object-valued key passes through",
-              ok.get("beats") == [{"ta": "x"}], f"got {ok}")
+              ok.get("beats") == [{"say": "x"}], f"got {ok}")
     finally:
         writer.subprocess.run = orig_run
 
@@ -746,3 +746,128 @@ def s70_the_executor_is_chosen_by_the_host(sb: Path):
           not called, f"push_queue.py reaches for {', '.join(called)} — a writer "
                       f"stage here puts a model call between Andrew's tap and his "
                       f"lock screen, and the dose was already written")
+
+
+# Files allowed to carry target-script characters on a MECHANISM line, each with
+# a ceiling and a reason. A ratchet, not an allowlist: the count may fall, never
+# rise, and an owner that drops to zero has lost its claim and must hand the
+# entry back (the same law `PACK_EXEMPTIONS` runs on).
+SCRIPT_OWNERS = {
+    "mandates.py": (11,
+        "LLM PROMPT PROSE — the declared irreducible half of an extraction. "
+        "`BOOTSTRAP.md` and `/extend` Gate 6 have said since 2026-07 that a port "
+        "REWRITES these worked examples rather than substituting a constant into "
+        "them: the -ōm ending, the honorific -nga, `புரியல` as a creditable "
+        "repair. There is no seam that makes this cheaper and pretending "
+        "otherwise would hide the real cost of a port."),
+    "run_studio.py": (2,
+        "The PRODUCER pass's dialect rule, same class as `mandates` — it states "
+        "where the polite -ங்க may attach, inside the prompt that enforces it. "
+        "It sits here rather than in `mandates` because `run_studio`'s three "
+        "writer prompts are the studio's own canon (s70 asserts the studio is "
+        "left alone by the JSON sweep for the same reason)."),
+    "sync_state.py": (6,
+        "Five rows are the ONE-SHOT REPAIR SLOT (`cmd_untaught`, 2026-09-01, "
+        "driven by s88) — a migration payload, not a port value, and it is "
+        "replaced wholesale by the next repair rather than edited. The sixth is "
+        "`add-word`'s help text, where the example MUST be script because the "
+        "argument is the canonical key: a phonetic example there would advertise "
+        "an input `is_tamil` refuses."),
+}
+
+
+def s91_the_pack_is_complete_not_just_unique(sb: Path):
+    """A language fact outside the pack is invisible to the needle guard
+    (2026-09-03, Andrew — tier 1 of the narrow-extraction scope).
+
+    WHAT THE 08-28 GUARD PROVES, AND WHAT IT CANNOT. `pack_needles` reads every
+    public value off `language.py` and fails the build if one acquires a second
+    home. That is a UNIQUENESS proof, and it is airtight: a declared value has
+    one declaration. It says nothing whatever about a language fact that was
+    never declared in the pack at all — the needle list is read off the pack, so
+    a fact the pack has never heard of contributes no needle to look for.
+
+    FOUR LIVED THERE, and one was a defect rather than a filing error:
+
+      - `render_audio` classified Tamil with `any('...' <= c <= '...' for c in w)`
+        at TWO sites and imported NOTHING from `language`. Functionally
+        `is_tamil`, spelled as a character comparison, so the needle — which
+        looks for the literal pattern text — could not match it. That is the
+        08-28 finding repeating exactly: "a guard that needles one value proves
+        one value." A port that edited `language.py` would have gone on
+        classifying Tamil in the renderer.
+      - `morning_knock.REFERENT_NOUNS` — 26 rows of Tamil kinship culture in L5.
+      - `render_rotation` stripped the pulli with a literal.
+      - `rebuild_rss` held the feed's name and pitch, each with exactly ONE home,
+        which is why the 08-28 duplicate-hunt walked past them. A port surface is
+        what a fork must CHANGE, not what happens to be duplicated twice.
+
+    GATE 7.2 — WHAT DOES THIS LOOK LIKE WHEN IT SILENTLY DOES NOTHING? Like a
+    green suite and a Korean tutor that titles its feed "Coimbatore Mappillai",
+    matches Tamil aunties in its tapes, and stems Tamil in its rotation — every
+    instrument reading green, because nothing was ever asserted about facts
+    nobody had declared. So the FIRST check is teeth on the sweep itself: a glob
+    that matches nothing, or a scan that finds script nowhere, satisfies every
+    assertion below while proving zero.
+    """
+    print("\n91. The pack is complete, not merely unique (2026-09-03)")
+    SCRIPT = fx.lang.TAMIL_RE
+
+    def script_lines(src: str) -> list[int]:
+        mech = code_line_numbers(src)
+        return [i for i, ln in enumerate(src.splitlines(), 1)
+                if i in mech and SCRIPT.search(ln)]
+
+    files = {p.name: p.read_text(encoding="utf-8")
+             for p in sorted((sb / "scripts").glob("*.py"))
+             if p.name != "language.py"}          # the pack IS the declared home
+    found = {name: script_lines(src) for name, src in files.items()}
+    found = {name: lines for name, lines in found.items() if lines}
+
+    # ── TEETH ON THE SWEEP, before any law is asserted on its output.
+    check(f"the sweep read the lane files ({len(files)} scanned)",
+          len(files) >= 20 and "morning_knock.py" in files,
+          f"got {len(files)} files — a glob that matches nothing passes "
+          f"everything below while checking zero lanes")
+    check("...and it can still SEE script where script legitimately lives",
+          "mandates.py" in found and len(found["mandates.py"]) >= 5,
+          f"found {sorted(found)} — a scan that detects script nowhere is not a "
+          f"clean tree, it is a broken detector")
+
+    # ── THE LAW. Any file that is not a declared owner must carry none.
+    trespass = sorted(f"{n} ({len(l)} lines: {l[:4]})"
+                      for n, l in found.items() if n not in SCRIPT_OWNERS)
+    check("no lane declares a language fact of its own",
+          not trespass,
+          f"{'; '.join(trespass)} — move the value into `language.py` and import "
+          f"it, or add a SCRIPT_OWNERS entry with a reason it cannot move")
+
+    # ── THE RATCHET. An owner may shrink; it may never grow.
+    over = sorted(f"{n}: {len(found.get(n, []))}/{cap}"
+                  for n, (cap, _) in SCRIPT_OWNERS.items()
+                  if len(found.get(n, [])) > cap)
+    check("no declared owner grew past its ceiling",
+          not over,
+          f"{', '.join(over)} — a new language fact went into a file that already "
+          f"had a reason for its old ones; the reason does not cover the new line")
+
+    # ── THE GUARD'S OWN GUARD. A licence that outlives what it licensed is a
+    # licence nothing revokes (2026-08-24).
+    stale = sorted(n for n in SCRIPT_OWNERS if not found.get(n))
+    check("every declared script owner still holds script",
+          not stale,
+          f"gone: {', '.join(stale)} — hand the SCRIPT_OWNERS entry back in the "
+          f"diff that emptied the file")
+
+    # ── POSITIVE CONTROL, driven on synthetic sources so the proof lives in the
+    # suite rather than in one session's notes. Prose is free; mechanism is not.
+    planted = script_lines('X = "வை"\n')
+    free = script_lines('"""வை in a docstring."""\n'
+                        '# வை in a comment\nX = 1\n')
+    check("the sweep finds script planted on a mechanism line", planted == [1],
+          f"got {planted} — a sweep that cannot find a planted fact reads green "
+          f"on a tree that has already drifted")
+    check("...and prose that quotes script is free",
+          free == [],
+          f"got {free} — if the docstring counted, this case's own paragraphs "
+          f"and every port note in the tree would fail it")

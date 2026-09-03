@@ -17,7 +17,8 @@ report — do not create a substitute.
 | All state writes to `progress/*.json` | `scripts/sync_state.py` | Never hand-edit Python-owned JSON directly |
 | Paths, load/save, `local_today`, token→canonical-key `resolve` | `scripts/state_io.py` | Imports nothing from `scripts/`; everything may import it. If this file grows, something that mutates state has leaked in |
 | The agent-facing `status` load (banner, soak order, meters, slip block) | `scripts/session_brief.py` | A READ surface — renders state, never mutates it. Sits ABOVE `sync_state` in the import graph |
-| Lexicon key script enforcement; stem-tolerant payload matching | `scripts/language.py` → `TAMIL_RE`, `TAMIL_RUN`, `TAMIL_TAIL_RE` | THE LANGUAGE PACK — every value a port replaces, guarded per-value by `s70`; see `/extend` Gate 6 |
+| Lexicon key script enforcement; stem-tolerant payload matching | `scripts/language.py` → `TAMIL_RE`, `TAMIL_RUN`, `TAMIL_TAIL_RE`, `strip_pulli` | THE LANGUAGE PACK — every value a port replaces, guarded per-value by `s70`; see `/extend` Gate 6 |
+| Anything else a port replaces — kinship nouns, TTS locale, feed name and pitch | `scripts/language.py` → `REFERENT_NOUNS`, `voice_locale`, `FEED_TITLE`, `FEED_SUMMARY`, `CAPTION_COLUMNS` | If you are about to write target script in a lane, it belongs here instead and `s91` will say so. The TTS locale is DERIVED from the voice, never declared — declaring it would needle a prefix shared by all 35 voice IDs |
 | Outreach rails (daily cap, min gap) | `scripts/morning_knock.py` → `MAX_REACHES_PER_DAY`, `MIN_GAP_HOURS` | The knock's own rails |
 | Quiet hours (the waking window) | `scripts/publish.py` → `WAKING_START_HOUR`, `WAKING_END_HOUR` | Moved down 2026-08-23: it is EVERY lane's rule, enforced once at `push_to_phone`, never per-lane |
 | Outreach decision prompt (Anna's fire/silence policy prose) | `scripts/morning_knock.py` | Policy is Anna's; Python holds only the rails |

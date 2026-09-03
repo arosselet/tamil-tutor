@@ -2206,7 +2206,7 @@ def s81_the_ear_judge_stamps_its_own_evidence(kr, sb: Path):
         # a word he genuinely caught. That is the state it shipped in for months.
         # So every check below asserts the ROW, re-read after the call.
         heard_key, off_tape = "வந்தாரு", "சொன்னேன்"
-        tape = {"beats": [{"ta": f"அவரு {heard_key} இன்னைக்கு"}]}
+        tape = {"beats": [{"say": f"அவரு {heard_key} இன்னைக்கு"}]}
         ek = {"expected_target": target, "memo_script": tape}
         reply = "I caught vandhaaru, and something about today"
 

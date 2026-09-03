@@ -565,7 +565,7 @@ def s57_rotation_tape(sb: Path):
     # real silence frames so the frame scan measures an honest stream, no network.
     real = (rl.generate_segment_google, rl.get_raw_mp3_frames)
     sheet = {"frame": "the -aachu tail", "beats": [
-        {"ta": f"வாக்கியம் {n}", "en": f"line {n}", "who": "a"} for n in range(5)]}
+        {"say": f"வாக்கியம் {n}", "en": f"line {n}", "who": "a"} for n in range(5)]}
 
     async def fake_tts(text, voice, index, tmp):
         p = os.path.join(tmp, f"{index}.mp3")
@@ -609,7 +609,7 @@ def s57_rotation_tape(sb: Path):
         check("the script is saved beside the audio, named for it",
               written.name == "longhaul_machines_2026-08-11_0930.md", written.name)
         check("...and carries the Tamil actually sent to the TTS",
-              all(b["ta"] in body for b in sheet["beats"]), body[:160])
+              all(b["say"] in body for b in sheet["beats"]), body[:160])
         check("...the measured length and the audio it belongs to",
               f"{long_min:.1f} min" in body and ".mp3" in body)
         check("...one section per movement that played",
@@ -642,7 +642,7 @@ def s57_rotation_tape(sb: Path):
         pool_x = [{"word": "frame:quote-nu"}, {"word": "வந்துட்டேன்"},
                   {"word": "frame:never-aired"}, {"word": "சொல்லல"}]
         got = rl.audible(pool_x, ["வந்துட்டேன் இப்போ"],
-                         [(frame_mv, {"beats": [{"ta": "நான் வந்துட்டேனு சொன்னாங்க"}]})])
+                         [(frame_mv, {"beats": [{"say": "நான் வந்துட்டேனு சொன்னாங்க"}]})])
         check("a frame is claimed when its movement played and made beats",
               "frame:quote-nu" in got, str(got))
         check("...a chunk still has to be literally spoken", "வந்துட்டேன்" in got)

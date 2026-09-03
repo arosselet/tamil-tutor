@@ -1352,8 +1352,8 @@ def main():
     up.add_argument("--soak-seed", type=str, default=None,
                     help="One-line scene seed for the next audio soak")
     up.add_argument("--soak-focus", type=str, default=None,
-                    help="What the next dose PERMUTES, free text ('the -ஆச்சு tail over "
-                         "போ and முடி') — a carousel brief, not a word list")
+                    help="What the next dose PERMUTES, free text ('the -aachu tail over "
+                         "po and mudi') — a carousel brief, not a word list")
     up.add_argument("--soak-channel", type=str, default=None,
                     choices=["episode", "soak", "drill"],
                     help="Which lane renders the order (default: episode). Capacity "
@@ -1413,7 +1413,7 @@ def main():
     ap = sub.add_parser("add-pattern", help="Seed a generative pattern/lemma record (tracked as an Engine)")
     ap.add_argument("key", help="Canonical key, e.g. 'frame:present-future-toggle'")
     ap.add_argument("--gloss", required=True,
-                    help="Human description of the engine, e.g. '-உறேன் (now) vs -வேன் (later) on any verb'")
+                    help="Human description of the engine, e.g. '-uren (now) vs -ven (later) on any verb'")
     ap.add_argument("--recognition", default="comfortable", choices=RECOGNITION_LEVELS,
                     help="Starting recognition level (default: comfortable)")
 

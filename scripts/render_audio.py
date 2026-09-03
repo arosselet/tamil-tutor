@@ -38,6 +38,7 @@ BASE = Path(__file__).parent.parent
 EXIT_NOT_CONFIGURED = 3
 
 from publish import commit_and_push
+from language import is_tamil, voice_locale
 
 import edge_tts
 import edge_tts.communicate as _edge_comm
@@ -363,7 +364,8 @@ async def generate_segment_google(text: str, voice: str, index: int, temp_dir: s
     """Generate a single audio segment using Google Cloud TTS with exponential backoff."""
     client = texttospeech.TextToSpeechClient()
     input_text = texttospeech.SynthesisInput(text=text)
-    voice_params = texttospeech.VoiceSelectionParams(language_code="ta-IN", name=voice)
+    voice_params = texttospeech.VoiceSelectionParams(
+        language_code=voice_locale(voice), name=voice)
     audio_config = texttospeech.AudioConfig(audio_encoding=texttospeech.AudioEncoding.MP3, sample_rate_hertz=24000)
     for attempt in range(max_retries):
         try:
@@ -570,7 +572,7 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
     if not cleaned_words and not sidecar_broken:
         for w in re.findall(r"\*\*([^\*]+)\*\*", content):
             tamil = re.split(r"[\(\s]", w)[0]
-            if tamil and any('஀' <= c <= '௿' for c in tamil) and tamil not in cleaned_words:
+            if tamil and is_tamil(tamil) and tamil not in cleaned_words:
                 cleaned_words.append(tamil)
 
     mission_match = re.search(r"mission(\d+)", script_path.name)
@@ -610,7 +612,7 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
         unresolved = []
         for w in cleaned_words:
             key = w if w in lexicon else phon.get(w)
-            if key is None and w in new_word_keys and any('஀' <= c <= '௿' for c in w):
+            if key is None and w in new_word_keys and is_tamil(w):
                 # Brand-new payload word: introduce it at the bottom of the
                 # recognition ladder — heard, not yet known, so it stays below
                 # the fence until Anna observes recognition. gloss/phonetic

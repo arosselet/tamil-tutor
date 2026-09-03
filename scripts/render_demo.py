@@ -31,18 +31,14 @@ from google.cloud import texttospeech
 
 from render_audio import (SILENCE_FRAME, assign_voices, clean_for_tts,
                           get_raw_mp3_frames, parse_script)
-
-
-def lang_of(voice: str) -> str:
-    """'ta-IN-Chirp3-HD-Orus' -> 'ta-IN'. The whole reason this file is separate."""
-    return "-".join(voice.split("-")[:2])
+from language import voice_locale
 
 
 def synth(text: str, voice: str) -> bytes:
     client = texttospeech.TextToSpeechClient()
     response = client.synthesize_speech(
         input=texttospeech.SynthesisInput(text=text),
-        voice=texttospeech.VoiceSelectionParams(language_code=lang_of(voice), name=voice),
+        voice=texttospeech.VoiceSelectionParams(language_code=voice_locale(voice), name=voice),
         audio_config=texttospeech.AudioConfig(
             audio_encoding=texttospeech.AudioEncoding.MP3, speaking_rate=1.0),
     )
@@ -62,7 +58,7 @@ async def main():
     cast = assign_voices(dialogue, voice_map, provider="google", voice_type="chirp")
     print("🎭 Cast:")
     for s, v in cast.items():
-        print(f"   - {s}: {v}  [{lang_of(v)}]")
+        print(f"   - {s}: {v}  [{voice_locale(v)}]")
 
     audio = bytearray()
     tmp = Path("temp_demo_segments")

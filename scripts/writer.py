@@ -335,7 +335,7 @@ def obj(**props) -> dict:
 
 def arr(**props) -> dict:
     """An array of objects with `props`. Item shape is declared, not implied —
-    left unconstrained, an array of {ta, en} comes back as an array of strings
+    left unconstrained, an array of {say, en} comes back as an array of strings
     (measured the same day)."""
     return {"type": "array", "items": obj(**props)}
 

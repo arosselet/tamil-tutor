@@ -42,7 +42,7 @@ from mandates import OUTREACH_MANDATE
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
-from language import ANNA_VOICE, EAVESDROP_VOICE
+from language import ANNA_VOICE, EAVESDROP_VOICE, REFERENT_NOUNS
 from render_audio import (generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME,
                           clean_memo_for_tts)
 from publish import (BODY_BUDGET, KNOCKS_DIR, WAKING_END_HOUR, WAKING_START_HOUR,
@@ -512,16 +512,11 @@ def maybe_enqueue_schedule(decision: dict) -> Path | None:
 
 
 
-# Person nouns that can carry a tape's referent (2026-07-25). Substring matching, so
-# the pulli-less stems are deliberate — "மருமக" catches மருமகள்/மருமகன், "மச்சான"
-# catches மச்சான். A definite description counts: "அந்த வீட்டு பொண்ணு" is a referent.
-REFERENT_NOUNS = (
-    "அக்கா", "அண்ணா", "அண்ணன்", "தங்கச்சி", "தம்பி", "அம்மா", "அப்பா",
-    "மாமா", "மாமி", "அத்தை", "சித்தி", "சித்தப்பா", "பெரியம்மா", "பெரியப்பா",
-    "பாட்டி", "தாத்தா", "மச்சான", "மாப்பிள்ளை", "மருமக", "பொண்ணு", "பையன்",
-    "பிள்ளை", "குழந்தை", "வாத்தியார்", "டாக்டர்",
-)
-REFERENT_WINDOW = 2  # paragraphs — a real call opens "ஹலோ, கேக்குதா?" before the news
+# The nouns themselves are LANGUAGE (`language.REFERENT_NOUNS`, moved 2026-09-03) —
+# 26 rows of Tamil kinship culture that a port replaces wholesale. The WINDOW is
+# not: how much of a tape's opening must name its subject is a fact about how a
+# phone call is structured, and it stays with the lane that reads it.
+REFERENT_WINDOW = 2  # paragraphs — a real call opens with a greeting before the news
 
 
 def tape_names_a_referent(memo_script: str) -> bool:

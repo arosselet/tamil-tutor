@@ -170,7 +170,7 @@ no "we're halfway". The context above tells YOU how to pitch it; it is never sai
 
 Return ONLY a JSON object, no prose around it:
 {"frame": "<one short English line naming what this movement is>",
- "beats": [{"ta": "<Tamil script>", "en": "<short gloss>", "who": "a"}, ...]}
+ "beats": [{"say": "<Tamil script>", "en": "<short gloss>", "who": "a"}, ...]}
 """
 
 # Only the shape clause changes — the contract above is 90% of every mandate, and
@@ -203,8 +203,8 @@ ends on a clear resolution — where an exchange LANDS is his known weak spot.""
     "lore": """\
 THIS MOVEMENT IS LORE — 5-8 beats of Anna talking in English about why one of these \
 words is the way it is: what it literally contains, where it comes from, what a Coimbatore \
-speaker hears in it that a textbook misses. Put the English in "en" and leave "ta" empty, \
-EXCEPT where you quote the word itself — then "ta" carries the quote and it is spoken \
+speaker hears in it that a textbook misses. Put the English in "en" and leave "say" empty, \
+EXCEPT where you quote the word itself — then "say" carries the quote and it is spoken \
 after the line. "who" is always "anna". This is the movement that is allowed to be \
 interesting rather than useful; it is his favourite part and it is why the tape is bearable.""",
 }
@@ -613,7 +613,7 @@ together — the point is that the endings iterate against each other.
 You may add a natural inflection of a given item if it makes the thread audible.
 - "thread": ONE short English line naming what binds the cluster. Spoken aloud, plain, \
 no grammar terminology ("the -ணும் tail — the things you have to do"). Under ~10 words.
-- "ta": natural Coimbatore colloquial in TAMIL SCRIPT ONLY. "en": the meaning in under \
+- "say": natural Coimbatore colloquial in TAMIL SCRIPT ONLY. "en": the meaning in under \
 6 English words, no article-heavy prose — it is a label, not a sentence.
 - NO scene, NO dialogue, NO story, NO questions, NO instructions to him, NO homework, \
 NO grammar lecture. If you find yourself writing a situation with characters, stop: \
@@ -632,7 +632,7 @@ Return ONLY a JSON object, no prose around it:
   "intro": "<one spoken line>",
   "clusters": [
     {"thread": "<one short English line>",
-     "items": [{"ta": "<Tamil script>", "en": "<short gloss>"}, ...]}
+     "items": [{"say": "<Tamil script>", "en": "<short gloss>"}, ...]}
   ],
   "outro": "<one spoken line>"
 }

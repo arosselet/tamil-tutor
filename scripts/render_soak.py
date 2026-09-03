@@ -157,7 +157,7 @@ def write_sheet(items: list[dict], focus: str | None = None) -> dict:
     clean = []
     for c in sheet.get("clusters", []):
         kept = [i for i in c.get("items", [])
-                if i.get("ta", "").strip() and i.get("en", "").strip()]
+                if i.get("say", "").strip() and i.get("en", "").strip()]
         if kept and c.get("thread", "").strip():
             clean.append({"thread": c["thread"].strip(), "items": kept})
     sheet["clusters"] = clean
@@ -203,7 +203,7 @@ async def render(sheet: dict, out_path: Path, passes: int):
                 audio.extend(await seg(c["thread"]))
                 audio.extend(silence(1.2))
                 for item in c["items"]:
-                    ta = await seg(item["ta"])
+                    ta = await seg(item["say"])
                     audio.extend(ta)                    # sound first
                     audio.extend(silence(0.9))
                     audio.extend(await seg(item["en"]))  # meaning, once
@@ -214,7 +214,7 @@ async def render(sheet: dict, out_path: Path, passes: int):
                     audio.extend(silence(1.5))
                 audio.extend(silence(0.8))
                 for item in c["items"]:                 # the thread, Tamil only
-                    audio.extend(await seg(item["ta"]))
+                    audio.extend(await seg(item["say"]))
                     audio.extend(silence(1.0))
                 audio.extend(silence(1.8))
 
@@ -238,7 +238,7 @@ def main():
     ap.add_argument("--items", type=int, default=16, help="max items to draw from (default 16)")
     ap.add_argument("--passes", type=int, default=2, help="times through the whole loop (default 2)")
     ap.add_argument("--focus", type=str, default=None,
-                    help="Carousel brief — what to permute ('the -ஆச்சு tail over போ and முடி'). "
+                    help="Carousel brief — what to permute ('the -aachu tail over po and mudi'). "
                          "Defaults to the soak order's `focus` when its channel is 'soak'.")
     ap.add_argument("--dry-run", action="store_true", help="write + print the sheet; no TTS or publish")
     ap.add_argument("--no-publish", action="store_true", help="render only; skip RSS/commit/push/notify")
@@ -290,7 +290,7 @@ def main():
     # template has no surface form to match, so it cannot be verified, and the
     # ledger under-claims rather than invents (the claim_payload rule, 2026-07-17).
     if focus:
-        spoken = " ".join(i["ta"] for c in sheet["clusters"] for i in c["items"])
+        spoken = " ".join(i["say"] for c in sheet["clusters"] for i in c["items"])
         delivered = [r["word"] for r in items if r["word"] in spoken]
         print(f"   focused run — {len(delivered)}/{len(items)} menu items audible in the sheet")
     else:

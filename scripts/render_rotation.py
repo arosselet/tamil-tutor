@@ -88,7 +88,7 @@ BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from lanes import deliver_rendered
 from publish import commit_and_push, load_env, push_to_phone
-from language import ANNA_VOICE, EAVESDROP_VOICE
+from language import ANNA_VOICE, EAVESDROP_VOICE, strip_pulli
 from render_audio import (generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME,
                           clean_for_tts, google_credentials_ready, EXIT_NOT_CONFIGURED,
                           _CHIRP_POOL_MALE, _CHIRP_POOL_FEMALE)
@@ -99,7 +99,7 @@ from render_audio import (generate_segment_google, get_raw_mp3_frames, SILENCE_F
 from writer import STR, arr, ask_json, obj, voice_canon
 
 # What one movement IS, for the executor that can be told (see writer.obj).
-MOVEMENT_SCHEMA = obj(frame=STR, beats=arr(ta=STR, en=STR))
+MOVEMENT_SCHEMA = obj(frame=STR, beats=arr(say=STR, en=STR))
 from state_io import LEXICON_PATH, load_json
 from state_io import canon_payload
 
@@ -180,7 +180,7 @@ def inventory_hosts(lexicon: dict) -> dict:
                if " " not in k and not k.startswith("frame:") and len(k) >= 3]
     out = {}
     for root in singles:
-        stem = root.rstrip("்")          # ் — the vowel-less marker
+        stem = strip_pulli(root)
         hosts = [k for k in lexicon
                  if k != root and stem in k and not k.startswith("frame:")]
         if len(hosts) >= 2:
@@ -326,7 +326,7 @@ def write_movement(mv: dict, spine: str) -> dict:
                      f"THE TAPE'S SPINE: {spine}\n\nITEMS FOR THIS MOVEMENT:\n{menu}",
                      MOVEMENT_SCHEMA)
     sheet["beats"] = [b for b in sheet.get("beats", [])
-                      if (b.get("ta") or "").strip() or (b.get("en") or "").strip()]
+                      if (b.get("say") or "").strip() or (b.get("en") or "").strip()]
     return sheet
 
 
@@ -412,13 +412,13 @@ def write_script(mp3: Path, spine: str, measured: float, sheets: list[tuple],
         if sheet.get("frame"):
             lines += [f"**ANNA:** {sheet['frame']}", ""]
         for beat in sheet["beats"]:
-            ta, en = (beat.get("ta") or "").strip(), (beat.get("en") or "").strip()
+            say, en = (beat.get("say") or "").strip(), (beat.get("en") or "").strip()
             who = WHO.get(beat.get("who"), "ANNA") if mv["shape"] == "scene" else \
                 ("AUNTY" if mv["shape"] == "eavesdrop" else "ANNA")
-            if ta:
-                lines.append(f"**{who}:** {ta}")
+            if say:
+                lines.append(f"**{who}:** {say}")
             if en:
-                lines.append(f"> {en}" if ta else f"**{who}:** {en}")
+                lines.append(f"> {en}" if say else f"**{who}:** {en}")
             lines.append("")
     if spoken:
         lines += ["## closing lap — same sounds, one more lap", ""]
@@ -434,31 +434,31 @@ async def render_movement(tape: Tape, mv: dict, sheet: dict, n: int):
     meaning), the gloss once, then Tamil again to settle. Scenes and eavesdrops
     get none of that: they run once, at speed, because their whole job is that he
     follows something he was handed five minutes ago."""
-    after_ta, after_en, after_beat = RHYTHM[mv["shape"]]
+    after_say, after_en, after_beat = RHYTHM[mv["shape"]]
     voice_a, voice_b = movement_voices(n)
     if sheet.get("frame"):
         await tape.add(sheet["frame"], ANNA_VOICE, 1.2)
     for beat in sheet["beats"]:
-        ta, en = (beat.get("ta") or "").strip(), (beat.get("en") or "").strip()
+        say, en = (beat.get("say") or "").strip(), (beat.get("en") or "").strip()
         if mv["shape"] == "lore":
             if en:
-                await tape.add(en, ANNA_VOICE, after_ta if ta else after_beat)
-            if ta:
-                await tape.add(ta, ANNA_VOICE, after_beat, tamil=True)
+                await tape.add(en, ANNA_VOICE, after_say if say else after_beat)
+            if say:
+                await tape.add(say, ANNA_VOICE, after_beat, tamil=True)
             continue
         if mv["shape"] == "eavesdrop":
-            await tape.add(ta, EAVESDROP_VOICE, after_beat, tamil=True)
+            await tape.add(say, EAVESDROP_VOICE, after_beat, tamil=True)
             continue
         if mv["shape"] == "scene":
-            await tape.add(ta, voice_b if beat.get("who") == "b" else voice_a,
+            await tape.add(say, voice_b if beat.get("who") == "b" else voice_a,
                            after_beat, tamil=True)
             continue
         # machine / inventory — the soak rhythm
-        await tape.add(ta, ANNA_VOICE, after_ta, tamil=True)
+        await tape.add(say, ANNA_VOICE, after_say, tamil=True)
         if en:
             await tape.add(en, ANNA_VOICE, after_en)
-        await tape.add(ta, ANNA_VOICE, after_ta)
-        await tape.add(ta, ANNA_VOICE, after_beat)
+        await tape.add(say, ANNA_VOICE, after_say)
+        await tape.add(say, ANNA_VOICE, after_beat)
 
 
 async def render(plan: list[dict], spine: str, out: Path, minutes: float,

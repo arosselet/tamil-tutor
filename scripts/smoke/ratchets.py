@@ -456,7 +456,22 @@ CODE_BUDGETS = {
     # added here is one subtracted from somewhere it was hiding. If this file
     # ever needs a function longer than `is_tamil`, that is mechanism leaking
     # into a pack and the answer is to put it back, not to raise this.
-    "scripts/language.py": 20,
+    # 20 -> 35 (2026-09-03). A TRANSFER, NOT GROWTH — the pack got bigger because
+    # five lanes got smaller, and every one of them is under its own ceiling with
+    # more headroom than before (morning_knock 448 -> 442, and it was at 448/450).
+    # RETIRED IN THIS DIFF, all of it a language fact living outside the file that
+    # claims to hold them: `render_audio`'s TWO character-comparison copies of the
+    # script range (`any('..' <= c <= '..')` — functionally `is_tamil`, invisible
+    # to the 08-28 needle because it shares no spelling with the pattern) and its
+    # pinned `language_code="ta-IN"`; `render_demo.lang_of`; `render_rotation`'s
+    # pulli literal; `morning_knock.REFERENT_NOUNS`, 26 rows of kinship culture in
+    # L5; and `rebuild_rss`'s feed title, summary and caption columns.
+    #
+    # The ceiling was 20 because the file was six values and a predicate. It is
+    # now the port surface it always claimed to be, and `s91` is what keeps the
+    # claim honest — the needle guard proves a DECLARED value has one home, and
+    # could never have found any of the six above.
+    "scripts/language.py": 35,
     # The slip ledger, split out of sync_state 2026-08-04. Always a subsystem
     # in a file about something else: it owns progress/slip_log.json outright
     # and is reached from three call sites. Imports state_io only — never

@@ -8,7 +8,8 @@ import email.utils
 from xml.sax.saxutils import escape as xml_escape
 
 import audio_titles
-from language import RAW_BASE_URL, SITE_URL
+from language import (CAPTION_COLUMNS, FEED_SUMMARY, FEED_TITLE,
+                      RAW_BASE_URL, SITE_URL)
 # LOCAL_TZ is Andrew's clock, canonical there; RECENT_AUDIO_PATH is the rating
 # picker's list, which this module writes because this module writes its source.
 from state_io import LOCAL_TZ, RECENT_AUDIO_PATH
@@ -37,12 +38,12 @@ RSS_TEMPLATE = """<?xml version="1.0" encoding="UTF-8"?>
     xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" 
     xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Coimbatore Mappillai</title>
+    <title>{feed_title}</title>
     <link>{site_url}</link>
     <language>en-us</language>
     <itunes:author>{author}</itunes:author>
-    <itunes:summary>AI-generated Tamil lessons. Colloquial Kongu dialect, dual-voice audio, built for daily life.</itunes:summary>
-    <description>AI-generated Tamil lessons. Colloquial Kongu dialect, dual-voice audio, built for daily life.</description>
+    <itunes:summary>{feed_summary}</itunes:summary>
+    <description>{feed_summary}</description>
     <itunes:owner>
       <itunes:name>{author}</itunes:name>
     </itunes:owner>
@@ -75,7 +76,7 @@ ITEM_TEMPLATE = """
 # apps render one or the other; either way the sheet is one tap from the player.
 CAPTION_BLOCK = """
       <link>{caption_url}</link>
-      <description><![CDATA[\U0001F4D6 <a href="{caption_url}">Captions — follow along (Tamil · phonetic · English)</a>]]></description>"""
+      <description><![CDATA[\U0001F4D6 <a href="{caption_url}">Captions — follow along ({caption_columns})</a>]]></description>"""
 
 
 def caption_block_for(script_md_name: str) -> str:
@@ -84,7 +85,8 @@ def caption_block_for(script_md_name: str) -> str:
     if not os.path.exists(os.path.join(CAPTIONS_DIR, script_md_name)):
         return ""
     return CAPTION_BLOCK.format(
-        caption_url=f"{SITE_URL}/blob/main/{CAPTIONS_DIR}/{script_md_name}")
+        caption_url=f"{SITE_URL}/blob/main/{CAPTIONS_DIR}/{script_md_name}",
+        caption_columns=CAPTION_COLUMNS)
 
 
 def clean_title(raw_title: str, filename: str) -> str:
@@ -652,6 +654,8 @@ def generate_rss():
         base_url=BASE_URL,
         site_url=SITE_URL,
         author=AUTHOR,
+        feed_title=FEED_TITLE,
+        feed_summary=FEED_SUMMARY,
         items="".join(items)
     )
 

@@ -111,12 +111,16 @@ the commit body if you touch one. (`BOOTSTRAP.md` → "What Generalizes" → Lay
 | Item | Location |
 |---|---|
 | LLM prompts with Tamil-specific prose rules (script vs. phonetic, Woven Thanglish) | `scripts/morning_knock.py` (decide prompt), `scripts/knock_reply.py` (judge prompt + `SLIP_MANDATE`), `scripts/render_drill.py` (drill-script prompt) |
-| The script ranges (`TAMIL_RE`, `TAMIL_RUN`, `TAMIL_TAIL_RE`), the pinned voices (`ANNA_VOICE`, `EAVESDROP_VOICE`), the repo identity (`REPO`) | `scripts/language.py` — THE LANGUAGE PACK, one file, guarded per-value by `s70` (2026-08-28) |
+| The script ranges (`TAMIL_RE`, `TAMIL_RUN`, `TAMIL_TAIL_RE`), `strip_pulli`, the pinned voices (`ANNA_VOICE`, `EAVESDROP_VOICE`), `voice_locale`, `REFERENT_NOUNS`, the repo identity (`REPO`) and the feed identity (`FEED_TITLE`, `FEED_SUMMARY`, `CAPTION_COLUMNS`) | `scripts/language.py` — THE LANGUAGE PACK, one file. **Two guards, two jobs** (2026-09-03): `s70` needles each declared value so it cannot acquire a second home; `s91` sweeps every lane for target script on a mechanism line, so a language fact that was never declared here cannot hide — the needle list is read off the pack, so it can never look for a fact the pack has not heard of |
 | Episode voice POOLS (Chirp / WaveNet / Edge catalogues) | `scripts/render_audio.py` — one reader, one file; the PINNED choice from them lives in the pack |
 
 A fork edits `scripts/language.py` and the `protocol/` prose, and nothing else in
 `scripts/`. `s70` fails the build if any value in the pack acquires a second home —
 including a value ADDED to the pack later, since the needles are read off the module.
+`s91` closes the other half: uniqueness is not completeness, and on 2026-09-03 it found
+`render_audio` classifying script with a character comparison at two sites while
+importing nothing from the pack. Its `SCRIPT_OWNERS` ratchet names the files allowed to
+carry target script at all, with a reason and a ceiling each.
 The one thing the pack cannot contain is the LLM prompt prose in `mandates.py`: a port
 rewrites those worked examples rather than substituting a constant, and that is the
 irreducible half of an extraction.
