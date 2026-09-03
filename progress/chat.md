@@ -27,6 +27,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! 'vendaanga' adds that Kongu touch, but ladle stopped cold. 🔥 · Athai asks where you're off to — say 'I am going'.
 
+**13:35 · Andrew** — **COLD**
+> Naan poren
+
+**Anna ↩**
+> adhu dhaan! You can even drop the 'naan' — just 'poren' fires clean. 🔥
+
 
 ## Wednesday 2026-09-02
 

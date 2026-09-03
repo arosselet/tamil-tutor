@@ -6220,22 +6220,24 @@
     "memo_script": "ஏங்க, இன்னும் கொஞ்சம் சாதம் வச்சுக்கிறீங்களா? சாப்ட்டு ரொம்ப நேரம் ஆச்சு, இன்னும் கொஞ்சம் சாப்பிடுங்க!",
     "mp3": "published_audio/knocks/knock_2026-09-03T07-36.mp3",
     "response": "reply",
-    "reply": "Vendaam",
+    "reply": "Naan poren",
     "reply_verdict": "cold",
     "reply_fired": [
       "நான்",
       "சாப்பிட்டேன்",
       "போதும்",
-      "வேண்டாம்"
+      "வேண்டாம்",
+      "போறேன்"
     ],
     "reply_fired_cold": [
       "சாப்பிட்டேன்",
       "போதும்",
-      "வேண்டாம்"
+      "வேண்டாம்",
+      "போறேன்"
     ],
     "reply_fired_capped": [],
-    "reply_line": "adhu dhaan! 'vendaanga' adds that Kongu touch, but ladle stopped cold. 🔥 · Athai asks where you're off to — say 'I am going'.",
-    "reply_at": "2026-09-03T08:02:21Z",
+    "reply_line": "adhu dhaan! You can even drop the 'naan' — just 'poren' fires clean. 🔥",
+    "reply_at": "2026-09-03T08:05:18Z",
     "exchanges": [
       {
         "at": "2026-09-03T07:55:28Z",
@@ -6285,6 +6287,23 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "adhu dhaan! 'vendaanga' adds that Kongu touch, but ladle stopped cold. 🔥 · Athai asks where you're off to — say 'I am going'.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-09-03T08:05:18Z",
+        "reply": "Naan poren",
+        "verdict": "cold",
+        "fired": [
+          "போறேன்"
+        ],
+        "fired_cold": [
+          "போறேன்"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! You can even drop the 'naan' — just 'poren' fires clean. 🔥",
         "slips": [],
         "spoke": "",
         "scheduled": ""
