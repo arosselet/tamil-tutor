@@ -6312,5 +6312,17 @@
     "chained": 3,
     "pinned_target": "போறேன்",
     "pinned_revealed": false
+  },
+  {
+    "date": "2026-09-03",
+    "timestamp": "2026-09-03T12:27:01.617983+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "show dose: evlo aagum",
+    "rationale": "Top due survival item is unseen; show dose buys counter pricing without a quiz demand, resting him after today's session and fielding rep.",
+    "next_check": "2026-09-04T02:27:01.617983+00:00",
+    "body": "evlo aagum? = how much will it be? Skip 'evvalavu' — Coimbatore shaves it down at every counter. Three syllables, fires clean.",
+    "expected_target": "",
+    "target_revealed": true
   }
 ]

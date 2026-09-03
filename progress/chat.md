@@ -33,6 +33,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! You can even drop the 'naan' — just 'poren' fires clean. 🔥
 
+**17:57 · Anna**  ·  text / show dose: evlo aagum
+> evlo aagum? = how much will it be? Skip 'evvalavu' — Coimbatore shaves it down at every counter. Three syllables, fires clean.
+
 
 ## Wednesday 2026-09-02
 
