@@ -3944,7 +3944,7 @@
     "last_surfaced": "2026-09-03",
     "deck": "trip",
     "direction": "fire",
-    "reps": 2,
+    "reps": 3,
     "exposures": 7,
     "register": "public"
   },

@@ -36,6 +36,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **17:57 · Anna**  ·  text / show dose: evlo aagum
 > evlo aagum? = how much will it be? Skip 'evvalavu' — Coimbatore shaves it down at every counter. Three syllables, fires clean.
 
+**20:08 · Andrew** — **HINTED**
+> Evlo aagum?
+
+**Anna ↩**
+> adhu dhaan! Smooth and fast across any counter. · Auto driver says 'no meter' — ask him 'how much?' before stepping in.
+
 
 ## Wednesday 2026-09-02
 
