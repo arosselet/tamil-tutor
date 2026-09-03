@@ -6204,5 +6204,20 @@
     "body": "Two 'aamaa's is yes. One slow 'aamaaa...' means 'get to the point.' The full backchannel toolkit in tomorrow's session.",
     "expected_target": "",
     "target_revealed": false
+  },
+  {
+    "date": "2026-09-03",
+    "timestamp": "2026-09-03T07:36:43.098187+00:00",
+    "acted": true,
+    "modality": "fielding",
+    "move": "fielding: table decline",
+    "rationale": "Afternoon slot post-session; trains heard-question into declining-set production (campaign priority), ear tested with no English prompt on the target.",
+    "next_check": "2026-09-03T12:06:43.098187+00:00",
+    "body": "🎧 \"Innum konjam saaptingala?\" — Athai is at the table with the ladle. Decline politely in Tamil.",
+    "expected_target": "வேண்டாம்",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-09-03T07-36.mp3",
+    "memo_script": "ஏங்க, இன்னும் கொஞ்சம் சாதம் வச்சுக்கிறீங்களா? சாப்ட்டு ரொம்ப நேரம் ஆச்சு, இன்னும் கொஞ்சம் சாப்பிடுங்க!",
+    "mp3": "published_audio/knocks/knock_2026-09-03T07-36.mp3"
   }
 ]

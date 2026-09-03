@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Thursday 2026-09-03
+
+**13:06 · Anna** 🎧  ·  fielding / fielding: table decline
+> 🎧 "Innum konjam saaptingala?" — Athai is at the table with the ladle. Decline politely in Tamil.
+
+
 ## Wednesday 2026-09-02
 
 **10:50 · Anna** 🎧  ·  eavesdrop / eavesdrop: idum fate
