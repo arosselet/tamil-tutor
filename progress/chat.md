@@ -15,6 +15,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > Works to deflect her! 🔥 · Athai still reaches with the ladle — tell her 'enough!'.
 
+**13:31 · Andrew** — **COLD**
+> Podhum
+
+**Anna ↩**
+> adhu dhaan! Hand up, 'podhum' — ladle stops. 🔥 · Maama passes the payasam — tell him 'don't want'.
+
 
 ## Wednesday 2026-09-02
 

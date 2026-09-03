@@ -6220,18 +6220,20 @@
     "memo_script": "ஏங்க, இன்னும் கொஞ்சம் சாதம் வச்சுக்கிறீங்களா? சாப்ட்டு ரொம்ப நேரம் ஆச்சு, இன்னும் கொஞ்சம் சாப்பிடுங்க!",
     "mp3": "published_audio/knocks/knock_2026-09-03T07-36.mp3",
     "response": "reply",
-    "reply": "Naan sappiten",
+    "reply": "Podhum",
     "reply_verdict": "cold",
     "reply_fired": [
       "நான்",
-      "சாப்பிட்டேன்"
+      "சாப்பிட்டேன்",
+      "போதும்"
     ],
     "reply_fired_cold": [
-      "சாப்பிட்டேன்"
+      "சாப்பிட்டேன்",
+      "போதும்"
     ],
     "reply_fired_capped": [],
-    "reply_line": "Works to deflect her! 🔥 · Athai still reaches with the ladle — tell her 'enough!'.",
-    "reply_at": "2026-09-03T07:55:28Z",
+    "reply_line": "adhu dhaan! Hand up, 'podhum' — ladle stops. 🔥 · Maama passes the payasam — tell him 'don't want'.",
+    "reply_at": "2026-09-03T08:01:14Z",
     "exchanges": [
       {
         "at": "2026-09-03T07:55:28Z",
@@ -6250,10 +6252,27 @@
         "slips": [],
         "spoke": "",
         "scheduled": ""
+      },
+      {
+        "at": "2026-09-03T08:01:14Z",
+        "reply": "Podhum",
+        "verdict": "cold",
+        "fired": [
+          "போதும்"
+        ],
+        "fired_cold": [
+          "போதும்"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! Hand up, 'podhum' — ladle stops. 🔥 · Maama passes the payasam — tell him 'don't want'.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
       }
     ],
-    "chained": 1,
-    "pinned_target": "போதும்",
+    "chained": 2,
+    "pinned_target": "வேண்டாம்",
     "pinned_revealed": false
   }
 ]
