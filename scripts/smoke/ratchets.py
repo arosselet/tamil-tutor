@@ -39,7 +39,29 @@ PROSE_BUDGETS = {
     # table that outgrows this wants to be data the seam applies, not more prose for
     # a model to interpret.
     "protocol/dialect.md": 625,
-    "protocol/persona.md": 2000,
+    # 2000 -> 1750 (2026-09-03). A CEILING COMING DOWN, which is the direction
+    # this table has never once moved before today. RETIRED IN THIS DIFF: "The
+    # Toolbelt (his reach)", 392 words and this file's largest section, to
+    # `protocol/toolbelt.md`. The trigger was the 07-16 law read literally —
+    # persona.md stood at 1970/2000, thirty words of headroom, and the law says a
+    # file at its ceiling is carrying crud or DOING TWO JOBS. It was doing two
+    # jobs: `voice_canon()` ships this file to seven call sites across six lanes,
+    # and not one of them can invoke a tool. Re-censused at 1650 (the header
+    # gained the reader note the old one lacked), so the budget is the census
+    # plus ~6%, the same headroom dialect.md took on 09-02. A budget that does
+    # not fall when content leaves is a licence nothing revokes.
+    "protocol/persona.md": 1750,
+    # NEW FILE, budgeted in the same diff that creates it (2026-09-03) — the
+    # prose half of the law CODE_BUDGETS has enforced since 2026-08-23. Census
+    # 545, +10%: it is small, and the one growth foreseen is a tool gaining an
+    # option, which is a line not a section.
+    "protocol/toolbelt.md": 600,
+    # Budgeted 2026-09-03, not because it grew but because the completeness
+    # sweep added below demanded it: this file has been unbudgeted since it was
+    # written, and nothing could see that. Census 353, +13% — it is the smallest
+    # law file and the healing loop is evidence-gated, so growth here should be
+    # rare. Exempting it instead would have been a licence granted for no reason.
+    "protocol/diagnosis.md": 400,
     # 1750 -> 1790 (2026-08-04): FIRST raise of this ceiling, and the growth is a
     # class of content no protocol file owned — a standing fact about the learner's
     # life, not a rule. M81 opened at the iron gate with sisters-in-law "recognised
@@ -676,6 +698,42 @@ def s18_size_budgets(mk, kr, sb: Path):
           f"unbudgeted: {', '.join(unbudgeted)} — add each to CODE_BUDGETS in "
           f"the same diff that adds the file")
 
+    # THE SAME LAW, ONE DIRECTORY OVER (2026-09-03). The check above has said
+    # since 2026-08-23 that "a new file is the obvious way past a ceiling, so an
+    # unbudgeted one is a red run rather than a silent exemption" — and prose is
+    # where this system's ceilings actually bind: `constitution.md` sits at
+    # 1789/1790 and `daily_session.md` at 1320/1320 as this lands. Yet the prose
+    # half of the ratchet had no completeness guard at all, so `PROSE_BUDGETS`
+    # policed only the files that had already volunteered.
+    #
+    # Found while splitting `toolbelt.md` out of `persona.md` — i.e. by doing the
+    # exact move the code-side comment describes. Splitting to escape a ceiling
+    # is the SANCTIONED move here (daily_session -> audio_channels 2026-07-23;
+    # audio_channels -> commissioning 2026-08-01; JUDGE_MANDATE four times), and
+    # every one of those splits could have landed its new file unbudgeted with
+    # the suite green.
+    #
+    # GATE 7.2 — WHAT DOES THIS LOOK LIKE WHEN IT SILENTLY DOES NOTHING? Like a
+    # passing suite, forever, which is what it did look like. So the first
+    # assertion is teeth on the SET, not on the law: a glob that matches nothing
+    # would satisfy the emptiness check below while proving nothing at all.
+    #
+    # TOP LEVEL ONLY, and the boundary is deliberate. `protocol/studio/` is the
+    # production crew's craft prose, five files under a different regime that has
+    # never been budgeted; sweeping them in here would be a structure decision
+    # riding a split's coattails. Routed to `docs/feature_inbox.md` instead.
+    prose_on_disk = {p.relative_to(REAL_BASE).as_posix()
+                     for p in (REAL_BASE / "protocol").glob("*.md")}
+    check(f"the prose sweep sees the protocol surface ({len(prose_on_disk)} files)",
+          len(prose_on_disk) >= 8 and "protocol/persona.md" in prose_on_disk,
+          f"got {sorted(prose_on_disk)} — a sweep that matches nothing passes the "
+          f"assertion below while checking zero files")
+    prose_unbudgeted = sorted(prose_on_disk - set(PROSE_BUDGETS))
+    check("every top-level protocol file carries a prose budget",
+          not prose_unbudgeted,
+          f"unbudgeted: {', '.join(prose_unbudgeted)} — add each to PROSE_BUDGETS "
+          f"in the same diff that adds the file")
+
 
 def s72_a_stub_never_outlives_its_case(mk, kr):
     """A stub that outlives its case is how a test comes to exercise something it
@@ -1188,3 +1246,80 @@ def s85_the_fixture_record_tracks_the_minted_one(sb: Path):
           f"the extractor did not see the added field: {sorted(set.intersection(*grown))}")
     check("...while a single-site field still would not",
           "deck" not in set.intersection(*grown))
+
+
+def s90_the_toolbelt_left_the_voice_canon(sb: Path):
+    """A section that leaves `persona.md` must still reach the session
+    (2026-09-03, Andrew — Move 1 of the persona split).
+
+    WHY THE SPLIT. `writer.voice_canon()` ships `persona.md` + `dialect.md` to
+    seven call sites across six lanes: the knock decision, both reply judges, and
+    the soak / drill / rotation sheet writers. "The Toolbelt" was that file's
+    largest section — 392 of 1970 words — and it is a catalogue of scripts
+    (`sync_state`, `suggest_targets`, `push_queue`, the studio) that not one of
+    those six lanes can invoke. Six generators reasoned every run against a page
+    of material they had no way to act on. `persona.md` also stood at 1970/2000,
+    thirty words of headroom, and the 2026-07-16 budget law calls a file at its
+    ceiling one that is carrying crud or DOING TWO JOBS. It was the latter.
+
+    THE SILENT NO-OP, answered out loud, and it is the reason this case exists
+    rather than a diff review. If `.claude/skills/anna/SKILL.md` is never updated
+    to load the new file, **Anna still runs a flawless session** — same voice,
+    same register, same close, every instrument green — and simply stops reaching
+    for `push_queue` and commissioning, because he no longer knows they exist.
+    Nothing crashes. Nothing warns. It is indistinguishable from a session that
+    had no cause to schedule a push. That is the exact failure family of
+    2026-07-24→31 (the meters measured that a step RAN, never that its PURPOSE
+    was served), so the teeth below are on the ROUTING, not on the file existing.
+
+    CONSERVATION IS ASSERTED IN BOTH DIRECTIONS. A copy that never deleted leaves
+    the tokens in the canon and reads green on "the new file exists"; a delete
+    that never copied loses the tools and reads green on "the canon shrank".
+    Exactly one of the two files carries the catalogue, and the case says which.
+    """
+    print("\n90. The Toolbelt left the voice canon and still reaches Anna (2026-09-03)")
+    persona = (sb / "protocol" / "persona.md").read_text(encoding="utf-8")
+    toolbelt_path = sb / "protocol" / "toolbelt.md"
+
+    # A pointer to a file that is not there is the dangling reference s52 warns
+    # about — the doses inline persona.md and resolve nothing for themselves.
+    check("persona.md's pointer to the toolbelt resolves",
+          "toolbelt.md" in persona and toolbelt_path.exists(),
+          "persona.md names protocol/toolbelt.md but the file is missing")
+    toolbelt = toolbelt_path.read_text(encoding="utf-8")
+
+    # ── CONSERVATION. The needle is the section's own opening claim; it is prose
+    # a rewrite would keep, and it appears nowhere else in the repo.
+    NEEDLE = "Anna acts through tools, not vibes"
+    check("the catalogue lives in toolbelt.md", NEEDLE in toolbelt)
+    check("...and no longer in persona.md", NEEDLE not in persona,
+          "a copy that never deleted — the canon still ships the tool catalogue")
+
+    # ── THE POINT OF THE CHANGE, asserted on the real seam rather than on the
+    # file. `voice_canon()` is what six lanes actually receive.
+    import writer as w
+    canon = w.voice_canon()
+    check("the voice canon no longer carries the tool catalogue",
+          NEEDLE not in canon and "push_queue.py" not in canon,
+          "voice_canon still ships tools no voice lane can invoke")
+    check("...and still carries the register law and the standing fact",
+          "Word Fusion" in canon and "not new to this family" in canon,
+          "the split took something the voice lanes need with it")
+
+    # ── THE TEETH: the routing, which is the half that fails silently.
+    shim = (sb / ".claude" / "skills" / "anna" / "SKILL.md").read_text(encoding="utf-8")
+    check("the session shim loads BOTH halves of the persona",
+          "persona.md" in shim and "toolbelt.md" in shim,
+          "Anna boots without his tools and the session looks perfect — he just "
+          "never schedules a push or commissions audio again")
+
+    # ── AN ABSENCE MUST BE LOUD. A tool quietly dropped from the catalogue is a
+    # capability Anna stops reaching for, and a session that never needed it
+    # looks identical. Every script the toolbelt claims to give him is named.
+    TOOLS = ("sync_state.py", "suggest_targets.py", "generate_callbacks.py",
+             "morning_knock.py", "push_queue.py")
+    missing = [t for t in TOOLS if t not in toolbelt]
+    check(f"the toolbelt still hands Anna every tool it claims ({len(TOOLS)})",
+          not missing,
+          f"dropped: {', '.join(missing)} — a capability Anna stops reaching for "
+          f"is indistinguishable from a day he did not need it")

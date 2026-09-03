@@ -6,7 +6,8 @@ report — do not create a substitute.
 
 | Concern | File | Notes |
 |---|---|---|
-| Anna's persona voice, heist framing, "What Anna Never Does" | `protocol/persona.md` | |
+| Anna's persona voice, heist framing, "What Anna Never Does" | `protocol/persona.md` | Ships to six voice lanes via `writer.voice_canon()` — write for a generator that can act on nothing but voice, register and standing fact |
+| Anna's tools and what he can reach for | `protocol/toolbelt.md` | **Session-only**, split from `persona.md` 2026-09-03. Never add it to `VOICE_CANON_FILES`: no voice lane can invoke a tool. A tool added here must also be reachable from `.claude/skills/anna/SKILL.md` step 1 (`s90`) |
 | Coimbatore spoken-register rules (verb collapse, fusion, slang) | `protocol/dialect.md` | **Any lane that sends Tamil to a VOICE reads it via `writer.voice_canon()`** — knock memos, eavesdrop tapes, fielding questions, soak/drill/rotation sheets, voice replies. The studio Producer reads it as its own canon. Never put dialect rules in `architect.md`, and never hand a new voice lane `persona.md` alone: that is how this file reached exactly one reader until 2026-09-02 (`s89`) |
 | Podcast cast names and regional voice identity | `protocol/studio/hosts.md` | Script-only rules live here (fourth wall, no ad-libs) |
 | Word selection ticket (floor-gap targets, engines, new candidates) | `scripts/suggest_targets.py` | |

@@ -1394,3 +1394,4 @@ meaning anything and two Gate-2 holds were sitting on the wrong side of it. -->
   nullable form in `obj()` (`{"anyOf": [{...}, {"type": "null"}]}`) or a sentinel shape
   with an `at_local: ""` meaning none. Evidence: the last scheduled knock is 2026-08-19,
   and it came through the cloud/API path where undeclared keys survive.
+- **Budget `protocol/studio/` prose** (2026-09-03, found adding the prose completeness sweep in `s18`). Five files, 5,620 words, none budgeted — `architect.md` alone is 1,926, larger than any law file. The sweep guards top-level `protocol/*.md` only, because budgeting the studio's craft prose is a structure decision and should not ride a split's coattails. Open question: does craft prose want the same ratchet as law prose?

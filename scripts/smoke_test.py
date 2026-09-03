@@ -130,6 +130,7 @@ def main():
         run(knock.s51_derived_files_are_rerendered_not_merged, mk, sb)
         run(knock.s84_a_turn_is_filed_under_the_day_it_happened, mk, sb)
         run(ratchets.s52_andrew_is_family_already, sb)
+        run(ratchets.s90_the_toolbelt_left_the_voice_canon, sb)
         run(ratchets.s78_the_open_gives_before_it_takes, sb)
         run(state.s71_a_new_record_is_born_reachable, sb)
         run(knock.s60_the_ear_meter, kr, sb)

@@ -17,6 +17,7 @@ The system splits cleanly into **conversation** (Anna — always-on, small) and 
 ```
 protocol/
 ├── persona.md          Anna — the one persistent voice (elder brother, he/him)
+├── toolbelt.md         Anna's reach — SESSION ONLY, never in the voice canon
 ├── constitution.md     Universal law: philosophy, tactical & canonical rules
 ├── daily_session.md    The ~8–15 min forced-output loop (invariants + shapes + campaign)
 ├── diagnosis.md        The healing loop: feedback ledger → dial / prune / propose (periodic, evidence-gated)
