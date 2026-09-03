@@ -20,13 +20,18 @@ protocol/
 ├── constitution.md     Universal law: philosophy, tactical & canonical rules
 ├── daily_session.md    The ~8–15 min forced-output loop (invariants + shapes + campaign)
 ├── diagnosis.md        The healing loop: feedback ledger → dial / prune / propose (periodic, evidence-gated)
+├── dialect.md          Coimbatore spoken-register rules — top level, NOT studio-only:
+│                       every pass that emits speakable Tamil reads it (knock lane, soak,
+│                       drill, rotation, both reply judges) via `writer.voice_canon()`;
+│                       the studio Producer reads it directly as part of its own canon
+├── commissioning.md    What a dose carries — the repair earns the dose
+├── audio_channels.md   Which channel carries a dose — capacity routes, curriculum fills
 └── studio/             The backstage production crew — runs in an isolated context
     ├── studio.md       Orchestrator + the soak-order contract (the front door)
     ├── director.md     Soak-order + ticket → Master Lesson Plan
     ├── architect.md    Lesson Plan → two-voice script
     ├── producer.md     Dialect pass + integrity + .tags.json sidecar
-    ├── hosts.md        Cast bible + production-only rules (fourth wall, script-only)
-    └── dialect.md      Coimbatore spoken-register rules
+    └── hosts.md        Cast bible + production-only rules (fourth wall, script-only)
 ```
 
 ## The interface: the soak-order

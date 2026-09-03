@@ -640,25 +640,13 @@ def generate_rss():
             duration=duration
         ))
 
-    # Append the welcome/trailer episode as the oldest item
-    demo_path = os.path.join(AUDIO_DIR, "polyglot_demo.mp3")
-    if os.path.exists(demo_path):
-        demo_size = os.path.getsize(demo_path)
-        demo_url = f"{BASE_URL}/{AUDIO_DIR}/polyglot_demo.mp3"
-        demo_prior = published.get(demo_url, {})
-        demo_duration = demo_prior.get("duration") or duration_hms(demo_path, "00:03:30")
-        items.append(ITEM_TEMPLATE.format(
-            title=xml_escape("Welcome — What Is This?"),
-            author=AUTHOR,
-            summary=xml_escape("An introduction to the Coimbatore Mappillai project and how it works."),
-            caption_block="",
-            audio_url=demo_url,
-            size=demo_size,
-            pub_date=demo_prior.get("pubDate") or email.utils.format_datetime(
-                datetime.fromtimestamp(os.path.getmtime(demo_path), LOCAL_TZ)
-            ),
-            duration=demo_duration
-        ))
+    # No welcome/trailer item. A block here appended one guarded on
+    # `published_audio/polyglot_demo.mp3` — a file that never existed in this repo
+    # (the trailer shipped as polyglot_demo_v3/v4.mp3). `os.path.exists` swallowed
+    # it, so every rebuild reported success with the trailer absent from the feed,
+    # from the commit that added it onward. Retired deliberately 2026-09-03 rather
+    # than repointed: the feed opens on the missions. Do not re-add one without a
+    # smoke case asserting the item is IN `feed_items()`.
 
     rss_content = RSS_TEMPLATE.format(
         base_url=BASE_URL,
