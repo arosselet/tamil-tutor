@@ -6328,12 +6328,15 @@
     "reply": "Evlo aagum?",
     "reply_verdict": "hinted",
     "reply_fired": [
+      "எவ்ளோ ஆகும்?",
       "எவ்ளோ ஆகும்?"
     ],
     "reply_fired_cold": [],
-    "reply_fired_capped": [],
-    "reply_line": "adhu dhaan! Smooth and fast across any counter. · Auto driver says 'no meter' — ask him 'how much?' before stepping in.",
-    "reply_at": "2026-09-03T14:38:45Z",
+    "reply_fired_capped": [
+      "எவ்ளோ ஆகும்?"
+    ],
+    "reply_line": "adhu dhaan! Fast and clean across any counter. 🔥 · Driver agrees — tell him 'let's move!'.",
+    "reply_at": "2026-09-03T14:40:03Z",
     "exchanges": [
       {
         "at": "2026-09-03T14:38:45Z",
@@ -6349,10 +6352,27 @@
         "slips": [],
         "spoke": "",
         "scheduled": ""
+      },
+      {
+        "at": "2026-09-03T14:40:03Z",
+        "reply": "Evlo aagum?",
+        "verdict": "hinted",
+        "fired": [
+          "எவ்ளோ ஆகும்?"
+        ],
+        "fired_cold": [],
+        "fired_capped": [
+          "எவ்ளோ ஆகும்?"
+        ],
+        "graduated": [],
+        "reply_line": "adhu dhaan! Fast and clean across any counter. 🔥 · Driver agrees — tell him 'let's move!'.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
       }
     ],
-    "chained": 1,
-    "pinned_target": "எவ்ளோ?",
+    "chained": 2,
+    "pinned_target": "கிளம்பு",
     "pinned_revealed": false
   }
 ]
