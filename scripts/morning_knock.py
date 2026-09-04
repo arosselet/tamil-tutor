@@ -32,7 +32,6 @@ when Anna chooses the audio modality).
 import argparse
 import asyncio
 import json
-import os
 import subprocess
 import sys
 from datetime import date, datetime, timedelta, timezone
@@ -43,8 +42,10 @@ from mandates import OUTREACH_MANDATE
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from language import ANNA_VOICE, EAVESDROP_VOICE, REFERENT_NOUNS
-from render_audio import (generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME,
-                          clean_memo_for_tts)
+# `render_memo` and the four TTS primitives it composed left for `memo.py` on
+# 2026-09-04. They were here because the knock spoke first; `push_queue` and
+# `reply_common` call it too, and a lane cannot be a foundation for its peers.
+from memo import render_memo
 from publish import (BODY_BUDGET, KNOCKS_DIR,
                      commit_and_push, jsdelivr_url, load_env, over_budget,
                      publish, push_to_phone)
@@ -592,22 +593,6 @@ def decide(digest: str, volley_menu: list | None = None) -> dict:
 
 
 # ── Delivery plumbing (proven — preserved) ────────────────────────────────────
-
-
-async def render_memo(memo_script: str, out_path: Path, voice: str = ANNA_VOICE):
-    import tempfile
-    paras = [p.strip() for p in memo_script.split("\n\n") if p.strip()]
-    audio = bytearray()
-    tmp = tempfile.mkdtemp()
-    for i, para in enumerate(paras):
-        seg = await generate_segment_google(clean_memo_for_tts(para), voice, i, tmp)
-        audio.extend(get_raw_mp3_frames(seg))
-        audio.extend(SILENCE_FRAME * 25)  # ~0.6s breath between paragraphs
-        os.remove(seg)
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_bytes(audio)
-    print(f"   rendered -> {out_path} ({len(audio)/1024:.0f} KB)")
-
 
 
 # ── Orchestration ─────────────────────────────────────────────────────────────

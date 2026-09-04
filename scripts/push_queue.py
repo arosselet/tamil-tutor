@@ -47,7 +47,7 @@ from pathlib import Path
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
-from morning_knock import render_memo
+from memo import render_memo
 from publish import (KNOCKS_DIR, commit_and_push, jsdelivr_url,
                      load_env, publish, push_to_phone)
 from rails import MAX_REACHES_PER_DAY, in_waking_window, reaches_today

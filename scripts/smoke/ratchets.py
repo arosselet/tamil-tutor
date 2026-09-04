@@ -334,6 +334,15 @@ CODE_BUDGETS = {
     # wants a split, not a raise, and the ceiling picked the boundary the
     # concerns already wanted.
     "scripts/rails.py": 26,
+    # NEW FILE, budgeted in the same diff that creates it (2026-09-04). The
+    # voice-memo renderer. WHAT IT RETIRES: `render_memo` in `morning_knock.py`,
+    # the LAST thing that made a lane a foundation for its peers — the queue's
+    # drain and both reply lanes called it there. Not `lanes.py`, whose header
+    # says the three families are not one shape and these callers span two of
+    # them; not `publish.py`, which would have had to grow the TTS stack at
+    # 148/150 lines; not `render_audio.py`, which would have made the episode
+    # renderer answer to three lanes that never render episodes.
+    "scripts/memo.py": 28,
     # 350 -> 355 (2026-09-01): A TRANSFER, NOT GROWTH, and the sync_state entry
     # below is re-censused DOWN by the same 5 in this same diff — the two ceilings
     # sum to what they summed to yesterday. `compute_recent_audio` and the
@@ -1008,6 +1017,13 @@ LAYERS = {
     "publish":            4,      # L4 delivery — the ordering, the net, the push
     "render_audio":       4.5,    # a producer FOR L4 — TTS, register, commit
 
+    # Above the TTS primitives it composes, below every lane that speaks
+    # (2026-09-04). Three lanes call `render_memo` — the knock, the queue's drain
+    # and the reply lanes — and they span two of the three families in
+    # `lanes.py`, so it is nobody's family and everybody's. Numbered here so the
+    # day it reaches sideways for a lane's state, the edge reads as upward.
+    "memo":               4.7,
+
     "lanes":              5,      # L5 what a family shares
     "morning_knock":      5.5,    # L5 the lanes themselves
     "reply_common":       5.6,    # what both inbound lanes share
@@ -1039,11 +1055,14 @@ UP_EXCEPTIONS = {
 }
 
 CYCLE_EXCEPTIONS = {
-    frozenset({"morning_knock", "push_queue"}):
-        "the queue drains knock memos and the knock enqueues schedules; broken by "
-        "a deferred import in maybe_enqueue_schedule. Dies with the L0 residue "
-        "push_queue still takes through morning_knock (KNOCK_LOG_PATH, LOCAL_TZ, "
-        "load_json).",
+    # RETIRED 2026-09-04 — morning_knock <-> push_queue. The note that stood here
+    # named its own death condition ("Dies with the L0 residue push_queue still
+    # takes through morning_knock — KNOCK_LOG_PATH, LOCAL_TZ, load_json"), and
+    # that is what happened: the L0 residue went home to `state_io`, the rails to
+    # `rails.py`, and `render_memo` to `memo.py`. The queue no longer imports the
+    # knock lane at all, so there is no cycle left for the deferred import in
+    # `maybe_enqueue_schedule` to break. Handing the licence back is part of
+    # landing the fix.
     frozenset({"sync_state", "session_brief"}):
         "the `status` CLI facade above; broken by a deferred import in main().",
 }
