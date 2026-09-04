@@ -24,6 +24,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! 🔥 · 2/4 — Referring to your wife's sister casually: 'she' (informal):
 
+**16:49 · Andrew** — **MISS**
+> Akka
+
+**Anna ↩**
+> close — sister is akka, but for 'she' casually it's 'ava'. · 3/4 — Wife is stirring a pot at the stove. Ask her informally: what are you cooking?
+
 
 ## Thursday 2026-09-03
 

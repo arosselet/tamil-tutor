@@ -6486,10 +6486,10 @@
         "ask": "Giving a quick reason — the word for 'because':"
       }
     ],
-    "volley_next": 2,
+    "volley_next": 3,
     "response": "reply",
-    "reply": "Amaa",
-    "reply_verdict": "cold",
+    "reply": "Akka",
+    "reply_verdict": "miss",
     "reply_fired": [
       "அம்மா"
     ],
@@ -6497,8 +6497,8 @@
       "அம்மா"
     ],
     "reply_fired_capped": [],
-    "reply_line": "adhu dhaan! 🔥 · 2/4 — Referring to your wife's sister casually: 'she' (informal):",
-    "reply_at": "2026-09-04T11:13:26Z",
+    "reply_line": "close — sister is akka, but for 'she' casually it's 'ava'. · 3/4 — Wife is stirring a pot at the stove. Ask her informally: what are you cooking?",
+    "reply_at": "2026-09-04T11:19:33Z",
     "exchanges": [
       {
         "at": "2026-09-04T11:13:26Z",
@@ -6516,10 +6516,23 @@
         "slips": [],
         "spoke": "",
         "scheduled": ""
+      },
+      {
+        "at": "2026-09-04T11:19:33Z",
+        "reply": "Akka",
+        "verdict": "miss",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "close — sister is akka, but for 'she' casually it's 'ava'. · 3/4 — Wife is stirring a pot at the stove. Ask her informally: what are you cooking?",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
       }
     ],
-    "chained": 1,
-    "pinned_target": "அவ",
+    "chained": 2,
+    "pinned_target": "என்ன சமைக்கிற?",
     "pinned_revealed": false
   }
 ]
