@@ -40,7 +40,7 @@ sys.path.insert(0, str(BASE / "scripts"))
 from mandates import (FORCE_SCHEDULE_ADDENDUM, FORCE_VOICE_ADDENDUM,
                       MESSAGE_MANDATE, REACH_MANDATE, THREAD_MANDATE,
                       VOICE_MANDATE)
-from morning_knock import maybe_enqueue_schedule
+from push_queue import maybe_enqueue_schedule
 from publish import commit_and_push, load_env, publish, push_to_phone
 from reply_common import (ensure_voice, recent_exchanges, record_meta_note,
                           speak, wants_scheduled_push)

@@ -45,7 +45,7 @@ from pathlib import Path
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from knock_message import handle_message
-from morning_knock import maybe_enqueue_schedule
+from push_queue import maybe_enqueue_schedule
 from publish import commit_and_push, load_env, publish, push_to_phone
 # The lane-neutral half of answering him — detectors, the voice backstop, the
 # render, and the one ledger writer. Split out 2026-08-28 so the MESSAGE lane

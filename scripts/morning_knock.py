@@ -46,6 +46,7 @@ from language import ANNA_VOICE, EAVESDROP_VOICE, REFERENT_NOUNS
 # 2026-09-04. They were here because the knock spoke first; `push_queue` and
 # `reply_common` call it too, and a lane cannot be a foundation for its peers.
 from memo import render_memo
+from push_queue import maybe_enqueue_schedule
 from publish import (BODY_BUDGET, KNOCKS_DIR,
                      commit_and_push, jsdelivr_url, load_env, over_budget,
                      publish, push_to_phone)
@@ -451,36 +452,6 @@ def knock_exposures(decision: dict) -> list[str]:
     if target and (decision.get("target_revealed") or decision.get("modality") == "eavesdrop"):
         keys.append(target)
     return keys
-
-
-def maybe_enqueue_schedule(decision: dict) -> Path | None:
-    """If the decision planted a scheduled push, land it in the queue; it fires
-    via the drain on the next Anna wake-up. Returns the queue path for the
-    commit, or None.
-
-    Carries `memo_script` through since 2026-07-24: a scheduled dose may be a
-    VOICE dose, rendered by the drain at fire time. Dropping it here was half of
-    why "audio at a time" was impossible — the other half was the drain's
-    workflow having no TTS secret."""
-    s = decision.get("schedule")
-    if not isinstance(s, dict) or not s.get("at_local") or not s.get("body"):
-        return None
-    from push_queue import enqueue, QUEUE_PATH  # lazy: push_queue imports this module
-    try:
-        due = datetime.fromisoformat(s["at_local"])
-        if due.tzinfo is None:
-            due = due.replace(tzinfo=LOCAL_TZ)
-    except ValueError:
-        print(f"   ! schedule.at_local unparseable ({s.get('at_local')!r}) — dropped")
-        return None
-    if due <= datetime.now(timezone.utc):
-        print(f"   ! schedule.at_local is in the past ({s['at_local']}) — dropped")
-        return None
-    enqueue(s["body"], due, expected_target=s.get("expected_target", ""),
-            target_revealed=bool(s.get("target_revealed", True)),
-            memo_script=(s.get("memo_script") or "").strip(),
-            move=s.get("move", "scheduled follow-up"))
-    return QUEUE_PATH
 
 
 

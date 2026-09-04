@@ -1140,8 +1140,15 @@ def s75_the_stack_is_one_way():
           len(mods) >= 20 and edges.get(("lanes", "publish")) == "module",
           "a floor, not a target: an empty or mis-pointed walk makes every "
           "assertion below pass while checking nothing")
+    # The probe moved from ("morning_knock", "push_queue") on 2026-09-04, because
+    # that edge stopped being deferred — `maybe_enqueue_schedule` moved into the
+    # queue it writes, so the knock now imports it at module level and the cycle
+    # is gone. A walk-teeth probe must name an edge that is STILL deferred, or it
+    # goes green on a broken walk. `sync_state -> session_brief` is the remaining
+    # one, deferred in main() because a read surface must not be imported at
+    # module level; it is declared in both UP_EXCEPTIONS and CYCLE_EXCEPTIONS.
     check("...and it still tells a call-time import from a load-time one",
-          edges.get(("morning_knock", "push_queue")) == "deferred",
+          edges.get(("sync_state", "session_brief")) == "deferred",
           "the deferred/module split is what makes a declared cycle legible; "
           "if this collapses, the cycle assertions stop meaning anything")
 

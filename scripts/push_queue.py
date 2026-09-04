@@ -152,6 +152,46 @@ def enqueue(body: str, due: datetime, *, expected_target: str = "",
     return entry
 
 
+def maybe_enqueue_schedule(decision: dict) -> Path | None:
+    """If a decision or verdict planted a scheduled push, land it in the queue;
+    it fires via the drain on the next Anna wake-up. Returns the queue path for
+    the commit, or None.
+
+    Carries `memo_script` through since 2026-07-24: a scheduled dose may be a
+    VOICE dose, rendered by the drain at fire time. Dropping it here was half of
+    why "audio at a time" was impossible — the other half was the drain's
+    workflow having no TTS secret.
+
+    MOVED HERE FROM `morning_knock.py` (2026-09-04), where it had to open with
+    `from push_queue import enqueue, QUEUE_PATH  # lazy: push_queue imports this
+    module`. That lazy import was the shape of the problem: the knock lane owned
+    a function that writes THIS queue, while this queue reached back into the
+    knock lane for its rails and its renderer, so the dependency between two
+    peers pointed both ways and Python only tolerated it because one edge was
+    deferred to call time. `s75` saw it anyway and it was declared in
+    CYCLE_EXCEPTIONS. Its three callers — the knock, the reply judge and the
+    message lane — now call the queue's public API, which is what they always
+    wanted. The exception was retired in the same diff."""
+    s = decision.get("schedule")
+    if not isinstance(s, dict) or not s.get("at_local") or not s.get("body"):
+        return None
+    try:
+        due = datetime.fromisoformat(s["at_local"])
+        if due.tzinfo is None:
+            due = due.replace(tzinfo=LOCAL_TZ)
+    except ValueError:
+        print(f"   ! schedule.at_local unparseable ({s.get('at_local')!r}) — dropped")
+        return None
+    if due <= datetime.now(timezone.utc):
+        print(f"   ! schedule.at_local is in the past ({s['at_local']}) — dropped")
+        return None
+    enqueue(s["body"], due, expected_target=s.get("expected_target", ""),
+            target_revealed=bool(s.get("target_revealed", True)),
+            memo_script=(s.get("memo_script") or "").strip(),
+            move=s.get("move", "scheduled follow-up"))
+    return QUEUE_PATH
+
+
 def cmd_add(args):
     due = parse_due(args.at, getattr(args, "in"))
     entry = enqueue(args.body, due, expected_target=args.expected_target,
