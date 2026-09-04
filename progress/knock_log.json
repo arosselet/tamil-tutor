@@ -6486,6 +6486,40 @@
         "ask": "Giving a quick reason — the word for 'because':"
       }
     ],
-    "volley_next": 1
+    "volley_next": 2,
+    "response": "reply",
+    "reply": "Amaa",
+    "reply_verdict": "cold",
+    "reply_fired": [
+      "அம்மா"
+    ],
+    "reply_fired_cold": [
+      "அம்மா"
+    ],
+    "reply_fired_capped": [],
+    "reply_line": "adhu dhaan! 🔥 · 2/4 — Referring to your wife's sister casually: 'she' (informal):",
+    "reply_at": "2026-09-04T11:13:26Z",
+    "exchanges": [
+      {
+        "at": "2026-09-04T11:13:26Z",
+        "reply": "Amaa",
+        "verdict": "cold",
+        "fired": [
+          "அம்மா"
+        ],
+        "fired_cold": [
+          "அம்மா"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! 🔥 · 2/4 — Referring to your wife's sister casually: 'she' (informal):",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ],
+    "chained": 1,
+    "pinned_target": "அவ",
+    "pinned_revealed": false
   }
 ]

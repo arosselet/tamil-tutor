@@ -18,6 +18,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **15:49 · Anna**  ·  volley / volley: kitchen round
 > ⚡ volley 1/4 — Walk into the kitchen looking for mom — call out to her in one word:
 
+**16:43 · Andrew** — **COLD**
+> Amaa
+
+**Anna ↩**
+> adhu dhaan! 🔥 · 2/4 — Referring to your wife's sister casually: 'she' (informal):
+
 
 ## Thursday 2026-09-03
 
