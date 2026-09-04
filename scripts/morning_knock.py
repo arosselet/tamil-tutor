@@ -45,26 +45,23 @@ sys.path.insert(0, str(BASE / "scripts"))
 from language import ANNA_VOICE, EAVESDROP_VOICE, REFERENT_NOUNS
 from render_audio import (generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME,
                           clean_memo_for_tts)
-from publish import (BODY_BUDGET, KNOCKS_DIR, WAKING_END_HOUR, WAKING_START_HOUR,
+from publish import (BODY_BUDGET, KNOCKS_DIR,
                      commit_and_push, jsdelivr_url, load_env, over_budget,
                      publish, push_to_phone)
 from writer import BOOL, INT, STR, ask_json, executor_name, obj, to_phonetic, voice_canon
 
 # ── The rails (hard, Python-enforced — Anna cannot cross these) ───────────────
-# Andrew's local timezone — canonical in `state_io`, which reads it from
-# `learner.json.timezone` (2026-08-09), so the waking window follows him abroad on
-# a one-field edit and stays DST-correct at home. The cron ticks a UTC superset;
-# this filters.
-#
-# The two log PATHS, `load_json`, and the `is_fire` / `local_date` helpers came
-# from this file's own body on 2026-09-04. `KNOCK_LOG_PATH` had four independent
-# spellings across the repo and TWO import authorities — half the lanes asked
-# `state_io`, half asked here — and this file's copies were what made the second
-# one possible.
+# The BUDGET itself — the waking window, the daily cap, the min gap, and the
+# counter that reads them off the knock log — moved to `rails.py` on 2026-09-04,
+# because `push_queue` obeys the same numbers and was importing them from THIS
+# FILE. A lane cannot be a foundation for its peers. What stays here is
+# `rails_gate` below: whether to wake ANNA is the knock lane's own policy, and no
+# other lane asks it.
+from rails import (MAX_REACHES_PER_DAY, MIN_GAP_HOURS, WAKING_END_HOUR,
+                   WAKING_START_HOUR, last_fire, reaches_today)
 from state_io import (KNOCK_LOG_PATH, LEARNER_PATH, LEXICON_PATH, LOCAL_TZ,
                       SESSION_LOG_PATH, is_fire, load_json, local_date)
-MAX_REACHES_PER_DAY = 5    # a "reach" = a knock that actually fired (silence doesn't count)
-MIN_GAP_HOURS = 3          # minimum spacing between reaches
+
 NEXT_CHECK_CLAMP = (0.5, 24.0)   # Anna's self-set next_check is clamped to this many hours
 
 MODALITIES = {"text", "audio", "challenge", "volley", "eavesdrop", "fielding", "grace", "silence"}
@@ -72,17 +69,6 @@ VOLLEY_SIZE = 4   # menu items per volley knock — one per exchange, chained by
                   # (3→4 2026-07-09: pace trailed 1.5 vs 1.8 needed; Andrew chose a bigger
                   # volley over tiering — next lever if it still trails is a 2nd volley)
 
-
-
-# ── State helpers ─────────────────────────────────────────────────────────────
-
-def last_fire(klog: list) -> dict | None:
-    fires = [k for k in klog if is_fire(k) and k.get("timestamp")]
-    return fires[-1] if fires else None
-
-
-def fires_today(klog: list, now_local_date) -> int:
-    return sum(1 for k in klog if is_fire(k) and local_date(k.get("timestamp", "")) == now_local_date)
 
 
 # ── The rails gate (no LLM — cheap; runs every tick) ──────────────────────────
@@ -113,7 +99,7 @@ def rails_gate(force: bool, now: datetime | None = None) -> tuple[bool, str]:
         return False, f"quiet hours ({now_local:%H:%M} {now_local.tzname()})"
 
     klog = load_json(KNOCK_LOG_PATH) or []
-    n_today = fires_today(klog, now_local.date())
+    n_today = reaches_today(klog, now_local.date())
     if n_today >= MAX_REACHES_PER_DAY:
         return False, f"daily cap reached ({n_today}/{MAX_REACHES_PER_DAY})"
 
@@ -240,7 +226,7 @@ def last_eavesdrop(klog: list) -> dict | None:
 
 def remaining_room(klog: list, now: datetime) -> str:
     now_local = now.astimezone(LOCAL_TZ)
-    n_today = fires_today(klog, now_local.date())
+    n_today = reaches_today(klog, now_local.date())
     lf = last_fire(klog)
     gap_str = "no reach yet today"
     if lf:

@@ -80,15 +80,22 @@ def load_modules(sb: Path):
     mk = importlib.import_module("morning_knock")
     kr = importlib.import_module("knock_reply")
     pq = importlib.import_module("push_queue")
-    # L3 and L4, bound as module globals rather than threaded through 70 case
+    # L2, L3 and L4, bound as module globals rather than threaded through 70 case
     # signatures. Cases reach them by ADDRESS for the same two reasons they ever
     # reached `mk` that way: to read a constant, and to patch a name a moved
     # function resolves through its OWN globals (`pb.in_waking_window` is the
     # load-bearing one -- patching it anywhere else stops intercepting, and a
     # stub that stops intercepting means a test hits the real phone).
-    global pb, wr, si, lang
+    #
+    # THE TWO ARE NOW DIFFERENT ADDRESSES (2026-09-04). Patch the FUNCTION on the
+    # module whose code calls it -- `pb.in_waking_window`, because `push_to_phone`
+    # resolves it through publish's globals. Set the CONSTANTS on `rl`, because
+    # the real `in_waking_window` lives in `rails` and reads rails' globals; a
+    # case that sets `pb.WAKING_START_HOUR` now changes a name nothing reads.
+    global pb, wr, si, lang, rl
     pb = importlib.import_module("publish")
     wr = importlib.import_module("writer")
+    rl = importlib.import_module("rails")      # L2 — the reach budget
     si = importlib.import_module("state_io")   # L0
     lang = importlib.import_module("language") # below L0 — the port surface
     check("modules imported from sandbox", mk.__file__.startswith(str(sb)),

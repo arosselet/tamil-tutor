@@ -33,11 +33,13 @@ def s6_queue_drain(mk, pq, sb: Path):
     klog_path, q_path = prog / "knock_log.json", prog / "push_queue.json"
     pushes, commits = Recorder(), Recorder()
     pq.push_to_phone, pq.commit_and_push = pushes, commits
-    # The waking window lives in publish.py now — one owner, read by the rails,
-    # this queue, and push_to_phone's backstop. Patch where it lives: `mk` holds
-    # an import-time COPY, so patching there reaches morning_knock's rails and
-    # nothing else. `in_waking_window` reads publish's binding.
-    saved = (fx.pb.WAKING_START_HOUR, fx.pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY)
+    # The waking window lives in rails.py (2026-09-04) — one owner, read by the
+    # rails gate, this queue, and push_to_phone's backstop. Patch where it lives:
+    # `mk` and `pb` both hold import-time COPIES, so patching either reaches only
+    # that module. `in_waking_window` reads RAILS' bindings, so the constants go
+    # on `fx.rl`; the FUNCTION is still patched on `fx.pb`, because that is the
+    # namespace `push_to_phone` resolves it through.
+    saved = (fx.rl.WAKING_START_HOUR, fx.rl.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY)
     now = datetime.now(timezone.utc)
 
     def q_entry(qid: str, due_hours: float, force: bool = False) -> dict:
@@ -48,7 +50,7 @@ def s6_queue_drain(mk, pq, sb: Path):
 
     args = argparse.Namespace(dry_run=False, no_commit=False)
     try:
-        fx.pb.WAKING_START_HOUR, fx.pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = 0, 24, 99
+        fx.rl.WAKING_START_HOUR, fx.rl.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = 0, 24, 99
         write_json(klog_path, [])
         write_json(q_path, [q_entry("qOLD", -2), q_entry("qNEW", -1), q_entry("qFUT", +6)])
         pq.cmd_drain(args)
@@ -64,7 +66,7 @@ def s6_queue_drain(mk, pq, sb: Path):
               len(pushes) == 2 and pushes[1][0] == "dose qNEW")
 
         # quiet hours defer non-forced; --force punches through
-        fx.pb.WAKING_START_HOUR, fx.pb.WAKING_END_HOUR = 0, 0
+        fx.rl.WAKING_START_HOUR, fx.rl.WAKING_END_HOUR = 0, 0
         write_json(q_path, [q_entry("qQUIET", -1), q_entry("qFORCE", -1, force=True)])
         pq.cmd_drain(args)
         check("quiet hours defers non-forced, fires forced",
@@ -72,14 +74,14 @@ def s6_queue_drain(mk, pq, sb: Path):
               and [e["id"] for e in read_json(q_path)] == ["qQUIET"])
 
         # daily cap defers non-forced; forced ignores it
-        fx.pb.WAKING_START_HOUR, fx.pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = 0, 24, 0
+        fx.rl.WAKING_START_HOUR, fx.rl.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = 0, 24, 0
         write_json(q_path, [q_entry("qCAP", -1), q_entry("qFORCE2", -1, force=True)])
         pq.cmd_drain(args)
         check("cap defers non-forced, fires forced",
               len(pushes) == 4 and pushes[3][0] == "dose qFORCE2"
               and [e["id"] for e in read_json(q_path)] == ["qCAP"])
     finally:
-        fx.pb.WAKING_START_HOUR, fx.pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = saved
+        fx.rl.WAKING_START_HOUR, fx.rl.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = saved
 
 
 def s15_push_retry(mk):

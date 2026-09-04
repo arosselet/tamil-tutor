@@ -320,6 +320,20 @@ CODE_BUDGETS = {
     # own the ordering, the quiet-hours check, or the commit list.
     "scripts/publish.py": 150,
     "scripts/push_queue.py": 250,
+    # NEW FILE, budgeted in the same diff that creates it (2026-09-04). THE REACH
+    # BUDGET — when Anna may reach Andrew, and how often. WHAT IT RETIRES: one
+    # concept split across two files at two layers. `publish.py` held the waking
+    # window; `morning_knock.py` held the daily cap, the min gap and the counter.
+    # Both lanes that reach him obey both halves, so `push_queue` imported half
+    # its budget from a FOUNDATION and half from a PEER LANE — and three more
+    # modules (`knock_reply`, `knock_message`, `reply_common`) were importing
+    # from that lane too. It also ends the `fires_today` collision: this file's
+    # counter is `reaches_today`, so `sync_state.fires_today` (words ANDREW
+    # fired) is the only `fires_today` left. Chosen over folding the counts into
+    # `publish.py` because that file measured 148/150 — a file at its ceiling
+    # wants a split, not a raise, and the ceiling picked the boundary the
+    # concerns already wanted.
+    "scripts/rails.py": 26,
     # 350 -> 355 (2026-09-01): A TRANSFER, NOT GROWTH, and the sync_state entry
     # below is re-censused DOWN by the same 5 in this same diff — the two ceilings
     # sum to what they summed to yesterday. `compute_recent_audio` and the
@@ -979,6 +993,14 @@ LAYERS = {
     "slips":              1,
     "suggest_targets":    1.5,    # selection — reads L1, read by the lanes
     "sync_state":         2,      # beside L1 — the one writer
+
+    # L2 policy — the reach budget (2026-09-04). Imports only L0, and is read by
+    # `publish` (L4) AND by both lanes that reach Andrew. That second fact is the
+    # whole reason it is a file: the map's L2 line says policy "lives with the
+    # lanes that read them", which holds for a policy ONE lane reads and cannot
+    # hold for a rail two channels obey. It sat half in `publish` and half in
+    # `morning_knock` until this number existed to forbid that.
+    "rails":              2,
 
     "mandates":           3,      # L3 compose — prompt canon, imports nothing
     "writer":             3,      # L3 compose — executor, model, budget, parsers

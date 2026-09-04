@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """L4 — THE DELIVERY TAIL. Everything between "a lane made a dose" and "it is on
 Andrew's phone and on main": the commit path with its rebase net, the feed
-rebuild, the CDN URL, the waking window, and the one push chokepoint.
+rebuild, the CDN URL, and the one push chokepoint. It ENFORCES the waking window
+at that chokepoint; it stopped OWNING it on 2026-09-04, when the window went to
+`rails.py` to sit with the daily cap and min gap that `push_queue` obeys too.
 
 WHAT THIS REPLACES: `morning_knock.py` owning all of it. Nine of the twenty-one
 other modules imported that file, and almost none of them wanted the knock —
@@ -28,7 +30,7 @@ import subprocess
 import sys
 import time
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime
 from pathlib import Path
 
 BASE = Path(__file__).parent.parent
@@ -36,19 +38,16 @@ sys.path.insert(0, str(BASE / "scripts"))
 from language import REPO
 from render_chat import render_chat
 from state_io import KNOCK_LOG_PATH, LOCAL_TZ, RECENT_AUDIO_PATH
+# The waking window moved to `rails.py` on 2026-09-04, together with the daily
+# cap and min gap it was always half of. It lived here because `push_to_phone`
+# below is the chokepoint that enforces it for every lane (2026-07-26) — that
+# is still true, and enforcing a rail is a different job from OWNING it. This
+# file is the delivery tail; `rails.py` answers whether a reach is permitted at
+# all, which two lanes ask long before delivery.
+from rails import in_waking_window
 
 
 KNOCKS_DIR = BASE / "published_audio" / "knocks"   # tracked, jsDelivr-served dir
-
-# ── The waking window ────────────────────────────────────────────────────────
-# Andrew's local timezone is canonical in `state_io`, which reads it from
-# `learner.json.timezone` (2026-08-09), so the window follows him abroad on a
-# one-field edit and stays DST-correct at home. The cron ticks a UTC superset;
-# this filters. Lives HERE rather than with the knock rails because
-# `push_to_phone` below is the chokepoint that enforces it for every lane
-# (2026-07-26) — `morning_knock.rails_gate` reads these two names back.
-WAKING_START_HOUR = 8      # inclusive, local
-WAKING_END_HOUR = 21       # exclusive, local (last reach can land at 20:59)
 
 
 # Lock-screen render budget. The mandate asks for ≤140; past ~160 iOS cuts the
@@ -200,13 +199,6 @@ def refresh_feed() -> Path | None:
 def jsdelivr_url(mp3: Path) -> str:
     rel = mp3.relative_to(BASE).as_posix()
     return f"https://cdn.jsdelivr.net/gh/{REPO}@main/{rel}"  # unique daily filename => always fresh
-
-
-def in_waking_window(now: datetime | None = None) -> bool:
-    """Is it inside Andrew's waking hours, local time? The ONE definition — the
-    rails gate, the queue's deferral, and `push_to_phone` all read this."""
-    now = now or datetime.now(timezone.utc)
-    return WAKING_START_HOUR <= now.astimezone(LOCAL_TZ).hour < WAKING_END_HOUR
 
 
 def push_to_phone(body: str, audio_url: str | None, knock_id: str = "",

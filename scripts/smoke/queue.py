@@ -198,7 +198,7 @@ def s29_one_runner_every_capability(mk, pq, kr, sb: Path):
     # retry property: a failed push leaves the entry queued.
     prog = sb / "progress"
     klog_path, q_path = prog / "knock_log.json", prog / "push_queue.json"
-    events, saved = [], (fx.pb.WAKING_START_HOUR, fx.pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY)
+    events, saved = [], (fx.rl.WAKING_START_HOUR, fx.rl.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY)
     real_push, real_commit, real_feed = pq.push_to_phone, pq.commit_and_push, fx.pb.refresh_feed
     pq.push_to_phone = lambda body, url=None, knock_id="", requested=False: (
         events.append(("push", url)))
@@ -221,7 +221,7 @@ def s29_one_runner_every_capability(mk, pq, kr, sb: Path):
     fx.pb.refresh_feed = fake_feed
     pq.render_memo = fake_render
     try:
-        fx.pb.WAKING_START_HOUR, fx.pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = 0, 24, 99
+        fx.rl.WAKING_START_HOUR, fx.rl.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = 0, 24, 99
         write_json(klog_path, [])
         write_json(q_path, [{**queued[0], "id": "qVOICE", "force": True,
                              "due": (datetime.now(timezone.utc) - timedelta(minutes=5)).isoformat()}])
@@ -245,7 +245,7 @@ def s29_one_runner_every_capability(mk, pq, kr, sb: Path):
               "வணக்கம்" in logged.get("memo_script", ""))
         check("the queue is emptied once fired", read_json(q_path) == [])
     finally:
-        fx.pb.WAKING_START_HOUR, fx.pb.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = saved
+        fx.rl.WAKING_START_HOUR, fx.rl.WAKING_END_HOUR, pq.MAX_REACHES_PER_DAY = saved
         pq.push_to_phone, pq.commit_and_push, fx.pb.refresh_feed = real_push, real_commit, real_feed
         pq.render_memo = real_render
 
