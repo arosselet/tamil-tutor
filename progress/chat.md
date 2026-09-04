@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Friday 2026-09-04
+
+**10:49 · Anna**  ·  text / lore: kongu attaa
+> Kovai reflex: drop your keys, skip 'ayyo' — say 'attaa!' (oh no!). Amused sigh, zero drama. Pure Kongu.
+
+
 ## Thursday 2026-09-03
 
 **13:06 · Anna** 🎧  ·  fielding / fielding: table decline
