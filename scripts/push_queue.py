@@ -47,11 +47,11 @@ from pathlib import Path
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
-from morning_knock import (KNOCK_LOG_PATH, LOCAL_TZ, MAX_REACHES_PER_DAY,
-                           load_json, render_memo,
+from morning_knock import (MAX_REACHES_PER_DAY, render_memo,
                            fires_today as reaches_today)
 from publish import (KNOCKS_DIR, commit_and_push, in_waking_window, jsdelivr_url,
                      load_env, publish, push_to_phone)
+from state_io import KNOCK_LOG_PATH, LOCAL_TZ, load_json
 from language import ANNA_VOICE
 
 QUEUE_PATH = BASE / "progress" / "push_queue.json"

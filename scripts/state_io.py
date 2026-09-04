@@ -112,6 +112,27 @@ def local_today() -> date:
     return datetime.now(LOCAL_TZ).date()
 
 
+def local_date(ts_iso: str):
+    """An ISO stamp on ANDREW's clock, or None if it is unparseable. The
+    row-level companion to `local_today` — every log this repo keeps stamps UTC
+    and every question about it ("today?", "which day?") is asked in his
+    timezone. Moved here from `morning_knock` on 2026-09-04: it is a clock
+    helper, and it belongs beside the clock rather than inside the lane that
+    happened to need it first."""
+    try:
+        return datetime.fromisoformat(ts_iso).astimezone(LOCAL_TZ).date()
+    except (ValueError, TypeError):
+        return None
+
+
+def is_fire(entry: dict) -> bool:
+    """Did this knock-log row actually reach him? Legacy entries (written before
+    `acted` existed) were all fires. The third read-only state predicate, beside
+    `is_unseen` and `soak_pending` — moved here from `morning_knock` 2026-09-04
+    so `rails.py` can count reaches without importing a lane."""
+    return entry.get("acted", True)
+
+
 # The script range, the stem tail and `is_tamil` moved to `language.py` on
 # 2026-08-28 — the L0 language pack, which is now the ONE file a port to another
 # language rewrites. They were declared here from 2026-08-04 (with the last three

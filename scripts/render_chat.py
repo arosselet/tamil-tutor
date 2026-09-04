@@ -22,9 +22,8 @@ from pathlib import Path
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
-from state_io import LOCAL_TZ
+from state_io import KNOCK_LOG_PATH, LOCAL_TZ
 
-KNOCK_LOG_PATH = BASE / "progress" / "knock_log.json"
 CHAT_PATH = BASE / "progress" / "chat.md"
 
 HEADER = """\

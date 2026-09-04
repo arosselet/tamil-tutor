@@ -50,15 +50,19 @@ from publish import (BODY_BUDGET, KNOCKS_DIR, WAKING_END_HOUR, WAKING_START_HOUR
                      publish, push_to_phone)
 from writer import BOOL, INT, STR, ask_json, executor_name, obj, to_phonetic, voice_canon
 
-KNOCK_LOG_PATH = BASE / "progress" / "knock_log.json"
-SESSION_LOG_PATH = BASE / "progress" / "session_log.json"
-
 # ── The rails (hard, Python-enforced — Anna cannot cross these) ───────────────
 # Andrew's local timezone — canonical in `state_io`, which reads it from
 # `learner.json.timezone` (2026-08-09), so the waking window follows him abroad on
 # a one-field edit and stays DST-correct at home. The cron ticks a UTC superset;
 # this filters.
-from state_io import LEARNER_PATH, LEXICON_PATH, LOCAL_TZ
+#
+# The two log PATHS, `load_json`, and the `is_fire` / `local_date` helpers came
+# from this file's own body on 2026-09-04. `KNOCK_LOG_PATH` had four independent
+# spellings across the repo and TWO import authorities — half the lanes asked
+# `state_io`, half asked here — and this file's copies were what made the second
+# one possible.
+from state_io import (KNOCK_LOG_PATH, LEARNER_PATH, LEXICON_PATH, LOCAL_TZ,
+                      SESSION_LOG_PATH, is_fire, load_json, local_date)
 MAX_REACHES_PER_DAY = 5    # a "reach" = a knock that actually fired (silence doesn't count)
 MIN_GAP_HOURS = 3          # minimum spacing between reaches
 NEXT_CHECK_CLAMP = (0.5, 24.0)   # Anna's self-set next_check is clamped to this many hours
@@ -71,24 +75,6 @@ VOLLEY_SIZE = 4   # menu items per volley knock — one per exchange, chained by
 
 
 # ── State helpers ─────────────────────────────────────────────────────────────
-
-def load_json(path: Path):
-    if not path.exists():
-        return None
-    return json.loads(path.read_text(encoding="utf-8"))
-
-
-def is_fire(entry: dict) -> bool:
-    """A reach that actually went out. Legacy entries (no 'acted') were all fires."""
-    return entry.get("acted", True)
-
-
-def local_date(ts_iso: str):
-    try:
-        return datetime.fromisoformat(ts_iso).astimezone(LOCAL_TZ).date()
-    except (ValueError, TypeError):
-        return None
-
 
 def last_fire(klog: list) -> dict | None:
     fires = [k for k in klog if is_fire(k) and k.get("timestamp")]

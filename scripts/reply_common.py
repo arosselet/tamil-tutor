@@ -26,10 +26,10 @@ from pathlib import Path
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 
-from morning_knock import KNOCK_LOG_PATH, render_memo
+from morning_knock import render_memo
 from publish import KNOCKS_DIR, jsdelivr_url
 from language import ANNA_VOICE
-from state_io import FEEDBACK_LOG_PATH, load_json, local_today, save_json
+from state_io import FEEDBACK_LOG_PATH, KNOCK_LOG_PATH, load_json, local_today, save_json
 
 # A clock in Andrew's own words. Deliberately generous: a false positive costs
 

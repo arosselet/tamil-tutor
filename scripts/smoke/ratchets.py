@@ -443,7 +443,17 @@ CODE_BUDGETS = {
     # them, and that is the point — this file carried the label from 2026-08-04
     # while two more port values (the pinned voices, the repo identity) could
     # never live beside a paths-and-clock module. A label is not a boundary.
-    "scripts/state_io.py": 105,
+    # 105 → 112 (2026-09-04): `local_date` and `is_fire` came home. Both were in
+    # `morning_knock.py` — a clock helper and a read-only state predicate, living
+    # in a LANE because it needed them first. This file's charter already names
+    # that shape ("`local_today`", "the read-only predicates `is_unseen` /
+    # `soak_pending`"); they are the third and fourth of exactly those. What the
+    # raise retires, in this same diff: `morning_knock`'s duplicate `load_json`,
+    # and FOUR independent spellings of `KNOCK_LOG_PATH` (here, `morning_knock`,
+    # `render_chat`, `suggest_targets`) of which three are now deleted — plus the
+    # two import authorities that grew on top of them, half the lanes asking this
+    # file for the path and half asking the knock lane.
+    "scripts/state_io.py": 112,
     # NEW FILE, budgeted in the same diff that creates it (2026-08-28, Andrew).
     # THE LANGUAGE PACK — every value a fork to another language replaces, and
     # nothing else. WHAT IT RETIRES: the port surface being a prose list in

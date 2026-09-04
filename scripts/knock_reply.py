@@ -45,7 +45,7 @@ from pathlib import Path
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from knock_message import handle_message
-from morning_knock import KNOCK_LOG_PATH, maybe_enqueue_schedule
+from morning_knock import maybe_enqueue_schedule
 from publish import commit_and_push, load_env, publish, push_to_phone
 # The lane-neutral half of answering him — detectors, the voice backstop, the
 # render, and the one ledger writer. Split out 2026-08-28 so the MESSAGE lane
@@ -90,7 +90,7 @@ CATCH_SCHEMA = obj(verdict=STR, reply_line=STR, meta_note=STR, rationale=STR,
                    # agent path and survives on the API path (obj's 2026-08-28
                    # law) — the smoke suite caught this one before it shipped.
                    heard=arr(key=STR, said=STR, verdict=STR))
-from state_io import FEEDBACK_LOG_PATH, LEARNER_PATH, LEXICON_PATH, SLIP_LOG_PATH, build_phonetic_index, load_json, local_today, resolve, save_json
+from state_io import FEEDBACK_LOG_PATH, KNOCK_LOG_PATH, LEARNER_PATH, LEXICON_PATH, SLIP_LOG_PATH, build_phonetic_index, load_json, local_today, resolve, save_json
 from slips import append_slips, slip_patterns
 from sync_state import fires_today
 

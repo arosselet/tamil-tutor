@@ -56,9 +56,9 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
 BASE = Path(__file__).parent.parent
-LEXICON_PATH = BASE / "progress" / "lexicon.json"
+sys.path.insert(0, str(BASE / "scripts"))
+from state_io import KNOCK_LOG_PATH, LEXICON_PATH
 WORD_POOL_PATH = BASE / "curriculum" / "word_pool.json"
-KNOCK_LOG_PATH = BASE / "progress" / "knock_log.json"
 SCRIPTS_DIR = BASE / "content" / "scripts"
 
 RECOGNIZED = {"comfortable", "solid"}
