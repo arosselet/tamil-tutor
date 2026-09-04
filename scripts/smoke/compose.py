@@ -8,9 +8,11 @@ These are the cases that guard the seam between this system and a model, which
 is the seam that fails quietly: a parse that raises looks the same as a budget
 that ran out, and a stub that stops intercepting reaches the real agent.
 """
+import ast
 import importlib
 import json
 import os
+import re
 import types
 from pathlib import Path
 
@@ -871,3 +873,148 @@ def s91_the_pack_is_complete_not_just_unique(sb: Path):
           free == [],
           f"got {free} — if the docstring counted, this case's own paragraphs "
           f"and every port note in the tree would fail it")
+
+
+# Where LLM prompt canon lives, and therefore what a port must REWRITE. Named in
+# `BOOTSTRAP.md` -> Layer 1 and in `/extend` Gate 6; `s93` holds those two prose
+# lists to this dict, in both directions.
+PROMPT_HOMES = {
+    "mandates.py":
+        "the fourteen mandates and addenda. Prompt canon, split out of "
+        "`morning_knock` on 2026-08-01 and `knock_reply` on 2026-08-24, both "
+        "times because the lane hit its code-line ceiling.",
+    "run_studio.py":
+        "the studio's own DIRECTOR / ARCHITECT / PRODUCER. They stay out of "
+        "`mandates` because the studio's canon is its own — the same reason "
+        "`s70` leaves the studio alone in its JSON sweep.",
+}
+
+# Prompt-shaped, and NOT port surface: a big prompt string is not automatically a
+# language fact. Each entry states why a fork changes nothing here. This list can
+# only shrink -- `s93` hands the licence back when a file stops matching.
+PROMPT_AGNOSTIC = {
+    "render_drill.py":
+        "COMMISSION_BRIEF — repair-vs-routine dosing (three cues per repaired "
+        "item, vary the situation never the target). Pure pedagogy; names no "
+        "language. The DRILL prompt itself is in `mandates`.",
+    "render_soak.py":
+        "FOCUS_BRIEF — the carousel shape (one root or one ending per cluster, "
+        "contrast is the lesson). True of any inflecting language.",
+    "rebuild_rss.py":
+        "RSS_TEMPLATE / ITEM_TEMPLATE — XML scaffolding, not a prompt at all. "
+        "The feed's NAME and pitch are language facts and already live in the "
+        "pack (`s91`, 2026-09-03).",
+}
+
+PORT_PROSE = (
+    ("BOOTSTRAP.md", "**LLM prompts embedded in the Python.**"),
+    (".claude/skills/extend/SKILL.md", "| LLM prompts with Tamil-specific prose rules"),
+)
+
+
+def _prompt_constants(src: str) -> list[str]:
+    """Module-level ALL-CAPS names bound to a long multi-line string literal —
+    the shape of an LLM prompt. Deliberately structural rather than name-matching
+    on `*_MANDATE`: the studio's prompts are DIRECTOR / ARCHITECT / PRODUCER and
+    would walk straight past a name rule."""
+    out = []
+    for node in ast.parse(src).body:
+        if not isinstance(node, (ast.Assign, ast.AnnAssign)):
+            continue
+        target = node.targets[0] if isinstance(node, ast.Assign) else node.target
+        if not (isinstance(target, ast.Name) and target.id.isupper()):
+            continue
+        if any(isinstance(d, ast.Constant) and isinstance(d.value, str)
+               and len(d.value) > 200 and "\n" in d.value for d in ast.walk(node)):
+            out.append(target.id)
+    return out
+
+
+def s93_the_port_surface_list_names_the_real_files(sb: Path):
+    """The prose port-surface list is held to the tree (2026-09-04).
+
+    WHAT IT CAUGHT. `BOOTSTRAP.md` -> Layer 1, `/extend` Gate 6 and
+    `extend/references/routing.md` all named `morning_knock.py`,
+    `knock_reply.py` and `render_drill.py` as the homes of the Tamil-specific
+    LLM prompts. Every one of those prompts had left: `morning_knock`'s went to
+    `mandates.py` on 2026-08-01 and `knock_reply`'s six followed on 2026-08-24,
+    so all three carry `from mandates import ...` and no prompt prose at all. The
+    list stayed wrong for a month. `BOOTSTRAP.md` is the file a FORK reads, so
+    the cost was not cosmetic: a porter following it rewrote three files that
+    hold nothing and never opened the one that holds everything.
+
+    WHY `s91` COULD NOT CATCH IT. That guard sweeps for Tamil SCRIPT on a
+    mechanism line and its `SCRIPT_OWNERS` ratchet is correct and current. But
+    half of what makes these prompts port surface is written in ROMAN letters —
+    the `-ōm` ending, the honorific `-nga`, "Woven Thanglish", the
+    script-vs-phonetic rule. A script sweep is structurally blind to a fact about
+    Tamil spelled in English, which is exactly why the prose list has to exist.
+    This guard therefore checks the FILE NAMES, which are checkable, and makes no
+    claim about the rules, which are not.
+
+    WHY NOT KEY ON `*_MANDATE`. Because the studio's three prompts are not named
+    that, and a name rule would have declared `run_studio.py` clean. The scan is
+    structural — an ALL-CAPS module global bound to a long multi-line string —
+    which also means it finds prompt constants that are NOT language facts, so
+    every prompt-bearing file must be classified either a home or an exemption
+    with a reason. `render_drill.COMMISSION_BRIEF` and `render_soak.FOCUS_BRIEF`
+    are the live proof that "big prompt string" and "port surface" are different
+    questions.
+
+    GATE 7.2 — WHAT DOES THIS LOOK LIKE SILENTLY DOING NOTHING? Like a green
+    suite and a fork whose tutor still says `-nga`. A scan that parses no files,
+    or an anchor that matches no line, satisfies every assertion below while
+    proving zero — so the teeth come first.
+    """
+    print("\n93. The port-surface list names the files that hold the prompts (2026-09-04)")
+    found = {p.name: _prompt_constants(p.read_text(encoding="utf-8"))
+             for p in sorted((sb / "scripts").glob("*.py"))}
+    found = {n: c for n, c in found.items() if c}
+
+    # ── TEETH ON THE SCAN, before any law is asserted on its output.
+    check(f"the scan parsed the lanes and found prompt canon ({len(found)} files)",
+          len(found) >= 4 and len(found.get("mandates.py", [])) >= 10,
+          f"got {({n: len(c) for n, c in found.items()})} — a scan that finds no "
+          f"prompts passes every assertion below while checking nothing")
+
+    # ── 1. every prompt-bearing file is classified, one way or the other.
+    unclassified = sorted(set(found) - set(PROMPT_HOMES) - set(PROMPT_AGNOSTIC))
+    check("every file holding a prompt is declared a home or an exemption",
+          not unclassified,
+          f"{', '.join(unclassified)} — add it to PROMPT_HOMES and name it in the "
+          f"port-surface prose, or to PROMPT_AGNOSTIC with a reason a fork "
+          f"changes nothing in it")
+
+    # ── 2. the guard's own guard: a licence that outlives what it licensed.
+    stale = sorted(n for n in (*PROMPT_HOMES, *PROMPT_AGNOSTIC) if n not in found)
+    check("every declared prompt file still holds a prompt",
+          not stale,
+          f"gone: {', '.join(stale)} — hand the entry back in the diff that "
+          f"emptied the file, and fix the prose that still names it")
+
+    # ── 3. THE LAW, in both directions, against the prose a porter actually reads.
+    for rel, anchor in PORT_PROSE:
+        text = (sb / rel).read_text(encoding="utf-8")
+        line = next((ln for ln in text.splitlines() if anchor in ln), None)
+        check(f"{rel}: the port-surface passage is still there",
+              line is not None,
+              f"no line contains {anchor!r} — the anchor moved, so the two "
+              f"assertions below would pass on an empty string")
+        if line is None:
+            continue
+        named = set(re.findall(r"([a-z_]+\.py)", line))
+        check(f"{rel}: names every file that holds prompt canon",
+              set(PROMPT_HOMES) <= named,
+              f"missing {sorted(set(PROMPT_HOMES) - named)} — a fork reads this "
+              f"line and rewrites what it names")
+        check(f"{rel}: names no file that holds none",
+              not (named - set(PROMPT_HOMES)),
+              f"{sorted(named - set(PROMPT_HOMES))} hold no prompt canon — this "
+              f"is the 2026-08-01/08-24 rot exactly: the prompts moved and the "
+              f"list did not")
+
+    # ── POSITIVE CONTROL, on a synthetic line so the proof lives in the suite.
+    rotted = set(re.findall(r"([a-z_]+\.py)", "prompts live in `scripts/render_drill.py`"))
+    check("...and the check would actually fail on a stale line",
+          bool(rotted - set(PROMPT_HOMES)),
+          "the extraction cannot see a filename, so its green means nothing")

@@ -25,10 +25,10 @@ report — do not create a substitute.
 | Anna's pinned TTS voice, and the overheard aunty's | `scripts/language.py` → `ANNA_VOICE`, `EAVESDROP_VOICE` | Moved 2026-08-28 from `render_audio` to the pack; six lanes import them straight from L-1. The episode POOLS stay in `render_audio` — one reader, one file |
 | Repo identity — CDN (jsDelivr), raw feed URLs, site link | `scripts/language.py` → `REPO` | One fact, three spellings until 2026-08-28. `publish.jsdelivr_url` and `rebuild_rss`'s `BASE_URL`/`SITE_URL` all derive from it |
 | Knock reply judge prompt (phonetic→script matching, verdict rules) | `scripts/knock_reply.py` | Port surface — Tamil-specific rules embedded in prose |
-| Slip contract — how an error is named as a pattern (`SLIP_MANDATE`) | `scripts/knock_reply.py` | Port surface — its worked examples are Tamil morphology |
+| Slip contract — how an error is named as a pattern (`SLIP_MANDATE`) | `scripts/mandates.py` | Port surface — its worked examples are Tamil morphology. It left `knock_reply.py` on 2026-08-24 with that file's five other mandates; this row said otherwise until 2026-09-04 (`s93`) |
 | The slip ledger: capture, aggregation, retirement, escalation | `scripts/slips.py` | `SLIP_RETIRE_DAYS` (matches `INTERVAL_DAYS["cold"]`), `SLIP_PATTERN_COUNT`; one renderer (`format_slip_block`) feeds all three surfaces |
 | How a slip CLOSES — the observation, not a verdict | `scripts/slips.py` | `record_slip_test`/`slip_closes`; closes are dated so a later miss revives them. Never reintroduce a bare-tag close list |
-| Drill script prompt (cue/answer format, Tamil script rule) | `scripts/render_drill.py` | Port surface — Tamil-specific rules embedded in prose |
+| Drill script prompt (cue/answer format, Tamil script rule) | `scripts/mandates.py` → `DRILL_MANDATE`, `LINT_MANDATE` | Port surface — Tamil-specific rules embedded in prose. `render_drill.py` imports them; its own `COMMISSION_BRIEF` is prompt prose but language-agnostic, so it is NOT port surface |
 | Episode TTS voice pool (Chirp / WaveNet / Edge pools) | `scripts/render_audio.py` | Episode pools are local-render today; the cloud calls this module's Google segment renderer for knocks and scheduled voice doses |
 | RSS feed structure | `scripts/rebuild_rss.py` | `rss.xml` is the only feed (playlist retired 2026-07-03) |
 | Calibration dials (coverage %, new-word counts, pacing) | `progress/profile.md` → Calibration Notes | Change the number, not a prompt or protocol prose |

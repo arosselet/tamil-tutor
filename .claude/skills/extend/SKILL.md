@@ -110,7 +110,7 @@ the commit body if you touch one. (`BOOTSTRAP.md` → "What Generalizes" → Lay
 
 | Item | Location |
 |---|---|
-| LLM prompts with Tamil-specific prose rules (script vs. phonetic, Woven Thanglish) | `scripts/morning_knock.py` (decide prompt), `scripts/knock_reply.py` (judge prompt + `SLIP_MANDATE`), `scripts/render_drill.py` (drill-script prompt) |
+| LLM prompts with Tamil-specific prose rules (script vs. phonetic, Woven Thanglish, worked examples that are Tamil morphology — `-ōm`, `-nga`) | `scripts/mandates.py` — all fourteen mandates and addenda; and `scripts/run_studio.py` — the studio's own `DIRECTOR` / `ARCHITECT` / `PRODUCER`. Guarded by `s93` |
 | The script ranges (`TAMIL_RE`, `TAMIL_RUN`, `TAMIL_TAIL_RE`), `strip_pulli`, the pinned voices (`ANNA_VOICE`, `EAVESDROP_VOICE`), `voice_locale`, `REFERENT_NOUNS`, the repo identity (`REPO`) and the feed identity (`FEED_TITLE`, `FEED_SUMMARY`, `CAPTION_COLUMNS`) | `scripts/language.py` — THE LANGUAGE PACK, one file. **Two guards, two jobs** (2026-09-03): `s70` needles each declared value so it cannot acquire a second home; `s91` sweeps every lane for target script on a mechanism line, so a language fact that was never declared here cannot hide — the needle list is read off the pack, so it can never look for a fact the pack has not heard of |
 | Episode voice POOLS (Chirp / WaveNet / Edge catalogues) | `scripts/render_audio.py` — one reader, one file; the PINNED choice from them lives in the pack |
 

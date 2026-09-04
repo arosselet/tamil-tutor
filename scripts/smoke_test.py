@@ -149,6 +149,7 @@ def main():
         run(state.s69_two_readers_two_tickets, sb)
         run(compose.s70_the_executor_is_chosen_by_the_host, sb)
         run(compose.s91_the_pack_is_complete_not_just_unique, sb)
+        run(compose.s93_the_port_surface_list_names_the_real_files, sb)
         run(ratchets.s72_a_stub_never_outlives_its_case, mk, kr)
         run(publish.s73_one_tail_for_the_render_family, sb)
         run(publish.s74_a_derived_file_follows_its_source, sb)
