@@ -9,6 +9,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **10:49 · Anna**  ·  text / lore: kongu attaa
 > Kovai reflex: drop your keys, skip 'ayyo' — say 'attaa!' (oh no!). Amused sigh, zero drama. Pure Kongu.
 
+**15:22 · Andrew** — **HINTED**
+> Attaa
+
+**Anna ↩**
+> adhu dhaan! Pure Kovai sigh. 🔥 · Maama keeps pouring tea past the brim — wave him off with 'enough!'.
+
 
 ## Thursday 2026-09-03
 

@@ -4116,12 +4116,13 @@
       "attaa"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [
       57
     ],
     "last_surfaced": "2026-09-04",
-    "exposures": 1
+    "exposures": 1,
+    "reps": 1
   },
   "அடேயப்பா": {
     "gloss": "wow! / oh my! (genuine surprise, warm exasperation)",

@@ -6421,6 +6421,40 @@
     "next_check": "2026-09-04T08:49:40.721726+00:00",
     "body": "Kovai reflex: drop your keys, skip 'ayyo' — say 'attaa!' (oh no!). Amused sigh, zero drama. Pure Kongu.",
     "expected_target": "",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Attaa",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "அட்டா"
+    ],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [
+      "அட்டா"
+    ],
+    "reply_line": "adhu dhaan! Pure Kovai sigh. 🔥 · Maama keeps pouring tea past the brim — wave him off with 'enough!'.",
+    "reply_at": "2026-09-04T09:52:11Z",
+    "exchanges": [
+      {
+        "at": "2026-09-04T09:52:11Z",
+        "reply": "Attaa",
+        "verdict": "hinted",
+        "fired": [
+          "அட்டா"
+        ],
+        "fired_cold": [],
+        "fired_capped": [
+          "அட்டா"
+        ],
+        "graduated": [],
+        "reply_line": "adhu dhaan! Pure Kovai sigh. 🔥 · Maama keeps pouring tea past the brim — wave him off with 'enough!'.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ],
+    "chained": 1,
+    "pinned_target": "போதும்",
+    "pinned_revealed": false
   }
 ]
