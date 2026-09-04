@@ -1996,5 +1996,1091 @@
     "gloss": "Problem — பிரச்சனை இல்ல",
     "cluster": "social_reaction",
     "priority": 1
+  },
+  {
+    "word": "போ",
+    "gloss": "Go (bare imperative / root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "வா",
+    "gloss": "Come (bare imperative / root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "இரு",
+    "gloss": "Be / stay / exist (bare root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "சொல்",
+    "gloss": "Say / tell (bare imperative / root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "செய்",
+    "gloss": "Do / prepare / make (bare root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "பண்ணு",
+    "gloss": "Do / make (bare root; common spoken alternative to செய்)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "பாரு",
+    "gloss": "Look / see / check (bare imperative / root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "குடு",
+    "gloss": "Give (bare imperative / root; spoken form of கொடு)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "வாங்கு",
+    "gloss": "Buy / get / receive (bare imperative / root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "எடு",
+    "gloss": "Take / pick up (bare imperative / root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "வை",
+    "gloss": "Put / keep / place (bare imperative / root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "கெளம்பு",
+    "gloss": "Start / set off / leave (Oracle: always 'kelambu' in Coimbatore speech, never literary 'purappadu')",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "கேளு",
+    "gloss": "Ask / listen / hear (bare imperative / root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "பேசு",
+    "gloss": "Speak / talk (bare imperative / root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "நட",
+    "gloss": "Walk / happen (bare root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "நில்லு",
+    "gloss": "Stand / stop (bare imperative / root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "உக்காரு",
+    "gloss": "Sit down (Oracle: spoken 'ukkaru', never literary 'utkaar')",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "தூங்கு",
+    "gloss": "Sleep (bare imperative / root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "எழு",
+    "gloss": "Wake up / rise (bare root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "சாப்பிடு",
+    "gloss": "Eat (Oracle: spoken imperative/stem 'saapdu', never literary 'un')",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "குடி",
+    "gloss": "Drink (bare imperative / root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "திற",
+    "gloss": "Open (Oracle: canonical root is 'thira', colloquially pronounced 'thora')",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "மூடு",
+    "gloss": "Close / cover (bare imperative / root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "அனுப்பு",
+    "gloss": "Send / dispatch (bare imperative / root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "காட்டு",
+    "gloss": "Show / point out (bare imperative / root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "கழுவு",
+    "gloss": "Wash / rinse with water (bare imperative / root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "துடை",
+    "gloss": "Wipe / clean a surface (Oracle: root is 'thudai', not 'thodai' which means thigh)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "ஓட்டு",
+    "gloss": "Drive / operate vehicle (bare imperative / root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "மாத்து",
+    "gloss": "Change / swap / alter (bare imperative / root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "போடு",
+    "gloss": "Put in / drop / wear (bare imperative / root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "கழட்டு",
+    "gloss": "Take off clothing or shoes (Oracle: spoken 'kazhatu', never literary 'kazhatru')",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "திரும்பு",
+    "gloss": "Turn yourself / return (intransitive root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "தேடு",
+    "gloss": "Search / look for (bare imperative / root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "கிடை",
+    "gloss": "Be available / obtain (Oracle: canonical root is 'kidai', not 'keda' which means spoil)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "நிறுத்து",
+    "gloss": "Stop something / park vehicle (transitive root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "ஆரம்பி",
+    "gloss": "Start / begin (Oracle: spoken 'aarambi', never literary 'thodangu')",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "முடி",
+    "gloss": "Finish / complete / be able (bare root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "மற",
+    "gloss": "Forget (bare root; spoken 'marandhu poren')",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "யோசி",
+    "gloss": "Think / ponder (Oracle: spoken 'yosi', never literary 'sindhi')",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "கவனி",
+    "gloss": "Pay attention / notice / care for (bare root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "சமை",
+    "gloss": "Cook / prepare food (bare imperative / root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "ஊத்து",
+    "gloss": "Pour liquid (Oracle: spoken 'oothu', never literary 'oatru')",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "கலக்கு",
+    "gloss": "Mix / stir (bare imperative / root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "படி",
+    "gloss": "Study / read (bare imperative / root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "கத்துக்கோ",
+    "gloss": "Learn for oneself (reflexive compound root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "சொல்லிக் குடு",
+    "gloss": "Teach / coach someone (compound root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "ஏறு",
+    "gloss": "Climb / board a bus or vehicle (bare root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "இறங்கு",
+    "gloss": "Descend / get off a vehicle (bare root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "பொறு",
+    "gloss": "Wait patiently / bear with (bare imperative / root)",
+    "cluster": "verb_root",
+    "priority": 1
+  },
+  {
+    "word": "ஓடு",
+    "gloss": "Run / operate (bare root)",
+    "cluster": "verb_root",
+    "priority": 2
+  },
+  {
+    "word": "மாட்டு",
+    "gloss": "Hang / hook / latch (bare imperative / root)",
+    "cluster": "verb_root",
+    "priority": 2
+  },
+  {
+    "word": "இழு",
+    "gloss": "Pull / drag (bare imperative / root)",
+    "cluster": "verb_root",
+    "priority": 2
+  },
+  {
+    "word": "தள்ளு",
+    "gloss": "Push (bare imperative / root)",
+    "cluster": "verb_root",
+    "priority": 2
+  },
+  {
+    "word": "திருப்பு",
+    "gloss": "Turn something around (transitive root)",
+    "cluster": "verb_root",
+    "priority": 2
+  },
+  {
+    "word": "தொலை",
+    "gloss": "Lose / misplace (bare root)",
+    "cluster": "verb_root",
+    "priority": 2
+  },
+  {
+    "word": "நம்பு",
+    "gloss": "Trust / believe (bare root)",
+    "cluster": "verb_root",
+    "priority": 2
+  },
+  {
+    "word": "சுடு",
+    "gloss": "Heat up / be burning hot (bare root)",
+    "cluster": "verb_root",
+    "priority": 2
+  },
+  {
+    "word": "கொதி",
+    "gloss": "Boil liquid (bare root)",
+    "cluster": "verb_root",
+    "priority": 2
+  },
+  {
+    "word": "அறு",
+    "gloss": "Cut / slice with knife (bare root)",
+    "cluster": "verb_root",
+    "priority": 2
+  },
+  {
+    "word": "வெட்டு",
+    "gloss": "Chop / cut through (bare root)",
+    "cluster": "verb_root",
+    "priority": 2
+  },
+  {
+    "word": "கூட்டு",
+    "gloss": "Sweep clean / gather together (bare root)",
+    "cluster": "verb_root",
+    "priority": 2
+  },
+  {
+    "word": "சிரி",
+    "gloss": "Smile / laugh (bare root)",
+    "cluster": "verb_root",
+    "priority": 2
+  },
+  {
+    "word": "அழு",
+    "gloss": "Cry / weep (bare root)",
+    "cluster": "verb_root",
+    "priority": 2
+  },
+  {
+    "word": "விழு",
+    "gloss": "Fall down (bare root)",
+    "cluster": "verb_root",
+    "priority": 2
+  },
+  {
+    "word": "காப்பாத்து",
+    "gloss": "Protect / rescue / look after (Oracle: spoken 'kaappaathu', never literary 'kaappatru')",
+    "cluster": "verb_root",
+    "priority": 2
+  },
+  {
+    "word": "தடு",
+    "gloss": "Block / prevent / intercept (bare root)",
+    "cluster": "verb_root",
+    "priority": 2
+  },
+  {
+    "word": "நிரப்பு",
+    "gloss": "Fill a container (Oracle: canonical root is 'nirappu', colloquially 'nerappu')",
+    "cluster": "verb_root",
+    "priority": 2
+  },
+  {
+    "word": "குறை",
+    "gloss": "Reduce / lower / decrease (compound sense: transitive and intransitive)",
+    "cluster": "verb_root",
+    "priority": 2
+  },
+  {
+    "word": "பயப்படு",
+    "gloss": "Fear / be afraid (compound root)",
+    "cluster": "verb_root",
+    "priority": 2
+  },
+  {
+    "word": "கோவப்படு",
+    "gloss": "Get angry (compound root)",
+    "cluster": "verb_root",
+    "priority": 2
+  },
+  {
+    "word": "சந்தோஷப்படு",
+    "gloss": "Feel happy / rejoice (compound root)",
+    "cluster": "verb_root",
+    "priority": 2
+  },
+  {
+    "word": "ணும்",
+    "gloss": "Must / need to (bound obligation suffix on verb stem; Oracle: spoken '-num', never literary '-vendum' or '-vendiyadhu')",
+    "cluster": "aspect_auxiliaries",
+    "priority": 1
+  },
+  {
+    "word": "கூடாது",
+    "gloss": "Must not / should not (bound prohibitive auxiliary)",
+    "cluster": "aspect_auxiliaries",
+    "priority": 1
+  },
+  {
+    "word": "முடியும்",
+    "gloss": "Can / able to (bound potential auxiliary)",
+    "cluster": "aspect_auxiliaries",
+    "priority": 1
+  },
+  {
+    "word": "முடியல",
+    "gloss": "Cannot / unable to (bound negative potential; Oracle: always 'mudiyala' in speech, never 'mudiyavillai')",
+    "cluster": "aspect_auxiliaries",
+    "priority": 1
+  },
+  {
+    "word": "லாம்",
+    "gloss": "May / let's (bound suggestion and permissive auxiliary)",
+    "cluster": "aspect_auxiliaries",
+    "priority": 1
+  },
+  {
+    "word": "ட்டே இரு",
+    "gloss": "Keep on doing (bound continuous/habitual aspect; Oracle: spoken '-tte iru', never literary '-kondiru')",
+    "cluster": "aspect_auxiliaries",
+    "priority": 1
+  },
+  {
+    "word": "விடு",
+    "gloss": "Do definitively / completive aspect auxiliary (attached to adverbial participle)",
+    "cluster": "aspect_auxiliaries",
+    "priority": 1
+  },
+  {
+    "word": "பாரு",
+    "gloss": "Try doing / test out (tentative auxiliary attached to participle, e.g. saaptu paaru)",
+    "cluster": "aspect_auxiliaries",
+    "priority": 1
+  },
+  {
+    "word": "வை",
+    "gloss": "Do in advance / preparatory aspect auxiliary (attached to participle, e.g. solli vai)",
+    "cluster": "aspect_auxiliaries",
+    "priority": 1
+  },
+  {
+    "word": "ஆச்சு",
+    "gloss": "Elapsed / completed state auxiliary (Oracle: e.g. time aachu, saaptaachu)",
+    "cluster": "aspect_auxiliaries",
+    "priority": 1
+  },
+  {
+    "word": "ஆகல",
+    "gloss": "Has not become / not yet auxiliary (Oracle: spoken 'aagala', never 'aagavillai')",
+    "cluster": "aspect_auxiliaries",
+    "priority": 1
+  },
+  {
+    "word": "போதும்",
+    "gloss": "Enough / sufficient modal predicate",
+    "cluster": "aspect_auxiliaries",
+    "priority": 1
+  },
+  {
+    "word": "வேண்டாம்",
+    "gloss": "Don't want / no need modal predicate (Oracle: spoken 'vendaam' or 'venaam')",
+    "cluster": "aspect_auxiliaries",
+    "priority": 1
+  },
+  {
+    "word": "தெரியல",
+    "gloss": "Don't know / not visible (experiencer modal; Oracle: spoken 'theriyala', not 'theriyavillai')",
+    "cluster": "aspect_auxiliaries",
+    "priority": 1
+  },
+  {
+    "word": "புரியல",
+    "gloss": "Don't understand (experiencer modal; Oracle: spoken 'puriyala', not 'puriyavillai')",
+    "cluster": "aspect_auxiliaries",
+    "priority": 1
+  },
+  {
+    "word": "மாட்டேன்",
+    "gloss": "Will not (negative future auxiliary, 1st person singular)",
+    "cluster": "aspect_auxiliaries",
+    "priority": 1
+  },
+  {
+    "word": "மாட்டாங்க",
+    "gloss": "Will not (negative future auxiliary, 3rd person plural / honorific)",
+    "cluster": "aspect_auxiliaries",
+    "priority": 1
+  },
+  {
+    "word": "முடியாது",
+    "gloss": "Cannot / strictly impossible (absolute negative potential)",
+    "cluster": "aspect_auxiliaries",
+    "priority": 1
+  },
+  {
+    "word": "போடு",
+    "gloss": "Accidental or abrupt completion auxiliary (attached to participle, e.g. thoongitaaru)",
+    "cluster": "aspect_auxiliaries",
+    "priority": 2
+  },
+  {
+    "word": "குடு",
+    "gloss": "Benefactive auxiliary - do for someone else (attached to participle, e.g. senju kudu)",
+    "cluster": "aspect_auxiliaries",
+    "priority": 2
+  },
+  {
+    "word": "தொலை",
+    "gloss": "Exasperated completion auxiliary (used when annoyed, e.g. solli tholay)",
+    "cluster": "aspect_auxiliaries",
+    "priority": 2
+  },
+  {
+    "word": "தோணல",
+    "gloss": "Doesn't feel like / doesn't occur to mind (experiencer modal; e.g. enakku thonala)",
+    "cluster": "aspect_auxiliaries",
+    "priority": 2
+  },
+  {
+    "word": "க்கு",
+    "gloss": "To / for (bound dative case clitic; attached to noun/pronoun stems)",
+    "cluster": "case_markers",
+    "priority": 1
+  },
+  {
+    "word": "ல",
+    "gloss": "In / at / on (bound locative case clitic; Oracle: spoken '-la', never literary '-il')",
+    "cluster": "case_markers",
+    "priority": 1
+  },
+  {
+    "word": "ஓட",
+    "gloss": "Of / with (bound genitive/associative clitic; Oracle: spoken '-oda', replaces literary '-udaiya')",
+    "cluster": "case_markers",
+    "priority": 1
+  },
+  {
+    "word": "கூட",
+    "gloss": "Along with (bound sociative clitic; e.g. avanga kooda)",
+    "cluster": "case_markers",
+    "priority": 1
+  },
+  {
+    "word": "அ",
+    "gloss": "Direct object marker (bound accusative clitic; Oracle: spoken '-a', replaces literary '-ai')",
+    "cluster": "case_markers",
+    "priority": 1
+  },
+  {
+    "word": "ஆல",
+    "gloss": "By / because of (bound instrumental and causal clitic; Oracle: spoken '-aala', replaces '-aal')",
+    "cluster": "case_markers",
+    "priority": 1
+  },
+  {
+    "word": "லிருந்து",
+    "gloss": "From (bound ablative case clitic; Oracle: in speech pronounced '-lerundhu')",
+    "cluster": "case_markers",
+    "priority": 1
+  },
+  {
+    "word": "கிட்ட",
+    "gloss": "Near / with an animate entity (bound locative clitic; Oracle: replaces literary '-idathil')",
+    "cluster": "case_markers",
+    "priority": 1
+  },
+  {
+    "word": "ங்க",
+    "gloss": "Respectful honorific clitic (Oracle: signature Coimbatore polite address, e.g. vaanga-nga)",
+    "cluster": "case_markers",
+    "priority": 1
+  },
+  {
+    "word": "தானே",
+    "gloss": "Isn't it? / right? (tag confirmation clitic; Oracle: spoken '-dhaane', never literary 'allava')",
+    "cluster": "case_markers",
+    "priority": 1
+  },
+  {
+    "word": "தான்",
+    "gloss": "Only / indeed (emphatic focus clitic; Oracle: spoken '-dhaan')",
+    "cluster": "case_markers",
+    "priority": 1
+  },
+  {
+    "word": "பா",
+    "gloss": "Affectionate conversational address clitic (informal paternal / friendly filler)",
+    "cluster": "case_markers",
+    "priority": 1
+  },
+  {
+    "word": "மா",
+    "gloss": "Affectionate address clitic (female / child / gentle request, e.g. saapdu-ma)",
+    "cluster": "case_markers",
+    "priority": 1
+  },
+  {
+    "word": "ஆ",
+    "gloss": "Yes/no question interrogative clitic (attached to sentence predicate, e.g. varumaa?)",
+    "cluster": "case_markers",
+    "priority": 1
+  },
+  {
+    "word": "மட்டும்",
+    "gloss": "Only / exclusively (restrictive clitic)",
+    "cluster": "case_markers",
+    "priority": 1
+  },
+  {
+    "word": "டா",
+    "gloss": "Intimate casual address clitic (Oracle: male peer or child only; never use with elders)",
+    "cluster": "case_markers",
+    "priority": 2
+  },
+  {
+    "word": "ஓ",
+    "gloss": "Doubt / uncertainty clitic (e.g. varuvaaro ennamo)",
+    "cluster": "case_markers",
+    "priority": 2
+  },
+  {
+    "word": "ஏ",
+    "gloss": "Emphatic vowel lengthening clitic (e.g. avare sonnaaru)",
+    "cluster": "case_markers",
+    "priority": 2
+  },
+  {
+    "word": "உள்ள",
+    "gloss": "Inside (Oracle: spoken 'ulla', replaces literary 'ulle')",
+    "cluster": "space_place",
+    "priority": 1
+  },
+  {
+    "word": "வெளியே",
+    "gloss": "Outside",
+    "cluster": "space_place",
+    "priority": 1
+  },
+  {
+    "word": "மேல",
+    "gloss": "Above / on top / upstairs (Oracle: spoken 'mela', replaces literary 'mele')",
+    "cluster": "space_place",
+    "priority": 1
+  },
+  {
+    "word": "கீழ",
+    "gloss": "Below / down / on the floor (Oracle: spoken 'keezha', replaces literary 'keezhe')",
+    "cluster": "space_place",
+    "priority": 1
+  },
+  {
+    "word": "முன்னாடி",
+    "gloss": "In front of / ahead (Oracle: spoken 'munnaadi', replaces literary 'munbe')",
+    "cluster": "space_place",
+    "priority": 1
+  },
+  {
+    "word": "பின்னாடி",
+    "gloss": "Behind / in back (Oracle: spoken 'pinnaadi', replaces literary 'pinbe')",
+    "cluster": "space_place",
+    "priority": 1
+  },
+  {
+    "word": "பக்கத்துல",
+    "gloss": "Nearby / next to (Oracle: spoken 'pakkathula', replaces literary 'arugil')",
+    "cluster": "space_place",
+    "priority": 1
+  },
+  {
+    "word": "வலது பக்கம்",
+    "gloss": "Right side (spoken often as 'right pakkam')",
+    "cluster": "space_place",
+    "priority": 1
+  },
+  {
+    "word": "இடது பக்கம்",
+    "gloss": "Left side (spoken often as 'left pakkam')",
+    "cluster": "space_place",
+    "priority": 1
+  },
+  {
+    "word": "நேரா",
+    "gloss": "Straight ahead (e.g. neera ponga)",
+    "cluster": "space_place",
+    "priority": 1
+  },
+  {
+    "word": "இங்க",
+    "gloss": "Here (Oracle: spoken 'inga', never literary 'ingu')",
+    "cluster": "space_place",
+    "priority": 1
+  },
+  {
+    "word": "அங்க",
+    "gloss": "There (Oracle: spoken 'anga', never literary 'angu')",
+    "cluster": "space_place",
+    "priority": 1
+  },
+  {
+    "word": "தூரத்துல",
+    "gloss": "Far away (locational distance)",
+    "cluster": "space_place",
+    "priority": 2
+  },
+  {
+    "word": "நடுவுல",
+    "gloss": "In the middle / between",
+    "cluster": "space_place",
+    "priority": 2
+  },
+  {
+    "word": "ஓரத்துல",
+    "gloss": "At the edge / corner of the room or road",
+    "cluster": "space_place",
+    "priority": 2
+  },
+  {
+    "word": "ஆனா",
+    "gloss": "But / however (Oracle: spoken 'aana', never literary 'aanaal')",
+    "cluster": "connectors",
+    "priority": 1
+  },
+  {
+    "word": "அதனால",
+    "gloss": "Therefore / that's why (Oracle: spoken 'adhanaale', never literary 'aagaiyaal')",
+    "cluster": "connectors",
+    "priority": 1
+  },
+  {
+    "word": "அதுக்குள்ள",
+    "gloss": "Already / in that short time (expresses pacing or surprise)",
+    "cluster": "connectors",
+    "priority": 1
+  },
+  {
+    "word": "இல்லாட்டி",
+    "gloss": "Otherwise / or else (Oracle: spoken 'illaatti', replaces literary 'illaiyel')",
+    "cluster": "connectors",
+    "priority": 1
+  },
+  {
+    "word": "அப்புறம்",
+    "gloss": "Afterwards / and then / what next? (Oracle: spoken 'apram', never literary 'pinbu')",
+    "cluster": "connectors",
+    "priority": 1
+  },
+  {
+    "word": "ஏன்னா",
+    "gloss": "Because (Oracle: spoken 'yennaa', replaces literary 'yenendril')",
+    "cluster": "connectors",
+    "priority": 1
+  },
+  {
+    "word": "அப்போ",
+    "gloss": "At that time / then in that case",
+    "cluster": "connectors",
+    "priority": 1
+  },
+  {
+    "word": "கண்டிப்பா",
+    "gloss": "Definitely / for sure (Oracle: spoken 'kandippa', replaces literary 'nichayamaaga')",
+    "cluster": "connectors",
+    "priority": 1
+  },
+  {
+    "word": "என்னன்னா",
+    "gloss": "The thing is / what happened is (conversational topic introducer)",
+    "cluster": "connectors",
+    "priority": 1
+  },
+  {
+    "word": "இருந்தாலும்",
+    "gloss": "Even so / nonetheless (contrastive connector)",
+    "cluster": "connectors",
+    "priority": 2
+  },
+  {
+    "word": "அதோட",
+    "gloss": "Along with that / in addition",
+    "cluster": "connectors",
+    "priority": 2
+  },
+  {
+    "word": "அதுக்காக",
+    "gloss": "For that purpose / on that account",
+    "cluster": "connectors",
+    "priority": 2
+  },
+  {
+    "word": "ஒருவேளை",
+    "gloss": "Perhaps / maybe / in case",
+    "cluster": "connectors",
+    "priority": 2
+  },
+  {
+    "word": "முக்கியமா",
+    "gloss": "Especially / mainly",
+    "cluster": "connectors",
+    "priority": 2
+  },
+  {
+    "word": "எதுக்கு",
+    "gloss": "For what reason / why (Oracle: spoken 'edhukku', more practical than 'yen')",
+    "cluster": "questions",
+    "priority": 1
+  },
+  {
+    "word": "யாருக்கு",
+    "gloss": "To whom / for whom (dative interrogative)",
+    "cluster": "questions",
+    "priority": 1
+  },
+  {
+    "word": "யார்கிட்ட",
+    "gloss": "With whom (animate locative interrogative)",
+    "cluster": "questions",
+    "priority": 1
+  },
+  {
+    "word": "எத்தனை மணிக்கு",
+    "gloss": "At what time / which hour",
+    "cluster": "questions",
+    "priority": 1
+  },
+  {
+    "word": "எப்ப இருந்து",
+    "gloss": "Since when / from what time",
+    "cluster": "questions",
+    "priority": 1
+  },
+  {
+    "word": "எது வரைக்கும்",
+    "gloss": "Until where / up to which point",
+    "cluster": "questions",
+    "priority": 2
+  },
+  {
+    "word": "இன்னைக்கு",
+    "gloss": "Today (Oracle: spoken 'innaikku', never literary 'indru')",
+    "cluster": "time_units",
+    "priority": 1
+  },
+  {
+    "word": "நாளைக்கு",
+    "gloss": "Tomorrow (spoken 'naalaikku')",
+    "cluster": "time_units",
+    "priority": 1
+  },
+  {
+    "word": "நேத்து",
+    "gloss": "Yesterday (Oracle: spoken 'nethu', never literary 'netru')",
+    "cluster": "time_units",
+    "priority": 1
+  },
+  {
+    "word": "காலையில",
+    "gloss": "In the morning (spoken 'kaalaila')",
+    "cluster": "time_units",
+    "priority": 1
+  },
+  {
+    "word": "மத்தியானம்",
+    "gloss": "In the afternoon (spoken 'madhiyaanam')",
+    "cluster": "time_units",
+    "priority": 1
+  },
+  {
+    "word": "சாயந்திரம்",
+    "gloss": "In the evening (spoken 'saayandhram')",
+    "cluster": "time_units",
+    "priority": 1
+  },
+  {
+    "word": "எப்பவும்",
+    "gloss": "Always / at all times",
+    "cluster": "time_units",
+    "priority": 1
+  },
+  {
+    "word": "அப்புறமா",
+    "gloss": "Later on / afterwards (temporal delay)",
+    "cluster": "time_units",
+    "priority": 1
+  },
+  {
+    "word": "முந்தாநாள்",
+    "gloss": "Day before yesterday (spoken 'mundhaanaal')",
+    "cluster": "time_units",
+    "priority": 2
+  },
+  {
+    "word": "நாளான்னைக்கு",
+    "gloss": "Day after tomorrow (spoken 'naalaannaikku')",
+    "cluster": "time_units",
+    "priority": 2
+  },
+  {
+    "word": "தினமும்",
+    "gloss": "Daily / every single day",
+    "cluster": "time_units",
+    "priority": 2
+  },
+  {
+    "word": "இப்போதைக்கு",
+    "gloss": "For now / temporarily (spoken 'ippodhikku')",
+    "cluster": "time_units",
+    "priority": 2
+  },
+  {
+    "word": "கொஞ்சம்",
+    "gloss": "A little / somewhat (spoken 'konjam')",
+    "cluster": "descriptions",
+    "priority": 1
+  },
+  {
+    "word": "சீக்கிரம்",
+    "gloss": "Quickly / fast / early",
+    "cluster": "descriptions",
+    "priority": 1
+  },
+  {
+    "word": "நல்லா",
+    "gloss": "Well / thoroughly / good (Oracle: spoken 'nalla', never literary 'nandraaga')",
+    "cluster": "descriptions",
+    "priority": 1
+  },
+  {
+    "word": "பத்திரம்",
+    "gloss": "Careful / safe (e.g. pathrama car ottunga)",
+    "cluster": "descriptions",
+    "priority": 1
+  },
+  {
+    "word": "சரியா",
+    "gloss": "Correctly / accurately",
+    "cluster": "descriptions",
+    "priority": 1
+  },
+  {
+    "word": "மோசம்",
+    "gloss": "Bad / terrible / poor quality",
+    "cluster": "descriptions",
+    "priority": 2
+  },
+  {
+    "word": "சுடச்சுட",
+    "gloss": "Piping hot (food/tea descriptor)",
+    "cluster": "descriptions",
+    "priority": 2
+  },
+  {
+    "word": "குளிரா",
+    "gloss": "Cold / chilly",
+    "cluster": "descriptions",
+    "priority": 2
+  },
+  {
+    "word": "புதுசா",
+    "gloss": "Newly / freshly",
+    "cluster": "descriptions",
+    "priority": 2
+  },
+  {
+    "word": "தப்பா",
+    "gloss": "Wrongly / mistakenly",
+    "cluster": "descriptions",
+    "priority": 2
+  },
+  {
+    "word": "பரவால்ல",
+    "gloss": "Never mind / that's okay / don't mention it (Oracle: spoken 'paravaala')",
+    "cluster": "social_reaction",
+    "priority": 1
+  },
+  {
+    "word": "நன்றி",
+    "gloss": "Thank you (polite acknowledgment)",
+    "cluster": "social_reaction",
+    "priority": 1
+  },
+  {
+    "word": "வணக்கம்",
+    "gloss": "Greetings / formal hello",
+    "cluster": "social_reaction",
+    "priority": 1
+  },
+  {
+    "word": "வாழ்த்துகள்",
+    "gloss": "Congratulations / best wishes (Oracle: standard modern spelling)",
+    "cluster": "social_reaction",
+    "priority": 2
+  },
+  {
+    "word": "மன்னிக்கணும்",
+    "gloss": "Excuse me / pardon (polite spoken apology)",
+    "cluster": "social_reaction",
+    "priority": 2
+  },
+  {
+    "word": "தயவு செஞ்சு",
+    "gloss": "Please (earnest spoken request)",
+    "cluster": "social_reaction",
+    "priority": 2
+  },
+  {
+    "word": "நல்லவேளை",
+    "gloss": "Thank goodness / lucky that (expresses relief)",
+    "cluster": "social_reaction",
+    "priority": 2
+  },
+  {
+    "word": "நம்ம",
+    "gloss": "We (inclusive of listener; Oracle: distinction between inclusive 'namma' and exclusive 'naanga' is vital)",
+    "cluster": "pronouns",
+    "priority": 1
+  },
+  {
+    "word": "நாங்க",
+    "gloss": "We (exclusive of listener)",
+    "cluster": "pronouns",
+    "priority": 1
+  },
+  {
+    "word": "அவங்க",
+    "gloss": "They / she respectful (Oracle: spoken 'avanga', replaces literary 'avargal')",
+    "cluster": "pronouns",
+    "priority": 1
+  },
+  {
+    "word": "இவங்க",
+    "gloss": "These people / she respectful nearby",
+    "cluster": "pronouns",
+    "priority": 1
+  },
+  {
+    "word": "அவரு",
+    "gloss": "He respectful / elder (Oracle: spoken 'avaru', respectful reference for elders/in-laws)",
+    "cluster": "pronouns",
+    "priority": 1
+  },
+  {
+    "word": "இவரு",
+    "gloss": "He respectful nearby",
+    "cluster": "pronouns",
+    "priority": 2
   }
 ]
