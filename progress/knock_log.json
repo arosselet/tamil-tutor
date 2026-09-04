@@ -6486,9 +6486,9 @@
         "ask": "Giving a quick reason — the word for 'because':"
       }
     ],
-    "volley_next": 3,
+    "volley_next": 4,
     "response": "reply",
-    "reply": "Akka",
+    "reply": "Enna semai?",
     "reply_verdict": "miss",
     "reply_fired": [
       "அம்மா"
@@ -6497,8 +6497,8 @@
       "அம்மா"
     ],
     "reply_fired_capped": [],
-    "reply_line": "close — sister is akka, but for 'she' casually it's 'ava'. · 3/4 — Wife is stirring a pot at the stove. Ask her informally: what are you cooking?",
-    "reply_at": "2026-09-04T11:19:33Z",
+    "reply_line": "close — to her it's 'enna samaikkira?'. · 4/4 — Giving a quick reason — the word for 'because':",
+    "reply_at": "2026-09-04T11:24:11Z",
     "exchanges": [
       {
         "at": "2026-09-04T11:13:26Z",
@@ -6529,10 +6529,25 @@
         "slips": [],
         "spoke": "",
         "scheduled": ""
+      },
+      {
+        "at": "2026-09-04T11:24:11Z",
+        "reply": "Enna semai?",
+        "verdict": "miss",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "close — to her it's 'enna samaikkira?'. · 4/4 — Giving a quick reason — the word for 'because':",
+        "slips": [
+          "noun-for-verb"
+        ],
+        "spoke": "",
+        "scheduled": ""
       }
     ],
-    "chained": 2,
-    "pinned_target": "என்ன சமைக்கிற?",
+    "chained": 3,
+    "pinned_target": "ஏன்னா",
     "pinned_revealed": false
   }
 ]

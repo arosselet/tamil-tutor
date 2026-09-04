@@ -30,6 +30,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > close — sister is akka, but for 'she' casually it's 'ava'. · 3/4 — Wife is stirring a pot at the stove. Ask her informally: what are you cooking?
 
+**16:54 · Andrew** — **MISS**
+> Enna semai?
+
+**Anna ↩**
+> close — to her it's 'enna samaikkira?'. · 4/4 — Giving a quick reason — the word for 'because':
+
 
 ## Thursday 2026-09-03
 
