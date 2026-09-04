@@ -6456,5 +6456,36 @@
     "chained": 1,
     "pinned_target": "போதும்",
     "pinned_revealed": false
+  },
+  {
+    "date": "2026-09-04",
+    "timestamp": "2026-09-04T10:19:23.954276+00:00",
+    "acted": true,
+    "modality": "volley",
+    "move": "volley: kitchen round",
+    "rationale": "Afternoon slot with zero demand streak; Andrew fired cold on recent knocks, so run the binding volley to lock production on kitchen and pronoun targets.",
+    "next_check": "2026-09-04T13:49:23.954276+00:00",
+    "body": "⚡ volley 1/4 — Walk into the kitchen looking for mom — call out to her in one word:",
+    "expected_target": "அம்மா",
+    "target_revealed": false,
+    "volley": [
+      {
+        "target": "அம்மா",
+        "ask": "Walk into the kitchen looking for mom — call out to her in one word:"
+      },
+      {
+        "target": "அவ",
+        "ask": "Referring to your wife's sister casually: 'she' (informal):"
+      },
+      {
+        "target": "என்ன சமைக்கிற?",
+        "ask": "Wife is stirring a pot at the stove. Ask her informally: what are you cooking?"
+      },
+      {
+        "target": "ஏன்னா",
+        "ask": "Giving a quick reason — the word for 'because':"
+      }
+    ],
+    "volley_next": 1
   }
 ]
