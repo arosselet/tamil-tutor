@@ -272,7 +272,15 @@ CODE_BUDGETS = {
     # Nine of the twenty-one other modules imported this file and almost none of
     # them wanted the knock. Same move it made on 2026-08-01 for OUTREACH_MANDATE,
     # and the same law: a mandate at its ceiling gets split, not raised.
-    "scripts/morning_knock.py": 450,
+    # 450 → 400 (2026-09-04): RE-CENSUSED DOWN, not raised — the same move
+    # `knock_reply` made on 08-24 and this file made on 08-01. It sat at 442/450
+    # with 8 lines of headroom and now sits at 391, because four things that were
+    # never knock-shaped left in one diff: the reach budget to `rails.py`,
+    # `render_memo` to `memo.py`, `maybe_enqueue_schedule` to the queue it
+    # writes, and `load_json` / `KNOCK_LOG_PATH` / `is_fire` / `local_date` home
+    # to `state_io`. Nothing about the knock got smaller; the file stopped being
+    # four other things. Nine lines of headroom, which is what it had before.
+    "scripts/morning_knock.py": 400,
     # The mandate as a module: almost entirely prompt string (word-budgeted as
     # OUTREACH_MANDATE in PROSE_BUDGETS above), so its code budget exists only
     # to satisfy the every-file-is-budgeted guard and to catch machinery
@@ -1058,11 +1066,11 @@ CYCLE_EXCEPTIONS = {
     # RETIRED 2026-09-04 — morning_knock <-> push_queue. The note that stood here
     # named its own death condition ("Dies with the L0 residue push_queue still
     # takes through morning_knock — KNOCK_LOG_PATH, LOCAL_TZ, load_json"), and
-    # that is what happened: the L0 residue went home to `state_io`, the rails to
-    # `rails.py`, and `render_memo` to `memo.py`. The queue no longer imports the
-    # knock lane at all, so there is no cycle left for the deferred import in
-    # `maybe_enqueue_schedule` to break. Handing the licence back is part of
-    # landing the fix.
+    # that is exactly what happened: the L0 residue went home to `state_io`, the
+    # rails went to `rails.py`, `render_memo` went to `memo.py`, and
+    # `maybe_enqueue_schedule` went to the queue it writes. The edge is one-way
+    # now — the knock calls the queue's public API and the queue calls nothing of
+    # the knock's. Handing the licence back is part of landing the fix.
     frozenset({"sync_state", "session_brief"}):
         "the `status` CLI facade above; broken by a deferred import in main().",
 }
@@ -1206,6 +1214,63 @@ def s75_the_stack_is_one_way():
           _breaks({("high", "low"): "module", ("mid", "low"): "deferred"},
                   toy_layers) == ([], set()),
           "a checker that never fires would read green on every tree")
+
+
+def s92_the_knock_lane_is_not_a_foundation():
+    """`morning_knock` has no importers, and that is the whole assertion (2026-09-04).
+
+    WHAT IT CAUGHT. Four peer lanes imported from it — `knock_reply`,
+    `knock_message`, `reply_common` and `push_queue` — taking seven names between
+    them: `MAX_REACHES_PER_DAY` and `fires_today` (the reach budget, which the
+    queue obeys too), `render_memo` (TTS), `maybe_enqueue_schedule` (which writes
+    the queue), and `KNOCK_LOG_PATH` / `LOCAL_TZ` / `load_json`, all three of
+    which already had a home in `state_io`. None of it was knock-shaped. It was
+    in that file because the knock needed it first, and `publish.py`'s header
+    records the one time this shape already bit: `render_audio` had to defer
+    `from morning_knock import commit_and_push` to dodge a cycle.
+
+    WHY `s75` DOES NOT COVER IT. The stack guard catches an edge pointing to a
+    strictly HIGHER layer, and a declared cycle. Three of those four borrows were
+    neither: `knock_message` (5.7), `knock_reply` (5.8) and `reply_common` (5.6)
+    all sit ABOVE `morning_knock` (5.5), so importing down from them is legal and
+    silent. That is precisely how the erosion happened without a red run — the
+    law being broken was the OTHER one, "a channel never owns an invariant that
+    more than one channel obeys", and nothing had teeth on it.
+
+    WHY THIS NAMES ONE MODULE AND NOT A GENERAL LAW. Some lanes SHOULD be
+    imported: `push_queue` is a store with a public API, and `reply_common` and
+    `memo` exist to be shared. What separates them from `morning_knock` is intent
+    that no walk can read, so the honest guard is the specific fact this diff
+    established rather than a rule invented to generalise it. If a second lane
+    ever earns the same treatment, this becomes a list.
+
+    THE SILENT NO-OP, answered: a guard that looks up a module by string passes
+    vacuously the day that module is renamed or deleted — it would find no
+    importers and report green. So the walk is proved first: `morning_knock` must
+    still be a module the walk reached, and the walk must still be finding real
+    edges, before the absence below means anything.
+    """
+    print("\n92. The knock lane is not a foundation (2026-09-04)")
+    edges, mods = _import_edges(REAL_BASE / "scripts")
+
+    check("the walk still sees morning_knock, and still sees real edges",
+          "morning_knock" in mods and edges.get(("morning_knock", "push_queue")) == "module",
+          "a floor, not a target: if the module were renamed or the walk broke, "
+          "the emptiness asserted below would be free and would mean nothing")
+
+    importers = sorted(a for (a, b) in edges if b == "morning_knock")
+    check("no module imports morning_knock",
+          not importers,
+          f"{', '.join(importers)} import(s) the knock lane — a lane cannot be a "
+          f"foundation for its peers. The name wanted belongs in `state_io` (a "
+          f"path, a clock, a predicate), `rails` (a reach budget), `memo` (the "
+          f"voice renderer) or `push_queue` (the queue's own API), not here.")
+
+    # The positive control — a guard nothing can fail is not a guard.
+    synthetic = {("render_soak", "morning_knock"): "module"}
+    check("...and the check would actually fail if one appeared",
+          [a for (a, b) in synthetic if b == "morning_knock"] == ["render_soak"],
+          "the assertion above cannot detect a borrow, so its green means nothing")
 
 
 def s85_the_fixture_record_tracks_the_minted_one(sb: Path):

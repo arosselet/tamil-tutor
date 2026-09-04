@@ -589,7 +589,12 @@ def s35_quiet_hours_chokepoint(sb: Path):
             os.environ["ANNA_PUSH_WEBHOOK_URL"] = real_env
 
     # No lane may re-implement the rule; every push must go through the chokepoint.
-    for name in ("run_studio.py", "push_queue.py", "render_drill.py", "render_soak.py"):
+    # `morning_knock.py` joined the list 2026-09-04. It was the ONE lane exempt,
+    # and it was exempt because it was the lane that hand-rolled the compare —
+    # `rails_gate` derived the window itself while four quieter lanes were held
+    # to calling it. It now calls `in_waking_window(now)` like everyone else.
+    for name in ("run_studio.py", "push_queue.py", "render_drill.py", "render_soak.py",
+                 "morning_knock.py"):
         src = mechanism((src_dir / name).read_text(encoding="utf-8"))
         check(f"{name} does not hand-roll the waking-hour compare",
               "WAKING_START_HOUR <=" not in src, f"{name} carries its own copy")

@@ -27,7 +27,7 @@ MIN_PLAYABLE_BYTES = 2048
 CAPTIONS_DIR = "content/captions"  # follow-along sheets; GitHub blob URL renders the md
 RSS_FILE = "rss.xml"
 AUTHOR = "Andrew &amp; Claude"   # 2026-07-27, Andrew's call. Every lane writes on
-                                # morning_knock.MODEL since 2026-08-18 (agy retired), so
+                                # `writer.MODEL` since 2026-08-18 (agy retired), so
                                 # the single line is now literally true end to end.
                                 # Per-item attribution is possible — rebuild_rss already
                                 # knows each item's lane — if the single line ever stops

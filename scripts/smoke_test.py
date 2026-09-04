@@ -155,6 +155,7 @@ def main():
         run(state.s79_a_rating_lands_or_says_why, sb)
         run(state.s80_one_produced_resolver, sb)
         run(ratchets.s75_the_stack_is_one_way)
+        run(ratchets.s92_the_knock_lane_is_not_a_foundation)
         run(ratchets.s85_the_fixture_record_tracks_the_minted_one, sb)
         run(state.s86_a_tape_is_not_a_teacher, sb)
         run(state.s87_form_is_a_choice_per_order, sb)

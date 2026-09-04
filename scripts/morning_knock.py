@@ -60,7 +60,7 @@ from writer import BOOL, INT, STR, ask_json, executor_name, obj, to_phonetic, vo
 # `rails_gate` below: whether to wake ANNA is the knock lane's own policy, and no
 # other lane asks it.
 from rails import (MAX_REACHES_PER_DAY, MIN_GAP_HOURS, WAKING_END_HOUR,
-                   WAKING_START_HOUR, last_fire, reaches_today)
+                   WAKING_START_HOUR, in_waking_window, last_fire, reaches_today)
 from state_io import (KNOCK_LOG_PATH, LEARNER_PATH, LEXICON_PATH, LOCAL_TZ,
                       SESSION_LOG_PATH, is_fire, load_json, local_date)
 
@@ -97,7 +97,14 @@ def rails_gate(force: bool, now: datetime | None = None) -> tuple[bool, str]:
     if quiet_until and now_local.date() <= date.fromisoformat(quiet_until):
         return False, f"quiet_until {quiet_until} — in transit, not fading"
 
-    if not (WAKING_START_HOUR <= now_local.hour < WAKING_END_HOUR):
+    # CALL IT, don't re-derive it (2026-09-04). This was a hand-rolled
+    # `WAKING_START_HOUR <= now_local.hour < WAKING_END_HOUR` — the exact compare
+    # `smoke/publish.py` already forbids in four other lanes, and this file was
+    # the one lane missing from that list. Two copies of a host rule is how a
+    # host rule drifts: a weekend clause added to `in_waking_window` would have
+    # reached the queue, the drill, the soak and push_to_phone, and silently
+    # missed the knock gate.
+    if not in_waking_window(now):
         return False, f"quiet hours ({now_local:%H:%M} {now_local.tzname()})"
 
     klog = load_json(KNOCK_LOG_PATH) or []

@@ -15,7 +15,8 @@ and the commit exactly as in any other production run.
 TWO EXECUTORS, ONE MODEL (2026-08-18): `claude -p` where an agent exists (the
 laptop — no cash cost, reads canon off disk), the OpenRouter API where one does
 not (GitHub Actions — `inline_canon` carries the canon instead). Both run
-morning_knock.MODEL. This REPLACES agy/Gemini, retired the same day for running
+`writer.MODEL` (it was `morning_knock.MODEL` until the model config moved to
+`writer` on 2026-08-23; this comment said so until 2026-09-04). This REPLACES agy/Gemini, retired the same day for running
 on neither host.
 
 Exit 0 = episode rendered and published. Any other exit = the caller falls
@@ -74,7 +75,7 @@ PASS_TIMEOUT_S = 900   # 15 min per pass — each is one print turn
 # WHY `claude -p`: the laptop has an agent with a filesystem and a subscription
 # already paid for, so a local pass costs no cash and reads its canon off disk the
 # way agy did. A runner has neither, so it keeps the API. One model across both
-# (morning_knock.MODEL) — a host difference, never a model difference.
+# (`writer.MODEL`) — a host difference, never a model difference.
 #
 # READ-ONLY BY CONSTRUCTION: the PREAMBLE tells each pass it is print-only;
 # `--allowedTools` now enforces it. A pass can read the canon and nothing else —
