@@ -15,46 +15,27 @@ A year ago I started building a program to teach me my wife's family's Tamil.
 
 At the end of June it started deciding when to talk to me.
 
-A scheduled tick wakes it a few times a day. Whether the tick becomes a message
-is not on anybody's schedule. The other morning it decided the moment was worth
-spending and sent this:
 
-"One letter flips 'kekkuren' (asking now) to 'keppen' (will ask). Elders catch it
-instantly. Lunch session."
 
-Then it stopped. The explanation was withheld on purpose, to get me to turn up
-for a session at lunch. I read the whole thing off the lock screen without
-unlocking the phone.
+A scheduled tick wakes it a few times a day. Whether the tick becomes a message is not on anybody's schedule. The other morning it decided the moment was worth spending and sent this: "One letter flips 'kekkuren' (asking now) to 'keppen' (will ask). Elders catch it instantly. Lunch session."
 
-It always writes in the spoken register: போறேன் (poren) for "I'm going", which is
-what her family says, and never the textbook போகிறேன் (pogiren), which nobody
-in that house has said in their life.
 
-The obvious risk in letting a model choose when to interrupt you is that it
-chooses constantly. So the outer bounds were never its to set. Python holds the
-waking window at 8:00 to 21:00, a ceiling of five reaches a day, and three hours
-minimum between them — four constants across two files, and the model is never
-asked about any of them. Inside those bounds it paces itself, naming its own next
-check-in for Python to clamp between half an hour and a day. Everything else is
-its call: whether to speak, what to send, and in what form — a line of text, a
-challenge with something at stake, a ninety-second voice memo in its own pinned
-voice, or nothing.
 
-Silence is the one I'd build first if I started over. The rails throw out most
-wakes before Anna sees them; since 30 June she has been asked 179 times, and said
-nothing in 14 — the rest land at about two and a half messages a day. Without a
-way to log "not now", those 14 fire.
+Then it stopped. The explanation was withheld on purpose, to get me to turn up for a session at lunch. I read the whole thing off the lock screen without unlocking the phone.
 
-The other guard is about honesty rather than volume. If the notification already
-showed me the Tamil, typing it back can't score as knowing it: deterministic code
-reads the outgoing text and caps the credit before the grader gets a vote. On 22
-August I typed back a phrase the thread had handed me five times, and got back
-"not cold yet."
+It always writes in the spoken register: போறேன் (poren) for "I'm going", and never the textbook போகிறேன் (pogiren), which nobody in that house has said in their life.
 
-I never answered the kekkuren knock. Five hours later it sent the explanation
-anyway, unprompted, so the teaching wasn't held over to the next day. It ran the
-same pair in that day's session as a listening test, and the result was that I
-can produce the difference and can't hear it.
+
+
+The obvious risk in letting a model choose when to interrupt you is that it chooses constantly. So the outer bounds were never its to set. Python holds the waking window at 8:00 to 21:00, a ceiling of five reaches a day, and three hours minimum between them, four constants across two files, and the model is never asked about any of them. Inside those bounds it paces itself, naming its own next check-in for Python to clamp between half an hour and a day. Everything else is its call: whether to speak, what to send, and in what form; a line of text, a challenge with something at stake, a ninety-second voice memo in its own pinned voice, or nothing.
+
+
+
+Silence is the one I'd build first if I started over. The rails throw out most wakes before Anna (The tutor's name, meaning elder brother) sees them; since 30 June he has been asked 179 times, and said nothing in 14. The rest land at about two and a half messages a day. Without a way to log "not now", those 14 fire. The other guard is about honesty rather than volume. If the notification already showed me the Tamil, typing it back can't score as knowing it: deterministic code reads the outgoing text and caps the credit before the grader gets a vote. On 22 August I typed back a phrase the thread had handed me five times, and got back "not cold yet."
+
+
+
+I never answered the kekkuren knock. Five hours later it sent the explanation anyway, unprompted, so the teaching wasn't held over to the next day. It ran the same pair in that day's session as a listening test, and the result was that I can produce the difference and can't hear it yet.
 
 
 ================================================================================
