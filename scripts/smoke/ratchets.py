@@ -224,7 +224,17 @@ CODE_BUDGETS = {
     # detectors, speak(), ensure_voice, record_meta_note, the thread window —
     # left for reply_common.py so the MESSAGE lane could have it without
     # importing the grading lane. This file is grading and routing now.
-    "scripts/knock_reply.py": 560,
+    # 560 -> 563 (2026-09-05). RETIRED IN THIS DIFF: the six KNOWN_GAPS licences
+    # that stood in for `schedule` on this schema, and with them the outage they
+    # were describing — undeclared meant DELETED on the agent path, so every
+    # scheduled push this judge composed was dropped before Python saw it. Three
+    # lines to declare a key the mandate has always asked for.
+    #
+    # FLAGGED, NOT HIDDEN: at 563 this is the largest entry in the table, and the
+    # budget law says a file that keeps meeting its ceiling wants a split rather
+    # than a bigger number. This raise buys a correction, not room to grow; the
+    # next one should be a split.
+    "scripts/knock_reply.py": 563,
     # New surfaces, budgeted in the diff that creates them. reply_common is the
     # split the 08-27 raise said was coming; knock_message is the lane that
     # forced it.
@@ -280,7 +290,12 @@ CODE_BUDGETS = {
     # writes, and `load_json` / `KNOCK_LOG_PATH` / `is_fire` / `local_date` home
     # to `state_io`. Nothing about the knock got smaller; the file stopped being
     # four other things. Nine lines of headroom, which is what it had before.
-    "scripts/morning_knock.py": 400,
+    # 400 -> 402 (2026-09-05). RETIRED IN THIS DIFF: the two KNOWN_GAPS licences
+    # for `schedule` and `volley_asks` on DECIDE_SCHEMA, and the false premise in
+    # the comment above it — "undeclared keys still pass through untouched", true
+    # of the API path and false of the agent path, which is why both keys were
+    # being deleted rather than passed.
+    "scripts/morning_knock.py": 402,
     # The mandate as a module: almost entirely prompt string (word-budgeted as
     # OUTREACH_MANDATE in PROSE_BUDGETS above), so its code budget exists only
     # to satisfy the every-file-is-budgeted guard and to catch machinery

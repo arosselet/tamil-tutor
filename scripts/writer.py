@@ -339,6 +339,30 @@ def obj(**props) -> dict:
     return {"type": "object", "properties": props, "required": list(props)}
 
 
+def nullable(schema: dict) -> dict:
+    """The same shape, or null — for a key a mandate declares CONDITIONAL.
+
+    ADDED 2026-09-05, and it closes a live defect rather than a tidiness gap.
+    `obj()` marks everything it names as required, so a key that is legitimately
+    "an object, or null" had no way to be declared at all. `schedule` is the case:
+    both OUTREACH_MANDATE and JUDGE_MANDATE ask for it followed by `| null`, and
+    both schemas left it out because there was no way to say that — which means
+    the agent path has been DROPPING every schedule the judge composed. Not a
+    theoretical gap: `knock_reply` normalises a missing schedule to None and
+    carries on, so a scheduled push Anna composed simply never existed, quietly,
+    on every judged reply since `claude -p` became the writer.
+
+    Undeclaring a key to express "optional" is exactly backwards — undeclared
+    means DELETED on the agent path and passed through on the API path, which is
+    the executor-dependent trap `obj` documents. Declared-and-nullable is the
+    same statement made where both executors can read it.
+
+    Verified against the real CLI before landing (2026-09-05): with a nullable
+    object declared, `claude -p --json-schema` returns `"schedule": null` when
+    there is nothing to schedule and a full object when there is."""
+    return {**schema, "type": [schema["type"], "null"]}
+
+
 def arr(**props) -> dict:
     """An array of objects with `props`. Item shape is declared, not implied —
     left unconstrained, an array of {say, en} comes back as an array of strings

@@ -1491,26 +1491,23 @@ def s82_the_catch_lane_has_a_mouth(mk, kr, sb: Path):
         check(f"{name} declares voice_reply, so the agent cannot eat it",
               "voice_reply" in schema.get("properties", {}))
 
-    # An edge that is allowed to stay broken, named, with why — the UP_EXCEPTIONS
-    # idiom. It can only shrink: handing the licence back is part of the fix.
-    KNOWN_GAPS = {("JUDGE_SCHEMA", "schedule"):
-                  "nullable and obj() has no nullable form — docs/feature_inbox.md",
-                  ("DECIDE_SCHEMA", "schedule"):
-                  "same nullable gap, same lane — docs/feature_inbox.md",
-                  ("DECIDE_SCHEMA", "volley_asks"):
-                  "conditional on modality volley; obj() has no optional form"}
-    # THE SCHEDULE SUBTREE, licensed 2026-09-05 when the needle stopped being
-    # line-anchored and could finally see inside `"schedule": {…}`. These are not
-    # six new gaps: they are the FIELDS of the one nullable key already licensed
-    # above, and a child cannot be declared while its parent cannot. They are
-    # written out per-key rather than pattern-matched so the list still reads as
-    # a list of things that are broken, and so it shrinks in one move — the day
-    # `obj()` grows a nullable form, `schedule` and all six go together.
-    for _s, _keys in (("JUDGE_SCHEMA", ("at_local", "body", "memo_script",
-                                        "expected_target", "target_revealed", "move")),
-                      ("DECIDE_SCHEMA", ("at_local", "body"))):
-        for _k in _keys:
-            KNOWN_GAPS[(_s, _k)] = f"a field of the nullable `schedule` object on {_s}"
+    # KNOWN_GAPS IS GONE — 2026-09-05, and the way it went is the point.
+    #
+    # It licensed three keys, then ten after the needle widened enough to see
+    # inside `"schedule": {…}`. Every entry said the same thing: `obj()` has no
+    # nullable form, so a key the mandate marks `| null` cannot be declared. That
+    # was read as a documentation problem for eight months and it was a DEFECT:
+    # undeclared does not mean optional, it means deleted on the agent path. The
+    # licences were describing a live feature outage — every scheduled push and
+    # every volley ask the model composed, dropped before Python saw it.
+    #
+    # `writer.nullable` says "or null" where both executors read it, both schemas
+    # now declare their conditional keys, and the ten licences delete with the
+    # gap they documented. An allowlist that can only shrink is the right shape;
+    # one that shrinks to nothing because the thing it excused got FIXED is the
+    # point of writing it down at all.
+    KNOWN_GAPS: dict[tuple[str, str], str] = {}
+
     # THE AUDIO LANES JOINED THIS LIST ON 2026-09-01, and that they were missing
     # from it is the whole story of the second occurrence. This guard was built
     # for voice_reply on 08-28 and left covering only the lane that had been

@@ -52,7 +52,8 @@ from publish import commit_and_push, load_env, publish, push_to_phone
 # could have them without importing the grading lane (reply_common.py).
 from reply_common import (_ts, ensure_voice, recent_exchanges,
                           record_meta_note, speak, wants_scheduled_push)
-from writer import BOOL, STR, arr, ask_json, executor_name, obj, to_phonetic, voice_canon
+from writer import (BOOL, STR, arr, ask_json, executor_name, nullable, obj,
+                    to_phonetic, voice_canon)
 
 # Each judge declares its OWN top-level shape, beside itself (2026-08-23) —
 # never a shared or generic one, which is how `claude -p` came back with an
@@ -81,7 +82,17 @@ JUDGE_SCHEMA = obj(verdict=STR, fired=arr(word=STR, said=STR, verdict=STR),
                    # the schema never named it — so the agent path has been eating
                    # every knock-lane slip since 2026-08-18. An empty list is a
                    # real answer here (unlike `schedule`), so it declares cleanly.
-                   slips=arr(tag=STR, said=STR, want=STR, note=STR))
+                   slips=arr(tag=STR, said=STR, want=STR, note=STR),
+                   # DECLARED 2026-09-05 (`writer.nullable`). It was absent because
+                   # obj() had no nullable form, and absent means the agent path
+                   # DELETED it — so every schedule this judge composed since
+                   # `claude -p` became the writer was dropped before anything
+                   # could queue it. `memo_script` is here and not on DECIDE's copy
+                   # because only the reply lane's mandate offers a scheduled dose
+                   # a voice. Retires six KNOWN_GAPS licences in smoke s82.
+                   schedule=nullable(obj(
+                       at_local=STR, body=STR, memo_script=STR, expected_target=STR,
+                       target_revealed=BOOL, move=STR)))
 CATCH_SCHEMA = obj(verdict=STR, reply_line=STR, meta_note=STR, rationale=STR,
                    voice_reply=STR,
                    # Same shape as JUDGE_SCHEMA's `fired` on purpose: the mouth

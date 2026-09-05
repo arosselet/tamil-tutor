@@ -50,7 +50,7 @@ from push_queue import maybe_enqueue_schedule
 from publish import (BODY_BUDGET, KNOCKS_DIR,
                      commit_and_push, jsdelivr_url, load_env, over_budget,
                      publish, push_to_phone)
-from writer import (BOOL, INT, STR, STRS, ask_json, executor_name, obj,
+from writer import (BOOL, INT, STR, STRS, ask_json, executor_name, nullable, obj,
                     to_phonetic, voice_canon)
 
 # ── The rails (hard, Python-enforced — Anna cannot cross these) ───────────────
@@ -558,13 +558,25 @@ def normalize_decision(d: dict, volley_menu: list | None = None) -> dict:
 # 2026-08-23 rule, and not a candidate for centralising: a generic
 # `{"type": "object"}` is what made `claude -p` answer in an envelope and a lane
 # render an empty dose with every instrument green. Keys mirror OUTREACH_MANDATE.
-# `volley_asks` and `schedule` are absent on purpose — the mandate declares both
-# as conditional ("ONLY for modality volley" / "| null") and everything named in
-# `obj()` is REQUIRED. Undeclared keys still pass through untouched.
+# `volley_asks` and `schedule` WERE absent on purpose, and the reasoning had a
+# false premise — corrected 2026-09-05. The old note ended "undeclared keys still
+# pass through untouched", which is true of the API path and FALSE of the agent
+# path: `claude -p --json-schema` deletes what `obj()` did not name (see
+# `writer.obj`, and the six fields lost to it this month). So leaving a
+# conditional key undeclared did not make it optional, it made it impossible —
+# every volley ask and every scheduled push this lane composed was being dropped
+# before Python could read it. `writer.nullable` is how "or null" is said in a
+# place both executors respect. Retires two KNOWN_GAPS licences in smoke s82.
 DECIDE_SCHEMA = obj(act=BOOL, modality=STR, move=STR, stance=STR,
                     introduces=STRS, notification_body=STR, memo_script=STR,
                     expected_target=STR, target_revealed=BOOL,
-                    next_check_hours=INT, rationale=STR)
+                    next_check_hours=INT, rationale=STR,
+                    volley_asks=nullable(STRS),
+                    # No `memo_script` here: the outreach mandate's scheduled dose
+                    # is text, and only the reply lane offers one a voice.
+                    schedule=nullable(obj(
+                        at_local=STR, body=STR, expected_target=STR,
+                        target_revealed=BOOL, move=STR)))
 
 
 def decide(digest: str, volley_menu: list | None = None) -> dict:
