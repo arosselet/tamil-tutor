@@ -798,7 +798,7 @@ def s89_every_voice_lane_carries_the_dialect(sb: Path):
     check("...and the guard is restored", w.voice_canon() == canon)
 
 
-def s94_the_payoff_closes_the_tape(sb: Path):
+def s95_the_payoff_closes_the_tape(sb: Path):
     """An eavesdrop tape now comes back with its meaning attached (2026-09-05,
     Andrew, on the town-bank tape: *"it was almost incomprehensible to me… I hear
     it a couple of times, it's mostly noise, I guess at the answer"*).
