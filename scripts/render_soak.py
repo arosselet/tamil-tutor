@@ -65,9 +65,18 @@ from writer import STR, arr, ask_json, executor_name, obj, voice_canon
 # one. So the agent path dropped `say` off every item, every item failed the
 # filter, every cluster was dropped, and the lane rendered intro + outro over
 # an empty `clusters` — a 12-second file that published to the feed, pushed to
-# his lock screen and marked the standing order DELIVERED, exit 0. `arr`'s own
-# docstring uses `{say, en}` as its worked example; this line was the typo
-# against it. Third instance of the class after `voice_reply` and `introduces`
+# his lock screen and marked the standing order DELIVERED, exit 0.
+#
+# IT WAS AN INCOMPLETE RENAME, NOT A TYPO (checked 2026-09-05, after the commit
+# message got this wrong). `bd01815` — the 09-03 port sweep — renamed this field
+# from `ta` to `say` precisely BECAUSE `ta` is the ISO code for Tamil and a
+# language fact has no business being a field name in a lane. It renamed the
+# mandate's four mentions, the filter, both reads in `render`, and the delivery
+# seam. It missed this line alone, because `arr(ta=STR, en=STR)` does not read
+# as a language fact — it reads as a shape. The lane does not run on a clock, so
+# the next soak commissioned was the first firing after the rename: planted
+# Thursday, detonated Saturday. Third instance of the class after `voice_reply`
+# and `introduces`
 # — the guard is smoke `s82`, which sweeps every lane's schema against the keys
 # its MANDATE names; it read green through this one because its needle was
 # line-anchored and `say` shares a line with `en`. Both are fixed together.
