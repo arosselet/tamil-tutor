@@ -833,5 +833,29 @@
     "note": "needs the active verb ending for her, not the noun",
     "word": "",
     "dose_channel": "soak"
+  },
+  {
+    "at": "2026-09-05T10:29:56Z",
+    "date": "2026-09-05",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "respect-nga",
+    "said": "vendaam",
+    "want": "vendaanga",
+    "note": "drops the -nga when speaking TO an elder; same respect axis as honorific-verb's -aar-, different slot",
+    "word": "",
+    "dose_channel": "drill"
+  },
+  {
+    "at": "2026-09-05T10:29:56Z",
+    "date": "2026-09-05",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "respect-nga",
+    "said": "ukarala",
+    "want": "ukkaarunga",
+    "note": "reached for the -la negative where the -nga imperative was owed; told her she had not sat instead of seating her",
+    "word": "",
+    "dose_channel": "drill"
   }
 ]

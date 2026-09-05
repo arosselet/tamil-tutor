@@ -784,8 +784,8 @@
       71,
       72
     ],
-    "last_surfaced": "2026-09-03",
-    "reps": 16,
+    "last_surfaced": "2026-09-05",
+    "reps": 17,
     "exposures": 2
   },
   "தெரியும்": {
@@ -1153,8 +1153,8 @@
       10,
       11
     ],
-    "last_surfaced": "2026-09-03",
-    "reps": 5
+    "last_surfaced": "2026-09-05",
+    "reps": 6
   },
   "நீ": {
     "gloss": "You (informal - Peers/Cousins)",
@@ -1501,7 +1501,7 @@
     "gloss": "Please eat (respectful)",
     "phonetic": [],
     "recognition": "struggled",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [
       10,
       22,
@@ -1512,8 +1512,9 @@
       72,
       82
     ],
-    "last_surfaced": "2026-08-10",
-    "exposures": 4
+    "last_surfaced": "2026-09-05",
+    "exposures": 4,
+    "reps": 1
   },
   "உள்ள": {
     "gloss": "Inside",
@@ -5451,5 +5452,26 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": "2026-09-01"
+  },
+  "உட்காருங்க": {
+    "gloss": "Sit down (respectful)",
+    "phonetic": [
+      "ukkaarunga"
+    ],
+    "recognition": "struggled",
+    "production": "hinted",
+    "seen_in": [],
+    "last_surfaced": "2026-09-05",
+    "reps": 1
+  },
+  "வேண்டாங்க": {
+    "gloss": "No thank you (respectful) — the Kongu decline",
+    "phonetic": [
+      "vendaanga"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-09-05"
   }
 }
