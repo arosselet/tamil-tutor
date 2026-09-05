@@ -6572,5 +6572,20 @@
     "move": "evening table space",
     "rationale": "20:11 IST is dinner hour with family after two active replies today; let the table do the teaching tonight.",
     "next_check": "2026-09-05T02:29:05.374641+00:00"
+  },
+  {
+    "date": "2026-09-05",
+    "timestamp": "2026-09-05T05:08:58.340078+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "eavesdrop: town bank work",
+    "rationale": "Eavesdrop cadence due (3d gap, 28 catch items); testing ear-behind frame:happened-aachu in an overheard call.",
+    "next_check": "2026-09-05T09:38:58.340078+00:00",
+    "body": "🎧 Athai on the phone: 'nallapadiya' (went well). Did mama finish his work in town or not?",
+    "expected_target": "frame:happened-aachu",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-09-05T05-08.mp3",
+    "memo_script": "நம்ம மாமா இருக்கார்ல, காலைல எட்டு மணிக்கே டவுனுக்கு கிளம்பிட்டாரு.\n\nஅங்க பேங்க்ல கூட்டம் அதிகமா இருந்துச்சாம். பத்து மணிக்கு ஆரம்பிச்சு இப்பதான் எல்லாம் முடிஞ்சுச்சு.\n\nநான் கூட பயந்தேன், இன்னைக்கு ஆகுமா ஆகாதான்னு. ஆனா எல்லாம் நல்லபடியா ஆச்சு. மணி ரெண்டு ஆயிடுச்சு, இப்போதான் சாப்பிட போறாராம்.",
+    "mp3": "published_audio/knocks/knock_2026-09-05T05-08.mp3"
   }
 ]
