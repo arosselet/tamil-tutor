@@ -11,7 +11,11 @@
     "scene_seed": "a courtyard at night — one cousin just back from the town, one still packing to leave, and the aunt trying to work out which of them is where",
     "from": "2026-09-03",
     "focus": "COMPOUND VERBS, AND THE LAST VERB OWNS THE DIRECTION. He heard 'போய் பாத்துட்டு வந்தாரு' and gave back 'went' — the round trip read as one-way because his ear takes the first verb it knows and stops. Permute ONLY the final verb on matched two- and three-verb stacks: போய் பாத்துட்டு வந்தாரு / போய் பாத்துட்டு இருக்காரு, வந்து சாப்பிட்டு போனாரு / வந்து சாப்பிட்டு இருக்காரு. Same subject, same tense, same middle verbs throughout — the tail verb is the only moving part and it must be the loudest thing in the line. Do NOT permute person, do NOT permute tense, do NOT bring in a fourth verb. Never name a rule.",
-    "channel": "soak"
+    "channel": "soak",
+    "delivered": {
+      "channel": "soak",
+      "at": "2026-09-05"
+    }
   },
   "next_engine": "frame:polite-nga",
   "focus_cohort": [
