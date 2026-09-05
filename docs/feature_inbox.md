@@ -1436,3 +1436,68 @@ meaning anything and two Gate-2 holds were sitting on the wrong side of it. -->
   the one he enjoys is the one the system is most reluctant to send. Depth in this channel is
   one line plus a gloss; lore is the only shape that goes deeper. Open question, not a
   proposal: is the floor doing what it was built to do, or has it become the ceiling?
+
+## The model contract is written twice, and that is what keeps costing us fields (2026-09-05)
+
+**Gate 2 stop.** Proposed after the `say`/`ta` outage, attempted, and stopped when both
+candidate homes turned out to be at their ceilings. Andrew's question that prompted it:
+*"is it unnecessarily brittle or complex... I'm worried this is fragile by design."* He is
+right, and this is the separation that would answer him.
+
+**THE DISEASE.** Every JSON lane describes its contract with the model TWICE: once as prose
+in `mandates.py` (a hand-written `{"key": "<what it is>"}` skeleton) and once as a schema
+in the lane (`obj(...)`). Nothing ties them together. When they disagree, `claude -p
+--json-schema` silently deletes the key the mandate asked for, and the lane renders a dose
+with the payload missing. **Six fields lost to exactly this in one month** — `voice_reply`
+(08-28), `title` (09-01), `introduces` and `say` (09-05), and `reason` + `who` found by the
+sweep the same day. Not one of them crashed.
+
+**WHAT WE BUILT INSTEAD, and why it is the fragile part.** `s82` now sweeps every lane,
+comparing the schema against keys found by running a REGEX OVER ENGLISH PROSE
+(`"([a-z_]+)"\s*:`). It is a heuristic reading prose as if it were structure: it will go red
+the first time a mandate writes `"note":` inside an explanatory sentence, and a guard that
+cries wolf gets switched off. Beside it sit eight hand-written `KNOWN_GAPS` licences for the
+nullable `schedule` subtree whose staleness check cannot ever expire them (it asks whether
+the key is a top-level property; for a child of `schedule` that is permanently false). Both
+are machinery for NOTICING drift between two descriptions that should not both exist.
+
+**THE PROPOSAL, for a yes/no:** one description. The schema carries the key names and
+nesting; the mandate's skeleton is GENERATED from it and interpolated, so the two cannot
+disagree. The craft prose — 3-5 clusters, no scene, no grammar terms, under six words —
+stays exactly where it is in `mandates.py`, untouched. Only the skeleton moves.
+
+**WHAT IT RETIRES** (the argument for it — it is a deletion, not an addition): `s82`'s
+mandate-vs-schema sweep entirely, its prose-scanning needle, the eight `KNOWN_GAPS`
+licences, and the whole class of defect that cost six fields in a month. Key-name drift
+stops being detectable-after-the-fact and becomes impossible.
+
+**WHY IT NEEDS A NEW MODULE, which is the part that needs Andrew.** Measured 2026-09-05:
+
+  - `scripts/render_soak.py` is at **195/195** — zero headroom, cannot take a described
+    schema of its own.
+  - `scripts/mandates.py` is at **497/500** — three lines, and it would have to absorb both
+    the schema vocabulary and every lane's schema.
+  - `scripts/writer.py` is at **168/175**, enough for the renderer alone and nothing else.
+  - `obj / arr / STR / INT / BOOL / STRS` live in `writer.py` and are imported by **seven**
+    lanes, so they cannot simply move into `mandates.py` — though note the layering ratchet
+    would SURVIVE that move: they are pure dict builders, so `mandates` would still import
+    nothing.
+
+Three files at their ceilings around one concern is the split-or-retire signal the budget
+law describes, so the honest shape is a module owning the model contract — vocabulary,
+per-lane schemas, and the skeleton renderer — that both `mandates.py` and the lanes import.
+Adding a `scripts/*.py` is a structure-freeze decision and a `CODE_BUDGETS` entry in the
+same diff, which is why this is an inbox entry and not a commit.
+
+**A CONSTRAINT WORTH KNOWING BEFORE DESIGNING IT.** The per-key guidance is not merely
+structural — `"say"` currently carries *"natural Coimbatore colloquial in TAMIL SCRIPT
+ONLY"*. Moving that into a schema in a LANE would push Tamil-specific prompt prose back out
+into the lanes, which is the exact direction the port-surface work (`s93`, `PROMPT_HOMES`)
+has been consolidating away from. So either the schemas live in a declared prompt home, or
+the generated skeleton stays language-neutral and the teaching stays in the mandate. The
+second is cheaper and is what the aborted attempt assumed.
+
+**AND IT WOULD FORCE THE NULLABLE QUESTION**, which is currently parked as those eight
+licences: `obj()` has no optional or nullable form, which is why `schedule` and its six
+fields are undeclarable today. A contract module is where that belongs, and closing it
+would hand back every licence at once.
