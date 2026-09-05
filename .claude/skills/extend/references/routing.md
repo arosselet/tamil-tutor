@@ -31,6 +31,8 @@ report — do not create a substitute.
 | Drill script prompt (cue/answer format, Tamil script rule) | `scripts/mandates.py` → `DRILL_MANDATE`, `LINT_MANDATE` | Port surface — Tamil-specific rules embedded in prose. `render_drill.py` imports them; its own `COMMISSION_BRIEF` is prompt prose but language-agnostic, so it is NOT port surface |
 | Episode TTS voice pool (Chirp / WaveNet / Edge pools) | `scripts/render_audio.py` | Episode pools are local-render today; the cloud calls this module's Google segment renderer for knocks and scheduled voice doses |
 | RSS feed structure | `scripts/rebuild_rss.py` | `rss.xml` is the only feed (playlist retired 2026-07-03) |
+| Which feed row a dose gets, and which one REPLACES another | `scripts/rebuild_rss.py` → `superseded`, `KNOCK_AUDIO_RE` | A payoff supersedes its tape; the pairing is the shared timestamp and the test is the FILE, never a flag — a stamped-but-unrendered payoff must evict nothing |
+| The payoff pass — when a heard tape is re-cut with its meaning | `scripts/render_payoff.py` | `HOLD_HOURS` (when an unanswered tape closes), `TAPE_MODALITY` (eavesdrop only — widening it is a decision), `MAX_TRIES`. Its `PAYOFF_BRIEF` names no language, so it is NOT port surface (`s93`) |
 | Calibration dials (coverage %, new-word counts, pacing) | `progress/profile.md` → Calibration Notes | Change the number, not a prompt or protocol prose |
 | Spaced-repetition callback generation | `scripts/generate_callbacks.py` | |
 | Scheduled push composition and queue drain | `scripts/push_queue.py` | `drain --dry-run` previews without firing; `memo_script` makes an entry a voice dose rendered at fire time |

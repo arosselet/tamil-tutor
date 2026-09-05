@@ -900,6 +900,11 @@ PROMPT_AGNOSTIC = {
     "render_soak.py":
         "FOCUS_BRIEF — the carousel shape (one root or one ending per cluster, "
         "contrast is the lesson). True of any inflecting language.",
+    "render_payoff.py":
+        "PAYOFF_BRIEF — numbered lines in, one plain-English meaning per number "
+        "out. It names no language, no script and no morphology, because the "
+        "lane hands the model the tape rather than asking it to write one: a "
+        "fork changes the tape and changes nothing here.",
     "rebuild_rss.py":
         "RSS_TEMPLATE / ITEM_TEMPLATE — XML scaffolding, not a prompt at all. "
         "The feed's NAME and pitch are language facts and already live in the "

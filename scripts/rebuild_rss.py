@@ -170,16 +170,21 @@ def clean_title(raw_title: str, filename: str) -> str:
 # Every mp3 Anna pushes lands in `published_audio/knocks/`, whatever sent it
 # (Andrew, 2026-07-24: "all audio you push me should go in the feed" — a
 # dismissed notification must stay replayable, and the lock screen is
-# ephemeral). Three producers write there, each with its own prefix:
+# ephemeral). Four producers write there, each with its own prefix:
 #   knock_<ts>              — morning_knock.py, the ambient dose
 #   queued_q<id>_<ts>       — push_queue.py, a scheduled dose rendered at fire time
 #   reply_<ts>              — knock_reply.py, Anna answering a lock-screen reply aloud
-# Only `knock_` existed when this file was written, so the other two titled as
+#   payoff_<ts>             — render_payoff.py, a heard tape re-cut with its meaning;
+#                             it carries the KNOCK's timestamp, which is what pairs
+#                             the two here (see `superseded`) and what makes its
+#                             feed row read as the same dose, explained
+# Only `knock_` existed when this file was written, so the others titled as
 # their raw filename and sorted to the very bottom of the feed.
 KNOCK_AUDIO_RE = re.compile(
-    r"^(knock|queued|reply)_(?:q\d+_)?(\d{4})-(\d{2})-(\d{2})(?:T(\d{2})-(\d{2}))?")
+    r"^(knock|queued|reply|payoff)_(?:q\d+_)?(\d{4})-(\d{2})-(\d{2})(?:T(\d{2})-(\d{2}))?")
 
-KNOCK_KIND = {"knock": "Knock", "queued": "Scheduled", "reply": "Reply"}
+KNOCK_KIND = {"knock": "Knock", "queued": "Scheduled", "reply": "Reply",
+              "payoff": "Payoff"}
 
 
 def knock_meta():
@@ -206,11 +211,19 @@ def knock_meta():
         return {}
     meta = {}
     for e in entries:
+        pair = (e.get("move") or "", e.get("modality") or "")
         ref = e.get("mp3") or e.get("audio_url") or e.get("reply_audio_url") or ""
-        if ".mp3" not in ref:
-            continue
-        stem = os.path.basename(ref).removesuffix(".mp3")
-        meta[stem] = (e.get("move") or "", e.get("modality") or "")
+        if ".mp3" in ref:
+            meta[os.path.basename(ref).removesuffix(".mp3")] = pair
+        # The payoff is a SECOND mapping rather than another link in the chain
+        # above: an entry that has one also has the tape's own `mp3`, and the
+        # chain resolves to exactly one name per entry. Both rows are wanted —
+        # the payoff titles from the move like every other dose, and while both
+        # files exist (a rebuild between the render and the feed's next pass)
+        # the tape must not lose its label.
+        pay = e.get("payoff_mp3") or ""
+        if ".mp3" in pay:
+            meta[os.path.basename(pay).removesuffix(".mp3")] = pair
     return meta
 
 
@@ -228,6 +241,30 @@ def knock_title(filename: str, meta: dict) -> str:
             when += f" {m.group(5)}:{m.group(6)}"
     move = meta.get(base.removesuffix(".mp3"), ("", ""))[0]
     return f"{kind} — {when} · {move}" if move else f"{kind} — {when}"
+
+
+def superseded(episodes: list) -> list:
+    """Drop a tape the feed now has a payoff for (2026-09-05, Andrew).
+
+    An eavesdrop tape he could not parse is noise resident in the feed; the
+    payoff — the same tape with a meaning after every line — is what he keeps.
+    One dose, one row: `payoff_<ts>.mp3` replaces `knock_<ts>.mp3`, which is why
+    the payoff carries the KNOCK's timestamp and not its own.
+
+    KEYED ON THE ARTIFACT, NEVER ON A FLAG, and that is the whole point of doing
+    it here rather than in the lane. The failure that reads as success is a
+    payoff that was stamped and never rendered: a flag would evict the tape and
+    leave the row empty — the dose silently gone from the feed with nothing in
+    its place. A file that is not there supersedes nothing. This also runs AFTER
+    the playability floor, so an unplayable payoff cannot evict a playable tape.
+
+    The mp3 is not deleted: `published_audio/knocks/` is tracked and the CDN
+    serves it, so the log's `audio_url` and any link he already has still play."""
+    paid = {f.removeprefix("knocks/payoff_") for f in episodes
+            if f.startswith("knocks/payoff_")}
+    return [f for f in episodes
+            if not (f.startswith("knocks/knock_")
+                    and f.removeprefix("knocks/knock_") in paid)]
 
 
 def md_name(filename: str) -> str:
@@ -329,6 +366,11 @@ def feed_items():
             # visible and one tap to ignore, while a dose that silently never
             # appears is the failure this whole change exists to end.
             fmt = "knock/" + (meta.get(stem, ("", ""))[1] or "dose")
+            # A payoff is its own format, not a second eavesdrop row. "Does the
+            # payoff land better than the tape did" is the question this lane
+            # exists to answer, and it cannot be asked if both rate as `eavesdrop`.
+            if stem.startswith("payoff_"):
+                fmt = "payoff"
             if stem.startswith("reply_") or fmt in UNRATEABLE_FORMATS:
                 continue
         title = (item.findtext("title") or "").strip()
@@ -564,7 +606,7 @@ def generate_rss():
             skipped.append(f)
     if skipped:
         print(f"⚠ skipping {len(skipped)} unplayable file(s): {', '.join(skipped[:5])}")
-    episodes = playable
+    episodes = superseded(playable)
     knock_metadata = knock_meta()
 
     # Sort by mission number descending (newest first); drills sort above by date/time;

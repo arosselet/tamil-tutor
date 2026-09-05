@@ -15,6 +15,7 @@ import importlib
 import inspect
 import os
 import re
+import shutil
 import sys
 from pathlib import Path
 
@@ -761,8 +762,12 @@ def s89_every_voice_lane_carries_the_dialect(sb: Path):
     # native speakers reported the result (2026-07-31 "uncanny", 2026-09-01 "book
     # Tamil") before anyone read the routing. A new voice lane calls voice_canon()
     # or this fails.
+    # `render_payoff` joined 2026-09-05. Its MODEL writes English only — Python
+    # holds the Tamil — but Anna speaks its opener and closer, so it is a lane
+    # with a voice and it reaches the canon through the one seam like the rest.
     VOICE_LANES = ("knock_message", "knock_reply", "morning_knock",
-                   "render_drill", "render_rotation", "render_soak")
+                   "render_drill", "render_payoff", "render_rotation",
+                   "render_soak")
     for lane in VOICE_LANES:
         src = mechanism(raw_source(REAL_BASE / "scripts" / f"{lane}.py"))
         check(f"{lane} reaches the dialect law through the one seam",
@@ -791,3 +796,304 @@ def s89_every_voice_lane_carries_the_dialect(sb: Path):
         w.VOICE_CANON_FILES = was
     check("a missing canon file refuses, instead of quietly writing book Tamil", raised)
     check("...and the guard is restored", w.voice_canon() == canon)
+
+
+def s94_the_payoff_closes_the_tape(sb: Path):
+    """An eavesdrop tape now comes back with its meaning attached (2026-09-05,
+    Andrew, on the town-bank tape: *"it was almost incomprehensible to me… I hear
+    it a couple of times, it's mostly noise, I guess at the answer"*).
+
+    THE HOLE THIS FILLS, measured: eighteen tapes fired since 2026-07-16, four
+    got a graded answer, and `target_revealed` is false on every one — the system
+    has never once told him what a tape SAID.
+
+    GATE 7.2, ANSWERED OUT LOUD. Every failure mode of this lane ends with an mp3
+    in the feed and a console that says `done`:
+
+      · glosses rendered against the WRONG lines  → he learns the tape wrong, and
+        a count check passes it. So alignment is asserted by NUMBER, through a
+        deliberately scrambled sheet.
+      · a "gloss" that echoes the line back       → the tape said twice, explained
+        never; refused on script, not on length.
+      · the tape evicted from the feed by a payoff
+        that never rendered                       → the dose silently gone. The
+        feed keys on the FILE, so both directions are driven here.
+      · a stamp written over a dead render        → the tape retires with nothing
+        to play. Asserted by re-reading the log after the real entry point.
+      · a refusal that repeats every wake-up      → an undischargeable warning;
+        the try count is asserted to bound it, and the ledger line to be written
+        once rather than each time.
+
+    `deliver_rendered` is STUBBED here and asserted by its arguments, not run:
+    the tail itself is s73's subject, and what belongs to this lane is what it
+    hands over — an empty `delivered` (an eavesdrop's exposures are declared at
+    the knock seam and were stamped when the tape went out) and `claimed=False`.
+    """
+    print("\n94. The payoff — a heard tape comes back with its meaning (2026-09-05)")
+    import contextlib, io
+    rp = importlib.import_module("render_payoff")
+    rr = importlib.import_module("rebuild_rss")
+
+    ts, when = "2026-09-05T05-08", "2026-09-05T05:08:58.340078+00:00"
+    tape = ("நம்ம மாமா இருக்கார்ல, காலைல டவுனுக்கு கிளம்பிட்டாரு. "
+            "அங்க பேங்க்ல கூட்டம் அதிகமா இருந்துச்சாம்.\n\n"
+            "ஆனா எல்லாம் நல்லபடியா ஆச்சு.")
+    entry = {"date": "2026-09-05", "timestamp": when, "acted": True,
+             "modality": "eavesdrop", "move": "eavesdrop: town bank work",
+             "body": "Did mama finish his work in town or not?",
+             "memo_script": tape, "expected_target": "frame:happened-aachu",
+             "mp3": f"published_audio/knocks/knock_{ts}.mp3",
+             "response": "reply", "reply": "Yes", "reply_verdict": "caught"}
+
+    # ── The tape, split the way a gloss can attach to it.
+    lines = rp.tape_lines(tape)
+    check("the tape splits into its spoken lines, across the paragraph breath",
+          len(lines) == 3 and all(not ln.startswith(" ") for ln in lines),
+          f"got {lines}")
+    check("...and a tape with nothing in it produces no lines",
+          rp.tape_lines("") == [] and rp.tape_lines("\n\n") == [])
+
+    # ── WHEN IT FIRES. Publishing the meaning while the drift question is live
+    # hands him the answer key to a question he has not been asked yet.
+    now = rp._ts("2026-09-06T06:00:00+00:00")
+    live = {"timestamp": "2026-09-06T05:00:00+00:00"}
+    stale = {"timestamp": "2026-09-04T05:00:00+00:00"}
+    check("a tape he has not answered, inside its window, is NOT closed",
+          not rp.is_closed(live, now))
+    check("...the same tape a day later is", rp.is_closed(stale, now))
+    check("...and one he answered is closed the moment he did",
+          rp.is_closed({**live, "reply_verdict": "caught"}, now))
+    check("a dismissal closes it too — he heard it and moved on",
+          rp.is_closed({**live, "response": "dismissed"}, now))
+
+    # ── ALIGNMENT BY NUMBER. The scramble is the test: a lane that zips a
+    # returned list against its lines reads green on ordered fixtures forever and
+    # teaches him the tape wrong the first time a model returns them out of order.
+    scrambled = {"glosses": [{"n": 3, "en": "But it all went fine."},
+                             {"n": 1, "en": "Our uncle left for town in the morning."},
+                             {"n": 2, "en": "The bank was crowded, they say."}]}
+    got, why = rp.align(lines, scrambled)
+    check("a scrambled sheet is reassembled in TAPE order, not returned order",
+          got == ["Our uncle left for town in the morning.",
+                  "The bank was crowded, they say.", "But it all went fine."],
+          f"got {got} ({why})")
+    _, why = rp.align(lines, {"glosses": scrambled["glosses"][:2]})
+    check("a line with no meaning refuses the whole payoff", "no meaning" in why, why)
+    _, why = rp.align(lines, {"glosses": [{"n": i, "en": lines[i - 1]}
+                                          for i in (1, 2, 3)]})
+    check("...and a 'gloss' that echoes the line back is refused as unglossed",
+          "unglossed" in why, why)
+    _, why = rp.align(lines, {"glosses": [{"n": 1, "en": "a"}, {"n": 1, "en": "b"},
+                                          {"n": 2, "en": "c"}]})
+    check("...and a duplicated number cannot pass for the line it is missing",
+          "no meaning" in why, why)
+
+    log = sb / "progress" / "knock_log.json"
+    saved = {p: (sb / p).read_bytes() if (sb / p).exists() else None
+             for p in ("progress/knock_log.json", "progress/chat.md", "rss.xml",
+                       "progress/recent_audio.txt", "progress/audio_titles.json",
+                       "progress/feedback_log.json")}
+    knocks = sb / "published_audio" / "knocks"
+    cwd = os.getcwd()
+    try:
+        knocks.mkdir(parents=True, exist_ok=True)
+        (knocks / f"knock_{ts}.mp3").write_bytes(b"\xff\xfb" + b"\x00" * 4096)
+        write_json(log, [entry])
+        os.chdir(sb)
+
+        # ── WHAT IS DUE. The mp3 must be on disk: the payoff's first and last
+        # passes ARE that file, so a tape whose audio is gone is skipped rather
+        # than approximated.
+        check("a closed tape with no payoff is due", len(rp.pending([entry], now)) == 1)
+        check("...a live one is not", not rp.pending([{**entry, "response": "",
+                                                       "reply_verdict": "",
+                                                       "timestamp": live["timestamp"]}], now))
+        check("...one already paid off is not",
+              not rp.pending([{**entry, "payoff_mp3": "x.mp3"}], now))
+        check("...one that has spent its tries is not",
+              not rp.pending([{**entry, "payoff_tries": rp.MAX_TRIES}], now))
+        check("...and neither is a tape whose audio is not on disk",
+              not rp.pending([{**entry, "mp3": "published_audio/knocks/knock_gone.mp3"}],
+                             now))
+        check("a knock that is not a tape is never swept",
+              not rp.pending([{**entry, "modality": "text"}], now))
+        # ORDER IS THE FEATURE, not a detail: thirteen tapes were waiting the day
+        # this shipped, and oldest-first would have put the payoff for the tape he
+        # answered THAT MORNING thirteen wake-ups behind one from five weeks
+        # earlier — one tape a run, every instrument green, the payoff arriving
+        # long after he could remember hearing the thing.
+        older = {**entry, "date": "2026-08-01", "timestamp": "2026-08-01T17:56:00+00:00",
+                 "mp3": f"published_audio/knocks/knock_{ts}.mp3", "move": "an older tape"}
+        check("the tape he can still remember hearing is paid off first",
+              [e["date"] for e in rp.pending([older, entry], now)]
+              == ["2026-09-05", "2026-08-01"],
+              f"got {[e['date'] for e in rp.pending([older, entry], now)]}")
+
+        # ── THE FEED, BEFORE. The tape is the resident, as it has been since
+        # 2026-07-05.
+        with contextlib.redirect_stdout(io.StringIO()):
+            rr.generate_rss()
+        feed = (sb / "rss.xml").read_text(encoding="utf-8")
+        check("the raw tape is in the feed while it is the only thing there",
+              f"knock_{ts}.mp3" in feed)
+
+        # ── THE RHYTHM ITSELF, driven for real against a stubbed voice. Python
+        # owns this order (`render_soak`'s law) and nothing else asserts it: a
+        # walk that silently drops its last line — a zip over mismatched lists,
+        # one bad index — produces a shorter mp3 that plays fine and teaches the
+        # tape with a hole in it.
+        marks = {}
+
+        async def fake_seg(text, voice, index, tmp_dir):
+            mark = f"MRK[{voice[-4:]}:{text[:6]}]KRM".encode()
+            marks[text] = mark
+            f = os.path.join(tmp_dir, f"seg_{index}.bin")
+            with open(f, "wb") as fh:
+                fh.write(mark)
+            return f
+
+        real_seg, real_dur = rp.generate_segment_google, rr.audio_duration
+        try:
+            rp.generate_segment_google = fake_seg
+            rr.audio_duration = lambda _p: 90.0
+            walk = ["one.", "two.", "three."]
+            meanings = ["first meaning", "second meaning", "third meaning"]
+            out = sb / "published_audio" / "knocks" / "rhythm_probe.mp3"
+            with contextlib.redirect_stdout(io.StringIO()):
+                asyncio.run(rp.render(b"MRK[TAPE]KRM", walk, meanings,
+                                      {"opener": "here it is", "closer": "that's the answer"},
+                                      out))
+            body = out.read_bytes()
+            spoken = [m.decode() for m in
+                      re.findall(rb"MRK\[([ -~]{1,24})\]KRM", body)]
+            check("the payoff opens on Anna and closes on the tape, twice through",
+                  spoken[0].endswith(":here i") and spoken[1] == "TAPE"
+                  and spoken[-1] == "TAPE" and spoken.count("TAPE") == 2,
+                  f"got {spoken}")
+            def label(t):
+                return marks[t].decode()[4:-4]
+            walked = [o for o in spoken if ":" in o]
+            check("every line is spoken, glossed, and spoken again — none dropped",
+                  all(walked.count(label(ln)) == 2 for ln in walk)
+                  and all(walked.count(label(en)) == 1 for en in meanings),
+                  f"got {walked}")
+            check("...in tape order, meaning between the two sayings",
+                  spoken.index(label("two.")) < spoken.index(label("second meaning"))
+                  < spoken.index(label("three.")), f"got {spoken}")
+            check("the answer is named aloud before the blind pass",
+                  spoken.index(label("that's the answer")) == len(spoken) - 2,
+                  f"got {spoken}")
+            out.unlink()
+        finally:
+            rp.generate_segment_google, rr.audio_duration = real_seg, real_dur
+
+        # ── THE ROUND TRIP. Real entry point, stubbed at the boundaries only,
+        # then the LOG is re-read: `s41` shipped green in 2026-07-30 with a case
+        # that never drove the writer and never re-read the file, and the feature
+        # was dead for a day.
+        sheet = {"opener": "Athai on the phone about the bank.",
+                 "closer": "He finished — it all got done.",
+                 "glosses": scrambled["glosses"]}
+        handed = {}
+
+        async def fake_render(tape_bytes, ls, gs, sh, out_path):
+            out_path.parent.mkdir(parents=True, exist_ok=True)
+            out_path.write_bytes(tape_bytes + b"\x00" * 4096)
+            handed.update(tape=tape_bytes, lines=ls, glosses=gs)
+
+        real = (rp.write_sheet, rp.render, rp.google_credentials_ready,
+                rp.deliver_rendered, rp.commit_and_push, rp.push_to_phone, sys.argv)
+        try:
+            rp.write_sheet = lambda e, ls: sheet
+            rp.render = fake_render
+            rp.google_credentials_ready = lambda: None
+            rp.deliver_rendered = lambda **kw: handed.update(delivered=kw)
+            rp.commit_and_push = fx.Recorder()
+            rp.push_to_phone = fx.Recorder()
+            sys.argv = ["render_payoff.py"]
+            with contextlib.redirect_stdout(io.StringIO()):
+                rp.main()
+
+            # Byte equality, not "something audio-shaped": the first and last
+            # passes are the tape he actually heard, and a re-render of the same
+            # script is a different tape wearing its name.
+            check("the payoff replays HIS bytes, not a re-render of them",
+                  handed.get("tape") == (knocks / f"knock_{ts}.mp3").read_bytes(),
+                  "the tape passed to the render is not the file he heard")
+            check("the walk carries one meaning per line, in tape order",
+                  handed.get("glosses", [])[:1] ==
+                  ["Our uncle left for town in the morning."], f"got {handed.get('glosses')}")
+            paid = (knocks / f"payoff_{ts}.mp3")
+            check("the payoff mp3 lands beside the tape it explains", paid.exists())
+            stamped = read_json(log)[0]
+            check("...and the log carries it, re-read from disk after the writer ran",
+                  stamped.get("payoff_mp3") == f"published_audio/knocks/payoff_{ts}.mp3",
+                  f"got {stamped.get('payoff_mp3')!r}")
+            kw = handed.get("delivered", {})
+            check("the lane claims no exposure — the tape's was stamped at the knock",
+                  kw.get("delivered") == [] and kw.get("claimed") is False, f"got {kw}")
+            check("...and hands the knock log to the commit, so the stamp survives",
+                  any(str(p).endswith("knock_log.json") for p in kw.get("extra_paths", [])))
+
+            # ── THE FEED, AFTER. One dose, one row — and the tape's file is
+            # still on disk, because the CDN and the log still point at it.
+            with contextlib.redirect_stdout(io.StringIO()):
+                rr.generate_rss()
+            feed = (sb / "rss.xml").read_text(encoding="utf-8")
+            check("the payoff is in the feed", f"payoff_{ts}.mp3" in feed)
+            check("...and the tape it replaces is NOT — one dose, one row",
+                  f"knock_{ts}.mp3" not in feed)
+            check("...titled as the dose it explains, not as a filename",
+                  "Payoff — 2026-09-05 05:08 · eavesdrop: town bank work" in feed,
+                  feed[feed.find("Payoff"):][:80])
+            check("...while the tape's own audio stays on disk and playable",
+                  (knocks / f"knock_{ts}.mp3").exists())
+            check("the payoff is rateable under its own format, not as a second tape",
+                  any(i["format"] == "payoff" for i in rr.feed_items()),
+                  f"got {[i['format'] for i in rr.feed_items()]}")
+
+            # ── A PAYOFF THAT NEVER RENDERED EVICTS NOTHING. The eviction keys
+            # on the file; delete it and the tape is the resident again. This is
+            # the difference between "replaced" and "silently gone".
+            paid.unlink()
+            with contextlib.redirect_stdout(io.StringIO()):
+                rr.generate_rss()
+            feed = (sb / "rss.xml").read_text(encoding="utf-8")
+            check("with the payoff gone the tape is back in the feed",
+                  f"knock_{ts}.mp3" in feed and f"payoff_{ts}.mp3" not in feed)
+
+            # ── THE REFUSAL IS BOUNDED AND SAID ONCE. A sheet that cannot be
+            # aligned must not render, must not stamp, and must not write a
+            # ledger line every wake-up forever.
+            write_json(log, [entry])
+            rp.write_sheet = lambda e, ls: {"opener": "o", "closer": "c",
+                                            "glosses": [{"n": 1, "en": "only one"}]}
+            for _ in range(rp.MAX_TRIES):
+                with contextlib.redirect_stdout(io.StringIO()):
+                    rp.main()
+            after = read_json(log)[0]
+            notes = [n for n in read_json(sb / "progress" / "feedback_log.json")
+                     if "[payoff]" in n.get("note", "")]
+            check("a misaligned sheet renders nothing", not paid.exists())
+            check("...and stamps no payoff on the tape", not after.get("payoff_mp3"))
+            check("...counts its tries, so the retry is bounded",
+                  after.get("payoff_tries") == rp.MAX_TRIES, f"got {after}")
+            check("...and says so in the ledger exactly once, on the last try",
+                  len(notes) == 1, f"got {len(notes)} ledger lines")
+            out = io.StringIO()
+            with contextlib.redirect_stdout(out):
+                rp.main()
+            check("...after which the tape is left alone",
+                  "No closed tape" in out.getvalue(), out.getvalue())
+        finally:
+            (rp.write_sheet, rp.render, rp.google_credentials_ready,
+             rp.deliver_rendered, rp.commit_and_push, rp.push_to_phone,
+             sys.argv) = real
+    finally:
+        os.chdir(cwd)
+        shutil.rmtree(sb / "published_audio", ignore_errors=True)
+        for rel, blob in saved.items():
+            if blob is None:
+                (sb / rel).unlink(missing_ok=True)
+            else:
+                (sb / rel).write_bytes(blob)

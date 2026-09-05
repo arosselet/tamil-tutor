@@ -414,6 +414,16 @@ CODE_BUDGETS = {
     # mandates.py with the drill lane's two and the judge's six.
     # 210 → 195 (2026-08-24): re-censused DOWN — SOAK_MANDATE left on 08-24 and the delivery tail left with it.
     "scripts/render_soak.py": 195,
+    # Budgeted in the diff that created it (2026-09-05) — a new file with no
+    # entry here is a red run, because adding one is the obvious way past a
+    # ceiling. Census 224, +7%: 17 of those lines are PAYOFF_BRIEF, which
+    # `code_lines` counts as mechanism, so the real mechanism is ~200 and the
+    # headroom is one guard, not a feature. NOTE FOR THE NEXT RAISE: refuse it.
+    # The brief belongs in `mandates.py` the day this lane stops being the only
+    # reader of it — the move `render_drill` and `render_soak` both made — and
+    # the walk's rhythm is `render_soak`'s, which is where a second copy would
+    # be the thing to retire.
+    "scripts/render_payoff.py": 240,
     # 425 → 429 (2026-08-20): the first-line H1 lint. It retires the accidental
     # episode title — the Architect was never told to emit one, so 30 of the
     # first 90 episodes shipped to the PUBLIC feed named `Tier2 Mission90`
@@ -1039,6 +1049,7 @@ LAYERS = {
     "knock_reply":        5.8,    # grading + the routing that picks the lane
     "push_queue":         5.5,
     "render_soak":        5.5,
+    "render_payoff":      5.5,
     "render_drill":       5.5,
     "render_rotation":    5.5,
     "run_studio":         5.5,
