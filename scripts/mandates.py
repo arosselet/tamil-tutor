@@ -592,6 +592,34 @@ Return ONLY JSON: {"verdicts": [{"n": 1, "verdict": "PASS|FAIL", "reason": "<one
 — exactly one verdict per item."""
 
 
+# ── The boundary on a commission brief ───────────────────────────────────────
+# WATCHED IT HAPPEN 2026-09-05. The standing -nga order's `focus` opened with the
+# diagnosis that earned it — "Three swings at an elder in one sitting and not one
+# -nga" — because a focus is written FOR the writer. The drill sheet came back
+# with the intro "Three times tonight an elder got the plain form instead of the
+# respect one." A tally of his own failures, spoken into his ear, which is the
+# one thing `persona.md` forbids without qualification (never recites a number at
+# him, never shames the pace) and which he named himself on 2026-08-25: "the
+# number isn't what makes me feel progress".
+#
+# The seam is that `focus` is FREE TEXT interpolated straight into the prompt with
+# nothing marking which audience it belongs to. The model cannot be blamed for
+# reading working notes as material when nothing says they are not.
+#
+# WHAT THIS REPLACES: the clause being retyped by hand into every commission — I
+# wrote one into the 09-05 order to unblock that dose, and a discipline that
+# depends on Anna remembering it at close is a discipline that lapses. One home,
+# appended by every lane that takes a focus.
+BRIEF_IS_PRIVATE = """
+
+THIS BRIEF IS FOR YOU, NOT FOR HIM. It names what he keeps getting wrong so that \
+you can build the right reps — working notes, never material. Nothing you write \
+may hand it back to him: no count of his mistakes, no "tonight you missed", no \
+telling him this dose is a repair or naming what it repairs. He is doing reps, \
+not reading a report on himself.
+"""
+
+
 # ── The soak lane's mandate ──────────────────────────────────────────────────
 # Moved out of render_soak.py on 2026-08-24 with the rest. Ten of the repo's
 # thirteen prompt constants lived in a lane; now all thirteen live here.

@@ -85,7 +85,7 @@ SOAK_SCHEMA = obj(title=STR, intro=STR, outro=STR,
 from render_audio import (generate_segment_google, get_raw_mp3_frames,
                           SILENCE_FRAME, clean_for_tts, google_credentials_ready,
                           EXIT_NOT_CONFIGURED)
-from mandates import SOAK_MANDATE
+from mandates import BRIEF_IS_PRIVATE, SOAK_MANDATE
 from state_io import LEXICON_PATH, load_json
 
 SOAK_DIR = BASE / "published_audio"     # feed root — rebuild_rss picks up soak_*.mp3
@@ -125,7 +125,7 @@ part being drilled — that contrast is the whole lesson. Inflect the focus root
 freely into whatever forms the thread needs, including forms not on the list below: \
 a conjugation carousel is unhearable if the endings are missing. The no-new-vocabulary \
 rule still binds everything OUTSIDE the focus.
-"""
+""" + BRIEF_IS_PRIVATE
 
 
 def soak_brief() -> tuple[str | None, list[str]]:

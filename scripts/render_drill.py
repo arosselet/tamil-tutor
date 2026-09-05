@@ -56,7 +56,7 @@ DRILL_SCHEMA = obj(title=STR, intro=STR, outro=STR,
 LINT_SCHEMA = obj(verdicts=arr(n=INT, verdict=STR, reason=STR))
 from render_audio import generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME, clean_for_tts
 from suggest_targets import drill_menu
-from mandates import DRILL_MANDATE, LINT_MANDATE
+from mandates import BRIEF_IS_PRIVATE, DRILL_MANDATE, LINT_MANDATE
 from state_io import LEXICON_PATH, load_json
 from state_io import canon_payload
 
@@ -156,7 +156,8 @@ def write_sheet(pending: list[dict], n_lead: int = 0, focus: str | None = None) 
     mandate = DRILL_MANDATE
     if n_lead:
         mandate += COMMISSION_BRIEF.format(
-            n=n_lead, focus=f"\nWhat the repair is about: {focus}" if focus else "")
+            n=n_lead, focus=(f"\nWhat the repair is about: {focus}"
+                             + BRIEF_IS_PRIVATE) if focus else "")
     print(f"   [drill sheet] {executor_name()}")
     sheet = ask_json(canon + "\n\n---\n\n" + mandate, f"DUE:\n{menu}",
                      DRILL_SCHEMA)
@@ -258,6 +259,21 @@ def main():
           f"{' · FOCUS: ' + focus if focus else ''})")
     sheet = write_sheet(pending, len(lead), focus)
     print(f"   → '{sheet.get('title', 'Drill')}' · {len(sheet['items'])} items")
+
+    # THE FLOOR — AN EMPTY SHEET IS NOT A DOSE (2026-09-05, Gate 7.2). The same
+    # hole the soak lane published through this morning, sitting unfixed one lane
+    # over: `write_sheet` filters items missing a cue or an answer, so a writer
+    # that returns the wrong key shape leaves `items` empty — and `lint_sheet`
+    # returns NO failures for an empty sheet, so it sails through the gate that
+    # exists to stop bad tapes. What follows would render intro + outro over
+    # silence, then stamp `delivered` for every word on `pending`: exposure
+    # booked for a tape that said none of them. Above the lint call on purpose,
+    # so an empty sheet costs neither the grader nor the TTS.
+    if not sheet["items"]:
+        sys.exit("✗ EMPTY SHEET — no items survived; this drill is intro + outro over "
+                 "silence. Nothing linted, rendered or published, order left STANDING. "
+                 "--dry-run it: items all gone means DRILL_SCHEMA lacks a key "
+                 "DRILL_MANDATE names, and the agent path ate it.")
 
     # Lint before the dry-run gate on purpose: the sheet a dry run prints should
     # carry the same verdict the real run would act on.

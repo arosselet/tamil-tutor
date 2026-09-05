@@ -1023,3 +1023,79 @@ def s93_the_port_surface_list_names_the_real_files(sb: Path):
     check("...and the check would actually fail on a stale line",
           bool(rotted - set(PROMPT_HOMES)),
           "the extraction cannot see a filename, so its green means nothing")
+
+
+def s97_a_commission_brief_is_not_material(sb: Path):
+    """A focus is written for the WRITER, and it reaches the learner's ear
+    (2026-09-05, watched live).
+
+    The standing -nga order's focus opened with the diagnosis that earned it —
+    "Three swings at an elder in one sitting and not one -nga". A focus is free
+    text interpolated straight into the prompt, and nothing in the prompt said
+    which audience it belonged to. The drill sheet came back with the spoken
+    intro "Three times tonight an elder got the plain form instead of the respect
+    one": a tally of his own failures, read into his ear, which `persona.md`
+    forbids outright and which he named himself on 2026-08-25 — "the number isn't
+    what makes me feel progress". One roll in two leaked; the other was clean, so
+    this is a coin-flip per commission, not a one-off.
+
+    Both focus-taking lanes are asserted, because the leak is in the SEAM and not
+    in either lane: soak interpolates through `FOCUS_BRIEF`, drill through
+    `COMMISSION_BRIEF`, and the same free text goes into both.
+
+    GATE 7.2 — WHAT DOES THIS LOOK LIKE SILENTLY DOING NOTHING? Like a green run
+    over a prompt that never carried the focus at all: if interpolation broke, or
+    a lane stopped appending the boundary, every "the boundary is present" check
+    would still pass against a constant defined two files away. So the teeth are
+    on the ROUND TRIP — the focus text itself must be found in the composed
+    system prompt before the boundary beside it means anything.
+
+    The negative matters too: a drill with no commission has no free text to
+    fence, and a boundary hanging in a prompt with nothing to bound is noise the
+    model has to interpret. Asserted absent.
+    """
+    print("\n97. A commission brief is working notes, not material (2026-09-05)")
+    md = importlib.import_module("mandates")
+    rs = importlib.import_module("render_soak")
+    rd = importlib.import_module("render_drill")
+
+    # ── TEETH ON THE CONSTANT, before it is looked for anywhere.
+    boundary = md.BRIEF_IS_PRIVATE
+    check("the boundary clause says something, and says whose it is",
+          len(boundary.split()) >= 20 and "NOT FOR HIM" in boundary,
+          f"got {boundary[:120]!r}")
+    for phrase in ("count", "repair"):
+        check(f"...and names what must not come back to him: {phrase!r}",
+              phrase in boundary.lower(), f"got {boundary[:200]!r}")
+
+    FOCUS = "SENTINEL-DIAGNOSIS: he missed this four times on Tuesday"
+    items = [{"word": "வா", "gloss": "come", "production": "hinted"}]
+    lead = [{"word": "வா", "gloss": "come", "kind": "chunk"}]
+
+    def prompt_from(mod, *args, **kw):
+        """Drive the REAL sheet writer and capture the system prompt it built."""
+        seen = {}
+        fn = mod.write_sheet
+        real = mod.ask_json
+        try:
+            def spy(system, user, schema, **kwargs):
+                seen["system"] = system
+                return {"title": "T", "intro": "i", "outro": "o",
+                        "clusters": [], "items": []}
+            mod.ask_json = spy
+            fn(*args, **kw)
+        finally:
+            mod.ask_json = real
+        return seen.get("system", "")
+
+    for name, got in (("soak", prompt_from(rs, items, FOCUS)),
+                      ("drill", prompt_from(rd, lead, 1, FOCUS))):
+        check(f"{name}: the focus really does reach the prompt",
+              FOCUS in got, "interpolation is broken — every check below is vacuous")
+        check(f"{name}: ...and the boundary travels with it",
+              boundary.strip() in got, "the focus went in unfenced")
+
+    # ── The negative: nothing to fence, nothing to say.
+    bare = prompt_from(rd, lead, 1, None)
+    check("drill: an uncommissioned sheet carries no boundary to interpret",
+          boundary.strip() not in bare, "a fence around nothing is noise")

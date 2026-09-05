@@ -268,10 +268,22 @@ def s40_drill_consumes_its_commission(sb: Path):
                 return {"title": "T", "intro": "i", "outro": "o", "items": []}
             rd.write_sheet = spy
             sys.argv = ["render_drill.py", "--dry-run"]
+            # The spy returns an EMPTY sheet — this case is about what the writer
+            # is CALLED WITH, and an empty return short-circuits the lint before
+            # it can reach the real grader. Since 2026-09-05 that is also the
+            # empty-sheet floor's trigger, so main() exits here by design; the
+            # exit is caught and asserted rather than swallowed, because a floor
+            # that stopped firing would otherwise read as this case passing.
+            floored = ""
             with contextlib.redirect_stdout(io.StringIO()):
-                rd.main()
+                try:
+                    rd.main()
+                except SystemExit as e:
+                    floored = str(e.code)
         finally:
             rd.write_sheet, sys.argv = real_write, real_argv
+        check("an empty sheet stops main() at the floor, before the grader",
+              "EMPTY SHEET" in floored, f"main() exited with {floored[:80]!r}")
         check("main() hands the commission to the sheet writer",
               seen.get("pending", [None])[0] == fireable, f"got {seen.get('pending')}")
         check("...counted as lead items, so the brief fires",
