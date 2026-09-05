@@ -4844,7 +4844,8 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-08-21T15-25.mp3",
     "memo_script": "அம்மா, கேளுங்க... பர்த்டே-க்கு எவ்ளோ பேரு வருவாங்க தெரியாது.\n\nபரவால்லீங்க, நான் இங்கயே எல்லாம் பாத்துக்கறேன். கேக் நான் ஆர்டர் பண்ணிடுறேன், அலங்காரம் எல்லாம் நானே எடுத்துக்கறேன்.\n\nநீங்க கவலைப்படாதீங்க, ஒண்ணும் தப்பிடாது. நான் பாத்துக்கறேன்ன்னா பாத்துக்கறேன்.\n\nசரி சரி, சாயங்காலம் பேசலாம், வைக்கறேன்.",
     "mp3": "published_audio/knocks/knock_2026-08-21T15-25.mp3",
-    "payoff_tries": 1
+    "payoff_tries": 1,
+    "payoff_mp3": "published_audio/knocks/payoff_2026-08-21T15-25.mp3"
   },
   {
     "date": "2026-08-22",
