@@ -4,6 +4,15 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Saturday 2026-09-05
+
+**10:01 · Andrew** — **MISS**  ·  ↩ 09-04 15:49 · volley: kitchen round
+> Adhan
+
+**Anna ↩**
+> close — 'adhan' is that's why; you want 'ennaa'.
+
+
 ## Friday 2026-09-04
 
 **10:49 · Anna**  ·  text / lore: kongu attaa

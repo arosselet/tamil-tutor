@@ -6488,7 +6488,7 @@
     ],
     "volley_next": 4,
     "response": "reply",
-    "reply": "Enna semai?",
+    "reply": "Adhan",
     "reply_verdict": "miss",
     "reply_fired": [
       "அம்மா"
@@ -6497,8 +6497,8 @@
       "அம்மா"
     ],
     "reply_fired_capped": [],
-    "reply_line": "close — to her it's 'enna samaikkira?'. · 4/4 — Giving a quick reason — the word for 'because':",
-    "reply_at": "2026-09-04T11:24:11Z",
+    "reply_line": "close — 'adhan' is that's why; you want 'ennaa'.",
+    "reply_at": "2026-09-05T04:31:58Z",
     "exchanges": [
       {
         "at": "2026-09-04T11:13:26Z",
@@ -6544,11 +6544,25 @@
         ],
         "spoke": "",
         "scheduled": ""
+      },
+      {
+        "at": "2026-09-05T04:31:58Z",
+        "reply": "Adhan",
+        "verdict": "miss",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "close — 'adhan' is that's why; you want 'ennaa'.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
       }
     ],
     "chained": 3,
     "pinned_target": "ஏன்னா",
-    "pinned_revealed": false
+    "pinned_revealed": false,
+    "volley_done": true
   },
   {
     "date": "2026-09-04",
