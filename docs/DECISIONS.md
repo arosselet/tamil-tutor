@@ -1903,16 +1903,16 @@ Details live in git history; this is the index of the *conclusions*.
   question to ask is *"is this one still being used?"* — M74 was (live deck material, two
   days out), the other twelve were not. Do not re-ask this per bug.
 - **The payoff — an eavesdrop tape is a KEPT artifact, and replaces itself in the feed**
-  (2026-09-05, Andrew: *"it's mostly noise, I guess at the answer"*). Eighteen tapes since
-  07-16, `target_revealed` false on every one — the ear's only live input channel never
-  told him what a tape said. `render_payoff.py` re-cuts a CLOSED tape (answered, or 24h —
-  never while its question is live) as *tape at speed → line · meaning · line → tape at
-  speed*: `render_soak`'s rhythm, his own mp3's frames at speed, glosses aligned **by
-  number** because a misaligned one renders perfectly. **Replaces** the tape's feed
-  residency — `rebuild_rss.superseded` drops `knock_<ts>.mp3` once `payoff_<ts>.mp3` exists,
-  keyed on the FILE so a failed render evicts nothing. **Amends "a published episode is a
-  spent dose" here only:** a tape he could not parse moved nothing. **Rejected:** the inline
-  overwrite (same guid, never refetched); firing on his reply.
+  (2026-09-05, Andrew: *"it's mostly noise, I guess at the answer"*). `target_revealed` was
+  false on all eighteen tapes. `render_payoff.py` re-cuts a CLOSED tape (answered, or 24h —
+  never while its question is live) as *line · meaning · line → tape at speed*: his own
+  frames, glosses aligned **by number**, a misaligned one renders perfectly. **Replaces** the
+  tape's feed residency — `rebuild_rss.superseded` drops `knock_<ts>.mp3` once
+  `payoff_<ts>.mp3` exists, keyed on the FILE so a failed render evicts nothing. **Amends "a
+  published episode is a spent dose" here only** — an unparsed tape moved nothing. **Amended
+  same day:** the OPENING pass is cut — the knock already was that hearing; `s95` pins the
+  frames at once, last. **Rejected:** the inline overwrite; firing on his reply; an opener
+  restating the challenge (the orphan feeling is backlog drain).
 - **The transit bit — one date in `learner.json`, enforced by the rails** (2026-08-10, Andrew).
   Apple queues exactly ONE push for an unreachable phone, so a 20-hour flight turns every dose
   after the first into an overwrite — and the unanswered fires feed `outcome_memory`'s

@@ -41,12 +41,27 @@ question he has not been asked yet.
 
 THE RHYTHM IS PYTHON'S, never the model's — the law `render_soak` states:
 
-    the tape, at speed          his own bytes, unexplained: the real thing
     line · meaning · line       the soak rhythm, once per line
     the tape, at speed          blind — "captioned until it snaps, then blind;
                                 blind is the win" (2026-07-13)
 
-Both speed passes are the ORIGINAL mp3's frames, not a re-render: it costs no
+ONE SPEED PASS, AT THE END. The dose opened on the tape too until 2026-09-05,
+when Andrew heard the first two: *"this feels like a bookend within a bookend…
+the inner bookend is probably more useful."* He is right, and the reason the
+front pass looked obligatory is that it was inherited from `render_soak`, where
+the opening pass is the learner's FIRST hearing. A payoff's is not. The knock
+already played him this tape at speed — days ago, on his phone — and it is
+precisely because he could not parse it then that this file exists. Playing it
+again before a single meaning is attached is a third hearing of an unparseable
+thing, and it cost ~20s of a 2:30 dose.
+
+The CLOSING pass keeps its place, and it carries the whole argument the pair
+used to share: it is the only place the tape is heard CONNECTED, at speed, with
+the meanings already in his head. The walk's own repeats are per line, so they
+never test the joins — and "ticket book aayidum" is a join. Drop this one and
+the lane has no blind pass at all, which is the instrument, not the packaging.
+
+That speed pass is the ORIGINAL mp3's frames, not a re-render: it costs no
 TTS, and it guarantees the thing he re-hears is the thing he heard.
 
 THE MODEL NEVER RETYPES THE TAMIL. It is handed numbered lines and returns a
@@ -129,8 +144,8 @@ English — what the speaker is saying, not a word-by-word decoding. One sentenc
 each. No commentary, and never quote the original line back inside `en`.
 
 `opener` — one short spoken English line naming what he is about to hear (who is \
-talking, what the call is about) and telling him the meanings come after each \
-line the second time through. `closer` — one short spoken English line giving \
+talking, what the call is about) and telling him the meaning comes after each \
+line. `closer` — one short spoken English line giving \
 the answer to the question he was asked about this tape, plainly, so the thing \
 he was listening for is named out loud before the last playthrough.
 """
@@ -256,7 +271,7 @@ def silence(seconds: float) -> bytes:
 
 async def render(tape: bytes, lines: list[str], glosses: list[str],
                  sheet: dict, out_path: Path):
-    """Anna's frame, the tape, the walk, the answer, the tape again."""
+    """Anna's frame, the walk, the answer, then the tape blind."""
     audio = bytearray()
     tmp = tempfile.mkdtemp(prefix="payoff_segments_")
     idx = 0
@@ -280,8 +295,8 @@ async def render(tape: bytes, lines: list[str], glosses: list[str],
     try:
         audio.extend(await say(sheet["opener"], ANNA_VOICE))
         audio.extend(silence(1.4))
-        audio.extend(tape)                                  # as he heard it
-        audio.extend(silence(2.0))
+        # NO TAPE HERE — see the rhythm note above. The knock was the at-speed
+        # hearing; the walk starts straight after Anna's frame.
         for line, en in zip(lines, glosses):
             print(f"   [walk] {en[:56]}")
             spoken = await say(line, EAVESDROP_VOICE)

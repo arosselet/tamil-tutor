@@ -978,9 +978,17 @@ def s95_the_payoff_closes_the_tape(sb: Path):
             body = out.read_bytes()
             spoken = [m.decode() for m in
                       re.findall(rb"MRK\[([ -~]{1,24})\]KRM", body)]
-            check("the payoff opens on Anna and closes on the tape, twice through",
-                  spoken[0].endswith(":here i") and spoken[1] == "TAPE"
-                  and spoken[-1] == "TAPE" and spoken.count("TAPE") == 2,
+            # ONCE, AND LAST — the 2026-09-05 amendment, and the count is the
+            # whole assertion. The front pass was cut because the knock already
+            # played him the tape at speed; the blind pass at the end is the
+            # instrument the lane exists to reach ("blind is the win"). Both
+            # halves fail SILENTLY: a re-added front pass renders a longer mp3
+            # that plays fine, and a dropped closing pass renders a shorter one
+            # that plays fine and has every meaning in it — nothing downstream
+            # measures either, and duration alone cannot tell them apart.
+            check("the payoff opens on Anna, and the tape is heard once, blind, last",
+                  spoken[0].endswith(":here i") and spoken[-1] == "TAPE"
+                  and spoken.count("TAPE") == 1,
                   f"got {spoken}")
             def label(t):
                 return marks[t].decode()[4:-4]
