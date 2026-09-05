@@ -57,8 +57,22 @@ from writer import STR, arr, ask_json, executor_name, obj, voice_canon
 # and `main` has read `sheet.get('title', mp3.stem)` all along; only the schema
 # in the middle was missing, so every soak since 2026-08-18 published under its
 # own filename. Same defect as voice_reply, one lane over, never swept.
+#
+# `say`, NOT `ta` — 2026-09-05, and this one ate the whole dose. The item key
+# was declared `ta` here while SOAK_MANDATE asks for "say", `render` reads
+# `item["say"]`, the filter in `write_sheet` keeps on `say` and the delivery
+# seam counts `say`. Four readers, one spelling, and the schema had the other
+# one. So the agent path dropped `say` off every item, every item failed the
+# filter, every cluster was dropped, and the lane rendered intro + outro over
+# an empty `clusters` — a 12-second file that published to the feed, pushed to
+# his lock screen and marked the standing order DELIVERED, exit 0. `arr`'s own
+# docstring uses `{say, en}` as its worked example; this line was the typo
+# against it. Third instance of the class after `voice_reply` and `introduces`
+# — the guard is smoke `s82`, which sweeps every lane's schema against the keys
+# its MANDATE names; it read green through this one because its needle was
+# line-anchored and `say` shares a line with `en`. Both are fixed together.
 SOAK_SCHEMA = obj(title=STR, intro=STR, outro=STR,
-                  clusters=arr(thread=STR, items=arr(ta=STR, en=STR)))
+                  clusters=arr(thread=STR, items=arr(say=STR, en=STR)))
 from render_audio import (generate_segment_google, get_raw_mp3_frames,
                           SILENCE_FRAME, clean_for_tts, google_credentials_ready,
                           EXIT_NOT_CONFIGURED)
@@ -264,6 +278,34 @@ def main():
     if args.dry_run:
         print(json.dumps(sheet, ensure_ascii=False, indent=2))
         return
+
+    # THE FLOOR — AN EMPTY SHEET IS NOT A DOSE (2026-09-05, Gate 7.2).
+    #
+    # `n` has been printed on the line above since this lane was written and
+    # nothing has ever gated on it. On 09-05 it printed `0 threads, 0 items` and
+    # the run carried on: rendered intro + outro, wrote a 66 KB MP3, published it
+    # to the feed, notified the phone with the copy "soak loop's up — 0 sounds",
+    # and stamped the standing order DELIVERED. Exit 0. Every instrument green,
+    # and the compound-verb repair the order existed for was gone — nothing
+    # retries a delivered order (the watchdog went 2026-07-24, its script 08-27).
+    #
+    # That is the silent no-op in its purest form: the step RAN, its purpose was
+    # never served, and the two states were indistinguishable downstream. The
+    # cause that day was a schema key (see SOAK_SCHEMA above) and smoke now
+    # catches that one at build time — but this guard is not about that cause.
+    # A sheet can come back empty for any reason a model can invent, and the
+    # expensive half of the failure is everything that happens AFTER: the spend,
+    # the feed entry, the push, and above all the delivery stamp that retires an
+    # order nobody filled. So the floor sits here, before all four.
+    #
+    # Non-zero on purpose: the session-open auto-drain and `run_studio` both read
+    # the exit code, and a loud failure is what lets the dose be re-ordered.
+    if n == 0:
+        sys.exit("❌ EMPTY SHEET — no clusters, so this loop is intro + outro over "
+                 "silence. Nothing rendered, published or pushed, and the soak order "
+                 "is left STANDING to be re-dispatched. Inspect it with --dry-run: "
+                 "clusters present but items gone means a key SOAK_MANDATE names is "
+                 "missing from SOAK_SCHEMA, and the agent path ate it.")
 
     reason = google_credentials_ready()   # rendering needs TTS even with --no-publish
     if reason:

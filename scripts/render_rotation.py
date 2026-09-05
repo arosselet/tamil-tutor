@@ -99,7 +99,17 @@ from render_audio import (generate_segment_google, get_raw_mp3_frames, SILENCE_F
 from writer import STR, arr, ask_json, obj, voice_canon
 
 # What one movement IS, for the executor that can be told (see writer.obj).
-MOVEMENT_SCHEMA = obj(frame=STR, beats=arr(say=STR, en=STR))
+#
+# `who` declared 2026-09-05, found by the sweep that followed the soak lane's
+# `say`/`ta` break. Every SHAPE_CLAUSE names it — "who" is always "anna", "who"
+# always "a", `{"say": …, "en": …, "who": "a"}` in the template — and two readers
+# use it: the transcript labels a beat through `WHO.get(beat.get("who"), "ANNA")`
+# and the tape picks `voice_b if beat.get("who") == "b" else voice_a`. Undeclared,
+# the agent path dropped it, `beat.get("who")` was None on every beat, and BOTH
+# readers took their default: a scene written as a two-hander rendered as one
+# voice labelled ANNA throughout. The tape still played, which is why nobody
+# heard it as a bug — the second speaker simply never existed.
+MOVEMENT_SCHEMA = obj(frame=STR, beats=arr(say=STR, en=STR, who=STR))
 from state_io import LEXICON_PATH, load_json
 from state_io import canon_payload
 

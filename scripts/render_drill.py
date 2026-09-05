@@ -46,7 +46,14 @@ from writer import INT, STR, arr, ask_json, executor_name, obj, voice_canon
 # render_soak.SOAK_SCHEMA. DRILL_MANDATE has requested it all along.
 DRILL_SCHEMA = obj(title=STR, intro=STR, outro=STR,
                    items=arr(cue=STR, answer_ta=STR))
-LINT_SCHEMA = obj(verdicts=arr(n=INT, verdict=STR))
+# `reason` declared 2026-09-05, found by the sweep that followed the soak lane's
+# `say`/`ta` break. LINT_MANDATE has asked for {"n", "verdict", "reason"} all
+# along and the read at the FAIL report is `v.get('reason', '') or 'no reason
+# given'` — so on the agent path every failed drill item has reported "no reason
+# given" since `claude -p` became the writer. The lint kept working; it just lost
+# its mouth, and the fallback string made the loss read as the model declining to
+# explain rather than as a dropped key.
+LINT_SCHEMA = obj(verdicts=arr(n=INT, verdict=STR, reason=STR))
 from render_audio import generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME, clean_for_tts
 from suggest_targets import drill_menu
 from mandates import DRILL_MANDATE, LINT_MANDATE

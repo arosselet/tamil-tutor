@@ -125,6 +125,7 @@ def main():
         run(render.s57_rotation_tape, sb)
         run(render.s89_every_voice_lane_carries_the_dialect, sb)
         run(render.s95_the_payoff_closes_the_tape, sb)
+        run(render.s96_an_empty_sheet_is_not_a_dose, sb)
         run(compose.s58_a_sheet_survives_a_model_thinking_out_loud, sb)
         run(knock.s49_thread_continuity, mk, kr, sb)
         run(knock.s50_read_surfaces_are_phonetic, mk, kr, sb)

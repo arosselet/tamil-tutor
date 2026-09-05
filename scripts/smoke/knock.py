@@ -1499,6 +1499,18 @@ def s82_the_catch_lane_has_a_mouth(mk, kr, sb: Path):
                   "same nullable gap, same lane — docs/feature_inbox.md",
                   ("DECIDE_SCHEMA", "volley_asks"):
                   "conditional on modality volley; obj() has no optional form"}
+    # THE SCHEDULE SUBTREE, licensed 2026-09-05 when the needle stopped being
+    # line-anchored and could finally see inside `"schedule": {…}`. These are not
+    # six new gaps: they are the FIELDS of the one nullable key already licensed
+    # above, and a child cannot be declared while its parent cannot. They are
+    # written out per-key rather than pattern-matched so the list still reads as
+    # a list of things that are broken, and so it shrinks in one move — the day
+    # `obj()` grows a nullable form, `schedule` and all six go together.
+    for _s, _keys in (("JUDGE_SCHEMA", ("at_local", "body", "memo_script",
+                                        "expected_target", "target_revealed", "move")),
+                      ("DECIDE_SCHEMA", ("at_local", "body"))):
+        for _k in _keys:
+            KNOWN_GAPS[(_s, _k)] = f"a field of the nullable `schedule` object on {_s}"
     # THE AUDIO LANES JOINED THIS LIST ON 2026-09-01, and that they were missing
     # from it is the whole story of the second occurrence. This guard was built
     # for voice_reply on 08-28 and left covering only the lane that had been
@@ -1522,7 +1534,20 @@ def s82_the_catch_lane_has_a_mouth(mk, kr, sb: Path):
              # every tick — the demand brake reading a field that never arrived,
              # green the whole way. Two real gaps surfaced the moment this pair
              # went in; both are licensed above rather than hidden.
-             ("DECIDE_SCHEMA", mk.DECIDE_SCHEMA, md.OUTREACH_MANDATE)]
+             ("DECIDE_SCHEMA", mk.DECIDE_SCHEMA, md.OUTREACH_MANDATE),
+             # LINT AND MOVEMENT JOINED 2026-09-05 — the last two lanes that ask
+             # a model for JSON and were never swept. Both were broken when they
+             # were finally looked at, which is the argument for the list being
+             # every lane rather than every lane that has already bitten:
+             # LINT_SCHEMA never declared `reason`, so every failed drill item
+             # reported "no reason given"; MOVEMENT_SCHEMA never declared `who`,
+             # so a scene written as a two-hander rendered in one voice labelled
+             # ANNA. Neither crashed, and neither was visible in any output a
+             # person reads — the drill still drilled, the tape still played.
+             ("LINT_SCHEMA", rd.LINT_SCHEMA, md.LINT_MANDATE),
+             ("MOVEMENT_SCHEMA",
+              importlib.import_module("render_rotation").MOVEMENT_SCHEMA,
+              md.BASE_MANDATE + "\n" + "\n".join(md.SHAPE_CLAUSES.values()))]
 
     def declared(schema: dict) -> set:
         """Every property name ANYWHERE in the schema, not just at the top.
@@ -1535,7 +1560,29 @@ def s82_the_catch_lane_has_a_mouth(mk, kr, sb: Path):
         return out
 
     for name, schema, mandate in pairs:
-        asked = set(re.findall(r'^\s*"([a-z_]+)":', mandate, re.M))
+        # THE NEEDLE IS NOT LINE-ANCHORED — 2026-09-05, and the anchor is how
+        # this guard read green through the worst break the soak lane has had.
+        #
+        # It was `^\s*"([a-z_]+)":` with re.M: a key counted only if it STARTED
+        # its line. Every mandate template nests, and a nested leaf shares a line
+        # with its siblings — `"items": [{"say": "<Tamil script>", "en": "<short
+        # gloss>"}]`. So `items` was swept and `say` and `en` were invisible,
+        # along with `thread`, which sits behind a `{`. The guard was checking
+        # the CONTAINERS and skipping the payload.
+        #
+        # What that cost: SOAK_SCHEMA declared its item key as `ta` while
+        # SOAK_MANDATE asked for `say`. The agent path dropped `say` off every
+        # item, `write_sheet`'s filter binned every item, every cluster went with
+        # them, and the lane published intro + outro over silence — to the feed,
+        # to his phone, with the standing order stamped delivered. This case ran
+        # green on that state, because the four keys it could see were all fine.
+        #
+        # The same lesson as the two comments above it, one layer in: a guard
+        # that enumerates one lane has a blind spot, and so does a guard that
+        # reads a template one line at a time. Anchored to nothing now, it sees
+        # `say`, `en`, `thread`, `who`, `reason`, `cue` — every leaf that a
+        # renderer actually reads.
+        asked = set(re.findall(r'"([a-z_]+)"\s*:', mandate))
         missing = sorted(k for k in asked - declared(schema)
                          if (name, k) not in KNOWN_GAPS)
         check(f"{name} declares every key its mandates ask for", not missing,

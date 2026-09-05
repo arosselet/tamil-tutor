@@ -1097,3 +1097,118 @@ def s95_the_payoff_closes_the_tape(sb: Path):
                 (sb / rel).unlink(missing_ok=True)
             else:
                 (sb / rel).write_bytes(blob)
+
+
+def s96_an_empty_sheet_is_not_a_dose(sb: Path):
+    """The soak lane refuses to publish a loop with nothing in it (2026-09-05).
+
+    WHAT HAPPENED. The session-open auto-drain dispatched the standing soak
+    order — the compound-verb repair, the last verb owns the direction. The
+    writer returned a title, an intro and an outro over `"clusters": []`. The
+    lane rendered those two lines, wrote a 66 KB mp3, put it on the feed, pushed
+    "soak loop's up — 0 sounds" to Andrew's lock screen, stamped the order
+    DELIVERED, and exited 0. `n` — the item count — was computed and PRINTED on
+    the line above (`0 threads, 0 items`) and nothing had ever gated on it.
+
+    The cause that day was one schema key (`render_soak.SOAK_SCHEMA`, and smoke
+    now catches that class where the mandates are swept). This case is not about
+    that cause. A sheet can come back empty for any reason a model can invent,
+    and the expensive half is everything downstream: the TTS spend, the feed
+    entry, the push, and above all the delivery stamp — which retires a standing
+    order, and NOTHING re-dispatches a retired one (the watchdog went 2026-07-24,
+    its script 2026-08-27). A dropped dose stays dropped until a human notices.
+
+    GATE 7.2, ANSWERED OUT LOUD. This guard's own silent-no-op is a floor that
+    never fires — indistinguishable from no floor — so the positive control is
+    load-bearing, not decoration: the same drive with ONE cluster must go all the
+    way through to `deliver_rendered`. A floor that rejects every sheet would
+    pass a rejection-only test forever while the lane made no audio at all.
+
+    The teeth are on the ORDER of the refusal, not just its existence. Exiting
+    after the render would still spend the TTS; exiting after the publish would
+    still stamp the order. So `render` and `deliver_rendered` are both asserted
+    untouched on the empty run — the seam, stubbed and checked by whether it was
+    reached, which is s95's pattern one lane over.
+    """
+    print("\n96. An empty sheet is not a dose — the soak floor (2026-09-05)")
+    import contextlib, io
+    rs = importlib.import_module("render_soak")
+
+    row = {"word": "வந்தாரு", "gloss": "came back", "production": "cold",
+           "last_surfaced": "2026-09-05"}
+    full = {"title": "the last verb steers", "intro": "intro line",
+            "outro": "outro line",
+            "clusters": [{"thread": "the tail verb",
+                          "items": [{"say": "வந்தாரு", "en": "came back"}]}]}
+    empty = {**full, "clusters": []}
+
+    real = (rs.week_payload, rs.soak_brief, rs.write_sheet, rs.render,
+            rs.google_credentials_ready, rs.deliver_rendered, sys.argv)
+    cwd = os.getcwd()
+    try:
+        os.chdir(sb)
+        rendered, delivered = [], []
+
+        async def fake_render(sheet, out_path, passes):
+            out_path.parent.mkdir(parents=True, exist_ok=True)
+            out_path.write_bytes(b"\xff\xfb" + b"\x00" * 512)
+            rendered.append(out_path)
+
+        rs.week_payload = lambda days, items: [row]
+        rs.soak_brief = lambda: ("the tail verb is the only moving part", [])
+        rs.render = fake_render
+        rs.google_credentials_ready = lambda: ""
+        rs.deliver_rendered = lambda **kw: delivered.append(kw)
+        sys.argv = ["render_soak.py"]
+
+        def drive(sheet):
+            """The REAL entry point, with only the model and the TTS stubbed."""
+            rs.write_sheet = lambda items, focus=None: sheet
+            rendered.clear(), delivered.clear()
+            out, code = io.StringIO(), 0
+            try:
+                with contextlib.redirect_stdout(out):
+                    rs.main()
+            except SystemExit as e:
+                code = e.code
+            return out.getvalue(), code
+
+        said, code = drive(empty)
+        check("an empty sheet exits NON-ZERO, so the drain can see it failed",
+              code not in (0, None), f"exit was {code!r}")
+        check("...and says what went wrong, in the words of the lane",
+              "EMPTY SHEET" in str(code), f"got {str(code)[:120]!r}")
+        check("...and names the schema as the thing to check",
+              "SOAK_SCHEMA" in str(code), f"got {str(code)[:200]!r}")
+        check("...and NOTHING was rendered — the floor sits above the TTS spend",
+              not rendered, f"rendered {rendered}")
+        check("...and nothing was published, pushed, or stamped delivered",
+              not delivered, f"deliver_rendered got {delivered}")
+
+        # A cluster whose items were all filtered away is the SAME state — that
+        # is exactly how 09-05 arrived, with `write_sheet` binning every item and
+        # leaving the cluster list empty. Driven separately because a lane could
+        # plausibly count clusters instead of items and pass everything above.
+        _, code = drive({**full, "clusters": [{"thread": "t", "items": []}]})
+        check("a cluster with no items in it is empty too, not a one-thread dose",
+              code not in (0, None) and not delivered, f"exit {code!r}, {delivered}")
+
+        # ── THE POSITIVE CONTROL. Without this the floor could reject
+        # everything and every assertion above would still read green.
+        said, code = drive(full)
+        check("a sheet WITH clusters still goes all the way through",
+              code in (0, None), f"exit was {code!r}")
+        check("...it renders", len(rendered) == 1, f"rendered {rendered}")
+        check("...and it reaches the delivery seam", len(delivered) == 1,
+              f"deliver_rendered got {delivered}")
+        check("...carrying the item that was actually audible in the sheet",
+              delivered and delivered[0].get("delivered") == ["வந்தாரு"],
+              f"got {delivered[0].get('delivered') if delivered else None}")
+        check("...and claiming the standing order it was dispatched for",
+              delivered and delivered[0].get("claimed") is True,
+              f"got {delivered[0].get('claimed') if delivered else None}")
+    finally:
+        (rs.week_payload, rs.soak_brief, rs.write_sheet, rs.render,
+         rs.google_credentials_ready, rs.deliver_rendered, sys.argv) = real
+        os.chdir(cwd)
+        shutil.rmtree(sb / "published_audio", ignore_errors=True)
