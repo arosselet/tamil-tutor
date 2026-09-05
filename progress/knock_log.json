@@ -6627,6 +6627,14 @@
         "fired": [],
         "reply_line": "Dei, asking a Kovai anna for Kannada? Pure betrayal da, but I got you — play this for them.",
         "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/reply_2026-09-05T16-52-00.mp3"
+      },
+      {
+        "at": "2026-09-05T16:54:02Z",
+        "reply": "Thanks da 😉it’s a swarm of kids with a thousand questions. They’re thrilled to chat with me. Their",
+        "intent": "message",
+        "verdict": "chat",
+        "fired": [],
+        "reply_line": "Haha rockstar treatment da! Though they mobbed you mid-sentence — their enna? What are they asking?"
       }
     ],
     "reply_audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/reply_2026-09-05T16-52-00.mp3"

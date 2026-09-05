@@ -30,6 +30,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > Dei, asking a Kovai anna for Kannada? Pure betrayal da, but I got you — play this for them.
 
+**22:24 · Andrew** — **CHAT**
+> Thanks da 😉it’s a swarm of kids with a thousand questions. They’re thrilled to chat with me. Their
+
+**Anna ↩**
+> Haha rockstar treatment da! Though they mobbed you mid-sentence — their enna? What are they asking?
+
 
 ## Friday 2026-09-04
 
