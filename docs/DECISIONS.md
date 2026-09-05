@@ -40,6 +40,17 @@ Details live in git history; this is the index of the *conclusions*.
 
 ## Settled design decisions
 
+- **A lure is not a break — a dose DECLARES what it wants** (2026-09-05, Andrew: *"not
+  always a demand"*). Give-first (07-17) became canon for the SESSION and never reached
+  this channel. `demand_streak` defined demand as a non-empty `expected_target` — *wants
+  Tamil back* — and the trailer carries none by doctrine, so **every trailer reset the
+  anti-demand brake**; genuine give ran 11 of 80 knocks over 30 days. Anna now declares
+  `stance` (give / ask / lure); `state_io.is_give` is the one reader and only a GIVE
+  resets. **Replaces** inferring a dose's register from free-text `move` —
+  `unpaid_trailer` read *"fielding: … trailer payoff"* as an unpaid pitch — and the
+  mandate's `Bias toward the TRAILER` line, the 07-11 KF-8 shape fixed by deletion. Named
+  `stance`; `register` is a lexicon field (08-18). Defaults to **ask**, never give — the
+  one direction that restores the bug in silence. `s94`.
 - **The dialect law reaches every voice, not just the studio** (2026-09-02, Andrew: *"all
   our audio artifacts [must] leverage our colloquial pipeline"*). `dialect.md` had **one
   reader**, `run_studio`'s Producer. Six lanes generating Tamil for a VOICE loaded
