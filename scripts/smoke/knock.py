@@ -1494,7 +1494,11 @@ def s82_the_catch_lane_has_a_mouth(mk, kr, sb: Path):
     # An edge that is allowed to stay broken, named, with why — the UP_EXCEPTIONS
     # idiom. It can only shrink: handing the licence back is part of the fix.
     KNOWN_GAPS = {("JUDGE_SCHEMA", "schedule"):
-                  "nullable and obj() has no nullable form — docs/feature_inbox.md"}
+                  "nullable and obj() has no nullable form — docs/feature_inbox.md",
+                  ("DECIDE_SCHEMA", "schedule"):
+                  "same nullable gap, same lane — docs/feature_inbox.md",
+                  ("DECIDE_SCHEMA", "volley_asks"):
+                  "conditional on modality volley; obj() has no optional form"}
     # THE AUDIO LANES JOINED THIS LIST ON 2026-09-01, and that they were missing
     # from it is the whole story of the second occurrence. This guard was built
     # for voice_reply on 08-28 and left covering only the lane that had been
@@ -1509,7 +1513,16 @@ def s82_the_catch_lane_has_a_mouth(mk, kr, sb: Path):
               md.JUDGE_MANDATE + md.REACH_MANDATE + md.VOICE_MANDATE + md.SLIP_MANDATE),
              ("CATCH_SCHEMA", kr.CATCH_SCHEMA, md.CATCH_JUDGE_MANDATE + md.VOICE_MANDATE),
              ("SOAK_SCHEMA", rs.SOAK_SCHEMA, md.SOAK_MANDATE),
-             ("DRILL_SCHEMA", rd.DRILL_SCHEMA, md.DRILL_MANDATE)]
+             ("DRILL_SCHEMA", rd.DRILL_SCHEMA, md.DRILL_MANDATE),
+             # THE DECIDE LANE JOINED ON 2026-09-05, and it was the last blind
+             # spot in a guard whose own comment warned about exactly this:
+             # "a guard that names a class and then enumerates one lane is an
+             # invariant with a blind spot." Adding `stance` to OUTREACH_MANDATE
+             # without declaring it here would have dropped it on the agent path
+             # every tick — the demand brake reading a field that never arrived,
+             # green the whole way. Two real gaps surfaced the moment this pair
+             # went in; both are licensed above rather than hidden.
+             ("DECIDE_SCHEMA", mk.DECIDE_SCHEMA, md.OUTREACH_MANDATE)]
 
     def declared(schema: dict) -> set:
         """Every property name ANYWHERE in the schema, not just at the top.
@@ -1527,9 +1540,15 @@ def s82_the_catch_lane_has_a_mouth(mk, kr, sb: Path):
                          if (name, k) not in KNOWN_GAPS)
         check(f"{name} declares every key its mandates ask for", not missing,
               f"the agent executor will silently drop: {missing}")
+    # Look the schema up from `pairs`, not from `voiced` — those are two
+    # different sets (`voiced` is "must declare voice_reply", which a decide
+    # tick has no business carrying), and borrowing one as the other capped
+    # this staleness check at the lanes that happen to speak.
+    under_guard = {name: schema for name, schema, _ in pairs}
     for (name, key), why in KNOWN_GAPS.items():
         check(f"...and the {name}/{key} gap is still real, not a stale licence",
-              key not in voiced[name].get("properties", {}), f"fixed? then drop it: {why}")
+              key not in under_guard[name].get("properties", {}),
+              f"fixed? then drop it: {why}")
 
     # ── the round trip, through the real entry point ─────────────────────────
     lex_path, klog_path = kr.LEXICON_PATH, kr.KNOCK_LOG_PATH
@@ -2409,3 +2428,64 @@ def s84_a_turn_is_filed_under_the_day_it_happened(mk, sb: Path):
     body = days.get(k_head, "")
     check("within a day, turns stay in clock order",
           body.index("koraiyunga") < body.index("SAME-DAY-REPLY"))
+
+
+def s94_a_lure_is_not_a_break(mk, sb: Path):
+    """A trailer does not reset the anti-demand brake (2026-09-05, Andrew: "the
+    pushes need more than just quizzing me and luring me for a lesson… we should
+    be sure it's not always a demand").
+
+    `demand_streak` defined demand as "carries a non-empty expected_target" —
+    i.e. WANTS TAMIL BACK. The trailer carries none by doctrine, because it names
+    a payoff and deliberately withholds it, so every trailer read as relief and
+    reset the counter to zero. Measured over the 30 days before the fix: 35 of
+    the 37 trailers ever sent booked as a break, quiz-or-lure ran ~65% of the
+    channel, and the genuine give rate was 11 of 80. The brake's own escape
+    hatch was the withheld payoff.
+
+    TEETH IN THE DIRECTION THAT FAILS SILENTLY: regressing this reads green
+    everywhere. The brake still fires, doses still send, the log still writes,
+    and no meter moves — the ONLY observable is whether a lure clears the
+    counter. So this asserts the COUNT over a sequence, not that the function
+    ran. The default's DIRECTION is asserted for the same reason: "give" is the
+    one default that would restore the bug in silence, so an unlabelled dose
+    must cost a break rather than buy one.
+    """
+    print("\n94. A lure is not a break — the trailer stops resetting the brake")
+
+    def fire(stance, target=""):
+        return {"acted": True, "modality": "text", "move": "m",
+                "stance": stance, "expected_target": target}
+
+    # ask, ask, trailer — the exact shape the old reading let through: it saw the
+    # trailer's empty expected_target as relief, returned 0, and made a third
+    # straight demand legal.
+    streak = mk.demand_streak([fire("ask", "x"), fire("ask", "y"), fire("lure")])
+    check("a lure does NOT reset the demand streak", streak == 3,
+          f"got {streak} — a withheld payoff was counted as a break")
+
+    # ...and a give must still clear it, or the brake would never release.
+    cleared = mk.demand_streak([fire("ask", "x"), fire("ask", "y"), fire("give")])
+    check("a give DOES reset it", cleared == 0, f"got {cleared}")
+
+    # An eavesdrop that asks for comprehension is an ASK even though its Tamil
+    # was spoken, not demanded — 13 of the 17 on record carry a target.
+    check("a give with no target still reads as relief", mk.is_give(fire("give")))
+    check("an ask with no target is still an ask", not mk.is_give(fire("ask")))
+
+    # ROUND TRIP through the real normaliser, not a hand-built dict: an
+    # unlabelled dose must cost a break, never buy one.
+    d = mk.normalize_decision({"act": True, "modality": "text", "move": "m"})
+    check("an unlabelled dose defaults to ASK", d["stance"] == "ask", repr(d.get("stance")))
+    check("...so it cannot reset the streak", not mk.is_give(d))
+    bogus = mk.normalize_decision({"act": True, "modality": "text", "stance": "gift"})
+    check("an unknown stance is refused, not trusted", bogus["stance"] == "ask",
+          repr(bogus.get("stance")))
+
+    # Rows written before the field must keep counting under the old reading —
+    # a MISSING stance may never be read as "give", which is the bug by another
+    # door. This is what makes the migration safe to land mid-history.
+    check("a pre-field fire with a target still counts as demand",
+          not mk.is_give({"acted": True, "expected_target": "x"}))
+    check("a pre-field fire with no target still reads as relief",
+          mk.is_give({"acted": True, "expected_target": ""}))

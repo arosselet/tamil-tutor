@@ -129,6 +129,7 @@ def main():
         run(knock.s50_read_surfaces_are_phonetic, mk, kr, sb)
         run(knock.s51_derived_files_are_rerendered_not_merged, mk, sb)
         run(knock.s84_a_turn_is_filed_under_the_day_it_happened, mk, sb)
+        run(knock.s94_a_lure_is_not_a_break, mk, sb)
         run(ratchets.s52_andrew_is_family_already, sb)
         run(ratchets.s90_the_toolbelt_left_the_voice_canon, sb)
         run(ratchets.s78_the_open_gives_before_it_takes, sb)

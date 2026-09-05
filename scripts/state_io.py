@@ -133,6 +133,32 @@ def is_fire(entry: dict) -> bool:
     return entry.get("acted", True)
 
 
+# WHAT A DOSE WANTS FROM HIM — the vocabulary, and the fourth read-only state
+# predicate beside `is_fire` / `is_unseen` / `soak_pending`. It lives here, not
+# in `morning_knock`, because two readers need it and `state_io` is below both:
+# the lane that COUNTS the streak and the brief that spots an unpaid trailer.
+STANCES = {"give", "ask", "lure"}
+
+
+def is_give(entry: dict) -> bool:
+    """Did this fire hand something over and close, or does it still want
+    something? THE BUG THIS EXISTS TO FIX (2026-09-05, Andrew: "the pushes need
+    more than just quizzing me and luring me… it's not always a demand"):
+    `demand_streak` read demand as "carries a non-empty expected_target", i.e.
+    *wants Tamil back*. The trailer carries none by doctrine — it names a payoff
+    and withholds it — so every trailer RESET the anti-demand brake. Measured
+    over 30 days: 35 of 37 trailers ever sent booked as a break, quiz-or-lure ran
+    ~65% of the channel and the genuine give rate was 11 of 80. The brake's own
+    escape hatch was the withheld payoff.
+
+    A lure is not a break. Only a GIVE resets the streak."""
+    stance = entry.get("stance")
+    # Rows written before 2026-09-05 carry no stance. Fall back to the old
+    # reading so history still counts — and never read a MISSING field as
+    # "give", which would silently restore the exact bug above.
+    return stance == "give" if stance in STANCES else not entry.get("expected_target")
+
+
 # The script range, the stem tail and `is_tamil` moved to `language.py` on
 # 2026-08-28 — the L0 language pack, which is now the ONE file a port to another
 # language rewrites. They were declared here from 2026-08-04 (with the last three

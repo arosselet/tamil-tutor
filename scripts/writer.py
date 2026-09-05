@@ -308,6 +308,12 @@ def to_phonetic(text: str, label: str = "body") -> str:
 STR = {"type": "string"}
 INT = {"type": "integer"}
 BOOL = {"type": "boolean"}
+# A FOURTH, added 2026-09-05 — the "three lines are the whole vocabulary"
+# note above was true only while no mandate asked for a bare list. OUTREACH's
+# `introduces` has asked since 2026-07-16 and went undeclared the whole time,
+# so the agent path ate the one field that marks a taught item SEEN. `arr()`
+# below could not cover it: that builds an array of OBJECTS.
+STRS = {"type": "array", "items": STR}
 
 
 def obj(**props) -> dict:

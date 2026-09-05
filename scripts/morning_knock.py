@@ -50,7 +50,8 @@ from push_queue import maybe_enqueue_schedule
 from publish import (BODY_BUDGET, KNOCKS_DIR,
                      commit_and_push, jsdelivr_url, load_env, over_budget,
                      publish, push_to_phone)
-from writer import BOOL, INT, STR, ask_json, executor_name, obj, to_phonetic, voice_canon
+from writer import (BOOL, INT, STR, STRS, ask_json, executor_name, obj,
+                    to_phonetic, voice_canon)
 
 # ── The rails (hard, Python-enforced — Anna cannot cross these) ───────────────
 # The BUDGET itself — the waking window, the daily cap, the min gap, and the
@@ -62,7 +63,8 @@ from writer import BOOL, INT, STR, ask_json, executor_name, obj, to_phonetic, vo
 from rails import (MAX_REACHES_PER_DAY, MIN_GAP_HOURS, WAKING_END_HOUR,
                    WAKING_START_HOUR, in_waking_window, last_fire, reaches_today)
 from state_io import (KNOCK_LOG_PATH, LEARNER_PATH, LEXICON_PATH, LOCAL_TZ,
-                      SESSION_LOG_PATH, is_fire, load_json, local_date)
+                      SESSION_LOG_PATH, STANCES, is_fire, is_give, load_json,
+                      local_date)
 
 NEXT_CHECK_CLAMP = (0.5, 24.0)   # Anna's self-set next_check is clamped to this many hours
 
@@ -182,15 +184,18 @@ def outcome_memory(klog: list, now: datetime) -> str:
 
 
 def demand_streak(klog: list) -> int:
-    """Trailing consecutive FIRES that carried an ask (non-empty expected_target).
-    The variety rule reads this: after 2, the next fire must be a no-ask dose or
-    silence — Python counts; the mandate owns the rule (policy stays Anna's)."""
+    """Trailing consecutive FIRES that wanted something — an ASK (Tamil back now)
+    or a LURE (his attendance later). The variety rule reads this: after 2, the
+    next fire must be a GIVE or silence — Python counts; the mandate owns the
+    rule (policy stays Anna's).
+
+    The reading moved from "carries an expected_target" to `state_io.is_give` on
+    2026-09-05; that docstring holds the evidence and the reason."""
     n = 0
     for k in reversed([k for k in klog if is_fire(k)]):
-        if k.get("expected_target"):
-            n += 1
-        else:
+        if is_give(k):
             break
+        n += 1
     return n
 
 
@@ -502,6 +507,14 @@ def normalize_decision(d: dict, volley_menu: list | None = None) -> dict:
     d["expected_target"] = (d.get("expected_target") or "").strip()
     d["target_revealed"] = bool(d.get("target_revealed", True))
     d["introduces"] = [k for k in (d.get("introduces") or []) if isinstance(k, str) and k.strip()]
+    # AN ABSENCE MUST BE LOUD, and the DIRECTION of the default is the whole
+    # point: "give" would silently reset the demand brake, which is the bug this
+    # field exists to fix, so an unlabelled dose costs Anna a break rather than
+    # buying her a free one. Silence is exempt — it never reaches the streak.
+    if d.get("stance") not in STANCES:
+        if d.get("act"):
+            print(f"   ⚠ dose declared no stance ({d.get('stance')!r}) — counting it as ASK")
+        d["stance"] = "ask"
     d["schedule"] = d.get("schedule") if isinstance(d.get("schedule"), dict) else None
     if d["modality"] == "eavesdrop":
         # A defective eavesdrop is REFUSED, never degraded to text (2026-08-01,
@@ -548,8 +561,9 @@ def normalize_decision(d: dict, volley_menu: list | None = None) -> dict:
 # `volley_asks` and `schedule` are absent on purpose — the mandate declares both
 # as conditional ("ONLY for modality volley" / "| null") and everything named in
 # `obj()` is REQUIRED. Undeclared keys still pass through untouched.
-DECIDE_SCHEMA = obj(act=BOOL, modality=STR, move=STR, notification_body=STR,
-                    memo_script=STR, expected_target=STR, target_revealed=BOOL,
+DECIDE_SCHEMA = obj(act=BOOL, modality=STR, move=STR, stance=STR,
+                    introduces=STRS, notification_body=STR, memo_script=STR,
+                    expected_target=STR, target_revealed=BOOL,
                     next_check_hours=INT, rationale=STR)
 
 
@@ -592,6 +606,7 @@ def log_decision(now: datetime, decision: dict, *, acted: bool,
     if acted:
         entry["body"] = decision.get("notification_body")
         entry["expected_target"] = decision.get("expected_target", "")
+        entry["stance"] = decision.get("stance", "ask")   # what it wanted; is_give reads this
         entry["target_revealed"] = decision.get("target_revealed", True)
         if decision.get("volley"):
             # the reply judge walks this queue deterministically (knock_reply.py)

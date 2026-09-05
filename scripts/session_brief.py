@@ -195,7 +195,13 @@ def unpaid_trailer(klog: list, last_session: str | None) -> dict | None:
     if not klog:
         return None
     k = klog[-1]
-    if "trailer" not in (k.get("move") or "").lower():
+    # A DECLARED lure IS the trailer (2026-09-05). This replaces a substring
+    # match on the free-text `move`, which read "fielding: mayi-laama trailer
+    # payoff" as a trailer — 4 of the 37 trailers on record are off the format
+    # the mandate prescribes, and a payoff is the opposite of an unpaid pitch.
+    # Rows written before the field keep the old test; nothing else can.
+    stance = k.get("stance")
+    if not (stance == "lure" if stance else "trailer" in (k.get("move") or "").lower()):
         return None
     if last_session and last_session >= k.get("date", ""):
         return None
