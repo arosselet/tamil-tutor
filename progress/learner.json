@@ -11,8 +11,12 @@
     ],
     "scene_seed": "the same three requests made twice over — once to a cousin across the table, once to the aunt standing behind him with the ladle",
     "from": "2026-09-05",
-    "focus": "THE -nga RESPECT ENDING, AND IT IS THE ONLY MOVING PART. Three swings at an elder in one sitting and not one -nga: vendaam for vendaanga, ukarala for ukkaarunga, and a plain answer where 'neenga saapdunga' was owed. He owns every one of these verbs bare — the ending is what will not fire. Run MATCHED PAIRS on one verb at a time, nee-form then neenga-form, nothing else changing: ukkaaru / ukkaarunga, saapdu / saapdunga, vendaam / vendaanga, sollu / sollunga, vaa / vaanga. Same verb, same tense, same sentence around it; the ending must be the loudest thing in the line. This is the recipe that closed person-marker and kekku-sollu — one moving part, drilled from the mouth. Do NOT permute the verb inside a pair, do NOT stack two endings, do NOT explain the politeness. Never name a rule.",
-    "channel": "drill"
+    "focus": "THE -nga RESPECT ENDING, AND IT IS THE ONLY MOVING PART. Run MATCHED PAIRS on one verb at a time, the plain form then the -nga form, nothing else changing: ukkaaru / ukkaarunga, saapdu / saapdunga, vendaam / vendaanga, sollu / sollunga, vaa / vaanga. Same verb, same tense, same sentence around it; the ending must be the loudest thing in the line. Put each pair in an ordinary situation at a table or a doorway, with an elder on the receiving end of the -nga form. Do NOT permute the verb inside a pair, do NOT stack two endings, do NOT explain the politeness, and never name a rule. THIS BRIEF IS FOR YOU, NOT FOR HIM: say nothing in the intro, outro or any cue about what he got wrong, how often, or that this is a repair at all. No counts, no tally, no 'tonight you missed'. He is doing reps, not reading a report.",
+    "channel": "drill",
+    "delivered": {
+      "channel": "drill",
+      "at": "2026-09-05"
+    }
   },
   "next_engine": "frame:polite-nga",
   "focus_cohort": [
