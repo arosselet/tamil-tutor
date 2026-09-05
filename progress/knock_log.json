@@ -6616,6 +6616,18 @@
     "body": "Passing a dish to maama at tea? Don't just hold it out: 'edunga' (take / help yourself). Polite, natural Kovai table reflex.",
     "expected_target": "",
     "stance": "give",
-    "target_revealed": false
+    "target_revealed": false,
+    "exchanges": [
+      {
+        "at": "2026-09-05T16:52:00Z",
+        "reply": "I have a Tamil adjacent request. Can you send a voice greeting to my new friends in Kannada?",
+        "intent": "message",
+        "verdict": "chat",
+        "fired": [],
+        "reply_line": "Dei, asking a Kovai anna for Kannada? Pure betrayal da, but I got you — play this for them.",
+        "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/reply_2026-09-05T16-52-00.mp3"
+      }
+    ],
+    "reply_audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/reply_2026-09-05T16-52-00.mp3"
   }
 ]

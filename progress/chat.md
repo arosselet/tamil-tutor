@@ -24,6 +24,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **15:16 · Anna**  ·  text / show dose: edunga
 > Passing a dish to maama at tea? Don't just hold it out: 'edunga' (take / help yourself). Polite, natural Kovai table reflex.
 
+**22:22 · Andrew** — **CHAT**
+> I have a Tamil adjacent request. Can you send a voice greeting to my new friends in Kannada?
+
+**Anna ↩**
+> Dei, asking a Kovai anna for Kannada? Pure betrayal da, but I got you — play this for them.
+
 
 ## Friday 2026-09-04
 
