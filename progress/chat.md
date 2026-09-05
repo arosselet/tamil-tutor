@@ -15,6 +15,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **10:38 · Anna** 🎧  ·  eavesdrop / eavesdrop: town bank work
 > 🎧 Athai on the phone: 'nallapadiya' (went well). Did mama finish his work in town or not?
 
+**10:56 · Andrew** — **CAUGHT**
+> Yes
+
+**Anna ↩**
+> adhu dhaan — mudinjuchu, bank work all done and went well. 🎧
+
 
 ## Friday 2026-09-04
 

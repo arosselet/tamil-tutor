@@ -4044,14 +4044,16 @@
       "pochu",
       "mudinjuchu"
     ],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "cold",
     "seen_in": [],
     "last_surfaced": "2026-09-05",
     "deck": "trip",
     "direction": "fire",
     "exposures": 3,
-    "register": "frame"
+    "register": "frame",
+    "heard_on": "2026-09-05",
+    "reps": 1
   },
   "frame:if-ndhaa": {
     "type": "pattern",
