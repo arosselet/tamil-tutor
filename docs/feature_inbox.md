@@ -1437,67 +1437,51 @@ meaning anything and two Gate-2 holds were sitting on the wrong side of it. -->
   one line plus a gloss; lore is the only shape that goes deeper. Open question, not a
   proposal: is the floor doing what it was built to do, or has it become the ceiling?
 
-## The model contract is written twice, and that is what keeps costing us fields (2026-09-05)
+## The model contract is written twice — half fixed, half withdrawn (2026-09-05)
 
-**Gate 2 stop.** Proposed after the `say`/`ta` outage, attempted, and stopped when both
-candidate homes turned out to be at their ceilings. Andrew's question that prompted it:
-*"is it unnecessarily brittle or complex... I'm worried this is fragile by design."* He is
-right, and this is the separation that would answer him.
+**CLOSED THE SAME DAY IT WAS OPENED, and the correction is the useful part.** The
+original entry proposed a new module holding the schema vocabulary, per-lane schemas and
+a skeleton renderer, on the reasoning that three files were at their ceilings. Andrew
+asked the right question — *"do we need a new module?"* — and the answer is **no**. The
+entry rested on an assumption nobody checked: that the per-key teaching prose would have
+to move into the schema. It does not. The drift that cost six fields was always key
+NAMES and NESTING, never the descriptions.
 
-**THE DISEASE.** Every JSON lane describes its contract with the model TWICE: once as prose
-in `mandates.py` (a hand-written `{"key": "<what it is>"}` skeleton) and once as a schema
-in the lane (`obj(...)`). Nothing ties them together. When they disagree, `claude -p
---json-schema` silently deletes the key the mandate asked for, and the lane renders a dose
-with the payload missing. **Six fields lost to exactly this in one month** — `voice_reply`
-(08-28), `title` (09-01), `introduces` and `say` (09-05), and `reason` + `who` found by the
-sweep the same day. Not one of them crashed.
+**WHAT SHIPPED** (`writer.nullable`, 2026-09-05): the half that was real. `obj()` had no
+nullable form, so a key a mandate marks `| null` could not be declared — and undeclared
+means DELETED on the agent path, not optional. `schedule` and `volley_asks` were not
+conditional, they were impossible: every scheduled push the reply judge composed and
+every volley ask cloud Anna wrote was being dropped before Python could read it. Declared
+now, verified against the real CLI, and the ten `KNOWN_GAPS` licences deleted with the
+outage they were describing.
 
-**WHAT WE BUILT INSTEAD, and why it is the fragile part.** `s82` now sweeps every lane,
-comparing the schema against keys found by running a REGEX OVER ENGLISH PROSE
-(`"([a-z_]+)"\s*:`). It is a heuristic reading prose as if it were structure: it will go red
-the first time a mandate writes `"note":` inside an explanatory sentence, and a guard that
-cries wolf gets switched off. Beside it sit eight hand-written `KNOWN_GAPS` licences for the
-nullable `schedule` subtree whose staleness check cannot ever expire them (it asks whether
-the key is a top-level property; for a child of `schedule` that is permanently false). Both
-are machinery for NOTICING drift between two descriptions that should not both exist.
+**WHAT WAS WITHDRAWN, and why — generating the mandate's skeleton from the schema.**
+It does not survive its own test case. Replay the `say`/`ta` outage against it:
 
-**THE PROPOSAL, for a yes/no:** one description. The schema carries the key names and
-nesting; the mandate's skeleton is GENERATED from it and interpolated, so the two cannot
-disagree. The craft prose — 3-5 clusters, no scene, no grammar terms, under six words —
-stays exactly where it is in `mandates.py`, untouched. Only the skeleton moves.
+  - `SOAK_SCHEMA` says `ta`; a generated skeleton therefore shows the model `"ta"`.
+  - The model emits `ta`, obediently.
+  - `write_sheet`'s filter, `render()` and the delivery seam all read `say`.
+  - Every item is dropped. **The identical empty dose ships.**
 
-**WHAT IT RETIRES** (the argument for it — it is a deletion, not an addition): `s82`'s
-mandate-vs-schema sweep entirely, its prose-scanning needle, the eight `KNOWN_GAPS`
-licences, and the whole class of defect that cost six fields in a month. Key-name drift
-stops being detectable-after-the-fact and becomes impossible.
+The outage was never mandate-vs-schema. It was schema-vs-THE-LANE'S-OWN-READERS, and the
+mandate sweep caught it only as a proxy. Generating the skeleton would have removed a
+duplicate while leaving the actual defect untouched — and it would not even have retired
+the sweep, because the RULES prose names `say`, `title` and `thread` independently of the
+template (measured), so a second description of the keys survives either way.
 
-**WHY IT NEEDS A NEW MODULE, which is the part that needs Andrew.** Measured 2026-09-05:
+**WHAT THIS LEAVES, and it is worth stating plainly rather than building anything.** The
+class is "the schema and the code that reads the sheet disagree". Two things stand against
+it today and they are enough:
 
-  - `scripts/render_soak.py` is at **195/195** — zero headroom, cannot take a described
-    schema of its own.
-  - `scripts/mandates.py` is at **497/500** — three lines, and it would have to absorb both
-    the schema vocabulary and every lane's schema.
-  - `scripts/writer.py` is at **168/175**, enough for the renderer alone and nothing else.
-  - `obj / arr / STR / INT / BOOL / STRS` live in `writer.py` and are imported by **seven**
-    lanes, so they cannot simply move into `mandates.py` — though note the layering ratchet
-    would SURVIVE that move: they are pure dict builders, so `mandates` would still import
-    nothing.
+  - `s82` compares schema against mandate prose. A proxy, and its needle is a regex over
+    English that will false-red the day a mandate writes `"note":` in a sentence. Known
+    cost, accepted — it caught `say`, `reason` and `who` in one pass.
+  - the empty-sheet floors in `render_soak` and `render_drill`, which do not care WHY the
+    payload vanished. That generality is the point: they would have caught 09-05 whatever
+    the cause, which is more than any key-comparison can promise.
 
-Three files at their ceilings around one concern is the split-or-retire signal the budget
-law describes, so the honest shape is a module owning the model contract — vocabulary,
-per-lane schemas, and the skeleton renderer — that both `mandates.py` and the lanes import.
-Adding a `scripts/*.py` is a structure-freeze decision and a `CODE_BUDGETS` entry in the
-same diff, which is why this is an inbox entry and not a commit.
-
-**A CONSTRAINT WORTH KNOWING BEFORE DESIGNING IT.** The per-key guidance is not merely
-structural — `"say"` currently carries *"natural Coimbatore colloquial in TAMIL SCRIPT
-ONLY"*. Moving that into a schema in a LANE would push Tamil-specific prompt prose back out
-into the lanes, which is the exact direction the port-surface work (`s93`, `PROMPT_HOMES`)
-has been consolidating away from. So either the schemas live in a declared prompt home, or
-the generated skeleton stays language-neutral and the teaching stays in the mandate. The
-second is cheaper and is what the aborted attempt assumed.
-
-**AND IT WOULD FORCE THE NULLABLE QUESTION**, which is currently parked as those eight
-licences: `obj()` has no optional or nullable form, which is why `schedule` and its six
-fields are undeclarable today. A contract module is where that belongs, and closing it
-would hand back every licence at once.
+**NOT PROPOSED: a static check that every key a lane reads off a sheet is declared.** It
+is the only thing that would close the class directly, and it means parsing `item["say"]`
+out of Python source — trading a regex over prose for a regex over code. That is the same
+brittleness wearing a lab coat, and this repo has enough guards. Written down so the idea
+is on the record as CONSIDERED AND DECLINED, not overlooked.
