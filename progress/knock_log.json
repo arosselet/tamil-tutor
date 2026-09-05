@@ -6601,5 +6601,18 @@
         "reply_line": "adhu dhaan — mudinjuchu, bank work all done and went well. 🎧"
       }
     ]
+  },
+  {
+    "date": "2026-09-05",
+    "timestamp": "2026-09-05T09:46:27.280940+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "show dose: edunga",
+    "rationale": "Demand streak reached 2, so switching to a give; introducing unseen table-manners delight item 'எடுங்க' before evening tea.",
+    "next_check": "2026-09-05T13:16:27.280940+00:00",
+    "body": "Passing a dish to maama at tea? Don't just hold it out: 'edunga' (take / help yourself). Polite, natural Kovai table reflex.",
+    "expected_target": "",
+    "stance": "give",
+    "target_revealed": false
   }
 ]

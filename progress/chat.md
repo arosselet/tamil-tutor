@@ -21,6 +21,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan — mudinjuchu, bank work all done and went well. 🎧
 
+**15:16 · Anna**  ·  text / show dose: edunga
+> Passing a dish to maama at tea? Don't just hold it out: 'edunga' (take / help yourself). Polite, natural Kovai table reflex.
+
 
 ## Friday 2026-09-04
 
