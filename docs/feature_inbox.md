@@ -1395,3 +1395,44 @@ meaning anything and two Gate-2 holds were sitting on the wrong side of it. -->
   with an `at_local: ""` meaning none. Evidence: the last scheduled knock is 2026-08-19,
   and it came through the cloud/API path where undeclared keys survive.
 - **Budget `protocol/studio/` prose** (2026-09-03, found adding the prose completeness sweep in `s18`). Five files, 5,620 words, none budgeted — `architect.md` alone is 1,926, larger than any law file. The sweep guards top-level `protocol/*.md` only, because budgeting the studio's craft prose is a structure decision and should not ride a split's coattails. Open question: does craft prose want the same ratchet as law prose?
+- **`demand_streak` counts the wrong thing — the trailer resets the anti-demand brake**
+  (2026-09-05, `/recalibrate` on Andrew's *"the pushes need more than just quizzing me and
+  luring me for a lesson… we should be sure it's not always a demand"*). **Third-plus strike
+  on one axis** (08-23 "hearing is not knowing" → 08-31 "we are thin on teaching… mostly
+  absent now", logged as SECOND INSTANCE → 09-01 "an agent that asks me a couple questions…
+  the illusion of progress"), which is the same arithmetic that produced the give-first law
+  on 07-17 — a law that became canon for the SESSION and **was never extended to this
+  channel.** That is the structural gap.
+  **MEASURED, 80 knocks over 30 days:** quiz (non-empty `expected_target`) **43.8%**, trailer
+  **21.2%**, silence 17.5%, give 18.8% — and the give figure is generous, because four of
+  those 15 are `debrief collect` / `field mission collect + tonight's assign`, which demand
+  in English rather than Tamil. **Genuine no-obligation gift: 11 of 80, 13.8%.** Quiz-or-lure
+  is ~65%. Andrew named both halves before seeing the log.
+  **NOT A PLUMBING BUG, and that is the point:** every unpaid trailer had a session within a
+  day (never-withhold-overnight holds), and all 80 `move` strings are distinct with no
+  repeated peg inside 7 days (the variety law holds). The machinery does exactly what it was
+  told. **The specification is what is wrong.**
+  **THE MECHANISM:** `morning_knock.demand_streak` counts *"trailing consecutive FIRES that
+  carried an ask (non-empty `expected_target`)"* — so demand is defined as *wants Tamil back*.
+  The trailer carries no `expected_target` by doctrine (`mandates`: *"Name the payoff, never
+  deliver it here"*), **so a trailer resets the streak to zero.** The brake that exists to
+  stop consecutive demands is satisfied by the one dose whose entire design is withholding.
+  The mandate's `Bias toward the TRAILER` then made the lure the cheapest legal exit from the
+  brake — **deleted 2026-09-05** as the one move (KF-8 precedent, 07-11: a preference line
+  funnelling the vein, fixed by deletion). The bias line is gone; **the counting definition
+  is not, and it is the load-bearing half.**
+  **THE PROPOSAL, for a yes/no:** make the trailer count toward `demand_streak` — i.e. define
+  demand as *wants something from him*, including a withheld payoff, which is the learner's
+  own definition. Effect: a genuine give (lore / show dose / audio memo / grace) forced every
+  third dose. **The tradeoff, stated honestly:** the trailer is the channel's best session
+  recruiter and this makes it more expensive to fire, so session attendance is the thing to
+  watch if it ships. **Do not build it as a quota** — 07-11 ("engagement is evidence, not a
+  mandate") and the `LORE_CADENCE_DAYS` note both warn that a floor inside the healthy band
+  is a quota in a cadence's clothes.
+  **SECOND, SMALLER FINDING, same sweep:** lore gaps have gone `8, 6, 8, 8` (the band Andrew
+  endorsed on 07-28, *"I genuinely enjoy that little dose of lore… high density learning"*)
+  → `15, 10`. `LORE_CADENCE_DAYS = 10` is deliberately set above the band so it cannot fire
+  in normal operation — sound as reasoned, but the effect is that the dose he singled out as
+  the one he enjoys is the one the system is most reluctant to send. Depth in this channel is
+  one line plus a gloss; lore is the only shape that goes deeper. Open question, not a
+  proposal: is the floor doing what it was built to do, or has it become the ceiling?

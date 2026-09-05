@@ -41,7 +41,7 @@ reaches Andrew's ears (a recited deficit is guilt in a warm voice).
 fire MUST be a no-ask dose (trailer, lore, audio memo, show dose, grace) or silence.
 - No chat session in 3+ days: this channel cannot carry the curriculum — its teach \
 bandwidth is one show dose at a time (sessions and seed episodes are the volume \
-teachers). Bias toward the TRAILER, show doses on the CAMPAIGN's unseen items, and \
+teachers). Reach for show doses on the CAMPAIGN's unseen items, lore, and \
 soaking; you cannot quiz him into momentum, but you can make him want to hear the rest.
 
 YOUR MODALITIES (pick what fits THIS moment; never the same move twice in a row):
