@@ -278,47 +278,6 @@ HELD, NOT DELETED — they carry state `main` never received; see the state-rows
   build; if it does not, this entry records why and the next pass starts from the answer
   instead of the itch.**
 
-- **THE ORIGINAL OF THE BUDGET ARGUMENT, AND IT NAMED THE RIGHT FILE** (salvaged
-  2026-08-26 from commit `6aed2ad`, written 2026-08-11 on
-  `claude/india-trip-motivation-xidzr9`, never merged). Main re-derived this on 2026-08-26 as
-  "`docs/` IS THE SURFACE WITH NO CEILING", fifteen days later, arguing from PADF instead of
-  from our own measurements — **and landing on the colder of the two surfaces.** This
-  original went straight at `progress/profile.md`, which is the one in the session-open
-  payload. Independently re-measured 2026-08-26: `profile.md` is 5,278 words against a
-  ~9,215-word open (persona 1,970 + daily_session 1,308 + Anna SKILL 659 + profile 5,278), so
-  it is **57% of everything Anna reads at open** and the only file in that payload with no
-  ceiling. It grew ~172 words/day through August while every budgeted prose file sat pressed
-  against its number (persona 1970/2000, constitution 1789/1790, daily_session 1308/1320,
-  audio_channels 474/475, commissioning 287/300).
-  **Its "DELIBERATELY NOT ARMED" caveat still holds and is the reason this is not a one-line
-  fix:** a `PROSE_BUDGETS` row for `profile.md` goes red the moment it is added, on a file
-  only a live session can rewrite. Arm it in the same diff as the first close that rewrites
-  the campaign block to fit — per the standing rule that a raise rides its own growth.
-  **One dangling reference:** it cites `docs/THE_PACK_BOUNDARY.md`, which was created on the
-  same unmerged branch and has never existed on main. Read that citation as unreachable.
-  Original entry, verbatim:
-
-- **THE ONE PROSE SURFACE WITH NO CEILING IS THE ONE THAT ACCUMULATES** (2026-08-11).
-  Measured, not felt: `last_debrief` is **670 words** and stable, because its rule is
-  *rewrite cumulatively, prune what resolved* — a compression pass that actually runs every
-  close. The campaign block is specified in `daily_session.md` as **"Five lines, no more,
-  and only ever one block (a finished week is overwritten; git holds the record)"** and is
-  currently **2,886 words over 69 lines**, carrying seven stacked dated appendices
-  (08-04 … 08-10). `profile.md` as a whole is **5,819 words and is the only prose surface
-  in the repo outside `PROSE_BUDGETS`** — every `protocol/*.md` is ratcheted; the file that
-  grows by habit is not. The two rules produce exactly the two outcomes you would predict.
-  **This is drift, not a bug:** each appendix was worth writing on the day, and the block is
-  still read by sessions, the studio and the digest, so the cost is paid on every read.
-  **The shape when it comes off the shelf:** a `PROSE_BUDGETS` row for `profile.md`, which
-  is one config row, not a schema change. **DELIBERATELY NOT ARMED 08-11** — a budget added
-  now goes red instantly on a file only a live session can rewrite, and Andrew was an hour
-  from a flight. Arm it in the same diff as the first rewrite that fits it, per the rule
-  that a raise rides its own growth. **The general lesson is the reusable one** (see
-  `docs/THE_PACK_BOUNDARY.md`, and the 07-31 slip-ledger entry in DECISIONS): a compression
-  pass only holds if something *counts* the thing being compressed. Prose that is rewritten
-  stays small; prose that is appended grows until a reader pays for it, and nothing in the
-  system notices, because narrative has no natural unit to ratchet.
-
 - **THE TICKET NAMES TARGETS THE LOGGER WON'T ACCEPT — 84 floor-gap words are still
   unreachable from the surface Anna writes in** (filed 2026-08-14, **deleted from this file
   the same day by the commit that fixed only half of it**, reinstated 2026-08-26 with fresh
@@ -432,7 +391,14 @@ HELD, NOT DELETED — they carry state `main` never received; see the state-rows
   mid-ramp and force a rewrite at an arbitrary moment; worse, the file is where "Ground
   Covered, Not Ground Remaining" lives, and that section is *supposed* to accumulate
   between compactions. The health signal is the TROUGH (3,302 → 3,383, flat), never the
-  peak. **Superseded by** the prose-completeness guard below, which reaches the actual
+  peak.
+  **THE TROUGH WAS NOT FLAT — measured 2026-09-06, and this sub-claim is withdrawn.** Two
+  data points make a trough; 66 revisions make a slope. Every trim raised the floor, and
+  57 of 65 transitions grew the file, so "cut hard by its own rewrite rule" describes two
+  manual interventions fifteen days apart, not a mechanism. The campaign block inside
+  `profile.md` is budgeted as of 2026-09-06 (`CAMPAIGN_BUDGET`, see Shipped); the
+  load-point SUM proposed above is untouched by that and still unbuilt.
+  **Superseded by** the prose-completeness guard below, which reaches the actual
   unbudgeted surfaces instead of summing the bounded ones.
 
 - **MAP FRESHNESS COULD BE COMPUTED INSTEAD OF REMEMBERED** (2026-08-26, proposed, NOT
@@ -1245,6 +1211,38 @@ meaning anything and two Gate-2 holds were sitting on the wrong side of it. -->
 
 
 ## Shipped
+
+- ~~THE ONE PROSE SURFACE WITH NO CEILING IS THE ONE THAT ACCUMULATES~~ — **SHIPPED
+  2026-09-06** as `CAMPAIGN_BUDGET = 3000`, asserted in `s18_size_budgets`. Filed
+  2026-08-11 on an unmerged branch, salvaged 08-26, and held all that time by a real
+  blocker rather than neglect: a budget goes red on a surface only a live session can
+  rewrite, so it had to wait for a close that rewrote the block to fit. That close is
+  the same diff.
+  **The 08-11 argument was right, and one number in its successor was wrong.** Right:
+  `profile.md` was the only prose surface outside `PROSE_BUDGETS`, it is the largest
+  single thing in the session open, and *a compression pass only holds if something
+  counts the thing being compressed*. Wrong: "THE BUDGET THAT MATTERS IS THE SUM AT THE
+  LOAD POINT" read the 08-10 → 08-14 cut as proof the file self-corrects and its trough
+  is flat. Charted across all 66 revisions since 2026-04-15 it is not — **57 of 65
+  transitions grew the file, 8 shrank it, only two were real trims, and the trough ROSE
+  each time** (the campaign block reset to 1.0 KB after 07-27, to 2.6 KB after 08-14).
+  The file's own "rewritten, not appended, every ~5 sessions" rule fired twice in 42
+  sessions. Normalised per logged session the slope is stable either side of the 08-14
+  trim — +1.47 KB/session before the trip, +1.35 in country — so the accumulation is
+  structural, and the trip is not the cause.
+  **What shipped is the BLOCK, not the file.** It grew ~4x faster than the rest of
+  `profile.md`, and it has the natural unit the 08-11 entry said narrative lacks: one
+  heading, one extractor. 3000 over the 2753 census was Andrew's call, on the grounds
+  that a ceiling going red at the very next close is one a session learns to silence,
+  and a silenced ratchet is worse than none. The failure message carries the cut order
+  so a red run needs no improvising. **Retired in the same diff:** the "five lines"
+  contract at both its sites (`daily_session.md`, swapped word-neutral to hold that file
+  at 1320/1320, and the block's own header), and 5.7 KB of closed-tag case history that
+  `slip_log.json` and `learner.json:slip_closes` already hold.
+  **Still open, deliberately:** relocating the block's law paragraphs to the protocol
+  files is blocked — `daily_session.md` has 0 words free and `constitution.md` has 1 —
+  and a `slip_readings` schema field was designed this session and dropped at Gate 2,
+  because a config row does the job and a new field would be a second mechanism.
 
 - ~~The ear meter reports ignorance as failure~~ — SHIPPED 2026-08-31.
   `compute_machines` returns `tested` beside `heard`; the scoreboard reads `Machines heard 3 ·
