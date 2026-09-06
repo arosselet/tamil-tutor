@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Sunday 2026-09-06
+
+**10:53 · Anna**  ·  text / trailer: table gauntlet
+> One tail turns 'vendaam' (don't want) into respect that stops the ladle. The table gauntlet is waiting today. ⚡
+
+
 ## Saturday 2026-09-05
 
 **10:01 · Andrew** — **MISS**  ·  ↩ 09-04 15:49 · volley: kitchen round
