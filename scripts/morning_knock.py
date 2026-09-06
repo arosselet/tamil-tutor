@@ -418,11 +418,11 @@ def campaign_block() -> str:
         text = (BASE / "progress" / "profile.md").read_text(encoding="utf-8")
     except OSError:
         return ""
-    # Match the HEADING, never its title. The title is Anna's prose and she
+    # Match the HEADING, never its title. The title is Anna's prose and he
     # renames it with every campaign — "The Last Week Before, and the Month
     # During" (2026-08-04) missed the exact string this used to require, and
     # six days of knocks steered with no campaign at all, silently. The
-    # contract fixes the prefix; everything after it belongs to her.
+    # contract fixes the prefix; everything after it belongs to him.
     marker = "## The Campaign"
     heading = next((l for l in text.splitlines() if l.startswith(marker)), None)
     if heading is None:
@@ -510,7 +510,7 @@ def normalize_decision(d: dict, volley_menu: list | None = None) -> dict:
     # AN ABSENCE MUST BE LOUD, and the DIRECTION of the default is the whole
     # point: "give" would silently reset the demand brake, which is the bug this
     # field exists to fix, so an unlabelled dose costs Anna a break rather than
-    # buying her a free one. Silence is exempt — it never reaches the streak.
+    # buying him a free one. Silence is exempt — it never reaches the streak.
     if d.get("stance") not in STANCES:
         if d.get("act"):
             print(f"   ⚠ dose declared no stance ({d.get('stance')!r}) — counting it as ASK")

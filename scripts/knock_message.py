@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""The MESSAGE lane — Andrew talking TO Anna, not answering her.
+"""The MESSAGE lane — Andrew talking TO Anna, not answering him.
 
 Reached from knock_reply.py when the phone says `intent=message` (the Shortcut's
 "Message" button) and no `knock_id` came with it. Nothing here grades: no

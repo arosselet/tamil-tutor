@@ -229,7 +229,7 @@ def cmd_status(_args):
     print(f"Now: {datetime.now(LOCAL_TZ):%a %Y-%m-%d %H:%M %Z} ({LOCAL_TZ.key})")
     print(f"Learner: {learner.get('learner')}")
     # A held channel must SAY it is held. Set silently, this bit looks exactly
-    # like Anna choosing not to knock, and a forgotten one would read as her
+    # like Anna choosing not to knock, and a forgotten one would read as him
     # going quiet for days with nothing anywhere to explain it.
     quiet_until = learner.get("quiet_until") or ""
     if quiet_until:
