@@ -6670,5 +6670,18 @@
     "move": "pending trailer payoff",
     "rationale": "Trailer acked this morning; holding space until evening for the session before paying it off.",
     "next_check": "2026-09-06T13:32:37.571257+00:00"
+  },
+  {
+    "date": "2026-09-06",
+    "timestamp": "2026-09-06T13:53:01.002089+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "trailer payoff: table gauntlet",
+    "rationale": "Evening trailer payoff for the unpaid table gauntlet teaser: hands vendaanga right before dinner as a pure give.",
+    "next_check": "2026-09-07T03:53:01.002089+00:00",
+    "body": "Athai with the ladle: 'vendaanga' (please don't / no thanks) stops it. Drop 'neenga saapdunga' (you eat) and you run the table.",
+    "expected_target": "",
+    "stance": "give",
+    "target_revealed": false
   }
 ]

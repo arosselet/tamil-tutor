@@ -11,6 +11,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 **11:33 · Andrew** · 👍 acked
 
+**19:23 · Anna**  ·  text / trailer payoff: table gauntlet
+> Athai with the ladle: 'vendaanga' (please don't / no thanks) stops it. Drop 'neenga saapdunga' (you eat) and you run the table.
+
 
 ## Saturday 2026-09-05
 
