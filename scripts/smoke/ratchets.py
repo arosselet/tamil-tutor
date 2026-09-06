@@ -176,6 +176,31 @@ PROSE_BUDGETS = {
 DECISION_ENTRY_BUDGET = 150
 
 
+# Words allowed in profile.md's campaign block (2026-09-06, Andrew). THE LAST
+# PROSE SURFACE WITH NO CEILING, parked in feature_inbox on 08-11 and re-measured
+# on 08-26 — and the reason it stayed parked is real: a budget on the WHOLE file
+# goes red on a surface only a live session can rewrite, so it had to wait for a
+# close that rewrote the block to fit. That close happened today.
+#
+# THE BLOCK, NOT THE FILE. Measured across two independent cycles either side of
+# the 08-14 trim, the block grew ~1.4 KB per logged session (+1.47 pre-trip,
+# +1.35 in country — the trip is not the cause) while the rest of the file grew a
+# third as fast. It is also the only narrative surface with a natural unit to
+# count: one heading, one extractor. The 08-11 entry said "narrative has no
+# natural unit to ratchet" and was right about prose in general; it is wrong here.
+#
+# 3000 over 2753-at-census was Andrew's call, and the reasoning is the nag
+# argument: a ceiling that goes red on the very next close is one a session
+# learns to silence, and a silenced ratchet is worse than none. This gives about
+# a week of ordinary writing before it bites.
+#
+# RETIRED IN THIS DIFF: the "five lines" contract, asserted in daily_session.md
+# and again in the block's own header, and inoperative since it was written —
+# two rewrites in 42 sessions against a stated ~5. An unenforced number in prose
+# is replaced by an enforced one in code; both prose sites now cite this budget.
+CAMPAIGN_BUDGET = 3000
+
+
 # Code budgets for the Python surfaces (2026-07-31): the same ratchet, one layer
 # down. The word budget held prose FLAT through July's build-out (8866 words on
 # 07-01, 10671 on 07-31) while production Python went 2566 -> 6032 lines with a
@@ -605,6 +630,33 @@ def s18_size_budgets(mk, kr, sb: Path):
         check(f"{rel}: {words}/{budget} words", words <= budget,
               f"over by {words - budget} — retire lines, or raise the budget in this "
               f"same diff and name what it retired")
+
+    # THE CAMPAIGN BLOCK — the loop above measures whole files and profile.md is
+    # not one of them (see CAMPAIGN_BUDGET). Real tree, not the sandbox: this is
+    # live state, and s17 reads the same file for the heading count.
+    real_profile = (REAL_BASE / "progress" / "profile.md").read_text(encoding="utf-8")
+    head = next((l for l in real_profile.splitlines()
+                 if l.startswith("## The Campaign")), "")
+    # An absence must be loud. Without this, a renamed or deleted heading measures
+    # an empty block, reports 0/3000 and passes — the budget would silently stop
+    # guarding the exact surface it was added for, and look identical to success.
+    # s17 owns "exactly one heading"; this is that case's size half.
+    check("campaign block is findable for the budget", bool(head),
+          "no '## The Campaign' heading in the real profile.md — the size check "
+          "below would measure nothing and report green")
+    block = real_profile.split(head, 1)[1].split("\n## ", 1)[0] if head else ""
+    words = len(block.split())
+    check(f"campaign block: {words}/{CAMPAIGN_BUDGET} words",
+          bool(head) and words <= CAMPAIGN_BUDGET,
+          "the campaign block is a findings log again. CUT, IN THIS ORDER: "
+          "(1) a closed-tag paragraph — slip_log.json holds the instances and "
+          "learner.json:slip_closes the dates, so keep the medicine as one line "
+          "and let git hold the case; (2) a reusable technique — promote it to "
+          "protocol/commissioning.md and delete the case it came from; (3) a "
+          "superseded reading — the newest paragraph on a tag wins, the older "
+          "ones go. Raising this number is allowed in the same diff as the "
+          "growth, naming what it retired — but a block that keeps hitting the "
+          "ceiling wants its findings stored on the tag, not more room.")
 
     # Read the real tree, not the sandbox: the budget binds the source as
     # committed, and the sandbox omits files by ignore-pattern.
