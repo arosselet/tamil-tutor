@@ -947,6 +947,24 @@ def s17_campaign_digest(mk, sb: Path):
           real_block.startswith("CAMPAIGN") and len(real_block) > 200,
           f"{len(real_block)} chars — cloud Anna would steer with no campaign")
 
+    # ...AND IT NEVER ENDS MID-SENTENCE (2026-09-06). The 1500-char cap was
+    # written when this block was 0.6 KB and has been slicing ~90% of it since
+    # August — correctly, since the lane wants the named week and its
+    # through-line and nothing below. What was wrong is that it cut mid-word,
+    # and a decider handed half a sentence has no way to know it. Asserted on
+    # the REAL block for the same reason the case above is: only live prose is
+    # long enough to truncate, and a fixture would prove the extractor against
+    # text the test wrote itself.
+    body = "\n".join(l for l in real.split(head, 1)[1].split("\n## ", 1)[0].splitlines()
+                     if not l.lstrip().startswith(">")).strip() if (head := next(
+        (l for l in real.splitlines() if l.startswith("## The Campaign")), "")) else ""
+    kept = real_block.split("\n", 1)[1] if "\n" in real_block else ""
+    clean = bool(kept) and body.startswith(kept) and (
+        len(kept) == len(body) or body[len(kept):len(kept) + 2] == "\n\n")
+    check("...and the campaign it yields ends at a paragraph break", clean,
+          "the digest's campaign is a partial paragraph — raise the cut to the "
+          "next break, never hand the decider half a sentence")
+
 
 def s20_fielding(mk, kr, sb: Path):
     """The fielding dose (2026-07-18): a Tamil question fired AT him, reply graded

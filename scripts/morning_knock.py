@@ -432,7 +432,19 @@ def campaign_block() -> str:
     body = "\n".join(l for l in body.splitlines() if not l.lstrip().startswith(">")).strip()
     if not body or "no campaign live" in body:
         return ""
-    return "CAMPAIGN (the live week plan — steer by it):\n" + body[:1500]
+    # CUT AT A PARAGRAPH BREAK, never mid-character (2026-09-06). The 1500 is
+    # right and stays: this lane needs the named week and its through-line, and
+    # nothing below that — it names no items, the ticket owns those. But the cap
+    # was written on 07-17 in the commit that CREATED this block, when the block
+    # was 0.6 KB; it has been slicing ~90% of a 15 KB block since early August,
+    # and it did it mid-word. The framing sits at the head by CONVENTION, not by
+    # construction, so a campaign whose through-line runs long used to reach the
+    # decider as half a sentence with nothing anywhere saying so — the same
+    # silent shape as the 08-04 heading rename six lines up. Degenerate case is
+    # deliberate: no break inside the first 1500 chars falls back to the raw
+    # slice, which is exactly today's behaviour and never an empty campaign.
+    # The block's own size is bounded now (smoke s18, 3000 words).
+    return "CAMPAIGN (the live week plan — steer by it):\n" + (body[:1500].rsplit("\n\n", 1)[0] if len(body) > 1500 else body)
 
 
 def build_digest() -> str:
