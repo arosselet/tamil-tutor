@@ -2150,6 +2150,18 @@ Details live in git history; this is the index of the *conclusions*.
   ceiling is not a spend, so headroom is free insurance and a truncation is a dead lane. Smoke
   `s66`.
 
+- **An elastic reasoner cannot be bounded by an addend — thinking gets its own dial**
+  (2026-09-07, Andrew). **Amends** "Thinking is part of the budget": the room still belongs
+  to the model, but `budget()` reserves it as a fixed addend and gemini-3.8-flash reasons
+  into whatever ceiling exists (3425–5377 at 5600, 2/8 truncated; 4018–9217 at 9600).
+  Raising the ceiling buys deliberation, not headroom — **the first fix was a bigger number
+  and its own verification killed it.** `REASONING_CAP` ships as `reasoning.max_tokens` on
+  both API paths; advisory, not a bound, so it moves the mean while headroom 4000→8000
+  absorbs the tail. 6/6 on `decide`. **A time bomb:** 3.7 drew 1253–3164, and `16c8e3c`
+  bumped the model on 09-03 inside a commit about a LinkedIn draft. **Swap the model,
+  re-measure both** — smoke stubs the LLM. **Corollary:** `rails_gate` precedes `decide`,
+  so a green Anna run is not evidence this lane works. Residuals in `feature_inbox`.
+
 - **Payload fidelity: verbatim for chunks, stem-tolerant for words** (2026-08-18). **Replaces**
   the flat substring test, and amends "Payload fidelity bends the sidecar, never the script"
   (2026-07-13) — the manual sidecar repair is no longer owed for a plain word. A verb stem can

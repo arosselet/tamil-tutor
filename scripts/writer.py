@@ -125,7 +125,67 @@ AGENT_MODEL = "claude-sonnet-5"     # what `claude -p` runs on the laptop
 # A ceiling is not a spend: unused headroom is billed at nothing, so headroom is
 # free insurance and a truncation is a dead lane.
 # REPLACES: eight hand-tuned `max_tokens` literals across five modules.
-REASONING_HEADROOM = 4000
+#
+# THIRD TIME, AND THIS ONE BREAKS THE 08-18 MODEL (2026-09-07). 4000 was measured
+# on SONNET-5. The cloud side left Anthropic for `google/gemini-3.7-flash` on 08-23
+# and nothing re-measured; `16c8e3c` then bumped 3.7 → 3.8 on 09-03 — one character,
+# inside a commit about a LinkedIn draft, no DECISIONS entry. Run 34087200895 took
+# the knock lane down four days later.
+#
+# WHAT THE 08-18 MODEL ASSUMED, AND WHY IT NO LONGER HOLDS. `budget()` treats
+# thinking as a FIXED ADDEND you can reserve room beside. Measured 2026-09-07 on
+# the real `decide()` prompt, gemini-3.8-flash reasons into whatever room exists:
+#     ceiling 5600, no cap   reasoning 3425 – 5377    2 of 8 truncated
+#     ceiling 9600, no cap   reasoning 4018 – 9217    1 of 5 truncated
+# Raising the ceiling buys more deliberation, not more headroom. An elastic
+# reasoner cannot be bounded by an addend, which is why this diff adds a second
+# dial instead of a bigger number — the first attempt at the fix WAS a bigger
+# number, and its own verification run killed it.
+#
+# WHY IT WAS A TIME BOMB AND NOT A REGRESSION. Same prompt, previous model:
+#     gemini-3.7-flash       reasoning 1253 – 3164    0 of 5 truncated
+# 3.7's demand sat ~2400 tokens clear of the ceiling; 3.8's straddles it, so each
+# call is a coin flip near the edge. `rails_gate` runs BEFORE `decide`, so the LLM
+# is reached ~2-3 times a day rather than 24: ten decide() calls separated the bump
+# from the failure. Nothing recent compounded it — the 09-06 campaign work shrank
+# this prompt by 480 chars. COROLLARY WORTH KEEPING: a green Anna run is not
+# evidence this lane works, because most runs never call it.
+#
+# THE TWO DIALS, AND THE CAP IS ADVISORY. `REASONING_CAP` goes to the API as
+# `reasoning.max_tokens`; it pulls the distribution down and does NOT bound the
+# tail (measured: cap 4000 still drew 9216, cap 6000 drew 9445). So the cap moves
+# the mean and the headroom absorbs what escapes it. Both measured together:
+#     cap 4000, ceiling 5600   reasoning ≤5377   4 of 4 clean, 5569/5600 — too thin
+#     cap 4000, ceiling 9600   reasoning ≤9216   6 of 6 clean, ~4200 spare
+# Artifact size was identical across every configuration (513–583 chars), so the
+# cap costs nothing the lane was using. A ceiling is not a spend: unused headroom
+# bills at nothing, and a truncation is a dead lane.
+#
+# THE ERROR MESSAGE SENT THE FIRST READER TO THE WRONG DIAL — it says "raise the
+# budget at the CALL SITE", the 08-05 signature, while the call site was
+# over-provisioned SEVENFOLD. Corrected at `parse_llm_response`, which now reports
+# the split it measured instead of asserting one.
+#
+# SWAP THE MODEL, RE-MEASURE BOTH NUMBERS. Neither is portable across vendors;
+# `scripts/smoke/ratchets.py` cannot catch this because the suite stubs the LLM.
+REASONING_HEADROOM = 8000
+REASONING_CAP = 4000
+
+# The wire form, built once. BOTH API paths send it — `_api_json` and `_api_text`
+# — because the elasticity is a property of the MODEL, and both paths call the
+# same one. Per-path would be the per-lane patching the block above exists to
+# stop. It rides `extra_body` because `reasoning` is an OpenRouter extension, not
+# an OpenAI field; a provider that ignores it simply falls back to the ceiling,
+# which is the pre-2026-09-07 behaviour and never worse than it.
+#
+# `_api_text` is the one that had NO truncation guard at all (`parse_llm_response`
+# is on the JSON path only) — it returns whatever came back, so a cut-off
+# transliteration arrives as "" and `to_phonetic`'s `or text` falls back to the
+# raw Tamil, warns, and ships SCRIPT to the lock screen. That lane runs at
+# `answer_tokens=300`, i.e. a 4300 ceiling before this diff, under 3.8's median
+# reasoning. The cap is what takes it out of range; the missing guard is a real
+# residual and is Andrew's call, not this diff's.
+REASONING_BUDGET = {"reasoning": {"max_tokens": REASONING_CAP}}
 
 
 def budget(answer_tokens: int) -> int:
@@ -224,13 +284,32 @@ def parse_llm_response(resp) -> dict:
     text — so the check has to sit here.
 
     Raised as ValueError so `decide()`'s retry loop re-rolls it (a second draft
-    may simply be terser); `judge()` has no retry, so it surfaces at once."""
+    may simply be terser); `judge()` has no retry, so it surfaces at once.
+
+    IT NAMES THE DIAL IT MEASURED, NEVER THE ONE IT ASSUMED (2026-09-07). This
+    message used to assert two things it had not checked — "no JSON reached", and
+    "raise the budget at the CALL SITE". Both are the 08-05 signature, where the
+    model deliberates in prose and never emits a brace. On run 34087200895 neither
+    was true: 715 chars of very nearly complete JSON had been emitted, and the call
+    site was over-provisioned sevenfold while REASONING_HEADROOM was short. A
+    diagnostic that guesses wrong is worse than one that says less — it cost the
+    first reader a trip to the wrong file. `usage` carries the split, so report it:
+    thinking over the headroom points HERE, an answer over its declared size points
+    at the call site."""
     c = resp.choices[0]
     if getattr(c, "finish_reason", None) == "length":
-        raise ValueError(f"LLM response TRUNCATED at the max_tokens ceiling "
-                         f"({len(c.message.content or '')} chars emitted, no JSON reached) "
-                         f"— raise the budget at the CALL SITE; this is not a parser "
-                         f"gap.\n--- truncated response ---\n{c.message.content}\n---")
+        text = c.message.content or ""
+        det = getattr(getattr(resp, "usage", None), "completion_tokens_details", None)
+        think = getattr(det, "reasoning_tokens", None) if det else None
+        where = ("no usage split on this response — check the ANSWER first" if think is None
+                 else f"THINKING ran out: {think} reasoning tokens over "
+                      f"REASONING_HEADROOM={REASONING_HEADROOM}; re-measure it for this "
+                      f"model, the call site is not the dial" if think > REASONING_HEADROOM
+                 else f"the ANSWER ran out: {think} reasoning tokens fit the headroom, "
+                      f"so raise `answer_tokens` at the CALL SITE")
+        raise ValueError(f"LLM response TRUNCATED at the ceiling on {OPENROUTER_MODEL} "
+                         f"({len(text)} chars of artifact emitted) — {where}. Not a "
+                         f"parser gap.\n--- truncated response ---\n{text}\n---")
     return parse_llm_json(c.message.content)
 
 # ── The phonetic rewrite — the one TEXT lane on this module ──────────────────
@@ -419,7 +498,7 @@ def _api_json(system: str, user: str, answer_tokens: int) -> dict:
     client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
     resp = client.chat.completions.create(
         model=OPENROUTER_MODEL, max_tokens=budget(answer_tokens),
-        response_format=JSON_MODE,
+        response_format=JSON_MODE, extra_body=REASONING_BUDGET,
         messages=[{"role": "system", "content": system},
                   {"role": "user", "content": user}])
     return parse_llm_response(resp)
@@ -508,6 +587,7 @@ def _api_text(system: str, user: str, answer_tokens: int) -> str:
     client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
     resp = client.chat.completions.create(
         model=OPENROUTER_MODEL, max_tokens=budget(answer_tokens),
+        extra_body=REASONING_BUDGET,
         messages=[{"role": "system", "content": system},
                   {"role": "user", "content": user}])
     return (resp.choices[0].message.content or "").strip()

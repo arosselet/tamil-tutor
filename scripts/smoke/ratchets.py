@@ -489,6 +489,26 @@ CODE_BUDGETS = {
     # unconditionally on a host with a paid subscription, plus render_drill's
     # `ask_json`. One place decides who makes a JSON call, and it decides by
     # asking which BINARY exists — never by a flag a lane has to remember.
+    # 175 → 181 (2026-09-07, Andrew). RETIRED IN THIS DIFF: NOTHING — and that is
+    # the entry. Both raises below paid with a reduction ("growth paid for by a
+    # reduction, not an allowance"); this one cannot, so it says so rather than
+    # dressing an allowance up as one.
+    #
+    # WHAT THE SIX LINES BOUGHT: `REASONING_CAP` and its wire form, `extra_body`
+    # on both API paths, and a truncation guard that READS `usage` instead of
+    # asserting which dial ran out. gemini-3.8-flash reasons into whatever ceiling
+    # exists (measured: 3425–9217 tokens against 3.7's 1253–3164 on the identical
+    # prompt), so a single additive headroom cannot bound it and a second dial is
+    # not optional — see the block at `REASONING_HEADROOM` for the measurements.
+    #
+    # SECOND TIME THIS CEILING HAS BEEN ASKED, which is the signal the law names:
+    # a file that keeps hitting its ceiling wants a SPLIT, not a bigger number.
+    # The split is real and is NOT taken here — it was declined deliberately on
+    # departure day rather than improvised, and rides `docs/feature_inbox.md`
+    # unpaid. The candidate the file nominates for itself is `parse_llm_json`'s
+    # fallback chain (~15 lines, which would land this back under 175), gated by
+    # its own docstring on Action-log evidence that no fallback has fired. Gather
+    # that evidence before spending this ceiling a third time.
     # 150 → 175 (2026-08-23, Step 4 of the spine refactor). RETIRED IN THIS DIFF:
     # the LAST raw `OpenAI(...)` client outside this module. `ask_text` is what
     # `rephrase_phonetic` needed and never had — a host choice for a TEXT lane,
@@ -504,7 +524,7 @@ CODE_BUDGETS = {
     # law this refactor installs. The block did not grow, it moved: every line
     # counted here left morning_knock.py in the same commit, which is re-censused
     # DOWN by 165 for it. Growth paid for by a reduction, not an allowance.
-    "scripts/writer.py": 175,
+    "scripts/writer.py": 181,
     "scripts/run_studio.py": 430,
     "scripts/show_status.py": 125,
     # The state layer's shared vocabulary, split out of sync_state 2026-08-04:

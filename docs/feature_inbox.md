@@ -4,6 +4,43 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **SPLIT `scripts/writer.py` — the ceiling has now been asked twice, unpaid
+  (2026-09-07).** 150 → 175 on 08-23, 175 → 181 today, and today's raise **retired
+  nothing**, which is the first time this ceiling moved on an allowance rather than a
+  reduction. The law is explicit: *a file that keeps hitting its ceiling wants a split, not
+  a bigger number.* The split was declined on departure day rather than improvised; this
+  entry is the debt.
+  **THE CHEAP HALF FIRST, and the file nominates it itself:** `parse_llm_json`'s fallback
+  chain — the fence re-scan, the `{..}` slice, and `ast.literal_eval` — is ~15 lines and
+  would land the file back under 175 on its own. Its docstring already carries the
+  retirement gate: *"retire it on evidence, not on principle: once the Action logs show a
+  stretch with no 'unparseable LLM response' line and no fallback hit."* **Gather that
+  evidence before spending the ceiling a third time.** Every lane has sent `JSON_MODE`
+  since 08-18, so the fallbacks are structurally near-dead — but `judge()` has no retry
+  loop, and a wrapped reply there is a reply Andrew sent and got nothing back for, which is
+  the one failure in this file he actually feels. Principle is not evidence; the Action log
+  is.
+  **THE REAL SEAM, if the cheap half is not enough:** this module holds four things that
+  only share a client — model config and `budget()`, both JSON parsers, the executor
+  choice, and `voice_canon`. The canon is the odd one: it reads two protocol files and
+  makes no model call at all.
+
+- **`_api_text` HAS NO TRUNCATION GUARD, and the failure is silent (2026-09-07).**
+  `parse_llm_response` sits on the JSON path only, so the text lane returns whatever came
+  back on `finish_reason == "length"` — an empty string. `to_phonetic`'s `rephrase_phonetic(text) or text`
+  then falls back to the **raw Tamil**, re-asks once, falls back again, warns, and ships
+  **script to the lock screen** — the one surface that function exists to keep clear, and
+  against a learner who has said twice that he cannot read it at speed (08-11, 08-14).
+  **Live between 09-03 and 09-07:** that lane ran at `answer_tokens=300`, a 4300 ceiling,
+  under gemini-3.8-flash's median reasoning of ~5400. **Out of range now** — `REASONING_CAP`
+  plus the 8000 headroom put it at 8300 with the thinking pulled down, verified 3/3 — so
+  this is a latent gap, not a live bug, and it is filed rather than fixed for that reason.
+  The fix is small and the question is what it should DO: raising on a truncated
+  transliteration kills a knock that is otherwise fine, which is worse than the leak the
+  function already chose to accept ("leftovers WARN and ship"). Probably: keep shipping,
+  but say TRUNCATED rather than the generic script-survived warning, so the log tells the
+  two apart. Andrew's call.
+
 - **MULTI-TARGET EAVESDROP SCORING — proposed and WITHDRAWN in the same session
   (2026-08-31), because the obvious version manufactures the exact rows the 08-24 purge
   had just deleted.** Filed as a negative result so the next pass starts from the answer
