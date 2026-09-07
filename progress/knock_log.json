@@ -6688,13 +6688,14 @@
     "stance": "give",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Konjam",
+    "reply": "Thanni kuttinge",
     "reply_verdict": "cold",
     "reply_fired": [
       "நீங்க",
       "சாப்பிடுங்க",
       "போதும்",
-      "கொஞ்சம்"
+      "கொஞ்சம்",
+      "தண்ணி"
     ],
     "reply_fired_cold": [
       "சாப்பிடுங்க",
@@ -6704,8 +6705,8 @@
     "reply_fired_capped": [
       "நீங்க"
     ],
-    "reply_line": "adhu dhaan! Perfect measure. · Thirst hits after the sweet. Tell your cousin: 'water'.",
-    "reply_at": "2026-09-07T15:45:15Z",
+    "reply_line": "adhu dhaan! 'thanni' gets the glass every time.",
+    "reply_at": "2026-09-07T15:48:08Z",
     "exchanges": [
       {
         "at": "2026-09-07T15:43:33Z",
@@ -6757,6 +6758,21 @@
         "fired_capped": [],
         "graduated": [],
         "reply_line": "adhu dhaan! Perfect measure. · Thirst hits after the sweet. Tell your cousin: 'water'.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-09-07T15:48:08Z",
+        "reply": "Thanni kuttinge",
+        "verdict": "cold",
+        "fired": [
+          "தண்ணி"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! 'thanni' gets the glass every time.",
         "slips": [],
         "spoke": "",
         "scheduled": ""

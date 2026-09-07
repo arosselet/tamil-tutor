@@ -33,6 +33,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! Perfect measure. · Thirst hits after the sweet. Tell your cousin: 'water'.
 
+**21:18 · Andrew** — **COLD**  ·  ↩ 09-06 19:23 · trailer payoff: table gauntlet
+> Thanni kuttinge
+
+**Anna ↩**
+> adhu dhaan! 'thanni' gets the glass every time.
+
 
 ## Sunday 2026-09-06
 
