@@ -21,6 +21,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > Table cleared, athai stood no chance. · Now maama offers more rice. Wave it off — say 'enough'.
 
+**21:14 · Andrew** — **COLD**  ·  ↩ 09-06 19:23 · trailer payoff: table gauntlet
+> Podhum
+
+**Anna ↩**
+> adhu dhaan! Ladle stopped right there. · Athai asks how much payasam. Tell her: 'a little'.
+
 
 ## Sunday 2026-09-06
 

@@ -6688,20 +6688,22 @@
     "stance": "give",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Neenga saapdunga",
-    "reply_verdict": "hinted",
+    "reply": "Podhum",
+    "reply_verdict": "cold",
     "reply_fired": [
       "நீங்க",
-      "சாப்பிடுங்க"
+      "சாப்பிடுங்க",
+      "போதும்"
     ],
     "reply_fired_cold": [
-      "சாப்பிடுங்க"
+      "சாப்பிடுங்க",
+      "போதும்"
     ],
     "reply_fired_capped": [
       "நீங்க"
     ],
-    "reply_line": "Table cleared, athai stood no chance. · Now maama offers more rice. Wave it off — say 'enough'.",
-    "reply_at": "2026-09-07T15:43:33Z",
+    "reply_line": "adhu dhaan! Ladle stopped right there. · Athai asks how much payasam. Tell her: 'a little'.",
+    "reply_at": "2026-09-07T15:44:24Z",
     "exchanges": [
       {
         "at": "2026-09-07T15:43:33Z",
@@ -6722,10 +6724,27 @@
         "slips": [],
         "spoke": "",
         "scheduled": ""
+      },
+      {
+        "at": "2026-09-07T15:44:24Z",
+        "reply": "Podhum",
+        "verdict": "cold",
+        "fired": [
+          "போதும்"
+        ],
+        "fired_cold": [
+          "போதும்"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! Ladle stopped right there. · Athai asks how much payasam. Tell her: 'a little'.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
       }
     ],
-    "chained": 1,
-    "pinned_target": "போதும்",
+    "chained": 2,
+    "pinned_target": "கொஞ்சம்",
     "pinned_revealed": false
   },
   {
