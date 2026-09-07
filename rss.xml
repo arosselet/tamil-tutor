@@ -21,6 +21,16 @@
     <itunes:new-feed-url>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/rss.xml</itunes:new-feed-url>
     
     <item>
+      <title>Ground Covered — A Letter on Leaving</title>
+      <itunes:author>Andrew &amp; Claude</itunes:author>
+      <itunes:summary>Ground Covered — A Letter on Leaving</itunes:summary>
+      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/special_ground_covered.mp3" length="1870368" type="audio/mpeg"/>
+      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/special_ground_covered.mp3</guid>
+      <pubDate>Mon, 07 Sep 2026 18:22:22 +0530</pubDate>
+      <itunes:duration>00:07:33</itunes:duration>
+    </item>
+
+    <item>
       <title>Rotation — machines</title>
       <itunes:author>Andrew &amp; Claude</itunes:author>
       <itunes:summary>Rotation — machines</itunes:summary>
