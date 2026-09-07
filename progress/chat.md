@@ -27,6 +27,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! Ladle stopped right there. · Athai asks how much payasam. Tell her: 'a little'.
 
+**21:15 · Andrew** — **COLD**  ·  ↩ 09-06 19:23 · trailer payoff: table gauntlet
+> Konjam
+
+**Anna ↩**
+> adhu dhaan! Perfect measure. · Thirst hits after the sweet. Tell your cousin: 'water'.
+
 
 ## Sunday 2026-09-06
 

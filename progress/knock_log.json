@@ -6688,22 +6688,24 @@
     "stance": "give",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Podhum",
+    "reply": "Konjam",
     "reply_verdict": "cold",
     "reply_fired": [
       "நீங்க",
       "சாப்பிடுங்க",
-      "போதும்"
+      "போதும்",
+      "கொஞ்சம்"
     ],
     "reply_fired_cold": [
       "சாப்பிடுங்க",
-      "போதும்"
+      "போதும்",
+      "கொஞ்சம்"
     ],
     "reply_fired_capped": [
       "நீங்க"
     ],
-    "reply_line": "adhu dhaan! Ladle stopped right there. · Athai asks how much payasam. Tell her: 'a little'.",
-    "reply_at": "2026-09-07T15:44:24Z",
+    "reply_line": "adhu dhaan! Perfect measure. · Thirst hits after the sweet. Tell your cousin: 'water'.",
+    "reply_at": "2026-09-07T15:45:15Z",
     "exchanges": [
       {
         "at": "2026-09-07T15:43:33Z",
@@ -6741,10 +6743,27 @@
         "slips": [],
         "spoke": "",
         "scheduled": ""
+      },
+      {
+        "at": "2026-09-07T15:45:15Z",
+        "reply": "Konjam",
+        "verdict": "cold",
+        "fired": [
+          "கொஞ்சம்"
+        ],
+        "fired_cold": [
+          "கொஞ்சம்"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! Perfect measure. · Thirst hits after the sweet. Tell your cousin: 'water'.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
       }
     ],
-    "chained": 2,
-    "pinned_target": "கொஞ்சம்",
+    "chained": 3,
+    "pinned_target": "தண்ணி",
     "pinned_revealed": false
   },
   {
