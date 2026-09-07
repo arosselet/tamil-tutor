@@ -15,6 +15,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! 🔥 · 2/4 — Tell your younger cousin: 'put / keep' the bag right there.
 
+**21:13 · Andrew** — **HINTED**  ·  ↩ 09-06 19:23 · trailer payoff: table gauntlet
+> Neenga saapdunga
+
+**Anna ↩**
+> Table cleared, athai stood no chance. · Now maama offers more rice. Wave it off — say 'enough'.
+
 
 ## Sunday 2026-09-06
 

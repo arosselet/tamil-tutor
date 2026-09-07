@@ -6686,7 +6686,47 @@
     "body": "Athai with the ladle: 'vendaanga' (please don't / no thanks) stops it. Drop 'neenga saapdunga' (you eat) and you run the table.",
     "expected_target": "",
     "stance": "give",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Neenga saapdunga",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "நீங்க",
+      "சாப்பிடுங்க"
+    ],
+    "reply_fired_cold": [
+      "சாப்பிடுங்க"
+    ],
+    "reply_fired_capped": [
+      "நீங்க"
+    ],
+    "reply_line": "Table cleared, athai stood no chance. · Now maama offers more rice. Wave it off — say 'enough'.",
+    "reply_at": "2026-09-07T15:43:33Z",
+    "exchanges": [
+      {
+        "at": "2026-09-07T15:43:33Z",
+        "reply": "Neenga saapdunga",
+        "verdict": "hinted",
+        "fired": [
+          "நீங்க",
+          "சாப்பிடுங்க"
+        ],
+        "fired_cold": [
+          "சாப்பிடுங்க"
+        ],
+        "fired_capped": [
+          "நீங்க"
+        ],
+        "graduated": [],
+        "reply_line": "Table cleared, athai stood no chance. · Now maama offers more rice. Wave it off — say 'enough'.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ],
+    "chained": 1,
+    "pinned_target": "போதும்",
+    "pinned_revealed": false
   },
   {
     "date": "2026-09-07",

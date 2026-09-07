@@ -857,9 +857,10 @@
       "neenga"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [],
-    "last_surfaced": null
+    "last_surfaced": "2026-09-07",
+    "reps": 1
   },
   "அத்தை": {
     "gloss": "Aunt (paternal)",
@@ -1501,7 +1502,7 @@
     "gloss": "Please eat (respectful)",
     "phonetic": [],
     "recognition": "struggled",
-    "production": "hinted",
+    "production": "cold",
     "seen_in": [
       10,
       22,
@@ -1512,9 +1513,9 @@
       72,
       82
     ],
-    "last_surfaced": "2026-09-05",
+    "last_surfaced": "2026-09-07",
     "exposures": 5,
-    "reps": 1
+    "reps": 2
   },
   "உள்ள": {
     "gloss": "Inside",
