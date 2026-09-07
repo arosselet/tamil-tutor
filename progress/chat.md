@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Monday 2026-09-07
+
+**16:45 · Anna**  ·  volley / volley: afternoon blitz
+> ⚡ volley 1/4 — Filter coffee tastes incredible. Drop the slang word: 'awesome!'
+
+
 ## Sunday 2026-09-06
 
 **10:53 · Anna**  ·  text / trailer: table gauntlet

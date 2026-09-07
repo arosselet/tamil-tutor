@@ -6687,5 +6687,37 @@
     "expected_target": "",
     "stance": "give",
     "target_revealed": false
+  },
+  {
+    "date": "2026-09-07",
+    "timestamp": "2026-09-07T11:15:14.661395+00:00",
+    "acted": true,
+    "modality": "volley",
+    "move": "volley: afternoon blitz",
+    "rationale": "Afternoon production window after two days without a session; rolling the binding 4-target volley to get Tamil firing cold.",
+    "next_check": "2026-09-07T15:15:14.661395+00:00",
+    "body": "⚡ volley 1/4 — Filter coffee tastes incredible. Drop the slang word: 'awesome!'",
+    "expected_target": "செம்ம",
+    "stance": "ask",
+    "target_revealed": false,
+    "volley": [
+      {
+        "target": "செம்ம",
+        "ask": "Filter coffee tastes incredible. Drop the slang word: 'awesome!'"
+      },
+      {
+        "target": "வை",
+        "ask": "Tell your younger cousin: 'put / keep' the bag right there."
+      },
+      {
+        "target": "அவ",
+        "ask": "Pointing to your younger sister: the informal pronoun for 'she'."
+      },
+      {
+        "target": "அட்டா",
+        "ask": "You drop your keys on the floor — that amused Kongu sigh: 'alas! / oh man!'"
+      }
+    ],
+    "volley_next": 1
   }
 ]
