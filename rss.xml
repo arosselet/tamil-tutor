@@ -21,6 +21,16 @@
     <itunes:new-feed-url>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/rss.xml</itunes:new-feed-url>
     
     <item>
+      <title>Rotation — machines</title>
+      <itunes:author>Andrew &amp; Claude</itunes:author>
+      <itunes:summary>Rotation — machines</itunes:summary>
+      <enclosure url="https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/rotation_machines_2026-09-07_1050.mp3" length="5862816" type="audio/mpeg"/>
+      <guid>https://raw.githubusercontent.com/arosselet/tamil-tutor/main/published_audio/rotation_machines_2026-09-07_1050.mp3</guid>
+      <pubDate>Mon, 07 Sep 2026 11:13:01 +0530</pubDate>
+      <itunes:duration>00:21:13</itunes:duration>
+    </item>
+
+    <item>
       <title>Drill — Sit, Eat, Bargain, Decline</title>
       <itunes:author>Andrew &amp; Claude</itunes:author>
       <itunes:summary>Drill — Sit, Eat, Bargain, Decline</itunes:summary>
