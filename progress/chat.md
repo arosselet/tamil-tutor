@@ -39,6 +39,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! 'thanni' gets the glass every time.
 
+**22:43 · Andrew** — **MISS**
+> Took
+
+**Anna ↩**
+> vai dhaan — 'anga vai' for put. · 3/4 — Pointing to your younger sister: the informal pronoun for 'she'.
+
 
 ## Sunday 2026-09-06
 

@@ -6812,10 +6812,10 @@
         "ask": "You drop your keys on the floor — that amused Kongu sigh: 'alas! / oh man!'"
       }
     ],
-    "volley_next": 2,
+    "volley_next": 3,
     "response": "reply",
-    "reply": "Semma!",
-    "reply_verdict": "cold",
+    "reply": "Took",
+    "reply_verdict": "miss",
     "reply_fired": [
       "செம்ம"
     ],
@@ -6823,8 +6823,8 @@
       "செம்ம"
     ],
     "reply_fired_capped": [],
-    "reply_line": "adhu dhaan! 🔥 · 2/4 — Tell your younger cousin: 'put / keep' the bag right there.",
-    "reply_at": "2026-09-07T15:42:49Z",
+    "reply_line": "vai dhaan — 'anga vai' for put. · 3/4 — Pointing to your younger sister: the informal pronoun for 'she'.",
+    "reply_at": "2026-09-07T17:13:06Z",
     "exchanges": [
       {
         "at": "2026-09-07T15:42:49Z",
@@ -6842,10 +6842,23 @@
         "slips": [],
         "spoke": "",
         "scheduled": ""
+      },
+      {
+        "at": "2026-09-07T17:13:06Z",
+        "reply": "Took",
+        "verdict": "miss",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "vai dhaan — 'anga vai' for put. · 3/4 — Pointing to your younger sister: the informal pronoun for 'she'.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
       }
     ],
-    "chained": 1,
-    "pinned_target": "வை",
+    "chained": 2,
+    "pinned_target": "அவ",
     "pinned_revealed": false
   }
 ]
