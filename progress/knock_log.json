@@ -6812,19 +6812,21 @@
         "ask": "You drop your keys on the floor — that amused Kongu sigh: 'alas! / oh man!'"
       }
     ],
-    "volley_next": 3,
+    "volley_next": 4,
     "response": "reply",
-    "reply": "Took",
-    "reply_verdict": "miss",
+    "reply": "ava",
+    "reply_verdict": "cold",
     "reply_fired": [
-      "செம்ம"
+      "செம்ம",
+      "அவ"
     ],
     "reply_fired_cold": [
-      "செம்ம"
+      "செம்ம",
+      "அவ"
     ],
     "reply_fired_capped": [],
-    "reply_line": "vai dhaan — 'anga vai' for put. · 3/4 — Pointing to your younger sister: the informal pronoun for 'she'.",
-    "reply_at": "2026-09-07T17:13:06Z",
+    "reply_line": "adhu dhaan! 🔥 · 4/4 — You drop your keys on the floor — that amused Kongu sigh: 'alas! / oh man!'",
+    "reply_at": "2026-09-07T17:14:26Z",
     "exchanges": [
       {
         "at": "2026-09-07T15:42:49Z",
@@ -6855,10 +6857,27 @@
         "slips": [],
         "spoke": "",
         "scheduled": ""
+      },
+      {
+        "at": "2026-09-07T17:14:26Z",
+        "reply": "ava",
+        "verdict": "cold",
+        "fired": [
+          "அவ"
+        ],
+        "fired_cold": [
+          "அவ"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! 🔥 · 4/4 — You drop your keys on the floor — that amused Kongu sigh: 'alas! / oh man!'",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
       }
     ],
-    "chained": 2,
-    "pinned_target": "அவ",
+    "chained": 3,
+    "pinned_target": "அட்டா",
     "pinned_revealed": false
   }
 ]

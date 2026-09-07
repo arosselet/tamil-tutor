@@ -45,6 +45,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > vai dhaan — 'anga vai' for put. · 3/4 — Pointing to your younger sister: the informal pronoun for 'she'.
 
+**22:44 · Andrew** — **COLD**
+> ava
+
+**Anna ↩**
+> adhu dhaan! 🔥 · 4/4 — You drop your keys on the floor — that amused Kongu sigh: 'alas! / oh man!'
+
 
 ## Sunday 2026-09-06
 

@@ -1234,13 +1234,14 @@
       "ava"
     ],
     "recognition": "struggled",
-    "production": "none",
+    "production": "cold",
     "seen_in": [
       9,
       12
     ],
-    "last_surfaced": "2026-08-26",
-    "exposures": 1
+    "last_surfaced": "2026-09-07",
+    "exposures": 1,
+    "reps": 1
   },
   "ஏன்னா": {
     "gloss": "Because",
