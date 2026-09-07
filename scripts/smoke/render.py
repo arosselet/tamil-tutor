@@ -1088,18 +1088,30 @@ def s95_the_payoff_closes_the_tape(sb: Path):
             write_json(log, [entry])
             rp.write_sheet = lambda e, ls: {"opener": "o", "closer": "c",
                                             "glosses": [{"n": 1, "en": "only one"}]}
+            # COUNT THE DELTA, NEVER THE ABSOLUTE (2026-09-07). This asserted
+            # `len(notes) == 1` against a sandbox seeded from the REAL
+            # feedback_log, so it was green only while production had never
+            # logged a `[payoff]` line — and it went red the first time the lane
+            # it guards did its job correctly (`82b465b`, the 08-01 tape refused
+            # 2026-09-07). A test steered by production data is measuring the
+            # wrong thing; the invariant here is "one line per exhausted tape",
+            # which is a delta and always was.
+            def payoff_notes():
+                return sum("[payoff]" in n.get("note", "")
+                           for n in read_json(sb / "progress" / "feedback_log.json"))
+            before = payoff_notes()
             for _ in range(rp.MAX_TRIES):
                 with contextlib.redirect_stdout(io.StringIO()):
                     rp.main()
             after = read_json(log)[0]
-            notes = [n for n in read_json(sb / "progress" / "feedback_log.json")
-                     if "[payoff]" in n.get("note", "")]
+            written = payoff_notes() - before
             check("a misaligned sheet renders nothing", not paid.exists())
             check("...and stamps no payoff on the tape", not after.get("payoff_mp3"))
             check("...counts its tries, so the retry is bounded",
                   after.get("payoff_tries") == rp.MAX_TRIES, f"got {after}")
             check("...and says so in the ledger exactly once, on the last try",
-                  len(notes) == 1, f"got {len(notes)} ledger lines")
+                  written == 1, f"wrote {written} ledger lines across "
+                                f"{rp.MAX_TRIES} tries (was {before} before)")
             out = io.StringIO()
             with contextlib.redirect_stdout(out):
                 rp.main()
