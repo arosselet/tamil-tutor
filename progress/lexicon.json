@@ -1672,7 +1672,7 @@
     "phonetic": [
       "ippo"
     ],
-    "recognition": "comfortable",
+    "recognition": "solid",
     "production": "cold",
     "seen_in": [
       7,
@@ -1697,7 +1697,9 @@
       35,
       65
     ],
-    "last_surfaced": null
+    "last_surfaced": "2026-09-08",
+    "heard_on": "2026-09-08",
+    "reps": 1
   },
   "இல்லையாவா?": {
     "gloss": "Isn't it? / Right?",
@@ -2508,7 +2510,9 @@
     "production": "cold",
     "seen_in": [],
     "last_surfaced": "2026-09-08",
-    "exposures": 4
+    "exposures": 4,
+    "heard_on": "2026-09-08",
+    "reps": 1
   },
   "frame:obligation-ணும்": {
     "type": "pattern",

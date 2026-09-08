@@ -15,6 +15,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **13:10 · Anna** 🎧  ·  eavesdrop / eavesdrop: priya plans
 > 🎧 Athai on the phone: 'veetla dhaan' (at home only). Is Priya heading out right now, or later this evening?
 
+**13:12 · Andrew** — **MISSED**
+> Now she is going (ippo)
+
+**Anna ↩**
+> illa da — 'ippo pogamatta', she's only heading out after 6 this evening.
+
 
 ## Monday 2026-09-07
 

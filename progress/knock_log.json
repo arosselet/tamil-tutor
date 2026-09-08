@@ -6902,6 +6902,20 @@
     "target_revealed": false,
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-09-08T07-40.mp3",
     "memo_script": "ஹலோ, சாந்தி அக்கா, கேக்குதா? ஆமா, நான் தான் பேசுறேன். நம்ம ப்ரியா விஷயம் கேட்டியே... அவ இப்போ கிளம்பல கா. வீட்ல தான் இருக்கா.\n\nஇப்போ தான் காபி குடிச்சிட்டு உக்காந்து இருக்கா பாரு. நீ வேற அவசரப்படுற... இப்போ போக மாட்டா, சாயங்காலம் ஆறு மணிக்கு மேல தான் மார்க்கெட்டுக்கு போவா. ஆமா, அப்போ போவா. அவ கூட நானும் போவேன்.\n\nசரி சரி, நீ அப்புறம் கூப்பிடு. அவ கிளம்பும்போது நான் உனக்கு போன் பண்றேன், சரியா? வைக்குறேன் கா.",
-    "mp3": "published_audio/knocks/knock_2026-09-08T07-40.mp3"
+    "mp3": "published_audio/knocks/knock_2026-09-08T07-40.mp3",
+    "response": "reply",
+    "reply": "Now she is going (ippo)",
+    "reply_verdict": "missed",
+    "reply_line": "illa da — 'ippo pogamatta', she's only heading out after 6 this evening.",
+    "reply_at": "2026-09-08T07:42:10Z",
+    "exchanges": [
+      {
+        "at": "2026-09-08T07:42:10Z",
+        "reply": "Now she is going (ippo)",
+        "verdict": "missed",
+        "fired": [],
+        "reply_line": "illa da — 'ippo pogamatta', she's only heading out after 6 this evening."
+      }
+    ]
   }
 ]
