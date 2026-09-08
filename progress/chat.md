@@ -21,6 +21,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > illa da — 'ippo pogamatta', she's only heading out after 6 this evening.
 
+**13:13 · Andrew** — **MISSED**
+> What is pogamatta? Break it down for me
+
+**Anna ↩**
+> po (go) + maatta (she won't) — 'poga maatta' is just 'she won't go'.
+
 
 ## Monday 2026-09-07
 
