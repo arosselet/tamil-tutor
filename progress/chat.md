@@ -4,6 +4,15 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Tuesday 2026-09-08
+
+**13:08 · Andrew** — **CHAT**  ·  ↩ 09-07 16:45 · volley: afternoon blitz
+> I forgot to pause your ticks before I departed. Now I’m in transit. Not fading just offline.
+
+**Anna ↩**
+> Seri da, safe travels! Zero worries about the ticks — focus on the transit and rest up. Just ping me when you land.
+
+
 ## Monday 2026-09-07
 
 **16:45 · Anna**  ·  volley / volley: afternoon blitz
