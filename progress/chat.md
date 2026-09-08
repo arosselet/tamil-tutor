@@ -12,6 +12,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > Seri da, safe travels! Zero worries about the ticks — focus on the transit and rest up. Just ping me when you land.
 
+**13:10 · Anna** 🎧  ·  eavesdrop / eavesdrop: priya plans
+> 🎧 Athai on the phone: 'veetla dhaan' (at home only). Is Priya heading out right now, or later this evening?
+
 
 ## Monday 2026-09-07
 
