@@ -6925,5 +6925,18 @@
       }
     ],
     "payoff_mp3": "published_audio/knocks/payoff_2026-09-08T07-40.mp3"
+  },
+  {
+    "date": "2026-09-08",
+    "timestamp": "2026-09-08T12:29:09.756300+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "show dose: thappu",
+    "rationale": "Demand streak is at 2 and no session in 3 days; giving a clean zero-ask show dose on an unseen item before dinner.",
+    "next_check": "2026-09-09T02:29:09.756300+00:00",
+    "body": "Took the wrong turn or poured too much? Just own it: 'thappu' (my bad / wrong). Elders soften the second you say it.",
+    "expected_target": "",
+    "stance": "give",
+    "target_revealed": false
   }
 ]

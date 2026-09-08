@@ -27,6 +27,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > po (go) + maatta (she won't) — 'poga maatta' is just 'she won't go'.
 
+**17:59 · Anna**  ·  text / show dose: thappu
+> Took the wrong turn or poured too much? Just own it: 'thappu' (my bad / wrong). Elders soften the second you say it.
+
 
 ## Monday 2026-09-07
 
