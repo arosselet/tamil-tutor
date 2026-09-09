@@ -6960,5 +6960,14 @@
     "move": "silence: lunch anchor",
     "rationale": "Trailer for today's lunch session is already sitting on the lock screen; hold silence through lunch to let him run the session unprompted.",
     "next_check": "2026-09-09T17:28:00.912881+00:00"
+  },
+  {
+    "date": "2026-09-09",
+    "timestamp": "2026-09-09T18:19:36.971674+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "silence: table payoff hold",
+    "rationale": "Holding through the afternoon while the morning trailer sits open; wake at 18:00 EDT to pay off the table shield before dinner if no session lands.",
+    "next_check": "2026-09-09T22:01:36.971674+00:00"
   }
 ]
