@@ -144,11 +144,20 @@ reached **per register, not globally.** That is why films are a separate ladder 
 later rung, and why a bounded band is the only place the threshold is reachable early enough to
 start compounding.
 
-**The second clause is the harder one.** Every mission Andrew has ever fired was an ANSWER to
-something said to him; four died unfired because they required him to open (08-26). The system
-then made "a mission must be an answer" law — correct for mission design, and it means the
-system is now optimised for the slot he is already good at. **Participation at a table is
-initiation**, and it is currently unmeasured.
+**The second clause is UNMEASURED, and the claim that it is the harder one is withdrawn
+(2026-09-09).** This paragraph argued that four missions died because they required him to
+open, so the system was optimised for the response slot he was already good at. The evidence
+under it was not evidence: the missions were declined, not attempted (Andrew, 2026-09-09 —
+*"that's just me shrugging off your demand to collect homework I wasn't actually doing"*), and
+the debriefs that scored them were self-estimates. **So initiation has never been tested, in
+either direction.** Andrew's read is that it needs no separate work — *"answering is how I build
+up my foundation; if I can reply then I can also open unasked"* — and nothing in the record
+contradicts it, because the record is empty. **Deferred to the next in-country test rather than
+argued**: he is home, there is no table, and it is untestable until there is. Re-open it with
+observation, never with another theory. What survives from the old paragraph: the discourse
+openers (`namma mama irukkaar-la…`, `adhukku appuram?`) are ordinary vocabulary that happen to
+do opening work, they enter through the normal teach beat, and the thin backchannel set behind
+`grab-the-owned-one` is the real gap.
 
 **Load-bearing assumption, and the check:** that a family table is not open-domain. Ten minutes
 of harvested, native-ruled family speech yields the distinct-root inventory of *his* table —

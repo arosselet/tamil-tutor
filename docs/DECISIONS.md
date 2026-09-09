@@ -40,6 +40,18 @@ Details live in git history; this is the index of the *conclusions*.
 
 ## Settled design decisions
 
+- **What he TOLD us and what we OBSERVED must never share a field** (2026-09-09, Andrew).
+  One defect, four faces. (1) Recognition: a day-one self-estimate and earned evidence in
+  one field — found 08-23, fixed by purging 108 rows rather than by provenance, which is
+  why it returned. (2) Production: a mission debrief reports whether words *feel* firable;
+  `persona.md` called it "the strongest cold-fire evidence there is". (3) Mission outcome:
+  "didn't do it" and "couldn't do it" were one row, so the 08-26 speech-act and 08-31
+  trigger-frequency laws were theories built on non-compliance — struck. (4) The Receptive
+  Check: a gist self-report in an evidence slot, caught before it ran. **The fix is
+  provenance, not deletion** — a row carries how it was learned. **An instrument must know
+  what it asked, or it is not measuring.** Rituals may stay; their output stops writing
+  state.
+
 - **A lure is not a break — a dose DECLARES what it wants** (2026-09-05, Andrew: *"not
   always a demand"*). Give-first (07-17) became canon for the SESSION and never reached
   this channel. `demand_streak` defined demand as a non-empty `expected_target` — *wants
