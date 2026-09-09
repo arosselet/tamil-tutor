@@ -6938,5 +6938,18 @@
     "expected_target": "",
     "stance": "give",
     "target_revealed": false
+  },
+  {
+    "date": "2026-09-09",
+    "timestamp": "2026-09-09T05:42:31.136074+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "trailer: table shield",
+    "rationale": "Late morning lunch anchor: teeing up the table defense through-line before his midday break without testing cold.",
+    "next_check": "2026-09-09T09:12:31.136074+00:00",
+    "body": "When athai ignores 'podhum' (enough): the polite Coimbatore line that stops the third ladle cold. Today's lunch session.",
+    "expected_target": "",
+    "stance": "lure",
+    "target_revealed": false
   }
 ]

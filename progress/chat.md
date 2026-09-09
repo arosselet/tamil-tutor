@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Wednesday 2026-09-09
+
+**11:12 · Anna**  ·  text / trailer: table shield
+> When athai ignores 'podhum' (enough): the polite Coimbatore line that stops the third ladle cold. Today's lunch session.
+
+
 ## Tuesday 2026-09-08
 
 **13:08 · Andrew** — **CHAT**  ·  ↩ 09-07 16:45 · volley: afternoon blitz
