@@ -6951,5 +6951,14 @@
     "expected_target": "",
     "stance": "lure",
     "target_revealed": false
+  },
+  {
+    "date": "2026-09-09",
+    "timestamp": "2026-09-09T14:58:00.912881+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "silence: lunch anchor",
+    "rationale": "Trailer for today's lunch session is already sitting on the lock screen; hold silence through lunch to let him run the session unprompted.",
+    "next_check": "2026-09-09T17:28:00.912881+00:00"
   }
 ]
