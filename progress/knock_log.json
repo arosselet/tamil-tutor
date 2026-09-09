@@ -6969,5 +6969,18 @@
     "move": "silence: table payoff hold",
     "rationale": "Holding through the afternoon while the morning trailer sits open; wake at 18:00 EDT to pay off the table shield before dinner if no session lands.",
     "next_check": "2026-09-09T22:01:36.971674+00:00"
+  },
+  {
+    "date": "2026-09-09",
+    "timestamp": "2026-09-09T23:44:46.140911+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "trailer payoff: table shield",
+    "rationale": "Paying off this morning's trailer: handing 'vayiru neranjiduchu' before dinner with zero demand to reset momentum after quiet reaches.",
+    "next_check": "2026-09-10T11:44:46.140911+00:00",
+    "body": "When 'podhum' fails with athai: 'vayiru neranjiduchu' (stomach is full). Add a soft '-mma' at the start — stops the ladle cold.",
+    "expected_target": "",
+    "stance": "give",
+    "target_revealed": false
   }
 ]

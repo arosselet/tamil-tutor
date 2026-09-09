@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **01:42 · Anna**  ·  text / trailer: table shield
 > When athai ignores 'podhum' (enough): the polite Coimbatore line that stops the third ladle cold. Today's lunch session.
 
+**19:44 · Anna**  ·  text / trailer payoff: table shield
+> When 'podhum' fails with athai: 'vayiru neranjiduchu' (stomach is full). Add a soft '-mma' at the start — stops the ladle cold.
+
 
 ## Tuesday 2026-09-08
 
