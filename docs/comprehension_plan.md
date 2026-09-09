@@ -175,10 +175,25 @@ survive in the habits below.
 
 A five-habit plan fails against a documented fade (May 2026) and the Enjoyment Clause.
 
-1. **One ear block a day, 20-30 min, attached to a routine that already exists** — the walk, the
-   dishes, the commute; never a new desk slot. One family or cooking vlog channel, re-watched.
-   English subtitles on the first pass for plot, **none on the re-watch**, which is where the ear
-   does its work. Same-language subtitles would be better and are not yet readable at speed.
+1. **One ear block a day, 10-15 min, at its own anchor — REWRITTEN 2026-09-09.**
+   **What it retires, and why it produced nothing in 25 days: the old habit could not be
+   performed as written.** It prescribed a vlog channel with the face visible and *English
+   subtitles on the first pass*, and in the same sentence attached it to "the walk, the dishes,
+   the commute; never a new desk slot." You cannot read subtitles on a walk. The lane it draws
+   on says "face visible, the situation carrying half the meaning". The instruction contained no
+   executable action, which is a better root cause than the one recorded below and supersedes it.
+   **Now:** a screen block at its own slot, separate from the chat session and later in the day
+   (Andrew, 2026-09-09 — two blocks apart, not stacked). **Mostly authored** material: episodes,
+   soaks, drills, rotation tapes, which are comprehensible by construction under the 95%
+   coverage rule. **Native media is auxiliary** until a Receptive Check says coverage has
+   closed — it is below the floor today, and sending him there first buys a discouraging
+   evening. When it does run: one channel, re-watched, English subtitles on the first pass and
+   **none on the re-watch**, which is where the ear does its work.
+   **The desk clause is dead, and it was a residual** (Andrew's read, confirmed): "never a desk
+   slot" was reasoned from 2026-08-25, when the only dose was a podcast and he was not finding
+   time at his computer. Two desk sessions a day are not unreasonable now, and the walk and the
+   dishes keep the job they are actually good at — **re-listening to material already
+   understood**, which is the rotation lane's whole design.
 2. **The daily eavesdrop tape** — after the scoring fix it is both the dose and the meter, it
    arrives on the phone, and it costs no new time at all.
 
@@ -191,6 +206,14 @@ replaces nothing and is owed nothing"* — it was written as a **permission**, a
 not produce behaviour. That sentence is the Enjoyment Clause doing its job and it should stay for
 everything else; habit 1 is the single exception that gets to be asked for.
 
+> **RE-CHECKED 2026-09-09 at 25 days: still zero — and the diagnosis above is half of it.**
+> The permission reading is real and stays. It is not sufficient: the habit was also
+> **unperformable as written** (subtitles on a walk — see habit 1). Two faults, and only one
+> was named, which is why naming it changed nothing. **The general lesson is the one this repo
+> already knows and did not apply to itself: check that the instruction can be executed before
+> concluding the learner lacked motivation.** A permission nobody can act on and a permission
+> nobody chose to act on look identical from the log.
+
 ---
 
 ## 6. Proposed changes (✅ = landed 2026-08-25)
@@ -200,8 +223,15 @@ everything else; habit 1 is the single exception that gets to be asked for.
    **✅ PARTLY, 2026-08-25.** The session inverted: the ear leads, ~3 fires are the probe, Ear
    Day is the volume shape (DECISIONS → "Input first; production is the probe"). The *minutes*
    half did not — it became a dial in `profile.md` → Calibration Notes with a proposed 15
-   min/day, and **Andrew sets the number**. 45–60 is still unpriced against the Enjoyment
-   Clause; see open question 6, which this does not answer.
+   min/day, and **Andrew sets the number**.
+   **✅ SET 2026-09-09, at 10-15 min/day, and 45-60 is withdrawn rather than deferred.** The
+   number is his, chosen against the Enjoyment Clause rather than around it: 45-60 was never
+   priced in *attention*, only in money, and money turns out not to bind at all (below). Two
+   desk blocks of ~15 min each is what he will actually do, and a dial he meets beats a dial
+   that is correct on paper. **The cost objection is retired outright** — measured 2026-09-09
+   at 526 chars/min against Chirp3-HD's 1M free chars/month, authored audio is free to ~63
+   min/day, so §4's "a boutique cannot solve a volume problem" was true about *effort* and
+   false about *money*. What remains scarce is pipeline throughput, not budget.
 2. **Ungate Phase 2 now.** `progress/profile.md` gates native media behind clearing the
    viability floor. Under the 08-17 position that gate is backwards — it makes comprehension
    wait on the production odometer.

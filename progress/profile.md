@@ -32,7 +32,7 @@
 - **Phrases are first-class.** The unit is the *chunk* (fixed formulaic phrase deployed whole — `saapta?`, `paravaayilla`, `enna aachu`) and the *frame* (a slot template — `___ venum`, `___ enga?` — an Engine). Not isolated words. The constitution's "Glue Over Vocabulary" / "Pattern Over List" made the curriculum spine.
 - **Fire vs. catch (2026-07-01).** Every row carries a `direction`: **fire** (force to cold production) or **catch** (ear-only — the win is solid recognition via eavesdrop and soak; *never* force these to fire). The gossip register is mostly catch: `frame:quote-nu` (…-னு சொன்னாங்க, reported speech) and `frame:hearsay-aam` (…-ஆம், hearsay) are the comprehension unlock for overheard family talk.
 - **Respond-under-speed is a session move, not a meter.** The survival tier's real test is *directed* fast speech — an instruction or question fired AT him, a different skill from overheard drift. Drill it as mask-work at full speed: one in-register line at Andrew; win = act/answer, OR fire a repair line from the antifreeze kit. Repair counts as a pass out loud, every time — that reflex IS the not-deer-in-headlights goal.
-- **The lunch anchor (2026-07-13, Andrew's commitment).** The daily terminal session has a home: his workday lunch break, wherever it lands. Knock policy tees it up late morning and saves collection asks for after the session's slot.
+- **The anchors — TWO since 2026-09-09, and they live in `protocol/learner_contract.md` now.** The lunch anchor (2026-07-13) still holds for the chat session; a second, separate slot later in the day carries the ear block. **Deliberately apart, not stacked** (Andrew, 2026-09-09): two blocks at one sitting is one context switch and one chance to miss; apart, they are two. Knock policy tees up the session late morning, saves collection asks for after its slot, and cues the ear block on the second anchor. The contract file is the one home for what Andrew commits to; this line points at it rather than restating it.
 - **Engines are the daily non-negotiable.** Every session forces **two novel instantiations of one frame** — one frame online beats five chunks memorized. Log with `--produced-cold 'frame:…'` only on a *novel* slot-fill.
 - **Competent > local.** Clear, correct, understood-and-understanding Tamil over hyper-local Kongu markers. Standard Coimbatore-colloquial is the target register; native-mimicry flourishes are the long game (`persona.md`), not the goal.
 - **Register default (Oracle-confirmed 2026-07-02):** **neenga/-nga for everyone, including younger relatives.** Nee is reserved for very close friends, close cousins, and siblings. When in doubt, -nga — the safe register is also the correct one in this family.
@@ -166,11 +166,18 @@ not demoted — it is **re-labelled as the instrument it always was**.
 
 ## The Native-Media Lane — open since 2026-08-25
 
-> **Why it stopped being "on the horizon."** The system generates ~1.3 min of Tamil a day
-> (`docs/comprehension_plan.md`, measured 2026-08-17). Comprehension is a volume problem and
-> a boutique cannot solve it. Native media is the only source that scales, and it costs no
-> authoring. What was blocking it was a gate — Phase 2 waits for the floor — written when
-> production was the headline.
+> **AUXILIARY, NOT PRIMARY — demoted 2026-09-09 (Andrew).** This block used to argue that
+> "a boutique cannot solve it. Native media is the only source that scales, and it costs no
+> authoring." Half of that is now measured false: authored audio is free to ~63 min/day (see
+> Calibration Notes), so scale was never the discriminator money made it look like. What is
+> still true is the other half — native media is **unbounded** and authored material is not.
+> But it sits **below his 95% coverage floor today**, and authored material is comprehensible
+> by construction. So the ramp below is right and its ROLE changes: native media is the
+> auxiliary lane that grows as coverage grows, and the **authored** lanes carry the daily
+> 10–15 min. Revisit when a Receptive Check says the coverage gap has closed.
+>
+> **Why it stopped being "on the horizon."** What was blocking it was a gate — Phase 2 waits
+> for the floor — written when production was the headline.
 
 **Films are the destination, not the on-ramp.** They are the hardest listening environment
 there is: native speed, slang, music over dialogue, and a wide open vocabulary. Sending him
@@ -216,19 +223,23 @@ Learner-specific preferences for how Anna runs the live session. These live here
 
 These are **hard dials**, read by the Director/Architect. They live here (not in any agent's memory) so every agent and device applies the same calibration — change the number, not a prompt.
 
-- **Input volume — the dial that was never set (added 2026-08-25; ANDREW SETS THE NUMBER).**
-  Measured 2026-08-17: the system generates **~1.3 min of Tamil a day** (74 episodes, ~4 hours,
-  six months). Comprehension is a volume problem, and no calibration below can fix a supply of
-  1.3 minutes. Episodes are not the problem and were never the problem — Andrew, 2026-08-25:
-  *"I wasn't finding the time day to day sitting at my computer, so episodes let me stay in
-  contact with the sound of the language while I am out for a walk or doing dishes."* That is
-  the correct instrument for the actual bottleneck, running at a boutique rate.
-  **Proposed starting dial: 15 min/day of ear contact**, counting episodes, soaks, drills and
-  native media together — Anna reads it as a floor for *what to commission*, never as a debt to
-  narrate, and never as something Andrew owes. Two levers before spending money on it: native
-  media costs nothing to author, and `edge-tts` (already in `requirements.txt`, free) can carry
-  bulk soak while the Chirp3-HD voices stay for episodes worth sitting with. Price a minute of
-  each before raising the number — the standing budget is USD 5–10/month (≈CAD 7–14).
+- **Input volume — SET 2026-09-09 at 10–15 min/day, mostly authored** (proposed 2026-08-25,
+  unset for fifteen days as *"ANDREW SETS THE NUMBER"*; he set it). Counts episodes, soaks,
+  drills, rotation tapes and native media together. Anna reads it as a floor for **what to
+  commission**, never as a debt to narrate and never as something Andrew owes; what *he*
+  commits to is `protocol/learner_contract.md`, which is the other half of this number.
+  **AND THE COST PREMISE UNDER THE OLD BULLET WAS FALSE — measured 2026-09-09.** This entry
+  used to say native media was the only lever that scales "because it costs nothing to author",
+  and told a reader to price a minute before raising the number. Priced now, off this repo's
+  own corpus: 21 scripts paired to their rendered mp3s run **98,306 characters over 186.9
+  minutes = 526 chars/min**. Chirp3-HD bills $30/1M characters with **1M characters free every
+  month**, so 15 min/day is ~240K chars — **24% of the free tier**, and the paying threshold is
+  **~63 authored minutes a day**. The standing USD 5–10/month budget is not the binding
+  constraint at any dial being discussed, and the six-month $0 bill was 2% utilisation, not
+  luck. `edge-tts` stays available and stays unpriced; nothing needs it yet.
+  **What binds instead is pipeline throughput** — 1.5 → 10–15 min/day is a 7–10× increase in
+  material that must be commissioned, written and rendered daily, mostly with Andrew not in the
+  loop. Route a shortfall there, never to the budget.
 - **Live coverage target: ~95%+ known words in the Intercept *as heard*** — the listening-comprehension floor (Nation's lexical-coverage research). Comprehension must hold live.
 - **Gossip-tape carve-out (the ONE exception to 95%).** "Catch the drift" is a skill drilled on input Andrew *doesn't* fully understand: a clearly-marked eavesdrop segment (in-session eavesdrop drill, or a short tagged episode segment) may run native-speed with well below 95% coverage. The win condition is different — who/what/mood, not full comprehension — and it exists to train the `catch` items (quote-னு, hearsay-ஆம், the maami's predictable lines). Everything else keeps the 95% rule.
 - **Density is an OUTPUT, never a target.** It falls out of (fence size × the 95% coverage target). With a small fence, episodes lean heavily on English scaffolding — correct, not watering down. Do not dial a Tamil ratio.

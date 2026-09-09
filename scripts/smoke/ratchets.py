@@ -56,6 +56,19 @@ PROSE_BUDGETS = {
     # 545, +10%: it is small, and the one growth foreseen is a tool gaining an
     # option, which is a line not a section.
     "protocol/toolbelt.md": 600,
+    # NEW FILE, budgeted in the same diff that creates it (2026-09-09). THE
+    # LEARNER'S HALF — `constitution.md` binds the machine and nothing bound
+    # Andrew. WHAT IT RETIRES: one concept split across four sites, none of them
+    # citable. The lunch anchor lived in `profile.md`'s Touchdown Doctrine, the
+    # consume-once promise was a `feedback_log` ROW (an observation, not law), the
+    # session preferences that are really commitments sat under Session Conduct,
+    # and the habits sat in `comprehension_plan.md`. Both prose sites now point
+    # here instead of restating, which is why this is a separation and not an
+    # addition. Census 564, +7% — the same headroom dialect.md and persona.md
+    # took. THE GROWTH TO REFUSE: a second exception to the Enjoyment Clause.
+    # There is exactly one by design, and a file listing three is a ratchet
+    # wearing a contract's clothes.
+    "protocol/learner_contract.md": 605,
     # Budgeted 2026-09-03, not because it grew but because the completeness
     # sweep added below demanded it: this file has been unbudgeted since it was
     # written, and nothing could see that. Census 353, +13% — it is the smallest
