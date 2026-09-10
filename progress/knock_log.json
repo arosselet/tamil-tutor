@@ -7008,5 +7008,18 @@
     "move": "lunch anchor hold",
     "rationale": "Holding the midday window clear for his daily lunch session; will check back at 15:00 EDT for an afternoon fielding or catch rep if no session logs.",
     "next_check": "2026-09-10T19:01:40.052420+00:00"
+  },
+  {
+    "date": "2026-09-10",
+    "timestamp": "2026-09-10T19:24:58.156242+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "micro-dose: vendaanga",
+    "rationale": "5-day session gap calls for lowest-friction text production; tests the uncollected -nga slip (வேண்டாங்கா) pinned against Athai's refill.",
+    "next_check": "2026-09-10T23:54:58.156242+00:00",
+    "body": "Athai: 'innum venumaa?' (want more?). Tell her 'don't want, please' — use the elder -nga ending. Tamizh reply only.",
+    "expected_target": "வேண்டாங்கா",
+    "stance": "ask",
+    "target_revealed": false
   }
 ]

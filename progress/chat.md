@@ -13,6 +13,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **08:34 · Anna**  ·  text / show dose: edunga
 > Handing coffee to maama or offering a snack: 'edunga' (please take / have some). That effortless -nga tail.
 
+**15:24 · Anna**  ·  text / micro-dose: vendaanga
+> Athai: 'innum venumaa?' (want more?). Tell her 'don't want, please' — use the elder -nga ending. Tamizh reply only.
+
 
 ## Wednesday 2026-09-09
 
