@@ -3489,3 +3489,95 @@ def s88_taught_is_not_appeared(sb: Path):
     finally:
         lex_path.write_bytes(saved[0])
         eps_path.write_bytes(saved[1])
+
+
+def s98_an_observation_is_recorded_not_spent(sb: Path):
+    """PHASE 0 OF THE OBSERVATION LOG (2026-09-10) — and this case exists because
+    Phase 0's failure mode IS silence.
+
+    Nothing reads `observations.json` yet, by design: the lexicon stays
+    authoritative until Phase 3 so the daily loop cannot notice the migration.
+    That is the silent no-op in its purest form — delete every `record` call and
+    every meter still reads the same, every lane behaves the same, CI stays
+    green, and the log quietly stops growing. So this cannot inspect the source
+    for call sites; it ROUND-TRIPS THROUGH THE REAL WRITER and re-reads the file,
+    which is the only thing that tells "wired" from "looks wired".
+
+    WHAT PHASE 0 DELIBERATELY DOES NOT INSTRUMENT, and do not "fix" it by adding
+    it back: anything already derivable. `knock_log.json` holds every judged
+    verdict and `session_log.json` holds every cold/hinted/demoted row, so knock,
+    eavesdrop and session TEST events are Phase 1's backfill to derive, not new
+    code to carry. `knock_reply.py` carries an explicit "the next raise should be
+    a split, not a number" and instrumenting it would have spent that raise on
+    events already sitting in its own log. What is wired is only what NOTHING
+    else records anywhere: `taught` — first contact, which no log dates — and
+    `claimed`, a level minted with nothing behind it."""
+    print("\n98. An observation is recorded, not spent (2026-09-10)")
+    import subprocess as _sp
+    lex_path = sb / "progress" / "lexicon.json"
+    obs_path = sb / "progress" / "observations.json"
+    slog_path = sb / "progress" / "session_log.json"
+
+    lex = read_json(lex_path)
+    lex["வந்துட்டேன்"] = lex_row(phonetic=["vandhutten"], recognition="comfortable")
+    write_json(lex_path, lex)
+    before = len(read_json(obs_path)) if obs_path.exists() else 0
+
+    r = _sp.run([sys.executable, str(sb / "scripts" / "sync_state.py"), "update",
+                 "--teach", "பாப்போம்=we'll see|paapom",
+                 "--mastered-word", "புதுசு|pudhusu",
+                 "--produced-cold", "வந்துட்டேன்",
+                 "--stuck-word", "வந்துட்டேன்"],
+                cwd=sb, capture_output=True, encoding="utf-8", errors="replace")
+    check("the real writer ran", r.returncode == 0, r.stderr[-400:])
+    check("observations.json exists after a real session write", obs_path.exists(),
+          "Phase 0 is not wired — the log was never created")
+    if not obs_path.exists():
+        return
+    rows = read_json(obs_path)
+    check(f"the log GREW ({before} -> {len(rows)})", len(rows) > before,
+          "the writer ran and recorded nothing — the silent no-op")
+
+    new_rows = rows[before:]
+    kinds = {e["kind"] for e in new_rows}
+    check("first contact is recorded — nothing else in the repo dates a TEACH",
+          "taught" in kinds, str(sorted(kinds)))
+    check("a minted level is recorded as CLAIMED, not as evidence",
+          "claimed" in kinds, str(sorted(kinds)))
+    check("every event carries a known channel",
+          all(not str(e["channel"]).startswith("unknown:") for e in new_rows),
+          str([e["channel"] for e in new_rows]))
+    check("every event carries a known kind",
+          all(not str(e["kind"]).startswith("unknown:") for e in new_rows),
+          str([e["kind"] for e in new_rows]))
+    check("every event points back at its source",
+          all(e["source"] for e in new_rows), str([e["source"] for e in new_rows]))
+    check("ids are unique — the rebase union has something to dedupe on",
+          len({e["id"] for e in rows}) == len(rows))
+
+    # THE BACKFILL'S SOURCE MUST EXIST, or "derive it in Phase 1" was a promise
+    # written against nothing. The same run that recorded a teach must leave its
+    # production and demotion in the session log for Phase 1 to read back.
+    day = read_json(slog_path)[-1]
+    check("what Phase 0 skipped is genuinely derivable — the session log has it",
+          "வந்துட்டேன்" in day.get("cold", []) and "வந்துட்டேன்" in day.get("demoted", []),
+          str({k: day.get(k) for k in ("cold", "demoted")}))
+
+    # AND THE LEXICON IS UNCHANGED IN BEHAVIOUR. Phase 0 is additive; if a
+    # mutation stopped happening, the migration has silently started early.
+    lex_after = read_json(lex_path)
+    check("the lexicon still moved too — Phase 0 changed no behaviour",
+          lex_after["வந்துட்டேன்"]["production"] == "cold"
+          and lex_after["வந்துட்டேன்"]["recognition"] == "struggled",
+          str(lex_after["வந்துட்டேன்"]))
+
+    # AND IT SURVIVES THE RUNNER. The knock lanes run on stateless machines, so a
+    # recorded event that never reaches a commit is discarded when the job ends.
+    # `publish()` is the one chokepoint that assembles every dose's commit.
+    committed, _ = fx.pb.publish([sb / "progress" / "knock_log.json"], "smoke")
+    check("publish() carries the observation log into every commit",
+          any(q.name == "observations.json" for q in committed),
+          str([q.name for q in committed]))
+    check("the rebase net can union-resolve it",
+          "progress/observations.json" in fx.pb.UNIONABLE,
+          str(list(fx.pb.UNIONABLE)))

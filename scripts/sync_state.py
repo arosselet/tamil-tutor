@@ -39,6 +39,7 @@ from slips import (append_slips, canon_tag, cmd_slips, parse_slip_args,
 from publish import commit_and_push, publish
 from rebuild_rss import feed_items
 from suggest_targets import reconcile_focus
+import observations
 from state_io import (BASE, DEFAULT_TZ, EPISODES_PATH, FEEDBACK_LOG_PATH,
                       canon_payload,
                       KNOCK_LOG_PATH, LEARNER_PATH, LEXICON_PATH,
@@ -504,6 +505,9 @@ def cmd_update(args):
             # No `heard_on`: minting is Anna DECLARING a level, not observing one.
             # The field is absent until something tests the ear, which is what
             # makes "assertion" a derived property rather than a stored flag.
+            observations.record(word, "session", "claimed", axis="recognition",
+                                source=f"session:{today}",
+                                note=f"minted at {level}, nothing tested it")
             print(f"  + New word '{word}' → recognition {level} (phonetic '{phon}'; gloss empty — fill in later)")
             return
         lexicon[key]["recognition"] = level
@@ -578,6 +582,8 @@ def cmd_update(args):
                 lexicon[key]["phonetic"] = [phon]
             # Printed, not assumed: a state write nobody can see is the silent
             # no-op this repo keeps paying for. STILL EMPTY names the hole.
+            observations.record(key, "session", "taught", source=f"session:{today}",
+                                note="re-taught; row already existed")
             print(f"  Taught (already known): {key} — refreshed, recognition left "
                   f"at {lexicon[key].get('recognition', 'struggled')}, "
                   f"phonetic {lexicon[key].get('phonetic') or 'STILL EMPTY'}")
@@ -589,6 +595,8 @@ def cmd_update(args):
             "gloss": gloss, "phonetic": [phon], "recognition": "struggled",
             "production": "none", "seen_in": [], "last_surfaced": today,
         }
+        observations.record(word, "session", "taught", source=f"session:{today}",
+                            note="first contact — row created at struggled")
         print(f"  + Taught '{word}' → recognition struggled"
               f"{', gloss: ' + gloss if gloss else ' (gloss empty — fill in later)'}")
 

@@ -44,6 +44,7 @@ from state_io import KNOCK_LOG_PATH, LOCAL_TZ, RECENT_AUDIO_PATH
 # is still true, and enforcing a rail is a different job from OWNING it. This
 # file is the delivery tail; `rails.py` answers whether a reach is permitted at
 # all, which two lanes ask long before delivery.
+from observations import OBSERVATIONS_PATH
 from rails import in_waking_window
 
 
@@ -78,7 +79,13 @@ def load_env(path: Path):
 # session_log merges same-day rows by rule (2026-07-31) and feedback_log has no
 # key at all, so a conflict in either is a real disagreement and must stay loud.
 UNIONABLE = {"progress/push_queue.json": ("id", "due"),
-             "progress/knock_log.json": ("timestamp", "timestamp")}
+             "progress/knock_log.json": ("timestamp", "timestamp"),
+             # The observation log is append-only by construction and has THREE
+             # writers on two machines (the knock cron, the ack CI, the laptop),
+             # so it needs this resolver more than either file above. Its `id`
+             # exists for exactly this: `at` cannot be the dedupe key because a
+             # retell scores several words inside one second (2026-09-10).
+             "progress/observations.json": ("id", "at")}
 
 # Files with NO state of their own — each is a pure render of a source of truth
 # above. Merging one is meaningless: there is nothing in it to disagree about,
@@ -341,6 +348,14 @@ def publish(state_paths: list, message: str, *, mp3=None,
     if feed is None:
         feed = mp3 is not None
     paths = [q for q in state_paths if q]
+    # THE OBSERVATION LOG RIDES EVERY DOSE (2026-09-10, Phase 0). Any lane that
+    # judges a reply or renders a dose now appends to it, and the knock lanes run
+    # on STATELESS runners — a file written and not committed is discarded when
+    # the job ends, which is the silent no-op in its purest form: events recorded
+    # all week, none of them surviving. It goes here rather than in twenty-six
+    # lane call sites for the same reason everything else in this function did.
+    if OBSERVATIONS_PATH.exists() and OBSERVATIONS_PATH not in paths:
+        paths.append(OBSERVATIONS_PATH)
     if mp3 is not None:
         paths.insert(0, mp3)
     if feed:

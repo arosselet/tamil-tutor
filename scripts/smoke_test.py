@@ -165,6 +165,7 @@ def main():
         run(state.s86_a_tape_is_not_a_teacher, sb)
         run(state.s87_form_is_a_choice_per_order, sb)
         run(state.s88_taught_is_not_appeared, sb)
+        run(state.s98_an_observation_is_recorded_not_spent, sb)
 
     if fx.ONLY and not fx.RAN:
         sys.exit(f"no case matched {fx.ONLY} — name a case (s41) or a prefix (s41_slip)")

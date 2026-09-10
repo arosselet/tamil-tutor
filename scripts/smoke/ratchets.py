@@ -234,6 +234,16 @@ CAMPAIGN_BUDGET = 3000
 # loose enough that one ordinary bug fix does not trip it. Headroom is not an
 # allowance to spend; it is the room to land a repair without ceremony.
 CODE_BUDGETS = {
+    # NEW FILE, budgeted in the same diff that creates it (2026-09-10). THE
+    # OBSERVATION LOG — Phase 0 of docs/observation_log_plan.md. WHAT IT RETIRES:
+    # nothing yet, and that is the point: every writer keeps mutating the lexicon
+    # and ALSO appends here, so the daily loop cannot notice the migration.
+    # Phase 3 is where it pays — the lexicon becomes a derived view and the
+    # mutations go, which should take lines OUT of the three writers.
+    # Census 55, +10 headroom. THE GROWTH TO REFUSE: a reader. This file appends
+    # and validates constants, full stop; the moment it learns to fold events
+    # into a view, that view belongs in its own module and this one stays dumb.
+    "scripts/observations.py": 65,
     "scripts/generate_callbacks.py": 100,
     # 775 -> 785 (2026-08-02) for the thread-continuity window. Retired in the
     # same diff: three inlined ISO-timestamp parsers collapsed into _ts(), the
@@ -1113,6 +1123,13 @@ LAYERS = {
     # renderer — or upward for a lane — the edge reads as upward and fails here.
     # A map of names that can read the feed is a map that can grow opinions.
     "audio_titles":       0.5,
+
+    # Beside audio_titles and for the same reason (2026-09-10): it imports only
+    # L0, is WRITTEN by sync_state (L2) and READ by publish (L4) for the commit
+    # path. Numbered below both so the day it reaches sideways for a renderer or
+    # upward for a lane, the edge reads as upward and fails here. An appender
+    # that can read the ledger is an appender that can grow a policy.
+    "observations":       0.5,
 
     "render_chat":        1,      # L1 pure renderers over one source of truth
     "rebuild_rss":        1,

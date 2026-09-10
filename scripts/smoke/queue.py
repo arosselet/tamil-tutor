@@ -330,6 +330,10 @@ def s45_concurrent_appends_merge(mk, sb: Path):
 
     # A conflict OUTSIDE the unionable set must still be loud, not merged.
     check("only true append-arrays are auto-resolvable",
-          set(live.UNIONABLE) == {"progress/push_queue.json", "progress/knock_log.json"},
+          set(live.UNIONABLE) == {"progress/push_queue.json", "progress/knock_log.json",
+                                  "progress/observations.json"},
           f"{sorted(live.UNIONABLE)} — session_log merges same-day rows by rule and "
-          "feedback_log has no key; a conflict in either is a real disagreement")
+          "feedback_log has no key; a conflict in either is a real disagreement. "
+          "observations.json joined 2026-09-10: append-only by construction, three "
+          "writers on two machines, and an `id` minted per event precisely so this "
+          "resolver has something to dedupe on")
