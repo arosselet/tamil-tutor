@@ -3581,3 +3581,77 @@ def s98_an_observation_is_recorded_not_spent(sb: Path):
     check("the rebase net can union-resolve it",
           "progress/observations.json" in fx.pb.UNIONABLE,
           str(list(fx.pb.UNIONABLE)))
+
+
+def s99_a_declared_channel_never_votes(sb: Path):
+    """PHASE 2 — the derivation, and the one line four earlier patches were each
+    trying to say locally (2026-09-10).
+
+    The whole log exists so that what Andrew was TOLD and what the system
+    WATCHED stop sharing a field. That separation is worth nothing unless the
+    reader enforces it, so this asserts the teeth directly: a `seed` claim moves
+    no rung, ever, however confident it was; a watched test does.
+
+    It also pins the two properties Phase 3 depends on. DERIVE IS PURE — it takes
+    events and returns a dict, so the same events always give the same view and
+    nothing is written while the lexicon is still authoritative. And DIVERGENCE
+    IS CLASSIFIED, never merely counted: an unexplained disagreement blocks the
+    flip, an explained one does not, and a bucket that silently became a
+    catch-all would let an unexplained row ride in as `agree`."""
+    print("\n99. A declared channel never votes (2026-09-10)")
+    sys.path.insert(0, str(sb / "scripts"))
+    lv = importlib.import_module("lexicon_view")
+
+    seeded = [{"id": "a", "at": "2026-06-21T00:00:00Z", "word": "X",
+               "channel": "seed", "kind": "claimed", "axis": "recognition",
+               "result": None, "source": "git:seed", "note": ""}]
+    check("a seed claim moves no rung — the defect, refused at the reader",
+          lv.derive(seeded)["X"]["recognition"] == "struggled",
+          str(lv.derive(seeded)["X"]))
+    check("...and it is still RECORDED, not discarded",
+          lv.derive(seeded)["X"]["channels"] == {"seed"})
+
+    told = seeded + [{"id": "b", "at": "2026-07-01T00:00:00Z", "word": "X",
+                      "channel": "self-report", "kind": "tested",
+                      "axis": "recognition", "result": "right",
+                      "source": "mission:1", "note": ""}]
+    check("a self-report does not vote either — the mission ritual, defanged",
+          lv.derive(told)["X"]["recognition"] == "struggled",
+          str(lv.derive(told)["X"]))
+
+    watched = told + [{"id": "c", "at": "2026-08-01T00:00:00Z", "word": "X",
+                       "channel": "eavesdrop", "kind": "tested",
+                       "axis": "recognition", "result": "right",
+                       "source": "knock:1", "note": ""}]
+    got = lv.derive(watched)["X"]
+    check("a WATCHED test moves it exactly one rung", got["recognition"] == "comfortable",
+          str(got))
+    check("...and only the watched event is counted as a test", got["tests"] == 1,
+          str(got))
+
+    failed = watched + [{"id": "d", "at": "2026-08-02T00:00:00Z", "word": "X",
+                         "channel": "eavesdrop", "kind": "tested",
+                         "axis": "recognition", "result": "wrong",
+                         "source": "knock:2", "note": ""}]
+    check("a failure moves it back down — the ledger's only downward pressure",
+          lv.derive(failed)["X"]["recognition"] == "struggled",
+          str(lv.derive(failed)["X"]))
+
+    # PURE: same events in, same view out, and nothing on disk moved.
+    obs = sb / "progress" / "observations.json"
+    before = obs.read_text(encoding="utf-8") if obs.exists() else ""
+    check("derive is pure — repeated calls agree",
+          lv.derive(failed)["X"] == lv.derive(failed)["X"])
+    check("...and Phase 2 wrote nothing — the lexicon is still authoritative",
+          (obs.read_text(encoding="utf-8") if obs.exists() else "") == before)
+
+    # Divergence is CLASSIFIED. A seed-only row that the ledger calls solid is
+    # the headline case and must never land in `agree`.
+    verdict = lv.classify("X", {"recognition": "solid", "production": "none"},
+                          lv.derive(seeded)["X"])
+    check("a seed-only row the ledger calls solid is named, not waved through",
+          verdict == "seed-inflated", verdict)
+    agreed = lv.classify("X", {"recognition": "comfortable", "production": "none"},
+                         lv.derive(watched)["X"])
+    check("...and a row the evidence actually supports reads as agreement",
+          agreed == "agree", agreed)

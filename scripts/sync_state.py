@@ -40,6 +40,7 @@ from publish import commit_and_push, publish
 from rebuild_rss import feed_items
 from suggest_targets import reconcile_focus
 import observations
+from state_io import DEMOTE  # L0 owns the ladders
 from state_io import (BASE, DEFAULT_TZ, EPISODES_PATH, FEEDBACK_LOG_PATH,
                       canon_payload,
                       KNOCK_LOG_PATH, LEARNER_PATH, LEXICON_PATH,
@@ -59,7 +60,7 @@ if hasattr(sys.stdout, "reconfigure"):
 # among words that are at least comfortable.
 RECOGNITION_LEVELS = ["struggled", "comfortable", "solid"]
 RECOGNIZED = {"comfortable", "solid"}
-DEMOTE = {"solid": "comfortable", "comfortable": "struggled", "struggled": "struggled"}
+
 
 
 
@@ -513,6 +514,15 @@ def cmd_update(args):
         lexicon[key]["recognition"] = level
         lexicon[key]["heard_on"] = today
         touch(key)
+        # RESTORED 2026-09-10 by Phase 2's own diff. Phase 0 dropped this call on
+        # the reasoning that session_log.json could supply it — it cannot. That
+        # file records production (cold/hinted) and recognition FAILURES
+        # (demoted); a promotion from --mastered-word/--comfortable-word has
+        # never been written anywhere but the rung itself. 57 rows diverged for
+        # exactly this reason, and none of them are recoverable backwards.
+        observations.record(key, "session", "tested", axis="recognition",
+                            result="right", source=f"session:{today}",
+                            note=f"observed at {level}")
         print(f"  Recognition '{key}' → {level} (heard_on {today})")
 
     def demote_recognition(word):

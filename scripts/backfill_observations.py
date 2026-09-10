@@ -35,6 +35,11 @@ WHAT IT REFUSES TO INVENT, and each absence is reported rather than filled:
     `knock_reply.py`, which sits AT its ceiling under a note that pre-refuses a
     fourth raise — so it rides that file's split, and `docs/feature_inbox.md`
     carries both halves. The UNCORROBORATED count below is the size of the hole.
+  - RECOGNITION PROMOTIONS IN SESSION are equally lost, and this one was
+    found by Phase 2's diff rather than guessed: `session_log.json` records
+    production and recognition FAILURES, and has never had a field for
+    --mastered-word / --comfortable-word. 57 rows diverge on it. Recorded
+    live from 2026-09-10; unrecoverable before that date.
 
 DRY RUN IS THE DEFAULT. `--write` is required to touch the file, because this
 reads history and history does not change: a run that surprises you should cost

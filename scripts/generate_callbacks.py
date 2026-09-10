@@ -30,6 +30,7 @@ import json
 from datetime import date
 from pathlib import Path
 
+from state_io import RECOGNITION_RANK  # noqa: F401  (L0 owns the ladders)
 from state_io import local_today
 
 BASE = Path(__file__).parent.parent
@@ -48,7 +49,7 @@ LEXICON_PATH = BASE / "progress" / "lexicon.json"
 # state with (until now) no scheduled return at all.
 INTERVAL_DAYS = {"solid": 21, "comfortable": 10, "struggled": 5}
 # Tie-break: when equally overdue, bring back the weaker trace first.
-RECOGNITION_RANK = {"struggled": 0, "comfortable": 1, "solid": 2}
+
 NEVER_SURFACED = 10 ** 6  # sentinel staleness for null last_surfaced
 # THE MACHINES GET A LANE (2026-08-17). Pure overdue-order is right for one pool
 # and wrong for two kinds of inventory. Letting patterns in (below) made them

@@ -62,6 +62,21 @@ def save_json(path: Path, data):
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 
+# --- The two ladders -----------------------------------------------------------
+# ONE FACT, AND IT HAD THREE HOMES until 2026-09-10: `generate_callbacks` held
+# RECOGNITION_RANK, `knock_reply` held PRODUCTION_RANK and RECOGNITION_NEXT, and
+# `sync_state` held DEMOTE. Nothing named what a rung IS, so each file that
+# needed to compare or step one restated the ladder slightly differently — the
+# same shape as every other defect this month, one level down. They live at L0
+# because the rungs are a property of the ledger, not of any lane that moves one,
+# and because the observation log's derivation (L0.7) must read them without
+# reaching upward for a lane.
+RECOGNITION_RANK = {"struggled": 0, "comfortable": 1, "solid": 2}
+RECOGNITION_NEXT = {"struggled": "comfortable", "comfortable": "solid"}
+DEMOTE = {"solid": "comfortable", "comfortable": "struggled", "struggled": "struggled"}
+PRODUCTION_RANK = {"none": 0, "hinted": 1, "cold": 2}
+
+
 # --- Andrew's clock ----------------------------------------------------------
 
 # Where he lives when he is home; the fallback when learner.json is silent (a

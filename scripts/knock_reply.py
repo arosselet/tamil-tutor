@@ -101,6 +101,7 @@ CATCH_SCHEMA = obj(verdict=STR, reply_line=STR, meta_note=STR, rationale=STR,
                    # agent path and survives on the API path (obj's 2026-08-28
                    # law) — the smoke suite caught this one before it shipped.
                    heard=arr(key=STR, said=STR, verdict=STR))
+from state_io import PRODUCTION_RANK, RECOGNITION_NEXT  # L0 owns the ladders
 from state_io import FEEDBACK_LOG_PATH, KNOCK_LOG_PATH, LEARNER_PATH, LEXICON_PATH, SLIP_LOG_PATH, build_phonetic_index, load_json, local_today, resolve, save_json
 from slips import append_slips, slip_patterns
 from sync_state import fires_today
@@ -109,12 +110,12 @@ from mandates import (CATCH_JUDGE_MANDATE, FORCE_SCHEDULE_ADDENDUM, JUDGE_MANDAT
                       FORCE_VOICE_ADDENDUM, REACH_MANDATE, SLIP_MANDATE,
                       THREAD_MANDATE, VOICE_MANDATE)
 
-PRODUCTION_RANK = {"none": 0, "hinted": 1, "cold": 2}
+
 VERDICTS = {"cold", "hinted", "miss", "chat"}
 CHAIN_CAP = 3  # max chained follow-up asks per knock — momentum, not a treadmill
 
 CATCH_VERDICTS = {"caught", "half-caught", "missed", "chat"}
-RECOGNITION_NEXT = {"struggled": "comfortable", "comfortable": "solid"}
+
 
 
 

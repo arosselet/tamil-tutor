@@ -254,6 +254,15 @@ CODE_BUDGETS = {
     # end. Its own docstring names what it refuses to reconstruct; keep that list
     # growing instead of the code.
     "scripts/backfill_observations.py": 150,
+    # NEW FILE, budgeted in the same diff that creates it (2026-09-10). PHASE 2 —
+    # it folds the log into a lexicon and names every place that disagrees with
+    # the live file. WHAT IT RETIRES: nothing yet; it is READ-ONLY by design and
+    # Phase 3 is where it becomes authoritative and the writers lose their
+    # mutations. THE GROWTH TO REFUSE: a better policy. This one deliberately
+    # replays the rules the writers already used, so a divergence is attributable
+    # to EVIDENCE and not to a rule change landing in the same diff. Smarter
+    # policies are Phase 3's argument, made against this baseline.
+    "scripts/lexicon_view.py": 125,
     "scripts/generate_callbacks.py": 100,
     # 775 -> 785 (2026-08-02) for the thread-continuity window. Retired in the
     # same diff: three inlined ISO-timestamp parsers collapsed into _ts(), the
@@ -587,7 +596,16 @@ CODE_BUDGETS = {
     # `render_chat`, `suggest_targets`) of which three are now deleted — plus the
     # two import authorities that grew on top of them, half the lanes asking this
     # file for the path and half asking the knock lane.
-    "scripts/state_io.py": 112,
+    # 112 -> 125 (2026-09-10). A RAISE THAT RETIRED THREE COPIES, which is the
+    # only kind this table is supposed to take. WHAT IT RETIRED: the rung ladders,
+    # one fact with three homes — RECOGNITION_RANK in `generate_callbacks`,
+    # PRODUCTION_RANK and RECOGNITION_NEXT in `knock_reply`, DEMOTE in
+    # `sync_state`. Nothing named what a rung IS, so every file that compared or
+    # stepped one restated the ladder slightly differently, which is this month's
+    # defect one level down. They belong at L0 because a rung is a property of the
+    # ledger, not of the lane that moves it, and because the log's derivation
+    # (L0.7) must read them without reaching upward for a lane. Census 115, +10.
+    "scripts/state_io.py": 125,
     # NEW FILE, budgeted in the same diff that creates it (2026-08-28, Andrew).
     # THE LANGUAGE PACK — every value a fork to another language replaces, and
     # nothing else. WHAT IT RETIRES: the port surface being a prose list in
@@ -1145,6 +1163,10 @@ LAYERS = {
     # — which would mean reconstruction running inside the daily loop — the edge
     # reads as upward and fails here.
     "backfill_observations": 0.6,
+    # The derivation (2026-09-10). Reads L0 and the log, imported by nothing yet;
+    # in Phase 3 it becomes what every reader of the lexicon goes through, which
+    # is why it sits BELOW selection (1.5) and every lane rather than beside them.
+    "lexicon_view":       0.7,
 
     "render_chat":        1,      # L1 pure renderers over one source of truth
     "rebuild_rss":        1,
