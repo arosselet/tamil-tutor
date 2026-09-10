@@ -6981,6 +6981,8 @@
     "body": "When 'podhum' fails with athai: 'vayiru neranjiduchu' (stomach is full). Add a soft '-mma' at the start — stops the ladle cold.",
     "expected_target": "",
     "stance": "give",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "ack",
+    "response_at": "2026-09-10T12:30:54Z"
   }
 ]

@@ -4,6 +4,11 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Thursday 2026-09-10
+
+**08:30 · Andrew** · 👍 acked  ·  ↩ 09-09 19:44 · trailer payoff: table shield
+
+
 ## Wednesday 2026-09-09
 
 **01:42 · Anna**  ·  text / trailer: table shield
