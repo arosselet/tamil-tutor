@@ -46,15 +46,14 @@ knock push ─▶ iOS notification ─┬▶ tap "Got it 👍"          ─▶ e
              ack   → sync_state.py knock-response ack      (knock marked landed)
              reply → knock_reply.py "<text>"               (Anna judges the rep, moves the
                                                             production axis, pushes back the
-                                                            recast + deck scoreboard)
+                                                            recast)
 ```
 
 The tap is a **landed** signal only — it never writes learning state. The **reply**
 is a real rep: Anna judges it against what the knock asked for; unaided Tamil the
 notification didn't show can fire **cold** (Tamil the knock revealed caps at
-*hinted* — the axis stays honest). (The `listened`/soak-credit path still exists
-in code but is intentionally not wired to a button, post the 2026-06-30 listens
-pivot.)
+*hinted* — the axis stays honest). (The `listened` tap retired 2026-09-10 — zero
+taps in 197 knocks; a rating is how a listen is evidenced now.)
 
 ---
 

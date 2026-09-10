@@ -113,11 +113,11 @@ The engineering theses, as deliberate as the pedagogy (the full ledger of settle
 ```
 .github/workflows/   → anna.yml, the hourly tick (knock decisions, push-queue drain, reply judging, taps, ratings); smoke.yml, the suite
 protocol/            → constitution.md (the philosophy, canonical), Anna (persona + daily_session + diagnosis), commissioning.md + audio_channels.md (which dose, and which channel carries it), studio/ (the isolated production crew: Director, Architect, Producer)
-docs/                → Engineer's references: PROTOCOL_MAP.md (architecture), DECISIONS.md (settled decisions), feature_inbox.md (where build-itches park under the structure freeze), comprehension_plan.md (the one-year goal, still open), shortcuts/ (the iOS Shortcuts that drive the phone loop)
+docs/                → Engineer's references: PROTOCOL_MAP.md (architecture), DECISIONS.md (settled decisions), feature_inbox.md (where build-itches park, one line each), comprehension_plan.md (the one-year goal, still open), shortcuts/ (the iOS Shortcuts that drive the phone loop)
 .claude/skills/      → The @build playbooks: orient, debug, extend, verify, validate, recalibrate, backport
 curriculum/
     ├── word_pool.json → Suggestion list of words to learn someday (Anna picks from it)
-    └── trip_deck.json → The trip deck, retired whole 2026-08-18 when its deadline passed; the rows keep the tag as provenance, and sync_state.py seed-deck survives as the writer for any curated set
+    └── trip_deck.json → The trip deck, retired whole 2026-08-18 when its deadline passed; sync_state.py seed-deck survives as the writer for any curated set
 content/
     ├── lessons/     → Director's planning docs (mission briefs)
     ├── scripts/     → Generated podcast scripts (Markdown)

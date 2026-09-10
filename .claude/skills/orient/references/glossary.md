@@ -29,11 +29,9 @@ Defined: `protocol/daily_session.md` — The Loop and Close & Log sections
 
 ---
 
-## deck (RETIRED 2026-08-18)
+## deck (RETIRED 2026-08-18; the tag dropped 2026-09-10)
 
-A tagged subset of `progress/lexicon.json` — 83 chunks and frames tagged `deck:"trip"` — that `suggest_targets.py` surfaced ahead of everything else, metered as **Trip Deck: X/N fire cold**. A *container*: bounded, deadline-driven, and its reason expired at touchdown (2026-08-12). Retired whole; what it carried moved out first (see *register*, *tier*). The 83 rows keep the tag as **provenance** — the record of where they came from — and nothing reads it. `sync_state seed-deck` survives as the writer path for any curated set.
-
-Defined: `docs/DECISIONS.md` — "Retire the trip deck"; `progress/profile.md` — "Phase 1.5 — The Trip Sprint (RETIRED)"
+The trip's curated container. What it carried moved out (see *register*, *tier*); nothing read the tag, so the cutover dropped it. `sync_state seed-deck` survives as the writer for any curated set — static fields only.
 
 ---
 
@@ -203,9 +201,9 @@ Defined: `protocol/daily_session.md` — "Targeting — Narrow and Deepen"
 
 ## Trip Sprint (CLOSED 2026-08-18)
 
-The finite skill sprint before Andrew's India trip (week of 2026-08-12). Paused the abstract viability-floor climb and substituted a finite deck of survival chunks and frames — social-public register, deference forms, antifreeze repair moves, Oracle-vetted. **It worked**: survival went 15/34 (07-25) → 30/34 (08-18), the best conversion this project has produced, and the lesson kept is that a finite, visible, ordered set beats an undifferentiated 339-row ledger. Closed at touchdown by its own instruction; the floor climb resumed, under the **machines heard** headline.
+The finite sprint before the India trip (week of 2026-08-12): survival went 15/34 → 30/34, the best conversion this project has produced, and the lesson kept is that a finite, visible, ordered set beats an undifferentiated ledger. Closed at touchdown; the ordering lives on as `register`.
 
-Defined: `docs/DECISIONS.md` — "Retire the trip deck"; `progress/profile.md` — "Phase 1.5 — The Trip Sprint (RETIRED)"
+Defined: `docs/DECISIONS.md` — "Retire the trip deck"
 
 ---
 

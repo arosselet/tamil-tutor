@@ -75,3 +75,9 @@ Repetition: "சரி சரி", "ஆமா ஆமா" — these are not error
 ## The Kongu Layer
 
 The `-nga` suffix, phonetic contractions specific to the Coimbatore/Kongu region, and regional expressions. The episode must sound like Coimbatore, not Chennai. Raj (see `protocol/studio/hosts.md`) is the reference ear for this layer — if he would not say it, it is not Kongu enough.
+
+---
+
+## Register Default
+
+**neenga / -nga for everyone, including younger relatives** (Oracle-confirmed 2026-07-02). *Nee* is for very close friends, close cousins and siblings; when in doubt, -nga — the safe register is also the correct one in this family. And **competent over local** (2026-06-30): clear, correct standard-Coimbatore colloquial is the target; hyper-local Kongu flourishes are the long game, never the bar.

@@ -20,15 +20,16 @@ field, adding a tracking mechanism, adding a persona.
 
 ---
 
-## Gate 2 — Structure-freeze test
+## Gate 2 — Budget test
 
-Anna 1.0 is frozen. Full law: `docs/PROTOCOL_MAP.md` → "Structure freeze — Anna 1.0".
-
-Ask: *does this add a row of data, or change a schema / add a file / add a meter?*
+The structure freeze retired 2026-09-10; the budgets are the structure control
+(`docs/PROTOCOL_MAP.md` → "Structure"). Ask: *does this add a row of data, or a file, a
+field, a meter, a rule?*
 
 - Row of data (a word, a scene, a memory) → proceed.
-- Schema change / new file / new meter → write one line in `docs/feature_inbox.md`
-  and **stop**, unless Andrew explicitly commissioned it this session.
+- Anything else → it is budgeted in this same diff (`scripts/smoke/ratchets.py`), and
+  Gate 4 names what it replaces. If Andrew has not commissioned it, one line in
+  `docs/feature_inbox.md` and **stop**.
 
 ---
 
@@ -97,8 +98,9 @@ If you cannot name what it replaces, that is the signal to stop.
 Concerns are separated on purpose. Find the one file that owns the concern you are
 touching; edit only that file. (`docs/DECISIONS.md` → "Surgical edits to the relevant file.")
 
-Routing table: `references/routing.md` — concern → exact file (with line references
-where the value is a constant).
+The owner is in `docs/PROTOCOL_MAP.md` — the only map (2026-09-10; the routing table
+this gate used to carry had drifted from it). If the map is wrong, fix the map in the
+same diff.
 
 ---
 

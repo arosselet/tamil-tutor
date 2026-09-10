@@ -27,669 +27,119 @@ from ._fixtures import (
 # April landed as a paragraph, and prose only accumulates — "earn its place" didn't
 # enforce itself. Growth past a budget is a red run; raising a budget must ride the
 # same diff as the growth, and the commit names the lines it retired (/extend Gate 4).
+# Word budgets for the protocol's prose surfaces (2026-07-16): growth past a budget
+# is a red run; a raise rides the same diff as the growth and the commit names what it
+# retired; a file that keeps hitting its ceiling is doing two jobs — split, never bump.
+# One line per entry (2026-09-10): the narrative is the commit of that date.
 PROSE_BUDGETS = {
-    # Set at the 2026-09-02 census (577) rounded up plus headroom, on the day this
-    # file stopped being studio craft. It had NO ceiling for its whole life because
-    # it was filed under `studio/` and the budgets were written for protocol law —
-    # the same misfiling that left it with one reader. It is now read by every lane
-    # that sends Tamil to a voice, and its Word Fusion section is the part we expect
-    # to grow: three Producer runs over one tape gave three different answers, and
-    # the suspected cause is that two examples do not constrain a model. So the
-    # growth is FORESEEN, which is exactly when a ceiling is worth having — a fusion
-    # table that outgrows this wants to be data the seam applies, not more prose for
-    # a model to interpret.
-    "protocol/dialect.md": 625,
-    # 2000 -> 1750 (2026-09-03). A CEILING COMING DOWN, which is the direction
-    # this table has never once moved before today. RETIRED IN THIS DIFF: "The
-    # Toolbelt (his reach)", 392 words and this file's largest section, to
-    # `protocol/toolbelt.md`. The trigger was the 07-16 law read literally —
-    # persona.md stood at 1970/2000, thirty words of headroom, and the law says a
-    # file at its ceiling is carrying crud or DOING TWO JOBS. It was doing two
-    # jobs: `voice_canon()` ships this file to seven call sites across six lanes,
-    # and not one of them can invoke a tool. Re-censused at 1650 (the header
-    # gained the reader note the old one lacked), so the budget is the census
-    # plus ~6%, the same headroom dialect.md took on 09-02. A budget that does
-    # not fall when content leaves is a licence nothing revokes.
+    # Set at the 2026-09-02 census (577) rounded up plus headroom, on the day this file stopped being studio craft. · 625 -> 680 (2026-09-10): the Register Default arrived from profile.md's Touchdown Doctrine, 841 words retired whole.
+    "protocol/dialect.md": 680,
+    # 2000 -> 1750 (2026-09-03).
     "protocol/persona.md": 1750,
-    # NEW FILE, budgeted in the same diff that creates it (2026-09-03) — the
-    # prose half of the law CODE_BUDGETS has enforced since 2026-08-23. Census
-    # 545, +10%: it is small, and the one growth foreseen is a tool gaining an
-    # option, which is a line not a section.
+    # NEW FILE, budgeted in the same diff that creates it (2026-09-03) — the prose half of the law CODE_BUDGETS has enforced since 2026-08-23.
     "protocol/toolbelt.md": 600,
-    # NEW FILE, budgeted in the same diff that creates it (2026-09-09). THE
-    # LEARNER'S HALF — `constitution.md` binds the machine and nothing bound
-    # Andrew. WHAT IT RETIRES: one concept split across four sites, none of them
-    # citable. The lunch anchor lived in `profile.md`'s Touchdown Doctrine, the
-    # consume-once promise was a `feedback_log` ROW (an observation, not law), the
-    # session preferences that are really commitments sat under Session Conduct,
-    # and the habits sat in `comprehension_plan.md`. Both prose sites now point
-    # here instead of restating, which is why this is a separation and not an
-    # addition. Census 564, +7% — the same headroom dialect.md and persona.md
-    # took. THE GROWTH TO REFUSE: a second exception to the Enjoyment Clause.
-    # There is exactly one by design, and a file listing three is a ratchet
-    # wearing a contract's clothes.
+    # NEW FILE, budgeted in the same diff that creates it (2026-09-09).
     "protocol/learner_contract.md": 605,
-    # Budgeted 2026-09-03, not because it grew but because the completeness
-    # sweep added below demanded it: this file has been unbudgeted since it was
-    # written, and nothing could see that. Census 353, +13% — it is the smallest
-    # law file and the healing loop is evidence-gated, so growth here should be
-    # rare. Exempting it instead would have been a licence granted for no reason.
+    # Budgeted 2026-09-03, not because it grew but because the completeness sweep added below demanded it: this file has been unbudgeted since it was written, and nothing could see …
     "protocol/diagnosis.md": 400,
-    # 1750 -> 1790 (2026-08-04): FIRST raise of this ceiling, and the growth is a
-    # class of content no protocol file owned — a standing fact about the learner's
-    # life, not a rule. M81 opened at the iron gate with sisters-in-law "recognised
-    # from the old photos"; nothing said Andrew is ten years into this family, so
-    # every generator filled the blank with the newcomer story. Retired in the same
-    # diff (17 words back): the 08-03 leak clause compressed to its evidence, and
-    # the zinger line's "surprise … that delight locals and in-laws". A second raise
-    # is the split signal — the Core Philosophy's learner facts would leave first.
+    # 1750 -> 1790 (2026-08-04): FIRST raise of this ceiling, and the growth is a class of content no protocol file owned — a standing fact about the learner's …
     "protocol/constitution.md": 1790,
-    # 1250 -> 1320 (2026-08-25, Andrew). THE GROWTH IS A LAW THE FILE DID NOT HAVE:
-    # invariant 2 said "Honest cold volume" and named the Gauntlet the volume day,
-    # which made the session PRODUCTION-shaped. Andrew's correction that day: "my
-    # goal has really been input first… Production is a goal yes, but it came to be
-    # of such importance in our system because that's easy to measure." The ear now
-    # leads the session, ~3 fires are the probe that feeds the slip ledger, Ear Day
-    # is the volume shape, and a heard-in-the-wild line opens the session.
-    #
-    # RETIRED IN THE SAME DIFF, and the retirement was done FIRST — this number
-    # moved only for the 55 words the trimming could not honestly find: the
-    # small-denominator narration ("this week's 12: 7 down" — Andrew, same day: "the
-    # number isn't what makes me feel progress"), step 7's "campaign's meter", the
-    # campaign block's retelling of what profile.md already holds, and four
-    # parenthetical glosses that restated the rule they hung off.
-    #
-    # NOTE FOR THE NEXT RAISE: refuse it and split. The shapes list is ~140 words of
-    # a distinct concern — WHICH SHAPE TODAY — and audio_channels.md was cut out of
-    # this same file on 07-23 for exactly that reason. A ceiling is a split signal.
+    # 1250 -> 1320 (2026-08-25, Andrew).
     "protocol/daily_session.md": 1320,
-    # Split out of daily_session.md (2026-07-23) rather than raise its budget:
-    # channel routing is its own concern and Anna loads it only when choosing.
-    # 400 -> 550 (2026-07-28): the file's JOB doubled by deliberate split, not by
-    # crud. It always framed itself as two questions — what a dose carries, and
-    # which channel carries it — and owned only the second; the commissioning law
-    # ("the repair earns the dose") moved IN from daily_session.md Close & Log,
-    # which kept a pointer and came out 43 words leaner. Same move audio_channels
-    # itself made in 07-23 and JUDGE_MANDATE in 07-24: a ceiling is a split
-    # signal. Raising this is the exception the rule allows — growth and raise in
-    # one diff, naming what it retired — not the bump-the-number reflex.
-    # 550 -> 640 (2026-07-28 evening, SECOND raise in one day — flagged as such).
-    # The growth is a law the file did not have: capacity said WHEN a channel is
-    # usable and nothing said WHICH format an error deserves, so "a chunk fires a
-    # collision" was the only format guidance and it pointed at the loop for every
-    # mix-up. Retired in the same diff: that clause, the "route by the situation"
-    # bullet (its veto half is now the table's opening line), and the 07-23 story
-    # compressed — 33 words back. THIS IS THE CEILING'S SECOND WARNING. A third
-    # raise is not allowed: split "what it carries" from "which format carries it".
-    # 640 -> 475 (2026-08-01): THE SPLIT WAS TAKEN, as the line above demanded —
-    # "what it carries" left for commissioning.md; this file keeps only routing
-    # and format, re-censused down with headroom.
+    # Split out of daily_session.md (2026-07-23) rather than raise its budget: channel routing is its own concern and Anna loads it only when choosing. · 400 -> 550 (2026-07-28): the file's JOB doubled by deliberate split, not by crud. · 550 -> 640 (2026-07-28 evening, SECOND raise in one day — flagged as such). · 640 -> 475 (2026-08-01): THE SPLIT WAS TAKEN, as the line above demanded — "what it carries" left for commissioning.md; this file keeps only routing and format, re-censused …
     "protocol/audio_channels.md": 475,
-    # Split out of audio_channels.md (2026-08-01) — the commissioning law
-    # ("the repair earns the dose") is its own concern from channel routing,
-    # and the parent had a third raise refused in advance.
+    # Split out of audio_channels.md (2026-08-01) — the commissioning law ("the repair earns the dose") is its own concern from channel routing, and the parent had a third raise …
     "protocol/commissioning.md": 300,
     "OUTREACH_MANDATE": 2000,
     "JUDGE_MANDATE": 1500,
-    # Split out of JUDGE_MANDATE (2026-07-24) rather than raise its budget, the
-    # same move audio_channels.md made on daily_session.md: "what this reply can
-    # do beyond the text line" (schedule a push, speak back) is its own concern,
-    # and the mandate was at 1498/1500 — a ceiling is a split signal, not a
-    # bump-the-number signal.
-    # 300 -> 150 (2026-08-27): re-censused DOWN — the SPEAK BACK section left
-    # for VOICE_MANDATE, which both judges compose. 280 words -> 134.
+    # Split out of JUDGE_MANDATE (2026-07-24) rather than raise its budget, the same move audio_channels.md made on daily_session.md: "what this reply can do beyond the text line" (schedule a … · 300 -> 150 (2026-08-27): re-censused DOWN — the SPEAK BACK section left for VOICE_MANDATE, which both judges compose.
     "REACH_MANDATE": 150,
-    # New surface, budgeted in the diff that creates it (census 161). It is
-    # not net growth: 146 of its words are REACH_MANDATE's, moved so the
-    # catch judge stops being mute.
+    # New surface, budgeted in the diff that creates it (census 161).
     "VOICE_MANDATE": 175,
-    # Split out of JUDGE_MANDATE (2026-07-30) for the third time that file has
-    # paid for growth by splitting rather than raising. The slip contract landed
-    # it at 1764/1500; recording an error is its own concern from grading one
-    # (the judge can grade without it, and a port swapping the Tamil examples
-    # touches only this string), so it left as REACH_MANDATE and
-    # CATCH_JUDGE_MANDATE did. JUDGE_MANDATE keeps only the JSON key.
+    # Split out of JUDGE_MANDATE (2026-07-30) for the third time that file has paid for growth by splitting rather than raising.
     "SLIP_MANDATE": 250,
-    # Split out of JUDGE_MANDATE (2026-08-02), the FOURTH time that file has paid
-    # for growth by splitting instead of raising. Thread continuity — the 3-hour
-    # scene decay, plus reading prior_exchanges across knocks as fact about what
-    # Anna already sent — is its own concern from grading a reply, and both the
-    # production judge and the catch judge need it identically. The retired lines
-    # are JUDGE_MANDATE's old standalone "CONTINUITY DECAYS" paragraph, folded in.
+    # Split out of JUDGE_MANDATE (2026-08-02), the FOURTH time that file has paid for growth by splitting instead of raising.
     "THREAD_MANDATE": 250,
-    # 300 -> 333 (2026-08-31, Andrew). THE GROWTH IS A JOB THIS PROMPT DID NOT
-    # HAVE: the judge saw every Tamil word Andrew picked out of the tape and kept
-    # none of them, because the lane scores one declared `expected_target`. The
-    # eavesdrop runs below the 95% coverage floor ON PURPOSE, so a partial catch
-    # is the designed outcome and its evidence was being discarded — the ear moved
-    # 8 times to the mouth's 79 over 07-25 -> 08-31. "heard" records the word he
-    # named, guarded in Python by `apply_heard_words`.
-    #
-    # RETIRED IN THE SAME DIFF, and done FIRST — this number moved only for the 33
-    # words the trimming could not honestly find: "English expected; Tamil a bonus,
-    # not graded" (superseded — Tamil he names is now recorded, though still not
-    # graded), the reply_line block's "when he asks to be TAUGHT … teaching is
-    # never a detour" (the same rule as "answer the request, let the asking cost
-    # him nothing", two blocks above), and the meta_note field gloss that restated
-    # META-DIRECTION on the line before it.
-    #
-    # NOTE FOR THE NEXT RAISE: refuse it. This prompt now carries two jobs — grade
-    # the drift, rule on the words he named — and a third is the split signal.
+    # 300 -> 333 (2026-08-31, Andrew).
     "CATCH_JUDGE_MANDATE": 333,
     "MESSAGE_MANDATE": 230,
+    # The narrative surfaces, budgeted the day they became one line per item (2026-09-10): the log at 11.7k after compression from 32k, the inbox at 1k from 19.6k, the debug precedents at 1.3k from 4.5k.
+    "docs/DECISIONS.md": 12500,
+    "docs/feature_inbox.md": 1500,
+    ".claude/skills/debug/SKILL.md": 1500,
 }
 
 
-# Words allowed per NEW docs/DECISIONS.md entry (dated 2026-08-02 or later).
-# The log's own header has promised "the index of the conclusions — details
-# live in git history" since April; July's entries ran 300-600 words of
-# narrative each and the file reached 22k words, the accumulation pattern the
-# word budgets killed everywhere else (2026-08-01, Andrew's forward cap). The
-# archive is deliberately untouched: git owns the narratives already written.
-DECISION_ENTRY_BUDGET = 150
+# Words allowed per docs/DECISIONS.md entry — title, date, one clause (150 -> 70,
+# 2026-09-10, the whole log compressed to that shape; the narrative is the commit).
+DECISION_ENTRY_BUDGET = 70
 
 
-# Words allowed in profile.md's campaign block (2026-09-06, Andrew). THE LAST
-# PROSE SURFACE WITH NO CEILING, parked in feature_inbox on 08-11 and re-measured
-# on 08-26 — and the reason it stayed parked is real: a budget on the WHOLE file
-# goes red on a surface only a live session can rewrite, so it had to wait for a
-# close that rewrote the block to fit. That close happened today.
-#
-# THE BLOCK, NOT THE FILE. Measured across two independent cycles either side of
-# the 08-14 trim, the block grew ~1.4 KB per logged session (+1.47 pre-trip,
-# +1.35 in country — the trip is not the cause) while the rest of the file grew a
-# third as fast. It is also the only narrative surface with a natural unit to
-# count: one heading, one extractor. The 08-11 entry said "narrative has no
-# natural unit to ratchet" and was right about prose in general; it is wrong here.
-#
-# 3000 over 2753-at-census was Andrew's call, and the reasoning is the nag
-# argument: a ceiling that goes red on the very next close is one a session
-# learns to silence, and a silenced ratchet is worse than none. This gives about
-# a week of ordinary writing before it bites.
-#
-# RETIRED IN THIS DIFF: the "five lines" contract, asserted in daily_session.md
-# and again in the block's own header, and inoperative since it was written —
-# two rewrites in 42 sessions against a stated ~5. An unenforced number in prose
-# is replaced by an enforced one in code; both prose sites now cite this budget.
-CAMPAIGN_BUDGET = 3000
+# Words allowed in profile.md's campaign block: the week's name, its through-line and
+# the live medicine — never case history, which slip_log.json holds (3000 -> 1000,
+# 2026-09-10, Andrew; 2753 at the 09-06 census was a findings log).
+CAMPAIGN_BUDGET = 1000
 
 
-# Code budgets for the Python surfaces (2026-07-31): the same ratchet, one layer
-# down. The word budget held prose FLAT through July's build-out (8866 words on
-# 07-01, 10671 on 07-31) while production Python went 2566 -> 6032 lines with a
-# ~10% deletion rate — so April's "fight drift by adding" failure mode simply
-# moved to the surface that had no ceiling. Growth past a budget is a red run,
-# on the same terms as PROSE_BUDGETS: a raise rides the same diff as the growth
-# and the commit names what it retired; a file that keeps hitting its ceiling is
-# doing two jobs — split-or-retire, never the bump-the-number reflex.
-#
-# THE UNIT IS CODE LINES — blanks, comments and docstrings are NOT counted. A
-# third of this codebase is comment, and that third is the diagnosis layer: the
-# 07-31 silent-failure family was findable only because the "why" sits next to
-# the mechanism. A budget that taxed explanation would buy smaller files by
-# deleting the thing that makes them debuggable. This bounds mechanism only.
-#
-# Budgets were set at the 07-31 census rounded up to the next 25 with a minimum
-# of 25 lines of headroom — tight enough to bind within weeks at a normal pace,
-# loose enough that one ordinary bug fix does not trip it. Headroom is not an
-# allowance to spend; it is the room to land a repair without ceremony.
+# Code budgets for the Python surfaces (2026-07-31): the same ratchet one layer down.
+# THE UNIT IS CODE LINES — blanks, comments and docstrings are free, because the
+# diagnosis layer is why the silent-failure bugs were findable; this bounds mechanism.
+# A new scripts/*.py with no entry here is itself a red run. One line per entry.
 CODE_BUDGETS = {
-    # NEW FILE, budgeted in the same diff that creates it (2026-09-10). THE
-    # OBSERVATION LOG — Phase 0 of docs/observation_log_plan.md. WHAT IT RETIRES:
-    # nothing yet, and that is the point: every writer keeps mutating the lexicon
-    # and ALSO appends here, so the daily loop cannot notice the migration.
-    # Phase 3 is where it pays — the lexicon becomes a derived view and the
-    # mutations go, which should take lines OUT of the three writers.
-    # Census 55, +10 headroom. THE GROWTH TO REFUSE: a reader. This file appends
-    # and validates constants, full stop; the moment it learns to fold events
-    # into a view, that view belongs in its own module and this one stays dumb.
+    # NEW FILE, budgeted in the same diff that creates it (2026-09-10).
     "scripts/observations.py": 65,
-    # NEW FILE, budgeted in the same diff that creates it (2026-09-10). PHASE 1 —
-    # it reconstructs the log from knock_log, session_log and the seed commit.
-    # WHAT IT RETIRES: the guesswork in docs/ledger_audit_2026-09-10.md, which
-    # sampled 30 rows to ESTIMATE what this answers for all 360. Census 128,
-    # +22. THE GROWTH TO REFUSE: a second source that is not already a log. This
-    # reads history; it does not observe, and a reader that starts inferring
-    # evidence from prose is inventing it — the exact defect the log exists to
-    # end. Its own docstring names what it refuses to reconstruct; keep that list
-    # growing instead of the code.
-    # 150 -> 200 (2026-09-10, Phase 3). THE GROWTH IS THE CUTOVER: `from_episodes`
-    # dates every `seen_in` mission from git and `cutover` carries each live rung
-    # the log cannot show as a `ledger` event, then rebuilds. RETIRED IN THE SAME
-    # DIFF, one layer up: `sync_state.untaught` (the spent one-shot), the
-    # `listened` tap and `--listened`, `--mark-seen`, `mark_exposed` and
-    # `record_exposure` — 150 code lines out of the brain for 50 in here.
+    # NEW FILE, budgeted in the same diff that creates it (2026-09-10). · 150 -> 200 (2026-09-10, Phase 3).
     "scripts/backfill_observations.py": 200,
-    # NEW FILE, budgeted in the same diff that creates it (2026-09-10). PHASE 2 —
-    # it folds the log into a lexicon and names every place that disagrees with
-    # the live file. WHAT IT RETIRES: nothing yet; it is READ-ONLY by design and
-    # Phase 3 is where it becomes authoritative and the writers lose their
-    # mutations. THE GROWTH TO REFUSE: a better policy. This one deliberately
-    # replays the rules the writers already used, so a divergence is attributable
-    # to EVIDENCE and not to a rule change landing in the same diff. Smarter
-    # policies are Phase 3's argument, made against this baseline.
-    # 125 -> 150 (2026-09-10, Phase 3). The view became AUTHORITATIVE: `rebuild`
-    # is now the one writer of every evidence field, `observe` the one write path
-    # and `expose` the delivery seam every lane calls. WHAT IT RETIRES: the
-    # twelve direct rung/stamp writes in sync_state and the eleven in
-    # knock_reply, and Phase 2's `classify` (the diff it explained is now
-    # `divergence`, and CI holds it at zero on the real tree).
+    # NEW FILE, budgeted in the same diff that creates it (2026-09-10). · 125 -> 150 (2026-09-10, Phase 3).
     "scripts/lexicon_view.py": 150,
     "scripts/generate_callbacks.py": 100,
-    # 775 -> 785 (2026-08-02) for the thread-continuity window. Retired in the
-    # same diff: three inlined ISO-timestamp parsers collapsed into _ts(), the
-    # two duplicated per-knock context builders replaced by one recent_exchanges,
-    # and the dead reply_memo_script write (nothing ever read it). That paid for
-    # most of the feature; these 10 are the remainder.
-    # NOTE for the next raise: REFUSE it and split instead. ~150 of this file's
-    # lines are prompt strings (JUDGE/SLIP/REACH/THREAD/CATCH mandates), which
-    # code_lines counts as mechanism. mandates.py already exists as the home for
-    # prompt canon — morning_knock.py made exactly this move on 2026-08-01 and
-    # was re-censused DOWN afterwards. This file should follow, not grow again.
-    # 785 → 570 (2026-08-24): IT FOLLOWED. RE-CENSUSED DOWN, not raised — the six
-    # mandates left for mandates.py exactly as the note above prescribed, 237 lines
-    # and 31% of the file. It sat at 758/785 with 27 lines of headroom; it now sits
-    # at 556 with real room to take a feature. The note above is discharged, and
-    # the next raise on THIS number is about mechanism, with no prose left to blame.
-    # 570 -> 610 (2026-08-27): the reply lane gained a voice rail — the
-    # AUDIO_RE detector, ensure_voice's one-forced-re-ask backstop, and a
-    # shared speak() body. It RETIRED the inline render block in the
-    # production flow and the hard-coded `audio_url=None` in the catch flow,
-    # which is why a whole capability cost 36 lines and not 70. This file is
-    # now the largest in the tree and has taken three raises: the next one
-    # should be a split, not a number (the judges and the lanes are already
-    # two jobs living in one file).
-    # 610 -> 560 (2026-08-28): re-censused DOWN. The lane-neutral half —
-    # detectors, speak(), ensure_voice, record_meta_note, the thread window —
-    # left for reply_common.py so the MESSAGE lane could have it without
-    # importing the grading lane. This file is grading and routing now.
-    # 560 -> 563 (2026-09-05). RETIRED IN THIS DIFF: the six KNOWN_GAPS licences
-    # that stood in for `schedule` on this schema, and with them the outage they
-    # were describing — undeclared meant DELETED on the agent path, so every
-    # scheduled push this judge composed was dropped before Python saw it. Three
-    # lines to declare a key the mandate has always asked for.
-    #
-    # FLAGGED, NOT HIDDEN: at 563 this is the largest entry in the table, and the
-    # budget law says a file that keeps meeting its ceiling wants a split rather
-    # than a bigger number. This raise buys a correction, not room to grow; the
-    # next one should be a split.
+    # 775 -> 785 (2026-08-02) for the thread-continuity window. · 570 -> 610 (2026-08-27): the reply lane gained a voice rail — the AUDIO_RE detector, ensure_voice's one-forced-re-ask backstop, and a shared speak() body. · 610 -> 560 (2026-08-28): re-censused DOWN. · 560 -> 563 (2026-09-05).
     "scripts/knock_reply.py": 563,
-    # New surfaces, budgeted in the diff that creates them. reply_common is the
-    # split the 08-27 raise said was coming; knock_message is the lane that
-    # forced it.
+    # New surfaces, budgeted in the diff that creates them. reply_common is the split the 08-27 raise said was coming; knock_message is the lane that forced it.
     "scripts/reply_common.py": 120,
     "scripts/knock_message.py": 130,
-    # 700 -> 625 (2026-08-01): re-censused DOWN after OUTREACH_MANDATE moved to
-    # mandates.py — the file sat at 699/700, one mechanical fix from a red build.
-    # The split is the ceiling law working, not an allowance: prompt canon and
-    # dispatch machinery are two concerns, and only one of them is code.
-    # 625 → 632 (2026-08-05, Andrew): `parse_llm_response`, the finish_reason
-    # guard. What it replaces is an IDIOM, not lines — the bare
-    # `parse_llm_json(resp.choices[0].message.content)` repeated at all three
-    # call sites, each of which reported a blown token ceiling as a parse error.
-    # Stated plainly because the ratchet asks: this is +7 with nothing deleted,
-    # the diagnosis layer growing, not mechanism. If this file trips again on
-    # mechanism, that is the split-or-retire signal — not this.
-    # 632 → 635 (2026-08-10, Andrew): the transit rail — a `quiet_until` date in
-    # learner.json that holds every knock, read first in rails_gate so a held
-    # tick returns before the LLM and writes nothing. Stated plainly because the
-    # ratchet asks: this is +3 with NOTHING deleted. It buys a rail that did not
-    # exist, and deleting those three lines removes the feature whole — which is
-    # the point, it was commissioned to be easily removable. The 08-01 split note
-    # still stands as the answer to the next raise.
-    # 635 → 636 (2026-08-18, Andrew): `budget()` and its REASONING_HEADROOM. Stated
-    # plainly because the ratchet asks: this is +1 with nothing deleted here, and
-    # nothing deleted elsewhere either — seven `max_tokens` literals became seven
-    # `budget(N)` calls. What it replaces is an IDIOM, like the 08-05 raise above:
-    # each call site guessing a ceiling that had to cover BOTH its artifact and the
-    # model's thinking. Reasoning cost is a property of MODEL, so it lives beside
-    # MODEL; the alternative is what actually happened — the reply judge patched in
-    # isolation on 08-05 and the same bug taking the knock lane and the drill sheet
-    # down together on 08-18. One line, and a model swap can no longer half-land.
-    # 636 → 637 (2026-08-18, Andrew): OPENROUTER_MODEL, derived from MODEL. +1 with
-    # nothing deleted, and it buys the invariant Andrew asked for by name — the
-    # model is STATED once and the two executors (claude -p local, API in Actions)
-    # can only differ in slug shape, never in generation. The line it replaces was
-    # a hardcoded vendor-prefixed slug that made "one model everywhere"
-    # unenforceable; the studio had quietly been running a different one.
-    # 637 → 475 (2026-08-23, the spine refactor). RE-CENSUSED DOWN, not raised —
-    # this file sat at exactly 637/637, zero headroom, and 36% of it was not a
-    # knock. The delivery tail (load_env, the rebase net, commit_and_push,
-    # refresh_feed, jsdelivr_url, the waking window, push_to_phone) went to the
-    # new publish.py; the model constants, budget() and both parsers went to
-    # writer.py; the two pinned voices went to render_audio.py, which owns TTS.
-    # Nine of the twenty-one other modules imported this file and almost none of
-    # them wanted the knock. Same move it made on 2026-08-01 for OUTREACH_MANDATE,
-    # and the same law: a mandate at its ceiling gets split, not raised.
-    # 450 → 400 (2026-09-04): RE-CENSUSED DOWN, not raised — the same move
-    # `knock_reply` made on 08-24 and this file made on 08-01. It sat at 442/450
-    # with 8 lines of headroom and now sits at 391, because four things that were
-    # never knock-shaped left in one diff: the reach budget to `rails.py`,
-    # `render_memo` to `memo.py`, `maybe_enqueue_schedule` to the queue it
-    # writes, and `load_json` / `KNOCK_LOG_PATH` / `is_fire` / `local_date` home
-    # to `state_io`. Nothing about the knock got smaller; the file stopped being
-    # four other things. Nine lines of headroom, which is what it had before.
-    # 400 -> 402 (2026-09-05). RETIRED IN THIS DIFF: the two KNOWN_GAPS licences
-    # for `schedule` and `volley_asks` on DECIDE_SCHEMA, and the false premise in
-    # the comment above it — "undeclared keys still pass through untouched", true
-    # of the API path and false of the agent path, which is why both keys were
-    # being deleted rather than passed.
+    # 700 -> 625 (2026-08-01): re-censused DOWN after OUTREACH_MANDATE moved to mandates.py — the file sat at 699/700, one mechanical fix from a red build. · 400 -> 402 (2026-09-05).
     "scripts/morning_knock.py": 402,
-    # The mandate as a module: almost entirely prompt string (word-budgeted as
-    # OUTREACH_MANDATE in PROSE_BUDGETS above), so its code budget exists only
-    # to satisfy the every-file-is-budgeted guard and to catch machinery
-    # sneaking into a prose module.
-    # 150 → 200 (2026-08-10) for the long-haul BASE_MANDATE and its five
-    # SHAPE_CLAUSES, moved out of render_rotation.py when THAT file hit 340/340 —
-    # the split its own budget note prescribed, and the one morning_knock made on
-    # 08-01. This is the ceiling law working as designed: the growth landed in the
-    # prose module instead of the lane. Raising it here is cheap precisely because
-    # this budget is a machinery TRAP, not a size limit — every line it now counts
-    # is prompt string, and prompt strings are word-budgeted in PROSE_BUDGETS above.
-    # What must still trip it is a def, a loop, or an import sneaking in.
-    # 200 → 470 (2026-08-24). The other NINE prompt constants arrived: the reply
-    # judge's six from knock_reply.py, the drill lane's two, the soak lane's one.
-    # Ten of the repo's thirteen lived in a lane; all thirteen live here now.
-    # This is the third time this move has been made — morning_knock 08-01,
-    # render_rotation 08-10, and knock_reply's own budget note had been asking for
-    # it in writing since 08-02 ("REFUSE the next raise and split instead").
-    # Cheap for the same reason the 08-10 raise was: this budget is a machinery
-    # TRAP, not a size limit. Every line it counts is prompt string, and prompt
-    # strings are word-budgeted individually in PROSE_BUDGETS above — JUDGE_MANDATE
-    # 1500, REACH 300, SLIP 250, THREAD 250, CATCH_JUDGE 300, OUTREACH 2000. The
-    # ceiling that actually binds this prose did not move an inch.
-    # 470 -> 500 (2026-08-28): MESSAGE_MANDATE landed — the first mandate in
-    # this file that only ACTS instead of grading. Growth here is the design:
-    # this file exists so a lane's prose lives beside every other lane's, and
-    # the alternative was a fourth copy of the speak/schedule rules inside
-    # knock_message.py. Prose stays ratcheted per-mandate in PROSE_BUDGETS.
+    # 470 -> 500 (2026-08-28): MESSAGE_MANDATE landed — the first mandate in this file that only ACTS instead of grading.
     "scripts/mandates.py": 500,
-    # NEW FILE, budgeted in the diff that creates it (2026-08-24, Q1's first
-    # family). What it retires: the exposure -> stamp -> commit -> notify tail
-    # written out three times, in render_soak, render_drill and render_rotation —
-    # and about to be written a fourth and fifth time by the media-ingestion and
-    # daily-catch lanes. Deliberately TINY, and it stays tiny: the seven lanes are
-    # three families, not one shape, so this holds a thin runner per family and
-    # never a single run_lane(). If it starts growing, something lane-specific has
-    # leaked in — most likely push_queue, which makes zero LLM calls at fire time
-    # by design and must never be given a writer stage.
+    # NEW FILE, budgeted in the diff that creates it (2026-08-24, Q1's first family).
     "scripts/lanes.py": 60,
-    # NEW FILE, budgeted in the same diff that creates it (2026-08-23, the spine
-    # refactor). What it retires: `morning_knock.py` owning the delivery tail for
-    # seven lanes, 26 hand-built commit-path lists, and two import cycles that
-    # forced `render_audio` and `sync_state` to defer their imports to function
-    # scope. L4 has one owner now; a lane hands over what it produced and does not
-    # own the ordering, the quiet-hours check, or the commit list.
+    # NEW FILE, budgeted in the same diff that creates it (2026-08-23, the spine refactor).
     "scripts/publish.py": 150,
     "scripts/push_queue.py": 250,
-    # NEW FILE, budgeted in the same diff that creates it (2026-09-04). THE REACH
-    # BUDGET — when Anna may reach Andrew, and how often. WHAT IT RETIRES: one
-    # concept split across two files at two layers. `publish.py` held the waking
-    # window; `morning_knock.py` held the daily cap, the min gap and the counter.
-    # Both lanes that reach him obey both halves, so `push_queue` imported half
-    # its budget from a FOUNDATION and half from a PEER LANE — and three more
-    # modules (`knock_reply`, `knock_message`, `reply_common`) were importing
-    # from that lane too. It also ends the `fires_today` collision: this file's
-    # counter is `reaches_today`, so `sync_state.fires_today` (words ANDREW
-    # fired) is the only `fires_today` left. Chosen over folding the counts into
-    # `publish.py` because that file measured 148/150 — a file at its ceiling
-    # wants a split, not a raise, and the ceiling picked the boundary the
-    # concerns already wanted.
+    # NEW FILE, budgeted in the same diff that creates it (2026-09-04).
     "scripts/rails.py": 26,
-    # NEW FILE, budgeted in the same diff that creates it (2026-09-04). The
-    # voice-memo renderer. WHAT IT RETIRES: `render_memo` in `morning_knock.py`,
-    # the LAST thing that made a lane a foundation for its peers — the queue's
-    # drain and both reply lanes called it there. Not `lanes.py`, whose header
-    # says the three families are not one shape and these callers span two of
-    # them; not `publish.py`, which would have had to grow the TTS stack at
-    # 148/150 lines; not `render_audio.py`, which would have made the episode
-    # renderer answer to three lanes that never render episodes.
+    # NEW FILE, budgeted in the same diff that creates it (2026-09-04).
     "scripts/memo.py": 28,
-    # 350 -> 355 (2026-09-01): A TRANSFER, NOT GROWTH, and the sync_state entry
-    # below is re-censused DOWN by the same 5 in this same diff — the two ceilings
-    # sum to what they summed to yesterday. `compute_recent_audio` and the
-    # `RECENT_AUDIO_PATH.write_text` block moved here from `write_thin_learner`,
-    # which is what the change IS: the rating picker's list is derived from
-    # `rss.xml`, and it was being rewritten on the SESSION clock while its source
-    # moved on the PUBLISH clock. Two clocks over one derivation is not a race —
-    # it is wrong by default for every dose published between two state writes,
-    # and the 09-01 soak was missing from the picker minutes after it landed. A
-    # derived file follows its source (2026-08-24), so the writer follows too.
-    # NOTE FOR THE NEXT RAISE: this file has now sat at 2 lines of headroom twice
-    # (348/350 on 08-29, 353/355 today), and the next number is a SPLIT, not a
-    # bump. It builds the feed AND reads it back — `generate_rss` and the item
-    # tables are one job, `feed_items`/`knock_meta`/`write_recent_audio` are the
-    # readers the picker lane needs, and only the second group has other callers.
+    # 350 -> 355 (2026-09-01): A TRANSFER, NOT GROWTH, and the sync_state entry below is re-censused DOWN by the same 5 in this same diff — the two ceilings …
     "scripts/rebuild_rss.py": 355,
-    # New surface, budgeted in the diff that creates it (2026-09-01). It is also
-    # the SPLIT the note above demanded rather than a second raise: naming was
-    # about to cost rebuild_rss another 9 lines, and "what a dose is called" is
-    # not the same job as "assemble the feed". `LANE_WORD`, the recorded-name
-    # lookup and the collision rule live with the map they read; rebuild_rss kept
-    # only the two lines that ASK. Set at the census plus normal headroom.
+    # New surface, budgeted in the diff that creates it (2026-09-01). · Set at the census plus normal headroom.
     "scripts/audio_titles.py": 80,
-    # 500 → 495 (2026-08-28): re-censused DOWN. The two PINNED voices left for
-    # `language.py`. Small in lines and exact in concern: this file owns the TTS
-    # STACK and the episode voice POOLS (one reader, one file), and no longer
-    # owns an identity fact that six other modules imported through it.
     "scripts/render_audio.py": 495,
     "scripts/render_chat.py": 100,
     "scripts/render_demo.py": 100,
-    # 225 → 235 (2026-08-10). RETIRED IN THIS DIFF: `ask_json`'s private parse —
-    # the char-0 `json.loads` and the `startswith("```")` fence-strip — replaced by
-    # the `parse_llm_response` every other lane already used. That is a deletion;
-    # the growth is the retry loop around it, which is mechanism and is the point:
-    # a coin-flip parse is survivable in a lane that asks ONCE and fatal in one that
-    # asks fifteen times, and the rotation tape died at movement 5 of 15 proving it.
-    # NOTE for the next raise: this file now holds a drill lane AND the LLM-call
-    # helper three lanes import. That is the two-jobs smell, and the split is
-    # already named — ask_json belongs beside parse_llm_json, not here.
     # 235 -> 220 (2026-08-23, Andrew): re-censused DOWN, the 08-01 move again.
-    # `ask_json` left for writer.py, taking the executor choice with it — this
-    # file owns drills, not how every lane talks to a model. The ratchet working,
-    # not an allowance.
-    # 220 → 195 (2026-08-24): re-censused DOWN — DRILL_MANDATE and LINT_MANDATE
-    # left for mandates.py. This lane had THREE lines of headroom.
-    # 195 → 185 (2026-08-24): re-censused DOWN — DRILL/LINT mandates left on 08-24 and the delivery tail left with it.
     "scripts/render_drill.py": 185,
-    # New file 2026-08-10 at 318 lines — the fourth audio lane. ~45 of those are
-    # BASE_MANDATE + the five SHAPE_CLAUSES, which code_lines counts as mechanism
-    # (prompt strings always do). Budgeted at 340 rather than 400: the headroom is
-    # for diagnosis, not for a sixth shape. If this trips, the move is the one
-    # morning_knock made on 08-01 and knock_reply was told to make — the mandates
-    # go to mandates.py, prompt canon and dispatch machinery being two concerns —
-    # NOT a bumped number.
-    # 340 → 325 (2026-08-24): re-censused DOWN — the delivery tail left for lanes.py on 08-24.
+    # New file 2026-08-10 at 318 lines — the fourth audio lane. ~45 of those are BASE_MANDATE + the five SHAPE_CLAUSES, which code_lines counts as mechanism (prompt strings always … · Budgeted at 340 rather than 400: the headroom is for diagnosis, not for a sixth shape.
     "scripts/render_rotation.py": 325,
-    # 275 -> 265 (2026-08-23, Andrew): re-censused DOWN. Its private OpenRouter
-    # client — the FOURTH copy, and the first that cost money rather than
-    # correctness — became one `writer.ask_json` call.
-    # 265 → 210 (2026-08-24): re-censused DOWN — SOAK_MANDATE left for
-    # mandates.py with the drill lane's two and the judge's six.
-    # 210 → 195 (2026-08-24): re-censused DOWN — SOAK_MANDATE left on 08-24 and the delivery tail left with it.
+    # 275 -> 265 (2026-08-23, Andrew): re-censused DOWN.
     "scripts/render_soak.py": 195,
-    # Budgeted in the diff that created it (2026-09-05) — a new file with no
-    # entry here is a red run, because adding one is the obvious way past a
-    # ceiling. Census 224, +7%: 17 of those lines are PAYOFF_BRIEF, which
-    # `code_lines` counts as mechanism, so the real mechanism is ~200 and the
-    # headroom is one guard, not a feature. NOTE FOR THE NEXT RAISE: refuse it.
-    # The brief belongs in `mandates.py` the day this lane stops being the only
-    # reader of it — the move `render_drill` and `render_soak` both made — and
-    # the walk's rhythm is `render_soak`'s, which is where a second copy would
-    # be the thing to retire.
+    # Budgeted in the diff that created it (2026-09-05) — a new file with no entry here is a red run, because adding one is the obvious way past …
     "scripts/render_payoff.py": 240,
-    # 425 → 429 (2026-08-20): the first-line H1 lint. It retires the accidental
-    # episode title — the Architect was never told to emit one, so 30 of the
-    # first 90 episodes shipped to the PUBLIC feed named `Tier2 Mission90`
-    # (rebuild_rss.get_title_from_md reads one line and falls back to the
-    # filename). Four lines to stop a defect that was public and compounding.
-    #
-    # HONEST NOTE, per this table's own rule — a file at its ceiling is a
-    # split-or-retire signal, not a bump: this file WAS at exactly 425/425, and
-    # it is carrying real crud. `openrouter_pass` + `inline_canon` +
-    # `resolve_writer` + the `--writer` flag are ~111 lines maintained for
-    # "GitHub Actions", which never invokes run_studio.py at all (anna.yml has
-    # no studio step). Retiring that branch is the actual answer and it is
-    # Andrew's call, not a bump this diff gets to make for him — and this raise
-    # does not make it: 429 → 430 (2026-08-23, Step 4 of the spine refactor) is
-    # +1 for a CONSOLIDATION, not for mechanism. RETIRED IN THIS DIFF: this
-    # file's own `shutil.which("claude")` host test — a second implementation of
-    # `writer.have_agent()` — in both `resolve_writer` and `writer_preflight`,
-    # and the `import shutil` that served only them. Two deferred imports of one
-    # shared test cost one line more than two copies of the test; that is the
-    # whole delta. The split note above still stands, unpaid.
     # NEW FILE, budgeted in the same diff that creates it (2026-08-23, Andrew).
-    # What it retires: three lanes that opened an OpenRouter client
-    # unconditionally on a host with a paid subscription, plus render_drill's
-    # `ask_json`. One place decides who makes a JSON call, and it decides by
-    # asking which BINARY exists — never by a flag a lane has to remember.
-    # 175 → 181 (2026-09-07, Andrew). RETIRED IN THIS DIFF: NOTHING — and that is
-    # the entry. Both raises below paid with a reduction ("growth paid for by a
-    # reduction, not an allowance"); this one cannot, so it says so rather than
-    # dressing an allowance up as one.
-    #
-    # WHAT THE SIX LINES BOUGHT: `REASONING_CAP` and its wire form, `extra_body`
-    # on both API paths, and a truncation guard that READS `usage` instead of
-    # asserting which dial ran out. gemini-3.8-flash reasons into whatever ceiling
-    # exists (measured: 3425–9217 tokens against 3.7's 1253–3164 on the identical
-    # prompt), so a single additive headroom cannot bound it and a second dial is
-    # not optional — see the block at `REASONING_HEADROOM` for the measurements.
-    #
-    # SECOND TIME THIS CEILING HAS BEEN ASKED, which is the signal the law names:
-    # a file that keeps hitting its ceiling wants a SPLIT, not a bigger number.
-    # The split is real and is NOT taken here — it was declined deliberately on
-    # departure day rather than improvised, and rides `docs/feature_inbox.md`
-    # unpaid. The candidate the file nominates for itself is `parse_llm_json`'s
-    # fallback chain (~15 lines, which would land this back under 175), gated by
-    # its own docstring on Action-log evidence that no fallback has fired. Gather
-    # that evidence before spending this ceiling a third time.
-    # 150 → 175 (2026-08-23, Step 4 of the spine refactor). RETIRED IN THIS DIFF:
-    # the LAST raw `OpenAI(...)` client outside this module. `ask_text` is what
-    # `rephrase_phonetic` needed and never had — a host choice for a TEXT lane,
-    # which the JSON-only framing of the 08-23 rule left out. That lane is
-    # reachable from both the knock and the reply push-back and ran on every body
-    # carrying script, billing cash on a laptop with a subscription already paid
-    # for. Three lanes stopped building clients for these lines; the count moved
-    # here because the mechanism did.
-    # 75 → 150 (2026-08-23, the spine refactor). RETIRED IN THIS DIFF: this
-    # module's upward import of `morning_knock` — a leaf lane — for the model
-    # constants, `budget()` and both JSON parsers. L3 cannot borrow its own
-    # vocabulary from L5; that import was the clearest single instance of the
-    # law this refactor installs. The block did not grow, it moved: every line
-    # counted here left morning_knock.py in the same commit, which is re-censused
-    # DOWN by 165 for it. Growth paid for by a reduction, not an allowance.
     "scripts/writer.py": 181,
     "scripts/run_studio.py": 430,
     "scripts/show_status.py": 125,
-    # The state layer's shared vocabulary, split out of sync_state 2026-08-04:
-    # paths, load/save, and token->canonical-key resolution. Ten scripts were
-    # importing these FROM the state brain. Deliberately tiny and dependency-free
-    # — if this file starts growing, something that mutates state has leaked in.
-    # 60 → 110 (2026-08-23, the spine refactor's last step). RETIRED IN THIS DIFF:
-    # the sync_state <-> suggest_targets import cycle, and the deferred import
-    # that patched it ("lazy: suggest_targets imports us"). `soak_pending`,
-    # `is_unseen` and the payload resolvers `soak_pending` depends on came DOWN
-    # here; `reconcile_focus`, which WRITES, stayed up in sync_state. The test
-    # above still holds and is the reason the split is legible: nothing that
-    # mutates state moved: these four read and decide, and they land beside
-    # `resolve`/`is_tamil`, which is the same job one rung narrower.
-    # 110 → 105 (2026-08-28): re-censused DOWN. The script range, the stem tail
-    # and `is_tamil` left for `language.py`. The label PORT SURFACE left with
-    # them, and that is the point — this file carried the label from 2026-08-04
-    # while two more port values (the pinned voices, the repo identity) could
-    # never live beside a paths-and-clock module. A label is not a boundary.
-    # 105 → 112 (2026-09-04): `local_date` and `is_fire` came home. Both were in
-    # `morning_knock.py` — a clock helper and a read-only state predicate, living
-    # in a LANE because it needed them first. This file's charter already names
-    # that shape ("`local_today`", "the read-only predicates `is_unseen` /
-    # `soak_pending`"); they are the third and fourth of exactly those. What the
-    # raise retires, in this same diff: `morning_knock`'s duplicate `load_json`,
-    # and FOUR independent spellings of `KNOCK_LOG_PATH` (here, `morning_knock`,
-    # `render_chat`, `suggest_targets`) of which three are now deleted — plus the
-    # two import authorities that grew on top of them, half the lanes asking this
-    # file for the path and half asking the knock lane.
-    # 112 -> 125 (2026-09-10). A RAISE THAT RETIRED THREE COPIES, which is the
-    # only kind this table is supposed to take. WHAT IT RETIRED: the rung ladders,
-    # one fact with three homes — RECOGNITION_RANK in `generate_callbacks`,
-    # PRODUCTION_RANK and RECOGNITION_NEXT in `knock_reply`, DEMOTE in
-    # `sync_state`. Nothing named what a rung IS, so every file that compared or
-    # stepped one restated the ladder slightly differently, which is this month's
-    # defect one level down. They belong at L0 because a rung is a property of the
-    # ledger, not of the lane that moves it, and because the log's derivation
-    # (L0.7) must read them without reaching upward for a lane. Census 115, +10.
+    # 112 -> 125 (2026-09-10).
     "scripts/state_io.py": 125,
-    # NEW FILE, budgeted in the same diff that creates it (2026-08-28, Andrew).
-    # THE LANGUAGE PACK — every value a fork to another language replaces, and
-    # nothing else. WHAT IT RETIRES: the port surface being a prose list in
-    # `BOOTSTRAP.md` cross-checked against four files by hand. Concretely it
-    # ends three drifts — `run_studio`'s TAMIL_TAIL_RE (a SECOND script range,
-    # invisible to the 08-24 guard because that guard needles only the first),
-    # `render_audio` re-exporting the pinned voices to six lanes, and the repo
-    # identity spelled out three times across `publish` and `rebuild_rss`.
-    # 20, not 11: the headroom is for a port ADDING a value, and every value
-    # added here is one subtracted from somewhere it was hiding. If this file
-    # ever needs a function longer than `is_tamil`, that is mechanism leaking
-    # into a pack and the answer is to put it back, not to raise this.
-    # 20 -> 35 (2026-09-03). A TRANSFER, NOT GROWTH — the pack got bigger because
-    # five lanes got smaller, and every one of them is under its own ceiling with
-    # more headroom than before (morning_knock 448 -> 442, and it was at 448/450).
-    # RETIRED IN THIS DIFF, all of it a language fact living outside the file that
-    # claims to hold them: `render_audio`'s TWO character-comparison copies of the
-    # script range (`any('..' <= c <= '..')` — functionally `is_tamil`, invisible
-    # to the 08-28 needle because it shares no spelling with the pattern) and its
-    # pinned `language_code="ta-IN"`; `render_demo.lang_of`; `render_rotation`'s
-    # pulli literal; `morning_knock.REFERENT_NOUNS`, 26 rows of kinship culture in
-    # L5; and `rebuild_rss`'s feed title, summary and caption columns.
-    #
-    # The ceiling was 20 because the file was six values and a predicate. It is
-    # now the port surface it always claimed to be, and `s91` is what keeps the
-    # claim honest — the needle guard proves a DECLARED value has one home, and
-    # could never have found any of the six above.
+    # NEW FILE, budgeted in the same diff that creates it (2026-08-28, Andrew). · 20 -> 35 (2026-09-03).
     "scripts/language.py": 35,
-    # The slip ledger, split out of sync_state 2026-08-04. Always a subsystem
-    # in a file about something else: it owns progress/slip_log.json outright
-    # and is reached from three call sites. Imports state_io only — never
-    # sync_state, which imports FROM here.
     "scripts/slips.py": 300,
-    # The agent-facing session load, split out of sync_state 2026-08-04. A READ
-    # surface: it renders state and never mutates it, which is why it no longer
-    # lives inside the writer. Sits ABOVE sync_state in the import graph.
     "scripts/session_brief.py": 250,
     "scripts/suggest_targets.py": 575,
-    # 1250 -> 1254 (2026-08-04): the tap lane's stage/commit/pull/push moved IN
-    # from the "Log tap" step of anna.yml, where it was a hand-rolled
-    # `git pull --rebase` with no union resolution and no derived re-render —
-    # the one writing lane with no net under it. Nothing in THIS file was
-    # retired, so this is a real raise, not a re-census: 5 lines of unbudgeted
-    # YAML became 7 of budgeted Python. That is the ceiling law noticing
-    # machinery migrate into a file that counts it from a file that doesn't, and
-    # the alternative was leaving the gap open to keep a number flat.
-    # 1254 -> 800 (2026-08-04): re-censused DOWN after the three-way split, the
-    # same move morning_knock made on 08-01. The raise above still stands on its
-    # own terms — the tap lane's 7 lines are still here, in cmd_knock_response —
-    # but ~480 lines left for state_io, slips and session_brief, so a 1254
-    # ceiling would have stopped measuring anything. The new number is the
-    # post-split file plus normal headroom, not a target to grow into.
-    # 800 -> 795 (2026-09-01): RE-CENSUSED DOWN, not held. The 5 lines are the
-    # ones that arrived in rebuild_rss above — `compute_recent_audio` and the
-    # picker write inside `write_thin_learner` — and holding 800 after they left
-    # would have converted a move into 5 lines of free allowance. Headroom is
-    # unchanged at 13 on purpose: a transfer must not loosen either end.
+    # 1250 -> 1254 (2026-08-04): the tap lane's stage/commit/pull/push moved IN from the "Log tap" step of anna.yml, where it was a hand-rolled `git pull --rebase` with no union … · 1254 -> 800 (2026-08-04): re-censused DOWN after the three-way split, the same move morning_knock made on 08-01. · 800 -> 795 (2026-09-01): RE-CENSUSED DOWN, not held.
     "scripts/sync_state.py": 795,
 }
-
-
-# EXEMPT, deliberately: /extend Gate 7 requires a new case here the day a bug is
-# fixed. Budgeting the file that carries the regression net would put the two
-# mechanisms in direct conflict and the budget would win — a fixed bug would
-# arrive with a reason not to pin it. Test volume is the one growth this system
-# wants unbounded. The completeness guard below is what keeps this from becoming
-# a hiding place: every OTHER script under scripts/ must carry a budget.
-#
-# Widened from the one file to the package when the suite was split by layer
-# (2026-08-25, §10.4). The exemption is for TEST volume, so it has to name
-# wherever the tests now live — and the completeness guard below has to see into
-# that directory, or a new production file could hide inside smoke/ unbudgeted.
 CODE_BUDGET_EXEMPT = {"scripts/smoke_test.py"}
 SUITE = "scripts/smoke/"
 

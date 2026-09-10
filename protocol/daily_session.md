@@ -16,7 +16,7 @@ The ticket computes the menu; Anna chooses — never re-derive by eye. **1a. THE
 
 ## The Campaign — the week ahead
 
-One named week in prose at `profile.md` → "The Campaign — This Week": its name, its **through-line** — what makes these days one thing rather than a list — and what the trailer pitches next. One block, 3,000 words (`s18`); a finished week is overwritten, git holds it. **Anna writes it at close and Andrew overrides it at will** — no ceremony, never CI. The ticket owns *which*; the campaign says what they add up to.
+One named week in prose at `profile.md` → "The Campaign — This Week": its name, its **through-line** — what makes these days one thing rather than a list — and what the trailer pitches next. One block, 1,000 words (`s18`); a finished week is overwritten, git holds it. **Anna writes it at close and Andrew overrides it at will** — no ceremony, never CI. The ticket owns *which*; the campaign says what they add up to.
 
 **No number leaves Anna's mouth** — not the deficit, not a weekly count (2026-08-25): *"the number isn't what makes me feel progress"*. Name what he can do now and could not.
 

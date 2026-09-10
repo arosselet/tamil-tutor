@@ -19,12 +19,15 @@ grep the named function when you need the exact spot.
 | `suggest_targets.py` | (no args) | **SAFE** | Nothing |
 | `generate_callbacks.py` | (no args) | **SAFE** | Nothing |
 | `push_queue.py` | `list` | **SAFE** | Nothing |
-| `sync_state.py` | `update [flags]` | **MUTATING** | `lexicon.json`, `learner.json`, `session_log.json` (never `episodes.json` — `--listened` surfaces into the lexicon) |
+| `sync_state.py` | `update [flags]` | **MUTATING** | `observations.json` (the events), `lexicon.json` (the fold), `learner.json`, `session_log.json` |
+| `sync_state.py` | `check --draw N` | **SAFE** | Nothing — prints the month's Receptive Check sample |
+| `sync_state.py` | `check --heard WORD:right\|wrong\|partial` | **MUTATING** | `observations.json`, `lexicon.json` |
+| `lexicon_view.py` | (no args) | **SAFE** | Nothing — reports rows whose evidence differs from the fold; `--rebuild` is MUTATING and rewrites every evidence field from the log |
 | `sync_state.py` | `add-word <key> --gloss …` | **MUTATING** | `lexicon.json` |
 | `sync_state.py` | `add-pattern <key> --gloss …` | **MUTATING** | `lexicon.json` |
-| `sync_state.py` | `seed-deck <file> [--deck <name>]` | **MUTATING** | `lexicon.json` |
+| `sync_state.py` | `seed-deck <file>` | **MUTATING** | `lexicon.json` (static fields only) |
 | `sync_state.py` | `feedback "<note>"` | **MUTATING** | `feedback_log.json` |
-| `sync_state.py` | `knock-response ack\|listened` | **MUTATING** | `knock_log.json`; if `listened`: also `episodes.json`, `lexicon.json`, `learner.json` |
+| `sync_state.py` | `knock-response ack` | **MUTATING** | `knock_log.json` |
 | `render_chat.py` | (no args) | **MUTATING** | `progress/chat.md` (derived — rebuilds from `knock_log.json`) |
 | `rebuild_rss.py` | (no args) | **MUTATING** | `rss.xml` (reads `published_audio/*.mp3` + `content/scripts/*.md`) |
 | `run_studio.py` | (no args) | **MUTATING** | Episode artifacts in `content/`, then everything `render_audio.py` touches |

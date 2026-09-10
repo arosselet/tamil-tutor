@@ -2,7 +2,9 @@
 
 The architecture of the learning system — **for working *on* the machine**, not for running it. Anna and the studio don't load this file; it's the engineer's map.
 
-Companion: **`docs/DECISIONS.md`** — settled decisions and engineering discipline. Read it before proposing any structural change; don't re-litigate what it closes.
+Companion: **`docs/DECISIONS.md`** — settled decisions and engineering discipline, one line each. Read it before proposing any structural change; don't re-litigate what it closes.
+
+**This is the only map** (2026-09-10). The `/extend` routing table and the `/orient` subsystem table were second copies of the facts below and both drifted; a concern's owner is found here, and if this file is wrong it is fixed in the same diff as the code.
 
 Open planning: **`docs/comprehension_plan.md`** — the one-year comprehension goal, its measured
 baseline, and the questions still unanswered. Nothing in it is settled; read it before
@@ -63,7 +65,8 @@ Anna can commission the studio end-to-end mid-session; the subagent also runs st
 
 | File | Owner | Holds |
 |---|---|---|
-| `lexicon.json` | `sync_state.py` | Word brain: recognition + production axes, patterns/engines, `register` (the survival/delight/dessert ordering) + fire/catch direction, viability floor |
+| `observations.json` | `lexicon_view.observe` / `expose` | THE LEDGER (2026-09-10): every observation as an event — word, channel, kind (taught / exposed / tested / claimed), axis, result, source. Append-only; `seed` and `self-report` are recorded and never vote |
+| `lexicon.json` | static half: `sync_state.py` · evidence half: `lexicon_view.rebuild` | Word brain. Gloss, phonetic, type, `register`, `direction`, `pairs_with` are curriculum; recognition, production, reps, exposures, heard_on, last_surfaced, seen_in, taught_on are THE FOLD of the log, one writer, and `lexicon_view.py` reports zero divergent rows or `s100` is red |
 | `learner.json` | `sync_state.py` | Continuity: running story (`last_debrief`), `soak_order`, status (no streak — recency from the session log is the honest signal) |
 | `episodes.json` | `sync_state.py` / `render_audio.py` | Episode registry |
 | `session_log.json` | `sync_state.py` | Append-only momentum log |
@@ -78,6 +81,7 @@ Anna can commission the studio end-to-end mid-session; the subagent also runs st
 
 **L-1 `language.py`** — THE LANGUAGE PACK: every value a fork to another language replaces, and nothing else. The two script forms (`TAMIL_RE` for "is there script here", `TAMIL_RUN` for "where are the spans"), `TAMIL_TAIL_RE` (vowel signs + pulli, for stem-tolerant payload matching), `is_tamil`, the two pinned voices, and the repo identity every URL derives from. Imports nothing at all — `state_io` imports IT. **Two guards, two jobs** (2026-09-03): `s70` needles every public value so adding one arms the guard for it (2026-08-28) — that proves a DECLARED value has one home. `s91` proves the other half, which the needle guard structurally cannot: it sweeps every lane for target script on a mechanism line, because a fact the pack has never heard of contributes no needle to look for. It found `render_audio` classifying script with a character comparison at two sites, importing nothing from here at all. Dials are NOT here: a tripwire, a rail and a waking window are facts about Andrew, not about Tamil, and each already has one owner — since 2026-09-04 the rail and the window share theirs, `rails.py`, which is where they always belonged.
 
+**L0.5 `observations.py`** — the log's vocabulary and its appender; nothing else. **L0.7 `lexicon_view.py`** — `derive` (pure fold), `rebuild` (the one writer of evidence fields), `observe` (append then fold), `expose` (the delivery seam every lane calls), `divergence` (the honesty check). `backfill_observations.py` sits above it: reconstruction from history and the 09-10 cutover.
 **L0 `state_io.py`** — paths, load/save, `local_today` + `local_date`, token→key `resolve`, the soak payload resolvers, and the read-only predicates `is_unseen` / `soak_pending` / `is_fire`. Imports only the pack; everything else may import it. The clock helper and the fire predicate came home from `morning_knock` on 2026-09-04, along with three duplicate spellings of `KNOCK_LOG_PATH` — the paths this file declares had grown a *second* import authority, with half the lanes asking here and half asking the knock lane.
 **L1 selection** — `suggest_targets.py` (the ticket: the tier-ordered focus pool + the scene-spec divergence gate, plus the studio-only blocks — fence, coverage, background, candidates) · `generate_callbacks.py` (spaced repetition) · `slips.py` (the slip ledger: capture, patterns, retirement, closes). `sync_state.py` sits beside them and owns ALL state writes (`seed-deck` loads a curated set from `curriculum/`, registers and all; `unverify` drops to struggled every row rated recognized that nothing ever tested).
 **L2 policy** — verdict caps, teach-first, the variety gate, ask cooldowns; these live with the lanes that read them. **`rails.py` is the exception that names the rule** (2026-09-04): the reach budget — the waking window, the daily cap, the min gap, `reaches_today` — is obeyed by *two* channels, the knock and the queue, so it cannot live inside either. A policy one lane reads stays with that lane; a rail more than one channel obeys gets a file. `morning_knock.rails_gate` stays put, because whether to wake **Anna** is the knock lane's own question and nothing else asks it.
@@ -93,11 +97,6 @@ Read surfaces above the brain: `session_brief.py` (the agent-facing `status` loa
 
 The LLM is the writer; Python is the brain. Never hand-edit Python-owned JSON.
 
-## Structure freeze — Anna 1.0
+## Structure
 
-This shape is **frozen.** The discipline: **add content freely, change structure rarely.**
-
-- ✅ Content (a word, a scene, an episode, a memory) → always open; *that is the learning.*
-- 🛑 Structure (a new file, a schema, a meter, a refactor) → frozen. Route the itch to `docs/feature_inbox.md`; don't act on it mid-session.
-
-Test for any change: *does it add a row of data, or change a schema?* Rows are free; schema changes wait.
+Not frozen (the "Anna 1.0" freeze retired 2026-09-10 — stated in three files, lifted in one, read by nobody). The structure control is the ratchet: every prose surface and every script carries a budget in `scripts/smoke/ratchets.py`, a new file is budgeted in the diff that creates it, and `/extend` Gate 4 makes every addition name what it replaces. Rows of data are always free; a schema field is a budgeted addition like any other.

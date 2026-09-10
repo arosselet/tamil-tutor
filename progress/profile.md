@@ -4,7 +4,7 @@
 > **Read by:** `protocol/studio/director.md` and `protocol/daily_session.md` before picking targets.
 > **Purpose:** A teacher's living *judgment* of Andrew — not counts. The hard numbers (recognition buckets, production axis, viability floor) live in `progress/lexicon.json`; read them with `python scripts/sync_state.py status`. This file says what they *mean* and where to point next.
 >
-> **Last updated:** 2026-09-03
+> **Last updated:** 2026-09-10 (@build: the Touchdown Doctrine, the Native-Media Lane, Session Conduct and the Receptive Growth Log left for the files that own them; the campaign block cut to its through-line)
 
 ---
 
@@ -14,93 +14,25 @@
 
 **Three consequences for target selection.** (1) Comprehension leads — the machines carry the sentence skeleton, so an unheard frame outranks an unfired one. (2) Production stays daily, narrow-and-deepen: it is how recognition is made to hold, not a rival curriculum. (3) **Holding ground ranks with taking it** — decay is the only true regression, so a decayed row he has *met* outranks a novel one he hasn't.
 
-**Phase model (the gate came off 2026-08-25):** Phase 1 (the base) — *narrow and deepen*: force cold production of what he already recognizes; resist widening vocabulary. **Phase 1.5 (the Trip Sprint) closed 2026-08-18** — it interrupted the floor climb until touchdown and is retired below, with the ordering it left behind. **Phase 2 — native media — is OPEN NOW, not post-floor.** It was gated behind the viability floor clearing, which made comprehension wait on the production odometer: exactly backwards once the threshold became the ear (2026-08-16). Andrew's own words, 2026-08-25: *"reaching a point where I can start more enjoying Tamil movies would be a huge unlock."* Films are the destination, never the on-ramp — see "The Native-Media Lane" below.
-
+**Phase model (the gate came off 2026-08-25):** Phase 1 — *narrow and deepen*: force cold production of what he already recognizes. Phase 2 — native media — runs alongside, auxiliary until a Receptive Check says coverage has closed. The headline is **machines heard** (2026-08-16): comprehension is the threshold, production is the engine.
 ---
 
-## The Touchdown Doctrine (the Trip Sprint retired 2026-08-18; its rules did not)
+## The Campaign — Home, The Table Rehearsed
 
-> **Read this as current law.** It carried a RETIRED header until 2026-08-21, which invited a reader to discount the whole block — but only the deadline machinery died. The ordering, fire-vs-catch, the lunch anchor, engines-as-daily-non-negotiable and the neenga default below are all live.
+> **Contract:** `protocol/daily_session.md` → "The Campaign". Anna writes it at close; Andrew overrides at will. One block, **1,000 words** (`s18`): the week's name, its through-line, the live medicine. Case history lives in `slip_log.json` and git — never here.
 
-> This section carried its own instruction: *"After the trip: clear the sprint — the deck entries become ordinary vocabulary and the floor climb resumes. Revert this section then."* Touchdown was 2026-08-12. This is that revert.
->
-> **It worked.** Survival went 15/34 (2026-07-25) → 30/34 (2026-08-18), the best conversion this project has produced. The lesson kept: *a finite, visible, ordered set beats an undifferentiated 339-row ledger.* What expired is the deadline and the separate container — not the idea, and not the ordering.
+**🎯 The Declining Set, Rehearsed For Next Summer** (rewritten 2026-09-10 on return; replaces *The Table Is The Teacher*, which did its month — day 3 paid *saapidalaamaa* unprompted, and the last rehearsal found the ending the whole set rides on). The room is gone; chat, the tapes and the knocks supply the situations now. **The through-line is unchanged: the declining set, not the receiving set** — *podhum / vendaam*, *naane eduthukkaren*, *neenga saapdunga* — and every line in it is spoken TO an elder, so **the -nga ending is the one moving part** (`respect-nga`, 09-05: three swings at an elder in ten minutes, not one -nga).
 
-**What survived the retirement, and where it lives now:**
+**Live medicine:**
+- `respect-nga` — matched pairs on one verb, plain then -nga, nothing else moving; the drill was commissioned 09-05 and the ambush is unspent. **வா stays out of every chat production slot until the ambush.**
+- `noun-for-verb` / `grab-the-owned-one` — his nouns are strong and his hand reaches for them, so the verb never has to fire, and a freshly taught set is where it hides best. Watch the noun exit on every production ask; never commissioned, owed a dose.
+- `come-go-direction` — two shapes: an empty slot filled with the frequency default (`po`, "will" — the `-r-` of *right now* is unstressed and lands as silence), and a compound where the last verb owns what happened. Check which shape before re-ordering; *vandhutten* = came to where WE are is deixis, not morphology.
 
-- **The touchdown bar — the ordering (2026-07-13, Andrew; supersedes the 07-09 "no tiering" call).** **(1) Survival** — someone walks up speaking fast: follow it, repair it, get his own wants and needs across. The antifreeze kit (a fired `konjam medhuva sollunga` is a PASS — freezing is the only fail), the public/transactional chunks, and the frames (each engine online is fifty sentences never memorized). **(2) Delight** — the sisters-in-law seeing how much he is trying: the faq script, mil-table (`romba nallarukku` is THE melt line), social greetings. **Dessert** — zingers (1–2 land the reveal; five is greed) and gossip. This is durable knowledge about which failures cost most at a table, so it outlived the trip it was cut for. It now rides on the lexicon row as `register` and is read by `suggest_targets.tier_rank`; rows with no register sort as delight.
-- **Phrases are first-class.** The unit is the *chunk* (fixed formulaic phrase deployed whole — `saapta?`, `paravaayilla`, `enna aachu`) and the *frame* (a slot template — `___ venum`, `___ enga?` — an Engine). Not isolated words. The constitution's "Glue Over Vocabulary" / "Pattern Over List" made the curriculum spine.
-- **Fire vs. catch (2026-07-01).** Every row carries a `direction`: **fire** (force to cold production) or **catch** (ear-only — the win is solid recognition via eavesdrop and soak; *never* force these to fire). The gossip register is mostly catch: `frame:quote-nu` (…-னு சொன்னாங்க, reported speech) and `frame:hearsay-aam` (…-ஆம், hearsay) are the comprehension unlock for overheard family talk.
-- **Respond-under-speed is a session move, not a meter.** The survival tier's real test is *directed* fast speech — an instruction or question fired AT him, a different skill from overheard drift. Drill it as mask-work at full speed: one in-register line at Andrew; win = act/answer, OR fire a repair line from the antifreeze kit. Repair counts as a pass out loud, every time — that reflex IS the not-deer-in-headlights goal.
-- **The anchors — TWO since 2026-09-09, and they live in `protocol/learner_contract.md` now.** The lunch anchor (2026-07-13) still holds for the chat session; a second, separate slot later in the day carries the ear block. **Deliberately apart, not stacked** (Andrew, 2026-09-09): two blocks at one sitting is one context switch and one chance to miss; apart, they are two. Knock policy tees up the session late morning, saves collection asks for after its slot, and cues the ear block on the second anchor. The contract file is the one home for what Andrew commits to; this line points at it rather than restating it.
-- **Engines are the daily non-negotiable.** Every session forces **two novel instantiations of one frame** — one frame online beats five chunks memorized. Log with `--produced-cold 'frame:…'` only on a *novel* slot-fill.
-- **Competent > local.** Clear, correct, understood-and-understanding Tamil over hyper-local Kongu markers. Standard Coimbatore-colloquial is the target register; native-mimicry flourishes are the long game (`persona.md`), not the goal.
-- **Register default (Oracle-confirmed 2026-07-02):** **neenga/-nga for everyone, including younger relatives.** Nee is reserved for very close friends, close cousins, and siblings. When in doubt, -nga — the safe register is also the correct one in this family.
-- **Curated-set seeding stays.** `python scripts/sync_state.py seed-deck <file.json>` is the writer path for a vetted set — Anna drafts, the Oracle vibe-checks, the command lands it and its registers. Only the *trip* framing retired; the mechanism is useful for any future set.
+**Standing methods (keep; do not re-derive):** commission the dose, hold the word out of chat, ambush unannounced days later — three for three. A tail is only audible on a stem the ear knows cold; check the stem before blaming the tail. Not every repeated slip is owed a dose — some are owed evidence, some a day. Build every drill out of his own pockets. Teach the positive before demanding the negative. Never date-drive a scene. He tests the rules he is given and is right to; give him the flexible truth, never a false absolute.
 
-**What went, and why:** the deadline (`TRIP_DATE`), the countdown, the burn rate, the `X/N fire cold` sprint meter, and the deck's own ticket section. A countdown has an entry and no exit — modelled as a terminus it counted past zero, and modelled as two eras it would have read "in country, day 32" forever. A winnable countdown is also the motivational device the 2026-08-17 no-numbers rule banned. The 83 rows keep their `deck: "trip"` tag as provenance; nothing reads it.
+**Owed at next open:** the *adhukku appuram* debrief (twice unbanked) and *vendaanga* at the plate — contact, never evidence.
 
-**Phase model now:** Phase 1 (the base) — *narrow and deepen*: force cold production of what he already recognizes; resist widening. **Phase 2 — native media — runs alongside, ungated 2026-08-25** (it is not a reward for finishing Phase 1; the two feed each other). The headline is **machines heard** (2026-08-16): comprehension is the threshold, production is the engine.
-
----
-
-## The Campaign — The Month In Country
-
-> **Contract:** `protocol/daily_session.md` → "The Campaign". Anna writes it at close; Andrew overrides at will. One block, **3,000 words** — enforced by smoke `s18`, not by good intentions; the ticket owns *which* items. **Closed-tag case history does not live here:** `slip_log.json` holds the instances, `learner.json:slip_closes` the closure dates, git the narrative. Keep the medicine, never the case. **When `s18` goes red, cut in this order and do not improvise:** (1) a closed-tag paragraph — leave one line of medicine; (2) a reusable technique — promote it to `commissioning.md`, delete the case; (3) a superseded reading — the newest paragraph on a tag wins (2026-09-06).
-
-**🎯 The Table Is The Teacher** (written 2026-08-14, replaces *The Visit, Rehearsed In Order* — that one did its job: it bought first contact on the untouched items and got him onto the plane with survival 29/34, engines 19/21 and the melt line his). **The rehearsal is over — he is living inside the material.** For a month the room supplies the situations three times a day, unprompted, so the campaign is no longer *coverage*. It is **conversion**: seen lines becoming lines that fire in front of people, and the evidence arrives as field-mission debriefs, not chat scores. Day 3 already paid one — *saapidalaamaa*, proposed at her table with nobody in his ear.
-
-**The through-line: the declining set, not the receiving set.** Confirmed live on day 3 in his own words — *"of course extra idlis were served without being asked."* Nobody in that house will ever make him ask for more. What the room demands daily is the other direction: **podhum / vendaam** (stop it), **naane eduthukkaren** (leave it, I've got it), **neenga saapdunga** (you eat), **naane paathukkaren** (I'll handle it). Delight is the starving lane (5/27) and this is the exact slice of it the house cues, every meal.
-
-**Channel law, inverted for the stay — the work, never the door (amended 2026-08-18).** He now hears more Tamil in a morning than any episode can carry, so chat's *work* is no longer first contact — it is **decomposition on demand** (his highest-yield move, and he asks for it unprompted now) and **ambushes that read as normal to someone not being tested**. Episodes take the pairs and tails the room moves too fast to show him. **The open is not the work's to move**: this inversion squeezed the coffee out for a week and he named it himself on 08-18. The break contract now says so in law — `daily_session.md` invariant 1, where a collect waits until Anna has performed. A man living inside the material needs the coffee **more**, not less.
-
-**Medicine for `chunk-not-machine` (closed 2026-08-30; revives if it comes back):** seat-frame the substitute instead of marking it wrong, then demand the negative with a question that hands him the verb — *build, don't grab*.
-
-**The carve that closed `tail-inaudible` (2026-08-30):** English front-loads the news ("he DIDN'T eat"); Tamil hides it in the last unstressed syllable, so his ear relaxes exactly where the meaning lives.
-
-**THE REFINEMENT, AND IT IS THE LAW THAT MATTERS: a tail is only audible on a stem the ear already knows cold.** *varala*, *saapdala* and *sollala* all landed; **`கேட்கல` failed three times in the same session** — twice by ear, once from the mouth — and failed the identical way on 08-29, read as "said" both nights. So a dead tail is never fixed with more tail work: **make the stem automatic and the tail comes free.** This reframes machines-heard itself — an unheard machine may be an unheard *verb*, and neither the ticket nor the meter can tell those apart. **Check the stem before blaming the tail.**
-
-**From `english-word-order` (closed 2026-08-31, and it healed without a dose):** not every repeated slip is owed a dose — some are owed evidence. Before commissioning an old tag, check whether it is still failing.
-
-**`noun-for-verb`, new tag 2026-08-31, and it undercuts the whole tail campaign.** Asked for *enna samaikkira*, he handed back *enna samayal* — the **noun**. It is a real line and it got its seat (drawer medicine), but it is the same exit he took on 08-19, where the dodge underneath got filed as word-order and went unnamed. **His Tamil nouns are strong and his hand reaches for them, so the verb never has to fire.** That matters more than it looks: every tail we chase rides on a verb, and the standing law is *make the stem automatic and the tail comes free*. If he routes around verbs, no stem ever goes automatic and the tails have nothing to sit on. **Watch for the noun exit on every production ask** — and note that neither the ticket nor the meter can see it, because a noun he owns scores as a word he owns.
-
-**STRUCK 2026-09-09 with the 08-26 law above — same source, same defect.** This read *"didn't find an opening"* as a measurement of the room's question frequency. It was a decline of homework, and the sentence it was built on cannot bear the weight. See the strike note above; nothing replaces it.
-
-**The method that closed `wrong-verb-direction` (2026-08-31) and two tags since:** commission the dose, hold the word out of every production slot in chat, then ambush it unannounced days later. Three for three — and the discipline is the silence in between, not the dose.
-
-**From `person-marker` (closed 2026-09-01 under the exact doorway trap that used to break it twice inside four minutes):** not every slip is owed a dose; some are owed a day.
-
-**`come-go-direction`, new tag 2026-09-01 — and the ear finding under it is bigger than the tag.** Ran the present/future toggle as an ear test and he came back **four of five as "will"**: *poren* → will go, *solren* → said, *varaaru* → will go. Not mishearing — **defaulting**. The carve that fixed it in one pass: **the `-r-` is the sound of "right now"**, it is unstressed, so it lands on his ear as silence, and an empty slot gets filled with the commonest thing in the language. The future is *loud* by contrast (`-v-`/`-p-` reshapes the whole word), which is precisely why he scored both future items and no present one. Re-checked cold on five fresh lines minutes later: 4/5, present forms coming back as *saying / coming / going*. **The generalisation: an unheard tail is often not a quiet tail, it is a slot his ear fills with the frequency default.** And it runs on stems too — when his ear lost a stem it reached for **`po`** every time: *keppen* → "go", *varaaru* → "go", then *varalaya* and *varuvaaru* both → "going" inside the tape, **after** I had already corrected *varu* once that session. Three instances in one sitting, collapsing back the moment it was inside real speech at speed. That is `wrong-verb-direction` on a new pair — two verbs, opposite directions, one wire — and it went to the soak lane as direction-only minimal pairs with `வா` held out of chat until the ambush. Third run of the recipe; two tags closed on it so far. **Check the default before blaming the ear** — he is not hearing wrong, he is hearing *nothing* and filling the gap with `po` and with "will".
-
-**From `past-tense` (closed 2026-09-03 — 7× over 39 days, and closed by an unannounced trap rather than by its dose):** keep commissioning the dose, but log the close against the ambush.
-
-**`grab-the-owned-one`, new tag 2026-09-03, and it is the sharpest version of the noun-for-verb move yet.** I paid the backchannel trailer as the session's gift — six tools, six jobs. Ten minutes later, closing fire: athai circling her point a third time, the stretched *aamaaa* (get to the point) owed. He gave **`aprom?`** — the one tool in the set that **pulls**, i.e. he asked her for another chapter when he wanted her to land it. And *aprom* was the exact word he had fired successfully forty minutes earlier. **He handed back the tool he had just used, not the one the job needed** — the same exit as `noun-for-verb`, now visible *inside a set I had taught him in that same session*. The trailer's own diagnosis (two tools doing six jobs) reproduced live, with the newest tool immediately joining the hammer. **A freshly taught set is where this hides best**, because every item in it looks learned and the meter agrees. Watch it on every menu-shaped ask.
-
-**`come-go-direction` is 2× in two sessions, and the second instance is a DIFFERENT shape — check the shape before re-ordering the dose (2026-09-03).** 09-01 was an empty slot filled with the frequency default. Today was a **compound**: *போய் பாத்துட்டு வந்தாரு* came back as "went" and stopped — three verbs stacked, the **last** one owns what happened, and his ear takes the first verb it recognises and quits. A round trip read as one-way. So the new dose permutes the *tail verb only* on matched stacks rather than repeating the direction pair louder. One carve fixed it in one pass ("where is mama right now?" — *back at the house*, instant). வா stays held out of every production slot in chat: **the ambush is unspent, and a correction spends it.**
-
-**And I taught him a word he has owned for ten years (2026-08-30, his testimony).** A knock trailer commissioned *podhum* as a teach and I opened the session paying it off with a careful three-way seat map. His answer: *"Podhum was the first Tamil I ever learned, 10 years ago, it never needs teaching."* He is right — **and `போதும்` was already sitting at solid/cold in the ledger.** Nothing read it before commissioning the trailer. This is the untested-row problem running the other way: not an assumption promoted too high, but a *known* row demanded as if it were new. **A solid/cold row must never be the payload of a teach.** A `@build` ticket, and the second one this month pointing at the same seam — the trailer/knock lane picks targets without consulting the axis that says he already has it.
-
-**Teach the positive before demanding the negative (2026-08-29, his correction and he is right).** *"you haven't taught me theriyum so I haven't known to reach for it."* The ledger carried `தெரியும்` as a struggled row nobody had ever worked, and the ticket happily offered its negative as a production target. An untested row is an assumption (see Current Position) — and demanding the *inflection* of a base he has never been given is a harder ask than the ticket can see. Check the base before commissioning the tail.
-
-**Soak → chat in one cycle is the fastest conversion this system has (2026-08-25).** The -en/-om pairs rendered at 10:11; by that afternoon *ponom* fired unaided in a we-scene. That is the 9×/29d slip, unstable in both directions three days earlier, landing clean on the day its dose shipped. Minimal pairs on the same verb, nothing else moving, every item from his own pockets — that recipe is proven, use it again. **Commission the dose the morning of the session, not the week after.**
-
-
-
-**STRUCK 2026-09-09 (Andrew's override), and what stood here was wrong at the root.** This paragraph held the 08-26 speech-act law — *four missions unfired, he is strong in the response slot and dying in the initiation slot, a mission must be an ANSWER* — and the 08-31 refinement under it counted trigger frequency. **Both were theories built on non-compliance.** Andrew, 2026-09-09, unprompted: *"Missions didn't die in a room not asking, that's just me shrugging off your demand to collect homework I wasn't actually doing."* The missions were never fired and never attempted; I read the absence as difficulty and built a psycholinguistic model on it. **Nothing is put in its place, deliberately** — I have no honest evidence about initiation, and inventing a second theory from the same empty column is how the first one happened.
-
-**THE RITUAL STAYS; ITS OUTPUT IS NOT EVIDENCE (his call, same day).** He likes the mission beat — it is contact, and it makes him think about the words in a real context — so keep assigning and keep collecting. What must stop is logging a debrief as a live-fire observation: when he answers a collect he is reporting whether the words *feel* cold enough to fire, which is a self-estimate. Never write it with `--produced-cold`, never let it promote a row, never cite it as the strongest evidence there is. `persona.md` carried that instruction and lost it the same day.
-
-**He tests the rules he is given, and he is right to (2026-08-19).** Handed a tidy three-instance carve on word order, he came straight back at the seam and it did not hold: the three slips were not one crime, and today's was marked-but-grammatical rather than wrong. Give him the flexible truth — verb last, question word hugs the verb, when and where up front — and never a false absolute dressed up as a pattern. He will find it, and a rule that breaks under him costs more than the one it replaced.
-
-**No dated pressure inside the stay — I invented one and he took it off me (2026-08-23).** I opened a session pushing *pirandha naal vazhthukkal* as if amma's birthday were the next day. The date was wrong and they are not even staying in her house this week. His ruling: **the line stays in the curriculum, the deadline goes** — it waits for her real day, in her real room. Never date-drive a session off a fact I have not checked with him. **And no countdown, no burn rate, no deficit narrated — in country the table sets the pace.**
-
-**Build every drill out of his own pockets (2026-08-23, and he had to say it three times).** Every lexical item comes from `lexicon.json`; the only novel thing in a catch line is the marker being tested. Its companion law — never take the flattering reading, an invented win is worse than a missed correction — is asserted in `daily_session.md` invariant 2, and the deixis note below carries its mirror.
-
-**`respect-nga`, new tag 2026-09-05, and it is the ending the whole campaign rides on.** Table Rehearsal at full speed: three swings at an elder inside ten minutes and **not one `-nga` on any of them**. Athai with the ladle got *vendaam* where *vendaanga* was owed — the identical recast he had already been given on 09-03 in the identical slot. Maami standing while he sat got **`ukarala`**, which is not "sit down" at all: it is *didn't sit*, the `-la` negative where the `-nga` imperative belonged, so he told her she had not sat instead of seating her. Same beat, asked to make her eat, he gave *saapten* — correct Tamil, a correct answer to her question, and she walks back to the kitchen unfed. **He owns every one of these verbs bare; the respect ending is what will not fire.** That matters more than a politeness slip, because the campaign's through-line is the *declining set* and every line in it — *podhum*, *vendaanga*, *neenga saapdunga*, *naane paathukkaren* — is spoken TO an elder. The `-nga` is not decoration on that curriculum, it is the curriculum. Named once, trapped one beat later: *ukkarunga. Saapdunga.* Both landed — **hinted, not cold, and logged that way**, because I had just handed him the form. Commissioned to the drill lane as matched nee/neenga pairs with the ending as the only moving part: the recipe that closed `person-marker` and `kekku/sollu`. Then hold it out of chat and ambush it unannounced — that method is now 3 for 3 and the discipline is the silence, not the dose.
-
-**And the mirror of the flattering-reading law, from the same hour: I took the UNFLATTERING one and he corrected me (2026-09-05).** A cousin mask at speed — *naan kadaikku poi paathuttu vandhutten, avan illa* — and asked where I was standing he said "en route". I logged it instantly as `come-go-direction` a third time, the compound tail dying again. He came straight back with **"store went looked and came, he was not there?"** — every verb, in order, tail included. **He had parsed the compound perfectly and still could not put my body in the room.** *vandhutten* does not mean "came", it means *came to where you and I are*: Tamil hangs the direction on the speaker, and that is **deixis, not morphology**. So `come-go-direction` is refined rather than repeated, and the 09-03 soak dose was aimed one layer off the real hole. The 08-23 law says never take the flattering reading; today says the unflattering one is just as inventable. **Both are guesses. Ask what he actually decoded — especially before re-ordering a dose on the strength of it.**
-
-**Standing catch order (renewable):** one word overheard off the sisters.
+**Standing catch order (renewable):** one word overheard — off the tapes now, off the sisters next summer.
 
 ---
 
@@ -166,60 +98,11 @@ not demoted — it is **re-labelled as the instrument it always was**.
 
 **Avoid:** reaching into **priority-2 expansion** clusters or new registers (news, journalistic) while the priority-1 floor still has gaps; and the over-trodden setting reflexes — another straight kitchen scene, another morning sprint.
 
-## The Native-Media Lane — open since 2026-08-25
-
-> **AUXILIARY, NOT PRIMARY — demoted 2026-09-09 (Andrew).** This block used to argue that
-> "a boutique cannot solve it. Native media is the only source that scales, and it costs no
-> authoring." Half of that is now measured false: authored audio is free to ~63 min/day (see
-> Calibration Notes), so scale was never the discriminator money made it look like. What is
-> still true is the other half — native media is **unbounded** and authored material is not.
-> But it sits **below his 95% coverage floor today**, and authored material is comprehensible
-> by construction. So the ramp below is right and its ROLE changes: native media is the
-> auxiliary lane that grows as coverage grows, and the **authored** lanes carry the daily
-> 10–15 min. Revisit when a Receptive Check says the coverage gap has closed.
->
-> **Why it stopped being "on the horizon."** What was blocking it was a gate — Phase 2 waits
-> for the floor — written when production was the headline.
-
-**Films are the destination, not the on-ramp.** They are the hardest listening environment
-there is: native speed, slang, music over dialogue, and a wide open vocabulary. Sending him
-there first buys a bad evening and a confirmation that he is behind. The ramp, in order:
-
-1. **One channel, watched repeatedly** — cooking channels and vlogs. One speaker, face
-   visible, the situation carrying half the meaning, and the same twenty phrases every
-   episode. This is *narrow listening*: repetition of one voice and one topic is what makes
-   an unknown word inferable instead of merely unknown.
-2. **The same clip again, not a new one.** The instinct is to move on when it gets easy.
-   Getting easy IS the win, and re-watching is where a recognized word becomes a heard one.
-3. **Serials before films** — slower, more domestic, far more repetition, and the register is
-   the family table rather than the action set-piece.
-4. **Films last**, and the first ones with Tamil audio he already knows the plot of.
-
-**What Anna does with it.** Not a comprehension quiz — Andrew is not to be tested on his
-evening. He brings back what he *caught* and what bounced off; the bounced-off line is worth
-more than the caught one, and it enters as a `heard` line (below). New words from media enter
-the lexicon the same way any unseen item does — through the Teach Beat, at `struggled` —
-never as a bulk import.
-
-**The rule that keeps it from becoming homework:** it replaces nothing and is owed nothing.
-A week with no media is not a lapse, and the Enjoyment Clause covers it exactly as it covers
-a missed session.
-
----
-
 ## Coverage / Variety Note
 
 Mechanical anti-sameness (scene shape, location, energy, episode form) is owned by the Director via the `content/scripts/*.tags.json` sidecars, which contrast each new episode against the last few. This file only flags the qualitative drift: recent episodes lean **domestic two-voice dialogue**, so bias the next few toward different *forms* (story / monologue-led, phone_call, vignette) to keep the ear fresh — while keeping the *vocabulary* narrow per the deepen thesis.
 
 ---
-
-## Session Conduct — Andrew's Stated Preferences
-
-Learner-specific preferences for how Anna runs the live session. These live here (not in any agent's local memory) so every agent and device applies them identically.
-
-- **Meta is curriculum; weave Tamil freely (2026-07-15, Andrew's words).** The exploratory/meta thread — *why that ending, where a word comes from, why Google Translate chokes on it* — is "as important to my journey as the subject at hand… so I can explore, not just checklist." Let Tamil live throughout the whole conversation (sign-offs, asides, mutters), and treat *anything* Anna drops as fair game for Andrew to stop and poke at — that poking **is** the lesson, never a detour from "real work." Do **not** frame Anna's own Tamil as a "slip" he "caught" — it's the persona, not an error. Use the dictionary-vs-living-register gap as a feature: colloquial Kongu (completive tails *poidu/poachu*, clitics, dropped endings) is exactly what machine translators mangle — reframe that as proof he's learning the real spoken register, with Anna as the Kongu dictionary. This is the constitution's "tangent is a tool" / "stories are curriculum" made a standing preference for Andrew.
-- **Field missions must be organic (2026-07-15).** A mission that needs a *specific moment to show up* (e.g. the old "ok-na, book pannu" waiting on her to book flights) is weak — Andrew called it "a bit contrived." Half the time the moment never comes and the line dies unfired. Build missions that ride something guaranteed to happen within ~24h (the dinner offer of seconds, the auto ride, the "did you eat?" greeting), so there's always a slot to fire it. Shapes the knock/mission policy, not just one session.
-- **Density low, lore high while the overwhelm signal holds (2026-07-24, his words).** He named *overwhelm* and *progress* in the same breath. Keep the dose small and the meta/lore thread rich until that changes — on 07-24 and again on 07-26, two fires plus one gossip tape produced more than any gauntlet had.
 
 ## Calibration Notes — explicit generation parameters
 
@@ -254,8 +137,3 @@ These are **hard dials**, read by the Director/Architect. They live here (not in
 
 ---
 
-## Receptive Growth Log
-
-Monthly entries from the Receptive Check. One line per check: date, source, % caught without subtitles, brief observation.
-
-_(pending — first check not yet logged)_

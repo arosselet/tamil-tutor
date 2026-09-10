@@ -178,9 +178,11 @@ is the safe read-only dashboard. `update` moves the recognition and production a
 python scripts/sync_state.py status
 ```
 
-**Playbook — floor/deck numbers look wrong:**
+**Playbook — floor/ear numbers look wrong:**
 1. Run `status` — it recomputes live from `lexicon.json`; the stored `learner.json`
-   status line can lag (it's updated by `update`, not by every read).
+   status line can lag. Then `python scripts/lexicon_view.py` — every evidence field
+   is the fold of `observations.json`, and a divergent row names a writer that set a
+   rung by hand (2026-09-10).
 2. If a specific word's axis is wrong: read its record directly:
 ```
 # SAFE (read-only)

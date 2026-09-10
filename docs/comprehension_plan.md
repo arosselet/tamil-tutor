@@ -1,5 +1,7 @@
 # The One-Year Comprehension Goal — open planning
 
+> **Status: GOAL ADOPTED 2026-08-31; INSTRUMENTED 2026-09-10.** The ledger is now the fold of an observation log (`lexicon_view.py`), the Receptive Check is a command (`sync_state check`), and the ear block is visible in the brief. §1, §3 and §6 were cut on that day: the baseline is a query now, the arithmetic priced a broken meter, and the proposals landed.
+>
 > **Status: GOAL ADOPTED 2026-08-31.** It sat open for seven days, then thirteen more. §5 is now
 > settled and question 1 is closed. What changed the answer was not new ambition but a
 > measurement: the ear is sampled once every 72 hours on ONE word (§3, corrected 2026-08-31), so
@@ -28,42 +30,9 @@ rewritten around **the threshold is comprehension; production is the engine**.
 
 ---
 
-## 1. Baseline evidence (measured 2026-08-17)
+## 1. Baseline
 
-Reconstructed from git rather than trusting the current snapshot. See *How to re-measure*.
-
-### Recognition history
-
-| date | rows | solid | comfortable | struggled | machines solid |
-|---|---|---|---|---|---|
-| 2026-07-01 | 212 | 93 | 72 | 47 | 1 |
-| 2026-07-16 | 273 | 93 | 79 | 101 | 1 |
-| 2026-08-01 | 328 | 95 | 87 | 146 | 3 |
-| 2026-08-17 | 339 | 95 | 88 | 156 | 3 |
-
-### Per-row transitions (net counts hide churn; these are the real numbers)
-
-- **Jul 1 to Aug 17 (47 days): 6 upgrades, 1 downgrade, 37 new rows.**
-- **Aug 2 to Aug 17 (15 days, six of them immersed in country): 1 upgrade.**
-  (`சும்மா சொல்றாங்க`, struggled to comfortable.)
-
-**Measured recognition rate: ~0.13 upgrades/day.** The ledger grew 127 rows since July 1 while
-`solid` grew by 2 — the system has been acquiring inventory, not converting it.
-
-### Three structural facts behind that rate
-
-1. **"Solid" is mostly an assertion.** Only **19 of 95** solid rows have `reps > 0` — i.e. have
-   ever been tested. The rest were seeded at import. Example: `முதல்ல` is marked solid, appears
-   in 24 episodes of `seen_in`, `last_surfaced` 2026-06-24, never once tested. **Real verified
-   solid is plausibly 20-40, not 95.** Every projection below is unreliable until this is fixed.
-2. **The ear has almost no input channel.** Recognition is written by exactly two things:
-   Anna's in-session judgment (`scripts/sync_state.py:539`) and a successful eavesdrop catch
-   (`scripts/knock_reply.py:440`). There have been **11 eavesdrop knocks out of 132 total**. The
-   axis promoted to headline on 08-16 is tested roughly twice a month.
-3. **Input volume is ~1.3 min/day.** 74 episodes, ~237 verified minutes plus 10 placeholder
-   `3.0` durations, so **~4 hours of generated Tamil in the 6 months since 2026-02-19**. (The
-   placeholder problem is already an open item in `docs/feature_inbox.md` — `get_duration` has a
-   bare `except: return 3.0`.)
+Cut 2026-09-10. The 08-17 baseline was read off a ledger that mixed day-one claims with evidence; the honest baseline is `python scripts/lexicon_view.py` and the coverage report of `backfill_observations.py` (142 rows tested at least once, 129 with no evidence of any kind, as of the cutover).
 
 ---
 
@@ -97,19 +66,7 @@ Reconstructed from git rather than trusting the current snapshot. See *How to re
 
 ## 3. The arithmetic
 
-Tier C in 365 days needs roughly 1,500-2,000 items at verified solid recognition plus most of
-the pattern inventory, so **~5 items/day sustained**. Measured rate is **0.13/day**. A **~40x
-gap**; ~20x even if the target is scoped down to 1,000 items.
-
-> **CORRECTED 2026-08-31, and the correction is load-bearing.** That rate is honest as a count
-> and wrong as a rate of *learning*. Recognition has exactly one live test instrument — the
-> eavesdrop tape — and `knock_reply.apply_catch_verdict` scores a single `expected_target` per
-> tape, on a lane that fires every third day: **0.32 ear-tests/day against ~2-3 mouth-tests.**
-> Measured row-by-row from git, 07-25 to 08-31: **79 production upgrades, 8 recognition
-> upgrades** — a 10x gap that instrument cadence alone very nearly explains. The hit rates run
-> the other way (ear ~67%, mouth ~37%): tested, the ear passes more often than the mouth. **The
-> 40x gap prices a broken meter.** Not retracted — the throughput problem in §4 is real and
-> unchanged — but it can no longer be read as a ceiling on capacity.
+Cut 2026-09-10 — the 40x gap priced a broken meter (the 08-31 correction stands): the ear was sampled one word every three days, and every word he named in a tape was discarded. Recorded now; re-run the arithmetic at the first Receptive Check, not before.
 
 ---
 
@@ -225,52 +182,9 @@ everything else; habit 1 is the single exception that gets to be asked for.
 
 ---
 
-## 6. Proposed changes (✅ = landed 2026-08-25)
+## 6. Proposed changes
 
-1. **Invert the daily budget** — from ~15 min production-forcing to **45-60 min comprehension
-   input** (~300 hrs/year). Production stays daily but stops owning the clock.
-   **✅ PARTLY, 2026-08-25.** The session inverted: the ear leads, ~3 fires are the probe, Ear
-   Day is the volume shape (DECISIONS → "Input first; production is the probe"). The *minutes*
-   half did not — it became a dial in `profile.md` → Calibration Notes with a proposed 15
-   min/day, and **Andrew sets the number**.
-   **✅ SET 2026-09-09, at 10-15 min/day, and 45-60 is withdrawn rather than deferred.** The
-   number is his, chosen against the Enjoyment Clause rather than around it: 45-60 was never
-   priced in *attention*, only in money, and money turns out not to bind at all (below). Two
-   desk blocks of ~15 min each is what he will actually do, and a dial he meets beats a dial
-   that is correct on paper. **The cost objection is retired outright** — measured 2026-09-09
-   at 526 chars/min against Chirp3-HD's 1M free chars/month, authored audio is free to ~63
-   min/day, so §4's "a boutique cannot solve a volume problem" was true about *effort* and
-   false about *money*. What remains scarce is pipeline throughput, not budget.
-2. **Ungate Phase 2 now.** `progress/profile.md` gates native media behind clearing the
-   viability floor. Under the 08-17 position that gate is backwards — it makes comprehension
-   wait on the production odometer.
-   **✅ DONE 2026-08-25.** The gate is off and `profile.md` carries "The Native-Media Lane"
-   with an explicit on-ramp — vlogs re-watched, then serials, then films — because films are
-   the destination and the hardest listening environment there is, not the entry point.
-3. **Change the item source.** 333 hand-curated rows in `curriculum/word_pool.json` cannot scale
-   to thousands. Media supplies items; the system's job becomes selection and testing, not
-   authoring.
-4. **Give the ear a real test channel.** Eavesdrop tapes are the right instrument and have fired
-   11 times. Should be near-daily. Cheapest item on this list.
-   **✅ UNBLOCKED 2026-08-25**, and the diagnosis here was incomplete. The eavesdrop lane was
-   not merely under-used: its pool was 9 rows, because `ear_targets` gated membership on the
-   `direction: "catch"` tag. `morning_knock.remaining_room` reads that pool to decide the
-   cadence is overdue, so the "highest-value move right now" warning was being computed against
-   a nearly-empty queue. The pool is now 29 with the machines in it. Cadence still needs
-   watching — an unblocked lane is not a used one.
-5. **Machines first, and it is not close.** 3/26 to 26/26 is 23 upgrades; at one per week, six
-   months. Disproportionately unlocks parsing on every sentence. Year-one priority #1, ahead of
-   vocabulary volume.
-   **✅ REACHABLE 2026-08-25.** They now hold reserved seats at the head of ticket block
-   **1a. THE EAR** and reach the knock menu as `[ear-behind]`. The asymmetry this exposes is
-   the sharpest single number in the project: **21 of 26 machines fire cold and 3 are heard** —
-   his mouth is a full lap ahead of his ear on the exact inventory comprehension rides on.
-6. **The wife question.** The highest-bandwidth Tamil in his life is in the house, and the
-   constitution deliberately keeps her out (Resource not teacher; 60-second vibe checks; never
-   an examiner — the heist). Those rules exist for real reasons. But no generated system
-   competes with a native speaker for 300 hours of input. Worth reopening *deliberately* and
-   narrowly (e.g. a fixed Tamil-only daily window), not as "make her teach you."
-   **Andrew's call; the tradeoff is real and was named, not hand-waved.**
+All six landed or were settled by 2026-09-09 (the budget at 10–15 min/day, native media ungated and auxiliary, items from media through the Teach Beat, the eavesdrop scoring every word he names, the machines seated at the head of the ear queue). The wife question stays Andrew's (§7.3).
 
 ---
 
@@ -314,12 +228,11 @@ All read-only.
 
 - `python scripts/sync_state.py status` — current meters, including `Machines heard`.
 - `python scripts/generate_callbacks.py` — what the return clock is actually returning.
-- **Untested "solid" count:** load `progress/lexicon.json`, take rows where `recognition` is
-  `solid`, and count how many have `reps > 0`. On 2026-08-17 that was 19 of 95.
-- **Recognition upgrades since a past commit:** load `progress/lexicon.json` from
-  `git show <sha>:progress/lexicon.json`, rank `{struggled:0, comfortable:1, solid:2}`, and count
-  rows whose rank increased. Sample historical shas with
-  `git log --format="%H %ad" --date=short -- progress/lexicon.json`.
+- `python scripts/lexicon_view.py` — zero divergent rows, or a writer set a rung by hand.
+- `python scripts/backfill_observations.py` — the coverage report: tested / claim-only / no evidence.
+- **Recognition movement over any window:** count `tested` events on the recognition axis in
+  `progress/observations.json` between two dates; a rung is the fold of those, never a stored claim.
+- `python scripts/sync_state.py check --draw 30` — the month's Receptive Check sample.
 
 ---
 
