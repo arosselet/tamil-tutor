@@ -6950,7 +6950,9 @@
     "body": "When athai ignores 'podhum' (enough): the polite Coimbatore line that stops the third ladle cold. Today's lunch session.",
     "expected_target": "",
     "stance": "lure",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "ack",
+    "response_at": "2026-09-10T12:31:19Z"
   },
   {
     "date": "2026-09-09",
