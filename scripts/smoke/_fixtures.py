@@ -148,6 +148,31 @@ def lex_row(**kw) -> dict:
     return {"gloss": "x", "phonetic": [], "recognition": "struggled",
             "production": "none", "seen_in": [], "last_surfaced": None, **kw}
 
+
+def seed_evidence(sb: Path, word: str, *, recognition="struggled", production="none",
+                  at="2026-06-01T12:00:00Z"):
+    """A fixture rung the FOLD will reproduce (Phase 3, 2026-09-10).
+
+    Since the lexicon is a view, a rung written into a fixture row is what the
+    file SAYS, and the first watched event on that axis makes the fold speak —
+    from the default, not from the file. A case that seeds `solid` and then
+    drives a writer expecting one step down must seed the evidence too, exactly
+    as the cutover did for the live tree: `ledger` events, one per rung."""
+    from state_io import PRODUCTION_RANK, RECOGNITION_RANK
+    path = sb / "progress" / "observations.json"
+    log = read_json(path) if path.exists() else []
+    n = len(log)
+    for i in range(RECOGNITION_RANK.get(recognition, 0)):
+        log.append({"id": f"seed-{word}-r{i}-{n}", "at": at, "word": word, "channel": "ledger",
+                    "kind": "tested", "axis": "recognition", "result": "right",
+                    "source": "fixture", "note": "fixture rung"})
+    if PRODUCTION_RANK.get(production, 0):
+        log.append({"id": f"seed-{word}-p-{n}", "at": at, "word": word, "channel": "ledger",
+                    "kind": "tested", "axis": "production",
+                    "result": "right" if production == "cold" else "partial",
+                    "source": "fixture", "note": "fixture rung"})
+    write_json(path, log)
+
 def code_lines(src: str) -> int:
     """Executable lines: everything that is not blank, a comment, or a docstring."""
     return len(code_line_numbers(src))

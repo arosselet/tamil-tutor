@@ -466,7 +466,8 @@ def build_digest() -> str:
 def knock_exposures(decision: dict) -> list[str]:
     """The DECLARED exposure of a knock — what Tamil actually went out the door
     (2026-07-26 ledger law; never mined from the dose's prose):
-      - `introduces` keys (teaching doses show the item — the 2026-07-16 gap),
+      - `introduces` keys (a show dose is the knock-sized Teach Beat, so the
+        caller records these as TAUGHT — 2026-09-10),
       - a revealed `expected_target` (the body/memo printed the Tamil itself),
       - an eavesdrop's target (the tape SPEAKS it; target_revealed is false
         there only because the ask is comprehension, not because it was hidden).
@@ -694,8 +695,7 @@ def main():
     # actually sent, not what the model first wrote.
     decision["notification_body"] = body = to_phonetic(
         decision.get("notification_body", ""))
-    mp3 = None
-    audio_url = None
+    mp3 = audio_url = None
     if decision["modality"] in ("audio", "eavesdrop", "fielding"):
         print("3. render…")
         mp3 = KNOCKS_DIR / f"knock_{now.strftime('%Y-%m-%dT%H-%M')}.mp3"
@@ -716,8 +716,9 @@ def main():
     # out the door. Everything after them is the shared tail, and the lane stops
     # spelling it out: `publish` owns feed -> commit -> push (2026-08-23).
     path = log_decision(now, decision, acted=True, audio_url=audio_url, mp3=mp3)
-    from sync_state import record_exposure
-    exposed = record_exposure(knock_exposures(decision))
+    from lexicon_view import expose
+    exposed = expose(knock_exposures(decision), decision["modality"],
+                     source=f"knock:{now.isoformat()}", taught=decision.get("introduces") or [])
     print("4. commit + push…")
     commit_and_push(*publish(
         [path, LEXICON_PATH if exposed else None,

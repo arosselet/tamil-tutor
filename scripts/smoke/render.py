@@ -180,10 +180,10 @@ def s40_drill_consumes_its_commission(sb: Path):
     lex_path, learner_path = sb / "progress" / "lexicon.json", sb / "progress" / "learner.json"
     saved = (lex_path.read_bytes(), learner_path.read_bytes())
 
-    defaults = dict(listened=[], teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
-                    soak_channel=None, soak_form=None, mastered_word=[], comfortable_word=[],
+    defaults = dict(teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
+                    soak_channel=None, soak_form=None, recognized=[],
                     stuck_word=[], produced_cold=[], produced_hinted=[],
-                    mark_seen=[], next_engine=None, debrief=None,
+                    next_engine=None, debrief=None,
                     # the sandbox copies REAL slip state, so a live pattern out
                     # in the world must not red these unrelated cases — the
                     # commission gate is s46's subject, waived everywhere else

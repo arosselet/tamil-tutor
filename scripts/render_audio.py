@@ -599,81 +599,41 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
     save_json(EPISODES_PATH, episodes)
 
     # Delivery seam (2026-07-26 ledger law): the episode going out the door IS
-    # the exposure — stamped here at registration, not on a confirmed listen
-    # (confirmed-listen is unreliable by Andrew's own account; the counter's job
-    # is rotation fairness). seen_in stays pure provenance alongside it.
-    # (lexicon + phon were loaded above; cleaned_words are already canonical.)
+    # the exposure — recorded at registration, not on a confirmed listen. TAUGHT
+    # IS NOT APPEARED (2026-09-01, Andrew): only a `new_words_landed` payload is a
+    # Teach Beat; a callback rides past and earns an exposure only. Both are
+    # events now (2026-09-10), and the row's rungs and stamps follow from the fold.
     if lexicon:
-        from sync_state import mark_exposed
+        import lexicon_view
         mnum = int(mission_num)
-        today = date.today().isoformat()
-        tagged = 0
-        created = 0
-        unresolved = []
+        src = f"episode:M{mnum}"
+        events, created, unresolved = [], 0, []
         for w in cleaned_words:
             key = w if w in lexicon else phon.get(w)
             if key is None and w in new_word_keys and is_tamil(w):
-                # Brand-new payload word: introduce it at the bottom of the
-                # recognition ladder — heard, not yet known, so it stays below
-                # the fence until Anna observes recognition. gloss/phonetic
-                # backfill later, the same as sync_state's set_recognition.
-                lexicon[w] = {
-                    "gloss": "", "phonetic": [], "recognition": "struggled",
-                    "production": "none", "seen_in": [mnum],
-                    "last_surfaced": today, "exposures": 1,
-                }
+                # Brand-new payload word: the STATIC half only; the fold owns the rest.
+                lexicon[w] = {"gloss": "", "phonetic": [], "recognition": "struggled",
+                              "production": "none", "seen_in": [], "last_surfaced": None}
+                key = w
                 created += 1
-                continue
             if key:
-                # TAUGHT IS NOT APPEARED (2026-09-01, Andrew). Only
-                # `new_words_landed` stamps seen_in. A callback is a word riding
-                # PAST in a scene, and the constitution grants an appearance no
-                # teaching authority — yet BOTH buckets stamped this field, so
-                # every episode credited itself with teaching each word it
-                # merely reused. That is how தெரியும் reached the cold-quiz
-                # pool: *"you haven't taught me theriyum so I haven't known to
-                # reach for it"* (ledger, 08-29).
-                #
-                # The split needs NO SCHEMA: seen_in is TAUGHT, and the
-                # exposures / last_surfaced that mark_exposed writes below are
-                # APPEARED. Both already existed; one write site conflated them,
-                # which is why the comment above ("seen_in stays pure
-                # provenance") described an intent the code did not keep.
-                #
-                # Second half of "A tape is not a teacher" (08-31) — that pass
-                # fixed is_unseen, the READER, and left this WRITER minting the
-                # very rows it was reading. Callbacks keep their exposure stamp;
-                # they lose only the teaching claim they never earned.
-                if key in new_word_keys:
-                    seen = lexicon[key].setdefault("seen_in", [])
-                    if mnum not in seen:
-                        seen.append(mnum)
-                        seen.sort()
-                mark_exposed(lexicon, [key], phon_index=phon, today=today)
-                tagged += 1
+                events.append(dict(word=key, channel="episode", source=src,
+                                   kind="taught" if key in new_word_keys else "exposed"))
             else:
-                # A callbacks_used key that resolves to nothing used to fall out
-                # here in silence: only new_words_landed may CREATE a record, so
-                # the word shipped with real exposures on the tape and no trace
-                # in the ledger — unschedulable, uncollectable, invisible to
-                # suggest_targets (2026-07-31: இருந்துச்சு, the very word Andrew
-                # had asked for). Creating it here is wrong — a callback claims
-                # the word already exists, so an unresolvable one is far more
-                # likely a variant of a real record, and inventing a duplicate
-                # poisons the axes (the same reasoning as the frame branch
-                # above). So: report it, exactly as the frame case does, and let
-                # the operator re-file it. A silent drop is the only thing ruled out.
+                # A callbacks_used key that resolves to nothing: report it, never
+                # mint a duplicate (2026-07-31 — a callback claims the word exists).
                 unresolved.append(w)
         if unresolved:
             print(f"   ! sidecar callback(s) resolve to no lexicon word — NOT registered, "
                   f"NOT exposed: {unresolved}")
             print(f"     → if one is genuinely new, move it to new_words_landed in "
                   f"{tags_path.name} and re-run; if it is a variant, fix the sidecar spelling.")
-        if tagged or created:
+        if events:
+            lexicon_view.observe(events, lexicon=lexicon)
             save_json(LEXICON_PATH, lexicon)
-            msg = f"   ↳ exposed {tagged} lexicon words via M{mnum} (seen_in + delivery stamp)"
+            msg = f"   ↳ exposed {len(events)} lexicon words via M{mnum} (taught + delivery, as events)"
             if created:
-                msg += f"; +{created} NEW words registered (recognition=struggled, gloss empty — backfill later)"
+                msg += f"; +{created} NEW words registered (gloss empty — backfill later)"
             print(msg)
 
 async def main():

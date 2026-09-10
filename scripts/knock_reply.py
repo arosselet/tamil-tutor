@@ -41,6 +41,9 @@ import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+import lexicon_view
+from observations import CATCH_RESULT, FIRE_RESULT, HEARD_RESULT
+
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
@@ -101,7 +104,7 @@ CATCH_SCHEMA = obj(verdict=STR, reply_line=STR, meta_note=STR, rationale=STR,
                    # agent path and survives on the API path (obj's 2026-08-28
                    # law) — the smoke suite caught this one before it shipped.
                    heard=arr(key=STR, said=STR, verdict=STR))
-from state_io import PRODUCTION_RANK, RECOGNITION_NEXT  # L0 owns the ladders
+from state_io import PRODUCTION_RANK  # L0 owns the ladders
 from state_io import FEEDBACK_LOG_PATH, KNOCK_LOG_PATH, LEARNER_PATH, LEXICON_PATH, SLIP_LOG_PATH, build_phonetic_index, load_json, local_today, resolve, save_json
 from slips import append_slips, slip_patterns
 from sync_state import fires_today
@@ -168,34 +171,22 @@ def judge_catch(knock: dict, reply_text: str, klog: list | None = None,
 
 
 def apply_catch_verdict(verdict: dict, knock: dict, lexicon: dict) -> list[str]:
-    """Move the RECOGNITION axis for the dose's ear-only target — one rung per
-    full catch (struggled → comfortable → solid), upgrades only, mirroring the
-    production judge's never-demote rule. 'solid' on a catch item is the deck's
-    win condition; production is never touched from here."""
+    """The dose's declared ear target, judged: one `tested` event on the
+    recognition axis — caught climbs a rung, missed falls one, half-caught is
+    recorded and moves nothing. `chat` is not a test and records nothing
+    (2026-09-10; every judged catch has been ear evidence since 08-27)."""
     key = resolve(knock.get("expected_target", ""), lexicon, build_phonetic_index(lexicon))
     if key is None:
         return [f"! eavesdrop target {knock.get('expected_target')!r} resolves to no lexicon record — not scored"]
-    rec = lexicon[key]
-    today = local_today().isoformat()
-    # EVERY JUDGED CATCH IS EAR EVIDENCE, caught or missed (2026-08-27). This
-    # block used to return before resolving whenever the verdict was not "caught",
-    # so the one instrument that tests recognition recorded nothing on a miss —
-    # and on a catch it moved the level while stamping no evidence at all. The
-    # mouth judge has bumped `reps` at its own seam since 2026-07-26; the ear
-    # judge simply never did, and `unverify` then read that silence as "never
-    # tested" and demoted the single genuine catch this ledger had (சும்மா
-    # சொல்றாங்க: caught 08-09, demoted 08-23). Stamp first, move the level second.
-    rec["last_surfaced"] = today
-    rec["heard_on"] = today
-    rec["reps"] = rec.get("reps", 0) + 1
-    if verdict["verdict"] != "caught":
-        return [f"{key} tested by ear — no axis move ({verdict['verdict']}), heard_on {today}"]
-    cur = rec.get("recognition", "struggled")
-    nxt = RECOGNITION_NEXT.get(cur)
-    if nxt is None:
-        return [f"{key} already {cur} — kept (caught)"]
-    rec["recognition"] = nxt
-    return [f"{key} recognition → {nxt.upper()} (caught)"]
+    res = CATCH_RESULT.get(verdict["verdict"])
+    if res is None:
+        return [f"{key}: '{verdict['verdict']}' is not a test of the ear — nothing recorded"]
+    before = lexicon[key].get("recognition", "struggled")
+    lexicon_view.observe([dict(word=key, channel="eavesdrop", kind="tested", axis="recognition",
+                               result=res, source=f"knock:{knock.get('timestamp', '')}",
+                               note=f"declared target, {verdict['verdict']}")], lexicon=lexicon)
+    return [f"{key} tested by ear ({verdict['verdict']}) — recognition {before} → "
+            f"{lexicon[key]['recognition'].upper()}"]
 
 
 # catch_meter() lived here until 2026-08-17. It appended "Catch 3/12 · 12d" to the
@@ -235,15 +226,14 @@ def apply_heard_words(verdict: dict, knock: dict, lexicon: dict,
       (3) the key's Tamil is ACTUALLY in the tape. A word the tape never spoke
           cannot be ear evidence however confidently it is named.
 
-    A MISREAD IS WORTH AS MUCH AS A CATCH, and is the half this ledger has never
-    had. Reading கேட்கல as "said" stamps the evidence and withholds the
-    promotion — the only downward pressure recognition gets, in a ledger whose
-    demotions ran 3 in 37 days outside the one purge."""
-    today = local_today().isoformat()
+    A MISREAD IS WORTH AS MUCH AS A CATCH — and since 2026-09-10 it is a
+    `wrong` on the recognition axis, so it moves the rung DOWN one, the same
+    law every other miss obeys. Withholding the promotion alone was the
+    flattering reading."""
     tape = json.dumps(knock.get("memo_script", ""), ensure_ascii=False)
     index = build_phonetic_index(lexicon)
     declared = resolve((knock.get("expected_target") or ""), lexicon, index)
-    lines = []
+    lines, events = [], []
     for item in (verdict.get("heard") or []):
         if not isinstance(item, dict):
             continue
@@ -261,19 +251,13 @@ def apply_heard_words(verdict: dict, knock: dict, lexicon: dict,
         if key not in tape:
             lines.append(f"! {key}: the tape never said it — not scored")
             continue
-        rec = lexicon[key]
-        rec["last_surfaced"] = today
-        rec["heard_on"] = today
-        rec["reps"] = rec.get("reps", 0) + 1
-        if (item.get("verdict") or "").strip().casefold() != "right":
-            lines.append(f"{key} named but MISREAD — evidence stamped, no promotion")
-            continue
-        nxt = RECOGNITION_NEXT.get(rec.get("recognition", "struggled"))
-        if nxt is None:
-            lines.append(f"{key} heard in the tape — already solid, kept")
-            continue
-        rec["recognition"] = nxt
-        lines.append(f"{key} heard unprompted → {nxt.upper()}")
+        res = HEARD_RESULT.get((item.get("verdict") or "").strip().casefold(), "wrong")
+        events.append(dict(word=key, channel="eavesdrop", kind="tested", axis="recognition",
+                           result=res, source=f"knock:{knock.get('timestamp', '')}",
+                           note=f"named unprompted, {item.get('verdict')}"))
+        lines.append(f"{key} named unprompted — {'heard' if res == 'right' else 'MISREAD'}")
+    if events:
+        lexicon_view.observe(events, lexicon=lexicon)
     return lines
 
 
@@ -726,12 +710,11 @@ def apply_verdict(verdict: dict, knock: dict, lexicon: dict, klog: list,
     Returns (summary lines, cold-credited keys — true colds plus graduations,
     the pace meters read these —, capped keys, graduated keys)."""
     phon_index = build_phonetic_index(lexicon)
-    today = local_today().isoformat()
     today_local = local_today()
     pin, pin_revealed = current_pin(knock)
     revealed_key = resolve(pin, lexicon, phon_index) if pin_revealed else None
     revealed_recent = revealed_recent or []
-    summary, cold_credited, capped_keys, graduated = [], [], [], []
+    summary, cold_credited, capped_keys, graduated, events = [], [], [], [], []
     for item in verdict["fired"]:
         key = resolve(item["word"], lexicon, phon_index)
         if key is None:
@@ -758,16 +741,17 @@ def apply_verdict(verdict: dict, knock: dict, lexicon: dict, klog: list,
             cold_credited.append(key)  # a re-fire of an already-cold word still counts as pace
         cur = rec.get("production", "none")
         if PRODUCTION_RANK[target] > PRODUCTION_RANK.get(cur, 0):
-            rec["production"] = target
             grad = " 🎓 graduated — capped fires on ≥2 days" if key in graduated else ""
             summary.append(f"{key} → {target.upper()}{grad}")
         else:
             summary.append(f"{key} already {cur} — kept ({grade} fire)")
-        rec["last_surfaced"] = today
-        # The knock half of the rep ledger (2026-07-26): every word in a judged
-        # reply's fired list is a DECLARED production — any verdict, partial
-        # counts. This counter replaced mining Anna's prose for mentions.
-        rec["reps"] = rec.get("reps", 0) + 1
+        # The knock half of the rep ledger: every word in a judged reply's fired
+        # list is a DECLARED production, any verdict — as an event (2026-09-10).
+        events.append(dict(word=key, channel=knock.get("modality") or "knock", kind="tested",
+                           axis="production", result=FIRE_RESULT[target],
+                           source=f"knock:{knock.get('timestamp', '')}", note=f"{grade} fire"))
+    if events:
+        lexicon_view.observe(events, lexicon=lexicon)
     return summary, cold_credited, capped_keys, graduated
 
 

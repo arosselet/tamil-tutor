@@ -17,7 +17,7 @@ import is ordinary practice rather than a cycle-dodge.
 """
 
 import subprocess
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 
 from slips import format_slip_block, slip_patterns
 from state_io import (BASE, EPISODES_PATH, FEEDBACK_LOG_PATH, KNOCK_LOG_PATH,
@@ -433,6 +433,15 @@ def cmd_status(_args):
                 print("    ENGINEERING NUMBER — steers what Python picks; never narrated to Andrew "
                       "(a global deficit recited in a warm voice is guilt machinery, 2026-07-17).")
         print(f"Fired today: {fires_today()}")
+        # THE EAR BLOCK, made visible (2026-09-10). The contract asks for one habit
+        # and promises "whether it happened is visible"; nothing recorded it. A
+        # rating is the one proof a dose was heard, so rating days are ear-block
+        # days. Cue and meter only — no streak, no deficit narrated (his call).
+        week = (local_today() - timedelta(days=6)).isoformat()
+        heard = {e["date"] for e in load_json(FEEDBACK_LOG_PATH) or []
+                 if e.get("date", "") >= week and "[audio rating]" in e.get("note", "")}
+        print(f"Ear block: rated on {len(heard)} of the last 7 days"
+              + ("" if heard else " — cue it at the second anchor; a rating is how it is seen"))
 
     episodes = load_json(EPISODES_PATH) or {}
     if episodes:

@@ -1,53 +1,23 @@
 #!/usr/bin/env python3
 """L0.5 — THE OBSERVATION LOG. Every fact the system learns about Andrew and a
-word, appended and never spent.
+word, appended and never spent. `lexicon_view` folds it into the lexicon
+(Phase 3, 2026-09-10); this file only appends and names the vocabulary.
 
-WHAT THIS REPLACES: nothing yet, and that is deliberate. This is Phase 0 of
-`docs/observation_log_plan.md` — strictly additive. Every existing writer keeps
-mutating `lexicon.json` exactly as before and ALSO appends here; nothing reads
-this file. Phase 3 is where the lexicon becomes a derived view and the
-mutations go. Doing it in that order means the daily loop cannot notice.
+WHY A LOG (2026-08-23 → 2026-09-10, five instances of one defect): setting a
+field SPENDS an observation — the rung moves and the channel, the question and
+the confidence are gone. So the same defect came back wearing a new field five
+times, and August's only available repair was purging 108 rows. A log is what
+makes revision cheap: change the policy, re-derive.
 
-WHY A LOG AT ALL (2026-08-23 → 2026-09-10, five instances of one defect).
-Setting a field SPENDS an observation: `rec["recognition"] = nxt` moves a rung
-and loses the channel it came from, what was asked, and how sure anyone was.
-Provenance has been the named missing thing since the seed bug and kept not
-getting added because there was nowhere to put it — the row was the only
-artifact. So the same defect kept coming back wearing a new field: a day-one
-self-estimate scored as evidence; a mission debrief logged as live fire;
-"didn't do it" indistinguishable from "couldn't do it"; a gist self-report in
-an evidence slot; and `struggled` meaning three different things at once.
+FOUR FIELDS CARRY THE DESIGN — `kind` (an exposure is not a test), `channel`
+(carries TRUST: `seed` and `self-report` are recorded and never vote), `axis`
+(the two move independently) and `source` (the artifact, for audit).
 
-THE PAYOFF ANDREW ASKED FOR BY NAME: cheap revision. "We can fail forward, we
-can revise this, it's fine if we discover and fix and get discontinuities in
-our measurements" (2026-09-10). A mutated field cannot be re-read, which is why
-August's only available move was PURGING 108 rows. Under a log they get
-re-scored instead, by changing a policy and re-deriving.
+A JSON ARRAY, NOT JSONL: `publish.UNIONABLE` resolves a rebase conflict on an
+append-only array by keeping every row from both sides, keyed on `id`. The knock
+cron and the laptop both write here.
 
-FOUR FIELDS CARRY THE DESIGN:
-  `kind`    — an exposure is not a test. `asked-about` is its own evidence:
-              Andrew volunteering "enaa is a new word for me actually" is the
-              most honest signal this system receives and had nowhere to go.
-  `channel` — carries TRUST. A reader's policy decides what counts; `seed` and
-              `self-report` are recorded and excluded by default, which is how
-              the mission ritual survives while its output stops voting.
-  `axis`    — recognition and production move independently and always have.
-  `source`  — points at the artifact (knock id, session date), so any claim can
-              be walked back to what produced it.
-
-A JSON ARRAY, NOT JSONL, and that is not a style choice: `publish.UNIONABLE`
-resolves a rebase conflict on an append-only array by keeping every row from
-both sides, keyed on a field. The knock cron and the laptop both write here, so
-this file needs that resolver — and it needs a unique `id` for it to dedupe on,
-which is why one is minted per event rather than keying on `at` (a retell
-scores five words in the same second).
-
-A BAD CONSTANT WARNS, IT DOES NOT RAISE. Every unattended lane imports this;
-a typo that hard-crashes the knock cron is a worse failure than one that logs
-loudly and keeps reaching him — the same call `_resolve_local_tz` makes for the
-same reason. Nothing reads this file yet, so a junk row is recoverable and a
-dead knock is not. `smoke/observations.py` is what actually catches the typo,
-before it ships.
+A BAD CONSTANT WARNS, IT DOES NOT RAISE — every unattended lane imports this.
 """
 import sys
 import uuid
@@ -66,14 +36,18 @@ OBSERVATIONS_PATH = BASE / "progress" / "observations.json"
 CHANNELS = {
     "session",      # Anna's own observation in a live session
     "eavesdrop",    # a judged catch — the one honest recognition instrument
-    "knock",        # a judged typed reply on the phone
+    "knock", "text", "volley", "challenge", "fielding", "audio",  # a judged phone reply, by modality
     "episode", "drill", "soak", "rotation",   # a dose was delivered
-    "check",        # the Receptive Check, once it exists
+    "check",        # the Receptive Check
     "media",        # native media he reported back on
+    "ledger",       # carried over from the mutated ledger at the 2026-09-10 cutover:
+                    # a watched writer moved the rung and the event was never logged
     # ── below this line: DECLARED, never watched. Excluded by default policy. ──
     "seed",         # the day-one self-estimate, 153 rows before session one
     "self-report",  # a mission debrief; he is reporting how it FEELS, not what happened
 }
+DECLARED = {"seed", "self-report"}
+WATCHED = CHANNELS - DECLARED    # the policy's whole teeth: only these vote
 
 KINDS = {
     "taught",       # a full Teach Beat — first contact, generously given
@@ -85,6 +59,10 @@ KINDS = {
 
 AXES = {"recognition", "production", None}
 RESULTS = {"right", "wrong", "partial", None}
+# The judges' vocabularies, translated into the log's. One home each.
+CATCH_RESULT = {"caught": "right", "half-caught": "partial", "missed": "wrong", "miss": "wrong"}
+HEARD_RESULT = {"right": "right", "misread": "wrong"}
+FIRE_RESULT = {"cold": "right", "hinted": "partial", "capped": "partial"}
 
 
 def _checked(value, allowed, field):
@@ -100,10 +78,8 @@ def _checked(value, allowed, field):
 def record(word, channel, kind, *, axis=None, result=None, source="", note=""):
     """Append ONE observation. Returns the event written.
 
-    Callers pass what they already know at the seam they already have; nothing
-    here reads or touches `lexicon.json`, so a caller that fails to record has
-    not corrupted anything — it has only lost a row, which Phase 2's diff will
-    surface as a divergence."""
+    Nothing here touches `lexicon.json`; `lexicon_view.observe` is the write
+    path that records AND folds, and it is the one every writer uses."""
     return record_many([dict(word=word, channel=channel, kind=kind, axis=axis,
                              result=result, source=source, note=note)])[0]
 
@@ -117,7 +93,7 @@ def record_many(events):
     for e in events:
         row = {
             "id": uuid.uuid4().hex[:12],
-            "at": now,
+            "at": e.get("at") or now,
             "word": e.get("word", ""),
             "channel": _checked(e.get("channel"), CHANNELS, "channel"),
             "kind": _checked(e.get("kind"), KINDS, "kind"),

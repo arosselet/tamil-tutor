@@ -323,42 +323,15 @@ def soak_pending() -> bool:
 
 
 def is_unseen(rec: dict) -> bool:
-    """Never TAUGHT — no episode has carried it. The teach-first law hangs on
-    this: an UNSEEN item may be TAUGHT (shown, with its meaning) but never
-    cold-quizzed. One definition; the knock menu, the volley picker, and the
-    session ticket all read it.
+    """Never TAUGHT — no Teach Beat has carried it, on any channel. The
+    teach-first law hangs on this: an UNSEEN item may be TAUGHT (shown, with its
+    meaning) but never cold-quizzed. One definition; the knock menu, the volley
+    picker and the session ticket all read it.
 
-    IT NO LONGER READS `last_surfaced` (2026-08-31, Andrew: "I can't catch a
-    word I don't know in the first place"). That field is the DELIVERY stamp —
-    `mark_exposed` writes it from the soak sheet, the drill sheet, the knock
-    push and the queue drain — and the constitution grants those lanes no
-    teaching authority at all: "EXPOSE, don't drill" is the instruction they
-    ship under. Only the seed episode teaches on the audio side ("captions
-    doing the heavy lifting"), and that path stamps `seen_in`. So one soak loop
-    repeating a word was silently retiring that word's right to ever get a
-    Teach Beat, and it went straight into the cold-quiz pool instead. 51 rows
-    were sitting in exactly that state when this was found — delivered by a
-    tape, never taught, quizzable.
-
-    THE SILENT NO-OP THIS CLOSES: a never-taught word and a taught one were
-    byte-identical to every reader, so the gate could not fail loudly — it just
-    produced a demand for a word Andrew had never met, which reads as Anna
-    being careless rather than as a predicate reading the wrong field.
-
-    THAT RESIDUAL IS NOW CLOSED (2026-09-01, Andrew). `seen_in` used to record
-    every word a sidecar declared, `callbacks_used` included, so an episode
-    credited itself with teaching words that merely rode past. The split needed
-    NO new schema in the end: `seen_in` is TAUGHT and `exposures` /
-    `last_surfaced` are APPEARED — both already existed, and one write site in
-    `render_audio` conflated them. Only `new_words_landed` stamps this field now.
-
-    Two measurements shaped that fix and are worth keeping. The 83-row estimate
-    did not survive replaying all 278 rows against the sidecars: 192 are
-    genuinely taught, 78 are UNDECIDABLE (episodes 6..41 predate sidecars, so no
-    evidence exists either way), and only 8 are provably appeared-only. And the
-    cheap predicate — `exposures == 0` — is FALSE: it selects 95 rows of which
-    69 are genuinely taught, so adjudication has to read the sidecars, not the
-    counter. `sync_state untaught` cleared the 26 rows that survived every
-    guard; the guards spared anything he had produced, because graduation is
-    final (07-26)."""
-    return not rec.get("seen_in")
+    Reads the fold, not a delivery stamp (2026-08-31, Andrew: "I can't catch a
+    word I don't know in the first place"): `last_surfaced` is written by every
+    lane that merely APPEARS a word, and none of those teach. `taught_on` is the
+    first `taught` event on any channel — a session, an episode's seed payload,
+    a knock's show dose (2026-09-10) — and `seen_in` is the episode subset of
+    the same events, kept because the studio counts it."""
+    return not (rec.get("taught_on") or rec.get("seen_in"))

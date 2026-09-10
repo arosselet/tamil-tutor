@@ -253,7 +253,13 @@ CODE_BUDGETS = {
     # evidence from prose is inventing it — the exact defect the log exists to
     # end. Its own docstring names what it refuses to reconstruct; keep that list
     # growing instead of the code.
-    "scripts/backfill_observations.py": 150,
+    # 150 -> 200 (2026-09-10, Phase 3). THE GROWTH IS THE CUTOVER: `from_episodes`
+    # dates every `seen_in` mission from git and `cutover` carries each live rung
+    # the log cannot show as a `ledger` event, then rebuilds. RETIRED IN THE SAME
+    # DIFF, one layer up: `sync_state.untaught` (the spent one-shot), the
+    # `listened` tap and `--listened`, `--mark-seen`, `mark_exposed` and
+    # `record_exposure` — 150 code lines out of the brain for 50 in here.
+    "scripts/backfill_observations.py": 200,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-10). PHASE 2 —
     # it folds the log into a lexicon and names every place that disagrees with
     # the live file. WHAT IT RETIRES: nothing yet; it is READ-ONLY by design and
@@ -262,7 +268,13 @@ CODE_BUDGETS = {
     # replays the rules the writers already used, so a divergence is attributable
     # to EVIDENCE and not to a rule change landing in the same diff. Smarter
     # policies are Phase 3's argument, made against this baseline.
-    "scripts/lexicon_view.py": 125,
+    # 125 -> 150 (2026-09-10, Phase 3). The view became AUTHORITATIVE: `rebuild`
+    # is now the one writer of every evidence field, `observe` the one write path
+    # and `expose` the delivery seam every lane calls. WHAT IT RETIRES: the
+    # twelve direct rung/stamp writes in sync_state and the eleven in
+    # knock_reply, and Phase 2's `classify` (the diff it explained is now
+    # `divergence`, and CI holds it at zero on the real tree).
+    "scripts/lexicon_view.py": 150,
     "scripts/generate_callbacks.py": 100,
     # 775 -> 785 (2026-08-02) for the thread-continuity window. Retired in the
     # same diff: three inlined ISO-timestamp parsers collapsed into _ts(), the
@@ -1162,7 +1174,7 @@ LAYERS = {
     # Numbered beside its own subject so that the day a lane imports the backfill
     # — which would mean reconstruction running inside the daily loop — the edge
     # reads as upward and fails here.
-    "backfill_observations": 0.6,
+    "backfill_observations": 0.8,    # a tool over the view — reads lexicon_view
     # The derivation (2026-09-10). Reads L0 and the log, imported by nothing yet;
     # in Phase 3 it becomes what every reader of the lexicon goes through, which
     # is why it sits BELOW selection (1.5) and every lane rather than beside them.

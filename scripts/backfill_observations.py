@@ -23,23 +23,22 @@ re-run. Live events keep their random uuid4 — only reconstruction is keyed.
 
 WHAT IT REFUSES TO INVENT, and each absence is reported rather than filled:
   - `reply_verdict: "chat"` (40 of 87) is Andrew talking, not a test. No event.
-  - EXPOSURES are out of scope. Only 15 of 76 episodes carry a `produced` date,
-    and an undated exposure cannot be ordered against a test. `seen_in` already
-    sits on the row for Phase 2's derivation to read directly; duplicating it
-    here undated would add rows and no knowledge.
   - A word that resolves to no lexicon row is counted and named, never guessed.
-  - THE WORDS HE NAMES OUT OF A TAPE cannot be recovered at all. Since
-    2026-08-31 `apply_heard_words` has moved recognition for every one of them
-    and `knock_log.json` has never stored the list, so the ear's richest
-    evidence exists only as a mutated rung. Persisting it costs two lines in
-    `knock_reply.py`, which sits AT its ceiling under a note that pre-refuses a
-    fourth raise — so it rides that file's split, and `docs/feature_inbox.md`
-    carries both halves. The UNCORROBORATED count below is the size of the hole.
-  - RECOGNITION PROMOTIONS IN SESSION are equally lost, and this one was
-    found by Phase 2's diff rather than guessed: `session_log.json` records
-    production and recognition FAILURES, and has never had a field for
-    --mastered-word / --comfortable-word. 57 rows diverge on it. Recorded
-    live from 2026-09-10; unrecoverable before that date.
+  - EXPOSURE COUNTS. A row's `exposures` was a bare integer with no dates
+    behind it; the cutover carries the last delivery stamp as one `ledger`
+    event and lets the counter restart. It is the fourth sort key of a fairness
+    queue, and every row reset together.
+  - THE WORDS HE NAMED OUT OF A TAPE before 2026-09-10, and the session
+    promotions before that date: recorded live since, unrecoverable before.
+    The cutover carries the RUNG they left behind (below), not the event.
+
+THE CUTOVER (`--cutover`, 2026-09-10, Phase 3): the moment the lexicon stopped
+being mutated and became the fold. Every live rung the log cannot show is
+carried as a `ledger` event — "a watched writer moved this and the receipt is
+lost" — EXCEPT the recognition rung of a seeded row, which is the day-one claim
+finally ceasing to vote. Then every row is rebuilt from the log and the two
+dead fields (`deck`, `lemma`) are dropped. Idempotent like the rest: a second
+run finds no deficit and writes nothing.
 
 DRY RUN IS THE DEFAULT. `--write` is required to touch the file, because this
 reads history and history does not change: a run that surprises you should cost
@@ -54,9 +53,10 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
+import lexicon_view
 import observations
-from state_io import (BASE, KNOCK_LOG_PATH, LEXICON_PATH, SESSION_LOG_PATH,
-                      load_json)
+from state_io import (BASE, KNOCK_LOG_PATH, LEXICON_PATH, PRODUCTION_RANK,
+                      RECOGNITION_RANK, SESSION_LOG_PATH, load_json, save_json)
 
 # The lexicon's first populated commit: 153 rows at solid 93 / comfortable 54 /
 # struggled 6, before a single session had happened. `profile.md` calls this the
@@ -96,7 +96,8 @@ def from_seed(report):
 
 # A judged reply's verdict, per axis. `chat` is absent on purpose — it means he
 # talked, which is not a test of anything and must not become one.
-EAR = {"caught": "right", "half-caught": "partial", "missed": "wrong", "miss": "wrong"}
+EAR = observations.CATCH_RESULT
+CUTOVER = "2026-09-10"
 
 
 def from_knocks(report):
@@ -152,6 +153,73 @@ def from_sessions(report):
     return out
 
 
+def git_date(*paths) -> str:
+    """When a file was first added, from history — `--all`, because most episode
+    mp3s have since left the tree. Empty when git has never seen any of them."""
+    r = subprocess.run(["git", "log", "--all", "--diff-filter=A", "--format=%cI", "--", *paths],
+                       cwd=BASE, capture_output=True, text=True, encoding="utf-8")
+    lines = [ln for ln in r.stdout.splitlines() if ln.strip()]
+    return lines[-1] if lines else ""
+
+
+def from_episodes(report):
+    """Every `seen_in` mission on a row is a Teach Beat the episode lane gave.
+    Dated from git (the registry dates 15 of 76), so `taught_on` is real."""
+    lex = load_json(LEXICON_PATH) or {}
+    dates, out, undated = {}, [], set()
+    for word, rec in lex.items():
+        for n in rec.get("seen_in") or []:
+            if n not in dates:
+                dates[n] = git_date(f"published_audio/tier2_mission{n}.mp3",
+                                    f"content/scripts/tier2_mission{n}.md",
+                                    f"content/scripts/tier2_mission{n}_breakdown.md",
+                                    f"content/scripts/tier2_mission{n}_remix.md",
+                                    f"content/lessons/tier2_mission{n}_brief.md")
+            if not dates[n]:
+                undated.add(n)
+                continue
+            out.append(event(dates[n], word, "episode", "taught", source=f"episode:M{n}",
+                             note="new_words_landed payload — dated from git"))
+    report.append(f"episodes  {len(out):>4} teach events across {len(dates)} missions"
+                  + (f" ({len(undated)} missions git cannot date: {sorted(undated)[:6]})" if undated else ""))
+    return out
+
+
+def cutover(events, report) -> list:
+    """Carry every live rung the log cannot show, as `ledger` events. See the
+    module docstring. Returns the carries; the caller appends and rebuilds."""
+    lex = load_json(LEXICON_PATH) or {}
+    view = lexicon_view.derive(events)
+    carries, seeded_dropped = [], 0
+
+    def stamp(day):
+        return f"{day}T12:00:00Z" if day else f"{CUTOVER}T12:00:00Z"
+
+    for word, rec in lex.items():
+        row = view.get(word) or {"recognition": "struggled", "production": "none",
+                                 "channels": set(), "last_surfaced": None}
+        note = "carried from the mutated ledger at the cutover; the observing event was never logged"
+        gap = RECOGNITION_RANK.get(rec.get("recognition"), 0) - RECOGNITION_RANK[row["recognition"]]
+        if gap > 0 and "seed" in row["channels"]:
+            seeded_dropped += 1                      # the claim stops voting — no carry
+        for i in range(max(gap, 0) if "seed" not in row["channels"] else 0):
+            carries.append(event(stamp(rec.get("heard_on") or rec.get("last_surfaced")), word,
+                                 "ledger", "tested", axis="recognition", result="right",
+                                 source=f"ledger:{CUTOVER}:{i}", note=note))
+        live_p, log_p = rec.get("production", "none"), row["production"]
+        if PRODUCTION_RANK.get(live_p, 0) > PRODUCTION_RANK[log_p]:
+            carries.append(event(stamp(rec.get("last_surfaced")), word, "ledger", "tested",
+                                 axis="production", result="right" if live_p == "cold" else "partial",
+                                 source=f"ledger:{CUTOVER}", note=note))
+        ls = rec.get("last_surfaced")
+        if ls and (row["last_surfaced"] or "") < ls:
+            carries.append(event(stamp(ls), word, "ledger", "exposed", source=f"ledger:{CUTOVER}",
+                                 note=f"carried delivery stamp; exposures was {rec.get('exposures', 0)}"))
+    report += ["", f"CUTOVER: {len(carries)} rungs and stamps carried as `ledger` events; "
+                   f"{seeded_dropped} seeded rows keep only what the log shows"]
+    return carries
+
+
 def coverage(events, report):
     """THE QUESTION THIS WHOLE PHASE EXISTS TO ANSWER — and it is about the
     ledger, never about Andrew. How many rows have evidence, how many have only
@@ -195,13 +263,18 @@ def main():
     ap = argparse.ArgumentParser(description="Rebuild the observation log from history")
     ap.add_argument("--write", action="store_true",
                     help="actually append; without it nothing is written")
+    ap.add_argument("--cutover", action="store_true",
+                    help="carry every unshown live rung as a ledger event, rebuild the "
+                         "lexicon from the log and drop the dead fields (implies --write)")
     args = ap.parse_args()
 
     report = []
-    events = from_seed(report) + from_knocks(report) + from_sessions(report)
-    events.sort(key=lambda e: (e["at"], e["word"]))
-
+    events = (from_seed(report) + from_knocks(report) + from_sessions(report)
+              + from_episodes(report))
     existing = observations.load_json(observations.OBSERVATIONS_PATH) or []
+    if args.cutover:
+        events += cutover(existing + events, report)
+    events.sort(key=lambda e: (e["at"], e["word"]))
     have = {e.get("id") for e in existing}
     fresh = [e for e in events if e["id"] not in have]
 
@@ -212,12 +285,21 @@ def main():
     coverage(events, coverage_lines)
     print("\n".join(coverage_lines))
 
-    if not args.write:
+    if not (args.write or args.cutover):
         print("\nDRY RUN — nothing written. Re-run with --write.")
         return
     observations.save_json(observations.OBSERVATIONS_PATH, existing + fresh)
     print(f"\n✅ wrote {len(fresh)} events → {observations.OBSERVATIONS_PATH.name} "
           f"({len(existing) + len(fresh)} total)")
+    if args.cutover:
+        lex = load_json(LEXICON_PATH) or {}
+        for rec in lex.values():
+            rec.pop("deck", None)
+            rec.pop("lemma", None)
+        orphans = lexicon_view.rebuild(lex, existing + fresh)
+        save_json(LEXICON_PATH, lex)
+        print(f"✅ lexicon rebuilt from the log — {len(lex)} rows"
+              + (f"; {len(orphans)} logged words have no row: {orphans[:8]}" if orphans else ""))
 
 
 if __name__ == "__main__":

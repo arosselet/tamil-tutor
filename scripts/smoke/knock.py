@@ -725,7 +725,9 @@ def s13_eavesdrop(mk, kr, sb: Path):
     before = read_json(lex_path)[w]
     reply("no idea, too fast", "missed")
     after = read_json(lex_path)[w]
-    check("missed drift moves no axis", after["recognition"] == before["recognition"])
+    check("a missed drift costs one rung — a miss is a miss (2026-09-10)",
+          after["recognition"] == "comfortable" and before["recognition"] == "solid",
+          f"{before['recognition']} → {after['recognition']}")
 
     # ---- #11 (2026-07-25): the unanswerable tape + the thread-blind judge ----
     # A tape that hearsays about an unnamed அவங்க has no recoverable WHO, so the
@@ -2116,6 +2118,7 @@ def s60_the_ear_meter(kr, sb: Path):
         "வணக்கம்": lex_row(gloss="hello", phonetic=["vanakkam"], type="chunk",
                            recognition="solid", production="cold"),
     })
+    fx.seed_evidence(sb, ear, recognition="comfortable")   # the fold starts where the row says
 
     line = meter(status())
     check("the ear meter is printed at all", line != "", "no 'Machines heard:' line in status")
@@ -2237,15 +2240,22 @@ def s81_the_ear_judge_stamps_its_own_evidence(kr, sb: Path):
         "tested and failed" stops reading as "never tested"."""
     print("\n81. The ear judge records that it tested (2026-08-27)")
     lex_path = sb / "progress" / "lexicon.json"
+    obs_path = sb / "progress" / "observations.json"
     saved = lex_path.read_bytes()
+
+    def wipe():
+        """Each sub-case folds from an EMPTY log — the rung is the fold of every
+        event on the word, and these share one sandbox (Phase 3)."""
+        obs_path.write_text("[]", encoding="utf-8")
     try:
         target = "frame:catch-me"
         base = lex_row(gloss="-aam", phonetic=["aam"], type="pattern", direction="catch")
-        knock = {"expected_target": target}
+        knock = {"expected_target": target, "timestamp": "smoke"}
 
         # --- a MISS is still an ear test ----------------------------------
         write_json(lex_path, {target: dict(base)})
         lex = read_json(lex_path)
+        wipe()
         kr.apply_catch_verdict({"verdict": "missed"}, knock, lex)
         check("a missed catch stamps the evidence date",
               bool(lex[target].get("heard_on")),
@@ -2257,6 +2267,7 @@ def s81_the_ear_judge_stamps_its_own_evidence(kr, sb: Path):
 
         # --- a CATCH moves the level AND records why -----------------------
         lex = {target: dict(base)}
+        wipe()
         kr.apply_catch_verdict({"verdict": "caught"}, knock, lex)
         check("a caught eavesdrop moves the level", lex[target]["recognition"] == "comfortable")
         check("...and stamps the evidence that survives a later sweep",
@@ -2292,6 +2303,7 @@ def s81_the_ear_judge_stamps_its_own_evidence(kr, sb: Path):
         reply = "I caught vandhaaru, and something about today"
 
         def fresh():
+            wipe()
             return {target: dict(base),
                     heard_key: lex_row(gloss="he came", phonetic=["vandhaaru"], type="word"),
                     off_tape: lex_row(gloss="I said", phonetic=["sonnen"], type="word")}
@@ -2307,7 +2319,8 @@ def s81_the_ear_judge_stamps_its_own_evidence(kr, sb: Path):
               f"got {lex[heard_key]}")
 
         # THE HALF THIS LEDGER NEVER HAD. Reading கேட்கல as "said" is a TESTED
-        # row, not an untested one — stamp it and withhold the promotion.
+        # row, not an untested one — and since Phase 3 a `wrong`, one rung down
+        # (from struggled, it stays struggled).
         lex = fresh()
         kr.apply_heard_words(
             {"heard": [{"key": heard_key, "said": "vandhaaru", "verdict": "misread"}]},
@@ -2315,7 +2328,7 @@ def s81_the_ear_judge_stamps_its_own_evidence(kr, sb: Path):
         check("a MISREAD word is recorded as tested",
               bool(lex[heard_key].get("heard_on")) and lex[heard_key].get("reps") == 1,
               f"got {lex[heard_key]}")
-        check("...and is NOT promoted for having been named",
+        check("...and is NOT promoted for having been named — a misread is a miss",
               lex[heard_key]["recognition"] == "struggled", f"got {lex[heard_key]}")
 
         # Guard 2: the judge may not credit a span Andrew never typed.

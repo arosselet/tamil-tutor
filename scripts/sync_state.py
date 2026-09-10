@@ -3,11 +3,11 @@
 State management for the Tamil learning system.
 
 Word-state lives in ONE place: progress/lexicon.json — a word-keyed map where each
-record carries both axes (recognition + production), its phonetics, provenance, and
-last-surfaced date. `heard_on` is the recognition axis's EVIDENCE (2026-08-27): a level
-with no date is an assertion nobody ever tested, which is what the ear meter must not
-count. This script owns all writes to it. The LLM (Anna) calls
-`update` at the end of a session to record what it observed.
+record carries its static half (gloss, phonetics, type, register, direction) and its
+evidence half (both axes, reps, dates). The evidence half is a VIEW: since 2026-09-10
+every observation is an event in progress/observations.json and `lexicon_view`
+folds it onto the row. This script records what Anna observed at close; it never
+sets a rung by hand.
 
   progress/lexicon.json     → word-state (this file's domain)
   progress/learner.json     → continuity: running story (debrief), soak order, status (thin, LLM-facing)
@@ -22,7 +22,7 @@ Usage:
     # Show current state (what Anna reads at session start)
     python scripts/sync_state.py status
 
-Canonical-at-write: produced/recognition words are resolved phonetic->script against
+Canonical-at-write: produced/recognized words are resolved phonetic->script against
 the lexicon. A produced word that resolves to no record is WARNED and SKIPPED rather
 than silently poisoning state — production presupposes a recognition record.
 """
@@ -39,8 +39,8 @@ from slips import (append_slips, canon_tag, cmd_slips, parse_slip_args,
 from publish import commit_and_push, publish
 from rebuild_rss import feed_items
 from suggest_targets import reconcile_focus
+import lexicon_view
 import observations
-from state_io import DEMOTE  # L0 owns the ladders
 from state_io import (BASE, DEFAULT_TZ, EPISODES_PATH, FEEDBACK_LOG_PATH,
                       canon_payload,
                       KNOCK_LOG_PATH, LEARNER_PATH, LEXICON_PATH,
@@ -64,45 +64,9 @@ RECOGNIZED = {"comfortable", "solid"}
 
 
 
-def mark_exposed(lexicon: dict, keys: list[str], phon_index: dict | None = None,
-                 today: str | None = None) -> list[str]:
-    """A dose carrying these words went OUT THE DOOR — stamp the delivery.
-
-    Exposure is one of the ledger's three declared events (2026-07-26): a rep is
-    Andrew producing the word, an ask is spend, an exposure is delivery. It is
-    declared by the seam that ASSEMBLES the dose (episode registration, soak
-    sheet, drill sheet, knock push), never mined from prose. The stamp is what
-    closes the background rotation loop: being exposed moves a word to the back
-    of its own queue, so coverage is guaranteed instead of hoped for.
-
-    Mutates in place; callers own the save. Returns the keys actually stamped."""
-    if phon_index is None:
-        phon_index = build_phonetic_index(lexicon)
-    today = today or local_today().isoformat()
-    marked = []
-    for k in keys:
-        key = resolve(k, lexicon, phon_index)
-        if key is None:
-            print(f"   ⚠ exposure: '{k}' not in lexicon — skipped")
-            continue
-        lexicon[key]["last_surfaced"] = today
-        lexicon[key]["exposures"] = lexicon[key].get("exposures", 0) + 1
-        marked.append(key)
-    return marked
-
-
-def record_exposure(keys: list[str]) -> list[str]:
-    """Load-stamp-save wrapper around `mark_exposed` for delivery seams that do
-    not already hold the lexicon in memory (knock push, soak, drill, drain).
-    The caller adds LEXICON_PATH to its commit when this returns anything."""
-    lexicon = load_json(LEXICON_PATH)
-    if lexicon is None or not keys:
-        return []
-    marked = mark_exposed(lexicon, keys)
-    if marked:
-        save_json(LEXICON_PATH, lexicon)
-        print(f"   Exposure stamped: {', '.join(marked)}")
-    return marked
+# `mark_exposed` / `record_exposure` left for `lexicon_view.expose` (2026-09-10):
+# a delivery is an `exposed` event like any other observation, and the counter
+# it used to bump is now folded from the log.
 
 
 def mark_soak_delivered(channel: str) -> bool:
@@ -399,14 +363,13 @@ def write_thin_learner(learner: dict):
 def cmd_update(args):
     lexicon = load_json(LEXICON_PATH)
     learner = load_json(LEARNER_PATH)
-    episodes = load_json(EPISODES_PATH) or {}
     if lexicon is None or learner is None:
         print("Error: lexicon.json or learner.json missing. See BOOTSTRAP.md.")
         sys.exit(1)
 
     phon_index = build_phonetic_index(lexicon)
     today = local_today().isoformat()
-    applied = {"cold": [], "hinted": [], "demoted": []}  # for the session log
+    applied = {"cold": [], "hinted": [], "demoted": [], "recognized": []}  # for the session log
 
     # ── THE COMMISSION NOTICE (2026-08-01 as a gate; advisory since 2026-08-20)
     # The original complaint stands and is worth keeping: NEVER COMMISSIONED was
@@ -459,14 +422,20 @@ def cmd_update(args):
         if reason:
             print(f"     Closing without one, on the record: {reason}")
 
-    def touch(key):
-        """Worked in a session: refresh the date AND count the rep.
-        `last_surfaced` is one overwritten date, so it can say WHEN but never HOW
-        MANY — and the focus set needs a count (2026-07-26). Both channels write
-        THIS counter now: sessions here, knocks at the judge seam
-        (knock_reply.apply_verdict) — declared events, never text forensics."""
-        lexicon[key]["last_surfaced"] = today
-        lexicon[key]["reps"] = lexicon[key].get("reps", 0) + 1
+    # Every observation this close makes, folded onto the rows in one write below.
+    events: list[dict] = []
+
+    def ev(key, kind, **kw):
+        return {"word": key, "channel": "session", "kind": kind,
+                "source": f"session:{today}", **kw}
+
+    def mint(word, phon, gloss=""):
+        """A row's STATIC half. The evidence half is the fold's — a fresh row
+        carries the defaults until an event speaks (2026-09-10)."""
+        lexicon[word] = {
+            "gloss": gloss, "phonetic": [phon] if phon else [], "recognition": "struggled",
+            "production": "none", "seen_in": [], "last_surfaced": None,
+        }
 
     def split_phonetic(spec):
         """Peel the sounds-like form off a mint spec: 'WORD|phonetic'.
@@ -491,65 +460,42 @@ def cmd_update(args):
         head, _, phon = spec.partition("|")
         return head.strip(), phon.strip()
 
-    def set_recognition(spec, level):
-        """Set recognition; create a record if the word is new (script only)."""
+    def recognized(spec):
+        """Anna watched him recognize it — ONE observation, ONE rung (2026-09-10).
+        `--mastered-word` used to write `solid` outright: a claim of level, not
+        two observations. Both old flags now mean this."""
         word, phon = split_phonetic(spec)
         key = resolve(word, lexicon, phon_index)
         if key is None:
             if not is_tamil(word) or not phon:
                 print(f"  ! '{word}' can't be created — a new record needs Tamil script AND its sounds-like form: '{word}|phonetic'. Skipped.")
                 return
-            lexicon[word] = {
-                "gloss": "", "phonetic": [phon], "recognition": level,
-                "production": "none", "seen_in": [], "last_surfaced": today,
-            }
-            # No `heard_on`: minting is Anna DECLARING a level, not observing one.
-            # The field is absent until something tests the ear, which is what
-            # makes "assertion" a derived property rather than a stored flag.
-            observations.record(word, "session", "claimed", axis="recognition",
-                                source=f"session:{today}",
-                                note=f"minted at {level}, nothing tested it")
-            print(f"  + New word '{word}' → recognition {level} (phonetic '{phon}'; gloss empty — fill in later)")
-            return
-        lexicon[key]["recognition"] = level
-        lexicon[key]["heard_on"] = today
-        touch(key)
-        # RESTORED 2026-09-10 by Phase 2's own diff. Phase 0 dropped this call on
-        # the reasoning that session_log.json could supply it — it cannot. That
-        # file records production (cold/hinted) and recognition FAILURES
-        # (demoted); a promotion from --mastered-word/--comfortable-word has
-        # never been written anywhere but the rung itself. 57 rows diverged for
-        # exactly this reason, and none of them are recoverable backwards.
-        observations.record(key, "session", "tested", axis="recognition",
-                            result="right", source=f"session:{today}",
-                            note=f"observed at {level}")
-        print(f"  Recognition '{key}' → {level} (heard_on {today})")
+            mint(word, phon)
+            key = word
+            print(f"  + New word '{word}' (phonetic '{phon}'; gloss empty — fill in later)")
+        events.append(ev(key, "tested", axis="recognition", result="right",
+                         note="recognized in session"))
+        applied["recognized"].append(key)
+        print(f"  Recognized: {key} — one rung up on the ear")
 
     def demote_recognition(word):
         key = resolve(word, lexicon, phon_index)
         if key is None:
             print(f"  ! '{word}' not in lexicon — nothing to demote. Skipped.")
             return
-        cur = lexicon[key].get("recognition", "struggled")
-        new = DEMOTE.get(cur, "struggled")
-        lexicon[key]["recognition"] = new
-        # A MISS IS EVIDENCE TOO, and it is the evidence this ledger was starved
-        # of. `heard_on` answers "was this ever assessed", never "did he pass" —
-        # so a demotion stamps it exactly like a promotion. Without this a tested
-        # failure would be indistinguishable from a row nobody ever tried, which
-        # is the whole defect being repaired here.
-        lexicon[key]["heard_on"] = today
-        touch(key)
+        # A MISS IS EVIDENCE TOO — a tested failure must never read as untested.
+        events.append(ev(key, "tested", axis="recognition", result="wrong",
+                         note="failed cold recall"))
         applied["demoted"].append(key)
-        print(f"  Recognition '{key}' demoted {cur} → {new} (heard_on {today})")
+        print(f"  Recognition '{key}' — one rung down (tested, missed)")
 
     def set_production(word, level):
         key = resolve(word, lexicon, phon_index)
         if key is None:
             print(f"  ! Produced '{word}' but no record resolves — add recognition first (script). Skipped.")
             return
-        lexicon[key]["production"] = level
-        touch(key)
+        events.append(ev(key, "tested", axis="production",
+                         result=observations.FIRE_RESULT[level], note=f"fired {level}"))
         applied[level].append(key)
         print(f"  Produced {level.upper()}: {key}")
 
@@ -575,7 +521,6 @@ def cmd_update(args):
             return
         key = resolve(word, lexicon, phon_index)
         if key is not None:
-            touch(key)
             if gloss and not lexicon[key].get("gloss"):
                 lexicon[key]["gloss"] = gloss
             # The phonetic backfills on the same terms as the gloss (2026-08-19).
@@ -592,8 +537,7 @@ def cmd_update(args):
                 lexicon[key]["phonetic"] = [phon]
             # Printed, not assumed: a state write nobody can see is the silent
             # no-op this repo keeps paying for. STILL EMPTY names the hole.
-            observations.record(key, "session", "taught", source=f"session:{today}",
-                                note="re-taught; row already existed")
+            events.append(ev(key, "taught", note="re-taught; row already existed"))
             print(f"  Taught (already known): {key} — refreshed, recognition left "
                   f"at {lexicon[key].get('recognition', 'struggled')}, "
                   f"phonetic {lexicon[key].get('phonetic') or 'STILL EMPTY'}")
@@ -601,12 +545,8 @@ def cmd_update(args):
         if not phon:
             print(f"  ! '{word}' is new — teach it with its sounds-like form, '{word}=gloss|phonetic', or it can never be logged from chat. Skipped.")
             return
-        lexicon[word] = {
-            "gloss": gloss, "phonetic": [phon], "recognition": "struggled",
-            "production": "none", "seen_in": [], "last_surfaced": today,
-        }
-        observations.record(word, "session", "taught", source=f"session:{today}",
-                            note="first contact — row created at struggled")
+        mint(word, phon, gloss)
+        events.append(ev(word, "taught", note="first contact — row created at struggled"))
         print(f"  + Taught '{word}' → recognition struggled"
               f"{', gloss: ' + gloss if gloss else ' (gloss empty — fill in later)'}")
 
@@ -616,10 +556,8 @@ def cmd_update(args):
         teach_word(spec)
 
     # Recognition movement
-    for w in args.mastered_word:
-        set_recognition(w, "solid")
-    for w in args.comfortable_word:
-        set_recognition(w, "comfortable")
+    for w in args.recognized:
+        recognized(w)
     for w in args.stuck_word:
         demote_recognition(w)
 
@@ -629,24 +567,8 @@ def cmd_update(args):
     for w in args.produced_hinted:
         set_production(w, "hinted")
 
-    # Listened episodes — hearing an episode surfaces its words (audio side of the
-    # recency bridge): bump last_surfaced on each of its words that is in the lexicon.
-    # Surfacing is the WHOLE job. The `listens` counter this used to bump was retired
-    # 2026-08-27 — self-report was the only writer, it went blind the day the
-    # 2026-06-30 stop-chasing-listens pivot landed, and a stale count read as
-    # measurement in three separate sessions. Nothing here writes episodes.json now.
-    for mission in args.listened:
-        ep = episodes.get(str(mission))
-        if not ep:
-            print(f"  ! No episode M{mission} to surface. Skipped.")
-            continue
-        surfaced = 0
-        for w in ep.get("words", []):
-            key = resolve(w, lexicon, phon_index)
-            if key:
-                lexicon[key]["last_surfaced"] = today
-                surfaced += 1
-        print(f"  Heard M{mission} — surfaced {surfaced} lexicon words")
+    # `--listened` retired 2026-09-10: a listen is evidenced by the rating lane
+    # (`rate-episode` exposes the mission's words) — self-report had no other reader.
 
     # Next engine focus — the frame to unlock next, surfaced in the ticket and digest.
     if args.next_engine:
@@ -676,14 +598,9 @@ def cmd_update(args):
             learner["quiet_until"] = ""
             print("  Quiet window cleared — knocks resume on the next tick.")
 
-    # Mark-seen — update last_surfaced without touching recognition/production.
-    # Closes the lore-memo gap: a frame a knock introduced is no longer UNSEEN.
-    for key in args.mark_seen:
-        if key in lexicon:
-            touch(key)
-            print(f"  Marked seen: {key}")
-        else:
-            print(f"  ! '{key}' not in lexicon — skipped")
+    # `--mark-seen` retired 2026-09-10 — it wrote `last_surfaced`, which stopped
+    # closing the teach gate on 2026-08-31; `--teach` on an existing row is the
+    # taught event it was reaching for.
 
     # Soak order — the intentional payload for the NEXT audio dose (what Anna
     # wants soaked), read by the Director and by the soak sheet. Overwrites;
@@ -790,6 +707,10 @@ def cmd_update(args):
 
     # Focus cohort — stored membership, reconciled only here and at the judge
     # seam: leave on graduation, enter on seat-open (2026-07-26).
+    # THE ONE EVIDENCE WRITE (2026-09-10): record, then fold onto the rows.
+    # Before the cohort reconciles, because graduation reads `production`.
+    if events:
+        lexicon_view.observe(events, lexicon=lexicon)
     old_cohort = learner.get("focus_cohort", [])
     learner["focus_cohort"] = reconcile_focus(lexicon, old_cohort)
     left = sorted(set(old_cohort) - set(learner["focus_cohort"]))
@@ -799,10 +720,6 @@ def cmd_update(args):
               f" ({len(learner['focus_cohort'])} seats held)")
 
     save_json(LEXICON_PATH, lexicon)
-    # No episodes write: `--listened` surfaces into the LEXICON, and with the
-    # `listens` counter retired (2026-08-27) nothing in this command mutates
-    # episodes.json. The save that used to sit here rewrote the file
-    # byte-identical on every close — a no-op that looked exactly like a write.
     write_thin_learner(learner)
 
     floor = compute_floor(lexicon)
@@ -818,16 +735,15 @@ def cmd_update(args):
     # fires_today() SUM word lists across entries, so a word logged twice in one
     # close inflated the trailing pace the burn rate is computed from.
     # Merging restores the documented contract instead of adding a guard on top.
-    if applied["cold"] or applied["hinted"] or applied["demoted"] or args.listened or args.debrief:
+    if any(applied.values()) or args.debrief:
         log = load_json(SESSION_LOG_PATH) or []
         entry = log[-1] if log and log[-1].get("date") == today else None
         if entry is None:
-            entry = {"date": today, "cold": [], "hinted": [], "demoted": [],
-                     "listened": [], "note": ""}
+            entry = {"date": today, "cold": [], "hinted": [], "demoted": [], "note": ""}
             log.append(entry)
         # Union, not concatenate — the same word re-logged is one fire, not two.
         for field, values in (("cold", applied["cold"]), ("hinted", applied["hinted"]),
-                              ("demoted", applied["demoted"]), ("listened", list(args.listened))):
+                              ("demoted", applied["demoted"])):
             have = entry.setdefault(field, [])
             have.extend(v for v in values if v not in have)
         # Percentages are a snapshot: the latest call is the truest.
@@ -868,22 +784,21 @@ def cmd_add_pattern(args):
         "type": "pattern",
         "gloss": args.gloss,
         "phonetic": [],
-        "recognition": args.recognition,
+        "recognition": "struggled",
         "production": "none",
         "seen_in": [],
         "last_surfaced": today,
     }
     save_json(LEXICON_PATH, lexicon)
-    print(f"  + Pattern '{args.key}' seeded — {args.gloss}")
-    print(f"    (recognition {args.recognition}, production none)")
+    print(f"  + Pattern '{args.key}' seeded — {args.gloss} (struggled until something tests it)")
     print(f"    Log a cold novel instance later with:  update --produced-cold '{args.key}'")
 
 
 def cmd_add_word(args):
     """Seed a word/chunk record with its gloss and phonetics in one shot — the
-    proper birth of a new lexicon entry (update --comfortable-word creates
-    gloss-less stubs; soak orders don't create records at all). Without a record,
-    a word can never be resolved, scored, or surface on a ticket."""
+    proper birth of a new lexicon entry (`update --recognized` creates gloss-less
+    stubs; soak orders don't create records at all). Without a record, a word
+    can never be resolved, scored, or surface on a ticket."""
     lexicon = load_json(LEXICON_PATH)
     if lexicon is None:
         print("Error: lexicon.json missing. See BOOTSTRAP.md.")
@@ -904,13 +819,13 @@ def cmd_add_word(args):
     lexicon[args.key] = {
         "gloss": args.gloss,
         "phonetic": list(args.phonetic),
-        "recognition": args.recognition,
+        "recognition": "struggled",
         "production": "none",
         "seen_in": [],
         "last_surfaced": local_today().isoformat(),
     }
     save_json(LEXICON_PATH, lexicon)
-    print(f"  + '{args.key}' — {args.gloss} (recognition {args.recognition}, phonetic {list(args.phonetic)})")
+    print(f"  + '{args.key}' — {args.gloss} (phonetic {list(args.phonetic)}; struggled until something tests it)")
 
 
 def cmd_reseed_focus(args):
@@ -963,29 +878,22 @@ def cmd_reseed_focus(args):
 
 
 def cmd_seed_deck(args):
-    """Idempotently load a curated deck file (e.g. curriculum/trip_deck.json) into
-    the lexicon, tagging each entry `deck: <name>`. The deck file is CONTENT (Anna
-    drafts it, the Oracle vets it); this command is the MECHANISM that lands it —
-    the same LLM-writes / Python-owns-state split as word_pool.json.
+    """Idempotently load a curated set (e.g. curriculum/trip_deck.json) into the
+    lexicon. The file is CONTENT (Anna drafts it, the Oracle vets it); this is the
+    MECHANISM that lands it — the same LLM-writes / Python-owns-state split as
+    word_pool.json.
 
-    Each deck entry: {"word", "gloss", "phonetic": [...], "type": "chunk"|"frame",
-    "register"?, "recognition"?, "direction"?: "fire"|"catch", "pairs_with"?}. A "frame" is
-    stored as a lexicon `pattern` (an Engine); a "chunk" is word-like (counts in the
-    viability floor).
-    "catch" marks ear-only items (cleared by recognition, never forced to fire);
-    "pairs_with" names the chunk that answers it — hear X → say Y, validated to
-    resolve inside the same file so a pair can never be silently split.
-    "register" is the ORDERING (`suggest_targets.REGISTER_TIERS` → survival >
-    delight > dessert). It lands on the lexicon row and stays there: the deck is a
-    container with an expiry, the ordering is durable knowledge about which
-    failures cost most at a table, and un-tagging a row must not un-rank it
-    (2026-08-18, the deck retirement). This is the writer path for that field —
-    `progress/*.json` is never hand-edited.
-    Re-runnable and the file is the source of truth: existing entries get the deck
-    tag + direction + register + any missing gloss/phonetic without clobbering their
-    learning state; new entries are created; lexicon entries tagged with this deck
-    but no longer in the file are un-tagged (their learning state — and their
-    register — stays)."""
+    Each entry: {"word", "gloss", "phonetic": [...], "type": "chunk"|"frame",
+    "register"?, "direction"?: "fire"|"catch", "pairs_with"?}. A "frame" is stored
+    as a lexicon `pattern` (an Engine); a "chunk" is word-like (counts in the
+    viability floor). "catch" marks ear-only items; "pairs_with" names the chunk
+    that answers it and must resolve inside the same file, or the seed refuses.
+    "register" is the ORDERING (`suggest_targets.REGISTER_TIERS`).
+
+    Static fields only. A `recognition` in the file is ignored (2026-09-10): a
+    curated file cannot observe, and a claim does not vote. The `deck` tag and
+    the un-tag sweep retired with it — nothing read the tag.
+    """
     path = Path(args.file)
     if not path.is_absolute():
         path = BASE / path
@@ -1028,7 +936,6 @@ def cmd_seed_deck(args):
             continue
         if word in lexicon:
             rec = lexicon[word]
-            rec["deck"] = args.deck
             rec["direction"] = e.get("direction", "fire")
             if e.get("register"):
                 rec["register"] = e["register"]
@@ -1048,29 +955,18 @@ def cmd_seed_deck(args):
                 "type": lex_type,
                 "gloss": e.get("gloss", ""),
                 "phonetic": e.get("phonetic", []),
-                "recognition": e.get("recognition", "comfortable"),
+                "recognition": "struggled",
                 "production": "none",
                 "seen_in": [],
                 "last_surfaced": None,
-                "deck": args.deck,
                 "direction": e.get("direction", "fire"),
                 **({"register": e["register"]} if e.get("register") else {}),
                 **({"pairs_with": pair} if pair else {}),
             }
             created += 1
-    # The deck file is the source of truth: un-tag lexicon entries that left it.
-    pruned = []
-    for w, rec in lexicon.items():
-        if rec.get("deck") == args.deck and w not in in_file:
-            del rec["deck"]
-            rec.pop("direction", None)
-            rec.pop("pairs_with", None)
-            pruned.append(w)
     save_json(LEXICON_PATH, lexicon)
     ear = compute_ear(lexicon)
-    print(f"  Seeded '{args.deck}': +{created} new, {updated} re-tagged, {len(pruned)} un-tagged.")
-    for w in pruned:
-        print(f"    - un-tagged (stays in lexicon, register and all): {w}")
+    print(f"  Seeded {path.name}: +{created} new, {updated} updated.")
     floor = compute_floor(lexicon)
     print(f"  Floor now: {floor['cleared']}/{floor['total']} fire cold ({floor['pct']:.0f}%)"
           + (f" · ear-only {ear['caught']}/{ear['total']} solid" if ear["total"] else ""))
@@ -1078,51 +974,16 @@ def cmd_seed_deck(args):
 
 
 
-# Knock tap responses (from Home Assistant's actionable notification). Both are
-# SOAK-tier signals — they record that the knock landed and let the nudge gate
-# back off; neither touches the production/viability floor (that only flips when
-# Anna witnesses an unaided cold fire in chat). 'listened' additionally surfaces
-# the latest published episode's words into the lexicon's recency bridge.
-#   ack      — "got it / played the memo"      → knock marked landed, no learning write
-#   listened — "I listened to the episode"     → knock marked landed + episode words surfaced
-KNOCK_RESPONSES = {"ack", "listened"}
-# A later tap may only *upgrade* an earlier one (strictly more signal); same-or-less is a no-op.
-KNOCK_UPGRADES = {None: KNOCK_RESPONSES, "ack": {"listened"}}
-
-
-def surface_latest_episode_words() -> str | None:
-    """Recency-bridge write for a 'listened' tap. 'Latest published' = the highest
-    mission key in episodes.json (the newest one in the feed). Mirrors
-    `update --listened`, but a tap can't name a mission so it always takes the
-    newest episode. Returns a one-line summary, or None if there's nothing to do.
-
-    Writes the LEXICON only. It used to bump an episodes.json `listens` counter
-    too; that counter was retired 2026-08-27 (self-report, blind since the
-    2026-06-30 pivot, and read as measurement long after it stopped being one)."""
-    episodes = load_json(EPISODES_PATH) or {}
-    if not episodes:
-        return None
-    mission = max(episodes, key=int)
-    ep = episodes[mission]
-    lexicon = load_json(LEXICON_PATH) or {}
-    learner = load_json(LEARNER_PATH) or {}
-    phon_index = build_phonetic_index(lexicon)
-    today = local_today().isoformat()
-    surfaced = 0
-    for w in ep.get("words", []):
-        key = resolve(w, lexicon, phon_index)
-        if key:
-            lexicon[key]["last_surfaced"] = today
-            surfaced += 1
-    save_json(LEXICON_PATH, lexicon)
-    write_thin_learner(learner)  # refresh recent_audio + status line
-    return f"M{mission} '{ep.get('title', mission)}' — surfaced {surfaced} words"
+# The knock tap (Home Assistant's actionable notification): "got it" — the knock
+# landed, the nudge gate backs off, no learning write. A second tap on the same
+# knock is a no-op. `listened` retired 2026-09-10: zero taps in 197 knocks, and a
+# listen is now evidenced by the rating lane.
+KNOCK_RESPONSES = {"ack"}
 
 
 def cmd_knock_response(args):
-    """Record Andrew's tap response against the most recent knock.
-    Called by the log-knock-response GitHub Actions workflow when HA fires the event.
-    Idempotent: a duplicate tap is a no-op, but 'listened' may upgrade a prior 'ack'."""
+    """Record Andrew's tap response against its knock. Called by anna.yml when HA
+    fires the event. Idempotent: a duplicate tap is a no-op."""
     from datetime import datetime
     response = args.response.strip().lower()
     if response not in KNOCK_RESPONSES:
@@ -1143,23 +1004,12 @@ def cmd_knock_response(args):
         if kid:
             print(f"  ⚠ knock_id {kid!r} not in the log — marking the most recent knock")
         last = fired[-1]
-    prior = last.get("response")
-    if prior is not None and response not in KNOCK_UPGRADES.get(prior, set()):
-        print(f"  Most recent knock ({last['date']}) already '{prior}'; '{response}' adds nothing. Skipping.")
+    if last.get("response") is not None:
+        print(f"  Knock ({last['date']}) already '{last['response']}'; '{response}' adds nothing. Skipping.")
         return
 
     last["response"] = response
     last["response_at"] = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
-
-    # 'listened' is the only response that credits a soak (the episode, not the knock).
-    if response == "listened":
-        summary = surface_latest_episode_words()
-        if summary:
-            last["episode_credit"] = summary
-            print(f"  Listened → {summary}")
-        else:
-            print("  Listened, but no episodes in episodes.json to credit.")
-
     save_json(KNOCK_LOG_PATH, log)
     print(f"  Knock {last['date']} marked '{response}'")
 
@@ -1173,9 +1023,7 @@ def cmd_knock_response(args):
         # Routed through `publish` so the derived-file rule has ONE owner: this
         # lane used to call render_chat() itself, which is the copy the comment
         # above is about. No audio here, so no feed rebuild.
-        paths = [KNOCK_LOG_PATH, EPISODES_PATH, LEARNER_PATH, LEXICON_PATH]
-        commit_and_push(*publish([p for p in paths if p.exists()],
-                                 f"Knock response: {response}", feed=False))
+        commit_and_push(*publish([KNOCK_LOG_PATH], f"Knock response: {response}", feed=False))
 
 
 # Leading integer off a picker line. The iOS rating shortcut sends whole rows —
@@ -1234,9 +1082,70 @@ def cmd_rate_episode(args):
     log.append({"date": local_today().isoformat(), "note": note})
     save_json(FEEDBACK_LOG_PATH, log)
     print(f"  Logged feedback ({len(log)} total): {note}")
+    # A RATING IS A LISTEN (2026-09-10): the one proof the ear block happened,
+    # and for a numbered mission the words it carried are exposed on that
+    # evidence — `--listened` and the `listened` tap, which nothing ever sent,
+    # retired in its favour. `ear_block_days` reads these rows.
+    ep = (load_json(EPISODES_PATH) or {}).get(str(item["id"]), {})
+    exposed = lexicon_view.expose(ep.get("words", []), "episode", source=f"rating:{item['id']}")
     if getattr(args, "commit", False):
-        commit_and_push(*publish([FEEDBACK_LOG_PATH],
+        commit_and_push(*publish([FEEDBACK_LOG_PATH, LEXICON_PATH if exposed else None],
                                  f"Audio rating: {item['id']} {stars}/5", feed=False))
+
+
+def cmd_check(args):
+    """THE RECEPTIVE CHECK (2026-09-10) — the one instrument that tests the ear
+    at volume, and the only thing that can re-base the comprehension goal's
+    checkpoints. Replaces `docs/ledger_audit_2026-09-10.md`, whose 30-row draw
+    is exactly this command's first run.
+
+    `--draw N` prints a deterministic sample of rows no watched channel has ever
+    tested, seeded by the month, so it cannot be quietly redrawn to a friendlier
+    set and Anna can print it at the top of the session and use it in the flow.
+    Recognition only: Anna uses the item in an ordinary sentence, Andrew says what
+    it means — knows / doesn't / partial, and partial is real data.
+
+    `--heard WORD:right|wrong|partial` records each answer as a `check` event, a
+    watched channel, so the rung follows. This tests the LEDGER, not Andrew:
+    a low score is a fact about the instrument, and it is engineering data he
+    never hears as a number (persona.md)."""
+    import hashlib
+    import random
+    lexicon = load_json(LEXICON_PATH) or {}
+    phon_index = build_phonetic_index(lexicon)
+    today = local_today().isoformat()
+    if args.draw:
+        never = sorted(k for k, v in lexicon.items()
+                       if not v.get("heard_on") and v.get("production", "none") in ("none", None))
+        seed = f"check-{today[:7]}"
+        random.seed(seed)
+        pick = sorted(random.sample(never, min(args.draw, len(never))))
+        digest = hashlib.sha256("\n".join(pick).encode()).hexdigest()[:16]
+        print(f"RECEPTIVE CHECK — {len(pick)} of {len(never)} never-tested rows, seed {seed}, "
+              f"sample {digest}. Recognition only; one item at a time, in the flow; never show the list.")
+        for k in pick:
+            print(f"  {k}  [{', '.join(lexicon[k].get('phonetic') or []) or 'no phonetic'}] — {lexicon[k].get('gloss', '')}")
+        print("Record with:  sync_state.py check --heard WORD:right --heard WORD:wrong --heard WORD:partial")
+        return
+    events, bad = [], []
+    for spec in args.heard:
+        word, _, res = spec.rpartition(":")
+        key = resolve(word.strip(), lexicon, phon_index)
+        if key is None or res not in ("right", "wrong", "partial"):
+            bad.append(spec)
+            continue
+        events.append(dict(word=key, channel="check", kind="tested", axis="recognition",
+                           result=res, source=f"check:{today}", note="receptive check"))
+    for spec in bad:
+        print(f"  ! {spec!r} — expected WORD:right|wrong|partial with a word the lexicon knows. Skipped.")
+    if events:
+        lexicon_view.observe(events, lexicon=lexicon)
+        save_json(LEXICON_PATH, lexicon)
+        write_thin_learner(load_json(LEARNER_PATH) or {})
+        right = sum(1 for e in events if e["result"] == "right")
+        print(f"  Receptive check: {len(events)} items recorded, {right} known outright. "
+              f"Engineering number — steers the pool; never recited.")
+    return 1 if bad else 0
 
 
 def cmd_feedback(args):
@@ -1257,104 +1166,9 @@ def cmd_feedback(args):
         print(f"  {e['date']}  {e['note']}")
 
 
-def cmd_untaught(args):
-    """Clear the teach flag on rows no episode ever actually taught.
-
-    Replaces `backfill-evidence` (2026-08-27), which is spent — all six of its
-    rows carry `heard_on`. Same rotating one-shot slot that went
-    `migrate-session-log` → `prune-duplicates` → `unverify` → `backfill-evidence`.
-    One repair in, one out.
-
-    THE BUG THIS CLEANS UP AFTER. `render_audio` stamped `seen_in` for BOTH
-    `new_words_landed` and `callbacks_used`, so an episode credited itself with
-    teaching every word it merely reused. `seen_in` is the only gate between a
-    word and a cold quiz (`state_io.is_unseen`). The writer is fixed in this
-    same diff; this command handles the rows already minted.
-
-    WHY THE OBVIOUS PREDICATE IS WRONG, and this is the whole entry. The
-    tempting test is `exposures == 0` — no schema, no file reads. Measured
-    2026-09-01 it selects 95 rows and **69 of them are genuinely taught**: a
-    word can land as a real `new_words_landed` payload and still carry no
-    exposure counter. Shipping that would have wiped the teach record on 69
-    words Anna actually taught — the same class of unrecoverable write that
-    retired `unverify`. The honest adjudicator is the one the renderer itself
-    used: the `.tags.json` sidecars, asked whether the word was ever a
-    `new_words_landed` payload.
-
-    HOW THE LIST BELOW WAS DERIVED (2026-09-01, all 278 `seen_in` rows replayed
-    against every sidecar on disk): 192 rows resolve as genuinely TAUGHT. 78 are
-    UNDECIDABLE — their episodes are 6..41, which predate sidecars entirely, so
-    no evidence exists either way. 8 are provably APPEARED-ONLY. The rows below
-    are the intersection of (never a `new_words_landed` payload) with three
-    conservative guards: recognition still `struggled`, production still `none`,
-    and `exposures == 0`. Anything he has produced is untouched — graduation is
-    final (07-26) and re-teaching a cold word would contradict it outright.
-
-    They are almost all high-frequency glue — here, today, you, hungry, three,
-    elder brother — which is the Lemma Theory's own tipping-point vocabulary,
-    and exactly the population behind *"I feel I never learned this word and
-    Anna looks in the record and says I gave it to you in several episodes."*
-
-    WHAT IS LOST, stated plainly: clearing `seen_in` also drops the record that
-    the word APPEARED in those episodes. That is real provenance, and for these
-    26 rows it is the only appearance record they have (their `exposures` is 0).
-    It is accepted because it is re-derivable — git holds the prior value and
-    the episode scripts still name their own words — while the alternative (a
-    second field to hold `appeared_in`) is a schema change to Python-owned JSON
-    for 26 one-shot rows. `seen_in: []` is what a freshly created row carries,
-    so nothing downstream meets a novel shape.
-
-    THE SILENT NO-OP: a repair that writes nothing looks exactly like a repair
-    that had nothing to do — both print and exit clean, and Anna goes on
-    cold-quizzing words he never met. So `s88` drives this entry point for real,
-    re-reads `lexicon.json` from disk, and asserts `is_unseen` FLIPPED; a key
-    that no longer resolves, or that has since earned evidence, is reported
-    rather than skipped in silence."""
-    # Derived 2026-09-01; see the docstring for the replay that produced it.
-    UNTAUGHT = (
-        "அண்ணா", "இங்க", "இன்னைக்கு", "உனக்கு", "உயரம்", "உள்ள",
-        "எடுங்க", "கம்மி", "கேட்பேன்", "செம்மை", "சொன்னேன்", "சொல்லுவேன்",
-        "தங்கச்சி", "தப்பு", "தூங்கினேன்", "தெரியாது", "நினைச்சேன்",
-        "நிமிஷம்", "நிறைய", "நீ", "நீங்க", "நூறு", "பசி", "புது",
-        "மூணு", "மேல",
-    )
-    lexicon = load_json(LEXICON_PATH) or {}
-    todo, missing, earned = [], [], []
-    for key in UNTAUGHT:
-        rec = lexicon.get(key)
-        if rec is None:
-            missing.append(key)
-        elif not rec.get("seen_in"):
-            continue                      # already repaired — idempotent
-        elif rec.get("production") != "none" or rec.get("exposures", 0):
-            earned.append(key)            # gained evidence since the derivation
-        else:
-            todo.append(key)
-    # AN ABSENCE MUST BE LOUD, in both directions. A vanished key means the
-    # derivation no longer matches the ledger; a key that has since earned
-    # evidence is deliberately spared, and saying so is what keeps this
-    # command's silence from being mistaken for its success.
-    for key in missing:
-        print(f"  ! {key} is not in the lexicon — teach flag NOT cleared. Investigate.")
-    for key in earned:
-        print(f"  · {key} has earned evidence since 2026-09-01 — left alone, deliberately.")
-    if not todo:
-        print(f"lexicon.json: {len(lexicon)} rows, no unbacked teach flags remain.")
-        return 1 if missing else 0
-    print(f"lexicon.json: {len(lexicon)} rows, {len(todo)} carry a teach flag no episode earned:")
-    for key in todo:
-        rec = lexicon[key]
-        print(f"  - {key} ({rec.get('gloss', '')}) — appeared in {rec['seen_in']}, never taught")
-    if not args.apply:
-        print("\n  DRY RUN — nothing written. Re-run with --apply to commit the change.")
-        return 1 if missing else 0
-    for key in todo:
-        lexicon[key]["seen_in"] = []
-    save_json(LEXICON_PATH, lexicon)
-    print(f"\n  ✅ written — {len(todo)} words are owed a Teach Beat again.")
-    return 1 if missing else 0
-
-
+# `untaught` (2026-09-01) retired 2026-09-10 — spent, and the class of repair it
+# made (a field nothing could re-derive) no longer exists: a wrong stamp is a
+# wrong event, and `lexicon_view --rebuild` re-derives every row from the log.
 
 
 def main():
@@ -1363,8 +1177,6 @@ def main():
     sub.add_parser("status", help="Show current state")
 
     up = sub.add_parser("update", help="Update state after a session")
-    up.add_argument("--listened", type=int, action="append", default=[],
-                    help="Mission number(s) the learner heard (surfaces their words into the lexicon)")
     up.add_argument("--soak-payload", type=str, action="append", default=[],
                     help="Word(s) to soak in the next audio episode (the Director's payload)")
     up.add_argument("--soak-seed", type=str, default=None,
@@ -1389,10 +1201,11 @@ def main():
                          "`struggled` recognition, seen today, production unset. Tamil "
                          "script keeps the key canonical; the |PHONETIC tail is REQUIRED "
                          "on a new word or it can never be logged from chat again.")
-    up.add_argument("--mastered-word", type=str, action="append", default=[],
-                    help="Word(s) now solid — 'WORD|phonetic' if it is new to the lexicon")
-    up.add_argument("--comfortable-word", type=str, action="append", default=[],
-                    help="Word(s) now comfortable — 'WORD|phonetic' if new to the lexicon")
+    up.add_argument("--recognized", "--mastered-word", "--comfortable-word", dest="recognized",
+                    type=str, action="append", default=[], metavar="WORD[|PHONETIC]",
+                    help="Word(s) he RECOGNIZED unaided this session — one observation, "
+                         "one rung up on the ear (the two old spellings mean the same). "
+                         "'WORD|phonetic' if it is new to the lexicon")
     up.add_argument("--stuck-word", type=str, action="append", default=[],
                     help="Word(s) that failed cold recall — demotes recognition one level")
     up.add_argument("--produced-cold", type=str, action="append", default=[],
@@ -1407,8 +1220,6 @@ def main():
                     help="TRANSIT BIT: hold every knock through this local date "
                          "(the rails skip before the LLM, so nothing is logged and "
                          "no silence reads as a fade). Pass '' to clear it and resume.")
-    up.add_argument("--mark-seen", type=str, action="append", default=[],
-                    help="Frame/word key(s) to mark as seen today (sets last_surfaced; closes lore-memo gap)")
     up.add_argument("--slip", type=str, action="append", default=[],
                     help="A mistake worth remembering: 'tag|what he said|what it should be|the pattern in one clause'. "
                          "Repeatable. Appends to the slip ledger — never overwrites. The knock judge writes these "
@@ -1432,30 +1243,31 @@ def main():
     ap.add_argument("key", help="Canonical key, e.g. 'frame:present-future-toggle'")
     ap.add_argument("--gloss", required=True,
                     help="Human description of the engine, e.g. '-uren (now) vs -ven (later) on any verb'")
-    ap.add_argument("--recognition", default="comfortable", choices=RECOGNITION_LEVELS,
-                    help="Starting recognition level (default: comfortable)")
 
     aw = sub.add_parser("add-word", help="Seed a word/chunk record (gloss + phonetics) — a word without a record can't be resolved or scored")
     aw.add_argument("key", help="Canonical Tamil script, e.g. 'என்ன சமைக்கிற?'")
     aw.add_argument("--gloss", required=True, help="English gloss")
     aw.add_argument("--phonetic", action="append", default=[],
                     help="Phonetic spelling(s) Andrew might type (repeatable)")
-    aw.add_argument("--recognition", default="comfortable", choices=RECOGNITION_LEVELS,
-                    help="Starting recognition level (default: comfortable)")
 
     rf = sub.add_parser("reseed-focus",
                         help="Re-derive the stored focus cohort from the pool's current order")
     rf.add_argument("--dry-run", action="store_true", help="Print the diff; write nothing")
-    sd = sub.add_parser("seed-deck", help="Load a curated deck file (chunks/frames) into the lexicon, tagged with a deck name")
-    sd.add_argument("file", help="Path to the deck JSON (e.g. curriculum/trip_deck.json), absolute or repo-relative")
-    sd.add_argument("--deck", default="trip", help="Deck name to tag entries with (default: trip)")
+    sd = sub.add_parser("seed-deck", help="Load a curated set (chunks/frames) into the lexicon — static fields only")
+    sd.add_argument("file", help="Path to the set's JSON (e.g. curriculum/trip_deck.json), absolute or repo-relative")
 
     kr = sub.add_parser("knock-response", help="Log Andrew's tap response against its knock (by --knock-id; most recent if absent)")
-    kr.add_argument("response", help="The tap value: 'ack' (got it) or 'listened' (heard the episode → soak credit)")
+    kr.add_argument("response", help="The tap value: 'ack' (got it)")
     kr.add_argument("--knock-id", default="", dest="knock_id",
                     help="The knock's log timestamp (from the notification's action_data); empty → most recent")
     kr.add_argument("--commit", action="store_true",
                     help="Land the tap via commit_and_push (union merge + derived re-render)")
+
+    ck = sub.add_parser("check", help="The Receptive Check — draw a never-tested sample, or record its answers")
+    ck.add_argument("--draw", type=int, default=0, metavar="N",
+                    help="Print N never-tested rows, deterministic for the month; writes nothing")
+    ck.add_argument("--heard", action="append", default=[], metavar="WORD:right|wrong|partial",
+                    help="Record one item's answer as a `check` event (repeatable)")
 
     fb = sub.add_parser("feedback", help="Append a feedback note (capture), or list recent (diagnosis)")
     fb.add_argument("note", nargs="?", default=None, help="The feedback to log; omit to list recent")
@@ -1472,12 +1284,6 @@ def main():
                     help="Report the outcome of putting a slip to the test. 'landed' closes it AS OF TODAY "
                          "(a later miss revives it, history intact); 'missed' logs the failure and keeps it live. "
                          "This asserts an observation — that he fired it right unaided — not a verdict.")
-
-    ut = sub.add_parser("untaught",
-                        help="Clear the teach flag on rows no episode ever taught — "
-                             "callbacks used to stamp it (2026-09-01). Previews unless --apply.")
-    ut.add_argument("--apply", action="store_true",
-                    help="Actually write. Without it this only reports what would change.")
 
     args = parser.parse_args()
     if args.command == "update":
@@ -1496,6 +1302,8 @@ def main():
         cmd_reseed_focus(args)
     elif args.command == "seed-deck":
         cmd_seed_deck(args)
+    elif args.command == "check":
+        return cmd_check(args)
     elif args.command == "feedback":
         cmd_feedback(args)
     elif args.command == "rate-episode":
@@ -1504,8 +1312,6 @@ def main():
         cmd_slips(args)
     elif args.command == "knock-response":
         cmd_knock_response(args)
-    elif args.command == "untaught":
-        return cmd_untaught(args)
     else:
         parser.print_help()
 

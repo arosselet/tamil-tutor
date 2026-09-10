@@ -326,9 +326,10 @@ def cmd_drain(args):
     # A scheduled dose is a knock push: a revealed target is a declared exposure
     # (2026-07-26 ledger law), stamped at the same seam that fired it.
     from state_io import LEXICON_PATH
-    from sync_state import record_exposure
-    exposed = record_exposure([e["expected_target"] for e in fired
-                               if e.get("expected_target") and e.get("target_revealed", True)])
+    from lexicon_view import expose
+    exposed = expose([e["expected_target"] for e in fired
+                      if e.get("expected_target") and e.get("target_revealed", True)],
+                     "knock", source=f"queue:{','.join(e['id'] for e in fired)}")
     if not args.no_commit:
         # `feed=True` with no mp3, and that pairing is the whole point: the mp3s
         # went out in their own commit above (the CDN pre-warm split, which is

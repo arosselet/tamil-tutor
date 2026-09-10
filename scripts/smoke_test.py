@@ -167,6 +167,8 @@ def main():
         run(state.s88_taught_is_not_appeared, sb)
         run(state.s98_an_observation_is_recorded_not_spent, sb)
         run(state.s99_a_declared_channel_never_votes, sb)
+        run(state.s100_the_live_lexicon_is_the_fold_of_its_log)
+        run(state.s101_the_check_and_the_rating_are_ear_evidence, sb)
 
     if fx.ONLY and not fx.RAN:
         sys.exit(f"no case matched {fx.ONLY} — name a case (s41) or a prefix (s41_slip)")

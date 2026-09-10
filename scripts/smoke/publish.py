@@ -937,7 +937,7 @@ def s73_one_tail_for_the_render_family(sb: Path):
 
     def drive(*, delivered=("ஸ்மோக்"), claimed=False, extra=(), exposed=True,
               stamped=True, notified=True, title="smoke name"):
-        lanes.record_exposure = lambda words: exposed and bool(words)
+        lanes.expose = lambda words, lane, source="": exposed and bool(words)
         lanes.mark_soak_delivered = lambda lane: stamped
         commits.clear(); pushes.clear()
         with contextlib.redirect_stdout(io.StringIO()) as out:

@@ -50,8 +50,9 @@ BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 import audio_titles
 from publish import jsdelivr_url, publish
+from lexicon_view import expose
 from state_io import AUDIO_TITLES_PATH, LEARNER_PATH, LEXICON_PATH
-from sync_state import mark_soak_delivered, record_exposure
+from sync_state import mark_soak_delivered
 
 
 def deliver_rendered(*, mp3: Path, lane: str, delivered: list, claimed: bool,
@@ -91,7 +92,7 @@ def deliver_rendered(*, mp3: Path, lane: str, delivered: list, claimed: bool,
     Returns whether the notification actually left the building — False in quiet
     hours, which `push_to_phone` owns and no lane re-implements.
     """
-    exposed = record_exposure(delivered)
+    exposed = expose(delivered, lane, source=mp3.stem)
     stamped = mark_soak_delivered(lane) if claimed else False
     # THE NAME RIDES THE DOSE'S OWN COMMIT (2026-09-01). A soak leaves no script
     # and no caption, so the moment the sheet is written is the only moment its

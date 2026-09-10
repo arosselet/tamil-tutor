@@ -476,7 +476,7 @@ def s34_focus_and_background(sb: Path):
     of 240 asks on ten words. Splitting the budget is what makes both hold."""
     print("\n34. Focus set + background: dense reps without starving the tail (2026-07-26)")
     st = importlib.import_module("suggest_targets")
-    ss = importlib.import_module("sync_state")
+    lv = importlib.import_module("lexicon_view")
     lex_path = sb / "progress" / "lexicon.json"
     klog_path = sb / "progress" / "knock_log.json"
     saved = (lex_path.read_bytes(), klog_path.read_bytes())
@@ -547,19 +547,19 @@ def s34_focus_and_background(sb: Path):
                 seen.add(t["word"])
                 reps[t["word"]] = reps.get(t["word"], 0) + 1
             # Exposure closes the loop through the REAL delivery seam
-            # (sync_state.mark_exposed — the write every dose channel calls).
+            # (lexicon_view.expose — the write every dose channel calls).
             # Without it the background order never changes and the SAME two
             # words are exposed forever: rotation is only guaranteed because
             # being exposed moves a word to the back of its own queue.
             for t in b[:2]:
                 seen.add(t["word"])
-                ss.mark_exposed(lex, [t["word"]], today=today.isoformat())
+                lv.expose([t["word"]], "soak", lexicon=lex, at=f"{today.isoformat()}T12:00:00Z")
         check("every word is reachable — no word is stranded behind the alphabet",
               len(seen) == len(lex) - 1, f"reached {len(seen)} of {len(lex) - 1}")
         check("no word is hammered while others wait",
               max(reps.values()) - min(reps.values()) <= 2, f"spread {sorted(reps.values())}")
         check("the delivery stamp counts as well as dates",
-              any(r.get("exposures") for r in lex.values()), "mark_exposed wrote no count")
+              any(r.get("exposures") for r in lex.values()), "expose wrote no count")
         check("less-exposed sorts ahead of more-exposed — the 07-26 flip of `-soaked`",
               st.coverage_key({"word": "x", "exposures": 0})
               < st.coverage_key({"word": "x", "exposures": 3}),
@@ -594,10 +594,10 @@ def s36_soak_order_carries_shape(sb: Path):
     lex_path = sb / "progress" / "lexicon.json"
     saved = (learner_path.read_bytes(), lex_path.read_bytes())
 
-    defaults = dict(listened=[], teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
-                    soak_channel=None, soak_form=None, mastered_word=[], comfortable_word=[],
+    defaults = dict(teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
+                    soak_channel=None, soak_form=None, recognized=[],
                     stuck_word=[], produced_cold=[], produced_hinted=[],
-                    mark_seen=[], next_engine=None, debrief=None,
+                    next_engine=None, debrief=None,
                     # the sandbox copies REAL slip state, so a live pattern out
                     # in the world must not red these unrelated cases — the
                     # commission gate is s46's subject, waived everywhere else
@@ -850,10 +850,10 @@ def s38_teach_enters_the_lexicon(sb: Path):
     lex_path, learner_path = sb / "progress" / "lexicon.json", sb / "progress" / "learner.json"
     saved = (lex_path.read_bytes(), learner_path.read_bytes())
 
-    defaults = dict(listened=[], teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
-                    soak_channel=None, soak_form=None, mastered_word=[], comfortable_word=[],
+    defaults = dict(teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
+                    soak_channel=None, soak_form=None, recognized=[],
                     stuck_word=[], produced_cold=[], produced_hinted=[],
-                    mark_seen=[], next_engine=None, debrief=None,
+                    next_engine=None, debrief=None,
                     # the sandbox copies REAL slip state, so a live pattern out
                     # in the world must not red these unrelated cases — the
                     # commission gate is s46's subject, waived everywhere else
@@ -1193,10 +1193,9 @@ def s44_a_commission_can_discharge_the_flag(sb: Path):
     saved = (learner_path.read_bytes(),
              slip_path.read_bytes() if slip_path.exists() else None)
 
-    defaults = dict(listened=[], teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
-                    soak_channel=None, soak_form=None, mastered_word=[], comfortable_word=[],
-                    stuck_word=[], produced_cold=[], produced_hinted=[], mark_seen=[],
-                    next_engine=None, debrief=None, slip=[], slip_tested=[],
+    defaults = dict(teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
+                    soak_channel=None, soak_form=None, recognized=[],
+                    stuck_word=[], produced_cold=[], produced_hinted=[], next_engine=None, debrief=None, slip=[], slip_tested=[],
                     slip_commissioned=[])
 
     def update(**kw):
@@ -1306,10 +1305,10 @@ def s42_session_log_one_row_per_day(sb: Path):
     saved = (lex_path.read_bytes(), learner_path.read_bytes(),
              slog_path.read_bytes() if slog_path.exists() else None)
 
-    defaults = dict(listened=[], teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
-                    soak_channel=None, soak_form=None, mastered_word=[], comfortable_word=[],
+    defaults = dict(teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
+                    soak_channel=None, soak_form=None, recognized=[],
                     stuck_word=[], produced_cold=[], produced_hinted=[],
-                    mark_seen=[], next_engine=None, debrief=None,
+                    next_engine=None, debrief=None,
                     # the sandbox copies REAL slip state, so a live pattern out
                     # in the world must not red these unrelated cases — the
                     # commission gate is s46's subject, waived everywhere else
@@ -1441,18 +1440,21 @@ def s53_evidence_gates_the_ear(sb: Path):
               and not lex["frame:asserted"].get("heard_on"),
               "the two unheard states collapsed back into one")
 
-        # THE ASYMMETRY. The floor counts the CLAIM on purpose — do not unify.
+        # THE FOLD IS SPARSE (2026-09-10): a fixture rung the log has never
+        # spoken to stands, so the floor counts this row. On the live tree the
+        # cutover made every seed claim spoken, and the floor reads evidence like
+        # the ear does — the 08-27 asymmetry retired with the mutated ledger.
         floor = ss.compute_floor(read_json(lex_path))
-        check("the viability floor still counts an asserted row",
+        check("a rung the log has not spoken to stands in the floor",
               floor["total"] == 1 and floor["cleared"] == 1,
-              f"the floor took the ear's rule and collapsed: {floor}")
+              f"the fold rewrote a field the log never mentioned: {floor}")
 
         # --- the round trip: the real writer must stamp the date --------------
-        defaults = dict(listened=[], teach=[], soak_payload=[], soak_seed=None,
+        defaults = dict(teach=[], soak_payload=[], soak_seed=None,
                         soak_focus=None, soak_channel=None, soak_form=None,
-                        mastered_word=["frame:asserted"], comfortable_word=[],
+                        recognized=["frame:asserted"],
                         stuck_word=[], produced_cold=[], produced_hinted=[],
-                        mark_seen=[], next_engine=None, debrief=None,
+                        next_engine=None, debrief=None,
                         no_commission="smoke sandbox")
         with contextlib.redirect_stdout(_io.StringIO()):
             ss.cmd_update(_ap.Namespace(**defaults))
@@ -1460,8 +1462,15 @@ def s53_evidence_gates_the_ear(sb: Path):
         check("an observation logged at close stamps heard_on",
               bool(after["frame:asserted"].get("heard_on")),
               f"the writer moved the level and recorded no evidence: {after['frame:asserted']}")
-        check("...and the meter moves on the strength of it",
-              ss.compute_machines(after)["heard"] == 2,
+        # ONE OBSERVATION, ONE RUNG (Phase 3). The row was solid by assertion;
+        # the first thing that ever tested it is one pass, and one pass buys
+        # comfortable. `--mastered-word` no longer writes solid outright — a
+        # claim of level is not two observations.
+        check("...and the asserted solid becomes what one pass supports: COMFORTABLE",
+              after["frame:asserted"]["recognition"] == "comfortable",
+              f"got {after['frame:asserted']}")
+        check("...so the meter still reads one heard machine — the earned one",
+              ss.compute_machines(after)["heard"] == 1,
               f"got {ss.compute_machines(after)}")
 
         # The one-shot that used to be asserted here was `backfill-evidence`,
@@ -1575,10 +1584,9 @@ def s55_demotion_survives_the_close(sb: Path):
     learner_path = sb / "progress" / "learner.json"
     slog_path = sb / "progress" / "session_log.json"
     saved = (lex_path.read_bytes(), learner_path.read_bytes(), slog_path.read_bytes())
-    defaults = dict(listened=[], teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
-                    soak_channel=None, soak_form=None, mastered_word=[], comfortable_word=[],
-                    stuck_word=[], produced_cold=[], produced_hinted=[], mark_seen=[],
-                    next_engine=None, debrief=None, slip=[], slip_tested=[],
+    defaults = dict(teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
+                    soak_channel=None, soak_form=None, recognized=[],
+                    stuck_word=[], produced_cold=[], produced_hinted=[], next_engine=None, debrief=None, slip=[], slip_tested=[],
                     slip_commissioned=[], no_commission="smoke sandbox")
     try:
         write_json(lex_path, {
@@ -1586,6 +1594,7 @@ def s55_demotion_survives_the_close(sb: Path):
                                     recognition="solid",
                                     production="cold"),
             "ஸ்மோக்ஷேக்கி": lex_row(gloss="already shaky", phonetic=["shakyword"], type="chunk")})
+        fx.seed_evidence(sb, "ஸ்மோக்சாலிட்", recognition="solid", production="cold")
         with contextlib.redirect_stdout(io.StringIO()):
             ss.cmd_update(_ap.Namespace(**{**defaults,
                                            "stuck_word": ["ஸ்மோக்சாலிட்", "ஸ்மோக்ஷேக்கி"]}))
@@ -1646,10 +1655,9 @@ def s46_the_commission_notice_names_the_debt(sb: Path):
              slip_path.read_bytes() if slip_path.exists() else None,
              slog_path.read_bytes() if slog_path.exists() else None)
 
-    defaults = dict(listened=[], teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
-                    soak_channel=None, soak_form=None, mastered_word=[], comfortable_word=[],
-                    stuck_word=[], produced_cold=[], produced_hinted=[], mark_seen=[],
-                    next_engine=None, debrief=None, slip=[], slip_tested=[],
+    defaults = dict(teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
+                    soak_channel=None, soak_form=None, recognized=[],
+                    stuck_word=[], produced_cold=[], produced_hinted=[], next_engine=None, debrief=None, slip=[], slip_tested=[],
                     slip_commissioned=[], no_commission=None)
 
     def update(**kw):
@@ -1905,10 +1913,9 @@ def s56_timezone_is_one_dial(sb: Path):
     learner_path = sb / "progress" / "learner.json"
     saved = learner_path.read_bytes()
 
-    defaults = dict(listened=[], teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
-                    soak_channel=None, soak_form=None, mastered_word=[], comfortable_word=[],
-                    stuck_word=[], produced_cold=[], produced_hinted=[], mark_seen=[],
-                    next_engine=None, debrief=None, slip=[], slip_tested=[],
+    defaults = dict(teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
+                    soak_channel=None, soak_form=None, recognized=[],
+                    stuck_word=[], produced_cold=[], produced_hinted=[], next_engine=None, debrief=None, slip=[], slip_tested=[],
                     slip_commissioned=[],
                     # This section is not testing the commission gate, and by the
                     # time it runs the sandbox carries live uncommissioned slips
@@ -1986,11 +1993,10 @@ def s71_a_new_record_is_born_reachable(sb: Path):
     saved = (lex_path.read_bytes(),
              slip_path.read_bytes() if slip_path.exists() else None)
 
-    defaults = dict(listened=[], teach=[], soak_payload=[], soak_seed=None,
+    defaults = dict(teach=[], soak_payload=[], soak_seed=None,
                     soak_focus=None, soak_channel=None, soak_form=None,
-                    mastered_word=[], comfortable_word=[], stuck_word=[],
-                    produced_cold=[], produced_hinted=[], mark_seen=[],
-                    next_engine=None, debrief=None, slip=[], slip_tested=[],
+                    recognized=[], stuck_word=[],
+                    produced_cold=[], produced_hinted=[], next_engine=None, debrief=None, slip=[], slip_tested=[],
                     slip_commissioned=[], no_commission=None, quiet_until=None)
 
     def update(**kw):
@@ -3232,7 +3238,7 @@ def s86_a_tape_is_not_a_teacher(sb: Path):
     rotation loop that turns coverage from hoped-for into guaranteed."""
     print("\n86. A tape is not a teacher — delivery never closes the teach gate (2026-08-31)")
     import subprocess as _sp
-    ss = importlib.import_module("sync_state")
+    lv = importlib.import_module("lexicon_view")
     lex_path = sb / "progress" / "lexicon.json"
     saved = lex_path.read_bytes()
     try:
@@ -3243,7 +3249,7 @@ def s86_a_tape_is_not_a_teacher(sb: Path):
         check("an episode taught it → not unseen",
               not fx.si.is_unseen({"seen_in": ["M60"]}))
 
-        # ROUND TRIP THROUGH THE REAL WRITER. `record_exposure` is the seam the
+        # ROUND TRIP THROUGH THE REAL WRITER. `lexicon_view.expose` is the seam the
         # soak sheet, drill sheet, knock push and queue drain all call.
         word = "ஸ்மோக்தேநீர்"
         lex = read_json(lex_path)
@@ -3251,7 +3257,7 @@ def s86_a_tape_is_not_a_teacher(sb: Path):
                             register="survival")
         write_json(lex_path, lex)
 
-        marked = ss.record_exposure([word])
+        marked = lv.expose([word], "soak", source="smoke")
         check("the soak lane's stamp still lands", marked == [word])
 
         row = read_json(lex_path)[word]          # re-read from disk, not memory
@@ -3311,10 +3317,10 @@ def s87_form_is_a_choice_per_order(sb: Path):
     lex_path = sb / "progress" / "lexicon.json"
     saved = (learner_path.read_bytes(), lex_path.read_bytes())
 
-    defaults = dict(listened=[], teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
-                    soak_channel=None, soak_form=None, mastered_word=[], comfortable_word=[],
+    defaults = dict(teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
+                    soak_channel=None, soak_form=None, recognized=[],
                     stuck_word=[], produced_cold=[], produced_hinted=[],
-                    mark_seen=[], next_engine=None, debrief=None,
+                    next_engine=None, debrief=None,
                     no_commission="smoke sandbox")
 
     def update(**kw):
@@ -3402,14 +3408,11 @@ def s88_taught_is_not_appeared(sb: Path):
           hoped-for (07-26). So the callback must be asserted to still receive
           `exposures`/`last_surfaced` — same teeth as s86's second half.
 
-    The repair half has its own: a one-shot that writes nothing looks exactly
-    like a one-shot that had nothing to do."""
+    """
     print("\n88. Taught is not appeared — a callback never closes the teach gate (2026-09-01)")
-    import argparse as _ap
     import contextlib
     import io as _io
     ra = importlib.import_module("render_audio")
-    ss = importlib.import_module("sync_state")
     lex_path = sb / "progress" / "lexicon.json"
     eps_path = sb / "progress" / "episodes.json"
     saved = (lex_path.read_bytes(), eps_path.read_bytes())
@@ -3446,46 +3449,8 @@ def s88_taught_is_not_appeared(sb: Path):
               cb.get("exposures") and cb.get("last_surfaced"),
               f"the narrowing ate the rotation counter too: {cb}")
 
-        # ---- (2) THE REPAIR, driven for real --------------------------------
-        # Real keys from the derived list: one that passes every guard, one
-        # spared for production, one spared for exposures, one deleted outright.
-        lex = read_json(lex_path)
-        lex["பசி"] = lex_row(gloss="hungry", seen_in=[7, 8, 9], exposures=0)
-        lex["நீ"] = lex_row(gloss="you", seen_in=[10], production="cold", exposures=0)
-        lex["மூணு"] = lex_row(gloss="three", seen_in=[10], exposures=5)
-        lex.pop("செம்மை", None)
-        write_json(lex_path, lex)
-
-        out = _io.StringIO()
-        with contextlib.redirect_stdout(out):
-            rc = ss.cmd_untaught(_ap.Namespace(apply=False))
-        check("a dry run writes NOTHING",
-              read_json(lex_path)["பசி"]["seen_in"] == [7, 8, 9],
-              "the preview mutated state")
-        check("a key that no longer resolves is reported",
-              "செம்மை" in out.getvalue() and "not in the lexicon" in out.getvalue(),
-              f"a vanished row went silent: {out.getvalue()!r}")
-        check("...and it exits non-zero so CI can see it", rc == 1, f"got rc={rc}")
-
-        with contextlib.redirect_stdout(_io.StringIO()):
-            ss.cmd_untaught(_ap.Namespace(apply=True))
-        done = read_json(lex_path)             # re-read from disk
-        check("the unbacked teach flag is CLEARED",
-              fx.si.is_unseen(done["பசி"]),
-              f"the repair reported success and changed nothing: {done['பசி']}")
-        check("a word he has PRODUCED is spared — graduation is final",
-              not fx.si.is_unseen(done["நீ"]),
-              f"a cold word was pushed back into the teach queue: {done['நீ']}")
-        check("a word with real exposure evidence is spared",
-              not fx.si.is_unseen(done["மூணு"]),
-              f"evidence was overwritten: {done['மூணு']}")
-
-        out2 = _io.StringIO()
-        with contextlib.redirect_stdout(out2):
-            ss.cmd_untaught(_ap.Namespace(apply=True))
-        check("...and re-running is idempotent, not a second sweep",
-              "no unbacked teach flags remain" in out2.getvalue(),
-              f"got {out2.getvalue()!r}")
+        # The repair half (`untaught`) retired 2026-09-10 with Phase 3: a wrong
+        # stamp is a wrong event now, and `lexicon_view --rebuild` re-derives.
     finally:
         lex_path.write_bytes(saved[0])
         eps_path.write_bytes(saved[1])
@@ -3542,8 +3507,9 @@ def s98_an_observation_is_recorded_not_spent(sb: Path):
     kinds = {e["kind"] for e in new_rows}
     check("first contact is recorded — nothing else in the repo dates a TEACH",
           "taught" in kinds, str(sorted(kinds)))
-    check("a minted level is recorded as CLAIMED, not as evidence",
-          "claimed" in kinds, str(sorted(kinds)))
+    check("a word he RECOGNIZED is a watched test on the ear, one rung — not a claim",
+          any(e["kind"] == "tested" and e["axis"] == "recognition" and e["result"] == "right"
+              and e["channel"] == "session" for e in new_rows), str(new_rows))
     check("every event carries a known channel",
           all(not str(e["channel"]).startswith("unknown:") for e in new_rows),
           str([e["channel"] for e in new_rows]))
@@ -3566,7 +3532,7 @@ def s98_an_observation_is_recorded_not_spent(sb: Path):
     # AND THE LEXICON IS UNCHANGED IN BEHAVIOUR. Phase 0 is additive; if a
     # mutation stopped happening, the migration has silently started early.
     lex_after = read_json(lex_path)
-    check("the lexicon still moved too — Phase 0 changed no behaviour",
+    check("the lexicon FOLLOWED — the rungs are the fold of what was recorded",
           lex_after["வந்துட்டேன்"]["production"] == "cold"
           and lex_after["வந்துட்டேன்"]["recognition"] == "struggled",
           str(lex_after["வந்துட்டேன்"]))
@@ -3584,8 +3550,8 @@ def s98_an_observation_is_recorded_not_spent(sb: Path):
 
 
 def s99_a_declared_channel_never_votes(sb: Path):
-    """PHASE 2 — the derivation, and the one line four earlier patches were each
-    trying to say locally (2026-09-10).
+    """THE DERIVATION — and the one line four earlier patches were each trying
+    to say locally (2026-09-10; authoritative since Phase 3 the same day).
 
     The whole log exists so that what Andrew was TOLD and what the system
     WATCHED stop sharing a field. That separation is worth nothing unless the
@@ -3642,16 +3608,116 @@ def s99_a_declared_channel_never_votes(sb: Path):
     before = obs.read_text(encoding="utf-8") if obs.exists() else ""
     check("derive is pure — repeated calls agree",
           lv.derive(failed)["X"] == lv.derive(failed)["X"])
-    check("...and Phase 2 wrote nothing — the lexicon is still authoritative",
+    check("...and derive wrote nothing — it is a pure reader",
           (obs.read_text(encoding="utf-8") if obs.exists() else "") == before)
 
-    # Divergence is CLASSIFIED. A seed-only row that the ledger calls solid is
-    # the headline case and must never land in `agree`.
-    verdict = lv.classify("X", {"recognition": "solid", "production": "none"},
-                          lv.derive(seeded)["X"])
-    check("a seed-only row the ledger calls solid is named, not waved through",
-          verdict == "seed-inflated", verdict)
-    agreed = lv.classify("X", {"recognition": "comfortable", "production": "none"},
-                         lv.derive(watched)["X"])
-    check("...and a row the evidence actually supports reads as agreement",
-          agreed == "agree", agreed)
+    # THE FOLD IS SPARSE (Phase 3, 2026-09-10). A field is rewritten only where
+    # the log speaks; a fixture row the log has never mentioned keeps what the
+    # file says — which is what lets a case state a row and then drive a writer.
+    lex = {"X": {"recognition": "solid", "production": "cold"},
+           "Y": {"recognition": "solid", "production": "cold"}}
+    lv.rebuild(lex, watched)
+    check("a row the log speaks to is REWRITTEN from the fold",
+          lex["X"]["recognition"] == "comfortable", str(lex["X"]))
+    check("...a field the log is silent on keeps the file's value",
+          lex["X"]["production"] == "cold", str(lex["X"]))
+    check("...and a row the log never mentions is untouched",
+          lex["Y"] == {"recognition": "solid", "production": "cold"}, str(lex["Y"]))
+    check("a logged word with no row is reported, never minted",
+          lv.rebuild({}, watched) == ["X"])
+    check("a seed CLAIM makes the axis spoken, so the claimed rung is refused",
+          (lambda d: (lv.rebuild(d, seeded), d["X"]["recognition"])[1])(
+              {"X": {"recognition": "solid"}}) == "struggled")
+
+    # THE HONESTY CHECK. Empty when the file equals the fold; names the row when
+    # a writer set a rung by hand. s100 runs it against the REAL tree.
+    check("divergence is empty when the file equals the fold",
+          lv.divergence(lex, watched) == [], str(lv.divergence(lex, watched)))
+    lex["X"]["recognition"] = "solid"
+    check("...and names the row when a writer set a rung by hand",
+          any(line.startswith("X: recognition") for line in lv.divergence(lex, watched)),
+          str(lv.divergence(lex, watched)))
+
+
+def s100_the_live_lexicon_is_the_fold_of_its_log():
+    """Phase 3's guarantee, held on the REAL tree (2026-09-10): every evidence
+    field on every live row equals the fold of `observations.json`. A writer
+    that sets a rung by hand — the defect the log exists to end — shows up here
+    as a named row, on the next run, before it can be relied on for weeks."""
+    print("\n100. The live lexicon is the fold of its log (2026-09-10)")
+    import subprocess as _sp
+    r = _sp.run([sys.executable, str(REAL_BASE / "scripts" / "lexicon_view.py")],
+                cwd=REAL_BASE, capture_output=True, encoding="utf-8", errors="replace")
+    tail = "\n".join(r.stdout.strip().splitlines()[-6:])
+    check("lexicon_view reports zero divergent rows on the real tree",
+          r.returncode == 0 and " 0 divergent" in r.stdout, tail)
+
+
+def s101_the_check_and_the_rating_are_ear_evidence(sb: Path):
+    """The two instruments the contract and the goal both lacked (2026-09-10).
+
+    THE RECEPTIVE CHECK never fired in 25 days because it had no writer and no
+    draw; the goal's four checkpoints all say "re-base at the first Receptive
+    Check". THE EAR BLOCK is the one habit the contract asks for, and it
+    promised "whether it happened is visible" with nothing recording it.
+
+    Both round-trip through the real writers and re-read the file. The silent
+    no-op for each: a check that prints a draw and records nothing looks like a
+    session that went well; a rating that lands in the feedback ledger and
+    exposes nothing looks exactly like the pre-fix rating."""
+    print("\n101. The check and the rating are ear evidence (2026-09-10)")
+    import argparse as _ap
+    import contextlib
+    import io as _io
+    ss = importlib.import_module("sync_state")
+    sbf = importlib.import_module("session_brief")
+    lex_path = sb / "progress" / "lexicon.json"
+    fb_path = sb / "progress" / "feedback_log.json"
+    saved = (lex_path.read_bytes(), fb_path.read_bytes() if fb_path.exists() else b"[]")
+    try:
+        lex = read_json(lex_path)
+        lex["ஸ்மோக்குளிர்"] = lex_row(gloss="cold", phonetic=["smoke-kulir"])
+        lex["ஸ்மோக்காரம்"] = lex_row(gloss="spice", phonetic=["smoke-kaaram"])
+        write_json(lex_path, lex)
+
+        out = _io.StringIO()
+        with contextlib.redirect_stdout(out):
+            ss.cmd_check(_ap.Namespace(draw=2, heard=[]))
+        check("the draw names never-tested rows and writes nothing",
+              "RECEPTIVE CHECK" in out.getvalue() and read_json(lex_path) == lex,
+              out.getvalue()[:200])
+        with contextlib.redirect_stdout(_io.StringIO()):
+            rc = ss.cmd_check(_ap.Namespace(draw=0, heard=["smoke-kulir:right", "ஸ்மோக்காரம்:wrong",
+                                                            "nonsense:right"]))
+        after = read_json(lex_path)
+        check("a known item moves the ear one rung, off a `check` event",
+              after["ஸ்மோக்குளிர்"]["recognition"] == "comfortable"
+              and after["ஸ்மோக்குளிர்"].get("heard_on"), str(after["ஸ்மோக்குளிர்"]))
+        check("a missed item is tested, not blank",
+              after["ஸ்மோக்காரம்"].get("heard_on") and after["ஸ்மோக்காரம்"]["recognition"] == "struggled",
+              str(after["ஸ்மோக்காரம்"]))
+        check("an unknown word is refused loudly and the run says so", rc == 1)
+
+        # THE RATING IS A LISTEN. Rate a real mission through the writer; its
+        # words are exposed, and the brief shows the ear block happened.
+        eps = read_json(sb / "progress" / "episodes.json") or {}
+        eps["901"] = {"title": "Mission tier2_mission901", "words": ["ஸ்மோக்காரம்"]}
+        write_json(sb / "progress" / "episodes.json", eps)
+        rs = importlib.import_module("rebuild_rss")
+        rs.feed_items = lambda: [{"id": "901", "title": "Mission tier2_mission901", "format": "episode"}]
+        ss.feed_items = rs.feed_items
+        with contextlib.redirect_stdout(_io.StringIO()):
+            ss.cmd_rate_episode(_ap.Namespace(episode="Mission tier2_mission901", stars="4 ★★★★",
+                                              commit=False))
+        rated = read_json(lex_path)["ஸ்மோக்காரம்"]
+        check("a rating exposes the mission's words — the listen is evidence",
+              rated.get("exposures") == 1 and rated.get("last_surfaced"), str(rated))
+        out = _io.StringIO()
+        with contextlib.redirect_stdout(out):
+            sbf.cmd_status(None)
+        check("...and the brief shows the ear block happened this week",
+              "Ear block: rated on 1 of the last 7 days" in out.getvalue(),
+              [l for l in out.getvalue().splitlines() if l.startswith("Ear block")])
+    finally:
+        lex_path.write_bytes(saved[0])
+        fb_path.write_bytes(saved[1])
