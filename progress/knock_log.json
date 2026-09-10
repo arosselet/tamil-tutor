@@ -7020,6 +7020,31 @@
     "body": "Athai: 'innum venumaa?' (want more?). Tell her 'don't want, please' — use the elder -nga ending. Tamizh reply only.",
     "expected_target": "வேண்டாங்கா",
     "stance": "ask",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Vendam , nandri-nga",
+    "reply_verdict": "miss",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line": "close da — fuse it together: 'vendaanga'. no 'nandri' needed with athai.",
+    "reply_at": "2026-09-10T19:46:06Z",
+    "exchanges": [
+      {
+        "at": "2026-09-10T19:46:06Z",
+        "reply": "Vendam , nandri-nga",
+        "verdict": "miss",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "close da — fuse it together: 'vendaanga'. no 'nandri' needed with athai.",
+        "slips": [
+          "respect-nga"
+        ],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ]
   }
 ]

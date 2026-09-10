@@ -16,6 +16,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **15:24 · Anna**  ·  text / micro-dose: vendaanga
 > Athai: 'innum venumaa?' (want more?). Tell her 'don't want, please' — use the elder -nga ending. Tamizh reply only.
 
+**15:46 · Andrew** — **MISS**
+> Vendam , nandri-nga
+
+**Anna ↩**
+> close da — fuse it together: 'vendaanga'. no 'nandri' needed with athai.
+
 
 ## Wednesday 2026-09-09
 
