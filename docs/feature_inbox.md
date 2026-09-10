@@ -4,6 +4,26 @@ Build-itches land here instead of in the codebase. The structure is frozen at **
 
 ## Ideas
 
+- **PERSIST THE JUDGE'S HEARD LIST — the ear's best evidence is never written down
+  (2026-09-10).** Since 2026-08-31 `apply_heard_words` has moved recognition for every
+  word Andrew picks out of a tape — the change he asked for himself: *"it's frustrating
+  that it can't recognize/record when I am reliably recognizing a word"* — and
+  `knock_log.json` stores none of them. The rung moves; the reason vanishes. Measured by
+  Phase 1's backfill: **35 rows assert they were tested and no log can produce the
+  event**, and every future catch joins them.
+  **The fix is two lines** at the catch seam in `knock_reply.py`: `knock["reply_heard"] =
+  verdict["heard"]` beside the `reply_at` write, and eight lines in
+  `backfill_observations.from_knocks` to read it. It was written, measured, and **reverted
+  on 2026-09-10** — not because it was wrong, but because `knock_reply.py` sits AT 563/563
+  under its own note: *"this file is now the largest in the tree and has taken three
+  raises: the next one should be a split, not a number (the judges and the lanes are
+  already two jobs living in one file)."* Spending a pre-refused raise on two lines is the
+  accumulation move this repo keeps having to undo.
+  **So it rides the split, and the split is the ticket.** Judges out, lanes stay. When that
+  lands, this costs two lines inside the new budget and the backfill stops having a hole.
+  Until then the UNCORROBORATED count is the honest size of it, printed on every run.
+
+
 - **SPLIT `scripts/writer.py` — the ceiling has now been asked twice, unpaid
   (2026-09-07).** 150 → 175 on 08-23, 175 → 181 today, and today's raise **retired
   nothing**, which is the first time this ceiling moved on an allowance rather than a

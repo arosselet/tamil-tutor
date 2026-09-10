@@ -244,6 +244,16 @@ CODE_BUDGETS = {
     # and validates constants, full stop; the moment it learns to fold events
     # into a view, that view belongs in its own module and this one stays dumb.
     "scripts/observations.py": 65,
+    # NEW FILE, budgeted in the same diff that creates it (2026-09-10). PHASE 1 —
+    # it reconstructs the log from knock_log, session_log and the seed commit.
+    # WHAT IT RETIRES: the guesswork in docs/ledger_audit_2026-09-10.md, which
+    # sampled 30 rows to ESTIMATE what this answers for all 360. Census 128,
+    # +22. THE GROWTH TO REFUSE: a second source that is not already a log. This
+    # reads history; it does not observe, and a reader that starts inferring
+    # evidence from prose is inventing it — the exact defect the log exists to
+    # end. Its own docstring names what it refuses to reconstruct; keep that list
+    # growing instead of the code.
+    "scripts/backfill_observations.py": 150,
     "scripts/generate_callbacks.py": 100,
     # 775 -> 785 (2026-08-02) for the thread-continuity window. Retired in the
     # same diff: three inlined ISO-timestamp parsers collapsed into _ts(), the
@@ -1130,6 +1140,11 @@ LAYERS = {
     # upward for a lane, the edge reads as upward and fails here. An appender
     # that can read the ledger is an appender that can grow a policy.
     "observations":       0.5,
+    # A READER of history and of L0, run by hand, imported by nothing (2026-09-10).
+    # Numbered beside its own subject so that the day a lane imports the backfill
+    # — which would mean reconstruction running inside the daily loop — the edge
+    # reads as upward and fails here.
+    "backfill_observations": 0.6,
 
     "render_chat":        1,      # L1 pure renderers over one source of truth
     "rebuild_rss":        1,
