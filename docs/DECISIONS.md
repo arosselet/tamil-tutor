@@ -21,6 +21,12 @@ Details live in git history; this is the index of the *conclusions*.
   collision in the push queue, 100% plumbing.)
 - **Structure freeze — Anna 1.0.** Rows of data are free; schema changes wait. Route
   build-itches to `docs/feature_inbox.md`. (Canonical in `docs/PROTOCOL_MAP.md`.)
+  **LIFTED for the state layer, 2026-09-10, by Andrew** — *"a suggestion… this sounds like a
+  more foundational solution to a very persistent problem. I agree it has been earned."* What
+  earned it: five instances of one defect, a 108-row purge that deleted rather than re-read,
+  and two standing laws struck in a week. The freeze holds everywhere else; the exception is
+  scoped to `lexicon.json` and its three writers, and its design is
+  `docs/observation_log_plan.md`.
 - **Lightweight triggers for lightweight actions** (2026-07-02). When a request is "fire
   the existing automation with one value," wire a Shortcut/webhook one-liner — don't route
   it through a full chat session.
