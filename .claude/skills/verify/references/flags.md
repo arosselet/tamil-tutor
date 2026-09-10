@@ -35,14 +35,20 @@ grep the named function when you need the exact spot.
 | `morning_knock.py` | (no args) | **MUTATING** | `knock_log.json`, `progress/chat.md`; audio: `published_audio/knocks/` + `rss.xml` (all audio → feed); commits + git push |
 | `morning_knock.py` | `--force` | **MUTATING** | Same as above, skipping the rails gate |
 | `knock_reply.py` | `--dry-run "<text>"` | **SAFE** | Nothing written (judge + print only — the LLM judge call still fires) |
-| `knock_reply.py` | `"<text>"` | **MUTATING** | `lexicon.json`, `knock_log.json`, `feedback_log.json` (if meta_note); commits + git push |
+| `knock_reply.py` | `"<text>"` | **MUTATING** | `observations.json` + `lexicon.json` (tested events, folded), `knock_log.json`, `slip_log.json`, `feedback_log.json` (if meta_note); commits + git push |
 | `push_queue.py` | `add --body … [flags]` | **MUTATING** | `push_queue.json`; commits unless `--no-commit` |
 | `push_queue.py` | `drain [--dry-run] [--no-commit]` | **MUTATING** (default); `--dry-run` skips firing/commit | `push_queue.json`, `knock_log.json`; may push audio; commits + git push unless `--no-commit` |
 | `push_queue.py` | `cancel <id> [--no-commit]` | **MUTATING** | `push_queue.json`; commits unless `--no-commit` |
 | `render_drill.py` | `--dry-run` | **SAFE** | Prints the JSON cue sheet to stdout (the LLM sheet call fires) — no TTS, no file writes |
 | `render_drill.py` | `--no-publish` | **MUTATING** | Renders to `published_audio/` only — skips RSS/commit/push/notify |
 | `render_drill.py` | (no args) | **MUTATING** | `published_audio/`, `rss.xml`; commits + git push; phone push |
-| `render_audio.py` | `<script> <output>` | **MUTATING** | `audio/`, `published_audio/`, `progress/episodes.json`, `progress/lexicon.json`, `rss.xml`; commits + git push |
+| `render_audio.py` | `<script> <output>` | **MUTATING** | `audio/`, `published_audio/`, `progress/episodes.json`, `progress/observations.json` + `lexicon.json` (taught/exposed events, folded), `rss.xml`; commits + git push |
+| `render_soak.py` / `render_rotation.py` / `render_payoff.py` | `--dry-run` | **SAFE** (the LLM sheet call fires) | Nothing |
+| `render_soak.py` / `render_rotation.py` / `render_payoff.py` | `--no-publish` | **MUTATING** | `published_audio/` only — no feed, commit, push or notify |
+| `render_soak.py` / `render_rotation.py` / `render_payoff.py` | (no args) | **MUTATING** | `published_audio/`, `rss.xml`, `observations.json` + `lexicon.json` (exposure), `learner.json` (the soak stamp), `audio_titles.json`; commits + git push; phone push |
+| `backfill_observations.py` | (no args) | **SAFE** | Nothing — dry run, prints the reconstruction and the coverage report |
+| `backfill_observations.py` | `--write` / `--cutover` | **MUTATING** | `observations.json`; `--cutover` also rewrites every evidence field in `lexicon.json` from the log |
+| `render_chat.py`, `session_brief.py`, `audio_titles.py`, `memo.py`, `lanes.py`, `rails.py`, `language.py`, `state_io.py`, `writer.py`, `mandates.py`, `slips.py`, `observations.py`, `reply_common.py`, `knock_message.py`, `publish.py` | (imported, not run) | — | Libraries; the lane that imports them owns the write |
 
 > `progress/` holds real, irreplaceable learner state. Never run a mutating command against live `progress/` unless you mean it. The smoke test's sandbox pattern is the safe harness — extend it, don't bypass it.
 >

@@ -61,7 +61,9 @@ Every addition must earn its place. Before writing any code, state out loud:
 
 | Surface | Table | Unit | Since |
 |---|---|---|---|
-| Protocol prose — `persona.md`, `constitution.md`, `daily_session.md`, `audio_channels.md`, `commissioning.md`, the LLM mandates | `PROSE_BUDGETS` | words | 2026-07-16 |
+| Every `protocol/*.md`, the LLM mandates, and the narrative surfaces (`DECISIONS.md`, `feature_inbox.md`, `/debug`) | `PROSE_BUDGETS` | words | 2026-07-16 |
+| `profile.md`'s campaign block | `CAMPAIGN_BUDGET` | words | 2026-09-06 |
+| A `DECISIONS.md` entry | `DECISION_ENTRY_BUDGET` | words | 2026-08-01 |
 | Every `scripts/*.py` | `CODE_BUDGETS` | code lines (blanks, comments and docstrings are **free**) | 2026-07-31 |
 | Every `scripts/*.py` | pyflakes | findings, **budget 0** | 2026-08-04 |
 
@@ -127,12 +129,9 @@ The one thing the pack cannot contain is the LLM prompt prose in `mandates.py`: 
 rewrites those worked examples rather than substituting a constant, and that is the
 irreducible half of an extraction.
 
-**Cloud rendering:** the cloud DOES render — knock memos and scheduled voice doses, in
-`anna.yml`, the single workflow that carries every secret. The old "cloud never renders /
-do not add TTS to other workflows" rule was dropped 2026-07-24 (it was misnamed: the
-blocker was always the *writer* — `agy` until 2026-08-18, `claude -p` since — never the renderer). Episode TTS is still local
-today, but that is a build not yet done, not a law. (`docs/DECISIONS.md` → "Cloud produces
-episodes" and "One runner, every capability.")
+**Cloud rendering:** the cloud renders knock memos and scheduled voice doses in `anna.yml`,
+the one workflow that carries every secret. Episode TTS is local today — a build not yet
+done, not a law (`docs/DECISIONS.md` → "Cloud produces episodes").
 
 ---
 

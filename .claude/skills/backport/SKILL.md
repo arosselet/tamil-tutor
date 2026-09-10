@@ -48,5 +48,5 @@ git tag template-v<N+1>-source        # in Tamil, at the synced commit
 git push --tags
 ```
 
-One `/distill` entry in **both** repos' DECISIONS: the milestone, the new tag,
-anything deliberately left behind.
+One line in **both** repos' `DECISIONS.md`: the milestone, the new tag, anything
+deliberately left behind.

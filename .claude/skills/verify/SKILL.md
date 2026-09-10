@@ -33,7 +33,7 @@ python scripts/show_status.py         # read-only dashboard
 | What changed | Verification path |
 |---|---|
 | Knock/queue/judge logic (`morning_knock.py`, `knock_reply.py`, `push_queue.py`) | `python scripts/smoke_test.py` + add a smoke case for the fixed behavior (§3) |
-| State schema or `sync_state.py` | Smoke test + `python scripts/sync_state.py status` (read-only) + confirm every changed field exists in `progress/*.example` templates |
+| State schema, `sync_state.py` or `lexicon_view.py` | Smoke test + `python scripts/sync_state.py status` + `python scripts/lexicon_view.py` (both read-only; the second must report zero divergent rows) + confirm every changed field exists in `progress/*.example` templates |
 | Drill pipeline (`render_drill.py`) | `--dry-run` (LLM fires, no TTS, no file writes) or `--no-publish` (LLM + TTS + MP3 written, no RSS/commit/push) — see `references/flags.md` for exact boundaries |
 | Morning knock (`morning_knock.py`) | `--dry-run` (LLM fires; if Anna chooses audio, TTS fires AND the MP3 is written before the gate) — see `references/flags.md`; also add a smoke case if logic changed |
 | Audio pipeline (`render_audio.py`) | Source-read only — no dry-run flag; trace what you checked and state what is unverified. Never run it in a verify pass. |
@@ -88,7 +88,7 @@ Three invariants the sandbox enforces — do not break them:
 - Replace `push_to_phone` and `commit_and_push` with fresh `Recorder()` per scenario before calling `main()`.
 - **Run the one case you are working on**: `python scripts/smoke_test.py s41` (case
   number, exact) or `python scripts/smoke_test.py s41_slip` (name prefix). Each
-  invocation builds its own sandbox, and all 71 cases pass alone — so a failure
+  invocation builds its own sandbox, and every case passes alone — so a failure
   reproduces in one run instead of behind forty predecessors. No argument runs the
   whole suite, which is what CI does.
 - **State a case's preconditions in the case.** Stubs are torn down between cases
@@ -115,6 +115,6 @@ End every verification pass by declaring what remained unexercised:
 - **Actual TTS audio** — `--dry-run`/`--no-publish` stop before or skip delivery; voice quality, Tamil pronunciation, and timing are only verifiable by listening.
 - **Phone delivery** — `push_to_phone` hits the Home Assistant webhook; correct body/URL can be confirmed in source, but actual device delivery is invisible to any local test.
 - **CDN pre-warm** — `morning_knock.py` (audio modality) fetches the jsDelivr URL before pushing; this network call is never exercised in smoke.
-- **Git operations** — `commit_and_push` is always stubbed in smoke; the concurrent-writer rebase (`git pull --rebase --autostash`) is never tested locally.
+- **Git operations against origin** — `commit_and_push` is stubbed in every lane case; the rebase net itself is exercised against a real bare repo in `s45` (union) and `s102` (the ledger), so what stays unexercised is the network, not the merge.
 - **`render_audio.py` changes** — source-read is the only verification; name the exact lines you checked.
 - **`protocol/*.md` prose** — reading against `protocol/constitution.md` is the only verification; no runtime surface exists.

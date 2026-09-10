@@ -17,7 +17,7 @@ via Google TTS → commits to `main` → pushes HA webhook.
 
 **Evidence files:**
 - `progress/knock_log.json` — one entry per WAKE (including silences); last entry is newest.
-- GitHub Actions → **Anna Knock** workflow logs.
+- GitHub Actions → **Anna** workflow logs (one workflow for every trigger since 2026-07-24).
 
 **Key knock_log fields to read:**
 - `acted` (bool) — `false` = silence; no notification sent.
@@ -101,12 +101,12 @@ python scripts/push_queue.py drain --dry-run
 **What it does:** Home Assistant fires a `repository_dispatch: knock-response` event when
 Andrew taps or replies. The workflow calls either `sync_state.py knock-response ack` (tap)
 or `knock_reply.py "<text>"` (typed Tamil). The judge scores per word, moves the production
-axis (upgrades only — never demotes), and pushes a recast + scoreboard back.
+axis as `tested` events (upgrades only — a phone rep never demotes), and pushes a recast back.
 
 **Evidence files:**
 - `progress/knock_log.json` — last entry's `reply*` fields.
 - `progress/lexicon.json` — production axis values for the scored word(s).
-- GitHub Actions → **Log Knock Response** workflow logs.
+- GitHub Actions → **Anna** workflow, `repository_dispatch` runs.
 
 **Key knock_log reply fields:**
 - `reply` — Andrew's raw typed text.
@@ -192,7 +192,7 @@ python -c "import json; lex=json.load(open('progress/lexicon.json')); print(lex.
 4. If a phone-rep cold fire didn't update the axis: the word may have resolved to `None` (no lexicon record). The judge prints `! '<word>' resolves to no lexicon record — not scored`. Fix: seed the record first (`sync_state.py add-word`).
 5. To correct state from a known-good chat session — use `update` (mutating):
 ```
-# MUTATING — moves production axis (upgrades only; no demotion from cmd line)
+# MUTATING — records one production observation; --stuck-word records a recognition miss
 python scripts/sync_state.py update --produced-cold 'போதும்'
 ```
 
@@ -200,7 +200,7 @@ python scripts/sync_state.py update --produced-cold 'போதும்'
 
 ## F. CI / Workflows
 
-**Four workflows (verified from `.github/workflows/`):**
+**Two workflows (verified from `.github/workflows/`):**
 
 | Workflow file | Name in Actions UI | Trigger | What it does |
 |---|---|---|---|
@@ -216,6 +216,6 @@ gh run view <run-id> --log
 
 Common causes:
 - **Missing secret:** `OPENROUTER_API_KEY`, `ANNA_PUSH_WEBHOOK_URL`, or `GCP_SA_KEY` not set → step fails with auth error or 401.
-- **Git rebase conflict:** knock, queue, and laptop all push to `main`. Workflow uses `git pull --rebase --autostash origin main` before push; a conflict here leaves the runner in a bad state. Look for `CONFLICT` in the log.
+- **Git rebase conflict:** knock, queue, and laptop all push to `main`. `publish.commit_and_push` rebases onto origin and resolves what it can — append-only arrays by union, `chat.md` and `lexicon.json` by re-deriving from their sources — and aborts clean on anything else (`rebase onto origin/main needs a human — tree left clean`). The judged work is lost with the run; `gh run rerun <id> --failed` replays the same dispatch against the new head.
 - **Smoke test FAIL:** a regression in knock/reply/queue plumbing. The log names the failing case. Run `python scripts/smoke_test.py` locally to reproduce, or `python scripts/smoke_test.py s41` for the one case.
 - **Fresh-clone red crons:** if secrets are not yet configured, knock and queue workflows fail loud on every tick. This is intentional (BOOTSTRAP.md). Disable Actions or add secrets before the first push.

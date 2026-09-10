@@ -32,9 +32,9 @@ python scripts/smoke_test.py s41     # one case, its own sandbox — for triage
 **Pass:** last line is `ALL GREEN`.  
 **Fail:** any `[FAIL]` line prints the failing check name and detail. Stop here → `/debug`.
 
-**What it covers:** LLM-response parsing, rails gate logic, knock fire/silence paths, verdict normalization, reply judge + production axis, queue drain (oldest-first, quiet-hours, daily-cap), state integrity (valid JSON, `knock_log` entries have `date`+`timestamp`), variety/decay helpers.
+**What it covers:** every lane the machine has — parsing, rails, knock, judge, queue, the render family's shared tail, the feed, the studio compose path, the rebase net against a real bare repo (s45, s102), the size and layer ratchets, and the ledger (s100 holds the live `lexicon.json` equal to the fold of its log). The dispatcher in `scripts/smoke_test.py` is the list.
 
-**What it does NOT cover:** studio/audio rendering, RSS correctness, real lexicon key canonicality in `progress/`, `sync_state.py` subcommands other than the functions they exercise.
+**What it does NOT cover:** the sound of a rendered file, phone delivery, and what an LLM actually writes — every model call is stubbed.
 
 ### Layer 2 — Status clean
 
@@ -42,20 +42,21 @@ python scripts/smoke_test.py s41     # one case, its own sandbox — for triage
 python scripts/sync_state.py status
 ```
 
-**Safe (read-only).** Prints: current time (EDT/EST), learner name, last logged session + gap, Status line (Machines heard + Viability floor), story, soak order, recognition/production breakdown, Engines, Ear-only, fired today, recent episodes.
+**Safe (read-only).** Prints: current time in Andrew's zone (a field in `learner.json`), learner name, last logged session + gap, Status line (Machines heard + Viability floor), story, soak order, recognition/production breakdown, Engines, Ear-only, fired today, recent episodes.
 
-**Pass:** output completes without `Error:` or `not found`. A stale soak order prints `⚠ stale — chat hasn't fed the Director lately` (fires when the soak order is >7 days old, `sync_state.py:539`) — that's a content signal meaning "run a session," not an error; don't route it to `/debug`.  
+**Pass:** output completes without `Error:` or `not found`. A stale soak order prints `⚠ stale — chat hasn't fed the Director lately` (fires when the soak order is more than a week old — `session_brief.cmd_status`) — that's a content signal meaning "run a session," not an error; don't route it to `/debug`.  
 **Fail:** `lexicon.json or learner.json missing` → bootstrap problem; `No learner.json found` → same.
 
 ### Layer 3 — State invariants
 
-Check these manually or with quick one-liners. Each invariant has an enforcing code cite.
+Most invariants are smoke cases now and Layer 1 already ran them; the two below are the ones that read the REAL tree.
 
 | Invariant | Enforcing code | Quick check |
 |---|---|---|
+| Every evidence field on every live row equals the fold of `observations.json` (2026-09-10) | `lexicon_view.divergence`, held by `s100` | `python scripts/lexicon_view.py` → `0 divergent` |
 | Every word key in `lexicon.json` is Tamil script matching `[஀-௿]+`, OR is a `frame:*` pattern key | `language.py` → `TAMIL_RE` (the language pack); `sync_state.py` → `cmd_add_word` rejects non-Tamil | `python -c "import json,re; d=json.load(open('progress/lexicon.json')); bad=[k for k in d if not re.search(r'[஀-௿]',k) and not k.startswith('frame:')]; print(bad or 'ok')"` |
 | Every lexicon entry's `recognition` is one of `struggled`, `comfortable`, `solid` | `sync_state.py` → `RECOGNITION_LEVELS` | Scan for any value outside the set |
-| Every lexicon entry's `production` is one of `none`, `hinted`, `cold` | `knock_reply.py` → `PRODUCTION_RANK` | Scan for any value outside the set |
+| Every lexicon entry's `production` is one of `none`, `hinted`, `cold` | `state_io.py` → `PRODUCTION_RANK` | Scan for any value outside the set |
 | Every `register` in `lexicon.json` is a key of `REGISTER_TIERS` (`antifreeze`, `public`, `frame`, `faq`, `mil-table`, `social`, `gossip`, `zinger`) | `suggest_targets.py` `REGISTER_TIERS` / `tier_rank` | `python -c "import json,sys; sys.path.insert(0,'scripts'); import suggest_targets as st; d=json.load(open('progress/lexicon.json',encoding='utf-8')); bad={r['register'] for r in d.values() if r.get('register')}-set(st.REGISTER_TIERS); print(bad or 'ok')"` |
 | `knock_log.json` entries carry `date` and `timestamp` | `smoke/state.py` s7_integrity | `python scripts/smoke_test.py` (already covered in Layer 1) |
 | `learner.json` has fields `learner`, `last_debrief`, `soak_order`, `status` | `sync_state.py` → `write_thin_learner` | `python -c "import json; d=json.load(open('progress/learner.json')); print([f for f in ['learner','last_debrief','soak_order','status'] if f not in d] or 'ok')"` |
@@ -78,7 +79,7 @@ ls published_audio/tier*_mission*.mp3 2>/dev/null | wc -l
 grep -c '<item>' rss.xml 2>/dev/null || echo "rss.xml missing"
 ```
 
-**Pass:** `episodes.json` count roughly matches `published_audio/tier*_mission*.mp3` count; `rss.xml` items = episodes + drills + knocks (`published_audio/knocks/`) + the welcome track, so it exceeds the episode count. Exact numbers may differ if a file was rendered to `audio/` only (not `published_audio/`).
+**Pass:** `episodes.json` count roughly matches `published_audio/tier*_mission*.mp3` count; `rss.xml` items = episodes + soaks + drills + rotation tapes + knocks (`published_audio/knocks/`), so it exceeds the episode count. Exact numbers may differ if a file was rendered to `audio/` only (not `published_audio/`).
 
 **Fail / mismatch:** An episode registered in `episodes.json` but missing from `published_audio/` means the render didn't complete. An `rss.xml` that predates the newest audio file means `rebuild_rss.py` didn't run. Route to `/debug`.
 

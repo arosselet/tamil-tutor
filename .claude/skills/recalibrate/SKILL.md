@@ -31,7 +31,7 @@ The ledger across sessions is what turns feelings into evidence.
 ## 3. Evidence before proposals — read, don't theorize
 
 Read-only sweep, all safe:
-- `python scripts/sync_state.py status` — floor, deck, soak, production axis
+- `python scripts/sync_state.py status` — the ear, the floor, the soak order, the ear-block days
 - `python scripts/sync_state.py feedback` — the accumulated ledger
 - `grep -o '"move": "[^"]*"' progress/knock_log.json | tail -20` — dose shapes actually sent
 - `progress/session_log.json` tail — what recent sessions actually did
@@ -51,7 +51,7 @@ symptom cap (`/debug` → KF-8 is the standing precedent).
 
 ## 5. Close
 
-Settled something → `/distill` it into `docs/DECISIONS.md` so the next wave of
-this feeling meets a recorded conclusion instead of a blank page. Nothing
+Settled something → one line in `docs/DECISIONS.md` (title, date, one clause; the
+narrative is the commit) so the next wave of this feeling meets a recorded conclusion. Nothing
 settled → say "noise; nothing to change" and stop. That verdict is a success,
 not a failure of the pass.
