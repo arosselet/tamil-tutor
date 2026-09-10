@@ -30,6 +30,7 @@ fold returns the default. That single line is what four earlier patches were
 each trying to say locally.
 """
 import argparse
+import json
 import re
 import sys
 from pathlib import Path
@@ -157,6 +158,41 @@ def expose(keys, channel: str, source: str = "", *, taught=(), kind="exposed",
             save_json(LEXICON_PATH, lex)
             print(f"   Exposure stamped: {', '.join(marked)}")
     return marked
+
+
+def remerge() -> Path:
+    """Resolve a rebase conflict on `lexicon.json` — the DERIVED resolver in
+    `publish.py`'s net (2026-09-10, after run 34520445739 lost a judged reply to
+    exactly this). Two writers colliding on the ledger never disagree about
+    EVIDENCE: that is the fold of `observations.json`, which the union pass has
+    already merged on disk by the time this runs. They can each have minted a
+    row or filled a gloss, so the static halves are unioned by key — upstream's
+    row where both have one, ours filling any field upstream left empty — and
+    every evidence field is then rebuilt from the merged log.
+
+    During a rebase stage :2 is UPSTREAM and :3 is OURS (see `_union_conflict`).
+    Returns the path written, which is the contract `DERIVED` checks."""
+    import subprocess
+
+    def side(stage):
+        r = subprocess.run(["git", "show", f":{stage}:progress/lexicon.json"],
+                           cwd=LEXICON_PATH.parent.parent, capture_output=True,
+                           text=True, encoding="utf-8")
+        return json.loads(r.stdout) if r.returncode == 0 and r.stdout.strip() else {}
+
+    theirs, ours = side(2), side(3)
+    merged = {k: dict(v) for k, v in theirs.items()}
+    for word, rec in ours.items():
+        row = merged.setdefault(word, {})
+        for field, value in rec.items():
+            if field not in EVIDENCE and not row.get(field):
+                row[field] = value
+    orphans = rebuild(merged, load_json(observations.OBSERVATIONS_PATH) or [])
+    save_json(LEXICON_PATH, merged)
+    print(f"   ↳ lexicon re-merged: {len(theirs)} theirs + {len(ours)} ours -> {len(merged)} "
+          f"rows, evidence rebuilt from the log"
+          + (f"; {len(orphans)} logged words have no row" if orphans else ""))
+    return LEXICON_PATH
 
 
 def divergence(lexicon: dict, events) -> list[str]:

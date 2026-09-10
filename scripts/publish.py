@@ -44,6 +44,7 @@ from state_io import KNOCK_LOG_PATH, LOCAL_TZ, RECENT_AUDIO_PATH
 # is still true, and enforcing a rail is a different job from OWNING it. This
 # file is the delivery tail; `rails.py` answers whether a reach is permitted at
 # all, which two lanes ask long before delivery.
+import lexicon_view
 from observations import OBSERVATIONS_PATH
 from rails import in_waking_window
 
@@ -94,7 +95,9 @@ UNIONABLE = {"progress/push_queue.json": ("id", "due"),
 # while knock_log.json beside it union-resolved cleanly, losing a judged
 # exchange to a file that could have been regenerated in a millisecond.
 # Rebuild from the merged source instead of merging the output.
-DERIVED = {"progress/chat.md": render_chat}
+# lexicon.json joined 2026-09-10: its evidence half is the fold of observations.json
+# (unioned above), and its static half unions by key — see lexicon_view.remerge.
+DERIVED = {"progress/chat.md": render_chat, "progress/lexicon.json": lexicon_view.remerge}
 
 
 def _union_conflict(rel: str) -> bool:

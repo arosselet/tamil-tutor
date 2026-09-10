@@ -8,12 +8,13 @@ import argparse
 import importlib
 import json
 import re
+import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from . import _fixtures as fx
 from ._fixtures import (
-    check, read_json, REAL_BASE, Recorder, write_json,
+    check, lex_row, read_json, REAL_BASE, Recorder, write_json,
 )
 
 
@@ -337,3 +338,82 @@ def s45_concurrent_appends_merge(mk, sb: Path):
           "observations.json joined 2026-09-10: append-only by construction, three "
           "writers on two machines, and an `id` minted per event precisely so this "
           "resolver has something to dedupe on")
+
+
+def s102_two_writers_on_the_ledger_both_survive(mk, sb: Path):
+    """A rebase conflict on `lexicon.json` self-heals (2026-09-10, after run
+    34520445739 died mid-rebase and lost a judged reply). The ledger's evidence
+    is the fold of the unionable log, so two writers can only disagree about the
+    static half — and that unions by key. Same harness as s45; the assertions
+    are on what reached main, per writer, on both files."""
+    print("\n102. Two writers on the ledger both survive (2026-09-10)")
+    import subprocess as sp
+    spec = importlib.util.spec_from_file_location(
+        "pb_live2", str(Path(mk.__file__).parent / "publish.py"))
+    live = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(live)
+    check("lexicon.json is in the DERIVED table", "progress/lexicon.json" in live.DERIVED,
+          str(sorted(live.DERIVED)))
+    root = sb / "gitlab2"
+    root.mkdir(exist_ok=True)
+    origin, runner, other = root / "origin.git", root / "runner", root / "other"
+
+    def git(cwd, *a):
+        return sp.run(["git", *a], cwd=cwd, capture_output=True, text=True, encoding="utf-8")
+
+    sp.run(["git", "init", "-q", "--bare", "-b", "main", str(origin)], check=True)
+    sp.run(["git", "clone", "-q", str(origin), str(runner)], check=True)
+    git(runner, "config", "user.email", "a@b.c"); git(runner, "config", "user.name", "t")
+    (runner / "progress").mkdir()
+    base_lex = {"X": lex_row(gloss="x"), "Y": lex_row(gloss="")}
+    write_json(runner / "progress" / "lexicon.json", base_lex)
+    write_json(runner / "progress" / "observations.json", [])
+    git(runner, "add", "-A"); git(runner, "commit", "-qm", "base")
+    git(runner, "push", "-q", "origin", "HEAD:main")
+    sp.run(["git", "clone", "-q", str(origin), str(other)], check=True)
+    git(other, "config", "user.email", "a@b.c"); git(other, "config", "user.name", "t")
+
+    def ev(i, word, res):
+        return {"id": f"e{i}", "at": f"2026-09-10T1{i}:00:00Z", "word": word,
+                "channel": "session", "kind": "tested", "axis": "recognition",
+                "result": res, "source": "t", "note": ""}
+
+    # THE OTHER WRITER: tests X (one rung), mints Z, fills Y's gloss.
+    o_lex = dict(base_lex)
+    o_lex["Z"] = lex_row(gloss="z")
+    o_lex["Y"] = lex_row(gloss="filled")
+    o_lex["X"] = {**lex_row(gloss="x"), "recognition": "comfortable"}
+    write_json(other / "progress" / "lexicon.json", o_lex)
+    write_json(other / "progress" / "observations.json", [ev(1, "X", "right")])
+    git(other, "add", "-A"); git(other, "commit", "-qm", "other writer")
+    git(other, "push", "-q", "origin", "HEAD:main")
+
+    # THE RUNNER, on the stale base: tests X again (second rung) and mints W.
+    r_lex = dict(base_lex)
+    r_lex["W"] = lex_row(gloss="w")
+    r_lex["X"] = {**lex_row(gloss="x"), "recognition": "comfortable"}
+    write_json(runner / "progress" / "lexicon.json", r_lex)
+    write_json(runner / "progress" / "observations.json", [ev(2, "X", "right")])
+    live.BASE = runner
+    lv = sys.modules["lexicon_view"]
+    saved = lv.LEXICON_PATH, lv.observations.OBSERVATIONS_PATH
+    lv.LEXICON_PATH = runner / "progress" / "lexicon.json"
+    lv.observations.OBSERVATIONS_PATH = runner / "progress" / "observations.json"
+    try:
+        live.commit_and_push([runner / "progress" / "lexicon.json",
+                              runner / "progress" / "observations.json"], "Knock reply: smoke")
+        crashed = ""
+    except Exception as e:
+        crashed = f"{type(e).__name__}: {e}"
+    finally:
+        lv.LEXICON_PATH, lv.observations.OBSERVATIONS_PATH = saved
+    check("the tick survives a concurrent ledger write", not crashed, crashed)
+    lex = json.loads(git(origin, "show", "main:progress/lexicon.json").stdout or "{}")
+    obs = json.loads(git(origin, "show", "main:progress/observations.json").stdout or "[]")
+    check("both writers' events reached main", {e["id"] for e in obs} == {"e1", "e2"}, str(obs))
+    check("both writers' minted rows survive", "W" in lex and "Z" in lex, str(sorted(lex)))
+    check("a gloss one writer filled is kept",
+          lex.get("Y", {}).get("gloss") == "filled", str(lex.get("Y")))
+    check("the rung is the FOLD of both events — two passes, solid",
+          lex.get("X", {}).get("recognition") == "solid", str(lex.get("X")))
+    check("nothing is left mid-rebase", not (runner / ".git" / "rebase-merge").exists())

@@ -91,7 +91,8 @@ CODE_BUDGETS = {
     # NEW FILE, budgeted in the same diff that creates it (2026-09-10). · 150 -> 200 (2026-09-10, Phase 3).
     "scripts/backfill_observations.py": 200,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-10). · 125 -> 150 (2026-09-10, Phase 3).
-    "scripts/lexicon_view.py": 150,
+    # 150 -> 180 (2026-09-10, `remerge`): the ledger joins the rebase net's derived table, retiring the "needs a human" outcome that lost run 34520445739's judged reply.
+    "scripts/lexicon_view.py": 180,
     "scripts/generate_callbacks.py": 100,
     # 775 -> 785 (2026-08-02) for the thread-continuity window. · 570 -> 610 (2026-08-27): the reply lane gained a voice rail — the AUDIO_RE detector, ensure_voice's one-forced-re-ask backstop, and a shared speak() body. · 610 -> 560 (2026-08-28): re-censused DOWN. · 560 -> 563 (2026-09-05).
     "scripts/knock_reply.py": 563,

@@ -115,6 +115,7 @@ def main():
         run(publish.s43_sidecar_callback_never_drops_silently, sb)
         run(state.s44_a_commission_can_discharge_the_flag, sb)
         run(queue.s45_concurrent_appends_merge, mk, sb)
+        run(queue.s102_two_writers_on_the_ledger_both_survive, mk, sb)
         run(state.s46_the_commission_notice_names_the_debt, sb)
         run(state.s47_hinted_retest_rule, sb)
         run(state.s53_evidence_gates_the_ear, sb)
