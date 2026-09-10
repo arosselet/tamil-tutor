@@ -10,6 +10,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 **08:31 · Andrew** · 👍 acked  ·  ↩ 09-09 01:42 · trailer: table shield
 
+**08:34 · Anna**  ·  text / show dose: edunga
+> Handing coffee to maama or offering a snack: 'edunga' (please take / have some). That effortless -nga tail.
+
 
 ## Wednesday 2026-09-09
 

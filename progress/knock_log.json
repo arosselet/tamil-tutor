@@ -6986,5 +6986,18 @@
     "target_revealed": false,
     "response": "ack",
     "response_at": "2026-09-10T12:30:54Z"
+  },
+  {
+    "date": "2026-09-10",
+    "timestamp": "2026-09-10T12:34:52.952778+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "show dose: edunga",
+    "rationale": "5 days since last session calls for a zero-friction give; show unseen campaign-aligned 'edunga' now, re-check at lunch anchor.",
+    "next_check": "2026-09-10T16:34:52.952778+00:00",
+    "body": "Handing coffee to maama or offering a snack: 'edunga' (please take / have some). That effortless -nga tail.",
+    "expected_target": "",
+    "stance": "give",
+    "target_revealed": false
   }
 ]
