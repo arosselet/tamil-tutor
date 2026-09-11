@@ -18643,5 +18643,38 @@
     "result": "partial",
     "source": "ledger:2026-09-10",
     "note": "carried from the mutated ledger at the cutover; the observing event was never logged"
+  },
+  {
+    "id": "cf59f56c5ac3",
+    "at": "2026-09-11T17:00:53Z",
+    "word": "ராத்திரி",
+    "channel": "session",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "source": "session:2026-09-11",
+    "note": "first contact — row created at struggled"
+  },
+  {
+    "id": "13b879eabf3b",
+    "at": "2026-09-11T17:00:53Z",
+    "word": "வராது",
+    "channel": "session",
+    "kind": "tested",
+    "axis": "recognition",
+    "result": "right",
+    "source": "session:2026-09-11",
+    "note": "recognized in session"
+  },
+  {
+    "id": "40e367ec4a2b",
+    "at": "2026-09-11T17:00:53Z",
+    "word": "என்ன சமைக்கிற?",
+    "channel": "session",
+    "kind": "tested",
+    "axis": "recognition",
+    "result": "wrong",
+    "source": "session:2026-09-11",
+    "note": "failed cold recall"
   }
 ]

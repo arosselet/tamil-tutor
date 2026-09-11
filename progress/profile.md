@@ -4,7 +4,7 @@
 > **Read by:** `protocol/studio/director.md` and `protocol/daily_session.md` before picking targets.
 > **Purpose:** A teacher's living *judgment* of Andrew — not counts. The hard numbers (recognition buckets, production axis, viability floor) live in `progress/lexicon.json`; read them with `python scripts/sync_state.py status`. This file says what they *mean* and where to point next.
 >
-> **Last updated:** 2026-09-10 (@build: the Touchdown Doctrine, the Native-Media Lane, Session Conduct and the Receptive Growth Log left for the files that own them; the campaign block cut to its through-line)
+> **Last updated:** 2026-09-11 (Anna: the campaign block re-read — respect-nga is an address problem; @build 09-10: the Touchdown Doctrine, the Native-Media Lane, Session Conduct and the Receptive Growth Log left for the files that own them; the campaign block cut to its through-line)
 
 ---
 
@@ -24,13 +24,14 @@
 **🎯 The Declining Set, Rehearsed For Next Summer** (rewritten 2026-09-10 on return; replaces *The Table Is The Teacher*, which did its month — day 3 paid *saapidalaamaa* unprompted, and the last rehearsal found the ending the whole set rides on). The room is gone; chat, the tapes and the knocks supply the situations now. **The through-line is unchanged: the declining set, not the receiving set** — *podhum / vendaam*, *naane eduthukkaren*, *neenga saapdunga* — and every line in it is spoken TO an elder, so **the -nga ending is the one moving part** (`respect-nga`, 09-05: three swings at an elder in ten minutes, not one -nga).
 
 **Live medicine:**
-- `respect-nga` — matched pairs on one verb, plain then -nga, nothing else moving; the drill was commissioned 09-05 and the ambush is unspent. **வா stays out of every chat production slot until the ambush.**
-- `noun-for-verb` / `grab-the-owned-one` — his nouns are strong and his hand reaches for them, so the verb never has to fire, and a freshly taught set is where it hides best. Watch the noun exit on every production ask; never commissioned, owed a dose.
+- `respect-nga` → re-read 09-11 as **`nga-has-no-address`**. He did not fail to learn the ending; he learned it too well and now sprays it at the nearest word — onto nouns (*nandri-nga*, *semayanga*) and onto his own actions (*sonnanga*, which hands the line to somebody else). The matched-pair drill taught the ending and never taught it a **target**, so escalation is a **decomposition**, not another loop: one root, every tail, who each tail points at (-ren me, -nga you, -aanga them). **வா stays out of every chat production slot until the ambush — still unspent, and it only counts unannounced.**
+- `noun-for-verb` / `grab-the-owned-one` — his nouns are strong and his hand reaches for them, so the verb never has to fire, and a freshly taught set is where it hides best. Watch the noun exit on every production ask. 3× as of 09-11 and **commissioned that day to the episode lane** (he hears the difference; his mouth takes the noun, so the verb must be seen doing work under load).
+- `default-la-tail` — new 09-11, and it re-reads an old entry: when he does not know which tail goes on the end, his hand grabs **-la**, which always comes out meaning *no* (*toongala* for *thookkam varaadhu*; *ukarala* 09-05 for *ukkaarunga*). He keeps handing elders negatives he never meant.
 - `come-go-direction` — two shapes: an empty slot filled with the frequency default (`po`, "will" — the `-r-` of *right now* is unstressed and lands as silence), and a compound where the last verb owns what happened. Check which shape before re-ordering; *vandhutten* = came to where WE are is deixis, not morphology.
 
 **Standing methods (keep; do not re-derive):** commission the dose, hold the word out of chat, ambush unannounced days later — three for three. A tail is only audible on a stem the ear knows cold; check the stem before blaming the tail. Not every repeated slip is owed a dose — some are owed evidence, some a day. Build every drill out of his own pockets. Teach the positive before demanding the negative. Never date-drive a scene. He tests the rules he is given and is right to; give him the flexible truth, never a false absolute.
 
-**Owed at next open:** the *adhukku appuram* debrief (twice unbanked) and *vendaanga* at the plate — contact, never evidence.
+**Owed at next open:** the *neenga saapdunga* collect — the positive twin of the plate op, aimed at whoever is serving while everyone else eats. Contact, never evidence. (*adhukku appuram* was collected 09-11 and landed; the *vendaanga* plate op did not fire and stays loaded.)
 
 **Standing catch order (renewable):** one word overheard — off the tapes now, off the sisters next summer.
 

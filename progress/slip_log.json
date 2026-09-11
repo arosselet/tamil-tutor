@@ -869,5 +869,41 @@
     "note": "-nga fuses right onto the verb for elders",
     "word": "வேண்டாங்க",
     "dose_channel": "drill"
+  },
+  {
+    "at": "2026-09-11T17:00:52Z",
+    "date": "2026-09-11",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "noun-for-verb",
+    "said": "enna semayanga",
+    "want": "enna samaikkireenga",
+    "note": "his hand grabs the noun, so the verb never fires - and then -nga has no verb to land on",
+    "word": "என்ன சமைக்கிற?",
+    "dose_channel": "episode"
+  },
+  {
+    "at": "2026-09-11T17:00:52Z",
+    "date": "2026-09-11",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "nga-has-no-address",
+    "said": "naalaiku sonnanga",
+    "want": "naalaikku naan phone panren",
+    "note": "the tail names the person; he puts -nga on his own action and hands the line to someone else",
+    "word": "",
+    "dose_channel": "episode"
+  },
+  {
+    "at": "2026-09-11T17:00:52Z",
+    "date": "2026-09-11",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "default-la-tail",
+    "said": "toongala",
+    "want": "thookkam varaadhu",
+    "note": "an unknown tail defaults to -la, which always comes out meaning NO",
+    "word": "",
+    "dose_channel": "episode"
   }
 ]

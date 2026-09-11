@@ -3572,16 +3572,16 @@
       "enna samaikkira?",
       "enna samaikkireenga"
     ],
-    "recognition": "comfortable",
+    "recognition": "struggled",
     "production": "hinted",
     "seen_in": [
       53
     ],
-    "last_surfaced": "2026-08-23",
-    "reps": 4,
+    "last_surfaced": "2026-09-11",
+    "reps": 5,
     "exposures": 1,
     "taught_on": "2026-07-01",
-    "heard_on": "2026-08-23"
+    "heard_on": "2026-09-11"
   },
   "சுவையா இருக்கு": {
     "gloss": "It's tasty",
@@ -5718,5 +5718,28 @@
     "seen_in": [],
     "last_surfaced": "2026-09-06",
     "exposures": 1
+  },
+  "ராத்திரி": {
+    "gloss": "",
+    "phonetic": [
+      "raathiri"
+    ],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-09-11",
+    "taught_on": "2026-09-11"
+  },
+  "வராது": {
+    "gloss": "",
+    "phonetic": [
+      "varaadhu"
+    ],
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-09-11",
+    "reps": 1,
+    "heard_on": "2026-09-11"
   }
 }
