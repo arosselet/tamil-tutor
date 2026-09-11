@@ -7068,5 +7068,18 @@
     "expected_target": "",
     "stance": "lure",
     "target_revealed": false
+  },
+  {
+    "date": "2026-09-11",
+    "timestamp": "2026-09-11T21:29:48.892975+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "trailer payoff: counter-serve",
+    "rationale": "Evening payoff for the counter-serve trailer: giving 'neenga saapdunga' with zero demand, arming him for dinner and resetting the demand streak.",
+    "next_check": "2026-09-12T11:29:48.892975+00:00",
+    "body": "Athai hovering with the ladle while everyone eats? The counter: 'neenga saapdunga' (you eat, please). Takes the pressure right off.",
+    "expected_target": "",
+    "stance": "give",
+    "target_revealed": false
   }
 ]

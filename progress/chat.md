@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **10:46 · Anna**  ·  text / trailer: counter-serve
 > Athai hovering with the ladle after 'vendaanga' (no, please)? The counter that tells an elder to eat first. Today's lunch session.
 
+**17:29 · Anna**  ·  text / trailer payoff: counter-serve
+> Athai hovering with the ladle while everyone eats? The counter: 'neenga saapdunga' (you eat, please). Takes the pressure right off.
+
 
 ## Thursday 2026-09-10
 
