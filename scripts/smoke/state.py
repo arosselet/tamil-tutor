@@ -3836,3 +3836,84 @@ def s103_the_escalation_names_the_lane_that_is_left(sb: Path):
         if saved[0] is not None:
             slip_path.write_bytes(saved[0])
         learner_path.write_bytes(saved[1])
+
+
+def s104_a_render_that_could_not_claim_stops_asking(sb: Path):
+    """An episode order that its own episode could not carry (2026-09-11).
+
+    `soak_pending` clears an episode order by finding the payload in the newest
+    episode's word list, and `run_studio.claim_payload` injects the commissioned
+    payload into the sidecar first — but only for a key `payload_present` can
+    find in the script. When it cannot, that fact reached one line of a render
+    log and nothing else. M91 rendered, published and committed against
+    சமைக்கிற while the script said சமைக்குறீங்க — one verb, a Kongu spelling of
+    the tense marker the stem rule cannot bridge — and the order stayed at NOT
+    YET PRODUCED, so every session open after it would have dispatched another
+    episode. The 07-23 three-episodes-in-one-evening loop, new trigger.
+
+    The dispatch question and the evidence question are not the same question.
+    The word list still answers "did the payload land" and still under-claims;
+    the recorded attempt answers "has this order had its render" and bounds the
+    loop at one.
+
+    Gate 7.2 — the silent no-op cuts BOTH ways here, so both are asserted: an
+    unstamped order must still arm (or the stamp is not what bounds it), and a
+    stalled order must never read "produced ✓" (an episode that demonstrably
+    did not carry the payload reporting success is the worse bug)."""
+    print("\n104. A render that could not claim stops asking (2026-09-11)")
+    import contextlib
+    sio = importlib.import_module("state_io")
+    sbf = importlib.import_module("session_brief")
+    learner_path = sb / "progress" / "learner.json"
+    eps_path = sb / "progress" / "episodes.json"
+    saved = (learner_path.read_bytes(), eps_path.read_bytes())
+    WORD, OTHER = "ஸ்மோக்குபேலோட்", "ஸ்மோக்குவேற"
+
+    def brief_line():
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            sbf.cmd_status(None)
+        return next((l for l in out.getvalue().splitlines()
+                     if l.startswith("Soak order")), "")
+
+    try:
+        eps = read_json(eps_path)
+        eps["999"] = {"title": "Mission 999", "words": [OTHER], "duration_min": 1.0}
+        write_json(eps_path, eps)
+        learner = read_json(learner_path)
+        learner["soak_order"] = {"payload": [WORD], "channel": "episode",
+                                 "scene_seed": "a smoke scene", "from": sio.local_today().isoformat()}
+        write_json(learner_path, learner)
+
+        check("an order the newest episode did not carry is ARMED",
+              sio.soak_pending(), "nothing would ever dispatch this order")
+        check("...and the brief says so", "NOT YET PRODUCED" in brief_line(), brief_line())
+
+        # The render happened and could not claim the payload.
+        sio.mark_soak_attempted("999", [WORD])
+        check("a recorded attempt disarms the dispatch — the loop is bounded at one",
+              not sio.soak_pending(), "the order would dispatch a second episode")
+        line = brief_line()
+        check("...and the brief says STALLED, naming the episode and the key",
+              "STALLED" in line and "M999" in line and WORD in line, line)
+        check("...and NEVER claims the episode carried it",
+              "produced ✓" not in line, line)
+
+        # A stamp older than the order is a previous week's render.
+        learner = read_json(learner_path)
+        learner["soak_order"]["attempted"]["at"] = "2020-01-01"
+        write_json(learner_path, learner)
+        check("a stamp predating the order does not disarm it",
+              sio.soak_pending(), "last week's render cleared this week's ask")
+
+        # The happy path still clears through registration, not the stamp.
+        eps = read_json(eps_path)
+        eps["999"]["words"] = [OTHER, WORD]
+        write_json(eps_path, eps)
+        check("an episode that DID register the payload clears the order",
+              not sio.soak_pending())
+        check("...and reads produced, not stalled",
+              "produced ✓" in brief_line() and "STALLED" not in brief_line(), brief_line())
+    finally:
+        learner_path.write_bytes(saved[0])
+        eps_path.write_bytes(saved[1])

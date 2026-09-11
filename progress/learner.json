@@ -10,7 +10,14 @@
     "scene_seed": "athai fielding four people at once in her kitchen, saying what she is doing rather than what is already on the table",
     "from": "2026-09-11",
     "focus": "THE VERB MUST FIRE AND THE NOUN IS THE TRAP. Build every beat so the lazy answer is the noun (samayal, kaapi, velai) and the line only works when the verb carries it (samaikkira, kudukkira, paakkira). Same root shown twice under load - once as the thing, once as the doing, close together, with the verb always the one that answers the question. Keep the endings OUT of the contrast: one axis only, do not permute the person or stack a -nga onto it. Never name a rule, never say noun or verb, never explain the difference. THIS BRIEF IS FOR YOU, NOT FOR HIM: say nothing in the intro, outro or any cue about what he got wrong, how often, or that this is a repair. No counts, no tally. He is doing reps, not reading a report.",
-    "channel": "episode"
+    "channel": "episode",
+    "attempted": {
+      "at": "2026-09-11",
+      "episode": "91",
+      "unclaimed": [
+        "சமைக்கிற"
+      ]
+    }
   },
   "next_engine": "frame:polite-nga",
   "focus_cohort": [

@@ -319,7 +319,37 @@ def soak_pending() -> bool:
         return False
     episodes = load_json(EPISODES_PATH) or {}
     newest = episodes[max(episodes, key=int)].get("words", []) if episodes else []
-    return not all(w in newest for w in resolved)
+    if all(w in newest for w in resolved):
+        return False
+    # A RENDER ALREADY RAN AGAINST THIS ORDER AND COULD NOT CLAIM IT (2026-09-11).
+    # `claim_payload` injects the commissioned payload into the sidecar so the
+    # registration carries it, but only for a key `payload_present` can find in
+    # the script; when it cannot, it prints one line into a render log and the
+    # order stays here saying "dispatch now" FOR EVER. M91 rendered, published
+    # and committed against சமைக்கிற while the script said சமைக்குறீங்க — the
+    # same verb, a Kongu spelling of the tense marker the stem rule cannot
+    # bridge — and every session open after it would have dispatched another.
+    # That is the 07-23 three-episodes-in-one-evening loop with a new trigger.
+    # The dispatch question and the evidence question are NOT the same question:
+    # the word list still answers "did the payload land" and still under-claims,
+    # while a recorded attempt answers "has this order had its render" and
+    # bounds the loop at one. The brief reads the same stamp and says STALLED
+    # rather than the lie it would otherwise print.
+    return not ((soak.get("attempted") or {}).get("at", "") >= (soak.get("from") or ""))
+
+
+def mark_soak_attempted(episode: str, unclaimed: list[str]) -> None:
+    """Record that a render ran against the standing order — the seam that did
+    the work declares it, the same law as `mark_soak_delivered` and the slip
+    commission book. Written on a SUCCESSFUL render only: a stamp for a render
+    that never landed would retire an order nothing carried."""
+    learner = load_json(LEARNER_PATH) or {}
+    if not (learner.get("soak_order") or {}):
+        return
+    learner["soak_order"]["attempted"] = {
+        "at": local_today().isoformat(), "episode": str(episode),
+        "unclaimed": list(unclaimed)}
+    save_json(LEARNER_PATH, learner)
 
 
 def is_unseen(rec: dict) -> bool:

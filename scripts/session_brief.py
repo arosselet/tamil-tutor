@@ -282,9 +282,22 @@ def cmd_status(_args):
         # `resolved` is non-empty by the time `produced` is consulted: an
         # unresolvable payload takes the branch below before this is read.
         produced = not soak_pending()
+        # STALLED reads before produced, because `soak_pending` answers the
+        # DISPATCH question and a stalled order answers it the same way a carried
+        # one does. Without this branch the brief would print "produced ✓ (the
+        # episode lane carried it)" over an episode that demonstrably did not
+        # (2026-09-11) — a state indistinguishable from success, which is the
+        # shape of bug this repo keeps finding.
+        att = soak.get("attempted") or {}
+        stalled = (att.get("unclaimed") and (att.get("at") or "") >= (soak_from or ""))
         if unresolved:
             drain = (f" · ⚠ payload unverifiable ({', '.join(unresolved)}) — fix the soak "
                      f"order; NOT dispatching on an item that can never match")
+        elif stalled:
+            drain = (f" · ⚠ STALLED — M{att['episode']} rendered against this order on "
+                     f"{att['at']} but could not carry {', '.join(att['unclaimed'])} "
+                     f"(the script said it another way). NOT re-dispatching. Re-order "
+                     f"the payload in the form the script can carry, or take the next item.")
         elif produced:
             drain = f" · produced ✓ (the {channel} lane carried it — no dispatch needed)"
         else:

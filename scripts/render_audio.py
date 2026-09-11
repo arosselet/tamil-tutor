@@ -598,6 +598,23 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
 
     save_json(EPISODES_PATH, episodes)
 
+    # WHAT THE ORDER ASKED FOR AND THIS EPISODE DID NOT REGISTER (2026-09-11).
+    # `soak_pending` clears an episode order by finding the payload in this very
+    # word list, and `run_studio.claim_payload` injects it beforehand — but only
+    # for a key `payload_present` can find in the script. When it cannot, that
+    # fact reached one line of a render log and nothing else: M91 rendered,
+    # published and committed against சமைக்கிற while the script said
+    # சமைக்குறீங்க — one verb, a Kongu spelling of the tense marker the stem
+    # rule cannot bridge — and the order stayed at NOT YET PRODUCED, so every
+    # session open after it would have dispatched another episode. That is the
+    # 07-23 three-in-one-evening loop with a new trigger. Recording the attempt
+    # bounds it at one and lets the brief say STALLED instead of "produced ✓".
+    from state_io import mark_soak_attempted, split_payload
+    order = (load_json(BASE / "progress" / "learner.json") or {}).get("soak_order") or {}
+    if (order.get("channel") or "episode") == "episode" and order.get("payload"):
+        wanted, _ = split_payload(order["payload"], lexicon)
+        mark_soak_attempted(mission_num, [w for w in wanted if w not in cleaned_words])
+
     # Delivery seam (2026-07-26 ledger law): the episode going out the door IS
     # the exposure — recorded at registration, not on a confirmed listen. TAUGHT
     # IS NOT APPEARED (2026-09-01, Andrew): only a `new_words_landed` payload is a
