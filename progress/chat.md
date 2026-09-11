@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Friday 2026-09-11
+
+**10:46 · Anna**  ·  text / trailer: counter-serve
+> Athai hovering with the ladle after 'vendaanga' (no, please)? The counter that tells an elder to eat first. Today's lunch session.
+
+
 ## Thursday 2026-09-10
 
 **08:30 · Andrew** · 👍 acked  ·  ↩ 09-09 19:44 · trailer payoff: table shield
