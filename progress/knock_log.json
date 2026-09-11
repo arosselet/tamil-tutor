@@ -7046,5 +7046,14 @@
         "scheduled": ""
       }
     ]
+  },
+  {
+    "date": "2026-09-11",
+    "timestamp": "2026-09-11T00:44:47.086994+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "evening curfew hold",
+    "rationale": "20:44 EDT is 16 minutes from the 21:00 quiet hours; he engaged on the vendaanga recast earlier today, so hold until morning.",
+    "next_check": "2026-09-11T12:02:47.086994+00:00"
   }
 ]
