@@ -1,0 +1,24 @@
+{
+  "mission": 91,
+  "register": "grief/nostalgia",
+  "dramatic_ingredient": "stakes",
+  "episode_form": "phone_call",
+  "shape": "transaction",
+  "location_class": "kitchen",
+  "energy": "medium-loud",
+  "intercept_tamil_density": 0.65,
+  "breakdown_tamil_density": 0.1,
+  "fence_size": 40,
+  "unfenced_words": 0,
+  "new_words_landed": {},
+  "callbacks_used": {
+    "பாத்துக்க": 3,
+    "குடு": 2,
+    "வை": 1
+  },
+  "host_roles": {
+    "A": "distracted_multitasker",
+    "B": "eager_nephew"
+  },
+  "notes": "No Architect brief was on disk for mission 91 (only the draft was handed to this pass); payload keys were inferred from what actually repeats. Treated 'பாத்துக்க' as a callback, not a new landing — it was mission 90's NEW word, so its return here is spaced repetition, not first contact. Dropped 'தூக்கு' from the sidecar entirely: the only occurrence is the infinitive 'தூக்க', and its root string does not survive as a literal substring, so it doesn't clear the payload-fidelity bar cleanly — safer to omit than risk a false claim. Same reasoning kept 'வை' at 1 (only 'வையேன்' counts; 'வச்சிருக்கேன்' is the irregular past-stem allomorph, not a suffixed form of the literal root). Dialect pass: collapsed six literary -கிறேன்/-கிறேன்-family verbs to spoken -கறேன்/-குறேன் (சமைக்கிறேன்→சமைக்குறேன், குடுக்கிறேன்→குடுக்கறேன், பாக்கிறேன்→பாக்கறேன், வைக்கிறேன்→வைக்கறேன்), collapsed வேண்டாம்→வேணாம் twice, fixed a broken participle (போகுற முன்னாடி→போற முன்னாடி), normalized கொடு→குடு for spoken consistency with Host B's குடுங்க, and fixed one register slip where Host A addressed Host B with the polite -ஈங்க mid-outburst (பாத்துக்கிட்டு இருக்கீங்க) when every other line between them uses her established nee-register (→ பாத்துக்கிட்டு இருக்கியா). Updated the four Breakdown quotes to match the corrected Intercept lines verbatim. No -ங்க landed on any first-person verb (வரேன், இருக்கேன்-class forms untouched). No send-back: hosts stay distinct (A carries the phone thread and the emotional undertow, B carries the physical chaos), pacing holds a pause at least every 4-7 lines, no wall-of-text runs."
+}

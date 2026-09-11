@@ -2289,9 +2289,10 @@
       33,
       35
     ],
-    "last_surfaced": "2026-09-10",
+    "last_surfaced": "2026-09-11",
     "taught_on": "2026-02-24",
-    "reps": 1
+    "reps": 1,
+    "exposures": 1
   },
   "நிஜமா?": {
     "gloss": "Really?",
@@ -5555,7 +5556,7 @@
     "seen_in": [
       90
     ],
-    "last_surfaced": "2026-08-19",
+    "last_surfaced": "2026-09-11",
     "exposures": 1,
     "reps": 2,
     "taught_on": "2026-08-19"
