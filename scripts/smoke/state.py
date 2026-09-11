@@ -3721,3 +3721,118 @@ def s101_the_check_and_the_rating_are_ear_evidence(sb: Path):
     finally:
         lex_path.write_bytes(saved[0])
         fb_path.write_bytes(saved[1])
+
+
+def s103_the_escalation_names_the_lane_that_is_left(sb: Path):
+    """"Change the format" is half a rule until it says TO WHAT (2026-09-11).
+
+    `audio_channels.md` has carried "change the format, never loop harder" since
+    07-28, and `slip_patterns` has built `channels` — every lane ever tried for a
+    tag — with a comment saying that is so "which formats have been tried is one
+    answer". Both render sites then printed `channels[0]`: the OLDEST lane, and
+    nothing about what remained. The ledger held the answer and withheld it.
+
+    Worse, `escalate` required `len(channels) == 1`, so the warning went SILENT
+    the moment a second format was tried — it stopped talking exactly where the
+    evidence got strongest.
+
+    And the NEVER COMMISSIONED notice in the digest read "owed a soak order",
+    the only lane this ledger ever named, named unconditionally for every error
+    type, while its own sibling in `cmd_slips` read "owed a dose". The digest is
+    the copy Anna reads at every close: twelve consecutive orders went soak or
+    drill and the episode lane went 27 days unreached (2026-08-15 to 09-11).
+
+    Gate 7.2 — the silent no-op is a notice whose words are wrong, which looks
+    exactly like a notice whose words are right. So every assertion here is on
+    the CONTENT: the untried lanes are named, the tried one is never offered
+    back, the notice survives a second and third lane, and no advice names a
+    lane by default."""
+    print("\n103. The escalation names the lane that is left (2026-09-11)")
+    import contextlib
+    ss = importlib.import_module("sync_state")
+    sl = importlib.import_module("slips")
+    slip_path = sb / "progress" / "slip_log.json"
+    learner_path = sb / "progress" / "learner.json"
+    saved = (slip_path.read_bytes() if slip_path.exists() else None,
+             learner_path.read_bytes())
+
+    def days_ago(n):
+        return (ss.local_today() - timedelta(days=n)).isoformat()
+
+    def digest():
+        return "\n".join(sl.format_slip_block(sl.slip_patterns(), limit=20))
+
+    try:
+        # A clean ledger, and NO standing order — so every lane in `channels`
+        # got there by a declared commission and nothing by a legacy stamp.
+        slip_path.write_text("[]", encoding="utf-8")
+        learner = read_json(learner_path)
+        for k in ("slip_closes", "slip_commissions"):
+            learner.pop(k, None)
+        learner["soak_order"] = {}
+        write_json(learner_path, learner)
+
+        def slip_on(tag, when):
+            with contextlib.redirect_stdout(io.StringIO()):
+                sl.append_slips([{"tag": tag, "said": "a", "want": "b"}],
+                                lane="chat", when=when)
+
+        def commission(tag, channel, when):
+            with contextlib.redirect_stdout(io.StringIO()):
+                sl.record_slip_commission(
+                    [tag], {"channel": channel, "payload": ["x"]}, today=when)
+            booked = [c.get("channel") for c in sl.slip_commissions().get(tag, [])]
+            check(f"...the {channel} dose is booked against the tag",
+                  channel in booked, str(booked))
+
+        # One lane tried, then he slips again.
+        slip_on("esc-tag", days_ago(6))
+        slip_on("esc-tag", days_ago(5))
+        commission("esc-tag", "soak", days_ago(4))
+        slip_on("esc-tag", days_ago(2))
+        out = digest()
+        check("one lane tried: the escalation names the two that are left",
+              "soak tried; episode and drill untried" in out,
+              [l for l in out.splitlines() if "ESCALATE" in l])
+        check("...and never offers back the lane that just failed",
+              "soak untried" not in out and "drill and soak untried" not in out, out[:400])
+
+        # A SECOND lane tried and he slips again — the case the `== 1` guard
+        # silenced. The notice must get louder here, not disappear.
+        commission("esc-tag", "drill", days_ago(2))
+        slip_on("esc-tag", days_ago(1))
+        pats = {p["tag"]: p for p in sl.slip_patterns()}
+        check("two lanes tried: the escalation still fires (it went silent before)",
+              pats["esc-tag"]["escalate"], "escalate went quiet on the second lane")
+        out = digest()
+        check("...and names the one lane nobody has tried",
+              "soak and drill tried; episode untried" in out,
+              [l for l in out.splitlines() if "ESCALATE" in l])
+
+        # Every lane tried: a different finding, not a quieter one.
+        commission("esc-tag", "episode", days_ago(1))
+        out = digest()
+        check("all lanes tried: it says the repair has outgrown the audio surface",
+              "outgrown the audio lanes" in out,
+              [l for l in out.splitlines() if "ESCALATE" in l])
+
+        # The debt notice must not name a lane by default.
+        slip_on("bare-debt", days_ago(3))
+        slip_on("bare-debt", days_ago(1))
+        out = digest()
+        check("an uncommissioned debt is owed a DOSE, not a named lane",
+              "owed a dose" in out and "owed a soak order" not in out,
+              [l for l in out.splitlines() if "NEVER COMMISSIONED" in l])
+        check("...and the flag line makes the lane an explicit choice",
+              "--soak-channel <lane>" in out,
+              [l for l in out.splitlines() if "--soak-payload" in l])
+
+        # The lane list has exactly one owner.
+        check("the commissionable lanes are one list, shared with the flag",
+              set(sl.DOSE_CHANNELS) == {"episode", "soak", "drill"}
+              and list(ss.DOSE_CHANNELS) == list(sl.DOSE_CHANNELS),
+              str(sl.DOSE_CHANNELS))
+    finally:
+        if saved[0] is not None:
+            slip_path.write_bytes(saved[0])
+        learner_path.write_bytes(saved[1])

@@ -35,6 +35,15 @@ SLIP_RETIRE_DAYS = 21
 # Recurrence that makes a slip a pattern rather than a one-off — the same bar
 # protocol/diagnosis.md sets for the system's own bugs: one is noise, two is signal.
 SLIP_PATTERN_COUNT = 2
+# The lanes a dose can be commissioned to, and the ONE list of them: read by
+# sync_state's --soak-channel choices and by escalation_note below, which names
+# the lanes not yet tried. It is one list because two copies of this rule is
+# exactly how the escalation came to name a lane by taste (2026-09-11): the
+# NEVER COMMISSIONED notice in the digest read "owed a soak order" while its
+# own sibling in `cmd_slips` read "owed a dose", and the digest is the copy Anna
+# reads at every close. Twelve consecutive orders went soak or drill and the
+# episode lane went 27 days unreached.
+DOSE_CHANNELS = ("episode", "soak", "drill")
 
 
 
@@ -357,14 +366,46 @@ def slip_patterns(log: list | None = None, today=None) -> list[dict]:
         dosed_since = min(
             [c["at"] for c in agg["commissions"] if c.get("at")] or [""]) or ""
         agg["slipped_after_dose"] = bool(dosed_since) and (agg["last"] or "") > dosed_since
+        # `len(channels) == 1` until 2026-09-11, which had it backwards twice
+        # over: the warning went SILENT once a second format had been tried —
+        # the moment the pattern is worst-evidenced — and its one-lane premise
+        # is what let both render sites print `channels[0]` as if it were the
+        # whole answer. A dose was built and he slipped anyway; how many lanes
+        # that took only makes it louder. When every lane has been tried the
+        # notice says so, which is a different finding, not a quieter one.
         agg["escalate"] = (agg["pattern"] and agg["live"]
-                           and len(agg["channels"]) == 1
+                           and bool(agg["channels"])
                            and agg["slipped_after_dose"])
         out.append(agg)
     # Live first, then the unverified rechecks, then everything settled.
     out.sort(key=lambda a: (a["live"] and a["pattern"], a["unverified"],
                             a["last"] or "", a["count"]), reverse=True)
     return out
+
+
+def escalation_note(channels) -> str:
+    """"soak tried; drill and episode untried" — the half of the rule that says
+    change the format TO WHAT.
+
+    `audio_channels.md` has said "change the format, never loop harder" since
+    07-28, and both places that printed it named `channels[0]` — the OLDEST lane
+    tried — and then stopped, so the one question the reader has was the one
+    answer the ledger withheld while holding it in hand. Tried keeps the order
+    the doses were commissioned in; the remainder is listed in DOSE_CHANNELS
+    order. Every lane tried is not "no advice available": it says the repair has
+    outlived the audio surface, which is worth hearing plainly."""
+    tried = [c for c in channels if c in DOSE_CHANNELS]
+    left = [c for c in DOSE_CHANNELS if c not in tried]
+    if not tried:
+        return "a dose was built and he slipped again"
+    if not left:
+        return "every lane tried and it still slips — this has outgrown the audio lanes"
+    return f"{_and_join(tried)} tried; {_and_join(left)} untried"
+
+
+def _and_join(items) -> str:
+    items = list(items)
+    return ", ".join(items[:-1]) + " and " + items[-1] if len(items) > 1 else "".join(items)
 
 
 def _span_days(first: str, last: str) -> int:
@@ -420,13 +461,19 @@ def format_slip_block(patterns: list[dict], limit: int = 6) -> list[str]:
             # the mechanism carries the rule (2026-07-31).
             lines.append("      ⚠ NEVER COMMISSIONED — corrected in passing every "
                          "time and no dose was ever built for it. This one is owed "
-                         "a soak order, not another recast.")
+                         "a dose, not another recast.")
+            # "a soak order" until 2026-09-11 — the only lane this ledger ever
+            # named, named unconditionally, for every error type. `cmd_slips`
+            # said "a dose" all along. The flag line names --soak-channel for
+            # the same reason: its default is `episode`, so omitting it was a
+            # lane chosen by silence rather than by the error.
             lines.append(f"        → order it, then DECLARE it in the same close: "
-                         f"--soak-payload … --slip-commissioned {p['tag']}")
+                         f"--soak-payload … --soak-channel <lane> "
+                         f"--slip-commissioned {p['tag']}")
         elif p["escalate"]:
-            lines.append(f"      ⚠ ESCALATE — a {p['channels'][0]} dose was built "
-                         f"for this and he slipped again. audio_channels.md: change "
-                         f"the format, never loop harder.")
+            lines.append(f"      ⚠ ESCALATE — a dose was built and he slipped "
+                         f"again: {escalation_note(p['channels'])}. "
+                         f"audio_channels.md: change the format, never loop harder.")
     if len(live) > limit:
         lines.append(f"  … {len(live) - limit} more live slip(s) behind these")
     if unverified:
@@ -495,7 +542,7 @@ def cmd_slips(args):
         if p["uncommissioned"]:
             print("        ⚠ NEVER COMMISSIONED — owed a dose, not another recast.")
         elif p["escalate"]:
-            print(f"        ⚠ ESCALATE — {p['channels'][0]} was tried; change format.")
+            print(f"        ⚠ ESCALATE — {escalation_note(p['channels'])}.")
         if p["unverified"]:
             print("        ○ never confirmed landed — test it, then --tested "
                   f"{p['tag']}:landed|missed")

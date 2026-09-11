@@ -18676,5 +18676,27 @@
     "result": "wrong",
     "source": "session:2026-09-11",
     "note": "failed cold recall"
+  },
+  {
+    "id": "1e40ef61c2d5",
+    "at": "2026-09-11T18:34:58Z",
+    "word": "பாத்துக்க",
+    "channel": "episode",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "source": "episode:M91",
+    "note": ""
+  },
+  {
+    "id": "1503076889ab",
+    "at": "2026-09-11T18:34:58Z",
+    "word": "வை",
+    "channel": "episode",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "source": "episode:M91",
+    "note": ""
   }
 ]

@@ -34,8 +34,9 @@ from datetime import date, timedelta
 from pathlib import Path
 
 from language import is_tamil
-from slips import (append_slips, canon_tag, cmd_slips, parse_slip_args,
-                   record_slip_commission, record_slip_test, slip_patterns)
+from slips import (DOSE_CHANNELS, append_slips, canon_tag, cmd_slips,
+                   parse_slip_args, record_slip_commission, record_slip_test,
+                   slip_patterns)
 from publish import commit_and_push, publish
 from rebuild_rss import feed_items
 from suggest_targets import reconcile_focus
@@ -1185,7 +1186,7 @@ def main():
                     help="What the next dose PERMUTES, free text ('the -aachu tail over "
                          "po and mudi') — a carousel brief, not a word list")
     up.add_argument("--soak-channel", type=str, default=None,
-                    choices=["episode", "soak", "drill"],
+                    choices=list(DOSE_CHANNELS),
                     help="Which lane renders the order (default: episode). Capacity "
                          "routes this, never the curriculum — protocol/audio_channels.md")
     # Deferred import: suggest_targets imports THIS module, so a module-level
