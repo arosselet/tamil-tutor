@@ -7081,5 +7081,14 @@
     "expected_target": "",
     "stance": "give",
     "target_revealed": false
+  },
+  {
+    "date": "2026-09-12",
+    "timestamp": "2026-09-12T14:46:50.725267+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "eavesdrop: youknow-la",
+    "rationale": "Overdue eavesdrop catch cadence; testing recognition of gossip opener 'namma ... irukkaanla' via an overheard phone tape.",
+    "next_check": "2026-09-12T18:46:50.725267+00:00"
   }
 ]
