@@ -7090,5 +7090,14 @@
     "move": "eavesdrop: youknow-la",
     "rationale": "Overdue eavesdrop catch cadence; testing recognition of gossip opener 'namma ... irukkaanla' via an overheard phone tape.",
     "next_check": "2026-09-12T18:46:50.725267+00:00"
+  },
+  {
+    "date": "2026-09-12",
+    "timestamp": "2026-09-12T19:59:10.497319+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "eavesdrop: youknow-la",
+    "rationale": "Eavesdrop overdue by 4d with 29 catch items pending; tests frame:youknow-la via Karthik's errand slip.",
+    "next_check": "2026-09-12T23:59:10.497319+00:00"
   }
 ]
