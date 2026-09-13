@@ -1087,8 +1087,18 @@ def cmd_rate_episode(args):
     # and for a numbered mission the words it carried are exposed on that
     # evidence — `--listened` and the `listened` tap, which nothing ever sent,
     # retired in its favour. `ear_block_days` reads these rows.
+    #
+    # AND IT IS THE ATTENDANCE SIGNAL (2026-09-13). `kind="attended"` is the
+    # whole of what let audio teach again. The teach gate stopped trusting render
+    # stamps (s105), which left the audio lane able to say a new word but never
+    # to open it — and the proof it was missing had been sitting in this lane
+    # since 09-10, emitting the weaker of the two facts it actually knows. A tape
+    # renders Monday and opens its words the day he presses play, which is the
+    # correct order. Attendance discharges a pending Teach Beat and never mints
+    # one, so rating a tape still cannot teach a word the tape never taught.
     ep = (load_json(EPISODES_PATH) or {}).get(str(item["id"]), {})
-    exposed = lexicon_view.expose(ep.get("words", []), "episode", source=f"rating:{item['id']}")
+    exposed = lexicon_view.expose(ep.get("words", []), "episode",
+                                  source=f"rating:{item['id']}", kind="attended")
     if getattr(args, "commit", False):
         commit_and_push(*publish([FEEDBACK_LOG_PATH, LEXICON_PATH if exposed else None],
                                  f"Audio rating: {item['id']} {stars}/5", feed=False))

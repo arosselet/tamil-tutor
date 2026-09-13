@@ -100,6 +100,15 @@ def derive(events):
             # the listening — the beat is when first contact happened.
             row["spoken"].add("taught_on")
             row["taught_on"] = row["taught_on"] or row["taught_pending"]
+            # ATTENDANCE IMPLIES EXPOSURE, and saying so here is what keeps the
+            # background rotation loop closed. The rating lane used to emit
+            # `exposed`; if `attended` merely replaced it, `exposures` would stop
+            # counting and coverage would quietly regress — s86's other half,
+            # which warns that deleting a stamp "fixes" a symptom and silently
+            # breaks the loop that makes coverage guaranteed rather than hoped
+            # for. One event, both facts: he heard it, and it went past him.
+            row["exposures"] += 1
+            row["spoken"].add("exposures")
         elif kind == "exposed":
             row["exposures"] += 1
             row["spoken"].add("exposures")

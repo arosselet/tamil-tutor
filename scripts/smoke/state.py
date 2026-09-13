@@ -3728,8 +3728,18 @@ def s101_the_check_and_the_rating_are_ear_evidence(sb: Path):
         # THE RATING IS A LISTEN. Rate a real mission through the writer; its
         # words are exposed, and the brief shows the ear block happened.
         eps = read_json(sb / "progress" / "episodes.json") or {}
-        eps["901"] = {"title": "Mission tier2_mission901", "words": ["ஸ்மோக்காரம்"]}
+        eps["901"] = {"title": "Mission tier2_mission901",
+                      "words": ["ஸ்மோக்காரம்", "ஸ்மோக்கற்ற"]}
         write_json(sb / "progress" / "episodes.json", eps)
+        # A word the EPISODE taught but nothing has proved he heard — pending.
+        lv101 = importlib.import_module("lexicon_view")
+        lex101 = read_json(lex_path)
+        lex101["ஸ்மோக்கற்ற"] = lex_row(gloss="smoke-pending")
+        write_json(lex_path, lex101)
+        lv101.observe([dict(word="ஸ்மோக்கற்ற", channel="episode", kind="taught",
+                            source="episode:M901")])
+        check("the episode's Teach Beat is PENDING before he listens",
+              fx.si.is_unseen(read_json(lex_path)["ஸ்மோக்கற்ற"]))
         rs = importlib.import_module("rebuild_rss")
         rs.feed_items = lambda: [{"id": "901", "title": "Mission tier2_mission901", "format": "episode"}]
         ss.feed_items = rs.feed_items
@@ -3739,6 +3749,15 @@ def s101_the_check_and_the_rating_are_ear_evidence(sb: Path):
         rated = read_json(lex_path)["ஸ்மோக்காரம்"]
         check("a rating exposes the mission's words — the listen is evidence",
               rated.get("exposures") == 1 and rated.get("last_surfaced"), str(rated))
+        # THE RATING IS THE ATTENDANCE SIGNAL (2026-09-13). This is the whole of
+        # what lets audio teach: the render says the Teach Beat happened, the tap
+        # says it reached him, and only both together open the word.
+        check("...and it DISCHARGES the episode's pending Teach Beat — audio teaches",
+              not fx.si.is_unseen(read_json(lex_path)["ஸ்மோக்கற்ற"]),
+              "the tap fired and the taught word stayed shut — audio is stranded")
+        check("...while a word the episode never taught stays UNSEEN on the same tap",
+              fx.si.is_unseen(rated),
+              "one press of play marked the whole tape taught — hearing is not knowing")
         out = _io.StringIO()
         with contextlib.redirect_stdout(out):
             sbf.cmd_status(None)
