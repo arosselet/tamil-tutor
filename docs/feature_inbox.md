@@ -8,6 +8,7 @@ leaves; an idea that dies is deleted, not archived.
 
 ## Ideas
 
+- Populate or retire `pairs_with` — 1 of 362 rows, but four readers print "he answers: …" off it; the hear-her-line/produce-the-refusal pair is a real unit starved of data (2026-09-13, from the sparse-field review, NOT built)
 - Denominator floor in `suggest_targets.new_candidates_by_cluster` — `body` at 0/2 outranks `verb_root` at 3/49; a Laplace prior or minimum denominator (2026-09-04, from the curriculum expansion review, NOT built)
 - A `(word, cluster)` uniqueness ratchet on `curriculum/word_pool.json` in `scripts/smoke/` — the §7.1 validator died with its session (2026-09-04, NOT built)
 - Tactical Rule 8, the dative pair (*naan kaapi kudikiren* vs *enakku kaapi venum*) — in the constitution's idiom, awaiting Andrew's wording (2026-09-04)
