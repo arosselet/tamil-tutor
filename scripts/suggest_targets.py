@@ -59,6 +59,11 @@ BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from state_io import KNOCK_LOG_PATH, LEXICON_PATH
 WORD_POOL_PATH = BASE / "curriculum" / "word_pool.json"
+OBSERVATIONS_PATH = BASE / "progress" / "observations.json"
+# Monthly, because that is what the contract costed and what the goal's
+# checkpoints assume. A cue, never a ratchet: an overdue check is a line on a
+# ticket Anna reads, and nothing about it reaches Andrew as a number or a debt.
+CHECK_EVERY_DAYS = 30
 SCRIPTS_DIR = BASE / "content" / "scripts"
 
 RECOGNIZED = {"comfortable", "solid"}
@@ -563,6 +568,25 @@ def ear_targets(lexicon: dict, today=None, reps: dict | None = None) -> dict:
             "untouched": sum(1 for _, r in pool if not r.get("last_surfaced"))}
 
 
+def check_due(today=None) -> int | None:
+    """Days since the last Receptive Check, or None if one has never run.
+
+    WHY THIS IS A TICKET LINE AND NOT A CONTRACT CLAUSE (2026-09-13, Andrew:
+    *"prose is not a habit and any command like this is run by the agent not
+    me"*). The check shipped 2026-09-10 as a command and never fired once, and
+    the reason was ownership: `learner_contract.md` filed it under what ANDREW
+    owes, and he does not run commands. Nothing told Anna it was due. This is
+    the second instance of the ear-block defect — an instruction nobody could
+    execute, read as a motivation problem — so the cue moves to the surface Anna
+    already reads every session.
+
+    It is the only instrument that can re-base the comprehension goal, whose
+    four checkpoints all read "re-base at the first Receptive Check"."""
+    events = load_json(OBSERVATIONS_PATH) or []
+    days = [days_since(e["at"][:10]) for e in events if e.get("channel") == "check"]
+    return min(days) if days else None
+
+
 def register_coverage(lexicon: dict, today=None) -> dict | None:
     """COVERAGE, not progress — the meter a cold/total headline can't see. That
     one answers "how many fire cold?"; this answers "how many have ever been
@@ -1021,6 +1045,12 @@ def main():
         print("\n1a. THE EAR  (comprehension — the primary steer; win = recognition, "
               "never a fire)")
         print("-" * 60)
+        since = check_due()
+        if since is None or since >= CHECK_EVERY_DAYS:
+            ago = "never run" if since is None else f"{since}d ago"
+            print(f"  ⏱ RECEPTIVE CHECK IS DUE ({ago}) — `python scripts/sync_state.py "
+                  f"check --draw 30`, worked into the hour one item at a time, never "
+                  f"shown as a list. It is the only thing that can re-base the goal.")
         for t in ear["pending"][:8]:
             never = " · never worked" if t["staleness"] >= NEVER_SURFACED else ""
             # A machine sits here because his EAR is behind his MOUTH on it — 21 of

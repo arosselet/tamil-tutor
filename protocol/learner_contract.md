@@ -51,9 +51,10 @@ counts; a missed day is nothing. The floor exists so the target can never become
 Streaks. Makeup work. Listening to everything. Guilt for a fade — **a fade is palatability
 data**, and reading it as a discipline failure is the specific mistake that cost May 2026.
 
-## The monthly cost
+## The monthly cost — and it is not his to run
 
-**One Receptive Check, ~20 minutes, once a month.** It is the only instrument that can tell an
-ear block apart from the *feeling* of an ear block, every checkpoint in the adopted goal says
-"re-base at the first Receptive Check", and **it has never once fired.** Until it does, the
-goal's four checkpoints are placeholders and this contract cannot be scored.
+**One Receptive Check a month, and ANNA runs it.** The only instrument that tells an ear block
+apart from the *feeling* of one. It shipped 2026-09-10 and fired exactly never, because this
+file listed it here as a duty and Andrew does not run commands (2026-09-13: *"prose is not a
+habit"*). The cue is on the session ticket now. It costs him a few minutes of an hour he was
+already having, one item at a time.
