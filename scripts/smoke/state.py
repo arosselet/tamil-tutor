@@ -3049,10 +3049,10 @@ def s79_a_rating_lands_or_says_why(sb: Path):
              "title": "Knock — 2026-08-27 02:46 · eavesdrop: train delay aachu"},
             {"id": "tier2_mission90", "format": "mission", "title": "Tier2 Mission90"}]
 
-    def rate(episode: str, stars: str):
+    def rate(episode: str, verdict: str):
         """Returns (exit_code, stdout). Non-zero is the loud refusal."""
         out = io.StringIO()
-        args = argparse.Namespace(episode=episode, stars=stars, commit=False)
+        args = argparse.Namespace(episode=episode, verdict=verdict, commit=False)
         real = ss.feed_items
         try:
             ss.feed_items = lambda: list(FEED)
@@ -3071,13 +3071,13 @@ def s79_a_rating_lands_or_says_why(sb: Path):
     saved_fb = fb_path.read_bytes()
     try:
         write_json(fb_path, [])
-        code, out = rate("Soak — 2026-08-27 · nothing to do but listen", "4 ★★★★")
+        code, out = rate("Soak — 2026-08-27 · nothing to do but listen", "finished")
         check("a soak is rateable — the whole point of reading the feed", code == 0, out)
         log = ledger()
         check("...and the note is IN the ledger, re-read from disk", len(log) == 1, str(log))
         note = log[0]["note"] if log else ""
-        check("...carrying the title and the score",
-              "2026-08-27" in note and "4/5" in note, note)
+        check("...carrying the title and the verdict",
+              "2026-08-27" in note and "finished it" in note, note)
         check("...and the FORMAT, so soaks can be compared against drills",
               "[soak]" in note, note)
         check("...tagged so the Diagnosis pass can find the lane",
@@ -3088,19 +3088,20 @@ def s79_a_rating_lands_or_says_why(sb: Path):
         # wearing a lane the Diagnosis pass can group on. Reading the parser alone
         # is how a feature ships dead for a day.
         code, out = rate("Knock — 2026-08-27 02:46 · eavesdrop: train delay aachu",
-                         "5 ★★★★★")
+                         "lost the thread")
         check("an eavesdrop rating reaches the ledger", code == 0, out)
         knock_note = ledger()[-1]["note"] if len(ledger()) > 1 else ""
         check("...carrying knock/eavesdrop, so it groups against soak and drill",
               "[knock/eavesdrop]" in knock_note, knock_note)
 
-        # THE DIGIT IS THE CONTRACT. The first live rating arrived as '⭐️⭐️⭐️' and
-        # refused (run 33057942609), so the parser briefly learned to count ★☆⭐.
-        # That fallback was a worse bug than the refusal it replaced: ☆ counted, so
-        # '★★★☆☆' — three filled of five, the ordinary way to DRAW a 3 — scored 5
-        # and filed silently. Reverted the same day at Andrew's call. These rows are
-        # the ones a glyph-counter gets confidently wrong, so they are asserted as
-        # REFUSALS rather than left to a future good intention.
+        # THE REFUSALS SURVIVE THE VOCABULARY CHANGE (2026-09-13). Stars retired
+        # in favour of three buttons, but the rows below are why this case exists:
+        # the first live rating arrived as '⭐️⭐️⭐️' and refused, the parser briefly
+        # learned to count ★☆⭐, and '★★★☆☆' — three filled of five, the ordinary
+        # way to DRAW a 3 — scored 5 and filed SILENTLY. A glyph carries no leading
+        # digit, so none of these reads as the tolerated legacy row either; they
+        # still refuse, and a refusal is the whole point. Only '4 ★★★★' changed
+        # meaning, and it has its own case in s106.
         title = "Soak — 2026-08-27 · nothing to do but listen"
         for label, ep, row in (
                 ("three filled stars and two empty", title, "★★★☆☆"),
@@ -3108,16 +3109,21 @@ def s79_a_rating_lands_or_says_why(sb: Path):
                 ("bare star glyphs", title, "★★★★★"),
                 ("a zero-star payload", title, "0"),
                 ("a six-star payload", title, "6 ★★★★★★"),
-                ("an empty star row", title, ""),
-                ("a title not in the feed", "Soak — 1999-01-01 · ghost", "4 ★★★★"),
-                ("an empty title", "", "4 ★★★★"),
+                ("an empty verdict", title, ""),
+                ("a title not in the feed", "Soak — 1999-01-01 · ghost", "finished"),
+                ("an empty title", "", "finished"),
         ):
             before = len(ledger())
             code, out = rate(ep, row)
             check(f"{label} REFUSES loudly", code != 0, out or "(silent)")
             check("...and files nothing", len(ledger()) == before, str(ledger()))
-        check("...and a bad star row names the fix, not just the fault",
-              "LEADING DIGIT" in rate(title, "★★★")[1], rate(title, "★★★")[1])
+        # The guidance must name the CURRENT vocabulary. It read "LEADING DIGIT"
+        # until 2026-09-13; a refusal that teaches a retired star scale is a
+        # refusal that sends him back to a menu that no longer exists.
+        check("...and a bad row names the fix, not just the fault",
+              all(v in rate(title, "★★★")[1]
+                  for v in ("finished", "stopped early", "lost the thread")),
+              rate(title, "★★★")[1])
     finally:
         fb_path.write_bytes(saved_fb)
 
@@ -3744,8 +3750,8 @@ def s101_the_check_and_the_rating_are_ear_evidence(sb: Path):
         rs.feed_items = lambda: [{"id": "901", "title": "Mission tier2_mission901", "format": "episode"}]
         ss.feed_items = rs.feed_items
         with contextlib.redirect_stdout(_io.StringIO()):
-            ss.cmd_rate_episode(_ap.Namespace(episode="Mission tier2_mission901", stars="4 ★★★★",
-                                              commit=False))
+            ss.cmd_rate_episode(_ap.Namespace(episode="Mission tier2_mission901",
+                                              verdict="finished", commit=False))
         rated = read_json(lex_path)["ஸ்மோக்காரம்"]
         check("a rating exposes the mission's words — the listen is evidence",
               rated.get("exposures") == 1 and rated.get("last_surfaced"), str(rated))
@@ -4059,3 +4065,100 @@ def s105_a_render_stamp_is_not_attendance(sb: Path):
 
     check("the internal pending marker never reaches a lexicon row",
           "taught_pending" not in lv.EVIDENCE)
+
+
+def s106_the_tap_reports_a_fact_not_a_mood(sb: Path):
+    """THE THREE BUTTONS (2026-09-13, Andrew: "we can retire them right away").
+
+    Six star ratings arrived in six weeks — 4, 2, 4, 5, 3, 3 — every one of them
+    2-4 and most of them 3. That is a tired man being asked for a judgement, and
+    it discriminates nothing. The tap now reports a FACT, and quality moves to
+    the play count, which costs no extra tap.
+
+    THE ONE THAT MATTERS PEDAGOGICALLY is `lost the thread`: he stayed with the
+    tape and could not follow it, which is the 95%-coverage rule failing on a
+    named artifact. The ledger had no way to collect that before.
+
+    THE SILENT NO-OP, stated: `stopped early` cannot know WHERE he stopped, so
+    if it discharged Teach Beats it would re-mint the exact ambush s105 removed —
+    a word "taught" by a tape he abandoned before reaching it. It opens nothing,
+    and that must be asserted, because the failure would look like a listen that
+    simply worked.
+
+    THE TRANSITION IS ALSO A CASE. The Shortcut is a signed Apple archive only
+    Andrew can edit, so the code lands before the phone does; a stale star row
+    must keep working and must say that it was stale."""
+    print("\n106. The tap reports a fact, not a mood — the three buttons (2026-09-13)")
+    import argparse as _ap
+    import contextlib
+    import io as _io
+    sys.path.insert(0, str(sb / "scripts"))
+    ss = importlib.import_module("sync_state")
+    lv = importlib.import_module("lexicon_view")
+    lex_path, fb_path = sb / "progress" / "lexicon.json", sb / "progress" / "feedback_log.json"
+    saved = (lex_path.read_bytes(), fb_path.read_bytes())
+    try:
+        rs = importlib.import_module("rebuild_rss")
+        rs.feed_items = lambda: [{"id": "902", "title": "Rotation — machines", "format": "rotation"}]
+        ss.feed_items = rs.feed_items
+
+        def fresh(word):
+            """A word the tape TAUGHT, pending until something proves he heard it."""
+            lex = read_json(lex_path)
+            lex[word] = lex_row(gloss="smoke")
+            write_json(lex_path, lex)
+            eps = read_json(sb / "progress" / "episodes.json") or {}
+            eps["902"] = {"title": "Rotation — machines", "words": [word]}
+            write_json(sb / "progress" / "episodes.json", eps)
+            lv.observe([dict(word=word, channel="episode", kind="taught",
+                             source="episode:M902")])
+            check(f"  ({word} starts pending)", fx.si.is_unseen(read_json(lex_path)[word]))
+
+        def tap(verdict):
+            with contextlib.redirect_stdout(_io.StringIO()):
+                ss.cmd_rate_episode(_ap.Namespace(episode="Rotation — machines",
+                                                  verdict=verdict, commit=False))
+            return read_json(fb_path)[-1]["note"]
+
+        fresh("smoke:fin")
+        note = tap("finished")
+        check("`finished` opens the pending Teach Beat",
+              not fx.si.is_unseen(read_json(lex_path)["smoke:fin"]), note)
+
+        fresh("smoke:early")
+        note = tap("stopped early")
+        check("`stopped early` opens NOTHING — it cannot know where he stopped",
+              fx.si.is_unseen(read_json(lex_path)["smoke:early"]),
+              f"a tape he abandoned taught a word he may never have reached: {note}")
+        check("...but it still counts as exposure, so coverage keeps moving",
+              read_json(lex_path)["smoke:early"].get("exposures") == 1)
+
+        fresh("smoke:lost")
+        note = tap("lost the thread")
+        check("`lost the thread` is attendance — he was there",
+              not fx.si.is_unseen(read_json(lex_path)["smoke:lost"]), note)
+        check("...and it lands LOUD in the ledger as a coverage failure",
+              "COVERAGE BROKE" in note,
+              f"the one audio diagnostic worth collecting is filed as a shrug: {note}")
+
+        check("every verdict still files as an ear block — the brief reads this tag",
+              "[audio rating]" in note, note)
+
+        # The transition: the phone is a signed archive and lands after the code.
+        fresh("smoke:legacy")
+        note = tap("4 ★★★★")
+        check("a stale star row still works — the lane does not break on a phone edit",
+              not fx.si.is_unseen(read_json(lex_path)["smoke:legacy"]), note)
+        check("...and says it was stale, so the taps are not silently equivalent",
+              "legacy" in note, note)
+
+        rc = 0
+        try:
+            with contextlib.redirect_stdout(_io.StringIO()):
+                tap("it was fine")
+        except SystemExit as e:
+            rc = e.code
+        check("an unknown verdict refuses LOUDLY rather than filing a shrug", rc == 1)
+    finally:
+        lex_path.write_bytes(saved[0])
+        fb_path.write_bytes(saved[1])

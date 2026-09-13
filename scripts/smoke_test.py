@@ -171,6 +171,7 @@ def main():
         run(state.s103_the_escalation_names_the_lane_that_is_left, sb)
         run(state.s104_a_render_that_could_not_claim_stops_asking, sb)
         run(state.s105_a_render_stamp_is_not_attendance, sb)
+        run(state.s106_the_tap_reports_a_fact_not_a_mood, sb)
         run(state.s100_the_live_lexicon_is_the_fold_of_its_log)
         run(state.s101_the_check_and_the_rating_are_ear_evidence, sb)
 

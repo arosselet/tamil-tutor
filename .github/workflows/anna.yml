@@ -258,9 +258,12 @@ jobs:
         if: github.event.action == 'episode-rating'
         env:
           RATING_EPISODE: ${{ github.event.client_payload.episode }}
-          RATING_STARS: ${{ github.event.client_payload.stars }}
+          # `stars` is the OLD payload key and is read as a fallback on purpose:
+          # the Shortcut is a signed archive that only Andrew can edit, so the
+          # code must land before the phone does and must not break in between.
+          RATING_VERDICT: ${{ github.event.client_payload.verdict || github.event.client_payload.stars }}
         run: |
-          python scripts/sync_state.py rate-episode --episode "$RATING_EPISODE" --stars "$RATING_STARS" --commit
+          python scripts/sync_state.py rate-episode --episode "$RATING_EPISODE" --verdict "$RATING_VERDICT" --commit
 
       - name: Anna knocks
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'

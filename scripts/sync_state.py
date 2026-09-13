@@ -1031,6 +1031,27 @@ def cmd_knock_response(args):
 # "90 — Mission tier2_mission90" and "4 ★★★★" — because Shortcuts is a bad place
 # to parse and a worse place to test one. Parsing lives here, where a smoke case
 # can hold it (2026-08-27).
+# THE THREE BUTTONS (2026-09-13, Andrew: "we can retire them right away").
+# Stars measured mood, not the tape: six ratings arrived in six weeks, every one
+# of them 2-4 and most of them 3 — no discrimination, and it asked a tired man
+# for a judgement. A tap should report a FACT. Quality is not lost, it moves to
+# the PLAY COUNT, which costs no extra tap and is the better meter anyway: under
+# the re-listen cadence a tape played four times was good and a tape played once
+# was not.
+#   attends -> he was there for the whole tape, so pending Teach Beats open.
+#              `stopped early` cannot say WHERE he stopped, so it opens nothing
+#              and stays an exposure; guessing would re-mint the ambush.
+VERDICTS = {
+    "finished": ("finished it", True, ""),
+    "stopped early": ("stopped early", False, ""),
+    "lost the thread": ("lost the thread", True,
+                        " ← COVERAGE BROKE HERE: he stayed with the tape and "
+                        "could not follow it. This is the 95%-known-words rule "
+                        "failing on a specific artifact, which is the one audio "
+                        "diagnostic the ledger could never collect before."),
+}
+
+
 def _leading_int(raw: str) -> int | None:
     m = re.match(r"\s*(\d+)", raw or "")
     return int(m.group(1)) if m else None
@@ -1062,11 +1083,27 @@ def cmd_rate_episode(args):
     count off the 1-5 scale exits non-zero rather than filing a zero: this lane
     is unattended, and a rating silently recorded as 0/5 would steer the
     diagnosis pass while looking exactly like a rating that never arrived."""
-    stars = _leading_int(args.stars)
-    if stars is None or not 1 <= stars <= 5:
-        print(f"  ! Stars must be 1-5, as a LEADING DIGIT; got {args.stars!r}. "
-              f"Star glyphs alone are not counted — the picker row wants '3 ★★★'.")
+    raw = (getattr(args, "verdict", None) or "").strip().lower()
+    verdict = next((v for v in VERDICTS if raw.startswith(v)), None)
+    if verdict is None and _leading_int(raw) in range(1, 6):
+        # THE STAR ROW, TOLERATED, NOT KEPT. The Shortcut is a signed archive on
+        # his phone; this lane must not break in the window between the code
+        # landing and the menu being edited. A star meant he played it, so it
+        # reads as `finished` and says so in the ledger, which makes the stale
+        # taps visible instead of silently equivalent to the new ones.
+        verdict, legacy = "finished", True
+    else:
+        legacy = False
+    if verdict is None:
+        print(f"  ! Unknown verdict {raw!r}. The picker offers exactly: "
+              f"{', '.join(sorted(VERDICTS))}.")
         sys.exit(1)
+    label, attends, diagnostic = VERDICTS[verdict]
+    if legacy:
+        # Visible in the ledger, not merely tolerated: a stale tap and a real
+        # `finished` must not read as the same evidence while the menu is still
+        # the old one.
+        diagnostic += " (legacy star row — the phone menu still needs editing)"
     # Resolve against the FEED, by the exact title the picker offered — which is
     # the title his podcast app shows, so the row he taps and the item he heard
     # are the same string by construction. An unmatched title refuses rather than
@@ -1077,8 +1114,7 @@ def cmd_rate_episode(args):
         print(f"  ! {wanted!r} is not in the feed — nothing to rate. "
               f"Pick a row from progress/recent_audio.txt.")
         sys.exit(1)
-    note = (f"[audio rating] [{item['format']}] {item['title']} — {stars}/5 "
-            f"on wanting to keep listening.")
+    note = f"[audio rating] [{item['format']}] {item['title']} — {label}.{diagnostic}"
     log = load_json(FEEDBACK_LOG_PATH) or []
     log.append({"date": local_today().isoformat(), "note": note})
     save_json(FEEDBACK_LOG_PATH, log)
@@ -1098,10 +1134,11 @@ def cmd_rate_episode(args):
     # one, so rating a tape still cannot teach a word the tape never taught.
     ep = (load_json(EPISODES_PATH) or {}).get(str(item["id"]), {})
     exposed = lexicon_view.expose(ep.get("words", []), "episode",
-                                  source=f"rating:{item['id']}", kind="attended")
+                                  source=f"rating:{item['id']}",
+                                  kind="attended" if attends else "exposed")
     if getattr(args, "commit", False):
         commit_and_push(*publish([FEEDBACK_LOG_PATH, LEXICON_PATH if exposed else None],
-                                 f"Audio rating: {item['id']} {stars}/5", feed=False))
+                                 f"Audio listen: {item['id']} {label}", feed=False))
 
 
 def cmd_check(args):
@@ -1284,9 +1321,10 @@ def main():
     fb.add_argument("note", nargs="?", default=None, help="The feedback to log; omit to list recent")
     fb.add_argument("-n", type=int, default=20, help="How many recent entries to show when listing")
 
-    re_ = sub.add_parser("rate-episode", help="Record an audio rating from the phone (feed title + a star row)")
+    re_ = sub.add_parser("rate-episode", help="Record a listen from the phone (feed title + one of the three buttons)")
     re_.add_argument("--episode", required=True, help="Feed title, exactly as the picker offered it")
-    re_.add_argument("--stars", required=True, help="Picker line, e.g. '4 ★★★★'")
+    re_.add_argument("--verdict", required=True,
+                     help="finished | stopped early | lost the thread (a legacy star row reads as finished)")
     re_.add_argument("--commit", action="store_true", help="Commit and push the ledger (CI lane)")
 
     sl = sub.add_parser("slips", help="Read the slip ledger (what Andrew keeps getting wrong), or report a test")
