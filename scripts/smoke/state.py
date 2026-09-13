@@ -3742,8 +3742,13 @@ def s101_the_check_and_the_rating_are_ear_evidence(sb: Path):
         out = _io.StringIO()
         with contextlib.redirect_stdout(out):
             sbf.cmd_status(None)
+        # "1" was a time-bomb, not a law (2026-09-13): the sandbox inherits the
+        # real feedback log, so any genuine rating inside the trailing 7 days
+        # made this 2 and reddened CI until it aged out. The case's subject is
+        # that a rating REGISTERS as an ear block, never how many there were.
         check("...and the brief shows the ear block happened this week",
-              "Ear block: rated on 1 of the last 7 days" in out.getvalue(),
+              re.search(r"Ear block: rated on [1-9]\d* of the last 7 days",
+                        out.getvalue()),
               [l for l in out.getvalue().splitlines() if l.startswith("Ear block")])
     finally:
         lex_path.write_bytes(saved[0])
