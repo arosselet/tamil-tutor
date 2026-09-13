@@ -91,11 +91,15 @@ def derive(events):
             if m and int(m.group(1)) not in row["seen_in"]:
                 row["seen_in"].append(int(m.group(1)))
         elif kind == "attended":
-            # The press of play that discharges a pending Teach Beat. Dated to
-            # the TEACHING, not to the listening — the beat is when first
-            # contact happened; this only proves it reached him.
+            # The press of play that DISCHARGES a pending Teach Beat — and never
+            # creates one. `or day` sat here for one commit and was the whole bug
+            # wearing a new coat: a rating exposes every word the episode spoke,
+            # so attendance-creates-teaching would have marked an entire tape
+            # taught the moment he rated it. "Hearing is not knowing"
+            # (2026-08-23) is exactly this line. Dated to the TEACHING, not to
+            # the listening — the beat is when first contact happened.
             row["spoken"].add("taught_on")
-            row["taught_on"] = row["taught_on"] or row["taught_pending"] or day
+            row["taught_on"] = row["taught_on"] or row["taught_pending"]
         elif kind == "exposed":
             row["exposures"] += 1
             row["spoken"].add("exposures")

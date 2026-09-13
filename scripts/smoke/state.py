@@ -4029,5 +4029,14 @@ def s105_a_render_stamp_is_not_attendance(sb: Path):
           "quizzing an unseen word must not retroactively make it seen — that "
           "is the ambush laundering itself into evidence")
 
+    # ATTENDANCE DISCHARGES A TEACH BEAT; IT NEVER CREATES ONE. This shipped
+    # wrong for one commit (`or day`) and is the original bug in a new coat: a
+    # rating exposes every word the episode spoke, so one tap would have marked
+    # a whole tape taught. "Hearing is not knowing" (2026-08-23) is this line.
+    heard_only = [ev("attended", "episode", "2026-09-13T12:00:00Z")]
+    check("attendance alone NEVER opens the gate — hearing is not knowing",
+          lv.derive(heard_only)["X"]["taught_on"] is None,
+          "a press of play invented a Teach Beat that never happened")
+
     check("the internal pending marker never reaches a lexicon row",
           "taught_pending" not in lv.EVIDENCE)
