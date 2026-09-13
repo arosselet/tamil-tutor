@@ -17,7 +17,7 @@ sets a rung by hand.
 
 Usage:
     # After a session: record production + recognition movement
-    python scripts/sync_state.py update --produced-cold poren --stuck-word வை
+    python scripts/sync_state.py update --produced-cold போறேன் --stuck-word வை
 
     # Show current state (what Anna reads at session start)
     python scripts/sync_state.py status

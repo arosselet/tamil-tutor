@@ -44,11 +44,11 @@ Moves any shape may reach for, never as a menu: **mask-work**, the **eavesdrop d
 1. **Rewrite the debrief** — one running story-so-far, cumulative: carry what still matters, prune what resolved. Anna's persistent narrative memory, never a one-line log.
 2. **Work the slip ledger — both halves.** Record the *pattern*, not the wrong word: `--slip 'tag|said|wanted|one clause'`, reusing an existing tag; a wrong ending on a right word earns one. Then close what you tested — status lists UNVERIFIED slips, retired but never seen landing: work one into a scene unaided, then `--slip-tested tag:landed|missed`. A recast never closes a slip. **The ledger is the session's primary output** (2026-08-25) — it says HOW the reps keep failing, which is what steers the next lesson.
 3. **Set the soak order — the repair earns the dose.** Live slips draw first; UNVERIFIED ones are checks, not commissions. The law is `protocol/commissioning.md`. Add the one-line `scene_seed` and a `focus` naming what the dose permutes.
-4. **Log it** (`sync_state.py` owns all writes; it canonicalizes phonetic):
+4. **Log it** (`sync_state.py` owns all writes; keys in script):
    ```
    python scripts/sync_state.py update \
-     --produced-cold poren --produced-hinted vai --stuck-word கேட்குறேன் \
-     --slip "past-tense|irukku|irundhuchu|reaches for present when the scene is past" \
+     --produced-cold போறேன் --produced-hinted வை --stuck-word கேட்குறேன் \
+     --slip "past-tense|irukku|இருந்துச்சு|reaches for present when the scene is past" \
      --slip-tested venum-for-kudunga:landed \
      --soak-payload கிடைக்கும் --soak-seed "bakery parcel for the maama's house" \
      --debrief "STORY SO FAR: …"

@@ -382,7 +382,8 @@ instances — Python counts recurrences by that exact string. `1pl-om` covers bo
 "ponnam"→"ponnom" and "sappiten"→"saapittoom"; `past-tense` covers "irukku"→"irundhuchu"; \
 `stranger-nga` covers "pesa"→"pesunga". The context lists tags already on the ledger — \
 reuse one rather than coining a synonym. "said"/"want" are the two FORMS, not sentences; \
-"note" is one clause, no terminology.
+"said" is exactly what he typed, "want" is the right form in TAMIL SCRIPT (2026-09-13: \
+Python matches a key in script, never a spelling); "note" is one clause, no terminology.
 
 Return [] when nothing was wrong, when the miss is pure vocabulary never taught, or when \
 he substituted a line that works — a substitution is signal to teach, not a slip (07-27). \
