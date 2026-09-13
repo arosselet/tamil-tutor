@@ -30,6 +30,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > Spot on — 'kilambu' is to head out. 'kilambalaama?' is 'shall we head out?', 'kilambunga' is telling them to get moving!
 
+**18:45 · Anna**  ·  challenge / field mission: sollu
+> Tonight's mission: she calls your name from the other room, drop 'Enna?' and hit back with 'Sollu' (tell me). Debrief tomorrow.
+
 
 ## Friday 2026-09-11
 

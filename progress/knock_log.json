@@ -7179,5 +7179,19 @@
         "scheduled": ""
       }
     ]
+  },
+  {
+    "date": "2026-09-13",
+    "timestamp": "2026-09-13T22:45:37.106304+00:00",
+    "acted": true,
+    "modality": "challenge",
+    "move": "field mission: sollu",
+    "rationale": "Assigning the new covert op for tonight: swap 'enna' for 'sollu' when called from another room; collects at next contact.",
+    "next_check": "2026-09-14T12:15:37.106304+00:00",
+    "body": "Tonight's mission: she calls your name from the other room, drop 'Enna?' and hit back with 'Sollu' (tell me). Debrief tomorrow.",
+    "body_script": "Tonight's mission: she calls your name from the other room, drop 'என்ன?' and hit back with 'சொல்லு' (tell me). Debrief tomorrow.",
+    "expected_target": "சொல்லு",
+    "stance": "give",
+    "target_revealed": true
   }
 ]
