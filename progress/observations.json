@@ -18731,5 +18731,16 @@
     "result": "right",
     "source": "knock:2026-09-13T13:01:48.336935+00:00",
     "note": "named unprompted, right"
+  },
+  {
+    "id": "8d6a2ff3c4bf",
+    "at": "2026-09-13T17:11:07Z",
+    "word": "இல்லன்னா",
+    "channel": "text",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "source": "knock:2026-09-13T17:10:40.633686+00:00",
+    "note": ""
   }
 ]

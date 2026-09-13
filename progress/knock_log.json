@@ -7130,5 +7130,18 @@
       }
     ],
     "payoff_mp3": "published_audio/knocks/payoff_2026-09-13T13-01.mp3"
+  },
+  {
+    "date": "2026-09-13",
+    "timestamp": "2026-09-13T17:10:40.633686+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "show dose: illannaa",
+    "rationale": "Show dose for unseen item இல்லன்னா: Andrew already reached for newsreader 'illaavittaal' on Friday; handing him the casual table hinge with zero demand.",
+    "next_check": "2026-09-13T21:40:40.633686+00:00",
+    "body": "Newsreaders say 'illaavittaal' — at our table it's 'illannaa' (otherwise/or else). Kilambunga, illannaa late aayidum! ⏳",
+    "expected_target": "",
+    "stance": "give",
+    "target_revealed": true
   }
 ]

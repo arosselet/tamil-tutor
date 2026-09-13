@@ -15,6 +15,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan — namma Karthik, wedding finally fixed! 🎧
 
+**13:10 · Anna**  ·  text / show dose: illannaa
+> Newsreaders say 'illaavittaal' — at our table it's 'illannaa' (otherwise/or else). Kilambunga, illannaa late aayidum! ⏳
+
 
 ## Friday 2026-09-11
 
