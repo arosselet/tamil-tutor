@@ -46,6 +46,11 @@ EVIDENCE = ("recognition", "production", "reps", "exposures", "heard_on",
             "last_surfaced", "seen_in", "taught_on")
 PRODUCTION_FOR = {"right": "cold", "partial": "hinted"}
 EPISODE_SRC = re.compile(r"^episode:M?(\d+)$")
+# A Teach Beat here needs nothing to prove he received it: Anna said it TO him,
+# live, and there is no press of play between the teaching and the ear. Every
+# other channel hands a file to a phone and hopes. Keep this set at one until a
+# second channel can show the same thing (2026-09-13).
+SELF_ATTENDING = {"session"}
 
 
 def derive(events):
@@ -58,7 +63,8 @@ def derive(events):
         row = view.setdefault(e["word"], {
             "recognition": "struggled", "production": "none", "reps": 0,
             "exposures": 0, "heard_on": None, "last_surfaced": None, "seen_in": [],
-            "taught_on": None, "tests": 0, "channels": set(), "spoken": set()})
+            "taught_on": None, "taught_pending": None,
+            "tests": 0, "channels": set(), "spoken": set()})
         row["channels"].add(e["channel"])
         kind, axis, res = e["kind"], e.get("axis"), e.get("result")
         if kind == "claimed" and axis:
@@ -67,19 +73,38 @@ def derive(events):
             continue
         day = local_date(e.get("at") or "")
         day = day.isoformat() if day else None
-        if day and kind in ("tested", "exposed", "taught"):
+        if day and kind in ("tested", "exposed", "taught", "attended"):
             row["last_surfaced"] = day
             row["spoken"].add("last_surfaced")
         if kind == "taught":
-            row["taught_on"] = row["taught_on"] or day
+            # `taught_on` is SPOKEN either way — that is the whole demotion. A
+            # delivery-channel Teach Beat states an opinion the fold then
+            # declines to count, exactly as a `seed` claim does, so a row taught
+            # only by a render derives to None and `rebuild` writes the None.
+            # No migration, no history rewrite: the events stay, they stop voting.
             row["spoken"].add("taught_on")
+            if e["channel"] in SELF_ATTENDING:
+                row["taught_on"] = row["taught_on"] or day
+            else:
+                row["taught_pending"] = row["taught_pending"] or day
             m = EPISODE_SRC.match(e.get("source") or "")
             if m and int(m.group(1)) not in row["seen_in"]:
                 row["seen_in"].append(int(m.group(1)))
+        elif kind == "attended":
+            # The press of play that discharges a pending Teach Beat. Dated to
+            # the TEACHING, not to the listening — the beat is when first
+            # contact happened; this only proves it reached him.
+            row["spoken"].add("taught_on")
+            row["taught_on"] = row["taught_on"] or row["taught_pending"] or day
         elif kind == "exposed":
             row["exposures"] += 1
             row["spoken"].add("exposures")
         elif kind == "tested":
+            # A watched test is attendance evidence after the fact: something
+            # asked and he answered, so he was demonstrably there for the word.
+            # This is what keeps the 110 render-taught-but-tested rows seen
+            # while the 142 never-tested ones go back to UNSEEN (2026-09-13).
+            row["taught_on"] = row["taught_on"] or row["taught_pending"]
             row["tests"] = row["reps"] = row["reps"] + 1
             row["spoken"].add("reps")
             if axis == "recognition":

@@ -106,7 +106,13 @@ def s32_pool_rotation_and_coverage(mk, sb: Path):
         return (today - timedelta(days=n)).isoformat()
 
     def item(reg, **kw):
-        base = lex_row(register=reg, type="chunk", seen_in=[1])
+        # `taught_on` joined `seen_in` here 2026-09-13 (s105): a render stamp is
+        # no longer attendance, so a row carrying only `seen_in` is UNSEEN now.
+        # These rows are about STARVATION STATES — worked vs never-worked — and
+        # the teach gate is carried by `surv-unseen` alone, which is the control.
+        # Without this every row in the fixture would silently become unteachable
+        # and the ordering assertions below would be measuring the wrong thing.
+        base = lex_row(register=reg, type="chunk", seen_in=[1], taught_on="2026-01-01")
         base.update(kw)
         return base
 
@@ -115,8 +121,8 @@ def s32_pool_rotation_and_coverage(mk, sb: Path):
         "smoke:surv-hot": item("frame", type="pattern", production="hinted",
                                recognition="solid", last_surfaced=ago(2)),
         "smoke:surv-mid": item("antifreeze", recognition="comfortable", last_surfaced=ago(30)),
-        "smoke:surv-tail": item("antifreeze"),                    # never worked, soaked
-        "smoke:surv-unseen": item("public", seen_in=[]),          # never worked, never seen
+        "smoke:surv-tail": item("antifreeze"),                    # taught, never worked
+        "smoke:surv-unseen": item("public", seen_in=[], taught_on=None),  # never taught
         "smoke:surv-done": item("frame", type="pattern", production="cold",
                                 recognition="solid", last_surfaced=ago(1)),
         "smoke:delight-new": item("social"),
@@ -298,7 +304,7 @@ def s32_pool_rotation_and_coverage(mk, sb: Path):
         vt = [t["target"] for t in mk.volley_targets(n=4)]
         check("rotation respects teach-first: UNSEEN stays out of the volley",
               "smoke:surv-unseen" not in vt, f"got {vt}")
-        check("a never-worked but soaked item IS volley-eligible",
+        check("a never-worked but TAUGHT item IS volley-eligible",
               "smoke:surv-tail" in vt, f"got {vt}")
 
         cov = st.register_coverage(lex, today=today)
@@ -3246,8 +3252,15 @@ def s86_a_tape_is_not_a_teacher(sb: Path):
         check("no record → unseen", fx.si.is_unseen({}))
         check("a delivery stamp alone → STILL unseen",
               fx.si.is_unseen({"last_surfaced": "2026-07-01", "exposures": 9}))
-        check("an episode taught it → not unseen",
-              not fx.si.is_unseen({"seen_in": ["M60"]}))
+        # AMENDED 2026-09-13 — this line used to read `seen_in: ["M60"]` → not
+        # unseen, which s105 now proves is the wrong party, not just the wrong
+        # field. `seen_in` is a render stamp; `taught_on` is the fold's answer to
+        # "was he there". The 08-31 law is untouched — a delivery stamp still
+        # never closes the gate — and this is the same law applied one level up.
+        check("an attended Teach Beat → not unseen",
+              not fx.si.is_unseen({"taught_on": "2026-07-01"}))
+        check("a render stamp alone → STILL unseen",
+              fx.si.is_unseen({"seen_in": ["M60"]}))
 
         # ROUND TRIP THROUGH THE REAL WRITER. `lexicon_view.expose` is the seam the
         # soak sheet, drill sheet, knock push and queue drain all call.
@@ -3439,9 +3452,23 @@ def s88_taught_is_not_appeared(sb: Path):
 
         after = read_json(lex_path)            # re-read from disk, not memory
         new, cb = after["ஸ்மோக்புது"], after["ஸ்மோக்பழசு"]
-        check("a new_words_landed payload IS taught",
-              901 in new.get("seen_in", []) and not fx.si.is_unseen(new),
+        # AMENDED 2026-09-13 (s105). The payload/callback split this case exists
+        # for is UNTOUCHED — a payload emits `taught`, a callback emits `exposed`,
+        # and that is still the whole point. What changed is the CONSEQUENCE: a
+        # render's Teach Beat is now pending until Andrew attends it, so the
+        # stamp lands and the gate stays shut until a press of play.
+        check("a new_words_landed payload IS the Teach Beat — the stamp lands",
+              901 in new.get("seen_in", []),
               f"the teach stamp stopped landing at all: {new}")
+        check("...but it is PENDING until he attends it — a render is not a listen",
+              fx.si.is_unseen(new),
+              f"a render credited itself with reaching him: {new}")
+        lv_ = importlib.import_module("lexicon_view")
+        lv_.observe([dict(word="ஸ்மோக்புது", channel="episode", kind="attended",
+                          source="episode:M901")])
+        check("...and a press of play discharges it, end to end",
+              not fx.si.is_unseen(read_json(lex_path)["ஸ்மோக்புது"]),
+              "the attended event did not reach the row through the real writer")
         check("...but a callback is NOT taught",
               not cb.get("seen_in") and fx.si.is_unseen(cb),
               f"an appearance still credited itself as a lesson: {cb}")
@@ -3917,3 +3944,85 @@ def s104_a_render_that_could_not_claim_stops_asking(sb: Path):
     finally:
         learner_path.write_bytes(saved[0])
         eps_path.write_bytes(saved[1])
+
+
+def s105_a_render_stamp_is_not_attendance(sb: Path):
+    """THE THIRD CUT ON ONE LINE, and the one that names the right party
+    (2026-09-13, Andrew): *"a word was in my ear in episodes for weeks yet I'd
+    never heard it because I'd never been told to listen for it."*
+
+    s86 (08-31) took `last_surfaced` out of the teach gate and s88 (09-01) took
+    the callback stamp out. Both removed a stamp that named the wrong EVENT —
+    delivery is not teaching. Neither touched the assumption underneath: that a
+    stamp written when a RENDER FINISHES says anything at all about Andrew. It
+    does not. It is a fact about the machine.
+
+    The measured damage: 146 rows carried `taught_on`/`seen_in` from a backfill
+    whose own note reads "new_words_landed payload — dated from git", and
+    `is_unseen` is what the knock menu, the volley picker and the session ticket
+    all read to decide whether a word may be cold-quizzed. So 146 words were
+    ambushable on the strength of a reconstruction, and the ticket recirculated
+    the 72 words it believed were the only taught ones while 442 curriculum
+    entries sat untouched.
+
+    THE MECHANISM IS THE `seed` PRECEDENT, one class wider: the events stay in
+    the log, they simply stop voting. `taught_on` is SPOKEN by a delivery-channel
+    Teach Beat and then derives to None, so `rebuild` writes the None. No
+    migration script, no history rewrite — which is the point, because the log is
+    append-only and a cleanup pass would have had to break that.
+
+    THE SILENT NO-OP, stated, and it is the dangerous direction here: if nothing
+    ever emits `attended`, every word stays UNSEEN forever and the drilling
+    channels starve — the exact inverse of the bug, and it would look like a
+    quiet, well-behaved system. So this asserts BOTH directions: the render
+    stamp must not open the gate, and a real attention event must."""
+    print("\n105. A render stamp is not attendance — the third cut on the teach gate (2026-09-13)")
+    sys.path.insert(0, str(sb / "scripts"))
+    lv = importlib.import_module("lexicon_view")
+
+    # Midday UTC on purpose: `local_date` folds to America/New_York, so a
+    # midnight-Z stamp dates to the day BEFORE and the assertions below would be
+    # testing the timezone rather than the gate.
+    def ev(kind, channel, at, **kw):
+        e = dict(id=at, at=at, word="X", channel=channel, kind=kind,
+                 axis=None, result=None, source="episode:M91", note="")
+        e.update(kw)
+        return e
+
+    render = [ev("taught", "episode", "2026-08-01T12:00:00Z")]
+    got = lv.derive(render)["X"]
+    check("a render's Teach Beat does NOT close the gate — the bug, refused",
+          got["taught_on"] is None, str(got))
+    check("...and `taught_on` is SPOKEN anyway, so rebuild writes the None",
+          "taught_on" in got["spoken"],
+          "unspoken means the fold keeps the file's value — the 146 rows would "
+          "never demote, and the whole change would silently do nothing")
+    check("...and the event is still RECORDED, not discarded",
+          got["seen_in"] == [91] and got["channels"] == {"episode"}, str(got))
+
+    played = render + [ev("attended", "episode", "2026-09-13T12:00:00Z")]
+    got = lv.derive(played)["X"]
+    check("a press of play discharges it — the gate opens",
+          got["taught_on"] == "2026-08-01", str(got))
+
+    # A session needs nothing to discharge it: Anna said it TO him, live.
+    live = [ev("taught", "session", "2026-08-01T12:00:00Z")]
+    check("a session Teach Beat is self-attending",
+          lv.derive(live)["X"]["taught_on"] == "2026-08-01")
+
+    # Attendance after the fact: something asked and he answered.
+    tested = render + [ev("tested", "eavesdrop", "2026-09-01T12:00:00Z",
+                          axis="recognition", result="right")]
+    check("a watched test is attendance evidence — the 110 rows that keep it",
+          lv.derive(tested)["X"]["taught_on"] == "2026-08-01")
+
+    # ...but a test ALONE never invents a Teach Beat it never had.
+    ambush = [ev("tested", "eavesdrop", "2026-09-01T12:00:00Z",
+                 axis="recognition", result="right")]
+    check("a test with no Teach Beat behind it leaves the word UNSEEN",
+          lv.derive(ambush)["X"]["taught_on"] is None,
+          "quizzing an unseen word must not retroactively make it seen — that "
+          "is the ambush laundering itself into evidence")
+
+    check("the internal pending marker never reaches a lexicon row",
+          "taught_pending" not in lv.EVIDENCE)

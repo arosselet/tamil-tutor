@@ -41,7 +41,7 @@ protocol/
 
 Anna writes it at Close & Log; the studio consumes it. It is the *only* thing that crosses between the two halves (`progress/learner.json` → `soak_order`):
 
-- `payload` — the words chat just strained — or, when a campaign is live, a **seed order**: 2–4 unseen items the episode teaches first (captions carry the load; the render's `seen_in` stamp is what opens them to the drilling channels)
+- `payload` — the words chat just strained — or, when a campaign is live, a **seed order**: 2–4 unseen items the episode teaches first (captions carry the load; the render stamps `seen_in` but that no longer opens them — since 2026-09-13 an `attended` event does, because a finished render is a fact about the machine, not about Andrew)
 - `scene_seed` — one line of the running story
 
 Anna hands **meaning**; the studio derives the rest (register / form / ingredient, callbacks, density) and owns the **craft**.
@@ -65,7 +65,7 @@ Anna can commission the studio end-to-end mid-session; the subagent also runs st
 
 | File | Owner | Holds |
 |---|---|---|
-| `observations.json` | `lexicon_view.observe` / `expose` | THE LEDGER (2026-09-10): every observation as an event — word, channel, kind (taught / exposed / tested / claimed), axis, result, source. Append-only; `seed` and `self-report` are recorded and never vote |
+| `observations.json` | `lexicon_view.observe` / `expose` | THE LEDGER (2026-09-10): every observation as an event — word, channel, kind (taught / **attended** / exposed / tested / claimed), axis, result, source. Append-only; `seed` and `self-report` are recorded and never vote — and since 2026-09-13 a `taught` on a delivery channel is the same: recorded, pending, and it does not open the teach gate until an `attended` event (or a watched test) shows he was there. `attended` is the one kind that is a fact about Andrew rather than about the machine |
 | `lexicon.json` | static half: `sync_state.py` · evidence half: `lexicon_view.rebuild` | Word brain. Gloss, phonetic, type, `register`, `direction`, `pairs_with` are curriculum; recognition, production, reps, exposures, heard_on, last_surfaced, seen_in, taught_on are THE FOLD of the log, one writer, and `lexicon_view.py` reports zero divergent rows or `s100` is red |
 | `learner.json` | `sync_state.py` | Continuity: running story (`last_debrief`), `soak_order`, status (no streak — recency from the session log is the honest signal) |
 | `episodes.json` | `sync_state.py` / `render_audio.py` | Episode registry |

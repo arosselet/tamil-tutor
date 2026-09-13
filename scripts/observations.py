@@ -51,6 +51,12 @@ WATCHED = CHANNELS - DECLARED    # the policy's whole teeth: only these vote
 
 KINDS = {
     "taught",       # a full Teach Beat — first contact, generously given
+    "attended",     # HE RECEIVED IT: a press of play, a session he sat. The only
+                    # kind that is a fact about Andrew rather than about the
+                    # machine — every other kind here records what the system
+                    # EMITTED, which is why a render could credit itself with
+                    # teaching (2026-09-13). A `taught` on a delivery channel is
+                    # pending until one of these covers it; see lexicon_view.derive.
     "exposed",      # it went past him in a dose; heard is not known
     "tested",       # he was asked and something came back
     "asked-about",  # HE raised it: "I don't know this word" — free, unsolicited, honest

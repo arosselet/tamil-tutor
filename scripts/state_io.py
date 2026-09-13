@@ -360,8 +360,16 @@ def is_unseen(rec: dict) -> bool:
 
     Reads the fold, not a delivery stamp (2026-08-31, Andrew: "I can't catch a
     word I don't know in the first place"): `last_surfaced` is written by every
-    lane that merely APPEARS a word, and none of those teach. `taught_on` is the
-    first `taught` event on any channel — a session, an episode's seed payload,
-    a knock's show dose (2026-09-10) — and `seen_in` is the episode subset of
-    the same events, kept because the studio counts it."""
-    return not (rec.get("taught_on") or rec.get("seen_in"))
+    lane that merely APPEARS a word, and none of those teach.
+
+    `seen_in` LEFT THIS PREDICATE 2026-09-13, and it is the third cut on one
+    line — after `last_surfaced` (2026-08-31) and callbacks (2026-09-01). Both
+    of those removed a stamp that named the wrong EVENT; this one removes the
+    last stamp that names the wrong PARTY. `seen_in` is written when a render
+    finishes, which is a fact about the machine, so 142 rows were cold-quizzable
+    on the strength of a backfill note reading "payload — dated from git" —
+    words that went past Andrew's ear for weeks while nothing ever told him to
+    listen for one. `seen_in` stays on the row as provenance (the studio counts
+    it); it just no longer speaks for him. `taught_on` is now the fold's answer
+    to a narrower question — was he THERE — and `lexicon_view.derive` owns it."""
+    return not rec.get("taught_on")

@@ -370,10 +370,21 @@ def s8_variety_and_decay(mk, kr, sb: Path):
     check("a soak stamp does NOT clear UNSEEN on the knock menu",
           "UNSEEN" in mk.due_menu_block(),
           "the knock lane is quizzing a word only a tape ever delivered")
+    # A RENDER STAMP IS NOT ATTENDANCE EITHER (2026-09-13, s105). This set
+    # `seen_in = [60]` and expected the gate to open — the third cut on this
+    # line, and the one that changed the PARTY rather than the event: `seen_in`
+    # is written when a render finishes, which says nothing about whether Andrew
+    # ever pressed play. `taught_on` is the fold's answer to "was he there".
     lex = read_json(lex_path)
     lex["வணக்கம்"]["seen_in"] = [60]
     write_json(lex_path, lex)
-    check("...and an episode teaching it does", "UNSEEN" not in mk.due_menu_block())
+    check("a render stamp does NOT clear UNSEEN either",
+          "UNSEEN" in mk.due_menu_block(),
+          "the knock lane is quizzing a word only a render ever stamped")
+    lex = read_json(lex_path)
+    lex["வணக்கம்"]["taught_on"] = "2026-07-01"
+    write_json(lex_path, lex)
+    check("...and an ATTENDED Teach Beat does", "UNSEEN" not in mk.due_menu_block())
 
 
 def s14_reply_correlation(kr):
