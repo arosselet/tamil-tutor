@@ -31,7 +31,7 @@
 
 **Standing methods (keep; do not re-derive):** commission the dose, hold the word out of chat, ambush unannounced days later — three for three. A tail is only audible on a stem the ear knows cold; check the stem before blaming the tail. Not every repeated slip is owed a dose — some are owed evidence, some a day. Build every drill out of his own pockets. Teach the positive before demanding the negative. Never date-drive a scene. He tests the rules he is given and is right to; give him the flexible truth, never a false absolute.
 
-**Owed at next open:** the *neenga saapdunga* collect — the positive twin of the plate op, aimed at whoever is serving while everyone else eats. Contact, never evidence. (*adhukku appuram* was collected 09-11 and landed; the *vendaanga* plate op did not fire and stays loaded.)
+**Owed at next open:** the *sollu* collect — when she calls his name from another room, *sollu* (tell me) instead of *enna?*; *sollunga* for any elder on a call. Contact, never evidence. **Ops hang on a trigger his current life runs** (09-13): meals at home are jetlagged and informal, so both meal ops (*vendaanga*, *neenga saapdunga*) are retired as ops — aimed at a table he isn't sitting at, not failed. They return next summer.
 
 **Standing catch order (renewable):** one word overheard — off the tapes now, off the sisters next summer.
 
