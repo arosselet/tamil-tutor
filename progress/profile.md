@@ -123,9 +123,17 @@ These are **hard dials**, read by the Director/Architect. They live here (not in
   **~63 authored minutes a day**. The standing USD 5–10/month budget is not the binding
   constraint at any dial being discussed, and the six-month $0 bill was 2% utilisation, not
   luck. `edge-tts` stays available and stays unpriced; nothing needs it yet.
-  **What binds instead is pipeline throughput** — 1.5 → 10–15 min/day is a 7–10× increase in
-  material that must be commissioned, written and rendered daily, mostly with Andrew not in the
-  loop. Route a shortfall there, never to the budget.
+  **AND THE THROUGHPUT PREMISE WAS FALSE TOO — measured 2026-09-13.** This bullet used to say
+  the binding constraint was pipeline throughput: 1.5 → 10–15 min/day read as a 7–10× increase
+  in material to commission, write and render daily. That arithmetic counted every authored
+  minute as heard exactly once. **Re-listening is the design, not a fallback** (Andrew,
+  2026-09-13): one tape every 3–4 days, played across those days in different contexts. At
+  ~3.5 plays per tape, 15 min/day needs **129 authored min/month against the 144 this pipeline
+  already produces** — so the dial is reachable at *current* output, and 20 min/day is a 19%
+  increase rather than a 7×. The rotation lane was built for this and says so: its cadence
+  forbids two identical shapes at the seam precisely because he plays a tape two or three times
+  through. What was missing was never throughput; it was a meter that counted plays.
+  **Route a shortfall to the tape's replay count first, then to throughput, never to the budget.**
 - **Live coverage target: ~95%+ known words in the Intercept *as heard*** — the listening-comprehension floor (Nation's lexical-coverage research). Comprehension must hold live.
 - **Gossip-tape carve-out (the ONE exception to 95%).** "Catch the drift" is a skill drilled on input Andrew *doesn't* fully understand: a clearly-marked eavesdrop segment (in-session eavesdrop drill, or a short tagged episode segment) may run native-speed with well below 95% coverage. The win condition is different — who/what/mood, not full comprehension — and it exists to train the `catch` items (quote-னு, hearsay-ஆம், the maami's predictable lines). Everything else keeps the 95% rule.
 - **Density is an OUTPUT, never a target.** It falls out of (fence size × the 95% coverage target). With a small fence, episodes lean heavily on English scaffolding — correct, not watering down. Do not dial a Tamil ratio.
