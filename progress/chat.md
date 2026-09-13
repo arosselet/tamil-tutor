@@ -18,6 +18,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **13:10 · Anna**  ·  text / show dose: illannaa
 > Newsreaders say 'illaavittaal' — at our table it's 'illannaa' (otherwise/or else). Kilambunga, illannaa late aayidum! ⏳
 
+**14:01 · Andrew** — **CHAT**
+> Kilambunga means let’s do it later?
+
+**Anna ↩**
+> illa da — 'kilambunga' means 'get moving / head out'!
+
 
 ## Friday 2026-09-11
 

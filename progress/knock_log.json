@@ -7142,6 +7142,29 @@
     "body": "Newsreaders say 'illaavittaal' — at our table it's 'illannaa' (otherwise/or else). Kilambunga, illannaa late aayidum! ⏳",
     "expected_target": "",
     "stance": "give",
-    "target_revealed": true
+    "target_revealed": true,
+    "response": "reply",
+    "reply": "Kilambunga means let’s do it later?",
+    "reply_verdict": "chat",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line": "illa da — 'kilambunga' means 'get moving / head out'!",
+    "reply_at": "2026-09-13T18:01:11Z",
+    "exchanges": [
+      {
+        "at": "2026-09-13T18:01:11Z",
+        "reply": "Kilambunga means let’s do it later?",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "illa da — 'kilambunga' means 'get moving / head out'!",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ]
   }
 ]
