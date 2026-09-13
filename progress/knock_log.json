@@ -7099,5 +7099,21 @@
     "move": "eavesdrop: youknow-la",
     "rationale": "Eavesdrop overdue by 4d with 29 catch items pending; tests frame:youknow-la via Karthik's errand slip.",
     "next_check": "2026-09-12T23:59:10.497319+00:00"
+  },
+  {
+    "date": "2026-09-13",
+    "timestamp": "2026-09-13T13:01:48.336935+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "eavesdrop: youknow-la",
+    "rationale": "Ear backlog high (29 pending) and no eavesdrop in 5 days; testing youknow-la catch with Karthik named up front.",
+    "next_check": "2026-09-13T17:01:48.336935+00:00",
+    "body": "Overheard on the phone: 'kalyanam mudinjadhu' (wedding is set). Catch the opening: who is athai gossiping about?",
+    "expected_target": "frame:youknow-la",
+    "stance": "ask",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-09-13T13-01.mp3",
+    "memo_script": "ஹலோ, சாந்தி, கேக்குதா? நான் தான் பேசுறேன்.\n\nநம்ம கார்த்திக் இருக்கான்ல... அவனுக்கு ஒரு வழியா கல்யாணம் பேசி முடிச்சிட்டாங்கன்னு இப்பதான் அத்தை சொன்னாங்க!\n\nபொண்ணு நம்ம ஊரு தானாம், சரவணம்பட்டி பக்கம். பையனுக்கு ரொம்ப நாளா பொண்ணு பார்த்துட்டு இருந்தாங்க இல்ல? கடைசில நல்ல இடமா அமைஞ்சிருச்சுன்னு சொன்னாங்க.\n\nஅடுத்த மாசம் நிச்சயதார்த்தம் வச்சிருக்காங்களாம். நீ கண்டிப்பா ஊருக்கு வரணும், புரியுதா? சரி சரி, அப்புறம் விவரமா கூப்பிடுறேன், போன வைக்கிறேன்.",
+    "mp3": "published_audio/knocks/knock_2026-09-13T13-01.mp3"
   }
 ]

@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Sunday 2026-09-13
+
+**09:01 · Anna** 🎧  ·  eavesdrop / eavesdrop: youknow-la
+> Overheard on the phone: 'kalyanam mudinjadhu' (wedding is set). Catch the opening: who is athai gossiping about?
+
+
 ## Friday 2026-09-11
 
 **10:46 · Anna**  ·  text / trailer: counter-serve
