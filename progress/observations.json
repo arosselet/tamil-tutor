@@ -18709,5 +18709,27 @@
     "result": null,
     "source": "knock:2026-09-13T13:01:48.336935+00:00",
     "note": ""
+  },
+  {
+    "id": "b04d8c4faa2e",
+    "at": "2026-09-13T13:08:17Z",
+    "word": "frame:youknow-la",
+    "channel": "eavesdrop",
+    "kind": "tested",
+    "axis": "recognition",
+    "result": "right",
+    "source": "knock:2026-09-13T13:01:48.336935+00:00",
+    "note": "declared target, caught"
+  },
+  {
+    "id": "f7686c8197d4",
+    "at": "2026-09-13T13:08:17Z",
+    "word": "நம்ம",
+    "channel": "eavesdrop",
+    "kind": "tested",
+    "axis": "recognition",
+    "result": "right",
+    "source": "knock:2026-09-13T13:01:48.336935+00:00",
+    "note": "named unprompted, right"
   }
 ]

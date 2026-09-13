@@ -684,7 +684,7 @@
     "phonetic": [
       "namma"
     ],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "hinted",
     "seen_in": [
       9,
@@ -694,10 +694,11 @@
       28,
       61
     ],
-    "last_surfaced": "2026-07-28",
-    "reps": 1,
+    "last_surfaced": "2026-09-13",
+    "reps": 2,
     "exposures": 1,
-    "taught_on": "2026-02-25"
+    "taught_on": "2026-02-25",
+    "heard_on": "2026-09-13"
   },
   "நல்லா இருக்கு": {
     "gloss": "It's good",
@@ -4070,7 +4071,7 @@
     "phonetic": [
       "namma thambi irukkaan-la"
     ],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "none",
     "seen_in": [
       68,
@@ -4083,7 +4084,8 @@
     "exposures": 2,
     "reps": 1,
     "register": "gossip",
-    "taught_on": null
+    "taught_on": "2026-07-18",
+    "heard_on": "2026-09-13"
   },
   "எவ்ளோ ஆகும்?": {
     "type": "chunk",

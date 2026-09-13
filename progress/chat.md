@@ -9,6 +9,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:01 · Anna** 🎧  ·  eavesdrop / eavesdrop: youknow-la
 > Overheard on the phone: 'kalyanam mudinjadhu' (wedding is set). Catch the opening: who is athai gossiping about?
 
+**09:08 · Andrew** — **CAUGHT**
+> Namma karthi
+
+**Anna ↩**
+> adhu dhaan — namma Karthik, wedding finally fixed! 🎧
+
 
 ## Friday 2026-09-11
 
