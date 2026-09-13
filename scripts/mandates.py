@@ -138,6 +138,10 @@ speed and Tamil script not at all, so rewrite it with EVERY Tamil word in phonet
 ("poren", "romba nallarukku"). Keep the content, tone, emoji, punctuation and length \
 otherwise identical — this is a transliteration, not a rewrite. Return ONLY the line."""
 
+# The escalation net's judge (2026-09-13, Andrew: "sometimes I'll send a one off reply from my home screen. I want that to be judged by the model"). Replaced a substring match on stored phonetics.
+OPEN_ASK_MANDATE = """Andrew sent this line from his phone WITHOUT replying to the knock. Decide ONE thing: does it ANSWER the knock's open ask — an attempt at that Tamil in any spelling, his deliberate colloquial misspellings included, right or wrong — \
+or is it chat, a request, or a note about the system? Return {"answers": true} or {"answers": false}."""
+
 
 # ── The rotation tape's movement mandates ──────────────────────────────────
 # Split out of render_rotation.py (2026-08-10) when that file hit 340/340 code

@@ -63,6 +63,8 @@ PROSE_BUDGETS = {
     # 300 -> 333 (2026-08-31, Andrew).
     "CATCH_JUDGE_MANDATE": 333,
     "MESSAGE_MANDATE": 230,
+    # NEW 2026-09-13, budgeted in the diff that creates it: the escalation net's model check (it retired a substring match on stored phonetics).
+    "OPEN_ASK_MANDATE": 70,
     # The narrative surfaces, budgeted the day they became one line per item (2026-09-10): the log at 11.7k after compression from 32k, the inbox at 1k from 19.6k, the debug precedents at 1.3k from 4.5k.
     "docs/DECISIONS.md": 12500,
     "docs/feature_inbox.md": 1500,
@@ -169,6 +171,7 @@ def s18_size_budgets(mk, kr, sb: Path):
                "THREAD_MANDATE": kr.THREAD_MANDATE,
                "CATCH_JUDGE_MANDATE": kr.CATCH_JUDGE_MANDATE,
                "VOICE_MANDATE": kr.VOICE_MANDATE,
+               "OPEN_ASK_MANDATE": kr.OPEN_ASK_MANDATE,
                # reached through the lane that owns it, the same way the
                # knock cases reach reply_common — no re-export just for a test
                "MESSAGE_MANDATE":

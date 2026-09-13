@@ -1730,8 +1730,19 @@ def s83_reply_or_message_is_decided_by_the_tag(mk, kr, sb: Path):
     lex_path, klog_path = kr.LEXICON_PATH, kr.KNOCK_LOG_PATH
     saved = (lex_path.read_bytes(), klog_path.read_bytes())
     real_judge_message, real_intent = km.judge_message, os.environ.get("REPLY_INTENT", "")
+    real_ask = kr.ask_json
     target = "frame:tag-probe"
+    # THE NET IS A MODEL CHECK since 2026-09-13 (Andrew: a one-off reply from his
+    # home screen should be judged by the model). Stubbed to answer "does his line
+    # attempt the ask?" — and it records what it was shown, so the case proves the
+    # model sees the target and his words rather than a stored spelling list.
+    seen_asks = []
+
+    def fake_ask(system, user, schema, **kw):
+        seen_asks.append(user)
+        return {"answers": "seri" in user.split("HIS LINE:")[-1]}
     try:
+        kr.ask_json = fake_ask
         lex = read_json(lex_path)
         lex[target] = lex_row(gloss="probe", phonetic=["seri seri"], last_surfaced="2026-08-01",
                               direction="fire", type="frame")
@@ -1752,6 +1763,17 @@ def s83_reply_or_message_is_decided_by_the_tag(mk, kr, sb: Path):
         for name, (kid, intent, text), want in cases:
             got = kr.is_message(kid, intent, text, knock, read_json(lex_path))
             check(name, got is want, f"got {got}, wanted {want}")
+        check("...and the model judged his words against the ask, not a spelling list",
+              any(target in u and "seri seri da" in u for u in seen_asks), str(seen_asks[-1:]))
+
+        def down(*a, **kw):
+            raise RuntimeError("executor down")
+        kr.ask_json = down
+        with contextlib.redirect_stdout(io.StringIO()) as failed:
+            fell_back = kr.is_message("", "", "seri seri da", knock, read_json(lex_path))
+        check("a failed check falls back to the message lane, and says so",
+              fell_back is True and "open-ask check failed" in failed.getvalue(), failed.getvalue())
+        kr.ask_json = fake_ask
 
         # An untagged arrival must be visible in the log — a silent changeover
         # that quietly stopped grading his reps is the original bug in new clothes.
@@ -1798,6 +1820,7 @@ def s83_reply_or_message_is_decided_by_the_tag(mk, kr, sb: Path):
               pushes[-1][1].get("knock_id") == "", str(pushes[-1][1]))
     finally:
         km.judge_message = real_judge_message
+        kr.ask_json = real_ask
         os.environ["REPLY_INTENT"] = real_intent
         for path, blob in zip((lex_path, klog_path), saved):
             path.write_bytes(blob)

@@ -1965,8 +1965,6 @@ def s56_timezone_is_one_dial(sb: Path):
         learner_path.write_bytes(saved)
 
 
-DEBT_CEILING_NO_PHONETIC = 96
-
 
 def s71_a_new_record_is_born_reachable(sb: Path):
     """A minted record must carry its sounds-like form (2026-08-14, Andrew).
@@ -1986,10 +1984,9 @@ def s71_a_new_record_is_born_reachable(sb: Path):
     logged BY that phonetic, round-tripped through the real command and re-read
     from disk. That round trip is the whole purpose; everything else is ceremony.
 
-    The ratchet is the second half of Andrew's call: `render_audio` mints records
-    unattended and cannot be blocked without killing renders, so the debt is
-    capped instead. Existing records are grandfathered — no backfill, by his
-    decision. The number may only ever fall; lower it when a tranche is vetted."""
+    The ratchet that capped the no-phonetic debt RETIRED 2026-09-13 (Andrew):
+    every key is logged in Tamil script now, and phonetics are generated for
+    display, never stored — the stored field goes after 2026-09-20."""
     print("\n71. A new record is born reachable (2026-08-14)")
     import argparse as _ap
     import contextlib
@@ -2056,16 +2053,10 @@ def s71_a_new_record_is_born_reachable(sb: Path):
         check("a near-miss spelling names the row it probably meant",
               "nearest" in out and word in out, out.strip()[-200:])
 
-        # 5. The ratchet — real tree, not the sandbox: the debt binds the
-        #    lexicon as committed. Frames are exempt (addressed by `frame:` key).
-        real_lex = read_json(REAL_BASE / "progress" / "lexicon.json") or {}
-        debt = sum(1 for k, v in real_lex.items()
-                   if not k.startswith("frame:") and not v.get("phonetic"))
-        check(f"records with no phonetic: {debt}/{DEBT_CEILING_NO_PHONETIC}",
-              debt <= DEBT_CEILING_NO_PHONETIC,
-              f"{debt - DEBT_CEILING_NO_PHONETIC} new unreachable record(s) — give "
-              f"them a phonetic, or lower the ceiling in this same diff if you "
-              f"vetted a tranche. It may never be raised.")
+        # 5. The no-phonetic ratchet RETIRED 2026-09-13 (Andrew): every key is now
+        #    logged in Tamil script by a model that holds the Tamil, so a row with
+        #    no stored spelling is no longer unreachable. Phonetics are generated
+        #    for display; the stored field itself is deleted after 2026-09-20.
     finally:
         lex_path.write_bytes(saved[0])
         if saved[1] is not None:

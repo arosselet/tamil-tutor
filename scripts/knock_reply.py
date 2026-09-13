@@ -110,8 +110,8 @@ from slips import append_slips, slip_patterns
 from sync_state import fires_today
 
 from mandates import (CATCH_JUDGE_MANDATE, FORCE_SCHEDULE_ADDENDUM, JUDGE_MANDATE,
-                      FORCE_VOICE_ADDENDUM, REACH_MANDATE, SLIP_MANDATE,
-                      THREAD_MANDATE, VOICE_MANDATE)
+                      FORCE_VOICE_ADDENDUM, OPEN_ASK_MANDATE, REACH_MANDATE,
+                      SLIP_MANDATE, THREAD_MANDATE, VOICE_MANDATE)
 
 
 VERDICTS = {"cold", "hinted", "miss", "chat"}
@@ -331,21 +331,33 @@ def last_fired_knock(klog: list) -> dict | None:
     return fired[-1] if fired else None
 
 
-def answers_the_open_ask(text: str, knock: dict, lexicon: dict) -> bool:
-    """Does this line contain the thing the open knock actually asked for?
+OPEN_ASK_SCHEMA = obj(answers=BOOL)
 
-    The escalation net under the intent tag: a tagless line that answers the open
-    ask is a REP whichever button he pressed, so it goes to a judge rather than
-    to the message lane. Substring match against the lexicon's OWN phonetic forms
-    — Python-owned, no model, no inference. It is deliberately narrow: it can
-    only ever pull something back INTO grading, never push a request out of it."""
+
+def answers_the_open_ask(text: str, knock: dict, lexicon: dict) -> bool:
+    """Does this line attempt the thing the open knock actually asked for?
+
+    The escalation net under the intent tag: a line that answers the open ask is a
+    REP whichever button he pressed, so it goes to a judge rather than to the
+    message lane. It is deliberately narrow: it can only ever pull something back
+    INTO grading, never push a request out of it.
+
+    A MODEL DECIDES since 2026-09-13 (Andrew: "sometimes I'll send a one off
+    reply/message from my home screen. I want that to be judged by the model").
+    It was a substring match on the row's stored phonetics, which saw only the
+    spellings someone had pre-named — and phonetics are no longer stored. The
+    model reads his spelling, deliberate colloquial misspellings included. A
+    failed call is a MESSAGE, loudly: the safe side, the same default the tag has."""
     target, _ = current_pin(knock)
-    key = resolve(target, lexicon, build_phonetic_index(lexicon)) if target else None
-    if not key:
+    if not target or not text.strip():
         return False
-    forms = [key] + list((lexicon.get(key) or {}).get("phonetic") or [])
-    low = text.lower()
-    return any(f and f.lower() in low for f in forms)
+    ask = (f"THE OPEN ASK: {target} — {(lexicon.get(target) or {}).get('gloss', '')}\n"
+           f"THE KNOCK: {knock.get('body_script') or knock.get('body', '')}\n\nHIS LINE: {text}")
+    try:
+        return bool(ask_json(OPEN_ASK_MANDATE, ask, OPEN_ASK_SCHEMA, answer_tokens=60).get("answers"))
+    except Exception as e:
+        print(f"   ⚠ open-ask check failed ({type(e).__name__}: {e}) — treating it as a message")
+        return False
 
 
 def is_message(knock_id: str, intent: str, text: str,
