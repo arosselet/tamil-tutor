@@ -1116,7 +1116,14 @@ def cmd_rate_episode(args):
         sys.exit(1)
     note = f"[audio rating] [{item['format']}] {item['title']} — {label}.{diagnostic}"
     log = load_json(FEEDBACK_LOG_PATH) or []
-    log.append({"date": local_today().isoformat(), "note": note})
+    # THE PLAY ROW FREEZES ITS OWN MINUTES (2026-09-13). The alternative was a
+    # dose meter that re-joined this note's TITLE back to the feed — string
+    # archaeology over a log format, and titles contain the same " — " the
+    # format uses as a separator. `minutes` comes off the feed item already in
+    # hand, where a duration is measured once and frozen (`existing_items`), so
+    # the meter is a sum over rows and never a parse.
+    log.append({"date": local_today().isoformat(), "note": note,
+                "id": item["id"], "minutes": item.get("minutes", 0.0)})
     save_json(FEEDBACK_LOG_PATH, log)
     print(f"  Logged feedback ({len(log)} total): {note}")
     # A RATING IS A LISTEN (2026-09-10): the one proof the ear block happened,

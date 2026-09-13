@@ -15,6 +15,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
+import audio_titles
 from sync_state import compute_floor, compute_engines, compute_ear, trailing_pace
 
 RECOGNIZED = {"comfortable", "solid"}
@@ -125,6 +126,21 @@ def main():
         for s in session_log[-5:]:
             moved = len(s.get("cold", [])) + len(s.get("hinted", []))
             print(f"    {s.get('date','?')} | floor {s.get('floor_pct','?')}% | +{moved} produced | {s.get('note','')[:40]}")
+
+    # THE DOSE, MEASURED AS MINUTES PLAYED (2026-09-13). Every other meter on
+    # this dashboard reads the word brain; this one reads CONTACT, which nothing
+    # here could see. It counts presses of play, never renders — a number the
+    # system can move by writing more files is not a meter.
+    dose = audio_titles.dose_minutes(30)
+    print("\n🎧 DOSE — minutes he actually played (30d)")
+    print("-" * 55)
+    print(f"    {dose['minutes']:.0f} min · {dose['per_day']:.1f}/day · "
+          f"{dose['taps']} presses over {len(dose['plays'])} artifacts")
+    if dose["unmeasured"]:
+        print("    ⚠ presses recorded with NO minutes — plumbing, not a quiet month")
+    if dose["plays"]:
+        top = sorted(dose["plays"].items(), key=lambda kv: -kv[1])[0]
+        print(f"    Most replayed: {top[0]} ({top[1]}×)")
 
     print(f"\n💡 {learner.get('status', 'Ready for more.')}")
     print("=" * 55)

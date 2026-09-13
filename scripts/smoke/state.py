@@ -4162,3 +4162,86 @@ def s106_the_tap_reports_a_fact_not_a_mood(sb: Path):
     finally:
         lex_path.write_bytes(saved[0])
         fb_path.write_bytes(saved[1])
+
+
+def s107_the_dose_meter_counts_plays_not_renders(sb: Path):
+    """MINUTES ATTENDED, NEVER MINUTES COMMISSIONED (2026-09-13, Andrew).
+
+    The dial in `profile.md` asks for 10-15 min/day and nothing measured it. The
+    only number available was what the pipeline PRODUCED — a meter the system
+    can satisfy by writing more files, which is "honest meters or none" failing
+    in its most literal form. This counts presses of play.
+
+    THE PLAY ROW FREEZES ITS OWN MINUTES. The alternative re-joined the note's
+    TITLE back to the feed, which is string archaeology over a log format whose
+    titles contain the very " — " the format uses as a separator.
+
+    THE SILENT NO-OP, and it reads as its own opposite: if a duration never
+    reaches the row, the meter reports 0.0/day while taps accumulate, and a
+    reader concludes he stopped listening when in fact the plumbing broke. A
+    quiet week and a broken join must not look identical, so `unmeasured`
+    separates them and both surfaces say which one it is."""
+    print("\n107. The dose meter counts plays, not renders (2026-09-13)")
+    import argparse as _ap
+    import contextlib
+    import io as _io
+    sys.path.insert(0, str(sb / "scripts"))
+    ss = importlib.import_module("sync_state")
+    at = importlib.import_module("audio_titles")
+    rs = importlib.import_module("rebuild_rss")
+    fb_path = sb / "progress" / "feedback_log.json"
+    saved = fb_path.read_bytes()
+    try:
+        write_json(fb_path, [])
+        rs.feed_items = lambda: [
+            {"id": "rotation_x", "title": "Rotation — machines",
+             "format": "rotation", "minutes": 15.0},
+            {"id": "payoff_y", "title": "Payoff — a short one",
+             "format": "payoff", "minutes": 2.5}]
+        ss.feed_items = rs.feed_items
+
+        def tap(title):
+            with contextlib.redirect_stdout(_io.StringIO()):
+                ss.cmd_rate_episode(_ap.Namespace(episode=title, verdict="finished",
+                                                  commit=False))
+
+        check("no taps at all reads as zero, and NOT as a broken join",
+              at.dose_minutes(7) == {**at.dose_minutes(7), "minutes": 0.0,
+                                     "taps": 0, "unmeasured": False})
+
+        tap("Rotation — machines")
+        tap("Rotation — machines")
+        tap("Payoff — a short one")
+        d = at.dose_minutes(7)
+        check("minutes are the SUM of what he played, re-listens included",
+              d["minutes"] == 32.5, str(d))
+        check("...and the replay is counted as two plays of one artifact",
+              d["plays"]["rotation_x"] == 2 and len(d["plays"]) == 2, str(d["plays"]))
+        check("...which is the quality meter: the replayed tape is on top",
+              max(d["plays"], key=d["plays"].get) == "rotation_x")
+        check("a healthy meter is NOT flagged unmeasured", not d["unmeasured"])
+
+        # THE FAILURE THAT READS AS ITS OPPOSITE.
+        write_json(fb_path, [{"date": local_today_iso(sb), "note":
+                              "[audio rating] [rotation] Rotation — machines — finished it."}])
+        d = at.dose_minutes(7)
+        check("a press with no duration behind it is 0 minutes...",
+              d["minutes"] == 0.0 and d["taps"] == 1, str(d))
+        check("...and is NAMED as plumbing, so it cannot read as a quiet week",
+              d["unmeasured"],
+              "0.0/day with taps on the board looks exactly like he stopped "
+              "listening — that is the bug this flag exists to separate")
+
+        # The window is a window: a play outside it does not count.
+        write_json(fb_path, [{"date": "2020-01-01", "note":
+                              "[audio rating] [rotation] old — finished it.",
+                              "id": "rotation_x", "minutes": 15.0}])
+        check("a play outside the window does not count", at.dose_minutes(7)["taps"] == 0)
+    finally:
+        fb_path.write_bytes(saved)
+
+
+def local_today_iso(sb: Path) -> str:
+    """The sandbox's own today, so a window assertion is not a timezone test."""
+    sys.path.insert(0, str(sb / "scripts"))
+    return importlib.import_module("state_io").local_today().isoformat()

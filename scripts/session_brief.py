@@ -19,6 +19,7 @@ import is ordinary practice rather than a cycle-dodge.
 import subprocess
 from datetime import date, datetime, timedelta
 
+import audio_titles
 from slips import format_slip_block, slip_patterns
 from state_io import (BASE, EPISODES_PATH, FEEDBACK_LOG_PATH, KNOCK_LOG_PATH,
                       LEARNER_PATH, LEXICON_PATH, LOCAL_TZ, SESSION_LOG_PATH,
@@ -455,6 +456,15 @@ def cmd_status(_args):
                  if e.get("date", "") >= week and "[audio rating]" in e.get("note", "")}
         print(f"Ear block: rated on {len(heard)} of the last 7 days"
               + ("" if heard else " — cue it at the second anchor; a rating is how it is seen"))
+        # THE DOSE, AS MINUTES HE PLAYED (2026-09-13). The ear-block line counts
+        # DAYS and cannot tell one tap on a 3-minute payoff from a 15-minute
+        # rotation tape heard twice. Anna reads this as a floor for what to
+        # COMMISSION — never as a debt, and no number from it reaches his ear
+        # (`daily_session.md`). The dial it answers is profile.md's 10-15 min/day.
+        dose = audio_titles.dose_minutes(7)
+        warn = " — ⚠ presses with NO duration behind them: plumbing, not a quiet week" if dose["unmeasured"] else ""
+        print(f"Dose: {dose['minutes']:.0f} min played over 7d "
+              f"({dose['per_day']:.1f}/day, {dose['taps']} presses){warn}")
 
     episodes = load_json(EPISODES_PATH) or {}
     if episodes:

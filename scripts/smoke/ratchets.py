@@ -113,7 +113,13 @@ CODE_BUDGETS = {
     # NEW FILE, budgeted in the same diff that creates it (2026-09-04).
     "scripts/memo.py": 28,
     # 350 -> 355 (2026-09-01): A TRANSFER, NOT GROWTH, and the sync_state entry below is re-censused DOWN by the same 5 in this same diff — the two ceilings …
-    "scripts/rebuild_rss.py": 355,
+    # 355 -> 368 (2026-09-13): `feed_items` now carries each item's MINUTES off
+    # the same parse, so the rating tap can freeze a duration onto its play row.
+    # What it retires is the second home the alternative wanted — a duration
+    # field on the artifact registry, which would have duplicated a value
+    # `existing_items` deliberately measures once and freezes, and would have
+    # covered only numbered missions (the exact gap `feed_items` exists to fix).
+    "scripts/rebuild_rss.py": 368,
     # New surface, budgeted in the diff that creates it (2026-09-01). · Set at the census plus normal headroom.
     "scripts/audio_titles.py": 80,
     "scripts/render_audio.py": 495,
@@ -136,7 +142,14 @@ CODE_BUDGETS = {
     # NEW FILE, budgeted in the same diff that creates it (2026-08-28, Andrew). · 20 -> 35 (2026-09-03).
     "scripts/language.py": 35,
     "scripts/slips.py": 300,
-    "scripts/session_brief.py": 250,
+    # 250 -> 254 (2026-09-13): the DOSE line — minutes he actually played, the
+    # first contact meter this brief has ever carried. The ear-block line beside
+    # it counts DAYS and cannot tell one tap on a 3-minute payoff from a
+    # 15-minute rotation tape heard twice, which is the number `profile.md`'s
+    # 10-15 min/day dial is denominated in. Four lines, and the block it would
+    # otherwise have needed (a title->feed join) is retired by the play row
+    # freezing its own minutes at tap time.
+    "scripts/session_brief.py": 254,
     "scripts/suggest_targets.py": 575,
     # 1250 -> 1254 (2026-08-04): the tap lane's stage/commit/pull/push moved IN from the "Log tap" step of anna.yml, where it was a hand-rolled `git pull --rebase` with no union … · 1254 -> 800 (2026-08-04): re-censused DOWN after the three-way split, the same move morning_knock made on 08-01. · 800 -> 795 (2026-09-01): RE-CENSUSED DOWN, not held.
     "scripts/sync_state.py": 795,

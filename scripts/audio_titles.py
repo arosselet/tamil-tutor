@@ -134,3 +134,41 @@ def distinct(titles: dict) -> dict:
             if mark:
                 out[stem] = f"{title} · {mark}"
     return out
+
+
+def dose_minutes(days: int = 7, today=None) -> dict:
+    """MINUTES ATTENDED over a trailing window — the honest denominator.
+
+    Counts what he PLAYED, never what was commissioned. A meter that counts
+    renders is one the system can satisfy by writing more files, which is the
+    "honest meters or none" rule failing in its most literal form.
+
+    Each play row froze its own `minutes` at tap time, so this is a sum and not
+    a join. A row without `minutes` predates the meter and counts as a play with
+    zero time rather than being dropped — under-reporting contact is the safe
+    direction, and a dropped row would silently flatter the average.
+
+    `plays` is the re-listen count per artifact, which is also the quality
+    meter: under the standing-tape cadence a tape played four times was good and
+    a tape played once was not. It costs no extra tap.
+    """
+    from datetime import timedelta
+    from state_io import FEEDBACK_LOG_PATH, load_json, local_today
+    start = ((today or local_today()) - timedelta(days=days - 1)).isoformat()
+    plays: dict[str, int] = {}
+    total = 0.0
+    for row in load_json(FEEDBACK_LOG_PATH) or []:
+        if "[audio rating]" not in row.get("note", "") or row.get("date", "") < start:
+            continue
+        total += float(row.get("minutes") or 0.0)
+        key = row.get("id") or "(before the meter)"
+        plays[key] = plays.get(key, 0) + 1
+    taps = sum(plays.values())
+    return {"minutes": total, "per_day": total / days, "days": days,
+            "plays": plays, "taps": taps,
+            # AN ABSENCE MUST BE LOUD. Taps with no minutes behind them is the
+            # one failure that reads as its own opposite: the meter says 0.0/day
+            # and a reader concludes he stopped listening, when in fact he
+            # pressed play and the duration never reached the row. Named here so
+            # both surfaces can say which of the two it is.
+            "unmeasured": bool(taps) and not total}

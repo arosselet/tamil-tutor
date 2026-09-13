@@ -380,11 +380,28 @@ def feed_items():
             when = email.utils.parsedate_to_datetime(item.findtext("pubDate") or "")
         except (TypeError, ValueError):
             continue
-        out.append({"id": stem, "title": title, "format": fmt, "at": when})
+        # `minutes` rides along from the same parse (2026-09-13). The feed is
+        # where a duration is MEASURED ONCE AND FROZEN (`existing_items`), so the
+        # dose meter reads it here rather than growing a second home on a
+        # registry that only ever covered numbered missions.
+        dur = (item.findtext("{http://www.itunes.com/dtds/podcast-1.0.dtd}duration")
+               or "").strip()
+        out.append({"id": stem, "title": title, "format": fmt, "at": when,
+                    "minutes": _hhmmss_min(dur), "date": when.date().isoformat()})
     out.sort(key=lambda d: d["at"], reverse=True)
     for d in out:
         d.pop("at")
     return out
+
+
+def _hhmmss_min(raw: str) -> float:
+    """`HH:MM:SS` -> minutes. An unparseable duration is 0.0, never a guess: the
+    dose meter must under-report rather than invent contact time."""
+    parts = (raw or "").split(":")
+    if not all(p.strip().isdigit() for p in parts) or not 2 <= len(parts) <= 3:
+        return 0.0
+    h, m, sec = ([0] + [int(p) for p in parts])[-3:]
+    return h * 60 + m + sec / 60
 
 
 # Six rows, the 08-27 number, moved here with the writer rather than re-derived:
