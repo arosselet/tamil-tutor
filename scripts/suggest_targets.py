@@ -433,8 +433,10 @@ def recent_ask_counts(klog: list, lexicon: dict, days: int = ASK_COOLDOWN_DAYS, 
             ts = ts.replace(tzinfo=timezone.utc)
         if ts < cutoff:
             continue
-        texts = [k.get("body", ""), k.get("memo_script", ""), k.get("reply_line", "")]
-        texts += [x.get("reply_line", "") for x in k.get("exchanges", [])]
+        # The *_script drafts (2026-09-13) are exact; the phonetic fields remain for
+        # knocks logged before them.
+        texts = [k.get(f, "") for f in ("body", "body_script", "memo_script", "reply_line", "reply_line_script")]
+        texts += [x.get(f, "") for x in k.get("exchanges", []) for f in ("reply_line", "reply_line_script")]
         # Every item of a volley was asked, not just the one that opened it —
         # `expected_target` names item 1 and Python walks the rest, so items 2..n
         # were invisible to this count while being the deck's main volume channel

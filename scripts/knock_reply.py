@@ -294,12 +294,13 @@ def handle_catch_reply(knock: dict, reply_text: str, klog: list,
     # because no case asserted the CATCH path, and it stopped being theoretical
     # when `voice_canon` began handing this judge a dialect file written in Tamil
     # script immediately before asking it for a line Andrew reads.
+    knock["reply_line_script"] = verdict["reply_line"]
     knock["reply_line"] = to_phonetic(verdict["reply_line"], label="catch push-back")
     knock["reply_at"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     knock.setdefault("exchanges", []).append({
         "at": knock["reply_at"], "reply": reply_text,
         "verdict": verdict["verdict"], "fired": [],
-        "reply_line": knock["reply_line"],
+        "reply_line": knock["reply_line"], "reply_line_script": knock["reply_line_script"],
     })
     save_json(LEXICON_PATH, lexicon)
     save_json(KNOCK_LOG_PATH, klog)
@@ -629,9 +630,10 @@ def shown_in_knock(key: str, rec: dict, knock: dict) -> bool:
     recast Anna already pushed back on an earlier reply — show this Tamil
     (script or any known phonetic)? Shown ⇒ the reply caps at 'hinted'.
     Scans the WHOLE chain, not just the last recast."""
-    parts = [knock.get("body", ""), knock.get("memo_script", ""),
-             knock.get("reply_line", "")]
-    parts += [x.get("reply_line", "") for x in knock.get("exchanges", [])]
+    # The *_script drafts (2026-09-13) are exact; the phonetic fields remain for
+    # knocks logged before them.
+    parts = [knock.get(f, "") for f in ("body", "body_script", "memo_script", "reply_line", "reply_line_script")]
+    parts += [x.get(f, "") for x in knock.get("exchanges", []) for f in ("reply_line", "reply_line_script")]
     shown = " ".join(p for p in parts if p).lower()
     if key.lower() in shown:
         return True
@@ -660,8 +662,8 @@ def revealed_recently(klog: list, lexicon: dict, hours: float = 48.0) -> list[st
         ts = _ts(k.get("timestamp"))
         if ts is None or ts < cutoff:
             continue
-        texts += [k.get("body", ""), k.get("memo_script", ""), k.get("reply_line", "")]
-        texts += [x.get("reply_line", "") for x in k.get("exchanges", [])]
+        texts += [k.get(f, "") for f in ("body", "body_script", "memo_script", "reply_line", "reply_line_script")]
+        texts += [x.get(f, "") for x in k.get("exchanges", []) for f in ("reply_line", "reply_line_script")]
     blob = " ".join(t for t in texts if t).lower()
     if not blob:
         return []
@@ -907,9 +909,9 @@ def main():
     # as a prior exchange, and shown_in_knock scans it for revealed Tamil
     # Same read-surface law as a knock body (2026-08-03) — covers the chained ask
     # and the volley re-present too, both of which carry deck Tamil.
-    knock["reply_line"] = to_phonetic(
-        " · ".join(p for p in (verdict["reply_line"], follow or represent) if p),
-        label="push-back")
+    # The script draft is kept (2026-09-13): the reveal check reads it exactly.
+    knock["reply_line_script"] = " · ".join(p for p in (verdict["reply_line"], follow or represent) if p)
+    knock["reply_line"] = to_phonetic(knock["reply_line_script"], label="push-back")
     knock["reply_at"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     sched = verdict.get("schedule") or {}
     knock.setdefault("exchanges", []).append({
@@ -917,6 +919,7 @@ def main():
         "verdict": verdict["verdict"], "fired": fired_words,
         "fired_cold": cold_credited, "fired_capped": capped_keys,
         "graduated": graduated, "reply_line": knock["reply_line"],
+        "reply_line_script": knock["reply_line_script"],
         "slips": [s["tag"] for s in verdict.get("slips") or []],
         # What Anna DID this turn, not just what he wrote (2026-08-02). The
         # record used to hold words only, so the next turn could not tell a

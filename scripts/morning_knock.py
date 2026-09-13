@@ -629,7 +629,7 @@ def log_decision(now: datetime, decision: dict, *, acted: bool,
         "next_check": (now + timedelta(hours=decision["next_check_hours"])).isoformat(),
     }
     if acted:
-        entry["body"] = decision.get("notification_body")
+        entry["body"], entry["body_script"] = decision.get("notification_body"), decision.get("body_script", "")
         entry["expected_target"] = decision.get("expected_target", "")
         entry["stance"] = decision.get("stance", "ask")   # what it wanted; is_give reads this
         entry["target_revealed"] = decision.get("target_revealed", True)
@@ -693,8 +693,11 @@ def main():
     # The body is READ; memo_script below is SPOKEN and keeps its script.
     # Written back into `decision` so the log and chat.md record what he was
     # actually sent, not what the model first wrote.
-    decision["notification_body"] = body = to_phonetic(
-        decision.get("notification_body", ""))
+    # THE DRAFT RIDES ALONG AS `body_script` (2026-09-13): the model writes Tamil in
+    # script, which is exact evidence of what the knock showed — the reveal check
+    # and the ask counts read it instead of guessing at the phonetic's spelling.
+    decision["body_script"] = decision.get("notification_body", "")
+    decision["notification_body"] = body = to_phonetic(decision["body_script"])
     mp3 = audio_url = None
     if decision["modality"] in ("audio", "eavesdrop", "fielding"):
         print("3. render…")

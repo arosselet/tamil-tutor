@@ -1947,12 +1947,15 @@ def s50_read_surfaces_are_phonetic(mk, kr, sb: Path):
 
     # The rule is asked by surface, and no longer enumerates modalities.
     from mandates import OUTREACH_MANDATE
+    # SINCE 2026-09-13 the model DRAFTS every Tamil word in script, body included, and
+    # Python renders the body for him (the draft is the reveal check's exact evidence).
+    # Still one rule for every modality, never a lane list — the property that mattered.
     check("the mandate rules the body on EVERY modality, not a lane list",
           "text/challenge/grace body" not in OUTREACH_MANDATE
-          and "audio and volley included" in OUTREACH_MANDATE)
-    check("the reply push-back is mandatory, not 'fine'",
+          and "notification_body alike" in OUTREACH_MANDATE)
+    check("the reply push-back is drafted in script and rendered, never left 'fine'",
           "Phonetic Tamil is fine here" not in kr.JUDGE_MANDATE
-          and "ENGLISH PHONETICS" in kr.JUDGE_MANDATE)
+          and "Write its Tamil in SCRIPT" in kr.JUDGE_MANDATE)
     canon = (REAL_BASE / "protocol" / "constitution.md").read_text(encoding="utf-8")
     for f in ("protocol/persona.md", ".claude/skills/anna/SKILL.md"):
         txt = (REAL_BASE / f).read_text(encoding="utf-8")
@@ -2042,6 +2045,77 @@ def s50_read_surfaces_are_phonetic(mk, kr, sb: Path):
     check("knock_reply: the catch push sends the logged line, not the raw verdict",
           'push_to_phone(knock["reply_line"]' in kr_src,
           "pushing verdict[...] re-introduces the script one line after the transform")
+
+
+def s111_the_reveal_check_reads_the_script(mk, kr, pq, sb: Path):
+    """THE REVEAL CHECK READS THE SCRIPT DRAFT (2026-09-13, Andrew).
+
+    Whether a knock SHOWED a word decides cold vs hinted, and it used to be decided
+    by searching the phonetic body for the row's stored spelling. The composer's
+    spelling and the stored one were two separate guesses, 95 rows stored none, and
+    the composer's own `target_revealed` said "not shown" on 15 knocks whose body
+    printed the word. So the model drafts Tamil in SCRIPT, the draft is logged
+    beside what the phone got, and the check matches script to script.
+
+    Gate 7.2 — the silent failure is a draft that never reaches the log: every
+    reader still reads green off the phonetic fallback. So each reader is driven
+    with a phonetic body the row's spelling CANNOT match (the row has none), and
+    must see the word through the script alone; and both writers are round-tripped
+    to disk."""
+    print("\n111. The reveal check reads the script draft (2026-09-13)")
+    st = importlib.import_module("suggest_targets")
+    key = "குடுங்க"
+    lex = {key: lex_row(gloss="give", phonetic=[])}     # no spelling: the old blind spot
+    now = datetime.now(timezone.utc)
+    body = "da — ask her for tea: kudunga, one word"
+    script = f"da — ask her for tea: {key}, one word"
+    legacy = {"timestamp": now.isoformat(), "acted": True, "modality": "text",
+              "body": body, "expected_target": ""}
+    drafted = dict(legacy, body_script=script)
+
+    check("a legacy knock whose spelling the row lacks reads as UNSHOWN — the blind spot",
+          not kr.shown_in_knock(key, lex[key], legacy))
+    check("the same knock WITH its script draft reads as shown",
+          kr.shown_in_knock(key, lex[key], drafted))
+    check("...and so does a recast drafted in script",
+          kr.shown_in_knock(key, lex[key], dict(legacy, exchanges=[
+              {"reply_line": "close — kudunga", "reply_line_script": f"close — {key}"}])))
+    check("the 48h reveal window sees it through the draft",
+          key in kr.revealed_recently([drafted], lex), str(kr.revealed_recently([drafted], lex)))
+    check("the ask cooldown counts it through the draft, and not without it",
+          st.recent_ask_counts([drafted], lex).get(key) == 1
+          and not st.recent_ask_counts([legacy], lex).get(key),
+          f"{st.recent_ask_counts([drafted], lex)} / {st.recent_ask_counts([legacy], lex)}")
+
+    klog_path = sb / "progress" / "knock_log.json"
+    queue_path = pq.QUEUE_PATH
+    saved = {p: (p.read_bytes() if p.exists() else None) for p in (klog_path, queue_path)}
+    real_rephrase = fx.wr.rephrase_phonetic
+    try:
+        mk.log_decision(now, {"modality": "text", "move": "smoke", "rationale": "smoke",
+                              "next_check_hours": 3, "notification_body": body,
+                              "body_script": script, "expected_target": key}, acted=True)
+        entry = read_json(klog_path)[-1]
+        check("the knock log keeps the script draft beside what he was sent",
+              entry.get("body_script") == script and entry.get("body") == body, str(entry)[:200])
+
+        fx.wr.rephrase_phonetic = lambda b: "tea time — kudunga"
+        with contextlib.redirect_stdout(io.StringIO()):
+            pq.maybe_enqueue_schedule({"schedule": {
+                "at_local": (now + timedelta(days=1)).strftime("%Y-%m-%dT%H:%M"),
+                "body": f"tea time — {key}", "expected_target": key}})
+        q = read_json(queue_path)[-1]
+        check("a planted schedule is rendered to phonetics at plant time, not at fire",
+              q.get("body") == "tea time — kudunga", str(q.get("body")))
+        check("...and keeps its script draft for the reveal check",
+              q.get("body_script") == f"tea time — {key}", str(q)[:200])
+    finally:
+        fx.wr.rephrase_phonetic = real_rephrase
+        for p, b in saved.items():
+            if b is None:
+                p.unlink(missing_ok=True)
+            else:
+                p.write_bytes(b)
 
 
 def s60_the_ear_meter(kr, sb: Path):

@@ -122,7 +122,7 @@ def render_entry(entry: dict) -> Path | None:
 def enqueue(body: str, due: datetime, *, expected_target: str = "",
             target_revealed: bool = True, audio_url: str | None = None,
             memo_script: str = "", move: str = "scheduled push",
-            force: bool = False) -> dict:
+            force: bool = False, body_script: str = "") -> dict:
     """Append one composed push to the queue (no commit — callers own that, so a
     knock/judge run can land the queue write in its existing commit).
 
@@ -132,7 +132,7 @@ def enqueue(body: str, due: datetime, *, expected_target: str = "",
     entry = {
         "id": f"q{int(time.time())}",
         "due": due.astimezone(timezone.utc).isoformat(),
-        "body": body,
+        "body": body, "body_script": body_script or "",
         "expected_target": expected_target or "",
         "target_revealed": bool(target_revealed),
         "audio_url": audio_url or None,
@@ -185,7 +185,12 @@ def maybe_enqueue_schedule(decision: dict) -> Path | None:
     if due <= datetime.now(timezone.utc):
         print(f"   ! schedule.at_local is in the past ({s['at_local']}) — dropped")
         return None
-    enqueue(s["body"], due, expected_target=s.get("expected_target", ""),
+    # The planted body is drafted in SCRIPT like every knock body (2026-09-13), so it
+    # is rendered to phonetics HERE, at plant time, inside a model-backed lane —
+    # the drain fires with zero LLM calls by design. The draft rides as body_script.
+    from writer import to_phonetic
+    enqueue(to_phonetic(s["body"], label="scheduled body"), due, body_script=s["body"],
+            expected_target=s.get("expected_target", ""),
             target_revealed=bool(s.get("target_revealed", True)),
             memo_script=(s.get("memo_script") or "").strip(),
             move=s.get("move", "scheduled follow-up"))
@@ -313,7 +318,7 @@ def cmd_drain(args):
             "modality": "audio" if e.get("audio_url") else "text",
             "move": e.get("move", "scheduled push"),
             "rationale": f"scheduled at {e['queued_at'][:16]} for {e['due'][:16]}",
-            "body": e["body"],
+            "body": e["body"], "body_script": e.get("body_script", ""),
             "expected_target": e.get("expected_target", ""),
             "target_revealed": bool(e.get("target_revealed", True)),
             # the reply judge reads what was HEARD, exactly as for an audio knock
