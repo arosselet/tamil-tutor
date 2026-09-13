@@ -24,6 +24,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > illa da — 'kilambunga' means 'get moving / head out'!
 
+**15:29 · Andrew** — **CHAT**
+> Oh I was looking for “kilambalaama”, “let’s get going” and not sure about the root itself kilambu
+
+**Anna ↩**
+> Spot on — 'kilambu' is to head out. 'kilambalaama?' is 'shall we head out?', 'kilambunga' is telling them to get moving!
+
 
 ## Friday 2026-09-11
 
