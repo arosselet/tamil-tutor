@@ -204,16 +204,32 @@ def _rank(spine: str, hosts: dict):
     again, it is just used (FOCUS_SIZE law, suggest_targets.py)."""
     unfired = {"none": 0, "hinted": 1, "cold": 2}
 
+    # THE LAST TIEBREAK IS STALENESS, AND IT IS WHY TWO TAPES DIFFER (2026-09-13).
+    # `plan_movements` walks from cursor 0 every run, so two tapes of one spine
+    # read the same deterministically-sorted pool from the same place — the
+    # "samey" risk, in the lane about to become the standing dose. The fix is a
+    # derivation, not a stored cursor: `expose` already stamps `last_surfaced` on
+    # everything a tape airs, so an empty stamp (never aired) sorts first and the
+    # oldest-aired follow. Self-correcting, and no new state to drift.
+    #
+    # It is the LAST key on purpose. Coverage and pedagogy still outrank it, so a
+    # machine still leads the machines tape; staleness only breaks ties that were
+    # previously broken by dict order. For `machines` it changes little — 26 items
+    # and one tape consumes 24 — and that is correct: those are the sentence
+    # skeleton and hearing them again is the payload, not a variety failure.
     def key(r):
         prod = unfired.get(r["production"], 3)
+        seen = r["last_surfaced"] or ""
         if spine == "machines":
-            return (0 if r["type"] == "pattern" else 1, 0 if r["register"] else 1, prod)
+            return (0 if r["type"] == "pattern" else 1, 0 if r["register"] else 1,
+                    prod, seen)
         if spine == "inventory":
-            return (0 if r["word"] in hosts else 1, -len(hosts.get(r["word"], [])), prod)
+            return (0 if r["word"] in hosts else 1, -len(hosts.get(r["word"], [])),
+                    prod, seen)
         reg = r["register"]
         return (0 if reg else 1,
                 REGISTER_ORDER.index(reg) if reg in REGISTER_ORDER else len(REGISTER_ORDER),
-                prod)
+                prod, seen)
     return key
 
 
@@ -238,6 +254,7 @@ def build_pool(spine: str, payload: list[str]) -> list[dict]:
              "direction": rec.get("direction", ""),
              "type": rec.get("type", ""),
              "register": rec.get("register", ""),
+             "last_surfaced": rec.get("last_surfaced") or "",
              "hosts": hosts.get(k, [])}
             for k, rec in lexicon.items()]
     rows.sort(key=_rank(spine, hosts))
@@ -647,8 +664,17 @@ def main():
     # so it is in the audio exactly never and substring-matching would book a
     # 28-minute tape as having delivered zero (2026-08-10) — plus the script,
     # which must ride the SAME commit as the mp3 or the pair drifts apart.
+    # WHICH OF THOSE WERE TAUGHT (2026-09-13). A recall shape re-airs what an
+    # earlier movement already gave; only the teaching shapes hand a word over
+    # with its meaning, which is the Teach Beat. Read off the rendered sheets,
+    # never the plan, for the same reason `audible` is: the tape stops on the
+    # clock and a movement that never played taught nothing.
+    gave = {i["word"] for mv, sheet in sheets
+            if sheet.get("beats") and mv["shape"] not in RECALL_SHAPES
+            for i in mv["items"]}
     deliver_rendered(
         mp3=mp3, lane="rotation", delivered=delivered,
+        taught=[w for w in delivered if w in gave],
         claimed=bool(focus or payload), extra_paths=[script],
         message=f"Rotation tape: {args.spine} ({measured:.0f} min)",
         # The spine IS this lane's name and always was — it is why three tapes

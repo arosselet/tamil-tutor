@@ -38,6 +38,7 @@ from slips import (DOSE_CHANNELS, append_slips, canon_tag, cmd_slips,
                    parse_slip_args, record_slip_commission, record_slip_test,
                    slip_patterns)
 from publish import commit_and_push, publish
+import audio_titles
 from rebuild_rss import feed_items
 from suggest_targets import reconcile_focus
 import lexicon_view
@@ -1139,8 +1140,13 @@ def cmd_rate_episode(args):
     # renders Monday and opens its words the day he presses play, which is the
     # correct order. Attendance discharges a pending Teach Beat and never mints
     # one, so rating a tape still cannot teach a word the tape never taught.
+    # TWO REGISTRIES, ONE QUESTION: which words did this artifact air? A numbered
+    # mission answers from `episodes.json`; every other lane answers from the
+    # artifact registry, which is why `episodes.json` is asked FIRST and is not
+    # asked at all for a stem it could never hold (2026-09-13).
     ep = (load_json(EPISODES_PATH) or {}).get(str(item["id"]), {})
-    exposed = lexicon_view.expose(ep.get("words", []), "episode",
+    words = ep.get("words") or audio_titles.words_for(item["id"])
+    exposed = lexicon_view.expose(words, item["format"].split("/")[0],
                                   source=f"rating:{item['id']}",
                                   kind="attended" if attends else "exposed")
     if getattr(args, "commit", False):

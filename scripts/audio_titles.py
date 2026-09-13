@@ -37,29 +37,54 @@ def clean(title: str) -> str:
 
 
 def load() -> dict:
-    """stem -> title. A missing or unreadable file is an empty map, never a
-    raise: a feed rebuild must not die because a sidecar is new or malformed —
-    the lanes fall back to their dated titles and the feed still builds."""
+    """stem -> {"title": str, "words": [str]}. A missing or unreadable file is an
+    empty map, never a raise: a feed rebuild must not die because a sidecar is
+    new or malformed — the lanes fall back to their dated titles and the feed
+    still builds.
+
+    THE VALUE GREW A WORDS LIST (2026-09-13) so the audio lanes can TEACH. The
+    teach gate stopped trusting render stamps (s105), so a Teach Beat opens only
+    when a tap proves he heard it — and the tap could only resolve words for
+    numbered missions, because `episodes.json` is the one place an artifact's
+    words were written down. Rotation, soak, drill and payoff had none, which
+    left the lane about to become the standing carrier unable to open a single
+    word. `delivered` — the audible set — is already computed at the one shared
+    seam; it just was not kept.
+
+    Legacy rows are bare strings and are read as a title with no words: the file
+    predates this and a migration pass would be a second writer for a shape the
+    reader can absorb in one line."""
     try:
         with open(AUDIO_TITLES_PATH, encoding="utf-8") as f:
             data = json.load(f)
-        return {k: v for k, v in data.items() if isinstance(v, str) and v.strip()}
     except Exception:
         return {}
+    out = {}
+    for k, v in data.items():
+        row = {"title": v, "words": []} if isinstance(v, str) else dict(v or {})
+        if isinstance(row.get("title"), str) and row["title"].strip():
+            out[k] = {"title": row["title"], "words": list(row.get("words") or [])}
+    return out
 
 
-def record(stem: str, title: str) -> bool:
-    """Name one dose. MERGE-WRITE, per the 2026-08-23 law: read, overlay one key,
-    leave every other name alone — a rebuild-from-scratch here would drop every
-    dose the running copy had not heard of. Returns whether anything changed, so
-    the caller only commits a file it actually wrote."""
+def record(stem: str, title: str, words=()) -> bool:
+    """Name one dose, and record which words it actually AIRED. MERGE-WRITE, per
+    the 2026-08-23 law: read, overlay one key, leave every other row alone — a
+    rebuild-from-scratch here would drop every dose the running copy had not
+    heard of. Returns whether anything changed, so the caller only commits a file
+    it actually wrote.
+
+    `words` is the lane's `delivered` — what is AUDIBLE in the finished artifact,
+    never what was planned. The distinction is the claim_payload rule (2026-07-17)
+    and it matters more now than it did: these words are what a tap opens."""
     title = clean(title)
     if not stem or not title:
         return False
     names = load()
-    if names.get(stem) == title:
+    row = {"title": title, "words": [w for w in words if w]}
+    if names.get(stem) == row:
         return False
-    names[stem] = title
+    names[stem] = row
     AUDIO_TITLES_PATH.write_text(
         json.dumps(dict(sorted(names.items())), ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8", newline="\n")
@@ -92,8 +117,16 @@ def lane_title(filename: str) -> str:
     every member of a lane by construction, so a lane could only ever be as
     distinguishable as its dates. This says what it is ABOUT."""
     m = LANE_RE.match(os.path.basename(filename))
-    named = load().get(os.path.basename(filename).removesuffix(".mp3"), "")
+    row = load().get(os.path.basename(filename).removesuffix(".mp3")) or {}
+    named = row.get("title", "")
     return f"{LANE_WORD[m.group(1)]} — {named}" if m and named else ""
+
+
+def words_for(stem: str) -> list:
+    """What this artifact aired — the set a tap on it may open. Empty for a dose
+    recorded before the words list existed, which opens nothing: silently
+    guessing at an old tape's contents is how a teach gate gets re-mined."""
+    return (load().get(stem) or {}).get("words", [])
 
 
 def disambiguator(filename: str) -> str:

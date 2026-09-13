@@ -4245,3 +4245,121 @@ def local_today_iso(sb: Path) -> str:
     """The sandbox's own today, so a window assertion is not a timezone test."""
     sys.path.insert(0, str(sb / "scripts"))
     return importlib.import_module("state_io").local_today().isoformat()
+
+
+def s108_the_audio_lanes_can_teach(sb: Path):
+    """THE STANDING LANE COULD NOT OPEN A SINGLE WORD (2026-09-13).
+
+    s105 stopped the teach gate trusting render stamps, so a Teach Beat opens
+    only when a tap proves he heard it. The tap resolved an artifact's words out
+    of `episodes.json` — the LESSON registry, which by design holds only numbered
+    missions. Rotation, soak, drill and payoff had nowhere that recorded what
+    they aired, so the lane about to become the standing carrier could say a new
+    word forever and never open one.
+
+    `delivered` was always computed at the shared seam and then thrown away. It
+    is kept now, beside the title, in the registry that was already stem-keyed.
+
+    TWO SUBSETS, NOT ONE. A recall shape re-airs what an earlier movement gave;
+    only a teaching shape hands a word over with its meaning. `taught` rides the
+    seam separately or a scene would credit itself with teaching — which is
+    2026-09-01's callback bug in a new lane.
+
+    THE SILENT NO-OP: a legacy row has no words list, and guessing at an old
+    tape's contents would re-mine the gate. It opens nothing, asserted below."""
+    print("\n108. The audio lanes can teach — the artifact keeps its words (2026-09-13)")
+    import argparse as _ap
+    import contextlib
+    import io as _io
+    sys.path.insert(0, str(sb / "scripts"))
+    ss = importlib.import_module("sync_state")
+    at = importlib.import_module("audio_titles")
+    rs = importlib.import_module("rebuild_rss")
+    lex_path = sb / "progress" / "lexicon.json"
+    saved = lex_path.read_bytes()
+    try:
+        lex = read_json(lex_path)
+        for w in ("smoke:rot-taught", "smoke:rot-recall"):
+            lex[w] = lex_row(gloss="smoke")
+        write_json(lex_path, lex)
+
+        # THE SEAM. A teaching shape gave one word; a recall shape re-aired the
+        # other. Both are audible; only one is a Teach Beat.
+        lv = importlib.import_module("lexicon_view")
+        lv.expose(["smoke:rot-taught", "smoke:rot-recall"], "rotation",
+                  source="rotation_machines_x", taught=["smoke:rot-taught"])
+        at.record("rotation_machines_x", "machines", 
+                  ["smoke:rot-taught", "smoke:rot-recall"])
+
+        check("the registry kept what the tape aired",
+              at.words_for("rotation_machines_x") ==
+              ["smoke:rot-taught", "smoke:rot-recall"])
+        check("both are still UNSEEN before he listens — a render is not a listen",
+              all(fx.si.is_unseen(read_json(lex_path)[w])
+                  for w in ("smoke:rot-taught", "smoke:rot-recall")))
+
+        rs.feed_items = lambda: [{"id": "rotation_machines_x", "title": "Rotation — machines",
+                                  "format": "rotation", "minutes": 15.0}]
+        ss.feed_items = rs.feed_items
+        with contextlib.redirect_stdout(_io.StringIO()):
+            ss.cmd_rate_episode(_ap.Namespace(episode="Rotation — machines",
+                                              verdict="finished", commit=False))
+
+        after = read_json(lex_path)
+        check("a tap on a ROTATION tape opens the word it taught",
+              not fx.si.is_unseen(after["smoke:rot-taught"]),
+              "the standing lane still cannot teach — this is the whole case")
+        check("...but NOT the one a recall shape merely re-aired",
+              fx.si.is_unseen(after["smoke:rot-recall"]),
+              "a scene credited itself with teaching — the 09-01 callback bug, "
+              "back in a new lane")
+
+        # A dose named before the words list existed opens nothing.
+        at.record("soak_legacy_x", "an old one")
+        check("a legacy row has no words, and so opens nothing",
+              at.words_for("soak_legacy_x") == [])
+    finally:
+        lex_path.write_bytes(saved)
+
+
+def s109_two_tapes_of_one_spine_differ(sb: Path):
+    """THE POOL CURSOR RESET EVERY RUN (2026-09-13). `plan_movements` walks from
+    0, so two tapes of one spine read the same deterministically-sorted pool from
+    the same place — in the lane about to carry the standing dose, replayed
+    across three or four days.
+
+    The fix is a DERIVATION, not a stored cursor. `expose` already stamps
+    `last_surfaced` on everything a tape airs, so it sorts last: never-aired
+    first, then oldest-aired. No new state, and self-correcting.
+
+    IT IS THE LAST KEY ON PURPOSE. Coverage and pedagogy still outrank it — a
+    machine still leads the machines tape — so this only breaks ties that dict
+    order used to break. The silent no-op would be putting it FIRST, which reads
+    as working (tapes differ!) while quietly demoting the ranking that decides
+    what a tape is for."""
+    print("\n109. Two tapes of one spine differ — staleness breaks the tie (2026-09-13)")
+    sys.path.insert(0, str(sb / "scripts"))
+    rr = importlib.import_module("render_rotation")
+    hosts = {}
+    rows = [{"word": "aired-recently", "production": "none", "type": "chunk",
+             "register": "social", "hosts": [], "last_surfaced": "2026-09-12"},
+            {"word": "never-aired", "production": "none", "type": "chunk",
+             "register": "social", "hosts": [], "last_surfaced": ""},
+            {"word": "aired-long-ago", "production": "none", "type": "chunk",
+             "register": "social", "hosts": [], "last_surfaced": "2026-01-01"}]
+    order = [r["word"] for r in sorted(rows, key=rr._rank("room", hosts))]
+    check("a never-aired item leads its tie group",
+          order[0] == "never-aired", str(order))
+    check("...then the stalest, and the freshest goes last",
+          order == ["never-aired", "aired-long-ago", "aired-recently"], str(order))
+
+    # Pedagogy still outranks it: an unfired word beats a fresher cold one.
+    rows2 = [{"word": "cold-but-stale", "production": "cold", "type": "chunk",
+              "register": "social", "hosts": [], "last_surfaced": ""},
+             {"word": "unfired-but-fresh", "production": "none", "type": "chunk",
+              "register": "social", "hosts": [], "last_surfaced": "2026-09-12"}]
+    order2 = [r["word"] for r in sorted(rows2, key=rr._rank("room", hosts))]
+    check("staleness NEVER outranks the pedagogy it tiebreaks",
+          order2[0] == "unfired-but-fresh",
+          "a cold word got drilled again because it happened to be stale — "
+          "staleness is the LAST key, not the first")

@@ -57,7 +57,7 @@ from sync_state import mark_soak_delivered
 
 def deliver_rendered(*, mp3: Path, lane: str, delivered: list, claimed: bool,
                      message: str, copy: str, noun: str, extra_paths=(),
-                     title, commit, notify) -> bool:
+                     taught=(), title, commit, notify) -> bool:
     """The tail every write -> render -> publish lane ran its own copy of:
 
         exposure -> soak-order stamp -> commit -> notify
@@ -92,7 +92,12 @@ def deliver_rendered(*, mp3: Path, lane: str, delivered: list, claimed: bool,
     Returns whether the notification actually left the building — False in quiet
     hours, which `push_to_phone` owns and no lane re-implements.
     """
-    exposed = expose(delivered, lane, source=mp3.stem)
+    # `taught` is the subset a TEACHING shape gave — first contact, with its
+    # meaning — as against the recall shapes that merely re-air it. It defaults
+    # empty because most lanes teach nothing, and a lane that claimed teaching it
+    # did not do would re-mine the gate s105 cleared. Pending either way: the
+    # render says the beat happened, the tap says it reached him.
+    exposed = expose(delivered, lane, source=mp3.stem, taught=taught)
     stamped = mark_soak_delivered(lane) if claimed else False
     # THE NAME RIDES THE DOSE'S OWN COMMIT (2026-09-01). A soak leaves no script
     # and no caption, so the moment the sheet is written is the only moment its
@@ -101,7 +106,11 @@ def deliver_rendered(*, mp3: Path, lane: str, delivered: list, claimed: bool,
     # same commit as the mp3 for the reason `chat.md` is: a derived file follows
     # its source, and `rebuild_rss` reads this map on the very next rebuild,
     # which `publish()` runs three lines below.
-    named = audio_titles.record(mp3.stem, title)
+    # `delivered` RIDES ALONG (2026-09-13). `expose` above spends it and forgets
+    # it; keeping it is what lets a tap on this artifact open the Teach Beats it
+    # carried. Without it the audio lanes can say a new word and never open one,
+    # because only `episodes.json` ever wrote an artifact's words down.
+    named = audio_titles.record(mp3.stem, title, delivered)
     commit(*publish([*extra_paths,
                      AUDIO_TITLES_PATH if named else None,
                      LEXICON_PATH if exposed else None,

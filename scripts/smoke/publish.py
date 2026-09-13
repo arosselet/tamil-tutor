@@ -937,7 +937,9 @@ def s73_one_tail_for_the_render_family(sb: Path):
 
     def drive(*, delivered=("ஸ்மோக்"), claimed=False, extra=(), exposed=True,
               stamped=True, notified=True, title="smoke name"):
-        lanes.expose = lambda words, lane, source="": exposed and bool(words)
+        # `taught` joined the seam 2026-09-13 (s108): the stub must accept it or
+        # this case fails on a signature rather than on the tail's behaviour.
+        lanes.expose = lambda words, lane, source="", taught=(): exposed and bool(words)
         lanes.mark_soak_delivered = lambda lane: stamped
         commits.clear(); pushes.clear()
         with contextlib.redirect_stdout(io.StringIO()) as out:
@@ -990,8 +992,12 @@ def s73_one_tail_for_the_render_family(sb: Path):
     # Asserted as BOTH halves — written, and in the commit — because a write that
     # never leaves the runner is indistinguishable from success from in here.
     at = importlib.import_module("audio_titles")
+    # The value grew from a bare title to {"title", "words"} on 2026-09-13 (s108)
+    # so a tap can resolve which words an artifact aired. The NAME half is what
+    # this case is about and it is read through the same key it always was.
     check("the dose's name is recorded under its stem",
-          at.load().get("smoke_family") == "smoke name", str(at.load()))
+          (at.load().get("smoke_family") or {}).get("title") == "smoke name",
+          str(at.load()))
     check("...and the map rides the SAME commit as the mp3 it names",
           fx.si.AUDIO_TITLES_PATH in commits[0][0],
           f"got {[Path(p).name for p in commits[0][0]]}")
@@ -1002,7 +1008,8 @@ def s73_one_tail_for_the_render_family(sb: Path):
           fx.si.AUDIO_TITLES_PATH not in commits[0][0],
           f"got {[Path(p).name for p in commits[0][0]]}")
     check("...and does not erase the name already recorded for that stem",
-          at.load().get("smoke_family") == "smoke name", str(at.load()))
+          (at.load().get("smoke_family") or {}).get("title") == "smoke name",
+          str(at.load()))
     drive(claimed=True, extra=[script])
 
     check("a recorded exposure puts the lexicon in the commit",
