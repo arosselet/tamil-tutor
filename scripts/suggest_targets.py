@@ -48,6 +48,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from generate_callbacks import due_callbacks, load_json, days_since, NEVER_SURFACED
+from language import strip_pulli
 from slips import slip_patterns
 from state_io import is_unseen, soak_pending, local_today
 
@@ -723,6 +724,73 @@ def vocabulary_fence(lexicon: dict) -> list[dict]:
             })
     fence.sort(key=lambda e: e["word"])
     return fence
+
+
+# ── The rotation's intake quota (2026-09-13, Andrew) ─────────────────────────
+# The standing tape as the INTAKE VALVE, without a fourth spine. A spine was the
+# inbox's shape and the wrong one: nothing selects a spine (`--spine` defaults to
+# inventory and the soak order names a lane, not a spine), and the 95% coverage
+# dial binds per TAPE, so a tape that LED on cold words would either break it or
+# be mostly something else. So a few pool words ride the head of the tape that
+# actually runs, and only ones its lead shape can teach: a root with hosts the
+# lexicon already holds — the 08-09 finding, a part he owns without knowing it.
+INTAKE_CAP = 5    # profile.md → Calibration Notes: 4–5 NEW word types per audio dose
+# Endings, not roots: they pass the host test by the dozen and are machine material.
+INTAKE_SKIP = {"case_markers", "aspect_auxiliaries"}
+
+
+def inventory_hosts(lexicon: dict, roots=None) -> dict:
+    """root -> the phrases that appear to contain it. THE 2026-08-09 FINDING as a
+    selector: his gap is not vocabulary and not reps, it is INVENTORY — he holds
+    parts and does not know they are parts (வாழ்த்துக்கள் owned for two years and
+    read as one phrase; நாள் sitting unnoticed inside நாளைக்கு).
+
+    MOVED FROM `render_rotation` 2026-09-13, when the intake quota became its second
+    reader. `roots` defaults to the lexicon's own single words; the intake passes
+    pool words instead, which is how 35 "never met" priority-1 words turned out to
+    sit inside phrases he already says (நாள் among them, still counted unmet).
+
+    THE MATCH IS ON THE PULLI-STRIPPED STEM, not the bare key, and that is the
+    whole difference between a working detector and a decorative one. A citation
+    form ends in the pulli (நாள்); inside a longer word the same consonant takes a
+    different vowel sign instead (நாளைக்கு, ரொம்ப நாளாச்சு), so a plain substring
+    test matches NEITHER. Measured on the finding's own three examples, naive
+    matching finds 1 of 3 hosts for நாள் — it misses the exact two phrases the
+    session was about. Stripping the trailing ் finds all three.
+
+    Substring matching is PROPOSAL ONLY and over-fires in the other direction: the
+    same technique logged நீ at 17 reps because it is inside நீங்க (`probe_hit`,
+    2026-07-26); டீ inside சாப்டீங்களா? is the same accident, and stemming widens
+    the net rather than narrowing it. So Python offers candidates and the
+    sheet-writer is told to DROP the coincidences — mechanism proposes, meaning
+    disposes. A false candidate costs one dropped beat; a missed one costs the
+    lesson."""
+    singles = [k for k in (lexicon if roots is None else roots)
+               if " " not in k and not k.startswith("frame:") and len(k) >= 3]
+    out = {}
+    for root in singles:
+        stem = strip_pulli(root)
+        hosts = [k for k in lexicon
+                 if k != root and stem in k and not k.startswith("frame:")]
+        if len(hosts) >= 2:
+            out[root] = hosts[:5]
+    return out
+
+
+def intake_rows(lexicon: dict, word_pool: list, cap: int = INTAKE_CAP) -> list[dict]:
+    """Pool words for the head of an inventory tape, in `build_pool`'s row shape.
+
+    Priority-1, not yet a row, not an ending, and WITH hosts — in pool order, capped.
+    Self-advancing with no stored cursor: a word the tape taught is minted into the
+    lexicon at delivery (`lanes.deliver_rendered`), so it leaves this list; a word
+    that was planned but never played is not, so it leads the next tape."""
+    fresh = {e["word"]: e for e in word_pool if e.get("priority") == 1
+             and e["word"] not in lexicon and e.get("cluster") not in INTAKE_SKIP}
+    hosts = inventory_hosts(lexicon, fresh)
+    return [{"word": w, "gloss": e.get("gloss", ""), "production": "none", "direction": "",
+             "type": "", "register": "", "last_surfaced": "", "hosts": hosts[w],
+             "intake": True}
+            for w, e in fresh.items() if w in hosts][:cap]
 
 
 def new_candidates_by_cluster(lexicon: dict, word_pool: list, n_clusters: int, per_cluster: int):

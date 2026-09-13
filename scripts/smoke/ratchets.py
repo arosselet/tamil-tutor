@@ -128,7 +128,8 @@ CODE_BUDGETS = {
     # 235 -> 220 (2026-08-23, Andrew): re-censused DOWN, the 08-01 move again.
     "scripts/render_drill.py": 185,
     # New file 2026-08-10 at 318 lines — the fourth audio lane. ~45 of those are BASE_MANDATE + the five SHAPE_CLAUSES, which code_lines counts as mechanism (prompt strings always … · Budgeted at 340 rather than 400: the headroom is for diagnosis, not for a sixth shape.
-    "scripts/render_rotation.py": 325,
+    # 325 -> 318 (2026-09-13): `inventory_hosts` moved OUT to suggest_targets; re-censused down, not held.
+    "scripts/render_rotation.py": 318,
     # 275 -> 265 (2026-08-23, Andrew): re-censused DOWN.
     "scripts/render_soak.py": 195,
     # Budgeted in the diff that created it (2026-09-05) — a new file with no entry here is a red run, because adding one is the obvious way past …
@@ -150,7 +151,8 @@ CODE_BUDGETS = {
     # otherwise have needed (a title->feed join) is retired by the play row
     # freezing its own minutes at tap time.
     "scripts/session_brief.py": 254,
-    "scripts/suggest_targets.py": 575,
+    # 575 -> 588 (2026-09-13, Andrew): `inventory_hosts` MOVED IN from render_rotation (its second reader) plus the intake quota. Paid for by render_rotation 325 -> 318; the net is the quota, which retires the fourth-spine design.
+    "scripts/suggest_targets.py": 588,
     # 1250 -> 1254 (2026-08-04): the tap lane's stage/commit/pull/push moved IN from the "Log tap" step of anna.yml, where it was a hand-rolled `git pull --rebase` with no union … · 1254 -> 800 (2026-08-04): re-censused DOWN after the three-way split, the same move morning_knock made on 08-01. · 800 -> 795 (2026-09-01): RE-CENSUSED DOWN, not held.
     "scripts/sync_state.py": 795,
 }

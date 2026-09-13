@@ -939,7 +939,8 @@ def s73_one_tail_for_the_render_family(sb: Path):
               stamped=True, notified=True, title="smoke name"):
         # `taught` joined the seam 2026-09-13 (s108): the stub must accept it or
         # this case fails on a signature rather than on the tail's behaviour.
-        lanes.expose = lambda words, lane, source="", taught=(): exposed and bool(words)
+        # `mint` joined 2026-09-13 (s110, the intake quota) on the same terms.
+        lanes.expose = lambda words, lane, source="", taught=(), mint=None: exposed and bool(words)
         lanes.mark_soak_delivered = lambda lane: stamped
         commits.clear(); pushes.clear()
         with contextlib.redirect_stdout(io.StringIO()) as out:

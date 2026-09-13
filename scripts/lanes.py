@@ -57,7 +57,7 @@ from sync_state import mark_soak_delivered
 
 def deliver_rendered(*, mp3: Path, lane: str, delivered: list, claimed: bool,
                      message: str, copy: str, noun: str, extra_paths=(),
-                     taught=(), title, commit, notify) -> bool:
+                     taught=(), intake=None, title, commit, notify) -> bool:
     """The tail every write -> render -> publish lane ran its own copy of:
 
         exposure -> soak-order stamp -> commit -> notify
@@ -97,7 +97,13 @@ def deliver_rendered(*, mp3: Path, lane: str, delivered: list, claimed: bool,
     # empty because most lanes teach nothing, and a lane that claimed teaching it
     # did not do would re-mine the gate s105 cleared. Pending either way: the
     # render says the beat happened, the tap says it reached him.
-    exposed = expose(delivered, lane, source=mp3.stem, taught=taught)
+    #
+    # `intake` (2026-09-13) is the pool words a lane led with that have no row yet
+    # — the rotation's quota. One becomes a row HERE, and only if a teaching shape
+    # gave it: a planned word the clock cut stays in the pool and leads the next tape.
+    intake = intake or {}
+    born = {w: {"gloss": intake[w].get("gloss", "")} for w in taught if w in intake}
+    exposed = expose(delivered, lane, source=mp3.stem, taught=taught, mint=born)
     stamped = mark_soak_delivered(lane) if claimed else False
     # THE NAME RIDES THE DOSE'S OWN COMMIT (2026-09-01). A soak leaves no script
     # and no caption, so the moment the sheet is written is the only moment its

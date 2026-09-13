@@ -170,16 +170,25 @@ def observe(events, lexicon: dict | None = None) -> list[dict]:
 
 
 def expose(keys, channel: str, source: str = "", *, taught=(), kind="exposed",
-           lexicon: dict | None = None, at: str | None = None) -> list[str]:
+           mint: dict | None = None, lexicon: dict | None = None,
+           at: str | None = None) -> list[str]:
     """A dose carrying these words went out the door — the delivery seam every
     lane calls (episode registration, soak / drill / rotation sheet, knock push,
     queue drain). `taught` names the subset that was SHOWN, which is first
     contact and closes the teach gate; the rest merely appeared. Returns the
-    keys that resolved; an unresolvable one is warned, never minted."""
+    keys that resolved; an unresolvable one is warned, never minted — UNLESS the
+    lane hands its static row in `mint` (2026-09-13, the rotation's intake quota).
+    That door is narrow on purpose: the lane mints only what a teaching movement
+    actually played."""
     own = lexicon is None
     lex = (load_json(LEXICON_PATH) or {}) if own else lexicon
     if not lex or not keys:
         return []
+    for k, row in (mint or {}).items():
+        if k not in lex:
+            lex[k] = {"phonetic": [], "recognition": "struggled", "production": "none",
+                      "seen_in": [], "last_surfaced": None, **row}
+            print(f"   + intake: '{k}' enters the lexicon")
     index = build_phonetic_index(lex)
     marked = []
     for k in keys:

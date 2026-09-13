@@ -2049,6 +2049,13 @@ def s71_a_new_record_is_born_reachable(sb: Path):
               read_json(lex_path)[word].get("production") == "cold",
               f"still unreachable from phonetics: {out.strip()[-160:]}")
 
+        # 4b. A MISS NAMES ITS NEAREST ROW (2026-09-13). The 08-14 bounce said only
+        #     "Skipped", with no way to see which row `ukkaarunga` meant. The silent
+        #     no-op is a refusal that names nothing, so Anna cannot re-log it.
+        _, out = update(produced_hinted=["smokevaarthaii"])
+        check("a near-miss spelling names the row it probably meant",
+              "nearest" in out and word in out, out.strip()[-200:])
+
         # 5. The ratchet — real tree, not the sandbox: the debt binds the
         #    lexicon as committed. Frames are exempt (addressed by `frame:` key).
         real_lex = read_json(REAL_BASE / "progress" / "lexicon.json") or {}
@@ -4363,3 +4370,101 @@ def s109_two_tapes_of_one_spine_differ(sb: Path):
           order2[0] == "unfired-but-fresh",
           "a cold word got drilled again because it happened to be stale — "
           "staleness is the LAST key, not the first")
+
+
+def s110_the_standing_tape_is_the_intake_valve(sb: Path):
+    """THE INTAKE QUOTA (2026-09-13, Andrew) — the fourth-spine inbox item, built
+    as a quota on the inventory tape instead. Pool words he has never met as rows
+    ride the head of that tape, and one becomes a lexicon row at delivery.
+
+    Gate 7.2, out loud. Every failure here ends with a tape on the feed:
+      · an ending (ங்க) taken in because it has hosts by the dozen → a false root
+      · a hostless word taken in → an inventory beat with nothing inside it
+      · a word minted that never played → the ledger books a word never heard
+      · a taught word that never becomes a row → intake that never advances
+    So each is asserted on the EFFECT: re-read from disk after the real seam ran."""
+    print("\n110. The rotation tape takes in pool words, minted only once taught (2026-09-13)")
+    import contextlib
+    sys.path.insert(0, str(sb / "scripts"))
+    st = importlib.import_module("suggest_targets")
+    rr = importlib.import_module("render_rotation")
+    lanes = importlib.import_module("lanes")
+    lv = importlib.import_module("lexicon_view")
+    lex_path = sb / "progress" / "lexicon.json"
+    obs_path = sb / "progress" / "observations.json"
+    pool_path = sb / "curriculum" / "word_pool.json"
+    saved = {p: (p.read_bytes() if p.exists() else None) for p in (lex_path, obs_path, pool_path)}
+    real = (lanes.expose, lanes.publish, lanes.mark_soak_delivered)
+    lex = {"நாளைக்கு": lex_row(gloss="tomorrow", phonetic=["naalaikku"]),
+           "ரொம்ப நாளாச்சு": lex_row(gloss="long time", phonetic=["romba naalaachu"]),
+           "சொல்லுங்க": lex_row(gloss="tell me", phonetic=["sollunga"]),
+           "சொல்றேன்": lex_row(gloss="I'll tell", phonetic=["solren"]),
+           "வாங்க": lex_row(gloss="come", phonetic=["vaanga"])}
+    pool = [{"word": "நாள்", "gloss": "day", "cluster": "time_units", "priority": 1},
+            {"word": "சொல்", "gloss": "say", "cluster": "verb_root", "priority": 1},
+            {"word": "ங்க", "gloss": "respect ending", "cluster": "case_markers", "priority": 1},
+            {"word": "தண்ணி", "gloss": "water", "cluster": "home_kitchen", "priority": 1},
+            {"word": "நாளைக்கு", "gloss": "tomorrow", "cluster": "time_units", "priority": 1}]
+    try:
+        write_json(lex_path, lex)
+        pool_path.parent.mkdir(parents=True, exist_ok=True)
+        write_json(pool_path, pool)
+
+        words = [r["word"] for r in st.intake_rows(lex, pool)]
+        check("a priority-1 pool root with hosts in the lexicon is taken in",
+              words == ["நாள்", "சொல்"], str(words))
+        check("...an ENDING is not, though it has hosts",
+              "ங்க" not in words and len(st.inventory_hosts(lex, ["ங்க"]).get("ங்க", [])) >= 2,
+              "the fixture no longer gives the ending hosts — this check went vacuous")
+        check("the quota caps at the audio dose's new-type dial",
+              st.INTAKE_CAP <= 5 and len(st.intake_rows(lex, pool, cap=1)) == 1)
+        head = [r["word"] for r in rr.build_pool("inventory", [])[:2]]
+        check("the intake LEADS the inventory tape — the spine that actually runs",
+              head == ["நாள்", "சொல்"], str(head))
+        check("...and rides no spine whose lead shape cannot teach a root",
+              not any(r.get("intake") for r in rr.build_pool("machines", [])))
+
+        # ── THE SEAM, driven for real: expose + the lexicon + the log, re-read.
+        rows = {r["word"]: r for r in st.intake_rows(lex, pool)}
+        lanes.expose = lv.expose
+        lanes.publish = lambda paths, message, mp3=None: ([p for p in paths if p], message)
+        lanes.mark_soak_delivered = lambda lane: False
+        mp3 = sb / "published_audio" / "rotation_inventory_smoke110.mp3"
+        mp3.parent.mkdir(parents=True, exist_ok=True)
+        mp3.write_bytes(b"ID3fake")
+
+        def deliver(delivered, taught):
+            with contextlib.redirect_stdout(io.StringIO()) as out:
+                lanes.deliver_rendered(
+                    mp3=mp3, lane="rotation", delivered=delivered, taught=taught,
+                    intake=rows, claimed=False, message="Rotation tape: smoke",
+                    copy="tape", noun="tape", title="inventory",
+                    commit=lambda *a: None, notify=lambda copy, url: False)
+            return out.getvalue()
+
+        deliver([], [])
+        check("a planned intake word that never played is NOT minted",
+              "நாள்" not in read_json(lex_path), "the ledger booked a word the clock cut")
+
+        text = deliver(["நாள்", "நாளைக்கு"], ["நாள்"])
+        after = read_json(lex_path)
+        check("an intake word the tape TAUGHT is born a row",
+              "நாள்" in after, text[-300:])
+        check("...carrying the pool's gloss, not an empty one",
+              (after.get("நாள்") or {}).get("gloss") == "day")
+        log = read_json(obs_path) or []
+        check("...and its first contact is on the log as TAUGHT",
+              any(o.get("word") == "நாள்" and o.get("kind") == "taught" for o in log),
+              f"{[o for o in log if o.get('word') == 'நாள்']}")
+        check("an intake word the tape planned but did not teach stays unminted",
+              "சொல்" not in after, "a word the clock cut was booked anyway")
+        check("the next tape's intake has moved on past the minted word",
+              [r["word"] for r in st.intake_rows(after, pool)] == ["சொல்"],
+              str([r["word"] for r in st.intake_rows(after, pool)]))
+    finally:
+        lanes.expose, lanes.publish, lanes.mark_soak_delivered = real
+        for p, b in saved.items():
+            if b is None:
+                p.unlink(missing_ok=True)
+            else:
+                p.write_bytes(b)

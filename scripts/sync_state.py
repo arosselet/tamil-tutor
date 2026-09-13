@@ -28,6 +28,7 @@ than silently poisoning state — production presupposes a recognition record.
 """
 
 import argparse
+import difflib
 import re
 import sys
 from datetime import date, timedelta
@@ -462,6 +463,19 @@ def cmd_update(args):
         head, _, phon = spec.partition("|")
         return head.strip(), phon.strip()
 
+    def key_for(word):
+        """A logged token -> its row, or None — naming the nearest rows on a miss
+        (2026-09-13). The 08-14 close bounced `ukkarunga` and then `ukkaarunga`
+        with a bare "Skipped" and no way to see which row either meant. Anna holds
+        the Tamil, so the repair is to re-log the named row in script."""
+        key = resolve(word, lexicon, phon_index)
+        if key is None:
+            near = difflib.get_close_matches(word.lower(), [*phon_index, *lexicon], n=3, cutoff=0.6)
+            hint = ", ".join(dict.fromkeys(phon_index.get(n, n) for n in near))
+            print(f"  ! '{word}' resolves to no record{f' — nearest: {hint}' if hint else ''}. "
+                  f"Re-log it in Tamil script. Skipped.")
+        return key
+
     def recognized(spec):
         """Anna watched him recognize it — ONE observation, ONE rung (2026-09-10).
         `--mastered-word` used to write `solid` outright: a claim of level, not
@@ -481,9 +495,8 @@ def cmd_update(args):
         print(f"  Recognized: {key} — one rung up on the ear")
 
     def demote_recognition(word):
-        key = resolve(word, lexicon, phon_index)
+        key = key_for(word)
         if key is None:
-            print(f"  ! '{word}' not in lexicon — nothing to demote. Skipped.")
             return
         # A MISS IS EVIDENCE TOO — a tested failure must never read as untested.
         events.append(ev(key, "tested", axis="recognition", result="wrong",
@@ -492,9 +505,8 @@ def cmd_update(args):
         print(f"  Recognition '{key}' — one rung down (tested, missed)")
 
     def set_production(word, level):
-        key = resolve(word, lexicon, phon_index)
+        key = key_for(word)
         if key is None:
-            print(f"  ! Produced '{word}' but no record resolves — add recognition first (script). Skipped.")
             return
         events.append(ev(key, "tested", axis="production",
                          result=observations.FIRE_RESULT[level], note=f"fired {level}"))

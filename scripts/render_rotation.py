@@ -88,7 +88,7 @@ BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from lanes import deliver_rendered
 from publish import commit_and_push, load_env, push_to_phone
-from language import ANNA_VOICE, EAVESDROP_VOICE, strip_pulli
+from language import ANNA_VOICE, EAVESDROP_VOICE
 from render_audio import (generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME,
                           clean_for_tts, google_credentials_ready, EXIT_NOT_CONFIGURED,
                           _CHIRP_POOL_MALE, _CHIRP_POOL_FEMALE)
@@ -112,6 +112,7 @@ from writer import STR, arr, ask_json, obj, voice_canon
 MOVEMENT_SCHEMA = obj(frame=STR, beats=arr(say=STR, en=STR, who=STR))
 from state_io import LEXICON_PATH, load_json
 from state_io import canon_payload
+from suggest_targets import WORD_POOL_PATH, intake_rows, inventory_hosts
 
 ROTATION_DIR = BASE / "published_audio"   # feed root — rebuild_rss reads
                                           # rotation_*.mp3 and legacy longhaul_*
@@ -165,37 +166,8 @@ REGISTER_ORDER = ["social", "faq", "mil-table", "antifreeze", "public", "gossip"
 # ── Item selection: the ranked set and beyond ───────────────────────────────
 
 
-def inventory_hosts(lexicon: dict) -> dict:
-    """root -> the phrases that appear to contain it. THE 2026-08-09 FINDING as a
-    selector: his gap is not vocabulary and not reps, it is INVENTORY — he holds
-    parts and does not know they are parts (வாழ்த்துக்கள் owned for two years and
-    read as one phrase; நாள் sitting unnoticed inside நாளைக்கு).
-
-    THE MATCH IS ON THE PULLI-STRIPPED STEM, not the bare key, and that is the
-    whole difference between a working detector and a decorative one. A citation
-    form ends in the pulli (நாள்); inside a longer word the same consonant takes a
-    different vowel sign instead (நாளைக்கு, ரொம்ப நாளாச்சு), so a plain substring
-    test matches NEITHER. Measured on the finding's own three examples, naive
-    matching finds 1 of 3 hosts for நாள் — it misses the exact two phrases the
-    session was about. Stripping the trailing ் finds all three.
-
-    Substring matching is PROPOSAL ONLY and over-fires in the other direction: the
-    same technique logged நீ at 17 reps because it is inside நீங்க (`probe_hit`,
-    2026-07-26); டீ inside சாப்டீங்களா? is the same accident, and stemming widens
-    the net rather than narrowing it. So Python offers candidates and the
-    sheet-writer is told to DROP the coincidences — mechanism proposes, meaning
-    disposes. A false candidate costs one dropped beat; a missed one costs the
-    lesson."""
-    singles = [k for k in lexicon
-               if " " not in k and not k.startswith("frame:") and len(k) >= 3]
-    out = {}
-    for root in singles:
-        stem = strip_pulli(root)
-        hosts = [k for k in lexicon
-                 if k != root and stem in k and not k.startswith("frame:")]
-        if len(hosts) >= 2:
-            out[root] = hosts[:5]
-    return out
+# `inventory_hosts` lives in `suggest_targets` since 2026-09-13 — the intake quota
+# became its second reader, and selection is that module's job. Imported above.
 
 
 def _rank(spine: str, hosts: dict):
@@ -248,6 +220,10 @@ def build_pool(spine: str, payload: list[str]) -> list[dict]:
     nothing inside them. The length now falls out of the material."""
     lexicon = load_json(LEXICON_PATH) or {}
     hosts = inventory_hosts(lexicon)
+    # THE INTAKE QUOTA (2026-09-13) — a few pool words with no row yet lead the one
+    # spine whose shape teaches a root; `suggest_targets.intake_rows` says which.
+    intake = (intake_rows(lexicon, load_json(WORD_POOL_PATH) or [])
+              if spine == "inventory" else [])
     rows = [{"word": k,
              "gloss": rec.get("gloss", ""),
              "production": rec.get("production", "none"),
@@ -264,7 +240,7 @@ def build_pool(spine: str, payload: list[str]) -> list[dict]:
     # it does not qualify: the order outranks the shape's preference.
     want = canon_payload(payload)
     fits = SPINE_QUALIFIES[spine]
-    head = [r for r in rows if r["word"] in want]
+    head = [r for r in rows if r["word"] in want] + intake
     return head + [r for r in rows if r["word"] not in want and fits(r)]
 
 
@@ -583,7 +559,8 @@ def describe(plan: list[dict], pool: list[dict], minutes: float):
     print(f"\nPOOL — {len(pool)} items"
           f" · {sum(1 for i in pool if i['register'])} ranked"
           f" · {sum(1 for i in pool if i['production'] == 'none')} never fired"
-          f" · {sum(1 for i in pool if i['hosts'])} with inventory hosts")
+          f" · {sum(1 for i in pool if i['hosts'])} with inventory hosts"
+          f" · {sum(1 for i in pool if i.get('intake'))} intake (no row yet)")
 
 
 def main():
@@ -675,6 +652,7 @@ def main():
     deliver_rendered(
         mp3=mp3, lane="rotation", delivered=delivered,
         taught=[w for w in delivered if w in gave],
+        intake={r["word"]: r for r in pool if r.get("intake")},
         claimed=bool(focus or payload), extra_paths=[script],
         message=f"Rotation tape: {args.spine} ({measured:.0f} min)",
         # The spine IS this lane's name and always was — it is why three tapes

@@ -175,6 +175,7 @@ def main():
         run(state.s107_the_dose_meter_counts_plays_not_renders, sb)
         run(state.s108_the_audio_lanes_can_teach, sb)
         run(state.s109_two_tapes_of_one_spine_differ, sb)
+        run(state.s110_the_standing_tape_is_the_intake_valve, sb)
         run(state.s100_the_live_lexicon_is_the_fold_of_its_log)
         run(state.s101_the_check_and_the_rating_are_ear_evidence, sb)
 
