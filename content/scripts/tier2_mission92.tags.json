@@ -1,0 +1,23 @@
+{
+  "mission": 92,
+  "register": "delight",
+  "dramatic_ingredient": "genre",
+  "episode_form": "lore",
+  "shape": "debrief",
+  "location_class": "kitchen",
+  "energy": "medium",
+  "intercept_tamil_density": 0.35,
+  "breakdown_tamil_density": 0.05,
+  "fence_size": 45,
+  "unfenced_words": 2,
+  "new_words_landed": {},
+  "callbacks_used": {
+    "என்ன சமைக்கிற?": 3,
+    "அப்படியா?!": 1
+  },
+  "host_roles": {
+    "A": "amused_listener",
+    "B": "flustered_storyteller"
+  },
+  "notes": "No Architect brief was on disk for mission 92 (only the draft was handed to this pass); fence_size/unfenced_words are eyeballed, not brief-checked. Checked progress/lexicon.json before touching the Tamil: 'என்ன சமைக்கிற?' is a real lexicon key (taught_on 2026-07-01, production 'hinted', gloss explicitly '(informal)') — my first instinct was to 'correct' it to சமைக்குறீங்க, which would have been a payload-fidelity violation; left all three occurrences byte-for-byte identical instead, since a mutated anchor poisons the drilled chunk. 'அப்படியா?!' is also a tracked chunk (production 'cold' already) and appears exactly once, exact match, no edit needed. Both counted as callbacks, not new landings. உன்/உனக்கு (nee-register) in the cousin's lines is correct, not a register slip — dialect.md's neenga-default carves out close cousins/siblings for nee, and this is an established close cousin. No other dialect edits were needed; the Architect's spoken Tamil was already collapsed (சாம்பார் தான், இப்போ பேச முடியல், etc.) and no first-person verb carries -ங்க (இருக்கேன், சமைக்குறேன், வரேன் untouched). சாம்பார் and ரசம் are untracked dish-name nouns, not lexicon entries — counted as the 2 unfenced words, well under the 2-3 send-back threshold since context (what's on the stove) answers them immediately. Pacing: two gaps ran to 9 dialogue lines between pauses (Intercept open through 'Classic warm-up', and the excuse-panic run through 'downplay it') — added a [Pause: 1 sec] after 'Oh no.' and another before 'So I try to just end the call' to bring both under the 6-8 line gate. Split two three-sentence lines ('Straight out. No more circling...' and 'No. One more pass. Very gentle this time.') into same-speaker consecutive lines per the Listenability Gate. No send-back: hosts stay distinct (A drives the debrief with reactions/prompts, B carries the whole told tale and voices the cousin's quoted lines), the fourth wall holds throughout, and the callback repetition ('என்ன சமைக்கிற?' x3) is the episode's own comic engine, not filler."
+}
