@@ -7193,5 +7193,19 @@
     "expected_target": "சொல்லு",
     "stance": "give",
     "target_revealed": true
+  },
+  {
+    "date": "2026-09-14",
+    "timestamp": "2026-09-14T17:22:24.997394+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "lore: kinship maama",
+    "rationale": "Lore rail overdue by 10d; firing kinship culture vein (diverging from Kongu texture) with zero-ask pull after yesterday's mission.",
+    "next_check": "2026-09-14T21:22:24.997394+00:00",
+    "body": "Maamanaar (father-in-law) holds Maama (uncle) inside: mother’s brother was the classic in-law line. The whole family map is in the name.",
+    "body_script": "மாமனார் (father-in-law) holds மாமா (uncle) inside: mother’s brother was the classic in-law line. The whole family map is in the name.",
+    "expected_target": "",
+    "stance": "give",
+    "target_revealed": false
   }
 ]
