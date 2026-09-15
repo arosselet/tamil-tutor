@@ -7207,5 +7207,14 @@
     "expected_target": "",
     "stance": "give",
     "target_revealed": false
+  },
+  {
+    "date": "2026-09-15",
+    "timestamp": "2026-09-15T00:07:59.076644+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "evening rest",
+    "rationale": "20:07 EDT on a Monday with midday lore unacknowledged; giving space tonight to reset cleanly for tomorrow's lunch anchor.",
+    "next_check": "2026-09-15T11:37:59.076644+00:00"
   }
 ]
