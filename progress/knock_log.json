@@ -7230,5 +7230,14 @@
     "expected_target": "",
     "stance": "lure",
     "target_revealed": false
+  },
+  {
+    "date": "2026-09-15",
+    "timestamp": "2026-09-15T19:24:53.042692+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "waiting on trailer",
+    "rationale": "Lunch trailer is still live and the loop is open; giving him space through the afternoon and checking back at evening to pay it off if no session lands.",
+    "next_check": "2026-09-15T22:24:53.042692+00:00"
   }
 ]
