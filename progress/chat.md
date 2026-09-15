@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **11:22 · Anna**  ·  text / trailer: elder tails
 > Solren vs Sollunga (I'll say vs you tell me) — one tail flip changes who holds the floor. Cracking the elder address at lunch.
 
+**18:36 · Anna**  ·  text / trailer payoff: elder tails
+> Solren is 'I’m saying'. Flip the tail to Sollunga and you hand an elder the mic: 'you tell me'.
+
 
 ## Monday 2026-09-14
 

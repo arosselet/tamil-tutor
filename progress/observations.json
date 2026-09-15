@@ -18742,5 +18742,16 @@
     "result": null,
     "source": "knock:2026-09-13T17:10:40.633686+00:00",
     "note": ""
+  },
+  {
+    "id": "cf2748110b7f",
+    "at": "2026-09-15T22:36:50Z",
+    "word": "frame:polite-nga",
+    "channel": "text",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "source": "knock:2026-09-15T22:36:35.665782+00:00",
+    "note": ""
   }
 ]
