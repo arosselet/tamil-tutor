@@ -229,7 +229,24 @@ def knock_meta():
 
 def knock_title(filename: str, meta: dict) -> str:
     """"knocks/knock_2026-07-05T22-58.mp3" -> "Knock — 2026-07-05 22:58 · <move>".
-    Scheduled doses and spoken replies get their own word, same shape."""
+    Scheduled doses and spoken replies get their own word, same shape.
+
+    A PAYOFF IS NAMED FOR THE TAPE, NOT STAMPED LIKE ONE (2026-09-15, Andrew:
+    *"both can live in the feed — just give the new one a new name"*). It carries
+    the KNOCK's timestamp by construction (`superseded`), so under the shape above
+    it came out as the knock's own title with one word changed —
+
+        Knock  — 2026-09-13 13:01 · eavesdrop: youknow-la
+        Payoff — 2026-09-13 13:01 · eavesdrop: youknow-la
+
+    — and dropping the knock's ROW cannot reach the copy his player already
+    downloaded, so the pair is permanent and read as a duplicate. Eleven landed
+    together in the 09-05 backfill. The move leads, the date follows as prose:
+    a companion to that tape rather than a second stamp of it.
+
+    The DATE and not the minute, because the pair is what has to be legible and
+    two tapes never share a day; `audio_titles.distinct` still appends a stamp
+    if two ever do."""
     base = os.path.basename(filename)
     m = KNOCK_AUDIO_RE.match(base)
     when = base.replace(".mp3", "")
@@ -240,6 +257,9 @@ def knock_title(filename: str, meta: dict) -> str:
         if m.group(5):
             when += f" {m.group(5)}:{m.group(6)}"
     move = meta.get(base.removesuffix(".mp3"), ("", ""))[0]
+    if m and m.group(1) == "payoff":
+        tape = f"the {m.group(3)}-{m.group(4)} tape, explained"
+        return f"{kind} — {move} · {tape}" if move else f"{kind} — {tape}"
     return f"{kind} — {when} · {move}" if move else f"{kind} — {when}"
 
 

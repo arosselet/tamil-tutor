@@ -138,7 +138,19 @@ CODE_BUDGETS = {
     "scripts/render_payoff.py": 240,
     # NEW FILE, budgeted in the same diff that creates it (2026-08-23, Andrew).
     "scripts/writer.py": 181,
-    "scripts/run_studio.py": 430,
+    # 430 -> 433 (2026-09-15, Andrew): the Producer prompt now carries the
+    # Master Lesson Plan. Nothing was retired for it, and the growth is named
+    # rather than dodged: the pass writes `fence_size`/`unfenced_words` and owns
+    # the integrity checks, and until now it received the DRAFT ALONE — so those
+    # fields were guesses in every sidecar this studio has ever produced. M92
+    # guessed 45 against a fence of 121 and shipped an English-narrated episode.
+    # 433 -> 459 (2026-09-15, Andrew): the carrying-voice gate — is anybody
+    # actually IN the scene — and the per-voice split it reads. Nothing retired
+    # for it. Earned by Ep 92 shipping with both hosts narrating in English and
+    # the Tamil quoted inside the narration, while every existing rule passed:
+    # the Woven-Thanglish tripwire is a FLOOR against near-pure Tamil and the
+    # other end was open.
+    "scripts/run_studio.py": 459,
     "scripts/show_status.py": 125,
     # 112 -> 125 (2026-09-10).
     "scripts/state_io.py": 125,

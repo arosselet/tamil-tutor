@@ -91,7 +91,16 @@ def s28_cloud_writer(sb: Path):
     # inline_canon: the fix that made the cloud writer produce on-canon. The
     # thin slice caught it inventing a tags schema it had no filesystem to read;
     # the prompt's OWN 'protocol/...md' references are the manifest Python inlines.
-    producer_prompt = rs.PRODUCER.format(draft="DRAFT", n=99)
+    producer_prompt = rs.PRODUCER.format(plan="PLAN", draft="DRAFT", n=99)
+    # THE PLAN REACHES THE PRODUCER (2026-09-15). It received the draft alone,
+    # so `fence_size`/`unfenced_words` — and the integrity checks that pass owns
+    # — had no fence to count against, and M92 eyeballed 45 against a real 121
+    # and certified an English-narrated episode as correctly built. Asserted on
+    # the prompt itself, because the brief does not exist on disk at Producer
+    # time (Python writes it after all three passes return), so nothing else can
+    # catch this regression coming back.
+    check("the Producer is handed the Master Lesson Plan, not just the draft",
+          "PLAN" in producer_prompt and "DRAFT" in producer_prompt)
     inlined = rs.inline_canon(producer_prompt)
     check("inline_canon pulls producer.md content into the prompt",
           "===== protocol/studio/producer.md =====" in inlined
@@ -793,6 +802,36 @@ def s89_every_voice_lane_carries_the_dialect(sb: Path):
     check("the studio still carries dialect.md its own way",
           "protocol/dialect.md" in rs.PRODUCER)
 
+    # ── NOBODY IN THE SCENE (2026-09-15). Ep 92 shipped with both hosts
+    # narrating in English and the Tamil quoted inside the narration as
+    # evidence, and every lint rule passed it: the Woven-Thanglish tripwire is a
+    # FLOOR against near-pure Tamil and the other end was open.
+    #
+    # KEYED ON THE VOICE, NOT A RATIO, and the first attempt at this gate got
+    # that wrong — it asked the episode to clear a Tamil share and would have
+    # failed M87/M88/M89/M90, which are sound. Andrew: "Scaffolded in English
+    # means a different thing from 50% english." A scaffolded episode splits the
+    # ROLES; the episode-wide number cannot see that and the per-voice one can.
+    label_a, label_b = "**Host A (F):**", "**Host B (M):**"
+    tamil, eng = "வணக்கம் சாப்பிட்டீங்களா", "So then she called me back."
+    # The pair below is the whole argument: the episode with LESS Tamil passes
+    # and the one with MORE trips, because structure decides and the ratio does
+    # not. M90's shape — a narrator at 0%, a scene voice at 100%, 38% overall.
+    scaffolded = "\n".join([f"{label_a} {eng}"] * 8 + [f"{label_b} {tamil}"] * 5)
+    check("an English narrator beside a Tamil scene voice PASSES at 38% Tamil",
+          rs.carrying_voice(scaffolded) == 1.0)
+    # M92's shape — more Tamil overall (43%), spread so that nobody is in the scene.
+    collapsed = "\n".join([f"{label_a} {eng}\n{label_b} {eng}"] * 4
+                          + [f"{label_a} {tamil}\n{label_b} {tamil}"] * 3)
+    check("...while MORE Tamil, with every voice narrating, TRIPS",
+          rs.carrying_voice(collapsed) < rs.VOICE_CARRIES)
+    # A walk-on speaking two Tamil lines is not a scene.
+    walkon = "\n".join([f"{label_a} {eng}"] * 9 + [f"{label_b} {tamil}"] * 2)
+    check("...and a two-line walk-on cannot carry it alone",
+          rs.carrying_voice(walkon) == 0.0)
+    check("the stage direction is craft, never the payload",
+          rs.carrying_voice("\n".join([f"{label_a} [laughs, delighted] {tamil}"] * 5)) == 1.0)
+
     # LOUD ON ABSENCE. A half-canon returns every lane to book Tamil with all
     # instruments green — the exact shape that hid this for a month, so the
     # absence has to raise rather than degrade.
@@ -1063,9 +1102,18 @@ def s95_the_payoff_closes_the_tape(sb: Path):
             check("the payoff is in the feed", f"payoff_{ts}.mp3" in feed)
             check("...and the tape it replaces is NOT — one dose, one row",
                   f"knock_{ts}.mp3" not in feed)
+            # NAMED FOR THE TAPE, NOT STAMPED LIKE ONE (2026-09-15, Andrew). The
+            # payoff carries the KNOCK's timestamp by construction, so the old
+            # shape produced the knock's own title with one word changed — and
+            # dropping the knock's ROW cannot reach the copy already on his
+            # phone, so the pair was permanent and read as a duplicate. Both
+            # halves are asserted: the move still leads, and the bare stamp that
+            # made it a twin is gone.
             check("...titled as the dose it explains, not as a filename",
-                  "Payoff — 2026-09-05 05:08 · eavesdrop: town bank work" in feed,
+                  "Payoff — eavesdrop: town bank work · the 09-05 tape, explained" in feed,
                   feed[feed.find("Payoff"):][:80])
+            check("...and never as a second stamp of the tape it replaces",
+                  "Payoff — 2026-09-05 05:08" not in feed)
             check("...while the tape's own audio stays on disk and playable",
                   (knocks / f"knock_{ts}.mp3").exists())
             check("the payoff is rateable under its own format, not as a second tape",

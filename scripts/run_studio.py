@@ -125,7 +125,13 @@ PRODUCER = PREAMBLE + """
 THIS PASS: the PRODUCER. Read protocol/studio/producer.md,
 protocol/dialect.md and protocol/constitution.md and follow them exactly:
 dialect transformation, integrity checks (send-backs become fixes you make
-yourself here), and the sidecar. Two hard rules the dialect pass must not violate:
+yourself here), and the sidecar. Here is the Master Lesson Plan the draft was
+built from — the Vocabulary Fence in it is the SOURCE for `fence_size` and
+`unfenced_words`; count against it, never eyeball them:
+
+{plan}
+
+Two hard rules the dialect pass must not violate:
 - PAYLOAD FIDELITY: a CHUNK the sidecar claims must appear EXACTLY as seeded
   — the learner drills these precise forms and a mutated anchor poisons the
   rep. A single WORD may carry the sentence's own inflection, but its stem
@@ -377,7 +383,20 @@ def write_episode(n: int, write_pass=claude_print) -> bool:
     draft = write_pass("Architect", ARCHITECT.format(plan=plan, n=n))
     if not draft:
         return False
-    final = write_pass("Producer", PRODUCER.format(draft=draft, n=n))
+    # THE PRODUCER GETS THE PLAN (2026-09-15). It used to receive the draft
+    # ALONE, so the pass that writes `fence_size` and `unfenced_words` — and that
+    # owns the integrity checks — had no fence to check anything against. M92's
+    # own sidecar says so out loud: "No Architect brief was on disk for mission
+    # 92 (only the draft was handed to this pass); fence_size/unfenced_words are
+    # eyeballed, not brief-checked." It eyeballed 45 against a real fence of 121,
+    # and 45 is the far side of architect.md's own branch — under 50 means "lean
+    # harder on English scaffolding… the density will be lower — that's correct",
+    # over 100 means "mostly Tamil with light English". So the sidecar certified
+    # an English-carried episode as correctly built, and the feed shipped a story
+    # narrated in English (25% of spoken lines carried Tamil, against 84% for
+    # M91). The brief cannot be read off disk instead: Python writes it AFTER all
+    # three passes return, so at Producer time the file does not exist yet.
+    final = write_pass("Producer", PRODUCER.format(plan=plan, draft=draft, n=n))
     if not final:
         return False
 
@@ -425,6 +444,66 @@ def intercept_english_share(script: str) -> float:
 MIN_ENGLISH_SHARE = 0.15  # tripwire, not a dial — well under every healthy episode
 
 
+# The speaker label and the stage directions are NOT spoken payload. `**Host A
+# (F):**` is three Latin words on every single line and `[laughs]` is another —
+# `intercept_english_share` counts both (it matches whole lines), which reads
+# ~15 points English-heavy and is why that floor has never fired. Measured here
+# rather than fixed there: fixing it would drop M75/M76/M85 (0-6% English once
+# cleaned) under the floor and block three episodes of a kind already accepted.
+LINE_CRAFT_RE = re.compile(r"\[.*?\]")
+# This module's SPEAKER_RE is match-only and every other reader depends on that
+# shape, so the name is captured by a second pattern rather than by widening it.
+SPEAKER_NAME_RE = re.compile(r"^\s*(?:\*\s*)?\*\*\s*([^:]+?)\s*:\s*(?:\*\*)?\s*(.*)")
+
+
+def voice_lines(script: str) -> dict[str, tuple[int, int]]:
+    """speaker -> (lines carrying Tamil, lines spoken). Label and craft cues out."""
+    out: dict[str, tuple[int, int]] = {}
+    for ln in script.splitlines():
+        m = SPEAKER_NAME_RE.match(ln)
+        if not m:
+            continue
+        said = LINE_CRAFT_RE.sub(" ", m.group(2)).strip()
+        if not said:
+            continue
+        who = m.group(1).strip().upper()
+        tamil, spoken = out.get(who, (0, 0))
+        out[who] = (tamil + bool(TAMIL_RE.search(said)), spoken + 1)
+    return out
+
+
+def carrying_voice(script: str) -> float:
+    """The most-Tamil VOICE in the episode — is anybody actually in the scene?
+
+    NOT A DENSITY MEASURE, and that distinction is the whole rule. Andrew,
+    2026-09-15: *"Scaffolded in English means a different thing from 50%
+    english."* He is right, and the episode-wide ratio cannot tell the two
+    apart. A healthy scaffolded episode splits the ROLES — a narrator carrying
+    logistics in English, a voice living the scene in Tamil — and lands anywhere
+    from 34% to 100% Tamil overall depending on how much narration it needs.
+    M90 is 45% overall and perfectly sound: Host A is 0% Tamil and Host B is
+    93%. M92 is broken at 25% not because 25 is a small number but because its
+    most-Tamil voice is 36% — nobody is in the scene at all, both hosts are
+    narrating, and the Tamil is quoted inside the narration as evidence.
+
+    Across all 98 episodes the weakest carrying voice is M92's 36%; the next is
+    52% and every healthy recent episode is 90-100%. So this separates the
+    reported failure from the entire rest of the library on structure, without
+    asking any episode to hit a Tamil ratio.
+
+    A voice needs MIN_VOICE_LINES before it can carry: a two-line walk-on
+    speaking Tamil is not a scene, and without the floor it would satisfy this
+    on its own."""
+    return max((tamil / spoken for tamil, spoken in voice_lines(script).values()
+                if spoken >= MIN_VOICE_LINES), default=0.0)
+
+
+MIN_VOICE_LINES = 5   # below this a voice is a walk-on, not the scene
+# Tripwire, not a dial — the one number in 98 episodes that is not a judgement
+# call: M92 36%, next-weakest 52%, healthy recent episodes 90-100%.
+VOICE_CARRIES = 0.50
+
+
 def lint(n: int, baseline: set[str] | None = None) -> list[str]:
     """Deterministic post-checks — every rule here earned its place from an
     observed failure mode (2026-07-09: the probe broke the fourth wall by
@@ -470,6 +549,19 @@ def lint(n: int, baseline: set[str] | None = None) -> list[str]:
             problems.append(
                 f"Woven-Thanglish tripwire: only {share:.0%} English in spoken lines "
                 f"(floor {MIN_ENGLISH_SHARE:.0%}) — near-pure Tamil can't hold live comprehension")
+        # THE OTHER END, and the one M92 walked through (2026-09-15). The floor
+        # above catches near-pure Tamil; nothing caught an episode in which
+        # NOBODY IS IN THE SCENE — both hosts narrating in English with the
+        # Tamil quoted inside the narration as evidence. That is what shipped as
+        # Ep 92. Keyed on the voice and not on a ratio, because the ratio cannot
+        # tell it from honest English scaffolding (M90: 45% Tamil overall and
+        # entirely sound — its Host B carries 93%).
+        voice = carrying_voice(script)
+        if voice < VOICE_CARRIES:
+            problems.append(
+                f"no voice carries the scene: the most-Tamil speaker is only "
+                f"{voice:.0%} Tamil (floor {VOICE_CARRIES:.0%}) — every host is "
+                f"narrating, so the Tamil is quoted evidence rather than the scene")
     learner = (json.loads((BASE / "progress" / "learner.json").read_text(encoding="utf-8"))
                .get("learner") or "")
     if learner and re.search(rf"\b{re.escape(learner)}\b", script, re.IGNORECASE):
