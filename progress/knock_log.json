@@ -7216,5 +7216,19 @@
     "move": "evening rest",
     "rationale": "20:07 EDT on a Monday with midday lore unacknowledged; giving space tonight to reset cleanly for tomorrow's lunch anchor.",
     "next_check": "2026-09-15T11:37:59.076644+00:00"
+  },
+  {
+    "date": "2026-09-15",
+    "timestamp": "2026-09-15T15:22:24.812623+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "trailer: elder tails",
+    "rationale": "Late morning before the lunch break: ringing the session bell to tee up the owed elder-address tail decomposition.",
+    "next_check": "2026-09-15T18:22:24.812623+00:00",
+    "body": "Solren vs Sollunga (I'll say vs you tell me) — one tail flip changes who holds the floor. Cracking the elder address at lunch.",
+    "body_script": "சொல்றேன் vs சொல்லுங்க (I'll say vs you tell me) — one tail flip changes who holds the floor. Cracking the elder address at lunch.",
+    "expected_target": "",
+    "stance": "lure",
+    "target_revealed": false
   }
 ]
