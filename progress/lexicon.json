@@ -685,7 +685,7 @@
       "namma"
     ],
     "recognition": "comfortable",
-    "production": "hinted",
+    "production": "cold",
     "seen_in": [
       9,
       11,
@@ -695,7 +695,7 @@
       61
     ],
     "last_surfaced": "2026-09-16",
-    "reps": 2,
+    "reps": 3,
     "exposures": 2,
     "taught_on": "2026-02-25",
     "heard_on": "2026-09-13"
@@ -4096,11 +4096,12 @@
     "recognition": "struggled",
     "production": "hinted",
     "seen_in": [],
-    "last_surfaced": "2026-09-05",
+    "last_surfaced": "2026-09-16",
     "direction": "fire",
     "reps": 3,
     "exposures": 1,
-    "register": "public"
+    "register": "public",
+    "taught_on": "2026-09-16"
   },
   "ஃப்ரீயா விடுங்க": {
     "type": "chunk",
@@ -4512,13 +4513,13 @@
       "irukkaarla"
     ],
     "recognition": "struggled",
-    "production": "hinted",
+    "production": "cold",
     "seen_in": [
       61
     ],
     "last_surfaced": "2026-09-16",
     "exposures": 1,
-    "reps": 1,
+    "reps": 2,
     "taught_on": "2026-07-13"
   },
   "ல": {

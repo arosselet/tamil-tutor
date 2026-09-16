@@ -18753,5 +18753,126 @@
     "result": null,
     "source": "knock:2026-09-15T22:36:35.665782+00:00",
     "note": ""
+  },
+  {
+    "id": "df873f70a664",
+    "at": "2026-09-16T15:25:56Z",
+    "word": "கை",
+    "channel": "episode",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "source": "episode:M93",
+    "note": ""
+  },
+  {
+    "id": "056f46add94c",
+    "at": "2026-09-16T15:25:56Z",
+    "word": "வாய்",
+    "channel": "episode",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "source": "episode:M93",
+    "note": ""
+  },
+  {
+    "id": "83c56ebe74da",
+    "at": "2026-09-16T15:25:56Z",
+    "word": "ருசி",
+    "channel": "episode",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "source": "episode:M93",
+    "note": ""
+  },
+  {
+    "id": "7911e906d7e2",
+    "at": "2026-09-16T15:25:56Z",
+    "word": "என்ன ஆச்சு?",
+    "channel": "episode",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "source": "episode:M93",
+    "note": ""
+  },
+  {
+    "id": "837a529ab33c",
+    "at": "2026-09-16T15:25:56Z",
+    "word": "என்ன சமைக்கிற?",
+    "channel": "episode",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "source": "episode:M93",
+    "note": ""
+  },
+  {
+    "id": "2aae2baa6f88",
+    "at": "2026-09-16T15:25:56Z",
+    "word": "இருக்கார்ல",
+    "channel": "episode",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "source": "episode:M93",
+    "note": ""
+  },
+  {
+    "id": "f12317516b18",
+    "at": "2026-09-16T15:25:56Z",
+    "word": "ஏன்னா",
+    "channel": "episode",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "source": "episode:M93",
+    "note": ""
+  },
+  {
+    "id": "7b039c231594",
+    "at": "2026-09-16T15:25:56Z",
+    "word": "நம்ம",
+    "channel": "episode",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "source": "episode:M93",
+    "note": ""
+  },
+  {
+    "id": "250e95d08231",
+    "at": "2026-09-16T16:04:53Z",
+    "word": "எவ்ளோ ஆகும்?",
+    "channel": "session",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "source": "session:2026-09-16",
+    "note": "re-taught; row already existed"
+  },
+  {
+    "id": "6c95e1776eca",
+    "at": "2026-09-16T16:04:53Z",
+    "word": "இருக்கார்ல",
+    "channel": "session",
+    "kind": "tested",
+    "axis": "production",
+    "result": "right",
+    "source": "session:2026-09-16",
+    "note": "fired cold"
+  },
+  {
+    "id": "dee0ddc0e876",
+    "at": "2026-09-16T16:04:53Z",
+    "word": "நம்ம",
+    "channel": "session",
+    "kind": "tested",
+    "axis": "production",
+    "result": "right",
+    "source": "session:2026-09-16",
+    "note": "fired cold"
   }
 ]

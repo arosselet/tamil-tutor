@@ -905,5 +905,29 @@
     "note": "an unknown tail defaults to -la, which always comes out meaning NO",
     "word": "",
     "dose_channel": "episode"
+  },
+  {
+    "at": "2026-09-16T16:04:53Z",
+    "date": "2026-09-16",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "nga-has-no-address",
+    "said": "poga",
+    "want": "poonga",
+    "note": "reaches for the bare stem when a command must be aimed at an elder - the verb fires with nobody assigned to do it",
+    "word": "",
+    "dose_channel": "soak"
+  },
+  {
+    "at": "2026-09-16T16:04:53Z",
+    "date": "2026-09-16",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "literary-twin",
+    "said": "illayeni (illaiyenil)",
+    "want": "illannaa",
+    "note": "correct Tamil in the WRITTEN register - his hand reaches for the printed/newsreader twin of a spoken connector; illaavittaal 09-13, illaiyenil 09-16; never grade it wrong, teach the register swap",
+    "word": "frame:if-ndhaa",
+    "dose_channel": "soak"
   }
 ]

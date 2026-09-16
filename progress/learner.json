@@ -2,28 +2,29 @@
   "learner": "Andrew",
   "timezone": "America/New_York",
   "quiet_until": "",
-  "last_debrief": "STORY SO FAR: Sun 09-13, low power, a short door and out. THE COLLECT: the neenga saapdunga op did not fire - he forgot the cue, and more to the point THE TRIGGER DOES NOT EXIST RIGHT NOW: meals at home are jetlagged and informal, nobody is serving, nobody is standing. Both meal ops (vendaanga, saapdunga) are RETIRED as ops, not failed - they were aimed at a table he is not sitting at. Ops must hang on a trigger his current life actually runs. Contact, not evidence; nothing logged. WHAT I GAVE HIM: Karthi's wedding decoded (he caught the name off the eavesdrop, the opener is landing), kilambalaama vs kilambunga (he chased it himself on the knock - same root, the tail says who holds the keys), and the lore that -nga was -ngal, 'you all' - talking to one elder as a room, like vous. On a verb, -nga points at YOU. That is the first stone of the address decomposition and it went in as a story, not a drill. CARRIED FORWARD, UNCHANGED: -nga HAS NO ADDRESS (nandri-nga, semayanga, sonnanga on 09-10/11) - the Deep-Dive is still owed: one root, every tail, solren / sollunga / solraanga, who each points at. He asks for decomposition; serve it deliberately. THE -la DEFAULT (toongala, ukarala): unsure of the tail, his hand grabs -la and hands elders a no. illavitta is his and correct (newsreader twin of illannaa) - never grade it. varaadhu found from vaa unaided. வா STILL HELD OUT OF EVERY PRODUCTION SLOT; ambush unspent, must be unannounced. SOAK ORDER: the athai kitchen order stalled (M91 could not carry சமைக்கிற); re-cut tonight as the whole chunk 'enna samaikkira?' in a phone scene, dispatched to the studio. TONIGHT: low-power twin - the drill tape and the compound tape, ears only. The volley inherits the three fires. NEW OP, better trigger: when she calls his name from another room, the answer is 'sollu' (tell me / yes?) instead of 'enna?' - a verb aimed at the person calling, a trigger that runs every day regardless of meals; 'sollunga' is the same move for any elder on a call. Collect first next open. TOMORROW OFFERED: the Deep-Dive on sollu. Low-power twin: the machines rotation tape.",
+  "last_debrief": "STORY SO FAR: Wed 09-16, a real session, and it opened on a repair. THE M92 REPORT (his words, banked): the cousin tape was \"basically all english - narrating a story while missing the tamil\". He was right, and the cause was structural, not lazy writing. M92 own sidecar logged its hosts as amused_listener / flustered_storyteller - ONE voice told the whole tale and did the cousin as QUOTES, so the cousin never spoke to anyone; per-voice Tamil was 4% and 36%. The 09-15 fix (voice-carries gate, Producer gets the brief) was already in this clone, but THE ORDER HAD CLOSED ITSELF - soak_pending saw the word registered by M92 and read it as carried, so the next dispatch would have taken a NEW commission and noun-for-verb would have gone in the books as dosed when it never was. Re-opened from session per that commit own note, pinned form=phone_call. M93 \"The Safe Question\" rendered and verified per-voice BEFORE handing it over: both scene voices at 70%, the call live, enna samaikkira asked three times to his face by a cousin who is a person now.\nTHE SESSION: opened on the sollu decomposition (-ren me / -nga you / -aar him / -aanga them) as the gift - the trailer payoff he acked twice. THREE FIRES. (1) \"namma maama irukkaarla\" COLD and unaided, -aar correct: this is the item that went dark 14d and that came out \"irukala\" last time, and he did NOT default to -la. namma over en, unprompted. (2) \"poga\" for get-going-aimed-at-athai. THE ROOT IS FINE - poonga lands, po is not the miss and I did not take it off him; the miss is a bare stem with no tail and therefore no person. Recast, he fired poonga. (3) \"late-achu\" for it-will-get-late: he believed enna was a subject marker and -aachu meant \"will be\". Taught the aagu decomposition - aachu = became/done, aagum = will become - and hooked it to evlo aagum in the shop. He produced \"late aagum\" correctly on the next swing, unaided.\nNEW PATTERN, and it is the interesting one: LITERARY TWIN. He built \"illayeni\" (illaiyenil) for otherwise. Correct Tamil, written register. That is TWICE now - illaavittaal 09-13, illaiyenil 09-16 - and it fits a man who read before he had anyone to talk to: the shapes went in through his eyes. NEVER graded wrong; taught as a register swap (illannaa is the same word with its shoes off). Watch for a third.\nCARRIED FORWARD: the sollu op is STILL UNCOLLECTED - asked twice today, he went to the tape both times. No guilt, no third ask; the trigger is real (she calls his name from another room), leave it standing and collect next open. Do NOT stack a new op on it. VAA STILL HELD OUT OF EVERY PRODUCTION SLOT; ambush unspent, must be unannounced. THE RECEPTIVE CHECK has still never run and is now overdue - it was displaced today by the M92 repair, and it is the only thing that can re-base the goal. Offer it FIRST next open.\nTWO @build NITS off the M93 run, for whoever wears that hat next: the sidecar frame key frame:cant-mudiyal resolves to no lexicon pattern (trailing consonant mismatch against the real key), and M93 registered 4 NEW words with empty glosses - backfill owed.\nSOAK ORDER: the address decomposition to the SOAK lane. Drill was tried for respect-nga and he slipped again; the episode lane just carried noun-for-verb; soak is the untried format and repetition is what makes a contrast audible.\nTOMORROW OFFERED: the Receptive Check. Low-power twin: M93 by ear, second pass.",
   "soak_order": {
     "payload": [
-      "என்ன சமைக்கிற?"
+      "சொல்றேன்",
+      "சொல்லுங்க",
+      "போறேன்"
     ],
-    "scene_seed": "a cousin on the phone from another house, nosy about dinner, and every lazy answer is the name of a dish",
-    "from": "2026-09-13",
-    "focus": "THE VERB MUST FIRE AND THE NOUN IS THE TRAP. Re-cut of the stalled 09-11 order: carry the whole question 'enna samaikkira?' verbatim at least three times, asked and answered, so the script cannot say it another way. Lazy answer = the noun (samayal, kaapi, velai); the line only works when the verb carries it. One axis only - no -nga stacking, no person permutation. Never name a rule, never say noun or verb. Say nothing in intro, outro or any cue about mistakes or repair; no counts.",
-    "channel": "episode",
+    "scene_seed": "one stem, the tails turning over it - the same voice saying it about himself, then handing it to an elder, then reporting what the room said",
+    "from": "2026-09-16",
+    "focus": "THE TAIL NAMES THE PERSON. Minimal pairs on ONE stem at a time: -ren (me) / -nga (you, an elder) / -aanga (them), so the target is audible and nothing else moves. He learned the ending too well and now sprays it at the nearest word; the drill lane was tried for respect-nga and he slipped again, and the episode lane is carrying noun-for-verb, so this goes to soak - repetition is what makes a contrast audible. One axis only: do not permute tense, do not stack politeness, do not vary the stem inside a pair. Never name a rule, never say tail or person or ending. No counts, no mention of mistakes or repair anywhere in the tape.",
+    "channel": "soak",
     "attempted": {
-      "at": "2026-09-11",
-      "episode": "91",
-      "unclaimed": [
-        "சமைக்கிற"
-      ]
+      "at": "2026-09-16",
+      "episode": "93",
+      "unclaimed": []
     }
   },
   "next_engine": "frame:polite-nga",
   "focus_cohort": [
     "அட்டா",
     "அவசரமா வெளிய போனேன்",
-    "இருக்கார்ல",
+    "இன்னைக்கு",
+    "இருக்கேன்",
     "இல்லன்னா",
     "எடுங்க",
     "என்ன சமைக்கிற?",
@@ -31,7 +32,6 @@
     "ஏன்னா",
     "கொஞ்சம் குறையுங்க",
     "தப்பு",
-    "நம்ம",
     "வை"
   ],
   "slip_closes": {
@@ -228,7 +228,18 @@
           "என்ன சமைக்கிற?"
         ]
       }
+    ],
+    "nga-has-no-address": [
+      {
+        "channel": "soak",
+        "at": "2026-09-16",
+        "payload": [
+          "சொல்றேன்",
+          "சொல்லுங்க",
+          "போறேன்"
+        ]
+      }
     ]
   },
-  "status": "Machines heard 3 · ear-tested 15/26 · viability floor 11/16 fire cold (69%)"
+  "status": "Machines heard 3 · ear-tested 15/26 · viability floor 12/16 fire cold (75%)"
 }
