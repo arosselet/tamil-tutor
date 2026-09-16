@@ -79,3 +79,6 @@ leaves; an idea that dies is deleted, not archived.
 - A per-item pending-ask state, consulted by every writer (2026-08-18)
 - THE DRILL LANE HAS NO TEACH-FIRST FILTER (2026-08-18)
 - The model contract is written twice — half fixed (`writer.nullable`), half withdrawn; a static key-declared check CONSIDERED AND DECLINED (2026-09-05)
+- No meter counts knock FORMAT share — the trailer monoculture (33% of fires) was invisible until counted by hand (2026-09-16)
+- The slip ledger has no eviction rule — an unclosed slip family wins more lanes the longer it fails, and held all three at once (2026-09-16)
+- `mandates.py` is at 500/500 code lines and 1992/2000 words — the next addition is a red build; split-or-retire (2026-09-16)
