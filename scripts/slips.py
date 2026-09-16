@@ -434,8 +434,9 @@ def format_slip_block(patterns: list[dict], limit: int = 6) -> list[str]:
         lines.append("No live slips — nothing repeated recently.")
     else:
         lines += ["REPEATED SLIPS — mistakes he has made more than once, newest first.",
-                  "  These are the primary signal for what to drill. A slip is not closed by",
-                  "  being corrected; it is closed by firing right, unaided, later."]
+                  "  These name what to TEACH next, not what to quiz: an explanation, a tape, or him",
+                  "  volunteering it is what has closed one here — never being asked again.",
+                  "  Explain the machine; the probe comes later, unannounced — a slip is still closed by firing right, unaided, and a recast never closes it."]
     for p in live[:limit]:
         when = (f"{p['count']}× over {p['span_days']}d" if p["span_days"]
                 else f"{p['count']}×")
