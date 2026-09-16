@@ -7252,6 +7252,8 @@
     "body_script": "சொல்றேன் is 'I’m saying'. Flip the tail to சொல்லுங்க and you hand an elder the mic: 'you tell me'.",
     "expected_target": "",
     "stance": "give",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "ack",
+    "response_at": "2026-09-16T14:10:48Z"
   }
 ]
