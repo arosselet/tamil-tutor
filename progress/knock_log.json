@@ -7257,5 +7257,14 @@
     "target_revealed": false,
     "response": "ack",
     "response_at": "2026-09-16T14:10:48Z"
+  },
+  {
+    "date": "2026-09-16",
+    "timestamp": "2026-09-16T15:15:29.549763+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "eavesdrop: cant-mudiyala",
+    "rationale": "Overdue for eavesdrop (29 pending, last 3d ago); midday tape trains ear comprehension on frame:cant-முடியல without forcing production.",
+    "next_check": "2026-09-16T19:15:29.549763+00:00"
   }
 ]
