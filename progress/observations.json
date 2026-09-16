@@ -18874,5 +18874,16 @@
     "result": "right",
     "source": "session:2026-09-16",
     "note": "fired cold"
+  },
+  {
+    "id": "bc7c7075cdca",
+    "at": "2026-09-16T19:16:54Z",
+    "word": "frame:cant-முடியல",
+    "channel": "eavesdrop",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "source": "knock:2026-09-16T19:16:23.402047+00:00",
+    "note": ""
   }
 ]

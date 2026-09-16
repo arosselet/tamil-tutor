@@ -10,6 +10,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 
 **10:11 · Andrew** · 👍 acked  ·  ↩ 09-15 11:22 · trailer: elder tails
 
+**15:16 · Anna** 🎧  ·  eavesdrop / eavesdrop: cant-mudiyala
+> Overheard: Maamaavukku ennaachu? (what happened?) What did Selvi say uncle couldn't do this morning? 🎧
+
 
 ## Tuesday 2026-09-15
 
