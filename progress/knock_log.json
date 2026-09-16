@@ -7229,7 +7229,9 @@
     "body_script": "சொல்றேன் vs சொல்லுங்க (I'll say vs you tell me) — one tail flip changes who holds the floor. Cracking the elder address at lunch.",
     "expected_target": "",
     "stance": "lure",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "ack",
+    "response_at": "2026-09-16T14:11:14Z"
   },
   {
     "date": "2026-09-15",
