@@ -694,9 +694,9 @@
       28,
       61
     ],
-    "last_surfaced": "2026-09-13",
+    "last_surfaced": "2026-09-16",
     "reps": 2,
-    "exposures": 1,
+    "exposures": 2,
     "taught_on": "2026-02-25",
     "heard_on": "2026-09-13"
   },
@@ -1319,7 +1319,7 @@
       11,
       12
     ],
-    "last_surfaced": "2026-08-23",
+    "last_surfaced": "2026-09-16",
     "exposures": 1,
     "reps": 1,
     "heard_on": "2026-08-23",
@@ -3579,7 +3579,7 @@
     "seen_in": [
       53
     ],
-    "last_surfaced": "2026-09-14",
+    "last_surfaced": "2026-09-16",
     "reps": 5,
     "exposures": 2,
     "taught_on": "2026-07-01",
@@ -4516,7 +4516,7 @@
     "seen_in": [
       61
     ],
-    "last_surfaced": "2026-09-02",
+    "last_surfaced": "2026-09-16",
     "exposures": 1,
     "reps": 1,
     "taught_on": "2026-07-13"
@@ -5744,5 +5744,49 @@
     "last_surfaced": "2026-09-11",
     "reps": 1,
     "heard_on": "2026-09-11"
+  },
+  "கை": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      93
+    ],
+    "last_surfaced": "2026-09-16",
+    "taught_on": null
+  },
+  "வாய்": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      93
+    ],
+    "last_surfaced": "2026-09-16",
+    "taught_on": null
+  },
+  "ருசி": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      93
+    ],
+    "last_surfaced": "2026-09-16",
+    "taught_on": null
+  },
+  "என்ன ஆச்சு?": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      93
+    ],
+    "last_surfaced": "2026-09-16",
+    "taught_on": null
   }
 }

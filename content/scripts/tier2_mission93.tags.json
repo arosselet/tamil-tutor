@@ -1,0 +1,31 @@
+{
+  "mission": 93,
+  "register": "dread",
+  "dramatic_ingredient": "turn",
+  "episode_form": "classic",
+  "shape": "gossip",
+  "location_class": "home_social",
+  "energy": "low",
+  "intercept_tamil_density": 0.5,
+  "breakdown_tamil_density": 0.1,
+  "fence_size": 121,
+  "unfenced_words": 2,
+  "new_words_landed": {
+    "கை": 1,
+    "வாய்": 1,
+    "ருசி": 1,
+    "என்ன ஆச்சு?": 1
+  },
+  "callbacks_used": {
+    "என்ன சமைக்கிற?": 3,
+    "இருக்கார்ல": 2,
+    "ஏன்னா": 1,
+    "நம்ம": 2,
+    "frame:cant-முடியல்": 1
+  },
+  "host_roles": {
+    "A": "probing_cousin",
+    "B": "deflecting_cousin"
+  },
+  "notes": "Craft note compliance checked first: unlike M92, the call fires live and direct throughout — both her line and his answer are real quoted Tamil in the moment, the English only wraps as frame-narration before/after; no summarizing of the exchange itself. Payload fidelity: 'என்ன சமைக்கிற?' appears 3x byte-identical (never closed with a noun-only answer — verb-first every time, per the Linguistic Pattern), 'இருக்கார்ல' appears twice unmutated (2nd instance doubles as the requested contrast beat: he starts 'அம்மா இங்க இருக்கார்ல...' then self-corrects to the negative 'இருக்கல' when he realizes she's out — a natural in-scene contrast rather than a drilled minimal pair), 'சும்மா சொல்றாங்க' and 'தெரியுமா' (both EAR-ONLY) woven in once each without forcing the scene, 'ஏன்னா' and frame:cant-முடியல் ('பேச முடியல') land once each matching their struggled-callback target. 'கை ருசி' landed as one idiom per the brief's explicit instruction, not two loose nouns; 'வாய்' lands separately in the 'வாய்க்கு நல்லா இருக்கும்' line. Dialect fixes made: fixed a spelling slip கேக்குறேன்→கேட்குறேன் (wrong stem; கேட்குறேன் is the existing fence form), applied sandhi/fence-consistency இன்னும் ஒரு தடவை→இன்னொரு தடவ (matches the fence's own 'இன்னொரு தடவ சொல்லுங்க'), split one three-sentence Host A line (நானும் நல்லாதான் / நிறைய நாளா பேசல நாம் / என்ன ஆச்சு?) into same-speaker consecutive lines per the Listenability Gate, added the missing '?' to a Breakdown quote of 'என்ன சமைக்கிற?' for exact-match fidelity. Did NOT sandhi-fuse 'என்ன ஆச்சு' into 'என்னாச்சு' anywhere it appears as the payload chunk — that would mutate the seeded anchor. Vocabulary audit: swapped two unfenced content nouns to English per the Noun Shortcut rule — வேலை→work, பேரக்குழந்தை→grandchild (the latter now also does double duty answering பாட்டி's meaning in the same line) — bringing unfenced Tamil nouns down to 2 (சாம்பார், பாட்டி), both dish/kinship terms context answers immediately, same class as M92's precedent. காப்பி and ரெசிபி left as Tamil-script loanwords (established convention — cf. fence's own ஜாஸ்தி, டயர்ட்), not counted as unfenced. Register check: உன் (nee) from elder cousin A to younger B, நீங்க from B up to A — correct asymmetric direction per dialect.md's close-cousin carve-out, not a slip. No -ங்க landed on any first-person verb (இருக்கேன், சமைக்குறேன் x3, கேட்குறேன், நம்பறேன், வரேன் x2 all untouched); imperatives to the elder (சொல்லுங்க, வாங்க) correctly keep -ங்க. No send-back: hosts stay distinct (A drives the repeated question and the check-in, B carries the deflection and the eventual verb-answers), fourth wall holds (English frame is host-to-host, never listener-addressed), pacing holds under the 6-8 line gate throughout."
+}
