@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **11:24 · Anna**  ·  text / show dose: illannaa
 > You reached for book Tamil twice. At a table, take its shoes off: illanna (otherwise / if not). One clean swap for lunch.
 
+**15:28 · Anna**  ·  volley / rapid blitz: shop counter
+> ⚡ volley 1/4 — kadai-la (at the shop). Ask him cold: how much will it come to?
+
 
 ## Wednesday 2026-09-16
 

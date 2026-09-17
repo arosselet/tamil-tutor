@@ -7297,5 +7297,38 @@
     "expected_target": "",
     "stance": "give",
     "target_revealed": false
+  },
+  {
+    "date": "2026-09-17",
+    "timestamp": "2026-09-17T19:28:03.971122+00:00",
+    "acted": true,
+    "modality": "volley",
+    "move": "rapid blitz: shop counter",
+    "rationale": "Afternoon volley cashing in yesterday's aagum shop breakdown and M93's cousin kitchen scene; zero demand streak allows an ask.",
+    "next_check": "2026-09-17T23:28:03.971122+00:00",
+    "body": "⚡ volley 1/4 — kadai-la (at the shop). Ask him cold: how much will it come to?",
+    "body_script": "⚡ volley 1/4 — கடை-ல (at the shop). Ask him cold: how much will it come to?",
+    "expected_target": "எவ்ளோ ஆகும்?",
+    "stance": "ask",
+    "target_revealed": false,
+    "volley": [
+      {
+        "target": "எவ்ளோ ஆகும்?",
+        "ask": "கடை-ல (at the shop). Ask him cold: how much will it come to?"
+      },
+      {
+        "target": "அட்டா",
+        "ask": "You drop your keys and chuckle. That light Kongu sigh: alas / oh shucks!"
+      },
+      {
+        "target": "ஏன்னா",
+        "ask": "He asks why you were late. Start your explanation: 'Because...'"
+      },
+      {
+        "target": "என்ன சமைக்கிற?",
+        "ask": "Peeking in as your cousin stirs the pot. Ask her casually: what are you cooking?"
+      }
+    ],
+    "volley_next": 1
   }
 ]
