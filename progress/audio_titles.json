@@ -1,24 +1,94 @@
 {
-  "drill_2026-09-05_1633": "Sit, Eat, Bargain, Decline",
-  "payoff_2026-08-04T14-22": "eavesdrop: spice clitics soak",
-  "payoff_2026-08-05T22-52": "ear-only viṭṭuḍu soak",
-  "payoff_2026-08-08T21-23": "eavesdrop: gossip close",
-  "payoff_2026-08-10T23-28": "eavesdrop: -thukka soak",
-  "payoff_2026-08-14T04-00": "eavesdrop: spice-dhaan soak",
-  "payoff_2026-08-18T03-38": "catch: whose daughter",
-  "payoff_2026-08-21T15-25": "eavesdrop: birthday call catch",
-  "payoff_2026-08-24T07-52": "eavesdrop: theriyuma drift",
-  "payoff_2026-08-27T02-46": "eavesdrop: train delay aachu",
-  "payoff_2026-08-30T02-54": "eavesdrop: myself thukka",
-  "payoff_2026-09-02T05-20": "eavesdrop: idum fate",
-  "payoff_2026-09-05T05-08": "eavesdrop: town bank work",
-  "payoff_2026-09-08T07-40": "eavesdrop: priya plans",
-  "payoff_2026-09-13T13-01": "eavesdrop: youknow-la",
-  "rotation_machines_2026-09-07_1050": "machines",
-  "soak_2026-08-30_1934": "the -ல negative, by ear",
-  "soak_2026-08-30_2004": "கேட்கு vs சொல்லு · pull and push",
-  "soak_2026-08-31_0857": "the person tail, nothing else moving",
-  "soak_2026-09-01_1642": "வா vs போ · direction only",
-  "soak_2026-09-05_1235": "the last verb steers everything",
-  "soak_2026-09-05_1540": "the last verb steers the trip"
+  "drill_2026-09-05_1633": {
+    "title": "Sit, Eat, Bargain, Decline",
+    "words": []
+  },
+  "payoff_2026-08-04T14-22": {
+    "title": "eavesdrop: spice clitics soak",
+    "words": []
+  },
+  "payoff_2026-08-05T22-52": {
+    "title": "ear-only viṭṭuḍu soak",
+    "words": []
+  },
+  "payoff_2026-08-08T21-23": {
+    "title": "eavesdrop: gossip close",
+    "words": []
+  },
+  "payoff_2026-08-10T23-28": {
+    "title": "eavesdrop: -thukka soak",
+    "words": []
+  },
+  "payoff_2026-08-14T04-00": {
+    "title": "eavesdrop: spice-dhaan soak",
+    "words": []
+  },
+  "payoff_2026-08-18T03-38": {
+    "title": "catch: whose daughter",
+    "words": []
+  },
+  "payoff_2026-08-21T15-25": {
+    "title": "eavesdrop: birthday call catch",
+    "words": []
+  },
+  "payoff_2026-08-24T07-52": {
+    "title": "eavesdrop: theriyuma drift",
+    "words": []
+  },
+  "payoff_2026-08-27T02-46": {
+    "title": "eavesdrop: train delay aachu",
+    "words": []
+  },
+  "payoff_2026-08-30T02-54": {
+    "title": "eavesdrop: myself thukka",
+    "words": []
+  },
+  "payoff_2026-09-02T05-20": {
+    "title": "eavesdrop: idum fate",
+    "words": []
+  },
+  "payoff_2026-09-05T05-08": {
+    "title": "eavesdrop: town bank work",
+    "words": []
+  },
+  "payoff_2026-09-08T07-40": {
+    "title": "eavesdrop: priya plans",
+    "words": []
+  },
+  "payoff_2026-09-13T13-01": {
+    "title": "eavesdrop: youknow-la",
+    "words": []
+  },
+  "payoff_2026-09-16T19-16": {
+    "title": "eavesdrop: cant-mudiyala",
+    "words": []
+  },
+  "rotation_machines_2026-09-07_1050": {
+    "title": "machines",
+    "words": []
+  },
+  "soak_2026-08-30_1934": {
+    "title": "the -ல negative, by ear",
+    "words": []
+  },
+  "soak_2026-08-30_2004": {
+    "title": "கேட்கு vs சொல்லு · pull and push",
+    "words": []
+  },
+  "soak_2026-08-31_0857": {
+    "title": "the person tail, nothing else moving",
+    "words": []
+  },
+  "soak_2026-09-01_1642": {
+    "title": "வா vs போ · direction only",
+    "words": []
+  },
+  "soak_2026-09-05_1235": {
+    "title": "the last verb steers everything",
+    "words": []
+  },
+  "soak_2026-09-05_1540": {
+    "title": "the last verb steers the trip",
+    "words": []
+  }
 }
