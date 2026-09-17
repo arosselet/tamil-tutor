@@ -12,6 +12,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **15:28 · Anna**  ·  volley / rapid blitz: shop counter
 > ⚡ volley 1/4 — kadai-la (at the shop). Ask him cold: how much will it come to?
 
+**15:29 · Andrew** — **COLD**
+> Evlo aagum?
+
+**Anna ↩**
+> Adhu dhaan! 🔥 · 2/4 — You drop your keys and chuckle. That light Kongu sigh: alas / oh shucks!
+
 
 ## Wednesday 2026-09-16
 

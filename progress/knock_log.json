@@ -7330,6 +7330,42 @@
         "ask": "Peeking in as your cousin stirs the pot. Ask her casually: what are you cooking?"
       }
     ],
-    "volley_next": 1
+    "volley_next": 2,
+    "response": "reply",
+    "reply": "Evlo aagum?",
+    "reply_verdict": "cold",
+    "reply_fired": [
+      "எவ்ளோ ஆகும்?"
+    ],
+    "reply_fired_cold": [
+      "எவ்ளோ ஆகும்?"
+    ],
+    "reply_fired_capped": [],
+    "reply_line_script": "அது தான்! 🔥 · 2/4 — You drop your keys and chuckle. That light Kongu sigh: alas / oh shucks!",
+    "reply_line": "Adhu dhaan! 🔥 · 2/4 — You drop your keys and chuckle. That light Kongu sigh: alas / oh shucks!",
+    "reply_at": "2026-09-17T19:29:56Z",
+    "exchanges": [
+      {
+        "at": "2026-09-17T19:29:56Z",
+        "reply": "Evlo aagum?",
+        "verdict": "cold",
+        "fired": [
+          "எவ்ளோ ஆகும்?"
+        ],
+        "fired_cold": [
+          "எவ்ளோ ஆகும்?"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "Adhu dhaan! 🔥 · 2/4 — You drop your keys and chuckle. That light Kongu sigh: alas / oh shucks!",
+        "reply_line_script": "அது தான்! 🔥 · 2/4 — You drop your keys and chuckle. That light Kongu sigh: alas / oh shucks!",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ],
+    "chained": 1,
+    "pinned_target": "அட்டா",
+    "pinned_revealed": false
   }
 ]
