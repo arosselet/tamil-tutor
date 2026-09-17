@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Thursday 2026-09-17
+
+**11:24 · Anna**  ·  text / show dose: illannaa
+> You reached for book Tamil twice. At a table, take its shoes off: illanna (otherwise / if not). One clean swap for lunch.
+
+
 ## Wednesday 2026-09-16
 
 **10:10 · Andrew** · 👍 acked  ·  ↩ 09-15 18:36 · trailer payoff: elder tails

@@ -18885,5 +18885,16 @@
     "result": null,
     "source": "knock:2026-09-16T19:16:23.402047+00:00",
     "note": ""
+  },
+  {
+    "id": "675b602a410b",
+    "at": "2026-09-17T15:25:15Z",
+    "word": "இல்லன்னா",
+    "channel": "text",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "source": "knock:2026-09-17T15:24:51.723347+00:00",
+    "note": ""
   }
 ]
