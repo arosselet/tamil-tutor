@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **10:44 · Anna**  ·  text / show dose: edunga
 > Passing a plate to Maama: don't drop a bare edu. Hand it over clean with edunga (please take).
 
+**16:40 · Anna**  ·  volley / rapid blitz: road and home
+> ⚡ volley 1/4 — Missed the turn by two seconds. Give that mild sigh: 'Alas!' / 'Oh man!'
+
 
 ## Thursday 2026-09-17
 

@@ -7391,5 +7391,38 @@
     "expected_target": "",
     "stance": "give",
     "target_revealed": true
+  },
+  {
+    "date": "2026-09-18",
+    "timestamp": "2026-09-18T20:40:10.687500+00:00",
+    "acted": true,
+    "modality": "volley",
+    "move": "rapid blitz: road and home",
+    "rationale": "Late afternoon production slot with demand-streak at zero; blitzing binding targets to test cold recall and hit the informal cooking verb.",
+    "next_check": "2026-09-19T00:40:10.687500+00:00",
+    "body": "⚡ volley 1/4 — Missed the turn by two seconds. Give that mild sigh: 'Alas!' / 'Oh man!'",
+    "body_script": "⚡ volley 1/4 — Missed the turn by two seconds. Give that mild sigh: 'Alas!' / 'Oh man!'",
+    "expected_target": "அட்டா",
+    "stance": "ask",
+    "target_revealed": false,
+    "volley": [
+      {
+        "target": "அட்டா",
+        "ask": "Missed the turn by two seconds. Give that mild sigh: 'Alas!' / 'Oh man!'"
+      },
+      {
+        "target": "ஏன்னா",
+        "ask": "Someone asks why you didn't call. Start your explanation with 'because':"
+      },
+      {
+        "target": "என்ன சமைக்கிற?",
+        "ask": "Cousin is standing by the stove. Ask her casually: 'What are you cooking?'"
+      },
+      {
+        "target": "வை",
+        "ask": "Tell your younger cousin directly: 'Put it down' / 'Keep it' (bare verb):"
+      }
+    ],
+    "volley_next": 1
   }
 ]
