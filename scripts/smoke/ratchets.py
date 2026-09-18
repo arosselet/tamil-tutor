@@ -114,6 +114,12 @@ CODE_BUDGETS = {
     "scripts/rails.py": 26,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-04).
     "scripts/memo.py": 28,
+    # NEW FILE, budgeted in the same diff that creates it (2026-09-17). The month
+    # object could not be bolted onto `suggest_targets` — that file was at 588/588
+    # on the day this was written, and Gate 4 reads a file at its ceiling as a
+    # split-or-retire signal, never a bump. 70 rather than the 52 census: the
+    # headroom is for diagnosis, not for a second job.
+    "scripts/month.py": 70,
     # 350 -> 355 (2026-09-01): A TRANSFER, NOT GROWTH, and the sync_state entry below is re-censused DOWN by the same 5 in this same diff — the two ceilings …
     # 355 -> 368 (2026-09-13): `feed_items` now carries each item's MINUTES off
     # the same parse, so the rating tap can freeze a duration onto its play row.
@@ -665,6 +671,13 @@ LAYERS = {
     "rebuild_rss":        1,
     "generate_callbacks": 1,
     "slips":              1,
+    # The month object (2026-09-17). It reads L0 and the lexicon's DERIVED rungs
+    # and is read by selection, the one writer and the read surfaces. Numbered
+    # BELOW `suggest_targets` on purpose: the month owns membership and the fold,
+    # never the ORDER candidates arrive in, so the day it reaches up for the tier
+    # law or the coverage term the edge reads as upward and fails here. A set that
+    # can order itself is a set that has grown a second selector.
+    "month":              1.2,
     "suggest_targets":    1.5,    # selection — reads L1, read by the lanes
     "sync_state":         2,      # beside L1 — the one writer
 
