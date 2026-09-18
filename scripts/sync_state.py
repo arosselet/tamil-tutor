@@ -32,6 +32,7 @@ import difflib
 import re
 import sys
 from datetime import date, timedelta
+from itertools import zip_longest
 from pathlib import Path
 
 from language import is_tamil
@@ -42,6 +43,7 @@ from publish import commit_and_push, publish
 import audio_titles
 from rebuild_rss import feed_items
 from suggest_targets import reconcile_focus
+import month as month_mod
 import lexicon_view
 import observations
 from state_io import (BASE, DEFAULT_TZ, EPISODES_PATH, FEEDBACK_LOG_PATH,
@@ -891,6 +893,102 @@ def cmd_reseed_focus(args):
     print("  learner.json updated.")
 
 
+def cmd_month(args):
+    """THE MONTH — cut it, or read where it stands. `scripts/month.py` owns the
+    record and the fold; this is the one writer, like every other state file.
+
+    WITH NO FLAGS it is a READ: the standing, recomputed from the lexicon's
+    derived rungs. Nothing is stored and nothing can drift, which is the whole
+    reason the deck's meter could report a winning sprint while 45 of 70 items
+    went unasked.
+
+    `--cut` takes the pool's CURRENT ordering, front first, skipping rows that
+    are already closed — a finished word is not a target. An expiring month
+    hands its unmet members back as candidates with NO privilege: carrying a
+    stalled item at the head of the next cut is exactly how the deck's head
+    froze. Anna sees what went unmet (`month_mod.carry`) and decides; the pool
+    decides the rest.
+
+    THE CUT IS SCALED TO THE DAYS THAT REMAIN. A 30-item set with a win line of
+    15 handed to a 13-day stub month is not an honest cut, it is a rigged loss
+    (Andrew, 2026-09-17: "you can cut it honestly"). The scaling is printed, not
+    silent."""
+    lexicon = load_json(LEXICON_PATH)
+    if lexicon is None:
+        print("Error: lexicon.json missing. See BOOTSTRAP.md.")
+        sys.exit(1)
+    learner = load_json(LEARNER_PATH) or {}
+    rec = month_mod.load(learner)
+    if not args.cut:
+        return _print_month(rec, lexicon)
+    if rec and not month_mod.is_over(rec) and not args.force:
+        print(f"  A month is still open (closes {rec.get('closes')}). "
+              f"Re-cutting mid-flight is allowed — pass --force and say why in "
+              f"the commit.")
+        return 1
+    from suggest_targets import ear_targets, floor_gap_targets
+    today = local_today()
+    # BOTH POOLS, ALTERNATING. `floor_gap_targets` excludes every `catch` row by
+    # design, so a month cut from it alone could never contain an ear target —
+    # and an ear-shaped month is the half the goal actually rides on. Appending
+    # one pool after the other is no better: at a stub month's size the second
+    # pool never reaches the cut. Round-robin carries both axes proportionally,
+    # each in its OWN pool's order, which stays upstream where it belongs.
+    focus, background = floor_gap_targets(lexicon, today, 999)
+    mouth = [c["word"] for c in focus] + [c["word"] for c in background]
+    ear = [c["word"] for c in ear_targets(lexicon, today)["pending"]]
+    ordered = [w for pair in zip_longest(ear, mouth) for w in pair if w]
+    ordered = [w for w in ordered
+               if not month_mod.is_closed(lexicon.get(w) or {},
+                                          month_mod.target_rung(lexicon.get(w) or {}))]
+    # Scale to the stub — BUT ONLY THE DEFAULTS. `closes_on` is the calendar
+    # month's last day, so a cut on the 18th buys 13 days of a 30-day shape and
+    # a full-size set handed to it is a rigged loss. An explicitly passed size
+    # is not a default and is never second-guessed: silently turning `--size 4`
+    # into 2 is the machine overruling the operator, and it cost an hour the
+    # first time it happened (to this file's own smoke case).
+    days = (date.fromisoformat(month_mod.closes_on(today)) - today).days + 1
+    scale = min(1.0, days / 30)
+    size = args.size if args.size is not None else max(1, round(30 * scale))
+    won = args.won_at if args.won_at is not None else max(1, round(15 * scale))
+    if days < 30 and (args.size is None or args.won_at is None):
+        print(f"  {days} days left in the month — defaults scaled to {size}/{won}.")
+    if rec:
+        unmet = month_mod.carry(rec, lexicon)
+        print(f"  Closing month '{rec.get('name') or 'unnamed'}': "
+              f"{len(unmet)} unmet, re-cut with no privilege and no debt.")
+    new = month_mod.cut(ordered, lexicon, size, won, args.name or "", today)
+    _print_month(new, lexicon)
+    if args.dry_run:
+        print("  (dry run — nothing written)")
+        return
+    learner[month_mod.KEY] = new
+    write_thin_learner(learner)
+    print("  learner.json updated.")
+
+
+def _print_month(rec: dict, lexicon: dict):
+    """The standing, for Andrew and for Anna's steer. A COUNT is printed here
+    and that is deliberate: this is an engineering surface, not Anna's mouth.
+    `persona.md` and DECISIONS "A number never leaves Anna's mouth" are
+    untouched — he reads the month and steers by it, exactly as he already
+    steers by every other meter, and still names what got clearer."""
+    if not rec:
+        print("  No month is cut. `sync_state.py month --cut --name \"...\"`")
+        return
+    st = month_mod.standing(rec, lexicon)
+    flag = " ✅ WON" if st["won"] else ""
+    over = " ⏳ OVER — re-cut" if month_mod.is_over(rec) else ""
+    print(f"  MONTH: {rec.get('name') or 'unnamed'}  "
+          f"({rec.get('opened')} → {rec.get('closes')}){over}")
+    print(f"  {st['closed']}/{st['total']} closed ({st['ear']} on the ear) · "
+          f"win line {st['won_at']}"
+          f"{flag}" + (f" (+{st['exceeded']} past it)" if st["exceeded"] else ""))
+    if st["missing"]:
+        print(f"  ⚠ {len(st['missing'])} member(s) NOT IN THE LEXICON and can "
+              f"never close: {', '.join(st['missing'])}")
+
+
 def cmd_seed_deck(args):
     """Idempotently load a curated set (e.g. curriculum/trip_deck.json) into the
     lexicon. The file is CONTENT (Anna drafts it, the Oracle vets it); this is the
@@ -1352,6 +1450,16 @@ def main():
                      help="finished | stopped early | lost the thread (a legacy star row reads as finished)")
     re_.add_argument("--commit", action="store_true", help="Commit and push the ledger (CI lane)")
 
+    mo = sub.add_parser("month", help="The month with edges — read the standing, or --cut a new one")
+    mo.add_argument("--cut", action="store_true", help="Cut a new month from the pool's current order")
+    mo.add_argument("--name", default="", help="What this month BUYS — capability-shaped, not a word count")
+    mo.add_argument("--size", type=int, default=None,
+                    help="The line that can be EXCEEDED (default 30, scaled to a stub month)")
+    mo.add_argument("--won-at", type=int, default=None, dest="won_at",
+                    help="The line that can be WON (default 15, scaled to a stub month)")
+    mo.add_argument("--force", action="store_true", help="Re-cut while a month is still open")
+    mo.add_argument("--dry-run", action="store_true", help="Print the cut and write nothing")
+
     sl = sub.add_parser("slips", help="Read the slip ledger (what Andrew keeps getting wrong), or report a test")
     sl.add_argument("-n", type=int, default=15, help="How many patterns to show")
     sl.add_argument("--tested", action="append", default=[], metavar="TAG:landed|missed",
@@ -1382,6 +1490,8 @@ def main():
         cmd_feedback(args)
     elif args.command == "rate-episode":
         cmd_rate_episode(args)
+    elif args.command == "month":
+        return cmd_month(args)
     elif args.command == "slips":
         cmd_slips(args)
     elif args.command == "knock-response":

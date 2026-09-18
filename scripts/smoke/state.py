@@ -4459,3 +4459,120 @@ def s110_the_standing_tape_is_the_intake_valve(sb: Path):
                 p.unlink(missing_ok=True)
             else:
                 p.write_bytes(b)
+
+def s112_the_month_has_edges(sb: Path):
+    """THE MONTH WITH EDGES (2026-09-17) — and the thing it must not be is a
+    counter.
+
+    THE SILENT NO-OP, answered out loud: a month is cut, nothing consults it,
+    rows close from unrelated activity, the remainder counts down anyway, and
+    every instrument reads green. So this case does not check that a month was
+    WRITTEN. It mutates the LEXICON ONLY — never learner.json — and re-reads the
+    standing through the real command. A stored counter cannot move under that;
+    a fold has no choice.
+
+    The other three teeth: a member closes on THE AXIS IT WAS CUT FOR and not the
+    other one (a machine that already fires cold must not close a month for
+    free); a member that has left the lexicon is LOUD rather than a quietly
+    smaller denominator; and after a re-cut there is NO field anywhere counting
+    what went unmet, because the reset is the forgiveness mechanism and a debt
+    field is a streak with a different name.
+
+    IT OWNS ITS OWN LEXICON and puts the sandbox's back (the `s72` rule, one
+    layer up): the cut reads the POOL, so a case that let the shared tree decide
+    which rows it got would assert on whatever the previous case happened to
+    leave behind — which is exactly how this case failed the first time it ran in
+    the full suite instead of alone."""
+    print("\n112. The month has edges (2026-09-17)")
+    import subprocess as _sp
+    lex_path = sb / "progress" / "lexicon.json"
+    learner_path = sb / "progress" / "learner.json"
+    lex_before, learner_before = read_json(lex_path), read_json(learner_path)
+
+    def run(*a):
+        return _sp.run([sys.executable, str(sb / "scripts" / "sync_state.py"), "month", *a],
+                       cwd=sb, capture_output=True, encoding="utf-8", errors="replace")
+
+    try:
+        # A lexicon of exactly four candidates, so the cut is deterministic:
+        # two that close at the mouth, one machine already cold (ear is all that
+        # is left of it) and one ear-only catch row.
+        write_json(lex_path, {
+            "மாசம்ஒன்னு": lex_row(gloss="month-one"),
+            "மாசம்ரெண்டு": lex_row(gloss="month-two"),
+            "frame:மாசம்": lex_row(gloss="month-frame", type="pattern", production="cold"),
+            "கேட்டியா?": lex_row(gloss="month-catch", direction="catch"),
+        })
+
+        r = run("--cut", "--name", "Edges", "--size", "4", "--won-at", "2")
+        check("the real writer cut a month", r.returncode in (0, None), r.stderr[-400:])
+        rec = (read_json(learner_path) or {}).get("month") or {}
+        members = rec.get("set") or []
+        check("the month persisted through write_thin_learner", bool(members),
+              "learner.json carries no `month` — the merge-write dropped it")
+        check("every member carries the axis it was cut for",
+              all(isinstance(m, dict) and m.get("axis") in ("ear", "mouth") for m in members),
+              str(members[:3]))
+        by_axis = {m["word"]: m["axis"] for m in members}
+        check("a cold machine is cut on the EAR, not counted done at the mouth",
+              by_axis.get("frame:மாசம்") == "ear",
+              f"axis was {by_axis.get('frame:மாசம்')!r} — a month of machines "
+              f"would open already won")
+        check("an ear-only catch row is cut on the ear", by_axis.get("கேட்டியா?") == "ear",
+              str(by_axis))
+
+        before = run()
+        check("a fresh month opens with nothing closed", "0/" in before.stdout, before.stdout)
+
+        # THE FOLD. Close one mouth member in the LEXICON only. learner.json is
+        # not touched between the two reads, so a stored count could not move.
+        mouth = sorted(w for w, ax in by_axis.items() if ax == "mouth")
+        ear = sorted(w for w, ax in by_axis.items() if ax == "ear")
+        check("the cut carried both axes", bool(mouth) and bool(ear), str(by_axis))
+        if not (mouth and ear):
+            return
+        lex = read_json(lex_path)
+        lex[mouth[0]]["production"] = "cold"
+        write_json(lex_path, lex)
+        after = run()
+        check("the standing FOLLOWED the lexicon with no write to learner.json",
+              "1/" in after.stdout, f"before={before.stdout!r} after={after.stdout!r}")
+
+        # THE AXIS HOLDS. An ear member going cold at the MOUTH closes nothing.
+        lex = read_json(lex_path)
+        lex[ear[0]]["production"] = "cold"
+        write_json(lex_path, lex)
+        check("a mouth rung does NOT close an ear member", "1/" in run().stdout,
+              "an ear member closed on production — the ear month would be "
+              "winnable without hearing anything")
+        lex = read_json(lex_path)
+        lex[ear[0]]["recognition"] = "solid"
+        write_json(lex_path, lex)
+        check("...and its OWN rung does", "2/" in run().stdout,
+              "recognition: solid did not close an ear member")
+
+        # A MISSING MEMBER IS LOUD, never a smaller denominator.
+        gone = [w for w in by_axis if w not in (mouth[0], ear[0])]
+        check("a third member exists to delete", bool(gone), str(by_axis))
+        if gone:
+            lex = read_json(lex_path)
+            del lex[gone[0]]
+            write_json(lex_path, lex)
+            out = run().stdout
+            check("a member that left the lexicon is reported loudly",
+                  "never close" in out and gone[0] in out, out)
+            check("...and it still counts against the denominator",
+                  f"/{len(members)} closed" in out, out)
+
+        # NO DEBT SURVIVES A RE-CUT.
+        r2 = run("--cut", "--name", "Edges II", "--size", "2", "--won-at", "1", "--force")
+        check("a re-cut is allowed with --force", r2.returncode in (0, None), r2.stderr[-300:])
+        blob = json.dumps(read_json(learner_path), ensure_ascii=False).lower()
+        for word in ("debt", "unmet", "missed", "shortfall", "streak", "carried_over"):
+            check(f"no `{word}` field anywhere in learner.json after a re-cut",
+                  f'"{word}' not in blob,
+                  "the reset IS the forgiveness mechanism; a field counting what "
+                  "he missed is a streak with a different name")
+    finally:
+        write_json(lex_path, lex_before)
+        write_json(learner_path, learner_before)
