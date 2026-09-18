@@ -7368,5 +7368,14 @@
     "chained": 1,
     "pinned_target": "அட்டா",
     "pinned_revealed": false
+  },
+  {
+    "date": "2026-09-18",
+    "timestamp": "2026-09-18T00:56:24.273665+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "silence: curfew close",
+    "rationale": "It's 20:56 EDT, minutes before the 21:00 curfew; he fired cold on the volley earlier, so leave the evening quiet and wake at breakfast.",
+    "next_check": "2026-09-18T12:26:24.273665+00:00"
   }
 ]
