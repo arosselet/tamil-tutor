@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Friday 2026-09-18
+
+**10:44 · Anna**  ·  text / show dose: edunga
+> Passing a plate to Maama: don't drop a bare edu. Hand it over clean with edunga (please take).
+
+
 ## Thursday 2026-09-17
 
 **11:24 · Anna**  ·  text / show dose: illannaa

@@ -7377,5 +7377,19 @@
     "move": "silence: curfew close",
     "rationale": "It's 20:56 EDT, minutes before the 21:00 curfew; he fired cold on the volley earlier, so leave the evening quiet and wake at breakfast.",
     "next_check": "2026-09-18T12:26:24.273665+00:00"
+  },
+  {
+    "date": "2026-09-18",
+    "timestamp": "2026-09-18T14:44:02.272038+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "show dose: edunga",
+    "rationale": "Late morning no-ask dose for the lunch anchor; introduces due campaign item எடுங்க for elder table etiquette without preempting the receptive check at session open.",
+    "next_check": "2026-09-18T18:14:02.272038+00:00",
+    "body": "Passing a plate to Maama: don't drop a bare edu. Hand it over clean with edunga (please take).",
+    "body_script": "Passing a plate to மாமா: don't drop a bare எடு. Hand it over clean with எடுங்க (please take).",
+    "expected_target": "",
+    "stance": "give",
+    "target_revealed": true
   }
 ]

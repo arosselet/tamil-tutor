@@ -18907,5 +18907,16 @@
     "result": "right",
     "source": "knock:2026-09-17T19:28:03.971122+00:00",
     "note": "cold fire"
+  },
+  {
+    "id": "960521300c3c",
+    "at": "2026-09-18T14:44:34Z",
+    "word": "எடுங்க",
+    "channel": "text",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "source": "knock:2026-09-18T14:44:02.272038+00:00",
+    "note": ""
   }
 ]
