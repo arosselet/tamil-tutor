@@ -42,6 +42,7 @@ from mandates import OUTREACH_MANDATE
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from language import ANNA_VOICE, EAVESDROP_VOICE, REFERENT_NOUNS
+import household
 # `render_memo` and the four TTS primitives it composed left for `memo.py` on
 # 2026-09-04. They were here because the knock spoke first; `push_queue` and
 # `reply_common` call it too, and a lane cannot be a foundation for its peers.
@@ -503,9 +504,17 @@ def tape_names_a_referent(memo_script: str) -> bool:
     four tapes on record (07-16/19/22/25) only the 07-25 one fails, and only within
     the opening: it does say அக்கா later, but as the SOURCE of the reassurance, not
     the subject who came, so a whole-tape check would have passed the exact tape that
-    left Andrew asking 'who came?' with no answer in the audio."""
+    left Andrew asking 'who came?' with no answer in the audio.
+
+    THE HOUSEHOLD'S OWN NAMES COUNT TOO (2026-09-19), and without this the
+    increment that sets tapes in the household would have silently killed the
+    lane: four of the cast are kinship terms the pack already knows, and the
+    other three are PROPER NAMES it cannot know. A tape about பிரியா would have
+    been refused for naming nobody, gone to silence, and read from the log as
+    Anna choosing not to fire. The pack is NOT widened for this — a cast list is
+    a fact about Andrew, not about Tamil (`/extend` Gate 6)."""
     opening = "\n\n".join((memo_script or "").split("\n\n")[:REFERENT_WINDOW])
-    return any(noun in opening for noun in REFERENT_NOUNS)
+    return any(n in opening for n in (*REFERENT_NOUNS, *household.names()))
 
 
 def normalize_decision(d: dict, volley_menu: list | None = None) -> dict:
@@ -608,7 +617,12 @@ def decide(digest: str, volley_menu: list | None = None) -> dict:
     carries the identical contract — re-roll a bad draw, never re-roll a
     truncation (`parse_llm_response` names the ceiling, and that is not a parser
     gap) — so a second copy was one more per-lane invariant free to drift."""
-    canon = voice_canon()
+    # THE CANON RIDES IN (2026-09-19). Anna frames doses by what is happening
+    # to those people, and an eavesdrop tape is a household member on the
+    # phone — so the cast has to reach the pass that writes it, exactly as
+    # persona.md does. Inlined here rather than added to `voice_canon()`,
+    # which five lanes share: a drill sheet has no household in it.
+    canon = voice_canon() + "\n\n---\n\n" + household.load()
     print(f"   [decide] {executor_name()}")
     d = ask_json(canon + "\n\n---\n\n" + OUTREACH_MANDATE,
                  f"TODAY'S DIGEST:\n\n{digest}", DECIDE_SCHEMA, answer_tokens=1600)

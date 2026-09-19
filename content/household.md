@@ -39,15 +39,17 @@ conductor, the vegetable seller, a wrong number — and are never canon.
 Map block; the same person must sound like the same person across months, because
 ear-training tracks a speaker before it tracks a word.
 
+**Every name carries its Tamil spelling**, and that is mechanism, not decoration: an eavesdrop tape must name who it is about in its opening or it is refused (`morning_knock.tape_names_a_referent`), and the tape is Tamil script, so a cast whose names existed only in English would have its tapes silently rejected.
+
 | Person | Relation | Age | What they're for | Voice |
 |---|---|---|---|---|
 | **Paati** (பாட்டி) | Mama's mother | 74 | Older Kongu forms; the full honorific, always, both directions | `ta-IN-Chirp3-HD-Gacrux` |
 | **Mama** (மாமா) | Head of the house | 56 | The elder Andrew must address **up** to. Terse, impatient, softens only for the children | `ta-IN-Chirp3-HD-Charon` |
 | **Athai** (அத்தை) | Mama's wife | 51 | Fast, gossip register, assumes you kept up and does not repeat | `ta-IN-Chirp3-HD-Kore` |
-| **Priya** | Their daughter | 29 | The **across** room. Warm, banters, still -ங்க to her elders | `ta-IN-Chirp3-HD-Leda` |
-| **Karthi** | Their son | 23 | The hard listening: elides every ending, talks at speed, code-switches English mid-sentence | `ta-IN-Chirp3-HD-Puck` |
-| **Deepa** | Priya's daughter | 9 | The **down** room. Repeats things, asks *என்ன?* constantly, bare imperatives, no politeness reflex to override | `ta-IN-Chirp3-HD-Zephyr` |
-| **Ravi** | Deepa's brother | 6 | Barely intelligible and completely delighted by any adult who tries | `ta-IN-Chirp3-HD-Sulafat` |
+| **Priya** (பிரியா) | Their daughter | 29 | The **across** room. Warm, banters, still -ங்க to her elders | `ta-IN-Chirp3-HD-Leda` |
+| **Karthi** (கார்த்தி) | Their son | 23 | The hard listening: elides every ending, talks at speed, code-switches English mid-sentence | `ta-IN-Chirp3-HD-Puck` |
+| **Deepa** (தீபா) | Priya's daughter | 9 | The **down** room. Repeats things, asks *என்ன?* constantly, bare imperatives, no politeness reflex to override | `ta-IN-Chirp3-HD-Zephyr` |
+| **Ravi** (ரவி) | Deepa's brother | 6 | Barely intelligible and completely delighted by any adult who tries | `ta-IN-Chirp3-HD-Sulafat` |
 
 **The cast is an instrument, not decoration.** The register ladder the year walks
 — down to the children, across to Priya and Karthi, up to Mama and Paati — is
