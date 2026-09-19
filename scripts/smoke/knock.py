@@ -912,11 +912,11 @@ def s17_campaign_digest(mk, sb: Path):
     profile = sb / "progress" / "profile.md"
     original = profile.read_text(encoding="utf-8")
     # The day-zero example profile ships the section with the placeholder line.
-    check("day-zero placeholder → no campaign block", mk.campaign_block() == "")
+    check("day-zero placeholder → no arc block", mk.campaign_block() == "")
 
     profile.write_text(
-        original.split("## The Campaign — This Week", 1)[0]
-        + "## The Campaign — This Week\n\n"
+        original.split("## The Arc — This Month", 1)[0]
+        + "## The Arc — This Month\n\n"
         "> Contract: see daily_session.md.\n\n"
         "**Ask-machine week** (07-20 → 07-26): kudunga, sollunga, vaanga.\n"
         "- Mon: teach day\n\n## After The Campaign\n\nunrelated\n",
@@ -929,21 +929,21 @@ def s17_campaign_digest(mk, sb: Path):
     profile.write_text(profile.read_text(encoding="utf-8").replace(
         "**Ask-machine week** (07-20 → 07-26): kudunga, sollunga, vaanga.\n"
         "- Mon: teach day",
-        "_(no campaign live yet — kick one off at the next session)_"),
+        "_(no arc live yet — cut one at the next session)_"),
         encoding="utf-8")
-    check("placeholder → no campaign block", mk.campaign_block() == "")
+    check("placeholder → no arc block", mk.campaign_block() == "")
     profile.write_text(original, encoding="utf-8")
 
     # 2026-07-26 regression: the block is parsed by an exact heading string, so a
-    # SECOND "## The Campaign …" section silently orphans the live one. It shipped —
+    # SECOND "## The Arc …" section silently orphans the live one. It shipped —
     # the won-and-closed week sat under the parsed heading from 07-24 while the live
-    # week sat under "## The Campaign — PITCHED …", and three days of knocks steered
+    # week sat under "## The Arc — PITCHED …", and three days of knocks steered
     # by a finished campaign. One heading, always; a finished week is overwritten.
     real = (REAL_BASE / "progress" / "profile.md").read_text(encoding="utf-8")
-    heads = [l for l in real.splitlines() if l.startswith("## The Campaign")]
+    heads = [l for l in real.splitlines() if l.startswith("## The Arc")]
     check(f"real profile.md has exactly one campaign heading ({len(heads)})",
           len(heads) == 1,
-          "a second '## The Campaign …' section orphans the live one — "
+          "a second '## The Arc …' section orphans the live one — "
           "overwrite the finished week, don't archive it in the file")
 
     # 2026-08-10, THE EFFECT AND NOT THE SHAPE. The count above stayed green for
@@ -970,7 +970,7 @@ def s17_campaign_digest(mk, sb: Path):
     # text the test wrote itself.
     body = "\n".join(l for l in real.split(head, 1)[1].split("\n## ", 1)[0].splitlines()
                      if not l.lstrip().startswith(">")).strip() if (head := next(
-        (l for l in real.splitlines() if l.startswith("## The Campaign")), "")) else ""
+        (l for l in real.splitlines() if l.startswith("## The Arc")), "")) else ""
     kept = real_block.split("\n", 1)[1] if "\n" in real_block else ""
     clean = bool(kept) and body.startswith(kept) and (
         len(kept) == len(body) or body[len(kept):len(kept) + 2] == "\n\n")

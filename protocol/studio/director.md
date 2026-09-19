@@ -84,13 +84,32 @@ Every payload has two active parts:
 
 ---
 
-## Step 4: Write the Scenario Context
+## Step 4: Write the Scenario Context — the next beat of the household
 
-A few sentences defining the "Terrain" of the lesson. An atmosphere, a tension, a spark. 
+**Read `content/household.md` first.** The scenario is not invented fresh; it is
+the next thing that happens to those people, in that place. Name which household
+members are in the scene and what is happening to them.
 
-One requirement: **The Scenario must naturally support the Payload and the Linguistic Pattern.** If you are teaching "The Request" in a "Market" location, the context should involve a negotiation or a specific order.
+Three things bind you:
 
-The Scenario is not a plot; it is a sandbox where any modality (a 5-minute podcast or a 2-minute chat roleplay) can play out.
+1. **The standing facts are true.** Who is married to whom, who lives where, what
+   happened in past arcs. A scene that contradicts them is a defect, not a
+   variation.
+2. **The beat log is what you may call back to.** A mundane detail from three
+   weeks ago referenced in passing is the entire continuity mechanism — it is
+   also what a real family table is made of, and what disposable scenes cannot
+   teach by construction.
+3. **The Scenario must naturally support the Payload and the Linguistic
+   Pattern.** If you are teaching "The Request", put a household member in a
+   position where they have to ask for something.
+
+**Variety comes from the scene spec, never from the people.** The register, form
+and dramatic ingredient are forced to diverge from the last three episodes
+(`suggest_targets.scene_spec`, a GATE) — that is where freshness lives. Changing
+who these people are is not variety; it is losing the thread.
+
+**Soap-sized, never plot-sized.** Food, plans, who is coming, health, the day
+just had. Nothing has to resolve. Things persist.
 
 ---
 

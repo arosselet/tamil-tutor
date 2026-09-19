@@ -2,7 +2,8 @@
 
 > **Reads from:**
 > - `protocol/studio/hosts.md` — cast definitions for all four voices
-> - `protocol/constitution.md` — canonical rules (Woven Thanglish, No Meta-Narration). Fourth-wall, no-fixed-characters & Tamil-script-only now live in `hosts.md` (already read above).
+> - `protocol/constitution.md` — canonical rules (Woven Thanglish, No Meta-Narration). Fourth-wall & Tamil-script-only now live in `hosts.md` (already read above).
+> - `content/household.md` — THE CANON: who the Intercept's speakers are, how each one talks, and the voice pinned to each.
 
 **Goal:** Turn a **Master Lesson Plan** into a compelling episode of two-voice Coimbatore Tamil audio.
 
@@ -16,7 +17,7 @@ The script's **very first line** must be the H1 title — `# Tier 2, Mission {n}
 
 ## The Cast
 
-See `protocol/studio/hosts.md` for the full definitions of all four voices: Host A (F), Host B (M), Analyst Maya (F), and Analyst Raj (M). Use the tagging conventions and personality notes defined there. Gender tag on every line.
+The Intercept is performed by the **household cast** (`content/household.md`), tagged by name and gender — `**Paati (F):**`, `**Karthi (M):**`. The Breakdown analysts are Maya (F) and Raj (M). See `protocol/studio/hosts.md` for the conventions and `content/household.md` for who these people are. Gender tag on every line. Do NOT write a Voice Map — Python injects it from the canon.
 
 ---
 
@@ -71,7 +72,7 @@ The Lesson Plan also specifies an **Episode Form** — the *structure* you deliv
   The Narrator's embedded Tamil is Tamil script, always. Buy payload with minutes, not
   density — the fence rule holds inside every scene.
 
-The fourth wall and no-fixed-characters rules hold in every form (`protocol/studio/hosts.md`).
+The fourth wall holds in every form (`protocol/studio/hosts.md`); the cast is fixed by the canon and recurs across episodes.
 
 ---
 

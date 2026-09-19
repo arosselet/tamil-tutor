@@ -16,6 +16,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 import audio_titles
+import year
 from sync_state import compute_floor, compute_engines, compute_ear, trailing_pace
 
 RECOGNIZED = {"comfortable", "solid"}
@@ -52,6 +53,18 @@ def main():
     last = session_log[-1].get("date") if session_log else None
     if last:
         print(f"\n📅 Last logged session: {last}")
+
+    # THE YEAR — ANDREW'S SURFACE, NOT ANNA'S. The T-minus prints here and is
+    # deliberately kept off `compute_status`, which Anna loads: a countdown in
+    # his coach's mouth is the device the 2026-08-17 no-numbers rule banned, and
+    # the same number on a dashboard the learner opens himself is not. `Year:
+    # NOT SCHEDULED` is a LOUD absence — unanchored, every selector silently
+    # falls back to a flat sort.
+    print("\n🗓  THE YEAR")
+    print("-" * 55)
+    _yr = year.load(learner)
+    print("    " + year.status_line(_yr).replace("\n", "\n    "))
+    print("\n".join("    " + ln for ln in year.table(_yr)))
 
     # --- The ear: the axis nothing else counts (same math as sync_state) ---
     # The TRIP DECK block stood here until 2026-08-18 — a survival bar, a full-deck

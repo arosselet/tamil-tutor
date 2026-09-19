@@ -22,7 +22,7 @@ from pathlib import Path
 
 from . import _fixtures as fx
 from ._fixtures import (
-    check, lex_row, mechanism, read_json, REAL_BASE, write_json,
+    check, lex_row, mechanism, pin_year, read_json, REAL_BASE, write_json,
 )
 
 
@@ -116,17 +116,28 @@ def s32_pool_rotation_and_coverage(mk, sb: Path):
         base.update(kw)
         return base
 
+    # PIN THE LEAN (2026-09-19). The pool's prefix is now read against the
+    # year's direction of address, so a case with ordering assertions must SAY
+    # which direction it means. Unpinned, this fixture would silently be sorted
+    # by whatever phase the sandbox's learner.json happened to carry — the
+    # assertions below would still run, still pass or fail for reasons nothing
+    # states, and the case would be measuring a lean it never chose.
+    # `up` is pinned because that is the lean these rows were written under:
+    # antifreeze and the elders' table leading, which is what `surv-` means.
+    pin_year(sb, "up")
+
     lex = {
-        # survival tier (antifreeze/frame/public), one row per starvation state
+        # the leading registers in `up` (antifreeze/frame/public), one row per
+        # starvation state
         "smoke:surv-hot": item("frame", type="pattern", production="hinted",
                                recognition="solid", last_surfaced=ago(2)),
         "smoke:surv-mid": item("antifreeze", recognition="comfortable", last_surfaced=ago(30)),
         "smoke:surv-tail": item("antifreeze"),                    # taught, never worked
-        "smoke:surv-unseen": item("public", seen_in=[], taught_on=None),  # never taught
+        "smoke:surv-unseen": item("mil-table", seen_in=[], taught_on=None),  # never taught
         "smoke:surv-done": item("frame", type="pattern", production="cold",
                                 recognition="solid", last_surfaced=ago(1)),
         "smoke:delight-new": item("social"),
-        "smoke:dessert-new": item("gossip"),
+        "smoke:dessert-new": item("zinger"),   # the one tag that trails in EVERY phase
         # ear-only: same law, and must never land in the fire tiers
         "smoke:ear-stale": item("gossip", direction="catch"),
         "smoke:ear-fresh": item("gossip", direction="catch",
@@ -173,7 +184,7 @@ def s32_pool_rotation_and_coverage(mk, sb: Path):
 
         # Ask-count breaks the tie the never-worked cohort sits in: surv-tail and
         # surv-unseen are both NEVER_SURFACED, and tail was asked.
-        focus, _bg = st.floor_gap_targets(lex, today, 20, asked=asked, cohort=[])
+        focus, _bg = st.floor_gap_targets(lex, today, 20, asked=asked, window=[])
         order = [t["word"] for t in focus]
         check("within the never-worked cohort, least-asked leads (not alphabetical)",
               order.index("smoke:surv-unseen") < order.index("smoke:surv-tail"), f"got {order}")
@@ -201,7 +212,7 @@ def s32_pool_rotation_and_coverage(mk, sb: Path):
         tier = ["smoke:surv-mid", "smoke:surv-tail", "smoke:surv-unseen"]
         turns = {}
         for _ in range(40):
-            f, _b = st.floor_gap_targets(lex, today, 20, asked=dict(turns), cohort=[])
+            f, _b = st.floor_gap_targets(lex, today, 20, asked=dict(turns), window=[])
             for t in f[:2]:
                 turns[t["word"]] = turns.get(t["word"], 0) + 1
         starved = [w for w in tier if not turns.get(w)]
@@ -250,7 +261,7 @@ def s32_pool_rotation_and_coverage(mk, sb: Path):
               reps.get("smoke:floor-a") == 1 and not asked.get("smoke:floor-a"),
               f"got {reps} / asked {asked}")
         focus, _bg = st.floor_gap_targets(lex, today, 20, asked=asked, reps=reps,
-                                          cohort=[])
+                                          window=[])
         order = [t["word"] for t in focus]
         check("the never-drilled word leads the drilled one (not alphabetical)",
               order.index("smoke:floor-b") < order.index("smoke:floor-a"), f"got {order}")
@@ -258,19 +269,19 @@ def s32_pool_rotation_and_coverage(mk, sb: Path):
               [t["reps"] for t in focus if t["word"] == "smoke:floor-a"] == [1],
               "floor item lost its reps")
         check("the selector's default path reads the same declared counter",
-              [t["word"] for t in st.floor_gap_targets(lex, today, 20, cohort=[])[0]] == order,
+              [t["word"] for t in st.floor_gap_targets(lex, today, 20, window=[])[0]] == order,
               "the default path disagrees with the injected one")
-        # One law, one definition: the pool prefixes tier and then defers.
-        check("the pool prefixes tier and then defers to the shared law",
+        # One law, one definition: the pool prefixes the rank and then defers.
+        check("the pool prefixes the lean-rank and then defers to the shared law",
               st.coverage_key({"word": "x", "reps": 0}) < st.coverage_key({"word": "x", "reps": 1})
-              and st.pool_key({"word": "x", "reps": 0, "tier_rank": 0})
-              < st.pool_key({"word": "x", "reps": 0, "tier_rank": 1}),
-              "coverage_key does not lead with reps, or pool_key does not lead with tier")
+              and st.pool_key({"word": "x", "reps": 0, "rank": 0})
+              < st.pool_key({"word": "x", "reps": 0, "rank": 1}),
+              "coverage_key does not lead with reps, or pool_key does not lead with the rank")
 
         # Re-run the ordering laws with an empty log, so the coverage assertions
         # below read the same fixture the rest of the case was written against.
         write_json(klog_path, [])
-        focus, _bg = st.floor_gap_targets(lex, today, 20, asked={}, cohort=[])
+        focus, _bg = st.floor_gap_targets(lex, today, 20, asked={}, window=[])
         order = [t["word"] for t in focus]
 
         # The regression: under the old key the ripe, recently-worked headliner
@@ -308,27 +319,34 @@ def s32_pool_rotation_and_coverage(mk, sb: Path):
               "smoke:surv-tail" in vt, f"got {vt}")
 
         cov = st.register_coverage(lex, today=today)
-        surv, delight, dessert = (cov["tiers"][t] for t in ("survival", "delight", "dessert"))
-        check("survival coverage counts worked, not cold",
-              (surv["touched"], surv["total"], surv["cleared"]) == (3, 5, 1),
-              f"got {surv}")
-        check("ear-only items never inflate a fire tier",
-              dessert["total"] == 1, f"dessert={dessert}")
+        # THE TIER BUCKETS RETIRED 2026-09-19 — a second aggregation whose
+        # meaning would have moved with the year's phase while the rows sat
+        # still. The per-register numbers they were folded from survive, and
+        # the same two facts are asserted directly off them.
+        anti = cov["registers"]["antifreeze"]
+        check("antifreeze coverage counts worked, not cold",
+              (anti["touched"], anti["total"], anti["cleared"]) == (1, 2, 0),
+              f"got {anti}")
+        check("ear-only items never inflate a fire register",
+              "gossip" not in cov["registers"], f"registers={cov['registers']}")
         check("the ear is metered on its own axis",
               (cov["catch"]["touched"], cov["catch"]["total"]) == (1, 2), f"got {cov['catch']}")
         check("a fully starved register is visible by name",
-              cov["registers"]["public"]["untouched"] == 1
+              cov["registers"]["mil-table"]["untouched"] == 1
               and cov["registers"]["antifreeze"]["touched"] == 1,
               f"got {cov['registers']}")
-        check("delight/dessert starvation is reported, not hidden",
-              (delight["untouched"], dessert["untouched"]) == (1, 1),
-              f"got {delight} {dessert}")
+        social, zinger = cov["registers"]["social"], cov["registers"]["zinger"]
+        check("starvation is reported per register, not hidden in an aggregate",
+              (social["untouched"], zinger["untouched"]) == (1, 1),
+              f"got social={social} zinger={zinger}")
         # GENERALISED off the deck: unregistered rows get their own bucket rather
-        # than swelling the tier they degrade into, where 256 of 339 would hide
+        # than swelling the rank they degrade into, where 256 of 339 would hide
         # exactly the distribution this block exists to show.
-        check("unregistered rows are counted apart, not folded into delight",
-              cov["unregistered"]["total"] == 2 and delight["total"] == 1,
-              f"got unregistered={cov['unregistered']} delight={delight}")
+        check("unregistered rows are counted apart, not folded into a register",
+              cov["unregistered"]["total"] == 2 and social["total"] == 1,
+              f"got unregistered={cov['unregistered']} social={social}")
+        check("the coverage block names the lean it was computed under",
+              cov["lean"] == "up", f"got {cov.get('lean')}")
         never = {u["word"] for u in cov["untouched"]}
         check("every never-worked ranked item is named",
               never == {"smoke:surv-tail", "smoke:surv-unseen",
@@ -438,9 +456,15 @@ def s33_catch_response_pairs(mk, sb: Path):
         check("seed-deck lands the register on the lexicon row, not just the tag",
               lex[answer].get("register") == "antifreeze"
               and lex[prompt].get("register") == "mil-table", f"got {lex.get(answer)}")
-        check("...and the ordering reads it back as the survival tier",
-              st.tier_rank(lex[answer]) == 0 and st.tier_rank(lex[prompt]) == 1,
-              f"got {st.tier_rank(lex[answer])}/{st.tier_rank(lex[prompt])}")
+        # The lean is passed EXPLICITLY here. Both of these registers lead in
+        # the `up` phase — the elders' table — and that is the whole point of
+        # the 09-19 change: an ordering that used to be a fact about the topic
+        # is now a fact about who he is working up to.
+        yr = importlib.import_module("year")
+        check("...and the ordering reads it back as a lead in the `up` phase",
+              yr.register_rank(lex[answer], "up") == 0
+              and yr.register_rank(lex[prompt], "up") == 0,
+              f"got {yr.register_rank(lex[answer], 'up')}/{yr.register_rank(lex[prompt], 'up')}")
 
         ear = st.ear_targets(lex, today=date_cls.today())
         cp = [t for t in ear["pending"] if t["word"] == prompt]
@@ -497,8 +521,8 @@ def s34_focus_and_background(sb: Path):
     try:
         write_json(lex_path, lex)
         write_json(klog_path, [])
-        # cohort=[] is the SEED path — no membership stored yet.
-        focus, background = st.floor_gap_targets(lex, today, 99, cohort=[])
+        # window=[] is the SEED path — no membership stored yet.
+        focus, background = st.floor_gap_targets(lex, today, 99, window=[])
         fw = [t["word"] for t in focus]
 
         check("the focus set is capped at FOCUS_SIZE",
@@ -506,41 +530,54 @@ def s34_focus_and_background(sb: Path):
         check("everything else lands in background, nothing is dropped",
               len(focus) + len(background) == len(lex),
               f"{len(focus)}+{len(background)} != {len(lex)}")
-        check("seeding gives words already started their focus seats",
-              all(f"smoke:w{i:02d}" in fw for i in range(5)), f"got {fw}")
-        check("open seats are filled from the never-drilled words",
-              len([w for w in fw if not lex[w].get("reps")]) == st.FOCUS_SIZE - 5, f"got {fw}")
+        # WITH NO ARC OPEN the window is the background's own order — coverage
+        # first, so the least-worked lead. The seed derivation that used to sit
+        # here ("words already started hold seats, most-repped first") retired
+        # 2026-09-19 with the stored cohort: it existed to stop a membership
+        # nobody chose from benching a word mid-fight, and the arc chooses now.
+        check("with no arc open, the never-drilled lead the window",
+              all(not lex[w].get("reps") for w in fw), f"got {fw}")
         check("the background is exposure-only and knows it",
               all(t["band"] == "background" for t in background), "band mislabelled")
-        check("within the focus set the least-drilled lead, so the cohort advances together",
+        check("within the window the least-drilled lead, so it advances together",
               [t["reps"] for t in focus] == sorted(t["reps"] for t in focus), f"got {fw}")
 
-        # Membership is STORED STATE (2026-07-26): reconcile persists the seed,
-        # and held seats then stand regardless of what any counter says —
-        # a membership fact in a file cannot be reallocated by a counting bug.
-        cohort = st.reconcile_focus(lex, [])
-        check("reconcile seeds the same cohort the seed derivation shows",
-              sorted(cohort) == sorted(fw), f"got {cohort}")
-        noisy = {w: 99 for w in cohort}  # a corrupt counter must not move seats
-        held = [t["word"] for t in st.floor_gap_targets(lex, today, 99, reps=noisy,
-                                                        cohort=cohort)[0]]
-        check("stored membership holds its seats against counter noise",
-              sorted(held) == sorted(cohort), f"got {held}")
+        # ── THE ARC LEADS THE WINDOW ───────────────────────────────────────
+        # This is the 2026-09-19 replacement for stored membership, and the
+        # assertion that matters: what the month's episodes TAUGHT comes first,
+        # ahead of anything the coverage order would have picked. Without it the
+        # month exists, the standing counts, and selection ignores it entirely —
+        # which looks exactly like a working month.
+        # The three members are given reps the coverage order BURIES — they are
+        # the last three words this pool would otherwise pick. If they are in
+        # the window anyway, the only thing that can have put them there is the
+        # arc. (Position inside the window is still the rank law's: the month
+        # decides membership, not order.)
+        arc = ["smoke:w17", "smoke:w18", "smoke:w19"]
+        buried = {w: 99 for w in arc}
+        without = [t["word"] for t in st.floor_gap_targets(lex, today, 99, reps=buried,
+                                                           window=[])[0]]
+        check("coverage alone would leave these three out of the window",
+              not any(w in without for w in arc), f"got {without}")
+        focus3 = [t["word"] for t in st.floor_gap_targets(lex, today, 99, reps=buried,
+                                                          window=arc)[0]]
+        check("the arc's open members are in the window regardless",
+              all(w in focus3 for w in arc), f"got {focus3}")
+        check("...and the window is still topped up to FOCUS_SIZE from background",
+              len(focus3) == st.FOCUS_SIZE, f"got {len(focus3)}")
 
-        # Graduation: cold leaves the cohort for good and the seat refills from
-        # the background order — the ONLY way membership changes.
-        lex["smoke:w00"]["production"] = "cold"
-        cohort2 = st.reconcile_focus(lex, cohort)
-        check("a word that fires cold leaves the cohort for good",
-              "smoke:w00" not in cohort2, f"got {cohort2}")
-        check("the other seats survive the graduation",
-              set(cohort) - {"smoke:w00"} <= set(cohort2), f"got {cohort2}")
-        focus2, bg2 = st.floor_gap_targets(lex, today, 99, cohort=cohort2)
-        check("its seat is refilled from the background",
-              len(focus2) == st.FOCUS_SIZE, f"got {len(focus2)}")
-        check("the graduated word is gone from both budgets",
-              "smoke:w00" not in [t["word"] for t in focus2] + [t["word"] for t in bg2],
-              "a graduated word came back")
+        # A CLOSED MEMBER LEAVES A HOLE, not a refilled seat: the arc is meant
+        # to empty as he closes it. It leaves the pool population entirely, so
+        # it cannot reappear in either budget.
+        lex["smoke:w17"]["production"] = "cold"
+        focus4, bg4 = st.floor_gap_targets(lex, today, 99, reps=buried, window=arc)
+        words4 = [t["word"] for t in focus4]
+        check("a member that fires cold drops out of the window",
+              "smoke:w17" not in words4, f"got {words4}")
+        check("...and out of the background too — it is finished, not demoted",
+              "smoke:w17" not in [t["word"] for t in bg4], "a graduated word came back")
+        check("...and the arc's remaining members are still carried",
+              "smoke:w18" in words4 and "smoke:w19" in words4, f"got {words4}")
 
         # The tail must actually be reachable — the property the first fix lacked.
         # 6 drills + 2 exposures a day is Anna's pacing, not a code constant —
@@ -548,7 +585,7 @@ def s34_focus_and_background(sb: Path):
         seen, reps = set(), {}
         for _ in range(40):
             f, b = st.floor_gap_targets(lex, today, 99, asked={}, reps=dict(reps),
-                                        cohort=[])
+                                        window=[])
             for t in f[:6]:
                 seen.add(t["word"])
                 reps[t["word"]] = reps.get(t["word"], 0) + 1
@@ -1801,17 +1838,19 @@ def s47_hinted_retest_rule(sb: Path):
                                    recognition="solid",
                                    last_surfaced=dark(16),
                                    direction="catch", reps=0)
-        # RANKED rows, deliberately FRESHER than the unranked ones above: only a
-        # tier prefix can float them — staleness alone sinks both.
-        lex["ரீடெஸ்ட்5"] = lex_row(gloss="survival, antifreeze", production="hinted",
+        # RANKED rows, deliberately FRESHER than the unranked ones above: only
+        # the lead prefix can float them — staleness alone sinks both. Both
+        # registers below lead in the phase this case pins (see `pin_year`).
+        pin_year(sb, "up")
+        lex["ரீடெஸ்ட்5"] = lex_row(gloss="leads in `up`, antifreeze", production="hinted",
                                    recognition="solid",
                                    last_surfaced=dark(2),
                                    reps=5,
                                    register="antifreeze")
-        lex["ரீடெஸ்ட்6"] = lex_row(gloss="survival, public", production="hinted",
+        lex["ரீடெஸ்ட்6"] = lex_row(gloss="leads in `up`, faq", production="hinted",
                                    recognition="solid",
                                    last_surfaced=dark(1),
-                                   reps=3, register="public")
+                                   reps=3, register="faq")
         # The bootstrap artifact: a hinted grade with no work behind it. There is
         # no prior test for a RE-test to repeat, and it is already at the head of
         # the pool (coverage_key leads with fewest-reps), so it must not spend a
@@ -1835,7 +1874,7 @@ def s47_hinted_retest_rule(sb: Path):
 
         # --- the RULE, reaching the pool ---
         write_json(lex_path, lex)
-        focus, _bg = st.floor_gap_targets(lex, today, st.FOCUS_SIZE, asked={}, cohort=[])
+        focus, _bg = st.floor_gap_targets(lex, today, st.FOCUS_SIZE, asked={}, window=[])
         words = [t["word"] for t in focus if t["retest"]]
         check("the dark rows reach the pool and are flagged there",
               set(words) == {"ரீடெஸ்ட்1", "ரீடெஸ்ட்2", "ரீடெஸ்ட்5", "ரீடெஸ்ட்6"},
@@ -1865,7 +1904,7 @@ def s47_hinted_retest_rule(sb: Path):
         # than the day-zero seed derivation, which fills from reps and would let
         # a repped row in through a door the reservation is not being asked about.
         held = ["smoke:crowd0"]
-        focus, _bg = st.floor_gap_targets(crowd, today, st.FOCUS_SIZE, asked={}, cohort=held)
+        focus, _bg = st.floor_gap_targets(crowd, today, st.FOCUS_SIZE, asked={}, window=held)
         cut = [t["word"] for t in focus if t["retest"]]
         check("a dark row survives a wall of never-worked rows — reachability is "
               "the whole reason this was ever a block",
@@ -2431,10 +2470,18 @@ def s69_two_readers_two_tickets(sb: Path):
 
 
 def s65_the_ordering_outlives_the_deck(sb: Path):
-    """The deck retirement's load-bearing case (2026-08-18). The container
-    expired at touchdown; the ORDERING — survival > delight > dessert — is
-    durable knowledge about which failures cost most at a table, and retiring
-    the one must not delete the other.
+    """The deck retirement's load-bearing case (2026-08-18), extended 2026-09-19
+    when the ordering learned to move. The container expired at touchdown; the
+    ORDERING is durable knowledge about which failures cost most at a table, and
+    retiring the one must not delete the other.
+
+    WHAT CHANGED 2026-09-19. The bar used to be a fixed survival > delight >
+    dessert read off the topic. It is now read against the YEAR'S DIRECTION OF
+    ADDRESS — down to the children, across to the siblings-in-law, up to the
+    elders — because those are three different rooms with three different
+    moving parts, and which one he is working up to is a fact about the calendar
+    rather than about the word. So this case now asserts both halves: the bar
+    survived the container, and the bar moves with the phase.
 
     THE TRAP, and why this case was written before a line was removed: tiers
     were computed by joining `curriculum/trip_deck.json` at menu time, keyed on
@@ -2466,36 +2513,65 @@ def s65_the_ordering_outlives_the_deck(sb: Path):
         "smoke:ord-delight": row(register="social"),
         "smoke:ord-plain": row(),                      # no register at all
     }
-    focus, _bg = st.floor_gap_targets(lex, today, 12, asked={}, cohort=["smoke:ord-plain"])
-    order = [t["word"] for t in focus]
-    check("a survival-register row leads, with no deck tag in sight",
-          order[0] == "smoke:ord-survival", f"got {order}")
-    check("...and dessert still sorts last — the whole bar survives",
-          order[-1] == "smoke:ord-dessert", f"got {order}")
-    check("an unregistered row degrades to delight, not to unreachable",
-          "smoke:ord-plain" in order
-          and order.index("smoke:ord-delight") < order.index("smoke:ord-dessert"),
-          f"got {order}")
+    yr = importlib.import_module("year")
 
-    # THE MIGRATION ITSELF: the tier must be read off the row, never joined from
+    def in_phase(want: str) -> list[str]:
+        """Pin the sandbox to a phase and return the order the SAME lexicon
+        comes back in. `pin_year` asserts the phase really landed."""
+        pin_year(sb, want)
+        focus, _bg = st.floor_gap_targets(lex, today, 12, asked={},
+                                          window=["smoke:ord-plain"])
+        return [t["word"] for t in focus]
+
+    # THE TEETH OF THE 2026-09-19 CHANGE. One lexicon, two phases, two orders.
+    # Without this the year object can exist, be scheduled, print a phase on
+    # every status surface and steer NOTHING — the selector falls back to a flat
+    # sort and every instrument reads green. That is the same silent-no-op this
+    # case was written for in August, so it is the same case that has to catch
+    # it: the ordering must survive the deck AND move with the phase.
+    up = in_phase("up")
+    check("in the `up` phase the elders' register leads",
+          up[0] == "smoke:ord-survival", f"got {up}")
+    down = in_phase("down")
+    check("...and in `down` the same lexicon leads with a different row",
+          down[0] == "smoke:ord-delight", f"got {down}")
+    check("the lean actually moved the order, it did not merely re-label it",
+          up != down, f"identical in both phases: {up}")
+
+    # What does NOT move: dessert trails everywhere, and an unregistered row
+    # degrades to the middle rather than out of reach. Both in both phases —
+    # a bar that held in only one would be half a law.
+    for name, order in (("up", up), ("down", down)):
+        check(f"dessert still sorts last in `{name}` — the whole bar survives",
+              order[-1] == "smoke:ord-dessert", f"got {order}")
+        check(f"an unregistered row degrades to mid in `{name}`, not to unreachable",
+              "smoke:ord-plain" in order
+              and order.index("smoke:ord-plain") < order.index("smoke:ord-dessert"),
+              f"got {order}")
+
+    # THE MIGRATION ITSELF: the rank must be read off the row, never joined from
     # a curriculum file. A rank that still needed the deck file would score every
     # row here at the non-member fallback and the ordering would be flat.
-    check("the tier is read off the lexicon row, not joined from a deck file",
-          st.tier_rank(lex["smoke:ord-survival"]) == 0
-          and st.tier_rank(lex["smoke:ord-dessert"]) == 2
-          and st.tier_rank(lex["smoke:ord-plain"]) == 1,
-          "tier_rank does not read `register`")
+    check("the rank is read off the lexicon row, not joined from a deck file",
+          yr.register_rank(lex["smoke:ord-survival"], "up") == 0
+          and yr.register_rank(lex["smoke:ord-dessert"], "up") == 2
+          and yr.register_rank(lex["smoke:ord-plain"], "up") == 1,
+          "register_rank does not read `register`")
     check("the curriculum join is gone — no reader is left to drift",
           not hasattr(st, "deck_registers") and not hasattr(st, "deck_rank"),
           "a deck-keyed reader survived the retirement")
+    check("the retired tier prefix left no second home behind",
+          not hasattr(st, "tier_rank") and not hasattr(st, "REGISTER_TIERS")
+          and not hasattr(st, "TIER_NAMES"),
+          "a tier reader survived the 2026-09-19 retirement")
 
     # THE INVARIANT, stated as the work order stated it: retiring the container
-    # must not delete the ordering. A survival row with no deck tag outranks an
+    # must not delete the ordering. A leading row with no deck tag outranks an
     # ordinary row of EQUAL staleness — equal, so nothing but the bar can do it.
     plain, surv = lex["smoke:ord-plain"], lex["smoke:ord-survival"]
-    check("survival outranks an ordinary row of equal staleness",
-          st.pool_key({"word": "a", "reps": 1, "tier_rank": st.tier_rank(surv)})
-          < st.pool_key({"word": "a", "reps": 1, "tier_rank": st.tier_rank(plain)}),
+    check("a leading register outranks an ordinary row of equal staleness",
+          st.pool_key({"word": "a", "reps": 1, "rank": yr.register_rank(surv, "up")})
+          < st.pool_key({"word": "a", "reps": 1, "rank": yr.register_rank(plain, "up")}),
           "the bar does not survive in pool_key")
 
     # ONE POOL, not three. The deck, the focus set and the going-dark block were
@@ -2507,61 +2583,40 @@ def s65_the_ordering_outlives_the_deck(sb: Path):
           st.drill_menu.__module__ == st.floor_gap_targets.__module__,
           "the menu drifted out of the selector")
 
-    # THE STALE-COHORT HOLE, and why `reseed-focus` exists. Stored membership is
-    # the point ("held seats stand regardless of what any counter says") and it
-    # is right — but a counter is not the only thing that can change. When the
-    # ORDERING changes, a cohort seeded under the old one holds seats the new one
-    # would never grant, and `reconcile_focus` cannot fix it: it only fills seats
-    # as they OPEN. On 2026-08-18 all twelve were held by unregistered rows
-    # seeded before the tier bar existed, so no survival row could enter a pool
-    # that ranks them first. Migrating `register` was necessary and not
-    # sufficient — this is the other half, and without it the whole retirement is
-    # inert in exactly the way Gate 7.2 describes: green, ordered, and unable to
-    # act on its own order.
-    import contextlib, io
-    ss = importlib.import_module("sync_state")
-    lex_path, learner_path = sb / "progress" / "lexicon.json", sb / "progress" / "learner.json"
-    saved = (lex_path.read_bytes(), learner_path.read_bytes())
+    # THE STALE-COHORT HOLE CANNOT EXIST ANY MORE, and that is what replaced
+    # `reseed-focus` (2026-09-19).
+    #
+    # The hole was real: stored membership meant "held seats stand regardless of
+    # what any counter says", which is right against a counting bug and wrong
+    # against a changed ORDERING. On 2026-08-18 all twelve seats were held by
+    # rows seeded before the tier bar existed, so no leading row could enter a
+    # pool that now ranks it first, and `reconcile_focus` could not fix it —
+    # it only filled seats as they OPENED. A whole command existed to reseat it.
+    #
+    # The window is a FOLD over the arc now, recomputed every call, so there is
+    # no membership to go stale and nothing to reseat. The assertion is that the
+    # lean reaches the window immediately, with no write and no command in
+    # between — because if it did not, a stale window would have come back
+    # wearing a derived name.
+    learner_path = sb / "progress" / "learner.json"
+    saved_learner = learner_path.read_bytes()
     try:
-        stale = dict(lex)
-        stale.update({f"smoke:ord-held{i}": row() for i in range(st.FOCUS_SIZE)})
-        write_json(lex_path, stale)
-        learner = read_json(learner_path)
-        learner["focus_cohort"] = [f"smoke:ord-held{i}" for i in range(st.FOCUS_SIZE)]
-        write_json(learner_path, learner)
-
-        focus, _bg = st.floor_gap_targets(stale, today, st.FOCUS_SIZE,
-                                          asked={}, cohort=learner["focus_cohort"])
-        check("a stale cohort locks the ordering out — the hole, reproduced",
-              "smoke:ord-survival" not in [t["word"] for t in focus],
-              "the fixture does not reproduce the stale-cohort hole")
-
-        class A:
-            dry_run = True
-        out = io.StringIO()
-        with contextlib.redirect_stdout(out):
-            ss.cmd_reseed_focus(A())
-        check("a dry run writes nothing",
-              read_json(learner_path)["focus_cohort"] == learner["focus_cohort"],
-              "reseed-focus wrote on a dry run")
-        check("...and says what it would do",
-              "smoke:ord-survival" in out.getvalue() and "dry run" in out.getvalue(),
-              out.getvalue())
-
-        A.dry_run = False
-        with contextlib.redirect_stdout(io.StringIO()):
-            ss.cmd_reseed_focus(A())
-        seated = read_json(learner_path)["focus_cohort"]
-        check("the reseed lets the ordering take its seats",
-              "smoke:ord-survival" in seated, f"got {seated}")
-        with contextlib.redirect_stdout(io.StringIO()):
-            ss.cmd_reseed_focus(A())
-        check("...and it is idempotent — re-running is not churn",
-              read_json(learner_path)["focus_cohort"] == seated,
-              "a second reseed moved the cohort")
+        pin_year(sb, "up")
+        up = [t["word"] for t in st.floor_gap_targets(lex, today, 12, asked={},
+                                                      window=[])[0]]
+        pin_year(sb, "down")
+        down = [t["word"] for t in st.floor_gap_targets(lex, today, 12, asked={},
+                                                        window=[])[0]]
+        check("a changed lean reaches the window with no reseat in between",
+              up != down, f"identical under both leans: {up}")
+        check("...and no stored membership survives anywhere to go stale",
+              "focus_cohort" not in read_json(learner_path),
+              "the retired cohort is still being written")
+        check("...and the reseat command retired with the thing it reseated",
+              not hasattr(importlib.import_module("sync_state"), "cmd_reseed_focus"),
+              "reseed-focus outlived the cohort it existed for")
     finally:
-        lex_path.write_bytes(saved[0])
-        learner_path.write_bytes(saved[1])
+        learner_path.write_bytes(saved_learner)
 
 
 def s76_the_ear_queue_is_not_the_catch_tag(sb: Path):
@@ -4460,112 +4515,159 @@ def s110_the_standing_tape_is_the_intake_valve(sb: Path):
             else:
                 p.write_bytes(b)
 
-def s112_the_month_has_edges(sb: Path):
-    """THE MONTH WITH EDGES (2026-09-17) — and the thing it must not be is a
-    counter.
+def s112_the_month_is_the_arc(sb: Path):
+    """THE MONTH IS ONE ARC OF THE HOUSEHOLD (2026-09-17, reshaped 2026-09-19) —
+    and the thing it must not be is a counter.
 
-    THE SILENT NO-OP, answered out loud: a month is cut, nothing consults it,
-    rows close from unrelated activity, the remainder counts down anyway, and
-    every instrument reads green. So this case does not check that a month was
-    WRITTEN. It mutates the LEXICON ONLY — never learner.json — and re-reads the
-    standing through the real command. A stored counter cannot move under that;
-    a fold has no choice.
+    WHAT CHANGED, and why the case changed with it. The first version CUT a
+    month from the gap pool: N items chosen because he was bad at them, stored,
+    with a win line over them. That kept the deficit machine and gave it a
+    calendar. Membership is now DERIVED from what the arc's episodes actually
+    taught, so the month is a record of what the household did — and the win is
+    not the count at all, it is whether he can follow the finale.
 
-    The other three teeth: a member closes on THE AXIS IT WAS CUT FOR and not the
-    other one (a machine that already fires cold must not close a month for
-    free); a member that has left the lexicon is LOUD rather than a quietly
-    smaller denominator; and after a re-cut there is NO field anywhere counting
-    what went unmet, because the reset is the forgiveness mechanism and a debt
-    field is a streak with a different name.
+    THE SILENT NO-OP, answered out loud: an arc is opened, episodes keep being
+    made, nothing reads their sidecars, the standing counts words from somewhere
+    else, no finale is ever marked, and every instrument reads green. So this
+    case never checks that something RAN. It builds sidecars by hand and asserts
+    the membership is exactly their union; it deletes one and asserts the member
+    disappears; it drives the real command and re-reads the file.
 
-    IT OWNS ITS OWN LEXICON and puts the sandbox's back (the `s72` rule, one
-    layer up): the cut reads the POOL, so a case that let the shared tree decide
-    which rows it got would assert on whatever the previous case happened to
-    leave behind — which is exactly how this case failed the first time it ran in
-    the full suite instead of alone."""
-    print("\n112. The month has edges (2026-09-17)")
+    The other teeth: a member closes on the axis it RIDES and not the other one;
+    a member that has left the lexicon is LOUD rather than a quietly smaller
+    denominator; an episode inside the arc with no sidecar is LOUD rather than
+    invisible; the verdict is a fold over recorded lines with no stored `won`;
+    and after a re-cut there is NO field anywhere counting what went unmet,
+    because the reset is the forgiveness mechanism and a debt field is a streak
+    with a different name.
+
+    IT OWNS ITS OWN LEXICON, EPISODES AND SIDECARS and puts the sandbox's back
+    (the `s72` rule, one layer up)."""
+    print("\n112. The month is the arc (2026-09-19)")
     import subprocess as _sp
+    mo = importlib.import_module("month")
     lex_path = sb / "progress" / "lexicon.json"
     learner_path = sb / "progress" / "learner.json"
-    lex_before, learner_before = read_json(lex_path), read_json(learner_path)
+    eps_path = sb / "progress" / "episodes.json"
+    obs_path = sb / "progress" / "observations.json"
+    scripts_dir = sb / "content" / "scripts"
+    before = {p: read_json(p) for p in (lex_path, learner_path, eps_path, obs_path)}
+    minted = []
 
     def run(*a):
         return _sp.run([sys.executable, str(sb / "scripts" / "sync_state.py"), "month", *a],
                        cwd=sb, capture_output=True, encoding="utf-8", errors="replace")
 
+    def sidecar(n, words, **extra):
+        p = scripts_dir / f"tier2_mission{n}.tags.json"
+        minted.append(p)
+        write_json(p, {"mission": n, "new_words_landed": {w: 1 for w in words}, **extra})
+        return p
+
     try:
-        # A lexicon of exactly four candidates, so the cut is deterministic:
-        # two that close at the mouth, one machine already cold (ear is all that
-        # is left of it) and one ear-only catch row.
+        # The command opens the arc TODAY, so "inside the arc" means today or
+        # later — not the 1st. Deriving both ends from the real helpers rather
+        # than from a literal is what stops this fixture drifting past a month
+        # boundary and asserting on an empty arc.
+        today = date_cls.today()
+        opened, closes = today, mo.closes_on(today)
         write_json(lex_path, {
-            "மாசம்ஒன்னு": lex_row(gloss="month-one"),
-            "மாசம்ரெண்டு": lex_row(gloss="month-two"),
-            "frame:மாசம்": lex_row(gloss="month-frame", type="pattern", production="cold"),
-            "கேட்டியா?": lex_row(gloss="month-catch", direction="catch"),
+            "ஆர்க்ஒன்னு": lex_row(gloss="arc-one"),
+            "ஆர்க்ரெண்டு": lex_row(gloss="arc-two"),
+            "ஆர்க்காது": lex_row(gloss="arc-ear", direction="catch"),
+            "ஆர்க்வெளிய": lex_row(gloss="taught outside the arc"),
         })
+        # Three episodes: two inside the arc's dates, one before it.
+        write_json(eps_path, {
+            "801": {"title": "in", "produced": opened.isoformat()},
+            "802": {"title": "in too", "produced": closes},
+            "803": {"title": "last month", "produced": "2020-01-01"},
+        })
+        a = sidecar(801, ["ஆர்க்ஒன்னு", "ஆர்க்காது"])
+        sidecar(802, ["ஆர்க்ரெண்டு", "ஆர்க்ஒன்னு"])       # repeat must not double-count
+        sidecar(803, ["ஆர்க்வெளிய"])
 
-        r = run("--cut", "--name", "Edges", "--size", "4", "--won-at", "2")
-        check("the real writer cut a month", r.returncode in (0, None), r.stderr[-400:])
-        rec = (read_json(learner_path) or {}).get("month") or {}
-        members = rec.get("set") or []
-        check("the month persisted through write_thin_learner", bool(members),
-              "learner.json carries no `month` — the merge-write dropped it")
-        check("every member carries the axis it was cut for",
-              all(isinstance(m, dict) and m.get("axis") in ("ear", "mouth") for m in members),
-              str(members[:3]))
-        by_axis = {m["word"]: m["axis"] for m in members}
-        check("a cold machine is cut on the EAR, not counted done at the mouth",
-              by_axis.get("frame:மாசம்") == "ear",
-              f"axis was {by_axis.get('frame:மாசம்')!r} — a month of machines "
-              f"would open already won")
-        check("an ear-only catch row is cut on the ear", by_axis.get("கேட்டியா?") == "ear",
-              str(by_axis))
+        out = run("--open", "--name", "Paati comes to stay").stdout
+        check("the real writer opens an arc", "Paati comes to stay" in out, out)
+        rec = read_json(learner_path).get("month") or {}
+        check("...and it persisted through write_thin_learner",
+              rec.get("name") == "Paati comes to stay", f"got {rec}")
+        # NOTHING IS STORED BUT THE NAME AND THE DATES. A stored set is the
+        # thing that can drift from what the episodes actually taught.
+        check("the record stores no member list, no size and no win line",
+              set(rec) == {"name", "opened", "closes"}, f"got {sorted(rec)}")
 
-        before = run()
-        check("a fresh month opens with nothing closed", "0/" in before.stdout, before.stdout)
+        # ── MEMBERSHIP IS THE SIDECAR FOLD, AND NOTHING ELSE ───────────────
+        eps, sc = read_json(eps_path), {n: read_json(scripts_dir / f"tier2_mission{n}.tags.json")
+                                       for n in (801, 802, 803)}
+        mem = mo.members(rec, eps, sc)
+        check("membership is the union of the arc's NEW payloads",
+              sorted(mem) == sorted(["ஆர்க்ஒன்னு", "ஆர்க்ரெண்டு", "ஆர்க்காது"]), f"got {mem}")
+        check("...a word taught OUTSIDE the arc's dates is not a member",
+              "ஆர்க்வெளிய" not in mem, f"got {mem}")
+        check("...and a word two episodes both taught is counted once",
+              mem.count("ஆர்க்ஒன்னு") == 1, f"got {mem}")
 
-        # THE FOLD. Close one mouth member in the LEXICON only. learner.json is
-        # not touched between the two reads, so a stored count could not move.
-        mouth = sorted(w for w, ax in by_axis.items() if ax == "mouth")
-        ear = sorted(w for w, ax in by_axis.items() if ax == "ear")
-        check("the cut carried both axes", bool(mouth) and bool(ear), str(by_axis))
-        if not (mouth and ear):
-            return
+        # DELETE A SIDECAR AND THE MEMBER GOES AWAY. No stored copy survives it —
+        # this is the assertion a stored `set` could never pass.
+        a.unlink()
+        sc2 = dict(sc); sc2.pop(801)
+        check("delete a sidecar and its words stop being members",
+              "ஆர்க்காது" not in mo.members(rec, eps, sc2), str(mo.members(rec, eps, sc2)))
+        check("...and the episode is reported as unrecorded, never silently skipped",
+              801 in mo.standing(rec, read_json(lex_path), eps, sc2)["unrecorded"],
+              "an episode that taught words is invisible to the meter")
+
+        # ── COMPLETION IS A FOLD, ON THE AXIS THE ROW RIDES ────────────────
         lex = read_json(lex_path)
-        lex[mouth[0]]["production"] = "cold"
+        st = mo.standing(rec, lex, eps, sc)
+        check("a fresh arc opens with nothing closed", st["closed"] == 0, str(st))
+        check("...and the ear member is counted on the ear", st["ear"] == 1, str(st))
+        lex["ஆர்க்ஒன்னு"]["production"] = "cold"
+        lex["ஆர்க்காது"]["recognition"] = "comfortable"
+        st = mo.standing(rec, lex, eps, sc)
+        check("a mouth member closes when it fires cold",
+              "ஆர்க்ஒன்னு" in st["closed_words"], str(st))
+        check("...and an ear member closes at `comfortable`, not at `solid`",
+              "ஆர்க்காது" in st["closed_words"],
+              "4 of 366 rows are solid — an ear member would never close")
+        lex["ஆர்க்காது"]["production"] = "cold"
+        check("a cold MOUTH does not close an ear member — wrong axis",
+              mo.is_closed({"direction": "catch", "production": "cold",
+                            "recognition": "struggled"}) is False,
+              "an ear-only row was closed by the axis it does not ride")
+        del lex["ஆர்க்ரெண்டு"]
         write_json(lex_path, lex)
-        after = run()
-        check("the standing FOLLOWED the lexicon with no write to learner.json",
-              "1/" in after.stdout, f"before={before.stdout!r} after={after.stdout!r}")
+        st = mo.standing(rec, lex, eps, sc)
+        check("a member that left the lexicon is reported loudly",
+              st["missing"] == ["ஆர்க்ரெண்டு"], str(st))
+        check("...and it still counts against the denominator",
+              st["total"] == 3, str(st))
 
-        # THE AXIS HOLDS. An ear member going cold at the MOUTH closes nothing.
-        lex = read_json(lex_path)
-        lex[ear[0]]["production"] = "cold"
-        write_json(lex_path, lex)
-        check("a mouth rung does NOT close an ear member", "1/" in run().stdout,
-              "an ear member closed on production — the ear month would be "
-              "winnable without hearing anything")
-        lex = read_json(lex_path)
-        lex[ear[0]]["recognition"] = "solid"
-        write_json(lex_path, lex)
-        check("...and its OWN rung does", "2/" in run().stdout,
-              "recognition: solid did not close an ear member")
+        # ── THE WIN IS THE FINALE, AND IT IS A FOLD ────────────────────────
+        check("an arc with no finale cannot be won, and says so",
+              "cannot be won" in run().stdout, run().stdout)
+        run("--finale", "802")
+        rec = read_json(learner_path)["month"]
+        check("the finale is marked on the record", rec.get("finale") == 802, str(rec))
+        v = mo.verdict(rec, read_json(obs_path))
+        check("...and before the test there is no verdict, not a losing one",
+              v["run"] is False and v["won"] is False, str(v))
+        # Two right, one partial, one wrong = 2.5 of 4 = 0.625, under two thirds.
+        run("--line", "right", "--line", "right", "--line", "partial", "--line", "wrong")
+        v = mo.verdict(read_json(learner_path)["month"], read_json(obs_path))
+        check("a partial counts half", v["score"] == 2.5 and v["of"] == 4, str(v))
+        check("...and 2.5 of 4 does not clear two thirds", v["won"] is False, str(v))
+        run("--line", "right", "--line", "right")
+        v = mo.verdict(read_json(learner_path)["month"], read_json(obs_path))
+        check("two more right lines win it", v["won"] is True, str(v))
+        # THE VERDICT IS NOWHERE ON DISK. A stored `won` is a counter again.
+        blob = json.dumps(read_json(learner_path), ensure_ascii=False).lower()
+        check("no `won` field is stored anywhere — the verdict is the fold",
+              '"won' not in blob, "the verdict was persisted")
 
-        # A MISSING MEMBER IS LOUD, never a smaller denominator.
-        gone = [w for w in by_axis if w not in (mouth[0], ear[0])]
-        check("a third member exists to delete", bool(gone), str(by_axis))
-        if gone:
-            lex = read_json(lex_path)
-            del lex[gone[0]]
-            write_json(lex_path, lex)
-            out = run().stdout
-            check("a member that left the lexicon is reported loudly",
-                  "never close" in out and gone[0] in out, out)
-            check("...and it still counts against the denominator",
-                  f"/{len(members)} closed" in out, out)
-
-        # NO DEBT SURVIVES A RE-CUT.
-        r2 = run("--cut", "--name", "Edges II", "--size", "2", "--won-at", "1", "--force")
+        # ── NO DEBT SURVIVES A BOUNDARY ────────────────────────────────────
+        r2 = run("--open", "--name", "The new shop", "--force")
         check("a re-cut is allowed with --force", r2.returncode in (0, None), r2.stderr[-300:])
         blob = json.dumps(read_json(learner_path), ensure_ascii=False).lower()
         for word in ("debt", "unmet", "missed", "shortfall", "streak", "carried_over"):
@@ -4573,6 +4675,140 @@ def s112_the_month_has_edges(sb: Path):
                   f'"{word}' not in blob,
                   "the reset IS the forgiveness mechanism; a field counting what "
                   "he missed is a streak with a different name")
+        check("...and the new arc did not inherit the old finale's verdict",
+              mo.verdict(read_json(learner_path)["month"], read_json(obs_path))["run"] is False,
+              "a fresh arc opened already scored")
     finally:
-        write_json(lex_path, lex_before)
-        write_json(learner_path, learner_before)
+        for p, v in before.items():
+            write_json(p, v)
+        for p in minted:
+            p.unlink(missing_ok=True)
+
+
+def s113_the_year_is_a_schedule_not_a_meter(sb: Path):
+    """THE YEAR WITH A TRIP AT THE END OF IT (2026-09-19).
+
+    `month.py` gave the system a unit that can be finished. It did not give it a
+    reason to prefer one month's work over another, so the arc premise was still
+    chosen to cover whatever the ticket said was thin — the deficit-seeking
+    machine one level up, wearing a calendar.
+
+    WHAT THIS CASE IS ACTUALLY GUARDING is the shape of the last object that
+    tried this. The Trip Deck was a curated container keyed to a date, with a
+    burn rate over it and a sprint meter on top, and it reported a winning
+    sprint while 45 of 70 items were never asked once. So the assertions below
+    are mostly NEGATIVE: three dates are stored and nothing else, no phase is
+    ever written down, no progress is counted, and a year that cannot be
+    scheduled says why instead of quietly sorting flat.
+
+    The ORDERING half — that the lean actually moves selection — is s65's, where
+    the ordering law already lives."""
+    print("\n113. The year is a schedule, not a meter (2026-09-19)")
+    import subprocess as _sp
+    yr = importlib.import_module("year")
+    learner_path = sb / "progress" / "learner.json"
+    before = read_json(learner_path)
+    today = date_cls.today()
+
+    def run(*a):
+        return _sp.run([sys.executable, str(sb / "scripts" / "sync_state.py"), "year", *a],
+                       cwd=sb, capture_output=True, encoding="utf-8", errors="replace")
+    try:
+        # --- THE ABSENCE IS LOUD -------------------------------------------
+        rec = dict(before)
+        rec.pop("year", None)
+        write_json(learner_path, rec)
+        out = run().stdout
+        check("with no year, the status SAYS SO instead of reading blank",
+              "NOT SCHEDULED" in out and "no year is open" in out, out)
+        check("...and the lean still degrades to a sane middle, never an error",
+              yr.direction({}) == "across", f"got {yr.direction({})}")
+
+        # --- A YEAR THAT CANNOT BE SCHEDULED IS REFUSED, NOT STORED --------
+        bad = run("--from", (today + timedelta(days=30)).isoformat(),
+                  "--to", (today + timedelta(days=45)).isoformat())
+        check("a trip too close to fit the ladder is REFUSED",
+              bad.returncode == 1 and "Refused" in bad.stdout, bad.stdout)
+        check("...and nothing was written — a bad record is worse than none",
+              "year" not in read_json(learner_path), "the refusal still wrote")
+
+        # --- THE HAPPY PATH: three dates in, seven phases out --------------
+        ok = run("--from", (today + timedelta(days=316)).isoformat(),
+                 "--to", (today + timedelta(days=361)).isoformat())
+        check("a schedulable trip is accepted", ok.returncode in (0, None), ok.stdout)
+
+        # --- THE LEAN REACHES ANNA'S STATUS LINE ON *THIS* WRITE -----------
+        # THE ROUND TRIP IS THE POINT (/extend Gate 7.2, the `s41` lesson), and
+        # so is WHERE it is asserted. `compute_status` runs INSIDE
+        # `write_thin_learner`, before the merged dict reaches disk; called with
+        # no argument it re-reads the OLD file, so the write that OPENS a year
+        # stamps a status line with no lean on it. Any LATER write silently
+        # fixes it — which is why this is read here, off the very first write,
+        # and not at the end of the case. Asserted at the end it passes with the
+        # bug in place, which is the whole failure mode wearing a green tick.
+        first_status = read_json(learner_path)["status"]
+        stored = read_json(learner_path)["year"]
+        check("the write that OPENS a year already carries the lean in its status",
+              f"working {yr.direction(stored)}" in first_status,
+              f"got {first_status!r} — composed from the file one write behind")
+        check("EXACTLY three dates are stored, and nothing else",
+              set(stored) == {"opened", "trip_from", "trip_to"}, f"got {sorted(stored)}")
+        # The deck's whole failure was a stored number that drifted from reality.
+        # A phase, a marker, a countdown or a progress count in this record would
+        # be that failure rebuilt, so the absence of each is asserted by name.
+        blob = json.dumps(read_json(learner_path), ensure_ascii=False).lower()
+        for word in ("phase", "marker", "burn", "remaining", "days_left", "streak"):
+            check(f"no `{word}` is stored on the year — it is derived or it is a meter",
+                  f'"{word}' not in blob, f"`{word}` was persisted")
+
+        sched = yr.schedule(stored)
+        check("the schedule covers every phase, in order",
+              [p["phase"] for p in sched] == yr.ORDER, [p["phase"] for p in sched])
+        check("the phases are contiguous — no day belongs to two, or to none",
+              all(date_cls.fromisoformat(b["from"])
+                  - date_cls.fromisoformat(a["to"]) == timedelta(days=1)
+                  for a, b in zip(sched, sched[1:])),
+              [(p["from"], p["to"]) for p in sched])
+        check("the ladder runs down, then across, then up",
+              [p["direction"] for p in sched if p["phase"] in ("down", "across", "up")]
+              == ["down", "across", "up"], str(sched))
+
+        # --- THE TAPER ACTUALLY CLOSES THE VALVE ---------------------------
+        # Without this the taper is a word on a dashboard: the phase prints, the
+        # tapes go on teaching new words into the six weeks before he flies, and
+        # every instrument reads green. That is this build's silent no-op.
+        taper = next(p for p in sched if p["phase"] == "taper")
+        t_day = date_cls.fromisoformat(taper["from"]) + timedelta(days=3)
+        check("during the taper the new-word dial is forced to zero",
+              yr.intake_cap(stored, 5, t_day) == 0, "the taper does not close intake")
+        mid = next(p for p in sched if p["phase"] == "down")
+        m_day = date_cls.fromisoformat(mid["from"]) + timedelta(days=3)
+        check("...and everywhere else the profile dial is returned untouched",
+              yr.intake_cap(stored, 5, m_day) == 5, "the phase is overriding a dial it does not own")
+
+        # --- RE-ANCHORING IS ONE COMMAND, AND EVERYTHING MOVES -------------
+        # The deck died because its date expired and the container outlived it.
+        # A tentative date that firms up must cost one command, not a rebuild.
+        was = [p["from"] for p in sched]
+        guard = run("--from", (today + timedelta(days=400)).isoformat(),
+                    "--to", (today + timedelta(days=430)).isoformat())
+        check("re-anchoring an OPEN year needs --force, and says so",
+              guard.returncode == 1 and "already open" in guard.stdout, guard.stdout)
+        run("--from", (today + timedelta(days=400)).isoformat(),
+            "--to", (today + timedelta(days=430)).isoformat(), "--force")
+        moved = yr.schedule(read_json(learner_path)["year"])
+        check("...and with it, every downstream boundary moved",
+              [p["from"] for p in moved] != was
+              and len(moved) == len(yr.ORDER), str([p["from"] for p in moved]))
+        check("the trip moving did NOT move the day the work opened",
+              read_json(learner_path)["year"]["opened"] == stored["opened"],
+              "re-anchoring rewrote history")
+
+        # ...and the ruling the line must NOT break: no countdown in the coach's
+        # mouth (DECISIONS 2026-08-17). Andrew's dashboard prints T-minus; this
+        # line is one of Anna's two session inputs and carries only the lean.
+        check("Anna's status line carries no countdown — that is Andrew's surface",
+              "T-" not in first_status and "trip" not in first_status.lower(),
+              f"got {first_status!r}")
+    finally:
+        write_json(learner_path, before)

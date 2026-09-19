@@ -301,7 +301,7 @@ def remaining_room(klog: list, now: datetime) -> str:
 
 
 def due_menu_block(max_fire: int = 6, max_catch: int = 2) -> str:
-    """The pool's due items in the selector's own order — tier-first,
+    """The pool's due items in the selector's own order — lead-first,
     coverage-first, recently-asked demoted. `sync_state status` carries the
     meters; this is the MENU. Items never soaked anywhere are flagged UNSEEN —
     the mandate forbids cold-quizzing those (teach first, show dose).
@@ -310,7 +310,7 @@ def due_menu_block(max_fire: int = 6, max_catch: int = 2) -> str:
     order, same ownership rule — this module does not re-sort, because when it
     did an asked-once SURVIVAL item could fall below an unasked dessert one. What
     changed is the population: the 83-row container retired and the ordering it
-    carried (`register` → tier) moved onto the rows, so the menu is now drawn
+    carried (`register` → the lead rank) moved onto the rows, so the menu is drawn
     from the whole pool instead of from a set with an expiry date."""
     from suggest_targets import ASK_COOLDOWN_DAYS, drill_menu, ear_targets
     lex = load_json(LEXICON_PATH) or {}
@@ -327,7 +327,7 @@ def due_menu_block(max_fire: int = 6, max_catch: int = 2) -> str:
         if t["asks"]:
             state += (f" · ⚠ asked/shown {t['asks']}× in last {ASK_COOLDOWN_DAYS}d — needs a genuinely "
                       f"new scene, or pick another item")
-        lines.append(f"    [{t['kind']} · {t['tier']}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{state}]")
+        lines.append(f"    [{t['kind']} · {t['lead']}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{state}]")
     # ONE OF EACH, WHERE BOTH EXIST (2026-08-25). The ear queue widened past the
     # catch tag the same day and the machines hold reserved seats at its head, so a
     # straight slice handed BOTH knock slots to machines — and the paired catch
@@ -365,7 +365,7 @@ def volley_targets(n: int = VOLLEY_SIZE) -> list[dict]:
     """The BINDING item list for a volley knock — Python picks so coverage stays
     honest (Anna's taste concentrated reps on the same few headliners while 50+
     items got zero touches, 2026-07-08). The order is `drill_menu`'s own —
-    tier-first, coverage-first, recently-asked demoted (2026-07-25); UNSEEN and
+    lead-first, coverage-first, recently-asked demoted (2026-07-25); UNSEEN and
     ear-only items excluded (teach-first / never-fire laws).
 
     IT SEARCHES A BOUNDED SLICE, and that bound is deliberate (2026-08-18). It
@@ -408,29 +408,35 @@ def volley_block() -> str:
 
 
 def campaign_block() -> str:
-    """The live campaign — the named week and its through-line in profile.md
-    (contract in protocol/daily_session.md → The Campaign). Cloud Anna steers by
-    it: trailers pitch its next chapter, doses are framed by its story. It names
-    no items — the ticket owns those (2026-07-26). Only a live session writes it,
-    and exactly one such heading exists: the two-heading split that shipped on
-    07-24 fed three days of knocks a won-and-closed campaign (smoke s17)."""
+    """The live ARC — the month's situation in the household, from profile.md
+    (contract in protocol/daily_session.md → The Arc). Cloud Anna steers by it:
+    trailers pitch its next beat, doses are framed by what is happening to those
+    people. It names no items — the ticket owns those (2026-07-26). Only a live
+    session writes it, and exactly one such heading exists: the two-heading split
+    that shipped on 07-24 fed three days of knocks a won-and-closed campaign
+    (smoke s17).
+
+    RENAMED FROM `## The Campaign` 2026-09-19 with the household. Same
+    mechanism, same one-heading guard, same budget — what changed is that the
+    named thing is now a month of the household's life rather than a week of
+    Andrew's effort."""
     try:
         text = (BASE / "progress" / "profile.md").read_text(encoding="utf-8")
     except OSError:
         return ""
     # Match the HEADING, never its title. The title is Anna's prose and he
-    # renames it with every campaign — "The Last Week Before, and the Month
-    # During" (2026-08-04) missed the exact string this used to require, and
-    # six days of knocks steered with no campaign at all, silently. The
-    # contract fixes the prefix; everything after it belongs to him.
-    marker = "## The Campaign"
+    # renames it with every arc — "The Last Week Before, and the Month During"
+    # (2026-08-04) missed the exact string this used to require, and six days of
+    # knocks steered with no campaign at all, silently. The contract fixes the
+    # prefix; everything after it belongs to him.
+    marker = "## The Arc"
     heading = next((l for l in text.splitlines() if l.startswith(marker)), None)
     if heading is None:
         return ""
     body = text.split(heading, 1)[1].split("\n## ", 1)[0]
     # Drop the standing contract blockquote; the mandate already carries the rules.
     body = "\n".join(l for l in body.splitlines() if not l.lstrip().startswith(">")).strip()
-    if not body or "no campaign live" in body:
+    if not body or "no arc live" in body:
         return ""
     # CUT AT A PARAGRAPH BREAK, never mid-character (2026-09-06). The 1500 is
     # right and stays: this lane needs the named week and its through-line, and

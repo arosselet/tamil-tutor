@@ -45,7 +45,15 @@ PROSE_BUDGETS = {
     # 1750 -> 1790 (2026-08-04): FIRST raise of this ceiling, and the growth is a class of content no protocol file owned — a standing fact about the learner's …
     "protocol/constitution.md": 1790,
     # 1250 -> 1320 (2026-08-25, Andrew).
-    "protocol/daily_session.md": 1320,
+    # 1320 -> 1460 (2026-09-19): the household. This file gained a job — the
+    # session now has a SETTING, and the contract for it (a premise that names
+    # no words, opening inside the household, the finale ear test as the win)
+    # is law that only this file can carry. What the diff retired for it sits in
+    # the files that owned those rules: `hosts.md`'s two unnamed hosts and its
+    # no-fixed-characters rule, `director.md`'s "the Scenario is a sandbox"
+    # paragraph, and profile.md's dateless two-phase model. The Arc section was
+    # censused twice on the way down before this number moved.
+    "protocol/daily_session.md": 1460,
     # Split out of daily_session.md (2026-07-23) rather than raise its budget: channel routing is its own concern and Anna loads it only when choosing. · 400 -> 550 (2026-07-28): the file's JOB doubled by deliberate split, not by crud. · 550 -> 640 (2026-07-28 evening, SECOND raise in one day — flagged as such). · 640 -> 475 (2026-08-01): THE SPLIT WAS TAKEN, as the line above demanded — "what it carries" left for commissioning.md; this file keeps only routing and format, re-censused …
     "protocol/audio_channels.md": 475,
     # Split out of audio_channels.md (2026-08-01) — the commissioning law ("the repair earns the dose") is its own concern from channel routing, and the parent had a third raise …
@@ -66,7 +74,20 @@ PROSE_BUDGETS = {
     # NEW 2026-09-13, budgeted in the diff that creates it: the escalation net's model check (it retired a substring match on stored phonetics).
     "OPEN_ASK_MANDATE": 70,
     # The narrative surfaces, budgeted the day they became one line per item (2026-09-10): the log at 11.7k after compression from 32k, the inbox at 1k from 19.6k, the debug precedents at 1.3k from 4.5k.
-    "docs/DECISIONS.md": 12500,
+    # NEW SURFACE, budgeted in the diff that creates it (2026-09-19). The canon
+    # is the one place continuity lives, so it is the one place canon-creep can
+    # hide: a cast that grows a backstory every month is a plot, and a plot is
+    # what the 06-28 decision rejected for good reasons. Compressed at the month
+    # boundary — the beat log collapses into its one-line past-arc entry — and
+    # never raised to fit more lore.
+    "content/household.md": 1200,
+    # 12500 -> 12560 (2026-09-19). The household build wrote three entries and
+    # retired FIVE by name: the 07-13 tier bar, the 07-18 survival headline, the
+    # 07-26 "deck and floor share one ledger", and both continuity rejections
+    # (06-20, 06-28) that the household supersedes — plus the 07-26 stored focus
+    # cohort, which retired with the conveyor. Net growth is 60 words across four
+    # reshaped subsystems, and the narrative is in the commit where it belongs.
+    "docs/DECISIONS.md": 12560,
     "docs/feature_inbox.md": 1500,
     ".claude/skills/debug/SKILL.md": 1500,
 }
@@ -77,10 +98,13 @@ PROSE_BUDGETS = {
 DECISION_ENTRY_BUDGET = 70
 
 
-# Words allowed in profile.md's campaign block: the week's name, its through-line and
-# the live medicine — never case history, which slip_log.json holds (3000 -> 1000,
-# 2026-09-10, Andrew; 2753 at the 09-06 census was a findings log).
-CAMPAIGN_BUDGET = 1000
+# Words allowed in profile.md's ARC block: the month's name, what is happening in
+# the household and the live medicine — never case history, which slip_log.json
+# holds (3000 -> 1000, 2026-09-10, Andrew; 2753 at the 09-06 census was a
+# findings log). Renamed from the campaign block 2026-09-19; same budget, same
+# one-heading guard, and the named thing is now a month of the household's life
+# rather than a week of Andrew's effort.
+ARC_BUDGET = 1000
 
 
 # Code budgets for the Python surfaces (2026-07-31): the same ratchet one layer down.
@@ -119,7 +143,21 @@ CODE_BUDGETS = {
     # on the day this was written, and Gate 4 reads a file at its ceiling as a
     # split-or-retire signal, never a bump. 70 rather than the 52 census: the
     # headroom is for diagnosis, not for a second job.
-    "scripts/month.py": 70,
+    # 70 -> 85 (2026-09-19): reshaped onto the arc. The growth is the two new
+    # folds — membership off the episodes' sidecars, and the finale verdict off
+    # recorded key lines. What it retired is bigger than what it added: `cut()`,
+    # the stored `set`, `won_at`, `size`, the stub-month scaling of both, and
+    # the stored per-member axis all went, because a month whose vocabulary
+    # comes OUT of the story has nothing left to choose.
+    "scripts/month.py": 85,
+    # NEW FILE, budgeted in the same diff that creates it (2026-09-19). It pays
+    # for itself in `suggest_targets`, which was at 588/588 the day this was
+    # written: `REGISTER_TIERS`, `TIER_NAMES` and `tier_rank` retire there and
+    # `year.register_rank` replaces them, so the ladder arrives without a raise
+    # on a file Gate 4 already reads as a split-or-retire signal. 135 rather
+    # than the 119 census: the headroom is for diagnosis, not for a second job —
+    # the month is next door and the ORDER stays one layer up.
+    "scripts/year.py": 135,
     # 350 -> 355 (2026-09-01): A TRANSFER, NOT GROWTH, and the sync_state entry below is re-censused DOWN by the same 5 in this same diff — the two ceilings …
     # 355 -> 368 (2026-09-13): `feed_items` now carries each item's MINUTES off
     # the same parse, so the rating tap can freeze a duration onto its play row.
@@ -156,7 +194,20 @@ CODE_BUDGETS = {
     # the Tamil quoted inside the narration, while every existing rule passed:
     # the Woven-Thanglish tripwire is a FLOOR against near-pure Tamil and the
     # other end was open.
-    "scripts/run_studio.py": 459,
+    # 459 -> 490 (2026-09-19): the household canon. The growth is prompt prose
+    # (the Director is told the scenario is the next beat, the Producer is told
+    # to emit one) plus three wirings — the canon precondition, the Voice Map
+    # injection, the beat append. THE PAYMENT IS THE SPLIT: reading the canon,
+    # parsing the cast, building the map and appending the beat are 55 lines of
+    # mechanism that did NOT land here, because this file was at 459/459 and
+    # Gate 4 reads that as a split-or-retire signal. They live in
+    # `scripts/household.py`, budgeted below in this same diff.
+    "scripts/run_studio.py": 490,
+    # NEW FILE, budgeted in the same diff that creates it (2026-09-19). 75
+    # rather than the 55 census: headroom for diagnosis, not for a second job —
+    # what happens IN the household is Anna's and the Architect's, and the day
+    # this file grows an opinion about that it has become a writer.
+    "scripts/household.py": 75,
     "scripts/show_status.py": 125,
     # 112 -> 125 (2026-09-10).
     "scripts/state_io.py": 125,
@@ -174,7 +225,27 @@ CODE_BUDGETS = {
     # 575 -> 588 (2026-09-13, Andrew): `inventory_hosts` MOVED IN from render_rotation (its second reader) plus the intake quota. Paid for by render_rotation 325 -> 318; the net is the quota, which retires the fourth-spine design.
     "scripts/suggest_targets.py": 588,
     # 1250 -> 1254 (2026-08-04): the tap lane's stage/commit/pull/push moved IN from the "Log tap" step of anna.yml, where it was a hand-rolled `git pull --rebase` with no union … · 1254 -> 800 (2026-08-04): re-censused DOWN after the three-way split, the same move morning_knock made on 08-01. · 800 -> 795 (2026-09-01): RE-CENSUSED DOWN, not held.
-    "scripts/sync_state.py": 795,
+    # 795 -> 830 (2026-09-19): the year's writer. THE PAYMENT IS IN THIS DIFF
+    # BUT NOT IN THIS FILE — `suggest_targets` retired `REGISTER_TIERS`,
+    # `TIER_NAMES`, `tier_rank` and the duplicate tier buckets in
+    # `register_coverage`, coming in 7 under its own ceiling instead of asking
+    # for the raise it would otherwise have needed. Named here because a raise
+    # whose retirement lives one file over is the easiest kind to lose.
+    # The read half was pushed DOWN into `year.py` first (`table`,
+    # `opened_record`), which is the split this ceiling is supposed to provoke;
+    # what is left here is a writer, and this file owns every write by law. The
+    # next raise should be a split, not a number.
+    # 830 -> 855 (2026-09-19): the arc's writer — `--open`, `--finale` and the
+    # `--line` recorder, plus `_arc_inputs`, which reads the episode registry
+    # and the sidecars HERE so that `month.py` (L1.2) never reaches up for
+    # them. Paid for in the same diff by `--size`/`--won-at`, the stub scaling
+    # and the round-robin cut, all retired above; `itertools.zip_longest` went
+    # with them. The next raise on this file should be a split, not a number.
+    # 855 -> 825 (2026-09-19, the same day): RE-CENSUSED DOWN. `cmd_reseed_focus`
+    # and both cohort-reconcile seams retired with the conveyor, and they gave
+    # back more than the arc writer took. The raise above was real and is now
+    # paid off in the same diff rather than kept as headroom.
+    "scripts/sync_state.py": 825,
 }
 CODE_BUDGET_EXEMPT = {"scripts/smoke_test.py"}
 SUITE = "scripts/smoke/"
@@ -202,23 +273,23 @@ def s18_size_budgets(mk, kr, sb: Path):
               f"same diff and name what it retired")
 
     # THE CAMPAIGN BLOCK — the loop above measures whole files and profile.md is
-    # not one of them (see CAMPAIGN_BUDGET). Real tree, not the sandbox: this is
+    # not one of them (see ARC_BUDGET). Real tree, not the sandbox: this is
     # live state, and s17 reads the same file for the heading count.
     real_profile = (REAL_BASE / "progress" / "profile.md").read_text(encoding="utf-8")
     head = next((l for l in real_profile.splitlines()
-                 if l.startswith("## The Campaign")), "")
+                 if l.startswith("## The Arc")), "")
     # An absence must be loud. Without this, a renamed or deleted heading measures
     # an empty block, reports 0/3000 and passes — the budget would silently stop
     # guarding the exact surface it was added for, and look identical to success.
     # s17 owns "exactly one heading"; this is that case's size half.
-    check("campaign block is findable for the budget", bool(head),
-          "no '## The Campaign' heading in the real profile.md — the size check "
+    check("arc block is findable for the budget", bool(head),
+          "no '## The Arc' heading in the real profile.md — the size check "
           "below would measure nothing and report green")
     block = real_profile.split(head, 1)[1].split("\n## ", 1)[0] if head else ""
     words = len(block.split())
-    check(f"campaign block: {words}/{CAMPAIGN_BUDGET} words",
-          bool(head) and words <= CAMPAIGN_BUDGET,
-          "the campaign block is a findings log again. CUT, IN THIS ORDER: "
+    check(f"arc block: {words}/{ARC_BUDGET} words",
+          bool(head) and words <= ARC_BUDGET,
+          "the arc block is a findings log again. CUT, IN THIS ORDER: "
           "(1) a closed-tag paragraph — slip_log.json holds the instances and "
           "learner.json:slip_closes the dates, so keep the medicine as one line "
           "and let git hold the case; (2) a reusable technique — promote it to "
@@ -677,6 +748,21 @@ LAYERS = {
     # never the ORDER candidates arrive in, so the day it reaches up for the tier
     # law or the coverage term the edge reads as upward and fails here. A set that
     # can order itself is a set that has grown a second selector.
+    # The year (2026-09-19). It reads L0 and NOTHING ELSE — not the lexicon, not
+    # the log, not the month. Numbered below `month` because the phase is an
+    # input to what a month is for, and below `suggest_targets` for the reason
+    # its neighbour states: it supplies the LEAN, never the order. The day it
+    # reaches for a rung, a rep count or a sidecar, the edge reads as upward and
+    # fails here — a schedule that can read progress is a schedule that has
+    # grown a meter, and this object exists because the last one did.
+    "year":               1.1,
+    # The canon (2026-09-19): a reader and the one appender for a CONTENT file.
+    # It imports only L0 and is called by `run_studio` (L5). Numbered down here
+    # rather than beside its caller so that the day it reaches for the lexicon,
+    # the ticket or a rung, the edge reads as upward and fails — a canon reader
+    # that can see progress is a canon that will start being chosen by deficit,
+    # which is the exact machine this whole object exists to get out from under.
+    "household":          0.6,
     "month":              1.2,
     "suggest_targets":    1.5,    # selection — reads L1, read by the lanes
     "sync_state":         2,      # beside L1 — the one writer

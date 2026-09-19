@@ -21,7 +21,7 @@ protocol/
 ├── persona.md          Anna — the one persistent voice (elder brother, he/him)
 ├── toolbelt.md         Anna's reach — SESSION ONLY, never in the voice canon
 ├── constitution.md     Universal law: philosophy, tactical & canonical rules
-├── daily_session.md    The ~8–15 min forced-output loop (invariants + shapes + campaign)
+├── daily_session.md    The ~8–15 min forced-output loop (invariants + shapes + the arc)
 ├── diagnosis.md        The healing loop: feedback ledger → dial / prune / propose (periodic, evidence-gated)
 ├── dialect.md          Coimbatore spoken-register rules — top level, NOT studio-only:
 │                       every pass that emits speakable Tamil reads it (knock lane, soak,
@@ -34,19 +34,20 @@ protocol/
     ├── director.md     Soak-order + ticket → Master Lesson Plan
     ├── architect.md    Lesson Plan → two-voice script
     ├── producer.md     Dialect pass + integrity + .tags.json sidecar
-    └── hosts.md        Cast bible + production-only rules (fourth wall, script-only)
+    └── hosts.md        Voice conventions + production-only rules (fourth wall, script-only).
+                        The CAST itself is `content/household.md`, not here (2026-09-19)
 ```
 
 ## The interface: the soak-order
 
 Anna writes it at Close & Log; the studio consumes it. It is the *only* thing that crosses between the two halves (`progress/learner.json` → `soak_order`):
 
-- `payload` — the words chat just strained — or, when a campaign is live, a **seed order**: 2–4 unseen items the episode teaches first (captions carry the load; the render stamps `seen_in` but that no longer opens them — since 2026-09-13 an `attended` event does, because a finished render is a fact about the machine, not about Andrew)
-- `scene_seed` — one line of the running story
+- `payload` — the words chat just strained — or, when an arc is live, a **seed order**: 2–4 unseen items the episode teaches first (captions carry the load; the render stamps `seen_in` but that no longer opens them — since 2026-09-13 an `attended` event does, because a finished render is a fact about the machine, not about Andrew)
+- `scene_seed` — **the arc's next beat** (2026-09-19), read from the canon; not an invented one-off situation
 
 Anna hands **meaning**; the studio derives the rest (register / form / ingredient, callbacks, density) and owns the **craft**.
 
-A second, softer interface exists since 2026-07-17, cut back to its through-line on 2026-07-26: the **campaign block** (`progress/profile.md` → "The Campaign — This Week") — the week's name and what its days add up to, in Anna-owned prose. It names no items; the ticket owns those. Sessions, the studio, and the knock digest all read it; only a live session writes it, and exactly one such heading may exist.
+A second, softer interface exists since 2026-07-17, cut back on 2026-07-26 and renamed on 2026-09-19: the **arc block** (`progress/profile.md` → "## The Arc") — the month's situation in the household, in Anna-owned prose. It names no items; the ticket owns those. Sessions, the studio, and the knock digest all read it; only a live session writes it, and exactly one such heading may exist.
 
 ## Invocation shells (thin, per-agent — all substance lives in `protocol/`)
 
@@ -67,7 +68,7 @@ Anna can commission the studio end-to-end mid-session; the subagent also runs st
 |---|---|---|
 | `observations.json` | `lexicon_view.observe` / `expose` | THE LEDGER (2026-09-10): every observation as an event — word, channel, kind (taught / **attended** / exposed / tested / claimed), axis, result, source. Append-only; `seed` and `self-report` are recorded and never vote — and since 2026-09-13 a `taught` on a delivery channel is the same: recorded, pending, and it does not open the teach gate until an `attended` event (or a watched test) shows he was there. `attended` is the one kind that is a fact about Andrew rather than about the machine |
 | `lexicon.json` | static half: `sync_state.py` · evidence half: `lexicon_view.rebuild` | Word brain. Gloss, phonetic, type, `register`, `direction`, `pairs_with` are curriculum; recognition, production, reps, exposures, heard_on, last_surfaced, seen_in, taught_on are THE FOLD of the log, one writer, and `lexicon_view.py` reports zero divergent rows or `s100` is red |
-| `learner.json` | `sync_state.py` | Continuity: running story (`last_debrief`), `soak_order`, status (no streak — recency from the session log is the honest signal) |
+| `learner.json` | `sync_state.py` | Continuity: running story (`last_debrief`), `soak_order`, `month` (name + two dates + the finale's mission — membership and completion are BOTH folds), `year` (three dates — the phases are derived, never stored), status (no streak — recency from the session log is the honest signal) |
 | `episodes.json` | `sync_state.py` / `render_audio.py` | Episode registry |
 | `session_log.json` | `sync_state.py` | Append-only momentum log |
 | `feedback_log.json` | `sync_state.py feedback` | The ledger the diagnosis pass reads |
@@ -83,7 +84,11 @@ Anna can commission the studio end-to-end mid-session; the subagent also runs st
 
 **L0.5 `observations.py`** — the log's vocabulary and its appender; nothing else. **L0.7 `lexicon_view.py`** — `derive` (pure fold), `rebuild` (the one writer of evidence fields), `observe` (append then fold), `expose` (the delivery seam every lane calls), `divergence` (the honesty check). `backfill_observations.py` sits above it: reconstruction from history and the 09-10 cutover.
 **L0 `state_io.py`** — paths, load/save, `local_today` + `local_date`, token→key `resolve`, the soak payload resolvers, and the read-only predicates `is_unseen` / `soak_pending` / `is_fire`. Imports only the pack; everything else may import it. The clock helper and the fire predicate came home from `morning_knock` on 2026-09-04, along with three duplicate spellings of `KNOCK_LOG_PATH` — the paths this file declares had grown a *second* import authority, with half the lanes asking here and half asking the knock lane.
-**L1 selection** — `suggest_targets.py` (the ticket: the tier-ordered focus pool + the scene-spec divergence gate, plus the studio-only blocks — fence, coverage, background, candidates) · `generate_callbacks.py` (spaced repetition) · `slips.py` (the slip ledger: capture, patterns, retirement, closes). `sync_state.py` sits beside them and owns ALL state writes (`seed-deck` loads a curated set from `curriculum/`, registers and all; `unverify` drops to struggled every row rated recognized that nothing ever tested).
+**L0.6 `household.py`** — the reader and the one appender for `content/household.md`, THE CANON: the place, the recurring cast, each character's pinned TTS voice, the standing facts, this month's arc premise and its beat log. `run_studio` refuses to spend a model pass without it (a free-standing scenario is a household that silently does not exist), copies the voice pins into every script itself — a table a model retypes is a table that drifts, and the ear tracks a speaker before a word — and appends one beat per render. It imports only L0: a canon reader that could see progress would start being chosen by deficit, which is the machine the whole object exists to escape.
+
+**L1.1 `year.py`** — THE PHASE SCHEDULE, the unit above the month (2026-09-19). Three dates in `learner.json` (`opened`, `trip_from`, `trip_to`); seven phases derived from them — excavation, down, across, up, taper, trip, harvest. A phase decides three things and no more: the **lean** (`LEADS` / `register_rank`, which registers lead selection — this retired `suggest_targets`' static `REGISTER_TIERS` / `TIER_NAMES` / `tier_rank`), the **ear ramp** (voices, and whether the situation is given), and the **intake cap** (zero in the taper and the trip, the profile dial everywhere else). It imports `state_io` and nothing else — not the lexicon, not the log, not the month — because a schedule that can read progress is a schedule that has grown a meter, and the Trip Deck is what that looks like. Nothing but the three dates is stored; `s113` asserts by name that no phase, marker, burn rate or progress count is ever persisted. The T-minus prints on `show_status.py` and `sync_state.py year` and deliberately NOT on `compute_status`, which Anna loads.
+
+**L1 selection** — `suggest_targets.py` (the ticket: the lean-ordered focus pool + the scene-spec divergence gate, plus the studio-only blocks — fence, coverage, background, candidates) · `generate_callbacks.py` (spaced repetition) · `slips.py` (the slip ledger: capture, patterns, retirement, closes). `sync_state.py` sits beside them and owns ALL state writes (`seed-deck` loads a curated set from `curriculum/`, registers and all; `unverify` drops to struggled every row rated recognized that nothing ever tested).
 **L2 policy** — verdict caps, teach-first, the variety gate, ask cooldowns; these live with the lanes that read them. **`rails.py` is the exception that names the rule** (2026-09-04): the reach budget — the waking window, the daily cap, the min gap, `reaches_today` — is obeyed by *two* channels, the knock and the queue, so it cannot live inside either. A policy one lane reads stays with that lane; a rail more than one channel obeys gets a file. `morning_knock.rails_gate` stays put, because whether to wake **Anna** is the knock lane's own question and nothing else asks it.
 **L3 `writer.py`** — model config, `budget()`, `JSON_MODE`, both JSON parsers, the phonetic rewrite, and **the one place that chooses an executor**: `claude -p` where a local agent exists, the paid API everywhere else, decided by asking which binary is on PATH — never by a lane, never by a flag someone has to remember. `mandates.py` holds prompt canon beside it.
 **L4 `publish.py`** — the delivery tail: `load_env`, the rebase net with its union and re-render resolvers, `commit_and_push`, `refresh_feed`, `jsdelivr_url`, and `push_to_phone`, the one chokepoint where quiet hours are **enforced** — it reads the window from `rails.py` rather than owning it (2026-09-04; enforcing a rail and owning it are different jobs, and only one of them belongs to the tail). `publish()` assembles a dose's commit in the one correct order — feed after the log, mp3 at the front. `rebuild_rss.py` and `render_audio.py` (TTS + register episode + RSS) are its producers.

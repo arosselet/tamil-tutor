@@ -1099,3 +1099,97 @@ def s97_a_commission_brief_is_not_material(sb: Path):
     bare = prompt_from(rd, lead, 1, None)
     check("drill: an uncommissioned sheet carries no boundary to interpret",
           boundary.strip() not in bare, "a fence around nothing is noise")
+
+
+def s114_the_studio_lives_in_the_household(sb: Path):
+    """THE CANON IS READ, AND THE CANON REMEMBERS (2026-09-19).
+
+    The whole point of a recurring household is continuity: what makes a real
+    family table hard is not only vocabulary but shared context — who somebody
+    is, why Mama is sulking, what happened last month — and disposable scenes
+    cannot teach that by construction.
+
+    SO THE SILENT NO-OP IS OBVIOUS ONCE NAMED, and it is what this case exists
+    for. A canon file exists; episodes keep being generated as free-standing
+    scenes that never read it; the beat log never grows; the voices are dealt
+    out at random per episode. Every instrument reads green — the feed fills,
+    the lint passes, the sidecars are well formed — and there is no household at
+    all, only a document nobody opened. Each assertion below is aimed at that
+    state and not at "did the step run".
+    """
+    print("\n114. The studio lives in the household (2026-09-19)")
+    rs = importlib.import_module("run_studio")
+    hh = importlib.import_module("household")
+    canon = sb / "content" / "household.md"
+    before = canon.read_text(encoding="utf-8")
+    try:
+        # ── 1. THE CANON RIDES INTO A FILESYSTEM-LESS WRITER ───────────────
+        # `inline_canon` carries whatever a prompt NAMES. The Director's prompt
+        # names the canon, so the cloud writer must receive it inline — this is
+        # the 2026-08-18 lesson (the constitution was referenced everywhere and
+        # inlined nowhere for weeks, and only the local writer hid it).
+        carried = rs.inline_canon(rs.DIRECTOR.format(ticket="TICKET"))
+        check("the Director's prompt carries the canon inline",
+              "content/household.md" in carried and "## 2. Cast" in carried,
+              "the cloud writer would invent a household it cannot see")
+        # ...and it must NOT have swallowed the episode archive on the way.
+        # `content/` holds every past script, and handing one to the writer is
+        # precisely what Fresh Execution forbids (constitution → No templating).
+        check("...and carries no past episode script with it",
+              "content/scripts/tier2_mission" not in carried,
+              "the canon widening pulled in the archive the writer may not imitate")
+
+        # ── 2. A MISSING CANON FAILS LOUDLY, BEFORE THE MODEL SPEND ────────
+        canon.unlink()
+        spoke = []
+        ok = rs.write_episode(999, write_pass=lambda label, prompt: spoke.append(label))
+        check("with no canon, the run REFUSES instead of inventing a scenario",
+              ok is False, "it fell back to a free-standing scene")
+        check("...and refuses before spending a single model pass",
+              not spoke, f"passes ran anyway: {spoke}")
+        check("...and the absence says what is wrong",
+              "no canon" in hh.problem(), f"got {hh.problem()!r}")
+        canon.write_text(before, encoding="utf-8", newline="\n")
+
+        # ── 3. A CAST WITH NO PINS IS A BROKEN CANON, NOT AN EMPTY ONE ─────
+        canon.write_text(before.split("## 2. Cast")[0], encoding="utf-8", newline="\n")
+        check("a canon whose cast table is gone is REFUSED, not treated as pinless",
+              "no cast table" in hh.problem(),
+              "voices would be dealt out at random and the feed would sound almost right")
+        canon.write_text(before, encoding="utf-8", newline="\n")
+
+        # ── 4. THE VOICES COME FROM THE CANON, NOT FROM THE WRITER ─────────
+        cast = hh.cast(before)
+        check("the canon pins a voice for every cast member", len(cast) >= 5, f"got {cast}")
+        check("...and no two characters share one", len(set(cast.values())) == len(cast),
+              f"duplicate pins: {sorted(cast.values())}")
+        name = sorted(cast)[0]
+        script = f"# Ep\n**{name} (F):** ok\n**Analyst Maya (F):** and\n"
+        vmap = hh.voice_map(script, before)
+        check("a speaking cast member is pinned by name",
+              vmap.get(f"{name.upper()} (F)") == cast[name], f"got {vmap}")
+        check("...and a non-cast speaker is left to the pool",
+              not any("MAYA" in k for k in vmap), f"got {vmap}")
+        # The block must be the shape the RENDERER actually reads, or the pin is
+        # a comment nobody parses — which looks exactly like a working pin.
+        ra = importlib.import_module("render_audio")
+        block = hh.render_voice_map(vmap)
+        m = ra.VOICE_MAP_RE.search(block)
+        check("the injected block is the one render_audio parses",
+              bool(m) and json.loads(m.group(1)) == vmap,
+              f"the renderer cannot read it back: {block}")
+
+        # ── 5. THE BEAT LOG GROWS, AND A RENDER THAT DOESN'T IS A RED RUN ──
+        n0 = len([l for l in hh.load().splitlines() if l.startswith("- 20")])
+        check("a beat lands in the log", hh.append_beat(901, "Ravi hides the remote."))
+        grown = [l for l in hh.load().splitlines() if l.startswith("- 20")]
+        check("...and the log is exactly one longer", len(grown) == n0 + 1, str(grown))
+        check("...and it lands in the beat log, not under Past arcs",
+              hh.load().index("Ravi hides") < hh.load().index("## 5. Past arcs"),
+              "the newest beat is filed under the wrong heading")
+        check("an EMPTY beat is refused — a silent skip is the whole failure mode",
+              not hh.append_beat(902, "   "), "a blank beat was recorded as continuity")
+        check("the sidecar schema now REQUIRES a beat, so a writer cannot omit it",
+              "beat" in rs.REQUIRED_TAGS, f"got {sorted(rs.REQUIRED_TAGS)}")
+    finally:
+        canon.write_text(before, encoding="utf-8", newline="\n")
