@@ -51,4 +51,4 @@ When Anna commissions you — or Andrew runs `/studio` — you carry the episode
 
 ## Production rules (they live here, not in the constitution)
 
-The **fourth wall**, **no-fixed-characters**, and **Tamil-script-only** rules are production-only and are defined in `protocol/studio/hosts.md`. They govern every voice in the audio. They deliberately do **not** apply to Anna's chat (where he is a fixed character who addresses Andrew in phonetics) — that split is intentional; don't import chat habits into the audio or audio rules into the chat.
+The **fourth wall** and **Tamil-script-only** rules are production-only and are defined in `protocol/studio/hosts.md`; the Intercept's cast is fixed by `content/household.md` and recurs (the no-fixed-characters rule retired 2026-09-19). They govern every voice in the audio. They deliberately do **not** apply to Anna's chat (where he is a fixed character who addresses Andrew in phonetics) — that split is intentional; don't import chat habits into the audio or audio rules into the chat.

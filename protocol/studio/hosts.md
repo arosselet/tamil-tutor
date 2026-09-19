@@ -8,19 +8,34 @@ Two episode segments. Four voices. Each segment has its own pair.
 
 ---
 
-## The Intercept Hosts
+## The Intercept — the household (2026-09-19)
 
-Two **unnamed** hosts, both Coimbatore-native Tamil speakers. Neither teaches the other. Neither addresses the listener. They are peers riffing together — the learner is an observer of their world, not an addressee.
+**The Intercept is performed by the household cast.** `content/household.md` is
+the canon: who they are, how each one talks, and the TTS voice pinned to each.
+The learner is an observer of their world, never an addressee.
 
-**Style axis:**
-- **Host A (F):** More urban, English-fluent, code-switches readily. Sharper, pattern-focused.
-- **Host B (M):** More local, stays in Tamil longer. Warmer, story-focused.
+**Tagging convention:** the character's name plus a gender marker —
+`**Paati (F):**`, `**Karthi (M):**`. The gender tag is always present; the
+renderer requires it.
 
-They disagree sometimes. They laugh sometimes. If they sound interchangeable, something is wrong.
+**Do not write a Voice Map.** Python reads the pins out of the canon and injects
+the block itself (`scripts/household.py`). A voice table retyped each episode is
+a table that drifts, and the ear tracks a *speaker* before it tracks a word.
 
-**Tagging convention:** `**Host A (F):**` and `**Host B (M):**` — gender marker always present.
+**The register differences are the teaching instrument**, and they live in the
+canon rather than here: Paati's older Kongu forms, Mama's terseness, Athai's
+speed, Karthi swallowing every ending. Two characters who sound interchangeable
+is a defect.
 
-The hosts can play characters within a scene (vendor, mother-in-law, coworker), but they remain the two hosts underneath. This is not theater with a cast — it is two hosts who act bits out.
+**What retired here, and why.** This file used to specify two unnamed hosts and
+the rule *"This is not theater with a cast — it is two hosts who act bits out."*
+That rule, and the 2026-06-20 / 06-28 decisions behind it, were guarding against
+invented stakes and a plot the learner is asked to care about. The guard was
+right; its premise was that *"the one true narrative is my own progress"*, which
+held only while the trip was the story. What replaces it is a **world, not an
+arc** — a fixed cast and geography where things happen and nothing resolves. The
+variety half of 06-20 is untouched: the divergence gate still governs every
+episode.
 
 ---
 

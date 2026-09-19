@@ -983,17 +983,6 @@ def main():
     save_json(LEXICON_PATH, lexicon)
     save_json(KNOCK_LOG_PATH, klog)
 
-    # A phone graduation opens a focus seat — reconcile the stored cohort at
-    # this write seam exactly as cmd_update does at the session seam.
-    from suggest_targets import reconcile_focus  # lazy: keeps module import light
-    learner = load_json(LEARNER_PATH) or {}
-    new_cohort = reconcile_focus(lexicon, learner.get("focus_cohort", []))
-    cohort_changed = set(new_cohort) != set(learner.get("focus_cohort", []))
-    if cohort_changed:
-        learner["focus_cohort"] = new_cohort
-        save_json(LEARNER_PATH, learner)
-        print(f"   focus cohort reconciled ({len(new_cohort)} seats held)")
-
     # Anna may answer ALOUD. Rendered before the commit below because
     # push_to_phone pre-warms the jsDelivr URL and the CDN can only serve a path
     # already on main — knock_reply already commits before it notifies, so the
@@ -1015,8 +1004,10 @@ def main():
     # happens. `knock_id` is the chain's own: a reply to this push-back
     # correlates to the same knock entry.
     commit_and_push(*publish(
+        # learner.json left the commit list 2026-09-19: this lane only READS it
+        # now. It used to be written here to persist a reconciled focus cohort,
+        # and that cohort retired with the conveyor.
         [LEXICON_PATH, KNOCK_LOG_PATH,
-         LEARNER_PATH if cohort_changed else None,
          SLIP_LOG_PATH if verdict.get("slips") else None,
          FEEDBACK_LOG_PATH if meta else None,
          maybe_enqueue_schedule(verdict)],

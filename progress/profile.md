@@ -14,12 +14,16 @@
 
 **Three consequences for target selection.** (1) Comprehension leads — the machines carry the sentence skeleton, so an unheard frame outranks an unfired one. (2) Production stays daily, narrow-and-deepen: it is how recognition is made to hold, not a rival curriculum. (3) **Holding ground ranks with taking it** — decay is the only true regression, so a decayed row he has *met* outranks a novel one he hasn't.
 
-**Phase model (the gate came off 2026-08-25):** Phase 1 — *narrow and deepen*: force cold production of what he already recognizes. Phase 2 — native media — runs alongside, auxiliary until a Receptive Check says coverage has closed. The headline is **machines heard** (2026-08-16): comprehension is the threshold, production is the engine.
+**The phase model is no longer prose here (2026-09-19).** It said "Phase 1 — narrow and deepen; Phase 2 — native media, auxiliary" — two phases with no dates, no boundary and no exit, which is why nothing could tell you which one you were in. It is now a schedule with seven named phases derived from the trip date (`scripts/year.py`; `sync_state.py year` prints the table). What survives unchanged: the headline is **machines heard** (2026-08-16) — comprehension is the threshold, production is the engine — and native media stays auxiliary until a Receptive Check says coverage has closed.
+
+**Read the lean before picking targets.** The year's current phase names a direction of address — **down** to the children, **across** to the siblings-in-law, **up** to the elders — and the pool's ordering is prefixed by it. Those are three rooms with three different moving parts and three different levels of social risk, and the order is deliberate: the children first, because a nine-year-old tolerates error completely and cannot switch to English out of kindness.
 ---
 
-## The Campaign — Home, The Table Rehearsed
+## The Arc — Home, The Table Rehearsed
 
-> **Contract:** `protocol/daily_session.md` → "The Campaign". Anna writes it at close; Andrew overrides at will. One block, **1,000 words** (`s18`): the week's name, its through-line, the live medicine. Case history lives in `slip_log.json` and git — never here.
+> **Contract:** `protocol/daily_session.md` → "The Arc". Anna writes the premise at the month cut; Andrew overrides at will. One block, **1,000 words** (`s18`): what is happening in the household, and the live medicine.
+>
+> **The first household arc opens 2026-10-01.** Until then this block is the last campaign, kept as-is — the medicine below is live and none of it changes with the rename. Case history lives in `slip_log.json` and git — never here.
 
 **🎯 The Declining Set, Rehearsed For Next Summer** (rewritten 2026-09-10 on return; replaces *The Table Is The Teacher*, which did its month — day 3 paid *saapidalaamaa* unprompted, and the last rehearsal found the ending the whole set rides on). The room is gone; chat, the tapes and the knocks supply the situations now. **The through-line is unchanged: the declining set, not the receiving set** — *podhum / vendaam*, *naane eduthukkaren*, *neenga saapdunga* — and every line in it is spoken TO an elder, so **the -nga ending is the one moving part** (`respect-nga`, 09-05: three swings at an elder in ten minutes, not one -nga).
 
@@ -78,7 +82,7 @@ The production-reflex gaps that matter most right now:
 
 ## What's Needed Next
 
-> **The pool is tier-ordered** (survival > delight > dessert, from each row's `register`) — the curated social-public chunks and frames still lead the "priority-1 floor only" guidance below, on the ordering rather than on a container with an expiry date. The *deepen, don't widen* discipline holds throughout: force what is in rotation cold, don't sprawl past it.
+> **The pool is lean-ordered** (lead > mid > dessert, from each row's `register` read against the year's current direction of address — `year.register_rank`). This replaced a static survival/delight/dessert map on 2026-09-19: that one ranked by topic, was blind to who he was addressing, and degraded 283 of 366 rows to its middle rung, so it ordered almost nothing. The *deepen, don't widen* discipline is untouched: force what is in rotation cold, don't sprawl past it.
 
 Phase 1 is *deepen, don't widen.* **The order below changed on 2026-08-25** — it used to
 open on "Force production… this is the floor moving", which read as the goal. Andrew's

@@ -155,6 +155,7 @@ def main():
         run(compose.s91_the_pack_is_complete_not_just_unique, sb)
         run(compose.s93_the_port_surface_list_names_the_real_files, sb)
         run(compose.s97_a_commission_brief_is_not_material, sb)
+        run(compose.s114_the_studio_lives_in_the_household, sb)
         run(ratchets.s72_a_stub_never_outlives_its_case, mk, kr)
         run(publish.s73_one_tail_for_the_render_family, sb)
         run(publish.s74_a_derived_file_follows_its_source, sb)
@@ -177,7 +178,8 @@ def main():
         run(state.s109_two_tapes_of_one_spine_differ, sb)
         run(state.s110_the_standing_tape_is_the_intake_valve, sb)
         run(knock.s111_the_reveal_check_reads_the_script, mk, kr, pq, sb)
-        run(state.s112_the_month_has_edges, sb)
+        run(state.s112_the_month_is_the_arc, sb)
+        run(state.s113_the_year_is_a_schedule_not_a_meter, sb)
         run(state.s100_the_live_lexicon_is_the_fold_of_its_log)
         run(state.s101_the_check_and_the_rating_are_ear_evidence, sb)
 

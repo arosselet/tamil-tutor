@@ -48,6 +48,7 @@ sys.path.insert(0, str(BASE / "scripts"))
 # L0 owns the PORT SURFACE — this lane only reads it (2026-08-24; the pack
 # became its own module 2026-08-28, and TAMIL_TAIL_RE came with it).
 from language import TAMIL_RE, TAMIL_RUN, TAMIL_TAIL_RE
+import household
 
 # Cross-process contract, mirrored in render_audio.py and read by
 # A caller reads it as "this host lacks the secrets" — skip, never retry.
@@ -85,7 +86,7 @@ OPENROUTER_BASE = "https://openrouter.ai/api/v1"
 
 SPEAKER_RE = re.compile(r"^\s*(?:\*\s*)?\*\*[^:]+:")
 REQUIRED_TAGS = {"mission", "register", "dramatic_ingredient", "episode_form",
-                 "new_words_landed"}
+                 "new_words_landed", "beat"}
 
 PREAMBLE = """\
 You are ONE pass of the Studio pipeline (protocol/studio/studio.md) for the
@@ -100,6 +101,14 @@ THIS PASS: the DIRECTOR. Read protocol/studio/director.md and follow it
 exactly. Read progress/profile.md — its Calibration Notes are LAW — and the
 soak-order in progress/learner.json. The ticket + scene spec below are
 already computed; the spec is a GATE, not a suggestion.
+
+Read content/household.md — THE CANON. This episode is the next beat in that
+household's life, with those people, in that place. It is not a fresh
+invented scenario: the cast recurs, the standing facts are binding, and the
+beat log is what the scene may call back to. Variety comes from the scene
+spec (register / form / ingredient), never from changing who these people
+are. The Scenario section of your plan must name which household members are
+in it and what is happening to them.
 
 {ticket}
 
@@ -145,7 +154,10 @@ Here is the Architect's draft:
 PRINT exactly two fenced blocks and nothing else:
 1. a ```markdown fence with the final production script
 2. a ```json fence with the .tags.json sidecar — "mission": {n}, schema per
-   the existing content/scripts/*.tags.json files
+   the existing content/scripts/*.tags.json files, PLUS a "beat" key: ONE
+   plain sentence saying what happened in the household this episode, as the
+   beat log would record it ("Karthi says the scooter is fine. It is not.").
+   Python appends it to content/household.md — you write no files.
 """
 
 CAPTIONS = PREAMBLE + """
@@ -207,7 +219,7 @@ def claude_print(label: str, prompt: str) -> str | None:
     return out
 
 
-CANON_REF_RE = re.compile(r"(?:protocol|progress)/[\w/-]+\.(?:md|json)")
+CANON_REF_RE = re.compile(r"(?:(?:protocol|progress)/[\w/-]+|content/household)\.(?:md|json)")
 # WIDENED from `protocol/[\w/]+\.md` (2026-08-18). The old pattern could only see
 # protocol markdown, so the Director's own instruction — "Read progress/profile.md
 # — its Calibration Notes are LAW — and the soak-order in progress/learner.json" —
@@ -374,6 +386,15 @@ def write_episode(n: int, write_pass=claude_print) -> bool:
     # --fence: the Director copies the Vocabulary Fence into the brief verbatim
     # (director.md), and the Architect builds every scene out of it. Anna's bare
     # invocation drops it — it was 65% of his session load and none of his job.
+    # THE CANON IS A PRECONDITION, NOT A FALLBACK (2026-09-19). Without it the
+    # Director writes a free-standing scenario, the episode is set nowhere, the
+    # cast is whoever the writer invented this time, and nothing downstream can
+    # tell that state apart from a working household — which is exactly the
+    # silent no-op this build has to refuse. Fail loudly, before spending three
+    # model passes on an episode that cannot be continuity.
+    if bad := household.problem():
+        print(f"   ✗ household canon unusable — {bad}")
+        return False
     ticket = subprocess.run([sys.executable, str(BASE / "scripts" / "suggest_targets.py"), "--fence"],
                             capture_output=True, encoding="utf-8", errors="replace",
                             cwd=BASE, check=True).stdout
@@ -405,11 +426,31 @@ def write_episode(n: int, write_pass=claude_print) -> bool:
     if not script or not tags:
         print("   ✗ Producer output missing the markdown/json fences")
         return False
+    # PYTHON PINS THE VOICES, the writer never transcribes them. The ear tracks
+    # a speaker before it tracks a word, so a character whose voice drifts in
+    # month three quietly undoes month two — and a voice table retyped by a
+    # model every episode is a table that drifts. Injected at the top of the
+    # script, where `render_audio.VOICE_MAP_RE` reads it.
+    vmap = household.voice_map(script)
+    if vmap:
+        script = household.render_voice_map(vmap) + "\n\n" + script
     paths = episode_paths(n)
     paths["brief"].parent.mkdir(parents=True, exist_ok=True)
     paths["brief"].write_text(plan + "\n", encoding="utf-8")
     paths["script"].write_text(script + "\n", encoding="utf-8")
     paths["tags"].write_text(tags + "\n", encoding="utf-8")
+
+    # THE CANON REMEMBERS THIS EPISODE, or the run is not finished. A household
+    # that accumulates episodes and records none of them reads exactly like a
+    # household that is working, and the callbacks it exists to feed would
+    # quietly have nothing to draw on.
+    try:
+        beat = str(json.loads(tags).get("beat") or "")
+    except json.JSONDecodeError:
+        beat = ""          # lint() reports the unparseable sidecar itself
+    if not household.append_beat(n, beat):
+        print(f"   ✗ beat did not reach the canon's log (beat={beat!r})")
+        return False
 
     # Caption sheet — companion, never a gate: a failed pass warns and the
     # episode still ships (the feed simply carries no caption link for it).

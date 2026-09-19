@@ -137,7 +137,7 @@ Defined: `protocol/constitution.md` — "The Wife (The Oracle)"; `progress/profi
 
 ## pool
 
-The single ordered selector (`suggest_targets.floor_gap_targets`): every row not yet firing cold, tier-first, split into **focus** (≤`FOCUS_SIZE`, stored membership in `learner.json`, drilled) and **background** (exposure only, never forced). `drill_menu` is the flat view of its head plus the engines, and it is what the knock menu, the volley and the drill tape all pick from — one owner, so no lane re-sorts.
+The single ordered selector (`suggest_targets.floor_gap_targets`): every row not yet firing cold, lead-first (see *register / lean*), split into **focus** (≤`FOCUS_SIZE`, stored membership in `learner.json`, drilled) and **background** (exposure only, never forced). `drill_menu` is the flat view of its head plus the engines, and it is what the knock menu, the volley and the drill tape all pick from — one owner, so no lane re-sorts.
 
 It replaced three rival sections on 2026-08-18: the deck, the focus set, and "hinted, going dark". Two of them claimed primacy in their own words on a 361-line ticket, so the day's session was decided by whichever one Anna weighted that morning. The going-dark block became a *rule* (`is_going_dark`) plus a reservation of `RETEST_SLOTS` seats — a floor, never a ceiling.
 
@@ -153,13 +153,15 @@ Defined: `protocol/constitution.md` — "Canonical Rules"; `protocol/daily_sessi
 
 ---
 
-## register / tier
+## register / lean
 
-The **ordering** the retired deck left behind. Each lexicon row may carry a `register` — `antifreeze`, `public`, `frame` (→ **survival**); `faq`, `mil-table`, `social` (→ **delight**); `gossip`, `zinger` (→ **dessert**). `suggest_targets.tier_rank` reads it off the row and every selector prefixes it, so survival — fast speech aimed at him, which he must repair or transact rather than freeze at — is forced before delight, and delight before dessert.
+The **ordering** the retired deck left behind, re-aimed 2026-09-19. Each lexicon row may carry a `register` — `antifreeze`, `faq`, `frame`, `gossip`, `mil-table`, `public`, `social`, `zinger`. `year.register_rank` reads it off the row against the year's current **lean** and returns **lead (0) · mid (1) · dessert (2)**; every selector prefixes that.
 
-It is durable knowledge about which failures cost most at a table, which is why it survived the container it arrived in. Before 2026-08-18 it was joined at menu time from `curriculum/trip_deck.json`, keyed on deck membership; migrating it onto the row is what made retiring the deck safe, because a join keyed on a deleted tag fails *silently* — the selector keeps returning rows, merely unordered. 83 of 339 rows carry one; the rest degrade to delight (unordered, not unreachable). `sync_state seed-deck` is the only writer.
+**The lean is which way he is working — down to the children, across to the siblings-in-law, up to the elders** (`year.LEADS`). Those are three rooms with three different moving parts and three different levels of social risk, so the registers that lead move with the phase: the elders' table leads in `up`, and not in the month he is trying to make a nine-year-old laugh. `zinger` trails in every phase.
 
-Defined: `scripts/suggest_targets.py` — `REGISTER_TIERS`, `tier_rank`; `docs/DECISIONS.md` — "Retire the trip deck"
+The 2026-08-18 half still holds: before that date the tier was joined at menu time from `curriculum/trip_deck.json`, keyed on deck membership, and migrating it onto the row is what made retiring the deck safe — a join keyed on a deleted tag fails *silently*, leaving the selector returning rows that are merely unordered. What 09-19 retired is the static `survival / delight / dessert` map, which ranked by topic, was blind to who he was addressing, and degraded 283 of 366 rows to its middle rung — an ordering that ordered almost nothing. Unregistered rows still degrade to **mid**: unordered, never unreachable. `sync_state seed-deck` is the only writer of the tag.
+
+Defined: `scripts/year.py` — `LEADS`, `register_rank`, `RANK_NAMES`; `docs/DECISIONS.md` — "Retire the trip deck", "The year is the phase schedule"
 
 ---
 
@@ -220,3 +222,19 @@ Defined: `docs/DECISIONS.md` — "Absorption-first, then production-as-acceleran
 The core register rule: English carries the logistics (scene-setting, "why we are here," complex plot movement); Tamil carries the payload (the load-bearing action word). Example: *"I told you to **வை** it here!"* — the English carries the context; the Tamil carries the meaning. This matches how Coimbatore native speakers actually talk and is the system's anti-over-correction against forcing pure Tamil that sounds foreign.
 
 Defined: `protocol/constitution.md` — "Woven Thanglish (The Scaffolding)"; `protocol/persona.md` — "How Anna Talks"
+
+---
+
+## year / phase / lean
+
+The unit above the month (`scripts/year.py`, 2026-09-19). Three dates are stored — `opened`, `trip_from`, `trip_to` — and **seven phases are derived from them**: excavation, down, across, up, taper, trip, harvest. Nothing else is persisted, so moving the trip re-phases the whole year in one command (`sync_state.py year --from … --to … --force`) and strands nothing.
+
+**What a phase decides.** The **lean** (which registers lead selection — see *register / lean*), the **ear ramp** (how many voices an eavesdrop tape carries, and whether the situation is given), and the **intake cap** (overridden to zero in the taper and the trip, the profile dial everywhere else).
+
+**Why it exists.** The month can be finished but has no reason to prefer one month's work over another, so the arc premise was still chosen to cover whatever the ticket said was thin — deficit-seeking one level up. The trip is the reason: Andrew flies roughly once a year, so the year has a shape — build, taper, immerse, harvest, build again — and the ladder runs **down** (nieces and nephews, who tolerate error and cannot switch to English to be kind), then **across** (siblings-in-law), then **up** (elders, highest social risk, most morphology).
+
+**It is not the Trip Deck.** No container, no curriculum join, no burn rate, no meter. What retired in 2026-08-26 was a bounded set keyed to a date that expired; this is an anchor that re-cuts, the same argument `month.py` makes for itself. `s113` asserts the negative half by name: no phase, marker, burn rate or progress count is ever stored.
+
+**The countdown is Andrew's surface, never Anna's.** `show_status.py` and `sync_state.py year` print T-minus; `compute_status`, which Anna loads, carries only the lean. A countdown in the coach's mouth is the device the 2026-08-17 no-numbers rule banned.
+
+Defined: `scripts/year.py`; `docs/DECISIONS.md` — "The year is the phase schedule"

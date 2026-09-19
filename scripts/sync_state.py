@@ -29,10 +29,10 @@ than silently poisoning state — production presupposes a recognition record.
 
 import argparse
 import difflib
+import json
 import re
 import sys
 from datetime import date, timedelta
-from itertools import zip_longest
 from pathlib import Path
 
 from language import is_tamil
@@ -42,8 +42,8 @@ from slips import (DOSE_CHANNELS, append_slips, canon_tag, cmd_slips,
 from publish import commit_and_push, publish
 import audio_titles
 from rebuild_rss import feed_items
-from suggest_targets import reconcile_focus
 import month as month_mod
+import year as year_mod
 import lexicon_view
 import observations
 from state_io import (BASE, DEFAULT_TZ, EPISODES_PATH, FEEDBACK_LOG_PATH,
@@ -222,7 +222,7 @@ def compute_ear(lexicon: dict) -> dict:
 
 # --- Episode helpers (progress/episodes.json — a flat {id: episode} map) ------
 
-def compute_status() -> str:
+def compute_status(learner: dict | None = None) -> str:
     """The status line IS the scoreboard (post the 2026-06-30 listens pivot).
     Never a chore line — episodes are self-contained doses; nothing is ever
     'under-listened'.
@@ -242,13 +242,32 @@ def compute_status() -> str:
     33, forever — and a winnable countdown is exactly the motivational device the
     08-17 no-numbers rule banned. Deleted rather than given a third era: the
     deadline is what expired, and a required pace with no deadline is not a
-    number, it is a guess."""
+    number, it is a guess.
+
+    AND THAT RULING SURVIVES THE YEAR OBJECT (2026-09-19). `year.py` anchors the
+    phases to the next trip, so a T-minus is available here and is deliberately
+    NOT taken: this line is one of Anna's inputs, and a countdown on it is the
+    banned device wearing a new file's name. What lands is the LEAN — a
+    direction of address, not a number, and the only part of the schedule Anna
+    has any use for. The dates, the phase table and the T-minus live on the
+    engineering surfaces (`sync_state.py year`, `show_status.py`), which Andrew
+    reads and Anna does not.
+
+    `learner` IS PASSED IN BY THE WRITER, and that is not a convenience. This
+    runs INSIDE `write_thin_learner`, before the merged dict reaches disk, so a
+    `year_mod.load()` with no argument re-reads the OLD file and composes the
+    line from state one write behind. Opening a year would then stamp a status
+    with no lean on it, self-correct on the next unrelated write, and look
+    exactly like success in between (/extend Gate 7.2)."""
     lexicon = load_json(LEXICON_PATH) or {}
     mach = compute_machines(lexicon)
     ears = (f"Machines heard {mach['heard']} · ear-tested "
             f"{mach['tested']}/{mach['total']}")
     floor = compute_floor(lexicon)
-    return f"{ears} · viability floor {floor['cleared']}/{floor['total']} fire cold ({floor['pct']:.0f}%)"
+    ph = year_mod.phase(year_mod.load(learner))
+    lean = f" · working {ph['direction']} ({ph['phase']})" if ph else ""
+    return (f"{ears} · viability floor {floor['cleared']}/{floor['total']} "
+            f"fire cold ({floor['pct']:.0f}%){lean}")
 
 
 def cold_fires_recent(days: int = 7) -> int:
@@ -309,7 +328,12 @@ def fires_today() -> int:
 # `recent_missions` joined them 2026-08-27: it named a population (numbered
 # Missions) that was never the one the picker needed, and `recent_audio` reads
 # the feed instead. Named here or merge-write carries the stale list forever.
-RETIRED_LEARNER_KEYS = ("streak", "slips_closed", "recent_missions", "recent_audio")
+# `focus_cohort` joined this list 2026-09-19. Merge-write means an unknown
+# key SURVIVES, so a retired one has to be named here to be swept — and a
+# stale twelve-seat cohort left lying in learner.json is exactly the kind of
+# dead state a later reader would pick up and believe.
+RETIRED_LEARNER_KEYS = ("streak", "slips_closed", "recent_missions",
+                        "recent_audio", "focus_cohort")
 
 # The two books this function does NOT own: `record_slip_test` and
 # `record_slip_commission` persist them straight to LEARNER_PATH, so by the time
@@ -348,11 +372,10 @@ def write_thin_learner(learner: dict):
         thin.setdefault(key, default)
     for key in ("soak_order",) + FOREIGN_BOOKS:
         thin.setdefault(key, {})
-    thin.setdefault("focus_cohort", [])
     # The two derived views -- recomputed on every write, never stored input.
     # (The <=FOCUS_SIZE drill cohort above is the opposite: stored membership,
     # not an emergent sort, so a counting bug cannot move a seat -- 2026-07-26.)
-    thin["status"] = compute_status()
+    thin["status"] = compute_status(thin)
     # The rating picker's list is NOT written here any more (2026-09-01). It is
     # derived from `rss.xml` and was being rewritten on the SESSION clock while
     # its source moved on the PUBLISH clock, so every dose published between two
@@ -722,19 +745,12 @@ def cmd_update(args):
     learner.pop("streak", None)
 
     # Focus cohort — stored membership, reconciled only here and at the judge
-    # seam: leave on graduation, enter on seat-open (2026-07-26).
     # THE ONE EVIDENCE WRITE (2026-09-10): record, then fold onto the rows.
-    # Before the cohort reconciles, because graduation reads `production`.
+    # The cohort reconcile that used to follow it retired 2026-09-19 with the
+    # conveyor — the dense-rotation window is a fold over the arc now, so
+    # graduation needs no write seam at all.
     if events:
         lexicon_view.observe(events, lexicon=lexicon)
-    old_cohort = learner.get("focus_cohort", [])
-    learner["focus_cohort"] = reconcile_focus(lexicon, old_cohort)
-    left = sorted(set(old_cohort) - set(learner["focus_cohort"]))
-    entered = sorted(set(learner["focus_cohort"]) - set(old_cohort))
-    if left or entered:
-        print(f"  Focus cohort: -{left or '[]'} +{entered or '[]'}"
-              f" ({len(learner['focus_cohort'])} seats held)")
-
     save_json(LEXICON_PATH, lexicon)
     write_thin_learner(learner)
 
@@ -844,121 +860,87 @@ def cmd_add_word(args):
     print(f"  + '{args.key}' — {args.gloss} (phonetic {list(args.phonetic)}; struggled until something tests it)")
 
 
-def cmd_reseed_focus(args):
-    """Re-derive the stored focus cohort from the pool's CURRENT order.
-
-    The cohort is stored membership on purpose: a word enters when a seat opens
-    and leaves only on graduation, so it is a fact readable in a file and immune
-    to counting bugs (Andrew, 2026-07-26). Held seats stand regardless of what
-    any counter says — that rule exists to stop churn on a word mid-fight, and it
-    is right.
-
-    But a counter is not the only thing that can change. When the ORDERING
-    changes, a cohort seeded under the old one holds seats the new one would
-    never have given it, and no amount of waiting fixes that — `reconcile_focus`
-    only fills seats as they open. That is exactly what the deck retirement did
-    (2026-08-18): the tier bar moved onto the rows, and all twelve seats were
-    held by unregistered delight-tier words seeded before it existed, so four
-    survival items could not enter a pool that now ranks them first.
-
-    Deliberately a COMMAND and not automatic. Rebuilding membership is the churn
-    the stored cohort exists to prevent, so it happens when someone decides it
-    should, never as a side effect of a status read. `--dry-run` prints the diff
-    and writes nothing."""
-    lexicon = load_json(LEXICON_PATH)
-    if lexicon is None:
-        print("Error: lexicon.json missing. See BOOTSTRAP.md.")
-        sys.exit(1)
-    from suggest_targets import FOCUS_SIZE, floor_gap_targets
-    learner = load_json(LEARNER_PATH) or {}
-    old = learner.get("focus_cohort", [])
-    # A cohort of one unmatchable key: no seat is held, so every seat is filled
-    # from the pool's own head — which is what "re-derive from the current
-    # order" means. An EMPTY cohort would take the day-zero seed branch instead
-    # (most-repped first), which is a different question with a different answer.
-    focus, _bg = floor_gap_targets(lexicon, local_today(), FOCUS_SIZE,
-                                   cohort=["\x00 no seat is held"])
-    new = sorted(c["word"] for c in focus)
-    left, entered = sorted(set(old) - set(new)), sorted(set(new) - set(old))
-    print(f"  Focus cohort: {len(old)} -> {len(new)} seats")
-    for w in left:
-        print(f"    - out: {w}")
-    for w in entered:
-        print(f"    + in:  {w}  [{lexicon.get(w, {}).get('register') or 'unranked'}]")
-    if args.dry_run:
-        print("  (dry run — nothing written)")
-        return
-    learner["focus_cohort"] = new
-    save_json(LEARNER_PATH, learner)
-    print("  learner.json updated.")
+def _arc_inputs():
+    """The three books the month is a fold over. Read HERE, at the writer, and
+    passed down: `month.py` sits below `suggest_targets` and reads neither the
+    episode registry nor the sidecars itself — passing them in is the layer
+    boundary, not a convenience."""
+    episodes = load_json(EPISODES_PATH) or {}
+    sidecars = {}
+    for p in (BASE / "content" / "scripts").glob("tier2_mission*.tags.json"):
+        if (m := re.match(r"tier2_mission(\d+)\.tags\.json$", p.name)):
+            try:
+                sidecars[int(m.group(1))] = json.loads(p.read_text(encoding="utf-8"))
+            except json.JSONDecodeError:
+                sidecars[int(m.group(1))] = {}   # loud via `standing`'s `unrecorded`
+    return episodes, sidecars
 
 
 def cmd_month(args):
-    """THE MONTH — cut it, or read where it stands. `scripts/month.py` owns the
-    record and the fold; this is the one writer, like every other state file.
+    """THE MONTH — open an arc, read where it stands, or record its finale test.
+    `scripts/month.py` owns the folds; this is the one writer, like every other
+    state file.
 
-    WITH NO FLAGS it is a READ: the standing, recomputed from the lexicon's
-    derived rungs. Nothing is stored and nothing can drift, which is the whole
-    reason the deck's meter could report a winning sprint while 45 of 70 items
-    went unasked.
+    WITH NO FLAGS it is a READ: membership derived from the arc's sidecars,
+    completion from the lexicon's derived rungs, the verdict from recorded key
+    lines. Nothing is stored but the arc's name and its two dates, so nothing
+    can drift — which is the whole reason the deck's meter could report a
+    winning sprint while 45 of 70 items went unasked.
 
-    `--cut` takes the pool's CURRENT ordering, front first, skipping rows that
-    are already closed — a finished word is not a target. An expiring month
-    hands its unmet members back as candidates with NO privilege: carrying a
-    stalled item at the head of the next cut is exactly how the deck's head
-    froze. Anna sees what went unmet (`month_mod.carry`) and decides; the pool
-    decides the rest.
+    `--open` starts an arc. It takes a NAME and nothing else: no size, no win
+    line, no candidate list. Those retired on 2026-09-19 with the cut — the
+    episodes decide what the month contains, because the vocabulary now comes
+    out of the story rather than the story being wrapped around a gap list.
 
-    THE CUT IS SCALED TO THE DAYS THAT REMAIN. A 30-item set with a win line of
-    15 handed to a 13-day stub month is not an honest cut, it is a rigged loss
-    (Andrew, 2026-09-17: "you can cut it honestly"). The scaling is printed, not
-    silent."""
+    `--finale N` marks which episode the month's ear test runs on. `--line
+    right|partial|wrong` records one key line of that test: what Andrew
+    PRODUCED as the meaning, never whether he says he got it."""
     lexicon = load_json(LEXICON_PATH)
     if lexicon is None:
         print("Error: lexicon.json missing. See BOOTSTRAP.md.")
         sys.exit(1)
     learner = load_json(LEARNER_PATH) or {}
     rec = month_mod.load(learner)
-    if not args.cut:
-        return _print_month(rec, lexicon)
+    episodes, sidecars = _arc_inputs()
+
+    if args.line:
+        if not rec.get("finale"):
+            print("  No finale is marked. `sync_state.py month --finale <mission>` first.")
+            return 1
+        # THE TEST IS EVIDENCE, and it goes in the log like every other piece of
+        # it. `check` + `tested` + the recognition axis is the vocabulary the
+        # Receptive Check already uses; the verdict is a fold over these rows
+        # and there is no stored `won` anywhere to flip.
+        for result in args.line:
+            observations.record(f"finale:M{rec['finale']}", "check", "tested",
+                                axis="recognition", result=result,
+                                source=f"finale:M{rec['finale']}")
+        print(f"  Recorded {len(args.line)} key line(s) on finale M{rec['finale']}.")
+        return _print_month(rec, lexicon, episodes, sidecars)
+
+    if args.finale is not None:
+        if not rec:
+            print("  No month is open. `sync_state.py month --open --name \"...\"`")
+            return 1
+        rec["finale"] = args.finale
+        learner[month_mod.KEY] = rec
+        write_thin_learner(learner)
+        print(f"  Finale set to M{args.finale}. Test it with --line right/partial/wrong.")
+        return _print_month(rec, lexicon, episodes, sidecars)
+
+    if not args.open:
+        return _print_month(rec, lexicon, episodes, sidecars)
     if rec and not month_mod.is_over(rec) and not args.force:
-        print(f"  A month is still open (closes {rec.get('closes')}). "
-              f"Re-cutting mid-flight is allowed — pass --force and say why in "
-              f"the commit.")
+        print(f"  An arc is still open (closes {rec.get('closes')}). Re-cutting "
+              f"mid-flight is allowed and is the point — pass --force and say "
+              f"why in the commit.")
         return 1
-    from suggest_targets import ear_targets, floor_gap_targets
-    today = local_today()
-    # BOTH POOLS, ALTERNATING. `floor_gap_targets` excludes every `catch` row by
-    # design, so a month cut from it alone could never contain an ear target —
-    # and an ear-shaped month is the half the goal actually rides on. Appending
-    # one pool after the other is no better: at a stub month's size the second
-    # pool never reaches the cut. Round-robin carries both axes proportionally,
-    # each in its OWN pool's order, which stays upstream where it belongs.
-    focus, background = floor_gap_targets(lexicon, today, 999)
-    mouth = [c["word"] for c in focus] + [c["word"] for c in background]
-    ear = [c["word"] for c in ear_targets(lexicon, today)["pending"]]
-    ordered = [w for pair in zip_longest(ear, mouth) for w in pair if w]
-    ordered = [w for w in ordered
-               if not month_mod.is_closed(lexicon.get(w) or {},
-                                          month_mod.target_rung(lexicon.get(w) or {}))]
-    # Scale to the stub — BUT ONLY THE DEFAULTS. `closes_on` is the calendar
-    # month's last day, so a cut on the 18th buys 13 days of a 30-day shape and
-    # a full-size set handed to it is a rigged loss. An explicitly passed size
-    # is not a default and is never second-guessed: silently turning `--size 4`
-    # into 2 is the machine overruling the operator, and it cost an hour the
-    # first time it happened (to this file's own smoke case).
-    days = (date.fromisoformat(month_mod.closes_on(today)) - today).days + 1
-    scale = min(1.0, days / 30)
-    size = args.size if args.size is not None else max(1, round(30 * scale))
-    won = args.won_at if args.won_at is not None else max(1, round(15 * scale))
-    if days < 30 and (args.size is None or args.won_at is None):
-        print(f"  {days} days left in the month — defaults scaled to {size}/{won}.")
     if rec:
-        unmet = month_mod.carry(rec, lexicon)
-        print(f"  Closing month '{rec.get('name') or 'unnamed'}': "
-              f"{len(unmet)} unmet, re-cut with no privilege and no debt.")
-    new = month_mod.cut(ordered, lexicon, size, won, args.name or "", today)
-    _print_month(new, lexicon)
+        unmet = month_mod.carry(rec, lexicon, episodes, sidecars)
+        print(f"  Closing arc '{rec.get('name') or 'unnamed'}': {len(unmet)} "
+              f"still open, re-offered with no privilege and no debt.")
+    new = month_mod.opened_record(args.name or "", local_today())
+    _print_month(new, lexicon, episodes, sidecars)
     if args.dry_run:
         print("  (dry run — nothing written)")
         return
@@ -967,26 +949,86 @@ def cmd_month(args):
     print("  learner.json updated.")
 
 
-def _print_month(rec: dict, lexicon: dict):
+def cmd_year(args):
+    """THE YEAR — open one against the trip, or read where the phases stand.
+    `scripts/year.py` owns the schedule; this is the one writer, like every
+    other state file.
+
+    WITH NO FLAGS it is a READ. Three dates are stored and nothing else: the
+    phases are a function of them, so moving the trip re-phases the whole year
+    in one command and strands nothing. There is no stored phase to drift and
+    no progress counter to read green — the deck's failure was a meter, and a
+    meter is exactly what this object refuses to grow.
+
+    THE DATES ARE ALLOWED TO BE TENTATIVE. Andrew books late; a trip pencilled
+    for August and flown in September should cost one command, not a rebuild.
+    That is the whole reason the boundaries are derived rather than declared."""
+    learner = load_json(LEARNER_PATH) or {}
+    rec = year_mod.load(learner)
+    if not (args.trip_from or args.trip_to):
+        return _print_year(rec)
+    if rec and not year_mod.is_over(rec) and not args.force:
+        print(f"  A year is already open (trip {rec.get('trip_from')} → "
+              f"{rec.get('trip_to')}). Re-anchoring mid-flight is allowed and "
+              f"cheap — pass --force and say why in the commit.")
+        return 1
+    new = year_mod.opened_record(args.opened, args.trip_from, args.trip_to, rec)
+    # REFUSE LOUDLY rather than storing an unschedulable year. A record that
+    # cannot produce phases is worse than no record: every selector falls back
+    # to a flat sort and nothing anywhere says why (/extend Gate 7.2).
+    bad = year_mod.problem(new)
+    if bad:
+        print(f"  Refused — {bad}")
+        return 1
+    _print_year(new)
+    if args.dry_run:
+        print("  (dry run — nothing written)")
+        return
+    learner[year_mod.KEY] = new
+    write_thin_learner(learner)
+    print("  learner.json updated.")
+
+
+def _print_year(rec: dict):
+    """ENGINEERING SURFACE. The counts here never reach Anna's mouth (DECISIONS,
+    "A number never leaves Anna's mouth"); Andrew reads the table and steers by
+    the lean. `year.py` renders it — this file is a writer, not a view."""
+    print("  " + year_mod.status_line(rec).replace("\n", "\n  "))
+    print("\n".join("  " + ln for ln in year_mod.table(rec)))
+
+
+def _print_month(rec: dict, lexicon: dict, episodes: dict, sidecars: dict):
     """The standing, for Andrew and for Anna's steer. A COUNT is printed here
     and that is deliberate: this is an engineering surface, not Anna's mouth.
     `persona.md` and DECISIONS "A number never leaves Anna's mouth" are
     untouched — he reads the month and steers by it, exactly as he already
     steers by every other meter, and still names what got clearer."""
     if not rec:
-        print("  No month is cut. `sync_state.py month --cut --name \"...\"`")
+        print("  No arc is open. `sync_state.py month --open --name \"...\"`")
         return
-    st = month_mod.standing(rec, lexicon)
-    flag = " ✅ WON" if st["won"] else ""
-    over = " ⏳ OVER — re-cut" if month_mod.is_over(rec) else ""
-    print(f"  MONTH: {rec.get('name') or 'unnamed'}  "
+    st = month_mod.standing(rec, lexicon, episodes, sidecars)
+    v = month_mod.verdict(rec, load_json(observations.OBSERVATIONS_PATH) or [])
+    over = " ⏳ OVER — open the next one" if month_mod.is_over(rec) else ""
+    print(f"  ARC: {rec.get('name') or 'unnamed'}  "
           f"({rec.get('opened')} → {rec.get('closes')}){over}")
-    print(f"  {st['closed']}/{st['total']} closed ({st['ear']} on the ear) · "
-          f"win line {st['won_at']}"
-          f"{flag}" + (f" (+{st['exceeded']} past it)" if st["exceeded"] else ""))
+    print(f"  {st['closed']}/{st['total']} of what it taught has closed "
+          f"({st['ear']} on the ear) · {len(st['missions'])} episode(s)")
+    # THE WIN IS THE FINALE, AND ITS ABSENCE IS LOUD. A month with no finale
+    # marked has no way to be won, and a silently unwinnable month is the
+    # standing quietly becoming the score again.
+    if not rec.get("finale"):
+        print("  ⚠ no finale marked — this arc cannot be won. `--finale <mission>`")
+    elif not v["run"]:
+        print(f"  FINALE M{rec['finale']}: not yet tested (blind listen, then --line …)")
+    else:
+        print(f"  FINALE M{rec['finale']}: {v['score']:g}/{v['of']} key lines"
+              + ("  ✅ WON" if v["won"] else ""))
     if st["missing"]:
         print(f"  ⚠ {len(st['missing'])} member(s) NOT IN THE LEXICON and can "
               f"never close: {', '.join(st['missing'])}")
+    if st["unrecorded"]:
+        print(f"  ⚠ episode(s) with no sidecar — what they taught is invisible "
+              f"to this meter: {st['unrecorded']}")
 
 
 def cmd_seed_deck(args):
@@ -1421,9 +1463,6 @@ def main():
     aw.add_argument("--phonetic", action="append", default=[],
                     help="Phonetic spelling(s) Andrew might type (repeatable)")
 
-    rf = sub.add_parser("reseed-focus",
-                        help="Re-derive the stored focus cohort from the pool's current order")
-    rf.add_argument("--dry-run", action="store_true", help="Print the diff; write nothing")
     sd = sub.add_parser("seed-deck", help="Load a curated set (chunks/frames) into the lexicon — static fields only")
     sd.add_argument("file", help="Path to the set's JSON (e.g. curriculum/trip_deck.json), absolute or repo-relative")
 
@@ -1450,15 +1489,25 @@ def main():
                      help="finished | stopped early | lost the thread (a legacy star row reads as finished)")
     re_.add_argument("--commit", action="store_true", help="Commit and push the ledger (CI lane)")
 
-    mo = sub.add_parser("month", help="The month with edges — read the standing, or --cut a new one")
-    mo.add_argument("--cut", action="store_true", help="Cut a new month from the pool's current order")
-    mo.add_argument("--name", default="", help="What this month BUYS — capability-shaped, not a word count")
-    mo.add_argument("--size", type=int, default=None,
-                    help="The line that can be EXCEEDED (default 30, scaled to a stub month)")
-    mo.add_argument("--won-at", type=int, default=None, dest="won_at",
-                    help="The line that can be WON (default 15, scaled to a stub month)")
-    mo.add_argument("--force", action="store_true", help="Re-cut while a month is still open")
-    mo.add_argument("--dry-run", action="store_true", help="Print the cut and write nothing")
+    # Tentative dates are the expected case, not an edge one — he books late,
+    # and re-anchoring must cost one command rather than a rebuild.
+    yr = sub.add_parser("year", help="The phase schedule — read it, or anchor it to the next trip")
+    yr.add_argument("--from", dest="trip_from", default="", metavar="DATE", help="First day in country")
+    yr.add_argument("--to", dest="trip_to", default="", metavar="DATE", help="Last day in country")
+    yr.add_argument("--opened", default="", metavar="DATE", help="Day the excavation starts (default today)")
+    yr.add_argument("--force", action="store_true", help="Re-anchor while a year is still open")
+    yr.add_argument("--dry-run", action="store_true", help="Print the schedule and write nothing")
+
+    # --size / --won-at retired 2026-09-19 with the cut: the episodes decide
+    # what an arc contains, so there is no line to set and none to scale.
+    mo = sub.add_parser("month", help="The arc — read the standing, --open a new one, or record its finale")
+    mo.add_argument("--open", action="store_true", help="Open a new arc of the household's life")
+    mo.add_argument("--name", default="", help="What is happening in the household — never a word count")
+    mo.add_argument("--finale", type=int, default=None, metavar="N", help="Mark the arc's finale episode")
+    mo.add_argument("--line", action="append", default=[], choices=["right", "partial", "wrong"],
+                    help="Record ONE key line of the finale ear test (repeatable)")
+    mo.add_argument("--force", action="store_true", help="Re-cut while an arc is still open")
+    mo.add_argument("--dry-run", action="store_true", help="Print the arc and write nothing")
 
     sl = sub.add_parser("slips", help="Read the slip ledger (what Andrew keeps getting wrong), or report a test")
     sl.add_argument("-n", type=int, default=15, help="How many patterns to show")
@@ -1480,8 +1529,6 @@ def main():
         cmd_add_pattern(args)
     elif args.command == "add-word":
         cmd_add_word(args)
-    elif args.command == "reseed-focus":
-        cmd_reseed_focus(args)
     elif args.command == "seed-deck":
         cmd_seed_deck(args)
     elif args.command == "check":
@@ -1490,6 +1537,8 @@ def main():
         cmd_feedback(args)
     elif args.command == "rate-episode":
         cmd_rate_episode(args)
+    elif args.command == "year":
+        return cmd_year(args)
     elif args.command == "month":
         return cmd_month(args)
     elif args.command == "slips":

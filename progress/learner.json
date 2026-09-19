@@ -20,20 +20,6 @@
     }
   },
   "next_engine": "frame:polite-nga",
-  "focus_cohort": [
-    "அட்டா",
-    "அவசரமா வெளிய போனேன்",
-    "இன்னைக்கு",
-    "இருக்கேன்",
-    "இல்லன்னா",
-    "எடுங்க",
-    "என்ன சமைக்கிற?",
-    "ஏன்னா",
-    "கார்டு வேலை செய்யுமா?",
-    "கொஞ்சம் குறையுங்க",
-    "தப்பு",
-    "வை"
-  ],
   "slip_closes": {
     "1pl-past-om": "2026-08-27",
     "past-tense": "2026-09-03",
@@ -241,5 +227,10 @@
       }
     ]
   },
-  "status": "Machines heard 3 · ear-tested 15/26 · viability floor 12/16 fire cold (75%)"
+  "status": "Machines heard 3 · ear-tested 15/26 · viability floor 12/16 fire cold (75%) · working across (excavation)",
+  "year": {
+    "opened": "2026-09-19",
+    "trip_from": "2027-08-01",
+    "trip_to": "2027-09-15"
+  }
 }

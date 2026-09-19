@@ -8,8 +8,9 @@ makes the choice.
 THREE SELECTORS (2026-08-18, the deck retirement — it was nine, and three of them
 claimed primacy in their own words, so whichever one Anna weighted that day
 decided the session):
-  1. THE POOL — everything not yet firing cold, ordered survival > delight >
-     dessert (`tier_rank`, read off each row's `register`) and split into TWO
+  1. THE POOL — everything not yet firing cold, ordered lead > mid > dessert
+     (`year.register_rank`, read off each row's `register` against the year's
+     current direction of address) and split into TWO
      BUDGETS. The focus set is ≤FOCUS_SIZE in dense rotation, drilled until they
      fire cold and then never drilled again; the background is exposure only —
      soak them into scenes so the tail can't rot, never force them to fire. One
@@ -51,6 +52,8 @@ from generate_callbacks import due_callbacks, load_json, days_since, NEVER_SURFA
 from language import strip_pulli
 from slips import slip_patterns
 from state_io import is_unseen, soak_pending, local_today
+import month
+import year
 
 # Windows consoles default to cp1252, which can't print Tamil (2026-07-15).
 if hasattr(sys.stdout, "reconfigure"):
@@ -210,16 +213,41 @@ def rep_counts(lexicon: dict) -> dict:
     return {w: r["reps"] for w, r in lexicon.items() if r.get("reps")}
 
 
-def stored_focus_cohort() -> list[str]:
-    """The persisted ≤FOCUS_SIZE membership (learner.json, Python-owned).
-    [] means no cohort has been seeded yet — day-zero, or a template clone."""
+def month_window(lexicon: dict) -> list[str]:
+    """THE ARC'S STILL-OPEN MEMBERS — what the dense-rotation window leads with.
+
+    REPLACES the stored `focus_cohort` (2026-09-19). That was a twelve-seat
+    conveyor that refilled the instant a word graduated, and a conveyor cannot
+    be started, finished, won, exceeded or reset — it can only turn. It was also
+    seeded by DEFICIT, so the only set the system ever pointed him at was a set
+    of his own failures, which is most of what "the lessons are pointed at my
+    failures" actually was.
+
+    The window now leads with what THIS MONTH'S EPISODES TAUGHT. A graduate
+    leaves a hole rather than summoning a replacement, so the arc visibly
+    empties as he closes it; `take_seats` still tops the window up from the
+    background, because the dose size is a separate question from what the
+    month is about.
+
+    Reads its own inputs because it is the seam between two stores, and both
+    are below it: `month` (L1.2) never reads the registry or the sidecars
+    itself — that is its layer boundary, and this is the caller that honours
+    it."""
     learner = load_json(BASE / "progress" / "learner.json") or {}
-    return [w for w in learner.get("focus_cohort", []) if isinstance(w, str)]
+    rec = month.load(learner)
+    if not rec:
+        return []
+    episodes = load_json(BASE / "progress" / "episodes.json") or {}
+    sidecars = {}
+    for c in load_recent_sidecars():
+        if isinstance(c.get("mission"), int):
+            sidecars[c["mission"]] = c
+    return month.standing(rec, lexicon, episodes, sidecars)["open_words"]
 
 
 def floor_gap_targets(lexicon: dict, today, max_n: int,
                       asked: dict | None = None, reps: dict | None = None,
-                      cohort: list[str] | None = None) -> tuple[list[dict], list[dict]]:
+                      window: list[str] | None = None) -> tuple[list[dict], list[dict]]:
     """THE ordered pool — every row not yet firing cold, tier-first. TWO BUDGETS,
     not one ranked list (2026-07-26):
 
@@ -244,7 +272,8 @@ def floor_gap_targets(lexicon: dict, today, max_n: int,
     in its own words, on a 361-line ticket where whichever one Anna weighted that
     day decided the session. Three pools became this one:
 
-      TRIP DECK        the tier ordering, now `tier_rank` on every row. The
+      TRIP DECK        the tier ordering, now `year.register_rank` on every
+                       row, and phase-aware since 2026-09-19. The
                        recognition gate went with it: the deck's pending rows
                        were 31/35 `struggled`, which this pool used to exclude
                        outright, so keeping that gate would have made the whole
@@ -261,14 +290,16 @@ def floor_gap_targets(lexicon: dict, today, max_n: int,
     `cohort` is the stored membership; None loads it from learner.json. A held
     word that graduated (or left the pool population) vacates its seat here; open
     seats are filled from the front of the background order. Persisting the
-    result is the WRITE seams' job (`reconcile_focus` via sync_state /
-    knock_reply), never this reader's."""
+    THE WINDOW IS DERIVED, SO THERE IS NO WRITE SEAM ANY MORE (2026-09-19).
+    The stored cohort needed one — `reconcile_focus`, called from two lanes on
+    every graduation — and it retired with the conveyor. What leads the window
+    is the arc's still-open members, which is a fold over the episodes'
+    sidecars and cannot be written to."""
     if asked is None:
         asked = recent_ask_counts(load_json(KNOCK_LOG_PATH) or [], lexicon)
     if reps is None:
         reps = rep_counts(lexicon)
-    if cohort is None:
-        cohort = stored_focus_cohort()
+    lean = year.direction(year.load())   # resolved ONCE — never inside a sort key
     gap = []
     for w, r in lexicon.items():
         if r.get("type") == "pattern":
@@ -282,25 +313,21 @@ def floor_gap_targets(lexicon: dict, today, max_n: int,
         gap.append({
             "word": w, "gloss": r.get("gloss", ""),
             "recognition": r.get("recognition"), "production": r.get("production", "none"),
-            "register": r.get("register", ""), "tier_rank": tier_rank(r),
-            "tier": TIER_NAMES[tier_rank(r)],
+            "register": r.get("register", ""), "rank": year.register_rank(r, lean),
+            "lead": year.RANK_NAMES[year.register_rank(r, lean)],
             "staleness": staleness, "soaked": len(r.get("seen_in", [])),
             "exposures": r.get("exposures", 0), "unseen": is_unseen(r),
             "retest": is_going_dark(r, ds),
             "asks": asked.get(w, 0), "reps": reps.get(w, 0),
         })
     by_word = {c["word"]: c for c in gap}
-    if cohort:
-        # Stored membership: held seats stand regardless of what any counter
-        # says. Graduates (and words that left the pool population) drop out
-        # of `by_word` and so vacate their seats here.
-        focus = [by_word[w] for w in cohort if w in by_word][:FOCUS_SIZE]
-    else:
-        # SEED derivation — no cohort stored yet. Words already started hold
-        # seats (most-repped first: they are mid-fight, benching them is the
-        # churn the stored cohort exists to prevent).
-        focus = sorted((c for c in gap if c["reps"]),
-                       key=lambda c: (-c["reps"], stable_jitter(c["word"])))[:FOCUS_SIZE]
+    # THE ARC LEADS THE WINDOW. A closed member drops out of `by_word` and
+    # leaves a hole rather than a refilled seat — the month is meant to empty.
+    # With no arc open the window is simply the background's own order, which is
+    # the honest day-zero state and not a fallback to the retired conveyor.
+    if window is None:
+        window = month_window(lexicon)
+    focus = [by_word[w] for w in window if w in by_word][:FOCUS_SIZE]
     held = {c["word"] for c in focus}
     background = sorted((c for c in gap if c["word"] not in held), key=pool_key)
     seats_open = FOCUS_SIZE - len(focus)
@@ -316,7 +343,7 @@ def floor_gap_targets(lexicon: dict, today, max_n: int,
     # INSIDE the set: a word asked inside the cooldown drops behind its
     # cohort-mates for a couple of days. That is the job `asks` was built for
     # and the only job it does now.
-    focus.sort(key=lambda c: (c["tier_rank"], c["asks"], coverage_key(c)))
+    focus.sort(key=lambda c: (c["rank"], c["asks"], coverage_key(c)))
     return (focus[:max_n], background)
 
 
@@ -349,17 +376,7 @@ def take_seats(background: list[dict], seats: int) -> list[dict]:
 def pool_key(c: dict) -> tuple:
     """The pool's own order: the touchdown bar, then the shared law. Callers may
     prefix (the focus set adds the ask cooldown) but may not reorder or drop."""
-    return (c["tier_rank"], coverage_key(c))
-
-
-def reconcile_focus(lexicon: dict, cohort: list[str], today=None) -> list[str]:
-    """The WRITE side of the stored cohort: leave on graduation, enter on
-    seat-open (2026-07-26). Pure — returns the new membership, sorted for diff
-    stability; the callers that persist it are the two seams where graduation
-    can happen (sync_state.cmd_update and knock_reply's judge flow)."""
-    focus, _bg = floor_gap_targets(lexicon, today or local_today(), FOCUS_SIZE,
-                                   asked={}, cohort=cohort)
-    return sorted(c["word"] for c in focus)
+    return (c["rank"], coverage_key(c))
 
 
 # The touchdown bar (2026-07-13, Andrew — supersedes "deck tiering rejected"
@@ -373,40 +390,9 @@ def reconcile_focus(lexicon: dict, cohort: list[str], today=None) -> list[str]:
 # failures cost most at a table. Retiring the one had to not delete the other, so
 # `register` moved onto the lexicon row (through `sync_state seed-deck`, the
 # writer path) and the curriculum-file join died with the container.
-REGISTER_TIERS = {"antifreeze": 0, "public": 0, "frame": 0,
-                  "faq": 1, "mil-table": 1, "social": 1,
-                  "gossip": 2, "zinger": 2}
-TIER_NAMES = {0: "survival", 1: "delight", 2: "dessert"}
 # Seats held for items going dark, inside the focus set. See `floor_gap_targets`
 # — a FLOOR, never a ceiling, the same shape as generate_callbacks' PATTERN_SLOTS.
 RETEST_SLOTS = 2
-
-
-def tier_rank(rec: dict) -> int:
-    """THE tier prefix, defined once so every ordering reads one definition
-    instead of a hand-copy.
-
-    Extracted 2026-08-04 for the same reason `coverage_key` was on 07-26 — the
-    term was hand-copied into two sorts and `retest_targets` (2026-08-01) was
-    written without it at all. Consequence, found 8 days from touchdown: the
-    three hinted FAQ answers — the questions every relative asks on day one,
-    25-31 days silent — sat below a five-item cut behind ordinary words that
-    happened to be staler. A single-axis sort is the recurring bug; the prefix
-    belongs to the law.
-
-    REPOINTED AT THE LEXICON 2026-08-18. It used to take a `word` and a `regs`
-    map joined from `curriculum/trip_deck.json`, and ranked every non-member LAST
-    (3) — correct while a bounded sprint had to not be crowded out by ordinary
-    vocabulary, and meaningless the moment the container retired. Reading the row
-    is also what makes the retirement safe: the join was keyed on `deck`
-    membership, so deleting the tag would have dropped the ordering SILENTLY
-    (Gate 7.2 — the selector keeps returning rows, they are simply no longer
-    ordered, and every instrument reads green).
-
-    An unregistered row degrades to delight (1). 256 of 339 rows carry no
-    register and unordered-but-not-broken is the intended graceful degradation;
-    classifying all 339 is a curriculum project, not this one."""
-    return REGISTER_TIERS.get(rec.get("register", ""), 1)
 
 
 def recent_ask_counts(klog: list, lexicon: dict, days: int = ASK_COOLDOWN_DAYS, now=None) -> dict:
@@ -617,9 +603,16 @@ def register_coverage(lexicon: dict, today=None) -> dict | None:
     def bucket() -> dict:
         return {"total": 0, "touched": 0, "untouched": 0, "cleared": 0}
 
-    # Tier/register buckets are the FIRE side only. The ear gets its own bucket;
-    # folding it into the tiers would inflate survival with catch frames.
-    tiers: dict[str, dict] = {}
+    # Register buckets are the FIRE side only. The ear gets its own bucket;
+    # folding it in would inflate a register with catch frames.
+    #
+    # THE TIER BUCKETS RETIRED 2026-09-19 with `TIER_NAMES`. They were a SECOND
+    # aggregation over these same rows, and the lead set now moves with the
+    # year's phase — so survival/delight/dessert would have re-bucketed itself
+    # every quarter while the underlying data sat still. A meter that changes
+    # meaning without its subject changing is worse than no meter. The
+    # per-register detail below survives and always said more.
+    lean = year.direction(year.load())
     registers: dict[str, dict] = {}
     untouched: list[dict] = []
     fire, catch, unregistered = bucket(), bucket(), bucket()
@@ -631,8 +624,7 @@ def register_coverage(lexicon: dict, today=None) -> dict | None:
         if is_catch:
             buckets = [catch]
         elif reg:
-            buckets = [fire, tiers.setdefault(TIER_NAMES[tier_rank(r)], bucket()),
-                       registers.setdefault(reg, bucket())]
+            buckets = [fire, registers.setdefault(reg, bucket())]
         else:
             buckets = [unregistered]
         for b in buckets:
@@ -641,14 +633,14 @@ def register_coverage(lexicon: dict, today=None) -> dict | None:
             b["cleared"] += done
         if reg and not worked and not done:
             untouched.append({
-                "word": w, "gloss": r.get("gloss", ""), "tier": TIER_NAMES[tier_rank(r)],
+                "word": w, "gloss": r.get("gloss", ""),
                 "register": reg, "direction": "catch" if is_catch else "fire",
                 "soaked_only": bool(r.get("seen_in")),
             })
     if not (fire["total"] or catch["total"]):
         return None
-    untouched.sort(key=lambda c: (tier_rank(c), c["word"]))
-    return {"tiers": tiers, "registers": registers, "untouched": untouched,
+    untouched.sort(key=lambda c: (year.register_rank(c, lean), c["word"]))
+    return {"registers": registers, "untouched": untouched, "lean": lean,
             "fire": fire, "catch": catch, "unregistered": unregistered}
 
 
@@ -680,18 +672,19 @@ def drill_menu(lexicon: dict, today=None, asked: dict | None = None,
     that is the Engines block's whole job). Composed once here because all three
     lanes need exactly this composition, and hand-copying a composition into
     three files is the failure this module keeps recording (`coverage_key`
-    07-26, `tier_rank` 08-04).
+    07-26, the tier prefix 08-04).
 
-    Engines carry no register, so they land at delight and sort among the rest by
+    Engines carry no register, so they land mid and sort among the rest by
     the shared law. UNSEEN items ride WITH their flag rather than being dropped —
     the teach-first law is the caller's to apply, and the two callers apply it
     differently on purpose (the menu SHOWS them marked; a volley EXCLUDES them,
     because a volley is a cold demand and a menu is not)."""
+    lean = year.direction(year.load())   # resolved ONCE — never inside a sort key
     focus, _bg = floor_gap_targets(lexicon, today or local_today(), max_n,
                                    asked=asked, reps=reps)
     menu = [{"word": t["word"], "gloss": t["gloss"], "kind": "chunk",
              "production": t["production"], "recognition": t["recognition"],
-             "tier": t["tier"], "tier_rank": t["tier_rank"], "unseen": t["unseen"],
+             "lead": t["lead"], "rank": t["rank"], "unseen": t["unseen"],
              "retest": t["retest"], "asks": t["asks"], "reps": t["reps"],
              "staleness": t["staleness"], "exposures": t["exposures"]}
             for t in focus]
@@ -702,12 +695,13 @@ def drill_menu(lexicon: dict, today=None, asked: dict | None = None,
         ds = days_since(r.get("last_surfaced"), today or local_today())
         menu.append({"word": e["key"], "gloss": e["gloss"], "kind": "frame",
                      "production": e["production"], "recognition": r.get("recognition"),
-                     "tier": TIER_NAMES[tier_rank(r)], "tier_rank": tier_rank(r),
+                     "lead": year.RANK_NAMES[year.register_rank(r, lean)],
+                     "rank": year.register_rank(r, lean),
                      "unseen": e["unseen"], "retest": is_going_dark(r, ds),
                      "asks": (asked or {}).get(e["key"], 0), "reps": reps.get(e["key"], 0),
                      "staleness": NEVER_SURFACED if ds is None else ds,
                      "exposures": r.get("exposures", 0)})
-    menu.sort(key=lambda c: (c["tier_rank"], c["asks"], coverage_key(c)))
+    menu.sort(key=lambda c: (c["rank"], c["asks"], coverage_key(c)))
     return menu[:max_n]
 
 
@@ -779,13 +773,24 @@ def inventory_hosts(lexicon: dict, roots=None) -> dict:
     return out
 
 
-def intake_rows(lexicon: dict, word_pool: list, cap: int = INTAKE_CAP) -> list[dict]:
+def intake_rows(lexicon: dict, word_pool: list, cap: int | None = None) -> list[dict]:
     """Pool words for the head of an inventory tape, in `build_pool`'s row shape.
 
     Priority-1, not yet a row, not an ending, and WITH hosts — in pool order, capped.
     Self-advancing with no stored cursor: a word the tape taught is minted into the
     lexicon at delivery (`lanes.deliver_rendered`), so it leaves this list; a word
-    that was planned but never played is not, so it leads the next tape."""
+    that was planned but never played is not, so it leads the next tape.
+
+    THE TAPER CLOSES THIS VALVE (2026-09-19). Six weeks out the year's phase
+    overrides the dial to zero and the tapes stop teaching new words. That is
+    not tidiness: an item first met in July is not available under pressure in
+    August, and a failed retrieval at the table does not cost one word — it
+    sends him back to English for the rest of the conversation. Volume drops,
+    intensity rises, nothing new goes in. An explicit `cap` is the operator
+    speaking and is never second-guessed; the default is the one the phase
+    decides."""
+    if cap is None:
+        cap = year.intake_cap(year.load(), INTAKE_CAP)
     fresh = {e["word"]: e for e in word_pool if e.get("priority") == 1
              and e["word"] not in lexicon and e.get("cluster") not in INTAKE_SKIP}
     hosts = inventory_hosts(lexicon, fresh)
@@ -988,6 +993,16 @@ def main():
     print("SESSION TICKET — Python computes the menu; Anna picks the story.")
     print("=" * 60)
 
+    # THE LEAN AND THE MARKER — no dates, no countdown, no denominator. This is
+    # one of Anna's two session inputs, so what lands here is the DIRECTION he
+    # is working and the one behavioural thing the phase is aiming at; the
+    # schedule and the T-minus live on Andrew's own surfaces. A countdown in the
+    # coach's mouth is the device DECISIONS 2026-08-17 banned.
+    _ph = year.phase(year.load(learner))
+    if _ph:
+        print(f"\n🧭 WORKING {_ph['direction'].upper()} — to the "
+              f"{year.ROOMS[_ph['direction']]}.\n   What this phase is for: {_ph['marker']}")
+
     # Next engine focus — the deliberate unlock priority (set via sync_state update
     # --next-engine). Surfaced first so Anna never re-derives the order session by session.
     next_engine_key = learner.get("next_engine", "")
@@ -1078,8 +1093,7 @@ def main():
         print("  ⚠ A COMMISSION IS LIVE (top of the ticket). It outranks this list — these are "
               "what the scene may draw on, not what it is about.")
     gap, background = floor_gap_targets(lexicon, today, args.floor_max,
-                                        asked=asked, reps=reps,
-                                        cohort=learner.get("focus_cohort"))
+                                        asked=asked, reps=reps)
     if not gap:
         print("  (the pool is clear — nothing is stuck below cold)")
     # Which live slips attach to which pool word. STUCK_REPS still stands on
@@ -1095,7 +1109,7 @@ def main():
                     f"Drilling it again won't work; change the angle.")
         if t["unseen"]:
             cool += "  · ⚠ UNSEEN — teach first (show it, gloss it), NEVER cold-quiz"
-        print(f"  - [{t['tier']}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{tag} · {rep}]{cool}")
+        print(f"  - [{t['lead']}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{tag} · {rep}]{cool}")
         if t["retest"]:
             # What "HINTED, GOING DARK" became: a rule inside the pool, not a
             # rival list. A hit fires it cold for real; a miss is honest data.
@@ -1144,16 +1158,14 @@ def main():
         print("\n1c. COVERAGE  (how many have been WORKED — the meter cold/total can't see)")
         print("  ENGINEERING NUMBERS — they steer selection; they are never narrated to Andrew.")
         print("-" * 60)
-        for tier in ("survival", "delight", "dessert"):
-            b = cov["tiers"].get(tier)
-            if not b:
-                continue
-            regs_in = sorted((r, x) for r, x in cov["registers"].items()
-                             if TIER_NAMES[tier_rank({"register": r})] == tier)
-            detail = ", ".join(f"{r} {x['touched']}/{x['total']}" for r, x in regs_in)
+        # One row per register, ordered by the LEAN — the registers this phase
+        # of the year is working up to sort first and carry [lead].
+        for reg, b in sorted(cov["registers"].items(),
+                             key=lambda kv: (year.register_rank({"register": kv[0]}, cov["lean"]), kv[0])):
+            mark = year.RANK_NAMES[year.register_rank({"register": reg}, cov["lean"])]
             flag = "  ⚠" if b["untouched"] else ""
-            print(f"  {tier:12} worked {b['touched']:3}/{b['total']:3} · cold {b['cleared']:3}{flag}"
-                  + (f"   ({detail})" if detail else ""))
+            print(f"  {reg:12} worked {b['touched']:3}/{b['total']:3} · "
+                  f"cold {b['cleared']:3}  [{mark}]{flag}")
         c = cov["catch"]
         if c["total"]:
             print(f"  {'ear-only':12} worked {c['touched']:3}/{c['total']:3} · solid {c['cleared']:3}"
