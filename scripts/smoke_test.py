@@ -31,6 +31,7 @@ A fixed bug becomes a case here the day it's fixed:
       and cold/total reported a winning sprint throughout (2026-07-25)
 """
 import sys
+import importlib
 import os
 import tempfile
 from pathlib import Path
@@ -69,7 +70,19 @@ def main():
         # judges. s83 owns the untagged case and sets this itself.
         os.environ["REPLY_INTENT"] = "reply"
         mk, kr, pq = load_modules(sb)
-        snapshot(mk, kr, pq, fx.pb, fx.wr, fx.si)
+        # `rebuild_rss` and `sync_state` JOINED THE SNAPSHOT 2026-09-19, and
+        # they were the leak that hid a nine-day production bug. Two cases stub
+        # `rs.feed_items` to a one-item list; nothing ever put it back, so every
+        # case after them saw a two-row feed instead of the real one. `s116`
+        # asserts against the LIVE feed — it passed alone and failed in the
+        # suite, which is the signature of a stub outliving its case.
+        #
+        # A module that a case patches and the harness does not snapshot is a
+        # test that can silently change another test's subject. The mechanism
+        # was always here; the list was simply incomplete.
+        rs_mod = importlib.import_module("rebuild_rss")
+        ss_mod = importlib.import_module("sync_state")
+        snapshot(mk, kr, pq, fx.pb, fx.wr, fx.si, rs_mod, ss_mod)
         run(compose.s1_parse_llm_json, mk)
         run(knock.s2_rails_gate, mk, sb / "progress" / "knock_log.json")
         run(publish.s15_push_retry, mk)
@@ -183,6 +196,7 @@ def main():
         run(state.s113_the_year_is_a_schedule_not_a_meter, sb)
         run(state.s100_the_live_lexicon_is_the_fold_of_its_log)
         run(state.s101_the_check_and_the_rating_are_ear_evidence, sb)
+        run(state.s116_a_tap_can_reach_the_real_feeds_words, sb)
 
     if fx.ONLY and not fx.RAN:
         sys.exit(f"no case matched {fx.ONLY} — name a case (s41) or a prefix (s41_slip)")

@@ -319,6 +319,7 @@ def floor_gap_targets(lexicon: dict, today, max_n: int,
             "exposures": r.get("exposures", 0), "unseen": is_unseen(r),
             "retest": is_going_dark(r, ds),
             "asks": asked.get(w, 0), "reps": reps.get(w, 0),
+            "heard_times": r.get("heard_times", 0),
         })
     by_word = {c["word"]: c for c in gap}
     # THE ARC LEADS THE WINDOW. A closed member drops out of `by_word` and
@@ -1109,7 +1110,15 @@ def main():
                     f"Drilling it again won't work; change the angle.")
         if t["unseen"]:
             cool += "  · ⚠ UNSEEN — teach first (show it, gloss it), NEVER cold-quiz"
-        print(f"  - [{t['lead']}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{tag} · {rep}]{cool}")
+        # HEARD Nx IS A PRIMING CUE, NOT A SCORE (2026-09-19, Andrew). "He
+        # played it three times and still missed the drift" and "he played it
+        # once and got it" are opposite findings that read identically without
+        # this number. Anna primes a word he has heard a lot and does NOT quiz
+        # one he has never played — listening and the session are separate
+        # rituals at separate times, and a cold ask on an unplayed dose is
+        # collecting homework, which is the move that killed field missions.
+        heard = f" · heard {t['heard_times']}x" if t.get("heard_times") else ""
+        print(f"  - [{t['lead']}] {t['word']} — {t['gloss'] or '[no gloss]'}  [{tag} · {rep}{heard}]{cool}")
         if t["retest"]:
             # What "HINTED, GOING DARK" became: a rule inside the pool, not a
             # rival list. A hit fires it cold for real; a miss is honest data.

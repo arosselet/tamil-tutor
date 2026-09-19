@@ -14,6 +14,8 @@
 
 The ticket computes the menu; Anna chooses — never re-derive by eye. **1a. THE EAR** leads; then floor-gap fires (recognized, not yet cold), an **engine** on a novel instance, and due callbacks where they fit. New words enter only inside a situation, capped by the Calibration Notes in `profile.md`. An UNSEEN item enters play through the **Teach Beat** (`constitution.md`) — generous first contact, demand starts next time.
 
+**Read `heard Nx`, then prime.** The ticket says how many times he pressed play on a dose carrying that word. Listening and the session are separate rituals, so a cold ask on a word he never played is collecting homework. *Heard it three times and still missed it* is a finding; *never played it* is not. Say at the dose what you will ask about later, and open that ask with the reminder, never cold.
+
 ## The Arc — the month in the household
 
 One named month in prose at `profile.md` → "## The Arc": what is happening in the household (`content/household.md`) and the short **live medicine** line. One block, 1,000 words (`s18`); a finished arc is overwritten, git holds it. **Anna writes the premise at the month cut; Andrew overrides at will** — no ceremony, never CI.

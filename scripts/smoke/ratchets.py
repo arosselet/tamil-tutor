@@ -53,7 +53,17 @@ PROSE_BUDGETS = {
     # no-fixed-characters rule, `director.md`'s "the Scenario is a sandbox"
     # paragraph, and profile.md's dateless two-phase model. The Arc section was
     # censused twice on the way down before this number moved.
-    "protocol/daily_session.md": 1460,
+    # 1460 -> 1540 (2026-09-19, SECOND raise in one day and flagged as such).
+    # The growth is the priming rule Andrew asked for by name: the ticket now
+    # carries `heard Nx`, and the conduct that goes with it — never cold-ask a
+    # word he has not played, say at the dose what you will ask about later —
+    # is session law and only this file can carry it. NOTHING WAS RETIRED FOR
+    # IT, which is stated rather than dressed up. Field missions were the
+    # obvious candidate and they are not settled as retired, so retiring them
+    # here would be re-litigating a decision that is Andrew's. THE NEXT MOVE ON
+    # THIS FILE IS A SPLIT, not a third number: Targeting and The Arc are both
+    # now large enough to be their own surfaces.
+    "protocol/daily_session.md": 1540,
     # Split out of daily_session.md (2026-07-23) rather than raise its budget: channel routing is its own concern and Anna loads it only when choosing. · 400 -> 550 (2026-07-28): the file's JOB doubled by deliberate split, not by crud. · 550 -> 640 (2026-07-28 evening, SECOND raise in one day — flagged as such). · 640 -> 475 (2026-08-01): THE SPLIT WAS TAKEN, as the line above demanded — "what it carries" left for commissioning.md; this file keeps only routing and format, re-censused …
     "protocol/audio_channels.md": 475,
     # Split out of audio_channels.md (2026-08-01) — the commissioning law ("the repair earns the dose") is its own concern from channel routing, and the parent had a third raise …
@@ -228,7 +238,13 @@ CODE_BUDGETS = {
     # freezing its own minutes at tap time.
     "scripts/session_brief.py": 254,
     # 575 -> 588 (2026-09-13, Andrew): `inventory_hosts` MOVED IN from render_rotation (its second reader) plus the intake quota. Paid for by render_rotation 325 -> 318; the net is the quota, which retires the fourth-spine design.
-    "scripts/suggest_targets.py": 588,
+    # 588 -> 592 (2026-09-19): the play count reaches the ticket. `heard Nx` is
+    # the priming cue Andrew asked for — "he heard it three times and still
+    # missed it" vs "once and got it" read identically without it. Two lines
+    # (carry the field, print it) on a file that came in UNDER this ceiling
+    # earlier the same day by retiring the whole tier ordering and the focus
+    # conveyor; this spends four of what that returned.
+    "scripts/suggest_targets.py": 592,
     # 1250 -> 1254 (2026-08-04): the tap lane's stage/commit/pull/push moved IN from the "Log tap" step of anna.yml, where it was a hand-rolled `git pull --rebase` with no union … · 1254 -> 800 (2026-08-04): re-censused DOWN after the three-way split, the same move morning_knock made on 08-01. · 800 -> 795 (2026-09-01): RE-CENSUSED DOWN, not held.
     # 795 -> 830 (2026-09-19): the year's writer. THE PAYMENT IS IN THIS DIFF
     # BUT NOT IN THIS FILE — `suggest_targets` retired `REGISTER_TIERS`,

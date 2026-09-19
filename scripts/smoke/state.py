@@ -3800,7 +3800,24 @@ def s101_the_check_and_the_rating_are_ear_evidence(sb: Path):
         check("the episode's Teach Beat is PENDING before he listens",
               fx.si.is_unseen(read_json(lex_path)["ஸ்மோக்கற்ற"]))
         rs = importlib.import_module("rebuild_rss")
-        rs.feed_items = lambda: [{"id": "901", "title": "Mission tier2_mission901", "format": "episode"}]
+        # THE ID IS THE FEED'S STEM, NOT THE REGISTRY'S KEY — and this fixture
+        # said "901" until 2026-09-19, which is why the lane shipped broken for
+        # nine days while this case stayed green. The real `feed_items` emits
+        # `tier2_mission93`; `episodes.json` is keyed `"93"`; the lane looked the
+        # registry up BY THE STEM and never matched, for any episode, ever. The
+        # fixture was the only place the two shapes agreed.
+        #
+        # So the shape is asserted against production rather than declared here.
+        # A fixture is a claim about what the real writer emits, and a claim
+        # nothing checks is how this bug hid.
+        real_ids = [i["id"] for i in rs.feed_items()
+                    if (i.get("format") or "").startswith("mission")]
+        check("the fixture's id shape is the one the real feed emits",
+              all(i.startswith("tier2_mission") for i in real_ids) if real_ids else True,
+              f"real feed ids look like {real_ids[:2]} — this fixture would test a shape "
+              f"production never writes")
+        rs.feed_items = lambda: [{"id": "tier2_mission901",
+                                  "title": "Mission tier2_mission901", "format": "episode"}]
         ss.feed_items = rs.feed_items
         with contextlib.redirect_stdout(_io.StringIO()):
             ss.cmd_rate_episode(_ap.Namespace(episode="Mission tier2_mission901",
@@ -4152,19 +4169,27 @@ def s106_the_tap_reports_a_fact_not_a_mood(sb: Path):
     saved = (lex_path.read_bytes(), fb_path.read_bytes())
     try:
         rs = importlib.import_module("rebuild_rss")
-        rs.feed_items = lambda: [{"id": "902", "title": "Rotation — machines", "format": "rotation"}]
+        # A ROTATION STEM AND THE RIGHT REGISTRY (both fixed 2026-09-19). This
+        # fixture used to hand the lane id "902" and write the tape's words into
+        # `episodes.json` — the EPISODE registry, which no rotation ever reaches.
+        # It passed because the lane looked the episode registry up by the raw
+        # feed id, so the two wrongs met. Production never does either: a
+        # rotation's words are written by `lanes.deliver_rendered` into
+        # `audio_titles.json`, keyed by the mp3 stem.
+        stem = "rotation_machines_2026-09-19_1200"
+        rs.feed_items = lambda: [{"id": stem, "title": "Rotation — machines",
+                                  "format": "rotation"}]
         ss.feed_items = rs.feed_items
+        at = importlib.import_module("audio_titles")
 
         def fresh(word):
             """A word the tape TAUGHT, pending until something proves he heard it."""
             lex = read_json(lex_path)
             lex[word] = lex_row(gloss="smoke")
             write_json(lex_path, lex)
-            eps = read_json(sb / "progress" / "episodes.json") or {}
-            eps["902"] = {"title": "Rotation — machines", "words": [word]}
-            write_json(sb / "progress" / "episodes.json", eps)
-            lv.observe([dict(word=word, channel="episode", kind="taught",
-                             source="episode:M902")])
+            at.record(stem, "Rotation — machines", [word])
+            lv.observe([dict(word=word, channel="rotation", kind="taught",
+                             source=stem)])
             check(f"  ({word} starts pending)", fx.si.is_unseen(read_json(lex_path)[word]))
 
         def tap(verdict):
@@ -4812,3 +4837,85 @@ def s113_the_year_is_a_schedule_not_a_meter(sb: Path):
               f"got {first_status!r}")
     finally:
         write_json(learner_path, before)
+
+
+def s116_a_tap_can_reach_the_real_feeds_words(sb: Path):
+    """THE TAP COULD NEVER OPEN ANYTHING (found 2026-09-19, shipped 09-10).
+
+    A rating is the attendance signal — the ONLY thing that discharges a pending
+    Teach Beat on a delivery channel, and therefore the only way audio can teach
+    a word rather than merely say it. It resolves what the dose aired from one of
+    two registries: a numbered mission from `episodes.json`, everything else from
+    `audio_titles.json`.
+
+    It asked the episode registry BY THE FEED'S STEM. The feed emits
+    `tier2_mission93`; the registry is keyed `"93"`. It never matched — for any
+    episode, ever — so `expose` was handed [] and wrote NO events. Nine days, zero
+    `attended` in the log, four words taught by M93 still UNSEEN, and a rating
+    that logged cheerfully to the feedback ledger every single time.
+
+    WHY THE SUITE DID NOT CATCH IT, which is the more important half: the two
+    cases covering this lane stubbed `feed_items` with `{"id": "901"}` and
+    `{"id": "902"}` — bare numbers production never emits — and one of them wrote
+    a ROTATION's words into the EPISODE registry. Both fixtures encoded the bug,
+    so both stayed green. A fixture is a claim about what the real writer emits,
+    and neither claim was ever checked against it.
+
+    So this case does not stub the feed at all. It asks the REAL one.
+    """
+    print("\n116. A tap can reach the real feed's words (2026-09-19)")
+    ss = importlib.import_module("sync_state")
+    rs = importlib.import_module("rebuild_rss")
+    at = importlib.import_module("audio_titles")
+    si = importlib.import_module("state_io")
+
+    # THE REAL TREE, not the sandbox (the `s100` pattern). The sandbox resets
+    # `progress/` to the day-zero examples, so its registries are empty and every
+    # assertion below would pass by having nothing to check.
+    items = rs.feed_items()
+    check("the real feed has items to rate", bool(items), "nothing in the feed")
+    real_eps = si.load_json(REAL_BASE / "progress" / "episodes.json") or {}
+
+    def words_a_tap_would_open(item):
+        """The lane's own lookup, as `cmd_rate_episode` performs it."""
+        m = ss.MISSION_STEM_RE.match(str(item["id"]))
+        ep = real_eps.get(m.group(1), {}) if m else {}
+        return ep.get("words") or at.words_for(item["id"])
+
+    missions = [i for i in items if (i.get("format") or "").startswith("mission")]
+    check("the real feed carries numbered missions", bool(missions),
+          "no mission in the feed — this case would assert nothing")
+    # THE ASSERTION THE BUG WOULD HAVE FAILED. Every numbered mission in the
+    # live feed must resolve the words its registry entry holds. Under the old
+    # lookup this was 0 of 3.
+    unresolved = [i["id"] for i in missions if not words_a_tap_would_open(i)]
+    check(f"every mission in the feed resolves its words ({len(missions)} checked)",
+          not unresolved,
+          f"{unresolved} resolve nothing — a tap on them opens no Teach Beat, "
+          f"silently, exactly as it did from 2026-09-10 to 09-19")
+
+    # THE TWO REGISTRIES MUST NOT BE CONFUSED, which is the other half of what
+    # the old fixtures got wrong. A mission is NOT in the artifact registry, and
+    # asking `episodes.json` for a non-mission stem must return nothing rather
+    # than an accidental hit.
+    check("the episode registry is keyed by number, not by stem",
+          all(k.isdigit() for k in real_eps),
+          f"non-numeric keys: {[k for k in real_eps if not k.isdigit()][:3]}")
+    non_missions = [i for i in items if not (i.get("format") or "").startswith("mission")]
+    check("a non-mission stem is never a key in the episode registry",
+          not any(str(i["id"]) in real_eps for i in non_missions),
+          "a dose is registered in both books — the lookup order becomes luck")
+
+    # AND THE SHAPES MUST AGREE. This is the guard the fixtures lacked: the feed
+    # id for a mission is the stem the lane's regex is written against. If the
+    # feed ever emits bare numbers again, this fails here rather than nine days
+    # later in the ledger.
+    check("every mission id is the stem the lane's pattern expects",
+          all(ss.MISSION_STEM_RE.match(str(i["id"])) for i in missions),
+          f"got {[i['id'] for i in missions][:3]}")
+    # A RE-RENDER IS THE SAME MISSION. `tier2_mission74_v2` exists in the live
+    # feed, and an anchored pattern would resolve it to nothing — the identical
+    # silent miss, one size smaller. Asserted so the `$` cannot come back.
+    check("a versioned re-render resolves to its own mission number",
+          (m := ss.MISSION_STEM_RE.match("tier2_mission74_v2")) and m.group(1) == "74",
+          "a re-rendered episode would open no Teach Beat")

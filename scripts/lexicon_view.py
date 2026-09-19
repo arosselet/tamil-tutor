@@ -43,7 +43,7 @@ from state_io import (DEMOTE, LEXICON_PATH, PRODUCTION_RANK, RECOGNITION_NEXT,
                       build_phonetic_index, load_json, local_date, resolve, save_json)
 
 EVIDENCE = ("recognition", "production", "reps", "exposures", "heard_on",
-            "last_surfaced", "seen_in", "taught_on")
+            "last_surfaced", "seen_in", "taught_on", "heard_times")
 PRODUCTION_FOR = {"right": "cold", "partial": "hinted"}
 EPISODE_SRC = re.compile(r"^episode:M?(\d+)$")
 # A Teach Beat here needs nothing to prove he received it: Anna said it TO him,
@@ -63,7 +63,7 @@ def derive(events):
         row = view.setdefault(e["word"], {
             "recognition": "struggled", "production": "none", "reps": 0,
             "exposures": 0, "heard_on": None, "last_surfaced": None, "seen_in": [],
-            "taught_on": None, "taught_pending": None,
+            "taught_on": None, "taught_pending": None, "heard_times": 0,
             "tests": 0, "channels": set(), "spoken": set()})
         row["channels"].add(e["channel"])
         kind, axis, res = e["kind"], e.get("axis"), e.get("result")
@@ -109,6 +109,18 @@ def derive(events):
             # for. One event, both facts: he heard it, and it went past him.
             row["exposures"] += 1
             row["spoken"].add("exposures")
+            # HOW MANY TIMES HE PRESSED PLAY ON A DOSE CARRYING THIS WORD
+            # (2026-09-19, Andrew's design: one tap per listen). `exposures`
+            # cannot answer this — every render lane increments it when a dose
+            # SHIPS, so it conflates "was in something that went out" with "he
+            # heard it". This counts only the kind that is a fact about Andrew.
+            #
+            # It is the diagnostic he asked for and the system could not give:
+            # "he heard it three times and still missed the drift" and "he heard
+            # it once and got it" are opposite findings, and until now they read
+            # identically in the ledger.
+            row["heard_times"] += 1
+            row["spoken"].add("heard_times")
         elif kind == "exposed":
             row["exposures"] += 1
             row["spoken"].add("exposures")
