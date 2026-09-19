@@ -1194,6 +1194,11 @@ def cmd_knock_response(args):
 #   attends -> he was there for the whole tape, so pending Teach Beats open.
 #              `stopped early` cannot say WHERE he stopped, so it opens nothing
 #              and stays an exposure; guessing would re-mint the ambush.
+# No `$`: a re-render carries a suffix (`tier2_mission74_v2`) and is still
+# mission 74. Anchoring the tail would have left every versioned episode
+# resolving nothing — the same silent miss one size smaller.
+MISSION_STEM_RE = re.compile(r"^tier2_mission(\d+)")
+
 VERDICTS = {
     "finished": ("finished it", True, ""),
     "stopped early": ("stopped early", False, ""),
@@ -1296,8 +1301,31 @@ def cmd_rate_episode(args):
     # mission answers from `episodes.json`; every other lane answers from the
     # artifact registry, which is why `episodes.json` is asked FIRST and is not
     # asked at all for a stem it could never hold (2026-09-13).
-    ep = (load_json(EPISODES_PATH) or {}).get(str(item["id"]), {})
+    # ASK `episodes.json` BY THE MISSION NUMBER, which is how it is keyed.
+    #
+    # THE BUG THIS FIXES (found 2026-09-19, shipped 2026-09-13). The line above
+    # used to be `.get(str(item["id"]))` — and `item["id"]` is the FEED's stem,
+    # `tier2_mission93`, while the registry is keyed `"93"`. It never matched,
+    # for any episode, ever. The comment beside it even said the registry "is
+    # not asked at all for a stem it could never hold"; the code asked anyway
+    # and silently got nothing.
+    #
+    # WHAT IT COST: `expose` was handed [] on every rating, so it wrote NO
+    # events — not one, since the lane was wired on 2026-09-10. `attended` was
+    # therefore never minted, and `attended` is the ONLY thing that discharges a
+    # pending Teach Beat on a delivery channel. The audio lane has been able to
+    # say a new word and never open one, and the four words M93 taught on 09-16
+    # are still UNSEEN because of it. Nothing raised; the rating logged happily
+    # to the feedback ledger every time, which is what made it invisible.
+    mission = MISSION_STEM_RE.match(str(item["id"]))
+    ep = (load_json(EPISODES_PATH) or {}).get(mission.group(1), {}) if mission else {}
     words = ep.get("words") or audio_titles.words_for(item["id"])
+    if not words:
+        # LOUD, because the silent version of this is the bug above. A dose whose
+        # words nobody wrote down opens nothing, and he should know his tap did
+        # less than he thinks rather than believing it landed.
+        print(f"   ⚠ no words recorded for {item['id']} — the play is logged, "
+              f"but it can open no Teach Beat")
     exposed = lexicon_view.expose(words, item["format"].split("/")[0],
                                   source=f"rating:{item['id']}",
                                   kind="attended" if attends else "exposed")
