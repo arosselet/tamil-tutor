@@ -7424,5 +7424,14 @@
       }
     ],
     "volley_next": 1
+  },
+  {
+    "date": "2026-09-19",
+    "timestamp": "2026-09-19T00:56:41.343615+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "curfew close",
+    "rationale": "Four minutes before 21:00 curfew with afternoon volley unanswered; going quiet until tomorrow morning.",
+    "next_check": "2026-09-19T12:26:41.343615+00:00"
   }
 ]
