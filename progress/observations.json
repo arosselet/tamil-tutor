@@ -18918,5 +18918,16 @@
     "result": null,
     "source": "knock:2026-09-18T14:44:02.272038+00:00",
     "note": ""
+  },
+  {
+    "id": "93d38a1d3812",
+    "at": "2026-09-19T14:06:12Z",
+    "word": "frame:spice-dhaan",
+    "channel": "eavesdrop",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "source": "knock:2026-09-19T14:05:30.000564+00:00",
+    "note": ""
   }
 ]

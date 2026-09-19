@@ -7433,5 +7433,22 @@
     "move": "curfew close",
     "rationale": "Four minutes before 21:00 curfew with afternoon volley unanswered; going quiet until tomorrow morning.",
     "next_check": "2026-09-19T12:26:41.343615+00:00"
+  },
+  {
+    "date": "2026-09-19",
+    "timestamp": "2026-09-19T14:05:30.000564+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "eavesdrop: spice-dhaan",
+    "rationale": "Eavesdrop cadence due (3d gap); Athai phone tape saturates the ear with spice clitics (-dhaan) in a zero-pressure Saturday morning catch dose.",
+    "next_check": "2026-09-19T19:05:30.000564+00:00",
+    "body": "Overheard Athai: Kekka maatengraaru (he won't listen) — when did she warn Maama not to go out?",
+    "body_script": "Overheard Athai: கேக்க மாட்டேங்கறாரு (he won't listen) — when did she warn Maama not to go out?",
+    "expected_target": "frame:spice-dhaan",
+    "stance": "ask",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-09-19T14-05.mp3",
+    "memo_script": "ஹலோ, சாந்தி அக்கா... மாமா தான் இப்போ கடைத்தெருவுக்கு கிளம்புனாரு.\n\nநேத்து தான் சொன்னேன், வெயில் ரொம்ப அதிகமா இருக்கு, போகாதீங்க-ன்னு. கேக்க மாட்டேங்கறாரு பாருங்க! நானே சாயங்காலம் போய் வாங்கிட்டு வரேன்னு சொன்னேன்.\n\nஇல்ல இல்ல, அவரே தான் போவேன்னு வண்டி எடுத்துட்டாரு. அந்த கடைல தான் நல்ல காய்கறி கிடைக்கும்-னு சொல்றாரு. சரி சரி, நீங்க அங்கேயே இருங்க... அவரு வந்த உடனே போன் பண்ண சொல்றேன்.",
+    "mp3": "published_audio/knocks/knock_2026-09-19T14-05.mp3"
   }
 ]

@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Saturday 2026-09-19
+
+**10:05 · Anna** 🎧  ·  eavesdrop / eavesdrop: spice-dhaan
+> Overheard Athai: Kekka maatengraaru (he won't listen) — when did she warn Maama not to go out?
+
+
 ## Friday 2026-09-18
 
 **10:44 · Anna**  ·  text / show dose: edunga
