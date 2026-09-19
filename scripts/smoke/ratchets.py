@@ -126,7 +126,12 @@ CODE_BUDGETS = {
     "scripts/reply_common.py": 120,
     "scripts/knock_message.py": 130,
     # 700 -> 625 (2026-08-01): re-censused DOWN after OUTREACH_MANDATE moved to mandates.py — the file sat at 699/700, one mechanical fix from a red build. · 400 -> 402 (2026-09-05).
-    "scripts/morning_knock.py": 402,
+    # 402 -> 405 (2026-09-19): one import. The household canon now reaches the
+    # pass that writes an eavesdrop tape, and `tape_names_a_referent` consults
+    # the cast's own names — without which a tape about பிரியா would be refused
+    # for naming nobody and the lane would go quietly silent. The pack was NOT
+    # widened for it (Gate 6): a cast list is a fact about Andrew, not Tamil.
+    "scripts/morning_knock.py": 405,
     # 470 -> 500 (2026-08-28): MESSAGE_MANDATE landed — the first mandate in this file that only ACTS instead of grading.
     "scripts/mandates.py": 500,
     # NEW FILE, budgeted in the diff that creates it (2026-08-24, Q1's first family).

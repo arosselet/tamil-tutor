@@ -156,6 +156,7 @@ def main():
         run(compose.s93_the_port_surface_list_names_the_real_files, sb)
         run(compose.s97_a_commission_brief_is_not_material, sb)
         run(compose.s114_the_studio_lives_in_the_household, sb)
+        run(compose.s115_the_tape_is_overheard_in_the_household, sb)
         run(ratchets.s72_a_stub_never_outlives_its_case, mk, kr)
         run(publish.s73_one_tail_for_the_render_family, sb)
         run(publish.s74_a_derived_file_follows_its_source, sb)

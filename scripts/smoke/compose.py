@@ -1193,3 +1193,83 @@ def s114_the_studio_lives_in_the_household(sb: Path):
               "beat" in rs.REQUIRED_TAGS, f"got {sorted(rs.REQUIRED_TAGS)}")
     finally:
         canon.write_text(before, encoding="utf-8", newline="\n")
+
+
+def s115_the_tape_is_overheard_in_the_household(sb: Path):
+    """EAVESDROP MOVES INTO THE HOUSEHOLD (2026-09-19) — and the trap it walks
+    into on the way.
+
+    The eavesdrop lane is the only instrument that moves the catch axis, and
+    profile.md calls it the cheapest thing in the system. It has demanded a
+    NAMED referent since 2026-07-25: hearsay about an unnamed அவங்க cannot be
+    asked "who?", so a tape whose opening names nobody is refused outright
+    rather than degraded to text.
+
+    THE TRAP. `REFERENT_NOUNS` lives in the language pack and holds KINSHIP
+    TERMS. Four of the household's seven are kinship terms it already knows
+    (பாட்டி, மாமா, அத்தை) — and the other three are PROPER NAMES it cannot know
+    and must never be taught, because a cast list is a fact about Andrew's
+    learner pack, not about Tamil (`/extend` Gate 6, and the pack is the one
+    file a fork replaces wholesale).
+
+    So the obvious version of this increment — "set the tapes in the household"
+    — would have had every tape about பிரியா, கார்த்தி, தீபா or ரவி refused for
+    naming nobody. The lane would have gone silent on those days, and from the
+    knock log that is INDISTINGUISHABLE from Anna choosing not to fire: the
+    cheapest instrument in the system, quietly off, every meter green.
+    """
+    print("\n115. The tape is overheard in the household (2026-09-19)")
+    mk = importlib.import_module("morning_knock")
+    hh = importlib.import_module("household")
+    lang = importlib.import_module("language")
+
+    kin = [n for n in hh.names() if n in lang.REFERENT_NOUNS]
+    proper = [n for n in hh.names()
+              if n not in lang.REFERENT_NOUNS and not n.isascii()]
+    check("the canon carries Tamil spellings the pack does NOT know",
+          len(proper) >= 3, f"got {sorted(proper)} — tapes about these would be refused")
+    check("...and some the pack DOES know, so both paths are exercised",
+          len(kin) >= 2, f"got {sorted(kin)}")
+
+    def tape(who):
+        return (f"நம்ம {who} இருக்காங்கல, அவங்க நேத்து வந்தாங்க."
+                "\n\nரொம்ப கோபமா இருந்தாங்க.")
+
+    for who in sorted(proper):
+        check(f"a tape about {who} is accepted — the cast's own name counts",
+              mk.tape_names_a_referent(tape(who)),
+              "refused for naming nobody; the lane goes silent and looks like a choice")
+    for who in sorted(kin)[:2]:
+        check(f"a tape about {who} still passes on the pack's kinship noun",
+              mk.tape_names_a_referent(tape(who)), "the 07-25 rule regressed")
+
+    # THE FLOOR MUST STILL BE A FLOOR. Widening the check to accept cast names
+    # must not accept a tape that names nobody — that would retire the rule
+    # rather than extend it, and the 07-25 tape is exactly what it exists for.
+    check("an anonymous tape is STILL refused — the floor did not move",
+          not mk.tape_names_a_referent(
+              "அவங்க நேத்து வந்தாங்க.\n\nரொம்ப கோபமா இருந்தாங்க."),
+          "the referent rule was widened into nothing")
+    # ...and the name must be in the OPENING, not anywhere in the tape. That
+    # distinction IS the 07-25 finding: the failing tape did say அக்கா, but late,
+    # as the source of the reassurance rather than its subject.
+    late = "\n\n".join(["அவங்க வந்தாங்க."] * (mk.REFERENT_WINDOW + 1)
+                       + [f"{sorted(proper)[0]} தான் சொன்னாங்க."])
+    check("...and a cast name arriving LATE does not rescue the tape",
+          not mk.tape_names_a_referent(late), "the window stopped discriminating")
+
+    # THE CANON REACHES THE PASS THAT WRITES THE TAPE. Without this the mandate
+    # says "one of the canon's people" to a model that has never seen the canon.
+    src = fx.raw_source(REAL_BASE / "scripts" / "morning_knock.py")
+    check("the decide pass carries the canon into its prompt",
+          "household.load()" in src, "the mandate names a cast the writer cannot see")
+    check("...and the mandate asks for it",
+          "SET IT IN THE HOUSEHOLD" in importlib.import_module("mandates").OUTREACH_MANDATE,
+          "the canon rides along but nothing uses it")
+
+    # THE PACK IS NOT WIDENED — the Gate 6 half. The fix belongs in the lane,
+    # never in the one file a fork replaces wholesale.
+    pack_src = fx.raw_source(REAL_BASE / "scripts" / "language.py")
+    check("the language pack names no household character",
+          not any(n in pack_src for n in proper),
+          "a learner-pack fact was written into the language pack")

@@ -62,6 +62,22 @@ Most invariants are smoke cases now and Layer 1 already ran them; the two below 
 | `learner.json` has fields `learner`, `last_debrief`, `soak_order`, `status` | `sync_state.py` → `write_thin_learner` | `python -c "import json; d=json.load(open('progress/learner.json')); print([f for f in ['learner','last_debrief','soak_order','status'] if f not in d] or 'ok')"` |
 | `progress/*.json.example` templates stay in sync with the schema each file expects | `smoke/_fixtures.py` → `make_sandbox` (copies `.example` → live file for testing) | Visually compare example keys against what `sync_state.py update` / `write_thin_learner` expects |
 
+### Layer 3b — after any merge that touched `progress/` (2026-09-19)
+
+```
+git merge origin/main          # or pull
+python scripts/lexicon_view.py --rebuild
+git diff -- progress/lexicon.json      # expect: nothing
+```
+
+**Why this is not covered by the row above.** `lexicon.json` is a DERIVED file (`publish.py` → `DERIVED`): its evidence half is the fold of `observations.json`, so two writers never *disagree* about it — they hold two renders of two different logs. `lexicon_view.remerge` exists to rebuild it from the merged source, and **it only fires on a git CONFLICT.** When the two sides touch disjoint rows — one machine folding a new knock event, another repairing a different word — git auto-merges silently and the resolver never runs.
+
+`divergence()` will not catch a bad merge of that shape on its own: it compares the lexicon to the log row by row, and a merge that is wrong can still satisfy it row by row. Re-deriving and diffing is the only honest check. It is cheap and it is a no-op when the merge was right.
+
+**Pass:** `git diff` shows nothing. **Fail:** any field moved — the auto-merge stitched two folds together; take the rebuild, it is the true one.
+
+*(On this Windows box `save_json` writes CRLF and git normalises to LF, so compare with `git diff`, never a byte hash — the hash will differ on a correct rebuild.)*
+
 **Why the `register` row matters more than it looks (2026-08-18).** A typo there does not raise and does not print — `register_rank` falls through to mid, so a leading item quietly stops being forced first and every meter stays green. It is the same silent-degradation shape the deck retirement was built to avoid, one layer down, and the only writer that can introduce it is `sync_state seed-deck` reading a hand-edited curriculum file.
 
 ### Layer 4 — Feed / registry coherence

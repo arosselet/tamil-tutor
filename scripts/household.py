@@ -34,10 +34,12 @@ from state_io import BASE, local_today
 CANON_PATH = BASE / "content" / "household.md"
 
 # A cast row: `| **Paati** (பாட்டி) | … | `ta-IN-Chirp3-HD-Gacrux` |`
-# The name is the first bold span; the voice is the last backticked span. Both
-# anchored to the row so a paragraph mentioning a name cannot mint a character.
-_ROW_RE = re.compile(r"^\|\s*\*\*(?P<name>[^*|]+?)\*\*.*?`(?P<voice>[\w-]+)`\s*\|\s*$",
-                     re.MULTILINE)
+# The name is the first bold span, its TAMIL spelling the parenthesised span
+# right after it, and the voice the last backticked span. All anchored to the
+# row so a paragraph mentioning a name cannot mint a character.
+_ROW_RE = re.compile(
+    r"^\|\s*\*\*(?P<name>[^*|]+?)\*\*\s*(?:\((?P<tamil>[^)|]+)\))?.*?"
+    r"`(?P<voice>[\w-]+)`\s*\|\s*$", re.MULTILINE)
 _BEAT_HEAD = "### Beat log"
 _EMPTY = "*(empty)*"
 
@@ -56,6 +58,24 @@ def cast(text: str | None = None) -> dict[str, str]:
     rendering, voices get assigned at random per episode, and the feed sounds
     almost right for a month."""
     return {m["name"].strip(): m["voice"] for m in _ROW_RE.finditer(text or load())}
+
+
+def names(text: str | None = None) -> set[str]:
+    """Every string that names a cast member — English and Tamil both.
+
+    THE TAMIL HALF IS LOAD-BEARING. An eavesdrop tape is refused unless its
+    opening names who it is about (`morning_knock.tape_names_a_referent`), and
+    the tape is Tamil script. Four of the seven are kinship terms the language
+    pack already knows (பாட்டி, மாமா, அத்தை); the other three are proper names
+    it cannot know and must never be taught — a cast list is a fact about
+    Andrew's learner pack, not about Tamil, and `language.py` is the one file a
+    fork replaces wholesale. So the knock lane asks HERE instead."""
+    out = set()
+    for m in _ROW_RE.finditer(text or load()):
+        out.add(m["name"].strip())
+        if m["tamil"]:
+            out.add(m["tamil"].strip())
+    return out
 
 
 def problem(text: str | None = None) -> str:
