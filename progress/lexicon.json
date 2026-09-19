@@ -1816,8 +1816,9 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-09-10",
-    "exposures": 1
+    "last_surfaced": "2026-09-18",
+    "exposures": 1,
+    "taught_on": null
   },
   "ஒன்னு மட்டும்": {
     "gloss": "Only one",
@@ -4237,9 +4238,9 @@
     "seen_in": [
       83
     ],
-    "last_surfaced": "2026-09-07",
+    "last_surfaced": "2026-09-19",
     "direction": "catch",
-    "exposures": 1,
+    "exposures": 2,
     "reps": 1,
     "register": "frame",
     "taught_on": "2026-08-05"
