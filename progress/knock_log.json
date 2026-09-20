@@ -7469,5 +7469,14 @@
     "move": "sunday morning space",
     "rationale": "Three unanswered reaches and demand streak maxed out; giving Sunday morning family space before looking for an easy no-ask entry this afternoon.",
     "next_check": "2026-09-20T18:21:55.087948+00:00"
+  },
+  {
+    "date": "2026-09-20",
+    "timestamp": "2026-09-20T20:06:39.388339+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "sunday evening space",
+    "rationale": "Three unreplied reaches into the weekend; give Sunday evening clean space to reset for Monday morning's pre-lunch anchor.",
+    "next_check": "2026-09-21T12:36:39.388339+00:00"
   }
 ]
