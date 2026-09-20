@@ -21,7 +21,8 @@ grep the named function when you need the exact spot.
 | `push_queue.py` | `list` | **SAFE** | Nothing |
 | `sync_state.py` | `update [flags]` | **MUTATING** | `observations.json` (the events), `lexicon.json` (the fold), `learner.json`, `session_log.json` |
 | `sync_state.py` | `check --draw N` | **SAFE** | Nothing — prints the month's Receptive Check sample |
-| `sync_state.py` | `check --heard WORD:right\|wrong\|partial` | **MUTATING** | `observations.json`, `lexicon.json` |
+| `sync_state.py` | `check --heard WORD:right\|wrong\|partial` | **MUTATING** | `observations.json`, `lexicon.json` — by ear: stamps `heard_on`, re-bases the monthly cue |
+| `sync_state.py` | `check --read WORD:right\|wrong\|partial` | **MUTATING** | `observations.json`, `lexicon.json` — on the page: moves the recognition rung only, never `heard_on` |
 | `lexicon_view.py` | (no args) | **SAFE** | Nothing — reports rows whose evidence differs from the fold; `--rebuild` is MUTATING and rewrites every evidence field from the log |
 | `sync_state.py` | `add-word <key> --gloss …` | **MUTATING** | `lexicon.json` |
 | `sync_state.py` | `add-pattern <key> --gloss …` | **MUTATING** | `lexicon.json` |

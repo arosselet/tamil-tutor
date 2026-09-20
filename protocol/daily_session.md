@@ -63,7 +63,7 @@ Moves any shape may reach for, never as a menu: **mask-work**, the **eavesdrop d
 6. **Update the arc block** in `profile.md` if the month moved; then **commit `progress/` and push** — cloud Anna reads origin, and an unpushed close is a session the phone channel never saw.
 7. **Name what got clearer**, then leave one inviting hook. Ops are optional (`heist.md`); do not stack an assignment onto a standing one.
 
-**Monthly check:** after the gift, sample a little at a time. `check --heard` is for actual listening without the written answer; text recognition stays explicitly labelled in the debrief/feedback until the logger can distinguish it. Partial checks remain partial; carry the remainder in the debrief, even when the ticket's monthly cue goes quiet.
+**Monthly check:** after the gift, sample a little at a time. **The logger distinguishes the two now** (2026-09-20), so the medium is a flag and never a note to remember: `check --heard` for items he answered by ear, `check --read` for items worked on the page. Both move the recognition rung; only `--heard` stamps the ear and re-bases the cue, so a page-only check leaves the ticket still asking. Partial checks remain partial — the count of items is still yours to carry in the debrief.
 
 ## The rest of the toolbelt
 

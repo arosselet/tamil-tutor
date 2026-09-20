@@ -133,8 +133,20 @@ def derive(events):
             row["tests"] = row["reps"] = row["reps"] + 1
             row["spoken"].add("reps")
             if axis == "recognition":
-                row["heard_on"] = day or row["heard_on"]
+                # THE EAR'S STAMP, AND ONLY THE EAR'S (2026-09-20). The rung is
+                # what he KNOWS and a typed answer is real evidence of it;
+                # `heard_on` is what his EAR was tested on, and a typed answer is
+                # no evidence of that at all. Splitting them here is what stops
+                # `is_heard`, `machines heard` and the never-tested draw pool
+                # counting a chat line as a listen.
+                #
+                # SPOKEN either way — the same demotion shape as `taught_on`
+                # above: the events stay, a text test stops voting on this one
+                # field, and the fold writes the None. No migration, and every
+                # pre-existing event gets its medium from its channel.
                 row["spoken"] |= {"recognition", "heard_on"}
+                if observations.medium_of(e) == "audio":
+                    row["heard_on"] = day or row["heard_on"]
                 if res == "right":
                     row["recognition"] = RECOGNITION_NEXT.get(row["recognition"],
                                                               row["recognition"])

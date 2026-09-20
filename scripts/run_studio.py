@@ -253,8 +253,8 @@ def inline_canon(prompt: str) -> str:
 
     IT NOW FOLLOWS REFERENCES TRANSITIVELY (2026-08-18), because the manifest was
     only ever read one level deep. `director.md` and `architect.md` both say to
-    read `protocol/constitution.md` — Woven Thanglish, the Noun Shortcut, No
-    Academic Terms, Phonetic Acceptance, Fresh Execution — and the constitution
+    read `protocol/constitution.md` — Woven Thanglish, the Noun Shortcut, Plain
+    Language, Phonetic Acceptance, Fresh Execution — and the constitution
     was inlined NOWHERE. A filesystem-having writer (agy) followed those
     references itself, so the gap was invisible for as long as agy was the local
     writer; when it stopped being installed, `openrouter_pass` became the only

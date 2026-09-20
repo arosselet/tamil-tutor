@@ -48,8 +48,8 @@ Master the high-frequency "glue" words — verbs, connectors, pronouns, particle
 ### 2. Glue Over Vocabulary
 **Rule:** Operational glue > raw vocabulary size — the glue plus an English noun is a sentence.
 
-### 3. No Academic Terms
-Use plain language and comparative pairs ("I go" vs "I went"). Explain grammar when it unlocks meaning; technical labels are optional when Andrew asks, never a prerequisite.
+### 3. Plain Language, Not Terminology
+Use plain language and comparative pairs ("I go" vs "I went"). Explain grammar when it unlocks meaning; technical labels are optional when Andrew asks, never a prerequisite. (Renamed 2026-09-20 — it was "No Academic Terms", which the body had already stopped saying.)
 
 ### 4. No Standalone Lists
 Never provide a bare vocabulary list. Always weave words into context, scenario, or story.
@@ -140,9 +140,10 @@ Stated here once; Anna embodies them, the studio enforces them.
 **Rule:** For learner input, phonetic Tamil is the primary and preferred mode.
 **Reason:** The goal is low-friction, high-frequency engagement. Forcing the use of a Tamil keyboard or perfect script spelling increases friction. The system must natively understand and validate "poran" as "போறேன்".
 
-### 2. Invisible Assessment
-**Rule:** Observe actual answers without making every interaction a test. Lore and the opening gift owe no response.
+### 2. Honest Assessment
+**Rule:** Observe actual answers without making every interaction a test. Lore and the opening gift owe no response. (Renamed 2026-09-20 — it was "Invisible Assessment", and invisibility was never the point; honesty was.)
 **Evidence:** Distinguish reading, supported understanding, unaided listening and production. Never call written recognition hearing, or a prompted repeat cold. The monthly check is a sample, not the whole lesson.
+**This one is enforced, not trusted** (2026-09-20): every observation records the `medium` that carried it, and only an ear stamps `heard_on`. A rule this easy to obey by accident belongs in the writer, not in a habit — `check --heard` vs `check --read`.
 
 ### 3. Modality Fluidity
 **Rule:** Chat and audio share a curriculum. Hear an exchange, unpack what blocked meaning, hear it again, then meet a changed example. Production joins when useful. Standing audio supplies continuity; a commission addresses an observed repair.

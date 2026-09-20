@@ -211,9 +211,9 @@ Defined: `docs/DECISIONS.md` — "Retire the trip deck"
 
 ## viability floor
 
-The threshold of words and frames firing cold that stops the freeze response — enough operational capacity to navigate Coimbatore without going blank. `scripts/sync_state.py status` reports it as `Viability floor: X/Y recognized words fire cold (Z%)` (`sync_state.py:559`). Production counts (cold fires) move the floor; recognition without production does not. It led Phase 1 and no longer leads anything (2026-08-16): production is the *engine*, not the destination, so the floor measures how hard the engine is running — **machines heard** measures whether he has arrived. Both still print; only one is the headline.
+The threshold of words and frames firing cold that stops the freeze response — enough operational capacity to navigate Coimbatore without going blank. `scripts/sync_state.py status` reports it as `Viability floor: X/Y recognized words fire cold (Z%)` (`sync_state.py:559`). Production counts (cold fires) move the floor; recognition without production does not. It led Phase 1 and no longer leads anything (2026-08-16, re-read 2026-09-20): production is a *probe*, not the destination, so the floor measures what has transferred to his mouth — **machines heard** measures whether he has arrived. Both still print; only one is the headline.
 
-Defined: `docs/DECISIONS.md` — "Absorption-first, then production-as-accelerant"; `protocol/persona.md` — "The Charge"; `progress/profile.md` — "Current Position"
+Defined: `protocol/constitution.md` — "Operational Capacity, Not Fluency" (the dated comprehension goal); `protocol/persona.md` — "The Charge"; `progress/profile.md` — "The Goal"
 
 ---
 

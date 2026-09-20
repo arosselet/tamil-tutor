@@ -152,7 +152,11 @@ ARC_BUDGET = 1000
 # A new scripts/*.py with no entry here is itself a red run. One line per entry.
 CODE_BUDGETS = {
     # NEW FILE, budgeted in the same diff that creates it (2026-09-10).
-    "scripts/observations.py": 65,
+    # 65 -> 68 (2026-09-20, `medium`): the log records which SENSE carried each
+    # observation, retiring the debrief-labelling habit `daily_session.md` asked
+    # of Anna for one day — "never call written recognition hearing" is now a
+    # field and a flag, not a rule she has to remember at close.
+    "scripts/observations.py": 68,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-10). · 150 -> 200 (2026-09-10, Phase 3).
     "scripts/backfill_observations.py": 200,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-10). · 125 -> 150 (2026-09-10, Phase 3).

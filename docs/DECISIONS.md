@@ -49,6 +49,7 @@ compressed 2026-09-10, 32k words to 11k, nothing lost that git did not hold).
 
 ## Settled design decisions
 
+- **Reading is not hearing, and the log says which** (2026-09-20) Every observation carries a `medium`, from its channel or from `check --heard` / `--read`. Both move the rung; only an ear stamps `heard_on` or re-bases the monthly cue. Measured: 15 of 50 stamped rows had no ear behind them, and correcting them moved no headline. Retires the debrief-labelling habit.
 - **Comprehension owns the session; coffee-and-lore opens it** (2026-09-20, Andrew). Replaces compulsory cold volume, the one-clause teaching cap, and catch-up-first openings. Teach an exchange, revisit meaning, probe transfer; listening alone counts. The September household prelude replaces waiting for October. Delegated model calls stay; the shared contract governs whichever model hosts Anna.
 - **The first check must leave the ticket usable** (2026-09-20). `check_due` omitted the date required by `days_since`; empty state hid the crash until the first answer. A regression records through the real writer, then runs the full ticket. Written recognition remains labelled as text, never new ear evidence.
 - **A render off `main` refuses to publish** (2026-09-20, Andrew) `commit_and_push` pushes `HEAD:main` and the rebase replays the whole branch, so rendering a tape from a feature branch shipped five commits to production. Refuse loudly, never retarget — the feed URL is pinned to `@main`.

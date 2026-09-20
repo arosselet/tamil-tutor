@@ -1349,7 +1349,14 @@ def cmd_check(args):
     `--heard WORD:right|wrong|partial` records each answer as a `check` event, a
     watched channel, so the rung follows. This tests the LEDGER, not Andrew:
     a low score is a fact about the instrument, and it is engineering data he
-    never hears as a number (persona.md)."""
+    never hears as a number (persona.md).
+
+    `--read` is the same recording for items worked ON THE PAGE (2026-09-20).
+    The first check ran that way and every item landed as ear evidence, because
+    `heard_on` was stamped by any watched recognition test. Both flags move the
+    recognition rung — knowing a word is knowing it; only `--heard` stamps the
+    ear and re-bases the monthly cue. Which flag to use is not a judgment call:
+    if Andrew did not hear it, it is `--read`."""
     import hashlib
     import random
     lexicon = load_json(LEXICON_PATH) or {}
@@ -1366,17 +1373,19 @@ def cmd_check(args):
               f"sample {digest}. Recognition only; one item at a time, in the flow; never show the list.")
         for k in pick:
             print(f"  {k}  [{', '.join(lexicon[k].get('phonetic') or []) or 'no phonetic'}] — {lexicon[k].get('gloss', '')}")
-        print("Record with:  sync_state.py check --heard WORD:right --heard WORD:wrong --heard WORD:partial")
+        print("Record with:  sync_state.py check --heard WORD:right (by ear) "
+              "| --read WORD:right (on the page)")
         return
     events, bad = [], []
-    for spec in args.heard:
+    for spec, medium in [(s, "audio") for s in args.heard] + [(s, "text") for s in args.read]:
         word, _, res = spec.rpartition(":")
         key = resolve(word.strip(), lexicon, phon_index)
         if key is None or res not in ("right", "wrong", "partial"):
             bad.append(spec)
             continue
         events.append(dict(word=key, channel="check", kind="tested", axis="recognition",
-                           result=res, source=f"check:{today}", note="receptive check"))
+                           result=res, medium=medium, source=f"check:{today}",
+                           note=f"receptive check ({medium})"))
     for spec in bad:
         print(f"  ! {spec!r} — expected WORD:right|wrong|partial with a word the lexicon knows. Skipped.")
     if events:
@@ -1384,8 +1393,13 @@ def cmd_check(args):
         save_json(LEXICON_PATH, lexicon)
         write_thin_learner(load_json(LEARNER_PATH) or {})
         right = sum(1 for e in events if e["result"] == "right")
-        print(f"  Receptive check: {len(events)} items recorded, {right} known outright. "
+        by_ear = sum(1 for e in events if e["medium"] == "audio")
+        print(f"  Receptive check: {len(events)} items recorded ({by_ear} by ear, "
+              f"{len(events) - by_ear} on the page), {right} known outright. "
               f"Engineering number — steers the pool; never recited.")
+        if not by_ear:
+            print("  ⚠ nothing by ear — the ledger keeps these as reading, and the "
+                  "monthly cue stays up until a check is actually heard.")
     return 1 if bad else 0
 
 
@@ -1505,7 +1519,9 @@ def main():
     ck.add_argument("--draw", type=int, default=0, metavar="N",
                     help="Print N never-tested rows, deterministic for the month; writes nothing")
     ck.add_argument("--heard", action="append", default=[], metavar="WORD:right|wrong|partial",
-                    help="Record one item's answer as a `check` event (repeatable)")
+                    help="Record one item he answered BY EAR (repeatable) — stamps the ear, re-bases the cue")
+    ck.add_argument("--read", action="append", default=[], metavar="WORD:right|wrong|partial",
+                    help="Record one item worked ON THE PAGE (repeatable) — moves the rung, never the ear")
 
     fb = sub.add_parser("feedback", help="Append a feedback note (capture), or list recent (diagnosis)")
     fb.add_argument("note", nargs="?", default=None, help="The feedback to log; omit to list recent")

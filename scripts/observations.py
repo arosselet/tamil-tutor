@@ -9,9 +9,10 @@ the confidence are gone. So the same defect came back wearing a new field five
 times, and August's only available repair was purging 108 rows. A log is what
 makes revision cheap: change the policy, re-derive.
 
-FOUR FIELDS CARRY THE DESIGN — `kind` (an exposure is not a test), `channel`
+FIVE FIELDS CARRY THE DESIGN — `kind` (an exposure is not a test), `channel`
 (carries TRUST: `seed` and `self-report` are recorded and never vote), `axis`
-(the two move independently) and `source` (the artifact, for audit).
+(the two move independently), `medium` (which SENSE received it — reading is not
+hearing) and `source` (the artifact, for audit).
 
 A JSON ARRAY, NOT JSONL: `publish.UNIONABLE` resolves a rebase conflict on an
 append-only array by keeping every row from both sides, keyed on `id`. The knock
@@ -49,6 +50,18 @@ CHANNELS = {
 DECLARED = {"seed", "self-report"}
 WATCHED = CHANNELS - DECLARED    # the policy's whole teeth: only these vote
 
+# WHICH SENSE RECEIVED IT (2026-09-20). `heard_on` is the ear's stamp, and until
+# today it was written by ANY watched recognition test — so a word Andrew read in
+# a chat line and a word he caught off a tape landed in the ledger identically.
+# Measured before the fix: 15 of 50 stamped rows never involved an ear (9 live
+# session, 6 the first Receptive Check). The medium is a property of the CHANNEL
+# everywhere except `check`, which Anna runs by ear or on the page, so that one
+# writer passes it explicitly. `ledger` counts as audio because those rows are the
+# pre-log `heard_on` stamps carried at the 2026-09-10 cutover: the log cannot
+# re-derive their medium, and guessing text would delete evidence, not correct it.
+MEDIA = {"audio", "text"}
+EAR = {"eavesdrop", "audio", "media", "episode", "soak", "drill", "rotation", "ledger"}
+
 KINDS = {
     "taught",       # a full Teach Beat — first contact, generously given
     "attended",     # HE RECEIVED IT: a press of play, a session he sat. The only
@@ -81,6 +94,16 @@ def _checked(value, allowed, field):
     return f"unknown:{value}"
 
 
+def medium_of(event) -> str:
+    """Which sense received it — the writer's own answer, else its channel's.
+
+    Derived rather than stored-only on purpose: every event written before today
+    gets the right answer from its channel, so the correction lands with no
+    history rewrite (the same shape `lexicon_view` uses for `taught_on`)."""
+    return (event["medium"] if event.get("medium") in MEDIA
+            else "audio" if event.get("channel") in EAR else "text")
+
+
 def record(word, channel, kind, *, axis=None, result=None, source="", note=""):
     """Append ONE observation. Returns the event written.
 
@@ -105,6 +128,7 @@ def record_many(events):
             "kind": _checked(e.get("kind"), KINDS, "kind"),
             "axis": _checked(e.get("axis"), AXES, "axis"),
             "result": _checked(e.get("result"), RESULTS, "result"),
+            "medium": _checked(medium_of(e), MEDIA, "medium"),
             "source": e.get("source") or "",
             "note": e.get("note") or "",
         }

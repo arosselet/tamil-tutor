@@ -53,6 +53,7 @@ from language import strip_pulli
 from slips import slip_patterns
 from state_io import is_unseen, soak_pending, local_today
 import month
+import observations
 import year
 
 # Windows consoles default to cp1252, which can't print Tamil (2026-07-15).
@@ -571,10 +572,16 @@ def check_due(today=None) -> int | None:
     already reads every session.
 
     It is the only instrument that can re-base the comprehension goal, whose
-    four checkpoints all read "re-base at the first Receptive Check"."""
+    four checkpoints all read "re-base at the first Receptive Check".
+
+    BY EAR ONLY (2026-09-20). The first check ran on the page, six items typed,
+    and silenced this cue for thirty days — a check that cannot re-base the
+    goal must not be able to quiet the thing asking for one. A text run is still
+    recorded and still moves the rung; it just does not stop the clock."""
     events = load_json(OBSERVATIONS_PATH) or []
     days = [days_since(e["at"][:10], today or local_today())
-            for e in events if e.get("channel") == "check"]
+            for e in events if e.get("channel") == "check"
+            and observations.medium_of(e) == "audio"]
     return min(days) if days else None
 
 

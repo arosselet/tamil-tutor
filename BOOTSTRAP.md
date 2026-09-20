@@ -78,7 +78,7 @@ Run the first `/anna` session using the fresh state.
 
 This repo is a **reference implementation, not a framework** — the goal here is learning Tamil, not maintaining a template (settled: `docs/DECISIONS.md`). But the pedagogy is general, and these are the clues for anyone re-instantiating it. Four layers, from portable to personal:
 
-**Layer 0 — the pedagogy (fully general).** The viability floor (recognition × production axes), forced cold output, engines over word lists, invisible assessment, recast-never-lecture, momentum design (contact time > completion, self-contained doses, the coach reaches first), continuity as prose memory. Nothing Tamil about any of it; it lives in `protocol/constitution.md`, `protocol/daily_session.md`, and `docs/DECISIONS.md`, written with Tamil examples inline.
+**Layer 0 — the pedagogy (fully general).** The viability floor (recognition × production axes), comprehension-led teaching with production as its probe, engines over word lists, honest assessment (the medium is recorded — reading is not hearing), explain-what-unlocks-meaning, momentum design (contact time > completion, the opening gift, self-contained doses, the coach reaches first), continuity as prose memory. Nothing Tamil about any of it; it lives in `protocol/constitution.md`, `protocol/daily_session.md`, and `docs/DECISIONS.md`, written with Tamil examples inline.
 
 **Layer 1 — the machinery (mostly general, with a known port surface).** The Python engine, state schema, and daily-loop choreography carry over unchanged, *except*:
 

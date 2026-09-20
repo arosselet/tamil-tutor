@@ -1502,9 +1502,18 @@ def s53_evidence_gates_the_ear(sb: Path):
         with contextlib.redirect_stdout(_io.StringIO()):
             ss.cmd_update(_ap.Namespace(**defaults))
         after = read_json(lex_path)
-        check("an observation logged at close stamps heard_on",
-              bool(after["frame:asserted"].get("heard_on")),
+        check("an observation logged at close records evidence, not just a level",
+              after["frame:asserted"].get("reps")
+              and after["frame:asserted"].get("last_surfaced"),
               f"the writer moved the level and recorded no evidence: {after['frame:asserted']}")
+        # ...AND IT IS NOT AN EAR STAMP (2026-09-20). `--recognized` is Anna
+        # watching him read a chat line, and the chat is phonetics on a screen.
+        # Until today this stamped `heard_on` exactly as a tape catch does, which
+        # is how 9 session rows and the first Receptive Check entered the ear
+        # meter without an ear. `eavesdrop` is the channel that hears.
+        check("...and a chat-read recognition is never an ear stamp",
+              after["frame:asserted"].get("heard_on") is None,
+              f"reading forged an ear stamp: {after['frame:asserted']}")
         # ONE OBSERVATION, ONE RUNG (Phase 3). The row was solid by assertion;
         # the first thing that ever tested it is one pass, and one pass buys
         # comfortable. `--mastered-word` no longer writes solid outright — a
@@ -3768,13 +3777,14 @@ def s101_the_check_and_the_rating_are_ear_evidence(sb: Path):
 
         out = _io.StringIO()
         with contextlib.redirect_stdout(out):
-            ss.cmd_check(_ap.Namespace(draw=2, heard=[]))
+            ss.cmd_check(_ap.Namespace(draw=2, heard=[], read=[]))
         check("the draw names never-tested rows and writes nothing",
               "RECEPTIVE CHECK" in out.getvalue() and read_json(lex_path) == lex,
               out.getvalue()[:200])
         with contextlib.redirect_stdout(_io.StringIO()):
-            rc = ss.cmd_check(_ap.Namespace(draw=0, heard=["smoke-kulir:right", "ஸ்மோக்காரம்:wrong",
-                                                            "nonsense:right"]))
+            rc = ss.cmd_check(_ap.Namespace(draw=0, read=[], heard=["smoke-kulir:right",
+                                                               "ஸ்மோக்காரம்:wrong",
+                                                               "nonsense:right"]))
         after = read_json(lex_path)
         check("a known item moves the ear one rung, off a `check` event",
               after["ஸ்மோக்குளிர்"]["recognition"] == "comfortable"
@@ -4860,7 +4870,7 @@ def s120_the_ticket_survives_the_first_check(sb: Path):
         write_json(lex_path, {"ஸ்மோக்குளிர்": lex_row(gloss="cold", direction="catch")})
         check("no check yet has no date", st.check_due() is None)
         with contextlib.redirect_stdout(io.StringIO()):
-            ss.cmd_check(argparse.Namespace(draw=0, heard=["ஸ்மோக்குளிர்:right"]))
+            ss.cmd_check(argparse.Namespace(draw=0, read=[], heard=["ஸ்மோக்குளிர்:right"]))
         events = read_json(obs_path)
         check("the real check writer persisted its first answer",
               len(events) == 1 and events[0]["channel"] == "check", str(events))
@@ -4872,6 +4882,67 @@ def s120_the_ticket_survives_the_first_check(sb: Path):
         check("the full ticket still reaches the ear and later sections after a check",
               result.returncode == 0 and "1a. THE EAR" in result.stdout
               and "DUE CALLBACKS" in result.stdout, result.stderr or result.stdout[-1200:])
+    finally:
+        for path, data in saved.items():
+            if data is None:
+                path.unlink(missing_ok=True)
+            else:
+                path.write_bytes(data)
+
+
+def s121_a_read_word_is_never_an_ear_stamp(sb: Path):
+    """READING IS NOT HEARING (2026-09-20). `heard_on` was stamped by any watched
+    recognition test, so the first Receptive Check — six items worked on the page
+    — landed as ear evidence and silenced the monthly cue for thirty days.
+
+    The silent no-op this case exists to catch: a text check that stamps the ear
+    anyway looks EXACTLY like a text check that doesn't. Nothing Anna sees would
+    differ. So assert the two halves separately — the rung must still move (he
+    does know the word) while the ear stays blank — and drive both through the
+    real command, re-reading the ledger from disk rather than the returned dict.
+    """
+    import contextlib
+
+    print("\n121. A word he read is never an ear stamp (2026-09-20)")
+    ss = importlib.import_module("sync_state")
+    st = importlib.import_module("suggest_targets")
+    obs_path = sb / "progress" / "observations.json"
+    lex_path = sb / "progress" / "lexicon.json"
+    paths = (obs_path, lex_path, sb / "progress" / "learner.json")
+    saved = {p: p.read_bytes() if p.exists() else None for p in paths}
+
+    def run_check(**kw):
+        args = argparse.Namespace(**{"draw": 0, "heard": [], "read": [], **kw})
+        with contextlib.redirect_stdout(io.StringIO()) as out:
+            ss.cmd_check(args)
+        return out.getvalue()
+
+    try:
+        write_json(obs_path, [])
+        write_json(lex_path, {"ஸ்மோக்படிச்ச": lex_row(gloss="read"),
+                              "ஸ்மோக்கேட்ட": lex_row(gloss="heard")})
+
+        printed = run_check(read=["ஸ்மோக்படிச்ச:right"])
+        row = read_json(lex_path)["ஸ்மோக்படிச்ச"]
+        check("a page answer leaves the ear blank", row.get("heard_on") is None, str(row))
+        check("a page answer still moves the recognition rung",
+              row["recognition"] != "struggled", str(row))
+        check("the page run says so out loud", "on the page" in printed, printed)
+        check("a page-only check never re-bases the cue", st.check_due() is None)
+        event = read_json(obs_path)[0]
+        check("the event carries its own medium", event.get("medium") == "text", str(event))
+
+        run_check(heard=["ஸ்மோக்கேட்ட:right"])
+        row = read_json(lex_path)["ஸ்மோக்கேட்ட"]
+        check("an ear answer stamps the ear", bool(row.get("heard_on")), str(row))
+        check("an ear check re-bases the cue", st.check_due() == 0)
+
+        # The consequence the meters read: `check --draw` samples rows no watched
+        # channel has ever tested, keyed on `heard_on`. A word worked on the page
+        # must come back around; a word heard must not.
+        drawn = run_check(draw=40)
+        check("the page word returns to the never-tested pool", "ஸ்மோக்படிச்ச" in drawn, drawn)
+        check("the heard word leaves it", "ஸ்மோக்கேட்ட" not in drawn, drawn)
     finally:
         for path, data in saved.items():
             if data is None:
