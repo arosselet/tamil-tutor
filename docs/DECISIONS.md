@@ -49,6 +49,8 @@ compressed 2026-09-10, 32k words to 11k, nothing lost that git did not hold).
 
 ## Settled design decisions
 
+- **Comprehension owns the session; coffee-and-lore opens it** (2026-09-20, Andrew). Replaces compulsory cold volume, the one-clause teaching cap, and catch-up-first openings. Teach an exchange, revisit meaning, probe transfer; listening alone counts. The September household prelude replaces waiting for October. Delegated model calls stay; the shared contract governs whichever model hosts Anna.
+- **The first check must leave the ticket usable** (2026-09-20). `check_due` omitted the date required by `days_since`; empty state hid the crash until the first answer. A regression records through the real writer, then runs the full ticket. Written recognition remains labelled as text, never new ear evidence.
 - **A render off `main` refuses to publish** (2026-09-20, Andrew) `commit_and_push` pushes `HEAD:main` and the rebase replays the whole branch, so rendering a tape from a feature branch shipped five commits to production. Refuse loudly, never retarget — the feed URL is pinned to `@main`.
 - **`DECISIONS.md` has no size budget; the per-entry cap is the control** (2026-09-20, Andrew) Measured before retiring it: 1 of 296 entries names a dead identifier, and that one is a false positive. Nothing ships this file into a prompt. The ceiling only ever produced pressure to delete settled law to hit a number.
 - **The Heist left `persona.md` for `protocol/heist.md`** (2026-09-20) `voice_canon()` ships persona to ten call sites that cannot assign a mission or hand an anchor. Same split `toolbelt.md` took 2026-09-03, same reason. Persona re-censused DOWN past its pre-split ceiling.

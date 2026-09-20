@@ -163,8 +163,10 @@ A five-habit plan fails against a documented fade (May 2026) and the Enjoyment C
 2. **The daily eavesdrop tape** — after the scoring fix it is both the dose and the meter, it
    arrives on the phone, and it costs no new time at all.
 
-The chat session stays exactly as it is: the production probe, ~3 fires. **Do not double it.** A
-second chat session doubles the axis already at 21/21 and leaves the one at 3/26 untouched.
+**Session contract updated 2026-09-20:** coffee-and-lore first, then comprehension-led teaching
+with optional production probes (`protocol/daily_session.md`). This replaces the fixed ~3-fire
+routine. Keep the separate ear block; no second chat session is owed. Written recognition cannot
+re-base the listening checkpoints.
 
 **Why the media lane produced nothing in its first six days** (checked 2026-08-31: zero mentions
 across the whole span of `chat.md`, Receptive Growth Log still empty). It closes with *"it

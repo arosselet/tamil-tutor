@@ -4,28 +4,28 @@
 > **Read by:** `protocol/studio/director.md` and `protocol/daily_session.md` before picking targets.
 > **Purpose:** A teacher's living *judgment* of Andrew — not counts. The hard numbers (recognition buckets, production axis, viability floor) live in `progress/lexicon.json`; read them with `python scripts/sync_state.py status`. This file says what they *mean* and where to point next.
 >
-> **Last updated:** 2026-09-11 (Anna: the campaign block re-read — respect-nga is an address problem; @build 09-10: the Touchdown Doctrine, the Native-Media Lane, Session Conduct and the Receptive Growth Log left for the files that own them; the campaign block cut to its through-line)
+> **Last updated:** 2026-09-20 (@build with Andrew: comprehension-led contract, coffee-and-lore restored, September household prelude available now; older case history remains in the logs.)
 
 ---
 
 ## The Goal
 
-**Cross the threshold where the room stops being noise — follow it first, answer it next.** Andrew soaked a recognition base (~100 word families by his own estimate) and plateaued; forced cold output is the *engine* that converts soak into something that holds, and it remains the daily work. But it is the engine, never the destination (`constitution.md` → The Learner, rewritten 2026-08-17). The table tests the ear first, and every meter had been reading the engine's odometer as the map — he fires 20 of 26 machines cold and hears 3, which is precisely why two words landing in a fast sentence felt like nothing. Near-term marker: **the month in country (from 2026-08-12)** — follow what is said across the table, repair it when it outruns him, and get his own wants across.
+**Follow the room, then join it.** The goal and evidence standard live in `constitution.md`: ordinary family-table sentences by August 2027, plus participation. Today's written check showed why word scores are insufficient: *paathen* was understood alone but read as a command in a longer sentence. *Ulla/oola* may be a romanization mismatch, not an ear failure. Work sentence meaning and record the medium; do not infer listening ability from typed answers to text.
 
-**Three consequences for target selection.** (1) Comprehension leads — the machines carry the sentence skeleton, so an unheard frame outranks an unfired one. (2) Production stays daily, narrow-and-deepen: it is how recognition is made to hold, not a rival curriculum. (3) **Holding ground ranks with taking it** — decay is the only true regression, so a decayed row he has *met* outranks a novel one he hasn't.
+**Selection:** comprehension leads; production probes transfer when useful. Revisit fragile meaning in changed exchanges. An untested row is unknown to the instrument, not proof of a learner deficit. Introduce what the scene needs within the intake dial; no output quota earns the right to new material.
 
 **The phase model is no longer prose here (2026-09-19).** It said "Phase 1 — narrow and deepen; Phase 2 — native media, auxiliary" — two phases with no dates, no boundary and no exit, which is why nothing could tell you which one you were in. It is now a schedule with seven named phases derived from the trip date (`scripts/year.py`; `sync_state.py year` prints the table). What survives unchanged: the headline is **machines heard** (2026-08-16) — comprehension is the threshold, production is the engine — and native media stays auxiliary until a Receptive Check says coverage has closed.
 
 **Read the lean before picking targets.** The year's current phase names a direction of address — **down** to the children, **across** to the siblings-in-law, **up** to the elders — and the pool's ordering is prefixed by it. Those are three rooms with three different moving parts and three different levels of social risk, and the order is deliberate: the children first, because a nine-year-old tolerates error completely and cannot switch to English out of kindness.
 ---
 
-## The Arc — Home, The Table Rehearsed
+## The Arc — The Spare Key
 
 > **Contract:** `protocol/daily_session.md` → "The Arc". Anna writes the premise at the month cut; Andrew overrides at will. One block, **1,000 words** (`s18`): what is happening in the household, and the live medicine.
 >
-> **The first household arc opens 2026-10-01.** Until then this block is the last campaign, kept as-is — the medicine below is live and none of it changes with the rename. Case history lives in `slip_log.json` and git — never here.
+> **Use the September prelude now:** `content/household.md` → This arc owns the premise. October still starts the first full month; no calendar gate delays the story. Nothing has yet been rendered or heard from this prelude.
 
-**🎯 The Declining Set, Rehearsed For Next Summer** (rewritten 2026-09-10 on return; replaces *The Table Is The Teacher*, which did its month — day 3 paid *saapidalaamaa* unprompted, and the last rehearsal found the ending the whole set rides on). The room is gone; chat, the tapes and the knocks supply the situations now. **The through-line is unchanged: the declining set, not the receiving set** — *podhum / vendaam*, *naane eduthukkaren*, *neenga saapdunga* — and every line in it is spoken TO an elder, so **the -nga ending is the one moving part** (`respect-nga`, 09-05: three swings at an elder in ten minutes, not one -nga).
+**Next open:** coffee-and-lore first, then a self-contained moment from the prelude. Anna supplies context; Andrew owes no recap. The household's ordinary wants carry the scene. The repairs below are available teaching material, not its plot or a checklist.
 
 **Live medicine:**
 - `respect-nga` → re-read 09-11 as **`nga-has-no-address`**. He did not fail to learn the ending; he learned it too well and now sprays it at the nearest word — onto nouns (*nandri-nga*, *semayanga*) and onto his own actions (*sonnanga*, which hands the line to somebody else). The matched-pair drill taught the ending and never taught it a **target**, so escalation is a **decomposition**, not another loop: one root, every tail, who each tail points at (-ren me, -nga you, -aanga them). **வா stays out of every chat production slot until the ambush — still unspent, and it only counts unannounced.**
@@ -41,8 +41,7 @@
 
 **Standing methods (keep; do not re-derive):** commission the dose, hold the word out of chat, ambush unannounced days later — three for three. A tail is only audible on a stem the ear knows cold; check the stem before blaming the tail. Not every repeated slip is owed a dose — some are owed evidence, some a day. Build every drill out of his own pockets. Teach the positive before demanding the negative. Never date-drive a scene. He tests the rules he is given and is right to; give him the flexible truth, never a false absolute.
 
-**Owed at next open:** the **Receptive Check** — never run, now overdue, displaced on 09-16 by the M92
-repair. It is the only thing that can re-base the goal; offer it first. Then the *sollu* collect — when she calls his name from another room, *sollu* (tell me) instead of *enna?*; *sollunga* for any elder on a call. Contact, never evidence — **still uncollected**, asked twice on 09-16 and he went to the tape both times; the trigger is real, so leave it standing and do not stack a new op on it. **Ops hang on a trigger his current life runs** (09-13): meals at home are jetlagged and informal, so both meal ops (*vendaanga*, *neenga saapdunga*) are retired as ops — aimed at a table he isn't sitting at, not failed. They return next summer.
+**Check and contact, 09-20:** six written recognition items completed, not a listening baseline or a finished monthly check. The remaining sample is in `last_debrief`; resume gently after the gift, using audio for ear evidence. The *sollu* op was collected: “I didn't remember it.” No evidence credit, repeat collect, or replacement assignment. The address soak was delivered today; no hearing observed yet, so ignore any escalation that assumes it already failed.
 
 **Standing catch order (renewable):** one word overheard — off the tapes now, off the sisters next summer.
 
@@ -84,31 +83,11 @@ The production-reflex gaps that matter most right now:
 
 > **The pool is lean-ordered** (lead > mid > dessert, from each row's `register` read against the year's current direction of address — `year.register_rank`). This replaced a static survival/delight/dessert map on 2026-09-19: that one ranked by topic, was blind to who he was addressing, and degraded 283 of 366 rows to its middle rung, so it ordered almost nothing. The *deepen, don't widen* discipline is untouched: force what is in rotation cold, don't sprawl past it.
 
-Phase 1 is *deepen, don't widen.* **The order below changed on 2026-08-25** — it used to
-open on "Force production… this is the floor moving", which read as the goal. Andrew's
-correction, in his words: *"my goal has really been input first. First I need to understand,
-and then I can work on responding, and responding at speed… Production is a goal yes, but it
-came to be of such importance in our system because that's easy to measure."* Production is
-not demoted — it is **re-labelled as the instrument it always was**.
-
-1. **Feed and test the ear first.** The machines carry the sentence skeleton: 21 of 26 fire
-   cold and 3 are heard, so his mouth is a full lap ahead of his ear on the exact inventory
-   comprehension rides on. Ticket block **1a. THE EAR** is where that lives, and since
-   2026-08-25 it reaches the machines (it was gated on the catch tag and could only offer 5
-   of 26). Eavesdrop is the dose that moves it, and it is the cheapest thing in the system.
-2. **Take the volume from native media**, not from authored minutes — see The Native-Media
-   Lane above. What the studio makes is the *targeted* dose; what he watches is the *volume*.
-3. **Production is the probe, ~3 fires a session, and the mistakes are the payload.** Andrew,
-   2026-08-25: *"the mistakes I make, how I mess things up is huge signal here, not just
-   'Andrew doesn't know this word yet' but 'Andrew keeps missing the future tense'."* That is
-   the slip ledger's whole job, and it needs a handful of honest attempts, never a gauntlet.
-   A typed fire probes a *pattern* that generalizes; it does not prove a reflex at a table,
-   and the meter should never be read as if it did.
-4. **Re-strain the same pool in fresh situations.** Deepening is not repetition: re-hearing a word is boring, being made to produce it somewhere new is not. One running story that carries the current payload across chat and audio (the soak handoff) is how a word earns a second, third, fourth life without feeling drilled.
-5. **Reinforce the struggled items** (வை, தூக்கு, the present/future aspect contrast) in fresh contexts until they fire cold.
-6. **Vary the scene *form*, not the curriculum.** Fight sameness by rotating shape / energy / location / episode form (the Director's `*.tags.json` machinery tracks this). Keep new vocabulary inside **priority-1** (the operational floor) and always embedded in a situation — never an expansion-cluster grab-bag. (New-word *counts* differ by modality — see Calibration.)
-
-**Avoid:** reaching into **priority-2 expansion** clusters or new registers (news, journalistic) while the priority-1 floor still has gaps; and the over-trodden setting reflexes — another straight kitchen scene, another morning sprint.
+1. **Make the exchange understandable.** Start from **1a. THE EAR**; teach the whole meaning, unpack a blocking contrast, and revisit it in a changed example. Listen without the written answer before claiming ear transfer.
+2. **Protect the opening gift.** Coffee-and-lore precedes the check, repairs and any catch-up. He named its absence on 09-20; the same complaint already produced the break contract in August.
+3. **Use the standing audio.** The ear block is mostly authored material, replayed across days; native media is auxiliary. Listening counts come from attendance, not renders.
+4. **Probe when useful.** A few Tamil replies can reveal a pattern worth teaching. No daily cold quota, no escalation on an unheard commission, and no equation of typed production with table-speed response.
+5. **Let the household carry continuity.** Fresh scene forms and modest intake supply new ground; the slip list never becomes the session's agenda.
 
 ## Coverage / Variety Note
 
@@ -148,7 +127,7 @@ These are **hard dials**, read by the Director/Architect. They live here (not in
 - **Live coverage target: ~95%+ known words in the Intercept *as heard*** — the listening-comprehension floor (Nation's lexical-coverage research). Comprehension must hold live.
 - **Gossip-tape carve-out (the ONE exception to 95%).** "Catch the drift" is a skill drilled on input Andrew *doesn't* fully understand: a clearly-marked eavesdrop segment (in-session eavesdrop drill, or a short tagged episode segment) may run native-speed with well below 95% coverage. The win condition is different — who/what/mood, not full comprehension — and it exists to train the `catch` items (quote-னு, hearsay-ஆம், the maami's predictable lines). Everything else keeps the 95% rule.
 - **Density is an OUTPUT, never a target.** It falls out of (fence size × the 95% coverage target). With a small fence, episodes lean heavily on English scaffolding — correct, not watering down. Do not dial a Tamil ratio.
-- **NEW word types: 4–5 (audio) / ≤1–2 (chat).** Each appears 2–3× in answering context. They are *seeds*, not taught to mastery — the chat fires them cold later. Chat is *production*, not soak.
+- **NEW word types: 4–5 (audio) / ≤1–2 (chat).** Each appears 2–3× in answering context. These are seeds, not a mastery demand; later scenes revisit meaning and optionally probe production.
 - **Unfenced strangers (neither known nor payload): ≈0.** Hard cap 2, and only if the context answers them in the same beat. More is a Producer send-back.
 - **Naturalness comes from register, not unknown words** — real spoken Kongu rhythm/idiom built from known vocabulary. Never reach for unknown words to sound "real."
 - **Pacing:** one thought per line; ≥1 `[Pause]` per 6–8 Intercept lines; no run of >5 unbroken lines (the Listenability Gate — see `architect.md`).
@@ -156,4 +135,3 @@ These are **hard dials**, read by the Director/Architect. They live here (not in
 - **Debrief:** casual, no quiz — ask how words are landing in his life. (This is the CHAT close, `daily_session.md` — the episode has two segments, Intercept and Breakdown, and no Debrief. The Director and Architect read these Notes as LAW and should ignore this one.)
 
 ---
-

@@ -86,8 +86,14 @@ Things that are true, that scripts may not contradict. Short on purpose.
 > the situation, what the finale resolves, and which everyday domains it
 > naturally exercises. **It never lists words** — the ticket owns those.
 
-*(Not yet cut. The first arc opens 2026-10-01, inside the year's `down` phase, so
-its premise should put the children near the centre of it.)*
+**September prelude — The spare key.** Priya needs the scooter for an errand, Karthi
+says its spare key is upstairs, and Deepa is sure Mama moved it beside the lunch
+boxes. A search through an ordinary afternoon carries who put what where, who has
+already left, and who is coming back. Each scene stands alone; the small payoff is
+finding the key and discovering who actually needs the scooter.
+
+This is available immediately, not a claim that Andrew heard an episode. October's
+first full month opens in the `down` phase with the children near its centre.
 
 ### Beat log
 

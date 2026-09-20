@@ -12,9 +12,9 @@
 
 ## The daily deal — two blocks, about 30 minutes
 
-1. **The session** — ~15 min, the workday lunch anchor. Chat with Anna, ~3 cold fires.
-   Unchanged, and **not to be doubled**: it is the production probe, and the axis it measures
-   is already at 21/21.
+1. **The session** — ~15 min, the workday lunch anchor. Coffee-and-lore, then an exchange
+   made understandable. A few production probes when useful; listening alone counts.
+   No daily output quota and no second chat session owed.
 2. **The ear block** — 10–15 min, **its own anchor, later in the day.** Press play and listen.
    Mostly authored material; native media auxiliary until coverage closes.
 

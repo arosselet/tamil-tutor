@@ -199,6 +199,7 @@ def main():
         run(state.s113_the_year_is_a_schedule_not_a_meter, sb)
         run(state.s100_the_live_lexicon_is_the_fold_of_its_log)
         run(state.s101_the_check_and_the_rating_are_ear_evidence, sb)
+        run(state.s120_the_ticket_survives_the_first_check, sb)
         run(state.s116_a_tap_can_reach_the_real_feeds_words, sb)
 
     if fx.ONLY and not fx.RAN:

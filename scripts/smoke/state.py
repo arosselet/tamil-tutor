@@ -4839,6 +4839,47 @@ def s113_the_year_is_a_schedule_not_a_meter(sb: Path):
         write_json(learner_path, before)
 
 
+def s120_the_ticket_survives_the_first_check(sb: Path):
+    """A day-zero ticket hid a missing date argument until the first real check.
+
+    Record through the writer, re-read the event, then run the full ticket CLI.
+    Also pin the query date: silently ignoring it would mis-time the next cue.
+    """
+    import contextlib
+    import subprocess
+
+    print("\n120. The ticket survives the first check (2026-09-20)")
+    ss = importlib.import_module("sync_state")
+    st = importlib.import_module("suggest_targets")
+    obs_path = sb / "progress" / "observations.json"
+    lex_path = sb / "progress" / "lexicon.json"
+    paths = (obs_path, lex_path, sb / "progress" / "learner.json")
+    saved = {p: p.read_bytes() if p.exists() else None for p in paths}
+    try:
+        write_json(obs_path, [])
+        write_json(lex_path, {"ஸ்மோக்குளிர்": lex_row(gloss="cold", direction="catch")})
+        check("no check yet has no date", st.check_due() is None)
+        with contextlib.redirect_stdout(io.StringIO()):
+            ss.cmd_check(argparse.Namespace(draw=0, heard=["ஸ்மோக்குளிர்:right"]))
+        events = read_json(obs_path)
+        check("the real check writer persisted its first answer",
+              len(events) == 1 and events[0]["channel"] == "check", str(events))
+        day = date_cls.fromisoformat(events[0]["at"][:10])
+        check("the cue uses the supplied date", st.check_due(day + timedelta(days=30)) == 30)
+        check("the cue accepts its default clock", isinstance(st.check_due(), int))
+        result = subprocess.run([sys.executable, str(sb / "scripts" / "suggest_targets.py")],
+                                cwd=sb, capture_output=True, text=True, encoding="utf-8")
+        check("the full ticket still reaches the ear and later sections after a check",
+              result.returncode == 0 and "1a. THE EAR" in result.stdout
+              and "DUE CALLBACKS" in result.stdout, result.stderr or result.stdout[-1200:])
+    finally:
+        for path, data in saved.items():
+            if data is None:
+                path.unlink(missing_ok=True)
+            else:
+                path.write_bytes(data)
+
+
 def s116_a_tap_can_reach_the_real_feeds_words(sb: Path):
     """THE TAP COULD NEVER OPEN ANYTHING (found 2026-09-19, shipped 09-10).
 

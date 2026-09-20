@@ -573,7 +573,8 @@ def check_due(today=None) -> int | None:
     It is the only instrument that can re-base the comprehension goal, whose
     four checkpoints all read "re-base at the first Receptive Check"."""
     events = load_json(OBSERVATIONS_PATH) or []
-    days = [days_since(e["at"][:10]) for e in events if e.get("channel") == "check"]
+    days = [days_since(e["at"][:10], today or local_today())
+            for e in events if e.get("channel") == "check"]
     return min(days) if days else None
 
 
@@ -1088,7 +1089,7 @@ def main():
     # Tier-ordered (survival > delight > dessert), the one thing the retired deck
     # leaves behind. No section on this ticket claims primacy any more: `machines
     # heard` steers WHAT, the slip ledger steers HOW, and those are not rivals.
-    print(f"\n1. FOCUS SET  (≤{FOCUS_SIZE} in dense rotation — DRILL these until they fire cold)")
+    print(f"\n1. FOCUS SET  (≤{FOCUS_SIZE} candidates for teaching and production probes; THE EAR leads)")
     print("-" * 60)
     if commission:
         print("  ⚠ A COMMISSION IS LIVE (top of the ticket). It outranks this list — these are "
@@ -1126,8 +1127,8 @@ def main():
                   f"Retest it cold in a scene that does not hand it over.")
         if t["word"] in slipped:
             print(slip_note(slipped[t["word"]]))
-    print("  Graduation is production going COLD. After that a word is never "
-          "drilled again — it is just used.")
+    print("  Cold production leaves this probe pool; it does not prove comprehension. "
+          "Use these words in exchanges, with THE EAR below steering the lesson.")
 
     ear = ear_targets(lexicon, today=today, reps=reps)
     if ear["total"]:
@@ -1138,7 +1139,7 @@ def main():
         print("\n1a. THE EAR  (comprehension — the primary steer; win = recognition, "
               "never a fire)")
         print("-" * 60)
-        since = check_due()
+        since = check_due(today)
         if since is None or since >= CHECK_EVERY_DAYS:
             ago = "never run" if since is None else f"{since}d ago"
             print(f"  ⏱ RECEPTIVE CHECK IS DUE ({ago}) — `python scripts/sync_state.py "
