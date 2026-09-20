@@ -148,6 +148,7 @@ def main():
         run(knock.s94_a_lure_is_not_a_break, mk, sb)
         run(ratchets.s52_andrew_is_family_already, sb)
         run(ratchets.s90_the_toolbelt_left_the_voice_canon, sb)
+        run(ratchets.s118_the_heist_left_the_voice_canon, sb)
         run(ratchets.s78_the_open_gives_before_it_takes, sb)
         run(state.s71_a_new_record_is_born_reachable, sb)
         run(knock.s60_the_ear_meter, kr, sb)

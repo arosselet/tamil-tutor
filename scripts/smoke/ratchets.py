@@ -35,16 +35,19 @@ PROSE_BUDGETS = {
     # Set at the 2026-09-02 census (577) rounded up plus headroom, on the day this file stopped being studio craft. · 625 -> 680 (2026-09-10): the Register Default arrived from profile.md's Touchdown Doctrine, 841 words retired whole.
     "protocol/dialect.md": 680,
     # 2000 -> 1750 (2026-09-03).
-    # 1750 -> 1890 (2026-09-19, Andrew). Two moves Anna did not have. SOMATIC
-    # ANCHORS come back: they are in the initial commit, they were collapsed
-    # into field missions, and the collapse is what lost them — missions died
-    # at the TRIGGER ("I didn't find an opening", 08-26, four in a row), never
-    # at the collection. An anchor needs no opening and is never collected.
-    # THE STANDING ORDER: a week of silence is something Anna asks about, once,
-    # as a question — Andrew's own instruction, with "this is annoying" as a
-    # complete answer. Paid for by retiring "no serialized saga, scenes are
-    # disposable", which the household superseded the same day.
-    "protocol/persona.md": 1890,
+    # 1890 -> 1620 (2026-09-20): RE-CENSUSED DOWN, and the 09-19 raise is paid
+    # back rather than kept. The Heist left for `protocol/heist.md` — 339 words
+    # that `voice_canon()` was shipping to ten call sites across seven lanes,
+    # none of which can assign a mission, hand an anchor or keep a secret. The
+    # same split `toolbelt.md` took on 2026-09-03, for the reason that file
+    # already states. What made the cost visible was the section growing by a
+    # third when somatic anchors came back the day before.
+    "protocol/persona.md": 1620,
+    # NEW FILE, budgeted in the same diff that creates it (2026-09-20). 600
+    # rather than the 541 census: headroom for ops, not for a second job. If
+    # this file starts explaining Anna's VOICE it has grown back into the one
+    # it was split out of.
+    "protocol/heist.md": 600,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-03) — the prose half of the law CODE_BUDGETS has enforced since 2026-08-23.
     "protocol/toolbelt.md": 600,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-09).
@@ -100,20 +103,30 @@ PROSE_BUDGETS = {
     # boundary — the beat log collapses into its one-line past-arc entry — and
     # never raised to fit more lore.
     "content/household.md": 1200,
-    # 12500 -> 12560 (2026-09-19). The household build wrote three entries and
-    # retired FIVE by name: the 07-13 tier bar, the 07-18 survival headline, the
-    # 07-26 "deck and floor share one ledger", and both continuity rejections
-    # (06-20, 06-28) that the household supersedes — plus the 07-26 stored focus
-    # cohort, which retired with the conveyor. Net growth is 60 words across four
-    # reshaped subsystems, and the narrative is in the commit where it belongs.
-    # 12560 -> 12700 (2026-09-19, SECOND raise today — flagged, not dressed up).
-    # Three entries, NOTHING RETIRED FOR THEM, and that is the honest state:
-    # the obvious candidate was the field-mission lineage, and proposing to
-    # retire it is the exact mistake this session corrected. A fade is
-    # palatability data; the answer is to find the good half (somatic anchors,
-    # which were in the initial commit and got collapsed into missions), not to
-    # delete the lineage. The log grew because the system learned something.
-    "docs/DECISIONS.md": 12710,
+    # docs/DECISIONS.md HAS NO SIZE BUDGET, RETIRED 2026-09-20 BY ANDREW, and
+    # this comment is the guard that replaces it.
+    #
+    # MEASURED BEFORE RETIRING IT. The ratchet's own law says a file at its
+    # ceiling is "carrying crud or doing too many jobs" — so the log was swept
+    # for crud: of 296 entries, exactly ONE names an identifier that no longer
+    # exists in `scripts/`, and that one is a false positive (`alaichal` is a
+    # Tamil word, not a symbol). There is no dead law in there. And nothing
+    # ships it into a prompt — `grep` finds only source comments citing it by
+    # name — so unlike every other surface here it costs nothing per call.
+    #
+    # WHAT THE CEILING ACTUALLY DID, on 2026-09-19, twice in one day: it made
+    # the author hunt for settled law to DELETE in order to hit a number. One
+    # of those deletions ("deck and floor share one ledger") had a live half
+    # that now survives only in a docstring. A budget that converts into
+    # pressure to delete law is the ratchet pointed at the wrong quantity: the
+    # number of decisions a system has made is not a thing to minimise, and a
+    # log that grows because the system keeps learning is a log working.
+    #
+    # THE CONTROL THAT STAYS is `DECISION_ENTRY_BUDGET` (70 words, below), which
+    # is the one that matters — it keeps an entry to a claim and a clause and
+    # forces the narrative into the commit, which is this file's stated
+    # contract. Shape, not size. If this file ever needs bounding again, bound
+    # the shape further; do not put the word count back.
     "docs/feature_inbox.md": 1500,
     ".claude/skills/debug/SKILL.md": 1500,
 }
@@ -1265,3 +1278,86 @@ def s90_the_toolbelt_left_the_voice_canon(sb: Path):
           not missing,
           f"dropped: {', '.join(missing)} — a capability Anna stops reaching for "
           f"is indistinguishable from a day he did not need it")
+
+
+def s118_the_heist_left_the_voice_canon(sb: Path):
+    """THE SECOND SECTION TO LEAVE `persona.md`, for the reason the first one did
+    (2026-09-20, Andrew — the mirror of `s90`).
+
+    WHY. `writer.voice_canon()` ships `persona.md` to TEN call sites across
+    seven lanes: the knock decision, both reply judges, and the soak, drill,
+    rotation and payoff sheet writers. "The Heist" was 339 of its 1878 words and
+    is a catalogue of moves — the secret, field missions, somatic anchors — that
+    not one of those lanes can make. A soak-sheet writer cannot assign a
+    mission, hand an anchor, or keep something from anyone's wife. Ten
+    generators reasoned every run against a page they had no way to act on.
+
+    WHAT MADE IT VISIBLE: the section grew by a third on 2026-09-19 when somatic
+    anchors came back, and persona took its second budget raise in a day. The
+    2026-07-16 budget law calls a file at its ceiling one that is carrying crud
+    or DOING TWO JOBS. Measured both: it was the latter, again, one section over
+    from where `toolbelt.md` left.
+
+    THE SILENT NO-OP is `s90`'s exactly. If the session shim is never updated to
+    load the new file, **Anna still runs a flawless session** — same voice, same
+    register, same close — and simply stops handing ops, because he no longer
+    knows they exist. Nothing crashes, nothing warns, and it is indistinguishable
+    from a week with no op worth handing. So the teeth are on the ROUTING.
+
+    CONSERVATION IN BOTH DIRECTIONS: a copy that never deleted leaves the tokens
+    in the canon and reads green on "the new file exists"; a delete that never
+    copied loses the ops and reads green on "the canon shrank".
+    """
+    print("\n118. The Heist left the voice canon and still reaches Anna (2026-09-20)")
+    persona = (sb / "protocol" / "persona.md").read_text(encoding="utf-8")
+    heist_path = sb / "protocol" / "heist.md"
+
+    check("persona.md's pointer to the heist resolves",
+          "heist.md" in persona and heist_path.exists(),
+          "persona.md names protocol/heist.md but the file is missing")
+    heist = heist_path.read_text(encoding="utf-8")
+
+    # ── CONSERVATION. The needle is the section's own claim — prose a rewrite
+    # would keep, appearing nowhere else in the repo.
+    NEEDLE = "Secrecy isn't Andrew hiding slow progress"
+    check("the heist lives in heist.md", NEEDLE in heist)
+    check("...and no longer in persona.md", NEEDLE not in persona,
+          "a copy that never deleted — the canon still ships the ops catalogue")
+
+    # ── BOTH OPS SURVIVED THE MOVE, and this is the half that matters most:
+    # somatic anchors were lost ONCE ALREADY by being collapsed into field
+    # missions, and a split is exactly when that happens again.
+    check("field missions survived the split", "field missions" in heist.lower())
+    check("somatic anchors survived the split — they were lost this way once",
+          "somatic anchor" in heist.lower() and "doorstep" in heist.lower(),
+          "the older, trigger-based op went missing in a refactor for the second time")
+    check("...and the distinction between them is still stated",
+          "an anchor is free" in heist.lower() and "assigned and collected" in heist.lower(),
+          "the two collapsed back into one move, which is how anchors died the first time")
+
+    # ── THE POINT OF THE CHANGE, on the real seam rather than on the file.
+    import writer as w          # this file imports no modules at the top (cf. s90)
+    canon = w.voice_canon()
+    check("the voice canon no longer carries the ops catalogue",
+          NEEDLE not in canon and "somatic anchor" not in canon.lower(),
+          "voice_canon still ships moves no voice lane can make")
+    check("...and still carries the voice and the standing fact",
+          "not new to this family" in canon and "Woven Thanglish" in canon,
+          "the split took something the voice lanes need with it")
+
+    # ── THE TEETH: the routing, which is the half that fails silently.
+    shim = (sb / ".claude" / "skills" / "anna" / "SKILL.md").read_text(encoding="utf-8")
+    check("the session shim loads ALL THREE halves of the persona",
+          all(f in shim for f in ("persona.md", "toolbelt.md", "heist.md")),
+          "Anna boots without his ops and the session looks perfect — he just "
+          "never hands a mission or an anchor again")
+
+    # ── AND THE BUDGET WAS PAID BACK, not kept. A split that banks the raise it
+    # was supposed to retire is a split that bought nothing.
+    import re as _re
+    rt = raw_source(REAL_BASE / "scripts" / "smoke" / "ratchets.py")
+    m = _re.search(r'"protocol/persona\.md":\s*(\d+)', rt)
+    check("persona's budget was re-censused DOWN past its pre-split ceiling",
+          m and int(m.group(1)) < 1750,
+          f"persona budget is {m and m.group(1)} — the 09-19 raise was kept, so the "
+          f"split freed room and nothing reclaimed it")

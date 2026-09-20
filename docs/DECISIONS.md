@@ -49,6 +49,8 @@ compressed 2026-09-10, 32k words to 11k, nothing lost that git did not hold).
 
 ## Settled design decisions
 
+- **`DECISIONS.md` has no size budget; the per-entry cap is the control** (2026-09-20, Andrew) Measured before retiring it: 1 of 296 entries names a dead identifier, and that one is a false positive. Nothing ships this file into a prompt. The ceiling only ever produced pressure to delete settled law to hit a number.
+- **The Heist left `persona.md` for `protocol/heist.md`** (2026-09-20) `voice_canon()` ships persona to ten call sites that cannot assign a mission or hand an anchor. Same split `toolbelt.md` took 2026-09-03, same reason. Persona re-censused DOWN past its pre-split ceiling.
 - **The shelf is stocked on a cron; the floor is on SUPPLY, not listening** (2026-09-19, Andrew) No audio lane was scheduled and the repair earned the dose, so contact was gated on his attendance — tired, fewer sessions, less audio, more tired. A floor he could fail by not listening is a streak.
 - **Somatic anchors are their own move, older than missions** (2026-09-19, Andrew) Missions died at the TRIGGER — "I didn't find an opening", four in a row — never at the collection. An anchor binds to what his day supplies, is never collected, never scored. Both live; when in doubt, anchor.
 - **A week of silence is a question Anna asks once** (2026-09-19, Andrew) Plainly, never a nudge. "This is annoying" is a complete answer and the only correct response is to change the thing. Anna files a machinery failure rather than routing around it in prose.

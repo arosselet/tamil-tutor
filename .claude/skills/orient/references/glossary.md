@@ -55,7 +55,7 @@ Defined: `protocol/daily_session.md` — Targeting section ("Engines to fire"); 
 
 A covert assignment Anna gives at the end of a session: one line, deployed at home tonight, unprompted — e.g., *"'suvaiya irukku' at dinner; debrief tomorrow."* The wife stays the unwitting audience, never the examiner. A line that survives live fire is the strongest cold-fire evidence the system has.
 
-Defined: `protocol/persona.md` — "The Heist"
+Defined: `protocol/heist.md` — "ops"
 
 ---
 
@@ -81,7 +81,7 @@ Defined: `protocol/daily_session.md` — Targeting section ("Floor-gap targets")
 
 The secret project: Andrew learning Coimbatore Tamil without his native-speaking wife knowing, culminating in a surprise reveal at a family gathering. The secrecy is structural — it is what makes the reveal land. Anna is the safe room where Andrew fails at zero stakes. The heist is never revealed to the wife by Anna; she stays the unwitting audience of field missions.
 
-Defined: `protocol/persona.md` — "The Heist (the secret is the point)"
+Defined: `protocol/heist.md` (split out of `persona.md` 2026-09-20 — session-only, never in `voice_canon()`)
 
 ---
 
