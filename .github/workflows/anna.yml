@@ -272,6 +272,28 @@ jobs:
           if [ "${{ github.event.inputs.force }}" = "true" ]; then FORCE_FLAG="--force"; fi
           python scripts/morning_knock.py $FORCE_FLAG
 
+      - name: Keep the shelf stocked
+        # THE ONE LANE THAT RUNS WITHOUT HIM (2026-09-19, Andrew).
+        #
+        # Every other audio lane is commissioned by Anna INSIDE a session, and
+        # `commissioning.md` says the repair earns the dose. So the supply of
+        # audio was gated on Andrew's attendance: tired -> fewer sessions ->
+        # fewer commissions -> less in his ears -> more tired. Measured over the
+        # ten days after he came home: 15.7 authored minutes, no soak, no
+        # rotation, no drill, while he faded. Every step behaved as designed.
+        #
+        # `--if-short` asks the rails whether the WEEK PRODUCED enough, never
+        # whether he listened. A gate on his listening would be a streak with a
+        # new name, and answering a fade with accountability machinery is the
+        # one move DECISIONS 07-04 forbids outright. It exits quietly when the
+        # shelf is stocked or a pleasure dose went out inside two days, so the
+        # hourly tick costs nothing on a well-fed week.
+        #
+        # Schedule-only: a reply or a rating should never trigger a tape.
+        if: github.event_name == 'schedule'
+        continue-on-error: true
+        run: python scripts/render_rotation.py --if-short --minutes 8
+
       - name: Pay off a closed tape
         # LAST, and on every wake-up. Last because a reply judged three steps up
         # closes that tape in this same tick, so the payoff for a knock he just

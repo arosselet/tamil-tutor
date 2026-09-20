@@ -35,7 +35,16 @@ PROSE_BUDGETS = {
     # Set at the 2026-09-02 census (577) rounded up plus headroom, on the day this file stopped being studio craft. · 625 -> 680 (2026-09-10): the Register Default arrived from profile.md's Touchdown Doctrine, 841 words retired whole.
     "protocol/dialect.md": 680,
     # 2000 -> 1750 (2026-09-03).
-    "protocol/persona.md": 1750,
+    # 1750 -> 1890 (2026-09-19, Andrew). Two moves Anna did not have. SOMATIC
+    # ANCHORS come back: they are in the initial commit, they were collapsed
+    # into field missions, and the collapse is what lost them — missions died
+    # at the TRIGGER ("I didn't find an opening", 08-26, four in a row), never
+    # at the collection. An anchor needs no opening and is never collected.
+    # THE STANDING ORDER: a week of silence is something Anna asks about, once,
+    # as a question — Andrew's own instruction, with "this is annoying" as a
+    # complete answer. Paid for by retiring "no serialized saga, scenes are
+    # disposable", which the household superseded the same day.
+    "protocol/persona.md": 1890,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-03) — the prose half of the law CODE_BUDGETS has enforced since 2026-08-23.
     "protocol/toolbelt.md": 600,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-09).
@@ -97,7 +106,14 @@ PROSE_BUDGETS = {
     # (06-20, 06-28) that the household supersedes — plus the 07-26 stored focus
     # cohort, which retired with the conveyor. Net growth is 60 words across four
     # reshaped subsystems, and the narrative is in the commit where it belongs.
-    "docs/DECISIONS.md": 12560,
+    # 12560 -> 12700 (2026-09-19, SECOND raise today — flagged, not dressed up).
+    # Three entries, NOTHING RETIRED FOR THEM, and that is the honest state:
+    # the obvious candidate was the field-mission lineage, and proposing to
+    # retire it is the exact mistake this session corrected. A fade is
+    # palatability data; the answer is to find the good half (somatic anchors,
+    # which were in the initial commit and got collapsed into missions), not to
+    # delete the lineage. The log grew because the system learned something.
+    "docs/DECISIONS.md": 12710,
     "docs/feature_inbox.md": 1500,
     ".claude/skills/debug/SKILL.md": 1500,
 }
@@ -150,7 +166,11 @@ CODE_BUDGETS = {
     "scripts/publish.py": 150,
     "scripts/push_queue.py": 250,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-04).
-    "scripts/rails.py": 26,
+    # 26 -> 40 (2026-09-19): the supply FLOOR. A rail is a bound and a bound
+    # has two ends — everything above this is a ceiling (do not reach more than
+    # this), and `pleasure_due` is the other end (do not let the shelf go
+    # empty). Same subject, same file, opposite direction.
+    "scripts/rails.py": 40,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-04).
     "scripts/memo.py": 28,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-17). The month
@@ -190,7 +210,13 @@ CODE_BUDGETS = {
     "scripts/render_drill.py": 185,
     # New file 2026-08-10 at 318 lines — the fourth audio lane. ~45 of those are BASE_MANDATE + the five SHAPE_CLAUSES, which code_lines counts as mechanism (prompt strings always … · Budgeted at 340 rather than 400: the headroom is for diagnosis, not for a sixth shape.
     # 325 -> 318 (2026-09-13): `inventory_hosts` moved OUT to suggest_targets; re-censused down, not held.
-    "scripts/render_rotation.py": 318,
+    # 318 -> 345 (2026-09-19): `--if-short`, the gate that lets this lane run
+    # on a cron. It is mostly the diagnosis of WHY a scheduled pleasure lane is
+    # not a nag — measured: 15.7 authored minutes in the ten days after he came
+    # home, no soak, no rotation, no drill — but the mechanism is real code and
+    # is budgeted as such. Nothing retired for it; this file gained a job it did
+    # not have, which is running when nobody asked.
+    "scripts/render_rotation.py": 345,
     # 275 -> 265 (2026-08-23, Andrew): re-censused DOWN.
     "scripts/render_soak.py": 195,
     # Budgeted in the diff that created it (2026-09-05) — a new file with no entry here is a red run, because adding one is the obvious way past …

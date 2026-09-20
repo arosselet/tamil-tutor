@@ -43,7 +43,7 @@ counts; a missed day is nothing. The floor exists so the target can never become
   silence.
 - **Say it out loud when it is not working.** The override line is this system's oldest rule and
   the feedback ledger is its machinery. A felt complaint is the primary diagnostic, not a
-  complaint.
+  complaint. Anna asks when a week goes quiet; *"this is annoying"* is a complete answer.
 - **Set the numbers.** Every dial is his. The system proposes; it does not adopt.
 
 ## What he does not owe

@@ -1273,3 +1273,89 @@ def s115_the_tape_is_overheard_in_the_household(sb: Path):
     check("the language pack names no household character",
           not any(n in pack_src for n in proper),
           "a learner-pack fact was written into the language pack")
+
+
+def s117_the_shelf_stays_stocked_without_him(sb: Path):
+    """THE SUPPLY FLOOR (2026-09-19, Andrew).
+
+    THE FADE LOOP THIS BREAKS, measured: no audio lane was scheduled. Every
+    soak, drill, rotation and episode existed because Anna commissioned one
+    INSIDE a session, and `commissioning.md` says the repair earns the dose —
+    "commissioning nothing is a first-class outcome". So the supply of audio was
+    gated on Andrew's attendance: tired, so fewer sessions, so fewer
+    commissions, so less in his ears, so more tired. Over the ten days after he
+    came home: 15.7 authored minutes, no soak, no rotation, no drill. Every step
+    behaved exactly as designed.
+
+    THE ONE THING IT MUST NOT BECOME is accountability machinery — "a fade is
+    palatability data, not a discipline failure" (DECISIONS 07-04) is the oldest
+    ruling here. So the floor is measured on what the week PRODUCED and never on
+    what he PLAYED. A floor he could fail by not listening is a streak with a
+    new name, and that assertion is the sharpest one below.
+
+    AND THE SILENT NO-OP: a scheduled lane that quietly never fires. The gate
+    returns a REASON rather than a bool for exactly that — "it didn't run" has
+    several causes that look identical from outside a cron.
+    """
+    print("\n117. The shelf stays stocked without him (2026-09-19)")
+    rl = importlib.import_module("rails")
+
+    # ── THE FLOOR IS ON SUPPLY, NEVER ON HIS LISTENING ─────────────────────
+    # The load-bearing assertion. `pleasure_due` takes produced minutes; there
+    # is no parameter it could read his attendance from, so the lane CANNOT
+    # become a nag by a later edit without changing this signature.
+    import inspect
+    params = list(inspect.signature(rl.pleasure_due).parameters)
+    check("the gate takes produced minutes and a gap — and nothing about him",
+          params == ["produced_min", "days_since_last"], f"got {params}")
+    # MECHANISM ONLY, never the prose: the comments here necessarily DISCUSS his
+    # listening (that is the whole diagnosis), and a check over raw source would
+    # fail on its own explanation — which is a test that punishes documentation.
+    mech = mechanism(fx.raw_source(REAL_BASE / "scripts" / "rails.py"))
+    check("...and no CODE in the rail reads a play, tap or rating",
+          not any(w in mech.lower() for w in ("dose_minutes", "attended", "rating", "plays")),
+          f"the supply floor learned to watch his listening — that is a streak: {mech[:200]}")
+
+    # ── AN EMPTY SHELF IS DUE; A STOCKED ONE IS NOT ────────────────────────
+    check("an empty week is due", rl.pleasure_due(0.0, None) == "")
+    check("a week under the floor is due", rl.pleasure_due(rl.SUPPLY_FLOOR_MIN - 1, 9) == "")
+    stocked = rl.pleasure_due(rl.SUPPLY_FLOOR_MIN, 9)
+    check("a week AT the floor is not due, and says why",
+          stocked and "stocked" in stocked, f"got {stocked!r}")
+    soon = rl.pleasure_due(0.0, 0)
+    check("...and two doses cannot land on the same day", bool(soon), f"got {soon!r}")
+    check("...which also says why", "gap" in soon, f"got {soon!r}")
+    # THE REASON IS THE POINT. A bool here would make "the shelf was full" and
+    # "the gate silently stopped being called" the same observation on a cron.
+    check("a refusal is always a sentence, never a bare falsey",
+          all(isinstance(r, str) and r for r in (stocked, soon)), "a refusal came back bare")
+
+    # ── THE LANE ASKS THE GATE, AND THE CRON ASKS THE LANE ─────────────────
+    rot = fx.raw_source(REAL_BASE / "scripts" / "render_rotation.py")
+    check("the rotation lane carries the --if-short gate",
+          "--if-short" in rot and "rails.pleasure_due" in rot,
+          "the gate exists and nothing consults it")
+    wf = (REAL_BASE / ".github" / "workflows" / "anna.yml").read_text(encoding="utf-8")
+    check("the cloud runs it on the schedule",
+          "--if-short" in wf, "the lane can run unattended and nothing ever calls it")
+    # Schedule-only: a reply or a rating must never trigger a tape, or answering
+    # Anna would start producing audio, which is the nag wearing a third coat.
+    step = wf.split("Keep the shelf stocked", 1)[1].split("- name:", 1)[0]
+    check("...only on the schedule, never on a reply or a rating",
+          "github.event_name == 'schedule'" in step, step[:200])
+    check("...and it can never take down the run that delivers something else",
+          "continue-on-error: true" in step, "a failed tape would fail the whole tick")
+
+    # ── THE FLOOR IS A REAL NUMBER WITH A DERIVATION ───────────────────────
+    check("the floor is denominated in minutes per week, not per day",
+          rl.SUPPLY_WINDOW_DAYS == 7 and rl.SUPPLY_FLOOR_MIN >= 20,
+          f"{rl.SUPPLY_FLOOR_MIN} min / {rl.SUPPLY_WINDOW_DAYS}d")
+    # WHAT THE FLOOR IS FOR, restated as an assertion rather than a comment: the
+    # default rotation length must be a dose he can actually press play on. 15
+    # was the old default and is a workday tape; the cron asks for 8.
+    # The RUN line, not the first mention — the comment above it says
+    # `--if-short` too, and splitting on that parsed prose.
+    wf_minutes = wf.split("render_rotation.py --if-short", 1)[1].splitlines()[0]
+    check("the scheduled tape is a short one, not a flight tape",
+          "--minutes" in wf_minutes and int(wf_minutes.split("--minutes")[1].strip()) <= 12,
+          f"got {wf_minutes!r} — a 45-minute tape is not a fade remedy")

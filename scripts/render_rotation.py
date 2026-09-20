@@ -87,6 +87,7 @@ from pathlib import Path
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from lanes import deliver_rendered
+import rails
 from publish import commit_and_push, load_env, push_to_phone
 from language import ANNA_VOICE, EAVESDROP_VOICE
 from render_audio import (generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME,
@@ -129,6 +130,12 @@ SILENCE_PER_SEC = 41.666                  # frames per second (matches render_au
 # nothing to recall, and the `room` spine shipped its first plan opening on an
 # empty scene (caught by reading a --plan-only run, not by the suite — s57 now
 # asserts it).
+# The lanes that count as the shelf being stocked: a dose whose whole
+# contract is "press once, nothing asked". An episode is NOT here — it is
+# excellent and it asks something, and the floor exists for the days he has
+# nothing to give.
+PLEASURE_FORMATS = {"rotation", "soak", "payoff"}
+
 CADENCES = {
     "machines":  ("machine", "scene", "machine", "lore", "machine", "eavesdrop"),
     "inventory": ("inventory", "scene", "inventory", "lore", "inventory", "eavesdrop"),
@@ -564,7 +571,7 @@ def describe(plan: list[dict], pool: list[dict], minutes: float):
 
 
 def main():
-    ap = argparse.ArgumentParser(description="A 40-60 minute press-once listening tape")
+    ap = argparse.ArgumentParser(description="A press-once listening tape — nothing asked")
     ap.add_argument("--spine", choices=sorted(CADENCES), default="inventory",
                     help="the tape's centre of gravity (default: inventory)")
     # 45 -> 15 (2026-08-31). The old default was the occasion in disguise: it
@@ -579,7 +586,32 @@ def main():
                     help="plan + write the first sheet; no TTS, no publish")
     ap.add_argument("--no-publish", action="store_true",
                     help="render only; skip RSS/commit/push/notify")
+    ap.add_argument("--if-short", action="store_true",
+                    help="only build when the week's authored supply is under the floor (rails)")
     args = ap.parse_args()
+
+    # THE SHELF, NOT THE LEARNER. `--if-short` is what lets this lane run on a
+    # cron without becoming a nag: it asks whether the WEEK PRODUCED enough
+    # audio, never whether Andrew listened to it. A gate on his listening would
+    # be a streak with a new name, and a fade answered with accountability
+    # machinery is the one move DECISIONS 07-04 forbids outright.
+    if args.if_short:
+        from rebuild_rss import feed_items
+        from state_io import local_today
+        from datetime import date as _date, timedelta as _td
+        today = local_today()
+        window = (today - _td(days=rails.SUPPLY_WINDOW_DAYS - 1)).isoformat()
+        items = [i for i in feed_items() if (i.get("date") or "") >= window]
+        produced = sum(i.get("minutes") or 0 for i in items)
+        last = [i.get("date") for i in feed_items()
+                if (i.get("format") or "").split("/")[0] in PLEASURE_FORMATS
+                and i.get("date")]
+        gap = ((today - _date.fromisoformat(max(last))).days) if last else None
+        if why := rails.pleasure_due(produced, gap):
+            print(f"   [supply] no tape — {why}")
+            return
+        print(f"   [supply] {produced:.0f} min produced in "
+              f"{rails.SUPPLY_WINDOW_DAYS}d, under the {rails.SUPPLY_FLOOR_MIN} floor — building")
 
     load_env(BASE / ".env")
     focus, payload = rotation_brief()

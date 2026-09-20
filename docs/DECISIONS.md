@@ -49,6 +49,9 @@ compressed 2026-09-10, 32k words to 11k, nothing lost that git did not hold).
 
 ## Settled design decisions
 
+- **The shelf is stocked on a cron; the floor is on SUPPLY, not listening** (2026-09-19, Andrew) No audio lane was scheduled and the repair earned the dose, so contact was gated on his attendance — tired, fewer sessions, less audio, more tired. A floor he could fail by not listening is a streak.
+- **Somatic anchors are their own move, older than missions** (2026-09-19, Andrew) Missions died at the TRIGGER — "I didn't find an opening", four in a row — never at the collection. An anchor binds to what his day supplies, is never collected, never scored. Both live; when in doubt, anchor.
+- **A week of silence is a question Anna asks once** (2026-09-19, Andrew) Plainly, never a nudge. "This is annoying" is a complete answer and the only correct response is to change the thing. Anna files a machinery failure rather than routing around it in prose.
 - **Eavesdrop tapes are overheard in the household** (2026-09-19) The cast's names count as referents; the language pack is not widened for them — a cast list is a fact about Andrew, not Tamil. Otherwise tapes about the proper-named characters refuse and the lane goes silently quiet.
 - **The post-trip era is a household, and the month is its arc** (2026-09-19, Andrew) The system never had a reason to continue that it supplied itself. A fictional Coimbatore household — never a mirror of anyone he knows, children included because the ladder starts there — is the continuity. Supersedes 06-20 and 06-28; the divergence gate is untouched, the voices pinned by Python.
 - **The month's win is the finale ear test; the count steers and never wins** (2026-09-19) Membership folds over arc sidecars, completion over the log, the verdict over key-line events. Unmet is re-cut, never debt — no field records what went unmet.

@@ -81,3 +81,48 @@ def last_fire(klog: list) -> dict | None:
     measured from."""
     fires = [k for k in klog if is_fire(k) and k.get("timestamp")]
     return fires[-1] if fires else None
+
+
+# ── How LITTLE (the supply floor) ────────────────────────────────────────────
+# A rail is a bound, and a bound has two ends. Everything above is a CEILING —
+# do not reach more than this. This is the FLOOR: do not let the shelf go empty.
+#
+# WHY IT EXISTS (2026-09-19, Andrew, measured). No audio lane is scheduled:
+# every soak, drill, rotation and episode exists because Anna commissioned one
+# INSIDE a session. And `commissioning.md` says the repair earns the dose —
+# payload drawn from live slips, "commissioning nothing is a first-class
+# outcome". Put those together and the supply of audio is gated on Andrew's
+# attendance, which is exactly backwards: he is tired, so fewer sessions, so
+# fewer commissions, so less in his ears, so he fades further. Every step
+# behaves as designed. Measured over the ten days after he came home: 15.7
+# authored minutes, no soak, no rotation, no drill.
+#
+# "A fade is palatability data, not a discipline failure" (DECISIONS, 07-04) —
+# never answer a fade with accountability machinery. This is the opposite of
+# accountability machinery: it makes the SYSTEM owe him contact, and it cannot
+# be discharged by him doing anything.
+SUPPLY_WINDOW_DAYS = 7
+# 30 min/week is the calibration note's own arithmetic run backwards: the dial
+# is 10-15 min/day of CONTACT at ~3.5 plays per tape, which needs ~129 authored
+# minutes a month. This is a floor on what is PRODUCED, never on what he played
+# — a floor he could fail by not listening would be a streak with a new name.
+SUPPLY_FLOOR_MIN = 30
+# Two days between pleasure doses. Not a ceiling on audio — episodes, knocks and
+# payoffs are unaffected — just a spacing so a quiet week fills steadily instead
+# of arriving all at once.
+PLEASURE_MIN_GAP_DAYS = 2
+
+
+def pleasure_due(produced_min: float, days_since_last: float | None) -> str:
+    """"" when a no-strings dose is owed; otherwise the reason it is not.
+
+    A REASON STRING, not a bool, for the same cause `year.problem` is one: this
+    gate runs unattended on a cron, and "it did not fire" has several causes
+    that look identical from the outside. The one that must never be silent is
+    a floor that has quietly stopped being checked."""
+    if days_since_last is not None and days_since_last < PLEASURE_MIN_GAP_DAYS:
+        return f"last pleasure dose was {days_since_last:.1f}d ago (gap {PLEASURE_MIN_GAP_DAYS}d)"
+    if produced_min >= SUPPLY_FLOOR_MIN:
+        return (f"the shelf is stocked: {produced_min:.0f} min produced in "
+                f"{SUPPLY_WINDOW_DAYS}d (floor {SUPPLY_FLOOR_MIN})")
+    return ""
