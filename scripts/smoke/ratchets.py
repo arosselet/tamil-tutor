@@ -176,7 +176,15 @@ CODE_BUDGETS = {
     # NEW FILE, budgeted in the diff that creates it (2026-08-24, Q1's first family).
     "scripts/lanes.py": 60,
     # NEW FILE, budgeted in the same diff that creates it (2026-08-23, the spine refactor).
-    "scripts/publish.py": 150,
+    # 150 -> 165 (2026-09-20, Andrew): the branch guard. `commit_and_push` ends
+    # in a literal `git push origin HEAD:main` and the rebase above it replays
+    # the whole branch — so rendering a tape from `proposal/month-with-edges`
+    # rebased five commits onto main and shipped a review branch to production
+    # as a side effect of making an audio file. Refuse, never retarget: the
+    # feed URL is pinned to `@main`, so publishing to a branch would render,
+    # commit, cost the TTS and 404 on his phone. `s119` holds it against a real
+    # bare repo, both directions, including the detached CI shape.
+    "scripts/publish.py": 165,
     "scripts/push_queue.py": 250,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-04).
     # 26 -> 40 (2026-09-19): the supply FLOOR. A rail is a bound and a bound

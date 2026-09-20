@@ -417,3 +417,109 @@ def s102_two_writers_on_the_ledger_both_survive(mk, sb: Path):
     check("the rung is the FOLD of both events — two passes, solid",
           lex.get("X", {}).get("recognition") == "solid", str(lex.get("X")))
     check("nothing is left mid-rebase", not (runner / ".git" / "rebase-merge").exists())
+
+
+def s119_a_render_off_main_refuses_to_publish(sb: Path):
+    """PUBLISHING FROM A FEATURE BRANCH SHIPS THE BRANCH (2026-09-20, incident).
+
+    WHAT HAPPENED, and it is the reason this case is on a real repo rather than
+    a stub. A rotation tape was rendered from the laptop while it sat on
+    `proposal/month-with-edges`, five commits ahead of main. `commit_and_push`
+    ends in a literal `git push origin HEAD:main`, and the rebase above it
+    replays whatever is on the branch — so all five commits were rebased onto
+    origin/main, given new SHAs, and pushed to main. An entire review branch
+    shipped to production as a side effect of rendering an audio file. Nothing
+    raised, nothing warned; the tape landed on the phone exactly as asked.
+
+    Anna can commission audio mid-session, so "make me a soak" on any branch
+    did this. The assumption is stated in the function and was true when it was
+    written: the laptop only ever sat on main.
+
+    THE FIX IS A REFUSAL, NOT A RETARGET (Andrew's call). Pushing to the current
+    branch instead would be friendlier and wrong: the feed URL is pinned to
+    `@main` (`jsdelivr_url`), so a dose published to a branch renders, commits,
+    costs the TTS, reports success — and 404s on his phone. That is the silent
+    failure this repo keeps writing cases about, bought in exchange for removing
+    a loud one.
+
+    THE TEETH ARE ON THE REMOTE. Asserting the exception is not enough: the
+    thing that must not happen is a commit or a push, so this drives the real
+    function against a real bare repo and reads the remote back afterwards.
+    """
+    print("\n119. A render off main refuses to publish (2026-09-20)")
+    import subprocess as sp
+    root = sb / "branchguard"
+    origin, work = root / "origin.git", root / "work"
+    root.mkdir(parents=True, exist_ok=True)
+
+    def git(cwd, *a):
+        return sp.run(["git", *a], cwd=cwd, capture_output=True, text=True,
+                      encoding="utf-8")
+
+    sp.run(["git", "init", "-q", "--bare", "-b", "main", str(origin)], check=True)
+    sp.run(["git", "clone", "-q", str(origin), str(work)], check=True)
+    git(work, "config", "user.email", "a@b.c")
+    git(work, "config", "user.name", "t")
+    (work / "seed.txt").write_text("base\n", encoding="utf-8")
+    git(work, "add", "-A")
+    git(work, "commit", "-qm", "base")
+    git(work, "push", "-q", "origin", "HEAD:main")
+    before = git(origin, "rev-parse", "main").stdout.strip()
+
+    pb = importlib.import_module("publish")
+    real_base = pb.BASE
+    try:
+        pb.BASE = work                      # point the lane at the toy repo
+
+        # ── ON A FEATURE BRANCH: refuse, commit nothing, push nothing ───────
+        git(work, "checkout", "-q", "-b", "proposal/some-work")
+        (work / "dose.txt").write_text("a tape\n", encoding="utf-8")
+        check("the toy repo really is off main",
+              pb.current_branch() == "proposal/some-work", pb.current_branch())
+        raised = ""
+        try:
+            pb.commit_and_push([work / "dose.txt"], "Rotation tape")
+        except RuntimeError as e:
+            raised = str(e)
+        check("publishing from a feature branch RAISES", bool(raised), "it went through")
+        check("...and the message names the branch and the real consequence",
+              "proposal/some-work" in raised and "main" in raised, raised)
+        # THE TWO ASSERTIONS THAT MATTER. An exception after the damage is done
+        # is not a guard.
+        check("...nothing was pushed — the remote did not move",
+              git(origin, "rev-parse", "main").stdout.strip() == before,
+              "the branch reached main anyway")
+        check("...and nothing was even committed locally",
+              "dose.txt" in git(work, "status", "--porcelain").stdout,
+              "the dose was committed before the refusal — the tree is not clean")
+
+        # ── ON MAIN: unchanged. A guard that blocks the real path is worse
+        # than the bug, and this is the half that keeps every knock alive.
+        git(work, "checkout", "-q", "main")
+        check("back on main the guard passes it through",
+              pb.current_branch() == "main" and not _refuses(pb, work),
+              "the guard now blocks the lane it was supposed to protect")
+
+        # ── DETACHED HEAD READS AS MAIN, deliberately. `anna.yml` pins
+        # `ref: main` so CI is on a named branch today — but a guard that dies
+        # on a detached HEAD would take every knock down with it, and the
+        # runner has no other branch to be on.
+        git(work, "checkout", "-q", "--detach")
+        check("a detached HEAD is not refused — that is the CI shape",
+              pb.current_branch() == "" and not _refuses(pb, work),
+              "a detached checkout would stop every knock in the cloud")
+    finally:
+        pb.BASE = real_base
+
+
+def _refuses(pb, work) -> bool:
+    """Does the guard refuse here? Asked WITHOUT reaching the network: the
+    branch check runs before `git add`, so a missing path raises something else
+    entirely and only the RuntimeError means 'refused'."""
+    try:
+        pb.commit_and_push([work / "nothing-here.txt"], "probe")
+    except RuntimeError:
+        return True
+    except Exception:                       # noqa: BLE001 — got past the guard
+        return False
+    return False

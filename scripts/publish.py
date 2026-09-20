@@ -180,7 +180,45 @@ def _rebase_onto_main() -> bool:
     return False
 
 
+def current_branch() -> str:
+    """The checked-out branch, or "" in a detached HEAD.
+
+    "" is the CI shape's fallback and is TREATED AS MAIN by `commit_and_push`:
+    `anna.yml` pins `ref: main` so the runner is on a named branch today, but a
+    guard that dies on a detached HEAD would take every knock down with it, and
+    the failure this guards against cannot happen in CI — the runner has no
+    other branch to be on."""
+    return subprocess.run(["git", "branch", "--show-current"], cwd=BASE,
+                          capture_output=True, text=True, encoding="utf-8").stdout.strip()
+
+
 def commit_and_push(paths: list[Path], msg: str):
+    # THE PUSH TARGET IS A LITERAL — `HEAD:main`, below — AND THE REBASE ABOVE
+    # IT REPLAYS EVERYTHING (2026-09-20, Andrew's call: fail loud, never
+    # silently retarget).
+    #
+    # WHAT HAPPENED. A rotation tape was rendered from the laptop while it sat
+    # on `proposal/month-with-edges`, five commits ahead of main. This function
+    # rebased ALL FIVE onto origin/main — new SHAs — and then pushed them to
+    # main. A whole review branch shipped to production as a side effect of
+    # rendering an audio file, and nothing said a word. Anna can commission
+    # audio mid-session, so "make me a soak" on any branch did this.
+    #
+    # The assumption is stated one comment down and was true when written: the
+    # laptop only ever sat on main. It is not true of a laptop doing build work.
+    #
+    # REFUSING, NOT RETARGETING. Pushing to the current branch instead would be
+    # friendlier and is the wrong trade: a dose that renders, commits and never
+    # reaches the cloud is a silent failure, and the feed URL is pinned to
+    # `@main` (`jsdelivr_url`) so the mp3 would 404 on his phone. Loud beats
+    # clever — the tree is left committed, so nothing is lost and the fix is a
+    # checkout away.
+    branch = current_branch()
+    if branch and branch != "main":
+        raise RuntimeError(
+            f"refusing to publish from '{branch}': this pushes HEAD:main and would "
+            f"rebase every commit on this branch onto main and ship them. Commit "
+            f"is NOT made; switch to main (or cherry-pick the dose) and re-run.")
     rels = [str(p.relative_to(BASE)) for p in paths]
     subprocess.run(["git", "add", *rels], cwd=BASE, check=True)
     subprocess.run(["git", "commit", "-m", msg], cwd=BASE, check=True)
