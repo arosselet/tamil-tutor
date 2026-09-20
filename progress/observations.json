@@ -19589,5 +19589,29 @@
     "result": "right",
     "source": "session:2026-09-20",
     "note": "fired cold"
+  },
+  {
+    "id": "50a25d6b657c",
+    "at": "2026-09-20T23:07:42Z",
+    "word": "சொல்றேன்",
+    "channel": "soak",
+    "kind": "attended",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "rating:soak_2026-09-20_1639",
+    "note": ""
+  },
+  {
+    "id": "5e179d508abd",
+    "at": "2026-09-20T23:07:42Z",
+    "word": "போறேன்",
+    "channel": "soak",
+    "kind": "attended",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "rating:soak_2026-09-20_1639",
+    "note": ""
   }
 ]

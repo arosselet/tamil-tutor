@@ -1106,9 +1106,10 @@
     ],
     "last_surfaced": "2026-09-20",
     "reps": 3,
-    "exposures": 1,
+    "exposures": 2,
     "heard_on": null,
-    "taught_on": "2026-02-24"
+    "taught_on": "2026-02-24",
+    "heard_times": 1
   },
   "டயர்ட்": {
     "gloss": "Tired",
@@ -1569,9 +1570,10 @@
       28
     ],
     "last_surfaced": "2026-09-20",
-    "exposures": 1,
+    "exposures": 2,
     "reps": 1,
-    "taught_on": "2026-02-28"
+    "taught_on": "2026-02-28",
+    "heard_times": 1
   },
   "சொல்லுவேன்": {
     "gloss": "I will tell (future)",
