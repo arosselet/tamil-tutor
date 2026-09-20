@@ -562,5 +562,9 @@
     "note": "[audio rating] [rotation] Rotation — inventory — finished it.",
     "id": "rotation_inventory_2026-09-20_1051",
     "minutes": 10.166666666666666
+  },
+  {
+    "date": "2026-09-20",
+    "note": "[payoff] the 2026-09-19 tape (eavesdrop: spice-dhaan) has no payoff and will not be retried — no meaning for line [1, 2, 3, 4, 5, 6] of 9. He heard it and never got its meaning."
   }
 ]
