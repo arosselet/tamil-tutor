@@ -216,8 +216,9 @@
       76
     ],
     "last_surfaced": "2026-09-20",
-    "exposures": 1,
-    "taught_on": null
+    "exposures": 2,
+    "taught_on": "2026-02-26",
+    "heard_times": 1
   },
   "நேரா": {
     "gloss": "Straight",
@@ -353,8 +354,9 @@
       77
     ],
     "last_surfaced": "2026-09-20",
-    "exposures": 1,
-    "taught_on": null
+    "exposures": 2,
+    "taught_on": "2026-02-24",
+    "heard_times": 1
   },
   "உனக்கு": {
     "gloss": "To you / For you",
@@ -416,8 +418,9 @@
       81
     ],
     "last_surfaced": "2026-09-20",
-    "exposures": 2,
-    "taught_on": null
+    "exposures": 3,
+    "taught_on": "2026-02-25",
+    "heard_times": 1
   },
   "அது": {
     "gloss": "It / That",
@@ -526,8 +529,9 @@
     ],
     "last_surfaced": "2026-09-20",
     "reps": 2,
-    "exposures": 1,
-    "taught_on": "2026-02-24"
+    "exposures": 2,
+    "taught_on": "2026-02-24",
+    "heard_times": 1
   },
   "மாமா": {
     "gloss": "Uncle (maternal)",
@@ -675,9 +679,10 @@
       80
     ],
     "last_surfaced": "2026-09-20",
-    "exposures": 1,
+    "exposures": 2,
     "reps": 1,
-    "taught_on": "2026-02-25"
+    "taught_on": "2026-02-25",
+    "heard_times": 1
   },
   "நம்ம": {
     "gloss": "Our (inclusive)",
@@ -787,8 +792,9 @@
       28
     ],
     "last_surfaced": "2026-09-20",
-    "exposures": 2,
-    "taught_on": null
+    "exposures": 3,
+    "taught_on": "2026-02-25",
+    "heard_times": 1
   },
   "கொஞ்சம்": {
     "gloss": "A little",
@@ -809,8 +815,9 @@
     ],
     "last_surfaced": "2026-09-20",
     "reps": 2,
-    "exposures": 6,
-    "taught_on": "2026-02-24"
+    "exposures": 1,
+    "taught_on": "2026-02-24",
+    "heard_times": 1
   },
   "போதும்": {
     "gloss": "Enough",
@@ -893,8 +900,9 @@
       82
     ],
     "last_surfaced": "2026-09-20",
-    "exposures": 2,
-    "taught_on": null
+    "exposures": 3,
+    "taught_on": "2026-02-25",
+    "heard_times": 1
   },
   "நீங்க": {
     "gloss": "You (respectful - Elders/Strangers)",
@@ -1000,8 +1008,9 @@
       69
     ],
     "last_surfaced": "2026-09-20",
-    "exposures": 2,
-    "taught_on": null
+    "exposures": 3,
+    "taught_on": "2026-02-24",
+    "heard_times": 1
   },
   "வேணும்": {
     "gloss": "I want / I need",
@@ -1398,9 +1407,10 @@
       35
     ],
     "last_surfaced": "2026-09-20",
-    "exposures": 1,
+    "exposures": 2,
     "taught_on": "2026-02-25",
-    "reps": 1
+    "reps": 1,
+    "heard_times": 1
   },
   "நூறு": {
     "gloss": "Hundred",
@@ -1540,9 +1550,10 @@
       85
     ],
     "last_surfaced": "2026-09-20",
-    "exposures": 1,
+    "exposures": 2,
     "reps": 4,
-    "taught_on": "2026-02-24"
+    "taught_on": "2026-02-24",
+    "heard_times": 1
   },
   "சொல்றேன்": {
     "gloss": "I'm telling (present)",
@@ -1586,9 +1597,10 @@
       82
     ],
     "last_surfaced": "2026-09-20",
-    "exposures": 1,
+    "exposures": 2,
     "reps": 2,
-    "taught_on": "2026-02-25"
+    "taught_on": "2026-02-25",
+    "heard_times": 1
   },
   "உள்ள": {
     "gloss": "Inside",
@@ -1626,8 +1638,9 @@
     ],
     "last_surfaced": "2026-09-20",
     "reps": 1,
-    "exposures": 2,
-    "taught_on": "2026-02-24"
+    "exposures": 3,
+    "taught_on": "2026-02-24",
+    "heard_times": 1
   },
   "போனேன்": {
     "gloss": "I went",
@@ -1720,9 +1733,10 @@
       78
     ],
     "last_surfaced": "2026-09-20",
-    "exposures": 2,
+    "exposures": 3,
     "taught_on": "2026-02-25",
-    "reps": 1
+    "reps": 1,
+    "heard_times": 1
   },
   "அவரு": {
     "gloss": "He/She (respectful)",
@@ -2218,9 +2232,10 @@
       38
     ],
     "last_surfaced": "2026-09-20",
-    "exposures": 1,
+    "exposures": 2,
     "reps": 2,
-    "taught_on": "2026-02-24"
+    "taught_on": "2026-02-24",
+    "heard_times": 1
   },
   "கேட்பேன்": {
     "gloss": "I will hear/ask (future)",
@@ -2431,8 +2446,9 @@
       85
     ],
     "last_surfaced": "2026-09-20",
-    "exposures": 2,
-    "taught_on": null
+    "exposures": 3,
+    "taught_on": "2026-03-25",
+    "heard_times": 1
   },
   "அனுப்பு": {
     "gloss": "Send",
@@ -5233,8 +5249,10 @@
     "production": "cold",
     "seen_in": [],
     "last_surfaced": "2026-09-20",
-    "exposures": 1,
-    "reps": 1
+    "exposures": 2,
+    "reps": 1,
+    "taught_on": null,
+    "heard_times": 1
   },
   "இருக்கேன்": {
     "gloss": "I am / I'm here (-ஏன் = I)",
@@ -5422,7 +5440,9 @@
     "seen_in": [],
     "last_surfaced": "2026-09-20",
     "reps": 1,
-    "exposures": 2
+    "exposures": 3,
+    "taught_on": null,
+    "heard_times": 1
   },
   "பழகிப்போச்சு": {
     "gloss": "It has become habit — done, settled (pazhagu = get used to AND get close to a person; + the Kongu completive -poachu)",
@@ -5677,7 +5697,9 @@
     "production": "none",
     "seen_in": [],
     "last_surfaced": "2026-09-20",
-    "exposures": 2
+    "exposures": 3,
+    "taught_on": null,
+    "heard_times": 1
   },
   "சொல்ற": {
     "gloss": "You say / are you saying (informal, nee-form)",
@@ -5767,7 +5789,9 @@
       93
     ],
     "last_surfaced": "2026-09-20",
-    "taught_on": null
+    "taught_on": "2026-09-16",
+    "heard_times": 1,
+    "exposures": 1
   },
   "ருசி": {
     "gloss": "",
@@ -5798,7 +5822,9 @@
     "seen_in": [],
     "last_surfaced": "2026-09-20",
     "gloss": "Urgent / Hurry",
-    "taught_on": null
+    "taught_on": "2026-09-20",
+    "heard_times": 1,
+    "exposures": 1
   },
   "நேரம்": {
     "phonetic": [],
@@ -5807,7 +5833,9 @@
     "seen_in": [],
     "last_surfaced": "2026-09-20",
     "gloss": "Time",
-    "taught_on": null
+    "taught_on": "2026-09-20",
+    "heard_times": 1,
+    "exposures": 1
   },
   "வேலை": {
     "phonetic": [],
@@ -5816,7 +5844,9 @@
     "seen_in": [],
     "last_surfaced": "2026-09-20",
     "gloss": "Work",
-    "taught_on": null
+    "taught_on": "2026-09-20",
+    "heard_times": 1,
+    "exposures": 1
   },
   "உங்க": {
     "phonetic": [],
@@ -5825,7 +5855,9 @@
     "seen_in": [],
     "last_surfaced": "2026-09-20",
     "gloss": "Your (respectful)",
-    "taught_on": null
+    "taught_on": "2026-09-20",
+    "heard_times": 1,
+    "exposures": 1
   },
   "என்": {
     "phonetic": [],
@@ -5834,6 +5866,8 @@
     "seen_in": [],
     "last_surfaced": "2026-09-20",
     "gloss": "My",
-    "taught_on": null
+    "taught_on": "2026-09-20",
+    "heard_times": 1,
+    "exposures": 1
   }
 }
