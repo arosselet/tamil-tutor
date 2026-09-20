@@ -929,5 +929,29 @@
     "note": "correct Tamil in the WRITTEN register - his hand reaches for the printed/newsreader twin of a spoken connector; illaavittaal 09-13, illaiyenil 09-16; never grade it wrong, teach the register swap",
     "word": "frame:if-ndhaa",
     "dose_channel": "soak"
+  },
+  {
+    "at": "2026-09-20T20:48:05Z",
+    "date": "2026-09-20",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "nga-has-no-address",
+    "said": "Medhuva solla",
+    "want": "மெதுவா சொல்லுங்க",
+    "note": "Useful request to repeat slowly, but bare solla lacks the ending addressing Mama; recast only, no successful production observed yet.",
+    "word": "",
+    "dose_channel": "soak"
+  },
+  {
+    "at": "2026-09-20T20:52:04Z",
+    "date": "2026-09-20",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "past-tense",
+    "said": "Look at the photo for Photo paathen",
+    "want": "I saw the photo",
+    "note": "Recognizes paathen alone, then interprets the same past action as a command in a longer sentence.",
+    "word": "",
+    "dose_channel": "soak"
   }
 ]

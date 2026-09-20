@@ -19501,5 +19501,93 @@
     "result": null,
     "source": "soak_2026-09-20_1639",
     "note": ""
+  },
+  {
+    "id": "21aab698bf57",
+    "at": "2026-09-20T20:41:55Z",
+    "word": "காலைல",
+    "channel": "check",
+    "kind": "tested",
+    "axis": "recognition",
+    "result": "wrong",
+    "source": "check:2026-09-20",
+    "note": "receptive check"
+  },
+  {
+    "id": "a4ae9dcc5679",
+    "at": "2026-09-20T20:41:55Z",
+    "word": "ராத்திரி",
+    "channel": "check",
+    "kind": "tested",
+    "axis": "recognition",
+    "result": "partial",
+    "source": "check:2026-09-20",
+    "note": "receptive check"
+  },
+  {
+    "id": "a51ec10d944b",
+    "at": "2026-09-20T20:41:55Z",
+    "word": "கொஞ்சம் தண்ணி குடுங்க",
+    "channel": "check",
+    "kind": "tested",
+    "axis": "recognition",
+    "result": "right",
+    "source": "check:2026-09-20",
+    "note": "receptive check"
+  },
+  {
+    "id": "b165f89f7376",
+    "at": "2026-09-20T20:48:03Z",
+    "word": "அனுப்புங்க",
+    "channel": "check",
+    "kind": "tested",
+    "axis": "recognition",
+    "result": "right",
+    "source": "check:2026-09-20",
+    "note": "receptive check"
+  },
+  {
+    "id": "dd4b948a6737",
+    "at": "2026-09-20T20:48:03Z",
+    "word": "பாத்தேன்",
+    "channel": "check",
+    "kind": "tested",
+    "axis": "recognition",
+    "result": "right",
+    "source": "check:2026-09-20",
+    "note": "receptive check"
+  },
+  {
+    "id": "392fb306ad16",
+    "at": "2026-09-20T20:48:03Z",
+    "word": "உள்ள",
+    "channel": "check",
+    "kind": "tested",
+    "axis": "recognition",
+    "result": "wrong",
+    "source": "check:2026-09-20",
+    "note": "receptive check"
+  },
+  {
+    "id": "686f2f9007ac",
+    "at": "2026-09-20T20:52:04Z",
+    "word": "போலாமா?",
+    "channel": "session",
+    "kind": "tested",
+    "axis": "production",
+    "result": "right",
+    "source": "session:2026-09-20",
+    "note": "fired cold"
+  },
+  {
+    "id": "67dca1fa70f4",
+    "at": "2026-09-20T20:52:04Z",
+    "word": "நானே எடுத்துக்கறேன்",
+    "channel": "session",
+    "kind": "tested",
+    "axis": "production",
+    "result": "right",
+    "source": "session:2026-09-20",
+    "note": "fired cold"
   }
 ]

@@ -1610,7 +1610,9 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": null
+    "last_surfaced": "2026-09-20",
+    "reps": 1,
+    "heard_on": "2026-09-20"
   },
   "எங்க?": {
     "gloss": "Where?",
@@ -2852,10 +2854,10 @@
     "seen_in": [
       82
     ],
-    "last_surfaced": "2026-08-23",
+    "last_surfaced": "2026-09-20",
     "direction": "fire",
     "exposures": 1,
-    "reps": 1,
+    "reps": 2,
     "register": "mil-table",
     "taught_on": "2026-08-05"
   },
@@ -2865,16 +2867,18 @@
     "phonetic": [
       "konjam thanni kudunga"
     ],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "none",
     "seen_in": [
       82
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-09-20",
     "direction": "fire",
     "exposures": 1,
     "register": "mil-table",
-    "taught_on": null
+    "taught_on": "2026-08-05",
+    "reps": 1,
+    "heard_on": "2026-09-20"
   },
   "கை கழுவிட்டு வரேன்": {
     "type": "chunk",
@@ -4844,13 +4848,15 @@
     "phonetic": [
       "anuppunga"
     ],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "none",
     "seen_in": [
       67
     ],
-    "last_surfaced": "2026-07-17",
-    "taught_on": null
+    "last_surfaced": "2026-09-20",
+    "taught_on": "2026-07-17",
+    "reps": 1,
+    "heard_on": "2026-09-20"
   },
   "மேனேஜர் கிட்ட": {
     "gloss": "",
@@ -5627,11 +5633,13 @@
     "phonetic": [
       "paathen"
     ],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-08-23",
-    "exposures": 1
+    "last_surfaced": "2026-09-20",
+    "exposures": 1,
+    "reps": 1,
+    "heard_on": "2026-09-20"
   },
   "காலைல": {
     "gloss": "in the morning",
@@ -5641,8 +5649,10 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-08-23",
-    "exposures": 1
+    "last_surfaced": "2026-09-20",
+    "exposures": 1,
+    "reps": 1,
+    "heard_on": "2026-09-20"
   },
   "நாம": {
     "gloss": "we (INCLUSIVE — you are in it)",
@@ -5754,8 +5764,10 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-09-11",
-    "taught_on": "2026-09-11"
+    "last_surfaced": "2026-09-20",
+    "taught_on": "2026-09-11",
+    "reps": 1,
+    "heard_on": "2026-09-20"
   },
   "வராது": {
     "gloss": "",
@@ -5869,5 +5881,17 @@
     "taught_on": "2026-09-20",
     "heard_times": 1,
     "exposures": 1
+  },
+  "போலாமா?": {
+    "gloss": "Shall we go? (spoken contraction of pogalaamaa)",
+    "phonetic": [
+      "polamaa",
+      "polaamaa"
+    ],
+    "recognition": "struggled",
+    "production": "cold",
+    "seen_in": [],
+    "last_surfaced": "2026-09-20",
+    "reps": 1
   }
 }
