@@ -17,6 +17,10 @@
       "at": "2026-09-16",
       "episode": "93",
       "unclaimed": []
+    },
+    "delivered": {
+      "channel": "soak",
+      "at": "2026-09-20"
     }
   },
   "next_engine": "frame:polite-nga",

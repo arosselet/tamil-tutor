@@ -19479,5 +19479,27 @@
     "result": null,
     "source": "rating:rotation_inventory_2026-09-20_1051",
     "note": ""
+  },
+  {
+    "id": "92f5d59443a9",
+    "at": "2026-09-20T20:40:12Z",
+    "word": "சொல்றேன்",
+    "channel": "soak",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "source": "soak_2026-09-20_1639",
+    "note": ""
+  },
+  {
+    "id": "93f7a682fd17",
+    "at": "2026-09-20T20:40:12Z",
+    "word": "போறேன்",
+    "channel": "soak",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "source": "soak_2026-09-20_1639",
+    "note": ""
   }
 ]
