@@ -19625,5 +19625,29 @@
     "medium": "text",
     "source": "knock:2026-09-21T17:36:15.722945+00:00",
     "note": ""
+  },
+  {
+    "id": "483c22974ada",
+    "at": "2026-09-21T18:13:49Z",
+    "word": "கிட்ட இருக்கு",
+    "channel": "session",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "text",
+    "source": "session:2026-09-21",
+    "note": "re-taught; row already existed"
+  },
+  {
+    "id": "9f35a77d7b44",
+    "at": "2026-09-21T18:13:49Z",
+    "word": "கிட்ட இருக்கு",
+    "channel": "session",
+    "kind": "tested",
+    "axis": "production",
+    "result": "partial",
+    "medium": "text",
+    "source": "session:2026-09-21",
+    "note": "fired hinted"
   }
 ]
