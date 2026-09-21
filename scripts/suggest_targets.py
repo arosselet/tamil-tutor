@@ -421,8 +421,9 @@ def recent_ask_counts(klog: list, lexicon: dict, days: int = ASK_COOLDOWN_DAYS, 
             ts = ts.replace(tzinfo=timezone.utc)
         if ts < cutoff:
             continue
-        # The *_script drafts (2026-09-13) are exact; the phonetic fields remain for
-        # knocks logged before them.
+        # The *_script drafts (2026-09-13) are exact. The phonetic surfaces are
+        # scanned too, for the SCRIPT: `to_phonetic` falls back to the script
+        # when the rewrite call fails, so an ask can reach him in either field.
         texts = [k.get(f, "") for f in ("body", "body_script", "memo_script", "reply_line", "reply_line_script")]
         texts += [x.get(f, "") for x in k.get("exchanges", []) for f in ("reply_line", "reply_line_script")]
         # Every item of a volley was asked, not just the one that opened it —
@@ -434,11 +435,14 @@ def recent_ask_counts(klog: list, lexicon: dict, days: int = ASK_COOLDOWN_DAYS, 
         targets |= {v.get("target", "") for v in (k.get("volley") or [])}
         blob = " ".join(t for t in texts if t).lower()
         recent.append((targets, blob, set(TOKEN_RE.findall(blob))))
+    # ONE PROBE PER ROW since 2026-09-21 — its key. The row's stored `phonetic`
+    # spellings probed beside it until the field was deleted, and they were the
+    # half that over-counted: a Latin spelling is shared by words the script
+    # keeps apart, so an ask for one row cooled another row down off a homograph.
     counts = {}
-    for word, rec in lexicon.items():
-        probes = [word.lower()] + [p.lower() for p in rec.get("phonetic", []) if p]
+    for word in lexicon:
         n = sum(1 for tgts, blob, tokens in recent
-                if word in tgts or any(probe_hit(p, blob, tokens) for p in probes))
+                if word in tgts or probe_hit(word.lower(), blob, tokens))
         if n:
             counts[word] = n
     return counts
@@ -722,11 +726,7 @@ def vocabulary_fence(lexicon: dict) -> list[dict]:
         recog = r.get("recognition", "")
         prod = r.get("production", "")
         if recog in RECOGNIZED or prod == "cold":
-            fence.append({
-                "word": w,
-                "gloss": r.get("gloss", ""),
-                "phonetic": r.get("phonetic", []),
-            })
+            fence.append({"word": w, "gloss": r.get("gloss", "")})
     fence.sort(key=lambda e: e["word"])
     return fence
 
@@ -1254,9 +1254,7 @@ def main():
         print("  Words outside this list must be answerable from context within seconds.")
         print()
         for entry in fence:
-            phon = entry["phonetic"][0] if entry["phonetic"] else ""
-            phon_str = f" ({phon})" if phon else ""
-            print(f"  - {entry['word']}{phon_str} — {entry['gloss'] or '[no gloss]'}")
+            print(f"  - {entry['word']} — {entry['gloss'] or '[no gloss]'}")
 
     floor_gap_total = sum(1 for r in lexicon.values()
                           if r.get("type") != "pattern" and r.get("direction") != "catch"

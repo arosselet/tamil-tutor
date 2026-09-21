@@ -19,8 +19,7 @@ import re
 from datetime import date, datetime
 
 from state_io import (LEARNER_PATH, LEXICON_PATH, LOCAL_TZ, SLIP_LOG_PATH,
-                      build_phonetic_index, load_json, local_today, resolve,
-                      save_json)
+                      load_json, local_today, resolve, save_json)
 
 # How a slip stops being live evidence. After this many days with no recurrence a
 # tag RETIRES — it is not "fixed", it is just no longer evidence. Retiring is not
@@ -115,14 +114,13 @@ def append_slips(entries: list[dict], lane: str, modality: str = "",
     # An unresolvable want is normal and fine — a slip about an ENDING often has
     # no single word behind it, and the tag carries the meaning regardless.
     lexicon = load_json(LEXICON_PATH) or {}
-    phon_index = build_phonetic_index(lexicon)
     written = []
     for e in entries:
         tag = canon_tag(e.get("tag", ""))
         if not tag:
             continue
         if not e.get("word"):
-            e = dict(e, word=resolve(e.get("want", ""), lexicon, phon_index) or "")
+            e = dict(e, word=resolve(e.get("want", ""), lexicon) or "")
         row = {
             "at": now,
             "date": today,

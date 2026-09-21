@@ -105,7 +105,7 @@ CATCH_SCHEMA = obj(verdict=STR, reply_line=STR, meta_note=STR, rationale=STR,
                    # law) — the smoke suite caught this one before it shipped.
                    heard=arr(key=STR, said=STR, verdict=STR))
 from state_io import PRODUCTION_RANK  # L0 owns the ladders
-from state_io import FEEDBACK_LOG_PATH, KNOCK_LOG_PATH, LEARNER_PATH, LEXICON_PATH, SLIP_LOG_PATH, build_phonetic_index, load_json, local_today, resolve, save_json
+from state_io import FEEDBACK_LOG_PATH, KNOCK_LOG_PATH, LEARNER_PATH, LEXICON_PATH, SLIP_LOG_PATH, load_json, local_today, resolve, save_json
 from slips import append_slips, slip_patterns
 from sync_state import fires_today
 
@@ -175,7 +175,7 @@ def apply_catch_verdict(verdict: dict, knock: dict, lexicon: dict) -> list[str]:
     recognition axis — caught climbs a rung, missed falls one, half-caught is
     recorded and moves nothing. `chat` is not a test and records nothing
     (2026-09-10; every judged catch has been ear evidence since 08-27)."""
-    key = resolve(knock.get("expected_target", ""), lexicon, build_phonetic_index(lexicon))
+    key = resolve(knock.get("expected_target", ""), lexicon)
     if key is None:
         return [f"! eavesdrop target {knock.get('expected_target')!r} resolves to no lexicon record — not scored"]
     res = CATCH_RESULT.get(verdict["verdict"])
@@ -231,15 +231,14 @@ def apply_heard_words(verdict: dict, knock: dict, lexicon: dict,
     law every other miss obeys. Withholding the promotion alone was the
     flattering reading."""
     tape = json.dumps(knock.get("memo_script", ""), ensure_ascii=False)
-    index = build_phonetic_index(lexicon)
-    declared = resolve((knock.get("expected_target") or ""), lexicon, index)
+    declared = resolve((knock.get("expected_target") or ""), lexicon)
     lines, events = [], []
     for item in (verdict.get("heard") or []):
         if not isinstance(item, dict):
             continue
         named = (item.get("key") or "").strip()
         said = (item.get("said") or "").strip()
-        key = resolve(named, lexicon, index)
+        key = resolve(named, lexicon)
         if key is None:
             lines.append(f"! heard {named!r} resolves to no lexicon record — not scored")
             continue
@@ -543,9 +542,10 @@ def said_in_reply(said: str, reply_text: str) -> bool:
     word he never said, while his real substitution (ஒரு நிமிஷம், production
     'none') scored nothing. Credit belongs to the word he used.
 
-    Python owns the honesty check, not the matching: he types 'nimsham' where the
-    lexicon stores 'nimisham', so a deterministic phonetic match would strip
-    legitimate credit. The judge names the canonical key AND quotes the span; this
+    Python owns the honesty check, not the matching: he types 'nimsham' for
+    ஒரு நிமிஷம், and no deterministic Latin-to-script match survives his
+    spellings — that was the lesson of the stored `phonetic` list, deleted
+    2026-09-21. The judge names the canonical key AND quotes the span; this
     verifies the span is his."""
     flat_reply = flatten_for_match(reply_text)
     flat_said = flatten_for_match(said)
@@ -637,19 +637,29 @@ def normalize_verdict(d: dict, reply_text: str = "") -> dict:
     return d
 
 
-def shown_in_knock(key: str, rec: dict, knock: dict) -> bool:
+def shown_in_knock(key: str, knock: dict) -> bool:
     """Deterministic check of the hard rule: did the knock's own text — or a
-    recast Anna already pushed back on an earlier reply — show this Tamil
-    (script or any known phonetic)? Shown ⇒ the reply caps at 'hinted'.
-    Scans the WHOLE chain, not just the last recast."""
-    # The *_script drafts (2026-09-13) are exact; the phonetic fields remain for
-    # knocks logged before them.
-    parts = [knock.get(f, "") for f in ("body", "body_script", "memo_script", "reply_line", "reply_line_script")]
-    parts += [x.get(f, "") for x in knock.get("exchanges", []) for f in ("reply_line", "reply_line_script")]
+    recast Anna already pushed back on an earlier reply — show this Tamil?
+    Shown ⇒ the reply caps at 'hinted'. Scans the WHOLE chain, not just the
+    last recast.
+
+    SCRIPT TO SCRIPT since 2026-09-21, and the row is no longer an argument.
+    The `*_script` drafts (2026-09-13) are exact — the model writes the Tamil it
+    showed — so the second probe, the row's stored `phonetic` spellings against
+    the Latin body, was the guessing half: it matched only the spellings someone
+    had pre-named (95 rows had none) and it could fire on a body that showed a
+    different word the same transliteration would fit.
+
+    The phonetic SURFACES are still scanned, for the script: `to_phonetic` falls
+    back to the script when the rewrite call fails, so `body` and `reply_line`
+    can hold Tamil, and a reveal that reached his screen must cap the grade
+    whichever field carried it."""
+    parts = [knock.get(f, "") for f in ("body", "body_script", "memo_script",
+                                        "reply_line", "reply_line_script")]
+    parts += [x.get(f, "") for x in knock.get("exchanges", [])
+              for f in ("reply_line", "reply_line_script")]
     shown = " ".join(p for p in parts if p).lower()
-    if key.lower() in shown:
-        return True
-    return any(p.lower() in shown for p in rec.get("phonetic", []) if p)
+    return key.lower() in shown
 
 
 def current_pin(knock: dict) -> tuple[str, bool]:
@@ -663,11 +673,16 @@ def current_pin(knock: dict) -> tuple[str, bool]:
 
 
 def revealed_recently(klog: list, lexicon: dict, hours: float = 48.0) -> list[str]:
-    """Lexicon keys whose Tamil (script or any phonetic) actually appeared in
-    the last `hours` of knock traffic — bodies, memo scripts, recasts, whole
-    chains. The judge may deny a cold as "recently handed to him" ONLY for
-    words on this list: Python owns the evidence of what was shown; trusting
-    the model's memory denied a real cold (the 2026-07-04 'podhum' case)."""
+    """Lexicon keys whose Tamil actually appeared in the last `hours` of knock
+    traffic — bodies, memo scripts, recasts, whole chains. The judge may deny a
+    cold as "recently handed to him" ONLY for words on this list: Python owns
+    the evidence of what was shown; trusting the model's memory denied a real
+    cold (the 2026-07-04 'podhum' case).
+
+    One probe per row since 2026-09-21 — its key. The stored `phonetic` list
+    went with the field, and it was the loose half of this window: a Latin
+    spelling is shared by words the script keeps apart, so a row could be
+    denied a cold for a reveal of its homograph."""
     cutoff = datetime.now(timezone.utc) - timedelta(hours=hours)
     texts = []
     for k in klog:
@@ -679,12 +694,7 @@ def revealed_recently(klog: list, lexicon: dict, hours: float = 48.0) -> list[st
     blob = " ".join(t for t in texts if t).lower()
     if not blob:
         return []
-    out = []
-    for key, rec in lexicon.items():
-        probes = [key] + [p for p in rec.get("phonetic", []) if p]
-        if any(p.lower() in blob for p in probes):
-            out.append(key)
-    return sorted(out)
+    return sorted(key for key in lexicon if key.lower() in blob)
 
 
 GRADUATION_DAYS = 2  # distinct local days of capped-quality fires that prove a word cold
@@ -723,20 +733,19 @@ def apply_verdict(verdict: dict, knock: dict, lexicon: dict, klog: list,
 
     Returns (summary lines, cold-credited keys — true colds plus graduations,
     the pace meters read these —, capped keys, graduated keys)."""
-    phon_index = build_phonetic_index(lexicon)
     today_local = local_today()
     pin, pin_revealed = current_pin(knock)
-    revealed_key = resolve(pin, lexicon, phon_index) if pin_revealed else None
+    revealed_key = resolve(pin, lexicon) if pin_revealed else None
     revealed_recent = revealed_recent or []
     summary, cold_credited, capped_keys, graduated, events = [], [], [], [], []
     for item in verdict["fired"]:
-        key = resolve(item["word"], lexicon, phon_index)
+        key = resolve(item["word"], lexicon)
         if key is None:
             summary.append(f"! '{item['word']}' resolves to no lexicon record — not scored")
             continue
         rec = lexicon[key]
         grade = item["verdict"]
-        shown = key == revealed_key or shown_in_knock(key, rec, knock)
+        shown = key == revealed_key or shown_in_knock(key, knock)
         if grade == "cold" and shown:
             grade = "capped"  # the hard rule, enforced deterministically per word
         elif grade == "capped" and not (shown or key in revealed_recent):
@@ -809,14 +818,12 @@ def main():
         handle_catch_reply(knock, reply_text, klog, lexicon, args.dry_run)
         return
 
-    phon_index = build_phonetic_index(lexicon)
     target, _ = current_pin(knock)
-    target_key = resolve(target, lexicon, phon_index) if target else None
+    target_key = resolve(target, lexicon) if target else None
     target_record = None
     if target_key:
-        r = lexicon[target_key]
-        target_record = {"script": target_key, "gloss": r.get("gloss", ""),
-                         "phonetic": r.get("phonetic", [])}
+        target_record = {"script": target_key,
+                         "gloss": lexicon[target_key].get("gloss", "")}
 
     hours = hours_since_exchange(knock, datetime.now(timezone.utc))
     hours_str = f", {hours:.1f}h since last exchange" if hours is not None else ""

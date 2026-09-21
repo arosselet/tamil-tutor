@@ -7,7 +7,7 @@ coverage, the slip ledger, the session log, cooldowns, and the ticket.
 This is where the system's worst bugs have lived, and they share a shape: the
 step ran, the meter read green, and its PURPOSE was not served. 45 of 70 deck
 items never asked while cold/total reported a winning sprint; a record minted
-without a phonetic, unreachable by the only key he can type. So the cases here
+without a gloss, unnameable on the ticket that was supposed to surface it. So the cases here
 assert reachability and distribution over many draws, not a single call's
 return value — s34's range(40) loop is the pattern the rest copy.
 """
@@ -22,7 +22,7 @@ from pathlib import Path
 
 from . import _fixtures as fx
 from ._fixtures import (
-    check, lex_row, mechanism, pin_year, read_json, REAL_BASE, write_json,
+    check, lex_row, mechanism, pin_year, raw_source, read_json, REAL_BASE, write_json,
 )
 
 
@@ -434,10 +434,10 @@ def s33_catch_response_pairs(mk, sb: Path):
     answer = "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு"
     paired = [
         {"word": prompt, "gloss": "eat more", "type": "chunk", "direction": "catch",
-         "recognition": "struggled", "phonetic": ["innum konjam saapidunga"],
+         "recognition": "struggled",
          "register": "mil-table", "pairs_with": answer},
         {"word": answer, "gloss": "no thanks, I'm full", "type": "chunk",
-         "recognition": "struggled", "phonetic": ["vendaamma"],
+         "recognition": "struggled",
          "register": "antifreeze"},
     ]
     try:
@@ -513,7 +513,7 @@ def s34_focus_and_background(sb: Path):
     today = date_cls.today()
 
     # 20 words, all recognized and none cold: more than the focus set can hold.
-    lex = {f"smoke:w{i:02d}": {"gloss": f"w{i}", "phonetic": [], "type": "chunk",
+    lex = {f"smoke:w{i:02d}": {"gloss": f"w{i}", "type": "chunk",
                                "recognition": "comfortable", "production": "none",
                                "seen_in": [1], "last_surfaced": None,
                                **({"reps": 3} if i < 5 else {})}
@@ -654,7 +654,7 @@ def s36_soak_order_carries_shape(sb: Path):
         return read_json(learner_path).get("soak_order", {})
 
     try:
-        write_json(lex_path, {"போறேன்": lex_row(gloss="I go", phonetic=["poren"], type="chunk",
+        write_json(lex_path, {"போறேன்": lex_row(gloss="I go", type="chunk",
                                                 recognition="solid",
                                                 production="cold")})
         learner = read_json(learner_path)
@@ -909,10 +909,12 @@ def s38_teach_enters_the_lexicon(sb: Path):
         return read_json(lex_path), out.getvalue()
 
     try:
-        # The |phonetic tail became mandatory on a NEW word 2026-08-14 (s59) —
-        # a record minted without one can never be logged from chat again.
+        # The |phonetic tail was mandatory on a NEW word from 2026-08-14 and
+        # retired 2026-09-21 with the stored field: the Tamil key is the whole
+        # handle, so `WORD=GLOSS` is the spec and a teach carrying nothing else
+        # must still mint a complete row.
         word = "பக்கத்துல"
-        lex, _ = update(teach=[f"{word}=beside/next to|pakkathula"])
+        lex, _ = update(teach=[f"{word}=beside/next to"])
         rec = lex.get(word)
         check("a taught word is created", rec is not None, "still absent")
         check("...at struggled recognition, not solid",
@@ -923,7 +925,7 @@ def s38_teach_enters_the_lexicon(sb: Path):
         check("...and seen today", rec and rec["last_surfaced"] == ss.local_today().isoformat())
 
         # Teaching runs before the axes, so teach-then-fire in ONE close resolves.
-        lex, _ = update(teach=["ஆச்சு=it happened / it's done|aachu"], produced_cold=["ஆச்சு"])
+        lex, _ = update(teach=["ஆச்சு=it happened / it's done"], produced_cold=["ஆச்சு"])
         check("a word taught and fired in the same close is credited",
               lex["ஆச்சு"]["production"] == "cold", f"got {lex.get('ஆச்சு')}")
 
@@ -1466,7 +1468,7 @@ def s53_evidence_gates_the_ear(sb: Path):
             "frame:tested-missed": lex_row(type="pattern", recognition="comfortable",
                                            heard_on="2026-08-01"),
             # a WORD carrying the floor: recognized-by-assertion and firing cold.
-            "வணக்கம்": lex_row(recognition="solid", production="cold", phonetic=["vanakkam"]),
+            "வணக்கம்": lex_row(recognition="solid", production="cold"),
         }
         write_json(lex_path, lex)
 
@@ -1642,10 +1644,10 @@ def s55_demotion_survives_the_close(sb: Path):
                     slip_commissioned=[], no_commission="smoke sandbox")
     try:
         write_json(lex_path, {
-            "ஸ்மோக்சாலிட்": lex_row(gloss="was solid", phonetic=["solidword"], type="chunk",
+            "ஸ்மோக்சாலிட்": lex_row(gloss="was solid", type="chunk",
                                     recognition="solid",
                                     production="cold"),
-            "ஸ்மோக்ஷேக்கி": lex_row(gloss="already shaky", phonetic=["shakyword"], type="chunk")})
+            "ஸ்மோக்ஷேக்கி": lex_row(gloss="already shaky", type="chunk")})
         fx.seed_evidence(sb, "ஸ்மோக்சாலிட்", recognition="solid", production="cold")
         with contextlib.redirect_stdout(io.StringIO()):
             ss.cmd_update(_ap.Namespace(**{**defaults,
@@ -2015,27 +2017,31 @@ def s56_timezone_is_one_dial(sb: Path):
 
 
 def s71_a_new_record_is_born_reachable(sb: Path):
-    """A minted record must carry its sounds-like form (2026-08-14, Andrew).
+    """A minted record is reachable by its Tamil key, and needs nothing else
+    (2026-08-14, Andrew; the requirement inverted 2026-09-21).
 
-    Found live at a session close: `--produced-hinted ukkarunga` bounced, so did
-    `ukkaarunga`, and the rep only landed by falling back to Tamil script through
-    a UTF-8 shell. `resolve()` is exact-match against each record's `phonetic`
-    list, and three mint sites wrote `[]` under a "backfill later" note — 96 of
-    313 word records had none by that day, 88 of them `production: none`, and 5
-    of the 12 items on that session's own focus set were unloggable phonetically.
-    The ticket was naming targets the logger would refuse.
+    THE ORIGINAL: `--produced-hinted ukkarunga` bounced at a live close, so did
+    `ukkaarunga`, and the rep only landed by falling back to Tamil script
+    through a UTF-8 shell. `resolve()` was exact-match against each record's
+    stored `phonetic` list, three mint sites wrote `[]` under a "backfill later"
+    note, and 96 of 313 word records had none. So a mint without a sounds-like
+    form was REFUSED, and `WORD|phonetic` became the spec.
 
-    Gate 7.2 — a guard that never fires looks exactly like a clean close, and a
-    guard that fires but stores nothing useful looks exactly like a fixed bug. So
-    this asserts the EFFECT in the dimension that actually failed: not "the mint
-    was refused" alone, but that a word taught WITH its phonetic can afterwards be
-    logged BY that phonetic, round-tripped through the real command and re-read
-    from disk. That round trip is the whole purpose; everything else is ceremony.
+    WHAT CHANGED: the surface Anna writes in. Every key now reaches Python from
+    a model holding the Tamil (DECISIONS 2026-09-13), so the stored field had
+    nothing left to feed and was deleted on 2026-09-21 — with it, the refusal,
+    which by then could only turn a legitimate teach away. The reachability
+    claim is unchanged and still the point; the key that carries it is the Tamil.
 
-    The ratchet that capped the no-phonetic debt RETIRED 2026-09-13 (Andrew):
-    every key is logged in Tamil script now, and phonetics are generated for
-    display, never stored — the stored field goes after 2026-09-20."""
-    print("\n71. A new record is born reachable (2026-08-14)")
+    Gate 7.2 — WHAT DOES THIS LOOK LIKE WHEN IT SILENTLY DOES NOTHING? A mint
+    that writes a row nothing can name again looks exactly like a clean close:
+    the print says "Taught", the file grows a row, and the next session's
+    `--produced-cold` is what discovers the hole, days later. So this drives the
+    REAL command and then logs a fire BY THE MINTED KEY, re-read from disk —
+    the round trip is the whole case. The two refusals that must survive are
+    asserted beside it: a Latin key is still refused (the key stays canonical),
+    and a token naming no row is still skipped, loudly, with its nearest rows."""
+    print("\n71. A new record is born reachable (2026-08-14; script keys 2026-09-21)")
     import argparse as _ap
     import contextlib
     ss = importlib.import_module("sync_state")
@@ -2064,47 +2070,60 @@ def s71_a_new_record_is_born_reachable(sb: Path):
         # reasons of its own (s46 owns that behaviour).
         slip_path.write_text("[]", encoding="utf-8")
 
-        # 1. The refusal — teaching without a phonetic must NOT mint a record.
+        # 1. The mint — a teach in Tamil script and NOTHING else writes a row.
+        #    This spec was refused between 2026-08-14 and 2026-09-21; the tail it
+        #    was refused for fed a field that no longer exists.
         word = "ஸ்மோக்வார்த்தை"
         _, out = update(teach=[f"{word}=smoke word"])
-        check("teach without a phonetic is refused, naming the word",
-              word in out and "Skipped" in out, out.strip()[-160:])
-        check("...and nothing was written for it",
-              word not in read_json(lex_path),
-              "a record was minted anyway — the guard is decorative")
-
-        # 2. The same refusal on the recognition mint path.
-        _, out = update(comfortable_word=[word])
-        check("--comfortable-word without a phonetic is refused too",
-              word not in read_json(lex_path), "recognition path still mints holes")
-
-        # 3. The legal door — taught WITH its sounds-like form.
-        _, _ = update(teach=[f"{word}=smoke word|smokevaarthai"])
         rec = read_json(lex_path).get(word)
-        check("teach with a phonetic mints the record",
-              rec is not None, "the legal form was refused as well")
-        check("...and the phonetic is stored on it",
-              bool(rec) and rec.get("phonetic") == ["smokevaarthai"],
-              f"phonetic={rec.get('phonetic') if rec else None}")
+        check("a Tamil-script teach with no sounds-like tail mints the record",
+              rec is not None, f"refused: {out.strip()[-160:]}")
+        check("...with its gloss, at struggled, production unset",
+              bool(rec) and rec.get("gloss") == "smoke word"
+              and rec.get("recognition") == "struggled" and rec.get("production") == "none",
+              f"got {rec}")
+        check("...and no phonetic field comes back with it",
+              bool(rec) and "phonetic" not in rec, f"got {sorted(rec or {})}")
 
-        # 4. THE POINT — round-trip: the word is now loggable BY its phonetic,
-        #    which is the exact operation that failed live.
-        _, out = update(produced_cold=["smokevaarthai"])
-        check("the phonetic now resolves for a later production log",
+        # 2. THE POINT — round-trip: the row is loggable BY THE KEY IT WAS MINTED
+        #    WITH, driven through the real command and re-read from disk. This is
+        #    the operation that failed live in 08-14, in the spelling of its day.
+        _, out = update(produced_cold=[word])
+        check("the minted key resolves for a later production log",
               read_json(lex_path)[word].get("production") == "cold",
-              f"still unreachable from phonetics: {out.strip()[-160:]}")
+              f"unreachable by its own key: {out.strip()[-160:]}")
 
-        # 4b. A MISS NAMES ITS NEAREST ROW (2026-09-13). The 08-14 bounce said only
-        #     "Skipped", with no way to see which row `ukkaarunga` meant. The silent
-        #     no-op is a refusal that names nothing, so Anna cannot re-log it.
-        _, out = update(produced_hinted=["smokevaarthaii"])
-        check("a near-miss spelling names the row it probably meant",
+        # 3. THE REFUSAL THAT SURVIVES: a Latin key would not be canonical, so
+        #    the teach path still turns it away and writes nothing.
+        _, out = update(teach=["smokevaarthai=smoke word"])
+        check("a Latin teach is still refused — the key stays canonical",
+              "smokevaarthai" not in read_json(lex_path) and "Skipped" in out,
+              out.strip()[-160:])
+
+        # 4. The recognition mint path takes the same door — and is driven by
+        #    its real dest. Until 2026-09-21 this case passed `comfortable_word=`,
+        #    an attribute `cmd_update` never reads: the namespace took it, the
+        #    command did nothing, and "the row was not minted" came back green off
+        #    a call that had not run. A guard asserted against a no-op is this
+        #    suite's own silent no-op.
+        other = "ஸ்மோக்இரண்டு"
+        _, out = update(recognized=[other])
+        check("--recognized mints a new row from Tamil script alone",
+              other in read_json(lex_path), out.strip()[-160:])
+        _, out = update(recognized=["smokerandu"])
+        check("...and refuses a Latin one, naming it",
+              "smokerandu" not in read_json(lex_path) and "smokerandu" in out,
+              out.strip()[-160:])
+
+        # 5. A MISS NAMES ITS NEAREST ROW (2026-09-13). The 08-14 bounce said only
+        #    "Skipped", with no way to see which row `ukkaarunga` meant. The silent
+        #    no-op is a refusal that names nothing, so Anna cannot re-log it. The
+        #    near-miss is a SCRIPT one now — a dropped vowel sign, not a guessed
+        #    transliteration — which is the shape a miss has once a model writes
+        #    the key.
+        _, out = update(produced_hinted=["ஸ்மோக்வார்த்த"])
+        check("a near-miss script spelling names the row it probably meant",
               "nearest" in out and word in out, out.strip()[-200:])
-
-        # 5. The no-phonetic ratchet RETIRED 2026-09-13 (Andrew): every key is now
-        #    logged in Tamil script by a model that holds the Tamil, so a row with
-        #    no stored spelling is no longer unreachable. Phonetics are generated
-        #    for display; the stored field itself is deleted after 2026-09-20.
     finally:
         lex_path.write_bytes(saved[0])
         if saved[1] is not None:
@@ -2283,16 +2302,16 @@ def s64_the_ask_cooldown_covers_the_session_lane(sb: Path):
           st.ASK_COOLDOWN_DAYS >= 7, f"got {st.ASK_COOLDOWN_DAYS}")
 
     write_json(lex_path, {
-        w: lex_row(gloss="say it once more", phonetic=["innoru thadava sollunga"], type="chunk",
+        w: lex_row(gloss="say it once more", type="chunk",
                    production="hinted", deck="trip", direction="fire"),
-        other: lex_row(phonetic=["x"], type="chunk", production="hinted"),
+        other: lex_row(type="chunk", production="hinted"),
         # `recent_ask_counts` walks the LEXICON and probes the log, so a filler
         # target with no row is invisible to it. Distinct phonetics, and bodies
         # below that share no token with them — otherwise a probe matches another
         # row's body and the counts stop meaning what the assertions say.
-        "smoke:once": lex_row(gloss="asked once", phonetic=["onlyoncehere"], type="chunk",
+        "smoke:once": lex_row(gloss="asked once", type="chunk",
                               production="hinted"),
-        **{f"smoke:filler{i}": lex_row(gloss="f", phonetic=[f"fillerword{i}"], type="chunk",
+        **{f"smoke:filler{i}": lex_row(gloss="f", type="chunk",
                                        production="hinted")
            for i in range(9)},
     })
@@ -2422,7 +2441,7 @@ def s69_two_readers_two_tickets(sb: Path):
     # not a pattern, and the ledger says so).
     lex_path, slip_path = sb / "progress" / "lexicon.json", sb / "progress" / "slip_log.json"
     lex = read_json(lex_path)
-    lex.setdefault("ஸ்மோக்வார்த்தை", lex_row(gloss="smoke word", phonetic=["smoke vaarthai"],
+    lex.setdefault("ஸ்மோக்வார்த்தை", lex_row(gloss="smoke word",
                                              register="survival",
                                              recognition="comfortable",
                                              production="hinted",
@@ -3334,7 +3353,7 @@ def s86_a_tape_is_not_a_teacher(sb: Path):
         # soak sheet, drill sheet, knock push and queue drain all call.
         word = "ஸ்மோக்தேநீர்"
         lex = read_json(lex_path)
-        lex[word] = lex_row(gloss="smoke tea", phonetic=["smoke-thaneer"],
+        lex[word] = lex_row(gloss="smoke tea",
                             register="survival")
         write_json(lex_path, lex)
 
@@ -3412,7 +3431,7 @@ def s87_form_is_a_choice_per_order(sb: Path):
         return read_json(learner_path).get("soak_order", {})   # re-read from disk
 
     try:
-        write_json(lex_path, {"போறேன்": lex_row(gloss="I go", phonetic=["poren"],
+        write_json(lex_path, {"போறேன்": lex_row(gloss="I go",
                                                 type="chunk", recognition="solid",
                                                 production="cold")})
         learner = read_json(learner_path)
@@ -3500,8 +3519,8 @@ def s88_taught_is_not_appeared(sb: Path):
     try:
         # ---- (1) THE WRITER, round-tripped through the real renderer --------
         lex = read_json(lex_path)
-        lex["ஸ்மோக்புது"] = lex_row(gloss="smoke-new", phonetic=["smoke-pudhu"])
-        lex["ஸ்மோக்பழசு"] = lex_row(gloss="smoke-old", phonetic=["smoke-pazhasu"])
+        lex["ஸ்மோக்புது"] = lex_row(gloss="smoke-new")
+        lex["ஸ்மோக்பழசு"] = lex_row(gloss="smoke-old")
         write_json(lex_path, lex)
 
         scripts_dir = sb / "content" / "scripts"
@@ -3579,7 +3598,7 @@ def s98_an_observation_is_recorded_not_spent(sb: Path):
     slog_path = sb / "progress" / "session_log.json"
 
     lex = read_json(lex_path)
-    lex["வந்துட்டேன்"] = lex_row(phonetic=["vandhutten"], recognition="comfortable")
+    lex["வந்துட்டேன்"] = lex_row(recognition="comfortable")
     write_json(lex_path, lex)
     before = len(read_json(obs_path)) if obs_path.exists() else 0
 
@@ -3771,8 +3790,8 @@ def s101_the_check_and_the_rating_are_ear_evidence(sb: Path):
     saved = (lex_path.read_bytes(), fb_path.read_bytes() if fb_path.exists() else b"[]")
     try:
         lex = read_json(lex_path)
-        lex["ஸ்மோக்குளிர்"] = lex_row(gloss="cold", phonetic=["smoke-kulir"])
-        lex["ஸ்மோக்காரம்"] = lex_row(gloss="spice", phonetic=["smoke-kaaram"])
+        lex["ஸ்மோக்குளிர்"] = lex_row(gloss="cold")
+        lex["ஸ்மோக்காரம்"] = lex_row(gloss="spice")
         write_json(lex_path, lex)
 
         out = _io.StringIO()
@@ -3782,7 +3801,7 @@ def s101_the_check_and_the_rating_are_ear_evidence(sb: Path):
               "RECEPTIVE CHECK" in out.getvalue() and read_json(lex_path) == lex,
               out.getvalue()[:200])
         with contextlib.redirect_stdout(_io.StringIO()):
-            rc = ss.cmd_check(_ap.Namespace(draw=0, read=[], heard=["smoke-kulir:right",
+            rc = ss.cmd_check(_ap.Namespace(draw=0, read=[], heard=["ஸ்மோக்குளிர்:right",
                                                                "ஸ்மோக்காரம்:wrong",
                                                                "nonsense:right"]))
         after = read_json(lex_path)
@@ -4476,11 +4495,11 @@ def s110_the_standing_tape_is_the_intake_valve(sb: Path):
     pool_path = sb / "curriculum" / "word_pool.json"
     saved = {p: (p.read_bytes() if p.exists() else None) for p in (lex_path, obs_path, pool_path)}
     real = (lanes.expose, lanes.publish, lanes.mark_soak_delivered)
-    lex = {"நாளைக்கு": lex_row(gloss="tomorrow", phonetic=["naalaikku"]),
-           "ரொம்ப நாளாச்சு": lex_row(gloss="long time", phonetic=["romba naalaachu"]),
-           "சொல்லுங்க": lex_row(gloss="tell me", phonetic=["sollunga"]),
-           "சொல்றேன்": lex_row(gloss="I'll tell", phonetic=["solren"]),
-           "வாங்க": lex_row(gloss="come", phonetic=["vaanga"])}
+    lex = {"நாளைக்கு": lex_row(gloss="tomorrow"),
+           "ரொம்ப நாளாச்சு": lex_row(gloss="long time"),
+           "சொல்லுங்க": lex_row(gloss="tell me"),
+           "சொல்றேன்": lex_row(gloss="I'll tell"),
+           "வாங்க": lex_row(gloss="come")}
     pool = [{"word": "நாள்", "gloss": "day", "cluster": "time_units", "priority": 1},
             {"word": "சொல்", "gloss": "say", "cluster": "verb_root", "priority": 1},
             {"word": "ங்க", "gloss": "respect ending", "cluster": "case_markers", "priority": 1},
@@ -4889,6 +4908,87 @@ def s120_the_ticket_survives_the_first_check(sb: Path):
             else:
                 path.write_bytes(data)
 
+
+def s122_nothing_stores_a_phonetic(sb: Path):
+    """THE STORED PHONETIC IS DELETED — file, writers and readers (2026-09-21).
+
+    "A record carries its Tamil key; phonetics are generated for display, never
+    stored" (DECISIONS 2026-09-13, Andrew). Every key reaches Python from a model
+    holding the Tamil, so the `phonetic` list on a lexicon row had stopped being
+    an input and become a second, staler spelling of the key — 120 rows carried
+    none, and the readers that consulted one (`resolve`, the reveal window, the
+    ask cooldown, the sidecar resolver) each guessed with it.
+
+    Gate 7.2 — WHAT DOES THIS LOOK LIKE WHEN IT SILENTLY DOES NOTHING? Like a
+    clean deletion. The field is gone from the file today, and the very next mint
+    writes it back: `sync_state` minted at four sites, `lexicon_view.expose`
+    mints on intake and `render_audio` mints a payload word, so one missed
+    literal re-grows the column row by row with nothing reading it and nothing
+    complaining. A deletion has to be asserted at three places or it is a tidy-up
+    that comes undone — the FILE (what is there now), the WRITERS (what lands
+    tomorrow), and the READERS (that a stray one could not change an answer even
+    if it appeared).
+
+    The writer sweep is a needle that must be able to find something, so it runs
+    against a synthetic mint line first: a sweep whose green means "the key is
+    absent" and whose green would survive a broken sweep is the decoration this
+    suite keeps deleting (`s57`, 2026-08-24)."""
+    print("\n122. Nothing stores a phonetic (2026-09-21)")
+    import argparse as _ap
+    import contextlib
+    import io as _io
+    ss = importlib.import_module("sync_state")
+    sio = importlib.import_module("state_io")
+
+    # 1. THE FILE, live tree — what the one-off migration actually left behind.
+    live = read_json(REAL_BASE / "progress" / "lexicon.json")
+    carriers = sorted(k for k, r in live.items() if "phonetic" in r)
+    check(f"no row in the live lexicon carries the field ({len(live)} rows)",
+          not carriers, f"{len(carriers)} still carry it, e.g. {carriers[:3]}")
+
+    # 2. THE WRITERS — no mechanism line in any lane names the key.
+    needle = re.compile(r"""["']phonetic["']""")
+    check("the sweep can find a mint that stores one (positive control)",
+          bool(needle.search('lexicon[w] = {"gloss": "", "phonetic": [], "seen_in": []}')),
+          "the needle below is a decoration — it cannot fail")
+    named = sorted({p.name for p in (REAL_BASE / "scripts").glob("*.py")
+                    for ln in mechanism(raw_source(p)).splitlines() if needle.search(ln)})
+    check("no lane writes or reads the key", not named,
+          f"{named} — a row minted there re-grows the column one word at a time")
+
+    # 3. THE WRITER THAT USED TO TAKE IT BY FLAG, round-tripped: `add-word` was
+    #    the sibling command the 08-14 mint requirement pointed at, and its
+    #    `--phonetic` went with the field.
+    lex_path = sb / "progress" / "lexicon.json"
+    saved = lex_path.read_bytes()
+    try:
+        word = "ஸ்மோக்பேச்சு"
+        with contextlib.redirect_stdout(_io.StringIO()):
+            ss.cmd_add_word(_ap.Namespace(key=word, gloss="smoke speech"))
+        rec = read_json(lex_path).get(word)
+        check("add-word mints a complete row", bool(rec) and rec.get("gloss") == "smoke speech",
+              f"got {rec}")
+        check("...with no phonetic on it", bool(rec) and "phonetic" not in rec,
+              f"got {sorted(rec or {})}")
+        ss_src = mechanism(raw_source(REAL_BASE / "scripts" / "sync_state.py"))
+        check("...and no flag anywhere in the CLI still offers to fill one",
+              "--phonetic" not in ss_src and "|PHONETIC" not in ss_src,
+              "the CLI advertises a field nothing stores — Anna would keep typing "
+              "a tail that is parsed into nothing")
+    finally:
+        lex_path.write_bytes(saved)
+
+    # 4. THE READERS — the guarantee that makes the deletion safe rather than
+    #    merely tidy: a row that somehow carried a spelling could not be reached
+    #    by it, so no reader can quietly start depending on one again.
+    stray = {"ஸ்மோக்பேச்சு": {**lex_row(gloss="speech"), "phonetic": ["smokepechu"]}}
+    check("resolve() cannot be reached through a stored spelling",
+          sio.resolve("smokepechu", stray) is None)
+    check("...nor can the soak resolver, which had its own wider walk",
+          sio.resolve_soak_item("smokepechu", stray) is None)
+    check("the Tamil key still resolves, by both doors",
+          sio.resolve("ஸ்மோக்பேச்சு", stray) == "ஸ்மோக்பேச்சு"
+          and sio.resolve_soak_item("ஸ்மோக்பேச்சு", stray) == "ஸ்மோக்பேச்சு")
 
 def s121_a_read_word_is_never_an_ear_stamp(sb: Path):
     """READING IS NOT HEARING (2026-09-20). `heard_on` was stamped by any watched

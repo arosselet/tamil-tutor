@@ -5,7 +5,7 @@ Every evidence field on a lexicon row — `recognition`, `production`, `reps`,
 `exposures`, `heard_on`, `last_surfaced`, `seen_in`, `taught_on` — is written by
 exactly one function, `rebuild`, and it writes what the log supports. No writer
 sets one directly; a writer records an event through `observe` and the rung
-follows. The static half of a row (gloss, phonetic, type, register, direction,
+follows. The static half of a row (gloss, type, register, direction,
 pairs_with) is curriculum, not evidence, and stays hand-owned.
 
 THE POLICY, in one sentence: **a rung is what watched tests support —
@@ -40,7 +40,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 import observations
 from observations import WATCHED
 from state_io import (DEMOTE, LEXICON_PATH, PRODUCTION_RANK, RECOGNITION_NEXT,
-                      build_phonetic_index, load_json, local_date, resolve, save_json)
+                      load_json, local_date, resolve, save_json)
 
 EVIDENCE = ("recognition", "production", "reps", "exposures", "heard_on",
             "last_surfaced", "seen_in", "taught_on", "heard_times")
@@ -210,18 +210,17 @@ def expose(keys, channel: str, source: str = "", *, taught=(), kind="exposed",
         return []
     for k, row in (mint or {}).items():
         if k not in lex:
-            lex[k] = {"phonetic": [], "recognition": "struggled", "production": "none",
+            lex[k] = {"recognition": "struggled", "production": "none",
                       "seen_in": [], "last_surfaced": None, **row}
             print(f"   + intake: '{k}' enters the lexicon")
-    index = build_phonetic_index(lex)
     marked = []
     for k in keys:
-        key = resolve(k, lex, index)
+        key = resolve(k, lex)
         if key is None:
             print(f"   ⚠ exposure: '{k}' not in lexicon — skipped")
         elif key not in marked:
             marked.append(key)
-    shown = {resolve(k, lex, index) for k in taught}
+    shown = {resolve(k, lex) for k in taught}
     if marked:
         observe([dict(word=k, channel=channel, source=source, at=at,
                       kind="taught" if k in shown else kind) for k in marked], lexicon=lex)

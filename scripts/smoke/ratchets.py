@@ -276,7 +276,12 @@ CODE_BUDGETS = {
     "scripts/household.py": 75,
     "scripts/show_status.py": 125,
     # 112 -> 125 (2026-09-10).
-    "scripts/state_io.py": 125,
+    # 125 -> 109 (2026-09-21): RE-CENSUSED DOWN, and this is the deletion's
+    # receipt. `build_phonetic_index` and the Latin half of `resolve_soak_item`'s
+    # walk went with the stored `phonetic` field, and `resolve()` is one line —
+    # the file was sitting exactly on its ceiling, so the room is banked rather
+    # than kept as headroom for the next reader that wants to guess.
+    "scripts/state_io.py": 109,
     # NEW FILE, budgeted in the same diff that creates it (2026-08-28, Andrew). · 20 -> 35 (2026-09-03).
     "scripts/language.py": 35,
     "scripts/slips.py": 300,
@@ -295,7 +300,10 @@ CODE_BUDGETS = {
     # (carry the field, print it) on a file that came in UNDER this ceiling
     # earlier the same day by retiring the whole tier ordering and the focus
     # conveyor; this spends four of what that returned.
-    "scripts/suggest_targets.py": 592,
+    # 592 -> 585 (2026-09-21): RE-CENSUSED DOWN. `recent_ask_counts` probes one
+    # key per row instead of a key plus every stored spelling, and the
+    # vocabulary fence stopped carrying a column the Architect never needed.
+    "scripts/suggest_targets.py": 585,
     # 1250 -> 1254 (2026-08-04): the tap lane's stage/commit/pull/push moved IN from the "Log tap" step of anna.yml, where it was a hand-rolled `git pull --rebase` with no union … · 1254 -> 800 (2026-08-04): re-censused DOWN after the three-way split, the same move morning_knock made on 08-01. · 800 -> 795 (2026-09-01): RE-CENSUSED DOWN, not held.
     # 795 -> 830 (2026-09-19): the year's writer. THE PAYMENT IS IN THIS DIFF
     # BUT NOT IN THIS FILE — `suggest_targets` retired `REGISTER_TIERS`,
@@ -317,7 +325,11 @@ CODE_BUDGETS = {
     # and both cohort-reconcile seams retired with the conveyor, and they gave
     # back more than the arc writer took. The raise above was real and is now
     # paid off in the same diff rather than kept as headroom.
-    "scripts/sync_state.py": 825,
+    # 825 -> 802 (2026-09-21): RE-CENSUSED DOWN again, on the same terms.
+    # `split_phonetic` and every caller's tail-handling retired with the stored
+    # field, along with `add-word --phonetic` and the deck seeder's ingestion of
+    # it. This file was on its ceiling; the room goes back to the budget.
+    "scripts/sync_state.py": 802,
 }
 CODE_BUDGET_EXEMPT = {"scripts/smoke_test.py"}
 SUITE = "scripts/smoke/"
@@ -1191,24 +1203,27 @@ def s85_the_fixture_record_tracks_the_minted_one(sb: Path):
     check("...and an optional field is added, not rejected",
           lex_row(type="pattern")["type"] == "pattern")
 
+    # `seen_in` is the last mutable default in the shape — `phonetic` was the
+    # other until 2026-09-21. One is enough to catch the failure this guards (a
+    # module-level literal shared by every row), and it is the one the fold
+    # appends to, so a leak here would cross-contaminate episode membership.
     a, b = lex_row(), lex_row()
     a["seen_in"].append(1)
-    a["phonetic"].append("p")
     check("two rows never share a mutable default",
-          b["seen_in"] == [] and b["phonetic"] == [],
-          f"got seen_in={b['seen_in']}, phonetic={b['phonetic']} — a module-level "
-          f"literal would let one case's append leak into the next")
+          b["seen_in"] == [],
+          f"got seen_in={b['seen_in']} — a module-level literal would let one "
+          f"case's append leak into the next")
 
     # ── MUTATION TEST: prove the guard can go red. A schema check that cannot
     # fail is the thing it was written to prevent.
     grown = mint_cores(
-        'lexicon[a] = {"gloss": "", "phonetic": [], "recognition": r,\n'
+        'lexicon[a] = {"gloss": "", "recognition": r,\n'
         '              "production": "none", "seen_in": [], "last_surfaced": t,\n'
         '              "confidence": 0}\n'
-        'lexicon[b] = {"gloss": "", "phonetic": [], "recognition": r,\n'
+        'lexicon[b] = {"gloss": "", "recognition": r,\n'
         '              "production": "none", "seen_in": [], "last_surfaced": t,\n'
         '              "confidence": 0, "deck": d}\n')
-    check("a seventh core field would fail this case, not pass it",
+    check("a sixth core field would fail this case, not pass it",
           set.intersection(*grown) - defaults == {"confidence"},
           f"the extractor did not see the added field: {sorted(set.intersection(*grown))}")
     check("...while a single-site field still would not",

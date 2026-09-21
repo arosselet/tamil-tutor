@@ -126,7 +126,7 @@ not certain about; `progress/` holds real, irreplaceable learner state.
 Validation checks **plumbing** (JSON, invariants, CI green). It cannot catch:
 
 - **LLM-behavior quality:** Anna's voice drift, persona softening, wrong register, teaching pattern, soak-order staleness, or session choreography failures.
-- **Content errors:** a word gloss that's wrong, a lexicon entry with bad phonetics, an episode that contains the wrong Tamil.
+- **Content errors:** a word gloss that's wrong, a lexicon key spelled off the register it teaches, an episode that contains the wrong Tamil.
 
 These are not plumbing — route behaviour complaints to `/debug`, and pedagogy felt-signals to `/recalibrate` (which wraps `protocol/diagnosis.md`).
 
