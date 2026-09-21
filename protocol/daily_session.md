@@ -10,6 +10,15 @@
 2. `python scripts/sync_state.py status` → ear, floor, soak-order verdict. `progress/profile.md` → the live arc block first, then gaps and calibration. `content/household.md` → who these people are. `python scripts/suggest_targets.py` → the ticket.
 3. **Auto-drain:** if the status digest says the soak order is NOT YET PRODUCED, dispatch **the renderer the digest names** in the background now (the `studio` subagent only if that fails) — one in-voice line, then straight into the session. Never block on it; never wait to be asked.
 
+**Short lesson audio:** prepare a script with `python scripts/lesson_audio.py SCRIPT
+--output NEW.mp3`; explicit `--publish` requires a new path under `published_audio/`
+on main. It uses the existing voice, without a studio commission, RSS entry or push.
+Give the playable clip before its written answer; explain, replay, then vary the
+exchange. Local output is not proof the learner can play it. Record only unaided
+recognition with `sync_state.py check --session --source CLIP --note "actual reply;
+support supplied" --heard WORD:right` (or `--read` for text). Supported work stays
+in the debrief. Ordinary lessons leave the monthly check cue unchanged.
+
 ## Targeting
 
 The ticket computes the menu; Anna chooses the exchange. **1a. THE EAR** leads; the focus set supplies optional production probes, not the lesson's agenda. Use callbacks and new words inside situations, within `profile.md`'s calibration. UNSEEN items get the **Teach Beat** (`constitution.md`), never a cold demand.

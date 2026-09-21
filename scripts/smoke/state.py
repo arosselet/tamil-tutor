@@ -4951,6 +4951,73 @@ def s121_a_read_word_is_never_an_ear_stamp(sb: Path):
                 path.write_bytes(data)
 
 
+def s123_lesson_recognition_keeps_its_context(sb: Path):
+    """A real lesson write must retain the stimulus/reply and leave checks due.
+
+    Silent failure: correct flags print success but the saved event loses its
+    provenance or ordinary practice quietly resets the monthly baseline cue.
+    """
+    import contextlib
+
+    print("\n123. Lesson recognition preserves context without completing a check")
+    ss = importlib.import_module("sync_state")
+    st = importlib.import_module("suggest_targets")
+    paths = [sb / "progress" / name for name in
+             ("observations.json", "lexicon.json", "learner.json")]
+    saved = {p: p.read_bytes() if p.exists() else None for p in paths}
+    argv = sys.argv
+    key, text_key = "ஸ்மோக்கேட்ட", "ஸ்மோக்படிச்ச"
+
+    def invoke(*args):
+        sys.argv = ["sync_state.py", "check", *args]
+        with contextlib.redirect_stdout(io.StringIO()) as out:
+            result = ss.main()
+        return result, out.getvalue()
+
+    try:
+        write_json(paths[0], [])
+        write_json(paths[1], {key: lex_row(), text_key: lex_row()})
+        untouched = {p: p.read_bytes() for p in paths}
+        code, _ = invoke("--session", "--heard", key + ":right")
+        check("session without artifact and response refuses before writing",
+              code == 1 and all(p.read_bytes() == data for p, data in untouched.items()))
+        code, _ = invoke("--session", "--source", "clip.mp3", "--note", "unaided",
+                         "--draw", "2")
+        check("lesson mode cannot quietly draw a monthly sample", code == 1)
+
+        note = "He said: Mama has the key. Situation supplied; no transcript or translation."
+        code, printed = invoke("--session", "--source", "published_audio/lesson-example.mp3",
+                               "--note", note, "--heard", key + ":right")
+        event = read_json(paths[0])[-1]
+        check("real CLI saves the exact artifact and actual response",
+              code == 0 and event["source"] == "published_audio/lesson-example.mp3"
+              and event["note"] == note, str(event))
+        check("ordinary listening is session evidence with explicit audio medium",
+              event["channel"] == "session" and event["medium"] == "audio", str(event))
+        check("the listening result survives the writer and fold",
+              bool(read_json(paths[1])[key].get("heard_on"))
+              and read_json(paths[1])[key]["recognition"] == "comfortable")
+        check("lesson does not complete or reset the monthly check",
+              st.check_due() is None and "Lesson recognition" in printed, printed)
+
+        invoke("--session", "--source", "chat:changed-example", "--note",
+               "Correct written answer; no answer shown.", "--read", text_key + ":right")
+        event = read_json(paths[0])[-1]
+        check("page evidence stays text with no auditory stamp",
+              event["medium"] == "text" and not read_json(paths[1])[text_key].get("heard_on"))
+        check("page lesson also leaves the monthly check due", st.check_due() is None)
+        invoke("--heard", key + ":partial")
+        check("the original monthly check still records its own channel and cue",
+              read_json(paths[0])[-1]["channel"] == "check" and st.check_due() == 0)
+    finally:
+        sys.argv = argv
+        for path, data in saved.items():
+            if data is None:
+                path.unlink(missing_ok=True)
+            else:
+                path.write_bytes(data)
+
+
 def s116_a_tap_can_reach_the_real_feeds_words(sb: Path):
     """THE TAP COULD NEVER OPEN ANYTHING (found 2026-09-19, shipped 09-10).
 

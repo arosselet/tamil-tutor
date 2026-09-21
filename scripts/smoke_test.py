@@ -201,6 +201,7 @@ def main():
         run(state.s101_the_check_and_the_rating_are_ear_evidence, sb)
         run(state.s120_the_ticket_survives_the_first_check, sb)
         run(state.s121_a_read_word_is_never_an_ear_stamp, sb)
+        run(state.s123_lesson_recognition_keeps_its_context, sb)
         run(state.s116_a_tap_can_reach_the_real_feeds_words, sb)
 
     if fx.ONLY and not fx.RAN:

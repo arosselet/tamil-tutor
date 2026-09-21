@@ -1,242 +1,232 @@
-# The One-Year Comprehension Goal — open planning
+# Tamil tutor target design — open proposal
 
-> **Status: GOAL ADOPTED 2026-08-31; INSTRUMENTED 2026-09-10.** The ledger is now the fold of an observation log (`lexicon_view.py`), the Receptive Check is a command (`sync_state check`), and the ear block is visible in the brief. §1, §3 and §6 were cut on that day: the baseline is a query now, the arithmetic priced a broken meter, and the proposals landed.
->
-> **Status: GOAL ADOPTED 2026-08-31.** It sat open for seven days, then thirteen more. §5 is now
-> settled and question 1 is closed. What changed the answer was not new ambition but a
-> measurement: the ear is sampled once every 72 hours on ONE word (§3, corrected 2026-08-31), so
-> the 0.13 upgrades/day this document built its 40x gap on is a property of the instrument, not
-> of Andrew. The destination in §5 is therefore bounded by **register** rather than by tier, and
-> its checkpoints are denominated in a meter being repaired the same week.
->
-> Four of the six proposed changes landed 2026-08-25 (§6, marked ✅), with five entries in
-> `docs/DECISIONS.md` following from it. Resume at **Open Questions**.
->
-> **Read this document for its shape, not only its conclusions.** It measures the OUTCOME rather
-> than the machine, which nothing else in the repo does; it reports per-row transitions because
-> net counts hide churn; it marks its own load-bearing assumption (the 1,500–2,500 figure) as
-> unverified; it splits the goal into a finite cheap layer and an unbounded expensive one; and
-> it says *no* out loud — "Tier C in 12 months: not reachable. Stated plainly so it is not
-> discovered next August." That last property is why it is worth keeping open rather than
-> closing to feel finished.
+> September 21, 2026. The destination is adopted; the design below is proposed,
+> not deployed. This replaces the old forecast, numerical checkpoints and duplicated
+> habit prescriptions in this file. Historical reasoning remains in git.
+> [ASTRA_REVIEW.md](ASTRA_REVIEW.md) holds the evidence; [DECISIONS.md](DECISIONS.md)
+> remains the record of adopted decisions. This document is not a tutor load file.
 
-## The question, in Andrew's words
+## The outcome and the constraints
 
-> *"I want to come back this time next year and catch most of what is said."*
+Andrew's primary objective is continued engagement and enjoyment of learning Tamil,
+toward a tentative family visit in 2027. The adopted language goal is to follow
+ordinary family-table sentences about food, plans, visitors, health and the day,
+and join in. August is a planning anchor, not a confirmed booking or promised level.
 
-Asked 2026-08-17, six days into his first month living in Coimbatore, two days after the 08-16
-disillusionment signal (`progress/feedback_log.json`) and the same day the constitution was
-rewritten around **the threshold is comprehension; production is the engine**.
+A successful system makes worthwhile contact easy to return to and makes unfamiliar
+speech increasingly understandable. Correct exercises, produced minutes and green
+tests establish narrower things. Neither enjoyment nor competence substitutes for
+the other. Evidence is too sparse to forecast a learning rate.
 
----
+Keep the agreed learner commitments in [learner_contract.md](../protocol/learner_contract.md):
+a short session and separate ear block, with no makeup, streaks or additional reporting
+duties. Engineering efficiency is our constraint, not Andrew's homework.
+The broad commission permits reconsidering any design; specific proposals below
+explicitly reopen earlier decisions rather than silently changing their authority.
 
-## 1. Baseline
+## Recommendation: one tutor, dependable services, fewer competing agendas
 
-Cut 2026-09-10. The 08-17 baseline was read off a ledger that mixed day-one claims with evidence; the honest baseline is `python scripts/lexicon_view.py` and the coverage report of `backfill_observations.py` (142 rows tested at least once, 129 with no evidence of any kind, as of the cutover).
+Keep Anna as the prepared, persistent teaching partner. Preserve deterministic
+evidence, safe publication, scheduled supply and the specialist studio. Simplify what
+chooses the lesson: current curiosity, useful family situations and observed obstacles
+should guide it. Inventory and scheduling should expose omissions and offer options,
+not turn each encounter into a queue to discharge.
 
----
+This is a redistribution of responsibility, not a claim that deleting files teaches
+Tamil. The tutor must still introduce material, explain it and revisit it; unrestricted
+improvisation could conceal six pleasant weeks of stagnation.
 
-## 2. Scoping the goal
-
-### Two layers, very different costs
-
-- **Parsing layer** — the agglutinative stack: case, tense, person, mood, and the clitics
-  (`-aam`, `-nu`, `-la`, `-e`, `-dhaan`). Without segmentation a known root is still
-  unintelligible. **Finite: ~50-80 productive patterns for colloquial speech.** 26 are mapped,
-  3 solid on the ear. This is the cheap, high-leverage half.
-- **Lexical layer** — roots. Order of **1,500-2,500 families** for "most" of everyday talk.
-
-> **Confidence note.** The lexical figure extrapolates from general SLA findings (roughly 95%
-> known-word coverage needed for listening comprehension; spoken registers more lexically
-> restricted than written; ~2,000 families covering English conversation). **No Tamil-specific
-> coverage corpus was consulted.** Treat it as order-of-magnitude. Finding real Coimbatore-Tamil
-> frequency data would materially sharpen this plan and is an open task.
-
-### Three difficulty tiers (the phrase "what is said" hides all three)
-
-- **Tier A — follow the topic.** Multi-party talk; who, what, mood. **Already demonstrated** on
-  the 08-15 gossip tape (marriage / next month / in a hurry / Savitha annoyed).
-- **Tier B — follow directed speech.** Someone speaks *to* him about everyday things; he gets
-  the sentence, not just the gist. Repeats only for speed or unknown words.
-- **Tier C — follow unrestricted multi-party family conversation** at native speed: gossip
-  register, jokes, cross-talk, decades of shared context. **This is the literal ask.** It is
-  also the hardest listening environment that exists.
-
----
-
-## 3. The arithmetic
-
-Cut 2026-09-10 — the 40x gap priced a broken meter (the 08-31 correction stands): the ear was sampled one word every three days, and every word he named in a tape was discarded. Recorded now; re-run the arithmetic at the first Receptive Check, not before.
-
----
-
-## 4. Verdict
-
-- **Tier C in 12 months: not reachable.** Stated plainly so it is not discovered next August.
-- **Tier B in 12 months: reachable — but only if the daily loop changes shape.**
-
-**The gap is throughput, not capacity.** The machine delivers ~1.3 min of Tamil a day and spends
-session time forcing production — the expensive axis (75 cold fires over 30 sessions, ~2.5 per
-session, each costing a session moment). Nothing in the current design moves recognition at
-volume, because the system was built to force output. The ear has been flat for seven weeks
-because almost nothing feeds or tests it.
-
----
-
-## 5. The goal — ADOPTED 2026-08-31
-
-> **By August 2027: when the family talks at the table about the things they talk about every
-> day — food, plans, who is coming, health, the day just had — I follow the SENTENCES, not just
-> the topic. And I open turns nobody invited me into.**
-
-**Bounded by register, not by tier — and that is the whole choice.** Tier B relaxes the
-*environment* and buys accommodated speech, which is the wrong room: people slow down for the
-foreigner, and the table does not. Tier C relaxes nothing and stays 2-3 years. This relaxes the
-**range**: the table, at native speed, unaccommodated, on the topics that recur — not the jokes,
-not the cross-talk, not forty years of shared reference. It is the first slice of Tier C rather
-than a lesser destination, so year-one work and year-three work are the same work.
-
-The pedagogy under it: the coverage threshold (~95% known words for adequate listening) is
-reached **per register, not globally.** That is why films are a separate ladder rather than a
-later rung, and why a bounded band is the only place the threshold is reachable early enough to
-start compounding.
-
-**The second clause is UNMEASURED, and the claim that it is the harder one is withdrawn
-(2026-09-09).** This paragraph argued that four missions died because they required him to
-open, so the system was optimised for the response slot he was already good at. The evidence
-under it was not evidence: the missions were declined, not attempted (Andrew, 2026-09-09 —
-*"that's just me shrugging off your demand to collect homework I wasn't actually doing"*), and
-the debriefs that scored them were self-estimates. **So initiation has never been tested, in
-either direction.** Andrew's read is that it needs no separate work — *"answering is how I build
-up my foundation; if I can reply then I can also open unasked"* — and nothing in the record
-contradicts it, because the record is empty. **Deferred to the next in-country test rather than
-argued**: he is home, there is no table, and it is untestable until there is. Re-open it with
-observation, never with another theory. What survives from the old paragraph: the discourse
-openers (`namma mama irukkaar-la…`, `adhukku appuram?`) are ordinary vocabulary that happen to
-do opening work, they enter through the normal teach beat, and the thin backchannel set behind
-`grab-the-owned-one` is the real gap.
-
-**Load-bearing assumption, and the check:** that a family table is not open-domain. Ten minutes
-of harvested, native-ruled family speech yields the distinct-root inventory of *his* table —
-which is also the Tamil-specific coverage data question 4 says this document never had. That
-measurement expires with the return flight.
-
-### Checkpoints
-
-Denominated in a meter being repaired the same week. Re-base them at the first Receptive Check
-rather than defending them.
-
-| by | target | confidence |
+| Responsibility | Target owner | What changes |
 |---|---|---|
-| Sep 2026 | table denominator measured from harvested speech · the words he names in a tape are recorded instead of discarded · ear block logged 5 days in 7 | the middle one shipped 2026-08-31 |
-| Dec 2026 | machines heard 10/26 · 120+ verified-solid roots · first Receptive Check logged | good on machines: finite, high-frequency, they convert fast once actually tested |
-| Mar 2027 | machines 16/26 · 250+ roots · one channel followed without subtitles | moderate |
-| Aug 2027 | machines 20/26 · ~400 roots · the recurring band holds under a harvested-clip test · turns opened unprompted at the table | the roots figure is the soft one — re-base it in December |
+| What is worth understanding now | Tutor, using Andrew's interests and a small set of useful situations | Replace competing repair, calendar and production agendas with an explicit choice. |
+| Curriculum continuity | Existing profile, debrief and inventory | Keep one current thread and selected revisits; inspect neglect without another deck or completion meter. |
+| What happened | Observation ledger and actual replies | Preserve provenance; derive auditory claims from auditory evidence. |
+| Speech and replay | Existing memo, studio, rendering and feed services | Make short lesson audio accessible alongside standing tapes. |
+| Between-session contact | Existing phone channel and rails | Supply worthwhile contact; replies optional, questions interrupt exercises. |
+| Adaptation | Tutor plus occasional engineering review | Change when experience warrants it; do not diagnose silence from counters alone. |
 
-**Retired from the set:** `Nov 2026 — machines heard 13/26`, which priced a learning rate off a
-broken measuring rate. The row's other two clauses (daily eavesdrop channel, input >=30 min/day)
-survive in the habits below.
+## What Andrew should experience
 
-### The habits — two, and only two
+A session begins with something worth receiving: a connection, language story,
+small scene or explanation. The tutor brings this; Andrew need not request interest
+or earn it through a check. A grammar observation alone is not automatically the
+coffee-and-lore experience he praised.
 
-A five-habit plan fails against a documented fade (May 2026) and the Enjoyment Clause.
+Teaching follows something worth understanding. A short spoken exchange can establish
+the situation, then an explanation removes the blocking meaning, and another hearing
+lets the sentence settle. A changed example reveals what travels. Text is useful
+support and sometimes the entire lesson, honestly labelled. Not every session needs
+this sequence, and curiosity may justify staying with one explanation.
 
-1. **One ear block a day, 10-15 min, at its own anchor — REWRITTEN 2026-09-09.**
-   **What it retires, and why it produced nothing in 25 days: the old habit could not be
-   performed as written.** It prescribed a vlog channel with the face visible and *English
-   subtitles on the first pass*, and in the same sentence attached it to "the walk, the dishes,
-   the commute; never a new desk slot." You cannot read subtitles on a walk. The lane it draws
-   on says "face visible, the situation carrying half the meaning". The instruction contained no
-   executable action, which is a better root cause than the one recorded below and supersedes it.
-   **Now:** a screen block at its own slot, separate from the chat session and later in the day
-   (Andrew, 2026-09-09 — two blocks apart, not stacked). **Mostly authored** material: episodes,
-   soaks, drills, rotation tapes, which are comprehensible by construction under the 95%
-   coverage rule. **Native media is auxiliary** until a Receptive Check says coverage has
-   closed — it is below the floor today, and sending him there first buys a discouraging
-   evening. When it does run: one channel, re-watched, English subtitles on the first pass and
-   **none on the re-watch**, which is where the ear does its work.
-   **The desk clause is dead, and it was a residual** (Andrew's read, confirmed): "never a desk
-   slot" was reasoned from 2026-08-25, when the only dose was a podcast and he was not finding
-   time at his computer. Two desk sessions a day are not unreasonable now, and the walk and the
-   dishes keep the job they are actually good at — **re-listening to material already
-   understood**, which is the rotation lane's whole design.
-2. **The daily eavesdrop tape** — after the scoring fix it is both the dose and the meter, it
-   arrives on the phone, and it costs no new time at all.
+The question should serve meaning: why someone cannot leave, which plan changed,
+what a speaker wants. Translation and noun substitution remain useful teaching moves;
+several correct substitutions do not demonstrate listening or delayed learning.
+Production joins naturally through a reply, question, joke or rehearsal. No quota.
 
-**Session contract updated 2026-09-20:** coffee-and-lore first, then comprehension-led teaching
-with optional production probes (`protocol/daily_session.md`). This replaces the fixed ~3-fire
-routine. Keep the separate ear block; no second chat session is owed. Written recognition cannot
-re-base the listening checkpoints.
+An interruption such as “teach me that ending” becomes the conversation. The tutor
+does not append the unanswered quiz as a reminder. It can return to the earlier
+exchange once the explanation has done its job.
 
-**Why the media lane produced nothing in its first six days** (checked 2026-08-31: zero mentions
-across the whole span of `chat.md`, Receptive Growth Log still empty). It closes with *"it
-replaces nothing and is owed nothing"* — it was written as a **permission**, and permissions do
-not produce behaviour. That sentence is the Enjoyment Clause doing its job and it should stay for
-everything else; habit 1 is the single exception that gets to be asked for.
+At a natural ending, Anna names what became clearer and selects a specific replay
+for later, with a working link. Saving happens in a prepared close operation.
+A real permission or sync failure must remain visible, but routine bookkeeping
+should not consume several tutor turns. The September 21 session exposed that
+host integration problem; it does not prove every existing client has it.
 
-> **RE-CHECKED 2026-09-09 at 25 days: still zero — and the diagnosis above is half of it.**
-> The permission reading is real and stays. It is not sufficient: the habit was also
-> **unperformable as written** (subtitles on a walk — see habit 1). Two faults, and only one
-> was named, which is why naming it changed nothing. **The general lesson is the one this repo
-> already knows and did not apply to itself: check that the instruction can be executed before
-> concluding the learner lacked motivation.** A permission nobody can act on and a permission
-> nobody chose to act on look identical from the log.
+A quiet week still has useful audio available and welcome no-ask contact. Returning
+requires neither a backlog nor a recap. Family contact and missions stay invitations,
+never compulsory evidence collection.
 
----
+## Curriculum: give the teacher direction without prescribing every turn
 
-## 6. Proposed changes
+Use recurring situations as the organising unit: locating people and objects, changing
+plans, eating together, recounting the day, visitors and ordinary health talk.
+These come from the adopted goal, not a new ranked syllabus. Within a situation,
+choose the language necessary to understand what happened and participate.
 
-All six landed or were settled by 2026-09-09 (the budget at 10–15 min/day, native media ungated and auxiliary, items from media through the Teach Beat, the eavesdrop scoring every word he names, the machines seated at the head of the ear queue). The wife question stays Andrew's (§7.3).
+The household is one possible source of continuity. Preserve its cast and voices while
+it earns a trial, but allow a real overheard fragment, interesting linguistic connection
+or Andrew's question to replace a scene. Familiarity is welcome; changing the setting
+on every return is not proof of variety. Plot recall must not stand in for listening.
 
----
+Revisit a useful contrast in a different exchange after time has passed. Let the
+existing ledger and callbacks help select it, without interpreting every untested row
+as a deficit or every old miss as today's agenda. Periodically inspect whether the
+sessions cover new ground and return to it. Do this in teacher preparation, not as
+another learner checklist or tracking system.
 
-## 7. Open questions — resume here
+The register ladder is useful planning context: children, peers and elders offer
+different forms and interaction demands. A calendar cannot establish readiness.
+Propose making the direction a preference and withdrawing the automatic zero-intake
+taper, including during the visit. Useful new material can still matter near departure;
+retention and speed deserve more attention then without a universal prohibition.
+This reopens the September 19 ladder/taper decisions. It adds no replacement cutoff.
 
-1. ~~**Adopt the Tier B goal, or re-scope?**~~ **ANSWERED 2026-08-31 — re-scoped, and it is
-   neither B nor C.** Why it sat open thirteen days: the A/B/C ladder is receptive-only, Andrew's
-   goal has a production half (*"and participate"*), and you cannot pick a rung when half the
-   goal is not on the ladder. The dimension relaxed is the **range**; the horizon on unrestricted
-   Tier C stays 2-3 years and is explicitly not what he is committing to. The movie marker is
-   **not** the intermediate target it was proposed as here — films are open-domain and
-   native-speed, and coverage is reached per register, so they are a separate ladder. See §5.
-2. **Re-test the untested "solid" rows.** ~~76~~ — **10 as of 2026-08-31**: the 08-24 purge
-   dropped 108 unearned rows and the headline went *up*. Largely answered by deletion rather than
-   by re-testing. What survives is the general question — how to test recognition at volume — and
-   the multi-target eavesdrop change is the first real answer to it.
-3. **The wife question** (item 6). Genuinely Andrew's decision, RAISED AND NOT ANSWERED
-   2026-08-25 — and the broad framing was withdrawn as too vague to act on. The narrow version,
-   which asks nobody to become a teacher: when he does not catch something, use the antifreeze
-   line he already owns (*enna sonninga?*) instead of letting it pass, and let the Oracle decode
-   the two or three `[heard]` lines a week that neither he nor Anna can crack — the existing
-   vibe-check mechanism pointed at heard lines instead of drafted ones.
-4. **Find Tamil-specific frequency/coverage data** to replace the extrapolated 1,500-2,500.
-5. **Ship `ears_pct`** (already logged in `docs/feature_inbox.md`) — none of the checkpoints are
-   verifiable without a longitudinal record of the headline axis.
-6. **Does the daily-budget inversion break the Enjoyment Clause?** 45-60 min/day is a large ask
-   against "contact time > completion" and a documented history of fades. Unresolved.
-7. ~~**What happens to the Trip Deck**~~ — **ANSWERED AND EXECUTED 2026-08-18**: retired now
-   rather than at the end of the stay (Andrew: lean and coherent is the success criterion, not
-   day-to-day teaching). Scoped in the deck-retirement work order (retired 2026-08-26, executed
-   whole), decided in `DECISIONS.md`, shipped
-   the same day. The tier ordering was migrated onto the lexicon rows as `register` and kept; the
-   container, the deadline (`TRIP_DATE`), the burn rate and the sprint meter are gone. Nine ticket
-   selectors became five, and no section claims primacy any more.
+The year module's voice counts and situation support are currently printed planning
+values; the consumer search found no renderer enforcement. Do not describe the
+calendar as an implemented listening progression. Adjust length, familiarity,
+speaker variation and support in response to actual understanding, one difficulty
+at a time when diagnosing a problem.
 
----
+## Audio: preserve supply, connect it to teaching
 
-## How to re-measure
+Keep standing rotation supply independent of chat attendance. Preserve the separate
+episode, soak and drill capabilities: July's evidence shows that their different
+attention demands matter. Andrew should receive a useful selection, not manage lanes.
 
-All read-only.
+Reuse an appropriate artifact before rendering more. A render is supply, a rating is
+a report about listening, and an answer to speech is comprehension evidence. Keep
+those separate. Replays can signal usefulness alongside testimony; they do not prove
+enjoyment, and one play does not establish dislike.
 
-- `python scripts/sync_state.py status` — current meters, including `Machines heard`.
-- `python scripts/generate_callbacks.py` — what the return clock is actually returning.
-- `python scripts/lexicon_view.py` — zero divergent rows, or a writer set a rung by hand.
-- `python scripts/backfill_observations.py` — the coverage report: tested / claim-only / no evidence.
-- **Recognition movement over any window:** count `tested` events on the recognition axis in
-  `progress/observations.json` between two dates; a rung is the fold of those, never a stored claim.
-- `python scripts/sync_state.py check --draw 30` — the month's Receptive Check sample.
+For short lesson audio, first integrate the existing `memo.render_memo` primitive
+and publication path; do not create a second TTS backend or send every two-line
+exchange through the three-pass studio. It is presently a library used by phone
+lanes, not a complete interactive lesson interface. A narrator can present a short
+exchange; distinctive cast voices remain the studio's job.
 
----
+The integration must provide a reachable clip before presenting its translation,
+retain the script for explanation, and support replay plus a changed clip. Keep the
+learner-facing transcript phonetic. Test actual playback on the chosen client;
+a generated MP3 or a Markdown link alone does not prove a workable lesson.
+Occasional willing native feedback can check pronunciation and naturalness; until
+then, those remain uncertain. Ordinary lessons can use imperfect model-generated
+Tamil. Andrew and his family owe no review work, and reviewer access is not a gate.
+No forced march to unsupported native media: short, well-supported material can
+supplement the authored supply when it is interesting and usable.
 
-*Recorded 2026-08-18 (measurements taken 2026-08-17). Companion: `docs/DECISIONS.md` → "The threshold is comprehension;
-production is the engine" — the position this plan is scoped against.*
+## Keep, change, retire
+
+| Component | Recommendation and reason |
+|---|---|
+| Persona, coffee, decomposition, finite sessions | Keep: repeated direct preference evidence. Judge delivery, not prompt compliance. |
+| Household | Keep provisionally; retire its exclusivity if it forces contrived content. No replacement fictional world. |
+| Studio and multiple audio forms | Keep: separation and capacity matching solved demonstrated problems. |
+| Feed, scheduled supply, quiet hours, reply correlation | Keep: dependable availability and low-effort contact earned this infrastructure. |
+| Word inventory, event ledger, teaching/reveal safeguards | Keep: memory and honest evidence need deterministic support. |
+| Tutor brief | Simplify: lead with current interests, unresolved meaning and usable audio; retain focused evidence and warnings, move full diagnostic tables to engineering views. |
+| Repair-first commissioning | Change: a relevant persistent obstacle merits treatment, but open slips must not indefinitely outrank discovery. This reopens the July repair-priority rule. |
+| Escalation advice | Change: commissioned, delivered, attended and evaluated are distinct. An order plus later miss does not establish an ineffective treatment. |
+| Calendar and scene selectors | Make pedagogical prescriptions advisory; retain actual safety/delivery constraints and useful repetition detection. |
+| Phone volley continuation | Let a teaching question suspend the ask; preserve the queue for deliberate resumption rather than automatic re-presentation. |
+| Learner-facing score footer | Retire as the default close; explain a useful gain instead. Internal evidence survives. |
+| Numerical proficiency checkpoints | Withdraw pending valid observations; use concrete exchange examples at review points, not promised root totals. |
+| New dashboards, schema proliferation, model migration | Defer. Repair existing evidence and interfaces before adding infrastructure. |
+
+## Alternatives and costs
+
+**Patch the current stack and trial it unchanged:** cheapest and valuable for recent
+untested changes, but prompt alignment alone leaves deterministic re-asks, competing
+commission priorities and the live-audio gap. Use it as a baseline, not a completed design.
+
+**Reduce everything to chat plus a podcast:** much simpler, but risks losing dependable
+supply, continuity, attendance distinctions, capacity matching and phone contact.
+History supports preserving these services. Fewer components is not the only measure
+of simplicity; less work for Andrew matters more.
+
+**Recommended: retain services and simplify teaching control.** Costs a small number
+of integration changes and requires judging real delivered lessons. Its risk is tutor
+drift. Counter that with concise preparation and evidence review, rather than another
+mandatory session template.
+
+## Implementation sequence and acceptance
+
+Changes below are implementation briefs, not claims that they have shipped.
+Each should be independently testable and reversible. Work on trustworthy recording
+and the usable listening path together: historical metric repairs and duration
+precision must not delay teaching. Preserve unknowns meanwhile and never relabel
+old evidence to improve a headline. Advisory selection still preserves teach-before-demand,
+reveal safeguards, supply reliability and evidence provenance.
+
+1. **Make the observations trustworthy.** Separate auditory mastery from the shared
+   text/audio rung; mark unknown partial-listen duration honestly; stop treating
+   commission chronology as proof a treatment was heard and failed.
+   Owners: `lexicon_view.py`, `sync_state.py`, `audio_titles.py`, `slips.py`.
+   Regression: an audio miss followed by text successes cannot become ear mastery;
+   stopping early cannot accrue full artifact duration; an unheard commission cannot
+   become a failed treatment. Verify through real writer/read-back paths.
+
+2. **Complete one usable listening lesson path.** Assemble short audio, explanation,
+   replay and a changed exchange from existing primitives. Prepare the client and
+   scoped save/sync permissions before teaching; preserve unrelated working changes.
+   Acceptance: playable untranslated stimulus, later explanation, observed response
+   recorded with its support, one clean close visible to the phone tutor. Failures
+   must say what remains undelivered or unsynced. No blanket approval or hidden failure.
+
+3. **Remove the competing demands.** Adjust the brief, reply continuation and
+   commissioning priority together with their owning prompts; then reconsider calendar
+   and scene authority. A request for explanation must receive it without a forced
+   next ask or failed-rep event. Existing no-ask contact and scheduled supply must still
+   work. A recurring slip must remain findable without monopolising new commissions.
+
+4. **Evaluate actual experiences and simplify again.** Include a curiosity-led lesson,
+   an audio-led exchange, a return after a gap and a phone clarification. These are
+   system acceptance scenarios, not four assignments for Andrew. Use the trial brief
+   in the audit for later testimony and delayed transfer. No waiting period blocks
+   independent engineering, and no completed test suite closes the wider commission.
+
+## Evidence and progress reporting
+
+Use three separate questions: did Andrew want to return; what could he understand
+or do with what support; did the system reliably make that experience available?
+Spontaneous testimony, sampled replies and operational receipts answer different
+parts. A text answer to audio can demonstrate listening; a text stimulus cannot.
+
+Initial listening observations should sample short unfamiliar exchanges in relevant
+situations, with the situation supplied and written answers withheld. If understanding
+breaks down, explain and teach; this is not an admission test. Later changed examples
+can show progress without pretending to estimate the whole language. Keep partial
+monthly checks explicitly partial.
+
+Do not turn the review into another reporting habit. Record actual answers, artifact
+and support in existing session memory, and ask about enjoyment near a review point
+or when friction appears. Preserve missing evidence as unknown.
+
+Each engineering pass reports the artifact, the uncertainty resolved, the verification
+and remaining work. Reuse the audit; delegate only bounded independent questions.
+Small changes are a way to test the wider design, never its ambition ceiling.
+Andrew explicitly clarified this on September 21: repo playbooks must not narrow the
+commission to incremental patching. Replace or remove whole components when warranted.
+This design pass resolves the recommended division of responsibilities and names
+the integration work. It does not establish learning effectiveness, deploy changes,
+or finish the original commission.

@@ -100,6 +100,14 @@ Anna can commission the studio end-to-end mid-session; the subagent also runs st
 
 Read surfaces above the brain: `session_brief.py` (the agent-facing `status` load) · `show_status.py` (human dashboard).
 
+**Short interactive listening (2026-09-21):** `lesson_audio.py` accepts an authored
+script and uses `memo.render_memo`; it renders locally by default, optionally publishes
+only the named clip, and writes no learner state. `receptive_check.py` owns the
+recognition command extracted from `sync_state.py`: the CLI keeps its existing
+`check` entry point and adds `--session --source --note` for ordinary lesson
+evidence without resetting the monthly cue. These reuse the existing event schema
+and speech backend; playback and saving are separate operations.
+
 The LLM is the writer; Python is the brain. Never hand-edit Python-owned JSON.
 
 ## Structure

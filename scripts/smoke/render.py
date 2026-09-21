@@ -1179,6 +1179,131 @@ def s95_the_payoff_closes_the_tape(sb: Path):
                 (sb / rel).write_bytes(blob)
 
 
+def s122_lesson_audio_cli(sb: Path):
+    """A clip is useful only if synthesis yields audio and publication succeeds.
+
+    Drive the real CLI parser; stub only TTS, environment and external publication.
+    No state, feed, push or model operation belongs on this path. Test-owned files
+    and patches are cleaned up without deleting another case's published artifacts.
+    """
+    import contextlib
+    import io
+    import tempfile
+    from types import SimpleNamespace
+    from unittest.mock import patch
+
+    print("\n122. Short lesson audio: explicit artifact, optional scoped publication")
+    la = importlib.import_module("lesson_audio")
+    check("lesson CLI is imported from the sandbox", Path(la.__file__).is_relative_to(sb))
+    progress = {p: p.read_bytes() for p in (sb / "progress").rglob("*") if p.is_file()}
+    rss = sb / "rss.xml"
+    rss_before = rss.read_bytes() if rss.exists() else None
+    published = sb / "published_audio"
+    published.mkdir(exist_ok=True)
+    renders, commits, env_reads = [], [], []
+
+    async def speak(script, target):
+        renders.append((script, target))
+        target.write_bytes(b"test mp3 bytes")
+
+    def commit(paths, message):
+        commits.append((paths, message))
+
+    def drive(script, output, publish=False):
+        args = [str(script), "--output", str(output)] + (["--publish"] if publish else [])
+        stdout, stderr = io.StringIO(), io.StringIO()
+        with contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(stderr):
+            code = la.main(args)
+        return code, stdout.getvalue(), stderr.getvalue()
+
+    with tempfile.TemporaryDirectory(dir=sb, prefix="lesson-test-") as local_dir, \
+            tempfile.TemporaryDirectory(dir=published, prefix="lesson-test-") as public_dir, \
+            contextlib.ExitStack() as patches:
+        local, public = Path(local_dir), Path(public_dir)
+        patches.enter_context(patch.object(la, "render_memo", speak))
+        patches.enter_context(patch.object(la, "commit_and_push", commit))
+        patches.enter_context(patch.object(la, "load_env", lambda p: env_reads.append(p)))
+        patches.enter_context(patch.object(la, "current_branch", lambda: "main"))
+        patches.enter_context(patch.object(la, "run", lambda *a, **kw: SimpleNamespace(stdout="")))
+        script = local / "input.txt"
+        script.write_text("  A short spoken exchange.\n", encoding="utf-8")
+        empty = local / "empty.txt"
+        empty.write_text(" \n\t", encoding="utf-8")
+        occupied = local / "existing.mp3"
+        occupied.write_bytes(b"keep me")
+        for source, target, pub in (
+                (empty, local / "empty.mp3", False),
+                (local / "missing.txt", local / "missing.mp3", False),
+                (script, local / "wrong.wav", False),
+                (script, occupied, False),
+                (script, public / ".." / ".." / "outside.mp3", True)):
+            code, out, err = drive(source, target, pub)
+            check("invalid input is refused before TTS or publication",
+                  code != 0 and err and not renders and not commits and not env_reads, err)
+            check("a refused input claims no published URL", "Published URL:" not in out)
+        check("existing audio remains untouched", occupied.read_bytes() == b"keep me")
+        for branch in ("feature/lesson", ""):
+            with patch.object(la, "current_branch", lambda b=branch: b):
+                code, _, err = drive(script, public / "branch.mp3", True)
+            check("non-main and detached branches fail before TTS", code != 0 and not renders, err)
+        with patch.object(la, "run", lambda *a, **kw: SimpleNamespace(stdout="notes.md\n")):
+            code, _, err = drive(script, public / "staged.mp3", True)
+        check("staged work refuses publication before TTS", code != 0 and not renders, err)
+        with patch.object(la, "run", lambda cmd, **kw: SimpleNamespace(
+                stdout="local-commit\n" if cmd[1] == "rev-list" else "")):
+            code, _, err = drive(script, public / "ahead.mp3", True)
+        check("unpushed main commits refuse publication before TTS", code != 0 and not renders, err)
+
+        clip = local / "local.mp3"
+        code, out, err = drive(script, clip)
+        check("local CLI renders exactly the supplied script",
+              code == 0 and len(renders) == 1 and renders[0][0] == "A short spoken exchange.", err)
+        check("local success reports an existing absolute MP3",
+              clip.read_bytes() == b"test mp3 bytes" and str(clip.resolve()) in out)
+        check("local default does not publish", not commits and "Published URL:" not in out)
+        check("TTS loads the existing env entry point", env_reads == [sb / ".env"])
+        check("owned synthesis scratch was removed", not renders[0][1].parent.exists())
+
+        for mode in ("missing", "empty"):
+            async def no_audio(text, target, kind=mode):
+                if kind == "empty":
+                    target.write_bytes(b"")
+            with patch.object(la, "render_memo", no_audio):
+                failed = local / f"{mode}-synthesis.mp3"
+                code, out, err = drive(script, failed)
+            check("missing/empty synthesis cannot report success",
+                  code != 0 and "synthesis" in err and not failed.exists() and "Local audio:" not in out)
+
+        clip = public / "published.mp3"
+        code, out, err = drive(script, clip, True)
+        check("publish hands the shared publisher only this clip",
+              code == 0 and commits[0][0] == [clip.resolve()] and len(commits) == 1, err)
+        check("published success reports the shared CDN URL", la.jsdelivr_url(clip) in out)
+
+        def failed_publish(paths, message):
+            raise RuntimeError("publication unavailable")
+        with patch.object(la, "commit_and_push", failed_publish):
+            failed = public / "failed-publish.mp3"
+            code, out, err = drive(script, failed, True)
+        check("publication failure is loud and never promises a URL",
+              code != 0 and "publication unavailable" in err and "Published URL:" not in out)
+        check("publication failure retains the useful local clip", failed.is_file() and str(failed) in err)
+
+        # A competing render may create the final name after the initial check.
+        raced = local / "raced.mp3"
+        async def racing_render(text, target):
+            target.write_bytes(b"new render")
+            raced.write_bytes(b"other owner's clip")
+        with patch.object(la, "render_memo", racing_render):
+            code, _, err = drive(script, raced)
+        check("a clip created during synthesis is never overwritten",
+              code != 0 and raced.read_bytes() == b"other owner's clip", err)
+
+    after = {p: p.read_bytes() for p in (sb / "progress").rglob("*") if p.is_file()}
+    check("lesson audio never writes learner progress", after == progress)
+    check("lesson audio never rewrites the feed", (rss.read_bytes() if rss.exists() else None) == rss_before)
+
+
 def s96_an_empty_sheet_is_not_a_dose(sb: Path):
     """The soak lane refuses to publish a loop with nothing in it (2026-09-05).
 

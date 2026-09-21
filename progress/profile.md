@@ -66,7 +66,8 @@ The headline meter is **machines heard** (`sync_state.py status`) — of 26 fram
 
 ## Active Gaps
 
-The production-reflex gaps that matter most right now:
+Dated observations to draw on when they help an exchange. Recheck the obstacle;
+an old production miss does not establish a current comprehension gap.
 
 - **High-frequency placement verbs:** வை (put/place) and தூக்கு (lift/carry) — recognition slow under speed, production shaky. Need natural repetition in fresh in-scene contexts, then cold dispatch.
 - **Verb aspect (present vs. future):** கேட்குறேன் (I'm hearing/asking) vs. கேட்பேன் (I will hear/ask) — inconsistent under speed. Surface present/future contrasts in natural dialogue.
@@ -75,13 +76,13 @@ The production-reflex gaps that matter most right now:
 - **Give-me vs. want (giveme-noun frame) — 2026-07-15.** Andrew's mouth defaults to வேணும் (*announce a need*, points at self) where the family move is குடுங்க (*ask them to pass it*, points at them). At a family table the softer குடுங்க wins. kudunga is still fresh in his ear; keep resurfacing it in fresh table contexts until it fires cold without the venum detour. Don't chase it in one session.
 - **The stranger's -ங்க ending — the antifreeze kit's real gap (2026-07-27 volley, 4 asks).** He never misses the *content*; he misses the *ending*. Asked for கொஞ்சம் மெதுவா சொல்லுங்க he produced "medhuva **pesa**" — right adverb, bare stem. Asked for தமிழ்ல எப்படி சொல்றது? he built "enna naan tamizh **sollen**?" — English word order, naan-form. Handed the -ங்க he reads it back; from scratch it evaporates, and with an auto driver that ending *is* the register. One pattern, not four vocabulary items: drill சொல்லுங்க / நில்லுங்க / சொன்னீங்க as **the same move** (a request to a stranger), always from an English situation, never as a list. **Never mark பேசு wrong here** — கொஞ்சம் மெதுவா பேசுங்க is natural Tamil and only the ending was missing; the honest contrast is what each buys (*பேசுங்க* = slow your speech down going forward, *சொல்லுங்க* = re-deliver that one thing slower). `pesa` is his own, from the house, not from us — treat it as an asset to inflect, never an error to recast.
 - **Two antifreeze lines are being substituted away — teach the difference, don't re-drill the target (2026-07-27).** For என்ன சொன்னீங்க? he reached for **புரியல**; for கொஞ்சம் நில்லுங்க he reached for **ஒரு நிமிஷம்**. Both are real, both are his, both work — that is not a miss, and the starved target is the signal, not a failure to punish. The beat worth one clause: *புரியல closes the conversation ("I don't understand"), என்ன சொன்னீங்க? reopens it (make him say it again)* — he owns the giving-up line and not the keep-going line. Pin the situation so only the reopening move answers; don't grade him against the target when the substitute would land at the table.
-- **The floor gap broadly:** the recognized-but-not-cold pool. These don't need re-teaching — they need to be *fired*, cold, from English, in new situations.
+- **The floor gap broadly:** the recognized-but-not-cold pool. Check meaning in context before choosing more teaching or a production probe; a recognition label cannot decide that for us.
 
 ---
 
 ## What's Needed Next
 
-> **The pool is lean-ordered** (lead > mid > dessert, from each row's `register` read against the year's current direction of address — `year.register_rank`). This replaced a static survival/delight/dessert map on 2026-09-19: that one ranked by topic, was blind to who he was addressing, and degraded 283 of 366 rows to its middle rung, so it ordered almost nothing. The *deepen, don't widen* discipline is untouched: force what is in rotation cold, don't sprawl past it.
+> **The pool is lean-ordered** (lead > mid > dessert, from `register` against the year's direction of address — `year.register_rank`). It replaced the static topic tiers on 2026-09-19. Use the ordering to choose useful material, then deepen understanding in changed exchanges. Introduce what the scene needs within calibration; cold production is never the gate.
 
 1. **Make the exchange understandable.** Start from **1a. THE EAR**; teach the whole meaning, unpack a blocking contrast, and revisit it in a changed example. Listen without the written answer before claiming ear transfer.
 2. **Protect the opening gift.** Coffee-and-lore precedes the check, repairs and any catch-up. He named its absence on 09-20; the same complaint already produced the break contract in August.
