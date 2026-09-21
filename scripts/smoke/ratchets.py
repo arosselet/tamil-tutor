@@ -128,6 +128,12 @@ PROSE_BUDGETS = {
     # contract. Shape, not size. If this file ever needs bounding again, bound
     # the shape further; do not put the word count back.
     "docs/feature_inbox.md": 1500,
+    # Commissioned audit replaces its interim handoff and chat-only findings;
+    # engineering reference only, never added to Anna's prompt load.
+    "docs/ASTRA_REVIEW.md": 3000,
+    "docs/ASTRA_CHARGE.md": 800,
+    # Target design replaces the obsolete forecast and duplicated habit plan.
+    "docs/comprehension_plan.md": 2400,
     ".claude/skills/debug/SKILL.md": 1500,
 }
 
@@ -198,6 +204,11 @@ CODE_BUDGETS = {
     "scripts/rails.py": 40,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-04).
     "scripts/memo.py": 28,
+    # Short-clip command replaces ad hoc rendering, without another TTS backend.
+    "scripts/lesson_audio.py": 100,
+    # Recognition command extracted from sync_state; artifact/reply provenance
+    # replaces debrief-only context without extending the event schema.
+    "scripts/receptive_check.py": 90,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-17). The month
     # object could not be bolted onto `suggest_targets` — that file was at 588/588
     # on the day this was written, and Gate 4 reads a file at its ceiling as a
@@ -838,6 +849,7 @@ LAYERS = {
     "month":              1.2,
     "suggest_targets":    1.5,    # selection — reads L1, read by the lanes
     "sync_state":         2,      # beside L1 — the one writer
+    "receptive_check":    1.5,    # recognition writer, behind the sync_state CLI
 
     # L2 policy — the reach budget (2026-09-04). Imports only L0, and is read by
     # `publish` (L4) AND by both lanes that reach Andrew. That second fact is the
@@ -859,6 +871,7 @@ LAYERS = {
     # `lanes.py`, so it is nobody's family and everybody's. Numbered here so the
     # day it reaches sideways for a lane's state, the edge reads as upward.
     "memo":               4.7,
+    "lesson_audio":       5.5,    # supplied short scripts through memo + publication
 
     "lanes":              5,      # L5 what a family shares
     "morning_knock":      5.5,    # L5 the lanes themselves
