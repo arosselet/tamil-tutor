@@ -176,8 +176,10 @@ def lex_row(**kw) -> dict:
 
     Optional fields (`type`, `deck`, `direction`, `register`, `reps`,
     `pairs_with`, `heard_on`) are absent unless asked for, exactly as in the
-    minted record."""
-    return {"gloss": "x", "phonetic": [], "recognition": "struggled",
+    minted record. `phonetic` left the shape on 2026-09-21 with the stored
+    field; `s85` holds this builder to the real mint sites, so it cannot come
+    back here without coming back there."""
+    return {"gloss": "x", "recognition": "struggled",
             "production": "none", "seen_in": [], "last_surfaced": None, **kw}
 
 

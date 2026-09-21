@@ -5,7 +5,9 @@ one lane that can fire without anybody asking it to, so its failures are
 same-tick collisions and concurrent appends rather than wrong content.
 """
 import argparse
+import contextlib
 import importlib
+import io
 import json
 import re
 import sys
@@ -345,7 +347,17 @@ def s102_two_writers_on_the_ledger_both_survive(mk, sb: Path):
     34520445739 died mid-rebase and lost a judged reply). The ledger's evidence
     is the fold of the unionable log, so two writers can only disagree about the
     static half — and that unions by key. Same harness as s45; the assertions
-    are on what reached main, per writer, on both files."""
+    are on what reached main, per writer, on both files.
+
+    THE CONFLICT IS ENGINEERED, not hoped for (2026-09-21). `remerge` is the
+    DERIVED resolver and it runs ONLY when git reports a conflict in
+    `lexicon.json`, so this case only tests its subject if the two sides
+    textually collide. They used to collide by accident of row height — each
+    row was a line taller while it carried a `phonetic` list — and deleting that
+    field let git merge the two writers cleanly, at which point every assertion
+    below still passed except the fold, and the case had quietly stopped
+    exercising the resolver at all. So the two writers now disagree on ONE line
+    on purpose (Y's gloss), and the re-render is asserted by name."""
     print("\n102. Two writers on the ledger both survive (2026-09-10)")
     import subprocess as sp
     spec = importlib.util.spec_from_file_location(
@@ -388,9 +400,13 @@ def s102_two_writers_on_the_ledger_both_survive(mk, sb: Path):
     git(other, "add", "-A"); git(other, "commit", "-qm", "other writer")
     git(other, "push", "-q", "origin", "HEAD:main")
 
-    # THE RUNNER, on the stale base: tests X again (second rung) and mints W.
+    # THE RUNNER, on the stale base: tests X again (second rung), mints W, and
+    # fills Y's gloss with ITS OWN word — the one line the two sides disagree
+    # about, which is what makes git report a conflict here every time rather
+    # than whenever the rows happen to sit close enough together.
     r_lex = dict(base_lex)
     r_lex["W"] = lex_row(gloss="w")
+    r_lex["Y"] = lex_row(gloss="runner filled")
     r_lex["X"] = {**lex_row(gloss="x"), "recognition": "comfortable"}
     write_json(runner / "progress" / "lexicon.json", r_lex)
     write_json(runner / "progress" / "observations.json", [ev(2, "X", "right")])
@@ -399,20 +415,28 @@ def s102_two_writers_on_the_ledger_both_survive(mk, sb: Path):
     saved = lv.LEXICON_PATH, lv.observations.OBSERVATIONS_PATH
     lv.LEXICON_PATH = runner / "progress" / "lexicon.json"
     lv.observations.OBSERVATIONS_PATH = runner / "progress" / "observations.json"
+    land = io.StringIO()
     try:
-        live.commit_and_push([runner / "progress" / "lexicon.json",
-                              runner / "progress" / "observations.json"], "Knock reply: smoke")
+        with contextlib.redirect_stdout(land):
+            live.commit_and_push([runner / "progress" / "lexicon.json",
+                                  runner / "progress" / "observations.json"], "Knock reply: smoke")
         crashed = ""
     except Exception as e:
         crashed = f"{type(e).__name__}: {e}"
     finally:
         lv.LEXICON_PATH, lv.observations.OBSERVATIONS_PATH = saved
     check("the tick survives a concurrent ledger write", not crashed, crashed)
+    # AN ABSENCE MUST BE LOUD: without this, a clean auto-merge sails past every
+    # assertion but the fold, and the failure reads as a fold bug rather than as
+    # "the resolver never ran".
+    check("the DERIVED resolver actually ran on lexicon.json",
+          "re-rendered progress/lexicon.json" in land.getvalue(),
+          f"no conflict to resolve — this case tested nothing: {land.getvalue()[-300:]}")
     lex = json.loads(git(origin, "show", "main:progress/lexicon.json").stdout or "{}")
     obs = json.loads(git(origin, "show", "main:progress/observations.json").stdout or "[]")
     check("both writers' events reached main", {e["id"] for e in obs} == {"e1", "e2"}, str(obs))
     check("both writers' minted rows survive", "W" in lex and "Z" in lex, str(sorted(lex)))
-    check("a gloss one writer filled is kept",
+    check("upstream's gloss wins where both writers filled one",
           lex.get("Y", {}).get("gloss") == "filled", str(lex.get("Y")))
     check("the rung is the FOLD of both events — two passes, solid",
           lex.get("X", {}).get("recognition") == "solid", str(lex.get("X")))

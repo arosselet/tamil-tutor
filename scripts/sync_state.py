@@ -3,7 +3,7 @@
 State management for the Tamil learning system.
 
 Word-state lives in ONE place: progress/lexicon.json — a word-keyed map where each
-record carries its static half (gloss, phonetics, type, register, direction) and its
+record carries its static half (gloss, type, register, direction) and its
 evidence half (both axes, reps, dates). The evidence half is a VIEW: since 2026-09-10
 every observation is an event in progress/observations.json and `lexicon_view`
 folds it onto the row. This script records what Anna observed at close; it never
@@ -22,9 +22,11 @@ Usage:
     # Show current state (what Anna reads at session start)
     python scripts/sync_state.py status
 
-Canonical-at-write: produced/recognized words are resolved phonetic->script against
-the lexicon. A produced word that resolves to no record is WARNED and SKIPPED rather
-than silently poisoning state — production presupposes a recognition record.
+Canonical-at-write: produced/recognized words are resolved against the lexicon's
+own Tamil keys (script to script since 2026-09-21 — phonetics are generated for
+display, never stored). A produced word that resolves to no record is WARNED and
+SKIPPED rather than silently poisoning state — production presupposes a
+recognition record.
 """
 
 import argparse
@@ -50,7 +52,6 @@ from state_io import (BASE, DEFAULT_TZ, EPISODES_PATH, FEEDBACK_LOG_PATH,
                       canon_payload,
                       KNOCK_LOG_PATH, LEARNER_PATH, LEXICON_PATH,
                       SESSION_LOG_PATH, SLIP_LOG_PATH,
-                      build_phonetic_index,
                       load_json, local_today, resolve, save_json)
 
 # Windows consoles default to cp1252, which can't print Tamil — the status digest
@@ -395,7 +396,6 @@ def cmd_update(args):
         print("Error: lexicon.json or learner.json missing. See BOOTSTRAP.md.")
         sys.exit(1)
 
-    phon_index = build_phonetic_index(lexicon)
     today = local_today().isoformat()
     applied = {"cold": [], "hinted": [], "demoted": [], "recognized": []}  # for the session log
 
@@ -457,46 +457,36 @@ def cmd_update(args):
         return {"word": key, "channel": "session", "kind": kind,
                 "source": f"session:{today}", **kw}
 
-    def mint(word, phon, gloss=""):
+    def mint(word, gloss=""):
         """A row's STATIC half. The evidence half is the fold's — a fresh row
         carries the defaults until an event speaks (2026-09-10)."""
         lexicon[word] = {
-            "gloss": gloss, "phonetic": [phon] if phon else [], "recognition": "struggled",
+            "gloss": gloss, "recognition": "struggled",
             "production": "none", "seen_in": [], "last_surfaced": None,
         }
 
-    def split_phonetic(spec):
-        """Peel the sounds-like form off a mint spec: 'WORD|phonetic'.
-
-        A record born WITHOUT one is unreachable from the surface Anna actually
-        writes in. The constitution's split makes phonetics his input; `resolve()`
-        is exact-match against this list; and every mint site used to write `[]`
-        under a "backfill later" note. Later never came. By 2026-08-14, 96 of 313
-        word records carried no phonetic — 88 of them `production: none`, i.e.
-        very nearly the floor-gap pool itself — and FIVE OF THE TWELVE items on
-        that day's own focus set could not be logged phonetically. The ticket was
-        naming targets the logger would then refuse; the session lost a real
-        hinted rep to it (`ukkarunga`, then `ukkaarunga`, both bounced).
-
-        The fix is a deletion, not a detector: the phonetic is in Anna's mouth at
-        first contact and nowhere else afterwards, and these paths were throwing
-        it away while a sibling command (`add-word --phonetic`) took it properly.
-        Take it here. Andrew's call, 2026-08-14: refuse at the mint AND ratchet
-        the debt in smoke (s59) — the render lane cannot be blocked, so the
-        ratchet is what covers it. Existing records are grandfathered; no backfill.
-        """
-        head, _, phon = spec.partition("|")
-        return head.strip(), phon.strip()
+    # `split_phonetic` lived here until 2026-09-21. It peeled the sounds-like
+    # tail off a mint spec ('WORD|phonetic') because a record born without one
+    # was unreachable from the surface Anna wrote in — a Latin spelling typed
+    # into chat. That surface changed on 2026-09-13: every key now reaches
+    # Python from a model holding the Tamil, so the tail had nothing left to
+    # feed and the requirement was only a way to refuse a legitimate teach.
+    # Deleted with the field it filled; the specs below are `WORD[=GLOSS]`.
 
     def key_for(word):
         """A logged token -> its row, or None — naming the nearest rows on a miss
         (2026-09-13). The 08-14 close bounced `ukkarunga` and then `ukkaarunga`
         with a bare "Skipped" and no way to see which row either meant. Anna holds
-        the Tamil, so the repair is to re-log the named row in script."""
-        key = resolve(word, lexicon, phon_index)
+        the Tamil, so the repair is to re-log the named row in script.
+
+        The near-miss list is the lexicon's own keys since 2026-09-21 — it used
+        to include every stored phonetic, mapped back to its script. A miss is
+        now a script miss (a dropped pulli, a Kongu tail), which is the shape it
+        actually has once the model writes the key."""
+        key = resolve(word, lexicon)
         if key is None:
-            near = difflib.get_close_matches(word.lower(), [*phon_index, *lexicon], n=3, cutoff=0.6)
-            hint = ", ".join(dict.fromkeys(phon_index.get(n, n) for n in near))
+            near = difflib.get_close_matches(word, list(lexicon), n=3, cutoff=0.6)
+            hint = ", ".join(dict.fromkeys(near))
             print(f"  ! '{word}' resolves to no record{f' — nearest: {hint}' if hint else ''}. "
                   f"Re-log it in Tamil script. Skipped.")
         return key
@@ -505,15 +495,15 @@ def cmd_update(args):
         """Anna watched him recognize it — ONE observation, ONE rung (2026-09-10).
         `--mastered-word` used to write `solid` outright: a claim of level, not
         two observations. Both old flags now mean this."""
-        word, phon = split_phonetic(spec)
-        key = resolve(word, lexicon, phon_index)
+        word = spec.strip()
+        key = resolve(word, lexicon)
         if key is None:
-            if not is_tamil(word) or not phon:
-                print(f"  ! '{word}' can't be created — a new record needs Tamil script AND its sounds-like form: '{word}|phonetic'. Skipped.")
+            if not is_tamil(word):
+                print(f"  ! '{word}' can't be created — a new record needs its Tamil script key. Skipped.")
                 return
-            mint(word, phon)
+            mint(word)
             key = word
-            print(f"  + New word '{word}' (phonetic '{phon}'; gloss empty — fill in later)")
+            print(f"  + New word '{word}' (gloss empty — fill in later)")
         events.append(ev(key, "tested", axis="recognition", result="right",
                          note="recognized in session"))
         applied["recognized"].append(key)
@@ -551,40 +541,30 @@ def cmd_update(args):
         is what a first contact buys. Production stays unset until he fires it,
         so this can never inflate the floor. Accepts `WORD` or `WORD=gloss`.
         """
-        spec, phon = split_phonetic(spec)
         word, _, gloss = spec.partition("=")
         word, gloss = word.strip(), gloss.strip()
         if not is_tamil(word):
             print(f"  ! '{word}' is phonetic — teach it in Tamil script so the key "
                   f"can be canonical. Skipped.")
             return
-        key = resolve(word, lexicon, phon_index)
+        key = resolve(word, lexicon)
         if key is not None:
             if gloss and not lexicon[key].get("gloss"):
                 lexicon[key]["gloss"] = gloss
-            # The phonetic backfills on the same terms as the gloss (2026-08-19).
-            # Only the gloss did, which made --teach the one command able to name
-            # an existing row and yet decline to — so every row minted by
-            # render_audio from an episode's tags sidecar (no gloss, no phonetic)
-            # was permanently unreachable from chat with no sanctioned repair.
-            # Found by publishing M87/M90: three fresh rows, three unfillable
-            # holes, s61's ratchet red. `not ...` never overwrites a vetted
-            # phonetic; it only fills an empty list. Like the new-word branch
-            # below it leaves phon_index alone — the index is rebuilt per run,
-            # and no lane resolves a phonetic it minted in the same invocation.
-            if phon and not lexicon[key].get("phonetic"):
-                lexicon[key]["phonetic"] = [phon]
+            # The gloss is the only static half left to backfill (2026-09-21).
+            # A `|phonetic` tail backfilled beside it until the stored field
+            # went: a row minted by render_audio off an episode sidecar carried
+            # neither, and without the spelling it was unreachable from chat with
+            # no sanctioned repair (M87/M90, three fresh rows, three unfillable
+            # holes). The key IS the reach now, so the gloss is all this owes.
             # Printed, not assumed: a state write nobody can see is the silent
             # no-op this repo keeps paying for. STILL EMPTY names the hole.
             events.append(ev(key, "taught", note="re-taught; row already existed"))
             print(f"  Taught (already known): {key} — refreshed, recognition left "
                   f"at {lexicon[key].get('recognition', 'struggled')}, "
-                  f"phonetic {lexicon[key].get('phonetic') or 'STILL EMPTY'}")
+                  f"gloss {lexicon[key].get('gloss') or 'STILL EMPTY'}")
             return
-        if not phon:
-            print(f"  ! '{word}' is new — teach it with its sounds-like form, '{word}=gloss|phonetic', or it can never be logged from chat. Skipped.")
-            return
-        mint(word, phon, gloss)
+        mint(word, gloss)
         events.append(ev(word, "taught", note="first contact — row created at struggled"))
         print(f"  + Taught '{word}' → recognition struggled"
               f"{', gloss: ' + gloss if gloss else ' (gloss empty — fill in later)'}")
@@ -660,7 +640,7 @@ def cmd_update(args):
         # setting one of those ALONE would have silently wiped the words — the
         # same class of bug as the clobber above, introduced by fixing it.
         if args.soak_payload:
-            order["payload"] = [resolve(w, lexicon, phon_index) or w
+            order["payload"] = [resolve(w, lexicon) or w
                                 for w in canon_payload(args.soak_payload)]
         order.setdefault("payload", [])
         order["scene_seed"] = args.soak_seed or order.get("scene_seed", "")
@@ -815,7 +795,6 @@ def cmd_add_pattern(args):
     lexicon[args.key] = {
         "type": "pattern",
         "gloss": args.gloss,
-        "phonetic": [],
         "recognition": "struggled",
         "production": "none",
         "seen_in": [],
@@ -827,10 +806,14 @@ def cmd_add_pattern(args):
 
 
 def cmd_add_word(args):
-    """Seed a word/chunk record with its gloss and phonetics in one shot — the
-    proper birth of a new lexicon entry (`update --recognized` creates gloss-less
-    stubs; soak orders don't create records at all). Without a record, a word
-    can never be resolved, scored, or surface on a ticket."""
+    """Seed a word/chunk record with its gloss — the proper birth of a new
+    lexicon entry (`update --recognized` creates gloss-less stubs; soak orders
+    don't create records at all). Without a record, a word can never be
+    resolved, scored, or surface on a ticket.
+
+    `--phonetic` retired 2026-09-21 with the stored field: the Tamil key IS the
+    record's handle, and a spelling Andrew might type is a display form a model
+    generates from it (DECISIONS 2026-09-13)."""
     lexicon = load_json(LEXICON_PATH)
     if lexicon is None:
         print("Error: lexicon.json missing. See BOOTSTRAP.md.")
@@ -842,22 +825,18 @@ def cmd_add_word(args):
         rec = lexicon[args.key]
         if args.gloss and not rec.get("gloss"):
             rec["gloss"] = args.gloss
-        for phon in args.phonetic:
-            if phon not in rec.setdefault("phonetic", []):
-                rec["phonetic"].append(phon)
         save_json(LEXICON_PATH, lexicon)
-        print(f"  '{args.key}' already exists — merged gloss/phonetics, learning state untouched.")
+        print(f"  '{args.key}' already exists — merged the gloss, learning state untouched.")
         return
     lexicon[args.key] = {
         "gloss": args.gloss,
-        "phonetic": list(args.phonetic),
         "recognition": "struggled",
         "production": "none",
         "seen_in": [],
         "last_surfaced": local_today().isoformat(),
     }
     save_json(LEXICON_PATH, lexicon)
-    print(f"  + '{args.key}' — {args.gloss} (phonetic {list(args.phonetic)}; struggled until something tests it)")
+    print(f"  + '{args.key}' — {args.gloss} (struggled until something tests it)")
 
 
 def _arc_inputs():
@@ -1037,7 +1016,7 @@ def cmd_seed_deck(args):
     MECHANISM that lands it — the same LLM-writes / Python-owns-state split as
     word_pool.json.
 
-    Each entry: {"word", "gloss", "phonetic": [...], "type": "chunk"|"frame",
+    Each entry: {"word", "gloss", "type": "chunk"|"frame",
     "register"?, "direction"?: "fire"|"catch", "pairs_with"?}. A "frame" is stored
     as a lexicon `pattern` (an Engine); a "chunk" is word-like (counts in the
     viability floor). "catch" marks ear-only items; "pairs_with" names the chunk
@@ -1046,7 +1025,9 @@ def cmd_seed_deck(args):
 
     Static fields only. A `recognition` in the file is ignored (2026-09-10): a
     curated file cannot observe, and a claim does not vote. The `deck` tag and
-    the un-tag sweep retired with it — nothing read the tag.
+    the un-tag sweep retired with it — nothing read the tag. A `phonetic` is
+    ignored on the same terms since 2026-09-21: the deck files still carry the
+    spellings they were drafted with, and the lexicon no longer stores one.
     """
     path = Path(args.file)
     if not path.is_absolute():
@@ -1100,15 +1081,11 @@ def cmd_seed_deck(args):
                 rec.pop("pairs_with", None)  # the file is the source of truth
             if e.get("gloss"):
                 rec["gloss"] = e["gloss"]  # deck file is the curated content source — its gloss wins
-            for phon in e.get("phonetic", []):
-                if phon not in rec.setdefault("phonetic", []):
-                    rec["phonetic"].append(phon)
             updated += 1
         else:
             lexicon[word] = {
                 "type": lex_type,
                 "gloss": e.get("gloss", ""),
-                "phonetic": e.get("phonetic", []),
                 "recognition": "struggled",
                 "production": "none",
                 "seen_in": [],
@@ -1360,7 +1337,6 @@ def cmd_check(args):
     import hashlib
     import random
     lexicon = load_json(LEXICON_PATH) or {}
-    phon_index = build_phonetic_index(lexicon)
     today = local_today().isoformat()
     if args.draw:
         never = sorted(k for k, v in lexicon.items()
@@ -1372,14 +1348,14 @@ def cmd_check(args):
         print(f"RECEPTIVE CHECK — {len(pick)} of {len(never)} never-tested rows, seed {seed}, "
               f"sample {digest}. Recognition only; one item at a time, in the flow; never show the list.")
         for k in pick:
-            print(f"  {k}  [{', '.join(lexicon[k].get('phonetic') or []) or 'no phonetic'}] — {lexicon[k].get('gloss', '')}")
+            print(f"  {k} — {lexicon[k].get('gloss', '') or '[no gloss]'}")
         print("Record with:  sync_state.py check --heard WORD:right (by ear) "
               "| --read WORD:right (on the page)")
         return
     events, bad = [], []
     for spec, medium in [(s, "audio") for s in args.heard] + [(s, "text") for s in args.read]:
         word, _, res = spec.rpartition(":")
-        key = resolve(word.strip(), lexicon, phon_index)
+        key = resolve(word.strip(), lexicon)
         if key is None or res not in ("right", "wrong", "partial"):
             bad.append(spec)
             continue
@@ -1451,16 +1427,16 @@ def main():
                          f"gate roll one. {'/'.join(COMMISSIONED_FORMS)} can ONLY arrive "
                          f"this way; the rest are normally spec-rotated and this pins them.")
     up.add_argument("--teach", type=str, action="append", default=[],
-                    metavar="WORD[=GLOSS]|PHONETIC",
+                    metavar="WORD[=GLOSS]",
                     help="Word(s) TAUGHT this session — creates the lexicon record at "
                          "`struggled` recognition, seen today, production unset. Tamil "
-                         "script keeps the key canonical; the |PHONETIC tail is REQUIRED "
-                         "on a new word or it can never be logged from chat again.")
+                         "script keeps the key canonical, and the key is the whole "
+                         "handle: nothing else is needed to log the word later.")
     up.add_argument("--recognized", "--mastered-word", "--comfortable-word", dest="recognized",
-                    type=str, action="append", default=[], metavar="WORD[|PHONETIC]",
+                    type=str, action="append", default=[], metavar="WORD",
                     help="Word(s) he RECOGNIZED unaided this session — one observation, "
                          "one rung up on the ear (the two old spellings mean the same). "
-                         "'WORD|phonetic' if it is new to the lexicon")
+                         "Tamil script; a key the lexicon lacks is minted from it.")
     up.add_argument("--stuck-word", type=str, action="append", default=[],
                     help="Word(s) that failed cold recall — demotes recognition one level")
     up.add_argument("--produced-cold", type=str, action="append", default=[],
@@ -1499,11 +1475,9 @@ def main():
     ap.add_argument("--gloss", required=True,
                     help="Human description of the engine, e.g. '-uren (now) vs -ven (later) on any verb'")
 
-    aw = sub.add_parser("add-word", help="Seed a word/chunk record (gloss + phonetics) — a word without a record can't be resolved or scored")
+    aw = sub.add_parser("add-word", help="Seed a word/chunk record (gloss) — a word without a record can't be resolved or scored")
     aw.add_argument("key", help="Canonical Tamil script, e.g. 'என்ன சமைக்கிற?'")
     aw.add_argument("--gloss", required=True, help="English gloss")
-    aw.add_argument("--phonetic", action="append", default=[],
-                    help="Phonetic spelling(s) Andrew might type (repeatable)")
 
     sd = sub.add_parser("seed-deck", help="Load a curated set (chunks/frames) into the lexicon — static fields only")
     sd.add_argument("file", help="Path to the set's JSON (e.g. curriculum/trip_deck.json), absolute or repo-relative")

@@ -513,16 +513,20 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
     # new Tamil-script payload word. A Producer annotation like
     # "frame:want-noun (வேணும்)" must credit frame:want-noun — not spawn a ghost.
     lexicon = load_json(LEXICON_PATH)
-    phon = {p: w for w, r in lexicon.items() for p in r.get("phonetic", [])}
 
     def canonical(w: str) -> str | None:
         """Resolve a sidecar key to its lexicon key, tolerating a trailing
-        ' (…)' annotation. None if nothing resolves."""
+        ' (…)' annotation. None if nothing resolves.
+
+        SCRIPT ONLY since 2026-09-21. A sidecar key written in Latin used to
+        resolve through a {stored phonetic -> script} map built off the lexicon;
+        the field is gone, and a sidecar has written Tamil keys for as long as
+        the Producer has written the schema. A Latin key now lands in the
+        unresolved report below, where it can be seen and fixed, instead of
+        resolving to whichever row had pre-named that spelling."""
         for cand in (w, re.sub(r"\s*\([^)]*\)\s*$", "", w).strip()):
             if cand in lexicon:
                 return cand
-            if cand in phon:
-                return phon[cand]
         return None
 
     cleaned_words = []
@@ -626,10 +630,10 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
         src = f"episode:M{mnum}"
         events, created, unresolved = [], 0, []
         for w in cleaned_words:
-            key = w if w in lexicon else phon.get(w)
+            key = w if w in lexicon else None
             if key is None and w in new_word_keys and is_tamil(w):
                 # Brand-new payload word: the STATIC half only; the fold owns the rest.
-                lexicon[w] = {"gloss": "", "phonetic": [], "recognition": "struggled",
+                lexicon[w] = {"gloss": "", "recognition": "struggled",
                               "production": "none", "seen_in": [], "last_surfaced": None}
                 key = w
                 created += 1

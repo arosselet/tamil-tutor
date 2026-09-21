@@ -188,7 +188,7 @@ python scripts/sync_state.py status
 # SAFE (read-only)
 python -c "import json; lex=json.load(open('progress/lexicon.json')); print(lex.get('போதும்', 'not found'))"
 ```
-3. Verify canonical key: lexicon keys must be Tamil script (verified by `TAMIL_RE` in `language.py`). Phonetic variants live in the `phonetic` list. `resolve()` maps phonetic → script.
+3. Verify canonical key: lexicon keys must be Tamil script (verified by `TAMIL_RE` in `language.py`) and `resolve()` matches script to script — no spelling is stored, so a Latin token resolves to nothing by design (2026-09-21).
 4. If a phone-rep cold fire didn't update the axis: the word may have resolved to `None` (no lexicon record). The judge prints `! '<word>' resolves to no lexicon record — not scored`. Fix: seed the record first (`sync_state.py add-word`).
 5. To correct state from a known-good chat session — use `update` (mutating):
 ```

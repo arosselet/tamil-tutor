@@ -150,9 +150,9 @@ def s5_reply_judge(mk, kr, sb: Path):
     lex_path = prog / "lexicon.json"
     klog_path = prog / "knock_log.json"
     write_json(lex_path, {
-        "போதும்": lex_row(gloss="Enough", phonetic=["podhum"], recognition="solid",
+        "போதும்": lex_row(gloss="Enough", recognition="solid",
                           last_surfaced="2026-07-01"),
-        "ரொம்ப பிடிச்சிருக்கு": lex_row(gloss="I really like it", phonetic=["romba pidichirukku"],
+        "ரொம்ப பிடிச்சிருக்கு": lex_row(gloss="I really like it",
                                         recognition="solid",
                                         last_surfaced="2026-07-01"),
     })
@@ -353,7 +353,7 @@ def s8_variety_and_decay(mk, kr, sb: Path):
     # never-soaked items are flagged UNSEEN on the menu (teach before quiz)
     lex_path = sb / "progress" / "lexicon.json"
     write_json(lex_path, {
-        "வணக்கம்": lex_row(gloss="hello", phonetic=["vanakkam"], register="antifreeze",
+        "வணக்கம்": lex_row(gloss="hello", register="antifreeze",
                            direction="fire"),
     })
     menu = mk.due_menu_block()
@@ -448,9 +448,8 @@ def s10_chain_history(mk, kr, sb: Path):
     lex_path, klog_path = prog / "lexicon.json", prog / "knock_log.json"
     write_json(lex_path, {
         "ஒரு மாசம் இருப்போம்": lex_row(gloss="We're staying one month",
-                                       phonetic=["oru maasam iruppom"],
                                        recognition="solid"),
-        "வேண்டாம்": lex_row(gloss="Don't want / no thanks", phonetic=["vendaam"],
+        "வேண்டாம்": lex_row(gloss="Don't want / no thanks",
                             recognition="solid"),
     })
     kr.push_to_phone, kr.commit_and_push = Recorder(), Recorder()
@@ -494,15 +493,24 @@ def s10_chain_history(mk, kr, sb: Path):
     check("chat renders the full chain",
           "oru maasam iruppom" in chat and "vendaam!" in chat)
 
-    # grounded reveals: only Tamil actually printed in recent knock traffic lists
+    # Grounded reveals: only Tamil actually printed in recent knock traffic
+    # lists — and since 2026-09-21 that means the SCRIPT draft, one probe per
+    # row. A recap that reaches his screen in phonetics carries its
+    # `body_script` beside it, which is the field this reads.
     log = read_json(klog_path)
-    log.append({"date": now.date().isoformat(), "timestamp": now.isoformat(),
-                "acted": True, "modality": "text", "move": "smoke recap",
-                "body": "yesterday: oru maasam iruppom ✓ — solid",
-                "expected_target": "", "target_revealed": False})
+    latin = {"date": now.date().isoformat(), "timestamp": now.isoformat(),
+             "acted": True, "modality": "text", "move": "smoke recap",
+             "body": "yesterday: oru maasam iruppom ✓ — solid",
+             "expected_target": "", "target_revealed": False}
+    lex_now = read_json(lex_path)
+    check("a recap with no script draft reveals nothing — the row has no spelling to guess with",
+          "ஒரு மாசம் இருப்போம்" not in kr.revealed_recently([latin], lex_now),
+          f"got {kr.revealed_recently([latin], lex_now)}")
+    log.append(dict(latin, body_script="yesterday: ஒரு மாசம் இருப்போம் ✓ — solid"))
     write_json(klog_path, log)
-    rr = kr.revealed_recently(read_json(klog_path), read_json(lex_path))
-    check("revealed_recently sees the printed word", "ஒரு மாசம் இருப்போம்" in rr, f"got {rr}")
+    rr = kr.revealed_recently(read_json(klog_path), lex_now)
+    check("revealed_recently sees the printed word through the draft",
+          "ஒரு மாசம் இருப்போம்" in rr, f"got {rr}")
 
 
 def s11_capped_graduation(kr, sb: Path):
@@ -520,14 +528,20 @@ def s11_capped_graduation(kr, sb: Path):
 
     # (a) day 2 of capped fires → graduation to COLD, pace credited
     write_json(lex_path, {
-        "பழகிப்போச்சு": lex_row(gloss="I'm used to it", phonetic=["pazhagippochu"],
+        "பழகிப்போச்சு": lex_row(gloss="I'm used to it",
                                 recognition="solid",
                                 production="hinted",
                                 last_surfaced="2026-07-01"),
     })
+    # The reveal that caps day 2 is evidenced by day 1's SCRIPT draft
+    # (2026-09-21): what he read was phonetic, what Python matches is the draft
+    # logged beside it. Without `body_script` this knock reveals nothing, the
+    # capped claim is unverifiable, and the word fires cold instead of
+    # graduating — which is the behaviour case (b) below pins.
     day1 = {"date": yday.date().isoformat(), "timestamp": yday.isoformat(),
             "acted": True, "modality": "text", "move": "smoke lore",
             "body": "pazhagippochu — 'used to it'. let it sit in your ear.",
+            "body_script": "பழகிப்போச்சு — 'used to it'. let it sit in your ear.",
             "expected_target": "", "target_revealed": False,
             "exchanges": [{"at": yday.strftime("%Y-%m-%dT%H:%M:%SZ"),
                            "reply": "pazhagippochu", "verdict": "hinted",
@@ -555,7 +569,7 @@ def s11_capped_graduation(kr, sb: Path):
 
     # (b) judge says 'capped' but nothing on record revealed the word → COLD (KF-6)
     write_json(lex_path, {
-        "வேண்டாம்": lex_row(gloss="don't want / no thanks", phonetic=["vendaam"],
+        "வேண்டாம்": lex_row(gloss="don't want / no thanks",
                             recognition="solid",
                             last_surfaced="2026-07-01"),
     })
@@ -572,7 +586,7 @@ def s11_capped_graduation(kr, sb: Path):
 
     # (c) judge says 'cold' on Tamil the knock itself printed → capped (day 1: hinted)
     write_json(lex_path, {
-        "போதும்": lex_row(gloss="enough", phonetic=["podhum"], recognition="solid",
+        "போதும்": lex_row(gloss="enough", recognition="solid",
                           last_surfaced="2026-07-01"),
     })
     write_json(klog_path, [{
@@ -621,8 +635,8 @@ def s12_volley(mk, kr, sb: Path):
 
     # reply flow: cold → advance; MISS → still advance; queue exhausts
     write_json(lex_path, {
-        w: lex_row(gloss="g", phonetic=[p], recognition="solid", last_surfaced="2026-07-01")
-        for w, p in [(w1, "podhum"), (w2, "vendaam"), (w3, "pazhagippochu")]})
+        w: lex_row(gloss="g", recognition="solid", last_surfaced="2026-07-01")
+        for w in (w1, w2, w3)})
     kr.push_to_phone, kr.commit_and_push = Recorder(), Recorder()
     now = datetime.now(timezone.utc)
     write_json(klog_path, [{
@@ -694,7 +708,7 @@ def s13_eavesdrop(mk, kr, sb: Path):
     check("eavesdrop keeps modality, target unrevealed",
           d["modality"] == "eavesdrop" and d["target_revealed"] is False)
 
-    write_json(lex_path, {w: lex_row(gloss="you know?", phonetic=["theriyuma"],
+    write_json(lex_path, {w: lex_row(gloss="you know?",
                                      last_surfaced="2026-07-01",
                                      deck="trip",
                                      direction="catch",
@@ -1016,7 +1030,7 @@ def s20_fielding(mk, kr, sb: Path):
     check("fielding speaks in the family voice, not Anna's",
           fake_render.voice == mk.EAVESDROP_VOICE)
 
-    write_json(lex_path, {w: lex_row(gloss="I ate", phonetic=["saapten"],
+    write_json(lex_path, {w: lex_row(gloss="I ate",
                                      recognition="comfortable",
                                      seen_in=["M1"],
                                      last_surfaced="2026-07-01",
@@ -1216,12 +1230,25 @@ def s27_schedule_and_soak_guards(sb: Path):
 
     # #12: an unresolvable soak payload made the produced-check permanently
     # False, and the hourly cron shipped M72/M73/M74 in one evening.
-    lex = {"அவசரம் இருக்கு": {"phonetic": ["avasaram irukku"], "gloss": "hurry"},
-           "frame:needtogo-place": {"phonetic": [], "gloss": "must go to X"}}
-    resolved, unresolved = fx.si.split_payload(["avasaram", "frame:needtogo-place"], lex)
-    check("bare headword resolves to its chunk key",
+    #
+    # THE HEADWORD WALK IS THE SCRIPT ONE since 2026-09-21. Anna reaches for the
+    # bare headword where the key is the whole chunk, and she writes it in
+    # script; the Latin half of this walk read the row's stored `phonetic` list
+    # and went with the field. Both halves are asserted, because a resolver that
+    # silently resolved nothing and a resolver that silently resolved everything
+    # look identical from the produced-check's side — one loops, one never fires.
+    lex = {"அவசரம் இருக்கு": {"gloss": "hurry"},
+           "frame:needtogo-place": {"gloss": "must go to X"}}
+    resolved, unresolved = fx.si.split_payload(["அவசரம்", "frame:needtogo-place"], lex)
+    check("a bare script headword resolves to its chunk key",
           "அவசரம் இருக்கு" in resolved, f"got {resolved}")
+    check("...and the frame key rides through untouched",
+          "frame:needtogo-place" in resolved, f"got {resolved}")
     check("no false unresolved", unresolved == [], f"got {unresolved}")
+    latin_r, latin_u = fx.si.split_payload(["avasaram"], lex)
+    check("a Latin fragment resolves to nothing, LOUDLY — never to the row that "
+          "once stored that spelling",
+          latin_u == ["avasaram"] and not latin_r, f"got {latin_r} / {latin_u}")
     junk_r, junk_u = fx.si.split_payload(["definitely-not-a-word"], lex)
     check("genuine junk is reported, not silently kept", junk_u and not junk_r)
 
@@ -1633,7 +1660,7 @@ def s82_the_catch_lane_has_a_mouth(mk, kr, sb: Path):
     target = "frame:hearsay-aam"
     try:
         lex = read_json(lex_path)
-        lex[target] = lex_row(gloss="hearsay", phonetic=["aam"], last_surfaced="2026-08-01",
+        lex[target] = lex_row(gloss="hearsay", last_surfaced="2026-08-01",
                               direction="catch", type="frame")
         write_json(lex_path, lex)
 
@@ -1744,7 +1771,7 @@ def s83_reply_or_message_is_decided_by_the_tag(mk, kr, sb: Path):
     try:
         kr.ask_json = fake_ask
         lex = read_json(lex_path)
-        lex[target] = lex_row(gloss="probe", phonetic=["seri seri"], last_surfaced="2026-08-01",
+        lex[target] = lex_row(gloss="probe", last_surfaced="2026-08-01",
                               direction="fire", type="frame")
         write_json(lex_path, lex)
         knock = {"timestamp": "2026-08-28T01:00:00Z", "acted": True,
@@ -2084,11 +2111,19 @@ def s111_the_reveal_check_reads_the_script(mk, kr, pq, sb: Path):
     reader still reads green off the phonetic fallback. So each reader is driven
     with a phonetic body the row's spelling CANNOT match (the row has none), and
     must see the word through the script alone; and both writers are round-tripped
-    to disk."""
+    to disk.
+
+    THE FALLBACK IS GONE since 2026-09-21 — the stored `phonetic` list was
+    deleted, so "the row has none" is now true of every row, and the drafts are
+    the only evidence there is. The case that proved the drafts COULD carry
+    these readers is the case that proves they now carry them alone, so it
+    stands as written; what changed is that its first check, a body printing
+    'kudunga' against a row that cannot offer that spelling, is no longer a
+    blind spot reproduced but the behaviour itself."""
     print("\n111. The reveal check reads the script draft (2026-09-13)")
     st = importlib.import_module("suggest_targets")
     key = "குடுங்க"
-    lex = {key: lex_row(gloss="give", phonetic=[])}     # no spelling: the old blind spot
+    lex = {key: lex_row(gloss="give")}     # no spelling — as every row is now
     now = datetime.now(timezone.utc)
     body = "da — ask her for tea: kudunga, one word"
     script = f"da — ask her for tea: {key}, one word"
@@ -2097,12 +2132,16 @@ def s111_the_reveal_check_reads_the_script(mk, kr, pq, sb: Path):
     drafted = dict(legacy, body_script=script)
 
     check("a legacy knock whose spelling the row lacks reads as UNSHOWN — the blind spot",
-          not kr.shown_in_knock(key, lex[key], legacy))
+          not kr.shown_in_knock(key, legacy))
     check("the same knock WITH its script draft reads as shown",
-          kr.shown_in_knock(key, lex[key], drafted))
+          kr.shown_in_knock(key, drafted))
     check("...and so does a recast drafted in script",
-          kr.shown_in_knock(key, lex[key], dict(legacy, exchanges=[
+          kr.shown_in_knock(key, dict(legacy, exchanges=[
               {"reply_line": "close — kudunga", "reply_line_script": f"close — {key}"}])))
+    # The first check is also the absence the 2026-09-21 deletion has to leave:
+    # `legacy`'s body PRINTS 'kudunga', the spelling this row would have stored,
+    # and it still reads unshown. A spelling is no longer evidence of anything,
+    # from either side — the row cannot offer one and no reader asks.
     check("the 48h reveal window sees it through the draft",
           key in kr.revealed_recently([drafted], lex), str(kr.revealed_recently([drafted], lex)))
     check("the ask cooldown counts it through the draft, and not without it",
@@ -2213,17 +2252,17 @@ def s60_the_ear_meter(kr, sb: Path):
     ear = "frame:ear-only"
     write_json(lex_path, {
         # fires cold, still deaf — in BOTH denominators
-        "frame:fire-only": lex_row(gloss="-om", phonetic=["om"], type="pattern", production="cold"),
+        "frame:fire-only": lex_row(gloss="-om", type="pattern", production="cold"),
         # ear-only: Engines excludes it by design, this meter must not
-        ear: lex_row(gloss="-aam hearsay", phonetic=["aam"], type="pattern", direction="catch",
+        ear: lex_row(gloss="-aam hearsay", type="pattern", direction="catch",
                      recognition="comfortable", last_surfaced="2026-07-01"),
         # the one already heard — and since 2026-08-27 "heard" needs the evidence
         # date, not just the level. Without heard_on this row is an assertion.
-        "frame:heard": lex_row(gloss="-nu quotative", phonetic=["nu"], type="pattern",
+        "frame:heard": lex_row(gloss="-nu quotative", type="pattern",
                                recognition="solid",
                                heard_on="2026-07-26"),
         # a WORD at solid — must not touch a pattern meter
-        "வணக்கம்": lex_row(gloss="hello", phonetic=["vanakkam"], type="chunk",
+        "வணக்கம்": lex_row(gloss="hello", type="chunk",
                            recognition="solid", production="cold"),
     })
     fx.seed_evidence(sb, ear, recognition="comfortable")   # the fold starts where the row says
@@ -2241,7 +2280,7 @@ def s60_the_ear_meter(kr, sb: Path):
     # that would silently re-inflate: before the evidence rule it read 2/3 on this
     # very fixture, and 2/3 is a perfectly plausible number to walk past.
     lex_assert = read_json(lex_path)
-    lex_assert["frame:asserted-solid"] = lex_row(gloss="seeded", phonetic=["x"], type="pattern",
+    lex_assert["frame:asserted-solid"] = lex_row(gloss="seeded", type="pattern",
                                                  recognition="solid",
                                                  production="cold")
     write_json(lex_path, lex_assert)
@@ -2261,7 +2300,7 @@ def s60_the_ear_meter(kr, sb: Path):
     # is a plausible number that would be walked past, and the blank count would
     # silently absorb every recorded miss.
     lex_miss = read_json(lex_path)
-    lex_miss["frame:tested-miss"] = lex_row(gloss="asked and flunked", phonetic=["y"],
+    lex_miss["frame:tested-miss"] = lex_row(gloss="asked and flunked",
                                             type="pattern", recognition="struggled",
                                             heard_on="2026-08-30")
     write_json(lex_path, lex_miss)
@@ -2357,7 +2396,7 @@ def s81_the_ear_judge_stamps_its_own_evidence(kr, sb: Path):
         obs_path.write_text("[]", encoding="utf-8")
     try:
         target = "frame:catch-me"
-        base = lex_row(gloss="-aam", phonetic=["aam"], type="pattern", direction="catch")
+        base = lex_row(gloss="-aam", type="pattern", direction="catch")
         knock = {"expected_target": target, "timestamp": "smoke"}
 
         # --- a MISS is still an ear test ----------------------------------
@@ -2413,8 +2452,8 @@ def s81_the_ear_judge_stamps_its_own_evidence(kr, sb: Path):
         def fresh():
             wipe()
             return {target: dict(base),
-                    heard_key: lex_row(gloss="he came", phonetic=["vandhaaru"], type="word"),
-                    off_tape: lex_row(gloss="I said", phonetic=["sonnen"], type="word")}
+                    heard_key: lex_row(gloss="he came", type="word"),
+                    off_tape: lex_row(gloss="I said", type="word")}
 
         lex = fresh()
         out = kr.apply_heard_words(
@@ -2502,7 +2541,7 @@ def s61_no_number_is_recited_at_him(kr, sb: Path):
     # The real push path, driven end to end: a catch reply must reach the phone
     # carrying the reply line and nothing else.
     w = "frame:smoke-ear"
-    write_json(lex_path, {w: lex_row(gloss="-aam", phonetic=["aam"], type="pattern", deck="trip",
+    write_json(lex_path, {w: lex_row(gloss="-aam", type="pattern", deck="trip",
                                      direction="catch",
                                      last_surfaced="2026-07-01")})
     pushed = Recorder()

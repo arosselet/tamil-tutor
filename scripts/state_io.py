@@ -186,20 +186,20 @@ def is_give(entry: dict) -> bool:
 
 # --- Lexicon helpers ---------------------------------------------------------
 
-def build_phonetic_index(lexicon: dict) -> dict[str, str]:
-    """{phonetic -> script} built from each record's phonetic list."""
-    index: dict[str, str] = {}
-    for word, rec in lexicon.items():
-        for phon in rec.get("phonetic", []):
-            index.setdefault(phon, word)
-    return index
+def resolve(word: str, lexicon: dict) -> str | None:
+    """Resolve a token to its canonical lexicon key, or None.
 
+    SCRIPT ONLY since 2026-09-21 — "a record carries its Tamil key; phonetics
+    are generated for display, never stored" (DECISIONS 2026-09-13). This used
+    to consult a `build_phonetic_index` map built from each row's stored
+    `phonetic` list, so a Latin spelling someone had pre-named resolved and one
+    nobody had guessed did not. Every key now reaches Python from a model
+    holding the Tamil, so the match is script to script and the index is gone.
 
-def resolve(word: str, lexicon: dict, phon_index: dict[str, str]) -> str | None:
-    """Resolve a phonetic-or-script token to its canonical lexicon key, or None."""
-    if word in lexicon:
-        return word
-    return phon_index.get(word)
+    It stays a named function rather than an inline `in`: ONE resolver is the
+    contract every writer is canonical-at-write against, and a second copy is
+    how the two halves drift apart."""
+    return word if word in lexicon else None
 
 
 # ── The soak order's payload, and the two read-only predicates over state ────
@@ -225,27 +225,25 @@ def canon_payload(items: list[str]) -> list[str]:
     return [p.strip() for item in items for p in item.split(",") if p.strip()]
 
 
-def resolve_soak_item(token: str, lexicon: dict, phon_index: dict[str, str]) -> str | None:
+def resolve_soak_item(token: str, lexicon: dict) -> str | None:
     """A soak-payload token → its canonical lexicon key, or None.
 
     Wider than resolve() on purpose: Anna writes the soak order in prose and
-    reaches for the bare headword ('avasaram') where the lexicon key is the
-    whole chunk ('அவசரம் இருக்கு', phonetic 'avasaram irukku'). A payload item
-    that resolves to nothing can never appear in an episode's word list, so the
-    produced-check stays False forever — on 2026-07-23 that dispatched a fresh
-    episode every hour until the cron was pulled (M72, M73, M74 in one evening).
+    reaches for the bare headword (அவசரம்) where the lexicon key is the whole
+    chunk ('அவசரம் இருக்கு'). A payload item that resolves to nothing can never
+    appear in an episode's word list, so the produced-check stays False forever
+    — on 2026-07-23 that dispatched a fresh episode every hour until the cron
+    was pulled (M72, M73, M74 in one evening).
+
+    THE LATIN HALF WENT 2026-09-21 with the stored `phonetic` list it read: a
+    payload written 'avasaram' matched the chunk by its stored spelling. Anna
+    writes the order in script now, so the prefix walk is the script one and a
+    Latin fragment lands in `split_payload`'s unresolved list — loud, which is
+    what the 07-23 loop needed and never had.
     """
-    exact = resolve(token, lexicon, phon_index)
+    exact = resolve(token, lexicon)
     if exact is not None:
         return exact
-    t = token.strip().lower()
-    if not t:
-        return None
-    # a phonetic that STARTS with the token ('avasaram' → 'avasaram irukku')
-    for key, rec in lexicon.items():
-        for p in rec.get("phonetic", []):
-            if p and (p.lower() == t or p.lower().startswith(t + " ")):
-                return key
     # a Tamil token that is a prefix of a longer chunk key
     if is_tamil(token):
         for key in lexicon:
@@ -258,10 +256,9 @@ def split_payload(items: list[str], lexicon: dict) -> tuple[list[str], list[str]
     """(resolved canonical keys, tokens that resolve to nothing). Callers must
     treat the unresolved list as a WARNING and never as 'still pending' — an
     unverifiable item is a broken order, not unfinished work."""
-    phon_index = build_phonetic_index(lexicon)
     resolved, unresolved = [], []
     for token in canon_payload(items):
-        key = resolve_soak_item(token, lexicon, phon_index)
+        key = resolve_soak_item(token, lexicon)
         if key:
             resolved.append(key)
         elif is_tamil(token) or token.startswith("frame:"):
