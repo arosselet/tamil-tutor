@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Monday 2026-09-21
+
+**13:36 · Anna**  ·  text / show dose: onnum theriyaadhu
+> Table arguing about whose scooter key it is? Shrug: Enakku onnum theriyadhu (I don't know anything). Total immunity.
+
+
 ## Saturday 2026-09-19
 
 **10:05 · Anna** 🎧  ·  eavesdrop / eavesdrop: spice-dhaan

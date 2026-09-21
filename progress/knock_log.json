@@ -7478,5 +7478,19 @@
     "move": "sunday evening space",
     "rationale": "Three unreplied reaches into the weekend; give Sunday evening clean space to reset for Monday morning's pre-lunch anchor.",
     "next_check": "2026-09-21T12:36:39.388339+00:00"
+  },
+  {
+    "date": "2026-09-21",
+    "timestamp": "2026-09-21T17:36:15.722945+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "show dose: onnum theriyaadhu",
+    "rationale": "Demand streak hit 2 asks; handing over an unseen menu chunk tied to the household spare key arc with zero demand.",
+    "next_check": "2026-09-21T21:36:15.722945+00:00",
+    "body": "Table arguing about whose scooter key it is? Shrug: Enakku onnum theriyadhu (I don't know anything). Total immunity.",
+    "body_script": "Table arguing about whose scooter key it is? Shrug: எனக்கு ஒன்னும் தெரியாது (I don't know anything). Total immunity.",
+    "expected_target": "",
+    "stance": "give",
+    "target_revealed": false
   }
 ]

@@ -19613,5 +19613,17 @@
     "medium": "audio",
     "source": "rating:soak_2026-09-20_1639",
     "note": ""
+  },
+  {
+    "id": "4998ae091140",
+    "at": "2026-09-21T17:36:36Z",
+    "word": "எனக்கு ஒன்னும் தெரியாது",
+    "channel": "text",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "text",
+    "source": "knock:2026-09-21T17:36:15.722945+00:00",
+    "note": ""
   }
 ]
