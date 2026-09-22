@@ -2956,10 +2956,11 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-09-22",
     "direction": "fire",
     "exposures": 1,
-    "register": "gossip"
+    "register": "gossip",
+    "taught_on": null
   },
   "கேள்விப்பட்டியா?": {
     "type": "chunk",

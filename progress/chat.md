@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **11:20 · Anna**  ·  text / trailer: who gets the scooter
 > Priya and Karthi arguing: Yaarukku scooter? (who gets the scooter?). Find out who takes the ride in today's lunch session.
 
+**15:27 · Anna**  ·  text / trailer payoff: who gets the scooter
+> Neither got it — Mama took the scooter! When they ask where, just shrug: Yaarukku theriyum? (who knows?). Saves you every time.
+
 
 ## Monday 2026-09-21
 

@@ -19937,5 +19937,17 @@
     "medium": "audio",
     "source": "rotation_inventory_2026-09-22_0542",
     "note": ""
+  },
+  {
+    "id": "cf39aa8346d7",
+    "at": "2026-09-22T19:28:34Z",
+    "word": "யாருக்கு தெரியும்?",
+    "channel": "text",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "text",
+    "source": "knock:2026-09-22T19:27:53.433235+00:00",
+    "note": ""
   }
 ]

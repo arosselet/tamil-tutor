@@ -7515,5 +7515,19 @@
     "expected_target": "",
     "stance": "lure",
     "target_revealed": false
+  },
+  {
+    "date": "2026-09-22",
+    "timestamp": "2026-09-22T19:27:53.433235+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "trailer payoff: who gets the scooter",
+    "rationale": "Lunch session didn't log; paying off the morning scooter trailer with the reveal and introducing யாருக்கு தெரியும்? as a zero-pressure show dose.",
+    "next_check": "2026-09-23T11:57:53.433235+00:00",
+    "body": "Neither got it — Mama took the scooter! When they ask where, just shrug: Yaarukku theriyum? (who knows?). Saves you every time.",
+    "body_script": "Neither got it — மாமா took the scooter! When they ask where, just shrug: யாருக்கு தெரியும்? (who knows?). Saves you every time.",
+    "expected_target": "",
+    "stance": "give",
+    "target_revealed": false
   }
 ]
