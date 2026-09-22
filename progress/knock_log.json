@@ -7492,5 +7492,14 @@
     "expected_target": "",
     "stance": "give",
     "target_revealed": false
+  },
+  {
+    "date": "2026-09-22",
+    "timestamp": "2026-09-22T00:28:18.255682+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "evening rest",
+    "rationale": "Andrew logged a good session today and received an afternoon show dose; at 20:28 EDT near the curfew, let the evening rest and wake up at morning opening.",
+    "next_check": "2026-09-22T11:58:18.255682+00:00"
   }
 ]
