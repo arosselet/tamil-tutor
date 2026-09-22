@@ -1,0 +1,24 @@
+{
+  "mission": 94,
+  "register": "reconciliation",
+  "dramatic_ingredient": "subtext",
+  "episode_form": "story",
+  "shape": "debrief",
+  "location_class": "home_social",
+  "energy": "medium",
+  "intercept_tamil_density": 0.15,
+  "breakdown_tamil_density": 0.0,
+  "fence_size": 0,
+  "unfenced_words": 0,
+  "new_words_landed": {
+    "போக முடியல": 2,
+    "போலாம்": 2,
+    "இங்க இருக்கேன்": 4
+  },
+  "callbacks_used": {},
+  "host_roles": {
+    "Karthi": "storyteller",
+    "Priya": "bus-returned-sister"
+  },
+  "notes": "The household turns a second bus outing into tea at home; English carries the scene and the commissioned Tamil sits in full-context lines."
+}

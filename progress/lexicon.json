@@ -5942,5 +5942,39 @@
     "last_surfaced": "2026-09-22",
     "gloss": "See / Look",
     "taught_on": null
+  },
+  "போக முடியல": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      94
+    ],
+    "last_surfaced": "2026-09-22",
+    "taught_on": null
+  },
+  "போலாம்": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "hinted",
+    "seen_in": [
+      94
+    ],
+    "last_surfaced": "2026-09-22",
+    "taught_on": null,
+    "reps": 1
+  },
+  "இங்க இருக்கேன்": {
+    "gloss": "",
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [
+      94
+    ],
+    "last_surfaced": "2026-09-22",
+    "taught_on": null
   }
 }
