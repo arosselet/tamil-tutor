@@ -58,7 +58,7 @@ Moves any shape may reach for, never as a menu: **mask-work**, the **eavesdrop d
 
 1. **Rewrite the debrief** — one running story-so-far, cumulative: carry what still matters, prune what resolved. Anna's persistent narrative memory, never a one-line log.
 2. **Record the learning and the obstacle.** Say what he understood, in which medium, with what support; distinguish isolated-word recognition from sentence comprehension. Record real slip patterns with `--slip 'tag|said|wanted|one clause'`; close only what landed unaided with `--slip-tested tag:landed|missed`. The slip ledger informs teaching, never defines the session's success.
-3. **Set the soak order — the repair earns the dose.** Live slips draw first; UNVERIFIED ones are checks, not commissions. The law is `protocol/commissioning.md`. Add the `scene_seed` — **the arc's next beat**, not an invented situation — and a `focus` naming what the dose permutes.
+3. **Commission when useful; Anna may produce audio at any time.** Repair, discovery and enjoyment all qualify; no request or capacity answer is required (`protocol/commissioning.md`). UNVERIFIED slips inform checks, not automatic commissions. For a soak order, add the `scene_seed` and a `focus` naming what the dose permutes.
 4. **Log it** (`sync_state.py` owns all writes; keys in script):
    ```
    python scripts/sync_state.py update \
@@ -77,8 +77,8 @@ Moves any shape may reach for, never as a menu: **mask-work**, the **eavesdrop d
 ## The rest of the toolbelt
 
 - **Audio — pick the channel before you dispatch:** soak loop (passive repetition), drill
-  track (mouth-reps), episode (a scene to work). **His capacity routes, not the
-  curriculum** — the table and the law are `protocol/audio_channels.md`. Andrew never runs
+  track (mouth-reps), episode (a scene to work). **Capacity guides Anna's judgment**
+  — the table and the law are `protocol/audio_channels.md`. Andrew never runs
   a renderer.
 - **Studio:** Anna hands the soak order (the *meaning*); the studio owns scene, dialect,
   render, publish (the *craft*: `protocol/studio/studio.md`), the `studio` subagent on failure.

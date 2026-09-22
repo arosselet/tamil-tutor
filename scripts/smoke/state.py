@@ -787,7 +787,9 @@ def s36_soak_order_carries_shape(sb: Path):
 
 
 def s37_repair_earns_the_dose(sb: Path):
-    """The repair earns the dose (2026-07-28, Andrew's spoken felt signal:
+    """Standing audio authority supersedes repair priority (2026-09-22).
+
+    Historical motivation for the original rule (2026-07-28):
     "I don't feel like Anna is commissioning enough audio, and specifically
     audio to close the gap in the mistakes I'm making... I shouldn't have to
     beg for a soak or an episode").
@@ -802,15 +804,17 @@ def s37_repair_earns_the_dose(sb: Path):
     This is a PROSE rule, so a prose lint is its only regression net. The
     2026-07-24 lesson (a dropped rule must be hunted in code, prompts, skills
     and tests) applies in reverse: assert every surface that carries it."""
-    print("\n37. The repair earns the dose — commissioning is a priority (2026-07-28)")
+    print("\n37. Anna owns audio commissioning (2026-09-22)")
     # The law lived in audio_channels.md from 07-28 and moved to its own file on
     # 2026-08-01 when the refused-in-advance third raise came due — "what a dose
     # carries" and "which channel carries it" are two files now, each pointing
     # at the other. Close & Log keeps a pointer, because that is where it fires.
     routing = (REAL_BASE / "protocol" / "commissioning.md").read_text(encoding="utf-8")
-    check("the commissioning law exists", "repair earns the dose" in routing)
-    check("...and it is an ORDER of precedence, not a menu",
-          "Backward beats forward" in routing)
+    check("Anna may produce any audio at any time",
+          "any kind of audio at any time" in routing)
+    check("repair and capacity answers do not gate production",
+          "No repair, learner request, permission question or capacity answer is required" in routing
+          and "Backward beats forward" not in routing)
     # The repair population used to be enumerated in prose ("hinted, recast, or
     # corrected and still came out wrong") and scoped to "the day's" repairs —
     # which meant the chat session's own day, so a mistake made on the phone was
@@ -823,8 +827,8 @@ def s37_repair_earns_the_dose(sb: Path):
           "every* lane" in routing or "every lane" in routing)
     check("...and he never has to ask for it", "never has\nto ask" in routing
           or "never has to ask" in routing)
-    check("a survived collision earns its own order, not a share of a mixed one",
-          "earns its own order" in routing)
+    check("a persistent collision can receive its own order",
+          "may merit its own order" in routing)
     # 2026-07-28 evening, Andrew: "using them in context can be very effective for
     # sticking in my brain... it shouldn't be the only choice when I'm struggling
     # regardless of whether two words sound similar." The scope rule had a format
@@ -836,41 +840,41 @@ def s37_repair_earns_the_dose(sb: Path):
     check("...it says so explicitly, so the clause cannot grow back",
           "says nothing about its format" in routing)
     channels = (REAL_BASE / "protocol" / "audio_channels.md").read_text(encoding="utf-8")
-    check("format follows the error, and capacity keeps its veto",
-          "Capacity vetoes" in channels and "the ERROR chooses" in channels)
+    check("capacity and the error guide judgment without gating production",
+          "it does not gate production" in channels and "error informs the format" in channels)
     check("...naming the mouth-takes-the-wrong-one case as an EPISODE, not a loop",
           "his mouth takes the wrong one" in channels)
     check("a repeated mistake escalates the format instead of repeating it",
           "same mistake twice through one format" in channels
           and "never loop harder" in channels)
-    check("the forward seed order survives as the fallback, not the default",
-          "seed order" in routing and "Only when none are live" in routing)
+    check("forward seed orders do not wait for all slips to close",
+          "seed order" in routing and "even while slips remain open" in routing)
     check("the escalation law names the counter that makes it fireable",
           "ledger counts recurrences" in channels)
     check("the two halves are two files, each pointing at the other (08-01 split)",
           "audio_channels.md" in routing and "commissioning.md" in channels)
 
     session = (REAL_BASE / "protocol" / "daily_session.md").read_text(encoding="utf-8")
-    # The PRIORITY must be stated where the order is actually set — a pointer
-    # alone would make the loop depend on Anna following a link mid-close. The
-    # wording moved to the ledger's vocabulary on 2026-07-30 ("live slips draw
-    # first" IS backward-beats-forward); the duplicated law behind it was
-    # retired to a pointer, so assert the rule and the owner, not the phrasing.
-    check("Close & Log fires the rule at the moment the order is set",
-          "repair earns the dose" in session and "Live slips draw first" in session)
+    # Standing authority must survive the close and the entry skill, where
+    # earlier mandatory repair/capacity gates could otherwise override it.
+    check("Close & Log retains standing production authority",
+          "Anna may produce audio at any time" in session and "Live slips draw first" not in session)
     check("...and points at the file that owns it", "audio_channels.md" in session)
     check("...and says an unverified slip is a check, not a commission",
-          "checks, not commissions" in session)
+          "checks, not automatic commissions" in session)
 
     # The glossary is what a new engineer reads before touching the interface.
     glossary = (REAL_BASE / ".claude" / "skills" / "orient" / "references"
                 / "glossary.md").read_text(encoding="utf-8")
-    check("the glossary carries the priority too", "repair earns the dose" in glossary)
+    check("the glossary carries standing authority too", "Anna owns the commission" in glossary)
 
     # A retry that does not exist is worse than no retry: it makes a dropped
     # dose look covered. The local cron was retired 2026-07-24.
     anna_skill = (REAL_BASE / ".claude" / "skills" / "anna"
                   / "SKILL.md").read_text(encoding="utf-8")
+    check("Anna's entry skill does not require a capacity answer",
+          "without a permission or capacity question" in anna_skill
+          and "ask one short clause first" not in anna_skill)
     check("Anna's skill does not promise a cron retry that was retired",
           "hourly local cron) retries any miss" not in anna_skill)
 

@@ -28,7 +28,7 @@ protocol/
 │                       every pass that emits speakable Tamil reads it (knock lane, soak,
 │                       drill, rotation, both reply judges) via `writer.voice_canon()`;
 │                       the studio Producer reads it directly as part of its own canon
-├── commissioning.md    What a dose carries — the repair earns the dose
+├── commissioning.md    Anna's audio authority and what a dose carries
 ├── audio_channels.md   Which channel carries a dose — capacity routes, curriculum fills
 └── studio/             The backstage production crew — runs in an isolated context
     ├── studio.md       Orchestrator + the soak-order contract (the front door)

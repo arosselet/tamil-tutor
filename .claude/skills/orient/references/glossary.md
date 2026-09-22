@@ -187,7 +187,7 @@ Defined: `protocol/studio/director.md` — "Step 1: Take the Scene Spec"; `docs/
 
 The handoff from the chat session to the studio. Anna writes it at Close & Log into `progress/learner.json` → `soak_order`: **`payload`** (what the dose carries), **`scene_seed`** (one line situating the next beat of the running story), plus optional `focus`, `channel` and `form`. The studio consumes it as its only input from the conversation half; everything else the Director derives. This is the only interface between the two halves of the system.
 
-**The payload has a priority, not a menu (2026-07-28): the repair earns the dose.** It is drawn *first* from the day's unclosed repairs — hinted, recast, or corrected-and-still-wrong — and points forward as a **seed order** of unseen items only when the day leaves no repair owing. Backward beats forward; a collision that survived its correction earns its own order rather than a share of a mixed one.
+**Anna owns the commission (2026-09-22).** He may commission and produce any kind of audio at any time, for discovery, enjoyment, understanding or repair. Live slips inform treatment without blocking a forward **seed order**. Capacity guides his judgment; permission and capacity questions are not prerequisites. Authority: `protocol/commissioning.md`.
 
 Defined: `docs/PROTOCOL_MAP.md` — "The interface: the soak-order"; `protocol/daily_session.md` — Close & Log step 2
 

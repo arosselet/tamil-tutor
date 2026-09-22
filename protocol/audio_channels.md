@@ -1,8 +1,9 @@
 # Which channel carries a dose — capacity routes, curriculum fills
 
-What a dose *carries* is `protocol/commissioning.md`'s question (the repair earns the
-dose). This file answers the other one: **what Andrew's attention is free to do decides
-which channel carries it.** Ask it before spending a render.
+Anna's standing audio authority and payload choices live in `protocol/commissioning.md`.
+**Capacity guides Anna's channel choice; it does not gate production.** Use known
+context and judgment, including preparation for later listening. No capacity question
+is required before rendering.
 
 | His situation | Channel | Command |
 |---|---|---|
@@ -16,8 +17,8 @@ flight is `--minutes 45`, an ordinary day the default (2026-08-31, renamed from
 `longhaul`: the old name was an occasion, so the lane was reachable on none of them —
 and `lore` rides here and in the episode's forms, nowhere else in audio).
 
-**Capacity vetoes; the ERROR chooses.** Inside what his attention allows, the format follows
-what actually broke — never the bare fact that two words sound alike:
+**For repair, the error informs the format.** Match the intended listening situation
+and what actually broke — never the bare fact that two words sound alike:
 
 | What went wrong | Format |
 |---|---|
@@ -39,8 +40,7 @@ what actually broke — never the bare fact that two words sound alike:
   stretched episode.
 - **Host (2026-08-18):** Actions sends knocks and memos; every format here renders on the
   laptop, on the subscription.
-- If he named neither a situation nor an energy, ask one clause: *"sitting down, or
-  ears-only?"*
+- Missing context: choose a useful format; ask only when helpful, never as permission.
 
 **The failure this file exists to prevent** (2026-07-23) is told in full in
 `docs/DECISIONS.md` → "Capacity routes the audio channel".

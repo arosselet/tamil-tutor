@@ -135,7 +135,7 @@ supplement the authored supply when it is interesting and usable.
 | Feed, scheduled supply, quiet hours, reply correlation | Keep: dependable availability and low-effort contact earned this infrastructure. |
 | Word inventory, event ledger, teaching/reveal safeguards | Keep: memory and honest evidence need deterministic support. |
 | Tutor brief | Simplify: lead with current interests, unresolved meaning and usable audio; retain focused evidence and warnings, move full diagnostic tables to engineering views. |
-| Repair-first commissioning | Change: a relevant persistent obstacle merits treatment, but open slips must not indefinitely outrank discovery. This reopens the July repair-priority rule. |
+| Audio commissioning | Adopted (2026-09-22, Andrew): Anna may commission and produce any kind of audio at any time. Replaces repair-first priority and mandatory permission/capacity questions; capacity remains his judgment, publication safety remains in force. |
 | Escalation advice | Change: commissioned, delivered, attended and evaluated are distinct. An order plus later miss does not establish an ineffective treatment. |
 | Calendar and scene selectors | Make pedagogical prescriptions advisory; retain actual safety/delivery constraints and useful repetition detection. |
 | Phone volley continuation | Let a teaching question suspend the ask; preserve the queue for deliberate resumption rather than automatic re-presentation. |
@@ -227,14 +227,18 @@ a fix, and strategic work may replace whole components. See [ASTRA_CHARGE.md](AS
   short/long path mismatch it exposed in shared publication; clarify intent routing;
   add the worked experience. The case passes locally. Full-suite and publication
   receipts belong in the commit/CI, not inferred from this design document.
-- **Next coherent slice:** prepare and retrieve real short audio, verify a scoped
-  close in a disposable clone, and resolve phone teaching-question continuation.
-  Use the worked experience's acceptance table to judge what is actually usable.
-  A real learner encounter remains necessary for client playback and experience evidence.
+- **Today's encounter:** the household lesson was written only; no audio or client
+  playback was attempted. Scoped close `66b2026` pushed successfully on this host,
+  which does not establish permissions or playback on other clients.
+- **Next bounded slice:** deliver one real short clip and verify playback, explanation,
+  replay and variation with Andrew. Phone teaching-question continuation is a later slice.
+- **Authority adopted:** Anna may commission and produce any audio at any time;
+  repair and capacity questions no longer gate it. With limited weekly quota remaining,
+  use bounded delegated work, not parallel broad audits.
 - **Parallel but non-blocking:** auditory mastery and partial-duration accounting;
-  then brief/commissioning authority. No new audit, model migration or dashboard.
+  then brief simplification. No new audit, model migration or dashboard.
 
-The proposal still has unimplemented choices: repair priority, calendar authority,
+The proposal still has unimplemented choices: calendar authority,
 automatic taper and score footer. The broad commission is unfinished. Working state
 is determined by `git status`, not this dated receipt; do not mistake a later fresh
 session for an instruction to run the specimen as a lesson.

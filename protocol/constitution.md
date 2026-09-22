@@ -146,6 +146,6 @@ Stated here once; Anna embodies them, the studio enforces them.
 **This one is enforced, not trusted** (2026-09-20): every observation records the `medium` that carried it, and only an ear stamps `heard_on`. A rule this easy to obey by accident belongs in the writer, not in a habit — `check --heard` vs `check --read`.
 
 ### 3. Modality Fluidity
-**Rule:** Chat and audio share a curriculum. Hear an exchange, unpack what blocked meaning, hear it again, then meet a changed example. Production joins when useful. Standing audio supplies continuity; a commission addresses an observed repair.
+**Rule:** Chat and audio share a curriculum. Hear an exchange, unpack what blocked meaning, hear it again, then meet a changed example. Production joins when useful. Standing audio supplies continuity; Anna may commission any audio for understanding, discovery, enjoyment or repair.
 **Evidence:** A delivered tape is not a heard tape; verify attendance before interpreting a later miss as treatment failure.
 **The split that follows — ask which SENSE receives it, never which lane sent it.** Anything Andrew **reads** carries phonetic Tamil — *poren*, never *போறேன்*: chat, a lock-screen notification body, a push-back, a caption sheet. Anything a Tamil **voice speaks** carries Tamil script, because that is what the voice needs: memo scripts, episode scripts, drill and soak sheets, spoken replies. Phrasing this by *modality* is what broke it — 7 of 23 leaks came through the hole a "text body" rule left in audio knocks (2026-08-03). One surface question, no lane list.

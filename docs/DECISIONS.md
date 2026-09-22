@@ -9,6 +9,8 @@ compressed 2026-09-10, 32k words to 11k, nothing lost that git did not hold).
 
 ## How to work on this system
 
+- **Anna has standing audio authority** (2026-09-22, Andrew). He may commission and produce any kind of audio at any time. Supersedes repair-earned-only commissioning, backward-before-forward priority and mandatory permission/capacity questions. Capacity guides his judgment, including preparation for later listening; publication safety remains. Replaces the restrictive halves of July 23/28 and September 13 audio decisions.
+
 - **LLM is the writer, Python is the brain** (2026-04-09). Push reasoning into
   deterministic code; keep the LLM's input surface small. Never hand-edit Python-owned JSON.
 - **Every addition must earn its place.** Before adding a file, field, rule, or script,
