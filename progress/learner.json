@@ -5,22 +5,18 @@
   "last_debrief": "STORY SO FAR: Tue 09-22 Anna chat, written Spare Key continuation. Opening vignette paid off phone trailer: Mama took the scooter; Karthi has spare key but cannot go. Taught poga mudiyala (cannot go, not unwillingness), in key/transport context and Shop-ku poga mudiyala. Andrew echoed poga moduiyala. Can't go. Supported repeat only. On changed written Scooter irukku. Key illa. Poga mudiyala, he answered I have the scooter. I don't have the key. Can't go. Meaning correct in context; explained irukku literally states scooter is there. On Scooter-la poga mudiyala. Bus-la polaam, with polaam glossed, he answered to go by bus instead. On Nee po. Naan inga irukken, without the line's English gloss, he answered You go. I will be here: correct written sentence interpretation in context. Explained irukken as I am here/staying here and contrasted scooter irukku versus naan irukken. For English Shall we go? he typed Polamma? Accepted as polaamaa; log hinted because polaam had just been supplied, not fresh cold evidence. No audio played, no ear recognition or slip closure; supported comprehension remains in this debrief. NEXT: Priya's bus trip and what she tells Karthi on return; use a short playable exchange before showing its answer if available, avoiding repeated noun swaps. Ear cue: replay The same verb: me, you, them later, separately from chat. CARRY: 09-21 kitta irukku possession lesson and aana contrast were immediately supported written work, not cold or ear evidence. 09-20 written monthly check remains partial, sample 793edf2e131d3231. Six answered: kaalaila wrong (later today), raathiri partial (evening), konjam thanni kudunga right, anuppunga right, paathen right isolated, ulla wrong (not here). Andrew prefers oola; do not infer an auditory miss from romanization. Morning/night/evening taught. Photo paathen, aana puriyala misread as Look at the photo, I do not like it; taught saw already happened and do not understand, no sentence security established. Remaining sample: freeya vidunga; anna; adhanaala dhaan; azhaippen; avasaramaa veliya ponen; autokku poganum; aana; enakku onnum theriyaadhu; kavalai; kaaram paravaayilla pazhakkamaayiduchu; kilambu; kelvipattiya; kovam; sari; sariyayidum; naama; nee; piragu paakkalaam; petti; podu; povom; munnadiye; vendaanga; velai. Today's nee occurred in a contextualized lesson, not a resumed monthly item. Prior production: Medhuva solla useful request missing elder ending, recast medhuvaa sollunga without successful repeat; Polamaa and Naane etuthukaren cold on 09-20 already logged. Sollu op collected as I did not remember it; contact only, leave alone. AUDIO: feedback ledger reports The same verb: me, you, them (soak_2026-09-20_1639, 6.9 min) finished; attendance reported, efficacy untested. Earlier miss preceded hearing, not treatment failure. M93 The Safe Question lighter option carrying noun-for-verb; frame-key/blank-gloss nits unverified. Address endings, default-la-tail, come-go-direction, literary-twin remain live; literary forms are register swaps, not incorrect Tamil. VAA stays out of chat production until unannounced ambush. No new field assignment, slip, or audio commission.",
   "soak_order": {
     "payload": [
-      "சொல்றேன்",
-      "சொல்லுங்க",
-      "போறேன்"
+      "போக முடியல",
+      "போலாம்",
+      "இங்க இருக்கேன்"
     ],
-    "scene_seed": "one stem, the tails turning over it - the same voice saying it about himself, then handing it to an elder, then reporting what the room said",
-    "from": "2026-09-16",
-    "focus": "THE TAIL NAMES THE PERSON. Minimal pairs on ONE stem at a time: -ren (me) / -nga (you, an elder) / -aanga (them), so the target is audible and nothing else moves. He learned the ending too well and now sprays it at the nearest word; the drill lane was tried for respect-nga and he slipped again, and the episode lane is carrying noun-for-verb, so this goes to soak - repetition is what makes a contrast audible. One axis only: do not permute tense, do not stack politeness, do not vary the stem inside a pair. Never name a rule, never say tail or person or ending. No counts, no mention of mistakes or repair anywhere in the tape.",
-    "channel": "soak",
+    "scene_seed": "Priya returns from her bus errand while Karthi has stayed home; she got what the household needed, but his confident plan for the evening now needs changing. Move the story beyond the missing key, with a small ordinary payoff.",
+    "from": "2026-09-22",
+    "focus": "An enjoyable self-contained household exchange about a blocked plan, another way to go, and who stays or joins. Revisit poga mudiyala, polaam, and inga irukken from the written lesson inside whole sentences. Introduce only what the scene needs within calibration; English scaffolding explains the meaning. This is a requested episode for learning and enjoyment, not evidence of a failed audio treatment.",
+    "channel": "episode",
     "attempted": {
       "at": "2026-09-16",
       "episode": "93",
       "unclaimed": []
-    },
-    "delivered": {
-      "channel": "soak",
-      "at": "2026-09-20"
     }
   },
   "next_engine": "frame:polite-nga",
