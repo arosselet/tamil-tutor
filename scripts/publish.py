@@ -219,7 +219,9 @@ def commit_and_push(paths: list[Path], msg: str):
             f"refusing to publish from '{branch}': this pushes HEAD:main and would "
             f"rebase every commit on this branch onto main and ship them. Commit "
             f"is NOT made; switch to main (or cherry-pick the dose) and re-run.")
-    rels = [str(p.relative_to(BASE)) for p in paths]
+    # Windows may import BASE through an 8.3 alias while a caller resolves the
+    # full spelling. Compare canonical paths at this shared boundary.
+    rels = [str(p.resolve().relative_to(BASE.resolve())) for p in paths]
     subprocess.run(["git", "add", *rels], cwd=BASE, check=True)
     subprocess.run(["git", "commit", "-m", msg], cwd=BASE, check=True)
     # main has three writers (knock CI, ack CI, the laptop) and this checkout goes
@@ -245,7 +247,7 @@ def refresh_feed() -> Path | None:
 
 
 def jsdelivr_url(mp3: Path) -> str:
-    rel = mp3.relative_to(BASE).as_posix()
+    rel = mp3.resolve().relative_to(BASE.resolve()).as_posix()
     return f"https://cdn.jsdelivr.net/gh/{REPO}@main/{rel}"  # unique daily filename => always fresh
 
 

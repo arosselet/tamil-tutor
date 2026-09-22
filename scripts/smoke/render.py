@@ -1261,7 +1261,7 @@ def s122_lesson_audio_cli(sb: Path):
         check("local success reports an existing absolute MP3",
               clip.read_bytes() == b"test mp3 bytes" and str(clip.resolve()) in out)
         check("local default does not publish", not commits and "Published URL:" not in out)
-        check("TTS loads the existing env entry point", env_reads == [sb / ".env"])
+        check("TTS loads the existing env entry point", env_reads == [(sb / ".env").resolve()])
         check("owned synthesis scratch was removed", not renders[0][1].parent.exists())
 
         for mode in ("missing", "empty"):
@@ -1287,7 +1287,24 @@ def s122_lesson_audio_cli(sb: Path):
             code, out, err = drive(script, failed, True)
         check("publication failure is loud and never promises a URL",
               code != 0 and "publication unavailable" in err and "Published URL:" not in out)
-        check("publication failure retains the useful local clip", failed.is_file() and str(failed) in err)
+        check("publication failure retains the useful local clip",
+              failed.is_file() and str(failed.resolve()) in err)
+
+        # Drive the REAL publisher's path conversion too: stubbing it above
+        # hid Windows short/long path disagreement in the git-add boundary.
+        # A '..' alias also exercises canonicalization on Linux CI.
+        alias = public / ".." / public.name / "published.mp3"
+        commands = []
+        with patch.object(fx.pb, "current_branch", lambda: "main"), \
+                patch.object(fx.pb, "_rebase_onto_main", lambda: True), \
+                patch.object(fx.pb.subprocess, "run", lambda cmd, **kw: commands.append(cmd)):
+            fx.pb.commit_and_push([alias], "Smoke: canonical audio path")
+        relative = clip.resolve().relative_to(sb.resolve())
+        check("shared publisher stages the canonical repository-relative clip",
+              commands[0] == ["git", "add", str(relative)])
+        check("shared URL resolves aliases to the same artifact",
+              la.jsdelivr_url(alias) == la.jsdelivr_url(clip.resolve())
+              and la.jsdelivr_url(alias).endswith("/" + relative.as_posix()))
 
         # A competing render may create the final name after the initial check.
         raced = local / "raced.mp3"
