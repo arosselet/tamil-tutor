@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Tuesday 2026-09-22
+
+**11:20 · Anna**  ·  text / trailer: who gets the scooter
+> Priya and Karthi arguing: Yaarukku scooter? (who gets the scooter?). Find out who takes the ride in today's lunch session.
+
+
 ## Monday 2026-09-21
 
 **13:36 · Anna**  ·  text / show dose: onnum theriyaadhu

@@ -7501,5 +7501,19 @@
     "move": "evening rest",
     "rationale": "Andrew logged a good session today and received an afternoon show dose; at 20:28 EDT near the curfew, let the evening rest and wake up at morning opening.",
     "next_check": "2026-09-22T11:58:18.255682+00:00"
+  },
+  {
+    "date": "2026-09-22",
+    "timestamp": "2026-09-22T15:20:41.074433+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "trailer: who gets the scooter",
+    "rationale": "Late morning pre-lunch stance: no-ask trailer pitching the campaign's next household beat (who gets the scooter) before his terminal session.",
+    "next_check": "2026-09-22T18:50:41.074433+00:00",
+    "body": "Priya and Karthi arguing: Yaarukku scooter? (who gets the scooter?). Find out who takes the ride in today's lunch session.",
+    "body_script": "Priya and Karthi arguing: யாருக்கு ஸ்கூட்டர்? (who gets the scooter?). Find out who takes the ride in today's lunch session.",
+    "expected_target": "",
+    "stance": "lure",
+    "target_revealed": false
   }
 ]
