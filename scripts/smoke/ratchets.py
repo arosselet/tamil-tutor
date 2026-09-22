@@ -134,6 +134,8 @@ PROSE_BUDGETS = {
     "docs/ASTRA_CHARGE.md": 800,
     # Target design replaces the obsolete forecast and duplicated habit plan.
     "docs/comprehension_plan.md": 2400,
+    # Worked experience replaces abstract curriculum prose in the target design.
+    "docs/learning_week.md": 1900,
     ".claude/skills/debug/SKILL.md": 1500,
 }
 

@@ -283,10 +283,10 @@ smoke sandbox. They are separate from this sprint's state-free alignment.
 
 ## Receipts and verification
 
-The investigation used three delegated reviews, source/history reading, smoke tests
-and the primary sources above. Oversized reads and full-context delegation duplicated
-work. The alignment sprint reused findings without delegation. The stale goal counter
-cannot establish subscription cost; earlier percentage estimates were rough judgments.
+Three delegated reviews, source/history reading, tests and the sources above informed
+the audit. Oversized reads and full-context delegation duplicated work. Later alignment
+reused findings. The stale goal counter cannot establish subscription cost; earlier
+percentage estimates were rough judgments.
 
 | Commit | Why it matters |
 |---|---|
@@ -303,25 +303,25 @@ Inspect receipts with `git show <commit>`. Narrative dates may denote decisions:
 `e83a076` was authored September 19 and committed September 20.
 [Journey](JOURNEY.md) is a July retrospective, not a current outcome report.
 
-**Verification:** post-edit `python scripts/smoke_test.py` passed all 119 cases,
-including budgets and the live ledger-fold check. The first run caught an
-exact-phrase guard on Tamil-script drafting; its original wording was restored
-and the full rerun passed. `git diff --check` passed, all six local report links
-resolve, and learner JSON has no diff. The report has a 3,000-word budget and is
-not added to any tutor load path. Changes remain local, uncommitted and unpushed.
-Smoke stubs model generation, TTS and delivery; it cannot establish enjoyable
-lessons, pronunciation or transfer. No lesson was run during this audit.
+**Verification and disposition:** the initial alignment passed 119 smoke cases,
+including budgets and the ledger fold; its first run caught an exact-phrase guard
+on Tamil-script drafting, corrected before the rerun. The audit and alignment later
+shipped in `9174704`, alongside the audio CLI and session logger: CI passed 120.
+The audio regression was omitted from dispatch; September 22 registered it and
+repaired the Windows path mismatch it exposed. See the target plan's dated receipt.
+The report is not a tutor load file. Smoke stubs generation, TTS and delivery;
+it cannot establish enjoyment, pronunciation or transfer. The later lesson is
+described below, separately from the audit.
 
 ## Programme status — corrected after Andrew's September 21 reminder
 
-The original commission seeks an enjoyable, effective, focused system for the tentative
-2027 visit. No design is sacred. Completing an audit and proposing a trial did not
-complete that commission; switching automatically into lessons lost its scope.
+The commission seeks an enjoyable, effective system for the 2027 visit. The audit
+and trial proposal did not complete it; switching automatically into lessons lost scope.
 
 | Work | Status / completion evidence |
 |---|---|
-| Historical evidence and initial conflicts | First pass complete; findings above, local alignment tested but not deployed. |
-| Focused system design | Proposed in [comprehension_plan.md](comprehension_plan.md): responsibilities, keep/change/retire choices, alternatives and implementation acceptance. Not deployed. |
+| Historical evidence and initial conflicts | First pass complete; findings above, initial alignment shipped in `9174704`. |
+| Focused system design | [comprehension_plan.md](comprehension_plan.md) holds the proposal, worked experience and current implementation receipt. Partly implemented, not validated as a teaching experience. |
 | Implementation and integration | Incomplete: selected changes must work through actual learner journeys, including hearing, explanation and unobtrusive saving. |
 | Experience and transfer | Ongoing: use lesson evidence and Andrew's testimony to revise the design; technical checks cannot establish enjoyment or learning. |
 

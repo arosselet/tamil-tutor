@@ -1,7 +1,7 @@
 # Tamil tutor target design — open proposal
 
-> September 21, 2026. The destination is adopted; the design below is proposed,
-> not deployed. This replaces the old forecast, numerical checkpoints and duplicated
+> September 22, 2026. The destination is adopted; the design is partly implemented,
+> with remaining proposals identified below. This replaces the old forecast, numerical checkpoints and duplicated
 > habit prescriptions in this file. Historical reasoning remains in git.
 > [ASTRA_REVIEW.md](ASTRA_REVIEW.md) holds the evidence; [DECISIONS.md](DECISIONS.md)
 > remains the record of adopted decisions. This document is not a tutor load file.
@@ -77,23 +77,13 @@ A quiet week still has useful audio available and welcome no-ask contact. Return
 requires neither a backlog nor a recap. Family contact and missions stay invitations,
 never compulsory evidence collection.
 
-## Curriculum: give the teacher direction without prescribing every turn
+## Curriculum: a worked experience, then direction
 
-Use recurring situations as the organising unit: locating people and objects, changing
-plans, eating together, recounting the day, visitors and ordinary health talk.
-These come from the adopted goal, not a new ranked syllabus. Within a situation,
-choose the language necessary to understand what happened and participate.
-
-The household is one possible source of continuity. Preserve its cast and voices while
-it earns a trial, but allow a real overheard fragment, interesting linguistic connection
-or Andrew's question to replace a scene. Familiarity is welcome; changing the setting
-on every return is not proof of variety. Plot recall must not stand in for listening.
-
-Revisit a useful contrast in a different exchange after time has passed. Let the
-existing ledger and callbacks help select it, without interpreting every untested row
-as a deficit or every old miss as today's agenda. Periodically inspect whether the
-sessions cover new ground and return to it. Do this in teacher preparation, not as
-another learner checklist or tracking system.
+[A week worth returning to](learning_week.md) makes the design concrete: a gift,
+a situation that changes, curiosity that can take over, a delayed changed hearing,
+selected replay and a welcoming return after a gap. It replaces the abstract curriculum
+discussion here. It is a design specimen, not a script, schedule or new tutor load file.
+Existing debrief and inventory carry continuity; no extra learner reporting is proposed.
 
 The register ladder is useful planning context: children, peers and elders offer
 different forms and interaction demands. A calendar cannot establish readiness.
@@ -119,11 +109,11 @@ a report about listening, and an answer to speech is comprehension evidence. Kee
 those separate. Replays can signal usefulness alongside testimony; they do not prove
 enjoyment, and one play does not establish dislike.
 
-For short lesson audio, first integrate the existing `memo.render_memo` primitive
-and publication path; do not create a second TTS backend or send every two-line
-exchange through the three-pass studio. It is presently a library used by phone
-lanes, not a complete interactive lesson interface. A narrator can present a short
-exchange; distinctive cast voices remain the studio's job.
+For short lesson audio, `lesson_audio.py` now integrates `memo.render_memo` and the
+publication path. It avoids a second TTS backend or sending every two-line exchange
+through the three-pass studio. The CLI is shipped; client playback and a complete
+interactive encounter remain unverified. A narrator can present a short exchange;
+distinctive cast voices remain the studio's job.
 
 The integration must provide a reachable clip before presenting its translation,
 retain the script for explanation, and support replay plus a changed clip. Keep the
@@ -171,7 +161,7 @@ mandatory session template.
 
 ## Implementation sequence and acceptance
 
-Changes below are implementation briefs, not claims that they have shipped.
+Changes below are implementation briefs; the receipt below distinguishes shipped work.
 Each should be independently testable and reversible. Work on trustworthy recording
 and the usable listening path together: historical metric repairs and duration
 precision must not delay teaching. Preserve unknowns meanwhile and never relabel
@@ -224,9 +214,27 @@ or when friction appears. Preserve missing evidence as unknown.
 
 Each engineering pass reports the artifact, the uncertainty resolved, the verification
 and remaining work. Reuse the audit; delegate only bounded independent questions.
-Small changes are a way to test the wider design, never its ambition ceiling.
-Andrew explicitly clarified this on September 21: repo playbooks must not narrow the
-commission to incremental patching. Replace or remove whole components when warranted.
-This design pass resolves the recommended division of responsibilities and names
-the integration work. It does not establish learning effectiveness, deploy changes,
-or finish the original commission.
+Small changes test the wider design, never its ambition ceiling. Andrew's immediate
+intent determines the route; the wider charge defines success. A concrete bug stays
+a fix, and strategic work may replace whole components. See [ASTRA_CHARGE.md](ASTRA_CHARGE.md).
+
+## Current receipt and next handoff — September 22
+
+- **Shipped in `9174704`:** prompt/profile alignment, short-audio CLI and protocol,
+  session recognition provenance, target proposal. CI passed 120 cases, but the
+  audio case existed without a dispatcher entry; that pass did not exercise it.
+- **September 22 continuation:** register the missing audio case; fix the Windows
+  short/long path mismatch it exposed in shared publication; clarify intent routing;
+  add the worked experience. The case passes locally. Full-suite and publication
+  receipts belong in the commit/CI, not inferred from this design document.
+- **Next coherent slice:** prepare and retrieve real short audio, verify a scoped
+  close in a disposable clone, and resolve phone teaching-question continuation.
+  Use the worked experience's acceptance table to judge what is actually usable.
+  A real learner encounter remains necessary for client playback and experience evidence.
+- **Parallel but non-blocking:** auditory mastery and partial-duration accounting;
+  then brief/commissioning authority. No new audit, model migration or dashboard.
+
+The proposal still has unimplemented choices: repair priority, calendar authority,
+automatic taper and score footer. The broad commission is unfinished. Working state
+is determined by `git status`, not this dated receipt; do not mistake a later fresh
+session for an instruction to run the specimen as a lesson.

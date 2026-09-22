@@ -6,9 +6,10 @@ Companion: **`docs/DECISIONS.md`** — settled decisions and engineering discipl
 
 **This is the only map** (2026-09-10). The `/extend` routing table and the `/orient` subsystem table were second copies of the facts below and both drifted; a concern's owner is found here, and if this file is wrong it is fixed in the same diff as the code.
 
-Open planning: **`docs/comprehension_plan.md`** — the one-year comprehension goal, its measured
-baseline, and the questions still unanswered. Nothing in it is settled; read it before
-proposing curriculum or pacing changes.
+Open planning: **`docs/comprehension_plan.md`** — target design, worked learning experience,
+proposals and implementation receipts. **`docs/ASTRA_REVIEW.md`** holds the evidence and
+baseline. Read the plan before proposing curriculum or pacing changes; proposed choices
+remain distinct from adopted decisions and shipped capabilities.
 
 This map describes the **Tamil instantiation**. For what generalizes beyond it — the four-layer boundary (pedagogy / machinery / language pack / learner pack), the Python port surface, and day-zero behavior — see `BOOTSTRAP.md` → "What Generalizes".
 

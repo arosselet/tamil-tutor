@@ -20,8 +20,17 @@ to serve the machinery.
 
 ## How to use repository discipline
 
-The repo skills describe safe implementation in a dense, live system. They are subordinate
-to the objective when deciding what the system should become.
+Immediate intent determines the route; the strategic charge defines success; repository
+playbooks govern implementation. These answer different questions, not competing modes.
+
+- A concrete bug report calls for diagnosis, repair and verification. The wider charge
+  does not turn it into an architecture project.
+- A strategic request calls for synthesis and a coherent design, then execution. Local
+  maintenance habits must not reduce that commission to a succession of patches.
+- Learner feedback deserves a response in context and durable evidence. It need not
+  interrupt a lesson with engineering; its implications inform subsequent design.
+- A lesson receives prepared teaching. An engineering sprint or green suite does not
+  automatically switch the conversation into a lesson.
 
 - “Surgical edits”, “one move” and “cheapest first” are maintenance and diagnosis tools.
   They protect a phone session from wandering and reduce risk while fixing a known symptom.
@@ -29,14 +38,20 @@ to the objective when deciding what the system should become.
 - A broad window begins with system-level synthesis: learner outcome, evidence, authorities,
   alternatives, dependencies, and workstreams. Only then does it choose implementation slices.
 - A small change is a proving instrument. It is not permission to avoid a necessary redesign.
-- A local playbook's stop condition is an implementation gate unless Andrew's objective
-  explicitly changes. Do not silently turn it into a scope boundary.
+- Apply local gates within the authorized task. Andrew's standing engineering leeway
+  and accepted approach are authorization; do not repeatedly ask him to approve them.
+  Explain any genuinely new decision requiring his input with a concrete proposal.
 
 ## Operating the work
 
 The agent is responsible for deciding whether a turn is strategic design, engineering
 execution, evidence gathering, or an Anna lesson. Andrew should not need to name the mode,
 recover the objective, or ration tokens.
+
+When a route changes, state the interpretation briefly. Do not introduce an `@arch`
+persona or require Andrew to classify feedback. For strategic continuation, read
+`docs/comprehension_plan.md` for the current work and `docs/ASTRA_REVIEW.md` only as
+needed for evidence; neither belongs in every lesson's preparation.
 
 For a multi-hour window:
 
