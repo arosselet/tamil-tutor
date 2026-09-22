@@ -100,7 +100,7 @@ first full month opens in the `down` phase with the children near its centre.
 > One line per rendered episode, appended by the Producer pass after render,
 > saying what happened. This is the continuity — callbacks are read from here.
 
-*(empty)*
+- 2026-09-22 · M94 — Priya returns with milk from her bus errand; Karthi's second bus plan becomes tea at home, and she tells him about the plant that got a window seat.
 
 ---
 

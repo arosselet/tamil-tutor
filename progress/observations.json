@@ -19961,5 +19961,41 @@
     "medium": "text",
     "source": "session:2026-09-22",
     "note": "fired hinted"
+  },
+  {
+    "id": "9e04ed16f2a7",
+    "at": "2026-09-22T20:48:10Z",
+    "word": "போக முடியல",
+    "channel": "episode",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "episode:M94",
+    "note": ""
+  },
+  {
+    "id": "b080375f1ae4",
+    "at": "2026-09-22T20:48:10Z",
+    "word": "போலாம்",
+    "channel": "episode",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "episode:M94",
+    "note": ""
+  },
+  {
+    "id": "ced123dc4fd0",
+    "at": "2026-09-22T20:48:10Z",
+    "word": "இங்க இருக்கேன்",
+    "channel": "episode",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "episode:M94",
+    "note": ""
   }
 ]
