@@ -19949,5 +19949,17 @@
     "medium": "text",
     "source": "knock:2026-09-22T19:27:53.433235+00:00",
     "note": ""
+  },
+  {
+    "id": "cae7e637fef6",
+    "at": "2026-09-22T20:25:17Z",
+    "word": "போலாமா?",
+    "channel": "session",
+    "kind": "tested",
+    "axis": "production",
+    "result": "partial",
+    "medium": "text",
+    "source": "session:2026-09-22",
+    "note": "fired hinted"
   }
 ]
