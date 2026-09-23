@@ -52,7 +52,8 @@ from push_queue import maybe_enqueue_schedule
 from publish import (BODY_BUDGET, KNOCKS_DIR,
                      commit_and_push, jsdelivr_url, load_env, over_budget,
                      publish, push_to_phone)
-from writer import (BOOL, INT, STR, STRS, ask_json, executor_name, nullable, obj,
+from writer import (AGENT_MODEL, BOOL, INT, OPENROUTER_MODEL, STR, STRS, ask_json,
+                    executor_name, have_agent, nullable, obj,
                     to_phonetic, voice_canon)
 
 # ── The rails (hard, Python-enforced — Anna cannot cross these) ───────────────
@@ -588,6 +589,20 @@ DECIDE_SCHEMA = obj(act=BOOL, modality=STR, move=STR, stance=STR,
                         target_revealed=BOOL, move=STR)))
 
 
+# THE DECIDE A/B (2026-09-23, Andrew: "lets do both"). Blind test on the new
+# mandate: he picked two Sonnet memos and called Gemini's "baity". Five samples
+# on one topic is not a verdict, so the lane alternates by local date and every
+# entry records its writer; compare reply rates after two weeks. Cost at ~4
+# decides/day: ~$5 USD/mo for the Sonnet half. Revert = delete this and the
+# `model=` below. Judges and the phonetic rewrite stay on MODEL either way.
+DECIDE_AB = ("anthropic/claude-sonnet-5", OPENROUTER_MODEL)
+
+
+def decide_model(now: datetime) -> str:
+    """Which writer drafts today's pushes on the API path — alternate days."""
+    return DECIDE_AB[now.astimezone(LOCAL_TZ).date().toordinal() % 2]
+
+
 def decide(digest: str, volley_menu: list | None = None) -> dict:
     """Ask cloud Anna what to do this tick. The executor is the HOST's choice, not
     this lane's (`writer.ask_json`, 2026-08-23) — which is what stops a local
@@ -604,10 +619,14 @@ def decide(digest: str, volley_menu: list | None = None) -> dict:
     # persona.md does. Inlined here rather than added to `voice_canon()`,
     # which five lanes share: a drill sheet has no household in it.
     canon = voice_canon() + "\n\n---\n\n" + household.load()
-    print(f"   [decide] {executor_name()}")
+    model = AGENT_MODEL if have_agent() else decide_model(datetime.now(timezone.utc))
+    print(f"   [decide] {executor_name()} · {model}")
     d = ask_json(canon + "\n\n---\n\n" + OUTREACH_MANDATE,
-                 f"TODAY'S DIGEST:\n\n{digest}", DECIDE_SCHEMA, answer_tokens=1600)
-    return normalize_decision(d, volley_menu)
+                 f"TODAY'S DIGEST:\n\n{digest}", DECIDE_SCHEMA, answer_tokens=1600,
+                 model=model)
+    d = normalize_decision(d, volley_menu)
+    d["decide_model"] = model
+    return d
 
 
 # ── Delivery plumbing (proven — preserved) ────────────────────────────────────
@@ -627,6 +646,7 @@ def log_decision(now: datetime, decision: dict, *, acted: bool,
         "modality": decision.get("modality"),
         "move": decision.get("move"),
         "rationale": decision.get("rationale"),
+        "decide_model": decision.get("decide_model"),
         "next_check": (now + timedelta(hours=decision["next_check_hours"])).isoformat(),
     }
     if acted:

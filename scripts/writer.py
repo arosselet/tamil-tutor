@@ -492,12 +492,12 @@ def _agent_json(system: str, user: str, schema: dict) -> dict:
     return got
 
 
-def _api_json(system: str, user: str, answer_tokens: int) -> dict:
+def _api_json(system: str, user: str, answer_tokens: int, model: str | None = None) -> dict:
     """One pass through OpenRouter — the executor for a host with no agent, and
     the live path for any lane routed to Actions. Same prompt, same contract."""
     client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
     resp = client.chat.completions.create(
-        model=OPENROUTER_MODEL, max_tokens=budget(answer_tokens),
+        model=model or OPENROUTER_MODEL, max_tokens=budget(answer_tokens),
         response_format=JSON_MODE, extra_body=REASONING_BUDGET,
         messages=[{"role": "system", "content": system},
                   {"role": "user", "content": user}])
@@ -505,7 +505,7 @@ def _api_json(system: str, user: str, answer_tokens: int) -> dict:
 
 
 def ask_json(system: str, user: str, schema: dict, answer_tokens: int = 2400,
-             tries: int = 3, prefer: str = "auto") -> dict:
+             tries: int = 3, prefer: str = "auto", model: str | None = None) -> dict:
     """One LLM call -> parsed JSON, on whichever executor this host has.
 
     `schema` is REQUIRED and positional, so a new lane cannot forget it. A
@@ -529,13 +529,16 @@ def ask_json(system: str, user: str, schema: dict, answer_tokens: int = 2400,
 
     `prefer` forces one executor ('agent'/'api') for an A/B or a test; 'auto' is
     the host rule and is what every lane passes.
+
+    `model` overrides the API path's slug for ONE call (2026-09-23: the decide
+    lane's Sonnet/Gemini A/B). The agent path ignores it — it runs AGENT_MODEL.
     """
     use_agent = have_agent() if prefer == "auto" else (prefer == "agent")
     for attempt in range(1, tries + 1):
         try:
             if use_agent:
                 return _agent_json(system, user, schema)
-            return _api_json(system, user, answer_tokens)
+            return _api_json(system, user, answer_tokens, model)
         except (subprocess.SubprocessError, RuntimeError, OSError) as e:
             # THE FALLBACK IS LOUD, ON PURPOSE. This is the silent-no-op of this
             # change: the agent is present but broken (expired auth, a bad model

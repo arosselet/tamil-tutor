@@ -457,7 +457,7 @@ def s70_the_executor_is_chosen_by_the_host(sb: Path):
         ran["agent"] = True
         return {"ok": "agent"}
 
-    def fake_api(system, user, answer_tokens):
+    def fake_api(system, user, answer_tokens, model=None):
         ran["api"] = True
         return {"ok": "api"}
 
