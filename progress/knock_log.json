@@ -7529,5 +7529,22 @@
     "expected_target": "",
     "stance": "give",
     "target_revealed": false
+  },
+  {
+    "date": "2026-09-23",
+    "timestamp": "2026-09-23T13:12:33.151658+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "eavesdrop: cant-mudiyala",
+    "rationale": "Eavesdrop is due (4d gap, 29 pending); Athai gossips about Karthi stuck at home without the scooter key to ear-test frame:cant-முடியல.",
+    "next_check": "2026-09-23T17:12:33.151658+00:00",
+    "body": "Overheard Athai: Vandi saavi kaanom (scooter key missing)! What couldn't Karthi do? 🎧",
+    "body_script": "Overheard Athai: வண்டி சாவி காணோம் (scooter key missing)! What couldn't Karthi do? 🎧",
+    "expected_target": "frame:cant-முடியல",
+    "stance": "ask",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-09-23T13-12.mp3",
+    "memo_script": "ஆமாங்க, நம்ம கார்த்தி இருக்கான்ல... காலையில பெரிய கலாட்டா இங்கே!\n\nஅவன் கடைக்கு போகணும்னு கிளம்பினான். ஆனா வண்டி சாவி காணோம். மாமா காலையிலேயே எடுத்துட்டு போயிட்டாரு போல இருக்கு!\n\nஅதனால கார்த்தியால எங்கேயும் போக முடியல. பிரியாதான் அப்புறம் பஸ் பிடிச்சு போயிட்டு வந்தா. இவன் அங்கேயே உக்காந்து புலம்பிட்டு இருக்கான்!",
+    "mp3": "published_audio/knocks/knock_2026-09-23T13-12.mp3"
   }
 ]

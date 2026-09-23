@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Wednesday 2026-09-23
+
+**09:12 · Anna** 🎧  ·  eavesdrop / eavesdrop: cant-mudiyala
+> Overheard Athai: Vandi saavi kaanom (scooter key missing)! What couldn't Karthi do? 🎧
+
+
 ## Tuesday 2026-09-22
 
 **11:20 · Anna**  ·  text / trailer: who gets the scooter
