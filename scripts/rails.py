@@ -50,7 +50,8 @@ WAKING_START_HOUR = 8      # inclusive, local
 WAKING_END_HOUR = 21       # exclusive, local (last reach can land at 20:59)
 
 # ── How often (the reach counts) ─────────────────────────────────────────────
-MAX_REACHES_PER_DAY = 5    # a "reach" = a knock that actually fired (silence doesn't count)
+MAX_REACHES_PER_DAY = 3    # a "reach" = a knock that actually fired (silence doesn't count)
+                           # 5 -> 3 (2026-09-23, Andrew: "every day, 2-3 a day").
 MIN_GAP_HOURS = 3          # minimum spacing between reaches
 
 

@@ -32,6 +32,7 @@ when Anna chooses the audio modality).
 import argparse
 import asyncio
 import json
+import re
 import subprocess
 import sys
 from datetime import date, datetime, timedelta, timezone
@@ -175,7 +176,7 @@ def outcome_memory(klog: list, now: datetime) -> str:
         verdict = (f"  ⚠ {streak} reaches in a row led to no session and no tap — the current "
                    "approach isn't converting. Give space, or change the move/modality entirely.")
     elif last_session and (now.astimezone(LOCAL_TZ).date() - date.fromisoformat(last_session)).days >= 3:
-        verdict = "  ⚠ No session in 3+ days — cold-start risk; a low-friction reply-in-tamizh ask may re-open the loop."
+        verdict = "  ⚠ No session in 3+ days — pull, never nag: a gift that shows him how close he is."
 
     body = "\n".join(lines) if lines else "    (no reaches logged yet)"
     return (f"OUTREACH MEMORY (reward = Andrew showing up in chat, NOT taps):\n"
@@ -200,34 +201,7 @@ def demand_streak(klog: list) -> int:
     return n
 
 
-LORE_COOLDOWN_DAYS = 7    # a converting format is a bet that paid off, not one to re-place
-# THE FLOOR THE CEILING NEVER HAD (2026-08-31, Andrew: "it's become kind of muddied /
-# missing"). Every tick printed "lore is SPENT"; no tick ever printed "lore is overdue",
-# so the only pressure on this dose pushed one way. Eavesdrop has had both rails since
-# 07-25 — a cooldown AND a cadence — and lore was the asymmetry left behind.
-#
-# 10 IS MEASURED, NOT CHOSEN. Gaps between fired lore doses after the cooldown landed:
-# 8, 6, 8, 8 — then 15, then a 3-fire month. The 6-8 band is the system self-regulating,
-# and it is the band Andrew endorsed lore in ("I genuinely enjoy that little dose of
-# lore… high density learning", 2026-07-28). So the floor sits ABOVE the whole healthy
-# band: at 10 it cannot fire during normal operation, and every warning it does print is
-# real drift. A floor inside the band would be a weekly quota wearing a cadence's
-# clothes — which is the 07-11 mistake ("engagement is evidence, not a mandate"), and a
-# warning that fires constantly is noise by construction and gets walked past.
-LORE_CADENCE_DAYS = 10
 EAVESDROP_CADENCE_DAYS = 3  # catch items need an eavesdrop dose at least this often
-
-
-def last_lore(klog: list) -> dict | None:
-    """Most recent fired lore dose ('lore' in the move label — the log's naming
-    convention). Lore had no format-level guard: it fired four days running
-    (2026-07-07→10), every one a frame etymology, because engagement with the
-    format read as a mandate to repeat it (2026-07-11). Python counts; the
-    mandate owns the rule — same seam as demand_streak."""
-    for k in reversed([k for k in klog if is_fire(k)]):
-        if "lore" in (k.get("move") or "").lower():
-            return k
-    return None
 
 
 def last_eavesdrop(klog: list) -> dict | None:
@@ -247,30 +221,12 @@ def remaining_room(klog: list, now: datetime) -> str:
     if lf:
         gap = (now - datetime.fromisoformat(lf["timestamp"])).total_seconds() / 3600
         gap_str = f"last reach {gap:.1f}h ago"
-    streak = demand_streak(klog)
-    streak_str = f"\n  Demand-streak: {streak} consecutive fires carried an ask"
-    if streak >= 2:
-        streak_str += " — the variety rule says the next fire must be a NO-ASK dose or silence."
-    lore_str = ""
-    lore = last_lore(klog)
-    if lore is None:
-        lore_str = ("\n  ⚠ Lore: NEVER fired — a word with a story has more retrieval "
-                    "hooks than a word with a scene. Take a no-ask lore dose when one fits.")
-    else:
-        ldate = local_date(lore.get("timestamp", ""))
-        if ldate:
-            age = (now_local.date() - ldate).days
-            if age < LORE_COOLDOWN_DAYS:
-                until = (ldate + timedelta(days=LORE_COOLDOWN_DAYS)).isoformat()
-                lore_str = (f"\n  Lore-cooldown: “{lore.get('move', 'lore')}” fired {age}d ago — "
-                            f"lore is SPENT until {until}; pick another move.")
-            elif age >= LORE_CADENCE_DAYS:
-                lore_str = (f"\n  ⚠ Lore: OVERDUE — last was “{lore.get('move', 'lore')}” "
-                            f"{age}d ago, past the {LORE_CADENCE_DAYS}d cadence. It is a "
-                            f"no-ask dose and takes a DIFFERENT vein than that one.")
-            else:
-                lore_str = (f"\n  Last lore: “{lore.get('move', 'lore')}” ({age}d ago) — a new "
-                            f"lore dose must take a different vein than that one.")
+    # RECENT GIFT VEINS (2026-09-23) replace the lore cooldown/cadence pair: the
+    # gift is now the default push, so a format rail would fire every tick. What
+    # still matters is the 07-11 lesson — never the same vein twice running.
+    gifts = [k.get("move", "") for k in klog if is_fire(k) and is_give(k)][-4:]
+    lore_str = (f"\n  Recent gift veins (newest last — take a different one): {' · '.join(gifts)}"
+                if gifts else "")
     # Eavesdrop cadence — catch items advance ONLY through eavesdrop; surface a
     # warning when the cadence has lapsed so Anna doesn't keep skipping it.
     eavesdrop_str = ""
@@ -298,7 +254,7 @@ def remaining_room(klog: list, now: datetime) -> str:
             f"  Waking window {WAKING_START_HOUR}:00–{WAKING_END_HOUR}:00 {now_local.tzname()}; "
             f"now {now_local:%H:%M}.\n"
             f"  Reaches today: {n_today}/{MAX_REACHES_PER_DAY}. Min gap {MIN_GAP_HOURS}h ({gap_str})."
-            f"{streak_str}{lore_str}{eavesdrop_str}")
+            f"{lore_str}{eavesdrop_str}")
 
 
 def due_menu_block(max_fire: int = 6, max_catch: int = 2) -> str:
@@ -397,17 +353,6 @@ def volley_targets(n: int = VOLLEY_SIZE) -> list[dict]:
     return out
 
 
-def volley_block() -> str:
-    vt = volley_targets()
-    if len(vt) < 2:
-        return ""
-    lines = ["VOLLEY TARGETS (binding, in this order — Python picked the due items; "
-             "you write the English situations if you fire a volley):"]
-    lines += [f"    {i}. {t['target']} — {t['gloss'] or '[no gloss]'}"
-              for i, t in enumerate(vt, 1)]
-    return "\n".join(lines)
-
-
 def campaign_block() -> str:
     """The live ARC — the month's situation in the household, from profile.md
     (contract in protocol/daily_session.md → The Arc). Cloud Anna steers by it:
@@ -454,6 +399,42 @@ def campaign_block() -> str:
     return "CAMPAIGN (the live week plan — steer by it):\n" + (body[:1500].rsplit("\n\n", 1)[0] if len(body) > 1500 else body)
 
 
+# English question words only: "Evlo aagum?" is an answer, not a question.
+QUESTION_RE = re.compile(r"\b(what|why|how|which|break (it )?down|root|mean|difference)\b", re.I)
+
+
+def progress_block(klog: list, now: datetime, max_n: int = 6) -> str:
+    """What the push HOOKS on (2026-09-23, Andrew: "tease me with my progress more
+    than tease me with 'Auntie's on the phone again'"). The digest carried slips
+    and unanswered asks and nothing about what he is close to, so every push
+    leaned on the household or on his misses. Rows only — no new state."""
+    lex = load_json(LEXICON_PATH) or {}
+    by_recent = sorted(lex.items(), key=lambda kv: kv[1].get("last_surfaced") or "", reverse=True)
+    def rows(pred, n):
+        return [f"    {k} — {(v.get('gloss') or '')[:70]}" for k, v in by_recent if pred(k, v)][:n]
+    frame = lambda k: k.startswith("frame:")
+    owned = rows(lambda k, v: frame(k) and v.get("production") == "cold", max_n)
+    ahead = rows(lambda k, v: frame(k) and v.get("production") == "none", 3)
+    close = rows(lambda k, v: not frame(k) and v.get("production") == "hinted", max_n)
+    since = (now - timedelta(days=14)).isoformat()
+    asked = []
+    for e in klog:
+        if (e.get("timestamp") or "") < since:
+            continue
+        for x in e.get("exchanges") or ([{"reply": e["reply"]}] if e.get("reply") else []):
+            r = (x.get("reply") or "").strip()
+            if r and QUESTION_RE.search(r):
+                asked.append(f'    {(x.get("at") or e["timestamp"])[:10]}: "{r[:140]}"')
+    out = ["PROGRESS (the hook — what he owns, what he is one step from, what is next):",
+           "  Patterns he fires unaided:", *owned,
+           "  One step away (fired with a hint, not yet alone):", *close,
+           "  Machines he has not met yet:", *ahead]
+    if asked:
+        out += ["HIS RECENT QUESTIONS (answer each with a gift, once; skip any a recent "
+                "gift vein already took):", *asked[-4:]]
+    return "\n".join(out)
+
+
 def build_digest() -> str:
     """Everything Anna needs to make a policy call: learning state + the live
     campaign + the due menu + outcome memory + how much room the rails
@@ -463,7 +444,7 @@ def build_digest() -> str:
     status = out.stdout.strip()
     klog = load_json(KNOCK_LOG_PATH) or []
     now = datetime.now(timezone.utc)
-    parts = [status, campaign_block(), due_menu_block(), volley_block(),
+    parts = [status, campaign_block(), progress_block(klog, now), due_menu_block(),
              outcome_memory(klog, now), remaining_room(klog, now)]
     return "\n\n".join(p for p in parts if p)
 

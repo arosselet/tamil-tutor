@@ -80,7 +80,8 @@ PROSE_BUDGETS = {
     "protocol/audio_channels.md": 475,
     # Split out of audio_channels.md (2026-08-01) — the commissioning law ("the repair earns the dose") is its own concern from channel routing, and the parent had a third raise …
     "protocol/commissioning.md": 300,
-    "OUTREACH_MANDATE": 2000,
+    # 2000 -> 950 (2026-09-23): re-censused DOWN at the rewrite (census 862). The old mandate sat at 1992 with a rule per complaint and no voice left; the regrowth is the thing this number exists to catch.
+    "OUTREACH_MANDATE": 950,
     "JUDGE_MANDATE": 1500,
     # Split out of JUDGE_MANDATE (2026-07-24) rather than raise its budget, the same move audio_channels.md made on daily_session.md: "what this reply can do beyond the text line" (schedule a … · 300 -> 150 (2026-08-27): re-censused DOWN — the SPEAK BACK section left for VOICE_MANDATE, which both judges compose.
     "REACH_MANDATE": 150,

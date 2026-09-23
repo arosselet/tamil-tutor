@@ -228,9 +228,9 @@ def s5_reply_judge(mk, kr, sb: Path):
 
 
 def s8_variety_and_decay(mk, kr, sb: Path):
-    """The 2026-07-05 push-feedback fixes: demand-streak surfaced to the digest,
-    body budgets, continuity decay clock, UNSEEN teach-first flags. Plus the
-    2026-07-11 lore format cooldown (four frame-etymology memos in four days)."""
+    """The 2026-07-05 push-feedback fixes: demand-streak counting, body budgets,
+    continuity decay clock, UNSEEN teach-first flags. The 2026-07-11 lore
+    cooldown became the recent-gift-veins line on 2026-09-23."""
     print("\n8. Variety + decay helpers")
     now = datetime.now(timezone.utc)
 
@@ -247,94 +247,31 @@ def s8_variety_and_decay(mk, kr, sb: Path):
     check("demand_streak zero after a no-ask fire",
           mk.demand_streak([{"acted": True, "expected_target": ""}]) == 0)
 
-    # the rails digest carries the no-ask directive once the streak hits 2
-    fired = [{"acted": True, "expected_target": "x", "date": now.date().isoformat(),
-              "timestamp": (now - timedelta(hours=5 - i)).isoformat()}
-             for i in range(2)]
-    room = mk.remaining_room(fired, now)
-    check("digest carries the NO-ASK directive at streak 2", "NO-ASK" in room,
-          room.splitlines()[-1])
+    # RECENT GIFT VEINS replace the lore cooldown/cadence pair (2026-09-23,
+    # Andrew: the gift is the default push now, so a format rail would nag every
+    # tick). What survives from 07-11 is the vein rule: the rails name what the
+    # last gifts spent, and an ask never counts as a gift vein.
+    gifts = [{"acted": True, "stance": "give", "move": f"lore: word{i}",
+              "timestamp": (now - timedelta(hours=10 - i)).isoformat()} for i in range(5)]
+    gifts.append({"acted": True, "stance": "ask", "move": "eavesdrop: x",
+                  "timestamp": now.isoformat()})
+    room = mk.remaining_room(gifts, now)
+    check("the rails name the recent gift veins, newest last",
+          "lore: word1 · lore: word2 · lore: word3 · lore: word4" in room, room.splitlines()[-1])
+    check("...only the last four, and never an ask",
+          "word0" not in room and "eavesdrop: x" not in room)
+    check("no gifts yet -> no vein line", "gift veins" not in mk.remaining_room([], now))
 
-    # lore format cooldown: SPENT inside the window, vein reminder after,
-    # OVERDUE past the cadence — the rail pushes BOTH ways (2026-08-31)
-    lored = [{"acted": True, "move": "lore memo: -aachu frame",
-              "timestamp": (now - timedelta(days=1)).isoformat()}]
-    check("digest marks lore SPENT inside the cooldown",
-          "SPENT" in mk.remaining_room(lored, now))
-    lored[0]["timestamp"] = (now - timedelta(days=mk.LORE_COOLDOWN_DAYS + 1)).isoformat()
-    check("expired cooldown becomes the different-vein reminder",
-          "different vein" in mk.remaining_room(lored, now))
-
-    # ── THE FLOOR THE CEILING NEVER HAD (2026-08-31, Andrew: lore "has become
-    # kind of muddied / missing"). The two checks above are the BRAKE, and until
-    # today it was the only rail this dose had: every tick could say "lore is
-    # SPENT" and no tick could ever say "lore is overdue". Measured, that is
-    # exactly what the log shows — gaps of 8, 6, 8, 8, then 15, then a 3-fire
-    # month. Eavesdrop has carried both rails since 07-25; lore was the
-    # asymmetry left behind.
-    #
-    # THE ASSERTION BELOW WAS INVERTED, AND IT ENCODED THE GAP. It read "no lore
-    # fires → no lore line in the rails" and called that silence correct. A dose
-    # that has NEVER fired is the loudest case there is, not the quietest — an
-    # absence must be loud, or it is walked past for mechanical reasons.
-    lored[0]["timestamp"] = (now - timedelta(days=mk.LORE_CADENCE_DAYS + 1)).isoformat()
-    overdue = mk.remaining_room(lored, now)
-    check("past the cadence the rail says OVERDUE", "OVERDUE" in overdue,
-          overdue.splitlines()[-1])
-    check("...and still binds the different-vein rule", "DIFFERENT vein" in overdue,
-          "an overdue nudge that drops the vein rule re-opens the 07-11 takeover")
-    check("never-fired lore is LOUD, not silent",
-          "NEVER fired" in mk.remaining_room([], now),
-          "the old case asserted silence here — that was the one-sided rail")
-
-    # THE BAND BETWEEN THE RAILS MUST STAY QUIET. A warning that fires during
-    # normal operation is noise by construction. Post-cooldown the measured
-    # healthy gaps were 6-8 days, so nothing in that band may nag.
-    for age in range(mk.LORE_COOLDOWN_DAYS, mk.LORE_CADENCE_DAYS):
-        lored[0]["timestamp"] = (now - timedelta(days=age)).isoformat()
-        rails = mk.remaining_room(lored, now)
-        if "OVERDUE" in rails or "SPENT" in rails:
-            check(f"the healthy band stays quiet (day {age})", False, rails.splitlines()[-1])
-            break
-    else:
-        check(f"the healthy band stays quiet "
-              f"(days {mk.LORE_COOLDOWN_DAYS}-{mk.LORE_CADENCE_DAYS - 1})", True)
-    check("the floor sits above the whole measured healthy band",
-          mk.LORE_CADENCE_DAYS > 8,
-          "gaps of 8, 6, 8, 8 were the self-regulating cadence Andrew endorsed; "
-          "a floor inside that band is a weekly quota wearing a cadence's clothes")
-
-    # ── THE SEQUENCE PROPERTY — what the incident actually was ──────────────
-    # The two assertions above are POINTWISE: lore one day old says SPENT, lore
-    # LORE_COOLDOWN_DAYS+2 old says vein. The 2026-07-11 bug was neither. It was
-    # FOUR frame-etymology memos on FOUR CONSECUTIVE DAYS — a run, and a rails
-    # line that only covered "yesterday" would pass both checks above and still
-    # let days 2, 3 and 4 through. So walk the whole window instead of sampling
-    # two points in it, and walk one day past the far edge.
-    for d in range(mk.LORE_COOLDOWN_DAYS):
-        one = [{"acted": True, "move": "lore memo: -aachu frame",
-                "timestamp": (now - timedelta(days=d)).isoformat()}]
-        if "SPENT" not in mk.remaining_room(one, now):
-            check(f"lore is SPENT on every day of the cooldown (day {d} leaked)", False,
-                  mk.remaining_room(one, now))
-            break
-    else:
-        check(f"lore reads SPENT on ALL {mk.LORE_COOLDOWN_DAYS} days of the window, "
-              f"not just yesterday", True)
-    edge = [{"acted": True, "move": "lore memo: -aachu frame",
-             "timestamp": (now - timedelta(days=mk.LORE_COOLDOWN_DAYS)).isoformat()}]
-    check("...and the window ENDS on schedule — the format is not locked out forever",
-          "different vein" in mk.remaining_room(edge, now), mk.remaining_room(edge, now))
-
-    # The incident's own shape: a run of them. The rails must read the LATEST
-    # fire, so four consecutive days still says SPENT rather than aging out on
-    # the oldest entry in the log.
-    run_of_four = [{"acted": True, "move": "lore memo: -aachu frame",
-                    "timestamp": (now - timedelta(days=d)).isoformat()}
-                   for d in (9, 8, 7, 1)]
-    check("a RUN of lore memos is judged on the most recent, not the oldest",
-          "SPENT" in mk.remaining_room(run_of_four, now),
-          mk.remaining_room(run_of_four, now))
+    # THE HOOK IS HIS PROGRESS (2026-09-23): the digest carries what he owns and
+    # what he asked, and a Tamil answer ending in "?" is not a question.
+    asked = [{"timestamp": now.isoformat(), "exchanges": [
+        {"at": now.isoformat(), "reply": "not sure about the root itself kilambu"},
+        {"at": now.isoformat(), "reply": "Evlo aagum?"}]}]
+    block = mk.progress_block(asked, now)
+    check("progress block carries his question", "root itself kilambu" in block, block)
+    check("...and not a Tamil answer that happens to end in '?'", "Evlo aagum" not in block)
+    check("the decide digest carries the progress block",
+          "progress_block(klog, now)" in fx.raw_source(REAL_BASE / "scripts" / "morning_knock.py"))
 
     # lock-screen body budget
     check("over_budget flags a long body",
