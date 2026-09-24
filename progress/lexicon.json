@@ -4047,10 +4047,11 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-09-24",
     "direction": "fire",
     "exposures": 1,
-    "register": "faq"
+    "register": "faq",
+    "taught_on": null
   },
   "ரொம்ப நல்லா இருக்கு": {
     "type": "chunk",

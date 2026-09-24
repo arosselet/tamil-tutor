@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Thursday 2026-09-24
+
+**11:39 · Anna** 🎧  ·  audio / lore: pazhagi-pocchu
+> The comeback that stops the table worrying: Kaaram paravaayilla, pazhagipochu — 'spice is fine, I'm used to it!' 🌶️
+
+
 ## Wednesday 2026-09-23
 
 **09:12 · Anna** 🎧  ·  eavesdrop / eavesdrop: cant-mudiyala
