@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **11:39 · Anna** 🎧  ·  audio / lore: pazhagi-pocchu
 > The comeback that stops the table worrying: Kaaram paravaayilla, pazhagipochu — 'spice is fine, I'm used to it!' 🌶️
 
+**18:54 · Anna** 🎧  ·  audio / pattern: appuram-paakkalaam
+> You own 'appuram' and 'paarkkalam' — snap them together for the doorstep exit line: Appuram paarkkalam 👋
+
 
 ## Wednesday 2026-09-23
 

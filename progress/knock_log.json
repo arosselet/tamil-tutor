@@ -7598,5 +7598,23 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-09-24T15-39.mp3",
     "memo_script": "You know how every single time you sit down at the table, someone is quietly tracking your face to see if the குழம்பு is going to blow your head off?\n\nYou don't need a long speech to defend yourself. You just drop this line, calm as anything, before they can even ask: காரம் பரவாயில்ல, பழகிப்போச்சு.\n\nLook at the two halves. காரம் is the heat, the spice. And பரவாயில்ல is your universal armor — you hear people say it all day for 'it's alright' or 'never mind.'\n\nThen comes the real weapon: பழகிப்போச்சு. It comes from பழக்கம் — a habit, familiarity. When your tongue has adapted, when something has settled into your daily life until it's just normal, we say பழகிப்போச்சு. 'Got used to it.'\n\nThe trick with பழகிப்போச்சு is that it works for everything. The traffic horn on Trichy Road? பழகிப்போச்சு. The early morning pressure cooker whistle? பழகிப்போச்சு.\n\nNext time they look at you with that worried auntie squint, don't say English. Just smile: காரம் பரவாயில்ல, பழகிப்போச்சு. Watch the whole room relax.",
     "mp3": "published_audio/knocks/knock_2026-09-24T15-39.mp3"
+  },
+  {
+    "date": "2026-09-24",
+    "timestamp": "2026-09-24T22:54:20.905398+00:00",
+    "acted": true,
+    "modality": "audio",
+    "move": "pattern: appuram-paakkalaam",
+    "rationale": "Andrew has been quiet for 4 reaches, so avoid quizzes or household gossip trailers; give a zero-friction audio gift revealing how two words he already knows snap together into a doorstep power-phrase, then let him rest until morning.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-09-25T12:54:20.905398+00:00",
+    "body": "You own 'appuram' and 'paarkkalam' — snap them together for the doorstep exit line: Appuram paarkkalam 👋",
+    "body_script": "You own 'அப்புறம்' and 'பார்க்கலாம்' — snap them together for the doorstep exit line: அப்புறம் பார்க்கலாம் 👋",
+    "expected_target": "",
+    "stance": "give",
+    "target_revealed": true,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-09-24T22-54.mp3",
+    "memo_script": "You already know 'அப்புறம்' — later. And from the other day, you know 'பார்க்கலாம்' — let's see.\n\nNow, here is the trick everyone uses at the gate when walking away. Nobody in Coimbatore says the textbook 'பிறகு பார்க்கலாம்'. Too stiff. \n\nInstead, you just snap the two pieces you already hold right together: அப்புறம் பார்க்கலாம். Literally, 'later, we will see' — but it means 'see you later'.\n\nWhen Mama steps out towards the gate, or when somebody drops off the keys and turns to leave, you don't need a whole formal speech. Just toss it out: 'சரிங்க மாமா, அப்புறம் பார்க்கலாம்.'\n\nTwo words you already own, zero extra grammar. That's your exit taken care of.",
+    "mp3": "published_audio/knocks/knock_2026-09-24T22-54.mp3"
   }
 ]
