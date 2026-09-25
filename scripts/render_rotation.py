@@ -323,17 +323,25 @@ from mandates import BASE_MANDATE, SHAPE_CLAUSES  # noqa: E402
 
 
 
-def write_movement(mv: dict, spine: str) -> dict:
+def write_movement(mv: dict, spine: str, brief: str | None = None) -> dict:
     """One movement, one small call. The whole tape is never in a model's context —
-    twelve 600-token calls succeed where one 15,000-token script does not."""
+    twelve 600-token calls succeed where one 15,000-token script does not.
+
+    `brief` is a commission's external guidance (2026-09-25): it steers emphasis —
+    what the tape is FOR — never the spine's shape. The spine still plans every
+    movement and item; the brief cannot add, remove, or reorder them. The writer
+    is an LLM call with no file access, so a brief CARRIES its state, it does
+    not point at it."""
     canon = voice_canon()
     menu = "\n".join(
         f"- {i['word']} — {i['gloss'] or '[no gloss]'}"
         + (f"  HOSTS: {', '.join(i['hosts'])}" if i["hosts"] else "")
         for i in mv["items"])
     mandate = f"{BASE_MANDATE}\n{SHAPE_CLAUSES[mv['shape']]}"
+    brief_block = (f"COMMISSION BRIEF (external — what this tape is for, not what "
+                   f"it teaches):\n{brief.strip()}\n\n" if (brief or "").strip() else "")
     sheet = ask_json(f"{canon}\n\n---\n\n{mandate}",
-                     f"THE TAPE'S SPINE: {spine}\n\nITEMS FOR THIS MOVEMENT:\n{menu}",
+                     f"THE TAPE'S SPINE: {spine}\n\n{brief_block}ITEMS FOR THIS MOVEMENT:\n{menu}",
                      MOVEMENT_SCHEMA)
     sheet["beats"] = [b for b in sheet.get("beats", [])
                       if (b.get("say") or "").strip() or (b.get("en") or "").strip()]
@@ -588,6 +596,10 @@ def main():
                     help="render only; skip RSS/commit/push/notify")
     ap.add_argument("--if-short", action="store_true",
                     help="only build when the week's authored supply is under the floor (rails)")
+    ap.add_argument("--brief", default="",
+                    help="commission brief: external guidance threaded into each movement's "
+                    "writer prompt (from a commission file). Empty for the standing "
+                    "shelf-stocked runs — the lane plans the same either way.")
     args = ap.parse_args()
 
     # THE SHELF, NOT THE LEARNER. `--if-short` is what lets this lane run on a
@@ -614,6 +626,13 @@ def main():
               f"{rails.SUPPLY_WINDOW_DAYS}d, under the {rails.SUPPLY_FLOOR_MIN} floor — building")
 
     load_env(BASE / ".env")
+    # A commission's brief rides the writer, not the plan (2026-09-25): the spine
+    # still decides every movement and item, so --dry-run shows the same plan with
+    # or without one. It closes over here because the smoke test's custom writer
+    # takes (mv, spine) — render()'s writer call is not changing.
+    _brief = (args.brief or "").strip() or None
+    def writer(mv, spine):
+        return write_movement(mv, spine, _brief)
     focus, payload = rotation_brief()
     pool = build_pool(args.spine, payload)
     if not pool:
@@ -633,7 +652,7 @@ def main():
         return
     if args.dry_run:
         print("\n2. first sheet…")
-        print(json.dumps(write_movement(plan[0], args.spine), ensure_ascii=False, indent=2))
+        print(json.dumps(writer(plan[0], args.spine), ensure_ascii=False, indent=2))
         return
 
     reason = google_credentials_ready()
@@ -646,7 +665,7 @@ def main():
     mp3.parent.mkdir(parents=True, exist_ok=True)
     print(f"\n2. render… (target {args.minutes:.0f} min)")
     measured, played, spoken, sheets = asyncio.run(
-        render(plan, args.spine, mp3, args.minutes))
+        render(plan, args.spine, mp3, args.minutes, writer=writer))
     print(f"   rendered -> {mp3} ({measured:.1f} min, {played} movements)")
     # Written BEFORE the publish gate, so `--no-publish` still leaves the story on
     # disk: a local render is exactly when you want to read what it said.
