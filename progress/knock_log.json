@@ -7616,5 +7616,23 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-09-24T22-54.mp3",
     "memo_script": "You already know 'அப்புறம்' — later. And from the other day, you know 'பார்க்கலாம்' — let's see.\n\nNow, here is the trick everyone uses at the gate when walking away. Nobody in Coimbatore says the textbook 'பிறகு பார்க்கலாம்'. Too stiff. \n\nInstead, you just snap the two pieces you already hold right together: அப்புறம் பார்க்கலாம். Literally, 'later, we will see' — but it means 'see you later'.\n\nWhen Mama steps out towards the gate, or when somebody drops off the keys and turns to leave, you don't need a whole formal speech. Just toss it out: 'சரிங்க மாமா, அப்புறம் பார்க்கலாம்.'\n\nTwo words you already own, zero extra grammar. That's your exit taken care of.",
     "mp3": "published_audio/knocks/knock_2026-09-24T22-54.mp3"
+  },
+  {
+    "date": "2026-09-25",
+    "timestamp": "2026-09-25T17:42:15.456071+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "eavesdrop: youknow-la opener",
+    "rationale": "Five straight ignored gifts (audio/text, give-stance) — the ledger flags the approach isn't converting, so switch modality to an eavesdrop ask, set inside the household with Karthi named up front, teaching the untouched ear-only gossip opener rather than repeating a give-vein he's already tuning out.",
+    "decide_model": "anthropic/claude-sonnet-5",
+    "next_check": "2026-09-25T22:42:15.456071+00:00",
+    "body": "Overheard Athai on the phone — one line's the 'nee-know-our-guy, right?' opener. Who's she gossiping about, and what happened? 🎧",
+    "body_script": "Overheard Athai on the phone — one line's the 'nee-know-our-guy, right?' opener. Who's she gossiping about, and what happened? 🎧",
+    "expected_target": "frame:youknow-la",
+    "stance": "ask",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-09-25T17-42.mp3",
+    "memo_script": "அட, நம்ம கார்த்தி இருக்கான்ல்ல, அவனுக்குத்தான் இந்த வண்டி பிரச்சினை எல்லாம். ஸ்பேர் சாவி வேற காணோம்.\n\nபிரியா பஸ்-ல போய் பாலு வாங்கிண்டு வந்துச்சு. கார்த்தி வீட்ல இருந்தான், எங்கியும் போகல.\n\nமாமா வண்டி எடுத்துண்டு போயிட்டாரு. இப்போ சொல்லு, யாருக்கு இந்த வண்டி வேணும்னு தெரியுமா?\n\nநானும் அதே தான் கேக்குறேன். சரி சரி, பாக்கலாம் இன்னிக்கு மாலை என்ன ஆகுதுன்னு.",
+    "mp3": "published_audio/knocks/knock_2026-09-25T17-42.mp3"
   }
 ]

@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Friday 2026-09-25
+
+**13:42 · Anna** 🎧  ·  eavesdrop / eavesdrop: youknow-la opener
+> Overheard Athai on the phone — one line's the 'nee-know-our-guy, right?' opener. Who's she gossiping about, and what happened? 🎧
+
+
 ## Thursday 2026-09-24
 
 **11:39 · Anna** 🎧  ·  audio / lore: pazhagi-pocchu

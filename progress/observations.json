@@ -20045,5 +20045,17 @@
     "medium": "audio",
     "source": "knock:2026-09-24T22:54:20.905398+00:00",
     "note": ""
+  },
+  {
+    "id": "4af61fe71317",
+    "at": "2026-09-25T17:42:59Z",
+    "word": "frame:youknow-la",
+    "channel": "eavesdrop",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "knock:2026-09-25T17:42:15.456071+00:00",
+    "note": ""
   }
 ]
