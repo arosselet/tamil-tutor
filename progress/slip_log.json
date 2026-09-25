@@ -953,5 +953,17 @@
     "note": "Recognizes paathen alone, then interprets the same past action as a command in a longer sentence.",
     "word": "",
     "dose_channel": "soak"
+  },
+  {
+    "at": "2026-09-25T18:17:00Z",
+    "date": "2026-09-25",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "venum-venaam-flip",
+    "said": "she wants the scooter",
+    "want": "வேணாம்",
+    "note": "read the negative ending as its positive twin in a longer sentence",
+    "word": "",
+    "dose_channel": "episode"
   }
 ]

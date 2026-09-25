@@ -20057,5 +20057,29 @@
     "medium": "audio",
     "source": "knock:2026-09-25T17:42:15.456071+00:00",
     "note": ""
+  },
+  {
+    "id": "056cac5e7f34",
+    "at": "2026-09-25T18:17:00Z",
+    "word": "நடக்குது",
+    "channel": "session",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "text",
+    "source": "session:2026-09-25",
+    "note": "first contact — row created at struggled"
+  },
+  {
+    "id": "afe9f0bc844c",
+    "at": "2026-09-25T18:17:00Z",
+    "word": "நடந்து",
+    "channel": "session",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "text",
+    "source": "session:2026-09-25",
+    "note": "first contact — row created at struggled"
   }
 ]
