@@ -338,8 +338,7 @@ def write_movement(mv: dict, spine: str, brief: str | None = None) -> dict:
         + (f"  HOSTS: {', '.join(i['hosts'])}" if i["hosts"] else "")
         for i in mv["items"])
     mandate = f"{BASE_MANDATE}\n{SHAPE_CLAUSES[mv['shape']]}"
-    brief_block = (f"COMMISSION BRIEF (external — what this tape is for, not what "
-                   f"it teaches):\n{brief.strip()}\n\n" if (brief or "").strip() else "")
+    brief_block = f"COMMISSION BRIEF (external — what this tape is for, not what it teaches):\n{brief.strip()}\n\n" if (brief or "").strip() else ""
     sheet = ask_json(f"{canon}\n\n---\n\n{mandate}",
                      f"THE TAPE'S SPINE: {spine}\n\n{brief_block}ITEMS FOR THIS MOVEMENT:\n{menu}",
                      MOVEMENT_SCHEMA)
@@ -597,9 +596,8 @@ def main():
     ap.add_argument("--if-short", action="store_true",
                     help="only build when the week's authored supply is under the floor (rails)")
     ap.add_argument("--brief", default="",
-                    help="commission brief: external guidance threaded into each movement's "
-                    "writer prompt (from a commission file). Empty for the standing "
-                    "shelf-stocked runs — the lane plans the same either way.")
+                    help="commission brief threaded into each movement's writer prompt "
+                    "(from a commission file); empty for the standing shelf runs")
     args = ap.parse_args()
 
     # THE SHELF, NOT THE LEARNER. `--if-short` is what lets this lane run on a
@@ -628,11 +626,9 @@ def main():
     load_env(BASE / ".env")
     # A commission's brief rides the writer, not the plan (2026-09-25): the spine
     # still decides every movement and item, so --dry-run shows the same plan with
-    # or without one. It closes over here because the smoke test's custom writer
-    # takes (mv, spine) — render()'s writer call is not changing.
-    _brief = (args.brief or "").strip() or None
-    def writer(mv, spine):
-        return write_movement(mv, spine, _brief)
+    # or without one. Eager-bound as a default arg so the (mv, spine) shape
+    # render() and the smoke test's custom writer use is unchanged.
+    writer = lambda mv, spine, _b=(args.brief or "").strip() or None: write_movement(mv, spine, _b)
     focus, payload = rotation_brief()
     pool = build_pool(args.spine, payload)
     if not pool:
