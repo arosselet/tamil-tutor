@@ -26,6 +26,27 @@ from ._fixtures import (
 )
 
 
+def plant_listen(word: str, channel: str, at: str, source: str = "") -> None:
+    """Append one `attended` observation exactly as the rating lane mints it
+    (`sync_state.cmd_rate`): the channel is the FEED ITEM'S FORMAT — an episode
+    dose airs as "mission". Tagged so `clear_listens` can take them back out."""
+    obs = importlib.import_module("observations")
+    log = read_json(obs.OBSERVATIONS_PATH) if obs.OBSERVATIONS_PATH.exists() else []
+    log.append({"id": f"smoke-listen-{len(log)}", "at": at, "word": word,
+                "channel": channel, "kind": "attended", "axis": None, "result": None,
+                "medium": "audio", "source": source or f"rating:{channel}_smoke",
+                "note": ""})
+    write_json(obs.OBSERVATIONS_PATH, log)
+
+
+def clear_listens() -> None:
+    obs = importlib.import_module("observations")
+    if obs.OBSERVATIONS_PATH.exists():
+        write_json(obs.OBSERVATIONS_PATH,
+                   [o for o in read_json(obs.OBSERVATIONS_PATH)
+                    if not str(o.get("id", "")).startswith("smoke-listen-")])
+
+
 def s7_integrity(sb: Path):
     print("\n7. State integrity sweep")
     for f in sorted((sb / "progress").glob("*.json")):
@@ -845,12 +866,13 @@ def s37_repair_earns_the_dose(sb: Path):
     check("...naming the mouth-takes-the-wrong-one case as an EPISODE, not a loop",
           "his mouth takes the wrong one" in channels)
     check("a repeated mistake escalates the format instead of repeating it",
-          "same mistake twice through one format" in channels
+          "same mistake after a heard dose" in channels
           and "never loop harder" in channels)
     check("forward seed orders do not wait for all slips to close",
           "seed order" in routing and "even while slips remain open" in routing)
+    # 2026-09-25: the counter is a LISTEN, no longer a commission (dose_evidence.py).
     check("the escalation law names the counter that makes it fireable",
-          "ledger counts recurrences" in channels)
+          "flags ESCALATE only after a listen" in channels)
     check("the two halves are two files, each pointing at the other (08-01 split)",
           "audio_channels.md" in routing and "commissioning.md" in channels)
 
@@ -1031,8 +1053,15 @@ def s41_slip_ledger(kr, sb: Path):
     sl.append_slips([{"tag": "past-tense", "said": "irukku", "want": "irundhuchu"}],
                     lane="knock", when="2026-07-30")
     p = {x["tag"]: x for x in sl.slip_patterns(today=date_cls(2026, 7, 30))}["past-tense"]
-    check("a slip that survived a dose escalates the FORMAT",
-          p["escalate"] and p["channels"] == ["soak"])
+    check("a slip after a dose nobody is shown to have HEARD does not escalate (2026-09-25)",
+          not p["escalate"] and p["channels"] == ["soak"], f"escalate={p['escalate']}")
+    plant_listen("irundhuchu", "soak", "2026-07-29T15:00:00Z")
+    try:
+        p = {x["tag"]: x for x in sl.slip_patterns(today=date_cls(2026, 7, 30))}["past-tense"]
+        check("a slip that survived a HEARD dose escalates the FORMAT",
+              p["escalate"] and p["channels"] == ["soak"])
+    finally:
+        clear_listens()
 
     # --- retire → verify → revive: the surface forgets, then ASKS AGAIN --------
     # Andrew, 2026-07-30: "words shouldn't disappear into the aether. They should
@@ -1305,8 +1334,15 @@ def s44_a_commission_can_discharge_the_flag(sb: Path):
         with contextlib.redirect_stdout(io.StringIO()):
             sl.append_slips([{"tag": "smoke-tag", "said": "x", "want": "y"}],
                             lane="chat", when="2099-01-01")
-        check("a slip made AFTER the dose escalates the format",
-              pat("smoke-tag")["escalate"], "escalation never fired")
+        check("a slip made after an UNHEARD dose does not escalate (2026-09-25)",
+              not pat("smoke-tag")["escalate"], "a commissioned dose was accused of failing")
+        plant_listen("ஸ்மோக்பேலோடு", "mission",
+                     datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"))
+        try:
+            check("a slip made AFTER the dose was heard escalates the format",
+                  pat("smoke-tag")["escalate"], "escalation never fired")
+        finally:
+            clear_listens()
 
         # A tag with no history is a typo, not a debt.
         update(soak_payload=["ஸ்மோக்பேலோடு"], soak_channel="soak",
@@ -3892,6 +3928,7 @@ def s103_the_escalation_names_the_lane_that_is_left(sb: Path):
     import contextlib
     ss = importlib.import_module("sync_state")
     sl = importlib.import_module("slips")
+    de = importlib.import_module("dose_evidence")
     slip_path = sb / "progress" / "slip_log.json"
     learner_path = sb / "progress" / "learner.json"
     saved = (slip_path.read_bytes() if slip_path.exists() else None,
@@ -3925,6 +3962,9 @@ def s103_the_escalation_names_the_lane_that_is_left(sb: Path):
             booked = [c.get("channel") for c in sl.slip_commissions().get(tag, [])]
             check(f"...the {channel} dose is booked against the tag",
                   channel in booked, str(booked))
+            # And heard the day it was booked, in the lane the feed stamps.
+            plant_listen("x", {"episode": "mission"}.get(channel, channel),
+                         f"{when}T15:00:00Z")
 
         # One lane tried, then he slips again.
         slip_on("esc-tag", days_ago(6))
@@ -3970,10 +4010,11 @@ def s103_the_escalation_names_the_lane_that_is_left(sb: Path):
 
         # The lane list has exactly one owner.
         check("the commissionable lanes are one list, shared with the flag",
-              set(sl.DOSE_CHANNELS) == {"episode", "soak", "drill"}
-              and list(ss.DOSE_CHANNELS) == list(sl.DOSE_CHANNELS),
-              str(sl.DOSE_CHANNELS))
+              set(de.DOSE_CHANNELS) == {"episode", "soak", "drill"}
+              and list(ss.DOSE_CHANNELS) == list(de.DOSE_CHANNELS),
+              str(de.DOSE_CHANNELS))
     finally:
+        clear_listens()
         if saved[0] is not None:
             slip_path.write_bytes(saved[0])
         learner_path.write_bytes(saved[1])
@@ -5020,6 +5061,136 @@ def s123_lesson_recognition_keeps_its_context(sb: Path):
                 path.unlink(missing_ok=True)
             else:
                 path.write_bytes(data)
+
+
+def s124_an_escalation_needs_a_listen(sb: Path):
+    """ESCALATE means a dose was HEARD and he slipped anyway (2026-09-25).
+
+    It meant "commissioned" until a hand-run reflection joined slip dates to
+    listen events on the real ledger: all three nga-has-no-address slips predate
+    the only listen of the soak built for them, yet the digest told Anna "a dose
+    was built and he slipped again — change the format". `daily_session.md` says
+    a delivered dose is not a heard dose; this rule was the one place it did not
+    reach.
+
+    Gate 7.2 — the silent no-op is the opposite failure: with almost no listens
+    logged, ESCALATE goes quiet, and that must not read as "all healed". So the
+    digest's summary line is asserted on CONTENT, including a plain "0 heard".
+    Every case below drives the real ledger and re-reads the surface; the
+    rotation case is the mutation that the FIRST version of the join failed on
+    the real data (a word-only match counted a 25-word rotation as hearing the
+    soak)."""
+    print("\n124. An escalation needs a listen (2026-09-25)")
+    import contextlib
+    ss = importlib.import_module("sync_state")
+    sl = importlib.import_module("slips")
+    de = importlib.import_module("dose_evidence")
+    slip_path = sb / "progress" / "slip_log.json"
+    learner_path = sb / "progress" / "learner.json"
+    saved = (slip_path.read_bytes() if slip_path.exists() else None,
+             learner_path.read_bytes())
+
+    def days_ago(n):
+        return (ss.local_today() - timedelta(days=n)).isoformat()
+
+    def slip_on(tag, when):
+        with contextlib.redirect_stdout(io.StringIO()):
+            sl.append_slips([{"tag": tag, "said": "a", "want": "b"}],
+                            lane="chat", when=when)
+
+    def commission(tag, channel, when, payload):
+        with contextlib.redirect_stdout(io.StringIO()):
+            sl.record_slip_commission([tag], {"channel": channel, "payload": payload},
+                                      today=when)
+
+    def pat(tag):
+        return {p["tag"]: p for p in sl.slip_patterns()}[tag]
+
+    def digest():
+        return "\n".join(sl.format_slip_block(sl.slip_patterns(), limit=20))
+
+    try:
+        slip_path.write_text("[]", encoding="utf-8")
+        learner = read_json(learner_path)
+        for k in ("slip_closes", "slip_commissions"):
+            learner.pop(k, None)
+        learner["soak_order"] = {}
+        write_json(learner_path, learner)
+
+        # AWAITING: built after the recorder worked, nothing heard.
+        for tag in ("await-tag", "rot-tag", "frame-tag", "day-tag", "ep-tag"):
+            slip_on(tag, days_ago(6))
+            slip_on(tag, days_ago(5))
+        commission("await-tag", "soak", days_ago(4), ["வெயிட்"])
+        slip_on("await-tag", days_ago(1))
+        p = pat("await-tag")
+        check("a dose built and never heard is AWAITING, not failed",
+              p["dose_state"] == "awaiting" and not p["escalate"], str(p["dose_state"]))
+        check("...and the surface says it is not a failed treatment",
+              "not a failed treatment" in digest())
+
+        # WRONG LANE: a listen to a rotation carrying the payload word is not the soak.
+        commission("rot-tag", "soak", days_ago(4), ["ரோட்"])
+        plant_listen("ரோட்", "rotation", f"{days_ago(3)}T15:00:00Z")
+        slip_on("rot-tag", days_ago(1))
+        p = pat("rot-tag")
+        check("a rotation listen carrying a soak's word does NOT count as hearing the soak",
+              p["dose_state"] == "awaiting" and not p["escalate"], str(p["dose_state"]))
+
+        # A FRAME names a pattern, not a word: it can never be joined to a listen.
+        commission("frame-tag", "soak", days_ago(4), ["frame:we-om"])
+        plant_listen("frame:we-om", "soak", f"{days_ago(3)}T15:00:00Z")
+        slip_on("frame-tag", days_ago(1))
+        check("a frame-only payload never counts as heard",
+              pat("frame-tag")["dose_state"] == "awaiting")
+
+        # SAME-DAY: a slip on the listen's own day is not shown to follow it.
+        commission("day-tag", "drill", days_ago(4), ["டே"])
+        plant_listen("டே", "drill", f"{days_ago(2)}T15:00:00Z")
+        slip_on("day-tag", days_ago(2))
+        p = pat("day-tag")
+        check("heard, and a slip on the SAME day does not escalate",
+              p["dose_state"] == "heard" and not p["escalate"], str(p["escalate"]))
+        check("...the surface reports the listen and says test it",
+              "heard" in digest() and "test it" in digest())
+        slip_on("day-tag", days_ago(1))
+        check("...but a slip on a LATER day does escalate",
+              pat("day-tag")["escalate"])
+        check("...and the escalation names the listen, not just the dose",
+              "a dose was heard" in digest())
+
+        # EPISODE joins through the feed's own name for it.
+        commission("ep-tag", "episode", days_ago(4), ["என்ன சமைக்கிற?"])
+        plant_listen("என்ன சமைக்கிற", "mission", f"{days_ago(3)}T15:00:00Z")
+        slip_on("ep-tag", days_ago(1))
+        p = pat("ep-tag")
+        check("an episode dose is heard through the 'mission' listen, punctuation aside",
+              p["dose_state"] == "heard" and p["escalate"], str(p["dose_state"]))
+
+        # UNVERIFIABLE: every dose predates a working recorder.
+        slip_on("old-tag", "2026-07-01")
+        slip_on("old-tag", "2026-07-02")
+        commission("old-tag", "soak", "2026-07-03", ["ஓல்ட்"])
+        slip_on("old-tag", days_ago(0))
+        p = pat("old-tag")
+        check("a dose from before the recorder worked is UNVERIFIABLE and cannot escalate",
+              p["dose_state"] == "unverifiable" and not p["escalate"], str(p["dose_state"]))
+        check("...and the surface says its effect can never be known",
+              "never be known" in digest())
+
+        # LOUD ABSENCE: the counts are on the digest, zero included.
+        clear_listens()
+        out = digest()
+        check("the digest counts each dose state, and says 0 heard when none was",
+              "Dose evidence: 0 heard" in out and "awaiting attendance" in out
+              and "unverifiable" in out, [l for l in out.splitlines() if "Dose evidence" in l])
+        check("...and the summary survives the real CLI surface",
+              de.dose_summary(sl.slip_patterns()) in "\n".join(sl.format_slip_block(sl.slip_patterns())))
+    finally:
+        clear_listens()
+        if saved[0] is not None:
+            slip_path.write_bytes(saved[0])
+        learner_path.write_bytes(saved[1])
 
 
 def s116_a_tap_can_reach_the_real_feeds_words(sb: Path):

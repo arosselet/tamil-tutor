@@ -18,6 +18,8 @@ Layering: this imports from `state_io` only. `sync_state` imports FROM here
 import re
 from datetime import date, datetime
 
+from dose_evidence import (attended_events, dose_note, dose_summary,
+                           escalation_note, judge_dose)
 from state_io import (LEARNER_PATH, LEXICON_PATH, LOCAL_TZ, SLIP_LOG_PATH,
                       build_phonetic_index, load_json, local_today, resolve,
                       save_json)
@@ -35,19 +37,6 @@ SLIP_RETIRE_DAYS = 21
 # Recurrence that makes a slip a pattern rather than a one-off — the same bar
 # protocol/diagnosis.md sets for the system's own bugs: one is noise, two is signal.
 SLIP_PATTERN_COUNT = 2
-# The lanes a dose can be commissioned to, and the ONE list of them: read by
-# sync_state's --soak-channel choices and by escalation_note below, which names
-# the lanes not yet tried. It is one list because two copies of this rule is
-# exactly how the escalation came to name a lane by taste (2026-09-11): the
-# NEVER COMMISSIONED notice in the digest read "owed a soak order" while its
-# own sibling in `cmd_slips` read "owed a dose", and the digest is the copy Anna
-# reads at every close. Twelve consecutive orders went soak or drill and the
-# episode lane went 27 days unreached.
-DOSE_CHANNELS = ("episode", "soak", "drill")
-
-
-
-
 _TAG_RE = re.compile(r"[^a-z0-9]+")
 
 
@@ -268,6 +257,7 @@ def slip_patterns(log: list | None = None, today=None) -> list[dict]:
     today = today or local_today()
     closes = slip_closes()
     commissions = slip_commissions()
+    attended = attended_events()
     by_tag: dict[str, dict] = {}
     for row in log:
         tag = row.get("tag")
@@ -278,8 +268,9 @@ def slip_patterns(log: list | None = None, today=None) -> list[dict]:
             "lanes": [], "channels": [], "words": [], "examples": [], "notes": [],
             # rows that carry a legacy dose_channel: a slip made WHILE an order
             # stood, which is the pre-2026-07-31 evidence that a dose existed.
-            "dosed_rows": [],
+            "dosed_rows": [], "days": [],
         })
+        agg["days"].append(row.get("date") or "")
         if row.get("dose_channel"):
             agg["dosed_rows"].append((row.get("date") or "", row["dose_channel"],
                                       row.get("lane") or ""))
@@ -356,16 +347,15 @@ def slip_patterns(log: list | None = None, today=None) -> list[dict]:
             if c.get("channel") and c["channel"] not in agg["channels"]:
                 agg["channels"].append(c["channel"])
         agg["uncommissioned"] = agg["pattern"] and agg["live"] and not agg["channels"]
-        # ESCALATE means a dose was built and he slipped ANYWAY — so it needs a
-        # slip dated after a dose existed, not merely a dose and a live tag.
-        # Only a DECLARED commission counts as "a dose was built": a legacy
-        # dose_channel stamp says an unrelated order was standing, which is no
-        # evidence that this tag was ever treated. Without the date test,
-        # commissioning a debt today would instantly accuse the new dose of
-        # having failed, on evidence that predates it.
-        dosed_since = min(
-            [c["at"] for c in agg["commissions"] if c.get("at")] or [""]) or ""
-        agg["slipped_after_dose"] = bool(dosed_since) and (agg["last"] or "") > dosed_since
+        # ESCALATE means a dose was HEARD and he slipped ANYWAY (2026-09-25; it
+        # meant "commissioned" before, which accused doses nobody had played —
+        # see dose_evidence.py). Only a DECLARED commission is a dose at all: a
+        # legacy dose_channel stamp says an unrelated order was standing, which
+        # is no evidence that this tag was ever treated. And the slip must be
+        # dated a LATER DAY than the listen, or a dose would be accused of failing
+        # on evidence that predates it.
+        (agg["dose_state"], agg["heard_at"],
+         agg["slipped_after_heard"]) = judge_dose(agg["commissions"], agg["days"], attended)
         # `len(channels) == 1` until 2026-09-11, which had it backwards twice
         # over: the warning went SILENT once a second format had been tried —
         # the moment the pattern is worst-evidenced — and its one-lane premise
@@ -375,7 +365,7 @@ def slip_patterns(log: list | None = None, today=None) -> list[dict]:
         # notice says so, which is a different finding, not a quieter one.
         agg["escalate"] = (agg["pattern"] and agg["live"]
                            and bool(agg["channels"])
-                           and agg["slipped_after_dose"])
+                           and agg["slipped_after_heard"])
         out.append(agg)
     # Live first, then the unverified rechecks, then everything settled.
     out.sort(key=lambda a: (a["live"] and a["pattern"], a["unverified"],
@@ -383,29 +373,8 @@ def slip_patterns(log: list | None = None, today=None) -> list[dict]:
     return out
 
 
-def escalation_note(channels) -> str:
-    """"soak tried; drill and episode untried" — the half of the rule that says
-    change the format TO WHAT.
-
-    `audio_channels.md` has said "change the format, never loop harder" since
-    07-28, and both places that printed it named `channels[0]` — the OLDEST lane
-    tried — and then stopped, so the one question the reader has was the one
-    answer the ledger withheld while holding it in hand. Tried keeps the order
-    the doses were commissioned in; the remainder is listed in DOSE_CHANNELS
-    order. Every lane tried is not "no advice available": it says the repair has
-    outlived the audio surface, which is worth hearing plainly."""
-    tried = [c for c in channels if c in DOSE_CHANNELS]
-    left = [c for c in DOSE_CHANNELS if c not in tried]
-    if not tried:
-        return "a dose was built and he slipped again"
-    if not left:
-        return "every lane tried and it still slips — this has outgrown the audio lanes"
-    return f"{_and_join(tried)} tried; {_and_join(left)} untried"
-
-
-def _and_join(items) -> str:
-    items = list(items)
-    return ", ".join(items[:-1]) + " and " + items[-1] if len(items) > 1 else "".join(items)
+# `escalation_note`, `_and_join` and `DOSE_CHANNELS` moved to dose_evidence.py
+# (2026-09-25) — the advice half of the escalation law lives beside its evidence.
 
 
 def _span_days(first: str, last: str) -> int:
@@ -437,6 +406,8 @@ def format_slip_block(patterns: list[dict], limit: int = 6) -> list[str]:
                   "  These name what to TEACH next, not what to quiz: an explanation, a tape, or him",
                   "  volunteering it is what has closed one here — never being asked again.",
                   "  Explain the machine; the probe comes later, unannounced — a slip is still closed by firing right, unaided, and a recast never closes it."]
+        if summary := dose_summary(live):
+            lines.append("  " + summary)
     for p in live[:limit]:
         when = (f"{p['count']}× over {p['span_days']}d" if p["span_days"]
                 else f"{p['count']}×")
@@ -472,9 +443,11 @@ def format_slip_block(patterns: list[dict], limit: int = 6) -> list[str]:
                          f"--soak-payload … --soak-channel <lane> "
                          f"--slip-commissioned {p['tag']}")
         elif p["escalate"]:
-            lines.append(f"      ⚠ ESCALATE — a dose was built and he slipped "
-                         f"again: {escalation_note(p['channels'])}. "
+            lines.append(f"      ⚠ ESCALATE — a dose was heard ({p['heard_at'][:10]}) and "
+                         f"he slipped again: {escalation_note(p['channels'])}. "
                          f"audio_channels.md: change the format, never loop harder.")
+        elif note := dose_note(p):
+            lines.append(f"      {note}")
     if len(live) > limit:
         lines.append(f"  … {len(live) - limit} more live slip(s) behind these")
     if unverified:
@@ -543,7 +516,10 @@ def cmd_slips(args):
         if p["uncommissioned"]:
             print("        ⚠ NEVER COMMISSIONED — owed a dose, not another recast.")
         elif p["escalate"]:
-            print(f"        ⚠ ESCALATE — {escalation_note(p['channels'])}.")
+            print(f"        ⚠ ESCALATE — heard {p['heard_at'][:10]}, slipped since: "
+                  f"{escalation_note(p['channels'])}.")
+        elif note := dose_note(p):
+            print(f"        {note}")
         if p["unverified"]:
             print("        ○ never confirmed landed — test it, then --tested "
                   f"{p['tag']}:landed|missed")

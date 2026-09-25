@@ -203,6 +203,7 @@ def main():
         run(state.s121_a_read_word_is_never_an_ear_stamp, sb)
         run(render.s122_lesson_audio_cli, sb)
         run(state.s123_lesson_recognition_keeps_its_context, sb)
+        run(state.s124_an_escalation_needs_a_listen, sb)
         run(state.s116_a_tap_can_reach_the_real_feeds_words, sb)
 
     if fx.ONLY and not fx.RAN:

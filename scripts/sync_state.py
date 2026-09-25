@@ -36,7 +36,8 @@ from datetime import date, timedelta
 from pathlib import Path
 
 from language import is_tamil
-from slips import (DOSE_CHANNELS, append_slips, canon_tag, cmd_slips,
+from dose_evidence import DOSE_CHANNELS
+from slips import (append_slips, canon_tag, cmd_slips,
                    parse_slip_args, record_slip_commission, record_slip_test,
                    slip_patterns)
 from publish import commit_and_push, publish

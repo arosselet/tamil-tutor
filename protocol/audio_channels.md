@@ -26,8 +26,8 @@ and what actually broke — never the bare fact that two words sound alike:
 | He hears them fine, his mouth takes the wrong one | **episode** — the word doing work under load |
 | He has it, he's just slow | **drill** — the silence is the demand |
 
-- **The same mistake twice through one format is that format's answer.** Change format;
-  never loop harder — the ledger counts recurrences and flags this ESCALATE. *"Using them
+- **The same mistake after a heard dose is that format's answer.** Change format;
+  never loop harder — the ledger flags ESCALATE only after a listen. *"Using them
   in context can be very effective for sticking in my brain"* (2026-07-28, Andrew) — a
   collision is not a standing order for repetition.
 - **A drill's silence is a demand.** The gap only works if he can speak out loud; in

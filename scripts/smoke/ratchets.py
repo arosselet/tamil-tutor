@@ -298,6 +298,8 @@ CODE_BUDGETS = {
     # NEW FILE, budgeted in the same diff that creates it (2026-08-28, Andrew). · 20 -> 35 (2026-09-03).
     "scripts/language.py": 35,
     "scripts/slips.py": 300,
+    # NEW FILE, budgeted in the same diff that creates it (2026-09-25). Split out of slips.py, which sat at 299/300: the attendance join is its own job (it reads observations.json, not the slip ledger) and took the escalation advice with it. slips.py NET-RETIRED lines to make room.
+    "scripts/dose_evidence.py": 60,
     # 250 -> 254 (2026-09-13): the DOSE line — minutes he actually played, the
     # first contact meter this brief has ever carried. The ear-block line beside
     # it counts DAYS and cannot tell one tap on a 3-minute payoff from a
@@ -850,6 +852,10 @@ LAYERS = {
     "render_chat":        1,      # L1 pure renderers over one source of truth
     "rebuild_rss":        1,
     "generate_callbacks": 1,
+    # Was the dose HEARD? (2026-09-25). Reads the observation log (0.5) and is read
+    # by the slip ledger (1), so it sits between them: the day it reaches up for the
+    # ledger it is asking a slip whether a dose worked, and the edge fails here.
+    "dose_evidence":      0.9,
     "slips":              1,
     # The month object (2026-09-17). It reads L0 and the lexicon's DERIVED rungs
     # and is read by selection, the one writer and the read surfaces. Numbered
