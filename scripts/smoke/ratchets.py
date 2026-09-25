@@ -300,6 +300,10 @@ CODE_BUDGETS = {
     "scripts/slips.py": 300,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-25). Split out of slips.py, which sat at 299/300: the attendance join is its own job (it reads observations.json, not the slip ledger) and took the escalation advice with it. slips.py NET-RETIRED lines to make room.
     "scripts/dose_evidence.py": 60,
+    # NEW FILE, budgeted in the same diff that creates it (2026-09-25). Census
+    # 155, budgeted 160: the headroom is for wiring the next lane's argv, not
+    # for opinions — the router validates and runs; it never judges a brief.
+    "scripts/commissions.py": 160,
     # 250 -> 254 (2026-09-13): the DOSE line — minutes he actually played, the
     # first contact meter this brief has ever carried. The ear-block line beside
     # it counts DAYS and cannot tell one tap on a 3-minute payoff from a
@@ -917,6 +921,12 @@ LAYERS = {
     "render_rotation":    5.5,
     "run_studio":         5.5,
     "render_demo":        5.5,
+    # The commission router (2026-09-25): claims one due commission per tick and
+    # runs its lane script as a SUBPROCESS — no import edge to any lane — and
+    # borrows push_queue.commit_and_push for the lifecycle commits. Beside the
+    # lanes it drives; the day it imports one, the edge reads as upward and
+    # fails here.
+    "commissions":        5.5,
 
     "session_brief":      6,      # read surfaces, above everything
     "show_status":        6,
