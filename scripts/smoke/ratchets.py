@@ -1418,3 +1418,125 @@ def s118_the_heist_left_the_voice_canon(sb: Path):
           m and int(m.group(1)) < 1750,
           f"persona budget is {m and m.group(1)} — the 09-19 raise was kept, so the "
           f"split freed room and nothing reclaimed it")
+
+
+# Retired claims that must not survive anywhere but the decision that retired them
+# (2026-09-25). One row per supersession, added IN THE DIFF that supersedes:
+# (the decision that retired it, the phrases that carried it). A phrase is matched
+# with case, whitespace, backticks and comment markers folded away, so a docstring
+# wrapped across lines is still caught. This file is exempt — it holds the phrases.
+TOMBSTONES = (
+    ("2026-09-10 The floor reads evidence like the ear (the 08-27 asymmetry retired)",
+     ("the floor keeps reading the claim",
+      "deliberately not applied to compute_floor",
+      "the viability floor deliberately does not take this rule")),
+)
+
+# Where a retired claim could still be read as law: every surface an agent or a
+# fork is told to trust. DECISIONS.md and the reflections are history, not law.
+_LAW_GLOBS = ("scripts/**/*.py", "protocol/**/*.md", ".claude/**/*.md", "docs/*.md",
+              "references/**/*.md", "content/household.md", "*.md")
+_HISTORY = {"docs/DECISIONS.md", "scripts/smoke/ratchets.py"}
+
+
+def _fold(text: str) -> str:
+    return re.sub(r"[\s#>*`]+", " ", text).lower().strip()
+
+
+def _tombstone_hits(sources: dict[str, str]) -> list[str]:
+    """`file — phrase (decision)` for every retired phrase still standing."""
+    hits = []
+    for name, text in sorted(sources.items()):
+        folded = _fold(text)
+        for decision, phrases in TOMBSTONES:
+            hits += [f"{name} — “{p}” ({decision})" for p in phrases if _fold(p) in folded]
+    return hits
+
+
+_MAP_FILE = re.compile(r"`([\w./-]+\.(?:py|md|json|yml))`")
+
+
+def _map_findings(map_text: str, mapped: list[str], present: set[str]):
+    """(files the map never names, file names the map cites that do not exist).
+
+    `mapped` are repo-relative paths the map must name; `present` is every path in
+    the tree. A bare name is found by basename; a name with a slash by exact path.
+    """
+    omitted = [f for f in mapped
+               if not re.search(r"(?<![\w-])" + re.escape(Path(f).name) + r"(?!\w)", map_text)]
+    base = {Path(p).name for p in present}
+    dead = sorted({t for t in _MAP_FILE.findall(map_text)
+                   if (t not in present if "/" in t else t not in base)})
+    return omitted, dead
+
+
+def s125_the_map_is_complete_and_retired_claims_stay_retired():
+    """Two disciplines that only prose was holding (2026-09-25).
+
+    WHAT IT CAUGHT. Measured the day this was written: `PROTOCOL_MAP.md` cited no
+    dead file, yet eight scripts and two protocol files were absent from it —
+    including `dose_evidence.py`, built the same day. Drift in a map is OMISSION
+    far more than staleness, and a check that only asks "does everything the map
+    names still exist?" passes on a map that describes half the tree. So the check
+    runs both ways. `/extend` Gate 5 says "if the map is wrong, fix it in the same
+    diff"; the diff that adds a script now cannot go green without the row.
+
+    THE SECOND HALF. `sync_state.is_heard` still told a reader that the floor
+    "keeps reading the claim ... the design, not an oversight" a fortnight after
+    the 09-10 decision retired exactly that, and a second docstring in `s53`
+    promised a failure that no longer happens. Every identifier in both was live,
+    so a dead-reference sweep could not have seen them (DECISIONS.md measured that
+    on 09-20: 1 of 296 entries names a dead symbol, and it is a false positive).
+    A retired claim is found by its WORDS, and only the diff that retires it knows
+    them, so `TOMBSTONES` takes one row per supersession.
+
+    THE SILENT NO-OP, answered: both scans are proved to have found something
+    before their emptiness means anything, and both are driven on a synthetic tree
+    that has already drifted, so a checker that can no longer fire cannot pass."""
+    print("\n125. The map names every file; a retired claim stays retired (2026-09-25)")
+    scripts = sorted(p.relative_to(REAL_BASE).as_posix()
+                     for p in (REAL_BASE / "scripts").glob("*.py"))
+    protocol = sorted(p.relative_to(REAL_BASE).as_posix()
+                      for p in (REAL_BASE / "protocol").rglob("*.md"))
+    present = {p.relative_to(REAL_BASE).as_posix() for p in REAL_BASE.rglob("*")
+               if p.is_file() and ".git" not in p.relative_to(REAL_BASE).parts}
+    map_text = (REAL_BASE / "docs" / "PROTOCOL_MAP.md").read_text(encoding="utf-8")
+
+    check("the sweep still sees the tree it is guarding",
+          len(scripts) > 30 and len(protocol) > 10 and len(_MAP_FILE.findall(map_text)) > 30,
+          f"{len(scripts)} scripts, {len(protocol)} protocol files, "
+          f"{len(_MAP_FILE.findall(map_text))} map citations — the emptiness below "
+          f"would be free")
+    omitted, dead = _map_findings(map_text, scripts + protocol, present)
+    check("every script and protocol file is named in PROTOCOL_MAP.md",
+          not omitted, f"{', '.join(omitted)} — add its row to docs/PROTOCOL_MAP.md "
+          f"in the diff that adds the file, or the next reader is told the map is whole")
+    check("...and the map cites no file that does not exist",
+          not dead, f"{', '.join(dead)} — fix the map, or drop the backticks if the "
+          f"file is named as history")
+
+    o, d = _map_findings("`a.py` and `gone/x.md`", ["a.py", "new.py"], {"a.py"})
+    check("...and the check fires both ways on a map that has drifted",
+          o == ["new.py"] and d == ["gone/x.md"], f"got omitted={o}, dead={d}")
+
+    sources = {}
+    for pattern in _LAW_GLOBS:
+        for p in REAL_BASE.glob(pattern):
+            rel = p.relative_to(REAL_BASE).as_posix()
+            if p.is_file() and rel not in _HISTORY:
+                sources[rel] = p.read_text(encoding="utf-8", errors="replace")
+    check("the tombstone sweep still reads the surfaces it guards",
+          "scripts/sync_state.py" in sources and "protocol/persona.md" in sources
+          and "docs/PROTOCOL_MAP.md" in sources, f"read {len(sources)} files")
+    hits = _tombstone_hits(sources)
+    check("no retired claim is still stated as law", not hits,
+          "; ".join(hits) + " — rewrite it to say what is true now, and if it is "
+          "history keep it in DECISIONS.md, which is exempt")
+    check("...and every tombstone carries a phrase to look for",
+          all(d and ps and all(_fold(p) for p in ps) for d, ps in TOMBSTONES),
+          "an empty phrase matches every file; an empty row matches none")
+    check("...and the sweep fires on a wrapped docstring, and only on that",
+          _tombstone_hits({"x.py": '"""\n    the floor\n    keeps  reading the CLAIM.\n"""',
+                           "y.py": "the floor reads evidence"}) ==
+          [f"x.py — “{TOMBSTONES[0][1][0]}” ({TOMBSTONES[0][0]})"],
+          "a sweep that cannot see a retired claim is the state it exists to prevent")

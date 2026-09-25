@@ -102,7 +102,8 @@ touching; edit only that file. (`docs/DECISIONS.md` → "Surgical edits to the r
 
 The owner is in `docs/PROTOCOL_MAP.md` — the only map (2026-09-10; the routing table
 this gate used to carry had drifted from it). If the map is wrong, fix the map in the
-same diff.
+same diff — `s125` is red on any script or protocol file the map omits. A decision that
+supersedes a claim adds its `TOMBSTONES` row (`scripts/smoke/ratchets.py`) in the same diff.
 
 ---
 

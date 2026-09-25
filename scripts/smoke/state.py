@@ -1481,11 +1481,9 @@ def s53_evidence_gates_the_ear(sb: Path):
           believed correct for two months. So a row WITHOUT evidence must be
           asserted NOT to count, at the same `solid` rating.
 
-    And the third teeth, the one a later tidy-up will reach for: the viability
-    floor deliberately does NOT take this rule. Gating the floor's denominator on
-    evidence collapses it from 49/58 to about 3/5 — a number that measures
-    nothing. The asymmetry is the design; this case fails if someone makes the two
-    meters consistent.
+    The floor took no part in this rule from 08-27 to 09-10, when the asymmetry
+    retired: `recognition` is now the log's fold, so the floor reads evidence like
+    the ear. A rung the log never spoke to stands in it, asserted below.
 
     Round-tripped through the real writer, per the s41 lesson: the stamp is driven
     with `cmd_update`, then re-read off the file rather than off the dict."""

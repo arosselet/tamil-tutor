@@ -151,12 +151,13 @@ def is_heard(rec: dict) -> bool:
     the eavesdrop judge), so an assertion is now DERIVED — a level with no date —
     rather than stored as a flag that would drift.
 
-    DELIBERATELY NOT APPLIED TO `compute_floor` (2026-08-27). The floor asks "of
-    the words we think he knows, how many can he say" — a soft claim is fine in
-    that denominator, and gating it on evidence would collapse it from 49/58 to
-    about 3/5 overnight, which measures nothing. The ear meter reads evidence;
-    the floor keeps reading the claim. That asymmetry is the design, not an
-    oversight — do not "fix" it into consistency.
+    THE FLOOR NOW READS EVIDENCE TOO (2026-09-10). From 08-27 `compute_floor`
+    deliberately kept the claim, because gating its denominator on evidence
+    collapsed it from 49/58 to about 3/5. That asymmetry retired with the
+    mutated ledger: `recognition` is now the fold of the observation log, so
+    the floor reads evidence like the ear, and it is `heard_on` alone that
+    separates a listened rung from a typed one. A rung the log has never
+    spoken to still stands, which only a fixture can produce.
     """
     return rec.get("recognition") == "solid" and bool(rec.get("heard_on"))
 

@@ -22,6 +22,8 @@ protocol/
 ├── persona.md          Anna — the one persistent voice (elder brother, he/him)
 ├── user.md             Who Andrew is to this family — the one home, IN the voice canon
 ├── toolbelt.md         Anna's reach — SESSION ONLY, never in the voice canon
+├── heist.md            The secret and its ops — SESSION ONLY, out of the voice canon (2026-09-20)
+├── learner_contract.md Andrew's half: the two anchors, the one habit asked, what he is owed — session only
 ├── constitution.md     Universal law: philosophy, tactical & canonical rules
 ├── daily_session.md    The comprehension-led session (opening gift, teaching, optional probes, arc)
 ├── diagnosis.md        The healing loop: feedback ledger → dial / prune / propose (periodic, evidence-gated)
@@ -101,6 +103,8 @@ Anna can commission the studio end-to-end mid-session; the subagent also runs st
 **No lane is a foundation.** `morning_knock.py` had become one — four peers imported seven names from it, none of them knock-shaped — and `s92` now asserts it has no importers at all. `s75` could not catch that: three of the four borrowers sit *above* the knock lane, so importing down from them was legal and silent. The law it broke was the other one — *a channel never owns an invariant that more than one channel obeys* — and until 2026-09-04 nothing had teeth on it. `push_queue`, `reply_common` and `memo` are still imported by design; they are a store's public API and two files that exist to be shared.
 
 Read surfaces above the brain: `session_brief.py` (the agent-facing `status` load) · `show_status.py` (human dashboard).
+
+**Beside the stack — each has one job (mapped 2026-09-25, when `s125` began failing on any script the map omits):** `month.py` (the arc's month: membership and completion are folds, nothing stored beyond its dates) · `dose_evidence.py` (was the dose HEARD — the evidence half of the slip ledger's escalation law, joined by lane) · `knock_message.py` (the MESSAGE lane: Andrew talking TO Anna, nothing graded) · `reply_common.py` (what every inbound lane shares — answering aloud, the audio-request backstop, the meta-direction writer; split from `knock_reply.py`) · `audio_titles.py` (what a soak, drill or rotation is CALLED; one writer, `lanes.deliver_rendered`) · `render_chat.py` (`progress/chat.md`, derived from `knock_log.json`; never hand-edit) · `render_demo.py` (showcase scripts to MP3 with no lifecycle hooks — touches no state, reaches no feed) · `smoke_test.py` (the dispatcher; the cases live in `scripts/smoke/`).
 
 **Short interactive listening (2026-09-21):** `lesson_audio.py` accepts an authored
 script and uses `memo.render_memo`; it renders locally by default, optionally publishes

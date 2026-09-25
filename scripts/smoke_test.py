@@ -204,6 +204,7 @@ def main():
         run(render.s122_lesson_audio_cli, sb)
         run(state.s123_lesson_recognition_keeps_its_context, sb)
         run(state.s124_an_escalation_needs_a_listen, sb)
+        run(ratchets.s125_the_map_is_complete_and_retired_claims_stay_retired)
         run(state.s116_a_tap_can_reach_the_real_feeds_words, sb)
 
     if fx.ONLY and not fx.RAN:
