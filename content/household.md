@@ -86,21 +86,23 @@ Things that are true, that scripts may not contradict. Short on purpose.
 > the situation, what the finale resolves, and which everyday domains it
 > naturally exercises. **It never lists words** — the ticket owns those.
 
-**September prelude — The spare key.** Priya needs the scooter for an errand, Karthi
-says its spare key is upstairs, and Deepa is sure Mama moved it beside the lunch
-boxes. A search through an ordinary afternoon carries who put what where, who has
-already left, and who is coming back. Each scene stands alone; the small payoff is
-finding the key and discovering who actually needs the scooter.
+**October — Paati turns seventy-five.** Mama wants a small lunch at home, Athai's guest
+list grows every time the phone rings, and Paati says she wants no fuss while quietly
+inviting people herself. Deepa and Ravi are running a secret present on money Karthi
+borrowed, which is really Mama's. Visitors arriving and where they sleep, cooking for
+far too many, the check-up Mama insists Paati does not need, errands and who pays for
+them, plans that change by the day. Each scene stands alone and ranges across the
+house; the finale is the lunch itself: who came, what went wrong, and what Paati
+actually wanted.
 
-This is available immediately, not a claim that Andrew heard an episode. October's
-first full month opens in the `down` phase with the children near its centre.
+Cut early 2026-09-25. Opens in the `down` phase, children near its centre.
 
 ### Beat log
 
 > One line per rendered episode, appended by the Producer pass after render,
 > saying what happened. This is the continuity — callbacks are read from here.
 
-- 2026-09-22 · M94 — Priya returns with milk from her bus errand; Karthi's second bus plan becomes tea at home, and she tells him about the plant that got a window seat.
+*(empty)*
 
 ---
 
@@ -108,7 +110,7 @@ first full month opens in the `down` phase with the children near its centre.
 
 One line each. The detail lives in git.
 
-*(none yet)*
+- **September prelude — The spare key** (09-19 to 09-25). Mama took the scooter; everyone walked for ice cream. Closed early: one prop narrowed everything.
 
 ---
 

@@ -19,13 +19,13 @@
 **Read the lean before picking targets.** The year's current phase names a direction of address — **down** to the children, **across** to the siblings-in-law, **up** to the elders — and the pool's ordering is prefixed by it. Those are three rooms with three different moving parts and three different levels of social risk, and the order is deliberate: the children first, because a nine-year-old tolerates error completely and cannot switch to English out of kindness.
 ---
 
-## The Arc — The Spare Key
+## The Arc — Paati Turns Seventy-Five
 
 > **Contract:** `protocol/daily_session.md` → "The Arc". Anna writes the premise at the month cut; Andrew overrides at will. One block, **1,000 words** (`s18`): what is happening in the household, and the live medicine.
 >
-> **Use the September prelude now:** `content/household.md` → This arc owns the premise. October still starts the first full month; no calendar gate delays the story. Nothing has yet been rendered or heard from this prelude.
+> **October, cut early 2026-09-25:** `content/household.md` → This arc owns the premise. The spare-key prelude closed because it narrowed to one prop (Andrew, 09-25: *"too easy… too focused on this narrow narrative… the scooter and keys"*). Nothing from this arc has been rendered or heard yet.
 
-**Next open:** coffee-and-lore first, then a self-contained moment from the prelude. Anna supplies context; Andrew owes no recap. The household's ordinary wants carry the scene. The repairs below are available teaching material, not its plot or a checklist.
+**Next open:** coffee-and-lore first, then a self-contained moment from anywhere in the birthday build-up. **Do not chain scenes:** the debrief's NEXT names a room or a domain, never "the next beat of last session's scene"; consecutive sessions land in different rooms (kitchen, phone call, terrace, clinic, errand). **Pitch it harder than the prelude:** a short playable clip before any text where possible, a multi-turn exchange at table length, glosses only for what the context cannot answer, and the check held back until after something else has happened. Anna supplies context; Andrew owes no recap. The repairs below are available teaching material, not its plot or a checklist.
 
 **Live medicine:**
 - `respect-nga` → re-read 09-11 as **`nga-has-no-address`**. He did not fail to learn the ending; he learned it too well and now sprays it at the nearest word — onto nouns (*nandri-nga*, *semayanga*) and onto his own actions (*sonnanga*, which hands the line to somebody else). The matched-pair drill taught the ending and never taught it a **target**, so escalation is a **decomposition**, not another loop: one root, every tail, who each tail points at (-ren me, -nga you, -aanga them). **வா stays out of every chat production slot until the ambush — still unspent, and it only counts unannounced.**
