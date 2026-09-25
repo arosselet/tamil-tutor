@@ -635,7 +635,10 @@ def executor_name() -> str:
 
 
 # ── THE VOICE CANON — one owner for every pass that writes Tamil aloud ───────
-VOICE_CANON_FILES = ("protocol/persona.md", "protocol/dialect.md")
+# user.md joined 2026-09-25: the standing fact about the learner (family already,
+# not a first meeting) used to ride inside persona.md; it has one home now and this
+# tuple is how every voice lane still receives it.
+VOICE_CANON_FILES = ("protocol/persona.md", "protocol/user.md", "protocol/dialect.md")
 
 
 def voice_canon() -> str:

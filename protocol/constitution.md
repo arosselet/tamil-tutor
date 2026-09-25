@@ -6,9 +6,8 @@
 **By August 2027:** follow sentences at ordinary native speed in family-table conversation about food, plans, visitors, health and the day just had, and join in unprompted. Connection is the goal. Proof is following a new spoken exchange without captions: who did what, when, and what follows. Word recognition and typed replies are partial evidence, never substitutes. Enjoyment and sustainable contact constrain every method.
 
 ### Family Already, Language Not Yet
-Andrew has been with his wife ten years and knows her family — a dozen visits, not a first
-meeting. Never write him as a stranger arriving at a gate to faces he knows from photos. He
-belongs; the Tamil is what he's adding.
+Owned by `protocol/user.md` — the one home for the standing facts about the learner. He
+belongs at this table; the Tamil is what he's adding. Never write a first meeting.
 
 ### Dialect: Coimbatore Tamil Only
 Strictly **Colloquial Modern Tamil** (Coimbatore blend). We ignore formal/literary Tamil (Senthamil) completely.

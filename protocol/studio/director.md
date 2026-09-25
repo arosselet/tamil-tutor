@@ -1,9 +1,10 @@
 # Role: The Director
 
 > **Reads from:**
-> - `protocol/constitution.md` → "Family Already, Language Not Yet" — the standing fact about
->   who Andrew is to this family. Scenario Context is where a first-arrival framing gets
->   invented (M81 did exactly that); the constitution is the only thing that stops it.
+> - `protocol/user.md` — the standing fact about who Andrew is to this family. Scenario
+>   Context is where a first-arrival framing gets invented (M81 did exactly that); this
+>   file is the only thing that stops it.
+> - `protocol/constitution.md` — canonical rules and the comprehension goal
 > - `progress/profile.md` — learner calibration, active gaps, terrain covered
 > - `progress/learner.json` — the soak order, the running story (`last_debrief`), recent missions
 > - `content/scripts/*.tags.json` — last 3-5 missions' structural metadata

@@ -42,7 +42,8 @@ PROSE_BUDGETS = {
     # same split `toolbelt.md` took on 2026-09-03, for the reason that file
     # already states. What made the cost visible was the section growing by a
     # third when somatic anchors came back the day before.
-    "protocol/persona.md": 1620,
+    # 1620 -> 1480 (2026-09-25): RE-CENSUSED DOWN. Ten Years In left for `protocol/user.md`, the one home for the standing fact it shared with the constitution.
+    "protocol/persona.md": 1480,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-20). 600
     # rather than the 541 census: headroom for ops, not for a second job. If
     # this file starts explaining Anna's VOICE it has grown back into the one
@@ -50,12 +51,15 @@ PROSE_BUDGETS = {
     "protocol/heist.md": 600,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-03) — the prose half of the law CODE_BUDGETS has enforced since 2026-08-23.
     "protocol/toolbelt.md": 600,
+    # NEW FILE, budgeted in the same diff that creates it (2026-09-25). Census 219. It ships in `voice_canon()` to ten call sites, so every word is paid ten times: standing facts only, no commitments (`learner_contract.md`) and no live state.
+    "protocol/user.md": 240,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-09).
     "protocol/learner_contract.md": 605,
     # Budgeted 2026-09-03, not because it grew but because the completeness sweep added below demanded it: this file has been unbudgeted since it was written, and nothing could see …
     "protocol/diagnosis.md": 400,
     # 1750 -> 1790 (2026-08-04): FIRST raise of this ceiling, and the growth is a class of content no protocol file owned — a standing fact about the learner's …
-    "protocol/constitution.md": 1790,
+    # 1790 -> 1760 (2026-09-25): RE-CENSUSED DOWN. The 2026-08-04 raise above was this very fact; it now lives once, in `protocol/user.md`.
+    "protocol/constitution.md": 1760,
     # 1250 -> 1320 (2026-08-25, Andrew).
     # 1320 -> 1460 (2026-09-19): the household. This file gained a job — the
     # session now has a SETTING, and the contract for it (a premise that names
@@ -668,40 +672,59 @@ def s52_andrew_is_family_already(sb: Path):
 
     The silent no-op: if this prose is dropped in a later edit, nothing breaks,
     nothing warns, and the episodes quietly go back to writing him as a guest.
-    So the fact is asserted where each role actually reads. The three surfaces
-    are not redundant — they are three separate readers: Anna and every Python
-    dose inline `persona.md` and never see the constitution; the Architect reads
-    the constitution; the Director read NEITHER, which is why the brief invented
-    "the expected chaotic joy of a first meeting."
+    So the fact is asserted where each role actually reads. The surfaces are
+    separate readers: Anna and every Python dose take `voice_canon()` and never
+    see the constitution; the Architect reads the constitution; the Director
+    read NEITHER, which is why the brief invented "the expected chaotic joy of a
+    first meeting."
+
+    2026-09-25: the fact used to be stated TWICE, in `persona.md` and in the
+    constitution, and this case pinned both copies. It now has ONE home,
+    `protocol/user.md` — a fact stated twice is a fact that drifts. What has to
+    stay true is unchanged (every reader still receives it); what changed is the
+    route, so the assertions follow the route: the canon SEAM carries it to the
+    voice lanes, and the studio roles cite the one file.
     """
     print("\n52. Andrew is ten years into this family, not arriving (2026-08-04)")
     # Flattened: the prose is hard-wrapped, so a phrase can straddle a newline.
-    canon = " ".join((sb / "protocol" / "constitution.md")
-                     .read_text(encoding="utf-8").split())
-    check("the constitution owns the standing fact",
-          "Family Already, Language Not Yet" in canon and "ten years" in canon)
+    user = " ".join((sb / "protocol" / "user.md").read_text(encoding="utf-8").split())
+    check("user.md owns the standing fact",
+          "Family Already, Language Not Yet" in user and "Ten years" in user)
     check("...and forbids the first-meeting framing outright",
-          "not a first meeting" in canon and "stranger arriving" in canon)
+          "not a first meeting" in user and "stranger arriving" in user
+          and "not new to this family" in user and "auditioning for entry" in user)
+    check("...and the place is his: no 'earning his place' framing",
+          "earning his place at the table" not in user)
 
-    # persona.md is the ONLY protocol file morning_knock / knock_reply /
-    # render_drill / render_soak inline, so a pointer here would reach nothing.
+    # THE EFFECT, not the file: every voice lane gets its persona from the one
+    # seam, so the fact must be IN what the seam returns. Real tree, like s90.
+    import writer as w
+    canon = w.voice_canon()
+    check("voice_canon() carries the standing fact to every voice lane",
+          "not new to this family" in " ".join(canon.split()),
+          "a lane inlining persona + dialect alone writes him as a guest again, "
+          "every instrument green")
+
+    # One home means one copy: the two old ones must stay gone.
     persona = (sb / "protocol" / "persona.md").read_text(encoding="utf-8")
-    check("persona.md states it in full, not as a cross-reference",
-          "not new to this family" in persona and "auditioning for entry" in persona,
-          "the doses inline persona.md alone — a pointer to the constitution is a "
-          "dangling reference at knock time")
-    check("...and the Heist no longer says he is earning his PLACE",
-          "earning his place at the table" not in persona,
-          "the place is his; the respect for the language is what's earned")
+    constitution = " ".join((sb / "protocol" / "constitution.md")
+                            .read_text(encoding="utf-8").split())
+    check("persona.md no longer carries its own copy",
+          "auditioning for entry" not in persona and "Ten Years In" not in persona)
+    check("...nor does the constitution, which points at user.md",
+          "auditioning for entry" not in constitution
+          and "protocol/user.md" in constitution,
+          "the Architect reaches user.md through this citation")
 
     # The Director writes Scenario Context — the field the first-meeting framing
     # was actually invented in — and its Reads-from list is its whole context.
-    director = (sb / "protocol" / "studio" / "director.md").read_text(encoding="utf-8")
-    head = director.split("**Goal:**")[0]
-    check("the Director's Reads-from now includes the constitution",
-          "constitution.md" in head,
-          "Scenario Context invents the framing; without this line the Director "
-          "reads only profile.md + learner.json and cannot know")
+    for role in ("director", "architect"):
+        src = (sb / "protocol" / "studio" / f"{role}.md").read_text(encoding="utf-8")
+        head = src.split("**Goal:**")[0]
+        check(f"the {role.title()}'s Reads-from cites user.md",
+              "protocol/user.md" in head,
+              "Scenario Context invents the framing; without this line the role "
+              "cannot know")
 
 
 def s78_the_open_gives_before_it_takes(sb: Path):

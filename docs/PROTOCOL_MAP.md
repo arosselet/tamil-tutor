@@ -20,6 +20,7 @@ The system splits cleanly into **conversation** (Anna — always-on, small) and 
 ```
 protocol/
 ├── persona.md          Anna — the one persistent voice (elder brother, he/him)
+├── user.md             Who Andrew is to this family — the one home, IN the voice canon
 ├── toolbelt.md         Anna's reach — SESSION ONLY, never in the voice canon
 ├── constitution.md     Universal law: philosophy, tactical & canonical rules
 ├── daily_session.md    The comprehension-led session (opening gift, teaching, optional probes, arc)

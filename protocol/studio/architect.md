@@ -2,6 +2,7 @@
 
 > **Reads from:**
 > - `protocol/studio/hosts.md` — cast definitions for all four voices
+> - `protocol/user.md` — who Andrew is to this family (never a first meeting)
 > - `protocol/constitution.md` — canonical rules (Woven Thanglish, No Meta-Narration). Fourth-wall & Tamil-script-only now live in `hosts.md` (already read above).
 > - `content/household.md` — THE CANON: who the Intercept's speakers are, how each one talks, and the voice pinned to each.
 

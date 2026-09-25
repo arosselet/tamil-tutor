@@ -122,6 +122,10 @@ def s28_cloud_writer(sb: Path):
     director_inlined = rs.inline_canon(rs.DIRECTOR.format(ticket="TICKET"))
     check("inline_canon follows a role file's OWN citation (the constitution)",
           "===== protocol/constitution.md =====" in director_inlined)
+    check("...and the standing fact about the learner, from its one home (2026-09-25)",
+          "===== protocol/user.md =====" in director_inlined
+          and "===== protocol/user.md =====" in rs.inline_canon(
+              "Read protocol/studio/architect.md now"))
     check("...and carries the calibration dials the Director calls LAW",
           "===== progress/profile.md =====" in director_inlined)
     check("...and the soak order it is told to read",
