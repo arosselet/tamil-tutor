@@ -7634,5 +7634,23 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-09-25T17-42.mp3",
     "memo_script": "அட, நம்ம கார்த்தி இருக்கான்ல்ல, அவனுக்குத்தான் இந்த வண்டி பிரச்சினை எல்லாம். ஸ்பேர் சாவி வேற காணோம்.\n\nபிரியா பஸ்-ல போய் பாலு வாங்கிண்டு வந்துச்சு. கார்த்தி வீட்ல இருந்தான், எங்கியும் போகல.\n\nமாமா வண்டி எடுத்துண்டு போயிட்டாரு. இப்போ சொல்லு, யாருக்கு இந்த வண்டி வேணும்னு தெரியுமா?\n\nநானும் அதே தான் கேக்குறேன். சரி சரி, பாக்கலாம் இன்னிக்கு மாலை என்ன ஆகுதுன்னு.",
     "mp3": "published_audio/knocks/knock_2026-09-25T17-42.mp3"
+  },
+  {
+    "date": "2026-09-25",
+    "timestamp": "2026-09-25T23:49:41.118768+00:00",
+    "acted": true,
+    "modality": "audio",
+    "move": "echo: venum-venaam turn",
+    "rationale": "Eavesdrop already spent today's ask-slot; this gift takes today's venum/venaam thread one generalizing step further via a fresh Ravi scene, no quiz — fresh vein (none of today's four used), landing before the 21:00 window closes.",
+    "decide_model": "anthropic/claude-sonnet-5",
+    "next_check": "2026-09-26T11:49:41.118768+00:00",
+    "body": "Ravi 'ice cream venum!' kekraan — venum vs venaam, neeyum therinja pattern dhaan 😄",
+    "body_script": "Ravi 'ice cream வேணும்!' கேக்குறான் — வேணும் vs வேணாம், நீயும் தெரிஞ்ச pattern தான் 😄",
+    "expected_target": "",
+    "stance": "give",
+    "target_revealed": true,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-09-25T23-49.mp3",
+    "memo_script": "Hey da, andha scooter scene-oda friction ninnadhu illa — ippo adhே pattern, but Ravi kitta.\n\nRavi Deepa-kitta ice cream venum-nu kேட்குறான். Karthi sொல்றான், 'இப்போ காசு இல்ல, நாளைக்கு வாங்குவோம்.' Ravi உடனே: 'நாளைக்கு வேணாம், இப்போவே வேணும்!'\n\nபாரு, இதே வேணும் நீ already வெச்சிருக்க — 'auto வேணும்' மாதிரி. வேணாம் அதன் எதிர்-side, அத்தான். ஆறு வயசு பையனுக்கே இது கிளியர்-ah வர்றது, so this isn't some big grammar thing — just want and don't-want, ஒட்டிண்டு போகுது any noun-oda கூட.\n\nஅடுத்த தடவை, 'இது வேணுமா, வேணாமா?' கேக்கும்போது, நீ ஏற்கனவே அந்த vocab வெச்சிருக்க — recognize பண்ணா போதும்.",
+    "mp3": "published_audio/knocks/knock_2026-09-25T23-49.mp3"
   }
 ]
