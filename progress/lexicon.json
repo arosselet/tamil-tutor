@@ -3232,7 +3232,7 @@
     "seen_in": [
       82
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-09-25",
     "direction": "fire",
     "exposures": 1,
     "reps": 1,
@@ -3251,7 +3251,7 @@
     "seen_in": [
       82
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-09-25",
     "direction": "fire",
     "exposures": 1,
     "reps": 1,
@@ -3272,7 +3272,7 @@
       70,
       82
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-09-25",
     "direction": "fire",
     "exposures": 1,
     "reps": 1,
@@ -3291,7 +3291,7 @@
     "seen_in": [
       86
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-09-25",
     "direction": "fire",
     "exposures": 3,
     "reps": 1,
@@ -3342,7 +3342,7 @@
     "seen_in": [
       82
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-09-25",
     "direction": "fire",
     "exposures": 1,
     "register": "social",
@@ -3359,7 +3359,7 @@
     "seen_in": [
       65
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-09-25",
     "direction": "fire",
     "reps": 2,
     "exposures": 1,
@@ -3664,7 +3664,7 @@
       56,
       57
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-09-25",
     "direction": "fire",
     "reps": 5,
     "exposures": 1,
@@ -3682,7 +3682,7 @@
     "seen_in": [
       82
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-09-25",
     "direction": "fire",
     "exposures": 1,
     "reps": 1,
@@ -3709,10 +3709,11 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-09-25",
     "direction": "fire",
     "exposures": 1,
-    "register": "faq"
+    "register": "faq",
+    "taught_on": null
   },
   "ரொம்ப பிடிச்சிருக்கு": {
     "type": "chunk",
@@ -3723,11 +3724,12 @@
     "recognition": "struggled",
     "production": "hinted",
     "seen_in": [],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-09-25",
     "direction": "fire",
     "reps": 3,
     "exposures": 1,
-    "register": "faq"
+    "register": "faq",
+    "taught_on": null
   },
   "காரம் பரவாயில்ல, பழக்கமாயிடுச்சு": {
     "type": "chunk",
@@ -3872,10 +3874,10 @@
       85,
       89
     ],
-    "last_surfaced": "2026-08-26",
+    "last_surfaced": "2026-09-25",
     "direction": "fire",
     "reps": 4,
-    "exposures": 1,
+    "exposures": 2,
     "register": "antifreeze",
     "taught_on": "2026-07-23",
     "heard_on": "2026-08-26"
@@ -3998,7 +4000,7 @@
       82,
       86
     ],
-    "last_surfaced": "2026-09-24",
+    "last_surfaced": "2026-09-25",
     "direction": "fire",
     "exposures": 4,
     "register": "social",
@@ -4016,7 +4018,7 @@
       81,
       82
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-09-25",
     "direction": "fire",
     "reps": 1,
     "exposures": 1,
@@ -4047,7 +4049,7 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-09-24",
+    "last_surfaced": "2026-09-25",
     "direction": "fire",
     "exposures": 1,
     "register": "faq",
@@ -4139,7 +4141,7 @@
     "seen_in": [
       88
     ],
-    "last_surfaced": "2026-08-14",
+    "last_surfaced": "2026-09-25",
     "direction": "fire",
     "exposures": 3,
     "register": "social",
@@ -4339,7 +4341,7 @@
     "seen_in": [
       82
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-09-25",
     "direction": "fire",
     "exposures": 1,
     "reps": 1,
@@ -4360,7 +4362,7 @@
       60,
       86
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-09-25",
     "direction": "fire",
     "exposures": 3,
     "register": "social",
