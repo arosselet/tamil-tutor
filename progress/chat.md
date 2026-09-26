@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Saturday 2026-09-26
+
+**09:33 · Anna** 🎧  ·  audio / his thread: kilambu root
+> You asked about kelambalaama? The root is kelambu — not just 'go', but the knee-slap moment of taking off ☕
+
+
 ## Friday 2026-09-25
 
 **13:42 · Anna** 🎧  ·  eavesdrop / eavesdrop: youknow-la opener
