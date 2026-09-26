@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:33 · Anna** 🎧  ·  audio / his thread: kilambu root
 > You asked about kelambalaama? The root is kelambu — not just 'go', but the knee-slap moment of taking off ☕
 
+**16:29 · Anna** 🎧  ·  audio / pattern: avanga enna sonnaanga
+> You already have sonnaanga. Drop two words in front and you get avanga enna sonnaanga? — 'what did they say?' 👂
+
 
 ## Friday 2026-09-25
 

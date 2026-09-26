@@ -20285,5 +20285,17 @@
     "medium": "audio",
     "source": "rotation_room_2026-09-26_0255",
     "note": ""
+  },
+  {
+    "id": "a57741a13e1b",
+    "at": "2026-09-26T20:30:03Z",
+    "word": "அவங்க என்ன சொன்னாங்க?",
+    "channel": "audio",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "knock:2026-09-26T20:29:30.745662+00:00",
+    "note": ""
   }
 ]

@@ -7670,5 +7670,23 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-09-26T13-33.mp3",
     "memo_script": "You asked about கிளம்பலாமா a while back, wondering where that கிளம்பு root actually comes from.\n\nHere is the thing: it is not just போ — போ is just traveling from A to B. கிளம்பு is ignition. It literally means to rise up, to stir, to take off. Like dust rising from the ground, or a flight lifting off the runway — flight கிளம்பிருச்சு.\n\nAt a Tamil house, when you've had two coffees, eaten snacks, and everyone is sitting around talking, somebody slaps their knees and stands up. That physical move from sitting to leaving is கிளம்பு.\n\nAnd you already own the machine. You know போலாம், and with the question lift, போலாமா? 'Shall we go?'\n\nSnap that exact ending onto this root: கிளம்பலாமா? 'Shall we get moving?'\n\nNext time everyone is lingering by the door, don't wait. Just look around and drop a smooth கிளம்பலாமா? and watch the room start moving.",
     "mp3": "published_audio/knocks/knock_2026-09-26T13-33.mp3"
+  },
+  {
+    "date": "2026-09-26",
+    "timestamp": "2026-09-26T20:29:30.745662+00:00",
+    "acted": true,
+    "modality": "audio",
+    "move": "pattern: avanga enna sonnaanga",
+    "rationale": "Gives the eavesdrop passkey அவங்க என்ன சொன்னாங்க? by extending the சொன்னாங்க root he encountered yesterday into a full sentence.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-09-27T00:29:30.745662+00:00",
+    "body": "You already have sonnaanga. Drop two words in front and you get avanga enna sonnaanga? — 'what did they say?' 👂",
+    "body_script": "You already have சொன்னாங்க. Drop two words in front and you get அவங்க என்ன சொன்னாங்க? — 'what did they say?' 👂",
+    "expected_target": "",
+    "stance": "give",
+    "target_revealed": true,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-09-26T20-29.mp3",
+    "memo_script": "You already have சொன்னாங்க in your back pocket. You know it from 'பாட்டி சொன்னாங்க' — Paati said it.\n\nNow look what happens when you want to know what anyone in the room just dropped. You don't need a new machine. You just snap two words in front: அவங்க, which points at them, and என்ன, what.\n\nஅவங்க என்ன சொன்னாங்க?\n\nLiterally: they, what, did they say? 'What did they say?'\n\nThat sentence is your passkey to half the conversations at the table. Athai hangs up the phone looking suspicious? You lean in and hit Priya with: அவங்க என்ன சொன்னாங்க?\n\nKarthi walks back inside from the gate looking totally defeated? அவங்க என்ன சொன்னாங்க?\n\nThree pieces you already half-own. Next time two people are muttering by the pressure cooker, you don't wait for somebody to translate. You drop it clean: அவங்க என்ன சொன்னாங்க?",
+    "mp3": "published_audio/knocks/knock_2026-09-26T20-29.mp3"
   }
 ]
