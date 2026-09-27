@@ -20309,5 +20309,17 @@
     "medium": "audio",
     "source": "knock:2026-09-27T14:34:56.329656+00:00",
     "note": ""
+  },
+  {
+    "id": "b17f317b10fd",
+    "at": "2026-09-27T21:48:34Z",
+    "word": "நல்லா இருங்க",
+    "channel": "text",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "text",
+    "source": "knock:2026-09-27T21:47:42.773832+00:00",
+    "note": ""
   }
 ]

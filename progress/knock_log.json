@@ -7707,5 +7707,20 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-09-27T14-34.mp3",
     "memo_script": "Eppadi da? Oru chinna tidbit today — kilambu kadhai mudinjadhukku appuram, idhu vera oru handy thing.\n\nFamily gathering edhuvachum ponaa, first question onnu dhaan varum: 'என்ன வேலை பாக்கறீங்க?' Karthi andha question-ku always தட்டித் தட்டி மாறுவான், aana nee appadi maara vendaam da.\n\nNee already ஒரு trick வெச்சிருக்க — English noun எடுத்து Tamil frame-la potu solradhu, 'auto வேணும்' மாதிரி. இதே pattern-oda next member எடுக்கலாம்: unaku 'enna velai?' nu கேட்டா, nee சொல்லலாம் — சாஃப்ட்வேர் இன்ஜினியரா இருக்கேன்.\n\nSoftware engineer, appuram '-ஆ', appuram 'இருக்கேன்' — adhu thaan identity chunk, nee already own panna pattern-oda next member dhaan.\n\nAdha next family call-la try pannu paaru. Konjam nenaichi vechuko, adhu podhum da.",
     "mp3": "published_audio/knocks/knock_2026-09-27T14-34.mp3"
+  },
+  {
+    "date": "2026-09-27",
+    "timestamp": "2026-09-27T21:47:42.773832+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "tidbit: -nga carries over",
+    "rationale": "Five straight audio gives went untapped and unanswered — the format itself may be the friction, so switching to a one-line text instead of another memo, and using it to hand him a new chunk riding on a pattern he already fires cold (polite -nga), no ask attached, then giving real space overnight.",
+    "decide_model": "anthropic/claude-sonnet-5",
+    "next_check": "2026-09-28T12:47:42.773832+00:00",
+    "body": "Nee erkanave -nga vachirukka (sollunga, kudunga) — adhe nga dhaan nalla irunga-la (take care) 🙂",
+    "body_script": "நீ ஏற்கனவே -ங்க வச்சிருக்க (சொல்லுங்க, குடுங்க) — அதே ங்க தான் நல்லா இருங்க-ல (take care) 🙂",
+    "expected_target": "",
+    "stance": "give",
+    "target_revealed": true
   }
 ]

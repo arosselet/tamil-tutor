@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **10:34 · Anna** 🎧  ·  audio / tidbit: enna velai answer
 > 'Enna vela?' ketta ini badhil ready — software engineera irukken (I'm an engineer) 💻
 
+**17:47 · Anna**  ·  text / tidbit: -nga carries over
+> Nee erkanave -nga vachirukka (sollunga, kudunga) — adhe nga dhaan nalla irunga-la (take care) 🙂
+
 
 ## Saturday 2026-09-26
 
