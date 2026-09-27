@@ -4034,11 +4034,12 @@
     "recognition": "struggled",
     "production": "hinted",
     "seen_in": [],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-09-27",
     "direction": "fire",
     "reps": 1,
     "exposures": 1,
-    "register": "faq"
+    "register": "faq",
+    "taught_on": null
   },
   "காரம் பரவாயில்ல, பழகிப்போச்சு": {
     "type": "chunk",
