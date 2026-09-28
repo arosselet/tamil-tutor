@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **10:49 · Anna** 🎧  ·  eavesdrop / eavesdrop: cant-mudiyala
 > Athai on the phone about Paatti — one line is the 'can't' machine: what got stuck? 👂
 
+**16:59 · Anna** 🎧  ·  audio / pattern: enakku onnum theriyaadhu
+> You already have theriyadhu. Slip onnum inside: enakku onnum theriyadhu — perfect deadpan defense for the table 😎
+
 
 ## Sunday 2026-09-27
 

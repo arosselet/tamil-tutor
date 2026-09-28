@@ -7740,5 +7740,23 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-09-28T14-49.mp3",
     "memo_script": "ஹலோ, சாந்தி... ஆமாங்க, மாமாகிட்ட காலையிலயே பேசிட்டேன்.\n\nபாட்டிக்கு எழுபத்தஞ்சு ஆகுதுல்ல? மாமா என்னன்னா, வீட்ல சும்மா நாலு பேருக்கு மட்டும் சாப்பாடு பண்ணிக்கலாம்னு சொல்றாரு. எனக்கு அது சுத்தமா புடிக்கல பாருங்க. ஊர்ல இருந்து எல்லாரும் வருவாங்க... அப்புறம் அவங்ககிட்ட என்ன சொல்றது?\n\nசரி, கார்த்திகிட்ட கடைக்கு போயிட்டு வா-ன்னு சொன்னா, அவனால போகவே முடியல! அந்த ஸ்கூட்டர் வேற காலையில இருந்து மக்கர் பண்ணுது. ஸ்டார்ட் பண்ணவே முடியலையாம்.\n\nஅதான், நீங்க வெள்ளிக்கிழமையே கிளம்பி வந்திருங்க... நாம இங்கயே எல்லாம் பாத்துக்கலாம். சரிங்க, அப்புறம் பேசுறேன்!",
     "mp3": "published_audio/knocks/knock_2026-09-28T14-49.mp3"
+  },
+  {
+    "date": "2026-09-28",
+    "timestamp": "2026-09-28T20:59:30.462341+00:00",
+    "acted": true,
+    "modality": "audio",
+    "move": "pattern: enakku onnum theriyaadhu",
+    "rationale": "Breaking the 5-unanswered lull with a high-utility, zero-pressure audio gift that builds on theriyaadhu to teach the deadpan table shield.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-09-29T11:59:30.462341+00:00",
+    "body": "You already have theriyadhu. Slip onnum inside: enakku onnum theriyadhu — perfect deadpan defense for the table 😎",
+    "body_script": "You already have தெரியாது. Slip ஒன்னும் inside: எனக்கு ஒன்னும் தெரியாது — perfect deadpan defense for the table 😎",
+    "expected_target": "",
+    "stance": "give",
+    "target_revealed": true,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-09-28T20-59.mp3",
+    "memo_script": "Andrew, quick weapon for your back pocket.\n\nYou already know the basic toggle: தெரியும் when you know something, தெரியாது when you don't. Plain and simple.\n\nNow, at a family table, when things drift into drama or somebody asks who left the gate open, you never just say a dry தெரியாது. That sounds like you're taking an exam.\n\nWhat you say is: எனக்கு ஒன்னும் தெரியாது.\n\nNotice that spice in the middle: ஒன்னும். It means 'not even one thing' or 'nothing at all'. So instead of a stiff 'I don't know', you're delivering: 'To me, not a single thing is known.'\n\nஎனக்கு ஒன்னும் தெரியாது.\n\nSay it with a small shrug and take another sip of coffee. Nobody pushes further. Cleanest table armor in the language, and you already own every piece of it.",
+    "mp3": "published_audio/knocks/knock_2026-09-28T20-59.mp3"
   }
 ]
