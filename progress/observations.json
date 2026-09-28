@@ -20321,5 +20321,17 @@
     "medium": "text",
     "source": "knock:2026-09-27T21:47:42.773832+00:00",
     "note": ""
+  },
+  {
+    "id": "82306a0743a9",
+    "at": "2026-09-28T14:50:17Z",
+    "word": "frame:cant-முடியல",
+    "channel": "eavesdrop",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "knock:2026-09-28T14:49:29.782439+00:00",
+    "note": ""
   }
 ]

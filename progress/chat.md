@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Monday 2026-09-28
+
+**10:49 · Anna** 🎧  ·  eavesdrop / eavesdrop: cant-mudiyala
+> Athai on the phone about Paatti — one line is the 'can't' machine: what got stuck? 👂
+
+
 ## Sunday 2026-09-27
 
 **10:34 · Anna** 🎧  ·  audio / tidbit: enna velai answer
