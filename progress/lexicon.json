@@ -254,7 +254,7 @@
       65
     ],
     "last_surfaced": "2026-08-29",
-    "reps": 3,
+    "reps": 2,
     "exposures": 1,
     "taught_on": "2026-02-24"
   },
@@ -3232,7 +3232,7 @@
     "seen_in": [
       82
     ],
-    "last_surfaced": "2026-09-25",
+    "last_surfaced": "2026-09-29",
     "direction": "fire",
     "exposures": 1,
     "reps": 1,
@@ -3251,7 +3251,7 @@
     "seen_in": [
       82
     ],
-    "last_surfaced": "2026-09-25",
+    "last_surfaced": "2026-09-29",
     "direction": "fire",
     "exposures": 1,
     "reps": 1,
@@ -3272,7 +3272,7 @@
       70,
       82
     ],
-    "last_surfaced": "2026-09-25",
+    "last_surfaced": "2026-09-29",
     "direction": "fire",
     "exposures": 1,
     "reps": 1,
@@ -3291,7 +3291,7 @@
     "seen_in": [
       86
     ],
-    "last_surfaced": "2026-09-25",
+    "last_surfaced": "2026-09-29",
     "direction": "fire",
     "exposures": 3,
     "reps": 1,
@@ -3342,7 +3342,7 @@
     "seen_in": [
       82
     ],
-    "last_surfaced": "2026-09-27",
+    "last_surfaced": "2026-09-29",
     "direction": "fire",
     "exposures": 1,
     "register": "social",
@@ -3604,7 +3604,7 @@
       53
     ],
     "last_surfaced": "2026-09-16",
-    "reps": 5,
+    "reps": 4,
     "exposures": 2,
     "taught_on": "2026-07-01",
     "heard_on": "2026-08-23"
@@ -3726,7 +3726,7 @@
     "seen_in": [],
     "last_surfaced": "2026-09-25",
     "direction": "fire",
-    "reps": 3,
+    "reps": 2,
     "exposures": 1,
     "register": "faq",
     "taught_on": null
@@ -3832,9 +3832,9 @@
       88,
       89
     ],
-    "last_surfaced": "2026-09-02",
+    "last_surfaced": "2026-09-29",
     "direction": "fire",
-    "exposures": 8,
+    "exposures": 1,
     "register": "antifreeze",
     "reps": 1,
     "taught_on": "2026-08-10"
@@ -3874,10 +3874,10 @@
       85,
       89
     ],
-    "last_surfaced": "2026-09-25",
+    "last_surfaced": "2026-09-29",
     "direction": "fire",
     "reps": 4,
-    "exposures": 2,
+    "exposures": 3,
     "register": "antifreeze",
     "taught_on": "2026-07-23",
     "heard_on": "2026-08-26"
@@ -4000,7 +4000,7 @@
       82,
       86
     ],
-    "last_surfaced": "2026-09-25",
+    "last_surfaced": "2026-09-29",
     "direction": "fire",
     "exposures": 4,
     "register": "social",
@@ -4018,7 +4018,7 @@
       81,
       82
     ],
-    "last_surfaced": "2026-09-25",
+    "last_surfaced": "2026-09-29",
     "direction": "fire",
     "reps": 1,
     "exposures": 1,
@@ -4126,7 +4126,7 @@
     "seen_in": [],
     "last_surfaced": "2026-09-17",
     "direction": "fire",
-    "reps": 4,
+    "reps": 3,
     "exposures": 1,
     "register": "public",
     "taught_on": "2026-09-16"
@@ -4142,7 +4142,7 @@
     "seen_in": [
       88
     ],
-    "last_surfaced": "2026-09-25",
+    "last_surfaced": "2026-09-29",
     "direction": "fire",
     "exposures": 3,
     "register": "social",
@@ -4210,7 +4210,7 @@
     ],
     "last_surfaced": "2026-09-07",
     "direction": "fire",
-    "reps": 6,
+    "reps": 5,
     "exposures": 1,
     "register": "frame",
     "taught_on": "2026-08-10"
@@ -4231,7 +4231,7 @@
     "exposures": 1,
     "register": "frame",
     "heard_on": "2026-09-05",
-    "reps": 4
+    "reps": 3
   },
   "frame:if-ndhaa": {
     "type": "pattern",
@@ -4363,7 +4363,7 @@
       60,
       86
     ],
-    "last_surfaced": "2026-09-25",
+    "last_surfaced": "2026-09-29",
     "direction": "fire",
     "exposures": 3,
     "register": "social",
