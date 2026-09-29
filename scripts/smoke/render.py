@@ -579,9 +579,14 @@ def s57_rotation_tape(sb: Path):
     check("the mandate forbids narrating where he is or what he is doing",
           "meta-narration" in rl.BASE_MANDATE.lower(),
           "the model is told he is on a flight; without the ban that lands in the audio")
-    fixed = mechanism(inspect.getsource(rl.render))
-    spoken_asides = re.findall(r'tape\.add\("([^"]+)"', fixed)
-    banned = re.compile(r"\b(sleep|walk|tired|rest|eyes|flight|plane|seat|halfway)\b", re.I)
+    # The lane's own English lines moved out of `tape.add("...")` literals into
+    # named constants and builders (2026-09-29), so they are enumerated here —
+    # a regex over the render's source would now find nothing and pass forever.
+    spoken_asides = [rl.LAP_IN, rl.LAP_OUT, *rl.MODE_LABEL.values(),
+                     *(rl.roadmap(list(cad), True) for cad in rl.CADENCES.values()),
+                     *(t for t, head in rl.closing_lap([({"shape": s}, {"beats": [{"say": s}]})
+                                                         for s in rl.SHAPE_NAME]) if head)]
+    banned = re.compile(r"\b(sleep|walk|tired|rest|eyes|flight|plane|seat|halfway|you)\b", re.I)
     check("...and the lane's own hard-coded lines obey it too",
           not [s for s in spoken_asides if banned.search(s)],
           f"meta-narrating asides: {[s for s in spoken_asides if banned.search(s)]}")
@@ -628,7 +633,7 @@ def s57_rotation_tape(sb: Path):
         rl.SCRIPTS_DIR = sb / "content" / "scripts"
         try:
             written = rl.write_script(sb / "longhaul_machines_2026-08-11_0930.mp3",
-                                      "machines", long_min, sheets, spoken)
+                                      "machines", long_min, sheets)
             body = written.read_text(encoding="utf-8")
         finally:
             rl.SCRIPTS_DIR = real_scripts
@@ -639,7 +644,7 @@ def s57_rotation_tape(sb: Path):
         check("...the measured length and the audio it belongs to",
               f"{long_min:.1f} min" in body and ".mp3" in body)
         check("...one section per movement that played",
-              body.count("\n## ") == long_played + (1 if spoken else 0),
+              body.count("\n## ") == long_played + 2,   # + the roadmap and the closing lap
               f"{body.count(chr(10) + '## ')} sections for {long_played} movements")
         check("...and the closing lap, which is a third of the audio",
               "closing lap" in body and all(l in body for l in spoken))
@@ -1438,3 +1443,140 @@ def s96_an_empty_sheet_is_not_a_dose(sb: Path):
          rs.google_credentials_ready, rs.deliver_rendered, sys.argv) = real
         os.chdir(cwd)
         shutil.rmtree(sb / "published_audio", ignore_errors=True)
+
+
+def s126_the_tape_says_where_it_is(sb: Path):
+    """Section markers on the rotation tape (2026-09-29, Andrew: "the tapes jump
+    from format to format without a marker"). The frame named the topic, never the
+    mode, and in Anna's voice with 1.2s after it the ear could not tell it from a
+    gloss (0.8s). The closing lap was ~60 lines with no landmark, and the script
+    left out the two English lines the lap actually speaks.
+
+    Gate 7.2, out loud: every failure here still renders and publishes. A header
+    the writer left blank used to be NO header at all — the silent case — so it is
+    asserted that the mode label speaks regardless. The pause is asserted in
+    silence frames, not by ear; the roadmap is asserted against what PLAYED, not
+    what was planned; the title is asserted through the commission's argv."""
+    print("\n126. The tape says where it is — labels, the break, roadmap, lap, title (2026-09-29)")
+    rl = importlib.import_module("render_rotation")
+    speech = b"\x01" * len(rl.SILENCE_FRAME) * 3   # anything that is not silence
+
+    class Probe(rl.Tape):
+        """Records where each line's audio starts, so the air around it is checkable."""
+        def __init__(self, tmp):
+            super().__init__(tmp)
+            self.at: list[tuple[str, int]] = []
+
+        async def say(self, text, voice):
+            self.at.append((text, len(self.audio)))
+            return speech
+
+    tape = Probe(str(sb))
+    beats = [{"say": "வா", "en": "come", "who": "a"}, {"say": "போ", "en": "go", "who": "b"}]
+    for n, shape in enumerate(rl.SHAPE_NAME):
+        # The last shape gets NO frame from the writer: the label must still speak.
+        frame = "" if n == len(rl.SHAPE_NAME) - 1 else f"topic {n}"
+        asyncio.run(rl.render_movement(tape, {"shape": shape, "items": []},
+                                       {"frame": frame, "beats": beats}, n))
+    labels = tuple(v + "." for v in rl.MODE_LABEL.values())
+    heads = [(t, off) for t, off in tape.at if t.startswith(labels)]
+    check("every movement opens on its mode label", len(heads) == len(rl.SHAPE_NAME),
+          f"{len(heads)} headers for {len(rl.SHAPE_NAME)} movements: {[t for t, _ in heads]}")
+    check("...including one whose writer supplied no topic",
+          heads and heads[-1][0] == rl.MODE_LABEL[list(rl.SHAPE_NAME)[-1]] + ".", str(heads[-1:]))
+    check("...and the writer's topic follows the label",
+          heads and heads[0][0] == f"{rl.MODE_LABEL['machine']}. topic 0", heads[0][0] if heads else "")
+    floor = rl.SILENCE_FRAME * int(rl.PRE_FRAME * rl.SILENCE_PER_SEC)
+    short = [t for t, off in heads[1:] if bytes(tape.audio[off - len(floor):off]) != floor]
+    check(f"at least {rl.PRE_FRAME}s of silence precedes every header after the first",
+          not short, f"short pause before: {short}")
+    first = heads[0][1] if heads else -1
+    check("...the first header too, so the roadmap splices in with its break already there",
+          bytes(tape.audio[:first]) == floor, f"{first} bytes of lead-in")
+    gap = rl.silence(1.2)
+    after = [t for t, off in heads
+             if bytes(tape.audio[off + len(speech):off + len(speech) + len(gap)]) != gap]
+    check("1.2s of air follows every header", not after, str(after))
+    check("a header's pause is longer than any gloss's",
+          rl.PRE_FRAME > max(g for _, g, _ in rl.RHYTHM.values()))
+
+    # ── The roadmap: names what played, in order, and stays short.
+    rm = rl.roadmap(["machine", "scene", "inventory", "eavesdrop", "scene", "lore"], True)
+    check("the roadmap names each round in order, repeats as 'another'",
+          rm == "6 rounds: drills, a scene, phrases, a phone call, another scene, and a note."
+                " Then one lap of everything.", rm)
+    long_rm = rl.roadmap(list(rl.CADENCES["room"]) * 4, True)
+    check("a long tape's roadmap names the cycle, not every round (<= 45 words, ~18s)",
+          len(long_rm.split()) <= 45 and "24" in long_rm, long_rm)
+    check("a roadmap with no lap promises no lap", "lap" not in rl.roadmap(["machine"], False))
+
+    # ── The full render: the roadmap is built from the movements that PLAYED.
+    real = (rl.generate_segment_google, rl.get_raw_mp3_frames)
+    said: list[str] = []
+
+    async def fake_tts(text, voice, index, tmp):
+        said.append(text)
+        p = os.path.join(tmp, f"{index}.mp3")
+        open(p, "wb").close()
+        return p
+
+    def writer(mv, spine):
+        return {"frame": "a topic", "beats": [
+            {"say": f"வரி {n} {mv['shape']}", "en": f"line {n}", "who": "a"} for n in range(4)]}
+    try:
+        rl.generate_segment_google = fake_tts
+        rl.get_raw_mp3_frames = lambda f: rl.SILENCE_FRAME * 60
+        plan = rl.plan_movements(rl.build_pool("machines", []), "machines", 40)
+        _, played, _, sheets = asyncio.run(
+            rl.render(plan, "machines", sb / "roadmap.mp3", 1.0, writer=writer))
+    finally:
+        rl.generate_segment_google, rl.get_raw_mp3_frames = real
+    shapes = [mv["shape"] for mv, _ in sheets]
+    check("the roadmap is synthesised last, from the movements that played",
+          said and said[-1] == rl.roadmap(shapes, True) and played < len(plan),
+          f"last line {said[-1:]!r}; played {played}/{len(plan)}")
+    lap_heads = [t for t, head in rl.closing_lap(sheets) if head]
+    check("the closing lap is grouped under the roadmap's own names",
+          lap_heads and lap_heads[0] == "Drills." and all(h in said for h in lap_heads), str(lap_heads))
+    check("...and speaks both of its English lines", rl.LAP_IN in said and rl.LAP_OUT in said)
+
+    # ── The script says everything the tape says (it omitted the lap's two lines).
+    real_scripts = rl.SCRIPTS_DIR
+    rl.SCRIPTS_DIR = sb / "content" / "scripts"
+    try:
+        body = rl.write_script(sb / "rotation_machines_2026-09-29_0900.mp3", "machines", 1.0,
+                               sheets, "October intro").read_text(encoding="utf-8")
+    finally:
+        rl.SCRIPTS_DIR = real_scripts
+    missing = [t for t in [rl.LAP_IN, rl.LAP_OUT, rl.roadmap(shapes, True), *lap_heads,
+                           *(rl.spoken_frame(mv["shape"], s) for mv, s in sheets)]
+               if f"**ANNA:** {t}" not in body]
+    check("the script carries every English line the tape speaks", not missing, str(missing))
+    check("...and the commissioned title heads it", body.startswith("# Rotation — October intro"))
+
+    # ── Commission honesty: the title reaches the lane; absent, nothing changes.
+    cm = importlib.import_module("commissions")
+    base = {"id": "20260929-x", "lane": "rotation", "requested_by": "rio",
+            "beats": {"spine": "room", "minutes": 15}}
+    cmd = cm.lane_command({**base, "title": " October intro "})
+    check("a commission's title rides the lane's argv",
+          "--title" in cmd and cmd[cmd.index("--title") + 1] == "October intro", str(cmd))
+    check("...and without one the argv is unchanged", "--title" not in cm.lane_command(base))
+    check("a non-string title fails validation, loudly",
+          cm.validate({**base, "title": 7}, "20260929-x") == "title must be a string")
+    check("a valid titled commission validates",
+          cm.validate({**base, "title": "x"}, "20260929-x") is None)
+    pub = mechanism(inspect.getsource(rl.main))
+    call = pub[pub.index("deliver_rendered("):].split("\n\n")[0]
+    check("the feed title is the commission's, falling back to the spine",
+          "title=title" in call and "args.title.strip() or args.spine" in pub, call[:200])
+
+    # ── Brief reach: an observation, never a gate.
+    reach = rl.brief_reach("Recap the arc. The errand was Priya's, and Karthi stayed home.",
+                           [({"shape": "scene"}, {"frame": "", "beats": [{"say": "", "en": "Priya waits"}]})])
+    check("the run log counts which brief names reached the sheets",
+          reach.startswith("1/2") and "Karthi" in reach and "Recap" not in reach, reach)
+
+    # ── The writer's half: topic-only frames, one-language lore beats.
+    check("the mandate makes the frame topic-only", "TOPIC only" in rl.BASE_MANDATE)
+    check("lore keeps each beat in one language", "ONE language" in rl.SHAPE_CLAUSES["lore"])

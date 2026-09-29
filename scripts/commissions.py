@@ -31,6 +31,15 @@ fails validation the same way: a pending-but-unwired commission would block the
 FIFO queue forever, so it parks loudly and can be re-filed once the lane is
 wired.
 
+WHAT A BRIEF CAN DO. It steers emphasis WITHIN the spine's shape; it cannot
+commission a shape the lane does not have. `20260925-oct-intro` briefed a
+recap-and-look-ahead variety tape, the `room` spine rendered a generic doorway
+rotation, and the commission reported DONE. No spine for recap tapes exists yet
+(a follow-up if they recur). Until then an optional `"title"` names the feed
+item, so what was asked for is at least what the tape is called, and the lane
+logs how many of the brief's names reached the sheets. Nothing here judges
+whether prose honoured a brief — that is the mushy check this repo refuses.
+
 WHY pending/claimed/done/failed AND NOT ONE FILE. The lane takes minutes; the
 claim (pending -> claimed, committed) is what makes a dead run visible instead
 of silently re-runnable. claimed/ is the crash evidence: a file sitting there
@@ -113,6 +122,8 @@ def validate(c, stem):
         return f"minutes {minutes!r} is outside 4..60"
     if not isinstance(c.get("brief", ""), str):
         return "brief must be a string"
+    if not isinstance(c.get("title", ""), str):
+        return "title must be a string"
     sched = c.get("schedule") or {}
     if not isinstance(sched, dict) or sched.get("mode", "asap") not in ("asap", "at"):
         return f"bad schedule {sched!r}"
@@ -143,6 +154,8 @@ def lane_command(c):
            "--minutes", str(beats.get("minutes", 15))]
     if (c.get("brief") or "").strip():
         cmd += ["--brief", c["brief"].strip()]
+    if (c.get("title") or "").strip():
+        cmd += ["--title", c["title"].strip()]
     return cmd
 
 

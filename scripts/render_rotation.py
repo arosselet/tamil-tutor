@@ -78,6 +78,7 @@ import argparse
 import asyncio
 import json
 import os
+import re
 import shutil
 import sys
 import tempfile
@@ -153,6 +154,8 @@ ITEMS = {"machine": 4, "inventory": 3, "scene": 6, "eavesdrop": 5, "lore": 2}
 # exhausted. Re-measure when the RHYTHM table or the beat counts change; this is a
 # property of those, not of the tape.
 MOVEMENT_MIN = 1.15
+# The closing lap's two English lines — one home, read by the render AND the script.
+LAP_IN, LAP_OUT = "Same sounds, one more lap.", "That's the lot."
 # The closing lap replays every unique Tamil line the tape spoke, so it grows with
 # the material rather than sitting at a fixed cost. ~5.5 min on the 22-item tape.
 CLOSING_LAP_MIN = 5.5
@@ -165,6 +168,65 @@ RHYTHM = {
     "eavesdrop": (0.7, 0.0, 1.1),
     "lore":      (0.8, 0.0, 1.0),
 }
+# ── Section markers (2026-09-29, Andrew: "the tapes jump from format to format
+# without a marker"). The writer's frame named the TOPIC, never the MODE, and it
+# was acoustically a gloss — English, Anna's voice, a gap the ear cannot tell
+# from 0.8. So Python owns the mode word and the pause; the writer owns only the
+# topic. Deterministic on purpose: a label the ear learns to depend on must not
+# be rephrased from one movement to the next. Nouns, never imperatives — a
+# "say it" is an ask, and the lane's whole contract is that nothing is asked.
+MODE_LABEL = {"machine": "Drills", "inventory": "Phrases", "scene": "A scene",
+              "eavesdrop": "Overheard", "lore": "A note"}
+# How the roadmap and the closing lap name a movement: (first time, every repeat).
+SHAPE_NAME = {"machine": ("drills", "more drills"), "inventory": ("phrases", "more phrases"),
+              "scene": ("a scene", "another scene"), "lore": ("a note", "another note"),
+              "eavesdrop": ("a phone call", "another phone call")}
+# The paragraph break: at least this much air BEFORE a frame, 1.2s after. Long in,
+# short out is the audiobook-chapter cue. A MINIMUM of total silence, not an
+# extra slab — the previous beat's own tail already counts toward it.
+PRE_FRAME = 2.0
+# Past this many movements the roadmap names the cycle, not every round: a 45
+# minute tape's full list is a list, and the roadmap must stay under ~15s.
+ROADMAP_MAX = 8
+
+
+def spoken_frame(shape: str, sheet: dict) -> str:
+    """The header as said: mode label, then the writer's topic. A period, not a
+    dash — Chirp takes a period as a sentence break (see `clean_for_tts`)."""
+    return f"{MODE_LABEL[shape]}. {(sheet.get('frame') or '').strip()}".strip()
+
+
+def shape_names(shapes: list[str]) -> list[str]:
+    return [SHAPE_NAME[s][s in shapes[:i]] for i, s in enumerate(shapes)]
+
+
+def roadmap(shapes: list[str], lap: bool) -> str:
+    """One line naming what the tape holds, built from the movements that PLAYED
+    — it is spliced onto the front after the render, because the clock can stop a
+    tape short of its plan and a roadmap naming a round that never aired is the
+    unwritten-script lie again. About the tape, never the listener (rule 6)."""
+    n, short = len(shapes), len(shapes) <= ROADMAP_MAX
+    names = shape_names(shapes) if short else [SHAPE_NAME[s][0] for s in dict.fromkeys(shapes)]
+    joined = " and ".join(names) if len(names) < 3 else f"{', '.join(names[:-1])}, and {names[-1]}"
+    return (f"{n} round{'s' * (n != 1)}{'' if short else ', turning through'}: {joined}."
+            + (" Then one lap of everything." if lap else ""))
+
+
+def closing_lap(sheets: list[tuple]) -> list[tuple[str, bool]]:
+    """Every Tamil line the tape spoke, once, grouped under the movement that
+    introduced it -> [(text, is_header)]. It used to be ~60 lines in one unbroken
+    run, a third of the tape with no landmark in it. First-airing order already
+    groups by movement; this only names the groups, in the roadmap's words, so
+    the ear hears one vocabulary from the top of the tape to the end."""
+    out, seen = [], set()
+    names = shape_names([mv["shape"] for mv, _ in sheets])
+    for (mv, sheet), name in zip(sheets, names):
+        new = [s for s in dict.fromkeys((b.get("say") or "").strip() for b in sheet["beats"])
+               if s and s not in seen]
+        seen |= set(new)
+        if new:
+            out += [(name[0].upper() + name[1:] + ".", True)] + [(s, False) for s in new]
+    return out
 # The visit in the order he will live it — the `room` spine's ordering, and the
 # same order as the campaign table in progress/profile.md.
 REGISTER_ORDER = ["social", "faq", "mil-table", "antifreeze", "public", "gossip", "zinger"]
@@ -371,6 +433,7 @@ class Tape:
         self.cache: dict[tuple[str, str], bytes] = {}
         self.idx = 0
         self.spoken: list[str] = []      # every Tamil line that actually played
+        self.tail = 0                    # silence frames the tape currently ends on
 
     async def say(self, text: str, voice: str) -> bytes:
         """Cached per (line, voice) — a rotation tape repeats lines by design, and
@@ -388,6 +451,14 @@ class Tape:
         if tamil:
             self.spoken.append(text)
         self.audio.extend(silence(gap))
+        self.tail = int(gap * SILENCE_PER_SEC)
+
+    async def header(self, text: str):
+        """A section header: topped up to PRE_FRAME of air before, 1.2s after."""
+        # Counted in FRAMES: topping up in seconds rounds each slab down separately
+        # and lands a frame short of the floor.
+        self.audio.extend(SILENCE_FRAME * max(0, int(PRE_FRAME * SILENCE_PER_SEC) - self.tail))
+        await self.add(text, ANNA_VOICE, 1.2)
 
     def minutes(self, path: Path) -> float:
         """MEASURED, never estimated from byte count: speech frames are far larger
@@ -404,7 +475,7 @@ WHO = {"a": "FIRST", "b": "SECOND"}
 
 
 def write_script(mp3: Path, spine: str, measured: float, sheets: list[tuple],
-                 spoken: list[str]) -> Path:
+                 title: str | None = None) -> Path:
     """The written story, saved beside the audio (2026-08-10, Andrew: "I want the
     scripts stored in github").
 
@@ -418,16 +489,24 @@ def write_script(mp3: Path, spine: str, measured: float, sheets: list[tuple],
     WRITTEN FROM THE SHEETS THAT ACTUALLY PLAYED, not from the plan: the tape stops
     on the measured clock, so the tail of a plan may never have been rendered, and a
     script naming movements that never aired is the same lie in reverse. The closing
-    lap is written out too — it is a third of the audio."""
-    lines = [f"# Rotation — {spine} · {datetime.now():%Y-%m-%d}", "",
+    lap is written out too — it is a third of the audio.
+
+    EVERY ENGLISH LINE THE TAPE SAYS IS HERE (2026-09-29). The lap's two spoken
+    lines were missing for seven weeks, so the file whose job is to be quotable
+    quietly disagreed with the audio. The roadmap, the mode labels and the lap
+    headers come from the same functions the render calls, so they cannot drift."""
+    lap = closing_lap(sheets)
+    lines = [f"# Rotation — {title or spine} · {datetime.now():%Y-%m-%d}", "",
              "<!-- GENERATED by scripts/render_rotation.py — this is the source text",
              "     sent to the TTS, not a transcript. It is the story as written.",
              f"     AUDIO: published_audio/{mp3.name}",
              f"     MEASURED {measured:.1f} min over {len(sheets)} movements. -->", ""]
+    if sheets:
+        lines += ["## roadmap", "",
+                  f"**ANNA:** {roadmap([mv['shape'] for mv, _ in sheets], bool(lap))}", ""]
     for n, (mv, sheet) in enumerate(sheets, 1):
-        lines += [f"## {n}. {mv['shape']} — {sheet.get('frame') or '(no frame line)'}", ""]
-        if sheet.get("frame"):
-            lines += [f"**ANNA:** {sheet['frame']}", ""]
+        lines += [f"## {n}. {mv['shape']} — {sheet.get('frame') or '(no frame line)'}", "",
+                  f"**ANNA:** {spoken_frame(mv['shape'], sheet)}", ""]
         for beat in sheet["beats"]:
             say, en = (beat.get("say") or "").strip(), (beat.get("en") or "").strip()
             who = WHO.get(beat.get("who"), "ANNA") if mv["shape"] == "scene" else \
@@ -437,9 +516,13 @@ def write_script(mp3: Path, spine: str, measured: float, sheets: list[tuple],
             if en:
                 lines.append(f"> {en}" if say else f"**{who}:** {en}")
             lines.append("")
-    if spoken:
-        lines += ["## closing lap — same sounds, one more lap", ""]
-        lines += [f"**ANNA:** {l}" for l in dict.fromkeys(spoken)] + [""]
+    lines += ["## closing lap", ""]
+    if lap:
+        lines += [f"**ANNA:** {LAP_IN}", ""]
+        for text, head in lap:
+            lines += ["", f"**ANNA:** {text}", ""] if head else [f"**ANNA:** {text}"]
+        lines.append("")
+    lines += [f"**ANNA:** {LAP_OUT}", ""]
     SCRIPTS_DIR.mkdir(parents=True, exist_ok=True)
     path = SCRIPTS_DIR / f"{mp3.stem}.md"
     path.write_text("\n".join(lines), encoding="utf-8")
@@ -453,8 +536,7 @@ async def render_movement(tape: Tape, mv: dict, sheet: dict, n: int):
     follows something he was handed five minutes ago."""
     after_say, after_en, after_beat = RHYTHM[mv["shape"]]
     voice_a, voice_b = movement_voices(n)
-    if sheet.get("frame"):
-        await tape.add(sheet["frame"], ANNA_VOICE, 1.2)
+    await tape.header(spoken_frame(mv["shape"], sheet))
     for beat in sheet["beats"]:
         say, en = (beat.get("say") or "").strip(), (beat.get("en") or "").strip()
         if mv["shape"] == "lore":
@@ -510,11 +592,18 @@ async def render(plan: list[dict], spine: str, out: Path, minutes: float,
         # Both spoken lines stay clear of rule 6 — nothing about where he is, what
         # he is doing, or how tired he might be. An earlier draft signed off with
         # "sleep if you can", which is precisely the ban.
-        if tape.spoken:
-            await tape.add("Same sounds, one more lap.", ANNA_VOICE, 1.5)
-            for line in dict.fromkeys(tape.spoken):
-                await tape.add(line, ANNA_VOICE, 1.0)
-        await tape.add("That's the lot.", ANNA_VOICE, 0.5)
+        lap = closing_lap(sheets)
+        if lap:
+            await tape.add(LAP_IN, ANNA_VOICE, 1.5)
+            for text, head in lap:
+                await (tape.header(text) if head else tape.add(text, ANNA_VOICE, 1.0))
+        await tape.add(LAP_OUT, ANNA_VOICE, 0.5)
+        # THE ROADMAP GOES ON LAST, AT THE FRONT (2026-09-29). Only now is it known
+        # which movements actually played. Movement 1's header already opened on
+        # PRE_FRAME of air, so the splice needs no pause of its own.
+        if sheets:
+            tape.audio[0:0] = await tape.say(
+                roadmap([mv["shape"] for mv, _ in sheets], bool(lap)), ANNA_VOICE)
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
     return tape.minutes(out), len(sheets), tape.spoken, sheets
@@ -552,6 +641,22 @@ def rotation_brief() -> tuple[str | None, list[str]]:
     if (order.get("channel") or "episode") != "rotation":
         return None, []
     return (order.get("focus") or "").strip() or None, [w for w in order.get("payload") or [] if w]
+
+
+def brief_reach(brief: str, sheets: list[tuple]) -> str:
+    """Which of the brief's NAMES reached the sheets that played — an observation
+    for the run log, never a gate (2026-09-29). The October intro logged nothing
+    and delivered nothing of its brief; a line reading 0/9 would have said so.
+    Names are capitalised words not opening a sentence (Priya, Karthi, October):
+    crude, deliberately — judging whether prose honoured a brief is the mushy
+    check this repo refuses, and counting names is not judgment."""
+    names = list(dict.fromkeys(m.group(1) for m in re.finditer(
+        r"(?<=\s)(?<![.:!?]\s)([A-Z][a-z]{2,})", brief)))
+    text = " ".join([sh.get("frame") or "" for _, sh in sheets] + [
+        f"{b.get('say')} {b.get('en')}" for _, sh in sheets for b in sh["beats"]]).lower()
+    hit = [n for n in names if n.lower() in text]
+    return (f"{len(hit)}/{len(names)} brief names reached the sheets: {', '.join(hit) or 'none'}"
+            f" · absent: {', '.join(n for n in names if n not in hit) or 'none'}")
 
 
 def expected_min(count: int) -> float:
@@ -598,7 +703,15 @@ def main():
     ap.add_argument("--brief", default="",
                     help="commission brief threaded into each movement's writer prompt "
                     "(from a commission file); empty for the standing shelf runs")
+    # The October intro commission (2026-09-25) briefed a recap-and-look-ahead and
+    # the `room` spine rendered a generic doorway tape the feed titled "room" — the
+    # brief cannot change the spine, by design, so the intent evaporated silently.
+    # A commissioned title does not fix the tape; it makes the mismatch visible
+    # the next morning instead of discoverable only by diffing brief against script.
+    ap.add_argument("--title", default="",
+                    help="the feed title (from a commission file); default: the spine")
     args = ap.parse_args()
+    title = args.title.strip() or args.spine
 
     # THE SHELF, NOT THE LEARNER. `--if-short` is what lets this lane run on a
     # cron without becoming a nag: it asks whether the WEEK PRODUCED enough
@@ -665,8 +778,10 @@ def main():
     print(f"   rendered -> {mp3} ({measured:.1f} min, {played} movements)")
     # Written BEFORE the publish gate, so `--no-publish` still leaves the story on
     # disk: a local render is exactly when you want to read what it said.
-    script = write_script(mp3, args.spine, measured, sheets, spoken)
+    script = write_script(mp3, args.spine, measured, sheets, title)
     print(f"   script   -> {script}")
+    if args.brief.strip():
+        print(f"   [brief] {brief_reach(args.brief, sheets)}")
     # NOT a warning for stopping under `--minutes` — that is the honest length of
     # this spine's material and is the intended outcome. What is worth flagging is
     # the CALIBRATION drifting: the tape missing what its own movement count
@@ -701,12 +816,12 @@ def main():
         taught=[w for w in delivered if w in gave],
         intake={r["word"]: r for r in pool if r.get("intake")},
         claimed=bool(focus or payload), extra_paths=[script],
-        message=f"Rotation tape: {args.spine} ({measured:.0f} min)",
+        message=f"Rotation tape: {title} ({measured:.0f} min)",
         # The spine IS this lane's name and always was — it is why three tapes
         # riding the feed at once were already tellable apart. Passed through
         # the same seam so one mechanism names every audio dose.
-        title=args.spine,
-        copy=f"rotation tape's up — {measured:.0f} min, {args.spine}. press once 🎧",
+        title=title,
+        copy=f"rotation tape's up — {measured:.0f} min, {title}. press once 🎧",
         noun="tape", commit=commit_and_push, notify=push_to_phone)
 
 

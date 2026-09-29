@@ -206,6 +206,7 @@ def main():
         run(state.s124_an_escalation_needs_a_listen, sb)
         run(ratchets.s125_the_map_is_complete_and_retired_claims_stay_retired)
         run(state.s116_a_tap_can_reach_the_real_feeds_words, sb)
+        run(render.s126_the_tape_says_where_it_is, sb)
 
     if fx.ONLY and not fx.RAN:
         sys.exit(f"no case matched {fx.ONLY} — name a case (s41) or a prefix (s41_slip)")

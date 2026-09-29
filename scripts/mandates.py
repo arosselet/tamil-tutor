@@ -128,7 +128,7 @@ energy, the flight, the hour, or the tape itself. No "if you're walking", no "re
 no "we're halfway". The context above tells YOU how to pitch it; it is never said out loud.
 
 Return ONLY a JSON object, no prose around it:
-{"frame": "<one short English line naming what this movement is>",
+{"frame": "<one short English line naming this movement's TOPIC only — the tape speaks the mode word before it, so never name the mode and never address him>",
  "beats": [{"say": "<Tamil script>", "en": "<short gloss>", "who": "a"}, ...]}
 """
 
@@ -164,7 +164,8 @@ THIS MOVEMENT IS LORE — 5-8 beats of Anna talking in English about why one of 
 words is the way it is: what it literally contains, where it comes from, what a Coimbatore \
 speaker hears in it that a textbook misses. Put the English in "en" and leave "say" empty, \
 EXCEPT where you quote the word itself — then "say" carries the quote and it is spoken \
-after the line. "who" is always "anna". This is the movement that is allowed to be \
+after the line. Each beat stays in ONE language — English explains, Tamil demonstrates, \
+always paired; never switch language mid-line. "who" is always "anna". This is the movement that is allowed to be \
 interesting rather than useful; it is his favourite part and it is why the tape is bearable.""",
 }
 

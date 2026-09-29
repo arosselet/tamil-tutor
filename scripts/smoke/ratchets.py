@@ -259,7 +259,14 @@ CODE_BUDGETS = {
     # home, no soak, no rotation, no drill — but the mechanism is real code and
     # is budgeted as such. Nothing retired for it; this file gained a job it did
     # not have, which is running when nobody asked.
-    "scripts/render_rotation.py": 345,
+    # 345 -> 402 (2026-09-29, Andrew approved the section-marker spec): mode labels,
+    # the PRE_FRAME break, a roadmap built from what played, the grouped closing
+    # lap, the script writing every English line the tape says, `--title`, and the
+    # brief-reach log. Retired: the flat 60-line lap loop, the frame-or-nothing
+    # branch, and the script's lap lines that disagreed with the audio. Net growth
+    # is a new job — telling the ear where it is — not crud. The next raise is the
+    # split signal: the marker helpers are the seam.
+    "scripts/render_rotation.py": 402,
     # 275 -> 265 (2026-08-23, Andrew): re-censused DOWN.
     "scripts/render_soak.py": 195,
     # Budgeted in the diff that created it (2026-09-05) — a new file with no entry here is a red run, because adding one is the obvious way past …
