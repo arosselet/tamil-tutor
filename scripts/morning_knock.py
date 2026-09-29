@@ -162,20 +162,35 @@ def outcome_memory(klog: list, now: datetime) -> str:
         lines.append(f"    {k.get('date','?')} · {modality}/{move} · "
                      f"asked: {ask} · “{body_head}…” · {detail}")
 
-    # Ignore streak = trailing reaches with no tap AND no session since.
-    streak = 0
+    # Ignore streak = trailing ASKS with no tap AND no session since (2026-09-29).
+    # It used to count gifts too, and the mandate defines a gift as worth the
+    # interruption "tapped or not": with the gift the default, the streak sat at
+    # 3+ by construction, the verdict said "give space", and the decider chose
+    # silence six ticks running — the format manufactured the disengagement it
+    # then read. Untapped gifts are counted on their OWN line instead of being
+    # skipped silently: 8 of 8 gifts went untapped 09-23→29, and a streak that
+    # merely ignored them would have read that as health. Their verdict asks for
+    # a different vein or an ask, never silence.
+    streak = gifts_untapped = 0
     for k in reversed(fires):
         after = local_date(k.get("timestamp", ""))
         session_after = last_session and after and last_session >= after.isoformat()
         if k.get("response") or session_after:
             break
-        streak += 1
+        if is_give(k):
+            gifts_untapped += 1
+        else:
+            streak += 1
 
     since = "never" if not last_session else last_session
     verdict = ""
     if streak >= 3:
-        verdict = (f"  ⚠ {streak} reaches in a row led to no session and no tap — the current "
+        verdict = (f"  ⚠ {streak} asks in a row led to no session and no tap — the current "
                    "approach isn't converting. Give space, or change the move/modality entirely.")
+    elif gifts_untapped >= 4:
+        verdict = (f"  ⚠ {gifts_untapped} gifts in a row untapped, no session between — the gifts "
+                   "aren't landing. Change the vein and the notification's shape, or send a MISSION. "
+                   "Not a reason for silence.")
     elif last_session and (now.astimezone(LOCAL_TZ).date() - date.fromisoformat(last_session)).days >= 3:
         verdict = "  ⚠ No session in 3+ days — pull, never nag: a gift that shows him how close he is."
 
@@ -183,7 +198,8 @@ def outcome_memory(klog: list, now: datetime) -> str:
     return (f"OUTREACH MEMORY (reward = Andrew showing up in chat, NOT taps):\n"
             f"  Last chat session: {since}\n"
             f"  Recent reaches (newest last):\n{body}\n"
-            f"  Ignore-streak: {streak} unanswered reaches.{verdict}")
+            f"  Ignore-streak: {streak} unanswered asks ({gifts_untapped} untapped gifts "
+            f"between).{verdict}")
 
 
 def demand_streak(klog: list) -> int:
@@ -228,6 +244,13 @@ def remaining_room(klog: list, now: datetime) -> str:
     gifts = [k.get("move", "") for k in klog if is_fire(k) and is_give(k)][-4:]
     lore_str = (f"\n  Recent gift veins (newest last — take a different one): {' · '.join(gifts)}"
                 if gifts else "")
+    # THE TEMPLATE RAIL (2026-09-29). The vein line bans a repeated NAME, but
+    # the progress-tease frame ("You already have X… You get Y") ran across
+    # four different veins in a week — sameness by rhetoric, invisible to a
+    # rail that reads labels. Python counts the openers; the mandate owns the cap.
+    teases = sum(bool(TEASE_RE.search(k.get("body") or "")) for k in
+                 [k for k in klog if is_fire(k)][-6:])
+    lore_str += f"\n  Progress-tease template in {teases} of the last 6 fires (cap: 1 in 3)."
     # Eavesdrop cadence — catch items advance ONLY through eavesdrop; surface a
     # warning when the cadence has lapsed so Anna doesn't keep skipping it.
     eavesdrop_str = ""
@@ -400,8 +423,27 @@ def campaign_block() -> str:
     return "CAMPAIGN (the live week plan — steer by it):\n" + (body[:1500].rsplit("\n\n", 1)[0] if len(body) > 1500 else body)
 
 
+# The progress-tease openers the template rail counts (see remaining_room).
+TEASE_RE = re.compile(r"you already|you own|you'?re (one|1)\b|\bone\b.{0,40}\baway\b|"
+                      r"\ba\b.{0,40}\baway from\b", re.I)
+
 # English question words only: "Evlo aagum?" is an answer, not a question.
 QUESTION_RE = re.compile(r"\b(what|why|how|which|break (it )?down|root|mean|difference)\b", re.I)
+
+
+def last_fired_on(klog: list) -> dict:
+    """key -> the last date he PRODUCED it (2026-09-29): a session's cold/hinted
+    lists and a judged push reply's fired words. The freshness rail reads this —
+    "you're one step away" on month-old evidence reads as pressure, not pull.
+    Deliberately NOT `last_surfaced`, which is a delivery stamp (08-31 law)."""
+    out = {}
+    for e in load_json(SESSION_LOG_PATH) or []:
+        for k in (e.get("cold") or []) + (e.get("hinted") or []):
+            out[k] = max(out.get(k, ""), e.get("date") or "")
+    for e in klog:
+        for k in e.get("reply_fired") or []:
+            out[k] = max(out.get(k, ""), (e.get("reply_at") or e.get("timestamp") or "")[:10])
+    return out
 
 
 def progress_block(klog: list, now: datetime, max_n: int = 6) -> str:
@@ -411,11 +453,13 @@ def progress_block(klog: list, now: datetime, max_n: int = 6) -> str:
     leaned on the household or on his misses. Rows only — no new state."""
     lex = load_json(LEXICON_PATH) or {}
     by_recent = sorted(lex.items(), key=lambda kv: kv[1].get("last_surfaced") or "", reverse=True)
-    def rows(pred, n):
-        return [f"    {k} — {(v.get('gloss') or '')[:70]}" for k, v in by_recent if pred(k, v)][:n]
+    fired = last_fired_on(klog)
+    def rows(pred, n, dated=True):
+        when = lambda k: f" (last fired: {fired.get(k, 'no dated evidence')})" if dated else ""
+        return [f"    {k} — {(v.get('gloss') or '')[:70]}{when(k)}" for k, v in by_recent if pred(k, v)][:n]
     frame = lambda k: k.startswith("frame:")
     owned = rows(lambda k, v: frame(k) and v.get("production") == "cold", max_n)
-    ahead = rows(lambda k, v: frame(k) and v.get("production") == "none", 3)
+    ahead = rows(lambda k, v: frame(k) and v.get("production") == "none", 3, dated=False)
     close = rows(lambda k, v: not frame(k) and v.get("production") == "hinted", max_n)
     since = (now - timedelta(days=14)).isoformat()
     asked = []
@@ -589,18 +633,11 @@ DECIDE_SCHEMA = obj(act=BOOL, modality=STR, move=STR, stance=STR,
                         target_revealed=BOOL, move=STR)))
 
 
-# THE DECIDE A/B (2026-09-23, Andrew: "lets do both"). Blind test on the new
-# mandate: he picked two Sonnet memos and called Gemini's "baity". Five samples
-# on one topic is not a verdict, so the lane alternates by local date and every
-# entry records its writer; compare reply rates after two weeks. Cost at ~4
-# decides/day: ~$5 USD/mo for the Sonnet half. Revert = delete this and the
-# `model=` below. Judges and the phonetic rewrite stay on MODEL either way.
-DECIDE_AB = ("anthropic/claude-sonnet-5", OPENROUTER_MODEL)
-
-
-def decide_model(now: datetime) -> str:
-    """Which writer drafts today's pushes on the API path — alternate days."""
-    return DECIDE_AB[now.astimezone(LOCAL_TZ).date().toordinal() % 2]
+# THE DECIDE A/B RETIRED (2026-09-29, Andrew: "Gemini was doing just fine for
+# Anna in the cloud"). Sonnet and Gemini alternated by day from 09-23; both
+# arms read 0 replies, because the variable that moved was the MOVE set (the
+# July modality table), not the writer. One writer again; `decide_model` is
+# still stamped on every entry, so a future writer change stays auditable.
 
 
 def decide(digest: str, volley_menu: list | None = None) -> dict:
@@ -619,7 +656,7 @@ def decide(digest: str, volley_menu: list | None = None) -> dict:
     # persona.md does. Inlined here rather than added to `voice_canon()`,
     # which five lanes share: a drill sheet has no household in it.
     canon = voice_canon() + "\n\n---\n\n" + household.load()
-    model = AGENT_MODEL if have_agent() else decide_model(datetime.now(timezone.utc))
+    model = AGENT_MODEL if have_agent() else OPENROUTER_MODEL
     print(f"   [decide] {executor_name()} · {model}")
     d = ask_json(canon + "\n\n---\n\n" + OUTREACH_MANDATE,
                  f"TODAY'S DIGEST:\n\n{digest}", DECIDE_SCHEMA, answer_tokens=1600,

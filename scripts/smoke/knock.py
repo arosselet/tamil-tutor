@@ -2609,3 +2609,87 @@ def s94_a_lure_is_not_a_break(mk, sb: Path):
           not mk.is_give({"acted": True, "expected_target": "x"}))
     check("a pre-field fire with no target still reads as relief",
           mk.is_give({"acted": True, "expected_target": ""}))
+
+
+def s127_asks_earn_replies_gifts_earn_taps(mk, sb: Path):
+    """The push-engagement fix (2026-09-29, Andrew with Rio). The ignore-streak
+    counted gifts, which the mandate defines as worth it "tapped or not", so
+    with the gift the default it sat at 3+ by construction and the decider chose
+    silence six ticks running.
+
+    Gate 7.2, out loud: the obvious fix — skip gifts — is itself a silent no-op.
+    8 of 8 gifts went untapped 09-23→29, and a streak that merely skipped them
+    would read that week as health. So untapped gifts are asserted to be COUNTED
+    and to warn on their own line, and that warning is asserted never to say
+    "give space". The tease rail is asserted as a count, the freshness rail as a
+    date read from evidence (never `last_surfaced`), and the A/B as gone."""
+    print("\n127. Asks earn replies, gifts earn taps — streak, tease rail, freshness (2026-09-29)")
+    now = datetime.now(timezone.utc)
+    ts = lambda h: (now - timedelta(hours=h)).isoformat()
+    slog_path = Path(mk.SESSION_LOG_PATH)
+    saved = slog_path.read_text(encoding="utf-8") if slog_path.exists() else None
+    try:
+        write_json(slog_path, [{"date": (now - timedelta(days=30)).date().isoformat(),
+                                "cold": ["பழசு"], "hinted": []}])
+        gift = lambda h: {"acted": True, "stance": "give", "move": "lore", "timestamp": ts(h)}
+        ask = lambda h: {"acted": True, "stance": "ask", "move": "mission",
+                         "expected_target": "x", "timestamp": ts(h)}
+
+        mem = mk.outcome_memory([gift(3), gift(2), gift(1)], now)
+        check("3 untapped gifts, no session -> ask-streak 0",
+              "Ignore-streak: 0 unanswered asks" in mem, mem.splitlines()[-1])
+        check("...and no back-off verdict", "Give space" not in mem)
+        check("...but the gifts are counted, not dropped", "3 untapped gifts" in mem)
+
+        mem = mk.outcome_memory([ask(3), ask(2), ask(1)], now)
+        check("3 untapped asks -> ask-streak 3 and the back-off verdict",
+              "Ignore-streak: 3 unanswered asks" in mem and "Give space" in mem, mem)
+
+        mem = mk.outcome_memory([gift(4), ask(3), gift(2), ask(1)], now)
+        check("gifts neither extend nor break the ask-streak",
+              "Ignore-streak: 2 unanswered asks (2 untapped gifts" in mem, mem.splitlines()[-1])
+
+        mem = mk.outcome_memory([gift(h) for h in (4, 3, 2, 1)], now)
+        check("4 untapped gifts warn on their own line", "4 gifts in a row untapped" in mem, mem)
+        check("...and that warning never prescribes silence",
+              "Give space" not in mem and "Not a reason for silence" in mem)
+
+        tapped = gift(1) | {"response": "listened"}
+        mem = mk.outcome_memory([ask(4), ask(3), ask(2), tapped], now)
+        check("a tapped gift still breaks the streak",
+              "Ignore-streak: 0 unanswered asks (0 untapped" in mem, mem.splitlines()[-1])
+
+        # THE TEMPLATE RAIL counts the rhetoric, not the vein name.
+        bodies = ["You already have appuram. Add one ending.", "Lore: the kilambu root 🌿",
+                  "You're one step away from 'enakku onnum theriyadhu'",
+                  "a single letter away from nalla irunga", "Athai's scooter key 🎧", "plain gift"]
+        klog = [gift(10 - i) | {"body": b} for i, b in enumerate(bodies)]
+        room = mk.remaining_room(klog, now)
+        check("the rails count progress-tease openers over the last 6 fires",
+              "Progress-tease template in 3 of the last 6 fires" in room, room)
+
+        # FRESHNESS: a date from EVIDENCE, and an absence that says so.
+        fresh = (now - timedelta(days=1)).strftime("%Y-%m-%dT%H:%M:%SZ")
+        fired = mk.last_fired_on([{"reply_fired": ["புதுசு"], "reply_at": fresh}])
+        check("last_fired_on reads session evidence",
+              fired.get("பழசு") == (now - timedelta(days=30)).date().isoformat(), str(fired))
+        check("...and judged push replies", fired.get("புதுசு") == fresh[:10], str(fired))
+        check("the progress block dates what it offers as a hook",
+              "(last fired:" in fx.raw_source(REAL_BASE / "scripts" / "morning_knock.py")
+              and "no dated evidence" in fx.raw_source(REAL_BASE / "scripts" / "morning_knock.py"))
+    finally:
+        if saved is None:
+            slog_path.unlink(missing_ok=True)
+        else:
+            slog_path.write_text(saved, encoding="utf-8")
+
+    # THE MANDATE owns the rules Python counts for.
+    m = mk.OUTREACH_MANDATE
+    check("the mandate carries the MISSION as an ask", '4. MISSION (modality "text", stance "ask")' in m)
+    check("...and caps the tease frame and its freshness", "1 push in 3" in m and "7 days" in m)
+    check("the eavesdrop pull has a banned quiz example", "QUIZ, banned" in m)
+
+    # THE A/B IS RETIRED (2026-09-29, Andrew): one writer, still stamped.
+    src = fx.raw_source(REAL_BASE / "scripts" / "morning_knock.py")
+    check("no alternating decide writer", not hasattr(mk, "DECIDE_AB") and not hasattr(mk, "decide_model"))
+    check("...and every decision still records its writer", 'd["decide_model"] = model' in src)

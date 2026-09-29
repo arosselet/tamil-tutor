@@ -187,7 +187,12 @@ CODE_BUDGETS = {
     # the cast's own names — without which a tape about பிரியா would be refused
     # for naming nobody and the lane would go quietly silent. The pack was NOT
     # widened for it (Gate 6): a cast list is a fact about Andrew, not Tamil.
-    "scripts/morning_knock.py": 405,
+    # 405 -> 425 (2026-09-29): the push-engagement fix — ignore-streak split into
+    # asks vs untapped gifts, the progress-tease template rail, and last-fired
+    # dates on PROGRESS (`last_fired_on`). RETIRED in the same diff: the decide
+    # A/B (`DECIDE_AB`, `decide_model()`). Next growth here is a split signal —
+    # the digest builders (progress/outcome/room) are the obvious lane to lift out.
+    "scripts/morning_knock.py": 425,
     # 470 -> 500 (2026-08-28): MESSAGE_MANDATE landed — the first mandate in this file that only ACTS instead of grading.
     "scripts/mandates.py": 500,
     # NEW FILE, budgeted in the diff that creates it (2026-08-24, Q1's first family).
