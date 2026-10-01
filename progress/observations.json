@@ -20795,5 +20795,17 @@
     "medium": "audio",
     "source": "knock:2026-09-30T16:36:01.732783+00:00",
     "note": ""
+  },
+  {
+    "id": "0b290580545c",
+    "at": "2026-10-01T14:13:01Z",
+    "word": "frame:spice-dhaan",
+    "channel": "eavesdrop",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "knock:2026-10-01T14:12:13.737512+00:00",
+    "note": ""
   }
 ]

@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Thursday 2026-10-01
+
+**10:12 · Anna** 🎧  ·  eavesdrop / eavesdrop: spice-dhaan
+> Athai is on the phone about Paatti's birthday — catch who actually made the guest list 🎧
+
+
 ## Wednesday 2026-09-30
 
 **12:36 · Anna** 🎧  ·  audio / lore: freeya vidunga

@@ -7803,5 +7803,23 @@
     "expected_target": "frame:want-noun",
     "stance": "ask",
     "target_revealed": false
+  },
+  {
+    "date": "2026-10-01",
+    "timestamp": "2026-10-01T14:12:13.737512+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "eavesdrop: spice-dhaan",
+    "rationale": "Cadence tick for eavesdrop: Athai dishes on Paati's 75th lunch, weaving the -dhaan clitic into natural household gossip.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-10-01T19:12:13.737512+00:00",
+    "body": "Athai is on the phone about Paatti's birthday — catch who actually made the guest list 🎧",
+    "body_script": "அத்தை is on the phone about பாட்டி's birthday — catch who actually made the guest list 🎧",
+    "expected_target": "frame:spice-dhaan",
+    "stance": "ask",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-01T14-12.mp3",
+    "memo_script": "ஹலோ, அக்கா, கேக்குதா? ஆமா, நான் தான் பேசுறேன்.\n\nஇங்க என்ன நடக்குது தெரியுமா? பாட்டிக்கு எழுபத்தஞ்சு ஆகுதுன்னு மாமா சும்மா வீட்ல நாலு பேருக்கு மட்டும் சாப்பாடு போதும்னாரு. ஆனா பாட்டி என்ன பண்ணிருக்காங்க பாருங்க! நேத்து தான் அவங்களே ஊர்ல எல்லாருக்கும் போன் போட்டு வர சொல்லிட்டாங்க.\n\nமாமா கிட்ட கார்த்தி இன்னும் இத சொல்லல. கேட்டா சண்டை வரும். நீங்க கண்டிப்பா சீக்கிரம் கிளம்பி வாங்கக்கா, அப்புறம் பேசுவோம்.",
+    "mp3": "published_audio/knocks/knock_2026-10-01T14-12.mp3"
   }
 ]
