@@ -9,6 +9,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **10:12 · Anna** 🎧  ·  eavesdrop / eavesdrop: spice-dhaan
 > Athai is on the phone about Paatti's birthday — catch who actually made the guest list 🎧
 
+**14:30 · Andrew** — **MISSED**
+> Heard some words but didn’t catch guest list
+
+**Anna ↩**
+> Paatti dhaan — maama wanted four people, but avangale called the whole oor!
+
 
 ## Wednesday 2026-09-30
 

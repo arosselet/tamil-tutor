@@ -20807,5 +20807,17 @@
     "medium": "audio",
     "source": "knock:2026-10-01T14:12:13.737512+00:00",
     "note": ""
+  },
+  {
+    "id": "5381f6462f4f",
+    "at": "2026-10-01T18:30:23Z",
+    "word": "frame:spice-dhaan",
+    "channel": "eavesdrop",
+    "kind": "tested",
+    "axis": "recognition",
+    "result": "wrong",
+    "medium": "audio",
+    "source": "knock:2026-10-01T14:12:13.737512+00:00",
+    "note": "declared target, missed"
   }
 ]

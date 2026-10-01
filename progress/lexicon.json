@@ -4268,9 +4268,10 @@
     "last_surfaced": "2026-10-01",
     "direction": "catch",
     "exposures": 3,
-    "reps": 1,
+    "reps": 2,
     "register": "frame",
-    "taught_on": "2026-08-05"
+    "taught_on": "2026-08-05",
+    "heard_on": "2026-10-01"
   },
   "frame:myself-thukka": {
     "type": "pattern",
