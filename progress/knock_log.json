@@ -7838,5 +7838,23 @@
       }
     ],
     "payoff_mp3": "published_audio/knocks/payoff_2026-10-01T14-12.mp3"
+  },
+  {
+    "date": "2026-10-01",
+    "timestamp": "2026-10-01T20:02:43.148704+00:00",
+    "acted": true,
+    "modality": "audio",
+    "move": "pattern: yaarukku theriyum",
+    "rationale": "Audio gift breaking down the table shrug 'யாருக்கு தெரியும்' to give a low-friction hook without pressure.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-10-02T00:32:43.148704+00:00",
+    "body": "When plans flip at the table, two words save you: Yaarukku theriyum? 🤷‍♂️",
+    "body_script": "When plans flip at the table, two words save you: யாருக்கு தெரியும்? 🤷‍♂️",
+    "expected_target": "",
+    "stance": "give",
+    "target_revealed": true,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-01T20-02.mp3",
+    "memo_script": "You already know தெரியாது when someone asks you something direct. But at a Tamil family table, half the time nobody actually knows what's going on. Who is coming on Friday? When is the car reaching? Mama says one time, Athai says another.\n\nThat's when you drop the shrug: யாருக்கு தெரியும்?\n\nதெரியும் is just 'known'. யாருக்கு means 'to whom'. So literally: to whom is it known? Or as everyone actually means it: who knows?\n\nKarthi asks when lunch is happening? Just nod and hit him with யாருக்கு தெரியும்? Zero commitments, completely local.",
+    "mp3": "published_audio/knocks/knock_2026-10-01T20-02.mp3"
   }
 ]

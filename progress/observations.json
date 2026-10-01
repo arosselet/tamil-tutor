@@ -20819,5 +20819,17 @@
     "medium": "audio",
     "source": "knock:2026-10-01T14:12:13.737512+00:00",
     "note": "declared target, missed"
+  },
+  {
+    "id": "ee20a54ba1ba",
+    "at": "2026-10-01T20:03:03Z",
+    "word": "யாருக்கு தெரியும்?",
+    "channel": "audio",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "knock:2026-10-01T20:02:43.148704+00:00",
+    "note": ""
   }
 ]
