@@ -7788,5 +7788,20 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-09-30T16-36.mp3",
     "memo_script": "Andrew, here is a secret weapon for the Coimbatore table when family politics start spinning in circles.\n\nYou hear people arguing about who should take the car, who forgot the milk, or why Mama is irritated. You do not need to fix it. You just smile, lean back, and say: ஃப்ரீயா விடுங்க.\n\nIt literally takes the English word 'free', drops our Kongu honorific ங்க on the end of விடு, and means: let it go. Drop it. Leave it free.\n\nNow here is the trick with the register: to younger cousins or friends, people say ஃப்ரீயா விடு. But at Mama's table, you always keep that ங்க intact: ஃப்ரீயா விடுங்க. It sounds relaxed, completely local, and perfectly respectful. Next time someone overcomplicates dinner, that is your line.",
     "mp3": "published_audio/knocks/knock_2026-09-30T16-36.mp3"
+  },
+  {
+    "date": "2026-10-01",
+    "timestamp": "2026-10-01T00:59:00.156239+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "mission: coffee venum",
+    "rationale": "Breaking the 6-gift ignore streak with a clean, low-friction text mission using his solid want-noun frame.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-10-01T11:59:00.156239+00:00",
+    "body": "Mama asks what you want from the kitchen. Tell him: 'I want coffee'. sollu ☕",
+    "body_script": "Mama asks what you want from the kitchen. Tell him: 'I want coffee'. சொல்லு ☕",
+    "expected_target": "frame:want-noun",
+    "stance": "ask",
+    "target_revealed": false
   }
 ]
