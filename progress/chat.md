@@ -9,6 +9,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **09:25 · Anna** 🎧  ·  audio / tidbit: pazhagi-poochu
 > When the aunties watch your plate at lunch, drop this: Kaaram paravaayilla, pazhagipochu 🌶️
 
+**09:30 · Andrew** — **CHAT**
+> Nice thank you
+
+**Anna ↩**
+> Athai is waiting da — tuck it into the back pocket for lunch.
+
 
 ## Thursday 2026-10-01
 

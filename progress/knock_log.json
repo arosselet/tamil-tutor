@@ -7873,6 +7873,31 @@
     "target_revealed": true,
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-02T13-25.mp3",
     "memo_script": "Andrew, you know that moment at the table when everyone goes quiet and stares at your plate? Mama is watching, Athai has an extra tumbler of water ready just in case, waiting to see if the rasam is going to take your head off.\n\nMost people in that spot just smile awkwardly and say 'good, good'. But you? Next time, look right at Athai and drop this: காரம் பரவாயில்ல, பழகிப்போச்சு.\n\nBreak it down. காரம் is the heat, the spice. பரவாயில்ல you already know — it's fine, no problem. But the real magic is that last word: பழகிப்போச்சு.\n\nThe root is பழகு — to get used to something, to become familiar with it. And when it settles in completely, we tack on போச்சு. பழகிப்போச்சு — literally, 'it has become habit'. I'm used to it now.\n\nகாரம் பரவாயில்ல, பழகிப்போச்சு. Say that once with a straight face, and Athai will spend the rest of lunch telling everyone you were born in Coimbatore.",
-    "mp3": "published_audio/knocks/knock_2026-10-02T13-25.mp3"
+    "mp3": "published_audio/knocks/knock_2026-10-02T13-25.mp3",
+    "response": "reply",
+    "reply": "Nice thank you",
+    "reply_verdict": "chat",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line_script": "Athai is waiting da — tuck it into the back pocket for lunch.",
+    "reply_line": "Athai is waiting da — tuck it into the back pocket for lunch.",
+    "reply_at": "2026-10-02T13:30:35Z",
+    "exchanges": [
+      {
+        "at": "2026-10-02T13:30:35Z",
+        "reply": "Nice thank you",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "Athai is waiting da — tuck it into the back pocket for lunch.",
+        "reply_line_script": "Athai is waiting da — tuck it into the back pocket for lunch.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ]
   }
 ]
