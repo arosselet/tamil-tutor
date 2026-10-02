@@ -20843,5 +20843,17 @@
     "medium": "audio",
     "source": "knock:2026-10-02T13:25:39.506482+00:00",
     "note": ""
+  },
+  {
+    "id": "fbb30f28fc53",
+    "at": "2026-10-02T18:52:40Z",
+    "word": "அப்புறம் பார்க்கலாம்",
+    "channel": "audio",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "knock:2026-10-02T18:52:01.116768+00:00",
+    "note": ""
   }
 ]

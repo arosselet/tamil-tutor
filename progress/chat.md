@@ -15,6 +15,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > Athai is waiting da — tuck it into the back pocket for lunch.
 
+**14:52 · Anna** 🎧  ·  audio / lore: appuram paakkalaam
+> At the door, never say goodbye — Coimbatore folks drop this instead: Appuram paarkalaam 👋
+
 
 ## Thursday 2026-10-01
 
