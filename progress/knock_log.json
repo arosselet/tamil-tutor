@@ -7856,5 +7856,23 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-01T20-02.mp3",
     "memo_script": "You already know தெரியாது when someone asks you something direct. But at a Tamil family table, half the time nobody actually knows what's going on. Who is coming on Friday? When is the car reaching? Mama says one time, Athai says another.\n\nThat's when you drop the shrug: யாருக்கு தெரியும்?\n\nதெரியும் is just 'known'. யாருக்கு means 'to whom'. So literally: to whom is it known? Or as everyone actually means it: who knows?\n\nKarthi asks when lunch is happening? Just nod and hit him with யாருக்கு தெரியும்? Zero commitments, completely local.",
     "mp3": "published_audio/knocks/knock_2026-10-01T20-02.mp3"
+  },
+  {
+    "date": "2026-10-02",
+    "timestamp": "2026-10-02T13:25:39.506482+00:00",
+    "acted": true,
+    "modality": "audio",
+    "move": "tidbit: pazhagi-poochu",
+    "rationale": "Andrew engaged with yesterday's eavesdrop; arm him with the quintessential table-survival line for in-law lunches before testing production.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-10-02T17:55:39.506482+00:00",
+    "body": "When the aunties watch your plate at lunch, drop this: Kaaram paravaayilla, pazhagipochu 🌶️",
+    "body_script": "When the aunties watch your plate at lunch, drop this: காரம் பரவாயில்ல, பழகிப்போச்சு 🌶️",
+    "expected_target": "",
+    "stance": "give",
+    "target_revealed": true,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-02T13-25.mp3",
+    "memo_script": "Andrew, you know that moment at the table when everyone goes quiet and stares at your plate? Mama is watching, Athai has an extra tumbler of water ready just in case, waiting to see if the rasam is going to take your head off.\n\nMost people in that spot just smile awkwardly and say 'good, good'. But you? Next time, look right at Athai and drop this: காரம் பரவாயில்ல, பழகிப்போச்சு.\n\nBreak it down. காரம் is the heat, the spice. பரவாயில்ல you already know — it's fine, no problem. But the real magic is that last word: பழகிப்போச்சு.\n\nThe root is பழகு — to get used to something, to become familiar with it. And when it settles in completely, we tack on போச்சு. பழகிப்போச்சு — literally, 'it has become habit'. I'm used to it now.\n\nகாரம் பரவாயில்ல, பழகிப்போச்சு. Say that once with a straight face, and Athai will spend the rest of lunch telling everyone you were born in Coimbatore.",
+    "mp3": "published_audio/knocks/knock_2026-10-02T13-25.mp3"
   }
 ]

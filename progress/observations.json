@@ -20831,5 +20831,17 @@
     "medium": "audio",
     "source": "knock:2026-10-01T20:02:43.148704+00:00",
     "note": ""
+  },
+  {
+    "id": "1ee6dbfaef03",
+    "at": "2026-10-02T13:26:18Z",
+    "word": "காரம் பரவாயில்ல, பழகிப்போச்சு",
+    "channel": "audio",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "knock:2026-10-02T13:25:39.506482+00:00",
+    "note": ""
   }
 ]

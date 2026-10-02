@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Friday 2026-10-02
+
+**09:25 · Anna** 🎧  ·  audio / tidbit: pazhagi-poochu
+> When the aunties watch your plate at lunch, drop this: Kaaram paravaayilla, pazhagipochu 🌶️
+
+
 ## Thursday 2026-10-01
 
 **10:12 · Anna** 🎧  ·  eavesdrop / eavesdrop: spice-dhaan
