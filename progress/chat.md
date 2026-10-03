@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **08:55 · Anna** 🎧  ·  audio / echo: enna nadakkudhu
 > When voices are loud and you want the room's attention, drop two words: Enna nadakkudhu? ☕
 
+**10:57 · Anna** 🎧  ·  sort / Sort tape
+> Sort tape — 20 lines 🎧 Reply with the numbers you missed, or 'got them all'.
+
 
 ## Friday 2026-10-02
 

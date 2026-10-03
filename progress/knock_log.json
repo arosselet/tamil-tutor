@@ -7937,5 +7937,39 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-03T12-55.mp3",
     "memo_script": "டா, you know how when Paati rejected the scooter drama, she said நடந்து போலாம் — let's walk? And then right in the middle of all that noise, you heard என்ன நடக்குது?\n\nNotice that root — நட. In தமிழ், your feet walk, but situations walk too. If someone is pacing the hall, they're நடக்குறாங்க. But if you walk into the front room and everyone is talking at once, you just stand in the doorway and drop: என்ன நடக்குது? What's going on?\n\nAnd if you arrive late and the storm has already passed — everybody looks exhausted and the tea is cold — you switch that one ending: என்ன நடந்துச்சு? What happened? Same engine. Feet move forward, drama moves forward. Next time the house gets loud, lean in: என்ன நடக்குது?",
     "mp3": "published_audio/knocks/knock_2026-10-03T12-55.mp3"
+  },
+  {
+    "date": "2026-10-03",
+    "timestamp": "2026-10-03T14:57:07.147097+00:00",
+    "acted": true,
+    "modality": "sort",
+    "move": "Sort tape",
+    "rationale": "Receptive Check by ear: untested taught rows, most-aired first.",
+    "body": "Sort tape — 20 lines 🎧 Reply with the numbers you missed, or 'got them all'.",
+    "items": [
+      "நல்லா",
+      "முதல்ல",
+      "வரேன்",
+      "சரி",
+      "சந்தோஷம்",
+      "குடுங்க",
+      "சாப்பிடுங்க",
+      "இல்ல",
+      "சீக்கிரம்",
+      "இருக்கு",
+      "அவங்க",
+      "கிட்ட",
+      "ஆமா",
+      "தம்பி",
+      "எனக்கு",
+      "அது",
+      "அக்கா",
+      "சொன்னாங்க",
+      "புரியல",
+      "அப்புறம்"
+    ],
+    "memo_script": "Sort tape. 20 lines, numbered. Each one twice, a pause, then the meaning. Keep count of the numbers you didn't get before the meaning came. At the end, just tell me the numbers you missed. Or: got them all.\n\n1.\n\nநல்லா\n\nநல்லா\n\nWell / Nicely\n\n2.\n\nமுதல்ல\n\nமுதல்ல\n\nFirst\n\n3.\n\nவரேன்\n\nவரேன்\n\nI come / I'm coming\n\n4.\n\nசரி\n\nசரி\n\nOkay\n\n5.\n\nசந்தோஷம்\n\nசந்தோஷம்\n\nHappy / Joy\n\n6.\n\nகுடுங்க\n\nகுடுங்க\n\nGive (respectful)\n\n7.\n\nசாப்பிடுங்க\n\nசாப்பிடுங்க\n\nPlease eat (respectful)\n\n8.\n\nஇல்ல\n\nஇல்ல\n\nNo\n\n9.\n\nசீக்கிரம்\n\nசீக்கிரம்\n\nQuickly\n\n10.\n\nஇருக்கு\n\nஇருக்கு\n\nIt is / It exists\n\n11.\n\nஅவங்க\n\nஅவங்க\n\nThey / He-She (respectful)\n\n12.\n\nகிட்ட\n\nகிட்ட\n\nNear / With (person)\n\n13.\n\nஆமா\n\nஆமா\n\nYes\n\n14.\n\nதம்பி\n\nதம்பி\n\nYounger brother\n\n15.\n\nஎனக்கு\n\nஎனக்கு\n\nTo me / For me\n\n16.\n\nஅது\n\nஅது\n\nIt / That\n\n17.\n\nஅக்கா\n\nஅக்கா\n\nElder sister\n\n18.\n\nசொன்னாங்க\n\nசொன்னாங்க\n\nThey said\n\n19.\n\nபுரியல\n\nபுரியல\n\nI don't understand\n\n20.\n\nஅப்புறம்\n\nஅப்புறம்\n\nLater / After that\n\nThat's the lot. Tell me the numbers you missed, or got them all.",
+    "mp3": "published_audio/knocks/knock_2026-10-03T10-57.mp3",
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-03T10-57.mp3"
   }
 ]
