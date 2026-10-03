@@ -62,8 +62,10 @@ MODALITY = "sort"
 SIZE = 20
 REPLY_WINDOW = timedelta(days=4)   # an id-less "missed 4, 9" finds a tape this recent
 FRAMES_PER_SEC = 41.666            # matches render_audio's SILENCE_FRAME
-# (gap after the number, after the first saying, the thinking pause, after the meaning)
-GAPS = (0.4, 1.0, 3.0, 1.2)
+THINK = 3.0                        # the one spliced silence: between the sayings and the meaning
+# Every call carries the previous meaning, a number and the word twice — several
+# seconds of speech. A clip under this floor is the voice returning nothing.
+MIN_CALL_SECS = 1.0
 
 INTRO = ("Sort tape. {n} lines, numbered. Each one twice, a pause, then the meaning. "
          "Keep count of the numbers you didn't get before the meaning came. "
@@ -90,23 +92,42 @@ def draw(lexicon: dict, n: int = SIZE, seed: str = "") -> list[str]:
     return pick
 
 
+def _sentence(text: str) -> str:
+    return (t := text.strip()) and (t if t[-1] in ".!?" else t + ".")
+
+
 def script(items: list[str], lexicon: dict) -> list[tuple[str, float]]:
-    """(text, silence after) in speaking order. The transcript is this, joined."""
-    out = [(INTRO.format(n=len(items)), 1.5)]
+    """(text, silence after) in speaking order — ONE TTS call per item, and the
+    word is never sent alone. The transcript is this, joined.
+
+    Why one call per item (2026-10-03): the first tape sent every number, word
+    and meaning as its own call — 82 calls, 40 of them a bare word — and
+    Chirp3-HD answers a one- or two-syllable input with ~0.3 s of silence, not
+    reliably. சரி and அது played as dead air both times, ஆமா once, and the
+    meaning "No" once. So each call is: the previous item's meaning, the next
+    number, the word twice; the full stops pace those short gaps. The thinking
+    pause is the only silence spliced in, because it is the only one whose
+    length the test depends on. 21 calls for 20 lines, none of them short."""
+    lead, out = INTRO.format(n=len(items)), []
     for i, key in enumerate(items, 1):
-        gloss = lexicon[key].get("gloss") or ""
-        out += [(f"{i}.", GAPS[0]), (key, GAPS[1]), (key, GAPS[2]), (gloss, GAPS[3])]
-    out.append((OUTRO, 0.5))
-    return [(t, s) for t, s in out if t.strip()]
+        out.append((f"{lead} {i}. {_sentence(key)} {_sentence(key)}", THINK))
+        lead = _sentence(lexicon[key].get("gloss") or "")
+    return out + [(f"{lead} {OUTRO}".strip(), 0.5)]
 
 
 async def render(lines: list[tuple[str, float]], out: Path):
+    """Raises before writing anything if a call comes back as silence: a tape
+    with dead air must never reach the feed (the file-exists check after this
+    cannot see it — the 2026-10-03 tape was full length with six silent clips)."""
+    from rebuild_rss import audio_duration
     from render_audio import (SILENCE_FRAME, clean_memo_for_tts,
                               generate_segment_google, get_raw_mp3_frames)
     audio = bytearray()
     tmp = tempfile.mkdtemp()
     for i, (text, gap) in enumerate(lines):
         seg = await generate_segment_google(clean_memo_for_tts(text), ANNA_VOICE, i, tmp)
+        if (secs := audio_duration(seg) or 0.0) < MIN_CALL_SECS:
+            raise RuntimeError(f"call {i + 1} came back as {secs:.2f}s of audio: {text!r}")
         audio.extend(get_raw_mp3_frames(seg))
         audio.extend(SILENCE_FRAME * int(gap * FRAMES_PER_SEC))
         os.remove(seg)
@@ -248,7 +269,7 @@ def main(argv=None) -> int:
     if out.exists():
         print(f"  ! {out.name} already exists — one sort tape a minute. Nothing rendered.")
         return 1
-    asyncio.run(render(lines, out))
+    asyncio.run(render(lines, out))   # a silent call raises here: nothing written, logged or pushed
     if not out.is_file() or out.stat().st_size == 0:
         print("  ! the render produced nothing playable. Nothing logged.")
         return 1

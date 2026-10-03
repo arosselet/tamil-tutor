@@ -2736,6 +2736,37 @@ def s128_the_sort_tape_round_trips(kr, sb: Path):
               sorted(items) == sorted(["சரி", "ஆமா", "இல்ல"]), items)
         check("...and most-aired leads the pick", rs.pool(lex)[0] == "சரி", rs.pool(lex))
 
+        # Dead air, 2026-10-03: a bare one-word call came back from Chirp3-HD as
+        # ~0.3 s of silence (சரி, அது, ஆமா, "No"). The script must never send a
+        # word alone, and a silent call must stop the render before a file exists.
+        lines = rs.script(["சரி", "ஆமா", "இல்ல"], lex)
+        texts = [t for t, _ in lines]
+        check("one call per item, plus the outro", len(lines) == 4, texts)
+        check("no call is a bare word: each item's call carries its number and both sayings",
+              all(f"{i}." in texts[i - 1] and texts[i - 1].count(k) == 2
+                  for i, k in enumerate(["சரி", "ஆமா", "இல்ல"], 1)), texts)
+        check("the meaning opens the NEXT call, after the thinking pause",
+              texts[1].startswith("okay.") and texts[3].startswith("no.")
+              and all(s == rs.THINK for _, s in lines[:3]), lines)
+        import asyncio
+        import render_audio
+        real_gen, out = render_audio.generate_segment_google, sb / "sort_dead_air.mp3"
+
+        async def silent(text, voice, index, tmp):
+            p = Path(tmp) / f"s{index}.mp3"
+            p.write_bytes(render_audio.SILENCE_FRAME * 12)       # ~0.3 s, like the real ones
+            return str(p)
+        render_audio.generate_segment_google = silent
+        try:
+            asyncio.run(rs.render(lines, out))
+            raised = False
+        except RuntimeError:
+            raised = True
+        finally:
+            render_audio.generate_segment_google = real_gen
+        check("a call that comes back as silence stops the render, no file written",
+              raised and not out.exists())
+
         now = datetime.now(timezone.utc)
         sort_ts = (now - timedelta(hours=5)).isoformat()
         log = read_json(klog_path)
