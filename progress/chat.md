@@ -12,6 +12,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **10:57 · Anna** 🎧  ·  sort / Sort tape
 > Sort tape — 20 lines 🎧 Reply with the numbers you missed, or 'got them all'.
 
+**15:39 · Anna** 🎧  ·  audio / pattern: kadaisila paakkalaam
+> When Coimbatore families debate a plan for two hours, this phrase ends it: kadaisila paakkalaam ⏳
+
 
 ## Friday 2026-10-02
 

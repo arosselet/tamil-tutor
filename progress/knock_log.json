@@ -7971,5 +7971,23 @@
     "memo_script": "Sort tape. 20 lines, numbered. Each one twice, a pause, then the meaning. Keep count of the numbers you didn't get before the meaning came. At the end, just tell me the numbers you missed. Or: got them all.\n\n1.\n\nநல்லா\n\nநல்லா\n\nWell / Nicely\n\n2.\n\nமுதல்ல\n\nமுதல்ல\n\nFirst\n\n3.\n\nவரேன்\n\nவரேன்\n\nI come / I'm coming\n\n4.\n\nசரி\n\nசரி\n\nOkay\n\n5.\n\nசந்தோஷம்\n\nசந்தோஷம்\n\nHappy / Joy\n\n6.\n\nகுடுங்க\n\nகுடுங்க\n\nGive (respectful)\n\n7.\n\nசாப்பிடுங்க\n\nசாப்பிடுங்க\n\nPlease eat (respectful)\n\n8.\n\nஇல்ல\n\nஇல்ல\n\nNo\n\n9.\n\nசீக்கிரம்\n\nசீக்கிரம்\n\nQuickly\n\n10.\n\nஇருக்கு\n\nஇருக்கு\n\nIt is / It exists\n\n11.\n\nஅவங்க\n\nஅவங்க\n\nThey / He-She (respectful)\n\n12.\n\nகிட்ட\n\nகிட்ட\n\nNear / With (person)\n\n13.\n\nஆமா\n\nஆமா\n\nYes\n\n14.\n\nதம்பி\n\nதம்பி\n\nYounger brother\n\n15.\n\nஎனக்கு\n\nஎனக்கு\n\nTo me / For me\n\n16.\n\nஅது\n\nஅது\n\nIt / That\n\n17.\n\nஅக்கா\n\nஅக்கா\n\nElder sister\n\n18.\n\nசொன்னாங்க\n\nசொன்னாங்க\n\nThey said\n\n19.\n\nபுரியல\n\nபுரியல\n\nI don't understand\n\n20.\n\nஅப்புறம்\n\nஅப்புறம்\n\nLater / After that\n\nThat's the lot. Tell me the numbers you missed, or got them all.",
     "mp3": "published_audio/knocks/knock_2026-10-03T10-57.mp3",
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-03T10-57.mp3"
+  },
+  {
+    "date": "2026-10-03",
+    "timestamp": "2026-10-03T19:39:22.631989+00:00",
+    "acted": true,
+    "modality": "audio",
+    "move": "pattern: kadaisila paakkalaam",
+    "rationale": "Eight days since last session; give a zero-demand pattern reveal on the household verdict chunk கடைசில பாக்கலாம் before the evening wind-down.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-10-04T00:09:22.631989+00:00",
+    "body": "When Coimbatore families debate a plan for two hours, this phrase ends it: kadaisila paakkalaam ⏳",
+    "body_script": "When Coimbatore families debate a plan for two hours, this phrase ends it: கடைசில பாக்கலாம் ⏳",
+    "expected_target": "",
+    "stance": "give",
+    "target_revealed": true,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-03T19-39.mp3",
+    "memo_script": "da, you know how in a Coimbatore house, an argument about plans never actually gets resolved? Mama wants one thing, Athai wants another, and forty people have opinions.\n\nNobody says a flat no. That's too sharp. Instead, people deploy this magic machine: you take an action and put -லாம் at the end. You already know போலாம் — let's go.\n\nTake பாக்கலாம் — let's see, or we'll see. When Athai asks who is picking up the sweets or where three cousins are going to sleep, Mama doesn't fight. He just drops: கடைசில பாக்கலாம். Literally, we'll see at the end. Last minute.\n\nOr when Karthi promises to fix his scooter chain before Sunday: அப்புறம் பண்ணலாம். We can do it later.\n\nIt sounds completely cooperative, nobody gets offended, and it buys you three days of peace. Next time the room is spinning with plans, just nod and say: கடைசில பாக்கலாம். Works every time.",
+    "mp3": "published_audio/knocks/knock_2026-10-03T19-39.mp3"
   }
 ]

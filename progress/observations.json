@@ -21191,5 +21191,17 @@
     "medium": "audio",
     "source": "rotation_inventory_2026-10-03_0724",
     "note": ""
+  },
+  {
+    "id": "f7dda3d3b560",
+    "at": "2026-10-03T19:40:02Z",
+    "word": "கடைசில பாக்கலாம்",
+    "channel": "audio",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "knock:2026-10-03T19:39:22.631989+00:00",
+    "note": ""
   }
 ]
