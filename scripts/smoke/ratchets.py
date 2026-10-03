@@ -276,6 +276,10 @@ CODE_BUDGETS = {
     "scripts/render_soak.py": 195,
     # Budgeted in the diff that created it (2026-09-05) — a new file with no entry here is a red run, because adding one is the obvious way past …
     "scripts/render_payoff.py": 240,
+    # NEW FILE, budgeted in the same diff that creates it (2026-10-03, Andrew). Census 185.
+    # Replaces the chat-only delivery of the Receptive Check: both halves of the
+    # sort tape (draw/render/deliver and the Python-parsed reply) in one lane.
+    "scripts/render_sort.py": 190,
     # NEW FILE, budgeted in the same diff that creates it (2026-08-23, Andrew).
     "scripts/writer.py": 181,
     # 430 -> 433 (2026-09-15, Andrew): the Producer prompt now carries the
@@ -929,6 +933,9 @@ LAYERS = {
     "push_queue":         5.5,
     "render_soak":        5.5,
     "render_payoff":      5.5,
+    # The sort tape (2026-10-03): a lane, imported DOWN by knock_reply (5.8) for its
+    # reply half only — the same shape as reply_common, never a foundation.
+    "render_sort":        5.5,
     "render_drill":       5.5,
     "render_rotation":    5.5,
     "run_studio":         5.5,

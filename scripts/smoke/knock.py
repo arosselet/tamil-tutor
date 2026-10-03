@@ -2693,3 +2693,108 @@ def s127_asks_earn_replies_gifts_earn_taps(mk, sb: Path):
     src = fx.raw_source(REAL_BASE / "scripts" / "morning_knock.py")
     check("no alternating decide writer", not hasattr(mk, "DECIDE_AB") and not hasattr(mk, "decide_model"))
     check("...and every decision still records its writer", 'd["decide_model"] = model' in src)
+
+
+def s128_the_sort_tape_round_trips(kr, sb: Path):
+    """The Receptive Check as a tape (2026-10-03, Andrew).
+
+    Gate 7.2, out loud: this lane fails SILENTLY in three ways, and each is
+    asserted here. (1) A reply that parses to nothing could look accepted — so
+    an unparseable answer must record zero events and say "Nothing logged" on
+    the phone. (2) An untagged "missed 4, 9" arriving after another knock fired
+    would be graded against the WRONG knock by last-fired correlation — so a
+    later knock is appended before the reply. (3) The draw could quietly test
+    UNSEEN rows, re-opening the teach-first ambush — so one is in the fixture.
+    Effects are asserted by re-reading the lexicon and the observation log."""
+    print("\n128. Sort tape — draw, untagged reply, recognition by ear (2026-10-03)")
+    rs = kr.render_sort
+    prog = sb / "progress"
+    lex_path, klog_path, obs_path = (prog / "lexicon.json", prog / "knock_log.json",
+                                     prog / "observations.json")
+    saved = {p: p.read_bytes() for p in (lex_path, klog_path, obs_path) if p.exists()}
+    try:
+        for text, n, want in [("missed 4, 9 and 13", 20, {4, 9, 13}),
+                              ("Missed four, nine and thirteen.", 20, {4, 9, 13}),
+                              ("got all but twenty one", 25, {21}),
+                              ("got 1 2", 3, {3}),
+                              ("Got them all!", 20, set()),
+                              ("missed them all", 3, {1, 2, 3}),
+                              ("nice tape", 20, None),
+                              ("missed 40", 20, None)]:
+            got = rs.parse_reply(text, n)
+            check(f"parse {text!r} -> {want}", got == want, repr(got))
+
+        lex = {"சரி": lex_row(gloss="okay", phonetic=["sari"], taught_on="2026-02-24",
+                              seen_in=[1, 2, 3]),
+               "ஆமா": lex_row(gloss="yes", phonetic=["aama"], taught_on="2026-02-24"),
+               "இல்ல": lex_row(gloss="no", phonetic=["illa"], taught_on="2026-02-24"),
+               "புதுசு": lex_row(gloss="new thing"),                       # UNSEEN
+               "பழசு": lex_row(gloss="old", taught_on="2026-02-24", heard_on="2026-09-01")}
+        write_json(lex_path, lex)
+        items = rs.draw(lex, 20, seed="smoke")
+        check("the draw holds only taught, never-ear-tested rows",
+              sorted(items) == sorted(["சரி", "ஆமா", "இல்ல"]), items)
+        check("...and most-aired leads the pick", rs.pool(lex)[0] == "சரி", rs.pool(lex))
+
+        now = datetime.now(timezone.utc)
+        sort_ts = (now - timedelta(hours=5)).isoformat()
+        log = read_json(klog_path)
+        log.append({"date": now.date().isoformat(), "timestamp": sort_ts, "acted": True,
+                    "modality": "sort", "move": "Sort tape", "body": "Sort tape",
+                    "items": ["சரி", "ஆமா", "இல்ல"]})
+        log.append({"date": now.date().isoformat(), "timestamp": now.isoformat(),
+                    "acted": True, "modality": "text", "move": "lore", "body": "later knock"})
+        write_json(klog_path, log)
+
+        pushed = Recorder()
+        kr.push_to_phone, kr.commit_and_push = pushed, Recorder()
+        os.environ.pop("REPLY_KNOCK_ID", None)
+        sys.argv = ["knock_reply.py", "missed 2"]
+        kr.main()
+
+        lex = read_json(lex_path)
+        events = [o for o in read_json(obs_path) if o.get("source") == f"sort:{sort_ts}"]
+        check("an untagged reply finds the sort tape past a later knock", len(events) == 3,
+              len(events))
+        check("...as check / recognition / audio events",
+              all(e["channel"] == "check" and e["axis"] == "recognition"
+                  and e["medium"] == "audio" for e in events), events)
+        check("a line he got climbs a rung", lex["சரி"]["recognition"] == "comfortable",
+              lex["சரி"]["recognition"])
+        check("a line he missed does not", lex["ஆமா"]["recognition"] == "struggled",
+              lex["ஆமா"]["recognition"])
+        check("every line is stamped as ear-tested, so it is never re-drawn",
+              all(lex[k].get("heard_on") for k in ("சரி", "ஆமா", "இல்ல")))
+        body = str(pushed[-1][0]) if pushed else ""
+        check("the push-back names the miss phonetically, no script, no fraction",
+              "aama" in body and not re.search(r"[஀-௿]|\d+\s*/\s*\d+", body), repr(body))
+        entry = next(k for k in read_json(klog_path) if k.get("timestamp") == sort_ts)
+        check("the tape is marked sorted", bool(entry.get("sorted_at")))
+
+        n_obs = len(read_json(obs_path))
+        os.environ["REPLY_KNOCK_ID"] = sort_ts
+        sys.argv = ["knock_reply.py", "missed 1"]
+        kr.main()
+        check("a second answer to a sorted tape records nothing",
+              len(read_json(obs_path)) == n_obs)
+        check("...and says it was already logged", "Already logged" in str(pushed[-1][0]))
+
+        log = read_json(klog_path)
+        open_ts = (now + timedelta(seconds=1)).isoformat()
+        log.append({"date": now.date().isoformat(), "timestamp": open_ts, "acted": True,
+                    "modality": "sort", "move": "Sort tape", "body": "Sort tape",
+                    "items": ["சரி"]})
+        write_json(klog_path, log)
+        os.environ["REPLY_KNOCK_ID"] = open_ts
+        sys.argv = ["knock_reply.py", "that was fun"]
+        kr.main()
+        entry = next(k for k in read_json(klog_path) if k.get("timestamp") == open_ts)
+        check("an unparseable answer records nothing and leaves the tape open",
+              len(read_json(obs_path)) == n_obs and not entry.get("sorted_at"))
+        check("...and says so on the phone", "Nothing logged" in str(pushed[-1][0]))
+        check("an untagged non-answer is left to the other lanes",
+              rs.claim_reply(read_json(klog_path), "", "that was fun") is None)
+    finally:
+        os.environ.pop("REPLY_KNOCK_ID", None)
+        for p, b in saved.items():
+            p.write_bytes(b)

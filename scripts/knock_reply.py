@@ -48,6 +48,7 @@ from observations import CATCH_RESULT, FIRE_RESULT, HEARD_RESULT
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from knock_message import handle_message
+import render_sort
 from push_queue import maybe_enqueue_schedule
 from publish import commit_and_push, load_env, publish, push_to_phone
 # The lane-neutral half of answering him — detectors, the voice backstop, the
@@ -796,6 +797,15 @@ def main():
         print(f"   ⚠ knock_id {knock_id!r} not in the log — falling back to last fired")
 
     lexicon = load_json(LEXICON_PATH) or {}
+
+    # A SORT TAPE ANSWER IS NUMBERS, parsed by Python (2026-10-03). Checked before
+    # the message test: "missed 4, 9" arrives from the Shortcut untagged, often
+    # after another knock has fired, so last-fired correlation would miss it.
+    sort = render_sort.claim_reply(klog, knock_id, reply_text)
+    if sort is not None:
+        render_sort.handle_reply(sort, reply_text, klog, lexicon, args.dry_run,
+                                 commit=commit_and_push, notify=push_to_phone)
+        return
 
     if is_message(knock_id, os.environ.get("REPLY_INTENT", "").strip().lower(),
                   reply_text, knock, lexicon):

@@ -51,6 +51,8 @@ compressed 2026-09-10, 32k words to 11k, nothing lost that git did not hold).
 
 ## Settled design decisions
 
+- **The Receptive Check rides a tape: the sort tape** (2026-10-03, Andrew). 356 of 392 rows read `struggled`, sari included, so planners re-air known words as filler; the check that fixes it fired once, because it lived in chat. `render_sort.py` speaks ~20 untested taught rows; his "missed 4, 9" reply is parsed by Python into `check` recognition events. Replaces chat-only delivery. UNSEEN rows stay out — teach-first holds.
+
 - **Pushes earn a reply again: the mission** (2026-09-29, Andrew with Rio). Replies fell to 0 once the 09-23 rewrite removed every ask. MISSION returns one: English situation, his Tamil, a taught item, never a miss. The ignore-streak counts asks; untapped gifts warn separately, never toward silence. Tease frame capped 1 in 3, only on evidence under 7 days; lock-screen line is English frame + Tamil payload.
 - **Rotation tapes mark their sections in Python, not prose** (2026-09-29, Andrew with Rio). Mode labels are fixed nouns, never imperatives; the writer gives the topic only. A frame gets 2.0s of air before it, a roadmap built from what played, and a lap grouped under the same names. A brief steers emphasis within a spine and cannot commission a shape; `"title"` keeps the mismatch visible.
 
