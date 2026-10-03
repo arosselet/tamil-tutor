@@ -353,7 +353,7 @@
       34,
       77
     ],
-    "last_surfaced": "2026-09-29",
+    "last_surfaced": "2026-10-03",
     "exposures": 2,
     "taught_on": "2026-02-24",
     "heard_times": 1
@@ -417,8 +417,8 @@
       72,
       81
     ],
-    "last_surfaced": "2026-09-29",
-    "exposures": 5,
+    "last_surfaced": "2026-10-03",
+    "exposures": 6,
     "taught_on": "2026-02-25",
     "heard_times": 1
   },
@@ -443,8 +443,8 @@
       36,
       37
     ],
-    "last_surfaced": "2026-08-10",
-    "exposures": 1,
+    "last_surfaced": "2026-10-03",
+    "exposures": 2,
     "taught_on": "2026-02-25",
     "reps": 1
   },
@@ -527,9 +527,9 @@
       76,
       87
     ],
-    "last_surfaced": "2026-09-29",
+    "last_surfaced": "2026-10-03",
     "reps": 2,
-    "exposures": 4,
+    "exposures": 5,
     "taught_on": "2026-02-24",
     "heard_times": 1
   },
@@ -678,8 +678,8 @@
       24,
       80
     ],
-    "last_surfaced": "2026-09-29",
-    "exposures": 3,
+    "last_surfaced": "2026-10-03",
+    "exposures": 4,
     "reps": 1,
     "taught_on": "2026-02-25",
     "heard_times": 1
@@ -813,9 +813,9 @@
       32,
       33
     ],
-    "last_surfaced": "2026-09-29",
+    "last_surfaced": "2026-10-03",
     "reps": 2,
-    "exposures": 1,
+    "exposures": 2,
     "taught_on": "2026-02-24",
     "heard_times": 1
   },
@@ -1007,8 +1007,8 @@
       65,
       69
     ],
-    "last_surfaced": "2026-09-29",
-    "exposures": 5,
+    "last_surfaced": "2026-10-03",
+    "exposures": 6,
     "taught_on": "2026-02-24",
     "heard_times": 1
   },
@@ -1550,8 +1550,8 @@
       76,
       85
     ],
-    "last_surfaced": "2026-09-29",
-    "exposures": 4,
+    "last_surfaced": "2026-10-03",
+    "exposures": 5,
     "reps": 4,
     "taught_on": "2026-02-24",
     "heard_times": 1
@@ -1736,8 +1736,8 @@
       61,
       78
     ],
-    "last_surfaced": "2026-09-29",
-    "exposures": 5,
+    "last_surfaced": "2026-10-03",
+    "exposures": 6,
     "taught_on": "2026-02-25",
     "reps": 1,
     "heard_times": 1
@@ -1992,8 +1992,8 @@
       35,
       61
     ],
-    "last_surfaced": "2026-09-29",
-    "exposures": 3,
+    "last_surfaced": "2026-10-03",
+    "exposures": 4,
     "taught_on": "2026-03-07",
     "reps": 1
   },
@@ -2235,8 +2235,8 @@
       36,
       38
     ],
-    "last_surfaced": "2026-09-29",
-    "exposures": 4,
+    "last_surfaced": "2026-10-03",
+    "exposures": 5,
     "reps": 2,
     "taught_on": "2026-02-24",
     "heard_times": 1
@@ -5275,9 +5275,9 @@
     "recognition": "struggled",
     "production": "hinted",
     "seen_in": [],
-    "last_surfaced": "2026-07-28",
+    "last_surfaced": "2026-10-03",
     "reps": 1,
-    "exposures": 1
+    "exposures": 2
   },
   "போனோம்": {
     "gloss": "We went (the -om we-tail — the trip is a we trip)",
@@ -5453,9 +5453,9 @@
     "recognition": "struggled",
     "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-09-29",
+    "last_surfaced": "2026-10-03",
     "reps": 1,
-    "exposures": 5,
+    "exposures": 6,
     "taught_on": null,
     "heard_times": 1
   },
@@ -5567,8 +5567,8 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-09-29",
-    "exposures": 3
+    "last_surfaced": "2026-10-03",
+    "exposures": 4
   },
   "கேட்கல": {
     "gloss": "didn't hear it / couldn't hear — the -la negative",
@@ -5728,8 +5728,8 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-09-29",
-    "exposures": 2
+    "last_surfaced": "2026-10-03",
+    "exposures": 3
   },
   "வச்சுக்கறேன்": {
     "gloss": "",
@@ -5809,7 +5809,7 @@
     "seen_in": [
       93
     ],
-    "last_surfaced": "2026-09-29",
+    "last_surfaced": "2026-10-03",
     "taught_on": "2026-09-16",
     "heard_times": 1,
     "exposures": 1
@@ -5852,11 +5852,11 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-09-20",
+    "last_surfaced": "2026-10-03",
     "gloss": "Time",
     "taught_on": "2026-09-20",
     "heard_times": 1,
-    "exposures": 1
+    "exposures": 2
   },
   "வேலை": {
     "phonetic": [],
@@ -5874,18 +5874,18 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-09-29",
+    "last_surfaced": "2026-10-03",
     "gloss": "Your (respectful)",
     "taught_on": "2026-09-20",
     "heard_times": 1,
-    "exposures": 3
+    "exposures": 4
   },
   "என்": {
     "phonetic": [],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-09-29",
+    "last_surfaced": "2026-10-03",
     "gloss": "My",
     "taught_on": "2026-09-20",
     "heard_times": 1,
@@ -5927,17 +5927,17 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-09-29",
+    "last_surfaced": "2026-10-03",
     "gloss": "Tell / Say",
     "taught_on": null,
-    "exposures": 1
+    "exposures": 2
   },
   "படி": {
     "phonetic": [],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-09-29",
+    "last_surfaced": "2026-10-03",
     "gloss": "Study / read (bare imperative / root)",
     "taught_on": null
   },
@@ -5946,7 +5946,7 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-09-29",
+    "last_surfaced": "2026-10-03",
     "gloss": "See / Look",
     "taught_on": null
   },
@@ -6020,7 +6020,7 @@
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-09-29",
+    "last_surfaced": "2026-10-03",
     "gloss": "Very / a lot — the universal intensifier (locked in 5 deck chunks)",
     "taught_on": null
   },
@@ -6050,6 +6050,51 @@
     "seen_in": [],
     "last_surfaced": "2026-09-29",
     "gloss": "Who?",
+    "taught_on": null
+  },
+  "எப்படி": {
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-10-03",
+    "gloss": "How?",
+    "taught_on": null
+  },
+  "நாள்": {
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-10-03",
+    "gloss": "Day (the unit — எவ்ளோ நாள்?)",
+    "taught_on": null
+  },
+  "தடவ": {
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-10-03",
+    "gloss": "Time / occasion — இன்னொரு தடவ",
+    "taught_on": null
+  },
+  "இரு": {
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-10-03",
+    "gloss": "Be / stay / exist (bare root)",
+    "taught_on": null
+  },
+  "சொல்": {
+    "phonetic": [],
+    "recognition": "struggled",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-10-03",
+    "gloss": "Say / tell (bare imperative / root)",
     "taught_on": null
   }
 }
