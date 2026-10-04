@@ -186,7 +186,8 @@ def outcome_memory(klog: list, now: datetime) -> str:
     verdict = ""
     if streak >= 3:
         verdict = (f"  ⚠ {streak} asks in a row led to no session and no tap — the current "
-                   "approach isn't converting. Give space, or change the move/modality entirely.")
+                   "approach isn't converting. Change the move or modality — a gift next, then a "
+                   "different ask; never a reason to stop asking (2026-10-04).")
     elif gifts_untapped >= 4:
         verdict = (f"  ⚠ {gifts_untapped} gifts in a row untapped, no session between — the gifts "
                    "aren't landing. Change the vein and the notification's shape, or send a MISSION. "

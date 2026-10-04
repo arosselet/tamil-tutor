@@ -2642,8 +2642,9 @@ def s127_asks_earn_replies_gifts_earn_taps(mk, sb: Path):
         check("...but the gifts are counted, not dropped", "3 untapped gifts" in mem)
 
         mem = mk.outcome_memory([ask(3), ask(2), ask(1)], now)
-        check("3 untapped asks -> ask-streak 3 and the back-off verdict",
-              "Ignore-streak: 3 unanswered asks" in mem and "Give space" in mem, mem)
+        check("3 untapped asks -> ask-streak 3 and a change-the-move verdict",
+              "Ignore-streak: 3 unanswered asks" in mem and "never a reason to stop asking" in mem
+              and "Give space" not in mem, mem)  # 2026-10-04: a streak changes the move, never stops asks
 
         mem = mk.outcome_memory([gift(4), ask(3), gift(2), ask(1)], now)
         check("gifts neither extend nor break the ask-streak",

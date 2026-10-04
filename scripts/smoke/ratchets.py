@@ -85,7 +85,10 @@ PROSE_BUDGETS = {
     # Split out of audio_channels.md (2026-08-01) — the commissioning law ("the repair earns the dose") is its own concern from channel routing, and the parent had a third raise …
     "protocol/commissioning.md": 300,
     # 2000 -> 950 (2026-09-23): re-censused DOWN at the rewrite (census 862). The old mandate sat at 1992 with a rule per complaint and no voice left; the regrowth is the thing this number exists to catch.
-    "OUTREACH_MANDATE": 950,
+    # 950 -> 1070 (2026-10-04, Andrew): THE BALANCE (at least one ask and one gift a day)
+    # and FIELDING back as a fifth kind. Retires the gifts-only default that took replies
+    # from ~2 in 3 (July) to 3 of 23 (09-23 -> 10-04).
+    "OUTREACH_MANDATE": 1070,
     "JUDGE_MANDATE": 1500,
     # Split out of JUDGE_MANDATE (2026-07-24) rather than raise its budget, the same move audio_channels.md made on daily_session.md: "what this reply can do beyond the text line" (schedule a … · 300 -> 150 (2026-08-27): re-censused DOWN — the SPEAK BACK section left for VOICE_MANDATE, which both judges compose.
     "REACH_MANDATE": 150,
@@ -1466,6 +1469,9 @@ TOMBSTONES = (
      ("the floor keeps reading the claim",
       "deliberately not applied to compute_floor",
       "the viability floor deliberately does not take this rule")),
+    ("2026-10-04 Asks come back; gifts stay half (the 09-23 gifts-only default retired)",
+     ("Give space, or change the move",
+      "stance \"give\") — the default. A self-contained")),
 )
 
 # Where a retired claim could still be read as law: every surface an agent or a

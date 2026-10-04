@@ -51,6 +51,8 @@ compressed 2026-09-10, 32k words to 11k, nothing lost that git did not hold).
 
 ## Settled design decisions
 
+- **Asks come back; gifts stay half** (2026-10-04, Andrew: "bring back asks, but don't starve gifts"). Replies: July ~2 in 3 with asks; 3 of 23 after the 09-23 gifts-only default. OUTREACH_MANDATE now requires at least one ask and one gift a day and restores FIELDING (6/6 in July). An ask-streak changes the move, never stops asks. Volley stays out: its targets no longer reach the digest.
+
 - **`untested` is not a grade** (2026-10-04, Andrew). A row nobody had tested read `struggled`, so "no evidence" and "he struggles" were one value. `untested` is now the default rung, ranked with `struggled` so no ordering moves; any recognition test leaves it (a half answer lands on `struggled`). Migration: 299 untested, 26 struggled. Residual: pre-log misses never carried as events read untested.
 
 - **Audit the picture before tuning the behaviour** (2026-10-04, Andrew). "Why do I keep hearing words I know" was not selection, format or pedagogy: the lexicon called sari `struggled`. Three chat pages, ask-then-reveal: 31 of 46 right. The sweep now rides most sessions (`daily_session.md`); `/recalibrate` step 3 opens with the audit. Self-marking is telling, not testing — the sort tape included.
