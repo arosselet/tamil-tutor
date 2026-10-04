@@ -2735,6 +2735,17 @@ def s128_the_sort_tape_round_trips(kr, sb: Path):
         check("the draw holds only taught, never-ear-tested rows",
               sorted(items) == sorted(["சரி", "ஆமா", "இல்ல"]), items)
         check("...and most-aired leads the pick", rs.pool(lex)[0] == "சரி", rs.pool(lex))
+        # A word he answered ON THE PAGE is not re-drawn (2026-10-04, Andrew:
+        # recognition is recognition, read or heard). `heard_on` is still null
+        # after a text test, so the old ear-only filter re-drew it silently.
+        obs = read_json(obs_path) if obs_path.exists() else []
+        write_json(obs_path, obs + [{"id": "smoke-sweep", "at": "2026-10-04T09:00:00Z",
+                                     "word": "இல்ல", "channel": "check", "kind": "tested",
+                                     "axis": "recognition", "result": "right",
+                                     "medium": "text", "source": "chat-sweep:smoke"}])
+        check("a word tested on the page leaves the pool, though heard_on is null",
+              "இல்ல" not in rs.pool(lex) and not lex["இல்ல"].get("heard_on"), rs.pool(lex))
+        write_json(obs_path, obs)
 
         # Dead air, 2026-10-03: a bare one-word call came back from Chirp3-HD as
         # ~0.3 s of silence (சரி, அது, ஆமா, "No"). The script must never send a

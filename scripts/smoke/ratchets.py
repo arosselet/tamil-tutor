@@ -279,7 +279,10 @@ CODE_BUDGETS = {
     # NEW FILE, budgeted in the same diff that creates it (2026-10-03, Andrew). Census 185.
     # Replaces the chat-only delivery of the Receptive Check: both halves of the
     # sort tape (draw/render/deliver and the Python-parsed reply) in one lane.
-    "scripts/render_sort.py": 190,
+    # 190 -> 196 (2026-10-04, Andrew): the dead-air fix (one call per item + the
+    # silent-call guard) and the pool now skipping words tested on the page.
+    # Retires the per-line GAPS table and the ear-only re-draw of known words.
+    "scripts/render_sort.py": 196,
     # NEW FILE, budgeted in the same diff that creates it (2026-08-23, Andrew).
     "scripts/writer.py": 181,
     # 430 -> 433 (2026-09-15, Andrew): the Producer prompt now carries the

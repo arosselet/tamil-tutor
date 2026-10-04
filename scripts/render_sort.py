@@ -53,6 +53,7 @@ BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 import lexicon_view
 from language import ANNA_VOICE, TAMIL_RE
+from observations import OBSERVATIONS_PATH
 from publish import commit_and_push, jsdelivr_url, load_env, publish, push_to_phone
 from state_io import (KNOCK_LOG_PATH, LEXICON_PATH, is_unseen, load_json,
                       local_today, save_json)
@@ -74,12 +75,24 @@ OUTRO = "That's the lot. Tell me the numbers you missed, or got them all."
 COPY = "Sort tape — {n} lines 🎧 Reply with the numbers you missed, or 'got them all'."
 
 
+def recognition_tested() -> set:
+    """Every word with a watched recognition test, in EITHER medium.
+
+    `heard_on` alone (the ear's stamp) re-drew words he had just answered in a
+    chat sweep (2026-10-04, Andrew: "if I recognize it, it applies whether I
+    read or listen"). A sort tape is single words, not speech at speed, so it
+    adds no ear evidence a page answer lacks — re-asking is the filler again."""
+    return {o.get("word") for o in load_json(OBSERVATIONS_PATH) or []
+            if o.get("kind") == "tested" and o.get("axis") == "recognition"}
+
+
 def pool(lexicon: dict) -> list[str]:
     """Rows a sort tape may test, most-aired first."""
+    tested = recognition_tested()
     keys = [k for k, r in lexicon.items()
             if TAMIL_RE.search(k) and not k.startswith("frame:") and len(k) > 1
-            and not r.get("heard_on") and r.get("recognition") != "solid"
-            and not is_unseen(r)]
+            and not r.get("heard_on") and k not in tested
+            and r.get("recognition") != "solid" and not is_unseen(r)]
     return sorted(keys, key=lambda k: (-(len(lexicon[k].get("seen_in") or [])
                                          + (lexicon[k].get("exposures") or 0)), k))
 
