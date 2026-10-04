@@ -39,7 +39,8 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 import observations
 from observations import WATCHED
-from state_io import (DEMOTE, LEXICON_PATH, PRODUCTION_RANK, RECOGNITION_NEXT,
+from state_io import (DEMOTE, LEXICON_PATH, PRODUCTION_RANK, RECOGNITION_DEFAULT,
+                      RECOGNITION_NEXT,
                       build_phonetic_index, load_json, local_date, resolve, save_json)
 
 EVIDENCE = ("recognition", "production", "reps", "exposures", "heard_on",
@@ -61,7 +62,7 @@ def derive(events):
     view = {}
     for e in sorted(events, key=lambda e: e.get("at") or ""):
         row = view.setdefault(e["word"], {
-            "recognition": "struggled", "production": "none", "reps": 0,
+            "recognition": RECOGNITION_DEFAULT, "production": "none", "reps": 0,
             "exposures": 0, "heard_on": None, "last_surfaced": None, "seen_in": [],
             "taught_on": None, "taught_pending": None, "heard_times": 0,
             "tests": 0, "channels": set(), "spoken": set()})
@@ -152,6 +153,10 @@ def derive(events):
                                                               row["recognition"])
                 elif res == "wrong":
                     row["recognition"] = DEMOTE.get(row["recognition"], "struggled")
+                elif row["recognition"] == RECOGNITION_DEFAULT:
+                    # A half-answer moves no rung, but it IS a test: `untested`
+                    # would be a lie, and shaky is what half-right means.
+                    row["recognition"] = "struggled"
             elif axis == "production":
                 row["spoken"].add("production")
                 nxt = PRODUCTION_FOR.get(res or "")
@@ -210,7 +215,7 @@ def expose(keys, channel: str, source: str = "", *, taught=(), kind="exposed",
         return []
     for k, row in (mint or {}).items():
         if k not in lex:
-            lex[k] = {"phonetic": [], "recognition": "struggled", "production": "none",
+            lex[k] = {"phonetic": [], "recognition": RECOGNITION_DEFAULT, "production": "none",
                       "seen_in": [], "last_surfaced": None, **row}
             print(f"   + intake: '{k}' enters the lexicon")
     index = build_phonetic_index(lex)

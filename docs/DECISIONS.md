@@ -51,6 +51,8 @@ compressed 2026-09-10, 32k words to 11k, nothing lost that git did not hold).
 
 ## Settled design decisions
 
+- **`untested` is not a grade** (2026-10-04, Andrew). A row nobody had tested read `struggled`, so "no evidence" and "he struggles" were one value. `untested` is now the default rung, ranked with `struggled` so no ordering moves; any recognition test leaves it (a half answer lands on `struggled`). Migration: 299 untested, 26 struggled. Residual: pre-log misses never carried as events read untested.
+
 - **Audit the picture before tuning the behaviour** (2026-10-04, Andrew). "Why do I keep hearing words I know" was not selection, format or pedagogy: the lexicon called sari `struggled`. Three chat pages, ask-then-reveal: 31 of 46 right. The sweep now rides most sessions (`daily_session.md`); `/recalibrate` step 3 opens with the audit. Self-marking is telling, not testing — the sort tape included.
 
 - **The Receptive Check rides a tape: the sort tape** (2026-10-03, Andrew). 356 of 392 rows read `struggled`, sari included, so planners re-air known words as filler; the check that fixes it fired once, because it lived in chat. `render_sort.py` speaks ~20 untested taught rows; his "missed 4, 9" reply is parsed by Python into `check` recognition events. Replaces chat-only delivery. UNSEEN rows stay out — teach-first holds.

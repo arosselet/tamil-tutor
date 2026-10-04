@@ -49,7 +49,7 @@ import lexicon_view
 import observations
 from state_io import (BASE, DEFAULT_TZ, EPISODES_PATH, FEEDBACK_LOG_PATH,
                       canon_payload,
-                      KNOCK_LOG_PATH, LEARNER_PATH, LEXICON_PATH,
+                      KNOCK_LOG_PATH, LEARNER_PATH, LEXICON_PATH, RECOGNITION_DEFAULT,
                       SESSION_LOG_PATH, SLIP_LOG_PATH,
                       build_phonetic_index,
                       load_json, local_today, resolve, save_json)
@@ -62,9 +62,9 @@ if hasattr(sys.stdout, "reconfigure"):
 
 
 # Recognition ladder. A word the learner *recognizes* is comfortable or solid;
-# struggled means shaky; unseen means no record. The floor counts cold production
+# struggled means a test came back wrong; untested means no test yet (2026-10-04). The floor counts cold production
 # among words that are at least comfortable.
-RECOGNITION_LEVELS = ["struggled", "comfortable", "solid"]
+RECOGNITION_LEVELS = ["untested", "struggled", "comfortable", "solid"]
 RECOGNIZED = {"comfortable", "solid"}
 
 
@@ -463,7 +463,7 @@ def cmd_update(args):
         """A row's STATIC half. The evidence half is the fold's — a fresh row
         carries the defaults until an event speaks (2026-09-10)."""
         lexicon[word] = {
-            "gloss": gloss, "phonetic": [phon] if phon else [], "recognition": "struggled",
+            "gloss": gloss, "phonetic": [phon] if phon else [], "recognition": RECOGNITION_DEFAULT,
             "production": "none", "seen_in": [], "last_surfaced": None,
         }
 
@@ -541,7 +541,7 @@ def cmd_update(args):
         print(f"  Produced {level.upper()}: {key}")
 
     def teach_word(spec):
-        """A word taught in-session enters the lexicon at `struggled` recognition.
+        """A word taught in-session enters the lexicon at `untested` recognition.
 
         The live teaching surface had NO write path (2026-07-28): `--mastered`/
         `--comfortable` overstate what one generous first contact proves,
@@ -549,8 +549,8 @@ def cmd_update(args):
         `seed-deck` is a deck-authoring flow. So the pakkam/paakkalaam deep-dive
         taught பக்கத்துல, ஆச்சு and இருக்கேன் and recorded NONE of them — the next
         ticket could not know they were taught, and a queued soak order carried a
-        word the lexicon had never heard of. `struggled` is the honest level: it
-        is what a first contact buys. Production stays unset until he fires it,
+        word the lexicon had never heard of. `untested` is the honest level: a
+        first contact is teaching, not a test (2026-10-04; was `struggled`). Production stays unset until he fires it,
         so this can never inflate the floor. Accepts `WORD` or `WORD=gloss`.
         """
         spec, phon = split_phonetic(spec)
@@ -580,15 +580,15 @@ def cmd_update(args):
             # no-op this repo keeps paying for. STILL EMPTY names the hole.
             events.append(ev(key, "taught", note="re-taught; row already existed"))
             print(f"  Taught (already known): {key} — refreshed, recognition left "
-                  f"at {lexicon[key].get('recognition', 'struggled')}, "
+                  f"at {lexicon[key].get('recognition', RECOGNITION_DEFAULT)}, "
                   f"phonetic {lexicon[key].get('phonetic') or 'STILL EMPTY'}")
             return
         if not phon:
             print(f"  ! '{word}' is new — teach it with its sounds-like form, '{word}=gloss|phonetic', or it can never be logged from chat. Skipped.")
             return
         mint(word, phon, gloss)
-        events.append(ev(word, "taught", note="first contact — row created at struggled"))
-        print(f"  + Taught '{word}' → recognition struggled"
+        events.append(ev(word, "taught", note="first contact — row created untested"))
+        print(f"  + Taught '{word}' → recognition untested"
               f"{', gloss: ' + gloss if gloss else ' (gloss empty — fill in later)'}")
 
     # Taught this session — must run BEFORE the axes below, so a word taught and
@@ -818,13 +818,13 @@ def cmd_add_pattern(args):
         "type": "pattern",
         "gloss": args.gloss,
         "phonetic": [],
-        "recognition": "struggled",
+        "recognition": RECOGNITION_DEFAULT,
         "production": "none",
         "seen_in": [],
         "last_surfaced": today,
     }
     save_json(LEXICON_PATH, lexicon)
-    print(f"  + Pattern '{args.key}' seeded — {args.gloss} (struggled until something tests it)")
+    print(f"  + Pattern '{args.key}' seeded — {args.gloss} (untested until something tests it)")
     print(f"    Log a cold novel instance later with:  update --produced-cold '{args.key}'")
 
 
@@ -853,13 +853,13 @@ def cmd_add_word(args):
     lexicon[args.key] = {
         "gloss": args.gloss,
         "phonetic": list(args.phonetic),
-        "recognition": "struggled",
+        "recognition": RECOGNITION_DEFAULT,
         "production": "none",
         "seen_in": [],
         "last_surfaced": local_today().isoformat(),
     }
     save_json(LEXICON_PATH, lexicon)
-    print(f"  + '{args.key}' — {args.gloss} (phonetic {list(args.phonetic)}; struggled until something tests it)")
+    print(f"  + '{args.key}' — {args.gloss} (phonetic {list(args.phonetic)}; untested until something tests it)")
 
 
 def _arc_inputs():
@@ -1111,7 +1111,7 @@ def cmd_seed_deck(args):
                 "type": lex_type,
                 "gloss": e.get("gloss", ""),
                 "phonetic": e.get("phonetic", []),
-                "recognition": "struggled",
+                "recognition": RECOGNITION_DEFAULT,
                 "production": "none",
                 "seen_in": [],
                 "last_surfaced": None,
@@ -1395,7 +1395,7 @@ def main():
     up.add_argument("--teach", type=str, action="append", default=[],
                     metavar="WORD[=GLOSS]|PHONETIC",
                     help="Word(s) TAUGHT this session — creates the lexicon record at "
-                         "`struggled` recognition, seen today, production unset. Tamil "
+                         "`untested` recognition, seen today, production unset. Tamil "
                          "script keeps the key canonical; the |PHONETIC tail is REQUIRED "
                          "on a new word or it can never be logged from chat again.")
     up.add_argument("--recognized", "--mastered-word", "--comfortable-word", dest="recognized",

@@ -47,7 +47,7 @@ LEXICON_PATH = BASE / "progress" / "lexicon.json"
 # so a struggled item is not debt to feel bad about — it is the highest-yield
 # inventory in the ledger, and 144 of the 313 rows are sitting in exactly that
 # state with (until now) no scheduled return at all.
-INTERVAL_DAYS = {"solid": 21, "comfortable": 10, "struggled": 5}
+INTERVAL_DAYS = {"solid": 21, "comfortable": 10, "struggled": 5, "untested": 5}
 # Tie-break: when equally overdue, bring back the weaker trace first.
 
 NEVER_SURFACED = 10 ** 6  # sentinel staleness for null last_surfaced

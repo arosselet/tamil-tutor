@@ -941,8 +941,8 @@ def s38_teach_enters_the_lexicon(sb: Path):
         lex, _ = update(teach=[f"{word}=beside/next to|pakkathula"])
         rec = lex.get(word)
         check("a taught word is created", rec is not None, "still absent")
-        check("...at struggled recognition, not solid",
-              rec and rec["recognition"] == "struggled", f"got {rec}")
+        check("...at untested recognition, not solid (a first contact is not a test, 2026-10-04)",
+              rec and rec["recognition"] == "untested", f"got {rec}")
         check("...with production unset, so the floor cannot inflate",
               rec and rec["production"] == "none", f"got {rec}")
         check("...carrying the gloss", rec and rec["gloss"] == "beside/next to")
@@ -956,7 +956,7 @@ def s38_teach_enters_the_lexicon(sb: Path):
         # Re-teaching must not silently demote a word he already owns.
         lex, _ = update(teach=[word])
         check("re-teaching a known word does not reset its recognition",
-              lex[word]["recognition"] == "struggled", f"got {lex[word]}")
+              lex[word]["recognition"] == "untested", f"got {lex[word]}")
         lex, out = update(teach=["pakkathula"])
         check("a phonetic teach is refused, so keys stay canonical",
               "pakkathula" not in lex and "phonetic" in out)
@@ -3705,7 +3705,7 @@ def s99_a_declared_channel_never_votes(sb: Path):
                "channel": "seed", "kind": "claimed", "axis": "recognition",
                "result": None, "source": "git:seed", "note": ""}]
     check("a seed claim moves no rung — the defect, refused at the reader",
-          lv.derive(seeded)["X"]["recognition"] == "struggled",
+          lv.derive(seeded)["X"]["recognition"] == "untested",
           str(lv.derive(seeded)["X"]))
     check("...and it is still RECORDED, not discarded",
           lv.derive(seeded)["X"]["channels"] == {"seed"})
@@ -3715,7 +3715,7 @@ def s99_a_declared_channel_never_votes(sb: Path):
                       "axis": "recognition", "result": "right",
                       "source": "mission:1", "note": ""}]
     check("a self-report does not vote either — the mission ritual, defanged",
-          lv.derive(told)["X"]["recognition"] == "struggled",
+          lv.derive(told)["X"]["recognition"] == "untested",
           str(lv.derive(told)["X"]))
 
     watched = told + [{"id": "c", "at": "2026-08-01T00:00:00Z", "word": "X",
@@ -3760,7 +3760,7 @@ def s99_a_declared_channel_never_votes(sb: Path):
           lv.rebuild({}, watched) == ["X"])
     check("a seed CLAIM makes the axis spoken, so the claimed rung is refused",
           (lambda d: (lv.rebuild(d, seeded), d["X"]["recognition"])[1])(
-              {"X": {"recognition": "solid"}}) == "struggled")
+              {"X": {"recognition": "solid"}}) == "untested")
 
     # THE HONESTY CHECK. Empty when the file equals the fold; names the row when
     # a writer set a rung by hand. s100 runs it against the REAL tree.

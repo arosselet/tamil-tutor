@@ -182,7 +182,7 @@ def apply_catch_verdict(verdict: dict, knock: dict, lexicon: dict) -> list[str]:
     res = CATCH_RESULT.get(verdict["verdict"])
     if res is None:
         return [f"{key}: '{verdict['verdict']}' is not a test of the ear — nothing recorded"]
-    before = lexicon[key].get("recognition", "struggled")
+    before = lexicon[key].get("recognition", "untested")
     lexicon_view.observe([dict(word=key, channel="eavesdrop", kind="tested", axis="recognition",
                                result=res, source=f"knock:{knock.get('timestamp', '')}",
                                note=f"declared target, {verdict['verdict']}")], lexicon=lexicon)

@@ -609,7 +609,7 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
     # session open after it would have dispatched another episode. That is the
     # 07-23 three-in-one-evening loop with a new trigger. Recording the attempt
     # bounds it at one and lets the brief say STALLED instead of "produced ✓".
-    from state_io import mark_soak_attempted, split_payload
+    from state_io import RECOGNITION_DEFAULT, mark_soak_attempted, split_payload
     order = (load_json(BASE / "progress" / "learner.json") or {}).get("soak_order") or {}
     if (order.get("channel") or "episode") == "episode" and order.get("payload"):
         wanted, _ = split_payload(order["payload"], lexicon)
@@ -629,7 +629,7 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
             key = w if w in lexicon else phon.get(w)
             if key is None and w in new_word_keys and is_tamil(w):
                 # Brand-new payload word: the STATIC half only; the fold owns the rest.
-                lexicon[w] = {"gloss": "", "phonetic": [], "recognition": "struggled",
+                lexicon[w] = {"gloss": "", "phonetic": [], "recognition": RECOGNITION_DEFAULT,
                               "production": "none", "seen_in": [], "last_surfaced": None}
                 key = w
                 created += 1

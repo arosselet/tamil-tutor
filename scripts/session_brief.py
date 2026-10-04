@@ -408,7 +408,7 @@ def cmd_status(_args):
                 # here; Engines excludes them by design, so this is the one meter
                 # that sees the whole set.
                 continue
-            by_level[r.get("recognition", "struggled")] = by_level.get(r.get("recognition", "struggled"), 0) + 1
+            by_level[r.get("recognition", "untested")] = by_level.get(r.get("recognition", "untested"), 0) + 1
             if r.get("production") == "cold":
                 cold += 1
             elif r.get("production") == "hinted":
@@ -421,7 +421,10 @@ def cmd_status(_args):
         print("↓ ENGINEERING NUMBERS — they steer what Python picks. Never recite a "
               "fraction, percentage, countdown or streak at him (persona.md); the "
               "close names what got clearer.")
-        print(f"Recognition — solid: {by_level['solid']}, comfortable: {by_level['comfortable']}, struggled: {by_level['struggled']}")
+        # `untested` is the absence of evidence, never a grade (2026-10-04): a large
+        # count says the picture is guesswork — run the sweep, don't re-teach.
+        print(f"Recognition — solid: {by_level['solid']}, comfortable: {by_level['comfortable']}, "
+              f"struggled: {by_level['struggled']}, untested: {by_level['untested']} (no test yet)")
         print(f"Production — cold: {cold}, hinted: {hinted}")
         floor = compute_floor(lexicon)
         print(f"Viability floor: {floor['cleared']}/{floor['total']} recognized words fire cold ({floor['pct']:.0f}%)")

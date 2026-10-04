@@ -71,9 +71,19 @@ def save_json(path: Path, data):
 # because the rungs are a property of the ledger, not of any lane that moves one,
 # and because the observation log's derivation (L0.7) must read them without
 # reaching upward for a lane.
-RECOGNITION_RANK = {"struggled": 0, "comfortable": 1, "solid": 2}
-RECOGNITION_NEXT = {"struggled": "comfortable", "comfortable": "solid"}
-DEMOTE = {"solid": "comfortable", "comfortable": "struggled", "struggled": "struggled"}
+#
+# `untested` IS NOT A RUNG ABOVE OR BELOW `struggled` — it is the ABSENCE of one
+# (2026-10-04, Andrew). Until then a row nobody had tested read `struggled`, so
+# "we have no evidence" and "he struggles" were one value: 356 of 392 rows, sari
+# among them, and every planner re-aired known words as if they were weak. The
+# production axis always had this — `none` is not a grade. It ranks with
+# `struggled` so no ordering anywhere moves; a pass climbs to `comfortable`, a
+# miss lands on `struggled`, which from here on means a test came back wrong.
+RECOGNITION_DEFAULT = "untested"
+RECOGNITION_RANK = {"untested": 0, "struggled": 0, "comfortable": 1, "solid": 2}
+RECOGNITION_NEXT = {"untested": "comfortable", "struggled": "comfortable", "comfortable": "solid"}
+DEMOTE = {"solid": "comfortable", "comfortable": "struggled", "struggled": "struggled",
+          "untested": "struggled"}
 PRODUCTION_RANK = {"none": 0, "hinted": 1, "cold": 2}
 
 

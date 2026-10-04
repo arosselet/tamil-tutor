@@ -100,16 +100,17 @@ def main():
         print(f"    [{bar(engines['pct'])}] {engines['online']}/{engines['total']} online ({engines['pct']:.0f}%)")
 
     # --- Recognition breakdown (words only; patterns are metered above) ---
-    levels = {"solid": 0, "comfortable": 0, "struggled": 0}
+    levels = {"solid": 0, "comfortable": 0, "struggled": 0, "untested": 0}
     n_words = 0
     for r in lexicon.values():
         if r.get("type") == "pattern":
             continue
         n_words += 1
-        levels[r.get("recognition", "struggled")] = levels.get(r.get("recognition", "struggled"), 0) + 1
+        levels[r.get("recognition", "untested")] = levels.get(r.get("recognition", "untested"), 0) + 1
     print(f"\n📚 RECOGNITION ({n_words} words tracked)")
     print("-" * 55)
-    print(f"    solid: {levels['solid']}   comfortable: {levels['comfortable']}   struggled: {levels['struggled']}")
+    print(f"    solid: {levels['solid']}   comfortable: {levels['comfortable']}   "
+          f"struggled: {levels['struggled']}   untested: {levels['untested']}")
 
     # Words only (patterns are Engines, metered above); ear-only items are marked —
     # they want soak, not drilling.

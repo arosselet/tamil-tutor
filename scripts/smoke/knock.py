@@ -2724,11 +2724,12 @@ def s128_the_sort_tape_round_trips(kr, sb: Path):
             got = rs.parse_reply(text, n)
             check(f"parse {text!r} -> {want}", got == want, repr(got))
 
+        u = "untested"
         lex = {"சரி": lex_row(gloss="okay", phonetic=["sari"], taught_on="2026-02-24",
-                              seen_in=[1, 2, 3]),
-               "ஆமா": lex_row(gloss="yes", phonetic=["aama"], taught_on="2026-02-24"),
-               "இல்ல": lex_row(gloss="no", phonetic=["illa"], taught_on="2026-02-24"),
-               "புதுசு": lex_row(gloss="new thing"),                       # UNSEEN
+                              seen_in=[1, 2, 3], recognition=u),
+               "ஆமா": lex_row(gloss="yes", phonetic=["aama"], taught_on="2026-02-24", recognition=u),
+               "இல்ல": lex_row(gloss="no", phonetic=["illa"], taught_on="2026-02-24", recognition=u),
+               "புதுசு": lex_row(gloss="new thing", recognition=u),       # UNSEEN
                "பழசு": lex_row(gloss="old", taught_on="2026-02-24", heard_on="2026-09-01")}
         write_json(lex_path, lex)
         items = rs.draw(lex, 20, seed="smoke")
@@ -2736,16 +2737,21 @@ def s128_the_sort_tape_round_trips(kr, sb: Path):
               sorted(items) == sorted(["சரி", "ஆமா", "இல்ல"]), items)
         check("...and most-aired leads the pick", rs.pool(lex)[0] == "சரி", rs.pool(lex))
         # A word he answered ON THE PAGE is not re-drawn (2026-10-04, Andrew:
-        # recognition is recognition, read or heard). `heard_on` is still null
-        # after a text test, so the old ear-only filter re-drew it silently.
-        obs = read_json(obs_path) if obs_path.exists() else []
-        write_json(obs_path, obs + [{"id": "smoke-sweep", "at": "2026-10-04T09:00:00Z",
-                                     "word": "இல்ல", "channel": "check", "kind": "tested",
-                                     "axis": "recognition", "result": "right",
-                                     "medium": "text", "source": "chat-sweep:smoke"}])
+        # recognition is recognition, read or heard). Driven through the real
+        # writer on a copy: a text test stamps no `heard_on`, so the old ear-only
+        # filter re-drew it; the fold now moves it off `untested`, and a HALF
+        # answer must too — it is a test, and `untested` would be a lie.
+        page = json.loads(json.dumps(lex))
+        rs.lexicon_view.observe([dict(word=w, channel="check", kind="tested",
+                                      axis="recognition", result=r, medium="text",
+                                      source="chat-sweep:smoke")
+                                 for w, r in (("இல்ல", "right"), ("ஆமா", "partial"))],
+                                lexicon=page)
         check("a word tested on the page leaves the pool, though heard_on is null",
-              "இல்ல" not in rs.pool(lex) and not lex["இல்ல"].get("heard_on"), rs.pool(lex))
-        write_json(obs_path, obs)
+              "இல்ல" not in rs.pool(page) and not page["இல்ல"].get("heard_on"), rs.pool(page))
+        check("...and a half answer lands on struggled, never stays untested",
+              page["ஆமா"]["recognition"] == "struggled" and "ஆமா" not in rs.pool(page),
+              page["ஆமா"]["recognition"])
 
         # Dead air, 2026-10-03: a bare one-word call came back from Chirp3-HD as
         # ~0.3 s of silence (சரி, அது, ஆமா, "No"). The script must never send a

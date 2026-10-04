@@ -313,7 +313,9 @@ CODE_BUDGETS = {
     "scripts/household.py": 75,
     "scripts/show_status.py": 125,
     # 112 -> 125 (2026-09-10).
-    "scripts/state_io.py": 125,
+    # 125 -> 127 (2026-10-04, Andrew): the `untested` rung: RECOGNITION_DEFAULT and its rows in the three ladders. Retires "no evidence" and
+    # "he struggles" sharing one value.
+    "scripts/state_io.py": 127,
     # NEW FILE, budgeted in the same diff that creates it (2026-08-28, Andrew). · 20 -> 35 (2026-09-03).
     "scripts/language.py": 35,
     "scripts/slips.py": 300,
@@ -330,7 +332,9 @@ CODE_BUDGETS = {
     # 10-15 min/day dial is denominated in. Four lines, and the block it would
     # otherwise have needed (a title->feed join) is retired by the play row
     # freezing its own minutes at tap time.
-    "scripts/session_brief.py": 254,
+    # 254 -> 255 (2026-10-04, Andrew): the recognition line names `untested` beside the three grades. Retires "no evidence" and
+    # "he struggles" sharing one value.
+    "scripts/session_brief.py": 255,
     # 575 -> 588 (2026-09-13, Andrew): `inventory_hosts` MOVED IN from render_rotation (its second reader) plus the intake quota. Paid for by render_rotation 325 -> 318; the net is the quota, which retires the fourth-spine design.
     # 588 -> 592 (2026-09-19): the play count reaches the ticket. `heard Nx` is
     # the priming cue Andrew asked for — "he heard it three times and still
