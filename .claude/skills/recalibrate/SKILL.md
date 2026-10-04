@@ -30,7 +30,19 @@ The ledger across sessions is what turns feelings into evidence.
 
 ## 3. Evidence before proposals — read, don't theorize
 
-Read-only sweep, all safe:
+**First, audit the model against Andrew (2026-10-04).** Every planner acts on the
+lexicon's picture of him, so a complaint about what the system *does* may be a
+true picture driven badly — or a false picture driven well. Tuning selection,
+format or pedagogy only helps in the first case. Draw ~15 rows the complaint
+touches and ask him their meanings (ask-then-reveal, never "which do you know").
+If the rungs disagree with his answers, the move is the feedback loop, not the
+planner. Precedent: "why do I keep hearing words I know" — 356 of 392 rows read
+`struggled`; of 46 swept words, 31 came back right and 4 half-right. Two cheap tells that
+the picture is stale: an implausible distribution (sari as `struggled` after
+eight months), and evidence about the machine (`taught`, `exposed`) outnumbering
+evidence about him (`tested`, `attended`) by an order of magnitude.
+
+Then the read-only sweep, all safe:
 - `python scripts/sync_state.py status` — the ear, the floor, the soak order, the ear-block days
 - `python scripts/sync_state.py feedback` — the accumulated ledger
 - `grep -o '"move": "[^"]*"' progress/knock_log.json | tail -20` — dose shapes actually sent

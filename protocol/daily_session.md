@@ -54,6 +54,8 @@ Everything else is the day's **shape** — vary it against the last session. The
 
 Moves any shape may reach for, never as a menu: **mask-work**, the **eavesdrop drill**, the **lore tangent** (`persona.md`), **script-reading** (decode a short snippet together) and **zinger-crafting** (one deployable line, polite + cheeky).
 
+**The sweep** (most sessions, after the opening): ~15 words from `render_sort.py --plan-only`, in phonetics. He writes meanings; Anna grades meaning, reveals, records `check --read`. Ask, never self-mark.
+
 ## Close & Log
 
 1. **Rewrite the debrief** — one running story-so-far, cumulative: carry what still matters, prune what resolved. Anna's persistent narrative memory, never a one-line log.
