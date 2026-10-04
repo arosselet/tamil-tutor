@@ -21755,5 +21755,17 @@
     "medium": "text",
     "source": "chat-sweep:2026-10-04",
     "note": "ask-then-reveal: phonetic on screen, he wrote the meaning"
+  },
+  {
+    "id": "e18218c63a68",
+    "at": "2026-10-04T18:55:56Z",
+    "word": "frame:youknow-la",
+    "channel": "eavesdrop",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "knock:2026-10-04T18:55:32.532109+00:00",
+    "note": ""
   }
 ]
