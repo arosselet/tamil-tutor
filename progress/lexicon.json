@@ -99,9 +99,10 @@
       33,
       34
     ],
-    "last_surfaced": "2026-09-10",
+    "last_surfaced": "2026-10-04",
     "taught_on": "2026-02-25",
-    "reps": 1
+    "reps": 2,
+    "heard_on": null
   },
   "இங்க": {
     "gloss": "Here",
@@ -244,7 +245,7 @@
     "phonetic": [
       "naalaikku"
     ],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
       6,
@@ -257,10 +258,11 @@
       34,
       65
     ],
-    "last_surfaced": "2026-08-29",
-    "reps": 2,
+    "last_surfaced": "2026-10-04",
+    "reps": 3,
     "exposures": 1,
-    "taught_on": "2026-02-24"
+    "taught_on": "2026-02-24",
+    "heard_on": null
   },
   "ஆனா": {
     "gloss": "But",
@@ -423,10 +425,12 @@
       72,
       81
     ],
-    "last_surfaced": "2026-10-03",
+    "last_surfaced": "2026-10-04",
     "exposures": 6,
     "taught_on": "2026-02-25",
-    "heard_times": 1
+    "heard_times": 1,
+    "reps": 1,
+    "heard_on": null
   },
   "அது": {
     "gloss": "It / That",
@@ -449,10 +453,11 @@
       36,
       37
     ],
-    "last_surfaced": "2026-10-03",
+    "last_surfaced": "2026-10-04",
     "exposures": 2,
     "taught_on": "2026-02-25",
-    "reps": 1
+    "reps": 2,
+    "heard_on": null
   },
   "ஒன்னு": {
     "gloss": "One",
@@ -608,9 +613,10 @@
       12,
       16
     ],
-    "last_surfaced": "2026-09-10",
+    "last_surfaced": "2026-10-04",
     "taught_on": "2026-02-24",
-    "reps": 1
+    "reps": 2,
+    "heard_on": null
   },
   "நேத்து": {
     "gloss": "Yesterday",
@@ -809,7 +815,7 @@
     "phonetic": [
       "konjam"
     ],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
       6,
@@ -821,11 +827,12 @@
       32,
       33
     ],
-    "last_surfaced": "2026-10-03",
-    "reps": 2,
+    "last_surfaced": "2026-10-04",
+    "reps": 3,
     "exposures": 2,
     "taught_on": "2026-02-24",
-    "heard_times": 1
+    "heard_times": 1,
+    "heard_on": null
   },
   "போதும்": {
     "gloss": "Enough",
@@ -892,7 +899,7 @@
     "phonetic": [
       "avanga"
     ],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "none",
     "seen_in": [
       9,
@@ -907,10 +914,12 @@
       81,
       82
     ],
-    "last_surfaced": "2026-09-29",
+    "last_surfaced": "2026-10-04",
     "exposures": 5,
     "taught_on": "2026-02-25",
-    "heard_times": 1
+    "heard_times": 1,
+    "reps": 1,
+    "heard_on": null
   },
   "நீங்க": {
     "gloss": "You (respectful - Elders/Strangers)",
@@ -1582,11 +1591,12 @@
       26,
       28
     ],
-    "last_surfaced": "2026-09-20",
+    "last_surfaced": "2026-10-04",
     "exposures": 2,
-    "reps": 1,
+    "reps": 2,
     "taught_on": "2026-02-28",
-    "heard_times": 1
+    "heard_times": 1,
+    "heard_on": null
   },
   "சொல்லுவேன்": {
     "gloss": "I will tell (future)",
@@ -1828,7 +1838,7 @@
   "உக்காருங்க": {
     "gloss": "Sit (respectful)",
     "phonetic": [],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "hinted",
     "seen_in": [
       10,
@@ -1838,10 +1848,11 @@
       72,
       81
     ],
-    "last_surfaced": "2026-08-14",
+    "last_surfaced": "2026-10-04",
     "exposures": 1,
-    "reps": 1,
-    "taught_on": "2026-02-25"
+    "reps": 2,
+    "taught_on": "2026-02-25",
+    "heard_on": null
   },
   "எடுங்க": {
     "gloss": "Take (respectful)",
@@ -1961,9 +1972,10 @@
       29,
       33
     ],
-    "last_surfaced": "2026-09-10",
+    "last_surfaced": "2026-10-04",
     "taught_on": "2026-02-24",
-    "reps": 1
+    "reps": 2,
+    "heard_on": null
   },
   "மேல": {
     "gloss": "On top / Above",
@@ -2084,7 +2096,7 @@
     "phonetic": [
       "mudiyaadhu"
     ],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
       16,
@@ -2096,9 +2108,10 @@
       34,
       61
     ],
-    "last_surfaced": "2026-09-10",
+    "last_surfaced": "2026-10-04",
     "taught_on": "2026-03-04",
-    "reps": 1
+    "reps": 2,
+    "heard_on": null
   },
   "தப்பு": {
     "gloss": "Wrong / Mistake",
@@ -2131,7 +2144,7 @@
       "keten",
       "ketten"
     ],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
       11,
@@ -2145,10 +2158,11 @@
       75,
       76
     ],
-    "last_surfaced": "2026-08-30",
+    "last_surfaced": "2026-10-04",
     "exposures": 1,
-    "reps": 1,
-    "taught_on": "2026-02-26"
+    "reps": 2,
+    "taught_on": "2026-02-26",
+    "heard_on": null
   },
   "இன்னைக்கு": {
     "gloss": "Today",
@@ -2226,7 +2240,7 @@
       "apora",
       "appram"
     ],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "hinted",
     "seen_in": [
       1,
@@ -2252,11 +2266,12 @@
       36,
       38
     ],
-    "last_surfaced": "2026-10-03",
+    "last_surfaced": "2026-10-04",
     "exposures": 5,
-    "reps": 2,
+    "reps": 3,
     "taught_on": "2026-02-24",
-    "heard_times": 1
+    "heard_times": 1,
+    "heard_on": null
   },
   "கேட்பேன்": {
     "gloss": "I will hear/ask (future)",
@@ -3203,7 +3218,7 @@
     "phonetic": [
       "avasaram irukku"
     ],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
       68,
@@ -3213,12 +3228,13 @@
       72,
       74
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-10-04",
     "direction": "fire",
-    "reps": 4,
+    "reps": 5,
     "exposures": 3,
     "register": "public",
-    "taught_on": "2026-07-18"
+    "taught_on": "2026-07-18",
+    "heard_on": null
   },
   "கொஞ்சம் நில்லுங்க": {
     "type": "chunk",
@@ -3804,7 +3820,7 @@
     "phonetic": [
       "enna sonneenga"
     ],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
       58,
@@ -3812,12 +3828,13 @@
       88,
       89
     ],
-    "last_surfaced": "2026-08-19",
+    "last_surfaced": "2026-10-04",
     "direction": "fire",
-    "reps": 2,
+    "reps": 3,
     "exposures": 6,
     "register": "antifreeze",
-    "taught_on": "2026-07-13"
+    "taught_on": "2026-07-13",
+    "heard_on": null
   },
   "தமிழ்ல எப்படி சொல்றது?": {
     "type": "chunk",
