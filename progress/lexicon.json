@@ -2,7 +2,7 @@
   "முதல்ல": {
     "gloss": "First",
     "phonetic": [],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
       1,
@@ -30,10 +30,11 @@
       50,
       51
     ],
-    "last_surfaced": "2026-08-23",
-    "reps": 1,
+    "last_surfaced": "2026-10-04",
+    "reps": 2,
     "exposures": 1,
-    "taught_on": "2026-02-24"
+    "taught_on": "2026-02-24",
+    "heard_on": null
   },
   "கல்யாணம்": {
     "gloss": "Wedding / Marriage",
@@ -129,7 +130,7 @@
     "phonetic": [
       "seekkiram"
     ],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
       12,
@@ -155,10 +156,11 @@
       66,
       86
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-10-04",
     "exposures": 1,
     "taught_on": "2026-02-28",
-    "reps": 1
+    "reps": 2,
+    "heard_on": null
   },
   "அழகான": {
     "gloss": "Beautiful",
@@ -215,10 +217,12 @@
       75,
       76
     ],
-    "last_surfaced": "2026-09-22",
+    "last_surfaced": "2026-10-04",
     "exposures": 2,
     "taught_on": "2026-02-26",
-    "heard_times": 1
+    "heard_times": 1,
+    "heard_on": null,
+    "reps": 1
   },
   "நேரா": {
     "gloss": "Straight",
@@ -326,7 +330,7 @@
     "phonetic": [
       "iruku"
     ],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "none",
     "seen_in": [
       1,
@@ -353,10 +357,12 @@
       34,
       77
     ],
-    "last_surfaced": "2026-10-03",
+    "last_surfaced": "2026-10-04",
     "exposures": 2,
     "taught_on": "2026-02-24",
-    "heard_times": 1
+    "heard_times": 1,
+    "heard_on": null,
+    "reps": 1
   },
   "உனக்கு": {
     "gloss": "To you / For you",
@@ -493,7 +499,7 @@
     "phonetic": [
       "illa"
     ],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
       1,
@@ -527,11 +533,12 @@
       76,
       87
     ],
-    "last_surfaced": "2026-10-03",
-    "reps": 2,
+    "last_surfaced": "2026-10-04",
+    "reps": 3,
     "exposures": 5,
     "taught_on": "2026-02-24",
-    "heard_times": 1
+    "heard_times": 1,
+    "heard_on": null
   },
   "மாமா": {
     "gloss": "Uncle (maternal)",
@@ -631,7 +638,7 @@
     "phonetic": [
       "akka"
     ],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
       8,
@@ -647,10 +654,11 @@
       38,
       85
     ],
-    "last_surfaced": "2026-08-08",
+    "last_surfaced": "2026-10-04",
     "exposures": 1,
     "taught_on": "2026-02-25",
-    "reps": 1
+    "reps": 2,
+    "heard_on": null
   },
   "வயிறு ஃபுல்": {
     "gloss": "Stomach full",
@@ -967,7 +975,7 @@
     "phonetic": [
       "sari"
     ],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "none",
     "seen_in": [
       1,
@@ -1007,10 +1015,12 @@
       65,
       69
     ],
-    "last_surfaced": "2026-10-03",
+    "last_surfaced": "2026-10-04",
     "exposures": 6,
     "taught_on": "2026-02-24",
-    "heard_times": 1
+    "heard_times": 1,
+    "heard_on": null,
+    "reps": 1
   },
   "வேணும்": {
     "gloss": "I want / I need",
@@ -1053,9 +1063,9 @@
       36,
       73
     ],
-    "last_surfaced": "2026-09-01",
+    "last_surfaced": "2026-10-04",
     "exposures": 6,
-    "reps": 2,
+    "reps": 3,
     "heard_on": null,
     "taught_on": "2026-02-24"
   },
@@ -1174,7 +1184,7 @@
     "phonetic": [
       "thambi"
     ],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "hinted",
     "seen_in": [
       8,
@@ -1192,10 +1202,11 @@
       76,
       87
     ],
-    "last_surfaced": "2026-08-23",
+    "last_surfaced": "2026-10-04",
     "exposures": 1,
-    "reps": 1,
-    "taught_on": "2026-02-25"
+    "reps": 2,
+    "taught_on": "2026-02-25",
+    "heard_on": null
   },
   "செம்மை": {
     "gloss": "Excellent / Perfect",
@@ -1250,7 +1261,7 @@
       "aam",
       "aama"
     ],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
       1,
@@ -1291,10 +1302,11 @@
       84,
       85
     ],
-    "last_surfaced": "2026-08-08",
-    "reps": 1,
+    "last_surfaced": "2026-10-04",
+    "reps": 2,
     "exposures": 4,
-    "taught_on": "2026-02-24"
+    "taught_on": "2026-02-24",
+    "heard_on": null
   },
   "அவ": {
     "gloss": "She (informal)",
@@ -1407,11 +1419,12 @@
       34,
       35
     ],
-    "last_surfaced": "2026-09-22",
+    "last_surfaced": "2026-10-04",
     "exposures": 2,
     "taught_on": "2026-02-25",
-    "reps": 1,
-    "heard_times": 1
+    "reps": 2,
+    "heard_times": 1,
+    "heard_on": null
   },
   "நூறு": {
     "gloss": "Hundred",
@@ -1598,11 +1611,12 @@
       72,
       82
     ],
-    "last_surfaced": "2026-09-29",
+    "last_surfaced": "2026-10-04",
     "exposures": 4,
-    "reps": 2,
+    "reps": 3,
     "taught_on": "2026-02-25",
-    "heard_times": 1
+    "heard_times": 1,
+    "heard_on": null
   },
   "உள்ள": {
     "gloss": "Inside",
@@ -1723,7 +1737,7 @@
     "phonetic": [
       "nalla"
     ],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
       9,
@@ -1736,11 +1750,12 @@
       61,
       78
     ],
-    "last_surfaced": "2026-10-03",
+    "last_surfaced": "2026-10-04",
     "exposures": 6,
     "taught_on": "2026-02-25",
-    "reps": 1,
-    "heard_times": 1
+    "reps": 2,
+    "heard_times": 1,
+    "heard_on": null
   },
   "அவரு": {
     "gloss": "He/She (respectful)",
@@ -1849,7 +1864,7 @@
   "குடுங்க": {
     "gloss": "Give (respectful)",
     "phonetic": [],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
       6,
@@ -1867,10 +1882,11 @@
       72,
       80
     ],
-    "last_surfaced": "2026-08-04",
+    "last_surfaced": "2026-10-04",
     "exposures": 2,
-    "reps": 2,
-    "taught_on": "2026-02-24"
+    "reps": 3,
+    "taught_on": "2026-02-24",
+    "heard_on": null
   },
   "தாகம்": {
     "gloss": "Thirsty",
@@ -1980,7 +1996,7 @@
     "phonetic": [
       "sandosham"
     ],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
       21,
@@ -1992,10 +2008,11 @@
       35,
       61
     ],
-    "last_surfaced": "2026-10-03",
+    "last_surfaced": "2026-10-04",
     "exposures": 4,
     "taught_on": "2026-03-07",
-    "reps": 1
+    "reps": 2,
+    "heard_on": null
   },
   "பயம்": {
     "gloss": "Scared / Fear",
@@ -2417,7 +2434,7 @@
       "puriyala",
       "puriyila"
     ],
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
       11,
@@ -2429,13 +2446,14 @@
       88,
       89
     ],
-    "last_surfaced": "2026-08-19",
+    "last_surfaced": "2026-10-04",
     "direction": "fire",
     "type": "chunk",
-    "reps": 3,
+    "reps": 4,
     "exposures": 5,
     "register": "antifreeze",
-    "taught_on": "2026-02-26"
+    "taught_on": "2026-02-26",
+    "heard_on": null
   },
   "கூப்பிடு": {
     "gloss": "Call",
