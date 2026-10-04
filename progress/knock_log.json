@@ -8022,6 +8022,8 @@
     ],
     "memo_script": "Sort tape. 20 lines, numbered. Each one twice, a pause, then the meaning. Keep count of the numbers you didn't get before the meaning came. At the end, just tell me the numbers you missed. Or: got them all. 1. சீக்கிரம். சீக்கிரம்.\n\nQuickly. 2. அது. அது.\n\nIt / That. 3. அவங்க. அவங்க.\n\nThey / He-She (respectful). 4. தம்பி. தம்பி.\n\nYounger brother. 5. வரேன். வரேன்.\n\nI come / I'm coming. 6. எனக்கு. எனக்கு.\n\nTo me / For me. 7. முதல்ல. முதல்ல.\n\nFirst. 8. அக்கா. அக்கா.\n\nElder sister. 9. சந்தோஷம். சந்தோஷம்.\n\nHappy / Joy. 10. கிட்ட. கிட்ட.\n\nNear / With (person). 11. சொன்னாங்க. சொன்னாங்க.\n\nThey said. 12. நல்லா. நல்லா.\n\nWell / Nicely. 13. சாப்பிடுங்க. சாப்பிடுங்க.\n\nPlease eat (respectful). 14. சரி. சரி.\n\nOkay. 15. இருக்கு. இருக்கு.\n\nIt is / It exists. 16. குடுங்க. குடுங்க.\n\nGive (respectful). 17. ஆமா. ஆமா.\n\nYes. 18. புரியல. புரியல.\n\nI don't understand. 19. இல்ல. இல்ல.\n\nNo. 20. அப்புறம். அப்புறம்.\n\nLater / After that. That's the lot. Tell me the numbers you missed, or got them all.",
     "mp3": "published_audio/knocks/knock_2026-10-04T08-49.mp3",
-    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-04T08-49.mp3"
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-04T08-49.mp3",
+    "response": "ack",
+    "response_at": "2026-10-04T16:31:37Z"
   }
 ]
