@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Sunday 2026-10-04
+
+**08:49 · Anna** 🎧  ·  sort / Sort tape
+> Sort tape — 20 lines 🎧 Reply with the numbers you missed, or 'got them all'.
+
+
 ## Saturday 2026-10-03
 
 **08:55 · Anna** 🎧  ·  audio / echo: enna nadakkudhu

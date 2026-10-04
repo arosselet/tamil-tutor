@@ -7989,5 +7989,39 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-03T19-39.mp3",
     "memo_script": "da, you know how in a Coimbatore house, an argument about plans never actually gets resolved? Mama wants one thing, Athai wants another, and forty people have opinions.\n\nNobody says a flat no. That's too sharp. Instead, people deploy this magic machine: you take an action and put -லாம் at the end. You already know போலாம் — let's go.\n\nTake பாக்கலாம் — let's see, or we'll see. When Athai asks who is picking up the sweets or where three cousins are going to sleep, Mama doesn't fight. He just drops: கடைசில பாக்கலாம். Literally, we'll see at the end. Last minute.\n\nOr when Karthi promises to fix his scooter chain before Sunday: அப்புறம் பண்ணலாம். We can do it later.\n\nIt sounds completely cooperative, nobody gets offended, and it buys you three days of peace. Next time the room is spinning with plans, just nod and say: கடைசில பாக்கலாம். Works every time.",
     "mp3": "published_audio/knocks/knock_2026-10-03T19-39.mp3"
+  },
+  {
+    "date": "2026-10-04",
+    "timestamp": "2026-10-04T12:49:31.872158+00:00",
+    "acted": true,
+    "modality": "sort",
+    "move": "Sort tape",
+    "rationale": "Receptive Check by ear: untested taught rows, most-aired first.",
+    "body": "Sort tape — 20 lines 🎧 Reply with the numbers you missed, or 'got them all'.",
+    "items": [
+      "சீக்கிரம்",
+      "அது",
+      "அவங்க",
+      "தம்பி",
+      "வரேன்",
+      "எனக்கு",
+      "முதல்ல",
+      "அக்கா",
+      "சந்தோஷம்",
+      "கிட்ட",
+      "சொன்னாங்க",
+      "நல்லா",
+      "சாப்பிடுங்க",
+      "சரி",
+      "இருக்கு",
+      "குடுங்க",
+      "ஆமா",
+      "புரியல",
+      "இல்ல",
+      "அப்புறம்"
+    ],
+    "memo_script": "Sort tape. 20 lines, numbered. Each one twice, a pause, then the meaning. Keep count of the numbers you didn't get before the meaning came. At the end, just tell me the numbers you missed. Or: got them all. 1. சீக்கிரம். சீக்கிரம்.\n\nQuickly. 2. அது. அது.\n\nIt / That. 3. அவங்க. அவங்க.\n\nThey / He-She (respectful). 4. தம்பி. தம்பி.\n\nYounger brother. 5. வரேன். வரேன்.\n\nI come / I'm coming. 6. எனக்கு. எனக்கு.\n\nTo me / For me. 7. முதல்ல. முதல்ல.\n\nFirst. 8. அக்கா. அக்கா.\n\nElder sister. 9. சந்தோஷம். சந்தோஷம்.\n\nHappy / Joy. 10. கிட்ட. கிட்ட.\n\nNear / With (person). 11. சொன்னாங்க. சொன்னாங்க.\n\nThey said. 12. நல்லா. நல்லா.\n\nWell / Nicely. 13. சாப்பிடுங்க. சாப்பிடுங்க.\n\nPlease eat (respectful). 14. சரி. சரி.\n\nOkay. 15. இருக்கு. இருக்கு.\n\nIt is / It exists. 16. குடுங்க. குடுங்க.\n\nGive (respectful). 17. ஆமா. ஆமா.\n\nYes. 18. புரியல. புரியல.\n\nI don't understand. 19. இல்ல. இல்ல.\n\nNo. 20. அப்புறம். அப்புறம்.\n\nLater / After that. That's the lot. Tell me the numbers you missed, or got them all.",
+    "mp3": "published_audio/knocks/knock_2026-10-04T08-49.mp3",
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-04T08-49.mp3"
   }
 ]
