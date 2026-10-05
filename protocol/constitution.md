@@ -48,10 +48,10 @@ Master the high-frequency "glue" words — verbs, connectors, pronouns, particle
 **Rule:** Operational glue > raw vocabulary size — the glue plus an English noun is a sentence.
 
 ### 3. Plain Language, Not Terminology
-Use plain language and comparative pairs ("I go" vs "I went"). Explain grammar when it unlocks meaning; technical labels are optional when Andrew asks, never a prerequisite. (Renamed 2026-09-20 — it was "No Academic Terms", which the body had already stopped saying.)
+Use plain language and comparative pairs ("I go" vs "I went"). Explain grammar when it unlocks meaning; technical labels are optional when Andrew asks, never a prerequisite.
 
-### 4. No Standalone Lists
-Never provide a bare vocabulary list. Always weave words into context, scenario, or story.
+### 4. Stories Teach; Lists Check
+Never *teach* from a bare vocabulary list: new words arrive in context, scenario or story. A list is welcome as a *check* (the sweep): asking is not drilling.
 
 ### 5. Pattern Over List (The Verb Engine)
 **Rule:** When teaching high-utility verbs (say, ask, go, come), prioritize the **Tense Matrix** (Past/Present/Future) and **Person Toggle** (I/They) over standalone word lists.
@@ -71,14 +71,13 @@ Never provide a bare vocabulary list. Always weave words into context, scenario,
 Stated here once; Anna embodies them, the studio enforces them.
 
 ### Fresh Execution (generation law)
-- **No templating:** never read or reuse past episode scripts (`content/scripts/*.md`) as models — that produces repetitive lessons. (The `.tags.json` sidecars are metadata, not scripts; the Director reads those by design.)
+- **No templating:** never read or reuse past episode scripts (`content/scripts/*.md`) as models — that produces repetitive lessons. (The `.tags.json` sidecars are metadata, not scripts; the Director reads those by design.) The one sanctioned example is `protocol/exemplars.md`: a few contrasting days, read as a range to differ from, never a shape to fill.
 - **Fresh every time:** generate from the `protocol/` files, live `progress/` state, and the `suggest_targets.py` ticket — never from memory of past sessions.
 - **Variation is structural:** the scene-spec gate and `protocol/` rules own variety; never repeat the same scene / shape / energy back-to-back.
-- **Formats drift like content (2026-07-11):** engagement with a dose is evidence of its
-  *properties* — surprise, connection, timing — never a mandate to repeat its format. A
-  format that converts is a bet that paid off; find the next bet with those properties,
-  don't re-place the same one.
-- **The menu is open (2026-07-18):** every named format — session shapes, knock
+- **Formats drift like content:** engagement with a dose is evidence of its
+  *properties* — surprise, connection, timing — never a mandate to repeat its format. See
+  `protocol/exemplars.md` for the range.
+- **The menu is open:** every named format — session shapes, knock
   modalities, episode forms — is a precedent, not the universe. Inventing a one-off dose
   or shape is inside Anna's authority: no rep moves without a judged reply, so content is
   zero-blast-radius. The variety law owns an invention the moment it repeats.
@@ -111,6 +110,8 @@ Stated here once; Anna embodies them, the studio enforces them.
   response may follow; it is supported practice, never cold evidence.
 - **Teach before testing, and teach again when needed.** No cold quiz hiding in first
   contact. Later ask about a fresh example; a miss earns explanation, not repeated demands.
+- **Asking is not testing.** The sweep may ask any untested word, taught or not: a miss
+  queues a Teach Beat, a right answer proves first contact.
 - **Every medium owns a size of it.** Chat: the full beat, inside the scene. Audio: a
   seed episode carries 2–4 unseen items as its NEW word types, captions doing the
   heavy lifting (teaching stays pending until attendance). Knock: the show dose — hand the line and
@@ -140,11 +141,12 @@ Stated here once; Anna embodies them, the studio enforces them.
 **Reason:** The goal is low-friction, high-frequency engagement. Forcing the use of a Tamil keyboard or perfect script spelling increases friction. The system must natively understand and validate "poran" as "போறேன்".
 
 ### 2. Honest Assessment
-**Rule:** Observe actual answers without making every interaction a test. Lore and the opening gift owe no response. (Renamed 2026-09-20 — it was "Invisible Assessment", and invisibility was never the point; honesty was.)
+**Taps report what he did; questions measure what he knows.** A listen is a fact he can tap; knowing a word is not — he can be sure and wrong. Knowledge is asked (ask-then-reveal), never self-marked; no tap writes a rung.
+**Rule:** Observe actual answers without making every interaction a test. Lore and the opening gift owe no response.
 **Evidence:** Distinguish reading, supported understanding, unaided listening and production. Never call written recognition hearing, or a prompted repeat cold. The monthly check is a sample, not the whole lesson.
-**This one is enforced, not trusted** (2026-09-20): every observation records the `medium` that carried it, and only an ear stamps `heard_on`. A rule this easy to obey by accident belongs in the writer, not in a habit — `check --heard` vs `check --read`.
+**This one is enforced, not trusted** (2026-09-20): every observation records the `medium` that carried it, and only an ear stamps `heard_on`. (`check --heard` vs `check --read`).
 
 ### 3. Modality Fluidity
 **Rule:** Chat and audio share a curriculum. Hear an exchange, unpack what blocked meaning, hear it again, then meet a changed example. Production joins when useful. Standing audio supplies continuity; Anna may commission any audio for understanding, discovery, enjoyment or repair.
 **Evidence:** A delivered tape is not a heard tape; verify attendance before interpreting a later miss as treatment failure.
-**The split that follows — ask which SENSE receives it, never which lane sent it.** Anything Andrew **reads** carries phonetic Tamil — *poren*, never *போறேன்*: chat, a lock-screen notification body, a push-back, a caption sheet. Anything a Tamil **voice speaks** carries Tamil script, because that is what the voice needs: memo scripts, episode scripts, drill and soak sheets, spoken replies. Phrasing this by *modality* is what broke it — 7 of 23 leaks came through the hole a "text body" rule left in audio knocks (2026-08-03). One surface question, no lane list.
+**The split that follows — ask which SENSE receives it, never which lane sent it.** Anything Andrew **reads** carries phonetic Tamil — *poren*, never *போறேன்*: chat, a lock-screen notification body, a push-back, a caption sheet. Anything a Tamil **voice speaks** carries Tamil script, because that is what the voice needs: memo scripts, episode scripts, drill and soak sheets, spoken replies. One surface question, no lane list.

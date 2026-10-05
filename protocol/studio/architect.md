@@ -5,6 +5,7 @@
 > - `protocol/user.md` — who Andrew is to this family (never a first meeting)
 > - `protocol/constitution.md` — canonical rules (Woven Thanglish, No Meta-Narration). Fourth-wall & Tamil-script-only now live in `hosts.md` (already read above).
 > - `content/household.md` — THE CANON: who the Intercept's speakers are, how each one talks, and the voice pinned to each.
+> - `protocol/exemplars.md` — a few contrasting days that worked. Read the spread; land outside it.
 
 **Goal:** Turn a **Master Lesson Plan** into a compelling episode of two-voice Coimbatore Tamil audio.
 
@@ -12,7 +13,7 @@
 
 ## The First Line Is The Episode's Public Name
 
-The script's **very first line** must be the H1 title — `# Tier 2, Mission {n} — <Title>`. Not the second line, not after an `[SFX]` cue: the feed builder reads exactly one line and falls back to the filename if it isn't a heading. Thirty of the first ninety episodes shipped to the public podcast feed titled `Tier2 Mission90` because this rule was never written down and the title got produced by accident (2026-08-20). Give it a real name — the same one the Breakdown would call it.
+The script's **very first line** must be the H1 title — `# Tier 2, Mission {n} — <Title>`. Not the second line, not after an `[SFX]` cue: the feed builder reads exactly one line and falls back to the filename if it isn't a heading. Give it a real name — the same one the Breakdown would call it.
 
 ---
 
@@ -119,9 +120,9 @@ Write Tamil in plausible spoken register — close to how Coimbatore actually so
 
 **When the Episode Form calls for it** (always in `classic`; lighter in `story` / `phone_call`; omitted in `vignette` and in `narrated_drama`), the mission closes with a **Breakdown** — a dialogue between Analyst Maya (F) and Analyst Raj (M). See `protocol/studio/hosts.md` for their full character definitions.
 
-**`narrated_drama` takes no Breakdown** (2026-08-05, Andrew, on the M81 episode: *"it didn't need a breakdown… the scenario, when narrated in english, doesn't need an english explanation afterward"*). This form was simply absent from the list above, so a Breakdown got appended by default — and it is the one form that cannot want one, because the Narrator has already carried the English scaffolding *inside* the scene, beat by beat. Explaining it again afterwards is the same gloss twice. The length it would have bought comes from payload items instead.
+**`narrated_drama` takes no Breakdown** (2026-08-05, Andrew): the Narrator already carried the English inside the scene, so a Breakdown is the same gloss twice. Spend the length on payload items instead.
 
-- **English banter that unlocks the Intercept.** Maya and Raj talk about what they just heard, **in English** — the Intercept was the immersion; this is the key that makes it land. They play back snippets, react, joke about the characters' decisions. Tamil appears as the quoted snippet, never as the medium. *(Corrected 2026-08-05, Andrew: the old line read "a second Tamil exposure… mostly in Tamil," which described the wrong half of the pair — it made the Breakdown a second immersion when its whole job is to make the first one legible. M81's Breakdown ran 90% English and was read as rot against that stale line; it was doing its job, in an episode that did not need it.)*
+- **English banter that unlocks the Intercept.** Maya and Raj talk about what they just heard, **in English** — the Intercept was the immersion; this is the key that makes it land. They play back snippets, react, joke about the characters' decisions. Tamil appears as the quoted snippet, never as the medium.
 - **Follow what makes the exchange interesting.** Pick one or two beats — a double meaning, a sound, a cultural tell, why someone said it that way. Explain a blocking word or ending when it makes the scene clearer, then replay the snippet in context. Keep the discovery and banter; avoid a payload inventory or closing word-list. The audio may teach: understanding must not depend on Andrew attending a later chat. Captions and in-scene scaffolding can carry the remaining new material.
 - **Energy:** NotebookLM-style curiosity and banter, in English around the Tamil snippets. A full Breakdown may occupy much of the episode, but its English explanation is not Tamil listening time. In `vignette` the Intercept stands on its own.
 

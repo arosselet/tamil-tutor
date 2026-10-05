@@ -21,8 +21,10 @@ WHAT THIS REPLACES: the chat-only delivery of the Receptive Check. It adds no
 field, no meter and no rung rule — the fold climbs one rung per `right` and
 falls one per `wrong`, exactly as it does for every other watched test.
 
-THE DRAW. Only rows the teach-first law allows a test on (`is_unseen` is False),
-never yet tested by ear (`heard_on` empty), not already solid. Most-aired first:
+THE DRAW. Every `untested` row, taught or not (2026-10-05, Andrew: "all you had
+to do was ask"). Asking is not teaching and a miss costs nothing: it lands on
+`struggled` and the row still waits for its Teach Beat; a right answer proves
+first contact and opens the gate (`lexicon_view.derive`). Most-aired first:
 the rows the tapes keep re-teaching are the ones most likely to be known, and
 clearing them is what frees the next tapes for new words. A wrong answer stamps
 `heard_on` too, so a tape never re-draws its own lines; a missed word goes back
@@ -54,7 +56,7 @@ sys.path.insert(0, str(BASE / "scripts"))
 import lexicon_view
 from language import ANNA_VOICE, TAMIL_RE
 from publish import commit_and_push, jsdelivr_url, load_env, publish, push_to_phone
-from state_io import (KNOCK_LOG_PATH, LEXICON_PATH, RECOGNITION_DEFAULT, is_unseen, load_json,
+from state_io import (KNOCK_LOG_PATH, LEXICON_PATH, RECOGNITION_DEFAULT, load_json,
                       local_today, save_json)
 
 KNOCK_DIR = BASE / "published_audio" / "knocks"
@@ -75,14 +77,15 @@ COPY = "Sort tape — {n} lines 🎧 Reply with the numbers you missed, or 'got 
 
 
 def pool(lexicon: dict) -> list[str]:
-    """Rows a sort tape may test, most-aired first: rung `untested` — no watched
+    """Rows a sort tape may test, most-aired first: rung `untested`, taught or
+    not (the teach gate guards drills, not questions, 2026-10-05) — no watched
     recognition test in EITHER medium (2026-10-04, Andrew: "if I recognize it,
     it applies whether I read or listen"). This replaced an ear-only `heard_on`
     filter that re-drew words he had just answered on the page; a sort tape is
     single words, not speech at speed, so it adds nothing a page answer lacks."""
     keys = [k for k, r in lexicon.items()
             if TAMIL_RE.search(k) and not k.startswith("frame:") and len(k) > 1
-            and r.get("recognition") == RECOGNITION_DEFAULT and not is_unseen(r)]
+            and r.get("recognition") == RECOGNITION_DEFAULT]
     return sorted(keys, key=lambda k: (-(len(lexicon[k].get("seen_in") or [])
                                          + (lexicon[k].get("exposures") or 0)), k))
 
@@ -256,11 +259,11 @@ def main(argv=None) -> int:
     lexicon = load_json(LEXICON_PATH) or {}
     now = datetime.now(timezone.utc)
     items = draw(lexicon, args.size, seed=now.isoformat())
-    print(f"SORT TAPE — {len(items)} of {len(pool(lexicon))} untested, taught rows")
+    print(f"SORT TAPE — {len(items)} of {len(pool(lexicon))} untested rows, taught or not")
     for i, k in enumerate(items, 1):
         print(f"  {i:>2}. {k} — {lexicon[k].get('gloss', '')}")
     if not items:
-        print("  ! nothing to sort: every taught row has been tested by ear. Nothing rendered.")
+        print("  ! nothing to sort: every row has been tested. Nothing rendered.")
         return 1
     if args.plan_only:
         return 0
@@ -284,7 +287,7 @@ def main(argv=None) -> int:
     klog = load_json(KNOCK_LOG_PATH) or []
     klog.append({"date": local_today().isoformat(), "timestamp": now.isoformat(),
                  "acted": True, "modality": MODALITY, "move": "Sort tape",
-                 "rationale": "Receptive Check by ear: untested taught rows, most-aired first.",
+                 "rationale": "Receptive Check by ear: untested rows, taught or not, most-aired first.",
                  "body": copy, "items": items,
                  "memo_script": "\n\n".join(t for t, _ in lines),
                  "mp3": out.relative_to(BASE).as_posix(), "audio_url": jsdelivr_url(out)})

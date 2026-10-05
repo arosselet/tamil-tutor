@@ -584,7 +584,7 @@ async def render(plan: list[dict], spine: str, out: Path, minutes: float,
             sheets.append((mv, sheet))
         # The closing lap: the tape's own spine, Tamil only, no glosses, one pass.
         # It is the pay-off of a third listen AND the bridge back to the top when
-        # the file loops. A bare Tamil run brushes against "No Standalone Lists"
+        # the file loops. A bare Tamil run brushes against "Stories Teach; Lists Check"
         # (constitution rule 4) and is allowed for the same reason the soak loop's
         # cluster echo is: these lines were all placed in context earlier on this
         # same tape, so it is a recap, not a list taught from cold.

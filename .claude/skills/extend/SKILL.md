@@ -56,6 +56,10 @@ precedent lives in `/debug` → KF-8).
 Every addition must earn its place. Before writing any code, state out loud:
 *"This replaces / simplifies ___."* (`docs/DECISIONS.md` → "Every addition must earn its place.")
 
+**A prohibition also names what it guards** (2026-10-05): "never X, because Y happened".
+The list ban, the taught-only check and palatability-first each outlived the symptom
+that wrote them and blocked the next fix. Naming Y is what lets a later audit retire X.
+
 **The size budgets.** Every surface below is ratcheted, asserted by the same smoke case
 (`scripts/smoke/ratchets.py` → `s18_size_budgets`):
 

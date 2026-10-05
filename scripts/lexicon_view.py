@@ -130,7 +130,14 @@ def derive(events):
             # asked and he answered, so he was demonstrably there for the word.
             # This is what keeps the 110 render-taught-but-tested rows seen
             # while the 142 never-tested ones go back to UNSEEN (2026-09-13).
-            row["taught_on"] = row["taught_on"] or row["taught_pending"]
+            #
+            # A RIGHT RECOGNITION ANSWER IS FIRST CONTACT, PROVEN (2026-10-05,
+            # Andrew: "all you had to do was ask"). The sweep may now ask about
+            # rows no Teach Beat carried — 265 of 392 were invisible to it — and
+            # a word he already knows (`pesa`, 07-27) must not queue for a Teach
+            # Beat. A miss opens nothing: the gate stays shut until teaching.
+            row["taught_on"] = (row["taught_on"] or row["taught_pending"]
+                                or (day if axis == "recognition" and res == "right" else None))
             row["tests"] = row["reps"] = row["reps"] + 1
             row["spoken"].add("reps")
             if axis == "recognition":
@@ -145,7 +152,7 @@ def derive(events):
                 # above: the events stay, a text test stops voting on this one
                 # field, and the fold writes the None. No migration, and every
                 # pre-existing event gets its medium from its channel.
-                row["spoken"] |= {"recognition", "heard_on"}
+                row["spoken"] |= {"recognition", "heard_on"} | ({"taught_on"} if row["taught_on"] else set())
                 if observations.medium_of(e) == "audio":
                     row["heard_on"] = day or row["heard_on"]
                 if res == "right":

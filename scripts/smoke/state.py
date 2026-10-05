@@ -4169,13 +4169,19 @@ def s105_a_render_stamp_is_not_attendance(sb: Path):
     check("a watched test is attendance evidence — the 110 rows that keep it",
           lv.derive(tested)["X"]["taught_on"] == "2026-08-01")
 
-    # ...but a test ALONE never invents a Teach Beat it never had.
+    # ...but a MISS alone never invents a Teach Beat it never had. A RIGHT
+    # answer does (2026-10-05, Andrew): knowing the word IS first contact,
+    # proven — asking is not the ambush; crediting a miss as teaching would be.
     ambush = [ev("tested", "eavesdrop", "2026-09-01T12:00:00Z",
-                 axis="recognition", result="right")]
-    check("a test with no Teach Beat behind it leaves the word UNSEEN",
+                 axis="recognition", result="wrong")]
+    check("a missed test with no Teach Beat behind it leaves the word UNSEEN",
           lv.derive(ambush)["X"]["taught_on"] is None,
-          "quizzing an unseen word must not retroactively make it seen — that "
-          "is the ambush laundering itself into evidence")
+          "a miss on an unseen word must not make it seen — that is the ambush "
+          "laundering itself into evidence")
+    known = [dict(ambush[0], result="right")]
+    got = lv.derive(known)["X"]
+    check("a RIGHT answer with no Teach Beat opens the gate — he already knew it",
+          got["taught_on"] == "2026-09-01" and "taught_on" in got["spoken"], str(got))
 
     # ATTENDANCE DISCHARGES A TEACH BEAT; IT NEVER CREATES ONE. This shipped
     # wrong for one commit (`or day`) and is the original bug in a new coat: a

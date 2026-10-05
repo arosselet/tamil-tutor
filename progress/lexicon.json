@@ -2975,7 +2975,8 @@
     "reps": 2,
     "exposures": 1,
     "register": "mil-table",
-    "heard_on": "2026-08-10"
+    "heard_on": "2026-08-10",
+    "taught_on": "2026-08-10"
   },
   "அவங்க என்ன சொன்னாங்க?": {
     "type": "chunk",
@@ -3152,7 +3153,8 @@
     "exposures": 1,
     "reps": 3,
     "register": "public",
-    "heard_on": "2026-08-10"
+    "heard_on": "2026-08-10",
+    "taught_on": "2026-08-10"
   },
   "இங்க நிறுத்துங்க": {
     "type": "chunk",
@@ -3168,7 +3170,8 @@
     "reps": 4,
     "exposures": 3,
     "register": "public",
-    "heard_on": "2026-08-23"
+    "heard_on": "2026-08-23",
+    "taught_on": "2026-08-23"
   },
   "நேரா போங்க": {
     "type": "chunk",
@@ -3184,7 +3187,8 @@
     "reps": 2,
     "exposures": 1,
     "register": "public",
-    "heard_on": "2026-08-10"
+    "heard_on": "2026-08-10",
+    "taught_on": "2026-08-10"
   },
   "வலது பக்கம் திரும்புங்க": {
     "type": "chunk",
@@ -3671,7 +3675,7 @@
     "last_surfaced": "2026-07-01",
     "reps": 2,
     "heard_on": "2026-07-01",
-    "taught_on": null
+    "taught_on": "2026-07-01"
   },
   "சாப்பாடு ரெடி": {
     "gloss": "Food is ready",
@@ -4281,7 +4285,8 @@
     "exposures": 1,
     "register": "frame",
     "heard_on": "2026-09-05",
-    "reps": 3
+    "reps": 3,
+    "taught_on": "2026-09-05"
   },
   "frame:if-ndhaa": {
     "type": "pattern",
@@ -4489,7 +4494,7 @@
     "exposures": 3,
     "register": "gossip",
     "heard_on": "2026-07-27",
-    "taught_on": "2026-08-02"
+    "taught_on": "2026-07-27"
   },
   "ஒரே கல்லுல ரெண்டு மாங்கா": {
     "type": "chunk",
@@ -5211,7 +5216,8 @@
     "last_surfaced": "2026-09-07",
     "exposures": 1,
     "heard_on": "2026-08-30",
-    "reps": 3
+    "reps": 3,
+    "taught_on": "2026-08-30"
   },
   "வந்துடுச்சு": {
     "gloss": "It's come / it's arrived (of a thing) — vandhu + completive -ttu + it-tail -uchu; the 'it' twin of vandhutten",
@@ -5226,7 +5232,8 @@
     "last_surfaced": "2026-08-03",
     "exposures": 1,
     "reps": 2,
-    "heard_on": "2026-08-03"
+    "heard_on": "2026-08-03",
+    "taught_on": "2026-08-03"
   },
   "அதுக்கு": {
     "gloss": "For that / to that — adhu + the -kku tail (same tail as station-kku)",
@@ -5254,7 +5261,7 @@
     "last_surfaced": "2026-08-19",
     "exposures": 2,
     "heard_on": "2026-08-19",
-    "taught_on": null,
+    "taught_on": "2026-08-19",
     "reps": 2
   },
   "யாரு?": {
@@ -5699,7 +5706,8 @@
     "last_surfaced": "2026-09-20",
     "exposures": 1,
     "reps": 1,
-    "heard_on": null
+    "heard_on": null,
+    "taught_on": "2026-09-20"
   },
   "காலைல": {
     "gloss": "in the morning",
@@ -5839,7 +5847,8 @@
     "seen_in": [],
     "last_surfaced": "2026-09-11",
     "reps": 1,
-    "heard_on": null
+    "heard_on": null,
+    "taught_on": "2026-09-11"
   },
   "கை": {
     "gloss": "",

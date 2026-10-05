@@ -2705,7 +2705,8 @@ def s128_the_sort_tape_round_trips(kr, sb: Path):
     the phone. (2) An untagged "missed 4, 9" arriving after another knock fired
     would be graded against the WRONG knock by last-fired correlation — so a
     later knock is appended before the reply. (3) The draw could quietly test
-    UNSEEN rows, re-opening the teach-first ambush — so one is in the fixture.
+    UNSEEN rows — which it now SHOULD (2026-10-05): asking is not the ambush,
+    and a miss must not open the teach gate — so one is in the fixture.
     Effects are asserted by re-reading the lexicon and the observation log."""
     print("\n128. Sort tape — draw, untagged reply, recognition by ear (2026-10-03)")
     rs = kr.render_sort
@@ -2734,8 +2735,8 @@ def s128_the_sort_tape_round_trips(kr, sb: Path):
                "பழசு": lex_row(gloss="old", taught_on="2026-02-24", heard_on="2026-09-01")}
         write_json(lex_path, lex)
         items = rs.draw(lex, 20, seed="smoke")
-        check("the draw holds only taught, never-ear-tested rows",
-              sorted(items) == sorted(["சரி", "ஆமா", "இல்ல"]), items)
+        check("the draw holds every untested row, UNSEEN included (2026-10-05)",
+              sorted(items) == sorted(["சரி", "ஆமா", "இல்ல", "புதுசு"]), items)
         check("...and most-aired leads the pick", rs.pool(lex)[0] == "சரி", rs.pool(lex))
         # A word he answered ON THE PAGE is not re-drawn (2026-10-04, Andrew:
         # recognition is recognition, read or heard). Driven through the real
@@ -2753,6 +2754,19 @@ def s128_the_sort_tape_round_trips(kr, sb: Path):
         check("...and a half answer lands on struggled, never stays untested",
               page["ஆமா"]["recognition"] == "struggled" and "ஆமா" not in rs.pool(page),
               page["ஆமா"]["recognition"])
+        # Asking an UNSEEN row (2026-10-05, Andrew): a right answer proves first
+        # contact and opens the teach gate; a miss opens nothing and leaves the
+        # pool. Driven through the real writer — the fold is the law.
+        # A word no other case touches: the sandbox log is shared across the run.
+        ask = {**json.loads(json.dumps(lex)), "ஸ்மோக்புதிய": lex_row(gloss="fresh", recognition=u)}
+        for res, opened in (("wrong", False), ("right", True)):
+            rs.lexicon_view.observe([dict(word="ஸ்மோக்புதிய", channel="check", kind="tested",
+                                          axis="recognition", result=res, medium="text",
+                                          source="chat-sweep:smoke")], lexicon=ask)
+            check(f"an UNSEEN row answered {res}: gate {'opens' if opened else 'stays shut'}, "
+                  "row leaves the pool",
+                  bool(ask["ஸ்மோக்புதிய"].get("taught_on")) == opened
+                  and "ஸ்மோக்புதிய" not in rs.pool(ask), ask["ஸ்மோக்புதிய"])
 
         # Dead air, 2026-10-03: a bare one-word call came back from Chirp3-HD as
         # ~0.3 s of silence (சரி, அது, ஆமா, "No"). The script must never send a

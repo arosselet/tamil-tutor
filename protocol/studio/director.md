@@ -8,6 +8,8 @@
 > - `progress/profile.md` — learner calibration, active gaps, terrain covered
 > - `progress/learner.json` — the soak order, the running story (`last_debrief`), recent missions
 > - `content/scripts/*.tags.json` — last 3-5 missions' structural metadata
+> - `protocol/exemplars.md` — a few contrasting days that worked: the range to land
+>   outside of, never a shape to fill
 
 **Goal:** Pick the payload, define the scenario context, and identify the core linguistic pattern. Create a format-agnostic Master Lesson Plan that can be delivered via any modality (Podcast, Drill, Roleplay).
 
@@ -29,11 +31,7 @@ The spec guarantees range; you write the story inside it. You may still glance a
 
 The Master Lesson Plan carries the core pedagogical targets. Delivery modalities (like the Podcast) will later adapt these to their specific formats. **Register, Form, and the dramatic ingredient come from the Scene Spec (Step 1) — carry them through; don't re-pick them by eye.**
 
-**Linguistic Pattern:** Identify a core structural focus for this lesson. Examples:
-- "The Person Toggle" (I go vs They go)
-- "The Tense Matrix" (I went vs I will go)
-- "The Request" (Give me vs Please give)
-- "The Negation" (I don't want vs I didn't want)
+**Linguistic Pattern:** Identify a core structural focus for this lesson (a person toggle, a tense contrast, a request, a negation), chosen from what the soak order says he is actually meeting.
 
 **Scenario Shape:** Pick from the canonical list and *not* one of the last 2-3 used.
 `gossip | eavesdrop | dispute | transaction | pattern_riff | debrief | callback_heavy`
@@ -54,13 +52,9 @@ context) / Cold-Fire Engines (one novel instance each) / Ear-Only catch (natural
 unglossed) / New Cluster / Callbacks & floor-gaps. Buy items with minutes, not density.
 Structure and narrator craft: `architect.md` → Episode Form.
 
-**The payload IS the scale — there is no second dial** (2026-08-05, Andrew). A `scale:
-"long"` key was named in the 2026-07-18 decision and never built: no writer sets it
-(`cmd_update` takes payload/seed/focus/channel/form and nothing else) and no reader reads
-it. It was redundant twice over — the form already states its own duration (~12–18 min,
-`architect.md`) and "buy items with minutes" already ties length to item count. So the
-item count is the only dial: hand this form 2 items and you have commissioned a 2-item
-episode, whatever the label says. A batch soak means a batch-sized payload.
+**The payload IS the scale — there is no second dial** (2026-08-05, Andrew): hand this
+form 2 items and you have commissioned a 2-item episode. A batch soak means a batch-sized
+payload.
 
 ---
 

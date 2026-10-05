@@ -60,6 +60,11 @@ PROSE_BUDGETS = {
     # 1750 -> 1790 (2026-08-04): FIRST raise of this ceiling, and the growth is a class of content no protocol file owned — a standing fact about the learner's …
     # 1790 -> 1760 (2026-09-25): RE-CENSUSED DOWN. The 2026-08-04 raise above was this very fact; it now lives once, in `protocol/user.md`.
     "protocol/constitution.md": 1760,
+    # NEW FILE, budgeted in the same diff that creates it (2026-10-05, Andrew). Census
+    # ~700. Four or five contrasting days, never more: past this number it is a
+    # template library. It replaced reading past scripts as models and paid for itself
+    # in history cut from director.md and architect.md.
+    "protocol/exemplars.md": 800,
     # 1250 -> 1320 (2026-08-25, Andrew).
     # 1320 -> 1460 (2026-09-19): the household. This file gained a job — the
     # session now has a SETTING, and the contract for it (a premise that names
@@ -1469,6 +1474,12 @@ TOMBSTONES = (
      ("the floor keeps reading the claim",
       "deliberately not applied to compute_floor",
       "the viability floor deliberately does not take this rule")),
+    ("2026-10-05 Stories teach; lists check (Rule 4's blanket list ban retired)",
+     ("Never provide a bare vocabulary list",
+      "No Standalone Lists")),
+    ("2026-10-05 Asking is not teaching (the sweep's taught-only draw retired)",
+     ("Only rows the teach-first law allows a test on",
+      "untested taught rows")),
     ("2026-10-04 Asks come back; gifts stay half (the 09-23 gifts-only default retired)",
      ("Give space, or change the move",
       "stance \"give\") — the default. A self-contained")),

@@ -57,7 +57,9 @@ symptom cap (`/debug` → KF-8 is the standing precedent).
 (one data point is noise; a reproduced pattern is signal). Then at most one move:
 
 1. **Turn a dial** — `progress/profile.md` Calibration Notes. Reversible. ~90% of healing.
-2. **Prune** — delete the scene-type/meter/rule that isn't earning its place.
+2. **Prune** — delete the scene-type/meter/rule that isn't earning its place. First
+   candidate: a "never" whose guarded failure can no longer happen — it is now only
+   blocking (2026-10-05: the list ban was blocking the one format that measured him).
 3. **Propose (gated)** — real structural gap → proposal + evidence to
    `docs/feature_inbox.md` for Andrew's yes/no. Building it is `/extend`'s job, later.
 

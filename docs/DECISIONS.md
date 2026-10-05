@@ -42,14 +42,25 @@ compressed 2026-09-10, 32k words to 11k, nothing lost that git did not hold).
 - **Calibration dials live in `progress/profile.md` → Calibration Notes** — coverage %,
   new-word counts, pacing. Change the parameter; never encode a dial's value in protocol
   prose or assistant memory.
-- **A fade is palatability data, not a discipline failure** (2026-07-04). Contact is king
-  *only when the input is palatable and reliably varying* — the Apr–May fade wasn't
-  absence, it was episodes grating (too dense, too contrived, same scenario re-run) and
-  the fade-era refactors were a search for the fix. When contact drops: diagnose the
-  grating first; never answer a fade with accountability machinery. A build-itch during a
-  fade carries the diagnosis — mine it before parking it.
+- **A fade is a signal, not a discipline failure — audit the picture first** (2026-07-04;
+  amended 2026-10-05, Andrew). The Apr–May fade was episodes grating; the September one
+  grated because the picture was false (sari `struggled`), and lighter asks deepened it. When contact drops: first ask whether Anna knows what he knows (the
+  sweep), then diagnose the content. Never answer a fade with accountability
+  machinery or by cutting the measuring channel.
+- **A "never" names what it guards** (2026-10-05, Andrew). The list ban, the
+  taught-only check and palatability-first each fixed one symptom, outlived it, and
+  blocked the next fix. A new prohibition states the failure it prevents, so an audit
+  can ask whether that failure still exists.
 
 ## Settled design decisions
+
+- **Asking is not teaching: the sweep reaches every untested row** (2026-10-05, Andrew: "all you had to do was ask"). 265 of 392 rows had no Teach Beat, so no check could see them, yet he knows words never taught (`pesa`). A right recognition answer now proves first contact; a miss lands on `struggled` and waits for teaching. Supersedes 10-03's "UNSEEN rows stay out". Rebuild: 11 rows opened.
+
+- **Stories teach; lists check** (2026-10-05, Andrew). Constitution Rule 4 banned bare lists, and the format that fixed the picture (15 words, what do they mean?) survived only under another name. The ban is on teaching from a list, never on asking from one.
+
+- **Taps report what he did; questions measure what he knows** (2026-10-05, Andrew). A listen or a finish is a fact he can tap. Knowing a word is not: the sweep showed him sure and wrong. Knowledge is asked, ask-then-reveal; no button, rating or "I know this" writes a rung. Ends the self-grading question reopened since spring.
+
+- **Exemplars, not templates: the range is the example** (2026-10-05, Andrew). Episodes converged under ~1,300 lines of writing law, but the cause was a false picture, not their shape. `protocol/exemplars.md` holds four days chosen to differ; writers read the spread and land outside it. It replaces reading past scripts as models; history left the Director and Architect to pay for it.
 
 - **Asks come back; gifts stay half** (2026-10-04, Andrew: "bring back asks, but don't starve gifts"). Replies: July ~2 in 3 with asks; 3 of 23 after the 09-23 gifts-only default. OUTREACH_MANDATE now requires at least one ask and one gift a day and restores FIELDING (6/6 in July). An ask-streak changes the move, never stops asks. Volley stays out: its targets no longer reach the digest.
 
