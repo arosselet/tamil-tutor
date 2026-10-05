@@ -54,6 +54,7 @@ from pathlib import Path
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 import lexicon_view
+import writer
 from language import ANNA_VOICE, TAMIL_RE
 from publish import commit_and_push, jsdelivr_url, load_env, publish, push_to_phone
 from state_io import (KNOCK_LOG_PATH, LEXICON_PATH, RECOGNITION_DEFAULT, load_json,
@@ -198,10 +199,12 @@ def claim_reply(klog: list, knock_id: str, text: str) -> dict | None:
 
 
 def _label(key: str, lexicon: dict) -> str:
-    """How a word appears on the lock screen: phonetic and meaning, never script."""
-    rec = lexicon.get(key, {})
-    phon = (rec.get("phonetic") or [""])[0]
-    return f"{phon} '{rec.get('gloss', '')}'" if phon else f"'{rec.get('gloss', '')}'"
+    """How a word is named in the push-back: its key and meaning. The key is
+    script, so the finished line goes through `writer.to_phonetic` before he
+    reads it — phonetics are generated for display, never stored (DECISIONS
+    2026-09-13). This read a stored `phonetic` list until 2026-10-05, and printed
+    the gloss alone for the third of the lexicon that had none."""
+    return f"{key} '{lexicon.get(key, {}).get('gloss', '')}'"
 
 
 def handle_reply(knock: dict, text: str, klog: list, lexicon: dict, dry_run: bool,
@@ -229,6 +232,7 @@ def handle_reply(knock: dict, text: str, klog: list, lexicon: dict, dry_run: boo
     print(f"   sort reply → {len(events)} events | {line}")
     if dry_run:
         return
+    line_script, line = line, writer.to_phonetic(line, label="sort push-back")
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     verdict = "sorted" if events else "unparsed"
     if events:
@@ -237,10 +241,10 @@ def handle_reply(knock: dict, text: str, klog: list, lexicon: dict, dry_run: boo
         lexicon_view.observe(events, lexicon=lexicon)
         save_json(LEXICON_PATH, lexicon)
         knock.update(sorted_at=now, response="reply", reply=text, reply_at=now,
-                     reply_line=line, reply_line_script=line, reply_verdict=verdict)
+                     reply_line=line, reply_line_script=line_script, reply_verdict=verdict)
     knock.setdefault("exchanges", []).append({
         "at": now, "reply": text, "verdict": verdict, "fired": [],
-        "reply_line": line, "reply_line_script": line})
+        "reply_line": line, "reply_line_script": line_script})
     save_json(KNOCK_LOG_PATH, klog)
     commit(*publish([LEXICON_PATH if events else None, KNOCK_LOG_PATH],
                     f"Knock reply: {verdict} (sort tape)"))

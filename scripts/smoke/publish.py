@@ -655,6 +655,7 @@ def s43_sidecar_callback_never_drops_silently(sb: Path):
         lex = read_json(lex_path)
         lex["ஸ்மோக்ஆங்கர்"] = lex_row(gloss="anchor", recognition="solid")
         write_json(lex_path, lex)
+        exposures_before = 0   # the anchor row is minted here, unexposed
         out = io.StringIO()
         with contextlib.redirect_stdout(out):
             ra.register_mission_in_state(script, sb / "published_audio" / "tier2_mission97.mp3")
@@ -683,6 +684,30 @@ def s43_sidecar_callback_never_drops_silently(sb: Path):
               ghost in lex, "still absent")
         check("...and nothing is reported unresolved",
               "resolve to no lexicon word" not in out.getvalue())
+
+        # A LATIN SIDECAR KEY CREDITS NOTHING (2026-09-21). Until the stored
+        # `phonetic` list was deleted, this resolver had a second door: a
+        # {spelling -> script} map built off the lexicon, so a Producer writing
+        # 'smoke-angar' credited whichever row had pre-named that spelling. The
+        # sidecar schema has always been Tamil script; an off-schema key is now
+        # reported like any other unresolvable one instead of crediting a guess,
+        # which is the same under-claim law the block above is built on.
+        (script.with_suffix(".tags.json")).write_text(json.dumps({
+            "callbacks_used": {"smoke-angar": 2},
+            "new_words_landed": {},
+        }, ensure_ascii=False), encoding="utf-8")
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            ra.register_mission_in_state(script, sb / "published_audio" / "tier2_mission97.mp3")
+        lex = read_json(lex_path)
+        check("a Latin sidecar key credits no row — the spelling map is gone",
+              "smoke-angar" in out.getvalue()
+              and "resolve to no lexicon word" in out.getvalue(),
+              f"got {out.getvalue()[:300]!r}")
+        check("...and mints nothing under it either", "smoke-angar" not in lex)
+        check("...and the row it would have credited is untouched",
+              lex["ஸ்மோக்ஆங்கர்"].get("exposures", 0) == exposures_before,
+              f"exposures {lex['ஸ்மோக்ஆங்கர்'].get('exposures')} vs {exposures_before}")
 
         # ── A BROKEN SIDECAR IS NOT A MISSING ONE (2026-08-24) ──────────────
         # The block above proves an UNRESOLVABLE key is reported. This proves the

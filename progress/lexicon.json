@@ -1,7 +1,6 @@
 {
   "முதல்ல": {
     "gloss": "First",
-    "phonetic": [],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -38,7 +37,6 @@
   },
   "கல்யாணம்": {
     "gloss": "Wedding / Marriage",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -56,9 +54,6 @@
   },
   "பிடிக்காது": {
     "gloss": "I don't like",
-    "phonetic": [
-      "pidikkaadhu"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -84,9 +79,6 @@
   },
   "அங்க": {
     "gloss": "There",
-    "phonetic": [
-      "anga"
-    ],
     "recognition": "struggled",
     "production": "cold",
     "seen_in": [
@@ -106,9 +98,6 @@
   },
   "இங்க": {
     "gloss": "Here",
-    "phonetic": [
-      "inga"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -117,9 +106,6 @@
   },
   "கம்மி": {
     "gloss": "Less",
-    "phonetic": [
-      "kammi"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -128,9 +114,6 @@
   },
   "சீக்கிரம்": {
     "gloss": "Quickly",
-    "phonetic": [
-      "seekkiram"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -165,7 +148,6 @@
   },
   "அழகான": {
     "gloss": "Beautiful",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -181,7 +163,6 @@
   },
   "வலது": {
     "gloss": "Right",
-    "phonetic": [],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -193,7 +174,6 @@
   },
   "சொன்னாங்க": {
     "gloss": "They said",
-    "phonetic": [],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -227,7 +207,6 @@
   },
   "நேரா": {
     "gloss": "Straight",
-    "phonetic": [],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -242,9 +221,6 @@
   },
   "நாளைக்கு": {
     "gloss": "Tomorrow",
-    "phonetic": [
-      "naalaikku"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -266,9 +242,6 @@
   },
   "ஆனா": {
     "gloss": "But",
-    "phonetic": [
-      "aana"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -306,9 +279,6 @@
   },
   "அவன்": {
     "gloss": "He (informal)",
-    "phonetic": [
-      "avan"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -329,9 +299,6 @@
   },
   "இருக்கு": {
     "gloss": "It is / It exists",
-    "phonetic": [
-      "iruku"
-    ],
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [
@@ -368,9 +335,6 @@
   },
   "உனக்கு": {
     "gloss": "To you / For you",
-    "phonetic": [
-      "unakku"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -378,9 +342,6 @@
   },
   "அஞ்சு": {
     "gloss": "Five",
-    "phonetic": [
-      "anju"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -395,9 +356,6 @@
   },
   "வேண்டாம்": {
     "gloss": "I don't want",
-    "phonetic": [
-      "vendam"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -415,7 +373,6 @@
   },
   "சொல்லுங்க": {
     "gloss": "Tell/Say (respectful)",
-    "phonetic": [],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -435,9 +392,6 @@
   },
   "அது": {
     "gloss": "It / That",
-    "phonetic": [
-      "adhu"
-    ],
     "recognition": "struggled",
     "production": "cold",
     "seen_in": [
@@ -462,9 +416,6 @@
   },
   "ஒன்னு": {
     "gloss": "One",
-    "phonetic": [
-      "onnu"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -482,9 +433,6 @@
   },
   "பத்து": {
     "gloss": "Ten",
-    "phonetic": [
-      "pathu"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -503,9 +451,6 @@
   },
   "இல்ல": {
     "gloss": "No",
-    "phonetic": [
-      "illa"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -549,9 +494,6 @@
   },
   "மாமா": {
     "gloss": "Uncle (maternal)",
-    "phonetic": [
-      "maama"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -582,9 +524,6 @@
   },
   "ரெண்டு": {
     "gloss": "Two",
-    "phonetic": [
-      "rendu"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -598,9 +537,6 @@
   },
   "அதனால": {
     "gloss": "Therefore",
-    "phonetic": [
-      "adhanaal"
-    ],
     "recognition": "struggled",
     "production": "cold",
     "seen_in": [
@@ -622,9 +558,6 @@
   },
   "நேத்து": {
     "gloss": "Yesterday",
-    "phonetic": [
-      "netru"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -643,9 +576,6 @@
   },
   "அக்கா": {
     "gloss": "Elder sister",
-    "phonetic": [
-      "akka"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -670,7 +600,6 @@
   },
   "வயிறு ஃபுல்": {
     "gloss": "Stomach full",
-    "phonetic": [],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -684,9 +613,6 @@
   },
   "காரம்": {
     "gloss": "Spicy",
-    "phonetic": [
-      "kaaram"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -703,9 +629,6 @@
   },
   "நம்ம": {
     "gloss": "Our (inclusive)",
-    "phonetic": [
-      "namma"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -724,7 +647,6 @@
   },
   "நல்லா இருக்கு": {
     "gloss": "It's good",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -732,9 +654,6 @@
   },
   "எங்க": {
     "gloss": "Our (exclusive)",
-    "phonetic": [
-      "enga"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -756,9 +675,6 @@
   },
   "என்ன?": {
     "gloss": "What?",
-    "phonetic": [
-      "enna"
-    ],
     "recognition": "untested",
     "production": "hinted",
     "seen_in": [],
@@ -768,7 +684,6 @@
   },
   "போயிட்டு வரேன்": {
     "gloss": "I'll go and come back (goodbye)",
-    "phonetic": [],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [],
@@ -777,9 +692,6 @@
   },
   "வணக்கம்": {
     "gloss": "Hello",
-    "phonetic": [
-      "vanakkam"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -798,7 +710,6 @@
   },
   "சூப்பர்": {
     "gloss": "Super",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -816,9 +727,6 @@
   },
   "கொஞ்சம்": {
     "gloss": "A little",
-    "phonetic": [
-      "konjam"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -840,9 +748,6 @@
   },
   "போதும்": {
     "gloss": "Enough",
-    "phonetic": [
-      "podhum"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -860,9 +765,6 @@
   },
   "தெரியும்": {
     "gloss": "I know",
-    "phonetic": [
-      "theriyum"
-    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -883,9 +785,6 @@
   },
   "தங்கச்சி": {
     "gloss": "Younger sister",
-    "phonetic": [
-      "thangachi"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -893,7 +792,6 @@
   },
   "தூங்கினேன்": {
     "gloss": "I slept",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -901,9 +799,6 @@
   },
   "அவங்க": {
     "gloss": "They / He-She (respectful)",
-    "phonetic": [
-      "avanga"
-    ],
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [
@@ -928,9 +823,6 @@
   },
   "நீங்க": {
     "gloss": "You (respectful - Elders/Strangers)",
-    "phonetic": [
-      "neenga"
-    ],
     "recognition": "untested",
     "production": "hinted",
     "seen_in": [],
@@ -939,9 +831,6 @@
   },
   "அத்தை": {
     "gloss": "Aunt (paternal)",
-    "phonetic": [
-      "atthai"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -962,7 +851,6 @@
   },
   "நிறுத்துங்க": {
     "gloss": "Stop (respectful)",
-    "phonetic": [],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -979,7 +867,6 @@
   },
   "வாருங்களா?": {
     "gloss": "Will you come?",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -987,9 +874,6 @@
   },
   "சரி": {
     "gloss": "Okay",
-    "phonetic": [
-      "sari"
-    ],
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [
@@ -1039,9 +923,6 @@
   },
   "வேணும்": {
     "gloss": "I want / I need",
-    "phonetic": [
-      "venum"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -1059,9 +940,6 @@
   },
   "வரேன்": {
     "gloss": "I come / I'm coming",
-    "phonetic": [
-      "vareen"
-    ],
     "recognition": "struggled",
     "production": "cold",
     "seen_in": [
@@ -1087,9 +965,6 @@
   },
   "மூணு": {
     "gloss": "Three",
-    "phonetic": [
-      "moonu"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -1097,9 +972,6 @@
   },
   "நாங்க": {
     "gloss": "We (exclusive)",
-    "phonetic": [
-      "naanga"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -1115,9 +987,6 @@
   },
   "போறேன்": {
     "gloss": "I go / I'm going",
-    "phonetic": [
-      "poren"
-    ],
     "recognition": "struggled",
     "production": "cold",
     "seen_in": [
@@ -1139,7 +1008,6 @@
   },
   "டயர்ட்": {
     "gloss": "Tired",
-    "phonetic": [],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -1154,7 +1022,6 @@
   },
   "இடது": {
     "gloss": "Left",
-    "phonetic": [],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -1166,7 +1033,6 @@
   },
   "அதுக்கு அப்புறம்": {
     "gloss": "After that",
-    "phonetic": [],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [],
@@ -1177,9 +1043,6 @@
   },
   "அண்ணா": {
     "gloss": "Elder brother",
-    "phonetic": [
-      "anna"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -1187,9 +1050,6 @@
   },
   "பசி": {
     "gloss": "Hungry",
-    "phonetic": [
-      "pasi"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -1197,9 +1057,6 @@
   },
   "தம்பி": {
     "gloss": "Younger brother",
-    "phonetic": [
-      "thambi"
-    ],
     "recognition": "comfortable",
     "production": "hinted",
     "seen_in": [
@@ -1226,9 +1083,6 @@
   },
   "செம்மை": {
     "gloss": "Excellent / Perfect",
-    "phonetic": [
-      "semmai"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -1236,7 +1090,6 @@
   },
   "சாப்பிட்டேன்": {
     "gloss": "I ate",
-    "phonetic": [],
     "recognition": "struggled",
     "production": "cold",
     "seen_in": [
@@ -1254,9 +1107,6 @@
   },
   "நீ": {
     "gloss": "You (informal - Peers/Cousins)",
-    "phonetic": [
-      "nee"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -1264,9 +1114,6 @@
   },
   "தெரியாது": {
     "gloss": "I don't know",
-    "phonetic": [
-      "theriyaadhu"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -1274,10 +1121,6 @@
   },
   "ஆமா": {
     "gloss": "Yes",
-    "phonetic": [
-      "aam",
-      "aama"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -1327,9 +1170,6 @@
   },
   "அவ": {
     "gloss": "She (informal)",
-    "phonetic": [
-      "ava"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -1343,9 +1183,6 @@
   },
   "ஏன்னா": {
     "gloss": "Because",
-    "phonetic": [
-      "ennaa"
-    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -1366,7 +1203,6 @@
   },
   "வேற என்ன?": {
     "gloss": "What else?",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -1374,7 +1210,6 @@
   },
   "எழுந்தேன்": {
     "gloss": "I woke up",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -1388,7 +1223,6 @@
   },
   "சாப்டீங்களா?": {
     "gloss": "Did you eat?",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -1396,9 +1230,6 @@
   },
   "உப்பு": {
     "gloss": "Salt / Salty",
-    "phonetic": [
-      "uppu"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -1411,10 +1242,6 @@
   },
   "எனக்கு": {
     "gloss": "To me / For me",
-    "phonetic": [
-      "enakku",
-      "enaku"
-    ],
     "recognition": "struggled",
     "production": "cold",
     "seen_in": [
@@ -1445,9 +1272,6 @@
   },
   "நூறு": {
     "gloss": "Hundred",
-    "phonetic": [
-      "nooru"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -1455,7 +1279,6 @@
   },
   "குடிச்சேன்": {
     "gloss": "I drank",
-    "phonetic": [],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -1467,7 +1290,6 @@
   },
   "கேட்டாங்க": {
     "gloss": "They asked",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -1482,7 +1304,6 @@
   },
   "சொன்னேன்": {
     "gloss": "I said",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -1490,9 +1311,6 @@
   },
   "கோவம்": {
     "gloss": "Angry / Anger",
-    "phonetic": [
-      "kovam"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -1509,9 +1327,6 @@
   },
   "போகணும்": {
     "gloss": "Must go",
-    "phonetic": [
-      "poganum"
-    ],
     "recognition": "struggled",
     "production": "cold",
     "seen_in": [
@@ -1529,7 +1344,6 @@
   },
   "பார்த்தேன்": {
     "gloss": "I saw / I watched",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -1554,9 +1368,6 @@
   },
   "கிட்ட": {
     "gloss": "Near / With (person)",
-    "phonetic": [
-      "kitta"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -1589,7 +1400,6 @@
   },
   "சொல்றேன்": {
     "gloss": "I'm telling (present)",
-    "phonetic": [],
     "recognition": "struggled",
     "production": "cold",
     "seen_in": [
@@ -1609,7 +1419,6 @@
   },
   "சொல்லுவேன்": {
     "gloss": "I will tell (future)",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -1617,7 +1426,6 @@
   },
   "சாப்பிடுங்க": {
     "gloss": "Please eat (respectful)",
-    "phonetic": [],
     "recognition": "struggled",
     "production": "cold",
     "seen_in": [
@@ -1639,9 +1447,6 @@
   },
   "உள்ள": {
     "gloss": "Inside",
-    "phonetic": [
-      "ulla"
-    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
@@ -1651,10 +1456,6 @@
   },
   "எங்க?": {
     "gloss": "Where?",
-    "phonetic": [
-      "enga?",
-      "engae"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -1662,9 +1463,6 @@
   },
   "வெளிய": {
     "gloss": "Outside",
-    "phonetic": [
-      "veliya"
-    ],
     "recognition": "comfortable",
     "production": "hinted",
     "seen_in": [
@@ -1682,7 +1480,6 @@
   },
   "போனேன்": {
     "gloss": "I went",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -1697,9 +1494,6 @@
   },
   "பிடிக்கும்": {
     "gloss": "I like / It pleases",
-    "phonetic": [
-      "pidikkum"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -1717,9 +1511,6 @@
   },
   "பெரிய": {
     "gloss": "Big",
-    "phonetic": [
-      "periya"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -1740,9 +1531,6 @@
   },
   "சின்ன": {
     "gloss": "Small / Little",
-    "phonetic": [
-      "sinna"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -1755,9 +1543,6 @@
   },
   "நல்லா": {
     "gloss": "Well / Nicely",
-    "phonetic": [
-      "nalla"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -1780,7 +1565,6 @@
   },
   "அவரு": {
     "gloss": "He/She (respectful)",
-    "phonetic": [],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -1793,9 +1577,6 @@
   },
   "குட்டை": {
     "gloss": "Short (height)",
-    "phonetic": [
-      "kutti"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [],
@@ -1804,9 +1585,6 @@
   },
   "இப்போ": {
     "gloss": "Now",
-    "phonetic": [
-      "ippo"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -1840,7 +1618,6 @@
   },
   "இல்லையாவா?": {
     "gloss": "Isn't it? / Right?",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -1848,7 +1625,6 @@
   },
   "உக்காருங்க": {
     "gloss": "Sit (respectful)",
-    "phonetic": [],
     "recognition": "comfortable",
     "production": "hinted",
     "seen_in": [
@@ -1867,7 +1643,6 @@
   },
   "எடுங்க": {
     "gloss": "Take (respectful)",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -1877,7 +1652,6 @@
   },
   "ஒன்னு மட்டும்": {
     "gloss": "Only one",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -1885,7 +1659,6 @@
   },
   "குடுங்க": {
     "gloss": "Give (respectful)",
-    "phonetic": [],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -1912,9 +1685,6 @@
   },
   "தாகம்": {
     "gloss": "Thirsty",
-    "phonetic": [
-      "thaagam"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -1927,9 +1697,6 @@
   },
   "நிறைய": {
     "gloss": "A lot",
-    "phonetic": [
-      "niraya"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -1937,7 +1704,6 @@
   },
   "நேரம் ஆச்சு": {
     "gloss": "It's time / Time's up",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -1950,7 +1716,6 @@
   },
   "பரவாயில்லை": {
     "gloss": "It's okay / No problem",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -1966,10 +1731,6 @@
   },
   "கீழ": {
     "gloss": "Below / Under",
-    "phonetic": [
-      "keele",
-      "keezha"
-    ],
     "recognition": "struggled",
     "production": "cold",
     "seen_in": [
@@ -1990,10 +1751,6 @@
   },
   "மேல": {
     "gloss": "On top / Above",
-    "phonetic": [
-      "meela",
-      "mela"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -2001,7 +1758,6 @@
   },
   "முன்னாடியே": {
     "gloss": "Already / Beforehand",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2016,9 +1772,6 @@
   },
   "சந்தோஷம்": {
     "gloss": "Happy / Joy",
-    "phonetic": [
-      "sandosham"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -2039,9 +1792,6 @@
   },
   "பயம்": {
     "gloss": "Scared / Fear",
-    "phonetic": [
-      "payam"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2061,7 +1811,6 @@
   },
   "கவலை": {
     "gloss": "Worry",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2081,7 +1830,6 @@
   },
   "பெட்டி": {
     "gloss": "Box / Suitcase",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2104,9 +1852,6 @@
   },
   "முடியாது": {
     "gloss": "Cannot / Impossible",
-    "phonetic": [
-      "mudiyaadhu"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -2126,7 +1871,6 @@
   },
   "தப்பு": {
     "gloss": "Wrong / Mistake",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -2135,7 +1879,6 @@
   },
   "அப்படீங்களா?": {
     "gloss": "Is that so?",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -2143,7 +1886,6 @@
   },
   "நினைச்சேன்": {
     "gloss": "I thought",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -2151,10 +1893,6 @@
   },
   "கேட்டேன்": {
     "gloss": "I asked",
-    "phonetic": [
-      "keten",
-      "ketten"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -2177,9 +1915,6 @@
   },
   "இன்னைக்கு": {
     "gloss": "Today",
-    "phonetic": [
-      "innaiku"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -2187,7 +1922,6 @@
   },
   "முறை மாமன்": {
     "gloss": "Cross-cousin (marriageable uncle)",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -2195,7 +1929,6 @@
   },
   "நிமிஷம்": {
     "gloss": "Minute (time)",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -2203,7 +1936,6 @@
   },
   "விட": {
     "gloss": "Than (comparison marker)",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2215,9 +1947,6 @@
   },
   "புது": {
     "gloss": "New",
-    "phonetic": [
-      "pudhu"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -2225,7 +1954,6 @@
   },
   "பழைய": {
     "gloss": "Old (things)",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2238,7 +1966,6 @@
   },
   "உயரம்": {
     "gloss": "Tall / Height",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -2246,11 +1973,6 @@
   },
   "அப்புறம்": {
     "gloss": "Later / After that",
-    "phonetic": [
-      "appuram",
-      "apora",
-      "appram"
-    ],
     "recognition": "comfortable",
     "production": "hinted",
     "seen_in": [
@@ -2286,9 +2008,6 @@
   },
   "கேட்பேன்": {
     "gloss": "I will hear/ask (future)",
-    "phonetic": [
-      "ketpaen"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [],
@@ -2298,7 +2017,6 @@
   },
   "கேன்சல்": {
     "gloss": "Cancel",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -2306,7 +2024,6 @@
   },
   "நேரம் இருக்கா?": {
     "gloss": "Do you have time?",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -2314,7 +2031,6 @@
   },
   "ஃப்ரீ-யா?": {
     "gloss": "Are you free?",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -2322,9 +2038,6 @@
   },
   "தூக்கு": {
     "gloss": "Lift / Carry",
-    "phonetic": [
-      "thooku"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -2338,9 +2051,6 @@
   },
   "வை": {
     "gloss": "Keep / Put / Place",
-    "phonetic": [
-      "vai"
-    ],
     "recognition": "struggled",
     "production": "hinted",
     "seen_in": [
@@ -2361,7 +2071,6 @@
   },
   "நிஜமா?": {
     "gloss": "Really?",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -2369,9 +2078,6 @@
   },
   "கேட்குறேன்": {
     "gloss": "I'm hearing/asking (present)",
-    "phonetic": [
-      "ketkureen"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -2384,7 +2090,6 @@
   },
   "போஸ்ட்போன்": {
     "gloss": "Postpone",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -2392,10 +2097,6 @@
   },
   "கொடுத்தேன்": {
     "gloss": "I gave",
-    "phonetic": [
-      "kodutten",
-      "koduthen"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2406,10 +2107,6 @@
   },
   "வந்தேன்": {
     "gloss": "I came",
-    "phonetic": [
-      "vanden",
-      "vandhen"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2421,10 +2118,6 @@
   },
   "அதான்": {
     "gloss": "That's why / Exactly / See, I told you",
-    "phonetic": [
-      "adaan",
-      "adhaan"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2439,10 +2132,6 @@
   },
   "புரிஞ்சுது": {
     "gloss": "Got it / I understood",
-    "phonetic": [
-      "purinjudhu",
-      "purinjuchu"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2457,10 +2146,6 @@
   },
   "புரியல": {
     "gloss": "I don't understand",
-    "phonetic": [
-      "puriyala",
-      "puriyila"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -2484,9 +2169,6 @@
   },
   "கூப்பிடு": {
     "gloss": "Call",
-    "phonetic": [
-      "kuppidu"
-    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [
@@ -2503,9 +2185,6 @@
   },
   "அனுப்பு": {
     "gloss": "Send",
-    "phonetic": [
-      "anuppu"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2519,10 +2198,6 @@
   },
   "கிடைச்சுது": {
     "gloss": "Received / Got it",
-    "phonetic": [
-      "kidaichudu",
-      "kidaichuthu"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2538,10 +2213,6 @@
   },
   "கன்ஃபர்ம்": {
     "gloss": "Confirm",
-    "phonetic": [
-      "kanfarm",
-      "confirm"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2552,10 +2223,6 @@
   },
   "சூடு": {
     "gloss": "Hot (temperature/sensation)",
-    "phonetic": [
-      "soodu",
-      "sudu"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2566,9 +2233,6 @@
   },
   "குளிர்": {
     "gloss": "Cold",
-    "phonetic": [
-      "kulir"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2579,9 +2243,6 @@
   },
   "கஷ்டம்": {
     "gloss": "Difficult / Hardship",
-    "phonetic": [
-      "kashtam"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -2595,10 +2256,6 @@
   },
   "ஈஸி": {
     "gloss": "Easy",
-    "phonetic": [
-      "easy",
-      "eesi"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2609,9 +2266,6 @@
   },
   "சரியான": {
     "gloss": "Correct / Right / Exact",
-    "phonetic": [
-      "sariyana"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2622,10 +2276,6 @@
   },
   "எழுந்திரு": {
     "gloss": "Get up / Wake up",
-    "phonetic": [
-      "ezhunthiru",
-      "ezhundhiru"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2636,9 +2286,6 @@
   },
   "குளி": {
     "gloss": "Bathe / Shower",
-    "phonetic": [
-      "kuli"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2649,9 +2296,6 @@
   },
   "சட்டை": {
     "gloss": "Shirt",
-    "phonetic": [
-      "sattai"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2663,9 +2307,6 @@
   },
   "போடு": {
     "gloss": "Put on / Wear",
-    "phonetic": [
-      "podu"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2678,10 +2319,6 @@
   },
   "கிளம்பு": {
     "gloss": "Leave / Depart",
-    "phonetic": [
-      "kilambu",
-      "kelambu"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2698,7 +2335,6 @@
   "frame:present-future-toggle": {
     "type": "pattern",
     "gloss": "-உறேன் (now) vs -வேன் (later) on any verb — போறேன்/போவேன், கேட்குறேன்/கேட்பேன்",
-    "phonetic": [],
     "recognition": "struggled",
     "production": "cold",
     "seen_in": [],
@@ -2710,7 +2346,6 @@
   "frame:obligation-ணும்": {
     "type": "pattern",
     "gloss": "{verb}+ணும் → must {verb} — பண்ணணும், போகணும், சொல்லணும்",
-    "phonetic": [],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [],
@@ -2721,7 +2356,6 @@
   "frame:cant-முடியல": {
     "type": "pattern",
     "gloss": "{verb} முடியல → can't {verb} — தூக்க முடியல, போக முடியல",
-    "phonetic": [],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [],
@@ -2731,9 +2365,6 @@
   },
   "அதனால தான்": {
     "gloss": "that is exactly why / that is the reason",
-    "phonetic": [
-      "adhanaala dhaan"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2745,9 +2376,6 @@
   },
   "அப்படி இல்ல": {
     "gloss": "no / it is not like that (gentle correction)",
-    "phonetic": [
-      "appadi illa"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -2761,9 +2389,6 @@
   },
   "அப்படியே": {
     "gloss": "just like that / as it is",
-    "phonetic": [
-      "appadiye"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2775,9 +2400,6 @@
   },
   "அதுக்கு மேல": {
     "gloss": "on top of that / beyond that",
-    "phonetic": [
-      "adhukku mela"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2789,9 +2411,6 @@
   },
   "அப்படினா என்ன அர்த்தம்?": {
     "gloss": "what does that mean?",
-    "phonetic": [
-      "appadina enna artham"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2803,9 +2422,6 @@
   },
   "இப்பவே": {
     "gloss": "right now (emphatic)",
-    "phonetic": [
-      "ippave"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2816,9 +2432,6 @@
   },
   "உட்காரு": {
     "gloss": "sit (informal command)",
-    "phonetic": [
-      "utkaaru"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2829,9 +2442,6 @@
   },
   "என்ன ஆச்சு": {
     "gloss": "what happened?",
-    "phonetic": [
-      "enna aachu"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2843,9 +2453,6 @@
   "இன்னும் கொஞ்சம் சாப்பிடுங்க": {
     "type": "chunk",
     "gloss": "Eat a little more (HER line — hear it coming)",
-    "phonetic": [
-      "innum konjam saapidunga"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2865,9 +2472,6 @@
   "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு": {
     "type": "chunk",
     "gloss": "No thanks, I'm full — the refusal to the maami's 'eat more'",
-    "phonetic": [
-      "vendaamma, vayiru nerainjiduchu"
-    ],
     "recognition": "untested",
     "production": "hinted",
     "seen_in": [],
@@ -2880,9 +2484,6 @@
   "உங்க கை ருசி சூப்பர்": {
     "type": "chunk",
     "gloss": "Your cooking (hand-taste) is superb",
-    "phonetic": [
-      "unga kai ruchi super"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -2895,9 +2496,6 @@
   "நானே எடுத்துக்கறேன்": {
     "type": "chunk",
     "gloss": "I'll serve myself",
-    "phonetic": [
-      "naane eduthukkaren"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -2913,9 +2511,6 @@
   "கொஞ்சம் தண்ணி குடுங்க": {
     "type": "chunk",
     "gloss": "Please give a little water",
-    "phonetic": [
-      "konjam thanni kudunga"
-    ],
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [
@@ -2932,9 +2527,6 @@
   "கை கழுவிட்டு வரேன்": {
     "type": "chunk",
     "gloss": "I'll wash my hands and come",
-    "phonetic": [
-      "kai kazhuvittu varen"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [],
@@ -2947,9 +2539,6 @@
   "உட்கார்ந்து பேசுங்க": {
     "type": "chunk",
     "gloss": "Sit and talk",
-    "phonetic": [
-      "ukkaandhu pesunga"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2964,9 +2553,6 @@
   "நீங்க சாப்பிட்டீங்களா?": {
     "type": "chunk",
     "gloss": "Did you eat? (respectful — asking her back)",
-    "phonetic": [
-      "ninga saaptingala"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [],
@@ -2981,9 +2567,6 @@
   "அவங்க என்ன சொன்னாங்க?": {
     "type": "chunk",
     "gloss": "What did they say? (your eavesdrop question)",
-    "phonetic": [
-      "avanga enna sonnaanga"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -2998,9 +2581,6 @@
   "யாருக்கு தெரியும்?": {
     "type": "chunk",
     "gloss": "Who knows? (the shrug)",
-    "phonetic": [
-      "yaarukku theriyum"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -3013,9 +2593,6 @@
   "கேள்விப்பட்டியா?": {
     "type": "chunk",
     "gloss": "Did you hear (the news)?",
-    "phonetic": [
-      "kelvipattiya"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -3024,9 +2601,6 @@
   "அது உண்மையா?": {
     "type": "chunk",
     "gloss": "Is that true?",
-    "phonetic": [
-      "adhu unmaiya"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -3038,9 +2612,6 @@
   "சும்மா சொல்றாங்க": {
     "type": "chunk",
     "gloss": "They're just talking / making it up (the dismissal — hear it)",
-    "phonetic": [
-      "summa solraanga"
-    ],
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [
@@ -3060,9 +2631,6 @@
   "எனக்கு ஒன்னும் தெரியாது": {
     "type": "chunk",
     "gloss": "I don't know anything (staying out of it — comedy gold fired deadpan)",
-    "phonetic": [
-      "enakku onnum theriyaadhu"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -3077,9 +2645,6 @@
   "என்னமோ பிரச்சனை": {
     "type": "chunk",
     "gloss": "Some problem or other (the gossip hum — catch the drift)",
-    "phonetic": [
-      "ennamo prachanai"
-    ],
     "recognition": "solid",
     "production": "none",
     "seen_in": [
@@ -3099,9 +2664,6 @@
   "விட்டுடு": {
     "type": "chunk",
     "gloss": "Let it go / drop it (nee-form — cousins say it to each other)",
-    "phonetic": [
-      "vittudu"
-    ],
     "recognition": "comfortable",
     "production": "hinted",
     "seen_in": [
@@ -3119,9 +2681,6 @@
   "எவ்வளவு ஆகும்?": {
     "type": "chunk",
     "gloss": "How much will it be?",
-    "phonetic": [
-      "evvalavu aagum"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -3130,9 +2689,6 @@
   "கொஞ்சம் குறையுங்க": {
     "type": "chunk",
     "gloss": "Reduce it a little (bargaining)",
-    "phonetic": [
-      "konjam kuraiyunga"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -3142,9 +2698,6 @@
   "ரொம்ப அதிகம்": {
     "type": "chunk",
     "gloss": "That's too much",
-    "phonetic": [
-      "romba adhigam"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [],
@@ -3159,9 +2712,6 @@
   "இங்க நிறுத்துங்க": {
     "type": "chunk",
     "gloss": "Stop here (to a driver)",
-    "phonetic": [
-      "inga niruthunga"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [],
@@ -3176,9 +2726,6 @@
   "நேரா போங்க": {
     "type": "chunk",
     "gloss": "Go straight",
-    "phonetic": [
-      "nera ponga"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [],
@@ -3193,9 +2740,6 @@
   "வலது பக்கம் திரும்புங்க": {
     "type": "chunk",
     "gloss": "Turn right",
-    "phonetic": [
-      "valadu pakkam thirumbunga"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [],
@@ -3208,9 +2752,6 @@
   "சில்லறை இருக்கா?": {
     "type": "chunk",
     "gloss": "Do you have change? (you're the cash man on this trip)",
-    "phonetic": [
-      "sillarai irukka"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [],
@@ -3223,9 +2764,6 @@
   "கார்டு வேலை செய்யுமா?": {
     "type": "chunk",
     "gloss": "Does card work / is card accepted?",
-    "phonetic": [
-      "card velai seiyuma"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -3234,9 +2772,6 @@
   "அவசரம் இருக்கு": {
     "type": "chunk",
     "gloss": "I'm in a hurry",
-    "phonetic": [
-      "avasaram irukku"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -3258,9 +2793,6 @@
   "கொஞ்சம் நில்லுங்க": {
     "type": "chunk",
     "gloss": "Wait a moment (respectful)",
-    "phonetic": [
-      "konjam nillunga"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -3277,9 +2809,6 @@
   "எப்படி இருக்கீங்க?": {
     "type": "chunk",
     "gloss": "How are you? (respectful)",
-    "phonetic": [
-      "eppadi irukkinga"
-    ],
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [
@@ -3296,9 +2825,6 @@
   "ரொம்ப நாளாச்சு": {
     "type": "chunk",
     "gloss": "It's been a long time",
-    "phonetic": [
-      "romba naalaachu"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -3314,11 +2840,6 @@
   "வந்துட்டேன்": {
     "type": "chunk",
     "gloss": "I've arrived / I came",
-    "phonetic": [
-      "vandhutten",
-      "wandete",
-      "vandutte"
-    ],
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [
@@ -3336,9 +2857,6 @@
   "கிளம்பலாமா?": {
     "type": "chunk",
     "gloss": "Shall we get going?",
-    "phonetic": [
-      "kilambalaama"
-    ],
     "recognition": "untested",
     "production": "hinted",
     "seen_in": [
@@ -3354,9 +2872,6 @@
   "பிறகு பார்க்கலாம்": {
     "type": "chunk",
     "gloss": "See you later",
-    "phonetic": [
-      "piragu paakkalaam"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -3365,9 +2880,6 @@
   "உங்களை பார்த்ததுல சந்தோஷம்": {
     "type": "chunk",
     "gloss": "Happy to meet you",
-    "phonetic": [
-      "ungalai paathadhula sandhosham"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -3376,9 +2888,6 @@
   "கவலைப்படாதீங்க": {
     "type": "chunk",
     "gloss": "Don't worry (respectful)",
-    "phonetic": [
-      "kavalaipadaadhinga"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -3387,9 +2896,6 @@
   "நல்லா இருங்க": {
     "type": "chunk",
     "gloss": "Take care / be well",
-    "phonetic": [
-      "nalla irunga"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -3404,9 +2910,6 @@
   "ஒரு நிமிஷம்": {
     "type": "chunk",
     "gloss": "One moment / just a minute",
-    "phonetic": [
-      "oru nimisham"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -3423,9 +2926,6 @@
   "நான் கோயம்புத்தூர்காரன் மாதிரி ஆயிட்டேன்": {
     "type": "chunk",
     "gloss": "I've become like a Coimbatore local",
-    "phonetic": [
-      "naan coimbatore-kaaran maadhiri aayitten"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -3440,9 +2940,6 @@
   "இதெல்லாம் எனக்கு புடிக்கும்": {
     "type": "chunk",
     "gloss": "I like all this (the food/the place/the people)",
-    "phonetic": [
-      "idhellaam enakku pudikkum"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -3457,9 +2954,6 @@
   "அடுத்த தடவ நானே சமைக்கறேன்": {
     "type": "chunk",
     "gloss": "Next time I'll cook myself",
-    "phonetic": [
-      "aduthha thadava naane samaikkaren"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -3470,9 +2964,6 @@
   "கொஞ்சம் கொஞ்சம் புரியுது": {
     "type": "chunk",
     "gloss": "I understand a little by little",
-    "phonetic": [
-      "konjam konjam puriyudhu"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -3487,7 +2978,6 @@
   "frame:want-noun": {
     "type": "pattern",
     "gloss": "{English noun} வேணும் → I want {noun} (e.g. 'auto வேணும்')",
-    "phonetic": [],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -3507,7 +2997,6 @@
   "frame:where-noun": {
     "type": "pattern",
     "gloss": "{noun} எங்க? → where is {noun}? (e.g. 'bus stop எங்க?')",
-    "phonetic": [],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -3526,7 +3015,6 @@
   "frame:isthere-noun": {
     "type": "pattern",
     "gloss": "{noun} இருக்கா? → is there {noun}? (e.g. 'coffee இருக்கா?')",
-    "phonetic": [],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -3545,7 +3033,6 @@
   "frame:howmuch-noun": {
     "type": "pattern",
     "gloss": "{noun} எவ்ளோ? → how much is {noun}? (e.g. 'idhu evlo?' — Oracle: always the contracted 'evlo')",
-    "phonetic": [],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -3564,9 +3051,6 @@
   "frame:mayi-laama": {
     "type": "pattern",
     "gloss": "நான் {verb}-லாமா? → may I {verb}? (permission, e.g. 'ukkaralaama?')",
-    "phonetic": [
-      "laama"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -3585,7 +3069,6 @@
   "frame:giveme-noun": {
     "type": "pattern",
     "gloss": "{noun} குடுங்க → give me {noun} (e.g. 'oru tea kudunga')",
-    "phonetic": [],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -3607,7 +3090,6 @@
   "frame:needtogo-place": {
     "type": "pattern",
     "gloss": "{place}-க்கு போகணும் → (I) need to go to {place}",
-    "phonetic": [],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -3630,7 +3112,6 @@
   "frame:nearby-noun": {
     "type": "pattern",
     "gloss": "பக்கத்துல {noun} இருக்கா? → is there {noun} nearby?",
-    "phonetic": [],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -3646,11 +3127,6 @@
   },
   "என்ன சமைக்கிற?": {
     "gloss": "What are you cooking? (informal)",
-    "phonetic": [
-      "enna samaikkira",
-      "enna samaikkira?",
-      "enna samaikkireenga"
-    ],
     "recognition": "struggled",
     "production": "hinted",
     "seen_in": [
@@ -3664,9 +3140,6 @@
   },
   "சுவையா இருக்கு": {
     "gloss": "It's tasty",
-    "phonetic": [
-      "suvaiya irukku"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -3679,10 +3152,6 @@
   },
   "சாப்பாடு ரெடி": {
     "gloss": "Food is ready",
-    "phonetic": [
-      "saappaadu ready",
-      "saapadu ready"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -3693,9 +3162,6 @@
   },
   "சமையலறை": {
     "gloss": "Kitchen",
-    "phonetic": [
-      "samayalarai"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -3707,9 +3173,6 @@
   "ஒரு மாசம் இருப்போம்": {
     "type": "chunk",
     "gloss": "We're staying one month (the 'evlo naal irupeenga?' answer)",
-    "phonetic": [
-      "oru maasam iruppom"
-    ],
     "recognition": "untested",
     "production": "hinted",
     "seen_in": [
@@ -3727,9 +3190,6 @@
   "நேத்து தான் வந்தோம்": {
     "type": "chunk",
     "gloss": "We arrived just yesterday (the 'eppo vandheenga?' answer — swap the day word as needed)",
-    "phonetic": [
-      "nethu dhaan vandhom"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -3745,9 +3205,6 @@
   "சாஃப்ட்வேர் வேலை பண்றேன்": {
     "type": "chunk",
     "gloss": "I work in software (the 'enna velai?' answer)",
-    "phonetic": [
-      "software velai panren"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -3756,9 +3213,6 @@
   "கனடாவுல இருக்கோம்": {
     "type": "chunk",
     "gloss": "We live in Canada (the 'enga irukkeenga?' answer)",
-    "phonetic": [
-      "canada-la irukkom"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -3771,9 +3225,6 @@
   "ரொம்ப பிடிச்சிருக்கு": {
     "type": "chunk",
     "gloss": "I really like it — food/place/people (the default delight answer)",
-    "phonetic": [
-      "romba pidichirukku"
-    ],
     "recognition": "untested",
     "production": "hinted",
     "seen_in": [],
@@ -3787,9 +3238,6 @@
   "காரம் பரவாயில்ல, பழக்கமாயிடுச்சு": {
     "type": "chunk",
     "gloss": "Spice is fine — I'm used to it (the answer they won't expect from the ginger fella)",
-    "phonetic": [
-      "kaaram paravaayilla, pazhakkamaayiduchu"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -3798,9 +3246,6 @@
   "கொஞ்சம் மெதுவா சொல்லுங்க": {
     "type": "chunk",
     "gloss": "Say it a bit slowly (the freeze-breaker — always a legal move)",
-    "phonetic": [
-      "konjam medhuva sollunga"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -3817,9 +3262,6 @@
   "இன்னொரு தடவ சொல்லுங்க": {
     "type": "chunk",
     "gloss": "Say it once more",
-    "phonetic": [
-      "innoru thadava sollunga"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -3836,9 +3278,6 @@
   "என்ன சொன்னீங்க?": {
     "type": "chunk",
     "gloss": "What did you say? (neenga-form)",
-    "phonetic": [
-      "enna sonneenga"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -3858,9 +3297,6 @@
   "தமிழ்ல எப்படி சொல்றது?": {
     "type": "chunk",
     "gloss": "How do you say it in Tamil?",
-    "phonetic": [
-      "tamizh-la eppadi solradhu"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -3876,9 +3312,6 @@
   "ஆமா ஆமா": {
     "type": "chunk",
     "gloss": "Yeah, yeah (backchannel — keeps the speaker going, holds your seat in the conversation)",
-    "phonetic": [
-      "aama aama"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -3896,9 +3329,6 @@
   "அப்படியா?!": {
     "type": "chunk",
     "gloss": "Oh really?! (backchannel — surprise/interest)",
-    "phonetic": [
-      "appadiya"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -3917,9 +3347,6 @@
   "சரி சரி": {
     "type": "chunk",
     "gloss": "Right, right (backchannel — agreement)",
-    "phonetic": [
-      "seri seri"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -3939,9 +3366,6 @@
   "இன்னும் கொஞ்சம் போடுங்க": {
     "type": "chunk",
     "gloss": "Serve me a little more (optional — seconds come unasked; praise first, this second)",
-    "phonetic": [
-      "innum konjam podunga"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -3953,9 +3377,6 @@
   "frame:polite-nga": {
     "type": "pattern",
     "gloss": "{verb}+ங்க → the polite ask — சொல்லுங்க, குடுங்க, உக்காருங்க, வாங்க: one machine, every verb he owns",
-    "phonetic": [
-      "nga"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -3975,7 +3396,6 @@
   "frame:we-om": {
     "type": "pattern",
     "gloss": "{I-form}+ஓம் → we — வந்தோம், போனோம், இருப்போம், சாப்பிட்டோம்: the trip is a 'we' trip",
-    "phonetic": [],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -3992,7 +3412,6 @@
   "frame:day-recap": {
     "type": "pattern",
     "gloss": "{place} போனோம், ரொம்ப நல்லா இருந்துச்சு → we went to {place}, it was great (the nightly 'inniki enna panninga?' answer)",
-    "phonetic": [],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -4008,7 +3427,6 @@
   "frame:quote-nu": {
     "type": "pattern",
     "gloss": "…-னு சொன்னாங்க → 'she said that…' — the quotative -னு; every reported line in gossip hangs on it (EAR ONLY)",
-    "phonetic": [],
     "recognition": "solid",
     "production": "none",
     "seen_in": [
@@ -4027,7 +3445,6 @@
   "frame:hearsay-aam": {
     "type": "pattern",
     "gloss": "…-ஆம் → 'apparently / they say' — the hearsay tag gossip runs on (varaanga-laam = apparently they're coming) (EAR ONLY)",
-    "phonetic": [],
     "recognition": "solid",
     "production": "none",
     "seen_in": [
@@ -4045,9 +3462,6 @@
   "அப்புறம் பார்க்கலாம்": {
     "type": "chunk",
     "gloss": "See you later (colloquial — nobody says 'piragu' at the door)",
-    "phonetic": [
-      "appuram paakkalaam"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4063,9 +3477,6 @@
   "ரொம்ப சந்தோஷம்": {
     "type": "chunk",
     "gloss": "So happy (to meet you / about this) — with the smile, it's complete",
-    "phonetic": [
-      "romba sandhosham"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4082,9 +3493,6 @@
   "சாஃப்ட்வேர் இன்ஜினியரா இருக்கேன்": {
     "type": "chunk",
     "gloss": "I'm a software engineer (the 'enna velai?' answer — Oracle's form)",
-    "phonetic": [
-      "software engineer-a irukken"
-    ],
     "recognition": "untested",
     "production": "hinted",
     "seen_in": [],
@@ -4098,9 +3506,6 @@
   "காரம் பரவாயில்ல, பழகிப்போச்சு": {
     "type": "chunk",
     "gloss": "Spice is fine — I'm used to it now (the answer they won't expect from the ginger fella)",
-    "phonetic": [
-      "kaaram paravaayilla, pazhagippochu"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -4113,9 +3518,6 @@
   "ரொம்ப நல்லா இருக்கு": {
     "type": "chunk",
     "gloss": "It's really good — THE melt line (Oracle: praise beats asking; seconds arrive unasked)",
-    "phonetic": [
-      "romba nallarukku"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -4132,9 +3534,6 @@
   "தெரியுமா?": {
     "type": "chunk",
     "gloss": "You know…? (a real gossip opener — Oracle-confirmed)",
-    "phonetic": [
-      "theriyuma"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4150,9 +3549,6 @@
   "frame:youknow-la": {
     "type": "pattern",
     "gloss": "நம்ம {person} இருக்கான்ல… → 'you know our {person}, right…' — THE gossip opener; the -ல tag means 'right?' (EAR ONLY, Oracle-confirmed)",
-    "phonetic": [
-      "namma thambi irukkaan-la"
-    ],
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [
@@ -4172,9 +3568,6 @@
   "எவ்ளோ ஆகும்?": {
     "type": "chunk",
     "gloss": "How much will it be? (Oracle: it's always 'evlo' in the mouth, never 'evvalavu')",
-    "phonetic": [
-      "evlo aagum"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [],
@@ -4188,9 +3581,6 @@
   "ஃப்ரீயா விடுங்க": {
     "type": "chunk",
     "gloss": "Don't worry / let it go (Oracle's form — 'freeya vidu' only to very close cousins/friends)",
-    "phonetic": [
-      "freeya vidunga"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4205,9 +3595,6 @@
   "வாய் திறந்தா காக்கா கொத்திட்டு போயிடும்": {
     "type": "chunk",
     "gloss": "If I open my mouth a crow will peck it away — I'm THAT stuffed (the wife's own sassy idiom)",
-    "phonetic": [
-      "vai therantha kaakka kothittu poidum"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -4218,11 +3605,6 @@
   "frame:done-ittu": {
     "type": "pattern",
     "gloss": "{verb}+இட்டு/‑ட்டு → done-and-dusted / off-I-go — வந்துட்டேன், கழுவிட்டு வரேன், விட்டுடு, ஆயிட்டேன்: the completive already inside 7 deck items",
-    "phonetic": [
-      "vandhutten",
-      "kazhuvittu varen",
-      "poyittu varen"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [],
@@ -4235,11 +3617,6 @@
   "frame:adverb-aa": {
     "type": "pattern",
     "gloss": "{X}+ஆ → 'X-ly / as X' — நல்லா, மெதுவா, தண்ணியா, இன்ஜினியரா இருக்கேன்: one machine turns anything into an adverb",
-    "phonetic": [
-      "medhuvaa",
-      "freeyaa",
-      "engineer-aa irukken"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [],
@@ -4252,11 +3629,6 @@
   "frame:in-la": {
     "type": "pattern",
     "gloss": "{noun}+ல → in/at/on — கனடாவுல, தமிழ்ல, வீட்ல, போன்ல: the everywhere locative",
-    "phonetic": [
-      "canada-la",
-      "tamil-la",
-      "veettula"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -4272,11 +3644,6 @@
   "frame:happened-aachu": {
     "type": "pattern",
     "gloss": "{V}+ச்சு / ஆச்சு → 'it happened / it's become' — ஆச்சு, போச்சு, முடிஞ்சுச்சு, நேரம் ஆச்சு: the it-verb the pool is already full of",
-    "phonetic": [
-      "aachu",
-      "pochu",
-      "mudinjuchu"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [],
@@ -4291,10 +3658,6 @@
   "frame:if-ndhaa": {
     "type": "pattern",
     "gloss": "{verb}+ந்தா / இல்லன்னா → 'if…' — வாய் திறந்தா…, இல்லன்னா என்ன ஆகும்?: the conditional",
-    "phonetic": [
-      "thorandhaa",
-      "illannaa"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -4310,11 +3673,6 @@
   "frame:spice-dhaan": {
     "type": "pattern",
     "gloss": "the sass clitics: ‑தான் 'just/exactly', ‑ஏ '-self/very', ‑உம் 'even/any', ‑ஓ 'some-or-other' — நேத்து தான், நானே, ஒன்னும், என்னமோ (EAR ONLY)",
-    "phonetic": [
-      "nethu dhaan",
-      "naane",
-      "onnum"
-    ],
     "recognition": "struggled",
     "production": "cold",
     "seen_in": [
@@ -4331,10 +3689,6 @@
   "frame:myself-thukka": {
     "type": "pattern",
     "gloss": "{verb}+த்துக்க → do-for-myself — எடுத்துக்கறேன், பாத்துக்கிறேன், பாத்துக்கோங்க (EAR ONLY)",
-    "phonetic": [
-      "eduthukkaren",
-      "paathukkiren"
-    ],
     "recognition": "struggled",
     "production": "hinted",
     "seen_in": [],
@@ -4347,9 +3701,6 @@
   },
   "அட்டா": {
     "gloss": "oh! / alas! (mild disappointment, amused surprise)",
-    "phonetic": [
-      "attaa"
-    ],
     "recognition": "untested",
     "production": "hinted",
     "seen_in": [
@@ -4362,9 +3713,6 @@
   },
   "அடேயப்பா": {
     "gloss": "wow! / oh my! (genuine surprise, warm exasperation)",
-    "phonetic": [
-      "adeyappa"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4375,9 +3723,6 @@
   },
   "அப்படித்தான்": {
     "gloss": "that is how it is / exactly like that",
-    "phonetic": [
-      "appadithaan"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4389,10 +3734,6 @@
   "ஊரு": {
     "type": "chunk",
     "gloss": "Hometown / the village — THE family word for the native place",
-    "phonetic": [
-      "ooru",
-      "oor"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -4408,10 +3749,6 @@
   "கடைசில பாக்கலாம்": {
     "type": "chunk",
     "gloss": "We'll see at the end / last minute (the family-planning verdict)",
-    "phonetic": [
-      "kadaisila paakalam",
-      "kadaisila pakkalam"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4428,10 +3765,6 @@
   "முடிஞ்சா": {
     "type": "chunk",
     "gloss": "If possible / if I can — the one-word softener",
-    "phonetic": [
-      "mudinja",
-      "mudinjaa"
-    ],
     "recognition": "struggled",
     "production": "cold",
     "seen_in": [
@@ -4450,10 +3783,6 @@
   "அலைச்சல்": {
     "type": "chunk",
     "gloss": "The hassle / the running-around",
-    "phonetic": [
-      "alaichal",
-      "alaichchal"
-    ],
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [
@@ -4477,10 +3806,6 @@
   "ஜாஸ்தி": {
     "type": "chunk",
     "gloss": "Too much / extra (days, price, anything)",
-    "phonetic": [
-      "jasthi",
-      "jaasthi"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -4499,10 +3824,6 @@
   "ஒரே கல்லுல ரெண்டு மாங்கா": {
     "type": "chunk",
     "gloss": "Two mangoes with one stone (two birds, one stone)",
-    "phonetic": [
-      "ore kallula rendu manga",
-      "orey kallula rendu maanga"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -4513,10 +3834,6 @@
   "பிறந்தநாள் வாழ்த்துக்கள்": {
     "type": "chunk",
     "gloss": "Happy birthday (for amma — her birthday lands ~Aug 24, mid-CBE stay)",
-    "phonetic": [
-      "pirandhanaal vaazhthukkal",
-      "piranda naal vazhthukal"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -4528,9 +3845,6 @@
   },
   "அப்பா": {
     "gloss": "dad / father (also an exclamation: oh man!)",
-    "phonetic": [
-      "appa"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4541,9 +3855,6 @@
   },
   "அம்மா": {
     "gloss": "mom / mother (also an exclamation)",
-    "phonetic": [
-      "amma"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -4555,9 +3866,6 @@
   },
   "பாப்போம்": {
     "gloss": "we will see",
-    "phonetic": [
-      "paappom"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4568,9 +3876,6 @@
   },
   "போவோம்": {
     "gloss": "let us go / we will go",
-    "phonetic": [
-      "povom"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4581,9 +3886,6 @@
   },
   "-ஓம்": {
     "gloss": "the we-tail: {verb}+ஓம் → we did it together — போனோம், சாப்பிட்டோம்",
-    "phonetic": [
-      "om"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4594,9 +3896,6 @@
   },
   "இருக்கார்ல": {
     "gloss": "the gossip opener: you know (he) is there, right… — நம்ம மாமா இருக்கார்ல",
-    "phonetic": [
-      "irukkaarla"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -4609,9 +3908,6 @@
   },
   "ல": {
     "gloss": "the …right? tag tacked on a verb — நம்ம மாமா இருக்கார்ல",
-    "phonetic": [
-      "la"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4622,9 +3918,6 @@
   },
   "ஆ": {
     "gloss": "the adverb tail: சீக்கிரம் quick → சீக்கிரமா quickly",
-    "phonetic": [
-      "aa"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4636,7 +3929,6 @@
   "frame:idum": {
     "type": "pattern",
     "gloss": "{verb}+ஆகிடும்/-இடும் → it'll {verb} itself / it's-handled — the fated, hands-off future-completive: சரியாயிடும், முடிஞ்சிடும், போயிடும், புக் பண்ணிடும் — bolts onto a clean single verb, not a compound (use பாத்துக்கறேன் there instead)",
-    "phonetic": [],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -4650,9 +3942,6 @@
   },
   "பாத்துக்கறேன்": {
     "gloss": "I will see to it / I will take care of it (the shrug-promise)",
-    "phonetic": [
-      "paathukkaren"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4663,9 +3952,6 @@
   },
   "சாயங்காலம்": {
     "gloss": "evening / late afternoon (tea time)",
-    "phonetic": [
-      "saayangaalam"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4676,9 +3962,6 @@
   },
   "தட்டு": {
     "gloss": "plate",
-    "phonetic": [
-      "thattu"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4689,9 +3972,6 @@
   },
   "தெரியல": {
     "gloss": "I do not know / cannot say (spoken தெரியவில்லை)",
-    "phonetic": [
-      "theriyala"
-    ],
     "recognition": "struggled",
     "production": "cold",
     "seen_in": [
@@ -4707,10 +3987,6 @@
   },
   "டீ": {
     "gloss": "tea",
-    "phonetic": [
-      "tea",
-      "dee"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4721,9 +3997,6 @@
   },
   "கிட்ட இருக்கு": {
     "gloss": "have it with (someone): என் கிட்ட இருக்கு → I have it on me",
-    "phonetic": [
-      "kitta irukku"
-    ],
     "recognition": "untested",
     "production": "hinted",
     "seen_in": [
@@ -4735,9 +4008,6 @@
   },
   "இல்லன்னா": {
     "gloss": "otherwise / if not",
-    "phonetic": [
-      "illanna"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4748,9 +4018,6 @@
   },
   "-ன்னு சொன்னாங்க": {
     "gloss": "the quote tail: … -ன்னு சொன்னாங்க → they said that…",
-    "phonetic": [
-      "nnu sonnaanga"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4761,9 +4028,6 @@
   },
   "குடிக்குறேன்": {
     "gloss": "I am drinking (spoken Coimbatore form of குடிக்கிறேன்)",
-    "phonetic": [
-      "kudikkureen"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4774,9 +4038,6 @@
   },
   "என்ன பண்ற?": {
     "gloss": "what are (you/they) doing? / what is going on?",
-    "phonetic": [
-      "enna panra"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4787,9 +4048,6 @@
   },
   "நான் பாத்துக்குறேன்": {
     "gloss": "I will take care of it / I am handling it",
-    "phonetic": [
-      "naan paathukkureen"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4800,9 +4058,6 @@
   },
   "அப்புறம் பாக்கலாம்": {
     "gloss": "let us see later / some things take time",
-    "phonetic": [
-      "appuram paakalaam"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4815,9 +4070,6 @@
   },
   "தப்பாச்சு": {
     "gloss": "a mistake happened / (I) messed up (தப்பு ஆச்சு fused)",
-    "phonetic": [
-      "thappaachu"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4828,9 +4080,6 @@
   },
   "போன் பண்ணுங்க": {
     "gloss": "call (me) on the phone — polite -ங்க ask",
-    "phonetic": [
-      "phone pannunga"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4841,9 +4090,6 @@
   },
   "கூப்பிடுறேன்": {
     "gloss": "I will call (you)",
-    "phonetic": [
-      "kooppiduren"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4854,9 +4100,6 @@
   },
   "ஃப்ரீ-யா": {
     "gloss": "free? — loan word + -ஆ: eppa free-ya iruppa? → when will you be free?",
-    "phonetic": [
-      "free-ya"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4867,9 +4110,6 @@
   },
   "பேசலாமா": {
     "gloss": "shall we talk? (பேசு + -லாம் + ஆ)",
-    "phonetic": [
-      "pesalaama"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4882,9 +4122,6 @@
   },
   "உட்காரலாமா?": {
     "gloss": "shall we sit? / may I sit? (permission ask)",
-    "phonetic": [
-      "utkaaralaama"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4897,9 +4134,6 @@
   },
   "கேக்கலாமா?": {
     "gloss": "shall we ask? / may I ask?",
-    "phonetic": [
-      "kekkalaama"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4910,9 +4144,6 @@
   },
   "அனுப்புங்க": {
     "gloss": "send (it) — polite -ng-a ask",
-    "phonetic": [
-      "anuppunga"
-    ],
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [
@@ -4925,7 +4156,6 @@
   },
   "மேனேஜர் கிட்ட": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4936,7 +4166,6 @@
   },
   "ஸ்டேஷனுக்கு போகணும்": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4950,7 +4179,6 @@
   },
   "கொஞ்சம் சாப்பிடுங்க": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4962,7 +4190,6 @@
   },
   "எனக்கு ரொம்ப அவசரம் இருக்கு": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4973,7 +4200,6 @@
   },
   "ஒன்னு மட்டும் சாப்பிடுங்க": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4984,7 +4210,6 @@
   },
   "எனக்கு இட்லி பிடிக்காது": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -4997,7 +4222,6 @@
   },
   "பெரிய தப்பு": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5008,7 +4232,6 @@
   },
   "அவங்களுக்கு கோவம்": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5019,7 +4242,6 @@
   },
   "அவசரமா வெளிய போனேன்": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5030,7 +4252,6 @@
   },
   "உக்காருங்க-னு சொன்னாங்க": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5041,7 +4262,6 @@
   },
   "எனக்கு புரியல": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5052,7 +4272,6 @@
   },
   "எனக்கு பிடிக்காது": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5063,7 +4282,6 @@
   },
   "வெளிய வாங்க": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5074,7 +4292,6 @@
   },
   "நான் அப்புறமா கூப்பிடுறேன்": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5085,7 +4302,6 @@
   },
   "செம்ம": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -5098,7 +4314,6 @@
   },
   "கேப்பேன்": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5109,7 +4324,6 @@
   },
   "எடுப்பேன்": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5120,7 +4334,6 @@
   },
   "கொடுப்பேன்": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5131,7 +4344,6 @@
   },
   "அழைப்பேன்": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5142,7 +4354,6 @@
   },
   "வயிறு ஃபுல்-ஆ இருக்கு": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5154,7 +4365,6 @@
   },
   "இட்லி சூப்பர்-ஆ இருக்கு": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5166,7 +4376,6 @@
   },
   "ஆட்டோக்கு போகணும்": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5178,7 +4387,6 @@
   },
   "-னு சொன்னாங்க": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5190,11 +4398,6 @@
   },
   "பிரச்சனை": {
     "gloss": "Problem / trouble / issue (from Sanskrit prashna, 'a question')",
-    "phonetic": [
-      "prachanai",
-      "prachana",
-      "prachchanai"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5209,7 +4412,6 @@
   "frame:negative-la": {
     "type": "pattern",
     "gloss": "{verb-stem}+ல → didn't / doesn't / can't — புரியல, முடியல, தெரியல, கேட்கல, பண்ணல: the everyday spoken negative (verb + illa, contracted). He already owns puriyala + mudiyala as separate chunks; this is the one machine under them.",
-    "phonetic": [],
     "recognition": "solid",
     "production": "cold",
     "seen_in": [],
@@ -5221,11 +4423,6 @@
   },
   "வந்துடுச்சு": {
     "gloss": "It's come / it's arrived (of a thing) — vandhu + completive -ttu + it-tail -uchu; the 'it' twin of vandhutten",
-    "phonetic": [
-      "vandhuduchu",
-      "vandhuruchu",
-      "vandhiruchu"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [],
@@ -5237,10 +4434,6 @@
   },
   "அதுக்கு": {
     "gloss": "For that / to that — adhu + the -kku tail (same tail as station-kku)",
-    "phonetic": [
-      "adhuku",
-      "adhukku"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -5249,10 +4442,6 @@
   },
   "பண்ணல": {
     "gloss": "Didn't do / haven't done — panna + illa contracted (frame:negative-la)",
-    "phonetic": [
-      "pannala",
-      "pannla"
-    ],
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
@@ -5267,9 +4456,6 @@
   "யாரு?": {
     "type": "chunk",
     "gloss": "Who? (the referent repair — when you followed the sentence but lost who it's about)",
-    "phonetic": [
-      "yaaru"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [],
@@ -5281,7 +4467,6 @@
   },
   "சரியாயிடும்": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5293,7 +4478,6 @@
   },
   "கேட்டீங்களா": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5305,7 +4489,6 @@
   },
   "பக்கத்துல": {
     "gloss": "beside / next to (one indivisible chunk, never பக்கம்+ல)",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5317,7 +4500,6 @@
   },
   "ஆச்சு": {
     "gloss": "it happened / it's done (neuter past + -இடு finality)",
-    "phonetic": [],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [],
@@ -5329,7 +4511,6 @@
   },
   "இருக்கேன்": {
     "gloss": "I am / I'm here (-ஏன் = I)",
-    "phonetic": [],
     "recognition": "untested",
     "production": "hinted",
     "seen_in": [],
@@ -5339,11 +4520,6 @@
   },
   "போனோம்": {
     "gloss": "We went (the -om we-tail — the trip is a we trip)",
-    "phonetic": [
-      "ponom",
-      "ponnom",
-      "ponnoom"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -5356,7 +4532,6 @@
   },
   "சாப்பிட்டோம்": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -5369,7 +4544,6 @@
   },
   "வந்தோம்": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "hinted",
     "seen_in": [
@@ -5382,7 +4556,6 @@
   },
   "பார்த்தோம்": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5394,7 +4567,6 @@
   },
   "பண்ணோம்": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5406,11 +4578,6 @@
   },
   "இருந்துச்சு": {
     "gloss": "It was / it turned out (past of irukku — the second half of the day-recap)",
-    "phonetic": [
-      "irundhuchu",
-      "irunduchu",
-      "irundhuchi"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -5423,7 +4590,6 @@
   },
   "சமைச்சோம்": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5435,10 +4601,6 @@
   },
   "தாலாட்டு": {
     "gloss": "Lullaby",
-    "phonetic": [
-      "thalattu",
-      "thaalaattu"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -5447,10 +4609,6 @@
   },
   "பாட்டு": {
     "gloss": "Song",
-    "phonetic": [
-      "pattu",
-      "paattu"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -5459,7 +4617,6 @@
   },
   "ஒற்றுமை": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5471,7 +4628,6 @@
   },
   "கண்கள்": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5483,7 +4639,6 @@
   },
   "சொன்னீங்க": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5495,7 +4650,6 @@
   },
   "தெரியுமா": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5507,7 +4661,6 @@
   },
   "பரவாயில்ல": {
     "gloss": "No harm in it — the Tamil shrug: fine / no problem / never mind / not bad. Backhanded as praise (paravaayilla-ye!). From paravaai (harm, from paravu = to spread): it will not spread",
-    "phonetic": [],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [],
@@ -5519,7 +4672,6 @@
   },
   "பழகிப்போச்சு": {
     "gloss": "It has become habit — done, settled (pazhagu = get used to AND get close to a person; + the Kongu completive -poachu)",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5531,7 +4683,6 @@
   },
   "பக்கம்": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
@@ -5544,7 +4695,6 @@
   },
   "வரல": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [
@@ -5560,7 +4710,6 @@
   },
   "முடியல": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5573,9 +4722,6 @@
   },
   "மாட்ட": {
     "gloss": "Will not / never will (the refusal ending — nee sollave maatta)",
-    "phonetic": [
-      "maatta"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -5584,9 +4730,6 @@
   },
   "சனிக்கிழமை": {
     "gloss": "Saturday",
-    "phonetic": [
-      "sanikizhamai"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -5595,11 +4738,6 @@
   },
   "போறீங்க": {
     "gloss": "You're going / are you going? (polite -றீங்க 'you' ending; the counterpart to போறேன் 'I'm going'). NOT an imperative — 'go!' is போங்க.",
-    "phonetic": [
-      "poringa",
-      "poringe",
-      "poreenga"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -5608,9 +4746,6 @@
   },
   "சமையல்": {
     "gloss": "cooking / the food being cooked (noun) — his own lookup; the noun that dodged the verb",
-    "phonetic": [
-      "samayal"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -5619,9 +4754,6 @@
   },
   "இப்ப": {
     "gloss": "now (the mouth form — nobody says the -thu of இப்போது)",
-    "phonetic": [
-      "ippo"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -5630,9 +4762,6 @@
   },
   "கேட்கல": {
     "gloss": "didn't hear it / couldn't hear — the -la negative",
-    "phonetic": [
-      "kekala"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5645,9 +4774,6 @@
   },
   "பாத்துக்க": {
     "gloss": "I've got it / I'm handling it — the self-benefactive -thukka tail",
-    "phonetic": [
-      "paathukka"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5660,9 +4786,6 @@
   },
   "அவசியம்": {
     "gloss": "necessary / a must",
-    "phonetic": [
-      "avasiyam"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5675,9 +4798,6 @@
   },
   "வண்டி": {
     "gloss": "vehicle, any vehicle (kept the bullock-cart word)",
-    "phonetic": [
-      "vandi"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -5686,9 +4806,6 @@
   },
   "சந்தேகம்": {
     "gloss": "doubt / suspicion — and 'enakku oru sandhegam' = I have a question",
-    "phonetic": [
-      "sandhegam"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -5697,9 +4814,6 @@
   },
   "பாத்தேன்": {
     "gloss": "I saw (plain past of paaru — same root as paathukkaren)",
-    "phonetic": [
-      "paathen"
-    ],
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [],
@@ -5711,9 +4825,6 @@
   },
   "காலைல": {
     "gloss": "in the morning",
-    "phonetic": [
-      "kaalaila"
-    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
@@ -5724,9 +4835,6 @@
   },
   "நாம": {
     "gloss": "we (INCLUSIVE — you are in it)",
-    "phonetic": [
-      "naama"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -5735,9 +4843,6 @@
   },
   "ஒன்னும்": {
     "gloss": "anything / nothing at all (ஒண்ணு + -உம், \"even one\") — the volume knob on any -ல negative",
-    "phonetic": [
-      "onnum"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -5746,9 +4851,6 @@
   },
   "சாப்படல": {
     "gloss": "he/I did not eat — சாப்பிடு + -ல",
-    "phonetic": [
-      "saapdala"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [],
@@ -5757,9 +4859,6 @@
   },
   "சொல்லல": {
     "gloss": "did not say — சொல்லு + -ல",
-    "phonetic": [
-      "sollala"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -5768,9 +4867,6 @@
   },
   "போற": {
     "gloss": "You go / are you going (informal, nee-form)",
-    "phonetic": [
-      "pora"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -5781,9 +4877,6 @@
   },
   "சொல்ற": {
     "gloss": "You say / are you saying (informal, nee-form)",
-    "phonetic": [
-      "solra"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -5792,9 +4885,6 @@
   },
   "வச்சுக்கறேன்": {
     "gloss": "",
-    "phonetic": [
-      "vachukkuren"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -5803,9 +4893,6 @@
   },
   "உட்காருங்க": {
     "gloss": "Sit down (respectful)",
-    "phonetic": [
-      "ukkaarunga"
-    ],
     "recognition": "untested",
     "production": "hinted",
     "seen_in": [],
@@ -5815,9 +4902,6 @@
   },
   "வேண்டாங்க": {
     "gloss": "No thank you (respectful) — the Kongu decline",
-    "phonetic": [
-      "vendaanga"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -5826,9 +4910,6 @@
   },
   "ராத்திரி": {
     "gloss": "",
-    "phonetic": [
-      "raathiri"
-    ],
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
@@ -5839,9 +4920,6 @@
   },
   "வராது": {
     "gloss": "",
-    "phonetic": [
-      "varaadhu"
-    ],
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [],
@@ -5852,7 +4930,6 @@
   },
   "கை": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5863,7 +4940,6 @@
   },
   "வாய்": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5876,7 +4952,6 @@
   },
   "ருசி": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5887,7 +4962,6 @@
   },
   "என்ன ஆச்சு?": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -5897,7 +4971,6 @@
     "taught_on": null
   },
   "அவசரம்": {
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -5908,7 +4981,6 @@
     "exposures": 1
   },
   "நேரம்": {
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -5919,7 +4991,6 @@
     "exposures": 2
   },
   "வேலை": {
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -5930,7 +5001,6 @@
     "exposures": 1
   },
   "உங்க": {
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -5941,7 +5011,6 @@
     "exposures": 4
   },
   "என்": {
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -5953,10 +5022,6 @@
   },
   "போலாமா?": {
     "gloss": "Shall we go? (spoken contraction of pogalaamaa)",
-    "phonetic": [
-      "polamaa",
-      "polaamaa"
-    ],
     "recognition": "untested",
     "production": "cold",
     "seen_in": [],
@@ -5964,7 +5029,6 @@
     "reps": 2
   },
   "எடு": {
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -5973,7 +5037,6 @@
     "taught_on": null
   },
   "குடு": {
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -5983,7 +5046,6 @@
     "exposures": 1
   },
   "சொல்லு": {
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -5993,7 +5055,6 @@
     "exposures": 2
   },
   "படி": {
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -6002,7 +5063,6 @@
     "taught_on": null
   },
   "பார்": {
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -6012,7 +5072,6 @@
   },
   "போக முடியல": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -6023,7 +5082,6 @@
   },
   "போலாம்": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "hinted",
     "seen_in": [
@@ -6035,7 +5093,6 @@
   },
   "இங்க இருக்கேன்": {
     "gloss": "",
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [
@@ -6046,9 +5103,6 @@
   },
   "நடக்குது": {
     "gloss": "it's happening (nada: walk)",
-    "phonetic": [
-      "nadakkudhu"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -6057,9 +5111,6 @@
   },
   "நடந்து": {
     "gloss": "walking",
-    "phonetic": [
-      "nadandhu"
-    ],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -6067,7 +5118,6 @@
     "taught_on": "2026-09-25"
   },
   "போச்சு": {
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -6076,7 +5126,6 @@
     "taught_on": null
   },
   "ரொம்ப": {
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -6085,7 +5134,6 @@
     "taught_on": null
   },
   "இன்னும்": {
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -6094,7 +5142,6 @@
     "taught_on": null
   },
   "நான்": {
-    "phonetic": [],
     "recognition": "untested",
     "production": "hinted",
     "seen_in": [],
@@ -6104,7 +5151,6 @@
     "taught_on": null
   },
   "யாரு": {
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -6113,7 +5159,6 @@
     "taught_on": null
   },
   "எப்படி": {
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -6122,7 +5167,6 @@
     "taught_on": null
   },
   "நாள்": {
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -6131,7 +5175,6 @@
     "taught_on": null
   },
   "தடவ": {
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -6140,7 +5183,6 @@
     "taught_on": null
   },
   "இரு": {
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
@@ -6149,7 +5191,6 @@
     "taught_on": null
   },
   "சொல்": {
-    "phonetic": [],
     "recognition": "untested",
     "production": "none",
     "seen_in": [],

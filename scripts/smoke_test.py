@@ -205,6 +205,7 @@ def main():
         run(state.s123_lesson_recognition_keeps_its_context, sb)
         run(state.s124_an_escalation_needs_a_listen, sb)
         run(ratchets.s125_the_map_is_complete_and_retired_claims_stay_retired)
+        run(state.s130_nothing_stores_a_phonetic, sb)
         run(state.s116_a_tap_can_reach_the_real_feeds_words, sb)
         run(render.s126_the_tape_says_where_it_is, sb)
         run(knock.s127_asks_earn_replies_gifts_earn_taps, mk, sb)

@@ -10,8 +10,7 @@ import hashlib
 import random
 
 import lexicon_view
-from state_io import (LEXICON_PATH, build_phonetic_index, load_json, local_today,
-                      resolve, save_json)
+from state_io import LEXICON_PATH, load_json, local_today, resolve, save_json
 
 
 def run(args):
@@ -24,7 +23,6 @@ def run(args):
               "it cannot draw a monthly sample. Nothing recorded.")
         return 1, False
     lexicon = load_json(LEXICON_PATH) or {}
-    phon_index = build_phonetic_index(lexicon)
     today = local_today().isoformat()
     if args.draw:
         never = sorted(k for k, v in lexicon.items()
@@ -35,15 +33,14 @@ def run(args):
         print(f"RECEPTIVE CHECK — {len(pick)} of {len(never)} never-tested rows, seed {seed}, "
               f"sample {digest}. Recognition only; one item at a time, in the flow; never show the list.")
         for k in pick:
-            print(f"  {k}  [{', '.join(lexicon[k].get('phonetic') or []) or 'no phonetic'}] "
-                  f"— {lexicon[k].get('gloss', '')}")
+            print(f"  {k} — {lexicon[k].get('gloss', '') or '[no gloss]'}")
         print("Record with: sync_state.py check --heard WORD:right (by ear) "
               "| --read WORD:right (on the page)")
         return 0, False
     events, bad = [], []
     for spec, medium in [(s, "audio") for s in args.heard] + [(s, "text") for s in args.read]:
         word, _, res = spec.rpartition(":")
-        key = resolve(word.strip(), lexicon, phon_index)
+        key = resolve(word.strip(), lexicon)
         if key is None or res not in ("right", "wrong", "partial"):
             bad.append(spec)
             continue
