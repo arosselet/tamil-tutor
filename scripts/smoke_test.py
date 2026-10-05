@@ -209,6 +209,7 @@ def main():
         run(render.s126_the_tape_says_where_it_is, sb)
         run(knock.s127_asks_earn_replies_gifts_earn_taps, mk, sb)
         run(knock.s128_the_sort_tape_round_trips, kr, sb)
+        run(compose.s129_the_surface_rule_has_one_home)
 
     if fx.ONLY and not fx.RAN:
         sys.exit(f"no case matched {fx.ONLY} — name a case (s41) or a prefix (s41_slip)")

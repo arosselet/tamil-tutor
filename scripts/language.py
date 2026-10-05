@@ -122,6 +122,22 @@ REFERENT_NOUNS = (
 )
 
 
+# ── The two surfaces, as prompt fragments ────────────────────────────────────
+# The constitution's surface split — ask which SENSE receives it — stated once
+# for the prompts. Before 2026-10-05 each mandate restated it in its own words,
+# and they had drifted: the soak said "natural Coimbatore colloquial", the drill
+# "standard Coimbatore colloquial… -nga by default", rotation "spoken… Polite
+# -nga", and the memo, voice-reply and fielding lanes named no register at all.
+# The register default has one owner, `protocol/dialect.md`, which every one of
+# these lanes already receives through `writer.voice_canon()`; the fragment
+# points there instead of restating it. A port rewrites these two lines — they
+# are the template's `audio_form` / `chat_form` slots.
+VOICE_FORM = ("natural spoken Coimbatore colloquial in TAMIL SCRIPT ONLY (a Tamil "
+              "voice speaks it), in the dialect canon's register")
+READ_FORM = ('English phonetics ("poren", "romba nallarukku") — he reads those at '
+             'speed and Tamil script not at all')
+
+
 # ── The pinned voices ────────────────────────────────────────────────────────
 # One tutor, one sound. These moved from `render_audio` on 2026-08-28, and the
 # 2026-08-23 reasoning that put them there is preserved rather than overturned:

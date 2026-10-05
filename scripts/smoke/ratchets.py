@@ -954,7 +954,7 @@ LAYERS = {
     # `morning_knock` until this number existed to forbid that.
     "rails":              2,
 
-    "mandates":           3,      # L3 compose — prompt canon, imports nothing
+    "mandates":           3,      # L3 compose — prompt canon, imports only the pack's surface fragments
     "writer":             3,      # L3 compose — executor, model, budget, parsers
 
     "publish":            4,      # L4 delivery — the ordering, the net, the push

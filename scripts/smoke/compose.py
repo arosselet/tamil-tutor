@@ -1359,3 +1359,58 @@ def s117_the_shelf_stays_stocked_without_him(sb: Path):
     check("the scheduled tape is a short one, not a flight tape",
           "--minutes" in wf_minutes and int(wf_minutes.split("--minutes")[1].strip()) <= 12,
           f"got {wf_minutes!r} — a 45-minute tape is not a fade remedy")
+
+
+# Which prompts speak to a voice and which to his eyes. A new voice-sheet
+# mandate joins VOICE_SURFACE; a lane whose model writes text he READS joins
+# READ_SURFACE. Both are (module, constant).
+VOICE_SURFACE = [("mandates", "OUTREACH_MANDATE"), ("mandates", "BASE_MANDATE"),
+                 ("mandates", "VOICE_MANDATE"), ("mandates", "DRILL_MANDATE"),
+                 ("mandates", "SOAK_MANDATE")]
+READ_SURFACE = [("mandates", "PHONETIC_REWRITE"), ("mandates", "MESSAGE_MANDATE"),
+                ("run_studio", "CAPTIONS")]
+
+
+def s129_the_surface_rule_has_one_home():
+    """How speakable and readable Tamil are written is stated ONCE (2026-10-05).
+
+    WHAT IT REPLACES. Seven mandates restated the voice surface in their own
+    words and had drifted three ways — "natural Coimbatore colloquial",
+    "standard Coimbatore colloquial… -nga by default", "spoken… Polite -nga" —
+    while the memo, voice-reply and fielding lanes named no register at all.
+    The register default already had one owner, `protocol/dialect.md`, shipped
+    to every one of those lanes by `voice_canon()`. The pack now holds the two
+    sentences (`language.VOICE_FORM`, `READ_FORM`) and every site splices them.
+
+    GATE 7.2 — SILENTLY DOING NOTHING looks like a mandate that stops splicing
+    and retypes the rule: every other case stays green while the drift comes
+    back. So this asserts the EFFECT on the rendered prompts, and the absence of
+    a restatement on the mechanism lines, and puts teeth on both lists first.
+    """
+    print("\n129. The surface rule has one home (2026-10-05)")
+    lang = importlib.import_module("language")
+    vf, rf = lang.VOICE_FORM, lang.READ_FORM
+    check("the two fragments are real sentences, not empty",
+          len(vf.split()) >= 8 and len(rf.split()) >= 6, f"{vf!r} / {rf!r}")
+
+    def rendered(mod, const):
+        return getattr(importlib.import_module(mod), const, None)
+
+    for mod, const in VOICE_SURFACE:
+        text = rendered(mod, const)
+        check(f"{const} carries the voice surface", isinstance(text, str) and vf in text,
+              f"{mod}.{const} no longer splices language.VOICE_FORM — a restated "
+              f"rule is how the lanes drifted apart")
+    for mod, const in READ_SURFACE:
+        text = rendered(mod, const)
+        check(f"{const} carries the read surface", isinstance(text, str) and rf in text,
+              f"{mod}.{const} no longer splices language.READ_FORM")
+
+    # The restatement shapes that drifted, on MECHANISM lines only, so this
+    # docstring and the pack's comment may quote them.
+    drifted = re.compile(r"script only|register by default", re.IGNORECASE)
+    for name in ("mandates.py", "run_studio.py"):
+        body = mechanism((REAL_BASE / "scripts" / name).read_text(encoding="utf-8"))
+        hits = drifted.findall(body)
+        check(f"{name} restates no surface rule", not hits,
+              f"found {hits} — splice language.VOICE_FORM / READ_FORM instead")

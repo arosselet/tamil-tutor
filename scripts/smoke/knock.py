@@ -1912,7 +1912,9 @@ def s50_read_surfaces_are_phonetic(mk, kr, sb: Path):
     # Still one rule for every modality, never a lane list — the property that mattered.
     check("the mandate rules the body on EVERY modality, not a lane list",
           "text/challenge/grace body" not in OUTREACH_MANDATE
-          and "notification_body alike" in OUTREACH_MANDATE)
+          # 2026-10-05: the memo half now splices language.VOICE_FORM (s129);
+          # the body half keeps its own sentence, still one rule for all modalities.
+          and "notification_body's Tamil is in script too" in OUTREACH_MANDATE)
     check("the reply push-back is drafted in script and rendered, never left 'fine'",
           "Phonetic Tamil is fine here" not in kr.JUDGE_MANDATE
           and "Write its Tamil in SCRIPT" in kr.JUDGE_MANDATE)

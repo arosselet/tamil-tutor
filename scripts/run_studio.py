@@ -47,7 +47,7 @@ BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 # L0 owns the PORT SURFACE — this lane only reads it (2026-08-24; the pack
 # became its own module 2026-08-28, and TAMIL_TAIL_RE came with it).
-from language import TAMIL_RE, TAMIL_RUN, TAMIL_TAIL_RE
+from language import READ_FORM, TAMIL_RE, TAMIL_RUN, TAMIL_TAIL_RE
 import household
 
 # Cross-process contract, mirrored in render_audio.py and read by
@@ -170,7 +170,7 @@ FINAL production script. Transcribe it into a markdown sheet:
   win.**"
 - Then ONE blockquote per spoken line, two `<br>`-separated rows:
   `**<speaker letter/name>:** *<the full line as SOUND — English words as
-  written, Tamil words in English phonetic; NO Tamil script anywhere>*`
+  written, Tamil words in """ + READ_FORM + """; NO Tamil script anywhere>*`
   then the plain-English meaning.
 - Skip the meaning row when a line is already mostly English.
 - Keep [SFX]/[Pause] as short italic position cues between blockquotes.
