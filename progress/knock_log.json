@@ -8043,5 +8043,23 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-04T18-55.mp3",
     "memo_script": "ஆமாங்க... நம்ம கார்த்தி இருக்கான்ல, அவன் காலையிலயே கிளம்பிட்டான்.\n\nஅவன் மாமாகிட்ட எதுவும் சொல்லலையாம். ஸ்கூட்டர் வேற வழியில நின்னு போச்சுன்னு சொல்றான். பாட்டிக்கு பிறந்தநாள் வருதுல்ல, அதுக்குள்ள எல்லாம் சரியா நடக்கணும்னு மாமாவுக்கு ரொம்ப கவலை.\n\nநீங்க அங்க இருந்து வரும்போது என்ன பண்றீங்க? ரவிக்கு புது சட்டை எடுத்துட்டு வாங்க. கார்த்தி இன்னும் வீட்டுக்கு வரல. போன் பண்ணா எடுக்க மாட்டேங்கிறான். நான் அப்புறம் கூப்பிடவா?",
     "mp3": "published_audio/knocks/knock_2026-10-04T18-55.mp3"
+  },
+  {
+    "date": "2026-10-05",
+    "timestamp": "2026-10-05T17:40:44.824981+00:00",
+    "acted": true,
+    "modality": "audio",
+    "move": "lore: vendaanga",
+    "rationale": "Andrew has been away 10 days; gift a zero-pressure Coimbatore lore audio on food hospitality and how to say no politely with வேண்டாங்க.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-10-05T21:40:44.824981+00:00",
+    "body": "At a Coimbatore lunch, Athai won't stop serving rice until you drop the magic shield: Vendaanga 🍚",
+    "body_script": "At a Coimbatore lunch, Athai won't stop serving rice until you drop the magic shield: வேண்டாங்க 🍚",
+    "expected_target": "",
+    "stance": "give",
+    "target_revealed": true,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-05T17-40.mp3",
+    "memo_script": "Here is the scene. You are sitting at the lunch table, and அத்தை comes around with a giant pot of rice.\n\nIf you say 'no thanks' in English, she just smiles and heaps another mountain onto your plate. If you say இல்ல, she assumes you are just being shy and gives you two spoons anyway.\n\nIn Coimbatore, there is only one phrase that actually stops the ladle in mid-air: வேண்டாங்க.\n\nNotice what happens there. The casual word for 'don't want' is வேணாம். But when you are talking to family elders—மாமா, அத்தை, பாட்டி—you never throw a bare வேணாம் at them. You tuck that respect marker right onto the tail: வேண்டாங்க.\n\nSoft, polite, but completely final. The ladle stops, அத்தை moves to the next person, and your plate is safe.\n\nAnd if you actually do want more? Just flip it: வேணுங்க. That is the whole secret to surviving lunch.",
+    "mp3": "published_audio/knocks/knock_2026-10-05T17-40.mp3"
   }
 ]
