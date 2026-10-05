@@ -4917,7 +4917,7 @@ def s120_the_ticket_survives_the_first_check(sb: Path):
         events = read_json(obs_path)
         check("the real check writer persisted its first answer",
               len(events) == 1 and events[0]["channel"] == "check", str(events))
-        day = date_cls.fromisoformat(events[0]["at"][:10])
+        day = st.local_date(events[0]["at"])  # HIS clock, as check_due reads it
         check("the cue uses the supplied date", st.check_due(day + timedelta(days=30)) == 30)
         check("the cue accepts its default clock", isinstance(st.check_due(), int))
         result = subprocess.run([sys.executable, str(sb / "scripts" / "suggest_targets.py")],

@@ -51,7 +51,7 @@ from pathlib import Path
 from generate_callbacks import due_callbacks, load_json, days_since, NEVER_SURFACED
 from language import strip_pulli
 from slips import slip_patterns
-from state_io import is_unseen, soak_pending, local_today
+from state_io import is_unseen, soak_pending, local_date, local_today
 import month
 import observations
 import year
@@ -579,7 +579,9 @@ def check_due(today=None) -> int | None:
     goal must not be able to quiet the thing asking for one. A text run is still
     recorded and still moves the rung; it just does not stop the clock."""
     events = load_json(OBSERVATIONS_PATH) or []
-    days = [days_since(e["at"][:10], today or local_today())
+    # Dated on HIS clock (2026-10-05): `at[:10]` is the UTC day, so an evening
+    # check read -1 days old and the cue never re-based after ~8pm Eastern.
+    days = [((today or local_today()) - local_date(e["at"])).days
             for e in events if e.get("channel") == "check"
             and observations.medium_of(e) == "audio"]
     return min(days) if days else None
