@@ -8061,5 +8061,23 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-05T17-40.mp3",
     "memo_script": "Here is the scene. You are sitting at the lunch table, and அத்தை comes around with a giant pot of rice.\n\nIf you say 'no thanks' in English, she just smiles and heaps another mountain onto your plate. If you say இல்ல, she assumes you are just being shy and gives you two spoons anyway.\n\nIn Coimbatore, there is only one phrase that actually stops the ladle in mid-air: வேண்டாங்க.\n\nNotice what happens there. The casual word for 'don't want' is வேணாம். But when you are talking to family elders—மாமா, அத்தை, பாட்டி—you never throw a bare வேணாம் at them. You tuck that respect marker right onto the tail: வேண்டாங்க.\n\nSoft, polite, but completely final. The ladle stops, அத்தை moves to the next person, and your plate is safe.\n\nAnd if you actually do want more? Just flip it: வேணுங்க. That is the whole secret to surviving lunch.",
     "mp3": "published_audio/knocks/knock_2026-10-05T17-40.mp3"
+  },
+  {
+    "date": "2026-10-05",
+    "timestamp": "2026-10-05T23:33:32.078918+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "overheard: cant-mudiyala",
+    "rationale": "Evening drift-pull via Athai's phone call — ear-testing mudiyala inside Karthi's scooter trouble.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-10-06T11:33:32.078918+00:00",
+    "body": "Athai's on the phone about Karthi's scooter — one line tells you why he's stuck at home 🎧",
+    "body_script": "Athai's on the phone about Karthi's scooter — one line tells you why he's stuck at home 🎧",
+    "expected_target": "frame:cant-முடியல",
+    "stance": "ask",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-05T23-33.mp3",
+    "memo_script": "ஹலோ, அக்கா, கேக்குதா? கார்த்தி பண்ற வேலையை பாருங்களேன். காலையில இருந்து அந்த பழைய ஸ்கூட்டரை வச்சுட்டு என்னென்னவோ பண்றான்.\n\nமாமா சொன்னாரு, கடைக்கு போய் பாட்டிக்கு பழம் வாங்கிட்டு வா-ன்னு. இவன் கிளம்புற நேரத்துல வண்டி நின்னிருச்சு. எவ்ளோ ட்ரை பண்ணியும் ஸ்டார்ட் பண்ணவே முடியல.\n\nமாமா முறைச்சு பாக்குறாரு... இப்போ இவனால வெளில போக முடியல, வீட்லயே உக்காந்துட்டான். நான் அப்பவே சொன்னேன், கேக்கலையே!",
+    "mp3": "published_audio/knocks/knock_2026-10-05T23-33.mp3"
   }
 ]

@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **13:40 · Anna** 🎧  ·  audio / lore: vendaanga
 > At a Coimbatore lunch, Athai won't stop serving rice until you drop the magic shield: Vendaanga 🍚
 
+**19:33 · Anna** 🎧  ·  eavesdrop / overheard: cant-mudiyala
+> Athai's on the phone about Karthi's scooter — one line tells you why he's stuck at home 🎧
+
 
 ## Sunday 2026-10-04
 
