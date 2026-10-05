@@ -38,7 +38,7 @@ BASE = Path(__file__).parent.parent
 EXIT_NOT_CONFIGURED = 3
 
 from publish import commit_and_push
-from language import is_tamil, voice_locale
+from language import is_canonical, voice_locale
 
 import edge_tts
 import edge_tts.communicate as _edge_comm
@@ -576,7 +576,7 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
     if not cleaned_words and not sidecar_broken:
         for w in re.findall(r"\*\*([^\*]+)\*\*", content):
             tamil = re.split(r"[\(\s]", w)[0]
-            if tamil and is_tamil(tamil) and tamil not in cleaned_words:
+            if tamil and is_canonical(tamil) and tamil not in cleaned_words:
                 cleaned_words.append(tamil)
 
     mission_match = re.search(r"mission(\d+)", script_path.name)
@@ -631,7 +631,7 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
         events, created, unresolved = [], 0, []
         for w in cleaned_words:
             key = w if w in lexicon else None
-            if key is None and w in new_word_keys and is_tamil(w):
+            if key is None and w in new_word_keys and is_canonical(w):
                 # Brand-new payload word: the STATIC half only; the fold owns the rest.
                 lexicon[w] = {"gloss": "", "recognition": RECOGNITION_DEFAULT,
                               "production": "none", "seen_in": [], "last_surfaced": None}

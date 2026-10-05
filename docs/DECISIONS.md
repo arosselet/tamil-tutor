@@ -68,6 +68,8 @@ compressed 2026-09-10, 32k words to 11k, nothing lost that git did not hold).
 
 - **Exemplars, not templates: the range is the example** (2026-10-05, Andrew). Episodes converged under ~1,300 lines of writing law, but the cause was a false picture, not their shape. `protocol/exemplars.md` holds four days chosen to differ; writers read the spread and land outside it. It replaces reading past scripts as models; history left the Director and Architect to pay for it.
 
+- **Lanes ask the pack a question, never hold a range** (2026-10-05, Andrew). Eight files imported raw script tests to answer three questions (a key? target text? the stem?) without saying which. `is_canonical`, `has_target`, `target_runs`, `stem`, `host_stem` replace them, same answers; `s91` fails on a range in a lane. `stem` and `host_stem` stay two on purpose. `language-tutor` v6 D12 groundwork.
+
 - **The surface rule is two sentences in the pack** (2026-10-05, Andrew). Seven mandates restated how speakable Tamil is written and had drifted three ways on register; three lanes named none. `language.VOICE_FORM` / `READ_FORM` replace every restatement, the register default stays `dialect.md`'s, and `s129` fails on a retyped rule. They are the template's `audio_form` / `chat_form` slots (`language-tutor` v6 groundwork).
 
 - **Asks come back; gifts stay half** (2026-10-04, Andrew: "bring back asks, but don't starve gifts"). Replies: July ~2 in 3 with asks; 3 of 23 after the 09-23 gifts-only default. OUTREACH_MANDATE now requires at least one ask and one gift a day and restores FIELDING (6/6 in July). An ask-streak changes the move, never stops asks. Volley stays out: its targets no longer reach the digest.

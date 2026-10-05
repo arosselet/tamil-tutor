@@ -46,8 +46,9 @@ if hasattr(sys.stdout, "reconfigure"):
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 # L0 owns the PORT SURFACE — this lane only reads it (2026-08-24; the pack
-# became its own module 2026-08-28, and TAMIL_TAIL_RE came with it).
-from language import READ_FORM, TAMIL_RE, TAMIL_RUN, TAMIL_TAIL_RE
+# became its own module 2026-08-28, and TAMIL_TAIL_RE came with it; since
+# 2026-10-05 the lane imports the questions, `stem` and `has_target`, not the ranges).
+from language import READ_FORM, has_target, stem, target_runs
 import household
 
 # Cross-process contract, mirrored in render_audio.py and read by
@@ -370,8 +371,8 @@ def payload_present(word: str, script: str, lexicon: dict) -> bool:
         return True
     if " " in word or (lexicon.get(word) or {}).get("type") == "chunk":
         return False
-    stem = TAMIL_TAIL_RE.sub("", word)
-    return len(stem) >= 3 and stem in script
+    root = stem(word)
+    return len(root) >= 3 and root in script
 
 
 def fenced_block(text: str, lang: str) -> str | None:
@@ -478,7 +479,7 @@ def intercept_english_share(script: str) -> float:
     can't be holding 95% live comprehension)."""
     spoken = "\n".join(ln for ln in script.splitlines() if SPEAKER_RE.match(ln))
     latin = len(re.findall(r"[A-Za-z]+", spoken))
-    tamil = len(TAMIL_RUN.findall(spoken))
+    tamil = len(target_runs(spoken))
     return latin / (latin + tamil) if latin + tamil else 0.0
 
 
@@ -509,7 +510,7 @@ def voice_lines(script: str) -> dict[str, tuple[int, int]]:
             continue
         who = m.group(1).strip().upper()
         tamil, spoken = out.get(who, (0, 0))
-        out[who] = (tamil + bool(TAMIL_RE.search(said)), spoken + 1)
+        out[who] = (tamil + has_target(said), spoken + 1)
     return out
 
 
@@ -580,7 +581,7 @@ def lint(n: int, baseline: set[str] | None = None) -> list[str]:
         problems.append(
             "script's FIRST line is not an H1 title — the feed would fall back "
             f"to the filename (got: {script.splitlines()[0][:60]!r})")
-    if not TAMIL_RE.search(script):
+    if not has_target(script):
         problems.append("script contains no Tamil script (payload must be Tamil-script)")
     if not any(SPEAKER_RE.match(ln) for ln in script.splitlines()):
         problems.append("script has no **Speaker:** lines — renderer can't voice it")

@@ -61,10 +61,21 @@ TAMIL_RUN = re.compile(r"[஀-௿]+")
 TAMIL_TAIL_RE = re.compile(r"[ா-்]$")
 
 
-def is_tamil(word: str) -> bool:
-    """Is this token written in the canonical script?
+# ── The questions lanes ask ──────────────────────────────────────────────────
+# Lanes import THESE, never the ranges above (2026-10-05, Andrew — `language-tutor`
+# v6 D12). Before this, eight files imported a raw script test to answer three
+# different questions, and the name said which script, never which question. For
+# Tamil the answers coincide: one range tells a key from a phonetic token AND
+# target from English. For a shared-script port they come apart — a French key is
+# not "has Latin letters", and target-vs-English must be declared, not detected —
+# so each question needs its own name before a port can answer it differently.
+# Same bodies as before; the change is what the call site says it is asking.
+# `s91` holds lanes to it: the ranges never appear on a lane's mechanism line.
 
-    Lives beside its regex rather than in `state_io` (where it sat until
+def is_canonical(word: str) -> bool:
+    """Is this token in canonical lexicon-key form? (Tamil: written in script.)
+
+    Was `is_tamil`. Lives beside its regex rather than in `state_io` (where it sat until
     2026-08-28) because a predicate is the *accessor form* of the value it
     tests, and splitting the two across files is how the range came to have four
     copies in the first place: a caller that cannot see the declaration writes
@@ -82,8 +93,32 @@ def is_tamil(word: str) -> bool:
     return bool(TAMIL_RE.search(word))
 
 
-def strip_pulli(word: str) -> str:
-    """Drop a trailing pulli — the vowel-less marker — to get a joinable stem.
+def has_target(text: str) -> bool:
+    """Does this text carry ANY target language? A lint gate, a rewrite trigger,
+    a per-line tally. Same range as `is_canonical` today; a different question."""
+    return bool(TAMIL_RE.search(text))
+
+
+def target_runs(text: str) -> list[str]:
+    """The target-language spans in this text, in order — what a meter counts as
+    words and what a warning quotes. (Tamil: maximal script runs.)"""
+    return TAMIL_RUN.findall(text)
+
+
+def stem(word: str) -> str:
+    """The word minus what inflection replaces, so an inflected form still
+    matches it. (Tamil: one trailing vowel sign or pulli — தூக்கு → தூக்க.)
+    The minimum-length guard is the caller's, because it is a tolerance, not a
+    language fact."""
+    return TAMIL_TAIL_RE.sub("", word)
+
+
+def host_stem(word: str) -> str:
+    """The form a word takes INSIDE a longer phrase that hosts it, for substring
+    host-finding. Narrower than `stem` on purpose: widening it would widen every
+    host net in `suggest_targets`. (Tamil: drop a trailing pulli — நாள் → நாள.)
+
+    Was `strip_pulli`. Drops a trailing pulli — the vowel-less marker — to get a joinable stem.
 
     A FUNCTION, NOT A CONSTANT, and the distinction is load-bearing. The pulli is
     a single combining character that appears INSIDE most inflected Tamil words,

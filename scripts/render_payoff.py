@@ -92,7 +92,7 @@ from pathlib import Path
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from lanes import deliver_rendered
-from language import ANNA_VOICE, EAVESDROP_VOICE, TAMIL_RE
+from language import ANNA_VOICE, EAVESDROP_VOICE, has_target
 from publish import (KNOCKS_DIR, commit_and_push, load_env, publish,
                      push_to_phone)
 from rebuild_rss import MIN_PLAYABLE_BYTES
@@ -259,7 +259,7 @@ def align(lines: list[str], sheet: dict) -> tuple[list[str], str]:
     missing = [i for i in range(1, len(lines) + 1) if i not in by_n]
     if missing:
         return [], f"no meaning for line {missing[:6]} of {len(lines)}"
-    echoed = sorted(n for n, en in by_n.items() if TAMIL_RE.search(en))
+    echoed = sorted(n for n, en in by_n.items() if has_target(en))
     if echoed:
         return [], f"line {echoed[:6]} came back in the tape's own script, unglossed"
     return [by_n[i] for i in range(1, len(lines) + 1)], ""

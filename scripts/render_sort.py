@@ -55,7 +55,7 @@ BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 import lexicon_view
 import writer
-from language import ANNA_VOICE, TAMIL_RE
+from language import ANNA_VOICE, is_canonical
 from publish import commit_and_push, jsdelivr_url, load_env, publish, push_to_phone
 from state_io import (KNOCK_LOG_PATH, LEXICON_PATH, RECOGNITION_DEFAULT, load_json,
                       local_today, save_json)
@@ -85,7 +85,7 @@ def pool(lexicon: dict) -> list[str]:
     filter that re-drew words he had just answered on the page; a sort tape is
     single words, not speech at speed, so it adds nothing a page answer lacks."""
     keys = [k for k, r in lexicon.items()
-            if TAMIL_RE.search(k) and not k.startswith("frame:") and len(k) > 1
+            if is_canonical(k) and not k.startswith("frame:") and len(k) > 1
             and r.get("recognition") == RECOGNITION_DEFAULT]
     return sorted(keys, key=lambda k: (-(len(lexicon[k].get("seen_in") or [])
                                          + (lexicon[k].get("exposures") or 0)), k))

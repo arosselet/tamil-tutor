@@ -49,7 +49,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from generate_callbacks import due_callbacks, load_json, days_since, NEVER_SURFACED
-from language import strip_pulli
+from language import host_stem
 from slips import slip_patterns
 from state_io import is_unseen, soak_pending, local_date, local_today
 import month
@@ -776,7 +776,7 @@ def inventory_hosts(lexicon: dict, roots=None) -> dict:
                if " " not in k and not k.startswith("frame:") and len(k) >= 3]
     out = {}
     for root in singles:
-        stem = strip_pulli(root)
+        stem = host_stem(root)
         hosts = [k for k in lexicon
                  if k != root and stem in k and not k.startswith("frame:")]
         if len(hosts) >= 2:

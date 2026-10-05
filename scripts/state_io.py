@@ -18,7 +18,7 @@ from datetime import date, datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
-from language import is_tamil
+from language import is_canonical
 
 # Windows consoles default to cp1252, which can't print Tamil — the status digest
 # crashed mid-print on a fresh laptop (2026-07-15) and a dead digest invites the
@@ -184,7 +184,7 @@ def is_give(entry: dict) -> bool:
     return stance == "give" if stance in STANCES else not entry.get("expected_target")
 
 
-# The script range, the stem tail and `is_tamil` moved to `language.py` on
+# The script range, the stem tail and `is_tamil` (now `is_canonical`) moved to `language.py` on
 # 2026-08-28 — the L0 language pack, which is now the ONE file a port to another
 # language rewrites. They were declared here from 2026-08-04 (with the last three
 # stray copies folded in on 08-24); what this file kept was a label, not a
@@ -222,7 +222,7 @@ def resolve(word: str, lexicon: dict) -> str | None:
 # so they belong at the bottom, and `reconcile_focus` — which WRITES — stays up
 # in sync_state where it was.
 #
-# They land beside `resolve` and `is_tamil` rather than in a new module because
+# They land beside `resolve` and `is_canonical` rather than in a new module because
 # that is what they are: lexicon-key resolution, one rung wider. `sync_state`
 # keeps every writer.
 
@@ -255,7 +255,7 @@ def resolve_soak_item(token: str, lexicon: dict) -> str | None:
     if exact is not None:
         return exact
     # a Tamil token that is a prefix of a longer chunk key
-    if is_tamil(token):
+    if is_canonical(token):
         for key in lexicon:
             if key.startswith(token):
                 return key
@@ -271,7 +271,7 @@ def split_payload(items: list[str], lexicon: dict) -> tuple[list[str], list[str]
         key = resolve_soak_item(token, lexicon)
         if key:
             resolved.append(key)
-        elif is_tamil(token) or token.startswith("frame:"):
+        elif is_canonical(token) or token.startswith("frame:"):
             # A brand-new payload word is legitimately absent from the lexicon
             # until the episode that teaches it registers it — Tamil script and
             # frame keys stay verifiable, because that is exactly the form an

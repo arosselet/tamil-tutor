@@ -774,7 +774,7 @@ SCRIPT_OWNERS = {
         "replaced wholesale by the next repair rather than edited. The sixth is "
         "`add-word`'s help text, where the example MUST be script because the "
         "argument is the canonical key: a phonetic example there would advertise "
-        "an input `is_tamil` refuses."),
+        "an input `is_canonical` refuses."),
 }
 
 
@@ -860,6 +860,46 @@ def s91_the_pack_is_complete_not_just_unique(sb: Path):
           not stale,
           f"gone: {', '.join(stale)} — hand the SCRIPT_OWNERS entry back in the "
           f"diff that emptied the file")
+
+    # ── LANES ASK A QUESTION; THEY NEVER HOLD A RANGE (2026-10-05, Andrew —
+    # `language-tutor` v6 D12). Eight files imported raw script tests to answer
+    # three questions, so a port could not answer "is this a key?" and "is this
+    # target, not English?" differently. Silent no-op: a lane that re-imports
+    # `TAMIL_RE` runs exactly as before and reads green for Tamil — the cost lands
+    # only on a shared-script port. So the law is on the NAMES, and the teeth
+    # first: the scan must see the ranges where they do live.
+    RANGES = re.compile(r"\b(TAMIL_RE|TAMIL_RUN|TAMIL_TAIL_RE|is_tamil|strip_pulli)\b")
+
+    def ranges_named(src: str) -> list[str]:
+        return sorted(set(RANGES.findall(mechanism(src))))
+
+    pack = mechanism((sb / "scripts" / "language.py").read_text(encoding="utf-8"))
+    check("the range scan can see the ranges in the pack itself",
+          len(ranges_named(pack)) >= 3,
+          "found none in language.py — a scan that matches nothing proves no lane clean")
+    holders = sorted(f"{n} {ranges_named(s)}" for n, s in files.items() if ranges_named(s))
+    check("no lane imports a script range — it asks the pack's question",
+          not holders,
+          f"{'; '.join(holders)} — use is_canonical / has_target / target_runs / "
+          f"stem / host_stem from `language`, or add the question there")
+
+    # The questions keep the answers they had as raw tests. `stem` and
+    # `host_stem` differ ON PURPOSE (a vowel sign vs only the pulli).
+    L = fx.lang
+    answers = {
+        "is_canonical: script key": L.is_canonical("வை") is True,
+        "is_canonical: phonetic token": L.is_canonical("vai") is False,
+        "has_target: mixed line": L.has_target("romba nalla வீடு") is True,
+        "has_target: English line": L.has_target("plain English") is False,
+        "target_runs: spans in order": L.target_runs("en வீடு and ஊர்") == ["வீடு", "ஊர்"],
+        "stem: drops a vowel sign": L.stem("தூக்கு") == "தூக்க",
+        "stem: drops a pulli": L.stem("நாள்") == "நாள",
+        "host_stem: drops a pulli": L.host_stem("நாள்") == "நாள",
+        "host_stem: keeps a vowel sign": L.host_stem("தூக்கு") == "தூக்கு",
+    }
+    wrong = sorted(k for k, ok in answers.items() if not ok)
+    check("each pack question answers as its raw test did", not wrong,
+          f"wrong: {', '.join(wrong)}")
 
     # ── POSITIVE CONTROL, driven on synthetic sources so the proof lives in the
     # suite rather than in one session's notes. Prose is free; mechanism is not.

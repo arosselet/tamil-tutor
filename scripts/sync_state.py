@@ -37,7 +37,7 @@ import sys
 from datetime import date, timedelta
 from pathlib import Path
 
-from language import is_tamil
+from language import is_canonical
 from dose_evidence import DOSE_CHANNELS
 from slips import (append_slips, canon_tag, cmd_slips,
                    parse_slip_args, record_slip_commission, record_slip_test,
@@ -500,7 +500,7 @@ def cmd_update(args):
         word = spec.strip()
         key = resolve(word, lexicon)
         if key is None:
-            if not is_tamil(word):
+            if not is_canonical(word):
                 print(f"  ! '{word}' can't be created — a new record needs its Tamil script key. Skipped.")
                 return
             mint(word)
@@ -545,7 +545,7 @@ def cmd_update(args):
         """
         word, _, gloss = spec.partition("=")
         word, gloss = word.strip(), gloss.strip()
-        if not is_tamil(word):
+        if not is_canonical(word):
             print(f"  ! '{word}' is phonetic — teach it in Tamil script so the key "
                   f"can be canonical. Skipped.")
             return
@@ -820,7 +820,7 @@ def cmd_add_word(args):
     if lexicon is None:
         print("Error: lexicon.json missing. See BOOTSTRAP.md.")
         sys.exit(1)
-    if not is_tamil(args.key):
+    if not is_canonical(args.key):
         print(f"  ! '{args.key}' isn't Tamil script — records must be canonical script.")
         sys.exit(1)
     if args.key in lexicon:
@@ -1068,7 +1068,7 @@ def cmd_seed_deck(args):
         lex_type = "pattern" if e.get("type") == "frame" else e.get("type", "chunk")
         # Chunks/words must be canonical Tamil script; frames use the `frame:...`
         # key convention (like add-pattern), so they're exempt from the script check.
-        if lex_type != "pattern" and not is_tamil(word):
+        if lex_type != "pattern" and not is_canonical(word):
             print(f"  ! '{word}' isn't Tamil script — chunks must be canonical script. Skipped.")
             continue
         if word in lexicon:

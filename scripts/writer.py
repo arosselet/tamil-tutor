@@ -56,7 +56,7 @@ from pathlib import Path
 # grab. The seam moved here with `ask_json` (2026-08-23) and must stay reachable.
 from openai import OpenAI
 
-from language import TAMIL_RUN
+from language import has_target, target_runs
 from mandates import PHONETIC_REWRITE
 
 BASE = Path(__file__).parent.parent
@@ -322,8 +322,8 @@ def parse_llm_response(resp) -> dict:
 # reachable from BOTH morning_knock.main and knock_reply's push-backs, and it runs
 # on every knock body and every reply line that carries script.
 #
-# `TAMIL_RUN` is imported, not declared: the range itself is L0's PORT SURFACE and
-# this module only USES it (2026-08-24). Dropping the copy took `import re` with
+# The range is imported as a question, not declared: it is L0's PORT SURFACE and
+# this module only ASKS it (`has_target` / `target_runs`, 2026-10-05; 2026-08-24). Dropping the copy took `import re` with
 # it — the parser's own regex is function-local on purpose, so it can be deleted
 # in one piece the day the fallback retires.
 
@@ -351,11 +351,11 @@ def to_phonetic(text: str, label: str = "body") -> str:
     a leaked word costs him far less than a dose he never gets — the opposite of
     the eavesdrop case, where the whole dose was the broken part.
     """
-    if not TAMIL_RUN.search(text):
+    if not has_target(text):
         return text
     print(f"   ✎ {label} carries Tamil script — asking for phonetics…")
     out = rephrase_phonetic(text) or text
-    if TAMIL_RUN.search(out):
+    if has_target(out):
         # ONE re-ask before the warning (2026-08-23, when the host rule took this
         # lane over). MEASURED that day on the agent executor: 1 of 3 identical
         # calls came back with the script KEPT and the phonetics appended in
@@ -368,8 +368,8 @@ def to_phonetic(text: str, label: str = "body") -> str:
         # reads. If the second draw leaks too it still warns and ships — that
         # trade is unchanged and deliberate.
         out = rephrase_phonetic(text) or out
-    if TAMIL_RUN.search(out):
-        print(f"   ⚠ script survived the rewrite: {' '.join(TAMIL_RUN.findall(out))}")
+    if has_target(out):
+        print(f"   ⚠ script survived the rewrite: {' '.join(target_runs(out))}")
     return out
 
 
