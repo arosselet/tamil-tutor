@@ -25,10 +25,16 @@ rejected approach, not a smaller version of this one.
 
 | Bucket | What it looks like | Fate in the template |
 |---|---|---|
-| **Mechanism** | `scripts/*.py` logic, workflows, smoke cases, the @build/recalibrate skills | Ports as code — generalize names, zero Tamil literals |
-| **Anna's choice** | Tunables (volley size, cooldown days, voice picks) | Ports as a dial in `config/tutor.json`, never hard-coded |
-| **Language law** | Everything in `scripts/language.py`, the Tamil prose rules in `mandates.py`, dialect/persona/hosts prose | Ports as a documented **slot** (`config/tutor.json`, `.template` files) — port the seam, never the Tamil value. Since 2026-08-28 the code half is ONE file: read it, don't hunt for it |
-| **Personal / local** | `progress/`, `content/`, `published_audio/`, `run_studio.py` + its writer wiring | **Never ports** |
+| **Mechanism** | `scripts/*.py` logic, workflows, smoke cases, the @build/recalibrate skills | Ports as code into its v6 module (core / audio / phone / timeline), names generalized (`tutor`, `learner`), history comments cut to the rule, inside the module's line budget |
+| **Anna's choice** | Tunables (reach rails, voice picks, writer models) | Ports as a key in `config/tutor.json`, read only through `scripts/pack.py`, never hard-coded |
+| **Language law** | Everything in `scripts/language.py`, the Tamil prose rules in `mandates.py` / `run_studio.py`, dialect/persona/hosts prose | Ports as a **slot**: a config key, an `examples.*` line, or a file in `pack.PROSE_SLOTS`. Port the seam, never the Tamil value. A new lane question lands in `pack.py` answered for BOTH fixtures (distinct and shared script) |
+| **Personal / local** | `progress/`, `content/`, `published_audio/`, `year.py`'s dates, Andrew's incidents | **Never ports**. `year.py` changes port as `timeline.py` mechanism; Andrew's phases stay in `config/examples/tamil.json` |
+
+**The v6 seam, name for name** (`language-tutor` `docs/CUSTOMIZATION.md` is the full map):
+`language.py` → `pack.py`; `ANNA_VOICE` → `TUTOR_VOICE`; `VOICE_FORM`/`READ_FORM` →
+`AUDIO_FORM`/`CHAT_FORM`; `TAMIL_RE` → `language.script_regex`; `TAMIL_TAIL_RE` /
+`host_stem`'s pulli → `stem_tail` / `host_tail`; `rails.py` constants → `rails.*`;
+`writer.MODEL`/`AGENT_MODEL` → `writer.*`; `year.PHASES`/`LEADS`/`ROOMS` → `timeline.*`.
 
 `/extend` Gate 6 lists the three port-surface items invisible to a
 swap-the-md-files pass — check each one against the delta.
@@ -39,7 +45,8 @@ to Andrew with the question, not into the template on a guess.
 ## 3. Apply in the template
 
 Work inside `../language-tutor`. Every ported mechanism carries its smoke case
-with it; finish with the template's own smoke test (the Spanish fixture) green.
+with it; finish with the template's own smoke suite green against BOTH fixtures
+(`config/examples/tamil.json`, distinct script; `spanish.json`, shared script).
 
 ## 4. Tag and record
 
