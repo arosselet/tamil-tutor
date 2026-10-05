@@ -42,6 +42,14 @@ the picture is stale: an implausible distribution (sari as `struggled` after
 eight months), and evidence about the machine (`taught`, `exposed`) outnumbering
 evidence about him (`tested`, `attended`) by an order of magnitude.
 
+**Second, trace the behaviour to the rule producing it (2026-10-05).** A
+complaint about what the system does is a rule doing its job somewhere. Find it
+(`grep` the protocol and mandates for the behaviour) and read the symptom it was
+written for. If that symptom can no longer happen, the rule is the fault, and
+the move is to retire or loosen it. Precedent: "the same few dozen words" traced
+to the vocabulary fence (95% coverage over a fence of ~135 words) fed by a false
+picture, and the check that would have fixed it was banned by Rule 4 as a list.
+
 Then the read-only sweep, all safe:
 - `python scripts/sync_state.py status` — the ear, the floor, the soak order, the ear-block days
 - `python scripts/sync_state.py feedback` — the accumulated ledger
@@ -51,15 +59,17 @@ Then the read-only sweep, all safe:
 The evidence decides; taste doesn't. A mechanism proposed before the sweep is a
 symptom cap (`/debug` → KF-8 is the standing precedent).
 
-## 4. One move, cheapest first
+## 4. One move, subtraction first
 
 `protocol/diagnosis.md` law, verbatim: the default verdict is **change nothing**
 (one data point is noise; a reproduced pattern is signal). Then at most one move:
 
-1. **Turn a dial** — `progress/profile.md` Calibration Notes. Reversible. ~90% of healing.
-2. **Prune** — delete the scene-type/meter/rule that isn't earning its place. First
-   candidate: a "never" whose guarded failure can no longer happen — it is now only
-   blocking (2026-10-05: the list ban was blocking the one format that measured him).
+1. **Prune** — retire or loosen the rule step 3 traced, or the scene-type/meter
+   that isn't earning its place. Subtraction first, because every addition is a
+   rule a future symptom has to trace through. First candidate: a "never" whose
+   guarded failure can no longer happen — it is now only blocking (2026-10-05: the
+   list ban was blocking the one format that measured him).
+2. **Turn a dial** — `progress/profile.md` Calibration Notes. Reversible.
 3. **Propose (gated)** — real structural gap → proposal + evidence to
    `docs/feature_inbox.md` for Andrew's yes/no. Building it is `/extend`'s job, later.
 

@@ -12,9 +12,8 @@
 
 **Short lesson audio:** prepare a script with `python scripts/lesson_audio.py SCRIPT
 --output NEW.mp3`; explicit `--publish` requires a new path under `published_audio/`
-on main. It uses the existing voice, without a studio commission, RSS entry or push.
-Give the playable clip before its written answer; explain, replay, then vary the
-exchange. Local output is not proof the learner can play it. Record only unaided
+on main. Give the playable clip before its written answer; explain, replay, then vary the
+exchange. Record only unaided
 recognition with `sync_state.py check --session --source CLIP --note "actual reply;
 support supplied" --heard WORD:right` (or `--read` for text). Supported work stays
 in the debrief. Ordinary lessons leave the monthly check cue unchanged.
@@ -54,7 +53,7 @@ Everything else is the day's **shape** — vary it against the last session. The
 
 Moves any shape may reach for, never as a menu: **mask-work**, the **eavesdrop drill**, the **lore tangent** (`persona.md`), **script-reading** (decode a short snippet together) and **zinger-crafting** (one deployable line, polite + cheeky).
 
-**The sweep** (most sessions, after the opening): ~15 words from `render_sort.py --plan-only`, in phonetics. He writes meanings; Anna grades, reveals, records `check --read`. Never self-marked; a miss is a Teach Beat. Range: `protocol/exemplars.md`.
+**The sweep** (most sessions, after the opening or first if he asks): words from `render_sort.py --plan-only --size 50` in phonetics, 50 a page until the untested backlog clears, then ~15. A sensor, not a collect (`learner_contract.md`). He writes meanings; Anna grades, reveals, records `check --read`; a miss is a Teach Beat. Range: `protocol/exemplars.md`.
 
 ## Close & Log
 

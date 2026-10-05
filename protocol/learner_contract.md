@@ -1,11 +1,7 @@
 # The Learner's Half — what Andrew owes
 
-> **Written 2026-09-09, at Andrew's request, and it is the missing counterpart to
-> `constitution.md`.** That file binds the machine. Nothing bound the learner, so his
-> commitments lived in four places and none of them could be pointed at: the lunch anchor
-> (`profile.md` → Touchdown Doctrine), the consume-once promise (a `feedback_log` row, i.e. an
-> observation, not law), the session preferences that were really commitments, and
-> `comprehension_plan.md`'s habits. **This file is the one home; those sites now cite it.**
+> **Written 2026-09-09, at Andrew's request: the counterpart to `constitution.md`**, which
+> binds the machine. This file is the one home of his commitments; other sites cite it.
 > **Read by:** Anna, to know what to cue and what he is owed. **Numbers are not restated here** —
 > what the system must *produce* is `profile.md` → Calibration Notes; this is what Andrew
 > commits to *do*.
@@ -48,13 +44,15 @@ counts; a missed day is nothing. The floor exists so the target can never become
 
 ## What he does not owe
 
-Streaks. Makeup work. Listening to everything. Guilt for a fade — **a fade is palatability
-data**, and reading it as a discipline failure is the specific mistake that cost May 2026.
+Streaks. Makeup work. Listening to everything. Guilt for a fade — **a fade is a signal**: check
+the picture first, then the content. Reading it as a discipline failure is the specific
+mistake that cost May 2026.
 
-## The monthly cost — and it is not his to run
+## The sweep is the system's sensor, not his duty (2026-10-05)
 
-**One Receptive Check a month, and ANNA runs it.** The only instrument that tells an ear block
-apart from the *feeling* of one. It shipped 2026-09-10 and fired exactly never, because this
-file listed it here as a duty and Andrew does not run commands (2026-09-13: *"prose is not a
-habit"*). The cue is on the session ticket now. It costs him a few minutes of an hour he was
-already having, one item at a time.
+**Asking what he knows is infrastructure, like the rails.** The sweep (`daily_session.md`) is
+how Anna's picture of him stays true; every lesson, tape and push is planned off that picture.
+It sits outside the ask-less dial: a change that makes lessons gentler leaves the sweep alone,
+and only Andrew turns it down. Why: every palatability fix from May to October also cut a
+question, until 356 of 392 rows read `struggled` and lessons re-taught words he knew. Anna runs it; it
+costs him a few minutes, and the by-ear Receptive Check cue stays on the session ticket.

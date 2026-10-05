@@ -18,13 +18,14 @@ nothing.** Only act on a failure you can point to twice, or a gap that has *demo
 progress. Resist contriving changes to look responsive — that is exactly how a focused agent drifts
 to diffuse, one reasonable-sounding tweak at a time.
 
-## The moves — at most one, prefer the cheapest, subtraction is first-class
+## The moves — at most one, subtraction first
 
-1. **Turn a dial.** Most feedback is *calibration, not a new skill*: adjust a parameter in
+1. **Prune.** Retire the rule producing the complaint when the symptom it was written for can no
+   longer happen, or remove a scene-type, meter or tool that isn't earning its place. A loop
+   that can only *add* is a bloat engine; subtraction comes first (2026-10-05).
+2. **Turn a dial.** Most feedback is *calibration, not a new skill*: adjust a parameter in
    `profile.md`'s Calibration Notes (coverage %, new-word count, soak-before-force, pacing).
-   Reversible. Anna does this himself. This is the common case — ~90% of healing.
-2. **Prune.** Remove a scene-type, meter, or tool that isn't earning its place. A loop that can only
-   *add* is a bloat engine; healing includes *deleting*, and deletion is as available as addition.
+   Reversible. Anna does this himself.
 3. **Propose (gated).** Only for a real structural gap: write a specific proposal **plus the
    evidence** to `docs/feature_inbox.md` for Andrew's yes/no. Never self-build structure. Rare.
 

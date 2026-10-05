@@ -45,7 +45,7 @@ compressed 2026-09-10, 32k words to 11k, nothing lost that git did not hold).
 - **A fade is a signal, not a discipline failure — audit the picture first** (2026-07-04;
   amended 2026-10-05, Andrew). The Apr–May fade was episodes grating; the September one
   grated because the picture was false (sari `struggled`), and lighter asks deepened it. When contact drops: first ask whether Anna knows what he knows (the
-  sweep), then diagnose the content. Never answer a fade with accountability
+  sweep), then the content. Never answer a fade with accountability
   machinery or by cutting the measuring channel.
 - **A "never" names what it guards** (2026-10-05, Andrew). The list ban, the
   taught-only check and palatability-first each fixed one symptom, outlived it, and
@@ -53,6 +53,12 @@ compressed 2026-09-10, 32k words to 11k, nothing lost that git did not hold).
   can ask whether that failure still exists.
 
 ## Settled design decisions
+
+- **The sweep is a sensor, outside the ask-less dial** (2026-10-05, Andrew). Every palatability fix since May also cut a question, so the picture rotted while lessons got gentler. `learner_contract.md` now holds the sweep as infrastructure, like the rails: gentler lessons leave it alone and only Andrew turns it down. Pages of 50 until the untested backlog clears, then ~15.
+
+- **Prohibitions are budgeted: a new never retires an old one** (2026-10-05, Andrew: "an escape valve"). 322 decisions, 26 retiring anything; nothing made a live rule leave when its cause did. `PROHIBITION_BUDGET` (195, counted across protocol and mandates) makes every addition ask which never is least needed now.
+
+- **Diagnosis subtracts first** (2026-10-05, Andrew). `/recalibrate` audits the picture, then traces the complaint to the rule producing it; `diagnosis.md` and `/recalibrate` now prune before turning a dial. This weekend, both answers pointed at existing rules and nothing needed adding.
 
 - **Asking is not teaching: the sweep reaches every untested row** (2026-10-05, Andrew: "all you had to do was ask"). 265 of 392 rows had no Teach Beat, so no check could see them, yet he knows words never taught (`pesa`). A right recognition answer now proves first contact; a miss lands on `struggled` and waits for teaching. Supersedes 10-03's "UNSEEN rows stay out". Rebuild: 11 rows opened.
 

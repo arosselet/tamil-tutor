@@ -153,6 +153,22 @@ PROSE_BUDGETS = {
 }
 
 
+# PROHIBITIONS ALLOWED across the law Anna and the writers read (2026-10-05,
+# Andrew: "how do we avoid adding rule after rule without an escape valve?").
+# Every "never" was right on the day a symptom wrote it; nothing made one leave
+# when its cause did. The list ban, the taught-only check and palatability-first
+# each outlived their symptom and blocked the next fix. Scarcity is the valve:
+# a new prohibition retires an old one in the same diff, so every addition asks
+# "which never is least needed now?" — a question that needs no judgement to
+# enforce. COARSE ON PURPOSE: it counts words, not meanings, so a descriptive
+# "never" costs the same as a command. Rewording a rule to dodge the count is
+# the one move this cannot see; the commit naming what it retired is the guard.
+PROHIBITION_RE = re.compile(r"(?i)\b(?:never|must not|do not|don['’]t)\b")
+# Census 197 at birth; 195 after this diff's own trims. Only ever moves down,
+# or up in a diff that names what it could not retire and why.
+PROHIBITION_BUDGET = 195
+
+
 # Words allowed per docs/DECISIONS.md entry — title, date, one clause (150 -> 70,
 # 2026-09-10, the whole log compressed to that shape; the narrative is the commit).
 DECISION_ENTRY_BUDGET = 70
@@ -398,6 +414,18 @@ def s18_size_budgets(mk, kr, sb: Path):
         check(f"{rel}: {words}/{budget} words", words <= budget,
               f"over by {words - budget} — retire lines, or raise the budget in this "
               f"same diff and name what it retired")
+
+    # THE PROHIBITION RATCHET — see PROHIBITION_BUDGET. protocol/ in the
+    # sandbox plus every mandate string the loop above measures.
+    law = [f.read_text(encoding="utf-8") for f in sorted((sb / "protocol").rglob("*.md"))]
+    nevers = sum(len(PROHIBITION_RE.findall(t)) for t in law + list(strings.values()))
+    check("the prohibition scan still sees the law it counts",
+          len(law) > 10 and nevers > 50, f"{len(law)} files, {nevers} prohibitions — "
+          "an empty scan would pass any budget")
+    check(f"prohibitions in the law: {nevers}/{PROHIBITION_BUDGET}",
+          nevers <= PROHIBITION_BUDGET,
+          f"over by {nevers - PROHIBITION_BUDGET} — a new never retires an old one in "
+          "the same diff, and the commit names which (2026-10-05)")
 
     # THE CAMPAIGN BLOCK — the loop above measures whole files and profile.md is
     # not one of them (see ARC_BUDGET). Real tree, not the sandbox: this is

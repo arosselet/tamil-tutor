@@ -70,6 +70,7 @@ that wrote them and blocked the next fix. Naming Y is what lets a later audit re
 | A `DECISIONS.md` entry | `DECISION_ENTRY_BUDGET` | words | 2026-08-01 |
 | Every `scripts/*.py` | `CODE_BUDGETS` | code lines (blanks, comments and docstrings are **free**) | 2026-07-31 |
 | Every `scripts/*.py` | pyflakes | findings, **budget 0** | 2026-08-04 |
+| Every `protocol/**/*.md` + the LLM mandates | `PROHIBITION_BUDGET` | never / must not / do not / don't | 2026-10-05 |
 
 **The static budget is zero and does not move.** pyflakes reports undefined names,
 unused imports and dead locals — each is a defect or dead code, so there is nothing to
