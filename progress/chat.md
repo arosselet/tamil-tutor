@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Tuesday 2026-10-06
+
+**13:45 · Anna** 🎧  ·  audio / tidbit: enakku onnum theriyaadhu
+> When Mama and Athai start debating the guest list, your ultimate survival shield: Enakku onnum theriyadhu 🤫
+
+
 ## Monday 2026-10-05
 
 **13:40 · Anna** 🎧  ·  audio / lore: vendaanga

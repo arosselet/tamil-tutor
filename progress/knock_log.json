@@ -8080,5 +8080,23 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-05T23-33.mp3",
     "memo_script": "ஹலோ, அக்கா, கேக்குதா? கார்த்தி பண்ற வேலையை பாருங்களேன். காலையில இருந்து அந்த பழைய ஸ்கூட்டரை வச்சுட்டு என்னென்னவோ பண்றான்.\n\nமாமா சொன்னாரு, கடைக்கு போய் பாட்டிக்கு பழம் வாங்கிட்டு வா-ன்னு. இவன் கிளம்புற நேரத்துல வண்டி நின்னிருச்சு. எவ்ளோ ட்ரை பண்ணியும் ஸ்டார்ட் பண்ணவே முடியல.\n\nமாமா முறைச்சு பாக்குறாரு... இப்போ இவனால வெளில போக முடியல, வீட்லயே உக்காந்துட்டான். நான் அப்பவே சொன்னேன், கேக்கலையே!",
     "mp3": "published_audio/knocks/knock_2026-10-05T23-33.mp3"
+  },
+  {
+    "date": "2026-10-06",
+    "timestamp": "2026-10-06T17:45:58.357085+00:00",
+    "acted": true,
+    "modality": "audio",
+    "move": "tidbit: enakku onnum theriyaadhu",
+    "rationale": "Gift teaching the ultimate joint-family survival line from the due menu via the Paati birthday debate.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-10-06T22:15:58.357085+00:00",
+    "body": "When Mama and Athai start debating the guest list, your ultimate survival shield: Enakku onnum theriyadhu 🤫",
+    "body_script": "When Mama and Athai start debating the guest list, your ultimate survival shield: எனக்கு ஒன்னும் தெரியாது 🤫",
+    "expected_target": "",
+    "stance": "give",
+    "target_revealed": true,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-06T17-45.mp3",
+    "memo_script": "ஆண்ட்ரூ, ஒரு முக்கியமான விஷயம் சொல்லணும்.\n\nநம்ம வீட்ல பெரியவங்க பேசும்போது... மாமாவும் அத்தையும் தீவிரமா பேசிட்டே இருப்பாங்க. பாட்டி பர்த்டேக்கு யார் வர்றா, என்ன செலவு-னு விவாதம் போகும். திடீர்னு உன் பக்கம் திரும்பி, என்ன சொல்றீங்க-னு கேப்பாங்க பாரு.\n\nஅங்க மாட்டிக்கவே கூடாது டா. உடனே ரொம்ப கூலா, முகத்தை அப்பாவியா வச்சுட்டு சொல்ல வேண்டிய ஒரே மந்திரம்: எனக்கு ஒன்னும் தெரியாது.\n\nதெரியாது-னா தெரியாது. ஒன்னும் தெரியாது-னா சுத்தமா எதுவுமே தெரியாது! எந்த பஞ்சாயத்தும் வேண்டாம், எனக்கு ஒன்னும் தெரியாது-னு சொல்லிட்டு காபிய குடிச்சிட்டே இருக்கணும்.\n\nஅடுத்த தடவை வீட்ல இந்த சீன் நடக்கும்போது ஞாபகம் வச்சுக்கோ: எனக்கு ஒன்னும் தெரியாது.",
+    "mp3": "published_audio/knocks/knock_2026-10-06T17-45.mp3"
   }
 ]
