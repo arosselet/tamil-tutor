@@ -93,7 +93,10 @@ PROSE_BUDGETS = {
     # 950 -> 1070 (2026-10-04, Andrew): THE BALANCE (at least one ask and one gift a day)
     # and FIELDING back as a fifth kind. Retires the gifts-only default that took replies
     # from ~2 in 3 (July) to 3 of 23 (09-23 -> 10-04).
-    "OUTREACH_MANDATE": 1070,
+    # 1070 -> 1115 (2026-10-06, Andrew: "gifts/lore are intended to be varying in
+    # substance"): lore widened, FUN FACT added, the progress law scoped to asks/echoes/
+    # patterns. Offset by trimming the second tease example and SCHEDULING (census 1111).
+    "OUTREACH_MANDATE": 1115,
     "JUDGE_MANDATE": 1500,
     # Split out of JUDGE_MANDATE (2026-07-24) rather than raise its budget, the same move audio_channels.md made on daily_session.md: "what this reply can do beyond the text line" (schedule a … · 300 -> 150 (2026-08-27): re-censused DOWN — the SPEAK BACK section left for VOICE_MANDATE, which both judges compose.
     "REACH_MANDATE": 150,

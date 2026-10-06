@@ -47,6 +47,7 @@ compressed 2026-09-10, 32k words to 11k, nothing lost that git did not hold).
   grated because the picture was false (sari `struggled`), and lighter asks deepened it. When contact drops: first ask whether Anna knows what he knows (the
   sweep), then the content. Never answer a fade with accountability
   machinery or by cutting the measuring channel.
+- **Gifts vary in substance, not labels** (2026-10-06, Andrew: "not just a dozen ways to escape the ladle"). Nine gifts running (09-28→10-06) were a table phrase to deploy, under four vein names; the rail read labels. Lore and a new fun-fact vein need no due item and no deployable line; the progress law now covers asks, echoes and patterns only. The rails show recent gifts' lines.
 - **A "never" names what it guards** (2026-10-05, Andrew). The list ban, the
   taught-only check and palatability-first each fixed one symptom, outlived it, and
   blocked the next fix. A new prohibition states the failure it prevents, so an audit

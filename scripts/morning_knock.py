@@ -242,9 +242,14 @@ def remaining_room(klog: list, now: datetime) -> str:
     # RECENT GIFT VEINS (2026-09-23) replace the lore cooldown/cadence pair: the
     # gift is now the default push, so a format rail would fire every tick. What
     # still matters is the 07-11 lesson — never the same vein twice running.
-    gifts = [k.get("move", "") for k in klog if is_fire(k) and is_give(k)][-4:]
-    lore_str = (f"\n  Recent gift veins (newest last — take a different one): {' · '.join(gifts)}"
-                if gifts else "")
+    # 2026-10-06: the LINES ride with the labels. Seven gifts (09-28 -> 10-03) were
+    # all "a phrase to deploy at the table" under four vein names, and a rail that
+    # reads labels saw variety. The decider sees what was said and judges the shape.
+    # Stated stance only: a Sort tape carries none, so is_give's legacy fallback
+    # booked it as a gift and it filled half the window.
+    gifts = [k for k in klog if is_fire(k) and k.get("stance") == "give"][-4:]
+    said = "".join(f"\n    {k.get('move', '')} — {(k.get('body') or '')[:110]}" for k in gifts)
+    lore_str = f"\n  Recent gifts (newest last — take a different vein AND shape):{said}" if gifts else ""
     # THE TEMPLATE RAIL (2026-09-29). The vein line bans a repeated NAME, but
     # the progress-tease frame ("You already have X… You get Y") ran across
     # four different veins in a week — sameness by rhetoric, invisible to a
@@ -299,7 +304,7 @@ def due_menu_block(max_fire: int = 6, max_catch: int = 2) -> str:
     menu = drill_menu(lex, max_n=max_fire)
     if not menu:
         return ""
-    lines = ["DUE MENU (expected_target should usually come from here):"]
+    lines = ["DUE MENU (asks take expected_target from here; a gift may ignore it):"]
     for t in menu:
         state = "hinted→cold" if t["production"] == "hinted" else f"{t['recognition']}, cold-pending"
         if t["unseen"]:

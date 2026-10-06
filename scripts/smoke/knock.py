@@ -251,16 +251,25 @@ def s8_variety_and_decay(mk, kr, sb: Path):
     # Andrew: the gift is the default push now, so a format rail would nag every
     # tick). What survives from 07-11 is the vein rule: the rails name what the
     # last gifts spent, and an ask never counts as a gift vein.
+    # 2026-10-06: the rail carries each gift's LINE, not just its label — seven
+    # table-phrase gifts under four vein names read as variety to a label rail.
     gifts = [{"acted": True, "stance": "give", "move": f"lore: word{i}",
+              "body": f"When Athai fusses, drop this: phrase{i}",
               "timestamp": (now - timedelta(hours=10 - i)).isoformat()} for i in range(5)]
     gifts.append({"acted": True, "stance": "ask", "move": "eavesdrop: x",
                   "timestamp": now.isoformat()})
+    gifts.append({"acted": True, "modality": "sort", "move": "Sort tape",
+                  "body": "Sort tape — 20 lines", "timestamp": now.isoformat()})
     room = mk.remaining_room(gifts, now)
-    check("the rails name the recent gift veins, newest last",
-          "lore: word1 · lore: word2 · lore: word3 · lore: word4" in room, room.splitlines()[-1])
-    check("...only the last four, and never an ask",
-          "word0" not in room and "eavesdrop: x" not in room)
-    check("no gifts yet -> no vein line", "gift veins" not in mk.remaining_room([], now))
+    lines = [l.strip() for l in room.splitlines()]
+    check("the rails show the recent gifts' lines, newest last",
+          [l for l in lines if l.startswith("lore: word")] ==
+          [f"lore: word{i} — When Athai fusses, drop this: phrase{i}" for i in range(1, 5)], room)
+    check("...only the last four, never an ask, never a stanceless Sort tape",
+          "word0" not in room and "eavesdrop: x" not in room and "Sort tape" not in room)
+    check("no gifts yet -> no gift line", "Recent gifts" not in mk.remaining_room([], now))
+    check("lore and fun facts are freed from the due menu and the deployable line",
+          "need no DUE MENU" in mk.OUTREACH_MANDATE and "FUN" in mk.OUTREACH_MANDATE)
 
     # THE HOOK IS HIS PROGRESS (2026-09-23): the digest carries what he owns and
     # what he asked, and a Tamil answer ending in "?" is not a question.
