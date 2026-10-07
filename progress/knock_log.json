@@ -8117,5 +8117,23 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-07T15-58.mp3",
     "memo_script": "Andrew, quick piece of history for your next cup of coffee. You know how in every house in Coimbatore, somebody is always shouting across the hall asking where the சாவி is, or telling someone to close the ஜன்னல்?\n\nWe treat சாவி for key and ஜன்னல் for window like they are ancient, pure தமிழ் words. Everybody does. But if you went back five hundred years to Tamil Nadu, nobody would know what you were talking about.\n\nIn the fifteen-hundreds, Portuguese ships landed along the southern coast. They brought over their own iron lockboxes and hinged windows. And of course, their own names for them: chave for key, and janela for window.\n\nOur people took the mechanisms, took the Portuguese words, softened them to fit the tongue, and turned them into சாவி and ஜன்னல். Five centuries later, when மாமா turns the sofa upside down looking for the scooter சாவி, he is literally shouting sixteenth-century Portuguese.\n\nTuck that one away. Next time anyone debates pure தமிழ் at the table, you have the best punchline in the room.",
     "mp3": "published_audio/knocks/knock_2026-10-07T15-58.mp3"
+  },
+  {
+    "date": "2026-10-07",
+    "timestamp": "2026-10-07T21:02:01.454390+00:00",
+    "acted": true,
+    "modality": "audio",
+    "move": "echo: nada root",
+    "rationale": "Andrew has two unanswered asks and no session in 12 days; pull with a zero-friction audio gift echoing his own 'enna nadakkudhu' question into the 'things walk' insight.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-10-08T12:02:01.454390+00:00",
+    "body": "In Tamil, plans don't just happen — they walk. How 'what's going on?' becomes enna nadakkudhu? 🚶",
+    "body_script": "In Tamil, plans don't just happen — they walk. How 'what's going on?' becomes என்ன நடக்குது? 🚶",
+    "expected_target": "",
+    "stance": "give",
+    "target_revealed": true,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-07T21-02.mp3",
+    "memo_script": "You know that phrase you asked about the other day — என்ன நடக்குது? We translate it as 'what's happening?', but listen to the root word sitting right in the middle: நட. To walk.\n\nIn Tamil, things don't just happen — they walk. If Mama calls out from the hall, என்ன நடக்குது அங்கே?, he's asking what's moving, what's going down. If there's a big family function next month, Athai will say அடுத்த மாசம் விசேஷம் நடக்குது. The event is literally walking.\n\nAnd then when Paati gave her verdict on the ice cream trip, what did she say? நடந்து போலாம். Let's go by walking. Same exact root. An event on the move is நடக்குது. Your feet on the move is நடந்து போறோம். In Coimbatore, nothing stands still — everything's just walking.",
+    "mp3": "published_audio/knocks/knock_2026-10-07T21-02.mp3"
   }
 ]

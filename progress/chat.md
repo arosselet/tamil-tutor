@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **11:58 · Anna** 🎧  ·  audio / lore: saavi and jannal
 > Two words you hear every day in Coimbatore that are secretly Portuguese: Saavi and Jannal 🗝️
 
+**17:02 · Anna** 🎧  ·  audio / echo: nada root
+> In Tamil, plans don't just happen — they walk. How 'what's going on?' becomes enna nadakkudhu? 🚶
+
 
 ## Tuesday 2026-10-06
 
