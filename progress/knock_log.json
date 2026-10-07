@@ -8099,5 +8099,23 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-06T17-45.mp3",
     "memo_script": "ஆண்ட்ரூ, ஒரு முக்கியமான விஷயம் சொல்லணும்.\n\nநம்ம வீட்ல பெரியவங்க பேசும்போது... மாமாவும் அத்தையும் தீவிரமா பேசிட்டே இருப்பாங்க. பாட்டி பர்த்டேக்கு யார் வர்றா, என்ன செலவு-னு விவாதம் போகும். திடீர்னு உன் பக்கம் திரும்பி, என்ன சொல்றீங்க-னு கேப்பாங்க பாரு.\n\nஅங்க மாட்டிக்கவே கூடாது டா. உடனே ரொம்ப கூலா, முகத்தை அப்பாவியா வச்சுட்டு சொல்ல வேண்டிய ஒரே மந்திரம்: எனக்கு ஒன்னும் தெரியாது.\n\nதெரியாது-னா தெரியாது. ஒன்னும் தெரியாது-னா சுத்தமா எதுவுமே தெரியாது! எந்த பஞ்சாயத்தும் வேண்டாம், எனக்கு ஒன்னும் தெரியாது-னு சொல்லிட்டு காபிய குடிச்சிட்டே இருக்கணும்.\n\nஅடுத்த தடவை வீட்ல இந்த சீன் நடக்கும்போது ஞாபகம் வச்சுக்கோ: எனக்கு ஒன்னும் தெரியாது.",
     "mp3": "published_audio/knocks/knock_2026-10-06T17-45.mp3"
+  },
+  {
+    "date": "2026-10-07",
+    "timestamp": "2026-10-07T15:58:37.432020+00:00",
+    "acted": true,
+    "modality": "audio",
+    "move": "lore: saavi and jannal",
+    "rationale": "Andrew has been away 12 days; an unearned lore gift on saavi and jannal provides high-delight contact with zero performance pressure.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-10-07T20:28:37.432020+00:00",
+    "body": "Two words you hear every day in Coimbatore that are secretly Portuguese: Saavi and Jannal 🗝️",
+    "body_script": "Two words you hear every day in Coimbatore that are secretly Portuguese: சாவி and ஜன்னல் 🗝️",
+    "expected_target": "",
+    "stance": "give",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-07T15-58.mp3",
+    "memo_script": "Andrew, quick piece of history for your next cup of coffee. You know how in every house in Coimbatore, somebody is always shouting across the hall asking where the சாவி is, or telling someone to close the ஜன்னல்?\n\nWe treat சாவி for key and ஜன்னல் for window like they are ancient, pure தமிழ் words. Everybody does. But if you went back five hundred years to Tamil Nadu, nobody would know what you were talking about.\n\nIn the fifteen-hundreds, Portuguese ships landed along the southern coast. They brought over their own iron lockboxes and hinged windows. And of course, their own names for them: chave for key, and janela for window.\n\nOur people took the mechanisms, took the Portuguese words, softened them to fit the tongue, and turned them into சாவி and ஜன்னல். Five centuries later, when மாமா turns the sofa upside down looking for the scooter சாவி, he is literally shouting sixteenth-century Portuguese.\n\nTuck that one away. Next time anyone debates pure தமிழ் at the table, you have the best punchline in the room.",
+    "mp3": "published_audio/knocks/knock_2026-10-07T15-58.mp3"
   }
 ]

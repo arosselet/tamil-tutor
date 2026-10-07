@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Wednesday 2026-10-07
+
+**11:58 · Anna** 🎧  ·  audio / lore: saavi and jannal
+> Two words you hear every day in Coimbatore that are secretly Portuguese: Saavi and Jannal 🗝️
+
+
 ## Tuesday 2026-10-06
 
 **13:45 · Anna** 🎧  ·  audio / tidbit: enakku onnum theriyaadhu
