@@ -19,8 +19,8 @@ is a template library.
 **The day:** three pages of ~15 words in phonetics. He wrote meanings; Anna graded
 the meaning, revealed, and recorded. 31 of 46 right, 4 half-right.
 **Why it worked:** no preamble and no story owed. It was quick to do, honest (asking
-is not self-marking), and it changed what every later lesson is made of. Sari had
-read `struggled` for eight months.
+is not self-marking), and it changed what every later lesson is made of. The lexicon had
+shown *sari* as `struggled` for eight months.
 **The quality to carry:** the shortest route to the truth about him is a question.
 A day can be small and still be the most useful of the month.
 

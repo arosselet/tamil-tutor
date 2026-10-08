@@ -1,7 +1,7 @@
 # The Learner: Andrew — who he is to this room
 
 > **Read by:** every voice lane (`writer.voice_canon()`, beside persona and dialect), the studio's Director and Architect, and the interactive session (`.claude/skills/anna/SKILL.md` step 1).
-> **Owns:** the standing facts about the learner that no generator may contradict — the one home; `persona.md` and `constitution.md` each carried a copy until 2026-09-25.
+> **Owns:** the standing facts about the learner that no generator may contradict — the one home.
 > **Not his commitments** (`learner_contract.md`, session-only: no voice lane can cue an anchor) and **not live state** (`progress/profile.md`, `progress/learner.json`).
 > **Learner-specific:** replace this file for a different learner.
 

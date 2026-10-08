@@ -27,7 +27,7 @@ protocol/
 ├── constitution.md     Universal law: philosophy, tactical & canonical rules
 ├── exemplars.md        A few contrasting days that worked — the range, never a template;
 │                       read by Anna (daily_session.md) and the Director and Architect
-├── daily_session.md    The comprehension-led session (opening gift, teaching, optional probes, arc)
+├── daily_session.md    The comprehension-led session (the opening, teaching, optional probes, arc)
 ├── diagnosis.md        The healing loop: feedback ledger → dial / prune / propose (periodic, evidence-gated)
 ├── dialect.md          Coimbatore spoken-register rules — top level, NOT studio-only:
 │                       every pass that emits speakable Tamil reads it (knock lane, soak,

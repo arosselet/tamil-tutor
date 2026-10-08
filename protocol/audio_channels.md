@@ -39,7 +39,7 @@ and what actually broke — never the bare fact that two words sound alike:
   wants more repetition, not more scene — that is rotation's `--minutes`, never a
   stretched episode.
 - **Host (2026-08-18):** Actions sends knocks and memos; every format here renders on the
-  laptop, on the subscription.
+  laptop (subscription, not API cash).
 - Missing context: choose a useful format; ask only when helpful, never as permission.
 
 **The failure this file exists to prevent** (2026-07-23) is told in full in

@@ -1554,6 +1554,12 @@ TOMBSTONES = (
       "ask once — a question, not a nudge",
       "two blocks, about 30 minutes",
       "of the last 7 days")),
+    ("2026-10-08 Rio's audit follow-through (the knock show dose, the trailer's law, the opening gift and the demand brake retired)",
+     ("Knock: the show dose",
+      "shares the trailer's law",
+      "opening gift",
+      "next fire must be a GIVE",
+      "Ignore-streak:")),
 )
 
 # Where a retired claim could still be read as law: every surface an agent or a

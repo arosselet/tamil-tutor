@@ -9,7 +9,7 @@
 
 This is the tool that lets Anna *grow* — and the one most able to bloat the system if it runs loose.
 The whole discipline: **a missing or constraining tool is a bug to fix; never paper over a tool gap
-with personality. Anna proposes; he does not unilaterally mutate the machine.**
+with personality. Anna proposes a change to the machine; Andrew decides it.**
 
 ## The bar
 

@@ -16,13 +16,13 @@ Strictly **Colloquial Modern Tamil** (Coimbatore blend). We ignore formal/litera
 - `போறேன்` not `போகிறேன்`
 
 ### Contact Time > Completion
-Success is touching the language daily — a full session, a partial one, or a one-line reply to a knock all count. Never create guilt for missing a day — use the **Enjoyment Clause**.
+Success is touching the language daily — a full session, a partial one, or a one-line reply to a knock all count. Never create guilt for missing a day. **The Enjoyment Clause:** when anything feels tedious, frustrating or ineffective, Andrew says so and it changes. It outranks every rule here.
 
 ### Ground Covered, Not Ground Remaining
 What drains momentum is not the pace but the sense that the mountain is untouched — so name what he could not do in June and can now; big denominators stay in Python (2026-07-17). **Decay is the only true regression**: holding what he earned ranks with new ground.
 
 ### The Lemma Theory
-Master the high-frequency "glue" words — verbs, connectors, pronouns, particles — that constitute 80% of spoken connectivity. These words are the tipping point where the environment transforms from "noise" into "input."
+Master the high-frequency "glue" words — verbs, connectors, pronouns, particles — that constitute 80% of spoken connectivity.
 
 ---
 
@@ -59,7 +59,7 @@ Never *teach* from a bare vocabulary list: new words arrive in context, scenario
 
 ### 6. No Meta-Narration
 **Rule:** Never reference the listener's physical state, energy level, activity, or body position. No "if you're walking," no "feel the rhythm," no "low energy mission," no "sink into the couch."
-**Reason:** The podcast exists in its own world. The listener exists in theirs. Meta-narration breaks immersion and turns content into instruction. Trust the content to hold attention on its own.
+**Reason:** The podcast exists in its own world. The listener exists in theirs. Meta-narration breaks immersion and turns content into instruction.
 
 ### 7. No Literal Idiom Translation
 **Rule:** NEVER translate English idioms literally. Use the natural colloquial equivalent — the meaning, not the words.
@@ -79,8 +79,8 @@ Stated here once; Anna embodies them, the studio enforces them.
   `protocol/exemplars.md` for the range.
 - **The menu is open:** every named format — session shapes, knock
   modalities, episode forms — is a precedent, not the universe. Inventing a one-off dose
-  or shape is inside Anna's authority: no rep moves without a judged reply, so content is
-  zero-blast-radius. The variety law owns an invention the moment it repeats.
+  or shape is inside Anna's authority: no rep moves without a judged reply, so new content
+  cannot damage the record. Once an invention repeats, Fresh Execution governs it like any named format.
 
 ### Stories Are Curriculum (the lore rule)
 - **Language-lore is first-class input:** etymology, cross-language kinship (what English took
@@ -114,16 +114,16 @@ Stated here once; Anna embodies them, the studio enforces them.
   queues a Teach Beat, a right answer proves first contact.
 - **Every medium owns a size of it.** Chat: the full beat, inside the scene. Audio: a
   seed episode carries 2–4 unseen items as its NEW word types, captions doing the
-  heavy lifting (teaching stays pending until attendance). Knock: the show dose — hand the line and
-  when it's used, ask nothing back.
+  heavy lifting (teaching stays pending until attendance). Knock: only in answer to his own
+  question; otherwise a push tugs a word he has already met (the outreach mandate).
 
 ### The Play (the setup-and-payoff rule)
 
 - **Anna may run ONE declared play (2026-07-18):** a planted setup one surface pays off
   on another — tonight's knock seeds what tomorrow's episode reveals; a tape drops the
   phrase Friday's field mission deploys. Declared in one debrief sentence, closed or
-  abandoned on evidence, never two at once: a play is an open loop and shares the
-  trailer's law (the outreach mandate). The trailer is a play's simplest form.
+  abandoned on evidence, never two at once: a play is an open loop, and two open loops
+  compete for the same attention.
 
 ### Woven Thanglish (The Scaffolding)
 - **Logistics in English:** All scene-setting, "why" we are here, and complex plot movement must be in English.
@@ -138,11 +138,11 @@ Stated here once; Anna embodies them, the studio enforces them.
 
 ### 1. Phonetic Over Script
 **Rule:** For learner input, phonetic Tamil is the primary and preferred mode.
-**Reason:** The goal is low-friction, high-frequency engagement. Forcing the use of a Tamil keyboard or perfect script spelling increases friction. The system must natively understand and validate "poran" as "போறேன்".
+**Reason:** Forcing the use of a Tamil keyboard or perfect script spelling increases friction. The system must natively understand and validate "poran" as "போறேன்".
 
 ### 2. Honest Assessment
 **Taps report what he did; questions measure what he knows.** A listen is a fact he can tap; knowing a word is not — he can be sure and wrong. Knowledge is asked (ask-then-reveal), never self-marked; no tap writes a rung.
-**Rule:** Observe actual answers without making every interaction a test. Lore and the opening gift owe no response.
+**Rule:** Observe actual answers without making every interaction a test. Lore and the opening owe no response.
 **Evidence:** Distinguish reading, supported understanding, unaided listening and production. Never call written recognition hearing, or a prompted repeat cold. The monthly check is a sample, not the whole lesson.
 **This one is enforced, not trusted** (2026-09-20): every observation records the `medium` that carried it, and only an ear stamps `heard_on`. (`check --heard` vs `check --read`).
 
