@@ -1,0 +1,34 @@
+{
+  "mission": 95,
+  "register": "embarrassment",
+  "dramatic_ingredient": "character",
+  "episode_form": "vignette",
+  "shape": "transaction",
+  "location_class": "market",
+  "energy": "medium-loud",
+  "intercept_tamil_density": 0.6,
+  "breakdown_tamil_density": 0.0,
+  "fence_size": 124,
+  "unfenced_words": 2,
+  "new_words_landed": {
+    "நாலு": 2,
+    "ஆறு": 2,
+    "ஏழு": 2,
+    "எட்டு": 2
+  },
+  "callbacks_used": {
+    "எவ்ளோ ஆகும்?": 3,
+    "வேணும்": 5,
+    "வேண்டாம்": 3,
+    "ஒன்னும்": 5,
+    "சின்ன": 3
+  },
+  "host_roles": {
+    "Karthi": "overselling_uncle",
+    "Deepa": "price_checker",
+    "Ravi": "want-it-all_kid",
+    "Shopkeeper": "patient_vendor"
+  },
+  "notes": "Dialect fixes made against the Architect draft: (1) Tamil-script-only — 'Mama' appeared four times as a bare English transliteration; fixed to மாமா/மாமாவோட/மாமா கிட்ட, matching the household's own established rendering (rotation_machines, mission10/11/14 all script மாமா in Tamil script, never English). (2) Paati's 'full honorific, always, both directions' household rule was violated twice — Deepa and Karthi both referred to her with bare அவ/சொல்லுவா; fixed to அவங்க/அவங்களுக்கு/சொல்லுவாங்க (third-person respectful plural — distinct from the hard rule's first-person-only restriction on -ங்க, so this is not a violation of it). (3) காசு (money, unfenced) swapped to English 'money' throughout — Noun Shortcut compliant and reinforces Karthi's established code-switching trait; removes an unfenced noun outright. (4) Opening line's ஏதாவது (unfenced) rewritten as 'ஒண்ணு nice-ஆ வேணும்' — removes the unfenced word and banks an extra natural வேணும் landing. (5) Ravi's 'two birthdays today' line dropped ரெண்டு (unfenced number outside the 4/6/7/8 payload) for English 'two', matching the episode's own established pattern of English for round/non-payload numbers (Six hundred, five hundred rupees), and dropped இன்னைக்கு as redundant with context. (6) Dropped two stray சார் address terms (shopkeeper to Karthi) — unneeded for comprehension, kept the unfenced tally clean. (7) என் கிட்ட fused to என்கிட்ட (sandhi). Vocabulary audit: unfenced words settle at 2 — பாட்டி and மாமா, both kinship terms the context answers immediately (same class/precedent as M93's பாட்டி). Pacing: split three 3-sentence Karthi lines (the Six-hundred reaction, the 'yaaru sonna' reaction, the bangles-aside) into same-speaker consecutive lines per the Listenability Gate; max gap between pauses in the Intercept is 7 lines, within the 6-8 minimum. Payload fidelity verified: 'எவ்ளோ ஆகும்?' appears byte-identical 3x (question mark included); வேணும்/வேண்டாம்/ஒன்னும்/சின்ன each survive as the bare stem every time, only carrying sentence-native suffixes (சின்னதா via frame:adverb-aa). No -ங்க added to any first-person verb (இருக்கேன் x3, தெரியும் untouched). Deepa's bare-imperative/no-honorific register toward Karthi ('போறியா?', 'நீ இல்ல') is the household's own written trait for her (content/household.md), not a slip. Register check for the shopkeeper: polite -ங்க throughout (பாருங்க, இருக்கீங்களா), correct for a vendor addressing a customer. No send-back: Karthi and the two kids stay vocally distinct (his oversell tic vs. Deepa's repeated price-question refrain vs. Ravi's want-everything refrain), the venum/venaam contrast lands inside full sentences under load exactly as the brief specifies, fourth wall holds throughout, vignette form carries no Breakdown.",
+  "beat": "Karthi takes Deepa and Ravi shopping for Paati's seventy-fifth birthday on money borrowed from Mama, overselling how fine everything is every time the money comes up, and they come home with one small sweet box and the debt still unmentioned."
+}
