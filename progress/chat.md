@@ -20,6 +20,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! 🔥 · Now hand her a tumbler of water — tell her to drink (respectful).
 
+**17:17 · Andrew** — **COLD**
+> Thanni kuttinga
+
+**Anna ↩**
+> close da, `kudinga` with a soft 'd' — but adding thanni lands clean! · She finishes the tumbler. Ask her if that was enough — 'Enough?'
+
 
 ## Wednesday 2026-10-07
 

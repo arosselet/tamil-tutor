@@ -8175,18 +8175,20 @@
     "thread": "word:உக்காருங்க",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Ukkarunga",
+    "reply": "Thanni kuttinga",
     "reply_verdict": "cold",
     "reply_fired": [
-      "உக்காருங்க"
+      "உக்காருங்க",
+      "தண்ணி",
+      "குடிங்க"
     ],
     "reply_fired_cold": [
       "உக்காருங்க"
     ],
     "reply_fired_capped": [],
-    "reply_line_script": "adhu dhaan! 🔥 · Now hand her a tumbler of water — tell her to drink (respectful).",
-    "reply_line": "adhu dhaan! 🔥 · Now hand her a tumbler of water — tell her to drink (respectful).",
-    "reply_at": "2026-10-08T21:14:23Z",
+    "reply_line_script": "close da, `குடிங்க` with a soft 'd' — but adding தண்ணி lands clean! · She finishes the tumbler. Ask her if that was enough — 'Enough?'",
+    "reply_line": "close da, `kudinga` with a soft 'd' — but adding thanni lands clean! · She finishes the tumbler. Ask her if that was enough — 'Enough?'",
+    "reply_at": "2026-10-08T21:17:48Z",
     "exchanges": [
       {
         "at": "2026-10-08T21:14:23Z",
@@ -8205,10 +8207,27 @@
         "slips": [],
         "spoke": "",
         "scheduled": ""
+      },
+      {
+        "at": "2026-10-08T21:17:48Z",
+        "reply": "Thanni kuttinga",
+        "verdict": "cold",
+        "fired": [
+          "தண்ணி",
+          "குடிங்க"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "close da, `kudinga` with a soft 'd' — but adding thanni lands clean! · She finishes the tumbler. Ask her if that was enough — 'Enough?'",
+        "reply_line_script": "close da, `குடிங்க` with a soft 'd' — but adding தண்ணி lands clean! · She finishes the tumbler. Ask her if that was enough — 'Enough?'",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
       }
     ],
-    "chained": 1,
-    "pinned_target": "குடிங்க",
+    "chained": 2,
+    "pinned_target": "போதுமா",
     "pinned_revealed": false
   }
 ]
