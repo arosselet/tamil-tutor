@@ -22283,5 +22283,17 @@
     "medium": "audio",
     "source": "episode:M95",
     "note": ""
+  },
+  {
+    "id": "6f1ae344d309",
+    "at": "2026-10-08T21:14:23Z",
+    "word": "உக்காருங்க",
+    "channel": "text",
+    "kind": "tested",
+    "axis": "production",
+    "result": "right",
+    "medium": "text",
+    "source": "knock:2026-10-08T21:12:52.582745+00:00",
+    "note": "cold fire"
   }
 ]

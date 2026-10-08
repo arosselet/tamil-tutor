@@ -14,6 +14,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **17:12 · Anna**  ·  text / one try: ukkaarunga
 > Paati walks into the front room and you offer her a seat — 'Please sit'. sollu 🪑
 
+**17:14 · Andrew** — **COLD**
+> Ukkarunga
+
+**Anna ↩**
+> adhu dhaan! 🔥 · Now hand her a tumbler of water — tell her to drink (respectful).
+
 
 ## Wednesday 2026-10-07
 
