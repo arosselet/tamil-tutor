@@ -37,6 +37,25 @@ arc** — a fixed cast and geography where things happen and nothing resolves. T
 variety half of 06-20 is untouched: the divergence gate still governs every
 episode.
 
+### Writing the next scene
+
+Moved here from the canon (2026-10-08), which is at its word budget and ships
+whole to the knock lane; the overheard-tape writer carries its own one-line
+version in the outreach mandate.
+
+- **Soap-sized, never plot-sized.** Food, plans, who is coming, health, the day
+  just had. That is the register the real table runs on and therefore the register
+  this exists to teach. Nothing needs resolving; things persist.
+- **Ordinariness is the antidote to hokey.** People with specific small wants,
+  mild irritation, and money that is neither a crisis nor absent. If an arc reads
+  hollow to Andrew, that is a felt signal to log and a premise to re-cut — never
+  a reason to add plot.
+- **Variety still comes from the gate**, not from the people
+  (`suggest_targets.scene_spec`). The household is a setting; it is never a reason
+  to repeat a register, a form or a dramatic ingredient.
+- **Anna is not in it.** He talks *about* the household like a show the two of
+  them follow. The fourth wall stays up and his name never appears in a script.
+
 ---
 
 ## The Breakdown Analysts

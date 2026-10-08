@@ -109,20 +109,3 @@ Cut early 2026-09-25. Opens in the `down` phase, children near its centre.
 One line each. The detail lives in git.
 
 - **September prelude — The spare key** (09-19 to 09-25). Mama took the scooter; everyone walked for ice cream. Closed early: one prop narrowed everything.
-
----
-
-## Notes for whoever writes the next scene
-
-- **Soap-sized, never plot-sized.** Food, plans, who is coming, health, the day
-  just had. That is the register the real table runs on and therefore the register
-  this exists to teach. Nothing needs resolving; things persist.
-- **Ordinariness is the antidote to hokey.** People with specific small wants,
-  mild irritation, and money that is neither a crisis nor absent. If an arc reads
-  hollow to Andrew, that is a felt signal to log and a premise to re-cut — never
-  a reason to add plot.
-- **Variety still comes from the gate**, not from the people
-  (`suggest_targets.scene_spec`). The household is a setting; it is never a reason
-  to repeat a register, a form or a dramatic ingredient.
-- **Anna is not in it.** He talks *about* the household like a show the two of
-  them follow. The fourth wall stays up and his name never appears in a script.
