@@ -68,7 +68,7 @@ from rails import (MAX_REACHES_PER_DAY, MIN_GAP_HOURS, WAKING_END_HOUR,
                    WAKING_START_HOUR, in_waking_window, last_fire, reaches_today)
 from observations import OBSERVATIONS_PATH
 from state_io import (KNOCK_LOG_PATH, LEARNER_PATH, LEXICON_PATH, LOCAL_TZ,
-                      STANCES, is_fire, is_give, load_json, local_date)
+                      STANCES, is_fire, load_json, local_date)
 
 NEXT_CHECK_CLAMP = (0.5, 24.0)   # Anna's self-set next_check is clamped to this many hours
 
@@ -97,7 +97,7 @@ def rails_gate(force: bool, now: datetime | None = None) -> tuple[bool, str]:
     # this at all": Apple queues exactly one push for an unreachable phone, so a
     # dose fired into a flight overwrites the last one and is destroyed. Skipping
     # here — before the LLM, before anything is logged — is the whole point: no
-    # row is written, so the unanswered stretch can never reach the ignore-streak
+    # row is written, so the unanswered stretch can never reach the unanswered run
     # and be read as fading. Deleting these four lines removes the feature.
     quiet_until = (load_json(LEARNER_PATH) or {}).get("quiet_until") or ""
     if quiet_until and now_local.date() <= date.fromisoformat(quiet_until):
@@ -137,7 +137,7 @@ def rails_gate(force: bool, now: datetime | None = None) -> tuple[bool, str]:
 
 def outcome_memory(klog: list, now: datetime) -> str:
     """The learning substrate: recent reaches with their outcomes, framed around
-    the real reward (did Andrew SHOW UP?), plus the ignore-streak. This is what
+    the real reward (did Andrew SHOW UP?), plus the unanswered run. This is what
     lets Anna adapt instead of repeating a rigid policy."""
     # CONTACT, not session_log (2026-10-08). The session log is written only by
     # an `update` close; it stopped at 09-25 through a 10-03 lesson, a 10-04
@@ -167,7 +167,7 @@ def outcome_memory(klog: list, now: datetime) -> str:
         lines.append(f"    {k.get('date','?')} · {modality}/{move} · "
                      f"asked: {ask} · “{body_head}…” · {detail}")
 
-    # Ignore streak = trailing fires with no tap AND no session since. From
+    # Unanswered run ("ignore-streak" to 2026-10-08) = trailing fires with no tap AND no session since. From
     # 09-29 to 10-08 it counted asks only and booked untapped gifts on a line of
     # their own, because the gift was a default that asked for nothing. Gifts
     # retired 2026-10-08 (every push tugs a thread), so one count is honest
@@ -197,24 +197,12 @@ def outcome_memory(klog: list, now: datetime) -> str:
     return (f"OUTREACH MEMORY (reward = Andrew coming back, NOT taps):\n"
             f"  Last contact: {since}\n"
             f"  Recent reaches (newest last):\n{body}\n"
-            f"  Ignore-streak: {streak} unanswered reaches.{verdict}{ret}")
+            f"  Unanswered run: {streak} unanswered reaches.{verdict}{ret}")
 
 
-def demand_streak(klog: list) -> int:
-    """Trailing consecutive FIRES that wanted something — an ASK (Tamil back now)
-    or a LURE (his attendance later). The variety rule reads this: after 2, the
-    next fire must be a GIVE or silence — Python counts; the mandate owns the
-    rule (policy stays Anna's).
-
-    The reading moved from "carries an expected_target" to `state_io.is_give` on
-    2026-09-05; that docstring holds the evidence and the reason."""
-    n = 0
-    for k in reversed([k for k in klog if is_fire(k)]):
-        if is_give(k):
-            break
-        n += 1
-    return n
-
+# `demand_streak` (2026-09-05 -> 2026-10-08) forced a GIVE after two asks. It
+# retired with the gifts it alternated in: the mandate's "two tugs running with
+# no answer: a different thread, or silence" replaced it, and nothing called it.
 
 EAVESDROP_CADENCE_DAYS = 3  # catch items need an eavesdrop dose at least this often
 
@@ -515,10 +503,10 @@ def normalize_decision(d: dict, volley_menu: list | None = None,
     d["expected_target"] = (d.get("expected_target") or "").strip()
     d["target_revealed"] = bool(d.get("target_revealed", True))
     d["introduces"] = [k for k in (d.get("introduces") or []) if isinstance(k, str) and k.strip()]
-    # AN ABSENCE MUST BE LOUD, and the DIRECTION of the default is the whole
-    # point: "give" would silently reset the demand brake, which is the bug this
-    # field exists to fix, so an unlabelled dose costs Anna a break rather than
-    # buying him a free one. Silence is exempt — it never reaches the streak.
+    # AN ABSENCE MUST BE LOUD. An unlabelled dose is booked as an ASK: "give"
+    # is reserved for answering his own question, the one push that asks
+    # nothing back, and a missing label must never claim it. (Until 2026-10-08
+    # the direction also kept a demand brake honest; the brake retired.)
     if d.get("stance") not in STANCES:
         if d.get("act"):
             print(f"   ⚠ dose declared no stance ({d.get('stance')!r}) — counting it as ASK")
@@ -657,7 +645,7 @@ def log_decision(now: datetime, decision: dict, *, acted: bool,
     if acted:
         entry["body"], entry["body_script"] = decision.get("notification_body"), decision.get("body_script", "")
         entry["expected_target"] = decision.get("expected_target", "")
-        entry["stance"] = decision.get("stance", "ask")   # what it wanted; is_give reads this
+        entry["stance"] = decision.get("stance", "ask")   # what it wanted; the rails read this
         entry["thread"] = decision.get("thread", "")      # what it tugged — the return measure reads this
         entry["target_revealed"] = decision.get("target_revealed", True)
         if decision.get("volley"):

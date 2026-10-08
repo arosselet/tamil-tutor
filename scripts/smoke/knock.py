@@ -234,19 +234,6 @@ def s8_variety_and_decay(mk, kr, sb: Path):
     print("\n8. Variety + decay helpers")
     now = datetime.now(timezone.utc)
 
-    # demand streak counts trailing FIRES that carried an ask; silence skipped
-    klog = [
-        {"acted": True, "expected_target": "x"},
-        {"acted": True, "expected_target": ""},
-        {"acted": True, "expected_target": "y"},
-        {"acted": False, "expected_target": ""},
-        {"acted": True, "expected_target": "z"},
-    ]
-    check("demand_streak counts trailing asks", mk.demand_streak(klog) == 2,
-          str(mk.demand_streak(klog)))
-    check("demand_streak zero after a no-ask fire",
-          mk.demand_streak([{"acted": True, "expected_target": ""}]) == 0)
-
     # RECENT PUSHES (2026-09-23 as gift veins; 2026-10-06 lines not labels;
     # 2026-10-08 every push, since gifts retired): the rails show what the last
     # four pushes SAID, asks included — sameness runs through tugs too.
@@ -2688,65 +2675,22 @@ def s84_a_turn_is_filed_under_the_day_it_happened(mk, sb: Path):
           body.index("koraiyunga") < body.index("SAME-DAY-REPLY"))
 
 
-def s94_a_lure_is_not_a_break(mk, sb: Path):
-    """A trailer does not reset the anti-demand brake (2026-09-05, Andrew: "the
-    pushes need more than just quizzing me and luring me for a lesson… we should
-    be sure it's not always a demand").
+def s94_a_dose_states_its_stance(mk, sb: Path):
+    """An unlabelled dose is booked as an ASK, never a give (2026-09-05; slimmed
+    2026-10-08). The case began as "a lure is not a break": a trailer reset the
+    anti-demand brake, 35 of 37 times. Gifts, lures and the brake retired on
+    10-08; what survives is the direction of the default. "give" now means
+    answering his own question, and a missing label must never claim it, or the
+    log would read a bare tug as the one push that asks nothing back.
 
-    `demand_streak` defined demand as "carries a non-empty expected_target" —
-    i.e. WANTS TAMIL BACK. The trailer carries none by doctrine, because it names
-    a payoff and deliberately withholds it, so every trailer read as relief and
-    reset the counter to zero. Measured over the 30 days before the fix: 35 of
-    the 37 trailers ever sent booked as a break, quiz-or-lure ran ~65% of the
-    channel, and the genuine give rate was 11 of 80. The brake's own escape
-    hatch was the withheld payoff.
-
-    TEETH IN THE DIRECTION THAT FAILS SILENTLY: regressing this reads green
-    everywhere. The brake still fires, doses still send, the log still writes,
-    and no meter moves — the ONLY observable is whether a lure clears the
-    counter. So this asserts the COUNT over a sequence, not that the function
-    ran. The default's DIRECTION is asserted for the same reason: "give" is the
-    one default that would restore the bug in silence, so an unlabelled dose
-    must cost a break rather than buy one.
-    """
-    print("\n94. A lure is not a break — the trailer stops resetting the brake")
-
-    def fire(stance, target=""):
-        return {"acted": True, "modality": "text", "move": "m",
-                "stance": stance, "expected_target": target}
-
-    # ask, ask, trailer — the exact shape the old reading let through: it saw the
-    # trailer's empty expected_target as relief, returned 0, and made a third
-    # straight demand legal.
-    streak = mk.demand_streak([fire("ask", "x"), fire("ask", "y"), fire("lure")])
-    check("a lure does NOT reset the demand streak", streak == 3,
-          f"got {streak} — a withheld payoff was counted as a break")
-
-    # ...and a give must still clear it, or the brake would never release.
-    cleared = mk.demand_streak([fire("ask", "x"), fire("ask", "y"), fire("give")])
-    check("a give DOES reset it", cleared == 0, f"got {cleared}")
-
-    # An eavesdrop that asks for comprehension is an ASK even though its Tamil
-    # was spoken, not demanded — 13 of the 17 on record carry a target.
-    check("a give with no target still reads as relief", mk.is_give(fire("give")))
-    check("an ask with no target is still an ask", not mk.is_give(fire("ask")))
-
-    # ROUND TRIP through the real normaliser, not a hand-built dict: an
-    # unlabelled dose must cost a break, never buy one.
+    ROUND TRIP through the real normaliser, not a hand-built dict."""
+    print("\n94. A dose states its stance — an unlabelled one is an ASK")
     d = mk.normalize_decision({"act": True, "modality": "text", "move": "m"})
     check("an unlabelled dose defaults to ASK", d["stance"] == "ask", repr(d.get("stance")))
-    check("...so it cannot reset the streak", not mk.is_give(d))
     bogus = mk.normalize_decision({"act": True, "modality": "text", "stance": "gift"})
     check("an unknown stance is refused, not trusted", bogus["stance"] == "ask",
           repr(bogus.get("stance")))
-
-    # Rows written before the field must keep counting under the old reading —
-    # a MISSING stance may never be read as "give", which is the bug by another
-    # door. This is what makes the migration safe to land mid-history.
-    check("a pre-field fire with a target still counts as demand",
-          not mk.is_give({"acted": True, "expected_target": "x"}))
-    check("a pre-field fire with no target still reads as relief",
-          mk.is_give({"acted": True, "expected_target": ""}))
+    check("the demand brake is gone with the gifts", not hasattr(mk, "demand_streak"))
 
 
 def s127_asks_earn_replies_gifts_earn_taps(mk, sb: Path):
@@ -2778,13 +2722,13 @@ def s127_asks_earn_replies_gifts_earn_taps(mk, sb: Path):
         # empty, and the verdict sends Anna to the threads, never to candy.
         mem = mk.outcome_memory([gift(3), ask(2), ask(1)], now)
         check("3 unanswered reaches of any stance -> streak 3",
-              "Ignore-streak: 3 unanswered reaches" in mem, mem.splitlines()[-1])
+              "Unanswered run: 3 unanswered reaches" in mem, mem.splitlines()[-1])
         check("...and the verdict fixes the threads, never hands out candy",
               "threads aren't pulling" in mem and "never candy" in mem and "gift next" not in mem, mem)
         tapped = gift(1) | {"response": "listened"}
         mem = mk.outcome_memory([ask(4), ask(3), ask(2), tapped], now)
         check("a tap still breaks the streak",
-              "Ignore-streak: 0 unanswered reaches" in mem, mem.splitlines()[-1])
+              "Unanswered run: 0 unanswered reaches" in mem, mem.splitlines()[-1])
         obs_path = Path(importlib.import_module("observations").OBSERVATIONS_PATH)
         saved_obs = obs_path.read_text(encoding="utf-8") if obs_path.exists() else None
         write_json(obs_path, [])   # no contact since the 30-day-old session
