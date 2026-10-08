@@ -977,5 +977,17 @@
     "note": "reads the no-form as the want-form; onnum heard as onnu (one), so the whole negative inverts",
     "word": "",
     "dose_channel": "episode"
+  },
+  {
+    "at": "2026-10-08T21:19:23Z",
+    "date": "2026-10-08",
+    "lane": "knock",
+    "modality": "text",
+    "tag": "question-aa",
+    "said": "Podhum",
+    "want": "போதுமா",
+    "note": "dropped the question suffix -aa",
+    "word": "",
+    "dose_channel": "episode"
   }
 ]

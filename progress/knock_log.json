@@ -8175,8 +8175,8 @@
     "thread": "word:உக்காருங்க",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Thanni kuttinga",
-    "reply_verdict": "cold",
+    "reply": "Podhum?",
+    "reply_verdict": "miss",
     "reply_fired": [
       "உக்காருங்க",
       "தண்ணி",
@@ -8186,9 +8186,9 @@
       "உக்காருங்க"
     ],
     "reply_fired_capped": [],
-    "reply_line_script": "close da, `குடிங்க` with a soft 'd' — but adding தண்ணி lands clean! · She finishes the tumbler. Ask her if that was enough — 'Enough?'",
-    "reply_line": "close da, `kudinga` with a soft 'd' — but adding thanni lands clean! · She finishes the tumbler. Ask her if that was enough — 'Enough?'",
-    "reply_at": "2026-10-08T21:17:48Z",
+    "reply_line_script": "close da — question-னா add `-aa`: `போதுமா?` Still totally lands.",
+    "reply_line": "close da — question-naa add `-aa`: `podhumaa?` Still totally lands.",
+    "reply_at": "2026-10-08T21:19:23Z",
     "exchanges": [
       {
         "at": "2026-10-08T21:14:23Z",
@@ -8222,6 +8222,22 @@
         "reply_line": "close da, `kudinga` with a soft 'd' — but adding thanni lands clean! · She finishes the tumbler. Ask her if that was enough — 'Enough?'",
         "reply_line_script": "close da, `குடிங்க` with a soft 'd' — but adding தண்ணி lands clean! · She finishes the tumbler. Ask her if that was enough — 'Enough?'",
         "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-10-08T21:19:23Z",
+        "reply": "Podhum?",
+        "verdict": "miss",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "close da — question-naa add `-aa`: `podhumaa?` Still totally lands.",
+        "reply_line_script": "close da — question-னா add `-aa`: `போதுமா?` Still totally lands.",
+        "slips": [
+          "question-aa"
+        ],
         "spoke": "",
         "scheduled": ""
       }

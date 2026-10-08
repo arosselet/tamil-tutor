@@ -26,6 +26,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > close da, `kudinga` with a soft 'd' — but adding thanni lands clean! · She finishes the tumbler. Ask her if that was enough — 'Enough?'
 
+**17:19 · Andrew** — **MISS**
+> Podhum?
+
+**Anna ↩**
+> close da — question-naa add `-aa`: `podhumaa?` Still totally lands.
+
 
 ## Wednesday 2026-10-07
 
