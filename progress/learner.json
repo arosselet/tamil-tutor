@@ -5,21 +5,18 @@
   "last_debrief": "STORY SO FAR: Thu 10-08 light start, chat, written. Gift: thambi lore (any younger man - chai boy, auto driver; rank plus affection; anna hands the elder seat; Andrew is the thambi at this table); thambi named as his. Tug on veliya poren: he answered unprompted that oola/ulla and veliya are cold (inside/outside), veliya poren = go outside. Credited as unaided page recognition (check --session --read); poren person not stated (I'm going), worth a light nudge, not a slip. ulla closed as a romanization issue, not meaning. Offered: what Karthi has been up to since the ice cream (Karthi owes Mama money, scooter still with Mama). Earlier, Wed 09-23 to Fri 09-25: mudi lore (mudinjuchu/mudiyum/mudiyala); Spare Key vignette - Priya back from bus errand, Paati: scooter venaam, nadandhu polaam; taught avanga enna sonnaanga, nada root (nadakkudhu/nadandhuchu/nadandhu), venum/venaam contrast after he read scooter venaam as wanting it; changed example right but supported. NEXT: resurface venaam vs venum unannounced in a fresh sentence, ideally by ear, before crediting. Ear cue: M94 One More Bus? carries poga mudiyala/polaam/inga irukken; attendance not reported. CARRY: 09-22 poga mudiyala/polaam/irukken written supported; polaamaa hinted. 09-21 kitta irukku and aana supported written only. 09-20 written monthly check partial, sample 793edf2e131d3231: kaalaila wrong, raathiri partial, konjam thanni kudunga right, anuppunga right, paathen right isolated, ulla now right (10-08). Remaining sample: freeya vidunga; anna; adhanaala dhaan; azhaippen; avasaramaa veliya ponen; autokku poganum; aana; enakku onnum theriyaadhu; kavalai; kaaram paravaayilla pazhakkamaayiduchu; kilambu; kelvipattiya; kovam; sari; sariyayidum; naama; nee; piragu paakkalaam; petti; podu; povom; munnadiye; vendaanga; velai. Receptive check still never run by ear. Live slips: past-tense, nga-has-no-address, noun-for-verb, respect-nga, come-go-direction, default-la-tail, literary-twin. VAA stays out of chat production until unannounced ambush. Phone pushes 10-04..10-07 unanswered (silence is not a verdict). No field op, no new audio commission.",
   "soak_order": {
     "payload": [
-      "வேணும்",
-      "வேணாம்"
+      "எவ்ளோ ஆகும்?",
+      "ஒன்னும்",
+      "வேண்டாம்"
     ],
-    "scene_seed": "Paati's 75th: the kids ask Paati what she wants - cake, payasam, a new saree, visitors - and she answers venum or venaam",
+    "scene_seed": "Paati's 75th: Karthi takes Deepa and Ravi to a shop on Trichy Road to buy Paati's secret present with five hundred rupees that is really Mama's. Deepa asks the price of everything, Ravi wants everything, and Paati has told everyone she wants nothing.",
     "from": "2026-10-08",
-    "focus": "the ear contrast venum vs venaam: same root, short -um wants, long -aam refuses; each pair heard back to back in short table lines, then the chunk alone; onnum venaam as the refusal of everything. Andrew named the vowel himself - this is ear repair, not production.",
-    "channel": "soak",
+    "focus": "A lunch-length, enjoyable self-contained scene in the down room: the children ask prices (evlo aagum?), weigh what Paati wants against what she says (onnum venaam - she wants nothing - versus what she secretly would love), and Karthi improvises with money that is not his. Revisit venum/venaam in whole sentences under load (the ear soak carries the bare contrast). Introduce only what the scene needs; English scaffolding carries meaning. Requested by Andrew for lunch listening.",
+    "channel": "episode",
     "attempted": {
       "at": "2026-09-22",
       "episode": "94",
       "unclaimed": []
-    },
-    "delivered": {
-      "channel": "soak",
-      "at": "2026-10-08"
     }
   },
   "next_engine": "frame:polite-nga",
