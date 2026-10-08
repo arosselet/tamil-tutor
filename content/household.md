@@ -11,8 +11,8 @@ the arc premise at the month cut, and the studio's Producer pass appends one bea
 line per rendered episode. Andrew overrides anything, any time.
 
 **Budget: 1,200 words** (`scripts/smoke/ratchets.py`). Canon that outgrows it is
-compressed at the month boundary — this arc's beat log collapses to its one-line
-past-arc entry. The number is never raised to fit more lore.
+compressed at the month boundary: the beat log collapses to one past-arc line.
+The number is never raised to fit more lore.
 
 ---
 
@@ -39,7 +39,7 @@ conductor, the vegetable seller, a wrong number — and are never canon.
 Map block; the same person must sound like the same person across months, because
 ear-training tracks a speaker before it tracks a word.
 
-**Every name carries its Tamil spelling**, and that is mechanism, not decoration: an eavesdrop tape must name who it is about in its opening or it is refused (`morning_knock.tape_names_a_referent`), and the tape is Tamil script, so a cast whose names existed only in English would have its tapes silently rejected.
+**Every name carries its Tamil spelling** — mechanism, not decoration: a tape that does not name who it is about in its opening is refused (`morning_knock.tape_names_a_referent`), and tapes are Tamil script, so English-only names would be silently rejected.
 
 | Person | Relation | Age | What they're for | Voice |
 |---|---|---|---|---|
@@ -58,10 +58,8 @@ those rooms get heard instead of explained. Deepa and Ravi are not garnish: they
 are the first room, because a nine-year-old tolerates error completely and cannot
 switch to English to be kind.
 
-**Athai carries the pinned eavesdrop voice** (`language.EAVESDROP_VOICE`). Nothing
-depends on that yet — eavesdrop tapes set inside the household are a later
-increment — but when that lands, the overheard aunty is already this aunty and no
-voice has to change.
+**Athai carries the pinned eavesdrop voice** (`language.EAVESDROP_VOICE`): the
+overheard aunty on every tape is this aunty.
 
 ---
 
