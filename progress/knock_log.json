@@ -8157,5 +8157,21 @@
     "response": "ack",
     "response_at": "2026-10-08T16:23:57Z",
     "payoff_tries": 1
+  },
+  {
+    "date": "2026-10-08",
+    "timestamp": "2026-10-08T21:12:52.582745+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "one try: ukkaarunga",
+    "rationale": "One-try probe on ukkaarunga thread to test elder honorific production cleanly after the afternoon eavesdrop.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-10-09T12:12:52.582745+00:00",
+    "body": "Paati walks into the front room and you offer her a seat — 'Please sit'. sollu 🪑",
+    "body_script": "Paati walks into the front room and you offer her a seat — 'Please sit'. சொல்லு 🪑",
+    "expected_target": "உக்காருங்க",
+    "stance": "ask",
+    "thread": "word:உக்காருங்க",
+    "target_revealed": false
   }
 ]
