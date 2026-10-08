@@ -22,7 +22,7 @@ from datetime import date, datetime, timedelta
 import audio_titles
 from slips import format_slip_block, slip_patterns
 from state_io import (BASE, EPISODES_PATH, FEEDBACK_LOG_PATH, KNOCK_LOG_PATH,
-                      LEARNER_PATH, LEXICON_PATH, LOCAL_TZ, SESSION_LOG_PATH,
+                      LEARNER_PATH, LEXICON_PATH, LOCAL_TZ,
                       load_json, local_today)
 from state_io import canon_payload, is_unseen, soak_pending, split_payload
 from sync_state import (RECOGNITION_LEVELS, compute_ear, compute_engines,
@@ -240,12 +240,13 @@ def cmd_status(_args):
                  if lapsed else " (in transit — silence here is not a fade)"))
     # No streak theatre — the honest signal is recency (a scoreboard that lies
     # teaches the player to ignore all the meters).
-    slog = load_json(SESSION_LOG_PATH) or []
-    last = slog[-1].get("date") if slog else None
-    gap = (local_today() - date.fromisoformat(last)).days if last else None
-    if last:
-        gap_str = "today" if not gap else f"{gap} day{'s' if gap != 1 else ''} ago"
-        print(f"Last logged session: {last} ({gap_str})")
+    # 2026-10-08: CONTACT, not the session log, and a date, never "N days ago" —
+    # the log stopped at 09-25 through two weeks of contact, and a gap count is
+    # the number of days he skipped (`threads.contact_days`, shared with `open`).
+    import threads
+    last = threads.last_contact(threads.contact_days(
+        load_json(KNOCK_LOG_PATH) or [], load_json(threads.OBSERVATIONS_PATH) or []))
+    print(f"Last here: {last or 'never'}")
     print(f"Status: {compute_status()}")  # live — the stored learner.json copy goes stale between updates
     print(f"Story so far: {learner.get('last_debrief', '')}")
     next_engine = learner.get("next_engine", "")
@@ -450,15 +451,15 @@ def cmd_status(_args):
                 print("    ENGINEERING NUMBER — steers what Python picks; never narrated to Andrew "
                       "(a global deficit recited in a warm voice is guilt machinery, 2026-07-17).")
         print(f"Fired today: {fires_today()}")
-        # THE EAR BLOCK, made visible (2026-09-10). The contract asks for one habit
-        # and promises "whether it happened is visible"; nothing recorded it. A
-        # rating is the one proof a dose was heard, so rating days are ear-block
-        # days. Cue and meter only — no streak, no deficit narrated (his call).
-        week = (local_today() - timedelta(days=6)).isoformat()
-        heard = {e["date"] for e in load_json(FEEDBACK_LOG_PATH) or []
-                 if e.get("date", "") >= week and "[audio rating]" in e.get("note", "")}
-        print(f"Ear block: rated on {len(heard)} of the last 7 days"
-              + ("" if heard else " — cue it at the second anchor; a rating is how it is seen"))
+        # THE EAR BLOCK, as an open door (2026-10-08, Andrew with Rio). From 09-10
+        # this printed a seven-day tally of rated days and told Anna to cue it —
+        # a count of the days he didn't come, one sentence from his ear. The
+        # habit stays the one standing invitation; what Anna needs is the last
+        # time he walked through it, never the misses. A rating is a listen.
+        rated = [e["date"] for e in load_json(FEEDBACK_LOG_PATH) or []
+                 if "[audio rating]" in e.get("note", "")]
+        print(f"Ear block: last played {max(rated) if rated else 'not yet'} "
+              f"— the door is open; never mention a day it wasn't used")
         # THE DOSE, AS MINUTES HE PLAYED (2026-09-13). The ear-block line counts
         # DAYS and cannot tell one tap on a 3-minute payoff from a 15-minute
         # rotation tape heard twice. Anna reads this as a floor for what to

@@ -55,7 +55,7 @@ Everything else is the day's **shape** — vary it against the last session. The
 
 Moves any shape may reach for, never as a menu: **mask-work**, the **eavesdrop drill**, the **lore tangent** (`persona.md`), **script-reading** (decode a short snippet together) and **zinger-crafting** (one deployable line, polite + cheeky).
 
-**The sweep** (most sessions, after the opening or first if he asks): words from `render_sort.py --plan-only --size 50` in phonetics, 50 a page until the untested backlog clears, then ~15. A sensor, not a collect (`learner_contract.md`). He writes meanings; Anna grades, reveals, records `check --read`; a miss is a Teach Beat. Range: `protocol/exemplars.md`.
+**The sweep — words he might already own** (offered most sessions, after the opening): words from `render_sort.py --plan-only --size 50` in phonetics, 50 a page until the untested backlog clears, then ~15. A sensor, not a collect (`learner_contract.md`). He writes meanings; Anna grades, reveals, records `check --read`; a miss is a Teach Beat. Range: `protocol/exemplars.md`.
 
 ## Close & Log
 

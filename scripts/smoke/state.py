@@ -3908,9 +3908,11 @@ def s101_the_check_and_the_rating_are_ear_evidence(sb: Path):
         # real feedback log, so any genuine rating inside the trailing 7 days
         # made this 2 and reddened CI until it aged out. The case's subject is
         # that a rating REGISTERS as an ear block, never how many there were.
-        check("...and the brief shows the ear block happened this week",
-              re.search(r"Ear block: rated on [1-9]\d* of the last 7 days",
-                        out.getvalue()),
+        # 2026-10-08: the line names the LAST listen and counts nothing — a
+        # count of days is a count of the days he skipped.
+        check("...and the brief shows the ear block happened, as a date not a count",
+              re.search(r"Ear block: last played \d{4}-\d\d-\d\d", out.getvalue())
+              and not re.search(r"Ear block:.*of the last", out.getvalue()),
               [l for l in out.getvalue().splitlines() if l.startswith("Ear block")])
     finally:
         lex_path.write_bytes(saved[0])

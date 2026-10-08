@@ -1548,6 +1548,12 @@ TOMBSTONES = (
     ("2026-10-08 Every push tugs a live thread (gifts, THE BALANCE and the fun-fact vein retired)",
      ("at least one ASK and at least one GIFT",
       "a FUN FACT, one surprising")),
+    ("2026-10-08 Skipping is never mentioned (the week-quiet ask, streak teeth, the fixed daily deal and the ear-block day count retired)",
+     ("Anna asks when a week goes quiet",
+      "teeth for the streaks",
+      "ask once — a question, not a nudge",
+      "two blocks, about 30 minutes",
+      "of the last 7 days")),
 )
 
 # Where a retired claim could still be read as law: every surface an agent or a
