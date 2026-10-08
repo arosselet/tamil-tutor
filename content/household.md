@@ -102,7 +102,7 @@ Cut early 2026-09-25. Opens in the `down` phase, children near its centre.
 > One line per rendered episode, appended by the Producer pass after render,
 > saying what happened. This is the continuity — callbacks are read from here.
 
-*(empty)*
+- 2026-10-08 · M95 — Karthi takes Deepa and Ravi shopping for Paati's seventy-fifth birthday on money borrowed from Mama, overselling how fine everything is every time the money comes up, and they come home with one small sweet box and the debt still unmentioned.
 
 ---
 

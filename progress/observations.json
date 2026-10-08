@@ -22175,5 +22175,113 @@
     "medium": "audio",
     "source": "knock:2026-10-08T16:00:34.819074+00:00",
     "note": ""
+  },
+  {
+    "id": "477f44032983",
+    "at": "2026-10-08T16:05:44Z",
+    "word": "நாலு",
+    "channel": "episode",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "episode:M95",
+    "note": ""
+  },
+  {
+    "id": "b4d08f905fb2",
+    "at": "2026-10-08T16:05:44Z",
+    "word": "ஆறு",
+    "channel": "episode",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "episode:M95",
+    "note": ""
+  },
+  {
+    "id": "ca41fa16ad90",
+    "at": "2026-10-08T16:05:44Z",
+    "word": "ஏழு",
+    "channel": "episode",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "episode:M95",
+    "note": ""
+  },
+  {
+    "id": "2c51bee24a9a",
+    "at": "2026-10-08T16:05:44Z",
+    "word": "எட்டு",
+    "channel": "episode",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "episode:M95",
+    "note": ""
+  },
+  {
+    "id": "8530cb3c1203",
+    "at": "2026-10-08T16:05:44Z",
+    "word": "எவ்ளோ ஆகும்?",
+    "channel": "episode",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "episode:M95",
+    "note": ""
+  },
+  {
+    "id": "0e19f45169e3",
+    "at": "2026-10-08T16:05:44Z",
+    "word": "வேணும்",
+    "channel": "episode",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "episode:M95",
+    "note": ""
+  },
+  {
+    "id": "0b3031b6073a",
+    "at": "2026-10-08T16:05:44Z",
+    "word": "வேண்டாம்",
+    "channel": "episode",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "episode:M95",
+    "note": ""
+  },
+  {
+    "id": "749020947961",
+    "at": "2026-10-08T16:05:44Z",
+    "word": "ஒன்னும்",
+    "channel": "episode",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "episode:M95",
+    "note": ""
+  },
+  {
+    "id": "f72ffba345dd",
+    "at": "2026-10-08T16:05:44Z",
+    "word": "சின்ன",
+    "channel": "episode",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "episode:M95",
+    "note": ""
   }
 ]
