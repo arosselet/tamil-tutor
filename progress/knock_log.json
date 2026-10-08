@@ -8135,5 +8135,24 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-07T21-02.mp3",
     "memo_script": "You know that phrase you asked about the other day — என்ன நடக்குது? We translate it as 'what's happening?', but listen to the root word sitting right in the middle: நட. To walk.\n\nIn Tamil, things don't just happen — they walk. If Mama calls out from the hall, என்ன நடக்குது அங்கே?, he's asking what's moving, what's going down. If there's a big family function next month, Athai will say அடுத்த மாசம் விசேஷம் நடக்குது. The event is literally walking.\n\nAnd then when Paati gave her verdict on the ice cream trip, what did she say? நடந்து போலாம். Let's go by walking. Same exact root. An event on the move is நடக்குது. Your feet on the move is நடந்து போறோம். In Coimbatore, nothing stands still — everything's just walking.",
     "mp3": "published_audio/knocks/knock_2026-10-07T21-02.mp3"
+  },
+  {
+    "date": "2026-10-08",
+    "timestamp": "2026-10-08T16:00:34.819074+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "eavesdrop: youknow-la",
+    "rationale": "Eavesdrop cadence hit 3d; weaving gossip opener youknow-la into Athai's phone call about Karthi's secret errand.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-10-08T20:30:34.819074+00:00",
+    "body": "Athai's on the phone whispering about Karthi — catch who she brings up right at the start 🎧",
+    "body_script": "Athai's on the phone whispering about Karthi — catch who she brings up right at the start 🎧",
+    "expected_target": "frame:youknow-la",
+    "stance": "ask",
+    "thread": "arc",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-08T16-00.mp3",
+    "memo_script": "ஆமாங்க, நம்ம கார்த்தி இருக்கான்ல… அவன் காலையிலயே கிளம்பிட்டான்.\n\nஅந்த அஞ்சுநூறு ரூபாயை வச்சுட்டு ஏதோ பண்றேன்னு போயிருக்கான். என்கிட்ட ஒன்னும் சொல்லல பாருங்க!\n\nமாமாகிட்ட கேட்டா அவரு சத்தம் போடுவாருன்னு தெரியாதா? அதான் சும்மா விட்டுட்டேன். பாட்டி பிறந்தநாளுக்கு என்னவோ ரகசியமா பண்றாங்க.\n\nசரி சரி, நீங்க கிளம்பிட்டீங்களா? அப்புறம் பேசுங்க, நான் சமையல் பாக்கணும்.",
+    "mp3": "published_audio/knocks/knock_2026-10-08T16-00.mp3"
   }
 ]

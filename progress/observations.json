@@ -22163,5 +22163,17 @@
     "medium": "audio",
     "source": "soak_2026-10-08_1137",
     "note": ""
+  },
+  {
+    "id": "05debe00069f",
+    "at": "2026-10-08T16:00:56Z",
+    "word": "frame:youknow-la",
+    "channel": "eavesdrop",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "knock:2026-10-08T16:00:34.819074+00:00",
+    "note": ""
   }
 ]

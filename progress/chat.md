@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Thursday 2026-10-08
+
+**12:00 · Anna** 🎧  ·  eavesdrop / eavesdrop: youknow-la
+> Athai's on the phone whispering about Karthi — catch who she brings up right at the start 🎧
+
+
 ## Wednesday 2026-10-07
 
 **11:58 · Anna** 🎧  ·  audio / lore: saavi and jannal
