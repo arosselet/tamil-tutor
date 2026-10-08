@@ -22115,5 +22115,29 @@
     "medium": "text",
     "source": "chat 2026-10-08 opening tug: veliya poren",
     "note": "Unprompted: 'oola and veliya is actually cold. inside & outside. Veliya poren means go outside.' Written phonetic, no hint; gloss of poren as 'go' not 'I'm going' (person not stated)."
+  },
+  {
+    "id": "1470b09dafb9",
+    "at": "2026-10-08T15:32:08Z",
+    "word": "வேண்டாம்",
+    "channel": "session",
+    "kind": "tested",
+    "axis": "recognition",
+    "result": "wrong",
+    "medium": "text",
+    "source": "chat 2026-10-08 Paati 75 front-room scene (text)",
+    "note": "Read 'Paati: Enakku onnum venaam' as 'I want one' - venaam flipped to want (2nd time after 09-25 scooter venaam), onnum read as onnu 'one'. Same scene: 'Mama kitta kekkaren' understood unaided as Karthi is going to ask Mama (right). Corrected evvalavu -> evlo as the spoken form, says evlo is cold in his mouth (self-report, not logged as production)."
+  },
+  {
+    "id": "1160fa931b92",
+    "at": "2026-10-08T15:32:08Z",
+    "word": "ஒன்னும்",
+    "channel": "session",
+    "kind": "tested",
+    "axis": "recognition",
+    "result": "wrong",
+    "medium": "text",
+    "source": "chat 2026-10-08 Paati 75 front-room scene (text)",
+    "note": "Read 'Paati: Enakku onnum venaam' as 'I want one' - venaam flipped to want (2nd time after 09-25 scooter venaam), onnum read as onnu 'one'. Same scene: 'Mama kitta kekkaren' understood unaided as Karthi is going to ask Mama (right). Corrected evvalavu -> evlo as the spoken form, says evlo is cold in his mouth (self-report, not logged as production)."
   }
 ]

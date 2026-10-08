@@ -356,7 +356,7 @@
   },
   "வேண்டாம்": {
     "gloss": "I don't want",
-    "recognition": "comfortable",
+    "recognition": "struggled",
     "production": "cold",
     "seen_in": [
       10,
@@ -366,8 +366,8 @@
       65,
       72
     ],
-    "last_surfaced": "2026-10-04",
-    "reps": 3,
+    "last_surfaced": "2026-10-08",
+    "reps": 4,
     "taught_on": "2026-02-25",
     "heard_on": null
   },
@@ -4844,11 +4844,13 @@
   },
   "ஒன்னும்": {
     "gloss": "anything / nothing at all (ஒண்ணு + -உம், \"even one\") — the volume knob on any -ல negative",
-    "recognition": "untested",
+    "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-08-30",
-    "exposures": 1
+    "last_surfaced": "2026-10-08",
+    "exposures": 1,
+    "heard_on": null,
+    "reps": 1
   },
   "சாப்படல": {
     "gloss": "he/I did not eat — சாப்பிடு + -ல",

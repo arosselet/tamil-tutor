@@ -965,5 +965,17 @@
     "note": "read the negative ending as its positive twin in a longer sentence",
     "word": "",
     "dose_channel": "episode"
+  },
+  {
+    "at": "2026-10-08T15:32:09Z",
+    "date": "2026-10-08",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "venaam-flip",
+    "said": "I want one",
+    "want": "enakku onnum venaam = I don't want anything",
+    "note": "reads the no-form as the want-form; onnum heard as onnu (one), so the whole negative inverts",
+    "word": "",
+    "dose_channel": "episode"
   }
 ]
