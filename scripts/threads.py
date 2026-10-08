@@ -35,7 +35,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from lexicon_view import derive
 from observations import OBSERVATIONS_PATH, WATCHED
 from slips import canon_tag, slip_closes
-from state_io import LEXICON_PATH, SLIP_LOG_PATH, load_json, local_date
+from state_io import LEXICON_PATH, SESSION_LOG_PATH, SLIP_LOG_PATH, load_json, local_date
 
 # A thread is LIVE while a watched test touched it this recently. Three weeks is
 # the gap a busy stretch can open without the thread going cold; past it, "almost
@@ -183,6 +183,98 @@ def block(klog: list, now: datetime, *, arc: bool) -> str:
         lines.append("  Just became his (name it if it fits — never test it again to prove it):")
         lines += [f"    {t['word']} — {t['gloss'][:60]} (on {t['on']})" for t in won]
     return "\n".join(lines)
+
+
+# ── Did he come back? (the return measure, 2026-10-08) ─────────────────────
+#
+# Rio: "stop measuring push reply rate and start measuring thread return rate —
+# the question isn't 'did he answer the push' but 'did he come back tomorrow'."
+# Before this, "showing up" meant one thing: a `sync_state update` row in
+# session_log.json. That file stopped at 09-25 while he sat a lesson on 10-03 and
+# a sweep on 10-04, so the outreach memory read two weeks of contact as absence.
+#
+# CONTACT IS A FACT ABOUT ANDREW, never about the machine: a reply or a tap on a
+# push, a press of play (`attended`), an answer he gave (a watched `tested`), or a
+# closed session. A delivery, a render or a taught row is the system's act, not
+# his. Derived on every read — no new store. A session that teaches and logs
+# nothing is still invisible; that is the light session start's job to close.
+#
+# THESE NUMBERS STEER ANNA AND ARE NEVER SAID TO HIM. Counted at him, "came back"
+# is a streak.
+
+BACK_DAYS = 2      # "did he come back tomorrow" — a tug at 21:00 earns the next day
+TOUCH_DAYS = 7     # the tugged word turned up again in anything he answered or played
+
+
+def contact_days(klog: list, events: list, slog: list | None = None) -> dict[str, set]:
+    """local day -> the kinds of contact he made that day."""
+    days: dict[str, set] = {}
+    def add(at, what):
+        d = local_date(at or "")
+        if d:
+            days.setdefault(d.isoformat(), set()).add(what)
+    for e in events:
+        if e.get("channel") in WATCHED and e.get("kind") in ("attended", "tested"):
+            add(e.get("at"), "played" if e["kind"] == "attended" else f"answered ({e['channel']})")
+    for k in klog:
+        add(k.get("reply_at"), "replied")
+        add(k.get("response_at"), "tapped")
+        for x in k.get("exchanges") or []:
+            add(x.get("at"), "replied")
+    for s in slog if slog is not None else (load_json(SESSION_LOG_PATH) or []):
+        if s.get("date"):
+            days.setdefault(s["date"], set()).add("session")
+    return days
+
+
+def last_contact(days: dict) -> str | None:
+    return max(days) if days else None
+
+
+def returns(klog: list, events: list, now: datetime, days_back: int = 14,
+            contact: dict | None = None) -> dict:
+    """Over the tugs of the last `days_back` days that named a thread: how many
+    he answered, how many were followed by contact within BACK_DAYS, and — for
+    word threads — how many saw that word again in his own activity within
+    TOUCH_DAYS. Tugs too young to have had their window are left out, never
+    counted as misses."""
+    contact = contact_days(klog, events) if contact is None else contact
+    since = (now - timedelta(days=days_back)).isoformat()
+    out = {"tugs": 0, "answered": 0, "came_back": 0, "word_tugs": 0, "touched": 0}
+    for k in klog:
+        at, thread = k.get("timestamp") or "", k.get("thread") or ""
+        if not (k.get("acted") and thread and at >= since):
+            continue
+        sent = datetime.fromisoformat(at)
+        if now - sent < timedelta(days=BACK_DAYS):
+            continue
+        answered = bool(k.get("reply") or k.get("response"))
+        day = local_date(at)
+        later = {(day + timedelta(days=i)).isoformat() for i in range(1, BACK_DAYS + 1)}
+        out["tugs"] += 1
+        out["answered"] += answered
+        out["came_back"] += answered or any(contact.get(d) for d in later)
+        if thread.startswith("word:") and now - sent >= timedelta(days=TOUCH_DAYS):
+            word, t0 = thread[5:], sent.timestamp()
+            out["word_tugs"] += 1
+            out["touched"] += any(e.get("word") == word and e.get("channel") in WATCHED
+                                  and e.get("kind") in ("attended", "tested")
+                                  and t0 < _ts(e.get("at")) <= t0 + TOUCH_DAYS * 86400
+                                  for e in events)
+    return out
+
+
+def return_line(klog: list, events: list, now: datetime, contact: dict) -> str:
+    """The outreach memory's line. Only thread-tagged tugs count, so it starts
+    empty and says so rather than reading as zero."""
+    r = returns(klog, events, now, contact=contact)
+    if not r["tugs"]:
+        return "\n  Return measure: no thread-tagged tug old enough to judge yet."
+    word = (f" · the tugged word turned up again in his own activity within {TOUCH_DAYS}d: "
+            f"{r['touched']} of {r['word_tugs']}" if r["word_tugs"] else "")
+    return (f"\n  Tugs that named a thread (14d, old enough to judge): {r['tugs']} · answered "
+            f"{r['answered']} · he came back within {BACK_DAYS}d after {r['came_back']}{word}. "
+            "Steer by it; never say it to him.")
 
 
 def main():

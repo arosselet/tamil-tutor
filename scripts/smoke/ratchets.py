@@ -207,7 +207,10 @@ CODE_BUDGETS = {
     "scripts/lexicon_view.py": 180,
     # NEW FILE, budgeted in the diff that creates it (2026-10-08, Andrew with Rio):
     # the threads view. Takes `progress_block` and `last_fired_on` out of the knock lane.
-    "scripts/threads.py": 140,
+    # 140 -> 195 (same day, step 3): the return measure — contact_days, returns,
+    # return_line. Retires session_log as the outreach memory's only sign of him
+    # (it stopped at 09-25 through two weeks of contact) and the ask/gift streak split.
+    "scripts/threads.py": 195,
     "scripts/generate_callbacks.py": 100,
     # 775 -> 785 (2026-08-02) for the thread-continuity window. · 570 -> 610 (2026-08-27): the reply lane gained a voice rail — the AUDIO_RE detector, ensure_voice's one-forced-re-ask backstop, and a shared speak() body. · 610 -> 560 (2026-08-28): re-censused DOWN. · 560 -> 563 (2026-09-05).
     "scripts/knock_reply.py": 563,

@@ -324,6 +324,35 @@ def s8_variety_and_decay(mk, kr, sb: Path):
     check("live ids carry words, questions and the arc",
           {"word:hint", "word:turned", qs[0]["id"], "arc"} == set(ids), str(ids))
 
+    # CONTACT IS A FACT ABOUT ANDREW (2026-10-08). session_log stopped at 09-25
+    # through a lesson, a sweep and replies; the memory read that as absence.
+    day = lambda d: str(fx.si.local_date(ago(d)))
+    machine = [ev("x", 5, kind="taught", axis=None, res=None, ch="audio"),
+               ev("x", 5, kind="exposed", axis=None, res=None, ch="rotation")]
+    his = [ev("x", 4, kind="attended", axis=None, res=None, ch="rotation"),
+           ev("x", 3, axis="recognition", ch="check")]
+    c = th.contact_days([{"reply_at": ago(6)}], machine + his, slog=[{"date": "2026-01-02"}])
+    check("contact counts plays, answers, replies and closed sessions",
+          {day(4), day(3), day(6), "2026-01-02"} <= set(c), str(sorted(c)))
+    check("...and never a render, a delivery or a taught row", day(5) not in c, str(sorted(c)))
+
+    # THE RETURN MEASURE: came back, not answered — and a young tug is not a miss.
+    tug = lambda d, t, **kw: {"acted": True, "timestamp": ago(d), "thread": t, **kw}
+    klog = [tug(3, "word:hint"), tug(1, "word:hint"), tug(10, "word:turned"),
+            {"acted": True, "timestamp": ago(3), "move": "untagged gift"}]
+    contact = {day(2): {"replied"}}
+    r = th.returns(klog, [ev("turned", 5, axis="recognition")], now, contact=contact)
+    check("returns counts only thread-tagged tugs old enough to judge",
+          r["tugs"] == 2, str(r))
+    check("...a tug followed by contact next day came back though unanswered",
+          r["came_back"] == 1 and r["answered"] == 0, str(r))
+    check("...and a word tug whose word turned up again within a week is touched",
+          r["word_tugs"] == 1 and r["touched"] == 1, str(r))
+    late = th.returns(klog, [ev("turned", 1, axis="recognition")], now, contact=contact)
+    check("...but not when it turned up only after the week", late["touched"] == 0, str(late))
+    check("no tagged tugs -> the line says so instead of reading zero",
+          "no thread-tagged tug" in th.return_line([], [], now, {}))
+
     # lock-screen body budget
     check("over_budget flags a long body",
           mk.over_budget("x" * 200) and not mk.over_budget("x" * 100))
@@ -2718,7 +2747,7 @@ def s127_asks_earn_replies_gifts_earn_taps(mk, sb: Path):
     print("\n127. Asks earn replies, gifts earn taps — streak, tease rail, freshness (2026-09-29)")
     now = datetime.now(timezone.utc)
     ts = lambda h: (now - timedelta(hours=h)).isoformat()
-    slog_path = Path(mk.SESSION_LOG_PATH)
+    slog_path = Path(importlib.import_module("state_io").SESSION_LOG_PATH)
     saved = slog_path.read_text(encoding="utf-8") if slog_path.exists() else None
     try:
         write_json(slog_path, [{"date": (now - timedelta(days=30)).date().isoformat(),
@@ -2739,7 +2768,14 @@ def s127_asks_earn_replies_gifts_earn_taps(mk, sb: Path):
         mem = mk.outcome_memory([ask(4), ask(3), ask(2), tapped], now)
         check("a tap still breaks the streak",
               "Ignore-streak: 0 unanswered reaches" in mem, mem.splitlines()[-1])
-        mem = mk.outcome_memory([ask(2), ask(1)], now)
+        obs_path = Path(importlib.import_module("observations").OBSERVATIONS_PATH)
+        saved_obs = obs_path.read_text(encoding="utf-8") if obs_path.exists() else None
+        write_json(obs_path, [])   # no contact since the 30-day-old session
+        try:
+            mem = mk.outcome_memory([ask(2), ask(1)], now)
+        finally:
+            if saved_obs is not None:
+                obs_path.write_text(saved_obs, encoding="utf-8")
         check("a quiet stretch asks for a tug on a live thread, never a nag",
               "liveliest thread" in mem and "never nag" in mem, mem)
 

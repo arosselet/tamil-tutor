@@ -48,6 +48,7 @@ compressed 2026-09-10, 32k words to 11k, nothing lost that git did not hold).
   sweep), then the content. Never answer a fade with accountability
   machinery or by cutting the measuring channel.
 - **Every push tugs a live thread, or it is silence** (2026-10-08, Andrew with Rio). Since 08-15 one-line asks on live work mostly came back; 32 standalone gifts drew 6 replies or taps, and the mandate swung four times in two weeks. A gift is candy — a signal to fix the threads. `threads.py` reads them off the books; Python refuses any other. Supersedes 10-04 and 10-06.
+- **Coming back is the measure, not answering** (2026-10-08, Rio). Contact is a fact about Andrew — a reply, a tap, a play, an answer, a closed session — derived from the logs, never a render. It replaced session_log, which stopped at 09-25 through two weeks of contact. Each tug is judged by contact within 2 days and its word reappearing within 7. Never said to him.
 - ~~**Gifts vary in substance, not labels**~~ (superseded 2026-10-08) (2026-10-06, Andrew: "not just a dozen ways to escape the ladle"). Nine gifts running (09-28→10-06) were a table phrase to deploy, under four vein names; the rail read labels. Lore and a new fun-fact vein need no due item and no deployable line; the progress law now covers asks, echoes and patterns only. The rails show recent gifts' lines.
 - **A "never" names what it guards** (2026-10-05, Andrew). The list ban, the
   taught-only check and palatability-first each fixed one symptom, outlived it, and

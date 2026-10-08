@@ -66,9 +66,9 @@ from writer import (AGENT_MODEL, BOOL, INT, OPENROUTER_MODEL, STR, STRS, ask_jso
 # other lane asks it.
 from rails import (MAX_REACHES_PER_DAY, MIN_GAP_HOURS, WAKING_END_HOUR,
                    WAKING_START_HOUR, in_waking_window, last_fire, reaches_today)
+from observations import OBSERVATIONS_PATH
 from state_io import (KNOCK_LOG_PATH, LEARNER_PATH, LEXICON_PATH, LOCAL_TZ,
-                      SESSION_LOG_PATH, STANCES, is_fire, is_give, load_json,
-                      local_date)
+                      STANCES, is_fire, is_give, load_json, local_date)
 
 NEXT_CHECK_CLAMP = (0.5, 24.0)   # Anna's self-set next_check is clamped to this many hours
 
@@ -139,8 +139,12 @@ def outcome_memory(klog: list, now: datetime) -> str:
     """The learning substrate: recent reaches with their outcomes, framed around
     the real reward (did Andrew SHOW UP?), plus the ignore-streak. This is what
     lets Anna adapt instead of repeating a rigid policy."""
-    slog = load_json(SESSION_LOG_PATH) or []
-    last_session = slog[-1].get("date") if slog else None
+    # CONTACT, not session_log (2026-10-08). The session log is written only by
+    # an `update` close; it stopped at 09-25 through a 10-03 lesson, a 10-04
+    # sweep and replies on 10-01/02, and this memory read all of it as absence.
+    events = load_json(OBSERVATIONS_PATH) or []
+    contact = threads.contact_days(klog, events)
+    last_seen = threads.last_contact(contact)
     fires = [k for k in klog if is_fire(k)]
 
     lines = []
@@ -172,24 +176,28 @@ def outcome_memory(klog: list, now: datetime) -> str:
     streak = 0
     for k in reversed(fires):
         after = local_date(k.get("timestamp", ""))
-        session_after = last_session and after and last_session >= after.isoformat()
-        if k.get("response") or session_after:
+        came_after = after and any(d > after.isoformat() for d in contact)
+        if k.get("response") or k.get("reply") or came_after:
             break
         streak += 1
 
-    since = "never" if not last_session else last_session
+    since = "never" if not last_seen else f"{last_seen} ({', '.join(sorted(contact[last_seen]))})"
     verdict = ""
     if streak >= 3:
         verdict = (f"  ⚠ {streak} tugs in a row came back with nothing — the threads aren't "
                    "pulling. Tug a different thread, or go quiet; never candy (2026-10-08).")
-    elif last_session and (now.astimezone(LOCAL_TZ).date() - date.fromisoformat(last_session)).days >= 3:
-        verdict = "  ⚠ No session in 3+ days — pull, never nag: one small tug on his liveliest thread."
+    elif last_seen and (now.astimezone(LOCAL_TZ).date() - date.fromisoformat(last_seen)).days >= 3:
+        verdict = "  ⚠ No contact in 3+ days — pull, never nag: one small tug on his liveliest thread."
+
+    # THE RETURN MEASURE (2026-10-08, Rio): not "did he answer" but "did he come
+    # back". Only thread-tagged tugs count, so it starts empty and says so.
+    ret = threads.return_line(klog, events, now, contact)
 
     body = "\n".join(lines) if lines else "    (no reaches logged yet)"
-    return (f"OUTREACH MEMORY (reward = Andrew showing up in chat, NOT taps):\n"
-            f"  Last chat session: {since}\n"
+    return (f"OUTREACH MEMORY (reward = Andrew coming back, NOT taps):\n"
+            f"  Last contact: {since}\n"
             f"  Recent reaches (newest last):\n{body}\n"
-            f"  Ignore-streak: {streak} unanswered reaches.{verdict}")
+            f"  Ignore-streak: {streak} unanswered reaches.{verdict}{ret}")
 
 
 def demand_streak(klog: list) -> int:
