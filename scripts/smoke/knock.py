@@ -353,6 +353,23 @@ def s8_variety_and_decay(mk, kr, sb: Path):
     check("no tagged tugs -> the line says so instead of reading zero",
           "no thread-tagged tug" in th.return_line([], [], now, {}))
 
+    # THE LIGHT START (2026-10-08): the story and the threads, and never the gap.
+    # Rio: "skipping is always fine and never mentioned" — a "days ago" here is
+    # the one number Anna would read straight back to him.
+    buf = io.StringIO()
+    sbr = importlib.import_module("session_brief")
+    real_counts, sbr.git_sync_counts = sbr.git_sync_counts, lambda: (0, 0)  # no network here
+    try:
+        with contextlib.redirect_stdout(buf):
+            sbr.cmd_open(None)
+    finally:
+        sbr.git_sync_counts = real_counts
+    opened = buf.getvalue()
+    check("the light start prints the story so far and the threads",
+          "Story so far:" in opened and "THREADS" in opened, opened[:300])
+    check("...and never a count of days away",
+          not re.search(r"\d+\s*days?\s*(ago|away|since)", opened), opened[:300])
+
     # lock-screen body budget
     check("over_budget flags a long body",
           mk.over_budget("x" * 200) and not mk.over_budget("x" * 100))

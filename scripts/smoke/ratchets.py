@@ -374,7 +374,10 @@ CODE_BUDGETS = {
     # freezing its own minutes at tap time.
     # 254 -> 255 (2026-10-04, Andrew): the recognition line names `untested` beside the three grades. Retires "no evidence" and
     # "he struggles" sharing one value.
-    "scripts/session_brief.py": 255,
+    # 255 -> 285 (2026-10-08, Andrew with Rio): `cmd_open`, the light session
+    # start. Retires the full protocol load (~13,000 words, three scripts) as
+    # the price of Anna's first sentence — prose, not code, so nothing here shrank.
+    "scripts/session_brief.py": 285,
     # 575 -> 588 (2026-09-13, Andrew): `inventory_hosts` MOVED IN from render_rotation (its second reader) plus the intake quota. Paid for by render_rotation 325 -> 318; the net is the quota, which retires the fourth-spine design.
     # 588 -> 592 (2026-09-19): the play count reaches the ticket. `heard Nx` is
     # the priming cue Andrew asked for — "he heard it three times and still

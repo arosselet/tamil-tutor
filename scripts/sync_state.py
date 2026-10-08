@@ -1349,6 +1349,7 @@ def main():
     parser = argparse.ArgumentParser(description="Tamil learning state management")
     sub = parser.add_subparsers(dest="command")
     sub.add_parser("status", help="Show current state")
+    sub.add_parser("open", help="The light session start: story, threads, what changed — nothing else")
 
     up = sub.add_parser("update", help="Update state after a session")
     up.add_argument("--soak-payload", type=str, action="append", default=[],
@@ -1490,6 +1491,9 @@ def main():
         # module at its dispatch branch is ordinary CLI practice, not a dodge.
         from session_brief import cmd_status
         cmd_status(args)
+    elif args.command == "open":
+        from session_brief import cmd_open   # deferred for the same reason as status
+        cmd_open(args)
     elif args.command == "add-pattern":
         cmd_add_pattern(args)
     elif args.command == "add-word":

@@ -477,3 +477,45 @@ def cmd_status(_args):
             dur = ep.get("duration_min")
             dur_str = f" ({dur:.1f} min)" if dur else ""
             print(f"  M{m}: {ep.get('title', m)}{dur_str}")
+
+
+def cmd_open(_args):
+    """THE LIGHT START (2026-10-08, Andrew with Rio): everything Anna needs to say
+    something worth hearing in the first thirty seconds, and nothing else.
+
+    The full boot read ~13,000 words of protocol and profile, pulled, and ran
+    three scripts before Anna spoke — so the session could never be the
+    thirty-second habit; only a push could. This prints the voice's working
+    memory: the sync gate (never speak past it), the clock, the story so far,
+    what the phone channel did since he was last here, and the live threads
+    with what just became his. `status` and the full protocol load only once
+    he stays — the deep half of `.claude/skills/anna/SKILL.md`."""
+    import threads
+    learner = load_json(LEARNER_PATH) or {}
+    banner = sync_banner(git_sync_counts())
+    if banner:
+        print(banner + "\n")
+    print(f"Now: {datetime.now(LOCAL_TZ):%a %Y-%m-%d %H:%M %Z}")
+    klog = load_json(KNOCK_LOG_PATH) or []
+    events = load_json(threads.OBSERVATIONS_PATH) or []
+    contact = threads.contact_days(klog, events)
+    last = threads.last_contact(contact)
+    # Never a gap count: "last here" is for Anna's continuity, and the number of
+    # days between is exactly what he must never hear (Rio: skipping is never
+    # mentioned). The date alone answers "what happened since".
+    print(f"Last here: {last or 'never'}")
+    print(f"\nStory so far: {learner.get('last_debrief') or '(none yet)'}")
+    since = [k for k in knocks_since(klog, last) if k.get("acted")]
+    if since:
+        print("\nPhone since then (answered ones are judged — never re-collect):")
+        for k in since:
+            got = f'replied "{k["reply"][:50]}"' if k.get("reply") else "no reply"
+            print(f"  {k.get('date')} · {k.get('move')} · {got}")
+    now = datetime.now(LOCAL_TZ)
+    print("\n" + threads.block(klog, now, arc=False))
+    fresh = [s for s in threads.retired_slips() if s["on"] >= (now - timedelta(days=14)).date().isoformat()]
+    if fresh:
+        print("  Slips he retired lately (a trophy, if he wants the wall — `threads.py wall`):")
+        print("\n".join(f"    {s['tag']} — was: {s['was']}" for s in fresh))
+    if soak_pending():
+        print("\n⚠ A soak order is NOT YET PRODUCED — the deep load's `status` names the lane.")
