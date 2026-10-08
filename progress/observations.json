@@ -22139,5 +22139,29 @@
     "medium": "text",
     "source": "chat 2026-10-08 Paati 75 front-room scene (text)",
     "note": "Read 'Paati: Enakku onnum venaam' as 'I want one' - venaam flipped to want (2nd time after 09-25 scooter venaam), onnum read as onnu 'one'. Same scene: 'Mama kitta kekkaren' understood unaided as Karthi is going to ask Mama (right). Corrected evvalavu -> evlo as the spoken form, says evlo is cold in his mouth (self-report, not logged as production)."
+  },
+  {
+    "id": "a47263dccb5d",
+    "at": "2026-10-08T15:38:18Z",
+    "word": "வேணும்",
+    "channel": "soak",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "soak_2026-10-08_1137",
+    "note": ""
+  },
+  {
+    "id": "1ffff69804fe",
+    "at": "2026-10-08T15:38:18Z",
+    "word": "அது",
+    "channel": "soak",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "soak_2026-10-08_1137",
+    "note": ""
   }
 ]

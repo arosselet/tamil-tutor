@@ -408,8 +408,8 @@
       36,
       37
     ],
-    "last_surfaced": "2026-10-04",
-    "exposures": 2,
+    "last_surfaced": "2026-10-08",
+    "exposures": 3,
     "taught_on": "2026-02-25",
     "reps": 2,
     "heard_on": null
@@ -933,10 +933,11 @@
       33,
       64
     ],
-    "last_surfaced": "2026-10-04",
+    "last_surfaced": "2026-10-08",
     "reps": 3,
     "taught_on": "2026-02-25",
-    "heard_on": null
+    "heard_on": null,
+    "exposures": 1
   },
   "வரேன்": {
     "gloss": "I come / I'm coming",
