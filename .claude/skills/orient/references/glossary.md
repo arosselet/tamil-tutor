@@ -155,13 +155,13 @@ Defined: `protocol/constitution.md` — "Canonical Rules"; `protocol/daily_sessi
 
 ## register / lean
 
-The **ordering** the retired deck left behind, re-aimed 2026-09-19. Each lexicon row may carry a `register` — `antifreeze`, `faq`, `frame`, `gossip`, `mil-table`, `public`, `social`, `zinger`. `year.register_rank` reads it off the row against the year's current **lean** and returns **lead (0) · mid (1) · dessert (2)**; every selector prefixes that.
+The **ordering** the retired deck left behind, re-aimed 2026-09-19. Each lexicon row may carry a `register` — `antifreeze`, `faq`, `frame`, `gossip`, `mil-table`, `public`, `social`, `zinger`. `ladder.register_rank` reads it off the row against the ladder's current **lean** and returns **lead (0) · mid (1) · dessert (2)**; every selector prefixes that.
 
-**The lean is which way he is working — down to the children, across to the siblings-in-law, up to the elders** (`year.LEADS`). Those are three rooms with three different moving parts and three different levels of social risk, so the registers that lead move with the phase: the elders' table leads in `up`, and not in the month he is trying to make a nine-year-old laugh. `zinger` trails in every phase.
+**The lean is which way he is working — down to the children, across to the siblings-in-law, up to the elders** (`ladder.LEADS`). Those are three rooms with three different moving parts and three different levels of social risk, so the registers that lead move with the lean: the elders' table leads in `up`, and not while he is trying to make a nine-year-old laugh. `zinger` trails in every room.
 
 The 2026-08-18 half still holds: before that date the tier was joined at menu time from `curriculum/trip_deck.json`, keyed on deck membership, and migrating it onto the row is what made retiring the deck safe — a join keyed on a deleted tag fails *silently*, leaving the selector returning rows that are merely unordered. What 09-19 retired is the static `survival / delight / dessert` map, which ranked by topic, was blind to who he was addressing, and degraded 283 of 366 rows to its middle rung — an ordering that ordered almost nothing. Unregistered rows still degrade to **mid**: unordered, never unreachable. `sync_state seed-deck` is the only writer of the tag.
 
-Defined: `scripts/year.py` — `LEADS`, `register_rank`, `RANK_NAMES`; `docs/DECISIONS.md` — "Retire the trip deck", "The year is the phase schedule"
+Defined: `scripts/ladder.py` — `LEADS`, `register_rank`, `RANK_NAMES`; `docs/DECISIONS.md` — "Retire the trip deck", "The ladder is a stated lean"
 
 ---
 
@@ -225,16 +225,12 @@ Defined: `protocol/constitution.md` — "Woven Thanglish (The Scaffolding)"; `pr
 
 ---
 
-## year / phase / lean
+## ladder / lean
 
-The unit above the month (`scripts/year.py`, 2026-09-19). Three dates are stored — `opened`, `trip_from`, `trip_to` — and **seven phases are derived from them**: excavation, down, across, up, taper, trip, harvest. Nothing else is persisted, so moving the trip re-phases the whole year in one command (`sync_state.py year --from … --to … --force`) and strands nothing.
+Which room of the family table the production work leans toward (`scripts/ladder.py`): **down** (the children, who tolerate error and cannot switch to English to be kind), **across** (cousins and in-laws), **up** (elders, highest social risk, most morphology). The lean decides which registers lead selection (see *register / lean*) and nothing else.
 
-**What a phase decides.** The **lean** (which registers lead selection — see *register / lean*), the **ear ramp** (how many voices an eavesdrop tape carries, and whether the situation is given), and the **intake cap** (overridden to zero in the taper and the trip, the profile dial everywhere else).
+**It is stated, not scheduled.** `sync_state.py ladder --lean down|across|up` stores the room and the day it was chosen; nothing else is persisted. An evidence rule for moving it — up a room when the books show the current room is mostly his — is not built yet.
 
-**Why it exists.** The month can be finished but has no reason to prefer one month's work over another, so the arc premise was still chosen to cover whatever the ticket said was thin — deficit-seeking one level up. The trip is the reason: Andrew flies roughly once a year, so the year has a shape — build, taper, immerse, harvest, build again — and the ladder runs **down** (nieces and nephews, who tolerate error and cannot switch to English to be kind), then **across** (siblings-in-law), then **up** (elders, highest social risk, most morphology).
+**Retired: the year (2026-09-19 → 10-08).** The ladder used to be phases derived from a trip date, with a taper that forced new words to zero and a T-minus on Andrew's dashboard. There is no trip deadline now, so the date, the taper and the countdown went; the ladder's reason never depended on them. `s113` asserts by name that no phase, countdown or progress count is stored or printed.
 
-**It is not the Trip Deck.** No container, no curriculum join, no burn rate, no meter. What retired in 2026-08-26 was a bounded set keyed to a date that expired; this is an anchor that re-cuts, the same argument `month.py` makes for itself. `s113` asserts the negative half by name: no phase, marker, burn rate or progress count is ever stored.
-
-**The countdown is Andrew's surface, never Anna's.** `show_status.py` and `sync_state.py year` print T-minus; `compute_status`, which Anna loads, carries only the lean. A countdown in the coach's mouth is the device the 2026-08-17 no-numbers rule banned.
-
-Defined: `scripts/year.py`; `docs/DECISIONS.md` — "The year is the phase schedule"
+Defined: `scripts/ladder.py`; `docs/DECISIONS.md` — "The ladder is a stated lean"

@@ -279,7 +279,9 @@ CODE_BUDGETS = {
     # on a file Gate 4 already reads as a split-or-retire signal. 135 rather
     # than the 119 census: the headroom is for diagnosis, not for a second job —
     # the month is next door and the ORDER stays one layer up.
-    "scripts/year.py": 135,
+    # 2026-10-08: `year.py` (135) retires with the trip date; `ladder.py` keeps
+    # the rooms, the leads and the rank, and stores a stated lean. Census ~65.
+    "scripts/ladder.py": 80,
     # 350 -> 355 (2026-09-01): A TRANSFER, NOT GROWTH, and the sync_state entry below is re-censused DOWN by the same 5 in this same diff — the two ceilings …
     # 355 -> 368 (2026-09-13): `feed_items` now carries each item's MINUTES off
     # the same parse, so the rating tap can freeze a duration onto its play row.
@@ -964,7 +966,7 @@ LAYERS = {
     # reaches for a rung, a rep count or a sidecar, the edge reads as upward and
     # fails here — a schedule that can read progress is a schedule that has
     # grown a meter, and this object exists because the last one did.
-    "year":               1.1,
+    "ladder":             1.1,   # was `year` to 2026-10-08
     # The canon (2026-09-19): a reader and the one appender for a CONTENT file.
     # It imports only L0 and is called by `run_studio` (L5). Numbered down here
     # rather than beside its caller so that the day it reaches for the lexicon,
@@ -1560,6 +1562,12 @@ TOMBSTONES = (
       "opening gift",
       "next fire must be a GIVE",
       "Ignore-streak:")),
+    ("2026-10-08 The ladder is a stated lean (the trip date, its phases, the taper and the T-minus retired)",
+     ("sync_state.py year",
+      "scripts/year.py",
+      "By August 2027",
+      "seven phases derived from",
+      "The taper closes intake")),
 )
 
 # Where a retired claim could still be read as law: every surface an agent or a

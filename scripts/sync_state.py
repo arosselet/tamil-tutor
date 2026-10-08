@@ -46,7 +46,7 @@ from publish import commit_and_push, publish
 import audio_titles
 from rebuild_rss import feed_items
 import month as month_mod
-import year as year_mod
+import ladder as ladder_mod
 import lexicon_view
 import observations
 from state_io import (BASE, DEFAULT_TZ, EPISODES_PATH, FEEDBACK_LOG_PATH,
@@ -247,19 +247,14 @@ def compute_status(learner: dict | None = None) -> str:
     deadline is what expired, and a required pace with no deadline is not a
     number, it is a guess.
 
-    AND THAT RULING SURVIVES THE YEAR OBJECT (2026-09-19). `year.py` anchors the
-    phases to the next trip, so a T-minus is available here and is deliberately
-    NOT taken: this line is one of Anna's inputs, and a countdown on it is the
-    banned device wearing a new file's name. What lands is the LEAN — a
-    direction of address, not a number, and the only part of the schedule Anna
-    has any use for. The dates, the phase table and the T-minus live on the
-    engineering surfaces (`sync_state.py year`, `show_status.py`), which Andrew
-    reads and Anna does not.
+    What lands from the ladder is the LEAN — a direction of address, not a
+    number. (2026-09-19 -> 10-08 a trip date made a T-minus available here, and
+    it was deliberately never taken; the date has since retired.)
 
     `learner` IS PASSED IN BY THE WRITER, and that is not a convenience. This
     runs INSIDE `write_thin_learner`, before the merged dict reaches disk, so a
-    `year_mod.load()` with no argument re-reads the OLD file and composes the
-    line from state one write behind. Opening a year would then stamp a status
+    `ladder_mod.load()` with no argument re-reads the OLD file and composes the
+    line from state one write behind. Setting a lean would then stamp a status
     with no lean on it, self-correct on the next unrelated write, and look
     exactly like success in between (/extend Gate 7.2)."""
     lexicon = load_json(LEXICON_PATH) or {}
@@ -267,8 +262,8 @@ def compute_status(learner: dict | None = None) -> str:
     ears = (f"Machines heard {mach['heard']} · ear-tested "
             f"{mach['tested']}/{mach['total']}")
     floor = compute_floor(lexicon)
-    ph = year_mod.phase(year_mod.load(learner))
-    lean = f" · working {ph['direction']} ({ph['phase']})" if ph else ""
+    ph = ladder_mod.rung(ladder_mod.load(learner))
+    lean = f" · working {ph['direction']} ({ph['room']})" if ph else ""
     return (f"{ears} · viability floor {floor['cleared']}/{floor['total']} "
             f"fire cold ({floor['pct']:.0f}%){lean}")
 
@@ -335,8 +330,9 @@ def fires_today() -> int:
 # key SURVIVES, so a retired one has to be named here to be swept — and a
 # stale twelve-seat cohort left lying in learner.json is exactly the kind of
 # dead state a later reader would pick up and believe.
+# `year` joined it 2026-10-08: the trip date retired and `ladder` replaced it.
 RETIRED_LEARNER_KEYS = ("streak", "slips_closed", "recent_missions",
-                        "recent_audio", "focus_cohort")
+                        "recent_audio", "focus_cohort", "year")
 
 # The two books this function does NOT own: `record_slip_test` and
 # `record_slip_commission` persist them straight to LEARNER_PATH, so by the time
@@ -930,52 +926,32 @@ def cmd_month(args):
     print("  learner.json updated.")
 
 
-def cmd_year(args):
-    """THE YEAR — open one against the trip, or read where the phases stand.
-    `scripts/year.py` owns the schedule; this is the one writer, like every
-    other state file.
+def cmd_ladder(args):
+    """THE LADDER — read the lean, or state it. `scripts/ladder.py` owns it;
+    this is the one writer, like every other state file.
 
-    WITH NO FLAGS it is a READ. Three dates are stored and nothing else: the
-    phases are a function of them, so moving the trip re-phases the whole year
-    in one command and strands nothing. There is no stored phase to drift and
-    no progress counter to read green — the deck's failure was a meter, and a
-    meter is exactly what this object refuses to grow.
-
-    THE DATES ARE ALLOWED TO BE TENTATIVE. Andrew books late; a trip pencilled
-    for August and flown in September should cost one command, not a rebuild.
-    That is the whole reason the boundaries are derived rather than declared."""
+    WITH NO FLAGS it is a READ. `--lean` stores the room and the day it was
+    chosen, and nothing else. The lean is stated, not scheduled, until an
+    evidence rule exists to move it (ladder.py says which)."""
     learner = load_json(LEARNER_PATH) or {}
-    rec = year_mod.load(learner)
-    if not (args.trip_from or args.trip_to):
-        return _print_year(rec)
-    if rec and not year_mod.is_over(rec) and not args.force:
-        print(f"  A year is already open (trip {rec.get('trip_from')} → "
-              f"{rec.get('trip_to')}). Re-anchoring mid-flight is allowed and "
-              f"cheap — pass --force and say why in the commit.")
-        return 1
-    new = year_mod.opened_record(args.opened, args.trip_from, args.trip_to, rec)
-    # REFUSE LOUDLY rather than storing an unschedulable year. A record that
-    # cannot produce phases is worse than no record: every selector falls back
-    # to a flat sort and nothing anywhere says why (/extend Gate 7.2).
-    bad = year_mod.problem(new)
-    if bad:
-        print(f"  Refused — {bad}")
-        return 1
-    _print_year(new)
+    rec = ladder_mod.load(learner)
+    if not args.lean:
+        return _print_ladder(rec)
+    new = ladder_mod.record(args.lean, rec)
+    _print_ladder(new)
     if args.dry_run:
         print("  (dry run — nothing written)")
         return
-    learner[year_mod.KEY] = new
+    learner[ladder_mod.KEY] = new
     write_thin_learner(learner)
     print("  learner.json updated.")
 
 
-def _print_year(rec: dict):
-    """ENGINEERING SURFACE. The counts here never reach Anna's mouth (DECISIONS,
-    "A number never leaves Anna's mouth"); Andrew reads the table and steers by
-    the lean. `year.py` renders it — this file is a writer, not a view."""
-    print("  " + year_mod.status_line(rec).replace("\n", "\n  "))
-    print("\n".join("  " + ln for ln in year_mod.table(rec)))
+def _print_ladder(rec: dict):
+    """ENGINEERING SURFACE — Andrew reads it and steers by the lean.
+    `ladder.py` renders it; this file is a writer, not a view."""
+    print("  " + ladder_mod.status_line(rec).replace("\n", "\n  "))
+    print("\n".join("  " + ln for ln in ladder_mod.table(rec)))
 
 
 def _print_month(rec: dict, lexicon: dict, episodes: dict, sidecars: dict):
@@ -1455,14 +1431,9 @@ def main():
                      help="finished | stopped early | lost the thread (a legacy star row reads as finished)")
     re_.add_argument("--commit", action="store_true", help="Commit and push the ledger (CI lane)")
 
-    # Tentative dates are the expected case, not an edge one — he books late,
-    # and re-anchoring must cost one command rather than a rebuild.
-    yr = sub.add_parser("year", help="The phase schedule — read it, or anchor it to the next trip")
-    yr.add_argument("--from", dest="trip_from", default="", metavar="DATE", help="First day in country")
-    yr.add_argument("--to", dest="trip_to", default="", metavar="DATE", help="Last day in country")
-    yr.add_argument("--opened", default="", metavar="DATE", help="Day the excavation starts (default today)")
-    yr.add_argument("--force", action="store_true", help="Re-anchor while a year is still open")
-    yr.add_argument("--dry-run", action="store_true", help="Print the schedule and write nothing")
+    ld = sub.add_parser("ladder", help="The room the work leans toward — read it, or state it")
+    ld.add_argument("--lean", choices=ladder_mod.ORDER, default="", help="down (children) | across | up (elders)")
+    ld.add_argument("--dry-run", action="store_true", help="Print the lean and write nothing")
 
     # --size / --won-at retired 2026-09-19 with the cut: the episodes decide
     # what an arc contains, so there is no line to set and none to scale.
@@ -1506,8 +1477,8 @@ def main():
         cmd_feedback(args)
     elif args.command == "rate-episode":
         cmd_rate_episode(args)
-    elif args.command == "year":
-        return cmd_year(args)
+    elif args.command == "ladder":
+        return cmd_ladder(args)
     elif args.command == "month":
         return cmd_month(args)
     elif args.command == "slips":

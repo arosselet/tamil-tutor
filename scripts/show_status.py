@@ -16,7 +16,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 import audio_titles
-import year
+import ladder
 from sync_state import compute_floor, compute_engines, compute_ear, trailing_pace
 
 RECOGNIZED = {"comfortable", "solid"}
@@ -54,17 +54,14 @@ def main():
     if last:
         print(f"\n📅 Last logged session: {last}")
 
-    # THE YEAR — ANDREW'S SURFACE, NOT ANNA'S. The T-minus prints here and is
-    # deliberately kept off `compute_status`, which Anna loads: a countdown in
-    # his coach's mouth is the device the 2026-08-17 no-numbers rule banned, and
-    # the same number on a dashboard the learner opens himself is not. `Year:
-    # NOT SCHEDULED` is a LOUD absence — unanchored, every selector silently
-    # falls back to a flat sort.
-    print("\n🗓  THE YEAR")
+    # THE LADDER (was THE YEAR, with a T-minus, to 2026-10-08 — the trip date
+    # retired). `Ladder: NOT SET` is a LOUD absence: unset, every selector
+    # silently falls back to the neutral middle.
+    print("\n🧭 THE LADDER")
     print("-" * 55)
-    _yr = year.load(learner)
-    print("    " + year.status_line(_yr).replace("\n", "\n    "))
-    print("\n".join("    " + ln for ln in year.table(_yr)))
+    _ld = ladder.load(learner)
+    print("    " + ladder.status_line(_ld).replace("\n", "\n    "))
+    print("\n".join("    " + ln for ln in ladder.table(_ld)))
 
     # --- The ear: the axis nothing else counts (same math as sync_state) ---
     # The TRIP DECK block stood here until 2026-08-18 — a survival bar, a full-deck

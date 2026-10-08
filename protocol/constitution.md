@@ -3,7 +3,7 @@
 ## Core Philosophy
 
 ### Operational Capacity, Not Fluency
-**By August 2027:** follow sentences at ordinary native speed in family-table conversation about food, plans, visitors, health and the day just had, and join in unprompted. Connection is the goal. Proof is following a new spoken exchange without captions: who did what, when, and what follows. Word recognition and typed replies are partial evidence, never substitutes. Enjoyment and sustainable contact constrain every method.
+**The goal:** follow sentences at ordinary native speed in family-table conversation about food, plans, visitors, health and the day just had, and join in unprompted. Connection is the goal. Proof is following a new spoken exchange without captions: who did what, when, and what follows. Word recognition and typed replies are partial evidence, never substitutes. Enjoyment and sustainable contact constrain every method.
 
 ### Family Already, Language Not Yet
 Owned by `protocol/user.md` — the one home for the standing facts about the learner. He

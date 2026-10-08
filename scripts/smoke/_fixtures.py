@@ -104,35 +104,25 @@ def load_modules(sb: Path):
     return mk, kr, pq
 
 
-def pin_year(sb: Path, phase: str = "up"):
-    """Put a year in the sandbox so a case's ORDERING assertions have a stated
-    lean, and assert it really landed in the phase asked for.
+def pin_lean(sb: Path, lean: str = "up"):
+    """Put a stated lean in the sandbox so a case's ORDERING assertions have
+    one, and assert it really landed.
 
-    WHY THIS EXISTS (2026-09-19). The pool's prefix is read against the year's
-    direction of address, so an ordering assertion without a pinned phase is
-    sorted by whatever `learner.json` happens to carry when that case runs —
-    it still passes or fails, for a reason nothing in the case states, and it
-    changes meaning when an unrelated case writes a different year. That is a
-    test measuring a condition it never chose.
-
-    The phase is CHECKED, not assumed: the dates below are offsets from today,
-    and an off-by-one at a boundary would otherwise leave the case green while
-    proving the wrong lean."""
-    today = _dt.date.today()
-    offsets = {"excavation": (0, 400), "down": (30, 300),
-               "across": (140, 200), "up": (200, 60)}
-    opened_ago, trip_in = offsets[phase]
+    WHY THIS EXISTS (2026-09-19, as `pin_year`). The pool's prefix is read
+    against the ladder's direction of address, so an ordering assertion without
+    a pinned lean is sorted by whatever `learner.json` happens to carry when
+    that case runs — it still passes or fails, for a reason nothing in the case
+    states. Since 2026-10-08 the lean is stated, not derived from trip dates, so
+    the pin is the record itself; it is still CHECKED through the reader."""
     path = sb / "progress" / "learner.json"
     rec = read_json(path)
-    rec["year"] = {
-        "opened": (today - _dt.timedelta(days=opened_ago)).isoformat(),
-        "trip_from": (today + _dt.timedelta(days=trip_in)).isoformat(),
-        "trip_to": (today + _dt.timedelta(days=trip_in + 30)).isoformat()}
+    rec.pop("year", None)
+    rec["ladder"] = {"lean": lean, "since": _dt.date.today().isoformat()}
     write_json(path, rec)
-    yr = importlib.import_module("year")
-    got = yr.phase(yr.load(), today).get("phase")
-    check(f"the sandbox is pinned to the `{phase}` phase", got == phase, f"got {got}")
-    return rec["year"]
+    ld = importlib.import_module("ladder")
+    got = ld.direction(ld.load())
+    check(f"the sandbox is pinned to the `{lean}` lean", got == lean, f"got {got}")
+    return rec["ladder"]
 
 
 def read_json(path: Path):

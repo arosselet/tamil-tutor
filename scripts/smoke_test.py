@@ -196,7 +196,7 @@ def main():
         run(state.s110_the_standing_tape_is_the_intake_valve, sb)
         run(knock.s111_the_reveal_check_reads_the_script, mk, kr, pq, sb)
         run(state.s112_the_month_is_the_arc, sb)
-        run(state.s113_the_year_is_a_schedule_not_a_meter, sb)
+        run(state.s113_the_ladder_is_a_stated_lean_not_a_meter, sb)
         run(state.s100_the_live_lexicon_is_the_fold_of_its_log)
         run(state.s101_the_check_and_the_rating_are_ear_evidence, sb)
         run(state.s120_the_ticket_survives_the_first_check, sb)

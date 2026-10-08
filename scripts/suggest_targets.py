@@ -9,8 +9,8 @@ THREE SELECTORS (2026-08-18, the deck retirement — it was nine, and three of t
 claimed primacy in their own words, so whichever one Anna weighted that day
 decided the session):
   1. THE POOL — everything not yet firing cold, ordered lead > mid > dessert
-     (`year.register_rank`, read off each row's `register` against the year's
-     current direction of address) and split into TWO
+     (`ladder.register_rank`, read off each row's `register` against the
+     ladder's current direction of address) and split into TWO
      BUDGETS. The focus set is ≤FOCUS_SIZE in dense rotation, drilled until they
      fire cold and then never drilled again; the background is exposure only —
      soak them into scenes so the tail can't rot, never force them to fire. One
@@ -54,7 +54,7 @@ from slips import slip_patterns
 from state_io import is_unseen, soak_pending, local_date, local_today
 import month
 import observations
-import year
+import ladder
 
 # Windows consoles default to cp1252, which can't print Tamil (2026-07-15).
 if hasattr(sys.stdout, "reconfigure"):
@@ -273,8 +273,8 @@ def floor_gap_targets(lexicon: dict, today, max_n: int,
     in its own words, on a 361-line ticket where whichever one Anna weighted that
     day decided the session. Three pools became this one:
 
-      TRIP DECK        the tier ordering, now `year.register_rank` on every
-                       row, and phase-aware since 2026-09-19. The
+      TRIP DECK        the tier ordering, now `ladder.register_rank` on every
+                       row, and lean-aware since 2026-09-19. The
                        recognition gate went with it: the deck's pending rows
                        were 31/35 `struggled`, which this pool used to exclude
                        outright, so keeping that gate would have made the whole
@@ -300,7 +300,7 @@ def floor_gap_targets(lexicon: dict, today, max_n: int,
         asked = recent_ask_counts(load_json(KNOCK_LOG_PATH) or [], lexicon)
     if reps is None:
         reps = rep_counts(lexicon)
-    lean = year.direction(year.load())   # resolved ONCE — never inside a sort key
+    lean = ladder.direction(ladder.load())   # resolved ONCE — never inside a sort key
     gap = []
     for w, r in lexicon.items():
         if r.get("type") == "pattern":
@@ -314,8 +314,8 @@ def floor_gap_targets(lexicon: dict, today, max_n: int,
         gap.append({
             "word": w, "gloss": r.get("gloss", ""),
             "recognition": r.get("recognition"), "production": r.get("production", "none"),
-            "register": r.get("register", ""), "rank": year.register_rank(r, lean),
-            "lead": year.RANK_NAMES[year.register_rank(r, lean)],
+            "register": r.get("register", ""), "rank": ladder.register_rank(r, lean),
+            "lead": ladder.RANK_NAMES[ladder.register_rank(r, lean)],
             "staleness": staleness, "soaked": len(r.get("seen_in", [])),
             "exposures": r.get("exposures", 0), "unseen": is_unseen(r),
             "retest": is_going_dark(r, ds),
@@ -623,11 +623,11 @@ def register_coverage(lexicon: dict, today=None) -> dict | None:
     #
     # THE TIER BUCKETS RETIRED 2026-09-19 with `TIER_NAMES`. They were a SECOND
     # aggregation over these same rows, and the lead set now moves with the
-    # year's phase — so survival/delight/dessert would have re-bucketed itself
+    # ladder's lean — so survival/delight/dessert would have re-bucketed itself
     # every quarter while the underlying data sat still. A meter that changes
     # meaning without its subject changing is worse than no meter. The
     # per-register detail below survives and always said more.
-    lean = year.direction(year.load())
+    lean = ladder.direction(ladder.load())
     registers: dict[str, dict] = {}
     untouched: list[dict] = []
     fire, catch, unregistered = bucket(), bucket(), bucket()
@@ -654,7 +654,7 @@ def register_coverage(lexicon: dict, today=None) -> dict | None:
             })
     if not (fire["total"] or catch["total"]):
         return None
-    untouched.sort(key=lambda c: (year.register_rank(c, lean), c["word"]))
+    untouched.sort(key=lambda c: (ladder.register_rank(c, lean), c["word"]))
     return {"registers": registers, "untouched": untouched, "lean": lean,
             "fire": fire, "catch": catch, "unregistered": unregistered}
 
@@ -694,7 +694,7 @@ def drill_menu(lexicon: dict, today=None, asked: dict | None = None,
     the teach-first law is the caller's to apply, and the two callers apply it
     differently on purpose (the menu SHOWS them marked; a volley EXCLUDES them,
     because a volley is a cold demand and a menu is not)."""
-    lean = year.direction(year.load())   # resolved ONCE — never inside a sort key
+    lean = ladder.direction(ladder.load())   # resolved ONCE — never inside a sort key
     focus, _bg = floor_gap_targets(lexicon, today or local_today(), max_n,
                                    asked=asked, reps=reps)
     menu = [{"word": t["word"], "gloss": t["gloss"], "kind": "chunk",
@@ -710,8 +710,8 @@ def drill_menu(lexicon: dict, today=None, asked: dict | None = None,
         ds = days_since(r.get("last_surfaced"), today or local_today())
         menu.append({"word": e["key"], "gloss": e["gloss"], "kind": "frame",
                      "production": e["production"], "recognition": r.get("recognition"),
-                     "lead": year.RANK_NAMES[year.register_rank(r, lean)],
-                     "rank": year.register_rank(r, lean),
+                     "lead": ladder.RANK_NAMES[ladder.register_rank(r, lean)],
+                     "rank": ladder.register_rank(r, lean),
                      "unseen": e["unseen"], "retest": is_going_dark(r, ds),
                      "asks": (asked or {}).get(e["key"], 0), "reps": reps.get(e["key"], 0),
                      "staleness": NEVER_SURFACED if ds is None else ds,
@@ -792,16 +792,11 @@ def intake_rows(lexicon: dict, word_pool: list, cap: int | None = None) -> list[
     lexicon at delivery (`lanes.deliver_rendered`), so it leaves this list; a word
     that was planned but never played is not, so it leads the next tape.
 
-    THE TAPER CLOSES THIS VALVE (2026-09-19). Six weeks out the year's phase
-    overrides the dial to zero and the tapes stop teaching new words. That is
-    not tidiness: an item first met in July is not available under pressure in
-    August, and a failed retrieval at the table does not cost one word — it
-    sends him back to English for the rest of the conversation. Volume drops,
-    intensity rises, nothing new goes in. An explicit `cap` is the operator
-    speaking and is never second-guessed; the default is the one the phase
-    decides."""
+    An explicit `cap` is the operator speaking and is never second-guessed; the
+    default is profile.md's dial. (2026-09-19 -> 10-08 a pre-trip taper forced
+    it to zero; it retired with the trip date.)"""
     if cap is None:
-        cap = year.intake_cap(year.load(), INTAKE_CAP)
+        cap = INTAKE_CAP
     fresh = {e["word"]: e for e in word_pool if e.get("priority") == 1
              and e["word"] not in lexicon and e.get("cluster") not in INTAKE_SKIP}
     hosts = inventory_hosts(lexicon, fresh)
@@ -1006,13 +1001,11 @@ def main():
 
     # THE LEAN AND THE MARKER — no dates, no countdown, no denominator. This is
     # one of Anna's two session inputs, so what lands here is the DIRECTION he
-    # is working and the one behavioural thing the phase is aiming at; the
-    # schedule and the T-minus live on Andrew's own surfaces. A countdown in the
-    # coach's mouth is the device DECISIONS 2026-08-17 banned.
-    _ph = year.phase(year.load(learner))
+    # is working and the one behavioural thing that room is aiming at.
+    _ph = ladder.rung(ladder.load(learner))
     if _ph:
         print(f"\n🧭 WORKING {_ph['direction'].upper()} — to the "
-              f"{year.ROOMS[_ph['direction']]}.\n   What this phase is for: {_ph['marker']}")
+              f"{_ph['room']}.\n   What this room is for: {_ph['marker']}")
 
     # Next engine focus — the deliberate unlock priority (set via sync_state update
     # --next-engine). Surfaced first so Anna never re-derives the order session by session.
@@ -1178,10 +1171,10 @@ def main():
         print("  ENGINEERING NUMBERS — they steer selection; they are never narrated to Andrew.")
         print("-" * 60)
         # One row per register, ordered by the LEAN — the registers this phase
-        # of the year is working up to sort first and carry [lead].
+        # of the ladder is working toward sort first and carry [lead].
         for reg, b in sorted(cov["registers"].items(),
-                             key=lambda kv: (year.register_rank({"register": kv[0]}, cov["lean"]), kv[0])):
-            mark = year.RANK_NAMES[year.register_rank({"register": reg}, cov["lean"])]
+                             key=lambda kv: (ladder.register_rank({"register": kv[0]}, cov["lean"]), kv[0])):
+            mark = ladder.RANK_NAMES[ladder.register_rank({"register": reg}, cov["lean"])]
             flag = "  ⚠" if b["untouched"] else ""
             print(f"  {reg:12} worked {b['touched']:3}/{b['total']:3} · "
                   f"cold {b['cleared']:3}  [{mark}]{flag}")

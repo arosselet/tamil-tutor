@@ -22,7 +22,7 @@ from pathlib import Path
 
 from . import _fixtures as fx
 from ._fixtures import (
-    check, lex_row, mechanism, pin_year, raw_source, read_json, REAL_BASE, write_json,
+    check, lex_row, mechanism, pin_lean, raw_source, read_json, REAL_BASE, write_json,
 )
 
 
@@ -145,7 +145,7 @@ def s32_pool_rotation_and_coverage(mk, sb: Path):
     # states, and the case would be measuring a lean it never chose.
     # `up` is pinned because that is the lean these rows were written under:
     # antifreeze and the elders' table leading, which is what `surv-` means.
-    pin_year(sb, "up")
+    pin_lean(sb, "up")
 
     lex = {
         # the leading registers in `up` (antifreeze/frame/public), one row per
@@ -481,7 +481,7 @@ def s33_catch_response_pairs(mk, sb: Path):
         # the `up` phase — the elders' table — and that is the whole point of
         # the 09-19 change: an ordering that used to be a fact about the topic
         # is now a fact about who he is working up to.
-        yr = importlib.import_module("year")
+        yr = importlib.import_module("ladder")
         check("...and the ordering reads it back as a lead in the `up` phase",
               yr.register_rank(lex[answer], "up") == 0
               and yr.register_rank(lex[prompt], "up") == 0,
@@ -1889,8 +1889,8 @@ def s47_hinted_retest_rule(sb: Path):
                                    direction="catch", reps=0)
         # RANKED rows, deliberately FRESHER than the unranked ones above: only
         # the lead prefix can float them — staleness alone sinks both. Both
-        # registers below lead in the phase this case pins (see `pin_year`).
-        pin_year(sb, "up")
+        # registers below lead in the phase this case pins (see `pin_lean`).
+        pin_lean(sb, "up")
         lex["ரீடெஸ்ட்5"] = lex_row(gloss="leads in `up`, antifreeze", production="hinted",
                                    recognition="solid",
                                    last_surfaced=dark(2),
@@ -2579,12 +2579,12 @@ def s65_the_ordering_outlives_the_deck(sb: Path):
         "smoke:ord-delight": row(register="social"),
         "smoke:ord-plain": row(),                      # no register at all
     }
-    yr = importlib.import_module("year")
+    yr = importlib.import_module("ladder")
 
     def in_phase(want: str) -> list[str]:
-        """Pin the sandbox to a phase and return the order the SAME lexicon
-        comes back in. `pin_year` asserts the phase really landed."""
-        pin_year(sb, want)
+        """Pin the sandbox to a lean and return the order the SAME lexicon
+        comes back in. `pin_lean` asserts the lean really landed."""
+        pin_lean(sb, want)
         focus, _bg = st.floor_gap_targets(lex, today, 12, asked={},
                                           window=["smoke:ord-plain"])
         return [t["word"] for t in focus]
@@ -2667,10 +2667,10 @@ def s65_the_ordering_outlives_the_deck(sb: Path):
     learner_path = sb / "progress" / "learner.json"
     saved_learner = learner_path.read_bytes()
     try:
-        pin_year(sb, "up")
+        pin_lean(sb, "up")
         up = [t["word"] for t in st.floor_gap_targets(lex, today, 12, asked={},
                                                       window=[])[0]]
-        pin_year(sb, "down")
+        pin_lean(sb, "down")
         down = [t["word"] for t in st.floor_gap_targets(lex, today, 12, asked={},
                                                         window=[])[0]]
         check("a changed lean reaches the window with no reseat in between",
@@ -4790,131 +4790,75 @@ def s112_the_month_is_the_arc(sb: Path):
             p.unlink(missing_ok=True)
 
 
-def s113_the_year_is_a_schedule_not_a_meter(sb: Path):
-    """THE YEAR WITH A TRIP AT THE END OF IT (2026-09-19).
+def s113_the_ladder_is_a_stated_lean_not_a_meter(sb: Path):
+    """THE LADDER WITHOUT A TRIP (2026-09-19 as the year; 2026-10-08 the trip
+    date retired, Andrew: "the taper's intake-zero cap is the kind of deadline
+    machinery that only made sense with a race").
 
-    `month.py` gave the system a unit that can be finished. It did not give it a
-    reason to prefer one month's work over another, so the arc premise was still
-    chosen to cover whatever the ticket said was thin — the deficit-seeking
-    machine one level up, wearing a calendar.
+    WHAT THIS CASE GUARDS is the shape of the last object that tried this. The
+    Trip Deck was a curated container keyed to a date, with a burn rate over it
+    and a sprint meter on top. So the assertions are mostly NEGATIVE: a room and
+    a day are stored and nothing else, no countdown or phase is written or
+    printed, an unset lean says so instead of quietly sorting flat, and the
+    new-word dial is no longer the ladder's to override.
 
-    WHAT THIS CASE IS ACTUALLY GUARDING is the shape of the last object that
-    tried this. The Trip Deck was a curated container keyed to a date, with a
-    burn rate over it and a sprint meter on top, and it reported a winning
-    sprint while 45 of 70 items were never asked once. So the assertions below
-    are mostly NEGATIVE: three dates are stored and nothing else, no phase is
-    ever written down, no progress is counted, and a year that cannot be
-    scheduled says why instead of quietly sorting flat.
-
-    The ORDERING half — that the lean actually moves selection — is s65's, where
-    the ordering law already lives."""
-    print("\n113. The year is a schedule, not a meter (2026-09-19)")
+    The ORDERING half — that the lean actually moves selection — is s65's."""
+    print("\n113. The ladder is a stated lean, not a meter (2026-10-08)")
     import subprocess as _sp
-    yr = importlib.import_module("year")
+    ld = importlib.import_module("ladder")
     learner_path = sb / "progress" / "learner.json"
     before = read_json(learner_path)
-    today = date_cls.today()
 
     def run(*a):
-        return _sp.run([sys.executable, str(sb / "scripts" / "sync_state.py"), "year", *a],
+        return _sp.run([sys.executable, str(sb / "scripts" / "sync_state.py"), "ladder", *a],
                        cwd=sb, capture_output=True, encoding="utf-8", errors="replace")
     try:
         # --- THE ABSENCE IS LOUD -------------------------------------------
         rec = dict(before)
-        rec.pop("year", None)
+        rec.pop("ladder", None)
+        rec["year"] = {"opened": "2026-09-19", "trip_from": "2027-08-01", "trip_to": "2027-09-15"}
         write_json(learner_path, rec)
         out = run().stdout
-        check("with no year, the status SAYS SO instead of reading blank",
-              "NOT SCHEDULED" in out and "no year is open" in out, out)
+        check("with no lean, the status SAYS SO instead of reading blank",
+              "NOT SET" in out and "no lean is set" in out, out)
         check("...and the lean still degrades to a sane middle, never an error",
-              yr.direction({}) == "across", f"got {yr.direction({})}")
+              ld.direction({}) == "across", f"got {ld.direction({})}")
+        bad = run("--lean", "sideways")
+        check("a lean that is not a room is refused at the door",
+              bad.returncode != 0 and "ladder" not in read_json(learner_path), bad.stderr[-200:])
 
-        # --- A YEAR THAT CANNOT BE SCHEDULED IS REFUSED, NOT STORED --------
-        bad = run("--from", (today + timedelta(days=30)).isoformat(),
-                  "--to", (today + timedelta(days=45)).isoformat())
-        check("a trip too close to fit the ladder is REFUSED",
-              bad.returncode == 1 and "Refused" in bad.stdout, bad.stdout)
-        check("...and nothing was written — a bad record is worse than none",
-              "year" not in read_json(learner_path), "the refusal still wrote")
+        # --- THE WRITE, ROUND-TRIPPED --------------------------------------
+        ok = run("--lean", "down")
+        check("a stated lean is accepted", ok.returncode in (0, None), ok.stdout + ok.stderr)
+        after = read_json(learner_path)
+        stored = after.get("ladder", {})
+        check("EXACTLY the room and its day are stored, and nothing else",
+              set(stored) == {"lean", "since"} and stored["lean"] == "down", f"got {stored}")
+        check("the retired `year` record is swept on the same write",
+              "year" not in after, f"got {sorted(after)}")
+        # THE ROUND TRIP IS THE POINT (the `s41` lesson): `compute_status` runs
+        # INSIDE `write_thin_learner`, so read the lean off the very first write.
+        check("the write that SETS the lean already carries it in Anna's status",
+              "working down" in after.get("status", ""),
+              f"got {after.get('status')!r} — composed from the file one write behind")
+        run("--lean", "down")
+        check("re-stating the same room keeps the day it was chosen",
+              read_json(learner_path)["ladder"]["since"] == stored["since"], "the day moved")
 
-        # --- THE HAPPY PATH: three dates in, seven phases out --------------
-        ok = run("--from", (today + timedelta(days=316)).isoformat(),
-                 "--to", (today + timedelta(days=361)).isoformat())
-        check("a schedulable trip is accepted", ok.returncode in (0, None), ok.stdout)
-
-        # --- THE LEAN REACHES ANNA'S STATUS LINE ON *THIS* WRITE -----------
-        # THE ROUND TRIP IS THE POINT (/extend Gate 7.2, the `s41` lesson), and
-        # so is WHERE it is asserted. `compute_status` runs INSIDE
-        # `write_thin_learner`, before the merged dict reaches disk; called with
-        # no argument it re-reads the OLD file, so the write that OPENS a year
-        # stamps a status line with no lean on it. Any LATER write silently
-        # fixes it — which is why this is read here, off the very first write,
-        # and not at the end of the case. Asserted at the end it passes with the
-        # bug in place, which is the whole failure mode wearing a green tick.
-        first_status = read_json(learner_path)["status"]
-        stored = read_json(learner_path)["year"]
-        check("the write that OPENS a year already carries the lean in its status",
-              f"working {yr.direction(stored)}" in first_status,
-              f"got {first_status!r} — composed from the file one write behind")
-        check("EXACTLY three dates are stored, and nothing else",
-              set(stored) == {"opened", "trip_from", "trip_to"}, f"got {sorted(stored)}")
-        # The deck's whole failure was a stored number that drifted from reality.
-        # A phase, a marker, a countdown or a progress count in this record would
-        # be that failure rebuilt, so the absence of each is asserted by name.
-        blob = json.dumps(read_json(learner_path), ensure_ascii=False).lower()
+        # --- NO DEADLINE MACHINERY SURVIVES --------------------------------
+        shown = run().stdout + ld.status_line(stored) + "\n".join(ld.table(stored))
+        for word in ("T-", "trip", "taper", "phase"):
+            check(f"no `{word}` on the ladder's surfaces — the trip date retired",
+                  word not in shown, shown)
+        check("the ladder no longer owns the new-word dial",
+              not hasattr(ld, "intake_cap"), "an intake override came back")
+        blob = json.dumps(stored, ensure_ascii=False).lower()
         for word in ("phase", "marker", "burn", "remaining", "days_left", "streak"):
-            check(f"no `{word}` is stored on the year — it is derived or it is a meter",
+            check(f"no `{word}` is stored on the ladder — it is derived or it is a meter",
                   f'"{word}' not in blob, f"`{word}` was persisted")
-
-        sched = yr.schedule(stored)
-        check("the schedule covers every phase, in order",
-              [p["phase"] for p in sched] == yr.ORDER, [p["phase"] for p in sched])
-        check("the phases are contiguous — no day belongs to two, or to none",
-              all(date_cls.fromisoformat(b["from"])
-                  - date_cls.fromisoformat(a["to"]) == timedelta(days=1)
-                  for a, b in zip(sched, sched[1:])),
-              [(p["from"], p["to"]) for p in sched])
-        check("the ladder runs down, then across, then up",
-              [p["direction"] for p in sched if p["phase"] in ("down", "across", "up")]
-              == ["down", "across", "up"], str(sched))
-
-        # --- THE TAPER ACTUALLY CLOSES THE VALVE ---------------------------
-        # Without this the taper is a word on a dashboard: the phase prints, the
-        # tapes go on teaching new words into the six weeks before he flies, and
-        # every instrument reads green. That is this build's silent no-op.
-        taper = next(p for p in sched if p["phase"] == "taper")
-        t_day = date_cls.fromisoformat(taper["from"]) + timedelta(days=3)
-        check("during the taper the new-word dial is forced to zero",
-              yr.intake_cap(stored, 5, t_day) == 0, "the taper does not close intake")
-        mid = next(p for p in sched if p["phase"] == "down")
-        m_day = date_cls.fromisoformat(mid["from"]) + timedelta(days=3)
-        check("...and everywhere else the profile dial is returned untouched",
-              yr.intake_cap(stored, 5, m_day) == 5, "the phase is overriding a dial it does not own")
-
-        # --- RE-ANCHORING IS ONE COMMAND, AND EVERYTHING MOVES -------------
-        # The deck died because its date expired and the container outlived it.
-        # A tentative date that firms up must cost one command, not a rebuild.
-        was = [p["from"] for p in sched]
-        guard = run("--from", (today + timedelta(days=400)).isoformat(),
-                    "--to", (today + timedelta(days=430)).isoformat())
-        check("re-anchoring an OPEN year needs --force, and says so",
-              guard.returncode == 1 and "already open" in guard.stdout, guard.stdout)
-        run("--from", (today + timedelta(days=400)).isoformat(),
-            "--to", (today + timedelta(days=430)).isoformat(), "--force")
-        moved = yr.schedule(read_json(learner_path)["year"])
-        check("...and with it, every downstream boundary moved",
-              [p["from"] for p in moved] != was
-              and len(moved) == len(yr.ORDER), str([p["from"] for p in moved]))
-        check("the trip moving did NOT move the day the work opened",
-              read_json(learner_path)["year"]["opened"] == stored["opened"],
-              "re-anchoring rewrote history")
-
-        # ...and the ruling the line must NOT break: no countdown in the coach's
-        # mouth (DECISIONS 2026-08-17). Andrew's dashboard prints T-minus; this
-        # line is one of Anna's two session inputs and carries only the lean.
-        check("Anna's status line carries no countdown — that is Andrew's surface",
-              "T-" not in first_status and "trip" not in first_status.lower(),
-              f"got {first_status!r}")
+        check("Anna's status line carries no countdown",
+              "T-" not in after.get("status", "") and "trip" not in after.get("status", "").lower(),
+              f"got {after.get('status')!r}")
     finally:
         write_json(learner_path, before)
 

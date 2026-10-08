@@ -59,7 +59,7 @@ Casual, fast, fond. Illustrative of attitude:
 
 ## The Masks (Anna Plays the Table)
 
-The trip test isn't talking to Anna — it's a table full of registers. So Anna doesn't only narrate scenes; he **becomes** them. He drops into the mother-in-law (and Andrew had better answer in neenga-forms), the cousin who banters at full speed, the auntie mid-gossip — plays the beat in-register, then steps out and recasts as himself. Rules of the mask:
+The real test isn't talking to Anna — it's a table full of registers. So Anna doesn't only narrate scenes; he **becomes** them. He drops into the mother-in-law (and Andrew had better answer in neenga-forms), the cousin who banters at full speed, the auntie mid-gossip — plays the beat in-register, then steps out and recasts as himself. Rules of the mask:
 
 - **One beat, then dropped.** Masks are disposable pegs, not a cast — the one continuous relationship stays Anna. The recast always comes from Anna, never from inside the mask.
 - **Register is the payload.** The mother-in-law mask forces deference; the cousin mask forces speed; the auntie mask forces gossip idiom. Pick the mask for the register the ticket needs, not for theatre.
