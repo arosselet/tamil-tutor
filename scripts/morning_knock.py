@@ -39,6 +39,7 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 from mandates import OUTREACH_MANDATE
+import threads
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
@@ -162,45 +163,33 @@ def outcome_memory(klog: list, now: datetime) -> str:
         lines.append(f"    {k.get('date','?')} · {modality}/{move} · "
                      f"asked: {ask} · “{body_head}…” · {detail}")
 
-    # Ignore streak = trailing ASKS with no tap AND no session since (2026-09-29).
-    # It used to count gifts too, and the mandate defines a gift as worth the
-    # interruption "tapped or not": with the gift the default, the streak sat at
-    # 3+ by construction, the verdict said "give space", and the decider chose
-    # silence six ticks running — the format manufactured the disengagement it
-    # then read. Untapped gifts are counted on their OWN line instead of being
-    # skipped silently: 8 of 8 gifts went untapped 09-23→29, and a streak that
-    # merely ignored them would have read that as health. Their verdict asks for
-    # a different vein or an ask, never silence.
-    streak = gifts_untapped = 0
+    # Ignore streak = trailing fires with no tap AND no session since. From
+    # 09-29 to 10-08 it counted asks only and booked untapped gifts on a line of
+    # their own, because the gift was a default that asked for nothing. Gifts
+    # retired 2026-10-08 (every push tugs a thread), so one count is honest
+    # again — and a pre-retirement gift still in the window counts like any
+    # reach that came back empty, which is what it was.
+    streak = 0
     for k in reversed(fires):
         after = local_date(k.get("timestamp", ""))
         session_after = last_session and after and last_session >= after.isoformat()
         if k.get("response") or session_after:
             break
-        if is_give(k):
-            gifts_untapped += 1
-        else:
-            streak += 1
+        streak += 1
 
     since = "never" if not last_session else last_session
     verdict = ""
     if streak >= 3:
-        verdict = (f"  ⚠ {streak} asks in a row led to no session and no tap — the current "
-                   "approach isn't converting. Change the move or modality — a gift next, then a "
-                   "different ask; never a reason to stop asking (2026-10-04).")
-    elif gifts_untapped >= 4:
-        verdict = (f"  ⚠ {gifts_untapped} gifts in a row untapped, no session between — the gifts "
-                   "aren't landing. Change the vein and the notification's shape, or send a MISSION. "
-                   "Not a reason for silence.")
+        verdict = (f"  ⚠ {streak} tugs in a row came back with nothing — the threads aren't "
+                   "pulling. Tug a different thread, or go quiet; never candy (2026-10-08).")
     elif last_session and (now.astimezone(LOCAL_TZ).date() - date.fromisoformat(last_session)).days >= 3:
-        verdict = "  ⚠ No session in 3+ days — pull, never nag: a gift that shows him how close he is."
+        verdict = "  ⚠ No session in 3+ days — pull, never nag: one small tug on his liveliest thread."
 
     body = "\n".join(lines) if lines else "    (no reaches logged yet)"
     return (f"OUTREACH MEMORY (reward = Andrew showing up in chat, NOT taps):\n"
             f"  Last chat session: {since}\n"
             f"  Recent reaches (newest last):\n{body}\n"
-            f"  Ignore-streak: {streak} unanswered asks ({gifts_untapped} untapped gifts "
-            f"between).{verdict}")
+            f"  Ignore-streak: {streak} unanswered reaches.{verdict}")
 
 
 def demand_streak(klog: list) -> int:
@@ -247,9 +236,11 @@ def remaining_room(klog: list, now: datetime) -> str:
     # reads labels saw variety. The decider sees what was said and judges the shape.
     # Stated stance only: a Sort tape carries none, so is_give's legacy fallback
     # booked it as a gift and it filled half the window.
-    gifts = [k for k in klog if is_fire(k) and k.get("stance") == "give"][-4:]
-    said = "".join(f"\n    {k.get('move', '')} — {(k.get('body') or '')[:110]}" for k in gifts)
-    lore_str = f"\n  Recent gifts (newest last — take a different vein AND shape):{said}" if gifts else ""
+    # 2026-10-08: every push now, not just gifts — gifts retired, and the same
+    # sameness can run through tugs. A stanceless Sort tape still stays out.
+    recent = [k for k in klog if is_fire(k) and k.get("stance") in ("give", "ask")][-4:]
+    said = "".join(f"\n    {k.get('move', '')} — {(k.get('body') or '')[:110]}" for k in recent)
+    lore_str = f"\n  Recent pushes (newest last — tug a different thread AND shape):{said}" if recent else ""
     # THE TEMPLATE RAIL (2026-09-29). The vein line bans a repeated NAME, but
     # the progress-tease frame ("You already have X… You get Y") ran across
     # four different veins in a week — sameness by rhetoric, invisible to a
@@ -304,7 +295,7 @@ def due_menu_block(max_fire: int = 6, max_catch: int = 2) -> str:
     menu = drill_menu(lex, max_n=max_fire)
     if not menu:
         return ""
-    lines = ["DUE MENU (asks take expected_target from here; a gift may ignore it):"]
+    lines = ["DUE MENU (context, not a target list: a word tug aims at its THREAD; an overheard tape takes its ear-only item here):"]
     for t in menu:
         state = "hinted→cold" if t["production"] == "hinted" else f"{t['recognition']}, cold-pending"
         if t["unseen"]:
@@ -433,59 +424,6 @@ def campaign_block() -> str:
 TEASE_RE = re.compile(r"you already|you own|you'?re (one|1)\b|\bone\b.{0,40}\baway\b|"
                       r"\ba\b.{0,40}\baway from\b", re.I)
 
-# English question words only: "Evlo aagum?" is an answer, not a question.
-QUESTION_RE = re.compile(r"\b(what|why|how|which|break (it )?down|root|mean|difference)\b", re.I)
-
-
-def last_fired_on(klog: list) -> dict:
-    """key -> the last date he PRODUCED it (2026-09-29): a session's cold/hinted
-    lists and a judged push reply's fired words. The freshness rail reads this —
-    "you're one step away" on month-old evidence reads as pressure, not pull.
-    Deliberately NOT `last_surfaced`, which is a delivery stamp (08-31 law)."""
-    out = {}
-    for e in load_json(SESSION_LOG_PATH) or []:
-        for k in (e.get("cold") or []) + (e.get("hinted") or []):
-            out[k] = max(out.get(k, ""), e.get("date") or "")
-    for e in klog:
-        for k in e.get("reply_fired") or []:
-            out[k] = max(out.get(k, ""), (e.get("reply_at") or e.get("timestamp") or "")[:10])
-    return out
-
-
-def progress_block(klog: list, now: datetime, max_n: int = 6) -> str:
-    """What the push HOOKS on (2026-09-23, Andrew: "tease me with my progress more
-    than tease me with 'Auntie's on the phone again'"). The digest carried slips
-    and unanswered asks and nothing about what he is close to, so every push
-    leaned on the household or on his misses. Rows only — no new state."""
-    lex = load_json(LEXICON_PATH) or {}
-    by_recent = sorted(lex.items(), key=lambda kv: kv[1].get("last_surfaced") or "", reverse=True)
-    fired = last_fired_on(klog)
-    def rows(pred, n, dated=True):
-        when = lambda k: f" (last fired: {fired.get(k, 'no dated evidence')})" if dated else ""
-        return [f"    {k} — {(v.get('gloss') or '')[:70]}{when(k)}" for k, v in by_recent if pred(k, v)][:n]
-    frame = lambda k: k.startswith("frame:")
-    owned = rows(lambda k, v: frame(k) and v.get("production") == "cold", max_n)
-    ahead = rows(lambda k, v: frame(k) and v.get("production") == "none", 3, dated=False)
-    close = rows(lambda k, v: not frame(k) and v.get("production") == "hinted", max_n)
-    since = (now - timedelta(days=14)).isoformat()
-    asked = []
-    for e in klog:
-        if (e.get("timestamp") or "") < since:
-            continue
-        for x in e.get("exchanges") or ([{"reply": e["reply"]}] if e.get("reply") else []):
-            r = (x.get("reply") or "").strip()
-            if r and QUESTION_RE.search(r):
-                asked.append(f'    {(x.get("at") or e["timestamp"])[:10]}: "{r[:140]}"')
-    out = ["PROGRESS (the hook — what he owns, what he is one step from, what is next):",
-           "  Patterns he fires unaided:", *owned,
-           "  One step away (fired with a hint, not yet alone):", *close,
-           "  Machines he has not met yet:", *ahead]
-    if asked:
-        out += ["HIS RECENT QUESTIONS (answer each with a gift, once; skip any a recent "
-                "gift vein already took):", *asked[-4:]]
-    return "\n".join(out)
-
-
 def build_digest() -> str:
     """Everything Anna needs to make a policy call: learning state + the live
     campaign + the due menu + outcome memory + how much room the rails
@@ -495,7 +433,8 @@ def build_digest() -> str:
     status = out.stdout.strip()
     klog = load_json(KNOCK_LOG_PATH) or []
     now = datetime.now(timezone.utc)
-    parts = [status, campaign_block(), progress_block(klog, now), due_menu_block(),
+    campaign = campaign_block()
+    parts = [status, campaign, threads.block(klog, now, arc=bool(campaign)), due_menu_block(),
              outcome_memory(klog, now), remaining_room(klog, now)]
     return "\n\n".join(p for p in parts if p)
 
@@ -549,7 +488,8 @@ def tape_names_a_referent(memo_script: str) -> bool:
     return any(n in opening for n in (*REFERENT_NOUNS, *household.names()))
 
 
-def normalize_decision(d: dict, volley_menu: list | None = None) -> dict:
+def normalize_decision(d: dict, volley_menu: list | None = None,
+                       live: dict | None = None) -> dict:
     """Guard the decision's JSON into the shape Python relies on. For a volley,
     Anna's asks are zipped with PYTHON's binding targets (volley_targets) —
     the model writes the situations, never the picks — and the body is composed
@@ -576,6 +516,20 @@ def normalize_decision(d: dict, volley_menu: list | None = None) -> dict:
             print(f"   ⚠ dose declared no stance ({d.get('stance')!r}) — counting it as ASK")
         d["stance"] = "ask"
     d["schedule"] = d.get("schedule") if isinstance(d.get("schedule"), dict) else None
+    # A PUSH TUGS A LIVE THREAD OR IT IS SILENCE (2026-10-08, Andrew with Rio).
+    # The threads are computed from the books (`threads.live`), so an id the
+    # decider invents, misspells or leaves out cannot pass as a tug: it is
+    # refused loudly, and the silence it becomes is the signal that the threads
+    # are not pulling — never a reason to hand out candy instead.
+    # The digest prints ids as "[word:…]" and the first live dry run (10-08)
+    # copied the brackets — a strict compare refused the RIGHT push, and every
+    # push would have gone silent looking like a quiet decider. Brackets are
+    # presentation; the id is what is inside them.
+    d["thread"] = (d.get("thread") or "").strip().strip("[]").strip()
+    if live is not None and d.get("act") and d["thread"] not in live:
+        print(f"   ⚠ no live thread ({d['thread']!r}) — refused, silence "
+              f"(live: {', '.join(live) or 'none'})")
+        d["modality"], d["act"] = "silence", False
     if d["modality"] == "eavesdrop":
         # A defective eavesdrop is REFUSED, never degraded to text (2026-08-01,
         # enforcing the twice-signalled 07-28 ruling "wire real audio or do not
@@ -629,7 +583,7 @@ def normalize_decision(d: dict, volley_menu: list | None = None) -> dict:
 # place both executors respect. Retires two KNOWN_GAPS licences in smoke s82.
 DECIDE_SCHEMA = obj(act=BOOL, modality=STR, move=STR, stance=STR,
                     introduces=STRS, notification_body=STR, memo_script=STR,
-                    expected_target=STR, target_revealed=BOOL,
+                    expected_target=STR, target_revealed=BOOL, thread=STR,
                     next_check_hours=INT, rationale=STR,
                     volley_asks=nullable(STRS),
                     # No `memo_script` here: the outreach mandate's scheduled dose
@@ -646,7 +600,7 @@ DECIDE_SCHEMA = obj(act=BOOL, modality=STR, move=STR, stance=STR,
 # still stamped on every entry, so a future writer change stays auditable.
 
 
-def decide(digest: str, volley_menu: list | None = None) -> dict:
+def decide(digest: str, volley_menu: list | None = None, live: dict | None = None) -> dict:
     """Ask cloud Anna what to do this tick. The executor is the HOST's choice, not
     this lane's (`writer.ask_json`, 2026-08-23) — which is what stops a local
     `--force` from billing cash against a subscription already paid for. In
@@ -667,7 +621,7 @@ def decide(digest: str, volley_menu: list | None = None) -> dict:
     d = ask_json(canon + "\n\n---\n\n" + OUTREACH_MANDATE,
                  f"TODAY'S DIGEST:\n\n{digest}", DECIDE_SCHEMA, answer_tokens=1600,
                  model=model)
-    d = normalize_decision(d, volley_menu)
+    d = normalize_decision(d, volley_menu, live)
     d["decide_model"] = model
     return d
 
@@ -696,6 +650,7 @@ def log_decision(now: datetime, decision: dict, *, acted: bool,
         entry["body"], entry["body_script"] = decision.get("notification_body"), decision.get("body_script", "")
         entry["expected_target"] = decision.get("expected_target", "")
         entry["stance"] = decision.get("stance", "ask")   # what it wanted; is_give reads this
+        entry["thread"] = decision.get("thread", "")      # what it tugged — the return measure reads this
         entry["target_revealed"] = decision.get("target_revealed", True)
         if decision.get("volley"):
             # the reply judge walks this queue deterministically (knock_reply.py)
@@ -730,8 +685,9 @@ def main():
     now = datetime.now(timezone.utc)
     print("1. digest…")
     digest = build_digest()
+    live = threads.live(load_json(KNOCK_LOG_PATH) or [], now, arc=bool(campaign_block()))
     print("2. Anna decides…")
-    decision = decide(digest, volley_targets())
+    decision = decide(digest, volley_targets(), live)
     print(f"   → act={decision.get('act')} modality={decision['modality']} "
           f"move={decision.get('move')!r} next_check={decision['next_check_hours']}h")
     print(f"   rationale: {decision.get('rationale')}")

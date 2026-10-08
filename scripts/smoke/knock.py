@@ -76,7 +76,7 @@ def s3_knock_paths(mk, sb: Path):
     pushes, commits = Recorder(), Recorder()
     mk.push_to_phone, mk.commit_and_push = pushes, commits
 
-    mk.decide = lambda digest, vt=None: canned_decision(False)
+    mk.decide = lambda digest, vt=None, live=None: canned_decision(False)
     sys.argv = ["morning_knock.py"]
     mk.main()
     log = read_json(klog_path)
@@ -86,7 +86,7 @@ def s3_knock_paths(mk, sb: Path):
     check("silence still commits the log", len(commits) == 1)
 
     body = "smoke dose — sollu da"
-    mk.decide = lambda digest, vt=None: canned_decision(True, body)
+    mk.decide = lambda digest, vt=None, live=None: canned_decision(True, body)
     mk.main()
     log = read_json(klog_path)
     check("fire logs acted=true with body", log[-1].get("acted") and log[-1]["body"] == body)
@@ -247,40 +247,82 @@ def s8_variety_and_decay(mk, kr, sb: Path):
     check("demand_streak zero after a no-ask fire",
           mk.demand_streak([{"acted": True, "expected_target": ""}]) == 0)
 
-    # RECENT GIFT VEINS replace the lore cooldown/cadence pair (2026-09-23,
-    # Andrew: the gift is the default push now, so a format rail would nag every
-    # tick). What survives from 07-11 is the vein rule: the rails name what the
-    # last gifts spent, and an ask never counts as a gift vein.
-    # 2026-10-06: the rail carries each gift's LINE, not just its label — seven
-    # table-phrase gifts under four vein names read as variety to a label rail.
-    gifts = [{"acted": True, "stance": "give", "move": f"lore: word{i}",
+    # RECENT PUSHES (2026-09-23 as gift veins; 2026-10-06 lines not labels;
+    # 2026-10-08 every push, since gifts retired): the rails show what the last
+    # four pushes SAID, asks included — sameness runs through tugs too.
+    fires = [{"acted": True, "stance": "ask" if i % 2 else "give", "move": f"tug: word{i}",
               "body": f"When Athai fusses, drop this: phrase{i}",
               "timestamp": (now - timedelta(hours=10 - i)).isoformat()} for i in range(5)]
-    gifts.append({"acted": True, "stance": "ask", "move": "eavesdrop: x",
-                  "timestamp": now.isoformat()})
-    gifts.append({"acted": True, "modality": "sort", "move": "Sort tape",
+    fires.append({"acted": True, "modality": "sort", "move": "Sort tape",
                   "body": "Sort tape — 20 lines", "timestamp": now.isoformat()})
-    room = mk.remaining_room(gifts, now)
+    room = mk.remaining_room(fires, now)
     lines = [l.strip() for l in room.splitlines()]
-    check("the rails show the recent gifts' lines, newest last",
-          [l for l in lines if l.startswith("lore: word")] ==
-          [f"lore: word{i} — When Athai fusses, drop this: phrase{i}" for i in range(1, 5)], room)
-    check("...only the last four, never an ask, never a stanceless Sort tape",
-          "word0" not in room and "eavesdrop: x" not in room and "Sort tape" not in room)
-    check("no gifts yet -> no gift line", "Recent gifts" not in mk.remaining_room([], now))
-    check("lore and fun facts are freed from the due menu and the deployable line",
-          "need no DUE MENU" in mk.OUTREACH_MANDATE and "FUN" in mk.OUTREACH_MANDATE)
+    check("the rails show the recent pushes' lines, asks included, newest last",
+          [l for l in lines if l.startswith("tug: word")] ==
+          [f"tug: word{i} — When Athai fusses, drop this: phrase{i}" for i in range(1, 5)], room)
+    check("...only the last four, never a stanceless Sort tape",
+          "word0" not in room and "Sort tape" not in room)
+    check("no pushes yet -> no recent line", "Recent pushes" not in mk.remaining_room([], now))
 
-    # THE HOOK IS HIS PROGRESS (2026-09-23): the digest carries what he owns and
-    # what he asked, and a Tamil answer ending in "?" is not a question.
+    # EVERY PUSH TUGS A LIVE THREAD OR IS SILENCE (2026-10-08, Andrew with
+    # Rio). 32 standalone gifts drew 6 replies or taps; one-line asks on live
+    # work came back most of the time. Candy is retired from the mandate, and
+    # Python — not the prompt — refuses a push whose thread the books don't hold.
+    m = mk.OUTREACH_MANDATE
+    check("the mandate retires candy: no GIFT kind, no FUN FACT vein, no THE BALANCE",
+          "FUN FACT" not in m and "1. GIFT" not in m and "THE BALANCE" not in m, m[:400])
+    check("...and every push names a THREADS id", '"thread"' in m and "THREADS" in m)
+    live = {"word:X": "x", "arc": "story"}
+    base = {"act": True, "modality": "text", "stance": "ask", "move": "m"}
+    d = mk.normalize_decision(dict(base, thread="word:Y"), None, live)
+    check("a push tugging a thread the books don't hold is refused to silence",
+          d["act"] is False and d["modality"] == "silence", str(d))
+    d = mk.normalize_decision(dict(base), None, live)
+    check("...and so is a push that names no thread (an absence is loud)", d["act"] is False)
+    d = mk.normalize_decision(dict(base, thread="word:X"), None, live)
+    check("a push on a live thread passes", d["act"] is True and d["thread"] == "word:X")
+    d = mk.normalize_decision(dict(base, thread="[word:X]"), None, live)
+    check("...including one that copied the digest's brackets (the 10-08 dry run)",
+          d["act"] is True and d["thread"] == "word:X", str(d))
+    check("the decide digest carries the threads block, not PROGRESS",
+          "threads.block(klog, now" in fx.raw_source(REAL_BASE / "scripts" / "morning_knock.py")
+          and "def progress_block" not in fx.raw_source(REAL_BASE / "scripts" / "morning_knock.py"))
+
+    # THE THREADS ARE THE BOOKS (threads.py). Effect, not execution: each case
+    # is a word the rule must keep or drop, and silently keeping all or none
+    # would fail at least one of them.
+    import threads as th
+    ago = lambda d: (now - timedelta(days=d)).isoformat()
+    ev = lambda w, d, kind="tested", axis="production", res="right", ch="session": {
+        "word": w, "at": ago(d), "kind": kind, "axis": axis, "result": res, "channel": ch}
+    lex = {w: {"gloss": w.upper()} for w in ("hint", "owned", "swept", "stale", "turned", "catch")}
+    lex["catch"]["direction"] = "catch"
+    events = [ev("hint", 3, res="partial"), ev("hint", 2, axis="recognition"),
+              ev("owned", 3),                                            # cold: already his
+              ev("swept", 2, axis="recognition", ch="check"),            # confirmed, never nursed
+              ev("stale", 40, res="partial"), ev("stale", 39, axis="recognition"),
+              ev("turned", 9, axis="recognition", res="wrong"), ev("turned", 1, axis="recognition"),
+              ev("catch", 2, axis="recognition", ch="eavesdrop")]
+    near = [t["word"] for t in th.almost_yours(lex, events, now)]
+    check("almost-yours keeps the nursed words, hinted first",
+          near == ["hint", "turned"], str(near))
+    check("...and drops owned, merely-swept and stale ones",
+          not {"owned", "swept", "stale"} & set(near))
+    won = [t["word"] for t in th.became_yours(lex, events, now - timedelta(days=7))]
+    check("became-yours names the word that crossed this week", won == ["owned"], str(won))
+    old = [t["word"] for t in th.became_yours(lex, events + [ev("owned", 30)], now - timedelta(days=7))]
+    check("...and not one that was already his before the cut", old == [], str(old))
     asked = [{"timestamp": now.isoformat(), "exchanges": [
         {"at": now.isoformat(), "reply": "not sure about the root itself kilambu"},
         {"at": now.isoformat(), "reply": "Evlo aagum?"}]}]
-    block = mk.progress_block(asked, now)
-    check("progress block carries his question", "root itself kilambu" in block, block)
-    check("...and not a Tamil answer that happens to end in '?'", "Evlo aagum" not in block)
-    check("the decide digest carries the progress block",
-          "progress_block(klog, now)" in fx.raw_source(REAL_BASE / "scripts" / "morning_knock.py"))
+    qs = th.questions(asked, now)
+    check("his question is a thread; a Tamil answer ending in '?' is not",
+          len(qs) == 1 and "kilambu" in qs[0]["text"], str(qs))
+    check("...and an answered question closes its thread",
+          th.questions(asked + [{"thread": qs[0]["id"]}], now) == [])
+    ids = th.live(asked, now, arc=True, lex=lex, events=events)
+    check("live ids carry words, questions and the arc",
+          {"word:hint", "word:turned", qs[0]["id"], "arc"} == set(ids), str(ids))
 
     # lock-screen body budget
     check("over_budget flags a long body",
@@ -374,7 +416,7 @@ def s9_audio_knock_feed(mk, sb: Path):
     d = canned_decision(True, "smoke audio dose")
     d["modality"] = "audio"
     d["memo_script"] = "வணக்கம் டா"
-    mk.decide = lambda digest, vt=None: d
+    mk.decide = lambda digest, vt=None, live=None: d
     sys.argv = ["morning_knock.py"]
     mk.main()
 
@@ -968,7 +1010,7 @@ def s20_fielding(mk, kr, sb: Path):
         out_path.write_bytes(b"smoke-mp3")
         fake_render.voice = voice
     mk.render_memo = fake_render
-    mk.decide = lambda digest, vt=None: dict(d)
+    mk.decide = lambda digest, vt=None, live=None: dict(d)
     sys.argv = ["morning_knock.py"]
     mk.main()
     entry = read_json(klog_path)[-1]
@@ -1988,7 +2030,7 @@ def s50_read_surfaces_are_phonetic(mk, kr, sb: Path):
          "notification_body": "today's line — ரொம்ப நல்லாருக்கு",
          "memo_script": "ரொம்ப நல்லாருக்கு", "expected_target": "",
          "target_revealed": False, "schedule": None, "next_check_hours": 4}
-    mk.decide = lambda digest, vt=None: dict(d)
+    mk.decide = lambda digest, vt=None, live=None: dict(d)
     rendered = []
     async def fake_render(script, out_path, voice):
         rendered.append(script)
@@ -2685,30 +2727,21 @@ def s127_asks_earn_replies_gifts_earn_taps(mk, sb: Path):
         ask = lambda h: {"acted": True, "stance": "ask", "move": "mission",
                          "expected_target": "x", "timestamp": ts(h)}
 
-        mem = mk.outcome_memory([gift(3), gift(2), gift(1)], now)
-        check("3 untapped gifts, no session -> ask-streak 0",
-              "Ignore-streak: 0 unanswered asks" in mem, mem.splitlines()[-1])
-        check("...and no back-off verdict", "Give space" not in mem)
-        check("...but the gifts are counted, not dropped", "3 untapped gifts" in mem)
-
-        mem = mk.outcome_memory([ask(3), ask(2), ask(1)], now)
-        check("3 untapped asks -> ask-streak 3 and a change-the-move verdict",
-              "Ignore-streak: 3 unanswered asks" in mem and "never a reason to stop asking" in mem
-              and "Give space" not in mem, mem)  # 2026-10-04: a streak changes the move, never stops asks
-
-        mem = mk.outcome_memory([gift(4), ask(3), gift(2), ask(1)], now)
-        check("gifts neither extend nor break the ask-streak",
-              "Ignore-streak: 2 unanswered asks (2 untapped gifts" in mem, mem.splitlines()[-1])
-
-        mem = mk.outcome_memory([gift(h) for h in (4, 3, 2, 1)], now)
-        check("4 untapped gifts warn on their own line", "4 gifts in a row untapped" in mem, mem)
-        check("...and that warning never prescribes silence",
-              "Give space" not in mem and "Not a reason for silence" in mem)
-
+        # 2026-10-08: gifts retired (every push tugs a thread), so ONE streak
+        # again — an untapped pre-retirement gift is a reach that came back
+        # empty, and the verdict sends Anna to the threads, never to candy.
+        mem = mk.outcome_memory([gift(3), ask(2), ask(1)], now)
+        check("3 unanswered reaches of any stance -> streak 3",
+              "Ignore-streak: 3 unanswered reaches" in mem, mem.splitlines()[-1])
+        check("...and the verdict fixes the threads, never hands out candy",
+              "threads aren't pulling" in mem and "never candy" in mem and "gift next" not in mem, mem)
         tapped = gift(1) | {"response": "listened"}
         mem = mk.outcome_memory([ask(4), ask(3), ask(2), tapped], now)
-        check("a tapped gift still breaks the streak",
-              "Ignore-streak: 0 unanswered asks (0 untapped" in mem, mem.splitlines()[-1])
+        check("a tap still breaks the streak",
+              "Ignore-streak: 0 unanswered reaches" in mem, mem.splitlines()[-1])
+        mem = mk.outcome_memory([ask(2), ask(1)], now)
+        check("a quiet stretch asks for a tug on a live thread, never a nag",
+              "liveliest thread" in mem and "never nag" in mem, mem)
 
         # THE TEMPLATE RAIL counts the rhetoric, not the vein name.
         bodies = ["You already have appuram. Add one ending.", "Lore: the kilambu root 🌿",
@@ -2719,15 +2752,9 @@ def s127_asks_earn_replies_gifts_earn_taps(mk, sb: Path):
         check("the rails count progress-tease openers over the last 6 fires",
               "Progress-tease template in 3 of the last 6 fires" in room, room)
 
-        # FRESHNESS: a date from EVIDENCE, and an absence that says so.
-        fresh = (now - timedelta(days=1)).strftime("%Y-%m-%dT%H:%M:%SZ")
-        fired = mk.last_fired_on([{"reply_fired": ["புதுசு"], "reply_at": fresh}])
-        check("last_fired_on reads session evidence",
-              fired.get("பழசு") == (now - timedelta(days=30)).date().isoformat(), str(fired))
-        check("...and judged push replies", fired.get("புதுசு") == fresh[:10], str(fired))
-        check("the progress block dates what it offers as a hook",
-              "(last fired:" in fx.raw_source(REAL_BASE / "scripts" / "morning_knock.py")
-              and "no dated evidence" in fx.raw_source(REAL_BASE / "scripts" / "morning_knock.py"))
+        # FRESHNESS moved to threads.py (LIVE_DAYS over the observation log);
+        # its stale-word case lives in s8. The old date reader is gone.
+        check("the freshness reader retired with PROGRESS", not hasattr(mk, "last_fired_on"))
     finally:
         if saved is None:
             slog_path.unlink(missing_ok=True)
@@ -2736,8 +2763,8 @@ def s127_asks_earn_replies_gifts_earn_taps(mk, sb: Path):
 
     # THE MANDATE owns the rules Python counts for.
     m = mk.OUTREACH_MANDATE
-    check("the mandate carries the MISSION as an ask", '4. MISSION (modality "text", stance "ask")' in m)
-    check("...and caps the tease frame and its freshness", "1 push in 3" in m and "7 days" in m)
+    check("the mandate carries the one-try tug as an ask", '1. ONE TRY (modality "text", stance "ask")' in m)
+    check("...and caps the tease frame", "1 push in 3" in m)
     check("the eavesdrop pull has a banned quiz example", "QUIZ, banned" in m)
 
     # THE A/B IS RETIRED (2026-09-29, Andrew): one writer, still stamped.

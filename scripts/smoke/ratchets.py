@@ -96,7 +96,10 @@ PROSE_BUDGETS = {
     # 1070 -> 1115 (2026-10-06, Andrew: "gifts/lore are intended to be varying in
     # substance"): lore widened, FUN FACT added, the progress law scoped to asks/echoes/
     # patterns. Offset by trimming the second tease example and SCHEDULING (census 1111).
-    "OUTREACH_MANDATE": 1115,
+    # 1115 -> 900 (2026-10-08, Andrew with Rio): re-censused DOWN (census 885).
+    # Every push tugs a live THREADS id or is silence; GIFT, THE BALANCE and the
+    # fun-fact vein retired — 32 standalone gifts drew 6 replies or taps.
+    "OUTREACH_MANDATE": 900,
     "JUDGE_MANDATE": 1500,
     # Split out of JUDGE_MANDATE (2026-07-24) rather than raise its budget, the same move audio_channels.md made on daily_session.md: "what this reply can do beyond the text line" (schedule a … · 300 -> 150 (2026-08-27): re-censused DOWN — the SPEAK BACK section left for VOICE_MANDATE, which both judges compose.
     "REACH_MANDATE": 150,
@@ -202,6 +205,9 @@ CODE_BUDGETS = {
     # NEW FILE, budgeted in the same diff that creates it (2026-09-10). · 125 -> 150 (2026-09-10, Phase 3).
     # 150 -> 180 (2026-09-10, `remerge`): the ledger joins the rebase net's derived table, retiring the "needs a human" outcome that lost run 34520445739's judged reply.
     "scripts/lexicon_view.py": 180,
+    # NEW FILE, budgeted in the diff that creates it (2026-10-08, Andrew with Rio):
+    # the threads view. Takes `progress_block` and `last_fired_on` out of the knock lane.
+    "scripts/threads.py": 140,
     "scripts/generate_callbacks.py": 100,
     # 775 -> 785 (2026-08-02) for the thread-continuity window. · 570 -> 610 (2026-08-27): the reply lane gained a voice rail — the AUDIO_RE detector, ensure_voice's one-forced-re-ask backstop, and a shared speak() body. · 610 -> 560 (2026-08-28): re-censused DOWN. · 560 -> 563 (2026-09-05).
     "scripts/knock_reply.py": 563,
@@ -219,7 +225,10 @@ CODE_BUDGETS = {
     # dates on PROGRESS (`last_fired_on`). RETIRED in the same diff: the decide
     # A/B (`DECIDE_AB`, `decide_model()`). Next growth here is a split signal —
     # the digest builders (progress/outcome/room) are the obvious lane to lift out.
-    "scripts/morning_knock.py": 425,
+    # 425 -> 390 (2026-10-08): re-censused DOWN (census 388). The split the line
+    # above called for was taken: PROGRESS and its freshness reader left for
+    # threads.py, and the gift/ask streak split folded back into one count.
+    "scripts/morning_knock.py": 390,
     # 470 -> 500 (2026-08-28): MESSAGE_MANDATE landed — the first mandate in this file that only ACTS instead of grading.
     "scripts/mandates.py": 500,
     # NEW FILE, budgeted in the diff that creates it (2026-08-24, Q1's first family).
@@ -931,6 +940,11 @@ LAYERS = {
     # ledger it is asking a slip whether a dose worked, and the edge fails here.
     "dose_evidence":      0.9,
     "slips":              1,
+    # The threads (2026-10-08). Reads the fold (0.7), the log and the slip ledger
+    # (1); read by the knock lane (5) and by hand in a session. Numbered just
+    # above slips so the day it reaches for selection or a lane — a thread view
+    # that can ORDER the pool, or send a push — the edge reads as upward here.
+    "threads":            1.2,
     # The month object (2026-09-17). It reads L0 and the lexicon's DERIVED rungs
     # and is read by selection, the one writer and the read surfaces. Numbered
     # BELOW `suggest_targets` on purpose: the month owns membership and the fold,
@@ -1525,6 +1539,9 @@ TOMBSTONES = (
     ("2026-10-04 Asks come back; gifts stay half (the 09-23 gifts-only default retired)",
      ("Give space, or change the move",
       "stance \"give\") — the default. A self-contained")),
+    ("2026-10-08 Every push tugs a live thread (gifts, THE BALANCE and the fun-fact vein retired)",
+     ("at least one ASK and at least one GIFT",
+      "a FUN FACT, one surprising")),
 )
 
 # Where a retired claim could still be read as law: every surface an agent or a

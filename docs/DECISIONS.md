@@ -47,7 +47,8 @@ compressed 2026-09-10, 32k words to 11k, nothing lost that git did not hold).
   grated because the picture was false (sari `struggled`), and lighter asks deepened it. When contact drops: first ask whether Anna knows what he knows (the
   sweep), then the content. Never answer a fade with accountability
   machinery or by cutting the measuring channel.
-- **Gifts vary in substance, not labels** (2026-10-06, Andrew: "not just a dozen ways to escape the ladle"). Nine gifts running (09-28→10-06) were a table phrase to deploy, under four vein names; the rail read labels. Lore and a new fun-fact vein need no due item and no deployable line; the progress law now covers asks, echoes and patterns only. The rails show recent gifts' lines.
+- **Every push tugs a live thread, or it is silence** (2026-10-08, Andrew with Rio). Since 08-15 one-line asks on live work mostly came back; 32 standalone gifts drew 6 replies or taps, and the mandate swung four times in two weeks. A gift is candy — a signal to fix the threads. `threads.py` reads them off the books; Python refuses any other. Supersedes 10-04 and 10-06.
+- ~~**Gifts vary in substance, not labels**~~ (superseded 2026-10-08) (2026-10-06, Andrew: "not just a dozen ways to escape the ladle"). Nine gifts running (09-28→10-06) were a table phrase to deploy, under four vein names; the rail read labels. Lore and a new fun-fact vein need no due item and no deployable line; the progress law now covers asks, echoes and patterns only. The rails show recent gifts' lines.
 - **A "never" names what it guards** (2026-10-05, Andrew). The list ban, the
   taught-only check and palatability-first each fixed one symptom, outlived it, and
   blocked the next fix. A new prohibition states the failure it prevents, so an audit
@@ -73,7 +74,7 @@ compressed 2026-09-10, 32k words to 11k, nothing lost that git did not hold).
 
 - **The surface rule is two sentences in the pack** (2026-10-05, Andrew). Seven mandates restated how speakable Tamil is written and had drifted three ways on register; three lanes named none. `language.VOICE_FORM` / `READ_FORM` replace every restatement, the register default stays `dialect.md`'s, and `s129` fails on a retyped rule. They are the template's `audio_form` / `chat_form` slots (`language-tutor` v6 groundwork).
 
-- **Asks come back; gifts stay half** (2026-10-04, Andrew: "bring back asks, but don't starve gifts"). Replies: July ~2 in 3 with asks; 3 of 23 after the 09-23 gifts-only default. OUTREACH_MANDATE now requires at least one ask and one gift a day and restores FIELDING (6/6 in July). An ask-streak changes the move, never stops asks. Volley stays out: its targets no longer reach the digest.
+- ~~**Asks come back; gifts stay half**~~ (superseded 2026-10-08) (2026-10-04, Andrew: "bring back asks, but don't starve gifts"). Replies: July ~2 in 3 with asks; 3 of 23 after the 09-23 gifts-only default. OUTREACH_MANDATE now requires at least one ask and one gift a day and restores FIELDING (6/6 in July). An ask-streak changes the move, never stops asks. Volley stays out: its targets no longer reach the digest.
 
 - **`untested` is not a grade** (2026-10-04, Andrew). A row nobody had tested read `struggled`, so "no evidence" and "he struggles" were one value. `untested` is now the default rung, ranked with `struggled` so no ordering moves; any recognition test leaves it (a half answer lands on `struggled`). Migration: 299 untested, 26 struggled. Residual: pre-log misses never carried as events read untested.
 
