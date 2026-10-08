@@ -8156,7 +8156,8 @@
     "mp3": "published_audio/knocks/knock_2026-10-08T16-00.mp3",
     "response": "ack",
     "response_at": "2026-10-08T16:23:57Z",
-    "payoff_tries": 1
+    "payoff_tries": 1,
+    "payoff_mp3": "published_audio/knocks/payoff_2026-10-08T16-00.mp3"
   },
   {
     "date": "2026-10-08",
