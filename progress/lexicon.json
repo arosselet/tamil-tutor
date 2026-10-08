@@ -1447,12 +1447,13 @@
   },
   "உள்ள": {
     "gloss": "Inside",
-    "recognition": "struggled",
+    "recognition": "comfortable",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-09-20",
-    "reps": 1,
-    "heard_on": null
+    "last_surfaced": "2026-10-08",
+    "reps": 2,
+    "heard_on": null,
+    "taught_on": "2026-10-08"
   },
   "எங்க?": {
     "gloss": "Where?",
@@ -1463,7 +1464,7 @@
   },
   "வெளிய": {
     "gloss": "Outside",
-    "recognition": "comfortable",
+    "recognition": "solid",
     "production": "hinted",
     "seen_in": [
       6,
@@ -1471,8 +1472,8 @@
       21,
       33
     ],
-    "last_surfaced": "2026-10-04",
-    "reps": 2,
+    "last_surfaced": "2026-10-08",
+    "reps": 3,
     "exposures": 3,
     "taught_on": "2026-02-24",
     "heard_times": 1,

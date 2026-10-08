@@ -22091,5 +22091,29 @@
     "medium": "audio",
     "source": "knock:2026-10-06T17:45:58.357085+00:00",
     "note": ""
+  },
+  {
+    "id": "739dd74baf2b",
+    "at": "2026-10-08T15:26:21Z",
+    "word": "வெளிய",
+    "channel": "session",
+    "kind": "tested",
+    "axis": "recognition",
+    "result": "right",
+    "medium": "text",
+    "source": "chat 2026-10-08 opening tug: veliya poren",
+    "note": "Unprompted: 'oola and veliya is actually cold. inside & outside. Veliya poren means go outside.' Written phonetic, no hint; gloss of poren as 'go' not 'I'm going' (person not stated)."
+  },
+  {
+    "id": "3c659c67b4da",
+    "at": "2026-10-08T15:26:21Z",
+    "word": "உள்ள",
+    "channel": "session",
+    "kind": "tested",
+    "axis": "recognition",
+    "result": "right",
+    "medium": "text",
+    "source": "chat 2026-10-08 opening tug: veliya poren",
+    "note": "Unprompted: 'oola and veliya is actually cold. inside & outside. Veliya poren means go outside.' Written phonetic, no hint; gloss of poren as 'go' not 'I'm going' (person not stated)."
   }
 ]
