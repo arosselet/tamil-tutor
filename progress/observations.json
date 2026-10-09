@@ -22295,5 +22295,17 @@
     "medium": "text",
     "source": "knock:2026-10-08T21:12:52.582745+00:00",
     "note": "cold fire"
+  },
+  {
+    "id": "444f5d6c2c83",
+    "at": "2026-10-09T15:43:53Z",
+    "word": "frame:cant-முடியல",
+    "channel": "eavesdrop",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "knock:2026-10-09T15:42:32.123120+00:00",
+    "note": ""
   }
 ]
