@@ -127,11 +127,18 @@ def record(lean: str, prev: dict) -> dict:
     return {"lean": lean, "since": since or local_today().isoformat()}
 
 
-def table(rec: dict) -> list[str]:
+def table(rec: dict, books: dict | None = None) -> list[str]:
     """The three rooms, `→` on the live one. A READ surface, so it lives here
-    beside the data it renders; `sync_state` and `show_status` both print it."""
+    beside the data it renders; `sync_state` and `show_status` both print it.
+
+    `books` is `threads.rooms()` — (his, rows) per room — handed IN by the
+    caller, because this file reads no progress (its layer edge says why)."""
     live = rung(rec).get("direction")
-    return [f"{'→' if r == live else ' '} {r:7} {ROOMS[r]:20} {MARKERS[r]}" for r in ORDER]
+    books = books or {}
+
+    def held(r):
+        return f"his {books[r][0]:>3}/{books[r][1]:<3} " if r in books else ""
+    return [f"{'→' if r == live else ' '} {r:7} {ROOMS[r]:20} {held(r)}{MARKERS[r]}" for r in ORDER]
 
 
 def status_line(rec: dict) -> str:

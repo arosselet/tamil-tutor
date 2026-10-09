@@ -4856,6 +4856,28 @@ def s113_the_ladder_is_a_stated_lean_not_a_meter(sb: Path):
         for word in ("phase", "marker", "burn", "remaining", "days_left", "streak"):
             check(f"no `{word}` is stored on the ladder — it is derived or it is a meter",
                   f'"{word}' not in blob, f"`{word}` was persisted")
+        # --- THE BOOKS BESIDE THE LEAN (2026-10-09) -----------------------
+        # Silent no-op: a key mismatch would read 0/N everywhere and still
+        # print. So the totals must equal the tagged rows, and a room must hold
+        # rows he owns on the sandbox's real copy of the books.
+        th = importlib.import_module("threads")
+        lex = read_json(sb / "progress" / "lexicon.json")
+        books = th.rooms(lex, read_json(sb / "progress" / "observations.json"))
+        check("each room's total is exactly the rows whose register leads there",
+              all(books[r][1] == sum(1 for x in lex.values() if x.get("register") in ld.LEADS[r])
+                  for r in ld.ORDER), str(books))
+        # Controlled, not the sandbox's thin fixture: one frame row fired cold
+        # (his), one never tested (not his). down must read exactly 1/2.
+        own = {"smoke:frame-his": {"register": "frame"}, "smoke:frame-not": {"register": "frame"}}
+        fired = [{"id": "s113a", "at": "2026-07-01T12:00:00Z", "word": "smoke:frame-his",
+                  "channel": "session", "kind": "tested", "axis": "production",
+                  "result": "right", "source": "smoke", "note": ""}]
+        got = th.rooms(own, fired)
+        check("...and the books are read, not zero by a key mismatch",
+              got["down"] == (1, 2) and got["across"] == (0, 0), str(got))
+        check("the table prints them beside each room",
+              all(f"{h:>3}/{n:<3}" in "\n".join(ld.table(stored, books)) for h, n in books.values()),
+              "\n".join(ld.table(stored, books)))
         check("Anna's status line carries no countdown",
               "T-" not in after.get("status", "") and "trip" not in after.get("status", "").lower(),
               f"got {after.get('status')!r}")

@@ -32,6 +32,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
+import ladder
 from lexicon_view import derive
 from observations import OBSERVATIONS_PATH, WATCHED
 from slips import canon_tag, slip_closes
@@ -54,6 +55,20 @@ def is_his(row: dict, lexrow: dict) -> bool:
     if (lexrow or {}).get("direction") == "catch":
         return row.get("recognition") == "solid"
     return row.get("production") == "cold"
+
+
+def rooms(lex: dict, events: list) -> dict[str, tuple[int, int]]:
+    """Per ladder room: (rows his, rows) among the rows whose register LEADS
+    there (2026-10-09, Andrew). Printed beside the stated lean on Andrew's
+    surfaces so whoever moves it sees the books first — derived every time,
+    never stored, never said to him.
+
+    WHAT IT DOES NOT MEASURE: a `register` names the kind of phrase (a frame, a
+    social nicety), not who he would say it to, and only ~1 row in 5 carries
+    one. That is why it informs the lean and does not move it."""
+    view, keys = derive(events), {room: [w for w, r in lex.items() if r.get("register") in ladder.LEADS[room]]
+                                  for room in ladder.ORDER}
+    return {room: (sum(is_his(view.get(w, {}), lex[w]) for w in ks), len(ks)) for room, ks in keys.items()}
 
 
 def _day(e) -> str:

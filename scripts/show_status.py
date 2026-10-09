@@ -17,6 +17,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 import audio_titles
 import ladder
+import threads
 from sync_state import compute_floor, compute_engines, compute_ear, trailing_pace
 
 RECOGNIZED = {"comfortable", "solid"}
@@ -61,7 +62,8 @@ def main():
     print("-" * 55)
     _ld = ladder.load(learner)
     print("    " + ladder.status_line(_ld).replace("\n", "\n    "))
-    print("\n".join("    " + ln for ln in ladder.table(_ld)))
+    _books = threads.rooms(lexicon or {}, load_json(base / "progress" / "observations.json") or [])
+    print("\n".join("    " + ln for ln in ladder.table(_ld, _books)))
 
     # --- The ear: the axis nothing else counts (same math as sync_state) ---
     # The TRIP DECK block stood here until 2026-08-18 — a survival bar, a full-deck

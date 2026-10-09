@@ -47,6 +47,7 @@ import audio_titles
 from rebuild_rss import feed_items
 import month as month_mod
 import ladder as ladder_mod
+import threads
 import lexicon_view
 import observations
 from state_io import (BASE, DEFAULT_TZ, EPISODES_PATH, FEEDBACK_LOG_PATH,
@@ -950,8 +951,9 @@ def cmd_ladder(args):
 def _print_ladder(rec: dict):
     """ENGINEERING SURFACE — Andrew reads it and steers by the lean.
     `ladder.py` renders it; this file is a writer, not a view."""
+    books = threads.rooms(load_json(LEXICON_PATH) or {}, load_json(observations.OBSERVATIONS_PATH) or [])
     print("  " + ladder_mod.status_line(rec).replace("\n", "\n  "))
-    print("\n".join("  " + ln for ln in ladder_mod.table(rec)))
+    print("\n".join("  " + ln for ln in ladder_mod.table(rec, books)))
 
 
 def _print_month(rec: dict, lexicon: dict, episodes: dict, sidecars: dict):

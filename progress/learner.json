@@ -227,9 +227,9 @@
       }
     ]
   },
-  "status": "Machines heard 3 · ear-tested 16/26 · viability floor 34/49 fire cold (69%) · working down (children)",
+  "status": "Machines heard 3 · ear-tested 16/26 · viability floor 35/49 fire cold (71%) · working across (cousins and in-laws)",
   "ladder": {
-    "lean": "down",
-    "since": "2026-10-08"
+    "lean": "across",
+    "since": "2026-10-09"
   }
 }
