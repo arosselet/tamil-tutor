@@ -8280,5 +8280,15 @@
     "stance": "ask",
     "thread": "word:அப்புறம்",
     "target_revealed": false
+  },
+  {
+    "date": "2026-10-10",
+    "timestamp": "2026-10-10T00:24:56.706375+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "evening quiet",
+    "rationale": "Two unanswered reaches today and 36 minutes before the 21:00 cutoff; let the evening breathe and check back in the morning.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-10-10T11:54:56.706375+00:00"
   }
 ]
