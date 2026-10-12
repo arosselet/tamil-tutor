@@ -149,6 +149,7 @@ def main():
         run(render.s96_an_empty_sheet_is_not_a_dose, sb)
         run(render.s131_an_unjudged_form_never_ships, sb)
         run(state.s132_a_corrupt_book_fails_at_load, sb)
+        run(state.s140_a_repair_order_can_name_rotation, sb)
         run(knock.s133_the_outreach_policy_learns, mk, sb)
         run(render.s134_the_rotation_tape_passes_the_judge, sb)
         run(knock.s135_a_knock_speaks_only_judged_tamil, mk, sb)

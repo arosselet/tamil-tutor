@@ -61,7 +61,18 @@ from state_io import load_json, local_date
 # own sibling in `cmd_slips` read "owed a dose", and the digest is the copy Anna
 # reads at every close. Twelve consecutive orders went soak or drill and the
 # episode lane went 27 days unreached. (Moved here from slips.py 2026-09-25.)
-DOSE_CHANNELS = ("episode", "soak", "drill")
+#
+# ONE LIST, TWO READINGS (2026-10-12, Andrew). The standing order does two jobs:
+# a repair dose, and audio he simply asked for (the 10-08 lunch scene is an
+# episode order). So ORDER_CHANNELS is every lane an order may address, and
+# DOSE_CHANNELS — the lanes escalation_note suggests for a REPAIR — is derived
+# from it, never typed twice. Episode leaves the repair list: 0 episode listens
+# were ever logged against 25 for rotation, so an episode repair could only sit
+# at `awaiting`. Rotation joins both: `render_rotation.rotation_brief` has read a
+# rotation-addressed order since 09-13, and no order could name it, because the
+# CLI choices were this list and rotation was not on it.
+ORDER_CHANNELS = ("rotation", "soak", "drill", "episode")
+DOSE_CHANNELS = tuple(c for c in ORDER_CHANNELS if c != "episode")
 # The first day the attendance recorder WORKED, not the day the log began. The
 # rating lane was wired 2026-09-10 but looked missions up under the feed stem
 # while the registry is keyed by number, so it minted no `attended` event for any
@@ -141,7 +152,7 @@ def _and_join(items) -> str:
 
 
 def escalation_note(channels) -> str:
-    """"soak tried; drill and episode untried" — the half of the rule that says
+    """"soak tried; rotation and drill untried" — the half of the rule that says
     change the format TO WHAT.
 
     `audio_channels.md` has said "change the format, never loop harder" since
@@ -151,7 +162,9 @@ def escalation_note(channels) -> str:
     the doses were commissioned in; the remainder is listed in DOSE_CHANNELS
     order. Every lane tried is not "no advice available": it says the repair has
     outlived the audio surface, which is worth hearing plainly."""
-    tried = [c for c in channels if c in DOSE_CHANNELS]
+    # Tried reads ORDER_CHANNELS: an episode dose was a real try and is named as
+    # one; only the suggestions are limited to the repair lanes.
+    tried = [c for c in channels if c in ORDER_CHANNELS]
     left = [c for c in DOSE_CHANNELS if c not in tried]
     if not tried:
         return "a dose was built and he slipped again"

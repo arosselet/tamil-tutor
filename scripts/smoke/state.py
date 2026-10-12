@@ -3992,7 +3992,7 @@ def s103_the_escalation_names_the_lane_that_is_left(sb: Path):
         slip_on("esc-tag", days_ago(2))
         out = digest()
         check("one lane tried: the escalation names the two that are left",
-              "soak tried; episode and drill untried" in out,
+              "soak tried; rotation and drill untried" in out,
               [l for l in out.splitlines() if "ESCALATE" in l])
         check("...and never offers back the lane that just failed",
               "soak untried" not in out and "drill and soak untried" not in out, out[:400])
@@ -4006,11 +4006,11 @@ def s103_the_escalation_names_the_lane_that_is_left(sb: Path):
               pats["esc-tag"]["escalate"], "escalate went quiet on the second lane")
         out = digest()
         check("...and names the one lane nobody has tried",
-              "soak and drill tried; episode untried" in out,
+              "soak and drill tried; rotation untried" in out,
               [l for l in out.splitlines() if "ESCALATE" in l])
 
         # Every lane tried: a different finding, not a quieter one.
-        commission("esc-tag", "episode", days_ago(1))
+        commission("esc-tag", "rotation", days_ago(1))
         out = digest()
         check("all lanes tried: it says the repair has outgrown the audio surface",
               "outgrown the audio lanes" in out,
@@ -4028,10 +4028,23 @@ def s103_the_escalation_names_the_lane_that_is_left(sb: Path):
               [l for l in out.splitlines() if "--soak-payload" in l])
 
         # The lane list has exactly one owner.
-        check("the commissionable lanes are one list, shared with the flag",
-              set(de.DOSE_CHANNELS) == {"episode", "soak", "drill"}
-              and list(ss.DOSE_CHANNELS) == list(de.DOSE_CHANNELS),
-              str(de.DOSE_CHANNELS))
+        # (2026-10-12) Episode stays orderable — it is also how he asks for a
+        # scene — but leaves the REPAIR suggestions; rotation joins both.
+        check("the repair lanes derive from the order lanes, episode excluded",
+              set(de.DOSE_CHANNELS) == {"rotation", "soak", "drill"}
+              and set(de.ORDER_CHANNELS) == set(de.DOSE_CHANNELS) | {"episode"}
+              and ss.ORDER_CHANNELS is de.ORDER_CHANNELS
+              and ss.DOSE_CHANNELS is de.DOSE_CHANNELS,
+              f"{de.ORDER_CHANNELS} / {de.DOSE_CHANNELS}")
+        # An episode dose is a real try: named as tried, never suggested.
+        slip_on("ep-tag", days_ago(6))
+        slip_on("ep-tag", days_ago(5))
+        commission("ep-tag", "episode", days_ago(4))
+        slip_on("ep-tag", days_ago(2))
+        out = digest()
+        check("an episode dose reads as tried, and the repair lanes as untried",
+              "episode tried; rotation, soak and drill untried" in out,
+              [l for l in out.splitlines() if "ep-tag" in l])
     finally:
         clear_listens()
         if saved[0] is not None:
@@ -5465,3 +5478,83 @@ def s132_a_corrupt_book_fails_at_load(sb: Path):
     check("learner.json's writers are exactly the three state_io names",
           found == allowed, f"found {sorted(found)} — name a new writer in "
           "state_io's docstring and here, or route it through one of them")
+
+
+def s140_a_repair_order_can_name_rotation(sb: Path):
+    """Rotation becomes a dose lane, and episode leaves the repair list (2026-10-12).
+
+    The listens were all in one place and the doses in another: 25 rotation
+    listens against 0 for episodes, while every repair dose went to episode,
+    soak or drill — so a dose could almost never read `heard`, and ESCALATE
+    stayed quiet for want of evidence rather than for want of slips.
+
+    The reader already existed: `render_rotation.rotation_brief` has honoured a
+    rotation-addressed order since 09-13. Nothing could WRITE one, because the
+    `--soak-channel` choices were DOSE_CHANNELS and rotation was not on it. And
+    had one been hand-written, the session-open drain mapped every unknown lane
+    to `run_studio` — an episode built for a rotation order.
+
+    Gate 7.2 — three silent no-ops, each asserted on its effect: the flag is
+    refused by argparse (so the round trip goes through the real CLI, not
+    `cmd_update`, which skips `choices`); the order is stored but the drain
+    dispatches the wrong lane; a rotation listen exists but is never joined."""
+    print("\n140. A repair order can name rotation (2026-10-12)")
+    import os
+    import subprocess
+    de = importlib.import_module("dose_evidence")
+    rr = importlib.import_module("render_rotation")
+    lex_path, learner_path = sb / "progress" / "lexicon.json", sb / "progress" / "learner.json"
+    saved = (lex_path.read_bytes(), learner_path.read_bytes())
+    env = {**os.environ, "PYTHONUTF8": "1"}
+
+    def cli(*argv):
+        return subprocess.run([sys.executable, str(sb / "scripts" / "sync_state.py"), *argv],
+                              cwd=sb, capture_output=True, text=True, encoding="utf-8", env=env)
+    try:
+        word = "வேண்டாம்"
+        lex = read_json(lex_path)
+        lex[word] = {"gloss": "don't want", "recognition": "struggled", "production": "none"}
+        write_json(lex_path, lex)
+
+        r = cli("update", "--soak-payload", word, "--soak-channel", "rotation",
+                "--soak-focus", "venum/venaam under load", "--no-commission", "smoke sandbox")
+        check("`update --soak-channel rotation` is accepted by the real CLI",
+              r.returncode == 0, (r.stderr or r.stdout)[-300:])
+        order = read_json(learner_path).get("soak_order") or {}
+        check("...and the order on disk names rotation, carrying the payload",
+              order.get("channel") == "rotation" and word in (order.get("payload") or []),
+              str(order))
+        focus, payload = rr.rotation_brief()
+        check("...which the rotation lane reads as its own commission",
+              payload == [word] and focus == "venum/venaam under load", f"{focus!r} {payload}")
+
+        r = cli("status")
+        line = next((l for l in r.stdout.splitlines() if l.startswith("Soak order [")), "")
+        check("the session-open drain dispatches the ROTATION renderer for it",
+              "NOT YET PRODUCED" in line and "render_rotation.py" in line, line or r.stdout[-300:])
+        check("...never the studio — an episode is not a rotation",
+              bool(line) and "run_studio" not in line, line or "no soak-order line at all")
+
+        # Episode stays orderable: it is also how he asks for a scene.
+        r = cli("update", "--soak-payload", word, "--soak-channel", "episode",
+                "--no-commission", "smoke sandbox")
+        check("an episode order is still accepted (his request path)",
+              r.returncode == 0 and (read_json(learner_path).get("soak_order") or {})
+              .get("channel") == "episode", (r.stderr or r.stdout)[-300:])
+
+        # A rotation dose is joined to a rotation listen, and only to one.
+        today = date_cls.today().isoformat()
+        dose = [{"channel": "rotation", "payload": [word], "at": today}]
+        clear_listens()
+        plant_listen(word, "soak", f"{today}T23:00:00Z")
+        state, _, _ = de.judge_dose(dose, [], de.attended_events())
+        check("a listen in another lane does not count as hearing the rotation dose",
+              state == "awaiting", state)
+        plant_listen(word, "rotation", f"{today}T23:30:00Z")
+        state, heard, _ = de.judge_dose(dose, [], de.attended_events())
+        check("a rotation listen on a payload word reads the rotation dose HEARD",
+              state == "heard" and heard.startswith(today), f"{state} {heard}")
+    finally:
+        clear_listens()
+        lex_path.write_bytes(saved[0])
+        learner_path.write_bytes(saved[1])

@@ -38,7 +38,7 @@ from datetime import date, timedelta
 from pathlib import Path
 
 from language import is_canonical
-from dose_evidence import DOSE_CHANNELS
+from dose_evidence import DOSE_CHANNELS, ORDER_CHANNELS
 from slips import (append_slips, canon_tag, cmd_slips,
                    parse_slip_args, record_slip_commission, record_slip_test,
                    slip_patterns)
@@ -445,7 +445,7 @@ def cmd_update(args):
               + ", ".join(f"{p['tag']} ({p['count']}× over {p['span_days']}d)"
                           for p in owed))
         print("     Commission one here if it has earned a dose:  --soak-payload … "
-              "--soak-channel soak|episode|drill --slip-commissioned <tag>")
+              f"--soak-channel {'|'.join(DOSE_CHANNELS)} --slip-commissioned <tag>")
         if reason:
             print(f"     Closing without one, on the record: {reason}")
 
@@ -1338,7 +1338,7 @@ def main():
                     help="What the next dose PERMUTES, free text ('the -aachu tail over "
                          "po and mudi') — a carousel brief, not a word list")
     up.add_argument("--soak-channel", type=str, default=None,
-                    choices=list(DOSE_CHANNELS),
+                    choices=list(ORDER_CHANNELS),
                     help="Which lane renders the order (default: episode). Capacity "
                          "routes this, never the curriculum — protocol/audio_channels.md")
     # Deferred import: suggest_targets imports THIS module, so a module-level

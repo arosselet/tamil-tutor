@@ -274,8 +274,13 @@ def cmd_status(_args):
         # next session. One rule, one resolver.
         _, unresolved = split_payload(soak.get("payload", []), lexicon)
         channel = soak.get("channel") or "episode"
+        # Rotation added 2026-10-12, the day an order could first name it: left
+        # out, a rotation order fell through to run_studio and the drain built
+        # an EPISODE for it — the substitution SKILL.md step 6 forbids. No
+        # --if-short: an order is an order, not a shelf top-up.
         lane = {"soak": "python scripts/render_soak.py",
-                "drill": "python scripts/render_drill.py"}.get(
+                "drill": "python scripts/render_drill.py",
+                "rotation": "python scripts/render_rotation.py"}.get(
                     channel, "python scripts/run_studio.py")
         # ONE RESOLVER (2026-08-27). The channel branch used to live here, in a
         # copy `state_io.soak_pending()` never learned — so the two doors onto the
