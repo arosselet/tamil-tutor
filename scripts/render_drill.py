@@ -175,8 +175,9 @@ def lint_sheet(sheet: dict) -> list[str]:
 
     THE GRADER IS THE JUDGE SEAT NOW (2026-10-12, Andrew). It was a private call
     on the WRITER's own model that passed whatever it was unsure of. It is
-    `provenance.check_items`: an answer the books attest needs no grader, the
-    rest go to the other model family, and unsure holds. The law above is
+    `provenance.check_items`: every answer goes to the other model family with
+    its cue — an answer built from known words can still be the wrong answer
+    (the 08-01 incident above) — and unsure holds. The law above is
     unchanged — any held answer stops the run — and → the held rows, each ready
     for the review queue."""
     items = sheet.get("items", [])

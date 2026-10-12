@@ -1788,8 +1788,8 @@ def s134_the_rotation_tape_passes_the_judge(sb: Path):
     two shapes fail differently and both are pinned: an item list loses only
     the held beat; a scene is a conversation, so a flagged line is repaired
     once, and a scene still flagged after that does not play at all. A judge
-    that cannot run must hold, never pass; an attested line must never cost a
-    judge call; and every hold must reach the queue AND the commit, because this
+    that cannot run must hold, never pass; an attested item beat is judged too,
+    because it carries a meaning (2026-10-12, s142); and every hold must reach the queue AND the commit, because this
     lane runs on a CI runner that forgets anything uncommitted.
     """
     print("\n134. The rotation tape passes the judge seat (2026-10-12)")
@@ -1886,8 +1886,8 @@ def s134_the_rotation_tape_passes_the_judge(sb: Path):
               and q[0]["reason"].startswith("wrong"), str(q))
         check("...and the queue rides the tape's commit",
               delivered and queue_path in delivered[0]["extra_paths"], str(delivered[0]["extra_paths"] if delivered else None))
-        check("an attested line never cost a judge call",
-              judged_lines and not any("போறேன்" in l for l in judged_lines), str(judged_lines))
+        check("an attested item beat is judged against its meaning too (s142)",
+              any("போறேன்" in l for l in judged_lines), str(judged_lines))
 
         # ── 2. The repair fails: the scene does not play at all.
         repair["works"] = False
@@ -2181,3 +2181,54 @@ def s141_a_lane_claims_only_what_it_said(sb: Path):
             queue_path.unlink(missing_ok=True)
         else:
             queue_path.write_bytes(saved[1])
+
+
+def s142_a_known_word_answer_is_still_judged(sb: Path):
+    """Attestation is per word; a sentence can be wrong in known words (2026-10-12).
+
+    The judge seat's first draft let any line whose every form the books hold
+    skip the judge. For the drill that undid the lint it replaced: the 08-01
+    answer இடது பக்கம்ல was the wrong case for its cue, and a learner who has met
+    both பக்கம் forms has a ledger that attests the wrong one. A line that
+    carries a MEANING is judged against it, attested or not; a line with no
+    meaning (a frame, a label) keeps the skip.
+
+    GATE 7.2, OUT LOUD. The silent no-op is a judge that is never asked — it
+    reads exactly like a judge that passed everything. So the attested-wrong
+    answer must come back HELD by name, and the skip's positive control asserts
+    a meaning-less attested line makes no judge call at all."""
+    print("\n142. A known-word answer is still judged (2026-10-12)")
+    rd = importlib.import_module("render_drill")
+    pv = importlib.import_module("provenance")
+    lex = sb / "progress" / "lexicon.json"
+    saved = lex.read_bytes()
+    write_json(lex, {**read_json(lex), **{w: {"gloss": ""} for w in
+                                          ("டீ", "குடுங்க", "இடது", "பக்கம்ல")}})
+    sheet = {"items": [{"cue": "ask for tea", "answer_ta": "டீ குடுங்க"},
+                       {"cue": "say: next to the temple", "answer_ta": "இடது பக்கம்ல"}]}
+    asked = []
+
+    def judge_says(*vs):
+        def ask(system, user, schema, **kw):
+            asked.append(user)
+            return {"verdicts": [{"n": n, "verdict": v, "reason": r}
+                                 for n, (v, r) in enumerate(vs, 1)]}
+        return ask
+    real_ask = pv.ask_json
+    try:
+        forms = pv.attested_forms()
+        check("precondition: every word of both answers is attested",
+              all(not pv.unattested(i["answer_ta"], forms) for i in sheet["items"]))
+        pv.ask_json = judge_says(("ok", ""), ("wrong", "needs the oblique பக்கத்துல"))
+        held = rd.lint_sheet(sheet)
+        check("an answer made wholly of known words is still graded against its cue",
+              len(asked) == 1 and "next to the temple" in asked[0], asked)
+        check("...and the wrong one is HELD, by name",
+              len(held) == 1 and held[0]["form"] == "இடது பக்கம்ல", f"{held}")
+        asked.clear()
+        out = pv.check_lines(["டீ குடுங்க"])
+        check("an attested line with no meaning still skips the judge",
+              not asked and out[0]["status"] == "attested", f"{asked} {out}")
+    finally:
+        pv.ask_json = real_ask
+        lex.write_bytes(saved)

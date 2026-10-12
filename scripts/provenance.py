@@ -60,8 +60,8 @@ from writer import INT, MODEL, STR, arr, ask_json, have_agent, obj
 # passing what it was unsure of — let things through. Probed on M95: five calques
 # among 38 unattested lines; sixteen memo lines clean.
 #
-# Attested lines skip it (a form the books hold needs no opinion). A line the
-# judge calls wrong OR unsure is held. A judge that errors or miscounts raises:
+# Attested lines skip it unless they carry a meaning to check (see check_lines).
+# A line the judge calls wrong OR unsure is held. A judge that errors or miscounts raises:
 # an unverified line is not a verified one (fail-closed, the lint's old law).
 CROSS_MODEL = "anthropic/claude-sonnet-5"   # judges where the writer is Gemini
 JUDGE_SCHEMA = obj(verdicts=arr(n=INT, verdict=STR, reason=STR))
@@ -97,12 +97,22 @@ def judge(lines: list[str], meanings: list[str] | None = None) -> list[dict]:
 
 def check_lines(lines: list[str], meanings: list[str] | None = None) -> list[dict]:
     """Every line's provenance → [{status: attested|judged|held|plain, reason}].
-    `plain` carries no target language at all; only unattested lines are judged."""
+    `plain` carries no target language at all.
+
+    WHAT IS JUDGED. An unattested line, always. An attested line only when it
+    carries a MEANING (2026-10-12, Andrew): attestation is per word, and a line
+    built wholly from known words can still be the wrong sentence for what it
+    is meant to say — a wrong case or tense, a calque. The drill lint graded
+    every answer against its cue for exactly that reason (08-01: இடது பக்கம்ல
+    where பக்கத்துல was right, both forms the kind the books hold), and the
+    first draft of this seat let every attested answer skip it. A line with no
+    meaning to check against (a frame, a label, dialogue) keeps the skip."""
     forms = attested_forms()
     meanings = meanings or [""] * len(lines)
     out = [{"status": "plain" if not has_target(l) else
             "attested" if not unattested(l, forms) else "", "reason": ""} for l in lines]
-    todo = [i for i, o in enumerate(out) if not o["status"]]
+    todo = [i for i, o in enumerate(out)
+            if not o["status"] or (o["status"] == "attested" and meanings[i].strip())]
     for i, v in zip(todo, judge([lines[i] for i in todo], [meanings[i] for i in todo])):
         out[i] = {"status": "judged" if v["verdict"] == "ok" else "held",
                   "reason": f"{v['verdict']}: {v['reason']}"}
