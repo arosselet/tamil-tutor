@@ -31,7 +31,7 @@ from pathlib import Path
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
-from lanes import deliver_rendered
+from lanes import audible, deliver_rendered
 from publish import commit_and_push, load_env, push_to_phone
 from language import ANNA_VOICE
 # THE EXECUTOR CHOICE LEFT THIS FILE (2026-08-23). `ask_json` used to live here
@@ -298,13 +298,15 @@ def main():
         return
 
     print("3. publish…")
-    # Delivery seam (2026-07-26 ledger law): the due items Python put on the
-    # sheet went out the door — declared exposure, stamped at publish.
-    # The tail belongs to the family (2026-08-24). Everything the DRILL lane knows
-    # that the others do not stays here: the due menu it put on the sheet is what
-    # went out the door, so that is its `delivered`.
+    # Delivery seam (2026-07-26 ledger law): declared exposure, stamped at publish.
+    # The tail belongs to the family (2026-08-24). What the DRILL lane knows is
+    # which answers reached the tape — and only those words went out the door.
+    # It stamped the whole due menu until 2026-10-12, though `write_sheet` drops
+    # any item missing a cue or an answer and the writer may skip an entry. A
+    # drill cannot say which answer realises a `frame:`, so frames under-claim.
+    delivered = audible([t["word"] for t in pending], [i["answer_ta"] for i in sheet["items"]])
     deliver_rendered(
-        mp3=mp3, lane="drill", delivered=[t["word"] for t in pending],
+        mp3=mp3, lane="drill", delivered=delivered,
         claimed=bool(focus or lead),
         message=f"Drill track: {sheet.get('title', mp3.stem)}",
         title=sheet.get("title", ""),

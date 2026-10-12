@@ -87,7 +87,7 @@ from pathlib import Path
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
-from lanes import deliver_rendered
+from lanes import audible as claim_audible, deliver_rendered
 import rails
 from publish import commit_and_push, load_env, push_to_phone
 from language import ANNA_VOICE, EAVESDROP_VOICE
@@ -660,10 +660,10 @@ def audible(pool: list[dict], spoken: list[str], sheets: list[tuple]) -> list[st
     So a frame is claimed when the movement holding it PLAYED and produced beats —
     which is the same evidence, read at the level the item actually exists at. Not
     the plan: `sheets` carries only movements that rendered."""
-    blob = " ".join(spoken)
     ran = {i["word"] for mv, sheet in sheets if sheet.get("beats") for i in mv["items"]}
-    return [i["word"] for i in pool
-            if (i["word"] in ran if i["word"].startswith("frame:") else i["word"] in blob)]
+    # The rule itself is `lanes.audible` since 2026-10-12, shared by every lane;
+    # what stays here is what only the rotation knows — which movements played.
+    return claim_audible([i["word"] for i in pool], spoken, played_frames=ran)
 
 
 def rotation_brief() -> tuple[str | None, list[str]]:

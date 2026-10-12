@@ -48,7 +48,8 @@ sys.path.insert(0, str(BASE / "scripts"))
 # L0 owns the PORT SURFACE — this lane only reads it (2026-08-24; the pack
 # became its own module 2026-08-28, and TAMIL_TAIL_RE came with it; since
 # 2026-10-05 the lane imports the questions, `stem` and `has_target`, not the ranges).
-from language import READ_FORM, has_target, stem, target_runs
+from lanes import payload_present
+from language import READ_FORM, has_target, target_runs
 from state_io import LEARNER_PATH, LEXICON_PATH, REVIEW_QUEUE_PATH, load_json
 from provenance import check_script, enqueue
 from writer import voice_canon
@@ -349,35 +350,8 @@ def resolve_writer(prefer: str = "auto"):
     return claude_print if have_agent() else openrouter_pass
 
 
-def payload_present(word: str, script: str, lexicon: dict) -> bool:
-    """Is a claimed payload item really in the script?
-
-    VERBATIM FOR CHUNKS, STEM-TOLERANT FOR WORDS (2026-08-18). The rule was a flat
-    substring test, which a VERB STEM can essentially never satisfy in natural
-    speech: on 2026-08-18 a script said தூக்கறேன் — the word used correctly and
-    conjugated — while the sidecar honestly claimed தூக்கு, and the episode was
-    rejected. Every verb in the pool had the same problem waiting.
-
-    The lexicon already draws the distinction the rule needs. A `chunk` is a fixed
-    phrase the learner drills WHOLE, and both incidents that earned this check were
-    chunk mutations (ஒரு மாசம் இருப்போம் inverted, then bent to இருப்போங்க) — so
-    chunks keep zero tolerance. A plain word is a lexical item the sentence around
-    it inflects, so it is matched on its stem: the item minus one trailing vowel
-    sign or pulli.
-
-    The tolerance stays narrow on purpose. தூக்கு → தூக்க admits தூக்கறேன் and
-    தூக்குங்க and nothing that is not that verb; வேணும் → வேணும still refuses
-    வேண்டும், which is the literary form the dialect pass exists to remove. A stem
-    under 3 characters is no evidence at all (வை → வ), so those fall back to
-    verbatim — harmless, because inflection APPENDS to a short stem anyway."""
-    if word in script:
-        return True
-    if " " in word or (lexicon.get(word) or {}).get("type") == "chunk":
-        return False
-    root = stem(word)
-    return len(root) >= 3 and root in script
-
-
+# `payload_present` lives in `lanes` since 2026-10-12: every lane's delivery
+# claim asks the same question, so the studio's careful answer became the rule.
 def fenced_block(text: str, lang: str) -> str | None:
     m = re.findall(rf"```{lang}\s*\n(.*?)```", text, re.DOTALL)
     return m[-1].strip() if m else None

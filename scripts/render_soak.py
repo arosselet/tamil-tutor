@@ -40,7 +40,7 @@ from pathlib import Path
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
-from lanes import deliver_rendered
+from lanes import audible, deliver_rendered
 from publish import commit_and_push, load_env, push_to_phone
 from language import ANNA_VOICE
 # THE FOURTH COPY, retired 2026-08-23 — and the first one that was about MONEY
@@ -369,12 +369,14 @@ def main():
     # in the finished sheet. `frame:` keys are dropped there on purpose: a slot
     # template has no surface form to match, so it cannot be verified, and the
     # ledger under-claims rather than invents (the claim_payload rule, 2026-07-17).
-    if focus:
-        spoken = " ".join(i["say"] for c in sheet["clusters"] for i in c["items"])
-        delivered = [r["word"] for r in items if r["word"] in spoken]
-        print(f"   focused run — {len(delivered)}/{len(items)} menu items audible in the sheet")
-    else:
-        delivered = [r["word"] for r in items]
+    #
+    # EVERY RUN, NOT ONLY A FOCUSED ONE (2026-10-12). The unfocused branch stamped
+    # the whole menu, and the judge seat landed the same morning: an item it held
+    # never reached the TTS, yet its word was booked heard on a tape that never
+    # said it. `sheet` here is the GATED sheet, so one rule covers both.
+    delivered = audible([r["word"] for r in items],
+                        [i["say"] for c in sheet["clusters"] for i in c["items"]])
+    print(f"   {len(delivered)}/{len(items)} menu items audible in the sheet")
     # The tail belongs to the family, not to this lane (2026-08-24). What stays
     # here is what makes this the SOAK lane: which items played, and whether the
     # run consumed a standing order. `commit` and `notify` are handed over by

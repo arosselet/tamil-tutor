@@ -2069,3 +2069,115 @@ def s139_an_episode_speaks_only_judged_tamil(sb: Path):
                 p.unlink(missing_ok=True)
             else:
                 p.write_bytes(b)
+
+
+def s141_a_lane_claims_only_what_it_said(sb: Path):
+    """One claim rule for every lane — only what was AUDIBLE is booked (2026-10-12).
+
+    The 07-26 ledger law had four implementations. The studio matched on stems,
+    the rotation on substrings, a focused soak on its sheet — and an unfocused
+    soak and every drill stamped the WHOLE MENU. The judge seat landed the same
+    morning and made it worse: a soak item it held never reached the TTS, yet its
+    word was booked heard on a tape that never said it. A drill whose writer
+    skipped an entry, or whose empty-field filter cut one, booked it all the same.
+
+    GATE 7.2, OUT LOUD. The silent no-op is an inflated ledger: a word booked
+    `exposed` sorts to the back of the rotation it never got, and nothing reads
+    red. So each half drives the real `main()` and asserts on the `delivered`
+    list handed to the tail — the held / skipped word absent, the spoken word
+    present (a rule that claimed nothing would pass the first half alone), and a
+    `frame:` the lane cannot vouch for under-claimed."""
+    print("\n141. A lane claims only what it said (2026-10-12)")
+    import contextlib, io
+    rs = importlib.import_module("render_soak")
+    rd = importlib.import_module("render_drill")
+    ln = importlib.import_module("lanes")
+    lex = sb / "progress" / "lexicon.json"
+    queue_path = sb / "progress" / "review_queue.json"
+    saved = (lex.read_bytes(), queue_path.read_bytes() if queue_path.exists() else None)
+    said, dropped, frame = "போறேன்", "வந்துட்டேன்", "frame:smoke-tail"
+    write_json(lex, {**read_json(lex), said: {"gloss": "I'm going"},
+                     dropped: {"gloss": "I've come"}})
+
+    # The shared rule on its own terms first: stems for words, never a frame
+    # without the caller's say-so.
+    check("a conjugated word is claimed on its stem (the studio's 08-18 rule)",
+          ln.audible(["தூக்கு"], ["நான் தூக்கறேன்"], lexicon={}) == ["தூக்கு"])
+    check("...a chunk is not — zero tolerance for a fixed phrase",
+          ln.audible(["ஒரு மாசம் இருப்போம்"], ["ஒரு மாசம் இருப்போங்க"], lexicon={}) == [])
+    check("...and a frame only when the caller says its part played",
+          ln.audible([frame], ["anything"], lexicon={}) == []
+          and ln.audible([frame], [], played_frames={frame}, lexicon={}) == [frame])
+
+    real_s = (rs.week_payload, rs.soak_brief, rs.write_sheet, rs.render,
+              rs.google_credentials_ready, rs.deliver_rendered, rs.commit_and_push)
+    real_d = (rd.drill_brief, rd.due_payload, rd.write_sheet, rd.lint_sheet, rd.render,
+              rd.deliver_rendered, rd.load_env)
+    argv, cwd = sys.argv, os.getcwd()
+    try:
+        os.chdir(sb)
+        handed = []
+
+        async def fake_render(sh, out_path, *_):
+            out_path.parent.mkdir(parents=True, exist_ok=True)
+            out_path.write_bytes(b"\xff\xfb" + b"\x00" * 512)
+
+        def drive(mod, argv0):
+            handed.clear()
+            sys.argv = [argv0]
+            out, code = io.StringIO(), 0
+            try:
+                with contextlib.redirect_stdout(out):
+                    mod.main()
+            except SystemExit as e:
+                code = e.code
+            return out.getvalue(), code
+
+        # ── The soak, UNFOCUSED: one item the gate holds (a form the books lack).
+        rows = [{"word": w, "gloss": "", "production": "none", "last_surfaced": None}
+                for w in (said, dropped, frame)]
+        rs.week_payload = lambda days, items: rows
+        rs.soak_brief = lambda: (None, [])
+        rs.write_sheet = lambda items, focus=None: {
+            "title": "smoke soak", "intro": "just listen", "outro": "done",
+            "clusters": [{"thread": "going and coming",
+                          "items": [{"say": said, "en": "I'm going"},
+                                    {"say": "வந்துட்டாங்களாம்", "en": "they've come, apparently"}]}]}
+        rs.render, rs.google_credentials_ready = fake_render, lambda: ""
+        rs.deliver_rendered = lambda **kw: handed.append(kw)
+        rs.commit_and_push = fx.Recorder()
+        out, code = drive(rs, "render_soak.py")
+        got = handed[0]["delivered"] if handed else None
+        check("an unfocused soak books the word it said",
+              code in (0, None) and got is not None and said in got, f"exit {code!r}: {got}\n{out[-400:]}")
+        check("...and NOT the word whose only item the judge seat held",
+              got is not None and dropped not in got, f"{got}")
+        check("...nor a frame it cannot vouch for", got is not None and frame not in got, f"{got}")
+
+        # ── The drill: the writer answered one entry of three.
+        rd.load_env = lambda *_: None
+        rd.drill_brief = lambda: (None, [])
+        rd.due_payload = lambda n: [{"word": w, "gloss": "", "kind": "frame" if w == frame else "chunk"}
+                                    for w in (said, dropped, frame)]
+        rd.write_sheet = lambda pending, n_lead=0, focus=None: {
+            "title": "smoke drill", "intro": "say it", "outro": "done",
+            "items": [{"cue": "I'm going", "answer_ta": said}]}
+        rd.lint_sheet = lambda sheet: []
+        rd.render = fake_render
+        rd.deliver_rendered = lambda **kw: handed.append(kw)
+        out, code = drive(rd, "render_drill.py")
+        got = handed[0]["delivered"] if handed else None
+        check("a drill books the answer that reached the tape",
+              code in (0, None) and got == [said], f"exit {code!r}: {got}\n{out[-400:]}")
+    finally:
+        (rs.week_payload, rs.soak_brief, rs.write_sheet, rs.render,
+         rs.google_credentials_ready, rs.deliver_rendered, rs.commit_and_push) = real_s
+        (rd.drill_brief, rd.due_payload, rd.write_sheet, rd.lint_sheet, rd.render,
+         rd.deliver_rendered, rd.load_env) = real_d
+        sys.argv = argv
+        os.chdir(cwd)
+        lex.write_bytes(saved[0])
+        if saved[1] is None:
+            queue_path.unlink(missing_ok=True)
+        else:
+            queue_path.write_bytes(saved[1])

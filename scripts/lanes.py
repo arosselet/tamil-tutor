@@ -50,9 +50,63 @@ BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 import audio_titles
 from publish import jsdelivr_url, publish
+from language import stem
 from lexicon_view import expose
-from state_io import AUDIO_TITLES_PATH, LEARNER_PATH, LEXICON_PATH
+from state_io import AUDIO_TITLES_PATH, LEARNER_PATH, LEXICON_PATH, load_json
 from sync_state import mark_soak_delivered
+
+
+
+def payload_present(word: str, script: str, lexicon: dict) -> bool:
+    """Is a claimed item really in the text?
+
+    VERBATIM FOR CHUNKS, STEM-TOLERANT FOR WORDS (2026-08-18). The rule was a flat
+    substring test, which a VERB STEM can essentially never satisfy in natural
+    speech: on 2026-08-18 a script said தூக்கறேன் — the word used correctly and
+    conjugated — while the sidecar honestly claimed தூக்கு, and the episode was
+    rejected. Every verb in the pool had the same problem waiting.
+
+    The lexicon already draws the distinction the rule needs. A `chunk` is a fixed
+    phrase the learner drills WHOLE, and both incidents that earned this check were
+    chunk mutations (ஒரு மாசம் இருப்போம் inverted, then bent to இருப்போங்க) — so
+    chunks keep zero tolerance. A plain word is a lexical item the sentence around
+    it inflects, so it is matched on its stem: the item minus one trailing vowel
+    sign or pulli.
+
+    The tolerance stays narrow on purpose. தூக்கு → தூக்க admits தூக்கறேன் and
+    தூக்குங்க and nothing that is not that verb; வேணும் → வேணும் still refuses
+    வேண்டும், which is the literary form the dialect pass exists to remove. A stem
+    under 3 characters is no evidence at all (வை → வ), so those fall back to
+    verbatim — harmless, because inflection APPENDS to a short stem anyway.
+
+    Moved here from `run_studio` 2026-10-12 so every lane's claim asks it."""
+    if word in script:
+        return True
+    if " " in word or (lexicon.get(word) or {}).get("type") == "chunk":
+        return False
+    root = stem(word)
+    return len(root) >= 3 and root in script
+
+
+def audible(words, spoken, played_frames=(), lexicon: dict | None = None) -> list[str]:
+    """ONE CLAIM RULE FOR EVERY LANE (2026-10-12) — which menu `words` the
+    finished artifact actually said. The 07-26 ledger law (only what was AUDIBLE
+    is claimed) had four implementations that disagreed: the studio matched on
+    stems, the rotation on verbatim substrings, a focused soak on what its sheet
+    said — and an unfocused soak and every drill stamped the WHOLE MENU, whatever
+    the writer dropped, the empty-field filter cut or the judge seat held.
+
+    `spoken` is the target-language text that reached the TTS, after every gate.
+    A word is claimed when `payload_present` finds it there. A `frame:` key is a
+    label for a pattern and is never in the audio (the 08-10 machines tape taught
+    26 frames and stamped 0), so it is claimed only when the caller can say the
+    part of the artifact carrying it PLAYED — `played_frames`. A lane that cannot
+    say so under-claims: the frame re-airs sooner, which is the cheap error."""
+    lexicon = load_json(LEXICON_PATH) or {} if lexicon is None else lexicon
+    blob = " ".join(spoken)
+    played = set(played_frames)
+    return [w for w in words
+            if (w in played if w.startswith("frame:") else payload_present(w, blob, lexicon))]
 
 
 def deliver_rendered(*, mp3: Path, lane: str, delivered: list, claimed: bool,
