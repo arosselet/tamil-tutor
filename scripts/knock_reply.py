@@ -54,7 +54,7 @@ from publish import commit_and_push, load_env, publish, push_to_phone
 # The lane-neutral half of answering him — detectors, the voice backstop, the
 # render, and the one ledger writer. Split out 2026-08-28 so the MESSAGE lane
 # could have them without importing the grading lane (reply_common.py).
-from reply_common import (_ts, ensure_voice, recent_exchanges,
+from reply_common import (_ts, ensure_voice, gate_reply, recent_exchanges,
                           record_meta_note, speak, wants_scheduled_push)
 from writer import (BOOL, STR, arr, ask_json, executor_name, nullable, obj,
                     to_phonetic, voice_canon)
@@ -106,7 +106,7 @@ CATCH_SCHEMA = obj(verdict=STR, reply_line=STR, meta_note=STR, rationale=STR,
                    # law) — the smoke suite caught this one before it shipped.
                    heard=arr(key=STR, said=STR, verdict=STR))
 from state_io import PRODUCTION_RANK  # L0 owns the ladders
-from state_io import FEEDBACK_LOG_PATH, KNOCK_LOG_PATH, LEARNER_PATH, LEXICON_PATH, SLIP_LOG_PATH, load_json, local_today, resolve, save_json
+from state_io import FEEDBACK_LOG_PATH, KNOCK_LOG_PATH, LEARNER_PATH, LEXICON_PATH, REVIEW_QUEUE_PATH, SLIP_LOG_PATH, load_json, local_today, resolve, save_json
 from slips import append_slips, slip_patterns
 from sync_state import fires_today
 
@@ -294,6 +294,8 @@ def handle_catch_reply(knock: dict, reply_text: str, klog: list,
     # because no case asserted the CATCH path, and it stopped being theoretical
     # when `voice_canon` began handing this judge a dialect file written in Tamil
     # script immediately before asking it for a line Andrew reads.
+    held = gate_reply(verdict, voice_canon() + "\n\n---\n\n" + CATCH_JUDGE_MANDATE,
+                      "reply", knock.get("timestamp", ""))
     knock["reply_line_script"] = verdict["reply_line"]
     knock["reply_line"] = to_phonetic(verdict["reply_line"], label="catch push-back")
     knock["reply_at"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -313,7 +315,8 @@ def handle_catch_reply(knock: dict, reply_text: str, klog: list,
     # replied to a knock, so answering him is not an interruption and the
     # quiet-hours chokepoint must not swallow it (2026-07-26).
     commit_and_push(*publish(
-        [LEXICON_PATH, KNOCK_LOG_PATH, FEEDBACK_LOG_PATH if meta else None],
+        [LEXICON_PATH, KNOCK_LOG_PATH, FEEDBACK_LOG_PATH if meta else None,
+         REVIEW_QUEUE_PATH if held else None],
         f"Knock reply: {verdict['verdict']} (eavesdrop)",
         mp3=vmp3 if voice_url else None))
     print("4. push back…")
@@ -939,6 +942,10 @@ def main():
     # Same read-surface law as a knock body (2026-08-03) — covers the chained ask
     # and the volley re-present too, both of which carry deck Tamil.
     # The script draft is kept (2026-09-13): the reveal check reads it exactly.
+    # The judge seat (2026-10-12): only the MODEL's lines are judged. `follow` and
+    # `represent` are Python's, built from the deck — attested by construction.
+    held = gate_reply(verdict, voice_canon() + "\n\n---\n\n" + JUDGE_MANDATE,
+                      "reply", knock.get("timestamp", ""))
     knock["reply_line_script"] = " · ".join(p for p in (verdict["reply_line"], follow or represent) if p)
     knock["reply_line"] = to_phonetic(knock["reply_line_script"], label="push-back")
     knock["reply_at"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -1027,6 +1034,7 @@ def main():
         [LEXICON_PATH, KNOCK_LOG_PATH,
          SLIP_LOG_PATH if verdict.get("slips") else None,
          FEEDBACK_LOG_PATH if meta else None,
+         REVIEW_QUEUE_PATH if held else None,
          maybe_enqueue_schedule(verdict)],
         f"Knock reply: {verdict['verdict']} ({', '.join(fired_words) or 'no fire'})",
         mp3=vmp3 if voice_url else None))

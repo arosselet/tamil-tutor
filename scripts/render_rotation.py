@@ -112,7 +112,8 @@ from writer import STR, arr, ask_json, obj, voice_canon
 # voice labelled ANNA throughout. The tape still played, which is why nobody
 # heard it as a bug — the second speaker simply never existed.
 MOVEMENT_SCHEMA = obj(frame=STR, beats=arr(say=STR, en=STR, who=STR))
-from state_io import LEXICON_PATH, load_json
+from state_io import LEXICON_PATH, REVIEW_QUEUE_PATH, load_json
+from provenance import check_items, check_script, enqueue
 from state_io import canon_payload
 from suggest_targets import WORD_POOL_PATH, intake_rows, inventory_hosts
 
@@ -394,18 +395,50 @@ def write_movement(mv: dict, spine: str, brief: str | None = None) -> dict:
     movement and item; the brief cannot add, remove, or reorder them. The writer
     is an LLM call with no file access, so a brief CARRIES its state, it does
     not point at it."""
-    canon = voice_canon()
     menu = "\n".join(
         f"- {i['word']} — {i['gloss'] or '[no gloss]'}"
         + (f"  HOSTS: {', '.join(i['hosts'])}" if i["hosts"] else "")
         for i in mv["items"])
-    mandate = f"{BASE_MANDATE}\n{SHAPE_CLAUSES[mv['shape']]}"
     brief_block = f"COMMISSION BRIEF (external — what this tape is for, not what it teaches):\n{brief.strip()}\n\n" if (brief or "").strip() else ""
-    sheet = ask_json(f"{canon}\n\n---\n\n{mandate}",
+    sheet = ask_json(movement_system(mv),
                      f"THE TAPE'S SPINE: {spine}\n\n{brief_block}ITEMS FOR THIS MOVEMENT:\n{menu}",
                      MOVEMENT_SCHEMA)
     sheet["beats"] = [b for b in sheet.get("beats", [])
                       if (b.get("say") or "").strip() or (b.get("en") or "").strip()]
+    return sheet
+
+
+def movement_system(mv: dict) -> str:
+    """The writer's system prompt for one movement — shared with the judge seat's
+    repair pass, so a mended line is written in the voice the movement was."""
+    return f"{voice_canon()}\n\n---\n\n{BASE_MANDATE}\n{SHAPE_CLAUSES[mv['shape']]}"
+
+
+# Shapes whose beats are a CONVERSATION: a line cut out of one breaks it, so a
+# flagged line is repaired once and, if still flagged, the movement does not play.
+# Every other shape is a list of items, and a held item is simply dropped.
+DIALOGUE_SHAPES = ("scene", "eavesdrop")
+
+
+def judge_movement(mv: dict, sheet: dict, held: list) -> dict:
+    """THE JUDGE SEAT ON THE ROTATION LANE (2026-10-12, Andrew). Every beat the
+    writer drafted is attested by the books or passed by the independent judge,
+    or it does not reach the tape; what is held lands in `held` for the review
+    queue. A judge that cannot run fails CLOSED — the movement does not play,
+    because an unverified line is not a verified one."""
+    beats = sheet.get("beats", [])
+    try:
+        if mv["shape"] in DIALOGUE_SHAPES:
+            says, h = check_script([b.get("say") or "" for b in beats], movement_system(mv))
+            sheet["beats"] = [] if h else [{**b, "say": s} for b, s in zip(beats, says)]
+        else:
+            sheet["beats"], h = check_items(beats, "say", "en")
+    except Exception as e:
+        print(f"   ⚠ judge could not run on '{mv['shape']}' ({e}) — movement held, unverified")
+        sheet["beats"], h = [], []
+    if h:
+        print(f"   ⚖️  {len(h)} line(s) held from a '{mv['shape']}' movement")
+    held.extend(h)
     return sheet
 
 
@@ -741,7 +774,10 @@ def main():
     # still decides every movement and item, so --dry-run shows the same plan with
     # or without one. Eager-bound as a default arg so the (mv, spine) shape
     # render() and the smoke test's custom writer use is unchanged.
-    writer = lambda mv, spine, _b=(args.brief or "").strip() or None: write_movement(mv, spine, _b)
+    # Every movement passes the judge seat on its way to the tape (2026-10-12).
+    held: list[dict] = []
+    writer = lambda mv, spine, _b=(args.brief or "").strip() or None: judge_movement(
+        mv, write_movement(mv, spine, _b), held)
     focus, payload = rotation_brief()
     pool = build_pool(args.spine, payload)
     if not pool:
@@ -792,6 +828,15 @@ def main():
               f"movements — MOVEMENT_MIN ({MOVEMENT_MIN}) has drifted from the rhythm "
               f"table. Re-measure it; the tape itself is fine.")
 
+    # The holds outlive the run: queued now and committed with the tape below, or
+    # here if no beat survived — a CI runner's uncommitted queue dies with it.
+    queued = enqueue(held, "rotation", mp3.stem) if held else 0
+    if not any(sh.get("beats") for _, sh in sheets):
+        if queued:
+            commit_and_push([REVIEW_QUEUE_PATH], f"Review queue: {queued} rotation line(s) held")
+        sys.exit("❌ EMPTY TAPE — no movement kept a beat past the judge seat. Nothing "
+                 "published; held lines are in the review queue (python scripts/provenance.py).")
+
     if args.no_publish:
         return
 
@@ -815,7 +860,8 @@ def main():
         mp3=mp3, lane="rotation", delivered=delivered,
         taught=[w for w in delivered if w in gave],
         intake={r["word"]: r for r in pool if r.get("intake")},
-        claimed=bool(focus or payload), extra_paths=[script],
+        claimed=bool(focus or payload),
+        extra_paths=[script] + ([REVIEW_QUEUE_PATH] if REVIEW_QUEUE_PATH.exists() else []),
         message=f"Rotation tape: {title} ({measured:.0f} min)",
         # The spine IS this lane's name and always was — it is why three tapes
         # riding the feed at once were already tellable apart. Passed through

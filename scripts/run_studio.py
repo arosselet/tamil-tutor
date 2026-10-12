@@ -49,7 +49,9 @@ sys.path.insert(0, str(BASE / "scripts"))
 # became its own module 2026-08-28, and TAMIL_TAIL_RE came with it; since
 # 2026-10-05 the lane imports the questions, `stem` and `has_target`, not the ranges).
 from language import READ_FORM, has_target, stem, target_runs
-from state_io import LEARNER_PATH, LEXICON_PATH, load_json
+from state_io import LEARNER_PATH, LEXICON_PATH, REVIEW_QUEUE_PATH, load_json
+from provenance import check_script, enqueue
+from writer import voice_canon
 import household
 
 # Cross-process contract, mirrored in render_audio.py and read by
@@ -428,6 +430,25 @@ def write_episode(n: int, write_pass=claude_print) -> bool:
     if not script or not tags:
         print("   ✗ Producer output missing the markdown/json fences")
         return False
+    # THE JUDGE SEAT (2026-10-12, Andrew), BEFORE the captions pass so the sheet
+    # is built from what will be spoken. The studio gets the dialogue lanes' one
+    # repair: a line cut from a scene breaks it, so a flagged line is mended and
+    # judged again. Still held → no episode; the lines wait in the review queue.
+    # `render_audio` judges again at render: the subagent fallback and a hand
+    # render pass through there and nowhere else, so that is the chokepoint.
+    try:
+        lines, held = check_script(script.split("\n"), voice_canon())
+    except Exception as e:
+        print(f"   ✗ judge seat could not run ({e}) — an unverified script does not ship")
+        return False
+    if held:
+        if enqueue(held, "episode", f"tier2_mission{n}"):
+            from publish import commit_and_push   # a commission may run this on a CI runner
+            commit_and_push([REVIEW_QUEUE_PATH], f"Review queue: M{n} lines held")
+        print(f"   ✗ judge seat held {len(held)} line(s) after one repair — no episode "
+              f"(python scripts/provenance.py)")
+        return False
+    script = "\n".join(lines)
     # PYTHON PINS THE VOICES, the writer never transcribes them. The ear tracks
     # a speaker before it tracks a word, so a character whose voice drifts in
     # month three quietly undoes month two — and a voice table retyped by a

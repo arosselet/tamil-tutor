@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render a supplied short lesson script, without a model or learner-state writes.
+"""Render a supplied short lesson script, without learner-state writes; one judge call.
 
 Replaces ad hoc calls into the memo library. Local output is the default;
 --publish explicitly puts only the immutable clip on main, without RSS or push.
@@ -13,6 +13,7 @@ from pathlib import Path
 from subprocess import run
 
 from memo import render_memo
+from provenance import check_lines
 from publish import commit_and_push, current_branch, jsdelivr_url, load_env
 
 BASE = Path(__file__).resolve().parent.parent
@@ -49,6 +50,17 @@ def main(argv=None) -> int:
         script = args.script.read_text(encoding="utf-8-sig").strip()
         if not script:
             raise ValueError("script is empty")
+        # THE JUDGE SEAT (2026-10-12, Andrew): the script was drafted by a model
+        # in session, so every line is attested or passed by the independent
+        # judge before a cent of synthesis. A hold is handed straight back — the
+        # session that wrote the script is right there to mend it, and this tool
+        # writes no progress state (s122), the review queue included.
+        verdicts = check_lines(script.split("\n"))
+        held = [f"{line} — {v['reason']}" for line, v in zip(script.split("\n"), verdicts)
+                if v["status"] == "held"]
+        if held:
+            raise ValueError("the judge seat held " + str(len(held)) + " line(s); rewrite "
+                             "them and run again:\n  " + "\n  ".join(held))
         if output.suffix.lower() != ".mp3":
             raise ValueError("output must end in .mp3")
         if args.output.is_symlink() or output.exists():

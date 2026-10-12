@@ -21,7 +21,7 @@ from pathlib import Path
 
 from . import _fixtures as fx
 from ._fixtures import (
-    check, lex_row, mechanism, read_json, REAL_BASE, Recorder, write_json,
+    check, lex_row, mechanism, raw_source, read_json, REAL_BASE, Recorder, write_json,
 )
 
 
@@ -1620,7 +1620,9 @@ def s82_the_catch_lane_has_a_mouth(mk, kr, sb: Path):
              # so a scene written as a two-hander rendered in one voice labelled
              # ANNA. Neither crashed, and neither was visible in any output a
              # person reads — the drill still drilled, the tape still played.
-             ("LINT_SCHEMA", rd.LINT_SCHEMA, md.LINT_MANDATE),
+             # The lint became every lane's judge (2026-10-12): same sweep, new home.
+             ("provenance.JUDGE_SCHEMA", importlib.import_module("provenance").JUDGE_SCHEMA, md.PROVENANCE_JUDGE_MANDATE),
+             ("REPAIR_SCHEMA", importlib.import_module("provenance").REPAIR_SCHEMA, md.REPAIR_MANDATE),
              ("MOVEMENT_SCHEMA",
               importlib.import_module("render_rotation").MOVEMENT_SCHEMA,
               md.BASE_MANDATE + "\n" + "\n".join(md.SHAPE_CLAUSES.values()))]
@@ -3085,3 +3087,195 @@ def s133_the_outreach_policy_learns(mk, sb: Path):
                 p.write_bytes(saved[n])
         if md is not None:
             md.unlink(missing_ok=True)
+
+
+def s135_a_knock_speaks_only_judged_tamil(mk, sb: Path):
+    """The judge seat on the knock lane — the body he reads and the memo he
+    hears are attested or judged, or the reach is a silence (2026-10-12, Andrew).
+
+    WHAT WAS THERE. Cloud Anna drafted a Tamil body and, for audio, eavesdrop and
+    fielding, a Tamil memo; both went to his phone with no check at all, several
+    times a day, unattended.
+
+    GATE 7.2, OUT LOUD. A gate that passes everything is indistinguishable from
+    a reach that was fine, so the judge here is a fixture that flags one marker
+    form, and the case asserts on what reached the RENDERER and the PHONE through
+    the real `main()`. A mendable line must ship mended (and be logged mended); an
+    unmendable one must turn the reach into a silence — no push, no render — with
+    the line in the queue AND in that silence's commit, because this lane runs on
+    a CI runner. A judge that cannot run must silence the reach, never pass it.
+    """
+    print("\n135. A knock speaks only judged Tamil (2026-10-12)")
+    pv = importlib.import_module("provenance")
+    prog = sb / "progress"
+    klog_path, queue_path = prog / "knock_log.json", prog / "review_queue.json"
+    saved = {p: (p.read_bytes() if p.exists() else None) for p in (klog_path, queue_path)}
+    BAD, MENDED = "தப்பாச்சுங்கடா", "சரியாப்போச்சு"
+    mode = {"repair": True, "down": False}
+
+    def fake_ask(system, user, schema, **kw):
+        if schema is pv.JUDGE_SCHEMA:
+            if mode["down"]:
+                raise RuntimeError("judge offline")
+            lines = [l for l in user.splitlines() if re.match(r"^\d+\. ", l)]
+            return {"verdicts": [{"n": n, "verdict": "wrong" if BAD in l else "ok",
+                                  "reason": "calque" if BAD in l else ""}
+                                 for n, l in enumerate(lines, 1)]}
+        flagged = user.split("FLAGGED LINES:\n", 1)[1]
+        return {"fixes": [{"n": int(n), "line": MENDED if mode["repair"] else BAD + " மறுபடி"}
+                          for n in re.findall(r"^(\d+)\. ", flagged, re.M)]}
+
+    rendered = []
+
+    async def fake_render(memo_script, out_path, voice=None):
+        rendered.append(memo_script)
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_bytes(b"smoke-mp3")
+
+    def drive():
+        pushes, commits = Recorder(), Recorder()
+        mk.push_to_phone, mk.commit_and_push = pushes, commits
+        rendered.clear()
+        d = canned_decision(True, "smoke eavesdrop")
+        d.update(modality="eavesdrop",
+                 memo_script=f"அத்தை: வணக்கம் டா\nஅத்தை: {BAD}",
+                 target_revealed=False)
+        mk.decide = lambda digest, vt=None, live=None: d
+        sys.argv = ["morning_knock.py"]
+        with contextlib.redirect_stdout(io.StringIO()):
+            mk.main()
+        return pushes, commits, read_json(klog_path)[-1]
+
+    real_ask = pv.ask_json
+    try:
+        mk.rails_gate = lambda force, now=None: (True, "smoke-open")
+        mk.build_digest = lambda: "SMOKE DIGEST"
+        mk.render_memo = fake_render
+        mk.tape_names_a_referent = lambda s: True
+        pv.ask_json = fake_ask
+        write_json(klog_path, [])
+        queue_path.unlink(missing_ok=True)
+
+        # ── 1. Mendable: it ships, mended, and the log says what was sent.
+        pushes, commits, entry = drive()
+        check("a mendable eavesdrop still goes out", len(pushes) == 1 and entry.get("acted"), str(entry)[:200])
+        check("...and the renderer heard the MENDED line, never the flagged one",
+              rendered and MENDED in rendered[0] and BAD not in rendered[0], str(rendered))
+        check("...and the log records what was sent", MENDED in (entry.get("memo_script") or ""))
+
+        # ── 2. Unmendable: a silence, and the hold is committed with it.
+        mode["repair"] = False
+        pushes, commits, entry = drive()
+        q = read_json(queue_path) if queue_path.exists() else []
+        check("an unmendable eavesdrop becomes a SILENCE — nothing pushed, nothing rendered",
+              not pushes and not rendered and entry.get("acted") is False, str(entry)[:200])
+        check("...its rationale says the judge seat held it",
+              "judge seat" in (entry.get("rationale") or ""), entry.get("rationale"))
+        check("...the line waits in the review queue, tagged to the memo",
+              any(r["lane"] == "knock" and r["where"] == "memo_script" for r in q), str(q)[:300])
+        check("...and the queue rides the silence's commit",
+              commits and queue_path in list(commits[-1][0]), str(commits[-1][0] if commits else None))
+
+        # ── 3. The judge is down: silence, never a pass.
+        mode.update(repair=True, down=True)
+        pushes, _, entry = drive()
+        check("a judge that cannot run silences the reach (fail-closed)",
+              not pushes and not rendered and entry.get("acted") is False, str(entry)[:200])
+    finally:
+        pv.ask_json = real_ask
+        for p, b in saved.items():
+            if b is None:
+                p.unlink(missing_ok=True)
+            else:
+                p.write_bytes(b)
+
+
+def s136_a_push_back_speaks_only_judged_tamil(sb: Path):
+    """The judge seat on the inbound lanes — a push-back line and a voice reply
+    are attested or judged; a held one never reaches him (2026-10-12, Andrew).
+
+    WHAT WAS THERE. The reply judges and the message lane drafted Tamil — the
+    correction he reads, the line Anna says aloud — and pushed it unchecked. A
+    correction that models a wrong form is the worst thing these lanes can send.
+
+    GATE 7.2, OUT LOUD. He is waiting at the lock screen, so a hold here must
+    NOT look like silence: the case drives the real `handle_message` and asserts
+    he still gets an answer (the fallback line), that the held voice reply never
+    reached the renderer, and that the hold is in the queue and in the commit —
+    this lane runs on a CI runner. The positive control: a judged-clean answer
+    goes out untouched, aloud. Both reply-judge paths in `knock_reply` are held
+    to the same gate by name, before the line they would push is built.
+    """
+    print("\n136. A push-back speaks only judged Tamil (2026-10-12)")
+    import contextlib, io
+    km = importlib.import_module("knock_message")
+    rc = importlib.import_module("reply_common")
+    pv = importlib.import_module("provenance")
+    prog = sb / "progress"
+    klog_path, queue_path = prog / "knock_log.json", prog / "review_queue.json"
+    saved = {p: (p.read_bytes() if p.exists() else None) for p in (klog_path, queue_path)}
+    BAD, GOOD = "தப்பாச்சுங்கடா", "சரியாச்சு டா"
+
+    def fake_ask(system, user, schema, **kw):
+        if schema is pv.JUDGE_SCHEMA:
+            lines = [l for l in user.splitlines() if re.match(r"^\d+\. ", l)]
+            return {"verdicts": [{"n": n, "verdict": "wrong" if BAD in l else "ok", "reason": "calque"}
+                                 for n, l in enumerate(lines, 1)]}
+        return {"fixes": []}                     # the repair changes nothing
+
+    spoken = []
+
+    async def fake_memo(text, out_path, voice=None):
+        spoken.append(text)
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_bytes(b"smoke-mp3")
+
+    real = (km.judge_message, km.commit_and_push, km.push_to_phone, rc.render_memo, pv.ask_json)
+    try:
+        pv.ask_json, rc.render_memo = fake_ask, fake_memo
+        write_json(klog_path, [{"timestamp": "2026-10-12T09:00:00+00:00", "date": "2026-10-12",
+                                "acted": True, "modality": "text", "body": "x"}])
+
+        def drive(line, voice):
+            pushes, commits = Recorder(), Recorder()
+            km.commit_and_push, km.push_to_phone = commits, pushes
+            km.judge_message = lambda *a, **k: {"reply_line": line, "voice_reply": voice,
+                                                "meta_note": "", "rationale": "smoke"}
+            spoken.clear()
+            klog = read_json(klog_path)
+            with contextlib.redirect_stdout(io.StringIO()):
+                km.handle_message("hi anna", klog[-1], klog, dry_run=False)
+            return pushes, commits
+
+        # ── 1. Both drafted lines held: he still gets an answer, a safe one.
+        queue_path.unlink(missing_ok=True)
+        pushes, commits = drive(f"நல்லா சொன்ன — {BAD}", f"{BAD} மறுபடி")
+        check("a held push-back still answers him — with the plain fallback",
+              len(pushes) == 1 and pushes[0][0] == rc.REPLY_FALLBACK, str(pushes))
+        check("...the held voice reply never reached the renderer", not spoken, str(spoken))
+        q = read_json(queue_path) if queue_path.exists() else []
+        check("...both lines wait in the queue, tagged by field",
+              sorted(r["where"] for r in q) == ["reply_line", "voice_reply"]
+              and all(r["lane"] == "message" for r in q), str(q)[:300])
+        check("...and the queue rides the lane's commit",
+              commits and queue_path in list(commits[0][0]), str(commits[0][0] if commits else None))
+
+        # ── 2. THE POSITIVE CONTROL: judged clean goes out as written, aloud.
+        pushes, _ = drive(GOOD, GOOD)
+        check("a judged-clean answer is pushed as written", pushes and pushes[0][0] == GOOD, str(pushes))
+        check("...and spoken", spoken == [GOOD], str(spoken))
+
+        # ── 3. Both reply-judge paths in knock_reply pass the same gate first.
+        src = mechanism(raw_source(REAL_BASE / "scripts" / "knock_reply.py"))
+        gates = [m.start() for m in re.finditer(r"gate_reply\(", src)]
+        builds = [m.start() for m in re.finditer(r'knock\["reply_line_script"\] =', src)]
+        check("both knock_reply paths gate the verdict before building the push-back",
+              len(gates) == 2 and len(builds) == 2 and all(g < b for g, b in zip(gates, builds)),
+              f"gates at {gates}, builds at {builds}")
+    finally:
+        km.judge_message, km.commit_and_push, km.push_to_phone, rc.render_memo, pv.ask_json = real
+        for p, b in saved.items():
+            if b is None:
+                p.unlink(missing_ok=True)
+            else:
+                p.write_bytes(b)

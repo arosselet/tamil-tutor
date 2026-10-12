@@ -657,6 +657,26 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
                 msg += f"; +{created} NEW words registered (gloss empty — backfill later)"
             print(msg)
 
+def judge_dialogue(dialogue: list[dict], source: str) -> list[dict] | None:
+    """The spoken lines through the judge seat → the held rows ([] = all clear),
+    or None when the judge could not run. Holds are queued AND committed here: a
+    commission can run this on a CI runner, which forgets anything uncommitted."""
+    from provenance import check_lines, enqueue
+    from state_io import REVIEW_QUEUE_PATH
+    texts = [d.get("text", "") for d in dialogue if d.get("speaker") not in ("PAUSE", "EMBED_INTERCEPT")]
+    try:
+        verdicts = check_lines(texts)
+    except Exception as e:
+        print(f"❌ judge seat could not run ({e}) — an unverified script is not rendered")
+        return None
+    held = [{"form": t, "unattested": [], "where": "line", "reason": v["reason"]}
+            for t, v in zip(texts, verdicts) if v["status"] == "held"]
+    if held and enqueue(held, "episode", source):
+        from publish import commit_and_push
+        commit_and_push([REVIEW_QUEUE_PATH], f"Review queue: {source} lines held")
+    return held
+
+
 async def main():
     parser = argparse.ArgumentParser(description="Generate Multi-Voice Tamil Podcast Audio")
     parser.add_argument("input_file", help="Input markdown script")
@@ -681,6 +701,18 @@ async def main():
     if not dialogue:
         print("❌ No dialogue lines found!")
         return
+
+    # THE JUDGE SEAT'S CHOKEPOINT FOR EPISODES (2026-10-12, Andrew). Every
+    # episode reaches audio through here — `run_studio`, the subagent fallback, a
+    # hand render — so this is where an unjudged line is stopped, before a cent of
+    # TTS. No repair here (this file has no writer); `run_studio` repairs before
+    # it calls in. A held line, or a judge that cannot run, refuses the render
+    # non-zero, which is what makes the caller stop or fall back.
+    if (held := judge_dialogue(dialogue, Path(args.input_file).stem)) is None:
+        sys.exit(1)
+    if held:
+        sys.exit(f"❌ the judge seat held {len(held)} line(s) — nothing rendered "
+                 f"(python scripts/provenance.py)")
 
     if args.provider == "google":
         reason = google_credentials_ready()

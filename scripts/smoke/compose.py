@@ -755,7 +755,9 @@ def s70_the_executor_is_chosen_by_the_host(sb: Path):
 # rise, and an owner that drops to zero has lost its claim and must hand the
 # entry back (the same law `PACK_EXEMPTIONS` runs on).
 SCRIPT_OWNERS = {
-    "mandates.py": (11,
+    # 11 -> 12 (2026-10-12, Andrew): PROVENANCE_JUDGE_MANDATE names the spoken
+    # forms a judge must pass as correct, the line the old drill lint lacked.
+    "mandates.py": (12,
         "LLM PROMPT PROSE — the declared irreducible half of an extraction. "
         "`BOOTSTRAP.md` and `/extend` Gate 6 have said since 2026-07 that a port "
         "REWRITES these worked examples rather than substituting a constant into "

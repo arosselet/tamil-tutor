@@ -39,25 +39,20 @@ from language import ANNA_VOICE
 # and a paid subscription. `writer.ask_json` is the same contract plus the host
 # test; `render_rotation` now imports it from there too, so the "four lanes share
 # it" note this file used to carry is still true, one level up.
-from writer import INT, STR, arr, ask_json, executor_name, obj, voice_canon
+from writer import STR, arr, ask_json, executor_name, obj, voice_canon
 
 # The two shapes this lane asks for (see writer.obj).
 # `title` declared, not merely asked for in prose — see the note in
 # render_soak.SOAK_SCHEMA. DRILL_MANDATE has requested it all along.
 DRILL_SCHEMA = obj(title=STR, intro=STR, outro=STR,
                    items=arr(cue=STR, answer_ta=STR))
-# `reason` declared 2026-09-05, found by the sweep that followed the soak lane's
-# `say`/`ta` break. LINT_MANDATE has asked for {"n", "verdict", "reason"} all
-# along and the read at the FAIL report is `v.get('reason', '') or 'no reason
-# given'` — so on the agent path every failed drill item has reported "no reason
-# given" since `claude -p` became the writer. The lint kept working; it just lost
-# its mouth, and the fallback string made the loss read as the model declining to
-# explain rather than as a dropped key.
-LINT_SCHEMA = obj(verdicts=arr(n=INT, verdict=STR, reason=STR))
+# LINT_SCHEMA and LINT_MANDATE moved to the judge seat (2026-10-12): they are
+# `provenance.JUDGE_SCHEMA` and `mandates.PROVENANCE_JUDGE_MANDATE`, every lane's grader.
 from render_audio import generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME, clean_for_tts
 from suggest_targets import drill_menu
-from mandates import BRIEF_IS_PRIVATE, DRILL_MANDATE, LINT_MANDATE
-from state_io import LEXICON_PATH, load_json
+from mandates import BRIEF_IS_PRIVATE, DRILL_MANDATE
+from provenance import check_items, enqueue
+from state_io import LEXICON_PATH, REVIEW_QUEUE_PATH, load_json
 from state_io import canon_payload
 
 DRILLS_DIR = BASE / "published_audio"   # feed root — rebuild_rss picks up drill_*.mp3
@@ -176,23 +171,19 @@ def lint_sheet(sheet: dict) -> list[str]:
     against its cue, and the caller stops the run on ANY fail — never ships.
     Raises (rather than passing) when the grader itself misbehaves: an errored or
     miscounted verdict list is an UNVERIFIED sheet, and unverified wrong forms
-    ×10 are worse than a late drill (fail-closed)."""
+    ×10 are worse than a late drill (fail-closed).
+
+    THE GRADER IS THE JUDGE SEAT NOW (2026-10-12, Andrew). It was a private call
+    on the WRITER's own model that passed whatever it was unsure of. It is
+    `provenance.check_items`: an answer the books attest needs no grader, the
+    rest go to the other model family, and unsure holds. The law above is
+    unchanged — any held answer stops the run — and → the held rows, each ready
+    for the review queue."""
     items = sheet.get("items", [])
     if not items:
         return []
-    listing = "\n".join(f"{n}. cue: {i['cue']}\n   answer: {i['answer_ta']}"
-                        for n, i in enumerate(items, 1))
-    verdicts = ask_json(LINT_MANDATE, listing, LINT_SCHEMA,
-                        answer_tokens=1200).get("verdicts", [])
-    if len(verdicts) != len(items):
-        raise ValueError(f"lint returned {len(verdicts)} verdicts for {len(items)} items")
-    fails = []
-    for v in verdicts:
-        if str(v.get("verdict", "")).strip().upper() != "PASS":
-            n = v.get("n")
-            ans = items[n - 1]["answer_ta"] if isinstance(n, int) and 1 <= n <= len(items) else "?"
-            fails.append(f"item {n}: {ans} — {v.get('reason', '') or 'no reason given'}")
-    return fails
+    _, held = check_items([{"say": i["answer_ta"], "en": i["cue"]} for i in items], "say", "en")
+    return held
 
 
 def silence(seconds: float) -> bytes:
@@ -278,14 +269,19 @@ def main():
     # Lint before the dry-run gate on purpose: the sheet a dry run prints should
     # carry the same verdict the real run would act on.
     try:
-        fails = lint_sheet(sheet)
+        held = lint_sheet(sheet)
     except Exception as e:
         sys.exit(f"✗ answer-key lint could not run ({e}) — unverified sheet; not rendering.")
-    if fails:
-        for line in fails:
-            print(f"   ✗ {line}")
+    if held:
+        for h in held:
+            print(f"   ✗ {h['form']} ({h['en']}) — {h['reason']}")
+        # Held answers go to the seat, and the seat is COMMITTED here: this run
+        # exits before the delivery tail, and on a CI runner an uncommitted queue
+        # dies with the machine — a hold nobody can ever see. A dry run only reports.
+        if not args.dry_run and enqueue(held, "drill", f"drill_{datetime.now():%Y-%m-%d_%H%M}"):
+            commit_and_push([REVIEW_QUEUE_PATH], f"Review queue: {len(held)} drill answer(s) held")
         sys.exit("✗ answer key failed lint — stopped for inspection, nothing rendered. "
-                 "Re-run for a fresh sheet.")
+                 f"Re-run for a fresh sheet; held answers are in {REVIEW_QUEUE_PATH.name}.")
     if sheet["items"]:
         print(f"   ✓ lint: {len(sheet['items'])} answers pass")
 

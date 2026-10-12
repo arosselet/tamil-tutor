@@ -51,8 +51,9 @@ from memo import render_memo
 from publish import (KNOCKS_DIR, commit_and_push, jsdelivr_url,
                      load_env, publish, push_to_phone)
 from rails import MAX_REACHES_PER_DAY, approved, in_waking_window, reaches_today
-from state_io import KNOCK_LOG_PATH, LOCAL_TZ, load_json
-from language import ANNA_VOICE
+from state_io import KNOCK_LOG_PATH, LOCAL_TZ, REVIEW_QUEUE_PATH, load_json
+from provenance import check_lines, enqueue as hold
+from language import ANNA_VOICE, has_target
 
 QUEUE_PATH = BASE / "progress" / "push_queue.json"
 
@@ -128,7 +129,18 @@ def enqueue(body: str, due: datetime, *, expected_target: str = "",
 
     `memo_script` makes it a VOICE dose: the drain renders it at fire time and
     fills `audio_url` itself. `audio_url` stays available for an already-rendered
-    mp3 (a local session can hand one over pre-made)."""
+    mp3 (a local session can hand one over pre-made).
+
+    THE JUDGE SEAT, AT ADD TIME (2026-10-12, Andrew). The drain fires with zero
+    model calls by design, so the Tamil a push will carry is judged HERE, when it
+    is composed: attested by the books or passed by the independent judge, or it
+    is not queued at all → None, with the lines in the review queue. No repair:
+    `body` was already rendered to phonetics from the script it would mend."""
+    held = judge_entry({"body_script": body_script or "", "memo_script": memo_script or ""})
+    if held:
+        hold(held, "queue", f"push:{due.astimezone(timezone.utc).isoformat()}")
+        print(f"   ⚖️  scheduled push NOT queued — {len(held)} line(s) held by the judge seat")
+        return None
     entry = {
         "id": f"q{int(time.time())}",
         "due": due.astimezone(timezone.utc).isoformat(),
@@ -150,6 +162,23 @@ def enqueue(body: str, due: datetime, *, expected_target: str = "",
           + ("" if entry["force"] or in_waking_window(due)
              else "  (quiet hours — will defer to the next waking tick)"))
     return entry
+
+
+def judge_entry(texts: dict[str, str]) -> list[dict]:
+    """Every held line of a would-be push, by field. A judge that cannot run
+    holds the whole text: an unverified line is not a verified one."""
+    held = []
+    for where, text in texts.items():
+        if not has_target(text):
+            continue
+        lines = text.split("\n")
+        try:
+            verdicts = check_lines(lines)
+        except Exception as e:
+            verdicts = [{"status": "held", "reason": f"judge could not run: {e}"}] * len(lines)
+        held += [{"form": line, "unattested": [], "where": where, "reason": v["reason"]}
+                 for line, v in zip(lines, verdicts) if v["status"] == "held" and has_target(line)]
+    return held
 
 
 def maybe_enqueue_schedule(decision: dict) -> Path | None:
@@ -189,12 +218,14 @@ def maybe_enqueue_schedule(decision: dict) -> Path | None:
     # is rendered to phonetics HERE, at plant time, inside a model-backed lane —
     # the drain fires with zero LLM calls by design. The draft rides as body_script.
     from writer import to_phonetic
-    enqueue(to_phonetic(s["body"], label="scheduled body"), due, body_script=s["body"],
-            expected_target=s.get("expected_target", ""),
-            target_revealed=bool(s.get("target_revealed", True)),
-            memo_script=(s.get("memo_script") or "").strip(),
-            move=s.get("move", "scheduled follow-up"))
-    return QUEUE_PATH
+    entry = enqueue(to_phonetic(s["body"], label="scheduled body"), due, body_script=s["body"],
+                    expected_target=s.get("expected_target", ""),
+                    target_revealed=bool(s.get("target_revealed", True)),
+                    memo_script=(s.get("memo_script") or "").strip(),
+                    move=s.get("move", "scheduled follow-up"))
+    # A held push wrote the REVIEW queue, not this one — hand back the file that
+    # changed, so the calling lane's commit carries the hold (2026-10-12).
+    return QUEUE_PATH if entry else REVIEW_QUEUE_PATH
 
 
 def cmd_add(args):
@@ -202,6 +233,10 @@ def cmd_add(args):
     entry = enqueue(args.body, due, expected_target=args.expected_target,
                     target_revealed=args.target_revealed, audio_url=args.audio_url,
                     memo_script=args.memo_script, move=args.move, force=args.force)
+    if entry is None:
+        if not args.no_commit:
+            commit_and_push([REVIEW_QUEUE_PATH], "Review queue: a scheduled push held")
+        sys.exit("❌ not queued — the judge seat held its Tamil (python scripts/provenance.py).")
     if not args.no_commit:
         local = due.astimezone(LOCAL_TZ)
         commit_and_push([QUEUE_PATH], f"Queue push {entry['id']} for {local:%m-%d %H:%M}")

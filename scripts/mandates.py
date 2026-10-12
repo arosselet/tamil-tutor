@@ -544,16 +544,36 @@ Return ONLY a JSON object, no prose around it:
 """
 
 
-LINT_MANDATE = """\
-You are a strict checker of spoken Coimbatore colloquial Tamil. Each numbered item \
-pairs an English cue with the Tamil answer a learner will repeat aloud ten times. \
-FAIL any answer a native speaker would flag as wrong: a wrong case suffix (locative \
--ல where dative -க்கு is needed; பக்கம்ல for the oblique பக்கத்துல), a wrong tense or \
-person ending, or an unnatural form for the cue's meaning. Colloquial contractions, \
-register variation and Thanglish loanwords are FINE — this is spoken language, not \
-textbook Tamil. When genuinely unsure, PASS.
-Return ONLY JSON: {"verdicts": [{"n": 1, "verdict": "PASS|FAIL", "reason": "<one clause>"}]} \
-— exactly one verdict per item."""
+# THE JUDGE SEAT'S MODEL HALF (2026-10-12, Andrew). Was LINT_MANDATE, the drill
+# lane's answer-key check, which ran on the writer's own model and passed what it
+# was unsure of. It is now every lane's judge (scripts/provenance.py), run on the
+# OTHER model family from the host's writer, and unsure holds. NOT `JUDGE_MANDATE`,
+# which is the knock-reply judge above: the first draft took that name and shadowed
+# it, and the schema sweep (s82) is what caught it.
+PROVENANCE_JUDGE_MANDATE = """\
+You are a native speaker of Coimbatore (Kongu) colloquial Tamil, checking lines an adult \
+learner will HEAR and repeat. He cannot catch a mistake himself — you are his only check. \
+For each numbered line give one verdict:
+- ok — a native Coimbatore speaker would say exactly this. Spoken forms are CORRECT: \
+-ங்க, -ணும், a dropped final -உ, Kongu words, Thanglish loanwords, register variation.
+- wrong — a native speaker would flag it — a wrong case suffix (locative -ல where dative \
+-க்கு is needed; பக்கம்ல for the oblique பக்கத்துல), a wrong tense, person, number or \
+respect ending, a misspelling that changes the sound, a word that does not exist, an \
+English calque, or a meaning that contradicts the line's stated meaning.
+- unsure — you cannot tell. Say so — an unsure line is held for a human, which is safe.
+Judge the Tamil only; English and romanized words are context.
+Return ONLY JSON: {"verdicts": [{"n": 1, "verdict": "ok|wrong|unsure", "reason": \
+"<one clause; for wrong, the correct form>"}]} — exactly one verdict per line."""
+
+# The writer's one chance to mend what the judge flagged (2026-10-12). A dialogue
+# with a line cut out is a broken dialogue, so a flagged line in one is repaired
+# once and judged again; what is still flagged holds the whole artifact.
+REPAIR_MANDATE = """\
+A native-speaker check flagged some lines of the script below. Rewrite ONLY those \
+lines so they say the same thing in natural Coimbatore colloquial Tamil, keeping the \
+speaker, the meaning and the place in the script. The reason given names the problem.
+Return ONLY JSON: {"fixes": [{"n": <line number>, "line": "<the whole rewritten line>"}]} \
+— one fix per flagged line."""
 
 
 # ── The boundary on a commission brief ───────────────────────────────────────

@@ -329,24 +329,33 @@ def s48_drill_answer_key_lint(sb: Path):
     print("\n48. The drill answer key is linted; a fail stops the run (2026-08-01)")
     import contextlib, io
     rd = importlib.import_module("render_drill")
+    pv = importlib.import_module("provenance")
     sheet = {"title": "T", "intro": "i", "outro": "o",
              "items": [{"cue": "ask for tea", "answer_ta": "டீ குடுங்க"},
                        {"cue": "say: next to the temple", "answer_ta": "இடது பக்கம்ல"}]}
-    real_ask = rd.ask_json
-    try:
-        rd.ask_json = lambda *a, **k: {"verdicts": [
-            {"n": 1, "verdict": "PASS", "reason": ""},
-            {"n": 2, "verdict": "FAIL", "reason": "needs the oblique stem"}]}
-        fails = rd.lint_sheet(sheet)
-        check("a failing answer is caught, naming the line and the why",
-              len(fails) == 1 and "பக்கம்ல" in fails[0] and "oblique" in fails[0],
-              f"got {fails}")
+    queue_path = sb / "progress" / "review_queue.json"
+    queue_before = queue_path.read_bytes() if queue_path.exists() else None
 
-        rd.ask_json = lambda *a, **k: {"verdicts": [
-            {"n": 1, "verdict": "PASS"}, {"n": 2, "verdict": "PASS"}]}
+    def verdicts(*vs):
+        return lambda *a, **k: {"verdicts": [{"n": n, "verdict": v, "reason": r}
+                                             for n, (v, r) in enumerate(vs, 1)]}
+    # The grader is the judge seat since 2026-10-12: stub ITS model call.
+    real_ask, real_agent = pv.ask_json, pv.have_agent
+    try:
+        pv.ask_json = verdicts(("ok", ""), ("wrong", "needs the oblique stem"))
+        held = rd.lint_sheet(sheet)
+        check("a failing answer is caught, naming the line and the why",
+              len(held) == 1 and "பக்கம்ல" in held[0]["form"] and "oblique" in held[0]["reason"],
+              f"got {held}")
+
+        pv.ask_json = verdicts(("ok", ""), ("ok", ""))
         check("an all-pass sheet returns no failures", rd.lint_sheet(sheet) == [])
 
-        rd.ask_json = lambda *a, **k: {"verdicts": [{"n": 1, "verdict": "PASS"}]}
+        pv.ask_json = verdicts(("ok", ""), ("unsure", "cannot tell"))
+        check("an UNSURE answer holds too — the old lint passed it",
+              len(rd.lint_sheet(sheet)) == 1)
+
+        pv.ask_json = verdicts(("ok", ""))
         try:
             rd.lint_sheet(sheet)
             miscount = False
@@ -357,28 +366,46 @@ def s48_drill_answer_key_lint(sb: Path):
         check("an empty sheet needs no grader call",
               rd.lint_sheet({"items": []}) == [])
 
+        pv.have_agent = lambda: True
+        on_laptop = pv.judge_model()
+        pv.have_agent = lambda: False
+        check("the judge is never the writer's model family",
+              on_laptop == pv.MODEL and pv.judge_model() == pv.CROSS_MODEL
+              and "anthropic/" in pv.CROSS_MODEL and "anthropic/" not in pv.MODEL,
+              f"laptop {on_laptop}, cloud {pv.judge_model()}")
+
         # main() must ACT on the verdict — stub the writer to return the bad
         # sheet and assert the run stops before anything renders.
-        real = (rd.write_sheet, rd.drill_brief, rd.due_payload, sys.argv)
-        rd.ask_json = lambda *a, **k: {"verdicts": [
-            {"n": 1, "verdict": "FAIL", "reason": "wrong case"},
-            {"n": 2, "verdict": "PASS", "reason": ""}]}
+        real = (rd.write_sheet, rd.drill_brief, rd.due_payload, rd.commit_and_push, sys.argv)
+        pv.ask_json = verdicts(("wrong", "wrong case"), ("ok", ""))
         try:
             rd.write_sheet = lambda *a, **k: sheet
             rd.drill_brief = lambda: (None, [])
             rd.due_payload = lambda n: [{"word": "X", "gloss": "", "kind": "chunk"}]
-            sys.argv = ["render_drill.py", "--dry-run"]
-            stopped = False
-            with contextlib.redirect_stdout(io.StringIO()):
-                try:
-                    rd.main()
-                except SystemExit as e:
-                    stopped = bool(e.code)
-            check("main() stops on a lint fail — nothing renders", stopped)
+            commits = fx.Recorder()
+            rd.commit_and_push = commits
+            for argv, label in ((["--dry-run"], "dry run"), ([], "real run")):
+                sys.argv = ["render_drill.py", *argv]
+                stopped = False
+                with contextlib.redirect_stdout(io.StringIO()):
+                    try:
+                        rd.main()
+                    except SystemExit as e:
+                        stopped = bool(e.code)
+                check(f"main() stops on a lint fail — nothing renders ({label})", stopped)
+            q = read_json(queue_path) if queue_path.exists() else []
+            check("a real run's held answer is in the review queue, with the judge's reason",
+                  any(r["form"] == "டீ குடுங்க" and r["lane"] == "drill" and r["reason"] for r in q), str(q)[:300])
+            check("...and the queue is COMMITTED before the run exits",
+                  len(commits) == 1 and queue_path in list(commits[0][0]), f"{commits}")
         finally:
-            rd.write_sheet, rd.drill_brief, rd.due_payload, sys.argv = real
+            rd.write_sheet, rd.drill_brief, rd.due_payload, rd.commit_and_push, sys.argv = real
     finally:
-        rd.ask_json = real_ask
+        pv.ask_json, pv.have_agent = real_ask, real_agent
+        if queue_before is None:
+            queue_path.unlink(missing_ok=True)
+        else:
+            queue_path.write_bytes(queue_before)
 
 
 def s57_rotation_tape(sb: Path):
@@ -1193,7 +1220,8 @@ def s122_lesson_audio_cli(sb: Path):
     """A clip is useful only if synthesis yields audio and publication succeeds.
 
     Drive the real CLI parser; stub only TTS, environment and external publication.
-    No state, feed, push or model operation belongs on this path. Test-owned files
+    No state, feed or push belongs on this path; its one model call is the judge
+    seat's (2026-10-12, s138), stubbed by the harness here. Test-owned files
     and patches are cleaned up without deleting another case's published artifacts.
     """
     import contextlib
@@ -1492,7 +1520,7 @@ def s131_an_unjudged_form_never_ships(sb: Path):
                               "items": [{"say": s, "en": "gloss"} for s in says]}]}
 
     real = (rs.week_payload, rs.soak_brief, rs.write_sheet, rs.render,
-            rs.google_credentials_ready, rs.deliver_rendered, sys.argv)
+            rs.google_credentials_ready, rs.deliver_rendered, rs.commit_and_push, sys.argv)
     cwd = os.getcwd()
     try:
         os.chdir(sb)
@@ -1508,6 +1536,8 @@ def s131_an_unjudged_form_never_ships(sb: Path):
         rs.render = fake_render
         rs.google_credentials_ready = lambda: ""
         rs.deliver_rendered = lambda **kw: delivered.append(kw)
+        commits = fx.Recorder()
+        rs.commit_and_push = commits
         sys.argv = ["render_soak.py"]
 
         def drive(sh):
@@ -1569,6 +1599,8 @@ def s131_an_unjudged_form_never_ships(sb: Path):
         _, code = drive(sheet(novel, "போவாங்க"))
         check("a sheet with no attested item exits NON-ZERO and renders nothing",
               code not in (0, None) and not spoken and not delivered, f"exit {code!r}")
+        check("...and the hold is COMMITTED on the way out (a CI runner forgets it otherwise)",
+              commits and queue_path in list(commits[-1][0]), f"{commits}")
         check("...and the refusal points at the review queue, not the schema",
               "review queue" in str(code) and "provenance.py" in str(code), str(code)[:200])
 
@@ -1598,7 +1630,7 @@ def s131_an_unjudged_form_never_ships(sb: Path):
         check("a verdict on an unknown id is loud, never a quiet no-op", loud)
     finally:
         (rs.week_payload, rs.soak_brief, rs.write_sheet, rs.render,
-         rs.google_credentials_ready, rs.deliver_rendered, sys.argv) = real
+         rs.google_credentials_ready, rs.deliver_rendered, rs.commit_and_push, sys.argv) = real
         lex.write_bytes(lex_before)
         queue_path.unlink(missing_ok=True)
         os.chdir(cwd)
@@ -1740,3 +1772,300 @@ def s126_the_tape_says_where_it_is(sb: Path):
     # ── The writer's half: topic-only frames, one-language lore beats.
     check("the mandate makes the frame topic-only", "TOPIC only" in rl.BASE_MANDATE)
     check("lore keeps each beat in one language", "ONE language" in rl.SHAPE_CLAUSES["lore"])
+
+
+def s134_the_rotation_tape_passes_the_judge(sb: Path):
+    """The judge seat on the rotation lane — every beat attested or judged, or
+    it does not reach the tape (2026-10-12, Andrew).
+
+    WHAT WAS THERE. The rotation writer drafts every movement's Tamil one call at
+    a time, and nothing looked at a line before Chirp spoke it. The lane runs in
+    the cloud, unattended, so nobody even read the sheet.
+
+    GATE 7.2, OUT LOUD. A gate that judges nothing reads exactly like a tape of
+    clean lines, so the judge here is a fixture that flags one marker form, and
+    the case asserts on what reached the RENDER, through the real `main()`. The
+    two shapes fail differently and both are pinned: an item list loses only
+    the held beat; a scene is a conversation, so a flagged line is repaired
+    once, and a scene still flagged after that does not play at all. A judge
+    that cannot run must hold, never pass; an attested line must never cost a
+    judge call; and every hold must reach the queue AND the commit, because this
+    lane runs on a CI runner that forgets anything uncommitted.
+    """
+    print("\n134. The rotation tape passes the judge seat (2026-10-12)")
+    import contextlib, io
+    rr = importlib.import_module("render_rotation")
+    pv = importlib.import_module("provenance")
+    prog = sb / "progress"
+    lex, queue_path = prog / "lexicon.json", prog / "review_queue.json"
+    lex_before = lex.read_bytes()
+    queue_before = queue_path.read_bytes() if queue_path.exists() else None
+    write_json(lex, {**read_json(lex), "போறேன்": {"gloss": "I'm going"}})
+
+    BAD, GOOD, MENDED = "தப்பாச்சுங்கடா", "சரியாச்சு", "சரியாப்போச்சு"
+    judged_lines = []
+    repair = {"works": True}
+
+    def fake_ask(system, user, schema, **kw):
+        if schema is pv.JUDGE_SCHEMA:
+            lines = [l for l in user.splitlines() if re.match(r"^\d+\. ", l)]
+            judged_lines.extend(lines)
+            if repair.get("judge_down"):
+                raise RuntimeError("judge offline")
+            return {"verdicts": [{"n": n, "verdict": "wrong" if BAD in l else "ok",
+                                  "reason": "calque" if BAD in l else ""}
+                                 for n, l in enumerate(lines, 1)]}
+        flagged = user.split("FLAGGED LINES:\n", 1)[1]
+        ns = [int(m) for m in re.findall(r"^(\d+)\. ", flagged, re.M)]
+        return {"fixes": [{"n": n, "line": MENDED if repair["works"] else BAD + " மறுபடி"} for n in ns]}
+
+    machine = {"shape": "machine", "items": [{"word": "x"}]}
+    scene = {"shape": "scene", "items": [{"word": "y"}]}
+    sheets_by_shape = {
+        "machine": lambda: {"frame": "f", "beats": [{"say": "போறேன்", "en": "I'm going"},
+                                                    {"say": GOOD, "en": "fine"},
+                                                    {"say": BAD, "en": "bad"}]},
+        "scene": lambda: {"frame": "f", "beats": [{"say": GOOD, "en": "", "who": "a"},
+                                                  {"say": BAD + " டா", "en": "", "who": "b"}]},
+    }
+    real = {n: getattr(rr, n) for n in ("write_movement", "build_pool", "rotation_brief",
+                                        "plan_movements", "describe", "render", "write_script",
+                                        "audible", "google_credentials_ready",
+                                        "deliver_rendered", "commit_and_push")}
+    real_ask, real_argv, cwd = pv.ask_json, sys.argv, os.getcwd()
+    played, delivered, commits = [], [], fx.Recorder()
+
+    async def fake_render(plan, spine, out, minutes, writer):
+        sheets = [(mv, writer(mv, spine)) for mv in plan]
+        played.append(sheets)
+        return 10.0, len(sheets), [], sheets
+
+    def drive(plan):
+        played.clear(), delivered.clear(), commits.clear(), judged_lines.clear()
+        queue_path.unlink(missing_ok=True)
+        rr.plan_movements = lambda pool, spine, count: plan
+        sys.argv = ["render_rotation.py"]
+        code = 0
+        try:
+            with contextlib.redirect_stdout(io.StringIO()):
+                rr.main()
+        except SystemExit as e:
+            code = e.code
+        return code
+
+    def says():
+        return [b["say"] for _, sh in played[0] for b in sh["beats"]] if played else []
+
+    try:
+        os.chdir(sb)
+        pv.ask_json = fake_ask
+        rr.write_movement = lambda mv, spine, brief=None: sheets_by_shape[mv["shape"]]()
+        rr.build_pool = lambda spine, payload: [{"word": "x"}]
+        rr.rotation_brief = lambda: (None, [])
+        rr.describe = lambda *a: None
+        rr.render = fake_render
+        rr.write_script = lambda *a, **k: prog / "rotation_script.md"
+        rr.audible = lambda *a: []
+        rr.google_credentials_ready = lambda: ""
+        rr.deliver_rendered = lambda **kw: delivered.append(kw)
+        rr.commit_and_push = commits
+
+        # ── 1. The repair works.
+        code = drive([machine, scene])
+        q = read_json(queue_path) if queue_path.exists() else []
+        check("a tape with one bad item and one mendable scene line still publishes",
+              code in (0, None) and len(delivered) == 1, f"exit {code!r}")
+        check("...and the held form reached NOTHING that was rendered",
+              BAD not in says(), str(says()))
+        check("...the item list lost only the held beat",
+              [b["say"] for b in played[0][0][1]["beats"]] == ["போறேன்", GOOD], str(played[0][0][1]))
+        check("...the scene was mended in place, not cut",
+              [b["say"] for b in played[0][1][1]["beats"]] == [GOOD, MENDED], str(played[0][1][1]))
+        check("...the held item is in the queue with the judge's reason",
+              [(r["form"], r["where"], r["lane"]) for r in q] == [(BAD, "item", "rotation")]
+              and q[0]["reason"].startswith("wrong"), str(q))
+        check("...and the queue rides the tape's commit",
+              delivered and queue_path in delivered[0]["extra_paths"], str(delivered[0]["extra_paths"] if delivered else None))
+        check("an attested line never cost a judge call",
+              judged_lines and not any("போறேன்" in l for l in judged_lines), str(judged_lines))
+
+        # ── 2. The repair fails: the scene does not play at all.
+        repair["works"] = False
+        code = drive([machine, scene])
+        check("a scene still flagged after its repair does not play — not half of it",
+              code in (0, None) and played and played[0][1][1]["beats"] == [], str(played[0][1][1] if played else None))
+        check("...and its line waits in the queue as a dialogue line",
+              any(r["where"] == "line" for r in read_json(queue_path)))
+
+        # ── 3. Nothing survives: no tape, and the hold is committed on the way out.
+        sheets_by_shape["machine"] = lambda: {"frame": "f", "beats": [{"say": BAD, "en": "bad"}]}
+        code = drive([machine, scene])
+        check("an all-held tape publishes NOTHING and exits non-zero",
+              code not in (0, None) and not delivered, f"exit {code!r}")
+        check("...and its holds are committed before it exits",
+              commits and queue_path in list(commits[0][0]), str(commits))
+
+        # ── 4. A judge that cannot run holds; it never passes.
+        repair["judge_down"] = True
+        sheets_by_shape["machine"] = lambda: {"frame": "f", "beats": [{"say": GOOD, "en": "fine"}]}
+        code = drive([machine])
+        check("a judge that errors holds the movement (fail-closed), so nothing ships",
+              code not in (0, None) and not delivered and GOOD not in says(), f"exit {code!r}, {says()}")
+    finally:
+        for n, f in real.items():
+            setattr(rr, n, f)
+        pv.ask_json, sys.argv = real_ask, real_argv
+        os.chdir(cwd)
+        lex.write_bytes(lex_before)
+        if queue_before is None:
+            queue_path.unlink(missing_ok=True)
+        else:
+            queue_path.write_bytes(queue_before)
+
+
+def s138_a_lesson_clip_is_judged_before_synthesis(sb: Path):
+    """The judge seat on lesson audio — a session-written script is attested or
+    judged before any synthesis, and a hold goes straight back to the session
+    (2026-10-12, Andrew). Gate 7.2: a hold must cost nothing and write nothing —
+    no render, no file, no progress state — and must NAME the line, or the
+    session that wrote it cannot mend it."""
+    print("\n138. A lesson clip is judged before synthesis (2026-10-12)")
+    import contextlib, io
+    la = importlib.import_module("lesson_audio")
+    pv = importlib.import_module("provenance")
+    BAD = "தப்பாச்சுங்கடா"
+    script = sb / "lesson_s138.txt"
+    script.write_text(f"வணக்கம் டா\n{BAD}\n", encoding="utf-8")
+    out = sb / "lesson_s138.mp3"
+    progress = {p: p.read_bytes() for p in (sb / "progress").rglob("*") if p.is_file()}
+    rendered = []
+
+    async def fake_render(text, target, voice=None):
+        rendered.append(text)
+        target.write_bytes(b"mp3")
+
+    def fake_ask(system, user, schema, **kw):
+        lines = [l for l in user.splitlines() if re.match(r"^\d+\. ", l)]
+        return {"verdicts": [{"n": n, "verdict": "wrong" if BAD in l else "ok", "reason": "calque"}
+                             for n, l in enumerate(lines, 1)]}
+    real = (la.render_memo, pv.ask_json)
+    try:
+        la.render_memo, pv.ask_json = fake_render, fake_ask
+        err = io.StringIO()
+        with contextlib.redirect_stderr(err):
+            code = la.main([str(script), "--output", str(out)])
+        check("a held line refuses the clip before any synthesis",
+              code == 1 and not rendered and not out.exists(), f"exit {code}, {rendered}")
+        check("...naming the line, so the session can mend it",
+              "judge seat" in err.getvalue() and BAD in err.getvalue(), err.getvalue()[:300])
+        after = {p: p.read_bytes() for p in (sb / "progress").rglob("*") if p.is_file()}
+        check("...and writing no progress state, the review queue included", after == progress)
+    finally:
+        la.render_memo, pv.ask_json = real
+        script.unlink(missing_ok=True)
+        out.unlink(missing_ok=True)
+
+
+def s139_an_episode_speaks_only_judged_tamil(sb: Path):
+    """The judge seat on episodes — repaired in the studio, enforced at the
+    renderer every episode passes through (2026-10-12, Andrew).
+
+    WHAT WAS THERE. The studio's Producer wrote the final script and nothing
+    checked its Tamil; probed on M95, an independent judge flagged five English
+    calques in 38 unattested lines. And the studio has a FALLBACK — the Claude
+    subagent — which renders through `render_audio` without passing `run_studio`
+    at all, so a gate in the studio alone would be a gate with a side door.
+
+    GATE 7.2, OUT LOUD. The case drives the real `write_episode` with a fixture
+    writer: a mendable line must reach the script on disk MENDED and the caption
+    pass must be handed the mended script, not the draft; an unmendable one must
+    leave no episode, with the line queued and committed. At the chokepoint, a
+    held line and a judge that cannot run must both refuse — and the refusal must
+    sit before the TTS credentials are even asked about, so a refused script
+    costs nothing.
+    """
+    print("\n139. An episode speaks only judged Tamil (2026-10-12)")
+    rs = importlib.import_module("run_studio")
+    ra = importlib.import_module("render_audio")
+    pv = importlib.import_module("provenance")
+    prog = sb / "progress"
+    queue_path = prog / "review_queue.json"
+    canon = sb / "content" / "household.md"
+    keep = {p: (p.read_bytes() if p.exists() else None) for p in (queue_path, canon)}
+    BAD, MENDED = "தப்பாச்சுங்கடா", "சரியாப்போச்சு"
+    n = 998
+    paths = rs.episode_paths(n)
+    mode = {"repair": True, "down": False}
+
+    def fake_ask(system, user, schema, **kw):
+        if schema is pv.JUDGE_SCHEMA:
+            if mode["down"]:
+                raise RuntimeError("judge offline")
+            lines = [l for l in user.splitlines() if re.match(r"^\d+\. ", l)]
+            return {"verdicts": [{"n": i, "verdict": "wrong" if BAD in l else "ok", "reason": "calque"}
+                                 for i, l in enumerate(lines, 1)]}
+        flagged = user.split("FLAGGED LINES:\n", 1)[1]
+        return {"fixes": [{"n": int(i), "line": f"**DEEPA (F):** {MENDED if mode['repair'] else BAD + ' மறுபடி'}"}
+                          for i in re.findall(r"^(\d+)\. ", flagged, re.M)]}
+
+    prompts = {}
+    producer = ("```markdown\n# Ep\n**DEEPA (F):** வணக்கம் டா\n**DEEPA (F):** " + BAD
+                + "\n```\n```json\n{\"beat\": \"smoke beat\"}\n```")
+
+    def write_pass(label, prompt):
+        prompts[label] = prompt
+        return {"Producer": producer, "Captions": "```markdown\n| cap |\n```"}.get(label, label)
+
+    commits = fx.Recorder()
+    real = (pv.ask_json, fx.pb.commit_and_push)
+    try:
+        pv.ask_json, fx.pb.commit_and_push = fake_ask, commits
+        queue_path.unlink(missing_ok=True)
+
+        # ── 1. The studio mends a flagged line, and captions follow the mend.
+        ok = rs.write_episode(n, write_pass=write_pass)
+        script = paths["script"].read_text(encoding="utf-8") if paths["script"].exists() else ""
+        check("a mendable episode is written", ok is True, f"write_episode → {ok}")
+        check("...with the MENDED line on disk and the flagged one gone",
+              MENDED in script and BAD not in script, script[-200:])
+        check("...and the caption pass was handed the mended script, not the draft",
+              MENDED in prompts.get("Captions", "") and BAD not in prompts.get("Captions", ""))
+
+        # ── 2. Unmendable: no episode, the line queued and committed.
+        for p in paths.values():
+            p.unlink(missing_ok=True)
+        mode["repair"] = False
+        ok = rs.write_episode(n, write_pass=write_pass)
+        q = read_json(queue_path) if queue_path.exists() else []
+        check("an unmendable episode is NOT written", ok is False and not paths["script"].exists())
+        check("...its line waits in the queue as an episode line",
+              any(r["lane"] == "episode" and r["where"] == "line" for r in q), str(q)[:300])
+        check("...and the hold is committed (a commission may run this on a CI runner)",
+              commits and queue_path in list(commits[-1][0]), str(commits))
+
+        # ── 3. The chokepoint: every renderer of an episode passes here.
+        commits.clear()
+        queue_path.unlink(missing_ok=True)
+        dialogue = [{"speaker": "DEEPA (F)", "text": "வணக்கம் டா"},
+                    {"speaker": "PAUSE", "text": "", "seconds": 1},
+                    {"speaker": "DEEPA (F)", "text": f"{BAD} மீண்டும்"}]
+        held = ra.judge_dialogue(dialogue, "tier2_mission998")
+        check("the renderer holds a flagged line on its own (the fallback's side door is shut)",
+              held and [h["form"] for h in held] == [f"{BAD} மீண்டும்"], str(held))
+        check("...queued and committed", commits and queue_path in list(commits[0][0]))
+        mode["down"] = True
+        check("...and a judge that cannot run refuses the render (None), never passes it",
+              ra.judge_dialogue(dialogue, "tier2_mission998") is None)
+        src = mechanism(raw_source(REAL_BASE / "scripts" / "render_audio.py"))
+        main_src = src[src.index("async def main"):]
+        check("the refusal sits BEFORE the TTS credentials are asked about",
+              main_src.index("judge_dialogue(") < main_src.index("google_credentials_ready()"))
+    finally:
+        pv.ask_json, fx.pb.commit_and_push = real
+        for p in paths.values():
+            p.unlink(missing_ok=True)
+        for p, b in keep.items():
+            if b is None:
+                p.unlink(missing_ok=True)
+            else:
+                p.write_bytes(b)

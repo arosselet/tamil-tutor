@@ -331,6 +331,16 @@ subprocess.run = _no_agent_spawn
 _PRISTINE: dict = {}
 
 
+def judge_passes_everything(system, user, schema, **kw):
+    """The sandbox's default judge (2026-10-12): every numbered line ok, no fixes.
+    A stand-in for a network call, never a claim about any line."""
+    if "fixes" in schema.get("properties", {}):
+        return {"fixes": []}
+    lines = [l for l in user.splitlines() if l[:1].isdigit() and ". " in l[:6]]
+    return {"verdicts": [{"n": n, "verdict": "ok", "reason": ""}
+                         for n in range(1, len(lines) + 1)]}
+
+
 def snapshot(*mods):
     """Record each module's namespace so `run` can put it back after a case."""
     _PRISTINE.clear()

@@ -332,6 +332,11 @@ def main():
     # Non-zero on purpose: the session-open auto-drain and `run_studio` both read
     # the exit code, and a loud failure is what lets the dose be re-ordered.
     if n == 0:
+        # A hold must outlive this run: committed here, because the empty floor
+        # exits before the delivery tail and a CI runner's uncommitted queue dies
+        # with the machine (2026-10-12).
+        if queued:
+            commit_and_push([REVIEW_QUEUE_PATH], f"Review queue: {queued} soak form(s) held")
         why = (f"every drafted item was unattested and is in the review queue "
                f"({len(held)} held) — judge them with scripts/provenance.py, then "
                f"re-run. " if held and any(c.get("items") for c in drafted.get("clusters", []))

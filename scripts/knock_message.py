@@ -42,9 +42,9 @@ from mandates import (FORCE_SCHEDULE_ADDENDUM, FORCE_VOICE_ADDENDUM,
                       VOICE_MANDATE)
 from push_queue import maybe_enqueue_schedule
 from publish import commit_and_push, load_env, publish, push_to_phone
-from reply_common import (ensure_voice, recent_exchanges, record_meta_note,
+from reply_common import (ensure_voice, gate_reply, recent_exchanges, record_meta_note,
                           speak, wants_scheduled_push)
-from state_io import FEEDBACK_LOG_PATH, KNOCK_LOG_PATH, load_json, save_json
+from state_io import FEEDBACK_LOG_PATH, KNOCK_LOG_PATH, REVIEW_QUEUE_PATH, load_json, save_json
 from writer import STR, ask_json, executor_name, obj, voice_canon
 
 # Declared beside the lane that reads it, like every other judge shape. `schedule`
@@ -106,6 +106,7 @@ def handle_message(text: str, knock: dict | None, klog: list, dry_run: bool):
         return
 
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    held = gate_reply(verdict, voice_canon() + "\n\n---\n\n" + MESSAGE_MANDATE, "message", now)
     if knock is not None:
         # Thread anchor only — see the module docstring. `intent` is what keeps
         # this out of every rep-counting read downstream.
@@ -120,7 +121,7 @@ def handle_message(text: str, knock: dict | None, klog: list, dry_run: bool):
     print("2. commit + push…")
     commit_and_push(*publish(
         [KNOCK_LOG_PATH, FEEDBACK_LOG_PATH if meta else None,
-         maybe_enqueue_schedule(verdict)],
+         maybe_enqueue_schedule(verdict), REVIEW_QUEUE_PATH if held else None],
         "Message: answered" + (" (aloud)" if voice_url else ""),
         mp3=vmp3 if voice_url else None))
     print("3. push back…")

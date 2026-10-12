@@ -215,7 +215,9 @@ CODE_BUDGETS = {
     # 775 -> 785 (2026-08-02) for the thread-continuity window. · 570 -> 610 (2026-08-27): the reply lane gained a voice rail — the AUDIO_RE detector, ensure_voice's one-forced-re-ask backstop, and a shared speak() body. · 610 -> 560 (2026-08-28): re-censused DOWN. · 560 -> 563 (2026-09-05).
     "scripts/knock_reply.py": 563,
     # New surfaces, budgeted in the diff that creates them. reply_common is the split the 08-27 raise said was coming; knock_message is the lane that forced it.
-    "scripts/reply_common.py": 120,
+    # 120 -> 127 (the judge seat (2026-10-12, Andrew)): gate_reply, the one judge for every inbound
+    # lane — a held push-back becomes a plain fallback, a held voice reply is dropped.
+    "scripts/reply_common.py": 127,
     "scripts/knock_message.py": 130,
     # 700 -> 625 (2026-08-01): re-censused DOWN after OUTREACH_MANDATE moved to mandates.py — the file sat at 699/700, one mechanical fix from a red build. · 400 -> 402 (2026-09-05).
     # 402 -> 405 (2026-09-19): one import. The household canon now reaches the
@@ -231,7 +233,10 @@ CODE_BUDGETS = {
     # 425 -> 390 (2026-10-08): re-censused DOWN (census 388). The split the line
     # above called for was taken: PROGRESS and its freshness reader left for
     # threads.py, and the gift/ask streak split folded back into one count.
-    "scripts/morning_knock.py": 390,
+    # 390 -> 409 (the judge seat (2026-10-12, Andrew) plus the policy digest): gate_knock judges
+    # the body and memo, a held reach becomes a silence (the eavesdrop precedent);
+    # the approved caps and tease cap are read through rails.approved.
+    "scripts/morning_knock.py": 409,
     # 470 -> 500 (2026-08-28): MESSAGE_MANDATE landed — the first mandate in this file that only ACTS instead of grading.
     "scripts/mandates.py": 500,
     # NEW FILE, budgeted in the diff that creates it (2026-08-24, Q1's first family).
@@ -246,7 +251,9 @@ CODE_BUDGETS = {
     # commit, cost the TTS and 404 on his phone. `s119` holds it against a real
     # bare repo, both directions, including the detached CI shape.
     "scripts/publish.py": 165,
-    "scripts/push_queue.py": 250,
+    # 250 -> 258 (the judge seat (2026-10-12, Andrew)): a push is judged when composed, never at
+    # fire time — the drain keeps its zero-model-call law.
+    "scripts/push_queue.py": 258,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-04).
     # 26 -> 40 (2026-09-19): the supply FLOOR. A rail is a bound and a bound
     # has two ends — everything above this is a ceiling (do not reach more than
@@ -301,7 +308,9 @@ CODE_BUDGETS = {
     "scripts/rebuild_rss.py": 368,
     # New surface, budgeted in the diff that creates it (2026-09-01). · Set at the census plus normal headroom.
     "scripts/audio_titles.py": 80,
-    "scripts/render_audio.py": 495,
+    # 495 -> 505 (the judge seat (2026-10-12, Andrew)): the episode chokepoint. Every renderer of an
+    # episode — the studio, its subagent fallback, a hand render — passes here.
+    "scripts/render_audio.py": 505,
     "scripts/render_chat.py": 100,
     "scripts/render_demo.py": 100,
     # 235 -> 220 (2026-08-23, Andrew): re-censused DOWN, the 08-01 move again.
@@ -321,17 +330,27 @@ CODE_BUDGETS = {
     # branch, and the script's lap lines that disagreed with the audio. Net growth
     # is a new job — telling the ear where it is — not crud. The next raise is the
     # split signal: the marker helpers are the seam.
-    "scripts/render_rotation.py": 402,
+    # 402 -> 430 (2026-10-12, Andrew): the judge seat. Items drop a held beat;
+    # scenes and eavesdrops are dialogues and play whole or not at all; a
+    # judge that cannot run holds the movement; an all-held tape publishes
+    # nothing. The writer's prompt is now one function the repair pass shares.
+    "scripts/render_rotation.py": 430,
     # 275 -> 265 (2026-08-23, Andrew): re-censused DOWN.
     # 195 -> 211 (2026-10-12, Andrew): the judge seat. Retires the unchecked hand-off
     # from the writer to the TTS — the focus brief invited novel inflections and
     # nothing looked at them. The rating itself lives in provenance.py; this is
     # the gate call, the hold report, the spoken fallbacks, and an empty floor
     # that can say WHY.
-    "scripts/render_soak.py": 211,
+    # 211 -> 213 (same day): a hold is committed on the empty-floor exit, since a
+    # CI runner's uncommitted queue dies with the machine.
+    "scripts/render_soak.py": 213,
     # NEW FILE, budgeted in the same diff that creates it (2026-10-12, Andrew): the
     # judge seat — content-risk rating, the review queue, the reviewer's pen.
-    "scripts/provenance.py": 120,
+    # 120 -> 185 (same day): the model half of the seat — the independent judge,
+    # item and dialogue checks, one repair pass. Retires render_drill's private
+    # lint (LINT_SCHEMA, LINT_MANDATE, its verdict parse), which graded on the
+    # writer's own model and passed what it was unsure of.
+    "scripts/provenance.py": 185,
     # Budgeted in the diff that created it (2026-09-05) — a new file with no entry here is a red run, because adding one is the obvious way past …
     "scripts/render_payoff.py": 240,
     # NEW FILE, budgeted in the same diff that creates it (2026-10-03, Andrew). Census 185.
@@ -365,7 +384,9 @@ CODE_BUDGETS = {
     # `scripts/household.py`, budgeted below in this same diff.
     # 490 -> 480 (2026-10-12): RE-CENSUSED DOWN — claim_payload's private raw read of
     # the learner and lexicon, which swallowed a decode error, went through state_io.
-    "scripts/run_studio.py": 480,
+    # 480 -> 495 (the judge seat (2026-10-12, Andrew)): one repair pass on the Producer's script,
+    # before the caption pass so captions follow what is spoken.
+    "scripts/run_studio.py": 495,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-19). 75
     # rather than the 55 census: headroom for diagnosis, not for a second job —
     # what happens IN the household is Anna's and the Architect's, and the day
@@ -960,11 +981,6 @@ LAYERS = {
     # — which would mean reconstruction running inside the daily loop — the edge
     # reads as upward and fails here.
     "backfill_observations": 0.8,    # a tool over the view — reads lexicon_view
-    # The judge seat (2026-10-12). Reads the pack, L0, the log's path and the
-    # lexicon's KEYS; read by the render lanes. Numbered below selection so the
-    # day it reaches for a rung or the ticket — a judge that can see what he is
-    # weak at is a judge that will start passing forms by deficit — it fails here.
-    "provenance":         0.8,
     # The derivation (2026-09-10). Reads L0 and the log, imported by nothing yet;
     # in Phase 3 it becomes what every reader of the lexicon goes through, which
     # is why it sits BELOW selection (1.5) and every lane rather than beside them.
@@ -1019,6 +1035,12 @@ LAYERS = {
 
     "mandates":           3,      # L3 compose — prompt canon, imports only the pack's surface fragments
     "writer":             3,      # L3 compose — executor, model, budget, parsers
+    # The judge seat (2026-10-12). Reads the pack, L0, the log's path and the
+    # lexicon's KEYS, and asks the writer layer for its independent judge; read
+    # by the render lanes. Above L3 because it calls a model, below the delivery
+    # tail and every lane. It must never reach for a rung or the ticket: a judge
+    # that can see what he is weak at will start passing forms by deficit.
+    "provenance":         3.5,
 
     "publish":            4,      # L4 delivery — the ordering, the net, the push
     "render_audio":       4.5,    # a producer FOR L4 — TTS, register, commit

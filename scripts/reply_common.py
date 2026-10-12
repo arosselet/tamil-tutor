@@ -28,8 +28,39 @@ sys.path.insert(0, str(BASE / "scripts"))
 
 from memo import render_memo
 from publish import KNOCKS_DIR, jsdelivr_url
-from language import ANNA_VOICE
+from language import ANNA_VOICE, has_target
+from provenance import check_script, enqueue
 from state_io import FEEDBACK_LOG_PATH, KNOCK_LOG_PATH, load_json, local_today, save_json
+
+# What he reads instead when the judge seat holds a push-back (2026-10-12). Plain
+# English on purpose: a fallback that needed judging would need a fallback.
+REPLY_FALLBACK = "Got it, noted."
+
+
+def gate_reply(verdict: dict, context: str, lane: str, source: str) -> list[dict]:
+    """THE JUDGE SEAT ON EVERY INBOUND LANE (2026-10-12, Andrew). The push-back
+    line he reads and the voice reply he hears are attested by the books or
+    passed by the independent judge (one repair allowed). He is waiting at the
+    lock screen, so a hold never silences the answer: a held line becomes
+    REPLY_FALLBACK, and a held voice reply is dropped while the text still lands
+    — the same outcome as a TTS failure. A correction that models a wrong form
+    is the worst thing this lane could send. Mended text is written back into
+    the verdict; the held lines are queued → returned, for the lane's commit."""
+    held = []
+    for key in ("reply_line", "voice_reply"):
+        text = verdict.get(key) or ""
+        if not has_target(text):
+            continue
+        try:
+            lines, h = check_script(text.split("\n"), context)
+        except Exception as e:
+            lines, h = [], [{"form": text, "unattested": [], "reason": f"judge could not run: {e}"}]
+        verdict[key] = (REPLY_FALLBACK if key == "reply_line" else "") if h else "\n".join(lines)
+        held += [{**x, "where": key} for x in h]
+    if held:
+        print(f"   ⚖️  {len(held)} line(s) held by the judge seat — answering without them")
+        enqueue(held, lane, source)
+    return held
 
 # A clock in Andrew's own words. Deliberately generous: a false positive costs
 

@@ -82,7 +82,13 @@ def main():
         # was always here; the list was simply incomplete.
         rs_mod = importlib.import_module("rebuild_rss")
         ss_mod = importlib.import_module("sync_state")
-        snapshot(mk, kr, pq, fx.pb, fx.wr, fx.si, rs_mod, ss_mod)
+        # THE JUDGE SEAT IS A NETWORK BOUNDARY (2026-10-12), like the writer and
+        # the push: no case may reach a real model by forgetting to stub it. The
+        # default passes every line; the cases that test the seat itself (s48,
+        # s131, s134, s135) install their own verdicts, and `restore` puts this back.
+        pv_mod = importlib.import_module("provenance")
+        pv_mod.ask_json = fx.judge_passes_everything
+        snapshot(mk, kr, pq, fx.pb, fx.wr, fx.si, rs_mod, ss_mod, pv_mod)
         run(compose.s1_parse_llm_json, mk)
         run(knock.s2_rails_gate, mk, sb / "progress" / "knock_log.json")
         run(publish.s15_push_retry, mk)
@@ -144,6 +150,12 @@ def main():
         run(render.s131_an_unjudged_form_never_ships, sb)
         run(state.s132_a_corrupt_book_fails_at_load, sb)
         run(knock.s133_the_outreach_policy_learns, mk, sb)
+        run(render.s134_the_rotation_tape_passes_the_judge, sb)
+        run(knock.s135_a_knock_speaks_only_judged_tamil, mk, sb)
+        run(knock.s136_a_push_back_speaks_only_judged_tamil, sb)
+        run(queue.s137_a_scheduled_push_is_judged_when_composed, pq, sb)
+        run(render.s138_a_lesson_clip_is_judged_before_synthesis, sb)
+        run(render.s139_an_episode_speaks_only_judged_tamil, sb)
         run(compose.s58_a_sheet_survives_a_model_thinking_out_loud, sb)
         run(knock.s49_thread_continuity, mk, kr, sb)
         run(knock.s50_read_surfaces_are_phonetic, mk, kr, sb)

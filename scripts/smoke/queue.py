@@ -547,3 +547,64 @@ def _refuses(pb, work) -> bool:
     except Exception:                       # noqa: BLE001 — got past the guard
         return False
     return False
+
+
+def s137_a_scheduled_push_is_judged_when_composed(pq, sb: Path):
+    """The judge seat on the push queue — at ADD time, because the drain fires
+    with zero model calls by design (2026-10-12, Andrew).
+
+    GATE 7.2, OUT LOUD. A held push that still lands in the queue would fire
+    later looking exactly like a judged one, so the case re-reads BOTH files: the
+    held push is absent from push_queue.json and present in review_queue.json,
+    and the schedule seam hands back the review queue's path so the planting
+    lane's commit carries the hold. The positive control: a judged-clean voice
+    dose is queued as before.
+    """
+    print("\n137. A scheduled push is judged when it is composed (2026-10-12)")
+    pv = importlib.import_module("provenance")
+    prog = sb / "progress"
+    qpath, rpath = prog / "push_queue.json", prog / "review_queue.json"
+    saved = {p: (p.read_bytes() if p.exists() else None) for p in (qpath, rpath)}
+    BAD = "தப்பாச்சுங்கடா"
+
+    def fake_ask(system, user, schema, **kw):
+        lines = [l for l in user.splitlines() if re.match(r"^\d+\. ", l)]
+        return {"verdicts": [{"n": n, "verdict": "wrong" if BAD in l else "ok", "reason": "calque"}
+                             for n, l in enumerate(lines, 1)]}
+
+    real_ask, real_phon = pv.ask_json, None
+    try:
+        pv.ask_json = fake_ask
+        write_json(qpath, [])
+        rpath.unlink(missing_ok=True)
+        due = (datetime.now(timezone.utc) + timedelta(hours=3)).astimezone(pq.LOCAL_TZ)
+        with contextlib.redirect_stdout(io.StringIO()):
+            held = pq.enqueue("smoke", due, memo_script=f"வணக்கம்\n{BAD}")
+        check("a push carrying a held line is NOT queued", held is None and read_json(qpath) == [],
+              str(read_json(qpath)))
+        r = read_json(rpath) if rpath.exists() else []
+        check("...its line waits in the review queue", [x["form"] for x in r] == [BAD]
+              and r[0]["where"] == "memo_script" and r[0]["lane"] == "queue", str(r))
+
+        import writer
+        real_phon = writer.to_phonetic
+        writer.to_phonetic = lambda text, label="": text
+        future = due.strftime("%Y-%m-%dT%H:%M")
+        with contextlib.redirect_stdout(io.StringIO()):
+            path = pq.maybe_enqueue_schedule({"schedule": {"at_local": future, "body": f"{BAD} டா"}})
+        check("the schedule seam hands back the REVIEW queue for the commit when it holds",
+              path == pq.REVIEW_QUEUE_PATH and read_json(qpath) == [], f"{path}")
+
+        with contextlib.redirect_stdout(io.StringIO()):
+            ok = pq.enqueue("smoke", due, memo_script="வணக்கம் டா")
+        check("a judged-clean voice dose is queued as before",
+              ok is not None and [e["memo_script"] for e in read_json(qpath)] == ["வணக்கம் டா"])
+    finally:
+        pv.ask_json = real_ask
+        if real_phon is not None:
+            writer.to_phonetic = real_phon
+        for p, b in saved.items():
+            if b is None:
+                p.unlink(missing_ok=True)
+            else:
+                p.write_bytes(b)

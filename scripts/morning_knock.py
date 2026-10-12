@@ -42,7 +42,7 @@ import threads
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
-from language import ANNA_VOICE, EAVESDROP_VOICE, REFERENT_NOUNS
+from language import ANNA_VOICE, EAVESDROP_VOICE, REFERENT_NOUNS, has_target
 import household
 # `render_memo` and the four TTS primitives it composed left for `memo.py` on
 # 2026-09-04. They were here because the knock spoke first; `push_queue` and
@@ -68,7 +68,8 @@ from rails import (MAX_REACHES_PER_DAY, MIN_GAP_HOURS, TEASE_CAP_PER_6, TEASE_RE
                    last_fire, policy_block, reaches_today)
 from observations import OBSERVATIONS_PATH
 from state_io import (KNOCK_LOG_PATH, LEARNER_PATH, LEXICON_PATH, LOCAL_TZ,
-                      STANCES, is_fire, load_json, local_date)
+                      REVIEW_QUEUE_PATH, STANCES, is_fire, load_json, local_date)
+from provenance import check_script, enqueue
 
 NEXT_CHECK_CLAMP = (0.5, 24.0)   # Anna's self-set next_check is clamped to this many hours
 
@@ -669,6 +670,27 @@ def log_decision(now: datetime, decision: dict, *, acted: bool,
     return KNOCK_LOG_PATH
 
 
+def gate_knock(decision: dict) -> list[dict]:
+    """Every Tamil line this reach would publish, through the judge seat → the
+    held lines (empty means it may go). Mended lines are written back into the
+    decision, so what is logged is what was sent. The body is checked in SCRIPT,
+    before `to_phonetic` turns it into what he reads. A judge that cannot run
+    holds the whole text — an unverified line is not a verified one."""
+    context = voice_canon() + "\n\n---\n\n" + OUTREACH_MANDATE
+    held = []
+    for key in ("notification_body", "memo_script"):
+        text = decision.get(key) or ""
+        if not has_target(text):
+            continue
+        try:
+            lines, h = check_script(text.split("\n"), context)
+            decision[key] = "\n".join(lines)
+        except Exception as e:
+            h = [{"form": text, "unattested": [], "reason": f"judge could not run: {e}"}]
+        held += [{**x, "where": key} for x in h]
+    return held
+
+
 def main():
     ap = argparse.ArgumentParser(description="Anna's agentic between-session outreach")
     ap.add_argument("--dry-run", action="store_true",
@@ -697,6 +719,21 @@ def main():
 
     acting = bool(decision.get("act")) and decision["modality"] != "silence"
 
+    # THE JUDGE SEAT (2026-10-12, Andrew). What Anna drafted in Tamil — the
+    # body he reads and the memo he hears — is attested by the books or passed
+    # by the independent judge (one repair allowed), or this reach does not go
+    # out. A held reach becomes a silence, on the eavesdrop precedent: a lost
+    # dose is cheaper than a wrong one, and the next tick tries fresh.
+    held = gate_knock(decision) if acting else []
+    if held:
+        print(f"   ⚖️  {len(held)} line(s) held by the judge seat — this reach is a silence")
+        decision.update(act=False, modality="silence",
+                        rationale=f"held by the judge seat ({len(held)} line(s)): "
+                                  f"{decision.get('rationale', '')}")
+        acting = False
+        if not args.dry_run:
+            enqueue(held, "knock", f"knock:{now.isoformat()}")
+
     if not acting:
         print("   Anna chose silence.")
         if args.dry_run:
@@ -708,7 +745,7 @@ def main():
         # forgotten by a hand-built list.
         commit_and_push(*publish(
             [log_decision(now, decision, acted=False),
-             maybe_enqueue_schedule(decision)],
+             maybe_enqueue_schedule(decision), REVIEW_QUEUE_PATH if held else None],
             f"Anna: silence ({decision.get('rationale','')[:50]})"))
         print("done — silence logged, next_check set.")
         return
