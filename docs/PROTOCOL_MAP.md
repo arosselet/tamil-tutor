@@ -70,11 +70,13 @@ Anna can commission the studio end-to-end mid-session; the subagent also runs st
 
 ## State (`progress/` — Python-owned, never hand-edit)
 
+Every book below is shape-checked when `state_io.load_json` reads it and when `save_json` writes it, and every write is atomic (2026-10-12): a truncated write or a bad rebase raises `CorruptBook` naming the file and how to restore it — it never propagates.
+
 | File | Owner | Holds |
 |---|---|---|
 | `observations.json` | `lexicon_view.observe` / `expose` | THE LEDGER (2026-09-10): every observation as an event — word, channel, kind (taught / **attended** / exposed / tested / claimed), axis, result, source. Append-only; `seed` and `self-report` are recorded and never vote — and since 2026-09-13 a `taught` on a delivery channel is the same: recorded, pending, and it does not open the teach gate until an `attended` event (or a watched test) shows he was there. `attended` is the one kind that is a fact about Andrew rather than about the machine |
 | `lexicon.json` | static half: `sync_state.py` · evidence half: `lexicon_view.rebuild` | Word brain. Gloss, type, `register`, `direction`, `pairs_with` are curriculum (the `phonetic` list was deleted 2026-09-21 — a record carries its Tamil key); recognition, production, reps, exposures, heard_on, last_surfaced, seen_in, taught_on are THE FOLD of the log, one writer, and `lexicon_view.py` reports zero divergent rows or `s100` is red |
-| `learner.json` | `sync_state.py` | Continuity: running story (`last_debrief`), `soak_order`, `month` (name + two dates + the finale's mission — membership and completion are BOTH folds), `ladder` (a stated lean and its day — nothing derived is stored), status (no streak — recency from the session log is the honest signal) |
+| `learner.json` | `sync_state.py`; seams that declare what they did — `slips.py` (commissions, closes), `state_io.mark_soak_attempted` — named in `state_io` and locked by `s132` | Continuity: running story (`last_debrief`), `soak_order`, `month` (name + two dates + the finale's mission — membership and completion are BOTH folds), `ladder` (a stated lean and its day — nothing derived is stored), status (no streak — recency from the session log is the honest signal) |
 | `episodes.json` | `sync_state.py` / `render_audio.py` | Episode registry |
 | `session_log.json` | `sync_state.py` | Append-only momentum log |
 | `feedback_log.json` | `sync_state.py feedback` | The ledger the diagnosis pass reads |

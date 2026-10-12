@@ -49,6 +49,7 @@ sys.path.insert(0, str(BASE / "scripts"))
 # became its own module 2026-08-28, and TAMIL_TAIL_RE came with it; since
 # 2026-10-05 the lane imports the questions, `stem` and `has_target`, not the ranges).
 from language import READ_FORM, has_target, stem, target_runs
+from state_io import LEARNER_PATH, LEXICON_PATH, load_json
 import household
 
 # Cross-process contract, mirrored in render_audio.py and read by
@@ -665,12 +666,12 @@ def claim_payload(n: int) -> None:
     and was then refused the claim — reported as missing, and the render never
     stamped its `seen_in`."""
     paths = episode_paths(n)
-    try:
-        soak = (json.loads((BASE / "progress" / "learner.json").read_text(encoding="utf-8"))
-                .get("soak_order") or {})
-        lex = json.loads((BASE / "progress" / "lexicon.json").read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
-        return
+    # Through the checked reader (2026-10-12). This was a raw read that caught
+    # JSONDecodeError and returned — so a corrupted learner or lexicon skipped
+    # the claim in silence and the render looked like it had nothing to claim.
+    # A missing book is still a quiet return; a broken one is CorruptBook.
+    soak = (load_json(LEARNER_PATH) or {}).get("soak_order") or {}
+    lex = load_json(LEXICON_PATH) or {}
     payload = [w for w in soak.get("payload", []) if w]
     if not payload:
         return

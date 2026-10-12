@@ -26,12 +26,13 @@ Usage:
 """
 
 import argparse
-import json
 from datetime import date
 from pathlib import Path
 
 from state_io import RECOGNITION_RANK  # noqa: F401  (L0 owns the ladders)
-from state_io import local_today
+# The checked reader (2026-10-12): this file kept a private bare `json.load`,
+# so a corrupted lexicon reached the callback picker as a raw decode error.
+from state_io import load_json, local_today
 
 BASE = Path(__file__).parent.parent
 LEXICON_PATH = BASE / "progress" / "lexicon.json"
@@ -63,13 +64,6 @@ NEVER_SURFACED = 10 ** 6  # sentinel staleness for null last_surfaced
 # is comprehension, and the machines carry the sentence skeleton he cannot hear.
 # Capped at half the ticket so a reservation can never starve the words.
 PATTERN_SLOTS = 2
-
-
-def load_json(path: Path):
-    if not path.exists():
-        return None
-    with open(path, "r", encoding="utf-8") as f:
-        return json.load(f)
 
 
 def days_since(iso: str | None, today: date) -> int | None:

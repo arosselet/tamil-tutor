@@ -20,3 +20,6 @@ docs/anna_knock_automation.yaml
 # Studio watchdog — local runtime droppings, never repo state
 .studio.lock
 studio_watchdog.log
+
+# An interrupted atomic write (state_io.save_json) leaves its temp file; never commit one.
+progress/*.tmp

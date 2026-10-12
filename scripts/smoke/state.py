@@ -5345,3 +5345,123 @@ def s116_a_tap_can_reach_the_real_feeds_words(sb: Path):
     check("a versioned re-render resolves to its own mission number",
           (m := ss.MISSION_STEM_RE.match("tier2_mission74_v2")) and m.group(1) == "74",
           "a re-rendered episode would open no Teach Beat")
+
+
+def s132_a_corrupt_book_fails_at_load(sb: Path):
+    """Book custody — a corrupted state file fails loudly at READ, never
+    propagates; every write is atomic; the learner's writers are named
+    (2026-10-12, Andrew).
+
+    WHAT WAS THERE. `load_json` was a bare `json.load`: a truncated write or a
+    bad rebase surfaced as a raw JSONDecodeError at best, and as nothing at all
+    wherever a caller caught it — `run_studio.claim_payload` read both the
+    learner and the lexicon raw and RETURNED on a decode error, so a broken book
+    skipped the claim and the render looked like it had nothing to claim.
+    `save_json` opened the book for writing in place, so a crash mid-dump left a
+    half-file: the corruption it should be impossible to produce. And
+    `state_io`'s docstring said `sync_state` was the only writer of the learner,
+    which it never was.
+
+    GATE 7.2, OUT LOUD. Silently doing nothing looks like a check that passes
+    every book — including a broken one — or one so strict the real books fail
+    it and someone loosens it blind. So: the truncated fixture goes through the
+    REAL CLI as a subprocess and must exit non-zero, say CORRUPT BOOK and how to
+    restore, and leave the file's bytes untouched (nothing written over it). The
+    positive control is the LIVE repo: every real book must pass the same check,
+    read-only. And the writer sweep runs against a synthetic fourth writer first,
+    so its green cannot mean a broken needle.
+    """
+    print("\n132. A corrupt book fails at load — book custody (2026-10-12)")
+    import subprocess
+    from unittest.mock import patch
+    sio = importlib.import_module("state_io")
+    learner = sb / "progress" / "learner.json"
+    good = learner.read_bytes()
+    try:
+        # ── 1. THE ACCEPTANCE FIXTURE: a write cut off half way.
+        learner.write_bytes(good[: len(good) // 2])
+        broken = learner.read_bytes()
+        try:
+            sio.load_json(learner)
+            raised = ""
+        except Exception as e:   # any other exception is the regression, reported
+            raised = f"{type(e).__name__}: {e}"
+        check("a truncated learner.json raises CorruptBook at load",
+              raised.startswith("CorruptBook") and "CORRUPT BOOK" in raised and "progress/learner.json" in raised, raised[:200])
+        check("...naming how to restore it", "git checkout -- progress/learner.json" in raised)
+        check("...and it is not a ValueError a date-parsing handler could swallow",
+              not issubclass(sio.CorruptBook, ValueError))
+        for argv in (["status"], ["ladder", "--lean", "across"]):
+            r = subprocess.run([sys.executable, str(sb / "scripts" / "sync_state.py"), *argv],
+                               cwd=sb, capture_output=True, text=True, encoding="utf-8",
+                               env={**__import__("os").environ, "PYTHONUTF8": "1"})
+            check(f"`sync_state {argv[0]}` on the truncated book exits NON-ZERO, loudly",
+                  r.returncode != 0 and "CORRUPT BOOK" in (r.stderr + r.stdout),
+                  f"exit {r.returncode}: {(r.stderr or r.stdout)[-300:]}")
+            check(f"...and `{argv[0]}` wrote nothing over it",
+                  learner.read_bytes() == broken)
+
+        # ── 2. Parses, wrong shape: still corrupt.
+        write_json(learner, {**json.loads(good), "soak_order": ["not", "a", "dict"]})
+        try:
+            sio.load_json(learner)
+            shape = ""
+        except Exception as e:
+            shape = f"{type(e).__name__}: {e}"
+        check("a learner whose soak_order is a list is a corrupt book too",
+              shape.startswith("CorruptBook") and "soak_order" in shape, shape[:200])
+        learner.write_bytes(good)
+
+        # ── 3. Writes: refused when malformed, atomic when interrupted.
+        try:
+            sio.save_json(learner, [])
+            refused = False
+        except sio.CorruptBook:
+            refused = True
+        check("save_json refuses to write a malformed book",
+              refused and learner.read_bytes() == good)
+
+        def half_then_crash(data, f, **kw):
+            f.write('{"learner": "trunc')
+            raise OSError("disk went away mid-write")
+        with patch.object(sio.json, "dump", half_then_crash):
+            try:
+                sio.save_json(learner, json.loads(good))
+            except OSError:
+                pass
+        check("a write that dies half way leaves the OLD book whole",
+              learner.read_bytes() == good and sio.load_json(learner) == json.loads(good))
+        (sb / "progress" / "learner.json.tmp").unlink(missing_ok=True)
+
+        # ── 4. THE POSITIVE CONTROL: every real book passes, read-only.
+        real = sorted((REAL_BASE / "progress").glob("*.json"))
+        failing = []
+        for p in real:
+            try:
+                data = json.loads(p.read_text(encoding="utf-8"))
+                if (why := sio.book_problem(Path("progress") / p.name, data)):
+                    failing.append(f"{p.name}: {why}")
+            except json.JSONDecodeError as e:
+                failing.append(f"{p.name}: {e}")
+        check(f"every live book passes the shape check ({len(real)} files)",
+              real and not failing, "; ".join(failing))
+        check("...and every live book has a declared shape",
+              not [p.name for p in real if p.name not in sio.BOOK_SHAPES],
+              str([p.name for p in real if p.name not in sio.BOOK_SHAPES]))
+    finally:
+        learner.write_bytes(good)
+
+    # ── 5. The learner's writers, named. A fourth is a red run until named.
+    allowed = {"sync_state.py", "slips.py", "state_io.py"}
+    needle = re.compile(r"save_json\(\s*(LEARNER_PATH|[^)]*learner\.json)")
+
+    def writers(sources):
+        return {name for name, src in sources if needle.search(mechanism(src))}
+    synthetic = [("rogue.py", "x = 1\nsave_json(LEARNER_PATH, {})\n")]
+    check("the writer sweep finds a synthetic writer (its needle is live)",
+          writers(synthetic) == {"rogue.py"})
+    found = writers((p.name, p.read_text(encoding="utf-8"))
+                    for p in (REAL_BASE / "scripts").glob("*.py"))
+    check("learner.json's writers are exactly the three state_io names",
+          found == allowed, f"found {sorted(found)} — name a new writer in "
+          "state_io's docstring and here, or route it through one of them")

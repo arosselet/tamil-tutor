@@ -354,7 +354,9 @@ CODE_BUDGETS = {
     # mechanism that did NOT land here, because this file was at 459/459 and
     # Gate 4 reads that as a split-or-retire signal. They live in
     # `scripts/household.py`, budgeted below in this same diff.
-    "scripts/run_studio.py": 490,
+    # 490 -> 480 (2026-10-12): RE-CENSUSED DOWN — claim_payload's private raw read of
+    # the learner and lexicon, which swallowed a decode error, went through state_io.
+    "scripts/run_studio.py": 480,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-19). 75
     # rather than the 55 census: headroom for diagnosis, not for a second job —
     # what happens IN the household is Anna's and the Architect's, and the day
@@ -365,7 +367,12 @@ CODE_BUDGETS = {
     # 125 -> 127 (2026-10-04, Andrew): the `untested` rung: RECOGNITION_DEFAULT and its rows in the three ladders.
     # 127 -> 111 (2026-10-05): RE-CENSUSED DOWN — the stored `phonetic` field left (the 09-21 branch, landed);
     # `build_phonetic_index` and the Latin walk went with it, and the room is banked, not kept as headroom.
-    "scripts/state_io.py": 111,
+    # 111 -> 157 (2026-10-12, Andrew): book custody. Retires the bare `json.load`
+    # (a broken book surfaced as a raw decode error, or as nothing where a caller
+    # caught it) and the in-place write (a crash mid-dump left a half-file). The
+    # growth is BOOK_SHAPES, the shape check, CorruptBook, and the atomic swap.
+    # The next raise is the split signal: the book check is the seam.
+    "scripts/state_io.py": 157,
     # NEW FILE, budgeted in the same diff that creates it (2026-08-28, Andrew). · 20 -> 35 (2026-09-03).
     "scripts/language.py": 35,
     "scripts/slips.py": 300,

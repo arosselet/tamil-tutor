@@ -142,6 +142,7 @@ def main():
         run(render.s95_the_payoff_closes_the_tape, sb)
         run(render.s96_an_empty_sheet_is_not_a_dose, sb)
         run(render.s131_an_unjudged_form_never_ships, sb)
+        run(state.s132_a_corrupt_book_fails_at_load, sb)
         run(compose.s58_a_sheet_survives_a_model_thinking_out_loud, sb)
         run(knock.s49_thread_continuity, mk, kr, sb)
         run(knock.s50_read_surfaces_are_phonetic, mk, kr, sb)

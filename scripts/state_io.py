@@ -5,14 +5,29 @@ write them, and how a token becomes a canonical lexicon key.
 Extracted from `sync_state.py` 2026-08-04. Ten scripts were importing
 `load_json`, `LEXICON_PATH` and friends *from the state brain* — they did not
 want the brain, they wanted IO, and that mis-shape was invisible until the
-brain hit its size ceiling and had to be split. Nothing here mutates learner
-state; that stays in `sync_state.py`, which is the only writer.
+brain hit its size ceiling and had to be split.
+
+THE WRITERS OF `learner.json`, NAMED (2026-10-12). This docstring used to say
+`sync_state.py` "is the only writer". It never was: `slips.py` books slip
+commissions and closes, and `mark_soak_attempted` below stamps the soak order.
+Each is a seam declaring what it did — the law the delivery stamp follows — so
+they are blessed here by name rather than funnelled through one file that would
+have to import the slip ledger. What holds them to one standard is `save_json`:
+every write is atomic and shape-checked, so no writer can leave a half-file.
+The list is a ratchet (`s132`): a fourth writer is a red run until it is named.
+
+THE BOOKS ARE CHECKED ON READ, AND REFUSED ON WRITE (2026-10-12). A truncated
+write or a bad rebase used to surface as a bare JSONDecodeError — or worse, as
+nothing, wherever a caller caught it and moved on (`run_studio` did, for both
+the learner and the lexicon). `load_json` now raises `CorruptBook`, naming the
+file, what is wrong, and how to restore it, before any caller sees a byte.
 
 Import direction is one-way and must stay that way: this module imports from
 nothing in `scripts/`, and everything else may import from it.
 """
 
 import json
+import os
 import sys
 from datetime import date, datetime
 from pathlib import Path
@@ -55,16 +70,85 @@ AUDIO_TITLES_PATH = BASE / "progress" / "audio_titles.json"
 REVIEW_QUEUE_PATH = BASE / "progress" / "review_queue.json"
 
 
+class CorruptBook(RuntimeError):
+    """A book in `progress/` that does not parse, or parses into the wrong shape.
+    A RuntimeError on purpose, NOT a ValueError: half a dozen callers catch
+    ValueError around date parsing, and a corrupt book must never be one of the
+    things a broad handler quietly walks past."""
+
+
+# The shape of every book: (top level, every row). Checked at read and at write.
+# Keyed by file name, so the log's own path (declared in `observations.py`, which
+# imports this file) needs no import back.
+BOOK_SHAPES = {
+    "learner.json": (dict, None), "lexicon.json": (dict, dict),
+    "episodes.json": (dict, dict), "audio_titles.json": (dict, dict),
+    "observations.json": (list, dict), "knock_log.json": (list, dict),
+    "session_log.json": (list, dict), "feedback_log.json": (list, dict),
+    "slip_log.json": (list, dict), "push_queue.json": (list, dict),
+    "review_queue.json": (list, dict),
+}
+# The learner's structured fields. A field absent is fine (day zero has few);
+# a field PRESENT in the wrong type is a corrupted book, whatever parsed.
+LEARNER_FIELDS = {"soak_order": dict, "slip_closes": dict, "slip_commissions": dict,
+                  "ladder": dict, "month": dict, "learner": str, "timezone": str}
+
+
+def book_problem(path: Path, data) -> str:
+    """What is wrong with this book's shape, or "" — "" also for any file that
+    is not a book, which keeps its old contract."""
+    shape = BOOK_SHAPES.get(path.name) if path.parent.name == "progress" else None
+    if not shape:
+        return ""
+    top, row = shape
+    if not isinstance(data, top):
+        return f"top level is a {type(data).__name__}, the book is a {top.__name__}"
+    rows = list(data.items()) if isinstance(data, dict) else list(enumerate(data))
+    for key, value in rows:
+        if row and not isinstance(value, row):
+            return f"row {key!r} is a {type(value).__name__}, every row is a {row.__name__}"
+    if path.name == "learner.json":
+        for key, kind in LEARNER_FIELDS.items():
+            if key in data and data[key] is not None and not isinstance(data[key], kind):
+                return f"`{key}` is a {type(data[key]).__name__}, expected a {kind.__name__}"
+    return ""
+
+
+def _corrupt(path: Path, why: str) -> CorruptBook:
+    rel = f"progress/{path.name}"
+    return CorruptBook(
+        f"❌ CORRUPT BOOK: {rel} — {why}. Nothing was read from it and nothing will "
+        f"be written over it. A truncated write or a bad rebase does this: "
+        f"`git diff -- {rel}` shows what changed, `git checkout -- {rel}` restores "
+        f"the last committed copy.")
+
+
 def load_json(path: Path):
     if not path.exists():
         return None
     with open(path, "r", encoding="utf-8") as f:
-        return json.load(f)
+        text = f.read()
+    try:
+        data = json.loads(text)
+    except json.JSONDecodeError as e:
+        if path.name in BOOK_SHAPES and path.parent.name == "progress":
+            raise _corrupt(path, f"not valid JSON ({e})") from None
+        raise
+    if (why := book_problem(path, data)):
+        raise _corrupt(path, why)
+    return data
 
 
 def save_json(path: Path, data):
-    with open(path, "w", encoding="utf-8") as f:
+    """Atomic, and a book is shape-checked first: the new content goes to a
+    sibling temp file and is swapped in whole, so a crash mid-write leaves the
+    OLD book, never half of the new one."""
+    if (why := book_problem(path, data)):
+        raise _corrupt(path, f"refused to WRITE it: {why}")
+    tmp = path.with_name(path.name + ".tmp")
+    with open(tmp, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
+    os.replace(tmp, path)
 
 
 # --- The two ladders -----------------------------------------------------------

@@ -10,7 +10,6 @@ Usage:
     python scripts/show_status.py
 """
 
-import json
 import sys
 from pathlib import Path
 
@@ -19,15 +18,10 @@ import audio_titles
 import ladder
 import threads
 from sync_state import compute_floor, compute_engines, compute_ear, trailing_pace
+# The checked reader (2026-10-12) — this file kept a private bare `json.load`.
+from state_io import load_json
 
 RECOGNIZED = {"comfortable", "solid"}
-
-
-def load_json(path: Path):
-    if not path.exists():
-        return None
-    with open(path, "r", encoding="utf-8") as f:
-        return json.load(f)
 
 
 def bar(pct: float, width: int = 20) -> str:
