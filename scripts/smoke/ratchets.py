@@ -201,7 +201,6 @@ CODE_BUDGETS = {
     # field and a flag, not a rule she has to remember at close.
     "scripts/observations.py": 68,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-10). · 150 -> 200 (2026-09-10, Phase 3).
-    "scripts/backfill_observations.py": 200,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-10). · 125 -> 150 (2026-09-10, Phase 3).
     # 150 -> 180 (2026-09-10, `remerge`): the ledger joins the rebase net's derived table, retiring the "needs a human" outcome that lost run 34520445739's judged reply.
     "scripts/lexicon_view.py": 180,
@@ -976,11 +975,6 @@ LAYERS = {
     # upward for a lane, the edge reads as upward and fails here. An appender
     # that can read the ledger is an appender that can grow a policy.
     "observations":       0.5,
-    # A READER of history and of L0, run by hand, imported by nothing (2026-09-10).
-    # Numbered beside its own subject so that the day a lane imports the backfill
-    # — which would mean reconstruction running inside the daily loop — the edge
-    # reads as upward and fails here.
-    "backfill_observations": 0.8,    # a tool over the view — reads lexicon_view
     # The derivation (2026-09-10). Reads L0 and the log, imported by nothing yet;
     # in Phase 3 it becomes what every reader of the lexicon goes through, which
     # is why it sits BELOW selection (1.5) and every lane rather than beside them.

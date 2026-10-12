@@ -47,8 +47,6 @@ grep the named function when you need the exact spot.
 | `render_soak.py` / `render_rotation.py` / `render_payoff.py` | `--dry-run` | **SAFE** (the LLM sheet call fires) | Nothing |
 | `render_soak.py` / `render_rotation.py` / `render_payoff.py` | `--no-publish` | **MUTATING** | `published_audio/` only — no feed, commit, push or notify |
 | `render_soak.py` / `render_rotation.py` / `render_payoff.py` | (no args) | **MUTATING** | `published_audio/`, `rss.xml`, `observations.json` + `lexicon.json` (exposure), `learner.json` (the soak stamp), `audio_titles.json`; commits + git push; phone push |
-| `backfill_observations.py` | (no args) | **SAFE** | Nothing — dry run, prints the reconstruction and the coverage report |
-| `backfill_observations.py` | `--write` / `--cutover` | **MUTATING** | `observations.json`; `--cutover` also rewrites every evidence field in `lexicon.json` from the log |
 | `render_chat.py`, `session_brief.py`, `audio_titles.py`, `memo.py`, `lanes.py`, `rails.py`, `language.py`, `state_io.py`, `writer.py`, `mandates.py`, `slips.py`, `observations.py`, `reply_common.py`, `knock_message.py`, `publish.py` | (imported, not run) | — | Libraries; the lane that imports them owns the write |
 
 > `progress/` holds real, irreplaceable learner state. Never run a mutating command against live `progress/` unless you mean it. The smoke test's sandbox pattern is the safe harness — extend it, don't bypass it.

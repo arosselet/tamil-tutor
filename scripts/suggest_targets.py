@@ -113,13 +113,6 @@ INGREDIENTS = {
 # cold, the remaining on a slow guaranteed background"). Graduation is production
 # going cold — after that a word is never drilled again, it is just used.
 FOCUS_SIZE = 12
-# Drilling that isn't working, flagged not evicted. Measured 2026-07-26 over the
-# 33 words that have actually gone cold: median 2 reps, p90 5, max 15. A word
-# past 10 is at twice the p90 and the approach — not the word — is what needs
-# changing. It keeps its seat (it IS unfinished); Anna is told to switch angle.
-# Deliberately NOT an eviction rule: 33 data points cannot justify giving up on
-# a word, and a silently parked word is the starvation this whole change fixes.
-STUCK_REPS = 10
 # Hinted items silent this long surface for a cold retest (2026-08-01). Hinted
 # had no follow-up path at all ("open and unanswered", DECISIONS 07-28): cold is
 # a one-way door and hinted was a no-way door.
@@ -1100,17 +1093,16 @@ def main():
                                         asked=asked, reps=reps)
     if not gap:
         print("  (the pool is clear — nothing is stuck below cold)")
-    # Which live slips attach to which pool word. STUCK_REPS still stands on
-    # its own evidence (median 2 reps to cold, p90 5) but it fires at 10 and only
-    # ever says "this isn't working"; a slip fires at 2 and says WHAT isn't
-    # working, which is the part a fresh scene needs in order to be different.
+    # Which live slips attach to which pool word. The slip is the one failure
+    # detector here: it fires at 2 and says WHAT isn't working, which is the part
+    # a fresh scene needs in order to be different. STUCK_REPS (07-26: flag a
+    # word drilled 10+ times and still not cold) retired 2026-10-12 — it never
+    # fired: the most reps on any non-cold word was 5, and the one row ever past
+    # 10 (போதும், 16) was already cold.
     for t in gap:
         tag = "hinted→cold" if t["production"] == "hinted" else f"{t['recognition']}, cold-pending"
         rep = f"{t['reps']} rep{'s' if t['reps'] != 1 else ''}" if t["reps"] else "never drilled"
         cool = f"  · asked in last {ASK_COOLDOWN_DAYS}d — vary the scene or take the next one" if t["asks"] else ""
-        if t["reps"] >= STUCK_REPS:
-            cool = (f"  · ⚠ STUCK — {t['reps']} reps and still not cold (most words take 2). "
-                    f"Drilling it again won't work; change the angle.")
         if t["unseen"]:
             cool += "  · ⚠ UNSEEN — teach first (show it, gloss it), NEVER cold-quiz"
         # HEARD Nx IS A PRIMING CUE, NOT A SCORE (2026-09-19, Andrew). "He

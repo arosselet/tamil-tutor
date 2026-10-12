@@ -722,8 +722,11 @@ def apply_verdict(verdict: dict, knock: dict, lexicon: dict, klog: list,
                   revealed_recent: list | None = None,
                   ) -> tuple[list[str], list[str], list[str], list[str]]:
     """Move the production axis for what fired — each word on its OWN grade
-    (per-word verdicts, 2026-07-03). Upgrades only — a phone rep never demotes
-    (chat sessions own corrections).
+    (per-word verdicts, 2026-07-03). Upgrades only ON THE PRODUCTION AXIS — a
+    phone rep never demotes what he can say (chat sessions own corrections).
+    The recognition axis is not under this law: a misread in the catch lane
+    moves the rung DOWN one (`apply_heard_words`, 2026-09-10), and the
+    sort lane demotes too. Lock-screen production is the noisier signal.
 
     The capped lane (2026-07-08): a cold-quality fire the reveal window blocks
     is recorded CAPPED instead of flattened into hinted, and Python resolves
@@ -970,8 +973,9 @@ def main():
     # The slip ledger — the phone lane's half. This is the seam that did not
     # exist: knock corrections lived only as prose in reply_line, which nothing
     # read as error signal, so a mistake made on the phone could never reach the
-    # next lesson's selection. Written through sync_state because sync_state owns
-    # every write to progress/ (LLM is the writer, Python is the brain).
+    # next lesson's selection. Written through `slips.append_slips`, one of the
+    # named writers of the slip ledger (`state_io`'s docstring) — never by the
+    # model (LLM is the writer, Python is the brain).
     if verdict.get("slips"):
         learner_now = load_json(LEARNER_PATH) or {}
         from state_io import LOCAL_TZ
