@@ -49,6 +49,11 @@ RECENT_AUDIO_PATH = BASE / "progress" / "recent_audio.txt"
 # exactly one moment; this is where it is kept. See scripts/audio_titles.py.
 AUDIO_TITLES_PATH = BASE / "progress" / "audio_titles.json"
 
+# The judge seat (2026-10-12): model-drafted target-language strings the ledger
+# does not attest, held from publish until a reviewer passes or rejects them.
+# One writer, `scripts/provenance.py`.
+REVIEW_QUEUE_PATH = BASE / "progress" / "review_queue.json"
+
 
 def load_json(path: Path):
     if not path.exists():

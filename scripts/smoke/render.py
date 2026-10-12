@@ -13,6 +13,7 @@ import ast
 import asyncio
 import importlib
 import inspect
+import json
 import os
 import re
 import shutil
@@ -1376,6 +1377,11 @@ def s96_an_empty_sheet_is_not_a_dose(sb: Path):
     real = (rs.week_payload, rs.soak_brief, rs.write_sheet, rs.render,
             rs.google_credentials_ready, rs.deliver_rendered, sys.argv)
     cwd = os.getcwd()
+    # The positive control's one item must be ATTESTED since 2026-10-12, or the
+    # judge seat (s131) holds it and this case's full sheet is empty too.
+    lex = sb / "progress" / "lexicon.json"
+    lex_before = lex.read_bytes()
+    write_json(lex, {**read_json(lex), "வந்தாரு": {"gloss": "came back"}})
     try:
         os.chdir(sb)
         rendered, delivered = [], []
@@ -1441,6 +1447,160 @@ def s96_an_empty_sheet_is_not_a_dose(sb: Path):
     finally:
         (rs.week_payload, rs.soak_brief, rs.write_sheet, rs.render,
          rs.google_credentials_ready, rs.deliver_rendered, sys.argv) = real
+        lex.write_bytes(lex_before)
+        os.chdir(cwd)
+        shutil.rmtree(sb / "published_audio", ignore_errors=True)
+
+
+def s131_an_unjudged_form_never_ships(sb: Path):
+    """The judge seat — a model-drafted form the ledger does not hold is held
+    for review and never spoken (2026-10-12, Andrew).
+
+    WHAT HAPPENED. `FOCUS_BRIEF` tells the soak writer to inflect the focus
+    roots "freely … including forms not on the list", and nothing downstream
+    looked at what came back. Andrew is the learner: a wrong ending, voiced by
+    Anna and replayed across a week, is a form he learns. The books had a
+    code-held pen at every door; the content he hears had none.
+
+    GATE 7.2, OUT LOUD. The silent no-op is a gate that holds NOTHING — it reads
+    exactly like a dose of clean forms. So the teeth are on the round trip: drive
+    the real `main()`, assert the novel form is absent from what reached the TTS,
+    then RE-READ `review_queue.json` from disk and find it there. And the positive
+    control is load-bearing: an attested-only dose must publish with nothing
+    queued, or a gate that held everything would pass the first half forever.
+    Last, the seat must close the loop — an approved form ships next time.
+    """
+    print("\n131. An unjudged form never ships — the judge seat (2026-10-12)")
+    import contextlib, io
+    rs = importlib.import_module("render_soak")
+    pv = importlib.import_module("provenance")
+
+    lex = sb / "progress" / "lexicon.json"
+    queue_path = sb / "progress" / "review_queue.json"
+    lex_before = lex.read_bytes()
+    # The ledger attests two forms of the focus root, and nothing else.
+    write_json(lex, {**read_json(lex),
+                     "போறேன்": {"gloss": "I'm going"},
+                     "போனாரு": {"gloss": "he went"}})
+    novel = "போயிட்டாரு"           # a real-looking inflection the books never saw
+    row = {"word": "போறேன்", "gloss": "I'm going", "production": "cold",
+           "last_surfaced": "2026-10-12"}
+
+    def sheet(*says):
+        return {"title": "the go carousel", "intro": "just listen", "outro": "done",
+                "clusters": [{"thread": "the -னாரு tail",
+                              "items": [{"say": s, "en": "gloss"} for s in says]}]}
+
+    real = (rs.week_payload, rs.soak_brief, rs.write_sheet, rs.render,
+            rs.google_credentials_ready, rs.deliver_rendered, sys.argv)
+    cwd = os.getcwd()
+    try:
+        os.chdir(sb)
+        spoken, delivered = [], []
+
+        async def fake_render(sh, out_path, passes):
+            spoken.append(sh)
+            out_path.parent.mkdir(parents=True, exist_ok=True)
+            out_path.write_bytes(b"\xff\xfb" + b"\x00" * 512)
+
+        rs.week_payload = lambda days, items: [row]
+        rs.soak_brief = lambda: ("inflect போ through the person tails", [])
+        rs.render = fake_render
+        rs.google_credentials_ready = lambda: ""
+        rs.deliver_rendered = lambda **kw: delivered.append(kw)
+        sys.argv = ["render_soak.py"]
+
+        def drive(sh):
+            """The REAL entry point; the writer is the fixture that was told to
+            emit a form the ledger lacks, the TTS is the recorder."""
+            rs.write_sheet = lambda items, focus=None: sh
+            spoken.clear(), delivered.clear()
+            out, code = io.StringIO(), 0
+            try:
+                with contextlib.redirect_stdout(out):
+                    rs.main()
+            except SystemExit as e:
+                code = e.code
+            return out.getvalue(), code
+
+        def text_of(sh):
+            return json.dumps(sh, ensure_ascii=False)
+
+        # ── 1. The novel inflection beside an attested one.
+        queue_path.unlink(missing_ok=True)
+        _, code = drive(sheet("போறேன்", novel))
+        book = read_json(queue_path) if queue_path.exists() else []
+        held = [r for r in book if r["form"] == novel]
+        check("the novel inflection lands in the review queue ON DISK",
+              len(held) == 1 and held[0]["status"] == "pending", f"queue: {book}")
+        check("...named by the run it came from and the run it is in",
+              held and held[0]["lane"] == "soak" and held[0]["where"] == "item"
+              and held[0]["unattested"] == [novel], f"{held}")
+        check("...and it is NOWHERE in what reached the TTS",
+              len(spoken) == 1 and novel not in text_of(spoken[0]),
+              f"spoken: {spoken}")
+        check("...while the attested item beside it still ships",
+              code in (0, None) and len(delivered) == 1 and spoken
+              and "போறேன்" in text_of(spoken[0]), f"exit {code!r}, {delivered}")
+        check("...and the queue rides the dose's commit",
+              delivered and queue_path in list(delivered[0].get("extra_paths") or ()),
+              f"{delivered[0].get('extra_paths') if delivered else None}")
+        check("an ENDING label in a thread passes when an attested form ends in it",
+              spoken and "-னாரு" in spoken[0]["clusters"][0]["thread"],
+              f"{spoken[0]['clusters'] if spoken else None}")
+
+        # ── 2. A re-dispatch must not flood the seat with the same form.
+        drive(sheet("போறேன்", novel))
+        check("a re-dispatched order queues the same form once",
+              sum(r["form"] == novel for r in read_json(queue_path)) == 1)
+
+        # ── 2b. A SPOKEN frame line is replaced whole, never cut into fragments:
+        # the first live dry-run scrubbed an intro down to broken Tamil.
+        intro = f"walking-ah — {novel} போறேன் da"
+        drive({**sheet("போறேன்"), "intro": intro})
+        check("an unattested intro is swapped WHOLE for the lane's fixed line",
+              spoken and spoken[0]["intro"] == rs.SPOKEN_FALLBACK["intro"],
+              f"{spoken[0]['intro'] if spoken else None!r}")
+        check("...and the drafted intro waits in the queue",
+              any(r["form"] == intro and r["where"] == "intro"
+                  for r in read_json(queue_path)))
+
+        # ── 3. Everything unattested: the floor holds, and says why.
+        _, code = drive(sheet(novel, "போவாங்க"))
+        check("a sheet with no attested item exits NON-ZERO and renders nothing",
+              code not in (0, None) and not spoken and not delivered, f"exit {code!r}")
+        check("...and the refusal points at the review queue, not the schema",
+              "review queue" in str(code) and "provenance.py" in str(code), str(code)[:200])
+
+        # ── 4. THE POSITIVE CONTROL: an attested-only dose publishes, queues nothing.
+        queue_path.unlink(missing_ok=True)
+        _, code = drive(sheet("போறேன்", "போனாரு"))
+        check("an attested-only dose publishes",
+              code in (0, None) and len(delivered) == 1, f"exit {code!r}")
+        check("...with both items spoken", spoken and
+              [i["say"] for i in spoken[0]["clusters"][0]["items"]] == ["போறேன்", "போனாரு"],
+              f"{spoken}")
+        check("...and nothing queued", not queue_path.exists(),
+              queue_path.read_text(encoding="utf-8") if queue_path.exists() else "")
+
+        # ── 5. The seat closes the loop: an approved form is JUDGED, and ships.
+        drive(sheet("போறேன்", novel))
+        rid = next(r["id"] for r in read_json(queue_path) if r["form"] == novel)
+        pv.decide([rid], "approved")
+        _, code = drive(sheet("போறேன்", novel))
+        check("once approved, the form ships",
+              spoken and novel in text_of(spoken[0]), f"exit {code!r}, {spoken}")
+        try:
+            pv.decide(["nosuchid"], "approved")
+            loud = False
+        except SystemExit:
+            loud = True
+        check("a verdict on an unknown id is loud, never a quiet no-op", loud)
+    finally:
+        (rs.week_payload, rs.soak_brief, rs.write_sheet, rs.render,
+         rs.google_credentials_ready, rs.deliver_rendered, sys.argv) = real
+        lex.write_bytes(lex_before)
+        queue_path.unlink(missing_ok=True)
         os.chdir(cwd)
         shutil.rmtree(sb / "published_audio", ignore_errors=True)
 

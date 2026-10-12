@@ -314,7 +314,15 @@ CODE_BUDGETS = {
     # split signal: the marker helpers are the seam.
     "scripts/render_rotation.py": 402,
     # 275 -> 265 (2026-08-23, Andrew): re-censused DOWN.
-    "scripts/render_soak.py": 195,
+    # 195 -> 211 (2026-10-12, Andrew): the judge seat. Retires the unchecked hand-off
+    # from the writer to the TTS — the focus brief invited novel inflections and
+    # nothing looked at them. The rating itself lives in provenance.py; this is
+    # the gate call, the hold report, the spoken fallbacks, and an empty floor
+    # that can say WHY.
+    "scripts/render_soak.py": 211,
+    # NEW FILE, budgeted in the same diff that creates it (2026-10-12, Andrew): the
+    # judge seat — content-risk rating, the review queue, the reviewer's pen.
+    "scripts/provenance.py": 120,
     # Budgeted in the diff that created it (2026-09-05) — a new file with no entry here is a red run, because adding one is the obvious way past …
     "scripts/render_payoff.py": 240,
     # NEW FILE, budgeted in the same diff that creates it (2026-10-03, Andrew). Census 185.
@@ -935,6 +943,11 @@ LAYERS = {
     # — which would mean reconstruction running inside the daily loop — the edge
     # reads as upward and fails here.
     "backfill_observations": 0.8,    # a tool over the view — reads lexicon_view
+    # The judge seat (2026-10-12). Reads the pack, L0, the log's path and the
+    # lexicon's KEYS; read by the render lanes. Numbered below selection so the
+    # day it reaches for a rung or the ticket — a judge that can see what he is
+    # weak at is a judge that will start passing forms by deficit — it fails here.
+    "provenance":         0.8,
     # The derivation (2026-09-10). Reads L0 and the log, imported by nothing yet;
     # in Phase 3 it becomes what every reader of the lexicon goes through, which
     # is why it sits BELOW selection (1.5) and every lane rather than beside them.

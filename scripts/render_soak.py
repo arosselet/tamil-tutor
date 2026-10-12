@@ -86,9 +86,15 @@ from render_audio import (generate_segment_google, get_raw_mp3_frames,
                           SILENCE_FRAME, clean_for_tts, google_credentials_ready,
                           EXIT_NOT_CONFIGURED)
 from mandates import BRIEF_IS_PRIVATE, SOAK_MANDATE
-from state_io import LEXICON_PATH, load_json
+from provenance import enqueue, gate_sheet
+from state_io import LEXICON_PATH, REVIEW_QUEUE_PATH, load_json
 
 SOAK_DIR = BASE / "published_audio"     # feed root — rebuild_rss picks up soak_*.mp3
+# What Anna says instead when the writer's intro or outro carries a form the books
+# do not attest (2026-10-12). Plain English on purpose: a fallback that needed
+# judging would need a fallback.
+SPOKEN_FALLBACK = {"intro": "Nothing to do on this one. Just listen.",
+                   "outro": "That's the loop."}
 SILENCE_PER_SEC = 41.666                # frames per second (matches render_audio)
 
 def week_payload(days: int, max_items: int) -> list[dict]:
@@ -280,13 +286,29 @@ def main():
     print(f"1. sheet… ({len(items)} items from the last {args.days} days"
           f"{f' + {len(payload)} ordered' if payload else ''}"
           f"{' · FOCUS: ' + focus if focus else ''})")
-    sheet = write_sheet(items, focus)
+    drafted = write_sheet(items, focus)
+    # THE JUDGE SEAT (2026-10-12). Everything below — the TTS, the feed, the
+    # push, the delivery stamp — sees only the ATTESTED sheet. A form the ledger
+    # does not hold (the focus brief invites novel inflections on purpose) is
+    # held for review, never spoken: Andrew is the learner and cannot catch a
+    # wrong ending he is being taught. See scripts/provenance.py.
+    sheet, held = gate_sheet(drafted, spoken=SPOKEN_FALLBACK)
     n = sum(len(c["items"]) for c in sheet["clusters"])
     print(f"   → '{sheet.get('title', 'Soak')}' · {len(sheet['clusters'])} threads, {n} items")
+    if held:
+        print(f"   ⚖️  {len(held)} drafted string(s) unattested — held from the dose: "
+              + "; ".join(h["form"] for h in held))
 
     if args.dry_run:
         print(json.dumps(sheet, ensure_ascii=False, indent=2))
         return
+
+    now = datetime.now()
+    mp3 = SOAK_DIR / f"soak_{now.strftime('%Y-%m-%d_%H%M')}.mp3"
+    queued = enqueue(held, "soak", mp3.stem) if held else 0
+    if held:
+        print(f"   → review queue: {queued} new, {len(held) - queued} already there "
+              "(python scripts/provenance.py)")
 
     # THE FLOOR — AN EMPTY SHEET IS NOT A DOSE (2026-09-05, Gate 7.2).
     #
@@ -310,19 +332,21 @@ def main():
     # Non-zero on purpose: the session-open auto-drain and `run_studio` both read
     # the exit code, and a loud failure is what lets the dose be re-ordered.
     if n == 0:
+        why = (f"every drafted item was unattested and is in the review queue "
+               f"({len(held)} held) — judge them with scripts/provenance.py, then "
+               f"re-run. " if held and any(c.get("items") for c in drafted.get("clusters", []))
+               else "Inspect it with --dry-run: clusters present but items gone means "
+                    "a key SOAK_MANDATE names is missing from SOAK_SCHEMA, and the agent "
+                    "path ate it.")
         sys.exit("❌ EMPTY SHEET — no clusters, so this loop is intro + outro over "
                  "silence. Nothing rendered, published or pushed, and the soak order "
-                 "is left STANDING to be re-dispatched. Inspect it with --dry-run: "
-                 "clusters present but items gone means a key SOAK_MANDATE names is "
-                 "missing from SOAK_SCHEMA, and the agent path ate it.")
+                 "is left STANDING to be re-dispatched. " + why)
 
     reason = google_credentials_ready()   # rendering needs TTS even with --no-publish
     if reason:
         print(f"⏭️  Skipping render — {reason}. This host cannot produce audio.")
         sys.exit(EXIT_NOT_CONFIGURED)
 
-    now = datetime.now()
-    mp3 = SOAK_DIR / f"soak_{now.strftime('%Y-%m-%d_%H%M')}.mp3"
     print("2. render…")
     asyncio.run(render(sheet, mp3, args.passes))
 
@@ -356,7 +380,11 @@ def main():
         message=f"Soak loop: {sheet.get('title', mp3.stem)}",
         title=sheet.get("title", ""),
         copy=f"soak loop's up — {n} sounds, nothing to do but listen 🎧",
-        noun="soak loop", commit=commit_and_push, notify=push_to_phone)
+        # The queue rides the dose's commit whenever it exists — not only when
+        # this run added to it — so a hold from a run that exited on the empty
+        # floor, or a verdict written by hand since, reaches main with the next dose.
+        noun="soak loop", extra_paths=[REVIEW_QUEUE_PATH] if REVIEW_QUEUE_PATH.exists() else (),
+        commit=commit_and_push, notify=push_to_phone)
 
 
 if __name__ == "__main__":
