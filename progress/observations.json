@@ -22307,5 +22307,17 @@
     "medium": "audio",
     "source": "knock:2026-10-09T15:42:32.123120+00:00",
     "note": ""
+  },
+  {
+    "id": "e46c1c8064b8",
+    "at": "2026-10-12T20:42:41Z",
+    "word": "frame:youknow-la",
+    "channel": "eavesdrop",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "knock:2026-10-12T20:41:50.518268+00:00",
+    "note": ""
   }
 ]

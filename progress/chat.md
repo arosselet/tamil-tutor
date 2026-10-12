@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Monday 2026-10-12
+
+**16:41 · Anna** 🎧  ·  eavesdrop / overheard: youknow-la
+> Athai's on the phone about Paati's birthday — hear what Mama wanted to do 🎧
+
+
 ## Sunday 2026-10-11
 
 **11:14 · Anna**  ·  text / one try: thambi
