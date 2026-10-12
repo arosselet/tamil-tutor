@@ -130,13 +130,13 @@ def s29_one_runner_every_capability(mk, pq, kr, sb: Path):
     # "schedule" was not in the verb list — the most literal phrasing possible.
     real_8pm_ask = ("My brother James is arriving at 8pm. Schedule a push and say hello "
                     "(aloud a traditional greeting and a couple key survival items)")
-    check("the real 8pm ask is detected", kr.wants_scheduled_push(real_8pm_ask))
+    check("the real 8pm ask is detected", importlib.import_module("reply_common").wants_scheduled_push(real_8pm_ask))
     for t in ("queue something for 9pm", "play me a line at 7:30am",
               "wish her good morning tomorrow", "record a greeting for tonight"):
-        check(f"clock request detected: {t[:30]}", kr.wants_scheduled_push(t))
+        check(f"clock request detected: {t[:30]}", importlib.import_module("reply_common").wants_scheduled_push(t))
     for t in ("naan poren", "said it at dinner", "less of the aunty thing",
               "adhu dhaan, she understood"):
-        check(f"plain rep is not a clock request: {t[:30]}", not kr.wants_scheduled_push(t))
+        check(f"plain rep is not a clock request: {t[:30]}", not importlib.import_module("reply_common").wants_scheduled_push(t))
 
     # --- memo_script survives the trip from judge to queue ----------------
     # It used to be dropped on the floor here: maybe_enqueue_schedule was

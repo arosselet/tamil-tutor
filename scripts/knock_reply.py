@@ -54,8 +54,8 @@ from publish import commit_and_push, load_env, publish, push_to_phone
 # The lane-neutral half of answering him — detectors, the voice backstop, the
 # render, and the one ledger writer. Split out 2026-08-28 so the MESSAGE lane
 # could have them without importing the grading lane (reply_common.py).
-from reply_common import (_ts, ensure_voice, gate_reply, recent_exchanges,
-                          record_meta_note, speak, wants_scheduled_push)
+from reply_common import (_ts, ensure_schedule, ensure_voice, gate_reply, recent_exchanges,
+                          record_meta_note, speak)
 from writer import (BOOL, STR, arr, ask_json, executor_name, nullable, obj,
                     to_phonetic, voice_canon)
 
@@ -272,6 +272,8 @@ def handle_catch_reply(knock: dict, reply_text: str, klog: list,
     print(f"   → {verdict['verdict']} | {verdict.get('rationale', '')}")
     verdict = ensure_voice(verdict, reply_text, lambda: judge_catch(
         knock, reply_text, klog, force_voice=True))
+    # No re-ask: the catch judge cannot schedule. The miss is loud, never silent.
+    verdict = ensure_schedule(verdict, reply_text, None, lane="eavesdrop")
 
     if dry_run:
         print(f"[dry-run] would apply, then push: {verdict['reply_line']}")
@@ -852,25 +854,10 @@ def main():
     for claim in verdict.get("unverified", []):
         print(f"   ⚠ dropped — not in his reply: {claim}")
 
-    # The clock-request backstop: a time-bound ask that came back with no
-    # schedule gets exactly one forced re-ask. Cheap (one call, rare) and it
-    # closes the gap that swallowed the 9am greeting — the mandate alone had
-    # already told Anna scheduling was "usual to skip", so prose could not fix
-    # prose here.
-    if wants_scheduled_push(reply_text) and not verdict.get("schedule"):
-        print("   ⏰ time-bound request with no schedule — re-asking once, forced…")
-        forced = judge(knock, reply_text, target_record, hours, revealed,
-                       force_schedule=True, klog=klog)
-        if forced.get("schedule"):
-            verdict = forced
-            print(f"   → scheduled: {forced['schedule'].get('at_local')} "
-                  f"· {forced['schedule'].get('body', '')[:60]}")
-        else:
-            print("   ⚠ still no schedule — logging the miss to the ledger")
-            verdict["meta_note"] = (verdict.get("meta_note") or "").strip() or (
-                f"MISSED SCHEDULE: Andrew asked for something at a time "
-                f"({reply_text[:80]!r}) and no push was queued — the judge "
-                f"declined twice. Check the schedule lane.")
+    # The clock-request backstop — one body in `reply_common` since 2026-10-12.
+    verdict = ensure_schedule(verdict, reply_text, lambda: judge(
+        knock, reply_text, target_record, hours, revealed,
+        force_schedule=True, klog=klog))
 
     verdict = ensure_voice(verdict, reply_text, lambda: judge(
         knock, reply_text, target_record, hours, revealed,

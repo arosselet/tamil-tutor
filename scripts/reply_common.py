@@ -115,7 +115,7 @@ def wants_spoken_reply(text: str) -> bool:
 def ensure_voice(verdict: dict, reply_text: str, rejudge) -> dict:
     """The audio-request backstop: one forced re-ask, then a LOUD miss.
 
-    Modelled line-for-line on the clock-request backstop in main(), because the
+    Modelled line-for-line on the clock-request backstop (`ensure_schedule`), because the
     failure is the same shape. `rejudge` is a zero-arg callable that re-runs the
     caller's own judge with force_voice=True, so both lanes share this body
     without this function knowing which judge it is talking to.
@@ -138,6 +138,42 @@ def ensure_voice(verdict: dict, reply_text: str, rejudge) -> dict:
         f"the push went out text-only — the judge declined twice. Check the voice lane.")
     return verdict
 
+
+
+def ensure_schedule(verdict: dict, text: str, rejudge, lane: str = "reply") -> dict:
+    """The clock-request backstop: one forced re-ask, then a LOUD miss.
+
+    A time-bound ask that came back with no schedule gets exactly one forced
+    re-ask. Cheap (one call, rare) and it closes the gap that swallowed the
+    07-23 9am greeting — the mandate alone had already told Anna scheduling was
+    "usual to skip", so prose could not fix prose here. `rejudge` re-runs the
+    caller's judge with force_schedule=True, as `ensure_voice` does for sound.
+
+    ONE BODY (2026-10-12). It was inlined near-identically in the reply lane and
+    the message lane, and the catch lane had none: a drift answer saying "remind
+    me at 8" was dropped with no trace. The catch judge cannot schedule at all —
+    no schedule in its schema, nothing that queues — so it passes `rejudge=None`
+    and gets the loud half alone: the miss lands in the ledger instead of
+    nowhere. Giving that lane a scheduler is a separate call."""
+    if not wants_scheduled_push(text) or verdict.get("schedule"):
+        return verdict
+    if rejudge is not None:
+        print("   ⏰ time-bound request with no schedule — re-asking once, forced…")
+        forced = rejudge()
+        if forced.get("schedule"):
+            print(f"   → scheduled: {forced['schedule'].get('at_local')} "
+                  f"· {forced['schedule'].get('body', '')[:60]}")
+            return forced
+        print("   ⚠ still no schedule — logging the miss to the ledger")
+        why = "the judge declined twice"
+    else:
+        print(f"   ⚠ time-bound request in the {lane} lane, which cannot schedule — "
+              "logging the miss to the ledger")
+        why = f"the {lane} lane cannot queue one"
+    verdict["meta_note"] = (verdict.get("meta_note") or "").strip() or (
+        f"MISSED SCHEDULE: Andrew asked for something at a time ({text[:80]!r}) in "
+        f"the {lane} lane and no push was queued — {why}. Check the schedule lane.")
+    return verdict
 
 
 def wants_scheduled_push(text: str) -> bool:

@@ -212,12 +212,12 @@ CODE_BUDGETS = {
     "scripts/threads.py": 195,
     "scripts/generate_callbacks.py": 100,
     # 775 -> 785 (2026-08-02) for the thread-continuity window. · 570 -> 610 (2026-08-27): the reply lane gained a voice rail — the AUDIO_RE detector, ensure_voice's one-forced-re-ask backstop, and a shared speak() body. · 610 -> 560 (2026-08-28): re-censused DOWN. · 560 -> 563 (2026-09-05).
-    "scripts/knock_reply.py": 563,
+    "scripts/knock_reply.py": 553,     # -10: the clock backstop moved to reply_common (2026-10-12)
     # New surfaces, budgeted in the diff that creates them. reply_common is the split the 08-27 raise said was coming; knock_message is the lane that forced it.
     # 120 -> 127 (the judge seat (2026-10-12, Andrew)): gate_reply, the one judge for every inbound
     # lane — a held push-back becomes a plain fallback, a held voice reply is dropped.
-    "scripts/reply_common.py": 127,
-    "scripts/knock_message.py": 130,
+    "scripts/reply_common.py": 147,    # +20: ensure_schedule, retiring two inlined copies (2026-10-12)
+    "scripts/knock_message.py": 122,   # -8: its copy of the clock backstop (2026-10-12)
     # 700 -> 625 (2026-08-01): re-censused DOWN after OUTREACH_MANDATE moved to mandates.py — the file sat at 699/700, one mechanical fix from a red build. · 400 -> 402 (2026-09-05).
     # 402 -> 405 (2026-09-19): one import. The household canon now reaches the
     # pass that writes an eavesdrop tape, and `tape_names_a_referent` consults

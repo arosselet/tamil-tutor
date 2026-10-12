@@ -1233,11 +1233,11 @@ def s27_schedule_and_soak_guards(sb: Path):
     real_ask = ("I am driving with my wife to Brampton this morning. When you knock, "
                 "send an audio message, greet her and say something I've been learning "
                 "this week. Not yet I mean 9am would be good.")
-    check("the real 9am ask is detected", kr.wants_scheduled_push(real_ask))
+    check("the real 9am ask is detected", importlib.import_module("reply_common").wants_scheduled_push(real_ask))
     for t in ("ping me in an hour", "knock tomorrow morning", "remind me at 7:30 pm"):
-        check(f"clock request detected: {t[:28]}", kr.wants_scheduled_push(t))
+        check(f"clock request detected: {t[:28]}", importlib.import_module("reply_common").wants_scheduled_push(t))
     for t in ("naan poren", "adhu dhaan, said it at dinner", "less of the aunty thing"):
-        check(f"plain rep is not a clock request: {t[:28]}", not kr.wants_scheduled_push(t))
+        check(f"plain rep is not a clock request: {t[:28]}", not importlib.import_module("reply_common").wants_scheduled_push(t))
     # The scheduling rules moved to REACH_MANDATE (2026-07-24 split); the judge
     # still sees both, concatenated.
     check("mandate makes a clock-request mandatory", "MANDATORY" in kr.REACH_MANDATE)
@@ -3279,3 +3279,74 @@ def s136_a_push_back_speaks_only_judged_tamil(sb: Path):
                 p.unlink(missing_ok=True)
             else:
                 p.write_bytes(b)
+
+
+def s143_a_clock_ask_is_never_silently_dropped(kr, sb: Path):
+    """One clock backstop for every reply lane (2026-10-12).
+
+    The backstop — a time-bound ask with no schedule gets one forced re-ask,
+    then a MISSED SCHEDULE note in the ledger — was inlined near-identically in
+    the reply lane and the message lane, and the eavesdrop (catch) lane had none.
+    The catch judge cannot schedule at all, so a drift answer that said "queue
+    something for 9pm" vanished: no push, no note, every instrument green.
+
+    GATE 7.2, OUT LOUD. The silent no-op is exactly the catch lane's old state:
+    a reply pushed back, a log written, and nothing anywhere saying a request was
+    dropped. So the round trip drives the real `main()` on an eavesdrop knock
+    and RE-READS the feedback ledger for the miss. The shared body is pinned on
+    its three outcomes: a re-ask that schedules wins; one that does not leaves
+    the note; a lane with no re-ask leaves the note without calling anything."""
+    print("\n143. A clock ask is never silently dropped (2026-10-12)")
+    rc = importlib.import_module("reply_common")
+    prog = sb / "progress"
+    klog_path, flog_path = prog / "knock_log.json", prog / "feedback_log.json"
+    saved = (klog_path.read_bytes(), flog_path.read_bytes() if flog_path.exists() else None)
+    ask = "queue something for 9pm tonight"
+    check("precondition: the ask reads as clock-bound", rc.wants_scheduled_push(ask))
+
+    calls = []
+
+    def rejudge(result):
+        def again():
+            calls.append(1)
+            return result
+        return again
+    try:
+        with contextlib.redirect_stdout(io.StringIO()):
+            got = rc.ensure_schedule({"meta_note": ""}, ask,
+                                     rejudge({"schedule": {"at_local": "21:00", "body": "hi"}}))
+        check("a re-ask that schedules wins, after exactly one call",
+              got.get("schedule", {}).get("at_local") == "21:00" and len(calls) == 1)
+        calls.clear()
+        with contextlib.redirect_stdout(io.StringIO()):
+            got = rc.ensure_schedule({"meta_note": ""}, ask, rejudge({}), lane="message")
+        check("a re-ask that still declines leaves MISSED SCHEDULE, naming the lane",
+              got["meta_note"].startswith("MISSED SCHEDULE") and "message lane" in got["meta_note"]
+              and len(calls) == 1, got["meta_note"])
+        with contextlib.redirect_stdout(io.StringIO()):
+            got = rc.ensure_schedule({"meta_note": ""}, "thanks da", rejudge({}))
+        check("a plain reply is left alone — no re-ask, no note",
+              got["meta_note"] == "" and len(calls) == 1)
+
+        # ── The round trip: the eavesdrop lane, which cannot schedule.
+        kr.push_to_phone, kr.commit_and_push = Recorder(), Recorder()
+        kr.judge_catch = lambda k, r, *a, **kw: {"verdict": "caught", "reply_line": "adhu dhaan",
+                                                 "meta_note": "", "rationale": "smoke"}
+        now = datetime.now(timezone.utc)
+        write_json(klog_path, [{"date": now.date().isoformat(), "timestamp": now.isoformat(),
+                                "acted": True, "modality": "eavesdrop", "move": "gossip tape",
+                                "body": "who's the news about?", "memo_script": "அவங்க பொண்ணு-ஆம்!",
+                                "expected_target": "", "target_revealed": False}])
+        write_json(flog_path, [])
+        sys.argv = ["knock_reply.py", ask]
+        with contextlib.redirect_stdout(io.StringIO()):
+            kr.main()
+        notes = [r.get("note", "") for r in read_json(flog_path)]
+        check("a clock ask answered to an eavesdrop lands in the ledger as a MISS",
+              any("MISSED SCHEDULE" in n and "eavesdrop lane" in n for n in notes), str(notes))
+    finally:
+        klog_path.write_bytes(saved[0])
+        if saved[1] is None:
+            flog_path.unlink(missing_ok=True)
+        else:
+            flog_path.write_bytes(saved[1])

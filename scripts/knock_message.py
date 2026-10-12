@@ -42,8 +42,8 @@ from mandates import (FORCE_SCHEDULE_ADDENDUM, FORCE_VOICE_ADDENDUM,
                       VOICE_MANDATE)
 from push_queue import maybe_enqueue_schedule
 from publish import commit_and_push, load_env, publish, push_to_phone
-from reply_common import (ensure_voice, gate_reply, recent_exchanges, record_meta_note,
-                          speak, wants_scheduled_push)
+from reply_common import (ensure_schedule, ensure_voice, gate_reply, recent_exchanges, record_meta_note,
+                          speak)
 from state_io import FEEDBACK_LOG_PATH, KNOCK_LOG_PATH, REVIEW_QUEUE_PATH, load_json, save_json
 from writer import STR, ask_json, executor_name, obj, voice_canon
 
@@ -87,17 +87,9 @@ def handle_message(text: str, knock: dict | None, klog: list, dry_run: bool):
     verdict = ensure_voice(verdict, text,
                            lambda: judge_message(text, knock, klog, force_voice=True))
 
-    if wants_scheduled_push(text) and not verdict.get("schedule"):
-        print("   ⏰ time-bound request with no schedule — re-asking once, forced…")
-        forced = judge_message(text, knock, klog, force_schedule=True)
-        if forced.get("schedule"):
-            verdict = forced
-            print(f"   → scheduled: {forced['schedule'].get('at_local')}")
-        else:
-            print("   ⚠ still no schedule — logging the miss to the ledger")
-            verdict["meta_note"] = (verdict.get("meta_note") or "").strip() or (
-                f"MISSED SCHEDULE: Andrew asked for something at a time "
-                f"({text[:80]!r}) in a MESSAGE and no push was queued.")
+    verdict = ensure_schedule(verdict, text,
+                              lambda: judge_message(text, knock, klog, force_schedule=True),
+                              lane="message")
 
     if dry_run:
         spoken = verdict.get("voice_reply") or ""
