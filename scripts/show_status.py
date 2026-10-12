@@ -29,6 +29,23 @@ def bar(pct: float, width: int = 20) -> str:
     return "█" * filled + "░" * (width - filled)
 
 
+def waiting_on_andrew() -> list[str]:
+    """What does nothing until Andrew acts — held forms and proposed outreach
+    moves — one line each with the command that clears it, or [] (2026-10-12).
+    A queue nobody sees is indistinguishable from an empty one, and only this
+    report printed them, which he runs by hand; the light start is the surface
+    he meets every session, so both read this one count."""
+    held = [r for r in load_json(REVIEW_QUEUE_PATH) or [] if r.get("status") == "pending"]
+    moves = [p for p in (load_json(POLICY_PATH) or {}).get("proposals") or []
+             if p.get("status") == "pending"]
+    lines = []
+    if held:
+        lines.append(f"{len(held)} drafted form(s) held from publish — python scripts/provenance.py")
+    if moves:
+        lines.append(f"{len(moves)} outreach move(s) proposed — python scripts/reflect.py")
+    return lines
+
+
 def main():
     base = Path(__file__).parent.parent
     learner = load_json(base / "progress" / "learner.json")
@@ -153,16 +170,11 @@ def main():
     # policy move both do nothing until he acts, and a queue nobody sees is
     # indistinguishable from an empty one — so both are counted here, where he
     # looks, with the command that clears them.
-    held = [r for r in load_json(REVIEW_QUEUE_PATH) or [] if r.get("status") == "pending"]
-    moves = [p for p in (load_json(POLICY_PATH) or {}).get("proposals") or []
-             if p.get("status") == "pending"]
-    if held or moves:
+    waiting = waiting_on_andrew()
+    if waiting:
         print("\n⚖️  WAITING ON YOU")
         print("-" * 55)
-        if held:
-            print(f"    {len(held)} drafted form(s) held from publish — python scripts/provenance.py")
-        if moves:
-            print(f"    {len(moves)} outreach move(s) proposed — python scripts/reflect.py")
+        print("\n".join(f"    {line}" for line in waiting))
 
     print(f"\n💡 {learner.get('status', 'Ready for more.')}")
     print("=" * 55)

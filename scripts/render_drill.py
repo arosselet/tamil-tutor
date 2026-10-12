@@ -308,7 +308,7 @@ def main():
     delivered = audible([t["word"] for t in pending], [i["answer_ta"] for i in sheet["items"]])
     deliver_rendered(
         mp3=mp3, lane="drill", delivered=delivered,
-        claimed=bool(focus or lead),
+        claimed=bool(focus or lead), owed=[t["word"] for t in lead],
         message=f"Drill track: {sheet.get('title', mp3.stem)}",
         title=sheet.get("title", ""),
         copy=f"drill's up — {len(sheet['items'])} out loud, gaps are yours 🎧",

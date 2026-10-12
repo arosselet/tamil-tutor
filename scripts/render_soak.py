@@ -384,6 +384,7 @@ def main():
     # intercepts it here.
     deliver_rendered(
         mp3=mp3, lane="soak", delivered=delivered, claimed=bool(focus or payload),
+        owed=[w for w in payload if w in {r["word"] for r in items}],
         message=f"Soak loop: {sheet.get('title', mp3.stem)}",
         title=sheet.get("title", ""),
         copy=f"soak loop's up — {n} sounds, nothing to do but listen 🎧",

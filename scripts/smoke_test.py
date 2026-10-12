@@ -152,6 +152,7 @@ def main():
         run(state.s140_a_repair_order_can_name_rotation, sb)
         run(render.s141_a_lane_claims_only_what_it_said, sb)
         run(render.s142_a_known_word_answer_is_still_judged, sb)
+        run(render.s144_an_order_is_paid_only_in_what_played, sb)
         run(knock.s143_a_clock_ask_is_never_silently_dropped, kr, sb)
         run(knock.s133_the_outreach_policy_learns, mk, sb)
         run(render.s134_the_rotation_tape_passes_the_judge, sb)

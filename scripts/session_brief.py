@@ -25,6 +25,7 @@ from state_io import (BASE, EPISODES_PATH, FEEDBACK_LOG_PATH, KNOCK_LOG_PATH,
                       LEARNER_PATH, LEXICON_PATH, LOCAL_TZ,
                       load_json, local_today)
 from state_io import canon_payload, is_unseen, soak_pending, split_payload
+from show_status import waiting_on_andrew
 from sync_state import (RECOGNITION_LEVELS, compute_ear, compute_engines,
                         compute_machines,
                         compute_floor, compute_status, fires_today, is_pattern)
@@ -301,9 +302,13 @@ def cmd_status(_args):
             drain = (f" · ⚠ payload unverifiable ({', '.join(unresolved)}) — fix the soak "
                      f"order; NOT dispatching on an item that can never match")
         elif stalled:
-            drain = (f" · ⚠ STALLED — M{att['episode']} rendered against this order on "
+            # Soak, drill and rotation stall too since 2026-10-12, and stamp their
+            # file stem rather than a mission number.
+            ran = att["episode"] if not att["episode"].isdigit() else f"M{att['episode']}"
+            drain = (f" · ⚠ STALLED — {ran} rendered against this order on "
                      f"{att['at']} but could not carry {', '.join(att['unclaimed'])} "
-                     f"(the script said it another way). NOT re-dispatching. Re-order "
+                     f"(the script said it another way, or the judge seat held it — "
+                     f"python scripts/provenance.py). NOT re-dispatching. Re-order "
                      f"the payload in the form the script can carry, or take the next item.")
         elif produced:
             drain = f" · produced ✓ (the {channel} lane carried it — no dispatch needed)"
@@ -525,3 +530,7 @@ def cmd_open(_args):
         print("\n".join(f"    {s['tag']} — was: {s['was']}" for s in fresh))
     if soak_pending():
         print("\n⚠ A soak order is NOT YET PRODUCED — the deep load's `status` names the lane.")
+    # His judgement, waited on (2026-10-12): Anna mentions it once, in passing —
+    # an errand at the end, never the opening move.
+    if waiting := waiting_on_andrew():
+        print("\nWaiting on Andrew (mention once, after the lesson): " + " · ".join(waiting))

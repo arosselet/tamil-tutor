@@ -861,6 +861,7 @@ def main():
         taught=[w for w in delivered if w in gave],
         intake={r["word"]: r for r in pool if r.get("intake")},
         claimed=bool(focus or payload),
+        owed=[r["word"] for r in pool if r["word"] in set(canon_payload(payload))],
         extra_paths=[script] + ([REVIEW_QUEUE_PATH] if REVIEW_QUEUE_PATH.exists() else []),
         message=f"Rotation tape: {title} ({measured:.0f} min)",
         # The spine IS this lane's name and always was — it is why three tapes

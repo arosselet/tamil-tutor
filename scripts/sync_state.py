@@ -100,6 +100,9 @@ def mark_soak_delivered(channel: str) -> bool:
         return False
     learner["soak_order"]["delivered"] = {
         "channel": channel, "at": local_today().isoformat()}
+    # A paid order is no longer stalled: a re-run that carried what an earlier
+    # one could not supersedes that attempt (2026-10-12).
+    learner["soak_order"].pop("attempted", None)
     save_json(LEARNER_PATH, learner)
     print(f"   Soak order marked delivered by the {channel} lane")
     return True
@@ -673,7 +676,11 @@ def cmd_update(args):
         # a close on the same day a dose already shipped would read as already
         # produced and never render (date compare alone can't see it — `from` and
         # `delivered.at` are both today). Any change to the brief invalidates it.
+        # The ATTEMPT stamp too (2026-10-12, found by s144): the brief reads
+        # STALLED before produced, so a same-day attempt left over from the last
+        # order named its words as this one's — over a dose that had shipped.
         order.pop("delivered", None)
+        order.pop("attempted", None)
         order["from"] = today
         learner["soak_order"] = order
         extra = "".join(f" · {k}: {order[k]}"

@@ -2232,3 +2232,127 @@ def s142_a_known_word_answer_is_still_judged(sb: Path):
     finally:
         pv.ask_json = real_ask
         lex.write_bytes(saved)
+
+
+def s144_an_order_is_paid_only_in_what_played(sb: Path):
+    """A standing order is stamped paid only when its words reached the audio (2026-10-12).
+
+    s141 made the EXPOSURE honest and left the ORDER stamp alone: `claimed` fired
+    on focus-or-payload, so a soak whose payload word the judge seat held — or a
+    drill whose writer skipped it, or a rotation the clock cut — still stamped the
+    order `delivered`. The repair was booked paid, never re-sent, and the brief
+    said "produced ✓" over a tape that never said the word.
+
+    GATE 7.2, OUT LOUD. The silent no-op is exactly that green tick. So this
+    drives the real CLI to place the order, the real soak `main()` and the real
+    shared tail, then RE-READS learner.json and the real `status` line: the held
+    word is named STALLED and nothing re-dispatches. The positive control — a
+    payload word that played, beside a frame no soak can vouch for — must still
+    pay the order, or a rule that never stamped would pass the first half."""
+    print("\n144. An order is paid only in what played (2026-10-12)")
+    import contextlib, io, subprocess
+    rs = importlib.import_module("render_soak")
+    ln = importlib.import_module("lanes")
+    lex = sb / "progress" / "lexicon.json"
+    learner = sb / "progress" / "learner.json"
+    queue_path = sb / "progress" / "review_queue.json"
+    saved = (lex.read_bytes(), learner.read_bytes(),
+             queue_path.read_bytes() if queue_path.exists() else None)
+    said, held, frame = "போறேன்", "வந்துட்டேன்", "frame:smoke-paid"
+    write_json(lex, {**read_json(lex), said: {"gloss": "I'm going"},
+                     held: {"gloss": "I've come"}, frame: {"gloss": "a pattern"}})
+    env = {**os.environ, "PYTHONUTF8": "1"}
+
+    def cli(*argv):
+        return subprocess.run([sys.executable, str(sb / "scripts" / "sync_state.py"), *argv],
+                              cwd=sb, capture_output=True, text=True, encoding="utf-8", env=env)
+
+    def order_for(*words):
+        args = [a for w in words for a in ("--soak-payload", w)]
+        r = cli("update", *args, "--soak-channel", "soak", "--no-commission", "smoke sandbox")
+        check(f"the real CLI places a soak order for {len(words)} word(s)",
+              r.returncode == 0, (r.stderr or r.stdout)[-300:])
+
+    def status_line():
+        r = cli("status")
+        return next((l for l in r.stdout.splitlines() if l.startswith("Soak order [")),
+                    r.stdout[-300:])
+
+    real_s = (rs.week_payload, rs.write_sheet, rs.render, rs.google_credentials_ready,
+              rs.commit_and_push, rs.push_to_phone)
+    real_l = (ln.expose, ln.publish, ln.audio_titles.record)
+    argv, cwd = sys.argv, os.getcwd()
+    try:
+        os.chdir(sb)
+
+        async def fake_render(sh, out_path, *_):
+            out_path.parent.mkdir(parents=True, exist_ok=True)
+            out_path.write_bytes(b"\xff\xfb" + b"\x00" * 512)
+
+        rs.week_payload = lambda days, items: [
+            {"word": said, "gloss": "", "production": "none", "last_surfaced": None}]
+        rs.render, rs.google_credentials_ready = fake_render, lambda: ""
+        rs.commit_and_push = fx.Recorder()
+        rs.push_to_phone = lambda copy, url: False
+        ln.expose = lambda words, lane, source="", taught=(), mint=None: False
+        ln.publish = lambda paths, message, mp3=None: ([p for p in paths if p], message)
+        ln.audio_titles.record = lambda *a, **kw: False
+
+        def drive(sheet_items):
+            rs.write_sheet = lambda items, focus=None: {
+                "title": "smoke soak", "intro": "just listen", "outro": "done",
+                "clusters": [{"thread": "going and coming", "items": sheet_items}]}
+            sys.argv = ["render_soak.py"]
+            out, code = io.StringIO(), 0
+            try:
+                with contextlib.redirect_stdout(out):
+                    rs.main()
+            except SystemExit as e:
+                code = e.code
+            return out.getvalue(), code
+
+        # ── The payload word's only item is a form the books lack: the seat holds it.
+        order_for(held)
+        out, code = drive([{"say": said, "en": "I'm going"},
+                           {"say": "வந்துட்டாங்களாம்", "en": "they've come, apparently"}])
+        order = read_json(learner).get("soak_order") or {}
+        check("a soak whose payload word was held does NOT stamp the order delivered",
+              code in (0, None) and not order.get("delivered"),
+              f"exit {code!r}: {order}\n{out[-400:]}")
+        check("...it records the attempt, naming the word that never played",
+              (order.get("attempted") or {}).get("unclaimed") == [held], str(order))
+        line = status_line()
+        check("...and the brief reads STALLED, naming it, never 'produced ✓'",
+              "STALLED" in line and held in line and "produced" not in line, line)
+        check("...nor dispatches another dose into the same hold",
+              "NOT YET PRODUCED" not in line, line)
+
+        # ── Positive control: the payload word played; the frame is excused.
+        order_for(said, frame)
+        out, code = drive([{"say": said, "en": "I'm going"}])
+        order = read_json(learner).get("soak_order") or {}
+        check("a soak that said its payload word stamps the order delivered",
+              code in (0, None) and (order.get("delivered") or {}).get("channel") == "soak",
+              f"exit {code!r}: {order}\n{out[-400:]}")
+        check("...a frame no soak can vouch for does not stall it",
+              not (order.get("attempted") or {}).get("unclaimed"), str(order))
+        check("...and the brief reads produced ✓", "produced" in status_line())
+
+        # ── The waiting count reaches the light start, not only show_status.
+        write_json(queue_path, [{"id": "smoke144", "form": held, "status": "pending"}])
+        r = cli("open")
+        check("the light start names a held form waiting on Andrew",
+              "Waiting on Andrew" in r.stdout and "provenance.py" in r.stdout,
+              (r.stderr or r.stdout)[-400:])
+    finally:
+        (rs.week_payload, rs.write_sheet, rs.render, rs.google_credentials_ready,
+         rs.commit_and_push, rs.push_to_phone) = real_s
+        (ln.expose, ln.publish, ln.audio_titles.record) = real_l
+        sys.argv = argv
+        os.chdir(cwd)
+        lex.write_bytes(saved[0])
+        learner.write_bytes(saved[1])
+        if saved[2] is None:
+            queue_path.unlink(missing_ok=True)
+        else:
+            queue_path.write_bytes(saved[2])

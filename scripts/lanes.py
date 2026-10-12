@@ -52,7 +52,8 @@ import audio_titles
 from publish import jsdelivr_url, publish
 from language import stem
 from lexicon_view import expose
-from state_io import AUDIO_TITLES_PATH, LEARNER_PATH, LEXICON_PATH, load_json
+from state_io import (AUDIO_TITLES_PATH, LEARNER_PATH, LEXICON_PATH, load_json,
+                      mark_soak_attempted)
 from sync_state import mark_soak_delivered
 
 
@@ -110,7 +111,7 @@ def audible(words, spoken, played_frames=(), lexicon: dict | None = None) -> lis
 
 
 def deliver_rendered(*, mp3: Path, lane: str, delivered: list, claimed: bool,
-                     message: str, copy: str, noun: str, extra_paths=(),
+                     message: str, copy: str, noun: str, extra_paths=(), owed=(),
                      taught=(), intake=None, title, commit, notify) -> bool:
     """The tail every write -> render -> publish lane ran its own copy of:
 
@@ -132,7 +133,9 @@ def deliver_rendered(*, mp3: Path, lane: str, delivered: list, claimed: bool,
     `claimed` is "did this run consume a standing soak order" — the lane's own
     test, usually `focus or payload`. It is passed rather than inferred because a
     stamp claims a debt is PAID, and a wrong inference there dispatches a second
-    identical dose or suppresses one that was owed.
+    identical dose or suppresses one that was owed. Since 2026-10-12 it is
+    necessary, not sufficient: `owed` (the order's payload words on this run's
+    menu) must also be audible, or the order is left STALLED instead.
 
     `title` is the dose's PUBLIC NAME — what the feed and the rating picker call
     it. Keyword-only with NO DEFAULT, for the same reason `commit` and `notify`
@@ -158,7 +161,20 @@ def deliver_rendered(*, mp3: Path, lane: str, delivered: list, claimed: bool,
     intake = intake or {}
     born = {w: {"gloss": intake[w].get("gloss", "")} for w in taught if w in intake}
     exposed = expose(delivered, lane, source=mp3.stem, taught=taught, mint=born)
-    stamped = mark_soak_delivered(lane) if claimed else False
+    # A CLAIM IS PAID ONLY IN WHAT PLAYED (2026-10-12). `owed` is the order's
+    # payload words this run put on its menu. The stamp fired on `claimed` alone,
+    # so a payload word the judge seat held — or the writer skipped, or the clock
+    # cut — retired the order anyway: the repair was booked paid, never re-sent,
+    # and nothing anywhere said so. A word owed and not audible now leaves the
+    # order STALLED with that word named (the episode lane's 09-11 stamp), so the
+    # brief says so and does not re-dispatch into a loop. Frames are excused: no
+    # soak or drill can say which line realised one (`audible` under-claims them).
+    unpaid = [w for w in owed if not w.startswith("frame:") and w not in delivered]
+    if claimed and unpaid:
+        mark_soak_attempted(mp3.stem, unpaid)
+        print(f"   ⚠ soak order NOT paid — {', '.join(unpaid)} never reached the audio; "
+              "left STALLED for the brief")
+    stamped = claimed and (bool(unpaid) or mark_soak_delivered(lane))
     # THE NAME RIDES THE DOSE'S OWN COMMIT (2026-09-01). A soak leaves no script
     # and no caption, so the moment the sheet is written is the only moment its
     # name exists — record it here, at the one tail all three audio lanes pass
