@@ -252,7 +252,16 @@ CODE_BUDGETS = {
     # has two ends — everything above this is a ceiling (do not reach more than
     # this), and `pleasure_due` is the other end (do not let the shelf go
     # empty). Same subject, same file, opposite direction.
-    "scripts/rails.py": 40,
+    # 40 -> 51 (2026-10-12, Andrew): the policy rails. The bounds the weekly
+    # reflection may move knobs within, the approved-value reader that re-clips
+    # on every read, and the digest block decide() reads. Retires the hand-tuned
+    # constants as the only policy, and the tease cap that lived only in the
+    # mandate's prose ("1 push in 3"). TEASE_RE moved in from morning_knock.
+    "scripts/rails.py": 51,
+    # NEW FILE, budgeted in the same diff that creates it (2026-10-12, Andrew):
+    # the weekly reflection — return and learning per reach, the fixed
+    # comparisons, bounded proposals, Andrew's approve/reject pen.
+    "scripts/reflect.py": 210,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-04).
     "scripts/memo.py": 28,
     # Short-clip command replaces ad hoc rendering, without another TTS backend.
@@ -372,7 +381,8 @@ CODE_BUDGETS = {
     # caught it) and the in-place write (a crash mid-dump left a half-file). The
     # growth is BOOK_SHAPES, the shape check, CorruptBook, and the atomic swap.
     # The next raise is the split signal: the book check is the seam.
-    "scripts/state_io.py": 157,
+    # 157 -> 158 (same day): POLICY_PATH, the outreach policy book.
+    "scripts/state_io.py": 158,
     # NEW FILE, budgeted in the same diff that creates it (2026-08-28, Andrew). · 20 -> 35 (2026-09-03).
     "scripts/language.py": 35,
     "scripts/slips.py": 300,
@@ -1042,6 +1052,11 @@ LAYERS = {
     # lanes it drives; the day it imports one, the edge reads as upward and
     # fails here.
     "commissions":        5.5,
+    # The weekly reflection (2026-10-12): reads the logs, threads (1.2) and the
+    # rails (2); commits through publish (4) in CI. Beside the lanes, imported by
+    # none — the knock lane reads its OUTPUT through `rails.policy_block`, so the
+    # day a lane imports the reflection, the edge reads as upward here.
+    "reflect":            5.5,
 
     "session_brief":      6,      # read surfaces, above everything
     "show_status":        6,

@@ -33,13 +33,14 @@ distinction, and it is what this file exists to mark.
 Imports `state_io` and nothing else, so every lane — and `publish` itself — may
 import it without a cycle.
 """
+import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
-from state_io import LOCAL_TZ, is_fire, local_date
+from state_io import LOCAL_TZ, POLICY_PATH, is_fire, load_json, local_date
 
 # ── When (the waking window) ─────────────────────────────────────────────────
 # Andrew's local timezone is canonical in `state_io`, which reads it from
@@ -127,3 +128,53 @@ def pleasure_due(produced_min: float, days_since_last: float | None) -> str:
         return (f"the shelf is stocked: {produced_min:.0f} min produced in "
                 f"{SUPPLY_WINDOW_DAYS}d (floor {SUPPLY_FLOOR_MIN})")
     return ""
+
+
+# ── What the weekly reflection may move, and how far (2026-10-12, Andrew) ────
+# The outreach policy did not learn: every knob below was a constant Andrew
+# tuned by hand, and "reward = coming back" lived only in prose. `reflect.py`
+# now measures return and learning per reach weekly and PROPOSES bounded moves;
+# Andrew approves them (his call, 2026-10-12: approval first, auto-apply maybe
+# later). The bounds live HERE, in code, and are applied twice — when a move is
+# proposed and again every time an approved value is read — so a hand-edited
+# `policy.json` cannot carry a value past them either.
+#
+# The ceiling on reaches is today's 3 and does not rise: anti-nag is a rail, not
+# a dial the reflection can tune away. Unbounded below would let a bad week
+# silence Anna entirely, so the floor is one.
+POLICY_RAILS = {                  # name: (lowest, highest, largest single move)
+    "max_reaches_per_day": (1, 3, 1),
+    "min_gap_hours":       (3, 8, 1),
+    "tease_cap_per_6":     (0, 2, 1),
+}
+# The progress-tease frame: at most this many of the last 6 fires open on it.
+# Was "1 push in 3" in OUTREACH_MANDATE's prose; the rail line now states it.
+TEASE_CAP_PER_6 = 2
+# The openers that count as the tease frame. Moved from `morning_knock` so the
+# reflection can classify a reach without importing a lane (s92).
+TEASE_RE = re.compile(r"you already|you own|you'?re (one|1)\b|\bone\b.{0,40}\baway\b|"
+                      r"\ba\b.{0,40}\baway from\b", re.I)
+
+
+def clip(name: str, value: float) -> float:
+    lo, hi, _ = POLICY_RAILS[name]
+    return max(lo, min(hi, value))
+
+
+def approved(name: str, default):
+    """The approved value of a policy knob, bounded — or `default` when nothing
+    has been approved. `default` is the CALLER's module constant on purpose:
+    the suite patches those, and an unapproved knob must read exactly what it
+    read before this existed."""
+    value = ((load_json(POLICY_PATH) or {}).get("params") or {}).get(name)
+    return default if value is None else clip(name, value)
+
+
+def policy_block() -> str:
+    """The weekly digest, as `decide()` reads it. Empty until a reflection ran."""
+    digest = (load_json(POLICY_PATH) or {}).get("digest") or {}
+    if not digest.get("lines"):
+        return ""
+    return (f"POLICY DIGEST (weekly reflection {digest.get('at', '?')} — measured over "
+            f"the logs, steer by it, never say it to him):\n"
+            + "\n".join(f"  {line}" for line in digest["lines"]))

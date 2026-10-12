@@ -50,7 +50,7 @@ sys.path.insert(0, str(BASE / "scripts"))
 from memo import render_memo
 from publish import (KNOCKS_DIR, commit_and_push, jsdelivr_url,
                      load_env, publish, push_to_phone)
-from rails import MAX_REACHES_PER_DAY, in_waking_window, reaches_today
+from rails import MAX_REACHES_PER_DAY, approved, in_waking_window, reaches_today
 from state_io import KNOCK_LOG_PATH, LOCAL_TZ, load_json
 from language import ANNA_VOICE
 
@@ -257,9 +257,9 @@ def cmd_drain(args):
             kept.append(e)
             print(f"  {e['id']} due but quiet hours — deferred.")
             continue
-        if not e.get("force") and n_today >= MAX_REACHES_PER_DAY:
+        if not e.get("force") and n_today >= (cap := approved("max_reaches_per_day", MAX_REACHES_PER_DAY)):
             kept.append(e)
-            print(f"  {e['id']} due but daily cap ({n_today}/{MAX_REACHES_PER_DAY}) — deferred.")
+            print(f"  {e['id']} due but daily cap ({n_today}/{cap}) — deferred.")
             continue
         if not e.get("force") and non_forced_fired:
             # One non-forced fire per drain. Originally this kept every reach

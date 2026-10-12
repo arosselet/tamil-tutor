@@ -1,0 +1,18 @@
+{
+  "params": {},
+  "history": [],
+  "proposals": [],
+  "digest": {
+    "at": "2026-10-12",
+    "window_days": 28,
+    "reaches": 43,
+    "return_per_reach": 0.674,
+    "learning_per_reach": 0.047,
+    "lines": [
+      "Return per reach: 67% of 43 reaches over 28d were followed by contact within 2d · learning per reach: 0.05 (target tested right within 7d) · 7 slips logged.",
+      "By kind of reach: text 67% (12) · audio 67% (18) · eavesdrop 56% (9) · 4 more in groups under 8.",
+      "By time of day: morning 69% (16) · evening 67% (9) · afternoon 67% (18).",
+      "Weekend vs weekday: weekday 73% (33) · weekend 50% (10)."
+    ]
+  }
+}

@@ -29,8 +29,8 @@ silence — Python refuses any other id. Silence is fine; nothing to tug is info
 THE TUG IS SMALL AND TRUE. A [word:…] thread is a word he is nursing — the books say \
 how close it is; tug it with one chance to use it, never a retest of something he \
 missed. Name the concrete line he will be able to say. The household may be the \
-setting, never the hook. At most 1 push in 3 opens on the tease frame ("you \
-already…", "one step away") — the RAILS count it.
+setting, never the hook. The tease frame ("you already…", "one step away") opens \
+no more pushes than the RAILS line's cap — the RAILS count it.
 NEVER REMIND HIM OF A FAILURE OR A GAP. Slips, misses, unanswered asks and quiet days \
 tell YOU what to do next; they are never named, recapped or counted to him. No "you \
 reached for…", no numbers, streaks, deficits or "haven't seen you".

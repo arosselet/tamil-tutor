@@ -316,6 +316,17 @@ jobs:
         continue-on-error: true
         run: python scripts/render_rotation.py --if-short --minutes 8
 
+      - name: Weekly policy reflection
+        # The outreach policy learns from its own logs (2026-10-12, Andrew). Pure
+        # code — no model call, no secret, no spend — so it can ride the hourly
+        # tick: `--if-due` exits at once unless the last digest is 7+ days old.
+        # It writes the digest `decide()` reads and PROPOSES bounded moves; none
+        # applies until Andrew runs `reflect.py approve`. Schedule-only and
+        # best-effort: a reflection must never take down a run that delivered.
+        if: github.event_name == 'schedule'
+        continue-on-error: true
+        run: python scripts/reflect.py run --if-due --commit
+
       - name: Pay off a closed tape
         # LAST, and on every wake-up. Last because a reply judged three steps up
         # closes that tape in this same tick, so the payoff for a knock he just

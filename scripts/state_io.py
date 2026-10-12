@@ -69,6 +69,11 @@ AUDIO_TITLES_PATH = BASE / "progress" / "audio_titles.json"
 # One writer, `scripts/provenance.py`.
 REVIEW_QUEUE_PATH = BASE / "progress" / "review_queue.json"
 
+# The outreach policy (2026-10-12): approved knob values, the weekly digest the
+# knock lane reads, and the proposals awaiting Andrew. One writer, `reflect.py`;
+# the bounds and the reader are `rails.py`.
+POLICY_PATH = BASE / "progress" / "policy.json"
+
 
 class CorruptBook(RuntimeError):
     """A book in `progress/` that does not parse, or parses into the wrong shape.
@@ -86,7 +91,7 @@ BOOK_SHAPES = {
     "observations.json": (list, dict), "knock_log.json": (list, dict),
     "session_log.json": (list, dict), "feedback_log.json": (list, dict),
     "slip_log.json": (list, dict), "push_queue.json": (list, dict),
-    "review_queue.json": (list, dict),
+    "review_queue.json": (list, dict), "policy.json": (dict, None),
 }
 # The learner's structured fields. A field absent is fine (day zero has few);
 # a field PRESENT in the wrong type is a corrupted book, whatever parsed.

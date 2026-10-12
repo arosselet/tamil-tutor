@@ -2761,7 +2761,7 @@ def s127_asks_earn_replies_gifts_earn_taps(mk, sb: Path):
     # THE MANDATE owns the rules Python counts for.
     m = mk.OUTREACH_MANDATE
     check("the mandate carries the one-try tug as an ask", '1. ONE TRY (modality "text", stance "ask")' in m)
-    check("...and caps the tease frame", "1 push in 3" in m)
+    check("...and caps the tease frame at the RAILS line's cap", "than the RAILS line's cap" in m)
     check("the eavesdrop pull has a banned quiz example", "QUIZ, banned" in m)
 
     # THE A/B IS RETIRED (2026-09-29, Andrew): one writer, still stamped.
@@ -2942,3 +2942,146 @@ def s128_the_sort_tape_round_trips(kr, sb: Path):
         os.environ.pop("REPLY_KNOCK_ID", None)
         for p, b in saved.items():
             p.write_bytes(b)
+
+
+def s133_the_outreach_policy_learns(mk, sb: Path):
+    """The weekly reflection — the outreach policy learns from its logs, inside
+    rails, on Andrew's approval (2026-10-12, Andrew).
+
+    WHAT WAS THERE. Every `decide()` tick was stateless; "reward = coming back"
+    lived in prose; the knobs (daily cap, min gap, tease cap) were constants
+    Andrew tuned by hand. The machinery kept perfect books on what he knows and
+    nothing updated what it should try next.
+
+    GATE 7.2, OUT LOUD. The silent no-op is a reflection that writes a tidy file
+    nobody reads, or proposes moves nothing applies — indistinguishable from a
+    working one until a month passes. So the teeth are on both ends of the loop:
+    the fixture is built so the right answer is KNOWN (first reaches come back,
+    later tease reaches never do), the real `main()` must find it and propose
+    exactly the bounded moves; an approval must change what the REAL rails gate
+    does; and the REAL `decide()` must carry the digest into the model's prompt.
+    A knob already at its bound must hold, and a hand-edited value past a rail
+    must read back clipped — the rails are code, not a suggestion in a file.
+    """
+    print("\n133. The outreach policy learns — weekly reflection (2026-10-12)")
+    rf = importlib.import_module("reflect")
+    rl = importlib.import_module("rails")
+    prog = sb / "progress"
+    paths = {n: prog / n for n in ("knock_log.json", "observations.json",
+                                   "session_log.json", "policy.json")}
+    saved = {n: (p.read_bytes() if p.exists() else None) for n, p in paths.items()}
+    md = None
+
+    def drive(*argv):
+        sys.argv = ["reflect.py", *argv]
+        out, code = io.StringIO(), 0
+        try:
+            with contextlib.redirect_stdout(out):
+                rf.main()
+        except SystemExit as e:
+            code = e.code
+        return out.getvalue(), code
+
+    try:
+        # ── The fixture: 9 days, every third day, so no reach's 2-day window
+        # sees another day's contact. 09:00 is answered and teaches its word the
+        # same morning; 15:00 opens on the tease frame and is never answered.
+        base = datetime.now(mk.LOCAL_TZ).replace(minute=0, second=0, microsecond=0)
+        klog, events = [], []
+        for d in range(3, 28, 3):
+            am = (base - timedelta(days=d)).replace(hour=9)
+            pm = (base - timedelta(days=d)).replace(hour=15)
+            klog.append({"date": am.date().isoformat(), "timestamp": am.isoformat(),
+                         "acted": True, "modality": "volley", "move": "smoke",
+                         "body": "sollu da", "expected_target": "வா", "reply": "வா",
+                         "reply_at": (am + timedelta(minutes=5)).isoformat()})
+            klog.append({"date": pm.date().isoformat(), "timestamp": pm.isoformat(),
+                         "acted": True, "modality": "audio", "move": "smoke",
+                         "body": "You already have this one."})
+            events.append({"id": f"s133{d}", "at": (am + timedelta(hours=1)).isoformat(),
+                           "word": "வா", "channel": "volley", "kind": "tested",
+                           "axis": "production", "result": "right", "source": "smoke",
+                           "note": ""})
+        write_json(paths["knock_log.json"], klog)
+        write_json(paths["observations.json"], events)
+        write_json(paths["session_log.json"], [])
+        write_json(paths["policy.json"], {})
+
+        out, code = drive("run")
+        policy = read_json(paths["policy.json"])
+        dg = policy.get("digest") or {}
+        md = prog / "reflections" / f"{dg.get('at')}-policy.md"
+        check("one full cycle writes the digest file", code in (0, None) and md.exists(), out[-400:])
+        check("...the return per reach is the known 0.5 (every 09:00 came back, no 15:00 did)",
+              dg.get("return_per_reach") == 0.5 and dg.get("reaches") == 18, str(dg)[:300])
+        check("...and learning per reach is the known 0.5 (each 09:00 word tested right after it)",
+              dg.get("learning_per_reach") == 0.5, str(dg)[:300])
+        moves = {p["param"]: (p["from"], p["to"]) for p in policy.get("proposals") or []
+                 if p["status"] == "pending"}
+        check("it proposes ONE step fewer reaches a day (later reaches never came back)",
+              moves.get("max_reaches_per_day") == (3, 2), str(moves))
+        check("...and one step less tease (tease openers never came back)",
+              moves.get("tease_cap_per_6") == (2, 1), str(moves))
+        check("...and holds the gap, which this fixture gives it nothing to judge",
+              "min_gap_hours" not in moves, str(moves))
+        check("every proposal sits inside the code-held rails",
+              all(rl.POLICY_RAILS[n][0] <= to <= rl.POLICY_RAILS[n][1]
+                  for n, (_, to) in moves.items()))
+        check("...and NOTHING applied before Andrew approved",
+              not policy.get("params") and rl.approved("max_reaches_per_day", 3) == 3)
+
+        # ── decide() reads the digest, through the real digest and the real call.
+        prompts = []
+        real_ask = mk.ask_json
+
+        def capture(system, user, *a, **kw):
+            prompts.append(user)
+            return canned_decision(False)
+        mk.ask_json = capture
+        try:
+            with contextlib.redirect_stdout(io.StringIO()):
+                mk.decide(mk.build_digest())
+        finally:
+            mk.ask_json = real_ask
+        check("the next decide() carries the policy digest into the model's prompt",
+              prompts and "POLICY DIGEST" in prompts[0] and "Return per reach: 50%" in prompts[0],
+              (prompts[0][-600:] if prompts else "no call"))
+
+        # ── Approval changes what the REAL rails gate does.
+        out, code = drive("approve", f"max_reaches_per_day@{dg['at']}")
+        noon = datetime.now(mk.LOCAL_TZ).replace(hour=12, minute=0, second=0, microsecond=0)
+        write_json(paths["knock_log.json"], [
+            {"date": noon.date().isoformat(), "timestamp": (noon - timedelta(hours=h)).isoformat(),
+             "acted": True, "modality": "text", "move": "smoke", "body": "x"} for h in (8, 4)])
+        ok, why = mk.rails_gate(False, now=noon.astimezone(timezone.utc))
+        check("an approved cap of 2 closes the real rails gate on the 2nd reach",
+              not ok and "daily cap reached (2/2)" in why, why)
+        hist = read_json(paths["policy.json"]).get("history") or []
+        check("...and the move is on the record with its evidence",
+              len(hist) == 1 and hist[0]["to"] == 2 and hist[0]["evidence"], str(hist))
+        _, code = drive("approve", f"max_reaches_per_day@{dg['at']}")
+        check("approving it twice is loud, never a quiet no-op", code not in (0, None))
+
+        # ── The rails are code: a hand-edit past them reads back clipped, and a
+        # knob at its floor holds even when the evidence says go lower.
+        p = read_json(paths["policy.json"])
+        write_json(paths["policy.json"], {**p, "params": {**p["params"], "max_reaches_per_day": 99}})
+        check("a hand-edited cap of 99 reads back as the rail's 3",
+              rl.approved("max_reaches_per_day", 3) == 3)
+        write_json(paths["policy.json"], {**p, "params": {"max_reaches_per_day": 1}, "digest": {}})
+        write_json(paths["knock_log.json"], klog)
+        out, _ = drive("run")
+        again = {q["param"] for q in read_json(paths["policy.json"])["proposals"]
+                 if q["status"] == "pending"}
+        check("a knob already at its floor is held, and says so",
+              "max_reaches_per_day" not in again and "already at its bound" in out, out[-500:])
+        out, _ = drive("run", "--if-due")
+        check("--if-due does nothing inside the week", "not due" in out, out[-200:])
+    finally:
+        for n, p in paths.items():
+            if saved[n] is None:
+                p.unlink(missing_ok=True)
+            else:
+                p.write_bytes(saved[n])
+        if md is not None:
+            md.unlink(missing_ok=True)

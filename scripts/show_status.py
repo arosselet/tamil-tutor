@@ -19,7 +19,7 @@ import ladder
 import threads
 from sync_state import compute_floor, compute_engines, compute_ear, trailing_pace
 # The checked reader (2026-10-12) — this file kept a private bare `json.load`.
-from state_io import load_json
+from state_io import POLICY_PATH, REVIEW_QUEUE_PATH, load_json
 
 RECOGNIZED = {"comfortable", "solid"}
 
@@ -148,6 +148,21 @@ def main():
     if dose["plays"]:
         top = sorted(dose["plays"].items(), key=lambda kv: -kv[1])[0]
         print(f"    Most replayed: {top[0]} ({top[1]}×)")
+
+    # WAITING ON ANDREW'S JUDGEMENT (2026-10-12). A held form and a proposed
+    # policy move both do nothing until he acts, and a queue nobody sees is
+    # indistinguishable from an empty one — so both are counted here, where he
+    # looks, with the command that clears them.
+    held = [r for r in load_json(REVIEW_QUEUE_PATH) or [] if r.get("status") == "pending"]
+    moves = [p for p in (load_json(POLICY_PATH) or {}).get("proposals") or []
+             if p.get("status") == "pending"]
+    if held or moves:
+        print("\n⚖️  WAITING ON YOU")
+        print("-" * 55)
+        if held:
+            print(f"    {len(held)} drafted form(s) held from publish — python scripts/provenance.py")
+        if moves:
+            print(f"    {len(moves)} outreach move(s) proposed — python scripts/reflect.py")
 
     print(f"\n💡 {learner.get('status', 'Ready for more.')}")
     print("=" * 55)

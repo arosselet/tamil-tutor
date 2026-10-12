@@ -32,7 +32,6 @@ when Anna chooses the audio modality).
 import argparse
 import asyncio
 import json
-import re
 import subprocess
 import sys
 from datetime import date, datetime, timedelta, timezone
@@ -64,8 +63,9 @@ from writer import (AGENT_MODEL, BOOL, INT, OPENROUTER_MODEL, STR, STRS, ask_jso
 # FILE. A lane cannot be a foundation for its peers. What stays here is
 # `rails_gate` below: whether to wake ANNA is the knock lane's own policy, and no
 # other lane asks it.
-from rails import (MAX_REACHES_PER_DAY, MIN_GAP_HOURS, WAKING_END_HOUR,
-                   WAKING_START_HOUR, in_waking_window, last_fire, reaches_today)
+from rails import (MAX_REACHES_PER_DAY, MIN_GAP_HOURS, TEASE_CAP_PER_6, TEASE_RE,
+                   WAKING_END_HOUR, WAKING_START_HOUR, approved, in_waking_window,
+                   last_fire, policy_block, reaches_today)
 from observations import OBSERVATIONS_PATH
 from state_io import (KNOCK_LOG_PATH, LEARNER_PATH, LEXICON_PATH, LOCAL_TZ,
                       STANCES, is_fire, load_json, local_date)
@@ -115,14 +115,18 @@ def rails_gate(force: bool, now: datetime | None = None) -> tuple[bool, str]:
 
     klog = load_json(KNOCK_LOG_PATH) or []
     n_today = reaches_today(klog, now_local.date())
-    if n_today >= MAX_REACHES_PER_DAY:
-        return False, f"daily cap reached ({n_today}/{MAX_REACHES_PER_DAY})"
+    # The approved values when Andrew has approved a move, else the constants
+    # (2026-10-12): `rails.approved` re-applies the bounds on every read.
+    cap = approved("max_reaches_per_day", MAX_REACHES_PER_DAY)
+    min_gap = approved("min_gap_hours", MIN_GAP_HOURS)
+    if n_today >= cap:
+        return False, f"daily cap reached ({n_today}/{cap})"
 
     lf = last_fire(klog)
     if lf:
         gap = (now - datetime.fromisoformat(lf["timestamp"])).total_seconds() / 3600
-        if gap < MIN_GAP_HOURS:
-            return False, f"min-gap not met ({gap:.1f}h < {MIN_GAP_HOURS}h)"
+        if gap < min_gap:
+            return False, f"min-gap not met ({gap:.1f}h < {min_gap}h)"
 
     # Anna's own soft gate — his chosen cadence. Set on the most recent decision.
     if klog:
@@ -130,7 +134,7 @@ def rails_gate(force: bool, now: datetime | None = None) -> tuple[bool, str]:
         if nc and now < datetime.fromisoformat(nc):
             return False, f"Anna's next_check not due (set for {nc})"
 
-    return True, f"eligible ({n_today}/{MAX_REACHES_PER_DAY} today) — waking Anna to decide"
+    return True, f"eligible ({n_today}/{cap} today) — waking Anna to decide"
 
 
 # ── The digest Anna reads (state + outcome memory + his remaining room) ────────
@@ -243,7 +247,8 @@ def remaining_room(klog: list, now: datetime) -> str:
     # rail that reads labels. Python counts the openers; the mandate owns the cap.
     teases = sum(bool(TEASE_RE.search(k.get("body") or "")) for k in
                  [k for k in klog if is_fire(k)][-6:])
-    lore_str += f"\n  Progress-tease template in {teases} of the last 6 fires (cap: 1 in 3)."
+    tease_cap = approved("tease_cap_per_6", TEASE_CAP_PER_6)
+    lore_str += f"\n  Progress-tease template in {teases} of the last 6 fires (cap: {tease_cap} of 6)."
     # Eavesdrop cadence — catch items advance ONLY through eavesdrop; surface a
     # warning when the cadence has lapsed so Anna doesn't keep skipping it.
     eavesdrop_str = ""
@@ -270,7 +275,8 @@ def remaining_room(klog: list, now: datetime) -> str:
     return (f"RAILS (hard — stay well inside; silence is free):\n"
             f"  Waking window {WAKING_START_HOUR}:00–{WAKING_END_HOUR}:00 {now_local.tzname()}; "
             f"now {now_local:%H:%M}.\n"
-            f"  Reaches today: {n_today}/{MAX_REACHES_PER_DAY}. Min gap {MIN_GAP_HOURS}h ({gap_str})."
+            f"  Reaches today: {n_today}/{approved('max_reaches_per_day', MAX_REACHES_PER_DAY)}. "
+            f"Min gap {approved('min_gap_hours', MIN_GAP_HOURS)}h ({gap_str})."
             f"{lore_str}{eavesdrop_str}")
 
 
@@ -416,9 +422,8 @@ def campaign_block() -> str:
     return "CAMPAIGN (the live week plan — steer by it):\n" + (body[:1500].rsplit("\n\n", 1)[0] if len(body) > 1500 else body)
 
 
-# The progress-tease openers the template rail counts (see remaining_room).
-TEASE_RE = re.compile(r"you already|you own|you'?re (one|1)\b|\bone\b.{0,40}\baway\b|"
-                      r"\ba\b.{0,40}\baway from\b", re.I)
+# TEASE_RE moved to `rails.py` (2026-10-12) so the weekly reflection can count
+# the tease frame without importing a lane (s92).
 
 def build_digest() -> str:
     """Everything Anna needs to make a policy call: learning state + the live
@@ -430,8 +435,10 @@ def build_digest() -> str:
     klog = load_json(KNOCK_LOG_PATH) or []
     now = datetime.now(timezone.utc)
     campaign = campaign_block()
+    # The weekly reflection's digest rides beside the outcome memory (2026-10-12):
+    # what the logs say worked, measured — the memory is what happened lately.
     parts = [status, campaign, threads.block(klog, now, arc=bool(campaign)), due_menu_block(),
-             outcome_memory(klog, now), remaining_room(klog, now)]
+             outcome_memory(klog, now), policy_block(), remaining_room(klog, now)]
     return "\n\n".join(p for p in parts if p)
 
 
