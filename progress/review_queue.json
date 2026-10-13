@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "id": "03672b15b7",
+    "form": "சொல்றேன்",
+    "en": "I will say",
+    "unattested": [],
+    "where": "item",
+    "reason": "wrong: சொல்றேன் means 'I say/am saying' (present), not future; future is சொல்லுவேன்",
+    "lane": "rotation",
+    "source": "rotation_inventory_2026-10-13_0956",
+    "queued_at": "2026-10-13T10:00:13",
+    "status": "pending"
+  }
+]

@@ -326,7 +326,7 @@
       34,
       77
     ],
-    "last_surfaced": "2026-10-06",
+    "last_surfaced": "2026-10-13",
     "exposures": 3,
     "taught_on": "2026-02-24",
     "heard_times": 1,
@@ -384,8 +384,8 @@
       72,
       81
     ],
-    "last_surfaced": "2026-10-04",
-    "exposures": 6,
+    "last_surfaced": "2026-10-13",
+    "exposures": 7,
     "taught_on": "2026-02-25",
     "heard_times": 1,
     "reps": 1,
@@ -486,9 +486,9 @@
       76,
       87
     ],
-    "last_surfaced": "2026-10-06",
+    "last_surfaced": "2026-10-13",
     "reps": 3,
-    "exposures": 6,
+    "exposures": 7,
     "taught_on": "2026-02-24",
     "heard_times": 1,
     "heard_on": null
@@ -915,8 +915,8 @@
       65,
       69
     ],
-    "last_surfaced": "2026-10-06",
-    "exposures": 7,
+    "last_surfaced": "2026-10-13",
+    "exposures": 8,
     "taught_on": "2026-02-24",
     "heard_times": 1,
     "heard_on": null,
@@ -1265,8 +1265,8 @@
       34,
       35
     ],
-    "last_surfaced": "2026-10-04",
-    "exposures": 2,
+    "last_surfaced": "2026-10-13",
+    "exposures": 3,
     "taught_on": "2026-02-25",
     "reps": 2,
     "heard_times": 1,
@@ -1394,8 +1394,8 @@
       76,
       85
     ],
-    "last_surfaced": "2026-10-03",
-    "exposures": 5,
+    "last_surfaced": "2026-10-13",
+    "exposures": 6,
     "reps": 4,
     "taught_on": "2026-02-24",
     "heard_times": 1
@@ -1560,8 +1560,8 @@
       61,
       78
     ],
-    "last_surfaced": "2026-10-06",
-    "exposures": 7,
+    "last_surfaced": "2026-10-13",
+    "exposures": 8,
     "taught_on": "2026-02-25",
     "reps": 2,
     "heard_times": 1,
@@ -1788,8 +1788,8 @@
       35,
       61
     ],
-    "last_surfaced": "2026-10-06",
-    "exposures": 5,
+    "last_surfaced": "2026-10-13",
+    "exposures": 6,
     "taught_on": "2026-03-07",
     "reps": 2,
     "heard_on": null
@@ -2003,8 +2003,8 @@
       36,
       38
     ],
-    "last_surfaced": "2026-10-06",
-    "exposures": 6,
+    "last_surfaced": "2026-10-13",
+    "exposures": 7,
     "reps": 3,
     "taught_on": "2026-02-24",
     "heard_times": 1,
@@ -4761,8 +4761,8 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-03",
-    "exposures": 4
+    "last_surfaced": "2026-10-13",
+    "exposures": 5
   },
   "கேட்கல": {
     "gloss": "didn't hear it / couldn't hear — the -la negative",
@@ -4951,7 +4951,7 @@
     "seen_in": [
       93
     ],
-    "last_surfaced": "2026-10-06",
+    "last_surfaced": "2026-10-13",
     "taught_on": "2026-09-16",
     "heard_times": 1,
     "exposures": 1
@@ -4980,21 +4980,21 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-09-20",
+    "last_surfaced": "2026-10-13",
     "gloss": "Urgent / Hurry",
     "taught_on": "2026-09-20",
     "heard_times": 1,
-    "exposures": 1
+    "exposures": 2
   },
   "நேரம்": {
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-06",
+    "last_surfaced": "2026-10-13",
     "gloss": "Time",
     "taught_on": "2026-09-20",
     "heard_times": 1,
-    "exposures": 3
+    "exposures": 4
   },
   "வேலை": {
     "recognition": "untested",
@@ -5020,7 +5020,7 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-06",
+    "last_surfaced": "2026-10-13",
     "gloss": "My",
     "taught_on": "2026-09-20",
     "heard_times": 1,
@@ -5055,16 +5055,16 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-03",
+    "last_surfaced": "2026-10-13",
     "gloss": "Tell / Say",
     "taught_on": null,
-    "exposures": 2
+    "exposures": 3
   },
   "படி": {
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-06",
+    "last_surfaced": "2026-10-13",
     "gloss": "Study / read (bare imperative / root)",
     "taught_on": null
   },
@@ -5072,7 +5072,7 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-06",
+    "last_surfaced": "2026-10-13",
     "gloss": "See / Look",
     "taught_on": null
   },
@@ -5135,7 +5135,7 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-06",
+    "last_surfaced": "2026-10-13",
     "gloss": "Very / a lot — the universal intensifier (locked in 5 deck chunks)",
     "taught_on": null
   },
@@ -5143,19 +5143,20 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-06",
+    "last_surfaced": "2026-10-13",
     "gloss": "More / still / yet",
     "taught_on": null,
-    "exposures": 1
+    "exposures": 2
   },
   "நான்": {
     "recognition": "untested",
     "production": "hinted",
     "seen_in": [],
-    "last_surfaced": "2026-09-29",
+    "last_surfaced": "2026-10-13",
     "gloss": "I",
     "reps": 1,
-    "taught_on": null
+    "taught_on": null,
+    "exposures": 1
   },
   "யாரு": {
     "recognition": "untested",
@@ -5169,10 +5170,10 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-06",
+    "last_surfaced": "2026-10-13",
     "gloss": "How?",
     "taught_on": null,
-    "exposures": 1
+    "exposures": 2
   },
   "நாள்": {
     "recognition": "untested",
@@ -5186,15 +5187,16 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-03",
+    "last_surfaced": "2026-10-13",
     "gloss": "Time / occasion — இன்னொரு தடவ",
-    "taught_on": null
+    "taught_on": null,
+    "exposures": 1
   },
   "இரு": {
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-06",
+    "last_surfaced": "2026-10-13",
     "gloss": "Be / stay / exist (bare root)",
     "taught_on": null
   },
@@ -5202,7 +5204,7 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-03",
+    "last_surfaced": "2026-10-13",
     "gloss": "Say / tell (bare imperative / root)",
     "taught_on": null
   },
@@ -5284,6 +5286,30 @@
       95
     ],
     "last_surfaced": "2026-10-08",
+    "taught_on": null
+  },
+  "முடி": {
+    "recognition": "untested",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-10-13",
+    "gloss": "Finish / complete / be able (bare root)",
+    "taught_on": null
+  },
+  "சமை": {
+    "recognition": "untested",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-10-13",
+    "gloss": "Cook / prepare food (bare imperative / root)",
+    "taught_on": null
+  },
+  "சரியா": {
+    "recognition": "untested",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-10-13",
+    "gloss": "Correctly / accurately",
     "taught_on": null
   }
 }
