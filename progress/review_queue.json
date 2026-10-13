@@ -10,5 +10,51 @@
     "source": "rotation_inventory_2026-10-13_0956",
     "queued_at": "2026-10-13T10:00:13",
     "status": "pending"
+  },
+  {
+    "id": "45adba35b6",
+    "form": "**பாட்டி (F):** பேசுங்க பேசுங்க். நாங்க சாப்பிடறோம் தான்.",
+    "en": "",
+    "unattested": [
+      "பாட்டி",
+      "பேசுங்க்",
+      "சாப்பிடறோம்"
+    ],
+    "where": "line",
+    "reason": "wrong: Typo in 'பேசுங்க்' (should be 'பேசுங்க') and unnatural phrasing in 'சாப்பிடறோம் தான்'.",
+    "lane": "episode",
+    "source": "tier2_mission96",
+    "queued_at": "2026-10-13T15:40:32",
+    "status": "pending"
+  },
+  {
+    "id": "66c1a441b6",
+    "form": "**அத்தை (F):** சொல்லுங்க். நாலு பேர் கன்ஃபர்ம், மூணு பேர் இன்னும் தெரியல.",
+    "en": "",
+    "unattested": [
+      "சொல்லுங்க்",
+      "பேர்",
+      "பேர்"
+    ],
+    "where": "line",
+    "reason": "wrong: Typo in 'சொல்லுங்க்'; should be 'சொல்லுங்க'.",
+    "lane": "episode",
+    "source": "tier2_mission96",
+    "queued_at": "2026-10-13T15:40:32",
+    "status": "pending"
+  },
+  {
+    "id": "b93d94676e",
+    "form": "**மாமா (M):** அம்மா, லிஸ்ட் முதல்ல பேசுங்க.",
+    "en": "",
+    "unattested": [
+      "லிஸ்ட்"
+    ],
+    "where": "line",
+    "reason": "wrong: Unnatural calque in 'லிஸ்ட் முதல்ல பேசுங்க'; should be 'முதல்ல லிஸ்ட்ட பத்தி பேசுங்க' or 'லிஸ்ட்ட முதல்ல சொல்லுங்க'.",
+    "lane": "episode",
+    "source": "tier2_mission96",
+    "queued_at": "2026-10-13T15:40:32",
+    "status": "pending"
   }
 ]
