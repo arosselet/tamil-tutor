@@ -8385,5 +8385,24 @@
     "stance": "ask",
     "thread": "word:விட்டுடு",
     "target_revealed": false
+  },
+  {
+    "date": "2026-10-13",
+    "timestamp": "2026-10-13T22:09:36.082193+00:00",
+    "acted": true,
+    "modality": "fielding",
+    "move": "fielding: ulla",
+    "rationale": "Fielding reach on [word:உள்ள] in the evening; Athai asks where Ravi is, inviting a fast cold answer.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-10-14T12:09:36.082193+00:00",
+    "body": "Ravi enga irukkaan? — answer Athai 🏠",
+    "body_script": "ரவி எங்க இருக்கான்? — answer Athai 🏠",
+    "expected_target": "உள்ள",
+    "stance": "ask",
+    "thread": "word:உள்ள",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-13T22-09.mp3",
+    "memo_script": "ரவி எங்க இருக்கான்?",
+    "mp3": "published_audio/knocks/knock_2026-10-13T22-09.mp3"
   }
 ]
