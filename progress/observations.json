@@ -22319,5 +22319,17 @@
     "medium": "audio",
     "source": "knock:2026-10-12T20:41:50.518268+00:00",
     "note": ""
+  },
+  {
+    "id": "6f390829ece7",
+    "at": "2026-10-13T01:56:21Z",
+    "word": "வேண்டாம்",
+    "channel": "session",
+    "kind": "tested",
+    "axis": "recognition",
+    "result": "right",
+    "medium": "text",
+    "source": "chat 2026-10-12: Mama/Karthi kitchen-door vignette, 'Appa, ippo venaam, please. Naalaikku.'",
+    "note": "Asked what Karthi asks for with 'ippo venaam'; replied 'don't want now' unaided, page only. Fresh sentence, unannounced; reverses 09-25 misread of scooter venaam as wanting."
   }
 ]
