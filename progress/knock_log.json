@@ -8403,6 +8403,31 @@
     "target_revealed": false,
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-13T22-09.mp3",
     "memo_script": "ரவி எங்க இருக்கான்?",
-    "mp3": "published_audio/knocks/knock_2026-10-13T22-09.mp3"
+    "mp3": "published_audio/knocks/knock_2026-10-13T22-09.mp3",
+    "response": "reply",
+    "reply": "Context? I don’t know where Ravi is",
+    "reply_verdict": "chat",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line_script": "Athai is standing at the door looking for him — tell her he's inside: உள்ள.",
+    "reply_line": "Athai is standing at the door looking for him — tell her he's inside: ulla.",
+    "reply_at": "2026-10-13T22:11:48Z",
+    "exchanges": [
+      {
+        "at": "2026-10-13T22:11:48Z",
+        "reply": "Context? I don’t know where Ravi is",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "Athai is standing at the door looking for him — tell her he's inside: ulla.",
+        "reply_line_script": "Athai is standing at the door looking for him — tell her he's inside: உள்ள.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ]
   }
 ]
