@@ -25,7 +25,8 @@
     "lane": "episode",
     "source": "tier2_mission96",
     "queued_at": "2026-10-13T15:40:32",
-    "status": "pending"
+    "status": "rejected",
+    "decided_at": "2026-10-13T15:42:01"
   },
   {
     "id": "66c1a441b6",
@@ -41,7 +42,8 @@
     "lane": "episode",
     "source": "tier2_mission96",
     "queued_at": "2026-10-13T15:40:32",
-    "status": "pending"
+    "status": "rejected",
+    "decided_at": "2026-10-13T15:42:01"
   },
   {
     "id": "b93d94676e",
@@ -55,6 +57,7 @@
     "lane": "episode",
     "source": "tier2_mission96",
     "queued_at": "2026-10-13T15:40:32",
-    "status": "pending"
+    "status": "rejected",
+    "decided_at": "2026-10-13T15:42:01"
   }
 ]
