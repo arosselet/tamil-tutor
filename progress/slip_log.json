@@ -989,5 +989,17 @@
     "note": "dropped the question suffix -aa",
     "word": "",
     "dose_channel": "episode"
+  },
+  {
+    "at": "2026-10-13T22:13:27Z",
+    "date": "2026-10-13",
+    "lane": "knock",
+    "modality": "fielding",
+    "tag": "3sg-aan",
+    "said": "iruka",
+    "want": "இருக்கான்",
+    "note": "Ravi is he, so irukkaan with the -aan ending",
+    "word": "",
+    "dose_channel": "episode"
   }
 ]

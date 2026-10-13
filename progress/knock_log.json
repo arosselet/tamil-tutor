@@ -8405,14 +8405,18 @@
     "memo_script": "ரவி எங்க இருக்கான்?",
     "mp3": "published_audio/knocks/knock_2026-10-13T22-09.mp3",
     "response": "reply",
-    "reply": "Context? I don’t know where Ravi is",
-    "reply_verdict": "chat",
-    "reply_fired": [],
+    "reply": "Ulla iruka",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "உள்ள"
+    ],
     "reply_fired_cold": [],
-    "reply_fired_capped": [],
-    "reply_line_script": "Athai is standing at the door looking for him — tell her he's inside: உள்ள.",
-    "reply_line": "Athai is standing at the door looking for him — tell her he's inside: ulla.",
-    "reply_at": "2026-10-13T22:11:48Z",
+    "reply_fired_capped": [
+      "உள்ள"
+    ],
+    "reply_line_script": "adhu dhaan! Ravi is a guy, so உள்ள இருக்கான் — or just உள்ள lands fine.",
+    "reply_line": "adhu dhaan! Ravi is a guy, so ulla irukkaan — or just ulla lands fine.",
+    "reply_at": "2026-10-13T22:13:27Z",
     "exchanges": [
       {
         "at": "2026-10-13T22:11:48Z",
@@ -8425,6 +8429,26 @@
         "reply_line": "Athai is standing at the door looking for him — tell her he's inside: ulla.",
         "reply_line_script": "Athai is standing at the door looking for him — tell her he's inside: உள்ள.",
         "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-10-13T22:13:27Z",
+        "reply": "Ulla iruka",
+        "verdict": "hinted",
+        "fired": [
+          "உள்ள"
+        ],
+        "fired_cold": [],
+        "fired_capped": [
+          "உள்ள"
+        ],
+        "graduated": [],
+        "reply_line": "adhu dhaan! Ravi is a guy, so ulla irukkaan — or just ulla lands fine.",
+        "reply_line_script": "adhu dhaan! Ravi is a guy, so உள்ள இருக்கான் — or just உள்ள lands fine.",
+        "slips": [
+          "3sg-aan"
+        ],
         "spoke": "",
         "scheduled": ""
       }

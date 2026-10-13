@@ -22655,5 +22655,17 @@
     "medium": "audio",
     "source": "rotation_inventory_2026-10-13_0956",
     "note": ""
+  },
+  {
+    "id": "379055b06141",
+    "at": "2026-10-13T22:13:18Z",
+    "word": "உள்ள",
+    "channel": "fielding",
+    "kind": "tested",
+    "axis": "production",
+    "result": "partial",
+    "medium": "text",
+    "source": "knock:2026-10-13T22:09:36.082193+00:00",
+    "note": "capped fire"
   }
 ]
