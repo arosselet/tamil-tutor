@@ -5,19 +5,15 @@
   "last_debrief": "STORY SO FAR: Mon 10-12 late evening, low energy, ~15 min, chat, written. FRICTION (banked as feedback): (a) Anna quizzed venaam and announced it as tonight's progress; it is one of his first Tamil words from a decade ago (podhum, vanakkam, venum, vendaam). Never treat these core words as targets. (b) He said a few minutes and low energy, and Anna kept offering him exits; that underused time he was actually there for. Low energy means a light form, not a short one. Once the scene had real new material, it worked. (c) Anna answered his feedback with 'adhu dhaan'. Content: ukkaarunga named as his. Taught aachu (became): evlo aachu, enna aachu, time/late aachu, saaptaachaa, mudinjaachu; he called it a good tidbit, so the -aachu family is a live interest. Kitchen vignette (M95 follow-on, Paati's surprise blown), page, English answers: Karthi blames Deepa (right); Deepa's 'Nee dhaan kuduthe... chocolate mattum vaangunen' not attempted, taught (mattum = only); Mama 'Appo meedhi panam enga?' missed, taught; Paati 'Enakku ellaam theriyum da' partial, taught (dative knower, ellaam). THEN UNAIDED in fresh lines: 'Appo... Paati-ku ellaam theriyumaa?' -> 'So... Paati knows everything?' (appo, ellaam, X-ku theriyum, -aa question all right); 'Theriyum da. Sweet box-um theriyum, meedhi panam-um theriyum' -> 'She knows about the sweet box and rest of the money' (meedhi panam right one line after the teach, X-um Y-um parsed). Taught -um...-um = both/and after. Same-day, page only: supported cold, not durable yet. Earlier: 10-08 thambi lore, veliya poren read unaided, ulla closed; 09-23..09-25 mudi lore, Spare Key vignette (nada root). Ear cue: M94 and M95; attendance not reported. CARRY: 09-22 poga mudiyala/polaam/irukken written supported. 09-21 kitta irukku and aana supported written only. 09-20 written monthly check partial, sample 793edf2e131d3231: kaalaila wrong, raathiri partial, konjam thanni kudunga right, anuppunga right, paathen right isolated, ulla right. Remaining sample: freeya vidunga; anna; adhanaala dhaan; azhaippen; avasaramaa veliya ponen; autokku poganum; aana; enakku onnum theriyaadhu; kavalai; kaaram paravaayilla pazhakkamaayiduchu; kilambu; kelvipattiya; kovam; sari; sariyayidum; naama; nee; piragu paakkalaam; petti; podu; povom; munnadiye; vendaanga; velai. Receptive check never run by ear. Live slips: past-tense, nga-has-no-address, noun-for-verb, respect-nga, come-go-direction, default-la-tail, literary-twin. VAA stays out of chat production until unannounced ambush. NEXT: meedhi, appo, ellaam, X-ku theriyum, -um..-um and the aachu family resurfaced cold in a new scene, ideally by ear. Hook: Paati's counter-move now that she knows.",
   "soak_order": {
     "payload": [
-      "எவ்ளோ ஆகும்?",
-      "ஒன்னும்",
-      "வேண்டாம்"
+      "மீதி",
+      "அப்போ",
+      "எல்லாம்",
+      "ஆச்சு"
     ],
-    "scene_seed": "Paati's 75th: Karthi takes Deepa and Ravi to a shop on Trichy Road to buy Paati's secret present with five hundred rupees that is really Mama's. Deepa asks the price of everything, Ravi wants everything, and Paati has told everyone she wants nothing.",
-    "from": "2026-10-08",
-    "focus": "A lunch-length, enjoyable self-contained scene in the down room: the children ask prices (evlo aagum?), weigh what Paati wants against what she says (onnum venaam - she wants nothing - versus what she secretly would love), and Karthi improvises with money that is not his. Revisit venum/venaam in whole sentences under load (the ear soak carries the bare contrast). Introduce only what the scene needs; English scaffolding carries meaning. Requested by Andrew for lunch listening.",
-    "channel": "episode",
-    "attempted": {
-      "at": "2026-10-08",
-      "episode": "95",
-      "unclaimed": []
-    }
+    "scene_seed": "Paati's counter-move: now that she knows about the sweet box and the leftover money, she quietly turns the tables on Karthi, Deepa and Mama at the table",
+    "from": "2026-10-13",
+    "focus": "A sit-down, enjoyable household scene that reuses this week's words cold, by ear: meedhi (the rest/leftover - meedhi panam), appo (so/then - as a reaction), ellaam (everything - Paati-ku ellaam theriyum), X-um Y-um (both/and), and the -aachu family (enna aachu, evlo aachu, mudinjaachu, late aachu). Paati is a step ahead of everyone. English scaffolding carries meaning; introduce only what the scene needs. Never target his decade-old core words (venum/venaam/podhum).",
+    "channel": "episode"
   },
   "next_engine": "frame:polite-nga",
   "slip_closes": {
