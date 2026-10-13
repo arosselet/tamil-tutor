@@ -504,6 +504,35 @@ firing `seri seri` from the wrong button still scores.
 against knock …` or `1. MESSAGE — not a rep, nothing graded`. If a request got graded,
 the tag did not arrive.
 
+### 8.6 "Rate Episode" — one tap from the show notes (2026-10-13)
+
+Every item in `rss.xml` ends its notes with **How was it? Loved it · Finished · Lost
+the thread · Stopped early**. Each word is a link:
+
+`shortcuts://run-shortcut?name=Rate%20Episode&input=text&text=<feed title>|<verdict>`
+
+iOS runs the Shortcut named exactly **Rate Episode** with that text as its *Shortcut
+Input*. The Shortcut keeps its picker for the home-screen tap and gains one branch at
+the top:
+
+1. **If** *Shortcut Input* **has any value**:
+   - **Split Text** — *Shortcut Input*, by **Custom** `|`.
+   - **Get Item from List** — *First Item* → that is the `episode`.
+   - **Get Item from List** — *Last Item* (of the split, not of the first) → `verdict`.
+2. **Otherwise**: the existing picker — title from `progress/recent_audio.txt`, then
+   the verdict menu, whose rows should read exactly `Loved it`, `Finished`,
+   `Lost the thread`, `Stopped early`.
+3. **End If**, then the existing **Get Contents of URL** (§8.1's POST, with
+   `event_type` = `episode-rating` and `client_payload` = `episode` + `verdict`), fed
+   by whichever branch ran.
+
+The verdict vocabulary is `rebuild_rss.VERDICTS`; Python matches on the start of the
+row, case-insensitively, so a menu row may carry more words after them. A 204 means
+GitHub took it — the proof is an `Audio listen: <id> <verdict>` commit, or the `rate-episode` step in
+the Anna run (an unknown title or verdict fails that step loudly). The first tap may
+ask **Open in "Shortcuts"?** — Allow. If Apple Podcasts will not open the link at all,
+the home-screen picker still works and nothing else changes.
+
 ## 9. Which leg breaks when — reading a "it disappeared" symptom
 
 The two directions do **not** share a network path, and confusing them costs a day.

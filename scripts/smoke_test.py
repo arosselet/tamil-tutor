@@ -150,6 +150,7 @@ def main():
         run(render.s131_an_unjudged_form_never_ships, sb)
         run(state.s132_a_corrupt_book_fails_at_load, sb)
         run(state.s140_a_repair_order_can_name_rotation, sb)
+        run(state.s145_a_show_notes_tap_rates_the_episode, sb)
         run(render.s141_a_lane_claims_only_what_it_said, sb)
         run(render.s142_a_known_word_answer_is_still_judged, sb)
         run(render.s144_an_order_is_paid_only_in_what_played, sb)

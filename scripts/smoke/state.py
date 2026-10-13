@@ -5558,3 +5558,63 @@ def s140_a_repair_order_can_name_rotation(sb: Path):
         clear_listens()
         lex_path.write_bytes(saved[0])
         learner_path.write_bytes(saved[1])
+
+
+def s145_a_show_notes_tap_rates_the_episode(sb: Path):
+    """One tap from the show notes rates the item it sits under (2026-10-13).
+
+    The picker was a separate trip and no tap arrived 09-20 → 10-13, so each
+    item's notes carry one `shortcuts://` link per verdict, and `loved it` joins
+    the three facts. The Shortcut splits its input on the separator and sends
+    the halves; nothing on the phone can be tested, so this case holds the
+    contract from both ends.
+
+    Gate 7.2 — the silent no-op is a link that runs the Shortcut and files
+    nothing: a title that no longer matches the feed, a verdict the parser does
+    not know, or a button the notes forgot. The phone sees a 204 for all three.
+    So every link is round-tripped through the real `cmd_rate_episode` and the
+    ledger is RE-READ for the row it should have written."""
+    print("\n145. A show-notes tap rates the episode it sits under (2026-10-13)")
+    import argparse as _ap
+    import contextlib
+    import io as _io
+    import xml.etree.ElementTree as ET
+    from urllib.parse import parse_qs, urlsplit
+    sys.path.insert(0, str(sb / "scripts"))
+    ss = importlib.import_module("sync_state")
+    rs = importlib.import_module("rebuild_rss")
+    fb_path = sb / "progress" / "feedback_log.json"
+    saved, saved_feed = fb_path.read_bytes(), (rs.feed_items, ss.feed_items)
+    title = "Ep 96 — Paati's Counter-Move & the Rest"
+    try:
+        write_json(fb_path, [])
+        rs.feed_items = lambda: [{"id": "rotation_z", "title": title,
+                                  "format": "rotation", "minutes": 12.0}]
+        ss.feed_items = rs.feed_items
+        notes = rs.show_notes_for(title, "no_caption_sheet.md")
+        item = ET.fromstring(f"<item>{notes}</item>")
+        hrefs = re.findall(r'href="([^"]+)"', item.findtext("description") or "")
+        check("the notes carry one link per verdict, in the button order",
+              len(hrefs) == len(rs.VERDICTS), str(hrefs))
+        for href, verdict in zip(hrefs, rs.VERDICTS):
+            q = parse_qs(urlsplit(href).query)
+            check(f"'{verdict}' runs the phone's Shortcut by its exact name",
+                  href.startswith("shortcuts://run-shortcut?")
+                  and q.get("name") == [rs.RATING_SHORTCUT] == ["Rate Episode"]
+                  and q.get("input") == ["text"], href)
+            sent_title, _, sent_verdict = q["text"][0].rpartition(rs.RATING_SEPARATOR)
+            with contextlib.redirect_stdout(_io.StringIO()):
+                ss.cmd_rate_episode(_ap.Namespace(episode=sent_title,
+                                                  verdict=sent_verdict, commit=False))
+            row = (read_json(fb_path) or [])[-1]
+            check(f"...and its halves file a row for THIS item as '{verdict}'",
+                  row.get("id") == "rotation_z"
+                  and rs.VERDICTS[verdict][0] in row.get("note", ""), str(row))
+        loved = [r for r in read_json(fb_path) if "loved it" in r["note"]]
+        check("`loved it` is a whole listen — it carries the item's minutes",
+              len(loved) == 1 and loved[0]["minutes"] == 12.0, str(loved))
+        check("no caption sheet, no caption line — the links stand alone",
+              "Captions" not in notes)
+    finally:
+        rs.feed_items, ss.feed_items = saved_feed
+        fb_path.write_bytes(saved)

@@ -304,7 +304,12 @@ CODE_BUDGETS = {
     # field on the artifact registry, which would have duplicated a value
     # `existing_items` deliberately measures once and freezes, and would have
     # covered only numbered missions (the exact gap `feed_items` exists to fix).
-    "scripts/rebuild_rss.py": 368,
+    # 368 -> 385 (2026-10-13, Andrew): A TRANSFER, and sync_state is re-censused
+    # DOWN by the same 17 in this diff. The rating VERDICTS table moved here,
+    # beside the show-notes links that send it (one tap from the podcast app
+    # replaces the home-screen picker trip); the links replace
+    # `caption_block_for`, whose caption line now shares one <description>.
+    "scripts/rebuild_rss.py": 385,
     # New surface, budgeted in the diff that creates it (2026-09-01). · Set at the census plus normal headroom.
     "scripts/audio_titles.py": 80,
     # 495 -> 505 (the judge seat (2026-10-12, Andrew)): the episode chokepoint. Every renderer of an
@@ -461,7 +466,10 @@ CODE_BUDGETS = {
     # `split_phonetic` and every caller's tail-handling retired with the stored
     # field, along with `add-word --phonetic` and the deck seeder's ingestion of
     # it. This file was on its ceiling; the room goes back to the budget.
-    "scripts/sync_state.py": 802,
+    # 802 -> 785 (2026-10-13): RE-CENSUSED DOWN, the other half of the
+    # rebuild_rss transfer above — VERDICTS left, and the rest is headroom paid
+    # over rather than kept.
+    "scripts/sync_state.py": 785,
 }
 CODE_BUDGET_EXEMPT = {"scripts/smoke_test.py"}
 SUITE = "scripts/smoke/"

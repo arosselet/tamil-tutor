@@ -5,6 +5,7 @@ import re
 import subprocess
 from datetime import datetime
 import email.utils
+from urllib.parse import quote
 from xml.sax.saxutils import escape as xml_escape
 
 import audio_titles
@@ -63,7 +64,7 @@ ITEM_TEMPLATE = """
     <item>
       <title>{title}</title>
       <itunes:author>{author}</itunes:author>
-      <itunes:summary>{summary}</itunes:summary>{caption_block}
+      <itunes:summary>{summary}</itunes:summary>{show_notes}
       <enclosure url="{audio_url}" length="{size}" type="audio/mpeg"/>
       <guid>{audio_url}</guid>
       <pubDate>{pub_date}</pubDate>
@@ -71,22 +72,74 @@ ITEM_TEMPLATE = """
     </item>
 """
 
-# Show-notes block for episodes that ship a follow-along caption sheet
-# (captioned soak, 2026-07-13). <link> + an anchor in <description> — podcast
-# apps render one or the other; either way the sheet is one tap from the player.
-CAPTION_BLOCK = """
-      <link>{caption_url}</link>
-      <description><![CDATA[\U0001F4D6 <a href="{caption_url}">Captions — follow along ({caption_columns})</a>]]></description>"""
+# THE RATING BUTTONS — the one vocabulary the phone may send (`sync_state.
+# cmd_rate_episode` reads it from here, because this module writes the surfaces
+# he taps: the show-notes links and the picker list). Order is the order the
+# links appear in. Each row: label for the ledger, whether he heard the whole
+# tape, and the diagnostic the ledger row carries.
+#
+# STARS STAY RETIRED; MOOD COMES BACK AS ONE BUTTON (2026-10-13, Andrew: "why
+# can't I report a mood? isn't it a useful signal for you to tell what's
+# engaging?"). 09-13 retired stars because six ratings in six weeks were all
+# 2-4 — a five-point scale makes a tired man calibrate, and calibration
+# collapses to the middle. That half holds. The other half — "quality moves to
+# the play count" — never delivered: play count needs a tap per play, and no tap
+# of any kind arrived 09-20 → 10-13. `loved it` is a salient outlier, not a
+# scale: a rare press is the signal. It costs no extra tap (it is also
+# `finished`), and it steers COMMISSIONING only — it writes no rung (10-05:
+# taps report what he did; questions measure what he knows).
+#   attends -> he was there for the whole tape, so pending Teach Beats open.
+#              `stopped early` cannot say WHERE he stopped, so it opens nothing
+#              and stays an exposure; guessing would re-mint the ambush.
+VERDICTS = {
+    "loved it": ("loved it", True,
+                 " ← MORE LIKE THIS: he finished it and it stood out. Steers "
+                 "what gets commissioned; it says nothing about which words "
+                 "he knows."),
+    "finished": ("finished it", True, ""),
+    "lost the thread": ("lost the thread", True,
+                        " ← COVERAGE BROKE HERE: he stayed with the tape and "
+                        "could not follow it. This is the 95%-known-words rule "
+                        "failing on a specific artifact, which is the one audio "
+                        "diagnostic the ledger could never collect before."),
+    "stopped early": ("stopped early", False, ""),
+}
+
+# ONE TAP FROM THE SHOW NOTES (2026-10-13, Andrew). The home-screen picker was
+# a separate trip — leave the podcast app, find the Shortcut, pick the title,
+# pick the verdict — and no tap arrived for three weeks. Each item's notes now
+# carry one link per verdict that runs the Shortcut with `<title>|<verdict>` as
+# its input; the Shortcut splits on `|` and skips both menus (recipe:
+# docs/home_assistant_knock_buttons.md §8.6). The picker stays as the fallback
+# for an app that will not open the link. The name must match the phone's
+# Shortcut exactly, or iOS opens Shortcuts and runs nothing.
+RATING_SHORTCUT = "Rate Episode"
+RATING_SEPARATOR = "|"
 
 
-def caption_block_for(script_md_name: str) -> str:
-    """Non-empty show-notes block iff a caption sheet exists for this episode's
-    script name (e.g. "tier2_mission58.md")."""
-    if not os.path.exists(os.path.join(CAPTIONS_DIR, script_md_name)):
-        return ""
-    return CAPTION_BLOCK.format(
-        caption_url=f"{SITE_URL}/blob/main/{CAPTIONS_DIR}/{script_md_name}",
-        caption_columns=CAPTION_COLUMNS)
+def rating_url(title: str, verdict: str) -> str:
+    """The link one button carries. `cmd_rate_episode` resolves the title half
+    back to a feed item, so it is the feed title verbatim."""
+    return ("shortcuts://run-shortcut?name=" + quote(RATING_SHORTCUT)
+            + "&input=text&text=" + quote(title + RATING_SEPARATOR + verdict))
+
+
+def show_notes_for(title: str, script_md_name: str) -> str:
+    """The item's <description>: the rating links always, and the caption sheet
+    first when one exists (captioned soak, 2026-07-13). A caption also earns the
+    item's <link>, which some apps render instead of the notes."""
+    lines, link = [], ""
+    if os.path.exists(os.path.join(CAPTIONS_DIR, script_md_name)):
+        caption_url = f"{SITE_URL}/blob/main/{CAPTIONS_DIR}/{script_md_name}"
+        link = f"\n      <link>{caption_url}</link>"
+        lines.append(f'\U0001F4D6 <a href="{caption_url}">Captions — follow '
+                     f'along ({CAPTION_COLUMNS})</a>')
+    lines.append("How was it? " + " · ".join(
+        f'<a href="{rating_url(title, v)}">{v.capitalize()}</a>' for v in VERDICTS))
+    # CDATA: the hrefs carry raw `&`. A title holding "]]>" would end the block
+    # early; no title does, and quote() has already escaped it inside the hrefs.
+    return (link + "\n      <description><![CDATA["
+            + "<br/>".join(lines) + "]]></description>")
 
 
 def clean_title(raw_title: str, filename: str) -> str:
@@ -714,7 +767,7 @@ def generate_rss():
             title=xml_escape(title),
             author=AUTHOR,
             summary=xml_escape(title),
-            caption_block=caption_block_for(md_name(filename)),
+            show_notes=show_notes_for(title, md_name(filename)),
             audio_url=audio_url,
             size=size,
             pub_date=pub_date,

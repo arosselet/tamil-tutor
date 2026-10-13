@@ -44,7 +44,7 @@ from slips import (append_slips, canon_tag, cmd_slips,
                    slip_patterns)
 from publish import commit_and_push, publish
 import audio_titles
-from rebuild_rss import feed_items
+from rebuild_rss import VERDICTS, feed_items
 import month as month_mod
 import ladder as ladder_mod
 import threads
@@ -1148,31 +1148,12 @@ def cmd_knock_response(args):
 # "90 — Mission tier2_mission90" and "4 ★★★★" — because Shortcuts is a bad place
 # to parse and a worse place to test one. Parsing lives here, where a smoke case
 # can hold it (2026-08-27).
-# THE THREE BUTTONS (2026-09-13, Andrew: "we can retire them right away").
-# Stars measured mood, not the tape: six ratings arrived in six weeks, every one
-# of them 2-4 and most of them 3 — no discrimination, and it asked a tired man
-# for a judgement. A tap should report a FACT. Quality is not lost, it moves to
-# the PLAY COUNT, which costs no extra tap and is the better meter anyway: under
-# the re-listen cadence a tape played four times was good and a tape played once
-# was not.
-#   attends -> he was there for the whole tape, so pending Teach Beats open.
-#              `stopped early` cannot say WHERE he stopped, so it opens nothing
-#              and stays an exposure; guessing would re-mint the ambush.
+# THE BUTTONS live in `rebuild_rss.VERDICTS` (2026-10-13), beside the show-notes
+# links that send them — the 09-13 three plus `loved it`, and why.
 # No `$`: a re-render carries a suffix (`tier2_mission74_v2`) and is still
 # mission 74. Anchoring the tail would have left every versioned episode
 # resolving nothing — the same silent miss one size smaller.
 MISSION_STEM_RE = re.compile(r"^tier2_mission(\d+)")
-
-VERDICTS = {
-    "finished": ("finished it", True, ""),
-    "stopped early": ("stopped early", False, ""),
-    "lost the thread": ("lost the thread", True,
-                        " ← COVERAGE BROKE HERE: he stayed with the tape and "
-                        "could not follow it. This is the 95%-known-words rule "
-                        "failing on a specific artifact, which is the one audio "
-                        "diagnostic the ledger could never collect before."),
-}
-
 
 def _leading_int(raw: str) -> int | None:
     m = re.match(r"\s*(\d+)", raw or "")
@@ -1434,10 +1415,10 @@ def main():
     fb.add_argument("note", nargs="?", default=None, help="The feedback to log; omit to list recent")
     fb.add_argument("-n", type=int, default=20, help="How many recent entries to show when listing")
 
-    re_ = sub.add_parser("rate-episode", help="Record a listen from the phone (feed title + one of the three buttons)")
+    re_ = sub.add_parser("rate-episode", help="Record a listen from the phone (feed title + one of the rating buttons)")
     re_.add_argument("--episode", required=True, help="Feed title, exactly as the picker offered it")
     re_.add_argument("--verdict", required=True,
-                     help="finished | stopped early | lost the thread (a legacy star row reads as finished)")
+                     help="loved it | finished | lost the thread | stopped early (a legacy star row reads as finished)")
     re_.add_argument("--commit", action="store_true", help="Commit and push the ledger (CI lane)")
 
     ld = sub.add_parser("ladder", help="The room the work leans toward — read it, or state it")
