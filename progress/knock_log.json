@@ -8470,20 +8470,21 @@
     "thread": "word:அப்புறம்",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Podhum",
+    "reply": "Venaam",
     "reply_verdict": "cold",
     "reply_fired": [
       "அப்புறம்",
-      "போதும்"
+      "போதும்",
+      "வேணாம்"
     ],
     "reply_fired_cold": [
       "அப்புறம்",
       "போதும்"
     ],
     "reply_fired_capped": [],
-    "reply_line_script": "adhu dhaan! 🔥 · She asks if you want sugar — tell her 'don't want'.",
-    "reply_line": "adhu dhaan! 🔥 · She asks if you want sugar — tell her 'don't want'.",
-    "reply_at": "2026-10-14T12:42:40Z",
+    "reply_line_script": "adhu dhaan! 🔥 · Priya asks if you're coming along — tell her 'I'm coming'.",
+    "reply_line": "adhu dhaan! 🔥 · Priya asks if you're coming along — tell her 'I'm coming'.",
+    "reply_at": "2026-10-14T12:43:54Z",
     "exchanges": [
       {
         "at": "2026-10-14T12:41:03Z",
@@ -8520,10 +8521,26 @@
         "slips": [],
         "spoke": "",
         "scheduled": ""
+      },
+      {
+        "at": "2026-10-14T12:43:54Z",
+        "reply": "Venaam",
+        "verdict": "cold",
+        "fired": [
+          "வேணாம்"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! 🔥 · Priya asks if you're coming along — tell her 'I'm coming'.",
+        "reply_line_script": "adhu dhaan! 🔥 · Priya asks if you're coming along — tell her 'I'm coming'.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
       }
     ],
-    "chained": 2,
-    "pinned_target": "வேணாம்",
+    "chained": 3,
+    "pinned_target": "வர்றேன்",
     "pinned_revealed": false
   }
 ]
