@@ -54,7 +54,7 @@
   },
   "பிடிக்காது": {
     "gloss": "I don't like",
-    "recognition": "untested",
+    "recognition": "comfortable",
     "production": "none",
     "seen_in": [
       22,
@@ -73,9 +73,11 @@
       67,
       69
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-10-14",
     "exposures": 1,
-    "taught_on": null
+    "taught_on": "2026-03-07",
+    "reps": 1,
+    "heard_on": null
   },
   "அங்க": {
     "gloss": "There",
@@ -148,7 +150,7 @@
   },
   "அழகான": {
     "gloss": "Beautiful",
-    "recognition": "untested",
+    "recognition": "struggled",
     "production": "none",
     "seen_in": [
       32,
@@ -157,9 +159,11 @@
       65,
       77
     ],
-    "last_surfaced": "2026-07-28",
+    "last_surfaced": "2026-10-14",
     "exposures": 1,
-    "taught_on": null
+    "taught_on": "2026-03-29",
+    "reps": 1,
+    "heard_on": null
   },
   "வலது": {
     "gloss": "Right",
@@ -207,17 +211,18 @@
   },
   "நேரா": {
     "gloss": "Straight",
-    "recognition": "untested",
+    "recognition": "struggled",
     "production": "cold",
     "seen_in": [
       10,
       18,
       86
     ],
-    "last_surfaced": "2026-08-29",
+    "last_surfaced": "2026-10-14",
     "exposures": 1,
-    "reps": 1,
-    "taught_on": "2026-02-25"
+    "reps": 2,
+    "taught_on": "2026-02-25",
+    "heard_on": null
   },
   "நாளைக்கு": {
     "gloss": "Tomorrow",
@@ -242,7 +247,7 @@
   },
   "ஆனா": {
     "gloss": "But",
-    "recognition": "untested",
+    "recognition": "struggled",
     "production": "none",
     "seen_in": [
       1,
@@ -273,13 +278,15 @@
       75,
       87
     ],
-    "last_surfaced": "2026-08-19",
+    "last_surfaced": "2026-10-14",
     "exposures": 3,
-    "taught_on": null
+    "taught_on": "2026-02-24",
+    "reps": 1,
+    "heard_on": null
   },
   "அவன்": {
     "gloss": "He (informal)",
-    "recognition": "untested",
+    "recognition": "comfortable",
     "production": "none",
     "seen_in": [
       9,
@@ -293,9 +300,11 @@
       33,
       77
     ],
-    "last_surfaced": "2026-07-28",
+    "last_surfaced": "2026-10-14",
     "exposures": 1,
-    "taught_on": null
+    "taught_on": "2026-02-25",
+    "reps": 1,
+    "heard_on": null
   },
   "இருக்கு": {
     "gloss": "It is / It exists",
@@ -342,7 +351,7 @@
   },
   "அஞ்சு": {
     "gloss": "Five",
-    "recognition": "untested",
+    "recognition": "comfortable",
     "production": "none",
     "seen_in": [
       10,
@@ -350,9 +359,11 @@
       18,
       80
     ],
-    "last_surfaced": "2026-08-02",
+    "last_surfaced": "2026-10-14",
     "exposures": 1,
-    "taught_on": null
+    "taught_on": "2026-02-25",
+    "reps": 1,
+    "heard_on": null
   },
   "வேண்டாம்": {
     "gloss": "I don't want",
@@ -495,7 +506,7 @@
   },
   "மாமா": {
     "gloss": "Uncle (maternal)",
-    "recognition": "untested",
+    "recognition": "comfortable",
     "production": "none",
     "seen_in": [
       8,
@@ -519,9 +530,11 @@
       82,
       85
     ],
-    "last_surfaced": "2026-08-08",
+    "last_surfaced": "2026-10-14",
     "exposures": 2,
-    "taught_on": null
+    "taught_on": "2026-02-25",
+    "reps": 1,
+    "heard_on": null
   },
   "ரெண்டு": {
     "gloss": "Two",
@@ -559,7 +572,7 @@
   },
   "நேத்து": {
     "gloss": "Yesterday",
-    "recognition": "untested",
+    "recognition": "comfortable",
     "production": "none",
     "seen_in": [
       6,
@@ -571,9 +584,11 @@
       28,
       83
     ],
-    "last_surfaced": "2026-08-05",
+    "last_surfaced": "2026-10-14",
     "exposures": 1,
-    "taught_on": null
+    "taught_on": "2026-02-24",
+    "reps": 1,
+    "heard_on": null
   },
   "அக்கா": {
     "gloss": "Elder sister",
@@ -655,7 +670,7 @@
   },
   "எங்க": {
     "gloss": "Our (exclusive)",
-    "recognition": "untested",
+    "recognition": "struggled",
     "production": "cold",
     "seen_in": [
       6,
@@ -670,9 +685,10 @@
       28,
       29
     ],
-    "last_surfaced": "2026-09-10",
+    "last_surfaced": "2026-10-14",
     "taught_on": "2026-02-24",
-    "reps": 1
+    "reps": 2,
+    "heard_on": null
   },
   "என்ன?": {
     "gloss": "What?",
@@ -711,7 +727,7 @@
   },
   "சூப்பர்": {
     "gloss": "Super",
-    "recognition": "untested",
+    "recognition": "comfortable",
     "production": "none",
     "seen_in": [
       10,
@@ -721,10 +737,12 @@
       23,
       28
     ],
-    "last_surfaced": "2026-09-20",
+    "last_surfaced": "2026-10-14",
     "exposures": 3,
     "taught_on": "2026-02-25",
-    "heard_times": 1
+    "heard_times": 1,
+    "reps": 1,
+    "heard_on": null
   },
   "கொஞ்சம்": {
     "gloss": "A little",
@@ -832,7 +850,7 @@
   },
   "அத்தை": {
     "gloss": "Aunt (paternal)",
-    "recognition": "untested",
+    "recognition": "comfortable",
     "production": "none",
     "seen_in": [
       8,
@@ -846,9 +864,11 @@
       82,
       83
     ],
-    "last_surfaced": "2026-08-05",
+    "last_surfaced": "2026-10-14",
     "exposures": 3,
-    "taught_on": null
+    "taught_on": "2026-02-25",
+    "reps": 1,
+    "heard_on": null
   },
   "நிறுத்துங்க": {
     "gloss": "Stop (respectful)",
@@ -974,7 +994,7 @@
   },
   "நாங்க": {
     "gloss": "We (exclusive)",
-    "recognition": "untested",
+    "recognition": "struggled",
     "production": "none",
     "seen_in": [
       9,
@@ -983,9 +1003,11 @@
       75,
       78
     ],
-    "last_surfaced": "2026-07-31",
+    "last_surfaced": "2026-10-14",
     "exposures": 3,
-    "taught_on": null
+    "taught_on": "2026-02-25",
+    "reps": 1,
+    "heard_on": null
   },
   "போறேன்": {
     "gloss": "I go / I'm going",
@@ -1010,17 +1032,18 @@
   },
   "டயர்ட்": {
     "gloss": "Tired",
-    "recognition": "untested",
+    "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
       10,
       24,
       61
     ],
-    "last_surfaced": "2026-09-02",
+    "last_surfaced": "2026-10-14",
     "exposures": 1,
-    "reps": 1,
-    "taught_on": "2026-02-25"
+    "reps": 2,
+    "taught_on": "2026-02-25",
+    "heard_on": null
   },
   "இடது": {
     "gloss": "Left",
@@ -1212,16 +1235,18 @@
   },
   "எழுந்தேன்": {
     "gloss": "I woke up",
-    "recognition": "untested",
+    "recognition": "struggled",
     "production": "none",
     "seen_in": [
       1,
       10,
       80
     ],
-    "last_surfaced": "2026-08-02",
+    "last_surfaced": "2026-10-14",
     "exposures": 1,
-    "taught_on": null
+    "taught_on": "2026-02-24",
+    "reps": 1,
+    "heard_on": null
   },
   "சாப்டீங்களா?": {
     "gloss": "Did you eat?",
@@ -1292,7 +1317,7 @@
   },
   "கேட்டாங்க": {
     "gloss": "They asked",
-    "recognition": "untested",
+    "recognition": "struggled",
     "production": "none",
     "seen_in": [
       11,
@@ -1300,9 +1325,11 @@
       38,
       80
     ],
-    "last_surfaced": "2026-08-02",
+    "last_surfaced": "2026-10-14",
     "exposures": 1,
-    "taught_on": null
+    "taught_on": "2026-02-26",
+    "reps": 1,
+    "heard_on": null
   },
   "சொன்னேன்": {
     "gloss": "I said",
@@ -1313,7 +1340,7 @@
   },
   "கோவம்": {
     "gloss": "Angry / Anger",
-    "recognition": "untested",
+    "recognition": "struggled",
     "production": "none",
     "seen_in": [
       20,
@@ -1323,9 +1350,11 @@
       65,
       80
     ],
-    "last_surfaced": "2026-08-02",
+    "last_surfaced": "2026-10-14",
     "exposures": 1,
-    "taught_on": null
+    "taught_on": "2026-03-06",
+    "reps": 1,
+    "heard_on": null
   },
   "போகணும்": {
     "gloss": "Must go",
@@ -1346,7 +1375,7 @@
   },
   "பார்த்தேன்": {
     "gloss": "I saw / I watched",
-    "recognition": "untested",
+    "recognition": "comfortable",
     "production": "none",
     "seen_in": [
       1,
@@ -1364,13 +1393,15 @@
       26,
       86
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-10-14",
     "exposures": 1,
-    "taught_on": null
+    "taught_on": "2026-02-24",
+    "reps": 1,
+    "heard_on": null
   },
   "கிட்ட": {
     "gloss": "Near / With (person)",
-    "recognition": "untested",
+    "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
       1,
@@ -1394,11 +1425,12 @@
       76,
       85
     ],
-    "last_surfaced": "2026-10-13",
+    "last_surfaced": "2026-10-14",
     "exposures": 6,
-    "reps": 4,
+    "reps": 5,
     "taught_on": "2026-02-24",
-    "heard_times": 1
+    "heard_times": 1,
+    "heard_on": null
   },
   "சொல்றேன்": {
     "gloss": "I'm telling (present)",
@@ -1483,7 +1515,7 @@
   },
   "போனேன்": {
     "gloss": "I went",
-    "recognition": "untested",
+    "recognition": "struggled",
     "production": "none",
     "seen_in": [
       5,
@@ -1491,9 +1523,11 @@
       26,
       80
     ],
-    "last_surfaced": "2026-08-02",
+    "last_surfaced": "2026-10-14",
     "exposures": 1,
-    "taught_on": null
+    "taught_on": "2026-02-24",
+    "reps": 1,
+    "heard_on": null
   },
   "பிடிக்கும்": {
     "gloss": "I like / It pleases",
@@ -1514,7 +1548,7 @@
   },
   "பெரிய": {
     "gloss": "Big",
-    "recognition": "untested",
+    "recognition": "comfortable",
     "production": "none",
     "seen_in": [
       19,
@@ -1528,22 +1562,26 @@
       81,
       82
     ],
-    "last_surfaced": "2026-08-05",
+    "last_surfaced": "2026-10-14",
     "exposures": 2,
-    "taught_on": null
+    "taught_on": "2026-03-06",
+    "reps": 1,
+    "heard_on": null
   },
   "சின்ன": {
     "gloss": "Small / Little",
-    "recognition": "untested",
+    "recognition": "comfortable",
     "production": "none",
     "seen_in": [
       19,
       32,
       38
     ],
-    "last_surfaced": "2026-10-08",
-    "taught_on": null,
-    "exposures": 1
+    "last_surfaced": "2026-10-14",
+    "taught_on": "2026-03-06",
+    "exposures": 1,
+    "reps": 1,
+    "heard_on": null
   },
   "நல்லா": {
     "gloss": "Well / Nicely",
@@ -1720,7 +1758,7 @@
   },
   "பரவாயில்லை": {
     "gloss": "It's okay / No problem",
-    "recognition": "untested",
+    "recognition": "struggled",
     "production": "none",
     "seen_in": [
       10,
@@ -1729,9 +1767,11 @@
       34,
       76
     ],
-    "last_surfaced": "2026-07-26",
+    "last_surfaced": "2026-10-14",
     "exposures": 1,
-    "taught_on": null
+    "taught_on": "2026-02-25",
+    "reps": 1,
+    "heard_on": null
   },
   "கீழ": {
     "gloss": "Below / Under",
@@ -1762,7 +1802,7 @@
   },
   "முன்னாடியே": {
     "gloss": "Already / Beforehand",
-    "recognition": "untested",
+    "recognition": "struggled",
     "production": "none",
     "seen_in": [
       16,
@@ -1770,9 +1810,11 @@
       18,
       85
     ],
-    "last_surfaced": "2026-08-08",
+    "last_surfaced": "2026-10-14",
     "exposures": 1,
-    "taught_on": null
+    "taught_on": "2026-03-04",
+    "reps": 1,
+    "heard_on": null
   },
   "சந்தோஷம்": {
     "gloss": "Happy / Joy",
@@ -1796,7 +1838,7 @@
   },
   "பயம்": {
     "gloss": "Scared / Fear",
-    "recognition": "untested",
+    "recognition": "struggled",
     "production": "none",
     "seen_in": [
       21,
@@ -1809,13 +1851,15 @@
       71,
       76
     ],
-    "last_surfaced": "2026-07-26",
+    "last_surfaced": "2026-10-14",
     "exposures": 1,
-    "taught_on": null
+    "taught_on": "2026-03-07",
+    "reps": 1,
+    "heard_on": null
   },
   "கவலை": {
     "gloss": "Worry",
-    "recognition": "untested",
+    "recognition": "struggled",
     "production": "none",
     "seen_in": [
       17,
@@ -1828,13 +1872,15 @@
       28,
       76
     ],
-    "last_surfaced": "2026-07-26",
+    "last_surfaced": "2026-10-14",
     "exposures": 1,
-    "taught_on": null
+    "taught_on": "2026-03-05",
+    "reps": 1,
+    "heard_on": null
   },
   "பெட்டி": {
     "gloss": "Box / Suitcase",
-    "recognition": "untested",
+    "recognition": "struggled",
     "production": "none",
     "seen_in": [
       15,
@@ -1850,9 +1896,11 @@
       85,
       86
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-10-14",
     "exposures": 3,
-    "taught_on": null
+    "taught_on": "2026-03-02",
+    "reps": 1,
+    "heard_on": null
   },
   "முடியாது": {
     "gloss": "Cannot / Impossible",
@@ -2082,15 +2130,16 @@
   },
   "கேட்குறேன்": {
     "gloss": "I'm hearing/asking (present)",
-    "recognition": "untested",
+    "recognition": "struggled",
     "production": "cold",
     "seen_in": [
       1
     ],
-    "last_surfaced": "2026-08-31",
+    "last_surfaced": "2026-10-14",
     "exposures": 3,
-    "reps": 2,
-    "taught_on": "2026-02-24"
+    "reps": 3,
+    "taught_on": "2026-02-24",
+    "heard_on": null
   },
   "போஸ்ட்போன்": {
     "gloss": "Postpone",
@@ -2136,7 +2185,7 @@
   },
   "புரிஞ்சுது": {
     "gloss": "Got it / I understood",
-    "recognition": "untested",
+    "recognition": "struggled",
     "production": "none",
     "seen_in": [
       11,
@@ -2145,8 +2194,10 @@
       42,
       48
     ],
-    "last_surfaced": "2026-06-08",
-    "taught_on": null
+    "last_surfaced": "2026-10-14",
+    "taught_on": "2026-02-26",
+    "reps": 1,
+    "heard_on": null
   },
   "புரியல": {
     "gloss": "I don't understand",
@@ -2189,20 +2240,22 @@
   },
   "அனுப்பு": {
     "gloss": "Send",
-    "recognition": "untested",
+    "recognition": "struggled",
     "production": "none",
     "seen_in": [
       43,
       67,
       85
     ],
-    "last_surfaced": "2026-08-08",
+    "last_surfaced": "2026-10-14",
     "exposures": 1,
-    "taught_on": null
+    "taught_on": "2026-04-22",
+    "reps": 1,
+    "heard_on": null
   },
   "கிடைச்சுது": {
     "gloss": "Received / Got it",
-    "recognition": "untested",
+    "recognition": "struggled",
     "production": "none",
     "seen_in": [
       23,
@@ -2212,8 +2265,10 @@
       40,
       43
     ],
-    "last_surfaced": "2026-04-22",
-    "taught_on": null
+    "last_surfaced": "2026-10-14",
+    "taught_on": "2026-03-07",
+    "reps": 1,
+    "heard_on": null
   },
   "கன்ஃபர்ம்": {
     "gloss": "Confirm",
@@ -2323,7 +2378,7 @@
   },
   "கிளம்பு": {
     "gloss": "Leave / Depart",
-    "recognition": "untested",
+    "recognition": "comfortable",
     "production": "none",
     "seen_in": [
       34,
@@ -2332,9 +2387,11 @@
       85,
       86
     ],
-    "last_surfaced": "2026-09-23",
+    "last_surfaced": "2026-10-14",
     "exposures": 2,
-    "taught_on": null
+    "taught_on": "2026-04-01",
+    "reps": 1,
+    "heard_on": null
   },
   "frame:present-future-toggle": {
     "type": "pattern",
@@ -2457,7 +2514,7 @@
   "இன்னும் கொஞ்சம் சாப்பிடுங்க": {
     "type": "chunk",
     "gloss": "Eat a little more (HER line — hear it coming)",
-    "recognition": "untested",
+    "recognition": "struggled",
     "production": "none",
     "seen_in": [
       68,
@@ -2466,12 +2523,14 @@
       74,
       82
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-10-14",
     "direction": "catch",
     "pairs_with": "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு",
     "exposures": 1,
     "register": "mil-table",
-    "taught_on": null
+    "taught_on": "2026-07-18",
+    "reps": 1,
+    "heard_on": null
   },
   "வேண்டாம்மா, வயிறு நிறைஞ்சிடுச்சு": {
     "type": "chunk",
@@ -2744,14 +2803,16 @@
   "வலது பக்கம் திரும்புங்க": {
     "type": "chunk",
     "gloss": "Turn right",
-    "recognition": "untested",
+    "recognition": "comfortable",
     "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-08-26",
+    "last_surfaced": "2026-10-14",
     "direction": "fire",
     "exposures": 6,
-    "reps": 3,
-    "register": "public"
+    "reps": 4,
+    "register": "public",
+    "heard_on": null,
+    "taught_on": "2026-10-14"
   },
   "சில்லறை இருக்கா?": {
     "type": "chunk",
@@ -2861,17 +2922,18 @@
   "கிளம்பலாமா?": {
     "type": "chunk",
     "gloss": "Shall we get going?",
-    "recognition": "untested",
+    "recognition": "comfortable",
     "production": "hinted",
     "seen_in": [
       86
     ],
-    "last_surfaced": "2026-09-29",
+    "last_surfaced": "2026-10-14",
     "direction": "fire",
     "exposures": 3,
-    "reps": 1,
+    "reps": 2,
     "register": "social",
-    "taught_on": "2026-08-10"
+    "taught_on": "2026-08-10",
+    "heard_on": null
   },
   "பிறகு பார்க்கலாம்": {
     "type": "chunk",
@@ -3177,19 +3239,20 @@
   "ஒரு மாசம் இருப்போம்": {
     "type": "chunk",
     "gloss": "We're staying one month (the 'evlo naal irupeenga?' answer)",
-    "recognition": "untested",
+    "recognition": "comfortable",
     "production": "hinted",
     "seen_in": [
       54,
       56,
       57
     ],
-    "last_surfaced": "2026-09-25",
+    "last_surfaced": "2026-10-14",
     "direction": "fire",
-    "reps": 5,
+    "reps": 6,
     "exposures": 1,
     "register": "faq",
-    "taught_on": "2026-07-03"
+    "taught_on": "2026-07-03",
+    "heard_on": null
   },
   "நேத்து தான் வந்தோம்": {
     "type": "chunk",
@@ -3250,18 +3313,19 @@
   "கொஞ்சம் மெதுவா சொல்லுங்க": {
     "type": "chunk",
     "gloss": "Say it a bit slowly (the freeze-breaker — always a legal move)",
-    "recognition": "untested",
+    "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
       58,
       89
     ],
-    "last_surfaced": "2026-08-28",
+    "last_surfaced": "2026-10-14",
     "direction": "fire",
-    "reps": 3,
+    "reps": 4,
     "exposures": 6,
     "register": "antifreeze",
-    "taught_on": "2026-07-13"
+    "taught_on": "2026-07-13",
+    "heard_on": null
   },
   "இன்னொரு தடவ சொல்லுங்க": {
     "type": "chunk",
@@ -3316,19 +3380,20 @@
   "ஆமா ஆமா": {
     "type": "chunk",
     "gloss": "Yeah, yeah (backchannel — keeps the speaker going, holds your seat in the conversation)",
-    "recognition": "untested",
+    "recognition": "comfortable",
     "production": "cold",
     "seen_in": [
       86,
       88,
       89
     ],
-    "last_surfaced": "2026-09-29",
+    "last_surfaced": "2026-10-14",
     "direction": "fire",
     "exposures": 1,
     "register": "antifreeze",
-    "reps": 1,
-    "taught_on": "2026-08-10"
+    "reps": 2,
+    "taught_on": "2026-08-10",
+    "heard_on": null
   },
   "அப்படியா?!": {
     "type": "chunk",
@@ -3466,17 +3531,19 @@
   "அப்புறம் பார்க்கலாம்": {
     "type": "chunk",
     "gloss": "See you later (colloquial — nobody says 'piragu' at the door)",
-    "recognition": "untested",
+    "recognition": "comfortable",
     "production": "none",
     "seen_in": [
       82,
       86
     ],
-    "last_surfaced": "2026-10-02",
+    "last_surfaced": "2026-10-14",
     "direction": "fire",
     "exposures": 4,
     "register": "social",
-    "taught_on": null
+    "taught_on": "2026-08-05",
+    "reps": 1,
+    "heard_on": null
   },
   "ரொம்ப சந்தோஷம்": {
     "type": "chunk",
@@ -3585,16 +3652,18 @@
   "ஃப்ரீயா விடுங்க": {
     "type": "chunk",
     "gloss": "Don't worry / let it go (Oracle's form — 'freeya vidu' only to very close cousins/friends)",
-    "recognition": "untested",
+    "recognition": "comfortable",
     "production": "none",
     "seen_in": [
       88
     ],
-    "last_surfaced": "2026-09-30",
+    "last_surfaced": "2026-10-14",
     "direction": "fire",
     "exposures": 3,
     "register": "social",
-    "taught_on": null
+    "taught_on": "2026-08-14",
+    "reps": 1,
+    "heard_on": null
   },
   "வாய் திறந்தா காக்கா கொத்திட்டு போயிடும்": {
     "type": "chunk",
@@ -3753,18 +3822,20 @@
   "கடைசில பாக்கலாம்": {
     "type": "chunk",
     "gloss": "We'll see at the end / last minute (the family-planning verdict)",
-    "recognition": "untested",
+    "recognition": "struggled",
     "production": "none",
     "seen_in": [
       59,
       60,
       86
     ],
-    "last_surfaced": "2026-10-03",
+    "last_surfaced": "2026-10-14",
     "direction": "fire",
     "exposures": 3,
     "register": "social",
-    "taught_on": null
+    "taught_on": "2026-07-13",
+    "reps": 1,
+    "heard_on": null
   },
   "முடிஞ்சா": {
     "type": "chunk",
@@ -4402,16 +4473,18 @@
   },
   "பிரச்சனை": {
     "gloss": "Problem / trouble / issue (from Sanskrit prashna, 'a question')",
-    "recognition": "untested",
+    "recognition": "comfortable",
     "production": "none",
     "seen_in": [
       75,
       76,
       84
     ],
-    "last_surfaced": "2026-08-07",
+    "last_surfaced": "2026-10-14",
     "exposures": 4,
-    "taught_on": null
+    "taught_on": "2026-07-26",
+    "reps": 1,
+    "heard_on": null
   },
   "frame:negative-la": {
     "type": "pattern",
@@ -4504,14 +4577,15 @@
   },
   "ஆச்சு": {
     "gloss": "it happened / it's done (neuter past + -இடு finality)",
-    "recognition": "untested",
+    "recognition": "comfortable",
     "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-09-20",
-    "exposures": 2,
-    "reps": 1,
-    "taught_on": null,
-    "heard_times": 1
+    "last_surfaced": "2026-10-14",
+    "exposures": 3,
+    "reps": 2,
+    "taught_on": "2026-10-14",
+    "heard_times": 1,
+    "heard_on": null
   },
   "இருக்கேன்": {
     "gloss": "I am / I'm here (-ஏன் = I)",
@@ -4665,14 +4739,15 @@
   },
   "பரவாயில்ல": {
     "gloss": "No harm in it — the Tamil shrug: fine / no problem / never mind / not bad. Backhanded as praise (paravaayilla-ye!). From paravaai (harm, from paravu = to spread): it will not spread",
-    "recognition": "untested",
+    "recognition": "struggled",
     "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-10-03",
-    "reps": 1,
+    "last_surfaced": "2026-10-14",
+    "reps": 2,
     "exposures": 6,
     "taught_on": null,
-    "heard_times": 1
+    "heard_times": 1,
+    "heard_on": null
   },
   "பழகிப்போச்சு": {
     "gloss": "It has become habit — done, settled (pazhagu = get used to AND get close to a person; + the Kongu completive -poachu)",
@@ -4706,23 +4781,25 @@
       88,
       89
     ],
-    "last_surfaced": "2026-08-30",
+    "last_surfaced": "2026-10-14",
     "exposures": 1,
     "heard_on": "2026-08-30",
-    "reps": 1,
+    "reps": 2,
     "taught_on": "2026-08-14"
   },
   "முடியல": {
     "gloss": "",
-    "recognition": "untested",
+    "recognition": "struggled",
     "production": "none",
     "seen_in": [
       87,
       88
     ],
-    "last_surfaced": "2026-08-19",
+    "last_surfaced": "2026-10-14",
     "exposures": 2,
-    "taught_on": null
+    "taught_on": "2026-08-14",
+    "reps": 1,
+    "heard_on": null
   },
   "மாட்ட": {
     "gloss": "Will not / never will (the refusal ending — nee sollave maatta)",
@@ -4758,11 +4835,14 @@
   },
   "இப்ப": {
     "gloss": "now (the mouth form — nobody says the -thu of இப்போது)",
-    "recognition": "untested",
+    "recognition": "comfortable",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-13",
-    "exposures": 5
+    "last_surfaced": "2026-10-14",
+    "exposures": 5,
+    "reps": 1,
+    "heard_on": null,
+    "taught_on": "2026-10-14"
   },
   "கேட்கல": {
     "gloss": "didn't hear it / couldn't hear — the -la negative",
@@ -4987,14 +5067,16 @@
     "exposures": 2
   },
   "நேரம்": {
-    "recognition": "untested",
+    "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-13",
+    "last_surfaced": "2026-10-14",
     "gloss": "Time",
     "taught_on": "2026-09-20",
     "heard_times": 1,
-    "exposures": 4
+    "exposures": 4,
+    "reps": 1,
+    "heard_on": null
   },
   "வேலை": {
     "recognition": "untested",
@@ -5007,14 +5089,16 @@
     "exposures": 1
   },
   "உங்க": {
-    "recognition": "untested",
+    "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-03",
+    "last_surfaced": "2026-10-14",
     "gloss": "Your (respectful)",
     "taught_on": "2026-09-20",
     "heard_times": 1,
-    "exposures": 4
+    "exposures": 4,
+    "reps": 1,
+    "heard_on": null
   },
   "என்": {
     "recognition": "untested",
@@ -5140,13 +5224,15 @@
     "taught_on": null
   },
   "இன்னும்": {
-    "recognition": "untested",
+    "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-13",
+    "last_surfaced": "2026-10-14",
     "gloss": "More / still / yet",
-    "taught_on": null,
-    "exposures": 2
+    "taught_on": "2026-09-29",
+    "exposures": 2,
+    "heard_on": null,
+    "reps": 1
   },
   "நான்": {
     "recognition": "untested",
@@ -5311,5 +5397,91 @@
     "last_surfaced": "2026-10-13",
     "gloss": "Correctly / accurately",
     "taught_on": null
+  },
+  "அப்புறமா பேசலாமா?": {
+    "gloss": "",
+    "recognition": "untested",
+    "production": "none",
+    "seen_in": [
+      97
+    ],
+    "last_surfaced": "2026-10-14",
+    "taught_on": null
+  },
+  "எனக்கு போன் பண்ணு": {
+    "gloss": "",
+    "recognition": "untested",
+    "production": "none",
+    "seen_in": [
+      97
+    ],
+    "last_surfaced": "2026-10-14",
+    "taught_on": null
+  },
+  "எப்ப ஃப்ரீயா இருப்ப?": {
+    "gloss": "",
+    "recognition": "untested",
+    "production": "none",
+    "seen_in": [
+      97
+    ],
+    "last_surfaced": "2026-10-14",
+    "taught_on": null
+  },
+  "டைம் சொல்லு": {
+    "gloss": "",
+    "recognition": "untested",
+    "production": "none",
+    "seen_in": [
+      97
+    ],
+    "last_surfaced": "2026-10-14",
+    "taught_on": null
+  },
+  "நான் கன்ஃபர்ம் பண்றேன்": {
+    "gloss": "",
+    "recognition": "untested",
+    "production": "none",
+    "seen_in": [
+      97
+    ],
+    "last_surfaced": "2026-10-14",
+    "taught_on": null
+  },
+  "மீதி": {
+    "gloss": "the rest / leftover (meedhi panam)",
+    "recognition": "untested",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-10-14",
+    "taught_on": "2026-10-14"
+  },
+  "அப்போ": {
+    "gloss": "so / then — as a reaction",
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-10-14",
+    "taught_on": "2026-10-14",
+    "reps": 1,
+    "heard_on": null
+  },
+  "எல்லாம்": {
+    "gloss": "everything",
+    "recognition": "comfortable",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-10-14",
+    "taught_on": "2026-10-14",
+    "reps": 1,
+    "heard_on": null
+  },
+  "வருஷம்": {
+    "gloss": "year (from Sanskrit varsha, rain)",
+    "recognition": "untested",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-10-14",
+    "taught_on": "2026-10-14"
   }
 }

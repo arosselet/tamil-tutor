@@ -1001,5 +1001,17 @@
     "note": "Ravi is he, so irukkaan with the -aan ending",
     "word": "",
     "dose_channel": "episode"
+  },
+  {
+    "at": "2026-10-14T17:25:41Z",
+    "date": "2026-10-14",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "past-tense",
+    "said": "ponen -> 'go'; kekkuren -> 'heard'",
+    "want": "போனேன் = I went; கேட்குறேன் = I'm asking",
+    "note": "reads the root and drops or swaps the -en (did) / -ren (doing) tail in recognition",
+    "word": "",
+    "dose_channel": "episode"
   }
 ]

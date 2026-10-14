@@ -9,7 +9,8 @@
     "lane": "rotation",
     "source": "rotation_inventory_2026-10-13_0956",
     "queued_at": "2026-10-13T10:00:13",
-    "status": "pending"
+    "status": "rejected",
+    "decided_at": "2026-10-14T13:23:27"
   },
   {
     "id": "45adba35b6",
