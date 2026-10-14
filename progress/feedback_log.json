@@ -640,5 +640,11 @@
   {
     "date": "2026-10-14",
     "note": "2026-10-14 Andrew: 'I'm the wrong ear to judge the provenance of things you're proposing teaching me!' The learner must not sit in the provenance review seat. Rule he set: don't block new words from reaching the inventory; guard its correctness and clarity; 'arguably off' = the automatic reviewer doing its job, so a flagged line fails closed (dropped or rewritten and re-judged), never routed to him. Also: words the system names must be tracked ('of course we should track them') - meedhi/appo/ellaam ordered as episode payload with no lexicon rows. And: run_studio.write_episode puts the Voice Map above the H1, failing lint on every injected map. Decisions are only legitimate in the repo, not in machine-local memory."
+  },
+  {
+    "date": "2026-10-14",
+    "note": "[audio rating] [special] Exact Change (re-sent) — finished it.",
+    "id": "special_exact_change_resend",
+    "minutes": 3.3666666666666667
   }
 ]
