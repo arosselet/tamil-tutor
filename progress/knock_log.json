@@ -8468,6 +8468,42 @@
     "expected_target": "அப்புறம்",
     "stance": "ask",
     "thread": "word:அப்புறம்",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Approm",
+    "reply_verdict": "cold",
+    "reply_fired": [
+      "அப்புறம்"
+    ],
+    "reply_fired_cold": [
+      "அப்புறம்"
+    ],
+    "reply_fired_capped": [],
+    "reply_line_script": "adhu dhaan! 🔥 · Now wave off more sugar — 'enough!' What do you say?",
+    "reply_line": "adhu dhaan! 🔥 · Now wave off more sugar — 'enough!' What do you say?",
+    "reply_at": "2026-10-14T12:41:03Z",
+    "exchanges": [
+      {
+        "at": "2026-10-14T12:41:03Z",
+        "reply": "Approm",
+        "verdict": "cold",
+        "fired": [
+          "அப்புறம்"
+        ],
+        "fired_cold": [
+          "அப்புறம்"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! 🔥 · Now wave off more sugar — 'enough!' What do you say?",
+        "reply_line_script": "adhu dhaan! 🔥 · Now wave off more sugar — 'enough!' What do you say?",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ],
+    "chained": 1,
+    "pinned_target": "போதும்",
+    "pinned_revealed": false
   }
 ]

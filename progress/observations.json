@@ -22667,5 +22667,17 @@
     "medium": "text",
     "source": "knock:2026-10-13T22:09:36.082193+00:00",
     "note": "capped fire"
+  },
+  {
+    "id": "95e93b9e8287",
+    "at": "2026-10-14T12:41:03Z",
+    "word": "அப்புறம்",
+    "channel": "text",
+    "kind": "tested",
+    "axis": "production",
+    "result": "right",
+    "medium": "text",
+    "source": "knock:2026-10-14T12:39:21.061038+00:00",
+    "note": "cold fire"
   }
 ]
