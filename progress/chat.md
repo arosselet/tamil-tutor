@@ -15,6 +15,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! 🔥 · Now wave off more sugar — 'enough!' What do you say?
 
+**08:42 · Andrew** — **COLD**
+> Podhum
+
+**Anna ↩**
+> adhu dhaan! 🔥 · She asks if you want sugar — tell her 'don't want'.
+
 
 ## Tuesday 2026-10-13
 

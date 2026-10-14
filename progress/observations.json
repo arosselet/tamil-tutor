@@ -22679,5 +22679,17 @@
     "medium": "text",
     "source": "knock:2026-10-14T12:39:21.061038+00:00",
     "note": "cold fire"
+  },
+  {
+    "id": "6e39668f50d3",
+    "at": "2026-10-14T12:42:40Z",
+    "word": "போதும்",
+    "channel": "text",
+    "kind": "tested",
+    "axis": "production",
+    "result": "right",
+    "medium": "text",
+    "source": "knock:2026-10-14T12:39:21.061038+00:00",
+    "note": "cold fire"
   }
 ]
