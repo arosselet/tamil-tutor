@@ -9,8 +9,7 @@ from urllib.parse import quote
 from xml.sax.saxutils import escape as xml_escape
 
 import audio_titles
-from language import (CAPTION_COLUMNS, FEED_SUMMARY, FEED_TITLE,
-                      RAW_BASE_URL, SITE_URL)
+from language import CAPTION_COLUMNS, FEED_SUMMARY, FEED_TITLE, RAW_BASE_URL, SITE_URL
 # LOCAL_TZ is Andrew's clock, canonical there; RECENT_AUDIO_PATH is the rating
 # picker's list, which this module writes because this module writes its source.
 from state_io import LOCAL_TZ, RECENT_AUDIO_PATH
@@ -113,15 +112,26 @@ VERDICTS = {
 # docs/home_assistant_knock_buttons.md §8.6). The picker stays as the fallback
 # for an app that will not open the link. The name must match the phone's
 # Shortcut exactly, or iOS opens Shortcuts and runs nothing.
-RATING_SHORTCUT = "Rate Episode"
+# A SHORTCUT OF ITS OWN, AND STRAIGHT BACK (2026-10-14, Andrew). The first tap
+# worked, but it parked him in Shortcuts. A link cannot run a Shortcut unseen —
+# iOS foregrounds the app for any URL run — so the link uses x-callback and
+# names Apple Podcasts as `x-success`: Shortcuts shows for about a second and
+# hands the screen back. Only success bounces; a failed run stays on screen,
+# because a rating that silently went nowhere is the bug this must not hide.
+# The links run their own Shortcut, "Rate From Notes" (input only, no menus);
+# "Rate Episode" keeps its picker untouched for the home-screen tap. The
+# no-flash alternative — a link straight to the webhook — would publish its
+# key in a public feed, so it was declined.
+RATING_SHORTCUT = "Rate From Notes"
 RATING_SEPARATOR = "|"
 
 
 def rating_url(title: str, verdict: str) -> str:
     """The link one button carries. `cmd_rate_episode` resolves the title half
     back to a feed item, so it is the feed title verbatim."""
-    return ("shortcuts://run-shortcut?name=" + quote(RATING_SHORTCUT)
-            + "&input=text&text=" + quote(title + RATING_SEPARATOR + verdict))
+    return ("shortcuts://x-callback-url/run-shortcut?name=" + quote(RATING_SHORTCUT)
+            + "&input=text&text=" + quote(title + RATING_SEPARATOR + verdict)
+            + "&x-success=podcasts%3A%2F%2F")   # podcasts:// — Apple Podcasts
 
 
 def show_notes_for(title: str, script_md_name: str) -> str:

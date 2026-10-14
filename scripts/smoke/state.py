@@ -5599,9 +5599,14 @@ def s145_a_show_notes_tap_rates_the_episode(sb: Path):
         for href, verdict in zip(hrefs, rs.VERDICTS):
             q = parse_qs(urlsplit(href).query)
             check(f"'{verdict}' runs the phone's Shortcut by its exact name",
-                  href.startswith("shortcuts://run-shortcut?")
-                  and q.get("name") == [rs.RATING_SHORTCUT] == ["Rate Episode"]
+                  href.startswith("shortcuts://x-callback-url/run-shortcut?")
+                  and q.get("name") == [rs.RATING_SHORTCUT] == ["Rate From Notes"]
                   and q.get("input") == ["text"], href)
+            # 2026-10-14: the screen comes back to the podcast app on success
+            # only — an x-error/x-cancel bounce would hide a rating that failed.
+            check(f"...and '{verdict}' hands the screen back to Podcasts on success",
+                  q.get("x-success") == ["podcasts://"]
+                  and "x-error" not in q and "x-cancel" not in q, href)
             sent_title, _, sent_verdict = q["text"][0].rpartition(rs.RATING_SEPARATOR)
             with contextlib.redirect_stdout(_io.StringIO()):
                 ss.cmd_rate_episode(_ap.Namespace(episode=sent_title,
