@@ -1,0 +1,35 @@
+{
+  "mission": 97,
+  "register": "tenderness",
+  "dramatic_ingredient": "turn",
+  "episode_form": "classic",
+  "shape": "dispute",
+  "location_class": "kitchen",
+  "energy": "low",
+  "intercept_tamil_density": 0.9,
+  "breakdown_tamil_density": 0.15,
+  "fence_size": 136,
+  "unfenced_words": 1,
+  "new_words_landed": {
+    "அப்புறமா பேசலாமா?": 1,
+    "எனக்கு போன் பண்ணு": 1,
+    "எப்ப ஃப்ரீயா இருப்ப?": 1,
+    "டைம் சொல்லு": 1,
+    "நான் கன்ஃபர்ம் பண்றேன்": 1
+  },
+  "callbacks_used": {
+    "மீதி": 3,
+    "அப்போ": 1,
+    "எல்லாம்": 2,
+    "ஆச்சு": 4
+  },
+  "host_roles": {
+    "Paati": "unbothered_inquisitor",
+    "Karthi": "stalling_debtor",
+    "Mama": "anxious_peacemaker",
+    "Deepa": "persistent_interrupter",
+    "Athai": "distracted_callee"
+  },
+  "notes": "Dialect fixes against the Architect draft: (1) Script integrity — the Breakdown quoted several Tamil anchors as bare English phonetics ('Enakku ellaam theriyum', 'Evlo aachu', 'Mudinjaachu', 'neram aachu', 'naan paakkaren', 'appo?', 'time sollu, naan confirm panren'); all converted to Tamil script (எனக்கு எல்லாம் தெரியும் / எவ்ளோ ஆச்சு / முடிஞ்சாச்சு / நேரம் ஆச்சு / நான் பாக்கறேன் / அப்போ? / டைம் சொல்லு, நான் கன்ஃபர்ம் பண்றேன்) per the hosts.md Tamil-script-only rule, which binds every context, not just narrated_drama. (2) Verb collapse — Paati's 'நான் சும்மா கேக்கிறேன் தான்' used the literary stem; fixed to the fenced spoken form 'கேட்குறேன்'. (3) Sandhi fusion — Deepa's 'யாரு அது?' fused to the natural spoken contraction 'யாரது?'. (4) Voice-canon fix — Deepa's two lines broke her household.md pin ('bare imperatives, no politeness reflex'): 'குடுங்க!' → 'குடு!' to Paati, and the நீங்க-conjugated 'எப்ப வர்றீங்க?' to Athai → bare 'எப்ப வருவ?', both now matching her established register rather than Priya's or Karthi's. (5) Payload fidelity verified byte-identical: அப்புறமா பேசலாமா?, எனக்கு போன் பண்ணு, எப்ப ஃப்ரீயா இருப்ப?, டைம் சொல்லு, நான் கன்ஃபர்ம் பண்றேன் all appear exactly as seeded; என்ன ஆச்சு / எவ்ளோ ஆச்சு / நேரம் ஆச்சு stay unfused (two words, matching the brief's own spelled-out naming) while முடிஞ்சாச்சான்னு keeps the brief's own fused 'mudinjaachu' form with only question+quotative riding on top; மீதி and அப்போ survive as bare stems every landing, எல்லாம் likewise. No -ங்க on any first-person verb anywhere (பண்றேன், பாக்கறேன், வரேன், இருக்கேன், கேட்குறேன், பேசறேன் all untouched). (6) Honorific check: no bare அவ/சொல்லுவா reference to Paati anywhere — she's always addressed or named directly; left வேண்டாம் as-is since it's the brief's own fenced spelling, not a teaching target. (7) Pacing: every run between [Pause] tags is 2-4 lines, well inside the 6-8 gate; no line carries more than two short clauses. (8) Vocabulary audit: unfenced settles at 1 (நேரம் as a bare noun in Athai's 'கொஞ்சம் நேரம்', answered immediately by the question it replies to) — within the brief's hard cap of 2. No send-back: Paati never raises her voice or accuses anyone, Karthi's stall is verb-led ('நான் பாக்கறேன்') not noun-led, Mama and Deepa stay vocally distinct from both of them, the fourth wall holds throughout, and the money question stays open exactly per the brief's no-resolution close.",
+  "beat": "Paati calls Athai to say the leftover lunch money should go toward something nicer for her own meal, already knowing the exact amount without saying it outright; Karthi stalls rather than correct her, Mama stays carefully uncurious, and the call ends on scheduling with the real number still unspoken."
+}
