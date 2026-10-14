@@ -14,9 +14,13 @@ CONTENT, which is what Andrew actually hears, had no door at all. He is the
 learner: he cannot judge a form he is being taught. A wrong ending, delivered
 confidently in Anna's voice and replayed across a week of soaks, is learned.
 
-THE SEAT, NOT THE SITTER. The review queue is the seat. Andrew sits in it now
-(he can recognise a form even where he cannot produce it); a native speaker
-can later. Whoever sits there, the routing below does not change.
+THE SEAT HAS NO HUMAN SITTER (2026-10-14, Andrew: "I'm the wrong ear to judge
+the provenance of things you're proposing teaching me!"). The learner cannot
+tell a legitimate alternative from a model's flub, so a held line fails CLOSED
+— an item is dropped, a script is refused and its order goes back to Anna to
+re-word — and the queue is a LOG of what was dropped and why. New words still
+reach his books; what is guarded is the correctness of what does. `approve`
+stays for a native reviewer, should one ever sit here; nothing waits on one.
 
 WHAT THIS REPLACES: the unchecked hand-off from `write_sheet` to the TTS.
 
@@ -298,7 +302,7 @@ def main():
     if args.verb == "list":
         pending = [r for r in queue() if r.get("status") == "pending"]
         if not pending:
-            print("Review queue empty — nothing is waiting on a judge.")
+            print("Review log empty — nothing has been held.")
         for r in pending:
             gloss = f" — {r['en']}" if r.get("en") else ""
             why = f"\n            judge: {r['reason']}" if r.get("reason") else ""

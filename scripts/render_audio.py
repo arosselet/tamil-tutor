@@ -677,6 +677,48 @@ def judge_dialogue(dialogue: list[dict], source: str) -> list[dict] | None:
     return held
 
 
+def settle_sidecar(script_path: Path) -> list[str]:
+    """Refile the order's own payload words that the sidecar filed as callbacks
+    with no lexicon row → the rowless callbacks NOTHING vouches for, which must
+    refuse the render.
+
+    WHY (M97, 2026-10-14). A callback claims the word is already his, so the
+    register below never mints one — right, or every episode would credit itself
+    with teaching. Anna's order said "reuse this week's words"; the Producer filed
+    மீதி / அப்போ / எல்லாம் as callbacks, but chat had taught them without
+    `--teach`, so no row existed. The render registered none of them, printed
+    one warning after the TTS, and episodes.json said the order was carried:
+    three words in his ear that no lane would ever track. The ORDER vouches that
+    a payload word is meant for his books, so it is refiled as landed — the one
+    bucket the register mints. Any other rowless callback is a writer error.
+    Runs before the judge and the TTS, on every path to audio."""
+    from state_io import LEARNER_PATH, LEXICON_PATH, load_json, resolve_soak_item
+    tags_path = script_path.with_suffix(".tags.json")
+    try:
+        tags = json.loads(tags_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return []          # absent or broken: the register reports it, loudly
+    lexicon = load_json(LEXICON_PATH) or {}
+    payload = set(((load_json(LEARNER_PATH) or {}).get("soak_order") or {}).get("payload") or [])
+    moved, ghosts = [], []
+    for raw in list(tags.get("callbacks_used", {})):
+        key = re.sub(r"\s*\([^)]*\)\s*$", "", raw).strip()
+        if raw in lexicon or key in lexicon or key.startswith("frame:"):
+            continue       # a frame typo is the register's to report
+        # A key that prefix-resolves to a longer row is a VARIANT (s43's case):
+        # minting it would duplicate that row, so it refuses like any other.
+        if key in payload and is_canonical(key) and resolve_soak_item(key, lexicon) is None:
+            tags.setdefault("new_words_landed", {})[key] = tags["callbacks_used"].pop(raw)
+            moved.append(key)
+        else:
+            ghosts.append(raw)
+    if moved:
+        tags_path.write_text(json.dumps(tags, ensure_ascii=False, indent=2) + "\n",
+                             encoding="utf-8")
+        print(f"   ↳ payload refiled callback → landed (no lexicon row yet): {', '.join(moved)}")
+    return ghosts
+
+
 async def main():
     parser = argparse.ArgumentParser(description="Generate Multi-Voice Tamil Podcast Audio")
     parser.add_argument("input_file", help="Input markdown script")
@@ -702,6 +744,10 @@ async def main():
         print("❌ No dialogue lines found!")
         return
 
+    if ghosts := settle_sidecar(Path(args.input_file)):
+        sys.exit(f"❌ sidecar callback(s) with no lexicon row — nothing would track "
+                 f"them: {ghosts}. A new word belongs in new_words_landed; nothing rendered")
+
     # THE JUDGE SEAT'S CHOKEPOINT FOR EPISODES (2026-10-12, Andrew). Every
     # episode reaches audio through here — `run_studio`, the subagent fallback, a
     # hand render — so this is where an unjudged line is stopped, before a cent of
@@ -711,8 +757,8 @@ async def main():
     if (held := judge_dialogue(dialogue, Path(args.input_file).stem)) is None:
         sys.exit(1)
     if held:
-        sys.exit(f"❌ the judge seat held {len(held)} line(s) — nothing rendered "
-                 f"(python scripts/provenance.py)")
+        sys.exit(f"❌ the judge seat held {len(held)} line(s) — nothing rendered; "
+                 f"logged in the review queue, the order stays open")
 
     if args.provider == "google":
         reason = google_credentials_ready()

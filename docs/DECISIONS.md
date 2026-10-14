@@ -70,6 +70,7 @@ compressed 2026-09-10, 32k words to 11k, nothing lost that git did not hold).
 
 ## Settled design decisions
 
+- **The learner is not the reviewer; a held line fails closed** (2026-10-14, Andrew) *"I'm the wrong ear to judge the provenance of things you're proposing teaching me!"* A held item is dropped; a held script is refused and its order goes back to Anna. `review_queue.json` is a log nothing surfaces to him. New words still enter; correctness is guarded. Supersedes 10-12's human seat.
 - **The sweep is a sensor, outside the ask-less dial** (2026-10-05, Andrew). Every palatability fix since May also cut a question, so the picture rotted while lessons got gentler. `learner_contract.md` now holds the sweep as infrastructure, like the rails: gentler lessons leave it alone and only Andrew turns it down. Pages of 50 until the untested backlog clears, then ~15.
 
 - **Prohibitions are budgeted: a new never retires an old one** (2026-10-05, Andrew: "an escape valve"). 322 decisions, 26 retiring anything; nothing made a live rule leave when its cause did. `PROHIBITION_BUDGET` (195, counted across protocol and mandates) makes every addition ask which never is least needed now.

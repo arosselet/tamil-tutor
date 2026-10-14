@@ -1602,7 +1602,10 @@ def s131_an_unjudged_form_never_ships(sb: Path):
         check("...and the hold is COMMITTED on the way out (a CI runner forgets it otherwise)",
               commits and queue_path in list(commits[-1][0]), f"{commits}")
         check("...and the refusal points at the review queue, not the schema",
-              "review queue" in str(code) and "provenance.py" in str(code), str(code)[:200])
+              "review queue" in str(code) and "re-order" in str(code), str(code)[:200])
+        check("...and never hands Andrew a review to do — he is the learner (2026-10-14)",
+              "provenance.py" not in str(code) and "judge them" not in str(code),
+              str(code)[:200])
 
         # ── 4. THE POSITIVE CONTROL: an attested-only dose publishes, queues nothing.
         queue_path.unlink(missing_ok=True)
@@ -2338,12 +2341,15 @@ def s144_an_order_is_paid_only_in_what_played(sb: Path):
               not (order.get("attempted") or {}).get("unclaimed"), str(order))
         check("...and the brief reads produced ✓", "produced" in status_line())
 
-        # ── The waiting count reaches the light start, not only show_status.
+        # ── A hold is a log, not a chore: the light start never asks him to judge
+        # (2026-10-14, Andrew: "I'm the wrong ear"). Proved to have run: the
+        # open printed its sync gate, so the absence below is not a crash.
         write_json(queue_path, [{"id": "smoke144", "form": held, "status": "pending"}])
         r = cli("open")
-        check("the light start names a held form waiting on Andrew",
-              "Waiting on Andrew" in r.stdout and "provenance.py" in r.stdout,
-              (r.stderr or r.stdout)[-400:])
+        check("the light start ran", "Now:" in r.stdout, (r.stderr or r.stdout)[-400:])
+        check("...and never hands Andrew a held form to judge",
+              "provenance.py" not in r.stdout and "held from publish" not in r.stdout,
+              r.stdout[-400:])
     finally:
         (rs.week_payload, rs.write_sheet, rs.render, rs.google_credentials_ready,
          rs.commit_and_push, rs.push_to_phone) = real_s

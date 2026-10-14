@@ -132,6 +132,7 @@ def main():
         run(state.s41_slip_ledger, kr, sb)
         run(state.s42_session_log_one_row_per_day, sb)
         run(publish.s43_sidecar_callback_never_drops_silently, sb)
+        run(publish.s146_a_payload_callback_with_no_row_is_settled_before_audio, sb)
         run(state.s44_a_commission_can_discharge_the_flag, sb)
         run(queue.s45_concurrent_appends_merge, mk, sb)
         run(queue.s102_two_writers_on_the_ledger_both_survive, mk, sb)

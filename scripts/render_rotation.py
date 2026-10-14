@@ -835,7 +835,7 @@ def main():
         if queued:
             commit_and_push([REVIEW_QUEUE_PATH], f"Review queue: {queued} rotation line(s) held")
         sys.exit("❌ EMPTY TAPE — no movement kept a beat past the judge seat. Nothing "
-                 "published; held lines are in the review queue (python scripts/provenance.py).")
+                 "published; held lines are logged in the review queue — re-order the tape.")
 
     if args.no_publish:
         return

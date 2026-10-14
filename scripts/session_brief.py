@@ -307,8 +307,8 @@ def cmd_status(_args):
             ran = att["episode"] if not att["episode"].isdigit() else f"M{att['episode']}"
             drain = (f" · ⚠ STALLED — {ran} rendered against this order on "
                      f"{att['at']} but could not carry {', '.join(att['unclaimed'])} "
-                     f"(the script said it another way, or the judge seat held it — "
-                     f"python scripts/provenance.py). NOT re-dispatching. Re-order "
+                     f"(the script said it another way, or the judge seat held a "
+                     f"line). NOT re-dispatching. Re-order "
                      f"the payload in the form the script can carry, or take the next item.")
         elif produced:
             drain = f" · produced ✓ (the {channel} lane carried it — no dispatch needed)"

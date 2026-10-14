@@ -19,7 +19,7 @@ import ladder
 import threads
 from sync_state import compute_floor, compute_engines, compute_ear, trailing_pace
 # The checked reader (2026-10-12) — this file kept a private bare `json.load`.
-from state_io import POLICY_PATH, REVIEW_QUEUE_PATH, load_json
+from state_io import POLICY_PATH, load_json
 
 RECOGNIZED = {"comfortable", "solid"}
 
@@ -30,17 +30,16 @@ def bar(pct: float, width: int = 20) -> str:
 
 
 def waiting_on_andrew() -> list[str]:
-    """What does nothing until Andrew acts — held forms and proposed outreach
-    moves — one line each with the command that clears it, or [] (2026-10-12).
+    """What does nothing until Andrew acts — proposed outreach moves — one line
+    each with the command that clears it, or [] (2026-10-12). Held forms LEFT
+    this list 2026-10-14: the learner is not the reviewer (provenance.py), so a
+    hold is a log entry and nothing waits on him.
     A queue nobody sees is indistinguishable from an empty one, and only this
     report printed them, which he runs by hand; the light start is the surface
     he meets every session, so both read this one count."""
-    held = [r for r in load_json(REVIEW_QUEUE_PATH) or [] if r.get("status") == "pending"]
     moves = [p for p in (load_json(POLICY_PATH) or {}).get("proposals") or []
              if p.get("status") == "pending"]
     lines = []
-    if held:
-        lines.append(f"{len(held)} drafted form(s) held from publish — python scripts/provenance.py")
     if moves:
         lines.append(f"{len(moves)} outreach move(s) proposed — python scripts/reflect.py")
     return lines

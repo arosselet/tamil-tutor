@@ -192,6 +192,12 @@ def next_mission() -> int:
     return max(nums, default=0) + 1
 
 
+def under_title(script: str, block: str) -> str:
+    """`block` inserted on line two, so line one stays the H1 the feed reads."""
+    head, _, body = script.partition("\n")
+    return f"{head}\n{block}\n{body}"
+
+
 def episode_paths(n: int) -> dict[str, Path]:
     return {"brief": LESSONS_DIR / f"tier2_mission{n}_brief.md",
             "script": SCRIPTS_DIR / f"tier2_mission{n}.md",
@@ -407,7 +413,8 @@ def write_episode(n: int, write_pass=claude_print) -> bool:
     # THE JUDGE SEAT (2026-10-12, Andrew), BEFORE the captions pass so the sheet
     # is built from what will be spoken. The studio gets the dialogue lanes' one
     # repair: a line cut from a scene breaks it, so a flagged line is mended and
-    # judged again. Still held → no episode; the lines wait in the review queue.
+    # judged again. Still held → no episode; the lines are logged in the review
+    # queue and the order goes back to Anna, never to Andrew (2026-10-14).
     # `render_audio` judges again at render: the subagent fallback and a hand
     # render pass through there and nowhere else, so that is the chokepoint.
     try:
@@ -419,18 +426,20 @@ def write_episode(n: int, write_pass=claude_print) -> bool:
         if enqueue(held, "episode", f"tier2_mission{n}"):
             from publish import commit_and_push   # a commission may run this on a CI runner
             commit_and_push([REVIEW_QUEUE_PATH], f"Review queue: M{n} lines held")
-        print(f"   ✗ judge seat held {len(held)} line(s) after one repair — no episode "
-              f"(python scripts/provenance.py)")
+        print(f"   ✗ judge seat held {len(held)} line(s) after one repair — no episode; "
+              f"the order stays open for Anna to re-word")
         return False
     script = "\n".join(lines)
     # PYTHON PINS THE VOICES, the writer never transcribes them. The ear tracks
     # a speaker before it tracks a word, so a character whose voice drifts in
     # month three quietly undoes month two — and a voice table retyped by a
-    # model every episode is a table that drifts. Injected at the top of the
-    # script, where `render_audio.VOICE_MAP_RE` reads it.
+    # model every episode is a table that drifts. `render_audio.VOICE_MAP_RE`
+    # searches the whole file, so it goes UNDER the H1: the feed reads the title
+    # off line one, and injecting above it failed the lint on every episode that
+    # got a map (M97, 2026-10-14).
     vmap = household.voice_map(script)
     if vmap:
-        script = household.render_voice_map(vmap) + "\n\n" + script
+        script = under_title(script, household.render_voice_map(vmap))
     paths = episode_paths(n)
     paths["brief"].parent.mkdir(parents=True, exist_ok=True)
     paths["brief"].write_text(plan + "\n", encoding="utf-8")

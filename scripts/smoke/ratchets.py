@@ -314,7 +314,11 @@ CODE_BUDGETS = {
     "scripts/audio_titles.py": 80,
     # 495 -> 505 (the judge seat (2026-10-12, Andrew)): the episode chokepoint. Every renderer of an
     # episode — the studio, its subagent fallback, a hand render — passes here.
-    "scripts/render_audio.py": 505,
+    # 505 -> 532 (M97, 2026-10-14): `settle_sidecar`, the pre-TTS half of the sidecar
+    # check. RETIRES the after-the-TTS warning as the only signal for a rowless
+    # callback (the register's report stays as s43's backstop) and the human review
+    # hop (show_status's held-form line, -4 there).
+    "scripts/render_audio.py": 532,
     "scripts/render_chat.py": 100,
     "scripts/render_demo.py": 100,
     # 235 -> 220 (2026-08-23, Andrew): re-censused DOWN, the 08-01 move again.
@@ -1627,6 +1631,10 @@ TOMBSTONES = (
       "By August 2027",
       "seven phases derived from",
       "The taper closes intake")),
+    ("2026-10-14 The learner is not the reviewer (the 10-12 human seat retired)",
+     ("Andrew sits in the seat",
+      "Andrew sits in it now",
+      "drafted form(s) held from publish")),
 )
 
 # Where a retired claim could still be read as law: every surface an agent or a

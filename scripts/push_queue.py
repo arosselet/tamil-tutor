@@ -236,7 +236,7 @@ def cmd_add(args):
     if entry is None:
         if not args.no_commit:
             commit_and_push([REVIEW_QUEUE_PATH], "Review queue: a scheduled push held")
-        sys.exit("❌ not queued — the judge seat held its Tamil (python scripts/provenance.py).")
+        sys.exit("❌ not queued — the judge seat held its Tamil; re-word the push.")
     if not args.no_commit:
         local = due.astimezone(LOCAL_TZ)
         commit_and_push([QUEUE_PATH], f"Queue push {entry['id']} for {local:%m-%d %H:%M}")

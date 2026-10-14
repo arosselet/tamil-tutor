@@ -627,13 +627,13 @@ def s43_sidecar_callback_never_drops_silently(sb: Path):
     import contextlib, io, inspect
     ra = importlib.import_module("render_audio")
 
-    script = sb / "content" / "scripts" / "tier2_mission97.md"
+    script = sb / "content" / "scripts" / "tier2_mission9097.md"
     script.parent.mkdir(parents=True, exist_ok=True)
     # A word the lexicon cannot possibly hold — இருந்துச்சு itself was registered
     # the day this case was written, and a fixture that drifts into existence
     # turns a regression test green for the wrong reason.
     ghost = "ஸ்மோக்பூதம்"
-    script.write_text(f"# Tier 2, Mission 97 — Smoke\n\n**Anna:** {ghost}.\n",
+    script.write_text(f"# Tier 2, Mission 9097 — Smoke\n\n**Anna:** {ghost}.\n",
                       encoding="utf-8")
     (script.with_suffix(".tags.json")).write_text(json.dumps({
         "callbacks_used": {ghost: 3},      # never registered — the bug
@@ -642,6 +642,10 @@ def s43_sidecar_callback_never_drops_silently(sb: Path):
 
     lex_path = sb / "progress" / "lexicon.json"
     saved_lex = lex_path.read_bytes()
+    # The registry too: a fixture mission left behind reads as the NEWEST episode
+    # to every later case (s104 broke when this one moved 97 -> 9097, 2026-10-14).
+    reg_path = sb / "progress" / "episodes.json"
+    saved_reg = reg_path.read_bytes() if reg_path.exists() else None
     # No mp3 is written: register_mission_in_state's nested get_duration swallows
     # a missing file and returns its 3.0 default, so duration is not under test here.
     #
@@ -658,7 +662,7 @@ def s43_sidecar_callback_never_drops_silently(sb: Path):
         exposures_before = 0   # the anchor row is minted here, unexposed
         out = io.StringIO()
         with contextlib.redirect_stdout(out):
-            ra.register_mission_in_state(script, sb / "published_audio" / "tier2_mission97.mp3")
+            ra.register_mission_in_state(script, sb / "published_audio" / "tier2_mission9097.mp3")
         text = out.getvalue()
         lex = read_json(lex_path)
 
@@ -678,7 +682,7 @@ def s43_sidecar_callback_never_drops_silently(sb: Path):
         }, ensure_ascii=False), encoding="utf-8")
         out = io.StringIO()
         with contextlib.redirect_stdout(out):
-            ra.register_mission_in_state(script, sb / "published_audio" / "tier2_mission97.mp3")
+            ra.register_mission_in_state(script, sb / "published_audio" / "tier2_mission9097.mp3")
         lex = read_json(lex_path)
         check("the same word filed as NEW does enter the lexicon",
               ghost in lex, "still absent")
@@ -698,7 +702,7 @@ def s43_sidecar_callback_never_drops_silently(sb: Path):
         }, ensure_ascii=False), encoding="utf-8")
         out = io.StringIO()
         with contextlib.redirect_stdout(out):
-            ra.register_mission_in_state(script, sb / "published_audio" / "tier2_mission97.mp3")
+            ra.register_mission_in_state(script, sb / "published_audio" / "tier2_mission9097.mp3")
         lex = read_json(lex_path)
         check("a Latin sidecar key credits no row — the spelling map is gone",
               "smoke-angar" in out.getvalue()
@@ -725,7 +729,7 @@ def s43_sidecar_callback_never_drops_silently(sb: Path):
         # fallback does NOT run. Under-claiming is the ledger's own law
         # (claim_payload, 2026-07-17); inventing is the defect.
         bold = "ஸ்மோக்பொல்ட்"
-        script.write_text(f"# Tier 2, Mission 97 — Smoke\n\n**{bold}** is bold.\n",
+        script.write_text(f"# Tier 2, Mission 9097 — Smoke\n\n**{bold}** is bold.\n",
                           encoding="utf-8")
         (script.with_suffix(".tags.json")).write_text("{ this is not json",
                                                       encoding="utf-8")
@@ -733,16 +737,16 @@ def s43_sidecar_callback_never_drops_silently(sb: Path):
         write_json(eps_path, {})
         out = io.StringIO()
         with contextlib.redirect_stdout(out):
-            ra.register_mission_in_state(script, sb / "published_audio" / "tier2_mission97.mp3")
+            ra.register_mission_in_state(script, sb / "published_audio" / "tier2_mission9097.mp3")
         text = out.getvalue()
         check("an UNREADABLE sidecar is reported, not swallowed",
               "COULD NOT BE READ" in text, f"got {text[:300]!r}")
         check("...naming the file and the parse error",
-              "tier2_mission97.tags.json" in text and "JSONDecodeError" in text,
+              "tier2_mission9097.tags.json" in text and "JSONDecodeError" in text,
               f"got {text[:300]!r}")
         check("...and saying what to do about it",
               "Fix the sidecar" in text, f"got {text[:300]!r}")
-        words = (read_json(eps_path).get("97") or {}).get("words", [])
+        words = (read_json(eps_path).get("9097") or {}).get("words", [])
         check("...and the bold-scrape fallback does NOT run — a plausible word "
               "list from the wrong source is worse than none",
               bold not in words, f"the scrape credited {words}")
@@ -758,13 +762,111 @@ def s43_sidecar_callback_never_drops_silently(sb: Path):
         check("the render's state writes stay inside the sandbox",
               ghost not in real_lex, "the smoke run wrote into the real lexicon")
         check("...including the episode registry",
-              "97" not in real_eps, "the smoke run wrote into the real episodes.json")
+              "9097" not in real_eps, "the smoke run wrote into the real episodes.json")
     finally:
         lex_path.write_bytes(saved_lex)
+        reg_path.write_bytes(saved_reg) if saved_reg is not None else reg_path.unlink(missing_ok=True)
 
     src = mechanism(inspect.getsource(ra.main))
     check("the standalone renderer loads .env, like run_studio does before it",
           "load_env" in src, "a hand-run render still cannot find GCP_SA_KEY")
+
+
+def s146_a_payload_callback_with_no_row_is_settled_before_audio(sb: Path):
+    """M97, 2026-10-14: three payload words in his ear, no row for any of them.
+
+    Anna's order said "reuse this week's words"; the Producer filed மீதி / அப்போ
+    / எல்லாம் as callbacks; chat had taught them without `--teach`. s43's rule
+    held — a callback is never minted — so the render registered none of them,
+    printed one warning after the TTS, and episodes.json read the order carried.
+
+    The fix is `render_audio.settle_sidecar`, before the judge and the TTS on
+    every path to audio: a payload word the ORDER vouches for is refiled as
+    landed; any other rowless callback refuses the render. Plus the voice-map
+    bug found the same run: injected above the H1, it failed the lint on every
+    episode that got a map.
+
+    THE SILENT NO-OP, answered: a refile that never reaches the register looks
+    exactly like success, so the case round-trips through the real register and
+    RE-READS the lexicon for the minted row; and the refusal is proved to fire
+    before the judge (which costs money) is ever called."""
+    print("\n146. A payload callback with no row is settled before audio (2026-10-14)")
+    import asyncio
+    import contextlib
+    ra = importlib.import_module("render_audio")
+    rs = importlib.import_module("run_studio")
+    hh = importlib.import_module("household")
+
+    # ── The voice map goes under the title, where the lint and the feed want it.
+    block = hh.render_voice_map({"PAATI (F)": "smoke-voice"})
+    out = rs.under_title("# Tier 2, Mission 9146 — Smoke\n**Paati:** சரி\n", block)
+    check("the voice map lands UNDER the H1 — line one is still the title",
+          out.splitlines()[0].startswith("# ") and out.splitlines()[1] == block, out[:200])
+    m = ra.VOICE_MAP_RE.search(out)
+    check("...and the renderer still finds it there",
+          bool(m) and json.loads(m.group(1)) == {"PAATI (F)": "smoke-voice"}, out[:200])
+
+    books = [sb / "progress" / f for f in ("lexicon.json", "learner.json",
+                                           "episodes.json", "observations.json")]
+    saved = {b: b.read_bytes() if b.exists() else None for b in books}
+    lex_path, learner_path = books[0], books[1]
+    script = sb / "content" / "scripts" / "tier2_mission9146.md"
+    tags_path = script.with_suffix(".tags.json")
+    script.parent.mkdir(parents=True, exist_ok=True)
+    paid, known, ghost = "ஸ்மோக்மீதி", "ஸ்மோக்தெரியும்", "ஸ்மோக்பேய்"
+    try:
+        lex = read_json(lex_path)
+        lex[known] = lex_row(gloss="known", recognition="comfortable")
+        write_json(lex_path, lex)
+        learner = read_json(learner_path)
+        learner["soak_order"] = {"payload": [paid], "channel": "episode", "from": "2026-10-14"}
+        write_json(learner_path, learner)
+        script.write_text(f"# Tier 2, Mission 9146 — Smoke\n\n**Paati:** {paid} {known} {ghost}.\n",
+                          encoding="utf-8")
+
+        # ── 1. A rowless callback nothing vouches for refuses the render, pre-judge.
+        write_json(tags_path, {"callbacks_used": {paid: 2, known: 1, ghost: 1},
+                               "new_words_landed": {}})
+        judged, argv, real_judge = [], sys.argv, ra.judge_dialogue
+        ra.judge_dialogue = lambda d, s: judged.append(s) or []
+        sys.argv = ["render_audio.py", str(script), str(sb / "audio" / "m146.mp3")]
+        code = None
+        try:
+            with contextlib.redirect_stdout(io.StringIO()):
+                asyncio.run(ra.main())
+        except SystemExit as e:
+            code = e.code
+        finally:
+            ra.judge_dialogue, sys.argv = real_judge, argv
+        check("a callback with no row and no order behind it refuses the render",
+              code not in (0, None) and ghost in str(code), f"exit {code!r}")
+        check("...before the judge (which costs money) is ever called", not judged, str(judged))
+
+        # ── 2. The order's own word is refiled; a known callback stays a callback.
+        write_json(tags_path, {"callbacks_used": {paid: 2, known: 1}, "new_words_landed": {}})
+        with contextlib.redirect_stdout(io.StringIO()):
+            left = ra.settle_sidecar(script)
+        tags = read_json(tags_path)
+        check("nothing is refused when the only rowless callback is the order's own",
+              left == [], str(left))
+        check("...the payload word is refiled as landed, on disk",
+              paid in tags.get("new_words_landed", {})
+              and paid not in tags.get("callbacks_used", {}), str(tags))
+        check("...and a callback that HAS a row is left exactly where it was",
+              known in tags.get("callbacks_used", {}), str(tags))
+
+        # ── 3. THE EFFECT: the real register now mints the row s43 refuses to invent.
+        with contextlib.redirect_stdout(io.StringIO()):
+            ra.register_mission_in_state(script, sb / "published_audio" / "tier2_mission9146.mp3")
+        check("the register mints the payload word — he can be tracked on it",
+              paid in read_json(lex_path), "no row after the render: the M97 hole")
+        check("...and never invents the ghost",
+              ghost not in read_json(lex_path))
+    finally:
+        for b, raw in saved.items():
+            b.write_bytes(raw) if raw is not None else b.unlink(missing_ok=True)
+        for p in (script, tags_path):
+            p.unlink(missing_ok=True)
 
 
 def s68_the_convergence_audit_fixes(sb: Path):

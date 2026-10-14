@@ -60,11 +60,12 @@ Moves any shape may reach for, never as a menu: **mask-work**, the **eavesdrop d
 ## Close & Log
 
 1. **Rewrite the debrief** — one running story-so-far, cumulative: carry what still matters, prune what resolved. Anna's persistent narrative memory, never a one-line log.
-2. **Record the learning and the obstacle.** Say what he understood, in which medium, with what support; distinguish isolated-word recognition from sentence comprehension. Record real slip patterns with `--slip 'tag|said|wanted|one clause'`; close only what landed unaided with `--slip-tested tag:landed|missed`. The slip ledger informs teaching, never defines the session's success.
+2. **Record the learning and the obstacle.** Chat-taught words get `--teach` that day, or no lane sees them. Say what he understood, in which medium, with what support; distinguish isolated-word recognition from sentence comprehension. Record real slip patterns with `--slip 'tag|said|wanted|one clause'`; close only what landed unaided with `--slip-tested tag:landed|missed`. The slip ledger informs teaching, never defines the session's success.
 3. **Commission when useful; Anna may produce audio at any time.** Repair, discovery and enjoyment all qualify; no request or capacity answer is required (`protocol/commissioning.md`). UNVERIFIED slips inform checks, not automatic commissions. For a soak order, add the `scene_seed` and a `focus` naming what the dose permutes.
 4. **Log it** (`sync_state.py` owns all writes; keys in script):
    ```
    python scripts/sync_state.py update \
+     --teach "மீதி=the rest / leftover" \
      --produced-cold போறேன் --produced-hinted வை --stuck-word கேட்குறேன் \
      --slip "past-tense|irukku|இருந்துச்சு|reaches for present when the scene is past" \
      --slip-tested venum-for-kudunga:landed \
@@ -75,7 +76,7 @@ Moves any shape may reach for, never as a menu: **mask-work**, the **eavesdrop d
 6. **Update the arc block** in `profile.md` if the month moved; then **commit `progress/` and push** — cloud Anna reads origin, and an unpushed close is a session the phone channel never saw.
 7. **Name what got clearer**, then leave one inviting hook. Ops are optional (`heist.md`); while a mission is open, assign no other.
 
-**Monthly check:** after the opening, sample a little at a time. **The logger distinguishes the two now** (2026-09-20), so the medium is a flag and never a note to remember: `check --heard` for items he answered by ear, `check --read` for items worked on the page. Both move the recognition rung; only `--heard` stamps the ear and re-bases the cue, so a page-only check leaves the ticket still asking. Partial checks remain partial — the count of items is still yours to carry in the debrief.
+**Monthly check:** after the opening, sample a little at a time. **The medium is a flag** (2026-09-20): `check --heard` for items he answered by ear, `check --read` for items worked on the page. Both move the recognition rung; only `--heard` stamps the ear and re-bases the cue, so a page-only check leaves the ticket still asking. Carry an unfinished count in the debrief.
 
 ## The rest of the toolbelt
 

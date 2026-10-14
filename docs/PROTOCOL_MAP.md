@@ -82,7 +82,7 @@ Every book below is shape-checked when `state_io.load_json` reads it and when `s
 | `feedback_log.json` | `sync_state.py feedback` | The ledger the diagnosis pass reads |
 | `knock_log.json` | `morning_knock.py` / `knock_reply.py` | Anna's outreach memory: every wake (fire or silence), replies, verdicts |
 | `push_queue.json` | `push_queue.py` | Scheduled pushes, fully composed at add-time; drained at the start of every CI wake-up (hourly — the `*/30` cron was reverted 2026-07-30 on measured data) |
-| `review_queue.json` | `provenance.py` | THE JUDGE SEAT (2026-10-12): model-drafted target-language strings the ledger does not attest, held from publish — `pending` until a reviewer marks them `approved` (the form becomes judged and may ship) or `rejected`. Andrew sits in the seat now; a native speaker can later, and the routing does not change |
+| `review_queue.json` | `provenance.py` | THE JUDGE SEAT (2026-10-12): model-drafted target-language strings the ledger does not attest, held from publish — a LOG since 2026-10-14: the learner is not the reviewer, so a hold fails closed and nothing waits on him. `approve` (the form becomes judged and may ship) stays for a native reviewer, should one ever sit there |
 | `policy.json` | `reflect.py` | THE OUTREACH POLICY (2026-10-12): approved knob values (`params`, bounded by `rails.POLICY_RAILS` and re-clipped on every read), the weekly `digest` the knock lane's `decide()` reads, the `proposals` awaiting Andrew, and the `history` of every approved move with its evidence |
 | `profile.md` | Anna (LLM) | Teacher's notebook — assessment, gaps, calibration dials, sprint priorities |
 

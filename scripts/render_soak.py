@@ -290,8 +290,9 @@ def main():
     # THE JUDGE SEAT (2026-10-12). Everything below — the TTS, the feed, the
     # push, the delivery stamp — sees only the ATTESTED sheet. A form the ledger
     # does not hold (the focus brief invites novel inflections on purpose) is
-    # held for review, never spoken: Andrew is the learner and cannot catch a
-    # wrong ending he is being taught. See scripts/provenance.py.
+    # dropped and logged, never spoken: Andrew is the learner and cannot catch a
+    # wrong ending he is being taught — nor judge one (2026-10-14). See
+    # scripts/provenance.py.
     sheet, held = gate_sheet(drafted, spoken=SPOKEN_FALLBACK)
     n = sum(len(c["items"]) for c in sheet["clusters"])
     print(f"   → '{sheet.get('title', 'Soak')}' · {len(sheet['clusters'])} threads, {n} items")
@@ -307,8 +308,7 @@ def main():
     mp3 = SOAK_DIR / f"soak_{now.strftime('%Y-%m-%d_%H%M')}.mp3"
     queued = enqueue(held, "soak", mp3.stem) if held else 0
     if held:
-        print(f"   → review queue: {queued} new, {len(held) - queued} already there "
-              "(python scripts/provenance.py)")
+        print(f"   → review queue (a log): {queued} new, {len(held) - queued} already there")
 
     # THE FLOOR — AN EMPTY SHEET IS NOT A DOSE (2026-09-05, Gate 7.2).
     #
@@ -337,9 +337,9 @@ def main():
         # with the machine (2026-10-12).
         if queued:
             commit_and_push([REVIEW_QUEUE_PATH], f"Review queue: {queued} soak form(s) held")
-        why = (f"every drafted item was unattested and is in the review queue "
-               f"({len(held)} held) — judge them with scripts/provenance.py, then "
-               f"re-run. " if held and any(c.get("items") for c in drafted.get("clusters", []))
+        why = (f"every drafted item was unattested and is logged in the review queue "
+               f"({len(held)} held) — re-order the dose so a fresh draft can carry it. "
+               if held and any(c.get("items") for c in drafted.get("clusters", []))
                else "Inspect it with --dry-run: clusters present but items gone means "
                     "a key SOAK_MANDATE names is missing from SOAK_SCHEMA, and the agent "
                     "path ate it.")
