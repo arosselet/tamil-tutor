@@ -8542,5 +8542,24 @@
     "chained": 3,
     "pinned_target": "வர்றேன்",
     "pinned_revealed": false
+  },
+  {
+    "date": "2026-10-14",
+    "timestamp": "2026-10-14T17:42:59.920464+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "overheard: cant-முடியல",
+    "rationale": "Overheard tape on Paati's clinic checkup tugs arc and ear-behind frame:cant-முடியல while varying modality away from text.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-10-14T22:12:59.920464+00:00",
+    "body": "Athai phonela paattiyoda check-up pathi pesittu irukkaanga — yaaru poga maattennu sonnaangannu oru line-la therinjidum 🎧",
+    "body_script": "அத்தை போன்ல பாட்டியோட check-up பத்தி பேசிட்டு இருக்காங்க — யாரு போக மாட்டேன்னு சொன்னாங்கன்னு ஒரு line-ல தெரிஞ்சிடும் 🎧",
+    "expected_target": "frame:cant-முடியல",
+    "stance": "ask",
+    "thread": "arc",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-14T17-42.mp3",
+    "memo_script": "ஆமா அக்கா, பாட்டிக்கு உடம்பு ஒன்னும் இல்ல, நல்லா தான் இருக்காங்க. ஆனா மாமா என்னன்னா, இன்னைக்கு ஆஸ்பத்திரிக்கு போகணும்னு ஒரே பிடிவாதம்.\n\nபாட்டி என்ன சொல்றாங்க தெரியுமா? எனக்கு ஒன்னும் இல்ல, வெயில்ல நடக்க முடியலன்னு சொல்லிட்டாங்க. சரி, ஆட்டோவுல போலாம்னு சொன்னா, அதுக்கும் வர முடியாதுன்னு சொல்றாங்க.\n\nஇங்க வீட்ல வேற வேலை நெறைய இருக்கு. கார்த்தி காலையில போனவன், இன்னும் வரல. அவனுக்கு போன் போட்டா எடுக்கவே மாட்டான்... பேசவே முடியல. சரி சரி, நீங்க சாயங்காலம் வாங்க, அப்புறம் பேசலாம்.",
+    "mp3": "published_audio/knocks/knock_2026-10-14T17-42.mp3"
   }
 ]

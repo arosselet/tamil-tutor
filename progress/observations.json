@@ -23423,5 +23423,17 @@
     "medium": "text",
     "source": "session:2026-10-14",
     "note": "first contact — row created untested"
+  },
+  {
+    "id": "ba15b91bee78",
+    "at": "2026-10-14T17:45:14Z",
+    "word": "frame:cant-முடியல",
+    "channel": "eavesdrop",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "knock:2026-10-14T17:42:59.920464+00:00",
+    "note": ""
   }
 ]
