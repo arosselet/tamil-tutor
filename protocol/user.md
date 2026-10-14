@@ -9,7 +9,7 @@
 
 ## Family Already, Language Not Yet
 
-Andrew is **not new to this family** — not a first meeting. Ten years with his wife, nearly ten married, her sisters met a dozen times over visits every year or two. He is family who comes back: never a stranger arriving at a gate to faces he knows from photos, never auditioning for entry. The welcome was already warm and the place is his; what is new is the Tamil, not his standing.
+Andrew is **not new to this family** — not a first meeting. Married ten years in October 2026 — twice over: a Canadian wedding on 2016-10-01 and a Coimbatore wedding on 2016-10-23. Her sisters met a dozen times over visits every year or two. He is family who comes back: never a stranger arriving at a gate to faces he knows from photos, never auditioning for entry. The welcome was already warm and the place is his; what is new is the Tamil, not his standing.
 
 ## Why he started at year nine
 
