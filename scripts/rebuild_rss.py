@@ -90,6 +90,9 @@ ITEM_TEMPLATE = """
 #   attends -> he was there for the whole tape, so pending Teach Beats open.
 #              `stopped early` cannot say WHERE he stopped, so it opens nothing
 #              and stays an exposure; guessing would re-mint the ambush.
+# ZERO DEMAND, AND FIXED (2026-10-14, Andrew). Varying the buttons per item, or
+# a question about the episode under them, was weighed and declined: the tap
+# reports "did I love it, did I listen, did I give up early" and asks nothing.
 VERDICTS = {
     "loved it": ("loved it", True,
                  " ← MORE LIKE THIS: he finished it and it stood out. Steers "
