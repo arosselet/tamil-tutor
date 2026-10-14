@@ -8453,5 +8453,21 @@
         "scheduled": ""
       }
     ]
+  },
+  {
+    "date": "2026-10-14",
+    "timestamp": "2026-10-14T12:39:21.061038+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "one try: appuram",
+    "rationale": "Andrew responded to yesterday's fielding; rotating thread to appuram with a crisp one-word prompt before midday.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-10-14T17:09:21.061038+00:00",
+    "body": "Priya asks if you want coffee now or later — tell her 'later'. sollu ☕",
+    "body_script": "Priya asks if you want coffee now or later — tell her 'later'. சொல்லு ☕",
+    "expected_target": "அப்புறம்",
+    "stance": "ask",
+    "thread": "word:அப்புறம்",
+    "target_revealed": false
   }
 ]
