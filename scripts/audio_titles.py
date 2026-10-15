@@ -170,7 +170,11 @@ def distinct(titles: dict) -> dict:
 
 
 def dose_minutes(days: int = 7, today=None) -> dict:
-    """MINUTES ATTENDED over a trailing window — the honest denominator.
+    """MINUTES RATED over a trailing window — the honest denominator.
+
+    WHAT IT CAN SEE (2026-10-15). Each row is a tap on a rating link. A play in
+    his podcast app writes nothing anywhere, so an unrated listen is invisible
+    here; every surface that prints this says "rated", never "played".
 
     Counts what he PLAYED, never what was commissioned. A meter that counts
     renders is one the system can satisfy by writing more files, which is the

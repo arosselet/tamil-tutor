@@ -150,20 +150,21 @@ def main():
             moved = len(s.get("cold", [])) + len(s.get("hinted", []))
             print(f"    {s.get('date','?')} | floor {s.get('floor_pct','?')}% | +{moved} produced | {s.get('note','')[:40]}")
 
-    # THE DOSE, MEASURED AS MINUTES PLAYED (2026-09-13). Every other meter on
-    # this dashboard reads the word brain; this one reads CONTACT, which nothing
-    # here could see. It counts presses of play, never renders — a number the
-    # system can move by writing more files is not a meter.
+    # THE DOSE, MEASURED AS MINUTES RATED (2026-09-13). Every other meter on
+    # this dashboard reads the word brain; this one reads CONTACT. It counts
+    # rating taps, never renders — a number the system can move by writing more
+    # files is not a meter. Renamed 2026-10-15: it was labelled "played", but a
+    # play in his podcast app leaves no trace, so only a rating is ever counted.
     dose = audio_titles.dose_minutes(30)
-    print("\n🎧 DOSE — minutes he actually played (30d)")
+    print("\n🎧 RATED — minutes of audio he rated (30d; unrated plays are invisible)")
     print("-" * 55)
     print(f"    {dose['minutes']:.0f} min · {dose['per_day']:.1f}/day · "
-          f"{dose['taps']} presses over {len(dose['plays'])} artifacts")
+          f"{dose['taps']} ratings over {len(dose['plays'])} artifacts")
     if dose["unmeasured"]:
-        print("    ⚠ presses recorded with NO minutes — plumbing, not a quiet month")
+        print("    ⚠ ratings recorded with NO minutes — plumbing, not a quiet month")
     if dose["plays"]:
         top = sorted(dose["plays"].items(), key=lambda kv: -kv[1])[0]
-        print(f"    Most replayed: {top[0]} ({top[1]}×)")
+        print(f"    Most rated: {top[0]} ({top[1]}×)")
 
     # WAITING ON ANDREW'S JUDGEMENT (2026-10-12). A held form and a proposed
     # policy move both do nothing until he acts, and a queue nobody sees is

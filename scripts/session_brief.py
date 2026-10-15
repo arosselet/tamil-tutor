@@ -465,20 +465,24 @@ def cmd_status(_args):
         # this printed a seven-day tally of rated days and told Anna to cue it —
         # a count of the days he didn't come, one sentence from his ear. The
         # habit stays the one standing invitation; what Anna needs is the last
-        # time he walked through it, never the misses. A rating is a listen.
+        # time he walked through it, never the misses. A rating is the only
+        # listen the system can see — a play in his podcast app leaves no trace —
+        # so the line says RATED (2026-10-15: it said "played", and a rating
+        # count read as a play count reshaped the repair lanes on 10-12).
         rated = [e["date"] for e in load_json(FEEDBACK_LOG_PATH) or []
                  if "[audio rating]" in e.get("note", "")]
-        print(f"Ear block: last played {max(rated) if rated else 'not yet'} "
+        print(f"Ear block: last rated {max(rated) if rated else 'not yet'} "
               f"— the door is open; never mention a day it wasn't used")
-        # THE DOSE, AS MINUTES HE PLAYED (2026-09-13). The ear-block line counts
+        # THE DOSE, AS MINUTES HE RATED (2026-09-13; renamed 2026-10-15 — it
+        # never counted plays, only rating taps, and unrated listens are invisible). The ear-block line counts
         # DAYS and cannot tell one tap on a 3-minute payoff from a 15-minute
         # rotation tape heard twice. Anna reads this as a floor for what to
         # COMMISSION — never as a debt, and no number from it reaches his ear
         # (`daily_session.md`). The dial it answers is profile.md's 10-15 min/day.
         dose = audio_titles.dose_minutes(7)
-        warn = " — ⚠ presses with NO duration behind them: plumbing, not a quiet week" if dose["unmeasured"] else ""
-        print(f"Dose: {dose['minutes']:.0f} min played over 7d "
-              f"({dose['per_day']:.1f}/day, {dose['taps']} presses){warn}")
+        warn = " — ⚠ ratings with NO duration behind them: plumbing, not a quiet week" if dose["unmeasured"] else ""
+        print(f"Rated: {dose['minutes']:.0f} min over 7d "
+              f"({dose['per_day']:.1f}/day, {dose['taps']} ratings) — unrated plays are invisible{warn}")
 
     episodes = load_json(EPISODES_PATH) or {}
     if episodes:

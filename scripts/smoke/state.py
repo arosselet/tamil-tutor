@@ -3911,7 +3911,7 @@ def s101_the_check_and_the_rating_are_ear_evidence(sb: Path):
         # 2026-10-08: the line names the LAST listen and counts nothing — a
         # count of days is a count of the days he skipped.
         check("...and the brief shows the ear block happened, as a date not a count",
-              re.search(r"Ear block: last played \d{4}-\d\d-\d\d", out.getvalue())
+              re.search(r"Ear block: last rated \d{4}-\d\d-\d\d", out.getvalue())
               and not re.search(r"Ear block:.*of the last", out.getvalue()),
               [l for l in out.getvalue().splitlines() if l.startswith("Ear block")])
     finally:
