@@ -60,5 +60,17 @@
     "queued_at": "2026-10-13T15:40:32",
     "status": "rejected",
     "decided_at": "2026-10-13T15:42:01"
+  },
+  {
+    "id": "8f5796640c",
+    "form": "எப்படி",
+    "en": "which way",
+    "unattested": [],
+    "where": "item",
+    "reason": "wrong: எப்படி means 'how', not 'which way' (which way would be எந்த பக்கம்/வழி)",
+    "lane": "rotation",
+    "source": "rotation_inventory_2026-10-15_0527",
+    "queued_at": "2026-10-15T05:30:36",
+    "status": "pending"
   }
 ]

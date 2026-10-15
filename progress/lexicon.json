@@ -103,8 +103,8 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-06",
-    "exposures": 2
+    "last_surfaced": "2026-10-15",
+    "exposures": 3
   },
   "கம்மி": {
     "gloss": "Less",
@@ -335,7 +335,7 @@
       34,
       77
     ],
-    "last_surfaced": "2026-10-13",
+    "last_surfaced": "2026-10-15",
     "exposures": 3,
     "taught_on": "2026-02-24",
     "heard_times": 1,
@@ -395,8 +395,8 @@
       72,
       81
     ],
-    "last_surfaced": "2026-10-13",
-    "exposures": 7,
+    "last_surfaced": "2026-10-15",
+    "exposures": 8,
     "taught_on": "2026-02-25",
     "heard_times": 1,
     "reps": 1,
@@ -497,9 +497,9 @@
       76,
       87
     ],
-    "last_surfaced": "2026-10-13",
+    "last_surfaced": "2026-10-15",
     "reps": 3,
-    "exposures": 7,
+    "exposures": 8,
     "taught_on": "2026-02-24",
     "heard_times": 1,
     "heard_on": null
@@ -935,8 +935,8 @@
       65,
       69
     ],
-    "last_surfaced": "2026-10-13",
-    "exposures": 8,
+    "last_surfaced": "2026-10-15",
+    "exposures": 9,
     "taught_on": "2026-02-24",
     "heard_times": 1,
     "heard_on": null,
@@ -1290,8 +1290,8 @@
       34,
       35
     ],
-    "last_surfaced": "2026-10-13",
-    "exposures": 3,
+    "last_surfaced": "2026-10-15",
+    "exposures": 4,
     "taught_on": "2026-02-25",
     "reps": 2,
     "heard_times": 1,
@@ -1425,8 +1425,8 @@
       76,
       85
     ],
-    "last_surfaced": "2026-10-14",
-    "exposures": 6,
+    "last_surfaced": "2026-10-15",
+    "exposures": 7,
     "reps": 5,
     "taught_on": "2026-02-24",
     "heard_times": 1,
@@ -1598,8 +1598,8 @@
       61,
       78
     ],
-    "last_surfaced": "2026-10-13",
-    "exposures": 8,
+    "last_surfaced": "2026-10-15",
+    "exposures": 9,
     "taught_on": "2026-02-25",
     "reps": 2,
     "heard_times": 1,
@@ -1830,8 +1830,8 @@
       35,
       61
     ],
-    "last_surfaced": "2026-10-13",
-    "exposures": 6,
+    "last_surfaced": "2026-10-15",
+    "exposures": 7,
     "taught_on": "2026-03-07",
     "reps": 2,
     "heard_on": null
@@ -2051,8 +2051,8 @@
       36,
       38
     ],
-    "last_surfaced": "2026-10-14",
-    "exposures": 7,
+    "last_surfaced": "2026-10-15",
+    "exposures": 8,
     "reps": 4,
     "taught_on": "2026-02-24",
     "heard_times": 1,
@@ -2231,8 +2231,8 @@
       43,
       85
     ],
-    "last_surfaced": "2026-10-04",
-    "exposures": 4,
+    "last_surfaced": "2026-10-15",
+    "exposures": 5,
     "taught_on": "2026-03-25",
     "heard_times": 1,
     "heard_on": null,
@@ -4838,8 +4838,8 @@
     "recognition": "comfortable",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-14",
-    "exposures": 5,
+    "last_surfaced": "2026-10-15",
+    "exposures": 6,
     "reps": 1,
     "heard_on": null,
     "taught_on": "2026-10-14"
@@ -5031,7 +5031,7 @@
     "seen_in": [
       93
     ],
-    "last_surfaced": "2026-10-13",
+    "last_surfaced": "2026-10-15",
     "taught_on": "2026-09-16",
     "heard_times": 1,
     "exposures": 1
@@ -5060,21 +5060,21 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-13",
+    "last_surfaced": "2026-10-15",
     "gloss": "Urgent / Hurry",
     "taught_on": "2026-09-20",
     "heard_times": 1,
-    "exposures": 2
+    "exposures": 3
   },
   "நேரம்": {
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-14",
+    "last_surfaced": "2026-10-15",
     "gloss": "Time",
     "taught_on": "2026-09-20",
     "heard_times": 1,
-    "exposures": 4,
+    "exposures": 5,
     "reps": 1,
     "heard_on": null
   },
@@ -5082,21 +5082,21 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-09-20",
+    "last_surfaced": "2026-10-15",
     "gloss": "Work",
     "taught_on": "2026-09-20",
     "heard_times": 1,
-    "exposures": 1
+    "exposures": 2
   },
   "உங்க": {
     "recognition": "struggled",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-14",
+    "last_surfaced": "2026-10-15",
     "gloss": "Your (respectful)",
     "taught_on": "2026-09-20",
     "heard_times": 1,
-    "exposures": 4,
+    "exposures": 5,
     "reps": 1,
     "heard_on": null
   },
@@ -5104,7 +5104,7 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-13",
+    "last_surfaced": "2026-10-15",
     "gloss": "My",
     "taught_on": "2026-09-20",
     "heard_times": 1,
@@ -5139,7 +5139,7 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-13",
+    "last_surfaced": "2026-10-15",
     "gloss": "Tell / Say",
     "taught_on": null,
     "exposures": 3
@@ -5148,7 +5148,7 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-13",
+    "last_surfaced": "2026-10-15",
     "gloss": "Study / read (bare imperative / root)",
     "taught_on": null
   },
@@ -5156,7 +5156,7 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-13",
+    "last_surfaced": "2026-10-15",
     "gloss": "See / Look",
     "taught_on": null
   },
@@ -5219,7 +5219,7 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-13",
+    "last_surfaced": "2026-10-15",
     "gloss": "Very / a lot — the universal intensifier (locked in 5 deck chunks)",
     "taught_on": null
   },
@@ -5238,11 +5238,11 @@
     "recognition": "untested",
     "production": "hinted",
     "seen_in": [],
-    "last_surfaced": "2026-10-13",
+    "last_surfaced": "2026-10-15",
     "gloss": "I",
     "reps": 1,
     "taught_on": null,
-    "exposures": 1
+    "exposures": 2
   },
   "யாரு": {
     "recognition": "untested",
@@ -5256,18 +5256,19 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-13",
+    "last_surfaced": "2026-10-15",
     "gloss": "How?",
     "taught_on": null,
-    "exposures": 2
+    "exposures": 3
   },
   "நாள்": {
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-03",
+    "last_surfaced": "2026-10-15",
     "gloss": "Day (the unit — எவ்ளோ நாள்?)",
-    "taught_on": null
+    "taught_on": null,
+    "exposures": 1
   },
   "தடவ": {
     "recognition": "untested",
@@ -5282,7 +5283,7 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-13",
+    "last_surfaced": "2026-10-15",
     "gloss": "Be / stay / exist (bare root)",
     "taught_on": null
   },
@@ -5290,9 +5291,10 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-13",
+    "last_surfaced": "2026-10-15",
     "gloss": "Say / tell (bare imperative / root)",
-    "taught_on": null
+    "taught_on": null,
+    "exposures": 1
   },
   "உக்காரு": {
     "recognition": "untested",
@@ -5483,5 +5485,29 @@
     "seen_in": [],
     "last_surfaced": "2026-10-14",
     "taught_on": "2026-10-14"
+  },
+  "பண்றேன்": {
+    "recognition": "untested",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-10-15",
+    "gloss": "I am doing (it)",
+    "taught_on": null
+  },
+  "பண்ணு": {
+    "recognition": "untested",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-10-15",
+    "gloss": "Do / make (bare root; common spoken alternative to செய்)",
+    "taught_on": null
+  },
+  "அப்புறமா": {
+    "recognition": "untested",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-10-15",
+    "gloss": "Later on / afterwards (temporal delay)",
+    "taught_on": null
   }
 }
