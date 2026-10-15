@@ -8,6 +8,9 @@ leaves; an idea that dies is deleted, not archived.
 
 ## Ideas
 
+- The inbox drain playbook — land `.claude/skills/inbox/SKILL.md` (+ its row in the AGENTS.md playbook table): a drain gives every open item a disposition (build → `DECISIONS.md` line and out; reject → deleted, reasoning in the commit; defer → stays, marked), vetting intact, summary to Andrew (2026-10-14, coach-filed by Rio, NOT built)
+- Complete the trip-date retirement in `AGENTS.md` — the Standing Strategic Charge still names "the tentative 2027 family visit" as the objective's destination; restate it as the constitution's goal (the family table, a lifetime of connection), the visit as context at most (2026-10-14, coach-filed by Rio, NOT built)
+- The ladder's evidence rule — `ladder.py` declares the lean "should move on evidence — and that rule is not built yet": build the read-only evidence read (the current room's lead-register rows carrying tested evidence, shown beside the stated lean; the flip stays a stated command) or settle stated-only in `DECISIONS.md` — a decision item, drained only by Andrew's ruling (2026-10-14, coach-filed by Rio, NOT built)
 - Shape-escalation inside rotation — an order can name rotation but not which shape, so escalation there needs a `spine` field on the order; reopens 09-29 (2026-10-12, from the repair-dose rerouting, NOT built)
 - A scheduler for the catch lane — a time-bound ask in an eavesdrop reply is now logged MISSED SCHEDULE, but nothing can queue it (2026-10-12, NOT built)
 - Populate or retire `pairs_with` — 1 of 362 rows, but four readers print "he answers: …" off it; the hear-her-line/produce-the-refusal pair is a real unit starved of data (2026-09-13, from the sparse-field review, NOT built)
