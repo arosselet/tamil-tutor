@@ -58,6 +58,7 @@ from pathlib import Path
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 from publish import commit_and_push
+from rails import in_waking_window
 
 COMMISSIONS = BASE / "progress" / "commissions"
 PENDING = COMMISSIONS / "pending"
@@ -139,9 +140,7 @@ def validate(c, stem):
 
 def due(c, now):
     sched = c.get("schedule") or {}
-    if sched.get("mode", "asap") != "at":
-        return True
-    return now >= _at(sched["at"])
+    return sched.get("mode", "asap") != "at" or now >= _at(sched["at"])
 
 
 def lane_command(c):
@@ -161,8 +160,7 @@ def lane_command(c):
 
 def move(path, c, dest_dir, **stamp):
     dest_dir.mkdir(parents=True, exist_ok=True)
-    c = dict(c)
-    c.update(stamp)
+    c = {**c, **stamp}
     dest = dest_dir / path.name
     dest.write_text(json.dumps(c, ensure_ascii=False, indent=2) + "\n",
                     encoding="utf-8")
@@ -218,6 +216,12 @@ def cmd_run(dry_run):
             continue
         if not due(c, now):
             continue
+        # A due commission still waits for his morning (2026-10-15): every lane
+        # notifies through `push_to_phone`, which drops a ping in quiet hours,
+        # so an `asap` commission run at 02:00 reached the feed unannounced.
+        if not in_waking_window(now):
+            print(f"   [commission] {path.name} due — quiet hours, waits for morning")
+            return 0
         cmd = lane_command(c)
         if dry_run:
             print(f"   [commission] DRY RUN — {path.name} would run:\n"

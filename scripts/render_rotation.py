@@ -752,6 +752,16 @@ def main():
     # be a streak with a new name, and a fade answered with accountability
     # machinery is the one move DECISIONS 07-04 forbids outright.
     if args.if_short:
+        # THE TAPE WAITS FOR HIS MORNING (2026-10-15, Andrew). The supply window
+        # rolls at local midnight, so the floor went short overnight and the
+        # hourly cron built the tape at 00:15, 01:30, 03:27 — and `push_to_phone`
+        # held the ping for quiet hours and dropped it. Every overnight tape
+        # reached the feed silently; he never heard one was there. Building at
+        # the first waking tick lands the tape and its ping together.
+        if not rails.in_waking_window():
+            print("   [supply] quiet hours — the tape waits for the first waking tick, "
+                  "so its ping lands")
+            return
         from rebuild_rss import feed_items
         from state_io import local_today
         from datetime import date as _date, timedelta as _td

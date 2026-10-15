@@ -2362,3 +2362,85 @@ def s144_an_order_is_paid_only_in_what_played(sb: Path):
             queue_path.unlink(missing_ok=True)
         else:
             queue_path.write_bytes(saved[2])
+
+
+def s147_overnight_production_waits_for_his_morning(sb: Path):
+    """A cron-built dose waits for the waking window (2026-10-15, Andrew).
+
+    WHAT WAS THERE. The supply window rolls at local midnight, so `--if-short`
+    found the week short overnight and the hourly cron built the rotation tape
+    at 00:15, 01:30, 03:27. `push_to_phone` held the ping for quiet hours and
+    dropped it — "on the feed for the morning" — so every one of those tapes
+    arrived unannounced. The commission router had the same hole for `asap`.
+
+    GATE 7.2, OUT LOUD. A gate that is always closed looks exactly like a quiet
+    night, so both halves are driven through the real entry points: at night
+    nothing is built and nothing is claimed; by day the same call reaches the
+    supply check and the lane.
+    """
+    print("\n147. Overnight production waits for his morning (2026-10-15)")
+    import contextlib, io
+    rr = importlib.import_module("render_rotation")
+    rails = importlib.import_module("rails")
+    rss = importlib.import_module("rebuild_rss")
+    cm = importlib.import_module("commissions")
+
+    class Reached(Exception):
+        pass
+
+    def reached(*a, **kw):
+        raise Reached()
+
+    real = (rails.in_waking_window, rss.feed_items, rr.load_env, sys.argv,
+            cm.in_waking_window, cm.run_one)
+    pending = cm.PENDING / "20261015-smoke-night.json"
+    try:
+        rss.feed_items = reached
+        rr.load_env = reached
+        sys.argv = ["render_rotation.py", "--if-short"]
+
+        rails.in_waking_window = lambda *a: False
+        with contextlib.redirect_stdout(io.StringIO()) as out:
+            try:
+                rr.main()
+                night = "waited"
+            except Reached:
+                night = "built"
+        check("at night the shelf lane builds nothing — not even the supply check",
+              night == "waited", out.getvalue()[-300:])
+        check("...and says why, so a quiet night reads differently from a dead cron",
+              "quiet hours" in out.getvalue(), out.getvalue()[-300:])
+
+        rails.in_waking_window = lambda *a: True
+        with contextlib.redirect_stdout(io.StringIO()):
+            try:
+                rr.main()
+                day = "waited"
+            except Reached:
+                day = "built"
+        check("by day the same call reaches the supply check — the gate is not shut for good",
+              day == "built")
+
+        # ── the commission router: a due `asap` commission is not claimed at night
+        pending.parent.mkdir(parents=True, exist_ok=True)
+        pending.write_text(json.dumps({"id": "20261015-smoke-night", "lane": "rotation",
+                                       "requested_by": "anna",
+                                       "beats": {"spine": "room", "minutes": 8}}),
+                           encoding="utf-8")
+        ran = []
+        cm.run_one = lambda path, c, cmd, now: ran.append(path.name) or 0
+        cm.in_waking_window = lambda *a: False
+        with contextlib.redirect_stdout(io.StringIO()) as out:
+            cm.cmd_run(False)
+        check("at night a due commission is not run",
+              not ran and pending.exists(), f"ran {ran}; {out.getvalue()[-200:]}")
+        check("...and the router says it is waiting, not that nothing is due",
+              "quiet hours" in out.getvalue(), out.getvalue()[-200:])
+        cm.in_waking_window = lambda *a: True
+        with contextlib.redirect_stdout(io.StringIO()):
+            cm.cmd_run(False)
+        check("by day the same commission runs", ran == [pending.name], str(ran))
+    finally:
+        (rails.in_waking_window, rss.feed_items, rr.load_env, sys.argv,
+         cm.in_waking_window, cm.run_one) = real
+        pending.unlink(missing_ok=True)
