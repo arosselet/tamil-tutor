@@ -16,11 +16,14 @@ to practise on: a nine-year-old tolerates error completely and cannot switch to
 English to be kind, while an elder switches by politeness reflex. So the work
 runs DOWN, then ACROSS, then UP — easiest room first.
 
-WHAT MOVES IT. The lean used to move on the calendar. It should move on
-evidence — up a room when the books show the current room's register is mostly
-his — and that rule is not built yet. Until it is, the lean is STATED: one
-command (`sync_state.py ladder --lean down|across|up`), Andrew's or Anna's
-call, and what is stored is the room and the day it was chosen. Nothing else:
+WHAT MOVES IT. The lean used to move on the calendar. Now it is STATED, on
+evidence that is shown and never automated (2026-10-09, Andrew; confirmed
+10-14): `threads.rooms()` prints each room's books — rows his among its leading
+registers — beside the lean, and the move is one command
+(`sync_state.py ladder --lean down|across|up`), Andrew's or Anna's call. No rule
+moves it, on purpose: a `register` names the kind of phrase, not who he would
+say it to, so a threshold on it would move the lean for the wrong reason. What
+is stored is the room and the day it was chosen. Nothing else:
 no phase, no counter, no countdown. A stored meter is the Trip Deck's failure,
 and this object refuses to grow one.
 

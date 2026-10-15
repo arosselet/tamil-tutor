@@ -939,8 +939,9 @@ def cmd_ladder(args):
     this is the one writer, like every other state file.
 
     WITH NO FLAGS it is a READ. `--lean` stores the room and the day it was
-    chosen, and nothing else. The lean is stated, not scheduled, until an
-    evidence rule exists to move it (ladder.py says which)."""
+    chosen, and nothing else. The lean is stated, never scheduled or automated;
+    the read prints the books beside it so the statement is made on evidence
+    (ladder.py says why no rule moves it)."""
     learner = load_json(LEARNER_PATH) or {}
     rec = ladder_mod.load(learner)
     if not args.lean:
