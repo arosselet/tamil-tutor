@@ -30,6 +30,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **13:42 · Anna** 🎧  ·  eavesdrop / overheard: cant-முடியல
 > Athai phonela paattiyoda check-up pathi pesittu irukkaanga — yaaru poga maattennu sonnaangannu oru line-la therinjidum 🎧
 
+**20:14 · Anna**  ·  text / one try: kilambalaamaa
+> Everyone's standing by the door with their bags — ask 'shall we get going?'. sollu 🚪
+
 
 ## Tuesday 2026-10-13
 
