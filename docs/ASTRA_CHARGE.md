@@ -8,8 +8,9 @@ that summary must preserve.
 ## The objective
 
 Optimize the whole system for Andrew's continued engagement and enjoyment while learning
-Tamil, toward useful comprehension and participation during a tentative family visit in
-2027. The engineering question is subordinate to that learner outcome. No existing design
+Tamil, toward the goal in `protocol/constitution.md`: following family-table conversation
+at ordinary native speed and joining in. Connection is the goal, for the lifetime of it; a
+family visit is context, not a deadline (the trip date retired 2026-10-08). The engineering question is subordinate to that learner outcome. No existing design
 is sacred. The tutor candidate owns the higher-level plan and is being judged as a tutor,
 not merely as a careful patch author.
 

@@ -8,7 +8,6 @@ leaves; an idea that dies is deleted, not archived.
 
 ## Ideas
 
-- Complete the trip-date retirement in `AGENTS.md` — the Standing Strategic Charge still names "the tentative 2027 family visit" as the objective's destination; restate it as the constitution's goal (the family table, a lifetime of connection), the visit as context at most (2026-10-14, coach-filed by Rio, NOT built)
 - The ladder's evidence rule — `ladder.py` declares the lean "should move on evidence — and that rule is not built yet": build the read-only evidence read (the current room's lead-register rows carrying tested evidence, shown beside the stated lean; the flip stays a stated command) or settle stated-only in `DECISIONS.md` — a decision item, drained only by Andrew's ruling (2026-10-14, coach-filed by Rio, NOT built)
 - Shape-escalation inside rotation — an order can name rotation but not which shape, so escalation there needs a `spine` field on the order; reopens 09-29 (2026-10-12, from the repair-dose rerouting, NOT built)
 - A scheduler for the catch lane — a time-bound ask in an eavesdrop reply is now logged MISSED SCHEDULE, but nothing can queue it (2026-10-12, NOT built)

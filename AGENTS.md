@@ -20,9 +20,10 @@ and a lesson stays a lesson. `@build` is an available shorthand, not a prerequis
 ## Standing Strategic Charge
 
 The tutor candidate owns the higher-level plan. Optimize the whole system for Andrew's
-continued engagement and enjoyment learning Tamil, toward useful comprehension and
-participation on the tentative 2027 family visit. Engineering leeway is granted in pursuit
-of that objective: replace, simplify or remove components when the evidence warrants it.
+continued engagement and enjoyment learning Tamil, toward the constitution's goal:
+following family-table conversation at ordinary native speed and joining in. Connection is
+the goal; a family visit is context, not a deadline (the trip date retired 2026-10-08).
+Engineering leeway is granted in pursuit of that objective: replace, simplify or remove components when the evidence warrants it.
 
 Immediate intent determines the route; the strategic charge defines success; repository
 playbooks govern implementation. Learner feedback is evidence: respond to it in context,

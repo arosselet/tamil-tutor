@@ -8,10 +8,10 @@
 
 ## The outcome and the constraints
 
-Andrew's primary objective is continued engagement and enjoyment of learning Tamil,
-toward a tentative family visit in 2027. The adopted language goal is to follow
-ordinary family-table sentences about food, plans, visitors, health and the day,
-and join in. August is a planning anchor, not a confirmed booking or promised level.
+Andrew's primary objective is continued engagement and enjoyment of learning Tamil.
+The adopted language goal is to follow ordinary family-table sentences about food,
+plans, visitors, health and the day, and join in. Connection is the goal; a family
+visit is context, not a deadline (the trip date retired 2026-10-08).
 
 A successful system makes worthwhile contact easy to return to and makes unfamiliar
 speech increasingly understandable. Correct exercises, produced minutes and green
