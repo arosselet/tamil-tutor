@@ -23795,5 +23795,17 @@
     "medium": "audio",
     "source": "rotation_inventory_2026-10-15_0527",
     "note": ""
+  },
+  {
+    "id": "c6628772037d",
+    "at": "2026-10-15T15:39:19Z",
+    "word": "ஒரு மாசம் இருப்போம்",
+    "channel": "fielding",
+    "kind": "tested",
+    "axis": "production",
+    "result": "right",
+    "medium": "text",
+    "source": "knock:2026-10-15T15:26:21.449888+00:00",
+    "note": "cold fire"
   }
 ]

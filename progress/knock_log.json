@@ -8597,17 +8597,20 @@
     "memo_script": "எவ்ளோ நாள் இருப்பீங்க?",
     "mp3": "published_audio/knocks/knock_2026-10-15T15-26.mp3",
     "response": "reply",
-    "reply": "Iruppom",
+    "reply": "Oru masam iruppom",
     "reply_verdict": "hinted",
     "reply_fired": [
       "ஒரு மாசம்",
-      "இருப்போம்"
+      "இருப்போம்",
+      "ஒரு மாசம் இருப்போம்"
     ],
-    "reply_fired_cold": [],
+    "reply_fired_cold": [
+      "ஒரு மாசம் இருப்போம்"
+    ],
     "reply_fired_capped": [],
-    "reply_line_script": "adhu dhaan! இருப்போம் correct. · Now put the whole piece together — tell him 'we'll stay one month'.",
-    "reply_line": "adhu dhaan! iruppom correct. · Now put the whole piece together — tell him 'we'll stay one month'.",
-    "reply_at": "2026-10-15T15:38:16Z",
+    "reply_line_script": "அது தான்! மாமா-கிட்ட exactly இப்படி தான் சொல்லணும்.",
+    "reply_line": "Adhu thaan! Maama-kitta exactly ippadi thaan sollanum.",
+    "reply_at": "2026-10-15T15:39:28Z",
     "exchanges": [
       {
         "at": "2026-10-15T15:28:39Z",
@@ -8639,6 +8642,24 @@
         "graduated": [],
         "reply_line": "adhu dhaan! iruppom correct. · Now put the whole piece together — tell him 'we'll stay one month'.",
         "reply_line_script": "adhu dhaan! இருப்போம் correct. · Now put the whole piece together — tell him 'we'll stay one month'.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-10-15T15:39:28Z",
+        "reply": "Oru masam iruppom",
+        "verdict": "hinted",
+        "fired": [
+          "ஒரு மாசம் இருப்போம்"
+        ],
+        "fired_cold": [
+          "ஒரு மாசம் இருப்போம்"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "Adhu thaan! Maama-kitta exactly ippadi thaan sollanum.",
+        "reply_line_script": "அது தான்! மாமா-கிட்ட exactly இப்படி தான் சொல்லணும்.",
         "slips": [],
         "spoke": "",
         "scheduled": ""
