@@ -15,6 +15,6 @@ this pointer replaces it — there is no content here to drift out of sync (2026
 - **Studio** — `python scripts/run_studio.py` is the default dispatch;
   `.claude/agents/studio.md` is the subagent fallback when it exits non-zero.
 - **Engineering playbooks** are slash commands as well as files: `/orient`, `/debug`,
-  `/validate`, `/extend`, `/verify`, `/recalibrate`, `/backport`. The table in `AGENTS.md`
+  `/validate`, `/extend`, `/verify`, `/recalibrate`, `/backport`, `/inbox`. The table in `AGENTS.md`
   says when to reach for each. Start any `@build` task with `/orient` if the system is
   unfamiliar, and pass `/extend`'s gates before writing code.

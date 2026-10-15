@@ -93,6 +93,7 @@ whole portability contract; there is no mirror to keep in sync.
 | `verify` | `.claude/skills/verify/SKILL.md` | Proving a change works end-to-end |
 | `recalibrate` | `.claude/skills/recalibrate/SKILL.md` | The pedagogy feels off — evidence before mechanisms |
 | `backport` | `.claude/skills/backport/SKILL.md` | A milestone worth porting to the language-tutor template repo |
+| `inbox` | `.claude/skills/inbox/SKILL.md` | "Drain the inbox" — a disposition for every item in `docs/feature_inbox.md` |
 
 Start any `@build` task with `orient` if the system is unfamiliar, and pass `extend`'s
 seven gates before writing code.
