@@ -9,7 +9,8 @@ from urllib.parse import quote
 from xml.sax.saxutils import escape as xml_escape
 
 import audio_titles
-from language import CAPTION_COLUMNS, FEED_SUMMARY, FEED_TITLE, RAW_BASE_URL, SITE_URL
+from language import (APPLE_PODCAST_ID, CAPTION_COLUMNS, FEED_SUMMARY, FEED_TITLE,
+                      RAW_BASE_URL, SITE_URL)
 # LOCAL_TZ is Andrew's clock, canonical there; RECENT_AUDIO_PATH is the rating
 # picker's list, which this module writes because this module writes its source.
 from state_io import LOCAL_TZ, RECENT_AUDIO_PATH
@@ -127,28 +128,54 @@ VERDICTS = {
 # key in a public feed, so it was declined.
 RATING_SHORTCUT = "Rate From Notes"
 RATING_SEPARATOR = "|"
+# "TELL ME" — ONE SPOKEN SENTENCE, RIGHT UNDER THE PLAY BUTTON (2026-10-15,
+# Andrew). The verdicts say WHICH box he was in, never WHY: "too fast in the
+# middle" is the diagnostic the buttons cannot carry, and a debrief later lost
+# it to the context switch. Its own Shortcut, not a branch in "Rate From Notes"
+# (his call: no ifs): the input is the bare title, the Shortcut dictates one
+# sentence and sends both as `episode-note`. It offers on EVERY item, the
+# unrateable ones too — "I didn't catch iruppom" is worth having about a
+# five-second fielding line that no verdict could describe.
+NOTE_SHORTCUT = "Tell From Notes"
+# BACK TO THE SHOW, NOT TO WHEREVER PODCASTS WAS (2026-10-15, Andrew). Bare
+# `podcasts://` opened the app on its last screen, rarely this show. The exact
+# EPISODE is out of reach: Apple mints an episode id only after it ingests the
+# feed, hours after these notes are frozen into his app. The show page is the
+# nearest thing a link written at publish time can name.
+RETURN_URL = f"podcasts://podcasts.apple.com/podcast/id{APPLE_PODCAST_ID}"
+
+
+def _shortcut_url(name: str, text: str) -> str:
+    return ("shortcuts://x-callback-url/run-shortcut?name=" + quote(name)
+            + "&input=text&text=" + quote(text) + "&x-success=" + quote(RETURN_URL, safe=""))
 
 
 def rating_url(title: str, verdict: str) -> str:
     """The link one button carries. `cmd_rate_episode` resolves the title half
     back to a feed item, so it is the feed title verbatim."""
-    return ("shortcuts://x-callback-url/run-shortcut?name=" + quote(RATING_SHORTCUT)
-            + "&input=text&text=" + quote(title + RATING_SEPARATOR + verdict)
-            + "&x-success=podcasts%3A%2F%2F")   # podcasts:// — Apple Podcasts
+    return _shortcut_url(RATING_SHORTCUT, title + RATING_SEPARATOR + verdict)
 
 
-def show_notes_for(title: str, script_md_name: str) -> str:
-    """The item's <description>: the rating links always, and the caption sheet
-    first when one exists (captioned soak, 2026-07-13). A caption also earns the
-    item's <link>, which some apps render instead of the notes."""
+def show_notes_for(title: str, script_md_name: str, rateable: bool = True) -> str:
+    """The item's <description>: "Tell me" always, the verdict links only where
+    `rate-episode` will accept them, and the caption sheet first when one exists
+    (captioned soak, 2026-07-13). A caption also earns the item's <link>, which
+    some apps render instead of the notes.
+
+    THE BUTTONS ASK THE SAME QUESTION THE HANDLER ANSWERS (2026-10-15). The
+    verdicts used to be stamped on every item, while `feed_items` skipped the
+    fielding knocks and the replies — 16 of 117 items carried buttons that could
+    only fail, and a real `finished` on the 10-15 fielding knock died in CI.
+    Both sides now read `rateable()`."""
     lines, link = [], ""
     if os.path.exists(os.path.join(CAPTIONS_DIR, script_md_name)):
         caption_url = f"{SITE_URL}/blob/main/{CAPTIONS_DIR}/{script_md_name}"
         link = f"\n      <link>{caption_url}</link>"
         lines.append(f'\U0001F4D6 <a href="{caption_url}">Captions — follow '
                      f'along ({CAPTION_COLUMNS})</a>')
-    lines.append("How was it? " + " · ".join(
-        f'<a href="{rating_url(title, v)}">{v.capitalize()}</a>' for v in VERDICTS))
+    links = [f'<a href="{rating_url(title, v)}">{v.capitalize()}</a>'
+             for v in (VERDICTS if rateable else ())]
+    lines.append("How was it? " + " · ".join(links + [f'<a href="{_shortcut_url(NOTE_SHORTCUT, title)}">Tell me</a>']))
     # CDATA: the hrefs carry raw `&`. A title holding "]]>" would end the block
     # early; no title does, and quote() has already escaped it inside the hrefs.
     return (link + "\n      <description><![CDATA["
@@ -409,8 +436,30 @@ def audio_format(stem: str) -> str:
 UNRATEABLE_FORMATS = {"knock/fielding"}
 
 
-def feed_items():
-    """Everything in the feed, newest first — `[{id, title, format}]`.
+def item_format(stem: str, is_knock: bool, meta: dict) -> str:
+    """The format label one feed item rates under. Knock doses are offered as
+    `knock/<modality>`; an unlogged knock resolves to `knock/dose` and IS
+    OFFERED, not dropped — a stray row in the picker is visible and one tap to
+    ignore, while a dose that silently never appears is the failure this exists
+    to end. A payoff is its own format, not a second eavesdrop row: "does the
+    payoff land better than the tape did" cannot be asked if both are
+    `eavesdrop`. One function because the show notes and the picker must agree."""
+    if not is_knock:
+        return audio_format(stem)
+    return "payoff" if stem.startswith("payoff_") else \
+        "knock/" + (meta.get(stem, ("", ""))[1] or "dose")
+
+
+def rateable(stem: str, fmt: str) -> bool:
+    """Whether the verdict buttons belong on this item — read by BOTH the show
+    notes and `feed_items`, so a button the handler will refuse cannot be drawn."""
+    return not stem.startswith("reply_") and fmt not in UNRATEABLE_FORMATS
+
+
+def feed_items(everything: bool = False):
+    """Everything rateable in the feed, newest first — `[{id, title, format}]`.
+    `everything=True` keeps the unrateable items too: a "Tell me" note can be
+    about any of them (2026-10-15).
 
     THE FEED IS THE SOURCE for "what audio reached Andrew", not episodes.json and
     not a directory glob. The registry is the *lesson* pipeline's book: only
@@ -445,20 +494,9 @@ def feed_items():
         enc = item.find("enclosure")
         url = (enc.get("url") if enc is not None else "") or ""
         stem = url.rsplit("/", 1)[-1].removesuffix(".mp3")
-        fmt = audio_format(stem)
-        if "/knocks/" in url:
-            # An unlogged knock resolves to `knock/dose` and IS OFFERED, not
-            # dropped. That direction is deliberate: a stray row in the picker is
-            # visible and one tap to ignore, while a dose that silently never
-            # appears is the failure this whole change exists to end.
-            fmt = "knock/" + (meta.get(stem, ("", ""))[1] or "dose")
-            # A payoff is its own format, not a second eavesdrop row. "Does the
-            # payoff land better than the tape did" is the question this lane
-            # exists to answer, and it cannot be asked if both rate as `eavesdrop`.
-            if stem.startswith("payoff_"):
-                fmt = "payoff"
-            if stem.startswith("reply_") or fmt in UNRATEABLE_FORMATS:
-                continue
+        fmt = item_format(stem, "/knocks/" in url, meta)
+        if not (everything or rateable(stem, fmt)):
+            continue
         title = (item.findtext("title") or "").strip()
         if not stem or not title:
             continue
@@ -772,6 +810,9 @@ def generate_rss():
         # Measured once, at first publication, by whatever tool this host has.
         # Never re-derived — see existing_items().
         duration = prior.get("duration") or duration_hms(audio_path, "00:05:00")
+        stem = filename.rsplit("/", 1)[-1].removesuffix(".mp3")
+        can_rate = rateable(stem, item_format(stem, filename.startswith("knocks/"),
+                                              knock_metadata))
 
         # Escape titles/summaries: episode titles carry Tamil script and arbitrary
         # punctuation (e.g. a raw "&" from a script H1), which is illegal as bare
@@ -780,7 +821,7 @@ def generate_rss():
             title=xml_escape(title),
             author=AUTHOR,
             summary=xml_escape(title),
-            show_notes=show_notes_for(title, md_name(filename)),
+            show_notes=show_notes_for(title, md_name(filename), can_rate),
             audio_url=audio_url,
             size=size,
             pub_date=pub_date,

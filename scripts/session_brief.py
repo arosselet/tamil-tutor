@@ -146,6 +146,7 @@ def knock_line(k: dict) -> str:
 
 
 HEARD_TAG = "[heard]"
+NOTE_TAG = "[audio note]"   # the "Tell me" link's rows — `sync_state.cmd_note_episode`
 
 
 def heard_in_the_wild(cap: int = 5) -> list[str]:
@@ -187,6 +188,21 @@ def heard_in_the_wild(cap: int = 5) -> list[str]:
     return ["", "👂 HEARD IN THE WILD, NOT YET WORKED — work one of these into "
             "the session; decode it, never grade it. Close with "
             "`feedback \"[heard-worked] <line>\"`."] + body[-cap:] if body else []
+
+
+def audio_notes(days: int = 14, cap: int = 5) -> list[str]:
+    """What he SAID about a tape, right after it (the "Tell me" link,
+    2026-10-15). A reader, not a store: the rows are ordinary `[audio note]`
+    entries in `feedback_log.json`. Without this block they would reach the
+    diagnosis pass weeks later, if at all — the fate `heard_in_the_wild` was
+    written to end. Ages out by date; nothing marks one worked."""
+    from datetime import timedelta
+    start = (local_today() - timedelta(days=days - 1)).isoformat()
+    body = [f"   {e['date']} · {e['note'][len(NOTE_TAG):].strip()}"
+            for e in load_json(FEEDBACK_LOG_PATH) or []
+            if e.get("note", "").startswith(NOTE_TAG) and e.get("date", "") >= start]
+    return ["", "🎙 HE SAID, RIGHT AFTER LISTENING — weigh these in what gets "
+            "commissioned next; never read them back to him as a grade."] + body[-cap:] if body else []
 
 
 def unpaid_trailer(klog: list, last_session: str | None) -> dict | None:
@@ -391,7 +407,7 @@ def cmd_status(_args):
     # needs another rep; a repeated slip says HOW the rep keeps failing, which is
     # the difference between re-asking the same thing the same way and teaching
     # the thing that is actually broken.
-    for line in heard_in_the_wild():
+    for line in heard_in_the_wild() + audio_notes():
         print(line)
 
     slip_block = format_slip_block(slip_patterns())

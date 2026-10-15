@@ -1280,6 +1280,33 @@ def cmd_rate_episode(args):
                                  f"Audio listen: {item['id']} {label}", feed=False))
 
 
+def cmd_note_episode(args):
+    """File one spoken sentence about a feed item — the "Tell me" link
+    (2026-10-15, Andrew). A verdict says which box he was in; this says why, in
+    his words, while the play button is still on screen.
+
+    A NOTE, NOT A RATING. It goes in the same ledger, tagged `[audio note]`, so
+    the dose meter and the ear block — which count `[audio rating]` rows — never
+    read a sentence as a listen, and it exposes no words: he may be telling us he
+    gave up. It resolves against EVERY feed item, unrateable ones too.
+
+    LOUD on both silent no-ops: a title the feed does not hold, and an empty
+    dictation (the phone sees a 204 either way, so the run must fail here)."""
+    text = " ".join((args.text or "").split())
+    wanted = (args.episode or "").strip()
+    item = next((d for d in feed_items(everything=True) if d["title"] == wanted), None)
+    if item is None or not text:
+        print(f"  ! Nothing filed: {'empty dictation' if item else repr(wanted) + ' is not in the feed'}.")
+        sys.exit(1)
+    log = load_json(FEEDBACK_LOG_PATH) or []
+    log.append({"date": local_today().isoformat(), "id": item["id"],
+                "note": f"[audio note] [{item['format']}] {item['title']} — \"{text}\""})
+    save_json(FEEDBACK_LOG_PATH, log)
+    print(f"  Logged feedback ({len(log)} total): {log[-1]['note']}")
+    if getattr(args, "commit", False):
+        commit_and_push(*publish([FEEDBACK_LOG_PATH], f"Audio note: {item['id']}", feed=False))
+
+
 def cmd_check(args):
     """CLI facade; recognition recording lives in receptive_check."""
     import receptive_check
@@ -1422,6 +1449,11 @@ def main():
                      help="loved it | finished | lost the thread | stopped early (a legacy star row reads as finished)")
     re_.add_argument("--commit", action="store_true", help="Commit and push the ledger (CI lane)")
 
+    ne = sub.add_parser("note-episode", help="File one spoken sentence about a feed item (the Tell me link)")
+    ne.add_argument("--episode", required=True, help="Feed title, exactly as the show notes carry it")
+    ne.add_argument("--text", required=True, help="What he said")
+    ne.add_argument("--commit", action="store_true", help="Commit and push the ledger (CI lane)")
+
     ld = sub.add_parser("ladder", help="The room the work leans toward — read it, or state it")
     ld.add_argument("--lean", choices=ladder_mod.ORDER, default="", help="down (children) | across | up (elders)")
     ld.add_argument("--dry-run", action="store_true", help="Print the lean and write nothing")
@@ -1468,6 +1500,8 @@ def main():
         cmd_feedback(args)
     elif args.command == "rate-episode":
         cmd_rate_episode(args)
+    elif args.command == "note-episode":
+        cmd_note_episode(args)
     elif args.command == "ladder":
         return cmd_ladder(args)
     elif args.command == "month":

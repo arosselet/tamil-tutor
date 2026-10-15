@@ -231,3 +231,6 @@ FEED_TITLE = "Coimbatore Mappillai"
 FEED_SUMMARY = ("AI-generated Tamil lessons. Colloquial Kongu dialect, "
                 "dual-voice audio, built for daily life.")
 CAPTION_COLUMNS = "Tamil · phonetic · English"
+# The show's id in Apple's directory. The show-notes links hand the screen back
+# to this show's page (2026-10-15), so a fork with its own listing changes it here.
+APPLE_PODCAST_ID = "1880268803"

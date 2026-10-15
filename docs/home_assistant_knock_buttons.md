@@ -506,13 +506,18 @@ the tag did not arrive.
 
 ### 8.6 "Rate From Notes" — one tap from the show notes (2026-10-13, own Shortcut 2026-10-14)
 
-Every item in `rss.xml` ends its notes with **How was it? Loved it · Finished · Lost
-the thread · Stopped early**. Each word is a link:
+Every rateable item in `rss.xml` ends its notes with **How was it? Loved it · Finished ·
+Lost the thread · Stopped early · Tell me**. Fielding knocks and spoken replies carry
+**Tell me** alone, because `rate-episode` refuses a verdict on them (`rebuild_rss.rateable`,
+2026-10-15). Each word is a link:
 
-`shortcuts://x-callback-url/run-shortcut?name=Rate%20From%20Notes&input=text&text=<feed title>|<verdict>&x-success=podcasts%3A%2F%2F`
+`shortcuts://x-callback-url/run-shortcut?name=Rate%20From%20Notes&input=text&text=<feed title>|<verdict>&x-success=podcasts%3A%2F%2Fpodcasts.apple.com%2Fpodcast%2Fid1880268803`
 
 iOS opens Shortcuts, runs **Rate From Notes** with `<title>|<verdict>` as its input, and
-on success jumps back to Apple Podcasts — about a second on screen. No link can run a
+on success jumps back to the show's page in Apple Podcasts — about a second on screen.
+(Bare `podcasts://` opened the app wherever it last was. The exact episode cannot be
+named: Apple mints an episode id only after it ingests the feed, after these notes are
+frozen into the app.) No link can run a
 Shortcut without showing the app; that second is the floor. **Rate Episode** (the
 home-screen picker) is a separate Shortcut and is not touched.
 
@@ -545,6 +550,31 @@ unknown title or verdict fails that step loudly).
 The verdict vocabulary is `rebuild_rss.VERDICTS`; Python matches on the start of the
 text, case-insensitively. If Apple Podcasts will not open the link at all, the
 home-screen picker still works and nothing else changes.
+
+### 8.7 "Tell From Notes" — one spoken sentence (2026-10-15)
+
+**Tell me** runs a second Shortcut with the feed title alone as its input. It listens for
+one sentence and files it beside the ratings as an `[audio note]`, which Anna's session
+brief shows for two weeks. A note is not a listen: no meter counts it.
+
+**Build it** — duplicate **Rate From Notes**, rename the copy **Tell From Notes** exactly,
+then:
+
+1. Delete the Split Text, both Get Item from List and both Set Variable steps.
+2. Add **Dictate Text** at the top (Stop Listening: **After Pause**). You speak; it stops
+   when you stop.
+3. In **Get Contents of URL**, set the body to:
+
+   | Field | Type | Value |
+   |---|---|---|
+   | `event_type` | **Text** | `episode-note` |
+   | `client_payload` | **Dictionary** | `episode` = **Shortcut Input**, `text` = **Dictated Text** (both **Text**) |
+
+4. Keep the **If … Show Alert** step unchanged.
+
+**Try it** — tap **Tell me** under any item and say one sentence. The proof is an
+`Audio note: <id>` commit. An empty dictation or an unknown title fails the
+`note-episode` step in the Anna run loudly.
 
 ## 9. Which leg breaks when — reading a "it disappeared" symptom
 

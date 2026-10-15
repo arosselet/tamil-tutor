@@ -5594,8 +5594,9 @@ def s145_a_show_notes_tap_rates_the_episode(sb: Path):
         notes = rs.show_notes_for(title, "no_caption_sheet.md")
         item = ET.fromstring(f"<item>{notes}</item>")
         hrefs = re.findall(r'href="([^"]+)"', item.findtext("description") or "")
-        check("the notes carry one link per verdict, in the button order",
-              len(hrefs) == len(rs.VERDICTS), str(hrefs))
+        check("the notes carry one link per verdict, in the button order, then Tell me",
+              len(hrefs) == len(rs.VERDICTS) + 1
+              and "name=Tell%20From%20Notes" in hrefs[-1], str(hrefs))
         for href, verdict in zip(hrefs, rs.VERDICTS):
             q = parse_qs(urlsplit(href).query)
             check(f"'{verdict}' runs the phone's Shortcut by its exact name",
@@ -5604,8 +5605,10 @@ def s145_a_show_notes_tap_rates_the_episode(sb: Path):
                   and q.get("input") == ["text"], href)
             # 2026-10-14: the screen comes back to the podcast app on success
             # only — an x-error/x-cancel bounce would hide a rating that failed.
-            check(f"...and '{verdict}' hands the screen back to Podcasts on success",
-                  q.get("x-success") == ["podcasts://"]
+            # 2026-10-15: to THIS show's page, not wherever Podcasts last was.
+            check(f"...and '{verdict}' hands the screen back to the show on success",
+                  q.get("x-success") == ["podcasts://podcasts.apple.com/podcast/id"
+                                         + rs.APPLE_PODCAST_ID]
                   and "x-error" not in q and "x-cancel" not in q, href)
             sent_title, _, sent_verdict = q["text"][0].rpartition(rs.RATING_SEPARATOR)
             with contextlib.redirect_stdout(_io.StringIO()):
@@ -5623,3 +5626,93 @@ def s145_a_show_notes_tap_rates_the_episode(sb: Path):
     finally:
         rs.feed_items, ss.feed_items = saved_feed
         fb_path.write_bytes(saved)
+
+
+def s149_every_show_notes_link_lands(sb: Path):
+    """Every link in a REBUILT feed is one the handler accepts (2026-10-15).
+
+    The 10-15 fielding knock carried four verdict links that `rate-episode`
+    could only refuse: the notes stamped verdicts on every item while
+    `feed_items` skipped fielding knocks and replies, and a real `finished`
+    died in CI. s145 holds one hand-built item; this case rebuilds the feed
+    from files and walks every link in it, so the two sides can only agree.
+
+    Gate 7.2 — the silent no-op for "Tell me" is a sentence that runs the
+    Shortcut, gets its 204, and files nothing, or files a row the dose meter
+    then counts as a listen. So each Tell link is round-tripped through the real
+    `cmd_note_episode`, the ledger is re-read, and the meters are read after."""
+    print("\n149. Every show-notes link lands; Tell me files a note on any item (2026-10-15)")
+    import argparse as _ap
+    import contextlib
+    import io as _io
+    import os
+    import shutil as _sh
+    import xml.etree.ElementTree as ET
+    from urllib.parse import parse_qs, urlsplit
+    sys.path.insert(0, str(sb / "scripts"))
+    ss = importlib.import_module("sync_state")
+    rs = importlib.import_module("rebuild_rss")
+    sbr = importlib.import_module("session_brief")
+    at = importlib.import_module("audio_titles")
+    fb, kl, rss = (sb / "progress" / "feedback_log.json",
+                   sb / "progress" / "knock_log.json", sb / "rss.xml")
+    saved = {p: p.read_bytes() for p in (fb, kl, rss) if p.exists()}
+    audio = sb / "published_audio"
+    cwd = os.getcwd()
+    try:
+        os.chdir(sb)
+        (audio / "knocks").mkdir(parents=True, exist_ok=True)
+        for f in ("knocks/knock_2026-10-15T15-26.mp3", "knocks/reply_2026-10-15T15-40.mp3",
+                  "soak_market_2026-10-14.mp3"):
+            (audio / f).write_bytes(b"\xff" * 4096)
+        write_json(kl, [{"mp3": "published_audio/knocks/knock_2026-10-15T15-26.mp3",
+                         "modality": "fielding", "move": "fielding: oru maasam iruppom"}])
+        write_json(fb, [])
+        with contextlib.redirect_stdout(_io.StringIO()):
+            rs.generate_rss()
+        rateable = {d["title"] for d in rs.feed_items()}
+        everything = {d["title"]: d for d in rs.feed_items(everything=True)}
+        check("the rebuilt feed holds all three items, one of them rateable",
+              len(everything) == 3 and len(rateable) == 1, str(everything))
+        for item in ET.parse(rss).getroot().findall("./channel/item"):
+            title = item.findtext("title")
+            hrefs = re.findall(r'href="([^"]+)"', item.findtext("description") or "")
+            rate = [parse_qs(urlsplit(h.replace("&amp;", "&")).query) for h in hrefs
+                    if "name=Rate%20From%20Notes" in h]
+            tell = [parse_qs(urlsplit(h.replace("&amp;", "&")).query) for h in hrefs
+                    if "name=Tell%20From%20Notes" in h]
+            check(f"'{title}': verdict links only if rate-episode will take them",
+                  len(rate) == (len(rs.VERDICTS) if title in rateable else 0)
+                  and all(q["text"][0].rpartition("|")[0] in rateable for q in rate),
+                  str(rate))
+            check("...and exactly one Tell me, sending the title verbatim",
+                  len(tell) == 1 and tell[0]["text"] == [title], str(tell))
+            with contextlib.redirect_stdout(_io.StringIO()):
+                ss.cmd_note_episode(_ap.Namespace(episode=tell[0]["text"][0],
+                                                  text="  too fast\nin the middle ", commit=False))
+            row = (read_json(fb) or [])[-1]
+            check("...which files an [audio note] for THIS item, re-read from disk",
+                  row.get("id") == everything[title]["id"]
+                  and row.get("note", "").startswith("[audio note]")
+                  and row["note"].endswith('"too fast in the middle"'), str(row))
+        check("a note is not a listen: the dose meter counts none of them",
+              at.dose_minutes(7)["taps"] == 0, str(at.dose_minutes(7)))
+        brief = sbr.audio_notes()
+        check("Anna's brief carries what he said",
+              len(brief) == 5 and "too fast in the middle" in brief[-1], str(brief))
+        for bad in (_ap.Namespace(episode=next(iter(rateable)), text="  ", commit=False),
+                    _ap.Namespace(episode="No such tape", text="loved it", commit=False)):
+            n = len(read_json(fb))
+            with contextlib.redirect_stdout(_io.StringIO()):
+                try:
+                    ss.cmd_note_episode(bad)
+                    code = 0
+                except SystemExit as e:
+                    code = e.code
+            check(f"an {'empty dictation' if bad.text.strip() == '' else 'unknown title'} "
+                  "fails the run and files nothing", code == 1 and len(read_json(fb)) == n)
+    finally:
+        os.chdir(cwd)
+        for p, b in saved.items():
+            p.write_bytes(b)
+        _sh.rmtree(audio, ignore_errors=True)

@@ -43,7 +43,7 @@ on:
     # path, which already fire off-clock. Do not re-open this without new data.
     - cron: "0 * * * *"
   repository_dispatch:
-    types: [knock-response, episode-rating]
+    types: [knock-response, episode-rating, episode-note]
   workflow_dispatch:
     inputs:
       force:
@@ -265,6 +265,17 @@ jobs:
           RATING_VERDICT: ${{ github.event.client_payload.verdict || github.event.client_payload.stars }}
         run: |
           python scripts/sync_state.py rate-episode --episode "$RATING_EPISODE" --verdict "$RATING_VERDICT" --commit
+
+      - name: Log audio note
+        # The "Tell me" link (2026-10-15): one dictated sentence about a feed
+        # item, filed beside the ratings as `[audio note]`. Passed through env,
+        # never spliced into the script — the text is his free speech.
+        if: github.event.action == 'episode-note'
+        env:
+          NOTE_EPISODE: ${{ github.event.client_payload.episode }}
+          NOTE_TEXT: ${{ github.event.client_payload.text }}
+        run: |
+          python scripts/sync_state.py note-episode --episode "$NOTE_EPISODE" --text "$NOTE_TEXT" --commit
 
       - name: Anna knocks
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'

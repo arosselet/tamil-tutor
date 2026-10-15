@@ -309,7 +309,12 @@ CODE_BUDGETS = {
     # beside the show-notes links that send it (one tap from the podcast app
     # replaces the home-screen picker trip); the links replace
     # `caption_block_for`, whose caption line now shares one <description>.
-    "scripts/rebuild_rss.py": 385,
+    # 385 -> 396 (2026-10-15, Andrew): the "Tell me" link and the return to the
+    # show page. Retires the duplicated "can this be rated" test — the notes
+    # stamped verdicts on every item while `feed_items` refused 16 of them —
+    # into one `rateable()` both sides read, and `item_format` lifts the
+    # format logic out of the feed_items loop so generate_rss can share it.
+    "scripts/rebuild_rss.py": 396,
     # New surface, budgeted in the diff that creates it (2026-09-01). · Set at the census plus normal headroom.
     "scripts/audio_titles.py": 80,
     # 495 -> 505 (the judge seat (2026-10-12, Andrew)): the episode chokepoint. Every renderer of an
@@ -414,7 +419,9 @@ CODE_BUDGETS = {
     # 157 -> 158 (same day): POLICY_PATH, the outreach policy book.
     "scripts/state_io.py": 158,
     # NEW FILE, budgeted in the same diff that creates it (2026-08-28, Andrew). · 20 -> 35 (2026-09-03).
-    "scripts/language.py": 35,
+    # 35 -> 36 (2026-10-15): APPLE_PODCAST_ID, the show's directory listing,
+    # which the show-notes links return to. Retires the bare `podcasts://`.
+    "scripts/language.py": 36,
     "scripts/slips.py": 300,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-25). Split out of slips.py, which sat at 299/300: the attendance join is its own job (it reads observations.json, not the slip ledger) and took the escalation advice with it. slips.py NET-RETIRED lines to make room.
     "scripts/dose_evidence.py": 60,
@@ -439,7 +446,10 @@ CODE_BUDGETS = {
     # 255 -> 285 (2026-10-08, Andrew with Rio): `cmd_open`, the light session
     # start. Retires the full protocol load (~13,000 words, three scripts) as
     # the price of Anna's first sentence — prose, not code, so nothing here shrank.
-    "scripts/session_brief.py": 285,
+    # 285 -> 294 (2026-10-15, Andrew): `audio_notes`, the reader for the
+    # "Tell me" sentences. Retires the weeks-later diagnosis pass as the only
+    # reader of what he said about a tape (heard_in_the_wild's precedent).
+    "scripts/session_brief.py": 294,
     # 575 -> 588 (2026-09-13, Andrew): `inventory_hosts` MOVED IN from render_rotation (its second reader) plus the intake quota. Paid for by render_rotation 325 -> 318; the net is the quota, which retires the fourth-spine design.
     # 588 -> 592 (2026-09-19): the play count reaches the ticket. `heard Nx` is
     # the priming cue Andrew asked for — "he heard it three times and still
