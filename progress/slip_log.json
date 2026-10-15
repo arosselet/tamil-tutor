@@ -1013,5 +1013,17 @@
     "note": "reads the root and drops or swaps the -en (did) / -ren (doing) tail in recognition",
     "word": "",
     "dose_channel": "episode"
+  },
+  {
+    "at": "2026-10-15T15:28:39Z",
+    "date": "2026-10-15",
+    "lane": "knock",
+    "modality": "fielding",
+    "tag": "1pl-om",
+    "said": "irupeenga",
+    "want": "இருப்போம்",
+    "note": "echoed the question's -nga instead of answering for 'we' with -om",
+    "word": "",
+    "dose_channel": "episode"
   }
 ]
