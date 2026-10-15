@@ -2647,11 +2647,11 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-01",
+    "last_surfaced": "2026-10-15",
     "direction": "fire",
     "exposures": 1,
     "register": "gossip",
-    "taught_on": null
+    "taught_on": "2026-10-15"
   },
   "கேள்விப்பட்டியா?": {
     "type": "chunk",
@@ -2667,10 +2667,11 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-10-15",
     "direction": "fire",
     "exposures": 1,
-    "register": "gossip"
+    "register": "gossip",
+    "taught_on": "2026-10-15"
   },
   "சும்மா சொல்றாங்க": {
     "type": "chunk",
@@ -2699,11 +2700,11 @@
     "seen_in": [
       82
     ],
-    "last_surfaced": "2026-10-06",
+    "last_surfaced": "2026-10-15",
     "direction": "fire",
     "exposures": 1,
     "register": "gossip",
-    "taught_on": null
+    "taught_on": "2026-10-15"
   },
   "என்னமோ பிரச்சனை": {
     "type": "chunk",
@@ -4133,15 +4134,17 @@
   },
   "அப்புறம் பாக்கலாம்": {
     "gloss": "let us see later / some things take time",
-    "recognition": "untested",
+    "recognition": "struggled",
     "production": "none",
     "seen_in": [
       66,
       86
     ],
-    "last_surfaced": "2026-08-10",
+    "last_surfaced": "2026-10-15",
     "exposures": 1,
-    "taught_on": null
+    "taught_on": "2026-07-17",
+    "heard_on": "2026-10-15",
+    "reps": 1
   },
   "தப்பாச்சு": {
     "gloss": "a mistake happened / (I) messed up (தப்பு ஆச்சு fused)",
@@ -5509,5 +5512,21 @@
     "last_surfaced": "2026-10-15",
     "gloss": "Later on / afterwards (temporal delay)",
     "taught_on": null
+  },
+  "வதந்தி": {
+    "gloss": "rumour (vadhandhi kilambiduchu = a rumour's started going round)",
+    "recognition": "untested",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-10-15",
+    "taught_on": "2026-10-15"
+  },
+  "மாட்டிக்குவேன்": {
+    "gloss": "I'll get caught (maattikko = get stuck/caught)",
+    "recognition": "untested",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-10-15",
+    "taught_on": "2026-10-15"
   }
 }

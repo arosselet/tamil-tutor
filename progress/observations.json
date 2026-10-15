@@ -23807,5 +23807,77 @@
     "medium": "text",
     "source": "knock:2026-10-15T15:26:21.449888+00:00",
     "note": "cold fire"
+  },
+  {
+    "id": "43887bcc86d8",
+    "at": "2026-10-15T19:12:35Z",
+    "word": "அப்புறம் பாக்கலாம்",
+    "channel": "session",
+    "kind": "tested",
+    "axis": "recognition",
+    "result": "partial",
+    "medium": "audio",
+    "source": "audio/karthi_voicenote_2026-10-15.mp3 (local lesson clip)",
+    "note": "Q1 by ear unaided after vadhandhi was taught in the opener: 'big announcement rumors' right. Heard appuram paakkalaam unaided -> 'he'll see what to say': meaning caught, speaker wrong (missed the -nu quote, gave Paati's line to Karthi). Q2/Q3 not reached even after the pieces were glossed and a replay; full reveal given."
+  },
+  {
+    "id": "bf7a7c42dd2a",
+    "at": "2026-10-15T19:12:36Z",
+    "word": "வதந்தி",
+    "channel": "session",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "text",
+    "source": "session:2026-10-15",
+    "note": "first contact — row created untested"
+  },
+  {
+    "id": "ee92de036f6f",
+    "at": "2026-10-15T19:12:36Z",
+    "word": "மாட்டிக்குவேன்",
+    "channel": "session",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "text",
+    "source": "session:2026-10-15",
+    "note": "first contact — row created untested"
+  },
+  {
+    "id": "211cf0fd7854",
+    "at": "2026-10-15T19:12:36Z",
+    "word": "அது உண்மையா?",
+    "channel": "session",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "text",
+    "source": "session:2026-10-15",
+    "note": "re-taught; row already existed"
+  },
+  {
+    "id": "6a24e7062d97",
+    "at": "2026-10-15T19:12:36Z",
+    "word": "யாருக்கு தெரியும்?",
+    "channel": "session",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "text",
+    "source": "session:2026-10-15",
+    "note": "re-taught; row already existed"
+  },
+  {
+    "id": "d2ab86f4f068",
+    "at": "2026-10-15T19:12:36Z",
+    "word": "எனக்கு ஒன்னும் தெரியாது",
+    "channel": "session",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "text",
+    "source": "session:2026-10-15",
+    "note": "re-taught; row already existed"
   }
 ]
