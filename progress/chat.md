@@ -15,6 +15,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > Close! 'Iruppeenga' is asking *him* — for we will stay, say iruppom.
 
+**11:38 · Andrew** — **HINTED**
+> Iruppom
+
+**Anna ↩**
+> adhu dhaan! iruppom correct. · Now put the whole piece together — tell him 'we'll stay one month'.
+
 
 ## Wednesday 2026-10-14
 
