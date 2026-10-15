@@ -8686,21 +8686,22 @@
     "thread": "word:விட்டுடு",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Ukkarunga",
+    "reply": "Thanni kuttiten",
     "reply_verdict": "cold",
     "reply_fired": [
       "விடுங்க",
       "ஒரு நிமிஷம்",
-      "உக்காருங்க"
+      "உக்காருங்க",
+      "தண்ணி"
     ],
     "reply_fired_cold": [
       "ஒரு நிமிஷம்",
       "உக்காருங்க"
     ],
     "reply_fired_capped": [],
-    "reply_line_script": "adhu dhaan! உக்காருங்க — clean hit. 🔥 · Now tell him 'drink some water'.",
-    "reply_line": "adhu dhaan! ukkaarunga — clean hit. 🔥 · Now tell him 'drink some water'.",
-    "reply_at": "2026-10-15T23:23:27Z",
+    "reply_line_script": "தண்ணி spot on! But kuttiten is 'I drank' — to tell him, சொல்லு குடிச்சிட்டேன்.",
+    "reply_line": "Thanni spot on! But kuttiten is 'I drank' — to tell him, sollu kudichitten.",
+    "reply_at": "2026-10-15T23:25:41Z",
     "exchanges": [
       {
         "at": "2026-10-15T22:59:16Z",
@@ -8751,6 +8752,24 @@
         "reply_line": "adhu dhaan! ukkaarunga — clean hit. 🔥 · Now tell him 'drink some water'.",
         "reply_line_script": "adhu dhaan! உக்காருங்க — clean hit. 🔥 · Now tell him 'drink some water'.",
         "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-10-15T23:25:41Z",
+        "reply": "Thanni kuttiten",
+        "verdict": "cold",
+        "fired": [
+          "தண்ணி"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "Thanni spot on! But kuttiten is 'I drank' — to tell him, sollu kudichitten.",
+        "reply_line_script": "தண்ணி spot on! But kuttiten is 'I drank' — to tell him, சொல்லு குடிச்சிட்டேன்.",
+        "slips": [
+          "past-tense"
+        ],
         "spoke": "",
         "scheduled": ""
       }

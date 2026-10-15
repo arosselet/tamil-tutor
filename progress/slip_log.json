@@ -1025,5 +1025,17 @@
     "note": "echoed the question's -nga instead of answering for 'we' with -om",
     "word": "",
     "dose_channel": "episode"
+  },
+  {
+    "at": "2026-10-15T23:25:41Z",
+    "date": "2026-10-15",
+    "lane": "knock",
+    "modality": "text",
+    "tag": "past-tense",
+    "said": "kuttiten",
+    "want": "குடிங்க",
+    "note": "used 1sg past instead of imperative -nga",
+    "word": "",
+    "dose_channel": "episode"
   }
 ]
