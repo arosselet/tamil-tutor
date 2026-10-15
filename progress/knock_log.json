@@ -8686,16 +8686,19 @@
     "thread": "word:விட்டுடு",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Freeya vidunga",
+    "reply": "Oru nimsham",
     "reply_verdict": "cold",
     "reply_fired": [
-      "விடுங்க"
+      "விடுங்க",
+      "ஒரு நிமிஷம்"
     ],
-    "reply_fired_cold": [],
+    "reply_fired_cold": [
+      "ஒரு நிமிஷம்"
+    ],
     "reply_fired_capped": [],
-    "reply_line_script": "அதே தான்! 'Free-ah விடுங்க' செம natural! 🔥 · Now tell him 'wait one minute'.",
-    "reply_line": "Adhey dhaan! 'Free-ah vidunga' sema natural! 🔥 · Now tell him 'wait one minute'.",
-    "reply_at": "2026-10-15T22:59:16Z",
+    "reply_line_script": "adhu dhaan! ஒரு நிமிஷம் — spot on. 🔥 · Now tell him 'sit down'.",
+    "reply_line": "adhu dhaan! oru nimisham — spot on. 🔥 · Now tell him 'sit down'.",
+    "reply_at": "2026-10-15T23:22:27Z",
     "exchanges": [
       {
         "at": "2026-10-15T22:59:16Z",
@@ -8712,10 +8715,28 @@
         "slips": [],
         "spoke": "",
         "scheduled": ""
+      },
+      {
+        "at": "2026-10-15T23:22:27Z",
+        "reply": "Oru nimsham",
+        "verdict": "cold",
+        "fired": [
+          "ஒரு நிமிஷம்"
+        ],
+        "fired_cold": [
+          "ஒரு நிமிஷம்"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! oru nimisham — spot on. 🔥 · Now tell him 'sit down'.",
+        "reply_line_script": "adhu dhaan! ஒரு நிமிஷம் — spot on. 🔥 · Now tell him 'sit down'.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
       }
     ],
-    "chained": 1,
-    "pinned_target": "ஒரு நிமிஷம்",
+    "chained": 2,
+    "pinned_target": "உக்காருங்க",
     "pinned_revealed": false
   }
 ]

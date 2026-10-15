@@ -23879,5 +23879,17 @@
     "medium": "text",
     "source": "session:2026-10-15",
     "note": "re-taught; row already existed"
+  },
+  {
+    "id": "06b55c9646ea",
+    "at": "2026-10-15T23:22:23Z",
+    "word": "ஒரு நிமிஷம்",
+    "channel": "text",
+    "kind": "tested",
+    "axis": "production",
+    "result": "right",
+    "medium": "text",
+    "source": "knock:2026-10-15T22:49:26.420857+00:00",
+    "note": "cold fire"
   }
 ]
