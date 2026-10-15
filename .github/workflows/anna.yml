@@ -304,7 +304,7 @@ jobs:
         # ten days after he came home: 15.7 authored minutes, no soak, no
         # rotation, no drill, while he faded. Every step behaved as designed.
         #
-        # `--if-short` asks the rails whether the WEEK PRODUCED enough, never
+        # The shelf asks the rails whether the WEEK PRODUCED enough, never
         # whether he listened. A gate on his listening would be a streak with a
         # new name, and answering a fade with accountability machinery is the
         # one move DECISIONS 07-04 forbids outright. It exits quietly when the
@@ -314,7 +314,9 @@ jobs:
         # Schedule-only: a reply or a rating should never trigger a tape.
         if: github.event_name == 'schedule'
         continue-on-error: true
-        run: python scripts/render_rotation.py --if-short --minutes 8
+        # Since 2026-10-15 it takes turns — rotation spines, soak, drill — and
+        # waits for the waking window so the ping lands with the tape.
+        run: python scripts/shelf.py --minutes 8
 
       - name: Weekly policy reflection
         # The outreach policy learns from its own logs (2026-10-12, Andrew). Pure

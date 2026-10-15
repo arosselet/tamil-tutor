@@ -145,7 +145,7 @@ def due(c, now):
 
 def lane_command(c):
     """The lane script's argv. A commission is an ORDER, not a suggestion: no
-    --if-short — the commissioner asked for this dose, the shelf gate does not
+    shelf gate — the commissioner asked for this dose, the shelf gate does not
     get a vote."""
     beats = c.get("beats") or {}
     cmd = [sys.executable, "scripts/render_rotation.py",

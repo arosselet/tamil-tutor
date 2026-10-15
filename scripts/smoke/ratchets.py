@@ -342,7 +342,8 @@ CODE_BUDGETS = {
     # scenes and eavesdrops are dialogues and play whole or not at all; a
     # judge that cannot run holds the movement; an all-held tape publishes
     # nothing. The writer's prompt is now one function the repair pass shares.
-    "scripts/render_rotation.py": 430,
+    # 430 -> 410 (2026-10-15): the shelf (`--if-short`, its gate) moved out to shelf.py; re-censused down, not held.
+    "scripts/render_rotation.py": 410,
     # 275 -> 265 (2026-08-23, Andrew): re-censused DOWN.
     # 195 -> 211 (2026-10-12, Andrew): the judge seat. Retires the unchecked hand-off
     # from the writer to the TTS — the focus brief invited novel inflections and
@@ -421,6 +422,11 @@ CODE_BUDGETS = {
     # 155, budgeted 160: the headroom is for wiring the next lane's argv, not
     # for opinions — the router validates and runs; it never judges a brief.
     "scripts/commissions.py": 160,
+    # NEW FILE, budgeted in the same diff that creates it (2026-10-15). The shelf
+    # moved out of render_rotation (`--if-short`, its waking-window gate and the
+    # new take-turns walk): a rotation script that runs the soak and drill lanes
+    # is no longer a rotation script. render_rotation is re-censused down below.
+    "scripts/shelf.py": 60,
     # 250 -> 254 (2026-09-13): the DOSE line — minutes he actually played, the
     # first contact meter this brief has ever carried. The ear-block line beside
     # it counts DAYS and cannot tell one tap on a 3-minute payoff from a
@@ -1080,6 +1086,10 @@ LAYERS = {
     # lanes it drives; the day it imports one, the edge reads as upward and
     # fails here.
     "commissions":        5.5,
+    # The shelf (2026-10-15): reads the rails (2) and the feed (1), and runs
+    # each lane as a SUBPROCESS like the commission router — no import edge to
+    # any lane. The day it imports one, the edge reads as upward here.
+    "shelf":              5.5,
     # The weekly reflection (2026-10-12): reads the logs, threads (1.2) and the
     # rails (2); commits through publish (4) in CI. Beside the lanes, imported by
     # none — the knock lane reads its OUTPUT through `rails.policy_block`, so the

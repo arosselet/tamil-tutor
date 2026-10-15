@@ -2367,9 +2367,9 @@ def s144_an_order_is_paid_only_in_what_played(sb: Path):
 def s147_overnight_production_waits_for_his_morning(sb: Path):
     """A cron-built dose waits for the waking window (2026-10-15, Andrew).
 
-    WHAT WAS THERE. The supply window rolls at local midnight, so `--if-short`
-    found the week short overnight and the hourly cron built the rotation tape
-    at 00:15, 01:30, 03:27. `push_to_phone` held the ping for quiet hours and
+    WHAT WAS THERE. The supply window rolls at local midnight, so the shelf found
+    the week short overnight and the hourly cron built the rotation tape at
+    00:15, 01:30, 03:27. `push_to_phone` held the ping for quiet hours and
     dropped it — "on the feed for the morning" — so every one of those tapes
     arrived unannounced. The commission router had the same hole for `asap`.
 
@@ -2380,9 +2380,8 @@ def s147_overnight_production_waits_for_his_morning(sb: Path):
     """
     print("\n147. Overnight production waits for his morning (2026-10-15)")
     import contextlib, io
-    rr = importlib.import_module("render_rotation")
+    sh = importlib.import_module("shelf")
     rails = importlib.import_module("rails")
-    rss = importlib.import_module("rebuild_rss")
     cm = importlib.import_module("commissions")
 
     class Reached(Exception):
@@ -2391,22 +2390,19 @@ def s147_overnight_production_waits_for_his_morning(sb: Path):
     def reached(*a, **kw):
         raise Reached()
 
-    real = (rails.in_waking_window, rss.feed_items, rr.load_env, sys.argv,
-            cm.in_waking_window, cm.run_one)
+    real = (rails.in_waking_window, sh.feed_items, cm.in_waking_window, cm.run_one)
     pending = cm.PENDING / "20261015-smoke-night.json"
     try:
-        rss.feed_items = reached
-        rr.load_env = reached
-        sys.argv = ["render_rotation.py", "--if-short"]
+        sh.feed_items = reached
 
         rails.in_waking_window = lambda *a: False
         with contextlib.redirect_stdout(io.StringIO()) as out:
             try:
-                rr.main()
+                sh.main([])
                 night = "waited"
             except Reached:
                 night = "built"
-        check("at night the shelf lane builds nothing — not even the supply check",
+        check("at night the shelf builds nothing — not even the supply check",
               night == "waited", out.getvalue()[-300:])
         check("...and says why, so a quiet night reads differently from a dead cron",
               "quiet hours" in out.getvalue(), out.getvalue()[-300:])
@@ -2414,7 +2410,7 @@ def s147_overnight_production_waits_for_his_morning(sb: Path):
         rails.in_waking_window = lambda *a: True
         with contextlib.redirect_stdout(io.StringIO()):
             try:
-                rr.main()
+                sh.main([])
                 day = "waited"
             except Reached:
                 day = "built"
@@ -2441,6 +2437,75 @@ def s147_overnight_production_waits_for_his_morning(sb: Path):
             cm.cmd_run(False)
         check("by day the same commission runs", ran == [pending.name], str(ran))
     finally:
-        (rails.in_waking_window, rss.feed_items, rr.load_env, sys.argv,
-         cm.in_waking_window, cm.run_one) = real
+        rails.in_waking_window, sh.feed_items, cm.in_waking_window, cm.run_one = real
         pending.unlink(missing_ok=True)
+
+
+def s148_the_shelf_takes_turns(sb: Path):
+    """The unattended shelf varies its format (2026-10-15, Andrew: "I want variety").
+
+    WHAT WAS THERE. The cron never named a spine, so every unattended tape was
+    `inventory` — four in a row to 10-15 — and soak and drill, which can build
+    without an order, were never asked.
+
+    GATE 7.2, OUT LOUD. Three silent failures: the order never moves (it looks
+    like variety on any one day); a soak or drill that makes nothing wins every
+    tick and the shelf starves with exit 0; and every lane making nothing reads
+    as a quiet tick. All are driven through the real `main()`.
+    """
+    print("\n148. The shelf takes turns (2026-10-15)")
+    import contextlib, io
+    sh = importlib.import_module("shelf")
+    rails = importlib.import_module("rails")
+
+    def item(i, d):
+        return {"id": f"{i}_{d}_0900", "format": i.split("_")[0], "date": d, "minutes": 1}
+
+    # ── the order: never-made first, then oldest, tuple order on ties ──────
+    feed = [item("rotation_inventory", "2026-10-15"), item("rotation_room", "2026-09-29"),
+            item("rotation_machines", "2026-09-07"), item("soak", "2026-10-08")]
+    order = sh.shelf_turns(feed)
+    check("a never-made turn leads the order", order[0] == "drill", str(order))
+    check("...then the longest-unmade, and the newest goes last",
+          order[1:] == ["rotation_machines", "rotation_room", "soak", "rotation_inventory"], str(order))
+    check("every turn is reachable — nothing is dropped from the order",
+          sorted(order) == sorted(sh.SHELF_TURNS))
+    check("a drill resets the spacing like any shelf dose", "drill" in sh.PLEASURE_FORMATS)
+    check("a rotation turn names its spine and the cron's cap",
+          sh.turn_command("rotation_room", 8)[-4:] == ["--spine", "room", "--minutes", "8"])
+    check("...and a soak turn runs the soak lane, bare",
+          Path(sh.turn_command("soak", 8)[1]).name == "render_soak.py"
+          and len(sh.turn_command("soak", 8)) == 2)
+
+    # ── the walk, through main() ───────────────────────────────────────────
+    real = (rails.in_waking_window, rails.pleasure_due, sh.feed_items, sh.subprocess.run)
+    ran = []
+    try:
+        rails.in_waking_window = lambda *a: True
+        rails.pleasure_due = lambda produced, gap: ""
+        sh.feed_items = lambda: list(feed)
+
+        # drill makes nothing; the turn passes to rotation_machines, which makes one
+        def run(cmd, **kw):
+            ran.append(Path(cmd[1]).name + (f":{cmd[3]}" if "--spine" in cmd else ""))
+            if "--spine" in cmd:
+                feed.append(item(f"rotation_{cmd[3]}", "2026-10-15"))
+        sh.subprocess.run = run
+        with contextlib.redirect_stdout(io.StringIO()) as out:
+            rc = sh.main([])
+        check("an empty turn passes on instead of starving the shelf",
+              ran == ["render_drill.py", "render_rotation.py:machines"] and rc == 0,
+              f"{ran} rc={rc}")
+        check("...and a tape on the feed ends the tick — one dose, not two",
+              "turn: rotation_room" not in out.getvalue(), out.getvalue()[-300:])
+
+        # nothing makes anything: loud, non-zero
+        ran.clear()
+        sh.subprocess.run = lambda cmd, **kw: ran.append(cmd[1])
+        with contextlib.redirect_stdout(io.StringIO()) as out:
+            rc = sh.main([])
+        check("every lane making nothing is loud, never a quiet tick",
+              rc == 1 and len(ran) == len(sh.SHELF_TURNS) and "no turn made a tape" in out.getvalue(),
+              f"rc={rc} ran={len(ran)}")
+    finally:
+        rails.in_waking_window, rails.pleasure_due, sh.feed_items, sh.subprocess.run = real

@@ -1373,13 +1373,13 @@ def s117_the_shelf_stays_stocked_without_him(sb: Path):
           all(isinstance(r, str) and r for r in (stocked, soon)), "a refusal came back bare")
 
     # ── THE LANE ASKS THE GATE, AND THE CRON ASKS THE LANE ─────────────────
-    rot = fx.raw_source(REAL_BASE / "scripts" / "render_rotation.py")
-    check("the rotation lane carries the --if-short gate",
-          "--if-short" in rot and "rails.pleasure_due" in rot,
-          "the gate exists and nothing consults it")
+    # The gate moved from `render_rotation --if-short` to `shelf.py` (2026-10-15).
+    shelf = fx.raw_source(REAL_BASE / "scripts" / "shelf.py")
+    check("the shelf lane carries the supply gate",
+          "rails.pleasure_due" in shelf, "the gate exists and nothing consults it")
     wf = (REAL_BASE / ".github" / "workflows" / "anna.yml").read_text(encoding="utf-8")
     check("the cloud runs it on the schedule",
-          "--if-short" in wf, "the lane can run unattended and nothing ever calls it")
+          "scripts/shelf.py" in wf, "the lane can run unattended and nothing ever calls it")
     # Schedule-only: a reply or a rating must never trigger a tape, or answering
     # Anna would start producing audio, which is the nag wearing a third coat.
     step = wf.split("Keep the shelf stocked", 1)[1].split("- name:", 1)[0]
@@ -1395,9 +1395,9 @@ def s117_the_shelf_stays_stocked_without_him(sb: Path):
     # WHAT THE FLOOR IS FOR, restated as an assertion rather than a comment: the
     # default rotation length must be a dose he can actually press play on. 15
     # was the old default and is a workday tape; the cron asks for 8.
-    # The RUN line, not the first mention — the comment above it says
-    # `--if-short` too, and splitting on that parsed prose.
-    wf_minutes = wf.split("render_rotation.py --if-short", 1)[1].splitlines()[0]
+    # The RUN line, not the first mention — a comment above it could name the
+    # script too, and splitting on that would parse prose.
+    wf_minutes = wf.split("run: python scripts/shelf.py", 1)[1].splitlines()[0]
     check("the scheduled tape is a short one, not a flight tape",
           "--minutes" in wf_minutes and int(wf_minutes.split("--minutes")[1].strip()) <= 12,
           f"got {wf_minutes!r} — a 45-minute tape is not a fade remedy")
