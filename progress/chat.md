@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Friday 2026-10-16
+
+**11:05 · Anna** 🎧  ·  eavesdrop / pattern: youknow-la
+> Athai's on the phone about lunch plans — one line tells you who slipped out 🎧
+
+
 ## Thursday 2026-10-15
 
 **11:26 · Anna** 🎧  ·  fielding / fielding: oru maasam iruppom
