@@ -5718,76 +5718,33 @@ def s149_every_show_notes_link_lands(sb: Path):
         _sh.rmtree(audio, ignore_errors=True)
 
 
-def s150_the_goal_has_a_sensor(sb: Path):
-    """The goal gets a sensor; meters choose content, never shape (2026-10-16,
-    Andrew: "The system should care most about my enjoyment and engagement").
-
-    Gate 7.2, out loud: this fails SILENTLY three ways. (1) The writer drops the
-    fields — `cmd_update` only writes a session entry when something was
-    applied, so a close carrying ONLY a verdict would mint nothing and still
-    print "State updated." (2) The monoculture warning can never fire — three
-    sessions of one shape print nothing, which reads exactly like variety.
-    (3) The meters still print by default, so the boot is as heavy as before.
-    Each is driven through the real entry point and re-read from disk."""
-    print("\n150. The goal has a sensor: felt + shape lead, meters behind a flag (2026-10-16)")
+def s150_the_meters_are_build_reading(sb: Path):
+    """Meters choose content, never shape (2026-10-16, Andrew). The engineering
+    meters left Anna's boot for `status --numbers`. Gate 7.2, out loud: the move
+    fails silently if the default still prints them (the boot is as heavy as
+    before and nothing says so) or if `--numbers` lost them (@build goes blind).
+    Both sides are captured from the real entry point over a seeded lexicon."""
+    print("\n150. The meters print on status --numbers, not at Anna's boot (2026-10-16)")
     import contextlib
-    ss = importlib.import_module("sync_state")
     sbf = importlib.import_module("session_brief")
-    log_path = sb / "progress" / "session_log.json"
-    learner_path = sb / "progress" / "learner.json"
     lex_path = sb / "progress" / "lexicon.json"
-    saved = {p: p.read_bytes() for p in (log_path, learner_path, lex_path) if p.exists()}
-    defaults = dict(teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
-                    soak_channel=None, soak_form=None, recognized=[], stuck_word=[],
-                    produced_cold=[], produced_hinted=[], next_engine=None,
-                    debrief=None, no_commission="smoke sandbox", felt=None, shape=[])
+    saved = lex_path.read_bytes() if lex_path.exists() else None
 
-    def update(**kw):
-        with contextlib.redirect_stdout(io.StringIO()):
-            ss.cmd_update(argparse.Namespace(**{**defaults, **kw}))
-
-    def capture(fn, ns):
+    def capture(ns):
         out = io.StringIO()
         with contextlib.redirect_stdout(out):
-            fn(ns)
+            sbf.cmd_status(ns)
         return out.getvalue()
 
     try:
-        write_json(log_path, [])
-        update(felt="good: the auntie mask", shape=["table"])
-        update(shape=["sweep"])
-        entry = (read_json(log_path) or [{}])[-1]
-        check("a close with ONLY a verdict still writes the session entry",
-              entry.get("felt") == "good: the auntie mask", str(entry))
-        check("...and shapes union across a day's calls",
-              entry.get("shape") == ["table", "sweep"], str(entry))
-        check("an update without --felt keeps the verdict already given",
-              entry.get("felt") == "good: the auntie mask", str(entry))
-
-        days = [{"date": f"2026-10-1{i}", "cold": [], "hinted": [], "demoted": [],
-                 "note": "", "shape": ["ear"], "felt": "meh"} for i in range(3)]
-        lines = ss.lately_lines(days)
-        check("three sessions of one shape print the monoculture warning",
-              any("all 'ear'" in x for x in lines), str(lines))
-        mixed = days[:2] + [{**days[2], "shape": ["story"]}]
-        check("...and a varied run prints none",
-              not any("⚠" in x for x in ss.lately_lines(mixed)), str(ss.lately_lines(mixed)))
-        check("an empty log says so, never a silent blank",
-              "nothing logged yet" in ss.lately_lines([])[0], str(ss.lately_lines([])))
-
-        write_json(log_path, days)
-        # The meters print only over a lexicon; the sandbox seed may hold none.
         write_json(lex_path, {"போறேன்": lex_row(gloss="I go", recognition="solid",
                                                 production="cold")})
-        plain = capture(sbf.cmd_status, argparse.Namespace())
-        full = capture(sbf.cmd_status, argparse.Namespace(numbers=True))
-        check("status leads with how sessions felt",
-              "How sessions felt:" in plain and plain.index("How sessions felt:")
-              < plain.index("Status:"), plain[:400])
-        check("the meters stay behind --numbers by default",
-              "Viability floor:" not in plain and "Viability floor:" in full, plain[-600:])
-        check("open carries the felt line and the warning too",
-              "all 'ear'" in capture(sbf.cmd_open, argparse.Namespace()))
+        plain = capture(argparse.Namespace())
+        full = capture(argparse.Namespace(numbers=True))
+        check("the meters stay out of the default status",
+              "Viability floor:" not in plain and "Machines heard:" not in plain, plain[-600:])
+        check("...and --numbers still prints them",
+              "Viability floor:" in full, full[-600:])
     finally:
-        for p, b in saved.items():
-            p.write_bytes(b)
+        if saved is not None:
+            lex_path.write_bytes(saved)

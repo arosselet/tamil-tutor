@@ -27,7 +27,7 @@ from state_io import (BASE, EPISODES_PATH, FEEDBACK_LOG_PATH, KNOCK_LOG_PATH,
 from state_io import canon_payload, is_unseen, soak_pending, split_payload
 from show_status import waiting_on_andrew
 from sync_state import (RECOGNITION_LEVELS, compute_ear, compute_engines,
-                        compute_machines, lately_lines,
+                        compute_machines,
                         compute_floor, compute_status, fires_today, is_pattern)
 
 
@@ -264,8 +264,6 @@ def cmd_status(_args):
     last = threads.last_contact(threads.contact_days(
         load_json(KNOCK_LOG_PATH) or [], load_json(threads.OBSERVATIONS_PATH) or []))
     print(f"Last here: {last or 'never'}")
-    for line in lately_lines():   # the goal, above every meter (2026-10-16)
-        print(line)
     print(f"Status: {compute_status()}")  # live — the stored learner.json copy goes stale between updates
     print(f"Story so far: {learner.get('last_debrief', '')}")
     next_engine = learner.get("next_engine", "")
@@ -545,11 +543,6 @@ def cmd_open(_args):
     # days between is exactly what he must never hear (Rio: skipping is never
     # mentioned). The date alone answers "what happened since".
     print(f"Last here: {last or 'never'}")
-    # How the last sessions felt and what shape they took — read before choosing
-    # today's (2026-10-16: every lesson had become the same shape, and nothing
-    # on this screen could show it).
-    for line in lately_lines():
-        print(line)
     print(f"\nStory so far: {learner.get('last_debrief') or '(none yet)'}")
     since = [k for k in knocks_since(klog, last) if k.get("acted")]
     if since:

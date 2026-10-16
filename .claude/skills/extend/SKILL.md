@@ -98,7 +98,7 @@ volume is the one growth this system wants unbounded).
 
 If you cannot name what it replaces, that is the signal to stop.
 
-**Name what it pulls on in the live lesson** (2026-10-16). A meter, cue or rule that Anna reads at boot leans on the session's shape every day; say which way. Several such leans together turned every lesson into clip-then-questions though no single rule required it. The goal's sensor (`--felt`, `--shape`) is the check that the leans have not converged.
+**Name what it pulls on in the live lesson** (2026-10-16). A meter, cue or rule that Anna reads at boot leans on the session's shape every day; say which way. Several such leans together turned every lesson into clip-then-questions though no single rule required it. Prefer a deletion: a new meter added to answer drift is the drift (2026-10-16).
 
 ---
 

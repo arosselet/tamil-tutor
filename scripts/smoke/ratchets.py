@@ -449,8 +449,8 @@ CODE_BUDGETS = {
     # 285 -> 294 (2026-10-15, Andrew): `audio_notes`, the reader for the
     # "Tell me" sentences. Retires the weeks-later diagnosis pass as the only
     # reader of what he said about a tape (heard_in_the_wild's precedent).
-    # 294 -> 301 (2026-10-16, Andrew): the felt/shape lines lead open and status, and the meters move behind `status --numbers`. Retires machines heard as the headline (08-16).
-    "scripts/session_brief.py": 301,
+    # 294 -> 297 (2026-10-16, Andrew): the engineering meters move behind `status --numbers`, with one line saying where they went. Retires them from Anna's boot.
+    "scripts/session_brief.py": 297,
     # 575 -> 588 (2026-09-13, Andrew): `inventory_hosts` MOVED IN from render_rotation (its second reader) plus the intake quota. Paid for by render_rotation 325 -> 318; the net is the quota, which retires the fourth-spine design.
     # 588 -> 592 (2026-09-19): the play count reaches the ticket. `heard Nx` is
     # the priming cue Andrew asked for — "he heard it three times and still
@@ -490,8 +490,7 @@ CODE_BUDGETS = {
     # 802 -> 785 (2026-10-13): RE-CENSUSED DOWN, the other half of the
     # rebuild_rss transfer above — VERDICTS left, and the rest is headroom paid
     # over rather than kept.
-    # 785 -> 813 (2026-10-16, Andrew): `--felt`/`--shape` and `lately`, the goal's only sensor and the monoculture warning. Retires machines heard as the headline (08-16); the meter stays.
-    "scripts/sync_state.py": 813,
+    "scripts/sync_state.py": 785,
 }
 CODE_BUDGET_EXEMPT = {"scripts/smoke_test.py"}
 SUITE = "scripts/smoke/"

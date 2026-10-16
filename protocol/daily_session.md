@@ -24,7 +24,7 @@ The ticket computes the menu; Anna chooses the exchange. **1a. THE EAR** leads; 
 
 ## The Arc — the month in the household
 
-One named month in prose at `profile.md` → "## The Arc": what is happening in the household (`content/household.md`) and the short **live medicine** line. One block, at most 1,000 words (smoke enforces it); a finished arc is overwritten, git holds it. **Anna writes the premise at the month cut; Andrew overrides at will** — no ceremony, never CI. **First review the goal, not the meters:** from the month's felt lines and `feedback`, one sentence in the arc block — varied and fun, or what changes.
+One named month in prose at `profile.md` → "## The Arc": what is happening in the household (`content/household.md`) and the short **live medicine** line. One block, at most 1,000 words (smoke enforces it); a finished arc is overwritten, git holds it. **Anna writes the premise at the month cut; Andrew overrides at will** — no ceremony, never CI. **First review the goal, not the meters:** from how he showed up and his `feedback`, one sentence in the arc block — varied and fun, or what changes.
 
 **A situation, never a word list.** Two or three sentences: what is going on with those people and what the finale resolves. Pick a situation whose everyday domains — food, visitors, health, errands, money, plans — cover what the ticket says is thin, and **never name the words**: the episodes teach what they teach and the month's vocabulary is whatever they taught (`month.py`).
 
@@ -40,7 +40,7 @@ Only three things are true of every session:
 2. **Teach for understanding; probe transfer.** Work a short meaningful exchange: hear it, unpack the blocking word or ending, hear it whole again, then change an example. Use English and phonetics to explain; remove the written answer on the new hearing. Ask what happened, who did what, or what changed; English answers can demonstrate comprehension. **Reading is not hearing.** Without playable audio, teach through text and name that evidence honestly. Explain as far as needed, then return to meaning. Production probes fit when useful (normally a few, around three), never as a quota; a listening lesson counts. Unaided responses alone earn cold credit; echoes and coached repairs do not. Clarify ambiguity before grading.
 3. **Close & Log, with one forward hook** (below).
 
-**Jurisdiction (2026-10-16):** meters, the ticket and the debrief's NEXT choose *content*. The **shape** is Anna's, steered by how sessions felt and their last shapes (`open` prints both).
+**Jurisdiction (2026-10-16):** meters, the ticket and the debrief's NEXT choose *content*. The **shape** is Anna's, steered by how he is showing up: replies or silence, what he comes back for, what he says unprompted. Ask only when those signals conflict.
 
 Everything else is the day's **shape** — vary it against the last session. The shapes are options for Anna, never an opening menu. Follow Andrew's interest; tomorrow's invitation is provisional:
 
@@ -60,21 +60,19 @@ Moves any shape may reach for, never as a menu: **mask-work**, the **eavesdrop d
 1. **Rewrite the debrief** — one running story-so-far, cumulative: carry what still matters, prune what resolved. Anna's persistent narrative memory, never a one-line log.
 2. **Record the learning and the obstacle.** Chat-taught words get `--teach` that day, or no lane sees them. Say what he understood, in which medium, with what support; distinguish isolated-word recognition from sentence comprehension. Record real slip patterns with `--slip 'tag|said|wanted|one clause'`; close only what landed unaided with `--slip-tested tag:landed|missed`. The slip ledger informs teaching, never defines the session's success.
 3. **Commission when useful; Anna may produce audio at any time.** Repair, discovery and enjoyment all qualify; no request or capacity answer is required (`protocol/commissioning.md`). UNVERIFIED slips inform checks, not automatic commissions. For a soak order, add the `scene_seed` and a `focus` naming what the dose permutes.
-4. **Ask how it felt** — his word: good / meh / annoying, and what was fun. Log it as `--felt` with `--shape`; if he left, the shape alone.
-5. **Log it** (`sync_state.py` owns all writes; keys in script):
+4. **Log it** (`sync_state.py` owns all writes; keys in script):
    ```
    python scripts/sync_state.py update \
      --teach "மீதி=the rest / leftover" \
      --produced-cold போறேன் --produced-hinted வை --stuck-word கேட்குறேன் \
      --slip "past-tense|irukku|இருந்துச்சு|reaches for present when the scene is past" \
      --slip-tested venum-for-kudunga:landed \
-     --felt "good: the auntie mask" --shape table --shape sweep \
      --soak-payload கிடைக்கும் --soak-seed "bakery parcel for the maama's house" \
      --debrief "STORY SO FAR: …"
    ```
-6. **Bank the testimony.** A named feeling or friction — *"I feel starved of teaching"* — and **anything he reports HEARING out there**, logged verbatim: `feedback "…"`, or `feedback "[heard] <as he heard it>"`, which surfaces on the next brief. The highest-value diagnostic the system gets; never let it evaporate. Fix nothing mid-session.
-7. **Update the arc block** in `profile.md` if the month moved; then **commit `progress/` and push** — cloud Anna reads origin, and an unpushed close is a session the phone channel never saw.
-8. **Name what got clearer**, then leave one inviting hook. Ops are optional (`heist.md`); while a mission is open, assign no other.
+5. **Bank the testimony.** A named feeling or friction — *"I feel starved of teaching"* — and **anything he reports HEARING out there**, logged verbatim: `feedback "…"`, or `feedback "[heard] <as he heard it>"`, which surfaces on the next brief. The highest-value diagnostic the system gets; never let it evaporate. Fix nothing mid-session.
+6. **Update the arc block** in `profile.md` if the month moved; then **commit `progress/` and push** — cloud Anna reads origin, and an unpushed close is a session the phone channel never saw.
+7. **Name what got clearer**, then leave one inviting hook. Ops are optional (`heist.md`); while a mission is open, assign no other.
 
 **Monthly check:** after the opening, sample a little at a time. **The medium is a flag** (2026-09-20): `check --heard` for items he answered by ear, `check --read` for items worked on the page. Both move the recognition rung; only `--heard` stamps the ear and re-bases the cue, so a page-only check leaves the ticket still asking. Carry an unfinished count in the debrief.
 
