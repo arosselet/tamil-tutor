@@ -1,0 +1,31 @@
+{
+  "mission": 98,
+  "register": "suspicion",
+  "dramatic_ingredient": "genre",
+  "episode_form": "lore",
+  "shape": "debrief",
+  "location_class": "kitchen",
+  "energy": "medium-loud",
+  "intercept_tamil_density": 0.45,
+  "breakdown_tamil_density": 0.15,
+  "fence_size": 155,
+  "unfenced_words": 1,
+  "new_words_landed": {
+    "செஞ்சோம்": 3,
+    "போனோம்": 2,
+    "வாங்கினோம்": 3,
+    "இருப்போம்": 3
+  },
+  "callbacks_used": {
+    "வந்தேன்": 4,
+    "கன்ஃபர்ம்": 1,
+    "frame:obligation-ணும்": 2,
+    "அது உண்மையா?": 2
+  },
+  "host_roles": {
+    "Athai": "panicking_cook",
+    "Karthi": "alibi_strategist"
+  },
+  "notes": "Dialect and integrity pass: (1) Script integrity — removed all Latin phonetics ('senjom', 'senjen', 'ponaen', 'Iruppaen', '*-om*') from Maya and Raj's Breakdown lines, converting all Tamil forms and affix references directly to Tamil script (செஞ்சோம், செஞ்சேன், போனேன், இருப்பேன், -ஓம்) per protocol/studio/hosts.md. Removed stray markdown asterisks from spoken lines. (2) Dialect and fusion — simplified Athai's opener from bookish 'எங்கே இருக்கே?' to spoken 'எங்க இருக்க?'; dropped unnecessary prefix filler 'டேய்' to keep vocabulary tightly fenced. Cleaned up Karthi's balcony line to natural locative 'balcony-ல வருது'. (3) Voice differentiation and pacing — Athai's frantic rapid-fire whispered delivery contrasts against Karthi's breezy scooter confidence; runs between pauses strictly kept under 6 lines; all replayed snippets framed with 1-second pauses. (4) Payload fidelity — verified exact byte matches for all new payload items (செஞ்சோம், போனோம், வாங்கினோம், இருப்போம்) and callbacks (வந்தேன், கன்ஃபர்ம், அது உண்மையா?, and frame:obligation-ணும் via சொல்லணும்). Polite -ங்க never attached to any 1st-person verb forms. (5) Vocabulary audit — unfenced count settles at 1 (வாசனை in 'kitchen-ல என்ன வாசனை?', instantly answered by the ghee and biryani context), well within the hard cap of 2.",
+  "beat": "Athai and Karthi scramble over the phone to invent a shared alibi when Paati walks into the kitchen during their secret biryani test-cook, locking in their story of joint responsibility just as Paati opens the door."
+}

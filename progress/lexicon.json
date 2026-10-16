@@ -2166,8 +2166,9 @@
       6,
       42
     ],
-    "last_surfaced": "2026-04-15",
-    "taught_on": null
+    "last_surfaced": "2026-10-16",
+    "taught_on": null,
+    "exposures": 1
   },
   "அதான்": {
     "gloss": "That's why / Exactly / See, I told you",
@@ -2277,8 +2278,9 @@
     "seen_in": [
       43
     ],
-    "last_surfaced": "2026-04-22",
-    "taught_on": null
+    "last_surfaced": "2026-10-16",
+    "taught_on": null,
+    "exposures": 1
   },
   "சூடு": {
     "gloss": "Hot (temperature/sensation)",
@@ -2410,9 +2412,9 @@
     "recognition": "untested",
     "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-09-07",
+    "last_surfaced": "2026-10-16",
     "reps": 2,
-    "exposures": 1
+    "exposures": 2
   },
   "frame:cant-முடியல": {
     "type": "pattern",
@@ -2667,9 +2669,9 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-15",
+    "last_surfaced": "2026-10-16",
     "direction": "fire",
-    "exposures": 1,
+    "exposures": 2,
     "register": "gossip",
     "taught_on": "2026-10-15"
   },
@@ -4604,9 +4606,10 @@
     "recognition": "untested",
     "production": "cold",
     "seen_in": [
-      78
+      78,
+      98
     ],
-    "last_surfaced": "2026-09-01",
+    "last_surfaced": "2026-10-16",
     "exposures": 1,
     "reps": 6,
     "taught_on": "2026-07-31"
@@ -5528,5 +5531,36 @@
     "seen_in": [],
     "last_surfaced": "2026-10-15",
     "taught_on": "2026-10-15"
+  },
+  "செஞ்சோம்": {
+    "gloss": "",
+    "recognition": "untested",
+    "production": "none",
+    "seen_in": [
+      98
+    ],
+    "last_surfaced": "2026-10-16",
+    "taught_on": null
+  },
+  "வாங்கினோம்": {
+    "gloss": "",
+    "recognition": "untested",
+    "production": "none",
+    "seen_in": [
+      98
+    ],
+    "last_surfaced": "2026-10-16",
+    "taught_on": null
+  },
+  "இருப்போம்": {
+    "gloss": "",
+    "recognition": "untested",
+    "production": "hinted",
+    "seen_in": [
+      98
+    ],
+    "last_surfaced": "2026-10-16",
+    "reps": 1,
+    "taught_on": null
   }
 }
