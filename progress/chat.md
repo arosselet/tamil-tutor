@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **11:05 · Anna** 🎧  ·  eavesdrop / pattern: youknow-la
 > Athai's on the phone about lunch plans — one line tells you who slipped out 🎧
 
+**16:39 · Anna** 🎧  ·  sort / Sort tape
+> Sort tape — 20 lines 🎧 Reply with the numbers you missed, or 'got them all'.
+
 
 ## Thursday 2026-10-15
 

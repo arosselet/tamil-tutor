@@ -8810,5 +8810,39 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-16T15-05.mp3",
     "memo_script": "ஆமாங்க அக்கா, நான் சொல்லிட்டு தான் இருக்கேன்... கேக்க மாட்டேங்குறாங்க. நம்ம கார்த்தி இருக்கான்ல, அவன் காலையிலயே கிளம்பி எங்கயோ போயிட்டான்!\n\nபாட்டிக்கு என்ன வேணும்னு கேட்டா, மாமாகிட்ட ஒரு வார்த்தை கூட சொல்ல மாட்டேங்குறான். நேத்து வேற அந்த ஸ்வீட் பாக்ஸ் வாங்கிட்டு வந்துட்டான்.\n\nஎல்லாம் சின்னதா பண்ணலாம்னு மாமா சொல்றாரு. ஆனா பாட்டி என்னன்னா சொந்தக்காரங்க எல்லாரையும் கூப்பிட்டுட்டே இருக்காங்க! இப்போவே பத்து பேர் வருவாங்க போல இருக்கு. மதியத்துக்கு என்ன சமையல் பண்றதுன்னே தெரியல... சரி சரி, நான் அப்புறம் கூப்பிடுறேன், பாட்டி இங்க தான் வராங்க.",
     "mp3": "published_audio/knocks/knock_2026-10-16T15-05.mp3"
+  },
+  {
+    "date": "2026-10-16",
+    "timestamp": "2026-10-16T20:39:17.074616+00:00",
+    "acted": true,
+    "modality": "sort",
+    "move": "Sort tape",
+    "rationale": "Receptive Check by ear: untested rows, taught or not, most-aired first.",
+    "body": "Sort tape — 20 lines 🎧 Reply with the numbers you missed, or 'got them all'.",
+    "items": [
+      "அப்படி இல்ல",
+      "எப்படி",
+      "அதான்",
+      "இங்க",
+      "சொல்ற",
+      "அவசரம்",
+      "உட்காரலாமா?",
+      "கல்யாணம்",
+      "இப்போ",
+      "தெரியுமா?",
+      "தூக்கு",
+      "அதுக்கு அப்புறம்",
+      "கஷ்டம்",
+      "அவ",
+      "ரெண்டு",
+      "பத்து",
+      "இன்னொரு தடவ சொல்லுங்க",
+      "கொஞ்சம் நில்லுங்க",
+      "சொல்லு",
+      "உப்பு"
+    ],
+    "memo_script": "Sort tape. 20 lines, numbered. Each one twice, a pause, then the meaning. Keep count of the numbers you didn't get before the meaning came. At the end, just tell me the numbers you missed. Or: got them all. 1. அப்படி இல்ல. அப்படி இல்ல.\n\nno / it is not like that (gentle correction). 2. எப்படி. எப்படி.\n\nHow? 3. அதான். அதான்.\n\nThat's why / Exactly / See, I told you. 4. இங்க. இங்க.\n\nHere. 5. சொல்ற. சொல்ற.\n\nYou say / are you saying (informal, nee-form). 6. அவசரம். அவசரம்.\n\nUrgent / Hurry. 7. உட்காரலாமா? உட்காரலாமா?\n\nshall we sit? / may I sit? (permission ask). 8. கல்யாணம். கல்யாணம்.\n\nWedding / Marriage. 9. இப்போ. இப்போ.\n\nNow. 10. தெரியுமா? தெரியுமா?\n\nYou know…? (a real gossip opener — Oracle-confirmed). 11. தூக்கு. தூக்கு.\n\nLift / Carry. 12. அதுக்கு அப்புறம். அதுக்கு அப்புறம்.\n\nAfter that. 13. கஷ்டம். கஷ்டம்.\n\nDifficult / Hardship. 14. அவ. அவ.\n\nShe (informal). 15. ரெண்டு. ரெண்டு.\n\nTwo. 16. பத்து. பத்து.\n\nTen. 17. இன்னொரு தடவ சொல்லுங்க. இன்னொரு தடவ சொல்லுங்க.\n\nSay it once more. 18. கொஞ்சம் நில்லுங்க. கொஞ்சம் நில்லுங்க.\n\nWait a moment (respectful). 19. சொல்லு. சொல்லு.\n\nTell / Say. 20. உப்பு. உப்பு.\n\nSalt / Salty. That's the lot. Tell me the numbers you missed, or got them all.",
+    "mp3": "published_audio/knocks/knock_2026-10-16T16-39.mp3",
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-16T16-39.mp3"
   }
 ]
