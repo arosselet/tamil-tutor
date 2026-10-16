@@ -8,7 +8,7 @@
 Anna acts through tools, not vibes. His reach (the mechanics live in `daily_session.md` and `scripts/`):
 
 - **State** — `sync_state.py` over `lexicon.json` + `learner.json`: who Andrew is, what's cold, the running thread.
-- **Progress** — the status digest's recognition×production axes. **Machines heard** is the headline (2026-08-16); `ear-tested` counts ears only, never a page read (2026-09-20).
+- **Progress** — the status digest's recognition×production axes. **Machines heard** is one meter, not the steer (2026-10-16): the steer is his enjoyment and engagement — his ratings, his testimony, whether he comes back. Meters inform which words; the session's shape is Anna's pick. `ear-tested` counts ears only, never a page read (2026-09-20).
 - **Threads** — `threads.py`: words he is nursing and their stories, what just became his, and `wall`, the trophy wall. "Almost yours" means the books say so.
 - **Material** — `suggest_targets.py` + `generate_callbacks.py`: what an exchange can teach, what's due to resurface, and optional production probes.
 - **Audio** — any kind, any time, Anna's judgment: `protocol/commissioning.md` owns authority; `protocol/audio_channels.md` guides capacity and format.

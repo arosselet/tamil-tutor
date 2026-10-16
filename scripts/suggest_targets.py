@@ -469,7 +469,7 @@ def is_going_dark(rec: dict, staleness: int | None) -> bool:
 # What it cost, measured on the live ledger the day this changed: 21 of the 26
 # machines fire cold (the engines meter reads 21/21, saturated) and 3 are solid on
 # the ear — he can SAY them and cannot HEAR them. Only 5 carried the catch tag, so
-# the axis `sync_state status` prints as PRIMARY STEER (2026-08-16) could reach the
+# the axis `sync_state status` printed as the headline (2026-08-16) could reach the
 # ticket with 5 of its 26 rows. Exactly the failure `generate_callbacks` fixed for
 # the callback lane on 08-17 — "eligible in principle and reachable in fact are two
 # different things" — one lane over, never made here.
@@ -1028,7 +1028,8 @@ def main():
     # PRIMARY STEER and the deck called itself the sprint headline. Three claims
     # to the same throne on one ticket meant the day's session was decided by
     # whichever section Anna weighted that morning. The division is real and it
-    # is stated instead: machines heard steers WHAT, this steers HOW.
+    # is stated instead: the ear pool offers WHAT, this steers HOW, and neither
+    # owns the session — its shape is Anna's pick against his enjoyment (2026-10-16).
     #
     # A pool row says ரொம்ப நல்லா இருக்கு is not yet cold, so the ticket
     # re-offers it and the scene re-asks it the same way; the ledger says he has
@@ -1130,7 +1131,7 @@ def main():
         # meters — where a number belongs — print Machines heard 3/26 two surfaces
         # away. A menu that carries its own score invites reading it as progress;
         # the ticket's job in this block is WHICH, never HOW MANY.
-        print("\n1a. THE EAR  (comprehension — the primary steer; win = recognition, "
+        print("\n1a. THE EAR  (comprehension — one strand of the menu; win = recognition, "
               "never a fire)")
         print("-" * 60)
         since = check_due(today)

@@ -2335,7 +2335,8 @@ def s60_the_ear_meter(kr, sb: Path):
           "2 NEVER tested" in meter(status()), meter(status()))
     del lex_miss["frame:tested-miss"]
     write_json(lex_path, lex_miss)
-    check("it is labelled the primary steer", "PRIMARY STEER" in line, line)
+    check("it says it is one meter, never the steer (2026-10-16)",
+          "not the steer" in line and "PRIMARY STEER" not in line, line)
     check("the deck no longer claims the headline",
           "sprint headline" not in status())
 
@@ -2814,6 +2815,12 @@ def s128_the_sort_tape_round_trips(kr, sb: Path):
         check("the draw holds every untested row, UNSEEN included (2026-10-05)",
               sorted(items) == sorted(["சரி", "ஆமா", "இல்ல", "புதுசு"]), items)
         check("...and most-aired leads the pick", rs.pool(lex)[0] == "சரி", rs.pool(lex))
+        # An unglossed row would play the word twice and then nothing (2026-10-16:
+        # two of that day's twenty) — no answer to mark against, so not a test.
+        bare = {**lex, "ஊர்": lex_row(gloss=" ", taught_on="2026-02-24",
+                                      seen_in=[1, 2, 3, 4], recognition=u)}
+        check("a row with no gloss never enters the draw",
+              "ஊர்" not in rs.pool(bare), rs.pool(bare))
         # A word he answered ON THE PAGE is not re-drawn (2026-10-04, Andrew:
         # recognition is recognition, read or heard). Driven through the real
         # writer on a copy: a text test stamps no `heard_on`, so the old ear-only

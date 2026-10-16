@@ -5,20 +5,15 @@
   "last_debrief": "STORY SO FAR: Thu 10-15 morning, chat + one local lesson clip, short. Opener: kilambu lore (rise/stir: steam, dust, rumour kilambudhu; why leaving takes twenty minutes). Offered 'Vadhandhi kilambiduchu' -> he said 'something has started going' (kilambiduchu right, cold; vadhandhi taught = rumour). NEW ROOM: phone. Karthi voice note (audio/karthi_voicenote_2026-10-15.mp3, local, gitignored, mischief/stakes): rumour that Paati will make a big announcement at her 75th (-aam = 'apparently'); adhu unmaiyaa? yaarukku theriyum!; pana vishayam-naa naan dhaan maattikkuven (if it's money I'm the one caught - he owes Mama); Paati smiles and says 'appuram paakkalaam'; nee Paati kitta pesu - Karthi wants Andrew as his spy. By ear unaided: Q1 right ('big announcement rumors'); caught appuram paakkalaam but gave it to Karthi - missed the -nu quotation marker (quoted speech attribution is a live ear gap). Q2 (why nervous) / Q3 (spy ask) not reached after glossed pieces + replay -> full reveal. Pitch was dense for one hearing: five new items in eight lines. Gift: 'Enakku onnum theriyaadhu' deadpan for when Karthi corners him; he echoed it back playfully (echo, no credit) and that closed it. Taught via --teach: vadhandhi, maattikkuven, adhu unmaiyaa, yaarukku theriyum, enakku onnum theriyaadhu. CARRY: M97 'Exact Change' still unheard. Oct 23 tenth-anniversary line ('Namma kalyanam aagi pathu varusham aachu') still offered, not accepted - his to take. Tense tails (-en/-ren) live recognition gap; -nu quote attribution now noted. 09-22 poga mudiyala/polaam/irukken and 09-21 kitta irukku/aana written supported only. Receptive check never run by ear. Live slips: past-tense, nga-has-no-address, noun-for-verb, respect-nga, come-go-direction, default-la-tail, literary-twin. VAA stays out of chat production until unannounced ambush. NEXT: different room (kitchen/clinic/errand), lighter density - one or two new items per clip. Hook: Karthi will corner him - does Andrew stay deadpan? (ambush enakku onnum theriyaadhu cold, unannounced, days later). M97 by ear when he wants a tape.",
   "soak_order": {
     "payload": [
-      "மீதி",
-      "அப்போ",
-      "எல்லாம்",
-      "ஆச்சு"
+      "செஞ்சோம்",
+      "போனோம்",
+      "வாங்கினோம்",
+      "இருப்போம்"
     ],
-    "scene_seed": "Paati's counter-move: now that she knows about the sweet box and the leftover money, she quietly turns the tables on Karthi, Deepa and Mama at the table",
-    "from": "2026-10-13",
-    "focus": "A sit-down, enjoyable household scene that reuses this week's words cold, by ear: meedhi (the rest/leftover - meedhi panam), appo (so/then - as a reaction), ellaam (everything - Paati-ku ellaam theriyum), X-um Y-um (both/and), and the -aachu family (enna aachu, evlo aachu, mudinjaachu, late aachu). Paati is a step ahead of everyone. English scaffolding carries meaning; introduce only what the scene needs. Never target his decade-old core words (venum/venaam/podhum).",
-    "channel": "episode",
-    "attempted": {
-      "at": "2026-10-14",
-      "episode": "97",
-      "unclaimed": []
-    }
+    "scene_seed": "Athai and Karthi secretly test-cook a biryani for Paati's 75th; Paati walks into the kitchen early and the 'we' alibis start flying",
+    "from": "2026-10-16",
+    "focus": "The -om 'we' tail by ear: senjom / ponom / vaanginom / iruppom vs the -nga 'you' and -aanga 'they' forms around it — who did what, told through a fun kitchen cover-up. Enjoyment first: a real scene with a laugh, not a word carousel; don't re-air his decade-old core words.",
+    "channel": "episode"
   },
   "next_engine": "frame:polite-nga",
   "slip_closes": {
@@ -226,9 +221,21 @@
           "போறேன்"
         ]
       }
+    ],
+    "1pl-om": [
+      {
+        "channel": "episode",
+        "at": "2026-10-16",
+        "payload": [
+          "செஞ்சோம்",
+          "போனோம்",
+          "வாங்கினோம்",
+          "இருப்போம்"
+        ]
+      }
     ]
   },
-  "status": "Machines heard 3 · ear-tested 16/26 · viability floor 43/75 fire cold (57%) · working across (cousins and in-laws)",
+  "status": "Machines heard 3 · ear-tested 16/26 · viability floor 44/75 fire cold (59%) · working across (cousins and in-laws)",
   "ladder": {
     "lean": "across",
     "since": "2026-10-09"

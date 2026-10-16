@@ -465,7 +465,7 @@ def cmd_status(_args):
             # the headline read as failure where the ledger only had a blank.
             print(f"Machines heard: {mach['heard']} of {mach['tested']} ever ear-tested "
                   f"({mach['total']} tracked; {mach['total'] - mach['tested']} NEVER tested "
-                  f"— blanks, not misses) — PRIMARY STEER (2026-08-16)")
+                  f"— blanks, not misses) — one meter, not the steer (2026-10-16)")
         ear = compute_ear(lexicon)
         if ear["total"]:
             print(f"Ear-only: {ear['caught']}/{ear['total']} solid on recognition "

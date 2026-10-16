@@ -83,10 +83,16 @@ def pool(lexicon: dict) -> list[str]:
     recognition test in EITHER medium (2026-10-04, Andrew: "if I recognize it,
     it applies whether I read or listen"). This replaced an ear-only `heard_on`
     filter that re-drew words he had just answered on the page; a sort tape is
-    single words, not speech at speed, so it adds nothing a page answer lacks."""
+    single words, not speech at speed, so it adds nothing a page answer lacks.
+
+    A row with no gloss is left out (2026-10-16): the tape's answer IS the
+    meaning, so an unglossed line plays the word twice and then silence — he
+    cannot mark himself right or wrong, and whatever number he replies scores
+    a test nobody could take. The draw that day held two such rows."""
     keys = [k for k, r in lexicon.items()
             if is_canonical(k) and not k.startswith("frame:") and len(k) > 1
-            and r.get("recognition") == RECOGNITION_DEFAULT]
+            and r.get("recognition") == RECOGNITION_DEFAULT
+            and (r.get("gloss") or "").strip()]
     return sorted(keys, key=lambda k: (-(len(lexicon[k].get("seen_in") or [])
                                          + (lexicon[k].get("exposures") or 0)), k))
 
