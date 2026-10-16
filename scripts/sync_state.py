@@ -272,6 +272,46 @@ def compute_status(learner: dict | None = None) -> str:
             f"fire cold ({floor['pct']:.0f}%){lean}")
 
 
+# THE GOAL'S OWN SENSOR (2026-10-16, Andrew: "The system should care most about
+# my enjoyment and engagement not 'machines heard'"). Every meter here measured a
+# proxy and ticked daily; the goal had no instrument at all and arrived only as a
+# complaint, weeks late — so each session's shape drifted to whatever the meters
+# pulled on, and every lesson became clip-then-questions without one rule saying
+# so. Two fields on the session-day entry close that: how it FELT, in his word,
+# and what SHAPE it took (daily_session.md's shapes). Neither is a score; the
+# shape line exists so a monoculture is visible before he has to say it.
+FELT = ("good", "meh", "annoying")
+SHAPES = ("ear", "gauntlet", "teach", "story", "deep-dive", "table", "sweep", "other")
+MONOCULTURE = 3   # this many logged sessions in a row with one shape is a warning
+
+
+def lately(log: list | None = None, n: int = 5) -> dict:
+    """The last `n` session-days that logged a felt verdict or a shape, oldest
+    first, plus `same` — the shape the last MONOCULTURE logged shapes share, or
+    None. A day with no felt/shape says nothing and is skipped, never counted
+    as 'meh': an absent verdict is a blank, not a grade."""
+    log = load_json(SESSION_LOG_PATH) if log is None else log
+    rows = [s for s in log or [] if s.get("felt") or s.get("shape")][-n:]
+    shaped = [tuple(s["shape"]) for s in log or [] if s.get("shape")][-MONOCULTURE:]
+    same = (shaped[0][0] if len(shaped) == MONOCULTURE and len(set(shaped)) == 1
+            and len(shaped[0]) == 1 else None)
+    return {"rows": rows, "same": same}
+
+
+def lately_lines(log: list | None = None) -> list[str]:
+    """What `open` and `status` print ABOVE every meter — the goal leads."""
+    got = lately(log)
+    if not got["rows"]:
+        return ["How sessions felt: nothing logged yet — close with --felt and --shape"]
+    parts = [f"{s['date'][5:]} {s.get('felt') or '?'}"
+             + (f" ({'+'.join(s['shape'])})" if s.get("shape") else "") for s in got["rows"]]
+    out = ["How sessions felt: " + " · ".join(parts)]
+    if got["same"]:
+        out.append(f"  ⚠ the last {MONOCULTURE} sessions were all '{got['same']}' — "
+                   f"pick a different shape today")
+    return out
+
+
 def cold_fires_recent(days: int = 7) -> int:
     """COLD fires in the trailing `days`-day window, across chat sessions and phone
     replies — the pace side of the burn rate. Live from the logs, never stored.
@@ -753,7 +793,9 @@ def cmd_update(args):
     # fires_today() SUM word lists across entries, so a word logged twice in one
     # close inflated the trailing pace the burn rate is computed from.
     # Merging restores the documented contract instead of adding a guard on top.
-    if any(applied.values()) or args.debrief:
+    felt = getattr(args, "felt", None)
+    shapes = getattr(args, "shape", None) or []
+    if any(applied.values()) or args.debrief or felt or shapes:
         log = load_json(SESSION_LOG_PATH) or []
         entry = log[-1] if log and log[-1].get("date") == today else None
         if entry is None:
@@ -772,6 +814,13 @@ def cmd_update(args):
         # must never blank the one already written.
         if args.debrief:
             entry["note"] = args.debrief
+        # His verdict is rewritten (a later word is the truer one); shapes union,
+        # because one session-day can run a story and then a gauntlet.
+        if felt:
+            entry["felt"] = felt
+        if shapes:
+            have = entry.setdefault("shape", [])
+            have.extend(s for s in shapes if s not in have)
         save_json(SESSION_LOG_PATH, log)
         print(f"  Logged session ({len(log)} total)")
 
@@ -1342,7 +1391,10 @@ def cmd_feedback(args):
 def main():
     parser = argparse.ArgumentParser(description="Tamil learning state management")
     sub = parser.add_subparsers(dest="command")
-    sub.add_parser("status", help="Show current state")
+    st = sub.add_parser("status", help="Show current state")
+    st.add_argument("--numbers", action="store_true",
+                    help="Also print the engineering meters (recognition buckets, floor, engines, "
+                         "machines heard) — @build reading, not Anna's boot (2026-10-16)")
     sub.add_parser("open", help="The light session start: story, threads, what changed — nothing else")
 
     up = sub.add_parser("update", help="Update state after a session")
@@ -1407,6 +1459,13 @@ def main():
                     help="Close despite a live uncommissioned slip pattern, with the reason on the record. "
                          "Without this (or a --slip-commissioned covering the debt) the gate REFUSES the "
                          "close and writes nothing (2026-08-01, Andrew's call).")
+
+    up.add_argument("--felt", type=str, default=None, metavar="VERDICT[: note]",
+                    help="How the session felt, in HIS word: good | meh | annoying, optionally "
+                         "': what was fun or not'. The goal's sensor (2026-10-16) — ask him at the close.")
+    up.add_argument("--shape", type=str, action="append", default=[], choices=SHAPES,
+                    help="The session's shape (daily_session.md). Repeatable. Three in a row "
+                         "the same prints a monoculture warning on open and status.")
 
     ap = sub.add_parser("add-pattern", help="Seed a generative pattern/lemma record (tracked as an Engine)")
     ap.add_argument("key", help="Canonical key, e.g. 'frame:present-future-toggle'")

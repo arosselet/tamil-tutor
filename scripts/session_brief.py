@@ -27,7 +27,7 @@ from state_io import (BASE, EPISODES_PATH, FEEDBACK_LOG_PATH, KNOCK_LOG_PATH,
 from state_io import canon_payload, is_unseen, soak_pending, split_payload
 from show_status import waiting_on_andrew
 from sync_state import (RECOGNITION_LEVELS, compute_ear, compute_engines,
-                        compute_machines,
+                        compute_machines, lately_lines,
                         compute_floor, compute_status, fires_today, is_pattern)
 
 
@@ -264,6 +264,8 @@ def cmd_status(_args):
     last = threads.last_contact(threads.contact_days(
         load_json(KNOCK_LOG_PATH) or [], load_json(threads.OBSERVATIONS_PATH) or []))
     print(f"Last here: {last or 'never'}")
+    for line in lately_lines():   # the goal, above every meter (2026-10-16)
+        print(line)
     print(f"Status: {compute_status()}")  # live — the stored learner.json copy goes stale between updates
     print(f"Story so far: {learner.get('last_debrief', '')}")
     next_engine = learner.get("next_engine", "")
@@ -417,7 +419,15 @@ def cmd_status(_args):
             print(line)
     print()
 
-    if lexicon:
+    # THE METERS ARE @build READING (2026-10-16). Anna's boot loaded ~2,850 words
+    # of meters and menus against one paragraph of charge, and an agent works to
+    # what fills its context: the session drifted to whatever these pulled on.
+    # They print on `status --numbers`; the ear-block and rated-minutes lines
+    # below stay, because they are what Anna commissions from.
+    numbers = bool(getattr(_args, "numbers", False))
+    if lexicon and not numbers:
+        print("(engineering meters: `status --numbers` — they choose content, never a session's shape)")
+    if lexicon and numbers:
         by_level = {lvl: 0 for lvl in RECOGNITION_LEVELS}
         cold = hinted = 0
         for r in lexicon.values():
@@ -477,28 +487,28 @@ def cmd_status(_args):
                 print("    ENGINEERING NUMBER — steers what Python picks; never narrated to Andrew "
                       "(a global deficit recited in a warm voice is guilt machinery, 2026-07-17).")
         print(f"Fired today: {fires_today()}")
-        # THE EAR BLOCK, as an open door (2026-10-08, Andrew with Rio). From 09-10
-        # this printed a seven-day tally of rated days and told Anna to cue it —
-        # a count of the days he didn't come, one sentence from his ear. The
-        # habit stays the one standing invitation; what Anna needs is the last
-        # time he walked through it, never the misses. A rating is the only
-        # listen the system can see — a play in his podcast app leaves no trace —
-        # so the line says RATED (2026-10-15: it said "played", and a rating
-        # count read as a play count reshaped the repair lanes on 10-12).
-        rated = [e["date"] for e in load_json(FEEDBACK_LOG_PATH) or []
-                 if "[audio rating]" in e.get("note", "")]
-        print(f"Ear block: last rated {max(rated) if rated else 'not yet'} "
-              f"— the door is open; never mention a day it wasn't used")
-        # THE DOSE, AS MINUTES HE RATED (2026-09-13; renamed 2026-10-15 — it
-        # never counted plays, only rating taps, and unrated listens are invisible). The ear-block line counts
-        # DAYS and cannot tell one tap on a 3-minute payoff from a 15-minute
-        # rotation tape heard twice. Anna reads this as a floor for what to
-        # COMMISSION — never as a debt, and no number from it reaches his ear
-        # (`daily_session.md`). The dial it answers is profile.md's 10-15 min/day.
-        dose = audio_titles.dose_minutes(7)
-        warn = " — ⚠ ratings with NO duration behind them: plumbing, not a quiet week" if dose["unmeasured"] else ""
-        print(f"Rated: {dose['minutes']:.0f} min over 7d "
-              f"({dose['per_day']:.1f}/day, {dose['taps']} ratings) — unrated plays are invisible{warn}")
+    # THE EAR BLOCK, as an open door (2026-10-08, Andrew with Rio). From 09-10
+    # this printed a seven-day tally of rated days and told Anna to cue it —
+    # a count of the days he didn't come, one sentence from his ear. The
+    # habit stays the one standing invitation; what Anna needs is the last
+    # time he walked through it, never the misses. A rating is the only
+    # listen the system can see — a play in his podcast app leaves no trace —
+    # so the line says RATED (2026-10-15: it said "played", and a rating
+    # count read as a play count reshaped the repair lanes on 10-12).
+    rated = [e["date"] for e in load_json(FEEDBACK_LOG_PATH) or []
+             if "[audio rating]" in e.get("note", "")]
+    print(f"Ear block: last rated {max(rated) if rated else 'not yet'} "
+          f"— the door is open; never mention a day it wasn't used")
+    # THE DOSE, AS MINUTES HE RATED (2026-09-13; renamed 2026-10-15 — it
+    # never counted plays, only rating taps, and unrated listens are invisible). The ear-block line counts
+    # DAYS and cannot tell one tap on a 3-minute payoff from a 15-minute
+    # rotation tape heard twice. Anna reads this as a floor for what to
+    # COMMISSION — never as a debt, and no number from it reaches his ear
+    # (`daily_session.md`). The dial it answers is profile.md's 10-15 min/day.
+    dose = audio_titles.dose_minutes(7)
+    warn = " — ⚠ ratings with NO duration behind them: plumbing, not a quiet week" if dose["unmeasured"] else ""
+    print(f"Rated: {dose['minutes']:.0f} min over 7d "
+          f"({dose['per_day']:.1f}/day, {dose['taps']} ratings) — unrated plays are invisible{warn}")
 
     episodes = load_json(EPISODES_PATH) or {}
     if episodes:
@@ -535,6 +545,11 @@ def cmd_open(_args):
     # days between is exactly what he must never hear (Rio: skipping is never
     # mentioned). The date alone answers "what happened since".
     print(f"Last here: {last or 'never'}")
+    # How the last sessions felt and what shape they took — read before choosing
+    # today's (2026-10-16: every lesson had become the same shape, and nothing
+    # on this screen could show it).
+    for line in lately_lines():
+        print(line)
     print(f"\nStory so far: {learner.get('last_debrief') or '(none yet)'}")
     since = [k for k in knocks_since(klog, last) if k.get("acted")]
     if since:

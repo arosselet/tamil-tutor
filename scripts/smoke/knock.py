@@ -2265,7 +2265,7 @@ def s60_the_ear_meter(kr, sb: Path):
         sbf.git_sync_counts = lambda: (0, 0)
         out = io.StringIO()
         with contextlib.redirect_stdout(out):
-            sbf.cmd_status(None)
+            sbf.cmd_status(__import__('argparse').Namespace(numbers=True))
         return out.getvalue()
 
     def meter(text: str) -> str:

@@ -1642,7 +1642,7 @@ def s54_no_deadline_reaches_any_surface(sb: Path):
         sbf.git_sync_counts = lambda: (0, 0)
         out = io.StringIO()
         with contextlib.redirect_stdout(out):
-            sbf.cmd_status(None)
+            sbf.cmd_status(argparse.Namespace(numbers=True))
         text = out.getvalue()
         check("the session load names no deadline",
               "touchdown" not in text and "in country" not in text
@@ -2407,7 +2407,7 @@ def s64_the_ask_cooldown_covers_the_session_lane(sb: Path):
     sbf.git_sync_counts = lambda: (0, 0)
     out = io.StringIO()
     with contextlib.redirect_stdout(out):
-        sbf.cmd_status(None)
+        sbf.cmd_status(argparse.Namespace(numbers=True))
     text = out.getvalue()
 
     check("the session surface prints the cooldown at all", "ALREADY ASKED" in text)
@@ -2525,7 +2525,7 @@ def s69_two_readers_two_tickets(sb: Path):
           "1b. BACKGROUND" not in anna and "1b. BACKGROUND" not in director)
 
     # The ledger: exactly one of Anna's two session inputs carries it.
-    status = _sp.run([sys.executable, str(sb / "scripts" / "sync_state.py"), "status"],
+    status = _sp.run([sys.executable, str(sb / "scripts" / "sync_state.py"), "status", "--numbers"],
                      cwd=sb, capture_output=True, encoding="utf-8",
                      errors="replace").stdout
     in_status, in_ticket = "REPEATED SLIPS" in status, "REPEATED SLIPS" in anna
@@ -2848,7 +2848,7 @@ def s77_the_wild_line_reaches_the_session(sb: Path):
         try:
             sb_mod.git_sync_counts = lambda: (0, 0)
             with contextlib.redirect_stdout(out):
-                sb_mod.cmd_status(argparse.Namespace())
+                sb_mod.cmd_status(argparse.Namespace(numbers=True))
         finally:
             sb_mod.git_sync_counts = real
         return out.getvalue()
@@ -3291,7 +3291,7 @@ def s80_one_produced_resolver(sb: Path):
         try:
             sb_mod.git_sync_counts = lambda: (0, 0)
             with contextlib.redirect_stdout(out):
-                sb_mod.cmd_status(argparse.Namespace())
+                sb_mod.cmd_status(argparse.Namespace(numbers=True))
         finally:
             sb_mod.git_sync_counts = real
         return "produced ✓" in out.getvalue()
@@ -3903,7 +3903,7 @@ def s101_the_check_and_the_rating_are_ear_evidence(sb: Path):
               "one press of play marked the whole tape taught — hearing is not knowing")
         out = _io.StringIO()
         with contextlib.redirect_stdout(out):
-            sbf.cmd_status(None)
+            sbf.cmd_status(argparse.Namespace(numbers=True))
         # "1" was a time-bomb, not a law (2026-09-13): the sandbox inherits the
         # real feedback log, so any genuine rating inside the trailing 7 days
         # made this 2 and reddened CI until it aged out. The case's subject is
@@ -4086,7 +4086,7 @@ def s104_a_render_that_could_not_claim_stops_asking(sb: Path):
     def brief_line():
         out = io.StringIO()
         with contextlib.redirect_stdout(out):
-            sbf.cmd_status(None)
+            sbf.cmd_status(argparse.Namespace(numbers=True))
         return next((l for l in out.getvalue().splitlines()
                      if l.startswith("Soak order")), "")
 
@@ -5716,3 +5716,78 @@ def s149_every_show_notes_link_lands(sb: Path):
         for p, b in saved.items():
             p.write_bytes(b)
         _sh.rmtree(audio, ignore_errors=True)
+
+
+def s150_the_goal_has_a_sensor(sb: Path):
+    """The goal gets a sensor; meters choose content, never shape (2026-10-16,
+    Andrew: "The system should care most about my enjoyment and engagement").
+
+    Gate 7.2, out loud: this fails SILENTLY three ways. (1) The writer drops the
+    fields — `cmd_update` only writes a session entry when something was
+    applied, so a close carrying ONLY a verdict would mint nothing and still
+    print "State updated." (2) The monoculture warning can never fire — three
+    sessions of one shape print nothing, which reads exactly like variety.
+    (3) The meters still print by default, so the boot is as heavy as before.
+    Each is driven through the real entry point and re-read from disk."""
+    print("\n150. The goal has a sensor: felt + shape lead, meters behind a flag (2026-10-16)")
+    import contextlib
+    ss = importlib.import_module("sync_state")
+    sbf = importlib.import_module("session_brief")
+    log_path = sb / "progress" / "session_log.json"
+    learner_path = sb / "progress" / "learner.json"
+    lex_path = sb / "progress" / "lexicon.json"
+    saved = {p: p.read_bytes() for p in (log_path, learner_path, lex_path) if p.exists()}
+    defaults = dict(teach=[], soak_payload=[], soak_seed=None, soak_focus=None,
+                    soak_channel=None, soak_form=None, recognized=[], stuck_word=[],
+                    produced_cold=[], produced_hinted=[], next_engine=None,
+                    debrief=None, no_commission="smoke sandbox", felt=None, shape=[])
+
+    def update(**kw):
+        with contextlib.redirect_stdout(io.StringIO()):
+            ss.cmd_update(argparse.Namespace(**{**defaults, **kw}))
+
+    def capture(fn, ns):
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            fn(ns)
+        return out.getvalue()
+
+    try:
+        write_json(log_path, [])
+        update(felt="good: the auntie mask", shape=["table"])
+        update(shape=["sweep"])
+        entry = (read_json(log_path) or [{}])[-1]
+        check("a close with ONLY a verdict still writes the session entry",
+              entry.get("felt") == "good: the auntie mask", str(entry))
+        check("...and shapes union across a day's calls",
+              entry.get("shape") == ["table", "sweep"], str(entry))
+        check("an update without --felt keeps the verdict already given",
+              entry.get("felt") == "good: the auntie mask", str(entry))
+
+        days = [{"date": f"2026-10-1{i}", "cold": [], "hinted": [], "demoted": [],
+                 "note": "", "shape": ["ear"], "felt": "meh"} for i in range(3)]
+        lines = ss.lately_lines(days)
+        check("three sessions of one shape print the monoculture warning",
+              any("all 'ear'" in x for x in lines), str(lines))
+        mixed = days[:2] + [{**days[2], "shape": ["story"]}]
+        check("...and a varied run prints none",
+              not any("⚠" in x for x in ss.lately_lines(mixed)), str(ss.lately_lines(mixed)))
+        check("an empty log says so, never a silent blank",
+              "nothing logged yet" in ss.lately_lines([])[0], str(ss.lately_lines([])))
+
+        write_json(log_path, days)
+        # The meters print only over a lexicon; the sandbox seed may hold none.
+        write_json(lex_path, {"போறேன்": lex_row(gloss="I go", recognition="solid",
+                                                production="cold")})
+        plain = capture(sbf.cmd_status, argparse.Namespace())
+        full = capture(sbf.cmd_status, argparse.Namespace(numbers=True))
+        check("status leads with how sessions felt",
+              "How sessions felt:" in plain and plain.index("How sessions felt:")
+              < plain.index("Status:"), plain[:400])
+        check("the meters stay behind --numbers by default",
+              "Viability floor:" not in plain and "Viability floor:" in full, plain[-600:])
+        check("open carries the felt line and the warning too",
+              "all 'ear'" in capture(sbf.cmd_open, argparse.Namespace()))
+    finally:
+        for p, b in saved.items():
+            p.write_bytes(b)

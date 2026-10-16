@@ -2509,3 +2509,20 @@ def s148_the_shelf_takes_turns(sb: Path):
               f"rc={rc} ran={len(ran)}")
     finally:
         rails.in_waking_window, rails.pleasure_due, sh.feed_items, sh.subprocess.run = real
+
+
+def s151_the_studio_owns_its_beat(sb: Path):
+    """The beat append is the run's own write (2026-10-16). `persist` writes
+    content/household.md before lint, and lint's stray check did not know it, so
+    every run on a clean tree failed on its own beat — and only passed when an
+    earlier failure had left the canon dirty. Driven on the real `paths` shape."""
+    print("\n151. The studio's own beat write is never a stray (2026-10-16)")
+    rs = importlib.import_module("run_studio")
+    paths = rs.episode_paths(98)
+    own = {p.relative_to(rs.BASE).as_posix() for p in paths.values()}
+    canon = "content/household.md"
+    check("a clean-tree run that appended its beat has no strays",
+          rs.stray_writes(own | {canon}, set(), paths) == set())
+    check("...but a write the run does not own is still caught",
+          rs.stray_writes(own | {"content/dialect_notes.md"}, set(), paths)
+          == {"content/dialect_notes.md"})

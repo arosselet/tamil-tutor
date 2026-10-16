@@ -11,7 +11,7 @@
 > - `protocol/exemplars.md` — a few contrasting days that worked: the range to land
 >   outside of, never a shape to fill
 
-**Goal:** Pick the payload, define the scenario context, and identify the core linguistic pattern. Create a format-agnostic Master Lesson Plan that can be delivered via any modality (Podcast, Drill, Roleplay).
+**Goal:** A scene he will enjoy hearing — then pick the payload that rides inside it, define the scenario context, and identify the core linguistic pattern. When the soak order's `focus` asks for fun or a light scene, that outranks the ticket's widening: fewer targets, more story (2026-10-16 — an order saying "enjoyment first, not a word carousel" came back as nine targets and a three-way drill). Create a format-agnostic Master Lesson Plan that can be delivered via any modality (Podcast, Drill, Roleplay).
 
 ---
 

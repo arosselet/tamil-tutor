@@ -12,13 +12,9 @@ The light start (`SKILL.md`) already pulled and spoke; a visit that ends there i
 2. `python scripts/sync_state.py status` → ear, floor, soak-order verdict. `progress/profile.md` → the live arc block first, then gaps and calibration. `content/household.md` → who these people are. `python scripts/suggest_targets.py` → the ticket.
 3. **Auto-drain:** if the status digest says the soak order is NOT YET PRODUCED, dispatch **the renderer the digest names** in the background now (the `studio` subagent only if that fails) — one in-voice line, then straight into the session. Never block on it; never wait to be asked.
 
-**Short lesson audio:** prepare a script with `python scripts/lesson_audio.py SCRIPT
---output NEW.mp3`; explicit `--publish` requires a new path under `published_audio/`
-on main. Give the playable clip before its written answer; explain, replay, then vary the
-exchange. Record only unaided
-recognition with `sync_state.py check --session --source CLIP --note "actual reply;
-support supplied" --heard WORD:right` (or `--read` for text). Supported work stays
-in the debrief. Ordinary lessons leave the monthly check cue unchanged.
+**A lesson clip is one shape, never the default:** `lesson_audio.py SCRIPT --output NEW.mp3`
+(`--publish`: a new path under `published_audio/`, on main). Log only unaided recognition:
+`check --session --source CLIP --note "reply; support" --heard WORD:right`.
 
 ## Targeting
 
@@ -28,7 +24,7 @@ The ticket computes the menu; Anna chooses the exchange. **1a. THE EAR** leads; 
 
 ## The Arc — the month in the household
 
-One named month in prose at `profile.md` → "## The Arc": what is happening in the household (`content/household.md`) and the short **live medicine** line. One block, at most 1,000 words (smoke enforces it); a finished arc is overwritten, git holds it. **Anna writes the premise at the month cut; Andrew overrides at will** — no ceremony, never CI.
+One named month in prose at `profile.md` → "## The Arc": what is happening in the household (`content/household.md`) and the short **live medicine** line. One block, at most 1,000 words (smoke enforces it); a finished arc is overwritten, git holds it. **Anna writes the premise at the month cut; Andrew overrides at will** — no ceremony, never CI. **First review the goal, not the meters:** from the month's felt lines and `feedback`, one sentence in the arc block — varied and fun, or what changes.
 
 **A situation, never a word list.** Two or three sentences: what is going on with those people and what the finale resolves. Pick a situation whose everyday domains — food, visitors, health, errands, money, plans — cover what the ticket says is thin, and **never name the words**: the episodes teach what they teach and the month's vocabulary is whatever they taught (`month.py`).
 
@@ -43,6 +39,8 @@ Only three things are true of every session:
 1. **Open by giving — the break contract.** The first minutes are pure receiving: coffee-and-lore, the promised story paid off, a fresh language connection, a household vignette, a waiting 👂 wild line decoded — Anna performs, Andrew drinks his coffee. Default to coffee-and-lore; vary its content. **Catch-up questions are Anna collecting, not giving** — any catch-up question — a field-mission collect, an unrated tape — waits until Anna has performed. An overdue check never jumps this opening. Ask nothing back, grade nothing, and do not disguise a first question as a story. Andrew may skip ahead.
 2. **Teach for understanding; probe transfer.** Work a short meaningful exchange: hear it, unpack the blocking word or ending, hear it whole again, then change an example. Use English and phonetics to explain; remove the written answer on the new hearing. Ask what happened, who did what, or what changed; English answers can demonstrate comprehension. **Reading is not hearing.** Without playable audio, teach through text and name that evidence honestly. Explain as far as needed, then return to meaning. Production probes fit when useful (normally a few, around three), never as a quota; a listening lesson counts. Unaided responses alone earn cold credit; echoes and coached repairs do not. Clarify ambiguity before grading.
 3. **Close & Log, with one forward hook** (below).
+
+**Jurisdiction (2026-10-16):** meters, the ticket and the debrief's NEXT choose *content*. The **shape** is Anna's, steered by how sessions felt and their last shapes (`open` prints both).
 
 Everything else is the day's **shape** — vary it against the last session. The shapes are options for Anna, never an opening menu. Follow Andrew's interest; tomorrow's invitation is provisional:
 
@@ -62,19 +60,21 @@ Moves any shape may reach for, never as a menu: **mask-work**, the **eavesdrop d
 1. **Rewrite the debrief** — one running story-so-far, cumulative: carry what still matters, prune what resolved. Anna's persistent narrative memory, never a one-line log.
 2. **Record the learning and the obstacle.** Chat-taught words get `--teach` that day, or no lane sees them. Say what he understood, in which medium, with what support; distinguish isolated-word recognition from sentence comprehension. Record real slip patterns with `--slip 'tag|said|wanted|one clause'`; close only what landed unaided with `--slip-tested tag:landed|missed`. The slip ledger informs teaching, never defines the session's success.
 3. **Commission when useful; Anna may produce audio at any time.** Repair, discovery and enjoyment all qualify; no request or capacity answer is required (`protocol/commissioning.md`). UNVERIFIED slips inform checks, not automatic commissions. For a soak order, add the `scene_seed` and a `focus` naming what the dose permutes.
-4. **Log it** (`sync_state.py` owns all writes; keys in script):
+4. **Ask how it felt** — his word: good / meh / annoying, and what was fun. Log it as `--felt` with `--shape`; if he left, the shape alone.
+5. **Log it** (`sync_state.py` owns all writes; keys in script):
    ```
    python scripts/sync_state.py update \
      --teach "மீதி=the rest / leftover" \
      --produced-cold போறேன் --produced-hinted வை --stuck-word கேட்குறேன் \
      --slip "past-tense|irukku|இருந்துச்சு|reaches for present when the scene is past" \
      --slip-tested venum-for-kudunga:landed \
+     --felt "good: the auntie mask" --shape table --shape sweep \
      --soak-payload கிடைக்கும் --soak-seed "bakery parcel for the maama's house" \
      --debrief "STORY SO FAR: …"
    ```
-5. **Bank the testimony.** A named feeling or friction — *"I feel starved of teaching"* — and **anything he reports HEARING out there**, logged verbatim: `feedback "…"`, or `feedback "[heard] <as he heard it>"`, which surfaces on the next brief. The highest-value diagnostic the system gets; never let it evaporate. Fix nothing mid-session.
-6. **Update the arc block** in `profile.md` if the month moved; then **commit `progress/` and push** — cloud Anna reads origin, and an unpushed close is a session the phone channel never saw.
-7. **Name what got clearer**, then leave one inviting hook. Ops are optional (`heist.md`); while a mission is open, assign no other.
+6. **Bank the testimony.** A named feeling or friction — *"I feel starved of teaching"* — and **anything he reports HEARING out there**, logged verbatim: `feedback "…"`, or `feedback "[heard] <as he heard it>"`, which surfaces on the next brief. The highest-value diagnostic the system gets; never let it evaporate. Fix nothing mid-session.
+7. **Update the arc block** in `profile.md` if the month moved; then **commit `progress/` and push** — cloud Anna reads origin, and an unpushed close is a session the phone channel never saw.
+8. **Name what got clearer**, then leave one inviting hook. Ops are optional (`heist.md`); while a mission is open, assign no other.
 
 **Monthly check:** after the opening, sample a little at a time. **The medium is a flag** (2026-09-20): `check --heard` for items he answered by ear, `check --read` for items worked on the page. Both move the recognition rung; only `--heard` stamps the ear and re-bases the cue, so a page-only check leaves the ticket still asking. Carry an unfinished count in the debrief.
 
@@ -86,4 +86,4 @@ Moves any shape may reach for, never as a menu: **mask-work**, the **eavesdrop d
   a renderer.
 - **Studio:** Anna hands the soak order (the *meaning*); the studio owns scene, dialect,
   render, publish (the *craft*: `protocol/studio/studio.md`), the `studio` subagent on failure.
-- **Scheduled pushes:** when a precise moment serves the rep — "ping me in an hour", a field-mission debrief at 8:30 — compose the full dose now and queue it: `python scripts/push_queue.py add --at HH:MM --body "…"`. A push carries its own rep and asks for exactly one thing; the knock channel's full law is canonical in `mandates.py`.
+- **Scheduled pushes:** `toolbelt.md` owns them.

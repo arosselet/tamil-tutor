@@ -646,12 +646,24 @@ def lint(n: int, baseline: set[str] | None = None) -> list[str]:
     # were reported as strays, failing every local run on this box
     # (2026-07-31). Same normalisation on both sides or the check is a coin
     # flip on the operating system.
-    allowed = {p.relative_to(BASE).as_posix() for p in paths.values()}
-    stray = {p for p in git_dirty() - (baseline or set()) - allowed
-             if p.startswith("content/")}
+    stray = stray_writes(git_dirty(), baseline, paths)
     if stray:
         problems.append(f"stray writes outside the episode files: {sorted(stray)}")
     return problems
+
+
+def stray_writes(dirty: set[str], baseline: set[str] | None, paths: dict) -> set[str]:
+    """content/ files dirtied during the run that no part of the run owns.
+
+    The household canon is the run's OWN write (2026-10-16): `persist` appends
+    the episode's beat through `household.append_beat` before lint runs, so a
+    run that started on a clean tree flagged its own beat as a stray and failed
+    every time — M96 (2026-10-14, "never shipped") and M98's first OpenRouter
+    attempt both died here. It only passed when the canon was already dirty
+    from an earlier failed run and the baseline subtracted it."""
+    allowed = ({p.relative_to(BASE).as_posix() for p in paths.values()}
+               | {household.CANON_PATH.relative_to(BASE).as_posix()})
+    return {p for p in dirty - (baseline or set()) - allowed if p.startswith("content/")}
 
 
 def claim_payload(n: int) -> None:
