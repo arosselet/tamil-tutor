@@ -24011,5 +24011,101 @@
     "medium": "audio",
     "source": "episode:M98",
     "note": ""
+  },
+  {
+    "id": "4d1048b6410c",
+    "at": "2026-10-16T23:39:47Z",
+    "word": "செஞ்சோம்",
+    "channel": "unknown:mission",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "text",
+    "source": "rating:tier2_mission98",
+    "note": ""
+  },
+  {
+    "id": "1af70f3c085b",
+    "at": "2026-10-16T23:39:47Z",
+    "word": "போனோம்",
+    "channel": "unknown:mission",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "text",
+    "source": "rating:tier2_mission98",
+    "note": ""
+  },
+  {
+    "id": "496df74a5297",
+    "at": "2026-10-16T23:39:47Z",
+    "word": "வாங்கினோம்",
+    "channel": "unknown:mission",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "text",
+    "source": "rating:tier2_mission98",
+    "note": ""
+  },
+  {
+    "id": "d485347360eb",
+    "at": "2026-10-16T23:39:47Z",
+    "word": "இருப்போம்",
+    "channel": "unknown:mission",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "text",
+    "source": "rating:tier2_mission98",
+    "note": ""
+  },
+  {
+    "id": "18b09e2fad37",
+    "at": "2026-10-16T23:39:47Z",
+    "word": "வந்தேன்",
+    "channel": "unknown:mission",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "text",
+    "source": "rating:tier2_mission98",
+    "note": ""
+  },
+  {
+    "id": "abe8695b2266",
+    "at": "2026-10-16T23:39:47Z",
+    "word": "கன்ஃபர்ம்",
+    "channel": "unknown:mission",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "text",
+    "source": "rating:tier2_mission98",
+    "note": ""
+  },
+  {
+    "id": "f1ca4bb2a56d",
+    "at": "2026-10-16T23:39:47Z",
+    "word": "frame:obligation-ணும்",
+    "channel": "unknown:mission",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "text",
+    "source": "rating:tier2_mission98",
+    "note": ""
+  },
+  {
+    "id": "8bcfe43d9b9b",
+    "at": "2026-10-16T23:39:47Z",
+    "word": "அது உண்மையா?",
+    "channel": "unknown:mission",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "text",
+    "source": "rating:tier2_mission98",
+    "note": ""
   }
 ]
