@@ -13,7 +13,12 @@
     "scene_seed": "Athai and Karthi secretly test-cook a biryani for Paati's 75th; Paati walks into the kitchen early and the 'we' alibis start flying",
     "from": "2026-10-16",
     "focus": "The -om 'we' tail by ear: senjom / ponom / vaanginom / iruppom vs the -nga 'you' and -aanga 'they' forms around it — who did what, told through a fun kitchen cover-up. Enjoyment first: a real scene with a laugh, not a word carousel; don't re-air his decade-old core words.",
-    "channel": "episode"
+    "channel": "episode",
+    "attempted": {
+      "at": "2026-10-16",
+      "episode": "98",
+      "unclaimed": []
+    }
   },
   "next_engine": "frame:polite-nga",
   "slip_closes": {

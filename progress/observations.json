@@ -23915,5 +23915,101 @@
     "medium": "audio",
     "source": "knock:2026-10-16T15:05:52.705237+00:00",
     "note": ""
+  },
+  {
+    "id": "637b51be4533",
+    "at": "2026-10-16T21:49:23Z",
+    "word": "செஞ்சோம்",
+    "channel": "episode",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "episode:M98",
+    "note": ""
+  },
+  {
+    "id": "170119daade0",
+    "at": "2026-10-16T21:49:23Z",
+    "word": "போனோம்",
+    "channel": "episode",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "episode:M98",
+    "note": ""
+  },
+  {
+    "id": "4a3af78516e9",
+    "at": "2026-10-16T21:49:23Z",
+    "word": "வாங்கினோம்",
+    "channel": "episode",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "episode:M98",
+    "note": ""
+  },
+  {
+    "id": "78069ec87979",
+    "at": "2026-10-16T21:49:23Z",
+    "word": "இருப்போம்",
+    "channel": "episode",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "episode:M98",
+    "note": ""
+  },
+  {
+    "id": "3e7657e1f24f",
+    "at": "2026-10-16T21:49:23Z",
+    "word": "வந்தேன்",
+    "channel": "episode",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "episode:M98",
+    "note": ""
+  },
+  {
+    "id": "872065786c52",
+    "at": "2026-10-16T21:49:23Z",
+    "word": "கன்ஃபர்ம்",
+    "channel": "episode",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "episode:M98",
+    "note": ""
+  },
+  {
+    "id": "88e5f901f442",
+    "at": "2026-10-16T21:49:23Z",
+    "word": "frame:obligation-ணும்",
+    "channel": "episode",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "episode:M98",
+    "note": ""
+  },
+  {
+    "id": "128fd51bcbbf",
+    "at": "2026-10-16T21:49:23Z",
+    "word": "அது உண்மையா?",
+    "channel": "episode",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "episode:M98",
+    "note": ""
   }
 ]

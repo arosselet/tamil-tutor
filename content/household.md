@@ -102,6 +102,7 @@ Cut early 2026-09-25. Opens in the `down` phase, children near its centre.
 
 - 2026-10-08 · M95 — Karthi takes Deepa and Ravi shopping for Paati's seventy-fifth birthday on money borrowed from Mama, overselling how fine everything is every time the money comes up, and they come home with one small sweet box and the debt still unmentioned.
 - 2026-10-14 · M97 — Paati calls Athai to say the leftover lunch money should go toward something nicer for her own meal, already knowing the exact amount without saying it outright; Karthi stalls rather than correct her, Mama stays carefully uncurious, and the call ends on scheduling with the real number still unspoken.
+- 2026-10-16 · M98 — Athai and Karthi scramble over the phone to invent a shared alibi when Paati walks into the kitchen during their secret biryani test-cook, locking in their story of joint responsibility just as Paati opens the door.
 
 ---
 
