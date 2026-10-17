@@ -8844,5 +8844,15 @@
     "memo_script": "Sort tape. 20 lines, numbered. Each one twice, a pause, then the meaning. Keep count of the numbers you didn't get before the meaning came. At the end, just tell me the numbers you missed. Or: got them all. 1. அப்படி இல்ல. அப்படி இல்ல.\n\nno / it is not like that (gentle correction). 2. எப்படி. எப்படி.\n\nHow? 3. அதான். அதான்.\n\nThat's why / Exactly / See, I told you. 4. இங்க. இங்க.\n\nHere. 5. சொல்ற. சொல்ற.\n\nYou say / are you saying (informal, nee-form). 6. அவசரம். அவசரம்.\n\nUrgent / Hurry. 7. உட்காரலாமா? உட்காரலாமா?\n\nshall we sit? / may I sit? (permission ask). 8. கல்யாணம். கல்யாணம்.\n\nWedding / Marriage. 9. இப்போ. இப்போ.\n\nNow. 10. தெரியுமா? தெரியுமா?\n\nYou know…? (a real gossip opener — Oracle-confirmed). 11. தூக்கு. தூக்கு.\n\nLift / Carry. 12. அதுக்கு அப்புறம். அதுக்கு அப்புறம்.\n\nAfter that. 13. கஷ்டம். கஷ்டம்.\n\nDifficult / Hardship. 14. அவ. அவ.\n\nShe (informal). 15. ரெண்டு. ரெண்டு.\n\nTwo. 16. பத்து. பத்து.\n\nTen. 17. இன்னொரு தடவ சொல்லுங்க. இன்னொரு தடவ சொல்லுங்க.\n\nSay it once more. 18. கொஞ்சம் நில்லுங்க. கொஞ்சம் நில்லுங்க.\n\nWait a moment (respectful). 19. சொல்லு. சொல்லு.\n\nTell / Say. 20. உப்பு. உப்பு.\n\nSalt / Salty. That's the lot. Tell me the numbers you missed, or got them all.",
     "mp3": "published_audio/knocks/knock_2026-10-16T16-39.mp3",
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-16T16-39.mp3"
+  },
+  {
+    "date": "2026-10-17",
+    "timestamp": "2026-10-17T00:57:00.134069+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "bedtime silence",
+    "rationale": "Right at the 21:00 cutoff with two unanswered reaches sitting on his lock screen; let him rest and reset cleanly tomorrow morning.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-10-17T12:27:00.134069+00:00"
   }
 ]
