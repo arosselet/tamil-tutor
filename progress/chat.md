@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Saturday 2026-10-17
+
+**09:29 · Anna**  ·  text / one try: veliya
+> Paati's hall is packed and loud — someone asks where Ravi ran off to. Tell them 'outside'. sollu ☀️
+
+
 ## Friday 2026-10-16
 
 **11:05 · Anna** 🎧  ·  eavesdrop / pattern: youknow-la
