@@ -11,5 +11,7 @@
   "requested_by": "rio",
   "schedule": {
     "mode": "asap"
-  }
+  },
+  "attempts": 1,
+  "claimed_at": "2026-10-17T00:57:09.952192+00:00"
 }
