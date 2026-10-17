@@ -72,5 +72,53 @@
     "source": "rotation_inventory_2026-10-15_0527",
     "queued_at": "2026-10-15T05:30:36",
     "status": "pending"
+  },
+  {
+    "id": "fdbcdea08f",
+    "form": "முடி",
+    "en": "The root literally means a knot.",
+    "unattested": [],
+    "where": "item",
+    "reason": "wrong: முடி as a root means 'to finish/complete' (or 'hair' as noun), not 'a knot' - that would be முடிச்சு",
+    "lane": "rotation",
+    "source": "rotation_inventory_2026-10-17_0057",
+    "queued_at": "2026-10-17T01:07:41",
+    "status": "pending"
+  },
+  {
+    "id": "eb15084c22",
+    "form": "முடிஞ்சா",
+    "en": "If the knot ties, you say",
+    "unattested": [],
+    "where": "item",
+    "reason": "wrong: முடிஞ்சா means 'if it is finished/completed', not related to a knot tying",
+    "lane": "rotation",
+    "source": "rotation_inventory_2026-10-17_0057",
+    "queued_at": "2026-10-17T01:07:41",
+    "status": "pending"
+  },
+  {
+    "id": "5ec00d6b41",
+    "form": "போக முடியல",
+    "en": "So the trip could not finish.",
+    "unattested": [],
+    "where": "item",
+    "reason": "wrong: போக முடியல் literally means 'could not go', not 'could not finish' - meaning mismatch",
+    "lane": "rotation",
+    "source": "rotation_inventory_2026-10-17_0057",
+    "queued_at": "2026-10-17T01:07:41",
+    "status": "pending"
+  },
+  {
+    "id": "cf3d8a98e4",
+    "form": "சொல்ற",
+    "en": "you say",
+    "unattested": [],
+    "where": "item",
+    "reason": "wrong: சொல்ற is a bare relative-participle stem, not a standalone 'you say'; should be சொல்றே or சொல்லு",
+    "lane": "rotation",
+    "source": "rotation_inventory_2026-10-17_0057",
+    "queued_at": "2026-10-17T01:07:41",
+    "status": "pending"
   }
 ]
