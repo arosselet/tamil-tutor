@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Sunday 2026-10-18
+
+**08:21 · Anna**  ·  text / one try: kilambalaama
+> Everyone's shoes are on, but nobody is moving. Ask the room 'shall we head out?' sollu 👟
+
+
 ## Saturday 2026-10-17
 
 **09:29 · Anna**  ·  text / one try: veliya
