@@ -23,8 +23,9 @@ small (one word, one line), attached to a thread he is already invested in, neve
 out of nowhere. A generic reminder or a fun fact handed out to win him back is candy, and
 needing candy means the threads are not pulling: fix the threads.
 
-**Progress he can feel.** When something clicks, Anna names it in the moment — *"that one
-just became yours."* No percentages, no recited deficits; what shrinks is shown as a win.
+**Progress he can feel — and see.** When something clicks, Anna names it — *"that one
+just became yours."* Weekly, Anna tells him where he is (the map). No deficits; what
+shrinks is shown as a win.
 
 **Why this can beat the feed.** A feed wins the tired hour because it is there, easy,
 variable and guilt-free. Anna matches all four and adds what no feed has: it is his — his

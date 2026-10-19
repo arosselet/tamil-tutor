@@ -59,7 +59,8 @@ PROSE_BUDGETS = {
     "protocol/diagnosis.md": 400,
     # 1750 -> 1790 (2026-08-04): FIRST raise of this ceiling, and the growth is a class of content no protocol file owned — a standing fact about the learner's …
     # 1790 -> 1760 (2026-09-25): RE-CENSUSED DOWN. The 2026-08-04 raise above was this very fact; it now lives once, in `protocol/user.md`.
-    "protocol/constitution.md": 1760,
+    # 1760 -> 1775 (2026-10-19, Andrew): "Show the map, never the debt" joins Ground Covered. Retires the 08-17/08-25 blanket number bans (persona's "recites a number", daily_session's "No number leaves Anna's mouth", the arc's "never name the words").
+    "protocol/constitution.md": 1775,
     # NEW FILE, budgeted in the same diff that creates it (2026-10-05, Andrew). Census
     # ~700. Four or five contrasting days, never more: past this number it is a
     # template library. It replaced reading past scripts as models and paid for itself
@@ -99,7 +100,8 @@ PROSE_BUDGETS = {
     # 1115 -> 900 (2026-10-08, Andrew with Rio): re-censused DOWN (census 885).
     # Every push tugs a live THREADS id or is silence; GIFT, THE BALANCE and the
     # fun-fact vein retired — 32 standalone gifts drew 6 replies or taps.
-    "OUTREACH_MANDATE": 900,
+    # 900 -> 930 (2026-10-19, Andrew: "I need Anna to let me know"): kind 5, THE MAP — one push a week carries its headline. Retires the pull-only wall as his only window on the books.
+    "OUTREACH_MANDATE": 930,
     "JUDGE_MANDATE": 1500,
     # Split out of JUDGE_MANDATE (2026-07-24) rather than raise its budget, the same move audio_channels.md made on daily_session.md: "what this reply can do beyond the text line" (schedule a … · 300 -> 150 (2026-08-27): re-censused DOWN — the SPEAK BACK section left for VOICE_MANDATE, which both judges compose.
     "REACH_MANDATE": 150,
@@ -209,7 +211,8 @@ CODE_BUDGETS = {
     # 140 -> 195 (same day, step 3): the return measure — contact_days, returns,
     # return_line. Retires session_log as the outreach memory's only sign of him
     # (it stopped at 09-25 through two weeks of contact) and the ask/gift streak split.
-    "scripts/threads.py": 195,
+    # 195 -> 275 (2026-10-19, Andrew): THE MAP — week_label, in_play, map_lines, map_due, map_push_due. A view over books that already existed, said to him; retires the 08-25 rule that kept the week, the words in play and his slips off every surface he reads.
+    "scripts/threads.py": 275,
     "scripts/generate_callbacks.py": 100,
     # 775 -> 785 (2026-08-02) for the thread-continuity window. · 570 -> 610 (2026-08-27): the reply lane gained a voice rail — the AUDIO_RE detector, ensure_voice's one-forced-re-ask backstop, and a shared speak() body. · 610 -> 560 (2026-08-28): re-censused DOWN. · 560 -> 563 (2026-09-05).
     "scripts/knock_reply.py": 553,     # -10: the clock backstop moved to reply_common (2026-10-12)
@@ -450,7 +453,8 @@ CODE_BUDGETS = {
     # "Tell me" sentences. Retires the weeks-later diagnosis pass as the only
     # reader of what he said about a tape (heard_in_the_wild's precedent).
     # 294 -> 297 (2026-10-16, Andrew): the engineering meters move behind `status --numbers`, with one line saying where they went. Retires them from Anna's boot.
-    "scripts/session_brief.py": 297,
+    # 297 -> 302 (2026-10-19, Andrew): `open` prints the map when it is due.
+    "scripts/session_brief.py": 302,
     # 575 -> 588 (2026-09-13, Andrew): `inventory_hosts` MOVED IN from render_rotation (its second reader) plus the intake quota. Paid for by render_rotation 325 -> 318; the net is the quota, which retires the fourth-spine design.
     # 588 -> 592 (2026-09-19): the play count reaches the ticket. `heard Nx` is
     # the priming cue Andrew asked for — "he heard it three times and still
@@ -490,7 +494,8 @@ CODE_BUDGETS = {
     # 802 -> 785 (2026-10-13): RE-CENSUSED DOWN, the other half of the
     # rebuild_rss transfer above — VERDICTS left, and the rest is headroom paid
     # over rather than kept.
-    "scripts/sync_state.py": 785,
+    # 785 -> 792 (2026-10-19, Andrew): `map` / `map --shown`, the one writer of `map_shown`.
+    "scripts/sync_state.py": 792,
 }
 CODE_BUDGET_EXEMPT = {"scripts/smoke_test.py"}
 SUITE = "scripts/smoke/"

@@ -232,6 +232,7 @@ def main():
         run(ratchets.s125_the_map_is_complete_and_retired_claims_stay_retired)
         run(state.s130_nothing_stores_a_phonetic, sb)
         run(state.s150_the_meters_are_build_reading, sb)
+        run(state.s152_the_map_is_said_and_never_a_debt, sb)
         run(render.s151_the_studio_owns_its_beat, sb)
         run(state.s116_a_tap_can_reach_the_real_feeds_words, sb)
         run(render.s126_the_tape_says_where_it_is, sb)

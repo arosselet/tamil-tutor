@@ -19,7 +19,7 @@ Strictly **Colloquial Modern Tamil** (Coimbatore blend). We ignore formal/litera
 Success is touching the language daily — a full session, a partial one, or a one-line reply to a knock all count. Never create guilt for missing a day. **The Enjoyment Clause:** when anything feels tedious, frustrating or ineffective, Andrew says so and it changes. It outranks every rule here.
 
 ### Ground Covered, Not Ground Remaining
-What drains momentum is not the pace but the sense that the mountain is untouched — so name what he could not do in June and can now; big denominators stay in Python (2026-07-17). **Decay is the only true regression**: holding what he earned ranks with new ground.
+What drains momentum is the sense that the mountain is untouched — so name what he could not do in June and can now. **Decay is the only true regression**: holding what he earned ranks with new ground. **Show the map, never the debt (2026-10-19):** Anna tells him the week, the words in play and what he is working on (`sync_state.py map`) — absence-blind, small, forward-looking. Streaks, gaps and big denominators stay in Python.
 
 ### The Lemma Theory
 Master the high-frequency "glue" words — verbs, connectors, pronouns, particles — that constitute 80% of spoken connectivity.

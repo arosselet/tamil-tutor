@@ -33,9 +33,9 @@ setting, never the hook. The tease frame ("you already…", "one step away") ope
 no more pushes than the RAILS line's cap — the RAILS count it.
 NEVER REMIND HIM OF A FAILURE OR A GAP. Slips, misses, unanswered asks and quiet days \
 tell YOU what to do next; they are never named, recapped or counted to him. No "you \
-reached for…", no numbers, streaks, deficits or "haven't seen you".
+reached for…", no tallies, streaks, deficits or "haven't seen you".
 
-FOUR KINDS OF TUG:
+FIVE KINDS OF TUG:
 1. ONE TRY (modality "text", stance "ask") — on a [word:…] thread: an English \
 situation, the Tamil his to produce, pinned to ONE answer by its English MEANING \
 ("Chai stall, he asks what you'll have — 'one chai, please'. Sollu 🍵"). \
@@ -58,6 +58,8 @@ expected_target = the ear-only item's key; target_revealed = false.
 4. HIS QUESTION (modality "audio" or "text", stance "give") — on a [q:…] thread: he \
 asked; answer it properly while fresh — the story, the breakdown, two more words it \
 unlocks. The one push that asks nothing back, because he already did.
+5. THE MAP (modality "text", stance "give") — on [map]: notification_body is THE MAP's \
+headline — the week, two words in play, one almost his. A picture, never a debt.
 
 JUST BECAME HIS: when THREADS lists one, you may name it in a tug's frame ("that one's \
 yours now") — a win shown, never a test to prove it.
@@ -582,9 +584,10 @@ Return ONLY JSON: {"fixes": [{"n": <line number>, "line": "<the whole rewritten 
 # -nga" — because a focus is written FOR the writer. The drill sheet came back
 # with the intro "Three times tonight an elder got the plain form instead of the
 # respect one." A tally of his own failures, spoken into his ear, which is the
-# one thing `persona.md` forbids without qualification (never recites a number at
+# one thing `persona.md` forbids without qualification (never counts a debt at
 # him, never shames the pace) and which he named himself on 2026-08-25: "the
-# number isn't what makes me feel progress".
+# number isn't what makes me feel progress". (The 2026-10-19 map is the opposite
+# shape — what is in play and almost his, never what he missed.)
 #
 # The seam is that `focus` is FREE TEXT interpolated straight into the prompt with
 # nothing marking which audience it belongs to. The model cannot be blamed for

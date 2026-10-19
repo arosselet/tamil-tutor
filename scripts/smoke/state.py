@@ -5748,3 +5748,73 @@ def s150_the_meters_are_build_reading(sb: Path):
     finally:
         if saved is not None:
             lex_path.write_bytes(saved)
+
+
+def s152_the_map_is_said_and_never_a_debt(sb: Path):
+    """SHOW THE MAP, NEVER THE DEBT (2026-10-19, Andrew: "I don't know what week
+    I'm on… I need Anna to let me know").
+
+    Gate 7.2, out loud — three ways this goes silently wrong, each asserted:
+    (1) the map never comes due, so it exists and nobody hears it — a fresh
+    learner must read "never shown", a new week must re-open it, and a shown
+    map must close it; (2) `--shown` prints but never lands, so it stays due
+    forever or the stamp is eaten by the learner writer — round-tripped through
+    the real entry point and re-read off disk; (3) the map turns into the debt
+    it replaced — no fraction, nothing missed, an owned word never listed as
+    "in play"."""
+    print("\n152. The map is said, due weekly, and never a debt (2026-10-19)")
+    import subprocess as _sp
+    th = importlib.import_module("threads")
+    learner_path = sb / "progress" / "learner.json"
+    saved = learner_path.read_bytes()
+    mon, wed, nxt = date_cls(2026, 10, 19), date_cls(2026, 10, 21), date_cls(2026, 10, 26)
+    try:
+        # (1) DUE-NESS — derived from one date, never a flag.
+        check("a learner never shown the map is owed it", th.map_due({}, mon) == "never shown")
+        check("...shown Monday, it is quiet Wednesday",
+              th.map_due({"map_shown": mon.isoformat()}, wed) == "", th.map_due({"map_shown": "2026-10-19"}, wed))
+        check("...due again three days on, and the moment the week turns",
+              th.map_due({"map_shown": "2026-10-19"}, date_cls(2026, 10, 22)) != ""
+              and th.map_due({"map_shown": "2026-10-25"}, nxt) == "a new week")
+        tug = {"acted": True, "thread": "map", "timestamp": "2026-10-20T13:00:00+00:00"}
+        check("the phone half: one map push a week, closed by a push or a session map",
+              th.map_push_due({}, [], wed) and not th.map_push_due({}, [tug], wed)
+              and not th.map_push_due({"map_shown": "2026-10-19"}, [], wed)
+              and th.map_push_due({}, [tug], nxt))
+
+        # (3) THE SHAPE — a picture of the week, never the debt.
+        now = datetime(2026, 10, 21, 15, tzinfo=timezone.utc)
+        at = lambda d: (now - timedelta(days=d)).isoformat()
+        lex = {"vaa": {"gloss": "come"}, "po": {"gloss": "go"}, "mine": {"gloss": "owned"}}
+        events = [{"word": "vaa", "at": at(2), "kind": "taught", "channel": "session"},
+                  {"word": "mine", "at": at(2), "kind": "taught", "channel": "session"},
+                  {"word": "mine", "at": at(1), "kind": "tested", "axis": "production",
+                   "result": "right", "channel": "session"},
+                  {"word": "po", "at": at(2), "kind": "taught", "channel": "episode"}]
+        learner = {"soak_order": {"payload": ["po"], "scene_seed": "a kitchen cover-up"},
+                   "ladder": {"lean": "across"}}
+        text = "\n".join(th.map_lines(now, learner=learner, lex=lex, events=events))
+        play = th.in_play(lex, events, now, learner)
+        check("it names the week, the room and the tape",
+              "October, week 3" in text and "cousins and in-laws" in text and "kitchen cover-up" in text, text)
+        check("in play: the order's words and what Anna taught — not a tape's whole airing",
+              "po — go" in text and "vaa — come" in text, text)
+        check("...and never a word that is already his", play == ["po", "vaa"], str(play))
+        check("it carries no fraction and nothing missed or overdue",
+              not re.search(r"\d+\s*/\s*\d+", text)
+              and not re.search(r"missed|overdue|behind|streak", text, re.I), text)
+
+        # (2) THE ROUND TRIP — the real entry point, re-read off disk.
+        write_json(learner_path, {k: v for k, v in read_json(learner_path).items() if k != "map_shown"})
+        r = _sp.run([sys.executable, str(sb / "scripts" / "sync_state.py"), "map", "--shown"],
+                    cwd=sb, capture_output=True, encoding="utf-8", errors="replace")
+        stamp = read_json(learner_path).get("map_shown")
+        check("`map --shown` prints the map and lands the date",
+              r.returncode == 0 and "THE MAP" in r.stdout and bool(stamp), r.stdout[-300:] + r.stderr[-300:])
+        check("...which closes the session's due-ness",
+              th.map_due(read_json(learner_path), date_cls.fromisoformat(stamp)) == "")
+        brief = importlib.import_module("session_brief")
+        check("Anna's light start carries the due cue",
+              "map_due(" in fx.raw_source(sb / "scripts" / "session_brief.py") and hasattr(brief, "cmd_open"))
+    finally:
+        learner_path.write_bytes(saved)

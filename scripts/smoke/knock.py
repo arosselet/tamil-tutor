@@ -308,8 +308,9 @@ def s8_variety_and_decay(mk, kr, sb: Path):
     check("...and an answered question closes its thread",
           th.questions(asked + [{"thread": qs[0]["id"]}], now) == [])
     ids = th.live(asked, now, arc=True, lex=lex, events=events)
-    check("live ids carry words, questions and the arc",
-          {"word:hint", "word:turned", qs[0]["id"], "arc"} == set(ids), str(ids))
+    # [map] is live too in the sandbox: the week's map push has not gone (s152).
+    check("live ids carry words, questions, the arc and the week's map",
+          {"word:hint", "word:turned", qs[0]["id"], "arc", "map"} == set(ids), str(ids))
 
     # CONTACT IS A FACT ABOUT ANDREW (2026-10-08). session_log stopped at 09-25
     # through a lesson, a sweep and replies; the memory read that as absence.
@@ -2557,8 +2558,10 @@ def s61_no_number_is_recited_at_him(kr, sb: Path):
 
     check("catch_meter is gone, not merely unused", not hasattr(kr, "catch_meter"))
     persona = (REAL_BASE / "protocol" / "persona.md").read_text(encoding="utf-8")
-    check("persona.md forbids reciting a number",
-          "recites a number at him" in persona and "countdown" in persona)
+    # 2026-10-19: the blanket number ban became "show the map, never the debt" —
+    # what persona must still forbid is the debt; the meters below stay unsaid.
+    check("persona.md forbids counting a debt at him, and points at the map",
+          "counts a debt at him" in persona and "streak" in persona and "map" in persona)
     brief = mechanism((REAL_BASE / "scripts" / "session_brief.py")
                       .read_text(encoding="utf-8"))
     check("the meter block is labelled steering data, not narration",

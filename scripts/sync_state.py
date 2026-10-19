@@ -34,7 +34,7 @@ import difflib
 import json
 import re
 import sys
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 from language import is_canonical
@@ -956,6 +956,20 @@ def cmd_ladder(args):
     print("  learner.json updated.")
 
 
+def cmd_map(args):
+    """THE MAP (2026-10-19, Andrew) — where we are this week, the thing Anna SAYS
+    to him (`threads.map_lines` renders it). `--shown` records that he was shown
+    it today; nothing else is stored, and the due-ness is derived from that date
+    and the pushes that tugged `map` (`threads.map_due`)."""
+    learner = load_json(LEARNER_PATH) or {}
+    print("\n".join(threads.map_lines(datetime.now(timezone.utc), learner=learner)))
+    if not args.shown:
+        return
+    learner["map_shown"] = local_today().isoformat()
+    write_thin_learner(learner)
+    print(f"  shown {learner['map_shown']} — learner.json updated.")
+
+
 def _print_ladder(rec: dict):
     """ENGINEERING SURFACE — Andrew reads it and steers by the lean.
     `ladder.py` renders it; this file is a writer, not a view."""
@@ -967,9 +981,8 @@ def _print_ladder(rec: dict):
 def _print_month(rec: dict, lexicon: dict, episodes: dict, sidecars: dict):
     """The standing, for Andrew and for Anna's steer. A COUNT is printed here
     and that is deliberate: this is an engineering surface, not Anna's mouth.
-    `persona.md` and DECISIONS "A number never leaves Anna's mouth" are
-    untouched — he reads the month and steers by it, exactly as he already
-    steers by every other meter, and still names what got clearer."""
+    Anna's spoken version is the map (`cmd_map`, DECISIONS "Show the map, never
+    the debt") — small, winnable lines, never this standing's fraction."""
     if not rec:
         print("  No arc is open. `sync_state.py month --open --name \"...\"`")
         return
@@ -1457,6 +1470,9 @@ def main():
     ne.add_argument("--text", required=True, help="What he said")
     ne.add_argument("--commit", action="store_true", help="Commit and push the ledger (CI lane)")
 
+    mp = sub.add_parser("map", help="Where we are this week — the map Anna says to him")
+    mp.add_argument("--shown", action="store_true", help="Record that he was shown it today")
+
     ld = sub.add_parser("ladder", help="The room the work leans toward — read it, or state it")
     ld.add_argument("--lean", choices=ladder_mod.ORDER, default="", help="down (children) | across | up (elders)")
     ld.add_argument("--dry-run", action="store_true", help="Print the lean and write nothing")
@@ -1507,6 +1523,8 @@ def main():
         cmd_note_episode(args)
     elif args.command == "ladder":
         return cmd_ladder(args)
+    elif args.command == "map":
+        return cmd_map(args)
     elif args.command == "month":
         return cmd_month(args)
     elif args.command == "slips":

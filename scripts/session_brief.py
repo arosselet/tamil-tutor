@@ -453,9 +453,9 @@ def cmd_status(_args):
         # them (2026-08-17) — Andrew is mastery-driven, and a performance
         # scoreboard read aloud to a learner like that predicts withdrawal when
         # the number is slow, which is what the 08-16 signal was.
-        print("↓ ENGINEERING NUMBERS — they steer what Python picks. Never recite a "
-              "fraction, percentage, countdown or streak at him (persona.md); the "
-              "close names what got clearer.")
+        print("↓ ENGINEERING NUMBERS — they steer what Python picks. Never recite "
+              "these at him (persona.md); what he hears is the map (`sync_state.py "
+              "map`), and the close names what got clearer.")
         # `untested` is the absence of evidence, never a grade (2026-10-04): a large
         # count says the picture is guesswork — run the sweep, don't re-teach.
         print(f"Recognition — solid: {by_level['solid']}, comfortable: {by_level['comfortable']}, "
@@ -551,11 +551,19 @@ def cmd_open(_args):
             got = f'replied "{k["reply"][:50]}"' if k.get("reply") else "no reply"
             print(f"  {k.get('date')} · {k.get('move')} · {got}")
     now = datetime.now(LOCAL_TZ)
-    print("\n" + threads.block(klog, now, arc=False))
+    print("\n" + threads.block(klog, now, arc=False, phone=False))
     fresh = [s for s in threads.retired_slips() if s["on"] >= (now - timedelta(days=14)).date().isoformat()]
     if fresh:
         print("  Slips he retired lately (a trophy, if he wants the wall — `threads.py wall`):")
         print("\n".join(f"    {s['tag']} — was: {s['was']}" for s in fresh))
+    # THE MAP IS SAID, NOT FILED (2026-10-19, Andrew: "It's not going to work if
+    # it's just something I can open at any time. I need Anna to let me know.")
+    # Due on a new week or every few days; Anna says it in the opening
+    # and records it with `map --shown`, so an unshown map stays due.
+    if why := threads.map_due(learner, now.date()):
+        print(f"\n📍 THE MAP IS DUE ({why}) — give it to him in the opening, in phonetics, as "
+              "a give not a quiz; then `sync_state.py map --shown`:")
+        print("\n".join("  " + ln for ln in threads.map_lines(now, learner=learner, events=events)))
     if soak_pending():
         print("\n⚠ A soak order is NOT YET PRODUCED — the deep load's `status` names the lane.")
     # His judgement, waited on (2026-10-12): Anna mentions it once, in passing —

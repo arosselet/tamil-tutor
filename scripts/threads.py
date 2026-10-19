@@ -23,11 +23,12 @@ the observation log already holds every one of those events with its channel.
 
     python scripts/threads.py          # the live threads, with each word's story
     python scripts/threads.py wall     # the trophy wall: what became his, slips retired
+    python scripts/threads.py map      # THE MAP: where we are this week, said to him
 """
 
 import re
 import sys
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
@@ -35,8 +36,9 @@ sys.path.insert(0, str(Path(__file__).parent))
 import ladder
 from lexicon_view import derive
 from observations import OBSERVATIONS_PATH, WATCHED
-from slips import canon_tag, slip_closes
-from state_io import LEXICON_PATH, SESSION_LOG_PATH, SLIP_LOG_PATH, load_json, local_date
+from slips import canon_tag, slip_closes, slip_patterns
+from state_io import (LEARNER_PATH, LEXICON_PATH, SESSION_LOG_PATH, SLIP_LOG_PATH,
+                      load_json, local_date, soak_pending)
 
 # A thread is LIVE while a watched test touched it this recently. Three weeks is
 # the gap a busy stretch can open without the thread going cold; past it, "almost
@@ -183,17 +185,27 @@ def live(klog: list, now: datetime, *, arc: bool, lex=None, events=None) -> dict
         out[q["id"]] = f'he asked: "{q["text"]}"'
     if arc:
         out["arc"] = "the household story (CAMPAIGN above) — an overheard tape hangs here"
+    learner = load_json(LEARNER_PATH) or {}
+    if map_push_due(learner, klog, local_date(now.isoformat()) or now.date()):
+        out["map"] = "where we are this week (THE MAP below) — the week's headline, a give"
     return out
 
 
-def block(klog: list, now: datetime, *, arc: bool) -> str:
-    """The digest section the outreach decider reads in place of PROGRESS."""
+def block(klog: list, now: datetime, *, arc: bool, phone: bool = True) -> str:
+    """The digest section the outreach decider reads in place of PROGRESS.
+    `phone=False` is the session's read: the map is said whole there, so the
+    push's [map] thread is left out."""
     lex = load_json(LEXICON_PATH) or {}
     events = load_json(OBSERVATIONS_PATH) or []
     threads = live(klog, now, arc=arc, lex=lex, events=events)
+    if not phone:
+        threads.pop("map", None)
     won = became_yours(lex, events, now - timedelta(days=WON_DAYS))
     lines = ["THREADS (a push tugs ONE of these by its id, or stays silent):"]
     lines += [f"    [{k}] {v}" for k, v in threads.items()] or ["    (none live — silence)"]
+    if "map" in threads:
+        lines += ["  THE MAP (for a [map] push — headline only; the full map waits for a session):"]
+        lines += ["    " + ln for ln in map_lines(now, lex=lex, events=events)]
     if won:
         lines.append("  Just became his (name it if it fits — never test it again to prove it):")
         lines += [f"    {t['word']} — {t['gloss'][:60]} (on {t['on']})" for t in won]
@@ -292,10 +304,116 @@ def return_line(klog: list, events: list, now: datetime, contact: dict) -> str:
             "Steer by it; never say it to him.")
 
 
+# ── THE MAP — where we are, said to him (2026-10-19, Andrew) ───────────────
+#
+# Andrew: "I don't know what week I'm on. I don't know what words you're trying
+# to teach me, what words you think I struggled with." Every line below already
+# lived in the books — the wall, the almost-his list, the soak order, the slip
+# ledger — behind a pull-only offer and a laptop CLI he never opens: "all my
+# interactions are via the tutor." So the map is SAID to him, by Anna in a
+# session or by a push, a few times a week and whenever the week turns.
+#
+# SHOW THE MAP, NEVER THE DEBT (constitution → Ground Covered). What guards it:
+# every line is absence-blind (a missed day changes nothing on it), small and
+# winnable (this week's few words, never the 396 tracked), and forward-looking.
+# The only number is an accumulator that cannot fall — "became yours this
+# month". The 07-17 big-denominator recital ("need 2.4/day, trailing 0.7") and
+# the 09-05 failure tally stay retired; this replaces the 08-25 blanket ban
+# that took the small, winnable picture down with them.
+
+MAP_EVERY = 3      # days — "a few times a week"; a new calendar week is due at once
+IN_PLAY_CHANNELS = {"session", "text", "audio"}   # what Anna explicitly TAUGHT him
+
+
+def week_label(d: date) -> str:
+    """Calendar, like the month (`month.closes_on`): a week he already recognises."""
+    return f"{d:%B}, week {(d.day - 1) // 7 + 1}"
+
+
+def in_play(lex: dict, events: list, now: datetime, learner: dict) -> list[str]:
+    """The words this week is aiming at him: the standing soak order's payload,
+    then what Anna taught him in the last 7 days — minus anything already his.
+    Episode/rotation exposure is left out: a tape airs ~60 words a week, and a
+    list that long is the 396 again."""
+    view, cut = derive(events), (now - timedelta(days=WON_DAYS)).isoformat()
+    words = list((learner.get("soak_order") or {}).get("payload") or [])
+    words += [e["word"] for e in sorted(events, key=lambda e: e.get("at") or "")
+              if e.get("kind") == "taught" and e.get("channel") in IN_PLAY_CHANNELS
+              and (e.get("at") or "") >= cut and e.get("word")]
+    return [w for w in dict.fromkeys(words) if not is_his(view.get(w, {}), lex.get(w) or {})]
+
+
+def map_lines(now: datetime, *, learner=None, lex=None, events=None) -> list[str]:
+    learner = load_json(LEARNER_PATH) or {} if learner is None else learner
+    lex = load_json(LEXICON_PATH) or {} if lex is None else lex
+    events = load_json(OBSERVATIONS_PATH) or [] if events is None else events
+    today = local_date(now.isoformat()) or now.date()
+    gloss = lambda w: w + (f" — {g}" if (g := (lex.get(w) or {}).get("gloss")) else "")
+    out = [f"THE MAP — {week_label(today)}"]
+    arc = learner.get("month") or {}
+    if arc.get("name") and (arc.get("closes") or "") >= today.isoformat():
+        out.append(f"  The month: {arc['name']} (runs to {arc['closes']})")
+    lean = (learner.get("ladder") or {}).get("lean")
+    if lean in ladder.ORDER:
+        out.append(f"  Room we're working: {ladder.ROOMS[lean]}")
+    order = learner.get("soak_order") or {}
+    if order.get("scene_seed"):
+        out.append(f"  {'Coming up' if soak_pending() else 'On'} tape this week: {order['scene_seed']}")
+    play = in_play(lex, events, now, learner)
+    out.append("  In play this week:" + ("" if play else " (nothing new — a breather)"))
+    out += [f"    {gloss(w)}" for w in play[:8]]
+    near = almost_yours(lex, events, now, n=5)
+    if near:
+        out.append("  Almost yours:")
+        out += [f"    {gloss(t['word'])}" for t in near]
+    month_start = datetime(today.year, today.month, 1, tzinfo=timezone.utc)
+    won = became_yours(lex, events, month_start)
+    week = [t for t in won if t["on"] >= (today - timedelta(days=WON_DAYS)).isoformat()]
+    out.append(f"  Became yours this month: {len(won)}"
+               + (" — this week: " + ", ".join(t["word"] for t in week) if week else ""))
+    live = [p for p in slip_patterns(today=today) if p.get("live") and p.get("pattern")]
+    if live:
+        out.append("  What we're working on (from your own slips — the fix, not the miss):")
+        for p in live[:4]:
+            ex = p["examples"][-1] if p.get("examples") else None
+            out.append(f"    {p['tag']}" + (f" — wanted “{ex[2]}”" if ex and ex[2] else ""))
+    return out
+
+
+def map_due(learner: dict, today: date) -> str:
+    """Why Anna owes him the map in a session today, or "" — derived from the one
+    stored date (`sync_state.py map --shown`), never a flag."""
+    try:
+        then = date.fromisoformat(learner.get("map_shown") or "")
+    except ValueError:
+        return "never shown"
+    if then.isocalendar()[:2] != today.isocalendar()[:2]:
+        return "a new week"
+    return f"{MAP_EVERY}+ days since" if (today - then).days >= MAP_EVERY else ""
+
+
+def map_push_due(learner: dict, klog: list, today: date) -> bool:
+    """The phone half: one push a week may carry the map's headline, for the
+    weeks he lives on the phone. Due while this week has neither a session map
+    nor a push that tugged `map`."""
+    week = today.isocalendar()[:2]
+    def this_week(day: str) -> bool:
+        try:
+            return date.fromisoformat(day[:10]).isocalendar()[:2] == week
+        except ValueError:
+            return False
+    return not (this_week(learner.get("map_shown") or "") or any(
+        k.get("acted") and k.get("thread") == "map" and this_week(k.get("timestamp") or "")
+        for k in klog))
+
+
 def main():
     now = datetime.now(timezone.utc)
     lex = load_json(LEXICON_PATH) or {}
     events = load_json(OBSERVATIONS_PATH) or []
+    if sys.argv[1:] == ["map"]:
+        print("\n".join(map_lines(now)))
+        return
     if sys.argv[1:] == ["wall"]:
         print("THE WALL — what became his (all time):")
         for t in became_yours(lex, events, datetime(2000, 1, 1, tzinfo=timezone.utc)):
