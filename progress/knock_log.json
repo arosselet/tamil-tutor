@@ -9003,5 +9003,21 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-19T18-06.mp3",
     "memo_script": "ஹலோ, ஆமா... கார்த்தி இன்னும் வரல. காலையில இருந்து பாட்டிக்கு ஒரே பேச்சு, மண்டபமா வீடா-ன்னு மாமா கூட பேசிட்டே இருக்காங்க.\n\nநான் உள்ள அந்த பெரிய அரிசி மூட்டைய தனியா எடுக்க பாத்தேன்... சுத்தமா தூக்க முடியல! இடுப்பு புடிச்சுக்கிச்சு. மாமா கிட்ட எடுத்து வைக்க சொன்னேன், 'அப்புறம் பாக்கலாம்'-னு சொல்லிட்டு போயிட்டாரு.\n\nநீங்க சாயங்காலம் வரும்போது கொஞ்சம் முன்னாடியே வந்துடுங்க, கார்த்தி பைக் எடுத்துட்டு எங்கயோ போயிட்டான். இங்க தனியா ஒரு வேலையும் பண்ண முடியல.",
     "mp3": "published_audio/knocks/knock_2026-10-19T18-06.mp3"
+  },
+  {
+    "date": "2026-10-19",
+    "timestamp": "2026-10-19T22:43:59.159916+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "one try: vittudu",
+    "rationale": "Small text tug on almost-owned cousin verb விட்டுடு during evening window.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-10-20T12:43:59.159916+00:00",
+    "body": "Karthi is stressing over Mama noticing the money. Tell your cousin 'let it go'. Sollu 🤫",
+    "body_script": "Karthi is stressing over Mama noticing the money. Tell your cousin 'let it go'. சொல்லு 🤫",
+    "expected_target": "விட்டுடு",
+    "stance": "ask",
+    "thread": "word:விட்டுடு",
+    "target_revealed": false
   }
 ]

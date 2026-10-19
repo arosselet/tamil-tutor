@@ -21,6 +21,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **14:06 · Anna** 🎧  ·  eavesdrop / eavesdrop: cant-mudiyala
 > Athai's on the phone venting about prep for Paati's 75th — catch what she couldn't lift 🎧
 
+**18:43 · Anna**  ·  text / one try: vittudu
+> Karthi is stressing over Mama noticing the money. Tell your cousin 'let it go'. Sollu 🤫
+
 
 ## Sunday 2026-10-18
 
