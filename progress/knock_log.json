@@ -9018,6 +9018,35 @@
     "expected_target": "விட்டுடு",
     "stance": "ask",
     "thread": "word:விட்டுடு",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Freeya vidunga",
+    "reply_verdict": "cold",
+    "reply_fired": [
+      "விடுங்க"
+    ],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line_script": "adhu dhaan! 'ஃப்ரீயா விடு' lands super natural, or just 'விட்டுடு'. 🔥",
+    "reply_line": "adhu dhaan! 'freeya vidu' lands super natural, or just 'vittudu'. 🔥",
+    "reply_at": "2026-10-19T23:33:35Z",
+    "exchanges": [
+      {
+        "at": "2026-10-19T23:33:35Z",
+        "reply": "Freeya vidunga",
+        "verdict": "cold",
+        "fired": [
+          "விடுங்க"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! 'freeya vidu' lands super natural, or just 'vittudu'. 🔥",
+        "reply_line_script": "adhu dhaan! 'ஃப்ரீயா விடு' lands super natural, or just 'விட்டுடு'. 🔥",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ]
   }
 ]
