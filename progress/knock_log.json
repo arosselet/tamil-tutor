@@ -8909,18 +8909,20 @@
     "thread": "word:கிளம்பலாமா?",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Kilambalamaa",
+    "reply": "Polamma?",
     "reply_verdict": "cold",
     "reply_fired": [
-      "கிளம்பலாமா?"
+      "கிளம்பலாமா?",
+      "போலாமா?"
     ],
     "reply_fired_cold": [
-      "கிளம்பலாமா?"
+      "கிளம்பலாமா?",
+      "போலாமா?"
     ],
     "reply_fired_capped": [],
-    "reply_line_script": "அதுதான்! Clean fire. 🔥 · Auto pulls up. Ask him: 'Shall we go?'",
-    "reply_line": "Adhuthaan! Clean fire. 🔥 · Auto pulls up. Ask him: 'Shall we go?'",
-    "reply_at": "2026-10-19T14:27:50Z",
+    "reply_line_script": "adhu dhaan! Exactly that. 🔥 · Driver nods. Tell him 'Go straight, please.'",
+    "reply_line": "adhu dhaan! Exactly that. 🔥 · Driver nods. Tell him 'Go straight, please.'",
+    "reply_at": "2026-10-19T14:48:35Z",
     "exchanges": [
       {
         "at": "2026-10-19T14:27:50Z",
@@ -8939,10 +8941,28 @@
         "slips": [],
         "spoke": "",
         "scheduled": ""
+      },
+      {
+        "at": "2026-10-19T14:48:35Z",
+        "reply": "Polamma?",
+        "verdict": "cold",
+        "fired": [
+          "போலாமா?"
+        ],
+        "fired_cold": [
+          "போலாமா?"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan! Exactly that. 🔥 · Driver nods. Tell him 'Go straight, please.'",
+        "reply_line_script": "adhu dhaan! Exactly that. 🔥 · Driver nods. Tell him 'Go straight, please.'",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
       }
     ],
-    "chained": 1,
-    "pinned_target": "போலாமா?",
+    "chained": 2,
+    "pinned_target": "நேரா போங்க",
     "pinned_revealed": false
   },
   {
