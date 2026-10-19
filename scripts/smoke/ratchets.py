@@ -1573,7 +1573,9 @@ def s118_the_heist_left_the_voice_canon(sb: Path):
 
     # ── CONSERVATION. The needle is the section's own claim — prose a rewrite
     # would keep, appearing nowhere else in the repo.
-    NEEDLE = "Secrecy isn't Andrew hiding slow progress"
+    # (Re-needled 2026-10-19: the "sacred secret" premise retired — 08-13, Andrew
+    # shared the project; the reveal's timing is what stays his.)
+    NEEDLE = "what stays his is the timing of each surprise"
     check("the heist lives in heist.md", NEEDLE in heist)
     check("...and no longer in persona.md", NEEDLE not in persona,
           "a copy that never deleted — the canon still ships the ops catalogue")

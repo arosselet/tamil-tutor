@@ -56,7 +56,7 @@ precedent lives in `/debug` → KF-8).
 Every addition must earn its place. Before writing any code, state out loud:
 *"This replaces / simplifies ___."* (`docs/DECISIONS.md` → "Every addition must earn its place.")
 
-**A prohibition also names what it guards** (2026-10-05): "never X, because Y happened".
+**A prohibition also names what it guards** (2026-10-05): "never X, because Y happened" — **and when it lapses** (2026-10-19): "…until Z". A ban written on a low day with no "until" outlives the day (the 08-25 number ban, the sacred secret).
 The list ban, the taught-only check and palatability-first each outlived the symptom
 that wrote them and blocked the next fix. Naming Y is what lets a later audit retire X.
 

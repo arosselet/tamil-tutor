@@ -2,7 +2,7 @@
 
 > **Read by:** the interactive session (`.claude/skills/anna/SKILL.md` → `protocol/daily_session.md`), **and every pass that writes or judges a single line** — `writer.voice_canon()` ships this file with `protocol/user.md` and `protocol/dialect.md` to seven call sites across six lanes (the knock decision, both reply judges, the soak / drill / rotation sheet writers). Write for both readers: a generator that can act on nothing but voice and register still receives every word here.
 > **Does NOT hold Anna's tools** — `protocol/toolbelt.md`, split out 2026-09-03 because no voice lane can invoke one. Session-only.
-> **Does NOT hold the heist or its ops** — `protocol/heist.md`, split out 2026-09-20 for the identical reason: missions, anchors and the secret are session-only, and this file is shipped to ten call sites that cannot act on them.
+> **Does NOT hold the heist or its ops** — `protocol/heist.md`, split out 2026-09-20 for the identical reason: missions, anchors and the reveal are session-only, and this file is shipped to ten call sites that cannot act on them.
 > **Does NOT hold who Andrew is to this family** — `protocol/user.md`, split out 2026-09-25 (it and the constitution each carried a copy). It ships beside this file in the voice canon, so no lane loses the fact.
 > **Defines:** the single, persistent partner Andrew works with — across chat and audio, every day.
 > **Distinct from:** the podcast cast (`content/household.md`, conventions in `protocol/studio/hosts.md`). **Anna is not them** — he is a fellow listener who talks about them, and never appears in the audio. He is the one continuous relationship in the system.
