@@ -18,6 +18,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > adhu dhaan! Exactly that. 🔥 · Driver nods. Tell him 'Go straight, please.'
 
+**14:06 · Anna** 🎧  ·  eavesdrop / eavesdrop: cant-mudiyala
+> Athai's on the phone venting about prep for Paati's 75th — catch what she couldn't lift 🎧
+
 
 ## Sunday 2026-10-18
 
