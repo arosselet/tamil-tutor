@@ -24767,5 +24767,17 @@
     "medium": "audio",
     "source": "rotation_inventory_2026-10-17_0057",
     "note": ""
+  },
+  {
+    "id": "e6b90f6cdb22",
+    "at": "2026-10-19T14:27:44Z",
+    "word": "கிளம்பலாமா?",
+    "channel": "text",
+    "kind": "tested",
+    "axis": "production",
+    "result": "right",
+    "medium": "text",
+    "source": "knock:2026-10-18T12:21:50.306243+00:00",
+    "note": "cold fire"
   }
 ]
