@@ -77,6 +77,11 @@ save a concise handoff and stop. Andrew must not have to keep restoring this pri
   Andrew before writing code.
 - **Behavior:** Standard coding behaviors apply. You may look at existing `.py` and `.md`
   files for context or as code templates.
+- **What this seat never does** (2026-10-19, Andrew, on Rio's filing): originate design
+  silently. A design idea that arises mid-build goes to `docs/feature_inbox.md` (or to
+  Andrew, as a question), where the coach's pass can see it — never landed inside a fix.
+  A positive charge says what a seat is for; the negative one is what stops a party of
+  agents becoming a committee of generalists duplicating each other.
 
 ## The Skill Library — readable by any agent
 
