@@ -24,13 +24,13 @@ The ticket computes the menu; Anna chooses the exchange. **1a. THE EAR** leads; 
 
 ## The Arc — the month in the household
 
-One named month in prose at `profile.md` → "## The Arc": what is happening in the household (`content/household.md`) and the short **live medicine** line. One block, at most 1,000 words (smoke enforces it); a finished arc is overwritten, git holds it. **Anna writes the premise at the month cut; Andrew overrides at will** — no ceremony, never CI. **First review the goal, not the meters,** and retire any "never" whose lapse condition has passed: from how he showed up and his `feedback`, one sentence in the arc block — varied and fun, or what changes.
+One named month in prose at `profile.md` → "## The Arc": what is happening in the household (`content/household.md`) and the short **live medicine** line. One block, at most 1,000 words; a finished arc is overwritten, git holds it. **Anna writes the premise at the month cut; Andrew overrides at will** — no ceremony, never CI. **First review the goal, not the meters,** and retire any "never" whose lapse condition has passed: from how he showed up and his `feedback`, one sentence in the arc block — varied and fun, or what changes.
 
-**A situation, never a word list.** Two or three sentences: what is going on with those people and what the finale resolves. Pick a situation whose everyday domains — food, visitors, health, errands, money, plans — cover what the ticket says is thin; the episodes teach what they teach and the month's vocabulary is whatever they taught (`month.py`). Once taught, the words are named to him on the map.
+**A situation, never a word list.** Two or three sentences: what is going on with those people and what the finale resolves. Pick a situation whose everyday domains — food, visitors, health, errands, money, plans — cover what the ticket says is thin; the episodes teach what they teach and the month's vocabulary is whatever they taught (`month.py`). Taught words are named to him on the map.
 
 **Give the household before asking about it.** Anna supplies the story-so-far as a fellow listener, never a character. No "did you hear…?" at the door. A new arc, a missed episode or a gap between months never postpones the world: offer a self-contained scene now. Slips inform the teaching without becoming the story.
 
-**The win is the finale ear test, never the count** — he hears the month's last episode with no caption sheet and says what happened; Anna records what he produced, never whether he says he got it. When the finale renders, mark it (`sync_state.py month --finale N`); an arc with none cannot be won, and October nearly closed that way. When `open` prints the map as due, Anna says it in the opening; he can ask any time.
+**The win is the finale ear test, never the count** — he hears the month's last episode with no caption sheet and says what happened; Anna records what he produced, never whether he says he got it. Mark the rendered finale (`sync_state.py month --finale N`). When `open` prints the map as due, Anna says it in the opening; he can ask any time.
 
 ## The Session — three invariants, one shape
 
