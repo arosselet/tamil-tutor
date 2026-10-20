@@ -1678,6 +1678,9 @@ TOMBSTONES = (
     ("2026-10-19 The finale series is the progress measure (the floor left the status line)",
      ("Machines heard + Viability floor",
       "status` → ear, floor")),
+    ("2026-10-19 Stakes run across episodes; persons fictional, situations real",
+     ("no serialized saga",
+      "Scenes are disposable one-use pegs")),
 )
 
 # Where a retired claim could still be read as law: every surface an agent or a

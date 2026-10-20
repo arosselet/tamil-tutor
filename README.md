@@ -54,7 +54,7 @@ The theory the whole machine serves:
 - **Glue over vocabulary.** Verbs, connectors, pronouns, particles: the high-frequency words that carry most of spoken connectivity. Know the glue and you can slot any English noun into the sentence and be understood. Modern spoken Coimbatore Tamil is heavily Thanglish; pure-Tamil nouns mark you as a scholar, not a local.
 - **Register-first, ruthlessly.** The dialect people actually speak: போறேன் ("poren"), never the textbook போகிறேன் ("pogiren"). Literary Tamil is ignored entirely. The measure is operational capacity: navigate an auto ride, survive dinner with the in-laws, land a zinger. Not debate philosophy.
 - **Assessment is invisible; correction is a recast.** No quizzes, no debrief forms, no "dative case." When you're off, Anna says it the natural way and moves on, the way a real elder brother mutters the fix across the table, and quietly updates state with what fired cold, what needed a hint, what missed.
-- **The only narrative is yours.** Scenes are disposable one-use pegs for a word, then dropped: no serialized saga, no manufactured suspense. The story with real stakes is the learner's own arc, floor climbing toward the reveal. Climax = mastery.
+- **Your story runs inside theirs.** A fictional household lives through real situations — the calendar, festivals, the news, the learner's own projects — and one live question runs episode to episode to the month's finale, while each episode still lands alone. Lines the learner said early come back late.
 
 ## The Learning Modes
 

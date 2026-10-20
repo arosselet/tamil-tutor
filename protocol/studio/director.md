@@ -93,7 +93,9 @@ Three things bind you:
 2. **The beat log is what you may call back to.** A mundane detail from three
    weeks ago referenced in passing is the entire continuity mechanism — it is
    also what a real family table is made of, and what disposable scenes cannot
-   teach by construction.
+   teach by construction. **The arc's live question runs through it** (2026-10-19):
+   move it a step, keep it open until the finale, and still let the episode land
+   alone for a listener who missed the last one.
 3. **The Scenario must naturally support the Payload and the Linguistic
    Pattern.** If you are teaching "The Request", put a household member in a
    position where they have to ask for something.

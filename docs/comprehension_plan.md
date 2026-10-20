@@ -130,7 +130,7 @@ supplement the authored supply when it is interesting and usable.
 | Component | Recommendation and reason |
 |---|---|
 | Persona, coffee, decomposition, finite sessions | Keep: repeated direct preference evidence. Judge delivery, not prompt compliance. |
-| Household | Keep provisionally; retire its exclusivity if it forces contrived content. No replacement fictional world. |
+| Household | Kept; exclusivity retired 2026-10-19 — the cast stays fictional, the situations come from real life. No replacement fictional world. |
 | Studio and multiple audio forms | Keep: separation and capacity matching solved demonstrated problems. |
 | Feed, scheduled supply, quiet hours, reply correlation | Keep: dependable availability and low-effort contact earned this infrastructure. |
 | Word inventory, event ledger, teaching/reveal safeguards | Keep: memory and honest evidence need deterministic support. |

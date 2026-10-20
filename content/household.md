@@ -83,6 +83,10 @@ Things that are true, that scripts may not contradict. Short on purpose.
 > Written by Anna at the month cut, replaced each month. Two or three sentences:
 > the situation, what the finale resolves, and which everyday domains it
 > naturally exercises. **It never lists words** — the ticket owns those.
+> **The people are fictional; the situations are real** (2026-10-19): the actual
+> calendar, festivals, Coimbatore news, Andrew's own projects — never his wife's
+> family. Name the live question the episodes carry, and plant two or three of
+> Andrew's own lines or decisions early for the finale to pay off.
 
 **October — Paati turns seventy-five.** Mama wants a small lunch at home, Athai's guest
 list grows every time the phone rings, and Paati says she wants no fuss while quietly
