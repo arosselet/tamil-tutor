@@ -25,7 +25,6 @@ line and leaves; one that dies is deleted, not archived.
 - Populate or retire `pairs_with` — 1 of 362 rows, but four readers print "he answers: …" off it; the hear-her-line/produce-the-refusal pair is a real unit starved of data (2026-09-13, from the sparse-field review, NOT built) awaiting Andrew (2026-10-20): still 1 of 427 rows; recommend retiring the field and its four readers
 - Denominator floor in `suggest_targets.new_candidates_by_cluster` — `body` at 0/2 outranks `verb_root` at 3/49; a Laplace prior or minimum denominator (2026-09-04, from the curriculum expansion review, NOT built) DEFERRED (2026-10-20): rides the word_pool upsert, which waits on the coverage-queue ruling
 - A `(word, cluster)` uniqueness ratchet on `curriculum/word_pool.json` in `scripts/smoke/` — the §7.1 validator died with its session (2026-09-04, NOT built) DEFERRED (2026-10-20): rides the word_pool upsert, which waits on the coverage-queue ruling
-- SPLIT `scripts/writer.py` — the ceiling has now been asked twice, unpaid (2026-09-07).
 - `_api_text` HAS NO TRUNCATION GUARD, and the failure is silent (2026-09-07).
 - MULTI-TARGET EAVESDROP SCORING — proposed and WITHDRAWN in the same session (2026-08-31), because the obvious version manufactures the exact rows the 08-24 purge had just deleted.
 - A THIRD-PARTY NAME GUARD ON THE PHONE-RECORD LANE — and the reason the obvious version cannot be built (2026-08-30)
