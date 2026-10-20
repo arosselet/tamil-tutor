@@ -10,7 +10,8 @@ line and leaves; one that dies is deleted, not archived.
   drain existed (2026-10-14) and never triaged. It drains only when Andrew names it.
 
 ## Inbox
-
+- GLOSSES DROPPED AT INTAKE — Rows are born from episode scripts with their meanings lost: 59 of 422 lexicon rows carry a blank gloss, in whole-episode batches (E70-74, E78, E81, E97, E98). Today's case: senjom, vaanginom and iruppom entered from Ep 98 unglossed, untaught (taught_on null) and untested, then carried a session as its sharpening pattern. A row born without a gloss should park loudly, the way malformed commissions park in failed/; minimum fix: backfill Ep 98's three from the script that birthed them. Fix-class — lands when drained, no boundary needed. (2026-10-20, Rio — coach filing, NOT built)
+- CANDIDATE GATE FOR "IN PLAY" — 238 of 422 rows were never taught; 118 of those have already appeared in episodes, and nothing stops an untaught word being listed as in play, tested, or used as assumed material. His words, mid-lesson 2026-10-20: he feels "tested on something that was never explained." Proposal: script appearance creates a candidate; only a teaching event (taught_on) makes it a player; the candidate count shows in the books. The boundary owns the 118-row backlog's disposition — coach recommendation: drain by ear over time, not by mass lessons. Feature-class: for the Oct 31 cut. (2026-10-20, Rio — coach filing, NOT built)
 - TRIAGE THE BACKLOG — backlog lines with no DEFERRED mark predate the drain and never had a disposition; many look superseded (deck, volley, trip, post-trip arc). (2026-10-19, Andrew)
 
 ## Backlog
