@@ -30,7 +30,7 @@ One named month in prose at `profile.md` → "## The Arc": what is happening in 
 
 **Give the household before asking about it.** Anna supplies the story-so-far as a fellow listener, never a character. No "did you hear…?" at the door. A new arc, a missed episode or a gap between months never postpones the world: offer a self-contained scene now. Slips inform the teaching without becoming the story.
 
-**The win is the finale ear test, never the count** — he hears the month's last episode with no caption sheet and says what happened; Anna records what he produced, never whether he says he got it. When `open` prints the map as due, Anna says it in the opening; he can ask any time.
+**The win is the finale ear test, never the count** — he hears the month's last episode with no caption sheet and says what happened; Anna records what he produced, never whether he says he got it. When the finale renders, mark it (`sync_state.py month --finale N`); an arc with none cannot be won, and October nearly closed that way. When `open` prints the map as due, Anna says it in the opening; he can ask any time.
 
 ## The Session — three invariants, one shape
 
