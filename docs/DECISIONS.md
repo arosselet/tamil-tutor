@@ -10,6 +10,7 @@ compressed 2026-09-10, 32k words to 11k, nothing lost that git did not hold).
 ## How to work on this system
 
 - **The inbox drains on a standing instruction** (2026-10-14, Andrew, on Rio's filing). `/inbox` gives every item in scope a disposition: build (a DECISIONS line, out of the inbox), reject (deleted, reasoning in the commit), defer (stays, reason in its line). The filer's evidence is a claim checked against the tree; a decision item drains only on Andrew's ruling. Replaces an inbox with no exit.
+- **The inbox and the backlog are two lists** (2026-10-19, Andrew: "I was thinking it was less than a dozen"). `## Inbox` holds filings not yet ruled and is what an unscoped drain covers; `## Backlog` holds deferred lines and the ~77 pre-drain lines never triaged, drained only when named. Triaging the backlog is itself an inbox item.
 - **Anna has standing audio authority** (2026-09-22, Andrew). He may commission and produce any kind of audio at any time. Supersedes repair-earned-only commissioning, backward-before-forward priority and mandatory permission/capacity questions. Capacity guides his judgment, including preparation for later listening; publication safety remains. Replaces the restrictive halves of July 23/28 and September 13 audio decisions.
 
 - **LLM is the writer, Python is the brain** (2026-04-09). Push reasoning into

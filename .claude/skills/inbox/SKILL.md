@@ -13,7 +13,9 @@ Standing instruction since 2026-10-14 (Andrew, on Rio's filing).
 ## 0. Scope
 
 Andrew names the scope ("the three newest", "everything from Rio", "the whole queue").
-Unscoped, the drain is the whole `## Ideas` list. Items outside the scope are not
+Unscoped, the drain is the `## Inbox` list; `## Backlog` (deferred, or never triaged)
+drains only when he names it (2026-10-19 — an unscoped drain once surfaced ~90 lines
+when he expected a dozen). Items outside the scope are not
 touched, re-worded or re-ordered, even when you notice something about them; a finding
 on an out-of-scope item goes in the closing summary, not into the file.
 
@@ -42,7 +44,7 @@ on the docstring would have rebuilt something that already existed.
 |---|---|---|
 | **Build** | Leaves the inbox; gets a `DECISIONS.md` line (or amends the one it completes) | The commit, and the DECISIONS line's clause |
 | **Reject** | Deleted, not archived | The commit message and the closing summary |
-| **Defer** | Stays, marked `DEFERRED (<date>): <reason>` in its line | The line itself |
+| **Defer** | Moves to `## Backlog`, marked `DEFERRED (<date>): <reason>` in its line | The line itself |
 
 A **build** still passes `/extend`. Gate 3 still applies: unless Andrew commissioned
 the item in this session, an unexplored build is a decision item (below). Building

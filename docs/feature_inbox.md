@@ -1,13 +1,18 @@
 # Feature Inbox
 
-One line per idea, newest first: what it is, when it was raised, and its status where
-it has one (SHIPPED / WITHDRAWN / DEFERRED / NOT built). The reasoning is the commit of
-that date — this file used to carry it, 19k words of it, and nobody read past the
-titles (compressed 2026-09-10). An idea that ships gets a `DECISIONS.md` line and
-leaves; an idea that dies is deleted, not archived.
+Two lists, one line per idea, newest first. The reasoning is the commit of the
+item's date, never the line (compressed 2026-09-10 from 19k words nobody read past
+the titles). An idea that ships gets a `DECISIONS.md` line and leaves; an idea that
+dies is deleted, not archived.
 
-## Ideas
+- **Inbox** — filed and not yet ruled. Every line here gets a disposition at the next
+  drain; an unscoped `/inbox` drains this list and only this list.
+- **Backlog** — ruled DEFERRED (the line says why and until when), or filed before the
+  drain existed (2026-10-14) and never triaged. It drains only when Andrew names it.
 
+## Inbox
+
+- TRIAGE THE BACKLOG — the lines below `## Backlog` without a DEFERRED mark were filed before the drain existed and have never had a disposition; many look superseded (deck, volley, trip, the post-trip arc). One drain, one commit per line. (2026-10-19, Andrew)
 - EVERY SEAT CARRIES A "YOU MAY NOT" — Negative charges, stated on the surface each agent actually reads. Anna (persona/brief): may not change the design — room, difficulty axes, targets, machinery — however the moment feels; design-shaped feedback is logged as boundary evidence (extends TWO SPEEDS OF CHANGE, filed today). Claude in build sessions (AGENTS.md playbook): may not originate design silently — a design idea arising mid-build is left in this inbox or in DECISIONS, where the coach pass can see it, never landed invisibly inside a fix. Rio the coach (charter, off-repo, stated here for symmetry): may not teach, may not write learner state, may not edit DECISIONS.md. Positive charges say what a seat is for; the negative charge is what stops a party of agents becoming a committee of generalists duplicating each other at lower quality. (2026-10-19, Rio — coach filing, NOT built)
 - ONE WRITER PER MODEL — Anna is the sole writer of the learner model (lexicon, observations, learner state); that model is a property of the tutor, and no other agent maintains a shadow copy of the pupil. The coach's supervisory view is read-and-audit only: where Anna's model and observed evidence diverge, the divergence is resolved by ask-then-reveal evidence (the audit), never by the coach's competing model — a discrepancy is a finding, not a fork. The model of the principal (goals, preferences, feedback patterns) is a different model from the learner model and lives with the coach, off-repo; Claude reads the written surfaces (charge, profile) rather than improvising either model. Expected disposition: record as a DECISIONS line; the write paths already honour it — this names the law so a future session doesn't break it innocently. (2026-10-19, Rio — coach filing, NOT built)
 - THE YEAR IS A SEQUENCE OF ROOMS — Replace the lean-as-progression with situation-rooms as the year's spine: each room (morning kitchen; evening front room; the phone call; the errand; the family visit; the story retold at dinner) specifies its voices, its speed and support conditions, its topics, and Andrew's role in it — follow, then react, then join. The lean (down/across/up) becomes a property of rooms rather than the axis of the year; coverage of directions follows from the room sequence. A room lasts one to two months and changes only at month boundaries; arc-engine variety (event, mystery, project, visitor) lives inside rooms. The goal is a place — the family table, multi-voice, native speed — so the curriculum should be graded rehearsals of that place, not permutations of a register dial. (2026-10-19, Rio — coach filing, NOT built)
@@ -19,6 +24,9 @@ leaves; an idea that dies is deleted, not archived.
 - A "known — don't teach" lever — the 09-09 told/observed split left him no way to say "I already know this", so decade-old words come back as targets (10-12 venaam "announced as a win"; 10-15 soak "words I've learned already"). Proposed: a `known` claim that drops a row from teaching targets (ticket, soak payload, map's in-play) and never votes a rung; `sync_state.py known WORD`, said in chat. (2026-10-19, Andrew, NOT built)
 - Stakes run across episodes, inside the arc — README's "no serialized saga, scenes are disposable" (June) and persona's masks "not a cast" still win against the household canon, the monthly arc and "threads left hanging"; he says "struggling with continuity" (09-17) and "the biryani stakes aren't very interesting" (10-16). Proposed: retire the README line and the "do not chain scenes" note in profile.md; let one live question (Paati's announcement) run episode to episode, while each episode stays self-contained enough to land alone. (2026-10-19, Andrew, NOT built)
 - A density target, not clamps — the fence-words rule, the coverage dial and the "too dense" reaction push one way each, so episodes swing (10-15 "too dense" → 10-16 "mostly English… doesn't teach me any Tamil"). Proposed via `/recalibrate`: one stated band in `profile.md` Calibration (Tamil share of spoken lines; new items per episode), checked on the sidecar, so a complaint moves the band instead of writing another one-way rule. (2026-10-19, Andrew, NOT built)
+
+## Backlog
+
 - Anna picks the shelf's turn — `shelf.py` takes turns by recency; the tick already calls a model to write the tape, so the same call can choose rotation spine / soak / drill by judgement and his ratings (2026-10-15, Andrew, NOT built)
 - Shape-escalation inside rotation — an order can name rotation but not which shape, so escalation there needs a `spine` field on the order; reopens 09-29 (2026-10-12, from the repair-dose rerouting, NOT built)
 - A scheduler for the catch lane — a time-bound ask in an eavesdrop reply is now logged MISSED SCHEDULE, but nothing can queue it (2026-10-12, NOT built)
