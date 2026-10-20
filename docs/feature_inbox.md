@@ -36,7 +36,6 @@ line and leaves; one that dies is deleted, not archived.
 - Upsert `word_pool.json` into the lexicon, then retire the file (2026-07-26, Andrew's call — supersedes the assistant's "just delete it"). DEFERRED (2026-10-20): decide with the coverage queue at a month cut
 - Real-media library (songs, kids' TV) DEFERRED (2026-10-20): revisit with the coverage corpus, which needs the same media supply
 - Commissioning from the phone — `schedule episode` (2026-08-02) awaiting Andrew (2026-10-20): now cheap — the reply lane could drop a commission into pending/
-- The post-trip arc — three proposals, none chosen (2026-07-27)
 - Volley chained recasts can double the re-presented ask (2026-07-27)
 - A word taught in-session cannot enter the lexicon (2026-07-28)
 - The deck coverage meter counts delivery, not engagement (2026-08-04)
