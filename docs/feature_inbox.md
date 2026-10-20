@@ -38,7 +38,6 @@ line and leaves; one that dies is deleted, not archived.
 - Commissioning from the phone — `schedule episode` (2026-08-02) awaiting Andrew (2026-10-20): now cheap — the reply lane could drop a commission into pending/
 - A lexicon key containing a comma can never be commissioned into a soak payload (2026-08-05) DEFERRED (2026-10-20): live (canon_payload splits); 3 keys, none ordered since 08-05
 - THE DRILL LANE HAS NO TEACH-FIRST FILTER (2026-08-18)
-- No meter counts knock FORMAT share — the trailer monoculture (33% of fires) was invisible until counted by hand (2026-09-16)
 - The slip ledger has no eviction rule — an unclosed slip family wins more lanes the longer it fails, and held all three at once (2026-09-16)
 - `mandates.py` is at 500/500 code lines and 1992/2000 words — the next addition is a red build; split-or-retire (2026-09-16)
 - The episode publish commit leaves the beat (content/household.md) and the exposure events (observations.json, learner.json) uncommitted — M98 needed a hand commit; cloud lanes never see them otherwise (2026-10-16)
