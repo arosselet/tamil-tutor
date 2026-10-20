@@ -869,6 +869,22 @@ def s146_a_payload_callback_with_no_row_is_settled_before_audio(sb: Path):
             p.unlink(missing_ok=True)
 
 
+def s153_the_episode_commit_carries_what_the_render_wrote(sb: Path):
+    """M98, 2026-10-16: the publish commit staged eight paths by name, and the
+    beat (household.md), the exposure events (observations.json, learner.json)
+    and recent_audio.txt were not among them — a hand commit (d7d7cee) carried
+    them, and a cloud render would have dropped them with the runner."""
+    print("\n153. The episode commit carries what the render wrote (2026-10-20)")
+    ra = importlib.import_module("render_audio")
+    got = {p.as_posix() for p in ra.publish_paths("content/scripts/tier2_mission9153.md",
+                                                  "published_audio/tier2_mission9153.mp3")}
+    for rel in ("content/household.md", "progress/observations.json",
+                "progress/learner.json", "progress/recent_audio.txt",
+                "progress/lexicon.json", "content/scripts/tier2_mission9153.tags.json"):
+        check(f"the publish commit stages {rel}", rel in got, str(sorted(got)))
+    check("...and still never a whole directory (the 07-23 stray-draft sweep)",
+          not any(Path(r).suffix == "" for r in got), str(sorted(got)))
+
 def s68_the_convergence_audit_fixes(sb: Path):
     """The 2026-08-20 audit's live defects, each asserted where it can actually
     fail. Every one of these was a state INDISTINGUISHABLE FROM SUCCESS — the

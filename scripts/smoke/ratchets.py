@@ -326,7 +326,9 @@ CODE_BUDGETS = {
     # check. RETIRES the after-the-TTS warning as the only signal for a rowless
     # callback (the register's report stays as s43's backstop) and the human review
     # hop (show_status's held-form line, -4 there).
-    "scripts/render_audio.py": 532,
+    # 532 -> 538 (2026-10-20, backlog drain): `publish_paths`, so s153 can see what
+    # the episode commit stages. RETIRES the hand commit after every render (d7d7cee).
+    "scripts/render_audio.py": 538,
     "scripts/render_chat.py": 100,
     "scripts/render_demo.py": 100,
     # 235 -> 220 (2026-08-23, Andrew): re-censused DOWN, the 08-01 move again.

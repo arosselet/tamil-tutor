@@ -719,6 +719,28 @@ def settle_sidecar(script_path: Path) -> list[str]:
     return ghosts
 
 
+def publish_paths(input_file: str, output_file: str) -> list[Path]:
+    """Every file one episode's render writes, relative to BASE — the commit
+    stages these by name. The beat (household.md, appended by run_studio), the
+    exposure events and recent_audio were missing: M98 needed a hand commit
+    (d7d7cee, 2026-10-16), and a cloud lane would never have seen them."""
+    stem = Path(input_file).stem
+    return [
+        Path("rss.xml"),
+        Path("progress/episodes.json"),
+        Path("progress/lexicon.json"),
+        Path("progress/observations.json"),
+        Path("progress/learner.json"),
+        Path("progress/recent_audio.txt"),
+        Path("content/household.md"),
+        Path("published_audio") / os.path.basename(output_file),
+        Path("content/lessons") / f"{stem}_brief.md",
+        Path("content/captions") / f"{stem}.md",
+        Path(input_file),
+        Path(input_file).with_suffix(".tags.json"),
+    ]
+
+
 async def main():
     parser = argparse.ArgumentParser(description="Generate Multi-Voice Tamil Podcast Audio")
     parser.add_argument("input_file", help="Input markdown script")
@@ -842,18 +864,8 @@ async def main():
         # swept a concurrently-written draft episode into this commit, which was
         # then deleted as a stray (2026-07-23) — a commit must only ever carry
         # the episode it rendered.
-        stem = Path(args.input_file).stem
-        candidates = [
-            Path("rss.xml"),
-            Path("progress/episodes.json"),
-            Path("progress/lexicon.json"),
-            Path("published_audio") / os.path.basename(args.output_file),
-            Path("content/lessons") / f"{stem}_brief.md",
-            Path("content/captions") / f"{stem}.md",
-            Path(args.input_file),
-            Path(args.input_file).with_suffix(".tags.json"),
-        ]
-        paths = [BASE / p for p in candidates if (BASE / p).exists()]
+        paths = [BASE / p for p in publish_paths(args.input_file, args.output_file)
+                 if (BASE / p).exists()]
 
         # Publish through the SAME net every other writer uses (2026-08-20).
         # This lane used to run a raw add/commit/push with no pull and no
