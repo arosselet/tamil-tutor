@@ -531,11 +531,13 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
 
     cleaned_words = []
     new_word_keys = set()
+    sidecar_glosses = {}
     tags_path = script_path.with_suffix(".tags.json")
     sidecar_broken = False
     if tags_path.exists():
         try:
             tags = json.loads(tags_path.read_text(encoding="utf-8"))
+            sidecar_glosses = tags.get("glosses") or {}
             for bucket in ("new_words_landed", "callbacks_used"):
                 for w in tags.get(bucket, {}):
                     key = canonical(w)
@@ -633,7 +635,7 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
             key = w if w in lexicon else None
             if key is None and w in new_word_keys and is_canonical(w):
                 # Brand-new payload word: the STATIC half only; the fold owns the rest.
-                lexicon[w] = {"gloss": "", "recognition": RECOGNITION_DEFAULT,
+                lexicon[w] = {"gloss": sidecar_glosses.get(w, ""), "recognition": RECOGNITION_DEFAULT,
                               "production": "none", "seen_in": [], "last_surfaced": None}
                 key = w
                 created += 1
@@ -654,7 +656,7 @@ def register_mission_in_state(script_path: Path, mp3_path: Path):
             save_json(LEXICON_PATH, lexicon)
             msg = f"   ↳ exposed {len(events)} lexicon words via M{mnum} (taught + delivery, as events)"
             if created:
-                msg += f"; +{created} NEW words registered (gloss empty — backfill later)"
+                msg += f"; +{created} NEW words registered"
             print(msg)
 
 def judge_dialogue(dialogue: list[dict], source: str) -> list[dict] | None:
@@ -719,6 +721,44 @@ def settle_sidecar(script_path: Path) -> list[str]:
     return ghosts
 
 
+BRIEF_GLOSS_RE = re.compile(r"^- \*\*(.+?)\*\* \(\*[^*]*\*\) — (.+?)(?:\s*\[[^\]]*\])?\s*$", re.M)
+
+
+def gloss_sidecar(script_path: Path) -> list[str]:
+    """Stamp each brand-new word's meaning into the sidecar's `glosses` → the new
+    words with no meaning anywhere, which must refuse the render.
+
+    WHY (Ep 98, 2026-10-20). The register minted every new word with a blank
+    gloss and printed "backfill later"; 59 of 427 rows sat blank in whole-episode
+    batches, and செஞ்சோம் carried a session as its sharpening pattern with no
+    meaning on file. The Director's brief already writes one per payload word
+    (`- **W** (*t*) — gloss`), so Python carries it; the Producer prompt is
+    unchanged. Runs beside settle_sidecar, before the judge and the TTS."""
+    from state_io import LEXICON_PATH, load_json
+    tags_path = script_path.with_suffix(".tags.json")
+    try:
+        tags = json.loads(tags_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return []          # absent or broken: the register reports it, loudly
+    lexicon = load_json(LEXICON_PATH) or {}
+    brief = BASE / "content" / "lessons" / f"{script_path.stem}_brief.md"
+    found = dict(BRIEF_GLOSS_RE.findall(brief.read_text(encoding="utf-8"))) if brief.exists() else {}
+    glosses, missing = dict(tags.get("glosses") or {}), []
+    for raw in tags.get("new_words_landed", {}):
+        key = re.sub(r"\s*\([^)]*\)\s*$", "", raw).strip()
+        if raw in lexicon or key in lexicon or key.startswith("frame:") or glosses.get(key):
+            continue
+        if found.get(key) or found.get(raw):
+            glosses[key] = (found.get(key) or found[raw]).strip()
+        else:
+            missing.append(key)
+    if glosses != (tags.get("glosses") or {}):
+        tags["glosses"] = glosses
+        tags_path.write_text(json.dumps(tags, ensure_ascii=False, indent=2) + "\n",
+                             encoding="utf-8")
+    return missing
+
+
 def publish_paths(input_file: str, output_file: str) -> list[Path]:
     """Every file one episode's render writes, relative to BASE — the commit
     stages these by name. The beat (household.md, appended by run_studio), the
@@ -769,6 +809,9 @@ async def main():
     if ghosts := settle_sidecar(Path(args.input_file)):
         sys.exit(f"❌ sidecar callback(s) with no lexicon row — nothing would track "
                  f"them: {ghosts}. A new word belongs in new_words_landed; nothing rendered")
+    if bare := gloss_sidecar(Path(args.input_file)):
+        sys.exit(f"❌ new word(s) with no gloss in the sidecar or the brief: {bare}. "
+                 f"Add them to the sidecar's \"glosses\"; nothing rendered")
 
     # THE JUDGE SEAT'S CHOKEPOINT FOR EPISODES (2026-10-12, Andrew). Every
     # episode reaches audio through here — `run_studio`, the subagent fallback, a

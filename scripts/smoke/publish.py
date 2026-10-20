@@ -869,6 +869,78 @@ def s146_a_payload_callback_with_no_row_is_settled_before_audio(sb: Path):
             p.unlink(missing_ok=True)
 
 
+def s154_a_new_word_is_born_with_its_meaning(sb: Path):
+    """Ep 98, 2026-10-20: செஞ்சோம் / வாங்கினோம் / இருப்போம் were minted with a
+    blank gloss ("backfill later") and carried a session as its sharpening
+    pattern with no meaning on file — 59 of 427 rows sat blank, in whole-episode
+    batches. The Director's brief had written every one of those meanings.
+
+    `render_audio.gloss_sidecar` carries the brief's gloss into the sidecar before
+    the judge and the TTS; a new word with no gloss anywhere refuses the render.
+    THE SILENT NO-OP, answered: the case round-trips through the real register
+    and RE-READS the lexicon row for the gloss."""
+    print("\n154. A new word is born with its meaning (2026-10-20)")
+    import asyncio
+    import contextlib
+    ra = importlib.import_module("render_audio")
+    books = [sb / "progress" / f for f in ("lexicon.json", "learner.json",
+                                           "episodes.json", "observations.json")]
+    saved = {b: b.read_bytes() if b.exists() else None for b in books}
+    script = sb / "content" / "scripts" / "tier2_mission9154.md"
+    tags_path = script.with_suffix(".tags.json")
+    brief = ra.BASE / "content" / "lessons" / "tier2_mission9154_brief.md"
+    script.parent.mkdir(parents=True, exist_ok=True)
+    brief.parent.mkdir(parents=True, exist_ok=True)
+    glossed, bare = "ஸ்மோக்செஞ்சோம்", "ஸ்மோக்வெறுமை"
+    try:
+        lex = read_json(books[0])
+        lex["ஸ்மோக்தெரியும்"] = lex_row(gloss="known", recognition="comfortable")
+        write_json(books[0], lex)   # an empty lexicon registers nothing at all
+        script.write_text(f"# Tier 2, Mission 9154 — Smoke\n\n**Paati:** {glossed} {bare}.\n",
+                          encoding="utf-8")
+        brief.write_text(f"## Word Payload\n- **{glossed}** (*smokesenjom*) — we made [struggled]\n",
+                         encoding="utf-8")
+
+        # ── 1. A new word with no gloss in the sidecar or the brief refuses, pre-judge.
+        write_json(tags_path, {"new_words_landed": {glossed: 2, bare: 1}, "callbacks_used": {}})
+        judged, argv, real_judge = [], sys.argv, ra.judge_dialogue
+        ra.judge_dialogue = lambda d, s: judged.append(s) or []
+        sys.argv = ["render_audio.py", str(script), str(sb / "audio" / "m154.mp3")]
+        code = None
+        try:
+            with contextlib.redirect_stdout(io.StringIO()):
+                asyncio.run(ra.main())
+        except SystemExit as e:
+            code = e.code
+        finally:
+            ra.judge_dialogue, sys.argv = real_judge, argv
+        check("a new word with no meaning anywhere refuses the render",
+              code not in (0, None) and bare in str(code) and glossed not in str(code),
+              f"exit {code!r}")
+        check("...before the judge (which costs money) is ever called", not judged, str(judged))
+        check("...and the brief's gloss is already stamped into the sidecar, tag stripped",
+              read_json(tags_path).get("glosses", {}).get(glossed) == "we made",
+              str(read_json(tags_path)))
+
+        # ── 2. THE EFFECT: the real register mints the row WITH its meaning.
+        tags = read_json(tags_path)
+        tags["glosses"][bare] = "emptiness"
+        write_json(tags_path, tags)
+        with contextlib.redirect_stdout(io.StringIO()):
+            left = ra.gloss_sidecar(script)
+            ra.register_mission_in_state(script, sb / "published_audio" / "tier2_mission9154.mp3")
+        lex = read_json(books[0])
+        check("nothing is refused once every new word has a gloss", left == [], str(left))
+        check("the register mints the brief's gloss onto the row",
+              lex.get(glossed, {}).get("gloss") == "we made", str(lex.get(glossed)))
+        check("...and the sidecar's own gloss onto the other",
+              lex.get(bare, {}).get("gloss") == "emptiness", str(lex.get(bare)))
+    finally:
+        for b, raw in saved.items():
+            b.write_bytes(raw) if raw is not None else b.unlink(missing_ok=True)
+        for p in (script, tags_path, brief):
+            p.unlink(missing_ok=True)
+
 def s153_the_episode_commit_carries_what_the_render_wrote(sb: Path):
     """M98, 2026-10-16: the publish commit staged eight paths by name, and the
     beat (household.md), the exposure events (observations.json, learner.json)
