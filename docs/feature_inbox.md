@@ -1,9 +1,8 @@
 # Feature Inbox
 
-Two lists, one line per idea, newest first. The reasoning is the commit of the
-item's date, never the line (compressed 2026-09-10 from 19k words nobody read past
-the titles). An idea that ships gets a `DECISIONS.md` line and leaves; an idea that
-dies is deleted, not archived.
+Two lists, one line per idea, newest first; the reasoning is the commit, never the
+line (compressed 2026-09-10 from 19k words). An idea that ships gets a `DECISIONS.md`
+line and leaves; one that dies is deleted, not archived.
 
 - **Inbox** — filed and not yet ruled. Every line here gets a disposition at the next
   drain; an unscoped `/inbox` drains this list and only this list.
@@ -12,11 +11,11 @@ dies is deleted, not archived.
 
 ## Inbox
 
-- TRIAGE THE BACKLOG — the lines below `## Backlog` without a DEFERRED mark were filed before the drain existed and have never had a disposition; many look superseded (deck, volley, trip, the post-trip arc). One drain, one commit per line. (2026-10-19, Andrew)
+- TRIAGE THE BACKLOG — backlog lines with no DEFERRED mark predate the drain and never had a disposition; many look superseded (deck, volley, trip, post-trip arc). (2026-10-19, Andrew)
 
 ## Backlog
 
-- Finale escalation order — difficulty rises one axis per room transition: voices, then speed, then reduction and support-removal. The rest of the filing shipped 2026-10-19. (2026-10-19, Rio) DEFERRED (2026-10-19, Andrew): decided with the rooms item at the November cut.
+- Finale escalation order — difficulty rises one axis per room transition: voices, then speed, then reduction and support-removal. The rest shipped. (2026-10-19, Rio) DEFERRED (2026-10-19, Andrew): decided with the rooms item at the November cut.
 - A density band, not clamps — one stated band (Tamil share; new items per episode) in profile.md Calibration, checked on the sidecar; reopens its "Density is an OUTPUT, never a target" on the 10-15 "too dense" → 10-16 "mostly English" swing. (2026-10-19, Andrew) DEFERRED (2026-10-19, Andrew): goes to its own /recalibrate session.
 - Coverage sets the vocabulary queue — a corpus of the real domain's speech; recognition coverage against it (~95% of tokens) ranks the intake queue. Filed in c211a92. (2026-10-19, Rio) DEFERRED (2026-10-19, Andrew): no corpus exists yet; revisit at a month cut once harvests or media supply one.
 - The year is a sequence of rooms — situation-rooms (voices, speed, support, his role: follow → react → join) replace the lean as the year's spine; reopens 10-08/10-09. Filed in c211a92. (2026-10-19, Rio) DEFERRED (2026-10-19, Andrew): decide at the November cut, on October's finale.
