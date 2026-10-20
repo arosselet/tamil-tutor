@@ -33,7 +33,7 @@ line and leaves; one that dies is deleted, not archived.
 - AT THE COMPUTER: finish the Andrew-intro naturalness pass — it is blocked on the Oracle, not on work (2026-07-30). DEFERRED (2026-10-20): her seven rulings first, then the v8 render
 - A word-adjacent hyphen becomes a SPACE before TTS, so every Tamil suffix written with a hyphen reaches the voice as its own word (2026-07-30, found while reviewing the Andrew intro; … DEFERRED (2026-10-20): latent; revisit on a heard detached suffix
 - For a `frame:` payload the episode lane SELF-CERTIFIES delivery without evidence (sighted 2026-07-28, first real exercise of the repair-first law). DEFERRED (2026-10-20): still self-certifies (run_studio.py:703); revisit on a sighting
-- Upsert `word_pool.json` into the lexicon, then retire the file (2026-07-26, Andrew's call — supersedes the assistant's "just delete it").
+- Upsert `word_pool.json` into the lexicon, then retire the file (2026-07-26, Andrew's call — supersedes the assistant's "just delete it"). DEFERRED (2026-10-20): decide with the coverage queue at a month cut
 - CURRICULUM ARCHITECTURE AUDIT (2026-07-26, `/recalibrate`, Andrew's felt signal: "the curriculum/deck/machinery/catch-response layers grew by iteration and discovery, not top-down design — make the abstraction clean, and don't let the deck starve …
 - BUILD (decided 2026-07-24): autonomous cloud episode production, inside the knock tick.
 - The trip harvest (2026-07-18)
