@@ -26,7 +26,6 @@ line and leaves; one that dies is deleted, not archived.
 - Denominator floor in `suggest_targets.new_candidates_by_cluster` — `body` at 0/2 outranks `verb_root` at 3/49; a Laplace prior or minimum denominator (2026-09-04, from the curriculum expansion review, NOT built) DEFERRED (2026-10-20): rides the word_pool upsert, which waits on the coverage-queue ruling
 - A `(word, cluster)` uniqueness ratchet on `curriculum/word_pool.json` in `scripts/smoke/` — the §7.1 validator died with its session (2026-09-04, NOT built) DEFERRED (2026-10-20): rides the word_pool upsert, which waits on the coverage-queue ruling
 - `_api_text` HAS NO TRUNCATION GUARD, and the failure is silent (2026-09-07). awaiting Andrew (2026-10-20): still latent; ship-and-say-TRUNCATED vs raise is his call
-- `docs/` IS THE SURFACE WITH NO CEILING (2026-08-26)
 - THE BUDGET THAT MATTERS IS THE SUM AT THE LOAD POINT (2026-08-26)
 - MAP FRESHNESS COULD BE COMPUTED INSTEAD OF REMEMBERED (2026-08-26)
 - A GUARANTEE-VOCABULARY LINT FOR OUR OWN PROSE (2026-08-26)
