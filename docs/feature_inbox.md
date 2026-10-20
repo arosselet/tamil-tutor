@@ -27,7 +27,6 @@ line and leaves; one that dies is deleted, not archived.
 - A `(word, cluster)` uniqueness ratchet on `curriculum/word_pool.json` in `scripts/smoke/` — the §7.1 validator died with its session (2026-09-04, NOT built) DEFERRED (2026-10-20): rides the word_pool upsert, which waits on the coverage-queue ruling
 - `_api_text` HAS NO TRUNCATION GUARD, and the failure is silent (2026-09-07). awaiting Andrew (2026-10-20): still latent; ship-and-say-TRUNCATED vs raise is his call
 - THE BENCHMARK TAPE — felt progress without a meter (2026-08-25) DEFERRED (2026-10-20): needs a real-speech clip; revisit with the coverage corpus
-- `docs/DECISIONS.md` IS 30,000 WORDS AND EVERY CHANGE READS IT (2026-08-25)
 - THE AUTO-DRAIN'S FALLBACK RULE IS ONE PIPE AWAY FROM BEING DEAD (2026-08-14)
 - THE REPLY PATH CAN DIE AND THE SYSTEM READS IT AS "HE DIDN'T ANSWER" (2026-07-31)
 - RE-RENDER THE ANDREW INTRO AT v8 — next laptop session (2026-07-31)
