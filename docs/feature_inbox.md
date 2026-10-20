@@ -30,7 +30,7 @@ line and leaves; one that dies is deleted, not archived.
 - RE-RENDER THE ANDREW INTRO AT v8 — next laptop session (2026-07-31) DEFERRED (2026-10-20): waits on an Oracle sitting
 - THE TTS OVER-ARTICULATES — a corpus-wide finding wearing a demo's clothes (2026-07-31) DEFERRED (2026-10-20): the A/B waits on an Oracle sitting
 - ORACLE CROSS-POLLINATION — the intro script is a pipeline, not a demo (2026-07-31) DEFERRED (2026-10-20): waits on an Oracle sitting
-- AT THE COMPUTER: finish the Andrew-intro naturalness pass — it is blocked on the Oracle, not on work (2026-07-30).
+- AT THE COMPUTER: finish the Andrew-intro naturalness pass — it is blocked on the Oracle, not on work (2026-07-30). DEFERRED (2026-10-20): her seven rulings first, then the v8 render
 - A word-adjacent hyphen becomes a SPACE before TTS, so every Tamil suffix written with a hyphen reaches the voice as its own word (2026-07-30, found while reviewing the Andrew intro; …
 - For a `frame:` payload the episode lane SELF-CERTIFIES delivery without evidence (sighted 2026-07-28, first real exercise of the repair-first law).
 - Audio is a queue-of-one — give it a real queue (2026-07-28, deliberately NOT bundled with the repair-first commissioning law that shipped the same day).
