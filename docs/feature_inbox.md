@@ -37,7 +37,6 @@ line and leaves; one that dies is deleted, not archived.
 - Real-media library (songs, kids' TV) DEFERRED (2026-10-20): revisit with the coverage corpus, which needs the same media supply
 - Commissioning from the phone — `schedule episode` (2026-08-02) awaiting Andrew (2026-10-20): now cheap — the reply lane could drop a commission into pending/
 - A lexicon key containing a comma can never be commissioned into a soak payload (2026-08-05) DEFERRED (2026-10-20): live (canon_payload splits); 3 keys, none ordered since 08-05
-- A travel day with no session reads as a fade (2026-08-09)
 - The promoted axis has no history (2026-08-17)
 - A per-item pending-ask state, consulted by every writer (2026-08-18)
 - THE DRILL LANE HAS NO TEACH-FIRST FILTER (2026-08-18)
