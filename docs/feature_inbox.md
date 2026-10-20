@@ -32,7 +32,7 @@ line and leaves; one that dies is deleted, not archived.
 - ORACLE CROSS-POLLINATION — the intro script is a pipeline, not a demo (2026-07-31) DEFERRED (2026-10-20): waits on an Oracle sitting
 - AT THE COMPUTER: finish the Andrew-intro naturalness pass — it is blocked on the Oracle, not on work (2026-07-30). DEFERRED (2026-10-20): her seven rulings first, then the v8 render
 - A word-adjacent hyphen becomes a SPACE before TTS, so every Tamil suffix written with a hyphen reaches the voice as its own word (2026-07-30, found while reviewing the Andrew intro; … DEFERRED (2026-10-20): latent; revisit on a heard detached suffix
-- For a `frame:` payload the episode lane SELF-CERTIFIES delivery without evidence (sighted 2026-07-28, first real exercise of the repair-first law).
+- For a `frame:` payload the episode lane SELF-CERTIFIES delivery without evidence (sighted 2026-07-28, first real exercise of the repair-first law). DEFERRED (2026-10-20): still self-certifies (run_studio.py:703); revisit on a sighting
 - Audio is a queue-of-one — give it a real queue (2026-07-28, deliberately NOT bundled with the repair-first commissioning law that shipped the same day).
 - Scheduled/unattended episode production — DEFERRED 2026-07-27 by Andrew after exploring it.
 - Upsert `word_pool.json` into the lexicon, then retire the file (2026-07-26, Andrew's call — supersedes the assistant's "just delete it").
