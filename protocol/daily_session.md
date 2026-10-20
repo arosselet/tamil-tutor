@@ -9,7 +9,7 @@
 The light start (`SKILL.md`) already pulled and spoke; a visit that ends there is whole.
 
 1. **`sync_state.py status` prints ⛔ STALE if origin moved since — never speak past it.**
-2. `python scripts/sync_state.py status` → ear, floor, soak-order verdict. `progress/profile.md` → the live arc block first, then gaps and calibration. `content/household.md` → who these people are. `python scripts/suggest_targets.py` → the ticket.
+2. `python scripts/sync_state.py status` → ear, soak-order verdict. `progress/profile.md` → the live arc block first, then gaps and calibration. `content/household.md` → who these people are. `python scripts/suggest_targets.py` → the ticket.
 3. **Auto-drain:** if the status digest says the soak order is NOT YET PRODUCED, dispatch **the renderer the digest names** in the background now (the `studio` subagent only if that fails) — one in-voice line, then straight into the session. Never block on it; never wait to be asked.
 
 **A lesson clip is one shape, never the default:** `lesson_audio.py SCRIPT --output NEW.mp3`

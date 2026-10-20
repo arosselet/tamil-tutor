@@ -1675,6 +1675,9 @@ TOMBSTONES = (
      ("Andrew sits in the seat",
       "Andrew sits in it now",
       "drafted form(s) held from publish")),
+    ("2026-10-19 The finale series is the progress measure (the floor left the status line)",
+     ("Machines heard + Viability floor",
+      "status` → ear, floor")),
 )
 
 # Where a retired claim could still be read as law: every surface an agent or a

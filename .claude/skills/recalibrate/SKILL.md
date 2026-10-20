@@ -51,7 +51,7 @@ to the vocabulary fence (95% coverage over a fence of ~135 words) fed by a false
 picture, and the check that would have fixed it was banned by Rule 4 as a list.
 
 Then the read-only sweep, all safe:
-- `python scripts/sync_state.py status` — the ear, the floor, the soak order, the ear-block days
+- `python scripts/sync_state.py status` — the ear, the soak order, the ear-block days (`--numbers` adds the floor)
 - `python scripts/sync_state.py feedback` — the accumulated ledger
 - `grep -o '"move": "[^"]*"' progress/knock_log.json | tail -20` — dose shapes actually sent
 - `progress/session_log.json` tail — what recent sessions actually did

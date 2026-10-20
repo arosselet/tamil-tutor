@@ -260,16 +260,21 @@ def compute_status(learner: dict | None = None) -> str:
     `ladder_mod.load()` with no argument re-reads the OLD file and composes the
     line from state one write behind. Setting a lean would then stamp a status
     with no lean on it, self-correct on the next unrelated write, and look
-    exactly like success in between (/extend Gate 7.2)."""
+    exactly like success in between (/extend Gate 7.2).
+
+    THE VIABILITY FLOOR LEFT THIS LINE (2026-10-19, Andrew, on Rio's filing). It
+    mixes axes, and its denominator moves when audits get stricter: it read 72%
+    then 57% within one October week on a measurement change alone, so a
+    headline that drops while he improves reads as decline. Progress is the
+    finale series (`month.py`). The floor stays a diagnostic — the session
+    close and `status --numbers` still print it."""
     lexicon = load_json(LEXICON_PATH) or {}
     mach = compute_machines(lexicon)
     ears = (f"Machines heard {mach['heard']} · ear-tested "
             f"{mach['tested']}/{mach['total']}")
-    floor = compute_floor(lexicon)
     ph = ladder_mod.rung(ladder_mod.load(learner))
     lean = f" · working {ph['direction']} ({ph['room']})" if ph else ""
-    return (f"{ears} · viability floor {floor['cleared']}/{floor['total']} "
-            f"fire cold ({floor['pct']:.0f}%){lean}")
+    return f"{ears}{lean}"
 
 
 def cold_fires_recent(days: int = 7) -> int:

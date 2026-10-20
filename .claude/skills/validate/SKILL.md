@@ -42,7 +42,7 @@ python scripts/smoke_test.py s41     # one case, its own sandbox — for triage
 python scripts/sync_state.py status
 ```
 
-**Safe (read-only).** Prints: current time in Andrew's zone (a field in `learner.json`), learner name, last logged session + gap, Status line (Machines heard + Viability floor), story, soak order, recognition/production breakdown, Engines, Ear-only, fired today, recent episodes.
+**Safe (read-only).** Prints: current time in Andrew's zone (a field in `learner.json`), learner name, last logged session + gap, Status line (Machines heard + the lean), story, soak order, recognition/production breakdown, Engines, Ear-only, fired today, recent episodes.
 
 **Pass:** output completes without `Error:` or `not found`. A stale soak order prints `⚠ stale — chat hasn't fed the Director lately` (fires when the soak order is more than a week old — `session_brief.cmd_status`) — that's a content signal meaning "run a session," not an error; don't route it to `/debug`.  
 **Fail:** `lexicon.json or learner.json missing` → bootstrap problem; `No learner.json found` → same.

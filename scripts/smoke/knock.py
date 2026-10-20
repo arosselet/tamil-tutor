@@ -2353,13 +2353,17 @@ def s60_the_ear_meter(kr, sb: Path):
     # other tag is the regression; `s54` guards the deadline half of it.
     ss = importlib.import_module("sync_state")
     check("the scoreboard line LEADS with the ear",
-          ss.compute_status().startswith("Machines heard 1 · ear-tested 1/3 · viability floor"),
+          ss.compute_status().startswith("Machines heard 1 · ear-tested 1/3"),
           ss.compute_status())
+    # The floor left the headline 2026-10-19: its denominator moved 72% -> 57%
+    # in one week on a stricter audit alone. Back on the line, it is the regression.
+    check("...and the viability floor is not on the headline",
+          "floor" not in ss.compute_status().lower(), ss.compute_status())
     lex = read_json(lex_path)
     lex["வணக்கம்"]["register"] = "antifreeze"
     write_json(lex_path, lex)
     check("...and a ranked row does not buy itself a rival headline",
-          ss.compute_status().startswith("Machines heard 1 · ear-tested 1/3 · viability floor"),
+          ss.compute_status().startswith("Machines heard 1 · ear-tested 1/3"),
           ss.compute_status())
 
     # --- the round trip: a real catch on a FRAME must move the printed number ---
