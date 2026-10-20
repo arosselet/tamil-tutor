@@ -4796,6 +4796,30 @@ def s112_the_month_is_the_arc(sb: Path):
         check("...and the new arc did not inherit the old finale's verdict",
               mo.verdict(read_json(learner_path)["month"], read_json(obs_path))["run"] is False,
               "a fresh arc opened already scored")
+
+        # ── AN ARC OPENED LATE KEEPS ITS OWN EPISODES (2026-10-19) ─────────
+        # October ran from 09-25 with no record, so opening it on the 19th
+        # stamped `opened` today and its own episodes fell outside it. The
+        # silent no-op is an arc that opens fine and quietly counts nothing
+        # it taught, so the assertion is on MEMBERSHIP, not on the field.
+        began = today - timedelta(days=20)
+        eps = read_json(eps_path)
+        eps["804"] = {"title": "before today", "produced": began.isoformat()}
+        write_json(eps_path, eps)
+        sc[804] = read_json(sidecar(804, ["ஆர்க்வெளிய"]))
+        run("--open", "--name", "Late", "--began", began.isoformat(), "--force")
+        rec = read_json(learner_path)["month"]
+        check("--began backdates the opening through the real writer",
+              rec.get("opened") == began.isoformat(), str(rec))
+        check("...but the arc still closes at the end of THIS month",
+              rec.get("closes") == mo.closes_on(today), str(rec))
+        check("...and an episode from before today is a member",
+              "ஆர்க்வெளிய" in mo.members(rec, eps, sc), str(mo.members(rec, eps, sc)))
+        r3 = run("--open", "--name", "Future", "--force",
+                 "--began", (today + timedelta(days=1)).isoformat())
+        check("an arc cannot begin after today, and the record is untouched",
+              r3.returncode != 0 and read_json(learner_path)["month"]["name"] == "Late",
+              r3.stdout[-300:])
     finally:
         for p, v in before.items():
             write_json(p, v)

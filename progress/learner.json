@@ -240,9 +240,14 @@
       }
     ]
   },
-  "status": "Machines heard 3 · ear-tested 16/26 · viability floor 44/75 fire cold (59%) · working across (cousins and in-laws)",
+  "status": "Machines heard 3 · ear-tested 16/26 · viability floor 45/75 fire cold (60%) · working across (cousins and in-laws)",
   "ladder": {
     "lean": "across",
     "since": "2026-10-09"
+  },
+  "month": {
+    "name": "Paati turns seventy-five",
+    "opened": "2026-09-25",
+    "closes": "2026-10-31"
   }
 }

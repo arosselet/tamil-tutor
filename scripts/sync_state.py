@@ -924,7 +924,7 @@ def cmd_month(args):
         unmet = month_mod.carry(rec, lexicon, episodes, sidecars)
         print(f"  Closing arc '{rec.get('name') or 'unnamed'}': {len(unmet)} "
               f"still open, re-offered with no privilege and no debt.")
-    new = month_mod.opened_record(args.name or "", local_today())
+    new = month_mod.opened_record(args.name or "", local_today(), args.began)
     _print_month(new, lexicon, episodes, sidecars)
     if args.dry_run:
         print("  (dry run — nothing written)")
@@ -1485,6 +1485,7 @@ def main():
     mo.add_argument("--finale", type=int, default=None, metavar="N", help="Mark the arc's finale episode")
     mo.add_argument("--line", action="append", default=[], choices=["right", "partial", "wrong"],
                     help="Record ONE key line of the finale ear test (repeatable)")
+    mo.add_argument("--began", type=month_mod.began_date, metavar="YYYY-MM-DD", help="With --open: backdate the arc's start; it still closes this month")
     mo.add_argument("--force", action="store_true", help="Re-cut while an arc is still open")
     mo.add_argument("--dry-run", action="store_true", help="Print the arc and write nothing")
 

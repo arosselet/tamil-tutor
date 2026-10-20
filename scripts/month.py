@@ -96,15 +96,33 @@ def is_over(rec: dict, today: date | None = None) -> bool:
     return (rec.get("closes") or "") < (today or local_today()).isoformat()
 
 
-def opened_record(name: str, today: date | None = None) -> dict:
+def opened_record(name: str, today: date | None = None,
+                  began: date | None = None) -> dict:
     """A new arc. Three fields, and not one of them is a target.
 
     `cut()` lived here until 2026-09-19 and took a candidate list, a size and a
     win line. Nothing is chosen now: the arc's name says what is happening in the
     household, the episodes teach what they teach, and membership is whatever
-    they taught."""
+    they taught.
+
+    `began` BACKDATES THE OPENING, never the close (2026-10-19). October's arc
+    ran from the 09-25 cut with no record opened, so opening it on the 19th
+    would have dropped M95-M98 — the arc's own episodes — out of its
+    membership. The close stays the end of TODAY's month: an arc opened late
+    still ends when this month does, never when the month it began in did."""
     today = today or local_today()
-    return {"name": name, "opened": today.isoformat(), "closes": closes_on(today)}
+    return {"name": name, "opened": (began or today).isoformat(), "closes": closes_on(today)}
+
+
+def began_date(text: str) -> date:
+    """`--began`'s parser: an ISO date no later than Andrew's today. A future
+    start would open an arc that holds nothing yet and reads as empty rather
+    than wrong, so it is refused at the command line (argparse turns the
+    ValueError into a usage error, exit 2) before anything is written."""
+    d = date.fromisoformat(text)
+    if d > local_today():
+        raise ValueError(f"an arc cannot begin after today: {d}")
+    return d
 
 
 def arc_missions(rec: dict, episodes: dict) -> list[int]:
