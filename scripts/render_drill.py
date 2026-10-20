@@ -49,10 +49,10 @@ DRILL_SCHEMA = obj(title=STR, intro=STR, outro=STR,
 # LINT_SCHEMA and LINT_MANDATE moved to the judge seat (2026-10-12): they are
 # `provenance.JUDGE_SCHEMA` and `mandates.PROVENANCE_JUDGE_MANDATE`, every lane's grader.
 from render_audio import generate_segment_google, get_raw_mp3_frames, SILENCE_FRAME, clean_for_tts
-from suggest_targets import drill_menu
+from suggest_targets import drill_menu, floor_gap_targets
 from mandates import BRIEF_IS_PRIVATE, DRILL_MANDATE
 from provenance import check_items, enqueue
-from state_io import LEXICON_PATH, REVIEW_QUEUE_PATH, load_json
+from state_io import LEXICON_PATH, REVIEW_QUEUE_PATH, load_json, local_today
 from state_io import canon_payload
 
 DRILLS_DIR = BASE / "published_audio"   # feed root — rebuild_rss picks up drill_*.mp3
@@ -88,7 +88,16 @@ def due_payload(max_entries: int) -> list[dict]:
     Reads `drill_menu` since 2026-08-18 (was `deck_status`): the same order over
     the whole pool rather than over the 83-row container that retired with the
     trip."""
-    menu = drill_menu(load_json(LEXICON_PATH) or {}, max_n=max(max_entries * 2, 12))
+    # TEACH FIRST (2026-10-20, Andrew). An English cue and a silence is a cold
+    # quiz; a word never taught has nothing for him to retrieve. The month window
+    # leads the menu and was 11/12 untaught that day, so the pool's background
+    # order tops the tape up with taught words.
+    lex, want = load_json(LEXICON_PATH) or {}, max(max_entries * 2, 12)
+    menu = [t for t in drill_menu(lex, max_n=want) if not t.get("unseen")]
+    if len(menu) < want:
+        have = {t["word"] for t in menu}
+        menu += [dict(c, kind="chunk") for c in floor_gap_targets(lex, local_today(), want)[1]
+                 if not c["unseen"] and c["word"] not in have][:want - len(menu)]
     if not menu:
         return []
     frames = [t for t in menu if t["kind"] == "frame"]

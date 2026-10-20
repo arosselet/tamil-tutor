@@ -5824,6 +5824,8 @@ def s152_the_map_is_said_and_never_a_debt(sb: Path):
         check("in play: the order's words and what Anna taught — not a tape's whole airing",
               "po — go" in text and "vaa — come" in text, text)
         check("...and never a word that is already his", play == ["po", "vaa"], str(play))
+        check("a word only an episode aired is marked new — taught first (2026-10-20)",
+              "po — go (new — taught first)" in text and "vaa — come (new" not in text, text)
         check("it carries no fraction and nothing missed or overdue",
               not re.search(r"\d+\s*/\s*\d+", text)
               and not re.search(r"missed|overdue|behind|streak", text, re.I), text)

@@ -329,6 +329,22 @@ def s48_drill_answer_key_lint(sb: Path):
     print("\n48. The drill answer key is linted; a fail stops the run (2026-08-01)")
     import contextlib, io
     rd = importlib.import_module("render_drill")
+    # TEACH FIRST (2026-10-20): a never-taught word is never a drill cue.
+    real = rd.drill_menu, rd.floor_gap_targets
+    rd.drill_menu = lambda lex, max_n: [
+        {"word": "கற்றது", "kind": "chunk", "unseen": False},
+        {"word": "புதுசு", "kind": "chunk", "unseen": True},
+        {"word": "frame:x", "kind": "frame", "unseen": True}]
+    rd.floor_gap_targets = lambda lex, today, n: ([], [
+        {"word": "பின்னாடி", "unseen": True}, {"word": "பழையது", "unseen": False}])
+    try:
+        due = [t["word"] for t in rd.due_payload(6)]
+    finally:
+        rd.drill_menu, rd.floor_gap_targets = real
+    check("the drill tape never cues a word he was never taught",
+          "புதுசு" not in due and "frame:x" not in due and "பின்னாடி" not in due, str(due))
+    check("...and tops up from the pool's taught words instead of running short",
+          due == ["கற்றது", "பழையது"], str(due))
     pv = importlib.import_module("provenance")
     sheet = {"title": "T", "intro": "i", "outro": "o",
              "items": [{"cue": "ask for tea", "answer_ta": "டீ குடுங்க"},

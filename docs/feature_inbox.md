@@ -10,7 +10,6 @@ line and leaves; one that dies is deleted, not archived.
   drain existed (2026-10-14) and never triaged. It drains only when Andrew names it.
 
 ## Inbox
-- CANDIDATE GATE FOR "IN PLAY" — 238 of 422 rows were never taught; 118 of those have already appeared in episodes, and nothing stops an untaught word being listed as in play, tested, or used as assumed material. His words, mid-lesson 2026-10-20: he feels "tested on something that was never explained." Proposal: script appearance creates a candidate; only a teaching event (taught_on) makes it a player; the candidate count shows in the books. The boundary owns the 118-row backlog's disposition — coach recommendation: drain by ear over time, not by mass lessons. Feature-class: for the Oct 31 cut. (2026-10-20, Rio — coach filing, NOT built)
 - TRIAGE THE BACKLOG — backlog lines with no DEFERRED mark predate the drain and never had a disposition; many look superseded (deck, volley, trip, post-trip arc). (2026-10-19, Andrew)
 
 ## Backlog
@@ -36,4 +35,3 @@ line and leaves; one that dies is deleted, not archived.
 - Real-media library (songs, kids' TV) DEFERRED (2026-10-20): revisit with the coverage corpus, which needs the same media supply
 - Commissioning from the phone — `schedule episode` (2026-08-02) awaiting Andrew (2026-10-20): now cheap — the reply lane could drop a commission into pending/
 - A lexicon key containing a comma can never be commissioned into a soak payload (2026-08-05) DEFERRED (2026-10-20): live (canon_payload splits); 3 keys, none ordered since 08-05
-- THE DRILL LANE HAS NO TEACH-FIRST FILTER (2026-08-18)

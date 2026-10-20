@@ -343,6 +343,15 @@ def in_play(lex: dict, events: list, now: datetime, learner: dict) -> list[str]:
     return [w for w in dict.fromkeys(words) if not is_his(view.get(w, {}), lex.get(w) or {})]
 
 
+def untaught(words: list[str], events: list) -> list[str]:
+    """The words no teaching event has reached — `taught_on` in the fold. An
+    episode airing leaves a word pending, not taught. Such a word is shown with
+    its meaning first; it is never quizzed or used as material he is assumed to
+    have (2026-10-20, Andrew: "tested on something that was never explained")."""
+    view = derive(events)
+    return [w for w in words if not view.get(w, {}).get("taught_on")]
+
+
 def map_lines(now: datetime, *, learner=None, lex=None, events=None) -> list[str]:
     learner = load_json(LEARNER_PATH) or {} if learner is None else learner
     lex = load_json(LEXICON_PATH) or {} if lex is None else lex
@@ -361,7 +370,8 @@ def map_lines(now: datetime, *, learner=None, lex=None, events=None) -> list[str
         out.append(f"  {'Coming up' if soak_pending() else 'On'} tape this week: {order['scene_seed']}")
     play = in_play(lex, events, now, learner)
     out.append("  In play this week:" + ("" if play else " (nothing new — a breather)"))
-    out += [f"    {gloss(w)}" for w in play[:8]]
+    new = set(untaught(play, events))
+    out += [f"    {gloss(w)}" + (" (new — taught first)" if w in new else "") for w in play[:8]]
     near = almost_yours(lex, events, now, n=5)
     if near:
         out.append("  Almost yours:")

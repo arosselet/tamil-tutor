@@ -334,6 +334,9 @@ def cmd_status(_args):
         focus = f" · focus: {soak['focus']}" if soak.get("focus") else ""
         print(f"Soak order [{channel}]: [{', '.join(items)}] — {soak.get('scene_seed', '')}"
               f"{focus} (from {soak.get('from', '?')}){stale}{drain}")
+        if new := threads.untaught(items, load_json(threads.OBSERVATIONS_PATH) or []):
+            print(f"  ⚠ NOT TAUGHT YET: {', '.join(new)} — teach first (show it with its "
+                  f"meaning); never quiz it or lean on it as known (2026-10-20)")
     else:
         print("Soak order: ⚠ none set — chat hasn't handed anything to the Director.")
 

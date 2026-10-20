@@ -685,8 +685,9 @@ def drill_menu(lexicon: dict, today=None, asked: dict | None = None,
     Engines carry no register, so they land mid and sort among the rest by
     the shared law. UNSEEN items ride WITH their flag rather than being dropped —
     the teach-first law is the caller's to apply, and the two callers apply it
-    differently on purpose (the menu SHOWS them marked; a volley EXCLUDES them,
-    because a volley is a cold demand and a menu is not)."""
+    differently on purpose (the menu SHOWS them marked; a volley and the drill
+    tape EXCLUDE them, because each is a cold demand and a menu is not — the
+    drill since 2026-10-20)."""
     lean = ladder.direction(ladder.load())   # resolved ONCE — never inside a sort key
     focus, _bg = floor_gap_targets(lexicon, today or local_today(), max_n,
                                    asked=asked, reps=reps)

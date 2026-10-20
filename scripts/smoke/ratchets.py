@@ -459,7 +459,9 @@ CODE_BUDGETS = {
     # reader of what he said about a tape (heard_in_the_wild's precedent).
     # 294 -> 297 (2026-10-16, Andrew): the engineering meters move behind `status --numbers`, with one line saying where they went. Retires them from Anna's boot.
     # 297 -> 302 (2026-10-19, Andrew): `open` prints the map when it is due.
-    "scripts/session_brief.py": 302,
+    # 302 -> 304 (2026-10-20, Andrew): the soak order names its NOT TAUGHT YET words.
+    # Retires Anna reading taught-ness off the row by eye (Ep 98's three).
+    "scripts/session_brief.py": 304,
     # 575 -> 588 (2026-09-13, Andrew): `inventory_hosts` MOVED IN from render_rotation (its second reader) plus the intake quota. Paid for by render_rotation 325 -> 318; the net is the quota, which retires the fourth-spine design.
     # 588 -> 592 (2026-09-19): the play count reaches the ticket. `heard Nx` is
     # the priming cue Andrew asked for — "he heard it three times and still
