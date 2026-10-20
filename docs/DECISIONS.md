@@ -13,6 +13,7 @@ compressed 2026-09-10, 32k words to 11k, nothing lost that git did not hold).
 - **The inbox and the backlog are two lists** (2026-10-19, Andrew: "I was thinking it was less than a dozen"). `## Inbox` holds filings not yet ruled and is what an unscoped drain covers; `## Backlog` holds deferred lines and the ~77 pre-drain lines never triaged, drained only when named. Triaging the backlog is itself an inbox item.
 - **Anna has standing audio authority** (2026-09-22, Andrew). He may commission and produce any kind of audio at any time. Supersedes repair-earned-only commissioning, backward-before-forward priority and mandatory permission/capacity questions. Capacity guides his judgment, including preparation for later listening; publication safety remains. Replaces the restrictive halves of July 23/28 and September 13 audio decisions.
 
+- **One writer per model** (2026-10-19, Andrew, on Rio's filing). Anna alone writes the learner model (lexicon, observations, `learner.json`, through the `state_io` seams `s132` locks); no other agent keeps a shadow pupil. The coach reads and audits: a divergence is a finding settled by ask-then-reveal, never a fork. The principal's model (goals, feedback patterns) is the coach's, off-repo. Names a law the write paths already keep.
 - **LLM is the writer, Python is the brain** (2026-04-09). Push reasoning into
   deterministic code; keep the LLM's input surface small. Never hand-edit Python-owned JSON.
 - **Every addition must earn its place.** Before adding a file, field, rule, or script,
