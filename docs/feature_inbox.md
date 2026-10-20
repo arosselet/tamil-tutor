@@ -29,7 +29,6 @@ line and leaves; one that dies is deleted, not archived.
 - THE BENCHMARK TAPE — felt progress without a meter (2026-08-25) DEFERRED (2026-10-20): needs a real-speech clip; revisit with the coverage corpus
 - RE-RENDER THE ANDREW INTRO AT v8 — next laptop session (2026-07-31) DEFERRED (2026-10-20): waits on an Oracle sitting
 - THE TTS OVER-ARTICULATES — a corpus-wide finding wearing a demo's clothes (2026-07-31) DEFERRED (2026-10-20): the A/B waits on an Oracle sitting
-- TESTS WITHOUT TEETH — a cursory audit, 2026-07-31
 - A VOLLEY WHOSE NOTIFICATION IS LOST IS STRANDED BY DESIGN (2026-07-31)
 - ORACLE CROSS-POLLINATION — the intro script is a pipeline, not a demo (2026-07-31)
 - AT THE COMPUTER: finish the Andrew-intro naturalness pass — it is blocked on the Oracle, not on work (2026-07-30).
