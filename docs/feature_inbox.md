@@ -10,7 +10,6 @@ line and leaves; one that dies is deleted, not archived.
   drain existed (2026-10-14) and never triaged. It drains only when Andrew names it.
 
 ## Inbox
-- TRIAGE THE BACKLOG — backlog lines with no DEFERRED mark predate the drain and never had a disposition; many look superseded (deck, volley, trip, post-trip arc). (2026-10-19, Andrew)
 
 ## Backlog
 
