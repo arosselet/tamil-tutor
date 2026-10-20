@@ -13,7 +13,6 @@ dies is deleted, not archived.
 ## Inbox
 
 - TRIAGE THE BACKLOG — the lines below `## Backlog` without a DEFERRED mark were filed before the drain existed and have never had a disposition; many look superseded (deck, volley, trip, the post-trip arc). One drain, one commit per line. (2026-10-19, Andrew)
-- A "known — don't teach" lever — the 09-09 told/observed split left him no way to say "I already know this", so decade-old words come back as targets (10-12 venaam "announced as a win"; 10-15 soak "words I've learned already"). Proposed: a `known` claim that drops a row from teaching targets (ticket, soak payload, map's in-play) and never votes a rung; `sync_state.py known WORD`, said in chat. (2026-10-19, Andrew, NOT built)
 
 ## Backlog
 
