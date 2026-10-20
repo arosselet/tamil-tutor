@@ -1037,5 +1037,29 @@
     "note": "used 1sg past instead of imperative -nga",
     "word": "",
     "dose_channel": "episode"
+  },
+  {
+    "at": "2026-10-20T18:11:16Z",
+    "date": "2026-10-20",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "past-tense",
+    "said": "pottom -> 'we are going to get tea'",
+    "want": "போட்டோம் = we made (done)",
+    "note": "reads a finished -tom as a future plan",
+    "word": "",
+    "dose_channel": "episode"
+  },
+  {
+    "at": "2026-10-20T18:11:16Z",
+    "date": "2026-10-20",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "person-tail",
+    "said": "senjen -> 'we'; sonnaan -> 'they'",
+    "want": "செஞ்சேன் = I made; சொன்னான் = he said",
+    "note": "reads the root, guesses the person instead of reading the tail",
+    "word": "",
+    "dose_channel": "episode"
   }
 ]

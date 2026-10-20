@@ -1082,7 +1082,7 @@
   },
   "தம்பி": {
     "gloss": "Younger brother",
-    "recognition": "comfortable",
+    "recognition": "solid",
     "production": "hinted",
     "seen_in": [
       8,
@@ -1100,9 +1100,9 @@
       76,
       87
     ],
-    "last_surfaced": "2026-10-04",
+    "last_surfaced": "2026-10-20",
     "exposures": 1,
-    "reps": 2,
+    "reps": 3,
     "taught_on": "2026-02-25",
     "heard_on": null
   },
@@ -1481,11 +1481,11 @@
   },
   "உள்ள": {
     "gloss": "Inside",
-    "recognition": "comfortable",
+    "recognition": "solid",
     "production": "hinted",
     "seen_in": [],
-    "last_surfaced": "2026-10-13",
-    "reps": 3,
+    "last_surfaced": "2026-10-20",
+    "reps": 4,
     "heard_on": null,
     "taught_on": "2026-10-08"
   },
@@ -1506,8 +1506,8 @@
       21,
       33
     ],
-    "last_surfaced": "2026-10-16",
-    "reps": 3,
+    "last_surfaced": "2026-10-20",
+    "reps": 4,
     "exposures": 4,
     "taught_on": "2026-02-24",
     "heard_times": 1,
@@ -5112,7 +5112,7 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-16",
+    "last_surfaced": "2026-10-20",
     "gloss": "My",
     "taught_on": "2026-09-20",
     "heard_times": 1,
@@ -5542,12 +5542,13 @@
   "செஞ்சோம்": {
     "gloss": "",
     "recognition": "untested",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [
       98
     ],
-    "last_surfaced": "2026-10-16",
-    "taught_on": null
+    "last_surfaced": "2026-10-20",
+    "taught_on": "2026-10-16",
+    "reps": 1
   },
   "வாங்கினோம்": {
     "gloss": "",
@@ -5577,5 +5578,45 @@
     "last_surfaced": "2026-10-16",
     "gloss": "Come (respectful)",
     "taught_on": null
+  },
+  "போட்டோம்": {
+    "gloss": "we made/put (tea) - done, vs போடுவோம் we will",
+    "recognition": "untested",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-10-20",
+    "taught_on": "2026-10-20"
+  },
+  "கேளு": {
+    "gloss": "ask (nee-form)",
+    "recognition": "untested",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-10-20",
+    "taught_on": "2026-10-20"
+  },
+  "எனக்கு எல்லாம் தெரியும்": {
+    "gloss": "I know everything (mirror of enakku onnum theriyaadhu)",
+    "recognition": "untested",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-10-20",
+    "taught_on": "2026-10-20"
+  },
+  "செஞ்சேன்": {
+    "gloss": "I made",
+    "recognition": "untested",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-10-20",
+    "taught_on": "2026-10-20"
+  },
+  "செஞ்சான்": {
+    "gloss": "he made",
+    "recognition": "untested",
+    "production": "none",
+    "seen_in": [],
+    "last_surfaced": "2026-10-20",
+    "taught_on": "2026-10-20"
   }
 }
