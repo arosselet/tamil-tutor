@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Tuesday 2026-10-20
+
+**13:41 · Anna**  ·  text / map: week 3
+> October week 3: cousins & in-laws. In play: senjom and meethi. Almost yours: ulla 🗺️
+
+
 ## Monday 2026-10-19
 
 **10:27 · Andrew** — **COLD**  ·  ↩ 10-18 08:21 · one try: kilambalaama
