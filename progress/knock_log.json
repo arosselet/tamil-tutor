@@ -9065,5 +9065,21 @@
     "stance": "give",
     "thread": "map",
     "target_revealed": false
+  },
+  {
+    "date": "2026-10-21",
+    "timestamp": "2026-10-21T00:18:24.241792+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "one try: ulla",
+    "rationale": "Tugging ulla right after teasing it on today's map — one clean concrete situation before nightfall.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-10-21T12:18:24.241792+00:00",
+    "body": "Athai asks where the kids ran off to. Tell her 'inside'. Sollu 🏠",
+    "body_script": "Athai asks where the kids ran off to. Tell her 'inside'. சொல்லு 🏠",
+    "expected_target": "உள்ள",
+    "stance": "ask",
+    "thread": "word:உள்ள",
+    "target_revealed": false
   }
 ]

@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **13:41 · Anna**  ·  text / map: week 3
 > October week 3: cousins & in-laws. In play: senjom and meethi. Almost yours: ulla 🗺️
 
+**20:18 · Anna**  ·  text / one try: ulla
+> Athai asks where the kids ran off to. Tell her 'inside'. Sollu 🏠
+
 
 ## Monday 2026-10-19
 
