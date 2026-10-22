@@ -9152,6 +9152,42 @@
     "expected_target": "தம்பி",
     "stance": "ask",
     "thread": "word:தம்பி",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Thambi",
+    "reply_verdict": "cold",
+    "reply_fired": [
+      "தம்பி"
+    ],
+    "reply_fired_cold": [
+      "தம்பி"
+    ],
+    "reply_fired_capped": [],
+    "reply_line_script": "அது தான்! 🔥 · Now his older brother walks in. What do you call an elder brother?",
+    "reply_line": "Adhu thaan! 🔥 · Now his older brother walks in. What do you call an elder brother?",
+    "reply_at": "2026-10-22T17:50:32Z",
+    "exchanges": [
+      {
+        "at": "2026-10-22T17:50:32Z",
+        "reply": "Thambi",
+        "verdict": "cold",
+        "fired": [
+          "தம்பி"
+        ],
+        "fired_cold": [
+          "தம்பி"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "Adhu thaan! 🔥 · Now his older brother walks in. What do you call an elder brother?",
+        "reply_line_script": "அது தான்! 🔥 · Now his older brother walks in. What do you call an elder brother?",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ],
+    "chained": 1,
+    "pinned_target": "அண்ணன்",
+    "pinned_revealed": false
   }
 ]

@@ -24947,5 +24947,17 @@
     "medium": "audio",
     "source": "knock:2026-10-22T12:45:41.884161+00:00",
     "note": "declared target, missed"
+  },
+  {
+    "id": "fa47237b6622",
+    "at": "2026-10-22T17:50:25Z",
+    "word": "தம்பி",
+    "channel": "text",
+    "kind": "tested",
+    "axis": "production",
+    "result": "right",
+    "medium": "text",
+    "source": "knock:2026-10-22T17:48:17.829118+00:00",
+    "note": "cold fire"
   }
 ]

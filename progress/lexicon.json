@@ -1083,7 +1083,7 @@
   "தம்பி": {
     "gloss": "Younger brother",
     "recognition": "solid",
-    "production": "hinted",
+    "production": "cold",
     "seen_in": [
       8,
       9,
@@ -1100,9 +1100,9 @@
       76,
       87
     ],
-    "last_surfaced": "2026-10-20",
+    "last_surfaced": "2026-10-22",
     "exposures": 1,
-    "reps": 3,
+    "reps": 4,
     "taught_on": "2026-02-25",
     "heard_on": null
   },
