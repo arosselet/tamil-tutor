@@ -9,6 +9,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **08:45 · Anna** 🎧  ·  eavesdrop / overheard: youknow-la
 > Athai's whispering on the phone about Karthi — hear what got him in trouble with Mama this time 🎧
 
+**09:22 · Andrew** — **MISSED**
+> I don’t know
+
+**Anna ↩**
+> Karthi was supposed to pick up paatti's medicine, but took off on his bike and won't answer his phone — maama is fuming.
+
 
 ## Tuesday 2026-10-20
 

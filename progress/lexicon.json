@@ -3623,7 +3623,7 @@
   "frame:youknow-la": {
     "type": "pattern",
     "gloss": "நம்ம {person} இருக்கான்ல… → 'you know our {person}, right…' — THE gossip opener; the -ல tag means 'right?' (EAR ONLY, Oracle-confirmed)",
-    "recognition": "comfortable",
+    "recognition": "struggled",
     "production": "none",
     "seen_in": [
       68,
@@ -3634,10 +3634,10 @@
     "last_surfaced": "2026-10-22",
     "direction": "catch",
     "exposures": 4,
-    "reps": 1,
+    "reps": 2,
     "register": "gossip",
     "taught_on": "2026-07-18",
-    "heard_on": "2026-09-13"
+    "heard_on": "2026-10-22"
   },
   "எவ்ளோ ஆகும்?": {
     "type": "chunk",

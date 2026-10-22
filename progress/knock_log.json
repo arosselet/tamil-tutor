@@ -9119,6 +9119,22 @@
     "target_revealed": false,
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-22T12-45.mp3",
     "memo_script": "ஹலோ... ஆமா அக்கா, நான் தான்.\n\nநம்ம கார்த்தி இருக்கான்ல... அவன்கிட்ட மாமா காலையில சொன்னாரு, கடைக்கு போய் பாட்டிக்கு அந்த மருந்து வாங்கிட்டு வா-ன்னு. இவன் என்ன பண்ணான் தெரியுமா?\n\nவண்டியில கிளம்பி எங்கயோ போய்ட்டான். போன் போட்டா எடுக்க மாட்டேங்குறான். மாமாவுக்கு உள்ள ஒரே கோவம். பாட்டி வேற 'விடு, அவனுக்கு ஆயிரம் வேலை இருக்கும்'-னு சொல்றாங்க. ஆனா இவன் பண்றது கொஞ்சம்கூட சரியில்ல பாருங்க.\n\nசரி சரி, நீங்க கிளம்பி வாங்க... மத்ததெல்லாம் நேர்ல பேசுவோம்.",
-    "mp3": "published_audio/knocks/knock_2026-10-22T12-45.mp3"
+    "mp3": "published_audio/knocks/knock_2026-10-22T12-45.mp3",
+    "response": "reply",
+    "reply": "I don’t know",
+    "reply_verdict": "missed",
+    "reply_line_script": "Karthi was supposed to pick up paatti's medicine, but took off on his bike and won't answer his phone — maama is fuming.",
+    "reply_line": "Karthi was supposed to pick up paatti's medicine, but took off on his bike and won't answer his phone — maama is fuming.",
+    "reply_at": "2026-10-22T13:22:12Z",
+    "exchanges": [
+      {
+        "at": "2026-10-22T13:22:12Z",
+        "reply": "I don’t know",
+        "verdict": "missed",
+        "fired": [],
+        "reply_line": "Karthi was supposed to pick up paatti's medicine, but took off on his bike and won't answer his phone — maama is fuming.",
+        "reply_line_script": "Karthi was supposed to pick up paatti's medicine, but took off on his bike and won't answer his phone — maama is fuming."
+      }
+    ]
   }
 ]

@@ -24935,5 +24935,17 @@
     "medium": "audio",
     "source": "knock:2026-10-22T12:45:41.884161+00:00",
     "note": ""
+  },
+  {
+    "id": "00249b9dc442",
+    "at": "2026-10-22T13:22:12Z",
+    "word": "frame:youknow-la",
+    "channel": "eavesdrop",
+    "kind": "tested",
+    "axis": "recognition",
+    "result": "wrong",
+    "medium": "audio",
+    "source": "knock:2026-10-22T12:45:41.884161+00:00",
+    "note": "declared target, missed"
   }
 ]
