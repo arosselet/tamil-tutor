@@ -9154,18 +9154,19 @@
     "thread": "word:தம்பி",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Thambi",
+    "reply": "Hey Anna the answer is Anna",
     "reply_verdict": "cold",
     "reply_fired": [
-      "தம்பி"
+      "தம்பி",
+      "அண்ணன்"
     ],
     "reply_fired_cold": [
       "தம்பி"
     ],
     "reply_fired_capped": [],
-    "reply_line_script": "அது தான்! 🔥 · Now his older brother walks in. What do you call an elder brother?",
-    "reply_line": "Adhu thaan! 🔥 · Now his older brother walks in. What do you call an elder brother?",
-    "reply_at": "2026-10-22T17:50:32Z",
+    "reply_line_script": "ஆமா, அண்ணன் தான்! You got it. 🔥 · Now the little girl running behind them — his 'younger sister'. sollu 👧",
+    "reply_line": "Aama, annan thaan! You got it. 🔥 · Now the little girl running behind them — his 'younger sister'. sollu 👧",
+    "reply_at": "2026-10-22T17:52:06Z",
     "exchanges": [
       {
         "at": "2026-10-22T17:50:32Z",
@@ -9184,10 +9185,26 @@
         "slips": [],
         "spoke": "",
         "scheduled": ""
+      },
+      {
+        "at": "2026-10-22T17:52:06Z",
+        "reply": "Hey Anna the answer is Anna",
+        "verdict": "cold",
+        "fired": [
+          "அண்ணன்"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "Aama, annan thaan! You got it. 🔥 · Now the little girl running behind them — his 'younger sister'. sollu 👧",
+        "reply_line_script": "ஆமா, அண்ணன் தான்! You got it. 🔥 · Now the little girl running behind them — his 'younger sister'. sollu 👧",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
       }
     ],
-    "chained": 1,
-    "pinned_target": "அண்ணன்",
+    "chained": 2,
+    "pinned_target": "தங்கச்சி",
     "pinned_revealed": false
   }
 ]
