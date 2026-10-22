@@ -9101,5 +9101,24 @@
     "rationale": "Two reaches unanswered and evening is here; holding silence tonight gives space and sets up a fresh morning opening tomorrow.",
     "decide_model": "google/gemini-3.8-flash",
     "next_check": "2026-10-22T12:27:42.487840+00:00"
+  },
+  {
+    "date": "2026-10-22",
+    "timestamp": "2026-10-22T12:45:41.884161+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "overheard: youknow-la",
+    "rationale": "Two text reaches went unanswered, cadence calls for an eavesdrop, and Athai's phone gossip introduces the quintessential ear frame 'இருக்கான்ல'.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-10-22T17:15:41.884161+00:00",
+    "body": "Athai's whispering on the phone about Karthi — hear what got him in trouble with Mama this time 🎧",
+    "body_script": "Athai's whispering on the phone about கார்த்தி — hear what got him in trouble with மாமா this time 🎧",
+    "expected_target": "frame:youknow-la",
+    "stance": "ask",
+    "thread": "arc",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-22T12-45.mp3",
+    "memo_script": "ஹலோ... ஆமா அக்கா, நான் தான்.\n\nநம்ம கார்த்தி இருக்கான்ல... அவன்கிட்ட மாமா காலையில சொன்னாரு, கடைக்கு போய் பாட்டிக்கு அந்த மருந்து வாங்கிட்டு வா-ன்னு. இவன் என்ன பண்ணான் தெரியுமா?\n\nவண்டியில கிளம்பி எங்கயோ போய்ட்டான். போன் போட்டா எடுக்க மாட்டேங்குறான். மாமாவுக்கு உள்ள ஒரே கோவம். பாட்டி வேற 'விடு, அவனுக்கு ஆயிரம் வேலை இருக்கும்'-னு சொல்றாங்க. ஆனா இவன் பண்றது கொஞ்சம்கூட சரியில்ல பாருங்க.\n\nசரி சரி, நீங்க கிளம்பி வாங்க... மத்ததெல்லாம் நேர்ல பேசுவோம்.",
+    "mp3": "published_audio/knocks/knock_2026-10-22T12-45.mp3"
   }
 ]

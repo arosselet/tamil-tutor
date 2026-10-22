@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Thursday 2026-10-22
+
+**08:45 · Anna** 🎧  ·  eavesdrop / overheard: youknow-la
+> Athai's whispering on the phone about Karthi — hear what got him in trouble with Mama this time 🎧
+
+
 ## Tuesday 2026-10-20
 
 **13:41 · Anna**  ·  text / map: week 3

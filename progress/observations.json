@@ -24923,5 +24923,17 @@
     "medium": "text",
     "source": "session:2026-10-20",
     "note": "fired hinted"
+  },
+  {
+    "id": "261403a9980f",
+    "at": "2026-10-22T12:46:38Z",
+    "word": "frame:youknow-la",
+    "channel": "eavesdrop",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "knock:2026-10-22T12:45:41.884161+00:00",
+    "note": ""
   }
 ]
