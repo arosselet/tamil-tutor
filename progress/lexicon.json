@@ -805,9 +805,10 @@
   "தங்கச்சி": {
     "gloss": "Younger sister",
     "recognition": "untested",
-    "production": "none",
+    "production": "cold",
     "seen_in": [],
-    "last_surfaced": null
+    "last_surfaced": "2026-10-22",
+    "reps": 1
   },
   "தூங்கினேன்": {
     "gloss": "I slept",

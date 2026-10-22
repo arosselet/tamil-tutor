@@ -24959,5 +24959,17 @@
     "medium": "text",
     "source": "knock:2026-10-22T17:48:17.829118+00:00",
     "note": "cold fire"
+  },
+  {
+    "id": "35a68aee0b1a",
+    "at": "2026-10-22T17:54:19Z",
+    "word": "தங்கச்சி",
+    "channel": "text",
+    "kind": "tested",
+    "axis": "production",
+    "result": "right",
+    "medium": "text",
+    "source": "knock:2026-10-22T17:48:17.829118+00:00",
+    "note": "cold fire"
   }
 ]

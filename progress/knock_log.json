@@ -9154,19 +9154,21 @@
     "thread": "word:தம்பி",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Hey Anna the answer is Anna",
+    "reply": "Thangachi",
     "reply_verdict": "cold",
     "reply_fired": [
       "தம்பி",
-      "அண்ணன்"
+      "அண்ணன்",
+      "தங்கச்சி"
     ],
     "reply_fired_cold": [
-      "தம்பி"
+      "தம்பி",
+      "தங்கச்சி"
     ],
     "reply_fired_capped": [],
-    "reply_line_script": "ஆமா, அண்ணன் தான்! You got it. 🔥 · Now the little girl running behind them — his 'younger sister'. sollu 👧",
-    "reply_line": "Aama, annan thaan! You got it. 🔥 · Now the little girl running behind them — his 'younger sister'. sollu 👧",
-    "reply_at": "2026-10-22T17:52:06Z",
+    "reply_line_script": "adhu dhaan, தங்கச்சி! 🔥",
+    "reply_line": "adhu dhaan, thangachi! 🔥",
+    "reply_at": "2026-10-22T17:54:30Z",
     "exchanges": [
       {
         "at": "2026-10-22T17:50:32Z",
@@ -9198,6 +9200,24 @@
         "graduated": [],
         "reply_line": "Aama, annan thaan! You got it. 🔥 · Now the little girl running behind them — his 'younger sister'. sollu 👧",
         "reply_line_script": "ஆமா, அண்ணன் தான்! You got it. 🔥 · Now the little girl running behind them — his 'younger sister'. sollu 👧",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-10-22T17:54:30Z",
+        "reply": "Thangachi",
+        "verdict": "cold",
+        "fired": [
+          "தங்கச்சி"
+        ],
+        "fired_cold": [
+          "தங்கச்சி"
+        ],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "adhu dhaan, thangachi! 🔥",
+        "reply_line_script": "adhu dhaan, தங்கச்சி! 🔥",
         "slips": [],
         "spoke": "",
         "scheduled": ""
