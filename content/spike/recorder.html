@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Voice-in Spike</title>
+<!-- Served by `python scripts/voice_spike.py serve` (localhost, so the mic is allowed).
+     Records 16 kHz mono WAV in the page and POSTs it back; nothing leaves the laptop. -->
+<style>
+  :root { --bg:#f6f4ee; --card:#fff; --ink:#22201b; --muted:#6c675b; --line:#ddd8cc;
+          --accent:#2f6b4f; --warn:#a8442a; --have:#e4efe8; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+          --bg:#151613; --card:#1d1f1b; --ink:#e8e5dc; --muted:#a19c8e; --line:#33352f;
+          --accent:#86c2a2; --warn:#e08a70; --have:#22332a; } }
+  :root[data-theme="dark"] { --bg:#151613; --card:#1d1f1b; --ink:#e8e5dc; --muted:#a19c8e;
+          --line:#33352f; --accent:#86c2a2; --warn:#e08a70; --have:#22332a; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+         font:16px/1.5 system-ui, "Segoe UI", "Noto Sans Tamil", sans-serif; }
+  main { max-width:44rem; margin:0 auto; padding:2rem 16px 4rem; }
+  h1 { font-size:1.6rem; margin:0 0 .4rem; }
+  .lede { color:var(--muted); margin:0 0 1.5rem; }
+  h2 { font-size:1.05rem; margin:2rem 0 .6rem; color:var(--accent); }
+  .row { background:var(--card); border:1px solid var(--line); border-radius:6px;
+         padding:.9rem 1rem; margin:0 0 .8rem; }
+  .say { font-size:1.25rem; }
+  .roman { color:var(--muted); }
+  .fault { font-size:.88rem; color:var(--warn); margin:.25rem 0 0; }
+  .ask { font-size:.88rem; color:var(--muted); margin:.25rem 0 0; }
+  .ctl { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.7rem; align-items:center; }
+  button { font:inherit; font-size:.92rem; padding:.4rem .8rem; border-radius:4px;
+           border:1px solid var(--line); background:var(--bg); color:var(--ink); cursor:pointer; }
+  button.rec { border-color:var(--accent); }
+  button.live { background:var(--warn); color:#fff; border-color:var(--warn); }
+  button.done { background:var(--have); }
+  input[type=text] { font:inherit; width:100%; margin-top:.6rem; padding:.4rem .6rem;
+           border:1px solid var(--line); border-radius:4px; background:var(--bg); color:var(--ink); }
+  #status { position:sticky; top:0; background:var(--bg); padding:.4rem 0; color:var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Can a machine hear me?</h1>
+  <p class="lede">Play Anna's version, then record. On a target row record your
+  <b>best take</b>, then a <b>bad take</b>: make the planted mistake in red on purpose,
+  shaping it down from her version in your own mouth. Tanglish rows: say it the way
+  you'd actually say it to Anna. Free rows: answer her however you like, then type
+  what you meant. Re-record anything as often as you like; the last take wins.</p>
+  <div id="status">loading…</div>
+  <div id="rows"></div>
+</main>
+<script>
+const HEAD = { target: "Targets: the sound is the test",
+               tanglish: "Tanglish: how you'll actually talk",
+               free: "Free answers: no target" };
+const LABEL = { good: "best take", bad: "bad take", said: "record" };
+let have = new Set(), rec = null;
+const $ = (t, cls, txt) => { const e = document.createElement(t);
+  if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
+const status = m => document.getElementById("status").textContent = m;
+
+async function load() {
+  const s = await (await fetch("/sheet")).json();
+  have = new Set(s.have);
+  const root = document.getElementById("rows"); let kind = null;
+  for (const p of s.phrases) {
+    if (p.kind !== kind) { kind = p.kind; root.append($("h2", "", HEAD[kind])); }
+    const row = $("div", "row");
+    row.append($("div", "say", p.say), $("div", "roman", `${p.roman} · ${p.en}`));
+    if (p.fault) row.append($("p", "fault", "bad take: " + p.fault));
+    if (p.kind === "free") row.append($("p", "ask", "Anna asks this. Answer freely."));
+    const ctl = $("div", "ctl"), ref = new Audio(`/ref/${p.id}.mp3`);
+    const play = $("button", "", "▶ Anna"); play.onclick = () => { ref.currentTime = 0; ref.play(); };
+    ctl.append(play);
+    for (const take of s.takes[p.kind]) {
+      const key = `${p.id}.${take}`, b = $("button", "rec", "● " + LABEL[take]);
+      const back = $("button", "", "▶ mine");
+      back.onclick = () => new Audio(`/clip/${key}.wav?${Date.now()}`).play();
+      back.hidden = !have.has(key);
+      if (have.has(key)) b.classList.add("done");
+      b.onclick = () => toggle(b, p.id, take, back);
+      ctl.append(b, back);
+    }
+    row.append(ctl);
+    if (p.kind === "free") {
+      const meant = $("input"); meant.type = "text"; meant.placeholder = "what I meant, in English";
+      meant.onchange = () => fetch(`/meant/${p.id}`, { method: "POST", body: meant.value })
+        .then(() => status(`saved what you meant for ${p.id}`));
+      row.append(meant);
+    }
+    root.append(row);
+  }
+  status(`${have.size} takes on file. Pick a row.`);
+}
+
+async function toggle(btn, id, take, back) {
+  if (rec && rec.btn !== btn) return status("finish the take you're recording first");
+  if (rec) return stop();
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1 } });
+  const ctx = new AudioContext(), src = ctx.createMediaStreamSource(stream);
+  const node = ctx.createScriptProcessor(4096, 1, 1), chunks = [];
+  node.onaudioprocess = e => chunks.push(new Float32Array(e.inputBuffer.getChannelData(0)));
+  src.connect(node); node.connect(ctx.destination);
+  rec = { btn, id, take, back, stream, ctx, node, chunks };
+  btn.classList.add("live"); btn.textContent = "■ stop"; status(`recording ${id} · ${take}…`);
+}
+
+async function stop() {
+  const r = rec; rec = null;
+  r.node.disconnect(); r.stream.getTracks().forEach(t => t.stop());
+  const wav = toWav(r.chunks, r.ctx.sampleRate); await r.ctx.close();
+  const res = await fetch(`/clip/${r.id}/${r.take}`, { method: "POST", body: wav });
+  r.btn.classList.remove("live"); r.btn.textContent = "● " + LABEL[r.take];
+  if (res.ok) { r.btn.classList.add("done"); r.back.hidden = false; have.add(`${r.id}.${r.take}`); }
+  status(res.ok ? `saved ${r.id} · ${r.take} (${have.size} takes on file)` : "save FAILED: " + await res.text());
+}
+
+// Float32 at the device rate -> 16 kHz mono 16-bit PCM WAV.
+function toWav(chunks, rate) {
+  const all = new Float32Array(chunks.reduce((n, c) => n + c.length, 0));
+  let o = 0; for (const c of chunks) { all.set(c, o); o += c.length; }
+  const step = rate / 16000, n = Math.floor(all.length / step);
+  const buf = new DataView(new ArrayBuffer(44 + n * 2));
+  const str = (at, s) => [...s].forEach((ch, i) => buf.setUint8(at + i, ch.charCodeAt(0)));
+  str(0, "RIFF"); buf.setUint32(4, 36 + n * 2, true); str(8, "WAVEfmt ");
+  buf.setUint32(16, 16, true); buf.setUint16(20, 1, true); buf.setUint16(22, 1, true);
+  buf.setUint32(24, 16000, true); buf.setUint32(28, 32000, true);
+  buf.setUint16(32, 2, true); buf.setUint16(34, 16, true); str(36, "data");
+  buf.setUint32(40, n * 2, true);
+  for (let i = 0; i < n; i++) {
+    const v = Math.max(-1, Math.min(1, all[Math.floor(i * step)]));
+    buf.setInt16(44 + i * 2, v < 0 ? v * 0x8000 : v * 0x7fff, true);
+  }
+  return new Blob([buf], { type: "audio/wav" });
+}
+load();
+</script>
+</body>
+</html>

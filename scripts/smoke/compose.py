@@ -457,7 +457,9 @@ def s70_the_executor_is_chosen_by_the_host(sb: Path):
         ran["agent"] = True
         return {"ok": "agent"}
 
-    def fake_api(system, user, answer_tokens, model=None):
+    def fake_api(system, user, answer_tokens, model=None, audio=None):
+        if audio is not None:
+            ran["audio"] = audio
         ran["api"] = True
         return {"ok": "api"}
 
@@ -471,6 +473,12 @@ def s70_the_executor_is_chosen_by_the_host(sb: Path):
         writer.ask_json("system", "user", SHAPE)
         check("an agent on PATH -> the subscription executor runs",
               ran == {"agent": True}, f"ran {ran}")
+        # A clip to HEAR overrides the host (2026-10-23): the agent takes no audio,
+        # and handed the text alone it would transcribe a clip it never heard.
+        ran.clear()
+        writer.ask_json("system", "user", SHAPE, audio=(b"RIFF", "wav"))
+        check("...but a call carrying audio goes to the API, clip and all",
+              ran == {"api": True, "audio": (b"RIFF", "wav")}, f"ran {ran}")
 
         writer.shutil.which = lambda n: None
         ran.clear()

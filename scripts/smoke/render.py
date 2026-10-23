@@ -2542,3 +2542,46 @@ def s151_the_studio_owns_its_beat(sb: Path):
     check("...but a write the run does not own is still caught",
           rs.stray_writes(own | {"content/dialect_notes.md"}, set(), paths)
           == {"content/dialect_notes.md"})
+
+
+def s155_the_spike_ear_can_tell_laundering_from_hearing(sb: Path):
+    """The voice-in spike's judgements, driven on the REAL sheet (2026-10-23).
+    `voice_spike.report` is the deliverable into the Oct 31 cut, and every way it
+    could be wrong reads as success: a pair whose bad take was never graded passing
+    the laundering check, an empty grade file printing a clean report, a row whose
+    prompt leaves a {placeholder} for the model to puzzle over. Synthetic grades, no
+    network — the ear itself is measured by Andrew's corpus, not here."""
+    print("\n155. The spike tells laundering from hearing, and absence is loud (2026-10-23)")
+    vs = importlib.import_module("voice_spike")
+    sheet = vs.load_sheet()
+    kinds = {p["kind"] for p in sheet}
+    check("the sheet carries all three row kinds, and every target plants a fault",
+          kinds == set(vs.TAKES) and all(p["fault"] for p in sheet if p["kind"] == "target"),
+          f"kinds={kinds}")
+    leftovers = [(p["id"], c) for p in sheet for c in vs.SPIKE_CONDITIONS
+                 if re.search(r"\{\w+\}", vs.condition_prompt(p, c))]
+    check("every row fills every condition's prompt — no placeholder reaches the model",
+          not leftovers, f"{leftovers[:4]}")
+
+    f = vs.findings(sheet, [])
+    check("no grades at all is loud: every clip x condition is ungraded",
+          len(f["ungraded"]) == len(vs.expected_clips(sheet)) * len(vs.SPIKE_CONDITIONS)
+          and not f["laundered"] and not f["caught"], f"{len(f['ungraded'])}")
+
+    def g(clip, cond, said, dev=()):
+        return {"clip": clip, "condition": cond, "transcript": said, "deviations": list(dev)}
+    grades = [g("t01.good", "learner", "மழை வருது"), g("t01.bad", "learner", "மழை  வருது."),
+              g("t02.good", "learner", "வாழைப்பழம்"), g("t02.bad", "learner", "வாலைப்பலம்"),
+              g("t01.good", "target", "மழை வருது"), g("t01.bad", "target", "மலை வருது", ["zha as l"]),
+              g("t02.good", "target", "x", ["vowel short"]), g("t02.bad", "target", "y"),
+              g("t03.good", "learner", "same"), {"clip": "t03.bad", "condition": "learner",
+                                                 "error": "boom"}]
+    f = vs.findings(sheet, grades)
+    check("a bad take that reads identical to the good one is LAUNDERED, spacing and "
+          "punctuation aside", ("t01", "learner") in f["laundered"]
+          and ("t02", "learner") not in f["laundered"], f"{f['laundered']}")
+    check("...and a pair with a failed take is never called clean or laundered",
+          ("t03", "learner") not in f["laundered"] and ("t03.bad", "learner") in f["ungraded"])
+    check("the target ear's catches, misses and false flags land in their own lists",
+          f["caught"] == ["t01"] and f["missed"] == ["t02"] and f["false_flags"] == ["t02"],
+          f"caught={f['caught']} missed={f['missed']} false={f['false_flags']}")

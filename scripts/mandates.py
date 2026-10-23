@@ -651,3 +651,28 @@ Return ONLY a JSON object, no prose around it:
   "outro": "<one spoken line>"
 }
 """
+
+# The voice-in spike's ear (2026-10-23, Rio's grading design, Andrew approved
+# 10-22). One base and four conditions, so the PROMPT is the variable under test:
+# the same clip is heard four ways and only the framing changes. COLD is the
+# control and nothing live ever listens that way. Measurement only — no lane reads
+# these (the 07-09 ruling: the spike before any machinery).
+SPIKE_EAR_MANDATE = """\
+You will hear one short voice clip from Andrew, an adult English speaker learning \
+spoken Coimbatore (Kongu) colloquial Tamil, who code-mixes English into it.
+{condition}
+Return ONLY JSON: {{"transcript": "<what was SAID, Tamil in Tamil script, English in \
+English>", "romanized": "<the same line in English phonetics>", "meaning": "<what he \
+meant, in English>", "deviations": ["<each sound that departed from natural Kongu \
+speech, as heard>"], "confidence": "high|medium|low"}}"""
+
+SPIKE_CONDITIONS = {
+    "cold": "Transcribe exactly what you hear.",
+    "learner": "Write down his errors exactly as spoken — a mispronounced word stays \
+mispronounced in the transcript, even where you can guess the word he wanted.",
+    "target": "He was trying to say: {say} ({roman}, \"{en}\"). Write what he actually \
+said, then name every sound that deviated from that target. A take with no deviation \
+gets an empty list.",
+    "context": "This is a lesson. Anna just asked him: \"{ask}\". Write what he said \
+and what he meant by it.",
+}
