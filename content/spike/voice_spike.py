@@ -3,10 +3,13 @@
 The voice-in spike — can a machine hear Andrew? A measurement, not a lane.
 
 Usage:
-    python scripts/voice_spike.py refs            # Anna's reference renders, once
-    python scripts/voice_spike.py serve           # the recording sheet on localhost
-    python scripts/voice_spike.py grade           # every clip x four ears (PAID API)
-    python scripts/voice_spike.py report          # the evidence for the Oct 31 cut
+    python content/spike/voice_spike.py refs      # Anna's reference renders, once
+    python content/spike/voice_spike.py serve     # the recording sheet on localhost
+    python content/spike/voice_spike.py grade     # every clip x four ears (PAID API)
+    python content/spike/voice_spike.py report    # the evidence for the Oct 31 cut
+
+A ONE-OFF, kept out of scripts/ on purpose (2026-10-23, Andrew): no budget, no
+layer, no smoke case. It borrows a few helpers from scripts/ and owns nothing there.
 
 WHY THIS EXISTS (2026-10-23, inbox drain, Andrew's ruling): the 07-09 decision parked
 speech-in "on evidence, not desire" and asked for a spike before any machinery. The
@@ -18,51 +21,82 @@ design, which Andrew approved.
 THE TWO JOBS, two bars. CONVERSATION HEARING: recover what he MEANT from code-mixed
 learner speech — this alone gates a live-Anna front end. COACHING HEARING: against a
 known target, name what deviated — precision over recall, because a false flag on a
-good take teaches him to ignore the coach. The test is of PRONUNCIATION: the sheet's
-target rows sit on sound fault lines (zha/la, Ra/ra, the retroflex N and tt, vowel
-length, the long -om), not on his grammar slips.
+good take teaches him to ignore the coach. The test is of PRONUNCIATION, not his
+grammar slips.
+
+THE GROUND TRUTH IS WHAT HE DID (2026-10-23, Andrew). Every target row carries a guide
+for the natural Coimbatore take and one or more WRONG variants, each with its own guide
+and recorded as its own take; a variant's label is what the ear is judged against. The
+variants come from the charter (protocol/dialect.md), her 07-31 ruling and the 09-01
+"book Tamil" report, not from a quota. One consequence is worth knowing before reading
+a report: natives mostly do not make the ல/ள and ர/ற distinctions, so a HARD trilled ற
+is a wrong variant here (the "uncanny" sound) and Anna's reference over-articulates it.
+On those rows he follows the written guide, not her voice.
 
 THE CORPUS IS HIS VOICE. Each phrase plays Anna's correct render above its record
-button; he records his best take, then his bad take by adjusting DOWN from the
-reference in his own mouth. Anna is never asked to fake a mispronunciation and no ear
+button; he records the natural take, then each wrong variant in his own mouth. Anna is never asked to fake a mispronunciation and no ear
 is ever tested on a generated voice. Clips live under audio/spike/ — gitignored, on
 purpose: a voice corpus does not belong in a public repo.
 
-THE FAILURE THE BAD TAKES EXIST TO CATCH — LAUNDERING. If a deliberately wrong take
+THE FAILURE THE WRONG TAKES EXIST TO CATCH — LAUNDERING. If a deliberately wrong take
 transcribes identical to the good one, the ear is normalising him toward the target,
-and nothing it writes can be treated as evidence of what he said. `report` checks that
-pair by pair, per condition, and says so loudly.
+and nothing it writes can be treated as evidence of what he said. `report` checks every
+variant against the good take, per condition, and says so loudly.
 
 THE SILENT NO-OP, answered: a grade run that found no clips, or a condition that never
 ran, would print an empty report that reads like "nothing went wrong". `report` lists
 every clip the sheet expects and every (clip, condition) with no grade, so absence is
 visible, and it refuses to call a laundering check passed on a pair with a take missing.
 
-The API path is the only one: `claude -p` cannot take audio, so `writer.ask_json`
-sends any call carrying `audio=` to the OpenRouter model, whatever host this is. ~22 phrases x ~2 takes x 4 conditions is ~150
-flash calls — cents, and announced before it starts.
+The API path is the only one: `claude -p` cannot take audio, so `hear` calls the
+writer's OpenRouter model itself, on any host. 54 takes x 4 conditions is ~216 flash
+calls — cents, and announced before it starts.
 """
 
 import argparse
+import base64
 import json
+import os
 import re
 import sys
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent))
+HERE = Path(__file__).resolve().parent
+BASE = HERE.parent.parent
+sys.path.insert(0, str(BASE / "scripts"))
 
 from language import ANNA_VOICE
-from mandates import SPIKE_CONDITIONS, SPIKE_EAR_MANDATE
 
-BASE = Path(__file__).resolve().parent.parent
-SHEET = BASE / "content" / "spike" / "voice_in.json"
-PAGE = BASE / "content" / "spike" / "recorder.html"
+SHEET, PAGE = HERE / "voice_in.json", HERE / "recorder.html"
 OUT = BASE / "audio" / "spike"
 REFS, CLIPS, GRADES = OUT / "ref", OUT / "clips", OUT / "grades.jsonl"
 PORT = 8765
-# Which takes a row asks for. A target row is a PAIR — the laundering check needs both.
-TAKES = {"target": ("good", "bad"), "tanglish": ("said",), "free": ("said",)}
+
+# The ear (Rio's 10-22 grading design, Andrew approved). One base and four
+# conditions, so the PROMPT is the variable under test. COLD is the control;
+# nothing live would ever listen that way.
+SPIKE_EAR_MANDATE = """You will hear one short voice clip from Andrew, an adult English speaker learning spoken Coimbatore (Kongu) colloquial Tamil, who code-mixes English into it.
+{condition}
+Return ONLY JSON: {{"transcript": "<what was SAID, Tamil in Tamil script, English in English>", "romanized": "<the same line in English phonetics>", "meaning": "<what he meant, in English>", "deviations": ["<each sound that departed from natural Kongu speech, as heard>"], "confidence": "high|medium|low"}}"""
+
+SPIKE_CONDITIONS = {
+    "cold": "Transcribe exactly what you hear.",
+    "learner": "Write down his errors exactly as spoken — a mispronounced word stays mispronounced in the transcript, even where you can guess the word he wanted.",
+    "target": "He was trying to say: {say} ({roman}, \"{en}\"). Write what he actually said, then name every sound that deviated from that target. A take with no deviation gets an empty list.",
+    "context": "This is a lesson. Anna just asked him: \"{ask}\". Write what he said and what he meant by it.",
+}
+
+
+def takes(p: dict) -> list[str]:
+    """A target row is its good take plus EVERY wrong variant — the laundering check
+    compares each variant against the good one, so a row needs all of them."""
+    return ["good"] + [w["id"] for w in p["wrong"]] if p["kind"] == "target" else ["said"]
+
+
+def truth(p: dict, take: str) -> str:
+    """What he actually did on this take — the ground truth an ear is judged against."""
+    return {w["id"]: w["label"] for w in p.get("wrong", [])}.get(take, "natural, as guided")
 
 
 def load_sheet(path: Path = SHEET) -> list[dict]:
@@ -70,7 +104,7 @@ def load_sheet(path: Path = SHEET) -> list[dict]:
 
 
 def expected_clips(sheet: list[dict]) -> list[str]:
-    return [f"{p['id']}.{t}" for p in sheet for t in TAKES[p["kind"]]]
+    return [f"{p['id']}.{t}" for p in sheet for t in takes(p)]
 
 
 def condition_prompt(phrase: dict, condition: str) -> str:
@@ -83,9 +117,11 @@ def cmd_refs(_args):
     from render_demo import synth   # lazy: the Google client is only for this command
     REFS.mkdir(parents=True, exist_ok=True)
     for p in load_sheet():
-        out = REFS / f"{p['id']}.mp3"
-        if not out.exists():
+        out, said = REFS / f"{p['id']}.mp3", REFS / f"{p['id']}.txt"
+        # A row whose words changed keeps its id, so the render is keyed on the TEXT.
+        if not out.exists() or not said.exists() or said.read_text(encoding="utf-8") != p["say"]:
             out.write_bytes(synth(p["say"], ANNA_VOICE))
+            said.write_text(p["say"], encoding="utf-8")
             print(f"   rendered {out.name}  {p['roman']}")
     print(f"✅ references in {REFS}")
 
@@ -105,7 +141,7 @@ class Sheet(BaseHTTPRequestHandler):
             return self._send(200, PAGE.read_bytes(), "text/html; charset=utf-8")
         if self.path == "/sheet":
             have = sorted(f.stem for f in CLIPS.glob("*.wav")) if CLIPS.exists() else []
-            body = {"phrases": load_sheet(), "takes": TAKES, "have": have}
+            body = {"phrases": [{**p, "takes": takes(p)} for p in load_sheet()], "have": have}
             return self._send(200, json.dumps(body, ensure_ascii=False).encode(), "application/json")
         m = re.fullmatch(r"/(ref|clip)/([\w.]+)\.(mp3|wav)", self.path)
         f = m and (REFS if m[1] == "ref" else CLIPS) / f"{m[2]}.{m[3]}"
@@ -122,7 +158,7 @@ class Sheet(BaseHTTPRequestHandler):
         CLIPS.mkdir(parents=True, exist_ok=True)
         if m[1] == "meant":
             (CLIPS / f"{m[2]}.meant.txt").write_bytes(body)
-        elif m[3] in TAKES[rows[m[2]]["kind"]] and body[:4] == b"RIFF":
+        elif m[3] in takes(rows[m[2]]) and body[:4] == b"RIFF":
             (CLIPS / f"{m[2]}.{m[3]}.wav").write_bytes(body)
         else:
             return self._send(400, b"wrong take for this row, or not a WAV")
@@ -142,13 +178,18 @@ def cmd_serve(_args):
 # ── grade ────────────────────────────────────────────────────────────────────
 
 def hear(wav: bytes, prompt: str) -> dict:
-    """One ear, one clip. Through `writer.ask_json`, which sends audio on the API
-    path only — the agent cannot hear, and would transcribe the prompt instead."""
-    from writer import ask_json, obj
-    keys = {"transcript": {"type": "string"}, "romanized": {"type": "string"},
-            "meaning": {"type": "string"}, "deviations": {"type": "array"},
-            "confidence": {"type": "string"}}
-    return ask_json(prompt, "The clip:", obj(**keys), answer_tokens=600, audio=(wav, "wav"))
+    from openai import OpenAI
+    from writer import (JSON_MODE, OPENROUTER_BASE, OPENROUTER_MODEL,
+                        REASONING_BUDGET, budget, parse_llm_response)
+    client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
+    resp = client.chat.completions.create(
+        model=OPENROUTER_MODEL, max_tokens=budget(600), response_format=JSON_MODE,
+        extra_body=REASONING_BUDGET,
+        messages=[{"role": "user", "content": [
+            {"type": "text", "text": prompt},
+            {"type": "input_audio", "input_audio": {
+                "data": base64.b64encode(wav).decode(), "format": "wav"}}]}])
+    return parse_llm_response(resp)
 
 
 def load_grades(path: Path | None = None) -> list[dict]:
@@ -187,24 +228,27 @@ def _norm(s: str) -> str:
 
 
 def findings(sheet: list[dict], grades: list[dict]) -> dict:
-    """Pure — the report's judgements, so smoke can drive them on synthetic grades.
-    `laundered`: (id, condition) where the bad take reads identical to the good.
-    `caught` / `missed`: bad takes the TARGET ear did / did not flag. `false_flags`:
-    good takes it flagged anyway. `ungraded`: (clip, condition) with no usable row."""
+    """The report's judgements, pure. `laundered`: (clip, condition) where a wrong
+    take reads identical to the good one. `flagged` / `missed`: wrong takes the
+    TARGET ear did / did not flag — whether what it named MATCHES the variant is read
+    against `truth`, by a person, in the per-clip section. `false_flags`: good takes
+    it flagged anyway. `ungraded`: (clip, condition) with no usable row."""
     by = {(g["clip"], g["condition"]): g for g in grades if not g.get("error")}
-    out = {k: [] for k in ("laundered", "caught", "missed", "false_flags", "ungraded")}
+    out = {k: [] for k in ("laundered", "flagged", "missed", "false_flags", "ungraded")}
     for clip in expected_clips(sheet):
         out["ungraded"] += [(clip, c) for c in SPIKE_CONDITIONS if (clip, c) not in by]
     for p in (p for p in sheet if p["kind"] == "target"):
-        good, bad = f"{p['id']}.good", f"{p['id']}.bad"
-        for c in SPIKE_CONDITIONS:
-            g, b = by.get((good, c)), by.get((bad, c))
-            if g and b and _norm(g.get("transcript")) == _norm(b.get("transcript")):
-                out["laundered"].append((p["id"], c))
-        if (b := by.get((bad, "target"))):
-            out["caught" if b.get("deviations") else "missed"].append(p["id"])
+        good = f"{p['id']}.good"
+        for w in p["wrong"]:
+            wrong = f"{p['id']}.{w['id']}"
+            for c in SPIKE_CONDITIONS:
+                g, b = by.get((good, c)), by.get((wrong, c))
+                if g and b and _norm(g.get("transcript")) == _norm(b.get("transcript")):
+                    out["laundered"].append((wrong, c))
+            if (b := by.get((wrong, "target"))):
+                out["flagged" if b.get("deviations") else "missed"].append(wrong)
         if (g := by.get((good, "target"))) and g.get("deviations"):
-            out["false_flags"].append(p["id"])
+            out["false_flags"].append(good)
     return out
 
 
@@ -212,34 +256,35 @@ def cmd_report(_args):
     sheet, grades = load_sheet(), load_grades()
     f = findings(sheet, grades)
     by = {(g["clip"], g["condition"]): g for g in grades if not g.get("error")}
-    lines = [f"# Voice-in spike — evidence ({len(grades)} grade rows)", ""]
     have = {c for c in expected_clips(sheet) if (CLIPS / f"{c}.wav").exists()}
     absent = [c for c in expected_clips(sheet) if c not in have]
-    lines += [f"**Clips recorded:** {len(have)} of {len(have) + len(absent)}"
-              + (f" — missing: {', '.join(absent)}" if absent else ""),
-              f"**Ungraded (clip, condition):** {len(f['ungraded'])}", "",
-              "## Laundering (bad take reads identical to the good one)",
-              ", ".join(f"{i}/{c}" for i, c in f["laundered"]) or "none seen", "",
-              "## Coaching ear (TARGET condition) — qualitative, never a percentage",
-              f"- caught: {', '.join(f['caught']) or '—'}",
-              f"- missed: {', '.join(f['missed']) or '—'}",
-              f"- false flags on good takes: {', '.join(f['false_flags']) or '—'}", "",
-              "## Every clip, every ear", ""]
+    lines = [f"# Voice-in spike — evidence ({len(grades)} grade rows)", "",
+             f"**Clips recorded:** {len(have)} of {len(have) + len(absent)}"
+             + (f" — missing: {', '.join(absent)}" if absent else ""),
+             f"**Ungraded (clip, condition):** {len(f['ungraded'])}", "",
+             "## Laundering (a wrong take reads identical to the good one)",
+             ", ".join(f"{k}/{c}" for k, c in f["laundered"]) or "none seen", "",
+             "## Coaching ear (TARGET condition) — qualitative, never a percentage",
+             f"- wrong takes it flagged: {', '.join(f['flagged']) or '—'}",
+             f"- wrong takes it passed: {', '.join(f['missed']) or '—'}",
+             f"- good takes it flagged anyway: {', '.join(f['false_flags']) or '—'}",
+             "- whether a flag names the RIGHT deviation: read each against its truth below", "",
+             "## Every clip, every ear", ""]
     for p in sheet:
         meant = CLIPS / f"{p['id']}.meant.txt"
         intent = meant.read_text(encoding="utf-8").strip() if meant.exists() else p["en"]
-        lines.append(f"### {p['id']} · {p['roman']} — meant: {intent}"
-                     + (f" · planted: {p['fault']}" if p["fault"] else ""))
-        for take in TAKES[p["kind"]]:
+        lines.append(f"### {p['id']} · {p['roman']} — meant: {intent}")
+        for take in takes(p):
+            lines.append(f"**{take}** — truth: {truth(p, take)}")
             for c in SPIKE_CONDITIONS:
                 g = by.get((f"{p['id']}.{take}", c))
-                lines.append(f"- {take}/{c}: " + (
+                lines.append(f"- {c}: " + (
                     f"{g.get('transcript')} · \"{g.get('meaning')}\" · "
                     f"{'; '.join(g.get('deviations') or []) or 'no deviations'} "
                     f"({g.get('confidence')})" if g else "**NOT GRADED**"))
         lines.append("")
     (OUT / "report.md").write_text("\n".join(lines), encoding="utf-8")
-    print("\n".join(lines[:14]))
+    print("\n".join(lines[:15]))
     print(f"\n✅ full report: {OUT / 'report.md'}")
 
 

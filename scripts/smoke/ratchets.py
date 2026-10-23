@@ -334,11 +334,6 @@ CODE_BUDGETS = {
     "scripts/render_audio.py": 568,
     "scripts/render_chat.py": 100,
     "scripts/render_demo.py": 100,
-    # NEW FILE, budgeted in the same diff that creates it (2026-10-23, inbox drain,
-    # Andrew). Census 170. The voice-in spike: measurement, not a lane. Growth
-    # here means the spike is turning into machinery, which the 07-09 ruling
-    # says waits for its verdict.
-    "scripts/voice_spike.py": 180,
     # 235 -> 220 (2026-08-23, Andrew): re-censused DOWN, the 08-01 move again.
     "scripts/render_drill.py": 185,
     # New file 2026-08-10 at 318 lines — the fourth audio lane. ~45 of those are BASE_MANDATE + the five SHAPE_CLAUSES, which code_lines counts as mechanism (prompt strings always … · Budgeted at 340 rather than 400: the headroom is for diagnosis, not for a sixth shape.
@@ -388,10 +383,7 @@ CODE_BUDGETS = {
     # Retires the per-line GAPS table and the ear-only re-draw of known words.
     "scripts/render_sort.py": 196,
     # NEW FILE, budgeted in the same diff that creates it (2026-08-23, Andrew).
-    # 181 -> 187 (2026-10-23, the voice-in spike): `ask_json(audio=)`, a clip the
-    # API model hears, forcing the API path. RETIRES the private OpenRouter client
-    # voice_spike was born with (11 lines, caught by s70 the same hour).
-    "scripts/writer.py": 187,
+    "scripts/writer.py": 181,
     # 430 -> 433 (2026-09-15, Andrew): the Producer prompt now carries the
     # Master Lesson Plan. Nothing was retired for it, and the growth is named
     # rather than dodged: the pass writes `fence_size`/`unfenced_words` and owns
@@ -1111,9 +1103,6 @@ LAYERS = {
     "render_rotation":    5.5,
     "run_studio":         5.5,
     "render_demo":        5.5,
-    # The voice-in spike (2026-10-23): a measurement beside the lanes, imported
-    # by none. Borrows render_demo.synth for the reference renders.
-    "voice_spike":        5.5,
     # The commission router (2026-09-25): claims one due commission per tick and
     # runs its lane script as a SUBPROCESS — no import edge to any lane — and
     # borrows push_queue.commit_and_push for the lifecycle commits. Beside the

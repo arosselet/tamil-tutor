@@ -25,7 +25,15 @@
          padding:.9rem 1rem; margin:0 0 .8rem; }
   .say { font-size:1.25rem; }
   .roman { color:var(--muted); }
-  .fault { font-size:.88rem; color:var(--warn); margin:.25rem 0 0; }
+  .how { font-size:.9rem; margin:.5rem 0 0; padding:.45rem .6rem; border-radius:4px;
+         background:var(--bg); border-left:3px solid var(--accent); }
+  .how.bad { border-left-color:var(--warn); }
+  .how b { display:block; font-size:.75rem; letter-spacing:.06em; text-transform:uppercase; }
+  .how.good b { color:var(--accent); } .how.bad b { color:var(--warn); }
+  details { background:var(--card); border:1px solid var(--line); border-radius:6px;
+            padding:.6rem 1rem; margin:0 0 1rem; }
+  summary { cursor:pointer; font-weight:600; }
+  dl { margin:.6rem 0 0; } dt { font-weight:600; margin-top:.6rem; } dd { margin:.1rem 0 0; color:var(--muted); }
   .ask { font-size:.88rem; color:var(--muted); margin:.25rem 0 0; }
   .ctl { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.7rem; align-items:center; }
   button { font:inherit; font-size:.92rem; padding:.4rem .8rem; border-radius:4px;
@@ -41,11 +49,41 @@
 <body>
 <main>
   <h1>Can a machine hear me?</h1>
-  <p class="lede">Play Anna's version, then record. On a target row record your
-  <b>best take</b>, then a <b>bad take</b>: make the planted mistake in red on purpose,
-  shaping it down from her version in your own mouth. Tanglish rows: say it the way
-  you'd actually say it to Anna. Free rows: answer her however you like, then type
-  what you meant. Re-record anything as often as you like; the last take wins.</p>
+  <p class="lede">Each target row has one <b>natural take</b> (green) and one or more
+  <b>wrong takes</b> (red). Record every one, following its guide; on a wrong take change
+  only what that guide says. Play Anna for the words (▶ slow if you need it), but on ர/ற
+  follow the written guide, not her voice: she over-articulates them. Tanglish rows:
+  one take, the way you'd really say it. Free rows: answer, then type what you meant.
+  Re-record as often as you like; the last take wins.</p>
+  <details open>
+    <summary>The sounds this sheet tests (read once)</summary>
+    <dl>
+      <dt>ழ  zh: the curled-back hover</dt>
+      <dd>Curl your tongue tip far back, past the ridge behind your teeth, toward the roof
+      of your mouth, and let it hover without touching. Voiced and continuous, like a deep
+      American r. <b>Wrong:</b> an English l, with the tip flat on the ridge.</dd>
+      <dt>ர · ற  r: one light tap, either letter</dt>
+      <dd>Your wife's ruling (07-31): Coimbatore speakers mostly make no difference between
+      ர and ற (or ல and ள). Both are one light tap of the tongue tip. <b>Wrong, two ways:</b>
+      an American r (tongue bunched, touching nothing), or a <i>hard trilled</i> ற, which is
+      the over-articulation that made the TTS sound uncanny to her.</dd>
+      <dt>ண · ட  N, T: retroflex (tongue curled back)</dt>
+      <dd>Curl the tip back and touch the roof behind the ridge. Doubled (ண்ண, ட்ட) means
+      hold the contact for a beat. <b>Wrong:</b> an English n or t, tip on the ridge with no curl.</dd>
+      <dt>த  th: dental</dt>
+      <dd>Tip pressed on the back of your top teeth, soft, no puff of air. It is NOT the
+      English th in "thin" or "the" (the romanized "th" invites exactly that), and NOT an English t.</dd>
+      <dt>Long vowels: aa, ee, oo, oh</dt>
+      <dd>Hold them about twice as long as feels natural; aa as in "father". A short a is
+      like the u in "cup". Length changes words: padam (film) / paadam (lesson), kaal (leg) / kal (stone).</dd>
+      <dt>Doubled consonants</dt>
+      <dd>ll, kk, tt, pp: stay on the sound a beat, or stop briefly before releasing.</dd>
+      <dt>Book Tamil and unfused words</dt>
+      <dd>The written forms (pogiren, varugiradhu) and dictionary-word-by-word delivery
+      (enna. aachu.) are what your nephew called book Tamil. Spoken Coimbatore contracts and
+      fuses: poren, ennaachu.</dd>
+    </dl>
+  </details>
   <div id="status">loading…</div>
   <div id="rows"></div>
 </main>
@@ -53,7 +91,6 @@
 const HEAD = { target: "Targets: the sound is the test",
                tanglish: "Tanglish: how you'll actually talk",
                free: "Free answers: no target" };
-const LABEL = { good: "best take", bad: "bad take", said: "record" };
 let have = new Set(), rec = null;
 const $ = (t, cls, txt) => { const e = document.createElement(t);
   if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
@@ -67,21 +104,35 @@ async function load() {
     if (p.kind !== kind) { kind = p.kind; root.append($("h2", "", HEAD[kind])); }
     const row = $("div", "row");
     row.append($("div", "say", p.say), $("div", "roman", `${p.roman} · ${p.en}`));
-    if (p.fault) row.append($("p", "fault", "bad take: " + p.fault));
-    if (p.kind === "free") row.append($("p", "ask", "Anna asks this. Answer freely."));
-    const ctl = $("div", "ctl"), ref = new Audio(`/ref/${p.id}.mp3`);
-    const play = $("button", "", "▶ Anna"); play.onclick = () => { ref.currentTime = 0; ref.play(); };
-    ctl.append(play);
-    for (const take of s.takes[p.kind]) {
-      const key = `${p.id}.${take}`, b = $("button", "rec", "● " + LABEL[take]);
-      const back = $("button", "", "▶ mine");
+    const how = (cls, title, txt) => { const d = $("div", "how " + cls);
+      d.append($("b", "", title), document.createTextNode(txt)); return d; };
+    const ref = new Audio(`/ref/${p.id}.mp3`), ctl = $("div", "ctl");
+    const play = $("button", "", "▶ Anna"), slow = $("button", "", "▶ slow");
+    play.onclick = () => { ref.playbackRate = 1; ref.currentTime = 0; ref.play(); };
+    slow.onclick = () => { ref.playbackRate = 0.7; ref.currentTime = 0; ref.play(); };
+    ctl.append(play, slow);
+    row.append(ctl);
+    const recorder = (take, label) => {
+      const key = `${p.id}.${take}`, b = $("button", "rec", "● " + label), back = $("button", "", "▶ mine");
+      b.dataset.label = label;
       back.onclick = () => new Audio(`/clip/${key}.wav?${Date.now()}`).play();
       back.hidden = !have.has(key);
       if (have.has(key)) b.classList.add("done");
       b.onclick = () => toggle(b, p.id, take, back);
-      ctl.append(b, back);
+      const c = $("div", "ctl"); c.append(b, back); return c;
+    };
+    if (p.kind === "target") {
+      const g = how("good", "Natural take", p.good); g.append(recorder("good", "record natural"));
+      row.append(g);
+      for (const w of p.wrong) {
+        const d = how("bad", `Wrong take ${w.id.slice(1)}: ${w.label}`, w.how);
+        d.append(recorder(w.id, `record wrong ${w.id.slice(1)}`));
+        row.append(d);
+      }
+    } else {
+      const g = how("good", "How", p.good); g.append(recorder("said", "record"));
+      row.append(g);
     }
-    row.append(ctl);
     if (p.kind === "free") {
       const meant = $("input"); meant.type = "text"; meant.placeholder = "what I meant, in English";
       meant.onchange = () => fetch(`/meant/${p.id}`, { method: "POST", body: meant.value })
@@ -110,7 +161,7 @@ async function stop() {
   r.node.disconnect(); r.stream.getTracks().forEach(t => t.stop());
   const wav = toWav(r.chunks, r.ctx.sampleRate); await r.ctx.close();
   const res = await fetch(`/clip/${r.id}/${r.take}`, { method: "POST", body: wav });
-  r.btn.classList.remove("live"); r.btn.textContent = "● " + LABEL[r.take];
+  r.btn.classList.remove("live"); r.btn.textContent = "● " + r.btn.dataset.label;
   if (res.ok) { r.btn.classList.add("done"); r.back.hidden = false; have.add(`${r.id}.${r.take}`); }
   status(res.ok ? `saved ${r.id} · ${r.take} (${have.size} takes on file)` : "save FAILED: " + await res.text());
 }

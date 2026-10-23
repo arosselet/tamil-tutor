@@ -43,7 +43,6 @@ mandate and menu — a rotation movement lands around 14 KB, close enough that a
 persona edit could push a lane over it and produce a failure that looks like the
 agent being unavailable. Stdin has no such ceiling.
 """
-import base64
 import json
 import os
 import shutil
@@ -493,26 +492,20 @@ def _agent_json(system: str, user: str, schema: dict) -> dict:
     return got
 
 
-def _api_json(system: str, user: str, answer_tokens: int, model: str | None = None,
-              audio: tuple[bytes, str] | None = None) -> dict:
+def _api_json(system: str, user: str, answer_tokens: int, model: str | None = None) -> dict:
     """One pass through OpenRouter — the executor for a host with no agent, and
-    the live path for any lane routed to Actions. Same prompt, same contract.
-    `audio` (bytes, format) rides beside the user text as `input_audio`."""
+    the live path for any lane routed to Actions. Same prompt, same contract."""
     client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
-    content = user if audio is None else [{"type": "text", "text": user}, {
-        "type": "input_audio", "input_audio": {
-            "data": base64.b64encode(audio[0]).decode(), "format": audio[1]}}]
     resp = client.chat.completions.create(
         model=model or OPENROUTER_MODEL, max_tokens=budget(answer_tokens),
         response_format=JSON_MODE, extra_body=REASONING_BUDGET,
         messages=[{"role": "system", "content": system},
-                  {"role": "user", "content": content}])
+                  {"role": "user", "content": user}])
     return parse_llm_response(resp)
 
 
 def ask_json(system: str, user: str, schema: dict, answer_tokens: int = 2400,
-             tries: int = 3, prefer: str = "auto", model: str | None = None,
-             audio: tuple[bytes, str] | None = None) -> dict:
+             tries: int = 3, prefer: str = "auto", model: str | None = None) -> dict:
     """One LLM call -> parsed JSON, on whichever executor this host has.
 
     `schema` is REQUIRED and positional, so a new lane cannot forget it. A
@@ -539,18 +532,13 @@ def ask_json(system: str, user: str, schema: dict, answer_tokens: int = 2400,
 
     `model` overrides the API path's slug for ONE call (2026-09-23: the decide
     lane's Sonnet/Gemini A/B). The agent path ignores it — it runs AGENT_MODEL.
-
-    `audio` (2026-10-23, the voice-in spike) is a clip for the model to HEAR, and it
-    forces the API path whatever `prefer` says: `claude -p` takes no audio, and an
-    agent handed only the text would answer anyway — a confident transcript of a
-    clip it never heard, the silent no-op of this argument.
     """
-    use_agent = audio is None and (have_agent() if prefer == "auto" else (prefer == "agent"))
+    use_agent = have_agent() if prefer == "auto" else (prefer == "agent")
     for attempt in range(1, tries + 1):
         try:
             if use_agent:
                 return _agent_json(system, user, schema)
-            return _api_json(system, user, answer_tokens, model, audio)
+            return _api_json(system, user, answer_tokens, model)
         except (subprocess.SubprocessError, RuntimeError, OSError) as e:
             # THE FALLBACK IS LOUD, ON PURPOSE. This is the silent-no-op of this
             # change: the agent is present but broken (expired auth, a bad model
