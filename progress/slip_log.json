@@ -1061,5 +1061,17 @@
     "note": "reads the root, guesses the person instead of reading the tail",
     "word": "",
     "dose_channel": "episode"
+  },
+  {
+    "at": "2026-10-23T16:12:22Z",
+    "date": "2026-10-23",
+    "lane": "knock",
+    "modality": "fielding",
+    "tag": "person-tail",
+    "said": "ponga",
+    "want": "போறேன்",
+    "note": "ponga tells Athai to go — for yourself it's poren",
+    "word": "போறேன்",
+    "dose_channel": "episode"
   }
 ]

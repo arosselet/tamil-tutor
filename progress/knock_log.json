@@ -9254,6 +9254,33 @@
     "target_revealed": false,
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-23T15-34.mp3",
     "memo_script": "என்ன, எங்க போறீங்க?",
-    "mp3": "published_audio/knocks/knock_2026-10-23T15-34.mp3"
+    "mp3": "published_audio/knocks/knock_2026-10-23T15-34.mp3",
+    "response": "reply",
+    "reply": "Oola ponga",
+    "reply_verdict": "miss",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line_script": "Illa da — உள்ள is inside! Outside is வெளிய, and you're the one going: 'வெளிய போறேன்'.",
+    "reply_line": "Illa da — ulla is inside! Outside is veliya, and you're the one going: 'veliya poren'.",
+    "reply_at": "2026-10-23T16:12:22Z",
+    "exchanges": [
+      {
+        "at": "2026-10-23T16:12:22Z",
+        "reply": "Oola ponga",
+        "verdict": "miss",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "Illa da — ulla is inside! Outside is veliya, and you're the one going: 'veliya poren'.",
+        "reply_line_script": "Illa da — உள்ள is inside! Outside is வெளிய, and you're the one going: 'வெளிய போறேன்'.",
+        "slips": [
+          "person-tail"
+        ],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ]
   }
 ]

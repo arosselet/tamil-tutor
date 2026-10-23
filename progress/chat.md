@@ -9,6 +9,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **11:34 · Anna** 🎧  ·  fielding / fielding: veliya
 > Enna, enga poreenga? — tell Athai you're heading out 👟
 
+**12:12 · Andrew** — **MISS**
+> Oola ponga
+
+**Anna ↩**
+> Illa da — ulla is inside! Outside is veliya, and you're the one going: 'veliya poren'.
+
 
 ## Thursday 2026-10-22
 
