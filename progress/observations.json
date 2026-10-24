@@ -25139,5 +25139,17 @@
     "medium": "audio",
     "source": "rotation_machines_2026-10-24_1512",
     "note": ""
+  },
+  {
+    "id": "211236a8bdd1",
+    "at": "2026-10-24T21:22:43Z",
+    "word": "தெரியுமா?",
+    "channel": "eavesdrop",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "knock:2026-10-24T21:21:57.582243+00:00",
+    "note": ""
   }
 ]

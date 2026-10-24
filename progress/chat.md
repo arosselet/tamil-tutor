@@ -15,6 +15,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **11:11 · Anna** 🎧  ·  fielding / fielding: ulla
 > Paatti enga irukkaanga? — tell Priya she's inside 🏠
 
+**17:21 · Anna** 🎧  ·  eavesdrop / overheard: theriyuma
+> Athai's whispering on the phone about Paati — catch what she just found out 🎧
+
 
 ## Friday 2026-10-23
 
