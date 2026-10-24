@@ -132,5 +132,33 @@
     "source": "drill_2026-10-24_1512",
     "queued_at": "2026-10-24T15:12:26",
     "status": "pending"
+  },
+  {
+    "id": "5ef78dcb87",
+    "form": "எடுத்துக்கறேன்னு சொன்னாங்க.",
+    "en": "said they'll take it themselves",
+    "unattested": [
+      "எடுத்துக்கறேன்னு"
+    ],
+    "where": "item",
+    "reason": "wrong: quoted verb is 1st person singular எடுத்துக்கறேன் ('I'll take') but meaning needs plural reflexive 'they'll take themselves'; should be எடுத்துக்கறோம்னு சொன்னாங்க",
+    "lane": "rotation",
+    "source": "rotation_machines_2026-10-24_1512",
+    "queued_at": "2026-10-24T15:18:12",
+    "status": "pending"
+  },
+  {
+    "id": "097917ea26",
+    "form": "லாமா",
+    "en": "is it all right",
+    "unattested": [
+      "லாமா"
+    ],
+    "where": "item",
+    "reason": "wrong: லாமா cannot stand alone without a verb stem attached; the -லாமா suffix needs a base verb like உக்கார் to mean anything",
+    "lane": "rotation",
+    "source": "rotation_machines_2026-10-24_1512",
+    "queued_at": "2026-10-24T15:18:12",
+    "status": "pending"
   }
 ]

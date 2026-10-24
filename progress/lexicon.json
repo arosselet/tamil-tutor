@@ -3056,7 +3056,7 @@
       56,
       57
     ],
-    "last_surfaced": "2026-09-07",
+    "last_surfaced": "2026-10-24",
     "direction": "fire",
     "reps": 3,
     "exposures": 1,
@@ -3074,7 +3074,7 @@
       56,
       57
     ],
-    "last_surfaced": "2026-09-07",
+    "last_surfaced": "2026-10-24",
     "direction": "fire",
     "reps": 2,
     "exposures": 1,
@@ -3092,7 +3092,7 @@
       56,
       57
     ],
-    "last_surfaced": "2026-09-07",
+    "last_surfaced": "2026-10-24",
     "direction": "fire",
     "reps": 2,
     "exposures": 1,
@@ -3110,7 +3110,7 @@
       56,
       57
     ],
-    "last_surfaced": "2026-09-07",
+    "last_surfaced": "2026-10-24",
     "direction": "fire",
     "reps": 2,
     "exposures": 1,
@@ -3129,7 +3129,7 @@
       72,
       86
     ],
-    "last_surfaced": "2026-09-07",
+    "last_surfaced": "2026-10-24",
     "direction": "fire",
     "exposures": 1,
     "reps": 6,
@@ -3149,7 +3149,7 @@
       66,
       68
     ],
-    "last_surfaced": "2026-09-07",
+    "last_surfaced": "2026-10-24",
     "direction": "fire",
     "reps": 8,
     "exposures": 1,
@@ -3171,7 +3171,7 @@
       73,
       74
     ],
-    "last_surfaced": "2026-09-07",
+    "last_surfaced": "2026-10-24",
     "direction": "fire",
     "reps": 5,
     "exposures": 1,
@@ -3188,7 +3188,7 @@
       68,
       86
     ],
-    "last_surfaced": "2026-09-07",
+    "last_surfaced": "2026-10-24",
     "direction": "fire",
     "reps": 2,
     "exposures": 1,
@@ -3475,7 +3475,7 @@
       59,
       68
     ],
-    "last_surfaced": "2026-09-07",
+    "last_surfaced": "2026-10-24",
     "direction": "fire",
     "exposures": 1,
     "reps": 4,
@@ -3490,7 +3490,7 @@
     "seen_in": [
       68
     ],
-    "last_surfaced": "2026-09-07",
+    "last_surfaced": "2026-10-24",
     "direction": "fire",
     "exposures": 1,
     "reps": 2,
@@ -3507,7 +3507,7 @@
       83,
       86
     ],
-    "last_surfaced": "2026-09-07",
+    "last_surfaced": "2026-10-24",
     "direction": "catch",
     "reps": 2,
     "exposures": 1,
@@ -3524,7 +3524,7 @@
       68,
       83
     ],
-    "last_surfaced": "2026-09-07",
+    "last_surfaced": "2026-10-24",
     "direction": "catch",
     "exposures": 1,
     "reps": 4,
@@ -3632,7 +3632,7 @@
       83,
       89
     ],
-    "last_surfaced": "2026-10-22",
+    "last_surfaced": "2026-10-24",
     "direction": "catch",
     "exposures": 4,
     "reps": 2,
@@ -3769,12 +3769,13 @@
     "recognition": "struggled",
     "production": "hinted",
     "seen_in": [],
-    "last_surfaced": "2026-09-07",
+    "last_surfaced": "2026-10-24",
     "direction": "catch",
     "exposures": 1,
     "register": "frame",
     "heard_on": "2026-08-30",
-    "reps": 2
+    "reps": 2,
+    "taught_on": null
   },
   "அட்டா": {
     "gloss": "oh! / alas! (mild disappointment, amused surprise)",
