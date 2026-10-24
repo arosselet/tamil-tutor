@@ -120,5 +120,17 @@
     "source": "rotation_inventory_2026-10-17_0057",
     "queued_at": "2026-10-17T01:07:41",
     "status": "pending"
+  },
+  {
+    "id": "d24f9e179a",
+    "form": "ஃப்ரீயா விடுங்க",
+    "en": "Tell an elder politely: let it go, don't worry.",
+    "unattested": [],
+    "where": "item",
+    "reason": "wrong: ஃப்ரீயா விடுங்க is an English calque; natural form would be 'பரவாயில்ல, விடுங்க' or just 'விடுங்க'",
+    "lane": "drill",
+    "source": "drill_2026-10-24_1512",
+    "queued_at": "2026-10-24T15:12:26",
+    "status": "pending"
   }
 ]
