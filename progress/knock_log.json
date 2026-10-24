@@ -9297,6 +9297,35 @@
     "expected_target": "விட்டுடு",
     "stance": "ask",
     "thread": "word:விட்டுடு",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Freeya vidunga",
+    "reply_verdict": "cold",
+    "reply_fired": [
+      "விடுங்க"
+    ],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line_script": "Haha 'free-ah விடுங்க' totally works! With your thambi you can also just say விட்டுடு.",
+    "reply_line": "Haha 'free-ah vidunga' totally works! With your thambi you can also just say vittudu.",
+    "reply_at": "2026-10-24T12:43:42Z",
+    "exchanges": [
+      {
+        "at": "2026-10-24T12:43:42Z",
+        "reply": "Freeya vidunga",
+        "verdict": "cold",
+        "fired": [
+          "விடுங்க"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "Haha 'free-ah vidunga' totally works! With your thambi you can also just say vittudu.",
+        "reply_line_script": "Haha 'free-ah விடுங்க' totally works! With your thambi you can also just say விட்டுடு.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ]
   }
 ]
