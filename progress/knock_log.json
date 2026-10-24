@@ -9327,5 +9327,24 @@
         "scheduled": ""
       }
     ]
+  },
+  {
+    "date": "2026-10-24",
+    "timestamp": "2026-10-24T15:11:25.327860+00:00",
+    "acted": true,
+    "modality": "fielding",
+    "move": "fielding: ulla",
+    "rationale": "Fielding on [word:உள்ள] cleanly isolates inside vs yesterday's veliya stumble, asking Priya's quick question with no English scaffolding.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-10-24T18:41:25.327860+00:00",
+    "body": "Paatti enga irukkaanga? — tell Priya she's inside 🏠",
+    "body_script": "பாட்டி எங்க இருக்காங்க? — tell Priya she's inside 🏠",
+    "expected_target": "உள்ள",
+    "stance": "ask",
+    "thread": "word:உள்ள",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-24T15-11.mp3",
+    "memo_script": "பாட்டி எங்க இருக்காங்க?",
+    "mp3": "published_audio/knocks/knock_2026-10-24T15-11.mp3"
   }
 ]
