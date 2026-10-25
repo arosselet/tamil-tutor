@@ -116,6 +116,8 @@ PROSE_BUDGETS = {
     "MESSAGE_MANDATE": 230,
     # NEW 2026-09-13, budgeted in the diff that creates it: the escalation net's model check (it retired a substring match on stored phonetics).
     "OPEN_ASK_MANDATE": 70,
+    # NEW 2026-10-25, budgeted in the diff that creates it (census 142): the voice-turn ear. Blind, so it stays short.
+    "HEAR_MANDATE": 160,
     # The narrative surfaces, budgeted the day they became one line per item (2026-09-10): the log at 11.7k after compression from 32k, the inbox at 1k from 19.6k, the debug precedents at 1.3k from 4.5k.
     # NEW SURFACE, budgeted in the diff that creates it (2026-09-19). The canon
     # is the one place continuity lives, so it is the one place canon-creep can
@@ -219,8 +221,11 @@ CODE_BUDGETS = {
     # New surfaces, budgeted in the diff that creates them. reply_common is the split the 08-27 raise said was coming; knock_message is the lane that forced it.
     # 120 -> 127 (the judge seat (2026-10-12, Andrew)): gate_reply, the one judge for every inbound
     # lane — a held push-back becomes a plain fallback, a held voice reply is dropped.
-    "scripts/reply_common.py": 147,    # +20: ensure_schedule, retiring two inlined copies (2026-10-12)
-    "scripts/knock_message.py": 122,   # -8: its copy of the clock backstop (2026-10-12)
+    # +20: ensure_schedule, retiring two inlined copies (2026-10-12). 147 -> 162 (2026-10-25, Andrew: voice turns): SPOKEN, spoken_stamp, cap_unheard — the one place every lane learns a turn was spoken, retiring a per-lane voice flag before one was written.
+    "scripts/reply_common.py": 162,
+    "scripts/knock_message.py": 122,
+    # NEW FILE, budgeted in the diff that creates it (2026-10-25, Andrew: voice turns). The ear in front of knock_reply; it replaces typing as the only way in, and adds no grading of its own.
+    "scripts/hear.py": 95,   # -8: its copy of the clock backstop (2026-10-12)
     # 700 -> 625 (2026-08-01): re-censused DOWN after OUTREACH_MANDATE moved to mandates.py — the file sat at 699/700, one mechanical fix from a red build. · 400 -> 402 (2026-09-05).
     # 402 -> 405 (2026-09-19): one import. The household canon now reaches the
     # pass that writes an eavesdrop tape, and `tape_names_a_referent` consults
@@ -383,7 +388,8 @@ CODE_BUDGETS = {
     # Retires the per-line GAPS table and the ear-only re-draw of known words.
     "scripts/render_sort.py": 196,
     # NEW FILE, budgeted in the same diff that creates it (2026-08-23, Andrew).
-    "scripts/writer.py": 181,
+    # 181 -> 192 (2026-10-25, Andrew: voice turns): hear_json, the audio executor, so hear.py builds no client of its own.
+    "scripts/writer.py": 192,
     # 430 -> 433 (2026-09-15, Andrew): the Producer prompt now carries the
     # Master Lesson Plan. Nothing was retired for it, and the growth is named
     # rather than dodged: the pass writes `fence_size`/`unfenced_words` and owns
@@ -518,6 +524,7 @@ def s18_size_budgets(mk, kr, sb: Path):
                "CATCH_JUDGE_MANDATE": kr.CATCH_JUDGE_MANDATE,
                "VOICE_MANDATE": kr.VOICE_MANDATE,
                "OPEN_ASK_MANDATE": kr.OPEN_ASK_MANDATE,
+               "HEAR_MANDATE": sys.modules["mandates"].HEAR_MANDATE,
                # reached through the lane that owns it, the same way the
                # knock cases reach reply_common — no re-export just for a test
                "MESSAGE_MANDATE":
@@ -1093,6 +1100,7 @@ LAYERS = {
     "reply_common":       5.6,    # what both inbound lanes share
     "knock_message":      5.7,    # the message lane, above what it reuses
     "knock_reply":        5.8,    # grading + the routing that picks the lane
+    "hear":               5.9,    # the ear in front of knock_reply (2026-10-25): it hands off, nothing imports it
     "push_queue":         5.5,
     "render_soak":        5.5,
     "render_payoff":      5.5,

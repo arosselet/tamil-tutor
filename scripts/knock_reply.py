@@ -54,8 +54,8 @@ from publish import commit_and_push, load_env, publish, push_to_phone
 # The lane-neutral half of answering him — detectors, the voice backstop, the
 # render, and the one ledger writer. Split out 2026-08-28 so the MESSAGE lane
 # could have them without importing the grading lane (reply_common.py).
-from reply_common import (_ts, ensure_schedule, ensure_voice, gate_reply, recent_exchanges,
-                          record_meta_note, speak)
+from reply_common import (_ts, cap_unheard, ensure_schedule, ensure_voice, gate_reply,
+                          recent_exchanges, record_meta_note, speak, spoken_stamp)
 from writer import (BOOL, STR, arr, ask_json, executor_name, nullable, obj,
                     to_phonetic, voice_canon)
 
@@ -305,6 +305,7 @@ def handle_catch_reply(knock: dict, reply_text: str, klog: list,
         "at": knock["reply_at"], "reply": reply_text,
         "verdict": verdict["verdict"], "fired": [],
         "reply_line": knock["reply_line"], "reply_line_script": knock["reply_line_script"],
+        **spoken_stamp(),
     })
     save_json(LEXICON_PATH, lexicon)
     save_json(KNOCK_LOG_PATH, klog)
@@ -797,15 +798,22 @@ def main():
     ap.add_argument("--dry-run", action="store_true",
                     help="judge + print only; no state writes, commit, or push-back")
     args = ap.parse_args()
-
     load_env(BASE / ".env")
-    reply_text = args.reply.strip()
+    run(args.reply, os.environ.get("REPLY_KNOCK_ID", ""),
+        os.environ.get("REPLY_INTENT", ""), args.dry_run)
+
+
+def run(reply_text: str, knock_id: str, intent: str, dry_run: bool = False):
+    """One inbound turn, typed or spoken. `hear.py` calls this with the ear's
+    transcript (2026-10-25), so a voice turn takes exactly the routing a typed
+    one does — sort, message, catch or the production judge."""
+    reply_text = reply_text.strip()
     if not reply_text:
         print("Empty reply — nothing to judge.")
         return
 
     klog = load_json(KNOCK_LOG_PATH) or []
-    knock_id = os.environ.get("REPLY_KNOCK_ID", "").strip()
+    knock_id = (knock_id or "").strip()
     knock = find_knock(klog, knock_id) or last_fired_knock(klog)
     if knock is None:
         print("No fired knock to judge a reply against — logging nothing.")
@@ -820,20 +828,20 @@ def main():
     # after another knock has fired, so last-fired correlation would miss it.
     sort = render_sort.claim_reply(klog, knock_id, reply_text)
     if sort is not None:
-        render_sort.handle_reply(sort, reply_text, klog, lexicon, args.dry_run,
+        render_sort.handle_reply(sort, reply_text, klog, lexicon, dry_run,
                                  commit=commit_and_push, notify=push_to_phone)
         return
 
-    if is_message(knock_id, os.environ.get("REPLY_INTENT", "").strip().lower(),
+    if is_message(knock_id, (intent or "").strip().lower(),
                   reply_text, knock, lexicon):
-        handle_message(reply_text, knock, klog, args.dry_run)
+        handle_message(reply_text, knock, klog, dry_run)
         return
 
     if knock.get("modality") == "eavesdrop":
         # Comprehension dose — the reply grades the CATCH axis, on its own
         # smaller mandate; nothing below (reveal caps, chains, volley walk,
         # production meters) applies to a drift answer.
-        handle_catch_reply(knock, reply_text, klog, lexicon, args.dry_run)
+        handle_catch_reply(knock, reply_text, klog, lexicon, dry_run)
         return
 
     target, _ = current_pin(knock)
@@ -862,6 +870,7 @@ def main():
     verdict = ensure_voice(verdict, reply_text, lambda: judge(
         knock, reply_text, target_record, hours, revealed,
         force_voice=True, klog=klog))
+    verdict = cap_unheard(verdict)
 
     # Momentum chain: on a scored reply, the push-back may carry the NEXT micro-ask.
     # The knock's expected target moves to the chained one, so the next reply is
@@ -904,7 +913,7 @@ def main():
             and knock.get("chained", 0) < CHAIN_CAP):
         follow = verdict["follow_up_ask"]
 
-    if args.dry_run:
+    if dry_run:
         chain_str = f" ↪ chain: {follow}" if follow else ""
         print(f"[dry-run] would apply, then push: {verdict['reply_line']} · {scoreboard(lexicon)}{chain_str}")
         return
@@ -955,6 +964,7 @@ def main():
         "spoke": verdict.get("voice_reply") or "",
         "scheduled": " · ".join(v for v in (sched.get("at_local", ""),
                                             sched.get("move", "")) if v),
+        **spoken_stamp(),
     })
 
     # The slip ledger — the phone lane's half. This is the seam that did not

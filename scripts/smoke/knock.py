@@ -3364,3 +3364,161 @@ def s143_a_clock_ask_is_never_silently_dropped(kr, sb: Path):
             flog_path.unlink(missing_ok=True)
         else:
             flog_path.write_bytes(saved[1])
+
+
+def s155_a_spoken_turn_is_a_typed_turn_heard(kr, sb: Path):
+    """Voice turns, level 1 (2026-10-25, Andrew; `docs/voice_turn_plan.md`).
+
+    `hear.py` turns a clip from a `voice-turn` dispatch into the text knock_reply
+    would have received, and `reply_common.SPOKEN` tells every lane the turn was
+    spoken. Four promises, each with teeth:
+
+    1. THE CLIP NEVER REACHES ENV. Actions prints a step's env into the public run
+       log; the workflow step has no env block and nothing in anna.yml names
+       `client_payload.audio`. The payload comes off the event file.
+    2. A FAILED EAR IS LOUD — GATE 7.2, OUT LOUD. The silent no-op is a turn that
+       dies on the runner while the phone shows nothing, which reads exactly like
+       Anna ignoring him. So a clip the ear cannot hear must PUSH and exit 1, and
+       the case drives the real `main()` and reads what was pushed, not a return.
+    3. A SPOKEN TURN TAKES THE TYPED ROUTING, then is stamped. Round trip through
+       `knock_reply.run` and RE-READ the knock log: the exchange carries
+       `channel: voice` and the `heard` block, a silent first verdict is re-asked
+       for a voice reply, and the message lane stamps its anchor the same way.
+    4. A LOW-CONFIDENCE EAR CAPS. A cold fire on a low-confidence turn lands
+       hinted in the lexicon, read back from disk; a confident spoken turn and a
+       typed turn of the same words stay cold, so the cap is the unsure ear's
+       and nothing else's."""
+    print("\n155. A spoken turn is a typed turn, heard (2026-10-25)")
+    rc = importlib.import_module("reply_common")
+    hr = importlib.import_module("hear")
+    km = importlib.import_module("knock_message")
+    rch = importlib.import_module("render_chat")
+    prog = sb / "progress"
+    lex_path, klog_path = prog / "lexicon.json", prog / "knock_log.json"
+    saved = {p: p.read_bytes() for p in (lex_path, klog_path) if p.exists()}
+    originals = (kr.judge, kr.push_to_phone, kr.commit_and_push, kr.speak,
+                 km.judge_message, km.push_to_phone, km.commit_and_push, km.speak,
+                 hr.push_to_phone, hr.hear, os.environ.get("GITHUB_EVENT_PATH"))
+
+    class Pushes(list):
+        """push_to_phone with its keywords kept — the retry needs the knock_id."""
+        def __call__(self, *args, **kwargs):
+            self.append((args, kwargs))
+
+    # 1. The workflow. The step is found by name so a rename cannot pass silently.
+    yml = (REAL_BASE / ".github" / "workflows" / "anna.yml").read_text(encoding="utf-8")
+    m = re.search(r"- name: Hear a spoken turn\n(.*?)(?=\n      - name: |\Z)", yml, re.S)
+    step = m.group(1) if m else ""
+    check("anna.yml has the voice-turn step, guarded on the event", bool(m)
+          and "github.event.action == 'voice-turn'" in step and "scripts/hear.py" in step)
+    check("the voice-turn step has NO env block",
+          bool(m) and not re.search(r"^\s+env:", step, re.M))
+    check("nothing in anna.yml names the clip", "client_payload.audio" not in yml)
+    check("voice-turn is a dispatch type the workflow listens for",
+          re.search(r"types: \[[^\]]*voice-turn", yml) is not None)
+
+    try:
+        # 2. Loud failure, through the real main(), off a real event file.
+        event = sb / "voice_event.json"
+        os.environ["GITHUB_EVENT_PATH"] = str(event)
+        sys.argv = ["hear.py"]
+
+        def drive(payload):
+            write_json(event, {"client_payload": payload})
+            hr.push_to_phone = Pushes()
+            with contextlib.redirect_stdout(io.StringIO()):
+                try:
+                    hr.main()
+                except SystemExit as e:
+                    return e.code, hr.push_to_phone
+            return 0, hr.push_to_phone
+
+        for label, payload in {"no audio": {"knock_id": "k1", "intent": "reply"},
+                               "garbage audio": {"audio": "not base64 !!"}}.items():
+            code, pushed = drive(payload)
+            check(f"{label}: the phone hears about it and the run goes red",
+                  code == 1 and [a[0] for a, _ in pushed] == [hr.HEARD_NOTHING],
+                  f"exit {code}, pushed {pushed}")
+
+        def deaf(_audio, _fmt):
+            raise hr.Unheard("the ear heard no speech (confidence low)")
+        hr.hear = deaf
+        code, pushed = drive({"audio": "AAAA", "knock_id": "k9"})
+        check("an ear that heard nothing pushes, keyed to the knock for the retry",
+              code == 1 and len(pushed) == 1 and pushed[0][1].get("knock_id") == "k9",
+              f"exit {code}, pushed {pushed}")
+
+        # 3 + 4. The round trip: spoken unsure, spoken sure, typed.
+        word = "சும்மா இருங்க"
+        now = datetime.now(timezone.utc)
+        knock = {"date": now.date().isoformat(), "timestamp": now.isoformat(),
+                 "acted": True, "modality": "text", "move": "smoke voice",
+                 "body": "she piles more rice — stop her", "expected_target": word,
+                 "target_revealed": False}
+        calls = []
+
+        def judge(k, r, t, h=None, rr=None, **kw):
+            calls.append(kw.get("force_voice", False))
+            v = canned_verdict([(word, "cold")])
+            v["voice_reply"] = "சும்மா இருங்க!" if kw.get("force_voice") else ""
+            return v
+        kr.judge, kr.push_to_phone, kr.commit_and_push = judge, Recorder(), Recorder()
+        kr.speak = lambda *a, **kw: (None, None)
+
+        def turn(spoken):
+            write_json(lex_path, {word: lex_row(gloss="Stay quiet", recognition="solid")})
+            write_json(klog_path, [dict(knock)])
+            calls.clear()
+            rc.SPOKEN = spoken
+            try:
+                with contextlib.redirect_stdout(io.StringIO()):
+                    kr.run("summa irunga", knock["timestamp"], "reply")
+            finally:
+                rc.SPOKEN = None
+            return read_json(klog_path)[-1]["exchanges"][-1], read_json(lex_path)[word]
+
+        heard = {"transcript": "summa irunga", "meaning": "stay quiet", "confidence": "low",
+                 "model": "smoke"}
+        ex, row = turn(heard)
+        check("a spoken reply is stamped channel: voice with the ear's block",
+              ex.get("channel") == "voice" and ex.get("heard") == heard, str(ex))
+        check("a spoken turn with a silent first verdict is re-asked for voice",
+              calls == [False, True], str(calls))
+        check("a low-confidence ear holds a cold fire to hinted, read back from disk",
+              row.get("production") == "hinted", f"got {row.get('production')}")
+        with contextlib.redirect_stdout(io.StringIO()):
+            chat = rch.render_chat().read_text(encoding="utf-8")
+        check("chat.md marks the spoken turn and says what the ear made of it",
+              "Andrew** 🎙" in chat and "heard (low): stay quiet" in chat)
+        ex, row = turn({**heard, "confidence": "high"})
+        check("a confident ear's cold fire stands", row.get("production") == "cold",
+              f"got {row.get('production')}")
+        ex, row = turn(None)
+        check("a typed turn carries no voice stamp and no forced re-ask",
+              "channel" not in ex and calls == [False] and row.get("production") == "cold",
+              f"{ex.get('channel')} / {calls}")
+
+        # The message lane stamps too: a spoken "message" is still a voice exchange.
+        km.judge_message = lambda *a, **kw: {"reply_line": "sari da", "meta_note": "",
+                                              "voice_reply": "சரி டா", "rationale": "smoke"}
+        km.push_to_phone, km.commit_and_push = Recorder(), Recorder()
+        km.speak = lambda *a, **kw: (None, None)
+        write_json(klog_path, [dict(knock)])
+        rc.SPOKEN = heard
+        with contextlib.redirect_stdout(io.StringIO()):
+            kr.run("anna, oru doubt", "", "message")
+        rc.SPOKEN = None
+        ex = read_json(klog_path)[-1]["exchanges"][-1]
+        check("a spoken message is stamped on its thread anchor",
+              ex.get("intent") == "message" and ex.get("channel") == "voice", str(ex))
+    finally:
+        rc.SPOKEN = None
+        (kr.judge, kr.push_to_phone, kr.commit_and_push, kr.speak,
+         km.judge_message, km.push_to_phone, km.commit_and_push, km.speak,
+         hr.push_to_phone, hr.hear, ev) = originals
+        if ev is None:
+            os.environ.pop("GITHUB_EVENT_PATH", None)
+        else:
+            os.environ["GITHUB_EVENT_PATH"] = ev
+        for p, b in saved.items():
+            p.write_bytes(b)

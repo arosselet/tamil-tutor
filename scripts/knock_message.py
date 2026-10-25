@@ -43,7 +43,7 @@ from mandates import (FORCE_SCHEDULE_ADDENDUM, FORCE_VOICE_ADDENDUM,
 from push_queue import maybe_enqueue_schedule
 from publish import commit_and_push, load_env, publish, push_to_phone
 from reply_common import (ensure_schedule, ensure_voice, gate_reply, recent_exchanges, record_meta_note,
-                          speak)
+                          speak, spoken_stamp)
 from state_io import FEEDBACK_LOG_PATH, KNOCK_LOG_PATH, REVIEW_QUEUE_PATH, load_json, save_json
 from writer import STR, ask_json, executor_name, obj, voice_canon
 
@@ -104,7 +104,7 @@ def handle_message(text: str, knock: dict | None, klog: list, dry_run: bool):
         # this out of every rep-counting read downstream.
         knock.setdefault("exchanges", []).append(
             {"at": now, "reply": text, "intent": "message", "verdict": "chat",
-             "fired": [], "reply_line": verdict["reply_line"]})
+             "fired": [], "reply_line": verdict["reply_line"], **spoken_stamp()})
         save_json(KNOCK_LOG_PATH, klog)
 
     voice_url, vmp3 = speak(verdict, knock, klog) if knock is not None else (None, None)

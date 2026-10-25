@@ -43,7 +43,7 @@ on:
     # path, which already fire off-clock. Do not re-open this without new data.
     - cron: "0 * * * *"
   repository_dispatch:
-    types: [knock-response, episode-rating, episode-note]
+    types: [knock-response, episode-rating, episode-note, voice-turn]
   workflow_dispatch:
     inputs:
       force:
@@ -231,6 +231,17 @@ jobs:
           # absent as "message" and says so in the log.
           REPLY_INTENT: ${{ github.event.client_payload.intent }}
         run: python scripts/knock_reply.py "$REPLY_TEXT"
+
+      - name: Hear a spoken turn
+        # Voice turns, level 1 (2026-10-25, docs/voice_turn_plan.md). NO env: block,
+        # on purpose, and none may be added. The clip rides in the payload's audio field,
+        # and Actions prints a step's env values into the run log, which on a
+        # public repo is public. hear.py reads the clip, the knock_id and the
+        # intent off $GITHUB_EVENT_PATH instead, then hands the transcript to
+        # knock_reply's own routing. A failed ear pushes "Couldn't hear that one"
+        # and exits 1, so a dead turn is red here and audible on the phone.
+        if: github.event.action == 'voice-turn'
+        run: python scripts/hear.py
 
       - name: Log tap
         # --commit routes this lane through commit_and_push, the same landing

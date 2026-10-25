@@ -1,9 +1,13 @@
 # Voice turns — talking to Anna, one turn at a time
 
-**Status:** RULED, not built. Filed 2026-10-25 and revised the same day after Andrew's
-second pass (@build session). Andrew ruled "build" at the inbox drain the same day (the
-"Voice turns ship before the spike's verdict" line in `DECISIONS.md`). The code waits on
-build slice 1, the payload measurement from the phone.
+**Status:** RUNNER SIDE BUILT, phone side not. Filed 2026-10-25, ruled "build" at the
+inbox drain the same day (the "Voice turns ship before the spike's verdict" line in
+`DECISIONS.md`), and slice 3 built that evening: `scripts/hear.py`, the `voice-turn` step
+in `anna.yml`, `writer.hear_json`, `reply_common.SPOKEN` and smoke `s155`. Slice 2 is
+half done: one of Anna's own 9 KB mp3 knocks (ரவி எங்க இருக்கான்) came back from
+`hear.py --dry-run` as "Ravi enge irukaan", confidence high. **Still open:** slice 1
+(payload size from the phone), an m4a clip of Andrew's own voice through the ear, the
+Shortcut (slice 4) and the 🎙 Answer action (slice 5).
 
 ## What Andrew asked for
 

@@ -366,7 +366,9 @@ def s66_json_mode_is_actually_sent(mk, kr, sb: Path):
         # carry their own `create()`; they call `writer.ask_json` instead, so
         # this is where JSON mode has to be — and a lane that goes back to
         # rolling its own client is caught by s70, not here.
-        "scripts/writer.py": 1,
+        # 1 -> 2 (2026-10-25, voice turns): `hear_json`, the audio executor, sends
+        # JSON mode too — it lives here so hear.py builds no client of its own.
+        "scripts/writer.py": 2,
     }
     for rel, want in lanes.items():
         src = (REAL_BASE / rel).read_text(encoding="utf-8")
@@ -1410,6 +1412,7 @@ VOICE_SURFACE = [("mandates", "OUTREACH_MANDATE"), ("mandates", "BASE_MANDATE"),
                  ("mandates", "VOICE_MANDATE"), ("mandates", "DRILL_MANDATE"),
                  ("mandates", "SOAK_MANDATE")]
 READ_SURFACE = [("mandates", "PHONETIC_REWRITE"), ("mandates", "MESSAGE_MANDATE"),
+                ("mandates", "HEAR_MANDATE"),
                 ("run_studio", "CAPTIONS")]
 
 

@@ -681,3 +681,21 @@ def voice_canon() -> str:
                 f"refusing to generate Tamil without the register law")
         parts.append(p.read_text(encoding="utf-8").strip())
     return "\n\n---\n\n".join(parts)
+
+
+def hear_json(prompt: str, audio_b64: str, fmt: str, answer_tokens: int = 400) -> dict:
+    """One AUDIO call -> parsed JSON, always on the API (2026-10-25, voice turns).
+
+    The third executor shape beside `ask_json` and `ask_text`, kept in this module
+    so the one-client rule holds. There is no agent branch: `claude -p` takes no
+    audio, so this bills OpenRouter on every host — the laptop's dry-run included,
+    at a flash call's cents. No retry either: a turn waits on it, and a garbled
+    answer surfaces as `hear.py`'s loud failure rather than a second wait."""
+    client = OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"])
+    resp = client.chat.completions.create(
+        model=OPENROUTER_MODEL, max_tokens=budget(answer_tokens),
+        response_format=JSON_MODE, extra_body=REASONING_BUDGET,
+        messages=[{"role": "user", "content": [
+            {"type": "text", "text": prompt},
+            {"type": "input_audio", "input_audio": {"data": audio_b64, "format": fmt}}]}])
+    return parse_llm_response(resp)

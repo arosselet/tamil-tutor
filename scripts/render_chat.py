@@ -75,9 +75,16 @@ def render_chat() -> Path:
             a = _local(x["at"]) if x.get("at") else t
             when = f"{a:%H:%M} · " if x.get("at") else ""
             verdict = (x.get("verdict") or "").upper()
-            block = [f"**{when}Andrew** — **{verdict}**"
+            # A spoken turn (2026-10-25) shows what the ear made of it: the
+            # quote is the ear's transcript, not his typing.
+            mic = " 🎙" if x.get("channel") == "voice" else ""
+            block = [f"**{when}Andrew**{mic} — **{verdict}**"
                      f"{back if a.date() != t.date() else ''}",
                      _quote(x.get("reply", "")), ""]
+            heard = x.get("heard") or {}
+            if heard:
+                block[-1:] = [f"*heard ({heard.get('confidence', '?')}): "
+                              f"{heard.get('meaning', '')}*", ""]
             if x.get("reply_line"):
                 block += ["**Anna ↩**", _quote(x["reply_line"]), ""]
             turns.append((a, block))

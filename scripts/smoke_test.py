@@ -161,6 +161,7 @@ def main():
         run(render.s147_overnight_production_waits_for_his_morning, sb)
         run(render.s148_the_shelf_takes_turns, sb)
         run(knock.s143_a_clock_ask_is_never_silently_dropped, kr, sb)
+        run(knock.s155_a_spoken_turn_is_a_typed_turn_heard, kr, sb)
         run(knock.s133_the_outreach_policy_learns, mk, sb)
         run(render.s134_the_rotation_tape_passes_the_judge, sb)
         run(knock.s135_a_knock_speaks_only_judged_tamil, mk, sb)

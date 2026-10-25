@@ -494,8 +494,9 @@ blank line. Empty string is the normal answer.
 # direct ask and spends the one re-ask.
 FORCE_VOICE_ADDENDUM = """\
 
-OVERRIDE — HE ASKED TO HEAR SOMETHING. Python detected a direct request for audio and \
-your previous answer returned an empty "voice_reply". You MUST return a non-empty \
+OVERRIDE — HE ASKED TO HEAR SOMETHING. Python detected a direct request for audio, or \
+he SPOKE this turn (a voice turn is answered aloud), and your previous answer returned \
+an empty "voice_reply". You MUST return a non-empty \
 "voice_reply" now: compose the spoken words in full, exactly as they should sound.
 
 Two refusals are already on the record, and both are wrong (2026-08-27, measured):
@@ -511,6 +512,27 @@ He knows what he wants the recording for — a model to shadow, a greeting to se
 to play to someone standing next to him. Hand it over, and put any teaching in the text \
 line where it costs him nothing. Refusing an explicit ask is not pedagogy, it is a man \
 asking three times and getting nothing."""
+
+
+# The voice-turn ear (2026-10-25, `docs/voice_turn_plan.md`). BLIND by design: it
+# is told who is speaking and nothing about what he was asked, because the spike's
+# design names a told target as the condition most likely to launder a wrong take
+# into the right one. Its transcript goes to the judges exactly as typed text
+# would, so it is written the way he types — READ_FORM, spliced, never restated.
+HEAR_MANDATE = """\
+You will hear one short voice clip from Andrew, an adult English speaker learning \
+spoken Coimbatore (Kongu) colloquial Tamil, who code-mixes English freely. He may be \
+answering something his tutor asked or starting a conversation; you are told neither \
+on purpose. Write down what you HEAR.
+
+The transcript is written in """ + READ_FORM + """: Tamil words in Roman letters the \
+way he types them, English words as English. Keep his words as spoken, mistakes \
+included: a wrong ending stays wrong, and a half-heard word is written as heard, \
+not as the word you guess he wanted.
+
+Return ONLY JSON: {"transcript": "<what was said>", "meaning": "<what he meant, in \
+English>", "confidence": "high|medium|low"}. "low" means you are guessing at most of \
+it. An empty transcript means you heard no speech."""
 
 
 # ── The drill lane's mandates ────────────────────────────────────────────────

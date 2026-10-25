@@ -36,6 +36,35 @@ from state_io import FEEDBACK_LOG_PATH, KNOCK_LOG_PATH, load_json, local_today, 
 # English on purpose: a fallback that needed judging would need a fallback.
 REPLY_FALLBACK = "Got it, noted."
 
+# THE SPOKEN TURN (2026-10-25, voice turns, `docs/voice_turn_plan.md`). `hear.py`
+# sets this to the ear's `heard` block before it hands the transcript to
+# knock_reply, so every lane learns the turn was spoken from one place: the voice
+# backstop forces an answer aloud, the exchange is stamped, and a low-confidence
+# ear caps what can fire. A typed turn leaves it None and nothing below changes.
+SPOKEN: dict | None = None
+
+
+def spoken_stamp() -> dict:
+    """The fields a spoken exchange carries, so a later audit (the spike's level 2)
+    can find every voice fire and re-weigh it. Empty for a typed turn."""
+    return {"channel": "voice", "heard": SPOKEN} if SPOKEN else {}
+
+
+def cap_unheard(verdict: dict) -> dict:
+    """A word the ear was unsure of is held to hinted at most. The blind ear and
+    the `said`-in-transcript rule keep a fire honest about WHAT was heard; this
+    keeps it honest about HOW WELL. A capped grade goes down too, since a
+    capped fire left alone can graduate to cold."""
+    if (SPOKEN or {}).get("confidence") != "low":
+        return verdict
+    for item in verdict.get("fired") or []:
+        if item["verdict"] in ("cold", "capped"):
+            print(f"   🎙 low-confidence ear — {item['word']} held to hinted")
+            item["verdict"] = "hinted"
+    if verdict.get("verdict") == "cold":
+        verdict["verdict"] = "hinted"
+    return verdict
+
 
 def gate_reply(verdict: dict, context: str, lane: str, source: str) -> list[dict]:
     """THE JUDGE SEAT ON EVERY INBOUND LANE (2026-10-12, Andrew). The push-back
@@ -124,17 +153,19 @@ def ensure_voice(verdict: dict, reply_text: str, rejudge) -> dict:
     like a normal text reply — that is precisely how four requests in a row were
     swallowed with every instrument green. So the third outcome is not silence:
     it writes MISSED VOICE into the feedback ledger, where the diagnosis pass
-    reads it."""
-    if not wants_spoken_reply(reply_text) or verdict.get("voice_reply"):
+    reads it.
+
+    A SPOKEN turn is a standing request (2026-10-25): voice in, voice out."""
+    if not (SPOKEN or wants_spoken_reply(reply_text)) or verdict.get("voice_reply"):
         return verdict
-    print("   🎧 direct audio request with no voice_reply — re-asking once, forced…")
+    print("   🎧 audio wanted (asked for, or a spoken turn) with no voice_reply — re-asking once, forced…")
     forced = rejudge()
     if forced.get("voice_reply"):
         print("   → speaking")
         return forced
     print("   ⚠ still silent — logging the miss to the ledger")
     verdict["meta_note"] = (verdict.get("meta_note") or "").strip() or (
-        f"MISSED VOICE: Andrew asked to HEAR something ({reply_text[:80]!r}) and "
+        f"MISSED VOICE: Andrew {'SPOKE' if SPOKEN else 'asked to HEAR something'} ({reply_text[:80]!r}) and "
         f"the push went out text-only — the judge declined twice. Check the voice lane.")
     return verdict
 
