@@ -9443,5 +9443,15 @@
     "rationale": "Andrew answered veliya this morning, ulla is saturated at 7x unanswered, and evening window performs better on weekends.",
     "decide_model": "google/gemini-3.8-flash",
     "next_check": "2026-10-25T21:53:40.466176+00:00"
+  },
+  {
+    "date": "2026-10-25",
+    "timestamp": "2026-10-25T23:00:59.804167+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "hold: evening rest",
+    "rationale": "Solid touch on veliya this morning; tugging ulla tonight would feel like retesting his morning slip, so letting the evening rest until morning.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-10-26T12:00:59.804167+00:00"
   }
 ]
