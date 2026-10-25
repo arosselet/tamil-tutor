@@ -1,8 +1,9 @@
 # Voice turns — talking to Anna, one turn at a time
 
-**Status:** SPEC, not built. Filed 2026-10-25 and revised the same day after Andrew's
-second pass (@build session). Waiting on Andrew's ruling at the next inbox drain;
-nothing in this file is policy until a `DECISIONS.md` line says so.
+**Status:** RULED, not built. Filed 2026-10-25 and revised the same day after Andrew's
+second pass (@build session). Andrew ruled "build" at the inbox drain the same day (the
+"Voice turns ship before the spike's verdict" line in `DECISIONS.md`). The code waits on
+build slice 1, the payload measurement from the phone.
 
 ## What Andrew asked for
 
@@ -202,12 +203,12 @@ Measure that before acting on it.
 
 ## What it reopens and replaces
 
-- **07-09 "Speech-in is parked on evidence, not desire"** and **10-23 "No lane follows
-  without the verdict"**. The lane ships before the spike's verdict, on Andrew's bet that
-  the model is good enough for conversation. The spike still runs and still decides
-  level 2. It's guarded by the
-  blind ear, the `said`-in-transcript rule, the `channel: voice` stamp and the
-  low-confidence cap, and pronunciation stays out of scope.
+- **The 07-09 park on speech-in** and **the 10-23 gate that held every lane for the
+  spike's verdict** (both superseded for level 1 on 2026-10-25). The lane ships before
+  the spike's verdict, on Andrew's bet that the model is good enough for conversation.
+  The spike still runs and still decides level 2. It's guarded by the blind ear, the
+  `said`-in-transcript rule, the `channel: voice` stamp and the low-confidence cap, and
+  pronunciation stays out of scope.
 - The code is purely additive: one script, one workflow step and one notification
   action. `knock_reply.py`, the judges, `speak()` and the push chokepoint are reused
   as they are.

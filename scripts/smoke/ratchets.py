@@ -1690,6 +1690,10 @@ TOMBSTONES = (
       "Scenes are disposable one-use pegs")),
     ("2026-10-25 Also, never instead (07-27's \"skip the lesson\" retired)",
      ("the untested target where it is, skip the lesson",)),
+    ("2026-10-25 Voice turns ship before the spike's verdict (07-09's park and 10-23's lane gate retired for level 1)",
+     ("Speech-in is parked on evidence",
+      "voice-IN stays parked",
+      "No lane follows without the verdict")),
 )
 
 # Where a retired claim could still be read as law: every surface an agent or a
