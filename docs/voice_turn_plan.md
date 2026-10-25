@@ -1,192 +1,218 @@
 # Voice turns — talking to Anna, one turn at a time
 
-**Status:** SPEC, not built. Filed 2026-10-25 (Andrew, @build session). Waiting on
-Andrew's ruling at the next inbox drain; nothing in this file is policy until a
-`DECISIONS.md` line says so.
+**Status:** SPEC, not built. Filed 2026-10-25 and revised the same day after Andrew's
+second pass (@build session). Waiting on Andrew's ruling at the next inbox drain;
+nothing in this file is policy until a `DECISIONS.md` line says so.
 
 ## What Andrew asked for
 
 > "Can we skip the spike and just build it? … I just want to build a back and forth
 > conversation with Anna … it can work the same as our knock pipeline and our reply
-> pipeline … I'm okay with the turns taking 40 seconds a minute … It's not the full
-> agentic harness. It's just turn-by-turn chat."
+> pipeline … I'm okay with the turns taking 40 seconds a minute …"
 
-Press a button, speak for about ten seconds, hit send. A minute later Anna answers aloud
-on the lock screen. Answer that, and keep going. Grading pronunciation comes later.
+And on the second pass:
 
-## What it reopens
+> "I actually want something more like what I've already worked in the knocks and the
+> knock replies and the different channels there, where I can initiate a conversation
+> and you have some tools to take feedback, or I can answer a question and you can figure
+> out what I was trying to answer … grade it on the intention and the ways in which I was
+> wrong, which is not about pronunciation, but there will be multiple right answers. And
+> if I'm on the right track, Anna shouldn't just be saying, nope, that's wrong … 'oh, hey,
+> you could also say it this way.'"
 
-- **07-09 "Speech-in is parked on evidence, not desire"** and **10-23 "No lane follows
-  without the verdict"**. This plan builds the lane before the spike's verdict. It still
-  respects what the spike was protecting by doing two things. First, **nothing heard is
-  graded in v1.** A voice turn goes to the message lane: Anna answers it and nothing
-  scores it. If the ear launders a wrong take into the right one, the conversation still
-  works and no rung moves on bad evidence. Second, **every real turn collects evidence.**
-  Each clip is kept next to what the ear made of it, so the spike's question (does it
-  launder?) gets answered by real use rather than a recording session Andrew keeps not
-  doing. `content/spike/voice_spike.py` stays where it is and can still be run. It just
-  stops gating the lane.
-- Nothing else. The message lane, the push chokepoint, TTS, the `anna` queue and the
-  Shortcut auth pattern are all reused unchanged.
+So voice is **a new way in to every channel that typing already reaches**. It is not a
+separate conversation lane. Andrew can start a conversation (message), answer a knock
+(reply, graded on intent), give feedback, or ask for audio or a scheduled ping. Spoken,
+he gets the same tools he gets typed.
 
-## The shape: an ear in front of the lanes we already have
+## The shape: an ear in front of `knock_reply.py`
 
 ```
  iPhone "Talk to Anna" Shortcut
-   1. Record Audio (≈10 s, m4a)
+   1. Record Audio (short, m4a)
    2. Base64 Encode
-   3. PUT  api.github.com/repos/arosselet/anna-voice-inbox/contents/in/<stamp>.m4a   ← PRIVATE repo
-   4. POST api.github.com/repos/arosselet/tamil-tutor/dispatches
-          {event_type: "voice-turn", client_payload: {clip: "in/<stamp>.m4a", knock_id: <opt>}}
+   3. POST api.github.com/repos/arosselet/tamil-tutor/dispatches
+          {event_type: "voice-turn",
+           client_payload: {audio: <base64>, knock_id: <opt>, intent: "message"|"reply"}}
                               │
                  anna.yml (same runner, same `anna` FIFO lane)
                               │
-   5. hear.py   — fetch clip (VOICE_INBOX_TOKEN) → ONE multimodal call (OpenRouter → Gemini flash)
-                  → {transcript, romanized, meaning, deviations, confidence}
-   6. knock_message path, unchanged — text = the transcript, plus a `heard` block on the exchange,
-                  voice reply FORCED (voice in → voice out)
-   7. speak() → TTS mp3 → commit → jsDelivr URL → push_to_phone(requested=True)
+   4. hear.py   — read the clip from $GITHUB_EVENT_PATH (never env, never logged)
+                  → ONE multimodal ear call (OpenRouter → Gemini flash), BLIND to the target
+                  → {transcript, meaning, confidence}
+   5. knock_reply.py, unchanged routing — exactly as if he'd typed the transcript:
+         intent=message → message lane (requests, scheduling, meta-notes, audio asks)
+         intent=reply   → reply judge (intent-graded, substitutes credited, recast)
+                          or the catch lane, whichever the knock calls for
+      plus: a spoken answer is forced (voice in → voice out), and the exchange is
+      stamped `channel: "voice"` with the ear's `heard` block
+   6. speak() → TTS → commit → jsDelivr → push_to_phone(requested=True)
                               │
-   lock screen: Anna's audio + a "🎙 Answer" action that re-runs the Shortcut ──▶ (1)
+   lock screen: Anna's audio + "🎙 Answer" (re-runs the Shortcut with this knock_id) ──▶ (1)
 ```
 
-The only new code is step 5, plus the wiring to and from it. Everything after the
-transcript already runs today for typed messages. That's why this is a small build and
-not a harness.
+The first draft sent every voice turn to the message lane, where nothing is graded. That
+was the safe choice and the wrong one. Once a turn has become text, `knock_reply.py`
+already does the routing Andrew described, so the ear just hands it over.
 
-## The unknown Andrew named: getting ten seconds of voice off the phone
+## Getting the audio off the phone, with no new repository
 
-The text path works because a typed message fits in `client_payload`. Audio needs
-somewhere to live between the phone and the runner. Three options:
+The first draft proposed a private sidecar repo. Andrew pointed out that a private repo
+opens the much larger question of what else in this public repo is really private
+(profile, family, state). That question is real and is filed on its own (see the inbox).
+**This feature doesn't need to settle it**, so it doesn't:
 
-| Option | How | Verdict |
-|---|---|---|
-| **A. Private sidecar repo** | The Shortcut PUTs the clip to `arosselet/anna-voice-inbox` via the Contents API, then dispatches the path | **Recommended.** It uses the same PAT pattern and the same "Get Contents of URL" action the Shortcuts already use. A file of any realistic size is fine. The clip never touches the public repo. Cost: one new private repo, one PAT scope, one new Actions secret. |
-| B. Inline in the dispatch | Base64 the m4a straight into `client_payload.audio` | Fewer moving parts, but unproven. 10 s of iPhone "Normal" m4a is roughly 60–100 KB, or about 80–130 KB as base64. That's near the size where dispatch payload limits and the runner's per-env-var limit (128 KB, `MAX_ARG_STRLEN`) start to bite. It also puts Andrew's voice into a public repo's event data. Measure it before relying on it. Don't build on it. |
-| C. A clip in the public repo | Same as A, but into `tamil-tutor` | **No.** Public history keeps it forever, and the spike already ruled that "a voice corpus does not belong in a public repo." |
+- **The clip travels inside the dispatch.** It's base64 in `client_payload.audio`, and
+  nothing gets stored anywhere. `hear.py` reads it from the event file at
+  `$GITHUB_EVENT_PATH` and **never** through a step `env:` block. Actions prints a step's
+  env values into the run log, and run logs on a public repo are public. A typed reply's
+  text already shows up there today; the audio must not.
+- **The clip is thrown away after it's heard.** Only the transcript and the `heard` block
+  are committed, which is the same exposure as a typed reply today. The cost is that v1
+  builds no voice corpus, so the laundering evidence that level 2 needs (see below) will
+  have to be collected deliberately when level 2 comes up. That's a fair trade for not
+  opening the privacy question now.
+- **Payload size is the one real unknown.** GitHub documents a 10-top-level-property cap
+  on `client_payload` and a "too large" error, but no published byte limit. Third-party
+  reports put it somewhere around 50–140 KB. Ten seconds of iPhone "Normal" m4a is
+  probably 40–100 KB raw, about a third more as base64. So build slice 1 **measures it**:
+  send 5, 10 and 20 s clips from the phone and record which ones land. If a natural turn
+  doesn't fit, the options in order are:
+  1. a shorter cap in the Shortcut;
+  2. lower-bitrate encoding on the phone (Shortcuts' *Encode Media*);
+  3. only then, a private store just for audio.
 
-(The "Dictate Text" option needs nothing new and is not this feature. Apple's English
-dictation is exactly the Thanglish-mangling ear the 07-09 fear was about, and it throws
-away the sound, which pronunciation grading will need.)
+  Option 3 re-raises the privacy question, deliberately, by bringing it back to Andrew.
 
 ### The Shortcut — "Talk to Anna"
 
-These are the same building blocks as Tell Anna (§8 of
-`home_assistant_knock_buttons.md`):
+These are the same building blocks as Tell Anna (§8 / §8.5 of
+`home_assistant_knock_buttons.md`), and it uses the same PAT. No new token is needed.
 
-1. **Receive** text input from Shortcut / URL. This is the optional `knock_id` when the
-   Shortcut is launched from a notification.
-2. **Record Audio**: Start *Immediately*, Finish *On Tap*. The 10 s is a habit, not a
-   cap. Audio quality *Normal*.
-3. **Base64 Encode**, with line breaks set to *None*. If line breaks are left on, the
-   Contents API rejects the body.
-4. **Format Date** (`yyyyMMdd-HHmmss`) → `stamp`.
-5. **Get Contents of URL**: `PUT https://api.github.com/repos/arosselet/anna-voice-inbox/contents/in/<stamp>.m4a`,
-   JSON body `{"message": "voice <stamp>", "content": <Base64>}`, with the same three headers.
-6. **Get Contents of URL**: `POST …/tamil-tutor/dispatches`,
-   `{"event_type": "voice-turn", "client_payload": {"clip": "in/<stamp>.m4a", "knock_id": <Shortcut Input>}}`.
-7. **Show Notification** "Sent — Anna's thinking". This is the only feedback until the
+1. **Receive** text input. This is the `knock_id` when the Shortcut is launched from a
+   notification's 🎙 Answer.
+2. **If** there's no input, show **Choose from Menu** `Message` / `Reply`, the same
+   intent split as Tell Anna (08-28). With a `knock_id`, the intent is `reply` and there's
+   no menu. The 08-28 lesson holds: no machine can tell those two apart, so the Shortcut
+   asks.
+3. **Record Audio**: Start *Immediately*, Finish *On Tap*, quality *Normal*.
+4. **Base64 Encode**, with line breaks set to *None*.
+5. **Get Contents of URL**: POST the dispatch above, with the same three headers.
+6. **Show Notification** "Sent — Anna's listening". This is the only feedback until the
    answer lands.
-
-The PAT gets one more repository in its *Only select repositories* list
-(`anna-voice-inbox`, with Contents: Read and write). Add a row to the PAT rotation log
-when it's re-minted.
 
 ### Closing the loop from the lock screen
 
 `push_to_phone` already carries `knock_id` in the notification's action data. The HA
-notify automation gets a third action next to Got it / Reply:
+notify automation gets one more action next to Got it / Reply:
 `🎙 Answer` → `uri: shortcuts://run-shortcut?name=Talk%20to%20Anna&input=text&text=<knock_id>`.
-This is the URL-scheme route that Rate From Notes already uses. Tapping it unlocks the
-phone, opens Shortcuts and starts recording. That one tap is the whole "turn" gesture.
-Recording needs the phone unlocked and in the foreground, which iOS requires anyway.
+Rate From Notes already uses this URL-scheme route. One tap unlocks the phone and starts
+recording, and that tap is the whole turn gesture.
 
 ## The runner side
 
-- **Trigger:** add `voice-turn` to `repository_dispatch.types` in `anna.yml`, then add
-  one step:
-  `if: github.event.action == 'voice-turn'` → `python scripts/hear.py --clip "$VOICE_CLIP" --knock-id "$VOICE_KNOCK_ID"`,
-  with both values passed through `env` and never spliced into the script, same as the
-  note lane.
-- **New secret:** `VOICE_INBOX_TOKEN`, a fine-grained PAT with Contents: Read and write
-  on `anna-voice-inbox` only. `GITHUB_TOKEN` can't read another repo.
-- **`scripts/hear.py`** (one job: turn a clip into text Anna can answer):
-  1. Fetch the clip with the raw media type (`Accept: application/vnd.github.raw`). The
-     JSON form base64-wraps it and caps at 1 MB.
-  2. Run one ear call. This is the spike's `hear()` lifted as-is: OpenRouter, the writer
-     model, `input_audio`. The ear mandate is the spike's **context** condition, filled
-     with the open ask from the knock if there is one. That condition is the one meant
-     for conversation hearing. The **target** condition is for coaching hearing, which
-     is level 2.
-  3. **Format.** OpenRouter documents `wav` and `mp3` for `input_audio`. Gemini itself
-     accepts AAC. The first build slice sends the m4a as-is. If that's refused, it
-     transcodes with the `imageio-ffmpeg` wheel (a pip-installed static binary).
-     **Don't use apt.** The ffprobe apt step is skipped on `repository_dispatch` on
-     purpose (latency), and it's the step that hung the lane for six hours on 08-18.
-  4. Hand off to the message lane with `text = transcript` and the intent forced to
-     `message`. Force the voice reply, so voice in always gets voice out. Use the
-     existing `FORCE_VOICE_ADDENDUM`.
-  5. Stamp the exchange with `channel: "voice"`, `clip: "<private path>"` and
-     `heard: {transcript, romanized, meaning, deviations, confidence, model}`.
-     `render_chat` then shows that the turn was spoken and what the ear thought it heard.
-     The clip itself stays private. Only the path is public.
-- **Failure has to be loud.** A clip that won't fetch, or an ear that errors or returns
-  `confidence: low` with an empty transcript, still pushes something:
-  "Couldn't hear that one — try again?" A voice turn that dies silently is the
-  `expired-PAT` outage again, and Andrew would read it as Anna ignoring him.
-- **Retention:** clips stay in the private repo as the real-use corpus (see "Level 2").
-  Whether old clips get pruned is Andrew's call. It's not needed for v1.
+- **Trigger:** add `voice-turn` to `repository_dispatch.types`, then add one step:
+  `if: github.event.action == 'voice-turn'` → `python scripts/hear.py`.
+  Small fields (`knock_id`, `intent`) may go through `env` like the note lane does. The
+  audio may not.
+- **`scripts/hear.py`** has one job: turn a clip into the text `knock_reply` would have
+  received.
+  1. **The ear hears blind.** The prompt says who is speaking (an English speaker
+     learning Kongu Tamil, code-mixing freely) and asks for what was said and what was
+     meant. It **doesn't** get the expected target. In the spike's design, telling the
+     ear the target is the condition most likely to launder a wrong take into the right
+     one. Kept blind, the transcript is evidence. Told the target, it would just echo the
+     target back.
+  2. **Format.** OpenRouter documents `wav` and `mp3` for `input_audio`, and Gemini
+     itself accepts AAC. The first slice sends m4a as-is. If that's refused, transcode
+     with the `imageio-ffmpeg` wheel. **Never apt.** The ffprobe apt step is skipped on
+     dispatch for latency, and it's the step that held the lane for six hours on 08-18.
+  3. **Hand off** to `knock_reply`'s entry point with `text = transcript`, the intent and
+     `knock_id` from the payload, and the voice reply forced
+     (`FORCE_VOICE_ADDENDUM`, which already exists).
+  4. **Stamp** the exchange with `channel: "voice"` and
+     `heard: {transcript, meaning, confidence, model}`. `render_chat` shows the turn was
+     spoken and what the ear made of it.
+- **Failure has to be loud.** A missing clip, an ear error, or `confidence: low` with an
+  empty transcript still pushes a line: "Couldn't hear that one — try again?" A voice
+  turn that dies silently is the expired-PAT outage again, and Andrew would read it as
+  Anna ignoring him.
 
-### What a turn costs in time (estimated, not measured)
+## Grading by voice: on intent, never on sound
+
+The reply judge **already** grades the way Andrew described. `JUDGE_MANDATE` says
+"generous in spirit, honest on the axis". Under "CREDIT WHAT HE SAID, NOT WHAT YOU
+WANTED", a socially coherent substitute is a real rep and gets credited on its own
+merits. It grades word by word and recasts a miss. A voice reply goes through that judge
+unchanged. Two additions apply to voice only:
+
+- **`said` matches against the transcript.** Python's rule that "a word he never typed
+  can never score" becomes "a word the ear didn't hear can never score". Being blind is
+  what keeps that honest.
+- **Every voice fire is stamped `channel: "voice"`.** If level 2 later shows the ear
+  launders, voice fires can be found and re-weighed. Nothing is lost by grading them now.
+  A fire on a turn where the ear reported `confidence: low` is held to `hinted` at most.
+
+**One tension to rule on, separately, because it changes typed replies too.** Andrew
+wants "if I'm on the right track … 'oh, hey, you could also say it this way.'" Today the
+mandate says the opposite for substitutes: "credit … on their own merits, leave the
+untested target where it is, **skip the lesson**". It also says "Keep unsolicited
+correction brief". So a good substitute currently gets credit and silence about the
+other way to say it. The change would be: on a credited substitute or a hinted near-miss,
+the reply line offers one alternative, framed as "also" and not as "instead". The
+existing machinery already prices this correctly: any Tamil Anna prints counts as
+revealed and caps that word at hinted for 48 h. It's filed as its own inbox line, because
+a voice spec is the wrong place to change how every reply is answered.
+
+## Level 2: pronunciation (not v1)
+
+Nothing here judges sound. The `deviations` field from the spike's ear isn't even
+requested in v1. Pronunciation coaching needs the spike's laundering check on real takes,
+including deliberate wrong ones. Because v1 stores no clips, that becomes a deliberate
+session when level 2 is raised: `content/spike/voice_spike.py` as it stands, or a
+"keep clips" switch on this lane once the privacy question has an answer.
+
+## What a turn costs in time (estimated, not measured)
 
 | Leg | Rough |
 |---|---|
-| Shortcut upload + dispatch | 2–4 s |
+| Shortcut encode + dispatch | 1–3 s |
 | Dispatch → runner picks it up | 5–30 s (longer if a render holds the `anna` lane) |
 | checkout + setup-python + `pip install` | 25–40 s |
-| ear call (10 s of audio ≈ 320 tokens) | 3–8 s |
-| message judge (existing) | 5–15 s |
+| ear call | 3–8 s |
+| judge / message lane (existing) | 5–15 s |
 | TTS + commit/push + jsDelivr prewarm + HA push | 8–15 s |
 | **Total** | **≈ 50–110 s** |
 
-That's inside the "40 seconds to a minute or whatever it takes" Andrew accepted. Cheap
-v1.5 speed-ups, none needed to ship: a pip cache, and skipping the drain and payoff steps
-on `voice-turn`. A warm, continuously running substrate is v2, and Andrew named it as v2.
+This is within the minute Andrew accepted. v1.5 speed-ups that aren't needed to ship: a
+pip cache, and skipping the drain and payoff steps on `voice-turn`. A warm substrate is
+v2. The shared FIFO can make a turn wait behind a render (one writer first, 07-28).
+Measure that before acting on it.
 
-The known tradeoff is the shared FIFO. A voice turn can wait behind a rotation render,
-because the 07-28 ruling put one writer first and lock-screen latency second. Leave that
-as it is and measure it. Ten real turns will say whether it actually happens.
+## What it reopens and replaces
 
-## Level 2: grading pronunciation (not v1)
-
-The ear already returns `deviations` on every turn. In v1 they're **logged, never
-applied**. Promoting them to coaching (Anna says "your ற was trilled") or to a rung needs
-a laundering check on real data. That means a handful of turns where Andrew says
-something deliberately wrong, plus the spike's `report` logic run over the voice-inbox
-corpus instead of a recording sheet. That's the spike, done in place: the measurement
-comes from the conversation instead of blocking it. Speech that's graded as a *rep*
-(production axis, cold fires) also waits on that check. That's when the reply lane, not
-the message lane, would start taking voice.
+- **07-09 "Speech-in is parked on evidence, not desire"** and **10-23 "No lane follows
+  without the verdict"**. The lane ships before the spike's verdict. It's guarded by the
+  blind ear, the `said`-in-transcript rule, the `channel: voice` stamp and the
+  low-confidence cap, and pronunciation stays out of scope.
+- The code is purely additive: one script, one workflow step and one notification
+  action. `knock_reply.py`, the judges, `speak()` and the push chokepoint are reused
+  as they are.
 
 ## Build slices (for the session that builds it)
 
-0. **Andrew, by hand (≈15 min):** create the private repo `anna-voice-inbox`, add it to
-   the PAT, mint `VOICE_INBOX_TOKEN`, add it as an Actions secret.
-1. **Ear on the laptop.** Record one m4a on the phone and AirDrop it over. Run `hear.py`
-   against it locally with `--dry-run` (no message lane, no push). This proves the
-   format question and the Thanglish transcript in one go, on a real clip. **This is the
-   only gate.** If the transcript of a plain Tanglish sentence is unusable, stop and
-   rule again.
-2. **Runner wiring:** the `voice-turn` dispatch, the step, the secret and the loud
-   failure push. Add a smoke case that `voice-turn` routes to `hear.py` and that a failed
-   ear still pushes. Map `hear.py` in `PROTOCOL_MAP.md` (s125 checks this).
-3. **Shortcut:** build Talk to Anna from the steps above, and add §8.8 to
-   `home_assistant_knock_buttons.md`.
-4. **Lock-screen loop:** add the `🎙 Answer` action to the HA notify automation. This is
+1. **Measure on the phone (Andrew, ≈10 min):** build a two-action test Shortcut (Record
+   Audio → Base64 → dispatch to a no-op event type) and send 5/10/20 s clips. Record
+   which ones GitHub accepts. **This is the transport gate.**
+2. **Ear on the laptop:** AirDrop one Tanglish m4a and run `hear.py --dry-run` (no
+   handoff, no push). This proves the format and whether a blind ear recovers his
+   meaning. **This is the hearing gate.** If the transcript is unusable, stop and rule
+   again.
+3. **Runner wiring:** the dispatch type, the step, the handoff, the stamp and the loud
+   failure. Add smoke cases for: audio never reaches `env`; the voice turn routes by
+   intent; a failed ear still pushes; a low-confidence fire is capped. Map `hear.py` in
+   `PROTOCOL_MAP.md` (s125).
+4. **Shortcut:** build Talk to Anna and add §8.8 to `home_assistant_knock_buttons.md`.
+5. **Lock-screen loop:** add the 🎙 Answer action in the HA automation. This is
    Andrew's edit, in the gitignored mirror.
-5. Ten real turns, then read the `heard` blocks before saying anything about level 2.
-
-## What it replaces
-
-The 07-09 and 10-23 gate on a lane. Nothing in the code. The lane is additive and sits
-in front of `knock_message`.
+6. Ten real turns, then read the `heard` blocks next to the verdicts.
