@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Sunday 2026-10-25
+
+**09:05 · Anna**  ·  text / one try: veliya
+> Deepa's looking for her thambi. Tell her he's 'outside'. sollu 👟
+
+
 ## Saturday 2026-10-24
 
 **08:43 · Andrew** — **COLD**  ·  ↩ 10-23 18:48 · one try: vittudu

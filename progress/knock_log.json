@@ -9368,5 +9368,21 @@
     "response": "ack",
     "response_at": "2026-10-24T21:23:50Z",
     "payoff_mp3": "published_audio/knocks/payoff_2026-10-24T21-21.mp3"
+  },
+  {
+    "date": "2026-10-25",
+    "timestamp": "2026-10-25T13:05:02.133402+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "one try: veliya",
+    "rationale": "Tugging veliya with a clean one-try text push after his slip two days ago, framed with his newly won word thambi.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-10-25T17:05:02.133402+00:00",
+    "body": "Deepa's looking for her thambi. Tell her he's 'outside'. sollu 👟",
+    "body_script": "Deepa's looking for her தம்பி. Tell her he's 'outside'. சொல்லு 👟",
+    "expected_target": "வெளிய",
+    "stance": "ask",
+    "thread": "word:வெளிய",
+    "target_revealed": false
   }
 ]
