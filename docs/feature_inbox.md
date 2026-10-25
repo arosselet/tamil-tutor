@@ -11,9 +11,8 @@ line and leaves; one that dies is deleted, not archived.
 
 ## Inbox
 
-- What in this public repo is actually private? Profile, family and state are public now by choice ("security by obscurity, for the goodwill"). Raised when voice storage suggested a private repo. Not urgent: the voice spec avoids it. To rule on its own, not inside a feature. (2026-10-25, Andrew, NOT built)
-
 ## Backlog
+- What in this public repo is actually private? Profile, family and state are public now by choice ("security by obscurity, for the goodwill"). Raised when voice storage suggested a private repo. To rule on its own, not inside a feature. (2026-10-25, Andrew) DEFERRED (2026-10-25, Andrew): no feature needs it; reopen when voice level 2 needs stored clips or the payload forces a private audio store.
 
 - Finale escalation order — difficulty rises one axis per room transition: voices, then speed, then reduction and support-removal. The rest shipped. (2026-10-19, Rio) DEFERRED (2026-10-19, Andrew): decided with the rooms item at the November cut.
 - A density band, not clamps — one stated band (Tamil share; new items per episode) in profile.md Calibration, checked on the sidecar; reopens its "Density is an OUTPUT, never a target" on the 10-15 "too dense" → 10-16 "mostly English" swing. (2026-10-19, Andrew) DEFERRED (2026-10-19, Andrew): goes to its own /recalibrate session.
