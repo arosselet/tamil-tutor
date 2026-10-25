@@ -9385,14 +9385,18 @@
     "thread": "word:வெளிய",
     "target_revealed": false,
     "response": "reply",
-    "reply": "Oola iruka",
-    "reply_verdict": "miss",
-    "reply_fired": [],
+    "reply": "Oh yeah veliya 👍",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "வெளிய"
+    ],
     "reply_fired_cold": [],
-    "reply_fired_capped": [],
-    "reply_line_script": "illa da — உள்ள is inside! Outside-ku வெளிய — வெளிய இருக்கான்.",
-    "reply_line": "illa da — ulla is inside! Outside-ku veliya — veliya irukkaan.",
-    "reply_at": "2026-10-25T13:06:45Z",
+    "reply_fired_capped": [
+      "வெளிய"
+    ],
+    "reply_line_script": "adhu dhaan! வெளிய.",
+    "reply_line": "adhu dhaan! veliya.",
+    "reply_at": "2026-10-25T13:08:47Z",
     "exchanges": [
       {
         "at": "2026-10-25T13:06:45Z",
@@ -9407,6 +9411,24 @@
         "slips": [
           "3sg-aan"
         ],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-10-25T13:08:47Z",
+        "reply": "Oh yeah veliya 👍",
+        "verdict": "hinted",
+        "fired": [
+          "வெளிய"
+        ],
+        "fired_cold": [],
+        "fired_capped": [
+          "வெளிய"
+        ],
+        "graduated": [],
+        "reply_line": "adhu dhaan! veliya.",
+        "reply_line_script": "adhu dhaan! வெளிய.",
+        "slips": [],
         "spoke": "",
         "scheduled": ""
       }

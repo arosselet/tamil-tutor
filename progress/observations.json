@@ -25151,5 +25151,17 @@
     "medium": "audio",
     "source": "knock:2026-10-24T21:21:57.582243+00:00",
     "note": ""
+  },
+  {
+    "id": "f346ac4ec942",
+    "at": "2026-10-25T13:08:44Z",
+    "word": "வெளிய",
+    "channel": "text",
+    "kind": "tested",
+    "axis": "production",
+    "result": "partial",
+    "medium": "text",
+    "source": "knock:2026-10-25T13:05:02.133402+00:00",
+    "note": "capped fire"
   }
 ]
