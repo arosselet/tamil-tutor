@@ -1073,5 +1073,17 @@
     "note": "ponga tells Athai to go — for yourself it's poren",
     "word": "போறேன்",
     "dose_channel": "episode"
+  },
+  {
+    "at": "2026-10-25T13:06:45Z",
+    "date": "2026-10-25",
+    "lane": "knock",
+    "modality": "text",
+    "tag": "3sg-aan",
+    "said": "iruka",
+    "want": "இருக்கான்",
+    "note": "thambi is he, so irukkaan",
+    "word": "",
+    "dose_channel": "episode"
   }
 ]

@@ -9383,6 +9383,33 @@
     "expected_target": "வெளிய",
     "stance": "ask",
     "thread": "word:வெளிய",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "reply",
+    "reply": "Oola iruka",
+    "reply_verdict": "miss",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line_script": "illa da — உள்ள is inside! Outside-ku வெளிய — வெளிய இருக்கான்.",
+    "reply_line": "illa da — ulla is inside! Outside-ku veliya — veliya irukkaan.",
+    "reply_at": "2026-10-25T13:06:45Z",
+    "exchanges": [
+      {
+        "at": "2026-10-25T13:06:45Z",
+        "reply": "Oola iruka",
+        "verdict": "miss",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "illa da — ulla is inside! Outside-ku veliya — veliya irukkaan.",
+        "reply_line_script": "illa da — உள்ள is inside! Outside-ku வெளிய — வெளிய இருக்கான்.",
+        "slips": [
+          "3sg-aan"
+        ],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ]
   }
 ]
