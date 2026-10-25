@@ -1688,6 +1688,8 @@ TOMBSTONES = (
     ("2026-10-19 Stakes run across episodes; persons fictional, situations real",
      ("no serialized saga",
       "Scenes are disposable one-use pegs")),
+    ("2026-10-25 Also, never instead (07-27's \"skip the lesson\" retired)",
+     ("the untested target where it is, skip the lesson",)),
 )
 
 # Where a retired claim could still be read as law: every surface an agent or a

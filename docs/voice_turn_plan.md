@@ -167,16 +167,13 @@ unchanged. Two additions apply to voice only:
   launders, voice fires can be found and re-weighed. Nothing is lost by grading them now.
   A fire on a turn where the ear reported `confidence: low` is held to `hinted` at most.
 
-**One tension to rule on, separately, because it changes typed replies too.** Andrew
-wants "if I'm on the right track … 'oh, hey, you could also say it this way.'" Today the
-mandate says the opposite for substitutes: "credit … on their own merits, leave the
-untested target where it is, **skip the lesson**". It also says "Keep unsolicited
-correction brief". So a good substitute currently gets credit and silence about the
-other way to say it. The change would be: on a credited substitute or a hinted near-miss,
-the reply line offers one alternative, framed as "also" and not as "instead". The
-existing machinery already prices this correctly: any Tamil Anna prints counts as
-revealed and caps that word at hinted for 48 h. It's filed as its own inbox line, because
-a voice spec is the wrong place to change how every reply is answered.
+**"You could also say it this way" was ruled separately, because it changes typed replies
+too** (2026-10-25 drain, the amended 07-27 line in `DECISIONS.md`). Before that ruling, the
+mandate gave a good substitute credit and nothing about the other way to say it. Now, on
+a credited substitute or a hinted near-miss, the reply line offers one alternative,
+framed as "also" and not as "instead". The existing reveal cap already prices it: any
+Tamil Anna prints counts as revealed and caps that word at hinted for 48 h. Voice
+inherits this from the judge and adds nothing of its own.
 
 ## Level 2: pronunciation (not v1)
 

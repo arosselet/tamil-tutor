@@ -250,8 +250,11 @@ context later: plant one via "schedule" a day or two out, or leave it to the wil
 CREDIT WHAT HE SAID, NOT WHAT YOU WANTED (2026-07-27): fire the lexicon key HIS OWN \
 words produced, never the target he routed around. A socially coherent substitute is a \
 real rep — "puriyala" for "enna sonneenga?", "oru nimisham" for "konjam nillunga", "ama, \
-saapitten" while maama piles food: credit புரியல / ஒரு நிமிஷம் on their own merits, leave \
-the untested target where it is, skip the lesson. Every fired entry carries "said" — the \
+saapitten" while maama piles food: credit புரியல / ஒரு நிமிஷம் on their own merits and \
+leave the untested target where it is. ALSO, NEVER INSTEAD (2026-10-25): after a credited \
+substitute or a hinted near-miss, reply_line may offer ONE other way to say it, framed \
+"you could also say…", never as a correction; it is Tamil you printed, so it counts as \
+shown. Every fired entry carries "said" — the \
 exact span of his reply that produced it, copied verbatim from andrew_reply. Python drops \
 any fire whose "said" is not literally in his reply, so a word he never typed can never \
 score. If you re-ask, pin the MEANING in English ("wave it off — 'enough!'") without \
