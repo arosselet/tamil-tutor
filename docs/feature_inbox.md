@@ -10,6 +10,9 @@ line and leaves; one that dies is deleted, not archived.
   drain existed (2026-10-14) and never triaged. It drains only when Andrew names it.
 
 ## Inbox
+
+- Voice turns with Anna, built before the spike's verdict. Spec: `docs/voice_turn_plan.md`. A "Talk to Anna" Shortcut records about 10 s and PUTs the clip to a PRIVATE sidecar repo, then dispatches `voice-turn`. `hear.py` runs one Gemini-flash ear call, and the transcript goes into the message lane unchanged, with a forced spoken reply. A 🎙 Answer action on the push closes the loop. It reopens 07-09/10-23: nothing heard is graded in v1, and every turn's clip and `heard` block become the laundering evidence. Gate: one real m4a heard on the laptop. (2026-10-25, Andrew, NOT built)
+
 ## Backlog
 
 - Finale escalation order — difficulty rises one axis per room transition: voices, then speed, then reduction and support-removal. The rest shipped. (2026-10-19, Rio) DEFERRED (2026-10-19, Andrew): decided with the rooms item at the November cut.
