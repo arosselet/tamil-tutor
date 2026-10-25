@@ -20,6 +20,13 @@ And on the second pass:
 > if I'm on the right track, Anna shouldn't just be saying, nope, that's wrong … 'oh, hey,
 > you could also say it this way.'"
 
+And the working theory he's building on:
+
+> "Tanglish isn't a weird invention … people … will send messages in phonetic English
+> instead of using Tamil characters, even though they're saying entirely Tamil sentences
+> … I'm imagining the model will [cope], and I'm not waiting for the spike. That's still
+> going to come, but I imagine I can get something conversational."
+
 So voice is **a new way in to every channel that typing already reaches**. It is not a
 separate conversation lane. Andrew can start a conversation (message), answer a knock
 (reply, graded on intent), give feedback, or ask for audio or a scheduled ping. Spoken,
@@ -39,7 +46,7 @@ he gets the same tools he gets typed.
                               │
    4. hear.py   — read the clip from $GITHUB_EVENT_PATH (never env, never logged)
                   → ONE multimodal ear call (OpenRouter → Gemini flash), BLIND to the target
-                  → {transcript, meaning, confidence}
+                  → {transcript (Tanglish, as he'd type it), meaning, confidence}
    5. knock_reply.py, unchanged routing — exactly as if he'd typed the transcript:
          intent=message → message lane (requests, scheduling, meta-notes, audio asks)
          intent=reply   → reply judge (intent-graded, substitutes credited, recast)
@@ -123,6 +130,13 @@ recording, and that tap is the whole turn gesture.
      ear the target is the condition most likely to launder a wrong take into the right
      one. Kept blind, the transcript is evidence. Told the target, it would just echo the
      target back.
+     **The transcript is written in Tanglish**, meaning phonetic Roman letters, the way
+     people actually text Tamil and the way Andrew already types to Anna (`poren`, not
+     போறேன்). That has two benefits. Downstream, nothing changes: the judge already reads
+     phonetic spelling ("poren IS போறேன்; judge the Tamil, not the spelling"), so a voice
+     turn looks just like a typed one. It's also more honest: asking for Tamil script
+     invites the ear to correct toward standard spelling, while phonetic letters keep
+     closer to what was actually said.
   2. **Format.** OpenRouter documents `wav` and `mp3` for `input_audio`, and Gemini
      itself accepts AAC. The first slice sends m4a as-is. If that's refused, transcode
      with the `imageio-ffmpeg` wheel. **Never apt.** The ffprobe apt step is skipped on
@@ -192,7 +206,9 @@ Measure that before acting on it.
 ## What it reopens and replaces
 
 - **07-09 "Speech-in is parked on evidence, not desire"** and **10-23 "No lane follows
-  without the verdict"**. The lane ships before the spike's verdict. It's guarded by the
+  without the verdict"**. The lane ships before the spike's verdict, on Andrew's bet that
+  the model is good enough for conversation. The spike still runs and still decides
+  level 2. It's guarded by the
   blind ear, the `said`-in-transcript rule, the `channel: voice` stamp and the
   low-confidence cap, and pronunciation stays out of scope.
 - The code is purely additive: one script, one workflow step and one notification
@@ -204,10 +220,11 @@ Measure that before acting on it.
 1. **Measure on the phone (Andrew, ≈10 min):** build a two-action test Shortcut (Record
    Audio → Base64 → dispatch to a no-op event type) and send 5/10/20 s clips. Record
    which ones GitHub accepts. **This is the transport gate.**
-2. **Ear on the laptop:** AirDrop one Tanglish m4a and run `hear.py --dry-run` (no
-   handoff, no push). This proves the format and whether a blind ear recovers his
-   meaning. **This is the hearing gate.** If the transcript is unusable, stop and rule
-   again.
+2. **First clip on the laptop:** AirDrop one Tanglish m4a and run `hear.py --dry-run`
+   (no handoff, no push). This settles the audio format and lets you see a real
+   transcript on day one. Andrew's bet is that a current flash model hears
+   conversational Tanglish well enough, so this is a quick check, not a gate waiting on
+   the spike. Only a transcript that's plainly unusable stops the build.
 3. **Runner wiring:** the dispatch type, the step, the handoff, the stamp and the loud
    failure. Add smoke cases for: audio never reaches `env`; the voice turn routes by
    intent; a failed ear still pushes; a low-confidence fire is capped. Map `hear.py` in
