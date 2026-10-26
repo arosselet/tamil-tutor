@@ -2650,9 +2650,9 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-15",
+    "last_surfaced": "2026-10-26",
     "direction": "fire",
-    "exposures": 1,
+    "exposures": 2,
     "register": "gossip",
     "taught_on": "2026-10-15"
   },
@@ -2670,9 +2670,9 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-10-16",
+    "last_surfaced": "2026-10-26",
     "direction": "fire",
-    "exposures": 2,
+    "exposures": 3,
     "register": "gossip",
     "taught_on": "2026-10-15"
   },
@@ -2703,9 +2703,9 @@
     "seen_in": [
       82
     ],
-    "last_surfaced": "2026-10-15",
+    "last_surfaced": "2026-10-26",
     "direction": "fire",
-    "exposures": 1,
+    "exposures": 2,
     "register": "gossip",
     "taught_on": "2026-10-15"
   },
@@ -2883,9 +2883,9 @@
     "seen_in": [
       82
     ],
-    "last_surfaced": "2026-09-29",
+    "last_surfaced": "2026-10-26",
     "direction": "fire",
-    "exposures": 1,
+    "exposures": 2,
     "reps": 1,
     "register": "social",
     "heard_on": "2026-08-10",
@@ -2915,9 +2915,9 @@
       70,
       82
     ],
-    "last_surfaced": "2026-09-29",
+    "last_surfaced": "2026-10-26",
     "direction": "fire",
-    "exposures": 1,
+    "exposures": 2,
     "reps": 1,
     "register": "social",
     "heard_on": "2026-08-10",
@@ -3661,9 +3661,9 @@
     "seen_in": [
       88
     ],
-    "last_surfaced": "2026-10-14",
+    "last_surfaced": "2026-10-26",
     "direction": "fire",
-    "exposures": 3,
+    "exposures": 1,
     "register": "social",
     "taught_on": "2026-08-14",
     "reps": 1,
@@ -3834,9 +3834,9 @@
       60,
       86
     ],
-    "last_surfaced": "2026-10-14",
+    "last_surfaced": "2026-10-26",
     "direction": "fire",
-    "exposures": 3,
+    "exposures": 1,
     "register": "social",
     "taught_on": "2026-07-13",
     "reps": 1,
@@ -5548,9 +5548,10 @@
     "seen_in": [
       98
     ],
-    "last_surfaced": "2026-10-20",
+    "last_surfaced": "2026-10-26",
     "taught_on": "2026-10-16",
-    "reps": 1
+    "reps": 1,
+    "exposures": 1
   },
   "வாங்கினோம்": {
     "gloss": "We bought (it)",

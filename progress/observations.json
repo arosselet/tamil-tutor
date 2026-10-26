@@ -25163,5 +25163,101 @@
     "medium": "text",
     "source": "knock:2026-10-25T13:05:02.133402+00:00",
     "note": "capped fire"
+  },
+  {
+    "id": "b9940329dfb2",
+    "at": "2026-10-26T12:04:08Z",
+    "word": "செஞ்சோம்",
+    "channel": "drill",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "drill_2026-10-26_1203",
+    "note": ""
+  },
+  {
+    "id": "d3798fdc829d",
+    "at": "2026-10-26T12:04:08Z",
+    "word": "யாருக்கு தெரியும்?",
+    "channel": "drill",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "drill_2026-10-26_1203",
+    "note": ""
+  },
+  {
+    "id": "d79028c5495d",
+    "at": "2026-10-26T12:04:08Z",
+    "word": "எனக்கு ஒன்னும் தெரியாது",
+    "channel": "drill",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "drill_2026-10-26_1203",
+    "note": ""
+  },
+  {
+    "id": "98c30f2a96fe",
+    "at": "2026-10-26T12:04:08Z",
+    "word": "அது உண்மையா?",
+    "channel": "drill",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "drill_2026-10-26_1203",
+    "note": ""
+  },
+  {
+    "id": "671b1824ae90",
+    "at": "2026-10-26T12:04:08Z",
+    "word": "எப்படி இருக்கீங்க?",
+    "channel": "drill",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "drill_2026-10-26_1203",
+    "note": ""
+  },
+  {
+    "id": "151b6be9e0b2",
+    "at": "2026-10-26T12:04:08Z",
+    "word": "வந்துட்டேன்",
+    "channel": "drill",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "drill_2026-10-26_1203",
+    "note": ""
+  },
+  {
+    "id": "f990e7251540",
+    "at": "2026-10-26T12:04:08Z",
+    "word": "கடைசில பாக்கலாம்",
+    "channel": "drill",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "drill_2026-10-26_1203",
+    "note": ""
+  },
+  {
+    "id": "5443b8b2087b",
+    "at": "2026-10-26T12:04:08Z",
+    "word": "ஃப்ரீயா விடுங்க",
+    "channel": "drill",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "drill_2026-10-26_1203",
+    "note": ""
   }
 ]
