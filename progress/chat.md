@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Monday 2026-10-26
+
+**08:03 · Anna**  ·  text / map: week 4
+> Week 4: senjom and pottom in play, ulla almost yours. 6 words home this month 🗺️
+
+
 ## Sunday 2026-10-25
 
 **09:05 · Anna**  ·  text / one try: veliya

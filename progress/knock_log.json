@@ -9453,5 +9453,21 @@
     "rationale": "Solid touch on veliya this morning; tugging ulla tonight would feel like retesting his morning slip, so letting the evening rest until morning.",
     "decide_model": "google/gemini-3.8-flash",
     "next_check": "2026-10-26T12:00:59.804167+00:00"
+  },
+  {
+    "date": "2026-10-26",
+    "timestamp": "2026-10-26T12:03:13.067774+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "map: week 4",
+    "rationale": "Monday morning kickoff: giving the week 4 map with two verbs in play and ulla almost home, pure give with no pressure.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-10-26T16:33:13.067774+00:00",
+    "body": "Week 4: senjom and pottom in play, ulla almost yours. 6 words home this month 🗺️",
+    "body_script": "Week 4: செஞ்சோம் and போட்டோம் in play, உள்ள almost yours. 6 words home this month 🗺️",
+    "expected_target": "",
+    "stance": "give",
+    "thread": "map",
+    "target_revealed": false
   }
 ]
