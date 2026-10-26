@@ -1,0 +1,2 @@
+# Standard library only. This file exists because Cloud Run's Python buildpack
+# looks for it; an empty list is the whole dependency story.

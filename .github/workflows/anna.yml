@@ -43,7 +43,7 @@ on:
     # path, which already fire off-clock. Do not re-open this without new data.
     - cron: "0 * * * *"
   repository_dispatch:
-    types: [knock-response, episode-rating, episode-note, voice-turn]
+    types: [knock-response, episode-rating, episode-note, voice-turn, live-turn]
   workflow_dispatch:
     inputs:
       force:
@@ -242,6 +242,19 @@ jobs:
         # and exits 1, so a dead turn is red here and audible on the phone.
         if: github.event.action == 'voice-turn'
         run: python scripts/hear.py
+
+      - name: Live turn (WhatsApp)
+        # The live lane (2026-10-26, Andrew; docs/live_conversation.md). The Cloud Run
+        # bridge turns a WhatsApp text into {text, id}; live.py reads both off
+        # $GITHUB_EVENT_PATH (never env — his words stay out of the step's env block),
+        # takes one gated-rotation turn, answers through Meta's Cloud API and commits
+        # the session file. His number is never in the payload: WHATSAPP_TO is a secret.
+        if: github.event.action == 'live-turn'
+        env:
+          WHATSAPP_TOKEN: ${{ secrets.WHATSAPP_TOKEN }}
+          WHATSAPP_PHONE_ID: ${{ secrets.WHATSAPP_PHONE_ID }}
+          WHATSAPP_TO: ${{ secrets.WHATSAPP_TO }}
+        run: python scripts/live.py whatsapp
 
       - name: Log tap
         # --commit routes this lane through commit_and_push, the same landing

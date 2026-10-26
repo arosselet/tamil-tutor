@@ -1412,7 +1412,7 @@ VOICE_SURFACE = [("mandates", "OUTREACH_MANDATE"), ("mandates", "BASE_MANDATE"),
                  ("mandates", "VOICE_MANDATE"), ("mandates", "DRILL_MANDATE"),
                  ("mandates", "SOAK_MANDATE")]
 READ_SURFACE = [("mandates", "PHONETIC_REWRITE"), ("mandates", "MESSAGE_MANDATE"),
-                ("mandates", "HEAR_MANDATE"),
+                ("mandates", "HEAR_MANDATE"), ("mandates", "LIVE_MANDATE"),
                 ("run_studio", "CAPTIONS")]
 
 

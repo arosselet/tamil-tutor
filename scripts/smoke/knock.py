@@ -3522,3 +3522,153 @@ def s155_a_spoken_turn_is_a_typed_turn_heard(kr, sb: Path):
             os.environ["GITHUB_EVENT_PATH"] = ev
         for p, b in saved.items():
             p.write_bytes(b)
+
+
+def s156_a_live_session_books_only_at_close(sb: Path):
+    """The live lane (2026-10-26, Andrew; `docs/live_conversation.md`).
+
+    GATE 7.2, OUT LOUD — what does this look like when it silently does nothing?
+    A conversation that flows nicely while the rotation never gates (Python's
+    clock dead, the model chatting forever), turns that run desk-length with no
+    trace, a gate verdict that never reaches the books, or a WhatsApp retry that
+    answers twice. Each reads as a pleasant chat. So, with the writer stubbed:
+
+    1. THE CLOCK IS PYTHON'S: the recorded jobs are open, volley, volley, gate,
+       judge, then volleys again on the NEXT target.
+    2. THE WALK CAP RE-ASKS, then stamps: a long turn is re-asked once; still long,
+       it is kept whole and stamped `over_cap`.
+    3. NOTHING VOTES UNTIL CLOSE, AND COLD CAPS AT HINTED: the observation log is
+       byte-identical through every turn; close books the gate as `live` /
+       production / partial, books the slip, and books nothing for a fire that
+       quotes words he never typed.
+    4. TEACH-FIRST: an UNSEEN item is never a target.
+    5. WHATSAPP: a re-delivered id is answered once, `bye` closes and books, the
+       workflow step reads the event file and never names his text, and the bridge
+       forwards only {text, id} from the one allowed sender, signed."""
+    print("\n156. A live session books only at close (2026-10-26)")
+    lv = importlib.import_module("live")
+    prog = sb / "progress"
+    obs_path, slip_path, sess_path = (prog / "observations.json", prog / "slip_log.json",
+                                      prog / "live_session.json")
+    saved = {p: p.read_bytes() for p in (obs_path, slip_path, prog / "lexicon.json")
+             if p.exists()}
+    originals = (lv.ask_json, lv.drill_menu)
+    replies = []
+
+    def writer(system, user, schema, answer_tokens=0):
+        return replies.pop(0)
+
+    def line(n, **kw):
+        return {"reply_line": " ".join(["seri"] * n), "gate_verdict": "", "said": "",
+                "recast": "", "meta_note": "", "slips": [], **kw}
+
+    try:
+        lv.ask_json = writer
+        lv.drill_menu = lambda lex: [
+            {"word": "புதுசு", "gloss": "new", "unseen": True},
+            {"word": "வெளிய", "gloss": "outside", "unseen": False},
+            {"word": "சாப்டியா", "gloss": "did you eat?", "unseen": False}]
+        sess_path.unlink(missing_ok=True)
+        with contextlib.redirect_stdout(io.StringIO()):
+            sess = lv.new_session("cli")
+        check("an UNSEEN item is never a target",
+              [t["word"] for t in sess["targets"]] == ["வெளிய", "சாப்டியா"], str(sess["targets"]))
+
+        before = obs_path.read_bytes() if obs_path.exists() else b""
+        replies[:] = [line(6), line(40), line(8), line(7), line(5),
+                      line(9, gate_verdict="cold", said="veliya poren",
+                           slips=[{"tag": "1pl-om", "said": "ponen", "want": "போறோம்", "note": "we"}]),
+                      line(5), line(5), line(6),
+                      line(5, gate_verdict="hinted", said="sapten nu")]
+        turns_in = ["", "hi anna", "walking to the shop", "nice", "veliya poren",
+                    "ha", "yes", "what?", "saptiya"]
+        with contextlib.redirect_stdout(io.StringIO()):
+            for text in turns_in:
+                lv.take_turn(sess, text)
+        anna = [t for t in sess["turns"] if t["who"] == "anna"]
+        check("the clock: open, volley ×2, gate, judge, then the next target",
+              [(t["job"], t["target"]) for t in anna]
+              == [("open", "வெளிய"), ("volley", "வெளிய"), ("volley", "வெளிய"),
+                  ("gate", "வெளிய"), ("judge", "வெளிய"), ("volley", "சாப்டியா"),
+                  ("volley", "சாப்டியா"), ("gate", "சாப்டியா"), ("judge", "சாப்டியா")],
+              str([(t["job"], t["target"]) for t in anna]))
+        check("a long turn is re-asked once and the short answer kept",
+              len(anna[1]["text"].split()) == 8 and not anna[1].get("over_cap"), str(anna[1]))
+        check("the observation log is untouched through every turn",
+              (obs_path.read_bytes() if obs_path.exists() else b"") == before)
+        graded = [t for t in sess["turns"] if t.get("verdict")]
+        check("cold is capped at hinted; a fire that quotes words he never typed grades none",
+              [(t["target"], t["verdict"]) for t in graded]
+              == [("வெளிய", "hinted"), ("சாப்டியா", "none")], str(graded))
+
+        with contextlib.redirect_stdout(io.StringIO()):
+            books = lv.close(sess)
+        live_events = [e for e in read_json(obs_path) if e.get("channel") == "live"]
+        check("close books the tried gate — live, production, partial — and only that one",
+              [(e["word"], e["axis"], e["result"], e["kind"]) for e in live_events]
+              == [("வெளிய", "production", "partial", "tested")], str(live_events))
+        check("close books the slip on the ledger",
+              any(r.get("lane") == "live" and r.get("tag") == "1pl-om" for r in read_json(slip_path)))
+        check("the closed session is never resumed, and the books are named for the commit",
+              lv.load_session() is None and obs_path in books and slip_path in books, str(books))
+
+        # 2b. over_cap: both asks long.
+        replies[:] = [line(50), line(48)]
+        with contextlib.redirect_stdout(io.StringIO()):
+            s2 = lv.new_session("cli")
+            lv.take_turn(s2, "")
+        check("still long after the re-ask: kept whole and stamped over_cap",
+              s2["turns"][-1].get("over_cap") is True and len(s2["turns"][-1]["text"].split()) == 48)
+
+        # 5. WhatsApp: idempotent, `bye` closes.
+        sess_path.unlink(missing_ok=True)
+        sent = []
+        replies[:] = [line(6)]
+        with contextlib.redirect_stdout(io.StringIO()):
+            lv.whatsapp_turn({"text": "vanakkam", "id": "wamid.1"}, send=sent.append)
+            again = lv.whatsapp_turn({"text": "vanakkam", "id": "wamid.1"}, send=sent.append)
+            lv.whatsapp_turn({"text": "bye", "id": "wamid.2"}, send=sent.append)
+        check("a re-delivered message is answered once", len(sent) == 2 and again == [], str(sent))
+        check("bye closes the session and signs off",
+              sent[-1] == lv.SIGN_OFF and (read_json(sess_path) or {}).get("closed"))
+    finally:
+        lv.ask_json, lv.drill_menu = originals
+        sess_path.unlink(missing_ok=True)
+        for p, b in saved.items():
+            p.write_bytes(b)
+
+    yml = (REAL_BASE / ".github" / "workflows" / "anna.yml").read_text(encoding="utf-8")
+    m = re.search(r"- name: Live turn \(WhatsApp\)\n(.*?)(?=\n      - name: |\Z)", yml, re.S)
+    step = m.group(1) if m else ""
+    check("anna.yml runs the live turn on its own dispatch, off the event file",
+          "github.event.action == 'live-turn'" in step and "live.py whatsapp" in step
+          and "client_payload" not in step and re.search(r"types: \[[^\]]*live-turn", yml))
+
+    import hashlib
+    import hmac
+    from importlib import util as iutil
+    spec = iutil.spec_from_file_location(
+        "wa_bridge", REAL_BASE / "bridge" / "whatsapp" / "main.py")
+    br = iutil.module_from_spec(spec)
+    spec.loader.exec_module(br)
+    env = {"VERIFY_TOKEN": "tok", "APP_SECRET": "sec", "ALLOWED_FROM": "4400"}
+    old = {k: os.environ.get(k) for k in env}
+    os.environ.update(env)
+    try:
+        check("the handshake echoes only a matching verify token",
+              br.handshake("hub.mode=subscribe&hub.verify_token=tok&hub.challenge=42") == "42"
+              and br.handshake("hub.mode=subscribe&hub.verify_token=no&hub.challenge=42") is None)
+        body = b'{"x":1}'
+        sig = "sha256=" + hmac.new(b"sec", body, hashlib.sha256).hexdigest()
+        check("only Meta's signature passes", br.authentic(body, sig)
+              and not br.authentic(body, "sha256=00") and not br.authentic(body, ""))
+        msgs = [{"from": "4400", "type": "text", "id": "w1", "text": {"body": "hi"}},
+                {"from": "9999", "type": "text", "id": "w2", "text": {"body": "spam"}},
+                {"from": "4400", "type": "audio", "id": "w3"}]
+        with contextlib.redirect_stdout(io.StringIO()):
+            got = br.turns({"entry": [{"changes": [{"value": {"messages": msgs}}]}]})
+        check("the bridge forwards only {text, id}, only his, only text — never his number",
+              got == [{"text": "hi", "id": "w1"}], str(got))
+    finally:
+        for k, v in old.items():
+            os.environ.pop(k, None) if v is None else os.environ.__setitem__(k, v)

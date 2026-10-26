@@ -74,6 +74,11 @@ REVIEW_QUEUE_PATH = BASE / "progress" / "review_queue.json"
 # the bounds and the reader are `rails.py`.
 POLICY_PATH = BASE / "progress" / "policy.json"
 
+# The live conversation in progress (2026-10-26): its transcript, its target queue
+# and where the rotation stands. One writer, `scripts/live.py`. Not the learner
+# model — nothing here votes; the close books what the gates earned.
+LIVE_SESSION_PATH = BASE / "progress" / "live_session.json"
+
 
 class CorruptBook(RuntimeError):
     """A book in `progress/` that does not parse, or parses into the wrong shape.
@@ -92,6 +97,7 @@ BOOK_SHAPES = {
     "session_log.json": (list, dict), "feedback_log.json": (list, dict),
     "slip_log.json": (list, dict), "push_queue.json": (list, dict),
     "review_queue.json": (list, dict), "policy.json": (dict, None),
+    "live_session.json": (dict, None),
 }
 # The learner's structured fields. A field absent is fine (day zero has few);
 # a field PRESENT in the wrong type is a corrupted book, whatever parsed.

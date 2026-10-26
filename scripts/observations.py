@@ -40,6 +40,7 @@ CHANNELS = {
     "knock", "text", "volley", "challenge", "fielding", "audio",  # a judged phone reply, by modality
     "episode", "drill", "soak", "rotation",   # a dose was delivered
     "check",        # the Receptive Check
+    "live",         # a gate he answered in a live conversation (live.py, 2026-10-26)
     "media",        # native media he reported back on
     "ledger",       # carried over from the mutated ledger at the 2026-09-10 cutover:
                     # a watched writer moved the rung and the event was never logged

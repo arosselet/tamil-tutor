@@ -118,6 +118,9 @@ PROSE_BUDGETS = {
     "OPEN_ASK_MANDATE": 70,
     # NEW 2026-10-25, budgeted in the diff that creates it (census 142): the voice-turn ear. Blind, so it stays short.
     "HEAR_MANDATE": 160,
+    # NEW (2026-10-26, Andrew: the live lane). Census ~290; short on purpose — the rhythm is
+    # Python's, so the prose says only how each named job sounds.
+    "LIVE_MANDATE": 320,
     # The narrative surfaces, budgeted the day they became one line per item (2026-09-10): the log at 11.7k after compression from 32k, the inbox at 1k from 19.6k, the debug precedents at 1.3k from 4.5k.
     # NEW SURFACE, budgeted in the diff that creates it (2026-09-19). The canon
     # is the one place continuity lives, so it is the one place canon-creep can
@@ -203,7 +206,8 @@ CODE_BUDGETS = {
     # observation, retiring the debrief-labelling habit `daily_session.md` asked
     # of Anna for one day — "never call written recognition hearing" is now a
     # field and a flag, not a rule she has to remember at close.
-    "scripts/observations.py": 68,
+    # 68 -> 69 (2026-10-26, Andrew): the `live` channel. A row of vocabulary, not a mechanism.
+    "scripts/observations.py": 69,
     # NEW FILE, budgeted in the same diff that creates it (2026-09-10). · 150 -> 200 (2026-09-10, Phase 3).
     # NEW FILE, budgeted in the same diff that creates it (2026-09-10). · 125 -> 150 (2026-09-10, Phase 3).
     # 150 -> 180 (2026-09-10, `remerge`): the ledger joins the rebase net's derived table, retiring the "needs a human" outcome that lost run 34520445739's judged reply.
@@ -225,7 +229,11 @@ CODE_BUDGETS = {
     "scripts/reply_common.py": 162,
     "scripts/knock_message.py": 122,
     # NEW FILE, budgeted in the diff that creates it (2026-10-25, Andrew: voice turns). The ear in front of knock_reply; it replaces typing as the only way in, and adds no grading of its own.
-    "scripts/hear.py": 95,   # -8: its copy of the clock backstop (2026-10-12)
+    "scripts/hear.py": 95,
+    # NEW FILE, budgeted in the diff that creates it (2026-10-26, Andrew: the live lane).
+    # The gated rotation and its WhatsApp turn. Replaces ad-hoc Claude Code on a walk,
+    # which had no clock, no cap and no books; knock lanes are untouched.
+    "scripts/live.py": 235,   # -8: its copy of the clock backstop (2026-10-12)
     # 700 -> 625 (2026-08-01): re-censused DOWN after OUTREACH_MANDATE moved to mandates.py — the file sat at 699/700, one mechanical fix from a red build. · 400 -> 402 (2026-09-05).
     # 402 -> 405 (2026-09-19): one import. The household canon now reaches the
     # pass that writes an eavesdrop tape, and `tape_names_a_referent` consults
@@ -245,7 +253,9 @@ CODE_BUDGETS = {
     # the approved caps and tease cap are read through rails.approved.
     "scripts/morning_knock.py": 409,
     # 470 -> 500 (2026-08-28): MESSAGE_MANDATE landed — the first mandate in this file that only ACTS instead of grading.
-    "scripts/mandates.py": 500,
+    # 500 -> 510 (2026-10-26, Andrew): LIVE_MANDATE + LIVE_TURN_WORDS, the live lane's
+    # prose. It retires the unmetered path — ad-hoc Claude Code on a walk, no mandate at all.
+    "scripts/mandates.py": 510,
     # NEW FILE, budgeted in the diff that creates it (2026-08-24, Q1's first family).
     "scripts/lanes.py": 60,
     # NEW FILE, budgeted in the same diff that creates it (2026-08-23, the spine refactor).
@@ -431,7 +441,8 @@ CODE_BUDGETS = {
     # growth is BOOK_SHAPES, the shape check, CorruptBook, and the atomic swap.
     # The next raise is the split signal: the book check is the seam.
     # 157 -> 158 (same day): POLICY_PATH, the outreach policy book.
-    "scripts/state_io.py": 158,
+    # 158 -> 160 (2026-10-26, Andrew): LIVE_SESSION_PATH and its book shape.
+    "scripts/state_io.py": 160,
     # NEW FILE, budgeted in the same diff that creates it (2026-08-28, Andrew). · 20 -> 35 (2026-09-03).
     # 35 -> 36 (2026-10-15): APPLE_PODCAST_ID, the show's directory listing,
     # which the show-notes links return to. Retires the bare `podcasts://`.
@@ -525,6 +536,7 @@ def s18_size_budgets(mk, kr, sb: Path):
                "VOICE_MANDATE": kr.VOICE_MANDATE,
                "OPEN_ASK_MANDATE": kr.OPEN_ASK_MANDATE,
                "HEAR_MANDATE": sys.modules["mandates"].HEAR_MANDATE,
+               "LIVE_MANDATE": sys.modules["mandates"].LIVE_MANDATE,
                # reached through the lane that owns it, the same way the
                # knock cases reach reply_common — no re-export just for a test
                "MESSAGE_MANDATE":
@@ -1099,6 +1111,7 @@ LAYERS = {
     "morning_knock":      5.5,    # L5 the lanes themselves
     "reply_common":       5.6,    # what both inbound lanes share
     "knock_message":      5.7,    # the message lane, above what it reuses
+    "live":               5.7,    # the live lane (2026-10-26): reuses reply_common, nothing imports it
     "knock_reply":        5.8,    # grading + the routing that picks the lane
     "hear":               5.9,    # the ear in front of knock_reply (2026-10-25): it hands off, nothing imports it
     "push_queue":         5.5,

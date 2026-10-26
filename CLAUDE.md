@@ -12,6 +12,8 @@ this pointer replaces it — there is no content here to drift out of sync (2026
 ## Claude Code specifics
 
 - **Anna** — `/anna`, or read `.claude/skills/anna/SKILL.md`.
+- **Live** — `/live`, the walk-paced gated conversation (`scripts/live.py`); the
+  Claude Code cloud simulation of the WhatsApp lane (`docs/live_conversation.md`).
 - **Studio** — `python scripts/run_studio.py` is the default dispatch;
   `.claude/agents/studio.md` is the subagent fallback when it exits non-zero.
 - **Engineering playbooks** are slash commands as well as files: `/orient`, `/debug`,
