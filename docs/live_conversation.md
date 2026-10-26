@@ -68,30 +68,10 @@ The bridge holds no state and has no dependencies beyond the Python standard lib
 **His number never rides the dispatch**, because a public repo's run is public; the
 runner answers `WHATSAPP_TO`, a secret.
 
-## Setup (Andrew, once)
+## Setup
 
-1. **Meta app.** developers.facebook.com → create an app (type Business) → add
-   **WhatsApp**. The test number is free and needs no business number. Under *API
-   Setup*, add your phone as a verified recipient and note the **Phone number ID**. Make
-   a permanent token: Business Settings → System users → generate a token with
-   `whatsapp_business_messaging`. The 24-hour temporary token works for a first try.
-   Note the **App secret** (App settings → Basic).
-2. **Cloud Run**, in the TTS project and billing account. At this volume it sits
-   inside the free tier.
-   ```
-   gcloud run deploy anna-whatsapp --source bridge/whatsapp --region us-central1 \
-     --allow-unauthenticated --min-instances 0 \
-     --set-env-vars VERIFY_TOKEN=<any string>,APP_SECRET=<app secret>,ALLOWED_FROM=<your number, digits only>,GITHUB_TOKEN=<PAT>
-   ```
-   The PAT is fine-grained, scoped to this repo, with Contents read/write; that is what
-   `repository_dispatch` needs. Moving the two secrets into Secret Manager
-   (`--set-secrets`) is optional hardening.
-3. **Webhook.** Meta app → WhatsApp → Configuration → Callback URL = the Cloud Run URL,
-   Verify token = the same string, then subscribe to **messages**.
-4. **Repo secrets:** `WHATSAPP_TOKEN`, `WHATSAPP_PHONE_ID`, `WHATSAPP_TO` (your number,
-   digits only).
-5. Message the test number. Within about a minute Anna answers, and the run shows as
-   *Live turn (WhatsApp)*.
+Step by step, including which Google identity deploys the bridge and which one runs it
+(not the TTS key): **`docs/live_setup.md`**.
 
 Knocks stay on the phone push. Outreach that Anna starts on WhatsApp after 24 hours of
 silence would need a pre-approved template, so WhatsApp adds to knocks before it could
