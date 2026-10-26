@@ -9469,5 +9469,15 @@
     "stance": "give",
     "thread": "map",
     "target_revealed": false
+  },
+  {
+    "date": "2026-10-26",
+    "timestamp": "2026-10-26T18:58:35.224754+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "hold: afternoon window",
+    "rationale": "Morning map is still fresh, ulla is over-asked, and veliya ran yesterday; holding for the higher-yield evening window.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-10-26T21:58:35.224754+00:00"
   }
 ]
