@@ -25259,5 +25259,17 @@
     "medium": "audio",
     "source": "drill_2026-10-26_1203",
     "note": ""
+  },
+  {
+    "id": "7c8a58faa39f",
+    "at": "2026-10-26T23:03:33Z",
+    "word": "frame:cant-முடியல",
+    "channel": "eavesdrop",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "knock:2026-10-26T23:02:58.955049+00:00",
+    "note": ""
   }
 ]

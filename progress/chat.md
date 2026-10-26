@@ -9,6 +9,9 @@ Newest day first. **Derived file — edits here are overwritten.**
 **08:03 · Anna**  ·  text / map: week 4
 > Week 4: senjom and pottom in play, ulla almost yours. 6 words home this month 🗺️
 
+**19:02 · Anna** 🎧  ·  eavesdrop / overheard: mudiyala
+> Athai's on the phone about Paati's birthday saree — catch why she couldn't get in 🎧
+
 
 ## Sunday 2026-10-25
 
