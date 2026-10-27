@@ -2169,7 +2169,7 @@
     ],
     "last_surfaced": "2026-10-16",
     "taught_on": null,
-    "exposures": 1
+    "exposures": 2
   },
   "அதான்": {
     "gloss": "That's why / Exactly / See, I told you",
@@ -2281,7 +2281,7 @@
     ],
     "last_surfaced": "2026-10-16",
     "taught_on": null,
-    "exposures": 1
+    "exposures": 2
   },
   "சூடு": {
     "gloss": "Hot (temperature/sensation)",
@@ -2415,7 +2415,7 @@
     "seen_in": [],
     "last_surfaced": "2026-10-16",
     "reps": 2,
-    "exposures": 2
+    "exposures": 3
   },
   "frame:cant-முடியல": {
     "type": "pattern",
@@ -2672,7 +2672,7 @@
     "seen_in": [],
     "last_surfaced": "2026-10-26",
     "direction": "fire",
-    "exposures": 3,
+    "exposures": 4,
     "register": "gossip",
     "taught_on": "2026-10-15"
   },
@@ -4613,7 +4613,7 @@
       98
     ],
     "last_surfaced": "2026-10-16",
-    "exposures": 1,
+    "exposures": 2,
     "reps": 6,
     "taught_on": "2026-07-31"
   },
@@ -5551,7 +5551,7 @@
     "last_surfaced": "2026-10-26",
     "taught_on": "2026-10-16",
     "reps": 1,
-    "exposures": 1
+    "exposures": 2
   },
   "வாங்கினோம்": {
     "gloss": "We bought (it)",
@@ -5561,7 +5561,8 @@
       98
     ],
     "last_surfaced": "2026-10-16",
-    "taught_on": null
+    "taught_on": null,
+    "exposures": 1
   },
   "இருப்போம்": {
     "gloss": "We'll be (there)",
@@ -5572,7 +5573,8 @@
     ],
     "last_surfaced": "2026-10-16",
     "reps": 1,
-    "taught_on": null
+    "taught_on": null,
+    "exposures": 1
   },
   "வாங்க": {
     "recognition": "untested",

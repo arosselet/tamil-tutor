@@ -1174,6 +1174,13 @@ def cmd_knock_response(args):
 # resolving nothing — the same silent miss one size smaller.
 MISSION_STEM_RE = re.compile(r"^tier2_mission(\d+)")
 
+# A FEED FORMAT IS NOT AN OBSERVATION CHANNEL (2026-10-26). The rating handed
+# `format` straight to `expose`, and `mission`, `special` and `payoff` are not
+# channels: M98's 10-16 tap wrote 8 rows as `unknown:mission`, medium `text`.
+# Every other format already names its channel (`knock/<modality>` splits to
+# `knock`).
+RATING_CHANNEL = {"mission": "episode", "special": "episode", "payoff": "knock"}
+
 def _leading_int(raw: str) -> int | None:
     m = re.match(r"\s*(\d+)", raw or "")
     return int(m.group(1)) if m else None
@@ -1290,7 +1297,8 @@ def cmd_rate_episode(args):
         # less than he thinks rather than believing it landed.
         print(f"   ⚠ no words recorded for {item['id']} — the play is logged, "
               f"but it can open no Teach Beat")
-    exposed = lexicon_view.expose(words, item["format"].split("/")[0],
+    lane = item["format"].split("/")[0]
+    exposed = lexicon_view.expose(words, RATING_CHANNEL.get(lane, lane),
                                   source=f"rating:{item['id']}",
                                   kind="attended" if attends else "exposed")
     if getattr(args, "commit", False):

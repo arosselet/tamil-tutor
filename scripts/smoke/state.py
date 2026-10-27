@@ -3884,7 +3884,7 @@ def s101_the_check_and_the_rating_are_ear_evidence(sb: Path):
               f"real feed ids look like {real_ids[:2]} — this fixture would test a shape "
               f"production never writes")
         rs.feed_items = lambda: [{"id": "tier2_mission901",
-                                  "title": "Mission tier2_mission901", "format": "episode"}]
+                                  "title": "Mission tier2_mission901", "format": "mission"}]
         ss.feed_items = rs.feed_items
         with contextlib.redirect_stdout(_io.StringIO()):
             ss.cmd_rate_episode(_ap.Namespace(episode="Mission tier2_mission901",
@@ -3895,6 +3895,13 @@ def s101_the_check_and_the_rating_are_ear_evidence(sb: Path):
         # THE RATING IS THE ATTENDANCE SIGNAL (2026-09-13). This is the whole of
         # what lets audio teach: the render says the Teach Beat happened, the tap
         # says it reached him, and only both together open the word.
+        # The fixture said `format: "episode"` until 2026-10-26; the real feed
+        # says `mission`, which is no channel, so M98's tap logged
+        # `unknown:mission` while this case stayed green.
+        chans = {e["channel"] for e in read_json(sb / "progress" / "observations.json")
+                 if e.get("source") == "rating:tier2_mission901"}
+        check("...on the `episode` channel — a feed format is not a channel",
+              chans == {"episode"}, str(chans))
         check("...and it DISCHARGES the episode's pending Teach Beat — audio teaches",
               not fx.si.is_unseen(read_json(lex_path)["ஸ்மோக்கற்ற"]),
               "the tap fired and the taught word stayed shut — audio is stranded")
