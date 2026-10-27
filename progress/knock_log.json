@@ -9500,5 +9500,21 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-26T23-02.mp3",
     "memo_script": "ஹலோ, பிரியா? சொல்லுடி. நான் கடைக்கு போயிட்டு இப்பதான் வந்தேன்.\n\nஆமா, பாட்டிக்கு பர்த்டே புடவை எடுக்கலாம்னு டவுனுக்கு போனேன்... அங்க போனா ஒரே கூட்டம்! தலை சுத்துது பாரு. கடைக்குள்ள போகவே முடியல. அவ்வளவு நெரிசல். அந்த கலர் கூட ஒழுங்கா பாக்க முடியல.\n\nசரி, நாளைக்கு காலையில மாமாவை கூட்டிட்டு போய்க்கலாம்னு அப்படியே வந்துட்டேன். கார்த்தி எங்க? வீட்டுக்கு வந்துட்டானா? சரி சரி, அவன் வந்தா என்கிட்ட பேச சொல்லு.",
     "mp3": "published_audio/knocks/knock_2026-10-26T23-02.mp3"
+  },
+  {
+    "date": "2026-10-27",
+    "timestamp": "2026-10-27T15:42:19.354234+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "one try: ulla",
+    "rationale": "One try on ulla via text after yesterday's eavesdrop; clean new angle with Karthi's keys to probe production.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-10-27T20:12:19.354234+00:00",
+    "body": "Karthi's searching his bag for the scooter key. Tell him it's 'inside'. Sollu 🔑",
+    "body_script": "Karthi's searching his bag for the scooter key. Tell him it's 'inside'. சொல்லு 🔑",
+    "expected_target": "உள்ள",
+    "stance": "ask",
+    "thread": "word:உள்ள",
+    "target_revealed": false
   }
 ]

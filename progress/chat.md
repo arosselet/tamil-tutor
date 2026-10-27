@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Tuesday 2026-10-27
+
+**11:42 · Anna**  ·  text / one try: ulla
+> Karthi's searching his bag for the scooter key. Tell him it's 'inside'. Sollu 🔑
+
+
 ## Monday 2026-10-26
 
 **08:03 · Anna**  ·  text / map: week 4
