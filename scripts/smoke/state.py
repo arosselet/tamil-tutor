@@ -587,6 +587,22 @@ def s34_focus_and_background(sb: Path):
         check("...and the window is still topped up to FOCUS_SIZE from background",
               len(focus3) == st.FOCUS_SIZE, f"got {len(focus3)}")
 
+        # THE ARC TAKES HALF (2026-10-26): twelve open arc words owned all twelve
+        # seats, and the freed half refills taught-first, or the cap only swaps
+        # one set of UNSEEN rows for another.
+        # Eight UNSEEN arc words against twelve taught ones: the six seats left
+        # over must all go to taught rows, never to the two arc words held back.
+        big = [f"smoke:w{i:02d}" for i in range(12, 20)]
+        lexb = {w: dict(r, **({} if w in big else {"taught_on": "2026-10-01"}))
+                for w, r in lex.items()}
+        fb = st.floor_gap_targets(lexb, today, 99, window=big)[0]
+        check("an arc bigger than ARC_SEATS takes only ARC_SEATS seats",
+              sum(t["word"] in big for t in fb) == st.ARC_SEATS,
+              [t["word"] for t in fb])
+        check("...and the rest top up taught-first",
+              len(fb) == st.FOCUS_SIZE and sum(t["unseen"] for t in fb) == st.ARC_SEATS,
+              [(t["word"], t["unseen"]) for t in fb])
+
         # A CLOSED MEMBER LEAVES A HOLE, not a refilled seat: the arc is meant
         # to empty as he closes it. It leaves the pool population entirely, so
         # it cannot reappear in either budget.

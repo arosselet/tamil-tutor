@@ -113,6 +113,10 @@ INGREDIENTS = {
 # cold, the remaining on a slow guaranteed background"). Graduation is production
 # going cold — after that a word is never drilled again, it is just used.
 FOCUS_SIZE = 12
+# THE ARC TAKES HALF (2026-10-26, Andrew). October's 12 open arc words filled all
+# 12 seats, 11 of them UNSEEN, so the 78 taught-not-cold rows reached no volley,
+# gate or drill head. The arc still leads; it no longer owns the window.
+ARC_SEATS = FOCUS_SIZE // 2
 # Hinted items silent this long surface for a cold retest (2026-08-01). Hinted
 # had no follow-up path at all ("open and unanswered", DECISIONS 07-28): cold is
 # a one-way door and hinted was a no-way door.
@@ -322,12 +326,17 @@ def floor_gap_targets(lexicon: dict, today, max_n: int,
     # the honest day-zero state and not a fallback to the retired conveyor.
     if window is None:
         window = month_window(lexicon)
-    focus = [by_word[w] for w in window if w in by_word][:FOCUS_SIZE]
+    focus = [by_word[w] for w in window if w in by_word][:ARC_SEATS]
     held = {c["word"] for c in focus}
     background = sorted((c for c in gap if c["word"] not in held), key=pool_key)
     seats_open = FOCUS_SIZE - len(focus)
     if seats_open > 0:
-        focus += take_seats(background, seats_open)
+        # Beside an open arc the top-up is TAUGHT FIRST: the arc already brings
+        # the new words, and capping it alone refilled 10 of 12 seats with other
+        # UNSEEN rows (measured 10-26), since coverage leads with the never-worked.
+        # A stable sort, so pool order holds inside each half.
+        pool = sorted(background, key=lambda c: c["unseen"]) if focus else background
+        focus += take_seats(pool, seats_open)
         taken = {c["word"] for c in focus}
         background = [c for c in background if c["word"] not in taken]
     for c in focus:
