@@ -20,7 +20,8 @@ open → volley → volley → GATE → judge + recast → volley → volley →
   with one re-ask. A turn still over the cap is kept whole and stamped `over_cap`. That
   stamp is the walk-pacing evidence this simulation exists to collect.
 - **One target per gate** comes from `suggest_targets.drill_menu`, in its own order.
-  UNSEEN items are skipped (teach-first). The target is woven into Anna's volleys, and
+  One UNSEEN item may ride as a `teach` target: its first turn is a Teach Beat, booked
+  `taught` + `attended` on `live` only if he writes back. The target is woven into Anna's volleys, and
   the gate invites him to say it back. If he answers in English, nothing is demanded.
 - **Context per turn:** the whole session transcript, the ticket's target, `threads.block`,
   the household canon, profile.md's Calibration Notes, and the voice canon.

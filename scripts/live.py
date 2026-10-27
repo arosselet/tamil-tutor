@@ -61,6 +61,7 @@ from writer import STR, arr, ask_json, executor_name, obj, to_phonetic, voice_ca
 
 VOLLEYS_PER_GATE = 2   # Anna's turns between gates — "volley, then a gate"
 TARGETS = 4            # gates a session can hold; past them it is just talk
+TEACH = 1              # UNSEEN targets a session may teach — the chat dial is ≤1–2 new words
 IDLE_CLOSE_HOURS = 3   # WhatsApp has no "end": a turn after this long closes the old session first
 END_RE = re.compile(r"^\s*(bye|stop|end|done)\b[\s.!]*$", re.I)
 VERDICTS = {"cold", "hinted", "miss", "none"}
@@ -84,11 +85,15 @@ def words(text: str) -> int:
 
 
 def pick_targets(lex: dict) -> list[dict]:
-    """The ticket: the selector's own order, never re-sorted here. TEACH-FIRST —
-    an UNSEEN item is never a gate, because a gate is a demand however softly it
-    is put (the volley and the drill tape exclude them for the same reason)."""
-    return [{"word": t["word"], "gloss": t["gloss"]}
-            for t in drill_menu(lex) if not t["unseen"]][:TARGETS]
+    """The ticket: the selector's own order, never re-sorted here. TEACH-FIRST
+    still holds — an UNSEEN item is never gated cold — but up to `TEACH` of them
+    ride as `teach` targets: the first turn on one is a Teach Beat, the gate
+    comes after the volleys (2026-10-26, Andrew). Without it a session drew only
+    TAUGHT items, and on 10-26 one of twelve was: one gate, then just talk."""
+    menu = drill_menu(lex)
+    teach = [t for t in menu if t["unseen"]][:TEACH]
+    return [{"word": t["word"], "gloss": t["gloss"], **({"teach": True} if t["unseen"] else {})}
+            for t in menu if not t["unseen"] or t in teach][:TARGETS]
 
 
 def calibration() -> str:
@@ -130,6 +135,8 @@ def next_job(sess: dict) -> str:
         return "judge"
     if target(sess) and sess["volleys"] >= VOLLEYS_PER_GATE:
         return "gate"
+    if (target(sess) or {}).get("teach") and sess["volleys"] == 0:
+        return "teach"
     return "volley"
 
 
@@ -215,7 +222,7 @@ def take_turn(sess: dict, text: str) -> str:
         sess["phase"] = "gate"
     elif job == "judge":
         sess.update(phase="volley", volleys=0, at=sess["at"] + 1)
-    elif job == "volley":
+    elif job in ("volley", "teach"):
         sess["volleys"] += 1
     sess["last_at"] = at
     return line
@@ -225,9 +232,15 @@ def close(sess: dict) -> list[Path]:
     """BOOK WHAT THE GATES EARNED, once, at the end. A gate he did not try books
     nothing; talk alone never moves the learner model. Returns the books written."""
     graded = [t for t in sess["turns"] if t.get("verdict") in ("cold", "hinted", "miss")]
-    events = [{"word": t["target"], "channel": "live", "kind": "tested", "axis": "production",
-               "result": FIRE_RESULT.get(t["verdict"], "wrong"), "source": f"live:{sess['id']}",
-               "note": t.get("said") or t["text"][:80]} for t in graded]
+    # A Teach Beat books only if he wrote back after it: on WhatsApp a sent line is
+    # not a read one. Taught AND attended, because `live` is not self-attending.
+    taught = [t for i, t in enumerate(sess["turns"]) if t.get("job") == "teach"
+              and any(u["who"] == "andrew" for u in sess["turns"][i + 1:])]
+    events = [{"word": t["target"], "channel": "live", "kind": k, "at": t["at"],
+               "source": f"live:{sess['id']}"} for t in taught for k in ("taught", "attended")]
+    events += [{"word": t["target"], "channel": "live", "kind": "tested", "axis": "production",
+                "result": FIRE_RESULT.get(t["verdict"], "wrong"), "source": f"live:{sess['id']}",
+                "note": t.get("said") or t["text"][:80]} for t in graded]
     slips = [s for t in sess["turns"] for s in t.get("slips") or []]
     notes = [t["meta_note"] for t in sess["turns"] if t.get("meta_note")]
     if events:
@@ -238,7 +251,7 @@ def close(sess: dict) -> list[Path]:
         record_meta_note({"meta_note": n})
     sess["closed"] = now_iso()
     save_json(LIVE_SESSION_PATH, sess)
-    print(f"   closed: {len(events)} gate(s) booked, {len(slips)} slip(s), {len(notes)} note(s)")
+    print(f"   closed: {len(taught)} taught, {len(graded)} gate(s) booked, {len(slips)} slip(s), {len(notes)} note(s)")
     return [LIVE_SESSION_PATH] + ([OBSERVATIONS_PATH, LEXICON_PATH] if events else []) \
         + ([SLIP_LOG_PATH] if slips else []) + ([FEEDBACK_LOG_PATH] if notes else [])
 

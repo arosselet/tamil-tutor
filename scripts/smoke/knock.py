@@ -3541,7 +3541,8 @@ def s156_a_live_session_books_only_at_close(sb: Path):
        byte-identical through every turn; close books the gate as `live` /
        production / partial, books the slip, and books nothing for a fire that
        quotes words he never typed.
-    4. TEACH-FIRST: an UNSEEN item is never a target.
+    4. TEACH-FIRST: at most one UNSEEN target, taught before it is gated, and
+       booked taught + attended only if he wrote back after the Teach Beat.
     5. WHATSAPP: a re-delivered id is answered once, `bye` closes and books, the
        workflow step reads the event file and never names his text, and the bridge
        forwards only {text, id} from the one allowed sender, signed."""
@@ -3565,23 +3566,26 @@ def s156_a_live_session_books_only_at_close(sb: Path):
     try:
         lv.ask_json = writer
         lv.drill_menu = lambda lex: [
-            {"word": "புதுசு", "gloss": "new", "unseen": True},
             {"word": "வெளிய", "gloss": "outside", "unseen": False},
-            {"word": "சாப்டியா", "gloss": "did you eat?", "unseen": False}]
+            {"word": "சாப்டியா", "gloss": "did you eat?", "unseen": False},
+            {"word": "புதுசு", "gloss": "new", "unseen": True},
+            {"word": "பழசு", "gloss": "old", "unseen": True}]
         sess_path.unlink(missing_ok=True)
         with contextlib.redirect_stdout(io.StringIO()):
             sess = lv.new_session("cli")
-        check("an UNSEEN item is never a target",
-              [t["word"] for t in sess["targets"]] == ["வெளிய", "சாப்டியா"], str(sess["targets"]))
+        check("one UNSEEN item rides, as a teach target; the second is left",
+              [(t["word"], t.get("teach", False)) for t in sess["targets"]]
+              == [("வெளிய", False), ("சாப்டியா", False), ("புதுசு", True)], str(sess["targets"]))
 
         before = obs_path.read_bytes() if obs_path.exists() else b""
         replies[:] = [line(6), line(40), line(8), line(7), line(5),
                       line(9, gate_verdict="cold", said="veliya poren",
                            slips=[{"tag": "1pl-om", "said": "ponen", "want": "போறோம்", "note": "we"}]),
                       line(5), line(5), line(6),
-                      line(5, gate_verdict="hinted", said="sapten nu")]
+                      line(5, gate_verdict="hinted", said="sapten nu"),
+                      line(6), line(5), line(5), line(5, gate_verdict="cold", said="puthusu")]
         turns_in = ["", "hi anna", "walking to the shop", "nice", "veliya poren",
-                    "ha", "yes", "what?", "saptiya"]
+                    "ha", "yes", "what?", "saptiya", "ok", "a new bag?", "sure", "puthusu"]
         with contextlib.redirect_stdout(io.StringIO()):
             for text in turns_in:
                 lv.take_turn(sess, text)
@@ -3590,7 +3594,9 @@ def s156_a_live_session_books_only_at_close(sb: Path):
               [(t["job"], t["target"]) for t in anna]
               == [("open", "வெளிய"), ("volley", "வெளிய"), ("volley", "வெளிய"),
                   ("gate", "வெளிய"), ("judge", "வெளிய"), ("volley", "சாப்டியா"),
-                  ("volley", "சாப்டியா"), ("gate", "சாப்டியா"), ("judge", "சாப்டியா")],
+                  ("volley", "சாப்டியா"), ("gate", "சாப்டியா"), ("judge", "சாப்டியா"),
+                  ("teach", "புதுசு"), ("volley", "புதுசு"), ("gate", "புதுசு"),
+                  ("judge", "புதுசு")],
               str([(t["job"], t["target"]) for t in anna]))
         check("a long turn is re-asked once and the short answer kept",
               len(anna[1]["text"].split()) == 8 and not anna[1].get("over_cap"), str(anna[1]))
@@ -3599,18 +3605,34 @@ def s156_a_live_session_books_only_at_close(sb: Path):
         graded = [t for t in sess["turns"] if t.get("verdict")]
         check("cold is capped at hinted; a fire that quotes words he never typed grades none",
               [(t["target"], t["verdict"]) for t in graded]
-              == [("வெளிய", "hinted"), ("சாப்டியா", "none")], str(graded))
+              == [("வெளிய", "hinted"), ("சாப்டியா", "none"), ("புதுசு", "hinted")],
+              str(graded))
 
         with contextlib.redirect_stdout(io.StringIO()):
             books = lv.close(sess)
         live_events = [e for e in read_json(obs_path) if e.get("channel") == "live"]
-        check("close books the tried gate — live, production, partial — and only that one",
+        check("close books the Teach Beat (taught + attended) and the tried gates only",
               [(e["word"], e["axis"], e["result"], e["kind"]) for e in live_events]
-              == [("வெளிய", "production", "partial", "tested")], str(live_events))
+              == [("புதுசு", None, None, "taught"), ("புதுசு", None, None, "attended"),
+                  ("வெளிய", "production", "partial", "tested"),
+                  ("புதுசு", "production", "partial", "tested")], str(live_events))
         check("close books the slip on the ledger",
               any(r.get("lane") == "live" and r.get("tag") == "1pl-om" for r in read_json(slip_path)))
         check("the closed session is never resumed, and the books are named for the commit",
               lv.load_session() is None and obs_path in books and slip_path in books, str(books))
+
+        # 4b. A Teach Beat he never wrote back to books nothing.
+        lv.drill_menu = lambda lex: [{"word": "பழசு", "gloss": "old", "unseen": True}]
+        replies[:] = [line(5), line(5)]
+        with contextlib.redirect_stdout(io.StringIO()):
+            s4 = lv.new_session("cli")
+            lv.take_turn(s4, "")
+            lv.take_turn(s4, "hi")
+            lv.close(s4)
+        check("an unanswered Teach Beat books no taught",
+              s4["turns"][-1]["job"] == "teach"
+              and not any(e["word"] == "பழசு" for e in read_json(obs_path)),
+              str([t.get("job") for t in s4["turns"]]))
 
         # 2b. over_cap: both asks long.
         replies[:] = [line(50), line(48)]
