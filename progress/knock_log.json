@@ -9468,7 +9468,9 @@
     "expected_target": "",
     "stance": "give",
     "thread": "map",
-    "target_revealed": false
+    "target_revealed": false,
+    "response": "ack",
+    "response_at": "2026-10-27T01:34:53Z"
   },
   {
     "date": "2026-10-26",
