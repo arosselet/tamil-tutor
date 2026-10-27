@@ -139,7 +139,7 @@ def main():
     parser.add_argument("text")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
-    load_env()
+    load_env(BASE / ".env")
     klog = load_json(KNOCK_LOG_PATH) or []
     fired = [k for k in klog if k.get("acted", True)]
     handle_message(args.text, fired[-1] if fired else None, klog, args.dry_run)

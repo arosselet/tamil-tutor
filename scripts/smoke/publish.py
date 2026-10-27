@@ -770,6 +770,11 @@ def s43_sidecar_callback_never_drops_silently(sb: Path):
     src = mechanism(inspect.getsource(ra.main))
     check("the standalone renderer loads .env, like run_studio does before it",
           "load_env" in src, "a hand-run render still cannot find GCP_SA_KEY")
+    # knock_message.main() called `load_env()` bare — a TypeError the moment the
+    # lane ran standalone, hidden because dispatch never enters main (2026-10-26).
+    bare = [f.name for f in (REAL_BASE / "scripts").glob("*.py")
+            if "load_env()" in mechanism(f.read_text(encoding="utf-8"))]
+    check("no lane calls load_env() without the path it reads", not bare, str(bare))
 
 
 def s146_a_payload_callback_with_no_row_is_settled_before_audio(sb: Path):
