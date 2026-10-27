@@ -25271,5 +25271,65 @@
     "medium": "audio",
     "source": "knock:2026-10-26T23:02:58.955049+00:00",
     "note": ""
+  },
+  {
+    "id": "ce60027f09d3",
+    "at": "2026-10-14T22:00:00Z",
+    "word": "அப்புறமா பேசலாமா?",
+    "channel": "episode",
+    "kind": "attended",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "rating:special_exact_change_resend",
+    "note": ""
+  },
+  {
+    "id": "b3aa757cc746",
+    "at": "2026-10-14T22:00:00Z",
+    "word": "எனக்கு போன் பண்ணு",
+    "channel": "episode",
+    "kind": "attended",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "rating:special_exact_change_resend",
+    "note": ""
+  },
+  {
+    "id": "a8d90f221015",
+    "at": "2026-10-14T22:00:00Z",
+    "word": "எப்ப ஃப்ரீயா இருப்ப?",
+    "channel": "episode",
+    "kind": "attended",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "rating:special_exact_change_resend",
+    "note": ""
+  },
+  {
+    "id": "6e558c49e0da",
+    "at": "2026-10-14T22:00:00Z",
+    "word": "டைம் சொல்லு",
+    "channel": "episode",
+    "kind": "attended",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "rating:special_exact_change_resend",
+    "note": ""
+  },
+  {
+    "id": "2e3651f26439",
+    "at": "2026-10-14T22:00:00Z",
+    "word": "நான் கன்ஃபர்ம் பண்றேன்",
+    "channel": "episode",
+    "kind": "attended",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "rating:special_exact_change_resend",
+    "note": ""
   }
 ]
