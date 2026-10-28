@@ -9,6 +9,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **19:47 · Anna** 🎧  ·  fielding / fielding: veliya
 > Ravi enga irukkaan? — Deepa's asking you 👧
 
+**19:50 · Andrew** — **CHAT**
+> Where is Ravi? Dee was asking I don’t understand the question.
+
+**Anna ↩**
+> You caught it exactly da — she's asking "Where is Ravi?" You just answer her, like `veliya` (outside)!
+
 
 ## Tuesday 2026-10-27
 

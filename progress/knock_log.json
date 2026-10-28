@@ -9565,6 +9565,31 @@
     "target_revealed": false,
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-28T23-47.mp3",
     "memo_script": "ரவி எங்க இருக்கான்?",
-    "mp3": "published_audio/knocks/knock_2026-10-28T23-47.mp3"
+    "mp3": "published_audio/knocks/knock_2026-10-28T23-47.mp3",
+    "response": "reply",
+    "reply": "Where is Ravi? Dee was asking I don’t understand the question.",
+    "reply_verdict": "chat",
+    "reply_fired": [],
+    "reply_fired_cold": [],
+    "reply_fired_capped": [],
+    "reply_line_script": "You caught it exactly da — she's asking \"Where is Ravi?\" You just answer her, like `வெளிய` (outside)!",
+    "reply_line": "You caught it exactly da — she's asking \"Where is Ravi?\" You just answer her, like `veliya` (outside)!",
+    "reply_at": "2026-10-28T23:50:06Z",
+    "exchanges": [
+      {
+        "at": "2026-10-28T23:50:06Z",
+        "reply": "Where is Ravi? Dee was asking I don’t understand the question.",
+        "verdict": "chat",
+        "fired": [],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "You caught it exactly da — she's asking \"Where is Ravi?\" You just answer her, like `veliya` (outside)!",
+        "reply_line_script": "You caught it exactly da — she's asking \"Where is Ravi?\" You just answer her, like `வெளிய` (outside)!",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      }
+    ]
   }
 ]
