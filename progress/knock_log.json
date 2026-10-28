@@ -9567,10 +9567,11 @@
     "memo_script": "ரவி எங்க இருக்கான்?",
     "mp3": "published_audio/knocks/knock_2026-10-28T23-47.mp3",
     "response": "reply",
-    "reply": "Ravi Velia",
+    "reply": "Ola Ika, Ika",
     "reply_verdict": "hinted",
     "reply_fired": [
-      "வெளிய"
+      "வெளிய",
+      "உள்ள"
     ],
     "reply_fired_cold": [
       "வெளிய"
@@ -9578,9 +9579,9 @@
     "reply_fired_capped": [
       "வெளிய"
     ],
-    "reply_line_script": "அதுதான்! Perfect. · Now tell her he's inside.",
-    "reply_line": "Adhudhaan! Perfect. · Now tell her he's inside.",
-    "reply_at": "2026-10-28T23:51:25Z",
+    "reply_line_script": "Close da! உள்ள இருக்கான் nu சொல்லு.",
+    "reply_line": "Close da! Ulla irukkaan nu sollu.",
+    "reply_at": "2026-10-28T23:54:02Z",
     "exchanges": [
       {
         "at": "2026-10-28T23:50:06Z",
@@ -9614,6 +9615,22 @@
         ],
         "reply_line": "Adhudhaan! Perfect. · Now tell her he's inside.",
         "reply_line_script": "அதுதான்! Perfect. · Now tell her he's inside.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
+      },
+      {
+        "at": "2026-10-28T23:54:02Z",
+        "reply": "Ola Ika, Ika",
+        "verdict": "hinted",
+        "fired": [
+          "உள்ள"
+        ],
+        "fired_cold": [],
+        "fired_capped": [],
+        "graduated": [],
+        "reply_line": "Close da! Ulla irukkaan nu sollu.",
+        "reply_line_script": "Close da! உள்ள இருக்கான் nu சொல்லு.",
         "slips": [],
         "spoke": "",
         "scheduled": ""

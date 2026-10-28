@@ -25343,5 +25343,17 @@
     "medium": "text",
     "source": "knock:2026-10-28T23:47:13.613901+00:00",
     "note": "capped fire"
+  },
+  {
+    "id": "5262978c7411",
+    "at": "2026-10-28T23:53:50Z",
+    "word": "உள்ள",
+    "channel": "fielding",
+    "kind": "tested",
+    "axis": "production",
+    "result": "partial",
+    "medium": "text",
+    "source": "knock:2026-10-28T23:47:13.613901+00:00",
+    "note": "hinted fire"
   }
 ]
