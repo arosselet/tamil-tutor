@@ -25331,5 +25331,17 @@
     "medium": "audio",
     "source": "rating:special_exact_change_resend",
     "note": ""
+  },
+  {
+    "id": "ca263184d731",
+    "at": "2026-10-28T23:51:17Z",
+    "word": "வெளிய",
+    "channel": "fielding",
+    "kind": "tested",
+    "axis": "production",
+    "result": "right",
+    "medium": "text",
+    "source": "knock:2026-10-28T23:47:13.613901+00:00",
+    "note": "capped fire"
   }
 ]

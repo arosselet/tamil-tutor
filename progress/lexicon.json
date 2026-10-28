@@ -1500,15 +1500,15 @@
   "வெளிய": {
     "gloss": "Outside",
     "recognition": "solid",
-    "production": "hinted",
+    "production": "cold",
     "seen_in": [
       6,
       10,
       21,
       33
     ],
-    "last_surfaced": "2026-10-25",
-    "reps": 5,
+    "last_surfaced": "2026-10-28",
+    "reps": 6,
     "exposures": 4,
     "taught_on": "2026-02-24",
     "heard_times": 1,

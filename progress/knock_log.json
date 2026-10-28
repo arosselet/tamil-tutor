@@ -9567,14 +9567,20 @@
     "memo_script": "ரவி எங்க இருக்கான்?",
     "mp3": "published_audio/knocks/knock_2026-10-28T23-47.mp3",
     "response": "reply",
-    "reply": "Where is Ravi? Dee was asking I don’t understand the question.",
-    "reply_verdict": "chat",
-    "reply_fired": [],
-    "reply_fired_cold": [],
-    "reply_fired_capped": [],
-    "reply_line_script": "You caught it exactly da — she's asking \"Where is Ravi?\" You just answer her, like `வெளிய` (outside)!",
-    "reply_line": "You caught it exactly da — she's asking \"Where is Ravi?\" You just answer her, like `veliya` (outside)!",
-    "reply_at": "2026-10-28T23:50:06Z",
+    "reply": "Ravi Velia",
+    "reply_verdict": "hinted",
+    "reply_fired": [
+      "வெளிய"
+    ],
+    "reply_fired_cold": [
+      "வெளிய"
+    ],
+    "reply_fired_capped": [
+      "வெளிய"
+    ],
+    "reply_line_script": "அதுதான்! Perfect. · Now tell her he's inside.",
+    "reply_line": "Adhudhaan! Perfect. · Now tell her he's inside.",
+    "reply_at": "2026-10-28T23:51:25Z",
     "exchanges": [
       {
         "at": "2026-10-28T23:50:06Z",
@@ -9589,7 +9595,32 @@
         "slips": [],
         "spoke": "",
         "scheduled": ""
+      },
+      {
+        "at": "2026-10-28T23:51:25Z",
+        "reply": "Ravi Velia",
+        "verdict": "hinted",
+        "fired": [
+          "வெளிய"
+        ],
+        "fired_cold": [
+          "வெளிய"
+        ],
+        "fired_capped": [
+          "வெளிய"
+        ],
+        "graduated": [
+          "வெளிய"
+        ],
+        "reply_line": "Adhudhaan! Perfect. · Now tell her he's inside.",
+        "reply_line_script": "அதுதான்! Perfect. · Now tell her he's inside.",
+        "slips": [],
+        "spoke": "",
+        "scheduled": ""
       }
-    ]
+    ],
+    "chained": 1,
+    "pinned_target": "உள்ள",
+    "pinned_revealed": false
   }
 ]

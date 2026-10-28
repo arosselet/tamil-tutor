@@ -15,6 +15,12 @@ Newest day first. **Derived file — edits here are overwritten.**
 **Anna ↩**
 > You caught it exactly da — she's asking "Where is Ravi?" You just answer her, like `veliya` (outside)!
 
+**19:51 · Andrew** — **HINTED**
+> Ravi Velia
+
+**Anna ↩**
+> Adhudhaan! Perfect. · Now tell her he's inside.
+
 
 ## Tuesday 2026-10-27
 
