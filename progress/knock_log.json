@@ -9639,5 +9639,24 @@
     "chained": 1,
     "pinned_target": "உள்ள",
     "pinned_revealed": false
+  },
+  {
+    "date": "2026-10-29",
+    "timestamp": "2026-10-29T17:14:30.255151+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "overheard: theriyumaa",
+    "rationale": "Eavesdrop cadence due (3d); testing gossip opener தெரியுமா? on Athai's phone call with Priya.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-10-29T21:44:30.255151+00:00",
+    "body": "Athai's on the phone with Priya about the sweets — one line gives away what Karthi did 🎧",
+    "body_script": "Athai's on the phone with Priya about the sweets — one line gives away what Karthi did 🎧",
+    "expected_target": "தெரியுமா?",
+    "stance": "ask",
+    "thread": "arc",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-29T17-14.mp3",
+    "memo_script": "ஹலோ, பிரியா... பாட்டி இப்பதான் உள்ள போனாங்க. காலையில இருந்து ஒரே பேச்சு தான்.\n\nஅந்த ஸ்வீட் கடைக்கு கார்த்திய போக சொன்னேன். அவன் இன்னும் கிளம்பலையான்னு தெரியுமா? அங்க நெய் மைசூர்பாக் இன்னைக்கு தான் போடுறாங்களாம். மாமா வேற ரெண்டு வாட்டி கேட்டுட்டாரு.\n\nநீ வரப்போ கொஞ்சம் அந்த வாழை இலை வாங்கிட்டு வந்துடு. அவன்கிட்ட சொன்னா மறந்துடுவான், அப்புறம் நாங்க தான் அலையணும். சரி சரி, வைக்குறேன்.",
+    "mp3": "published_audio/knocks/knock_2026-10-29T17-14.mp3"
   }
 ]

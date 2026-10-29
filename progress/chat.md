@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Thursday 2026-10-29
+
+**13:14 · Anna** 🎧  ·  eavesdrop / overheard: theriyumaa
+> Athai's on the phone with Priya about the sweets — one line gives away what Karthi did 🎧
+
+
 ## Wednesday 2026-10-28
 
 **19:47 · Anna** 🎧  ·  fielding / fielding: veliya

@@ -25355,5 +25355,17 @@
     "medium": "text",
     "source": "knock:2026-10-28T23:47:13.613901+00:00",
     "note": "hinted fire"
+  },
+  {
+    "id": "26c7d500dec6",
+    "at": "2026-10-29T17:15:50Z",
+    "word": "தெரியுமா?",
+    "channel": "eavesdrop",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "knock:2026-10-29T17:14:30.255151+00:00",
+    "note": ""
   }
 ]
