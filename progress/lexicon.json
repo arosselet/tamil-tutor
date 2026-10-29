@@ -2883,7 +2883,7 @@
     "seen_in": [
       82
     ],
-    "last_surfaced": "2026-10-26",
+    "last_surfaced": "2026-10-29",
     "direction": "fire",
     "exposures": 2,
     "reps": 1,
@@ -2899,7 +2899,7 @@
     "seen_in": [
       82
     ],
-    "last_surfaced": "2026-09-29",
+    "last_surfaced": "2026-10-29",
     "direction": "fire",
     "exposures": 1,
     "reps": 1,
@@ -2915,7 +2915,7 @@
       70,
       82
     ],
-    "last_surfaced": "2026-10-26",
+    "last_surfaced": "2026-10-29",
     "direction": "fire",
     "exposures": 2,
     "reps": 1,
@@ -2971,7 +2971,7 @@
     "seen_in": [
       82
     ],
-    "last_surfaced": "2026-09-29",
+    "last_surfaced": "2026-10-29",
     "direction": "fire",
     "exposures": 1,
     "register": "social",
@@ -3391,9 +3391,9 @@
       88,
       89
     ],
-    "last_surfaced": "2026-10-14",
+    "last_surfaced": "2026-10-29",
     "direction": "fire",
-    "exposures": 1,
+    "exposures": 2,
     "register": "antifreeze",
     "reps": 2,
     "taught_on": "2026-08-10",
@@ -3428,10 +3428,10 @@
       85,
       89
     ],
-    "last_surfaced": "2026-09-29",
+    "last_surfaced": "2026-10-29",
     "direction": "fire",
     "reps": 4,
-    "exposures": 3,
+    "exposures": 4,
     "register": "antifreeze",
     "taught_on": "2026-07-23",
     "heard_on": "2026-08-26"
@@ -3541,7 +3541,7 @@
       82,
       86
     ],
-    "last_surfaced": "2026-10-14",
+    "last_surfaced": "2026-10-29",
     "direction": "fire",
     "exposures": 4,
     "register": "social",
@@ -3558,7 +3558,7 @@
       81,
       82
     ],
-    "last_surfaced": "2026-09-29",
+    "last_surfaced": "2026-10-29",
     "direction": "fire",
     "reps": 1,
     "exposures": 1,
@@ -3661,7 +3661,7 @@
     "seen_in": [
       88
     ],
-    "last_surfaced": "2026-10-26",
+    "last_surfaced": "2026-10-29",
     "direction": "fire",
     "exposures": 1,
     "register": "social",
@@ -3817,7 +3817,7 @@
     "seen_in": [
       82
     ],
-    "last_surfaced": "2026-09-25",
+    "last_surfaced": "2026-10-29",
     "direction": "fire",
     "exposures": 1,
     "reps": 1,
