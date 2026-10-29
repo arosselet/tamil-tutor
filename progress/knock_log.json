@@ -9658,5 +9658,24 @@
     "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-29T17-14.mp3",
     "memo_script": "ஹலோ, பிரியா... பாட்டி இப்பதான் உள்ள போனாங்க. காலையில இருந்து ஒரே பேச்சு தான்.\n\nஅந்த ஸ்வீட் கடைக்கு கார்த்திய போக சொன்னேன். அவன் இன்னும் கிளம்பலையான்னு தெரியுமா? அங்க நெய் மைசூர்பாக் இன்னைக்கு தான் போடுறாங்களாம். மாமா வேற ரெண்டு வாட்டி கேட்டுட்டாரு.\n\nநீ வரப்போ கொஞ்சம் அந்த வாழை இலை வாங்கிட்டு வந்துடு. அவன்கிட்ட சொன்னா மறந்துடுவான், அப்புறம் நாங்க தான் அலையணும். சரி சரி, வைக்குறேன்.",
     "mp3": "published_audio/knocks/knock_2026-10-29T17-14.mp3"
+  },
+  {
+    "date": "2026-10-29",
+    "timestamp": "2026-10-29T22:16:51.262531+00:00",
+    "acted": true,
+    "modality": "fielding",
+    "move": "fielding: ulla",
+    "rationale": "Fielding probe for ulla in the evening: Priya asks where Paati is, setting up a crisp, immediate one-word reply.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-10-30T01:46:51.262531+00:00",
+    "body": "Paatti enga irukkanga? — Priya's asking you",
+    "body_script": "பாட்டி எங்க இருக்காங்க? — Priya's asking you",
+    "expected_target": "உள்ள",
+    "stance": "ask",
+    "thread": "word:உள்ள",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-29T22-16.mp3",
+    "memo_script": "பாட்டி எங்க இருக்காங்க?",
+    "mp3": "published_audio/knocks/knock_2026-10-29T22-16.mp3"
   }
 ]
