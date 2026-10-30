@@ -25487,5 +25487,53 @@
     "medium": "audio",
     "source": "rotation_room_2026-10-29_1715",
     "note": ""
+  },
+  {
+    "id": "98dc81c9c239",
+    "at": "2026-10-30T15:12:37Z",
+    "word": "உள்ள",
+    "channel": "session",
+    "kind": "tested",
+    "axis": "production",
+    "result": "partial",
+    "medium": "text",
+    "source": "session:2026-10-30",
+    "note": "fired hinted"
+  },
+  {
+    "id": "6c8da5581581",
+    "at": "2026-10-30T16:12:06Z",
+    "word": "சொல்லணும்",
+    "channel": "session",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "text",
+    "source": "session:2026-10-30",
+    "note": "first contact — row created untested"
+  },
+  {
+    "id": "e48ad285c9dc",
+    "at": "2026-10-30T16:12:06Z",
+    "word": "கிட்ட",
+    "channel": "session",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "text",
+    "source": "session:2026-10-30",
+    "note": "re-taught; row already existed"
+  },
+  {
+    "id": "e0164264a724",
+    "at": "2026-10-30T16:12:06Z",
+    "word": "நாளைக்கு",
+    "channel": "session",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "text",
+    "source": "session:2026-10-30",
+    "note": "re-taught; row already existed"
   }
 ]

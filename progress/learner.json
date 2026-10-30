@@ -2,23 +2,15 @@
   "learner": "Andrew",
   "timezone": "America/New_York",
   "quiet_until": "",
-  "last_debrief": "STORY SO FAR: Tue 10-20 late morning, chat only, all on the page (no audio). Opening: kilambalaamaa + oru maasam iruppom named as his; Freeya vidunga (his 10-19 push reply) praised as Kovai; MAP shown (week 3, Paati 75); varusham = varsha/rain lore. Sweep-of-one on his claim: ulla/veliya/thambi read right in sentences (recorded --read); dropped 'en' (my) in 'Ivan en thambi' - taught. Produced 'Senjom, saapten' (we made it, I ate it) - senjom hinted (it was on the map), joke landed. KITCHEN (Anna-played text exchange at real table density, NOT the Ep98 tape - he called Ep98 mostly-English and hokey on 10-16): Paati back early, Karthi 'naanga tea pottom', Athai caves 'naanga biryani senjom', Paati 'enakku ellaam theriyum... Mama kitta vaangina panam, meedhi enga?'. Read results: Q3 gist right (secret's out) - ellaam theriyum mirrored onto his gift line enakku onnum theriyaadhu; Q1 read pottom as 'going to get tea' (finished -tom read as future; taught pottom vs poduvom); Q2 missed kelu (ask) + -nu quote ('make an announcement'). Taught kelu, -nu as quotation marks. Changed example 1 ('naan dhaan senjen'-nu sonnaan): -nu QUOTE PLACED RIGHT unaided (first time; it beat him on the 10-15 voice note) but person tails wrong: senjen read as we, sonnaan as they. Taught the tail table senjen/senjom/senjaan/senjaanga. Changed example 2 (Athai 'illa, naanga dhaan senjom'-nu sonnaanga): -om=we RIGHT, -aanga=they/Athai RIGHT, quote RIGHT (table was on screen = supported); read illa as negating the verb ('we didn't make it') - taught: illa up front = 'no, you're wrong'; the verb's own negative is the -la tail (senjala). CARRY: person tails (-en/-om/-aan/-aanga) on ONE root are the live recognition gap, page-only so far - next is BY EAR. illa-scope vs -la tail. M97 'Exact Change' still unheard. Oct 23 tenth-anniversary line ('Namma kalyanam aagi pathu varusham aachu') offered, his to take - the date is THIS WEEK. Receptive check never run by ear. Live slips: past-tense, person-tail, nga-has-no-address, noun-for-verb, respect-nga, come-go-direction, default-la-tail, literary-twin. VAA stays out of chat production until unannounced ambush. Karthi ambush of 'enakku onnum theriyaadhu' still unspent. NEXT: different room (clinic/errand/terrace/phone), table density in Tamil not English-with-sprinkles (his 10-16 verdict on Ep98); hear the person tails on one root by ear - who did it, from the tail alone. Hook: Karthi's debt to Mama is now OUT - what does Paati do with it?",
+  "last_debrief": "STORY SO FAR: Fri 10-30 late morning, chat only, page only. Opening: veliya named his; MAP shown (week 5, Paati 75 ends 10-31). Tug: 'it's inside' -> 'Oola iruka' = ulla irukku, HINTED (ulla was named in the map just above); taught irukku vs irukkaa (question). SCENE (Paati confronts Karthi on the Mama debt, text at table density): 'Naalaikku Mama vaaraan. Nee dhaan sollanum' -> he read 'we can talk'; taught naalaikku, vaaraan (-aan=Mama), nee=you, dhaan=you-and-nobody-else, sollanum=must tell. Changed ex 'Naalaikku Athai vaaraanga. Naan dhaan sollanum': Athai RIGHT (-aanga), dhaan=only RIGHT, naan read as you (taught naan/nee/neenga). Karthi 'neenga dhaan Mama kitta sollanum': GIST RIGHT (Paati, only you) but sollanum as 'ask'; taught kitta. Paati 'Illa da. Nee dhaan vaangina. Nee dhaan sollu': illa RIGHT, nee read as WE again, vaangina as 'we bought'. Pick A/B (nee..vaangina vs naanga..vaanginom): read both as 'can buy', naanga as THEY. CARRY: the gap is PRONOUNS (naan/nee/naanga/avanga) + past -in- read as 'can' + person tails - consistent across 5 items; words known, endings not. He ended on 'ok' after many misses - go lighter next time, fewer probes per beat, more give. Soak ordered: vaanginom vs vaangina by ear. Still unheard: M97 'Exact Change'. Receptive check never run by ear. Karthi ambush of 'enakku onnum theriyaadhu' unspent. NEXT: an EAR beat (the soak), then one pronoun pair at a time with a reveal, not a quiz chain. Hook: Mama arrives tomorrow - does Karthi tell him, or does Paati?",
   "soak_order": {
     "payload": [
-      "செஞ்சோம்",
-      "போனோம்",
-      "வாங்கினோம்",
-      "இருப்போம்"
+      "வாங்கினோம்"
     ],
-    "scene_seed": "Athai and Karthi secretly test-cook a biryani for Paati's 75th; Paati walks into the kitchen early and the 'we' alibis start flying",
-    "from": "2026-10-16",
+    "scene_seed": "Karthi drags Athai into the Mama debt: naanga dhaan vaanginom vs nee dhaan vaangina - who got it, from the tail alone, by ear",
+    "from": "2026-10-30",
     "focus": "The -om 'we' tail by ear: senjom / ponom / vaanginom / iruppom vs the -nga 'you' and -aanga 'they' forms around it — who did what, told through a fun kitchen cover-up. Enjoyment first: a real scene with a laugh, not a word carousel; don't re-air his decade-old core words.",
-    "channel": "episode",
-    "attempted": {
-      "at": "2026-10-16",
-      "episode": "98",
-      "unclaimed": []
-    }
+    "channel": "episode"
   },
   "next_engine": "frame:polite-nga",
   "slip_closes": {
@@ -250,5 +242,5 @@
     "opened": "2026-09-25",
     "closes": "2026-10-31"
   },
-  "map_shown": "2026-10-20"
+  "map_shown": "2026-10-30"
 }
