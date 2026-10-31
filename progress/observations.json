@@ -25535,5 +25535,17 @@
     "medium": "text",
     "source": "session:2026-10-30",
     "note": "re-taught; row already existed"
+  },
+  {
+    "id": "91805ee71917",
+    "at": "2026-10-31T14:10:48Z",
+    "word": "frame:cant-முடியல",
+    "channel": "eavesdrop",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "knock:2026-10-31T14:09:44.343600+00:00",
+    "note": ""
   }
 ]

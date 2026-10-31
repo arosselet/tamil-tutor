@@ -9688,5 +9688,24 @@
     "rationale": "Andrew just wrapped a taxing morning session ending on 'ok'; ulla was already touched this morning, so give him space until evening before any ear check.",
     "decide_model": "google/gemini-3.8-flash",
     "next_check": "2026-10-30T21:24:58.946215+00:00"
+  },
+  {
+    "date": "2026-10-31",
+    "timestamp": "2026-10-31T14:09:44.343600+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "overheard: mudiyala",
+    "rationale": "Weekend ear beat after yesterday's pronoun fatigue; overheard tape on Paati's guest list exercises mudiyala without production pressure.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-10-31T17:39:44.343600+00:00",
+    "body": "Athai's in a panic on the phone with Priya — one line tells you how many people Paati actually invited 🎧",
+    "body_script": "Athai's in a panic on the phone with Priya — one line tells you how many people Paati actually invited 🎧",
+    "expected_target": "frame:cant-முடியல",
+    "stance": "ask",
+    "thread": "arc",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-10-31T14-09.mp3",
+    "memo_script": "ஆமா பிரியா, நான் சொல்றத கேளு. கார்த்தி காலையிலயே கிளம்பி போயிட்டான். மாமா நாளைக்கு ஊர்ல இருந்து வர்றாரு, ஆனா இங்க இன்னும் ஒண்ணுமே ரெடி ஆகல.\n\nபாட்டி என்னன்னா, யார்கிட்டயும் சொல்லாம அவங்க பாட்டுக்கு சொந்தக்காரங்களை எல்லாம் கூப்பிட்டு வச்சிருக்காங்க. அஞ்சு பேருக்கு சமைக்கலாம்னு நெனச்சா, இப்போ இருபது பேர் வருவாங்க போல இருக்கு! தனியா என்னால ஒண்ணும் பண்ண முடியல.\n\nநீ இன்னைக்கு சாயங்காலமே வந்துடு. வந்து அந்த காய்கறி எல்லாம் நறுக்கி வைக்கணும். கார்த்திகிட்ட சொன்னா அவன் போனையே எடுக்க மாட்டேங்குறான். சரி சரி, நீ சீக்கிரம் கிளம்பு, வெக்கிறேன்.",
+    "mp3": "published_audio/knocks/knock_2026-10-31T14-09.mp3"
   }
 ]
