@@ -25547,5 +25547,17 @@
     "medium": "audio",
     "source": "knock:2026-10-31T14:09:44.343600+00:00",
     "note": ""
+  },
+  {
+    "id": "1265c168b17b",
+    "at": "2026-10-31T14:13:44Z",
+    "word": "செஞ்சோம்",
+    "channel": "soak",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "soak_2026-10-31_1013",
+    "note": ""
   }
 ]

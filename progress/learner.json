@@ -10,7 +10,11 @@
     "scene_seed": "Karthi drags Athai into the Mama debt: naanga dhaan vaanginom vs nee dhaan vaangina - who got it, from the tail alone, by ear",
     "from": "2026-10-30",
     "focus": "The -om 'we' tail by ear: senjom / ponom / vaanginom / iruppom vs the -nga 'you' and -aanga 'they' forms around it — who did what, told through a fun kitchen cover-up. Enjoyment first: a real scene with a laugh, not a word carousel; don't re-air his decade-old core words.",
-    "channel": "episode"
+    "channel": "episode",
+    "delivered": {
+      "channel": "soak",
+      "at": "2026-10-31"
+    }
   },
   "next_engine": "frame:polite-nga",
   "slip_closes": {

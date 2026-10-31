@@ -160,5 +160,201 @@
     "source": "rotation_machines_2026-10-24_1512",
     "queued_at": "2026-10-24T15:18:12",
     "status": "pending"
+  },
+  {
+    "id": "74c1f218b2",
+    "form": "வாங்கின tail — naan, nee, naanga, avanga, who bought it",
+    "en": "",
+    "unattested": [
+      "வாங்கின"
+    ],
+    "where": "thread",
+    "reason": "",
+    "lane": "soak",
+    "source": "soak_2026-10-31_1013",
+    "queued_at": "2026-10-31T10:13:30",
+    "status": "pending"
+  },
+  {
+    "id": "54288ab476",
+    "form": "நான் வாங்கினேன்",
+    "en": "I bought",
+    "unattested": [
+      "வாங்கினேன்"
+    ],
+    "where": "item",
+    "reason": "",
+    "lane": "soak",
+    "source": "soak_2026-10-31_1013",
+    "queued_at": "2026-10-31T10:13:30",
+    "status": "pending"
+  },
+  {
+    "id": "43d582e236",
+    "form": "நீ வாங்கினா",
+    "en": "you bought",
+    "unattested": [
+      "வாங்கினா"
+    ],
+    "where": "item",
+    "reason": "",
+    "lane": "soak",
+    "source": "soak_2026-10-31_1013",
+    "queued_at": "2026-10-31T10:13:30",
+    "status": "pending"
+  },
+  {
+    "id": "9e8025040c",
+    "form": "அவங்க வாங்கினாங்க",
+    "en": "they bought",
+    "unattested": [
+      "வாங்கினாங்க"
+    ],
+    "where": "item",
+    "reason": "",
+    "lane": "soak",
+    "source": "soak_2026-10-31_1013",
+    "queued_at": "2026-10-31T10:13:30",
+    "status": "pending"
+  },
+  {
+    "id": "08868a8957",
+    "form": "வாங்கினேன்",
+    "en": "bought (I)",
+    "unattested": [
+      "வாங்கினேன்"
+    ],
+    "where": "item",
+    "reason": "",
+    "lane": "soak",
+    "source": "soak_2026-10-31_1013",
+    "queued_at": "2026-10-31T10:13:30",
+    "status": "pending"
+  },
+  {
+    "id": "788158d88f",
+    "form": "வாங்கினா",
+    "en": "bought (you)",
+    "unattested": [
+      "வாங்கினா"
+    ],
+    "where": "item",
+    "reason": "",
+    "lane": "soak",
+    "source": "soak_2026-10-31_1013",
+    "queued_at": "2026-10-31T10:13:30",
+    "status": "pending"
+  },
+  {
+    "id": "e260c2914b",
+    "form": "வாங்கினாங்க",
+    "en": "bought (they)",
+    "unattested": [
+      "வாங்கினாங்க"
+    ],
+    "where": "item",
+    "reason": "",
+    "lane": "soak",
+    "source": "soak_2026-10-31_1013",
+    "queued_at": "2026-10-31T10:13:30",
+    "status": "pending"
+  },
+  {
+    "id": "db0b82cd00",
+    "form": "செஞ்ச tail — who did it, four voices again",
+    "en": "",
+    "unattested": [
+      "செஞ்ச"
+    ],
+    "where": "thread",
+    "reason": "",
+    "lane": "soak",
+    "source": "soak_2026-10-31_1013",
+    "queued_at": "2026-10-31T10:13:30",
+    "status": "pending"
+  },
+  {
+    "id": "34cd53145a",
+    "form": "நீ செஞ்சா",
+    "en": "you did it",
+    "unattested": [
+      "செஞ்சா"
+    ],
+    "where": "item",
+    "reason": "",
+    "lane": "soak",
+    "source": "soak_2026-10-31_1013",
+    "queued_at": "2026-10-31T10:13:30",
+    "status": "pending"
+  },
+  {
+    "id": "27129a7f9d",
+    "form": "அவங்க செஞ்சாங்க",
+    "en": "they did it",
+    "unattested": [
+      "செஞ்சாங்க"
+    ],
+    "where": "item",
+    "reason": "",
+    "lane": "soak",
+    "source": "soak_2026-10-31_1013",
+    "queued_at": "2026-10-31T10:13:30",
+    "status": "pending"
+  },
+  {
+    "id": "63fb08ffee",
+    "form": "போன tail — who went, same pattern once more",
+    "en": "",
+    "unattested": [
+      "போன"
+    ],
+    "where": "thread",
+    "reason": "",
+    "lane": "soak",
+    "source": "soak_2026-10-31_1013",
+    "queued_at": "2026-10-31T10:13:30",
+    "status": "pending"
+  },
+  {
+    "id": "bbc01964df",
+    "form": "நீ போனா",
+    "en": "you went",
+    "unattested": [
+      "போனா"
+    ],
+    "where": "item",
+    "reason": "",
+    "lane": "soak",
+    "source": "soak_2026-10-31_1013",
+    "queued_at": "2026-10-31T10:13:30",
+    "status": "pending"
+  },
+  {
+    "id": "96cebaac1a",
+    "form": "அவங்க போனாங்க",
+    "en": "they went",
+    "unattested": [
+      "போனாங்க"
+    ],
+    "where": "item",
+    "reason": "",
+    "lane": "soak",
+    "source": "soak_2026-10-31_1013",
+    "queued_at": "2026-10-31T10:13:30",
+    "status": "pending"
+  },
+  {
+    "id": "b0836c145f",
+    "form": "செஞ்சா",
+    "en": "did (you)",
+    "unattested": [
+      "செஞ்சா"
+    ],
+    "where": "item",
+    "reason": "",
+    "lane": "soak",
+    "source": "soak_2026-10-31_1013",
+    "queued_at": "2026-10-31T10:13:30",
+    "status": "pending"
   }
 ]
