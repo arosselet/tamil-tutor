@@ -9717,5 +9717,15 @@
     "rationale": "[arc] already had an eavesdrop push today and ulla is resting on the do-not-reask list; holding off until tomorrow morning.",
     "decide_model": "google/gemini-3.8-flash",
     "next_check": "2026-11-01T11:58:33.894566+00:00"
+  },
+  {
+    "date": "2026-11-01",
+    "timestamp": "2026-11-01T15:39:39.315939+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "silence: thread cooldown",
+    "rationale": "உள்ள is on cooldown after 5 unanswered asks and [arc] was just run as an eavesdrop yesterday; holding for fresh session threads.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-11-01T19:39:39.315939+00:00"
   }
 ]
