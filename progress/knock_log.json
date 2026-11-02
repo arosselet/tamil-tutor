@@ -9738,5 +9738,15 @@
     "rationale": "ulla is on cooldown after 5 recent asks, and arc was pushed as an eavesdrop yesterday; holding space after Friday's heavy session.",
     "decide_model": "google/gemini-3.8-flash",
     "next_check": "2026-11-02T00:02:05.066032+00:00"
+  },
+  {
+    "date": "2026-11-02",
+    "timestamp": "2026-11-02T00:06:36.913897+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "rest: thread cooldown",
+    "rationale": "Ulla is capped from recent unanswered asks and the previous push was an eavesdrop; holding silence until morning.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-11-02T13:06:36.913897+00:00"
   }
 ]
