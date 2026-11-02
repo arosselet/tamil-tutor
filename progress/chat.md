@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Monday 2026-11-02
+
+**12:39 · Anna**  ·  text / the map
+> November week 1: sollanum and vaanginom in play, ulla is almost yours. New room this week ☕
+
+
 ## Saturday 2026-10-31
 
 **10:09 · Anna** 🎧  ·  eavesdrop / overheard: mudiyala
