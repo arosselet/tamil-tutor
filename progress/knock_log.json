@@ -9764,5 +9764,15 @@
     "stance": "give",
     "thread": "map",
     "target_revealed": false
+  },
+  {
+    "date": "2026-11-03",
+    "timestamp": "2026-11-03T00:17:35.077940+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "rest: evening cooldown",
+    "rationale": "The map went out at midday and ulla is on hold after 5 unanswered touches; holding through the evening window until tomorrow morning.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-11-03T13:47:35.077940+00:00"
   }
 ]
