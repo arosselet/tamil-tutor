@@ -9774,5 +9774,24 @@
     "rationale": "The map went out at midday and ulla is on hold after 5 unanswered touches; holding through the evening window until tomorrow morning.",
     "decide_model": "google/gemini-3.8-flash",
     "next_check": "2026-11-03T13:47:35.077940+00:00"
+  },
+  {
+    "date": "2026-11-03",
+    "timestamp": "2026-11-03T15:41:26.849562+00:00",
+    "acted": true,
+    "modality": "eavesdrop",
+    "move": "overheard: enakku onnum theriyaadhu",
+    "rationale": "Tug [arc] with an eavesdrop tape catching 'எனக்கு ஒன்னும் தெரியாது' after a 3-day listening lull.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-11-03T20:11:26.849562+00:00",
+    "body": "Athai's on the phone with Priya about Mama's questions — one line tells you who she blames 🎧",
+    "body_script": "Athai's on the phone with Priya about Mama's questions — one line tells you who she blames 🎧",
+    "expected_target": "எனக்கு ஒன்னும் தெரியாது",
+    "stance": "ask",
+    "thread": "arc",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-11-03T15-41.mp3",
+    "memo_script": "பிரியா, கேளு... உங்க அப்பா காலையில இருந்து ஹால்ல உக்காந்துட்டு கணக்கு பாக்குறாரு. அந்த ஸ்வீட் பாக்ஸ் யாரு வாங்குனா, காசு எங்க போச்சுன்னு என்கிட்ட கேக்குறாரு.\n\nநான் உடனே என்ன சொன்னேன் தெரியுமா? மாமா, எனக்கு ஒன்னும் தெரியாது... எல்லாம் கார்த்தி தான் பண்ணான், அவன் கிட்டயே கேளுங்கன்னு சொல்லிட்டேன்!\n\nஇப்போ கார்த்தி வண்டியை எடுத்துட்டு வெளிய ஓடிட்டான். பாட்டி வேற உள்ள உக்காந்துட்டு சிரிக்கிறாங்க. நீ சாயங்காலம் வரும்போது பாரு, இங்க என்ன நடக்குதுன்னு.",
+    "mp3": "published_audio/knocks/knock_2026-11-03T15-41.mp3"
   }
 ]

@@ -25559,5 +25559,17 @@
     "medium": "audio",
     "source": "soak_2026-10-31_1013",
     "note": ""
+  },
+  {
+    "id": "20cdedce5eb8",
+    "at": "2026-11-03T15:42:38Z",
+    "word": "எனக்கு ஒன்னும் தெரியாது",
+    "channel": "eavesdrop",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "knock:2026-11-03T15:41:26.849562+00:00",
+    "note": ""
   }
 ]

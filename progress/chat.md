@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Tuesday 2026-11-03
+
+**10:41 · Anna** 🎧  ·  eavesdrop / overheard: enakku onnum theriyaadhu
+> Athai's on the phone with Priya about Mama's questions — one line tells you who she blames 🎧
+
+
 ## Monday 2026-11-02
 
 **12:39 · Anna**  ·  text / the map
