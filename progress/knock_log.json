@@ -9835,5 +9835,21 @@
     "rationale": "Three reaches unanswered and ulla is on the 7d blocklist; hold fire until evening.",
     "decide_model": "google/gemini-3.8-flash",
     "next_check": "2026-11-05T22:56:12.203113+00:00"
+  },
+  {
+    "date": "2026-11-05",
+    "timestamp": "2026-11-05T23:54:59.716195+00:00",
+    "acted": true,
+    "modality": "text",
+    "move": "one-try: ulla",
+    "rationale": "Quiet run after three taps missed; switching from overheard tapes to a low-friction one-word text tug on ulla in the evening window.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-11-06T13:54:59.716195+00:00",
+    "body": "Priya asks where the keys are — you want to say 'inside'. Sollu 🔑",
+    "body_script": "Priya asks where the keys are — you want to say 'inside'. சொல்லு 🔑",
+    "expected_target": "உள்ள",
+    "stance": "ask",
+    "thread": "word:உள்ள",
+    "target_revealed": false
   }
 ]

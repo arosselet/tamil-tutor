@@ -4,6 +4,12 @@ Rendered from `knock_log.json` on every knock, reply, and queue drain.
 Newest day first. **Derived file — edits here are overwritten.**
 
 
+## Thursday 2026-11-05
+
+**18:54 · Anna**  ·  text / one-try: ulla
+> Priya asks where the keys are — you want to say 'inside'. Sollu 🔑
+
+
 ## Tuesday 2026-11-03
 
 **10:41 · Anna** 🎧  ·  eavesdrop / overheard: enakku onnum theriyaadhu
