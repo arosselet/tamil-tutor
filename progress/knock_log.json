@@ -9825,5 +9825,15 @@
     "rationale": "Three unanswered reaches in a row and ulla is at five unanswered asks; going quiet until morning window.",
     "decide_model": "google/gemini-3.8-flash",
     "next_check": "2026-11-05T13:18:46.149776+00:00"
+  },
+  {
+    "date": "2026-11-05",
+    "timestamp": "2026-11-05T18:26:12.203113+00:00",
+    "acted": false,
+    "modality": "silence",
+    "move": "rest: cooldown",
+    "rationale": "Three reaches unanswered and ulla is on the 7d blocklist; hold fire until evening.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-11-05T22:56:12.203113+00:00"
   }
 ]
