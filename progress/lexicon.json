@@ -3056,7 +3056,7 @@
       56,
       57
     ],
-    "last_surfaced": "2026-10-24",
+    "last_surfaced": "2026-11-06",
     "direction": "fire",
     "reps": 3,
     "exposures": 1,
@@ -3074,7 +3074,7 @@
       56,
       57
     ],
-    "last_surfaced": "2026-10-24",
+    "last_surfaced": "2026-11-06",
     "direction": "fire",
     "reps": 2,
     "exposures": 1,
@@ -3092,7 +3092,7 @@
       56,
       57
     ],
-    "last_surfaced": "2026-10-24",
+    "last_surfaced": "2026-11-06",
     "direction": "fire",
     "reps": 2,
     "exposures": 1,
@@ -3458,7 +3458,7 @@
       68,
       86
     ],
-    "last_surfaced": "2026-09-15",
+    "last_surfaced": "2026-11-06",
     "direction": "fire",
     "exposures": 1,
     "reps": 5,
@@ -3507,7 +3507,7 @@
       83,
       86
     ],
-    "last_surfaced": "2026-10-24",
+    "last_surfaced": "2026-11-06",
     "direction": "catch",
     "reps": 2,
     "exposures": 1,
@@ -3524,7 +3524,7 @@
       68,
       83
     ],
-    "last_surfaced": "2026-10-24",
+    "last_surfaced": "2026-11-06",
     "direction": "catch",
     "exposures": 1,
     "reps": 4,
@@ -3632,7 +3632,7 @@
       83,
       89
     ],
-    "last_surfaced": "2026-10-24",
+    "last_surfaced": "2026-11-06",
     "direction": "catch",
     "exposures": 4,
     "reps": 2,
@@ -3685,11 +3685,12 @@
     "recognition": "untested",
     "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-09-07",
+    "last_surfaced": "2026-11-06",
     "direction": "fire",
     "reps": 2,
     "exposures": 1,
-    "register": "frame"
+    "register": "frame",
+    "taught_on": null
   },
   "frame:adverb-aa": {
     "type": "pattern",
@@ -3697,11 +3698,12 @@
     "recognition": "untested",
     "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-09-07",
+    "last_surfaced": "2026-11-06",
     "direction": "fire",
     "reps": 2,
     "exposures": 1,
-    "register": "frame"
+    "register": "frame",
+    "taught_on": null
   },
   "frame:in-la": {
     "type": "pattern",
@@ -3711,7 +3713,7 @@
     "seen_in": [
       86
     ],
-    "last_surfaced": "2026-09-07",
+    "last_surfaced": "2026-11-06",
     "direction": "fire",
     "reps": 5,
     "exposures": 1,
@@ -3724,7 +3726,7 @@
     "recognition": "comfortable",
     "production": "cold",
     "seen_in": [],
-    "last_surfaced": "2026-09-07",
+    "last_surfaced": "2026-11-06",
     "direction": "fire",
     "exposures": 1,
     "register": "frame",
@@ -3740,7 +3742,7 @@
     "seen_in": [
       59
     ],
-    "last_surfaced": "2026-09-07",
+    "last_surfaced": "2026-11-06",
     "direction": "fire",
     "reps": 2,
     "exposures": 1,
@@ -3755,7 +3757,7 @@
     "seen_in": [
       83
     ],
-    "last_surfaced": "2026-10-01",
+    "last_surfaced": "2026-11-06",
     "direction": "catch",
     "exposures": 3,
     "reps": 2,
@@ -3769,7 +3771,7 @@
     "recognition": "struggled",
     "production": "hinted",
     "seen_in": [],
-    "last_surfaced": "2026-10-24",
+    "last_surfaced": "2026-11-06",
     "direction": "catch",
     "exposures": 1,
     "register": "frame",
