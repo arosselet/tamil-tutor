@@ -26159,5 +26159,17 @@
     "medium": "audio",
     "source": "rotation_machines_2026-11-06_1947",
     "note": ""
+  },
+  {
+    "id": "d00a6ca3f032",
+    "at": "2026-11-06T23:55:20Z",
+    "word": "தெரியுமா?",
+    "channel": "eavesdrop",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "knock:2026-11-06T23:54:26.263222+00:00",
+    "note": ""
   }
 ]
