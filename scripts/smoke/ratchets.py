@@ -251,7 +251,13 @@ CODE_BUDGETS = {
     # 390 -> 409 (the judge seat (2026-10-12, Andrew) plus the policy digest): gate_knock judges
     # the body and memo, a held reach becomes a silence (the eavesdrop precedent);
     # the approved caps and tease cap are read through rails.approved.
-    "scripts/morning_knock.py": 409,
+    # 409 -> 452 (2026-11-09, Andrew, at the drain): the line check. `line_silence`
+    # reads the knock log for reaches with nothing inbound, the digest stops
+    # calling that stretch "unanswered", and `line_check` tells him once on the
+    # outbound leg. Retires no code: it retires the rotation log's prose
+    # mechanism ("the expiry cell is the whole mechanism"), blank twice and
+    # failed three times (06-30 mint, 07-31, 10-28).
+    "scripts/morning_knock.py": 452,
     # 470 -> 500 (2026-08-28): MESSAGE_MANDATE landed — the first mandate in this file that only ACTS instead of grading.
     # 500 -> 510 (2026-10-26, Andrew): LIVE_MANDATE + LIVE_TURN_WORDS, the live lane's
     # prose. It retires the unmetered path — ad-hoc Claude Code on a walk, no mandate at all.

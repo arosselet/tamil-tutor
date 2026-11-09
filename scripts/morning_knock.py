@@ -138,6 +138,73 @@ def rails_gate(force: bool, now: datetime | None = None) -> tuple[bool, str]:
     return True, f"eligible ({n_today}/{cap} today) — waking Anna to decide"
 
 
+# ── THE LINE CHECK (2026-11-09, Andrew, at the drain) ─────────────────────────
+# The reply token expired three times (06-30 mint, 07-31, 10-28) and each time
+# the repo saw nothing: knocks kept going out, taps and replies died at GitHub's
+# door, and the unanswered run read twelve days of a dead line as a learner
+# going quiet — a cooldown, a blocklisted word, a policy digest, all computed
+# from an outage. WHAT THIS REPLACES: the rotation log's "the expiry cell is the
+# whole mechanism" (`docs/home_assistant_knock_buttons.md` §10), which is prose,
+# was left blank twice, and failed three times.
+#
+# The repo cannot see the phone, so it cannot tell a dead line from a quiet
+# week. It does not try. Past both thresholds it stops calling the stretch
+# "unanswered" in the digest, and it tells HIM once, in plain English, on the
+# one leg that still works — the outbound push. Both thresholds, because five
+# fires can go out in two days and five days can hold one fire; 10-28 would
+# have tripped on 11-03, six days in instead of twelve.
+LINE_SILENT_FIRES = 5
+LINE_SILENT_DAYS = 5
+LINE_CHECK_MOVE = "line check"
+
+
+def _when(at) -> datetime | None:
+    try:
+        return datetime.fromisoformat((at or "").replace("Z", "+00:00"))
+    except ValueError:
+        return None
+
+
+def line_silence(klog: list, now: datetime) -> dict | None:
+    """None, or {fires, since, told}: at least LINE_SILENT_FIRES reaches and
+    LINE_SILENT_DAYS days with NOTHING inbound from the phone — no tap, no
+    reply, no message. A laptop session is contact but not this line, so it
+    does not clear it. `told` says a line check already went out in this
+    stretch: one notice per silence, never a nag."""
+    inbound = [_when(k.get(f)) for k in klog for f in ("reply_at", "response_at")]
+    inbound += [_when(x.get("at")) for k in klog for x in k.get("exchanges") or []]
+    last = max((t for t in inbound if t), default=None)
+    since = [k for k in klog if is_fire(k) and _when(k.get("timestamp"))
+             and (last is None or _when(k["timestamp"]) > last)]
+    fires = [k for k in since if k.get("move") != LINE_CHECK_MOVE]
+    if len(fires) < LINE_SILENT_FIRES:
+        return None
+    start = last or _when(fires[0]["timestamp"])
+    if (now - start).days < LINE_SILENT_DAYS:
+        return None
+    return {"fires": len(fires), "since": start.astimezone(LOCAL_TZ).date().isoformat(),
+            "told": len(fires) < len(since)}
+
+
+def line_check(now: datetime, quiet: dict, dry_run: bool) -> None:
+    """The one notice. Python writes it and no model is woken: it is a fact
+    about plumbing, in English, and it must not depend on anything that could
+    also be down. Logged as a reach so the cap and the gap hold, and so `told`
+    can find it."""
+    body = (f"Line check: nothing from your phone has reached Anna since {quiet['since']}. "
+            "If you tapped or replied, the reply token has expired (HA doc, section 10).")
+    print(f"[line] {quiet['fires']} reaches, nothing inbound since {quiet['since']} — telling him once")
+    if dry_run:
+        print("[dry-run] would push the line check + log; stopping.\n" + body)
+        return
+    decision = {"modality": "text", "move": LINE_CHECK_MOVE, "decide_model": "python",
+                "rationale": f"{quiet['fires']} reaches and nothing inbound since {quiet['since']}",
+                "next_check_hours": MIN_GAP_HOURS, "notification_body": body,
+                "body_script": body, "stance": "give"}
+    commit_and_push(*publish([log_decision(now, decision, acted=True)], "Anna: line check"))
+    push_to_phone(body, None, knock_id=now.isoformat())
+
+
 # ── The digest Anna reads (state + outcome memory + his remaining room) ────────
 
 def outcome_memory(klog: list, now: datetime) -> str:
@@ -188,7 +255,14 @@ def outcome_memory(klog: list, now: datetime) -> str:
 
     since = "never" if not last_seen else f"{last_seen} ({', '.join(sorted(contact[last_seen]))})"
     verdict = ""
-    if streak >= 3:
+    quiet = line_silence(klog, now)
+    if quiet:
+        # Not "the threads aren't pulling": that verdict cooled Anna down for
+        # twelve days over an expired token (2026-10-28).
+        verdict = (f"  ⚠ THE LINE MAY BE DOWN — {quiet['fires']} reaches and nothing inbound from his "
+                   f"phone since {quiet['since']}. A dead reply token looks exactly like this. It is "
+                   "not evidence that he is fading or that a thread failed; he has been told once.")
+    elif streak >= 3:
         verdict = (f"  ⚠ {streak} tugs in a row came back with nothing — the threads aren't "
                    "pulling. Tug a different thread, or go quiet; never candy (2026-10-08).")
     elif last_seen and (now.astimezone(LOCAL_TZ).date() - date.fromisoformat(last_seen)).days >= 3:
@@ -708,6 +782,9 @@ def main():
     print(f"[rails] wake — {reason}")
 
     now = datetime.now(timezone.utc)
+    quiet = line_silence(load_json(KNOCK_LOG_PATH) or [], now)
+    if quiet and not quiet["told"]:
+        return line_check(now, quiet, args.dry_run)
     print("1. digest…")
     digest = build_digest()
     live = threads.live(load_json(KNOCK_LOG_PATH) or [], now, arc=bool(campaign_block()))

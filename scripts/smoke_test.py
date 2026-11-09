@@ -241,6 +241,7 @@ def main():
         run(state.s116_a_tap_can_reach_the_real_feeds_words, sb)
         run(render.s126_the_tape_says_where_it_is, sb)
         run(knock.s127_asks_earn_replies_gifts_earn_taps, mk, sb)
+        run(knock.s157_a_dead_line_is_not_a_quiet_learner, mk, sb)
         run(knock.s128_the_sort_tape_round_trips, kr, sb)
         run(compose.s129_the_surface_rule_has_one_home)
 

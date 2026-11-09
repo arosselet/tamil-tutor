@@ -2780,6 +2780,91 @@ def s127_asks_earn_replies_gifts_earn_taps(mk, sb: Path):
     check("...and every decision still records its writer", 'd["decide_model"] = model' in src)
 
 
+def s157_a_dead_line_is_not_a_quiet_learner(mk, sb: Path):
+    """The line check (2026-11-09, Andrew, at the drain). The reply token expired
+    on 10-28; for twelve days every tap and reply died at GitHub and the knock
+    tick read the gap as five unanswered reaches.
+
+    Gate 7.2, out loud: this fails silently in three ways, and each is asserted.
+    (1) The notice could be computed and never sent — so `main` is driven and
+    the push and the re-read log are checked, with the model stubbed to prove
+    Python sent it without waking anything. (2) It could nag — so a second tick
+    in the same silence must reach `decide`, and write no second notice.
+    (3) It could never re-arm — so a later silence after an inbound event must
+    be untold again. A laptop session must not clear it: that is contact, and
+    it says nothing about the phone's line."""
+    print("\n157. A dead line is not a quiet learner — the line check (2026-11-09)")
+    now = datetime.now(timezone.utc)
+    ts = lambda d, base=now: (base - timedelta(days=d)).isoformat()
+    ask = lambda d, base=now: {"acted": True, "stance": "ask", "move": "one-try",
+                               "expected_target": "x", "timestamp": ts(d, base)}
+    blackout = [ask(d) for d in (9, 8, 6, 5, 3)]
+
+    q = mk.line_silence(blackout, now)
+    check("five reaches over nine days with nothing inbound -> the line is suspect",
+          bool(q) and q["fires"] == 5 and not q["told"], repr(q))
+    check("five reaches in two days is a burst, not an outage",
+          mk.line_silence([ask(d) for d in (1.9, 1.5, 1.0, 0.5, 0.1)], now) is None)
+    check("one reach in nine days is a quiet week, not an outage",
+          mk.line_silence([ask(9)], now) is None)
+    heard = blackout[:-1] + [blackout[-1] | {"exchanges": [{"at": ts(1), "reply": "hello"}]}]
+    check("one inbound message clears it", mk.line_silence(heard, now) is None)
+
+    slog_path = Path(importlib.import_module("state_io").SESSION_LOG_PATH)
+    klog_path = Path(mk.KNOCK_LOG_PATH)
+    saved = {p: (p.read_text(encoding="utf-8") if p.exists() else None) for p in (slog_path, klog_path)}
+    real = (mk.push_to_phone, mk.commit_and_push, mk.decide)
+    refresh = fx.pb.refresh_feed
+    try:
+        write_json(slog_path, [{"date": (now - timedelta(days=1)).date().isoformat(),
+                                "cold": [], "hinted": []}])
+        mem = mk.outcome_memory(blackout, now)
+        check("the digest names the line, with a laptop session yesterday",
+              "THE LINE MAY BE DOWN" in mem, mem.splitlines()[-1])
+        check("...and does not blame the threads for an outage",
+              "threads aren't pulling" not in mem, mem.splitlines()[-1])
+
+        # Round trip: the tick itself, then the log re-read.
+        write_json(klog_path, blackout)
+        pushes, woke = Recorder(), []
+        mk.push_to_phone, mk.commit_and_push = pushes, Recorder()
+        fx.pb.refresh_feed = lambda: None
+        mk.decide = lambda digest, vt=None, live=None: (woke.append(1), {
+            "act": False, "modality": "silence", "move": "rest", "rationale": "smoke",
+            "schedule": None, "next_check_hours": 4})[1]
+        sys.argv = ["morning_knock.py", "--force"]
+        mk.main()
+        rows = read_json(klog_path)
+        check("the tick logs ONE line check as a reach",
+              len(rows) == 6 and rows[-1].get("move") == mk.LINE_CHECK_MOVE and rows[-1].get("acted") is True,
+              str(rows[-1]))
+        check("...pushes it to the phone, inside the lock-screen budget",
+              len(pushes) == 1 and "Line check" in str(pushes[-1])
+              and not mk.over_budget(rows[-1].get("body") or ""), str(pushes[-1] if pushes else None))
+        check("...and wakes no model to do it", not woke)
+
+        mk.main()
+        rows = read_json(klog_path)
+        check("a second tick in the same silence goes back to Anna, and never nags",
+              woke == [1] and sum(r.get("move") == mk.LINE_CHECK_MOVE for r in rows) == 1,
+              f"woke={woke} rows={len(rows)}")
+
+        later = now + timedelta(days=12)
+        again = rows + [ask(11, later) | {"response": "ack", "response_at": ts(11, later)}] \
+            + [ask(d, later) for d in (9, 8, 6, 5, 3)]
+        q = mk.line_silence(again, later)
+        check("a later silence after an inbound tap is told again",
+              bool(q) and q["fires"] == 5 and not q["told"], repr(q))
+    finally:
+        mk.push_to_phone, mk.commit_and_push, mk.decide = real
+        fx.pb.refresh_feed = refresh
+        for p, text in saved.items():
+            if text is None:
+                p.unlink(missing_ok=True)
+            else:
+                p.write_text(text, encoding="utf-8")
+
+
 def s128_the_sort_tape_round_trips(kr, sb: Path):
     """The Receptive Check as a tape (2026-10-03, Andrew).
 

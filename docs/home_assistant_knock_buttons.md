@@ -641,6 +641,10 @@ deleted action, not retired. Revoke it in GitHub → Settings → Developer sett
 Fine-grained tokens (it is the one *not* named `ha-anna-knock`). The 2026-07-31 token is
 retired in the same pass.
 
-**The expiry cell is the whole mechanism.** An unrecorded expiry is how KF-12 happened —
+**The expiry cell is no longer the whole mechanism (2026-11-09).** It was left blank twice and
+the token died three times. The knock tick now notices the symptom itself: five reaches and
+five days with nothing inbound, and it pushes one "Line check" notice to the phone
+(`morning_knock.line_silence`). If you see that notice and you have been tapping, rotate the
+token. Still fill the cell in — it turns a five-day outage into none. An unrecorded expiry is how KF-12 happened —
 the failure is silent by construction: knocks keep going out, replies simply stop. If the
 token was minted with no expiry, write *"none"* — the cell must never be blank again.
