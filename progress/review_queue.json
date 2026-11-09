@@ -356,5 +356,17 @@
     "source": "soak_2026-10-31_1013",
     "queued_at": "2026-10-31T10:13:30",
     "status": "pending"
+  },
+  {
+    "id": "01e7bb3200",
+    "form": "அட்டா",
+    "en": "Spill a little coffee and let out an amused, mild sigh.",
+    "unattested": [],
+    "where": "item",
+    "reason": "wrong: அட்டா expresses admiration/surprise, not a mild amused sigh over spilled coffee; should be அச்சோ or ஐயோ",
+    "lane": "drill",
+    "source": "drill_2026-11-09_2116",
+    "queued_at": "2026-11-09T21:16:20",
+    "status": "pending"
   }
 ]
