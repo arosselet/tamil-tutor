@@ -19,11 +19,11 @@
 **Read the lean before picking targets.** The ladder names a direction of address — **down** to the children, **across** to the siblings-in-law, **up** to the elders — and the pool's ordering is prefixed by it. Those are three rooms with three different moving parts and three different levels of social risk, and the order is deliberate: the children first, because a nine-year-old tolerates error completely and cannot switch to English out of kindness.
 ---
 
-## The Arc — Paati Turns Seventy-Five
+## The Arc — The Upstairs Room
 
 > **Contract:** `protocol/daily_session.md` → "The Arc". Anna writes the premise at the month cut; Andrew overrides at will. One block, **1,000 words** (`s18`): what is happening in the household, and the live medicine.
 >
-> **October, cut early 2026-09-25:** `content/household.md` → This arc owns the premise. The spare-key prelude closed because it narrowed to one prop (Andrew, 09-25: *"too easy… too focused on this narrow narrative… the scooter and keys"*). Nothing from this arc has been rendered or heard yet.
+> **November, opened 2026-11-09:** `content/household.md` → This arc owns the premise, and "The visitor" there gives Andrew his seat: scenes are what the household wants from him and makes of him. October closed with no finale; its baseline is retired (DECISIONS 11-09). Nothing from this arc has been rendered or heard yet.
 
 **Next open:** coffee-and-lore first, then a self-contained moment from anywhere in the birthday build-up. **Do not chain scenes:** the debrief's NEXT names a room or a domain, never "the next beat of last session's scene"; consecutive sessions land in different rooms (kitchen, phone call, terrace, clinic, errand). **Pitch it harder than the prelude:** a multi-turn exchange at table length, glosses only for what the context cannot answer, and the check held back until after something else has happened. A clip is one shape among the session's options, never the default (2026-10-16, Andrew: every lesson had become clip-then-questions). Anna supplies context; Andrew owes no recap. The repairs below are available teaching material, not its plot or a checklist.
 

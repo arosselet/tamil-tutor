@@ -10,7 +10,7 @@ funny, awkward and wrong about things, which a portrait of real in-laws cannot.
 the arc premise at the month cut, and the studio's Producer pass appends one beat
 line per rendered episode. Andrew overrides anything, any time.
 
-**Budget: 1,200 words** (`scripts/smoke/ratchets.py`). Canon that outgrows it is
+**Budget: 1,350 words** (`scripts/smoke/ratchets.py`; raised once, 2026-11-09, for the visitor's seat). Canon that outgrows it is
 compressed at the month boundary: the beat log collapses to one past-arc line.
 The number is never raised to fit more lore.
 
@@ -61,6 +61,21 @@ switch to English to be kind.
 **Athai carries the pinned eavesdrop voice** (`language.EAVESDROP_VOICE`): the
 overheard aunty on every tape is this aunty.
 
+### The visitor — Andrew (ஆண்ட்ரூ)
+
+Approved by Andrew 2026-11-09. He is himself: a friend of Priya's husband, from
+Canada, staying in the unfinished upstairs room for a few months, learning Tamil. Not family. **He has no voice in audio**: people speak
+to him and about him, and his lines are his own to say. The stakes of a scene are
+what these people want from him and make of him, never a bigger plot.
+
+- **Paati** speaks only Tamil to him, slowly, is delighted when it lands, and feeds him.
+- **Mama** is polite and wary, and ends conversations in English; he warms when Andrew tries with the children.
+- **Athai** gossips at him at full speed as if he follows, and makes him her witness.
+- **Priya** is his ally: translates, and teases him.
+- **Karthi** ropes him into schemes and swaps his textbook Tamil for slang.
+- **Deepa** is his self-appointed teacher and corrects him loudly.
+- **Ravi** is thrilled by anything he says.
+
 ---
 
 ## 3. Standing facts
@@ -88,25 +103,19 @@ Things that are true, that scripts may not contradict. Short on purpose.
 > family. Name the live question the episodes carry, and plant two or three of
 > Andrew's own lines or decisions early for the finale to pay off.
 
-**October — Paati turns seventy-five.** Mama wants a small lunch at home, Athai's guest
-list grows every time the phone rings, and Paati says she wants no fuss while quietly
-inviting people herself. Deepa and Ravi are running a secret present on money Karthi
-borrowed, which is really Mama's. Visitors arriving and where they sleep, cooking for
-far too many, the check-up Mama insists Paati does not need, errands and who pays for
-them, plans that change by the day. Each scene stands alone and ranges across the
-house; the finale is the lunch itself: who came, what went wrong, and what Paati
-actually wanted.
+**November — The upstairs room.** Andrew has moved into the room upstairs. The house is working out where he eats, what to call him, how much Tamil he
+has, and whose errands he gets pulled into. Meals, errands, the children's homework, visitors who want to meet the foreigner, plans
+made around him and without him. The finale is one ordinary
+dinner where every person at the table says something to him and he holds his own.
 
-Cut early 2026-09-25. Opens in the `down` phase, children near its centre.
+Opened 2026-11-09.
 
 ### Beat log
 
 > One line per rendered episode, appended by the Producer pass after render,
 > saying what happened. This is the continuity — callbacks are read from here.
 
-- 2026-10-08 · M95 — Karthi takes Deepa and Ravi shopping for Paati's seventy-fifth birthday on money borrowed from Mama, overselling how fine everything is every time the money comes up, and they come home with one small sweet box and the debt still unmentioned.
-- 2026-10-14 · M97 — Paati calls Athai to say the leftover lunch money should go toward something nicer for her own meal, already knowing the exact amount without saying it outright; Karthi stalls rather than correct her, Mama stays carefully uncurious, and the call ends on scheduling with the real number still unspoken.
-- 2026-10-16 · M98 — Athai and Karthi scramble over the phone to invent a shared alibi when Paati walks into the kitchen during their secret biryani test-cook, locking in their story of joint responsibility just as Paati opens the door.
+*(empty)*
 
 ---
 
@@ -114,4 +123,5 @@ Cut early 2026-09-25. Opens in the `down` phase, children near its centre.
 
 One line each. The detail lives in git.
 
+- **October — Paati turns seventy-five** (09-25 to 10-31). A secret present on borrowed money; the lunch never rendered, so no finale.
 - **September prelude — The spare key** (09-19 to 09-25). Mama took the scooter; everyone walked for ice cream. Closed early: one prop narrowed everything.

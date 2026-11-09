@@ -128,7 +128,11 @@ PROSE_BUDGETS = {
     # what the 06-28 decision rejected for good reasons. Compressed at the month
     # boundary — the beat log collapses into its one-line past-arc entry — and
     # never raised to fit more lore.
-    "content/household.md": 1200,
+    # 1200 -> 1350 (2026-11-09, Andrew): the visitor. The canon gained a job, not
+    # lore: Andrew's own seat in the house and how each person treats him. At
+    # 1200 the seat left no room for one beat line. Retires the rule that he is
+    # only ever an overhearer of the household.
+    "content/household.md": 1350,
     # docs/DECISIONS.md HAS NO SIZE BUDGET, RETIRED 2026-09-20 BY ANDREW, and
     # this comment is the guard that replaces it.
     #
