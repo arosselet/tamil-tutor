@@ -9931,5 +9931,24 @@
     "rationale": "Five reaches unanswered and both available threads exhausted; honoring the cooldown until tomorrow morning.",
     "decide_model": "google/gemini-3.8-flash",
     "next_check": "2026-11-09T13:07:40.477639+00:00"
+  },
+  {
+    "date": "2026-11-09",
+    "timestamp": "2026-11-09T21:15:02.495498+00:00",
+    "acted": true,
+    "modality": "fielding",
+    "move": "fielding: ulla",
+    "rationale": "Fielding probe on ulla using a quick household question from Priya, shifting modality from recent eavesdrop and text pushes.",
+    "decide_model": "google/gemini-3.8-flash",
+    "next_check": "2026-11-10T01:15:02.495498+00:00",
+    "body": "Saavi enga irukku? — answer Priya 🔑",
+    "body_script": "சாவி எங்க இருக்கு? — answer Priya 🔑",
+    "expected_target": "உள்ள",
+    "stance": "ask",
+    "thread": "word:உள்ள",
+    "target_revealed": false,
+    "audio_url": "https://cdn.jsdelivr.net/gh/arosselet/tamil-tutor@main/published_audio/knocks/knock_2026-11-09T21-15.mp3",
+    "memo_script": "சாவி எங்க இருக்கு?",
+    "mp3": "published_audio/knocks/knock_2026-11-09T21-15.mp3"
   }
 ]
