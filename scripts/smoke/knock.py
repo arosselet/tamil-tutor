@@ -2865,6 +2865,50 @@ def s157_a_dead_line_is_not_a_quiet_learner(mk, sb: Path):
                 p.write_text(text, encoding="utf-8")
 
 
+def s158_the_thread_pool_has_a_floor(sb: Path):
+    """The floor (2026-11-09, Andrew with Rio). The phone's thread pool was fed
+    only by his answers; on 11-09 it held one word while sixteen taught in
+    sessions that month were unreachable.
+
+    Gate 7.2, out loud: a floor that silently does nothing looks like the pool
+    it replaced, and a floor that does too much breaks teach-first without a
+    sound. So both directions are asserted on `live` itself, the function the
+    decider's ids come from: the pool reaches the floor from taught words,
+    newest first, and never from a word that only aired, went stale, is
+    ear-only, is already his, or is not needed because he is nursing enough."""
+    print("\n158. The phone's thread pool has a floor — taught words top it up (2026-11-09)")
+    import threads as th
+    now = datetime.now(timezone.utc)
+    ago = lambda d: (now - timedelta(days=d)).isoformat()
+    ev = lambda w, d, kind="taught", ch="session", **kw: {"word": w, "at": ago(d), "kind": kind,
+                                                          "channel": ch, **kw}
+    test = lambda w, d, res, axis="production": ev(w, d, "tested", axis=axis, result=res)
+    words = ("nursed", "new1", "new2", "new3", "aired", "old", "ear", "mine")
+    lex = {w: {"gloss": w.upper()} for w in words}
+    lex["ear"]["direction"] = "catch"
+    events = [test("nursed", 3, "partial"), test("nursed", 2, "right", "recognition"),
+              ev("new1", 1), ev("new2", 4, ch="live"), ev("new3", 6, ch="text"),
+              ev("aired", 1, ch="episode"), ev("old", 40), ev("ear", 1),
+              ev("mine", 1), test("mine", 0.5, "right")]
+    ids = [k for k in th.live([], now, arc=False, lex=lex, events=events) if k.startswith("word:")]
+    check("one nursed word is topped up to the floor, nursed first, then newest taught",
+          ids == ["word:nursed", "word:new1", "word:new2"], str(ids))
+    label = th.live([], now, arc=False, lex=lex, events=events)["word:new1"]
+    check("...and a floor thread says first try, never almost his",
+          "first try" in label and "almost" not in label, label)
+    check("...never a word that only aired, went stale, is ear-only or is already his",
+          not {"word:aired", "word:old", "word:ear", "word:mine"} & set(ids), str(ids))
+    full = events + [e for w in ("new1", "new2") for e in
+                     (test(w, 0.4, "partial"), test(w, 0.3, "right", "recognition"))]
+    ids = [k for k in th.live([], now, arc=False, lex=lex, events=full) if k.startswith("word:")]
+    check("three nursed words need no floor — the fourth taught word stays out",
+          len(ids) == th.THREAD_FLOOR and "word:new3" not in ids, str(ids))
+    none = [k for k in th.live([], now, arc=False, lex=lex, events=[ev("aired", 1, ch="episode")])
+            if k.startswith("word:")]
+    check("no sessions, no floor — it is a second supply, and says nothing it cannot back",
+          none == [], str(none))
+
+
 def s128_the_sort_tape_round_trips(kr, sb: Path):
     """The Receptive Check as a tape (2026-10-03, Andrew).
 

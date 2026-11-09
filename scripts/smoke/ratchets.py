@@ -218,7 +218,11 @@ CODE_BUDGETS = {
     # return_line. Retires session_log as the outreach memory's only sign of him
     # (it stopped at 09-25 through two weeks of contact) and the ask/gift streak split.
     # 195 -> 275 (2026-10-19, Andrew): THE MAP — week_label, in_play, map_lines, map_due, map_push_due. A view over books that already existed, said to him; retires the 08-25 rule that kept the week, the words in play and his slips off every surface he reads.
-    "scripts/threads.py": 275,
+    # 275 -> 294 (2026-11-09, Andrew with Rio): the floor. `taught_lately` tops the
+    # phone's word threads up to THREAD_FLOOR from what he was told in sessions.
+    # Retires no code; it retires the pool's single supply (his own answers),
+    # which had starved it to one word.
+    "scripts/threads.py": 294,
     "scripts/generate_callbacks.py": 100,
     # 775 -> 785 (2026-08-02) for the thread-continuity window. · 570 -> 610 (2026-08-27): the reply lane gained a voice rail — the AUDIO_RE detector, ensure_voice's one-forced-re-ask backstop, and a shared speak() body. · 610 -> 560 (2026-08-28): re-censused DOWN. · 560 -> 563 (2026-09-05).
     "scripts/knock_reply.py": 553,     # -10: the clock backstop moved to reply_common (2026-10-12)

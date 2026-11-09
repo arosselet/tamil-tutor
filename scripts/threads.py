@@ -118,6 +118,39 @@ def almost_yours(lex: dict, events: list, now: datetime, n: int = 6) -> list[dic
     return out[:n]
 
 
+# ── THE FLOOR (2026-11-09, Andrew with Rio) ───────────────────────────────────
+# `almost_yours` is fed only by tests, and tests happen only when he answers. So
+# less contact made fewer threads, fewer threads made the same knock, and the
+# same knock made less contact: on 11-09 the pool held ONE word (உள்ள, tugged
+# three times in eight reaches) while sixteen words Anna had taught him in
+# sessions that month sat unreachable, because nothing had tested them yet.
+# `rails.py` names the same shape for audio ("supply gated on attendance is
+# exactly backwards", 09-19). The floor tops the pool up from what he was TOLD,
+# most recent first. Teach-first holds: only a word a person taught him, never
+# one that merely aired. It still needs sessions to feed it — it is a second
+# supply, not an endless one — and the label says "first try", never "almost".
+THREAD_FLOOR = 3
+TOLD_CHANNELS = {"session", "text", "audio", "live"}
+
+
+def taught_lately(lex: dict, events: list, now: datetime, skip: set, n: int) -> list[dict]:
+    """Up to `n` words he was explicitly taught within LIVE_DAYS that are not his
+    yet, newest first. Ear-only rows are left out: a push asks him to say it."""
+    since = (now - timedelta(days=LIVE_DAYS)).isoformat()
+    view, out = derive(events), {}
+    for e in sorted(events, key=lambda e: e.get("at") or "", reverse=True):
+        w = e.get("word")
+        if len(out) >= n or (e.get("at") or "") < since:
+            break
+        if (e.get("kind") != "taught" or e.get("channel") not in TOLD_CHANNELS
+                or w in skip or w in out or w not in lex
+                or lex[w].get("direction") == "catch" or is_his(view.get(w, {}), lex[w])):
+            continue
+        out[w] = {"word": w, "gloss": lex[w].get("gloss") or "",
+                  "taught": f"{_day(e)} ({e.get('channel')})"}
+    return list(out.values())
+
+
 def _ts(at) -> float:
     try:
         return datetime.fromisoformat((at or "").replace("Z", "+00:00")).timestamp()
@@ -181,6 +214,9 @@ def live(klog: list, now: datetime, *, arc: bool, lex=None, events=None) -> dict
         bits = [f"met {t['met']}", f"stumbled {t['stumble']}" if t["stumble"] else "",
                 f"landed {t['landed']}", "fired with a hint" if t["hinted"] else "stumbled, then landed"]
         out[f"word:{t['word']}"] = f"{t['gloss'][:60]} — " + "; ".join(b for b in bits if b)
+    for t in taught_lately(lex, events, now, {k[5:] for k in out}, THREAD_FLOOR - len(out)):
+        out[f"word:{t['word']}"] = (f"{t['gloss'][:60]} — taught {t['taught']}; not tried from "
+                                    "his phone yet — a first try, never a test")
     for q in questions(klog, now):
         out[q["id"]] = f'he asked: "{q["text"]}"'
     if arc:
