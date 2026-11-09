@@ -26171,5 +26171,113 @@
     "medium": "audio",
     "source": "knock:2026-11-06T23:54:26.263222+00:00",
     "note": ""
+  },
+  {
+    "id": "bed9981daf90",
+    "at": "2026-11-09T21:20:45Z",
+    "word": "கடைசில பாக்கலாம்",
+    "channel": "rotation",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "rotation_room_2026-11-09_2116",
+    "note": ""
+  },
+  {
+    "id": "cd9025ed7f25",
+    "at": "2026-11-09T21:20:45Z",
+    "word": "எப்படி இருக்கீங்க?",
+    "channel": "rotation",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "rotation_room_2026-11-09_2116",
+    "note": ""
+  },
+  {
+    "id": "6f875ff4d1e9",
+    "at": "2026-11-09T21:20:45Z",
+    "word": "ரொம்ப நாளாச்சு",
+    "channel": "rotation",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "rotation_room_2026-11-09_2116",
+    "note": ""
+  },
+  {
+    "id": "e9580c45cdda",
+    "at": "2026-11-09T21:20:45Z",
+    "word": "வந்துட்டேன்",
+    "channel": "rotation",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "rotation_room_2026-11-09_2116",
+    "note": ""
+  },
+  {
+    "id": "76409108556c",
+    "at": "2026-11-09T21:20:45Z",
+    "word": "நல்லா இருங்க",
+    "channel": "rotation",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "rotation_room_2026-11-09_2116",
+    "note": ""
+  },
+  {
+    "id": "8cc4c41f73b8",
+    "at": "2026-11-09T21:20:45Z",
+    "word": "அப்புறம் பார்க்கலாம்",
+    "channel": "rotation",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "rotation_room_2026-11-09_2116",
+    "note": ""
+  },
+  {
+    "id": "ac3e24897ca4",
+    "at": "2026-11-09T21:20:45Z",
+    "word": "ரொம்ப சந்தோஷம்",
+    "channel": "rotation",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "rotation_room_2026-11-09_2116",
+    "note": ""
+  },
+  {
+    "id": "64c96fff78bf",
+    "at": "2026-11-09T21:20:45Z",
+    "word": "ஃப்ரீயா விடுங்க",
+    "channel": "rotation",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "rotation_room_2026-11-09_2116",
+    "note": ""
+  },
+  {
+    "id": "baa1bfaa87ec",
+    "at": "2026-11-09T21:20:45Z",
+    "word": "சரி சரி",
+    "channel": "rotation",
+    "kind": "exposed",
+    "axis": null,
+    "result": null,
+    "medium": "audio",
+    "source": "rotation_room_2026-11-09_2116",
+    "note": ""
   }
 ]
