@@ -1721,6 +1721,9 @@ TOMBSTONES = (
      ("Speech-in is parked on evidence",
       "voice-IN stays parked",
       "No lane follows without the verdict")),
+    ("2026-11-09 The month cut is a review, not a gate (the 10-19 feature gate retired)",
+     ("for the cut and says so",
+      "never originates in-month")),
 )
 
 # Where a retired claim could still be read as law: every surface an agent or a
