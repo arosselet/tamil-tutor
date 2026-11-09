@@ -120,7 +120,11 @@ PROSE_BUDGETS = {
     "HEAR_MANDATE": 160,
     # NEW (2026-10-26, Andrew: the live lane). Census ~290; short on purpose — the rhythm is
     # Python's, so the prose says only how each named job sounds.
-    "LIVE_MANDATE": 320,
+    # 320 -> 380 (2026-11-09, Andrew with Rio): the brief and the beat. The scene is
+    # one person of the house who wants something of Andrew, and one sentence is
+    # carried to the next scene. Retires the canon-wide "open" and the gate
+    # worded as "he says the target back".
+    "LIVE_MANDATE": 380,
     # The narrative surfaces, budgeted the day they became one line per item (2026-09-10): the log at 11.7k after compression from 32k, the inbox at 1k from 19.6k, the debug precedents at 1.3k from 4.5k.
     # NEW SURFACE, budgeted in the diff that creates it (2026-09-19). The canon
     # is the one place continuity lives, so it is the one place canon-creep can
@@ -241,7 +245,10 @@ CODE_BUDGETS = {
     # NEW FILE, budgeted in the diff that creates it (2026-10-26, Andrew: the live lane).
     # The gated rotation and its WhatsApp turn. Replaces ad-hoc Claude Code on a walk,
     # which had no clock, no cap and no books; knock lanes are untouched.
-    "scripts/live.py": 235,   # -8: its copy of the clock backstop (2026-10-12)
+    # 235 -> 250 (2026-11-09, Andrew with Rio): MODES, `brief`, and the beat carried
+    # from the closed session file. A mode is a brief on the one clock, so this
+    # is what stands in for four more lanes.
+    "scripts/live.py": 250,   # 235 was -8: its copy of the clock backstop (2026-10-12)
     # 700 -> 625 (2026-08-01): re-censused DOWN after OUTREACH_MANDATE moved to mandates.py — the file sat at 699/700, one mechanical fix from a red build. · 400 -> 402 (2026-09-05).
     # 402 -> 405 (2026-09-19): one import. The household canon now reaches the
     # pass that writes an eavesdrop tape, and `tape_names_a_referent` consults
@@ -269,7 +276,8 @@ CODE_BUDGETS = {
     # 470 -> 500 (2026-08-28): MESSAGE_MANDATE landed — the first mandate in this file that only ACTS instead of grading.
     # 500 -> 510 (2026-10-26, Andrew): LIVE_MANDATE + LIVE_TURN_WORDS, the live lane's
     # prose. It retires the unmetered path — ad-hoc Claude Code on a walk, no mandate at all.
-    "scripts/mandates.py": 510,
+    # 510 -> 513 (2026-11-09): LIVE_MANDATE's brief and beat lines.
+    "scripts/mandates.py": 513,
     # NEW FILE, budgeted in the diff that creates it (2026-08-24, Q1's first family).
     "scripts/lanes.py": 60,
     # NEW FILE, budgeted in the same diff that creates it (2026-08-23, the spine refactor).

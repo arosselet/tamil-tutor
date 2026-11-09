@@ -67,7 +67,7 @@ END_RE = re.compile(r"^\s*(bye|stop|end|done)\b[\s.!]*$", re.I)
 VERDICTS = {"cold", "hinted", "miss", "none"}
 SIGN_OFF = "Nalla pesinom — booked. Poittu vaa!"
 
-LIVE_SCHEMA = obj(reply_line=STR, gate_verdict=STR, said=STR, recast=STR, meta_note=STR,
+LIVE_SCHEMA = obj(reply_line=STR, gate_verdict=STR, said=STR, recast=STR, meta_note=STR, beat=STR,
                   slips=arr(tag=STR, said=STR, want=STR, note=STR))
 
 TOO_LONG = ("\n\nOVERRIDE — your last reply_line ran {n} words. The cap is "
@@ -96,6 +96,29 @@ def pick_targets(lex: dict) -> list[dict]:
             for t in menu if not t["unseen"] or t in teach][:TARGETS]
 
 
+# THE BRIEF AND THE BEAT (2026-11-09, Andrew with Rio). A session used to open
+# "in one line, inside the household canon" with nobody in particular and no
+# memory of the last one, and the 11-05 demo found that a scene with no role
+# stalls while a briefed task lands. Now Python names one person of the house
+# and what they want of Andrew, the visitor upstairs (`content/household.md`),
+# and hands over where the last scene ended. A MODE IS A BRIEF, NEVER A LANE:
+# four wants on one clock. The rotation is Python's (seven people against four
+# modes is twenty-eight scenes before one repeats); the model writes the turn.
+# No new state: the beat rides the session file, which already stays on disk
+# until the next start.
+MODES = {"gossip": "has news about someone in the house and wants his reaction",
+         "errand": "needs something from him: fetched, carried or passed on to someone",
+         "question": "is curious about him: his day, his food, where he is from",
+         "story": "wants to hear what happened to him today"}
+
+
+def brief(n: int) -> dict:
+    """Scene `n`: who turns to him, and what they want."""
+    cast, mode = sorted(household.cast()), list(MODES)[n % len(MODES)]
+    who = cast[n % len(cast)] if cast else "someone in the house"
+    return {"who": who, "mode": mode, "wants": f"{who} {MODES[mode]}"}
+
+
 def calibration() -> str:
     """profile.md's Calibration Notes — the dials Anna is held to, as he set them."""
     try:
@@ -115,9 +138,12 @@ def load_session() -> dict | None:
 
 def new_session(channel: str) -> dict:
     at = now_iso()
+    prev = load_json(LIVE_SESSION_PATH) or {}   # the closed one: where the last scene ended
+    n = prev.get("n", -1) + 1
     sess = {"id": at, "channel": channel, "started": at, "last_at": at,
             "targets": pick_targets(load_json(LEXICON_PATH) or {}), "at": 0,
-            "phase": "volley", "volleys": 0, "turns": [], "seen_ids": []}
+            "phase": "volley", "volleys": 0, "turns": [], "seen_ids": [],
+            "n": n, "brief": brief(n), "last_time": prev.get("beat", "")}
     print(f"   live session {at} · {len(sess['targets'])} target(s): "
           + ", ".join(t["word"] for t in sess["targets"]))
     return sess
@@ -155,6 +181,8 @@ def context(sess: dict, job: str, text: str) -> str:
         "job": job,
         "target": tgt or "no targets left — just talk, short turns",
         "andrew_said": text,
+        "brief": sess.get("brief") or {},
+        "last_time": sess.get("last_time") or "",
         "transcript": [{"who": t["who"], "text": t["text"]} for t in sess["turns"]],
         "threads": threads.block(klog, datetime.now(timezone.utc), arc=True, phone=False),
         "calibration": calibration(),
@@ -218,6 +246,8 @@ def take_turn(sess: dict, text: str) -> str:
                           "target": (tgt or {}).get("word", ""),
                           **({"over_cap": True} if d["over_cap"] else {}),
                           **({"held": len(held)} if held else {})})
+    if text and (d.get("beat") or "").strip():
+        sess["beat"] = d["beat"].strip()   # only a scene he took part in is carried
     if job == "gate":
         sess["phase"] = "gate"
     elif job == "judge":

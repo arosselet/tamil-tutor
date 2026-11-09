@@ -3653,6 +3653,71 @@ def s155_a_spoken_turn_is_a_typed_turn_heard(kr, sb: Path):
             p.write_bytes(b)
 
 
+def s159_a_live_scene_has_a_brief_and_leaves_a_beat(sb: Path):
+    """The brief and the beat (2026-11-09, Andrew with Rio). A live session opened
+    with nobody in particular and no memory of the last one.
+
+    Gate 7.2, out loud: the silent failures are a brief Python builds and the
+    model never sees, a beat the model writes and nothing carries, and a
+    rotation that hands him the same person every day. So the context the
+    writer is actually handed is inspected, the session file is re-read after
+    close, and the next session is opened for real. A scene he never answered
+    carries nothing: a beat about a conversation that did not happen is fiction
+    about him."""
+    print("")
+    print("159. A live scene has a brief and leaves a beat (2026-11-09)")
+    lv = importlib.import_module("live")
+    sess_path = sb / "progress" / "live_session.json"
+    saved = sess_path.read_bytes() if sess_path.exists() else None
+    originals = (lv.ask_json, lv.drill_menu, lv.household.cast)
+    seen = []
+
+    def writer(system, user, schema, answer_tokens=0):
+        seen.append(json.loads(user))
+        return {"reply_line": "seri", "gate_verdict": "", "said": "", "recast": "",
+                "meta_note": "", "slips": [], "beat": f"beat {len(seen)}"}
+
+    try:
+        lv.ask_json = writer
+        lv.drill_menu = lambda lex: [{"word": "x", "gloss": "x", "unseen": False}]
+        lv.household.cast = lambda text=None: {"Paati": "v1", "Deepa": "v2", "Mama": "v3"}
+        sess_path.unlink(missing_ok=True)
+        with contextlib.redirect_stdout(io.StringIO()):
+            one = lv.new_session("cli")
+            lv.take_turn(one, "")
+        check("the brief names one person of the house and what they want",
+              one["brief"]["who"] in {"Paati", "Deepa", "Mama"} and one["brief"]["mode"] in lv.MODES
+              and one["brief"]["who"] in one["brief"]["wants"], str(one["brief"]))
+        check("...and the writer is handed it",
+              seen[-1].get("brief") == one["brief"], str(seen[-1].get("brief")))
+        check("a scene he has not answered carries no beat", "beat" not in one, str(one.get("beat")))
+        with contextlib.redirect_stdout(io.StringIO()):
+            lv.take_turn(one, "vanakkam")
+            lv.close(one)
+        check("once he takes part, close leaves the beat on disk",
+              read_json(sess_path).get("beat") == "beat 2", str(read_json(sess_path).get("beat")))
+        with contextlib.redirect_stdout(io.StringIO()):
+            two = lv.new_session("cli")
+            lv.take_turn(two, "")
+        check("the next scene is handed where the last one ended",
+              two["last_time"] == "beat 2" and seen[-1].get("last_time") == "beat 2",
+              str(seen[-1].get("last_time")))
+        check("...and a different person in a different mode",
+              two["brief"]["who"] != one["brief"]["who"] and two["brief"]["mode"] != one["brief"]["mode"],
+              f"{one['brief']} -> {two['brief']}")
+        m = importlib.import_module("mandates").LIVE_MANDATE
+        check("the mandate tells the host what the brief, last_time and beat are",
+              '"brief"' in m and '"last_time"' in m and '"beat"' in m)
+        check("...and the gate is a person waiting on him, not the target said back",
+              "waiting on him" in m and "says the target back" not in m)
+    finally:
+        lv.ask_json, lv.drill_menu, lv.household.cast = originals
+        if saved is None:
+            sess_path.unlink(missing_ok=True)
+        else:
+            sess_path.write_bytes(saved)
+
+
 def s156_a_live_session_books_only_at_close(sb: Path):
     """The live lane (2026-10-26, Andrew; `docs/live_conversation.md`).
 
