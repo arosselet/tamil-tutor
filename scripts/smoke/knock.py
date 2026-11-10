@@ -3804,6 +3804,14 @@ def s159_a_live_scene_has_a_brief_and_leaves_a_beat(sb: Path):
               '"brief"' in m and '"last_time"' in m and '"beat"' in m)
         check("...and the gate is a person waiting on him, not the target said back",
               "waiting on him" in m and "says the target back" not in m)
+        # KF-16's second lane (2026-11-10). The mandate named "beat", "recast" and
+        # "gate_verdict" and never the key that carries Anna's line. The laptop's
+        # agent path is handed the schema and never showed it; the API path — the
+        # runner, so the whole WhatsApp lane — is not, and replayed there 9 turns
+        # of 9 came back keyed `reply`, `say`, `turn` or `text`. Each would have
+        # reached him as REPLY_FALLBACK, "Got it, noted.", with nothing logged.
+        check("...and it names the key his turn is read from",
+              '"reply_line"' in m, "the API path never sees LIVE_SCHEMA")
     finally:
         lv.ask_json, lv.drill_menu, lv.household.cast = originals
         if saved is None:
