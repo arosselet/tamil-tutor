@@ -10,9 +10,9 @@ line and leaves; one that dies is deleted, not archived.
   drain existed (2026-10-14) and never triaged. It drains only when Andrew names it.
 
 ## Inbox
-- Golden prompt for Fable 5.2 (2026-11-10): docs/golden_prompt_fable_2026-11-10.md — see doc.
+- Reply to the golden prompt, Jobs A to C (2026-11-10, Fable): docs/fable_golden_reply_2026-11-10.md. awaiting Andrew.
 - Whole-system examination (2026-11-09, Fable, Andrew's direction): `docs/fable_examination_2026-11-09.md`. The fade began mid-September, before the blackout; live has never run; three soak forms need the Oracle. awaiting Rio.
-- Telegram leg for the live thread (2026-11-09, Andrew's ruling at the drain): a bot webhook into the existing Cloud Run bridge and a Bot API send beside the Meta one; voice notes both ways. Needs his bot token.
+- Telegram leg for the live thread (2026-11-09, Andrew's ruling at the drain): a bot webhook into the existing Cloud Run bridge and a Bot API send beside the Meta one; voice notes both ways. awaiting Andrew (2026-11-10): needs his bot token.
 
 ## Backlog
 - Live lane residuals, at the laptop (2026-10-26): follow `docs/live_setup.md` (merge is done; OpenRouter key in the cloud env; Meta app; Cloud Run as his own login, roleless `anna-whatsapp` SA; secrets; webhook). Unverified until then: the WhatsApp round trip end to end, the Meta send's real response shape, Cloud Run's buildpack accepting `bridge/whatsapp` as is, and a real `/live` session with a judge that can run (the cloud sim had none, so a script line fell back to "Got it, noted."). First real sessions: read `over_cap` stamps and gate verdicts against the item's gate questions. DEFERRED (2026-10-26): needs Andrew at the Meta and GCP consoles with his own logins; `docs/live_setup.md` is the checklist, and nothing here can be built or verified from the repo first.
