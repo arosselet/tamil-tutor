@@ -22,7 +22,10 @@ The ledger across sessions is what turns feelings into evidence.
 
 - `docs/DECISIONS.md` — has this axis been ruled on? If yes, name the entry to
   Andrew before anything else. Reopening a settled decision needs *new evidence*,
-  never restated taste.
+  never restated taste. But naming the entry is where the answer starts: give its
+  reason in a sentence and test whether that reason still holds. *"It's not 'we
+  settled this 09-13', it's 'does that logic still apply, was it a proper move?'"*
+  (Andrew, 2026-10-13.) His felt signal is itself new evidence about the entry.
 - `progress/feedback_log.json` — prior felt-signals on the same axis. A signal's
   **third strike on one axis is a design flaw, not noise** (precedent: 07-11
   "walking into a drill" → 07-17 "starved of teaching" → 07-17 "it's a chore"
@@ -50,6 +53,12 @@ the move is to retire or loosen it. Precedent: "the same few dozen words" traced
 to the vocabulary fence (95% coverage over a fence of ~135 words) fed by a false
 picture, and the check that would have fixed it was banned by Rule 4 as a list.
 
+**Third, when the complaint is sameness, read what Anna reads (2026-10-16).** *"Now
+every lesson takes that shape. What happened?"* had no single rule behind it. Run
+`sync_state.py open` and `status` and mark every line worded as an instruction: several
+meters and cues, each leaning the same way, had turned every lesson into
+clip-then-questions. The move was to reword and demote those lines.
+
 Then the read-only sweep, all safe:
 - `python scripts/sync_state.py status` — the ear, the soak order, the ear-block days (`--numbers` adds the floor)
 - `python scripts/sync_state.py feedback` — the accumulated ledger
@@ -73,9 +82,18 @@ symptom cap (`/debug` → KF-8 is the standing precedent).
 3. **Propose (gated)** — real structural gap → proposal + evidence to
    `docs/feature_inbox.md` for Andrew's yes/no. Building it is `/extend`'s job, later.
 
+**A meter or a rating ask is the wrong answer to an engagement complaint (2026-10-16).**
+A felt/shape sensor was built and withdrawn the same day: *"a new tracking feels the
+wrong move to answer this problem… I was hoping more for a sharp diagnosis."* Engagement
+is read from how he is showing up — replies, silence, what he comes back for, what he
+says unprompted — and he is asked only when that is unclear. Give him the diagnosis
+before any move, in plain words.
+
 ## 5. Close
 
 Settled something → one line in `docs/DECISIONS.md` (title, date, one clause; the
-narrative is the commit) so the next wave of this feeling meets a recorded conclusion. Nothing
+narrative is the commit) so the next wave of this feeling meets a recorded conclusion. The
+repo is the only place a conclusion counts: one saved to an assistant's memory is on one
+machine and invisible to every other agent (Andrew, 2026-10-13 and 10-14). Nothing
 settled → say "noise; nothing to change" and stop. That verdict is a success,
 not a failure of the pass.

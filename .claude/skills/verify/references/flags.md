@@ -15,6 +15,17 @@ grep the named function when you need the exact spot.
 | `smoke_test.py` | (no args) | **SAFE** | Sandbox only — nothing in the real repo |
 | `sync_state.py` | `status` | **SAFE** | Nothing |
 | `sync_state.py` | `feedback` (no note arg) | **SAFE** | Nothing |
+| `sync_state.py` | `open` | **SAFE** | Nothing — the light session start |
+| `sync_state.py` | `map` | **SAFE** | Nothing; `map --shown` is **MUTATING** (`learner.json` — stamps the day he was shown it) |
+| `sync_state.py` | `ladder` | **SAFE** | Nothing; `ladder --lean …` is **MUTATING** (`learner.json`) unless `--dry-run` |
+| `sync_state.py` | `month` | **SAFE** | Nothing; `--open`, `--finale` and `--line` are **MUTATING** (`learner.json`) unless `--dry-run` |
+| `sync_state.py` | `slips` | **SAFE** | Nothing; `slips --tested TAG:landed\|missed` is **MUTATING** (`slip_log.json`) |
+| `sync_state.py` | `rate-episode` / `note-episode` | **MUTATING** | `feedback_log.json` (a rating can also move `lexicon.json`); `--commit` commits + git push |
+| `threads.py` | `map` / `wall` | **SAFE** | Nothing |
+| `live.py` | `show` | **SAFE** | Nothing |
+| `live.py` | `start` / `turn "<text>"` | **MUTATING** | `progress/live_session.json`; the LLM call fires |
+| `live.py` | `close` | **MUTATING** | Books what the gates earned into `progress/`; `--publish` commits + git push |
+| `lesson_audio.py` | `<script> --output <mp3>` | **MUTATING** | The clip only — no learner state; `--publish` commits + pushes it, with no RSS and no phone push |
 | `show_status.py` | (no args) | **SAFE** | Nothing |
 | `suggest_targets.py` | (no args) | **SAFE** | Nothing |
 | `generate_callbacks.py` | (no args) | **SAFE** | Nothing |
@@ -49,6 +60,8 @@ grep the named function when you need the exact spot.
 | `render_soak.py` / `render_rotation.py` / `render_payoff.py` | (no args) | **MUTATING** | `published_audio/`, `rss.xml`, `observations.json` + `lexicon.json` (exposure), `learner.json` (the soak stamp), `audio_titles.json`; commits + git push; phone push |
 | `render_chat.py`, `session_brief.py`, `audio_titles.py`, `memo.py`, `lanes.py`, `rails.py`, `language.py`, `state_io.py`, `writer.py`, `mandates.py`, `slips.py`, `observations.py`, `reply_common.py`, `knock_message.py`, `publish.py` | (imported, not run) | — | Libraries; the lane that imports them owns the write |
 
+> **Not inventoried here (2026-11-10):** `commissions.py`, `shelf.py`, `hear.py`, `reflect.py`, `provenance.py`, `render_sort.py`, `render_demo.py`. Each arrived after the last pass over this table. Treat every one as MUTATING until you have read its docstring and `main()`; add its row when you do.
+>
 > `progress/` holds real, irreplaceable learner state. Never run a mutating command against live `progress/` unless you mean it. The smoke test's sandbox pattern is the safe harness — extend it, don't bypass it.
 >
 > Commands marked "LLM … fires" need `OPENROUTER_API_KEY` — locally it's read from the repo's gitignored `.env` (`publish.py` `load_env()`); in CI it's an Actions secret. A dry-run without the key fails at the LLM call, not silently.
@@ -77,7 +90,7 @@ Source: `scripts/knock_reply.py` — `main()`.
 
 | Flag | LLM fires? | Files written? | Commit/push? | Phone push? |
 |---|---|---|---|---|
-| *(bare)* | YES | `lexicon.json`, `knock_log.json`, `feedback_log.json` (if `meta_note` present) | YES | YES |
+| *(bare)* | YES | `observations.json` + `lexicon.json`, `knock_log.json`, `slip_log.json`, `feedback_log.json` (if `meta_note` present) | YES | YES |
 | `--dry-run` | **YES** | NO | NO | NO |
 
 `--dry-run` detail: both lanes gate the same way. Production lane: `judge()` runs (LLM fires); the gate in `main()` returns before `apply_verdict()`, any `save_json()`, `commit_and_push()`, and `push_to_phone()`. Catch (eavesdrop) lane: `judge_catch()` runs (LLM fires); `handle_catch_reply()` takes `dry_run` and gates before its apply/push the same way.

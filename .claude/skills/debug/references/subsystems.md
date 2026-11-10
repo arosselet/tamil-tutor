@@ -37,7 +37,7 @@ gh run list --workflow=anna.yml --limit 10
 1. Check: did the workflow even trigger? If missing today: GitHub schedule slip (common under load) — wait or use `workflow_dispatch` to trigger manually.
 2. If it ran: `gh run view <run-id> --log` — look for `[rails] skip — ` lines. Common skip reasons:
    - `quiet hours (HH:MM EDT)` — the tick landed outside 8am–9pm.
-   - `daily cap reached (5/5)` — five fires already today.
+   - `daily cap reached (N/N)` — the day's reaches are spent. The cap is `rails.MAX_REACHES_PER_DAY` (3) unless `progress/policy.json` carries an approved `max_reaches_per_day`.
    - `min-gap not met (X.Xh < 3h)` — too close to last reach.
    - `Anna's next_check not due (set for ...)` — Anna soft-gated himself.
 3. If `[rails] wake` but then stopped: look for the LLM/TTS step error. Common: missing secret (`OPENROUTER_API_KEY` not set), or KF-2 (prose-wrapped JSON).
@@ -71,7 +71,7 @@ gh run list --workflow=anna.yml --limit 10
 ```
 1. Is the entry still in the queue? (`list` shows pending). If yes: check its `due` timestamp (UTC) vs now.
 2. Is `force: false` and the entry is due in quiet hours? It defers silently to the next waking tick.
-3. Is the daily cap already at 5 for today? Non-forced entry defers until the next day.
+3. Is the daily cap already spent for today (playbook A names where the number lives)? Non-forced entry defers until the next day.
 4. Did the drain step run? `gh run list --workflow=anna.yml` — the drain is the first step of EVERY run, so a missing drain means no run at all.
 5. Drain locally (mutating!): only if you have confirmed the entry should fire and secrets are set.
 
@@ -140,8 +140,11 @@ python scripts/knock_reply.py --dry-run "naan poren"
 `render_audio.py` reads a markdown script, calls Google TTS, stitches MP3, writes to
 `published_audio/`, registers the episode in `progress/episodes.json`, stamps `seen_in`
 in `progress/lexicon.json`, and calls `rebuild_rss.py` as a lifecycle hook.
-`rebuild_rss.py` scans `published_audio/` for `tier*.mp3` and `drill_*.mp3` files,
-reads matching scripts from `content/scripts/`, and writes `rss.xml`.
+`rebuild_rss.py` builds the feed from every lane's files in `published_audio/` —
+`tier*`, `drill_`, `soak_`, `rotation_` (and the older `longhaul_`), `special_`, plus
+the memos under `knocks/` — reads matching scripts from `content/scripts/`, and writes
+`rss.xml`. The soak, drill, rotation and payoff lanes publish through the same feed
+without going through `render_audio.py`.
 
 **Evidence files:**
 - `published_audio/` — the actual audio files served to the feed.
@@ -157,7 +160,7 @@ python -c "import json; e=json.load(open('progress/episodes.json')); mx=max(e,ke
 grep -c '<item>' rss.xml
 ```
 1. Does the newest file in `published_audio/` appear in `rss.xml`? If not, `rebuild_rss.py` didn't run or ran from a different working directory.
-2. Does `rebuild_rss.py` filter correctly? It includes `tier*.mp3` and `drill_*.mp3`, excludes legacy `level4_*`, demos, and standalone `*_intercept.mp3` files.
+2. Does `rebuild_rss.py` filter correctly? It includes the prefixes named above and excludes legacy `level4_*`, demos, and standalone `*_intercept.mp3` files. A new lane whose prefix is missing from that one tuple renders fine and never reaches the feed.
 3. Is `episodes.json` stale vs `rss.xml`? They are separate: RSS reads `published_audio/` directly; `episodes.json` is the Python brain's registry. Both should agree on title/count.
 4. To regenerate RSS locally (mutating — rewrites `rss.xml` in place, must be run from the repo root):
 ```

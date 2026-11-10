@@ -67,6 +67,14 @@ Defined: `progress/profile.md` — "Fire vs. catch (2026-07-01 redesign)"; `docs
 
 ---
 
+## finale series
+
+The progress measure since 2026-10-19: each month's arc ends in a finale episode, ear-tested line by line and scored the same way every month, so the marks are comparable across months. Recorded with `sync_state.py month --finale N --line right|partial|wrong`. October's baseline was retired (no finale rendered); the series starts at the first arc that renders and tests one.
+
+Defined: `docs/DECISIONS.md` — "The finale series is the progress measure", "October's baseline is retired"; `scripts/month.py`
+
+---
+
 ## floor-gap
 
 A word the learner recognizes (comfortable or solid) but cannot yet produce cold — they do not need re-teaching, they need cold dispatch in fresh English situations. The gap between recognition and production is the work, and `compute_floor` meters it as the viability floor.
@@ -95,9 +103,17 @@ Defined: `protocol/studio/architect.md` — "The Episode Form" (the `classic` de
 
 ## knock
 
-The agentic phone-outreach system. `scripts/morning_knock.py` runs on a CI cron, checks the rails gate (waking hours, ≤5/day, ≥3 h apart), then Anna decides fire or silence and which modality — the valid set is `text`, `audio`, `challenge`, `volley`, `eavesdrop`, `fielding`, `grace`, `silence` (`MODALITIES` in `morning_knock.py`; anything else falls back to `text`). A knock memo is a self-contained dose. Andrew's typed Tamil reply is judged by `scripts/knock_reply.py`, which moves the production axis.
+The agentic phone-outreach system. `scripts/morning_knock.py` runs on a CI cron, checks the rails gate (waking hours, a daily cap of `rails.MAX_REACHES_PER_DAY`, ≥3 h apart), then Anna decides fire or silence and which modality — the valid set is `text`, `audio`, `challenge`, `volley`, `eavesdrop`, `fielding`, `grace`, `silence` (`MODALITIES` in `morning_knock.py`; anything else falls back to `text`). A knock memo is a self-contained dose. Andrew's typed Tamil reply is judged by `scripts/knock_reply.py`, which moves the production axis.
 
 Defined: `docs/PROTOCOL_MAP.md` — Python brain and knock_log.json rows; `docs/DECISIONS.md` — "Outreach policy is Anna's"
+
+---
+
+## light start
+
+How a session opens since 2026-10-08: a short load (`persona.md`, `user.md`, `sync_state.py open`), then Anna speaks first and gives something. The rest of the protocol loads after that opening. It replaced a boot that read ~13,000 words and ran three scripts before a word was said.
+
+Defined: `.claude/skills/anna/SKILL.md`
 
 ---
 
@@ -113,9 +129,17 @@ Defined: `protocol/constitution.md` — "Stories Are Curriculum (the lore rule)"
 
 ## machines heard
 
-The headline meter since 2026-08-16: of the ~26 patterns (frames/machines) in the lexicon, how many are `solid` on **recognition** — can he *hear* the machine at speed, not merely fire it. `session_brief.py` prints it as `Machines heard: X/N`; `sync_state.compute_status` leads the one-line scoreboard with it. It replaced production meters (the retired Trip Deck, Engines, viability floor) as the lead because those measure the engine and this measures the destination — the evidence being that Andrew produced 20 of 26 machines cold while hearing 3, which is exactly why two words landing in a fast sentence felt like nothing. Ear-only (`direction: catch`) patterns are inside its denominator; **engines** excludes them, so this is the one meter that sees the whole set. Like every meter it steers Python and is never recited to him.
+The ear meter, and the headline from 2026-08-16 until 2026-10-16: of the ~26 patterns (frames/machines) in the lexicon, how many are `solid` on **recognition** — can he *hear* the machine at speed, not merely fire it. It still opens the Status line (`Machines heard N · ear-tested X/26`), but it is one meter and no longer the steer: his enjoyment and engagement steer (2026-10-16), and the progress measure is the **finale series** (2026-10-19). It replaced production meters (the retired Trip Deck, Engines, viability floor) as the lead because those measure the engine and this measures the destination — the evidence being that Andrew produced 20 of 26 machines cold while hearing 3, which is exactly why two words landing in a fast sentence felt like nothing. Ear-only (`direction: catch`) patterns are inside its denominator; **engines** excludes them, so this is the one meter that sees the whole set. Like every meter it steers Python and is never recited to him.
 
-Defined: `docs/DECISIONS.md` — "The headline is the ear, not the mouth"; `protocol/constitution.md` — "The Learner" mission
+Defined: `docs/DECISIONS.md` — "The headline is the ear, not the mouth" (headline superseded), "Meters choose content, never shape"; `protocol/toolbelt.md` — Progress
+
+---
+
+## the map
+
+Where he is, said to him by Anna: the week of the arc, the words in play, what is almost his, what is being worked on. `sync_state.py map` renders it; `open` flags when it is due; `map --shown` records that he saw it. It shows ground covered and never debt — not what he skipped, not what is overdue.
+
+Defined: `docs/DECISIONS.md` — "Show the map, never the debt" (2026-10-19); `scripts/threads.py` — `map_lines`
 
 ---
 
@@ -177,7 +201,7 @@ Defined: `scripts/render_rotation.py`; `protocol/audio_channels.md`; `docs/DECIS
 
 ## scene spec
 
-The three-axis structural selector Python hands the Director for each episode: **register** (emotional tone: dread, tenderness, mischief…), **form** (classic / vignette / story / phone_call / lore), and **dramatic ingredient** (subtext / turn / character / stakes / genre). Computed by `scripts/suggest_targets.py` from the last 3 `*.tags.json` sidecars (`DIVERGENCE_WINDOW = 3`, `suggest_targets.py:48`) to guarantee anti-sameness. It is a gate, not a suggestion — overriding it is how variety drift came back.
+The three-axis structural selector Python hands the Director for each episode: **register** (emotional tone: dread, tenderness, mischief…), **form** (classic / vignette / story / phone_call / lore), and **dramatic ingredient** (subtext / turn / character / stakes / genre). Computed by `scripts/suggest_targets.py` from the last 3 `*.tags.json` sidecars (`DIVERGENCE_WINDOW` in `suggest_targets.py`) to guarantee anti-sameness. It is a gate, not a suggestion — overriding it is how variety drift came back.
 
 Defined: `protocol/studio/director.md` — "Step 1: Take the Scene Spec"; `docs/PROTOCOL_MAP.md` — `suggest_targets.py` row; `docs/DECISIONS.md` — "Serialization / recurring audio cast rejected; variety is structural"
 
@@ -211,7 +235,7 @@ Defined: `docs/DECISIONS.md` — "Retire the trip deck"
 
 ## viability floor
 
-The threshold of words and frames firing cold that stops the freeze response — enough operational capacity to navigate Coimbatore without going blank. `scripts/sync_state.py status` reports it as `Viability floor: X/Y recognized words fire cold (Z%)` (`sync_state.py:559`). Production counts (cold fires) move the floor; recognition without production does not. It led Phase 1 and no longer leads anything (2026-08-16, re-read 2026-09-20): production is a *probe*, not the destination, so the floor measures what has transferred to his mouth — **machines heard** measures whether he has arrived. Both still print; only one is the headline.
+The threshold of words and frames firing cold that stops the freeze response — enough operational capacity to navigate Coimbatore without going blank. `scripts/sync_state.py status --numbers` reports it as `Viability floor: X/Y recognized words fire cold (Z%)`. Production counts (cold fires) move the floor; recognition without production does not. It led Phase 1 and no longer leads anything (2026-08-16, re-read 2026-09-20): production is a *probe*, not the destination, so the floor measures what has transferred to his mouth — **machines heard** measures whether he has arrived. The floor left the status line on 2026-10-19 (it mixes axes, and its denominator moved 72% → 57% in a week on audit strictness alone) and prints only behind `--numbers`.
 
 Defined: `protocol/constitution.md` — "Operational Capacity, Not Fluency" (the dated comprehension goal); `protocol/persona.md` — "The Charge"; `progress/profile.md` — "The Goal"
 
@@ -229,7 +253,7 @@ Defined: `protocol/constitution.md` — "Woven Thanglish (The Scaffolding)"; `pr
 
 Which room of the family table the production work leans toward (`scripts/ladder.py`): **down** (the children, who tolerate error and cannot switch to English to be kind), **across** (cousins and in-laws), **up** (elders, highest social risk, most morphology). The lean decides which registers lead selection (see *register / lean*) and nothing else.
 
-**It is stated, not scheduled.** `sync_state.py ladder --lean down|across|up` stores the room and the day it was chosen; nothing else is persisted. An evidence rule for moving it — up a room when the books show the current room is mostly his — is not built yet.
+**It is stated, not scheduled.** `sync_state.py ladder --lean down|across|up` stores the room and the day it was chosen; nothing else is persisted. Moving it is Andrew's call, made on evidence: the bare `ladder` read prints the books beside the lean — rows he owns among each room's leading registers — and no rule moves it for him (ruled 2026-10-09; automating the lean was the option he declined).
 
 **Retired: the year (2026-09-19 → 10-08).** The ladder used to be phases derived from a trip date, with a taper that forced new words to zero and a T-minus on Andrew's dashboard. There is no trip deadline now, so the date, the taper and the countdown went; the ladder's reason never depended on them. `s113` asserts by name that no phase, countdown or progress count is stored or printed.
 

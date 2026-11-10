@@ -77,10 +77,21 @@ a DECISIONS line) is: say where it is and ask him to confirm it stands.
 
 ## 5. Close with a summary to Andrew
 
-One block, three headings — **Built**, **Rejected**, **Deferred** (plus **Awaiting
-you** if any). One line per item: what happened and why, with the commit hash.
+One block, three headings — **Built**, **Rejected**, **Deferred** (plus **Ruled, build
+owed** and **Awaiting you** if any). One line per item: what happened and why, with the commit hash.
 Include anything you changed beyond the letter of an item, and anything you noticed
-outside the scope. The summary is the point of the drain: an item that leaves the
+outside the scope.
+
+**Write it for Andrew, in plain words, and short.** Each **Built** line says what he
+can do now that he could not do before, and what is still missing before the thing he
+pictured works. Two drains failed here: 10-20's summary got *"this is a lot to process,
+can you give me the plain version?"*, and on 10-25 the voice-turns item sat under
+**Built** when the commit only recorded his ruling. The line said so in its second
+sentence, and his next two messages were still *"OK so how do I chat with Anna?"* and
+*"voice isn't built yet? I thought that's what we just drained from the inbox?"*
+
+**Built means he can use it today.** An item that was ruled on but whose code is not
+written goes under its own heading, **Ruled, build owed**, with the next step named. The summary is the point of the drain: an item that leaves the
 inbox without Andrew hearing why has just moved its silence somewhere else.
 
 ## Budgets

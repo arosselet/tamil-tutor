@@ -18,6 +18,13 @@ Read `docs/DECISIONS.md` (thin index of conclusions; substance lives in git hist
 evidence taken to Andrew — never silent drift. Common reopened traps: adding a schema
 field, adding a tracking mechanism, adding a persona.
 
+**When Andrew is the one asking, the entry is context, never the answer** (2026-10-13).
+He asked why he could not report a mood and was told the axis was settled on 09-13; his
+reply: *"It's not 'we settled this 09-13', it's 'does that logic still apply, was it a
+proper move?'"* Give him the entry's reason in a sentence, test whether that reason
+still holds today, and say which way it came out. The stop-condition above is for an
+agent drifting, never for Andrew's own question.
+
 ---
 
 ## Gate 2 — Budget test
@@ -42,6 +49,14 @@ explored together first. (`docs/DECISIONS.md` → "Explore before implementing."
 approved the tradeoff, or said "do it." Silence, a question, or non-objection is NOT
 alignment. Until then: state the real situation sharply; do not produce a
 bullet-pointed action plan, and write no code.
+
+**Put the choice in plain words.** A yes to something he could not follow is no
+alignment either. Say what each option does to his lessons, in ordinary sentences,
+with no label coined in this session and no internal name he has to decode. He has had
+to ask for the plain version five times: *"I don't understand 'file as-is'"* (08-27),
+*"Tell me more plainly what 'automate the lean' means"* (10-09), *"I need this in
+plainer language please. Too dense"* (10-14), *"I don't understand the meter move
+behind?"* (10-16), *"can you give me the plain version?"* (10-20).
 
 **Exploring includes the plumbing.** Read the owning file and the relevant log *before*
 proposing any mechanism — never hand Andrew a choice between mechanisms the evidence
@@ -83,7 +98,7 @@ imports is not a file that runs. When a binding must stay that *looks* unused, m
 purpose legible in code (see `run_studio._DISPATCH_LOCK`); never park it behind a
 suppression directive, which is how a load-bearing line comes to read as dead.
 
-One law for all three: growth past budget is a red run; raising a budget is allowed only in the
+One law for every row: growth past budget is a red run; raising a budget is allowed only in the
 same diff as the growth, and the commit must name what it retired. A file that keeps
 hitting its ceiling is carrying crud or doing too many jobs — a split-or-retire signal,
 never a bump-the-number reflex.
@@ -199,6 +214,14 @@ Run these after every non-trivial change to the machinery:
 6. **CI git identity is `github-actions[bot]`** — never a noreply alias that credits
    a real GitHub user. (`docs/DECISIONS.md` → "CI git identity is `github-actions[bot]`.")
 
+7. **A ruling lives in the repo, never in an assistant's memory** (2026-10-13, 10-14).
+   Andrew, twice in two days: *"Memory is the wrong place to file that information. It
+   has to live in the repo somewhere"* and *"it's only legitimate if it lives in the repo
+   not in your memories on this machine."* A decision, a preference about the system or
+   a fact the next session needs goes in the file that owns it — `docs/DECISIONS.md`,
+   `protocol/user.md`, `progress/profile.md` — where every agent and every machine
+   reads it. Host memory is for one machine's quirks.
+
 ---
 
 ## Sibling skills
@@ -208,3 +231,5 @@ Run these after every non-trivial change to the machinery:
 - `/validate` — routine health checks; safe/mutating command inventory
 - `/verify` — proving a change works end-to-end
 - `/recalibrate` — pedagogy felt-signals; felt signal → evidence → one move
+- `/inbox` — ruling on the queued ideas in `docs/feature_inbox.md`
+- `/backport` — milestone re-extraction to the template repo

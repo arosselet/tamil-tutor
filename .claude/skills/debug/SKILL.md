@@ -48,6 +48,8 @@ Start with `/orient` → `references/glossary.md`.
 | Anna keeps making the same mistake | May be a protocol bug, not plumbing | read `progress/feedback_log.json`; if pattern appears 2+ times → `/extend` |
 | **I replied and NOTHING happened — no run, no error, no trace** | Inbound leg dead: expired PAT, or the ANNA_REPLY automation (KF-12) | Actions list → filter `repository_dispatch`. **Zero since a datestamp = the return path, not your reply.** Knocks still arriving PROVES HA is alive — outbound crosses the same HA — so suspect the one thing unique to inbound: the token |
 | Anna over-uses a format / doses feel same-shaped | Incentive drift in the decide prompt (a preference line, a reward framing) — not persona | `grep -o '"move": "[^"]*"' progress/knock_log.json \| tail -15` → then read the prompt's incentive lines in `morning_knock.py` |
+| Every **lesson** takes the same shape | Several boot lines each leaning one way — no single rule requires it (2026-10-16: clip-then-questions) | `python scripts/sync_state.py open` and `status`: read them as Anna does and mark every line worded as an instruction. Then `/recalibrate` — the fix is a deletion, never a new meter |
+| `[payoff] … has no payoff and will not be retried` in the feedback ledger | `render_payoff.py` → `refuse()` gave up on a tape; he heard it and never got its meaning. Five times Aug–Oct 2026, the same reason each time, and nothing read them | `grep -c "has no payoff" progress/feedback_log.json`; the reason is in the line. Two or more with one reason is a bug in the lane, not five bad tapes |
 
 ---
 
@@ -84,10 +86,10 @@ One line each; the write-up is the commit of that date, and the smoke case named
 1. If the fix is a code change → use `/extend` (change discipline gate → surgical edit → smoke case).
 2. Use `/verify` to prove the fix end-to-end.
 3. Every fixed plumbing bug gets a new smoke case in the layer file that owns it under `scripts/smoke/` — this is the contract that keeps KF-1 and KF-2 from recurring. **Put teeth in the dimension that failed** (`/extend` Gate 7.2, the silent no-op test): assert the *effect*, round-trip through the writer and re-read the state file, and make the absence loud. A green case on a dead feature is the 2026-07-30 `s41` result.
-
-**Triage note for the quiet class.** The KF archive below is loud failures — crashes, parse errors, visible desync — because that is what daily use surfaced first. Since 2026-07-24 the live class is *quiet*: nothing fails, every instrument reads green, and the dose is simply about the wrong thing. When Andrew's felt signal is "this doesn't feel like it's working on my mistakes" rather than "this broke", **do not start from the error log — there won't be one.** Start from the claim: name what the subsystem promises, then find the one place that would prove it happened, and check whether anything reads it.
 4. If the fix is HA config → update the gitignored `docs/anna_knock_automation.yaml` mirror.
 5. If the root cause is a pattern of 2+ feedback entries → log with `python scripts/sync_state.py feedback "note"` (mutating — appends to `progress/feedback_log.json`) before proposing the fix.
+
+**Triage note for the quiet class.** The KF archive above is loud failures — crashes, parse errors, visible desync — because that is what daily use surfaced first. Since 2026-07-24 the live class is *quiet*: nothing fails, every instrument reads green, and the dose is simply about the wrong thing. When Andrew's felt signal is "this doesn't feel like it's working on my mistakes" rather than "this broke", **do not start from the error log — there won't be one.** Start from the claim: name what the subsystem promises, then find the one place that would prove it happened, and check whether anything reads it.
 
 ---
 

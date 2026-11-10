@@ -36,6 +36,9 @@ python scripts/show_status.py         # read-only dashboard
 | State schema, `sync_state.py` or `lexicon_view.py` | Smoke test + `python scripts/sync_state.py status` + `python scripts/lexicon_view.py` (both read-only; the second must report zero divergent rows) + confirm every changed field exists in `progress/*.example` templates |
 | Drill pipeline (`render_drill.py`) | `--dry-run` (LLM fires, no TTS, no file writes) or `--no-publish` (LLM + TTS + MP3 written, no RSS/commit/push) — see `references/flags.md` for exact boundaries |
 | Morning knock (`morning_knock.py`) | `--dry-run` (LLM fires; if Anna chooses audio, TTS fires AND the MP3 is written before the gate) — see `references/flags.md`; also add a smoke case if logic changed |
+| Soak / rotation / payoff lanes (`render_soak.py`, `render_rotation.py`, `render_payoff.py`) | Same two flags as the drill: `--dry-run` (LLM fires, nothing written) or `--no-publish` (MP3 only) |
+| Live lane (`live.py`) | Smoke test only. `start` and `turn` fire the LLM and write `progress/live_session.json`; `close` books real evidence — never run them against live state to test a change |
+| A skill or its references (`.claude/skills/**`) | No runtime surface: the suite pins a few lines (`s93` holds `/extend`'s Gate 6 table, `s90` Anna's load list, `s18` `/debug`'s word budget) and reads nothing else. Check by hand that every file, function, smoke case and command the text names still resolves (`ls`, `grep -n "^def NAME"`), and run any command the skill tells a reader to copy. `/validate` carried an import of a deleted module for a month this way (found 2026-11-10) |
 | Audio pipeline (`render_audio.py`) | Source-read only — no dry-run flag; trace what you checked and state what is unverified. Never run it in a verify pass. |
 | `protocol/*.md` prose | No runtime surface. Verify by reading the changed text against `protocol/constitution.md` canonical rules. This is the honest answer; no runtime harness exists for prose. |
 | `.github/workflows/*.yml` | `python scripts/smoke_test.py` reproduces the smoke job locally; `gh run watch <run-id>` watches CI after a push |
@@ -78,12 +81,12 @@ def sN_your_description(mk, kr, pq, sb: Path):
     check("what the bug was and that it's fixed", <condition>, f"got {result}")
 ```
 
-**Step 2 — Call it from `main()`** (inside the `with tempfile.TemporaryDirectory(...)` block):
+**Step 2 — Dispatch it from `main()` in `scripts/smoke_test.py`** (inside the `with tempfile.TemporaryDirectory(...)` block), through `run`, never as a bare call — `run` is what selects one case by number and tears the stubs down afterwards:
 ```python
-sN_your_description(mk, kr, pq, sb)
+run(knock.sN_your_description, mk, kr, pq, sb)
 ```
 
-Three invariants the sandbox enforces — do not break them:
+The sandbox's rules — do not break them:
 - Modules are imported from the sandbox copy (asserted by `mk.__file__.startswith(str(sb))`).
 - Replace `push_to_phone` and `commit_and_push` with fresh `Recorder()` per scenario before calling `main()`.
 - **Run the one case you are working on**: `python scripts/smoke_test.py s41` (case

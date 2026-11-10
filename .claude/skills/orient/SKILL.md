@@ -25,7 +25,7 @@ Anna does **not** load `docs/PROTOCOL_MAP.md`, `docs/DECISIONS.md`, or `BOOTSTRA
 
 ### `@build` — work on the machine
 
-Invoked by typing `@build` in the message. Role: Python developer and system architect. Edits the machine; never runs the lesson.
+Inferred from what Andrew is asking for; `@build` is a shorthand he may type, never a requirement (`AGENTS.md` → Operational Modes, 2026-09-22). Role: Python developer and system architect. Edits the machine; never runs the lesson.
 
 Files @build loads — see the reading order below.
 
@@ -64,3 +64,5 @@ For the Python brain: read the script you intend to change, plus the `scripts/sm
 | Make a change to the system | `/extend` |
 | Prove a change works end-to-end | `/verify` |
 | Pedagogy feels wrong (chore/drill/samey) | `/recalibrate` |
+| Rule on the ideas queued in `docs/feature_inbox.md` | `/inbox` |
+| Port a milestone to the template repo | `/backport` |
