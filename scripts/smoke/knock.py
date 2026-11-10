@@ -3424,6 +3424,100 @@ def s136_a_push_back_speaks_only_judged_tamil(sb: Path):
                 p.write_bytes(b)
 
 
+def s160_a_tape_ordered_from_the_phone_is_filed(sb: Path):
+    """He can order a tape from his phone, and the order is a file (2026-11-09, Andrew).
+
+    WHAT WAS THERE. A commission could be filed by Rio over the API, by Anna in a
+    session, or by Andrew at the laptop. From the phone, "make me a tape" reached
+    the message lane, got a friendly line back, and ordered nothing.
+
+    GATE 7.2, OUT LOUD. The silent no-op here is the friendly line with nothing
+    behind it. So the detector is Python's and so is the acknowledgement: the
+    case drives the real `handle_message` and asserts that the file exists in
+    pending/, that the router's own `validate` accepts it, that it rides the
+    lane's commit, and that the pushed line carries the acknowledgement only
+    when the file was written. A second ask while one is pending files nothing
+    and says nothing about a tape. An order is not also a voice reply or a
+    scheduled push."""
+    print("\n160. A tape ordered from the phone is a commission on disk (2026-11-09)")
+    import contextlib, io
+    from datetime import datetime, timezone
+    km = importlib.import_module("knock_message")
+    rc = importlib.import_module("reply_common")
+    cm = importlib.import_module("commissions")
+    klog_path = sb / "progress" / "knock_log.json"
+    saved = klog_path.read_bytes() if klog_path.exists() else None
+    real = (km.judge_message, km.commit_and_push, km.push_to_phone, km.gate_reply, cm.PENDING)
+    try:
+        cm.PENDING = sb / "progress" / "commissions" / "pending_smoke160"
+        cm.PENDING.mkdir(parents=True, exist_ok=True)
+        for old in cm.PENDING.glob("*.json"):
+            old.unlink()
+        write_json(klog_path, [{"timestamp": "2026-11-09T09:00:00+00:00", "date": "2026-11-09",
+                                "acted": True, "modality": "text", "body": "x"}])
+        km.gate_reply = lambda *a, **k: []
+        km.judge_message = lambda *a, **k: {"reply_line": "Sari.", "voice_reply": "",
+                                            "meta_note": "", "rationale": "smoke"}
+
+        def drive(text):
+            pushes, commits = Recorder(), Recorder()
+            km.commit_and_push, km.push_to_phone = commits, pushes
+            klog = read_json(klog_path)
+            with contextlib.redirect_stdout(io.StringIO()):
+                km.handle_message(text, klog[-1], klog, dry_run=False)
+            return pushes, commits
+
+        # ── 1. The order lands, validates, is committed and is acknowledged.
+        pushes, commits = drive("make me a 20 min drill tape for my walk tonight at 9")
+        filed = sorted(cm.PENDING.glob("*.json"))
+        c = json.loads(filed[0].read_text(encoding="utf-8")) if filed else {}
+        check("the order is a commission file in pending/", len(filed) == 1, str(filed))
+        check("...that the router's own validate accepts",
+              bool(c) and cm.validate(c, filed[0].stem) is None, str(c)[:200])
+        check("...asking for what he asked for: the drill spine, twenty minutes, his words",
+              c.get("beats") == {"spine": "machines", "minutes": 20}
+              and "for my walk" in c.get("brief", "") and c.get("requested_by") == "andrew",
+              str(c)[:300])
+        check("...it rides the lane's commit",
+              bool(commits) and bool(filed) and filed[0] in list(commits[0][0]),
+              str(commits[0][0] if commits else None))
+        check("...and the pushed line says so",
+              bool(pushes) and pushes[0][0] == "Sari." + cm.PHONE_ACK, str(pushes))
+        check("an order is not also a voice request or a clock request",
+              not rc.wants_spoken_reply("send me a tape tonight at 9")
+              and not rc.wants_scheduled_push("send me a tape tonight at 9"))
+
+        # ── 2. A second ask while one is pending files nothing, and does not claim to.
+        pushes, commits = drive("schedule episode")
+        check("a second ask while one is pending files nothing",
+              len(list(cm.PENDING.glob("*.json"))) == 1)
+        check("...and the line does not claim a tape was ordered",
+              bool(pushes) and pushes[0][0] == "Sari.", str(pushes))
+
+        # ── 3. THE NEGATIVE CONTROL: an ordinary message orders nothing.
+        for old in cm.PENDING.glob("*.json"):
+            old.unlink()
+        pushes, _ = drive("what does the tape say about Karthi?")
+        check("a question about a tape is not an order",
+              not list(cm.PENDING.glob("*.json")) and pushes[0][0] == "Sari.", str(pushes))
+
+        # ── 4. Bounds: minutes are clamped to what the router accepts.
+        p = cm.file_from_phone("make me a 90 minute tape",
+                               datetime(2026, 11, 9, 14, 5, tzinfo=timezone.utc))
+        c = json.loads(p.read_text(encoding="utf-8"))
+        check("an over-long ask is clamped to the router's ceiling, and still validates",
+              c["beats"] == {"spine": "room", "minutes": 60} and c["id"] == "20261109-phone-1405"
+              and cm.validate(c, p.stem) is None, str(c)[:200])
+    finally:
+        for old in cm.PENDING.glob("*.json"):
+            old.unlink()
+        km.judge_message, km.commit_and_push, km.push_to_phone, km.gate_reply, cm.PENDING = real
+        if saved is None:
+            klog_path.unlink(missing_ok=True)
+        else:
+            klog_path.write_bytes(saved)
+
+
 def s143_a_clock_ask_is_never_silently_dropped(kr, sb: Path):
     """One clock backstop for every reply lane (2026-10-12).
 

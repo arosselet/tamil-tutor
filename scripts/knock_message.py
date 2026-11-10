@@ -37,13 +37,14 @@ from pathlib import Path
 BASE = Path(__file__).parent.parent
 sys.path.insert(0, str(BASE / "scripts"))
 
+import commissions
 from mandates import (FORCE_SCHEDULE_ADDENDUM, FORCE_VOICE_ADDENDUM,
                       MESSAGE_MANDATE, REACH_MANDATE, THREAD_MANDATE,
                       VOICE_MANDATE)
 from push_queue import maybe_enqueue_schedule
 from publish import commit_and_push, load_env, publish, push_to_phone
 from reply_common import (ensure_schedule, ensure_voice, gate_reply, recent_exchanges, record_meta_note,
-                          speak, spoken_stamp)
+                          speak, spoken_stamp, wants_commission)
 from state_io import FEEDBACK_LOG_PATH, KNOCK_LOG_PATH, REVIEW_QUEUE_PATH, load_json, save_json
 from writer import STR, ask_json, executor_name, obj, voice_canon
 
@@ -94,11 +95,20 @@ def handle_message(text: str, knock: dict | None, klog: list, dry_run: bool):
     if dry_run:
         spoken = verdict.get("voice_reply") or ""
         print(f"[dry-run] would push: {verdict['reply_line']}"
-              + (f"\n[dry-run] would speak: {spoken}" if spoken else ""))
+              + (f"\n[dry-run] would speak: {spoken}" if spoken else "")
+              + ("\n[dry-run] would order a tape" if wants_commission(text) else ""))
         return
 
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     held = gate_reply(verdict, voice_canon() + "\n\n---\n\n" + MESSAGE_MANDATE, "message", now)
+    # AN ORDER FOR A TAPE IS PYTHON'S TO FILE (2026-11-09). No judge decides it and
+    # no judge confirms it: the acknowledgement is appended here, after the gate,
+    # only when a commission file was actually written. So "tape ordered" on his
+    # lock screen and a file in pending/ are the same fact, and a friendly line
+    # with nothing behind it cannot happen.
+    order = commissions.file_from_phone(text) if wants_commission(text) else None
+    if order:
+        verdict["reply_line"] += commissions.PHONE_ACK
     if knock is not None:
         # Thread anchor only — see the module docstring. `intent` is what keeps
         # this out of every rep-counting read downstream.
@@ -113,7 +123,7 @@ def handle_message(text: str, knock: dict | None, klog: list, dry_run: bool):
     print("2. commit + push…")
     commit_and_push(*publish(
         [KNOCK_LOG_PATH, FEEDBACK_LOG_PATH if meta else None,
-         maybe_enqueue_schedule(verdict), REVIEW_QUEUE_PATH if held else None],
+         maybe_enqueue_schedule(verdict), REVIEW_QUEUE_PATH if held else None, order],
         "Message: answered" + (" (aloud)" if voice_url else ""),
         mp3=vmp3 if voice_url else None))
     print("3. push back…")

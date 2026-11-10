@@ -238,7 +238,8 @@ CODE_BUDGETS = {
     # 120 -> 127 (the judge seat (2026-10-12, Andrew)): gate_reply, the one judge for every inbound
     # lane — a held push-back becomes a plain fallback, a held voice reply is dropped.
     # +20: ensure_schedule, retiring two inlined copies (2026-10-12). 147 -> 162 (2026-10-25, Andrew: voice turns): SPOKEN, spoken_stamp, cap_unheard — the one place every lane learns a turn was spoken, retiring a per-lane voice flag before one was written.
-    "scripts/reply_common.py": 162,
+    # 162 -> 165 (2026-11-09, Andrew, at the drain): `wants_commission`, the tape-order detector both request backstops defer to. Retires the 08-02 inbox line (commissioning from the phone).
+    "scripts/reply_common.py": 165,
     "scripts/knock_message.py": 122,
     # NEW FILE, budgeted in the diff that creates it (2026-10-25, Andrew: voice turns). The ear in front of knock_reply; it replaces typing as the only way in, and adds no grading of its own.
     "scripts/hear.py": 95,
@@ -477,7 +478,10 @@ CODE_BUDGETS = {
     # NEW FILE, budgeted in the same diff that creates it (2026-09-25). Census
     # 155, budgeted 160: the headroom is for wiring the next lane's argv, not
     # for opinions — the router validates and runs; it never judges a brief.
-    "scripts/commissions.py": 160,
+    # 160 -> 182 (2026-11-09, Andrew, at the drain): `file_from_phone`, the fourth
+    # commissioner. It writes the same file and passes the same `validate`, so
+    # the router gained no branch. Retires the 08-02 inbox line.
+    "scripts/commissions.py": 182,
     # NEW FILE, budgeted in the same diff that creates it (2026-10-15). The shelf
     # moved out of render_rotation (`--if-short`, its waking-window gate and the
     # new take-turns walk): a rotation script that runs the soak and drill lanes

@@ -35,5 +35,4 @@ line and leaves; one that dies is deleted, not archived.
 - For a `frame:` payload the episode lane SELF-CERTIFIES delivery without evidence (sighted 2026-07-28, first real exercise of the repair-first law). DEFERRED (2026-10-20): still self-certifies (run_studio.py:703); revisit on a sighting
 - Upsert `word_pool.json` into the lexicon, then retire the file (2026-07-26, Andrew's call — supersedes the assistant's "just delete it"). DEFERRED (2026-10-20): decide with the coverage queue at a month cut
 - Real-media library (songs, kids' TV) DEFERRED (2026-10-20): revisit with the coverage corpus, which needs the same media supply
-- Commissioning from the phone — `schedule episode` (2026-08-02) awaiting Andrew (2026-10-20): now cheap — the reply lane could drop a commission into pending/
 - A lexicon key containing a comma can never be commissioned into a soak payload (2026-08-05) DEFERRED (2026-10-20): live (canon_payload splits); 3 keys, none ordered since 08-05

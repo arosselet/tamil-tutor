@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """THE COMMISSION ROUTER — the runner's half of the commission contract.
 
-Commissioners (Rio over the API, Anna in-session, Andrew on the laptop) all
+Commissioners (Rio over the API, Anna in-session, Andrew on the laptop, and
+since 2026-11-09 Andrew from his phone, through `file_from_phone`) all
 file the same thing: progress/commissions/pending/<id>.json — a beat sheet plus
 a schedule. This script is the tick that picks it up. It claims ONE due
 commission per run, validates it deterministically, and invokes the lane script
@@ -136,6 +137,42 @@ def validate(c, stem):
     if c.get("requested_by") not in REQUESTERS:
         return f"unknown requester {c.get('requested_by')!r}"
     return None
+
+
+# What a phone order may name (2026-11-09). His words pick the spine when they
+# name one; a tape with no stated shape is a household scene.
+PHONE_SPINES = (("machines", r"\b(drill|machines?|patterns?)\b"),
+                ("inventory", r"\b(words?|review|inventory)\b"))
+PHONE_ACK = " · tape ordered 🎧"
+
+
+def file_from_phone(text, now=None):
+    """Andrew asked for a tape from his phone: file it as a commission, or None.
+
+    The same file every commissioner writes, validated by the same `validate`
+    before it lands, so the router cannot meet a phone order it would park. ONE
+    AT A TIME: while a phone order is still pending a second ask files nothing,
+    because a repeated ask is far more often a retry than a second order. `asap`
+    only. A clock in his words is not parsed here; the next waking tick runs it.
+    The brief is his own words, so the writer is steered by what he asked for."""
+    now = now or _now()
+    if any("-phone-" in p.name for p, _ in load_pending()):
+        print("   [commission] a phone order is already pending — not filing a second")
+        return None
+    m = re.search(r"(\d{1,2})\s*-?\s*min", text, re.I)
+    cid = now.strftime("%Y%m%d-phone-%H%M")
+    c = {"id": cid, "lane": "rotation", "requested_by": "andrew",
+         "beats": {"spine": next((s for s, pat in PHONE_SPINES if re.search(pat, text, re.I)), "room"),
+                   "minutes": min(60, max(4, int(m.group(1)))) if m else 15},
+         "brief": f"Andrew asked for this from his phone, in his words: {text.strip()[:400]}",
+         "schedule": {"mode": "asap"}, "created_at": now.isoformat()}
+    err = validate(c, cid)
+    if err:
+        raise ValueError(f"phone commission would not validate: {err}")
+    path = PENDING / f"{cid}.json"
+    path.write_text(json.dumps(c, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(f"   [commission] filed {cid}: {c['beats']['spine']}, {c['beats']['minutes']} min")
+    return path
 
 
 def due(c, now):

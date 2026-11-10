@@ -117,6 +117,21 @@ AUDIO_RE = re.compile(
 
 
 
+# AN ORDER FOR A TAPE (2026-11-09, Andrew: commissioning from the phone). A made
+# thing he will listen to later, not a line said back now and not a push at a
+# clock. Python reads it off his words and files the commission itself
+# (`commissions.file_from_phone`); no judge decides it, so nothing can answer
+# "noted" and order nothing. It outranks the two detectors below: "send me a
+# tape tonight" is one order, never also a voice reply and a scheduled push.
+COMMISSION_RE = re.compile(
+    r"\b(make|order|commission\w*|schedul\w*|queue|send|give|want|need|cut|render|produce)\b"
+    r".*\b(tape|episode|rotation|podcast|something\s+to\s+listen\s+to)\b", re.I | re.S)
+
+
+def wants_commission(text: str) -> bool:
+    return bool(COMMISSION_RE.search(text or ""))
+
+
 def wants_spoken_reply(text: str) -> bool:
     """True when Andrew's reply reads as 'let me HEAR this'.
 
@@ -137,7 +152,7 @@ def wants_spoken_reply(text: str) -> bool:
     MISSED VOICE into the feedback ledger for a request he never made. The
     ledger note quotes his words verbatim so a reader can always see which it
     was."""
-    return bool(AUDIO_RE.search(text) and ASK_RE.search(text))
+    return bool(AUDIO_RE.search(text) and ASK_RE.search(text)) and not wants_commission(text)
 
 
 
@@ -222,7 +237,7 @@ def wants_scheduled_push(text: str) -> bool:
     exactly this never fired and the 8pm greeting was dropped a second time.
     A false positive costs one re-ask; a false negative costs Andrew a push he
     asked for and never got. Widen on sight."""
-    return bool(TIME_REQUEST_RE.search(text) and ASK_RE.search(text))
+    return bool(TIME_REQUEST_RE.search(text) and ASK_RE.search(text)) and not wants_commission(text)
 
 
 
