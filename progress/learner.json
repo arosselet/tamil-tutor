@@ -2,19 +2,15 @@
   "learner": "Andrew",
   "timezone": "America/New_York",
   "quiet_until": "",
-  "last_debrief": "STORY SO FAR: Fri 10-30 late morning, chat only, page only. Opening: veliya named his; MAP shown (week 5, Paati 75 ends 10-31). Tug: 'it's inside' -> 'Oola iruka' = ulla irukku, HINTED (ulla was named in the map just above); taught irukku vs irukkaa (question). SCENE (Paati confronts Karthi on the Mama debt, text at table density): 'Naalaikku Mama vaaraan. Nee dhaan sollanum' -> he read 'we can talk'; taught naalaikku, vaaraan (-aan=Mama), nee=you, dhaan=you-and-nobody-else, sollanum=must tell. Changed ex 'Naalaikku Athai vaaraanga. Naan dhaan sollanum': Athai RIGHT (-aanga), dhaan=only RIGHT, naan read as you (taught naan/nee/neenga). Karthi 'neenga dhaan Mama kitta sollanum': GIST RIGHT (Paati, only you) but sollanum as 'ask'; taught kitta. Paati 'Illa da. Nee dhaan vaangina. Nee dhaan sollu': illa RIGHT, nee read as WE again, vaangina as 'we bought'. Pick A/B (nee..vaangina vs naanga..vaanginom): read both as 'can buy', naanga as THEY. CARRY: the gap is PRONOUNS (naan/nee/naanga/avanga) + past -in- read as 'can' + person tails - consistent across 5 items; words known, endings not. He ended on 'ok' after many misses - go lighter next time, fewer probes per beat, more give. Soak ordered: vaanginom vs vaangina by ear. Still unheard: M97 'Exact Change'. Receptive check never run by ear. Karthi ambush of 'enakku onnum theriyaadhu' unspent. NEXT: an EAR beat (the soak), then one pronoun pair at a time with a reveal, not a quiz chain. Hook: Mama arrives tomorrow - does Karthi tell him, or does Paati?",
+  "last_debrief": "STORY SO FAR: Tue 11-10 morning, chat only, page only, his request ('best lesson you can muster'). November arc opened: Andrew's first night in the upstairs room, everyone speaks TO him. GIVE: the tail rhymes with its person (neenga -eenga, avan -aan, avanga -aanga, naan -en, nee -a/-iya) and the odd one, -om, with naama (we, you too) vs naanga (we, not you). MAP shown (Nov wk 2). SCENE, one ask per beat: Karthi 'Naanga saaptom. Nee saaptiya?' -> NEE RIGHT (was read as 'we' twice on 10-30), naanga read as THEY again; peg given: naan inside naanga, avan inside avanga. Paati 'Saapteengala?' -> first he translated it, then with both options shown fired 'ama sappiten' (hinted). Deepa 'Naama terrace-ku polaam' -> 'we went to the terrace': we RIGHT and himself included, polaam read as past; taught polaam vs ponom. HE VOLUNTEERED namma = our (namma ooru) and tested it against naama - right; given namma/enga as the our-pair. Priya 'Neengalum poneengala?' with pon- + your tail -> 'ama ponam ?' (ponom or ponen unclear; no credit; both given). Mama 'Room nalla irukkaa?' -> 'room nalla iruken': put his new -en on an it; after the recast he opened his next message with 'room nalla irukku' unprompted. Paati 'Idhu namma veedu. Seriya?' -> read whole line right. CARRY: he answered every addressed turn, six of six, short and fast; misses did not flatten him this time (one ask per beat, meaning given first). Endings still read loosely: naanga=they, -laam=done. Soak ordered: the rhyme by ear, lines said to him. Still unheard: M97, M98. Receptive check never run by ear. vaanginom still untaught. NEXT: a different room (errand with Karthi or homework with Deepa), -om vs -aanga by EAR, and Mama via the children. Hook: which 'our' does Mama use about the upstairs room?",
   "soak_order": {
     "payload": [
-      "வாங்கினோம்"
+      "நாம"
     ],
-    "scene_seed": "Karthi drags Athai into the Mama debt: naanga dhaan vaanginom vs nee dhaan vaangina - who got it, from the tail alone, by ear",
-    "from": "2026-10-30",
-    "focus": "The -om 'we' tail by ear: senjom / ponom / vaanginom / iruppom vs the -nga 'you' and -aanga 'they' forms around it — who did what, told through a fun kitchen cover-up. Enjoyment first: a real scene with a laugh, not a word carousel; don't re-air his decade-old core words.",
-    "channel": "episode",
-    "delivered": {
-      "channel": "soak",
-      "at": "2026-10-31"
-    }
+    "scene_seed": "First night in the upstairs room: Paati, Deepa and Karthi each speak TO Andrew - who has eaten, who is going up to the terrace, whose house it is",
+    "from": "2026-11-10",
+    "focus": "The tail rhymes with its person, by ear: naan -en, nee -a/-iya, avan -aan, avanga -aanga, neenga -eenga, and naanga/naama -om. Same two stems throughout (saapidu, po). Each line is said to him and ends on a short question he could answer.",
+    "channel": "soak"
   },
   "next_engine": "frame:polite-nga",
   "slip_closes": {
@@ -234,6 +230,24 @@
           "இருப்போம்"
         ]
       }
+    ],
+    "person-tail": [
+      {
+        "channel": "soak",
+        "at": "2026-11-10",
+        "payload": [
+          "நாம"
+        ]
+      }
+    ],
+    "3sg-aan": [
+      {
+        "channel": "soak",
+        "at": "2026-11-10",
+        "payload": [
+          "நாம"
+        ]
+      }
     ]
   },
   "status": "Machines heard 3 · ear-tested 16/26 · working across (cousins and in-laws)",
@@ -246,5 +260,5 @@
     "opened": "2026-11-09",
     "closes": "2026-11-30"
   },
-  "map_shown": "2026-10-30"
+  "map_shown": "2026-11-10"
 }

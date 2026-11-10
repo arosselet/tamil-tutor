@@ -309,7 +309,7 @@
   "இருக்கு": {
     "gloss": "It is / It exists",
     "recognition": "comfortable",
-    "production": "none",
+    "production": "hinted",
     "seen_in": [
       1,
       6,
@@ -335,12 +335,12 @@
       34,
       77
     ],
-    "last_surfaced": "2026-11-03",
+    "last_surfaced": "2026-11-10",
     "exposures": 3,
     "taught_on": "2026-02-24",
     "heard_times": 1,
     "heard_on": null,
-    "reps": 1
+    "reps": 2
   },
   "உனக்கு": {
     "gloss": "To you / For you",
@@ -1126,8 +1126,8 @@
       10,
       11
     ],
-    "last_surfaced": "2026-10-04",
-    "reps": 7,
+    "last_surfaced": "2026-11-10",
+    "reps": 8,
     "taught_on": "2026-02-24",
     "heard_on": null
   },
@@ -4613,7 +4613,7 @@
       78,
       98
     ],
-    "last_surfaced": "2026-10-16",
+    "last_surfaced": "2026-11-10",
     "exposures": 2,
     "reps": 6,
     "taught_on": "2026-07-31"
@@ -4932,8 +4932,9 @@
     "recognition": "untested",
     "production": "none",
     "seen_in": [],
-    "last_surfaced": "2026-08-25",
-    "exposures": 1
+    "last_surfaced": "2026-11-10",
+    "exposures": 1,
+    "taught_on": "2026-11-10"
   },
   "ஒன்னும்": {
     "gloss": "anything / nothing at all (ஒண்ணு + -உம், \"even one\") — the volume knob on any -ல negative",
@@ -5188,8 +5189,8 @@
     "seen_in": [
       94
     ],
-    "last_surfaced": "2026-09-22",
-    "taught_on": null,
+    "last_surfaced": "2026-11-10",
+    "taught_on": "2026-11-10",
     "reps": 1
   },
   "இங்க இருக்கேன்": {

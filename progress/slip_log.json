@@ -1109,5 +1109,41 @@
     "note": "reads -in- past as 'can' modal",
     "word": "",
     "dose_channel": "episode"
+  },
+  {
+    "at": "2026-11-10T18:37:58Z",
+    "date": "2026-11-10",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "person-tail",
+    "said": "naanga saaptom -> 'they ate'",
+    "want": "நாங்க சாப்பிட்டோம் = we ate",
+    "note": "naanga read as they again; nee read right the same turn",
+    "word": "",
+    "dose_channel": "soak"
+  },
+  {
+    "at": "2026-11-10T18:37:58Z",
+    "date": "2026-11-10",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "person-tail",
+    "said": "room nalla iruken",
+    "want": "ரூம் நல்லா இருக்கு",
+    "note": "put his own -en on an 'it' right after learning -en; fixed it himself next turn",
+    "word": "",
+    "dose_channel": "soak"
+  },
+  {
+    "at": "2026-11-10T18:37:58Z",
+    "date": "2026-11-10",
+    "lane": "chat",
+    "modality": "session",
+    "tag": "past-tense",
+    "said": "naama polaam -> 'we went'",
+    "want": "போலாம் = let's go",
+    "note": "read the -laam invitation as already done",
+    "word": "",
+    "dose_channel": "soak"
   }
 ]

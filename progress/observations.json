@@ -26279,5 +26279,65 @@
     "medium": "audio",
     "source": "rotation_room_2026-11-09_2116",
     "note": ""
+  },
+  {
+    "id": "5926704e50cc",
+    "at": "2026-11-10T18:37:58Z",
+    "word": "நாம",
+    "channel": "session",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "text",
+    "source": "session:2026-11-10",
+    "note": "re-taught; row already existed"
+  },
+  {
+    "id": "d590b159cdb6",
+    "at": "2026-11-10T18:37:58Z",
+    "word": "போலாம்",
+    "channel": "session",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "text",
+    "source": "session:2026-11-10",
+    "note": "re-taught; row already existed"
+  },
+  {
+    "id": "cd20e3db4231",
+    "at": "2026-11-10T18:37:58Z",
+    "word": "போனோம்",
+    "channel": "session",
+    "kind": "taught",
+    "axis": null,
+    "result": null,
+    "medium": "text",
+    "source": "session:2026-11-10",
+    "note": "re-taught; row already existed"
+  },
+  {
+    "id": "c0ff40cea37c",
+    "at": "2026-11-10T18:37:58Z",
+    "word": "சாப்பிட்டேன்",
+    "channel": "session",
+    "kind": "tested",
+    "axis": "production",
+    "result": "partial",
+    "medium": "text",
+    "source": "session:2026-11-10",
+    "note": "fired hinted"
+  },
+  {
+    "id": "a01791443914",
+    "at": "2026-11-10T18:37:58Z",
+    "word": "இருக்கு",
+    "channel": "session",
+    "kind": "tested",
+    "axis": "production",
+    "result": "partial",
+    "medium": "text",
+    "source": "session:2026-11-10",
+    "note": "fired hinted"
   }
 ]
